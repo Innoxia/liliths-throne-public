@@ -1,10 +1,9 @@
 package com.lilithsthrone.game.dialogue.npcDialogue;
 
-import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.GenericDialogue;
+import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -86,7 +85,7 @@ public class DominionAlleywayAttackerDialogue {
 								+ " [npc.She]'s still sporting a round belly, and [npc.she] absent-mindedly strokes [npc.her] swollen bump as [npc.she] reacts to your sudden appearance in [npc.her] alleyway."
 							+ "</p>"
 							+ "<p>"
-								+ "[npc.speech(<i>You again?!</i>)] [npc.she] shouts, [npc.speech(This'll be a lot easier if you give up right now!)]" 
+								+ "[npc.speech(You again?!)] [npc.she] shouts, [npc.speech(This'll be a lot easier if you give up right now!)]" 
 							+ "</p>"
 							+ "<p>"
 								+ (Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())
@@ -112,7 +111,7 @@ public class DominionAlleywayAttackerDialogue {
 								+ ", and you jump back into a fighting stance as you expect this encounter to be much the same as the last one."
 							+ "</p>"
 							+ "<p>"
-								+ "[npc.speech(<i>You again?!</i>)] [npc.she] shouts, [npc.speech(This'll be a lot easier if you give up right now!)]" 
+								+ "[npc.speech(You again?!)] [npc.she] shouts, [npc.speech(This'll be a lot easier if you give up right now!)]" 
 							+ "</p>"
 							+ "<p>"
 								+ (Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())
@@ -151,7 +150,7 @@ public class DominionAlleywayAttackerDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseCombat("Fight", "You find yourself fighting [npc.name]!", ALLEY_ATTACK, Main.game.getActiveNPC());
 				
@@ -199,7 +198,7 @@ public class DominionAlleywayAttackerDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseCombat("Fight", "You find yourself fighting [npc.name]!", STORM_ATTACK, Main.game.getActiveNPC());
 				
@@ -253,13 +252,13 @@ public class DominionAlleywayAttackerDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
 				if (index == 1) {
 					return new Response("Continue", "Carry on your way...", null){
 						@Override
 						public DialogueNodeOld getNextDialogue() {
-							return GenericDialogue.getDefaultDialogueNoEncounter();
+							return DebugDialogue.getDefaultDialogueNoEncounter();
 						}
 					};
 					
@@ -297,7 +296,7 @@ public class DominionAlleywayAttackerDialogue {
 								+ "Perhaps it would be best to let [npc.name] choose what to do next?",
 							AFTER_SEX_DEFEAT,
 							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null, null,
-							true, false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT,
+							true, true, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT,
 							"<p>"
 								+ "You really aren't sure what to do next, and start to feel pretty uncomfortable with the fact that you just beat up this poor [npc.race]."
 								+ " Leaning down, you do the first thing that comes into your mind, and start apologising,"
@@ -333,11 +332,11 @@ public class DominionAlleywayAttackerDialogue {
 							AFTER_COMBAT_VICTORY){
 						@Override
 						public DialogueNodeOld getNextDialogue() {
-							return GenericDialogue.getDefaultDialogueNoEncounter();
+							return DebugDialogue.getDefaultDialogueNoEncounter();
 						}
 						@Override
 						public void effects() {
-							Main.game.removeNPC(Main.game.getActiveNPC());
+							Main.game.banishNPC(Main.game.getActiveNPC());
 						}
 					};
 					
@@ -350,14 +349,14 @@ public class DominionAlleywayAttackerDialogue {
 					return new Response("Continue", "Carry on your way...", null){
 						@Override
 						public DialogueNodeOld getNextDialogue() {
-							return GenericDialogue.getDefaultDialogueNoEncounter();
+							return DebugDialogue.getDefaultDialogueNoEncounter();
 						}
 					};
 					
 				} else if (index == 2) {
 					return new ResponseSex(
 							"Rape [npc.herHim]", "[npc.She] needs to be punished for attacking you like that...", AFTER_SEX_VICTORY,
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)), null, CorruptionLevel.FOUR_LUSTFUL,
+							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(),
 							null, null, null,
 							false, false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
 							"<p>"
@@ -367,7 +366,7 @@ public class DominionAlleywayAttackerDialogue {
 					
 				} else if (index == 3) {
 					return new ResponseSex("Rape [npc.herHim] (gentle)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'gentle' pace.)", AFTER_SEX_VICTORY,
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)), null, CorruptionLevel.FOUR_LUSTFUL,
+							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(),
 							null, null, null,
 							false, false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
 							"<p>"
@@ -382,7 +381,7 @@ public class DominionAlleywayAttackerDialogue {
 					
 				} else if (index == 4) {
 					return new ResponseSex("Rape [npc.herHim] (rough)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'rough' pace.)", AFTER_SEX_VICTORY,
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)), null, CorruptionLevel.FOUR_LUSTFUL,
+							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(),
 							null, null, null,
 							false, false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
 							"<p>"
@@ -415,11 +414,11 @@ public class DominionAlleywayAttackerDialogue {
 							AFTER_COMBAT_VICTORY){
 						@Override
 						public DialogueNodeOld getNextDialogue() {
-							return GenericDialogue.getDefaultDialogueNoEncounter();
+							return DebugDialogue.getDefaultDialogueNoEncounter();
 						}
 						@Override
 						public void effects() {
-							Main.game.removeNPC(Main.game.getActiveNPC());
+							Main.game.banishNPC(Main.game.getActiveNPC());
 						}
 					};
 					
@@ -527,7 +526,7 @@ public class DominionAlleywayAttackerDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) && potion != null) {
 				if (index == 1) {
 					return new Response("Spit", "Spit out the potion.", AFTER_COMBAT_TRANSFORMATION_REFUSED);
@@ -608,7 +607,7 @@ public class DominionAlleywayAttackerDialogue {
 						return new Response("Continue", "Carry on your way.", AFTER_COMBAT_DEFEAT){
 							@Override
 							public DialogueNodeOld getNextDialogue() {
-								return GenericDialogue.getDefaultDialogueNoEncounter();
+								return DebugDialogue.getDefaultDialogueNoEncounter();
 							}
 						};
 						
@@ -665,7 +664,7 @@ public class DominionAlleywayAttackerDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
 				if (index == 1) {
 					return new ResponseSex("Sex",
@@ -717,7 +716,7 @@ public class DominionAlleywayAttackerDialogue {
 					return new Response("Continue", "Carry on your way.", AFTER_COMBAT_DEFEAT){
 						@Override
 						public DialogueNodeOld getNextDialogue() {
-							return GenericDialogue.getDefaultDialogueNoEncounter();
+							return DebugDialogue.getDefaultDialogueNoEncounter();
 						}
 					};
 					
@@ -763,7 +762,7 @@ public class DominionAlleywayAttackerDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
 				if (index == 1) {
 					return new ResponseSex("Sex",
@@ -815,7 +814,7 @@ public class DominionAlleywayAttackerDialogue {
 					return new Response("Continue", "Carry on your way.", AFTER_COMBAT_DEFEAT){
 						@Override
 						public DialogueNodeOld getNextDialogue() {
-							return GenericDialogue.getDefaultDialogueNoEncounter();
+							return DebugDialogue.getDefaultDialogueNoEncounter();
 						}
 					};
 					
@@ -845,10 +844,7 @@ public class DominionAlleywayAttackerDialogue {
 				return UtilText.parse(Main.game.getActiveNPC(),
 						"<p>"
 							+ "As you step back from [npc.name], [npc.she] sinks to the floor, letting out a thankful sob as [npc.she] realises that you've finished."
-							+ " Frantically gathering [npc.her] belongings, [npc.she] quickly runs off before you decide to do anything else."
-						+ "</p>"
-						+ "<p>"
-							+ "Smirking as you watch [npc.herHim] run off around a corner, you set off and continue on your way."
+							+ " [npc.She] starts frantically gathering [npc.her] belongings, obviously quite keen to make [npc.her] exit before you decide to do anything else..."
 						+ "</p>");
 				
 			} else {
@@ -857,30 +853,32 @@ public class DominionAlleywayAttackerDialogue {
 							"<p>"
 								+ "As you step back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her] orgasm"+(Sex.getNumberOfPartnerOrgasms() > 1?"s":"")+"."
 								+ " Looking up at you, a satisfied smile settles across [npc.her] face, and you realise that you gave [npc.herHim] exactly what [npc.she] wanted."
-							+ "</p>"
-							+ "<p>"
-								+ "Leaving [npc.herHim] to recover by [npc.herself], you set off and continue on your way."
 							+ "</p>");
 				} else {
 					return UtilText.parse(Main.game.getActiveNPC(),
 							"<p>"
 								+ "As you step back from [npc.name], [npc.she] sinks to the floor, letting out a desperate whine as [npc.she] realises that you've finished."
 								+ " [npc.Her] [npc.hands] dart down between [npc.her] [npc.legs], and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started."
-							+ "</p>"
-							+ "<p>"
-								+ "Leaving [npc.herHim] to get some pleasure by [npc.herself], you set off and continue on your way."
 							+ "</p>");
 				}
 			}
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", AFTER_SEX_VICTORY){
 					@Override
 					public DialogueNodeOld getNextDialogue(){
-						return GenericDialogue.getDefaultDialogueNoEncounter();
+						return DebugDialogue.getDefaultDialogueNoEncounter();
+					}
+				};
+				
+			} else if (index == 6) {
+				return new ResponseEffectsOnly("Inventory", "There's nothing stopping you from helping yourself to [npc.name]'s clothing and items..."){
+					@Override
+					public void effects() {
+						Main.mainController.openInventory(Main.game.getActiveNPC(), InventoryInteraction.FULL_MANAGEMENT);
 					}
 				};
 				
@@ -891,11 +889,11 @@ public class DominionAlleywayAttackerDialogue {
 						AFTER_COMBAT_VICTORY){
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return GenericDialogue.getDefaultDialogueNoEncounter();
+						return DebugDialogue.getDefaultDialogueNoEncounter();
 					}
 					@Override
 					public void effects() {
-						Main.game.removeNPC(Main.game.getActiveNPC());
+						Main.game.banishNPC(Main.game.getActiveNPC());
 					}
 				};
 				
@@ -934,12 +932,12 @@ public class DominionAlleywayAttackerDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", AFTER_SEX_VICTORY){
 					@Override
 					public DialogueNodeOld getNextDialogue(){
-						return GenericDialogue.getDefaultDialogueNoEncounter();
+						return DebugDialogue.getDefaultDialogueNoEncounter();
 					}
 				};
 				
@@ -972,7 +970,7 @@ public class DominionAlleywayAttackerDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", ENSLAVEMENT_DIALOGUE){
 					@Override
@@ -983,7 +981,7 @@ public class DominionAlleywayAttackerDialogue {
 					}
 					@Override
 					public DialogueNodeOld getNextDialogue(){
-						return GenericDialogue.getDefaultDialogueNoEncounter();
+						return DebugDialogue.getDefaultDialogueNoEncounter();
 					}
 				};
 				

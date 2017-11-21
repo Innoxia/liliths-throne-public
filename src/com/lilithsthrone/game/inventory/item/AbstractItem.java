@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.inventory.item;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -11,8 +12,10 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
+import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
+import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
 
@@ -57,8 +60,10 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 	public Element saveAsXML(Element parentElement, Document doc) {
 		Element element = doc.createElement("item");
 		parentElement.appendChild(element);
-		
+
 		CharacterUtils.addAttribute(doc, element, "id", this.getItemType().getId());
+		CharacterUtils.addAttribute(doc, element, "name", this.getName());
+		CharacterUtils.addAttribute(doc, element, "colour", this.getColour().toString());
 		
 		Element innerElement = doc.createElement("itemEffects");
 		element.appendChild(innerElement);
@@ -71,7 +76,25 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 	}
 	
 	public static AbstractItem loadFromXML(Element parentElement, Document doc) {
-		return AbstractItemType.generateItem(ItemType.idToItemMap.get(parentElement.getAttribute("id")));
+		AbstractItem item = AbstractItemType.generateItem(ItemType.idToItemMap.get(parentElement.getAttribute("id")));
+		
+		if(!parentElement.getAttribute("name").isEmpty()) {
+			item.setName(parentElement.getAttribute("name"));
+		}
+		
+		List<ItemEffect> effectsToBeAdded = new ArrayList<>();
+		Element element = (Element)parentElement.getElementsByTagName("itemEffects").item(0);
+		for(int i=0; i<element.getElementsByTagName("effect").getLength(); i++){
+			Element e = ((Element)element.getElementsByTagName("effect").item(i));
+			effectsToBeAdded.add(ItemEffect.loadFromXML(e, doc));
+		}
+		item.setItemEffects(effectsToBeAdded);
+		
+		if(!effectsToBeAdded.isEmpty() && (item.getItemType().getId().equals(ItemType.ELIXIR.getId()) || item.getItemType().getId().equals(ItemType.POTION.getId()))) {
+			item.setSVGString(EnchantingUtils.getImportedSVGString(item, (parentElement.getAttribute("colour").isEmpty()?Colour.GENERIC_ARCANE:Colour.valueOf(parentElement.getAttribute("colour"))), effectsToBeAdded));
+		}
+		
+		return item;
 	}
 
 	public AbstractItemType getItemType() {

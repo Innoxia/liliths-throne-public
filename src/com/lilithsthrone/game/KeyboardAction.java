@@ -4,7 +4,7 @@ import javafx.scene.input.KeyCode;
 
 /**
  * @since 0.1.61
- * @version 0.1.7
+ * @version 0.1.89
  * @author Innoxia
  */
 public enum KeyboardAction {
@@ -15,6 +15,11 @@ public enum KeyboardAction {
 	MOVE_EAST("Move East", new KeyCodeWithModifiers(KeyCode.D), new KeyCodeWithModifiers(KeyCode.RIGHT)),
 	MOVE_SOUTH("Move South", new KeyCodeWithModifiers(KeyCode.S), new KeyCodeWithModifiers(KeyCode.DOWN)),
 	MOVE_WEST("Move West", new KeyCodeWithModifiers(KeyCode.A), new KeyCodeWithModifiers(KeyCode.LEFT)),
+	
+	MOVE_RESPONSE_CURSOR_NORTH("Response Cursor Up", new KeyCodeWithModifiers(KeyCode.W, true, false), new KeyCodeWithModifiers(KeyCode.UP, true, false)),
+	MOVE_RESPONSE_CURSOR_EAST("Response Cursor Right", new KeyCodeWithModifiers(KeyCode.D, true, false), new KeyCodeWithModifiers(KeyCode.RIGHT, true, false)),
+	MOVE_RESPONSE_CURSOR_SOUTH("Response Cursor Down", new KeyCodeWithModifiers(KeyCode.S, true, false), new KeyCodeWithModifiers(KeyCode.DOWN, true, false)),
+	MOVE_RESPONSE_CURSOR_WEST("Response Cursor Left", new KeyCodeWithModifiers(KeyCode.A, true, false), new KeyCodeWithModifiers(KeyCode.LEFT, true, false)),
 
 	QUICKSAVE("Quicksave", new KeyCodeWithModifiers(KeyCode.F5), null),
 	QUICKLOAD("Quickload", new KeyCodeWithModifiers(KeyCode.F9), null),
@@ -44,6 +49,9 @@ public enum KeyboardAction {
 	RESPOND_14("Response 14", new KeyCodeWithModifiers(KeyCode.DIGIT5, true, false), null),
 	RESPOND_0("Response 0", new KeyCodeWithModifiers(KeyCode.DIGIT0), new KeyCodeWithModifiers(KeyCode.SPACE)),
 
+	RESPOND_NEXT_TAB("Next Response Tab", new KeyCodeWithModifiers(KeyCode.E, true, false), null),
+	RESPOND_PREVIOUS_TAB("Previous Response Tab", new KeyCodeWithModifiers(KeyCode.Q, true, false), null),
+	
 	RESPOND_NEXT_PAGE("Next Response Page", new KeyCodeWithModifiers(KeyCode.E), null),
 	RESPOND_PREVIOUS_PAGE("Previous Response Page", new KeyCodeWithModifiers(KeyCode.Q), null);
 

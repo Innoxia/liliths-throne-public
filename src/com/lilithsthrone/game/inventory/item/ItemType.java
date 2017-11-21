@@ -10,6 +10,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
@@ -886,6 +887,52 @@ public class ItemType {
 		}
 	};
 	
+	public static AbstractItemType ADDICTION_REMOVAL = new AbstractItemType("a bottle of",
+			false,
+			"Angel's Nectar",
+			"Angel's Nectars",
+			"A delicate crystal bottle, filled with a cool, blue liquid."
+					+ " Engraved into one side are the words 'Angel's Nectar', although you're unsure if this fluid really does have anything to do with them...",
+			"addictionRemoval",
+			Colour.BASE_BLUE_LIGHT,
+			750,
+			Rarity.LEGENDARY,
+			null,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.ADDICTION_REMOVAL, null, null, null, 0)))) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public boolean isAbleToBeUsedInSex() {
+			return true;
+		}
+
+		@Override
+		public boolean isAbleToBeUsedInCombat() {
+			return true;
+		}
+
+		@Override
+		public String getUseName() {
+			return "drink";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			if (target == Main.game.getPlayer()) {
+				return "<p>"
+							+ "You pull out the crystal stopper from the top of the bottle, before quickly gulping down the tasteless liquid contained within..."
+						+ "</p>";
+				
+			} else {
+				return UtilText.parse(target,
+						"<p>"
+							+ "You pull out the little stopper from the top of the glass vial, and make [npc.name] gulp down the tasteless liquid contained within..."
+						+ "</p>");
+			}
+		}
+	};
+	
 	// Racial ingredients:
 	
 	public static AbstractItemType RACE_INGREDIENT_DEMON = new AbstractItemType(
@@ -1408,8 +1455,8 @@ public class ItemType {
 //	};
 	
 	private static String getEssenceAbsorbtionText(Colour essenceColour) {
-		if(!Main.game.getDialogueFlags().essenceBottledDiscovered) {
-			Main.game.getDialogueFlags().essenceBottledDiscovered = true;
+		if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.essenceBottledDiscovered)) {
+			Main.game.getDialogueFlags().values.add(DialogueFlagValue.essenceBottledDiscovered);
 
 			if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 				return "<p>"
@@ -1452,7 +1499,7 @@ public class ItemType {
 			"bottledEssenceArcane",
 			Colour.GENERIC_ARCANE,
 			25,
-			Rarity.LEGENDARY,
+			Rarity.EPIC,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_ARCANE, null, null, null, 0)))) {
 
@@ -1497,7 +1544,7 @@ public class ItemType {
 			"bottledEssenceCatMorph",
 			Colour.RACE_CAT_MORPH,
 			50,
-			Rarity.COMMON,
+			Rarity.EPIC,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_CAT_MORPH, null, null, null, 0)))) {
 
@@ -1543,7 +1590,7 @@ public class ItemType {
 			"bottledEssenceCowMorph",
 			Colour.RACE_COW_MORPH,
 			50,
-			Rarity.COMMON,
+			Rarity.EPIC,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_COW_MORPH, null, null, null, 0)))) {
 
@@ -1676,7 +1723,7 @@ public class ItemType {
 			"bottledEssenceSquirrelMorph",
 			Colour.RACE_SQUIRREL_MORPH,
 			50,
-			Rarity.COMMON,
+			Rarity.EPIC,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_SQUIRREL_MORPH, null, null, null, 0)))) {
 
@@ -1721,7 +1768,7 @@ public class ItemType {
 			"bottledEssenceDogMorph",
 			Colour.RACE_DOG_MORPH,
 			50,
-			Rarity.COMMON,
+			Rarity.EPIC,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_DOG_MORPH, null, null, null, 0)))) {
 
@@ -1766,7 +1813,7 @@ public class ItemType {
 			"bottledEssenceHarpy",
 			Colour.RACE_HARPY,
 			20,
-			Rarity.UNCOMMON,
+			Rarity.EPIC,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_HARPY, null, null, null, 0)))) {
 
@@ -1811,7 +1858,7 @@ public class ItemType {
 			"bottledEssenceHorseMorph",
 			Colour.RACE_HORSE_MORPH,
 			50,
-			Rarity.COMMON,
+			Rarity.EPIC,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_HORSE_MORPH, null, null, null, 0)))) {
 
@@ -1856,7 +1903,7 @@ public class ItemType {
 			"bottledEssenceHuman",
 			Colour.RACE_HUMAN,
 			50,
-			Rarity.COMMON,
+			Rarity.EPIC,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_HUMAN, null, null, null, 0)))) {
 
@@ -1901,7 +1948,7 @@ public class ItemType {
 			"bottledEssenceWolfMorph",
 			Colour.RACE_WOLF_MORPH,
 			50,
-			Rarity.COMMON,
+			Rarity.EPIC,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_WOLF_MORPH, null, null, null, 0)))) {
 
@@ -2234,73 +2281,6 @@ public class ItemType {
 			return false;
 		}
 	};
-
-//	public static AbstractItemType CONDOM = new AbstractItemType("a",
-//			false,
-//			"condom",
-//			"condoms",
-//			"A condom, wrapped in a square piece of foil. The brand name 'Stallion' is clearly displayed in bold red lettering, and a small description on the other side informs you that, due to an arcane enchantment, 'one-size fits all'.",
-//			"condom",
-//			Colour.CLOTHING_WHITE,
-//			5,
-//			Rarity.COMMON,
-//			null,
-//			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.APPLY_CONDOM, null, null, null, 0)))) {
-//
-//		private static final long serialVersionUID = 1L;
-//
-//		@Override
-//		public String getUseName() {
-//			return "use";
-//		}
-//
-//		@Override
-//		public String getUseDescription(GameCharacter user, GameCharacter target) {
-//			// This has a special description in sex (I think :s), so don't worry about giving it a good description.
-//			return "<p>"
-//					+ "You put the condom on."
-//					+ "</p>"; 
-//		}
-//
-//		@Override
-//		public boolean isAbleToBeUsed(GameCharacter target) {
-//			return target.getPenisType()!=PenisType.NONE && target.isCoverableAreaExposed(CoverableArea.PENIS) && !target.isWearingCondom();
-//		}
-//
-//		@Override
-//		public String getUnableToBeUsedDescription(GameCharacter target) {
-//			if(target.getPenisType()==PenisType.NONE){
-//				if(target.isPlayer())
-//					return "You can't use a condom (in the way that it's meant to be used) without a penis!";
-//				else
-//					return "[npc.Name] can't use a condom as [npc.she] doesn't have a penis!";
-//				
-//			}else if(!target.isCoverableAreaExposed(CoverableArea.PENIS)){
-//				if(target.isPlayer())
-//					return "You'll need to get access to your penis before you can use a condom on it!";
-//				else
-//					return "You'll need to get access to [npc.name]'s [npc.cock] before you can get [npc.herHim] to use a condom!";
-//				
-//			}else if(target.isWearingCondom()){
-//				if(target.isPlayer())
-//					return "You're already wearing a condom!";
-//				else
-//					return target.getName("the")+" is already wearing a condom!";
-//					
-//			}else
-//				return "This item cannot be used in this way!";
-//		}
-//
-//		@Override
-//		public boolean isAbleToBeUsedInCombat() {
-//			return false;
-//		}
-//
-//		@Override
-//		public boolean isAbleToBeUsedFromInventory() {
-//			return false;
-//		}
-//	};
 
 	public static AbstractItemType CONDOM_USED = new AbstractItemType("a",
 			false,
@@ -3233,21 +3213,27 @@ public class ItemType {
 					
 					allItems.add(item);
 					
-					if(item!=ItemType.POTION && item!=ItemType.ELIXIR
+					if(item!=ItemType.POTION && item!=ItemType.ELIXIR && item!=ItemType.FETISH_REFINED
 							&& item!=ItemType.HARPY_MATRIARCH_BIMBO_LOLLIPOP && item!=ItemType.HARPY_MATRIARCH_DOMINANT_PERFUME && item!=ItemType.HARPY_MATRIARCH_NYMPHO_LOLLIPOP
 							&& item!=ItemType.BOOK_CAT_MORPH && item!=ItemType.BOOK_DEMON && item!=ItemType.BOOK_DOG_MORPH
 							&& item!=ItemType.BOOK_HARPY && item!=ItemType.BOOK_HORSE_MORPH && item!=ItemType.BOOK_HUMAN && item!=ItemType.BOOK_WOLF_MORPH
 							&& item!=ItemType.BOTTLED_ESSENCE_ARCANE && item!=ItemType.BOTTLED_ESSENCE_CAT_MORPH && item!=ItemType.BOTTLED_ESSENCE_DEMON
 							&& item!=ItemType.BOTTLED_ESSENCE_DOG_MORPH && item!=ItemType.BOTTLED_ESSENCE_HARPY && item!=ItemType.BOTTLED_ESSENCE_HORSE_MORPH
-							&& item!=ItemType.BOTTLED_ESSENCE_HUMAN && item!=ItemType.BOTTLED_ESSENCE_WOLF_MORPH
+							&& item!=ItemType.BOTTLED_ESSENCE_HUMAN && item!=ItemType.BOTTLED_ESSENCE_WOLF_MORPH && item!=ItemType.BOTTLED_ESSENCE_COW_MORPH && item!=ItemType.BOTTLED_ESSENCE_SQUIRREL_MORPH
 							&& item!=ItemType.EGGPLANT
-//							&& item!=ItemType.TEST_ITEM
 							) {
 						commonItems.add(item);
 						
-					} else if(item==ItemType.BOTTLED_ESSENCE_ARCANE || item==ItemType.BOTTLED_ESSENCE_CAT_MORPH || item==ItemType.BOTTLED_ESSENCE_DEMON
-							|| item==ItemType.BOTTLED_ESSENCE_DOG_MORPH || item==ItemType.BOTTLED_ESSENCE_HARPY || item==ItemType.BOTTLED_ESSENCE_HORSE_MORPH
-							|| item==ItemType.BOTTLED_ESSENCE_HUMAN || item==ItemType.BOTTLED_ESSENCE_WOLF_MORPH) {
+					} else if(item==ItemType.BOTTLED_ESSENCE_ARCANE
+							|| item==ItemType.BOTTLED_ESSENCE_CAT_MORPH
+							|| item==ItemType.BOTTLED_ESSENCE_DEMON
+							|| item==ItemType.BOTTLED_ESSENCE_DOG_MORPH
+							|| item==ItemType.BOTTLED_ESSENCE_HARPY
+							|| item==ItemType.BOTTLED_ESSENCE_HORSE_MORPH
+							|| item==ItemType.BOTTLED_ESSENCE_HUMAN
+							|| item==ItemType.BOTTLED_ESSENCE_WOLF_MORPH
+							|| item==ItemType.BOTTLED_ESSENCE_COW_MORPH
+							|| item==ItemType.BOTTLED_ESSENCE_SQUIRREL_MORPH) {
 						essences.add(item);
 					}
 					

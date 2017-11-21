@@ -6,7 +6,7 @@ import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.generic.Cultist;
+import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.CultistDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -279,7 +279,7 @@ public class CityPlaces {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			for(NPC npc : Main.game.getCharactersPresent()) {
 				if(npc instanceof Cultist) {
 					if(index==1) {
@@ -397,7 +397,7 @@ public class CityPlaces {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(index == 6) {
 				return new ResponseEffectsOnly(
 						"Explore",
@@ -513,7 +513,7 @@ public class CityPlaces {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(index == 6) {
 				return new ResponseEffectsOnly(
 						"Explore",
@@ -552,7 +552,7 @@ public class CityPlaces {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Submission", "Enter the undercity of Submission. (This will be added after the first chapter of the story is complete!)", null){
 //					@Override
@@ -586,7 +586,7 @@ public class CityPlaces {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Jungle", "Travel to the demonic jungle. (This will be added later!)", null){
 //					@Override
@@ -620,7 +620,7 @@ public class CityPlaces {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Fields", "Travel to the fields. (This will be added later!)", null);
 
@@ -649,7 +649,7 @@ public class CityPlaces {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Endless Sea", "Travel to the Endless Sea. (This will be added later!)", null);
 
@@ -678,7 +678,7 @@ public class CityPlaces {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Desert", "Travel to the desert. (This will be added later!)", null);
 

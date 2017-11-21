@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
 import com.lilithsthrone.main.Main;
@@ -15,9 +16,7 @@ import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.World;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.LilayasHome;
-import com.lilithsthrone.world.places.PlaceInterface;
-import com.lilithsthrone.world.places.SlaverAlley;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.87
@@ -49,28 +48,28 @@ public enum SlaveJob {
 			5, 0f, 0.1f,
 			null, null,
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR,
-			LilayasHome.LILAYA_HOME_CORRIDOR) {
+			PlaceType.LILAYA_HOME_CORRIDOR) {
 		@Override
 		public EventLogEntry getHourlyEvent(long hour, NPC slave, List<NPC> otherNPCsPresent) {
 			return new EventLogEntry(Main.game.getDayNumber()-1*24l+hour, "[style.colourDisabled(Nothing)]", "");
 		}
 		
 		@Override
-		public void sendToWorkLocation(NPC slave) {
-			if(slave.getLocationPlace().getPlaceType() == LilayasHome.LILAYA_HOME_CORRIDOR) {
+		public void sendToWorkLocation(GameCharacter slave) {
+			if(slave.getLocationPlace().getPlaceType() == PlaceType.LILAYA_HOME_CORRIDOR) {
 				World world = Main.game.getWorlds().get(slave.getWorldLocation());
 				List<Vector2i> availableLocations = new ArrayList<>();
 				
-				if(world.getCell(slave.getLocation().getX()+1, slave.getLocation().getY())!=null && world.getCell(slave.getLocation().getX()+1, slave.getLocation().getY()).getPlace().getPlaceType()==LilayasHome.LILAYA_HOME_CORRIDOR) {
+				if(world.getCell(slave.getLocation().getX()+1, slave.getLocation().getY())!=null && world.getCell(slave.getLocation().getX()+1, slave.getLocation().getY()).getPlace().getPlaceType()==PlaceType.LILAYA_HOME_CORRIDOR) {
 					availableLocations.add(new Vector2i(slave.getLocation().getX()+1, slave.getLocation().getY()));
 				}
-				if(world.getCell(slave.getLocation().getX()-1, slave.getLocation().getY())!=null && world.getCell(slave.getLocation().getX()-1, slave.getLocation().getY()).getPlace().getPlaceType()==LilayasHome.LILAYA_HOME_CORRIDOR) {
+				if(world.getCell(slave.getLocation().getX()-1, slave.getLocation().getY())!=null && world.getCell(slave.getLocation().getX()-1, slave.getLocation().getY()).getPlace().getPlaceType()==PlaceType.LILAYA_HOME_CORRIDOR) {
 					availableLocations.add(new Vector2i(slave.getLocation().getX()-1, slave.getLocation().getY()));
 				}
-				if(world.getCell(slave.getLocation().getX(), slave.getLocation().getY()+1)!=null && world.getCell(slave.getLocation().getX(), slave.getLocation().getY()+1).getPlace().getPlaceType()==LilayasHome.LILAYA_HOME_CORRIDOR) {
+				if(world.getCell(slave.getLocation().getX(), slave.getLocation().getY()+1)!=null && world.getCell(slave.getLocation().getX(), slave.getLocation().getY()+1).getPlace().getPlaceType()==PlaceType.LILAYA_HOME_CORRIDOR) {
 					availableLocations.add(new Vector2i(slave.getLocation().getX(), slave.getLocation().getY()+1));
 				}
-				if(world.getCell(slave.getLocation().getX(), slave.getLocation().getY()-1)!=null && world.getCell(slave.getLocation().getX(), slave.getLocation().getY()-1).getPlace().getPlaceType()==LilayasHome.LILAYA_HOME_CORRIDOR) {
+				if(world.getCell(slave.getLocation().getX(), slave.getLocation().getY()-1)!=null && world.getCell(slave.getLocation().getX(), slave.getLocation().getY()-1).getPlace().getPlaceType()==PlaceType.LILAYA_HOME_CORRIDOR) {
 					availableLocations.add(new Vector2i(slave.getLocation().getX(), slave.getLocation().getY()-1));
 				}
 				
@@ -87,7 +86,7 @@ public enum SlaveJob {
 				List<Cell> corridorCells = new ArrayList<>();
 				for(int i = 0; i< cellGrid.length; i++) {
 					for(int j = 0; j < cellGrid[0].length; j++) {
-						if(cellGrid[i][j].getPlace().getPlaceType() == LilayasHome.LILAYA_HOME_CORRIDOR) {
+						if(cellGrid[i][j].getPlace().getPlaceType() == PlaceType.LILAYA_HOME_CORRIDOR) {
 							corridorCells.add(cellGrid[i][j]);
 						}
 					}
@@ -105,21 +104,21 @@ public enum SlaveJob {
 			5, 0, 0.1f,
 			null, null,
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR,
-			LilayasHome.LILAYA_HOME_LIBRARY),
+			PlaceType.LILAYA_HOME_LIBRARY),
 	
 	KITCHEN(5, "Cook", "Cook", "Assign this slave to work in Lilaya's kitchen as a cook.",
 			0, 0.25f,
 			5, 0, 0.05f,
 			null, null,
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR,
-			LilayasHome.LILAYA_HOME_KITCHEN),
+			PlaceType.LILAYA_HOME_KITCHEN),
 	
 	LAB_ASSISTANT(1, "Lab Assistant", "Lab Assistant", "Assign this slave to help Lilaya in her lab.",
 			0, 0.25f,
 			10, 0, 0.2f,
 			null, null,
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR,
-			LilayasHome.LILAYA_HOME_LAB),
+			PlaceType.LILAYA_HOME_LAB),
 	
 	TEST_SUBJECT(5, "Test Subject", "Test Subject", "Allow Lilaya to use this slave as a test subject for her experiments.",
 			-0.5f, 0.5f,
@@ -129,7 +128,16 @@ public enum SlaveJob {
 					new ListValue<>(SlaveJobSetting.TEST_SUBJECT_ALLOW_TRANSFORMATIONS_MALE)),
 			null,
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR,
-			LilayasHome.LILAYA_HOME_LAB),
+			PlaceType.LILAYA_HOME_LAB) {
+		@Override
+		public float getAffectionGain(GameCharacter slave) {
+			if(slave.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
+				return 0.5f;
+			} else {
+				return -0.5f;
+			}
+		}
+	},
 	
 //	BROTHEL(5, "Prostitute (Brothel)", "Prostitute (Brothel)", "Assign this slave to work as a prostitute at the brothel 'Angel's Kiss' in slaver ally.",
 //			-0.5f, 0.5f,
@@ -188,14 +196,14 @@ public enum SlaveJob {
 	private List<SlaveJobSetting> mutualSettings;
 	private Map<String, List<SlaveJobSetting>> mutuallyExclusiveSettings;
 	private WorldType worldLocation;
-	private PlaceInterface placeLocation;
+	private PlaceType placeLocation;
 	
 	private SlaveJob(int slaveLimit,
 			String nameFeminine, String nameMasculine, String description,
 			float affectionGain, float obedienceGain,
 			int income, float affectionIncomeModifier, float obedienceIncomeModifier,
 			List<SlaveJobSetting> mutualSettings, Map<String, List<SlaveJobSetting>> mutuallyExclusiveSettings,
-			WorldType worldLocation, PlaceInterface placeLocation) {
+			WorldType worldLocation, PlaceType placeLocation) {
 		
 		this.slaveLimit = slaveLimit;
 		this.nameFeminine = nameFeminine;
@@ -247,11 +255,11 @@ public enum SlaveJob {
 		return description;
 	}
 	
-	public float getObedienceGain() {
+	public float getObedienceGain(GameCharacter slave) {
 		return obedienceGain;
 	}
 
-	public float getAffectionGain() {
+	public float getAffectionGain(GameCharacter slave) {
 		return affectionGain;
 	}
 
@@ -287,23 +295,23 @@ public enum SlaveJob {
 		return worldLocation;
 	}
 
-	public PlaceInterface getPlaceLocation() {
+	public PlaceType getPlaceLocation() {
 		return placeLocation;
 	}
 	
-	public void sendToWorkLocation(NPC slave) {
+	public void sendToWorkLocation(GameCharacter slave) {
 		slave.setLocation(slave.getSlaveJob().getWorldLocation(), slave.getSlaveJob().getPlaceLocation(), false);
 	}
 	
 	public boolean isAvailable(GameCharacter character) {
-		return character.getSlaveJob()==this || (character.getHomeLocationPlace().getPlaceType() != SlaverAlley.SLAVERY_ADMINISTRATION && character.getOwner().getSlavesWorkingJob(this)<this.getSlaveLimit());
+		return character.getSlaveJob()==this || (character.getHomeLocationPlace().getPlaceType() != PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION && character.getOwner().getSlavesWorkingJob(this)<this.getSlaveLimit());
 	}
 	
 	public String getAvailabilityText(GameCharacter character) {
 		if(character.getOwner().getSlavesWorkingJob(this)>=this.getSlaveLimit()) {
 			return "You have already assigned the maximum number of slaves to this job!";
 			
-		} else if(character.getHomeLocationPlace().getPlaceType() == SlaverAlley.SLAVERY_ADMINISTRATION) {
+		} else if(character.getHomeLocationPlace().getPlaceType() == PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION) {
 			return "Slaves cannot work out of the cells at slavery administration. Move them into a room first!";
 			
 		} else {

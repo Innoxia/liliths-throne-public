@@ -388,8 +388,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		return getClothingType().getSVGImage(colourShade);
 	}
 	
-	public String getSVGEquippedString() {
-		return getClothingType().getSVGEquippedImage(colourShade);
+	public String getSVGEquippedString(GameCharacter character) {
+		return getClothingType().getSVGEquippedImage(character, colourShade);
 	}
 
 	/**
@@ -685,12 +685,14 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 				if (bp.displacementType == dt)
 					coveredAreas.addAll(bp.blockedBodyParts);
 		}
-
-		if (owner.getVaginaType() == VaginaType.NONE)
-			coveredAreas.remove(CoverableArea.VAGINA);
-		if (owner.getPenisType() == PenisType.NONE)
-			coveredAreas.remove(CoverableArea.PENIS);
-
+		
+		if(owner!=null) {
+			if (owner.getVaginaType() == VaginaType.NONE)
+				coveredAreas.remove(CoverableArea.VAGINA);
+			if (owner.getPenisType() == PenisType.NONE)
+				coveredAreas.remove(CoverableArea.PENIS);
+		}
+		
 		if (!coveredAreas.isEmpty())
 			return preFix + Util.setToStringListCoverableArea(coveredAreas) + postFix;
 		else
@@ -717,8 +719,11 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 
 	public void setDirty(boolean cummedIn) {
 		this.cummedIn = cummedIn;
-		if(Main.game.getPlayer().getClothingCurrentlyEquipped().contains(this))
-			Main.game.getPlayer().updateInventoryListeners();
+		if(Main.game.getPlayer()!=null) {
+			if(Main.game.getPlayer().getClothingCurrentlyEquipped().contains(this)) {
+				Main.game.getPlayer().updateInventoryListeners();
+			}
+		}
 	}
 
 	public List<DisplacementType> getDisplacedList() {

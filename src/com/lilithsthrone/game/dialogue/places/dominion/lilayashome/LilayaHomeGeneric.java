@@ -5,19 +5,20 @@ import java.util.List;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Rose;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
-import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.managers.dominion.SMRoseHands;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.GenericPlace;
-import com.lilithsthrone.world.places.LilayasHome;
+import com.lilithsthrone.world.places.PlaceType;
 import com.lilithsthrone.world.places.PlaceUpgrade;
 
 /**
@@ -52,7 +53,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseEffectsOnly("Enter", "Knock on the door and wait for Rose to let you in."){
 					@Override
@@ -70,7 +71,7 @@ public class LilayaHomeGeneric {
 									+ "You greet Rose as she closes the door behind you, and, excusing herself, she quickly hurries off to another part of the house, leaving you standing in the entrance hall."
 								+ "</p>");
 						
-						Main.mainController.moveGameWorld(true);
+						Main.mainController.moveGameWorld(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_ENTRANCE_HALL, true);
 					}
 				};
 
@@ -148,7 +149,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(index==0) {
 				return null;
 				
@@ -177,7 +178,7 @@ public class LilayaHomeGeneric {
 				return new Response("Slavery Overview", "Open the slave management screen.",  CORRIDOR) {
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return MiscDialogue.getSlaveryOverviewDialogue();
+						return SlaveryManagementDialogue.getSlaveryOverviewDialogue();
 					}
 				};
 			} else {
@@ -190,7 +191,7 @@ public class LilayaHomeGeneric {
 				return new Response("Slave List", "Enter the slave management screen.", CORRIDOR) {
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return MiscDialogue.getSlaveryManagementDialogue(Main.game.getPlayerCell().getPlace().getDialogue(false), null);
+						return SlaveryManagementDialogue.getSlaveryManagementDialogue(null);
 					}
 				};
 			} else {
@@ -199,7 +200,7 @@ public class LilayaHomeGeneric {
 			
 		} else if (index == 3) {
 			if(Main.game.getPlayer().isHasSlaverLicense()) {
-				return new Response("Room List", "Enter the room upgrades options screen.", MiscDialogue.ROOM_MANAGEMENT);
+				return new Response("Room List", "Enter the room upgrades options screen.", SlaveryManagementDialogue.ROOM_MANAGEMENT);
 			} else {
 				return new Response("Room List", "You'll need a slaver license before you can access this menu!",  null);
 			}
@@ -262,7 +263,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getRoomResponse(index);
 		}
 	};
@@ -289,7 +290,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getRoomResponse(index);
 		}
 	};
@@ -317,7 +318,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getRoomResponse(index);
 		}
 	};
@@ -345,7 +346,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getRoomResponse(index);
 		}
 	};
@@ -372,7 +373,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getRoomResponse(index);
 		}
 	};
@@ -400,7 +401,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getRoomResponse(index);
 		}
 	};
@@ -431,7 +432,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 	};
@@ -505,7 +506,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(index==0) {
 				return null;
 				
@@ -547,7 +548,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Call for Rose", "Lilaya's slave, Rose, is always close at hand. If you were to ring the little bell beside her bedroom's door, she'd be sure to come running.", AUNT_HOME_ROSE){
 					@Override
@@ -566,7 +567,7 @@ public class LilayaHomeGeneric {
 									+ " [rose.speech(How may I help you?)]"
 								+ "</p>";
 						
-						Main.game.getDialogueFlags().auntHomeJustEntered = false;
+						Main.game.getDialogueFlags().values.remove(DialogueFlagValue.auntHomeJustEntered);
 						Main.game.getRose().setLocation(Main.game.getActiveWorld().getWorldType(), Main.game.getPlayer().getLocation(), false);
 					}
 				};
@@ -597,7 +598,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Lilaya's room", "Have a look around Lilaya's room.", ROOM_LILAYA_INSIDE);
 
@@ -648,7 +649,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 //			if (index == 1) {
 //				return new Response("Search drawers", "Look through Lilaya's drawers for anything interesting.", null,
 //						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)), null, AttributeLevelCorruption.TWO_HORNY,
@@ -682,7 +683,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Panty masturbation", "Upon finding Lilaya's panties, you find yourself thinking some dirty thoughts...", CLEAN_PANTIES);
 
@@ -711,7 +712,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Panty masturbation", "Upon finding Lilaya's dirty panties, you find yourself thinking some dirty thoughts...", DIRTY_PANTIES);
 
@@ -741,7 +742,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 	};
@@ -763,7 +764,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 	};
@@ -792,12 +793,12 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseEffectsOnly("Exit", "Leave Lilaya's house."){
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(true);
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), PlaceType.DOMINION_AUNTS_HOME, true);
 					}
 				};
 
@@ -805,7 +806,7 @@ public class LilayaHomeGeneric {
 				return new ResponseEffectsOnly("Your room", "Fast travel up to your room."){
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR), LilayasHome.LILAYA_HOME_ROOM_PLAYER, true);
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR), PlaceType.LILAYA_HOME_ROOM_PLAYER, true);
 					}
 				};
 
@@ -813,7 +814,7 @@ public class LilayaHomeGeneric {
 				return new ResponseEffectsOnly("Lilaya's Lab", "Fast travel to Lilaya's Lab."){
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), LilayasHome.LILAYA_HOME_LAB, true);
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), PlaceType.LILAYA_HOME_LAB, true);
 					}
 				};
 
@@ -840,12 +841,12 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseEffectsOnly("Upstairs", "Go upstairs to the first floor."){
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(true);
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR), PlaceType.LILAYA_HOME_STAIR_DOWN, true);
 					}
 				};
 
@@ -872,12 +873,12 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseEffectsOnly("Downstairs", "Go back downstairs to the ground floor."){
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(true);
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), PlaceType.LILAYA_HOME_STAIR_UP, true);
 					}
 				};
 
@@ -906,7 +907,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Lilaya", "Ask Rose about her owner, Lilaya.", AUNT_HOME_ROSE){
 					@Override
@@ -1053,7 +1054,7 @@ public class LilayaHomeGeneric {
 					@Override
 					public void effects() {
 						askedAboutDuties = false;
-						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB, false);
+						Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
 					}
 					
 					@Override
@@ -1094,7 +1095,7 @@ public class LilayaHomeGeneric {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("Hand-holding", "Warning: This content contains extreme descriptions of hand-holding, finger sucking, and even palm-licking."
 						+ " <b>Please remember that you need to have read the disclaimer before playing this game!</b> <b style='color:"+BaseColour.CRIMSON.toWebHexString()+";'>18+ only!</b>",

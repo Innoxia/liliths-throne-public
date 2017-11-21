@@ -4,6 +4,7 @@ import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
+import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -32,7 +33,7 @@ public class CityHall {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Enter", "The doors are wide open, inviting you to step inside Dominion's City Hall.", CITY_HALL_ENTER);
 
@@ -54,7 +55,7 @@ public class CityHall {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Demographics", "Follow the map's directions to the 'Bureau of Demographics' office.", CITY_HALL_PUBLIC_ENQUIRIES);
 
@@ -81,7 +82,7 @@ public class CityHall {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Name change", "Ask the cat-girl about changing your name.", CITY_HALL_NAME_CHANGE_FORM);
 				
@@ -133,53 +134,53 @@ public class CityHall {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if (Main.game.getPlayer().getMoney() < 100) {
-					return new Response("Confirm", "Change name for 100 flames. (You can't afford this!)", null);
+					return new Response("Confirm ("+UtilText.formatAsMoneyUncoloured(100, "span")+")", "Change name for 100 flames. (You can't afford this!)", null);
 				} else {
 					
-					Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('nameInput').value;");
-					if(Main.mainController.getWebEngine().getDocument()!=null) {
-						if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 2
-								|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 16
-								|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().matches("[^\\[\\]\\.]+"))
-							unsuitableName = true;
-						else {
-							unsuitableName = false;
-						}
-					}
-					
-					Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldSurname').innerHTML=document.getElementById('surnameInput').value;");
-					if(Main.mainController.getWebEngine().getDocument()!=null) {
-						if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length()>=1
-								&& (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length() > 16
-										|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().matches("[^\\[\\]\\.]+")))
-							unsuitableSurname = true;
-						else {
-							unsuitableSurname = false;
-						}
-					}
-					
-					
-					if (unsuitableName || unsuitableSurname) {
-						return new Response("Continue", "Use this name and continue to the final character creation screen.", CITY_HALL_NAME_CHANGE_FORM);
-						
-					} else {
-						return new Response("Continue", "Use this name and continue to the final character creation screen.", CITY_HALL_NAME_CHANGE_FORM){
-							@Override
-							public void effects() {
+					return new ResponseEffectsOnly("Confirm ("+UtilText.formatAsMoney(100, "span")+")", "Change name for 100 flames."){
+						@Override
+						public void effects() {
+							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('nameInput').value;");
+							if(Main.mainController.getWebEngine().getDocument()!=null) {
+								if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 2
+										|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 16
+										|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().matches("[^\\[\\]\\.]+"))
+									unsuitableName = true;
+								else {
+									unsuitableName = false;
+								}
+							}
+							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldSurname').innerHTML=document.getElementById('surnameInput').value;");
+							if(Main.mainController.getWebEngine().getDocument()!=null) {
+								if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length()>=1
+										&& (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length() > 16
+												|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().matches("[^\\[\\]\\.]+")))
+									unsuitableSurname = true;
+								else {
+									unsuitableSurname = false;
+								}
+							}
+							
+							if (unsuitableName || unsuitableSurname)  {
+								Main.game.setContent(new Response("" ,"", CITY_HALL_NAME_CHANGE_FORM));
+								
+							} else {
+							
 								Main.game.getPlayer().setName(new NameTriplet(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent()));
 								Main.game.getPlayer().setSurname(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent());
 								Main.game.getPlayer().incrementMoney(-100);
 								Main.game.getTextEndStringBuilder().append(
 										"<p style='text-align:center;'>"
 											+ "You fill out the forms and pay the [style.boldBad(100 flame fee)], officially changing your name to:</br>"
-											+ "<b>[pc.Name] [pc.Surname]</b>"
+											+ "<b>[pc.Name]"+(!Main.game.getPlayer().getSurname().isEmpty()?" [pc.Surname]":"")+"</b>"
 										+ "</p>");
+								Main.game.setContent(new Response("" ,"", CITY_HALL_NAME_CHANGE_FORM));
 							}
-						};
-					}
+						}
+					};
 				}
 				
 			} else if (index == 0) {

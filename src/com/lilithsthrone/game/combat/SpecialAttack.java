@@ -10,7 +10,6 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.FaceType;
-import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.effects.StatusEffect;
@@ -22,7 +21,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.0
- * @version 0.1.78
+ * @version 0.1.89
  * @author Innoxia
  */
 public enum SpecialAttack {
@@ -1056,15 +1055,15 @@ public enum SpecialAttack {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			if (owner.isPlayer()) {
-				return "Your anthropomorphic cow-like horns can be used to deliver a powerful attack.";
+				return "Your anthropomorphic cow-like head and horns can be used to deliver a powerful attack.";
 			} else {
-				return UtilText.parse(owner, "[npc.Name]'s anthropomorphic cow-like horns can be used to deliver a powerful attack.");
+				return UtilText.parse(owner, "[npc.Name]'s anthropomorphic cow-like head and horns can be used to deliver a powerful attack.");
 			}
 		}
 
 		@Override
 		public boolean isConditionsMet(GameCharacter owner) {
-			return owner.getHornType() == HornType.BOVINE;
+			return owner.getFaceType() == FaceType.COW_MORPH && owner.hasHorns();
 		}
 	},
 

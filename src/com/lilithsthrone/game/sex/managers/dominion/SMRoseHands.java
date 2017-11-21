@@ -3,8 +3,8 @@ package com.lilithsthrone.game.sex.managers.dominion;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexPosition;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
+import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.game.sex.sexActions.dominion.SARoseHands;
-import com.lilithsthrone.game.sex.sexActions.universal.GenericOrgasms;
 
 /**
  * @since 0.1.7?

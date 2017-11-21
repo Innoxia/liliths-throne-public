@@ -49,7 +49,7 @@ public class Properties implements Serializable {
 	
 	public int fontSize = 18, level = 1, money = 0, arcaneEssences = 0, humanEncountersLevel = 1, multiBreasts = 1, forcedTFPercentage = 40;
 	
-	public boolean lightTheme = false, overwriteWarning = true, fadeInText=true, calendarDisplay = true, twentyFourHourTime = true,
+	public boolean lightTheme = false, overwriteWarning = true, fadeInText=false, calendarDisplay = true, twentyFourHourTime = true,
 			
 			furryTailPenetrationContent = false,
 			nonConContent = false,
@@ -479,7 +479,11 @@ public class Properties implements Serializable {
 				if(element.getElementsByTagName("forcedTFPercentage").item(0)!=null) {
 					forcedTFPercentage = Integer.valueOf(((Element)element.getElementsByTagName("forcedTFPercentage").item(0)).getAttribute("value"));
 				}
-				
+
+				// Forced TF preference:
+				if(element.getElementsByTagName("forcedTFPreference").item(0)!=null) {
+					forcedTFPreference = FurryPreference.valueOf(((Element)element.getElementsByTagName("forcedTFPreference").item(0)).getAttribute("value"));
+				}
 				
 				// Keys:
 				nodes = doc.getElementsByTagName("keyBinds");
@@ -566,10 +570,6 @@ public class Properties implements Serializable {
 					}
 				}
 				
-				// Forced TF preference:
-				if(element.getElementsByTagName("forcedTFPreference").item(0)!=null) {
-					forcedTFPreference = FurryPreference.valueOf(((Element)element.getElementsByTagName("forcedTFPreference").item(0)).getAttribute("value"));
-				}
 				
 				// Race preferences:
 				nodes = doc.getElementsByTagName("furryPreferences");

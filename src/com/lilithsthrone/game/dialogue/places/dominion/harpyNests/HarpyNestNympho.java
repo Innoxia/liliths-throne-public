@@ -6,6 +6,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
@@ -42,7 +43,7 @@ public class HarpyNestNympho {
 		@Override
 		public String getContent() {
 			if (Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
-				if(Main.game.getDialogueFlags().nymphoEncountered) {
+				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.nymphoEncountered)) {
 					return "<p>"
 								+ "Due to the ongoing arcane storm, [harpyNympho.name]'s nest is completely deserted."
 								+ " Her entire flock has retreated into the safety of the upper-floor of the building below, leaving you with no choice but to return at another time if you wanted to speak to her."
@@ -55,7 +56,7 @@ public class HarpyNestNympho {
 				}
 				
 			} else {
-				if(Main.game.getDialogueFlags().nymphoEncountered) {
+				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.nymphoEncountered)) {
 					return "<p>"
 								+ "You find yourself standing on the outskirts of [harpyNympho.name]'s nest; one of the most populous of all the nests in Dominion."
 								+ " Despite the importance of the matriarch who resides here, her nest is no bigger than any of the minor ones scattered throughout the Harpy Nests,"
@@ -103,20 +104,20 @@ public class HarpyNestNympho {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_HARPY_PACIFICATION)) {
 					return new Response("Approach [harpyNympho.name]", "You have no need to talk to the matriarch of this nest.", null);
 					
 				} else if (Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
-					if(Main.game.getDialogueFlags().nymphoEncountered) {
+					if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.nymphoEncountered)) {
 						return new Response("Approach [harpyNympho.name]", "If you want to talk to [harpyNympho.name], you'll have to come back after the arcane storm has passed.", null);
 					} else {
 						return new Response("Approach matriarch", "If you want to talk to the matriarch, you'll have to come back after the arcane storm has passed.", null);
 					}
 					
 				} else {
-					if(Main.game.getDialogueFlags().nymphoEncountered) {
+					if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.nymphoEncountered)) {
 						return new Response("Approach [harpyNympho.name]", "Walk to the centre of the nest and talk to [harpyNympho.name].", HARPY_NEST_NYMPHO_APPROACH) {
 							@Override
 							public void effects() {
@@ -149,8 +150,8 @@ public class HarpyNestNympho {
 		
 		@Override
 		public String getContent() {
-			if(Main.game.getDialogueFlags().nymphoEncountered) {
-				if(Main.game.getDialogueFlags().nymphoPacified) {
+			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.nymphoEncountered)) {
+				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.nymphoPacified)) {
 					return "<p>"
 							+ "Deciding to pay [harpyNympho.Name] another visit, you set off towards the flash of pink in the centre of the nest."
 							+ " As you make your way towards the sex-obsessed matriarch, you get a good look at the harpies that make up her flock."
@@ -259,8 +260,8 @@ public class HarpyNestNympho {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			if(Main.game.getDialogueFlags().nymphoPacified) {
+		public Response getResponse(int responseTab, int index) {
+			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.nymphoPacified)) {
 				if (index == 1) {
 					return new ResponseSex("Sex", "Have dominant sex with [harpyNympho.name].", HARPY_NEST_NYMPHO_APPROACH,
 							true, false, Main.game.getHarpyNympho(), new SMHarpyStanding(), HARPY_NEST_NYMPHO_AFTER_SEX,
@@ -297,7 +298,7 @@ public class HarpyNestNympho {
 					return new Response("Talk", "Try to convince [harpyNympho.name] to calm down.", HARPY_NEST_NYMPHO_TALK) {
 						@Override
 						public void effects() {
-							Main.game.getDialogueFlags().nymphoEncountered = true;
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.nymphoEncountered);
 						}
 					};
 						
@@ -306,8 +307,8 @@ public class HarpyNestNympho {
 							null, null, Util.newArrayListOfValues(new ListValue<>(Perk.NYMPHOMANIAC)), Femininity.FEMININE_STRONG, null) {
 						@Override
 						public void effects() {
-							Main.game.getDialogueFlags().nymphoEncountered = true;
-							Main.game.getDialogueFlags().nymphoPacified = true;
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.nymphoEncountered);
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.nymphoPacified);
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MATRIARCH_NYMPHO_LOLLIPOP), false));
 						}
 						@Override
@@ -320,7 +321,7 @@ public class HarpyNestNympho {
 					return new Response("Call her ugly", "You know that this would be a terrible idea...", HARPY_NEST_NYMPHO_UGLY) {
 						@Override
 						public void effects() {
-							Main.game.getDialogueFlags().nymphoEncountered = true;
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.nymphoEncountered);
 						}
 						@Override
 						public boolean isCombatHighlight() {
@@ -332,7 +333,7 @@ public class HarpyNestNympho {
 					return new Response("Leave", "Tell [harpyNympho.name] that you'll be back later.", HARPY_NEST_NYMPHO) {
 						@Override
 						public void effects() {
-							Main.game.getDialogueFlags().nymphoEncountered = true;
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.nymphoEncountered);
 							Main.game.getTextStartStringBuilder().append("");
 						}
 					};
@@ -369,13 +370,13 @@ public class HarpyNestNympho {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Nympho Queen", "You feel sorry for this matriarch, only getting to have sex with the same males over and over again. Tell her how a real nympho behaves!", HARPY_NEST_NYMPHO_QUEEN,
 						null, null, Util.newArrayListOfValues(new ListValue<>(Perk.NYMPHOMANIAC)), Femininity.FEMININE_STRONG, null) {
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().nymphoPacified = true;
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.nymphoPacified);
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MATRIARCH_NYMPHO_LOLLIPOP), false));
 					}
 					@Override
@@ -439,7 +440,7 @@ public class HarpyNestNympho {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseCombat("Fight", "[harpyNymphoCompanion.Name] rushes to do her matriarch's bidding!", HARPY_NEST_NYMPHO_UGLY, Main.game.getHarpyNymphoCompanion());
 					
@@ -530,7 +531,7 @@ public class HarpyNestNympho {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			 if (index == 1) {
 				return new ResponseSex("Sex", "Have dominant sex with [harpyNympho.name].", HARPY_NEST_NYMPHO_QUEEN,
 						true, false, Main.game.getHarpyNympho(), new SMHarpyStanding(), HARPY_NEST_NYMPHO_AFTER_SEX,
@@ -588,7 +589,7 @@ public class HarpyNestNympho {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseCombat("Fight", "[harpyNymphoCompanion.Name] rushes to do her matriarch's bidding!", HARPY_NEST_NYMPHO_UGLY, Main.game.getHarpyNymphoCompanion());
 					
@@ -649,7 +650,7 @@ public class HarpyNestNympho {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Lips sealed", "Don't let [harpyNympho.Name] get that strange lollipop into your mouth...", HARPY_NEST_NYMPHO_FIGHT_LOSE_PUNISHMENT_NO_TF);
 					
@@ -701,7 +702,7 @@ public class HarpyNestNympho {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseCombat("Fight", "[harpyNympho.Name] looks furious as she launches her attack on you!", HARPY_NEST_NYMPHO_FIGHT_BEAT_BF, Main.game.getHarpyNympho());
 					
@@ -761,7 +762,7 @@ public class HarpyNestNympho {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Lips sealed", "Don't let [harpyNympho.Name] get that strange lollipop into your mouth...", HARPY_NEST_NYMPHO_FIGHT_LOSE_PUNISHMENT_NO_TF);
 					
@@ -837,7 +838,7 @@ public class HarpyNestNympho {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			 if (index == 1) {
 				return new ResponseSex("Sex", "Have dominant sex with [harpyNympho.name].", HARPY_NEST_NYMPHO_FIGHT_BEAT_NYMPHO,
 						true, false, Main.game.getHarpyNympho(), new SMHarpyStanding(), HARPY_NEST_NYMPHO_AFTER_SEX,
@@ -912,7 +913,7 @@ public class HarpyNestNympho {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Thrown out", "Having had their fun, you're quickly thrown out of the nest.", HARPY_NEST_NYMPHO) {
 					@Override
@@ -977,7 +978,7 @@ public class HarpyNestNympho {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Thrown out", "Having had their fun, you're quickly thrown out of the nest.", HARPY_NEST_NYMPHO) {
 					@Override
@@ -1021,7 +1022,7 @@ public class HarpyNestNympho {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Leave", "Having had your fun, you decide to leave.", HARPY_NEST_NYMPHO) {
 					@Override

@@ -7,9 +7,10 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.Scarlett;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
-import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -20,8 +21,7 @@ import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.HarpyNests;
-import com.lilithsthrone.world.places.SlaverAlley;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.83
@@ -50,7 +50,7 @@ public class ScarlettsShop {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if(Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_E_REPORT_TO_ALEXA) {
 					return new Response("Enter", "You should go and find Alexa before entering Scarlett's Shop again.", null);
@@ -99,7 +99,7 @@ public class ScarlettsShop {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_D_SLAVERY) {
 					return new Response("Ask for Arthur", "Ask Scarlett if she's got a slave named Arthur for sale.", SCARLETT_IS_A_BITCH);
@@ -173,7 +173,7 @@ public class ScarlettsShop {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Agree", "Agree to help Scarlett.", SCARLETT_IS_A_SUPER_BITCH) {
 					@Override
@@ -212,7 +212,7 @@ public class ScarlettsShop {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Leave", "Exit the shop.", SCARLETTS_SHOP_EXTERIOR);
 				
@@ -265,7 +265,7 @@ public class ScarlettsShop {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_F_SCARLETTS_FATE) {
 					return new Response("Enter", "Enter the shop.", ALEXAS_SHOP) {
@@ -358,7 +358,7 @@ public class ScarlettsShop {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_F_SCARLETTS_FATE) {
 					return new Response("Offer to buy", "Offer to buy Scarlett from Alexa.", ALEXAS_SHOP_SCARLETT_FOR_SALE) { 
@@ -368,7 +368,7 @@ public class ScarlettsShop {
 						}
 						@Override
 						public void effects() {
-							if(Main.game.getDialogueFlags().punishedByAlexa) {
+							if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.punishedByAlexa)) {
 								Main.game.getDialogueFlags().scarlettPrice = 1000;
 							}
 						}
@@ -407,7 +407,7 @@ public class ScarlettsShop {
 					return new Response("Slave Manager", "Enter the slave management screen.", ALEXAS_SHOP) {
 						@Override
 						public DialogueNodeOld getNextDialogue() {
-							return MiscDialogue.getSlaveryManagementDialogue(ALEXAS_SHOP, Main.game.getAlexa());
+							return SlaveryManagementDialogue.getSlaveryManagementDialogue(Main.game.getAlexa());
 						}
 					};
 				}
@@ -431,7 +431,7 @@ public class ScarlettsShop {
 					+ "</p>"
 					+ "<p>"
 						+ "[alexa.speech(Excellent!)] Alexa cries, leaning forwards in her chair,"
-						+ (Main.game.getDialogueFlags().punishedByAlexa
+						+ (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.punishedByAlexa)
 							?"[alexa.speech(now, taking into consideration that you took that little punishment of mine on her behalf, I'm willing to give you a discount."
 									+ " Although she does as I command, I imagine that she'd be quite disobedient for any other owner, so I'd say Scarlett's only worth about two thousand flames, but for you, I'll sell her for one thousand.)]"
 							:"[alexa.speech(Although she does as I command, I imagine that she'd be quite disobedient for any other owner, so I'd say Scarlett's only worth about two thousand flames."
@@ -464,8 +464,8 @@ public class ScarlettsShop {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			return ALEXAS_SHOP.getResponse(index);
+		public Response getResponse(int responseTab, int index) {
+			return ALEXAS_SHOP.getResponse(0, index);
 		}
 	};
 	
@@ -499,7 +499,7 @@ public class ScarlettsShop {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Calm her down", "Gently reassure Scarlett to get her to calm down.", ALEXAS_SHOP_GENTLE) {
 					@Override
@@ -607,7 +607,7 @@ public class ScarlettsShop {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getSlaveryChoiceResponse(index);
 		}
 	};
@@ -665,7 +665,7 @@ public class ScarlettsShop {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getSlaveryChoiceResponse(index);
 		}
 	};
@@ -710,7 +710,7 @@ public class ScarlettsShop {
 					+ "[scarlett.speech(His name is Zaranix,)]"
 					+ " Scarlett growls, the very thought of his name making her angry,"
 					+ " [scarlett.speech(he's not hard to miss; after all, how many demons do you know of that choose to stay in their male form?"
-						+ " And yeah, I know where he lives. I had to verify his slaver license, and made a note of his address in Demon Home, so that I could get my revenge later..."
+						+ " And yeah, I know where he lives. I had to verify his slaver license, and made a note of his address in Demon Home so that I could get my revenge later..."
 						+ " It's in the drawer over there.)]"
 				+ "</p>"
 				+ "<p>"
@@ -719,12 +719,13 @@ public class ScarlettsShop {
 					+ " Looking down at the piece of paper, you groan as you realise that Arthur's been right under your nose this whole time; the address is just across the street from his apartment building."
 				+ "</p>"
 				+ "<p>"
-					+ "Your thoughts about how you're going to approach this Zaranix character are suddenly interrupted by Scarlett's impatient shuffling, and you realise that you're going to have to decide what you're going to do with her before anything else."
+					+ "Your thoughts about how you're going to approach this Zaranix character are suddenly interrupted by Scarlett's impatient shuffling,"
+						+ " and you realise that you're going to have to decide what you're going to do with her before anything else."
 				+ "</p>";
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return getSlaveryChoiceResponse(index);
 		}
 	};
@@ -734,7 +735,7 @@ public class ScarlettsShop {
 			return new Response("Keep her", "You decide to keep Scarlett as your slave.", ALEXAS_SHOP_BUYING_SCARLETT_KEEP_HER) {
 				@Override
 				public void effects() {
-					Main.game.getScarlett().setLocation(WorldType.SLAVER_ALLEY, SlaverAlley.SLAVERY_ADMINISTRATION, true);
+					Main.game.getScarlett().setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
 				}
 			};
 
@@ -749,7 +750,7 @@ public class ScarlettsShop {
 					
 					((Scarlett) Main.game.getScarlett()).getDressed();
 					
-					Main.game.getScarlett().setLocation(WorldType.HARPY_NEST, HarpyNests.ALEXAS_NEST, true);
+					Main.game.getScarlett().setLocation(WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_ALEXAS_NEST, true);
 					Main.game.getScarlett().setObedience(ObedienceLevel.ZERO_FREE_WILLED.getMedianValue());
 					Main.game.getScarlett().setAffection(Main.game.getPlayer(), AffectionLevel.ZERO_NEUTRAL.getMedianValue());
 					Main.game.getPlayer().removeSlave(Main.game.getScarlett());
@@ -794,8 +795,8 @@ public class ScarlettsShop {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			return ALEXAS_SHOP.getResponse(index);
+		public Response getResponse(int responseTab, int index) {
+			return ALEXAS_SHOP.getResponse(0, index);
 		}
 	};
 	
@@ -847,8 +848,8 @@ public class ScarlettsShop {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			return ALEXAS_SHOP.getResponse(index);
+		public Response getResponse(int responseTab, int index) {
+			return ALEXAS_SHOP.getResponse(0, index);
 		}
 	};
 	

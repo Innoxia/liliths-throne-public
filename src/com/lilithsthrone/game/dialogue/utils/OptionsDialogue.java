@@ -22,6 +22,7 @@ import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.MapDisplay;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -52,7 +53,6 @@ public class OptionsDialogue {
 		@Override
 		public String getContent(){
 			return "<h1 class='special-text' style='font-size:48px; line-height:52px; text-align:center;'>Lilith's Throne</h1>"
-					+ "<h4 class='special-text' style='text-align:center;'>Spooky Witches Edition</h4>"
 					+ "<h5 class='special-text' style='text-align:center;'>Created by Innoxia</h5>"
 					+ "</br>"
 					+ "<p>"
@@ -74,7 +74,7 @@ public class OptionsDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			
 			 if (index == 1) {
 				 if(confirmNewGame || !Main.game.isStarted()) {
@@ -125,23 +125,22 @@ public class OptionsDialogue {
 				}
 				
 			} else if (index == 3) {
-				return new Response("Options", "Open the options page.", OPTIONS){
+				return new Response("Export/Import", "Open the export/import game window.", IMPORT_EXPORT){
 					@Override
 					public void effects() {
+						loadConfirmationName = ""; overwriteConfirmationName = ""; deleteConfirmationName = "";
 						confirmNewGame=false;
-						
 					}
 				};
-
+				
 			} else if (index == 4) {
-				return new Response("Content Options", "Set your preferred content settings.", CONTENT_PREFERENCE){
+				return new Response("Disclaimer", "View the game's disclaimer.", DISCLAIMER){
 					@Override
 					public void effects() {
 						confirmNewGame=false;
-						
 					}
 				};
-			
+				
 			} else if (index == 5) {
 				return new ResponseEffectsOnly("Quit", "Quits your current game and closes the program.</br></br><b>Remember to save your game first!</b>"){
 					@Override
@@ -153,17 +152,30 @@ public class OptionsDialogue {
 				};
 				
 			} else if (index == 6) {
-				return new Response("Disclaimer", "View the game's disclaimer.", DISCLAIMER){
+				return new Response("Options", "Open the options page.", OPTIONS){
 					@Override
 					public void effects() {
 						confirmNewGame=false;
+						
 					}
 				};
-				
+
 			} else if (index == 7) {
+				return new Response("Content Options", "Set your preferred content settings.", CONTENT_PREFERENCE){
+					@Override
+					public void effects() {
+						confirmNewGame=false;
+						
+					}
+				};
+			
+			} else if (index == 8) {
+				return new Response("Patch notes", "View the patch notes for this version.", PATCH_NOTES);
+			
+			} else if (index == 9) {
 				return new Response("Credits", "View the game's credits screen.", CREDITS);
 				
-			} else if (index == 8) {
+			} else if (index == 10) {
 				return new ResponseEffectsOnly("Blog", "Opens the page:</br></br><i>https://lilithsthrone.blogspot.co.uk/</i></br></br><b>Externally in your default browser.</b>"){
 					@Override
 					public void effects() {
@@ -264,7 +276,7 @@ public class OptionsDialogue {
 		public String getHeaderContent(){
 			StringBuilder saveLoadSB = new StringBuilder();
 
-			saveLoadSB.append("<p'>"
+			saveLoadSB.append("<p>"
 					+ "<b>Please Note:</b></br>"
 					+ "1. Only standard characters (letters and numbers) will work for save file names.</br>"
 					+ "2. The 'AutoSave' file is automatically overwritten every time you move between maps.</br>"
@@ -298,12 +310,12 @@ public class OptionsDialogue {
 			saveLoadSB.append("</table>"
 					+ "</p>"
 					+ "<p id='hiddenPField' style='display:none;'></p>");
-
+			
 			return saveLoadSB.toString();
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Confirmations: ",
 						"Toggle confirmations being shown when you click to load, overwrite, or delete a saved game."
@@ -327,6 +339,121 @@ public class OptionsDialogue {
 					}
 				};
 
+			} else if (index == 0) {
+				return new Response("Back", "Back to the main menu.", MENU);
+
+			} else {
+				return null;
+			}
+		}
+
+		@Override
+		public MapDisplay getMapDisplay() {
+			return MapDisplay.OPTIONS;
+		}
+	};
+	
+	public static final DialogueNodeOld IMPORT_EXPORT = new DialogueNodeOld("Save game files", "", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getContent() {
+			return "";
+		}
+		
+		@Override
+		public String getHeaderContent(){
+			StringBuilder saveLoadSB = new StringBuilder();
+
+			saveLoadSB.append("<p>"
+					+ "<b>Please Note:</b></br>"
+					+ "<b>Game export is a little experimental!</b> It should ensure save compatibility, but some things might not quite be carried over (such as items in shops). I'll get it finished soon! :3"
+					+ "</p>"
+					+"<p>"
+					+ "<b>Also:</b></br>"
+					+ "<b>You can import your exported characters when you start a new game! (I'll add the option to do it from here soon!)"
+					+ "</p>"
+					+ "<p>"
+					+ "<table align='center'>"
+					+ "<tr>"
+					+ "<th></th>"
+					+ "<th>Name</th>"
+					+ "<th></th>"
+					+ "<th></th>"
+					+ "</tr>");
+			
+			Main.getGamesForImport().sort(Comparator.comparingLong(File::lastModified).reversed());
+			
+			for(File f : Main.getGamesForImport()){
+				try {
+					saveLoadSB.append(getImportRow("<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+getFileTime(f)+"</span>", f.getName()));
+				} catch (IOException e3) {
+					e3.printStackTrace();
+				}
+			}
+			
+			saveLoadSB.append("</table>"
+					+ "</p>"
+					+ "<p id='hiddenPField' style='display:none;'></p>");
+			
+			return saveLoadSB.toString();
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Confirmations: ",
+						"Toggle confirmations being shown when you click to load, overwrite, or delete a saved game."
+							+ " When turned on, it will take two clicks to apply any button press."
+							+ " When turned off, it will only take one click.",
+							IMPORT_EXPORT) {
+					@Override
+					public String getTitle() {
+						return "Confirmations: "+(Main.getProperties().overwriteWarning
+								?"<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>ON</span>"
+								:"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>OFF</span>");
+					}
+					
+					@Override
+					public void effects() {
+						loadConfirmationName = "";
+						overwriteConfirmationName = "";
+						deleteConfirmationName = "";
+						Main.getProperties().overwriteWarning = !Main.getProperties().overwriteWarning;
+						Main.getProperties().savePropertiesAsXML();
+					}
+				};
+
+			} else if (index == 6) {
+				if(Main.game.isStarted()) {
+					return new ResponseEffectsOnly("Export character", "Exports your character file to the 'data/characters/' folder."){
+						@Override
+						public void effects() {
+							CharacterUtils.saveCharacterAsXML(Main.game.getPlayer());
+							Main.game.flashMessage(Colour.GENERIC_GOOD, "Character exported!");
+						}
+					};
+				} else {
+					return new Response("Export character", "You'll need to start a game first!", null);
+				}
+			
+			} else if (index == 7) {
+				if(!Main.game.isStarted()) {
+					return new Response("Export game", "You'll need to start a game first!", null);
+					
+				} else if(Main.game.getSavedDialogueNode() != DebugDialogue.getDefaultDialogueNoEncounter()) {
+					return new Response("Export game", "You can only export your game while in a neutral dialogue (such as when moving through Dominion's streets)!", null);
+					
+				} else {
+					return new Response("Export game", "Exports your game file to the 'data/saves/' folder.", IMPORT_EXPORT){
+						@Override
+						public void effects() {
+							Game.exportGame();
+							Main.game.flashMessage(Colour.GENERIC_GOOD, "Game exported!");
+						}
+					};
+				}
+			
 			} else if (index == 0) {
 				return new Response("Back", "Back to the main menu.", MENU);
 
@@ -399,7 +526,28 @@ public class OptionsDialogue {
 			
 		}
 	}
-	
+
+	private static String getImportRow(String date, String name) {
+		String baseName = name.substring(0, name.lastIndexOf('.'));
+		return "<tr>"
+				+ "<td>"
+					+ date
+				+ "</td>"
+				+ "<td style='min-width:200px;'>"
+					+ baseName
+				+ "</td>"
+				+ "<td>"
+					+ (name.equals(loadConfirmationName)
+							?"<div class='saveLoadButton' id='import_game_" + baseName + "' style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Confirm</div>"
+							:"<div class='saveLoadButton' id='import_game_" + baseName + "' style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Load</div>")
+				+ "</td>"
+				+ "<td>"
+					+ (name.equals(deleteConfirmationName)
+						?"<div class='deleteSaveButton' id='delete_imported_game_" + baseName + "' style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Confirm</div>"
+						:"<div class='deleteSaveButton' id='delete_imported_game_" + baseName + "' style='color:"+Colour.CLOTHING_WHITE.toWebHexString()+";'>Delete</div>")
+				+ "</td>"
+				+ "</tr>";
+	}
 	
 	
 	public static final DialogueNodeOld OPTIONS = new DialogueNodeOld("Options", "Options", true) {
@@ -419,12 +567,13 @@ public class OptionsDialogue {
 
 					+"<p>"
 					+ "<b>Fade-in:</b>"
-					+ "</br>This option is responsible for fading in the main part of the text each time a new scene is displayed. It is off by default, as having it on may cause some annoying lag in inventory screens."
+					+ "</br>This option is responsible for fading in the main part of the text each time a new scene is displayed."
+					+ " Although it makes scene transitions a little prettier, it is off by default, as it can cause some annoying lag in inventory screens."
 					+ "</p>";
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Keybinds", "Open the keybinds page, where you can customise all the game's key bindings.", KEYBINDS);
 				
@@ -481,26 +630,9 @@ public class OptionsDialogue {
 				return new Response("Gender pronouns", "Customise all gender pronouns and names.", OPTIONS_PRONOUNS);
 				
 			} else if (index == 6) {
-				if(Main.game.isStarted()) {
-					return new ResponseEffectsOnly("Export character", "Exports your character file to the 'data/characters/' folder."){
-						@Override
-						public void effects() {
-							CharacterUtils.saveCharacterAsXML(Main.game.getPlayer());
-							Main.game.flashMessage(Colour.GENERIC_GOOD, "Character exported!");
-							
-						}
-					};
-				} else {
-					return new Response("Export character", "You'll need to start a game first!", null);
-				}
-			
-			} else if (index == 7) {
-				return new Response("Patch notes", "View the patch notes for this version.", PATCH_NOTES);
-			
-			} else if (index == 8) {
 				return new Response("Gender preferences", "Set your preferred gender encounter rates.", GENDER_PREFERENCE);
 			
-			} else if (index == 9) {
+			} else if (index == 7) {
 				return new Response("Furry preferences", "Set your preferred transformation encounter rates.", FURRY_PREFERENCE);
 			
 			} else if (index == 0) {
@@ -564,6 +696,9 @@ public class OptionsDialogue {
 
 					+ getKeybindTableRow(KeyboardAction.RESPOND_NEXT_PAGE)
 					+ getKeybindTableRow(KeyboardAction.RESPOND_PREVIOUS_PAGE)
+
+					+ getKeybindTableRow(KeyboardAction.RESPOND_NEXT_TAB)
+					+ getKeybindTableRow(KeyboardAction.RESPOND_PREVIOUS_TAB)
 					+ "</table>"
 					+ "</p>";
 		}
@@ -574,7 +709,7 @@ public class OptionsDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Default keys", "Resets all keybinds to their default values.", KEYBINDS){
 					@Override
@@ -699,7 +834,7 @@ public class OptionsDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseEffectsOnly("Save", "Save all the pronouns that are currently displayed."){
 					@Override
@@ -810,16 +945,11 @@ public class OptionsDialogue {
 					+ pronoun.getName()
 				+ "</td>"
 					+ "<td style='min-width:160px;'>"
-					+"<form style='padding:0;margin:0;text-align:center;'><input type='text' id='masculine_" + pronoun + "' value='"
-					+ Main.getProperties().genderPronounMale.get(pronoun)
-					+ "'>"
+					+"<form style='padding:0;margin:0;text-align:center;'><input type='text' id='masculine_" + pronoun + "' value='"+ Main.getProperties().genderPronounMale.get(pronoun)+ "'>"
 					+ "</form>"
 				+ "</td>"
 				+ "<td style='min-width:160px;'>"
-					+"<form style='padding:0;margin:0;text-align:center;'><input type='text' id='feminine_" + pronoun + "' value='"
-					+ Main.getProperties().genderPronounFemale.get(pronoun)
-					+ "'>"
-					+ "</form>"
+					+"<form style='padding:0;margin:0;text-align:center;'><input type='text' id='feminine_" + pronoun + "' value='"+ Main.getProperties().genderPronounFemale.get(pronoun)+ "'></form>"
 				+ "</td>"
 				+ "</tr>";
 	}
@@ -834,9 +964,9 @@ public class OptionsDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
-				return new Response("Back", "Go back to the options menu.", OPTIONS);
+				return new Response("Back", "Go back to the options menu.", MENU);
 				
 			}else {
 				return null;
@@ -858,7 +988,7 @@ public class OptionsDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Go back to the options menu.", MENU);
 				
@@ -947,7 +1077,7 @@ public class OptionsDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			 if (index == 0) {
 				return new Response("Back", "Go back to the options menu.", OPTIONS);
 				
@@ -1192,7 +1322,7 @@ public class OptionsDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			 if (index == 0) {
 				return new Response("Back", "Go back to the options menu.", OPTIONS);
 				
@@ -1321,7 +1451,7 @@ public class OptionsDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Go back to the options menu.", MENU);
 				
@@ -1458,7 +1588,7 @@ public class OptionsDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Go back to the options menu.", MENU);
 				

@@ -16,6 +16,8 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.Rarity;
+import com.lilithsthrone.game.inventory.item.AbstractItem;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
@@ -386,12 +388,12 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 		} else {
 			if (clothingOwner.isPlayer()) {
 				if(rough) {
-					return UtilText.parse(clothingRemover, "[npc.Name] roughly "+dt.getDescription()+" your "+this.getName()+".");
+					return UtilText.parse(clothingRemover, "[npc.Name] roughly "+dt.getDescriptionThirdPerson()+" your "+this.getName()+".");
 				} else {
-					return UtilText.parse(clothingRemover, "[npc.Name] "+dt.getDescription()+" your "+this.getName()+".");
+					return UtilText.parse(clothingRemover, "[npc.Name] "+dt.getDescriptionThirdPerson()+" your "+this.getName()+".");
 				}
 			} else {
-				return UtilText.parse(clothingOwner, "[npc.Name] "+dt.getDescription()+" [npc.her] "+this.getName()+".");
+				return UtilText.parse(clothingOwner, "[npc.Name] "+dt.getDescriptionThirdPerson()+" [npc.her] "+this.getName()+".");
 			}
 		}
 	}
@@ -411,12 +413,12 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 		} else {
 			if (clothingOwner.isPlayer()) {
 				if(rough) {
-					return UtilText.parse(clothingRemover, "[npc.Name] roughly "+dt.getOppositeDescription()+" your "+this.getName()+".");
+					return UtilText.parse(clothingRemover, "[npc.Name] roughly "+dt.getOppositeDescriptionThirdPerson()+" your "+this.getName()+".");
 				} else {
-					return UtilText.parse(clothingRemover, "[npc.Name] "+dt.getOppositeDescription()+" your "+this.getName()+".");
+					return UtilText.parse(clothingRemover, "[npc.Name] "+dt.getOppositeDescriptionThirdPerson()+" your "+this.getName()+".");
 				}
 			} else {
-				return UtilText.parse(clothingOwner, "[npc.Name] "+dt.getOppositeDescription()+" [npc.her] "+this.getName()+".");
+				return UtilText.parse(clothingOwner, "[npc.Name] "+dt.getOppositeDescriptionThirdPerson()+" [npc.her] "+this.getName()+".");
 			}
 		}
 	}
@@ -530,100 +532,171 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 	}
 
 	public String getSVGImage(Colour colour) {
-		return getSVGImage(colour, false);
+		return getSVGImage(null, colour, false);
 	}
 	
-	public String getSVGEquippedImage(Colour colour) {
-		return getSVGImage(colour, true);
+	public String getSVGEquippedImage(GameCharacter character, Colour colour) {
+		return getSVGImage(character, colour, true);
 	}
 	
-	private String getSVGImage(Colour colour, boolean equippedVariant) {
+	private String colourReplacement(Colour colour, String inputString) {
+		String s = inputString;
+		for (int i = 0; i <= 14; i++)
+			s = s.replaceAll("linearGradient" + i, this.hashCode() + colour.toString() + "linearGradient" + i);
+		s = s.replaceAll("#ff2a2a", colour.getShades()[0]);
+		s = s.replaceAll("#ff5555", colour.getShades()[1]);
+		s = s.replaceAll("#ff8080", colour.getShades()[2]);
+		s = s.replaceAll("#ffaaaa", colour.getShades()[3]);
+		s = s.replaceAll("#ffd5d5", colour.getShades()[4]);
+		return s;
+	}
+	
+	private String getSVGImage(GameCharacter character, Colour colour, boolean equippedVariant) {
 		if (!availableColours.contains(colour)) {
 			return "";
 		}
 		
-		if(equippedVariant && pathNameEquipped!=null) {
-			if (SVGStringEquippedMap.containsKey(colour) && !this.equals(ClothingType.WRIST_WOMENS_WATCH) && !this.equals(ClothingType.WRIST_MENS_WATCH)) {
-				return SVGStringEquippedMap.get(colour);
-				
-			} else {
-				if (availableColours.contains(colour)) {
-					try {
-						InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/" + pathNameEquipped + ".svg");
-						String s = Util.inputStreamToString(is);
-	
-						for (int i = 0; i <= 14; i++)
-							s = s.replaceAll("linearGradient" + i, this.hashCode() + colour.toString() + "linearGradient" + i);
-						s = s.replaceAll("#ff2a2a", colour.getShades()[0]);
-						s = s.replaceAll("#ff5555", colour.getShades()[1]);
-						s = s.replaceAll("#ff8080", colour.getShades()[2]);
-						s = s.replaceAll("#ffaaaa", colour.getShades()[3]);
-						s = s.replaceAll("#ffd5d5", colour.getShades()[4]);
-						
-						// Add minute and hour hands to women's and men's watches:
-						s += (this.equals(ClothingType.WRIST_WOMENS_WATCH)
-								? "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + ((Main.game.getMinutesPassed() % (60 * 24)) / 2f) + "deg);'>"
-									+ SVGImages.SVG_IMAGE_PROVIDER.getWomensWatchHourHand() + "</div>"
-									+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + (Main.game.getMinutesPassed() % (60)) * 6 + "deg);'>"
-									+ SVGImages.SVG_IMAGE_PROVIDER.getWomensWatchMinuteHand() + "</div>"
-								: "")
-								+ (this.equals(ClothingType.WRIST_MENS_WATCH)
-									? "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + ((Main.game.getMinutesPassed() % (60 * 24)) / 2f) + "deg);'>"
-										+ SVGImages.SVG_IMAGE_PROVIDER.getMensWatchHourHand() + "</div>"
-										+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + (Main.game.getMinutesPassed() % (60)) * 6
-										+ "deg);'>" + SVGImages.SVG_IMAGE_PROVIDER.getMensWatchMinuteHand() + "</div>"
-									: "");
+		if(this.equals(ClothingType.HIPS_CONDOMS)) {
+			if (availableColours.contains(colour)) {
+				try {
+					InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_base_back.svg");
+					String s = "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>"+Util.inputStreamToString(is)+"</div>";
+					is.close();
+					s = colourReplacement(colour, s);
+
+					if(!equippedVariant) {
+						is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_base_front.svg");
+						s += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>" + Util.inputStreamToString(is) + "</div>";
+						s = colourReplacement(colour, s);
+						is.close();
 						
 						SVGStringEquippedMap.put(colour, s);
 						
-						is.close();
-	
 						return s;
-					} catch (IOException e) {
-						e.printStackTrace();
+						
+					} else {
+						List<Colour> condomColours = new ArrayList<>();
+						// Draw all backs:
+						for(AbstractItem item : character.getAllItemsInInventory()) {
+							if(item.getItemType().equals(ItemType.CONDOM_USED)) {
+								if(condomColours.size()<8) {
+									condomColours.add(item.getColour());
+									
+									is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_"+condomColours.size()+"_back.svg");
+									s += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>" + Util.inputStreamToString(is) + "</div>";
+									s = colourReplacement(item.getColour(), s);
+									is.close();
+								}
+							}
+						}
+						
+						is.close();
+						is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_base_front.svg");
+						s += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>" + Util.inputStreamToString(is) + "</div>";
+						s = colourReplacement(colour, s);
+						is.close();
+						
+						int i = 1;
+						for(Colour c : condomColours) {
+							is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_"+i+"_front.svg");
+							s += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>" + Util.inputStreamToString(is) + "</div>";
+							s = colourReplacement(c, s);
+							is.close();
+							i++;
+						}
+						
+						return s;
 					}
+					
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
 			}
 			
 		} else {
-			if (SVGStringMap.containsKey(colour) && !this.equals(ClothingType.WRIST_WOMENS_WATCH) && !this.equals(ClothingType.WRIST_MENS_WATCH)) {
-				return SVGStringMap.get(colour);
+			if(equippedVariant && pathNameEquipped!=null) {
+				if (SVGStringEquippedMap.containsKey(colour) && !this.equals(ClothingType.WRIST_WOMENS_WATCH) && !this.equals(ClothingType.WRIST_MENS_WATCH)) {
+					return SVGStringEquippedMap.get(colour);
+					
+				} else {
+					if (availableColours.contains(colour)) {
+						try {
+							InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/" + pathNameEquipped + ".svg");
+							String s = Util.inputStreamToString(is);
+		
+							for (int i = 0; i <= 14; i++)
+								s = s.replaceAll("linearGradient" + i, this.hashCode() + colour.toString() + "linearGradient" + i);
+							s = s.replaceAll("#ff2a2a", colour.getShades()[0]);
+							s = s.replaceAll("#ff5555", colour.getShades()[1]);
+							s = s.replaceAll("#ff8080", colour.getShades()[2]);
+							s = s.replaceAll("#ffaaaa", colour.getShades()[3]);
+							s = s.replaceAll("#ffd5d5", colour.getShades()[4]);
+							
+							// Add minute and hour hands to women's and men's watches:
+							s += (this.equals(ClothingType.WRIST_WOMENS_WATCH)
+									? "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + ((Main.game.getMinutesPassed() % (60 * 24)) / 2f) + "deg);'>"
+										+ SVGImages.SVG_IMAGE_PROVIDER.getWomensWatchHourHand() + "</div>"
+										+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + (Main.game.getMinutesPassed() % (60)) * 6 + "deg);'>"
+										+ SVGImages.SVG_IMAGE_PROVIDER.getWomensWatchMinuteHand() + "</div>"
+									: "")
+									+ (this.equals(ClothingType.WRIST_MENS_WATCH)
+										? "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + ((Main.game.getMinutesPassed() % (60 * 24)) / 2f) + "deg);'>"
+											+ SVGImages.SVG_IMAGE_PROVIDER.getMensWatchHourHand() + "</div>"
+											+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + (Main.game.getMinutesPassed() % (60)) * 6
+											+ "deg);'>" + SVGImages.SVG_IMAGE_PROVIDER.getMensWatchMinuteHand() + "</div>"
+										: "");
+							
+							SVGStringEquippedMap.put(colour, s);
+							
+							is.close();
+		
+							return s;
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+				}
 				
 			} else {
-				if (availableColours.contains(colour)) {
-					try {
-						InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/" + pathName + ".svg");
-						String s = Util.inputStreamToString(is);
-	
-						for (int i = 0; i <= 14; i++)
-							s = s.replaceAll("linearGradient" + i, this.hashCode() + colour.toString() + "linearGradient" + i);
-						s = s.replaceAll("#ff2a2a", colour.getShades()[0]);
-						s = s.replaceAll("#ff5555", colour.getShades()[1]);
-						s = s.replaceAll("#ff8080", colour.getShades()[2]);
-						s = s.replaceAll("#ffaaaa", colour.getShades()[3]);
-						s = s.replaceAll("#ffd5d5", colour.getShades()[4]);
-						
-						// Add minute and hour hands to women's and men's watches:
-						s += (this.equals(ClothingType.WRIST_WOMENS_WATCH)
-								? "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + ((Main.game.getMinutesPassed() % (60 * 24)) / 2f) + "deg);'>"
-									+ SVGImages.SVG_IMAGE_PROVIDER.getWomensWatchHourHand() + "</div>"
-									+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + (Main.game.getMinutesPassed() % (60)) * 6 + "deg);'>"
-									+ SVGImages.SVG_IMAGE_PROVIDER.getWomensWatchMinuteHand() + "</div>"
-								: "")
-								+ (this.equals(ClothingType.WRIST_MENS_WATCH)
+				if (SVGStringMap.containsKey(colour) && !this.equals(ClothingType.WRIST_WOMENS_WATCH) && !this.equals(ClothingType.WRIST_MENS_WATCH)) {
+					return SVGStringMap.get(colour);
+					
+				} else {
+					if (availableColours.contains(colour)) {
+						try {
+							InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/" + pathName + ".svg");
+							String s = Util.inputStreamToString(is);
+		
+							for (int i = 0; i <= 14; i++)
+								s = s.replaceAll("linearGradient" + i, this.hashCode() + colour.toString() + "linearGradient" + i);
+							s = s.replaceAll("#ff2a2a", colour.getShades()[0]);
+							s = s.replaceAll("#ff5555", colour.getShades()[1]);
+							s = s.replaceAll("#ff8080", colour.getShades()[2]);
+							s = s.replaceAll("#ffaaaa", colour.getShades()[3]);
+							s = s.replaceAll("#ffd5d5", colour.getShades()[4]);
+							
+							// Add minute and hour hands to women's and men's watches:
+							s += (this.equals(ClothingType.WRIST_WOMENS_WATCH)
 									? "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + ((Main.game.getMinutesPassed() % (60 * 24)) / 2f) + "deg);'>"
-										+ SVGImages.SVG_IMAGE_PROVIDER.getMensWatchHourHand() + "</div>"
-										+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + (Main.game.getMinutesPassed() % (60)) * 6
-										+ "deg);'>" + SVGImages.SVG_IMAGE_PROVIDER.getMensWatchMinuteHand() + "</div>"
-									: "");
-						
-						SVGStringMap.put(colour, s);
-						
-						is.close();
-	
-						return s;
-					} catch (IOException e) {
-						e.printStackTrace();
+										+ SVGImages.SVG_IMAGE_PROVIDER.getWomensWatchHourHand() + "</div>"
+										+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + (Main.game.getMinutesPassed() % (60)) * 6 + "deg);'>"
+										+ SVGImages.SVG_IMAGE_PROVIDER.getWomensWatchMinuteHand() + "</div>"
+									: "")
+									+ (this.equals(ClothingType.WRIST_MENS_WATCH)
+										? "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + ((Main.game.getMinutesPassed() % (60 * 24)) / 2f) + "deg);'>"
+											+ SVGImages.SVG_IMAGE_PROVIDER.getMensWatchHourHand() + "</div>"
+											+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + (Main.game.getMinutesPassed() % (60)) * 6
+											+ "deg);'>" + SVGImages.SVG_IMAGE_PROVIDER.getMensWatchMinuteHand() + "</div>"
+										: "");
+							
+							SVGStringMap.put(colour, s);
+							
+							is.close();
+		
+							return s;
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
 					}
 				}
 			}

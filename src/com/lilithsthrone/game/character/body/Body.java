@@ -46,6 +46,7 @@ import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.Height;
+import com.lilithsthrone.game.character.body.valueEnums.HornLength;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
@@ -133,7 +134,7 @@ public class Body implements Serializable, XMLSaving {
 		
 		// Optional parameters - initialised to null values:
 		private Antenna antenna = new Antenna(AntennaType.NONE);
-		private Horn horn = new Horn(HornType.NONE);
+		private Horn horn = new Horn(HornType.NONE, 0);
 		private Penis penis = new Penis(PenisType.NONE, 0, 0, 0, 0);
 		private Penis secondPenis = new Penis(PenisType.NONE, 0, 0, 0, 0);
 		private Tail tail = new Tail(TailType.NONE);
@@ -479,6 +480,7 @@ public class Body implements Serializable, XMLSaving {
 		Element bodyHorn = doc.createElement("horn");
 		parentElement.appendChild(bodyHorn);
 			CharacterUtils.addAttribute(doc, bodyHorn, "type", this.horn.type.toString());
+			CharacterUtils.addAttribute(doc, bodyHair, "length", String.valueOf(this.horn.length));
 			CharacterUtils.addAttribute(doc, bodyHorn, "rows", String.valueOf(this.horn.rows));
 		
 		// Leg:
@@ -492,6 +494,7 @@ public class Body implements Serializable, XMLSaving {
 			CharacterUtils.addAttribute(doc, bodyPenis, "type", this.penis.type.toString());
 			CharacterUtils.addAttribute(doc, bodyPenis, "size", String.valueOf(this.penis.size));
 			CharacterUtils.addAttribute(doc, bodyPenis, "pierced", String.valueOf(this.penis.pierced));
+			CharacterUtils.addAttribute(doc, bodyPenis, "virgin", String.valueOf(this.penis.virgin));
 			Element penisModifiers = doc.createElement("penisModifiers");
 			bodyPenis.appendChild(penisModifiers);
 			for(PenisModifier pm : PenisModifier.values()) {
@@ -927,21 +930,39 @@ public class Body implements Serializable, XMLSaving {
 		// **************** Horn **************** //
 		Element horn = (Element)parentElement.getElementsByTagName("horn").item(0);
 		
-		Horn importedHorn = new Horn(HornType.NONE);
+		Horn importedHorn = new Horn(HornType.NONE, 0);
 		importedHorn.rows = (Integer.valueOf(horn.getAttribute("rows")));
 		
+		String hornType = horn.getAttribute("type");
+		if(hornType.equals("DEMON")) {
+			hornType = "";
+		}
+		if(hornType.equals("BOVINE")) {
+			hornType = "";
+		}
+		int length = 0;
+		if(!hornType.equals("NONE")) {
+			length = HornLength.TWO_LONG.getMedianValue();
+		}
+		if(!horn.getAttribute("length").isEmpty()) {
+			try {
+				length = Integer.valueOf(horn.getAttribute("length"));
+			} catch(IllegalArgumentException e) {
+			}
+		}
 		try {
-			importedHorn = new Horn(HornType.valueOf(horn.getAttribute("type")));
+			importedHorn = new Horn(HornType.valueOf(hornType), length);
 			CharacterUtils.appendToImportLog(log, "</br></br>Body: Horn: "
 					+ "</br>type: "+importedHorn.getType()
+					+ "</br>length: "+length
 					+ "</br>rows: "+importedHorn.getHornRows());
 			
 		} catch(IllegalArgumentException e) {
 			if(horn.getAttribute("type").startsWith("DEMON")) {
-				importedHorn = new Horn(HornType.DEMON);
+				importedHorn = new Horn(HornType.SWEPT_BACK, length);
 				
 			} else if(horn.getAttribute("type").startsWith("BOVINE")) {
-				importedHorn = new Horn(HornType.BOVINE);
+				importedHorn = new Horn(HornType.CURVED, length);
 			}
 			
 			CharacterUtils.appendToImportLog(log, "</br></br>Body: Horn: "
@@ -975,6 +996,10 @@ public class Body implements Serializable, XMLSaving {
 				Integer.valueOf(testicles.getAttribute("numberOfTesticles")));
 		
 		importedPenis.pierced = (Boolean.valueOf(penis.getAttribute("pierced")));
+		
+		if(!penis.getAttribute("virgin").isEmpty()) {
+			importedPenis.virgin = (Boolean.valueOf(penis.getAttribute("virgin")));
+		}
 		
 		CharacterUtils.appendToImportLog(log, "</br></br>Body: Penis: "
 				+ "</br>type: "+importedPenis.getType()
@@ -1199,16 +1224,20 @@ public class Body implements Serializable, XMLSaving {
 		
 		for(int i=0; i<element.getElementsByTagName("bodyCovering").getLength(); i++){
 			Element e = ((Element)element.getElementsByTagName("bodyCovering").item(i));
-			
+
+			String type = e.getAttribute("type");
+			if(type.equals("HORN_COW") || type.equals("HORN_DEMON")) {
+				type = "HORN";
+			}
 			try {
-				body.setBodyCoveringForXMLImport(BodyCoveringType.valueOf(e.getAttribute("type")), CoveringPattern.valueOf(e.getAttribute("pattern")),
+				body.setBodyCoveringForXMLImport(BodyCoveringType.valueOf(type), CoveringPattern.valueOf(e.getAttribute("pattern")),
 						Colour.valueOf(e.getAttribute("colourPrimary")), Boolean.valueOf(e.getAttribute("glowPrimary")),
 						Colour.valueOf(e.getAttribute("colourSecondary")), Boolean.valueOf(e.getAttribute("glowSecondary")));
 			} catch(Exception ex) {
 			}
 			
 			if(Boolean.valueOf(e.getAttribute("discovered"))) {
-				body.getBodyCoveringTypesDiscovered().add(BodyCoveringType.valueOf(e.getAttribute("type")));
+				body.getBodyCoveringTypesDiscovered().add(BodyCoveringType.valueOf(type));
 			}
 			
 			CharacterUtils.appendToImportLog(log, "</br>Body: Set bodyCovering: "+e.getAttribute("type") +" pattern:"+CoveringPattern.valueOf(e.getAttribute("pattern"))
@@ -1444,6 +1473,15 @@ public class Body implements Serializable, XMLSaving {
 				case SIDECUT:
 					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been styled into a sidecut.");
 					break;
+				case BOB_CUT:
+					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been styled into a bob cut.");
+					break;
+				case PIXIE:
+					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been styled into a pixie-cut.");
+					break;
+				case SLICKED_BACK:
+					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been slicked back.");
+					break;
 			}
 		}
 		
@@ -1453,37 +1491,41 @@ public class Body implements Serializable, XMLSaving {
 			case NONE:
 				sb.append("");
 				break;
-			case DEMON:
-				if(owner.isFeminine()) {
-					if (owner.isPlayer())
-						sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" long, swept-back horns protrude from your upper forehead.");
-					else
-						sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" long, swept-back horns protrude from [npc.her] upper forehead.");
+			case CURLED:
+				if (owner.isPlayer()) {
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [pc.hornColour(true)], circular-curling horns protrude from the upper sides of your forehead.");
 				} else {
-					if (owner.isPlayer())
-						sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" short, curved horns protrude from your upper forehead.");
-					else
-						sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" short, curved horns protrude from [npc.her] upper forehead.");
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [npc.hornColour(true)], circular-curling horns protrude from the upper sides of [npc.her] forehead.");
 				}
 				break;
-			case BOVINE:
-				if(owner.isFeminine()) {
-					if (owner.isPlayer())
-						sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" short, slightly-curved horns, looking much like ones that you'd see on a cow, protrude from the sides of your head.");
-					else
-						sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" short, slightly-curved horns, looking much like ones that you'd see on a cow, protrude from the sides of [npc.her] head.");
+			case CURVED:
+				if (owner.isPlayer()) {
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [pc.hornColour(true)], curved horns protrude from the upper sides of your forehead.");
 				} else {
-					if (owner.isPlayer())
-						sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" long, curved horns, looking much like ones that you'd see on a bull, protrude from the sides of your head.");
-					else
-						sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" long, curved horns, looking much like ones that you'd see on a bull, protrude from the sides of [npc.her] head.");
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [npc.hornColour(true)], curved horns protrude from the upper sides of [npc.her] forehead.");
 				}
 				break;
-			default:
-				if (owner.isPlayer())
-					sb.append(" [pc.A_horns+] protrude from your upper forehead.");
-				else
-					sb.append(" [npc.A_horns+] protrude from [npc.her] upper forehead.");
+			case SPIRAL:
+				if (owner.isPlayer()) {
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [pc.hornColour(true)], spiralling horns protrude from the upper sides of your forehead.");
+				} else {
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [npc.hornColour(true)], spiralling horns protrude from the upper sides of [npc.her] forehead.");
+				}
+				break;
+			case STRAIGHT:
+				if (owner.isPlayer()) {
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [pc.hornColour(true)], straight horns protrude from the upper sides of your forehead.");
+				} else {
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [npc.hornColour(true)], straight horns protrude from the upper sides of [npc.her] forehead.");
+				}
+				break;
+			case SWEPT_BACK:
+				if (owner.isPlayer()) {
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [pc.hornColour(true)], swept-back horns protrude from the upper sides of your forehead.");
+				} else {
+					sb.append(" "+Util.capitaliseSentence(horn.getDeterminer(owner))+" "+horn.getHornLength().getDescriptor()+", [npc.hornColour(true)], swept-back horns protrude from the upper sides of [npc.her] forehead.");
+				}
+				break;
 		}
 		
 		// Antenna:
@@ -1882,9 +1924,8 @@ public class Body implements Serializable, XMLSaving {
 						break;
 				}
 				for(PenetrationType pt : PenetrationType.values()) {
-					if(Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.MOUTH_PLAYER))!=null) {
-						sb.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>The first time you performed oral sex was to "
-								+ Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.MOUTH_PLAYER)) + ".</span>");
+					if(Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.MOUTH_PLAYER))!=null && !Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.MOUTH_PLAYER)).isEmpty()) {
+						sb.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>The first time you performed oral sex was to " + Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.MOUTH_PLAYER)) + ".</span>");
 					}
 				}
 			}
@@ -2188,10 +2229,12 @@ public class Body implements Serializable, XMLSaving {
 			case HARPY:
 				if (owner.isPlayer())
 					sb.append("Your arms have transformed into "+armDeterminer+" huge wings, and are covered in beautiful [pc.armFullDescription(true)]."
-							+ " Where your hands should be, you have a single clawed thumb. Thankfully, you are still able to wrap your wings around objects to form a hand-like grip.");
+							+ " Where your hands should be, you have two feathered forefingers and a thumb, each of which ends in a little blunt claw."
+							+ " Although slightly less dexterous than a human hand, you're still able to use your remaining digits to form a hand-like grip.");
 				else
 					sb.append("In place of arms and hands, [npc.she] has "+armDeterminer+" huge wings, which are covered in beautiful [npc.armFullDescription(true)]."
-							+ " Where [npc.her] hands should be, [npc.she] has a single clawed thumb, which, when [npc.she] wraps [npc.her] wings around, can grasp objects in a hand-like grip.");
+							+ " Where [npc.her] hands should be, [npc.she] has two feathered forefingers and a thumb, each of which ends in a little blunt claw."
+							+ " Although slightly less dexterous than a human hand, [npc.she]'s still able to use [npc.her] digits to form a hand-like grip.");
 				break;
 			default:
 				break;
@@ -2734,10 +2777,11 @@ public class Body implements Serializable, XMLSaving {
 						nonHumanParts++;
 				}
 
-				if (horn.getType() == RacialBody.valueOfRace(r).getHornType()) {
+				if (RacialBody.valueOfRace(r).getHornType().contains(horn.getType())) {
 					currentParts++;
-					if (horn.getType() != RacialBody.valueOfRace(Race.HUMAN).getHornType())
+					if (horn.getType() != HornType.NONE) {
 						nonHumanParts++;
+					}
 				}
 
 				if (tail.getType() == RacialBody.valueOfRace(r).getTailType()) {
@@ -2972,9 +3016,8 @@ public class Body implements Serializable, XMLSaving {
 				descriptionSB.append(" <span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>You have retained your anal virginity.</span>");
 			}else{
 				for(PenetrationType pt : PenetrationType.values()) {
-					if(Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.ANUS_PLAYER))!=null) {
-						descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your anal virginity to "
-								+ Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.ANUS_PLAYER)) + ".</span>");
+					if(Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.ANUS_PLAYER))!=null && !Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.ANUS_PLAYER)).isEmpty()) {
+						descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your anal virginity to "+ Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.ANUS_PLAYER)) + ".</span>");
 					}
 				}
 			}
@@ -3178,14 +3221,19 @@ public class Body implements Serializable, XMLSaving {
 			
 			switch(owner.getNippleShape()) {
 				case NORMAL:
-					descriptionSB.append(" [pc.nipplePrimaryColour(true)] [pc.nipple],");
+					descriptionSB.append(" [pc.nipplePrimaryColour(true)]");
 					break;
 				case LIPS:
-					descriptionSB.append(" [pc.nipplePrimaryColour(true)]-lipped [pc.nipple],");
+					descriptionSB.append(" [pc.nipplePrimaryColour(true)]-lipped");
 					break;
 				case VAGINA:
-					descriptionSB.append(" [pc.nipplePrimaryColour(true)]-lipped [pc.nipple],");
+					descriptionSB.append(" [pc.nipplePrimaryColour(true)]-lipped");
 					break;
+			}
+			if(owner.getNippleCountPerBreast()>1) {
+				descriptionSB.append(" [pc.nipples],");
+			} else {
+				descriptionSB.append(" [pc.nipple],");
 			}
 			
 			switch(owner.getAreolaeShape()) {
@@ -3292,7 +3340,7 @@ public class Body implements Serializable, XMLSaving {
 				
 				if (!breast.getNipples().getOrificeNipples().isVirgin()) {
 					for(PenetrationType pt : PenetrationType.values()) {
-						if(owner.getVirginityLoss(new SexType(pt, OrificeType.NIPPLE_PLAYER))!=null) {
+						if(owner.getVirginityLoss(new SexType(pt, OrificeType.NIPPLE_PLAYER))!=null && !owner.getVirginityLoss(new SexType(pt, OrificeType.NIPPLE_PLAYER)).isEmpty()) {
 							descriptionSB.append(" [style.colourArcane(You lost your nipple virginity to "+ owner.getVirginityLoss(new SexType(pt, OrificeType.NIPPLE_PLAYER)) + ".)]");
 						}
 					}
@@ -3355,7 +3403,7 @@ public class Body implements Serializable, XMLSaving {
 								descriptionSB.append(" It fizzes and bubbles like a carbonated drink.");
 								break;
 							case HALLUCINOGENIC:
-								descriptionSB.append(" Anyone who ingests it suffers hallucinations, often related to lactation and breast-feeding.");
+								descriptionSB.append(" Anyone who ingests it suffers psychoactive effects, which can manifest in lactation-related hallucinations or sensitivity to hypnotic suggestion.");
 								break;
 							case MUSKY:
 								descriptionSB.append(" It has a strong, musky smell.");
@@ -3385,14 +3433,19 @@ public class Body implements Serializable, XMLSaving {
 			
 			switch(owner.getNippleShape()) {
 				case NORMAL:
-					descriptionSB.append(" [npc.nipplePrimaryColour(true)] [npc.nipple],");
+					descriptionSB.append(" [npc.nipplePrimaryColour(true)]");
 					break;
 				case LIPS:
-					descriptionSB.append(" [npc.nipplePrimaryColour(true)]-lipped [npc.nipple],");
+					descriptionSB.append(" [npc.nipplePrimaryColour(true)]-lipped");
 					break;
 				case VAGINA:
-					descriptionSB.append(" [npc.nipplePrimaryColour(true)]-lipped [npc.nipple],");
+					descriptionSB.append(" [npc.nipplePrimaryColour(true)]-lipped");
 					break;
+			}
+			if(owner.getNippleCountPerBreast()>1) {
+				descriptionSB.append(" [npc.nipples],");
+			} else {
+				descriptionSB.append(" [npc.nipple],");
 			}
 			
 			switch(owner.getAreolaeShape()) {
@@ -3499,7 +3552,7 @@ public class Body implements Serializable, XMLSaving {
 				
 				if (!breast.getNipples().getOrificeNipples().isVirgin()) {
 					for(PenetrationType pt : PenetrationType.values()) {
-						if(owner.getVirginityLoss(new SexType(pt, OrificeType.NIPPLE_PARTNER))!=null) {
+						if(owner.getVirginityLoss(new SexType(pt, OrificeType.NIPPLE_PARTNER))!=null && !owner.getVirginityLoss(new SexType(pt, OrificeType.NIPPLE_PARTNER)).isEmpty()) {
 							descriptionSB.append(" [style.colourArcane([npc.Name] lost [npc.her] nipple virginity to "+ owner.getVirginityLoss(new SexType(pt, OrificeType.NIPPLE_PARTNER)) + ".)]");
 						}
 					}
@@ -3556,7 +3609,7 @@ public class Body implements Serializable, XMLSaving {
 									descriptionSB.append(" It fizzes and bubbles like a carbonated drink.");
 									break;
 								case HALLUCINOGENIC:
-									descriptionSB.append(" Anyone who ingests it suffers hallucinations, often related to lactation and breast-feeding.");
+									descriptionSB.append(" Anyone who ingests it suffers psychoactive effects, which can manifest in lactation-related hallucinations or sensitivity to hypnotic suggestion.");
 									break;
 								case MUSKY:
 									descriptionSB.append(" It has a strong, musky smell.");
@@ -3684,6 +3737,29 @@ public class Body implements Serializable, XMLSaving {
 				}
 			}
 		}
+
+		if(owner.isPlayer()) {
+			if (!penis.isVirgin()) {
+					for(OrificeType ot : OrificeType.values()) {
+						if(owner.getVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, ot)) != null && !owner.getVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, ot)).isEmpty()) {
+							descriptionSB.append(" [style.colourArcane(You lost your penile virginity to "+ owner.getVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, ot)) + ".)]");
+						}
+					}
+			} else {
+				descriptionSB.append(" [style.colourGood(You have retained your penile virginity.)]");
+			}
+			
+		} else {
+			if (!penis.isVirgin()) {
+				for(OrificeType ot : OrificeType.values()) {
+					if(owner.getVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, ot))!=null && !owner.getVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, ot)).isEmpty()) {
+						descriptionSB.append(" [style.colourArcane([npc.Name] has lost [npc.her] penile virginity.)]");
+					}
+				}
+			} else {
+				descriptionSB.append(" [style.colourGood([npc.Name] has retained [npc.her] penile virginity.)]");
+			}
+		}
 		
 		// Capacity:
 		if (Capacity.getCapacityFromValue(penis.getOrificeUrethra().getStretchedCapacity()) != Capacity.ZERO_IMPENETRABLE) {
@@ -3790,9 +3866,8 @@ public class Body implements Serializable, XMLSaving {
 		
 		if (isPlayer && !owner.isUrethraVirgin()) {
 			for(PenetrationType pt : PenetrationType.values()) {
-				if(Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.URETHRA_PLAYER))!=null) {
-					descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your urethral virginity to "
-							+ Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.URETHRA_PLAYER)) + ".</span>");
+				if(Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.URETHRA_PLAYER))!=null && !Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.URETHRA_PLAYER)).isEmpty()) {
+					descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your urethral virginity to "+ Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.URETHRA_PLAYER)) + ".</span>");
 				}
 			}
 		}
@@ -4049,7 +4124,7 @@ public class Body implements Serializable, XMLSaving {
 						descriptionSB.append(" It fizzes and bubbles like a carbonated drink.");
 						break;
 					case HALLUCINOGENIC:
-						descriptionSB.append(" Anyone who ingests it suffers hallucinations, often related to obediently sucking cocks.");
+						descriptionSB.append(" Anyone who ingests it suffers psychoactive effects, which can manifest in cum-related hallucinations or sensitivity to hypnotic suggestion.");
 						break;
 					case MUSKY:
 						descriptionSB.append(" It has a strong, musky smell.");
@@ -4270,7 +4345,7 @@ public class Body implements Serializable, XMLSaving {
 						+ Capacity.getCapacityFromValue(vagina.getOrificeVagina().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " cocks with sufficient lubrication.)]");
 				
 				for(PenetrationType pt : PenetrationType.values()) {
-					if(Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.VAGINA_PLAYER))!=null && pt.isTakesVirginity()) {
+					if(Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.VAGINA_PLAYER))!=null && !Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.VAGINA_PLAYER)).isEmpty() && pt.isTakesVirginity()) {
 						descriptionSB.append(" <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>You lost your virginity to "+ Main.game.getPlayer().getVirginityLoss(new SexType(pt, OrificeType.VAGINA_PLAYER)) + ".</span>");
 					}
 				}
@@ -4485,32 +4560,32 @@ public class Body implements Serializable, XMLSaving {
 			if(owner.getSexAsSubCount()>=1) {
 				if(owner.getSexAsSubCount() == owner.getTotalTimesHadSex()) {
 					if(owner.getTotalTimesHadSex()==1) {
-						descriptionSB.append(UtilText.parse(owner," The one time you had sex with [npc.herHim], it was non-consensual, with you as the dominant partner."));
+						descriptionSB.append(UtilText.parse(owner," The one time you had sex with [npc.herHim], you were the dominant partner."));
 					} else {
-						descriptionSB.append(UtilText.parse(owner," All "+Util.intToString(owner.getTotalTimesHadSex())+" times were non-consensual, with you as the dominant partner."));
+						descriptionSB.append(UtilText.parse(owner," All "+Util.intToString(owner.getTotalTimesHadSex())+" times you were the dominant partner."));
 					}
 					
 				} else {
 					if(owner.getTotalTimesHadSex()==1) {
-						descriptionSB.append(UtilText.parse(owner," The one time you had sex with [npc.herHim], it was non-consensual, with you as the dominant partner."));
+						descriptionSB.append(UtilText.parse(owner," The one time you had sex with [npc.herHim], you were the dominant partner."));
 					} else {
-						descriptionSB.append(UtilText.parse(owner," "+Util.capitaliseSentence(Util.intToString(owner.getSexAsSubCount()))+" of these times were non-consensual, with you as the dominant partner."));
+						descriptionSB.append(UtilText.parse(owner," "+Util.capitaliseSentence(Util.intToString(owner.getSexAsSubCount()))+" of these times you were the dominant partner."));
 					}
 				}
 			}
 			if(owner.getSexAsDomCount()>=1) {
 				if(owner.getSexAsDomCount() == owner.getTotalTimesHadSex()) {
 					if(owner.getTotalTimesHadSex()==1) {
-						descriptionSB.append(UtilText.parse(owner," The one time you had sex with [npc.herHim], it was non-consensual, with you as the submissive partner."));
+						descriptionSB.append(UtilText.parse(owner," The one time you had sex with [npc.herHim], you were the submissive partner."));
 					} else {
-						descriptionSB.append(UtilText.parse(owner," All "+Util.intToString(owner.getTotalTimesHadSex())+" times were non-consensual, with you as the submissive partner."));
+						descriptionSB.append(UtilText.parse(owner," All "+Util.intToString(owner.getTotalTimesHadSex())+" times you were the submissive partner."));
 					}
 					
 				} else {
 					if(owner.getTotalTimesHadSex()==1) {
-						descriptionSB.append(UtilText.parse(owner," The one time you had sex with [npc.herHim], it was non-consensual, with you as the submissive partner."));
+						descriptionSB.append(UtilText.parse(owner," The one time you had sex with [npc.herHim], you were the submissive partner."));
 					} else {
-						descriptionSB.append(UtilText.parse(owner," "+Util.capitaliseSentence(Util.intToString(owner.getSexAsDomCount()))+" of these times were non-consensual, with you as the submissive partner."));
+						descriptionSB.append(UtilText.parse(owner," "+Util.capitaliseSentence(Util.intToString(owner.getSexAsDomCount()))+" of these times you were the submissive partner."));
 					}
 				}
 			}
@@ -4526,38 +4601,39 @@ public class Body implements Serializable, XMLSaving {
 	public String getPregnancyDetails(GameCharacter owner) {
 		descriptionSB = new StringBuilder();
 		
+		
 		// NPC is mother:
 		
 		if(owner.isVisiblyPregnant()) {
-			descriptionSB.append(UtilText.parse(owner,
-				"<p>"
-				+ "<span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>From one of your sexual encounters, you've ended up impregnating [npc.name].</span>"));
-			
-			if(owner.hasStatusEffect(StatusEffect.PREGNANT_1)) {
-				descriptionSB.append(UtilText.parse(owner,
-						" [npc.Her] belly is only a little swollen, as [npc.she]'s only in the first stage of pregnancy."));
-			} else if(owner.hasStatusEffect(StatusEffect.PREGNANT_2)) {
-				descriptionSB.append(UtilText.parse(owner,
-						" [npc.Her] belly is noticeably swollen, as [npc.she]'s well into [npc.her] pregnancy."));
+			GameCharacter father = owner.getPregnantLitter().getFather();
+			if(father.isPlayer()) {
+				descriptionSB.append("<p><span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>From one of your sexual encounters, you've ended up impregnating [npc.name].</span>");
 			} else {
-				descriptionSB.append(UtilText.parse(owner,
-						" [npc.Her] belly is massively swollen, and although [npc.she]'s clearly ready for it, [npc.she] hasn't decided to give birth to your children just yet."));
+				descriptionSB.append("<p><span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>From one of [npc.her] sexual encounters, [npc.name] has ended up getting impregnated by "+father.getName()+".</span>");
+			}
+			if(owner.hasStatusEffect(StatusEffect.PREGNANT_1)) {
+				descriptionSB.append(" [npc.Her] belly is only a little swollen, as [npc.she]'s only in the first stage of pregnancy.");
+			} else if(owner.hasStatusEffect(StatusEffect.PREGNANT_2)) {
+				descriptionSB.append(" [npc.Her] belly is noticeably swollen, as [npc.she]'s well into [npc.her] pregnancy.");
+			} else {
+				descriptionSB.append(" [npc.Her] belly is massively swollen, and although [npc.she]'s clearly ready for it, [npc.she] hasn't decided to give birth just yet.");
 			}
 			descriptionSB.append("</p>");
 		}
 		
 		if(!owner.getLittersBirthed().isEmpty()) {
-			
-			descriptionSB.append(UtilText.parse(owner,
-				"<p>"
+			descriptionSB.append("<p>"
 				+ "<span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"
-						+ "[npc.Name] is the mother of some of your children, and in total, has given birth "+Util.intToString(owner.getLittersBirthed().size())+" "+(owner.getLittersBirthed().size()==1?"time":"times")+".</span>"));
+						+ "[npc.Name] has given birth "+Util.intToString(owner.getLittersBirthed().size())+" "+(owner.getLittersBirthed().size()==1?"time":"times")+".</span>");
 			
 			for(Litter litter : owner.getLittersBirthed()) {
-				descriptionSB.append(UtilText.parse(owner,
-						"</br>On day "+litter.getDayOfConception()+", you impregnated [npc.her], and "+Util.intToString(litter.getDayOfBirth()-litter.getDayOfConception())+" days later, [npc.she] gave birth to "));
+				if(litter.getFather().isPlayer()) {
+					descriptionSB.append("</br>On day "+litter.getDayOfConception()+", you impregnated [npc.her], and "+Util.intToString(litter.getDayOfBirth()-litter.getDayOfConception())+" days later, [npc.she] gave birth to ");
+				} else {
+					descriptionSB.append("</br>On day "+litter.getDayOfConception()
+						+", "+litter.getFather().getName()+" impregnated [npc.her], and "+Util.intToString(litter.getDayOfBirth()-litter.getDayOfConception())+" days later, [npc.she] gave birth to ");
+				}
 				
-
 				descriptionSB.append(litter.getBirthedDescriptionList());
 				
 				descriptionSB.append(".");
@@ -4571,10 +4647,9 @@ public class Body implements Serializable, XMLSaving {
 		if(Main.game.getPlayer().isVisiblyPregnant()){
 			for(PregnancyPossibility pp : Main.game.getPlayer().getPotentialPartnersAsMother()) {
 				if(pp.getFather()==owner) {
-					descriptionSB.append(UtilText.parse(owner,
-							"<p>"
+					descriptionSB.append("<p>"
 								+ "<span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>From one of your sexual encounters, you've been impregnated, and it's possible that [npc.name] is the father.</span>"
-							+ "</p>"));
+							+ "</p>");
 					break;
 				}
 			}
@@ -4590,15 +4665,13 @@ public class Body implements Serializable, XMLSaving {
 			}
 			
 			if(fatheredLitters!=0) {
-				descriptionSB.append(UtilText.parse(owner,
-					"<p>"
+				descriptionSB.append("<p>"
 					+ "<span style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"
-							+ "[npc.Name] is the father of some of your children, and has, in total, impregnated you "+Util.intToString(fatheredLitters)+" "+(fatheredLitters==1?"time":"times")+".</span>"));
+							+ "[npc.Name] is the father of some of your children, and has, in total, impregnated you "+Util.intToString(fatheredLitters)+" "+(fatheredLitters==1?"time":"times")+".</span>");
 				
 				for(Litter litter : Main.game.getPlayer().getLittersBirthed()) {
 					if(litter.getFather()==owner){
-						descriptionSB.append(UtilText.parse(owner,
-								"</br>On day "+litter.getDayOfConception()+", [npc.she] impregnated you, and "+Util.intToString(litter.getDayOfBirth()-litter.getDayOfConception())+" days later, you gave birth to "));
+						descriptionSB.append("</br>On day "+litter.getDayOfConception()+", [npc.she] impregnated you, and "+Util.intToString(litter.getDayOfBirth()-litter.getDayOfConception())+" days later, you gave birth to ");
 						
 						descriptionSB.append(litter.getBirthedDescriptionList());
 						

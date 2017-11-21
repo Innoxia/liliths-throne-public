@@ -12,13 +12,21 @@ import com.lilithsthrone.utils.Util;
  */
 public enum HairStyle {
 
+//	- parted down the middle
+//	- side parted
+//	- shaved (different from bald)
+//	- punk (hair draped over face)
+	
 	NONE("natural", HairLength.ZERO_BALD),
 	LOOSE("loose", HairLength.ONE_VERY_SHORT),
 	CURLY("curly", HairLength.ONE_VERY_SHORT),
 	STRAIGHT("straight", HairLength.ONE_VERY_SHORT),
+	SLICKED_BACK("slicked-back", HairLength.ONE_VERY_SHORT),
 	AFRO("afro", HairLength.ONE_VERY_SHORT),
 	SIDECUT("sidecut", HairLength.TWO_SHORT),
+	PIXIE("pixie-cut", HairLength.TWO_SHORT),
 	MOHAWK("mohawk", HairLength.TWO_SHORT),
+	BOB_CUT("bob-cut", HairLength.THREE_SHOULDER_LENGTH),
 	WAVY("wavy", HairLength.THREE_SHOULDER_LENGTH),
 	PONYTAIL("ponytail", HairLength.THREE_SHOULDER_LENGTH),
 	TWIN_TAILS("twintails", HairLength.THREE_SHOULDER_LENGTH),

@@ -38,7 +38,7 @@ public class NightlifeDistrict {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Enter", "(This will be added soon!).", null);
 

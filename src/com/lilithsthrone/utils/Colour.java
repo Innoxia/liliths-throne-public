@@ -239,6 +239,7 @@ public enum Colour {
 
 	// Text colours:
 	TEXT(Util.newColour(0xDDDDDD), Util.newColour(0x262626), "grey",  Util.newArrayListOfValues(new ListValue<>("text"))),
+	TEXT_HALF_GREY(Util.newColour(0xBBBBBB), Util.newColour(0x444444), "grey",  Util.newArrayListOfValues(new ListValue<>("disabled"))),
 	TEXT_GREY(Util.newColour(0x777777), Util.newColour(0x777777), "grey",  Util.newArrayListOfValues(new ListValue<>("disabled"))),
 
 	// Standard colours used for clothing:
@@ -309,7 +310,11 @@ public enum Colour {
 	FEATHERS_BLEACH_BLONDE(BaseColour.YELLOW_LIGHT, "bleach-blonde"),
 
 	// Horns:
-	HORN_WHITE(BaseColour.WHITE, "white"),
+	HORN_WHITE(BaseColour.WHITE, "ivory"),
+	HORN_RED(BaseColour.RED, "red"),
+	HORN_GREY(BaseColour.RED, "grey"),
+	HORN_DARK_GREY(BaseColour.RED, "dark-grey"),
+	HORN_BLACK(BaseColour.BLACK, "black"),
 
 	// Orifices:
 	ORIFICE_INTERIOR(BaseColour.ROSE, "fleshy-pink"),
@@ -321,6 +326,7 @@ public enum Colour {
 	COVERING_BROWN(BaseColour.BROWN, "brown"),
 	COVERING_BROWN_DARK(BaseColour.BROWN_DARK, "dark brown"),
 	COVERING_BLACK(BaseColour.BLACK, "black"),
+	COVERING_GREY(BaseColour.GREY, "grey"),
 	COVERING_BLONDE(BaseColour.YELLOW, "blonde"),
 	COVERING_BLEACH_BLONDE(BaseColour.YELLOW_LIGHT, "bleach-blonde"),
 	COVERING_GINGER(BaseColour.GINGER, "ginger"),
@@ -456,6 +462,7 @@ public enum Colour {
 			new ListValue<Colour>(Colour.COVERING_GINGER),
 			new ListValue<Colour>(Colour.COVERING_BROWN),
 			new ListValue<Colour>(Colour.COVERING_BROWN_DARK),
+			new ListValue<Colour>(Colour.COVERING_GREY),
 			new ListValue<Colour>(Colour.COVERING_BLACK));
 
 	public static List<Colour> dyeFurColours = Util.newArrayListOfValues(
@@ -481,6 +488,14 @@ public enum Colour {
 			new ListValue<Colour>(Colour.COVERING_PINK),
 			new ListValue<Colour>(Colour.COVERING_PURPLE),
 			new ListValue<Colour>(Colour.COVERING_RED));
+
+	public static List<Colour> hornColours = Util.newArrayListOfValues(
+			new ListValue<Colour>(Colour.HORN_WHITE),
+			new ListValue<Colour>(Colour.HORN_RED),
+			new ListValue<Colour>(Colour.HORN_GREY),
+			new ListValue<Colour>(Colour.HORN_DARK_GREY),
+			new ListValue<Colour>(Colour.HORN_BLACK));
+	
 
 	// Orifices:
 	
@@ -508,6 +523,7 @@ public enum Colour {
 			new ListValue<Colour>(Colour.COVERING_GINGER),
 			new ListValue<Colour>(Colour.COVERING_BROWN),
 			new ListValue<Colour>(Colour.COVERING_BROWN_DARK),
+			new ListValue<Colour>(Colour.COVERING_GREY),
 			new ListValue<Colour>(Colour.COVERING_BLACK));
 	
 	public static List<Colour> dyeHairColours = Util.newArrayListOfValues(
@@ -516,6 +532,7 @@ public enum Colour {
 			new ListValue<Colour>(Colour.COVERING_GREEN),
 			new ListValue<Colour>(Colour.COVERING_PINK),
 			new ListValue<Colour>(Colour.COVERING_PURPLE),
+			new ListValue<Colour>(Colour.COVERING_ORANGE),
 			new ListValue<Colour>(Colour.COVERING_RED));
 	
 	// Eyes:

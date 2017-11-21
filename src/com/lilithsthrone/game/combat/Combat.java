@@ -15,8 +15,9 @@ import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.GenericDialogue;
+import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.MapDisplay;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -162,8 +163,8 @@ public enum Combat {
 			}
 			if(opponent.getLootEssenceDrops()!=null) {
 				
-				if(!Main.game.getDialogueFlags().essencePostCombatDiscovered) {
-					Main.game.getDialogueFlags().essencePostCombatDiscovered = true;
+				if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.essencePostCombatDiscovered)) {
+					Main.game.getDialogueFlags().values.add(DialogueFlagValue.essencePostCombatDiscovered);
 					
 					if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
 						postCombatStringBuilder.append(
@@ -610,7 +611,7 @@ public enum Combat {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Do something else.", ENEMY_ATTACK);
 				
@@ -676,7 +677,7 @@ public enum Combat {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Do something else.", ENEMY_ATTACK);
 				
@@ -723,7 +724,7 @@ public enum Combat {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if (opponent.getHealth() <= 0 || (opponent.getMana() <= 0 && !opponent.hasPerk(Perk.INDEFATIGABLE)) || (opponent.getStamina() <= 0 && !opponent.hasPerk(Perk.INDEFATIGABLE))) {
 					return new ResponseEffectsOnly("Victory", "<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>You have defeated " + opponent.getName("the") + "!</span>"){
@@ -775,7 +776,7 @@ public enum Combat {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Submit", "Submit to " + opponent.getName("the") + ". <span style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>This will cause you to lose the current combat!</span>", SUBMIT_CONFIRM){
 					@Override
@@ -821,7 +822,7 @@ public enum Combat {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseEffectsOnly("Continue", "You wait for " + opponent.getName("the") + " to make a move."){
 					@Override
@@ -861,14 +862,14 @@ public enum Combat {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if (escaped) {
 					return new ResponseEffectsOnly("Escaped!", "You got away!"){
 						@Override
 						public void effects() {
 							Main.game.setInCombat(false);
-							Main.game.setContent(new Response("", "", GenericDialogue.getDefaultDialogueNoEncounter()));
+							Main.game.setContent(new Response("", "", DebugDialogue.getDefaultDialogueNoEncounter()));
 						}
 					};
 				} else {
@@ -913,7 +914,7 @@ public enum Combat {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getPlayer().hasStatusEffect(StatusEffect.WITCH_SEAL)) { //TODO replace with generic isStunned() method
 				if (index == 1) {
 					return new Response("Stunned!", "You are unable to make an action this turn!", ENEMY_ATTACK){
@@ -921,7 +922,6 @@ public enum Combat {
 						public void effects() {
 							sunnedTurn();
 							attackEnemy();
-							previousAction = Attack.MAIN;
 						}
 					};
 					
@@ -935,7 +935,7 @@ public enum Combat {
 						@Override
 						public void effects() {
 							Main.game.setInCombat(false);
-							Main.game.setContent(new Response("", "", GenericDialogue.getDefaultDialogueNoEncounter()));
+							Main.game.setContent(new Response("", "", DebugDialogue.getDefaultDialogueNoEncounter()));
 						}
 					};
 				} else {
@@ -977,7 +977,6 @@ public enum Combat {
 						public void effects() {
 							attackMelee();
 							attackEnemy();
-							previousAction = Attack.MAIN;
 						}
 					};
 
@@ -987,7 +986,6 @@ public enum Combat {
 						public void effects() {
 							attackOffhand();
 							attackEnemy();
-							previousAction = Attack.OFFHAND;
 						}
 					};
 
@@ -997,7 +995,6 @@ public enum Combat {
 						public void effects() {
 							attackDual();
 							attackEnemy();
-							previousAction = Attack.DUAL;
 						}
 					};
 
@@ -1007,7 +1004,6 @@ public enum Combat {
 						public void effects() {
 							attackSeduction();
 							attackEnemy();
-							previousAction = Attack.SEDUCTION;
 						}
 					};
 
@@ -1041,51 +1037,11 @@ public enum Combat {
 						public void effects() {
 							attackWait();
 							attackEnemy();
-							previousAction = Attack.WAIT;
 						}
 					};
 
 				} else if (index == 9) {
 					switch (previousAction) {
-						case NONE:
-							return new Response("Repeat", "You have to perform an action first!", null);
-	
-						case MAIN:
-							return new Response("Main attack", getMainAttackDescription(), ENEMY_ATTACK){
-								@Override
-								public void effects() {
-									attackMelee();
-									attackEnemy();
-								}
-							};
-							
-						case OFFHAND:
-							return new Response("Offhand attack", getOffhandAttackDescription(), ENEMY_ATTACK){
-								@Override
-								public void effects() {
-									attackOffhand();
-									attackEnemy();
-								}
-							};
-							
-						case DUAL:
-							return new Response("Dual strike", getDualAttackDescription(), ENEMY_ATTACK){
-								@Override
-								public void effects() {
-									attackDual();
-									attackEnemy();
-								}
-							};
-							
-						case SEDUCTION:
-							return new Response("Seduce", getTeaseDescription(), ENEMY_ATTACK){
-								@Override
-								public void effects() {
-									attackSeduction();
-									attackEnemy();
-								}
-							};
-	
 						case SPELL:
 							return new Response(Util.capitaliseSentence(previouslyUsedSpell.getName()), getSpellDescription(previouslyUsedSpell, null), ENEMY_ATTACK){
 								@Override
@@ -1104,27 +1060,6 @@ public enum Combat {
 								}
 							};
 	
-						case USE_ITEM:
-							return new Response("Repeat", "You have to perform an action first!", null);
-							
-						case WAIT:
-							return new Response("Wait", "Don't perform an action.", ENEMY_ATTACK){
-								@Override
-								public void effects() {
-									attackWait();
-									attackEnemy();
-								}
-							};
-							
-						case ESCAPE:
-							return new Response("Escape", "Try to escape.</br></br>You have a "+escapeChance+"% chance to get away!", ENEMY_ATTACK){
-								@Override
-								public void effects() {
-									escape();
-									attackEnemy();
-								}
-							};
-	
 						default:
 							return new Response("Repeat", "You have to perform an action first!", null);
 					}
@@ -1135,13 +1070,13 @@ public enum Combat {
 				} else if (index == 0) {
 					if (escapeChance == 0) {
 						return new Response("Escape", "You can't run from this fight!", null);
+						
 					} else {
 						return new Response("Escape", "Try to escape.</br></br>You have a "+escapeChance+"% chance to get away!", ENEMY_ATTACK){
 							@Override
 							public void effects() {
 								escape();
 								attackEnemy();
-								previousAction = Attack.ESCAPE;
 							}
 						};
 					}

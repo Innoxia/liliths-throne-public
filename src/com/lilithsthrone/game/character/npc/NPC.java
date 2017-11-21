@@ -6,6 +6,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -104,56 +108,46 @@ import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.PlaceInterface;
-
-import java.util.Set;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.1.87
+ * @version 0.1.89
  * @author Innoxia
  */
-public abstract class NPC extends GameCharacter {
+public abstract class NPC extends GameCharacter implements XMLSaving {
 	private static final long serialVersionUID = 1L;
 	
 	protected long lastTimeEncountered = -1;
 
-	protected long getLastTimeHadSex = -1;
+	protected long lastTimeHadSex = -1;
 	
 	protected int romanceProgress = 0;
 	
 	protected float buyModifier, sellModifier;
 
-	protected boolean knowsPlayerGender = false;
-	protected boolean introducedToPlayer = false;
 	protected boolean addedToContacts;
-	protected boolean pendingClothingDressing = false;
-	
-	protected boolean reactedToPregnancy, reactedToPlayerPregnancy;
+
+	public Set<NPCFlagValue> NPCFlagValues;
 	
 	protected Set<SexPosition> sexPositionPreferences;
 	
 	protected Body bodyPreference = null;
 	
-	public boolean flagSlaveBackground = false, flagSlaveSmallTalk = false,
-						flagSlaveEncourage = false, flagSlaveHug = false, flagSlavePettings = false,
-						flagSlaveInspect = false, flagSlaveSpanking = false, flagSlaveMolest = false;
-	
-	
 	protected NPC(NameTriplet nameTriplet, String description, int level, Gender startingGender, RacialBody startingRace,
-			RaceStage stage, CharacterInventory inventory, WorldType worldLocation, PlaceInterface startingPlace, boolean addedToContacts) {
+			RaceStage stage, CharacterInventory inventory, WorldType worldLocation, PlaceType startingPlace, boolean addedToContacts) {
 		super(nameTriplet, description, level, startingGender, startingRace, stage, inventory, worldLocation, startingPlace);
 
 		this.addedToContacts = addedToContacts;
-		
-		reactedToPregnancy = false;
-		reactedToPlayerPregnancy = false;
 		
 		sexPositionPreferences = new HashSet<>();
 		
 		buyModifier=0.75f;
 		sellModifier=1.5f;
+		
+		NPCFlagValues = new HashSet<>();
 		
 		if(getLocation().equals(Main.game.getPlayer().getLocation()) && getWorldLocation()==Main.game.getPlayer().getWorldLocation()) {
 			for(CoverableArea ca : CoverableArea.values()) {
@@ -164,16 +158,79 @@ public abstract class NPC extends GameCharacter {
 		}
 	}
 	
+	@Override
+	public Element saveAsXML(Element parentElement, Document doc) {
+		Element properties = super.saveAsXML(parentElement, doc);
+		
+		Element npcSpecific = doc.createElement("npcSpecific");
+		properties.appendChild(npcSpecific);
+
+		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "lastTimeEncountered", String.valueOf(lastTimeEncountered));
+		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "lastTimeHadSex", String.valueOf(lastTimeHadSex));
+		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "romanceProgress", String.valueOf(romanceProgress));
+		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "buyModifier", String.valueOf(buyModifier));
+		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "sellModifier", String.valueOf(sellModifier));
+		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "addedToContacts", String.valueOf(addedToContacts));
+
+		Element valuesElement = doc.createElement("NPCValues");
+		npcSpecific.appendChild(valuesElement);
+		for(NPCFlagValue value : NPCFlagValues) {
+			CharacterUtils.createXMLElementWithValue(doc, valuesElement, "NPCValue", value.toString());
+		}
+		
+		Element positionsElement = doc.createElement("sexPositionPreferences");
+		npcSpecific.appendChild(positionsElement);
+		for(SexPosition position : sexPositionPreferences) {
+			CharacterUtils.createXMLElementWithValue(doc, valuesElement, "position", position.toString());
+		}
+		
+		Element preferredBody = doc.createElement("preferredBody");
+		npcSpecific.appendChild(preferredBody);
+		getPreferredBody().saveAsXML(preferredBody, doc);
+		
+		return properties;
+	}
+	
+	public abstract NPC loadFromXML(Element parentElement, Document doc);
+	
+	public static void loadNPCVariablesFromXML(NPC npc, StringBuilder log, Element parentElement, Document doc) {
+		
+		GameCharacter.loadGameCharacterVariablesFromXML(npc, log, parentElement, doc);
+		
+		Element npcSpecificElement = (Element) parentElement.getElementsByTagName("npcSpecific").item(0);
+		
+		if(npcSpecificElement!=null) {
+			npc.setLastTimeEncountered(Long.valueOf(((Element)npcSpecificElement.getElementsByTagName("lastTimeEncountered").item(0)).getAttribute("value")));
+			npc.setLastTimeHadSex(Long.valueOf(((Element)npcSpecificElement.getElementsByTagName("lastTimeHadSex").item(0)).getAttribute("value")));
+			npc.setRomanceProgress(Integer.valueOf(((Element)npcSpecificElement.getElementsByTagName("romanceProgress").item(0)).getAttribute("value")));
+			npc.setBuyModifier(Float.valueOf(((Element)npcSpecificElement.getElementsByTagName("buyModifier").item(0)).getAttribute("value")));
+			npc.setSellModifier(Float.valueOf(((Element)npcSpecificElement.getElementsByTagName("sellModifier").item(0)).getAttribute("value")));
+			npc.addedToContacts = (Boolean.valueOf(((Element)npcSpecificElement.getElementsByTagName("addedToContacts").item(0)).getAttribute("value")));
+		
+	
+			for(int i=0; i<((Element) npcSpecificElement.getElementsByTagName("NPCValues").item(0)).getElementsByTagName("NPCValue").getLength(); i++){
+				Element e = (Element) ((Element) npcSpecificElement.getElementsByTagName("NPCValues").item(0)).getElementsByTagName("NPCValue").item(i);
+				npc.NPCFlagValues.add(NPCFlagValue.valueOf(e.getAttribute("value")));
+			}
+			
+			for(int i=0; i<((Element) npcSpecificElement.getElementsByTagName("sexPositionPreferences").item(0)).getElementsByTagName("position").getLength(); i++){
+				Element e = (Element) ((Element) npcSpecificElement.getElementsByTagName("sexPositionPreferences").item(0)).getElementsByTagName("position").item(i);
+				npc.sexPositionPreferences.add(SexPosition.valueOf(e.getAttribute("value")));
+			}
+			
+			npc.bodyPreference = Body.loadFromXML(log, (Element) parentElement.getElementsByTagName("body").item(0), doc);
+		}
+	}
 	
 	public void resetSlaveFlags() {
-		flagSlaveBackground = false;
-		flagSlaveSmallTalk = false;
-		flagSlaveEncourage = false;
-		flagSlaveHug = false;
-		flagSlavePettings = false;
-		flagSlaveInspect = false;
-		flagSlaveSpanking = false;
-		flagSlaveMolest = false;
+		NPCFlagValues.remove(NPCFlagValue.flagSlaveBackground);
+		NPCFlagValues.remove(NPCFlagValue.flagSlaveSmallTalk);
+		NPCFlagValues.remove(NPCFlagValue.flagSlaveEncourage);
+		NPCFlagValues.remove(NPCFlagValue.flagSlaveHug);
+		NPCFlagValues.remove(NPCFlagValue.flagSlavePettings);
+		NPCFlagValues.remove(NPCFlagValue.flagSlaveInspect);
+		NPCFlagValues.remove(NPCFlagValue.flagSlaveSpanking);
+		NPCFlagValues.remove(NPCFlagValue.flagSlaveMolest);
 	}
 	
 	/**
@@ -276,6 +333,9 @@ public abstract class NPC extends GameCharacter {
 		if(rnd<=0.05) {
 			return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.FETISH_UNREFINED)));
 			
+		} else if(rnd<=0.1) {
+			return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.ADDICTION_REMOVAL)));
+			
 		} else if(rnd <= 0.7) {
 			switch(getRace()) {
 				case CAT_MORPH:
@@ -376,10 +436,12 @@ public abstract class NPC extends GameCharacter {
 			if(this.getSlaveJob()==SlaveJob.IDLE) {
 				return this.getHomeLocationPlace().getAffectionChange();
 			}
-			return this.getSlaveJob().getAffectionGain();
+			// To get rid of e.g. 2.3999999999999999999999:
+			return Math.round(this.getSlaveJob().getAffectionGain(this)*100)/100f;
 		}
-
-		return this.getHomeLocationPlace().getAffectionChange();
+		
+		// To get rid of e.g. 2.3999999999999999999999:
+		return Math.round(this.getHomeLocationPlace().getAffectionChange()*100)/100f;
 	}
 	
 	public float getDailyAffectionChange() {
@@ -389,12 +451,13 @@ public abstract class NPC extends GameCharacter {
 			if(this.getSlaveJob()==SlaveJob.IDLE) {
 				totalAffectionChange+=this.getHomeLocationPlace().getAffectionChange();
 			}
-			totalAffectionChange += this.getSlaveJob().getAffectionGain();
+			totalAffectionChange += this.getSlaveJob().getAffectionGain(this);
 		}
 		
 		for (int homeHour = 0; homeHour < 24-this.getTotalHoursWorked(); homeHour++) {
 			totalAffectionChange += this.getHomeLocationPlace().getAffectionChange();
 		}
+		
 		// To get rid of e.g. 2.3999999999999999999999:
 		return Math.round(totalAffectionChange*100)/100f;
 	}
@@ -412,19 +475,60 @@ public abstract class NPC extends GameCharacter {
 	}
 
 	public boolean isKnowsPlayerGender() {
-		return knowsPlayerGender;
+		return NPCFlagValues.contains(NPCFlagValue.knowsPlayerGender);
 	}
 
 	public void setKnowsPlayerGender(boolean knowsPlayerGender) {
-		this.knowsPlayerGender = knowsPlayerGender;
+		if(knowsPlayerGender) {
+			NPCFlagValues.add(NPCFlagValue.knowsPlayerGender);
+		} else {
+			NPCFlagValues.remove(NPCFlagValue.knowsPlayerGender);
+		}
 	}
 	
 	public boolean isIntroducedToPlayer() {
-		return introducedToPlayer;
+		return NPCFlagValues.contains(NPCFlagValue.introducedToPlayer);
 	}
 
 	public void setIntroducedToPlayer(boolean introducedToPlayer) {
-		this.introducedToPlayer = introducedToPlayer;
+		if(introducedToPlayer) {
+			NPCFlagValues.add(NPCFlagValue.introducedToPlayer);
+		} else {
+			NPCFlagValues.remove(NPCFlagValue.introducedToPlayer);
+		}
+	}
+	
+	public boolean isReactedToPregnancy() {
+		return NPCFlagValues.contains(NPCFlagValue.reactedToPregnancy);
+	}
+	public void setReactedToPregnancy(boolean reactedToPregnancy) {
+		if(reactedToPregnancy) {
+			NPCFlagValues.add(NPCFlagValue.reactedToPregnancy);
+		} else {
+			NPCFlagValues.remove(NPCFlagValue.reactedToPregnancy);
+		}
+	}
+	
+	public boolean isReactedToPlayerPregnancy() {
+		return NPCFlagValues.contains(NPCFlagValue.reactedToPlayerPregnancy);
+	}
+	public void setReactedToPlayerPregnancy(boolean reactedToPlayerPregnancy) {
+		if(reactedToPlayerPregnancy) {
+			NPCFlagValues.add(NPCFlagValue.reactedToPlayerPregnancy);
+		} else {
+			NPCFlagValues.remove(NPCFlagValue.reactedToPlayerPregnancy);
+		}
+	}
+	
+	public boolean isPendingClothingDressing() {
+		return NPCFlagValues.contains(NPCFlagValue.pendingClothingDressing);
+	}
+	public void setPendingClothingDressing(boolean pendingClothingDressing) {
+		if(pendingClothingDressing) {
+			NPCFlagValues.add(NPCFlagValue.pendingClothingDressing);
+		} else {
+			NPCFlagValues.remove(NPCFlagValue.pendingClothingDressing);
+		}
 	}
 	
 	public long getLastTimeEncountered() {
@@ -435,13 +539,13 @@ public abstract class NPC extends GameCharacter {
 		this.lastTimeEncountered = minutesPassed;
 	}
 
-	public long getGetLastTimeHadSex() {
-		return getLastTimeHadSex;
+	public long getLastTimeHadSex() {
+		return lastTimeHadSex;
 	}
 
 
-	public void setGetLastTimeHadSex(long getLastTimeHadSex) {
-		this.getLastTimeHadSex = getLastTimeHadSex;
+	public void setLastTimeHadSex(long lastTimeHadSex) {
+		this.lastTimeHadSex = lastTimeHadSex;
 	}
 
 
@@ -974,7 +1078,7 @@ public abstract class NPC extends GameCharacter {
 									startingBodyType.getCumProduction(),
 									startingBodyType.getTesticleQuantity())
 								: new Penis(PenisType.NONE, 0, 0, 0, 2))
-						.horn(new Horn(stage.isHornFurry()?startingBodyType.getHornType():HornType.NONE))
+						.horn(new Horn((stage.isHornFurry()?startingBodyType.getRandomHornType(false):HornType.NONE), (preferredGender.isFeminine() ? startingBodyType.getFemaleHornLength() : startingBodyType.getMaleHornLength())))
 						.antenna(new Antenna(stage.isAntennaFurry()?startingBodyType.getAntennaType():AntennaType.NONE))
 						.tail(new Tail(stage.isTailFurry()?startingBodyType.getTailType():TailType.NONE))
 						.wing(new Wing(stage.isWingFurry()?startingBodyType.getWingType():WingType.NONE))
@@ -1075,7 +1179,7 @@ public abstract class NPC extends GameCharacter {
 	// Sex:
 	
 	public String getLostVirginityDescriptor() {
-		return "";
+		return this.getLocationPlace().getPlaceType().getVirgintyLossDescription();
 	}
 	
 	public void endSex(boolean applyEffects) {
@@ -1117,6 +1221,7 @@ public abstract class NPC extends GameCharacter {
 			foreplaySexTypes.add(new SexType(PenetrationType.TONGUE_PARTNER, OrificeType.BREAST_PLAYER));
 			foreplaySexTypes.add(new SexType(PenetrationType.FINGER_PARTNER, OrificeType.NIPPLE_PLAYER));
 			foreplaySexTypes.add(new SexType(PenetrationType.TONGUE_PARTNER, OrificeType.NIPPLE_PLAYER));
+			foreplaySexTypes.add(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.BREAST_PLAYER));
 			
 			mainSexTypes.add(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.BREAST_PLAYER));
 			mainSexTypes.add(new SexType(PenetrationType.TAIL_PARTNER, OrificeType.BREAST_PLAYER));
@@ -1128,6 +1233,7 @@ public abstract class NPC extends GameCharacter {
 			foreplaySexTypes.add(new SexType(PenetrationType.TONGUE_PLAYER, OrificeType.BREAST_PARTNER));
 			foreplaySexTypes.add(new SexType(PenetrationType.FINGER_PLAYER, OrificeType.NIPPLE_PARTNER));
 			foreplaySexTypes.add(new SexType(PenetrationType.TONGUE_PLAYER, OrificeType.NIPPLE_PARTNER));
+			foreplaySexTypes.add(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.BREAST_PARTNER));
 
 			mainSexTypes.add(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.BREAST_PARTNER));
 			mainSexTypes.add(new SexType(PenetrationType.TAIL_PLAYER, OrificeType.BREAST_PARTNER));
@@ -1348,11 +1454,14 @@ public abstract class NPC extends GameCharacter {
 				} else if(foreplayPreference.getOrificeType()==OrificeType.ANUS_PLAYER){
 					sexPositionPreferences.add(SexPosition.FACING_WALL_PLAYER);
 					
-				} else {
-					sexPositionPreferences.add(SexPosition.BACK_TO_WALL_PLAYER);
+				} else if(foreplayPreference.equals(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.BREAST_PARTNER))
+						|| foreplayPreference.equals(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.NIPPLE_PARTNER))) {
+					sexPositionPreferences.add(SexPosition.KNEELING_PARTNER_PERFORMING_ORAL);
+					
 				}
 				
-			} else { // If no preferences found, add 'standard' positions:
+			} 
+			if(sexPositionPreferences.isEmpty()){ // If no preferences found, add 'standard' positions:
 				sexPositionPreferences.add(SexPosition.BACK_TO_WALL_PLAYER);
 				sexPositionPreferences.add(SexPosition.DOGGY_PLAYER_ON_ALL_FOURS);
 				sexPositionPreferences.add(SexPosition.FACING_WALL_PLAYER);
@@ -1378,15 +1487,18 @@ public abstract class NPC extends GameCharacter {
 					sexPositionPreferences.add(SexPosition.DOGGY_PLAYER_ON_ALL_FOURS);
 					
 				} else if(mainSexPreference.equals(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER))) {
+					sexPositionPreferences.add(SexPosition.FACING_WALL_PLAYER);
 					sexPositionPreferences.add(SexPosition.BACK_TO_WALL_PLAYER);
 					sexPositionPreferences.add(SexPosition.DOGGY_PLAYER_ON_ALL_FOURS);
 					
 				} else if(mainSexPreference.equals(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER))) {
 					sexPositionPreferences.add(SexPosition.COWGIRL_PARTNER_TOP);
+					sexPositionPreferences.add(SexPosition.DOGGY_PARTNER_AS_DOM_ON_ALL_FOURS);
 					
 				} else if(mainSexPreference.equals(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER))) {
 					sexPositionPreferences.add(SexPosition.COWGIRL_PARTNER_TOP);
 					sexPositionPreferences.add(SexPosition.BACK_TO_WALL_PLAYER);
+					sexPositionPreferences.add(SexPosition.DOGGY_PARTNER_AS_DOM_ON_ALL_FOURS);
 					
 				} else if(mainSexPreference.equals(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.BREAST_PARTNER))
 						|| mainSexPreference.equals(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.NIPPLE_PARTNER))) {
@@ -1397,7 +1509,8 @@ public abstract class NPC extends GameCharacter {
 					sexPositionPreferences.add(SexPosition.KNEELING_PLAYER_PERFORMING_ORAL);
 				}
 				
-			} else { // If no preferences found, add 'standard' positions:
+			}
+			if(sexPositionPreferences.isEmpty()){ // If no preferences found, add 'standard' positions:
 				sexPositionPreferences.add(SexPosition.BACK_TO_WALL_PLAYER);
 				sexPositionPreferences.add(SexPosition.DOGGY_PLAYER_ON_ALL_FOURS);
 				sexPositionPreferences.add(SexPosition.FACING_WALL_PLAYER);
@@ -1407,10 +1520,6 @@ public abstract class NPC extends GameCharacter {
 			}
 		}
 		
-//		System.out.println("Positions: ");
-//		for(SexPosition position : sexPositionPreferences) {
-//			System.out.println(position.toString()+" ");
-//		}
 		return sexPositionPreferences;
 	}
 	
@@ -1432,11 +1541,9 @@ public abstract class NPC extends GameCharacter {
 			return false;
 		}
 		
-		if(mother!=null && father!=null) {
-			if(mother.getId().equals(character.getId()) || father.getId().equals(character.getId())) {
-				if (!hasFetish(Fetish.FETISH_INCEST)) {
-					return false;
-				}
+		if(motherId.equals(character.getId()) || fatherId.equals(character.getId())) {
+			if (!hasFetish(Fetish.FETISH_INCEST)) {
+				return false;
 			}
 		}
 		
@@ -1444,6 +1551,10 @@ public abstract class NPC extends GameCharacter {
 	}
 
 	public SexPace getSexPaceSubPreference(GameCharacter character){
+		if(this.hasFetish(Fetish.FETISH_NON_CON_SUB) && Main.game.isNonConEnabled()) {
+			return SexPace.SUB_RESISTING;
+		}
+		
 		if(!isAttractedTo(character)) {
 			if(Main.game.isNonConEnabled()) {
 				if(isSlave()) {
@@ -1455,12 +1566,10 @@ public abstract class NPC extends GameCharacter {
 					}
 				}
 				
-				if(mother!=null && father!=null) {
-					if(mother.getId().equals(character.getId()) || father.getId().equals(character.getId())) {
-						if (getHistory() == History.PROSTITUTE) {
-							if(Sex.isConsensual()) {
-								return SexPace.SUB_NORMAL;
-							}
+				if(motherId.equals(character.getId()) || fatherId.equals(character.getId())) {
+					if (getHistory() == History.PROSTITUTE) {
+						if(Sex.isConsensual()) {
+							return SexPace.SUB_NORMAL;
 						}
 					}
 				}
@@ -1503,27 +1612,7 @@ public abstract class NPC extends GameCharacter {
 		return SexPace.DOM_NORMAL;
 	}
 	
-	public boolean isReactedToPregnancy() {
-		return reactedToPregnancy;
-	}
-	public void setReactedToPregnancy(boolean reactedToPregnancy) {
-		this.reactedToPregnancy = reactedToPregnancy;
-	}
 	
-	public boolean isReactedToPlayerPregnancy() {
-		return reactedToPlayerPregnancy;
-	}
-	public void setReactedToPlayerPregnancy(boolean reactedToPlayerPregnancy) {
-		this.reactedToPlayerPregnancy = reactedToPlayerPregnancy;
-	}
-	
-	public boolean isPendingClothingDressing() {
-		return pendingClothingDressing;
-	}
-	public void setPendingClothingDressing(boolean pendingClothingDressing) {
-		this.pendingClothingDressing = pendingClothingDressing;
-	}
-
 
 	/**
 	 * Returns a description of how this npc reacts to item usage.
@@ -1571,9 +1660,10 @@ public abstract class NPC extends GameCharacter {
 					+ AffectionLevel.getDescription(character, Main.game.getPlayer(),
 							AffectionLevel.getAffectionLevelFromValue(character.getAffection(Main.game.getPlayer())), true));
 		
-		for(Entry<GameCharacter, Float> entry : character.getAffectionMap().entrySet()) {
-			if(!entry.getKey().isPlayer()) {
-				infoScreenSB.append("</br>" + AffectionLevel.getDescription(character, entry.getKey(), AffectionLevel.getAffectionLevelFromValue(character.getAffection(entry.getKey())), true));
+		for(Entry<String, Float> entry : character.getAffectionMap().entrySet()) {
+			GameCharacter target = Main.game.getNPCById(entry.getKey());
+			if(!target.isPlayer()) {
+				infoScreenSB.append("</br>" + AffectionLevel.getDescription(character, target, AffectionLevel.getAffectionLevelFromValue(character.getAffection(target)), true));
 			}
 		}
 		
@@ -1590,8 +1680,8 @@ public abstract class NPC extends GameCharacter {
 		if(character.getSlavesOwned().isEmpty()) {
 			infoScreenSB.append("</br>[style.colourDisabled(None)]");
 		} else {
-			for(GameCharacter slave : character.getSlavesOwned()) {
-				infoScreenSB.append(UtilText.parse(slave, "</br>[npc.Name]"));
+			for(String id : character.getSlavesOwned()) {
+				infoScreenSB.append(UtilText.parse(Main.game.getNPCById(id), "</br>[npc.Name]"));
 			}
 		}
 		
@@ -1968,22 +2058,46 @@ public abstract class NPC extends GameCharacter {
 						"You're my bitch now, understand?!",
 						"I'm going to use you however I want, you fucking slut!");
 			case SUB_EAGER:
-				return UtilText.returnStringAtRandom(
-						"Come on, fuck me already! Please!",
-						"Fuck me! Please!",
-						"What are you waiting for?! Come on, fuck me!",
-						"I'm so horny! Please, fuck me!");
+				if(Sex.getPartner().isVaginaVirgin() && Sex.getPartner().hasVagina()) {
+					return UtilText.returnStringAtRandom(
+							"Come on, fuck me already! Take my virginity!",
+							"I'm still a virgin! Please, break me in already!",
+							"What are you waiting for?! Fuck my virgin pussy already!",
+							"I'm so horny! Please, fuck my pussy! Take my virginity!");
+				} else {
+					return UtilText.returnStringAtRandom(
+							"Come on, fuck me already! Please!",
+							"Fuck me! Please!",
+							"What are you waiting for?! Come on, fuck me!",
+							"I'm so horny! Please, fuck me!");
+				}
 			case SUB_NORMAL:
-				return UtilText.returnStringAtRandom(
-						"I'll be a good [npc.girl]!",
-						"I'll do whatever you want!",
-						"Let's get started!",
-						"Let's have some fun!");
+				if(Sex.getPartner().isVaginaVirgin() && Sex.getPartner().hasVagina()) {
+					return UtilText.returnStringAtRandom(
+							"I'll be a good [npc.girl]! Just... I'm still a virgin, ok?",
+							"I'll do whatever you want! I'm still a virgin though...",
+							"Let's get started! But... I'm still a virgin...",
+							"Let's have some fun! But... I'm still a virgin, ok?");
+				} else {
+					return UtilText.returnStringAtRandom(
+							"I'll be a good [npc.girl]!",
+							"I'll do whatever you want!",
+							"Let's get started!",
+							"Let's have some fun!");
+				}
 			case SUB_RESISTING:
-				return UtilText.returnStringAtRandom(
-						"Go away! Leave me alone!",
-						"Stop it! Just go away!",
-						"Please stop! Don't do this!");
+				if(Sex.getPartner().isVaginaVirgin() && Sex.getPartner().hasVagina()) {
+					return UtilText.returnStringAtRandom(
+							"Go away! I-I'm still a virgin! Leave me alone!",
+							"Stop it! Just go away! I-I'm still a virgin!",
+							"Please stop! I don't want to lose my virginity!",
+							"Don't do this! I'm still a virgin!");
+				} else {
+					return UtilText.returnStringAtRandom(
+							"Go away! Leave me alone!",
+							"Stop it! Just go away!",
+							"Please stop! Don't do this!");
+				}
 			default:
 				return UtilText.returnStringAtRandom(
 						"This is going to be good!",
@@ -2119,7 +2233,7 @@ public abstract class NPC extends GameCharacter {
 						switch(Sex.getSexPacePartner()) {
 							case DOM_GENTLE:
 								return UtilText.returnStringAtRandom(
-										"That's right, keep eating me out like a good [pc.girl]!",
+										"That's right, keep eating me out!",
 										"Good [pc.girl]! Keep that [pc.tongue] of yours busy!",
 										"What a good [pc.girl]! You love the taste of my pussy, don't you?!");
 							case DOM_NORMAL:
@@ -6434,7 +6548,7 @@ public abstract class NPC extends GameCharacter {
 				
 				if(Sex.getSexPacePlayer()==SexPace.SUB_RESISTING) {
 					subQualifier = UtilText.returnStringAtRandom("reluctantly", "half-heartedly", "hesitantly");
-					subAction = UtilText.returnStringAtRandom("slides", "pushes", "drives");
+					subAction = UtilText.returnStringAtRandom("slide", "push", "drive");
 					subReactionPrefix = UtilText.returnStringAtRandom("You struggle and try to protest as [npc.name]", "You try to pull away as [npc.name]", "You let out a protesting whine as [npc.name]");
 					subSelfReactionPrefix = UtilText.returnStringAtRandom("You try not to look at [npc.name]", "You try to shuffle away from [npc.name]", "You fail to suppress a desperate whine");
 					domPenSubReactionPostfix = UtilText.returnStringAtRandom(
@@ -7289,6 +7403,10 @@ public abstract class NPC extends GameCharacter {
 //        return UtilText.parse("/res/txt/dialogue/sex/Generic/PlayerVaginaVirginityLossDescription.txt", context);
 //	}
 	
+	public String getPlayerPenileVirginityLossDescription(){
+		return formatVirginityLoss("You'll always remember this moment as the time that you lost your penile virginity!");
+	}
+	
 	public String getPlayerNippleVirginityLossDescription(){
 		return formatVirginityLoss("You'll always remember this moment as the time that you lost your nipple virginity!");
 	}
@@ -7310,6 +7428,14 @@ public abstract class NPC extends GameCharacter {
 		}
 	}
 
+	public String getPartnerPenileVirginityLossDescription(){
+		return formatVirginityLoss("You have taken [npc.name]'s penile virginity!")
+				+(Main.game.getPlayer().hasFetish(Fetish.FETISH_DEFLOWERING)
+						?"<p style='text-align:center;><i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Due to your deflowering fetish, you gain</i>"
+						+ " <i style='color:"+Colour.GENERIC_EXPERIENCE.toWebHexString()+";'>"+Fetish.getExperienceGainFromTakingOtherVirginity(Main.game.getPlayer())+"</i>"
+						+ " <i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>experience!</i></p>"
+						:"");
+	}
 	
 	public String getPartnerAnalVirginityLossDescription(){
 		if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER).isPlayer()) {

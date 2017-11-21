@@ -2,7 +2,12 @@ package com.lilithsthrone.game.inventory;
 
 import java.io.Serializable;
 import java.util.AbstractMap.SimpleEntry;
+import java.util.Map.Entry;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
@@ -14,8 +19,10 @@ import com.lilithsthrone.game.inventory.clothing.ClothingSet;
 import com.lilithsthrone.game.inventory.clothing.CoverableArea;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
+import com.lilithsthrone.game.inventory.item.AbstractFilledCondom;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.AbstractClothingRarityComparator;
@@ -27,6 +34,7 @@ import com.lilithsthrone.utils.InventoryWeaponComparator;
 import com.lilithsthrone.utils.ReverseClothingZLayerComparator;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
+import com.lilithsthrone.utils.XMLSaving;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -41,10 +49,10 @@ import java.util.Set;
  * Inventory for a Character. Tracks weapons equipped, clothes worn & inventory space.
  * 
  * @since 0.1.0
- * @version 0.1.86
+ * @version 0.1.89
  * @author Innoxia
  */
-public class CharacterInventory implements Serializable {
+public class CharacterInventory implements Serializable, XMLSaving {
 
 	private static final long serialVersionUID = 1L;
 
@@ -74,7 +82,7 @@ public class CharacterInventory implements Serializable {
 	private int maxInventorySpace;
 
 	public CharacterInventory(int money) {
-		this(money, 24);
+		this(money, 32);
 	}
 		
 	public CharacterInventory(int money, int maxInventorySpace) {
@@ -98,8 +106,123 @@ public class CharacterInventory implements Serializable {
 		
 		clothingCurrentlyEquipped = new ArrayList<>();
 		clothingSetCount = new EnumMap<>(ClothingSet.class);
+		for(ClothingSet clothingSet : ClothingSet.values()) {
+			clothingSetCount.put(clothingSet, 0);
+		}
 		
 		this.maxInventorySpace = maxInventorySpace;
+	}
+	
+	@Override
+	public Element saveAsXML(Element parentElement, Document doc) {
+		Element characterInventory = doc.createElement("characterInventory");
+		parentElement.appendChild(characterInventory);
+		CharacterUtils.createXMLElementWithValue(doc, characterInventory, "maxInventorySpace", String.valueOf(this.getMaximumInventorySpace()));
+		CharacterUtils.createXMLElementWithValue(doc, characterInventory, "money", String.valueOf(this.getMoney()));
+		CharacterUtils.createXMLElementWithValue(doc, characterInventory, "essences", String.valueOf(this.getEssenceCount(TFEssence.ARCANE)));
+		
+		if(this.getMainWeapon() != null) {
+			Element mainWeapon = doc.createElement("mainWeapon");
+			characterInventory.appendChild(mainWeapon);
+			this.getMainWeapon().saveAsXML(mainWeapon, doc);
+		}
+		
+		if(this.getOffhandWeapon() != null) {
+			Element offhandWeapon = doc.createElement("offhandWeapon");
+			characterInventory.appendChild(offhandWeapon);
+			this.getOffhandWeapon().saveAsXML(offhandWeapon, doc);
+		}
+		
+		Element clothingEquipped = doc.createElement("clothingEquipped");
+		characterInventory.appendChild(clothingEquipped);
+		for(AbstractClothing clothing : this.getClothingCurrentlyEquipped()) {
+			clothing.saveAsXML(clothingEquipped, doc);
+		}
+		
+		Element itemsInInventory = doc.createElement("itemsInInventory");
+		characterInventory.appendChild(itemsInInventory);
+		for(Entry<AbstractItem, Integer> item : this.getMapOfDuplicateItems().entrySet()) {
+			Element e = item.getKey().saveAsXML(itemsInInventory, doc);
+			CharacterUtils.addAttribute(doc, e, "count", String.valueOf(item.getValue()));
+		}
+		
+		Element clothingInInventory = doc.createElement("clothingInInventory");
+		characterInventory.appendChild(clothingInInventory);
+		for(Entry<AbstractClothing, Integer> clothing : this.getMapOfDuplicateClothing().entrySet()) {
+			Element e = clothing.getKey().saveAsXML(clothingInInventory, doc);
+			CharacterUtils.addAttribute(doc, e, "count", String.valueOf(clothing.getValue()));
+		}
+		
+		Element weaponsInInventory = doc.createElement("weaponsInInventory");
+		characterInventory.appendChild(weaponsInInventory);
+		for(Entry<AbstractWeapon, Integer> weapon : this.getMapOfDuplicateWeapons().entrySet()) {
+			Element e = weapon.getKey().saveAsXML(weaponsInInventory, doc);
+			CharacterUtils.addAttribute(doc, e, "count", String.valueOf(weapon.getValue()));
+		}
+		
+		return characterInventory;
+	}
+	
+	public static CharacterInventory loadFromXML(Element parentElement, Document doc) {
+		CharacterInventory inventory = new CharacterInventory(0);
+
+		if(parentElement.getElementsByTagName("maxInventorySpace").item(0)!=null) {
+			inventory.setMaximumInventorySpace(Integer.valueOf(((Element)parentElement.getElementsByTagName("maxInventorySpace").item(0)).getAttribute("value")));
+		}
+		inventory.setMoney(Integer.valueOf(((Element)parentElement.getElementsByTagName("money").item(0)).getAttribute("value")));
+		inventory.setEssenceCount(TFEssence.ARCANE, Integer.valueOf(((Element)parentElement.getElementsByTagName("essences").item(0)).getAttribute("value")));
+		
+		if(parentElement.getElementsByTagName("mainWeapon").item(0)!=null) {
+			inventory.equipMainWeapon(AbstractWeapon.loadFromXML(
+					(Element) ((Element)parentElement.getElementsByTagName("mainWeapon").item(0)).getElementsByTagName("weapon").item(0),
+					doc));
+		}
+
+		if(parentElement.getElementsByTagName("offhandWeapon").item(0)!=null) {
+			inventory.equipOffhandWeapon(AbstractWeapon.loadFromXML(
+					(Element) ((Element)parentElement.getElementsByTagName("offhandWeapon").item(0)).getElementsByTagName("weapon").item(0),
+					doc));
+		}
+		
+		Element clothingEquipped = (Element) parentElement.getElementsByTagName("clothingEquipped").item(0);
+		for(int i=0; i<clothingEquipped.getElementsByTagName("clothing").getLength(); i++){
+			Element e = ((Element)clothingEquipped.getElementsByTagName("clothing").item(i));
+			
+			inventory.getClothingCurrentlyEquipped().add(AbstractClothing.loadFromXML(e, doc));
+		}
+		
+		Element itemsInInventory = (Element) parentElement.getElementsByTagName("itemsInInventory").item(0);
+		for(int i=0; i<itemsInInventory.getElementsByTagName("item").getLength(); i++){
+			Element e = ((Element)itemsInInventory.getElementsByTagName("item").item(i));
+			
+			for(int itemCount = 0 ; itemCount < Integer.valueOf(e.getAttribute("count")); itemCount++) {
+				if(e.getAttribute("id").equals(ItemType.itemToIdMap.get(ItemType.CONDOM_USED))) {
+					inventory.addItem(AbstractFilledCondom.loadFromXML(e, doc));
+				} else {
+					inventory.addItem(AbstractItem.loadFromXML(e, doc));
+				}
+			}
+		}
+		
+		Element clothingInInventory = (Element) parentElement.getElementsByTagName("clothingInInventory").item(0);
+		for(int i=0; i<clothingInInventory.getElementsByTagName("clothing").getLength(); i++){
+			Element e = ((Element)clothingInInventory.getElementsByTagName("clothing").item(i));
+
+			for(int clothingCount = 0 ; clothingCount < Integer.valueOf(e.getAttribute("count")); clothingCount++) {
+				inventory.addClothing(AbstractClothing.loadFromXML(e, doc));
+			}
+		}
+		
+		Element weaponsInInventory = (Element) parentElement.getElementsByTagName("weaponsInInventory").item(0);
+		for(int i=0; i<weaponsInInventory.getElementsByTagName("weapon").getLength(); i++){
+			Element e = ((Element)weaponsInInventory.getElementsByTagName("weapon").item(i));
+
+			for(int weaponCount = 0 ; weaponCount < Integer.valueOf(e.getAttribute("count")); weaponCount++) {
+				inventory.addWeapon(AbstractWeapon.loadFromXML(e, doc));
+			}
+		}
+		
+		return inventory;
 	}
 	
 	public List<AbstractItem> getItemsInInventory() {
@@ -143,6 +266,10 @@ public class CharacterInventory implements Serializable {
 	
 	public int getEssenceCount(TFEssence essence) {
 		return essenceMap.get(essence);
+	}
+	
+	public void setEssenceCount(TFEssence essence, int count) {
+		essenceMap.put(essence, count);
 	}
 	
 	public void incrementEssenceCount(TFEssence essence, int increment) {
@@ -520,7 +647,7 @@ public class CharacterInventory implements Serializable {
 		return clothingSetCount.get(clothingSet);
 	}
 	
-	// Lasciate ogne speranza, voi ch'intrate //
+	// Lasciate ogne speranza, voi ch'entrate //
 
 	private StringBuilder tempSB;
 
@@ -709,7 +836,7 @@ public class CharacterInventory implements Serializable {
 						for (BlockedParts bpEquipped : equippedClothing.getClothingType().getBlockedPartsList()) {
 							for (ClothingAccess caBlocked : bpEquipped.clothingAccessBlocked) { // For each clothing access that is blocked by this equipped clothing, check to see if this clothing access is required by the new clothing:
 								
-								if (bp.clothingAccessRequired.contains(caBlocked) && !equippedClothing.getDisplacedList().contains(bpEquipped.displacementType)) { // Blocking clothing found which hasn't been displaced:
+								if (bp.clothingAccessRequired.contains(caBlocked) && !equippedClothing.getDisplacedList().contains(bpEquipped.displacementType) && !isDisplacementAvailableFromElsewhere(equippedClothing, caBlocked)) {
 									
 									if (!clothingToRemove.containsKey(equippedClothing)) { // This clothing has not already been marked for removal:
 										if(automaticClothingManagement && isAbleToBeDisplaced(equippedClothing, bpEquipped.displacementType, false, automaticClothingManagement, characterClothingOwner, characterClothingEquipper, true)) {
@@ -917,7 +1044,7 @@ public class CharacterInventory implements Serializable {
 						if (equippedClothing != clothing)
 							for (BlockedParts bpEquipped : equippedClothing.getClothingType().getBlockedPartsList()) {
 								for (ClothingAccess caBlocked : bpEquipped.clothingAccessBlocked) {
-									if (bp.clothingAccessRequired.contains(caBlocked) && !equippedClothing.getDisplacedList().contains(bpEquipped.displacementType)) {
+									if (bp.clothingAccessRequired.contains(caBlocked) && !equippedClothing.getDisplacedList().contains(bpEquipped.displacementType) && !isDisplacementAvailableFromElsewhere(equippedClothing, caBlocked)) {
 										if (bpEquipped.displacementType != DisplacementType.REMOVE_OR_EQUIP) { // Can be displaced:
 											// If clothingToRemove already contains this clothing, it's just going to be easier to remove the clothing fully than perform multiple displacements:
 											if (!clothingToRemove.containsKey(equippedClothing))
@@ -1001,9 +1128,10 @@ public class CharacterInventory implements Serializable {
 			clothingToBeReplaced.remove(clothing);
 			clothingToBeReplaced.sort(new ReverseClothingZLayerComparator());
 
-			if (!clothingToBeReplaced.isEmpty() && !continuingIsAbleToEquip)
-				equipTextSB.append("</br>You replace your " + Util.clothesToStringList(clothingToBeReplaced) + ".");
-
+			if (!clothingToBeReplaced.isEmpty() && !continuingIsAbleToEquip) {
+				equipTextSB.append("</br>You replace "+(characterClothingOwner.isPlayer()?"your":characterClothingOwner.getName()+"'s")+" " + Util.clothesToStringList(clothingToBeReplaced) + ".");
+			}
+			
 			// Check for clothing sets:
 			if (clothing.getClothingType().getClothingSet() != null) {
 				clothingSetCount.put(clothing.getClothingType().getClothingSet(), clothingSetCount.get(clothing.getClothingType().getClothingSet()) - 1);
@@ -1050,8 +1178,7 @@ public class CharacterInventory implements Serializable {
 				displacementTypeFound = true;
 
 				if (bp.clothingAccessRequired == null) {
-					break; // This clothing doesn't need any access in order to
-							// be displaced in this manner, so just carry on.
+					break; // This clothing doesn't need any access in order to be displaced in this manner, so just carry on.
 
 				} else {
 					// This clothing has access requirements in order to be displaced. Check each piece of equipped clothing to see if it's blocking the access required:
@@ -1060,7 +1187,7 @@ public class CharacterInventory implements Serializable {
 							for (BlockedParts bpEquipped : equippedClothing.getClothingType().getBlockedPartsList()) {
 								for (ClothingAccess caBlocked : bpEquipped.clothingAccessBlocked) {
 
-									if (bp.clothingAccessRequired.contains(caBlocked) && !equippedClothing.getDisplacedList().contains(bpEquipped.displacementType)) {
+									if (bp.clothingAccessRequired.contains(caBlocked) && !equippedClothing.getDisplacedList().contains(bpEquipped.displacementType) && !isDisplacementAvailableFromElsewhere(equippedClothing, caBlocked)) {
 										
 										if (bpEquipped.displacementType != DisplacementType.REMOVE_OR_EQUIP && !clothingToRemove.containsKey(equippedClothing)) { // Can be displaced:
 											if (!equippedClothing.getDisplacedList().contains(bpEquipped.displacementType)){ // Not already displaced:
@@ -1128,9 +1255,10 @@ public class CharacterInventory implements Serializable {
 			replaceClothingList.addAll(clothingToRemove.keySet());
 			replaceClothingList.remove(clothing);
 			replaceClothingList.sort(new ReverseClothingZLayerComparator());
-			if (!replaceClothingList.isEmpty())
-				unableToDisplaceText.append("</br>You replace your " + Util.clothesToStringList(replaceClothingList) + ".");
-
+			if (!replaceClothingList.isEmpty()) {
+				unableToDisplaceText.append("</br>You replace "+(characterClothingOwner.isPlayer()?"your":characterClothingOwner.getName()+"'s")+" " + Util.clothesToStringList(replaceClothingList) + ".");
+			}
+			
 			return true;
 		}
 		unableToDisplaceText = new StringBuilder(Util.capitaliseSentence(clothing.getClothingType().getDeterminer()) + " " + clothing.getName() + " is able to be displaced.");
@@ -1170,7 +1298,7 @@ public class CharacterInventory implements Serializable {
 						for (BlockedParts bpEquipped : equippedClothing.getClothingType().getBlockedPartsList()) {
 							for (ClothingAccess caBlocked : bpEquipped.clothingAccessBlocked) {
 
-								if (bp.clothingAccessRequired.contains(caBlocked) && !equippedClothing.getDisplacedList().contains(bpEquipped.displacementType)) {
+								if (bp.clothingAccessRequired.contains(caBlocked) && !equippedClothing.getDisplacedList().contains(bpEquipped.displacementType) && !isDisplacementAvailableFromElsewhere(equippedClothing, caBlocked)) {
 									if (bpEquipped.displacementType != DisplacementType.REMOVE_OR_EQUIP && !clothingToRemove.containsKey(equippedClothing)) { // Can be displaced:
 										if (!equippedClothing.getDisplacedList().contains(bpEquipped.displacementType)){ // Not already displaced:
 											if(automaticClothingManagement)
@@ -1236,9 +1364,10 @@ public class CharacterInventory implements Serializable {
 			List<AbstractClothing> replaceClothingList = new ArrayList<>();
 			replaceClothingList.addAll(clothingToRemove.keySet());
 			replaceClothingList.sort(new ReverseClothingZLayerComparator());
-			if (!replaceClothingList.isEmpty())
-				unableToReplaceText.append("</br>You replace your " + Util.clothesToStringList(replaceClothingList) + ".");
-
+			if (!replaceClothingList.isEmpty()) {
+				unableToReplaceText.append("</br>You replace "+(characterClothingOwner.isPlayer()?"your":characterClothingOwner.getName()+"'s")+" " + Util.clothesToStringList(replaceClothingList) + ".");
+			}
+			
 			return true;
 		}
 
@@ -1246,6 +1375,17 @@ public class CharacterInventory implements Serializable {
 		return true;
 	}
 
+	private boolean isDisplacementAvailableFromElsewhere(AbstractClothing clothing, ClothingAccess accessRequired) {
+		for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList()) {
+			if (bp.clothingAccessBlocked.contains(accessRequired)) {// If this clothing is blocking the area you are trying to access:
+				if (clothing.getDisplacedList().contains(bp.displacementType)) { // If the clothing has been displaced:
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
 	/**
 	 * @param area Area you want to get to.
 	 * @param byRemovingClothing Allow consideration of clothing removal or not.

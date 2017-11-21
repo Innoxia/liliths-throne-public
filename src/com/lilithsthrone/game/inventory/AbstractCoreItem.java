@@ -5,18 +5,22 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.item.ItemEffectType;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
- * @version 0.1.84
+ * @version 0.1.89
  * @author Innoxia
  */
-public abstract class AbstractCoreItem implements Serializable {
+public abstract class AbstractCoreItem implements Serializable, XMLSaving {
 
 	private static final long serialVersionUID = 1L;
 
@@ -43,6 +47,16 @@ public abstract class AbstractCoreItem implements Serializable {
 			for (Entry<Attribute, Integer> e : attributeModifiers.entrySet())
 				this.attributeModifiers.put(e.getKey(), e.getValue());
 
+	}
+	
+	public Element saveAsXML(Element parentElement, Document doc) {
+		System.err.print("Eek! Tried to export an abstract item!");
+		return null;
+	}
+	
+	public static AbstractCoreItem loadFromXML(Element parentElement, Document doc) {
+		System.err.print("Eek! Tried to import an abstract item!");
+		return null;
 	}
 	
 	// Enchantments:

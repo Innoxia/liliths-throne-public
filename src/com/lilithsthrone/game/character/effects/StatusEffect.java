@@ -17,13 +17,16 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.FitnessLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.StrengthLevel;
+import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
+import com.lilithsthrone.game.character.body.valueEnums.AddictionLevel;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.combat.DamageType;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingSet;
@@ -1430,8 +1433,8 @@ public enum StatusEffect {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			if(target.isPlayer() && Main.game.getDialogueFlags().stormTextUpdateRequired) {
-				Main.game.getDialogueFlags().stormTextUpdateRequired = false;
+			if(target.isPlayer() && Main.game.getDialogueFlags().values.contains(DialogueFlagValue.stormTextUpdateRequired)) {
+				Main.game.getDialogueFlags().values.remove(DialogueFlagValue.stormTextUpdateRequired);
 				return "<p>"
 						+ "A bright-pink flash suddenly illuminates the entire city of Dominion, causing those few residents still prowling the streets to look skywards."
 						+ " High up above them, the threatening storm clouds have finally broken, and a roiling mass of arcane energy finally crackles into life."
@@ -1528,8 +1531,8 @@ public enum StatusEffect {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			if(target.isPlayer() && Main.game.getDialogueFlags().stormTextUpdateRequired) {
-				Main.game.getDialogueFlags().stormTextUpdateRequired = false;
+			if(target.isPlayer() && Main.game.getDialogueFlags().values.contains(DialogueFlagValue.stormTextUpdateRequired)) {
+				Main.game.getDialogueFlags().values.remove(DialogueFlagValue.stormTextUpdateRequired);
 				return "<p>"
 						+ "A bright-pink flash suddenly illuminates the entire city of Dominion, causing those few residents still prowling the streets to look skywards."
 						+ " High up above them, the threatening storm clouds have finally broken, and a roiling mass of arcane energy finally crackles into life."
@@ -2260,8 +2263,8 @@ public enum StatusEffect {
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
 			if(target.isPlayer()) {
-				if(!Main.game.getDialogueFlags().jinxedClothingDiscovered) {
-					Main.game.getDialogueFlags().jinxedClothingDiscovered = true;
+				if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.jinxedClothingDiscovered)) {
+					Main.game.getDialogueFlags().values.add(DialogueFlagValue.jinxedClothingDiscovered);
 					AbstractClothing clothing = null;
 					for(AbstractClothing c : target.getClothingCurrentlyEquipped()) {
 						if(c.isSealed()) {
@@ -2377,7 +2380,7 @@ public enum StatusEffect {
 			"overworked",
 			"overworked",
 			Colour.BASE_MAGENTA,
-			true,
+			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.FITNESS, -5f),
 					new Value<Attribute, Float>(Attribute.STAMINA_MAXIMUM, -50f),
@@ -2405,6 +2408,350 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.isSlave() && target.getSlaveJob()!=SlaveJob.IDLE && target.getTotalHoursWorked()>8;
+		}
+	},
+	
+	ADDICTIONS(
+			80,
+			"addictions",
+			"addictions",
+			Colour.BASE_CRIMSON,
+			false,
+			null,
+			Util.newArrayListOfValues(new ListValue<String>("[style.boldBad(Suffer withdrawal effects)]"))) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			target.recalculateFluidAddictions();
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				StringBuilder sb = new StringBuilder();
+				
+				if(target.isPlayer()) {
+					sb.append("You have the following addictions:");
+				} else {
+					sb.append(UtilText.parse(target, "[npc.Name] has the following addictions:"));
+				}
+				
+				for(Entry<FluidType, Integer> entry : target.getAddictionsMap().entrySet()) {
+					if(entry.getValue()>0) {
+						sb.append("</br><b style='color:"+entry.getKey().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getDescriptor(target))+" "+entry.getKey().getName(target)+"</b>: "
+								+entry.getValue()+" (<span style='color:"+AddictionLevel.valueOf(entry.getValue()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(AddictionLevel.valueOf(entry.getValue()).getName(false))+"</span>)"
+								+ (Main.game.getMinutesPassed()-target.getLastTimeSatisfiedAddictionMap().get(entry.getKey())<24*60
+										?" [style.colourGood(Satisfied)]: "+(23-(Main.game.getMinutesPassed()-target.getLastTimeSatisfiedAddictionMap().get(entry.getKey()))/60)
+												+":"+String.format("%02d", (60-(Main.game.getMinutesPassed()-target.getLastTimeSatisfiedAddictionMap().get(entry.getKey()))%60))
+										:" [style.boldArcane(Withdrawal!)]"));
+					}
+				}
+				
+				return sb.toString();
+			} else {
+				return "";
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return !target.getAddictionsMap().isEmpty();
+		}
+	},
+	
+	WITHDRAWAL_1(
+			80,
+			"Mild Withdrawal",
+			"withdrawal1",
+			Colour.CORRUPTION_STAGE_ONE,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.INTELLIGENCE, -2f),
+					new Value<Attribute, Float>(Attribute.STRENGTH, -2f),
+					new Value<Attribute, Float>(Attribute.FITNESS, -2f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PURE, -2f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				StringBuilder sb = new StringBuilder();
+				
+				if(target.isPlayer()) {
+					sb.append("You are suffering withdrawal from:");
+				} else {
+					sb.append(UtilText.parse(target, "[npc.Name] is suffering withdrawal from:"));
+				}
+				
+				for(Entry<FluidType, Long> entry : target.getLastTimeSatisfiedAddictionMap().entrySet()) {
+					int minutesPassed = (int) (Main.game.getMinutesPassed()-entry.getValue());
+					if(minutesPassed>(AddictionLevel.ONE_MILD.getDaysUntilAddictionCured()-1)*24*60 && minutesPassed<AddictionLevel.ONE_MILD.getDaysUntilAddictionCured()*24*60) {
+						sb.append("</br><b style='color:"+entry.getKey().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getDescriptor(target))+" "+entry.getKey().getName(target)+"</b>: "
+								+(AddictionLevel.ONE_MILD.getDaysUntilAddictionCured()*24*60-minutesPassed)/60+":"+String.format("%02d", (AddictionLevel.ONE_MILD.getDaysUntilAddictionCured()*24*60-minutesPassed)%60)
+								+" ("+(AddictionLevel.valueOf(target.getAddiction(entry.getKey()))==AddictionLevel.ONE_MILD
+									?"[style.colourGood(Until addiction removed)]"
+									:"[style.colourArcane(Until next withdrawal stage)]")+")");
+					}
+				}
+				
+				return sb.toString();
+			} else {
+				return "";
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			// Time without getting fluid:
+			for(long value : target.getLastTimeSatisfiedAddictionMap().values()) {
+				if(Main.game.getMinutesPassed()-value>=(AddictionLevel.ONE_MILD.getDaysUntilAddictionCured()-1)*24*60
+						&& Main.game.getMinutesPassed()-value<AddictionLevel.ONE_MILD.getDaysUntilAddictionCured()*24*60) {
+					return true;
+				}
+			}
+			return false;
+		}
+	},
+	
+	WITHDRAWAL_2(
+			80,
+			"Noticeable Withdrawal",
+			"withdrawal2",
+			Colour.CORRUPTION_STAGE_TWO,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.INTELLIGENCE, -5f),
+					new Value<Attribute, Float>(Attribute.STRENGTH, -5f),
+					new Value<Attribute, Float>(Attribute.FITNESS, -5f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PURE, -5f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				StringBuilder sb = new StringBuilder();
+				
+				if(target.isPlayer()) {
+					sb.append("You are suffering withdrawal from:");
+				} else {
+					sb.append(UtilText.parse(target, "[npc.Name] is suffering withdrawal from:"));
+				}
+				
+				for(Entry<FluidType, Long> entry : target.getLastTimeSatisfiedAddictionMap().entrySet()) {
+					int minutesPassed = (int) (Main.game.getMinutesPassed()-entry.getValue());
+					if(minutesPassed>(AddictionLevel.TWO_NOTICEABLE.getDaysUntilAddictionCured()-1)*24*60 && minutesPassed<AddictionLevel.TWO_NOTICEABLE.getDaysUntilAddictionCured()*24*60) {
+						sb.append("</br><b style='color:"+entry.getKey().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getDescriptor(target))+" "+entry.getKey().getName(target)+"</b>: "
+								+(AddictionLevel.TWO_NOTICEABLE.getDaysUntilAddictionCured()*24*60-minutesPassed)/60+":"+String.format("%02d", (AddictionLevel.TWO_NOTICEABLE.getDaysUntilAddictionCured()*24*60-minutesPassed)%60)
+								+" ("+(AddictionLevel.valueOf(target.getAddiction(entry.getKey()))==AddictionLevel.TWO_NOTICEABLE
+									?"[style.colourGood(Until addiction removed)]"
+									:"[style.colourArcane(Until next withdrawal stage)]")+")");
+					}
+				}
+				
+				return sb.toString();
+			} else {
+				return "";
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			// Time without getting fluid:
+			for(long value : target.getLastTimeSatisfiedAddictionMap().values()) {
+				if(Main.game.getMinutesPassed()-value>=(AddictionLevel.TWO_NOTICEABLE.getDaysUntilAddictionCured()-1)*24*60
+						&& Main.game.getMinutesPassed()-value<AddictionLevel.TWO_NOTICEABLE.getDaysUntilAddictionCured()*24*60) {
+					return true;
+				}
+			}
+			return false;
+		}
+	},
+	
+	WITHDRAWAL_3(
+			80,
+			"Strong Withdrawal",
+			"withdrawal3",
+			Colour.CORRUPTION_STAGE_THREE,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.INTELLIGENCE, -10f),
+					new Value<Attribute, Float>(Attribute.STRENGTH, -10f),
+					new Value<Attribute, Float>(Attribute.FITNESS, -10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PURE, -10f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				StringBuilder sb = new StringBuilder();
+				
+				if(target.isPlayer()) {
+					sb.append("You are suffering withdrawal from:");
+				} else {
+					sb.append(UtilText.parse(target, "[npc.Name] is suffering withdrawal from:"));
+				}
+				
+				for(Entry<FluidType, Long> entry : target.getLastTimeSatisfiedAddictionMap().entrySet()) {
+					int minutesPassed = (int) (Main.game.getMinutesPassed()-entry.getValue());
+					if(minutesPassed>(AddictionLevel.THREE_STRONG.getDaysUntilAddictionCured()-1)*24*60 && minutesPassed<AddictionLevel.THREE_STRONG.getDaysUntilAddictionCured()*24*60) {
+						sb.append("</br><b style='color:"+entry.getKey().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getDescriptor(target))+" "+entry.getKey().getName(target)+"</b>: "
+								+(AddictionLevel.THREE_STRONG.getDaysUntilAddictionCured()*24*60-minutesPassed)/60+":"+String.format("%02d", (AddictionLevel.THREE_STRONG.getDaysUntilAddictionCured()*24*60-minutesPassed)%60)
+								+" ("+(AddictionLevel.valueOf(target.getAddiction(entry.getKey()))==AddictionLevel.THREE_STRONG
+									?"[style.colourGood(Until addiction removed)]"
+									:"[style.colourArcane(Until next withdrawal stage)]")+")");
+					}
+				}
+				
+				return sb.toString();
+			} else {
+				return "";
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			// Time without getting fluid:
+			for(long value : target.getLastTimeSatisfiedAddictionMap().values()) {
+				if(Main.game.getMinutesPassed()-value>=(AddictionLevel.THREE_STRONG.getDaysUntilAddictionCured()-1)*24*60
+						&& Main.game.getMinutesPassed()-value<AddictionLevel.THREE_STRONG.getDaysUntilAddictionCured()*24*60) {
+					return true;
+				}
+			}
+			return false;
+		}
+	},
+	
+	WITHDRAWAL_4(
+			80,
+			"Severe Withdrawal",
+			"withdrawal4",
+			Colour.CORRUPTION_STAGE_FOUR,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.INTELLIGENCE, -25f),
+					new Value<Attribute, Float>(Attribute.STRENGTH, -25f),
+					new Value<Attribute, Float>(Attribute.FITNESS, -25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PURE, -25f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				StringBuilder sb = new StringBuilder();
+				
+				if(target.isPlayer()) {
+					sb.append("You are suffering withdrawal from:");
+				} else {
+					sb.append(UtilText.parse(target, "[npc.Name] is suffering withdrawal from:"));
+				}
+				
+				for(Entry<FluidType, Long> entry : target.getLastTimeSatisfiedAddictionMap().entrySet()) {
+					int minutesPassed = (int) (Main.game.getMinutesPassed()-entry.getValue());
+					if(minutesPassed>(AddictionLevel.FOUR_SEVERE.getDaysUntilAddictionCured()-1)*24*60 && minutesPassed<AddictionLevel.FOUR_SEVERE.getDaysUntilAddictionCured()*24*60) {
+						sb.append("</br><b style='color:"+entry.getKey().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getDescriptor(target))+" "+entry.getKey().getName(target)+"</b>: "
+								+(AddictionLevel.FOUR_SEVERE.getDaysUntilAddictionCured()*24*60-minutesPassed)/60+":"+String.format("%02d", (AddictionLevel.FOUR_SEVERE.getDaysUntilAddictionCured()*24*60-minutesPassed)%60)
+								+" ("+(AddictionLevel.valueOf(target.getAddiction(entry.getKey()))==AddictionLevel.FOUR_SEVERE
+									?"[style.colourGood(Until addiction removed)]"
+									:"[style.colourArcane(Until next withdrawal stage)]")+")");
+					}
+				}
+				
+				return sb.toString();
+			} else {
+				return "";
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			// Time without getting fluid:
+			for(long value : target.getLastTimeSatisfiedAddictionMap().values()) {
+				if(Main.game.getMinutesPassed()-value>=(AddictionLevel.FOUR_SEVERE.getDaysUntilAddictionCured()-1)*24*60
+						&& Main.game.getMinutesPassed()-value<AddictionLevel.FOUR_SEVERE.getDaysUntilAddictionCured()*24*60) {
+					return true;
+				}
+			}
+			return false;
+		}
+	},
+	
+	WITHDRAWAL_5(
+			80,
+			"Dependence Withdrawal",
+			"withdrawal5",
+			Colour.CORRUPTION_STAGE_FIVE,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.INTELLIGENCE, -50f),
+					new Value<Attribute, Float>(Attribute.STRENGTH, -50f),
+					new Value<Attribute, Float>(Attribute.FITNESS, -50f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PURE, -50f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				StringBuilder sb = new StringBuilder();
+				
+				if(target.isPlayer()) {
+					sb.append("You are suffering withdrawal from:");
+				} else {
+					sb.append(UtilText.parse(target, "[npc.Name] is suffering withdrawal from:"));
+				}
+				
+				for(Entry<FluidType, Long> entry : target.getLastTimeSatisfiedAddictionMap().entrySet()) {
+					int minutesPassed = (int) (Main.game.getMinutesPassed()-entry.getValue());
+					if(minutesPassed>(AddictionLevel.FIVE_DEPENDENCE.getDaysUntilAddictionCured()-1)*24*60 && minutesPassed<AddictionLevel.FIVE_DEPENDENCE.getDaysUntilAddictionCured()*24*60) {
+						sb.append("</br><b style='color:"+entry.getKey().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getDescriptor(target))+" "+entry.getKey().getName(target)+"</b>: "
+								+(AddictionLevel.FIVE_DEPENDENCE.getDaysUntilAddictionCured()*24*60-minutesPassed)/60+":"+String.format("%02d", (AddictionLevel.FIVE_DEPENDENCE.getDaysUntilAddictionCured()*24*60-minutesPassed)%60)
+								+" ("+(AddictionLevel.valueOf(target.getAddiction(entry.getKey()))==AddictionLevel.FIVE_DEPENDENCE
+									?"[style.colourGood(Until addiction removed)]"
+									:"[style.colourArcane(Until next withdrawal stage)]")+")");
+					}
+				}
+				
+				return sb.toString();
+			} else {
+				return "";
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			// Time without getting fluid:
+			for(long value : target.getLastTimeSatisfiedAddictionMap().values()) {
+				if(Main.game.getMinutesPassed()-value>=(AddictionLevel.FIVE_DEPENDENCE.getDaysUntilAddictionCured()-1)*24*60
+						&& Main.game.getMinutesPassed()-value<AddictionLevel.FIVE_DEPENDENCE.getDaysUntilAddictionCured()*24*60) {
+					return true;
+				}
+			}
+			return false;
 		}
 	},
 
@@ -3369,7 +3716,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return !target.isPlayer() && target.isSlave() && target.getOwner().isPlayer() && ((NPC)target).getGetLastTimeHadSex()+60*24<Main.game.getMinutesPassed();
+			return !target.isPlayer() && target.isSlave() && target.getOwner().isPlayer() && ((NPC)target).getLastTimeHadSex()+60*24<Main.game.getMinutesPassed();
 		}
 	},
 	
@@ -5046,7 +5393,7 @@ public enum StatusEffect {
 			
 			if(target.isPlayer()) {
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER) != null) {
-					arousal+=2;
+					arousal+=OrificeType.ANUS_PLAYER.getBaseArousalWhenPenetrated();
 					
 					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.ANUS_PLAYER)) {
 						arousal-=0.5;
@@ -5061,7 +5408,7 @@ public enum StatusEffect {
 				}
 			} else {
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER) != null) {
-					arousal+=2;
+					arousal+=OrificeType.ANUS_PARTNER.getBaseArousalWhenPenetrated();
 					
 					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.ANUS_PARTNER)) {
 						arousal-=0.5;
@@ -5083,8 +5430,8 @@ public enum StatusEffect {
 			float arousal = 0;
 			
 			if(target.isPlayer()) {
-				if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER) != null) {
-					arousal+=4;
+				if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER) != null && Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER).isPlayer()) {
+					arousal+=Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER).getBaseArousalWhenPenetrating();
 					
 					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.ANUS_PARTNER)) {
 						arousal+=0.5;
@@ -5097,8 +5444,8 @@ public enum StatusEffect {
 					}
 				}
 			} else {
-				if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER) != null) {
-					arousal+=4;
+				if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER) != null && !Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER).isPlayer()) {
+					arousal+=Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER).getBaseArousalWhenPenetrating();
 					
 					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.ANUS_PLAYER)) {
 						arousal+=0.5;
@@ -5126,8 +5473,10 @@ public enum StatusEffect {
 			
 			if(target.isPlayer()) {
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER) != null) {
-					modifiersList.add("+2 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					modifiersList.add("+4 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+OrificeType.ANUS_PLAYER.getBaseArousalWhenPenetrated()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER).getBaseArousalWhenPenetrating()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
 					
 					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.ANUS_PLAYER)) {
 						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Stretching</b>)");
@@ -5146,8 +5495,10 @@ public enum StatusEffect {
 			} else {
 				
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER) != null) {
-					modifiersList.add("+2 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					modifiersList.add("+4 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+OrificeType.ANUS_PARTNER.getBaseArousalWhenPenetrated()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER).getBaseArousalWhenPenetrating()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
 					
 					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.ANUS_PARTNER)) {
 						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Stretching</b>)");
@@ -5443,7 +5794,7 @@ public enum StatusEffect {
 			
 			if(target.isPlayer()) {
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER) != null) {
-					arousal+=1;
+					arousal+=OrificeType.MOUTH_PLAYER.getBaseArousalWhenPenetrated();
 					
 					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.MOUTH_PLAYER)) {
 						arousal-=0.5;
@@ -5454,7 +5805,7 @@ public enum StatusEffect {
 				}
 			} else {
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER) != null) {
-					arousal+=1;
+					arousal+=OrificeType.MOUTH_PARTNER.getBaseArousalWhenPenetrated();
 					
 					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.MOUTH_PARTNER)) {
 						arousal-=0.5;
@@ -5473,8 +5824,8 @@ public enum StatusEffect {
 			float arousal = 0;
 			
 			if(target.isPlayer()) {
-				if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER) != null) {
-					arousal+=1;
+				if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER) != null && Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER).isPlayer()) {
+					arousal+=Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER).getBaseArousalWhenPenetrating();
 					
 					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.MOUTH_PARTNER)) {
 						arousal+=0.5;
@@ -5484,8 +5835,8 @@ public enum StatusEffect {
 					}
 				}
 			} else {
-				if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER) != null) {
-					arousal+=1;
+				if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER) != null && !Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER).isPlayer()) {
+					arousal+=Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER).getBaseArousalWhenPenetrating();
 					
 					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.MOUTH_PLAYER)) {
 						arousal+=0.5;
@@ -5512,8 +5863,10 @@ public enum StatusEffect {
 			if(target.isPlayer()) {
 				
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER) != null) {
-					modifiersList.add("+1 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					modifiersList.add("+1 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+OrificeType.MOUTH_PLAYER.getBaseArousalWhenPenetrated()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER).getBaseArousalWhenPenetrating()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
 					
 					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.MOUTH_PLAYER)) {
 						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Stretching</b>)");
@@ -5529,8 +5882,10 @@ public enum StatusEffect {
 			} else {
 				
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER) != null) {
-					modifiersList.add("+1 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					modifiersList.add("+1 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER).getBaseArousalWhenPenetrating()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+OrificeType.MOUTH_PARTNER.getBaseArousalWhenPenetrated()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
 					
 					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.MOUTH_PARTNER)) {
 						modifiersList.add("+0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Tight</b>)");
@@ -5818,12 +6173,21 @@ public enum StatusEffect {
 			null) {
 
 		@Override
+		public String getName(GameCharacter owner) {
+			if(owner.hasBreasts()) {
+				return "Breast status";
+			} else {
+				return "Chest status";
+			}
+		}
+		
+		@Override
 		public float getArousalPerTurnSelf(GameCharacter target) {
 			float arousal = 0;
 			
 			if(target.isPlayer()) {
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PLAYER) != null) {
-					arousal+=2;
+					arousal+=OrificeType.BREAST_PLAYER.getBaseArousalWhenPenetrated();
 					
 					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.BREAST_PLAYER)) {
 						arousal-=0.5;
@@ -5837,7 +6201,7 @@ public enum StatusEffect {
 				}
 			} else {
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PARTNER) != null) {
-					arousal+=2;
+					arousal+=OrificeType.BREAST_PARTNER.getBaseArousalWhenPenetrated();
 					
 					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.BREAST_PARTNER)) {
 						arousal-=0.5;
@@ -5859,8 +6223,8 @@ public enum StatusEffect {
 			float arousal = 0;
 			
 			if(target.isPlayer()) {
-				if(Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PARTNER) != null) {
-					arousal+=2;
+				if(Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PARTNER) != null && Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PARTNER).isPlayer()) {
+					arousal+=Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PARTNER).getBaseArousalWhenPenetrating();
 					
 					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.BREAST_PARTNER)) {
 						arousal+=0.5;
@@ -5873,8 +6237,8 @@ public enum StatusEffect {
 					} 
 				}
 			} else {
-				if(Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PLAYER) != null) {
-					arousal+=2;
+				if(Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PLAYER) != null && !Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PLAYER).isPlayer()) {
+					arousal+=Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PLAYER).getBaseArousalWhenPenetrating();
 					
 					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.BREAST_PLAYER)) {
 						arousal+=0.5;
@@ -5903,8 +6267,10 @@ public enum StatusEffect {
 			if(target.isPlayer()) {
 				
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PLAYER) != null) {
-					modifiersList.add("+2 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					modifiersList.add("+2 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+OrificeType.BREAST_PLAYER.getBaseArousalWhenPenetrated()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PLAYER).getBaseArousalWhenPenetrating()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
 					
 					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.BREAST_PLAYER)) {
 						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Stretching</b>)");
@@ -5924,8 +6290,10 @@ public enum StatusEffect {
 			} else {
 				
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PARTNER) != null) {
-					modifiersList.add("+2 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					modifiersList.add("+2 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PARTNER).getBaseArousalWhenPenetrating()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+OrificeType.BREAST_PARTNER.getBaseArousalWhenPenetrated()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
 					
 					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.BREAST_PARTNER)) {
 						modifiersList.add("+0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Tight</b>)");
@@ -6121,7 +6489,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return Main.game.isInSex() && target.hasBreasts();
+			return Main.game.isInSex();
 		}
 		
 		@Override
@@ -6132,8 +6500,11 @@ public enum StatusEffect {
 		@Override
 		public String getSVGString(GameCharacter owner) {
 			SVGImageSB = new StringBuilder();
-			
-			SVGImageSB.append(SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaBreasts());
+			if(owner.hasBreasts()) {
+				SVGImageSB.append(SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaBreasts());
+			} else {
+				SVGImageSB.append(SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaBreastsFlat());
+			}
 			
 			if(owner.isPlayer()) {
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PLAYER) != null) {
@@ -6223,7 +6594,7 @@ public enum StatusEffect {
 			
 			if(target.isPlayer()) {
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PLAYER) != null) {
-					arousal+=2;
+					arousal+=OrificeType.NIPPLE_PLAYER.getBaseArousalWhenPenetrated();
 					
 					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.NIPPLE_PLAYER)) {
 						arousal-=0.5;
@@ -6237,7 +6608,7 @@ public enum StatusEffect {
 				}
 			} else {
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER) != null) {
-					arousal+=2;
+					arousal+=OrificeType.NIPPLE_PARTNER.getBaseArousalWhenPenetrated();
 					
 					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.NIPPLE_PARTNER)) {
 						arousal-=0.5;
@@ -6259,8 +6630,8 @@ public enum StatusEffect {
 			float arousal = 0;
 			
 			if(target.isPlayer()) {
-				if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER) != null) {
-					arousal+=2;
+				if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER) != null && Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER).isPlayer()) {
+					arousal+=Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER).getBaseArousalWhenPenetrating();
 					
 					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.NIPPLE_PARTNER)) {
 						arousal+=0.5;
@@ -6273,8 +6644,8 @@ public enum StatusEffect {
 					} 
 				}
 			} else {
-				if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PLAYER) != null) {
-					arousal+=2;
+				if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PLAYER) != null && !Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PLAYER).isPlayer()) {
+					arousal+=Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PLAYER).getBaseArousalWhenPenetrating();
 					
 					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.NIPPLE_PLAYER)) {
 						arousal+=0.5;
@@ -6303,8 +6674,10 @@ public enum StatusEffect {
 			if(target.isPlayer()) {
 				
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PLAYER) != null) {
-					modifiersList.add("+2 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					modifiersList.add("+2 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+OrificeType.NIPPLE_PLAYER.getBaseArousalWhenPenetrated()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PLAYER).getBaseArousalWhenPenetrating()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
 					
 					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.NIPPLE_PLAYER)) {
 						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Stretching</b>)");
@@ -6326,8 +6699,10 @@ public enum StatusEffect {
 			} else {
 				
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER) != null) {
-					modifiersList.add("+2 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					modifiersList.add("+2 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER).getBaseArousalWhenPenetrating()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+OrificeType.NIPPLE_PARTNER.getBaseArousalWhenPenetrated()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
 					
 					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.NIPPLE_PARTNER)) {
 						modifiersList.add("+0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Tight</b>)");
@@ -6624,7 +6999,7 @@ public enum StatusEffect {
 			
 			if(target.isPlayer()) {
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER) != null) {
-					arousal+=4;
+					arousal+=OrificeType.VAGINA_PLAYER.getBaseArousalWhenPenetrated();
 					
 					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.VAGINA_PLAYER)) {
 						arousal-=0.5;
@@ -6638,7 +7013,7 @@ public enum StatusEffect {
 				}
 			} else {
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER) != null) {
-					arousal+=4;
+					arousal+=OrificeType.VAGINA_PARTNER.getBaseArousalWhenPenetrated();
 					
 					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.VAGINA_PARTNER)) {
 						arousal-=0.5;
@@ -6660,8 +7035,8 @@ public enum StatusEffect {
 			float arousal = 0;
 			
 			if(target.isPlayer()) {
-				if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER) != null) {
-					arousal+=4;
+				if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER) != null && Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER).isPlayer()) {
+					arousal+=Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER).getBaseArousalWhenPenetrating();
 					
 					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.VAGINA_PARTNER)) {
 						arousal+=0.5;
@@ -6674,8 +7049,8 @@ public enum StatusEffect {
 					} 
 				}
 			} else {
-				if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER) != null) {
-					arousal+=4;
+				if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER) != null && !Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER).isPlayer()) {
+					arousal+=Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER).getBaseArousalWhenPenetrating();
 					
 					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.VAGINA_PLAYER)) {
 						arousal+=0.5;
@@ -6704,8 +7079,10 @@ public enum StatusEffect {
 			if(target.isPlayer()) {
 				
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER) != null) {
-					modifiersList.add("+4 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					modifiersList.add("+4 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+OrificeType.VAGINA_PLAYER.getBaseArousalWhenPenetrated()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER).getBaseArousalWhenPenetrating()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
 					
 					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.VAGINA_PLAYER)) {
 						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Stretching</b>)");
@@ -6725,8 +7102,10 @@ public enum StatusEffect {
 			} else {
 				
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER) != null) {
-					modifiersList.add("+4 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					modifiersList.add("+4 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER).getBaseArousalWhenPenetrating()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					modifiersList.add("+"+OrificeType.VAGINA_PARTNER.getBaseArousalWhenPenetrated()
+							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
 					
 					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.VAGINA_PARTNER)) {
 						modifiersList.add("+0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Tight</b>)");

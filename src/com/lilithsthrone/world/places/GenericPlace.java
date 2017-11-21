@@ -6,23 +6,33 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Bearing;
+import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.EntranceType;
 import com.lilithsthrone.world.WorldType;
 
-public class GenericPlace implements Serializable {
+/**
+ * @since 0.1.?
+ * @version 0.1.89
+ * @author Innoxia
+ */
+public class GenericPlace implements Serializable, XMLSaving {
 
 	private static final long serialVersionUID = 1L;
 	
 	private String name;
-	private PlaceInterface placeType;
+	private PlaceType placeType;
 	private Set<PlaceUpgrade> placeUpgrades;
 	
-	public static Map<PlaceInterface, Integer> placeCountMap = new HashMap<>();
+	public static Map<PlaceType, Integer> placeCountMap = new HashMap<>();
 
-	public GenericPlace(PlaceInterface placeType) {
+	public GenericPlace(PlaceType placeType) {
 		this.placeType=placeType;
 		placeUpgrades = new HashSet<>();
 		
@@ -40,6 +50,39 @@ public class GenericPlace implements Serializable {
 		} else {
 			this.name = "-";
 		}
+	}
+	
+	@Override
+	public Element saveAsXML(Element parentElement, Document doc) {
+		Element element = doc.createElement("place");
+		parentElement.appendChild(element);
+		
+		CharacterUtils.addAttribute(doc, element, "name", this.getName());
+		CharacterUtils.addAttribute(doc, element, "type", this.getPlaceType().toString());
+		
+		Element innerElement = doc.createElement("placeUpgrades");
+		element.appendChild(innerElement);
+		
+		for(PlaceUpgrade upgrade : this.getPlaceUpgrades()) {
+			Element e = doc.createElement("upgrade");
+			innerElement.appendChild(e);
+			
+			CharacterUtils.addAttribute(doc, e, "type", upgrade.toString());
+		}
+		
+		return element;
+	}
+	
+	public static GenericPlace loadFromXML(Element parentElement, Document doc) {
+		GenericPlace place = new GenericPlace(PlaceType.valueOf(parentElement.getAttribute("type")));
+		place.setName(parentElement.getAttribute("name"));
+		
+		for(int i=0; i<((Element) parentElement.getElementsByTagName("placeUpgrades").item(0)).getElementsByTagName("upgrade").getLength(); i++){
+			Element e = (Element) ((Element) parentElement.getElementsByTagName("placeUpgrades").item(0)).getElementsByTagName("upgrade").item(i);
+			place.addPlaceUpgrade(PlaceUpgrade.valueOf(e.getAttribute("type")));
+		}
+		
+		return place;
 	}
 	
 	@Override
@@ -108,24 +151,14 @@ public class GenericPlace implements Serializable {
 		return placeType.getParentWorldType();
 	}
 	
-	public PlaceInterface getParentPlaceInterface() {
-		return placeType.getParentPlaceInterface();
+	public PlaceType getParentPlaceType() {
+		return placeType.getParentPlaceType();
 	}
 	
 	public EntranceType getParentAlignment() {
 		return placeType.getParentAlignment();
 	}
 	
-	
-	// For porting to another world:
-	
-	public WorldType getLinkedWorldType() {
-		return placeType.getLinkedWorldType();
-	}
-	
-	public PlaceInterface getLinkedPlaceInterface() {
-		return placeType.getLinkedPlaceInterface();
-	}
 	
 	public boolean addPlaceUpgrade(PlaceUpgrade upgrade) {
 		if(placeUpgrades.add(upgrade)) {
@@ -189,11 +222,11 @@ public class GenericPlace implements Serializable {
 	}
 	
 
-	public PlaceInterface getPlaceType() {
+	public PlaceType getPlaceType() {
 		return placeType;
 	}
 
-	public void setPlaceType(PlaceInterface placeType) {
+	public void setPlaceType(PlaceType placeType) {
 		this.placeType = placeType;
 	}
 

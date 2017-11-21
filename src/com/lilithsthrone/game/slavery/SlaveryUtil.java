@@ -10,11 +10,12 @@ import java.util.Map;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
 import com.lilithsthrone.game.dialogue.eventLog.SlaveryEventLogEntry;
-import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.CoverableArea;
@@ -26,7 +27,7 @@ import com.lilithsthrone.world.Cell;
 
 /**
  * @since 0.1.87
- * @version 0.1.87
+ * @version 0.1.89
  * @author Innoxia
  */
 public class SlaveryUtil implements Serializable {
@@ -74,7 +75,8 @@ public class SlaveryUtil implements Serializable {
 		clearSlavesJobTracking();
 		
 		// First need to set correct jobs:
-		for(NPC slave : Main.game.getPlayer().getSlavesOwned()) {
+		for(String id : Main.game.getPlayer().getSlavesOwned()) {
+			NPC slave = (NPC) Main.game.getNPCById(id);
 			if(slave.getWorkHours()[hour]) {
 				slave.getSlaveJob().sendToWorkLocation(slave);
 				slavesAtJob.get(slave.getSlaveJob()).add(slave);
@@ -85,7 +87,8 @@ public class SlaveryUtil implements Serializable {
 		}
 		
 		// Now can apply changes and generate events based on who else is present in the job:
-		for(NPC slave : Main.game.getPlayer().getSlavesOwned()) {
+		for(String id : Main.game.getPlayer().getSlavesOwned()) {
+			NPC slave = (NPC) Main.game.getNPCById(id);
 			
 			slave.incrementAffection(slave.getOwner(), slave.getHourlyAffectionChange(hour));
 			slave.incrementObedience(slave.getHourlyObedienceChange(hour));
@@ -103,7 +106,7 @@ public class SlaveryUtil implements Serializable {
 				
 			} else {
 				if(slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_MASTURBATE)) {
-					slave.setGetLastTimeHadSex((day*24*60l) + hour*60l);
+					slave.setLastTimeHadSex((day*24*60l) + hour*60l);
 				}
 			}
 			
@@ -245,7 +248,7 @@ public class SlaveryUtil implements Serializable {
 		if(hour%24==0) { // Reset daily income tracking:
 			slaveDailyIncome.clear();
 			// Rooms:
-			for(Cell c : MiscDialogue.importantCells) {
+			for(Cell c : SlaveryManagementDialogue.importantCells) {
 				generatedUpkeep += c.getPlace().getUpkeep();
 			}
 		}
@@ -282,24 +285,50 @@ public class SlaveryUtil implements Serializable {
 					} else {
 						switch(slave.getSlaveJobSettings().get(Util.random.nextInt(slave.getSlaveJobSettings().size()))) {
 							case TEST_SUBJECT_ALLOW_TRANSFORMATIONS_FEMALE:
-								slave.incrementAffection(Main.game.getPlayer(), -1);
-								slave.incrementAffection(Main.game.getLilaya(), -5);
-								String tf = getTestSubjectFeminineTransformation(slave);
-								List<String> list = Util.newArrayListOfValues(
-										new ListValue<>("[style.boldBad(-1)] [style.boldAffection(Affection)]"),
-										new ListValue<>("[style.boldBad(-5)] [style.boldAffection(Affection towards Lilaya)]"));
+								List<String> list = new ArrayList<>();
+								if(slave.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
+									slave.incrementAffection(Main.game.getPlayer(), 1);
+									slave.incrementAffection(Main.game.getLilaya(), 5);
+									list.add("[style.boldGood(+1)] [style.boldAffection(Affection)]");
+									list.add("[style.boldGood(+5)] [style.boldAffection(Affection towards Lilaya)]");
+								} else {
+									slave.incrementAffection(Main.game.getPlayer(), -1);
+									slave.incrementAffection(Main.game.getLilaya(), -5);
+									list.add("[style.boldBad(-1)] [style.boldAffection(Affection)]");
+									list.add("[style.boldBad(-5)] [style.boldAffection(Affection towards Lilaya)]");
+								}
+
+								String tf = "";
+								if(slave.getSlaveJobSettings().contains(SlaveJobSetting.TEST_SUBJECT_ALLOW_TRANSFORMATIONS_MALE)) {
+									tf = getTestSubjectFutanariTransformation(slave);
+								} else {
+									tf = getTestSubjectFeminineTransformation(slave);
+								}
 								if(!tf.isEmpty()) {
 									list.add(tf);
 								}
 								return new SlaveryEventLogEntry(hour, slave, "Feminine Testing", "Lilaya tested some very intrusive feminine transformations on [npc.name].",list);
 								
 							case TEST_SUBJECT_ALLOW_TRANSFORMATIONS_MALE:
-								slave.incrementAffection(Main.game.getPlayer(), -1);
-								slave.incrementAffection(Main.game.getLilaya(), -5);
-								String tf2 = getTestSubjectMasculineTransformation(slave);
-								List<String> list2 = Util.newArrayListOfValues(
-										new ListValue<>("[style.boldBad(-1)] [style.boldAffection(Affection)]"),
-										new ListValue<>("[style.boldBad(-5)] [style.boldAffection(Affection towards Lilaya)]"));
+								List<String> list2 = new ArrayList<>();
+								if(slave.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
+									slave.incrementAffection(Main.game.getPlayer(), 1);
+									slave.incrementAffection(Main.game.getLilaya(), 5);
+									list2.add("[style.boldGood(+1)] [style.boldAffection(Affection)]");
+									list2.add("[style.boldGood(+5)] [style.boldAffection(Affection towards Lilaya)]");
+								} else {
+									slave.incrementAffection(Main.game.getPlayer(), -1);
+									slave.incrementAffection(Main.game.getLilaya(), -5);
+									list2.add("[style.boldBad(-1)] [style.boldAffection(Affection)]");
+									list2.add("[style.boldBad(-5)] [style.boldAffection(Affection towards Lilaya)]");
+								}
+								
+								String tf2 = "";
+								if(slave.getSlaveJobSettings().contains(SlaveJobSetting.TEST_SUBJECT_ALLOW_TRANSFORMATIONS_FEMALE)) {
+									tf2 = getTestSubjectFutanariTransformation(slave);
+								} else {
+									tf2 = getTestSubjectMasculineTransformation(slave);
+								}
 								if(!tf2.isEmpty()) {
 									list2.add(tf2);
 								}
@@ -377,8 +406,37 @@ public class SlaveryUtil implements Serializable {
 		
 		if(slave.getBreastSize().getMeasurement() > 0) {
 			int increment = Util.random.nextInt(1)+1;
+			slave.incrementBreastSize(-increment);
+			return "[style.boldShrink(Breasts shrunk to "+Util.capitaliseSentence(slave.getBreastSize().getCupSizeName())+"-cups)]";
+		}
+		
+		return "";
+	}
+	
+	private String getTestSubjectFutanariTransformation(NPC slave) {
+		
+		if(!slave.hasVagina()) {
+			slave.setVaginaType(RacialBody.valueOfRace(slave.getRace()).getVaginaType());
+			return "[style.boldGrow(Gained vagina)]";
+		}
+		
+		if(!slave.hasPenis()) {
+			slave.setPenisType(RacialBody.valueOfRace(slave.getRace()).getPenisType());
+			return "[style.boldGrow(Gained penis)]";
+		}
+		
+		if(Math.random()>0.5f) {
+			if(slave.getFemininityValue()<100) {
+				int increment = Util.random.nextInt(5)+1;
+				slave.incrementFemininity(increment);
+				return "[style.boldGrow(+"+increment+")] [style.boldFeminine(Femininity)]";
+			}
+		}
+		
+		if(slave.getBreastSize().getMeasurement() < CupSize.GG.getMeasurement()) {
+			int increment = Util.random.nextInt(1)+1;
 			slave.incrementBreastSize(increment);
-			return "[style.boldShrink(Gained "+Util.capitaliseSentence(slave.getBreastSize().getCupSizeName())+"-cup breasts)]";
+			return "[style.boldGrow(Gained "+Util.capitaliseSentence(slave.getBreastSize().getCupSizeName())+"-cup breasts)]";
 		}
 		
 		return "";
@@ -396,7 +454,7 @@ public class SlaveryUtil implements Serializable {
 		Collections.shuffle(otherSlavesPresent);
 		for(NPC npc : otherSlavesPresent) {
 			if(!npc.equals(slave)) {
-				if(slave.getGetLastTimeHadSex()+24*60<Main.game.getMinutesPassed()) { // They only want sex once a day, to stop the logs from being flooded
+				if(slave.getLastTimeHadSex()+24*60<Main.game.getMinutesPassed()) { // They only want sex once a day, to stop the logs from being flooded
 					if(slave.isAttractedTo(npc) && npc.hasSlavePermissionSetting(SlavePermissionSetting.SEX_RECEIVE_SLAVES) && slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_INITIATE_SLAVES)) {
 						System.out.println("x");
 						boolean canImpregnate = slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_IMPREGNATE) && npc.hasSlavePermissionSetting(SlavePermissionSetting.SEX_IMPREGNATED)
@@ -414,6 +472,7 @@ public class SlaveryUtil implements Serializable {
 							if(slave.getPenisRawCumProductionValue()>0) {
 								npc.addStatusEffect(StatusEffect.CREAMPIE_VAGINA, 240);
 							}
+							npc.setVaginaVirgin(false);
 							impregnationAttempt = true;
 						}
 						if(canBeImpregnated) {
@@ -421,9 +480,10 @@ public class SlaveryUtil implements Serializable {
 							if(npc.getPenisRawCumProductionValue()>0) {
 								slave.addStatusEffect(StatusEffect.CREAMPIE_VAGINA, 240);
 							}
+							slave.setVaginaVirgin(false);
 							gettingPregnantAttempt = true;
 						}
-						slave.setGetLastTimeHadSex((day*24*60l) + hour*60l);
+						slave.setLastTimeHadSex((day*24*60l) + hour*60l);
 						
 						
 						switch(slave.getSlaveJob()) {

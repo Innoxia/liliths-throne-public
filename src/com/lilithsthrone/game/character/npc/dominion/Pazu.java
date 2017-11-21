@@ -1,5 +1,8 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -15,27 +18,27 @@ import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.Jungle;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.79
- * @version 0.1.83
- * @author Innoxia, Kumiko
+ * @version 0.1.89
+ * @author Kumiko, Innoxia
  */
 public class Pazu extends NPC {
 
 	private static final long serialVersionUID = 1L;
 
-	private AbstractClothing
-			shorts = AbstractClothingType.generateClothing(ClothingType.LEG_SHORTS, Colour.CLOTHING_WHITE, false);
-
 	public Pazu() {
+		this(false);
+	}
+	
+	private Pazu(boolean isImported) {
 		super(new NameTriplet("Pazu"),
 				"Pazu is a harpy matriarch, and a particularly gorgeous one at that. She is new to the job and needs your help in whipping her flock into shape.",
 				/* TODO (Once quest advances)
@@ -49,35 +52,51 @@ public class Pazu extends NPC {
 				 *  (if he opens the shop and is still your lover, his description is the same but with, "He also owns a candy shop in the shopping promenade." at the end)
 				 */
 				1, Gender.M_P_MALE, RacialBody.HARPY, RaceStage.LESSER,
-				new CharacterInventory(1), WorldType.JUNGLE, Jungle.JUNGLE_CLUB, true); //TODO He's in the jungle for now ^^
+				new CharacterInventory(1), WorldType.JUNGLE, PlaceType.JUNGLE_CLUB, true); //TODO He's in the jungle for now ^^
 
-		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-		
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, Colour.EYE_PINK));
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.FEATHERS_LILAC), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.FEATHERS_LILAC), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
+		if(!isImported) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+			
+			this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, Colour.EYE_PINK));
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.FEATHERS_LILAC), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.FEATHERS_LILAC), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
+	
+			this.setAssVirgin(true);
+			this.setFaceVirgin(true);
+			
+			this.setBreastSize(CupSize.FLAT.getMeasurement());
+			
+			this.setPenisSize(7);
+			
+			this.setHeight(185);
+			
+			this.setFemininity(80);
+			
+			this.setAttribute(Attribute.STRENGTH, 4);
+			this.setAttribute(Attribute.INTELLIGENCE, 45);
+			this.setAttribute(Attribute.FITNESS, 30);
+			this.setAttribute(Attribute.CORRUPTION, 5);
+	
+			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
+			this.addFetish(Fetish.FETISH_ORAL_GIVING);
+	
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_SHORTS, Colour.CLOTHING_WHITE, false), true, this);
+		}
+	}
+	
+	@Override
+	public Pazu loadFromXML(Element parentElement, Document doc) {
+		Pazu npc = new Pazu(true);
 
-		this.setAssVirgin(true);
-		this.setFaceVirgin(true);
+		loadNPCVariablesFromXML(npc, null, parentElement, doc);
 		
-		this.setBreastSize(CupSize.FLAT.getMeasurement());
-		
-		this.setPenisSize(7);
-		
-		this.setHeight(185);
-		
-		this.setFemininity(80);
-		
-		this.setAttribute(Attribute.STRENGTH, 4);
-		this.setAttribute(Attribute.INTELLIGENCE, 45);
-		this.setAttribute(Attribute.FITNESS, 30);
-		this.setAttribute(Attribute.CORRUPTION, 5);
+		return npc;
+	}
 
-		this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
-		this.addFetish(Fetish.FETISH_ORAL_GIVING);
-
-		this.equipClothingFromNowhere(shorts, true, this);
+	@Override
+	public boolean isUnique() {
+		return true;
 	}
 	
 	@Override

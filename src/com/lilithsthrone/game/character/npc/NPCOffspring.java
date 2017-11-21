@@ -1,5 +1,8 @@
 package com.lilithsthrone.game.character.npc;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.History;
@@ -22,7 +25,7 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.Jungle;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.82
@@ -42,7 +45,7 @@ public class NPCOffspring extends NPC {
 
 	public NPCOffspring(GameCharacter mother, GameCharacter father) {
 		super(null, "", 3, Gender.F_V_B_FEMALE, RacialBody.DOG_MORPH, RaceStage.GREATER,
-				new CharacterInventory(10), WorldType.JUNGLE, Jungle.JUNGLE_CLUB, true); //TODO move to null tile
+				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 
 		setAttribute(Attribute.STRENGTH, (int)(this.getAttributeValue(Attribute.STRENGTH) * (0.5f+Math.random())));
 		setAttribute(Attribute.INTELLIGENCE, (int)(this.getAttributeValue(Attribute.INTELLIGENCE) * (0.5f+Math.random())));
@@ -106,6 +109,26 @@ public class NPCOffspring extends NPC {
 		setStamina(getAttributeValue(Attribute.STAMINA_MAXIMUM));
 	}
 	
+	public NPCOffspring() {
+		super(null, "", 3, Gender.F_V_B_FEMALE, RacialBody.DOG_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
+		
+		this.setEnslavementDialogue(DominionOffspringDialogue.ENSLAVEMENT_DIALOGUE);
+	}
+
+	@Override
+	public NPCOffspring loadFromXML(Element parentElement, Document doc) {
+		NPCOffspring offspring = new  NPCOffspring();
+
+		loadNPCVariablesFromXML(offspring, null, parentElement, doc);
+		
+		return offspring;
+	}
+	
+	@Override
+	public boolean isUnique() {
+		return false;
+	}
+	
 	@Override
 	public String getPlayerPetName() {
 		if(playerPetName.length()==0 || playerPetName.equalsIgnoreCase("Mom") || playerPetName.equalsIgnoreCase("Dad")) {
@@ -128,6 +151,9 @@ public class NPCOffspring extends NPC {
 	@Override
 	public String getDescription() {
 		int timeToBirth = this.getDayOfBirth()-this.getDayOfConception();
+		if(this.getMother()==null || this.getFather()==null) {
+			return "";
+		}
 		return (UtilText.parse(this,
 				"[npc.Name] is your [npc.daughter], who you "+(this.getMother().isPlayer()?"mothered with "+(this.getFather().getName("a")):"fathered with "+(this.getMother().getName("a")))+"."
 						+ " [npc.She] was conceived on day "+this.getDayOfConception()+", and "
@@ -280,11 +306,6 @@ public class NPCOffspring extends NPC {
 		} else {
 			return new Response ("", "", DominionOffspringDialogue.AFTER_COMBAT_DEFEAT);
 		}
-	}
-	
-	@Override
-	public String getLostVirginityDescriptor() {
-		return "in the streets of Dominion";
 	}
 	
 	@Override

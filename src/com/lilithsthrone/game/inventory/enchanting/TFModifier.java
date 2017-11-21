@@ -348,6 +348,41 @@ public enum TFModifier {
 	
 	// Body part modifiers:
 	
+	TF_TYPE_1("transformative I",
+			"Transforms the related body part into that of a different race.",
+			"transformation",
+			"modifier_circle_tf_1",
+			Colour.TRANSFORMATION_GENERIC,
+			Rarity.COMMON),
+	
+	TF_TYPE_2("transformative II",
+			"Transforms the related body part into that of a different race.",
+			"transformation",
+			"modifier_circle_tf_2",
+			Colour.TRANSFORMATION_GENERIC,
+			Rarity.COMMON),
+	
+	TF_TYPE_3("transformative III",
+			"Transforms the related body part into that of a different race.",
+			"transformation",
+			"modifier_circle_tf_3",
+			Colour.TRANSFORMATION_GENERIC,
+			Rarity.COMMON),
+	
+	TF_TYPE_4("transformative IV",
+			"Transforms the related body part into that of a different race.",
+			"transformation",
+			"modifier_circle_tf_4",
+			Colour.TRANSFORMATION_GENERIC,
+			Rarity.COMMON),
+	
+	TF_TYPE_5("transformative V",
+			"Transforms the related body part into that of a different race.",
+			"transformation",
+			"modifier_circle_tf_5",
+			Colour.TRANSFORMATION_GENERIC,
+			Rarity.COMMON),
+	
 	TF_MOD_FEMININITY("femininity",
 			"Applies an effect to change the user's femininity.",
 			"feminine",
@@ -719,56 +754,56 @@ public enum TFModifier {
 	TF_MOD_FLUID_MUSKY("musky",
 			"Applies an effect related to changing a fluid.",
 			"musk",
-			"modifier_circle_wetness",
+			"modifier_circle_fluid_modifier",
 			Colour.BASE_BROWN,
 			Rarity.COMMON),
 	
 	TF_MOD_FLUID_VISCOUS("viscous",
 			"Applies an effect related to changing a fluid.",
 			"viscous",
-			"modifier_circle_wetness",
+			"modifier_circle_fluid_modifier",
 			Colour.BASE_BLACK,
 			Rarity.COMMON),
 	
 	TF_MOD_FLUID_STICKY("sticky",
 			"Applies an effect related to changing a fluid.",
 			"sticky",
-			"modifier_circle_wetness",
+			"modifier_circle_fluid_modifier",
 			Colour.BASE_YELLOW_LIGHT,
 			Rarity.COMMON),
 	
 	TF_MOD_FLUID_SLIMY("slimy",
 			"Applies an effect related to changing a fluid.",
 			"slimy",
-			"modifier_circle_wetness",
+			"modifier_circle_fluid_modifier",
 			Colour.BASE_BLUE_LIGHT,
 			Rarity.COMMON),
 	
 	TF_MOD_FLUID_BUBBLING("bubbling",
 			"Applies an effect related to changing a fluid.",
 			"bubbling",
-			"modifier_circle_wetness",
+			"modifier_circle_fluid_modifier",
 			Colour.BASE_AQUA,
 			Rarity.COMMON),
 	
 	TF_MOD_FLUID_ALCOHOLIC("alcoholic",
 			"Applies an effect related to changing a fluid.",
 			"alcoholic",
-			"modifier_circle_wetness",
+			"modifier_circle_fluid_modifier",
 			Colour.BASE_ORANGE,
 			Rarity.COMMON),
 	
 	TF_MOD_FLUID_ADDICTIVE("addictive",
 			"Applies an effect related to changing a fluid.",
 			"addictive",
-			"modifier_circle_wetness",
+			"modifier_circle_fluid_modifier",
 			Colour.BASE_PINK_DEEP,
 			Rarity.COMMON),
 	
-	TF_MOD_FLUID_HALLUCINOGENIC("hallucinogenic",
+	TF_MOD_FLUID_HALLUCINOGENIC("psychoactive",
 			"Applies an effect related to changing a fluid.",
-			"hallucinogenic",
-			"modifier_circle_wetness",
+			"psychoactive",
+			"modifier_circle_fluid_modifier",
 			Colour.BASE_MAGENTA,
 			Rarity.COMMON),
 	
@@ -871,7 +906,8 @@ public enum TFModifier {
 	TF_MOD_FETISH_INCEST(Fetish.FETISH_INCEST),
 	TF_MOD_FETISH_MASOCHIST(Fetish.FETISH_MASOCHIST),
 	TF_MOD_FETISH_MASTURBATION(Fetish.FETISH_MASTURBATION),
-	TF_MOD_FETISH_NON_CON(Fetish.FETISH_NON_CON),
+	TF_MOD_FETISH_NON_CON_DOM(Fetish.FETISH_NON_CON_DOM),
+	TF_MOD_FETISH_NON_CON_SUB(Fetish.FETISH_NON_CON_SUB),
 	TF_MOD_FETISH_ORAL_GIVING(Fetish.FETISH_ORAL_GIVING),
 	TF_MOD_FETISH_ORAL_RECEIVING(Fetish.FETISH_ORAL_RECEIVING),
 	TF_MOD_FETISH_PREGNANCY(Fetish.FETISH_PREGNANCY),
@@ -975,7 +1011,8 @@ public enum TFModifier {
 		TFFetishList.add(TF_MOD_FETISH_INCEST);
 		TFFetishList.add(TF_MOD_FETISH_MASOCHIST);
 		TFFetishList.add(TF_MOD_FETISH_MASTURBATION);
-		TFFetishList.add(TF_MOD_FETISH_NON_CON);
+		TFFetishList.add(TF_MOD_FETISH_NON_CON_DOM);
+		TFFetishList.add(TF_MOD_FETISH_NON_CON_SUB);
 		TFFetishList.add(TF_MOD_FETISH_ORAL_GIVING);
 		TFFetishList.add(TF_MOD_FETISH_ORAL_RECEIVING);
 		TFFetishList.add(TF_MOD_FETISH_PREGNANCY);

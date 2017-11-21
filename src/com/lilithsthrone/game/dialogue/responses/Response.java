@@ -120,6 +120,7 @@ public class Response {
 	public boolean isSexPenetrationHighlight() {
 		return false;
 	}
+	
 	public boolean isSexPositioningHighlight() {
 		return false;
 	}
@@ -130,6 +131,27 @@ public class Response {
 	
 	public boolean isCorruptionHighlight() {
 		return false;
+	}
+	
+	public Colour getHighlightColour() {
+		if(isSexHighlight()) {
+			return Colour.GENERIC_SEX;
+			
+		} else if(isSexPenetrationHighlight()) {
+			return Colour.GENERIC_SEX;
+			
+		} else if(isSexPositioningHighlight()) {
+			return Colour.GENERIC_ARCANE;
+			
+		} else if(isCombatHighlight()) {
+			return Colour.GENERIC_COMBAT;
+			
+		} else if(isCorruptionHighlight()) {
+			return Colour.ATTRIBUTE_CORRUPTION;
+			
+		} else {
+			return Colour.TEXT;
+		}
 	}
 	
 	public QuestLine getQuestLine() {

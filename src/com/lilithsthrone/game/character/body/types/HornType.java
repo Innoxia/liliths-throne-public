@@ -6,16 +6,20 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.1.85
+ * @version 0.1.89
  * @author Innoxia
  */
 public enum HornType implements BodyPartTypeInterface {
 	NONE("", null, null),
 
-	DEMON("short, curved", BodyCoveringType.HORN_DEMON, Race.DEMON),
-
-	BOVINE("long, curved", BodyCoveringType.HORN_COW, Race.COW_MORPH);
-
+	CURLED("curled", BodyCoveringType.HORN, Race.DEMON),
+	SPIRAL("spiral", BodyCoveringType.HORN, Race.DEMON),
+	CURVED("curved", BodyCoveringType.HORN, Race.COW_MORPH),
+	SWEPT_BACK("swept-back", BodyCoveringType.HORN, Race.DEMON),
+	STRAIGHT("straight", BodyCoveringType.HORN, Race.COW_MORPH);
+	
+	//TODO if add any more, add more TFModifiers for enchanting
+	
 	private BodyCoveringType skinType;
 	private Race race;
 	
@@ -52,27 +56,21 @@ public enum HornType implements BodyPartTypeInterface {
 
 	@Override
 	public String getDescriptor(GameCharacter gc) {
-		if(gc.isFeminine()) {
-			switch(this){
-				case DEMON:
-					return UtilText.returnStringAtRandom("long", "swept-back", "sleek");
-				case BOVINE:
-					return UtilText.returnStringAtRandom("short", "sleek");
-				default:
-					return UtilText.returnStringAtRandom("");
-			}
-		} else {
-			switch(this){
-				case DEMON:
-					return UtilText.returnStringAtRandom("short", "swept-back");
-				case BOVINE:
-					return UtilText.returnStringAtRandom("long");
-				default:
-					return UtilText.returnStringAtRandom("");
-			}
+		switch(this){
+			case NONE:
+				return "";
+			case SWEPT_BACK:
+				return UtilText.returnStringAtRandom("short", "small");
+			case STRAIGHT:
+				return UtilText.returnStringAtRandom("straight", "sleek");
+			case CURLED:
+				return UtilText.returnStringAtRandom("curled");
+			case CURVED:
+				return UtilText.returnStringAtRandom("curved");
+			case SPIRAL:
+				return UtilText.returnStringAtRandom("spiral");
 		}
-		
-		
+		return "";
 	}
 
 	@Override

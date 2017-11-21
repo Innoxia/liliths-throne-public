@@ -8,20 +8,11 @@ import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
-import com.lilithsthrone.world.places.Dominion;
-import com.lilithsthrone.world.places.EnforcerHQ;
-import com.lilithsthrone.world.places.GenericPlaces;
-import com.lilithsthrone.world.places.HarpyNests;
-import com.lilithsthrone.world.places.Jungle;
-import com.lilithsthrone.world.places.LilayasHome;
-import com.lilithsthrone.world.places.PlaceInterface;
-import com.lilithsthrone.world.places.ShoppingArcade;
-import com.lilithsthrone.world.places.SlaverAlley;
-import com.lilithsthrone.world.places.Submission;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.1.85
+ * @version 0.1.89
  * @author Innoxia
  */
 public enum WorldType {
@@ -32,39 +23,37 @@ public enum WorldType {
 			"Dominion",
 			Colour.BASE_PURPLE,
 			1,
-			Dominion.CITY_STREET,
-			Dominion.CITY_BACK_ALLEYS,
+			PlaceType.DOMINION_STREET,
+			PlaceType.DOMINION_BACK_ALLEYS,
 			Util.newArrayListOfValues(
-					new ListValue<PlaceInterface>(Dominion.CITY_LILITHS_TOWER),
-					new ListValue<PlaceInterface>(Dominion.CITY_ENFORCER_HQ),
-					new ListValue<PlaceInterface>(Dominion.CITY_DEMON_HOME),
-					new ListValue<PlaceInterface>(Dominion.CITY_HARPY_NESTS),
-					new ListValue<PlaceInterface>(Dominion.CITY_SHOPPING_ARCADE),
-					new ListValue<PlaceInterface>(Dominion.CITY_NIGHTLIFE_DISTRICT),
-					new ListValue<PlaceInterface>(Dominion.CITY_HALL),
-					new ListValue<PlaceInterface>(Dominion.CITY_AUNTS_HOME),
-					new ListValue<PlaceInterface>(Dominion.CITY_EXIT_TO_DESERT),
-					new ListValue<PlaceInterface>(Dominion.CITY_EXIT_TO_FIELDS),
-					new ListValue<PlaceInterface>(Dominion.CITY_EXIT_TO_JUNGLE),
-					new ListValue<PlaceInterface>(Dominion.CITY_EXIT_TO_SEA),
-					new ListValue<PlaceInterface>(Dominion.CITY_EXIT_TO_SEWERS)),
+					new ListValue<PlaceType>(PlaceType.DOMINION_LILITHS_TOWER),
+					new ListValue<PlaceType>(PlaceType.DOMINION_ENFORCER_HQ),
+					new ListValue<PlaceType>(PlaceType.DOMINION_DEMON_HOME),
+					new ListValue<PlaceType>(PlaceType.DOMINION_HARPY_NESTS),
+					new ListValue<PlaceType>(PlaceType.DOMINION_SHOPPING_ARCADE),
+					new ListValue<PlaceType>(PlaceType.DOMINION_NIGHTLIFE_DISTRICT),
+					new ListValue<PlaceType>(PlaceType.DOMINION_CITY_HALL),
+					new ListValue<PlaceType>(PlaceType.DOMINION_AUNTS_HOME),
+					new ListValue<PlaceType>(PlaceType.DOMINION_EXIT_TO_DESERT),
+					new ListValue<PlaceType>(PlaceType.DOMINION_EXIT_TO_FIELDS),
+					new ListValue<PlaceType>(PlaceType.DOMINION_EXIT_TO_JUNGLE),
+					new ListValue<PlaceType>(PlaceType.DOMINION_EXIT_TO_SEA),
+					new ListValue<PlaceType>(PlaceType.DOMINION_EXIT_TO_SEWERS)),
 
 			Util.newArrayListOfValues(
-					new ListValue<PlaceInterface>(Dominion.CITY_SLAVER_ALLEY),
-					new ListValue<PlaceInterface>(Dominion.CITY_DARK_ALLEYS),
-					new ListValue<PlaceInterface>(Dominion.CITY_DARK_ALLEYS))),
+					new ListValue<PlaceType>(PlaceType.DOMINION_SLAVER_ALLEY),
+					new ListValue<PlaceType>(PlaceType.DOMINION_DARK_ALLEYS),
+					new ListValue<PlaceType>(PlaceType.DOMINION_DARK_ALLEYS))),
 
 	// Empty:
-//	EMPTY("Empty",
-//			Colour.BASE_YELLOW,
-//			1,
-//			"/com/lilithsthrone/res/map/empty.png",
-//			Util.newHashMapOfValues(
-//					new Value<>(new Color(0xff0000), GenericPlaces.EMPTY_TILE),
-//					new Value<>(new Color(0x0080ff), GenericPlaces.MUSEUM)),
-//			
-//			Dominion.CITY_EXIT_TO_SEA,
-//			WorldType.DOMINION),
+	EMPTY("City",
+			Colour.BASE_BROWN,
+			1,
+			"/com/lilithsthrone/res/map/empty.png",
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0xff0000), PlaceType.GENERIC_EMPTY_TILE),
+					new Value<>(new Color(0x0080ff), PlaceType.GENERIC_MUSEUM))),
 	
 	LILAYAS_HOUSE_GROUND_FLOOR("Lilaya's Home",
 			Colour.BASE_BLUE_LIGHT,
@@ -72,45 +61,69 @@ public enum WorldType {
 			"/com/lilithsthrone/res/map/dominion/lilayasHome/lilayas_home_ground_floor.png",
 			Util.newHashMapOfValues(
 					
-					new Value<>(new Color(0xFFFFFF), GenericPlaces.IMPASSABLE),
-					new Value<>(new Color(0x808080), LilayasHome.LILAYA_HOME_CORRIDOR),
-					new Value<>(new Color(0xff0000), LilayasHome.LILAYA_HOME_ENTRANCE_HALL),
-					new Value<>(new Color(0x008000), LilayasHome.LILAYA_HOME_GARDEN),
-					new Value<>(new Color(0xff8000), LilayasHome.LILAYA_HOME_LAB),
-					new Value<>(new Color(0xffff00), LilayasHome.LILAYA_HOME_BIRTHING_ROOM),
-					new Value<>(new Color(0xff80ff), LilayasHome.LILAYA_HOME_KITCHEN),
-					new Value<>(new Color(0x00ffff), LilayasHome.LILAYA_HOME_LIBRARY),
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.LILAYA_HOME_CORRIDOR),
+					new Value<>(new Color(0xff0000), PlaceType.LILAYA_HOME_ENTRANCE_HALL),
+					new Value<>(new Color(0x008000), PlaceType.LILAYA_HOME_GARDEN),
+					new Value<>(new Color(0xff8000), PlaceType.LILAYA_HOME_LAB),
+					new Value<>(new Color(0xffff00), PlaceType.LILAYA_HOME_BIRTHING_ROOM),
+					new Value<>(new Color(0xff80ff), PlaceType.LILAYA_HOME_KITCHEN),
+					new Value<>(new Color(0x00ffff), PlaceType.LILAYA_HOME_LIBRARY),
 //					new Value<>(new Color(0x8000ff), LilayasHome.LILAYA_HOME_ROOM),
-					new Value<>(new Color(0x8000ff), LilayasHome.LILAYA_HOME_FOUNTAIN),
-					new Value<>(new Color(0xff0080), LilayasHome.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR),
-					new Value<>(new Color(0xff00ff), LilayasHome.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR),
-					new Value<>(new Color(0x00ff00), LilayasHome.LILAYA_HOME_STAIR_UP)),
-			
-			Dominion.CITY_AUNTS_HOME,
-			WorldType.DOMINION){
+					new Value<>(new Color(0x8000ff), PlaceType.LILAYA_HOME_FOUNTAIN),
+					new Value<>(new Color(0xff0080), PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR),
+					new Value<>(new Color(0xff00ff), PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR),
+					new Value<>(new Color(0x00ff00), PlaceType.LILAYA_HOME_STAIR_UP))){
 		@Override
 		public boolean isRevealedOnStart() {
 			return true;
 		}
 	},
 	
+	ZARANIX_HOUSE_FIRST_FLOOR("Zaranix's Home",
+			Colour.BASE_CRIMSON,
+			1,
+			"/com/lilithsthrone/res/map/dominion/zaranixHome/first_floor.png",
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.ZARANIX_FF_CORRIDOR),
+					new Value<>(new Color(0x00ff00), PlaceType.ZARANIX_FF_STAIRS),
+					new Value<>(new Color(0xff80ff), PlaceType.ZARANIX_FF_BEDROOM),
+					new Value<>(new Color(0xff00ff), PlaceType.ZARANIX_FF_ROOM),
+					new Value<>(new Color(0x8000ff), PlaceType.ZARANIX_FF_MAID),
+					new Value<>(new Color(0x00ffff), PlaceType.ZARANIX_FF_GARDEN_ROOM),
+					new Value<>(new Color(0xff8000), PlaceType.ZARANIX_FF_STREET_ROOM))),
+	
+	ZARANIX_HOUSE_GROUND_FLOOR("Zaranix's Home",
+			Colour.BASE_CRIMSON,
+			1,
+			"/com/lilithsthrone/res/map/dominion/zaranixHome/ground_floor.png",
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.ZARANIX_GF_CORRIDOR),
+					new Value<>(new Color(0x00ff00), PlaceType.ZARANIX_GF_STAIRS),
+					new Value<>(new Color(0xff0000), PlaceType.ZARANIX_GF_ENTRANCE),
+					new Value<>(new Color(0xffff00), PlaceType.ZARANIX_GF_LOUNGE),
+					new Value<>(new Color(0xff00ff), PlaceType.ZARANIX_GF_ROOM),
+					new Value<>(new Color(0x8000ff), PlaceType.ZARANIX_GF_MAID),
+					new Value<>(new Color(0x00ffff), PlaceType.ZARANIX_GF_GARDEN_ROOM),
+					new Value<>(new Color(0x008000), PlaceType.ZARANIX_GF_GARDEN),
+					new Value<>(new Color(0xff8000), PlaceType.ZARANIX_GF_GARDEN_ENTRY))),
+	
 	LILAYAS_HOUSE_FIRST_FLOOR("Lilaya's Home",
 			Colour.BASE_BLUE_LIGHT,
 			1,
 			"/com/lilithsthrone/res/map/dominion/lilayasHome/lilayas_home_first_floor.png",
 			Util.newHashMapOfValues(
-					new Value<>(new Color(0xFFFFFF), GenericPlaces.IMPASSABLE),
-					new Value<>(new Color(0x808080), LilayasHome.LILAYA_HOME_CORRIDOR),
-					new Value<>(new Color(0xff00ff), LilayasHome.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR),
-					new Value<>(new Color(0xff0080), LilayasHome.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR),
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.LILAYA_HOME_CORRIDOR),
+					new Value<>(new Color(0xff00ff), PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR),
+					new Value<>(new Color(0xff0080), PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR),
 //					new Value<>(new Color(0x8000ff), LilayasHome.LILAYA_HOME_ROOM),
-					new Value<>(new Color(0xff80ff), LilayasHome.LILAYA_HOME_ROOM_LILAYA),
-					new Value<>(new Color(0x0080ff), LilayasHome.LILAYA_HOME_ROOM_ROSE),
-					new Value<>(new Color(0x00ffff), LilayasHome.LILAYA_HOME_ROOM_PLAYER),
-					new Value<>(new Color(0xff0000), LilayasHome.LILAYA_HOME_STAIR_DOWN)),
-			
-			LilayasHome.LILAYA_HOME_STAIR_UP,
-			WorldType.LILAYAS_HOUSE_GROUND_FLOOR){
+					new Value<>(new Color(0xff80ff), PlaceType.LILAYA_HOME_ROOM_LILAYA),
+					new Value<>(new Color(0x0080ff), PlaceType.LILAYA_HOME_ROOM_ROSE),
+					new Value<>(new Color(0x00ffff), PlaceType.LILAYA_HOME_ROOM_PLAYER),
+					new Value<>(new Color(0xff0000), PlaceType.LILAYA_HOME_STAIR_DOWN))){
 		@Override
 		public boolean isRevealedOnStart() {
 			return true;
@@ -121,14 +134,14 @@ public enum WorldType {
 			"Harpy Nests",
 			Colour.BASE_CRIMSON,
 			5,
-			HarpyNests.WALKWAYS,
-			GenericPlaces.IMPASSABLE,
+			PlaceType.HARPY_NESTS_WALKWAYS,
+			PlaceType.GENERIC_IMPASSABLE,
 			Util.newArrayListOfValues(
-					new ListValue<PlaceInterface>(HarpyNests.ENTRANCE_ENFORCER_POST),
-					new ListValue<PlaceInterface>(HarpyNests.HARPY_NEST_RED),
-					new ListValue<PlaceInterface>(HarpyNests.HARPY_NEST_PINK),
-					new ListValue<PlaceInterface>(HarpyNests.HARPY_NEST_YELLOW),
-					new ListValue<PlaceInterface>(HarpyNests.ALEXAS_NEST)),
+					new ListValue<PlaceType>(PlaceType.HARPY_NESTS_ENTRANCE_ENFORCER_POST),
+					new ListValue<PlaceType>(PlaceType.HARPY_NESTS_HARPY_NEST_RED),
+					new ListValue<PlaceType>(PlaceType.HARPY_NESTS_HARPY_NEST_PINK),
+					new ListValue<PlaceType>(PlaceType.HARPY_NESTS_HARPY_NEST_YELLOW),
+					new ListValue<PlaceType>(PlaceType.HARPY_NESTS_ALEXAS_NEST)),
 			null),
 	
 	SLAVER_ALLEY("Slaver Alley",
@@ -137,19 +150,15 @@ public enum WorldType {
 			"/com/lilithsthrone/res/map/dominion/slaverAlley/slaverAlley.png",
 			Util.newHashMapOfValues(
 					
-					new Value<>(new Color(0xFFFFFF), GenericPlaces.IMPASSABLE),
-					new Value<>(new Color(0x808080), SlaverAlley.ALLEY),
-					new Value<>(new Color(0xff0000), SlaverAlley.ALLEY_ENTRANCE),
-					new Value<>(new Color(0xff00ff), SlaverAlley.MARKET_STALL),
-					new Value<>(new Color(0x0000ff), SlaverAlley.SLAVERY_ADMINISTRATION),
-					new Value<>(new Color(0xff0080), SlaverAlley.SCARLETTS_SHOP),
-					new Value<>(new Color(0xffff00), SlaverAlley.AUCTIONING_BLOCK),
-					new Value<>(new Color(0x00ff00), SlaverAlley.PUBLIC_STOCKS),
-					new Value<>(new Color(0x0080ff), SlaverAlley.BROTHEL)
-					),
-			
-			Dominion.CITY_SLAVER_ALLEY,
-			WorldType.DOMINION),
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.SLAVER_ALLEY_PATH),
+					new Value<>(new Color(0xff0000), PlaceType.SLAVER_ALLEY_ENTRANCE),
+					new Value<>(new Color(0xff00ff), PlaceType.SLAVER_ALLEY_MARKET_STALL),
+					new Value<>(new Color(0x0000ff), PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION),
+					new Value<>(new Color(0xff0080), PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP),
+					new Value<>(new Color(0xffff00), PlaceType.SLAVER_ALLEY_AUCTIONING_BLOCK),
+					new Value<>(new Color(0x00ff00), PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS),
+					new Value<>(new Color(0x0080ff), PlaceType.SLAVER_ALLEY_BROTHEL))),
 	
 	SHOPPING_ARCADE("Shopping Arcade",
 			Colour.BASE_YELLOW,
@@ -157,18 +166,15 @@ public enum WorldType {
 			"/com/lilithsthrone/res/map/dominion/shoppingArcade/shoppingArcade.png",
 			Util.newHashMapOfValues(
 					
-					new Value<>(new Color(0xFFFFFF), GenericPlaces.IMPASSABLE),
-					new Value<>(new Color(0x808080), ShoppingArcade.ARCADE),
-					new Value<>(new Color(0xff0000), ShoppingArcade.ARCADE_ENTRANCE),
-					new Value<>(new Color(0x00ffff), ShoppingArcade.RALPHS_SHOP_ITEMS),
-					new Value<>(new Color(0xffff00), ShoppingArcade.NYANS_SHOP_CLOTHING),
-					new Value<>(new Color(0x0080ff), ShoppingArcade.VICKYS_SHOP_WEAPONS),
-					new Value<>(new Color(0x8000ff), ShoppingArcade.PIXS_GYM),
-					new Value<>(new Color(0xff8000), ShoppingArcade.KATES_SHOP_BEAUTY),
-					new Value<>(new Color(0xff00ff), ShoppingArcade.GENERIC_SHOP)),
-			
-			Dominion.CITY_SHOPPING_ARCADE,
-			WorldType.DOMINION){
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.SHOPPING_ARCADE_PATH),
+					new Value<>(new Color(0xff0000), PlaceType.SHOPPING_ARCADE_ENTRANCE),
+					new Value<>(new Color(0x00ffff), PlaceType.SHOPPING_ARCADE_RALPHS_SHOP),
+					new Value<>(new Color(0xffff00), PlaceType.SHOPPING_ARCADE_NYANS_SHOP),
+					new Value<>(new Color(0x0080ff), PlaceType.SHOPPING_ARCADE_VICKYS_SHOP),
+					new Value<>(new Color(0x8000ff), PlaceType.SHOPPING_ARCADE_PIXS_GYM),
+					new Value<>(new Color(0xff8000), PlaceType.SHOPPING_ARCADE_KATES_SHOP),
+					new Value<>(new Color(0xff00ff), PlaceType.SHOPPING_ARCADE_GENERIC_SHOP))){
 		@Override
 		public boolean isRevealedOnStart() {
 			return true;
@@ -181,16 +187,13 @@ public enum WorldType {
 			"/com/lilithsthrone/res/map/dominion/enforcerHQ/enforcerHQ.png",
 			Util.newHashMapOfValues(
 					
-					new Value<>(new Color(0xFFFFFF), GenericPlaces.IMPASSABLE),
-					new Value<>(new Color(0x808080), EnforcerHQ.CORRIDOR),
-					new Value<>(new Color(0xff0000), EnforcerHQ.ENTRANCE),
-					new Value<>(new Color(0xffff00), EnforcerHQ.GUARDED_DOOR),
-					new Value<>(new Color(0x8000ff), EnforcerHQ.WAITING_AREA),
-					new Value<>(new Color(0x0080ff), EnforcerHQ.RECEPTION_DESK),
-					new Value<>(new Color(0xff8000), EnforcerHQ.BRAXS_OFFICE)),
-			
-			Dominion.CITY_ENFORCER_HQ,
-			WorldType.DOMINION),
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.ENFORCER_HQ_CORRIDOR),
+					new Value<>(new Color(0xff0000), PlaceType.ENFORCER_HQ_ENTRANCE),
+					new Value<>(new Color(0xffff00), PlaceType.ENFORCER_HQ_GUARDED_DOOR),
+					new Value<>(new Color(0x8000ff), PlaceType.ENFORCER_HQ_WAITING_AREA),
+					new Value<>(new Color(0x0080ff), PlaceType.ENFORCER_HQ_RECEPTION_DESK),
+					new Value<>(new Color(0xff8000), PlaceType.ENFORCER_HQ_BRAXS_OFFICE))),
 	
 	// Other:
 	
@@ -198,27 +201,27 @@ public enum WorldType {
 			"Submission",
 			Colour.BASE_GREEN,
 			5,
-			Submission.SEWER_WALKWAYS,
-			GenericPlaces.IMPASSABLE,
+			PlaceType.SUBMISSION_WALKWAYS,
+			PlaceType.GENERIC_IMPASSABLE,
 			Util.newArrayListOfValues(
-					new ListValue<PlaceInterface>(Submission.SEWER_RAT_TUNNELS),
-					new ListValue<PlaceInterface>(Submission.SEWER_IMP_PALACE),
-					new ListValue<PlaceInterface>(Submission.SEWER_GAMBLING_DEN),
-					new ListValue<PlaceInterface>(Submission.SEWER_ENTRANCE)),
+					new ListValue<PlaceType>(PlaceType.SUBMISSION_RAT_TUNNELS),
+					new ListValue<PlaceType>(PlaceType.SUBMISSION_IMP_PALACE),
+					new ListValue<PlaceType>(PlaceType.SUBMISSION_GAMBLING_DEN),
+					new ListValue<PlaceType>(PlaceType.SUBMISSION_ENTRANCE)),
 			null),
 
 	JUNGLE(6,
 			"jungle",
 			Colour.BASE_GREEN_LIME,
 			240,
-			Jungle.JUNGLE_PATH,
-			Jungle.JUNGLE_DENSE_JUNGLE,
+			PlaceType.JUNGLE_PATH,
+			PlaceType.JUNGLE_DENSE_JUNGLE,
 			Util.newArrayListOfValues(
-					new ListValue<PlaceInterface>(Jungle.JUNGLE_BROTHEL),
-					new ListValue<PlaceInterface>(Jungle.JUNGLE_CLUB),
-					new ListValue<PlaceInterface>(Jungle.JUNGLE_ENTRANCE)),
+					new ListValue<PlaceType>(PlaceType.JUNGLE_BROTHEL),
+					new ListValue<PlaceType>(PlaceType.JUNGLE_CLUB),
+					new ListValue<PlaceType>(PlaceType.JUNGLE_ENTRANCE)),
 
-			Util.newArrayListOfValues(new ListValue<PlaceInterface>(Jungle.JUNGLE_TENTACLE_QUEENS_LAIR)));
+			Util.newArrayListOfValues(new ListValue<PlaceType>(PlaceType.JUNGLE_TENTACLE_QUEENS_LAIR)));
 
 	
 	private final String name, fileLocation;
@@ -226,17 +229,14 @@ public enum WorldType {
 	private int worldSize, timeToTransition;
 	
 	private int tileSetRowNumber, moveCost;
-	private PlaceInterface standardPlace, cutOffZone;
-	private List<PlaceInterface> places, dangerousPlaces;
+	private PlaceType standardPlace, cutOffZone;
+	private List<PlaceType> places, dangerousPlaces;
 	
 	private boolean usesFile;
-	private Map<Color, PlaceInterface> placesMap;
-	private PlaceInterface previousWorldExitType;
-	private WorldType previousWorldType;
+	private Map<Color, PlaceType> placesMap;
 	
 
-	WorldType(int worldSize, String name, Colour colour, int timeToTransition, PlaceInterface standardPlace, PlaceInterface cutOffZone, List<PlaceInterface> places, List<PlaceInterface> dangerousPlaces) {
-		
+	WorldType(int worldSize, String name, Colour colour, int timeToTransition, PlaceType standardPlace, PlaceType cutOffZone, List<PlaceType> places, List<PlaceType> dangerousPlaces) {
 		this.worldSize=worldSize;
 		
 		this.name = name;
@@ -252,13 +252,10 @@ public enum WorldType {
 		
 		fileLocation = null;
 		usesFile = false;
-		previousWorldExitType = null;
-		previousWorldType = null;
 		
 	}
 	
-	WorldType(String name, Colour colour, int timeToTransition, String fileLocation, Map<Color, PlaceInterface> placesMap, PlaceInterface previousWorldExitType, WorldType previousWorldType) {
-
+	WorldType(String name, Colour colour, int timeToTransition, String fileLocation, Map<Color, PlaceType> placesMap) {
 		this.name = name;
 		this.colour = colour;
 		this.timeToTransition=timeToTransition;
@@ -273,9 +270,6 @@ public enum WorldType {
 		this.fileLocation = fileLocation;
 		usesFile = true;
 		this.placesMap=placesMap;
-		
-		this.previousWorldExitType=previousWorldExitType;
-		this.previousWorldType=previousWorldType;
 	}
 	
 	public int getTileSetRowNumber() {
@@ -302,19 +296,19 @@ public enum WorldType {
 		return false;
 	}
 
-	public PlaceInterface getStandardPlace() {
+	public PlaceType getStandardPlace() {
 		return standardPlace;
 	}
 
-	public PlaceInterface getCutOffZone() {
+	public PlaceType getCutOffZone() {
 		return cutOffZone;
 	}
 
-	public List<PlaceInterface> getPlaces() {
+	public List<PlaceType> getPlaces() {
 		return places;
 	}
 
-	public List<PlaceInterface> getDangerousPlaces() {
+	public List<PlaceType> getDangerousPlaces() {
 		return dangerousPlaces;
 	}
 
@@ -326,16 +320,8 @@ public enum WorldType {
 		return usesFile;
 	}
 
-	public Map<Color, PlaceInterface> getPlacesMap() {
+	public Map<Color, PlaceType> getPlacesMap() {
 		return placesMap;
-	}
-
-	public PlaceInterface getPreviousWorldExitType() {
-		return previousWorldExitType;
-	}
-
-	public WorldType getPreviousWorldType() {
-		return previousWorldType;
 	}
 
 	public int getWorldSize() {

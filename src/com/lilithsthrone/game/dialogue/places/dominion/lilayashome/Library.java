@@ -5,6 +5,7 @@ import java.util.List;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -84,7 +85,7 @@ public class Library {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index==0) {
 				return null;
 			 
@@ -128,7 +129,7 @@ public class Library {
 		}
 
 		@Override
-		public Response getResponse(int books) {
+		public Response getResponse(int responseTab, int books) {
 			if (books == 1) {
 				return new Response("General Knowledge", "A section of the library dedicated to books on common subjects.", LORE_BOOKS);
 
@@ -187,14 +188,14 @@ public class Library {
 
 		@Override
 
-		public Response getResponse(int lore) {
+		public Response getResponse(int responseTab, int lore) {
 			if (lore == 1) {
 				return new Response("Arcane Arousal", "A leather-bound tome that seems to offer an insight into how the arcane works.", ARCANE_AROUSAL) {
 					@Override
 					public void effects() {
-						if(!Main.game.getDialogueFlags().readBook1) {
+						if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.readBook1)) {
 							Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f);
-							Main.game.getDialogueFlags().readBook1 = true;
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.readBook1);
 						}
 					}
 				};
@@ -203,9 +204,9 @@ public class Library {
 				return new Response("Lilith's Dynasty", "A hardback book that might give some clues as to who exactly Lilith is.", LILITHS_DYNASTY) {
 					@Override
 					public void effects() {
-						if(!Main.game.getDialogueFlags().readBook2) {
+						if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.readBook2)) {
 							Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f);
-							Main.game.getDialogueFlags().readBook2 = true;
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.readBook2);
 						}
 					}
 				};
@@ -214,8 +215,8 @@ public class Library {
 				return new Response("Dominion's History", "A paperback book describing the events that led to the creation of the city you currently find yourself in.", DOMINION_HISTORY) {
 					@Override
 					public void effects() {
-						if(!Main.game.getDialogueFlags().readBook3) {
-							Main.game.getDialogueFlags().readBook3 = true;
+						if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.readBook3)) {
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.readBook3);
 						}
 					}
 				};
@@ -266,8 +267,8 @@ public class Library {
 		}
 
 		@Override
-		public Response getResponse(int lore) {
-			return LIBRARY.getResponse(lore);
+		public Response getResponse(int responseTab, int lore) {
+			return LIBRARY.getResponse(0, lore);
 		}
 		
 	};
@@ -311,8 +312,8 @@ public class Library {
 		}
 
 		@Override
-		public Response getResponse(int lore) {
-			return LIBRARY.getResponse(lore);
+		public Response getResponse(int responseTab, int lore) {
+			return LIBRARY.getResponse(0, lore);
 		}
 	};
 	
@@ -343,7 +344,7 @@ public class Library {
 					+ "<p>"
 						+ "Other than that snippet of trivia, the book doesn't contain anything useful."
 					+ "</p>"
-					+ (Main.game.getDialogueFlags().readBook3
+					+ (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.readBook3)
 							? ""
 							: "<p>"
 								+ "<b>The book is too simple to gain anything from reading it...</b>"
@@ -351,8 +352,8 @@ public class Library {
 		}
 
 		@Override
-		public Response getResponse(int lore) {
-			return LIBRARY.getResponse(lore);
+		public Response getResponse(int responseTab, int lore) {
+			return LIBRARY.getResponse(0, lore);
 		}
 	};
 	public static final DialogueNodeOld DOMINION_RACES = new DialogueNodeOld("", "", false) {
@@ -377,7 +378,7 @@ public class Library {
 		}
 
 		@Override
-		public Response getResponse(int city) {
+		public Response getResponse(int responseTab, int city) {
 			if (city == 1) {
 				return bookResponse(ItemType.BOOK_CAT_MORPH, Race.CAT_MORPH);
 
@@ -435,7 +436,7 @@ public class Library {
 		}
 
 		@Override
-		public Response getResponse(int field) {
+		public Response getResponse(int responseTab, int field) {
 			if (field == 1) {
 				return bookResponse(ItemType.BOOK_SQUIRREL_MORPH, Race.SQUIRREL_MORPH);
 

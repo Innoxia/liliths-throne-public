@@ -5,6 +5,7 @@ import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexPosition;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
+import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PartnerTalk;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerFingerAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerFingerUrethra;
@@ -24,7 +25,6 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfT
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfTailNipple;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfTailVagina;
 import com.lilithsthrone.game.sex.sexActions.dominion.cultist.SASpecialCultist;
-import com.lilithsthrone.game.sex.sexActions.universal.GenericOrgasms;
 
 /**
  * @since 0.1.88

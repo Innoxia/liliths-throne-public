@@ -6,8 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import com.lilithsthrone.game.KeyboardAction;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -44,8 +44,7 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
-import com.lilithsthrone.world.places.GenericPlaces;
-import com.lilithsthrone.world.places.PlaceInterface;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
@@ -556,7 +555,7 @@ public enum RenderingEngine {
 						
 		if(Main.game.isInSex()) {
 			Colour playerOrgasmColour = Colour.GENERIC_ARCANE;
-			if(Sex.getNumberOfPlayerOrgasms()<=orgasmColours.length) {
+			if(Sex.getNumberOfPlayerOrgasms()<orgasmColours.length) {
 				playerOrgasmColour = orgasmColours[Sex.getNumberOfPlayerOrgasms()];
 			}
 			
@@ -747,7 +746,8 @@ public enum RenderingEngine {
 		if(Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST)!=null
 				&& (Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST).getClothingType().equals(ClothingType.WRIST_WOMENS_WATCH)
 						|| Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST).getClothingType().equals(ClothingType.WRIST_MENS_WATCH))) {
-			uiAttributeSB.append("<div class='item-inline' style='float:left;'><div class='overlay' id='TWENTY_FOUR_HOUR_TIME_TOGGLE'>"+Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST).getSVGEquippedString()+"</div></div>");
+			uiAttributeSB.append("<div class='item-inline' style='float:left;'><div class='overlay' id='TWENTY_FOUR_HOUR_TIME_TOGGLE'>"
+						+Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST).getSVGEquippedString(Main.game.getPlayer())+"</div></div>");
 			
 		} else {
 			uiAttributeSB.append("<div class='item-inline' style='float:left;'><div class='overlay' id='TWENTY_FOUR_HOUR_TIME_TOGGLE'>"+SVGImages.SVG_IMAGE_PROVIDER.getJournalIcon()+"</div></div>");
@@ -789,7 +789,7 @@ public enum RenderingEngine {
 								+ (clothing.isSealed() ? "style='border-width:2px; border-color:" + Colour.SEALED.toWebHexString() + "; border-style:solid;'" : "") + ">"
 								
 								// Picture:
-								+ "<div class='inventory-icon-content'>"+clothing.getSVGEquippedString()+"</div>"
+								+ "<div class='inventory-icon-content'>"+clothing.getSVGEquippedString(Main.game.getPlayer())+"</div>"
 								
 								// If clothing is displaced:
 								+ (!clothing.getDisplacedList().isEmpty() ? "<div class='displacedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getDisplacedIcon() + "</div>" : "")
@@ -852,8 +852,8 @@ public enum RenderingEngine {
 		Main.mainController.setAttributePanelContent(uiAttributeSB.toString());
 	}
 	
-	private static NPC npcToRender = null;
-	public static NPC getNpcToRender() {
+	private static GameCharacter npcToRender = null;
+	public static GameCharacter getCharacterToRender() {
 		return npcToRender;
 	}
 
@@ -879,8 +879,8 @@ public enum RenderingEngine {
 				renderNPC = true;
 			}
 			
-			if(Main.game.getDialogueFlags().slaveryManagerSlaveSelected!=null) {
-				npcToRender = Main.game.getDialogueFlags().slaveryManagerSlaveSelected;
+			if(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected()!=null) {
+				npcToRender = Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected();
 				renderNPC = true;
 			}
 			
@@ -1032,7 +1032,7 @@ public enum RenderingEngine {
 				
 			if(Main.game.isInSex()) {
 				Colour NPCOrgasmColour = Colour.GENERIC_ARCANE;
-				if(Sex.getNumberOfPartnerOrgasms()<=orgasmColours.length) {
+				if(Sex.getNumberOfPartnerOrgasms()<orgasmColours.length) {
 					NPCOrgasmColour = orgasmColours[Sex.getNumberOfPartnerOrgasms()];
 				}
 				
@@ -1228,7 +1228,7 @@ public enum RenderingEngine {
 								+ (clothing.isSealed() ? "style='border-width:2px; border-color:" + Colour.SEALED.toWebHexString() + "; border-style:solid;'" : "") + ">"
 								
 								// Picture:
-								+ "<div class='inventory-icon-content'>"+clothing.getSVGEquippedString()+"</div>"
+								+ "<div class='inventory-icon-content'>"+clothing.getSVGEquippedString(npcToRender)+"</div>"
 								
 								// If clothing is displaced:
 								+ (!clothing.getDisplacedList().isEmpty() ? "<div class='displacedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getDisplacedIcon() + "</div>" : "")
@@ -1261,43 +1261,24 @@ public enum RenderingEngine {
 			uiAttributeSB.append("</div>");
 				
 		} else {
-			//TODO
-			if(!Main.game.isInNewWorld()) {
-				uiAttributeSB.append(
-						// Name box:
-						"<div class='attribute-container'>"
-							+ "<div class='full-width-container'>"
-								+ "<p class='character-name' style='color:"+ Colour.BASE_BROWN.toWebHexString() + ";'>"
-									+ "City"
-								+ "</p>"
-							+ "</div>"
-							+ "<div class='full-width-container' style='margin:0;padding:0;'>"
-								+ "<p style='text-align:center; color:"+ Colour.BASE_TAN.toWebHexString() + ";'>"
-									+ "Museum"
-								+"</p>"
-							+ "</div>"
-						+ "</div>");
-				
-			} else {
-				PlaceInterface place = Main.game.getPlayer().getWorldLocation().getStandardPlace();
-				if(Main.game.getPlayer().getLocationPlace()!=null) {
-					place = Main.game.getPlayer().getLocationPlace().getPlaceType();
-				}
-				uiAttributeSB.append(
-								// Name box:
-								"<div class='attribute-container'>"
-									+ "<div class='full-width-container'>"
-										+ "<p class='character-name' style='color:"+ Main.game.getPlayer().getWorldLocation().getColour().toWebHexString() + ";'>"
-											+ Main.game.getPlayer().getWorldLocation().getName()
-										+ "</p>"
-									+ "</div>"
-									+ "<div class='full-width-container' style='margin:0;padding:0;'>"
-										+ "<p style='text-align:center;"+ (place.getColour()==null?"":" color:"+place.getColour().toWebHexString()) + ";'>"
-											+ place.getName()
-										+"</p>"
-									+ "</div>"
-								+ "</div>");
+			PlaceType place = Main.game.getPlayer().getWorldLocation().getStandardPlace();
+			if(Main.game.getPlayer().getLocationPlace()!=null) {
+				place = Main.game.getPlayer().getLocationPlace().getPlaceType();
 			}
+			uiAttributeSB.append(
+							// Name box:
+							"<div class='attribute-container'>"
+								+ "<div class='full-width-container'>"
+									+ "<p class='character-name' style='color:"+ Main.game.getPlayer().getWorldLocation().getColour().toWebHexString() + ";'>"
+										+ Main.game.getPlayer().getWorldLocation().getName()
+									+ "</p>"
+								+ "</div>"
+								+ "<div class='full-width-container' style='margin:0;padding:0;'>"
+									+ "<p style='text-align:center;"+ (place.getColour()==null?"":" color:"+place.getColour().toWebHexString()) + ";'>"
+										+ place.getName()
+									+"</p>"
+								+ "</div>"
+							+ "</div>");
 			
 			// Characters Present:
 			uiAttributeSB.append("<div class='attribute-container effects'>"
@@ -1480,12 +1461,12 @@ public enum RenderingEngine {
 
 					if (Main.game.getActiveWorld().getCell(x, y).isDiscovered() || Main.game.isDebugMode()) { // If the tile is discovered:
 
-						if (Main.game.getActiveWorld().getCell(x, y).getPlace().getPlaceType() == GenericPlaces.IMPASSABLE) {
+						if (Main.game.getActiveWorld().getCell(x, y).getPlace().getPlaceType() == PlaceType.GENERIC_IMPASSABLE) {
 							mapSB.append("<div class='map-tile blank' style='width:" + (4 * unit) + "%;'></div>");
 						} else {
 
 							// This is the "move North" tile:
-							if (y == playerPosition.getY() + 1 && x == playerPosition.getX() && Main.game.getActiveWorld().getCell(x, y).getPlace().getPlaceType() != GenericPlaces.IMPASSABLE) {
+							if (y == playerPosition.getY() + 1 && x == playerPosition.getX() && Main.game.getActiveWorld().getCell(x, y).getPlace().getPlaceType() != PlaceType.GENERIC_IMPASSABLE) {
 								if(Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()) {
 									mapSB.append("<div class='map-tile movement dangerous' id='upButton' style='width:" + (4 * unit - borderSizeReduction) + "%; border-width:1%;'>");
 									
@@ -1513,7 +1494,7 @@ public enum RenderingEngine {
 								mapSB.append("</div>");
 
 								// This is the "move South" tile:
-							} else if (y == playerPosition.getY() - 1 && x == playerPosition.getX() && Main.game.getActiveWorld().getCell(x, y).getPlace().getPlaceType() != GenericPlaces.IMPASSABLE) {
+							} else if (y == playerPosition.getY() - 1 && x == playerPosition.getX() && Main.game.getActiveWorld().getCell(x, y).getPlace().getPlaceType() != PlaceType.GENERIC_IMPASSABLE) {
 								if(Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()) {
 									mapSB.append("<div class='map-tile movement dangerous' id='downButton' style='width:" + (4 * unit - borderSizeReduction) + "%; border-width:1%;'>");
 									
@@ -1541,7 +1522,7 @@ public enum RenderingEngine {
 								mapSB.append("</div>");
 
 								// This is the "move West" tile:
-							} else if (y == playerPosition.getY() && x == playerPosition.getX() - 1 && Main.game.getActiveWorld().getCell(x, y).getPlace().getPlaceType() != GenericPlaces.IMPASSABLE) {
+							} else if (y == playerPosition.getY() && x == playerPosition.getX() - 1 && Main.game.getActiveWorld().getCell(x, y).getPlace().getPlaceType() != PlaceType.GENERIC_IMPASSABLE) {
 								if(Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()) {
 									mapSB.append("<div class='map-tile movement dangerous' id='leftButton' style='width:" + (4 * unit - borderSizeReduction) + "%; border-width:1%;'>");
 									
@@ -1569,7 +1550,7 @@ public enum RenderingEngine {
 								mapSB.append("</div>");
 
 								// This is the "move East" tile:
-							} else if (y == playerPosition.getY() && x == playerPosition.getX() + 1 && Main.game.getActiveWorld().getCell(x, y).getPlace().getPlaceType() != GenericPlaces.IMPASSABLE) {
+							} else if (y == playerPosition.getY() && x == playerPosition.getX() + 1 && Main.game.getActiveWorld().getCell(x, y).getPlace().getPlaceType() != PlaceType.GENERIC_IMPASSABLE) {
 								if(Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()) {
 									mapSB.append("<div class='map-tile movement dangerous' id='rightButton' style='width:" + (4 * unit - borderSizeReduction) + "%; border-width:1%;'>");
 									
@@ -1675,6 +1656,7 @@ public enum RenderingEngine {
 	}
 	
 	private void appendNPCIcon(int x, int y) {
+		
 		List<String> mapIcons = new ArrayList<>();
 		List<NPC> charactersPresent = Main.game.getCharactersPresent(Main.game.getActiveWorld().getCell(x, y));
 		
@@ -1721,8 +1703,8 @@ public enum RenderingEngine {
 									&& (Main.game.getPlayer().getBaseAttributeValue(Attribute.STRENGTH) + Main.game.getPlayer().getBaseAttributeValue(Attribute.INTELLIGENCE) + Main.game.getPlayer().getBaseAttributeValue(Attribute.FITNESS))<300)
 								?" highlight"
 								:"")
-						+ (!Main.game.getCurrentDialogueNode().isOptionsDisabled() ? "" : " disabled") + "' id='journal'>" + SVGImages.SVG_IMAGE_PROVIDER.getJournalIcon()
-						+ (!Main.game.getCurrentDialogueNode().isOptionsDisabled() ? "" : "<div class='disabledLayer'></div>")
+						+ (!Main.game.getCurrentDialogueNode().isOptionsDisabled() && Main.game.isInNewWorld() ? "" : " disabled") + "' id='journal'>" + SVGImages.SVG_IMAGE_PROVIDER.getJournalIcon()
+						+ (!Main.game.getCurrentDialogueNode().isOptionsDisabled() && Main.game.isInNewWorld() ? "" : "<div class='disabledLayer'></div>")
 					+ "</div>"
 				+ "</div>"
 

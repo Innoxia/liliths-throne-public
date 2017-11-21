@@ -11,13 +11,14 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
+import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.8
+ * @version 0.1.89
  * @author Innoxia
  */
 public interface SexActionInterface {
@@ -30,18 +31,21 @@ public interface SexActionInterface {
 	
 	public abstract String getDescription();
 
-	/**
-	 * @return A list of fetishes that affect the player in this sex action.
-	 */
-	public default List<Fetish> getFetishesPlayer() {
-		return null;
-	}
-
 	public CorruptionLevel getCorruptionNeeded();
 	
 	public default PenetrationType getAssociatedPenetrationType() { return null; }
 	
 	public default OrificeType getAssociatedOrificeType() { return null; }
+	
+	/**
+	 * @return A list of fetishes that affect the player in this sex action.
+	 */
+	public List<Fetish> getFetishesPlayer();
+	
+	/**
+	 * @return A list of fetishes that affect the partner in this sex action.
+	 */
+	public List<Fetish> getFetishesPartner();
 	
 	// Sex-specific:
 	
@@ -85,8 +89,13 @@ public interface SexActionInterface {
 	public default void baseEffects() {
 		
 		if(getActionType()==SexActionType.PLAYER_PENETRATION || getActionType() == SexActionType.PARTNER_PENETRATION) {
-			if(getAssociatedPenetrationType()!=null && getAssociatedOrificeType()!=null)
+			if(getAssociatedPenetrationType()!=null && getAssociatedOrificeType()!=null) {
 				Sex.applyPenetration(getAssociatedPenetrationType(), getAssociatedOrificeType());
+			}
+		}
+		
+		if(getActionType()==SexActionType.PLAYER_POSITIONING || getActionType() == SexActionType.PARTNER_POSITIONING) { //TODO
+			// Ongoing penetrations are reset in Sex.setSexManager()
 		}
 		
 		if(getActionType()==SexActionType.PLAYER_STOP_PENETRATION || getActionType() == SexActionType.PARTNER_STOP_PENETRATION) {
@@ -149,6 +158,23 @@ public interface SexActionInterface {
 				return null;
 			}
 			
+			// You can't prepare for orgasms if your partner won't orgasm on the next turn:
+			if(getActionType() == SexActionType.PLAYER_PREPARE_PARTNER_ORGASM) {
+				if(!Sex.isPartnerReadyToOrgasm()) {
+					return null;
+				} else {
+					return convertToResponse();
+				}
+			}
+			// Your partner can't prepare for orgasms if you won't orgasm on the next turn:
+			if(getActionType() == SexActionType.PARTNER_PREPARE_PLAYER_ORGASM) {
+				if(!Sex.isPlayerReadyToOrgasm()) {
+					return null;
+				} else {
+					return convertToResponse();
+				}
+			}
+
 			// You can't resist in scenes that don't allow it or if non-con is disabled:
 			if((getSexPacePlayer()==SexPace.SUB_RESISTING || getSexPacePartner()==SexPace.SUB_RESISTING)) {
 				if(Sex.isConsensual() || !Main.game.isNonConEnabled()) {
@@ -159,14 +185,14 @@ public interface SexActionInterface {
 			// If this is a positioning action, only allow it if there is no penetration occurring:
 			if(getActionType()==SexActionType.PLAYER_POSITIONING || getActionType() == SexActionType.PARTNER_POSITIONING) {
 				
-				if(Sex.isAnyNonSelfPenetrationHappening()
-						&& (!Sex.isConsensual() || getSexPacePlayer()==SexPace.SUB_RESISTING || getSexPacePartner()==SexPace.SUB_RESISTING)
-						&& ((getActionType().isPlayerAction() && !Sex.isPlayerDom()) || (!getActionType().isPlayerAction() && Sex.isPlayerDom()))) {
-					return convertToNullResponse();
-					
-				} else {
+//				if(Sex.isAnyNonSelfPenetrationHappening()
+//						&& (!Sex.isConsensual() || getSexPacePlayer()==SexPace.SUB_RESISTING || getSexPacePartner()==SexPace.SUB_RESISTING)
+//						&& ((getActionType().isPlayerAction() && !Sex.isPlayerDom()) || (!getActionType().isPlayerAction() && Sex.isPlayerDom()))) {
+//					return convertToNullResponse();
+//					
+//				} else {
 					return convertToResponse();
-				}
+//				}
 			
 			// If this is a 'stop penetration' action, check to see if all the requirements are met:
 			} else if(getActionType()==SexActionType.PLAYER_STOP_PENETRATION || getActionType() == SexActionType.PARTNER_STOP_PENETRATION) {
@@ -341,20 +367,54 @@ public interface SexActionInterface {
 		}
 	}
 	
+	public default SexActionCategory getCategory() {
+		if(getAssociatedPenetrationType()==null && getAssociatedOrificeType()==null) {
+			if(getActionType() == SexActionType.PLAYER_POSITIONING || getActionType() == SexActionType.PARTNER_POSITIONING) {
+				return SexActionCategory.POSITIONING;
+			} else {
+				return SexActionCategory.MISCELLANEOUS;
+			}
+			
+		} else {
+			if (getAssociatedPenetrationType()!=null) {
+				if(getAssociatedOrificeType()!=null) {
+					if(getAssociatedPenetrationType().isPlayer() == getAssociatedOrificeType().isPlayer()) {
+						return SexActionCategory.SELF;
+					} else {
+						return SexActionCategory.SEX;
+					}
+				} else {
+					if((getAssociatedPenetrationType().isPlayer() && getActionType().isPlayerAction())
+							|| (!getAssociatedPenetrationType().isPlayer() && !getActionType().isPlayerAction())) {
+						return SexActionCategory.SELF;
+					} else {
+						return SexActionCategory.SEX;
+					}
+				}
+			} else {
+				if((getAssociatedOrificeType().isPlayer() && getActionType().isPlayerAction())
+						|| (!getAssociatedOrificeType().isPlayer() && !getActionType().isPlayerAction())) {
+					return SexActionCategory.SELF;
+				} else {
+					return SexActionCategory.SEX;
+				}
+			}
+			
+		}
+	}
+	
 	public default Response convertToResponse() {
 		return new Response(getActionTitle(), getActionDescription(), Sex.SEX_DIALOGUE,
 				getFetishesPlayer(),
 				getCorruptionNeeded(),
 				null, null, null,
 				getAssociatedPenetrationType(), getAssociatedOrificeType(), Sex.getPartner()){
+			
 			@Override
 			public void effects() {
-				if(getActionType()==SexActionType.PLAYER_POSITIONING || getActionType()==SexActionType.PARTNER_POSITIONING) {
-					for(PenetrationType pt : PenetrationType.values()) {
-						Sex.getOngoingPenetrationMap().remove(pt);
-					}
+				if(getCategory() == SexActionCategory.POSITIONING) {
+					Sex.responseCategory = null;
 				}
-				
 				Sex.setSexStarted(true);
 				Sex.endSexTurn(SexActionInterface.this);
 			}
@@ -364,7 +424,7 @@ public interface SexActionInterface {
 			}
 			@Override
 			public boolean isSexPositioningHighlight() {
-				return getActionType()==SexActionType.PLAYER_POSITIONING;
+				return getActionType()==SexActionType.PLAYER_POSITIONING || SexActionInterface.this.equals(GenericActions.PLAYER_STOP_SEX);
 			}
 			@Override
 			public SexPace getSexPace() {
@@ -394,7 +454,7 @@ public interface SexActionInterface {
 				}
 				@Override
 				public boolean isSexPositioningHighlight() {
-					return getActionType()==SexActionType.PLAYER_POSITIONING;
+					return getActionType()==SexActionType.PLAYER_POSITIONING || SexActionInterface.this.equals(GenericActions.PLAYER_STOP_SEX);
 				}
 				@Override
 				public SexPace getSexPace() {
@@ -475,7 +535,7 @@ public interface SexActionInterface {
 			}
 			@Override
 			public boolean isSexPositioningHighlight() {
-				return getActionType()==SexActionType.PLAYER_POSITIONING;
+				return getActionType()==SexActionType.PLAYER_POSITIONING || SexActionInterface.this.equals(GenericActions.PLAYER_STOP_SEX);
 			}
 			@Override
 			public SexPace getSexPace() {
@@ -574,13 +634,6 @@ public interface SexActionInterface {
 	public default List<OrificeType> getPlayerAreasCummedIn() { return null; }
 
 	public default List<OrificeType> getPartnerAreasCummedIn() { return null; }
-	
-	/**
-	 * @return A list of fetishes that affect the partner in this sex action.
-	 */
-	public default List<Fetish> getFetishesPartner() {
-		return null;
-	}
 	
 	public default boolean ignorePlayerCondom() {
 		return false;

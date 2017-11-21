@@ -1,5 +1,8 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.body.Covering;
@@ -26,11 +29,11 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.HarpyNests;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.8
- * @version 0.1.8
+ * @version 0.1.89
  * @author Innoxia
  */
 public class HarpyBimboCompanion extends NPC {
@@ -38,46 +41,66 @@ public class HarpyBimboCompanion extends NPC {
 	private static final long serialVersionUID = 1L;
 
 	public HarpyBimboCompanion() {
+		this(false);
+	}
+	
+	public HarpyBimboCompanion(boolean isImported) {
 		super(new NameTriplet("Lauren"),
 				"Brittany's girlfriend, Lauren, does everything she can to please her matriarch."
 						+ " Just like most of the harpies in Brittany's nest, she's a ditzy bimbo, and does absolutely anything her matriarch orders her to.",
 				5, Gender.F_V_B_FEMALE, RacialBody.HARPY, RaceStage.LESSER,
-				new CharacterInventory(30), WorldType.HARPY_NEST, HarpyNests.HARPY_NEST_YELLOW, true);
+				new CharacterInventory(30), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_HARPY_NEST_YELLOW, true);
 
-		this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
+		if(!isImported) {
+			this.setSexualOrientation(SexualOrientation.GYNEPHILIC);
+	
+			this.addFetish(Fetish.FETISH_BIMBO);
+			this.addFetish(Fetish.FETISH_SUBMISSIVE);
+			
+			this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, Colour.EYE_GREEN));
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.FEATHERS_BLEACH_BLONDE), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.FEATHERS_BLEACH_BLONDE), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
+			
+			this.setFemininity(90);
+			
+			this.setVaginaVirgin(false);
+			this.setVaginaWetness(Wetness.THREE_WET.getValue());
+			this.setVaginaCapacity(Capacity.THREE_SLIGHTLY_LOOSE.getMedianValue(), true);
+			
+			this.setAssVirgin(false);
+			this.setFaceVirgin(false);
+			this.setBreastSize(CupSize.D.getMeasurement());
+			this.setAssSize(AssSize.FIVE_HUGE.getValue());
+			this.setHipSize(HipSize.FIVE_VERY_WIDE.getValue());
+			
+			this.setHeight(162);
+			
+			this.setPiercedEar(true);
+			this.setPiercedNavel(true);
+	
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_VSTRING, Colour.CLOTHING_RED, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_CROPTOP_BRA, Colour.CLOTHING_RED, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, Colour.CLOTHING_WHITE, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_MICRO_SKIRT_BELTED, Colour.CLOTHING_WHITE, false), true, this);
+			
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_SILVER, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NAVEL_GEM, Colour.CLOTHING_SILVER, false), true, this);
+		}
+	}
+	
+	@Override
+	public HarpyBimboCompanion loadFromXML(Element parentElement, Document doc) {
+		HarpyBimboCompanion npc = new HarpyBimboCompanion(true);
 
-		this.addFetish(Fetish.FETISH_BIMBO);
-		this.addFetish(Fetish.FETISH_SUBMISSIVE);
+		loadNPCVariablesFromXML(npc, null, parentElement, doc);
 		
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HARPY, Colour.EYE_GREEN));
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HARPY, Colour.FEATHERS_BLEACH_BLONDE), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.FEATHERS, Colour.FEATHERS_BLEACH_BLONDE), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
-		
-		this.setFemininity(90);
-		
-		this.setVaginaVirgin(false);
-		this.setVaginaWetness(Wetness.THREE_WET.getValue());
-		this.setVaginaCapacity(Capacity.THREE_SLIGHTLY_LOOSE.getMedianValue(), true);
-		
-		this.setAssVirgin(false);
-		this.setFaceVirgin(false);
-		this.setBreastSize(CupSize.D.getMeasurement());
-		this.setAssSize(AssSize.FIVE_HUGE.getValue());
-		this.setHipSize(HipSize.FIVE_VERY_WIDE.getValue());
-		
-		this.setHeight(162);
-		
-		this.setPiercedEar(true);
-		this.setPiercedNavel(true);
+		return npc;
+	}
 
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_VSTRING, Colour.CLOTHING_RED, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_CROPTOP_BRA, Colour.CLOTHING_RED, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, Colour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_MICRO_SKIRT_BELTED, Colour.CLOTHING_WHITE, false), true, this);
-		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_SILVER, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NAVEL_GEM, Colour.CLOTHING_SILVER, false), true, this);
+	@Override
+	public boolean isUnique() {
+		return true;
 	}
 	
 	@Override

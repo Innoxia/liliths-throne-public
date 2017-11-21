@@ -2,18 +2,25 @@ package com.lilithsthrone.world;
 
 import java.io.Serializable;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.utils.Vector2i;
+import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.places.GenericPlace;
 
 /**
  * @since 0.1.0
- * @version 0.1.85
+ * @version 0.1.89
  * @author Innoxia
  */
-public class Cell implements Serializable {
+public class Cell implements Serializable, XMLSaving {
 	private static final long serialVersionUID = 1L;
 
+	public static final int CELL_MAXIMUM_INVENTORY_SPACE = 48;
+	
 	private WorldType type;
 
 	private Vector2i location;
@@ -31,7 +38,7 @@ public class Cell implements Serializable {
 		discovered = false;
 		place = new GenericPlace(type.getStandardPlace());
 		
-		inventory = new CharacterInventory(0, 48);
+		inventory = new CharacterInventory(0, CELL_MAXIMUM_INVENTORY_SPACE);
 		
 		northAccess = false;
 		southAccess = false;
@@ -40,6 +47,55 @@ public class Cell implements Serializable {
 		blocked = false;
 	}
 
+	@Override
+	public Element saveAsXML(Element parentElement, Document doc) {
+		Element element = doc.createElement("cell");
+		parentElement.appendChild(element);
+		
+		CharacterUtils.addAttribute(doc, element, "worldType", this.getType().toString());
+		
+		Element location = doc.createElement("location");
+		element.appendChild(location);
+		CharacterUtils.addAttribute(doc, location, "x", String.valueOf(this.getLocation().getX()));
+		CharacterUtils.addAttribute(doc, location, "y", String.valueOf(this.getLocation().getY()));
+		
+		CharacterUtils.addAttribute(doc, element, "name", this.getName());
+		
+		CharacterUtils.addAttribute(doc, element, "discovered", String.valueOf(this.discovered));
+		CharacterUtils.addAttribute(doc, element, "northAccess", String.valueOf(this.northAccess));
+		CharacterUtils.addAttribute(doc, element, "southAccess", String.valueOf(this.southAccess));
+		CharacterUtils.addAttribute(doc, element, "eastAccess", String.valueOf(this.eastAccess));
+		CharacterUtils.addAttribute(doc, element, "westAccess", String.valueOf(this.westAccess));
+		CharacterUtils.addAttribute(doc, element, "blocked", String.valueOf(this.blocked));
+		
+		place.saveAsXML(element, doc);
+		inventory.saveAsXML(element, doc);
+		
+		return element;
+	}
+	
+	public static Cell loadFromXML(Element parentElement, Document doc) {
+		Cell cell = new Cell(
+				WorldType.valueOf(parentElement.getAttribute("worldType")),
+				new Vector2i(
+					Integer.valueOf(((Element)parentElement.getElementsByTagName("location").item(0)).getAttribute("x")),
+					Integer.valueOf(((Element)parentElement.getElementsByTagName("location").item(0)).getAttribute("y"))));
+		
+		cell.setDiscovered(Boolean.valueOf(parentElement.getAttribute("discovered")));
+		cell.setNorthAccess(Boolean.valueOf(parentElement.getAttribute("northAccess")));
+		cell.setSouthAccess(Boolean.valueOf(parentElement.getAttribute("southAccess")));
+		cell.setEastAccess(Boolean.valueOf(parentElement.getAttribute("eastAccess")));
+		cell.setWestAccess(Boolean.valueOf(parentElement.getAttribute("westAccess")));
+		cell.setBlocked(Boolean.valueOf(parentElement.getAttribute("blocked")));
+		
+		cell.setPlace(GenericPlace.loadFromXML(((Element)parentElement.getElementsByTagName("place").item(0)), doc));
+		cell.setInventory(CharacterInventory.loadFromXML(((Element)parentElement.getElementsByTagName("characterInventory").item(0)), doc));
+		
+		cell.getInventory().setMaximumInventorySpace(CELL_MAXIMUM_INVENTORY_SPACE);
+		
+		return cell;
+	}
+	
 	@Override
 	public String toString() {
 		return "Name: " + name;

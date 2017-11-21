@@ -2,14 +2,17 @@ package com.lilithsthrone.game.dialogue.places.dominion.slaverAlley;
 
 import com.lilithsthrone.game.character.Quest;
 import com.lilithsthrone.game.character.QuestLine;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
-import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
@@ -48,12 +51,12 @@ public class SlaverAlleyDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseEffectsOnly("Slaver Alley", "Step through the gate and enter Slaver Alley."){
 					@Override
 					public void effects() {
-						Main.mainController.moveGameWorld(true);
+						Main.mainController.moveGameWorld(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_ENTRANCE, true);
 					}
 				};
 
@@ -86,12 +89,12 @@ public class SlaverAlleyDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseEffectsOnly("Leave", "Step back out into Dominion's alleyways."){
 					@Override
 					public void effects() {
-						Main.mainController.moveGameWorld(true);
+						Main.mainController.moveGameWorld(WorldType.DOMINION, PlaceType.DOMINION_SLAVER_ALLEY, true);
 					}
 				};
 
@@ -150,7 +153,7 @@ public class SlaverAlleyDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 	};
@@ -181,7 +184,7 @@ public class SlaverAlleyDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 	};
@@ -210,7 +213,7 @@ public class SlaverAlleyDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 	};
@@ -234,7 +237,7 @@ public class SlaverAlleyDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 	};
@@ -258,7 +261,7 @@ public class SlaverAlleyDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 	};
@@ -292,7 +295,7 @@ public class SlaverAlleyDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Enter", "Step inside the 'Slavery Administration' building.", SLAVERY_ADMINISTRATION);
 
@@ -341,7 +344,7 @@ public class SlaverAlleyDialogue {
 					+ "</p>";
 				
 			} else {
-				if(!Main.game.getDialogueFlags().finchIntroduced) {
+				if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.finchIntroduced)) {
 					return "<p>"
 								+ "The heavy oak doors of the 'Slavery Administration' building are wide open, and, stepping through the inviting entranceway, you find yourself standing in a large, cavernous entrance hall."
 								+ " Rows of marble pillars line the edges of the room, with little wooden benches interspersed between them."
@@ -408,13 +411,13 @@ public class SlaverAlleyDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getPlayer().isHasSlaverLicense()) {
 				if (index == 1) {
 					return new ResponseTrade("Trade", "Buy slavery-related items.", Main.game.getFinch());
 
 				} else if (index == 5) {
-					return new Response("Slave Manager", "Open the slave management screen.", MiscDialogue.getSlaveryOverviewDialogue());
+					return new Response("Slave Manager", "Open the slave management screen.", SlaveryManagementDialogue.getSlaveryOverviewDialogue());
 
 				} else if (index == 0) {
 					return new Response("Leave", "Step back outside.", SLAVERY_ADMINISTRATION_EXTERIOR);
@@ -432,7 +435,7 @@ public class SlaverAlleyDialogue {
 							}
 							@Override
 							public void effects() {
-								Main.game.getDialogueFlags().finchIntroduced = true;
+								Main.game.getDialogueFlags().values.add(DialogueFlagValue.finchIntroduced);
 							}
 						};
 						
@@ -458,7 +461,7 @@ public class SlaverAlleyDialogue {
 					return new Response("Leave", "Step back outside.", SLAVERY_ADMINISTRATION_EXTERIOR) {
 						@Override
 						public void effects() {
-							Main.game.getDialogueFlags().finchIntroduced = true;
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.finchIntroduced);
 						}
 					};
 
@@ -500,8 +503,8 @@ public class SlaverAlleyDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			return SLAVERY_ADMINISTRATION.getResponse(index);
+		public Response getResponse(int responseTab, int index) {
+			return SLAVERY_ADMINISTRATION.getResponse(0, index);
 		}
 	};
 	
@@ -553,7 +556,7 @@ public class SlaverAlleyDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Rules", "Allow [finch.name] to explain the rules to you.", SLAVERY_ADMINISTRATION_SLAVER_LICENSE_OBTAINED_RULES) {
 					@Override
@@ -617,8 +620,8 @@ public class SlaverAlleyDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			return SLAVERY_ADMINISTRATION.getResponse(index);
+		public Response getResponse(int responseTab, int index) {
+			return SLAVERY_ADMINISTRATION.getResponse(0, index);
 		}
 	};
 	

@@ -159,13 +159,13 @@ public class FluidMilk implements BodyPartInterface, Serializable {
 				if(owner.isPlayer()) {
 					return "<p>"
 								+ "You feel a series of strange pulses shoot up into your [pc.breasts], causing you to let out [pc.a_moan+].</br>"
-								+ "Your [pc.milk] is now [style.boldGrow(hallucinogenic)]!"
+								+ "Your [pc.milk] is now [style.boldGrow(psychoactive)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
 								+ "A series of strange pulses shoot up through [npc.name]'s [npc.breasts], causing [npc.herHim] to let out [npc.a_moan+].</br>"
-								+ "[npc.Name]'s [npc.milk] is now [style.boldGrow(hallucinogenic)]!"
+								+ "[npc.Name]'s [npc.milk] is now [style.boldGrow(psychoactive)]!"
 							+ "</p>");
 				}
 			case MUSKY:
@@ -276,13 +276,13 @@ public class FluidMilk implements BodyPartInterface, Serializable {
 				if(owner.isPlayer()) {
 					return "<p>"
 								+ "You feel a series of soothing waves wash up into your [pc.breasts], causing you to let out a gentle sigh.</br>"
-								+ "Your [pc.milk] is [style.boldShrink(no longer hallucinogenic)]!"
+								+ "Your [pc.milk] is [style.boldShrink(no longer psychoactive)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
 								+ "A series of soothing waves wash up through [npc.name]'s [npc.breasts], causing [npc.herHim] to let out a gentle sigh.</br>"
-								+ "[npc.Name]'s [npc.milk] is [style.boldShrink(no longer hallucinogenic)]!"
+								+ "[npc.Name]'s [npc.milk] is [style.boldShrink(no longer psychoactive)]!"
 							+ "</p>");
 				}
 			case MUSKY:

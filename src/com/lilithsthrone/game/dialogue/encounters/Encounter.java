@@ -12,10 +12,10 @@ import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.gender.GenderPreference;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.generic.Cultist;
-import com.lilithsthrone.game.character.npc.generic.DominionAlleywayAttacker;
-import com.lilithsthrone.game.character.npc.generic.DominionSuccubusAttacker;
-import com.lilithsthrone.game.character.npc.generic.HarpyNestsAttacker;
+import com.lilithsthrone.game.character.npc.dominion.Cultist;
+import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
+import com.lilithsthrone.game.character.npc.dominion.DominionSuccubusAttacker;
+import com.lilithsthrone.game.character.npc.dominion.HarpyNestsAttacker;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -31,7 +31,7 @@ import com.lilithsthrone.game.slavery.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
-import com.lilithsthrone.world.places.Dominion;
+import com.lilithsthrone.world.places.PlaceType;
 import com.lilithsthrone.utils.Util.Value;
 
 /**
@@ -51,12 +51,13 @@ public enum Encounter {
 				List<NPC> slaves = new ArrayList<>();
 				List<NPC> hornySlaves = new ArrayList<>();
 				
-				for(NPC slave : Main.game.getPlayer().getSlavesOwned()) {
+				for(String id : Main.game.getPlayer().getSlavesOwned()) {
+					NPC slave = (NPC) Main.game.getNPCById(id);
 					if(slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_INITIATE_PLAYER)
 							&& !slave.getWorkHours()[Main.game.getHour()%24]
 							&& slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_HOUSE_FREEDOM)
 							&& slave.isAttractedTo(Main.game.getPlayer())) {
-						if(slave.getGetLastTimeHadSex()+60*4<Main.game.getMinutesPassed()) {
+						if(slave.getLastTimeHadSex()+60*4<Main.game.getMinutesPassed()) {
 							slaves.add(slave);
 						}
 						if(slave.hasStatusEffect(StatusEffect.PENT_UP_SLAVE)) {
@@ -96,7 +97,7 @@ public enum Encounter {
 				Main.game.setActiveNPC(new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences()));
 	
 				try {
-					Main.game.addNPC(Main.game.getActiveNPC());
+					Main.game.addNPC(Main.game.getActiveNPC(), false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -108,12 +109,12 @@ public enum Encounter {
 					&& Main.game.getDateNow().getMonth().equals(Month.OCTOBER)
 					&& Main.game.getCharactersPresent().isEmpty()
 					&& Main.game.getNumberOfWitches()<4
-					&& Main.game.getPlayerCell().getPlace().getPlaceType() == Dominion.CITY_STREET) {
+					&& Main.game.getPlayerCell().getPlace().getPlaceType() == PlaceType.DOMINION_STREET) {
 				
 				Main.game.setActiveNPC(new Cultist());
 				
 				try {
-					Main.game.addNPC(Main.game.getActiveNPC());
+					Main.game.addNPC(Main.game.getActiveNPC(), false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -142,7 +143,7 @@ public enum Encounter {
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 				
-				if(Main.game.isIncestEnabled() && Math.random()>0.75f) { // Incest
+				if(Main.game.isIncestEnabled() && Math.random()>0.8f) { // Incest
 					List<NPC> offspringAvailable = new ArrayList<>();
 					for(NPC npc : Main.game.getOffspring()) {
 						offspringAvailable.add(npc);
@@ -159,11 +160,7 @@ public enum Encounter {
 						offspring.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
 						
 						Main.game.setActiveNPC(offspring);
-						try {
-							Main.game.addNPC(offspring);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
+						
 						return Main.game.getActiveNPC().getEncounterDialogue();
 					}
 					
@@ -171,7 +168,7 @@ public enum Encounter {
 				
 				Main.game.setActiveNPC(new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences()));
 				try {
-					Main.game.addNPC(Main.game.getActiveNPC());
+					Main.game.addNPC(Main.game.getActiveNPC(), false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -226,7 +223,7 @@ public enum Encounter {
 			Main.game.setActiveNPC(new DominionSuccubusAttacker());
 
 			try {
-				Main.game.addNPC(Main.game.getActiveNPC());
+				Main.game.addNPC(Main.game.getActiveNPC(), false);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -264,7 +261,7 @@ public enum Encounter {
 				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getLocation());
 				
 				try {
-					Main.game.addNPC(Main.game.getActiveNPC());
+					Main.game.addNPC(Main.game.getActiveNPC(), false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -284,7 +281,7 @@ public enum Encounter {
 				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getLocation());
 				
 				try {
-					Main.game.addNPC(Main.game.getActiveNPC());
+					Main.game.addNPC(Main.game.getActiveNPC(), false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -340,7 +337,7 @@ public enum Encounter {
 				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getLocation());
 				
 				try {
-					Main.game.addNPC(Main.game.getActiveNPC());
+					Main.game.addNPC(Main.game.getActiveNPC(), false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -360,7 +357,7 @@ public enum Encounter {
 				Main.game.getActiveNPC().setLocation(Main.game.getPlayer().getLocation());
 				
 				try {
-					Main.game.addNPC(Main.game.getActiveNPC());
+					Main.game.addNPC(Main.game.getActiveNPC(), false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

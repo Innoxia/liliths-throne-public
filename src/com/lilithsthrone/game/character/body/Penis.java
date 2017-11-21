@@ -29,6 +29,7 @@ public class Penis implements BodyPartInterface, Serializable {
 	protected PenisType type;
 	protected int size;
 	protected boolean pierced;
+	protected boolean virgin;
 	protected Set<PenisModifier> penisModifiers;
 	
 	protected Testicle testicle;
@@ -38,6 +39,7 @@ public class Penis implements BodyPartInterface, Serializable {
 		this.type = type;
 		this.size = size;
 		pierced = false;
+		virgin = true;
 		
 		testicle = new Testicle(type.getTesticleType(), testicleSize, cumProduction, testicleCount);
 		
@@ -539,6 +541,15 @@ public class Penis implements BodyPartInterface, Serializable {
 			}
 		}
 	}
+	
+	public boolean isVirgin() {
+		return virgin;
+	}
+
+	public void setVirgin(boolean virgin) {
+		this.virgin = virgin;
+	}
+	
 	
 	public boolean hasPenisModifier(PenisModifier modifier) {
 		return penisModifiers.contains(modifier);

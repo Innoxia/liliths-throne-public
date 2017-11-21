@@ -3,6 +3,9 @@ package com.lilithsthrone.game.character.npc.dominion;
 import java.util.List;
 import java.util.Map;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.Quest;
@@ -27,10 +30,12 @@ import com.lilithsthrone.game.character.body.types.SkinType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
+import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
+import com.lilithsthrone.game.character.body.valueEnums.HipSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
@@ -43,6 +48,7 @@ import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.Spell;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.places.dominion.EnforcerHQDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -70,61 +76,79 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.Dominion;
-import com.lilithsthrone.world.places.EnforcerHQ;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.5
- * @version 0.1.8
+ * @version 0.1.89
  * @author Innoxia
  */
 public class Brax extends NPC {
 
 	private static final long serialVersionUID = 1L;
 
-	private static StringBuilder descriptionSB;
-
 	public Brax() {
+		this(false);
+	}
+	
+	private Brax(boolean isImported) {
 		super(new NameTriplet("Brax", "Bree", "Brandi"),
 				"The 'Chief of Dominion Operations', Brax is a high-ranking enforcer. Muscular, handsome, and with an incredibly dominant personality, he's the focus of every female enforcer's attention.", 3, Gender.M_P_MALE,
-				RacialBody.WOLF_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.ENFORCER_HQ, EnforcerHQ.BRAXS_OFFICE, true);
-
-		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+				RacialBody.WOLF_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_BRAXS_OFFICE, true);
 		
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_LYCAN, Colour.EYE_YELLOW));
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, Colour.COVERING_BLACK), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.LYCAN_FUR, Colour.COVERING_WHITE), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_OLIVE), true);
+		if(!isImported) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+			
+			this.setEyeCovering(new Covering(BodyCoveringType.EYE_LYCAN, Colour.EYE_YELLOW));
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, Colour.COVERING_BLACK), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.LYCAN_FUR, Colour.COVERING_WHITE), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_OLIVE), true);
+	
+			this.setPenisSize(PenisSize.FOUR_HUGE.getMedianValue());
+			this.setPenisVirgin(false);
+	
+			this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
+			this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
+			
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BOXERS, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_TRAINERS, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHORTS, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHIRT, Colour.CLOTHING_BLACK, false), true, this);
+	
+			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_EPIC, DamageType.FIRE));
+			
+			this.addFetish(Fetish.FETISH_DOMINANT);
+		}
+	}
+	
+	@Override
+	public Brax loadFromXML(Element parentElement, Document doc) {
+		Brax npc = new Brax(true);
 
-		this.setPenisSize(PenisSize.FOUR_HUGE.getMedianValue());
-
-		this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
-		this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
+		loadNPCVariablesFromXML(npc, null, parentElement, doc);
 		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BOXERS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_TRAINERS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHORTS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHIRT, Colour.CLOTHING_BLACK, false), true, this);
+		return npc;
+	}
 
-		this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_EPIC, DamageType.FIRE));
-		
-		this.addFetish(Fetish.FETISH_DOMINANT);
+	@Override
+	public boolean isUnique() {
+		return true;
 	}
 	
 	public void setBraxsPostQuestStatus() {
-		Main.game.getBrax().setLocation(WorldType.ENFORCER_HQ, EnforcerHQ.RECEPTION_DESK, true);
+		Main.game.getBrax().setLocation(WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_RECEPTION_DESK, true);
 		Main.game.getBrax().setPendingClothingDressing(true);
 		Main.game.getCandi().addSlave(Main.game.getBrax());
 	}
 	
 	@Override
 	public String getDescription() {
-		if(Main.game.getDialogueFlags().bimbofiedBrax) {
+		if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimbofiedBrax)) {
 			return "The one-time 'Chief of Dominion Operations', [brax.name] is now completely unrecognisable from [brax.her] former self."
 					+ " With some help from Candi, she's been transformed into a brain-dead bimbo, who can only think about where the next cock is coming from.";
 			
-		} else if(Main.game.getDialogueFlags().feminisedBrax) {
+		} else if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.feminisedBrax)) {
 			return "The one-time 'Chief of Dominion Operations', [brax.name] is almost unrecognisable from [brax.her] former self."
 					+ " With some help from Candi, you've transformed [brax.herHim] into a wolf-girl."
 					+ " Where once [brax.she] was muscular and dominant, [brax.she]'s now feminine and submissive, and meekly agrees to do anything that's asked of [brax.herHim].";
@@ -146,7 +170,7 @@ public class Brax extends NPC {
 	public void equipClothing(boolean replaceUnsuitableClothing, boolean onlyAddCoreClothing) {
 		deleteAllEquippedClothing();
 		
-		if(Main.game.getDialogueFlags().braxBeaten) {
+		if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.braxBeaten)) {
 			AbstractClothing collar = AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR, false);
 			collar.setSealed(true);
 			collar.setColour(Colour.CLOTHING_SILVER);
@@ -184,11 +208,17 @@ public class Brax extends NPC {
 			}
 			
 		} else {
+			
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BOXERS, Colour.CLOTHING_BLACK, false), true, this);
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_BLACK, false), true, this);
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_TRAINERS, Colour.CLOTHING_BLACK, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHORTS, Colour.CLOTHING_BLUE, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHIRT, Colour.CLOTHING_BLUE, false), true, this);
+			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.braxBeaten)) {
+				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHORTS, Colour.CLOTHING_BLUE, false), true, this);
+				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHIRT, Colour.CLOTHING_BLUE, false), true, this);
+			} else {
+				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHORTS, Colour.CLOTHING_BLACK, false), true, this);
+				this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHIRT, Colour.CLOTHING_BLACK, false), true, this);
+			}
 		}
 		
 	}
@@ -205,10 +235,10 @@ public class Brax extends NPC {
 	
 	@Override
 	public SexPace getSexPaceSubPreference(GameCharacter character){
-		if(Main.game.getDialogueFlags().bimbofiedBrax) {
+		if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimbofiedBrax)) {
 			return SexPace.SUB_EAGER;
 			
-		} else if(Main.game.getDialogueFlags().feminisedBrax) {
+		} else if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.feminisedBrax)) {
 			return SexPace.SUB_NORMAL;
 			
 		} else {
@@ -224,18 +254,18 @@ public class Brax extends NPC {
 	@Override
 	public String getSpeechColour() {
 		if(Main.getProperties().lightTheme) {
-			if(Main.game.getDialogueFlags().bimbofiedBrax) {
+			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimbofiedBrax)) {
 				return "#FF0AA5";
-			} else if(Main.game.getDialogueFlags().feminisedBrax) {
+			} else if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.feminisedBrax)) {
 				return "#C60AFF";
 			} else {
 				return "#1F35FF";
 			}
 			
 		} else {
-			if(Main.game.getDialogueFlags().bimbofiedBrax) {
+			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimbofiedBrax)) {
 				return "#E36DE1";
-			} else if(Main.game.getDialogueFlags().feminisedBrax) {
+			} else if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.feminisedBrax)) {
 				return "#D79EFF";
 			} else {
 				return "#ADB4FF";
@@ -360,12 +390,12 @@ public class Brax extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Resist", "As tempting as it is, you don't really want to have sex with Brax...", AFTER_COMBAT_VICTORY_NO_SEX){
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().braxBeaten=true;
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.braxBeaten);
 						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHIRT, Colour.CLOTHING_BLUE, false), false);
 						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHORTS, Colour.CLOTHING_BLUE, false), false);
 					}
@@ -378,7 +408,7 @@ public class Brax extends NPC {
 						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT)), CorruptionLevel.ONE_VANILLA, null, null, null){
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().braxBeaten=true;
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.braxBeaten);
 						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHIRT, Colour.CLOTHING_BLUE, false), false);
 						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHORTS, Colour.CLOTHING_BLUE, false), false);
 					}
@@ -395,7 +425,7 @@ public class Brax extends NPC {
 					}
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().braxBeaten=true;
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.braxBeaten);
 						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHIRT, Colour.CLOTHING_BLUE, false), false);
 						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHORTS, Colour.CLOTHING_BLUE, false), false);
 					}
@@ -423,12 +453,12 @@ public class Brax extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseEffectsOnly("Outside", "You find yourself back outside once more, but this time, with new knowledge of Arthur's location.") {
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), Dominion.CITY_ENFORCER_HQ, true);
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), PlaceType.DOMINION_ENFORCER_HQ, true);
 						((Brax) Main.game.getBrax()).setBraxsPostQuestStatus();
 					}
 				};
@@ -480,7 +510,7 @@ public class Brax extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("Get started", "Start dominating your new bitch.", EnforcerHQDialogue.EXTERIOR,
 						false, false, Main.game.getBrax(), new SMBraxSubStart(), AFTER_DOMINANT_SEX,
@@ -532,10 +562,10 @@ public class Brax extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("Obey", "Do as Brax says and present yourself for him.", EnforcerHQDialogue.EXTERIOR,
-						false, false, Main.game.getBrax(), new SMBraxDom(), AFTER_SUBMISSIVE_SEX,
+						false, true, Main.game.getBrax(), new SMBraxDom(), AFTER_SUBMISSIVE_SEX,
 						"<p>"
 							+ "You obediently do as Brax commands and drop down on all fours right there in the middle of his office."
 							+ (Main.game.getPlayer().getTailType() == TailType.LYCAN
@@ -566,7 +596,7 @@ public class Brax extends NPC {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getDialogueFlags().braxTransformedPlayer) {
+			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.braxTransformedPlayer)) {
 				return "<p>"
 						+ "You can't carry on fighting any longer, and your legs give out from beneath you as you sink down onto your knees."
 						+ " As Brax lets out a deep laugh, you find yourself looking down at the floor, trying to avoid his powerful gaze."
@@ -639,7 +669,7 @@ public class Brax extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new Response("Spit", "Spit out the transformative liquid.", AFTER_DEFEAT_TRANSFORMATION_REFUSED);
 				
@@ -652,7 +682,7 @@ public class Brax extends NPC {
 						null){
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().braxTransformedPlayer = true;
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.braxTransformedPlayer);
 						
 						switch(Main.getProperties().forcedTFPreference) {
 							case HUMAN:
@@ -734,7 +764,18 @@ public class Brax extends NPC {
 						Main.game.getPlayer().setHairCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, Colour.COVERING_BLACK), true);
 						Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.LYCAN_FUR, Colour.COVERING_WHITE), true);
 						
-						Main.game.getPlayer().setBreastSize(CupSize.E.getMeasurement());
+						if(Main.game.getPlayer().getBreastRawSizeValue()<CupSize.E.getMeasurement()) {
+							Main.game.getPlayer().setBreastSize(CupSize.E.getMeasurement());
+						}
+						if(Main.game.getPlayer().getHipSize().getValue()<HipSize.FOUR_WOMANLY.getValue()) {
+							Main.game.getPlayer().setHipSize(HipSize.FOUR_WOMANLY.getValue());
+						}
+						if(Main.game.getPlayer().getAssSize().getValue()<AssSize.FOUR_LARGE.getValue()) {
+							Main.game.getPlayer().setAssSize(AssSize.FOUR_LARGE.getValue());
+						}
+						Main.game.getPlayer().setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
+						Main.game.getPlayer().setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
+						
 						
 						if(Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION)<CorruptionLevel.TWO_HORNY.getMinimumValue()) {
 							Main.game.getPlayer().setAttribute(Attribute.CORRUPTION, CorruptionLevel.TWO_HORNY.getMinimumValue());
@@ -753,9 +794,7 @@ public class Brax extends NPC {
 
 		@Override
 		public String getContent() {
-			descriptionSB = new StringBuilder();
-			descriptionSB.append(
-					"<p>"
+			return "<p>"
 						+ "You have no desire to be transformed into a wolf-girl, so, yanking your head away from Brax, you quickly spit out the fluid that's in your mouth."
 						+ " As the pink liquid splatters onto the floor, the aggressive wolf-boy lets out a furious growl,"
 						+ " [brax.speech(You stupid bitch! You'll pay for that!)]"
@@ -763,13 +802,11 @@ public class Brax extends NPC {
 					+ "<p>"
 						+ "Angrily tossing the now-empty bottle to the floor, Brax grabs your [pc.arms] and pulls you into him,"
 						+ " [brax.speech(You're fucked now, bitch!)]"
-					+ "</p>");
-
-			return descriptionSB.toString();
+					+ "</p>";
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("Dominated", "Brax is far too strong for you to resist...", EnforcerHQDialogue.EXTERIOR,
 						false, false, Main.game.getBrax(), new SMBraxDom(), AFTER_SUBMISSIVE_SEX,
@@ -793,7 +830,7 @@ public class Brax extends NPC {
 
 		@Override
 		public String getContent() {
-			descriptionSB = new StringBuilder();
+			StringBuilder descriptionSB = new StringBuilder();
 			descriptionSB.append(
 					"<p>"
 						+ "The liquid's transformative force is enough to knock to your knees, and you collapse to the floor, panting, as you feel your body start to change."
@@ -878,7 +915,7 @@ public class Brax extends NPC {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("Obey", "The arousing liquid you've just been forced to drink is forcing you to obey, and you eagerly fall down on all fours so that Brax can fuck you, doggy-style.", EnforcerHQDialogue.EXTERIOR,
 						false, false, Main.game.getBrax(), new SMBraxDom(), AFTER_SUBMISSIVE_SEX,
@@ -922,7 +959,7 @@ public class Brax extends NPC {
 					+ "With a soft moan, you slowly open your eyes, the memory of Brax's rough fucking filling your groggy mind."
 					+ " After a few moments, your head starts to clear, and you see that you've been unceremoniously dumped out the back of the Enforcer HQ."
 					+ "</p>"
-					+(Main.game.getDialogueFlags().braxBeaten
+					+(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.braxBeaten)
 						?"<p>"
 							+ "Although you've been thrown out without so much as a goodbye, you feel a big smile spreading across your face."
 							+ " You found out where Arthur is, and what's more, you got to have a good fuck with that hunk of a wolf-boy."
@@ -933,19 +970,22 @@ public class Brax extends NPC {
 							+ " Deciding that you want a little memento of your time with Brax, <b>you take a spare uniform, and add it to your inventory as you continue on your way</b>."
 							+ "</p>"
 						:"<p>"
-							+ "Although you've been transformed, fucked, and thrown out without so much as a goodbye, you consider that things could always be worse."
+							+ "Although you've been fucked and thrown out without so much as a goodbye, you consider that things could always be worse."
 							+ " Setting off, you try to look on the bright side."
 							+ " After all, at least you weren't enslaved or anything crazy like that..."
 							+ "</p>");
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseEffectsOnly("Carry on", "Get up and carry on your way.") {
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), Dominion.CITY_ENFORCER_HQ, true);
+						if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.braxBeaten)) {
+							((Brax) Main.game.getBrax()).setBraxsPostQuestStatus();
+						}
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), PlaceType.DOMINION_ENFORCER_HQ, true);
 					}
 				};
 				
@@ -976,12 +1016,12 @@ public class Brax extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseEffectsOnly("Outside", "You find yourself back outside once more, but this time, with new knowledge of Arthur's location.") {
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), Dominion.CITY_ENFORCER_HQ, true);
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), PlaceType.DOMINION_ENFORCER_HQ, true);
 						((Brax) Main.game.getBrax()).setBraxsPostQuestStatus();
 					}
 				};
@@ -1032,11 +1072,6 @@ public class Brax extends NPC {
 	@Override
 	public Map<TFEssence, Integer> getLootEssenceDrops() {
 		return Util.newHashMapOfValues(new Value<>(TFEssence.ARCANE, 8));
-	}
-	
-	@Override
-	public String getLostVirginityDescriptor() {
-		return "on the floor of his office";
 	}
 	
 	// CoverableArea reveals:

@@ -1,10 +1,12 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
@@ -37,13 +39,13 @@ import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.Jungle;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * Test class that I'm using to try out some methods and stuff. It might end up as a bit of a mess, but don't remove it.
  * 
  * @since 0.1.83
- * @version 0.1.84
+ * @version 0.1.89
  * @author Innoxia
  */
 public class TestNPC extends NPC {
@@ -51,75 +53,94 @@ public class TestNPC extends NPC {
 	private static final long serialVersionUID = 1L;
 
 	public TestNPC() {
+		this(false);
+	}
+	
+	private TestNPC(boolean isImported) {
 		super(new NameTriplet("TestNPC"),
 				"A mysterious [test.race] that you found in the back of one of the Shopping Arcade's many shops.",
 				1, Gender.F_V_B_FEMALE, RacialBody.CAT_MORPH, RaceStage.PARTIAL_FULL,
-				new CharacterInventory(10), WorldType.JUNGLE, Jungle.JUNGLE_CLUB, true); //TODO need to test moving into a 'null' world
+				new CharacterInventory(10), WorldType.JUNGLE, PlaceType.JUNGLE_CLUB, true); //TODO need to test moving into a 'null' world
 		
-		String s = "";
-		int[] nameArray = new int[] {78, 111, 120, 105, 110, 105, 97};
-		for(int c : nameArray) {
-			s+=(char)c;
+		if(!isImported) {
+			String s = "";
+			int[] nameArray = new int[] {78, 111, 120, 105, 110, 105, 97};
+			for(int c : nameArray) {
+				s+=(char)c;
+			}
+			this.setName(new NameTriplet(s));
+			
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+			
+			this.setEyeCovering(new Covering(BodyCoveringType.EYE_FELINE, Colour.EYE_GREEN));
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, Colour.COVERING_BROWN), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.FELINE_FUR, Colour.COVERING_BROWN), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
+	
+			this.setAttribute(Attribute.STRENGTH, 5);
+			this.setAttribute(Attribute.INTELLIGENCE, 25);
+			this.setAttribute(Attribute.FITNESS, 20);
+			this.setAttribute(Attribute.CORRUPTION, 0);
+			
+			this.setFemininity(75);
+			
+			this.setHeight(170);
+			
+			this.setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
+			
+			this.setAssSize(AssSize.THREE_NORMAL.getValue());
+			
+			this.setBreastSize(CupSize.B.getMeasurement());
+			
+			this.setHipSize(HipSize.FOUR_WOMANLY.getValue());
+			
+			this.setPiercedEar(true);
+			
+			this.setAssVirgin(true);
+			this.setNippleVirgin(true);
+			this.setVaginaVirgin(true);
+			this.setFaceVirgin(true);
+			
+			this.addFetish(Fetish.FETISH_ANAL_RECEIVING);
+			this.addFetish(Fetish.FETISH_BREASTS_SELF);
+			this.addFetish(Fetish.FETISH_BROODMOTHER);
+			this.addFetish(Fetish.FETISH_CUM_ADDICT);
+			this.addFetish(Fetish.FETISH_DOMINANT);
+			this.addFetish(Fetish.FETISH_INCEST);
+			this.addFetish(Fetish.FETISH_MASOCHIST);
+			this.addFetish(Fetish.FETISH_MASTURBATION);
+			this.addFetish(Fetish.FETISH_NON_CON_SUB);
+			this.addFetish(Fetish.FETISH_ORAL_GIVING);
+			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
+			this.addFetish(Fetish.FETISH_PREGNANCY);
+			this.addFetish(Fetish.FETISH_PURE_VIRGIN);
+			this.addFetish(Fetish.FETISH_SUBMISSIVE);
+			this.addFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING);
+			
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_WHITE, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_HOODIE, Colour.CLOTHING_PINK_LIGHT, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_HOTPANTS, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_THIGHHIGH_SOCKS, Colour.CLOTHING_WHITE, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HEAD_HEADBAND, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false), true, this);
 		}
-		this.setName(new NameTriplet(s));
-		
-		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-		
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_FELINE, Colour.EYE_GREEN));
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, Colour.COVERING_BROWN), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.FELINE_FUR, Colour.COVERING_BROWN), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
-
-		this.setAttribute(Attribute.STRENGTH, 5);
-		this.setAttribute(Attribute.INTELLIGENCE, 25);
-		this.setAttribute(Attribute.FITNESS, 20);
-		this.setAttribute(Attribute.CORRUPTION, 0);
-		
-		this.setFemininity(75);
-		
-		this.setHeight(170);
-		
-		this.setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
-		
-		this.setAssSize(AssSize.THREE_NORMAL.getValue());
-		
-		this.setBreastSize(CupSize.B.getMeasurement());
-		
-		this.setHipSize(HipSize.FOUR_WOMANLY.getValue());
-		
-		this.setPiercedEar(true);
-		
-		this.setAssVirgin(true);
-		this.setNippleVirgin(true);
-		this.setVaginaVirgin(true);
-		this.setFaceVirgin(true);
-		
-		this.addFetish(Fetish.FETISH_ANAL_RECEIVING);
-		this.addFetish(Fetish.FETISH_BREASTS_SELF);
-		this.addFetish(Fetish.FETISH_BROODMOTHER);
-		this.addFetish(Fetish.FETISH_CUM_ADDICT);
-		this.addFetish(Fetish.FETISH_DOMINANT);
-		this.addFetish(Fetish.FETISH_INCEST);
-		this.addFetish(Fetish.FETISH_MASOCHIST);
-		this.addFetish(Fetish.FETISH_MASTURBATION);
-		this.addFetish(Fetish.FETISH_NON_CON);
-		this.addFetish(Fetish.FETISH_ORAL_GIVING);
-		this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
-		this.addFetish(Fetish.FETISH_PREGNANCY);
-		this.addFetish(Fetish.FETISH_PURE_VIRGIN);
-		this.addFetish(Fetish.FETISH_SUBMISSIVE);
-		this.addFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING);
-		
-
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_HOODIE, Colour.CLOTHING_PINK_LIGHT, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_HOTPANTS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_THIGHHIGH_SOCKS, Colour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HEAD_HEADBAND, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false), true, this);
 		
 		this.setEnslavementDialogue(DominionAlleywayAttackerDialogue.ENSLAVEMENT_DIALOGUE);
+	}
+	
+	@Override
+	public TestNPC loadFromXML(Element parentElement, Document doc) {
+		TestNPC npc = new  TestNPC(true);
+
+		loadNPCVariablesFromXML(npc, null, parentElement, doc);
+		
+		return npc;
+	}
+
+	@Override
+	public boolean isUnique() {
+		return true;
 	}
 	
 	@Override
@@ -201,7 +222,7 @@ public class TestNPC extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new Response("Step inside", "Slip through the open door, careful not to alert the occupant of your presence.", TEST_DIALOGUE_ENTER) {
 					@Override
@@ -248,7 +269,7 @@ public class TestNPC extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new Response("Say hello", "Say hello and ask [test.herHim] what [test.she]'s doing.", TEST_DIALOGUE_GREET) {
 						@Override
@@ -259,7 +280,7 @@ public class TestNPC extends NPC {
 				
 			} else if (index == 2 && Main.game.isNonConEnabled()) {
 				return new ResponseSex("Rape [test.herHim]", "[test.Her] back is turned, and [test.she] hasn't noticed you enter the room...", TEST_DIALOGUE_AFTER_RAPE,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)), null, CorruptionLevel.FOUR_LUSTFUL,
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(),
 						null, null, null,
 						false, false, Main.game.getTestNPC(), new SMDomDoggy(), TEST_DIALOGUE_AFTER_RAPE,
 						"<p>"
@@ -279,7 +300,7 @@ public class TestNPC extends NPC {
 				
 			} else if (index == 3 && Main.game.isNonConEnabled()) {
 				return new ResponseSex("Rape [test.herHim] (gentle)", "[test.Her] back is turned, and [test.she] hasn't noticed you enter the room... (Start the sex scene in the 'gentle' pace.)", TEST_DIALOGUE_AFTER_RAPE,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)), null, CorruptionLevel.FOUR_LUSTFUL,
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(),
 						null, null, null,
 						false, false, Main.game.getTestNPC(), new SMDomDoggy(), TEST_DIALOGUE_AFTER_RAPE,
 						"<p>"
@@ -304,7 +325,7 @@ public class TestNPC extends NPC {
 				
 			} else if (index == 4 && Main.game.isNonConEnabled()) {
 				return new ResponseSex("Rape [test.herHim] (rough)", "[test.Her] back is turned, and [test.she] hasn't noticed you enter the room... (Start the sex scene in the 'rough' pace.)", TEST_DIALOGUE_AFTER_RAPE,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)), null, CorruptionLevel.FOUR_LUSTFUL,
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(),
 						null, null, null,
 						false, false, Main.game.getTestNPC(), new SMDomDoggy(), TEST_DIALOGUE_AFTER_RAPE,
 						"<p>"
@@ -372,7 +393,7 @@ public class TestNPC extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("Sex",
 						"Well, [test.she] <i>is</i> asking for it!",
@@ -470,7 +491,7 @@ public class TestNPC extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(index==0) {
 				return new Response("Leave", "Exit the room.", TEST_DIALOGUE) {
 					@Override
@@ -508,7 +529,7 @@ public class TestNPC extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(index==0) {
 				return new Response("Leave", "Exit the room.", TEST_DIALOGUE) {
 					@Override
@@ -543,11 +564,6 @@ public class TestNPC extends NPC {
 	@Override
 	public int getExperienceFromVictory() {
 		return 0;
-	}
-	
-	@Override
-	public String getLostVirginityDescriptor() {
-		return "as you fucked her in her room";
 	}
 	
 	@Override

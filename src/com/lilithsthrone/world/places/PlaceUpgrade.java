@@ -45,17 +45,17 @@ public enum PlaceUpgrade {
 			null) {
 		@Override
 		public void applyInstallationEffects(GenericPlace place) {
-			if(place.getPlaceType() == LilayasHome.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_SLAVE) {
-				place.setPlaceType(LilayasHome.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR);
+			if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_SLAVE) {
+				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR);
 				
-			} else if(place.getPlaceType() == LilayasHome.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_SLAVE) {
-				place.setPlaceType(LilayasHome.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR);
+			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_SLAVE) {
+				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR);
 				
-			} else if(place.getPlaceType() == LilayasHome.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_SLAVE) {
-				place.setPlaceType(LilayasHome.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR);
+			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_SLAVE) {
+				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR);
 				
-			} else if(place.getPlaceType() == LilayasHome.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_SLAVE) {
-				place.setPlaceType(LilayasHome.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR);
+			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_SLAVE) {
+				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR);
 			}
 			
 			for(PlaceUpgrade upgrade : PlaceUpgrade.values()) {
@@ -122,17 +122,17 @@ public enum PlaceUpgrade {
 		
 		@Override
 		public void applyInstallationEffects(GenericPlace place) {
-			if(place.getPlaceType() == LilayasHome.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR) {
-				place.setPlaceType(LilayasHome.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_SLAVE);
+			if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR) {
+				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_SLAVE);
 				
-			} else if(place.getPlaceType() == LilayasHome.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR) {
-				place.setPlaceType(LilayasHome.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_SLAVE);
+			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR) {
+				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_SLAVE);
 				
-			} else if(place.getPlaceType() == LilayasHome.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR) {
-				place.setPlaceType(LilayasHome.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_SLAVE);
+			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR) {
+				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_SLAVE);
 				
-			} else if(place.getPlaceType() == LilayasHome.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR) {
-				place.setPlaceType(LilayasHome.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_SLAVE);
+			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR) {
+				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_SLAVE);
 			}
 			
 			for(PlaceUpgrade upgrade : PlaceUpgrade.values()) {

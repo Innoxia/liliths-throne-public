@@ -54,7 +54,7 @@ import com.lilithsthrone.utils.WeaponRarityComparator;
 
 /**
  * @since 0.1.0
- * @version 0.1.85
+ * @version 0.1.88
  * @author Innoxia
  */
 public class PhoneDialogue {
@@ -66,14 +66,17 @@ public class PhoneDialogue {
 		@Override
 		public String getContent() {
 			return "<p>You pull out your phone and tap in the unlock code.</p>"
-					+ "<p>"
-					+ "Using your powerful aura, you've managed to figure out a way to channel the arcane into charging the battery of your phone, although considering that it's the only one in this world, it's not much use for calling anyone."
-					+ " Instead, you're using it as a way to store information about things you've discovered in this strange new world."
-					+ "</p>";
+					+ (Main.game.isInNewWorld()
+							?"<p>"
+								+"Using your powerful aura, you've managed to figure out a way to channel the arcane into charging the battery of your phone, although considering that it's the only one in this world,"
+									+ " it's not much use for calling anyone."
+								+ " Instead, you're using it as a way to store information about things you've discovered in this strange new world."
+							+ "</p>"
+							:"");
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response(
 						(Main.game.getPlayer().isMainQuestUpdated() || Main.game.getPlayer().isSideQuestUpdated() || Main.game.getPlayer().isRomanceQuestUpdated())
@@ -215,7 +218,7 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Main quests", "View your progress on the main quest.", null);
 				
@@ -336,7 +339,7 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Main quests", "View your progress on the main quest.", PLANNER_MAIN);
 			} else if (index == 2) {
@@ -432,7 +435,7 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Main quests", "View your progress on the main quest.", PLANNER_MAIN);
 			} else if (index == 2) {
@@ -475,7 +478,7 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Return to the phone's main menu.", MENU);
 			} else {
@@ -520,6 +523,7 @@ public class PhoneDialogue {
 
 					+ "<span style='height:16px;width:100%;float:left;'></span>"
 					+ "<h6 style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+"; text-align:center;'>Attack values</h6>"
+					+ attributeValue(Main.game.getPlayer(), Attribute.DAMAGE_PURE, true)
 					+ attributeValue(Main.game.getPlayer(), Attribute.DAMAGE_ATTACK, true)
 					+ attributeValue(Main.game.getPlayer(), Attribute.DAMAGE_SPELLS, false)
 					+ attributeValue(Main.game.getPlayer(), Attribute.DAMAGE_MANA, true)
@@ -531,6 +535,7 @@ public class PhoneDialogue {
 
 					+ "<span style='height:16px;width:100%;float:left;'></span>"
 					+ "<h6 style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+"; text-align:center;'>Resistance values</h6>"
+					+ attributeValue(Main.game.getPlayer(), Attribute.RESISTANCE_PURE, false)
 					+ attributeValue(Main.game.getPlayer(), Attribute.RESISTANCE_ATTACK, true)
 					+ attributeValue(Main.game.getPlayer(), Attribute.RESISTANCE_SPELLS, false)
 					+ attributeValue(Main.game.getPlayer(), Attribute.RESISTANCE_MANA, true)
@@ -554,7 +559,7 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Core Stats", "Have a detailed look at your core stats.", null);
 			
@@ -724,7 +729,7 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Core Stats", "Have a detailed look at your core stats.", CHARACTER_STATS);
 			
@@ -816,7 +821,7 @@ public class PhoneDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Core Stats", "Have a detailed look at your core stats.", CHARACTER_STATS);
 			
@@ -904,32 +909,32 @@ public class PhoneDialogue {
 					UtilText.nodeContentSB.append(
 							"<tr>"
 								+ "<td style='min-width:100px;'>"
-									+ "<b style='color:"+Colour.FEMININE.toWebHexString()+";'>"+(Main.game.getPlayer().getCharactersEncountered().contains(npc)?npc.getName():"Unknown")+"</b>"
+									+ "<b style='color:"+Colour.FEMININE.toWebHexString()+";'>"+(Main.game.getPlayer().getCharactersEncountered().contains(npc.getId())?npc.getName():"Unknown")+"</b>"
 								+ "</td>"
 								+ "<td style='min-width:100px;'>"
 									+ "<b style='color:"+npc.getRace().getColour().toWebHexString()+";'>"+npc.getRace().getOffspringFemaleNameSingular()+"</b>"
 								+ "</td>"
 								+ "<td style='min-width:100px;'>"
-									+ "<b>"+(npc.getMother().isPlayer()?"You":npc.getMother().getName())+"</b>"
+									+ "<b>"+(npc.getMother()==null?"???":(npc.getMother().isPlayer()?"You":npc.getMother().getName()))+"</b>"
 								+ "</td>"
 								+ "<td style='min-width:100px;'>"
-									+ "<b>"+(npc.getFather().isPlayer()?"You":npc.getFather().getName())+"</b>"
+									+ "<b>"+(npc.getFather()==null?"???":(npc.getFather().isPlayer()?"You":npc.getFather().getName()))+"</b>"
 								+ "</td>"
 							+ "</tr>");
 				} else {
 					UtilText.nodeContentSB.append(
 							"<tr>"
 								+ "<td style='min-width:100px;'>"
-									+ "<b style='color:"+Colour.MASCULINE.toWebHexString()+";'>"+(Main.game.getPlayer().getCharactersEncountered().contains(npc)?npc.getName():"Unknown")+"</b>"
+									+ "<b style='color:"+Colour.MASCULINE.toWebHexString()+";'>"+(Main.game.getPlayer().getCharactersEncountered().contains(npc.getId())?npc.getName():"Unknown")+"</b>"
 								+ "</td>"
 								+ "<td style='min-width:100px;'>"
 									+ "<b style='color:"+npc.getRace().getColour().toWebHexString()+";'>"+npc.getRace().getOffspringMaleNameSingular()+"</b>"
 								+ "</td>"
 								+ "<td style='min-width:100px;'>"
-									+ "<b>"+(npc.getMother().isPlayer()?"You":npc.getMother().getName())+"</b>"
+									+ "<b>"+(npc.getMother()==null?"???":(npc.getMother().isPlayer()?"You":npc.getMother().getName()))+"</b>"
 								+ "</td>"
 								+ "<td style='min-width:100px;'>"
-									+ "<b>"+(npc.getFather().isPlayer()?"You":npc.getFather().getName())+"</b>"
+									+ "<b>"+(npc.getFather()==null?"???":(npc.getFather().isPlayer()?"You":npc.getFather().getName()))+"</b>"
 								+ "</td>"
 							+ "</tr>");
 				}
@@ -941,7 +946,7 @@ public class PhoneDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Core Stats", "Have a detailed look at your core stats.", CHARACTER_STATS);
 			
@@ -992,13 +997,12 @@ public class PhoneDialogue {
 			contentSB.append("<div class='container-full-width' style='text-align:center;'>"
 					+ "[style.boldBad(Ongoing pregnancy)]"
 					+ "</br>"
-					+ "[style.bold(Possible partners:)]"
-					+ "</br>");
+					+ "[style.bold(Possible partners:)]");
 			
 			for(PregnancyPossibility pp : Main.game.getPlayer().getPotentialPartnersAsMother()){
 				if(pp.getFather()!=null) {
 					contentSB.append(UtilText.parse(pp.getFather(),
-							"<b>[npc.Name(A)] (</b>"
+							"</br><b>[npc.Name(A)] (</b>"
 								+ (!pp.getFather().getRaceStage().getName().isEmpty()
 										?"<b style='color:"+pp.getFather().getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(pp.getFather().getRaceStage().getName())+"</b> "
 										:"")
@@ -1018,10 +1022,11 @@ public class PhoneDialogue {
 						contentSB.append("Certainty");
 					}
 					
-					contentSB.append("</br>");
+					contentSB.append("</b>");
 				}
 			}
-			contentSB.append("</b></div>");
+			
+			contentSB.append("</div>");
 			
 			noPregnancies=false;
 		
@@ -1065,55 +1070,50 @@ public class PhoneDialogue {
 		contentSB.append("<span style='height:16px;width:100%;float:left;'></span>"
 				+ "<div class='subTitle'>Fathered children</div>");
 		
-		if(!Main.game.getPlayer().getPotentialPartnersAsFather().isEmpty()){
-			
-			for(PregnancyPossibility pp : Main.game.getPlayer().getPotentialPartnersAsFather()){
-				if(pp.getMother()!=null) {
-					contentSB.append(UtilText.parse(pp.getMother(),
-							"<div class='container-full-width' style='text-align:center;'>"
-							+ "[style.boldBad(Ongoing pregnancy)]"
-							+ "</br>"
-							+"<b>[npc.Name(A)] (</b>"
-								+ (!pp.getMother().getRaceStage().getName().isEmpty()
-										?"<b style='color:"+pp.getMother().getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(pp.getMother().getRaceStage().getName())+"</b> "
-										:"")
-								+ "<b style='color:"+pp.getMother().getRace().getColour().toWebHexString()+";'>"
-								+ (pp.getMother().getGender().isFeminine()?Util.capitaliseSentence(pp.getMother().getRace().getSingularFemaleName()):Util.capitaliseSentence(pp.getMother().getRace().getSingularMaleName()))
-								+ "</b><b>)</b>"));
-					
-					if(pp.getMother().hasStatusEffect(StatusEffect.PREGNANT_0)) {
-						contentSB.append("</br>Probability of impregnation: ");
-						if (pp.getProbability() <= 0) {
-							contentSB.append("None");
-						} else if(pp.getProbability()<=0.15f) {
-							contentSB.append("Low");
-						} else if(pp.getProbability()<=0.3f) {
-							contentSB.append("Average");
-						} else if(pp.getProbability()<1) {
-							contentSB.append("High");
-						} else {
-							contentSB.append("Certainty");
-						}
+		for(PregnancyPossibility pp : Main.game.getPlayer().getPotentialPartnersAsFather()){
+			if(pp.getMother()!=null) {
+				contentSB.append(UtilText.parse(pp.getMother(),
+						"<div class='container-full-width' style='text-align:center;'>"
+						+ "[style.boldBad(Ongoing pregnancy)]"
+						+ "</br>"
+						+"<b>[npc.Name(A)] (</b>"
+							+ (!pp.getMother().getRaceStage().getName().isEmpty()
+									?"<b style='color:"+pp.getMother().getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(pp.getMother().getRaceStage().getName())+"</b> "
+									:"")
+							+ "<b style='color:"+pp.getMother().getRace().getColour().toWebHexString()+";'>"
+							+ (pp.getMother().getGender().isFeminine()?Util.capitaliseSentence(pp.getMother().getRace().getSingularFemaleName()):Util.capitaliseSentence(pp.getMother().getRace().getSingularMaleName()))
+							+ "</b><b>)</b>"));
+				
+				if(pp.getMother().hasStatusEffect(StatusEffect.PREGNANT_0)) {
+					contentSB.append("</br>Probability of impregnation: ");
+					if (pp.getProbability() <= 0) {
+						contentSB.append("None");
+					} else if(pp.getProbability()<=0.15f) {
+						contentSB.append("Low");
+					} else if(pp.getProbability()<=0.3f) {
+						contentSB.append("Average");
+					} else if(pp.getProbability()<1) {
+						contentSB.append("High");
 					} else {
-						if(pp.getMother().hasStatusEffect(StatusEffect.PREGNANT_1)) {
-							contentSB.append("</br>Pregnancy stage: [style.boldSex("+Util.capitaliseSentence(StatusEffect.PREGNANT_1.getName(pp.getMother()))+")]");
-							
-						} else if(pp.getMother().hasStatusEffect(StatusEffect.PREGNANT_2)) {
-							contentSB.append("</br>Pregnancy stage: [style.boldSex("+Util.capitaliseSentence(StatusEffect.PREGNANT_2.getName(pp.getMother()))+")]");
-							
-						} else {
-							contentSB.append("</br>Pregnancy stage: [style.boldSex("+Util.capitaliseSentence(StatusEffect.PREGNANT_3.getName(pp.getMother()))+")]");
-							
-						}
+						contentSB.append("Certainty");
 					}
-					
-					contentSB.append("</br></div>");
+				} else {
+					if(pp.getMother().hasStatusEffect(StatusEffect.PREGNANT_1)) {
+						contentSB.append("</br>Pregnancy stage: [style.boldSex("+Util.capitaliseSentence(StatusEffect.PREGNANT_1.getName(pp.getMother()))+")]");
+						
+					} else if(pp.getMother().hasStatusEffect(StatusEffect.PREGNANT_2)) {
+						contentSB.append("</br>Pregnancy stage: [style.boldSex("+Util.capitaliseSentence(StatusEffect.PREGNANT_2.getName(pp.getMother()))+")]");
+						
+					} else {
+						contentSB.append("</br>Pregnancy stage: [style.boldSex("+Util.capitaliseSentence(StatusEffect.PREGNANT_3.getName(pp.getMother()))+")]");
+						
+					}
 				}
+				
+				contentSB.append("</b></br>");
+				contentSB.append("</div>");
 			}
-			contentSB.append("</b></div>");
-			
 			noPregnancies=false;
-		
 		}
 		
 		if (!Main.game.getPlayer().getLittersFathered().isEmpty()) {
@@ -1208,7 +1208,8 @@ public class PhoneDialogue {
 								? "<div style='color:" + Colour.GENERIC_BAD.getShades()[1] + ";"
 								: "<div style='color:" + Colour.TEXT_GREY.toWebHexString() + ";"))
 					+" width:20%; float:left; font-weight:bold; margin:0; padding:0;'>"
-					+ owner.getBaseAttributeValue(att)
+					// To get rid of e.g. 2.3999999999999999999999:
+					+ Math.round(owner.getBaseAttributeValue(att)*100)/100f
 				+ "</div>"
 				+ (owner.getBonusAttributeValue(att) > 0
 						? "<div style='color:" + Colour.GENERIC_GOOD.getShades()[1] + ";"
@@ -1216,10 +1217,12 @@ public class PhoneDialogue {
 								? "<div style='color:" + Colour.GENERIC_BAD.getShades()[1] + ";"
 								: "<div style='color:" + Colour.TEXT_GREY.toWebHexString() + ";"))
 					+" width:20%; float:left; font-weight:bold; margin:0; padding:0;'>"
-					+ owner.getBonusAttributeValue(att)
+					// To get rid of e.g. 2.3999999999999999999999:
+					+ Math.round(owner.getBonusAttributeValue(att)*100)/100f
 				+ "</div>"
 				+ "<div style='float:left; width:20%; font-weight:bold; margin:0; padding:0;'>"
-					+ owner.getAttributeValue(att)
+					// To get rid of e.g. 2.3999999999999999999999:
+					+ Math.round(owner.getAttributeValue(att)*100)/100f
 				+"</div>"
 				+ "</div>";
 	}
@@ -1227,11 +1230,14 @@ public class PhoneDialogue {
 	private static String content, title;
 
 	public static void resetContentForContacts() {
-		CharactersPresentDialogue.characterViewed = Main.game.getPlayer().getCharactersEncountered().get(0);
+		CharactersPresentDialogue.characterViewed = Main.game.getNPCById(Main.game.getPlayer().getCharactersEncountered().get(0));
 		title = "Contacts";
 		StringBuilder contentSB = new StringBuilder("<p>You have encountered the following characters in your travels:</p>");
-		for (int i = 0; i < Main.game.getPlayer().getCharactersEncountered().size(); i++)
-			contentSB.append("<p>" + Main.game.getPlayer().getCharactersEncountered().get(i).getName() + "</p>");
+		for (int i = 0; i < Main.game.getPlayer().getCharactersEncountered().size(); i++) {
+			if(Main.game.getNPCById(Main.game.getPlayer().getCharactersEncountered().get(i))!=null) {
+				contentSB.append("<p>" + Main.game.getNPCById(Main.game.getPlayer().getCharactersEncountered().get(i)).getName() + "</p>");
+			}
+		}
 		content = contentSB.toString();
 	}
 
@@ -1245,30 +1251,37 @@ public class PhoneDialogue {
 			UtilText.nodeContentSB.append("<p>You have encountered the following characters in your travels:</p>");
 			
 			for (int i = 0; i < Main.game.getPlayer().getCharactersEncountered().size(); i++) {
-				UtilText.nodeContentSB.append("<p>" + Main.game.getPlayer().getCharactersEncountered().get(i).getName() + "</p>");
+				if(Main.game.getNPCById(Main.game.getPlayer().getCharactersEncountered().get(i))!=null) {
+					UtilText.nodeContentSB.append("<p>" + Main.game.getNPCById(Main.game.getPlayer().getCharactersEncountered().get(i)).getName() + "</p>");
+				}
 			}
 			
 			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Return to the phone's main menu.", MENU);
 			
 			} else if (index <= Main.game.getPlayer().getCharactersEncountered().size()) {
-				return new Response(Util.capitaliseSentence(Main.game.getPlayer().getCharactersEncountered().get(index - 1).getName()),
-						"Take a detailed look at what " + Main.game.getPlayer().getCharactersEncountered().get(index - 1).getName("the") + " looks like.",
-						CONTACTS_CHARACTER){
-					@Override
-					public void effects() {
-						CharactersPresentDialogue.characterViewed = Main.game.getPlayer().getCharactersEncountered().get(index - 1);
-						
-						title = Util.capitaliseSentence(Main.game.getPlayer().getCharactersEncountered().get(index - 1).getName());
-						content = NPC.getCharacterInformationScreen((NPC) Main.game.getPlayer().getCharactersEncountered().get(index - 1));
-						
-					}
-				};
+				GameCharacter npc = Main.game.getNPCById(Main.game.getPlayer().getCharactersEncountered().get(index - 1));
+				if(npc!=null) {
+					return new Response(Util.capitaliseSentence(npc.getName()),
+							"Take a detailed look at what " + npc.getName("the") + " looks like.",
+							CONTACTS_CHARACTER){
+						@Override
+						public void effects() {
+							CharactersPresentDialogue.characterViewed = npc;
+							
+							title = Util.capitaliseSentence(npc.getName());
+							content = NPC.getCharacterInformationScreen((NPC) npc);
+							
+						}
+					};
+				} else {
+					return null;
+				}
 			
 			} else {
 				return null;
@@ -1295,23 +1308,28 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Return to the phone's main menu.", MENU);
 			
 			} else if (index <= Main.game.getPlayer().getCharactersEncountered().size()) {
-				return new Response(Util.capitaliseSentence(Main.game.getPlayer().getCharactersEncountered().get(index - 1).getName()),
-						"Take a detailed look at what " + Main.game.getPlayer().getCharactersEncountered().get(index - 1).getName("the") + " looks like.",
-						CONTACTS_CHARACTER){
-					@Override
-					public void effects() {
-						CharactersPresentDialogue.characterViewed = Main.game.getPlayer().getCharactersEncountered().get(index - 1);
-						
-						title = Util.capitaliseSentence(Main.game.getPlayer().getCharactersEncountered().get(index - 1).getName());
-						content = NPC.getCharacterInformationScreen((NPC) Main.game.getPlayer().getCharactersEncountered().get(index - 1));
-						
-					}
-				};
+				GameCharacter npc = Main.game.getNPCById(Main.game.getPlayer().getCharactersEncountered().get(index - 1));
+				if(npc!=null) {
+					return new Response(Util.capitaliseSentence(npc.getName()),
+							"Take a detailed look at what " + npc.getName("the") + " looks like.",
+							CONTACTS_CHARACTER){
+						@Override
+						public void effects() {
+							CharactersPresentDialogue.characterViewed = npc;
+							
+							title = Util.capitaliseSentence(npc.getName());
+							content = NPC.getCharacterInformationScreen((NPC) npc);
+							
+						}
+					};
+				} else {
+					return null;
+				}
 			
 			} else {
 				return null;
@@ -1336,7 +1354,7 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response((Main.getProperties().isNewRaceDiscovered())?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Races</span>":"Races",
 						"Have a look at all the different races that you've encountered in your travels.", RACES){
@@ -1438,7 +1456,7 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Return to the encyclopedia.", ENCYCLOPEDIA);
 			
@@ -1492,7 +1510,7 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Return to the encyclopedia.", ENCYCLOPEDIA);
 			
@@ -1548,7 +1566,7 @@ public class PhoneDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Return to the encyclopedia.", ENCYCLOPEDIA);
 			
@@ -1597,7 +1615,7 @@ public class PhoneDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Return to the encyclopedia.", ENCYCLOPEDIA);
 			
@@ -1845,7 +1863,7 @@ public class PhoneDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Return to your phone's main menu.", MENU);
 			
@@ -1911,7 +1929,7 @@ public class PhoneDialogue {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public String getHeaderContent() {
+		public String getContent() {
 			journalSB = new StringBuilder(
 					"<div class='container-full-width'>"
 						+ "You can unlock fetishes by using <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>arcane essences</b> (gained from from orgasming in sex)."
@@ -2020,18 +2038,14 @@ public class PhoneDialogue {
 			
 			// Free Fetishes:
 			
-			journalSB.append("</div></div>");
+			journalSB.append("</div>");
 			
 			
 			return journalSB.toString();
 		}
-		@Override
-		public String getContent(){
-			return "";
-		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Return to your phone's main menu.", MENU) {
 					@Override

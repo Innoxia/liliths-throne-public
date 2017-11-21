@@ -393,7 +393,7 @@ public enum Fetish {
 			"fetish_broodmother",
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FERTILITY, 10)),
-			Util.newArrayListOfValues(new ListValue<>("2 x <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Children in mothered litters</span>")),
+			Util.newArrayListOfValues(new ListValue<>("2x <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Maximum offspring in mothered litters</span>")),
 			null) {
 
 		@Override
@@ -418,7 +418,7 @@ public enum Fetish {
 			"fetish_seeder",
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.VIRILITY, 10)),
-			Util.newArrayListOfValues(new ListValue<>("2 x <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Children in fathered litters</span>")),
+			Util.newArrayListOfValues(new ListValue<>("2x <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Maximum offspring in fathered litters</span>")),
 			null) {
 
 		@Override
@@ -682,14 +682,13 @@ public enum Fetish {
 		}
 	},
 	
-	FETISH_NON_CON(60,
+	FETISH_NON_CON_DOM(60,
 			"non-consent",
-			"fetish_noncon",
+			"fetish_noncon_dom",
 			Colour.GENERIC_ARCANE,
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Non-con tease</span>"),
-					new ListValue<>("<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Not yet implemented!</span>")),
+					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Increases</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>arousal gain when partner is resisting sex</span>")),
 			null) {
 
 		@Override
@@ -698,12 +697,36 @@ public enum Fetish {
 				return "You love nothing more than when someone's being forced, against their will, to have sex. The more they're struggling, the more you get turned on...";
 				
 			} else {
-				return UtilText.parse(owner, "[npc.Name] has a fetish for non-consensual encounters, both as the perpetrator or the victim.");
+				return UtilText.parse(owner, "[npc.Name] has a fetish for non-consensual encounters. The more [npc.her] victim struggles, the more [npc.she] gets turned on...");
 			}
 		}
 		@Override
 		public CorruptionLevel getAssociatedCorruptionLevel() {
-			return CorruptionLevel.THREE_DIRTY;
+			return CorruptionLevel.FIVE_CORRUPT;
+		}
+	},
+	
+	FETISH_NON_CON_SUB(60,
+			"unwilling fuck-toy",
+			"fetish_noncon_sub",
+			Colour.GENERIC_ARCANE,
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Increases</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>arousal gain when you are resisting sex</span>")),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "You love nothing more than when you're forced, against your will, to have sex with someone. Struggling and pleading to be released turns you on like nothing else...";
+				
+			} else {
+				return UtilText.parse(owner, "[npc.Name] has a fetish for being the victim in non-consensual encounters. Struggling and pleading to be released turns [npc.herHim] on like nothing else...");
+			}
+		}
+		@Override
+		public CorruptionLevel getAssociatedCorruptionLevel() {
+			return CorruptionLevel.FOUR_LUSTFUL;
 		}
 	},
 	

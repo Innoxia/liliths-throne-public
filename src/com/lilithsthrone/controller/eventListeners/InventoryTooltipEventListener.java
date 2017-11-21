@@ -314,8 +314,8 @@ public class InventoryTooltipEventListener implements EventListener {
 					+ UtilText.parse(enchantmentModifier.getDescription())
 					+ "</div>"
 					+ "<div class='subTitle'>"
-							+ "Costs: <b style='color:"+EnchantmentDialogue.ingredient.getRelatedEssence().getColour().toWebHexString() + ";'>"
-								+ enchantmentModifier.getValue()+" "+EnchantmentDialogue.ingredient.getRelatedEssence().getName()+"</b> essence"+(enchantmentModifier.getValue()>1?"s":"")
+							+ "<b style='color:"+EnchantmentDialogue.ingredient.getRelatedEssence().getColour().toWebHexString() + ";'>+"
+								+ enchantmentModifier.getValue()+" "+EnchantmentDialogue.ingredient.getRelatedEssence().getName()+"</b> essence cost"
 					+ "</div>"));
 		
 		} else if (essence != null) {

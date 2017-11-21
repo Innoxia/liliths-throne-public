@@ -1,8 +1,10 @@
 package com.lilithsthrone.game.dialogue.npcDialogue;
 
+import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.GenericDialogue;
+import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -11,6 +13,8 @@ import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.universal.SMDomStanding;
 import com.lilithsthrone.game.sex.managers.universal.SMSubStanding;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.85
@@ -81,7 +85,7 @@ public class SlaveDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			/*
 			 * flagSlaveBackground, flagSlaveSmallTalk,
 						flagSlaveEncourage, flagSlaveHug, flagSlavePettings,
@@ -89,11 +93,11 @@ public class SlaveDialogue {
 			 */
 			
 			if (index == 1) {
-				if(!slave().flagSlaveBackground) {
+				if(!slave().NPCFlagValues.contains(NPCFlagValue.flagSlaveBackground)) {
 					return new Response("Background", "Ask [npc.name] about [npc.her] past life.", SLAVE_PROGRESSION) {
 						@Override
 						public void effects() {
-							slave().flagSlaveBackground = true;
+							slave().NPCFlagValues.add(NPCFlagValue.flagSlaveBackground);
 							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 3));
 						}
 					};
@@ -102,11 +106,11 @@ public class SlaveDialogue {
 				}
 				
 			} else if (index == 2) {
-				if(!slave().flagSlaveSmallTalk) {
+				if(!slave().NPCFlagValues.contains(NPCFlagValue.flagSlaveSmallTalk)) {
 					return new Response("Small talk", "Chat about this and that with [npc.name].", SLAVE_MINOR) {
 						@Override
 						public void effects() {
-							slave().flagSlaveSmallTalk = true;
+							slave().NPCFlagValues.add(NPCFlagValue.flagSlaveSmallTalk);
 							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 2));
 						}
 					};
@@ -114,88 +118,24 @@ public class SlaveDialogue {
 					return new Response("Small talk", "You've already spent time talking with [npc.name] today.", null);
 				}
 				
-			} else if (index == 6) {
-				if(!slave().flagSlaveEncourage) {
-					return new Response("Encourage", "Encourage [npc.name] by telling [npc.her] how good [npc.she] is.", SLAVE_ENCOURAGE) {
+			} else if (index == 4) {
+				if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
+					return new ResponseSex("Submissive sex", "Have submissive sex with [npc.name].", 
+							AFTER_SEX,
+							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
+							true, true, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX,
+							"<p>"
+								+ "Taking hold of [npc.name]'s [npc.arms], you take a step forwards, guiding [npc.her] [npc.hands] around your body as you press forwards into a passionate kiss."
+								+ " [npc.She] eagerly pulls you into [npc.herHim], [npc.moaning],"
+								+ " [npc.speech(Looking for some fun, hmm?)]"
+							+ "</p>") {
 						@Override
 						public void effects() {
-							slave().flagSlaveEncourage = true;
 							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
-							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementObedience(-2));
 						}
 					};
 				} else {
-					return new Response("Encourage", "You've encouraged [npc.name] today.", null);
-				}
-				
-			} else if (index == 7) {
-				if(!slave().flagSlaveHug) {
-					return new Response("Hug", "Hug [npc.name].", SLAVE_HUG) {
-						@Override
-						public void effects() {
-							slave().flagSlaveHug = true;
-							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
-							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementObedience(-2));
-						}
-					};
-				} else {
-					return new Response("Hug", "You've already spent time hugging [npc.name] today.", null);
-				}
-				
-			} else if (index == 8) {
-				if(!slave().flagSlavePettings) {
-					return new Response("Pettings", "Give [npc.name] some loving pettings.", SLAVE_PETTINGS) {
-						@Override
-						public void effects() {
-							slave().flagSlavePettings = true;
-							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
-							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementObedience(-2));
-						}
-					};
-				} else {
-					return new Response("Pettings", "You've already spent time petting [npc.name] today.", null);
-				}
-				
-			} else if (index == 11) {
-				if(!slave().flagSlaveInspect) {
-					return new Response("Inspect", "Make [npc.name] strip and parade around [npc.her] room for your inspection.", SLAVE_INSPECT) {
-						@Override
-						public void effects() {
-							slave().flagSlaveInspect = true;
-							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -5));
-							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementObedience(5));
-						}
-					};
-				} else {
-					return new Response("Inspect", "You've already inspected [npc.name] today.", null);
-				}
-				
-			} else if (index == 12) {
-				if(!slave().flagSlaveSpanking) {
-					return new Response("Spanking", "Bend [npc.name] over your knee and give [npc.herHim] a rough spanking.", SLAVE_SPANKING) {
-						@Override
-						public void effects() {
-							slave().flagSlaveSpanking = true;
-							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -5));
-							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementObedience(10));
-						}
-					};
-				} else {
-					return new Response("Spanking", "You've already spanked [npc.name] today.", null);
-				}
-				
-			} else if (index == 13) {
-				if(!slave().flagSlaveMolest) {
-					return new Response("Molest", "Make [npc.name] sit still as you grope and molest [npc.her] body.", SLAVE_MOLEST) {
-						@Override
-						public void effects() {
-							slave().flagSlaveMolest = true;
-							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -10));
-							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementObedience(5));
-						}
-					};
-				} else {
-					return new Response("Molest", "You've already molested [npc.name] today.", null);
+					return new Response("Submissive sex", "[npc.Name] is not too keen on having sex with you, so you'd need to be the dom...", null);
 				}
 				
 			} else if (index == 5) {
@@ -205,7 +145,7 @@ public class SlaveDialogue {
 							false, false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX,
 							"<p>"
 								+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
-								+ " [npc.She] desperately tries to push you away, [npc.moaning]"
+								+ " [npc.She] desperately tries to push you away, [npc.moaning],"
 								+ " [npc.speech(No! Stop!)]"
 							+ "</p>") {
 						@Override
@@ -220,7 +160,7 @@ public class SlaveDialogue {
 							true, false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX,
 							"<p>"
 								+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
-								+ " [npc.She] desperately leans into you, [npc.moaning]"
+								+ " [npc.She] desperately leans into you, [npc.moaning],"
 								+ " [npc.speech(~Mmm!~ Yes!)]"
 							+ "</p>") {
 						@Override
@@ -229,11 +169,95 @@ public class SlaveDialogue {
 						}
 					};
 				}
+			} else if (index == 6) {
+				if(!slave().NPCFlagValues.contains(NPCFlagValue.flagSlaveEncourage)) {
+					return new Response("Encourage", "Encourage [npc.name] by telling [npc.her] how good [npc.she] is.", SLAVE_ENCOURAGE) {
+						@Override
+						public void effects() {
+							slave().NPCFlagValues.add(NPCFlagValue.flagSlaveEncourage);
+							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
+							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementObedience(-2));
+						}
+					};
+				} else {
+					return new Response("Encourage", "You've encouraged [npc.name] today.", null);
+				}
+				
+			} else if (index == 7) {
+				if(!slave().NPCFlagValues.contains(NPCFlagValue.flagSlaveHug)) {
+					return new Response("Hug", "Hug [npc.name].", SLAVE_HUG) {
+						@Override
+						public void effects() {
+							slave().NPCFlagValues.add(NPCFlagValue.flagSlaveHug);
+							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
+							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementObedience(-2));
+						}
+					};
+				} else {
+					return new Response("Hug", "You've already spent time hugging [npc.name] today.", null);
+				}
+				
+			} else if (index == 8) {
+				if(!slave().NPCFlagValues.contains(NPCFlagValue.flagSlavePettings)) {
+					return new Response("Pettings", "Give [npc.name] some loving pettings.", SLAVE_PETTINGS) {
+						@Override
+						public void effects() {
+							slave().NPCFlagValues.add(NPCFlagValue.flagSlavePettings);
+							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 5));
+							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementObedience(-2));
+						}
+					};
+				} else {
+					return new Response("Pettings", "You've already spent time petting [npc.name] today.", null);
+				}
+				
+			} else if (index == 11) {
+				if(!slave().NPCFlagValues.contains(NPCFlagValue.flagSlaveInspect)) {
+					return new Response("Inspect", "Make [npc.name] strip and parade around [npc.her] room for your inspection.", SLAVE_INSPECT) {
+						@Override
+						public void effects() {
+							slave().NPCFlagValues.add(NPCFlagValue.flagSlaveInspect);
+							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -5));
+							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementObedience(5));
+						}
+					};
+				} else {
+					return new Response("Inspect", "You've already inspected [npc.name] today.", null);
+				}
+				
+			} else if (index == 12) {
+				if(!slave().NPCFlagValues.contains(NPCFlagValue.flagSlaveSpanking)) {
+					return new Response("Spanking", "Bend [npc.name] over your knee and give [npc.herHim] a rough spanking.", SLAVE_SPANKING) {
+						@Override
+						public void effects() {
+							slave().NPCFlagValues.add(NPCFlagValue.flagSlaveSpanking);
+							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -5));
+							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementObedience(10));
+						}
+					};
+				} else {
+					return new Response("Spanking", "You've already spanked [npc.name] today.", null);
+				}
+				
+			} else if (index == 13) {
+				if(!slave().NPCFlagValues.contains(NPCFlagValue.flagSlaveMolest)) {
+					return new Response("Molest", "Make [npc.name] sit still as you grope and molest [npc.her] body.", SLAVE_MOLEST) {
+						@Override
+						public void effects() {
+							slave().NPCFlagValues.add(NPCFlagValue.flagSlaveMolest);
+							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -10));
+							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementObedience(5));
+						}
+					};
+				} else {
+					return new Response("Molest", "You've already molested [npc.name] today.", null);
+				}
+				
 			} else if (index == 0) {
 				return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.her] some other time.", SLAVE_START) {
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return GenericDialogue.getDefaultDialogueNoEncounter();
+						return DebugDialogue.getDefaultDialogueNoEncounter();
 					}
 				};
 				
@@ -272,8 +296,8 @@ public class SlaveDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			return SLAVE_START.getResponse(index);
+		public Response getResponse(int responseTab, int index) {
+			return SLAVE_START.getResponse(0, index);
 		}
 	};
 	
@@ -298,8 +322,8 @@ public class SlaveDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			return SLAVE_START.getResponse(index);
+		public Response getResponse(int responseTab, int index) {
+			return SLAVE_START.getResponse(0, index);
 		}
 	};
 	
@@ -324,8 +348,8 @@ public class SlaveDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			return SLAVE_START.getResponse(index);
+		public Response getResponse(int responseTab, int index) {
+			return SLAVE_START.getResponse(0, index);
 		}
 	};
 	
@@ -350,8 +374,8 @@ public class SlaveDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			return SLAVE_START.getResponse(index);
+		public Response getResponse(int responseTab, int index) {
+			return SLAVE_START.getResponse(0, index);
 		}
 	};
 	
@@ -376,8 +400,8 @@ public class SlaveDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			return SLAVE_START.getResponse(index);
+		public Response getResponse(int responseTab, int index) {
+			return SLAVE_START.getResponse(0, index);
 		}
 	};
 	
@@ -402,8 +426,8 @@ public class SlaveDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			return SLAVE_START.getResponse(index);
+		public Response getResponse(int responseTab, int index) {
+			return SLAVE_START.getResponse(0, index);
 		}
 	};
 	
@@ -429,8 +453,8 @@ public class SlaveDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			return SLAVE_START.getResponse(index);
+		public Response getResponse(int responseTab, int index) {
+			return SLAVE_START.getResponse(0, index);
 		}
 	};
 	
@@ -455,8 +479,8 @@ public class SlaveDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			return SLAVE_START.getResponse(index);
+		public Response getResponse(int responseTab, int index) {
+			return SLAVE_START.getResponse(0, index);
 		}
 	};
 	
@@ -502,7 +526,7 @@ public class SlaveDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Decide what to do next.", SLAVE_START);
 				
@@ -544,7 +568,7 @@ public class SlaveDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("Sex",
 						"[npc.Name] forces [npc.herself] on you...",
@@ -615,12 +639,12 @@ public class SlaveDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Continue on your way.", SLAVE_USES_YOU_POST_SEX) {
 					@Override
 					public DialogueNodeOld getNextDialogue(){
-						return GenericDialogue.getDefaultDialogueNoEncounter();
+						return DebugDialogue.getDefaultDialogueNoEncounter();
 					}
 					@Override
 					public void effects() {

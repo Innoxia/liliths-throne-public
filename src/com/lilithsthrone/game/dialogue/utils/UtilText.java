@@ -16,6 +16,7 @@ import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.body.valueEnums.HornLength;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.effects.PerkInterface;
@@ -224,6 +225,10 @@ public class UtilText {
 	
 
 	public static String parsePlayerThought(String text) {
+		if(Main.game.getPlayer()==null) {
+			return "";
+		}
+		
 		modifiedSentence = text;
 		if (Main.game.getPlayer().hasFetish(Fetish.FETISH_BIMBO))
 			modifiedSentence = Util.addBimbo(text, 6);
@@ -2686,6 +2691,25 @@ public class UtilText {
 			}
 		});
 		
+		// Horns:
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("hornSize"),
+						new ListValue<>("hornsSize"),
+						new ListValue<>("hornLength"),
+						new ListValue<>("hornsLength")),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.HORN){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return HornLength.getHornLengthFromInt(character.getHornLength()).getDescriptor();
+			}
+		});
+		
 		// Leg:
 		
 		commandsList.add(new ParserCommand(
@@ -2894,6 +2918,20 @@ public class UtilText {
 			}
 		});
 		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("urethra")),
+				false,
+				false,
+				"",
+				"Description of method",
+				BodyPartType.PENIS){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return "urethra";
+			}
+		});
+		
 		// Second penis:
 		
 		commandsList.add(new ParserCommand(
@@ -2989,6 +3027,19 @@ public class UtilText {
 			}
 		});
 		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("secondUrethra")),
+				false,
+				false,
+				"",
+				"Description of method",
+				BodyPartType.PENIS){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return "urethra";
+			}
+		});
 		
 		// Tail:
 		

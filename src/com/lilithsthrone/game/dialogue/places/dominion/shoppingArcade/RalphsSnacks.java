@@ -3,6 +3,7 @@ package com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.Ralph;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -17,7 +18,7 @@ import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.ShoppingArcade;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.82
@@ -39,7 +40,7 @@ public class RalphsSnacks {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Enter", "Step inside Ralph's Snacks.", INTERIOR){
 					@Override
@@ -56,7 +57,7 @@ public class RalphsSnacks {
 				return new ResponseEffectsOnly("Arcade Entrance", "Fast travel to the entrance to the arcade."){
 					@Override
 					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE), ShoppingArcade.ARCADE_ENTRANCE, true);
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE), PlaceType.SHOPPING_ARCADE_ENTRANCE, true);
 					}
 				};
 
@@ -72,7 +73,7 @@ public class RalphsSnacks {
 		@Override
 		public String getContent() {
 			
-			if(!Main.game.getDialogueFlags().ralphIntroduced)
+			if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.ralphIntroduced)) {
 				return "<p>"
 							+ "You push the door open and step inside, looking up as a little bell rings to announce your arrival."
 							+ " [ralph.speech(Hey there! If you need any help, just ask!)] a horse-boy shouts to you from behind the counter."
@@ -83,7 +84,8 @@ public class RalphsSnacks {
 							+ " What sets this shop apart, however, is a special display of arcane-imbued consumables."
 							+ " The prices aren't listed, and instead, a little label reads 'Please ask Ralph for assistance with these items'."
 						+ "</p>";
-			else{
+				
+			} else {
 				UtilText.nodeContentSB.setLength(0);
 				
 				UtilText.nodeContentSB.append("<p>"
@@ -116,12 +118,12 @@ public class RalphsSnacks {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseTrade("Trade with Ralph", "Go and ask Ralph about the special consumables on display.", Main.game.getRalph()){
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().ralphIntroduced=true;
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.ralphIntroduced);
 					}
 				};
 				
@@ -130,7 +132,7 @@ public class RalphsSnacks {
 					return new Response("Discount", "Ask Ralph if there's anything you can do to get a discount.", INTERIOR_ASK_FOR_DISCOUNT){
 						@Override
 						public void effects() {
-							Main.game.getDialogueFlags().ralphIntroduced=true;
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.ralphIntroduced);
 						}
 					};
 					
@@ -143,7 +145,7 @@ public class RalphsSnacks {
 				return new Response("Leave", "Leave Ralph's shop.", EXTERIOR){
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().ralphIntroduced=true;
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.ralphIntroduced);
 					}
 				};
 
@@ -223,7 +225,7 @@ public class RalphsSnacks {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("Agree", "Agree to do as Ralph says and suck his cock.", INTERIOR_ASK_FOR_DISCOUNT,
 						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_GIVING)), null, CorruptionLevel.TWO_HORNY,
@@ -279,12 +281,12 @@ public class RalphsSnacks {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseTrade("Trade with Ralph", "Go and ask Ralph about the special transformative consumables on display.", Main.game.getRalph()){
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().ralphIntroduced=true;
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.ralphIntroduced);
 						// if 3 days have passed, reset discount:
 						if((Main.game.getMinutesPassed()-Main.game.getDialogueFlags().ralphDiscountStartTime) >= (60*24*3)){
 							Main.game.getDialogueFlags().ralphDiscount=0;
@@ -297,7 +299,7 @@ public class RalphsSnacks {
 				return new Response("Discount", "Ask Ralph if there's anything you can do to get a discount.", INTERIOR_ASK_FOR_DISCOUNT){
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().ralphIntroduced=true;
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.ralphIntroduced);
 						// if 3 days have passed, reset discount:
 						if((Main.game.getMinutesPassed()-Main.game.getDialogueFlags().ralphDiscountStartTime) >= (60*24*3)){
 							Main.game.getDialogueFlags().ralphDiscount=0;
@@ -310,7 +312,7 @@ public class RalphsSnacks {
 				return new Response("Leave", "Head back outside to the shopping arcade.", EXTERIOR){
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().ralphIntroduced=true;
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.ralphIntroduced);
 						// if 3 days have passed, reset discount:
 						if((Main.game.getMinutesPassed()-Main.game.getDialogueFlags().ralphDiscountStartTime) >= (60*24*3)){
 							Main.game.getDialogueFlags().ralphDiscount=0;

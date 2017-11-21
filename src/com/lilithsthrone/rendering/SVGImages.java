@@ -54,7 +54,7 @@ public enum SVGImages {
 			transactionBuy, transactionBuyDisabled, transactionSell, transactionSellDisabled,
 			
 			// Sex:
-			coverableAreaMouth, coverableAreaAnus, coverableAreaBreasts, coverableAreaNipple, coverableAreaVagina,
+			coverableAreaMouth, coverableAreaAnus, coverableAreaBreasts, coverableAreaBreastsFlat, coverableAreaNipple, coverableAreaVagina,
 			penetrationTypeFinger, penetrationTypePenis, penetrationTypeTail, penetrationTypeTongue,
 			combinationStretching, combinationTooLoose, combinationWet, combinationDry,
 			stretching, holeTooBig;
@@ -365,6 +365,8 @@ public enum SVGImages {
 			coverableAreaMouth = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/coverableAreaBreasts.svg");
 			coverableAreaBreasts = Util.inputStreamToString(is);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/coverableAreaBreastsFlat.svg");
+			coverableAreaBreastsFlat = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/coverableAreaNipple.svg");
 			coverableAreaNipple = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/sexEffects/coverableAreaVagina.svg");
@@ -687,6 +689,10 @@ public enum SVGImages {
 	
 	public String getCoverableAreaBreasts() {
 		return coverableAreaBreasts;
+	}
+	
+	public String getCoverableAreaBreastsFlat() {
+		return coverableAreaBreastsFlat;
 	}
 
 	public String getCoverableAreaVagina() {

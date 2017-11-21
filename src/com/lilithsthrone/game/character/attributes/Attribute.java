@@ -581,6 +581,9 @@ public enum Attribute {
 
 	// What a mess...
 	public String getAttributeChangeText(GameCharacter target, float value) {
+		if(target==null) {
+			return "";
+		}
 		if(target.isPlayer()) {
 			if (value > 0) {
 				return (attributeGain != null

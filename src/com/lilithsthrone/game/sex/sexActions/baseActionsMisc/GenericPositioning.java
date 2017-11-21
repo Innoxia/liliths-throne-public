@@ -75,7 +75,7 @@ public class GenericPositioning {
 		public void applyEffects() {
 			Sex.setSexManager(new SMDomFaceToWall());
 			
-			SexFlags.positioningBlockedPartner = true;
+//			SexFlags.positioningBlockedPartner = true;
 			SexFlags.resetRequests();
 		}
 	};
@@ -116,7 +116,7 @@ public class GenericPositioning {
 		public void applyEffects() {
 			Sex.setSexManager(new SMDomSelfDoggy());
 			
-			SexFlags.positioningBlockedPartner = true;
+//			SexFlags.positioningBlockedPartner = true;
 			SexFlags.resetRequests();
 		}
 	};
@@ -157,7 +157,7 @@ public class GenericPositioning {
 		public void applyEffects() {
 			Sex.setSexManager(new SMDomBackToWall());
 			
-			SexFlags.positioningBlockedPartner = true;
+//			SexFlags.positioningBlockedPartner = true;
 			SexFlags.resetRequests();
 		}
 	};
@@ -199,7 +199,7 @@ public class GenericPositioning {
 		public void applyEffects() {
 			Sex.setSexManager(new SMDomDoggy());
 			
-			SexFlags.positioningBlockedPartner = true;
+//			SexFlags.positioningBlockedPartner = true;
 			SexFlags.resetRequests();
 		}
 	};
@@ -240,7 +240,7 @@ public class GenericPositioning {
 		public void applyEffects() {
 			Sex.setSexManager(new SMDomKneeling());
 			
-			SexFlags.positioningBlockedPartner = true;
+//			SexFlags.positioningBlockedPartner = true;
 			SexFlags.resetRequests();
 		}
 	};
@@ -279,7 +279,7 @@ public class GenericPositioning {
 		public void applyEffects() {
 			Sex.setSexManager(new SMDomSelfKneeling());
 
-			SexFlags.positioningBlockedPartner = true;
+//			SexFlags.positioningBlockedPartner = true;
 			SexFlags.resetRequests();
 		}
 	};
@@ -668,7 +668,7 @@ public class GenericPositioning {
 	};
 	
 	public static final SexAction PARTNER_POSITION_RESPONSE = new SexAction(
-			SexActionType.PARTNER_POSITIONING,
+			SexActionType.PARTNER,
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
@@ -854,39 +854,39 @@ public class GenericPositioning {
 		public void applyEffects() {
 			if(SexFlags.requestedFaceToWall && (Sex.getPartner().getSexPositionPreferences().contains(SexPosition.FACING_WALL_PLAYER) || Sex.getPartner().getSexPositionPreferences().isEmpty())) {
 				Sex.setSexManager(new SMSubFaceToWall());
-				SexFlags.positioningBlockedPartner = true;
+//				SexFlags.positioningBlockedPartner = true;
 				
 			} else if(SexFlags.requestedBackToWall && (Sex.getPartner().getSexPositionPreferences().contains(SexPosition.BACK_TO_WALL_PLAYER) || Sex.getPartner().getSexPositionPreferences().isEmpty())) {
 				Sex.setSexManager(new SMSubBackToWall());
-				SexFlags.positioningBlockedPartner = true;
+//				SexFlags.positioningBlockedPartner = true;
 				
 			} else if(SexFlags.requestedDoggy && (Sex.getPartner().getSexPositionPreferences().contains(SexPosition.DOGGY_PLAYER_ON_ALL_FOURS) || Sex.getPartner().getSexPositionPreferences().isEmpty())) {
 				Sex.setSexManager(new SMSubDoggy());
-				SexFlags.positioningBlockedPartner = true;
+//				SexFlags.positioningBlockedPartner = true;
 				
 			} else if(SexFlags.requestedDomFuckedDoggy && (Sex.getPartner().getSexPositionPreferences().contains(SexPosition.DOGGY_PARTNER_AS_DOM_ON_ALL_FOURS) || Sex.getPartner().getSexPositionPreferences().isEmpty())) {
 				Sex.setSexManager(new SMSubSelfDoggy());
-				SexFlags.positioningBlockedPartner = true;
+//				SexFlags.positioningBlockedPartner = true;
 				
 			} else if(SexFlags.requestedKneeling && (Sex.getPartner().getSexPositionPreferences().contains(SexPosition.KNEELING_PLAYER_PERFORMING_ORAL) || Sex.getPartner().getSexPositionPreferences().isEmpty())) {
 				Sex.setSexManager(new SMSubKneeling());
-				SexFlags.positioningBlockedPartner = true;
+//				SexFlags.positioningBlockedPartner = true;
 				
 			} else if(SexFlags.requestedSelfKneeling && (Sex.getPartner().getSexPositionPreferences().contains(SexPosition.KNEELING_PARTNER_PERFORMING_ORAL) || Sex.getPartner().getSexPositionPreferences().isEmpty())) {
 				Sex.setSexManager(new SMSubSelfKneeling());
-				SexFlags.positioningBlockedPartner = true;
+//				SexFlags.positioningBlockedPartner = true;
 				
 			} else if(SexFlags.requested69 && (Sex.getPartner().getSexPositionPreferences().contains(SexPosition.SIXTY_NINE_PARTNER_TOP) || Sex.getPartner().getSexPositionPreferences().isEmpty())) {
 				Sex.setSexManager(new SMSubSixtyNine());
-				SexFlags.positioningBlockedPartner = true;
+//				SexFlags.positioningBlockedPartner = true;
 				
 			} else if(SexFlags.requestedCowgirl && (Sex.getPartner().getSexPositionPreferences().contains(SexPosition.COWGIRL_PARTNER_TOP) || Sex.getPartner().getSexPositionPreferences().isEmpty())) {
 				Sex.setSexManager(new SMSubCowgirl());
-				SexFlags.positioningBlockedPartner = true;
+//				SexFlags.positioningBlockedPartner = true;
 				
 			}
 			
-			SexFlags.positioningBlockedPlayer = true;
+//			SexFlags.positioningBlockedPlayer = true;
 			SexFlags.resetRequests();
 		}
 	};
@@ -932,8 +932,8 @@ public class GenericPositioning {
 		public void applyEffects() {
 			Sex.setSexManager(new SMSubFaceToWall());
 			
-			SexFlags.positioningBlockedPartner = true;
-			SexFlags.positioningBlockedPlayer = true;
+//			SexFlags.positioningBlockedPartner = true;
+//			SexFlags.positioningBlockedPlayer = true;
 			SexFlags.resetRequests();
 		}
 	};
@@ -975,8 +975,8 @@ public class GenericPositioning {
 		public void applyEffects() {
 			Sex.setSexManager(new SMSubBackToWall());
 
-			SexFlags.positioningBlockedPartner = true;
-			SexFlags.positioningBlockedPlayer = true;
+//			SexFlags.positioningBlockedPartner = true;
+//			SexFlags.positioningBlockedPlayer = true;
 			SexFlags.resetRequests();
 		}
 	};
@@ -1020,8 +1020,8 @@ public class GenericPositioning {
 		public void applyEffects() {
 			Sex.setSexManager(new SMSubDoggy());
 			
-			SexFlags.positioningBlockedPartner = true;
-			SexFlags.positioningBlockedPlayer = true;
+//			SexFlags.positioningBlockedPartner = true;
+//			SexFlags.positioningBlockedPlayer = true;
 			SexFlags.resetRequests();
 		}
 	};
@@ -1064,8 +1064,8 @@ public class GenericPositioning {
 		public void applyEffects() {
 			Sex.setSexManager(new SMSubSelfDoggy());
 			
-			SexFlags.positioningBlockedPartner = true;
-			SexFlags.positioningBlockedPlayer = true;
+//			SexFlags.positioningBlockedPartner = true;
+//			SexFlags.positioningBlockedPlayer = true;
 			SexFlags.resetRequests();
 		}
 	};
@@ -1107,8 +1107,8 @@ public class GenericPositioning {
 		public void applyEffects() {
 			Sex.setSexManager(new SMSubKneeling());
 			
-			SexFlags.positioningBlockedPartner = true;
-			SexFlags.positioningBlockedPlayer = true;
+//			SexFlags.positioningBlockedPartner = true;
+//			SexFlags.positioningBlockedPlayer = true;
 			SexFlags.resetRequests();
 		}
 	};
@@ -1150,8 +1150,8 @@ public class GenericPositioning {
 		public void applyEffects() {
 			Sex.setSexManager(new SMSubSelfKneeling());
 			
-			SexFlags.positioningBlockedPartner = true;
-			SexFlags.positioningBlockedPlayer = true;
+//			SexFlags.positioningBlockedPartner = true;
+//			SexFlags.positioningBlockedPlayer = true;
 			SexFlags.resetRequests();
 		}
 	};
@@ -1195,8 +1195,8 @@ public class GenericPositioning {
 		public void applyEffects() {
 			Sex.setSexManager(new SMSubSixtyNine());
 
-			SexFlags.positioningBlockedPartner = true;
-			SexFlags.positioningBlockedPlayer = true;
+//			SexFlags.positioningBlockedPartner = true;
+//			SexFlags.positioningBlockedPlayer = true;
 			SexFlags.resetRequests();
 		}
 	};
@@ -1239,8 +1239,8 @@ public class GenericPositioning {
 		public void applyEffects() {
 			Sex.setSexManager(new SMSubCowgirl());
 
-			SexFlags.positioningBlockedPartner = true;
-			SexFlags.positioningBlockedPlayer = true;
+//			SexFlags.positioningBlockedPartner = true;
+//			SexFlags.positioningBlockedPlayer = true;
 			SexFlags.resetRequests();
 		}
 	};

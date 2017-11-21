@@ -80,12 +80,12 @@ public class ItemEffect implements Serializable, XMLSaving {
 		return effect;
 	}
 	
-	public ItemEffect loadFromXML(Element parentElement, Document doc) {
+	public static ItemEffect loadFromXML(Element parentElement, Document doc) {
 		return new ItemEffect(
 				ItemEffectType.valueOf(parentElement.getAttribute("itemEffectType")),
-				TFModifier.valueOf(parentElement.getAttribute("primaryModifier")),
-				TFModifier.valueOf(parentElement.getAttribute("secondaryModifier")),
-				TFPotency.valueOf(parentElement.getAttribute("potency")),
+				(parentElement.getAttribute("primaryModifier").equals("null")?null:TFModifier.valueOf(parentElement.getAttribute("primaryModifier"))),
+				(parentElement.getAttribute("secondaryModifier").equals("null")?null:TFModifier.valueOf(parentElement.getAttribute("secondaryModifier"))),
+				(parentElement.getAttribute("potency").equals("null")?null:TFPotency.valueOf(parentElement.getAttribute("potency"))),
 				Integer.valueOf(parentElement.getAttribute("limit")));
 	}
 	
