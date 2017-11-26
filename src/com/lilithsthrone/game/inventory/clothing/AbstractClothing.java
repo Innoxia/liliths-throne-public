@@ -202,7 +202,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	}
 	
 	public static AbstractClothing loadFromXML(Element parentElement, Document doc) {
-		AbstractClothing clothing = AbstractClothingType.generateClothing(ClothingType.idToClothingMap.get(parentElement.getAttribute("id")), false);
+		AbstractClothing clothing = AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId(parentElement.getAttribute("id")), false);
 		
 		clothing.setColour(Colour.valueOf(parentElement.getAttribute("colour")));
 		clothing.rarity = (Rarity.valueOf(parentElement.getAttribute("rarity")));

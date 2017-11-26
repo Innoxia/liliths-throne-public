@@ -101,7 +101,7 @@ public enum Encounter {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-	
+				
 				return Main.game.getActiveNPC().getEncounterDialogue();
 				
 			} else if(node == EncounterType.SPECIAL_DOMINION_CULTIST
@@ -143,10 +143,12 @@ public enum Encounter {
 					return Main.game.getActiveNPC().getEncounterDialogue();
 				}
 				
-				if(Main.game.isIncestEnabled() && Math.random()>0.8f) { // Incest
+				if(Main.game.isIncestEnabled() && Math.random()<0.2f) { // Incest
 					List<NPC> offspringAvailable = new ArrayList<>();
 					for(NPC npc : Main.game.getOffspring()) {
-						offspringAvailable.add(npc);
+						if(!npc.isSlave()) {
+							offspringAvailable.add(npc);
+						}
 					}
 					for(NPC npc : Main.game.getOffspringSpawned()) {
 						offspringAvailable.remove(npc);
@@ -163,7 +165,6 @@ public enum Encounter {
 						
 						return Main.game.getActiveNPC().getEncounterDialogue();
 					}
-					
 				}
 				
 				Main.game.setActiveNPC(new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences()));

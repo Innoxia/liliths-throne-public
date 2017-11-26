@@ -480,7 +480,7 @@ public class Body implements Serializable, XMLSaving {
 		Element bodyHorn = doc.createElement("horn");
 		parentElement.appendChild(bodyHorn);
 			CharacterUtils.addAttribute(doc, bodyHorn, "type", this.horn.type.toString());
-			CharacterUtils.addAttribute(doc, bodyHair, "length", String.valueOf(this.horn.length));
+			CharacterUtils.addAttribute(doc, bodyHorn, "length", String.valueOf(this.horn.length));
 			CharacterUtils.addAttribute(doc, bodyHorn, "rows", String.valueOf(this.horn.rows));
 		
 		// Leg:
@@ -1475,6 +1475,9 @@ public class Body implements Serializable, XMLSaving {
 					break;
 				case SLICKED_BACK:
 					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been slicked back.");
+					break;
+				case MESSY:
+					sb.append(", which "+(hair.getType().isDefaultPlural()?"are":"is")+" unstyled and very messy.");
 					break;
 			}
 		}

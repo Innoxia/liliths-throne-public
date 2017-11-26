@@ -57,5 +57,17 @@ public enum DialogueFlagValue {
 	punishedByAlexa,
 	
 	// Slaver Alley:
-	finchIntroduced;
+	finchIntroduced,
+	
+	// Zaranix:
+	zaranixDiscoveredHome,
+	zaranixMaidsHostile,
+	zaranixKnockedOnDoor,
+	zaranixKickedDownDoor,
+	
+	zaranixAmberSubdued,
+	zaranixKatherineSubdued,
+	zaranixKellySubdued,
+	
+	;
 }

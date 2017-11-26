@@ -93,6 +93,18 @@ public class DialogueFlags implements Serializable, XMLSaving {
 		return newFlags;
 	}
 
+	public boolean getFlag(DialogueFlagValue flag) {
+		return values.contains(flag);
+	}
+	
+	public void setFlag(DialogueFlagValue flag, boolean flagMarker) {
+		if(flagMarker) {
+			values.add(flag);
+		} else {
+			values.remove(flag);
+		}
+	}
+	
 	public NPC getSlaveTrader() {
 		if(slaveTrader==null) {
 			return null;
@@ -117,7 +129,7 @@ public class DialogueFlags implements Serializable, XMLSaving {
 	}
 
 	public NPC getSlaveryManagerSlaveSelected() {
-		if(slaveryManagerSlaveSelected==null) {
+		if(slaveryManagerSlaveSelected==null || slaveryManagerSlaveSelected.isEmpty()) {
 			return null;
 		}
 		return (NPC) Main.game.getNPCById(slaveryManagerSlaveSelected);

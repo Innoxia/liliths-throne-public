@@ -88,11 +88,9 @@ public enum WorldType {
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.ZARANIX_FF_CORRIDOR),
 					new Value<>(new Color(0x00ff00), PlaceType.ZARANIX_FF_STAIRS),
-					new Value<>(new Color(0xff80ff), PlaceType.ZARANIX_FF_BEDROOM),
+					new Value<>(new Color(0xff80ff), PlaceType.ZARANIX_FF_OFFICE),
 					new Value<>(new Color(0xff00ff), PlaceType.ZARANIX_FF_ROOM),
-					new Value<>(new Color(0x8000ff), PlaceType.ZARANIX_FF_MAID),
-					new Value<>(new Color(0x00ffff), PlaceType.ZARANIX_FF_GARDEN_ROOM),
-					new Value<>(new Color(0xff8000), PlaceType.ZARANIX_FF_STREET_ROOM))),
+					new Value<>(new Color(0x8000ff), PlaceType.ZARANIX_FF_MAID))),
 	
 	ZARANIX_HOUSE_GROUND_FLOOR("Zaranix's Home",
 			Colour.BASE_CRIMSON,

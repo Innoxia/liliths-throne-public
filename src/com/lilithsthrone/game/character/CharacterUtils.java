@@ -928,7 +928,7 @@ public class CharacterUtils {
 		}
 		
 		//Ass:
-		if(character.hasFetish(Fetish.FETISH_ANAL_RECEIVING)) {
+		if(character.hasFetish(Fetish.FETISH_ANAL_RECEIVING) || character.getHistory()==History.PROSTITUTE) {
 			character.setAssVirgin(false);
 			character.setAssCapacity(character.getAssRawCapacityValue()*1.2f, true);
 			character.setAssStretchedCapacity(character.getAssRawCapacityValue());

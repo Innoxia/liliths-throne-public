@@ -11,7 +11,7 @@ import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.69.9
- * @version 0.1.86
+ * @version 0.1.95
  * @author Innoxia
  */
 public enum ParserTarget {
@@ -388,12 +388,65 @@ public enum ParserTarget {
 		}
 	},
 	
-//	ARTHUR("arthur", ""){
-//		public String getDescription() {
-//			return Main.game.getArthur().getDescription();
-//		}
-//	},
+	ZARANIX(Util.newArrayListOfValues(
+			new ListValue<>("zaranix")), ""){
+		public String getDescription() {
+			return Main.game.getZaranix().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter() {
+			return Main.game.getZaranix();
+		}
+	},
 	
+	AMBER(Util.newArrayListOfValues(
+			new ListValue<>("amber")), ""){
+		public String getDescription() {
+			return Main.game.getAmber().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter() {
+			return Main.game.getAmber();
+		}
+	},
+	
+	ARTHUR(Util.newArrayListOfValues(
+			new ListValue<>("arthur")), ""){
+		public String getDescription() {
+			return Main.game.getArthur().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter() {
+			return Main.game.getArthur();
+		}
+	},
+	
+	KELLY(Util.newArrayListOfValues(
+			new ListValue<>("kelly")), ""){
+		public String getDescription() {
+			return Main.game.getKelly().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter() {
+			return Main.game.getKelly();
+		}
+	},
+	
+	KATHERINE(Util.newArrayListOfValues(
+			new ListValue<>("katherine")), ""){
+		public String getDescription() {
+			return Main.game.getKatherine().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter() {
+			return Main.game.getKatherine();
+		}
+	},
 	;
 	
 	

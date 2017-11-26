@@ -194,34 +194,33 @@ public class SuccubisSecrets {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseSex("Sex", "You can't resist the horny succubus's request...", null,
-						true, true, Main.game.getKate(), new SMChairTop(), Kate.AFTER_SEX,
-							 "<p>"
-							+ "As the horny demon finishes speaking, she sits up, spreading her legs and pulling up her skirt as she gives you a clear view of her spaded tail pushing deep into her hungry pussy."
-							+ " You notice little vibrations running down her tail's length, and you realise that her demonic pussy is eagerly massaging and squeezing down on the intruding object."
-							+ " She glances up at you with big, innocent eyes, and begs, "
-							+ UtilText.parseSpeech("Pleeeease! It's just not the same when I have to do it myself...",
-								Main.game.getKate())
-							+ "</p>"
-							+ "<p>"
-							+ "She is, without doubt, one of the most attractive women you've ever seen."
-							+ " Her face, with its full, plump lips, high cheekbones and immaculate skin, is framed by long, wavy locks of sleek black hair."
-							+ " Her body is equally as impressive, and beneath her three pairs of "+Main.game.getKate().getBreastSize().getDescriptor()
-							+" breasts, her wide hips and long, perfectly-formed legs provide the final visual stimulus that's needed to send you over the edge."
-							+ "</p>"
-							+ "<p>"
-							+ "You step forwards, and as you do, the demon lets out a delighted squeal."
-							+ " She spreads her legs even further apart, and you see her tail slide out of her warmed-up slit as she prepares herself for your entrance."
-							+ " Leaning down, the scent of strawberries and sex overwhelms your senses, and as your lips press against hers, you feel her tail wrapping around one of your legs."
-							+ "</p>"
-							+ "<p>"
-							+ "She briefly pushes you back for a moment, panting, "
-							+ UtilText.parseSpeech("Oh, if you need a name to call out, it's Kate by the way.",
-								Main.game.getKate())
-							+ "</p>"
-							+ "<p>"
-							+ "With that, she reaches around and grabs the back of your head, pulling you into a desperate, passionate kiss as you press yourself down against her."
-							+ "</p>");
+				return new ResponseSex("Sex", "You can't resist the horny succubus's request...", true,
+						true, Main.game.getKate(), new SMChairTop(), Kate.AFTER_SEX, "<p>"
+						+ "As the horny demon finishes speaking, she sits up, spreading her legs and pulling up her skirt as she gives you a clear view of her spaded tail pushing deep into her hungry pussy."
+						+ " You notice little vibrations running down her tail's length, and you realise that her demonic pussy is eagerly massaging and squeezing down on the intruding object."
+						+ " She glances up at you with big, innocent eyes, and begs, "
+						+ UtilText.parseSpeech("Pleeeease! It's just not the same when I have to do it myself...",
+							Main.game.getKate())
+						+ "</p>"
+						+ "<p>"
+						+ "She is, without doubt, one of the most attractive women you've ever seen."
+						+ " Her face, with its full, plump lips, high cheekbones and immaculate skin, is framed by long, wavy locks of sleek black hair."
+						+ " Her body is equally as impressive, and beneath her three pairs of "+Main.game.getKate().getBreastSize().getDescriptor()
+						+" breasts, her wide hips and long, perfectly-formed legs provide the final visual stimulus that's needed to send you over the edge."
+						+ "</p>"
+						+ "<p>"
+						+ "You step forwards, and as you do, the demon lets out a delighted squeal."
+						+ " She spreads her legs even further apart, and you see her tail slide out of her warmed-up slit as she prepares herself for your entrance."
+						+ " Leaning down, the scent of strawberries and sex overwhelms your senses, and as your lips press against hers, you feel her tail wrapping around one of your legs."
+						+ "</p>"
+						+ "<p>"
+						+ "She briefly pushes you back for a moment, panting, "
+						+ UtilText.parseSpeech("Oh, if you need a name to call out, it's Kate by the way.",
+							Main.game.getKate())
+						+ "</p>"
+						+ "<p>"
+						+ "With that, she reaches around and grabs the back of your head, pulling you into a desperate, passionate kiss as you press yourself down against her."
+						+ "</p>");
 				
 			} else if (index == 2) {
 				return new Response("No thanks", "Tell her that you're not the sort of person who just has sex with random shopkeepers.", SHOP_BEAUTY_SALON_NO_THANKS);
@@ -264,34 +263,33 @@ public class SuccubisSecrets {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseSex("Fuck her", "Do as she says and start having sex with her.", null,
-						true, true, Main.game.getKate(), new SMChairTop(), Kate.AFTER_SEX,
-								"<p>"
-								+ "As the horny demon finishes speaking, she sits up, spreading her legs and pulling up her skirt as she gives you a clear view of her spaded tail pushing deep into her hungry pussy."
-								+ " You notice little vibrations running down her tail's length, and you realise that her demonic pussy is eagerly massaging and squeezing down on the intruding object."
-								+ " She glances up at you with big, innocent eyes, and begs, "
-								+ UtilText.parseSpeech("Pleeeease! It's just not the same when I have to do it myself...",
-									Main.game.getKate())
-								+ "</p>"
-								+ "<p>"
-								+ "She is, without doubt, one of the most attractive women you've ever seen."
-								+ " Her face, with its full, plump lips, high cheekbones and immaculate skin, is framed by long, wavy locks of sleek black hair."
-								+ " Her body is equally as impressive, and beneath her three pairs of "+Main.game.getKate().getBreastSize().getDescriptor()
-								+" breasts, her wide hips and long, perfectly-formed legs provide the final visual stimulus that's needed to send you over the edge."
-								+ "</p>"
-								+ "<p>"
-								+ "You step forwards, and as you do, the demon lets out a delighted squeal."
-								+ " She spreads her legs even further apart, and you see her tail slide out of her warmed-up slit as she prepares herself for your entrance."
-								+ " Leaning down, the scent of strawberries and sex overwhelms your senses, and as your lips press against hers, you feel her tail wrapping around one of your legs."
-								+ "</p>"
-								+ "<p>"
-								+ "She briefly pushes you back for a moment, panting, "
-								+ UtilText.parseSpeech("Oh, if you need a name to call out, it's Kate by the way.",
-									Main.game.getKate())
-								+ "</p>"
-								+ "<p>"
-								+ "With that, she reaches around and grabs the back of your head, pulling you into a desperate, passionate kiss as you press yourself down against her."
-								+ "</p>");
+				return new ResponseSex("Fuck her", "Do as she says and start having sex with her.", true,
+						true, Main.game.getKate(), new SMChairTop(), Kate.AFTER_SEX, "<p>"
+						+ "As the horny demon finishes speaking, she sits up, spreading her legs and pulling up her skirt as she gives you a clear view of her spaded tail pushing deep into her hungry pussy."
+						+ " You notice little vibrations running down her tail's length, and you realise that her demonic pussy is eagerly massaging and squeezing down on the intruding object."
+						+ " She glances up at you with big, innocent eyes, and begs, "
+						+ UtilText.parseSpeech("Pleeeease! It's just not the same when I have to do it myself...",
+							Main.game.getKate())
+						+ "</p>"
+						+ "<p>"
+						+ "She is, without doubt, one of the most attractive women you've ever seen."
+						+ " Her face, with its full, plump lips, high cheekbones and immaculate skin, is framed by long, wavy locks of sleek black hair."
+						+ " Her body is equally as impressive, and beneath her three pairs of "+Main.game.getKate().getBreastSize().getDescriptor()
+						+" breasts, her wide hips and long, perfectly-formed legs provide the final visual stimulus that's needed to send you over the edge."
+						+ "</p>"
+						+ "<p>"
+						+ "You step forwards, and as you do, the demon lets out a delighted squeal."
+						+ " She spreads her legs even further apart, and you see her tail slide out of her warmed-up slit as she prepares herself for your entrance."
+						+ " Leaning down, the scent of strawberries and sex overwhelms your senses, and as your lips press against hers, you feel her tail wrapping around one of your legs."
+						+ "</p>"
+						+ "<p>"
+						+ "She briefly pushes you back for a moment, panting, "
+						+ UtilText.parseSpeech("Oh, if you need a name to call out, it's Kate by the way.",
+							Main.game.getKate())
+						+ "</p>"
+						+ "<p>"
+						+ "With that, she reaches around and grabs the back of your head, pulling you into a desperate, passionate kiss as you press yourself down against her."
+						+ "</p>");
 				
 			} else if (index == 2) {
 				return new Response("No thanks", "Tell her that you're not the sort of person who just has sex with random shopkeepers.", SHOP_BEAUTY_SALON_NO_THANKS);
@@ -598,29 +596,28 @@ public class SuccubisSecrets {
 
 		} else if (index == 9) {
 			return new ResponseSex("Sex", "You roll your eyes as you reach the end of the brochure. On a double-page spread, there's an extremely lewd collection of pictures of Kate inserting her tail into her various orifices,"
-					+ " with the suggestive caption 'Don't make me do it myself...'", null,
-					true, true, Main.game.getKate(), new SMChairTop(), Kate.AFTER_SEX_REPEATED,
-							"<p>"
-							+ "Turning to the back of the brochure, you find a double-page spread that's filled with extremely explicit pictures of Kate inserting her tail into her various orifices."
-							+ " Looking over at the sleeping demon next to you, the words of the caption 'Don't make me do it myself...' echo through your mind."
-							+ "</p>"
-							+ "<p>"
-							+ "Not being able to resist, you put the brochure down and stand up, and in one quick movement, you're standing in front of the snoring form of Kate."
-							+ " Before you know what you're doing, you're leaning down into her face."
-							+ " The soft, hot breath of her relaxed snores gently blows against your lips, and with a little sigh, you pull her into a kiss."
-							+ "</p>"
-							+ "<p>"
-							+ "Woken by your bold move, the demon slowly opens her eyes, before letting out a delighted squeal as she discovers what you're doing."
-							+ " You feel her spreading her legs beneath you, and her tail bumps sleepily against your thighs as she uses it to pull up her mini-skirt, preparing herself for your entrance."
-							+ "</p>"
-							+ "<p>"
-							+ "Breaking off the kiss for a moment, she slurs, "
-							+ UtilText.parseSpeech("Mmm... Now this's a good dream!",
-									Main.game.getKate())
-							+"</p>"
-							+ "<p>"
-							+ "With that, she reaches around and grabs the back of your head, pulling you into a desperate, passionate kiss as you press yourself down against her."
-							+ "</p>"){
+					+ " with the suggestive caption 'Don't make me do it myself...'", true,
+					true, Main.game.getKate(), new SMChairTop(), Kate.AFTER_SEX_REPEATED, "<p>"
+					+ "Turning to the back of the brochure, you find a double-page spread that's filled with extremely explicit pictures of Kate inserting her tail into her various orifices."
+					+ " Looking over at the sleeping demon next to you, the words of the caption 'Don't make me do it myself...' echo through your mind."
+					+ "</p>"
+					+ "<p>"
+					+ "Not being able to resist, you put the brochure down and stand up, and in one quick movement, you're standing in front of the snoring form of Kate."
+					+ " Before you know what you're doing, you're leaning down into her face."
+					+ " The soft, hot breath of her relaxed snores gently blows against your lips, and with a little sigh, you pull her into a kiss."
+					+ "</p>"
+					+ "<p>"
+					+ "Woken by your bold move, the demon slowly opens her eyes, before letting out a delighted squeal as she discovers what you're doing."
+					+ " You feel her spreading her legs beneath you, and her tail bumps sleepily against your thighs as she uses it to pull up her mini-skirt, preparing herself for your entrance."
+					+ "</p>"
+					+ "<p>"
+					+ "Breaking off the kiss for a moment, she slurs, "
+					+ UtilText.parseSpeech("Mmm... Now this's a good dream!",
+							Main.game.getKate())
+					+"</p>"
+					+ "<p>"
+					+ "With that, she reaches around and grabs the back of your head, pulling you into a desperate, passionate kiss as you press yourself down against her."
+					+ "</p>"){
 				@Override
 				public void effects() {
 					if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {

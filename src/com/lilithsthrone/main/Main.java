@@ -46,7 +46,7 @@ import javafx.stage.Stage;
 
 /**
  * @since 0.1.0
- * @version 0.1.89.2
+ * @version 0.1.89.5
  * @author Innoxia
  */
 public class Main extends Application {
@@ -60,8 +60,8 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.1.89.2",
-			VERSION_DESCRIPTION = "Early Alpha";
+	public static final String VERSION_NUMBER = "0.1.89.5",
+			VERSION_DESCRIPTION = "Early Alpha (BUGGY PREVIEW)";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
 
@@ -70,7 +70,7 @@ public class Main extends Application {
 	public static String patchNotes =
 			
 		"<h1 style='text-align:center;'>Version " + Main.VERSION_NUMBER + "</h1>"
-//		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>Moderately Buggy Preview!</b></h6>"
+		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>Buggy Preview!</b></h6>"
 		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Very-early Alpha!</b></h6>"
 		
 		+ "<p>"
@@ -78,19 +78,7 @@ public class Main extends Application {
 		+ "</p>"
 			
 		+ "<p>"
-			+ "As I said in my goals post, the main focus of this release was fixing bugs, adding content, and finally implementing save compatibility."
-			+ " I managed to get a lot of bugs fixed, and got the first version of save compatibility working, but I ran out of time in which to fully add the main story & sex content I had planned. ;_;"
-		+ "</p>"
-		
-		+ "<p>"
-			+ "I am extremely conscious of of the fact that bugs & engine work have been the focus of the last couple of releases, but please remember that I'm still in the 'engine work' phase of the game's development,"
-				+ " and I really do need to get these final tasks finished before I can really focus on adding content."
-			+ " That being said, I promise that I won't touch any engine work until the promised main story, sex, and slavery content is finished."
-		+ "</p>"
-		
-		+ "<p>"
-			+ "After that, I just have multiple-partner sex scenes and the combat & stats rework to complete, and then all the major engine work will be finished."
-			+ " I'm aiming to have reached version 0.2.0 by Christmas (the version numbers will leap a little), so that I can fully concentrate on writing content going into the new year."
+			+ "If I were sensible, I would have delayed this until Wednesday at the earliest... <b>This version is in a very rough state! I would advise waiting until the next preview before playing!</b>"
 		+ "</p>"
 		
 		+ "<p>"
@@ -104,151 +92,27 @@ public class Main extends Application {
 		+ "</br>"
 
 		+ "<list>"
-			+ "<h6>v0.1.88.5 (scroll down for 0.1.89 notes)</h6>"
-			+"<li>Engine:</li>"
-			+"<ul><b>Added:</b> First iteration of save compatibility (some minor things aren't working yet, but I'll finish it off over the weekend). This took a loooong time to implement... Sorry that there isn't much else here... ;_;</ul>"
-			+"<ul><b>Changed:</b> Importing your character no longer carries over your slaves (and doesn't carry over pregnancies either). This is due to inter-NPC relationships getting quite complicated, so, for example, there would be several serious issues with importing an enslaved Scarlett into a new game, and then meeting the new game's version of Scarlett.</ul>"
-			+"<ul>Did a lot of general back-end fixes in numerous parts of the code.</ul>"
-			+"<ul>Added support for multiple pages of responses (for use in the new Sex UI).</ul>"
-				
-			+"<li>UI:</li>"
-			+"<ul>Further improved the Sex UI. Thank you for all of your feedback regarding this!</ul>"
-			+"<ul>Added an 'Export/Import' tab in the main menu, through which you can use the new Game Export. ^^</ul>"
-				
-			+"<li>Bugs:</li>"
-			+"<ul>Filled condoms should now correct import with all cum properties intact.</ul>"
-			+"<ul>Penile virginity is now correctly lost upon performing a penetrative sex action.</ul>"
-			+"<ul>Fixed broken lubrication messages during sex.</ul>"
-		+"</list>"
-		
-		+ "</br>"
-
-		+ "<list>"
-			+ "<h6>v0.1.89</h6>"
-		
-			+"<li>Engine:</li>"
-			+"<ul>Added more detail to the game's 'CoverableArea' system, to allow for clothing to block ass/anus and breasts/nipples separately.</ul>"
-			+"<ul>Added in a lot of the background framework for Zaranix into the engine. I'll get this finished asap. ;_;</ul>"
-			
-			+"<li>Save game compatibility:</li>"
-			+"<ul>Fixed several major bugs associated with loading in a game where you had filled condoms in your inventory.</ul>"
-			+"<ul>Fixed major bug related to loading an exported game with pregnant NPCs in it.</ul>"
-			+"<ul>Fixed pregnancy 'potential partners as father' not being imported correctly.</ul>"
-			+"<ul>Fixed incorrect cell inventory size.</ul>"
-			+"<ul>Added support for generating missing maps.</ul>"
-			
+			+ "<h6>v0.1.89.5 (Preview)</h6>"
 			+"<li>Gameplay:</li>"
-			+"<ul>Submitting to an NPC after defeating them no longer locks out penetrative sex actions.</ul>"
-			+"<ul>You can now access the inventory of defeated alleyway attackers, succubi, offspring, and harpies after sex.</ul>"
-			+"<ul>Split the 'Non-con' fetish up into giving & receiving variants. NPCs with the receiving variant will prefer to resist during sex (if non-con is enabled).</ul>"
-			+"<ul>Reduced the default amount of children birthed by each race, so most now give birth to one or two offspring, with the current maximum litter size possible being 16 (for harpies).</ul>"
-				
-			+"<li>Sex:</li>"
-			+"<ul>Added a generic 'Stop penetrations' action to stop all ongoing penetrative actions at once.</ul>"
-			+"<ul>Changed sex action's associated fetishes to make them more consistent.</ul>"
-			+"<ul>NPCs will no longer try to get access to their penis/pussy if they don't have one.</ul>"
-				
-			+"<li>UI:</li>"
-			+"<ul>Added hotkey support for response tab switching. By default, 'Previous tab' is 'ctrl+Q', while 'Next tab' is 'ctrl+E'. (Can be changed in the options menu.)</ul>"
-			+"<ul>Added indication in enchanting menu of the exact value that an effect will apply. (e.g. Will now display cum increases in ml.)</ul>"
-			+"<ul>Improved inventory UI to use tabs. (I still have some work left to do on this.)</ul>"
-				
+			+"<ul><b>Added:</b> main quest content involving Zaranix. (There are several ways to complete the quest, involving submission, stealth, violence, and diplomacy.)</ul>"
+			+"<ul><b>Added:</b> prostitute variation of alleyway attacker.</ul>"
+			+"<ul>Filled in most of the placeholders for slave dialogue (molest and spanking will be done for the next release). I will expand these more in the future to take into account slave's personality and fetishes.</ul>"
+			+"<ul>Added 'Offer money' and 'Offer body' options to the alleyway attacker encounter.</ul>"
+			+"<ul>Slightly rewrote Demon Home's description.</ul>"
+
 			+"<li>Other:</li>"
-			+"<ul><b>Reverted:</b> NPCs will now beg for you to take their virginity if they're in the 'eager' pace, will inform you that they're a virgin in the 'normal' pace, and will beg for you not to take it in the 'resisting' pace.</ul>"
-			+"<ul>Slightly changed the secondary modifiers for enchanting body parts. Now, instead of leaving the secondary essence blank to transform your body part, you select a 'Transformative' essence.</ul>"
-			+"<ul>Improved horn transformations, and added several more colours to horns (available colours are now white, red, black, and grey).</ul>"
-			+"<ul>Changed horn types from 'demon' and 'bovine' into some more specific types: curled, spiral, curved, swept-back, and straight.</ul>"
-			+"<ul>Added horn length.</ul>"
-			+"<ul>Reduced offspring spawn chance from 25% to 20%.</ul>"
-			+"<ul>Added penile virginity loss descriptions during sex, as well as experience gain for the other partner if they have the 'Deflowering' fetish.</ul>"
-			+"<ul>Added submissive sex option in slaves' rooms.</ul>"
-			+"<ul>NPCs with 'Transformation test subject' fetish now gain affection from being assigned as Lilaya's test subject.</ul>"
-			+"<ul>Penises will only get lubricated by precum/cum if they're not covered with a condom. (Although the urethra will still get lubricated regardless of condom status.)</ul>"
-			+"<ul>The 'Repeat action' in combat will now only show actions that aren't already in the main combat menu (i.e. spells and special attacks).</ul>"
-			+"<ul>The 'Calm down' sex action has had its arousal reduction strength doubled from -5 to -10.</ul>"
-			+"<ul>Added 'pixie cut', 'bob cut', and 'slicked back' hair styles.</ul>"
-			+"<ul>Changed Rose's hair style.</ul>"
-			+"<ul>Added pure damage/resistance to the stats screen.</ul>"
-			+"<ul>You can now use fetish TF potions on the harpy matriarchs.</ul>"
-			+"<ul>Alleyway Succubi will now use their special tease attacks.</ul>"
-			+"<ul>Partners in consensual sex will no longer end sex once they've orgasmed. They will continue until you've orgasmed as well.</ul>"
+			+"<ul>Added 'amber' for hair and eye colours.</ul>"
+			+"<ul>Added 'messy' hair style.</ul>"
+				
+			+"<li>Clothing:</li>"
+			+"<ul>Added: Lab coat (no femininity requirements, over-torso slot).</ul>"
+			+"<ul>Added 'Scientist' clothing set status effect (when wearing both safety goggles and lab coat).</ul>"
 				
 			+"<li>Bugs:</li>"
-			+"<ul>In the crafting screen, you can now change the potency of milk, cum, and girlcum enchantments.</ul>"
-			+"<ul>Fixed bug where offspring would spawn twice in the same tile.</ul>"
-			+"<ul>Fixed bug where swapping positions during sex would incorrectly display ongoing penetration text.</ul>"
-			+"<ul>Fixed duplicate virginity loss descriptions in selfie/character view.</ul>"
-			+"<ul>Fixed incorrect virginity loss place descriptors.</ul>"
-			+"<ul>Ongoing penetration description fixes.</ul>"
-			+"<ul>Fixed UI scaling bug in Fetish screen.</ul>"
-			+"<ul>Fixed more strange floating point numbers in slavery management screens, as well as the main stats screen. (i.e. Things like 2.3999999 should now display as 2.40.)</ul>"
-			+"<ul>Fade-in text is now correctly off by default.</ul>"
-			+"<ul>'Lubricate fingers' self-action now returns the correct text.</ul>"
-			+"<ul>Masculine transformations (when letting Lilaya use someone as a test subject) will no longer grow breasts, and will now correctly shrink them.</ul>"
-			+"<ul>Fixed issue with Vicky sometimes not buying essences, and with Ralph sometimes not buying condoms.</ul>"
-			+"<ul>Fixed UI issue with pregnancy stats screen and slave inspection screen.</ul>"
-			+"<ul>The stats tooltip that shows up when you mouse over your name now shows the correct value of your global resistance.</ul>"
-			+"<ul>Breast kissing can no longer be performed if breasts are not exposed.</ul>"
-			+"<ul>Fixed levelling up method to enable gaining multiple levels at once.</ul>"
-			+"<ul>Improved arousal increases from ongoing status effects, and fixed incorrect arousal tooltip values.</ul>"
-			+"<ul>Lilaya will now always ask you to pull out.</ul>"
-			+"<ul>Fixed incorrect NPC reactions just before you reach your orgasm.</ul>"
-			+"<ul>You should now be able to use the 'Pull out' orgasm if your partner asked for you to pull out.</ul>"
-			+"<ul>Fixed bug in sex where moving into a position would cause your partner to continuously do nothing.</ul>"
-			+"<ul>Fixed potentially game-breaking bug related to Brax's clothing being unequipped after defeating him.</ul>"
-			+"<ul>Fixed storm immunity and items disappearing inconsistencies.</ul>"
-		+"</list>"
-		
-		+ "</br>"
-
-		+ "<list>"
-			+ "<h6>v0.1.89.1 (Hotfix)</h6>"
-			+"<li>Save compatibility & character import:</li>"
-			+"<ul>Fixed bug where duplicate NPCs were being loaded into the game.</ul>"
-			+"<ul>Fixed bug with exporting game not working.</ul>"
-			+"<ul>Fixed bug that would cause game freeze upon importing a character from an old version.</ul>"
-			+"<ul>Improved handling of pregnant NPC removal. (This was the cause of some exports from 0.1.88.5 not working. ;_;)</ul>"
-				
-			+"<li>Bugs:</li>"
-			+"<ul>Fixed cause of game freeze during sex.</ul>"
-			+"<ul>Fixed bug related to Alexa's renewal of slaves for sale (her old slaves weren't being cleaned up properly).</ul>"
-			+"<ul>Improved NPC removal methods, so that removing NPCs should no longer cause sex & pregnancy stats to break.</ul>"
-			+"<ul>Fixed all penetrative sex generating +0 base arousal for the person being penetrated.</ul>"
-			+"<ul>Fixed UI display bug in pregnancy stats screen.</ul>"
-			+"<ul>Fixed incorrect perk assignments when importing a character from an older version.</ul>"
-			+"<ul>Orgasm-related actions in sex should no longer populate the 'repeat action' tab.</ul>"
-		+"</list>"
-
-		+ "</br>"
-
-		+ "<list>"
-			+ "<h6>v0.1.89.2 (Hotfix)</h6>"
-			+"<li>Other:</li>"
-			+"<ul>You can now open the characters present screen by clocking on the NPC's level bar during combat & sex.</ul>"
-				
-			+"<li>Bugs:</ul>"
-			+"<ul>Offspring will now only be able to be encountered after they've been been birthed.</ul>"
-			+"<ul>Fixed bug where you could displace and unequip Rose's clothing during her 'sex' scene.</ul>"
-			+"<ul>You can now only request paizuri/naizuri if you know that your partner has a penis.</ul>"
-			+"<ul>Fixed wonky behaviour of NPCs being in the 'resisting' pace during sex when they shouldn't have been. (They will now always resist if they have the associated non-con fetish.)</ul>"
-			+"<ul>NPCs should no longer take their own virginity (in any hole), unless they're in the 'Eager' pace.</ul>"
-			+"<ul>Minor dialogue inconsistency fixes.</ul>"
-			+"<ul>Fixed potential cause of game freeze when giving birth.</ul>"
-			+"<ul>Added submissive fetish associations to submitting to Brax, taking Alexa's punishment, and submitting to slaves.</ul>"
-			+"<ul>The 'resist' action in sex will now increase your arousal if you have the 'Unwilling fuck-toy' fetish.</ul>"
-			+"<ul>Lilaya should now never ask for you to cum inside of her.</ul>"
-			+"<ul>Increased effectiveness of the 'Calm down' action.</ul>"
-			+"<ul>Slaves with the 'Transformation test subject' fetish will no longer lose affection towards you and Lilaya when transformed.</ul>"
-			+"<ul>Selecting both 'Masculine Transformations' and 'Feminine Transformations' for the slave job 'Test subject' will now result in futanari transformations taking place.</ul>"
-			+"<ul>Fixed issue with pregnancy stats page not removing pregnancy possibilities correctly.</ul>"
-			+"<ul>Fixed offspring's stats page not working (for offspring that were mothered or fathered with an NPC encountered during a storm).</ul>"
-			+"<ul>Fixed the 'Use all' action in inventory not working.</ul>"
-			+"<ul>Imported elixirs and potions now work.</ul>"
-			+"<ul>Condom belt will now render correctly if you have over 8 used condoms in your inventory.</ul>"
-			+"<ul>Fixed another cause of the pregnancy screen not working, as well as a crash related to the same, now-fixed issue.</ul>"
-			+"<ul>Fixed issue of selling your enslaved offspring to Alexa causing a major bug in several areas of the game.</ul>"
-			+"<ul>Brax should now correctly relocate to Candi's desk if you finish completing his quest by having submissive sex.</ul>"
-			+"<ul>Brax's black enforcer shirt and shorts no longer change to blue ones before he's beaten.</ul>"
+			+"<ul>Minor typo fixes.</ul>"
+			+"<ul>Enslaved offspring will no longer turn up in alleyways.</ul>"
+			+"<ul>Fixed bug where exported characters would have no hair.</ul>"
+			+"<ul>Lilaya's hair style is no longer random.</ul>"
 		+"</list>"
 		;
 	

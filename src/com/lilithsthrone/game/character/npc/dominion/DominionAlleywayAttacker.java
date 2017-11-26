@@ -8,7 +8,9 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.History;
 import com.lilithsthrone.game.character.Name;
+import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -18,11 +20,13 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.npcDialogue.DominionAlleywayAttackerDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.alleyway.AlleywayAttackerDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.alleyway.AlleywayProstituteDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
@@ -164,13 +168,29 @@ public class DominionAlleywayAttacker extends NPC {
 					}
 				}
 			}
-				
+			
 			setSexualOrientation(RacialBody.valueOfRace(getRace()).getSexualOrientation(gender));
 	
 			setName(Name.getRandomTriplet(race));
 			this.setPlayerKnowsName(false);
 			setDescription(UtilText.parse(this,
 					"[npc.Name] is a resident of Dominion, who, for reasons of [npc.her] own, prowls the back alleys in search of victims to prey upon."));
+			
+			// PERSONALITY & BACKGROUND:
+			
+			if(this.isFeminine()) {
+				if(Math.random()>0.2f) {
+					this.setHistory(History.PROSTITUTE);
+					setSexualOrientation(SexualOrientation.AMBIPHILIC);
+					setName(Name.getRandomProstituteTriplet());
+					useItem(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL), this, false);
+				} else {
+					this.setHistory(History.MUGGER);
+				}
+				
+			} else {
+				this.setHistory(History.MUGGER);
+			}
 			
 			// ADDING FETISHES:
 			
@@ -193,7 +213,11 @@ public class DominionAlleywayAttacker extends NPC {
 			setStamina(getAttributeValue(Attribute.STAMINA_MAXIMUM));
 		}
 		
-		this.setEnslavementDialogue(DominionAlleywayAttackerDialogue.ENSLAVEMENT_DIALOGUE);
+		if(this.getHistory()==History.PROSTITUTE) {
+			this.setEnslavementDialogue(AlleywayProstituteDialogue.ENSLAVEMENT_DIALOGUE);
+		} else {
+			this.setEnslavementDialogue(AlleywayAttackerDialogue.ENSLAVEMENT_DIALOGUE);
+		}
 	}
 	
 	@Override
@@ -227,8 +251,24 @@ public class DominionAlleywayAttacker extends NPC {
 	
 	@Override
 	public String getDescription() {
-		return (UtilText.parse(this,
-				"[npc.Name] is a resident of Dominion, who, for reasons of [npc.her] own, prowls the back alleys in search of victims to prey upon."));
+		if(this.getHistory()==History.PROSTITUTE) {
+			if(this.isSlave()) {
+				return (UtilText.parse(this,
+						"[npc.Name]'s days of whoring [npc.herself] out in the back alleys of Dominion are now over. Having run afoul of the law, [npc.she]'s now a slave, and is no more than [npc.her] owner's property."));
+			} else {
+				return (UtilText.parse(this,
+						"[npc.Name] is a prostitute who whores [npc.herself] out in the backalleys of Dominion."));
+			}
+			
+		} else {
+			if(this.isSlave()) {
+				return (UtilText.parse(this,
+						"[npc.Name]'s days of prowling the back alleys of Dominion and mugging innocent travellers are now over. Having run afoul of the law, [npc.she]'s now a slave, and is no more than [npc.her] owner's property."));
+			} else {
+				return (UtilText.parse(this,
+						"[npc.Name] is a resident of Dominion, who prowls the back alleys in search of innocent travellers to mug and rape."));
+			}
+		}
 	}
 	
 	@Override
@@ -257,9 +297,14 @@ public class DominionAlleywayAttacker extends NPC {
 	@Override
 	public DialogueNodeOld getEncounterDialogue() {
 		if(Main.game.getActiveWorld().getCell(location).getPlace().getPlaceType()==PlaceType.DOMINION_BACK_ALLEYS) {
-			return DominionAlleywayAttackerDialogue.ALLEY_ATTACK;
+			if(this.getHistory()==History.PROSTITUTE) {
+				this.setPlayerKnowsName(true);
+				return AlleywayProstituteDialogue.ALLEY_PROSTITUTE;
+			} else {
+				return AlleywayAttackerDialogue.ALLEY_ATTACK;
+			}
 		} else {
-			return DominionAlleywayAttackerDialogue.STORM_ATTACK;
+			return AlleywayAttackerDialogue.STORM_ATTACK;
 		}
 	}
 
@@ -375,10 +420,18 @@ public class DominionAlleywayAttacker extends NPC {
 
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
-		if (victory) {
-			return new Response("", "", DominionAlleywayAttackerDialogue.AFTER_COMBAT_VICTORY);
+		if(this.getHistory()==History.PROSTITUTE) {
+			if (victory) {
+				return new Response("", "", AlleywayProstituteDialogue.AFTER_COMBAT_VICTORY);
+			} else {
+				return new Response ("", "", AlleywayProstituteDialogue.AFTER_COMBAT_DEFEAT);
+			}
 		} else {
-			return new Response ("", "", DominionAlleywayAttackerDialogue.AFTER_COMBAT_DEFEAT);
+			if (victory) {
+				return new Response("", "", AlleywayAttackerDialogue.AFTER_COMBAT_VICTORY);
+			} else {
+				return new Response ("", "", AlleywayAttackerDialogue.AFTER_COMBAT_DEFEAT);
+			}
 		}
 	}
 	

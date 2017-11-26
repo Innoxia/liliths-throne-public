@@ -4,7 +4,6 @@ import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
-import com.lilithsthrone.game.dialogue.places.dominion.EnforcerHQDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -158,9 +157,8 @@ public class CultistDialogue {
 						"[npc.Name] readies her broomstick and shouts, [npc.speech(How <i>dare</i> you try to refuse my gift! I'll give it to you by force!)]");
 				
 			} else if(index==2) {
-				return new ResponseSex("Accept", "Drop to your knees and prepare to service her orally.", ENCOUNTER_CHAPEL,
-						false, false, Main.game.getActiveNPC(), new SMSubOral(), ENCOUNTER_CHAPEL_POST_ORAL_SEX,
-						"<p>"
+				return new ResponseSex("Accept", "Drop to your knees and prepare to service her orally.", false,
+						false, Main.game.getActiveNPC(), new SMSubOral(), ENCOUNTER_CHAPEL_POST_ORAL_SEX, "<p>"
 							+ "You do as [npc.name] commands, and obediently drop to your knees in front of her."
 							+ " Looking down at your submissive form, the succubus cultist coos in delight,"
 							+ " [npc.speech(Good [pc.girl]! You're eager for my gift, aren't you?!)]"
@@ -193,15 +191,14 @@ public class CultistDialogue {
 				
 			} else if(index == 3) {
 				if(Main.game.getPlayer().hasVagina()) {
-					return new ResponseSex("Offer Pussy", "Offer [npc.name] your pussy instead.", ENCOUNTER_CHAPEL,
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_PREGNANCY), new ListValue<>(Fetish.FETISH_BROODMOTHER)),
+					return new ResponseSex("Offer Pussy", "Offer [npc.name] your pussy instead.", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_PREGNANCY), new ListValue<>(Fetish.FETISH_BROODMOTHER)),
 							null,
 							Fetish.FETISH_PREGNANCY.getAssociatedCorruptionLevel(),
 							null,
 							null,
 							null,
-							false, false, Main.game.getActiveNPC(), new SMSubMissionary(), ENCOUNTER_CHAPEL_POST_VAGINAL_SEX,
-							"<p>"
+							false,
+							false, Main.game.getActiveNPC(), new SMSubMissionary(), ENCOUNTER_CHAPEL_POST_VAGINAL_SEX, "<p>"
 								+ "You smirk at [npc.name], before batting your eyelids and putting on the most seductive voice you can muster,"
 								+ " [pc.speech(Please [npc.name], could I get your gift elsewhere?)]"
 							+ "</p>"
@@ -239,15 +236,14 @@ public class CultistDialogue {
 				}
 				
 			} else if(index==4) {
-				return new ResponseSex("Offer Ass", "Offer [npc.name] your ass instead.", ENCOUNTER_CHAPEL,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING)),
+				return new ResponseSex("Offer Ass", "Offer [npc.name] your ass instead.", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING)),
 						null,
 						Fetish.FETISH_ANAL_RECEIVING.getAssociatedCorruptionLevel(),
 						null,
 						null,
 						null,
-						false, false, Main.game.getActiveNPC(), new SMSubMissionary(), ENCOUNTER_CHAPEL_POST_ANAL_SEX,
-						"<p>"
+						false,
+						false, Main.game.getActiveNPC(), new SMSubMissionary(), ENCOUNTER_CHAPEL_POST_ANAL_SEX, "<p>"
 							+ "You smirk at [npc.name], before stepping forwards and asking,"
 							+ " [pc.speech(Please [npc.name], could I get your gift elsewhere?)]"
 						+ "</p>"
@@ -416,9 +412,8 @@ public class CultistDialogue {
 				};
 			
 			} else if(index==2) {
-				return new ResponseSex("Sex", "Sex.", ENCOUNTER_CHAPEL_POST_DOM_SEX,
-						false, false, Main.game.getActiveNPC(), new SMDomSex(), ENCOUNTER_CHAPEL_POST_DOM_SEX,
-						"<p>"
+				return new ResponseSex("Sex", "Sex.", false,
+						false, Main.game.getActiveNPC(), new SMDomSex(), ENCOUNTER_CHAPEL_POST_DOM_SEX, "<p>"
 							+ "You decide against using her broomstick, and step forwards so that you're standing between [npc.name]'s legs."
 							+ " She lets out an excited moan as you run your [pc.hands] up the length of her soft thighs, and props herself up on her elbows as she bites her lip at you,"
 							+ " [npc.speech(~Mmm!~ Yes! Use me however you want!)]"
@@ -430,9 +425,8 @@ public class CultistDialogue {
 				};
 			
 			} else if(index == 3) {
-				return new ResponseSex("Witch's Seal", "Use her broomstick to cast Witch's Seal on her.", ENCOUNTER_CHAPEL_POST_DOM_SEALED_SEX,
-						false, false, Main.game.getActiveNPC(), new SMDomSex(), ENCOUNTER_CHAPEL_POST_DOM_SEALED_SEX,
-						"<p>"
+				return new ResponseSex("Witch's Seal", "Use her broomstick to cast Witch's Seal on her.", false,
+						false, Main.game.getActiveNPC(), new SMDomSex(), ENCOUNTER_CHAPEL_POST_DOM_SEALED_SEX, "<p>"
 							+ "As you pick up [npc.name]'s broomstick, you feel a powerful surge of arcane energy flowing into your body."
 							+ " Without even needing to be told, you instantly know exactly how to harness the spells within this powerful weapon."
 							+" As you gain knowledge of the spell 'Witch's Seal', you realise that you have the opportunity to give [npc.name] a taste of her own medicine..."
@@ -495,9 +489,8 @@ public class CultistDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index == 1) {
-				return new ResponseSex("Witch's Toy", "You're completely immobilised, and can do nothing as the witch prepares to use you as her toy.", EnforcerHQDialogue.EXTERIOR,
-						false, false, Main.game.getActiveNPC(), new SMSubSealed(), ENCOUNTER_CHAPEL_POST_ORAL_SEX,
-						(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)
+				return new ResponseSex("Witch's Toy", "You're completely immobilised, and can do nothing as the witch prepares to use you as her toy.", false,
+						false, Main.game.getActiveNPC(), new SMSubSealed(), ENCOUNTER_CHAPEL_POST_ORAL_SEX, (!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)
 								?"<p>"
 									+ "You look up to see [npc.name]'s grin turn into a puzzled frown as she realises that she's not able to get access to your groin."
 									+ " Reaching down to your jinxed clothing, she focuses her arcane energy into removing the jinx,"

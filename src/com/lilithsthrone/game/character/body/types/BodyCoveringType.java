@@ -909,6 +909,7 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 					new ListValue<Colour>(Colour.EYE_YELLOW),
 					new ListValue<Colour>(Colour.EYE_RED),
 					new ListValue<Colour>(Colour.EYE_ORANGE),
+					new ListValue<Colour>(Colour.EYE_AMBER),
 					new ListValue<Colour>(Colour.EYE_PINK),
 					new ListValue<Colour>(Colour.EYE_BLACK)),
 			null,
@@ -919,6 +920,7 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 					new ListValue<Colour>(Colour.EYE_YELLOW),
 					new ListValue<Colour>(Colour.EYE_RED),
 					new ListValue<Colour>(Colour.EYE_ORANGE),
+					new ListValue<Colour>(Colour.EYE_AMBER),
 					new ListValue<Colour>(Colour.EYE_PINK),
 					new ListValue<Colour>(Colour.EYE_BLACK)),
 			null),
@@ -952,6 +954,7 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 					new ListValue<Colour>(Colour.EYE_BLUE),
 					new ListValue<Colour>(Colour.EYE_BROWN),
 					new ListValue<Colour>(Colour.EYE_GREEN),
+					new ListValue<Colour>(Colour.EYE_AMBER),
 					new ListValue<Colour>(Colour.EYE_YELLOW)),
 			Util.newArrayListOfValues(
 					new ListValue<Colour>(Colour.EYE_RED),
@@ -962,6 +965,7 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 					new ListValue<Colour>(Colour.EYE_BLUE),
 					new ListValue<Colour>(Colour.EYE_BROWN),
 					new ListValue<Colour>(Colour.EYE_GREEN),
+					new ListValue<Colour>(Colour.EYE_AMBER),
 					new ListValue<Colour>(Colour.EYE_YELLOW)),
 			Util.newArrayListOfValues(
 					new ListValue<Colour>(Colour.EYE_RED),
@@ -983,6 +987,7 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 					new ListValue<Colour>(Colour.EYE_BLUE),
 					new ListValue<Colour>(Colour.EYE_BROWN),
 					new ListValue<Colour>(Colour.EYE_GREEN),
+					new ListValue<Colour>(Colour.EYE_AMBER),
 					new ListValue<Colour>(Colour.EYE_YELLOW)),
 			Util.newArrayListOfValues(
 					new ListValue<Colour>(Colour.EYE_RED),
@@ -993,6 +998,7 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 					new ListValue<Colour>(Colour.EYE_BLUE),
 					new ListValue<Colour>(Colour.EYE_BROWN),
 					new ListValue<Colour>(Colour.EYE_GREEN),
+					new ListValue<Colour>(Colour.EYE_AMBER),
 					new ListValue<Colour>(Colour.EYE_YELLOW)),
 			Util.newArrayListOfValues(
 					new ListValue<Colour>(Colour.EYE_RED),

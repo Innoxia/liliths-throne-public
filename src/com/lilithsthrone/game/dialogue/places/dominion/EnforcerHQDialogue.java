@@ -421,9 +421,8 @@ public class EnforcerHQDialogue {
 			if(isBraxMainQuestComplete()) {
 				if (index == 1) {
 					if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.feminisedBrax)) {
-						return new ResponseSex("Punish [brax.name]", "Have dominant sex with [brax.name].", RECEPTION_DESK,
-								false, false, Main.game.getBrax(), new SMBraxSubStart(), AFTER_SEX,
-								"<p>"
+						return new ResponseSex("Punish [brax.name]", "Have dominant sex with [brax.name].", false,
+								false, Main.game.getBrax(), new SMBraxSubStart(), AFTER_SEX, "<p>"
 									+ "[pc.speech(Sure thing Candi, I can punish [brax.name] for you!)] you respond, stepping around to the other side of the desk."
 								+ "</p>"
 								+ "<p>"
@@ -452,9 +451,8 @@ public class EnforcerHQDialogue {
 						};
 						
 					} else if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimbofiedBrax)) {
-						return new ResponseSex("Punish [brax.name]", "Have dominant sex with [brax.name].", RECEPTION_DESK,
-								false, false, Main.game.getBrax(), new SMBraxSubStart(), AFTER_SEX,
-								"<p>"
+						return new ResponseSex("Punish [brax.name]", "Have dominant sex with [brax.name].", false,
+								false, Main.game.getBrax(), new SMBraxSubStart(), AFTER_SEX, "<p>"
 									+ "[pc.speech(Sure thing Candi, I can punish [brax.name] for you!)] you respond, stepping around to the other side of the desk."
 								+ "</p>"
 								+ "<p>"
@@ -483,9 +481,8 @@ public class EnforcerHQDialogue {
 						};
 						
 					} else {
-						return new ResponseSex("Punish [brax.name]", "Have dominant sex with [brax.name].", RECEPTION_DESK,
-								false, false, Main.game.getBrax(), new SMBraxSubStart(), AFTER_SEX,
-								"<p>"
+						return new ResponseSex("Punish [brax.name]", "Have dominant sex with [brax.name].", false,
+								false, Main.game.getBrax(), new SMBraxSubStart(), AFTER_SEX, "<p>"
 									+ "[pc.speech(Sure thing Candi, I can punish [brax.name] for you!)] you respond, stepping around to the other side of the desk."
 								+ "</p>"
 								+ "<p>"
@@ -513,36 +510,35 @@ public class EnforcerHQDialogue {
 					
 				} else if (index == 2) {
 					if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.feminisedBrax)) {
-						return new ResponseSex("Get punished by [brax.name]", "Get [brax.name] to take out [brax.his] frustration on you.", RECEPTION_DESK,
-								Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
-								true, false, Main.game.getBrax(), new SMBraxDom(), AFTER_SEX,
-									"<p>"
-										+ "[pc.speech(Sure thing Candi, I can punish [brax.name] for you!)] you respond, stepping around to the other side of the desk."
-									+ "</p>"
-									+ "<p>"
-										+ "[candi.speechNoEffects(Thanks, I've got, like, loads of work and stuff to do, so you're really helping me out here!)]"
-										+ " Candi replies, handing you [brax.name]'s pink leash as she returns to applying makeup in her little mirror."
-									+ "</p>"
-									+ "<p>"
-										+ "With a tug, you get [brax.name] to follow you into Candi's little office."
-										+ " Closing the door behind you, you turn to face the [brax.race], smiling as you unclip the leash from [brax.his] collar."
-									+ "</p>"
-									+ "<p>"
-										+ "[pc.speech(I bet you're pretty angry right now, huh [brax.name]?)] you tease, laughing as [brax.he] lets out a low growl,"
-										+ " [pc.speech(Mmm, you want to be the one punishing me, don't you?)]"
-									+ "</p>"
-									+ "<p>"
-										+ "[brax.speech(If I wasn't on the verge of being enslaved, I'd give you a hard fuck to teach you a lesson right now!)] [brax.name] growls as [brax.he] steps up to you."
-									+ "</p>"
-									+ "<p>"
-										+ "Letting out a playful giggle, you trace [pc.a_finger] over [brax.his] chest,"
-										+ " [pc.speech(Well, I won't tell if you won't... Or is Candi's pet too submissive to try anyth- eek!)]"
-									+ "</p>"
-									+ "<p>"
-										+ "Obviously having had enough of your teasing, and with a clear invitation to fuck you, [brax.name] grabs you by the shoulders and throws you to the floor."
-										+ " You let out a delighted [pc.moan] as [brax.he] manhandles you into a doggystyle position."
-										+ " Leaning down over your back, [brax.name] growls into your [pc.ear], [brax.speech(Remember bitch, <i>I'm</i> the real alpha here!)]"
-									+ "</p>"){
+						return new ResponseSex("Get punished by [brax.name]", "Get [brax.name] to take out [brax.his] frustration on you.", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)),
+								null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null, true,
+								false, Main.game.getBrax(), new SMBraxDom(), AFTER_SEX, "<p>"
+									+ "[pc.speech(Sure thing Candi, I can punish [brax.name] for you!)] you respond, stepping around to the other side of the desk."
+								+ "</p>"
+								+ "<p>"
+									+ "[candi.speechNoEffects(Thanks, I've got, like, loads of work and stuff to do, so you're really helping me out here!)]"
+									+ " Candi replies, handing you [brax.name]'s pink leash as she returns to applying makeup in her little mirror."
+								+ "</p>"
+								+ "<p>"
+									+ "With a tug, you get [brax.name] to follow you into Candi's little office."
+									+ " Closing the door behind you, you turn to face the [brax.race], smiling as you unclip the leash from [brax.his] collar."
+								+ "</p>"
+								+ "<p>"
+									+ "[pc.speech(I bet you're pretty angry right now, huh [brax.name]?)] you tease, laughing as [brax.he] lets out a low growl,"
+									+ " [pc.speech(Mmm, you want to be the one punishing me, don't you?)]"
+								+ "</p>"
+								+ "<p>"
+									+ "[brax.speech(If I wasn't on the verge of being enslaved, I'd give you a hard fuck to teach you a lesson right now!)] [brax.name] growls as [brax.he] steps up to you."
+								+ "</p>"
+								+ "<p>"
+									+ "Letting out a playful giggle, you trace [pc.a_finger] over [brax.his] chest,"
+									+ " [pc.speech(Well, I won't tell if you won't... Or is Candi's pet too submissive to try anyth- eek!)]"
+								+ "</p>"
+								+ "<p>"
+									+ "Obviously having had enough of your teasing, and with a clear invitation to fuck you, [brax.name] grabs you by the shoulders and throws you to the floor."
+									+ " You let out a delighted [pc.moan] as [brax.he] manhandles you into a doggystyle position."
+									+ " Leaning down over your back, [brax.name] growls into your [pc.ear], [brax.speech(Remember bitch, <i>I'm</i> the real alpha here!)]"
+								+ "</p>"){
 							@Override
 							public void effects() {
 								Main.game.getDialogueFlags().values.add(DialogueFlagValue.seenBraxAfterQuest);
@@ -970,9 +966,8 @@ public class EnforcerHQDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseSex("Sex with [brax.name]", "Have sex with [brax.name].", INTERIOR_SECRETARY_BRAX_FEMINISE_COMPLETED,
-						false, false, Main.game.getBrax(), new SMBraxSubStart(), AFTER_SEX,
-						"<p>"
+				return new ResponseSex("Sex with [brax.name]", "Have sex with [brax.name].", false,
+						false, Main.game.getBrax(), new SMBraxSubStart(), AFTER_SEX, "<p>"
 							+ "[pc.speech(Good idea Candi, I can show Bree her true place!)] you say, grinning down at Bree's meek form."
 						+ "</p>"
 						+ "<p>"
@@ -1156,9 +1151,8 @@ public class EnforcerHQDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseSex("Sex with Brandi", "Have sex with Brandi.", INTERIOR_SECRETARY_BRAX_BIMBOFY_COMPLETED,
-						true, false, Main.game.getBrax(), new SMBraxSubStart(), AFTER_SEX,
-						"<p>"
+				return new ResponseSex("Sex with Brandi", "Have sex with Brandi.", true,
+						false, Main.game.getBrax(), new SMBraxSubStart(), AFTER_SEX, "<p>"
 							+ "After waiting for five minutes, you follow Candi into her office."
 							+ " There, waiting for you, is the one-time 'Chief of Dominion Operations'."
 							+ " Having being transformed into a brain-dead bimbo, and being dressed up to look like a cheap whore, she's completely unrecognisable from the first time you met her."
@@ -1702,62 +1696,60 @@ public class EnforcerHQDialogue {
 				return new Response("Escape", "Push [brax.name] off of you and make a quick excuse before running away.", INTERIOR_BRAX_GETTING_TEASED_ESCAPE);
 					
 			} else if (index == 2) {
-				return new ResponseSex("Get fucked", "Let [brax.name] take control and fuck you.", INTERIOR_BRAX_GETTING_TEASED_UH_OH,
-						true, false, Main.game.getBrax(), new SMBraxDom(), Brax.AFTER_SUBMISSIVE_SEX,
-							"<p>"
-							+ "[brax.name]'s strong, confident grip on your hips quickly moves down and around to your "+Main.game.getPlayer().getAssSize().getDescriptor()+" ass,"
-							+ " and as he gives it a forceful squeeze, you suddenly realise that you've ended up leaning into his masculine chest."
-							+ " With a little whimper, you look up into his hungry, wolf-like eyes, and as you do, he leans down and forces his tongue into your mouth once again."
-							+ "</p>"
-							+ "<p>"
-							+ "As you passionately kiss the dominant wolf-boy, you feel his hands continue to grope and squeeze your rear end."
-							+ " Moaning happily into his mouth, you grind yourself against his muscular figure, pressing your "+Main.game.getPlayer().getBreastSize().getDescriptor()
-							+ " breasts firmly against his torso as you close your eyes and enjoy the safe, warm feeling of his embrace."
-							+ "</p>"
-							+ "<p>"
-							+ "[brax.name] is the first to make the next move, and he suddenly pulls his head back to break off the kiss before leaning down to growl into your ear, "
-							+ UtilText.parseSpeech("Good bitch, now get down on all fours and present yourself!", Main.game.getBrax())
-							+ "</p>");
+				return new ResponseSex("Get fucked", "Let [brax.name] take control and fuck you.", true,
+						false, Main.game.getBrax(), new SMBraxDom(), Brax.AFTER_SUBMISSIVE_SEX, "<p>"
+						+ "[brax.name]'s strong, confident grip on your hips quickly moves down and around to your "+Main.game.getPlayer().getAssSize().getDescriptor()+" ass,"
+						+ " and as he gives it a forceful squeeze, you suddenly realise that you've ended up leaning into his masculine chest."
+						+ " With a little whimper, you look up into his hungry, wolf-like eyes, and as you do, he leans down and forces his tongue into your mouth once again."
+						+ "</p>"
+						+ "<p>"
+						+ "As you passionately kiss the dominant wolf-boy, you feel his hands continue to grope and squeeze your rear end."
+						+ " Moaning happily into his mouth, you grind yourself against his muscular figure, pressing your "+Main.game.getPlayer().getBreastSize().getDescriptor()
+						+ " breasts firmly against his torso as you close your eyes and enjoy the safe, warm feeling of his embrace."
+						+ "</p>"
+						+ "<p>"
+						+ "[brax.name] is the first to make the next move, and he suddenly pulls his head back to break off the kiss before leaning down to growl into your ear, "
+						+ UtilText.parseSpeech("Good bitch, now get down on all fours and present yourself!", Main.game.getBrax())
+						+ "</p>");
 					
 			} else if (index == 3) {
-				return new ResponseSex("Take control", "Take control of the situation and turn [brax.name] into your little bitch.", INTERIOR_BRAX_GETTING_TEASED_UH_OH,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT)), null, null, null, null, null,
-						true, false, Main.game.getBrax(), new SMBraxSubStart(), Brax.AFTER_DOMINANT_SEX,
-								"<p>"
-								+ "You feel a devious smile spread across your face as [brax.name] mentions it might get rough, and, leaning into him, you growl up into his ear, "
-								+ UtilText.parsePlayerSpeech("Mmm, yes [brax.name]. I <i>do</i> like it rough!")
-								+ "</p>"
-								+ "<p>"
-								+ "[brax.name] lets out a surprised cry as you reach down and firmly grab his groin with one hand."
-								+ " Pressing your lips against his to prevent him from making any more noise, you thrust your tongue into his mouth, squeezing down on his satisfyingly large package as he squirms and melts under your touch."
-								+ "</p>"
-								+ "<p>"
-								+ "Breaking off the kiss, but making sure not to let go of his crotch, you growl up to him again, "
-								+ UtilText.parsePlayerSpeech("So, the real question is, do <i>you</i> like it rough?")
-								+ "</p>"
-								+ "<p>"
-								+ UtilText.parseSpeech("W-Wait I-", Main.game.getBrax())
-								+ "</p>"
-								+ "<p>"
-								+ UtilText.parsePlayerSpeech("Wrong answer!")
-								+" you cry, giving [brax.name]'s throbbing cock a hard squeeze as you interrupt his response."
-								+ "</p>"
-								+ "<p>"
-								+ UtilText.parseSpeech("Aah! Yes! Yes, I like it rough!", Main.game.getBrax())
-								+ "</p>"
-								+ "<p>"
-								+ UtilText.parsePlayerSpeech("Mmm, that's right, ")
-								+" you sigh, softening your grip before running your fingers up and down [brax.name]'s shorts, biting your lip as you get a good feel of the impressive length of his throbbing cock, "
-								+ UtilText.parsePlayerSpeech("and who's going to be a good little bitch for their alpha she-wolf?")
-								+ "</p>"
-								+ "<p>"
-								+ UtilText.parseSpeech("I-I am...", Main.game.getBrax())
-								+" [brax.name] groans, admitting defeat."
-								+ "</p>"
-								+ "<p>"
-								+ UtilText.parsePlayerSpeech("Good little beta!")
-								+" you squeal, happy now that you've asserted your dominance over the handsome wolf-boy."
-								+ "</p>");
+				return new ResponseSex("Take control", "Take control of the situation and turn [brax.name] into your little bitch.", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT)),
+						null, null, null, null, null, true,
+						false, Main.game.getBrax(), new SMBraxSubStart(), Brax.AFTER_DOMINANT_SEX, "<p>"
+						+ "You feel a devious smile spread across your face as [brax.name] mentions it might get rough, and, leaning into him, you growl up into his ear, "
+						+ UtilText.parsePlayerSpeech("Mmm, yes [brax.name]. I <i>do</i> like it rough!")
+						+ "</p>"
+						+ "<p>"
+						+ "[brax.name] lets out a surprised cry as you reach down and firmly grab his groin with one hand."
+						+ " Pressing your lips against his to prevent him from making any more noise, you thrust your tongue into his mouth, squeezing down on his satisfyingly large package as he squirms and melts under your touch."
+						+ "</p>"
+						+ "<p>"
+						+ "Breaking off the kiss, but making sure not to let go of his crotch, you growl up to him again, "
+						+ UtilText.parsePlayerSpeech("So, the real question is, do <i>you</i> like it rough?")
+						+ "</p>"
+						+ "<p>"
+						+ UtilText.parseSpeech("W-Wait I-", Main.game.getBrax())
+						+ "</p>"
+						+ "<p>"
+						+ UtilText.parsePlayerSpeech("Wrong answer!")
+						+" you cry, giving [brax.name]'s throbbing cock a hard squeeze as you interrupt his response."
+						+ "</p>"
+						+ "<p>"
+						+ UtilText.parseSpeech("Aah! Yes! Yes, I like it rough!", Main.game.getBrax())
+						+ "</p>"
+						+ "<p>"
+						+ UtilText.parsePlayerSpeech("Mmm, that's right, ")
+						+" you sigh, softening your grip before running your fingers up and down [brax.name]'s shorts, biting your lip as you get a good feel of the impressive length of his throbbing cock, "
+						+ UtilText.parsePlayerSpeech("and who's going to be a good little bitch for their alpha she-wolf?")
+						+ "</p>"
+						+ "<p>"
+						+ UtilText.parseSpeech("I-I am...", Main.game.getBrax())
+						+" [brax.name] groans, admitting defeat."
+						+ "</p>"
+						+ "<p>"
+						+ UtilText.parsePlayerSpeech("Good little beta!")
+						+" you squeal, happy now that you've asserted your dominance over the handsome wolf-boy."
+						+ "</p>");
 					
 			} else {
 				return null;

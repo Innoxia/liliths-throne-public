@@ -625,9 +625,8 @@ public class PixsPlayground {
 			if(index==1) {
 				return new ResponseSex("Too tired",
 						"Tell Pix that you're far too tired to do any more physical exercise right now.",
-						GYM,
-						false, false, Main.game.getPix(), new SMPixShowerTime(), PIX_POST_SEX,
-						"<p>"
+						false,
+						false, Main.game.getPix(), new SMPixShowerTime(), PIX_POST_SEX, "<p>"
 							+ "You're far too tired to do any more physical exercise right now, and tell Pix as such, "
 							+UtilText.parsePlayerSpeech("I wasn't avoiding you, I'm just too tired for this right now. Maybe we can carry on in about half an hour or something?")
 						+ "</p>"
@@ -651,9 +650,8 @@ public class PixsPlayground {
 			} else if(index==2) {
 				return new ResponseSex("Make it up to her",
 						"Tell Pix that you can make it up to her right now.",
-						GYM,
-						false, false, Main.game.getPix(), new SMPixShowerTime(), PIX_POST_SEX,
-						"<p>"
+						false,
+						false, Main.game.getPix(), new SMPixShowerTime(), PIX_POST_SEX, "<p>"
 							+ "As tired as you are, Pix turns you on far too much to refuse her advances, and you turn your head to one side as you eagerly respond, "
 							+UtilText.parsePlayerSpeech("Perhaps you'll let me make it up to you?")
 						+ "</p>"
@@ -677,9 +675,8 @@ public class PixsPlayground {
 			} else if(index==3) {
 				return new ResponseSex("Apologise",
 						"Apologise to Pix and accept her punishment.",
-						GYM,
-						false, false, Main.game.getPix(), new SMPixShowerTime(), PIX_POST_SEX,
-						"<p>"
+						false,
+						false, Main.game.getPix(), new SMPixShowerTime(), PIX_POST_SEX, "<p>"
 							+ "You don't want Pix to think that you've been avoiding her, and you turn your head to one side as you apologise, "
 							+UtilText.parsePlayerSpeech("Sorry Pix, I wasn't trying to avoid you, I just didn't see you anywhere nearby!")
 						+ "</p>"

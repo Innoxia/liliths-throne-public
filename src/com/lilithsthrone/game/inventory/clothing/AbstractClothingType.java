@@ -277,7 +277,7 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 	}
 	
 	public String getId() {
-		return ClothingType.clothingToIdMap.get(this);
+		return ClothingType.getIdFromClothingType(this);
 	}
 
 	static Map<ClothingSet, List<AbstractClothingType>> clothingSetMap = new EnumMap<>(ClothingSet.class);

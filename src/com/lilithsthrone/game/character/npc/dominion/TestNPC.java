@@ -20,7 +20,7 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.npcDialogue.DominionAlleywayAttackerDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.alleyway.AlleywayAttackerDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -126,7 +126,7 @@ public class TestNPC extends NPC {
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false), true, this);
 		}
 		
-		this.setEnslavementDialogue(DominionAlleywayAttackerDialogue.ENSLAVEMENT_DIALOGUE);
+		this.setEnslavementDialogue(AlleywayAttackerDialogue.ENSLAVEMENT_DIALOGUE);
 	}
 	
 	@Override
@@ -279,11 +279,10 @@ public class TestNPC extends NPC {
 					};
 				
 			} else if (index == 2 && Main.game.isNonConEnabled()) {
-				return new ResponseSex("Rape [test.herHim]", "[test.Her] back is turned, and [test.she] hasn't noticed you enter the room...", TEST_DIALOGUE_AFTER_RAPE,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(),
-						null, null, null,
-						false, false, Main.game.getTestNPC(), new SMDomDoggy(), TEST_DIALOGUE_AFTER_RAPE,
-						"<p>"
+				return new ResponseSex("Rape [test.herHim]", "[test.Her] back is turned, and [test.she] hasn't noticed you enter the room...", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)),
+						null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null,
+						null, null, false,
+						false, Main.game.getTestNPC(), new SMDomDoggy(), TEST_DIALOGUE_AFTER_RAPE, "<p>"
 							+ "You quietly close the door and lock it behind you. After all, you wouldn't want anyone interrupting your fun."
 							+ " Stealthily moving forwards, you approach the oblivious [test.race], smiling to yourself as you hear [test.her] grumbling and mumbling to [test.herself]."
 						+ "</p>"
@@ -299,11 +298,10 @@ public class TestNPC extends NPC {
 						+ "</p>");
 				
 			} else if (index == 3 && Main.game.isNonConEnabled()) {
-				return new ResponseSex("Rape [test.herHim] (gentle)", "[test.Her] back is turned, and [test.she] hasn't noticed you enter the room... (Start the sex scene in the 'gentle' pace.)", TEST_DIALOGUE_AFTER_RAPE,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(),
-						null, null, null,
-						false, false, Main.game.getTestNPC(), new SMDomDoggy(), TEST_DIALOGUE_AFTER_RAPE,
-						"<p>"
+				return new ResponseSex("Rape [test.herHim] (gentle)", "[test.Her] back is turned, and [test.she] hasn't noticed you enter the room... (Start the sex scene in the 'gentle' pace.)", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)),
+						null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null,
+						null, null, false,
+						false, Main.game.getTestNPC(), new SMDomDoggy(), TEST_DIALOGUE_AFTER_RAPE, "<p>"
 							+ "You quietly close the door and lock it behind you. After all, you wouldn't want anyone interrupting your fun."
 							+ " Stealthily moving forwards, you approach the oblivious [test.race], smiling to yourself as you hear [test.her] grumbling and mumbling to [test.herself]."
 						+ "</p>"
@@ -324,11 +322,10 @@ public class TestNPC extends NPC {
 				};
 				
 			} else if (index == 4 && Main.game.isNonConEnabled()) {
-				return new ResponseSex("Rape [test.herHim] (rough)", "[test.Her] back is turned, and [test.she] hasn't noticed you enter the room... (Start the sex scene in the 'rough' pace.)", TEST_DIALOGUE_AFTER_RAPE,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(),
-						null, null, null,
-						false, false, Main.game.getTestNPC(), new SMDomDoggy(), TEST_DIALOGUE_AFTER_RAPE,
-						"<p>"
+				return new ResponseSex("Rape [test.herHim] (rough)", "[test.Her] back is turned, and [test.she] hasn't noticed you enter the room... (Start the sex scene in the 'rough' pace.)", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)),
+						null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null,
+						null, null, false,
+						false, Main.game.getTestNPC(), new SMDomDoggy(), TEST_DIALOGUE_AFTER_RAPE, "<p>"
 							+ "You quietly close the door and lock it behind you. After all, you wouldn't want anyone interrupting your fun."
 							+ " Stealthily moving forwards, you approach the oblivious [test.race], smiling to yourself as you hear [test.her] grumbling and mumbling to [test.herself]."
 						+ "</p>"
@@ -397,9 +394,8 @@ public class TestNPC extends NPC {
 			if (index == 1) {
 				return new ResponseSex("Sex",
 						"Well, [test.she] <i>is</i> asking for it!",
-						TEST_DIALOGUE_AFTER_SEX,
-						true, true, Main.game.getTestNPC(), new SMDomStanding(), TEST_DIALOGUE_AFTER_SEX,
-						"<p>"
+						true,
+						true, Main.game.getTestNPC(), new SMDomStanding(), TEST_DIALOGUE_AFTER_SEX, "<p>"
 							+ "You step forwards, wrapping your [pc.arms] around the [test.race] and pulling [test.herHim] into you."
 						+ "</p>"
 						+ "<p>"
@@ -410,9 +406,8 @@ public class TestNPC extends NPC {
 			} else if (index == 2) {
 				return new ResponseSex("Sex (gentle)",
 						"Well, [test.she] <i>is</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
-						TEST_DIALOGUE_AFTER_SEX,
-						true, true, Main.game.getTestNPC(), new SMDomStanding(), TEST_DIALOGUE_AFTER_SEX,
-						"<p>"
+						true,
+						true, Main.game.getTestNPC(), new SMDomStanding(), TEST_DIALOGUE_AFTER_SEX, "<p>"
 							+ "You step forwards, gently wrapping your [pc.arms] around the [test.race] and lovingly pulling [test.herHim] into you."
 						+ "</p>"
 						+ "<p>"
@@ -428,9 +423,8 @@ public class TestNPC extends NPC {
 			} else if (index == 3) {
 				return new ResponseSex("Sex (rough)",
 						"Well, [test.she] <i>is</i> asking for it! (Start the sex scene in the 'rough' pace.)",
-						TEST_DIALOGUE_AFTER_SEX,
-						true, true, Main.game.getTestNPC(), new SMDomStanding(), TEST_DIALOGUE_AFTER_SEX,
-						"<p>"
+						true,
+						true, Main.game.getTestNPC(), new SMDomStanding(), TEST_DIALOGUE_AFTER_SEX, "<p>"
 								+ "You step forwards, wrapping your [pc.arms] around the [test.race] and roughly pulling [test.herHim] into you."
 							+ "</p>"
 							+ "<p>"

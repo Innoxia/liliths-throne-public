@@ -43,7 +43,7 @@ public enum SlaveJob {
 		}
 	},
 	
-	CLEANING(20, "Maid", "Manservant", "Assign this slave to help Rose keep the house clean, deal with visitors, and perform all sorts of menial housework.",
+	CLEANING(20, "maid", "manservant", "Assign this slave to help Rose keep the house clean, deal with visitors, and perform all sorts of menial housework.",
 			0, 0.5f,
 			5, 0f, 0.1f,
 			null, null,
@@ -99,28 +99,28 @@ public enum SlaveJob {
 		}
 	},
 	
-	LIBRARY(5, "Librarian", "Librarian", "Assign this slave to work in Lilaya's library.",
+	LIBRARY(5, "librarian", "librarian", "Assign this slave to work in Lilaya's library.",
 			0, 0.25f,
 			5, 0, 0.1f,
 			null, null,
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR,
 			PlaceType.LILAYA_HOME_LIBRARY),
 	
-	KITCHEN(5, "Cook", "Cook", "Assign this slave to work in Lilaya's kitchen as a cook.",
+	KITCHEN(5, "cook", "cook", "Assign this slave to work in Lilaya's kitchen as a cook.",
 			0, 0.25f,
 			5, 0, 0.05f,
 			null, null,
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR,
 			PlaceType.LILAYA_HOME_KITCHEN),
 	
-	LAB_ASSISTANT(1, "Lab Assistant", "Lab Assistant", "Assign this slave to help Lilaya in her lab.",
+	LAB_ASSISTANT(1, "lab assistant", "lab assistant", "Assign this slave to help Lilaya in her lab.",
 			0, 0.25f,
 			10, 0, 0.2f,
 			null, null,
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR,
 			PlaceType.LILAYA_HOME_LAB),
 	
-	TEST_SUBJECT(5, "Test Subject", "Test Subject", "Allow Lilaya to use this slave as a test subject for her experiments.",
+	TEST_SUBJECT(5, "test subject", "test subject", "Allow Lilaya to use this slave as a test subject for her experiments.",
 			-0.5f, 0.5f,
 			10, 0, 0,
 			Util.newArrayListOfValues(

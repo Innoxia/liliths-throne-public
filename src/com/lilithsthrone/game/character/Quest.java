@@ -156,7 +156,7 @@ public enum Quest {
 		}
 	},
 	
-	MAIN_1_H_THE_GREAT_ESCAPE(8, QuestType.MAIN, 8, 200) {
+	MAIN_1_H_THE_GREAT_ESCAPE(8, QuestType.MAIN, 10, 200) {
 		@Override
 		public String getName() {
 			return "The search for Arthur; The Great Escape";
@@ -171,6 +171,45 @@ public enum Quest {
 		@Override
 		public String getCompletedDescription() {
 			return "After defeating Zaranix, you saved Arthur and brought him back to Lilaya's home.";
+		}
+	},
+	
+	MAIN_1_I_ARTHURS_TALE(9, QuestType.MAIN, 10, 30) {
+		@Override
+		public String getName() {
+			return "The search for Arthur; Conclusion";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Now that you've rescued Arthur from the clutches of Zaranix, you should travel back to Lilaya's home and get the full story of what happened from him.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "Arthur explained how he was dabbling in the forbidden art of teleportation spells."
+					+ " He'd succeeded in transporting himself several hundreds of miles away from Dominion, and found himself in the midst of a pitched battle between demons and humans."
+					+ " Through one of his agents, Zaranix found out about this, and had no difficulty in getting Arthur enslaved for treason.";
+		}
+	},
+	
+	MAIN_2_A_INTO_THE_DEPTHS(10, QuestType.MAIN, 12, 30) {
+		@Override
+		public String getName() {
+			return "Into the depths; Submission Unlocked";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Arthur was able to explain the mechanism by which you were transported into this new world, but he seemed to hold back on some of the details."
+					+ " He said that he'd explain everything fully once he knew for certain what was going on, but in order for that to happen, he'll need to talk to one of the seven elder Lilin."
+					+ " After much arguing, Lilaya agreed to convince her mother to help, but you'll have to be the one to deliver the message.</br>"
+					+ "Travel down into the undercity of Dominion and seek an audience with Lilaya's mother, Lyssieth.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "Spoilers! :3";
 		}
 	},
 

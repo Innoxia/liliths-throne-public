@@ -18,6 +18,7 @@ public enum HairStyle {
 //	- punk (hair draped over face)
 	
 	NONE("natural", HairLength.ZERO_BALD),
+	MESSY("messy", HairLength.ONE_VERY_SHORT),
 	LOOSE("loose", HairLength.ONE_VERY_SHORT),
 	CURLY("curly", HairLength.ONE_VERY_SHORT),
 	STRAIGHT("straight", HairLength.ONE_VERY_SHORT),

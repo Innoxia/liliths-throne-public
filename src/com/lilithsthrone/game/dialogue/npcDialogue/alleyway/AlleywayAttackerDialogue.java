@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.dialogue.npcDialogue;
+package com.lilithsthrone.game.dialogue.npcDialogue.alleyway;
 
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.Fetish;
@@ -20,7 +20,13 @@ import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
 
-public class DominionAlleywayAttackerDialogue {
+/**
+ * @since 0.1.?
+ * @version 0.1.95
+ * @author Innoxia
+ */
+public class AlleywayAttackerDialogue {
+	
 	public static final DialogueNodeOld ALLEY_ATTACK = new DialogueNodeOld("Assaulted!", "A figure jumps out from the shadows!", true) {
 		private static final long serialVersionUID = 1L;
 		
@@ -28,10 +34,10 @@ public class DominionAlleywayAttackerDialogue {
 		public String getLabel(){
 			return "Assaulted!";
 		}
-
+		
 		@Override
 		public String getContent() {
-			if(Main.game.getActiveNPC().getFoughtPlayerCount()>0) {
+			if(Main.game.getActiveNPC().getLastTimeEncountered()!=-1) {
 				if(Main.game.getActiveNPC().isVisiblyPregnant()){
 					// Pregnant encounters:
 					if(!Main.game.getActiveNPC().isReactedToPregnancy()) {
@@ -152,7 +158,62 @@ public class DominionAlleywayAttackerDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "You find yourself fighting [npc.name]!", ALLEY_ATTACK, Main.game.getActiveNPC());
+				return new ResponseCombat("Fight", "Stand up for yourself and fight [npc.name]!", ALLEY_ATTACK, Main.game.getActiveNPC());
+				
+			} else if (index == 2) {
+				if(Main.game.getPlayer().getMoney()<25) {
+					return new Response("Offer money ("+UtilText.formatAsMoney(25, "span")+")", "You don't have enough money to offer to pay [npc.name] off. You'll have to either fight [npc.herHim] or offer [npc.herHim] your body!", null);
+				} else {
+					return new Response("Offer money ("+UtilText.formatAsMoney(25, "span")+")", "Offer to pay [npc.name] 25 flames to leave you alone.", DebugDialogue.getDefaultDialogueNoEncounter()) {
+						@Override
+						public void effects() {
+							Main.game.getPlayer().incrementMoney(-25);
+							Main.game.getTextStartStringBuilder().append(
+									"<p>"
+										+ "Wanting to avoid a fight if at all possible, you take a step backwards, fumbling about to grab a handful of flames to offer to the [npc.race],"
+										+ " [pc.speech(I don't want to fight! Please, just take my money and leave me alone!)]"
+									+ "</p>"
+									+ "<p>"
+										+ "[npc.speech(Sure, just hand it over and we'll both be on our way!)]"
+										+ " [npc.name] replies, [npc.her] desire to rob you of your money obviously the motivating factor behind [npc.her] assault."
+									+ "</p>"
+									+ "<p>"
+										+ "Stepping forwards, [npc.she] snatches the flames out of your [pc.hand], letting out a mocking laugh as [npc.she] commands,"
+										+ " [npc.speech(Hah! Now get out of my sight!)]"
+									+ "</p>"
+									+ "<p>"
+										+ "Reluctant to do anything other than what the [npc.race] suggests, you hurry on your way, thankful that you had enough money to avoid a fight."
+									+ "</p>");
+						}
+					};
+				}
+				
+			} else if (index == 3) {
+				if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
+					return new ResponseSex("Offer body", "Offer your body to [npc.name] so that you can avoid a violent confrontation.",
+							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(),
+							null, null, null,
+							true, true, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT,
+							"<p>"
+								+ "Wanting to avoid a fight, and unwilling to hand over any of your money, you decide to do the only other thing you can think of, and step forwards smiling seductively at [npc.name], "
+								+ " [pc.speech(There's no need to fight. If you're looking for a bit of fun, all you had to do was ask...)]"
+							+ "</p>"
+							+ "<p>"
+								+ "[npc.speech(Oh really?)]"
+								+ " [npc.name] replies, stepping forwards in an intimidating manner."
+								+ " You remain in place, putting on your most seductive look and trying to make yourself as small as possible as you attempt to entice [npc.name] into using you for some sexual relief."
+							+ "</p>"
+							+ "<p>"
+								+ "Much to your delight, your would-be attacker reaches up and grabs you by the [pc.arms], before pulling you forwards into a tight embrace."
+								+ " Pressing [npc.her] [npc.lips] against yours, [npc.she] thrusts [npc.her] [npc.tongue] into your mouth, aggressively kissing you for a moment before pulling back, growling,"
+								+ " [npc.speech(You're going to be a good [pc.girl] now, aren't you bitch?)]"
+							+ "</p>"
+							+ "<p>"
+								+ "Whimpering in the affirmative, you surrender yourself to [npc.name]'s dominant touch, allowing yourself to be used as payment for trespassing on [npc.her] territory..."
+							+ "</p>");
+				} else {
+					return new Response("Offer body", "You can tell that [npc.name] isn't at all interested in having sex with you. You'll either have to offer [npc.herHim] some money, or prepare for a fight!", null);
+				}
 				
 			} else {
 				return null;
@@ -265,14 +326,14 @@ public class DominionAlleywayAttackerDialogue {
 				} else if (index == 2) {
 					return new ResponseSex("Have some fun",
 							"Well, [npc.she] <i>is</i> asking for it!",
-							AFTER_SEX_VICTORY,
-							true, false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY);
+							true,
+							false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY);
 					
 				} else if (index == 3) {
 					return new ResponseSex("Have some gentle fun",
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
-							AFTER_SEX_VICTORY,
-							true, false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY) {
+							true,
+							false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY) {
 						@Override
 						public void effects() {
 							sexPacePlayer = (SexPace.DOM_GENTLE);
@@ -282,8 +343,8 @@ public class DominionAlleywayAttackerDialogue {
 				} else if (index == 4) {
 					return new ResponseSex("Have some rough fun",
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'rough' pace.)",
-							AFTER_SEX_VICTORY,
-							true, false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY) {
+							true,
+							false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY) {
 						@Override
 						public void effects() {
 							sexPacePlayer = (SexPace.DOM_ROUGH);
@@ -294,10 +355,9 @@ public class DominionAlleywayAttackerDialogue {
 					return new ResponseSex("Submit",
 							"You're not really sure what to do now...</br>"
 								+ "Perhaps it would be best to let [npc.name] choose what to do next?",
-							AFTER_SEX_DEFEAT,
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null, null,
-							true, true, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT,
-							"<p>"
+							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)),
+							null, null, null, null, null, true,
+							true, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT, "<p>"
 								+ "You really aren't sure what to do next, and start to feel pretty uncomfortable with the fact that you just beat up this poor [npc.race]."
 								+ " Leaning down, you do the first thing that comes into your mind, and start apologising,"
 								+ " [pc.speech(Sorry... I was just trying to defend myself, you know... Erm... Is there anything I can do to make it up to you?)]"
@@ -355,21 +415,19 @@ public class DominionAlleywayAttackerDialogue {
 					
 				} else if (index == 2) {
 					return new ResponseSex(
-							"Rape [npc.herHim]", "[npc.She] needs to be punished for attacking you like that...", AFTER_SEX_VICTORY,
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(),
-							null, null, null,
-							false, false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
-							"<p>"
+							"Rape [npc.herHim]", "[npc.She] needs to be punished for attacking you like that...", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)),
+							null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null,
+							null, null, false,
+							false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY, "<p>"
 								+ "Reaching down, you grab [npc.name]'s [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start grinding yourself up against [npc.herHim]."
 								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you hold [npc.herHim] firmly in your embrace..."
 							+ "</p>");
 					
 				} else if (index == 3) {
-					return new ResponseSex("Rape [npc.herHim] (gentle)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'gentle' pace.)", AFTER_SEX_VICTORY,
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(),
-							null, null, null,
-							false, false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
-							"<p>"
+					return new ResponseSex("Rape [npc.herHim] (gentle)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'gentle' pace.)", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)),
+							null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null,
+							null, null, false,
+							false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY, "<p>"
 								+ "Reaching down, you take hold of [npc.name]'s [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start pressing yourself up against [npc.herHim]."
 								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you hold [npc.herHim] in your embrace..."
 							+ "</p>") {
@@ -380,11 +438,10 @@ public class DominionAlleywayAttackerDialogue {
 					};
 					
 				} else if (index == 4) {
-					return new ResponseSex("Rape [npc.herHim] (rough)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'rough' pace.)", AFTER_SEX_VICTORY,
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(),
-							null, null, null,
-							false, false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
-							"<p>"
+					return new ResponseSex("Rape [npc.herHim] (rough)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'rough' pace.)", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)),
+							null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null,
+							null, null, false,
+							false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY, "<p>"
 								+ "Reaching down, you grab [npc.name]'s [npc.arm], and, roughly yanking [npc.herHim] to [npc.her] feet, you start forcefully grinding yourself up against [npc.herHim]."
 								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you firmly hold [npc.herHim] in your embrace..."
 							+ "</p>") {
@@ -560,9 +617,8 @@ public class DominionAlleywayAttackerDialogue {
 					if (index == 1) {
 						return new ResponseSex("Sex",
 								"[npc.Name] forces [npc.herself] on you...",
-								AFTER_SEX_DEFEAT,
-								false, false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT,
-								"<p>"
+								false,
+								false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT, "<p>"
 									+ "[npc.Name]'s [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally pulling away."
 									+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
 								+ "</p>");
@@ -570,9 +626,8 @@ public class DominionAlleywayAttackerDialogue {
 					} else if (index == 2) {
 						return new ResponseSex("Eager Sex",
 								"[npc.Name] forces [npc.herself] on you...",
-								AFTER_SEX_DEFEAT,
-								false, false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT,
-								"<p>"
+								false,
+								false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT, "<p>"
 									+ "[npc.Name]'s [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 									+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.she]'s going to want more than just a kiss..."
 								+ "</p>") {
@@ -585,9 +640,8 @@ public class DominionAlleywayAttackerDialogue {
 					} else if (index == 3 && Main.game.isNonConEnabled()) {
 						return new ResponseSex("Resist Sex",
 								"[npc.Name] forces [npc.herself] on you...",
-								AFTER_SEX_DEFEAT,
-								false, false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT,
-								"<p>"
+								false,
+								false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT, "<p>"
 									+ "[npc.Name]'s [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 									+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
 									+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.she]'s not going to let you go..."
@@ -669,9 +723,8 @@ public class DominionAlleywayAttackerDialogue {
 				if (index == 1) {
 					return new ResponseSex("Sex",
 							"[npc.Name] forces [npc.herself] on you...",
-							AFTER_SEX_DEFEAT,
-							false, false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT,
-							"<p>"
+							false,
+							false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT, "<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally breaking away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
 							+ "</p>");
@@ -679,9 +732,8 @@ public class DominionAlleywayAttackerDialogue {
 				} else if (index == 2) {
 					return new ResponseSex("Eager Sex",
 							"[npc.Name] forces [npc.herself] on you...",
-							AFTER_SEX_DEFEAT,
-							false, false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT,
-							"<p>"
+							false,
+							false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT, "<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.she]'s going to want more than just a kiss..."
 							+ "</p>") {
@@ -694,9 +746,8 @@ public class DominionAlleywayAttackerDialogue {
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
 					return new ResponseSex("Resist Sex",
 							"[npc.Name] forces [npc.herself] on you...",
-							AFTER_SEX_DEFEAT,
-							false, false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT,
-							"<p>"
+							false,
+							false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT, "<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 								+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
 								+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.she]'s not going to let you go..."
@@ -767,9 +818,8 @@ public class DominionAlleywayAttackerDialogue {
 				if (index == 1) {
 					return new ResponseSex("Sex",
 							"[npc.Name] forces [npc.herself] on you...",
-							AFTER_SEX_DEFEAT,
-							false, false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT,
-							"<p>"
+							false,
+							false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT, "<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally breaking away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
 							+ "</p>");
@@ -777,9 +827,8 @@ public class DominionAlleywayAttackerDialogue {
 				} else if (index == 2) {
 					return new ResponseSex("Eager Sex",
 							"[npc.Name] forces [npc.herself] on you...",
-							AFTER_SEX_DEFEAT,
-							false, false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT,
-							"<p>"
+							false,
+							false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT, "<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.she]'s going to want more than just a kiss..."
 							+ "</p>") {
@@ -792,9 +841,8 @@ public class DominionAlleywayAttackerDialogue {
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
 					return new ResponseSex("Resist Sex",
 							"[npc.Name] forces [npc.herself] on you...",
-							AFTER_SEX_DEFEAT,
-							false, false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT,
-							"<p>"
+							false,
+							false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT, "<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 								+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
 								+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.she]'s not going to let you go..."

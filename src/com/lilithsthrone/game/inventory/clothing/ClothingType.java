@@ -804,111 +804,7 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType EYES_SAFETY_GOGGLES = new AbstractClothingType(
-			"a pair of",
-			true,
-			"safety goggles",
-			"safety goggles",
-			"A pair of safety goggles. They're the type worn by scientists when handling chemicals.",
-			1,
-			null,
-			InventorySlot.EYES,
-			Rarity.RARE,
-			null,
-			"eye_safety_goggles",
-			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 2),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 2),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 2)),
-			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(
-									DisplacementType.REMOVE_OR_EQUIP,
-									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.HEAD),
-											new ListValue<ClothingAccess>(ClothingAccess.EYES)),
-									null,
-									null))),
-
-			null, // List<InventorySlot> incompatibleSlots
-
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BLACK))) {
-		
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You put on the safety goggles.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " puts on " + clothing.getName(true) + ".");
-			else {
-				if (rough) {
-					if (clothingOwner.isPlayer())
-						return Util.capitaliseSentence(clothingRemover.getName("the")) + " holds you by the chin and pushes " + clothing.getName(true) + " onto your face, before looping the elastic strap over your head.";
-					else
-						return UtilText.genderParsing(clothingOwner,
-								"You firmly hold " + clothingOwner.getName("the") + "'s chin and push the safety goggles onto <her> face," + " before looping the elastic strap over <her> head.");
-				} else {
-					if (clothingOwner.isPlayer())
-						return UtilText.genderParsing(clothingOwner,
-								Util.capitaliseSentence(clothingOwner.getName("the")) + " places " + clothing.getName(true) + " onto your face," + " before looping the elastic strap over your head.");
-					else
-						return UtilText.genderParsing(clothingOwner,
-								"You place the safety goggles onto " + clothingOwner.getName("the") + "'s face," + " before looping the elastic strap over your head.");
-				}
-			}
-		}
-
-		@Override
-		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You take off your safety goggles.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " takes off <her> safety goggles.");
-			else {
-				if (rough) {
-					if (clothingOwner.isPlayer())
-						return Util.capitaliseSentence(clothingRemover.getName("the")) + " grabs your safety goggles and pulls them off.";
-					else
-						return "You grab " + clothingOwner.getName("the") + "'s safety goggles and pull them off.";
-				} else {
-					if (clothingOwner.isPlayer())
-						return Util.capitaliseSentence(clothingRemover.getName("the")) + " takes your safety goggles off.";
-					else
-						return "You take off " + clothingOwner.getName("the") + "'s safety goggles.";
-				}
-			}
-		}
-
-		@Override
-		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull your safety goggles up onto your forehead.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls <her> safety goggles up onto <her> forehead.");
-			else {
-				if (clothingOwner.isPlayer())
-					return Util.capitaliseSentence(clothingRemover.getName("the")) + " pulls up your safety goggles.";
-				else
-					return UtilText.genderParsing(clothingOwner, "You pull up " + clothingOwner.getName("the") + "'s safety goggles.");
-			}
-		}
-
-		@Override
-		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You pull your safety goggles back down over your eyes.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls <her> safety goggles back down over <her> eyes.");
-			else {
-				if (clothingOwner.isPlayer())
-					return Util.capitaliseSentence(clothingRemover.getName("the")) + " pulls your safety goggles down over your eyes.";
-				else
-					return UtilText.genderParsing(clothingOwner, "You pull " + clothingOwner.getName("the") + "'s safety goggles down over <her> eyes.");
-			}
-		}
-	};
+	
 
 	// MOUTH
 	public static AbstractClothingType MOUTH_BANDANA = new AbstractClothingType(
@@ -1726,7 +1622,6 @@ public class ClothingType {
 			}
 		}
 	};
-	
 
 	public static AbstractClothingType TORSO_OVER_OPEN_CARDIGAN = new AbstractClothingType("an",
 			false,
@@ -9272,7 +9167,165 @@ public class ClothingType {
 		}
 	};
 	
+	public static AbstractClothingType SCIENTIST_TORSO_OVER_LAB_COAT = new AbstractClothingType("a",
+			false,
+			"lab coat",
+			"lab coats",
+			"A knee-length cotton overcoat which helps protect the wearer against accidental chemical spills.",
+			1,
+			null,
+			InventorySlot.TORSO_OVER,
+			Rarity.EPIC,
+			ClothingSet.SCIENTIST,
+			"torso_over_lab_coat",
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 3),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 3),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 3)),
+			Util.newArrayListOfValues(
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.REMOVE_OR_EQUIP,
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER))
+									))),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.CLOTHING_WHITE))) {
+		
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You pull on the lab coat.",
+					"You guide [npc.name]'s [npc.arms] through the lab coat's sleeves as you pull it on [npc.herHim].",
+					null,
+					"[npc.Name] pulls on the lab coat.",
+					"[npc.Name] guides your [pc.arms] through the lab coat's sleeves as [npc.she] pulls it on you.",
+					null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You take off your lab coat.",
+					"You pull off [npc.name]'s lab coat.",
+					null,
+					"[npc.Name] takes [npc.her] lab coat off.",
+					"[npc.Name] pulls your lab coat off.",
+					null);
+		}
+	};
 	
+	public static AbstractClothingType SCIENTIST_EYES_SAFETY_GOGGLES = new AbstractClothingType(
+			"a pair of",
+			true,
+			"safety goggles",
+			"safety goggles",
+			"A pair of safety goggles. They're the type worn by scientists when handling chemicals.",
+			1,
+			null,
+			InventorySlot.EYES,
+			Rarity.EPIC,
+			ClothingSet.SCIENTIST,
+			"eye_safety_goggles",
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 2),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 2),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 2)),
+			Util.newArrayListOfValues(
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.REMOVE_OR_EQUIP,
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.HEAD),
+											new ListValue<ClothingAccess>(ClothingAccess.EYES)),
+									null,
+									null))),
+
+			null, // List<InventorySlot> incompatibleSlots
+
+			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BLACK))) {
+		
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
+				return "You put on the safety goggles.";
+			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
+				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " puts on " + clothing.getName(true) + ".");
+			else {
+				if (rough) {
+					if (clothingOwner.isPlayer())
+						return Util.capitaliseSentence(clothingRemover.getName("the")) + " holds you by the chin and pushes " + clothing.getName(true) + " onto your face, before looping the elastic strap over your head.";
+					else
+						return UtilText.genderParsing(clothingOwner,
+								"You firmly hold " + clothingOwner.getName("the") + "'s chin and push the safety goggles onto <her> face," + " before looping the elastic strap over <her> head.");
+				} else {
+					if (clothingOwner.isPlayer())
+						return UtilText.genderParsing(clothingOwner,
+								Util.capitaliseSentence(clothingOwner.getName("the")) + " places " + clothing.getName(true) + " onto your face," + " before looping the elastic strap over your head.");
+					else
+						return UtilText.genderParsing(clothingOwner,
+								"You place the safety goggles onto " + clothingOwner.getName("the") + "'s face," + " before looping the elastic strap over your head.");
+				}
+			}
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
+				return "You take off your safety goggles.";
+			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
+				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " takes off <her> safety goggles.");
+			else {
+				if (rough) {
+					if (clothingOwner.isPlayer())
+						return Util.capitaliseSentence(clothingRemover.getName("the")) + " grabs your safety goggles and pulls them off.";
+					else
+						return "You grab " + clothingOwner.getName("the") + "'s safety goggles and pull them off.";
+				} else {
+					if (clothingOwner.isPlayer())
+						return Util.capitaliseSentence(clothingRemover.getName("the")) + " takes your safety goggles off.";
+					else
+						return "You take off " + clothingOwner.getName("the") + "'s safety goggles.";
+				}
+			}
+		}
+
+		@Override
+		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
+			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
+				return "You pull your safety goggles up onto your forehead.";
+			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
+				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls <her> safety goggles up onto <her> forehead.");
+			else {
+				if (clothingOwner.isPlayer())
+					return Util.capitaliseSentence(clothingRemover.getName("the")) + " pulls up your safety goggles.";
+				else
+					return UtilText.genderParsing(clothingOwner, "You pull up " + clothingOwner.getName("the") + "'s safety goggles.");
+			}
+		}
+
+		@Override
+		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
+			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
+				return "You pull your safety goggles back down over your eyes.";
+			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
+				return UtilText.genderParsing(clothingOwner, Util.capitaliseSentence(clothingOwner.getName("the")) + " pulls <her> safety goggles back down over <her> eyes.");
+			else {
+				if (clothingOwner.isPlayer())
+					return Util.capitaliseSentence(clothingRemover.getName("the")) + " pulls your safety goggles down over your eyes.";
+				else
+					return UtilText.genderParsing(clothingOwner, "You pull " + clothingOwner.getName("the") + "'s safety goggles down over <her> eyes.");
+			}
+		}
+	};
 	
 	private static List<AbstractClothingType> allClothing,
 										commonClothing, commonFemaleClothing, commonMaleClothing, commonAndrogynousClothing,
@@ -9289,8 +9342,19 @@ public class ClothingType {
 															commonClothingMapFemaleIncludingAndrogynous,
 															commonClothingMapMaleIncludingAndrogynous;
 	
-	public static Map<AbstractClothingType, String> clothingToIdMap = new HashMap<>();
-	public static Map<String, AbstractClothingType> idToClothingMap = new HashMap<>();
+	private static Map<AbstractClothingType, String> clothingToIdMap = new HashMap<>();
+	private static Map<String, AbstractClothingType> idToClothingMap = new HashMap<>();
+	
+	public static AbstractClothingType getClothingTypeFromId(String id) {
+		if(id.equals("EYES_SAFETY_GOGGLES")) {
+			return ClothingType.SCIENTIST_EYES_SAFETY_GOGGLES;
+		}
+		return idToClothingMap.get(id);
+	}
+	
+	public static String getIdFromClothingType(AbstractClothingType clothingType) {
+		return clothingToIdMap.get(clothingType);
+	}
 
 	static {
 		

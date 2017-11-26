@@ -37,6 +37,8 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	private static final long serialVersionUID = 1L;
 
 	private String title;
+	
+	private int karma;
 
 	private Map<QuestLine, Integer> quests;
 
@@ -59,7 +61,9 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		}
 		
 		title = "The Human";
-
+		
+		karma = 0;
+		
 		quests = new EnumMap<>(QuestLine.class);
 
 		mainQuestUpdated = false;
@@ -88,6 +92,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		properties.appendChild(playerSpecific);
 		
 		CharacterUtils.createXMLElementWithValue(doc, playerSpecific, "title", this.getTitle());
+		CharacterUtils.createXMLElementWithValue(doc, playerSpecific, "karma", String.valueOf(this.getKarma()));
 		
 		Element questUpdatesElement = doc.createElement("questUpdates");
 		playerSpecific.appendChild(questUpdatesElement);
@@ -137,6 +142,10 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		if(playerSpecificElement!=null) {
 			if(playerSpecificElement.getElementsByTagName("title").getLength()!=0) {
 				character.setTitle(((Element)playerSpecificElement.getElementsByTagName("title").item(0)).getAttribute("value"));
+			}
+			
+			if(playerSpecificElement.getElementsByTagName("karma").getLength()!=0) {
+				character.setKarma(Integer.valueOf(((Element)playerSpecificElement.getElementsByTagName("karma").item(0)).getAttribute("value")));
 			}
 			
 			if(playerSpecificElement.getElementsByTagName("mainQuestUpdated").getLength()!=0) {
@@ -247,6 +256,30 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		this.title = title;
 	}
 
+	public int getKarma() {
+		return karma;
+	}
+
+	public void setKarma(int karma) {
+		this.karma = karma;
+	}
+	
+	/**
+	 * This is just an internal stat that isn't used for anything, other than to help me feel better about writing horrible scenes.</br></br>
+	 * 
+	 * -100 would be for something huge, like attacking and enslaving one of your children.</br>
+	 * -10 would be for something large, like stealing from someone.</br>
+	 * -1 would be for something small, like insulting someone who doesn't deserve it.</br>
+	 * 0 = neutral</br>
+	 * +1 would be for something small, like giving a gift.</br>
+	 * +10 would be for something large, like sacrificing your own well-being to help another person.</br>
+	 * +100 would be for something huge, like buying and then immediately freeing a slave.</br>
+	 * @param increment
+	 */
+	public void incrementKarma(int increment) {
+		this.karma += increment;
+	}
+	
 	// Quests:
 
 	public void resetAllQuests() {

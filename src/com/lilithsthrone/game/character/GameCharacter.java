@@ -266,7 +266,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 	protected GameCharacter(NameTriplet nameTriplet, String description, int level, Gender startingGender, RacialBody startingRace, RaceStage stage, CharacterInventory inventory, WorldType worldLocation, PlaceType startingPlace) {
 		
-		id = "n/a"; // id gets set in Game's addNPC method, so it doesn't matter if this is unique or not... Right?
+		id = "NOT_SET"; // id gets set in Game's addNPC method, so it doesn't matter if this is unique or not... Right?
 		
 		this.nameTriplet = nameTriplet;
 		surname = "";
@@ -1829,6 +1829,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	public GameCharacter getMother() {
+		if(motherId==null || motherId.isEmpty()) {
+			return null;
+		}
 		return Main.game.getNPCById(motherId);
 	}
 	
@@ -1845,6 +1848,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 
 	public GameCharacter getFather() {
+		if(fatherId==null || fatherId.isEmpty()) {
+			return null;
+		}
 		return Main.game.getNPCById(fatherId);
 	}
 
@@ -3033,7 +3039,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		} else {
 			if(pregnantLitter!=null) {
 				for(String npc : pregnantLitter.getOffspring()) {
-					Main.game.banishNPC(npc);
+					Main.game.removeNPC(npc);
 				}
 			}
 		}

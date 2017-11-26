@@ -9,7 +9,7 @@ import com.lilithsthrone.game.combat.Spell;
 
 /**
  * @since 0.1.0
- * @version 0.1.85
+ * @version 0.1.89
  * @author Innoxia
  */
 public enum ClothingSet {
@@ -20,6 +20,8 @@ public enum ClothingSet {
 	MAID("Maid", StatusEffect.SET_MAID, 5, null, null),
 
 	WITCH("Witch", StatusEffect.SET_WITCH, 3, null, null),
+	
+	SCIENTIST("Scientist", StatusEffect.SET_SCIENTIST, 2, null, null),
 	
 	MILK_MAID("Milk Maid", StatusEffect.SET_MILK_MAID, 2, null, null),
 

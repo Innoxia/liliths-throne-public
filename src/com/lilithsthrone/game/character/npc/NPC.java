@@ -6541,7 +6541,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							" making soothing noises as [npc.she] does so",
 							" letting out a series of [npc.moans+] as [npc.she] does so");
 					subPenDomReactionPostfix = UtilText.returnStringAtRandom(
-							" causing [pc.herHim] to let out a soft [npc.moan]",
+							" causing [npc.herHim] to let out a soft [npc.moan]",
 							" letting out [pc.a_moan+] as you do so",
 							" letting out a series of [pc.moans+] as you do so");
 					subPenSelfReactionPostfix = UtilText.returnStringAtRandom(

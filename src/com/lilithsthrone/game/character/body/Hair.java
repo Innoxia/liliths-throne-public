@@ -367,6 +367,12 @@ public class Hair implements BodyPartInterface, Serializable {
 				} else {
 					return UtilText.parse(owner, "<p>[npc.Name]'s [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now slicked back.</p>");
 				}
+			case MESSY:
+				if(owner.isPlayer()) {
+					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now unstyled, and particularly messy.</p>";
+				} else {
+					return UtilText.parse(owner, "<p>[npc.Name]'s [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now unstyled, and particularly messy.</p>");
+				}
 		}
 		
 		// Catch:

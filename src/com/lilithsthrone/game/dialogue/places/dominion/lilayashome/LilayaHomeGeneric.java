@@ -1099,8 +1099,8 @@ public class LilayaHomeGeneric {
 			if (index == 1) {
 				return new ResponseSex("Hand-holding", "Warning: This content contains extreme descriptions of hand-holding, finger sucking, and even palm-licking."
 						+ " <b>Please remember that you need to have read the disclaimer before playing this game!</b> <b style='color:"+BaseColour.CRIMSON.toWebHexString()+";'>18+ only!</b>",
-						ROSE_HANDS,
-						true, false, Main.game.getRose(), new SMRoseHands(), Rose.END_HAND_SEX);
+						true,
+						false, Main.game.getRose(), new SMRoseHands(), Rose.END_HAND_SEX);
 
 			} else {
 				return null;

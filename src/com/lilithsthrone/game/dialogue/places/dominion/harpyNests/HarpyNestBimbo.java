@@ -230,9 +230,8 @@ public class HarpyNestBimbo {
 		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimboPacified)) {
 				if (index == 1) {
-					return new ResponseSex("Sex", "Have dominant sex with [bimboHarpy.name].", HARPY_NEST_BIMBO_APPROACH,
-							true, false, Main.game.getHarpyBimbo(), new SMHarpyStanding(), HARPY_NEST_BIMBO_AFTER_SEX,
-							"<p>"
+					return new ResponseSex("Sex", "Have dominant sex with [bimboHarpy.name].", true,
+							false, Main.game.getHarpyBimbo(), new SMHarpyStanding(), HARPY_NEST_BIMBO_AFTER_SEX, "<p>"
 								+ "Eager to put [harpyBimbo.name] in her place in front of her inner-circle, you reach down and grab her by her wings."
 								+ " Pulling her to her feet, you step forwards, planting a deep kiss on her [harpyBimbo.lips+] and drawing a series of excited giggles from the surrounding bimbo harpies."
 							+ "</p>"
@@ -490,9 +489,8 @@ public class HarpyNestBimbo {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			 if (index == 1) {
-				return new ResponseSex("Sex", "Have dominant sex with [bimboHarpy.name] in front of her flock.", HARPY_NEST_BIMBO_QUEEN,
-						true, false, Main.game.getHarpyBimbo(), new SMHarpyStanding(), HARPY_NEST_BIMBO_AFTER_SEX,
-						"<p>"
+				return new ResponseSex("Sex", "Have dominant sex with [bimboHarpy.name] in front of her flock.", true,
+						false, Main.game.getHarpyBimbo(), new SMHarpyStanding(), HARPY_NEST_BIMBO_AFTER_SEX, "<p>"
 							+ "Eager to put [harpyBimbo.name] in her place in front of her inner-circle, you reach down and grab her by her wings."
 							+ " Pulling her to her feet, you step forwards, planting a deep kiss on her [harpyBimbo.lips+] and drawing a series of excited giggles from the surrounding bimbo harpies."
 						+ "</p>"
@@ -791,9 +789,8 @@ public class HarpyNestBimbo {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			 if (index == 1) {
-				return new ResponseSex("Sex", "Have dominant sex with [bimboHarpy.name].", HARPY_NEST_BIMBO_FIGHT_BEAT_BIMBO,
-						true, false, Main.game.getHarpyBimbo(), new SMHarpyStanding(), HARPY_NEST_BIMBO_AFTER_SEX,
-						"<p>"
+				return new ResponseSex("Sex", "Have dominant sex with [bimboHarpy.name].", true,
+						false, Main.game.getHarpyBimbo(), new SMHarpyStanding(), HARPY_NEST_BIMBO_AFTER_SEX, "<p>"
 							+ "Eager to put [harpyBimbo.name] in her place in front of her inner-circle, you reach down and grab her by her wings."
 							+ " Pulling her to her feet, you step forwards, planting a deep kiss on her [harpyBimbo.lips+] and drawing a series of excited giggles from the surrounding bimbo harpies."
 						+ "</p>"

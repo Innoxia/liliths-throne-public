@@ -28,26 +28,26 @@ public class ResponseSex extends Response {
 	private String sexStartDescription;
 	protected SexPace sexPacePlayer, sexPacePartner;
 
-	public ResponseSex(String title, String tooltipText, DialogueNodeOld nextDialogue,
-			boolean consensual, boolean canResist, NPC partner, SexManagerInterface sexManager, DialogueNodeOld postSexDialogue) {
-		this(title, tooltipText, nextDialogue,
-				 consensual, canResist, partner, sexManager, postSexDialogue, "");
+	public ResponseSex(String title, String tooltipText, boolean consensual,
+			boolean canResist, NPC partner, SexManagerInterface sexManager, DialogueNodeOld postSexDialogue) {
+		this(title, tooltipText, consensual,
+				 canResist, partner, sexManager, postSexDialogue, "");
 	}
 	
-	public ResponseSex(String title, String tooltipText, DialogueNodeOld nextDialogue,
-			boolean consensual, boolean subHasEqualControl, NPC partner, SexManagerInterface sexManager, DialogueNodeOld postSexDialogue, String sexStartDescription) {
-		this(title, tooltipText, nextDialogue,
-				null, null, null,
-				null, null, null,
-				consensual, subHasEqualControl, partner, sexManager, postSexDialogue, sexStartDescription);
+	public ResponseSex(String title, String tooltipText, boolean consensual,
+			boolean subHasEqualControl, NPC partner, SexManagerInterface sexManager, DialogueNodeOld postSexDialogue, String sexStartDescription) {
+		this(title, tooltipText,
+				null, null, null, null,
+				null, null, consensual,
+				subHasEqualControl, partner, sexManager, postSexDialogue, sexStartDescription);
 	}
 	
-	public ResponseSex(String title, String tooltipText, DialogueNodeOld nextDialogue,
-			List<Fetish> fetishesForUnlock, List<Fetish> fetishesBlocking, CorruptionLevel corruptionBypass,
-			List<Perk> perksRequired, Femininity femininityRequired, Race raceRequired,
-			boolean consensual, boolean subHasEqualControl, NPC partner, SexManagerInterface sexManager, DialogueNodeOld postSexDialogue, String sexStartDescription
+	public ResponseSex(String title, String tooltipText, List<Fetish> fetishesForUnlock,
+			List<Fetish> fetishesBlocking, CorruptionLevel corruptionBypass, List<Perk> perksRequired,
+			Femininity femininityRequired, Race raceRequired, boolean consensual,
+			boolean subHasEqualControl, NPC partner, SexManagerInterface sexManager, DialogueNodeOld postSexDialogue, String sexStartDescription
 			) {
-		super(title, tooltipText, nextDialogue,
+		super(title, tooltipText, null,
 				fetishesForUnlock, corruptionBypass,
 				perksRequired, femininityRequired, raceRequired);
 		

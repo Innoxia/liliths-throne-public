@@ -43,6 +43,8 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.PrologueFemale;
 import com.lilithsthrone.game.character.npc.PrologueMale;
 import com.lilithsthrone.game.character.npc.dominion.Alexa;
+import com.lilithsthrone.game.character.npc.dominion.Amber;
+import com.lilithsthrone.game.character.npc.dominion.Arthur;
 import com.lilithsthrone.game.character.npc.dominion.Brax;
 import com.lilithsthrone.game.character.npc.dominion.CandiReceptionist;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
@@ -64,6 +66,9 @@ import com.lilithsthrone.game.character.npc.dominion.Rose;
 import com.lilithsthrone.game.character.npc.dominion.Scarlett;
 import com.lilithsthrone.game.character.npc.dominion.TestNPC;
 import com.lilithsthrone.game.character.npc.dominion.Vicky;
+import com.lilithsthrone.game.character.npc.dominion.Zaranix;
+import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKatherine;
+import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKelly;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueFlags;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
@@ -92,6 +97,7 @@ import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.Cell;
+import com.lilithsthrone.world.Generation;
 import com.lilithsthrone.world.World;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.GenericPlace;
@@ -109,31 +115,31 @@ public class Game implements Serializable, XMLSaving {
 
 	private PlayerCharacter player;
 	
-	// Unique NPCs:
-	private NPC
-		prologueMale,			// Male NPC in the prologue.
-		prologueFemale,			// Female NPC in the prologue.
-		testNPC,				// NPC for testing purposes.
-		lilaya,		 			// The player's aunt.
-		rose,		 			// Lilaya's slave.
-		brax,		 			// The enforcer chief.
-//		arthur,		 			// Lilaya's colleague.
-		ralph,		 			// Ingredients & items shop-keeper.
-		nyan,					// Clothing shop-keeper.
-		vicky,		 			// Weapons & potions shop-keeper.
-		pix, 		 			// Gym trainer.
-		kate, 		 			// Beauty salon owner.
-		scarlett, 	 			// Slave trader.
-		alexa, 		 			// Harpy matriarch.
-		harpyBimbo, 			// Bimbo harpy matriarch.
-		harpyBimboCompanion,	// Bimbo harpy matriarch's companion.
-		harpyDominant, 			// Dominant harpy matriarch.
-		harpyDominantCompanion, // Dominant harpy matriarch's companion.
-		harpyNympho, 			// Nymphomaniac harpy matriarch.
-		harpyNymphoCompanion, 	// Nymphomaniac harpy matriarch's companion.
-		pazu,					// Kumiko's harpy.
-		candiReceptionist,		// Receptionist at the Enforcer HQ.	 
-		finch;					// Manager of Slaver Alley's 'Slave Administration'
+//	// Unique NPCs:
+//	private NPC
+//		prologueMale,			// Male NPC in the prologue.
+//		prologueFemale,			// Female NPC in the prologue.
+//		testNPC,				// NPC for testing purposes.
+//		lilaya,		 			// The player's aunt.
+//		rose,		 			// Lilaya's slave.
+//		brax,		 			// The enforcer chief.
+////		arthur,		 			// Lilaya's colleague.
+//		ralph,		 			// Ingredients & items shop-keeper.
+//		nyan,					// Clothing shop-keeper.
+//		vicky,		 			// Weapons & potions shop-keeper.
+//		pix, 		 			// Gym trainer.
+//		kate, 		 			// Beauty salon owner.
+//		scarlett, 	 			// Slave trader.
+//		alexa, 		 			// Harpy matriarch.
+//		harpyBimbo, 			// Bimbo harpy matriarch.
+//		harpyBimboCompanion,	// Bimbo harpy matriarch's companion.
+//		harpyDominant, 			// Dominant harpy matriarch.
+//		harpyDominantCompanion, // Dominant harpy matriarch's companion.
+//		harpyNympho, 			// Nymphomaniac harpy matriarch.
+//		harpyNymphoCompanion, 	// Nymphomaniac harpy matriarch's companion.
+//		pazu,					// Kumiko's harpy.
+//		candiReceptionist,		// Receptionist at the Enforcer HQ.	 
+//		finch;					// Manager of Slaver Alley's 'Slave Administration'
 	
 	// NPCs:
 	private NPC activeNPC;
@@ -372,13 +378,14 @@ public class Game implements Serializable, XMLSaving {
 					
 					newGame.worlds.put(world.getWorldType(), world);
 				}
-//				TODO Once Zaranix is complete
-//				for(WorldType wt : WorldType.values()) {
-//					if(newGame.worlds.get(wt)==null) {
-//						Generation gen = new Generation();
-//						gen.worldGeneration(wt);
-//					}
-//				}
+				
+				// Add missing world types:
+				for(WorldType wt : WorldType.values()) {
+					if(newGame.worlds.get(wt)==null) {
+						Generation gen = new Generation();
+						gen.worldGeneration(wt);
+					}
+				}
 				
 				newGame.player = PlayerCharacter.loadFromXML(null, (Element) ((Element) gameElement.getElementsByTagName("playerCharacter").item(0)), doc);
 				
@@ -400,12 +407,39 @@ public class Game implements Serializable, XMLSaving {
 					}
 				}
 				
-//				TODO Once Zaranix is complete
-//				if(!newGame.NPCMap.containsKey(newGame.getUniqueNPCId(Zaranix.class))) {
-//					newGame.addNPC(new Zaranix(), false);
-//					newGame.addNPC(new ZaranixMaid(), false);
-//					newGame.addNPC(new Amber(), false);
-//				}
+				
+				// Add in new NPCS:
+				if(!newGame.NPCMap.containsKey(newGame.getUniqueNPCId(Zaranix.class))) {
+					Zaranix zaranix = new Zaranix();
+					newGame.addNPC(zaranix, false);
+					
+					ZaranixMaidKatherine katherine = new ZaranixMaidKatherine();
+					newGame.addNPC(katherine, false);
+					
+					ZaranixMaidKelly kelly = new ZaranixMaidKelly();
+					newGame.addNPC(kelly, false);
+					
+					Amber amber = new Amber();
+					newGame.addNPC(amber, false);
+					
+					zaranix.setAffection(katherine, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+					zaranix.setAffection(kelly, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+					zaranix.setAffection(amber, AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
+
+					amber.setAffection(zaranix, AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
+					amber.setAffection(kelly, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+					amber.setAffection(katherine, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+
+					kelly.setAffection(zaranix, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+					kelly.setAffection(katherine, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+					kelly.setAffection(amber, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+
+					katherine.setAffection(zaranix, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+					katherine.setAffection(kelly, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+					katherine.setAffection(amber, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+					
+					newGame.addNPC(new Arthur(), false);
+				}
 					
 				
 			} catch (Exception e) {
@@ -450,24 +484,24 @@ public class Game implements Serializable, XMLSaving {
 		// Set up NPCs:
 		try {
 			NPCMap.clear();
+			
 			addNPC(new GenericMaleNPC(), false);
 			addNPC(new GenericFemaleNPC(), false);
 			addNPC(new GenericAndrogynousNPC(), false);
 			
-			prologueMale = new PrologueMale();
-			addNPC(prologueMale, false);
+			addNPC(new PrologueMale(), false);
 			
-			prologueFemale = new PrologueFemale();
-			addNPC(prologueFemale, false);
+			addNPC(new PrologueFemale(), false);
 			
-			testNPC = new TestNPC();
-			addNPC(testNPC, false);
+			addNPC(new TestNPC(), false);
+
+			// Story:
 			
-			lilaya = new Lilaya();
+			Lilaya lilaya = new Lilaya();
 			addNPC(lilaya, false);
 			lilaya.setAffection(Main.game.getPlayer(), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
 			
-			rose = new Rose();
+			Rose rose = new Rose();
 			addNPC(rose, false);
 			rose.setAffection(Main.game.getPlayer(), AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
 			lilaya.addSlave(rose);
@@ -475,77 +509,101 @@ public class Game implements Serializable, XMLSaving {
 			lilaya.setAffection(rose, AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
 			rose.setAffection(lilaya, AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
 			
-			brax = new Brax();
+			Brax brax = new Brax();
 			addNPC(brax, false);
 	
-			candiReceptionist = new CandiReceptionist();
+			CandiReceptionist candiReceptionist = new CandiReceptionist();
 			addNPC(candiReceptionist, false);
 	
 			brax.setAffection(candiReceptionist, AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
 			candiReceptionist.setAffection(brax, AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
+
+			// Shopping Promenade:
 			
-			ralph = new Ralph();
-			addNPC(ralph, false);
+			addNPC(new Ralph(), false);
 			
-			nyan = new Nyan();
-			addNPC(nyan, false);
+			addNPC(new Nyan(), false);
 			
-			vicky = new Vicky();
-			addNPC(vicky, false);
+			addNPC(new Vicky(), false);
 			
-	//		arthur = new Arthur();
-	//		addNPC(arthur);
+			addNPC(new Pix(), false);
 			
-			pix = new Pix();
-			addNPC(pix, false);
+			addNPC(new Kate(), false);
+
+			// Harpy nests:
 			
-			kate = new Kate();
-			addNPC(kate, false);
-			
-			scarlett = new Scarlett();
+			Scarlett scarlett = new Scarlett();
 			addNPC(scarlett, false);
-//			System.out.println(addNPC(scarlett));
-//			System.out.println(scarlett.getId());
 			
-			alexa = new Alexa();
+			Alexa alexa = new Alexa();
 			addNPC(alexa, false);
 			
 			alexa.setAffection(scarlett, AffectionLevel.NEGATIVE_FOUR_HATE.getMedianValue());
 			scarlett.setAffection(alexa, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
 			scarlett.setAffection(Main.game.getPlayer(), AffectionLevel.NEGATIVE_TWO_DISLIKE.getMedianValue());
 			
-			harpyBimbo = new HarpyBimbo();
+			HarpyBimbo harpyBimbo = new HarpyBimbo();
 			addNPC(harpyBimbo, false);
 			
-			harpyBimboCompanion = new HarpyBimboCompanion();
+			HarpyBimboCompanion harpyBimboCompanion = new HarpyBimboCompanion();
 			addNPC(harpyBimboCompanion, false);
 	
 			harpyBimbo.setAffection(harpyBimboCompanion, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
 			harpyBimboCompanion.setAffection(harpyBimbo, AffectionLevel.POSITIVE_FIVE_WORSHIP.getMedianValue());
 			
-			harpyDominant = new HarpyDominant();
+			HarpyDominant harpyDominant = new HarpyDominant();
 			addNPC(harpyDominant, false);
 	
-			harpyDominantCompanion = new HarpyDominantCompanion();
+			HarpyDominantCompanion harpyDominantCompanion = new HarpyDominantCompanion();
 			addNPC(harpyDominantCompanion, false);
 	
 			harpyDominant.setAffection(harpyDominantCompanion, AffectionLevel.POSITIVE_ONE_FRIENDLY.getMedianValue());
 			harpyDominantCompanion.setAffection(harpyDominant, AffectionLevel.POSITIVE_FIVE_WORSHIP.getMedianValue());
 			
-			harpyNympho = new HarpyNympho();
+			HarpyNympho harpyNympho = new HarpyNympho();
 			addNPC(harpyNympho, false);
 	
-			harpyNymphoCompanion = new HarpyNymphoCompanion();
+			HarpyNymphoCompanion harpyNymphoCompanion = new HarpyNymphoCompanion();
 			addNPC(harpyNymphoCompanion, false);
 	
 			harpyNympho.setAffection(harpyNymphoCompanion, AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
 			harpyNymphoCompanion.setAffection(harpyNympho, AffectionLevel.POSITIVE_FIVE_WORSHIP.getMedianValue());
 			
-			pazu = new Pazu();
-			addNPC(pazu, false);
+			addNPC(new Pazu(), false);
 			
-			finch = new Finch();
-			addNPC(finch, false);
+			addNPC(new Finch(), false);
+			
+			// Zaranix:
+			Zaranix zaranix = new Zaranix();
+			addNPC(zaranix, false);
+			
+			ZaranixMaidKatherine katherine = new ZaranixMaidKatherine();
+			addNPC(katherine, false);
+			
+			ZaranixMaidKelly kelly = new ZaranixMaidKelly();
+			addNPC(kelly, false);
+			
+			Amber amber = new Amber();
+			addNPC(amber, false);
+			
+			zaranix.setAffection(katherine, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+			zaranix.setAffection(kelly, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+			zaranix.setAffection(amber, AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
+
+			amber.setAffection(zaranix, AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
+			amber.setAffection(kelly, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+			amber.setAffection(katherine, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+
+			kelly.setAffection(zaranix, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+			kelly.setAffection(katherine, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+			kelly.setAffection(amber, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+
+			katherine.setAffection(zaranix, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+			katherine.setAffection(kelly, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+			katherine.setAffection(amber, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
+			
+			addNPC(new Arthur(), false);
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -591,7 +649,7 @@ public class Game implements Serializable, XMLSaving {
 		boolean newDay = ((int) (minutesPassed / (60 * 24)) != (int) (((minutesPassed - turnTime) / (60 * 24))));
 		
 		if(newDay) { //TODO replace with methods in each GenericPlace:
-			AbstractClothing goggles = AbstractClothingType.generateClothing(ClothingType.EYES_SAFETY_GOGGLES, Colour.CLOTHING_BLACK, false);
+			AbstractClothing goggles = AbstractClothingType.generateClothing(ClothingType.SCIENTIST_EYES_SAFETY_GOGGLES, Colour.CLOTHING_BLACK, false);
 			if(!Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCell(PlaceType.LILAYA_HOME_LAB).getInventory().hasClothing(goggles)) {
 				Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCell(PlaceType.LILAYA_HOME_LAB).getInventory().addClothing(goggles);
 			}
@@ -627,7 +685,7 @@ public class Game implements Serializable, XMLSaving {
 			}
 			
 			if(npc.hasStatusEffect(StatusEffect.PREGNANT_3) && (minutesPassed - npc.getTimeProgressedToFinalPregnancyStage())>(12*60)) {
-				if(npc == lilaya) {
+				if(npc instanceof Lilaya) {
 					if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToPregnancyLilaya)) {
 						// Lilaya will only end pregnancy after you've seen it.
 						npc.endPregnancy(true);
@@ -635,7 +693,7 @@ public class Game implements Serializable, XMLSaving {
 					
 				} else {
 					npc.endPregnancy(true);
-					if(npc == kate) {
+					if(npc instanceof Kate) {
 						Main.game.getDialogueFlags().values.remove(DialogueFlagValue.reactedToKatePregnancy);
 					}
 				}
@@ -1876,11 +1934,11 @@ public class Game implements Serializable, XMLSaving {
 	}
 
 	public NPC getPrologueMale() {
-		return prologueMale;
+		return (NPC) this.getNPCById(getUniqueNPCId(PrologueMale.class));
 	}
 
 	public NPC getPrologueFemale() {
-		return prologueFemale;
+		return (NPC) this.getNPCById(getUniqueNPCId(PrologueFemale.class));
 	}
 
 	public NPC getTestNPC() {
@@ -1966,6 +2024,26 @@ public class Game implements Serializable, XMLSaving {
 	public NPC getFinch() {
 		return (NPC) this.getNPCById(getUniqueNPCId(Finch.class));
 	}
+	
+	public NPC getZaranix() {
+		return (NPC) this.getNPCById(getUniqueNPCId(Zaranix.class));
+	}
+	
+	public NPC getAmber() {
+		return (NPC) this.getNPCById(getUniqueNPCId(Amber.class));
+	}
+	
+	public NPC getArthur() {
+		return (NPC) this.getNPCById(getUniqueNPCId(Arthur.class));
+	}
+	
+	public NPC getKelly() {
+		return (NPC) this.getNPCById(getUniqueNPCId(ZaranixMaidKelly.class));
+	}
+	
+	public NPC getKatherine() {
+		return (NPC) this.getNPCById(getUniqueNPCId(ZaranixMaidKatherine.class));
+	}
 
 	public NPC getGenericMaleNPC() {
 		return (NPC) this.getNPCById(getUniqueNPCId(GenericMaleNPC.class));
@@ -2010,8 +2088,16 @@ public class Game implements Serializable, XMLSaving {
 	}
 	
 	public GameCharacter getNPCById(String id) {
+		if(id==null || id.isEmpty()) {
+			return null;
+		}
+		
 		if(id.equals(Main.game.getPlayer().getId())) {
 			return Main.game.getPlayer();
+		}
+		if(!NPCMap.containsKey(id)) {
+			System.err.println("!WARNING! getNPC("+id+") is returning null!");
+			throw new NullPointerException();
 		}
 		return NPCMap.get(id);
 	}
@@ -2086,8 +2172,16 @@ public class Game implements Serializable, XMLSaving {
 			removeNPC(npc);
 		}
 	}
+
+	public void removeNPC(String id) {
+		if(isInNPCUpdateLoop) {
+			npcsToRemove.add(NPCMap.get(id));
+		} else {
+			NPCMap.remove(id);
+		}
+	}
 	
-	private void removeNPC(NPC npc) {
+	public void removeNPC(NPC npc) {
 		if(npc.isPregnant()) {
 			npc.endPregnancy(false);
 		} else if(npc.hasStatusEffect(StatusEffect.PREGNANT_0)) {

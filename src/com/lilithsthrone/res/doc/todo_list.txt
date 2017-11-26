@@ -22,59 +22,148 @@
 	
 	Patch notes:
 	
-	If you have any game freezes/crashes after importing a pre-0.1.88.5 save, you *may* have to start a new one, due to the pre-0.1.88.5 save file format being slightly changed. (This will be the last time you have to start a new character.)
-	
+	Gameplay:
+		<b>Added:</b> main quest content involving Zaranix. (There are several ways to complete the quest, involving submission, stealth, violence, and diplomacy.)
+		<b>Added:</b> prostitute variation of alleyway attacker.
+		Filled in most of the placeholders for slave dialogue (molest and spanking will be done for the next release). I will expand these more in the future to take into account slave's personality and fetishes.
+		Added 'Offer money' and 'Offer body' options to the alleyway attacker encounter.
+		Slightly rewrote Demon Home's description.
+		
 	Other:
-		You can now open the characters present screen by clocking on the NPC's level bar during combat & sex.
+		Added 'amber' for hair and eye colours.
+		Added 'messy' hair style.
+	
+	Clothing:
+		Added: Lab coat (no femininity requirements, over-torso slot).
+		Added 'Scientist' clothing set status effect (when wearing both safety goggles and lab coat).
 	
 	Bugs:
-		Offspring will now only be able to be encountered after they've been been birthed.
-		Fixed bug where you could displace and unequip Rose's clothing during her 'sex' scene.
-		You can now only request paizuri/naizuri if you know that your partner has a penis.
-		Fixed wonky behaviour of NPCs being in the 'resisting' pace during sex when they shouldn't have been. (They will now always resist if they have the associated non-con fetish.)
-		NPCs should no longer take their own virginity (in any hole), unless they're in the 'Eager' pace.
-		Minor dialogue inconsistency fixes.
-		Fixed potential cause of game freeze when giving birth.
-		Added submissive fetish associations to submitting to Brax, taking Alexa's punishment, and submitting to slaves.
-		The 'resist' action in sex will now increase your arousal if you have the 'Unwilling fuck-toy' fetish.
-		Lilaya should now never ask for you to cum inside of her.
-		Increased effectiveness of the 'Calm down' action.
-		Slaves with the 'Transformation test subject' fetish will no longer lose affection towards you and Lilaya when transformed.
-		Selecting both 'Masculine Transformations' and 'Feminine Transformations' for the slave job 'Test subject' will now result in futanari transformations taking place.
-		Fixed issue with pregnancy stats page not removing pregnancy possibilities correctly.
-		Fixed offspring's stats page not working (for offspring that were mothered or fathered with an NPC encountered during a storm).
-		Fixed the 'Use all' action in inventory not working.
-		Imported elixirs and potions now work.
-		Condom belt will now render correctly if you have over 8 used condoms in your inventory.
-		Fixed another cause of the pregnancy screen not working, as well as a crash related to the same, now-fixed issue.
-		Fixed issue of selling your enslaved offspring to Alexa causing a major bug in several areas of the game.
-		Brax should now correctly relocate to Candi's desk if you finish completing his quest by having submissive sex.
-		Brax's black enforcer shirt and shorts no longer change to blue ones before he's beaten.
+		Minor typo fixes.
+		Enslaved offspring will no longer turn up in alleyways.
+		Fixed bug where exported characters would have no hair.
+		Lilaya's hair style is no longer random.
 	
 	
 	
 	
 	
+	---------
 	
+	Finishing the slave content's placeholders
+	Being able to upgrade your bed and invite one (or more, when multiple partners will be handled) slave to sleep with you (until you revoke them?)  and mebe waking up to your slave using you if they have the specific permission
+	Slavery jobs, dialogue, customisation!!!
+	
+	Import player characters as slaves
 	
 	Main story
+		sub
+		fight
+		sneak
 	
-	Slavery jobs, dialogue, customisation!!!
-	Random encounter options
+	Sex
+	
+	!!!Bugs!!!
+	
+	---------
+	
+	
+	
+	You can unequip NPCs clothing through the contacts screen
+	
+	Rose bell collar
+	
+	Lilaya sex behind incest
+	
+	: Also you never re-added the manual insemination option
+	And there's the self impreg with used condoms thing that I hear people mention occasionally.
+	
+	PULL on github
+	
+	Vicky's shop inventory isnt updating on the next day as it should
+	Sometimes shops were unusable. For some reason sometimes inventory screen text in options showed up instead.
 	
 	Orgasms
 	Addictions
 	Sex
+	pull open the persons underwear and cum into it
+	 'lie back and let the partner straddle you'
 	planning on tying-in stamina to the amount of orgasms/length of sex scenes, so I will add in "exhausted/overwhelmed/milked dry" content as part of that
 	
 	Character creation
 	
 	SAVE COMPAT TESTING
 	
+	freckles
 	
 	
 	
 	
+	
+	Alexa's Slave Menu is still frozen as of 0.1.89.2: Frozen as in none of the symbols (inspect, buy) are clickable and the slave list doesn't refresh like it did in 0.1.88.5
+	Alexa's slave display is still broken on imported games and old save files. It only updates correctly on new save games and imported characters. This is for the second hotfix.
+	also unable to view Alexa's description in slaver alley after she gets her first batch of slaves to sell.  It's viewable when you first get back to finish Scarlett's quest, but something breaks it when you visit the next day
+	
+	
+	
+	
+	You were impregnated twice and you gave birth but it still says you're pregnant
+	A daughter just attacked me
+	
+	Total children 0, but had 3 daughters
+	
+	slave events are parsing the wrong person
+	
+	When exporting either a character or game the hair value of all characters are changed to 1 or 9. After exporting a second time all hair values previously set to 1 change to 0(they only seem to drop from 1 to 0 on the second export; an initial value of 1 will stay at 1 the first export).
+	got a bug my character became bald and regained their penile virginity when i imported from 1.89.1 to 1.89.2
+	
+	After going through the game for awhile I finally figured out how to get a slave so when I actually go up to one of my slaves the game freezes on me and doesn't allow me to exit the slave management screen
+	
+	In "Face to wall" position, if the submissive one has a cock they should really cum on the wall, not the floor.
+
+	Also, on the lower settings of the forced TF racial limits player genitals are taken away, but new ones aren't added, which I don't think is intended behaviour.
+	
+	In chair sex, "Kiss" action doesn't require mouths to be available.
+	
+	Bree and Brandi are sometimes called "him" during sex.
+	
+	When asking Lilaya about essences, the PC speaks about how "A piece of someone's essence broke off and shot into me", but you don't have to have actually seen this, since that conversation is now unlocked by Lilaya's "Tests".
+	
+	When using transformative on a slave in Slavery Administration some transformation descriptions mention Finch instead of target npc.
+	
+	Having 6/7+ (definately 7+) used condoms in inventory (with or without condom belt) and then talking with Ralph locks you into his intro, the only option that works is 'discount' and then that locks there without being able to refuse or proceed.
+	
+	big lag when it comes to buying and selling items en mass
+	
+	perhaps the affection gain from being lilaya's test subject with the tf fetish should be toned down a little? As is making them work double shift or all day actually massively increases their affection
+	Maybe have it just be +0.1, and make it so that working more than 16hrs a day doubles the 'overworked' affection loss
+	
+	after an event in the city where you fight if you go into your bag and exit out it goes back to the last event encounter
+	
+	Offspring not getting deleted in the removeNPC in pregnancy
+	TEST REMOVAL (check where affection is applied, or perhaps save bodies and generate NPCs later?)
+	
+	got a bug, when i unequip my rainbow gloves and stockings i get a -6 bonuses and when equiped i get no bonuses but goes to what it should be without the rainbow gear
+
+	just found a another bug brax acted like we met before in his office when we haven't. candi and the gaurd that checks your pass acted like they should.
+	
+	I've had an issue spanning multiple versions with the "stop partner" command (and now the new "stop penetrations"). When a partner is penetrating themselves with their tail, choosing those options results in them immediately re-penetrating themselves in the same or a different orifice, over and over, as many times as you choose the option. Makes it impossible for you to do anything with their tail once it's started.
+It's most noticeable with Lilaya an the other succubi, but it can happen with anyone if furry tail penetrations is on.
+	
+	Also, seems like if I have a male character, biology-wise, with femininity at or above 40, I get this in the description, "Your cock is concealed, so, due to your androgynous appearance, everyone assumes that you're a tomboy on first glance." Doesn't really make sense as that should mean I have a vagina which I don't and no penis which I do. Further testing showed it's at least correctly matching the assumption about the presence or lack of a feminine chest.
+	
+	Bug: player orgasm related actions 'Stay in position' and 'pull out' appear in the repeat actions menu when in the face-to-face position.
+	
+	The game refuses to let me actually take action.  I'm currently in the entering stage of a fight, but clicking the "fight" button does nothing
+	
+	the bug that spawns the kids before they are born is still happening (maybe)
+	
+	when revealing an NPC's chest it always uses male pronouns and refers to them as pecs regardless of circumstace.
+	
+	You regain spent skill points and fetish points(arcane essence) when importing a character while retaining old perks.
+	
+	I spammed the "Rest until Evening / Rest until Morning" button in my room and not only does the clock stop changing to show the correct time but the map also bugs out and does not show any movement at all.
+	
+	I spammed the "Rest until Evening / Rest until Morning" button to try to speed up my slave training but it appears to bug the map where if you move the map does not update and never moves even if you move past the edge.
 	
 	Mostly a display-issue, if you go from the hair section in Kate's shop to the actual shop part and back, the options at the bottom become part of the scrolling area
 	
@@ -84,6 +173,8 @@
 	i am stuck in sex for deny?? when i'm about to climax
 	another test i stuck at climax 5?
 	
+	Can resisting sex with random alleyway npc's be a thing again. The only time I can resist sex is with Brax, slaves with the "use you" permission and I think(?) the succubus in the dark alleyway. With the submissive non-con fetish being a thing now I would love more opportunities to use it.
+	
 	The books and your encyclopedia are saved to the "properties" file within the data folder which isn't attached to your actual save file. (Change?)
 		I like the Encyclopedia being there, (Since it tracks what I've witnessed in ANY save) but the books/knowledge should probably be save-specific.
 	
@@ -92,6 +183,13 @@
 	  I think this might have something to do with the penis virginity section as when you select max sexual experience it does say that you have lost your mouth virginity, just not your genitals' virginity.
 	   When you have a vagina, it does give your virginity's status, but if you are bi then it says you lost your virginity to a guy in a club's restroom and a your first girlfriend on two separate lines {I'm pretty sure you can only lose your virginity once :) }.
 	
+	I noticed a problem with strings that get cut off after certain characters. For instance, when you want to name a room "Scarlett's Room" (which is, IMO, not such an unusual way to name a room), everything after the apostrophe will be cut off and the room is now simply named "Scarlett". Same thing happens with savegame names.
+	
+	- I will try to make the sex system a little smoother in future; including adding little 'displace/remove' buttons to the clothing icons (you can strip them all in one go using the 'Unequip all (them)' action int eh inventory). ^^
+- I'll add the ability to shift your body parts while a demon soon! :3
+- The 'too loose' effect is only meant to be in effect if your penis is quite a bit smaller than the orifice's capacity. I'll take another look at their starting values. :3
+- I will definitely add latex clothing and an associated fetish later on! ^^
+- I'll add tooltips to the minimap as well; good idea! :3
 	
 	Chair Sex:
 	- Submissive & rough talk options aren't associated with submissive & dominant fetishes.
@@ -117,6 +215,7 @@
 	
 	Make Rose's scenes match her personality
 	Update Lilaya scene
+	Add Lilaya content for each stage of main quest
 	
 	Displace/remove clothing in sex as a single button on clothing
 	

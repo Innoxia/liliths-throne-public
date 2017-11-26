@@ -12,45 +12,47 @@ import com.lilithsthrone.utils.Colour;
 public enum AffectionLevel {
 	
 	/** -100 to -90*/
-	NEGATIVE_FIVE_LOATHE("loathing", -100, -90, Colour.AFFECTION_NEGATIVE_FIVE),
+	NEGATIVE_FIVE_LOATHE("loathing", "loathes", -100, -90, Colour.AFFECTION_NEGATIVE_FIVE),
 
 	/** -90 to -70*/
-	NEGATIVE_FOUR_HATE("hatred", -90, -70, Colour.AFFECTION_NEGATIVE_FOUR),
+	NEGATIVE_FOUR_HATE("hatred", "hates", -90, -70, Colour.AFFECTION_NEGATIVE_FOUR),
 
 	/** -70 to -50*/
-	NEGATIVE_THREE_STRONG_DISLIKE("strong dislike", -70, -50, Colour.AFFECTION_NEGATIVE_THREE),
+	NEGATIVE_THREE_STRONG_DISLIKE("strong dislike", "strongly dislikes", -70, -50, Colour.AFFECTION_NEGATIVE_THREE),
 
 	/** -50 to -30*/
-	NEGATIVE_TWO_DISLIKE("dislike", -50, -30, Colour.AFFECTION_NEGATIVE_TWO),
+	NEGATIVE_TWO_DISLIKE("dislike", "dislikes", -50, -30, Colour.AFFECTION_NEGATIVE_TWO),
 
 	/** -30 to -10*/
-	NEGATIVE_ONE_ANNOYED("annoyed", -30, -10, Colour.AFFECTION_NEGATIVE_ONE),
+	NEGATIVE_ONE_ANNOYED("annoyed", "is annoyed with", -30, -10, Colour.AFFECTION_NEGATIVE_ONE),
 
 	/** -10 to 10*/
-	ZERO_NEUTRAL("neutral", -10, 10, Colour.AFFECTION_NEUTRAL),
+	ZERO_NEUTRAL("neutral", "neither likes nor dislikes", -10, 10, Colour.AFFECTION_NEUTRAL),
 
 	/** 10 to 30*/
-	POSITIVE_ONE_FRIENDLY("friendly", 10, 30, Colour.AFFECTION_POSITIVE_ONE),
+	POSITIVE_ONE_FRIENDLY("friendly", "is friendly", 10, 30, Colour.AFFECTION_POSITIVE_ONE),
 
 	/** 30 to 50*/
-	POSITIVE_TWO_LIKE("likes", 30, 50, Colour.AFFECTION_POSITIVE_TWO),
+	POSITIVE_TWO_LIKE("likes", "likes", 30, 50, Colour.AFFECTION_POSITIVE_TWO),
 
 	/** 50 to 70*/
-	POSITIVE_THREE_CARING("caring", 50, 70, Colour.AFFECTION_POSITIVE_THREE),
+	POSITIVE_THREE_CARING("caring", "cares for", 50, 70, Colour.AFFECTION_POSITIVE_THREE),
 
 	/** 70 to 90*/
-	POSITIVE_FOUR_LOVE("love", 70, 90, Colour.AFFECTION_POSITIVE_FOUR),
+	POSITIVE_FOUR_LOVE("love", "loves", 70, 90, Colour.AFFECTION_POSITIVE_FOUR),
 
 	/** 90 to 100*/
-	POSITIVE_FIVE_WORSHIP("worshipping", 90, 100, Colour.AFFECTION_POSITIVE_FIVE);
+	POSITIVE_FIVE_WORSHIP("worshipping", "worships", 90, 100, Colour.AFFECTION_POSITIVE_FIVE);
 	
 	
 	private String name;
+	private String descriptor;
 	private int minimumValue, maximumValue;
 	private Colour colour;
 
-	private AffectionLevel(String name, int minimumValue, int maximumValue, Colour colour) {
+	private AffectionLevel(String name, String descriptor, int minimumValue, int maximumValue, Colour colour) {
 		this.name = name;
+		this.descriptor = descriptor;
 		this.minimumValue = minimumValue;
 		this.maximumValue = maximumValue;
 		this.colour = colour;
@@ -145,6 +147,15 @@ public enum AffectionLevel {
 	
 	public String getName() {
 		return name;
+	}
+
+	/**
+	 * To fit into a sentence such as:</br>
+	 * "Due to the fact that Kate "+getDescriptor()+" you..."
+	 * @return
+	 */
+	public String getDescriptor() {
+		return descriptor;
 	}
 
 	public int getMinimumValue() {

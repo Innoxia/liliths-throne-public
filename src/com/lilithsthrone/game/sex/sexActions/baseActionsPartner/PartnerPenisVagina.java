@@ -144,7 +144,7 @@ public class PartnerPenisVagina {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom() ||Sex.isConsensual();
+			return Sex.getSexPacePlayer()!=SexPace.SUB_RESISTING && (Sex.isPlayerDom() || Sex.isSubHasEqualControl());
 		}
 
 		@Override
@@ -161,14 +161,6 @@ public class PartnerPenisVagina {
 							"Lining your [pc.pussy+] up to [npc.name]'s [npc.cock+], you gently slide the [npc.cockHead+] over your folds,"
 									+ " letting out a soft [pc.moan] as you tease [npc.herHim] with the promise of penetrating your [pc.pussy+]."));
 					break;
-				case DOM_NORMAL:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Shifting your [pc.hips], you line [npc.name]'s [npc.cock+] up to your [pc.pussy+],"
-									+ " eagerly pushing the [npc.cockHead+] up and down between your pussy lips as you tease [npc.herHim] with the promise of penetration at any moment.",
-							"With [pc.a_moan+], you line [npc.name]'s [npc.cock+] up to your [pc.pussy+], before starting to eagerly slide the [npc.cockHead] up and down between your folds.",
-							"Lining your [pc.pussy+] up to [npc.name]'s [npc.cock+], you eagerly slide the [npc.cockHead+] over your folds,"
-									+ " letting out [pc.a_moan+] as you tease [npc.herHim] with the promise of penetrating your [pc.pussy+]."));
-					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Shifting your [pc.hips], you grind [npc.name]'s [npc.cock+] against your [pc.pussy+],"
@@ -178,6 +170,12 @@ public class PartnerPenisVagina {
 									+ " letting out [pc.a_moan+] as you tease [npc.herHim] with the promise of penetrating your [pc.pussy+]."));
 					break;
 				default:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							"Shifting your [pc.hips], you line [npc.name]'s [npc.cock+] up to your [pc.pussy+],"
+									+ " eagerly pushing the [npc.cockHead+] up and down between your pussy lips as you tease [npc.herHim] with the promise of penetration at any moment.",
+							"With [pc.a_moan+], you line [npc.name]'s [npc.cock+] up to your [pc.pussy+], before starting to eagerly slide the [npc.cockHead] up and down between your folds.",
+							"Lining your [pc.pussy+] up to [npc.name]'s [npc.cock+], you eagerly slide the [npc.cockHead+] over your folds,"
+									+ " letting out [pc.a_moan+] as you tease [npc.herHim] with the promise of penetrating your [pc.pussy+]."));
 					break;
 			}
 			switch(Sex.getSexPacePartner()) {

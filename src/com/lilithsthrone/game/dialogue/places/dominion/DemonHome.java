@@ -1,16 +1,18 @@
 package com.lilithsthrone.game.dialogue.places.dominion;
 
+import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.Quest;
 import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloor;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.1.89
+ * @version 0.1.95
  * @author Innoxia
  */
 public class DemonHome {
@@ -25,9 +27,15 @@ public class DemonHome {
 		@Override
 		public String getContent() {
 			return "<p>"
-					+ "As you find yourself walking through the district of Demon Home, you see that it's quite clearly the more upmarket area of Dominion."
-					+ " Statues line the wide, marble-paved streets, and the impressive buildings on either side represent the pinnacle of neoclassical design."
-					+ " Here and there, little fenced-off parks break up the monotony of the marble facades, and you find yourself duly impressed with this area's aesthetics."
+						+ "From the wide, marble-paved streets, to the immaculate frontages of the regency-style buildings, it's quite clear that this district of 'Demon Home' is one of the more upmarket areas of Dominion."
+						+ " Numerous masterfully-carved statues, the vast majority of which depict some form of demon or another, are dotted around the area, and, considering their subject matter, you assume that these sculptures are what gives this area its name."
+					+ "</p>"
+					+ "<p>"
+						+ "As you walk down the street, you pass several fenced-off private gardens; their lush splash of greenery helping to break up the monotony of the surrounding building's creamy-white stone facades."
+						+ (Main.game.getCurrentWeather()==Weather.MAGIC_STORM
+							?" The occasional flash of purple lightning illuminates your deserted surroundings, and you glance this way and that, ever-alert for danger as you continue on your way."
+							:" Despite the fact that Demon Home is a little quieter than most of the other areas of Dominion, you notice that there are slightly more enforcers patrolling the streets;"
+									+ " evidence that the wealthy and influential residents of the city are afforded extra protection.")
 					+ "</p>";
 		}
 
@@ -44,9 +52,11 @@ public class DemonHome {
 				}
 
 			} else if (index == 2) {
-				if (Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_G_SLAVERY)) {
-					return new Response("Zaranix's Home", "A little way down the road from Arthur's apartment building stands the home of Zaranix; the demon that Scarlett told you about. <b>This will be finished for the next version!</b>", null);
-//					return new Response("Zaranix's Home", "A little way down the road from Arthur's apartment building stands the home of Zaranix; the demon that Scarlett told you about.", ZaranixHomeGroundFloor.OUTSIDE);
+				if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_H_THE_GREAT_ESCAPE) {
+					return new Response("Zaranix's Home", "A little way down the road from Arthur's apartment building stands the home of Zaranix; the demon that Scarlett told you about.", ZaranixHomeGroundFloor.OUTSIDE);
+					
+				} else if (Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
+					return new Response("Zaranix's Home", "You've already rescued Arthur from Zaranix's home, so there's no need to return. (I'll add this in as a repeatable encounter later on! :3)", null);
 				}
 				return null;
 
@@ -152,7 +162,7 @@ public class DemonHome {
 					+ " you think, letting out another sigh."
 					+ "</p>"
 					+ "<p>"
-					+ "As you're reading the notice for a second time, you hear a soft scuffing noise close behind you."
+					+ "As you're reading the notice for a second time, you hear a soft scuffling noise close behind you."
 					+ " Spinning round, you see a partial dog-girl standing in the doorway behind you, with a curious look on her face."
 					+ " As you turn to face her, she lets out a little eek in surprise, and quickly steps back into her apartment."
 					+ " Or, at least, that's what she tries to do, but in her excitement, she manages to trip over her own feet, falling backwards into the doorway."

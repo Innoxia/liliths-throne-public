@@ -4155,6 +4155,45 @@ public enum StatusEffect {
 		}
 	},
 	
+	SET_SCIENTIST(
+			70,
+			"Scientist",
+			"set_scientist",
+			Colour.CLOTHING_BLACK,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.INTELLIGENCE, 5f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 5f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 5f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 5f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				if(target.isPlayer()) {
+					return "By donning both a lab coat and safety goggles, you're confident that no chemical spill will harm you!";
+					
+				} else {
+					return UtilText.parse(target, "By wearing both a lab coat and safety goggles, [npc.name] is well-protected against any chemical spill.");
+					
+				}
+			} else {
+				return "";
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return ClothingSet.SCIENTIST.isCharacterWearingCompleteSet(target);
+		}
+	},
+	
 	SET_MILK_MAID(
 			70,
 			"Milk Maid",

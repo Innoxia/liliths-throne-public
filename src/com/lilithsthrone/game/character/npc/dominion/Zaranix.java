@@ -9,6 +9,7 @@ import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
+import com.lilithsthrone.game.character.body.valueEnums.Height;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -20,6 +21,11 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.sex.OrificeType;
+import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexPosition;
+import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
@@ -38,10 +44,10 @@ public class Zaranix extends NPC {
 	}
 	
 	private Zaranix(boolean isImported) {
-		super(new NameTriplet("Zaranix"),
+		super(new NameTriplet("Zaranix", "Zaranix", "Zoelix"),
 				"Zaranix is one of the few demons that feels more comfortable in his incubus, rather than succubus, form."
-						+ " Muscular, tall, and handsome, Zaranix has used his masculine charms to gather a small harem of loyal succubi, who are nothing less than utterly devoted to their master.",
-				10, Gender.M_P_MALE, RacialBody.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.ZARANIX_HOUSE_FIRST_FLOOR, PlaceType.ZARANIX_FF_BEDROOM, true);
+						+ " Muscular, tall, and handsome, Zaranix uses both his cunning mind and good looks to get what he wants.",
+				15, Gender.M_P_MALE, RacialBody.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.ZARANIX_HOUSE_FIRST_FLOOR, PlaceType.ZARANIX_FF_OFFICE, true);
 
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
@@ -49,22 +55,25 @@ public class Zaranix extends NPC {
 			this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_ORANGE));
 			this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_BLACK), true);
 			this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_PURPLE), true);
-	
+			
+			this.setHeight(Height.THREE_TALL.getMedianValue());
+			
 			this.setHornType(HornType.STRAIGHT);
 			
 			this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
 			this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 			
 			this.setAssVirgin(true);
-			this.setFaceVirgin(false);
+			this.setFaceVirgin(true);
 			this.setNippleVirgin(true);
 			this.setPenisVirgin(false);
 	
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BRIEFS, Colour.CLOTHING_BLACK, false), true, this);
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_TROUSERS, Colour.CLOTHING_BLACK, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OXFORD_SHIRT, Colour.CLOTHING_PINK_LIGHT, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OXFORD_SHIRT, Colour.CLOTHING_GREY, false), true, this);
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_BLACK, false), true, this);
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_MENS_SMART_SHOES, Colour.CLOTHING_BLACK, false), true, this);
+			
 		}
 	}
 	
@@ -122,6 +131,24 @@ public class Zaranix extends NPC {
 	@Override
 	public Attack attackType() {
 		return null;
+	}
+	
+	// Sex:
+	
+	public SexType getForeplayPreference() {
+		if(Sex.getSexManager().getPosition() == SexPosition.KNEELING_PLAYER_PERFORMING_ORAL) {
+			return new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER);
+		}
+		
+		return super.getForeplayPreference();
+	}
+	
+	public SexType getMainSexPreference() {
+		if(Sex.getSexManager().getPosition() == SexPosition.KNEELING_PLAYER_PERFORMING_ORAL) {
+			return new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER);
+		}
+
+		return super.getMainSexPreference();
 	}
 
 }

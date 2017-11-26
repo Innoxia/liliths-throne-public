@@ -330,6 +330,7 @@ public enum Colour {
 	COVERING_BLEACH_BLONDE(BaseColour.YELLOW_LIGHT, "bleach-blonde"),
 	COVERING_GINGER(BaseColour.GINGER, "ginger"),
 	COVERING_ORANGE(BaseColour.ORANGE, "orange"),
+	COVERING_AMBER(BaseColour.AMBER, "amber"),
 	COVERING_RED(BaseColour.RED, "red"),
 	COVERING_WHITE(BaseColour.WHITE, "white"),
 	COVERING_BLUE(BaseColour.BLUE, "blue"),
@@ -356,6 +357,7 @@ public enum Colour {
 	EYE_SILVER(BaseColour.SILVER, "silver"),
 	
 	EYE_YELLOW(BaseColour.YELLOW, "yellow"),
+	EYE_AMBER(BaseColour.AMBER, "amber"),
 	EYE_RED(BaseColour.RED, "red"),
 	EYE_PINK(BaseColour.PINK, "pink"),
 	EYE_ORANGE(BaseColour.ORANGE, "orange"),
@@ -515,12 +517,14 @@ public enum Colour {
 			new ListValue<Colour>(Colour.COVERING_PINK),
 			new ListValue<Colour>(Colour.COVERING_PURPLE),
 			new ListValue<Colour>(Colour.COVERING_ORANGE),
+			new ListValue<Colour>(Colour.COVERING_AMBER),
 			new ListValue<Colour>(Colour.COVERING_RED));
 	
 	// Eyes:
 	
 	public static List<Colour> naturalIrisColours = Util.newArrayListOfValues(
 			new ListValue<Colour>(Colour.EYE_BROWN),
+			new ListValue<Colour>(Colour.EYE_AMBER),
 			new ListValue<Colour>(Colour.EYE_BLUE),
 			new ListValue<Colour>(Colour.EYE_AQUA),
 			new ListValue<Colour>(Colour.EYE_GREEN),
@@ -554,6 +558,7 @@ public enum Colour {
 			new ListValue<Colour>(Colour.EYE_RED),
 			new ListValue<Colour>(Colour.EYE_CRIMSON),
 			new ListValue<Colour>(Colour.EYE_ORANGE),
+			new ListValue<Colour>(Colour.EYE_AMBER),
 			new ListValue<Colour>(Colour.EYE_PINK),
 			new ListValue<Colour>(Colour.EYE_VIOLET),
 			new ListValue<Colour>(Colour.EYE_LILAC),
