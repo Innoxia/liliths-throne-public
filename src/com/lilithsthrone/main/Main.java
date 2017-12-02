@@ -556,6 +556,22 @@ public class Main extends Application {
 		}
 	}
 	
+	public static void deleteExportedCharacter(String name) {
+		File file = new File("data/characters/"+name+".xml");
+
+		if (file.exists()) {
+			try {
+				file.delete();
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			
+		} else {
+			Main.game.flashMessage(Colour.GENERIC_BAD, "File not found...");
+		}
+	}
+	
 	public static List<File> getSavedGames() {
 		List<File> filesList = new ArrayList<>();
 		
@@ -583,6 +599,22 @@ public class Main extends Application {
 			}
 		}
 
+		filesList.sort(Comparator.comparingLong(File::lastModified).reversed());
+		
+		return filesList;
+	}
+	
+	public static List<File> getSlavesForImport() {
+		List<File> filesList = new ArrayList<>();
+		
+		File dir = new File("data/characters");
+		if (dir.isDirectory()) {
+			File[] directoryListing = dir.listFiles((path, name) -> name.endsWith(".xml"));
+			if (directoryListing != null) {
+				filesList.addAll(Arrays.asList(directoryListing));
+			}
+		}
+		
 		filesList.sort(Comparator.comparingLong(File::lastModified).reversed());
 		
 		return filesList;

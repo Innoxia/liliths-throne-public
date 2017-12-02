@@ -80,6 +80,26 @@ public enum WorldType {
 		}
 	},
 	
+	LILAYAS_HOUSE_FIRST_FLOOR("Lilaya's Home",
+			Colour.BASE_BLUE_LIGHT,
+			1,
+			"/com/lilithsthrone/res/map/dominion/lilayasHome/lilayas_home_first_floor.png",
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.LILAYA_HOME_CORRIDOR),
+					new Value<>(new Color(0xff00ff), PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR),
+					new Value<>(new Color(0xff0080), PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR),
+//					new Value<>(new Color(0x8000ff), LilayasHome.LILAYA_HOME_ROOM),
+					new Value<>(new Color(0xff80ff), PlaceType.LILAYA_HOME_ROOM_LILAYA),
+					new Value<>(new Color(0x0080ff), PlaceType.LILAYA_HOME_ROOM_ROSE),
+					new Value<>(new Color(0x00ffff), PlaceType.LILAYA_HOME_ROOM_PLAYER),
+					new Value<>(new Color(0xff0000), PlaceType.LILAYA_HOME_STAIR_DOWN))){
+		@Override
+		public boolean isRevealedOnStart() {
+			return true;
+		}
+	},
+	
 	ZARANIX_HOUSE_FIRST_FLOOR("Zaranix's Home",
 			Colour.BASE_CRIMSON,
 			1,
@@ -107,26 +127,6 @@ public enum WorldType {
 					new Value<>(new Color(0x00ffff), PlaceType.ZARANIX_GF_GARDEN_ROOM),
 					new Value<>(new Color(0x008000), PlaceType.ZARANIX_GF_GARDEN),
 					new Value<>(new Color(0xff8000), PlaceType.ZARANIX_GF_GARDEN_ENTRY))),
-	
-	LILAYAS_HOUSE_FIRST_FLOOR("Lilaya's Home",
-			Colour.BASE_BLUE_LIGHT,
-			1,
-			"/com/lilithsthrone/res/map/dominion/lilayasHome/lilayas_home_first_floor.png",
-			Util.newHashMapOfValues(
-					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
-					new Value<>(new Color(0x808080), PlaceType.LILAYA_HOME_CORRIDOR),
-					new Value<>(new Color(0xff00ff), PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR),
-					new Value<>(new Color(0xff0080), PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR),
-//					new Value<>(new Color(0x8000ff), LilayasHome.LILAYA_HOME_ROOM),
-					new Value<>(new Color(0xff80ff), PlaceType.LILAYA_HOME_ROOM_LILAYA),
-					new Value<>(new Color(0x0080ff), PlaceType.LILAYA_HOME_ROOM_ROSE),
-					new Value<>(new Color(0x00ffff), PlaceType.LILAYA_HOME_ROOM_PLAYER),
-					new Value<>(new Color(0xff0000), PlaceType.LILAYA_HOME_STAIR_DOWN))){
-		@Override
-		public boolean isRevealedOnStart() {
-			return true;
-		}
-	},
 
 	HARPY_NEST(4,
 			"Harpy Nests",

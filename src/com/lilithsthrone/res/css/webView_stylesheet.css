@@ -1687,7 +1687,7 @@ border-radius:5px;
 	border-radius:5px;
 }
 
-#copy-content-button{
+.title-button{
 	position:absolute;
 	left:4px;
 	top:4px;
@@ -1702,10 +1702,10 @@ border-radius:5px;
 		to(#222));
 	cursor:pointer;
 }
-#copy-content-button:hover{
+.title-button:hover{
 	background:#333;
 }
-#copy-content-button:active {
+.title-button:active {
 	background:#8fefbf;
 }
 

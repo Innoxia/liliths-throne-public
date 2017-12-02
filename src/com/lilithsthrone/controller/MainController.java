@@ -89,6 +89,7 @@ import com.lilithsthrone.game.dialogue.MapDisplay;
 import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.CityHall;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
+import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaverAlleyDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
@@ -1032,6 +1033,23 @@ public class MainController implements Initializable {
 			addEventListener(document, "copy-content-button", "mousemove", moveTooltipListener, false);
 			addEventListener(document, "copy-content-button", "mouseleave", hideTooltipListener, false);
 			addEventListener(document, "copy-content-button", "mouseenter", copyInfoListener, false);
+		}
+		
+		if (((EventTarget) document.getElementById("export-character-button")) != null) {
+			addEventListener(document, "export-character-button", "click", e -> {
+				if(Main.game.getCurrentDialogueNode().equals(CharactersPresentDialogue.MENU)) {
+					Game.exportCharacter(CharactersPresentDialogue.characterViewed);
+				} else {
+					Game.exportCharacter(Main.game.getPlayer());
+				}
+				
+				Main.game.flashMessage(Colour.GENERIC_EXCELLENT, "Character Exported!");
+			}, false);
+			addEventListener(document, "export-character-button", "mousemove", moveTooltipListener, false);
+			addEventListener(document, "export-character-button", "mouseleave", hideTooltipListener, false);
+			addEventListener(document, "export-character-button", "mouseenter", new TooltipInformationEventListener().setInformation(
+					"Export Character",
+					"Export the currently displayed character to the 'data/characters' folder. Exported characters can be imported at the auction block in Slaver Alley."), false);
 		}
 		
 		// Combat tooltips:
@@ -3849,6 +3867,7 @@ public class MainController implements Initializable {
 				}, false);
 			}
 		}
+		
 		if (Main.game.getCurrentDialogueNode() == CharacterCreation.IMPORT_CHOOSE) {
 			for (File f : Main.getCharactersForImport()) {
 				if (((EventTarget) document.getElementById("character_import_" + f.getName().substring(0, f.getName().lastIndexOf('.')) )) != null) {
@@ -3856,6 +3875,56 @@ public class MainController implements Initializable {
 						Main.importCharacter(f);
 						
 					}, false);
+				}
+			}
+		}
+		
+		// Slave import:
+		if (Main.game.getCurrentDialogueNode() == SlaverAlleyDialogue.AUCTION_IMPORT) {
+			for (File f : Main.getSlavesForImport()) {
+				if (((EventTarget) document.getElementById("import_slave_" + f.getName().substring(0, f.getName().lastIndexOf('.')) )) != null) {
+					((EventTarget) document.getElementById("import_slave_" + f.getName().substring(0, f.getName().lastIndexOf('.')) )).addEventListener("click", e -> {
+						
+						try {
+							Game.importCharacterAsSlave(f.getName().substring(0, f.getName().lastIndexOf('.')));
+							this.updateUI();
+							Main.game.flashMessage(Colour.GENERIC_GOOD, "Imported Character!");
+						
+						} catch(Exception ex) {
+							Main.game.flashMessage(Colour.GENERIC_BAD, "Import Failed!");
+						}
+						
+							
+					}, false);
+				}
+			}
+		}
+		if (Main.game.getCurrentDialogueNode() == SlaverAlleyDialogue.AUCTION_BLOCK_LIST) {
+			for (NPC npc : Main.game.getCharactersPresent()) {
+				id = npc.getId()+"_BID";
+				if (((EventTarget) document.getElementById(id)) != null) {
+					if(Main.game.getPlayer().isHasSlaverLicense()) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							SlaverAlleyDialogue.setupBidding(npc);
+							Main.game.setContent(new Response("", "", SlaverAlleyDialogue.AUCTION_BIDDING));
+						}, false);
+						
+						addEventListener(document, id, "mousemove", moveTooltipListener, false);
+						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+	
+						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
+								UtilText.parse(npc, "Bid on [npc.name]"),
+								UtilText.parse(npc, "Start bidding on [npc.name]. There's a chance that the bidding might exceed [npc.her] value, so make sure you have enough money first!"));
+						addEventListener(document, id, "mouseenter", el, false);
+					} else {
+						addEventListener(document, id, "mousemove", moveTooltipListener, false);
+						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+	
+						TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation(
+								UtilText.parse(npc, "Bid on [npc.name]"),
+								UtilText.parse(npc, "You don't have a slaver license, so you're unable to big on any slaves!"));
+						addEventListener(document, id, "mouseenter", el, false);
+					}
 				}
 			}
 		}

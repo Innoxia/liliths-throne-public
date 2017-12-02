@@ -9,6 +9,7 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
@@ -1046,6 +1047,47 @@ public class ClothingType {
 					}
 				}
 			}
+		}
+	};
+	
+	public static AbstractClothingType NECK_BELL_COLLAR  = new AbstractClothingType("a",
+			false,
+			"bell collar",
+			"bell collars",
+			"A leather collar, with a little bell attached to the front.",
+			0,
+			null,
+			InventorySlot.NECK,
+			Rarity.COMMON,
+			null,
+			"neck_bell_collar",
+			null,
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
+			null,
+			Colour.allClothingColours) {
+		
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You fasten the bell collar around your neck.",
+					"You fasten the bell collar around [npc.name]'s neck.",
+					null,
+					"[npc.Name] fastens the bell collar around [npc.her] neck.",
+					"[npc.Name] fastens the bell collar around your neck.",
+					null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You take off your bell collar.",
+					"You take off [npc.name]'s bell collar.",
+					null,
+					"[npc.Name] takes [npc.her] bell collar off.",
+					"[npc.Name] takes your bell collar off.",
+					null);
 		}
 	};
 	

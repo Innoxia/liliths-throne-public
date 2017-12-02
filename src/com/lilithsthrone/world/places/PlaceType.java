@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.Quest;
 import com.lilithsthrone.game.character.QuestLine;
-import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.dialogue.places.JunglePlaces;
@@ -47,7 +46,7 @@ import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.0
- * @version 0.1.89
+ * @version 0.1.90
  * @author Innoxia
  */
 public enum PlaceType {
@@ -451,41 +450,21 @@ public enum PlaceType {
 
 	// Zaranix: TODO
 
-	ZARANIX_GF_CORRIDOR("Corridor", null, BaseColour.GREY, ZaranixHomeGroundFloor.CORRIDOR, null, true, false, true, true, "in Zaranix's home"),
-	ZARANIX_GF_STAIRS("Staircase", "dominion/zaranixHome/stairsDown", BaseColour.GREEN_LIGHT, ZaranixHomeGroundFloor.STAIRS, null, true, false, true, true, "in Zaranix's home"),
-	ZARANIX_GF_ENTRANCE("Entrance", "dominion/zaranixHome/entranceHall", BaseColour.RED, ZaranixHomeGroundFloor.ENTRANCE, null, true, false, true, true, "in Zaranix's home"),
-	ZARANIX_GF_LOUNGE("Lounge", "dominion/zaranixHome/lounge", BaseColour.ORANGE, ZaranixHomeGroundFloor.LOUNGE, null, true, false, true, true, "in Zaranix's home"),
-	ZARANIX_GF_ROOM("Room", "dominion/zaranixHome/room", BaseColour.GREY, ZaranixHomeGroundFloor.ROOM, null, true, false, true, true, "in a room in Zaranix's home"),
-	ZARANIX_GF_MAID("Corridor", null, BaseColour.GREY, ZaranixHomeGroundFloor.CORRIDOR_MAID_ATTACK, null, true, false, true, true, "in Zaranix's Home"){
-		@Override
-		public DialogueNodeOld getDialogue(boolean withRandomEncounter) {
-			if(Main.game.getDialogueFlags().getFlag(DialogueFlagValue.zaranixKatherineSubdued)) {
-				return ZaranixHomeGroundFloor.CORRIDOR_MAID_SUBDUED;
-				
-			} else {
-				return ZaranixHomeGroundFloor.CORRIDOR_MAID_ATTACK;
-			}
-		}	
-	},
-	ZARANIX_GF_GARDEN_ROOM("Room", "dominion/zaranixHome/room", BaseColour.GREY, ZaranixHomeGroundFloor.GARDEN_ROOM, null, true, false, true, true, "in a room in Zaranix's home"),
-	ZARANIX_GF_GARDEN("Garden", "dominion/zaranixHome/garden", BaseColour.GREEN, ZaranixHomeGroundFloor.GARDEN, null, true, false, true, true, "in Zaranix's garden"),
-	ZARANIX_GF_GARDEN_ENTRY("Garden", "dominion/zaranixHome/entranceHall", BaseColour.GREEN, ZaranixHomeGroundFloor.GARDEN_ENTRY, null, true, false, true, true, "in Zaranix's garden"),
+	ZARANIX_GF_CORRIDOR("Corridor", null, BaseColour.GREY, ZaranixHomeGroundFloor.CORRIDOR, null, false, false, true, false, "in Zaranix's home"),
+	ZARANIX_GF_STAIRS("Staircase", "dominion/zaranixHome/stairsDown", BaseColour.GREEN_LIGHT, ZaranixHomeGroundFloor.STAIRS, null, false, false, true, false, "in Zaranix's home"),
+	ZARANIX_GF_ENTRANCE("Entrance", "dominion/zaranixHome/entranceHall", BaseColour.RED, ZaranixHomeGroundFloor.ENTRANCE, null, false, false, true, false, "in Zaranix's home"),
+	ZARANIX_GF_LOUNGE("Lounge", "dominion/zaranixHome/lounge", BaseColour.ORANGE, ZaranixHomeGroundFloor.LOUNGE, null, false, false, true, false, "in Zaranix's home"),
+	ZARANIX_GF_ROOM("Room", "dominion/zaranixHome/room", BaseColour.GREY, ZaranixHomeGroundFloor.ROOM, null, false, false, true, false, "in a room in Zaranix's home"),
+	ZARANIX_GF_MAID("Corridor", null, BaseColour.GREY, ZaranixHomeGroundFloor.CORRIDOR_MAID, null, true, true, true, false, "in Zaranix's Home"),
+	ZARANIX_GF_GARDEN_ROOM("Room", "dominion/zaranixHome/room", BaseColour.GREY, ZaranixHomeGroundFloor.GARDEN_ROOM, null, false, false, true, false, "in a room in Zaranix's home"),
+	ZARANIX_GF_GARDEN("Garden", "dominion/zaranixHome/garden", BaseColour.GREEN, ZaranixHomeGroundFloor.GARDEN, null, false, false, true, false, "in Zaranix's garden"),
+	ZARANIX_GF_GARDEN_ENTRY("Garden", "dominion/zaranixHome/entranceHall", BaseColour.GREEN, ZaranixHomeGroundFloor.GARDEN_ENTRY, null, false, false, true, false, "in Zaranix's garden"),
 
-	ZARANIX_FF_CORRIDOR("Corridor", null, BaseColour.GREY, ZaranixHomeFirstFloor.CORRIDOR, null, true, false, true, true, "in Zaranix's home"),
-	ZARANIX_FF_STAIRS("Staircase", "dominion/zaranixHome/stairsDown", BaseColour.RED, ZaranixHomeFirstFloor.STAIRS, null, true, false, true, true, "in Zaranix's home"),
-	ZARANIX_FF_OFFICE("Zaranix's Room", "dominion/zaranixHome/roomZaranix", BaseColour.PINK_DEEP, ZaranixHomeFirstFloor.ZARANIX_ROOM, null, true, false, true, true, "in Zaranix's home"),
-	ZARANIX_FF_ROOM("Room", "dominion/zaranixHome/room", BaseColour.GREY, ZaranixHomeFirstFloor.ROOM, null, true, false, true, true, "in a room in Zaranix's home"),
-	ZARANIX_FF_MAID("Corridor", null, BaseColour.RED, ZaranixHomeFirstFloor.CORRIDOR_MAID_ATTACK, null, true, false, true, true, "in Zaranix's Home"){
-		@Override
-		public DialogueNodeOld getDialogue(boolean withRandomEncounter) {
-			if(Main.game.getDialogueFlags().getFlag(DialogueFlagValue.zaranixKellySubdued)) {
-				return ZaranixHomeFirstFloor.CORRIDOR_MAID_SUBDUED;
-				
-			} else {
-				return ZaranixHomeFirstFloor.CORRIDOR_MAID_ATTACK;
-			}
-		}	
-	},
+	ZARANIX_FF_CORRIDOR("Corridor", null, BaseColour.GREY, ZaranixHomeFirstFloor.CORRIDOR, null, false, false, true, false, "in Zaranix's home"),
+	ZARANIX_FF_STAIRS("Staircase", "dominion/zaranixHome/stairsDown", BaseColour.RED, ZaranixHomeFirstFloor.STAIRS, null, false, false, true, false, "in Zaranix's home"),
+	ZARANIX_FF_OFFICE("Zaranix's Room", "dominion/zaranixHome/roomZaranix", BaseColour.PINK_DEEP, ZaranixHomeFirstFloor.ZARANIX_ROOM, null, true, true, true, false, "in Zaranix's home"),
+	ZARANIX_FF_ROOM("Room", "dominion/zaranixHome/room", BaseColour.GREY, ZaranixHomeFirstFloor.ROOM, null, false, false, true, false, "in a room in Zaranix's home"),
+	ZARANIX_FF_MAID("Corridor", null, BaseColour.RED, ZaranixHomeFirstFloor.CORRIDOR_MAID, null, true, true, true, false, "in Zaranix's Home"),
 	
 	
 	// Standard tiles:

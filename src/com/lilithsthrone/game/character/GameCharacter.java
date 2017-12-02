@@ -24,6 +24,7 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.FluidCum;
 import com.lilithsthrone.game.character.body.types.AntennaType;
@@ -108,7 +109,6 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingSet;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.clothing.CoverableArea;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
@@ -1571,6 +1571,34 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	public int getValueAsSlave() {
 		int value = 1000;
+		switch(this.getRace()) {
+			case ANGEL:
+				value = 50000;
+				break;
+			case CAT_MORPH: case DOG_MORPH:
+				value = 1000;
+				break;
+			case COW_MORPH: case HORSE_MORPH:
+				value = 1500;
+				break;
+			case DEMON:
+				value = 10000;
+				break;
+			case HARPY:
+				value = 800;
+				break;
+			case HUMAN:
+				value = 400;
+				break;
+			case SLIME:
+				break;
+			case SQUIRREL_MORPH:
+				value = 800;
+				break;
+			case WOLF_MORPH:
+				value = 800;
+				break;
+		}
 		
 		value += (getFetishes().size()*50);
 		
@@ -1662,6 +1690,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	 */
 	public Map<String, Float> getAffectionMap() {
 		return affectionMap;
+	}
+	
+	public void clearAffectionMap() {
+		affectionMap.clear();
 	}
 	
 	public float getAffection(GameCharacter character) {
@@ -2571,7 +2603,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				case VAGINA_PARTNER: case VAGINA_PLAYER:
 					increment = 10;
 					break;
-				case BREAST_PARTNER: case BREAST_PLAYER:
+				case BREAST_PARTNER: case BREAST_PLAYER: case ASS_PARTNER: case ASS_PLAYER:
 					break;
 			}
 			incrementAddiction(fluid, increment, true);
@@ -4002,6 +4034,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		switch(ot) {
 			case ANUS_PARTNER: case ANUS_PLAYER:
 				return isCoverableAreaExposed(CoverableArea.ANUS);
+			case ASS_PARTNER: case ASS_PLAYER:
+				return isCoverableAreaExposed(CoverableArea.ASS);
 			case MOUTH_PARTNER: case MOUTH_PLAYER:
 				return isCoverableAreaExposed(CoverableArea.MOUTH);
 			case NIPPLE_PARTNER: case NIPPLE_PLAYER:

@@ -224,6 +224,8 @@ public class Nyan extends NPC {
 		specials.add(AbstractClothingType.generateClothing(ClothingType.MEGA_MILK));
 
 		specials.add(AbstractClothingType.generateClothing(ClothingType.NECK_BREEDER_COLLAR));
+
+		specials.add(AbstractClothingType.generateClothing(ClothingType.SCIENTIST_TORSO_OVER_LAB_COAT));
 		
 		for(AbstractClothing c : commonFemaleClothing) {
 			c.setEnchantmentKnown(true);

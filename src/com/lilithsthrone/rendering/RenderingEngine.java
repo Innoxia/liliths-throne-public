@@ -1386,7 +1386,7 @@ public enum RenderingEngine {
 			}
 			count = 0;
 			if(Main.game.getEventLog().size()>50) {
-				for(EventLogEntry event : Main.game.getEventLog().subList(Main.game.getEventLog().size()-50, Main.game.getEventLog().size()-1)) {
+				for(EventLogEntry event : Main.game.getEventLog().subList(Main.game.getEventLog().size()-50, Main.game.getEventLog().size())) {
 					if(count%2==0) {
 						uiAttributeSB.append("<div class='event-log-entry' style='background:#222222;'>"+UtilText.parse(event.getFormattedEntry())+"</div>");
 					} else {

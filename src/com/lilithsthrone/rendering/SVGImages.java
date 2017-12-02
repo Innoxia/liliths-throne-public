@@ -22,7 +22,7 @@ public enum SVGImages {
 
 	displacedIcon, cummedInIcon, feminineWarningIcon, masculineWarningIcon, jinxedIcon,
 
-			menuIcon, inventoryIcon, inventoryIconDisabled, inventorySwitchIcon, inventorySwitchOppositeIcon, journalIcon, peopleIcon, zoomInIcon, zoomOutIcon, copyIcon, calendarIcon,
+			menuIcon, inventoryIcon, inventoryIconDisabled, inventorySwitchIcon, inventorySwitchOppositeIcon, journalIcon, peopleIcon, zoomInIcon, zoomOutIcon, copyIcon, exportIcon, calendarIcon,
 
 			itemsOnFloorIcon,
 			
@@ -51,7 +51,7 @@ public enum SVGImages {
 
 			slaveBuy, slaveBuyDisabled, slaveSell, slaveSellDisabled, slaveInspect, slaveInspectDisabled, slaveJob, slaveJobDisabled, slavePermissionsDisabled, slavePermissions, slaveTransfer, slaveTransferDisabled,
 			
-			transactionBuy, transactionBuyDisabled, transactionSell, transactionSellDisabled,
+			transactionBuy, transactionBuyDisabled, transactionBid, transactionBidDisabled, transactionSell, transactionSellDisabled,
 			
 			// Sex:
 			coverableAreaMouth, coverableAreaAnus, coverableAreaBreasts, coverableAreaBreastsFlat, coverableAreaNipple, coverableAreaVagina,
@@ -108,6 +108,9 @@ public enum SVGImages {
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/copy.svg");
 			copyIcon = Util.inputStreamToString(is);
 
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/export.svg");
+			exportIcon = Util.inputStreamToString(is);
+			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/calendar.svg");
 			calendarIcon = Util.inputStreamToString(is);
 			calendarIcon = setColour(calendarIcon, Colour.BASE_CRIMSON);
@@ -349,6 +352,16 @@ public enum SVGImages {
 			transactionBuyDisabled = Util.inputStreamToString(is);
 			transactionBuyDisabled = setColour(transactionBuyDisabled, Colour.BASE_GREY);
 			
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/transactionBid.svg");
+			transactionBid = Util.inputStreamToString(is);
+			transactionBid = setColour(transactionBid, Colour.BASE_BROWN);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/transactionBid.svg");
+			transactionBidDisabled = Util.inputStreamToString(is);
+			transactionBidDisabled = setColour(transactionBidDisabled, Colour.BASE_GREY);
+			
+			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/transactionSell.svg");
 			transactionSell = Util.inputStreamToString(is);
 			
@@ -489,6 +502,10 @@ public enum SVGImages {
 
 	public String getCopyIcon() {
 		return copyIcon;
+	}
+	
+	public String getExportIcon() {
+		return exportIcon;
 	}
 
 	public String getCalendarIcon() {
@@ -841,6 +858,14 @@ public enum SVGImages {
 
 	public String getTransactionBuyDisabled() {
 		return transactionBuyDisabled;
+	}
+	
+	public String getTransactionBid() {
+		return transactionBid;
+	}
+	
+	public String getTransactionBidDisabled() {
+		return transactionBidDisabled;
 	}
 
 	public String getTransactionSell() {

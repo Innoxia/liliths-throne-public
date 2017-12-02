@@ -18,7 +18,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.89
+ * @version 0.1.90
  * @author Innoxia
  */
 public interface SexActionInterface {
@@ -596,6 +596,10 @@ public interface SexActionInterface {
 				case ANUS_PARTNER:
 					break;
 				case ANUS_PLAYER:
+					break;
+				case ASS_PARTNER:
+					break;
+				case ASS_PLAYER:
 					break;
 				case MOUTH_PARTNER:
 					break;

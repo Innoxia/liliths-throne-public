@@ -47,6 +47,9 @@ public class EventLogEntry implements Serializable, XMLSaving {
 	}
 	
 	public String getFormattedEntry() {
+		if(name == null || name.isEmpty()) {
+			return description;
+		}
 		return name+": "+description;
 	}
 	

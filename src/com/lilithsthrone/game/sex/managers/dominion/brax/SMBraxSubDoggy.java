@@ -14,6 +14,7 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerNippl
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerUrethra;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisAss;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTailAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTailVagina;
@@ -86,6 +87,7 @@ public class SMBraxSubDoggy extends SexManagerDefault {
 				PlayerFingerAnus.class,
 				PlayerPenisVagina.class,
 				PlayerPenisAnus.class,
+				PlayerPenisAss.class,
 				PlayerTailVagina.class,
 				PlayerTailAnus.class,
 

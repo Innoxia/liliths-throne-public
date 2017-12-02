@@ -32,6 +32,19 @@
 
 	I would like the idea of merging the gender and the furry preference menus, so we can choose the gender ratio of each furry race individually instead of just having a global one.
 
+For example:
+Back Hair - Pony tail, Front Hair - Parted  (Center)
+Back Hair - Long straight, Front Hair - Side Swept (Left)
+Back Hair - Pig tails, Front Hair - Bangs
+Back Hair - Top bun, Front Hair - Long Bangs (Cover left eye)
+
+
+	Fetish levels:
+	"ashamed" (current intelligence debuff)
+	"indifferent" (no status effect)
+	"sexy" (current willpower damage bonus)
+	"aroused" (lust gain)
+
 	Achievements
 	
 	Suggestion: Certain fetishes may be attracted more often than others through a potion buff/enchantment/equipped item.
@@ -102,7 +115,12 @@
 	 Say you need 25 lust to become hard (or have your penis become unsheathed) so that you can actually start having sex and before you do certain actions would have changed descriptions (fondling instead of stroking/sheath playing).
 	  I'm not sure how this would work when you orgasm and all your lust disappears (you probably wouldn't get soft instantly) or when you or your partner are resisting. 
 	
+	Allow player to pick their representative colour themselves, rather than basing it off of femininity.
+
+Make "Cum Addict" fetish replace "Creampie" and "Dirty Clothes" statuses with positive versions, like "Exhibitionist" does.
 	
+	
+	jacket hoodie
 	
 	
 	Things I think would be nice to have:

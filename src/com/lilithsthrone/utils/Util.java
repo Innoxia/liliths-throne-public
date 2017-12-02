@@ -11,9 +11,9 @@ import java.util.Random;
 import java.util.Set;
 import java.util.function.Function;
 
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.CoverableArea;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 
 import javafx.scene.input.KeyCode;

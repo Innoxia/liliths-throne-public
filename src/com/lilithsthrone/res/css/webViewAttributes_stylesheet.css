@@ -321,7 +321,13 @@ h6{
 	background-color:#CCC;
 }
 .map-tile.dangerous{
-	background-color:#262626;
+	background: repeating-linear-gradient(
+		  135deg,
+		  #333,
+		  #333 10px,
+		  #444 10px,
+		  #444 20px
+		);
 }
 .map-tile.player.dangerous{
 	background-color:#404040;

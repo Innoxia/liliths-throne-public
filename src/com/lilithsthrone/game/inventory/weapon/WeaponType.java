@@ -21,7 +21,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.84
- * @version 0.1.84
+ * @version 0.1.90
  * @author Innoxia
  */
 public class WeaponType {
@@ -293,6 +293,70 @@ public class WeaponType {
 								"[npc.Name] tries to whack you with [npc.her] broom, but you manage to grab the shaft and push [npc.herHim] away.",
 								"[npc.Name] attempts to swipe [npc.her] broom at your [pc.legs], but you jump back and manage to avoid the blow.",
 								"[npc.Name] swings [npc.her] broom at you, but you manage to duck at the last moment and avoid the blow."));
+				}
+			}
+		}
+	};
+	
+	public static AbstractWeaponType MAIN_FEATHER_DUSTER = new AbstractWeaponType("a",
+			"it",
+			"feather duster",
+			"feather dusters",
+			"A short-handled feather duster, ideal for keeping a house clean, but not much use in combat...",
+			InventorySlot.WEAPON_MAIN,
+			"feather_duster",
+			Rarity.EPIC,
+			Util.newArrayListOfValues(new ListValue<DamageType>(DamageType.PHYSICAL)),
+			DamageLevel.AWFUL,
+			DamageVariance.LOW,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FITNESS, 5)),
+			Util.newArrayListOfValues(
+					new ListValue<Spell>(Spell.ARCANE_SHIELD))) {
+		
+		private static final long serialVersionUID = 1L;
+				
+		@Override
+		public String equipText(GameCharacter character) {
+			return "You ready your feather duster.";
+		}
+
+		@Override
+		public String unequipText(GameCharacter character) {
+			return "You put your feather duster away.";
+		}
+
+		@Override
+		public String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
+			if(isHit) {
+				if(character.isPlayer()) {
+					return UtilText.parse(target,
+							UtilText.returnStringAtRandom(
+								"You tickle [npc.name]'s [npc.arm] with your feather duster.",
+								"You swipe your feather duster at [npc.name]'s [npc.legs], and manage to tickle [npc.her] shins.",
+								"You swing your feather duster at [npc.name], grinning as you tickle [npc.her] torso."));
+					
+				} else {
+					return UtilText.parse(character,
+							UtilText.returnStringAtRandom(
+								"[npc.Name] tickles your [pc.arm] with [npc.her] feather duster.",
+								"[npc.Name] swipes [npc.her] feather duster at your [pc.legs], and manages to tickle your shins.",
+								"[npc.Name] swings [npc.her] feather duster at you, grinning as [npc.she] tickles your torso."));
+				}
+				
+			} else {
+				if(character.isPlayer()) {
+					return UtilText.parse(target,
+							UtilText.returnStringAtRandom(
+								"You try to tickle [npc.name] with your feather duster, but [npc.she] manages to push you away.",
+								"You attempt to swipe your feather duster at [npc.name]'s [npc.legs], but [npc.she] jumps back and manages to avoid the tickling.",
+								"You swing your feather duster at [npc.name], but [npc.she] manages to duck at the last moment and avoid the tickling."));
+					
+				} else {
+					return UtilText.parse(character,
+							UtilText.returnStringAtRandom(
+								"[npc.Name] tries to tickle you with [npc.her] feather duster, but you manage to grab the shaft and push [npc.herHim] away.",
+								"[npc.Name] attempts to swipe [npc.her] feather duster at your [pc.legs], but you jump back and manage to avoid the tickling.",
+								"[npc.Name] swings [npc.her] feather duster at you, but you manage to duck at the last moment and avoid the tickling."));
 				}
 			}
 		}

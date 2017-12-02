@@ -2,6 +2,7 @@ package com.lilithsthrone.game.dialogue.npcDialogue;
 
 import com.lilithsthrone.game.character.attributes.AffectionLevelBasic;
 import com.lilithsthrone.game.character.attributes.ObedienceLevelBasic;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
@@ -10,7 +11,6 @@ import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.clothing.CoverableArea;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.universal.SMDomStanding;
@@ -766,7 +766,7 @@ public class SlaveDialogue {
 					switch(ObedienceLevelBasic.getObedienceLevelFromValue(Main.game.getActiveNPC().getObedienceValue())) {
 						case DISOBEDIENT:
 							UtilText.nodeContentSB.append(" The moment that you finish speaking, your disobedient slave spits out,"
-									+ " [npc.pseech(Fuck off! I hate it, and I'm not even doing any work while I'm on duty, so fuck you!)]"
+									+ " [npc.speech(Fuck off! I hate it, and I'm not even doing any work while I'm on duty, so fuck you!)]"
 									+ "</p>"
 									+ "<p>"
 									+ "From [npc.her] rude reaction, it's quite clear that [npc.name] not only hates you, but also isn't too keen on living life as your slave."
@@ -775,7 +775,7 @@ public class SlaveDialogue {
 							break;
 						case NEUTRAL:
 							UtilText.nodeContentSB.append(" The moment that you finish speaking, your slave sharply responds,"
-									+ " [npc.pseech(I do what I must. I don't enjoy it, or being your slave for that matter, but I'll do what I have to.)]"
+									+ " [npc.speech(I do what I must. I don't enjoy it, or being your slave for that matter, but I'll do what I have to.)]"
 									+ "</p>"
 									+ "<p>"
 									+ "From [npc.her] curt reaction, it's quite clear that [npc.name] isn't too well adjusted to [npc.her] life as a slave."
@@ -784,7 +784,7 @@ public class SlaveDialogue {
 							break;
 						case OBEDIENT:
 							UtilText.nodeContentSB.append(" The moment that you finish speaking, your obedient slave quickly responds,"
-									+ " [npc.pseech(I do whatever I'm told to, [npc.pcName]. I'll carry out my duties to the best of my ability, as that's what's expected of me.)]"
+									+ " [npc.speech(I do whatever I'm told to, [npc.pcName]. I'll carry out my duties to the best of my ability, as that's what's expected of me.)]"
 									+ "</p>"
 									+ "<p>"
 									+ "From [npc.her] curt reaction, it's quite clear that while [npc.name] will obediently carry out [npc.her] duties as a slave, [npc.she] doens't like you."

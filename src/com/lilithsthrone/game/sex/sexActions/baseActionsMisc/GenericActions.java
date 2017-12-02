@@ -151,6 +151,16 @@ public class GenericActions {
 							UtilText.nodeContentSB.append("</br>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.asshole+].");
 						}
 						break;
+					case ASS_PARTNER:
+						if (Sex.getPenetrationTypeInOrifice(ot)!=null && Sex.getPenetrationTypeInOrifice(ot).isPlayer()) {
+							UtilText.nodeContentSB.append("</br>[npc.Name] lets out [npc.a_moan+] as you stop using [npc.her] [npc.ass+].");
+						}
+						break;
+					case ASS_PLAYER:
+						if (Sex.getPenetrationTypeInOrifice(ot)!=null && Sex.getPenetrationTypeInOrifice(ot).isPlayer()) {
+							UtilText.nodeContentSB.append("</br>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.ass+].");
+						}
+						break;
 					case BREAST_PARTNER:
 						if (Sex.getPenetrationTypeInOrifice(ot)!=null && Sex.getPenetrationTypeInOrifice(ot).isPlayer()) {
 							UtilText.nodeContentSB.append("</br>[npc.Name] lets out [npc.a_moan+] as you stop playing with [npc.her] [npc.breasts+].");

@@ -1,22 +1,29 @@
 package com.lilithsthrone.game.dialogue.places.dominion.zaranixHome;
 
 import com.lilithsthrone.game.Weather;
+import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.StrengthLevel;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.effects.Fetish;
+import com.lilithsthrone.game.character.npc.dominion.Amber;
+import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKatherine;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
-import com.lilithsthrone.game.inventory.clothing.CoverableArea;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMAmberDoggyFucked;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMZaranixCockSucking;
+import com.lilithsthrone.game.sex.managers.universal.SMDomStanding;
+import com.lilithsthrone.game.sex.managers.universal.SMSubStanding;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.world.WorldType;
@@ -24,14 +31,22 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.89
- * @version 0.1.95
+ * @version 0.1.90
  * @author Innoxia
  */
 public class ZaranixHomeGroundFloor {
 	
+	//TODO
+	public static void resetHouseAfterLeaving() {
+		// Maids:
+		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.zaranixAmberSubdued, false);
+		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.zaranixKatherineSubdued, false);
+		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.zaranixKellySubdued, false);
+	}
+	
 	public static final DialogueNodeOld OUTSIDE = new DialogueNodeOld("", "", true) {
 		private static final long serialVersionUID = 1L;
-
+		
 		@Override
 		public String getLabel() {
 			return "Zaranix's Home";
@@ -128,6 +143,7 @@ public class ZaranixHomeGroundFloor {
 						}
 						@Override
 						public void effects() {
+							Main.game.getAmber().setPlayerKnowsName(true);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.zaranixDiscoveredHome, true);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.zaranixMaidsHostile, true);
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.zaranixKickedDownDoor, true);
@@ -354,12 +370,22 @@ public class ZaranixHomeGroundFloor {
 			} else if (index == 1) {
 				return new Response("Reluctant lick", "If this is what it's going to take to finally meet Arthur, you suppose that you'll do it, even though you're quite reluctant about the whole thing.",
 						OUTSIDE_KNOCK_ON_DOOR_ASK_FOR_ARTHUR_SUBMISSIVE_RELUCTANT_LICK,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASOCHIST)), CorruptionLevel.TWO_HORNY, null, null, null);
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASOCHIST)), CorruptionLevel.TWO_HORNY, null, null, null) {
+					@Override
+					public void effects() {
+						Main.game.getAmber().setPlayerKnowsName(true);
+					}
+				};
 
 			} else if (index == 2) {
 				return new Response("Eager lick", "Immediately drop down onto all fours and enthusiastically lick the maid's shoes.",
 						OUTSIDE_KNOCK_ON_DOOR_ASK_FOR_ARTHUR_SUBMISSIVE_EAGER_LICK,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASOCHIST)), CorruptionLevel.FOUR_LUSTFUL, null, null, null);
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASOCHIST)), CorruptionLevel.FOUR_LUSTFUL, null, null, null) {
+					@Override
+					public void effects() {
+						Main.game.getAmber().setPlayerKnowsName(true);
+					}
+				};
 
 			} else {
 				return null;
@@ -929,6 +955,7 @@ public class ZaranixHomeGroundFloor {
 				return new Response("Arthur", "You finally come face-to-face with your elusive quarry.", MEETING_ZARANIX_ARTHUR) {
 					@Override
 					public void effects() {
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
 						Main.game.getArthur().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, false);
 					}
 				};
@@ -1321,17 +1348,22 @@ public class ZaranixHomeGroundFloor {
 						+ "Quickly stepping inside, you shut the door behind you, keen to avoid the attention of any passersby."
 						+ " You find yourself in a large entrance hall, similar to the one in Lilaya's home, but on a slightly smaller scale."
 						+ " A crystal chandelier hangs from the high ceiling, and a little way in front of you, a wide staircase leads to the upper floor."
-						+ " To either side of that, a pair of corridors lead off to other parts of the house, and it's from one of those that you hear the shout,"
-						+ " [amber.speech(What was that noise?!)]"
+						+ " To either side of that, a pair of corridors lead off to other parts of the house, and it's from one of those that you hear shouting."
+					+ "</p>"
+					+ "<p>"
+						+ "[katherine.speech(Miss Amber! There was a loud noise at the door!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "[amber.speech(Be quiet Katherine! Get on with your work, I'll deal with this!)]"
 					+ "</p>"
 					+ (Main.game.getDialogueFlags().getFlag(DialogueFlagValue.zaranixKnockedOnDoor)
 							?"<p>"
 								+ "Before you have the chance to take any action, the fiery-haired succubus maid who answered the door to you enters the hall."
-								+ " As her glowing-amber eyes fixate themselves onto yours, she screams,"
+								+ " As her glowing-amber eyes fixate themselves onto yours, 'Miss Amber' screams,"
 								+" [amber.speech(You picked the wrong house to try and rob, bitch!)]"
 							+ "</p>"
 							:"<p>"
-								+ "Before you have the chance to take any action, one of the most striking succubi you've ever seen enters the hall."
+								+ "Before you have the chance to take any action, one of the most striking succubi you've ever seen, who you assume to be 'Miss Amber', enters the hall."
 								+ " Her gorgeous face and perfectly-proportioned body are covered in pitch-black ebony skin, but it's not her voluptuous figure which your eyes are drawn to."
 								+ " Styled into a sidecut, and giving off a luminescent, yellowy-orange glow, it's her extraordinary amber hair that you find yourself gazing at."
 								+ " As her eyes fixate themselves onto yours, you see that her irises are the exact same glowing-amber shade as her hair, giving this demon a truly remarkable appearance."
@@ -1348,7 +1380,12 @@ public class ZaranixHomeGroundFloor {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new ResponseCombat("Fight", "Defend yourself against the furious maid!", ENTRANCE_KICK_DOWN_DOOR, Main.game.getAmber());
+				return new ResponseCombat("Fight", "Defend yourself against the furious maid!", ENTRANCE_KICK_DOWN_DOOR, Main.game.getAmber()) {
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.zaranixMaidsHostile, true);
+					}
+				};
 			} else {
 				return null;
 			}
@@ -1362,29 +1399,85 @@ public class ZaranixHomeGroundFloor {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
 		public String getLabel() {
 			return "Entrance Hall";
 		}
 
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "TODO! Entrance Hall."
-						+ " Heavy oak door."
-						+ " Can leave without being spotted."
-					+ "</p>";
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(
+					"<p>"
+						+ "The entrance hall to Zaranix's home, while nothing compared to that of Lilaya's, is nonetheless very impressive."
+						+ " A huge crystal chandelier casts its bright, arcane-powered light over the entire area, and fine paintings in golden frames hang on each of the surrounding walls."
+					+ "</p>"
+					+ "<p>"
+						+ "The main door to Zaranix's home is made from thick, sturdy oak, and there's nothing stopping you from opening it and taking your leave."
+						+ " <b>It looks like the door will locked behind you if you do this, so be prepared to gain entry all over again if you choose to leave now!</b>"
+					+ "</p>");
+			
+			if(Main.game.getAmber().getLocationPlace().getPlaceType()==PlaceType.ZARANIX_GF_ENTRANCE) {
+				UtilText.nodeContentSB.append(
+						"<p>"
+							+ "<i>"
+							+ "Amber is slumped down against one wall, and you see her hand furiously pumping away between her legs."
+							+ " Her intense lust doesn't look to be in any danger of dying down, and you wonder if you should have a little more fun with her while you have the chance..."
+							+ "</i>"
+						+ "</p>");
+			}
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Exit", "Leave Zaranix's house and head back out into Demon Home.", PlaceType.DOMINION_DEMON_HOME.getDialogue(false)) {
+				return new Response("Exit", "Leave Zaranix's house and head back out into Demon Home. <b>You will have to gain entry all over again if you choose to leave now!</b>", PlaceType.DOMINION_DEMON_HOME.getDialogue(false)) {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME, false);
+						resetHouseAfterLeaving();
 					}
 				};
 
+			} else if(index==2 && Main.game.getAmber().getLocationPlace().getPlaceType()==PlaceType.ZARANIX_GF_ENTRANCE) {
+				return new ResponseSex("Use Amber", "Have some fun with this fiery maid.",
+						true, false, Main.game.getAmber(), new SMDomStanding(), Amber.AFTER_SEX_VICTORY,
+						"<p>"
+							+ "It doesn't look like any of the other maids of the household will interrupt you, so you decide to take this opportunity to have a little fun with Amber."
+							+ " Stepping over to where she's sunk down against the wall, you reach forwards and take hold of her arm, before pulling her to her feet."
+							+ " Denied the freedom to get herself off, Amber pitifully looks up into your eyes, and instead of fury, you see them filled with burning lust."
+						+ "</p>"
+						+ "<p>"
+							+ "She pushes herself off from the wall, wrapping her arms around your back and desperately pressing her [amber.lips+] against yours."
+							+ " You reciprocate the gesture, and after spending a few moments of sliding your tongues into one another's mouths, you pull back, grinning..."
+						+ "</p>");
+				
+			} else if(index==3 && Main.game.getAmber().getLocationPlace().getPlaceType()==PlaceType.ZARANIX_GF_ENTRANCE) {
+				return new ResponseSex("Submit",
+						"Amber's fiery personality is seriously turning you on. You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with her. Perhaps if you submitted, she'd be willing to fuck you?",
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null, null,
+						true, true, Main.game.getAmber(), new SMSubStanding(), Amber.AFTER_SEX_VICTORY,
+						"<p>"
+							+ "Despite her current state, you find yourself incredibly turned on by Amber's dominant, fiery personality."
+							+ " Not willing to take the dominant role, but with a deep desire to have sex with the now-very-horny succubus, you walk up to where she's collapsed against the wall, and sigh,"
+							+ " [pc.speech(Miss Amber... Erm... If you're feeling a little horny, perhaps you could use me? I mean, I-)]"
+						+ "</p>"
+						+ "<p>"
+							+ "Despite the fact that you're a stranger in her master's house, Amber looks up at you with an intense, burning passion in her eyes."
+							+ " Sliding her hand out from under her dress, she jumps to her feet, interrupting your sentence as she grabs your head and pulls you into a desperate kiss."
+						+ "</p>"
+						+ "<p>"
+							+ "You reciprocate the gesture, but only spend a few moments sliding your tongues into one another's mouths before Amber pulls back, moaning,"
+							+ " [amber.speech(Good bitch! Fuck... I'm so fucking horny! I <i>need</i> you!)]"
+						+ "</p>");
+				
 			} else {
 				return null;
 			}
@@ -1395,15 +1488,40 @@ public class ZaranixHomeGroundFloor {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
 		public String getLabel() {
 			return "Staircase";
 		}
 
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "TODO! Staircase leading to the upper floor."
-					+ "</p>";
+			UtilText.nodeContentSB.setLength(0);
+			UtilText.nodeContentSB.append("<p>"
+						+ "Before you, a wide, red-carpeted staircase leads up to the first floor of Zaranix's house."
+						+ " On either side, a corridor leads to other parts of the house, and behind you, the entrance hall offers an opportunity to make your exit."
+					+ "</p>"
+					+ "<p>"
+						+ "Much like the rest of the house, the walls surrounding you are home to several fine paintings."
+						+ " Well-crafted cabinets, cushioned chairs, and little wooden tables are strategically dotted about here and there, but not so much so as to make the area seem cluttered."
+					+ "</p>"
+					+ "<p>"
+						+ "You could use the stairs here to gain access to the first floor, which is where you're sure to find Zaranix."
+					+ "</p>");
+			
+			if(!Main.game.getDialogueFlags().getFlag(DialogueFlagValue.zaranixKatherineSubdued)) {
+				UtilText.nodeContentSB.append(
+						"<p style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"
+							+ "<i>"
+							+ "You can hear the faint sound of humming coming from down the corridor to your right, and you realise that one of Zaranix's maids must be busy cleaning down there!"
+							+ " If you wanted to avoid confrontation, it would be best not to head over there."
+							+ "</i>"
+						+ "</p>");
+			}
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
@@ -1426,18 +1544,38 @@ public class ZaranixHomeGroundFloor {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
 		public String getLabel() {
 			return "Corridor";
 		}
 
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "TODO! Corridor."
-						+ " Extravagantly decorated with gold picture frames & lamps."
-						+ " Fine paintings on the walls."
-						+ " Everything about this place gives you the impression of great wealth (although it's not quite as grand as Lilaya's home, and far smaller)."
-					+ "</p>";
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append("<p>"
+						+ "You find yourself comparing the corridors of Zaranix's home to those of Lilaya's."
+						+ " While they're just as well-furnished as those of your aunt's house, being home to numerous fine painting, cushioned chairs, and well-crafted cabinets, they're not quite as wide nor high."
+						+ " Where once you might have been deeply impressed by the extravagant luxury of this incubus's mansion, you now find yourself thinking that it's not quite as grand as the one you live in."
+					+ "</p>");
+			
+			if(Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()-1) != null
+					&& Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()-1).getPlace().getPlaceType()==PlaceType.ZARANIX_GF_MAID
+					&& !Main.game.getDialogueFlags().getFlag(DialogueFlagValue.zaranixKatherineSubdued)) {
+				UtilText.nodeContentSB.append(
+						"<p style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"
+							+ "<i>"
+							+ "You can hear the faint sound of humming coming from further down the corridor, and you realise that one of Zaranix's maids must be busy cleaning down there!"
+							+ " If you wanted to avoid confrontation, it would be best not to head over there."
+							+ "</i>"
+						+ "</p>");
+			}
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
@@ -1450,6 +1588,11 @@ public class ZaranixHomeGroundFloor {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
 		public String getLabel() {
 			return "Zaranix's Garden";
 		}
@@ -1457,11 +1600,18 @@ public class ZaranixHomeGroundFloor {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "TODO! Garden."
-						+ " The stones of the garden's little gravel path crunch loudly underfoot, and you opt to walk on the small grass verge instead so as to remain undetected."
+						+ "A gravel path snakes through the entirety of Zaranix's garden, but, finding that the stones crunch loudly underfoot, you opt to walk on the small grass verge instead so as to remain as quiet as possible."
+						+ " To either side of the path, numerous flowerbeds and small glass structures are home to an incredible variety of plant-life, much of which is quite clearly alien to your old world."
 					+ "</p>"
 					+ "<p>"
-						+ "Describe building, glass doors connecting garden rooms to garden."
+						+ "Although small enough not to pose a threat, you see several, tentacle-like varieties squirming and twisting about with a mind of their own; the brightly-coloured flower in the centre of each one looking unmistakably like a vagina."
+						+ " Inspecting yet more of the flora as you move along, you notice that some of these tentacled plants have penis-like endings,"
+							+ " and you spend a moment reflecting on the fact that even the plantlife in this world is sexual in nature."
+						+ " From the variety of herbs, plants, and flowers, and the evidence of careful cultivation techniques, it appears as though this garden is less for show, and more for the practical purpose of gathering arcane ingredients."
+					+ "</p>"
+					+ "<p>"
+						+ "Looking over towards the side of Zaranix's house, you see a couple of glass doors connecting a pair of rooms to the garden in which you find yourself standing."
+						+ " You could either make your way over to them and use them to gain entry to the house, or climb back over the fence and return to the street behind you."
 					+ "</p>";
 		}
 
@@ -1469,19 +1619,28 @@ public class ZaranixHomeGroundFloor {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if(Main.game.getPlayer().isAbleToFly()) {
-					return new Response("Fly over fence", "Fly over the garden's fence and back out into Demon Home.", PlaceType.DOMINION_DEMON_HOME.getDialogue(false)) {
+					return new Response("Fly over fence", "Fly over the garden's fence and back out into Demon Home. <b>If you leave, all progress you've made through Zaranix's home will be reset!</b>", PlaceType.DOMINION_DEMON_HOME.getDialogue(false)) {
 						@Override
 						public void effects() {
+							resetHouseAfterLeaving();
 							Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME, false);
-							Main.game.getTextStartStringBuilder().append("");//TODO
+							Main.game.getTextStartStringBuilder().append(
+									"<p>"
+										+ "Deciding that you'll come back another time, you take a little run-up down the garden path, before launching yourself into the air."
+										+ " Swooping down over the fence, you very quickly find yourself back out in Demon Home once again..."
+									+ "</p>");
 						}
 					};
 				}
-				return new Response("Climb fence", "Climb over the garden's fence and head back out into Demon Home.", PlaceType.DOMINION_DEMON_HOME.getDialogue(false)) {
+				return new Response("Climb fence", "Climb over the garden's fence and head back out into Demon Home. <b>If you leave, all progress you've made through Zaranix's home will be reset!</b>", PlaceType.DOMINION_DEMON_HOME.getDialogue(false)) {
 					@Override
 					public void effects() {
+						resetHouseAfterLeaving();
 						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME, false);
-						Main.game.getTextStartStringBuilder().append("");//TODO
+						Main.game.getTextStartStringBuilder().append(
+								"<p>"
+									+ "Deciding that you'll come back another time, you climb up and over the fence, quickly finding yourself back out in Demon Home once again..."
+								+ "</p>");
 					}
 				};
 
@@ -1495,6 +1654,11 @@ public class ZaranixHomeGroundFloor {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
 		public String getLabel() {
 			return "Zaranix's Garden";
 		}
@@ -1502,10 +1666,15 @@ public class ZaranixHomeGroundFloor {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "TODO! Garden."
-						+ " huge variety of plants growing under strange arcane instruments."
-						+ " You assume that they must be harvested for use of some sort or another."
-					+ "</p>";
+					+ "A gravel path snakes through the entirety of Zaranix's garden, but, finding that the stones crunch loudly underfoot, you opt to walk on the small grass verge instead so as to remain as quiet as possible."
+					+ " To either side of the path, numerous flowerbeds and small glass structures are home to an incredible variety of plant-life, much of which is quite clearly alien to your old world."
+				+ "</p>"
+				+ "<p>"
+					+ "Although small enough not to pose a threat, you see several, tentacle-like varieties squirming and twisting about with a mind of their own; the brightly-coloured flower in the centre of each one looking unmistakably like a vagina."
+					+ " Inspecting yet more of the flora as you move along, you notice that some of these tentacled plants have penis-like endings,"
+						+ " and you spend a moment reflecting on the fact that even the plantlife in this world is sexual in nature."
+					+ " From the variety of herbs, plants, and flowers, and the evidence of careful cultivation techniques, it appears as though this garden is less for show, and more for the practical purpose of gathering arcane ingredients."
+				+ "</p>";
 		}
 
 		@Override
@@ -1518,15 +1687,41 @@ public class ZaranixHomeGroundFloor {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
 		public String getLabel() {
 			return "Garden Room";
 		}
 
 		@Override
-		public String getContent() {
-			return "<p>"
-						+ "TODO! Garden room."
-					+ "</p>";
+		public String getContent() { //TODO maid to left
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(
+					"<p>"
+						+ "Connected to the garden by means of a pair of sliding glass doors, the room you find yourself standing in appears to be some sort of utility room."
+						+ " A row of cupboards and cabinets line one of the walls, while a long counter-top runs the length of the opposite one."
+					+ "</p>"
+					+ "<p>"
+						+ "A wooden door, opposite to the glass ones that provide access to the garden, connects this room to the rest of the house, and you wonder if you should proceed into the main building itself, or go back out into the garden."
+					+ "</p>");
+			
+			if(Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX()-1, Main.game.getPlayer().getLocation().getY()) != null
+					&& Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX()-1, Main.game.getPlayer().getLocation().getY()).getPlace().getPlaceType()==PlaceType.ZARANIX_GF_MAID
+					&& !Main.game.getDialogueFlags().getFlag(DialogueFlagValue.zaranixKatherineSubdued)) {
+				UtilText.nodeContentSB.append(
+						"<p style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"
+							+ "<i>"
+							+ "You can hear the faint sound of humming coming from the other side of the wooden door, and you realise that one of Zaranix's maids must be out there cleaning the corridor!"
+							+ " If you wanted to avoid confrontation, it would be best to head back out into the garden and look for another way in."
+							+ "</i>"
+						+ "</p>");
+			}
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
@@ -1535,8 +1730,13 @@ public class ZaranixHomeGroundFloor {
 		}
 	};
 	
-	public static final DialogueNodeOld CORRIDOR_MAID_ATTACK = new DialogueNodeOld("", "", false) {
+	public static final DialogueNodeOld CORRIDOR_MAID = new DialogueNodeOld("", "", false) {
 		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
 
 		@Override
 		public String getLabel() {
@@ -1545,40 +1745,116 @@ public class ZaranixHomeGroundFloor {
 
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "TODO! Maid! Katherine is here dusting."
-					+ "</p>";
+			if(Main.game.getDialogueFlags().getFlag(DialogueFlagValue.zaranixKatherineSubdued)) {
+				return "<p>"
+							+ "The ivory-skinned succubus, Katherine, is slumped down against the wall."
+							+ " Her pink maid's dress is hiked up around her waist, and she lets out moan after lewd moan as with one hand she fingers herself, while the other strokes up and down the length of her throbbing cock."
+						+ "</p>"
+						+ "<p>"
+							+ "It doesn't look like there are any other maids around to interrupt, so you could go ahead and have a little fun with her..."
+						+ "</p>";
+			
+			} else if(Main.game.getKatherine().getFoughtPlayerCount()!=0) {
+				return "<p>"
+							+ "As you walk down the corridor, an ivory-skinned succubus, wearing a light pink maid's uniform, suddenly stands up from behind a cabinet."
+							+ " You instantly recognise her as Katherine, and, once again, she doesn't notice you at first, and continues to swipe her little feather-duster over the top of the wooden furniture, happily humming away as she works."
+						+ "</p>"
+						+ "<p>"
+							+ "Before you have a chance to take any action, she looks up and catches sight of you,"
+							+ " [katherine.speech(It's you again! How do you keep on getting in here?! You'll pay for this, you thief! Thief! Thief!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "Although she cries out in alarm, her shouts seem to be more of an accusation than a call for help, and she suddenly launches herself at you, all too eager to show you what she does to uninvited guests in her master's house."
+						+ "</p>";
+			
+			} else {
+				return "<p>"
+							+ "As you walk down the corridor, an ivory-skinned succubus, wearing a light pink maid's uniform, suddenly stands up from behind a cabinet."
+							+ " She doesn't notice you at first, and continues to swipe her little feather-duster over the top of the wooden furniture, happily humming away as she works."
+						+ "</p>"
+						+ "<p>"
+							+ "Before you have a chance to take any action, however, she looks up and catches sight of you,"
+							+ " [katherine.speech(Ah! Sorry [pc.miss]! I didn't know we were expecting guests! My name is Katherine, at your service!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "The maid curtsies as she says this, but as she stands up, the initial surprise of finding you wandering the corridors of her master's home wears off, and her eyes narrow down as she looks you up and down,"
+							+ " [katherine.speech(Wait a moment... I would have been told if guests were expected...)]"
+						+ "</p>"
+						+ "<p>"
+							+ "The realisation that you're an intruder suddenly dawns on her, and she gasps,"
+							+ " [katherine.speech(Eek! That must mean you're a thief! Thief! Thief!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "Although she cries out in alarm, her shouts seem to be more of an accusation than a call for help, and she suddenly launches herself at you, all too eager to show you what she does to uninvited guests in her master's house."
+						+ "</p>";
+			}
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return null;
+			if(Main.game.getDialogueFlags().getFlag(DialogueFlagValue.zaranixKatherineSubdued)) {
+				if(index==1) {
+					return new ResponseSex("Use Katherine", "Have some fun with this maid.",
+							true, false, Main.game.getKatherine(), new SMDomStanding(), ZaranixMaidKatherine.AFTER_SEX_VICTORY,
+							"<p>"
+								+ "It doesn't look like any of the other maids of the household will interrupt you, so you decide to take this opportunity to have a little fun with Katherine."
+								+ " Stepping over to where she's sunk down against the wall, you reach forwards and take hold of her arm, before pulling her to her feet."
+								+ " Denied the freedom to get herself off, the horny maid looks up into your eyes, and you see them filled with a desperate, burning lust."
+							+ "</p>"
+							+ "<p>"
+								+ "She pushes herself off from the wall, wrapping her arms around your back and desperately pressing her [katherine.lips+] against yours."
+								+ " You reciprocate the gesture, and after spending a few moments of sliding your tongues into one another's mouths, you pull back, grinning..."
+							+ "</p>");
+					
+				} else if(index==2) {
+					return new ResponseSex("Submit",
+							"You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with Katherine. Perhaps if you submitted, she'd be willing to fuck you?",
+							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null, null,
+							true, true, Main.game.getKatherine(), new SMSubStanding(), ZaranixMaidKatherine.AFTER_SEX_VICTORY,
+							"<p>"
+								+ "Not willing to take the dominant role, but with a deep desire to have sex with the now-very-horny succubus, you walk up to where Katherine's collapsed against the wall, and sigh,"
+								+ " [pc.speech(Katherine... Erm... If you're feeling a little horny, perhaps you could use me? I mean, I-)]"
+							+ "</p>"
+							+ "<p>"
+								+ "Despite the fact that you're a stranger in her master's house, Katherine looks up at you with an intense, burning passion in her eyes."
+								+ " Sliding her hand out from under her dress, she jumps to her feet, interrupting your sentence as she grabs your head and pulls you into a desperate kiss."
+							+ "</p>"
+							+ "<p>"
+								+ "You reciprocate the gesture, but only spend a few moments sliding your tongues into one another's mouths before Katherine pulls back, moaning,"
+								+ " [katherine.speech(Oh yes! Fuck... I'm so fucking horny! I <i>need</i> you!)]"
+							+ "</p>");
+					
+				} else {
+					return null;
+				}
+			} else {
+				if(index==1) {
+					return new ResponseCombat("Fight", "Defend yourself against the furious maid!", CORRIDOR_MAID, Main.game.getKatherine()) {
+						@Override
+						public void effects() {
+							Main.game.getKatherine().setPlayerKnowsName(true);
+							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.zaranixMaidsHostile, true);
+						}
+					};
+				} else {
+					return null;
+				}
+			}
 		}
-	};
-	
-	public static final DialogueNodeOld CORRIDOR_MAID_SUBDUED = new DialogueNodeOld("", "", false) {
-		private static final long serialVersionUID = 1L;
-
+		
 		@Override
-		public String getLabel() {
-			return "Corridor";
-		}
-
-		@Override
-		public String getContent() {
-			return "<p>"
-						+ "TODO! Maid! Katherine is here dusting."
-					+ "</p>";
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			return null;
+		public boolean isTravelDisabled() {
+			return !Main.game.getDialogueFlags().getFlag(DialogueFlagValue.zaranixKatherineSubdued);
 		}
 	};
 	
 	public static final DialogueNodeOld ROOM = new DialogueNodeOld("", "", false) {
 		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
 
 		@Override
 		public String getLabel() {
@@ -1588,8 +1864,8 @@ public class ZaranixHomeGroundFloor {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "TODO! Room."
-						+ " The door is locked, and there's no sound of anyone within."
+						+ "The door to this room is locked, and there's no sound of anyone within."
+						+ " Knowing that it's sure to just be a dull and uninteresting dead-end, you decide against trying to force the door open, and turn around to continue on your exploration of Zaranix's home."
 					+ "</p>";
 		}
 
@@ -1603,22 +1879,179 @@ public class ZaranixHomeGroundFloor {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
 		public String getLabel() {
 			return "Lounge";
 		}
 
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "TODO! Lounge."
-						+ " Amber is here."
-						+ " Cleaning the lounge."
+			if(Main.game.getAmber().getLocationPlace().getPlaceType()!=PlaceType.ZARANIX_GF_LOUNGE) {
+				return "<p>"
+						+ "You find yourself standing in Zaranix's grand drawing room."
+						+ " Several sofas and chairs are tastefully arranged around a low table in the centre of the room, while numerous bookcases and cabinets line the floral-wallpapered walls."
+						+ " The high ceiling is home to an exceptionally extravagant chandelier, while the floor underfoot is covered in thick, cream-coloured carpet."
+					+ "</p>"
+					+ "<p>"
+						+ "There doesn't appear to be anyone here right now, so you should probably continue on your way..."
 					+ "</p>";
+				
+			} else if(Main.game.getDialogueFlags().getFlag(DialogueFlagValue.zaranixAmberSubdued)) {
+				return "<p>"
+						+ "You find yourself standing in Zaranix's grand drawing room."
+						+ " Several sofas and chairs are tastefully arranged around a low table in the centre of the room, while numerous bookcases and cabinets line the floral-wallpapered walls."
+						+ " The high ceiling is home to an exceptionally extravagant chandelier, while the floor underfoot is covered in thick, cream-coloured carpet."
+					+ "</p>"
+					+ "<p>"
+						+ "<i>"
+						+ "Amber is slumped down against one wall, and you see her hand furiously pumping away between her legs."
+						+ " Her intense lust doesn't look to be in any danger of dying down, and you wonder if you should have a little more fun with her while you have the chance..."
+						+ "</i>"
+					+ "</p>";
+				
+			} else if(Main.game.getDialogueFlags().getFlag(DialogueFlagValue.zaranixKnockedOnDoor) || Main.game.getAmber().getFoughtPlayerCount()!=0) {
+				return "<p>"
+						+ "Carefully opening a heavy oaken door, you find yourself stepping into a grand drawing room."
+						+ " Several sofas and chairs are tastefully arranged around a low table in the centre of the room, while numerous bookcases and cabinets line the floral-wallpapered walls."
+						+ " The high ceiling is home to an exceptionally extravagant chandelier, while the floor underfoot is covered in thick, cream-coloured carpet."
+					+ "</p>"
+					+ "<p>"
+						+ "The features of this room aren't quite the focus of your attention, however, as near the right-hand wall you see the back of "
+							+(Main.game.getAmber().getFoughtPlayerCount()!=0?"Amber, the succubus maid who you've fought here before.":"the same amber-haired succubus who answered the front door.")
+						+ " She appears to be busily dusting and polishing several ornamental objects in a display cabinet, and hasn't noticed your entry."
+						+ " It might be wise to carefully continue on your way, but if you really wanted to, you could approach the maid and get her notice you..."
+					+ "</p>";
+				
+			} else {
+				return "<p>"
+							+ "Carefully opening a heavy oaken door, you find yourself stepping into a grand drawing room."
+							+ " Several sofas and chairs are tastefully arranged around a low table in the centre of the room, while numerous bookcases and cabinets line the floral-wallpapered walls."
+							+ " The high ceiling is home to an exceptionally extravagant chandelier, while the floor underfoot is covered in thick, cream-coloured carpet."
+						+ "</p>"
+						+ "<p>"
+							+ "The features of this room aren't quite the focus of your attention, however, as near the right-hand wall you see the back of a succubus maid."
+							+ " Her dark ebony skin matches the black of her maid's uniform, and atop her head, she has the most amazing hair you've ever seen."
+							+ " Reaching down to her shoulders, and styled in a sidecut, the maid's amber-coloured hair gives of a bright glow."
+						+ "</p>"
+						+ "<p>"
+							+ "She appears to be busily dusting and polishing several ornamental objects in a display cabinet, and hasn't noticed your entry."
+							+ " It might be wise to carefully continue on your way, but if you really wanted to, you could approach the maid and get her notice you..."
+						+ "</p>";
+			}
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return null;
+			if(Main.game.getAmber().getLocationPlace().getPlaceType()!=PlaceType.ZARANIX_GF_LOUNGE) {
+				return null;
+				
+			} else if(Main.game.getDialogueFlags().getFlag(DialogueFlagValue.zaranixAmberSubdued)) {
+				if(index==1) {
+					return new ResponseSex("Use Amber", "Have some fun with this fiery maid.",
+							true, false, Main.game.getAmber(), new SMDomStanding(), Amber.AFTER_SEX_VICTORY,
+							"<p>"
+								+ "It doesn't look like any of the other maids of the household will interrupt you, so you decide to take this opportunity to have a little fun with Amber."
+								+ " Stepping over to where she's sunk down against the wall, you reach forwards and take hold of her arm, before pulling her to her feet."
+								+ " Denied the freedom to get herself off, Amber pitifully looks up into your eyes, and instead of fury, you see them filled with burning lust."
+							+ "</p>"
+							+ "<p>"
+								+ "She pushes herself off from the wall, wrapping her arms around your back and desperately pressing her [amber.lips+] against yours."
+								+ " You reciprocate the gesture, and after spending a few moments of sliding your tongues into one another's mouths, you pull back, grinning..."
+							+ "</p>");
+					
+				} else if(index==2) {
+					return new ResponseSex("Submit",
+							"Amber's fiery personality is seriously turning you on. You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with her. Perhaps if you submitted, she'd be willing to fuck you?",
+							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null, null,
+							true, true, Main.game.getAmber(), new SMSubStanding(), Amber.AFTER_SEX_VICTORY,
+							"<p>"
+								+ "Despite her current state, you find yourself incredibly turned on by Amber's dominant, fiery personality."
+								+ " Not willing to take the dominant role, but with a deep desire to have sex with the now-very-horny succubus, you walk up to where she's collapsed against the wall, and sigh,"
+								+ " [pc.speech(Miss Amber... Erm... If you're feeling a little horny, perhaps you could use me? I mean, I-)]"
+							+ "</p>"
+							+ "<p>"
+								+ "Despite the fact that you're a stranger in her master's house, Amber looks up at you with an intense, burning passion in her eyes."
+								+ " Sliding her hand out from under her dress, she jumps to her feet, interrupting your sentence as she grabs your head and pulls you into a desperate kiss."
+							+ "</p>"
+							+ "<p>"
+								+ "You reciprocate the gesture, but only spend a few moments sliding your tongues into one another's mouths before Amber pulls back, moaning,"
+								+ " [amber.speech(Good bitch! Fuck... I'm so fucking horny! I <i>need</i> you!)]"
+							+ "</p>");
+					
+				} else {
+					return null;
+				}
+				
+			} else {
+				if(index==1) {
+					return new Response("Approach the maid", "Walk up behind the maid. <b>She's sure to notice your approach, which will most likely result in you having to fight her!</b>", LOUNGE_AMBER) {
+						@Override
+						public boolean isCombatHighlight() {
+							return true;
+						}
+						@Override
+						public void effects() {
+							Main.game.getAmber().setPlayerKnowsName(true);
+						}
+					};
+				} else {
+					return null;
+				}
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld LOUNGE_AMBER = new DialogueNodeOld("", "", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getLabel() {
+			return "Lounge";
+		}
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append("<p>"
+						+ "Deciding that you'd like to say hello to the succubus, you being to walk towards her."
+						+ " As you draw near, she turns her head to one side, obviously having heard your approach as she calls out,"
+						+ " [amber.speech(If I have to tell you or your sister to announce your presence with 'Excuse me Miss Amber' <i>one</i> more time, I swear I'll-)]"
+					+ "</p>"
+					+ "<p>"
+						+ "Having mistaken you for one of the other household maids, Amber turns around to face you."
+						+ " As she sees who you really are, her sentence is suddenly cut off, and an angry scowl covers her face."
+						+ " Her eyes, glowing amber just like her hair, lock onto yours, and she shouts, ");
+			
+			if(Main.game.getDialogueFlags().getFlag(DialogueFlagValue.zaranixKnockedOnDoor) || Main.game.getAmber().getFoughtPlayerCount()!=0) {
+				UtilText.nodeContentSB.append("[amber.speech(You again?! How the fuck did you get in here?! You're in big trouble now!)]");
+			} else {
+				UtilText.nodeContentSB.append("[amber.speech(Who the fuck are you?! How the fuck did you get in here?! Whoever you are, you're in big trouble now!)]");
+			}
+			UtilText.nodeContentSB.append("</p>"
+					+ "<p>"
+						+ "Not even giving you a chance to answer her questions, Amber launches herself at you in a blind fury!"
+					+ "</p>");
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new ResponseCombat("Fight", "Defend yourself against the furious maid!", LOUNGE_AMBER, Main.game.getAmber()) {
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.zaranixMaidsHostile, true);
+					}
+				};
+			} else {
+				return null;
+			}
 		}
 	};
 }

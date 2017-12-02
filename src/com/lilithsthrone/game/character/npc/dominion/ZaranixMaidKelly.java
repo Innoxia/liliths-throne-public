@@ -13,21 +13,30 @@ import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.effects.Fetish;
+import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.Attack;
+import com.lilithsthrone.game.combat.Spell;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
+import com.lilithsthrone.game.inventory.weapon.WeaponType;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.managers.universal.SMDomStanding;
 import com.lilithsthrone.game.sex.managers.universal.SMSubStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -66,6 +75,7 @@ public class ZaranixMaidKelly extends NPC {
 			this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 			
 			this.addFetish(Fetish.FETISH_SUBMISSIVE);
+			this.addFetish(Fetish.FETISH_MASOCHIST);
 
 			this.setVaginaVirgin(false);
 			this.setAssVirgin(false);
@@ -80,6 +90,8 @@ public class ZaranixMaidKelly extends NPC {
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_STOCKINGS, Colour.CLOTHING_PINK_LIGHT, false), true, this);
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_SLEEVES, Colour.CLOTHING_PINK_LIGHT, false), true, this);
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.MAID_HEELS, Colour.CLOTHING_PINK_LIGHT, false), true, this);
+			
+			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MAIN_FEATHER_DUSTER));
 		}
 	}
 	
@@ -88,6 +100,11 @@ public class ZaranixMaidKelly extends NPC {
 		ZaranixMaidKelly npc = new ZaranixMaidKelly(true);
 
 		loadNPCVariablesFromXML(npc, null, parentElement, doc);
+		
+		if(npc.getMainWeapon()==null) {
+			npc.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MAIN_FEATHER_DUSTER));
+		}
+		npc.addFetish(Fetish.FETISH_MASOCHIST);
 		
 		return npc;
 	}
@@ -135,19 +152,36 @@ public class ZaranixMaidKelly extends NPC {
 	
 	@Override
 	public String getCombatDescription() {
-		return "You are fighting a succubus maid!";
+		return "Despite her commitment to defending her master's home, Kelly's choice of weapon - the feather duster that she was using to clean the corridor - doesn't strike you as being the most effective of combat implements...";
 	}
 
 	@Override
 	public String getAttackDescription(Attack attackType, boolean isHit) {
 		if (attackType == Attack.MAIN) {
 			return "<p>"
-						+ "The maid strikes out at you!"
-					+ "</p>";
+					+ UtilText.returnStringAtRandom(
+							"Letting out a desperate cry, Kelly swings her little feather duster at you, brushing the feathers over your face!",
+							"With a little shout, Kelly tickles her feather duster over your torso!",
+							"Brushing her feather duster over your torso, Kelly lets out a little cry!") 
+				+ "</p>";
+			
+		} else if (attackType == Attack.SPELL) {
+			return "<p>"
+					+ UtilText.returnStringAtRandom(
+							"Kelly grips her feather duster to her chest and cries out as she casts a spell!",
+							"Kelly thrusts her feather duster up into the air as she casts a spell!") 
+				+ "</p>";
+			
 		} else {
 			return "<p>"
-						+ "The maid lets out an angry shout as she casts a spell!"
-					+ "</p>";
+					+ UtilText.returnStringAtRandom(
+							"Kelly pulls the bottom of her maid's dress up a little, moaning, [kelly.speech(If you beat me, there'd be nothing stopping you from ravishing me!)]",
+							"With a lewd moan, Kelly snakes a hand under her dress, moaning [kelly.speech(~Ah!~ You're so powerful! I'm getting wet already!)]",
+							"Biting her lip, Kelly looks up into your eyes, and you hear a lewd moan echoing around inside of your head, [kelly.speech(I hope you beat me! Show me no mercy!)]",
+							"With an incredibly lewd moan, Kelly runs her hands up the length of her body to cup her [kelly.cupSize]-cup breasts, [kelly.speech(~Mmm!~ If I fail, there'd be nothing stopping you from fucking me!)]",
+							"Kelly makes a show of staggering back, before desperately pressing her hands down between her legs, [kelly.speech(~Aah!~ I can just imagine all the lewd things you'd do to me if I fall here!)]",
+							"Kelly's [npc.breasts+] starts to heave up and down as she pants, [kelly.speech(Oh no! I'm feeling weak already! Y-You're sure to take advantage of me if I lose!)]") 
+				+ "</p>";
 		}
 
 	}
@@ -155,14 +189,14 @@ public class ZaranixMaidKelly extends NPC {
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
 		if (victory) {
-			return new Response("", "", AFTER_COMBAT_VICTORY);
-		} else {
-			return new Response("", "", AFTER_COMBAT_DEFEAT) {
+			return new Response("", "", AFTER_COMBAT_VICTORY) {
 				@Override
 				public void effects() {
-					
+					Main.game.getDialogueFlags().setFlag(DialogueFlagValue.zaranixKellySubdued, true);
 				}
 			};
+		} else {
+			return new Response("", "", AFTER_COMBAT_DEFEAT);
 		}
 	}
 	
@@ -172,18 +206,55 @@ public class ZaranixMaidKelly extends NPC {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "TODO! You are victorious. You can use the maid (who, still resisting, demands you address her as Kelly), or leave her and carry on."
+						+ "Kelly staggers back, gripping the edge of a nearby cabinet as she collapses against the wall."
+						+ " She doesn't seem all that upset at having failed to defend her master's home, as she looks up at you and moans,"
+						+ " [kelly.speech(~Ah!~ Oh no! I'm totally defenceless! ~Mmm!~ Nothing can stop you from having your way with me now!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "It's quite obvious that she wants to have sex with you, and she continues to moan and pant with desire as she leans back against the wall."
+						+ " Unable to wait even two seconds to hear your reply, her hands slip under her dress, and she starts shamelessly masturbating right there in front of you."
+					+ "</p>"
+					+ "<p>"
+						+ "In her current lust-filled state, Kelly isn't going to pose much of a threat from now on, so you could either do what she obviously want you t do, and have sex with her, or simply ignore her and continue on your way."
 					+ "</p>";
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Continue", "Continue exploring Zaranix's house.", PlaceType.ZARANIX_GF_MAID.getDialogue(false));
+				return new Response("Continue", "Continue exploring Zaranix's house.", PlaceType.ZARANIX_FF_MAID.getDialogue(false));
 				
 			} if(index==2) {
-				return new ResponseSex("Use Kelly", "Kelly commands and lift your ass towards her.",
-						false, false, Main.game.getKelly(), new SMDomStanding(), AFTER_SEX_VICTORY);
+				return new ResponseSex("Use Kelly", "Have some fun with the horny maid.",
+						true, false, Main.game.getKelly(), new SMDomStanding(), AFTER_SEX_VICTORY,
+						"<p>"
+							+ "It doesn't look like any of the other maids of the household will interrupt you, so you decide to take this opportunity to have a little fun with Kelly."
+							+ " Stepping over to where she's leaning back against the wall, you reach forwards and take hold of her arm, before pulling her hand away from her groin."
+							+ " Denied the freedom to get herself off, the horny maid looks up into your eyes, and you see them filled with a desperate, burning lust."
+						+ "</p>"
+						+ "<p>"
+							+ "She pushes herself off from the wall, wrapping her arms around your back and desperately pressing her [kelly.lips+] against yours."
+							+ " You reciprocate the gesture, and after spending a few moments of sliding your tongues into one another's mouths, you pull back, grinning..."
+						+ "</p>");
+				
+			} else if(index==3) {
+				return new ResponseSex("Submit",
+						"You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with Kelly. Perhaps if you submitted, she'd be willing to fuck you?",
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null, null,
+						true, true, Main.game.getKelly(), new SMSubStanding(), ZaranixMaidKelly.AFTER_SEX_VICTORY,
+						"<p>"
+							+ "Not willing to take the dominant role, but with a deep desire to have sex with the horny succubus, you walk up to where Kelly's collapsed against the wall, and sigh,"
+							+ " [pc.speech(Kelly... Erm... If you're feeling a little horny, perhaps you could use me? I mean, I-)]"
+						+ "</p>"
+						+ "<p>"
+							+ "Despite the fact that you're a stranger in her master's house, Kelly looks up at you with an intense, burning passion in her eyes."
+							+ " Sliding her hand out from under her dress, she immediately interrupts your sentence as she grabs your head and pulls you into a desperate kiss."
+						+ "</p>"
+						+ "<p>"
+							+ "You reciprocate the gesture, but only spend a few moments sliding your tongues into one another's mouths before Kelly pulls back, moaning,"
+							+ " [kelly.speech(Oh yes! Fuck... I'm so fucking horny! I <i>need</i> you!)]"
+						+ "</p>");
+				
 			} else {
 				return null;
 			}
@@ -195,15 +266,42 @@ public class ZaranixMaidKelly extends NPC {
 
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "TODO! Continue through the house."
-					+ "</p>";
+			UtilText.nodeContentSB.setLength(0);
+			if(Sex.getNumberOfPartnerOrgasms() >= 1) {
+				UtilText.nodeContentSB.append(
+						"<p>"
+							+ "With a satisfied sigh, Kelly slumps back against the wall,"
+							+ " [kelly.speech(~Ah!~ That was good...)]"
+						+ "</p>"
+						+ "<p>"
+							+ "Despite the fact that you only just brought her to an orgasm, her hands slip down between her legs, and, with an exceptionally lewd moan, she starts fingering herself."
+							+ " It's quite clear from her actions that she's still overwhelmed by the arousing power of your aura, so it would be safe to leave her behind and continue in your exploration of Zaranix's home."
+						+ "</p>");
+				
+			} else {
+				UtilText.nodeContentSB.append(
+						"<p>"
+							+ "With a desperate moan, Kelly slumps back against the wall,"
+							+ " [kelly.speech(~Ah!~ I didn't even get to cum!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "Her hands instantly slip down between her legs, and, with an exceptionally lewd moan, she starts fingering herself."
+							+ " It's quite clear from her actions that she's still overwhelmed by the arousing power of your aura, so it would be safe to leave her behind and continue in your exploration of Zaranix's home."
+						+ "</p>");
+			}
+			
+			UtilText.nodeContentSB.append(
+					"<p>"
+						+ "Conscious of the fact that there are other maids to look out for, you prepare to set off further into the house..."
+					+ "</p>");
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Continue", "Continue exploring Zaranix's house.", PlaceType.ZARANIX_GF_MAID.getDialogue(false));
+				return new Response("Continue", "Continue exploring Zaranix's house.", PlaceType.ZARANIX_FF_MAID.getDialogue(false));
 				
 			} else {
 				return null;
@@ -217,7 +315,16 @@ public class ZaranixMaidKelly extends NPC {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "TODO! You are defeated. The maid introduces herself as Kelly."
+						+ "Kelly proves to be too powerful for you to handle, and, letting out a defeated cry, you stagger across the corridor and lean against the wall for support."
+						+ " Looking up, you see the ivory-skinned maid pouting at you as she steps forwards,"
+						+ " [kelly.speech(Aww... I was sort of hoping you'd put up a bit more of a fight... That was no fun at all!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "You're powerless to resist as she moves right up beside you, wrapping her arms around your back and pulling you into her [kelly.breasts+] as she giggles,"
+						+ " [kelly.speech(Looks like I'll have to get my fun in a different way...)]"
+					+ "</p>"
+					+ "<p>"
+						+ "With that, she suddenly presses her [kelly.lips+] against yours, pulling you into a passionate kiss as her demonic tail snakes up to rub at your groin..."
 					+ "</p>";
 		}
 
@@ -238,7 +345,17 @@ public class ZaranixMaidKelly extends NPC {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "TODO! Kelly throws you out."
+						+ "Completely exhausted, you collapse to the floor, panting."
+						+ " Towering over you, Kelly speaks down in a very patronising tone,"
+						+ " [kelly.speech(Awww! Was that too much fun for you? In that case, I think it's about time I showed you the exit!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "Too tired to resist, you're left totally helpless as Kelly drags you along the corridor to the front entrance."
+						+ " Opening the door, she unceremoniously shoves you out into the street, sighing,"
+						+ " [kelly.speech(I guess you picked the wrong house to try and rob, huh?)]"
+					+ "</p>"
+					+ "<p>"
+						+ "With that, she slams the door shut, leaving you to pick yourself up and carry on your way..."
 					+ "</p>";
 		}
 
@@ -258,18 +375,24 @@ public class ZaranixMaidKelly extends NPC {
 		}
 	};
 	
+
 	@Override
 	public Attack attackType() {
-		if (Math.random() < 0.4) {
-			return Attack.MAIN;
-		} else {
+		double rand = Math.random();
+		if (rand > 0.8f
+				&& this.getManaPercentage() > 0.4f
+				&& (!this.getStatusEffects().contains(StatusEffect.ARCANE_SHIELD))) {
+			return Attack.SPELL;
+		} else if(rand > 0.2f) {
 			return Attack.SEDUCTION;
+		} else {
+			return Attack.MAIN;
 		}
 	}
 	
 	@Override
-	public int getEscapeChance() {
-		return 0;
+	public Spell getSpell() {
+		return Spell.ARCANE_SHIELD;
 	}
 
 	@Override

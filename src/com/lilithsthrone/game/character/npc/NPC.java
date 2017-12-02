@@ -28,6 +28,7 @@ import com.lilithsthrone.game.character.body.Arm;
 import com.lilithsthrone.game.character.body.Ass;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.Breast;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.Ear;
 import com.lilithsthrone.game.character.body.Eye;
 import com.lilithsthrone.game.character.body.Face;
@@ -85,7 +86,6 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
-import com.lilithsthrone.game.inventory.clothing.CoverableArea;
 import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
@@ -6225,6 +6225,12 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			case ANUS_PLAYER:
 				orificeName = "[pc.asshole+]";
 				break;
+			case ASS_PARTNER:
+				orificeName = "[npc.ass+]";
+				break;
+			case ASS_PLAYER:
+				orificeName = "[pc.ass+]";
+				break;
 			case MOUTH_PARTNER:
 				orificeName = "mouth";
 				break;
@@ -7098,6 +7104,12 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				break;
 			case ANUS_PLAYER:
 				orificeName = "[pc.asshole+]";
+				break;
+			case ASS_PARTNER:
+				orificeName = "[npc.ass+]";
+				break;
+			case ASS_PLAYER:
+				orificeName = "[pc.ass+]";
 				break;
 			case MOUTH_PARTNER:
 				orificeName = "mouth";

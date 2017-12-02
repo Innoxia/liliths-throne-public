@@ -179,7 +179,7 @@ public class DominionAlleywayAttacker extends NPC {
 			// PERSONALITY & BACKGROUND:
 			
 			if(this.isFeminine()) {
-				if(Math.random()>0.2f) {
+				if(Math.random()>0.5f) {
 					this.setHistory(History.PROSTITUTE);
 					setSexualOrientation(SexualOrientation.AMBIPHILIC);
 					setName(Name.getRandomProstituteTriplet());

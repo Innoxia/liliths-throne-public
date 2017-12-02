@@ -14,6 +14,7 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerFingerNip
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerFingerUrethra;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerFingerVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerPenisAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerPenisAss;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerPenisVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTailAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTailVagina;
@@ -87,6 +88,7 @@ public class SMSubDoggy extends SexManagerDefault {
 				PartnerFingerAnus.class,
 				PartnerPenisVagina.class,
 				PartnerPenisAnus.class,
+				PartnerPenisAss.class,
 				PartnerTailVagina.class,
 				PartnerTailAnus.class,
 				

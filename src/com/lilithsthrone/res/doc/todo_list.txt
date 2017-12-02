@@ -4,48 +4,86 @@
 		Update README
 		Create .exe version
 		
-	Slavery
-	- Add some more jobs, events, and permissions.
-	
-	Orgasms & Sex
+		
+		
+	- Finish Zaranix's content.
+	- Finish writing slave placeholder content.
+	- Add more slave jobs. Things like assisting Rose, working in a bar/brothel/milking shed, training, etc. gardener
+	- Add more ways to influence a slave's affection and obedience.
 	- Improve orgasm dialogue.
-	- Add position-specific orgasm scenes.
-	- Add body-part recognition for orgasm scenes Things such as knotting, orifice modifiers, fluid modifiers, etc.
-	- Add thigh sex and hotdogging.
+		- Add in position-specific orgasm scenes.
+		- Add in body-part recognition for orgasm scenes. Things such as knotting, orifice modifiers, fluid modifiers, etc.
+	- Improve anilingus and add it to more positions.
+	- Add thigh sex.
 	- Work on final improvements to the sex system.
-	
-	Adding content
 	- Add in missing content related to the new transformations. Addictive fluids, part modifiers referenced during sex, etc.
-	- Add in main story content.
 	
 	
 	
 	Patch notes:
 	
 	Gameplay:
-		<b>Added:</b> main quest content involving Zaranix. (There are several ways to complete the quest, involving submission, stealth, violence, and diplomacy.)
-		<b>Added:</b> prostitute variation of alleyway attacker.
-		Filled in most of the placeholders for slave dialogue (molest and spanking will be done for the next release). I will expand these more in the future to take into account slave's personality and fetishes.
-		Added 'Offer money' and 'Offer body' options to the alleyway attacker encounter.
-		Slightly rewrote Demon Home's description.
-		
-	Other:
-		Added 'amber' for hair and eye colours.
-		Added 'messy' hair style.
+		Finished Zaranix content. (Sex content with all four NPCs, as well as content for all tiles in Zaranix's house.) 
+		You can now export any character in the game (including yourself) by looking at their character sheet (or your selfie), and clicking the 'Export Character' button in the top-right of the screen.
+		Exported characters can then be imported as a slave at Slaver Alley's Auction Block, where you can then bid on them in an auction.
+		As a side-effect of implementing the above, you can now start a 'New game with import' with any exported character in the game. (There aren't any special reactions/scenes for playing as an exported character, however.)
 	
-	Clothing:
-		Added: Lab coat (no femininity requirements, over-torso slot).
-		Added 'Scientist' clothing set status effect (when wearing both safety goggles and lab coat).
+	Sex:
+		Added hotdogging actions. (Added to doggy-style and face-to-wall.)
+	
+	Other:
+		Slightly increased base arousal gain for the receiving partner during anal penetration.
+		Rose now wears a bell collar and carries a feather duster.
+		Nyan will now sell the lab coat under 'specials' (after her daily inventory reset).
+		Changed slave values to reflect their race's rarity/slave suitability.
+	
+	Items:
+		<b>Clothing:</b> Bell collar (no femininity requirements, neck slot).
+		<b>Weapon:</b> Feather duster (pretty much 0 damage). Vicky will sell this (after her daily inventory reset).
 	
 	Bugs:
 		Minor typo fixes.
-		Enslaved offspring will no longer turn up in alleyways.
-		Fixed bug where exported characters would have no hair.
-		Lilaya's hair style is no longer random.
+		Event log will now correctly update when over 50 entries have been recorded.
+		Reduced unintended prostitute spawn rate of 80% down to 50%.
 	
 	
 	
 	
+	
+	
+	
+	
+	
+	TODO
+		Moved the sometimes-hard-to-read flashing message at the bottom of the screen (which was used for things like 'Quicksaved!') into the event log.
+	
+	
+	
+	When being submissive, your partner will sometimes ask you to pull out, but the only option available is "Stay in Position"
+	
+	chastity belt to say it blocks penis
+	
+	Exporter's (Game Export) doing something funky with Fertility/Virility. Seems if you have an item that buffs or nerfs either of those stats, the exporter applies the opposite to your character. This makes it so after importing, you character will have the same stats as if the item was unequipped, but while it's still equipped, and once removed it alters your stats opposite of the item's stats.
+Say a character starts with 25 Fertility. Equipping the Breeder collar adds 50, bringing you up to 75. Export the game and re-import the same file and your Fertility is back at 25 but with the collar still equipped. Remove the collar and your Fertility drops to -25. I've so far found this bug affects Virility as well by using gear I modded to apply a Fertility buff.
+A good work around seems to be to unequip all items that change these stats before exporting, then re-equipping them after importing, which seems to allow stats to behave as expected. So far it's just with file exporting/importing (pretty both character and game files), so saves are fine.
+In fact, it seems this is happening to ANY stat buff/nerf offered by equipment. So far tested on equipment offering buffs to Physical Damage, Willpower Damage, and Willpower Resistance.
+	
+	
+	Ran into a girl wearing a chemise and pantyhose. Can't pull up chemise, it's blocked by pantyhose; can't pull down pantyhose, it's blocked by chemise. WTF?
+
+Number 1 item action for equipped items is always "drop". It should be the same as items in inventory (So when talking to a shopkeeper, "Sell", and when looking at a defeated enemy "Take").
+
+Displacing a bikini describes it as "pulling it down", which sounds wrong to me. Wouldn't pulling it up be easier?
+
+Submitted to a succubus, she called my PCs large DD breasts "tiny little things, how cute!", despite hers also being DDs.
+
+
+	
+	can't seem to view the pregnancy tab and not sure if implemented yet, but slaves won't fuck each other.
+Another bug report: can't seem to remove those who identify as prostitutes from the map.
+	
+	
+	I ended up encountering that mildly-earlier-version-bug where you meet your own child before they're born.
 	
 	---------
 	
@@ -66,6 +104,17 @@
 	
 	---------
 	
+	Seeing some odd behavior above day 100 in _0_1_89_2 where if you rest, time no longer advances as expected (and interactions that are limited to daily do not reset).   Have save files if needed.
+	
+	 they start in SMSubStanding() and then just stay there
+	 
+	 It seems slaves just won't have anal sex with my character
+		they just push him against a wall and kiss him until they cum
+		actually, this seems to be the case with all succubi, rather than just slaves
+		
+		
+	Okay, I think I'm getting closer to an answer on this one. SLAVE_USES_YOU (the sexResponse type that generates the sex encounter) uses the SMSubStanding() sexManager, which starts in the standing position with SUB_NORMAL pace for PC and Sex.getPartner().getSexPaceDomPreference() for the NPC. I'm guessing that something about that dom preference is what's causing it to get stuck in Standing despite the code showing that position options for the scene are generic.
+	 Hm, well after looking a bit deeper I think this could be fixed by Innoxia tweaking priorities similar to how it's done in unique NPC scenes. Not sure what it is about this scene that makes slaves indecisive (since I can't actually figure out where the code doing the "deciding" is)
 	
 	
 	You can unequip NPCs clothing through the contacts screen
@@ -95,9 +144,11 @@
 	
 	freckles
 	
+	infinite position swapping
 	
+	Additionally, a bug I found was that my character lost their unspent skill points when I imported them from 1.89.1 to 1.89.2. I did keep my already unlocked skills though, just not unspent points.
 	
-	
+	bulk application of slave effects
 	
 	Alexa's Slave Menu is still frozen as of 0.1.89.2: Frozen as in none of the symbols (inspect, buy) are clickable and the slave list doesn't refresh like it did in 0.1.88.5
 	Alexa's slave display is still broken on imported games and old save files. It only updates correctly on new save games and imported characters. This is for the second hotfix.
@@ -301,6 +352,9 @@ It's most noticeable with Lilaya an the other succubi, but it can happen with an
 	slave obedience stuck at 99.600006
 	
 	
+	in m/m sex scenes I saw npcs getting fairly confused when they are on top and they decide to move you back to a wall. With no vagina to penetrate they often perform only generic actions like kissing or jerking off.
+If I can give a suggestion, in these situations they could perform some frotting or decide to change position.
+	
 	ornaments or clothing for racially blocked slots, horseshoes, wraps, bangles, plumage ornamentation.
 	
 	 Just want to let you know that the condom belt bug still exists in 1.88.1 Once the player acquires more than 8 used condoms, the player's clothing inventory screen stops displaying. Consuming one to bring the number to 8 or lower allows the worn items to be seen again. This is not the worn inventory showing all blank boxes, but rather the worn not showing at all, and just showing like the default map.
@@ -320,6 +374,9 @@ It's most noticeable with Lilaya an the other succubi, but it can happen with an
 	-having sex with a pregnant slave from an imported save isn't fully detected - if you cum inside them the game says they have a chance of becoming pregnant, even though they already are. This is from a 187.7 export.
 
 -Having a slave drink a tf potion when in a different slaves room has some of the descriptor text go to the incorrect slave. The TFs still go to the correct slave, it's just weird reading how one slave is transforming and then a different slave starts transforming. This applies only to some feature TFs, not all of them. Example A-Player is in Slave X's room. Slave Y drinks potion that adds extra breasts, lipples, and internal muscles to nipples. Description text will say that Slave Y got extra breasts and lipples, but slave X gets internal nip muscles. 
+
+
+During sex, "Repeat Actions" tab contains entries to repeat shifting clothing and "Stay in position" when you cum.
 
 
 
@@ -462,6 +519,8 @@ Okay, just purchased and equipped a new condom belt, it vaporizes into the aethe
 	One of the annoying things NPCs can do is to pull away when they orgasm while being roughly fucked. This is merely text related but I don't want to be pulled out, I want them to deal with it without "pushing my hips away"
 	
 	STORY
+	
+	"dirty talker" fetish - increases NPC dirty talk
 	
 	analingus toggle in the content-settings
 	

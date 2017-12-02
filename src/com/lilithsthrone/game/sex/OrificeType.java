@@ -4,7 +4,7 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.78
- * @version 0.1.89
+ * @version 0.1.90
  * @author Innoxia
  */
 public enum OrificeType {
@@ -56,7 +56,20 @@ public enum OrificeType {
 		}
 	},
 	
-	ANUS_PLAYER(1, true) {
+	ASS_PLAYER(1, true) {
+		@Override
+		public String getName() {
+			return Main.game.getPlayer().getAssName(false);
+		}
+		@Override
+		public boolean isAss() { return true; }
+		@Override
+		public boolean isFree() {
+			return Sex.isPlayerFreeAss();
+		}
+	},
+	
+	ANUS_PLAYER(2, true) {
 		@Override
 		public String getName() {
 			return Main.game.getPlayer().getAnusName(false);
@@ -144,7 +157,20 @@ public enum OrificeType {
 		}
 	},
 	
-	ANUS_PARTNER(1, false) {
+	ASS_PARTNER(2, false) {
+		@Override
+		public String getName() {
+			return Sex.getPartner().getAssName(false);
+		}
+		@Override
+		public boolean isAss() { return true; }
+		@Override
+		public boolean isFree() {
+			return Sex.isPartnerFreeAss();
+		}
+	},
+	
+	ANUS_PARTNER(2, false) {
 		@Override
 		public String getName() {
 			return Sex.getPartner().getAnusName(false);
@@ -208,6 +234,7 @@ public enum OrificeType {
 	public boolean isMouth() { return false; }
 	public boolean isNipple() { return false; }
 	public boolean isBreasts() { return false; }
+	public boolean isAss() { return false; }
 	public boolean isAnus() { return false; }
 	public boolean isVagina() { return false; }
 	public boolean isUrethra() { return false; }

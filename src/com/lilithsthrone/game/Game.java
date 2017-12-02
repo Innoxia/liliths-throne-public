@@ -35,6 +35,7 @@ import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.npc.GenericAndrogynousNPC;
 import com.lilithsthrone.game.character.npc.GenericFemaleNPC;
@@ -42,6 +43,7 @@ import com.lilithsthrone.game.character.npc.GenericMaleNPC;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.PrologueFemale;
 import com.lilithsthrone.game.character.npc.PrologueMale;
+import com.lilithsthrone.game.character.npc.SlaveImport;
 import com.lilithsthrone.game.character.npc.dominion.Alexa;
 import com.lilithsthrone.game.character.npc.dominion.Amber;
 import com.lilithsthrone.game.character.npc.dominion.Arthur;
@@ -80,12 +82,13 @@ import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
+import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
 import com.lilithsthrone.game.dialogue.utils.MiscDialogue;
+import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.clothing.CoverableArea;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.slavery.SlaveryUtil;
@@ -209,6 +212,103 @@ public class Game implements Serializable, XMLSaving {
 	
 	private static boolean timeLog = false;
 	private static long timeStart = 0;
+	
+	public static void exportCharacter(GameCharacter character) {
+		try {
+			if(timeLog) {
+				timeStart = System.nanoTime();
+				System.out.println(timeStart);
+			}
+			// Starting stuff:
+			
+			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+			
+			Document doc = docBuilder.newDocument();
+			
+
+			// Writing game stuff to export:
+			
+			Element characterNode = doc.createElement("exportedCharacter");
+			doc.appendChild(characterNode);
+			character.saveAsXML(characterNode, doc);
+			
+			
+			// Ending stuff:
+			
+			TransformerFactory tf = TransformerFactory.newInstance();
+			Transformer transformer1 = tf.newTransformer();
+			transformer1.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+			StringWriter writer = new StringWriter();
+
+			transformer1.transform(new DOMSource(doc), new StreamResult(writer));
+			
+			// Save this xml:
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
+			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+			DOMSource source = new DOMSource(doc);
+			
+			File dir = new File("data/");
+			dir.mkdir();
+			
+			File dirCharacter = new File("data/characters/");
+			dirCharacter.mkdir();
+			
+			int saveNumber = 0;
+			String saveLocation = "data/characters/exported_"+character.getName()+"_day"+Main.game.getDayNumber()+".xml";
+			if(new File("data/characters/exported_"+character.getName()+"_day"+Main.game.getDayNumber()+".xml").exists()) {
+				saveLocation = "data/characters/exported_"+character.getName()+"_day"+Main.game.getDayNumber()+"("+saveNumber+").xml";
+			}
+			
+			while(new File("data/characters/exported_"+character.getName()+"_day"+Main.game.getDayNumber()+"("+saveNumber+").xml").exists()) {
+				saveNumber++;
+				saveLocation = "data/characters/exported_"+character.getName()+"_day"+Main.game.getDayNumber()+"("+saveNumber+").xml";
+			}
+			StreamResult result = new StreamResult(new File(saveLocation));
+			
+			transformer.transform(source, result);
+
+			if(timeLog) {
+				System.out.println("Difference: "+(System.nanoTime()-timeStart)/1000000000f);
+			}
+		} catch (ParserConfigurationException pce) {
+			pce.printStackTrace();
+		} catch (TransformerException tfe) {
+			tfe.printStackTrace();
+		}
+	}
+	
+	public static GameCharacter importCharacterAsSlave(String name) {
+		File file = new File("data/characters/"+name+".xml");
+		
+		if (file.exists()) {
+			try {
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+				Document doc = dBuilder.parse(file);
+				
+				// Cast magic:
+				doc.getDocumentElement().normalize();
+				
+				Element characterElement = (Element) doc.getElementsByTagName("exportedCharacter").item(0);
+				if(characterElement == null) {
+					characterElement = (Element) doc.getElementsByTagName("playerCharacter").item(0);
+				}
+				
+				// Load NPCs:
+				SlaveImport importedSlave = new SlaveImport();
+				importedSlave = importedSlave.loadFromXML(characterElement, doc);
+				Main.game.addNPC(importedSlave, false);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return null;
+	}
 	
 	public static void exportGame() {
 		try {
@@ -468,8 +568,8 @@ public class Game implements Serializable, XMLSaving {
 	
 	public Element saveAsXML(Element parentElement, Document doc) {
 		Element element = doc.createElement("game");
-		parentElement.appendChild(element);
 		
+		parentElement.appendChild(element);
 		
 		return element;
 	}
@@ -1217,7 +1317,10 @@ public class Game implements Serializable, XMLSaving {
 		}
 		
 		return "<div class='content-title'>"
-					+"<div id='copy-content-button'>"+SVGImages.SVG_IMAGE_PROVIDER.getCopyIcon()+"</div>"
+					+ "<div class='title-button' id='copy-content-button'>"+SVGImages.SVG_IMAGE_PROVIDER.getCopyIcon()+"</div>"
+					+ (Main.game.getCurrentDialogueNode().equals(CharactersPresentDialogue.MENU) || Main.game.getCurrentDialogueNode().equals(PhoneDialogue.CHARACTER_APPEARANCE)
+							?"<div class='title-button' id='export-character-button' style='left:auto;right:4px;'>"+SVGImages.SVG_IMAGE_PROVIDER.getExportIcon()+"</div>"
+							:"")
 					+ "<h4 style='text-align:center;'>" + dialogueTitle + "</h4>"
 				+ "</div>";
 	}
@@ -1640,6 +1743,8 @@ public class Game implements Serializable, XMLSaving {
 	 * @param text Content of the message.
 	 */
 	public void flashMessage(Colour colour, String text){
+//		Main.game.addEvent(new EventLogEntry(minutesPassed, "", "<span style='color:"+colour.toWebHexString()+";'>"+text+"</span>"), false);
+//		Main.mainController.updateUIRightPanel();
 		Main.mainController.getWebEngine().executeScript(
 				"document.getElementById('bottom-text').innerHTML=\"<span style='color:"+colour.toWebHexString()+";'>"+text+"</span>\";"
 				+ "document.getElementById('bottom-text').classList.add('demo');"

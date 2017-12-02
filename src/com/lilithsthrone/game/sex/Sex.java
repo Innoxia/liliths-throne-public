@@ -13,6 +13,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.PlayerCharacter;
 import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.attributes.ArousalLevel;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
@@ -31,7 +32,6 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.clothing.CoverableArea;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
@@ -2623,6 +2623,18 @@ public enum Sex {
 	}
 	
 	// Player ass:
+	public static boolean isPlayerFreeAss() {
+		return getPenetrationTypeInOrifice(OrificeType.ASS_PLAYER)==null;
+	}
+	public static boolean isPlayerAssNoPartnerPenetration() {
+		if(getPenetrationTypeInOrifice(OrificeType.ASS_PLAYER)==null) {
+			return true;
+		} else {
+			return getPenetrationTypeInOrifice(OrificeType.ASS_PLAYER).isPlayer();
+		}
+	}
+	
+	// Player anus:
 	public static boolean isPlayerFreeAnus() {
 		return getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER)==null;
 	}
@@ -2705,6 +2717,18 @@ public enum Sex {
 	}
 	
 	// Partner ass:
+	public static boolean isPartnerFreeAss() {
+		return getPenetrationTypeInOrifice(OrificeType.ASS_PARTNER)==null;
+	}
+	public static boolean isPartnerAssNoPlayerPenetration() {
+		if(getPenetrationTypeInOrifice(OrificeType.ASS_PARTNER)==null) {
+			return true;
+		} else {
+			return getPenetrationTypeInOrifice(OrificeType.ASS_PARTNER).isPlayer();
+		}
+	}
+	
+	// Partner anus:
 	public static boolean isPartnerFreeAnus() {
 		return getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER)==null;
 	}

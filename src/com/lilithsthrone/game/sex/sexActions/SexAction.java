@@ -12,7 +12,7 @@ import com.lilithsthrone.game.sex.SexPace;
 
 /**
  * @since 0.1.0
- * @version 0.1.78
+ * @version 0.1.90
  * @author Innoxia
  */
 public abstract class SexAction implements SexActionInterface {
@@ -169,7 +169,7 @@ public abstract class SexAction implements SexActionInterface {
 				switch(this.getAssociatedPenetrationType()) {
 					case FINGER_PARTNER:
 						switch(this.getAssociatedOrificeType()) {
-							case ANUS_PLAYER:
+							case ANUS_PLAYER: case ASS_PLAYER:
 								fetishesPlayer.add(Fetish.FETISH_ANAL_RECEIVING);
 								break;
 							case BREAST_PLAYER:
@@ -193,7 +193,7 @@ public abstract class SexAction implements SexActionInterface {
 						break;
 					case FINGER_PLAYER:
 						switch(this.getAssociatedOrificeType()) {
-							case ANUS_PLAYER:
+							case ANUS_PLAYER: case ASS_PLAYER:
 								fetishesPlayer.add(Fetish.FETISH_ANAL_RECEIVING);
 								break;
 							case BREAST_PLAYER:
@@ -210,7 +210,8 @@ public abstract class SexAction implements SexActionInterface {
 							case VAGINA_PLAYER:
 								fetishesPlayer.add(Fetish.FETISH_MASTURBATION);
 								break;
-							case ANUS_PARTNER:
+								
+							case ANUS_PARTNER: case ASS_PARTNER:
 								fetishesPlayer.add(Fetish.FETISH_ANAL_GIVING);
 								break;
 							case BREAST_PARTNER:
@@ -231,7 +232,7 @@ public abstract class SexAction implements SexActionInterface {
 						break;
 					case PENIS_PARTNER:
 						switch(this.getAssociatedOrificeType()) {
-							case ANUS_PLAYER:
+							case ANUS_PLAYER:  case ASS_PLAYER:
 								fetishesPlayer.add(Fetish.FETISH_ANAL_RECEIVING);
 								break;
 							case BREAST_PLAYER:
@@ -255,7 +256,7 @@ public abstract class SexAction implements SexActionInterface {
 						break;
 					case PENIS_PLAYER:
 						switch(this.getAssociatedOrificeType()) {
-							case ANUS_PLAYER:
+							case ANUS_PLAYER: case ASS_PLAYER:
 								fetishesPlayer.add(Fetish.FETISH_ANAL_RECEIVING);
 								break;
 							case BREAST_PLAYER:
@@ -276,7 +277,7 @@ public abstract class SexAction implements SexActionInterface {
 								fetishesPlayer.add(Fetish.FETISH_IMPREGNATION);
 								fetishesPlayer.add(Fetish.FETISH_SEEDER);
 								break;
-							case ANUS_PARTNER:
+							case ANUS_PARTNER: case ASS_PARTNER:
 								fetishesPlayer.add(Fetish.FETISH_ANAL_GIVING);
 								break;
 							case BREAST_PARTNER:
@@ -298,7 +299,7 @@ public abstract class SexAction implements SexActionInterface {
 						break;
 					case TAIL_PARTNER:
 						switch(this.getAssociatedOrificeType()) {
-							case ANUS_PLAYER:
+							case ANUS_PLAYER: case ASS_PLAYER:
 								fetishesPlayer.add(Fetish.FETISH_ANAL_RECEIVING);
 								break;
 							case BREAST_PLAYER:
@@ -320,7 +321,7 @@ public abstract class SexAction implements SexActionInterface {
 						break;
 					case TAIL_PLAYER:
 						switch(this.getAssociatedOrificeType()) {
-							case ANUS_PLAYER:
+							case ANUS_PLAYER: case ASS_PLAYER:
 								fetishesPlayer.add(Fetish.FETISH_ANAL_RECEIVING);
 								break;
 							case BREAST_PLAYER:
@@ -337,7 +338,7 @@ public abstract class SexAction implements SexActionInterface {
 								break;
 							case VAGINA_PLAYER:
 								break;
-							case ANUS_PARTNER:
+							case ANUS_PARTNER: case ASS_PARTNER:
 								fetishesPlayer.add(Fetish.FETISH_ANAL_GIVING);
 								break;
 							case BREAST_PARTNER:
@@ -357,7 +358,7 @@ public abstract class SexAction implements SexActionInterface {
 						break;
 					case TENTACLE_PARTNER:
 						switch(this.getAssociatedOrificeType()) {
-							case ANUS_PLAYER:
+							case ANUS_PLAYER: case ASS_PLAYER:
 								fetishesPlayer.add(Fetish.FETISH_ANAL_RECEIVING);
 								break;
 							case BREAST_PLAYER:
@@ -379,7 +380,7 @@ public abstract class SexAction implements SexActionInterface {
 						break;
 					case TENTACLE_PLAYER:
 						switch(this.getAssociatedOrificeType()) {
-							case ANUS_PLAYER:
+							case ANUS_PLAYER: case ASS_PLAYER:
 								fetishesPlayer.add(Fetish.FETISH_ANAL_RECEIVING);
 								break;
 							case BREAST_PLAYER:
@@ -396,7 +397,7 @@ public abstract class SexAction implements SexActionInterface {
 								break;
 							case VAGINA_PLAYER:
 								break;
-							case ANUS_PARTNER:
+							case ANUS_PARTNER: case ASS_PARTNER:
 								fetishesPlayer.add(Fetish.FETISH_ANAL_GIVING);
 								break;
 							case BREAST_PARTNER:
@@ -416,7 +417,7 @@ public abstract class SexAction implements SexActionInterface {
 						break;
 					case TONGUE_PARTNER:
 						switch(this.getAssociatedOrificeType()) {
-							case ANUS_PLAYER:
+							case ANUS_PLAYER: case ASS_PLAYER:
 								fetishesPlayer.add(Fetish.FETISH_ANAL_RECEIVING);
 								fetishesPlayer.add(Fetish.FETISH_ORAL_RECEIVING);
 								break;
@@ -444,7 +445,7 @@ public abstract class SexAction implements SexActionInterface {
 						break;
 					case TONGUE_PLAYER:
 						switch(this.getAssociatedOrificeType()) {
-							case ANUS_PLAYER:
+							case ANUS_PLAYER: case ASS_PLAYER:
 								fetishesPlayer.add(Fetish.FETISH_ANAL_RECEIVING);
 								fetishesPlayer.add(Fetish.FETISH_ORAL_GIVING);
 								break;
@@ -464,7 +465,7 @@ public abstract class SexAction implements SexActionInterface {
 							case VAGINA_PLAYER:
 								fetishesPlayer.add(Fetish.FETISH_ORAL_GIVING);
 								break;
-							case ANUS_PARTNER:
+							case ANUS_PARTNER: case ASS_PARTNER:
 								fetishesPlayer.add(Fetish.FETISH_ANAL_GIVING);
 								fetishesPlayer.add(Fetish.FETISH_ORAL_GIVING);
 								break;
@@ -543,7 +544,7 @@ public abstract class SexAction implements SexActionInterface {
 				switch(this.getAssociatedPenetrationType()) {
 					case FINGER_PLAYER:
 						switch(this.getAssociatedOrificeType()) {
-							case ANUS_PARTNER:
+							case ANUS_PARTNER: case ASS_PARTNER:
 								fetishesPartner.add(Fetish.FETISH_ANAL_RECEIVING);
 								break;
 							case BREAST_PARTNER:
@@ -567,7 +568,7 @@ public abstract class SexAction implements SexActionInterface {
 						break;
 					case FINGER_PARTNER:
 						switch(this.getAssociatedOrificeType()) {
-							case ANUS_PARTNER:
+							case ANUS_PARTNER: case ASS_PARTNER:
 								fetishesPartner.add(Fetish.FETISH_ANAL_RECEIVING);
 								break;
 							case BREAST_PARTNER:
@@ -584,7 +585,7 @@ public abstract class SexAction implements SexActionInterface {
 							case VAGINA_PARTNER:
 								fetishesPartner.add(Fetish.FETISH_MASTURBATION);
 								break;
-							case ANUS_PLAYER:
+							case ANUS_PLAYER: case ASS_PLAYER:
 								fetishesPartner.add(Fetish.FETISH_ANAL_GIVING);
 								break;
 							case BREAST_PLAYER:
@@ -605,7 +606,7 @@ public abstract class SexAction implements SexActionInterface {
 						break;
 					case PENIS_PLAYER:
 						switch(this.getAssociatedOrificeType()) {
-							case ANUS_PARTNER:
+							case ANUS_PARTNER: case ASS_PARTNER:
 								fetishesPartner.add(Fetish.FETISH_ANAL_RECEIVING);
 								break;
 							case BREAST_PARTNER:
@@ -629,7 +630,7 @@ public abstract class SexAction implements SexActionInterface {
 						break;
 					case PENIS_PARTNER:
 						switch(this.getAssociatedOrificeType()) {
-							case ANUS_PARTNER:
+							case ANUS_PARTNER: case ASS_PARTNER:
 								fetishesPartner.add(Fetish.FETISH_ANAL_RECEIVING);
 								break;
 							case BREAST_PARTNER:
@@ -650,7 +651,7 @@ public abstract class SexAction implements SexActionInterface {
 								fetishesPartner.add(Fetish.FETISH_IMPREGNATION);
 								fetishesPartner.add(Fetish.FETISH_SEEDER);
 								break;
-							case ANUS_PLAYER:
+							case ANUS_PLAYER: case ASS_PLAYER:
 								fetishesPartner.add(Fetish.FETISH_ANAL_GIVING);
 								break;
 							case BREAST_PLAYER:
@@ -672,7 +673,7 @@ public abstract class SexAction implements SexActionInterface {
 						break;
 					case TAIL_PLAYER:
 						switch(this.getAssociatedOrificeType()) {
-							case ANUS_PARTNER:
+							case ANUS_PARTNER: case ASS_PARTNER:
 								fetishesPartner.add(Fetish.FETISH_ANAL_RECEIVING);
 								break;
 							case BREAST_PARTNER:
@@ -694,7 +695,7 @@ public abstract class SexAction implements SexActionInterface {
 						break;
 					case TAIL_PARTNER:
 						switch(this.getAssociatedOrificeType()) {
-							case ANUS_PARTNER:
+							case ANUS_PARTNER: case ASS_PARTNER:
 								fetishesPartner.add(Fetish.FETISH_ANAL_RECEIVING);
 								break;
 							case BREAST_PARTNER:
@@ -711,7 +712,7 @@ public abstract class SexAction implements SexActionInterface {
 								break;
 							case VAGINA_PARTNER:
 								break;
-							case ANUS_PLAYER:
+							case ANUS_PLAYER: case ASS_PLAYER:
 								fetishesPartner.add(Fetish.FETISH_ANAL_GIVING);
 								break;
 							case BREAST_PLAYER:
@@ -731,7 +732,7 @@ public abstract class SexAction implements SexActionInterface {
 						break;
 					case TENTACLE_PLAYER:
 						switch(this.getAssociatedOrificeType()) {
-							case ANUS_PARTNER:
+							case ANUS_PARTNER: case ASS_PARTNER:
 								fetishesPartner.add(Fetish.FETISH_ANAL_RECEIVING);
 								break;
 							case BREAST_PARTNER:
@@ -753,7 +754,7 @@ public abstract class SexAction implements SexActionInterface {
 						break;
 					case TENTACLE_PARTNER:
 						switch(this.getAssociatedOrificeType()) {
-							case ANUS_PARTNER:
+							case ANUS_PARTNER: case ASS_PARTNER:
 								fetishesPartner.add(Fetish.FETISH_ANAL_RECEIVING);
 								break;
 							case BREAST_PARTNER:
@@ -770,7 +771,7 @@ public abstract class SexAction implements SexActionInterface {
 								break;
 							case VAGINA_PARTNER:
 								break;
-							case ANUS_PLAYER:
+							case ANUS_PLAYER: case ASS_PLAYER:
 								fetishesPartner.add(Fetish.FETISH_ANAL_GIVING);
 								break;
 							case BREAST_PLAYER:
@@ -790,7 +791,7 @@ public abstract class SexAction implements SexActionInterface {
 						break;
 					case TONGUE_PLAYER:
 						switch(this.getAssociatedOrificeType()) {
-							case ANUS_PARTNER:
+							case ANUS_PARTNER: case ASS_PARTNER:
 								fetishesPartner.add(Fetish.FETISH_ANAL_RECEIVING);
 								fetishesPartner.add(Fetish.FETISH_ORAL_RECEIVING);
 								break;
@@ -818,7 +819,7 @@ public abstract class SexAction implements SexActionInterface {
 						break;
 					case TONGUE_PARTNER:
 						switch(this.getAssociatedOrificeType()) {
-							case ANUS_PARTNER:
+							case ANUS_PARTNER: case ASS_PARTNER:
 								fetishesPartner.add(Fetish.FETISH_ANAL_RECEIVING);
 								fetishesPartner.add(Fetish.FETISH_ORAL_GIVING);
 								break;
@@ -838,7 +839,7 @@ public abstract class SexAction implements SexActionInterface {
 							case VAGINA_PARTNER:
 								fetishesPartner.add(Fetish.FETISH_ORAL_GIVING);
 								break;
-							case ANUS_PLAYER:
+							case ANUS_PLAYER: case ASS_PLAYER:
 								fetishesPartner.add(Fetish.FETISH_ANAL_GIVING);
 								fetishesPartner.add(Fetish.FETISH_ORAL_GIVING);
 								break;

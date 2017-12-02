@@ -1,7 +1,13 @@
 package com.lilithsthrone.game.dialogue.places.dominion.slaverAlley;
 
+import java.io.File;
+import java.util.Comparator;
+import java.util.List;
+
 import com.lilithsthrone.game.character.Quest;
 import com.lilithsthrone.game.character.QuestLine;
+import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
@@ -10,13 +16,15 @@ import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.1.90
  * @author Innoxia
  */
 public class SlaverAlleyDialogue {
@@ -199,24 +207,336 @@ public class SlaverAlleyDialogue {
 
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "The source of most of the noise heard throughout Slaver Alley stands before you."
-						+ " Surrounded on all sides by bustling crowds, a huge wooden platform has been erected in the centre of a wide courtyard."
+			return "<p>" // captured or slaves for public sale (seized assets)
+						+ "As you walk towards Slaver Alley's central courtyard, the excited buzz of hundreds of voices grows louder and louder."
+						+ " The source of this incessant din is hard to miss, and takes the form a huge, bustling crowd, which has surrounded a raised wooden platform."
+						+ " Several noticeboards, elevated above the heads of the energetic mob by means of several-metre-high poles, declare this area to be for 'Public Auctions'."
 					+ "</p>"
 					+ "<p>"
-						+ "Walking up to one of several information boards that are scattered throughout the area, you read that this is the place where slave auctions are held."
-						+ " A piece of paper has been crudely stuck to the bottom of the board, and, looking closer, you read:"
-					+ "</p>"
-					+ "<p style='text-align:center;'><i>"
-						+ "Slave auctions are <b>closed</b> until further notice."
-					+ "</i></p>";
+						+ (Main.game.getPlayer().isHasSlaverLicense()
+								?"Being in possession of a slaver's license, you wonder if you should approach the stage and participate in the next auction."
+								:"The noticeboards also declare that you'd need a slaver license in order to participate in any auctions, so, not being in possession of one yourself, there'd be no point in approaching the stage.")
+					+ "</p>";
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return null;
+			if(index==1) {
+				if(Main.game.getPlayer().isHasSlaverLicense()) {
+					return new Response("Approach", "Approach the auction block.", AUCTION_BLOCK_LIST);
+				} else {
+					return new Response("Approach", "You don't have a slaver license, so you're unable to participate in any slave auctions.", null);
+				}
+			} else {
+				return null;
+			}
 		}
 	};
+	
+	public static final DialogueNodeOld AUCTION_BLOCK_LIST = new DialogueNodeOld("Auctioning block", ".", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(
+					"<p>" // captured or slaves for public sale (seized assets)
+						+ "You make your way through the pressing crowds and take your place on the outskirts of the main bidding area."
+						+ " The information boards in this section seem to carry quite a lot more detail than those on the outskirts of the courtyard, and, upon reading one, you discover a little more about the slaves that are on offer here."
+					+ "</p>"
+					+ "<p>"
+						+ " According to the notice board, the vast majority of slaves are bought and sold by through the stores that scattered throughout slaver alley, but in the cases of a slave owner's assets being seized,"
+							+ " or if a slave owner somehow ends up being enslaved themselves, all slaves that they owned are put up for public auction."
+						+ " It also states that some slaves willingly sell themselves in order to pay off their debts, and offering themselves up at a public auction is apparently a popular choice for those individuals."
+					+ "</p>"
+					+ "<p>"
+						+ "Attached to the bottom of each of the noticeboards is a list of the slaves that are up next for the public auction."
+						+ " After reading through the list of names, you wonder if you should stick around to place a bid on any of them..."
+					+ "</p>"
+					+ "<p style='text-align:center;'>"
+						+ "<b>Upcoming Public Auctions</b>"
+						+ "<div class='container-full-width' style='margin-bottom:0; text-align:center;'>"
+							+ "<div style='width:40%; float:left; font-weight:bold; margin:0; padding:0;'>"
+								+ "Slave"
+							+ "</div>"
+							+ "<div style='float:left; width:17%; font-weight:bold; margin:0; padding:0; text-align:center;'>"
+								+ "<b style='color:"+Colour.OBEDIENCE.toWebHexString()+";'>Obedience</b>"
+							+"</div>"
+							+ "<div style='float:left; width:17%; font-weight:bold; margin:0; padding:0; text-align:center;'>"
+								+ "<b style='color:"+Colour.CURRENCY_GOLD.toWebHexString()+";'>Value</b>"
+							+"</div>"
+							+ "<div style='float:left; width:17%; font-weight:bold; margin:0; padding:0; text-align:center;'>"
+								+ "<b style='color:"+Colour.CURRENCY_GOLD.toWebHexString()+";'>Starting Bid</b>"
+							+"</div>"
+							+ "<div style='float:left; width:9%; font-weight:bold; margin:0; padding:0; text-align:center;'>"
+								+ "Bid"
+							+ "</div>"
+						+ "</div>");
+			
+			List<NPC> charactersPresent = Main.game.getCharactersPresent();
+			
+			charactersPresent.sort(Comparator.comparing(NPC::getName));
+			
+			if(charactersPresent.isEmpty()) {
+				UtilText.nodeContentSB.append(
+						"<div class='container-full-width' style='margin-bottom:0; text-align:center;'>"
+								+ "<b>There are no upcoming auctions...</b>"
+						+ "</div>");
+				
+			} else {
+				int i=0;
+				for(NPC slave : charactersPresent){
+					boolean alternateBackground = i%2==0;
+					
+					UtilText.nodeContentSB.append(UtilText.parse(slave,
+							"<div class='container-full-width inner' style='margin-bottom:0;"+(alternateBackground?"background:#292929;'":"'")+"'>"
+								+ "<div style='width:40%; float:left; margin:0; padding:0; text-align:center;'>"
+									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+slave.getName()+"</b> - "
+									+ "<span style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(slave.getGender().getName())+"</span> "
+									+ "<span style='color:"+slave.getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence((slave.isFeminine()?slave.getRace().getSingularFemaleName():slave.getRace().getSingularMaleName()))+"</span>"
+								+ "</div>"
+								+ "<div style='float:left; width:17%; margin:0; padding:0; text-align:center;'>"
+									+ "<b style='color:"+slave.getObedience().getColour().toWebHexString()+";'>"+slave.getObedienceValue()+ "</b>"
+								+"</div>"
+								+ "<div style='float:left; width:17%; margin:0; padding:0; text-align:center;'>"
+									+ UtilText.formatAsMoney(slave.getValueAsSlave())
+								+"</div>"
+								+ "<div style='float:left; width:17%; margin:0; padding:0; text-align:center;'>"
+									+ UtilText.formatAsMoney((int)(slave.getValueAsSlave()*0.5f))
+								+"</div>"
+								+ "<div style='float:left; width:9%; font-weight:bold; margin:0; padding:0;'>"
+									+ "<div id='"+slave.getId()+"_BID' class='square-button solo'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionBid()+"</div></div>"
+								+ "</div>"
+							+ "</div>"
+							));
+					i++;
+				}
+			}
+			
+			UtilText.nodeContentSB.append("</p>");
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Import", "View the character import screen.", AUCTION_IMPORT);
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static void setupBidding(NPC slaveToBidOn) {
+		biddingNPC = slaveToBidOn;
+		biddingPrice = (int) (biddingNPC.getValueAsSlave()*0.5f);
+		biddingRoundsTotal = Util.random.nextInt(3)+1;
+		biddingRounds = 0;
+		playerBidLeader = false;
+		currentRivalBidder = SlaveAuctionBidder.generateNewSlaveAuctionBidder(biddingNPC);
+	}
+	
+	public static final DialogueNodeOld AUCTION_IMPORT = new DialogueNodeOld("Auctioning block", ".", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getContent() {
+			return "";
+		}
+		
+		@Override
+		public String getHeaderContent(){
+			StringBuilder saveLoadSB = new StringBuilder();
+
+			saveLoadSB.append(
+					"<p>"
+						+ "You can import any of your previously exported characters in order to add them to the auctioning list."
+						+ " (Export any character in the game by viewing their character sheet and pressing the little export button in the top-right of the screen.)"
+					+ "</p>"
+					+ "<p>"
+						+ "<table align='center'>");
+			
+			Main.getSlavesForImport().sort(Comparator.comparingLong(File::lastModified).reversed());
+			
+			for(File f : Main.getSlavesForImport()){
+				saveLoadSB.append(getImportRow(f.getName()));
+			}
+			
+			saveLoadSB.append("</table>"
+					+ "</p>"
+					+ "<p id='hiddenPField' style='display:none;'></p>");
+			
+			return saveLoadSB.toString();
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			
+			if(index==0) {
+				return new Response("Back", "Return to the previous screen.", AUCTION_BLOCK_LIST);
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	private static NPC biddingNPC = null;
+	private static int biddingPrice = 0;
+	private static int biddingRounds = 0;
+	private static int biddingRoundsTotal = 1;
+	private static boolean playerBidLeader = false;
+	private static SlaveAuctionBidder currentRivalBidder = null;
+	
+	public static final DialogueNodeOld AUCTION_BIDDING = new DialogueNodeOld("Auctioning block", ".", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public boolean isContinuesDialogue() {
+			return biddingRounds!=0;
+		}
+		
+		@Override
+		public String getContent() {
+			if(biddingRounds==0) {
+				return UtilText.parse(biddingNPC,
+						"<p>"
+							+ "Deciding that you'd like to try and bid on [npc.name], you hang around the area until [npc.she]'s up for auction."
+							+ " Thankfully, you don't have to wait long, and soon enough you see the [npc.race], stark naked except for the slave collar around [npc.her] neck, being led up onto the platform."
+						+ "</p>"
+						+ "<p>"
+							+ "Within moments, the bidding starts, and "+currentRivalBidder.getName(true)+" quickly matches the starting price, muttering, "
+								+ UtilText.parseNPCSpeech(currentRivalBidder.getRandomBiddingComment(), (currentRivalBidder.getGender().isFeminine()?Femininity.FEMININE:Femininity.MASCULINE_STRONG))
+						+ "</p>"
+						+ "<p>"
+							+ "<i>The current bid is "+UtilText.formatAsMoney(biddingPrice)+", which means that you'll need to bid "+UtilText.formatAsMoney(biddingPrice+100)+" to get in the lead for buying [npc.name].</i>"
+						+ "</p>");
+				
+			} if(biddingRounds==biddingRoundsTotal) {
+				if(playerBidLeader) {
+					return UtilText.parse(biddingNPC,
+							"<p>"
+								+ "The "+currentRivalBidder.getName(false)+" backs out of the bidding, sighing, "
+								+ UtilText.parseNPCSpeech(currentRivalBidder.getRandomFailedBiddingComment(), (currentRivalBidder.getGender().isFeminine()?Femininity.FEMININE:Femininity.MASCULINE_STRONG))
+							+ "</p>"
+							+ "<p>"
+								+ "Nobody else in the crowd offers another bid, leaving the auctioneer to call out,"
+								+ " [maleNPC.speech(Going once... Going twice... Sold! To the [pc.race] at the back!)]"
+							+ "</p>"
+							+ "<p>"
+								+ "Walking towards the stage, you pay the auctioneer's assistant the amount that you bid, totalling "+UtilText.formatAsMoney(biddingPrice)+"."
+								+ " She informs you that your new slave will be ready for collection from the Slavery Administration building, before handing over the paperwork which proves your ownership of [npc.name]."
+							+ "</p>");
+				} else {
+					return UtilText.parse(biddingNPC,
+							"<p>"
+								+ "You back out of the bidding, which allows the "+currentRivalBidder.getName(false)+" you were competing with to win the auction."
+							+ "</p>"
+							+ "<p>"
+								+ "Nobody else in the crowd offers another bid, leaving the auctioneer to call out,"
+								+ " [maleNPC.speech(Going once... Going twice... Sold! To the "+currentRivalBidder.getName(false)+" near the back!)]"
+							+ "</p>"
+							+"<p>"
+								+ "As the "+currentRivalBidder.getName(false)+" walks towards the stage to finalise their purchase of [npc.name], you hear them mutter, "
+								+ UtilText.parseNPCSpeech(currentRivalBidder.getRandomSuccessfulBiddingComment(), (currentRivalBidder.getGender().isFeminine()?Femininity.FEMININE:Femininity.MASCULINE_STRONG))
+							+ "</p>");
+				}
+				
+			} else {
+				return UtilText.parse(biddingNPC,
+						"<p>"
+							+ "The "+currentRivalBidder.getName(false)+" continues to bid against someone else, taking [npc.name]'s asking price up to "+UtilText.formatAsMoney(biddingPrice)+"."
+						+ "</p>"
+						+ "<p>"
+							+ "<i>The current bid is "+UtilText.formatAsMoney(biddingPrice)+", which means that you'll need to bid "+UtilText.formatAsMoney(biddingPrice+100)+" to get in the lead for buying [npc.name].</i>"
+						+ "</p>");
+			}
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(biddingRounds==biddingRoundsTotal) {
+				if(index==1) {
+					if(playerBidLeader) {
+						return new Response("Continue", UtilText.parse(biddingNPC, "You won the bidding! [npc.Name] is now ready for collection from Slavery Administration."), AUCTION_BLOCK) {
+							@Override
+							public void effects() {
+							}
+						};
+					} else {
+						return new Response(UtilText.parse(biddingNPC, "[npc.Name] sold"), "You didn't win the auction, but there's always next time, right?", AUCTION_BLOCK) {
+							@Override
+							public void effects() {
+								Main.game.getFinch().removeSlave(biddingNPC);
+								Main.game.banishNPC(biddingNPC);
+							}
+						};
+					}
+					
+				} else {
+					return null;
+				}
+			
+			} else {
+				if(index==1) {
+					if(Main.game.getPlayer().getMoney()>=biddingPrice+100) {
+						return new Response("Bid "+UtilText.formatAsMoney(biddingPrice+100), UtilText.parse(biddingNPC, "Place a bid of "+(biddingPrice+100)+" flames for [npc.name]."), AUCTION_BIDDING) {
+							@Override
+							public void effects() {
+								biddingPrice += 100;
+								playerBidLeader = true;
+								increaseBid();
+								if(biddingRounds==biddingRoundsTotal) {
+									Main.game.getPlayer().addSlave(biddingNPC);
+									biddingNPC.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION, true);
+									Main.game.getPlayer().incrementMoney(-biddingPrice);
+								}
+							}
+						};
+					} else {
+						return new Response("Bid "+UtilText.formatAsMoneyUncoloured(biddingPrice+100, "span"), "You can't afford a bid of "+(biddingPrice+100)+" flames, so you'll have to let this slave go to someone else.", null);
+					}
+					
+				} else if(index==2) {
+					return new Response("Stop bidding", UtilText.parse(biddingNPC, "Stop bidding, which will allow someone else to buy [npc.name]."), AUCTION_BIDDING) {
+						@Override
+						public void effects() {
+							playerBidLeader = false;
+							biddingRounds=biddingRoundsTotal;
+						}
+					};
+					
+				} else {
+					return null;
+				}
+			}
+		}
+	};
+	
+	private static void increaseBid() {
+		biddingRounds++;
+		if(biddingRounds!=biddingRoundsTotal) {
+			biddingPrice = (int) (biddingPrice * (1+(0.8f*Math.random())));
+			playerBidLeader = false;
+		}
+	}
+	
+	
+
+	private static String getImportRow(String name) {
+		String baseName = name.substring(0, name.lastIndexOf('.'));
+		return "<tr>"
+				+ "<td style='min-width:200px;'>"
+					+ baseName
+				+ "</td>"
+				+ "<td>"
+					+ "<div class='saveLoadButton' id='import_slave_" + baseName + "' style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Import</div>"
+				+ "</td>"
+				+ "</tr>";
+	}
 	
 	public static final DialogueNodeOld PUBLIC_STOCKS = new DialogueNodeOld("Public stocks", ".", false) {
 		private static final long serialVersionUID = 1L;
