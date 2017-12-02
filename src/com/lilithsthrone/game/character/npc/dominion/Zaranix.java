@@ -368,7 +368,7 @@ public class Zaranix extends NPC {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ ""
+						+ "TODO - Zaranix throws you out."
 					+ "</p>";
 		}
 

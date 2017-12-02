@@ -38,8 +38,8 @@ public class SlaveImport extends NPC {
 		SlaveImport npc = new SlaveImport();
 		
 		loadNPCVariablesFromXML(npc, null, parentElement, doc);
-		npc.resetInventory();
-		npc.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR), true, npc);
+//		npc.resetInventory();
+//		npc.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR), true, npc);
 		npc.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_AUCTIONING_BLOCK, true);
 		
 		npc.clearAffectionMap();

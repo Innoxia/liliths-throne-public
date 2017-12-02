@@ -6,7 +6,6 @@
 		
 		
 		
-	- Finish Zaranix's content.
 	- Finish writing slave placeholder content.
 	- Add more slave jobs. Things like assisting Rose, working in a bar/brothel/milking shed, training, etc. gardener
 	- Add more ways to influence a slave's affection and obedience.
@@ -23,9 +22,8 @@
 	Patch notes:
 	
 	Gameplay:
-		Finished Zaranix content. (Sex content with all four NPCs, as well as content for all tiles in Zaranix's house.) 
-		You can now export any character in the game (including yourself) by looking at their character sheet (or your selfie), and clicking the 'Export Character' button in the top-right of the screen.
-		Exported characters can then be imported as a slave at Slaver Alley's Auction Block, where you can then bid on them in an auction.
+		Finished 95% of Zaranix's content. (Just a few scenes if you choose to fight Zaranix are placeholders.) 
+		You can now export any character in the game (including yourself) by looking at their character sheet (or your selfie), and clicking the 'Export Character' button in the top-right of the screen. Exported characters can then be imported as a slave at Slaver Alley's Auction Block, where you can then bid on them in an auction.
 		As a side-effect of implementing the above, you can now start a 'New game with import' with any exported character in the game. (There aren't any special reactions/scenes for playing as an exported character, however.)
 	
 	Sex:
@@ -53,6 +51,9 @@
 	
 	
 	
+	
+	
+	Zaranix finishing touches
 	
 	TODO
 		Moved the sometimes-hard-to-read flashing message at the bottom of the screen (which was used for things like 'Quicksaved!') into the event log.
