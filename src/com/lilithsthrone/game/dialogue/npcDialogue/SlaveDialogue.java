@@ -1383,14 +1383,182 @@ public class SlaveDialogue {
 
 		@Override
 		public String getContent() {
-			return 
-					"<div class='container-full-width' style='text-align:center;'>"
-						+ "<i>The slave interactions are currently placeholders! I'll get all this added soon!</i>"
-					+ "</div>"
-					+ "<p>"
-						+ "This will be a large obedience-training action, which will have variations based on your slave's affection and obedience."
-					+ "</p>"
-					+getFooterText();
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append("<p>"
+							+ "You feel like [npc.name] could do with a reminder of who's in charge, so, taking a seat, you order [npc.herHim] to strip and bend over in your lap."
+						+ "</p>"
+						+ "<p>");
+			
+			switch(AffectionLevelBasic.getAffectionLevelFromValue(Main.game.getActiveNPC().getAffection(Main.game.getPlayer()))) {
+				case DISLIKE:
+					switch(ObedienceLevelBasic.getObedienceLevelFromValue(Main.game.getActiveNPC().getObedienceValue())) {
+						case DISOBEDIENT:
+							UtilText.nodeContentSB.append(
+										"An angry growl escapes from [npc.her] mouth as [npc.she] hears what you're ordering [npc.herHim] to do, but,"
+												+ " understanding that [npc.she] doesn't have any choice in the matter, reluctantly moves to obey."
+										+ " As [npc.she] slowly takes [npc.her] clothes off, [npc.she] snaps,"
+										+ " [npc.speech(You fucking "+(Main.game.getPlayer().isFeminine()?"bitch":"bastard")+"! I hate you so fucking much!)]"
+									+ "</p>"
+									+ "<p>"
+										+ "Ignoring [npc.her] insolent remarks, you once again command [npc.name] to bend [npc.herself] over your knee; an order which [npc.she] again carries out as slowly as [npc.she] possibly can."
+										+ " As [npc.she] lies down in your lap, presenting [npc.her] [npc.ass+], you let out a victorious laugh, before swiftly bringing your [pc.hand] down to smack [npc.her] exposed cheeks."
+										+ " A squeal accompanies the sharp sound of flesh being whacked, which drives you to deliver yet another blow to [npc.her] [npc.ass]."
+									+ "</p>"
+									+ "<p>"
+										+ "You continue this for a little while; your slave squirming and squealing in your lap as you rain down blow after blow upon [npc.her] vulnerable backside."
+										+ " Eventually, however, you feel as though [npc.she]'s been taught [npc.her] lesson, and you order [npc.her] to stand up and put [npc.her] clothes on once more."
+									+ "</p>");
+							break;
+						case NEUTRAL:
+							UtilText.nodeContentSB.append(
+									"[npc.She] lets out a flustered cry as [npc.she] hears what you're ordering [npc.herHim] to do, but,"
+											+ " trying to keep [npc.her] emotions under control, reluctantly moves to obey."
+									+ " As [npc.she] slowly takes [npc.her] clothes off, [npc.she] sighs,"
+									+ " [npc.speech(This will just take a moment, <i>[npc.pcName]</i>.)]"
+								+ "</p>"
+								+ "<p>"
+									+ "Ignoring [npc.her] slightly-rebellious tone, you once again command [npc.name] to bend [npc.herself] over your knee; an order which [npc.she] carries out as slowly as [npc.she] possibly can."
+									+ " As [npc.she] lies down in your lap, presenting [npc.her] [npc.ass+], you let out a victorious laugh, before swiftly bringing your [pc.hand] down to smack [npc.her] exposed cheeks."
+									+ " A squeal accompanies the sharp sound of flesh being whacked, which drives you to deliver yet another blow to [npc.her] [npc.ass]."
+								+ "</p>"
+								+ "<p>"
+									+ "You continue this for a little while; your slave squirming and squealing in your lap as you rain down blow after blow upon [npc.her] vulnerable backside."
+									+ " Eventually, however, you feel as though [npc.she]'s been taught [npc.her] lesson, and you order [npc.her] to stand up and put [npc.her] clothes on once more."
+								+ "</p>");
+							break;
+						case OBEDIENT:
+							UtilText.nodeContentSB.append(
+									"[npc.She] immediately moves to obey your order, but you see the distinct look of hatred in [npc.her] [npc.eyes] as [npc.she] obediently drops [npc.her] clothing to the floor."
+									+ " As [npc.she] takes the last of [npc.her] clothes off, [npc.she] asks,"
+									+ " [npc.speech(Is this to your pleasure, [npc.pcName]?)]"
+								+ "</p>"
+								+ "<p>"
+									+ "You answer in the affirmative, before once again commanding [npc.name] to bend [npc.herself] over your knee; an order which [npc.she] carries out as slowly as [npc.she] possibly can."
+									+ " As [npc.she] lies down in your lap, presenting [npc.her] [npc.ass+], you let out a victorious laugh, before swiftly bringing your [pc.hand] down to smack [npc.her] exposed cheeks."
+									+ " A squeal accompanies the sharp sound of flesh being whacked, which drives you to deliver yet another blow to [npc.her] [npc.ass]."
+								+ "</p>"
+								+ "<p>"
+									+ "You continue this for a little while; your slave squirming and squealing in your lap as you rain down blow after blow upon [npc.her] vulnerable backside."
+									+ " Eventually, however, you feel as though [npc.she]'s been taught [npc.her] lesson, and you order [npc.her] to stand up and put [npc.her] clothes on once more."
+								+ "</p>");
+							break;
+					}
+					break;
+				case NEUTRAL:
+					switch(ObedienceLevelBasic.getObedienceLevelFromValue(Main.game.getActiveNPC().getObedienceValue())) {
+						case DISOBEDIENT:
+							UtilText.nodeContentSB.append(
+									"[npc.She] lets out a flustered cry as [npc.she] hears your order, but, realising that [npc.she] really doesn't have any choice in the matter, begrudgingly moves to obey."
+									+ " As [npc.she] takes [npc.her] clothes off, [npc.she] whines,"
+									+ " [npc.speech(Do I really have to? It's kind of degrading being forced to do this...)]"
+								+ "</p>"
+								+ "<p>"
+									+ "Ignoring [npc.her] words, you once again command [npc.name] to bend [npc.herself] over your knee; an order which [npc.she] again carries out as slowly as [npc.she] possibly can."
+									+ " As [npc.she] lies down in your lap, presenting [npc.her] [npc.ass+], you let out a victorious laugh, before swiftly bringing your [pc.hand] down to smack [npc.her] exposed cheeks."
+									+ " A squeal accompanies the sharp sound of flesh being whacked, which drives you to deliver yet another blow to [npc.her] [npc.ass]."
+								+ "</p>"
+								+ "<p>"
+									+ "You continue this for a little while; your slave squirming and squealing in your lap as you rain down blow after blow upon [npc.her] vulnerable backside."
+									+ " Eventually, however, you feel as though [npc.she]'s been taught [npc.her] lesson, and you order [npc.her] to stand up and put [npc.her] clothes on once more."
+								+ "</p>");
+							break;
+						case NEUTRAL:
+							UtilText.nodeContentSB.append(
+									"[npc.She] lets out a flustered cry as [npc.she] hears your order, but, trying to keep [npc.her] emotions under control, begrudgingly moves to obey."
+									+ " As [npc.she] takes [npc.her] clothes off, [npc.she] whines,"
+									+ " [npc.speech(Just give me a moment, [npc.pcName].)]"
+								+ "</p>"
+								+ "<p>"
+									+ "After [npc.she]'s stripped naked, you once again command [npc.name] to bend [npc.herself] over your knee; an order which [npc.she] again carries out as slowly as [npc.she] possibly can."
+									+ " As [npc.she] lies down in your lap, presenting [npc.her] [npc.ass+], you let out a victorious laugh, before swiftly bringing your [pc.hand] down to smack [npc.her] exposed cheeks."
+									+ " A squeal accompanies the sharp sound of flesh being whacked, which drives you to deliver yet another blow to [npc.her] [npc.ass]."
+								+ "</p>"
+								+ "<p>"
+									+ "You continue this for a little while; your slave squirming and squealing in your lap as you rain down blow after blow upon [npc.her] vulnerable backside."
+									+ " Eventually, however, you feel as though [npc.she]'s been taught [npc.her] lesson, and you order [npc.her] to stand up and put [npc.her] clothes on once more."
+								+ "</p>");
+							break;
+						case OBEDIENT:
+							UtilText.nodeContentSB.append(
+									"[npc.She] immediately moves to obey your order, but you see the distinct look of distress in [npc.her] [npc.eyes] as [npc.she] obediently drops [npc.her] clothing to the floor."
+									+ " As [npc.she] takes the last of [npc.her] clothes off, [npc.she] asks,"
+									+ " [npc.speech(Is this to your pleasure, [npc.pcName]?)]"
+								+ "</p>"
+								+ "<p>"
+									+ "You answer in the affirmative, before once again commanding [npc.name] to bend [npc.herself] over your knee; an order which [npc.she] again carries out as slowly as [npc.she] possibly can."
+									+ " As [npc.she] lies down in your lap, presenting [npc.her] [npc.ass+], you let out a victorious laugh, before swiftly bringing your [pc.hand] down to smack [npc.her] exposed cheeks."
+									+ " A squeal accompanies the sharp sound of flesh being whacked, which drives you to deliver yet another blow to [npc.her] [npc.ass]."
+								+ "</p>"
+								+ "<p>"
+									+ "You continue this for a little while; your slave squirming and squealing in your lap as you rain down blow after blow upon [npc.her] vulnerable backside."
+									+ " Eventually, however, you feel as though [npc.she]'s been taught [npc.her] lesson, and you order [npc.her] to stand up and put [npc.her] clothes on once more."
+								+ "</p>");
+							break;
+					}
+					break;
+				case LIKE:
+					switch(ObedienceLevelBasic.getObedienceLevelFromValue(Main.game.getActiveNPC().getObedienceValue())) {
+						case DISOBEDIENT:
+							UtilText.nodeContentSB.append(
+									"[npc.She] lets out a sad little cry as [npc.she] hears your order, but, realising that [npc.she] really doesn't have any choice in the matter, begrudgingly moves to obey."
+									+ " As [npc.she] takes [npc.her] clothes off, [npc.she] whines,"
+									+ " [npc.speech(You know, it's kind of degrading being forced to do this... I thought you liked me...)]"
+								+ "</p>"
+								+ "<p>"
+									+ "Ignoring [npc.her] words, you once again command [npc.name] to bend [npc.herself] over your knee; an order which [npc.she] again carries out as slowly as [npc.she] possibly can."
+									+ " As [npc.she] lies down in your lap, presenting [npc.her] [npc.ass+], you let out a victorious laugh, before swiftly bringing your [pc.hand] down to smack [npc.her] exposed cheeks."
+									+ " A squeal accompanies the sharp sound of flesh being whacked, which drives you to deliver yet another blow to [npc.her] [npc.ass]."
+								+ "</p>"
+								+ "<p>"
+									+ "You continue this for a little while; your slave squirming and squealing in your lap as you rain down blow after blow upon [npc.her] vulnerable backside."
+									+ " Eventually, however, you feel as though [npc.she]'s been taught [npc.her] lesson, and you order [npc.her] to stand up and put [npc.her] clothes on once more."
+								+ "</p>");
+							break;
+						case NEUTRAL:
+							UtilText.nodeContentSB.append(
+									"[npc.She] lets out a sad little cry as [npc.she] hears your order, but, trying to keep [npc.her] emotions under control, slowly moves to obey."
+									+ " As [npc.she] takes [npc.her] clothes off, [npc.she] whines,"
+									+ " [npc.speech(I thought you liked me, [npc.pcName]... But if this is what you want...)]"
+								+ "</p>"
+								+ "<p>"
+									+ "Ignoring [npc.her] words, you once again command [npc.name] to bend [npc.herself] over your knee; an order which [npc.she] again carries out as slowly as [npc.she] possibly can."
+									+ " As [npc.she] lies down in your lap, presenting [npc.her] [npc.ass+], you let out a victorious laugh, before swiftly bringing your [pc.hand] down to smack [npc.her] exposed cheeks."
+									+ " A squeal accompanies the sharp sound of flesh being whacked, which drives you to deliver yet another blow to [npc.her] [npc.ass]."
+								+ "</p>"
+								+ "<p>"
+									+ "You continue this for a little while; your slave squirming and squealing in your lap as you rain down blow after blow upon [npc.her] vulnerable backside."
+									+ " Eventually, however, you feel as though [npc.she]'s been taught [npc.her] lesson, and you order [npc.her] to stand up and put [npc.her] clothes on once more."
+								+ "</p>");
+							break;
+						case OBEDIENT:
+							UtilText.nodeContentSB.append(
+									"[npc.She] immediately moves to obey your order, but you see the distinct look of sadness in [npc.her] [npc.eyes] as [npc.she] obediently drops [npc.her] clothing to the floor."
+									+ " As [npc.she] takes the last of [npc.her] clothes off, [npc.she] asks,"
+									+ " [npc.speech(Is this to your pleasure, [npc.pcName]?)]"
+								+ "</p>"
+								+ "<p>"
+									+ "You answer in the affirmative, before once again commanding [npc.name] to bend [npc.herself] over your knee; an order which [npc.she] again carries out as slowly as [npc.she] possibly can."
+									+ " As [npc.she] lies down in your lap, presenting [npc.her] [npc.ass+], you let out a victorious laugh, before swiftly bringing your [pc.hand] down to smack [npc.her] exposed cheeks."
+									+ " A squeal accompanies the sharp sound of flesh being whacked, which drives you to deliver yet another blow to [npc.her] [npc.ass]."
+								+ "</p>"
+								+ "<p>"
+									+ "You continue this for a little while; your slave squirming and squealing in your lap as you rain down blow after blow upon [npc.her] vulnerable backside."
+									+ " Eventually, however, you feel as though [npc.she]'s been taught [npc.her] lesson, and you order [npc.her] to stand up and put [npc.her] clothes on once more."
+								+ "</p>");
+							break;
+					}
+					break;
+			}
+			UtilText.nodeContentSB.append(
+					"<p>"
+						+ "<i>It makes no difference that [npc.name]"
+							+ " <span style='"+Main.game.getActiveNPC().getAffectionLevel(Main.game.getPlayer()).getColour().toWebHexString()+"'>"+Main.game.getActiveNPC().getAffectionLevel(Main.game.getPlayer()).getDescriptor()+"</span>"
+							+ " you, as being forced to present [npc.herself] for a disciplinary spanking has a hugely negative impact on [npc.her] affection towards you, while simultaneously increasing [npc.her] obedience!</i>"
+					+ "</p>");
+			UtilText.nodeContentSB.append(getFooterText());
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
@@ -1409,8 +1577,7 @@ public class SlaveDialogue {
 
 		@Override
 		public String getContent() {
-			return 
-					"<div class='container-full-width' style='text-align:center;'>"
+			return "<div class='container-full-width' style='text-align:center;'>"
 						+ "<i>The slave interactions are currently placeholders! I'll get all this added soon!</i>"
 					+ "</div>"
 					+ "<p>"

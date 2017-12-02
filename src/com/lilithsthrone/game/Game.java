@@ -2219,6 +2219,10 @@ public class Game implements Serializable, XMLSaving {
 		return npcTally+","+c.getSimpleName();
 	}
 	
+	public String getNextNPCId(Class<? extends NPC> c) {
+		return (npcTally+1)+","+c.getSimpleName();
+	}
+	
 	public String addNPC(NPC npc, boolean isImported) throws Exception {
 		
 		if(isImported) {

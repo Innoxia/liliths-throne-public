@@ -74,7 +74,13 @@ public class GenericPlace implements Serializable, XMLSaving {
 	}
 	
 	public static GenericPlace loadFromXML(Element parentElement, Document doc) {
-		GenericPlace place = new GenericPlace(PlaceType.valueOf(parentElement.getAttribute("type")));
+		String placeType = parentElement.getAttribute("type");
+		
+		if(placeType.equals("ZARANIX_FF_BEDROOM")) {
+			placeType = "ZARANIX_FF_OFFICE";
+		}
+		
+		GenericPlace place = new GenericPlace(PlaceType.valueOf(placeType));
 		place.setName(parentElement.getAttribute("name"));
 		
 		for(int i=0; i<((Element) parentElement.getElementsByTagName("placeUpgrades").item(0)).getElementsByTagName("upgrade").getLength(); i++){

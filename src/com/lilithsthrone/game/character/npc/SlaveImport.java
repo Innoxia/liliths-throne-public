@@ -39,6 +39,7 @@ public class SlaveImport extends NPC {
 		SlaveImport npc = new SlaveImport();
 		
 		loadNPCVariablesFromXML(npc, null, parentElement, doc);
+		npc.setId(Main.game.getNextNPCId(SlaveImport.class));
 //		npc.resetInventory();
 //		npc.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR), true, npc);
 		npc.clearNonEquippedInventory();
@@ -47,7 +48,9 @@ public class SlaveImport extends NPC {
 			npc.unequipClothingIntoInventory(npc.getClothingInSlot(InventorySlot.NECK), true, npc);
 		}
 		npc.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR), true, npc);
+		npc.getClothingInSlot(InventorySlot.NECK).setSealed(true);
 		npc.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_AUCTIONING_BLOCK, true);
+		
 		
 		npc.clearAffectionMap();
 		npc.setObedience((float) Math.round((-25+(Math.random()*50))));

@@ -1460,9 +1460,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				} else if(foreplayPreference.equals(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER))
 						|| foreplayPreference.equals(new SexType(PenetrationType.TONGUE_PARTNER, OrificeType.VAGINA_PLAYER))){
 					sexPositionPreferences.add(SexPosition.KNEELING_PARTNER_PERFORMING_ORAL);
+					sexPositionPreferences.add(SexPosition.DOGGY_ORAL_PLAYER_ON_ALL_FOURS);
 					
 				} else if(foreplayPreference.equals(new SexType(PenetrationType.TONGUE_PARTNER, OrificeType.ANUS_PLAYER))){
-					sexPositionPreferences.add(SexPosition.DOGGY_PLAYER_ON_ALL_FOURS);
+					sexPositionPreferences.add(SexPosition.DOGGY_ORAL_PLAYER_ON_ALL_FOURS);
 					
 				} else if(foreplayPreference.getOrificeType()==OrificeType.ANUS_PLAYER){
 					sexPositionPreferences.add(SexPosition.FACING_WALL_PLAYER);
@@ -1494,6 +1495,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						|| mainSexPreference.equals(new SexType(PenetrationType.TONGUE_PARTNER, OrificeType.VAGINA_PLAYER))){
 					sexPositionPreferences.add(SexPosition.SIXTY_NINE_PARTNER_TOP);
 					sexPositionPreferences.add(SexPosition.KNEELING_PARTNER_PERFORMING_ORAL);
+					sexPositionPreferences.add(SexPosition.DOGGY_ORAL_PLAYER_ON_ALL_FOURS);
 					
 				} else if(mainSexPreference.equals(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER))) {
 					sexPositionPreferences.add(SexPosition.FACING_WALL_PLAYER);

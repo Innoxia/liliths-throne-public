@@ -60,8 +60,8 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.1.89.5",
-			VERSION_DESCRIPTION = "Early Alpha (BUGGY PREVIEW)";
+	public static final String VERSION_NUMBER = "0.1.90",
+			VERSION_DESCRIPTION = "Early Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
 
@@ -69,16 +69,21 @@ public class Main extends Application {
 	
 	public static String patchNotes =
 			
-		"<h1 style='text-align:center;'>Version " + Main.VERSION_NUMBER + "</h1>"
-		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>Buggy Preview!</b></h6>"
-		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Very-early Alpha!</b></h6>"
+//		"<h1 style='text-align:center;'>Version " + Main.VERSION_NUMBER + "</h1>"
+//		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>Buggy Preview!</b></h6>"
+//		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Early Alpha!</b></h6>"
 		
-		+ "<p>"
-			+ "Hello! :3"
+		"<p>"
+			+ "Hello everyone! :3"
 		+ "</p>"
 			
 		+ "<p>"
-			+ "If I were sensible, I would have delayed this until Wednesday at the earliest... <b>This version is in a very rough state! I would advise waiting until the next preview before playing!</b>"
+			+ "I may have pushed myself a little too hard last weekend... I ended up feeling completely exhausted all the way through until Wednesday, so I only had three days in which to work on this release."
+			+ " I tried to get as much done as possible, but I still have a few of my goals left to do, which will be carried over into the next version."
+		+ "</p>"
+			
+		+ "<p>"
+			+ "Speaking of the next version, it will be 0.1.95, and will have the sole target of getting multiple-partner sex scenes set up in the engine. :3"
 		+ "</p>"
 		
 		+ "<p>"
@@ -113,6 +118,37 @@ public class Main extends Application {
 			+"<ul>Enslaved offspring will no longer turn up in alleyways.</ul>"
 			+"<ul>Fixed bug where exported characters would have no hair.</ul>"
 			+"<ul>Lilaya's hair style is no longer random.</ul>"
+		+"</list>"
+
+		+ "</br>"
+
+		+ "<list>"
+			+ "<h6>v0.1.90</h6>"
+			+"<li>Gameplay:</li>"
+			+"<ul>Finished 95% of Zaranix's content. (Just a few scenes if you choose to fight Zaranix are placeholders.)</ul>"
+			+"<ul>Filled in more slavery placeholders (just molest left to do now).</ul>"
+			+"<ul>You can now export any character in the game (including yourself) by looking at their character sheet (or your selfie), and clicking the 'Export Character' button in the top-right of the screen. Exported characters can then be imported as a slave at Slaver Alley's Auction Block, where you can then bid on them in an auction.</ul>"
+			+"<ul>As a side-effect of implementing the above, you can now start a 'New game with import' with any exported character in the game. (There aren't any special reactions/scenes for playing as an exported character, however.)</ul>"
+				
+			+"<li>Sex:</li>"
+			+"<ul>Added hotdogging actions. (Added to doggy-style and face-to-wall.)</ul>"
+			+"<ul>Added 'Doggy-style (receiving oral)' and 'Doggy-style (performing oral)' positions, to give you positions where you can perform or receive anilingus.</ul>"
+				
+			+"<li>Other:</li>"
+			+"<ul>Slightly increased base arousal gain for the receiving partner during anal penetration.</ul>"
+			+"<ul>Rose now wears a bell collar and carries a feather duster.</ul>"
+			+"<ul>Nyan will now sell the lab coat under 'specials' (after her daily inventory reset).</ul>"
+			+"<ul>Changed slave values to reflect their race's rarity/slave suitability.</ul>"
+				
+			+"<li>Items:</li>"
+			+"<ul><b>Clothing:</b> Bell collar (no femininity requirements, neck slot).</ul>"
+			+"<ul><b>Weapon:</b> Feather duster (pretty much 0 damage). Vicky will sell this (after her daily inventory reset).</ul>"
+				
+			+"<li>Bugs:</li>"
+			+"<ul>Minor typo fixes.</ul>"
+			+"<ul>Event log will now correctly update when over 50 entries have been recorded.</ul>"
+			+"<ul>Reduced unintended prostitute spawn rate of 80% down to 50%.</ul>"
+			+"<ul>Angel ass, wing, & leg values are now properly configured. (Angels are only obtainable through the debug menu at the moment.)</ul>"
 		+"</list>"
 		;
 	

@@ -13,7 +13,6 @@
 	- Improve orgasm dialogue.
 		- Add in position-specific orgasm scenes.
 		- Add in body-part recognition for orgasm scenes. Things such as knotting, orifice modifiers, fluid modifiers, etc.
-	- Improve anilingus and add it to more positions.
 	- Add thigh sex.
 	- Work on final improvements to the sex system.
 	- Add in missing content related to the new transformations. Addictive fluids, part modifiers referenced during sex, etc.
@@ -23,12 +22,14 @@
 	Patch notes:
 	
 	Gameplay:
-		Finished 95% of Zaranix's content. (Just a few scenes if you choose to fight Zaranix are placeholders.) 
+		Finished 95% of Zaranix's content. (Just a few scenes if you choose to fight Zaranix are placeholders.)
+		Filled in more slavery placeholders (just molest left to do now).
 		You can now export any character in the game (including yourself) by looking at their character sheet (or your selfie), and clicking the 'Export Character' button in the top-right of the screen. Exported characters can then be imported as a slave at Slaver Alley's Auction Block, where you can then bid on them in an auction.
 		As a side-effect of implementing the above, you can now start a 'New game with import' with any exported character in the game. (There aren't any special reactions/scenes for playing as an exported character, however.)
 	
 	Sex:
 		Added hotdogging actions. (Added to doggy-style and face-to-wall.)
+		Added 'Doggy-style (receiving oral)' and 'Doggy-style (performing oral)' positions, to give you positions where you can perform or receive anilingus.
 	
 	Other:
 		Slightly increased base arousal gain for the receiving partner during anal penetration.
@@ -56,10 +57,10 @@
 	
 	Zaranix finishing touches
 	
+	Molest slave action
+	
 	TODO
 		Moved the sometimes-hard-to-read flashing message at the bottom of the screen (which was used for things like 'Quicksaved!') into the event log.
-	
-	
 	
 	When being submissive, your partner will sometimes ask you to pull out, but the only option available is "Stay in Position"
 	

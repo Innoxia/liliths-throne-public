@@ -8,6 +8,7 @@ import com.lilithsthrone.game.sex.SexPosition;
 import com.lilithsthrone.game.sex.managers.universal.SMDomBackToWall;
 import com.lilithsthrone.game.sex.managers.universal.SMDomCowgirl;
 import com.lilithsthrone.game.sex.managers.universal.SMDomDoggy;
+import com.lilithsthrone.game.sex.managers.universal.SMDomDoggyOral;
 import com.lilithsthrone.game.sex.managers.universal.SMDomFaceToWall;
 import com.lilithsthrone.game.sex.managers.universal.SMDomKneeling;
 import com.lilithsthrone.game.sex.managers.universal.SMDomSelfDoggy;
@@ -16,6 +17,7 @@ import com.lilithsthrone.game.sex.managers.universal.SMDomSixtyNine;
 import com.lilithsthrone.game.sex.managers.universal.SMSubBackToWall;
 import com.lilithsthrone.game.sex.managers.universal.SMSubCowgirl;
 import com.lilithsthrone.game.sex.managers.universal.SMSubDoggy;
+import com.lilithsthrone.game.sex.managers.universal.SMSubDoggyOral;
 import com.lilithsthrone.game.sex.managers.universal.SMSubFaceToWall;
 import com.lilithsthrone.game.sex.managers.universal.SMSubKneeling;
 import com.lilithsthrone.game.sex.managers.universal.SMSubSelfDoggy;
@@ -198,6 +200,48 @@ public class GenericPositioning {
 		@Override
 		public void applyEffects() {
 			Sex.setSexManager(new SMDomDoggy());
+			
+//			SexFlags.positioningBlockedPartner = true;
+			SexFlags.resetRequests();
+		}
+	};
+	
+	public static final SexAction PLAYER_FORCE_POSITION_DOGGY_ORAL = new SexAction(
+			SexActionType.PLAYER_POSITIONING,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			null) {
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !SexFlags.positioningBlockedPlayer
+					&& Sex.getPosition() != SexPosition.DOGGY_ORAL_PARTNER_ON_ALL_FOURS
+					&& Sex.isPlayerDom();
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Doggy-style (oral)";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Push [npc.name] down onto all fours and drop down behind [npc.herHim], ready to perform oral on [npc.herHim] in the doggy-style position.";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Taking hold of [npc.name]'s shoulders, you push [npc.herHim] down on all fours."
+					+ " Stepping around behind [npc.herHim], you drop down onto all fours yourself, crawling forwards to your face up against [npc.her] [npc.ass+]."
+					+ " Grinning at the sight in front of you, you [pc.moan], "
+					+ "[pc.speech(Be a good [npc.girl] and enjoy this!)]";
+		}
+
+		@Override
+		public void applyEffects() {
+			Sex.setSexManager(new SMDomDoggyOral());
 			
 //			SexFlags.positioningBlockedPartner = true;
 			SexFlags.resetRequests();
@@ -480,6 +524,43 @@ public class GenericPositioning {
 		}
 	};
 	
+	public static final SexAction PLAYER_POSITION_REQUEST_DOGGY_ORAL = new SexAction(
+			SexActionType.PLAYER_POSITIONING,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ONE_VANILLA,
+			null,
+			null) {
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !SexFlags.positioningBlockedPlayer
+					&& !SexFlags.requestedDoggyOral
+					&& Sex.getPosition() != SexPosition.DOGGY_ORAL_PLAYER_ON_ALL_FOURS
+					&& !Sex.isPlayerDom();
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Doggy-style oral (request)";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Get down on all fours and present yourself in the hopes that [npc.name] wants to perform oral on you in the doggy-style position.";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Before [npc.name] can react, you quickly drop down onto all fours, before shuffling around to present yourself to [npc.herHim].";
+		}
+
+		@Override
+		public void applyEffects() {
+			SexFlags.requestedDoggyOral = true;
+		}
+	};
+	
 	public static final SexAction PLAYER_POSITION_REQUEST_DOM_FUCKED_DOGGY = new SexAction(
 			SexActionType.PLAYER_POSITIONING,
 			ArousalIncrease.ONE_MINIMUM,
@@ -680,6 +761,7 @@ public class GenericPositioning {
 			return (SexFlags.requestedCowgirl
 					|| SexFlags.requested69
 					|| SexFlags.requestedDoggy
+					|| SexFlags.requestedDoggyOral
 					|| SexFlags.requestedDomFuckedDoggy
 					|| SexFlags.requestedBackToWall
 					|| SexFlags.requestedFaceToWall
@@ -748,6 +830,24 @@ public class GenericPositioning {
 						default:
 							return "Turning your head, you see [npc.name] drop down onto [npc.her] knees behind you."
 									+ " Moving up to press [npc.her] groin against your [pc.ass], [npc.she] grabs hold of your [pc.hips+] before [npc.moaning] down at you, "
+									+ "[npc.speech(Good [pc.girl]! This is gonna be fun!)]";
+					}
+					
+				} else {
+					return "Reaching down to grab you by the [pc.arm], [npc.name] pulls you back into your old position as [npc.she] angrily scolds you, "
+							+ "[npc.speech(What do you think you're doing?! Don't you <i>dare</i> try that again!)]";
+				}
+				
+			} else if(SexFlags.requestedDoggyOral) {
+				if(Sex.getPartner().getSexPositionPreferences().contains(SexPosition.DOGGY_ORAL_PLAYER_ON_ALL_FOURS) || Sex.getPartner().getSexPositionPreferences().isEmpty()) {
+					switch(Sex.getSexPacePartner()) {
+						case DOM_ROUGH:
+							return "Turning your head, you see [npc.name] drop down onto all fours behind you."
+									+ " Moving [npc.her] [npc.face] up to your [pc.ass+], [npc.she] growls, "
+									+ "[npc.speech(That's right, present yourself like an obedient little bitch! Now <i>stay still</i> and enjoy this!)]";
+						default:
+							return "Turning your head, you see [npc.name] drop down onto all fours behind you."
+									+ " Moving [npc.her] [npc.face] up to your [pc.ass+], [npc.she] [npc.moans], "
 									+ "[npc.speech(Good [pc.girl]! This is gonna be fun!)]";
 					}
 					
@@ -862,6 +962,10 @@ public class GenericPositioning {
 				
 			} else if(SexFlags.requestedDoggy && (Sex.getPartner().getSexPositionPreferences().contains(SexPosition.DOGGY_PLAYER_ON_ALL_FOURS) || Sex.getPartner().getSexPositionPreferences().isEmpty())) {
 				Sex.setSexManager(new SMSubDoggy());
+//				SexFlags.positioningBlockedPartner = true;
+				
+			} else if(SexFlags.requestedDoggyOral && (Sex.getPartner().getSexPositionPreferences().contains(SexPosition.DOGGY_ORAL_PLAYER_ON_ALL_FOURS) || Sex.getPartner().getSexPositionPreferences().isEmpty())) {
+				Sex.setSexManager(new SMSubDoggyOral());
 //				SexFlags.positioningBlockedPartner = true;
 				
 			} else if(SexFlags.requestedDomFuckedDoggy && (Sex.getPartner().getSexPositionPreferences().contains(SexPosition.DOGGY_PARTNER_AS_DOM_ON_ALL_FOURS) || Sex.getPartner().getSexPositionPreferences().isEmpty())) {
@@ -1019,6 +1123,51 @@ public class GenericPositioning {
 		@Override
 		public void applyEffects() {
 			Sex.setSexManager(new SMSubDoggy());
+			
+//			SexFlags.positioningBlockedPartner = true;
+//			SexFlags.positioningBlockedPlayer = true;
+			SexFlags.resetRequests();
+		}
+	};
+	
+	public static final SexAction PARTNER_FORCE_POSITION_DOGGY_ORAL = new SexAction(
+			SexActionType.PARTNER_POSITIONING,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			null) {
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !SexFlags.positioningBlockedPartner
+					&& Sex.getPosition() != SexPosition.DOGGY_ORAL_PLAYER_ON_ALL_FOURS
+					&& (Sex.getPartner().getSexPositionPreferences().contains(SexPosition.DOGGY_ORAL_PLAYER_ON_ALL_FOURS) || Sex.getPartner().getSexPositionPreferences().isEmpty())
+					&& Sex.getPartner().hasPenis()
+					&& !Sex.isPlayerDom();
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Doggy-style (oral)";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Push [npc.name] down onto all fours and drop down on all fours behind [npc.herHim], ready to perform oral on [npc.herHim] in the doggy-style position.";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Taking hold of your shoulders, [npc.name] pushes you down on all fours."
+					+ " Stepping around behind you, [npc.she] similarly drops down onto all fours, shuffling forwards to bring [npc.her] [npc.face] up against your [pc.ass+]."
+					+ " Once [npc.she]'s in position, [npc.she] [npc.moans], "
+					+ "[npc.speech(Good [pc.girl]! Now hold still and enjoy this!)]";
+		}
+
+		@Override
+		public void applyEffects() {
+			Sex.setSexManager(new SMSubDoggyOral());
 			
 //			SexFlags.positioningBlockedPartner = true;
 //			SexFlags.positioningBlockedPlayer = true;

@@ -324,6 +324,9 @@ public class SlaverAlleyDialogue {
 			if(index==1) {
 				return new Response("Import", "View the character import screen.", AUCTION_IMPORT);
 				
+			} else if(index==0) {
+				return new Response("Back", "Walk away from the auction block.", AUCTION_BLOCK);
+				
 			} else {
 				return null;
 			}
