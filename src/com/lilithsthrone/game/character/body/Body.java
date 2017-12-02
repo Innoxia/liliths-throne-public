@@ -2306,9 +2306,9 @@ public class Body implements Serializable, XMLSaving {
 				break;
 			case ANGEL:
 				if (owner.isPlayer())
-					sb.append("Your legs and feet, while appearing to be human, give off a soft golden glow, and are covered in <span style='color:[pc.legColourHex];'>[pc.legColour] [pc.legSkin]</span>.");
+					sb.append("Your legs and feet are human in shape, but are covered in <span style='color:[pc.legColourHex];'>[pc.legColour] [pc.legSkin]</span>.");
 				else
-					sb.append("[npc.Her] legs and feet, while appearing to be human, give off a soft golden glow, and are covered in <span style='color:[npc.legColourHex];'>[npc.legColour] [npc.legSkin]</span>.");
+					sb.append("[npc.Her] legs and feet are human in shape, but are covered in <span style='color:[npc.legColourHex];'>[npc.legColour] [npc.legSkin]</span>.");
 				break;
 			case DEMON_COMMON:
 				if (owner.isPlayer())
@@ -2863,7 +2863,13 @@ public class Body implements Serializable, XMLSaving {
 					descriptionSB.append("[npc.She] has a human, [npc.anusFullDescription(true)]");
 				}
 				break;
-				
+			case ANGEL:
+				if (isPlayer) {
+					descriptionSB.append("You have an angelic, [pc.anusFullDescription(true)]");
+				} else {
+					descriptionSB.append("[npc.She] has an angelic, [npc.anusFullDescription(true)]");
+				}
+				break;
 			case DEMON_COMMON:
 				if (isPlayer) {
 					descriptionSB.append("You have a demonic, [pc.anusFullDescription(true)]");
@@ -2934,8 +2940,6 @@ public class Body implements Serializable, XMLSaving {
 				} else {
 					descriptionSB.append("[npc.She] has a slime's, [npc.anusFullDescription(true)]");
 				}
-				break;
-			default:
 				break;
 		}
 		

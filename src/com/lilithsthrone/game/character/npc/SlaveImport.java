@@ -12,6 +12,7 @@ import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.main.Main;
@@ -40,6 +41,12 @@ public class SlaveImport extends NPC {
 		loadNPCVariablesFromXML(npc, null, parentElement, doc);
 //		npc.resetInventory();
 //		npc.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR), true, npc);
+		npc.clearNonEquippedInventory();
+		if(npc.getClothingInSlot(InventorySlot.NECK)!=null) {
+			npc.getClothingInSlot(InventorySlot.NECK).setSealed(false);
+			npc.unequipClothingIntoInventory(npc.getClothingInSlot(InventorySlot.NECK), true, npc);
+		}
+		npc.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR), true, npc);
 		npc.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_AUCTIONING_BLOCK, true);
 		
 		npc.clearAffectionMap();

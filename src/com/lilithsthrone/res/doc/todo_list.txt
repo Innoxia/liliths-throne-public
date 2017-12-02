@@ -9,6 +9,7 @@
 	- Finish writing slave placeholder content.
 	- Add more slave jobs. Things like assisting Rose, working in a bar/brothel/milking shed, training, etc. gardener
 	- Add more ways to influence a slave's affection and obedience.
+	
 	- Improve orgasm dialogue.
 		- Add in position-specific orgasm scenes.
 		- Add in body-part recognition for orgasm scenes. Things such as knotting, orifice modifiers, fluid modifiers, etc.
@@ -43,7 +44,7 @@
 		Minor typo fixes.
 		Event log will now correctly update when over 50 entries have been recorded.
 		Reduced unintended prostitute spawn rate of 80% down to 50%.
-	
+		Angel ass, wing, & leg values are now properly configured. (Angels are only obtainable through the debug menu at the moment.)
 	
 	
 	

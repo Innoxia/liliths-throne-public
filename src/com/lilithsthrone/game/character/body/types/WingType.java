@@ -14,7 +14,7 @@ public enum WingType implements BodyPartTypeInterface {
 
 	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON),
 
-	ANGEL(BodyCoveringType.DEMON_COMMON, Race.ANGEL) {
+	ANGEL(BodyCoveringType.ANGEL_FEATHER, Race.ANGEL) {
 		@Override
 		public boolean allowsFlight() {
 			return true;

@@ -13,7 +13,7 @@ public enum LegType implements BodyPartTypeInterface {
 
 	HUMAN(BodyCoveringType.HUMAN, Race.HUMAN),
 
-	ANGEL(BodyCoveringType.HUMAN, Race.ANGEL),
+	ANGEL(BodyCoveringType.ANGEL, Race.ANGEL),
 
 	COW_MORPH(BodyCoveringType.BOVINE_FUR, Race.COW_MORPH),
 	
