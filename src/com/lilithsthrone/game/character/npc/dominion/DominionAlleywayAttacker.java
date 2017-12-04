@@ -176,22 +176,6 @@ public class DominionAlleywayAttacker extends NPC {
 			setDescription(UtilText.parse(this,
 					"[npc.Name] is a resident of Dominion, who, for reasons of [npc.her] own, prowls the back alleys in search of victims to prey upon."));
 			
-			// PERSONALITY & BACKGROUND:
-			
-			if(this.isFeminine()) {
-				if(Math.random()>0.5f) {
-					this.setHistory(History.PROSTITUTE);
-					setSexualOrientation(SexualOrientation.AMBIPHILIC);
-					setName(Name.getRandomProstituteTriplet());
-					useItem(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL), this, false);
-				} else {
-					this.setHistory(History.MUGGER);
-				}
-				
-			} else {
-				this.setHistory(History.MUGGER);
-			}
-			
 			// ADDING FETISHES:
 			
 			CharacterUtils.addFetishes(this);
@@ -199,6 +183,27 @@ public class DominionAlleywayAttacker extends NPC {
 			// BODY RANDOMISATION:
 			
 			CharacterUtils.randomiseBody(this);
+			
+			// PERSONALITY & BACKGROUND:
+			
+			double prostituteChance = 0.25f; //Base 0.25% chance for any random to be a prostitute.
+						
+			if(this.isFeminine()) { prostituteChance += 0.10f; }
+			
+			prostituteChance += (this.body.getBreast().getRawSizeValue()-7)*0.02f;
+			
+			if(this.hasVagina()) { prostituteChance += 0.15f; }
+			
+			if(this.body.getBreast().getNipples().getOrificeNipples().getRawCapacityValue() >= 4) { prostituteChance += 0.05f; }
+				
+			if(Math.random()<=prostituteChance) {
+				this.setHistory(History.PROSTITUTE);
+				setSexualOrientation(SexualOrientation.AMBIPHILIC);
+				setName(Name.getRandomProstituteTriplet());
+				useItem(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL), this, false);
+			} else {
+				this.setHistory(History.MUGGER);
+			}
 			
 			// INVENTORY:
 			

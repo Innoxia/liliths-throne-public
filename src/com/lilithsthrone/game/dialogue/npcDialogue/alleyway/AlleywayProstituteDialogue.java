@@ -36,6 +36,20 @@ public class AlleywayProstituteDialogue {
 		@Override
 		public String getContent() {
 			
+			double prostituteChance = 0.25f; //Base 0.25% chance for any random to be a prostitute.
+			
+			if(Main.game.getActiveNPC().isFeminine()) { prostituteChance += 0.10f; }
+			
+			prostituteChance += (Main.game.getActiveNPC().getBody().getBreast().getRawSizeValue()-7)*0.02f;
+			
+			if(Main.game.getActiveNPC().hasVagina()) { prostituteChance += 0.15f; }
+			
+			if(Main.game.getActiveNPC().getBody().getBreast().getNipples().getOrificeNipples().getRawCapacityValue() >= 4) { prostituteChance += 0.05f; }
+			
+			if(Main.game.getActiveNPC().isVisiblyPregnant()) {prostituteChance = prostituteChance*0.8f;}
+			
+			int cost = (int) (prostituteChance*100);
+			
 			// You've encountered them before:
 			if(Main.game.getActiveNPC().getLastTimeEncountered()!=-1) {
 				UtilText.nodeContentSB.setLength(0);
@@ -73,7 +87,7 @@ public class AlleywayProstituteDialogue {
 									+ "<p>"
 										+ "You step up to [npc.name], allowing [npc.her] to take hold of your [pc.hands] and hesitantly guide them down to stroke [npc.her] swollen bump."
 										+ " [npc.She] lets out a nervous little laugh, clearly worried that you're going to attack [npc.herHim] again, before biting [npc.her] [npc.lip] and batting [npc.her] eyelids at you,"
-										+ " [npc.speech(So, you wanna fuck a pregnant "+(Main.game.getActiveNPC().isFeminine()?"chick":"dude")+"? I'll even give you a discount; forty flames to the father of our kids!)]"
+										+ " [npc.speech(So, you wanna fuck a pregnant "+(Main.game.getActiveNPC().isFeminine()?"chick":"dude")+"? I'll even give you a discount; "+cost+" flames to the father of our kids!)]"
 									+ "</p>");
 						} else {
 							UtilText.nodeContentSB.append(
@@ -87,7 +101,7 @@ public class AlleywayProstituteDialogue {
 									+ "<p>"
 										+ "You walk up to [npc.name], once again allowing [npc.her] to take hold of your [pc.hands] and gingerly guide them down to stroke [npc.her] swollen bump."
 										+ " [npc.She] lets out hesitant laugh, before biting [npc.her] [npc.lip] and batting [npc.her] eyelids at you,"
-										+ " [npc.speech(So, you wanna fuck a pregnant "+(Main.game.getActiveNPC().isFeminine()?"chick":"dude")+"? I'll even give you a discount; forty flames to the father of our kids!)]"
+										+ " [npc.speech(So, you wanna fuck a pregnant "+(Main.game.getActiveNPC().isFeminine()?"chick":"dude")+"? I'll even give you a discount; "+cost+" flames to the father of our kids!)]"
 									+ "</p>");
 						}
 						
@@ -106,7 +120,7 @@ public class AlleywayProstituteDialogue {
 								+ "</p>"
 								+ "<p>"
 									+ "As you're wondering how to react, the [npc.race] whines,"
-									+ " [npc.speech(Come on! Only fifty flames, and [npc.name]'s all yours!)]"
+									+ " [npc.speech(Come on! Only "+cost+" flames, and [npc.name]'s all yours!)]"
 								+ "</p>");
 					}
 				} else {
@@ -131,7 +145,7 @@ public class AlleywayProstituteDialogue {
 									+ "<p>"
 										+ "You step up to [npc.name], allowing [npc.her] to take hold of your [pc.hands] and guide them down to stroke [npc.her] swollen bump."
 										+ " [npc.She] lets out another little laugh, before biting [npc.her] [npc.lip] and batting [npc.her] eyelids at you,"
-										+ " [npc.speech(So, you wanna fuck a pregnant "+(Main.game.getActiveNPC().isFeminine()?"chick":"dude")+"? I'll even give you a discount; forty flames to the father of our kids!)]"
+										+ " [npc.speech(So, you wanna fuck a pregnant "+(Main.game.getActiveNPC().isFeminine()?"chick":"dude")+"? I'll even give you a discount; "+cost+" flames to the father of our kids!)]"
 									+ "</p>");
 						} else {
 							UtilText.nodeContentSB.append(
@@ -164,7 +178,7 @@ public class AlleywayProstituteDialogue {
 								+ "</p>"
 								+ "<p>"
 									+ "As you're wondering how to react, the [npc.race] whines,"
-									+ " [npc.speech(Come on! Only fifty flames, and [npc.name]'s all yours!)]"
+									+ " [npc.speech(Come on! Only "+cost+" flames, and [npc.name]'s all yours!)]"
 								+ "</p>");
 					}
 				}
@@ -195,7 +209,7 @@ public class AlleywayProstituteDialogue {
 					+ "</p>"
 					+ "<p>"
 						+ "As you're wondering what to make of [npc.herHim], the [npc.race] whines,"
-						+ " [npc.speech(Come on! Only fifty flames, and [npc.name]'s all yours!)]"
+						+ " [npc.speech(Come on! Only "+cost+" flames, and [npc.name]'s all yours!)]"
 					+ "</p>";
 			}
 		}
@@ -218,7 +232,20 @@ public class AlleywayProstituteDialogue {
 				};
 				
 			} else if (index == 2) {
-				int cost = Main.game.getActiveNPC().isVisiblyPregnant()?40:50;
+				
+				double prostituteChance = 0.25f; //Base 0.25% chance for any random to be a prostitute.
+				
+				if(Main.game.getActiveNPC().isFeminine()) { prostituteChance += 0.10f; }
+				
+				prostituteChance += (Main.game.getActiveNPC().getBody().getBreast().getRawSizeValue()-7)*0.02f;
+				
+				if(Main.game.getActiveNPC().hasVagina()) { prostituteChance += 0.15f; }
+				
+				if(Main.game.getActiveNPC().getBody().getBreast().getNipples().getOrificeNipples().getRawCapacityValue() >= 4) { prostituteChance += 0.05f; }
+				
+				if(Main.game.getActiveNPC().isVisiblyPregnant()) {prostituteChance = prostituteChance*0.8f;}
+				
+				int cost = (int) (prostituteChance*100);
 				
 				if(Main.game.getPlayer().getMoney()<cost) {
 					return new Response("Sex ("+UtilText.formatAsMoney(cost, "span")+")", "You don't have "+cost+" flames, so you can't afford a good time with [npc.name].", null);
