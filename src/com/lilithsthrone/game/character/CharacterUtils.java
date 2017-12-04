@@ -928,7 +928,7 @@ public class CharacterUtils {
 		}
 		
 		//Ass:
-		if(character.hasFetish(Fetish.FETISH_ANAL_RECEIVING) || character.getHistory()==History.PROSTITUTE) {
+		if(character.hasFetish(Fetish.FETISH_ANAL_RECEIVING)) {
 			character.setAssVirgin(false);
 			character.setAssCapacity(character.getAssRawCapacityValue()*1.2f, true);
 			character.setAssStretchedCapacity(character.getAssRawCapacityValue());
@@ -990,7 +990,7 @@ public class CharacterUtils {
 				character.setVaginaCapacity(capacity, true);
 				
 			} else {
-				if(Math.random()>0.25f || character.getHistory()==History.PROSTITUTE) {
+				if(Math.random()>0.25f) {
 					character.setVaginaVirgin(false);
 					character.setVaginaCapacity(character.getVaginaRawCapacityValue()*1.2f, true);
 					character.setVaginaStretchedCapacity(character.getVaginaRawCapacityValue());
@@ -1013,7 +1013,7 @@ public class CharacterUtils {
 		List<Fetish> availableFetishes = new ArrayList<>();
 		for(Fetish f : Fetish.values()) {
 			if (f==Fetish.FETISH_PURE_VIRGIN) {
-				if(character.hasVagina() && character.getHistory()!=History.PROSTITUTE)
+				if(character.hasVagina())
 					availableFetishes.add(f);
 				
 			} else if (f==Fetish.FETISH_BIMBO) {
