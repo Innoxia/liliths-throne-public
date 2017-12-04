@@ -12,6 +12,7 @@ import com.lilithsthrone.game.character.History;
 import com.lilithsthrone.game.character.Name;
 import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.FurryPreference;
@@ -197,6 +198,8 @@ public class DominionAlleywayAttacker extends NPC {
 			if(this.hasVagina()) { prostituteChance += 0.15f; }
 			
 			if(this.body.getBreast().getNipples().getOrificeNipples().getRawCapacityValue() >= 4) { prostituteChance += 0.05f; }
+			
+			if(this.hasFetish(Fetish.FETISH_PURE_VIRGIN)) {prostituteChance = 0;}
 				
 			if(Math.random()<=prostituteChance) {
 				this.setHistory(History.PROSTITUTE);
