@@ -44,6 +44,8 @@ public class AlleywayProstituteDialogue {
 			
 			if(Main.game.getActiveNPC().hasVagina()) { prostituteChance += 0.15f; }
 			
+			if(Main.game.getActiveNPC().hasPenis()) { prostituteChance += Math.min((Main.game.getActiveNPC().getBody().getPenis().getRawSizeValue()-5)*0.01f, 0.10f); }
+			
 			if(Main.game.getActiveNPC().getBody().getBreast().getNipples().getOrificeNipples().getRawCapacityValue() >= 4) { prostituteChance += 0.05f; }
 			
 			if(Main.game.getActiveNPC().isVisiblyPregnant()) {prostituteChance = prostituteChance*0.8f;}
@@ -240,6 +242,8 @@ public class AlleywayProstituteDialogue {
 				prostituteChance += (Main.game.getActiveNPC().getBody().getBreast().getRawSizeValue()-7)*0.02f;
 				
 				if(Main.game.getActiveNPC().hasVagina()) { prostituteChance += 0.15f; }
+				
+				if(Main.game.getActiveNPC().hasPenis()) { prostituteChance += Math.min((Main.game.getActiveNPC().getBody().getPenis().getRawSizeValue()-5)*0.01f, 0.10f); }
 				
 				if(Main.game.getActiveNPC().getBody().getBreast().getNipples().getOrificeNipples().getRawCapacityValue() >= 4) { prostituteChance += 0.05f; }
 				

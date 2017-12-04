@@ -190,7 +190,9 @@ public class DominionAlleywayAttacker extends NPC {
 						
 			if(this.isFeminine()) { prostituteChance += 0.10f; }
 			
-			prostituteChance += (this.body.getBreast().getRawSizeValue()-7)*0.02f;
+			prostituteChance += Math.min((this.body.getBreast().getRawSizeValue()-7)*0.02f, 0.35f);
+			
+			if(this.hasPenis()) { prostituteChance += Math.min((this.body.getPenis().getRawSizeValue()-5)*0.01f, 0.10f); }
 			
 			if(this.hasVagina()) { prostituteChance += 0.15f; }
 			

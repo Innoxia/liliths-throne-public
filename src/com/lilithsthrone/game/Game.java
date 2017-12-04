@@ -780,7 +780,7 @@ public class Game implements Serializable, XMLSaving {
 			}
 			
 			// Prostitutes stay on promiscuity pills to avoid pregnancies
-			if(!npc.isPregnant() && !npc.isSlave() && npc.getHistory()==History.PROSTITUTE && !npc.hasStatusEffect(StatusEffect.PROMISCUITY_PILL) && !npc.getLocation().equals(Main.game.getPlayer().getLocation())) {
+			if(npc.hasVagina() && !npc.isPregnant() && !npc.isSlave() && npc.getHistory()==History.PROSTITUTE && !npc.hasStatusEffect(StatusEffect.PROMISCUITY_PILL) && !npc.getLocation().equals(Main.game.getPlayer().getLocation())) {
 				npc.useItem(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL), npc, false);
 			}
 			
