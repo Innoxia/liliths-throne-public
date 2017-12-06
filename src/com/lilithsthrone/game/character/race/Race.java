@@ -951,7 +951,7 @@ public enum Race {
 	 * 
 	 * "Imps are a small, mischievous, tribal race, found primarily in the subterranean city of Submission."
 	 * +
-	 * " Despite their short stature, Imps are birthed fully mature, and inherit the caliber of intelligence from their mother."
+	 * " Despite their short stature, Imps are birthed fully mature, and inherit the calibre of intelligence from their mother."
 	 * +
 	 * " Imps are exclusively male, and form tribes based on their birthing heritage."
 	 * +

@@ -9,7 +9,7 @@ package com.lilithsthrone.game.character.body.valueEnums;
  */
 public enum CupSize {
 	FLAT("no", "no", 0, 1),
-	TRAINING("almost unnoticable", "training", 1, 4),
+	TRAINING("almost unnoticeable", "training", 1, 4),
 	AA("extremely tiny", "AA", 4, 5),
 	A("tiny", "A", 5, 6),
 	B("small", "B", 6, 7),
