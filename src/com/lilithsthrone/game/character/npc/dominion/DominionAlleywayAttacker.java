@@ -197,15 +197,9 @@ public class DominionAlleywayAttacker extends NPC {
 			
 			if(this.hasVagina()) { prostituteChance += 0.15f; } //Bonus for vagina.
 			
-<<<<<<< HEAD
 			if(this.body.getBreast().getNipples().getOrificeNipples().getRawCapacityValue() >= 4) { prostituteChance += 0.05f; } //Bonus for fuckable nipples.
 			
 			if(this.hasFetish(Fetish.FETISH_PURE_VIRGIN)) {prostituteChance = 0;} // addFetishes() was supposed to handle this before.
-=======
-			if(this.body.getBreast().getNipples().getOrificeNipples().getRawCapacityValue() >= 4) { prostituteChance += 0.05f; }
-			
-			if(this.hasFetish(Fetish.FETISH_PURE_VIRGIN)) {prostituteChance = 0;}
->>>>>>> branch 'master' of https://github.com/tukaima/liliths-throne-public
 				
 			if(Math.random()<=prostituteChance) {
 				this.setHistory(History.PROSTITUTE);
