@@ -605,7 +605,7 @@ public class PhoneDialogue {
 						+ "</br></br>"
 						
 						+ "[style.boldSex(Elasticity:)] An orifice's elasticity determines how quickly it stretches out."
-							+ " If a parter's penis is too large for your orifice's capacity value, then your orifice will stretch out each turn during sex, with <b>higher elasticity values meaning that it stretches out quicker</b>."
+							+ " If a partner's penis is too large for your orifice's capacity value, then your orifice will stretch out each turn during sex, with <b>higher elasticity values meaning that it stretches out quicker</b>."
 							+ "</br>Elasticity values range from 0 (extremely resistant to being stretched out) to 7 (instantly stretching out)."
 							
 							+ "</br></br>"

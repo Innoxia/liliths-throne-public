@@ -2582,7 +2582,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	 * @param fluid The FluidType to be ingested.
 	 * @param orificeIngestedThrough Orifice through which the fluid is being ingested.
 	 * @param addictive Is this fluid addictive or not.
-	 * @return A <b>formatted paragraph</b> description of addiction increasing/satsfied, or an empty String if no addictive effects occurr.
+	 * @return A <b>formatted paragraph</b> description of addiction increasing/satisfied, or an empty String if no addictive effects occur.
 	 */
 	public String ingestFluid(GameCharacter charactersFluid, FluidType fluid, OrificeType orificeIngestedThrough, boolean addictive) {
 		if(addictive) {

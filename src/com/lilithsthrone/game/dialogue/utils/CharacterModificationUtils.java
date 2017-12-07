@@ -173,7 +173,7 @@ public class CharacterModificationUtils {
 						+"</h5>"
 						+ "<p style='text-align:center;'>"
 							+ "Your personality will have a minor influence on how your character speaks or reacts."
-							+ " It will not lock out any options during the game, and is more for roleplaying purposes."
+							+ " It will not lock out any options during the game, and is more for role-playing purposes."
 						+ "</p>");
 		
 		for(Personality personality : Personality.values()) {

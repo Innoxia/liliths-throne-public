@@ -1097,7 +1097,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						.wing(new Wing(stage.isWingFurry()?startingBodyType.getWingType():WingType.NONE))
 						.build();
 		
-		// Apply fetish mdifiers:
+		// Apply fetish modifiers:
 		
 		GameCharacter genericOwner = Main.game.getGenericAndrogynousNPC();
 		
@@ -2788,7 +2788,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							return UtilText.returnStringAtRandom(
 									"That's right slut, keep sucking on my tits like the worthless little fuck toy you are!",
 									"Come on bitch! Get that [pc.tongue] of yours deeper into my nipples!",
-									"Fucking bitch, put some more effort in! You know how lucky you are, being allowed to suck on ym tits like this?!");
+									"Fucking bitch, put some more effort in! You know how lucky you are, being allowed to suck on my tits like this?!");
 						case SUB_EAGER:
 							return UtilText.returnStringAtRandom(
 									"Yes! I love the feeling of your lips on my tits! Don't stop!",
@@ -4373,7 +4373,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							return UtilText.returnStringAtRandom(
 									"That's right slut, keep sucking on my tits like the worthless little fuck toy you are!",
 									"Come on bitch! Get that [npc.tongue] of yours deeper into my nipples!",
-									"Fucking bitch, put some more effort in! You know how lucky you are, being allowed to suck on ym tits like this?!");
+									"Fucking bitch, put some more effort in! You know how lucky you are, being allowed to suck on my tits like this?!");
 						case SUB_EAGER:
 							return UtilText.returnStringAtRandom(
 									"Yes! I love the feeling of your lips on my tits! Don't stop!",

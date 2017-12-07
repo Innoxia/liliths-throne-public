@@ -2541,7 +2541,7 @@ public class MainController implements Initializable {
 					}
 				}
 				
-				// Lip puffyness:
+				// Lip puffiness:
 				id = "LIP_PUFFY_ON";
 				if (((EventTarget) document.getElementById(id)) != null) {
 					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
@@ -2601,7 +2601,7 @@ public class MainController implements Initializable {
 					}
 				}
 				
-				// Nipple puffyness:
+				// Nipple puffiness:
 				id = "NIPPLE_PUFFY_ON";
 				if (((EventTarget) document.getElementById(id)) != null) {
 					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
