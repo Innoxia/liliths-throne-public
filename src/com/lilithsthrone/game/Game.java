@@ -495,7 +495,7 @@ public class Game implements Serializable, XMLSaving {
 						addedIds.add(npc.getId());
 						
 						// To fix issues with older versions hair length:
-						if(Main.isVersionOlderThan(version, "0.1.95")) {
+						if(Main.isVersionOlderThan(version, "0.1.90.5")) {
 							npc.getBody().getHair().setLength(null, npcClassDefault.getHairRawLengthValue());
 						}
 						
@@ -541,7 +541,7 @@ public class Game implements Serializable, XMLSaving {
 				}
 				
 				// To prevent errors from previous versions, reset Zaranix progress if prior to 0.1.95:
-				if(Main.isVersionOlderThan(version, "0.1.95")) {
+				if(Main.isVersionOlderThan(version, "0.1.90.5")) {
 					if(Main.game.getPlayer().getWorldLocation() == WorldType.ZARANIX_HOUSE_GROUND_FLOOR
 							|| Main.game.getPlayer().getWorldLocation() == WorldType.ZARANIX_HOUSE_FIRST_FLOOR) {
 						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME, false);
