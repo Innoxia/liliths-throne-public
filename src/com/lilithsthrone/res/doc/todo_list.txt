@@ -27,6 +27,7 @@
 		Added an incubus variation to the succubus alleyway attacker (also set spawn rates for succubi/incubi to be based on your gender preferences). Also improved variety of clothing worn by succubus/incubus attackers. (Some of the text hasn't been updated for the incubus just yet. It will be finished for the next release.)
 		Added 'public use' as a job for your slaves. When selected, your slaves will be sent to Slaver Alley's public stocks, where they will be used by randomly generated NPCs.
 		Added self-doggy oral positions.
+		Added difficulty setting in the options.
 		
 	Contributions:
 		Multiple spelling corrections (submitted via github PR by shutizake).

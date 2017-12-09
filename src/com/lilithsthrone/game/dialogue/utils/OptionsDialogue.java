@@ -9,6 +9,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
 
+import com.lilithsthrone.game.DifficultyLevel;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.KeyboardAction;
 import com.lilithsthrone.game.character.CharacterUtils;
@@ -555,7 +556,10 @@ public class OptionsDialogue {
 		
 		@Override
 		public String getContent(){
-			return "<p>"
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(
+					"<p>"
 					+ "<b>Light/Dark theme:</b>"
 					+ "</br>This switches the main display between a light and dark theme. (Work in progress!)"
 					+ "</p>"
@@ -569,7 +573,22 @@ public class OptionsDialogue {
 					+ "<b>Fade-in:</b>"
 					+ "</br>This option is responsible for fading in the main part of the text each time a new scene is displayed."
 					+ " Although it makes scene transitions a little prettier, it is off by default, as it can cause some annoying lag in inventory screens."
-					+ "</p>";
+					+ "</p>"
+					
+					+"<p>"
+					+ "<b>Difficulty (Currently set to "+Main.getProperties().difficultyLevel.getName()+"):</b>");
+			
+			for(DifficultyLevel dl : DifficultyLevel.values()) {
+				UtilText.nodeContentSB.append("</br>"+(
+						Main.getProperties().difficultyLevel==dl
+							?"<b style='color:"+dl.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(dl.getName())+"</b> "+dl.getDescription()
+							:"<span style='color:"+dl.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(dl.getName())+"</span> [style.colourDisabled("+dl.getDescription()+")]")
+						 );
+			}
+			
+			UtilText.nodeContentSB.append("</p>");
+			
+			return UtilText.nodeContentSB.toString();
 		}
 		
 		@Override
@@ -627,12 +646,34 @@ public class OptionsDialogue {
 				};
 				
 			} else if (index == 5) {
-				return new Response("Gender pronouns", "Customise all gender pronouns and names.", OPTIONS_PRONOUNS);
+				return new Response("Difficulty: "+Main.getProperties().difficultyLevel.getName(), "Cycle the game's difficulty.", OPTIONS){
+					@Override
+					public void effects() {
+						switch(Main.getProperties().difficultyLevel) {
+							case NORMAL:
+								Main.getProperties().difficultyLevel = DifficultyLevel.HARD;
+								break;
+							case HARD:
+								Main.getProperties().difficultyLevel = DifficultyLevel.NIGHTMARE;
+								break;
+							case NIGHTMARE:
+								Main.getProperties().difficultyLevel = DifficultyLevel.HELL;
+								break;
+							case HELL:
+								Main.getProperties().difficultyLevel = DifficultyLevel.NORMAL;
+								break;
+						}
+						Main.saveProperties();
+					}
+				};
 				
 			} else if (index == 6) {
+				return new Response("Gender pronouns", "Customise all gender pronouns and names.", OPTIONS_PRONOUNS);
+				
+			} else if (index == 7) {
 				return new Response("Gender preferences", "Set your preferred gender encounter rates.", GENDER_PREFERENCE);
 			
-			} else if (index == 7) {
+			} else if (index == 8) {
 				return new Response("Furry preferences", "Set your preferred transformation encounter rates.", FURRY_PREFERENCE);
 			
 			} else if (index == 0) {
@@ -1428,9 +1469,6 @@ public class OptionsDialogue {
 										+ "</div>")
 					+ "</div>"
 				+"</div>"
-				
-				
-				
 				
 				
 				+ "<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>"

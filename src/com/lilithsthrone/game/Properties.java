@@ -64,7 +64,7 @@ public class Properties implements Serializable {
 			newItemDiscovered = false,
 			newRaceDiscovered = false;
 	
-	public boolean hardMode = false;
+	public DifficultyLevel difficultyLevel = DifficultyLevel.NORMAL;
 	
 	public AndrogynousIdentification androgynousIdentification = AndrogynousIdentification.CLOTHING_FEMININE;
 
@@ -188,7 +188,7 @@ public class Properties implements Serializable {
 			createXMLElementWithValue(doc, settings, "newItemDiscovered", String.valueOf(newItemDiscovered));
 			createXMLElementWithValue(doc, settings, "newRaceDiscovered", String.valueOf(newRaceDiscovered));
 
-			createXMLElementWithValue(doc, settings, "hardMode", String.valueOf(hardMode));
+			createXMLElementWithValue(doc, settings, "difficultyLevel", difficultyLevel.toString());
 			
 			
 			
@@ -454,8 +454,8 @@ public class Properties implements Serializable {
 				newItemDiscovered = Boolean.valueOf(((Element)element.getElementsByTagName("newItemDiscovered").item(0)).getAttribute("value"));
 				newRaceDiscovered = Boolean.valueOf(((Element)element.getElementsByTagName("newRaceDiscovered").item(0)).getAttribute("value"));
 
-				if(element.getElementsByTagName("hardMode").item(0)!=null) {
-					hardMode = Boolean.valueOf(((Element)element.getElementsByTagName("hardMode").item(0)).getAttribute("value"));
+				if(element.getElementsByTagName("difficultyLevel").item(0)!=null) {
+					difficultyLevel = DifficultyLevel.valueOf(((Element)element.getElementsByTagName("difficultyLevel").item(0)).getAttribute("value"));
 				}
 				
 				overwriteWarning = Boolean.valueOf(((Element)element.getElementsByTagName("overwriteWarning").item(0)).getAttribute("value"));
@@ -748,4 +748,5 @@ public class Properties implements Serializable {
 	public void setNewRaceDiscovered(boolean newRaceDiscovered) {
 		this.newRaceDiscovered = newRaceDiscovered;
 	}
+	
 }

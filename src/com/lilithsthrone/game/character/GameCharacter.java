@@ -18,6 +18,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import com.lilithsthrone.game.DifficultyLevel;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -3235,7 +3236,21 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 
 	public int getLevel() {
-		return level;
+		if(this.isPlayer() || !Main.getProperties().difficultyLevel.isNPCLevelScaling()) {
+			return level;
+		} else {
+			if(Main.getProperties().difficultyLevel == DifficultyLevel.HELL) {
+				if(level < Main.game.getPlayer().getLevel() * 2) {
+					return Main.game.getPlayer().getLevel() * 2;
+				} else {
+					return level;
+				}
+			} else if(level < Main.game.getPlayer().getLevel()) {
+				return Main.game.getPlayer().getLevel();
+			} else {
+				return level;
+			}
+		}
 	}
 
 	public void setLevel(int level) {
