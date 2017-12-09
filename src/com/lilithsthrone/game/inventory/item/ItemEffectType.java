@@ -783,7 +783,7 @@ public enum ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			return (target.isPlayer()
 						?"You start to feel more feminine..."
-						:UtilText.parse(target, "[npc.Name] starts to feel mroe feminine..."))
+						:UtilText.parse(target, "[npc.Name] starts to feel more feminine..."))
 					+ "</br>"
 					+ target.incrementFemininity(3)
 					+ "</br>"

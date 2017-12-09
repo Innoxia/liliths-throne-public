@@ -143,7 +143,7 @@ public class Game implements Serializable, XMLSaving {
 	private Encounter currentEncounter;
 
 	private boolean hintsOn, started, inNewWorld;
-
+	
 	private DialogueFlags dialogueFlags;
 	
 	// Responses:

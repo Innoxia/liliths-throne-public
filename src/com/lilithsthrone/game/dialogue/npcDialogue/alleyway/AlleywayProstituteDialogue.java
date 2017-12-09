@@ -51,7 +51,7 @@ public class AlleywayProstituteDialogue {
 							+ ", leaning back against one wall."
 						+ "</p>");
 				
-				if(Main.game.getActiveNPC().getFoughtPlayerCount()>0) { // You've fought them before, so tehy're a little scared:
+				if(Main.game.getActiveNPC().getFoughtPlayerCount()>0) { // You've fought them before, so they're a little scared:
 					if(Main.game.getActiveNPC().isVisiblyPregnant()){ // Pregnant encounters:
 						if(!Main.game.getActiveNPC().isReactedToPregnancy()) {
 							UtilText.nodeContentSB.append(

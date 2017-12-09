@@ -1095,7 +1095,7 @@ public class ClothingType {
 			false,
 			"scarf",
 			"scarfs",
-			"A unisex scarf, made of a soft, wooly fabric.",
+			"A unisex scarf, made of a soft, woolly fabric.",
 			1,
 			null,
 			InventorySlot.NECK,
