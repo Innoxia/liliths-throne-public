@@ -147,6 +147,18 @@ public class PhoneDialogue {
 					}
 				};
 				
+			} else if (index == 8) {
+				if(Main.game.getPlayer().getRace()==Race.DEMON) {
+					return new Response("Transform", "Transform your body.", BodyChanging.BODY_CHANGING_CORE) {
+						@Override
+						public void effects() {
+							BodyChanging.setTarget(Main.game.getPlayer());
+						}
+					};
+				} else {
+					return new Response("Transform", "Only demons and slimes can transform themselves!", null);
+				}
+				
 			} else if (index == 0){
 				return new ResponseEffectsOnly("Back", "Put your phone away."){
 					@Override

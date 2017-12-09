@@ -179,7 +179,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-		credits.add(new CreditsSlot("Anonymous", "", 0, 3, 68, 25));
+		credits.add(new CreditsSlot("Anonymous", "", 0, 3, 68, 24));
 		
 		credits.add(new CreditsSlot("Adhana Konker", "", 0, 0, 3, 0));
 		credits.add(new CreditsSlot("Lexi <3", "", 0, 0, 0, 1));
@@ -293,7 +293,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("HerrKommissar11", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("RogueRandom", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("RyubosJ", "", 0, 0, 1, 0));
-		
+		credits.add(new CreditsSlot("Vaddex", "", 0, 0, 0, 1));
 		 
 		
 		
@@ -419,6 +419,29 @@ public class Main extends Application {
 			}
 		});
 		new Thread(gen).start();
+	}
+	
+	public static boolean isVersionOlderThan(String versionToCheck, String versionToCheckAgainst) {
+		String[] v1 = versionToCheck.split("\\.");
+		String[] v2 = versionToCheckAgainst.split("\\.");
+		
+		try {
+			if(Integer.valueOf(v1[0]) < Integer.valueOf(v2[0])) {
+				return true;
+			}
+			
+			if(Integer.valueOf((v1[1].length()==1?v1[1]+"0":v1[1])) < Integer.valueOf((v2[1].length()==1?v2[1]+"0":v2[1]))) {
+				return true;
+			}
+			
+			if(Integer.valueOf((v1[2].length()==1?v1[2]+"0":v1[2])) < Integer.valueOf((v2[2].length()==1?v2[2]+"0":v2[2]))) {
+				return true;
+			}
+		} catch(Exception ex) {
+			return true;
+		}
+		
+		return false;
 	}
 	
 	public static int getFontSize() {

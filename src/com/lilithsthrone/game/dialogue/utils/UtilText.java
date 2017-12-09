@@ -1608,6 +1608,23 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
+						new ListValue<>("feminine"),
+						new ListValue<>("masculine")),
+				true,
+				true,
+				"",
+				"Description of method"){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(character.isFeminine())
+					return "feminine";
+				else
+					return "masculine";
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
 						new ListValue<>("her"),
 						new ListValue<>("his"),
 						new ListValue<>("herPos"),
@@ -3144,6 +3161,35 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
+						new ListValue<>("labia")),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.VAGINA){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return "labia";
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("labia+"),
+						new ListValue<>("labiaD")),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.VAGINA){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getVaginaLabiaSize().getName()+" labia";
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
 						new ListValue<>("clit"),
 						new ListValue<>("clitoris")),
 				true,
@@ -3201,6 +3247,23 @@ public class UtilText {
 			@Override
 			public String parse(String command, String arguments, String target) {
 				return String.valueOf(character.getVaginaRawClitorisSizeValue());
+			}
+		});
+		
+		// Wings:
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("wingSize"),
+						new ListValue<>("wingsSize")),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.WING){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getWingSize().getName();
 			}
 		});
 		

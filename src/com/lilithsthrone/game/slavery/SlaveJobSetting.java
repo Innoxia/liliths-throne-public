@@ -4,7 +4,7 @@ import com.lilithsthrone.utils.Colour;
 
 /**
  * @since 0.1.87
- * @version 0.1.87
+ * @version 0.1.95
  * @author Innoxia
  */
 public enum SlaveJobSetting {
@@ -14,6 +14,7 @@ public enum SlaveJobSetting {
 	SEX_ANAL(Colour.GENERIC_SEX, "Allow Anal", "Anal", "Allow this slave to receive anal sex."),
 	SEX_NIPPLES(Colour.GENERIC_SEX, "Allow Nipple Penetration", "Nipples", "Allow this slave to receive penetrative nipple sex (if they have penetrable nipples)."),
 	SEX_PROMISCUITY_PILLS(Colour.GENERIC_SEX, "Promiscuity Pills", "PP", "Keep this slave on Promiscuity Pills, ensuring that they won't get pregnant."),
+	SEX_NO_PILLS(Colour.GENERIC_SEX, "No Pills", "NP", "Don't give this slave any sort of fertility modification pills, resulting in a natural chance of them getting pregnant."),
 	SEX_VIXENS_VIRILITY(Colour.GENERIC_SEX, "Vixen's Virility", "VV", "Keep this slave on Vixen's Virility, greatly increasing the chances of them getting pregnant."),
 	
 	TEST_SUBJECT_ALLOW_TRANSFORMATIONS_FEMALE(Colour.FEMININE, "Feminine Transformations", "TF (F)", "Allow Lilaya to perform feminine transformations on this slave."),

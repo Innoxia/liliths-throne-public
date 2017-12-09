@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.dialogue.places.dominion.slaverAlley;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -13,8 +14,11 @@ import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
+import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.sex.managers.dominion.SMDomStocksBehind;
+import com.lilithsthrone.game.slavery.SlaveJobSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
@@ -24,7 +28,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.1.90
+ * @version 0.1.95
  * @author Innoxia
  */
 public class SlaverAlleyDialogue {
@@ -541,7 +545,7 @@ public class SlaverAlleyDialogue {
 				+ "</tr>";
 	}
 	
-	public static final DialogueNodeOld PUBLIC_STOCKS = new DialogueNodeOld("Public stocks", ".", false) {
+	public static final DialogueNodeOld PUBLIC_STOCKS = new DialogueNodeOld("Public Stocks", ".", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -551,17 +555,94 @@ public class SlaverAlleyDialogue {
 
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "<i><b>Placeholder:</b> This should be added in for the next version!</i>"
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append("<p>"
+						+ "The collection of twenty-or-so public stocks, positioned right in the middle of a wide courtyard, is the first thing anyone sees when entering Slaver Alley."
+						+ " Used as a means of punishment for disobedient slaves, each one of the devices consists of a wooden frame, with holes for securing the occupant's arms and head."
+						+ " A small sign positioned next to each one informs members of the public as to what kinds of use have been permitted by the slave's owner."
 					+ "</p>"
 					+ "<p>"
-						+ "A set of public stocks, some of which are occupied by slaves, criminals, or people just looking for their idea of fun..."
-					+ "</p>";
+						+ "About half of the stocks in front of you are currently occupied, with most of the slaves on offer already being used by members of the public."
+						+ " As you walk past, you see that a few of the occupants are currently available..."
+					+ "</p>");
+
+			List<String> sexAvailability = new ArrayList<>();
+			for(NPC npc : Main.game.getCharactersPresent()) {
+				UtilText.nodeContentSB.append(UtilText.parse(npc, 
+						"<p>"
+							+ "[npc.Name]," + (npc.getOwner().isPlayer()?" <b style=color:"+Colour.GENERIC_ARCANE.toWebHexString()+";>who is your slave</b>, and is":"")
+								+ " <span style='color:"+npc.getGender().getColour().toWebHexString()+";'>[npc.a_gender]</span> <span style='color:"+npc.getRace().getColour().toWebHexString()+";'>[npc.race]</span>, has been marked as available for"));
+				
+				sexAvailability.clear();
+				if(npc.getSlaveJobSettings().contains(SlaveJobSetting.SEX_ORAL)) {
+					sexAvailability.add(" <b style='color:"+Colour.BASE_PINK_LIGHT.toWebHexString()+";'>oral</b>");
+				}
+				if(npc.getSlaveJobSettings().contains(SlaveJobSetting.SEX_VAGINAL)) {
+					sexAvailability.add(" <b style='color:"+Colour.BASE_PINK.toWebHexString()+";'>vaginal</b>");
+				}
+				if(npc.getSlaveJobSettings().contains(SlaveJobSetting.SEX_ANAL)) {
+					sexAvailability.add(" <b style='color:"+Colour.BASE_PINK_DEEP.toWebHexString()+";'>anal</b>");
+				}
+				
+				UtilText.nodeContentSB.append(
+						Util.stringsToStringList(sexAvailability, false)
+						+" use.</p>");
+			}
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return null;
+			List<NPC> charactersPresent = Main.game.getCharactersPresent();
+			
+			if(index==0) {
+				return new Response("Complain", "You don't like the idea of slaves being publicly used. There appears to be an enforcer watching over the area, so perhaps you should go and complain to him... (Not yet implemented!)", null);
+				
+			} else if(index <= charactersPresent.size()) {
+				return new ResponseSex(
+						"Use "+charactersPresent.get(index-1).getName(),
+						UtilText.parse(charactersPresent.get(index-1), "Walk up to [npc.name] and have some fun..."),
+						false,
+						false, charactersPresent.get(index-1), new SMDomStocksBehind(
+								charactersPresent.get(index-1).getSlaveJobSettings().contains(SlaveJobSetting.SEX_VAGINAL),
+								charactersPresent.get(index-1).getSlaveJobSettings().contains(SlaveJobSetting.SEX_ANAL)), AFTER_STOCKS_SEX,
+						UtilText.parse(Main.game.getActiveNPC(),
+						"<p>"
+							+ "Deciding that you'd like to have some fun with the [npc.race] in the stocks nearest to you, you walk up behind [npc.herHim]."
+							+ " [npc.She] lets out a little [npc.moan] as [npc.she] hears you, and shifts [npc.her] [npc.hips+] in anticipation of what's about to happen..."
+						+ "</p>")) {
+					@Override
+					public void effects() {
+						Main.game.setActiveNPC(charactersPresent.get(index-1));
+					}
+				};
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld AFTER_STOCKS_SEX = new DialogueNodeOld("Public Stocks", ".", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getContent() {
+			return UtilText.parse(Main.game.getActiveNPC(),
+					"<p>"
+						+ "Having had your fun with [npc.name], you step back, grinning as you hear [npc.herHim] let out [npc.a_moan+]."
+						+ " A few people had stopped to watch you using the helpless [npc.race], and some of them compliment you on your performance before moving forwards to have a turn themselves..."
+					+ "</p>");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index==1) {
+				return new Response("Continue", "Continue on your way.", PUBLIC_STOCKS);
+			} else {
+				return null;
+			}
 		}
 	};
 	

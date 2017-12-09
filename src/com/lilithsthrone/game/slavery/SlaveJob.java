@@ -12,6 +12,7 @@ import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.World;
@@ -36,7 +37,7 @@ public enum SlaveJob {
 	IDLE(-1, "Idle", "Idle", "Do not assign any job to this slave.",
 			0, 0,
 			0, 0, 0,
-			null, null,
+			null, null, null,
 			null, null) {
 		public boolean isAvailable(GameCharacter character) {
 			return true;
@@ -46,7 +47,7 @@ public enum SlaveJob {
 	CLEANING(20, "maid", "manservant", "Assign this slave to help Rose keep the house clean, deal with visitors, and perform all sorts of menial housework.",
 			0, 0.5f,
 			5, 0f, 0.1f,
-			null, null,
+			null, null, null,
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR,
 			PlaceType.LILAYA_HOME_CORRIDOR) {
 		@Override
@@ -102,21 +103,21 @@ public enum SlaveJob {
 	LIBRARY(5, "librarian", "librarian", "Assign this slave to work in Lilaya's library.",
 			0, 0.25f,
 			5, 0, 0.1f,
-			null, null,
+			null, null, null,
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR,
 			PlaceType.LILAYA_HOME_LIBRARY),
 	
 	KITCHEN(5, "cook", "cook", "Assign this slave to work in Lilaya's kitchen as a cook.",
 			0, 0.25f,
 			5, 0, 0.05f,
-			null, null,
+			null, null, null,
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR,
 			PlaceType.LILAYA_HOME_KITCHEN),
 	
 	LAB_ASSISTANT(1, "lab assistant", "lab assistant", "Assign this slave to help Lilaya in her lab.",
 			0, 0.25f,
 			10, 0, 0.2f,
-			null, null,
+			null, null, null,
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR,
 			PlaceType.LILAYA_HOME_LAB),
 	
@@ -126,7 +127,7 @@ public enum SlaveJob {
 			Util.newArrayListOfValues(
 					new ListValue<>(SlaveJobSetting.TEST_SUBJECT_ALLOW_TRANSFORMATIONS_FEMALE),
 					new ListValue<>(SlaveJobSetting.TEST_SUBJECT_ALLOW_TRANSFORMATIONS_MALE)),
-			null,
+			null, null,
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR,
 			PlaceType.LILAYA_HOME_LAB) {
 		@Override
@@ -138,6 +139,24 @@ public enum SlaveJob {
 			}
 		}
 	},
+	
+	PUBLIC_STOCKS(5, "public use", "public use", "Assign this slave to be locked in the public-use stocks in slaver ally.",
+			-5f, 1f,
+			0, 0, 0,
+			Util.newArrayListOfValues(
+					new ListValue<>(SlaveJobSetting.SEX_ORAL),
+					new ListValue<>(SlaveJobSetting.SEX_VAGINAL),
+					new ListValue<>(SlaveJobSetting.SEX_ANAL),
+					new ListValue<>(SlaveJobSetting.SEX_NIPPLES)),
+			Util.newHashMapOfValues(new Value<>("Pregnancy", Util.newArrayListOfValues(
+					new ListValue<>(SlaveJobSetting.SEX_PROMISCUITY_PILLS),
+					new ListValue<>(SlaveJobSetting.SEX_NO_PILLS),
+					new ListValue<>(SlaveJobSetting.SEX_VIXENS_VIRILITY)))),
+			Util.newArrayListOfValues(
+					new ListValue<>(SlaveJobSetting.SEX_NO_PILLS)),
+			WorldType.SLAVER_ALLEY,
+			PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS),
+	
 	
 //	BROTHEL(5, "Prostitute (Brothel)", "Prostitute (Brothel)", "Assign this slave to work as a prostitute at the brothel 'Angel's Kiss' in slaver ally.",
 //			-0.5f, 0.5f,
@@ -153,19 +172,6 @@ public enum SlaveJob {
 //			WorldType.SLAVER_ALLEY,
 //			SlaverAlley.BROTHEL),
 //	
-//	PUBLIC_USE(5, "Public Use", "Public Use", "Assign this slave to be locked in the public-use stocks in slaver ally.",
-//			-5f, 1f,
-//			0, 0, 0,
-//			Util.newArrayListOfValues(
-//					new ListValue<>(SlaveJobSettings.SEX_ORAL),
-//					new ListValue<>(SlaveJobSettings.SEX_VAGINAL),
-//					new ListValue<>(SlaveJobSettings.SEX_ANAL),
-//					new ListValue<>(SlaveJobSettings.SEX_NIPPLES),
-//					new ListValue<>(SlaveJobSettings.SEX_PROMISCUITY_PILLS),
-//					new ListValue<>(SlaveJobSettings.SEX_VIXENS_VIRILITY)),
-//			null,
-//			WorldType.SLAVER_ALLEY,
-//			SlaverAlley.PUBLIC_STOCKS),
 	
 	//'Allow to be impregnated (Public use)' and 'Allow to be impregnated (Other slaves)'
 //	MILKING(5, "Cow Stalls", "Cow Stalls", "Assign this slave to the cow stalls, ready for milking or breeding (or perhaps both).",
@@ -195,6 +201,7 @@ public enum SlaveJob {
 	private float affectionIncomeModifier;
 	private List<SlaveJobSetting> mutualSettings;
 	private Map<String, List<SlaveJobSetting>> mutuallyExclusiveSettings;
+	private List<SlaveJobSetting> defaultMutuallyExclusiveSettings;
 	private WorldType worldLocation;
 	private PlaceType placeLocation;
 	
@@ -202,7 +209,7 @@ public enum SlaveJob {
 			String nameFeminine, String nameMasculine, String description,
 			float affectionGain, float obedienceGain,
 			int income, float affectionIncomeModifier, float obedienceIncomeModifier,
-			List<SlaveJobSetting> mutualSettings, Map<String, List<SlaveJobSetting>> mutuallyExclusiveSettings,
+			List<SlaveJobSetting> mutualSettings, Map<String, List<SlaveJobSetting>> mutuallyExclusiveSettings, List<SlaveJobSetting> defaultMutuallyExclusiveSettings,
 			WorldType worldLocation, PlaceType placeLocation) {
 		
 		this.slaveLimit = slaveLimit;
@@ -225,6 +232,12 @@ public enum SlaveJob {
 			this.mutuallyExclusiveSettings = new HashMap<>();
 		} else {
 			this.mutuallyExclusiveSettings = mutuallyExclusiveSettings;
+		}
+
+		if(defaultMutuallyExclusiveSettings == null) {
+			this.defaultMutuallyExclusiveSettings = new ArrayList<>();
+		} else {
+			this.defaultMutuallyExclusiveSettings = defaultMutuallyExclusiveSettings;
 		}
 		
 		this.worldLocation = worldLocation;
@@ -289,6 +302,10 @@ public enum SlaveJob {
 
 	public Map<String, List<SlaveJobSetting>> getMutuallyExclusiveSettings() {
 		return mutuallyExclusiveSettings;
+	}
+	
+	public List<SlaveJobSetting> getDefaultMutuallyExclusiveSettings() {
+		return defaultMutuallyExclusiveSettings;
 	}
 
 	public WorldType getWorldLocation() {

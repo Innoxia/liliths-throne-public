@@ -2,7 +2,7 @@ package com.lilithsthrone.game.character;
 
 /**
  * @since 0.1.1
- * @version 0.1.83
+ * @version 0.1.95
  * @author Innoxia
  */
 public enum QuestLine {
@@ -18,7 +18,8 @@ public enum QuestLine {
 			Quest.MAIN_1_E_REPORT_TO_ALEXA,
 			Quest.MAIN_1_F_SCARLETTS_FATE,
 			Quest.MAIN_1_G_SLAVERY,
-			Quest.MAIN_1_H_THE_GREAT_ESCAPE),
+			Quest.MAIN_1_H_THE_GREAT_ESCAPE,
+			Quest.MAIN_1_I_ARTHURS_TALE),
 
 	// Side quests:
 

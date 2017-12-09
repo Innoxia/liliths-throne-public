@@ -24,7 +24,7 @@ public class GenericFemaleNPC extends NPC {
 	private static final long serialVersionUID = 1L;
 
 	public GenericFemaleNPC() {
-		super(new NameTriplet("Female"), "Generic female.",
+		super(new NameTriplet("unknown female"), "Unknown.",
 				1, Gender.F_V_B_FEMALE, RacialBody.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(0), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 	}
@@ -34,6 +34,7 @@ public class GenericFemaleNPC extends NPC {
 		GenericFemaleNPC npc = new  GenericFemaleNPC();
 
 		loadNPCVariablesFromXML(npc, null, parentElement, doc);
+		npc.setName(new NameTriplet("unknown female"));
 		
 		return npc;
 	}

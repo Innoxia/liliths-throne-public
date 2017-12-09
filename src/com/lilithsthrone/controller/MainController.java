@@ -2,6 +2,7 @@ package com.lilithsthrone.controller;
 
 import java.io.File;
 import java.net.URL;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,8 +45,17 @@ import com.lilithsthrone.game.character.Personality;
 import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.Breast;
 import com.lilithsthrone.game.character.body.Covering;
+import com.lilithsthrone.game.character.body.Testicle;
+import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.types.HornType;
+import com.lilithsthrone.game.character.body.types.LegType;
+import com.lilithsthrone.game.character.body.types.PenisType;
+import com.lilithsthrone.game.character.body.types.TailType;
+import com.lilithsthrone.game.character.body.types.VaginaType;
+import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
@@ -64,9 +74,14 @@ import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
+import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
+import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
+import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.body.valueEnums.PiercingType;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
+import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkInterface;
@@ -93,6 +108,7 @@ import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaverAlleyDi
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
+import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
 import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
 import com.lilithsthrone.game.dialogue.utils.EnchantmentDialogue;
@@ -147,7 +163,7 @@ import javafx.scene.web.WebView;
 
 /**
  * @since 0.1.0
- * @version 0.1.89
+ * @version 0.1.95
  * @author Innoxia
  */
 public class MainController implements Initializable {
@@ -437,6 +453,12 @@ public class MainController implements Initializable {
 //							 
 //							 for(NPC npc : Main.game.getNPCMap().values()) {
 //								 System.out.println(npc.getId());
+//							 }
+							 
+							 System.out.println(Main.isVersionOlderThan("0.1.84", Main.VERSION_NUMBER));
+							 
+//							 for(int i=0;i<10;i++) {
+//								 System.out.println(Name.getRandomTriplet(Race.DEMON));
 //							 }
 							 
 //							 Game.exportGame();
@@ -2120,6 +2142,35 @@ public class MainController implements Initializable {
 							addEventListener(document, id, "mouseenter", el, false);
 						}
 					}
+
+					for(Entry<String, List<SlaveJobSetting>> entry : job.getMutuallyExclusiveSettings().entrySet()) {
+
+						for(SlaveJobSetting setting : entry.getValue()) {
+							id = setting+"_TOGGLE_ADD";
+							if (((EventTarget) document.getElementById(id)) != null) {
+								((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+									for(SlaveJobSetting settingRem : entry.getValue()) {
+										Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().removeSlaveJobSettings(settingRem);
+									}
+									Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().addSlaveJobSettings(setting);
+									Main.game.setContent(new Response("", "", SlaveryManagementDialogue.getSlaveryManagementSlaveJobsDialogue(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected())));
+								}, false);
+								
+								addEventListener(document, id, "mousemove", moveTooltipListener, false);
+								addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+								TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Apply Setting", setting.getDescription());
+								addEventListener(document, id, "mouseenter", el, false);
+							}
+							
+							id = setting+"_DISABLED";
+							if (((EventTarget) document.getElementById(id)) != null) {
+								addEventListener(document, id, "mousemove", moveTooltipListener, false);
+								addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+								TooltipInformationEventListener el =  new TooltipInformationEventListener().setInformation("Setting Applied", setting.getDescription());
+								addEventListener(document, id, "mouseenter", el, false);
+							}
+						}
+					}
 				}
 				
 				// Permissions:
@@ -2413,8 +2464,28 @@ public class MainController implements Initializable {
 			// -------------------- Character Creation -------------------- //
 			
 			if(!Main.game.isInNewWorld()) {
+				for(Month month : Month.values()) {
+					id = "STARTING_MONTH_"+month;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							Main.game.setStartingDateMonth(month);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+			}
+			
+			if(!Main.game.isInNewWorld()
+					|| Main.game.getCurrentDialogueNode().equals(BodyChanging.BODY_CHANGING_CORE)
+					|| Main.game.getCurrentDialogueNode().equals(BodyChanging.BODY_CHANGING_FACE)
+					|| Main.game.getCurrentDialogueNode().equals(BodyChanging.BODY_CHANGING_ASS)
+					|| Main.game.getCurrentDialogueNode().equals(BodyChanging.BODY_CHANGING_BREASTS)
+					|| Main.game.getCurrentDialogueNode().equals(BodyChanging.BODY_CHANGING_VAGINA)
+					|| Main.game.getCurrentDialogueNode().equals(BodyChanging.BODY_CHANGING_PENIS)) {
+				
+				
 				// Gender:
-				id = "CHAR_CREATION_GENDER_MALE";
+				id = "CHOOSE_GENDER_MALE";
 				if (((EventTarget) document.getElementById(id)) != null) {
 					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 						CharacterCreation.setGenderMale();
@@ -2422,7 +2493,7 @@ public class MainController implements Initializable {
 					}, false);
 				}
 
-				id = "CHAR_CREATION_GENDER_FEMALE";
+				id = "CHOOSE_GENDER_FEMALE";
 				if (((EventTarget) document.getElementById(id)) != null) {
 					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 						CharacterCreation.setGenderFemale();
@@ -2431,43 +2502,53 @@ public class MainController implements Initializable {
 				}
 				
 				// Femininity
-				id = "CHAR_CREATION_FEM_MASCULINE_STRONG";
+				id = "CHOOSE_FEM_MASCULINE_STRONG";
 				if (((EventTarget) document.getElementById(id)) != null) {
 					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						Main.game.getPlayer().setFemininity(Femininity.MASCULINE_STRONG.getMedianFemininity());
-						CharacterCreation.getDressed();
+						BodyChanging.getTarget().setFemininity(Femininity.MASCULINE_STRONG.getMedianFemininity());
+						if(!Main.game.isInNewWorld()) {
+							CharacterCreation.getDressed();
+						}
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
-				id = "CHAR_CREATION_FEM_MASCULINE";
+				id = "CHOOSE_FEM_MASCULINE";
 				if (((EventTarget) document.getElementById(id)) != null) {
 					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						Main.game.getPlayer().setFemininity(Femininity.MASCULINE.getMedianFemininity());
-						CharacterCreation.getDressed();
+						BodyChanging.getTarget().setFemininity(Femininity.MASCULINE.getMedianFemininity());
+						if(!Main.game.isInNewWorld()) {
+							CharacterCreation.getDressed();
+						}
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
-				id = "CHAR_CREATION_FEM_ANDROGYNOUS";
+				id = "CHOOSE_FEM_ANDROGYNOUS";
 				if (((EventTarget) document.getElementById(id)) != null) {
 					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						Main.game.getPlayer().setFemininity(Femininity.ANDROGYNOUS.getMedianFemininity());
-						CharacterCreation.getDressed();
+						BodyChanging.getTarget().setFemininity(Femininity.ANDROGYNOUS.getMedianFemininity());
+						if(!Main.game.isInNewWorld()) {
+							CharacterCreation.getDressed();
+						}
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
-				id = "CHAR_CREATION_FEM_FEMININE";
+				id = "CHOOSE_FEM_FEMININE";
 				if (((EventTarget) document.getElementById(id)) != null) {
 					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						Main.game.getPlayer().setFemininity(Femininity.FEMININE.getMedianFemininity());
-						CharacterCreation.getDressed();
+						BodyChanging.getTarget().setFemininity(Femininity.FEMININE.getMedianFemininity());
+						if(!Main.game.isInNewWorld()) {
+							CharacterCreation.getDressed();
+						}
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
-				id = "CHAR_CREATION_FEM_FEMININE_STRONG";
+				id = "CHOOSE_FEM_FEMININE_STRONG";
 				if (((EventTarget) document.getElementById(id)) != null) {
 					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						Main.game.getPlayer().setFemininity(Femininity.FEMININE_STRONG.getMedianFemininity());
-						CharacterCreation.getDressed();
+						BodyChanging.getTarget().setFemininity(Femininity.FEMININE_STRONG.getMedianFemininity());
+						if(!Main.game.isInNewWorld()) {
+							CharacterCreation.getDressed();
+						}
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
@@ -2478,7 +2559,7 @@ public class MainController implements Initializable {
 					id = "PERSONALITY_"+personality;
 					if (((EventTarget) document.getElementById(id)) != null) {
 						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-							Main.game.getPlayer().setPersonality(personality);
+							BodyChanging.getTarget().setPersonality(personality);
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -2489,7 +2570,7 @@ public class MainController implements Initializable {
 					id = "SEXUAL_ORIENTATION_"+orientation;
 					if (((EventTarget) document.getElementById(id)) != null) {
 						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-							Main.game.getPlayer().setSexualOrientation(orientation);
+							BodyChanging.getTarget().setSexualOrientation(orientation);
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -2502,7 +2583,7 @@ public class MainController implements Initializable {
 					id = "HEIGHT_"+i;
 					if (((EventTarget) document.getElementById(id)) != null) {
 						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-							Main.game.getPlayer().setHeight(i);
+							BodyChanging.getTarget().setHeight(i);
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -2513,7 +2594,7 @@ public class MainController implements Initializable {
 					id = "BODY_SIZE_"+bs;
 					if (((EventTarget) document.getElementById(id)) != null) {
 						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-							Main.game.getPlayer().setBodySize(bs.getMedianValue());
+							BodyChanging.getTarget().setBodySize(bs.getMedianValue());
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -2524,18 +2605,20 @@ public class MainController implements Initializable {
 					id = "MUSCLE_"+muscle;
 					if (((EventTarget) document.getElementById(id)) != null) {
 						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-							Main.game.getPlayer().setMuscle(muscle.getMedianValue());
+							BodyChanging.getTarget().setMuscle(muscle.getMedianValue());
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
 				}
+				
+				// ------------ Character creation -------------- //
 				
 				// Lip Size:
 				for(LipSize ls : LipSize.values()) {
 					id = "LIP_SIZE_"+ls;
 					if (((EventTarget) document.getElementById(id)) != null) {
 						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-							Main.game.getPlayer().setLipSize(ls.getValue());
+							BodyChanging.getTarget().setLipSize(ls.getValue());
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -2545,24 +2628,24 @@ public class MainController implements Initializable {
 				id = "LIP_PUFFY_ON";
 				if (((EventTarget) document.getElementById(id)) != null) {
 					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						Main.game.getPlayer().addFaceOrificeModifier(OrificeModifier.PUFFY);
+						BodyChanging.getTarget().addFaceOrificeModifier(OrificeModifier.PUFFY);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
 				id = "LIP_PUFFY_OFF";
 				if (((EventTarget) document.getElementById(id)) != null) {
 					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						Main.game.getPlayer().removeFaceOrificeModifier(OrificeModifier.PUFFY);
+						BodyChanging.getTarget().removeFaceOrificeModifier(OrificeModifier.PUFFY);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
 				
 				// Breast size:
-				for(CupSize cs : CharacterModificationUtils.getBreastSizesAvailable()) {
+				for(CupSize cs : CupSize.values()) {
 					id = "BREAST_SIZE_"+cs;
 					if (((EventTarget) document.getElementById(id)) != null) {
 						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-							Main.game.getPlayer().setBreastSize(cs.getMeasurement());
+							BodyChanging.getTarget().setBreastSize(cs.getMeasurement());
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -2573,29 +2656,29 @@ public class MainController implements Initializable {
 					id = "BREAST_SHAPE_"+bs;
 					if (((EventTarget) document.getElementById(id)) != null) {
 						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-							Main.game.getPlayer().setBreastShape(bs);
+							BodyChanging.getTarget().setBreastShape(bs);
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
 				}
 				
 				// Nipple size:
-				for(NippleSize ns : CharacterModificationUtils.getNippleSizesAvailable()) {
+				for(NippleSize ns : NippleSize.values()) {
 					id = "NIPPLE_SIZE_"+ns;
 					if (((EventTarget) document.getElementById(id)) != null) {
 						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-							Main.game.getPlayer().setNippleSize(ns.getValue());
+							BodyChanging.getTarget().setNippleSize(ns.getValue());
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
 				}
 				
 				// Areolae size:
-				for(AreolaeSize as : CharacterModificationUtils.getAreolaeSizesAvailable()) {
+				for(AreolaeSize as : AreolaeSize.values()) {
 					id = "AREOLAE_SIZE_"+as;
 					if (((EventTarget) document.getElementById(id)) != null) {
 						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-							Main.game.getPlayer().setAreolaeSize(as.getValue());
+							BodyChanging.getTarget().setAreolaeSize(as.getValue());
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -2605,14 +2688,14 @@ public class MainController implements Initializable {
 				id = "NIPPLE_PUFFY_ON";
 				if (((EventTarget) document.getElementById(id)) != null) {
 					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						Main.game.getPlayer().addNippleOrificeModifier(OrificeModifier.PUFFY);
+						BodyChanging.getTarget().addNippleOrificeModifier(OrificeModifier.PUFFY);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
 				id = "NIPPLE_PUFFY_OFF";
 				if (((EventTarget) document.getElementById(id)) != null) {
 					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						Main.game.getPlayer().removeNippleOrificeModifier(OrificeModifier.PUFFY);
+						BodyChanging.getTarget().removeNippleOrificeModifier(OrificeModifier.PUFFY);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
@@ -2622,7 +2705,7 @@ public class MainController implements Initializable {
 					id = "LACTATION_"+i;
 					if (((EventTarget) document.getElementById(id)) != null) {
 						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-							Main.game.getPlayer().setBreastLactation(i);
+							BodyChanging.getTarget().setBreastLactation(i);
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -2633,7 +2716,7 @@ public class MainController implements Initializable {
 					id = "ASS_SIZE_"+as;
 					if (((EventTarget) document.getElementById(id)) != null) {
 						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-							Main.game.getPlayer().setAssSize(as.getValue());
+							BodyChanging.getTarget().setAssSize(as.getValue());
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -2644,7 +2727,7 @@ public class MainController implements Initializable {
 					id = "HIP_SIZE_"+hs;
 					if (((EventTarget) document.getElementById(id)) != null) {
 						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-							Main.game.getPlayer().setHipSize(hs.getValue());
+							BodyChanging.getTarget().setHipSize(hs.getValue());
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -2654,14 +2737,14 @@ public class MainController implements Initializable {
 				id = "ANUS_BLEACHED_ON";
 				if (((EventTarget) document.getElementById(id)) != null) {
 					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						Main.game.getPlayer().setAssBleached(true);
+						BodyChanging.getTarget().setAssBleached(true);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
 				id = "ANUS_BLEACHED_OFF";
 				if (((EventTarget) document.getElementById(id)) != null) {
 					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						Main.game.getPlayer().setAssBleached(false);
+						BodyChanging.getTarget().setAssBleached(false);
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
@@ -2671,7 +2754,7 @@ public class MainController implements Initializable {
 					id = "PENIS_SIZE_"+ps;
 					if (((EventTarget) document.getElementById(id)) != null) {
 						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-							Main.game.getPlayer().setPenisSize(ps);
+							BodyChanging.getTarget().setPenisSize(ps);
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -2682,7 +2765,7 @@ public class MainController implements Initializable {
 					id = "TESTICLE_SIZE_"+ts;
 					if (((EventTarget) document.getElementById(id)) != null) {
 						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-							Main.game.getPlayer().setTesticleSize(ts.getValue());
+							BodyChanging.getTarget().setTesticleSize(ts.getValue());
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -2693,7 +2776,7 @@ public class MainController implements Initializable {
 					id = "CUM_PRODUCTION_"+cp;
 					if (((EventTarget) document.getElementById(id)) != null) {
 						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-							Main.game.getPlayer().setCumProduction(cp.getMedianValue());
+							BodyChanging.getTarget().setCumProduction(cp.getMedianValue());
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -2704,7 +2787,40 @@ public class MainController implements Initializable {
 					id = "VAGINA_CAPACITY_"+capacity;
 					if (((EventTarget) document.getElementById(id)) != null) {
 						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-							Main.game.getPlayer().setVaginaCapacity(capacity.getMedianValue(), true);
+							BodyChanging.getTarget().setVaginaCapacity(capacity.getMedianValue(), true);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
+				// Vagina wetness:
+				for(Wetness wetness: Wetness.values()) {
+					id = "VAGINA_WETNESS_"+wetness;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setVaginaWetness(wetness.getValue());
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
+				// Vagina elastcity:
+				for(OrificeElasticity elasticity: OrificeElasticity.values()) {
+					id = "VAGINA_ELASTICITY_"+elasticity;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setVaginaElasticity(elasticity.getValue());
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
+				// Vagina plasticity:
+				for(OrificePlasticity plasticity: OrificePlasticity.values()) {
+					id = "VAGINA_PLASTICITY_"+plasticity;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setVaginaPlasticity(plasticity.getValue());
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -2715,7 +2831,7 @@ public class MainController implements Initializable {
 					id = "CLITORIS_SIZE_"+cs;
 					if (((EventTarget) document.getElementById(id)) != null) {
 						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-							Main.game.getPlayer().setVaginaClitorisSize(cs.getMedianValue());
+							BodyChanging.getTarget().setVaginaClitorisSize(cs.getMedianValue());
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -2726,7 +2842,287 @@ public class MainController implements Initializable {
 					id = "LABIA_SIZE_"+ls;
 					if (((EventTarget) document.getElementById(id)) != null) {
 						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-							Main.game.getPlayer().setVaginaLabiaSize(ls.getValue());
+							BodyChanging.getTarget().setVaginaLabiaSize(ls.getValue());
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
+
+				// ------------ Demonic/Slime transformations -------------- //
+				
+				for(ArmType armType: ArmType.values()) {
+					id = "CHANGE_ARM_"+armType;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setArmType(armType);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
+				for(HornType hornType: HornType.values()) {
+					id = "CHANGE_HORN_"+hornType;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setHornType(hornType);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
+				for(LegType legType: LegType.values()) {
+					id = "CHANGE_LEG_"+legType;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setLegType(legType);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
+				for(TailType tailType: TailType.values()) {
+					id = "CHANGE_TAIL_"+tailType;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setTailType(tailType);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
+				for(WingType wingType: WingType.values()) {
+					id = "CHANGE_WING_"+wingType;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setWingType(wingType);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
+				// Ass:
+				
+				for(OrificeModifier orificeMod : OrificeModifier.values()) {
+					id = "CHANGE_ANUS_MOD_"+orificeMod;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							if(BodyChanging.getTarget().hasAssOrificeModifier(orificeMod)) {
+								BodyChanging.getTarget().removeAssOrificeModifier(orificeMod);
+							} else {
+								BodyChanging.getTarget().addAssOrificeModifier(orificeMod);
+							}
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
+				// Breasts:
+				
+				for(int i=1; i <= Breast.MAXIMUM_BREAST_ROWS; i++) {
+					setBreastCountListener(i);
+				}
+				
+				for(int i=1; i <= Breast.MAXIMUM_NIPPLES_PER_BREAST; i++) {
+					setNippleCountListener(i);
+				}
+				
+				// Nipple capacity:
+				for(Capacity capacity: Capacity.values()) {
+					id = "NIPPLE_CAPACITY_"+capacity;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setNippleCapacity(capacity.getMedianValue(), true);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
+				// Nipple elastcity:
+				for(OrificeElasticity elasticity: OrificeElasticity.values()) {
+					id = "NIPPLE_ELASTICITY_"+elasticity;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setNippleElasticity(elasticity.getValue());
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
+				// Nipple plasticity:
+				for(OrificePlasticity plasticity: OrificePlasticity.values()) {
+					id = "NIPPLE_PLASTICITY_"+plasticity;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setNipplePlasticity(plasticity.getValue());
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
+				for(int i : CharacterModificationUtils.demonLactationValues) {
+					id = "LACTATION_"+i;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setBreastLactation(i);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
+				for(OrificeModifier orificeMod : OrificeModifier.values()) {
+					id = "CHANGE_NIPPLE_MOD_"+orificeMod;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							if(BodyChanging.getTarget().hasNippleOrificeModifier(orificeMod)) {
+								BodyChanging.getTarget().removeNippleOrificeModifier(orificeMod);
+							} else {
+								BodyChanging.getTarget().addNippleOrificeModifier(orificeMod);
+							}
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
+				// Vagina:
+				
+				for(VaginaType vaginaType: VaginaType.values()) {
+					id = "CHANGE_VAGINA_"+vaginaType;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setVaginaType(vaginaType);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
+				for(OrificeModifier orificeMod : OrificeModifier.values()) {
+					id = "CHANGE_VAGINA_MOD_"+orificeMod;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							if(BodyChanging.getTarget().hasVaginaOrificeModifier(orificeMod)) {
+								BodyChanging.getTarget().removeVaginaOrificeModifier(orificeMod);
+							} else {
+								BodyChanging.getTarget().addVaginaOrificeModifier(orificeMod);
+							}
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
+				// Penis:
+				
+				for(PenisType penisType: PenisType.values()) {
+					id = "CHANGE_PENIS_"+penisType;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setPenisType(penisType);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
+				for(PenisSize ps : PenisSize.values()) {
+					id = "PENIS_SIZE_"+ps.getMinimumValue();
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setPenisSize(ps.getMinimumValue());
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+					id = "PENIS_SIZE_"+ps.getMedianValue();
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setPenisSize(ps.getMedianValue());
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
+				for(TesticleSize size : TesticleSize.values()) {
+					id = "TESTICLE_SIZE_"+size;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setTesticleSize(size.getValue());
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+
+				for(int i=Testicle.MIN_TESTICLE_COUNT; i<=Testicle.MAX_TESTICLE_COUNT; i+=2) {
+					setTesticleCountListener(i);
+				}
+				
+				for(Capacity capacity: Capacity.values()) {
+					id = "URETHRA_CAPACITY_"+capacity;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setPenisCapacity(capacity.getMedianValue(), true);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
+				for(CumProduction cumProduction : CumProduction.values()) {
+					id = "CUM_PRODUCTION_"+cumProduction.getMinimumValue();
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setCumProduction(cumProduction.getMinimumValue());
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+					id = "CUM_PRODUCTION_"+cumProduction.getMedianValue();
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setCumProduction(cumProduction.getMedianValue());
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
+				for(OrificeElasticity elasticity: OrificeElasticity.values()) {
+					id = "URETHRA_ELASTICITY_"+elasticity;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setUrethraElasticity(elasticity.getValue());
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
+				for(OrificePlasticity plasticity: OrificePlasticity.values()) {
+					id = "URETHRA_PLASTICITY_"+plasticity;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setUrethraPlasticity(plasticity.getValue());
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
+				for(PenisModifier orificeMod : PenisModifier.values()) {
+					id = "CHANGE_PENIS_MOD_"+orificeMod;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							if(BodyChanging.getTarget().hasPenisModifier(orificeMod)) {
+								BodyChanging.getTarget().removePenisModifier(orificeMod);
+							} else {
+								BodyChanging.getTarget().addPenisModifier(orificeMod);
+							}
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
+				for(OrificeModifier orificeMod : OrificeModifier.values()) {
+					id = "CHANGE_URETHRA_MOD_"+orificeMod;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							if(BodyChanging.getTarget().hasUrethraOrificeModifier(orificeMod)) {
+								BodyChanging.getTarget().removeUrethraOrificeModifier(orificeMod);
+							} else {
+								BodyChanging.getTarget().addUrethraOrificeModifier(orificeMod);
+							}
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -2737,7 +3133,7 @@ public class MainController implements Initializable {
 			// -------------------- Cosmetics -------------------- //
 			
 			
-			boolean noCost = !Main.game.isInNewWorld();
+			boolean noCost = !Main.game.isInNewWorld() || Main.game.getCurrentDialogueNode().getMapDisplay()==MapDisplay.PHONE;
 			
 			for(BodyCoveringType bct : BodyCoveringType.values()) {
 				id = bct+"_PRIMARY_GLOW_OFF";
@@ -2749,15 +3145,17 @@ public class MainController implements Initializable {
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
 								@Override
 								public void effects() {
-									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.getBodyCoveringTypeCost(bct));
+									if(!noCost) {
+										Main.game.getPlayer().incrementMoney(-SuccubisSecrets.getBodyCoveringTypeCost(bct));
+									}
 									
-									Main.game.getPlayer().setSkinCovering(new Covering(
+									BodyChanging.getTarget().setSkinCovering(new Covering(
 											bct,
-											Main.game.getPlayer().getCovering(bct).getPattern(),
-											Main.game.getPlayer().getCovering(bct).getPrimaryColour(),
+											BodyChanging.getTarget().getCovering(bct).getPattern(),
+											BodyChanging.getTarget().getCovering(bct).getPrimaryColour(),
 											false,
-											Main.game.getPlayer().getCovering(bct).getSecondaryColour(),
-											Main.game.getPlayer().getCovering(bct).isSecondaryGlowing()), false);
+											BodyChanging.getTarget().getCovering(bct).getSecondaryColour(),
+											BodyChanging.getTarget().getCovering(bct).isSecondaryGlowing()), false);
 									
 								}
 							});
@@ -2774,15 +3172,17 @@ public class MainController implements Initializable {
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
 								@Override
 								public void effects() {
-									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.getBodyCoveringTypeCost(bct));
+									if(!noCost) {
+										Main.game.getPlayer().incrementMoney(-SuccubisSecrets.getBodyCoveringTypeCost(bct));
+									}
 									
-									Main.game.getPlayer().setSkinCovering(new Covering(
+									BodyChanging.getTarget().setSkinCovering(new Covering(
 											bct,
-											Main.game.getPlayer().getCovering(bct).getPattern(),
-											Main.game.getPlayer().getCovering(bct).getPrimaryColour(),
+											BodyChanging.getTarget().getCovering(bct).getPattern(),
+											BodyChanging.getTarget().getCovering(bct).getPrimaryColour(),
 											true,
-											Main.game.getPlayer().getCovering(bct).getSecondaryColour(),
-											Main.game.getPlayer().getCovering(bct).isSecondaryGlowing()), false);
+											BodyChanging.getTarget().getCovering(bct).getSecondaryColour(),
+											BodyChanging.getTarget().getCovering(bct).isSecondaryGlowing()), false);
 									
 								}
 							});
@@ -2799,14 +3199,16 @@ public class MainController implements Initializable {
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
 								@Override
 								public void effects() {
-									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.getBodyCoveringTypeCost(bct));
+									if(!noCost) {
+										Main.game.getPlayer().incrementMoney(-SuccubisSecrets.getBodyCoveringTypeCost(bct));
+									}
 									
-									Main.game.getPlayer().setSkinCovering(new Covering(
+									BodyChanging.getTarget().setSkinCovering(new Covering(
 											bct,
-											Main.game.getPlayer().getCovering(bct).getPattern(),
-											Main.game.getPlayer().getCovering(bct).getPrimaryColour(),
-											Main.game.getPlayer().getCovering(bct).isPrimaryGlowing(),
-											Main.game.getPlayer().getCovering(bct).getSecondaryColour(),
+											BodyChanging.getTarget().getCovering(bct).getPattern(),
+											BodyChanging.getTarget().getCovering(bct).getPrimaryColour(),
+											BodyChanging.getTarget().getCovering(bct).isPrimaryGlowing(),
+											BodyChanging.getTarget().getCovering(bct).getSecondaryColour(),
 											false), false);
 									
 								}
@@ -2824,14 +3226,16 @@ public class MainController implements Initializable {
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
 								@Override
 								public void effects() {
-									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.getBodyCoveringTypeCost(bct));
+									if(!noCost) {
+										Main.game.getPlayer().incrementMoney(-SuccubisSecrets.getBodyCoveringTypeCost(bct));
+									}
 									
-									Main.game.getPlayer().setSkinCovering(new Covering(
+									BodyChanging.getTarget().setSkinCovering(new Covering(
 											bct,
-											Main.game.getPlayer().getCovering(bct).getPattern(),
-											Main.game.getPlayer().getCovering(bct).getPrimaryColour(),
-											Main.game.getPlayer().getCovering(bct).isPrimaryGlowing(),
-											Main.game.getPlayer().getCovering(bct).getSecondaryColour(),
+											BodyChanging.getTarget().getCovering(bct).getPattern(),
+											BodyChanging.getTarget().getCovering(bct).getPrimaryColour(),
+											BodyChanging.getTarget().getCovering(bct).isPrimaryGlowing(),
+											BodyChanging.getTarget().getCovering(bct).getSecondaryColour(),
 											true), false);
 									
 								}
@@ -2850,15 +3254,17 @@ public class MainController implements Initializable {
 								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
 									@Override
 									public void effects() {
-										Main.game.getPlayer().incrementMoney(-SuccubisSecrets.getBodyCoveringTypeCost(bct));
+										if(!noCost) {
+											Main.game.getPlayer().incrementMoney(-SuccubisSecrets.getBodyCoveringTypeCost(bct));
+										}
 										
-										Main.game.getPlayer().setSkinCovering(new Covering(
+										BodyChanging.getTarget().setSkinCovering(new Covering(
 												bct,
 												pattern,
-												Main.game.getPlayer().getCovering(bct).getPrimaryColour(),
-												Main.game.getPlayer().getCovering(bct).isPrimaryGlowing(),
-												Main.game.getPlayer().getCovering(bct).getSecondaryColour(),
-												Main.game.getPlayer().getCovering(bct).isSecondaryGlowing()), false);
+												BodyChanging.getTarget().getCovering(bct).getPrimaryColour(),
+												BodyChanging.getTarget().getCovering(bct).isPrimaryGlowing(),
+												BodyChanging.getTarget().getCovering(bct).getSecondaryColour(),
+												BodyChanging.getTarget().getCovering(bct).isSecondaryGlowing()), false);
 										
 									}
 								});
@@ -2876,15 +3282,17 @@ public class MainController implements Initializable {
 								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
 									@Override
 									public void effects() {
-										Main.game.getPlayer().incrementMoney(-SuccubisSecrets.getBodyCoveringTypeCost(bct));
+										if(!noCost) {
+											Main.game.getPlayer().incrementMoney(-SuccubisSecrets.getBodyCoveringTypeCost(bct));
+										}
 										
-										Main.game.getPlayer().setSkinCovering(new Covering(
+										BodyChanging.getTarget().setSkinCovering(new Covering(
 												bct,
-												Main.game.getPlayer().getCovering(bct).getPattern(),
+												BodyChanging.getTarget().getCovering(bct).getPattern(),
 												colour,
-												(colour == Colour.COVERING_NONE ? false : Main.game.getPlayer().getCovering(bct).isPrimaryGlowing()),
-												Main.game.getPlayer().getCovering(bct).getSecondaryColour(),
-												Main.game.getPlayer().getCovering(bct).isSecondaryGlowing()), false);
+												(colour == Colour.COVERING_NONE ? false : BodyChanging.getTarget().getCovering(bct).isPrimaryGlowing()),
+												BodyChanging.getTarget().getCovering(bct).getSecondaryColour(),
+												BodyChanging.getTarget().getCovering(bct).isSecondaryGlowing()), false);
 										
 										if(noCost) {
 //											if(bct == BodyCoveringType.HAIR_HUMAN) {
@@ -2892,7 +3300,7 @@ public class MainController implements Initializable {
 //												
 //											} else 
 											if(bct == BodyCoveringType.HUMAN) {
-												Main.game.getPlayer().getBody().updateCoverings(false, false, false, true);
+												BodyChanging.getTarget().getBody().updateCoverings(false, false, false, true);
 											}
 										}
 										
@@ -2910,15 +3318,17 @@ public class MainController implements Initializable {
 								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
 									@Override
 									public void effects() {
-										Main.game.getPlayer().incrementMoney(-SuccubisSecrets.getBodyCoveringTypeCost(bct));
+										if(!noCost) {
+											Main.game.getPlayer().incrementMoney(-SuccubisSecrets.getBodyCoveringTypeCost(bct));
+										}
 										
-										Main.game.getPlayer().setSkinCovering(new Covering(
+										BodyChanging.getTarget().setSkinCovering(new Covering(
 												bct,
-												Main.game.getPlayer().getCovering(bct).getPattern(),
-												Main.game.getPlayer().getCovering(bct).getPrimaryColour(),
-												Main.game.getPlayer().getCovering(bct).isPrimaryGlowing(),
+												BodyChanging.getTarget().getCovering(bct).getPattern(),
+												BodyChanging.getTarget().getCovering(bct).getPrimaryColour(),
+												BodyChanging.getTarget().getCovering(bct).isPrimaryGlowing(),
 												colour,
-												(colour == Colour.COVERING_NONE ? false : Main.game.getPlayer().getCovering(bct).isSecondaryGlowing())), false);
+												(colour == Colour.COVERING_NONE ? false : BodyChanging.getTarget().getCovering(bct).isSecondaryGlowing())), false);
 										
 									}
 								});
@@ -2938,9 +3348,10 @@ public class MainController implements Initializable {
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
 								@Override
 								public void effects() {
-									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_HAIR_LENGTH_COST);
-									
-									Main.game.getPlayer().setHairLength(hairLength.getMedianValue());
+									if(!noCost) {
+										Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_HAIR_LENGTH_COST);
+									}
+									BodyChanging.getTarget().setHairLength(hairLength.getMedianValue());
 								}
 							});
 						}
@@ -2958,9 +3369,10 @@ public class MainController implements Initializable {
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
 								@Override
 								public void effects() {
-									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_HAIR_STYLE_COST);
-									
-									Main.game.getPlayer().setHairStyle(hairStyle);
+									if(!noCost) {
+										Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_HAIR_STYLE_COST);
+									}
+									BodyChanging.getTarget().setHairStyle(hairStyle);
 								}
 							});
 						}
@@ -2978,32 +3390,33 @@ public class MainController implements Initializable {
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
 								@Override
 								public void effects() {
-									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.getPiercingCost(piercingType));
-									
+									if(!noCost) {
+										Main.game.getPlayer().incrementMoney(-SuccubisSecrets.getPiercingCost(piercingType));
+									}
 									switch(piercingType) {
 										case EAR:
-											Main.game.getPlayer().setPiercedEar(false);
+											BodyChanging.getTarget().setPiercedEar(false);
 											break;
 										case LIP:
-											Main.game.getPlayer().setPiercedLip(false);
+											BodyChanging.getTarget().setPiercedLip(false);
 											break;
 										case NAVEL:
-											Main.game.getPlayer().setPiercedNavel(false);
+											BodyChanging.getTarget().setPiercedNavel(false);
 											break;
 										case NIPPLE:
-											Main.game.getPlayer().setPiercedNipples(false);
+											BodyChanging.getTarget().setPiercedNipples(false);
 											break;
 										case NOSE:
-											Main.game.getPlayer().setPiercedNose(false);
+											BodyChanging.getTarget().setPiercedNose(false);
 											break;
 										case PENIS:
-											Main.game.getPlayer().setPiercedPenis(false);
+											BodyChanging.getTarget().setPiercedPenis(false);
 											break;
 										case TONGUE:
-											Main.game.getPlayer().setPiercedTongue(false);
+											BodyChanging.getTarget().setPiercedTongue(false);
 											break;
 										case VAGINA:
-											Main.game.getPlayer().setPiercedVagina(false);
+											BodyChanging.getTarget().setPiercedVagina(false);
 											break;
 									}
 								}
@@ -3021,32 +3434,33 @@ public class MainController implements Initializable {
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
 								@Override
 								public void effects() {
-									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.getPiercingCost(piercingType));
-									
+									if(!noCost) {
+										Main.game.getPlayer().incrementMoney(-SuccubisSecrets.getPiercingCost(piercingType));
+									}
 									switch(piercingType) {
 										case EAR:
-											Main.game.getPlayer().setPiercedEar(true);
+											BodyChanging.getTarget().setPiercedEar(true);
 											break;
 										case LIP:
-											Main.game.getPlayer().setPiercedLip(true);
+											BodyChanging.getTarget().setPiercedLip(true);
 											break;
 										case NAVEL:
-											Main.game.getPlayer().setPiercedNavel(true);
+											BodyChanging.getTarget().setPiercedNavel(true);
 											break;
 										case NIPPLE:
-											Main.game.getPlayer().setPiercedNipples(true);
+											BodyChanging.getTarget().setPiercedNipples(true);
 											break;
 										case NOSE:
-											Main.game.getPlayer().setPiercedNose(true);
+											BodyChanging.getTarget().setPiercedNose(true);
 											break;
 										case PENIS:
-											Main.game.getPlayer().setPiercedPenis(true);
+											BodyChanging.getTarget().setPiercedPenis(true);
 											break;
 										case TONGUE:
-											Main.game.getPlayer().setPiercedTongue(true);
+											BodyChanging.getTarget().setPiercedTongue(true);
 											break;
 										case VAGINA:
-											Main.game.getPlayer().setPiercedVagina(true);
+											BodyChanging.getTarget().setPiercedVagina(true);
 											break;
 									}
 								}
@@ -3063,8 +3477,10 @@ public class MainController implements Initializable {
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
 							@Override
 							public void effects() {
-								Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_ANAL_BLEACHING_COST);
-								Main.game.getPlayer().setAssBleached(false);
+								if(!noCost) {
+									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_ANAL_BLEACHING_COST);
+								}
+								BodyChanging.getTarget().setAssBleached(false);
 							}
 						});
 					}
@@ -3078,8 +3494,10 @@ public class MainController implements Initializable {
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
 							@Override
 							public void effects() {
-								Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_ANAL_BLEACHING_COST);
-								Main.game.getPlayer().setAssBleached(true);
+								if(!noCost) {
+									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_ANAL_BLEACHING_COST);
+								}
+								BodyChanging.getTarget().setAssBleached(true);
 							}
 						});
 					}
@@ -3095,8 +3513,10 @@ public class MainController implements Initializable {
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
 								@Override
 								public void effects() {
-									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_BODY_HAIR_COST);
-									Main.game.getPlayer().setAssHair(bodyHair);
+									if(!noCost) {
+										Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_BODY_HAIR_COST);
+									}
+									BodyChanging.getTarget().setAssHair(bodyHair);
 								}
 							});
 						}
@@ -3110,8 +3530,10 @@ public class MainController implements Initializable {
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
 								@Override
 								public void effects() {
-									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_BODY_HAIR_COST);
-									Main.game.getPlayer().setUnderarmHair(bodyHair);
+									if(!noCost) {
+										Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_BODY_HAIR_COST);
+									}
+									BodyChanging.getTarget().setUnderarmHair(bodyHair);
 								}
 							});
 						}
@@ -3125,8 +3547,10 @@ public class MainController implements Initializable {
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
 								@Override
 								public void effects() {
-									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_BODY_HAIR_COST);
-									Main.game.getPlayer().setPubicHair(bodyHair);
+									if(!noCost) {
+										Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_BODY_HAIR_COST);
+									}
+									BodyChanging.getTarget().setPubicHair(bodyHair);
 								}
 							});
 						}
@@ -3140,8 +3564,10 @@ public class MainController implements Initializable {
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
 								@Override
 								public void effects() {
-									Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_BODY_HAIR_COST);
-									Main.game.getPlayer().setFacialHair(bodyHair);
+									if(!noCost) {
+										Main.game.getPlayer().incrementMoney(-SuccubisSecrets.BASE_BODY_HAIR_COST);
+									}
+									BodyChanging.getTarget().setFacialHair(bodyHair);
 								}
 							});
 						}
@@ -3983,6 +4409,36 @@ public class MainController implements Initializable {
 			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 				Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().setWorkHour(i, !Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().getWorkHours()[i]);
 				Main.game.setContent(new Response("", "", SlaveryManagementDialogue.getSlaveryManagementSlaveJobsDialogue(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected())));
+			}, false);
+		}
+	}
+	
+	private void setBreastCountListener(int i) {
+		String id = "BREAST_COUNT_"+i;
+		if (((EventTarget) document.getElementById(id)) != null) {
+			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+				BodyChanging.getTarget().setBreastRows(i);
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+			}, false);
+		}
+	}
+	
+	private void setNippleCountListener(int i) {
+		String id = "NIPPLE_COUNT_"+i;
+		if (((EventTarget) document.getElementById(id)) != null) {
+			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+				BodyChanging.getTarget().setNippleCountPerBreast(i);
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+			}, false);
+		}
+	}
+	
+	private void setTesticleCountListener(int i) {
+		String id = "TESTICLE_COUNT_"+i;
+		if (((EventTarget) document.getElementById(id)) != null) {
+			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+				BodyChanging.getTarget().setTesticleCount(i);
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
 		}
 	}

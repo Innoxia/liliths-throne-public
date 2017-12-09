@@ -90,6 +90,34 @@ public enum LegType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("");
 		}
 	}
+	
+	public String getTransformName() {
+		switch(this){
+			case ANGEL:
+				return "angelic";
+			case CAT_MORPH:
+				return "feline";
+			case DEMON_COMMON:
+				return "demonic";
+			case DOG_MORPH:
+				return "canine";
+			case COW_MORPH:
+				return "bovine";
+			case SQUIRREL_MORPH:
+				return "furry";
+			case HARPY:
+				return "feathered";
+			case HORSE_MORPH:
+				return "equine";
+			case HUMAN:
+				return "human";
+			case LYCAN:
+				return "lupine";
+			case SLIME:
+				return "slimy";
+		}
+		return "";
+	}
 
 	@Override
 	public BodyCoveringType getBodyCoveringType() {

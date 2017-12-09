@@ -3,56 +3,324 @@
 		Patch notes in Main
 		Update README
 		Create .exe version
-		
-		
-		
-	- Finish writing slave placeholder content.
-	- Add more slave jobs. Things like assisting Rose, working in a bar/brothel/milking shed, training, etc. gardener
-	- Add more ways to influence a slave's affection and obedience.
 	
-	- Improve orgasm dialogue.
-		- Add in position-specific orgasm scenes.
-		- Add in body-part recognition for orgasm scenes. Things such as knotting, orifice modifiers, fluid modifiers, etc.
-	- Add thigh sex.
-	- Work on final improvements to the sex system.
-	- Add in missing content related to the new transformations. Addictive fluids, part modifiers referenced during sex, etc.
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
 	Patch notes:
 	
 	Gameplay:
-		Finished 95% of Zaranix's content. (Just a few scenes if you choose to fight Zaranix are placeholders.)
-		Filled in more slavery placeholders (just molest left to do now).
-		You can now export any character in the game (including yourself) by looking at their character sheet (or your selfie), and clicking the 'Export Character' button in the top-right of the screen. Exported characters can then be imported as a slave at Slaver Alley's Auction Block, where you can then bid on them in an auction.
-		As a side-effect of implementing the above, you can now start a 'New game with import' with any exported character in the game. (There aren't any special reactions/scenes for playing as an exported character, however.)
-	
-	Sex:
-		Added hotdogging actions. (Added to doggy-style and face-to-wall.)
-		Added 'Doggy-style (receiving oral)' and 'Doggy-style (performing oral)' positions, to give you positions where you can perform or receive anilingus.
-	
+		Finished Zaranix's house placeholders (the ones after fighting Zaranix). Imported games with a version prior to 0.1.95 should reset Zaranix's quest, allowing you to complete it without experiencing bugs (hopefully).
+		Added in slave's 'molest' action content.
+		Added wing size to possible transformations.
+		Added demonic transformation menu to your phone, as a post-combat victory action over demons, and to demon slaves. (The UI really needs a lot more polishing, but it should be fully functional.)
+		Added month selection to character creation process. (If you want to edit the date after starting the game, simply change the 'date' value in the save's .xml value. The in-game date is that value plus the amount of minutes shown in the 'minutesPassed' value.)
+		Added public use slaves in the stocks in Slaver Alley.
+		Added an incubus variation to the succubus alleyway attacker (also set spawn rates for succubi/incubi to be based on your gender preferences). Also improved variety of clothing worn by succubus/incubus attackers. (Some of the text hasn't been updated for the incubus just yet. It will be finished for the next release.)
+		Added 'public use' as a job for your slaves. When selected, your slaves will be sent to Slaver Alley's public stocks, where they will be used by randomly generated NPCs.
+		Added self-doggy oral positions.
+		
+	Contributions:
+		Multiple spelling corrections (submitted via github PR by shutizake).
+		
 	Other:
-		Slightly increased base arousal gain for the receiving partner during anal penetration.
-		Rose now wears a bell collar and carries a feather duster.
-		Nyan will now sell the lab coat under 'specials' (after her daily inventory reset).
-		Changed slave values to reflect their race's rarity/slave suitability.
-	
-	Items:
-		<b>Clothing:</b> Bell collar (no femininity requirements, neck slot).
-		<b>Weapon:</b> Feather duster (pretty much 0 damage). Vicky will sell this (after her daily inventory reset).
+		In-game start date is now set to the current date (instead of 1 week behind).
+		Added a new name generator for demons.
+		Slaves can now only clean their clothes/wash their bodies while not at work.
 	
 	Bugs:
-		Minor typo fixes.
-		Event log will now correctly update when over 50 entries have been recorded.
-		Reduced unintended prostitute spawn rate of 80% down to 50%.
-		Angel ass, wing, & leg values are now properly configured. (Angels are only obtainable through the debug menu at the moment.)
+		Fixed an issue with older character exports not being imported correctly (related to an old personality value being changed in newer versions).
+		Fixed an issue with used condoms causing game imports to break.
+		Imported slaves can now be impregnated.
+		Fixed chemise and pantyhose blocking displacement of each other (which was causing a major crash during sex).
+		Minor grammatical and typo fixes.
+		Fixed bug where imported slaves would call you by their own name. (Will take effect for newly exported slaves from now on.)
+		Slaves should now go to, and return from, work on time. (They were an hour late for both.)
+		Fixed several causes of major errors when importing old games.
+		Fixed a few minor dialogue bugs in Zaranix's house.
+		Fixed major bug of Zaranix's house being repeatable once completed. (I will make it repeatable in the future, but for now it needs to be disabled to avoid major bugs & dialogue inconsistencies.)
+		Fixed succubi only ever using the 'back-to-wall' position.
+		Fixed bug where some slaves would have unchangeable names like 'horse-girl'.
+		Stopped used condoms from being able to be spawned in using the debug menu (as it was causing issues).
+		Versions prior to 0.1.95 will now have all NPC's hair lengths reset to default values (to address broken hair lengths in older versions).
 	
 	
 	
 	
 	
+	
+	- Improve orgasm dialogue.
+		- Add in position-specific orgasm scenes.
+		- Add in body-part recognition for orgasm scenes. Things such as knotting, orifice modifiers, fluid modifiers, etc.
+	
+	- Add in missing content related to the new transformations. Addictive fluids, part modifiers referenced during sex, etc.
+	
+	- Add thigh sex.
+	
+	- Add more slave jobs.
+		Assisting Rose
+		gardener
+	Improve slave events
+	
+	- Add more ways to influence a slave's affection and obedience.
+		More room items
+	
+	
+	
+	
+	go through positioning actions and check conditions
+	
+	FINISH SUCCUBUS DIALOGUE
+	
+	Bugs:
+	After the first sex scene with Lilaya, the game just stopped working. I can't progress /  resume play at all
+	
+	Here's a five minute fix for the NPC AI. Currently, if the player has an accessible vagina, dominant npcs never go for the butt unless they have an anal fetish. Why not add the "rough" npc fetishes to that as well? Eg: dominant, sadist, and rapist npcs might also have a chance to target the ass instead of the pussy.
+Also, consider having the NPC take the PC's fetishes into account when deciding actions instead of just their own. I could see a submissive NPC trying to please their partner by doing what they like. This would add a whole lot of complexity to your AI system though, so it might be infeasible to add that to your system, as it is now, without risking breaking things.
+	
+	
+	The quest is currently 'repeatable' after completion, you can enter the house and repeat everything up to the point where you meet arthur (either after fighting through the house or submitting).
+	 When meeting arthur when he is already gone the game hangs and you can't do anything.
+	
+	urethra pen
+	
+	Lipstick should leave a stain on your cock
+	
+	
+	
+	"Bug" report: During the import process (for both game and NPC imports as far as I have noticed), the game forcefully sets the preferred body type to be an exact copy of the imported NPCs, rather than keeping any previous preferences from the old save.
+	 This results in any imported NPCs simply transforming you into themselves, limits and content permitting.
+		The reason seems to be that the body preference is set from the actual body parameters of the NPC, rather than getting it from the specified "preferredBody" element created during the export process when it is imported.
+	
+	
+	
+	I enslaved one of my daughters and now all of my slaves are calling me mom. The rename button does nothing.
+	
+	
+	"affection apparently works, but every single slave isn't gaining obedience anymore"
+	
+	
+	
+	merge alligators
+	
+	[You are about to cum / your partner is about to cum / both of you are about to cum] [You cum from x body part] [Your partner cums from y body part] [if applicable, fluids go to place z] [after orgasm texts for you, such as noting taste of cum or risks of pregnancy] [after orgasm texts for partner]
+	
+	 I was going to prevent orgasms unless direct stimulation is being performed, so maybe I could use the oral fetish to bypass that (allowing oral fetishists to orgasm just by performing oral) 
+	
+	
+	Started a new male char, chose experienced for sexual history, Started with Zero corruption. After doing Lilaya for her first set of 'tests' This is wgat it said in my selfie:"You lost your penile virginity to your first girlfriend. You lost your penile virginity to Lilaya in Lilaya's lab."
+	
+	on the stats, pregnancy stats are not showing at all
+	
+	Save games that are exported from 189.2 and 190 lose a few things, such as
+-Slave activity log
+-Flames in the slave account balance
+-Player and NPCs regain their penile virginity
+-The attributes of NPC genitalia and private parts is forgotten by the player. You have to get them naked again in order to know their dick size and whatnot.
+	
+	
+	: I noticed a few situations where dominant female npcs would attempt to ride on a female PC even though there's nothing there to ride one. It seems that the AI doesn't know what to do when neither character has a penis. For the time being, consider making the NPC prefer oral sex for F/F pairs instead of moving the character into positions where there is only foreplay options like fingering/kissing, etc.
+[04:44] Tukaima: Managed to get that thing to happen again. Encountered a dog-girl during a storm, and once I enslaved her, the text showed "Savannah", but in the slave list she's actually named "dog-girl". Reproduced it two more times after that, twice in front of Lil's house, and another time in an empty cell.
+[07:15] the sarssol: seems like imported slaves default to using their own name to refer to you
+	
+	
+	
+	----------------
+	
+	1. After trying to impregnate Lilaya when fighting an enemy my games freezing (I found out that this is because you impregnate her so get your D out of her before you defeating some enemy)
+	
+	For your information the save files that I used is from 0.1.90 so I think there's no problem in exporting and importing files within the version
+	
+	--------------
+	
+	
+	
+	[Might already be fixed]
+	I've seen this issue reported on an older version but i've just discovered it's still happening, after importing from 1.89.2 to 1.9.0 all of my characters modifier's from clothing (+ 4 will power damage, + 4 global resist, + 35 fertility etc.) are no longer applying bonuses. Because I am wearing the clothing however when i remove it i gain a minus modifier of the same value (- 4 willpower damage, - 4 global resist, -35 fertility etc.). This has essentially crippled my character by giving them massive reductions to willpower damage and global resist which are the stats I hunted for on my gear. :(
+	
+	
+	
+	All slave rooms reset to base upon import from 1.89.2. They are still classified as slave rooms with he right slaves in them but they have been emptied of all extra's like beds, room service and obedience trainers.
+
+	Maybe also a suggestion/request?
+	Please could creampie duration scale with dosage of cum and last even longer with effects like viscous and sticky?
+	
+	Oh an also for some reason all of my test subjects that get experimented on are reporting that Lilaya did some intrusive experiments on the last viewed slave. It lists the correct slave in the 'Slave' field but incorrectly lists whichever slave I was in the same room with as the test subject in each transformation.
+	
+	
+	
+	I haven't set NPCs to be able to spawn with addictive cum just yet, but I'll do that as soon as I can! (It will be a random chance.) :3
+	
+	Slave sex: ------
+	
+	made one cumdump in each profession
+no one touched them
+allowed one to masterbate
+she never did and has been pent up for days.
+
+I also made sure that every character that spawns has both sets.
+	
+	Additionally I'd like to re-report that slaves are not interacting consistantly. Slaves do not interact AT ALL during free time (at least if they have jobs). Slaves with jobs only interact with other slaves on the same job during the hours they work together. I was able to get ALL of my slaves interacting and doing stuff by switching them all to the maid job with the same hours. They continued to do NOTHING duirng free time though. They ALL have the free roam mansion and outside mansion permissions.
+
+Finally importing from 1.89.2 reset my slaves cleanliness permissions. Test subjects must keep their creampies, for science!
+	
+	
+	I'll make some tweaks to the code to allow slaves with the 'masturbate' setting enabled to engage in using you as well. :3
+	
+	
+	Ok, every slave is set to 
+	house freedom
+	use you
+	3 meals 
+	maintain
+	wash clothing
+	
+	all the slaves but 1 has slave stud
+	2 of them have breeding bitch and sex toy
+	
+	All of them have off at the same times, at least the ones that aren't experiment 24/7 slaves
+	
+	one is only attracted to masculan
+	one is attracted to everything. 
+	
+	Pass 30 days, and neither are pregnant, in an entire house of futas, all should be pent the hell up bad. 
+	
+	I waited 2 months, still no mention of pregnancy or even an encounter. 
+	
+	
+	I've just been testing this,
+	All of my slaves have permission to free roam in and outside house. Of my 2 slaves who are sex toys only one gets used. The one that keeps getting used is working in the kitchen, and the only person using her (despite all my slaves having permission) is the one working in the kitchen with them, always with the 'X saw X go into the pantry alone and couldn't help but fuck follow them in and fuck them'. So currently for slaves to be able to sex eachother it seems they have to be working the same job at the same time and that they wont interact in their free time.
+	
+	All of my slaves have permission to use sex toy but not to masturbate and all have been frustrated for 20 days now without any use of the available sex toys.
+	
+	I've been doing this for 20 in-game days and it'sthe same result over and over.
+	
+	Also when my virgin slave lost her virginity it doesn't update the appearance screen with that information. It also says on her pregnancy record that she was impregnated by X and gave birth to X 0 days later, despite me allowing this to occur naturally.
+	
+	(i accidentally posted this message to the wrong chain further down, sorry)
+	
+	Additionally slave's giving birth/having sex with gigantic penises doesn't increase their capacity when plasticity is high.
+	
+	(i extended the above test to 3 in game months and am still producing the same results)
+	
+	not able to repeat this, my slaves aren't touching each other at all.
+	going to try a new save in a new install area so nothing is contaminated.
+	
+	In the new instance of the game, I was able to get 2 of the 4 non breeder slaves in an area to have sex... granted the slave they were having sex with was not attracted so its basicly rape, and the other work room where everyone was attractive to each other won't touch each other.
+	
+	
+	----
+	
+	
+	Urethral actions
+	
+	
+	There seems to be a bug in the save compatibility, which is manifesting in an error when trying to inspect some slaves. I'll try and figure out what's going wrong as soon as I can! :3
+	
+	
+	if you edit an npc's preferred body type, it doesn't stick, probably because editting an npc makes the game act like you never met them, so you go through their introduction all over again, and probably resetting their preferred body type to whatever it was previously.
+	
+	If you're having trouble tracking down the memory leak, repeated load actions and inventory views very rapidly accelerate it. After a while the UI becomes so unresponsive that you'll be waiting up to a second or two for some actions to complete.
+	
+	re Succubi bugged at the moment?  They say they wont let you use their pussy when they take their cock out, but during sex they only kiss, masturbate themselves, and do vaginal sex.  They never actually use their cock.  They also only use the back to wall position.
+	I have a Succubus slave and when I let her be the dominant one she always does the same thing over and over. That being the back to wall position and never switch to anything else. I have tried to give her different fetishes to see if that does anything but no luck.
+	
+	I've also noticed problems with other npcs. All human male NPCs, for example, only use the same 3 positions: Doggy performing oral, kneeling performing oral, and kneeling recieving oral.  Thats all. :frowning:(edited)
+		It may be the same with all masculine NPCs but I haven't tested enough
+		I just want an NPC to forcefully break-in my character but no one will do it
+	
+	
+	once you get Arthur the first time, going back to Zaranix's lab will cause a screen lock where you need to shut down
+	
+	small issue with slave descriptions in actions like hugging: "Due to the fact that [...] is friendly you, ..."
+	
+	Not sure if it's a bug or not, but after you've infiltrated Zaranix's home and retrieved Arthur (with the 'fly over fence' option), you can't knock anymore, regardless of whether or not you actually fought anyone. Can still fly over the fence, tho.
+	
+	"I seem to keep getting stuck at Ralph's"
+	
+	highlights as an option for feathers
+	
+	autosave on map switch anymore?
 	
 	Add self-doggy (oral) varaints
+	
+	
+	-------------------
+	
+	Bugs
+-Talking to someone in a room will always have the dialogue written as if you're talking to the first person listed in the room.
+
+-When you ask about a slave's background they sometimes respond with:
+Slave smiles as you ask her about her past life, and responds, "Hello Player! How are you? Is there anything I can do for you?"
+
+At first I thought that this might be a bug with a specific personality, but I've gotten it from slaves with different personalities. I can't really figure out a pattern with it.
+
+After further testing, I'm starting to notice a pattern with the slave's response about their background. I think it has something to do with the slave's affection towards the player. All the bugged lines seem to be coming from slaves that have an affection rating of 30 or higher - or wherever it is the Affection level becomes 'likes'.
+
+If their affection is above 30 the slave's response is usually the same line that they greeted you with.
+
+when the text dialogue starts with
+As you approach Slave, she looks up at you, a huge smile breaking out across her face as she joyously calls out, "Hello Player! Is there anything I can do for you?"
+Their response is
+Clearly happy at being asked about her past life, Slave quickly responds, "Hello Player! Is there anything I can do for you?"
+
+If their greeting is
+As you approach Slave, she looks up at you, a huge smile breaking out across her face as she joyously calls out, Hello Player! How are you? Is there anything I can do for you?
+their response about their background is
+Slave smiles as you ask her about her past life, and responds, Hello Player! How are you? Is there anything I can do for you?
+
+if the slave has the bimbo fetish, the lines can be slightly different. Like greeting you with "Hello Player! Is there anything, like, I can, um, do for you?" and the answer about their background being "Hello Player! Is there, like, anything I can do, like, for you?"
+
+it also happens if they greet you with the pregnancy dialogue. Their response can be either the "... How are you? Is there anything..." or "Hello Player! Is there anything..." line.
+
+I haven't received a bugged line from a slave that has an affection rating of 24 or lower.
+	
+	---------------
+	
+	add in "doggy-style receiving oral" for victory scenes asap
+	
+	
+	
+	Anyway, in this release (and the last preview, too, but I figured it was buggy and not worth commenting on), the sex options with Lilaya and Kate are really thin. It's possible that they always were and I just didn't notice, but at the least the hand-to-genitals options should be there. Chair oral sex (giving and receiving) would also be welcome, but I can live without them for a good while.
+
+Also, the option to stop furry tail penetrations doesn't seem to stop demons from penetrating themselves with their tails. I'd like of like the options to just stop all non-player initiated tail penetration.
+
+I've found that if you strip someone before sex, take all of their stuff, then have sex, they will have a new inventory of items at the end that you can also loot.
+	
+	
+	
+	
+	
+	
+	
+	I will try and get an 'Auto-equip clothing after sex' option added for this next version! ^^
+	
+	
+	Suggestion for improvement of "Denial" fetish: The Denial fetish in it's current form kind of sucks, to be frank. IMO what it should do instead is add an extra reaction option when a submissive cums to prevent them from doing so, as Pix does in her scene. The submissive should then start begging to be allowed to cum, getting increasingly more frantic the more times they are denied.
+	
+	Suggestion for counterpart to "Denial" fetish: Denial is one of the orgasm control fetishes; the other is forced orgasms. If you make a submissive cum several times, they should start begging you to stop making them cum, getting increasingly more frantic the more times you do.
+	
+	Suggestion for "Non-Con" fetish: When the submissive's arousal gets high, they should beg you specifically not to make them cum, rather than the more general "stop doing that to me" dialog.
+	
+	
+	If you set furries to be on but leave the forced racial transformations as human only, you do not get any genitalia added during the transformations. So you ultimately end up as a "doll."
+		Hmm... I thought it had broken my save game, but it seems to break the properties file. So, that's good. I'll just have to endure all the encyclopedia entries again, lol.
+	
+	
+	
+	I will definitely add a way to apply potions to all of your slaves (as well as adding in an action to get your succubi slaves to self-transform). There are definitely quite a few improvements I can make to the slave system, and I'll try and get them all done as soon as I can! ^^
+	
+	I will also add a recipe book to save potions to, as well as the ability to name them. Good suggestions! ^^
+	
+	
 	
 	
 	Zaranix finishing touches
@@ -4246,6 +4514,8 @@ I would also suggest the following addition :
 		Endless Sea (Mermaids, Sharks & Tiger sharks)
 		Go underwater there
 		siren/merfolk/octo-morph/squid-morph/eel-morph
+		
+		giant sea anemones that suck you in, tentacle rape you and transform you
 		
 		Octopus:
 			Detachable tentacle penis.

@@ -16,6 +16,7 @@ import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
+import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -99,6 +100,8 @@ public class Kate extends NPC {
 		Kate npc = new Kate(true);
 
 		loadNPCVariablesFromXML(npc, null, parentElement, doc);
+
+		npc.setWingSize(WingSize.ONE_SMALL.getValue());
 		
 		return npc;
 	}

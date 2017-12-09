@@ -60,9 +60,27 @@ public enum HornType implements BodyPartTypeInterface {
 			case NONE:
 				return "";
 			case SWEPT_BACK:
-				return UtilText.returnStringAtRandom("short", "small");
+				return UtilText.returnStringAtRandom("sleek");
 			case STRAIGHT:
-				return UtilText.returnStringAtRandom("straight", "sleek");
+				return UtilText.returnStringAtRandom("straight");
+			case CURLED:
+				return UtilText.returnStringAtRandom("curled");
+			case CURVED:
+				return UtilText.returnStringAtRandom("curved");
+			case SPIRAL:
+				return UtilText.returnStringAtRandom("spiral");
+		}
+		return "";
+	}
+	
+	public String getTransformName() {
+		switch(this){
+			case NONE:
+				return "none";
+			case SWEPT_BACK:
+				return UtilText.returnStringAtRandom("swept-back");
+			case STRAIGHT:
+				return UtilText.returnStringAtRandom("straight");
 			case CURLED:
 				return UtilText.returnStringAtRandom("curled");
 			case CURVED:

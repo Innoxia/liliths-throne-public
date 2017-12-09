@@ -46,29 +46,30 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		try {
 			if (coreContainers.length != 0) {
 				for(Class<?> container : coreContainers) {
-				
-					Field[] fields = container.getFields();
-					
-					for(Field f : fields){
+					if(container!=null) {
+						Field[] fields = container.getFields();
 						
-						if (SexAction.class.isAssignableFrom(f.getType())) {
-							if (((SexAction) f.get(null)).getActionType().isOrgasmOption()) {
-								if (((SexAction) f.get(null)).getActionType() == SexActionType.MUTUAL_ORGASM) {
-									mutualOrgasmActions.add(((SexAction) f.get(null)));
-									
-								} else  if (((SexAction) f.get(null)).getActionType().isPlayerAction()) {
-									orgasmActionsPlayer.add(((SexAction) f.get(null)));
-									
-								} else {
-									orgasmActionsPartner.add(((SexAction) f.get(null)));
-								}
-								
-							} else {
-								if (((SexAction) f.get(null)).getActionType().isPlayerAction()) {
-									actionsAvailablePlayer.add(((SexAction) f.get(null)));
+						for(Field f : fields){
+							
+							if (SexAction.class.isAssignableFrom(f.getType())) {
+								if (((SexAction) f.get(null)).getActionType().isOrgasmOption()) {
+									if (((SexAction) f.get(null)).getActionType() == SexActionType.MUTUAL_ORGASM) {
+										mutualOrgasmActions.add(((SexAction) f.get(null)));
+										
+									} else  if (((SexAction) f.get(null)).getActionType().isPlayerAction()) {
+										orgasmActionsPlayer.add(((SexAction) f.get(null)));
+										
+									} else {
+										orgasmActionsPartner.add(((SexAction) f.get(null)));
+									}
 									
 								} else {
-									actionsAvailablePartner.add(((SexAction) f.get(null)));
+									if (((SexAction) f.get(null)).getActionType().isPlayerAction()) {
+										actionsAvailablePlayer.add(((SexAction) f.get(null)));
+										
+									} else {
+										actionsAvailablePartner.add(((SexAction) f.get(null)));
+									}
 								}
 							}
 						}

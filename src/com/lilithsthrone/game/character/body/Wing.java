@@ -4,20 +4,23 @@ import java.io.Serializable;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.WingType;
+import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.1.95
  * @author Innoxia
  */
 public class Wing implements BodyPartInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	protected WingType type;
-
-	public Wing(WingType type) {
+	protected int size;
+	
+	public Wing(WingType type, int size) {
 		this.type = type;
+		this.size = size;
 	}
 
 	@Override
@@ -152,6 +155,60 @@ public class Wing implements BodyPartInterface, Serializable {
 				+ "<p>"
 				+ owner.postTransformationCalculation()
 				+ "</p>";
+	}
+
+	public WingSize getSize() {
+		return WingSize.getWingSizeFromInt(size);
+	}
+
+	public int getSizeValue() {
+		return size;
+	}
+	
+	public String setSize(GameCharacter owner, int wingSize) {
+		if(owner.getWingType()==WingType.NONE) {
+			if(owner.isPlayer()) {
+				return "<p style='text-align:center;'>[style.colourDisabled(You don't have any wings, so nothing happens...)]</p>";
+			} else {
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name]'s doesn't have any wings, so nothing happens...)]</p>");
+			}
+		}
+		
+		int effectiveSize = Math.max(0, Math.min(wingSize, WingSize.getLargest()));
+		if(owner.getWingSizeValue() == effectiveSize) {
+			if(owner.isPlayer()) {
+				return "<p style='text-align:center;'>[style.colourDisabled(The size of your [pc.wings] doesn't change...)]</p>";
+			} else {
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The size of [npc.name]'s [npc.wings] doesn't change...)]</p>");
+			}
+		}
+		
+		String transformation = "";
+		
+		if(this.size > effectiveSize) {
+			if(owner.isPlayer()) {
+				transformation = "<p>A soothing coolness rises up into your [pc.wings+], causing you to let out a surprised gasp as you feel them [style.boldShrink(shrinking)].</br>";
+			} else {
+				transformation = UtilText.parse(owner, "<p>[npc.Name] lets out a little cry as [npc.she] feels a soothing coolness rise up into [npc.her] [npc.wings+], before they suddenly [style.boldShrink(shrink)].</br>");
+			}
+			
+		} else {
+			if(owner.isPlayer()) {
+				transformation = "<p>A pulsating warmth rises up into your [pc.wings+], causing you to let out a surprised gasp as you feel them [style.boldGrow(growing larger)].</br>";
+			} else {
+				transformation = UtilText.parse(owner, "<p>[npc.Name] lets out a little cry as [npc.she] feels a pulsating warmth rise up into [npc.her] [npc.wings+], before they suddenly [style.boldGrow(grow larger)].</br>");
+			}
+		}
+		
+		this.size = effectiveSize;
+
+		if(owner.isPlayer()) {
+			return transformation
+				+ "You now have [style.boldSex([pc.wingSize] [pc.wings])]!</p>";
+		} else {
+			return transformation
+					+ UtilText.parse(owner, "[npc.Name] now has [style.boldSex([npc.wingSize] [npc.wings])]!</p>");
+		}
 	}
 
 }

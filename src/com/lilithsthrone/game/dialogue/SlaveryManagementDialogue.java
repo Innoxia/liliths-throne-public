@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
@@ -1294,10 +1295,10 @@ public class SlaveryManagementDialogue {
 						"<div class='container-full-width inner' "+(isCurrentJob?"style='background:#292929;'":"")+">"
 							+"<div style='width:15%; float:left; margin:0; padding:0;'>"
 								+ (isCurrentJob
-									? "[style.boldGood("+job.getName(character)+")]"
+									? "[style.boldGood("+Util.capitaliseSentence(job.getName(character))+")]"
 									: (job.isAvailable(character)
-										?job.getName(character)
-										:"[style.colourBad("+job.getName(character)+")]"))
+										? Util.capitaliseSentence(job.getName(character))
+										: "[style.colourBad("+Util.capitaliseSentence(job.getName(character))+")]"))
 							+ "</div>"
 							+ "<div style='float:left; width:10%; font-weight:bold; margin:0; padding:0;'>"
 								+ Main.game.getPlayer().getSlavesWorkingJob(job)+"/"+(job.getSlaveLimit()<0?"&#8734;":job.getSlaveLimit())
@@ -1360,10 +1361,37 @@ public class SlaveryManagementDialogue {
 												+ "</div>");
 				}
 				
+				for(Entry<String, List<SlaveJobSetting>> entry : job.getMutuallyExclusiveSettings().entrySet()) {
+					
+					UtilText.nodeContentSB.append("<div class='container-full-width inner' style='"+(!isCurrentJob?"background:#1B1B1B;":"")+"'>"
+													+ "<div style='width:100%; float:left; margin:0; padding:0;"+(isCurrentJob?"":"color:#777;")+"'><b>"
+														+ Util.capitaliseSentence(entry.getKey())
+													+"</b></div>");
+					
+					for(SlaveJobSetting setting : entry.getValue()) {
+						boolean settingActive = character.getSlaveJobSettings().contains(setting);
+						
+						UtilText.nodeContentSB.append("<div style='width:20%; float:left; margin:0; padding:0;"+(!isCurrentJob?"color:#777;":(settingActive?"color:"+Colour.GENERIC_GOOD.toWebHexString()+";":""))+"'>"
+															+ setting.getName()
+														+ "</div>"
+														+"<div style='width:70%; float:left; margin:0; padding:0;"+(!settingActive?"color:#777;":"")+"'>"
+															+ "<i>"+setting.getDescription()+"</i>"
+														+ "</div>"
+														+ "<div style='float:left; width:10%; margin:0; padding:0;'>"
+															+ (!isCurrentJob
+																	?"<div id='"+setting+"_DISABLED' class='square-button solo disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseOptionDisabled()+"</div></div>"
+																	: (settingActive
+																			?"<div class='square-button solo'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseOption()+"</div></div>"
+																			:"<div id='"+setting+"_TOGGLE_ADD' class='square-button solo'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getResponseOptionDisabled()+"</div></div>"))
+														+"</div>");
+					}
+				}
+				
 				//TODO mutEx settings:
 				
 				UtilText.nodeContentSB.append("</div>");
 			}
+			UtilText.nodeContentSB.append("</div>");
 			UtilText.nodeContentSB.append("</div>");
 			
 			UtilText.nodeContentSB.append("<p id='hiddenFieldName' style='display:none;'></p>");

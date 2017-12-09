@@ -10,6 +10,7 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.FluidCum;
+import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.sex.OrificeType;
@@ -60,7 +61,7 @@ public class AbstractFilledCondom extends AbstractItem implements Serializable, 
 	public boolean equals (Object o) {
 		if(super.equals(o)) {
 			return (o instanceof AbstractFilledCondom)
-					&& ((AbstractFilledCondom)o).getCumProvidor().equals(this.getCumProvidor())
+					&& ((AbstractFilledCondom)o).getCumProvidorId().equals(this.getCumProvidorId())
 					&& ((AbstractFilledCondom)o).getCum().equals(cum);
 		} else {
 			return false;
@@ -102,7 +103,9 @@ public class AbstractFilledCondom extends AbstractItem implements Serializable, 
 				ItemType.idToItemMap.get(parentElement.getAttribute("id")),
 				Colour.valueOf(parentElement.getAttribute("colour")),
 				parentElement.getAttribute("cumProvidor"),
-				FluidCum.loadFromXML((Element) parentElement.getElementsByTagName("cum").item(0), doc));
+				((Element) parentElement.getElementsByTagName("cum").item(0)==null
+					?new FluidCum(FluidType.CUM_HUMAN)
+					:FluidCum.loadFromXML((Element) parentElement.getElementsByTagName("cum").item(0), doc)));
 	}
 	
 	private String getSVGString(String pathName, Colour colour) {

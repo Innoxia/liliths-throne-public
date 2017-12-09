@@ -9,13 +9,13 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericPositioning;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PartnerTalk;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PlayerTalk;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerPenisMouth;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTailMouth;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerAnus;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerUrethra;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerVagina;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTongueAnus;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTongueVagina;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerFingerAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerFingerUrethra;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerFingerVagina;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTongueAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTongueVagina;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisMouth;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTailMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerNipple;
@@ -37,15 +37,14 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTai
 import com.lilithsthrone.main.Main;
 
 /**
- * @since 0.1.90
- * @version 0.1.90
+ * @since 0.1.95
+ * @version 0.1.95
  * @author Innoxia
  */
-public class SMDomDoggyOral extends SexManagerDefault {
+public class SMDomSelfDoggyOral extends SexManagerDefault {
 
-	public SMDomDoggyOral() {
-		super(
-				// Self actions:
+	public SMDomSelfDoggyOral() {
+		super(// Self actions:
 				
 				PlayerSelfFingerAnus.class,
 				PlayerSelfFingerMouth.class,
@@ -74,14 +73,14 @@ public class SMDomDoggyOral extends SexManagerDefault {
 				
 				// Scene-specific:
 				
-				PlayerFingerUrethra.class,
-				PlayerFingerVagina.class,
-				PlayerFingerAnus.class,
-				PlayerTongueVagina.class,
-				PlayerTongueAnus.class,
-
-				PartnerPenisMouth.class,
-				PartnerTailMouth.class,
+				PlayerTailMouth.class,
+				PlayerPenisMouth.class,
+				
+				PartnerFingerUrethra.class,
+				PartnerFingerVagina.class,
+				PartnerFingerAnus.class,
+				PartnerTongueVagina.class,
+				PartnerTongueAnus.class,
 				
 				// Positioning:
 				
@@ -97,7 +96,7 @@ public class SMDomDoggyOral extends SexManagerDefault {
 	
 	@Override
 	public SexPosition getPosition() {
-		return SexPosition.DOGGY_ORAL_PLAYER_DOM_PARTNER_ON_ALL_FOURS;
+		return SexPosition.DOGGY_ORAL_PLAYER_DOM_PLAYER_ON_ALL_FOURS;
 	}
 
 	@Override

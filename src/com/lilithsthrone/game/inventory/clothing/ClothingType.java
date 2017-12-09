@@ -3195,7 +3195,7 @@ public class ClothingType {
 									null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.PULLS_UP,
-									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
+									null,
 									Util.newArrayListOfValues(
 											new ListValue<CoverableArea>(CoverableArea.ANUS),
 											new ListValue<CoverableArea>(CoverableArea.PENIS),

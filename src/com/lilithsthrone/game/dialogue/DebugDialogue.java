@@ -353,8 +353,11 @@ public class DebugDialogue {
 	}
 	public static List<AbstractItemType> itemsTotal = new ArrayList<>();
 	static {
-		for (AbstractItemType c : ItemType.allItems)
-			itemsTotal.add(c);
+		for (AbstractItemType c : ItemType.allItems) {
+			if(!c.equals(ItemType.CONDOM_USED)) {
+				itemsTotal.add(c);
+			}
+		}
 	}
 	private static StringBuilder inventorySB = new StringBuilder();
 	public static final DialogueNodeOld SPAWN_MENU = new DialogueNodeOld("Spawn Menu", "Access the spawn menu.", false) {

@@ -16,6 +16,7 @@ import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
+import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -66,7 +67,9 @@ public class Lilaya extends NPC {
 			this.setHairStyle(HairStyle.STRAIGHT);
 			this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_RED), true);
 			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Main.game.getPlayer().getCovering(BodyCoveringType.HUMAN).getPrimaryColour()), true);
-	
+
+			this.setWingSize(WingSize.ZERO_TINY.getValue());
+			
 			this.setHornType(HornType.SWEPT_BACK);
 			
 			this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
@@ -93,6 +96,8 @@ public class Lilaya extends NPC {
 		Lilaya npc = new Lilaya(true);
 
 		loadNPCVariablesFromXML(npc, null, parentElement, doc);
+		
+		npc.setWingSize(WingSize.ZERO_TINY.getValue());
 		
 		return npc;
 	}

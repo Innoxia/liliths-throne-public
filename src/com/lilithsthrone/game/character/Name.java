@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
@@ -126,7 +127,9 @@ public enum Name {
 					new ListValue<>(new NameTriplet("Kylie", "Kylie", "Kylie")),
 					new ListValue<>(new NameTriplet("Chloe", "Chloe", "Chloe")),
 					new ListValue<>(new NameTriplet("Devon", "Devon", "Devon")),
-					new ListValue<>(new NameTriplet("Emmalou", "Emmalou", "Emmalou"))));
+					new ListValue<>(new NameTriplet("Emmalou", "Emmalou", "Emmalou")))),
+	
+	;
 	
 //	HUMAN_MALE(Race.HUMAN,
 //			new String[] { "Alexander", "Al", "Alex", "Bartholomew", "Bart", "Brett", "Charles", "Carl", "Charlie", "Daniel", "Dan", "Dale", "Edward", "Ed", "Eli", "Fredrick", "Fred", "Frankie", "George", "Garry", "Gray", "Harry", "Hank", "Iago",
@@ -215,7 +218,7 @@ public enum Name {
 			case COW_MORPH:
 				break;
 			case DEMON:
-				break;
+				return getDemonName();
 			case DOG_MORPH:
 				break;
 			case HARPY:
@@ -233,6 +236,31 @@ public enum Name {
 		}
 		
 		return HUMAN.getNameTriplets().get(Util.random.nextInt(HUMAN.getNameTriplets().size()));
+	}
+	
+	private static NameTriplet getDemonName() {
+		String[] preixFem = new String[] {"Aella", "Bella", "Cae", "Deva", "Ella", "Fae", "Hela", "Isa", "Katha", "Loe", "Nysa", "Oella", "Rae", "Sytha", "Vixxa", "Wynna"};
+		String[] preixMas = new String[] {"Ada", "Boro", "Foro", "Helio", "Kiri", "Zara"};
+		
+		String[] postfixFem = new String[] {"jyx", "ryth", "ney", "nix", "sys", "trix"};
+		String[] postfixMas = new String[] {"jyx", "ryth", "ney", "nix", "sys", "trix"};
+		
+		String femName = preixFem[Util.random.nextInt(preixFem.length)] + postfixFem[Util.random.nextInt(postfixFem.length)];
+		char startingChar = femName.charAt(0);
+
+		String masName = preixMas[Util.random.nextInt(preixMas.length)] + postfixMas[Util.random.nextInt(postfixMas.length)];
+		
+		List<String> masculineNames = new ArrayList<>();
+		for(String s : preixMas) {
+			if(s.charAt(0) == startingChar) {
+				masculineNames.add(s);
+			}
+		}
+		if(!masculineNames.isEmpty()) {
+			masName = masculineNames.get(Util.random.nextInt(masculineNames.size())) + postfixMas[Util.random.nextInt(postfixMas.length)];
+		}
+		
+		return new NameTriplet(masName, femName, femName);
 	}
 	
 	public static NameTriplet getRandomProstituteTriplet() {

@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.sex.managers.universal;
+package com.lilithsthrone.game.sex.managers.dominion;
 
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
@@ -6,24 +6,12 @@ import com.lilithsthrone.game.sex.SexPosition;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
-import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericPositioning;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PartnerTalk;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PlayerTalk;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerPenisMouth;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTailMouth;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerAnus;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerUrethra;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerVagina;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTongueAnus;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTongueVagina;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerAnus;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerMouth;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerNipple;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerVagina;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTongueVagina;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfNoPen;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfTailAnus;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfTailMouth;
-import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfTailNipple;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfTailVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfFingerAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfFingerMouth;
@@ -34,18 +22,18 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTai
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailNipple;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailVagina;
+import com.lilithsthrone.game.sex.sexActions.dominion.stocks.SADomStocksOral;
 import com.lilithsthrone.main.Main;
 
 /**
- * @since 0.1.90
- * @version 0.1.90
+ * @since 0.1.95
+ * @version 0.1.95
  * @author Innoxia
  */
-public class SMDomDoggyOral extends SexManagerDefault {
+public class SMDomStocksOral extends SexManagerDefault {
 
-	public SMDomDoggyOral() {
-		super(
-				// Self actions:
+	public SMDomStocksOral(boolean vaginalAllowed, boolean analAllowed, boolean oralAllowed) {
+		super(// Self actions:
 				
 				PlayerSelfFingerAnus.class,
 				PlayerSelfFingerMouth.class,
@@ -58,37 +46,21 @@ public class SMDomDoggyOral extends SexManagerDefault {
 				PlayerSelfTailVagina.class,
 				
 				PlayerSelfNoPen.class,
-				
-				
-				PartnerSelfFingerAnus.class,
-				PartnerSelfFingerMouth.class,
-				PartnerSelfFingerNipple.class,
-				PartnerSelfFingerVagina.class,
-				
-				PartnerSelfTailAnus.class,
-				PartnerSelfTailMouth.class,
-				PartnerSelfTailNipple.class,
-				PartnerSelfTailVagina.class,
+
+				(analAllowed?PartnerSelfTailAnus.class:null),
+				(vaginalAllowed?PartnerSelfTailVagina.class:null),
 				
 				PartnerSelfNoPen.class,
 				
 				// Scene-specific:
-				
-				PlayerFingerUrethra.class,
-				PlayerFingerVagina.class,
-				PlayerFingerAnus.class,
-				PlayerTongueVagina.class,
-				PlayerTongueAnus.class,
 
-				PartnerPenisMouth.class,
-				PartnerTailMouth.class,
+				(oralAllowed?PlayerPenisMouth.class:null),
+				(oralAllowed?PartnerTongueVagina.class:null),
 				
-				// Positioning:
-				
-				GenericPositioning.class,
+				SADomStocksOral.class,
 				
 				// Universal:
-				
+
 				PlayerTalk.class,
 				PartnerTalk.class,
 				GenericActions.class,
@@ -97,7 +69,7 @@ public class SMDomDoggyOral extends SexManagerDefault {
 	
 	@Override
 	public SexPosition getPosition() {
-		return SexPosition.DOGGY_ORAL_PLAYER_DOM_PARTNER_ON_ALL_FOURS;
+		return SexPosition.STOCKS_PARTNER_BEING_USED_ORAL;
 	}
 
 	@Override

@@ -111,6 +111,30 @@ public enum TailType implements BodyPartTypeInterface {
 		}
 	}
 	
+	public String getTransformName() {
+		switch(this){
+			case CAT_MORPH:
+				return "feline";
+			case COW_MORPH:
+				return "bovine";
+			case DEMON_COMMON:
+				return "spaded";
+			case DOG_MORPH:
+				return "canine";
+			case HARPY:
+				return "plume";
+			case HORSE_MORPH:
+				return "equine";
+			case LYCAN:
+				return "lupine";
+			case SQUIRREL_MORPH:
+				return "fluffy";
+			case NONE:
+				return "none";
+		}
+		return "";
+	}
+	
 	public String getTailTipName(GameCharacter gc) {
 		switch(this){
 			default:

@@ -230,6 +230,10 @@ public class Hair implements BodyPartInterface, Serializable {
 		this.length = Math.max(0, Math.min(length, HairLength.SEVEN_TO_FLOOR.getMaximumValue()));
 		int sizeChange = this.length - oldLength;
 		
+		if(owner==null) {
+			return "";
+		}
+		
 		String styleChange = "";
 		if(this.length < owner.getHairStyle().getMinimumLengthRequired()) {
 			if(owner.isPlayer()) {

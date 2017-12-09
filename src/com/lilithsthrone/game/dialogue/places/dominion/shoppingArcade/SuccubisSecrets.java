@@ -21,6 +21,7 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
+import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.managers.universal.consensual.SMChairTop;
@@ -109,10 +110,20 @@ public class SuccubisSecrets {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.kateIntroduced)) {
-					return new Response("Enter", "Step inside Succubi's Secrets.", SHOP_BEAUTY_SALON_ENTER);
+					return new Response("Enter", "Step inside Succubi's Secrets.", SHOP_BEAUTY_SALON_ENTER) {
+						@Override
+						public void effects() {
+							BodyChanging.setTarget(Main.game.getPlayer());
+						}
+					};
 					
 				} else {
-					return new Response("Enter", "Step inside Succubi's Secrets.", SHOP_BEAUTY_SALON);
+					return new Response("Enter", "Step inside Succubi's Secrets.", SHOP_BEAUTY_SALON) {
+						@Override
+						public void effects() {
+							BodyChanging.setTarget(Main.game.getPlayer());
+						}
+					};
 				}
 				
 			} else if (index == 6) {
@@ -660,12 +671,12 @@ public class SuccubisSecrets {
 					+ "<h6 style='text-align:center;'>"
 						+ "You currently have "+UtilText.formatAsMoney(Main.game.getPlayer().getMoney(), "span")
 					+ "</h6>"
-					+CharacterModificationUtils.getKatesDivHairLengths("Hair Length", "Hair length determines what hair styles you're able to have. The longer the hair, the more styles are available.")
+					+CharacterModificationUtils.getKatesDivHairLengths(true, "Hair Length", "Hair length determines what hair styles you're able to have. The longer the hair, the more styles are available.")
 
-					+CharacterModificationUtils.getKatesDivHairStyles("Hair Style", "Hair style availability is determined by your hair length.")
+					+CharacterModificationUtils.getKatesDivHairStyles(true, "Hair Style", "Hair style availability is determined by your hair length.")
 					
 					+CharacterModificationUtils.getKatesDivCoverings(
-							Main.game.getPlayer().getHairCovering().getType(), "[pc.Hair] Colour", "All hair recolourings are permanent, so if you want to change your colour again at a later time, you'll have to visit Kate again.", true, true)
+							true, Main.game.getPlayer().getHairCovering().getType(), "[pc.Hair] Colour", "All hair recolourings are permanent, so if you want to change your colour again at a later time, you'll have to visit Kate again.", true, true)
 					;
 		}
 		
@@ -734,6 +745,7 @@ public class SuccubisSecrets {
 				}
 				
 				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivCoverings(
+						true, 
 						bct,
 						title,
 						description,
@@ -777,10 +789,10 @@ public class SuccubisSecrets {
 						+ "You currently have "+UtilText.formatAsMoney(Main.game.getPlayer().getMoney(), "span")
 					+ "</h6>"
 					+CharacterModificationUtils.getKatesDivCoverings(
-							Main.game.getPlayer().getEyeType().getBodyCoveringType(), "Irises", "The iris is the coloured part of the eye that's responsible for controlling the diameter and size of the pupil.", true, true)
+							true, Main.game.getPlayer().getEyeType().getBodyCoveringType(), "Irises", "The iris is the coloured part of the eye that's responsible for controlling the diameter and size of the pupil.", true, true)
 
 					+CharacterModificationUtils.getKatesDivCoverings(
-							BodyCoveringType.EYE_PUPILS, "Pupils", "The pupil is a hole located in the centre of the iris that allows light to strike the retina.", true, true);
+							true, BodyCoveringType.EYE_PUPILS, "Pupils", "The pupil is a hole located in the centre of the iris that allows light to strike the retina.", true, true);
 		}
 		
 		@Override
@@ -866,7 +878,7 @@ public class SuccubisSecrets {
 
 					+(Main.game.isFacialHairEnabled() || Main.game.isBodyHairEnabled() || Main.game.isPubicHairEnabled()
 							?CharacterModificationUtils.getKatesDivCoverings(
-									Main.game.getPlayer().getBodyHairCoveringType(), "Body hair", "This is the hair that covers all areas other than the head.", true, true)
+									true, Main.game.getPlayer().getBodyHairCoveringType(), "Body hair", "This is the hair that covers all areas other than the head.", true, true)
 							:"")
 					
 					+(Main.game.isFacialHairEnabled()
@@ -923,22 +935,22 @@ public class SuccubisSecrets {
 						+ "You currently have "+UtilText.formatAsMoney(Main.game.getPlayer().getMoney(), "span")
 					+ "</h6>"
 					+CharacterModificationUtils.getKatesDivCoverings(
-							BodyCoveringType.MAKEUP_BLUSHER, "Blusher", "Blusher (also called rouge) is used to colour the cheeks so as to provide a more youthful appearance, and to emphasise the cheekbones.", true, true)
+							true, BodyCoveringType.MAKEUP_BLUSHER, "Blusher", "Blusher (also called rouge) is used to colour the cheeks so as to provide a more youthful appearance, and to emphasise the cheekbones.", true, true)
 					
 					+CharacterModificationUtils.getKatesDivCoverings(
-							BodyCoveringType.MAKEUP_LIPSTICK, "Lipstick", "Lipstick is used to provide colour, texture, and protection to the wearer's lips.", true, true)
+							true, BodyCoveringType.MAKEUP_LIPSTICK, "Lipstick", "Lipstick is used to provide colour, texture, and protection to the wearer's lips.", true, true)
 
 					+CharacterModificationUtils.getKatesDivCoverings(
-							BodyCoveringType.MAKEUP_EYE_LINER, "Eyeliner", "Eyeliner is applied around the contours of the eyes to help to define shape or highlight different features.", true, true)
+							true, BodyCoveringType.MAKEUP_EYE_LINER, "Eyeliner", "Eyeliner is applied around the contours of the eyes to help to define shape or highlight different features.", true, true)
 
 					+CharacterModificationUtils.getKatesDivCoverings(
-							BodyCoveringType.MAKEUP_EYE_SHADOW, "Eye shadow", "Eye shadow is used to make the wearer's eyes stand out or look more attractive.", true, true)
+							true, BodyCoveringType.MAKEUP_EYE_SHADOW, "Eye shadow", "Eye shadow is used to make the wearer's eyes stand out or look more attractive.", true, true)
 
 					+CharacterModificationUtils.getKatesDivCoverings(
-							BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, "Nail polish", "Nail polish is used to colour and protect the nails on your [pc.hands].", true, true)
+							true, BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, "Nail polish", "Nail polish is used to colour and protect the nails on your [pc.hands].", true, true)
 
 					+CharacterModificationUtils.getKatesDivCoverings(
-							BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, "Toenail polish", "Toenail polish is used to colour and protect the nails on your [pc.feet].", true, true);
+							true, BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, "Toenail polish", "Toenail polish is used to colour and protect the nails on your [pc.feet].", true, true);
 			
 		}
 

@@ -34,16 +34,15 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTai
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailNipple;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailVagina;
-import com.lilithsthrone.main.Main;
 
 /**
- * @since 0.1.90
- * @version 0.1.90
+ * @since 0.1.95
+ * @version 0.1.95
  * @author Innoxia
  */
-public class SMDomDoggyOral extends SexManagerDefault {
+public class SMSubSelfDoggyOral extends SexManagerDefault {
 
-	public SMDomDoggyOral() {
+	public SMSubSelfDoggyOral() {
 		super(
 				// Self actions:
 				
@@ -97,7 +96,7 @@ public class SMDomDoggyOral extends SexManagerDefault {
 	
 	@Override
 	public SexPosition getPosition() {
-		return SexPosition.DOGGY_ORAL_PLAYER_DOM_PARTNER_ON_ALL_FOURS;
+		return SexPosition.DOGGY_ORAL_PLAYER_SUB_PARTNER_ON_ALL_FOURS;
 	}
 
 	@Override
@@ -107,7 +106,7 @@ public class SMDomDoggyOral extends SexManagerDefault {
 	
 	@Override
 	public boolean isPlayerAbleToStopSex() {
-		return true;
+		return false;
 	}
 	
 	@Override
@@ -127,17 +126,17 @@ public class SMDomDoggyOral extends SexManagerDefault {
 	
 	@Override
 	public boolean isPartnerCanRemovePlayersClothes(){
-		return false;
+		return true;
 	}
 
 	@Override
 	public SexPace getStartingSexPacePlayer() {
-		return SexPace.DOM_NORMAL;
+		return SexPace.SUB_NORMAL;
 	}
 
 	@Override
 	public SexPace getStartingSexPacePartner() {
-		return Sex.getPartner().getSexPaceSubPreference(Main.game.getPlayer());
+		return Sex.getPartner().getSexPaceDomPreference();
 	}
 
 }

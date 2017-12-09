@@ -54,6 +54,7 @@ import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
 import com.lilithsthrone.game.character.body.valueEnums.StartingSkinTone;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
+import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -138,7 +139,7 @@ public class Body implements Serializable, XMLSaving {
 		private Penis secondPenis = new Penis(PenisType.NONE, 0, 0, 0, 0);
 		private Tail tail = new Tail(TailType.NONE);
 		private Vagina vagina = new Vagina(VaginaType.NONE, 0, 0, 0, 0, 3, 3, true);
-		private Wing wing = new Wing(WingType.NONE);
+		private Wing wing = new Wing(WingType.NONE, 0);
 
 		public BodyBuilder(Arm arm, Ass ass, Breast breast, Face face, Eye eye, Ear ear, Hair hair, Leg leg, Skin skin, BodyMaterial bodyMaterial, GenitalArrangement genitalArrangement, int height, int femininity, int bodySize, int muscle) {
 			this.arm = arm;
@@ -574,6 +575,7 @@ public class Body implements Serializable, XMLSaving {
 		Element bodyWing = doc.createElement("wing");
 		parentElement.appendChild(bodyWing);
 		CharacterUtils.addAttribute(doc, bodyWing, "type", this.wing.type.toString());
+		CharacterUtils.addAttribute(doc, bodyWing, "size", String.valueOf(this.wing.size));
 
 //		System.out.println("Difference1: "+(System.nanoTime()-timeStart)/1000000000f);
 		
@@ -586,7 +588,6 @@ public class Body implements Serializable, XMLSaving {
 	}
 	
 	public static Body loadFromXML(StringBuilder log, Element parentElement, Document doc) {
-
 		
 		// **************** Core **************** //
 		
@@ -1178,9 +1179,14 @@ public class Body implements Serializable, XMLSaving {
 		// **************** Wing **************** //
 		
 		Element wing = (Element)parentElement.getElementsByTagName("wing").item(0);
-		Wing importedWing = new Wing(WingType.valueOf(wing.getAttribute("type")));
+		int wingSize = 0;
+		if(!wing.getAttribute("size").isEmpty()) {
+			wingSize = Integer.valueOf(wing.getAttribute("size"));
+		}
+		Wing importedWing = new Wing(WingType.valueOf(wing.getAttribute("type")), wingSize);
 		CharacterUtils.appendToImportLog(log, "</br></br>Body: Wing: "
-				+ "</br>type: "+importedWing.getType()+"</br>");
+				+ "</br>type: "+importedWing.getType()+"</br>"
+				+ "</br>size: "+importedWing.getSizeValue()+"</br>");
 		
 		
 		Body body = new Body.BodyBuilder(
@@ -2455,19 +2461,36 @@ public class Body implements Serializable, XMLSaving {
 			// Wing:
 			switch (wing.getType()) {
 				case DEMON_COMMON:
-					if (owner.isPlayer())
-						sb.append("Growing from your shoulder-blades, you have a pair of tiny bat-like leathery wings. They aren't large enough to allow you to fly, but they do look quite cute.");
-					else
-						sb.append("Growing from [npc.her] shoulder-blades, [npc.she] has a pair of tiny bat-like leathery wings. They aren't large enough to allow [npc.her] to fly, but they do look quite cute.");
+					if (owner.isPlayer()) {
+						sb.append("Growing from your shoulder-blades, you have a pair of [pc.wingSize] bat-like wings.");
+					} else {
+						sb.append("Growing from [npc.her] shoulder-blades, [npc.she] has a pair of [npc.wingSize] bat-like wings.");
+					}
 					break;
 				case ANGEL:
-					if (owner.isPlayer())
-						sb.append("Growing from your shoulder-blades, you have a huge pair of white feathered wings. They are so large that they can be used to allow you to fly.");
-					else
-						sb.append("Growing from [npc.her] shoulder-blades, [npc.she] has a huge pair of white feathered wings. They are so large that they can be used to allow [npc.her] to fly.");
+					if (owner.isPlayer()) {
+						sb.append("Growing from your shoulder-blades, you have [pc.a_wingSize] pair of white feathered wings.");
+					} else {
+						sb.append("Growing from [npc.her] shoulder-blades, [npc.she] has [pc.a_wingSize] pair of white feathered wings.");
+					}
 					break;
 				default:
 					break;
+			}
+			if(wing.getType()!=WingType.NONE) {
+				if(wing.getSizeValue() >= WingSize.TWO_AVERAGE.getValue()) {
+					if (owner.isPlayer()) {
+						sb.append(" They are large enough that they can be used to allow you to fly.");
+					} else {
+						sb.append(" They are large enough that they can be used to allow [npc.her] to fly.");
+					}
+				} else {
+					if (owner.isPlayer()) {
+						sb.append(" They aren't large enough to allow you to fly.");
+					} else {
+						sb.append(" They aren't large enough to allow [npc.her] to fly.");
+					}
+				}
 			}
 			
 			// Tail:
@@ -5150,7 +5173,7 @@ public class Body implements Serializable, XMLSaving {
 	}
 	
 	public boolean isAbleToFly() {
-		return arm.getType().allowsFlight() || wing.getType().allowsFlight();
+		return arm.getType().allowsFlight() || (wing.getType().allowsFlight() && wing.getSizeValue()>=WingSize.TWO_AVERAGE.getValue());
 	}
 
 	public static long getSerialversionuid() {

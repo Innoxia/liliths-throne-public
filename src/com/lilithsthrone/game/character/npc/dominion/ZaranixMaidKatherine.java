@@ -24,6 +24,7 @@ import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
+import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
@@ -107,6 +108,21 @@ public class ZaranixMaidKatherine extends NPC {
 		npc.addFetish(Fetish.FETISH_MASOCHIST);
 		
 		return npc;
+	}
+	
+	public void resetBody() {
+		this.setBody(Gender.F_P_V_B_FUTANARI, RacialBody.DEMON, RaceStage.GREATER);
+
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_BLUE));
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_BLACK), true);
+		this.setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
+		this.setHairStyle(HairStyle.PONYTAIL);
+		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_IVORY), true);
+		
+		this.setHornType(HornType.CURLED);
+		
+		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
+		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 	}
 	
 	@Override
@@ -254,6 +270,17 @@ public class ZaranixMaidKatherine extends NPC {
 							+ "You reciprocate the gesture, but only spend a few moments sliding your tongues into one another's mouths before Katherine pulls back, moaning,"
 							+ " [katherine.speech(Oh yes! Fuck... I'm so fucking horny! I <i>need</i> you!)]"
 						+ "</p>");
+				
+			} else if (index == 4) {
+				return new Response("Transformations",
+						"Get Katherine to use [npc.her] demonic powers to transform [npc.herself]...",
+						BodyChanging.BODY_CHANGING_CORE){
+					@Override
+					public void effects() {
+						Main.game.saveDialogueNode();
+						BodyChanging.setTarget(Main.game.getKatherine());
+					}
+				};
 				
 			} else {
 				return null;

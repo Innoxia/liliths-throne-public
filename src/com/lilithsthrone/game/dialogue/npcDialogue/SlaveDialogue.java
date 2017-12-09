@@ -6,10 +6,12 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
+import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
@@ -262,8 +264,8 @@ public class SlaveDialogue {
 			}
 			
 			UtilText.nodeContentSB.append(getFooterText());
-			
-			return UtilText.nodeContentSB.toString();
+
+			return UtilText.parse(slave(), UtilText.nodeContentSB.toString());
 		}
 
 		@Override
@@ -302,6 +304,22 @@ public class SlaveDialogue {
 					};
 				} else {
 					return new Response("Small talk", "You've already spent time talking with [npc.name] today.", null);
+				}
+				
+			} else if (index == 3) {
+				if(slave().getRace()!=Race.DEMON) {
+					return new Response("Transformations", "Only demons and slimes can transform themselves on command...", null);
+					
+				} else {
+					return new Response("Transformations",
+							"Take a very detailed look at what [npc.name] can transform [npc.herself] into...",
+							BodyChanging.BODY_CHANGING_CORE){
+						@Override
+						public void effects() {
+							Main.game.saveDialogueNode();
+							BodyChanging.setTarget(slave());
+						}
+					};
 				}
 				
 			} else if (index == 4) {
@@ -375,7 +393,7 @@ public class SlaveDialogue {
 						}
 					};
 				} else {
-					return new Response("Encourage", "You've encouraged [npc.name] today.", null);
+					return new Response("Work", "You've talked to [npc.name] about [npc.her] work today.", null);
 				}
 				
 			} else if (index == 7) {
@@ -478,8 +496,19 @@ public class SlaveDialogue {
 						@Override
 						public void effects() {
 							slave().NPCFlagValues.add(NPCFlagValue.flagSlaveMolest);
-							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -10));
-							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementObedience(5));
+							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementObedience(10));
+							
+							if(slave().isAttractedTo(Main.game.getPlayer())) {
+								if(slave().hasFetish(Fetish.FETISH_SUBMISSIVE) || slave().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
+									Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 10));
+								} else {
+								}
+							} else {
+								if(slave().hasFetish(Fetish.FETISH_SUBMISSIVE) || slave().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
+								} else {
+									Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -10));
+								}
+							}
 						}
 					};
 				} else {
@@ -579,7 +608,7 @@ public class SlaveDialogue {
 			UtilText.nodeContentSB.append("</p>"
 					+getFooterText());
 			
-			return UtilText.nodeContentSB.toString();
+			return UtilText.parse(slave(), UtilText.nodeContentSB.toString());
 		}
 
 		@Override
@@ -717,7 +746,7 @@ public class SlaveDialogue {
 			}
 			UtilText.nodeContentSB.append(getFooterText());
 			
-			return UtilText.nodeContentSB.toString();
+			return UtilText.parse(slave(), UtilText.nodeContentSB.toString());
 		}
 
 		@Override
@@ -758,6 +787,9 @@ public class SlaveDialogue {
 					break;
 				case TEST_SUBJECT:
 					UtilText.nodeContentSB.append("Wanting to encourage [npc.name] to do [npc.her] best while being used as a test subject for Lilaya's work on transformations, you ask [npc.her] how [npc.she]'s finding it.");
+					break;
+				case PUBLIC_STOCKS:
+					UtilText.nodeContentSB.append("Wanting to encourage [npc.name] to do [npc.her] best while being publicly used in the stocks in Slaver Alley, you ask [npc.her] how [npc.she]'s finding it.");
 					break;
 			}
 			
@@ -884,7 +916,7 @@ public class SlaveDialogue {
 			}
 			UtilText.nodeContentSB.append(getFooterText());
 			
-			return UtilText.nodeContentSB.toString();
+			return UtilText.parse(slave(), UtilText.nodeContentSB.toString());
 		}
 
 		@Override
@@ -1050,7 +1082,7 @@ public class SlaveDialogue {
 			}
 			UtilText.nodeContentSB.append(getFooterText());
 			
-			return UtilText.nodeContentSB.toString();
+			return UtilText.parse(slave(), UtilText.nodeContentSB.toString());
 		}
 
 		@Override
@@ -1191,7 +1223,7 @@ public class SlaveDialogue {
 			}
 			UtilText.nodeContentSB.append(getFooterText());
 			
-			return UtilText.nodeContentSB.toString();
+			return UtilText.parse(slave(), UtilText.nodeContentSB.toString());
 		}
 
 		@Override
@@ -1347,7 +1379,7 @@ public class SlaveDialogue {
 					+ "</p>");
 			UtilText.nodeContentSB.append(getFooterText());
 			
-			return UtilText.nodeContentSB.toString();
+			return UtilText.parse(slave(), UtilText.nodeContentSB.toString());
 		}
 
 		@Override
@@ -1558,7 +1590,7 @@ public class SlaveDialogue {
 					+ "</p>");
 			UtilText.nodeContentSB.append(getFooterText());
 			
-			return UtilText.nodeContentSB.toString();
+			return UtilText.parse(slave(), UtilText.nodeContentSB.toString());
 		}
 
 		@Override
@@ -1577,13 +1609,244 @@ public class SlaveDialogue {
 
 		@Override
 		public String getContent() {
-			return "<div class='container-full-width' style='text-align:center;'>"
-						+ "<i>The slave interactions are currently placeholders! I'll get all this added soon!</i>"
-					+ "</div>"
-					+ "<p>"
-						+ "This will be another large obedience-training action, which will have variations based on your slave's affection and obedience."
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append("<p>"
+						+ "Not being able to resist the allure of [npc.name]'s [npc.feminine] body, you walk around behind [npc.her] back, before stepping forwards and wrapping your [pc.arms] around [npc.herHim].");
+
+			
+			String firstCry = "a horrified cry";
+			String firstReaction = "instantly starts squirming and trying to pull away from your touch";
+			String firstSpeech = "Fuck off! Leave me alone!";
+			String firstPCReaction = "[npc.Her] words do nothing to deter your advance upon [npc.her] unwilling body";
+			
+			String secondReaction = "[npc.She] continues to shout and struggle";
+			String thirdReaction = ", despite [npc.her] protests,";
+			String secondSpeech = "[npc.speech(Stop it! F-Fuck off already!)]"
+						+ " [npc.she] shouts, [npc.her] words falling on deaf ears as you continue having your fun.";
+			
+			String finalDescription = "Eventually, you feel as though you've had enough, and, releasing [npc.name] to allow [npc.her] to dash across to the other side of the room, you look [npc.herHim] up and down, grinning."
+						+ " [npc.She] continues to spit curses and tell you to leave [npc.herHim] alone, and you wonder if you should do as your slave asks, or do something else with [npc.herHim]...";
+			
+			switch(AffectionLevelBasic.getAffectionLevelFromValue(Main.game.getActiveNPC().getAffection(Main.game.getPlayer()))) {
+				case DISLIKE:
+					switch(ObedienceLevelBasic.getObedienceLevelFromValue(Main.game.getActiveNPC().getObedienceValue())) {
+						case DISOBEDIENT:
+							break;
+						case NEUTRAL:
+							firstCry = "an uncomfortable cry";
+							firstReaction = "starts squirming and trying to shift [npc.her] body away from your touch";
+							firstSpeech = "C-Can you stop this now?!";
+							firstPCReaction = "[npc.Her] words do nothing to deter your advance upon [npc.her] unwilling body";
+							
+							secondReaction = "[npc.She] continues to struggle in discomfort";
+							thirdReaction = ", despite [npc.her] reluctance,";
+							secondSpeech = "[npc.speech(P-Please! S-Stop it now!)]"
+										+ " [npc.she] cries, [npc.her] words falling on deaf ears as you continue having your fun.";
+							
+							finalDescription = "Eventually, you feel as though you've had enough, and, releasing [npc.name] to allow [npc.her] to dash across to the other side of the room, you look [npc.herHim] up and down, grinning."
+										+ " [npc.She] avoids your gaze as [npc.she] asks you to leave [npc.herHim] alone, and you wonder if you should do as your slave requests, or do something else with [npc.herHim]...";
+							break;
+						case OBEDIENT:
+							firstCry = "a shocked cry";
+							firstReaction = "obediently holds [npc.her] body still for you";
+							firstSpeech = "I am yours to use, [npc.pcName].";
+							firstPCReaction = "[npc.Her] cold words do nothing to deter your advance upon [npc.her] body";
+							
+							secondReaction = "[npc.She] continues to obediently allow [npc.herself] to be used";
+							thirdReaction = ", despite [npc.her] cold attitude,";
+							secondSpeech = "[npc.speech(Is this to your satisfaction, [npc.pcName]?)]"
+										+ " [npc.she] dutifully asks, showing no sign of emotion as you continue having your fun.";
+							
+							finalDescription = "Eventually, you feel as though you've had enough, and, releasing [npc.name] to allow [npc.her] to take a step back, you look [npc.herHim] up and down, grinning."
+										+ " [npc.She] obediently asks you if there's anything else that's required of [npc.herHim], which makes you wonder if you should do something else with [npc.herHim]...";
+							break;
+					}
+					break;
+				case NEUTRAL:
+					switch(ObedienceLevelBasic.getObedienceLevelFromValue(Main.game.getActiveNPC().getObedienceValue())) {
+						case DISOBEDIENT:
+							firstCry = "a startled cry";
+							firstReaction = "starts squirming and trying to shift [npc.her] body away from your touch";
+							firstSpeech = "D-Do you have to do this?";
+							firstPCReaction = "[npc.Her] worried tone does nothing to deter your advance upon [npc.her] body";
+							
+							secondReaction = "[npc.She] continues to struggle a little";
+							thirdReaction = ", despite [npc.her] less-than-enthusiastic attitude,";
+							secondSpeech = "[npc.speech(How much longer is this going to do on for, [npc.pcName]?)]"
+										+ " [npc.she] asks, [npc.her] disobedient questioning receiving no answer as you continue having your fun.";
+							
+							finalDescription = "Eventually, you feel as though you've had enough, and, releasing [npc.name] to allow [npc.her] to take a few steps back, you look [npc.herHim] up and down, grinning."
+										+ " [npc.She] lets out a sigh of relief as [npc.she] asks you to leave [npc.herHim] alone now, and you wonder if you should do as your slave requests, or do something else with [npc.herHim]...";
+							break;
+						case NEUTRAL:
+							firstCry = "a half-suppressed cry";
+							firstReaction = "starts squirming and trying to shift [npc.her] body away from your touch";
+							firstSpeech = "[npc.pcName], do you really have to do this?";
+							firstPCReaction = "[npc.Her] worried tone does nothing to deter your advance upon [npc.her] body";
+							
+							secondReaction = "[npc.She] continues to struggle a little";
+							thirdReaction = ", despite [npc.her] less-than-enthusiastic attitude,";
+							secondSpeech = "[npc.speech(Are you almost done, [npc.pcName]?)]"
+										+ " [npc.she] asks, [npc.her] disobedient questioning receiving no answer as you continue having your fun.";
+							
+							finalDescription = "Eventually, you feel as though you've had enough, and, releasing [npc.name] to allow [npc.her] to take a few steps back, you look [npc.herHim] up and down, grinning."
+										+ " [npc.She] lets out a little sigh of relief as [npc.she] avoids your gaze, and you wonder if you should do something else with [npc.herHim]...";
+							break;
+						case OBEDIENT:
+							firstCry = "a shocked cry";
+							firstReaction = "obediently holds [npc.her] body still for you";
+							firstSpeech = "I am yours to use, [npc.pcName].";
+							firstPCReaction = "[npc.Her] cold words do nothing to deter your advance upon [npc.her] body";
+							
+							secondReaction = "[npc.She] continues to obediently allow [npc.herself] to be used";
+							thirdReaction = ", despite [npc.her] cold attitude,";
+							secondSpeech = "[npc.speech(Is this to your satisfaction, [npc.pcName]?)]"
+										+ " [npc.she] dutifully asks, showing no sign of emotion as you continue having your fun.";
+							
+							finalDescription = "Eventually, you feel as though you've had enough, and, releasing [npc.name] to allow [npc.her] to take a step back, you look [npc.herHim] up and down, grinning."
+										+ " [npc.She] obediently asks you if there's anything else that's required of [npc.herHim], which makes you wonder if you should do something else with [npc.herHim]...";
+							break;
+					}
+					break;
+				case LIKE:
+					switch(ObedienceLevelBasic.getObedienceLevelFromValue(Main.game.getActiveNPC().getObedienceValue())) {
+						case DISOBEDIENT:
+							firstCry = "a startled cry";
+							firstReaction = "starts squirming and trying to shift [npc.her] body away from your touch";
+							firstSpeech = "[npc.PcName]! I thought you liked me?! W-WHy are you doing this?!";
+							firstPCReaction = "[npc.Her] distressed tone does nothing to deter your advance upon [npc.her] body";
+							
+							secondReaction = "[npc.She] continues to struggle a little";
+							thirdReaction = ", despite [npc.her] less-than-enthusiastic attitude,";
+							secondSpeech = "[npc.speech([npc.PcName], please! I-I just wanted a hug...)]"
+										+ " [npc.she] sighs, [npc.her] disobedient remark receiving no answer as you continue having your fun.";
+							
+							finalDescription = "Eventually, you feel as though you've had enough, and, releasing [npc.name] to allow [npc.her] to take a few steps back, you look [npc.herHim] up and down, grinning."
+										+ " [npc.She] lets out a sigh of relief as [npc.she] smiles up at you, and you wonder if you should do something else with [npc.herHim] now...";
+							break;
+						case NEUTRAL:
+							firstCry = "a little cry";
+							firstReaction = "holds [npc.her] body still for you";
+							firstSpeech = "[npc.PcName], do you really have to do this?";
+							firstPCReaction = "[npc.Her] worried tone does nothing to deter your advance upon [npc.her] body";
+							
+							secondReaction = "[npc.She] continues to hold still";
+							thirdReaction = ", despite [npc.her] slightly-disobedient attitude,";
+							secondSpeech = "[npc.speech(Is this to your liking, [npc.pcName]?)]"
+										+ " [npc.she] asks, [npc.her] questioning receiving no answer as you continue having your fun.";
+							
+							finalDescription = "Eventually, you feel as though you've had enough, and, releasing [npc.name] to allow [npc.her] to take a few steps back, you look [npc.herHim] up and down, grinning."
+										+ " [npc.She] lets out a little sigh of relief as [npc.she] avoids your gaze, and you wonder if you should do something else with [npc.herHim]...";
+							break;
+						case OBEDIENT:
+							firstCry = "a little gasp";
+							firstReaction = "obediently holds [npc.her] body still for you";
+							firstSpeech = "I am yours to use, [npc.pcName].";
+							firstPCReaction = "[npc.Her] cold words do nothing to deter your advance upon [npc.her] body";
+							
+							secondReaction = "[npc.She] continues to obediently allow [npc.herself] to be used";
+							thirdReaction = ", despite [npc.her] cold attitude,";
+							secondSpeech = "[npc.speech(Is this to your satisfaction, [npc.pcName]?)]"
+										+ " [npc.she] dutifully asks, showing no sign of emotion as you continue having your fun.";
+							
+							finalDescription = "Eventually, you feel as though you've had enough, and, releasing [npc.name] to allow [npc.her] to take a step back, you look [npc.herHim] up and down, grinning."
+										+ " [npc.She] obediently asks you if there's anything else that's required of [npc.herHim], which makes you wonder if you should do something else with [npc.herHim]...";
+							break;
+					}
+					break;
+			}
+			
+			
+			
+			if(slave().hasBreasts()) {
+				UtilText.nodeContentSB.append(
+							" Your [pc.hands] reach up to cup and squeeze [npc.her] [npc.breasts+], drawing "+firstCry+" from [npc.name]'s mouth as [npc.she] "+firstReaction+","
+							+ " [npc.speech("+firstSpeech+")]"
+						+ "</p>"
+						+ "<p>"
+							+ firstPCReaction+", and, with one [pc.hand] still squeezing [npc.her] [npc.breasts+], you slip the other down between [npc.her] [npc.legs].");
+			} else {
+				UtilText.nodeContentSB.append(
+						" Your [pc.hands] reach up to run over [npc.her] chest, drawing "+firstCry+" from [npc.name]'s mouth as [npc.she] "+firstReaction+","
+						+ " [npc.speech("+firstSpeech+")]"
 					+ "</p>"
-					+getFooterText();
+					+ "<p>"
+						+ firstPCReaction+", and, with one [pc.hand] still pressed against [npc.her] chest, you slip the other down between [npc.her] [npc.legs].");
+			}
+
+			if(slave().hasVagina() && slave().hasPenis()) {
+				UtilText.nodeContentSB.append(
+							" "+secondReaction+" as you grope, stroke, and fondle [npc.her] [npc.penis+], and you can't help but [pc.moan] into your slave's [npc.ear] as"+thirdReaction+" you feel [npc.her] [npc.cock+] growing hard under your touch."
+							+ " Dropping your [pc.hand] down yet further, you shift your attention to [npc.her] [npc.pussy+],"
+								+ " grinning once again as you feel that your stimulation of [npc.her] [npc.clit+] and [npc.labia+] are already getting [npc.her] wet."
+						+ "</p>");
+				
+			} else if(slave().hasVagina()) {
+				UtilText.nodeContentSB.append(
+						" "+secondReaction+" as you grope, stroke, and probe at [npc.her] [npc.clit+] and [npc.labia+], and you can't help but [pc.moan] into your slave's [npc.ear] as"+thirdReaction+" you feel [npc.her] [npc.pussy+] getting wet under your touch."
+					+ "</p>");
+				
+			} else if(slave().hasPenis()) {
+				UtilText.nodeContentSB.append(
+						" "+secondReaction+" as you grope, stroke, and fondle [npc.her] [npc.penis+], and you can't help but [pc.moan] into your slave's [npc.ear] as"+thirdReaction+" you feel [npc.her] [npc.cock+] growing hard under your touch."
+					+ "</p>");
+				
+			} else {
+				UtilText.nodeContentSB.append(
+						" "+secondReaction+" as you grope, stroke, and probe at [npc.her] genderless mound, and you can't help but [pc.moan] into your slave's [npc.ear] as"+thirdReaction+" you feel [npc.herHim] thrust [npc.her] [npc.hips] out against your touch."
+					+ "</p>");
+				
+			}
+			UtilText.nodeContentSB.append(
+					"<p>"
+						+ secondSpeech
+					+ "</p>"
+					+ "<p>"
+						+ finalDescription
+					+ "</p>");
+			
+			
+			UtilText.nodeContentSB.append(
+					"<p>"
+						+ "<i>Molesting [npc.name] has helped reinforce in [npc.her] mind that [npc.she] belongs to you, increasing [npc.her] obedience!");
+			if(slave().isAttractedTo(Main.game.getPlayer())) {
+				if(slave().hasFetish(Fetish.FETISH_SUBMISSIVE) || slave().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
+					UtilText.nodeContentSB.append(
+								" As [npc.she]'s both attracted to you, as well as"
+								+ (slave().hasFetish(Fetish.FETISH_SUBMISSIVE)
+										?(slave().hasFetish(Fetish.FETISH_NON_CON_SUB)
+												?" being both a submissive and turned on by non-consensual encounters,"
+												:" being a submissive,")
+										:" being turned on by non-consensual encounters,")
+								+ " your dominant, non-consensual use of [npc.name]'s body has resulted in [npc.herHim] liking you more!</i>"
+							+ "</p>");
+				} else {
+					UtilText.nodeContentSB.append(
+							" As [npc.she]'s attracted to you, your dominant, non-consensual use of [npc.name]'s body has resulted in [npc.herHim] neither losing nor gaining affection towards you!</i>"
+						+ "</p>");
+				}
+			} else {
+				if(slave().hasFetish(Fetish.FETISH_SUBMISSIVE) || slave().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
+					UtilText.nodeContentSB.append(
+							" Despite the fact that [npc.she]'s not attracted to you,"
+							+ (slave().hasFetish(Fetish.FETISH_SUBMISSIVE)
+									?(slave().hasFetish(Fetish.FETISH_NON_CON_SUB)
+											?" by being both a submissive and turned on by non-consensual encounters,"
+											:" by being a submissive,")
+									:" by being turned on by non-consensual encounters,")
+							+ " your dominant, non-consensual use of [npc.name]'s body has resulted in [npc.herHim] neither losing nor gaining affection towards you!</i>"
+						+ "</p>");
+				} else {
+					UtilText.nodeContentSB.append(
+							" As [npc.she]'s not attracted to you, your dominant, non-consensual use of [npc.name]'s body has resulted in [npc.herHim] losing a lot of affection towards you!</i>"
+						+ "</p>");
+				}
+			}
+			
+			UtilText.nodeContentSB.append(getFooterText());
+			
+			return UtilText.parse(slave(), UtilText.nodeContentSB.toString());
 		}
 
 		@Override

@@ -169,6 +169,36 @@ public enum PenisType implements BodyPartTypeInterface {
 		}
 		
 	}
+	
+	public String getTransformName() {
+		switch(this){
+			case ANGEL:
+				return UtilText.returnStringAtRandom("angelic");
+			case AVIAN:
+				return UtilText.returnStringAtRandom("avian");
+			case BOVINE:
+				return UtilText.returnStringAtRandom("bovine");
+			case CANINE:
+				return UtilText.returnStringAtRandom("canine");
+			case DEMON_COMMON:
+				return UtilText.returnStringAtRandom("demonic");
+			case EQUINE:
+				return UtilText.returnStringAtRandom("equine");
+			case FELINE:
+				return UtilText.returnStringAtRandom("feline");
+			case HUMAN:
+				return UtilText.returnStringAtRandom("human");
+			case NONE:
+				return UtilText.returnStringAtRandom("none");
+			case SLIME:
+				return UtilText.returnStringAtRandom("slime");
+			case SQUIRREL:
+				return UtilText.returnStringAtRandom("squirrel");
+			case LUPINE:
+				return UtilText.returnStringAtRandom("lupine");
+		}
+		return "";
+	}
 
 	@Override
 	public BodyCoveringType getBodyCoveringType() {
