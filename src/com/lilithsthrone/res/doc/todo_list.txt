@@ -17,46 +17,38 @@
 	
 	Patch notes:
 	
-	Gameplay:
-		Finished Zaranix's house placeholders (the ones after fighting Zaranix). Imported games with a version prior to 0.1.95 should reset Zaranix's quest, allowing you to complete it without experiencing bugs (hopefully).
-		Added in slave's 'molest' action content.
-		Added wing size to possible transformations.
-		Added demonic transformation menu to your phone, as a post-combat victory action over demons, and to demon slaves. (The UI really needs a lot more polishing, but it should be fully functional.)
-		Added month selection to character creation process. (If you want to edit the date after starting the game, simply change the 'date' value in the save's .xml value. The in-game date is that value plus the amount of minutes shown in the 'minutesPassed' value.)
-		Added public use slaves in the stocks in Slaver Alley.
-		Added an incubus variation to the succubus alleyway attacker (also set spawn rates for succubi/incubi to be based on your gender preferences). Also improved variety of clothing worn by succubus/incubus attackers. (Some of the text hasn't been updated for the incubus just yet. It will be finished for the next release.)
-		Added 'public use' as a job for your slaves. When selected, your slaves will be sent to Slaver Alley's public stocks, where they will be used by randomly generated NPCs.
-		Added self-doggy oral positions.
-		Added difficulty setting in the options.
-		
-	Contributions:
-		Multiple spelling corrections (submitted via github PR by shutizake).
-		
-	Other:
-		In-game start date is now set to the current date (instead of 1 week behind).
-		Added a new name generator for demons.
-		Slaves can now only clean their clothes/wash their bodies while not at work.
-	
 	Bugs:
-		Fixed an issue with older character exports not being imported correctly (related to an old personality value being changed in newer versions).
-		Fixed an issue with used condoms causing game imports to break.
-		Imported slaves can now be impregnated.
-		Fixed chemise and pantyhose blocking displacement of each other (which was causing a major crash during sex).
-		Minor grammatical and typo fixes.
-		Fixed bug where imported slaves would call you by their own name. (Will take effect for newly exported slaves from now on.)
-		Slaves should now go to, and return from, work on time. (They were an hour late for both.)
-		Fixed several causes of major errors when importing old games.
-		Fixed a few minor dialogue bugs in Zaranix's house.
-		Fixed major bug of Zaranix's house being repeatable once completed. (I will make it repeatable in the future, but for now it needs to be disabled to avoid major bugs & dialogue inconsistencies.)
-		Fixed succubi only ever using the 'back-to-wall' position.
-		Fixed bug where some slaves would have unchangeable names like 'horse-girl'.
-		Stopped used condoms from being able to be spawned in using the debug menu (as it was causing issues).
-		Versions prior to 0.1.95 will now have all NPC's hair lengths reset to default values (to address broken hair lengths in older versions).
+		Fixed cause of characters present screen not opening.
 	
 	
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	Is submissive talk supposed to corrupt you even if you have the submissive fetish selected?
+	
+	is the lab coat which is knee length meant to cover less than the virgin-killer sweater
+	
+	
+	Demon mode is broken the NPC level increases but not their stats
+	
+	
+	I noticed a bug with the logic of the "pent up" status effect for slaves. They lose the status effect after sex, even if they don't cum. This means that if you tease your slave to the edge of orgasm and stop, they still end up being sexually satisfied.
+
+ Also, in the demonic transformation menu, the hair colour buttons enumerate all of the skin color options instead of hair color. If you pick a skin color as your hair color, you get an unexpected hair color (Eg: choosing "Ivory" hair, corresponds to "dark brown" hair when viewed in the selfie snapshot.)
+
+Also, in the demonic transformation menu, there are no options to change the capacity and elasticity of assholes like you can do with every other orifice. I'm not sure that that omission was intentional.
+	
+	
+	
+	
+	Exported a couple of time a save I've imported before and I don't have the <date/> field
 	
 	- Improve orgasm dialogue.
 		- Add in position-specific orgasm scenes.
@@ -108,7 +100,7 @@ Also, consider having the NPC take the PC's fetishes into account when deciding 
 	
 	"affection apparently works, but every single slave isn't gaining obedience anymore"
 	
-	
+	Lactation content
 	
 	merge alligators
 	

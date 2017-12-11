@@ -1966,7 +1966,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 
 	private int getExperienceNeededForNextLevel() {
-		return level * 10;
+		return getLevel() * 10;
 	}
 	
 	/**
@@ -1980,7 +1980,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		if (increment < 0)
 			throw new IllegalArgumentException("Cannot increment experience by a negative value!");
 
-		if (level == 20) {
+		if (getLevel() == 20) {
 			experience = 0;
 			return;
 		}
@@ -1997,7 +1997,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		float manaPercentage = getManaPercentage();
 		float staminaPercentage = getStaminaPercentage();
 		
-		while (experience >= getExperienceNeededForNextLevel() && level < 20) {
+		while (experience >= getExperienceNeededForNextLevel() && getLevel() < 20) {
 			experience -= getExperienceNeededForNextLevel();
 
 			level++;
@@ -2005,7 +2005,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			levelUpPoints += 5;
 			perkPoints++;
 		}
-		if (level == 20) {
+		if (getLevel() == 20) {
 			experience = 0;
 		}
 		
@@ -2056,17 +2056,17 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public float getBaseAttributeValue(Attribute attribute) {
 		// Special case for health:
 		if (attribute == Attribute.HEALTH_MAXIMUM) {
-			return (level * 10) + getAttributeValue(Attribute.STRENGTH);
+			return (getLevel() * 10) + getAttributeValue(Attribute.STRENGTH);
 		}
 
 		// Special case for mana:
 		if (attribute == Attribute.MANA_MAXIMUM) {
-			return (level * 10) + getAttributeValue(Attribute.INTELLIGENCE);
+			return (getLevel() * 10) + getAttributeValue(Attribute.INTELLIGENCE);
 		}
 
 		// Special case for stamina:
 		if (attribute == Attribute.STAMINA_MAXIMUM) {
-			return (level * 10) + getAttributeValue(Attribute.FITNESS);
+			return (getLevel() * 10) + getAttributeValue(Attribute.FITNESS);
 		}
 		
 		return attributes.get(attribute);
@@ -2089,19 +2089,19 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public float getAttributeValue(Attribute att) {
 		// Special case for health:
 		if (att == Attribute.HEALTH_MAXIMUM) {
-			float healthMax = (level * 10) + getAttributeValue(Attribute.STRENGTH) + bonusAttributes.get(Attribute.HEALTH_MAXIMUM);
+			float healthMax = (getLevel() * 10) + getAttributeValue(Attribute.STRENGTH) + bonusAttributes.get(Attribute.HEALTH_MAXIMUM);
 			return (healthMax < 1 ? 1 : healthMax);
 		}
 
 		// Special case for mana:
 		else if (att == Attribute.MANA_MAXIMUM) {
-			float manaMax = (level * 10) + getAttributeValue(Attribute.INTELLIGENCE) + bonusAttributes.get(Attribute.MANA_MAXIMUM);
+			float manaMax = (getLevel() * 10) + getAttributeValue(Attribute.INTELLIGENCE) + bonusAttributes.get(Attribute.MANA_MAXIMUM);
 			return (manaMax < 1 ? 1 : manaMax);
 		}
 
 		// Special case for stamina:
 		else if (att == Attribute.STAMINA_MAXIMUM) {
-			float maxStamina = (level * 10) + getAttributeValue(Attribute.FITNESS) + bonusAttributes.get(Attribute.STAMINA_MAXIMUM);
+			float maxStamina = (getLevel() * 10) + getAttributeValue(Attribute.FITNESS) + bonusAttributes.get(Attribute.STAMINA_MAXIMUM);
 			return (maxStamina < 1 ? 1 : maxStamina);
 		}
 

@@ -4605,7 +4605,7 @@ public class Body implements Serializable, XMLSaving {
 		
 		// NPC is father:
 		
-		if(Main.game.getPlayer().isVisiblyPregnant()){
+		if(Main.game.getPlayer().isVisiblyPregnant()) {
 			for(PregnancyPossibility pp : Main.game.getPlayer().getPotentialPartnersAsMother()) {
 				if(pp.getFather()==owner) {
 					descriptionSB.append("<p>"

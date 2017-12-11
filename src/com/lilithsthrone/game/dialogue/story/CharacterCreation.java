@@ -544,7 +544,8 @@ public class CharacterCreation {
 				break;
 		}
 		
-		if(character.isPlayer() && character.getName().equals("James") && character.getSurname().equals("Bond")) {
+		if(character.isPlayer()
+				&& ((character.getName().equals("James") || character.getName().equals("Jane") || character.getName().equals("Tracy")) && character.getSurname().equals("Bond"))) {
 			character.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MAIN_WESTERN_KKP));
 		}
 	}
