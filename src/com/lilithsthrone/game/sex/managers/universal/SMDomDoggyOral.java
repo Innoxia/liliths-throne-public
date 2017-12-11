@@ -97,7 +97,7 @@ public class SMDomDoggyOral extends SexManagerDefault {
 	
 	@Override
 	public SexPosition getPosition() {
-		return SexPosition.DOGGY_ORAL_PARTNER_ON_ALL_FOURS;
+		return SexPosition.DOGGY_ORAL_PLAYER_DOM_PARTNER_ON_ALL_FOURS;
 	}
 
 	@Override

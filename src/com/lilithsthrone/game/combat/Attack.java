@@ -5,6 +5,7 @@ import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
@@ -124,6 +125,12 @@ public enum Attack {
 		
 		// Round float value to nearest 1 decimal place:
 		damage = (Math.round(damage*10))/10f;
+		
+		if(attacker.isPlayer()) {
+			damage *= Main.getProperties().difficultyLevel.getDamageModifierPlayer();
+		} else {
+			damage *= Main.getProperties().difficultyLevel.getDamageModifierNPC();
+		}
 		
 		return damage;
 	}

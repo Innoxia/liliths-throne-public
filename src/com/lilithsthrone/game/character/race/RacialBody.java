@@ -45,7 +45,9 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
+import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
@@ -83,7 +85,7 @@ public enum RacialBody {
 			TesticleSize.TWO_AVERAGE, 2, CumProduction.THREE_AVERAGE,
 			TailType.NONE,
 			VaginaType.HUMAN, Wetness.TWO_MOIST, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
-			WingType.NONE,
+			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL),
 
 	// ANGEL:
@@ -112,7 +114,7 @@ public enum RacialBody {
 			TesticleSize.FOUR_HUGE, 2, CumProduction.SEVEN_MONSTROUS,
 			TailType.NONE,
 			VaginaType.ANGEL, Wetness.SEVEN_DROOLING, Capacity.ONE_EXTREMELY_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY,
-			WingType.ANGEL,
+			WingType.ANGEL, WingSize.THREE_LARGE, WingSize.THREE_LARGE,
 			GenitalArrangement.NORMAL) {
 
 		@Override
@@ -150,10 +152,10 @@ public enum RacialBody {
 				Util.newArrayListOfValues(new ListValue<>(HornType.CURLED), new ListValue<>(HornType.SPIRAL), new ListValue<>(HornType.SWEPT_BACK), new ListValue<>(HornType.CURVED), new ListValue<>(HornType.STRAIGHT)),
 			PenisType.DEMON_COMMON, PenisSize.FIVE_ENORMOUS,
 			PenisType.NONE, PenisSize.TWO_AVERAGE,
-			TesticleSize.FOUR_HUGE, 4, CumProduction.SEVEN_MONSTROUS,
+			TesticleSize.FOUR_HUGE, 4, CumProduction.SIX_EXTREME,
 			TailType.DEMON_COMMON,
 			VaginaType.DEMON_COMMON, Wetness.SEVEN_DROOLING, Capacity.ONE_EXTREMELY_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY,
-			WingType.DEMON_COMMON,
+			WingType.DEMON_COMMON, WingSize.ONE_SMALL, WingSize.ONE_SMALL,
 			GenitalArrangement.NORMAL) {
 		
 		@Override
@@ -194,7 +196,7 @@ public enum RacialBody {
 			TesticleSize.THREE_LARGE, 2, CumProduction.FOUR_LARGE,
 			TailType.COW_MORPH,
 			VaginaType.COW_MORPH, Wetness.THREE_WET, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
-			WingType.NONE,
+			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
 
 		@Override
@@ -230,7 +232,7 @@ public enum RacialBody {
 			TesticleSize.THREE_LARGE, 2, CumProduction.FOUR_LARGE,
 			TailType.DOG_MORPH,
 			VaginaType.DOG_MORPH, Wetness.THREE_WET, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
-			WingType.NONE,
+			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
 
 		@Override
@@ -265,7 +267,7 @@ public enum RacialBody {
 			TesticleSize.THREE_LARGE, 2, CumProduction.FIVE_HUGE,
 			TailType.LYCAN,
 			VaginaType.WOLF_MORPH, Wetness.FOUR_SLIMY, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
-			WingType.NONE,
+			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
 
 		@Override
@@ -301,7 +303,7 @@ public enum RacialBody {
 			TesticleSize.TWO_AVERAGE, 2, CumProduction.THREE_AVERAGE,
 			TailType.CAT_MORPH,
 			VaginaType.CAT_MORPH, Wetness.TWO_MOIST, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
-			WingType.NONE,
+			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
 
 		@Override
@@ -337,7 +339,7 @@ public enum RacialBody {
 			TesticleSize.FOUR_HUGE, 2, CumProduction.FIVE_HUGE,
 			TailType.HORSE_MORPH,
 			VaginaType.HORSE_MORPH, Wetness.THREE_WET, Capacity.THREE_SLIGHTLY_LOOSE, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
-			WingType.NONE,
+			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
 
 		@Override
@@ -372,7 +374,7 @@ public enum RacialBody {
 			TesticleSize.ZERO_VESTIGIAL, 2, CumProduction.SEVEN_MONSTROUS,
 			TailType.NONE,
 			VaginaType.SLIME, Wetness.SEVEN_DROOLING, Capacity.SEVEN_GAPING, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY,
-			WingType.NONE,
+			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL),
 
 	// RODENTS:
@@ -401,7 +403,7 @@ public enum RacialBody {
 			TesticleSize.THREE_LARGE, 2, CumProduction.THREE_AVERAGE,
 			TailType.SQUIRREL_MORPH,
 			VaginaType.SQUIRREL_MORPH, Wetness.TWO_MOIST, Capacity.FOUR_LOOSE, ClitorisSize.ONE_BIG, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
-			WingType.NONE,
+			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
 
 		@Override
@@ -436,7 +438,7 @@ public enum RacialBody {
 			TesticleSize.ZERO_VESTIGIAL, 2, CumProduction.ONE_TRICKLE,
 			TailType.HARPY,
 			VaginaType.HARPY, Wetness.THREE_WET, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
-			WingType.NONE,
+			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.CLOACA) {
 		
 		@Override
@@ -492,7 +494,8 @@ public enum RacialBody {
 			maleLipSize, femaleLipSize,
 			penisSize, penisSecondSize,
 			testicleSize, cumProduction, vaginaCapacity, vaginaWetness, vaginaElasticity, vaginaPlasticity, breastCountMale,
-			breastCountFemale, testicleQuantity;
+			breastCountFemale, testicleQuantity,
+			maleWingSize, femaleWingSize;
 
 	private RacialBody(HashMap<Attribute, Float> attributeModifiers,
 			AntennaType antennaType,
@@ -517,7 +520,7 @@ public enum RacialBody {
 			TesticleSize testicleSize, int testicleQuantity, CumProduction cumProduction,
 			TailType tailType,
 			VaginaType vaginaType, Wetness vaginaWetness, Capacity vaginaCapacity, ClitorisSize clitSize, OrificeElasticity vaginaElasticity, OrificePlasticity vaginaPlasticity,
-			WingType wingType,
+			WingType wingType, WingSize maleWingSize, WingSize femaleWingSize,
 			GenitalArrangement genitalArrangement) {
 
 		this.attributeModifiers = attributeModifiers;
@@ -603,6 +606,9 @@ public enum RacialBody {
 		this.vaginaPlasticity = vaginaPlasticity.getValue();
 		this.testicleQuantity = testicleQuantity;
 		
+		this.maleWingSize = maleWingSize.getValue();
+		this.femaleWingSize = femaleWingSize.getValue();
+		
 		this.genitalArrangement = genitalArrangement;
 
 	}
@@ -633,6 +639,41 @@ public enum RacialBody {
 				return RacialBody.SQUIRREL_MORPH;
 		}
 		return RacialBody.HUMAN;
+	}
+	
+	/**
+	 * <b>Does not include angels or slimes</b>
+	 * @param gender
+	 * @return
+	 */
+	public static RacialBody getRandomCommonRacialBodyFromPreferences(Gender gender) {
+		
+		List<Race> availableRaces = new ArrayList<>();
+		for(Race r : Race.values()) {
+			if(r != Race.ANGEL && r != Race.SLIME) {
+				availableRaces.add(r);
+			}
+		}
+		
+		if(gender.isFeminine()) {
+			for(Entry<Race, FurryPreference> entry : Main.getProperties().raceFemininePreferencesMap.entrySet()) {
+				if(entry.getValue() == FurryPreference.HUMAN) {
+					availableRaces.remove(entry.getKey());
+				}
+			}
+		} else {
+			for(Entry<Race, FurryPreference> entry : Main.getProperties().raceMasculinePreferencesMap.entrySet()) {
+				if(entry.getValue() == FurryPreference.HUMAN) {
+					availableRaces.remove(entry.getKey());
+				}
+			}
+		}
+		
+		if(availableRaces.isEmpty()) {
+			return RacialBody.HUMAN;
+		}
+		
+		return valueOfRace(availableRaces.get(Util.random.nextInt(availableRaces.size())));
 	}
 	
 	public Personality getPersionality() {
@@ -982,6 +1023,14 @@ public enum RacialBody {
 
 	public int getFemaleLipSize() {
 		return femaleLipSize;
+	}
+
+	public int getMaleWingSize() {
+		return maleWingSize;
+	}
+
+	public int getFemaleWingSize() {
+		return femaleWingSize;
 	}
 
 	public GenitalArrangement getGenitalArrangement() {

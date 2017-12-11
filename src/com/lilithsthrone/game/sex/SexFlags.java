@@ -28,6 +28,7 @@ public class SexFlags implements Serializable {
 	requested69,
 	requestedDoggy,
 	requestedDoggyOral,
+	requestedDoggyReceiveOral,
 	requestedDomFuckedDoggy,
 	requestedBackToWall,
 	requestedFaceToWall,
@@ -89,6 +90,7 @@ public class SexFlags implements Serializable {
 		requested69 = false;
 		requestedDoggy = false;
 		requestedDoggyOral = false;
+		requestedDoggyReceiveOral = false;
 		requestedDomFuckedDoggy = false;
 		requestedBackToWall = false;
 		requestedFaceToWall = false;

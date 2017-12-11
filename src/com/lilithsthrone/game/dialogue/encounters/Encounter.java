@@ -54,7 +54,7 @@ public enum Encounter {
 				for(String id : Main.game.getPlayer().getSlavesOwned()) {
 					NPC slave = (NPC) Main.game.getNPCById(id);
 					if(slave.hasSlavePermissionSetting(SlavePermissionSetting.SEX_INITIATE_PLAYER)
-							&& !slave.getWorkHours()[Main.game.getHour()%24]
+							&& !slave.getWorkHours()[(int) (Main.game.getHour()%24)]
 							&& slave.hasSlavePermissionSetting(SlavePermissionSetting.GENERAL_HOUSE_FREEDOM)
 							&& slave.isAttractedTo(Main.game.getPlayer())) {
 						if(slave.getLastTimeHadSex()+60*4<Main.game.getMinutesPassed()) {

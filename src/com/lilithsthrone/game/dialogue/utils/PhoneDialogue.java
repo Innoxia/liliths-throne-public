@@ -147,6 +147,18 @@ public class PhoneDialogue {
 					}
 				};
 				
+			} else if (index == 8) {
+				if(Main.game.getPlayer().getRace()==Race.DEMON) {
+					return new Response("Transform", "Transform your body.", BodyChanging.BODY_CHANGING_CORE) {
+						@Override
+						public void effects() {
+							BodyChanging.setTarget(Main.game.getPlayer());
+						}
+					};
+				} else {
+					return new Response("Transform", "Only demons and slimes can transform themselves!", null);
+				}
+				
 			} else if (index == 0){
 				return new ResponseEffectsOnly("Back", "Put your phone away."){
 					@Override
@@ -605,7 +617,7 @@ public class PhoneDialogue {
 						+ "</br></br>"
 						
 						+ "[style.boldSex(Elasticity:)] An orifice's elasticity determines how quickly it stretches out."
-							+ " If a parter's penis is too large for your orifice's capacity value, then your orifice will stretch out each turn during sex, with <b>higher elasticity values meaning that it stretches out quicker</b>."
+							+ " If a partner's penis is too large for your orifice's capacity value, then your orifice will stretch out each turn during sex, with <b>higher elasticity values meaning that it stretches out quicker</b>."
 							+ "</br>Elasticity values range from 0 (extremely resistant to being stretched out) to 7 (instantly stretching out)."
 							
 							+ "</br></br>"

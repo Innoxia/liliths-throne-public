@@ -166,6 +166,36 @@ public enum VaginaType implements BodyPartTypeInterface {
 		
 	}
 
+	public String getTransformName() {
+		switch(this){
+			case ANGEL:
+				return UtilText.returnStringAtRandom("angelic");
+			case HARPY:
+				return UtilText.returnStringAtRandom("avian");
+			case COW_MORPH:
+				return UtilText.returnStringAtRandom("bovine");
+			case DOG_MORPH:
+				return UtilText.returnStringAtRandom("canine");
+			case DEMON_COMMON:
+				return UtilText.returnStringAtRandom("demonic");
+			case HORSE_MORPH:
+				return UtilText.returnStringAtRandom("equine");
+			case CAT_MORPH:
+				return UtilText.returnStringAtRandom("feline");
+			case HUMAN:
+				return UtilText.returnStringAtRandom("human");
+			case NONE:
+				return UtilText.returnStringAtRandom("none");
+			case SLIME:
+				return UtilText.returnStringAtRandom("slime");
+			case SQUIRREL_MORPH:
+				return UtilText.returnStringAtRandom("squirrel");
+			case WOLF_MORPH:
+				return UtilText.returnStringAtRandom("lupine");
+		}
+		return "";
+	}
+	
 	@Override
 	public BodyCoveringType getBodyCoveringType() {
 		return skinType;

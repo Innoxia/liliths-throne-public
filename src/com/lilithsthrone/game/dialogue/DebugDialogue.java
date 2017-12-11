@@ -300,9 +300,9 @@ public class DebugDialogue {
 			
 			for(NPC npc : Main.game.getOffspring()) {
 				if(npc.isFeminine()) {
-					UtilText.nodeContentSB.append(npc.getName()+" "+npc.getMother().getName()+"sdottir ("+npc.getRace().getName()+") Father:"+npc.getFather().getName()+" Mother:"+npc.getMother().getName()+"</br>");
+					UtilText.nodeContentSB.append(npc.getName()+" "+npc.getMother().getName()+"'s daughter ("+npc.getRace().getName()+") Father:"+npc.getFather().getName()+" Mother:"+npc.getMother().getName()+"</br>");
 				} else {
-					UtilText.nodeContentSB.append(npc.getName()+" "+npc.getFather().getName()+"sson ("+npc.getRace().getName()+") Father:"+npc.getFather().getName()+" Mother:"+npc.getMother().getName()+"</br>");
+					UtilText.nodeContentSB.append(npc.getName()+" "+npc.getFather().getName()+"'s son ("+npc.getRace().getName()+") Father:"+npc.getFather().getName()+" Mother:"+npc.getMother().getName()+"</br>");
 				}
 			}
 			if(activeOffspring!=null) {
@@ -353,8 +353,11 @@ public class DebugDialogue {
 	}
 	public static List<AbstractItemType> itemsTotal = new ArrayList<>();
 	static {
-		for (AbstractItemType c : ItemType.allItems)
-			itemsTotal.add(c);
+		for (AbstractItemType c : ItemType.allItems) {
+			if(!c.equals(ItemType.CONDOM_USED)) {
+				itemsTotal.add(c);
+			}
+		}
 	}
 	private static StringBuilder inventorySB = new StringBuilder();
 	public static final DialogueNodeOld SPAWN_MENU = new DialogueNodeOld("Spawn Menu", "Access the spawn menu.", false) {

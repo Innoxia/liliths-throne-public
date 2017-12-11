@@ -60,7 +60,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.1.90",
+	public static final String VERSION_NUMBER = "0.1.90.5",
 			VERSION_DESCRIPTION = "Early Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
@@ -78,8 +78,7 @@ public class Main extends Application {
 		+ "</p>"
 			
 		+ "<p>"
-			+ "I may have pushed myself a little too hard last weekend... I ended up feeling completely exhausted all the way through until Wednesday, so I only had three days in which to work on this release."
-			+ " I tried to get as much done as possible, but I still have a few of my goals left to do, which will be carried over into the next version."
+			+ "I've got all the non-sex-related goals pretty much finished now, so next week I can fully concentrate on adding in all the extra sex stuff (like knotting and position-specific orgasms), as well as get multiple-partner sex implemented. ^^"
 		+ "</p>"
 			
 		+ "<p>"
@@ -97,58 +96,42 @@ public class Main extends Application {
 		+ "</br>"
 
 		+ "<list>"
-			+ "<h6>v0.1.89.5 (Preview)</h6>"
+			+ "<h6>v0.1.90.5 (Preview)</h6>"
 			+"<li>Gameplay:</li>"
-			+"<ul><b>Added:</b> main quest content involving Zaranix. (There are several ways to complete the quest, involving submission, stealth, violence, and diplomacy.)</ul>"
-			+"<ul><b>Added:</b> prostitute variation of alleyway attacker.</ul>"
-			+"<ul>Filled in most of the placeholders for slave dialogue (molest and spanking will be done for the next release). I will expand these more in the future to take into account slave's personality and fetishes.</ul>"
-			+"<ul>Added 'Offer money' and 'Offer body' options to the alleyway attacker encounter.</ul>"
-			+"<ul>Slightly rewrote Demon Home's description.</ul>"
+			+"<ul>Finished Zaranix's house placeholders (the ones after fighting Zaranix). Imported games with a version prior to 0.1.95 should reset Zaranix's quest, allowing you to complete it without experiencing bugs (hopefully).</ul>"
+			+"<ul>Added in slave's 'molest' action content.</ul>"
+			+"<ul>Added wing size to possible transformations.</ul>"
+			+"<ul>Added demonic transformation menu to your phone, as a post-combat victory action over demons, and to demon slaves. (The UI really needs a lot more polishing, but it should be fully functional.)</ul>"
+			+"<ul>Added month selection to character creation process. (If you want to edit the date after starting the game, simply change the 'date' value in the save's .xml value. The in-game date is that value plus the amount of minutes shown in the 'minutesPassed' value.)</ul>"
+			+"<ul>Added public use slaves in the stocks in Slaver Alley.</ul>"
+			+"<ul>Added an incubus variation to the succubus alleyway attacker (also set spawn rates for succubi/incubi to be based on your gender preferences). Also improved variety of clothing worn by succubus/incubus attackers. (Some of the text hasn't been updated for the incubus just yet. It will be finished for the next release.)</ul>"
+			+"<ul>Added 'public use' as a job for your slaves. When selected, your slaves will be sent to Slaver Alley's public stocks, where they will be used by randomly generated NPCs.</ul>"
+			+"<ul>Added self-doggy oral positions.</ul>"
+			+"<ul>Added difficulty setting in the options.</ul>"
 
 			+"<li>Other:</li>"
-			+"<ul>Added 'amber' for hair and eye colours.</ul>"
-			+"<ul>Added 'messy' hair style.</ul>"
+			+"<ul>In-game start date is now set to the current date (instead of 1 week behind).</ul>"
+			+"<ul>Added a new name generator for demons.</ul>"
+			+"<ul>Slaves can now only clean their clothes/wash their bodies while not at work.</ul>"
 				
-			+"<li>Clothing:</li>"
-			+"<ul>Added: Lab coat (no femininity requirements, over-torso slot).</ul>"
-			+"<ul>Added 'Scientist' clothing set status effect (when wearing both safety goggles and lab coat).</ul>"
-				
-			+"<li>Bugs:</li>"
-			+"<ul>Minor typo fixes.</ul>"
-			+"<ul>Enslaved offspring will no longer turn up in alleyways.</ul>"
-			+"<ul>Fixed bug where exported characters would have no hair.</ul>"
-			+"<ul>Lilaya's hair style is no longer random.</ul>"
-		+"</list>"
+			+"<li>Contributions:</li>"
+			+"<ul>Multiple spelling corrections (submitted via github PR by shutizake).</ul>"
 
-		+ "</br>"
-
-		+ "<list>"
-			+ "<h6>v0.1.90</h6>"
-			+"<li>Gameplay:</li>"
-			+"<ul>Finished 95% of Zaranix's content. (Just a few scenes if you choose to fight Zaranix are placeholders.)</ul>"
-			+"<ul>Filled in more slavery placeholders (just molest left to do now).</ul>"
-			+"<ul>You can now export any character in the game (including yourself) by looking at their character sheet (or your selfie), and clicking the 'Export Character' button in the top-right of the screen. Exported characters can then be imported as a slave at Slaver Alley's Auction Block, where you can then bid on them in an auction.</ul>"
-			+"<ul>As a side-effect of implementing the above, you can now start a 'New game with import' with any exported character in the game. (There aren't any special reactions/scenes for playing as an exported character, however.)</ul>"
-				
-			+"<li>Sex:</li>"
-			+"<ul>Added hotdogging actions. (Added to doggy-style and face-to-wall.)</ul>"
-			+"<ul>Added 'Doggy-style (receiving oral)' and 'Doggy-style (performing oral)' positions, to give you positions where you can perform or receive anilingus.</ul>"
-				
-			+"<li>Other:</li>"
-			+"<ul>Slightly increased base arousal gain for the receiving partner during anal penetration.</ul>"
-			+"<ul>Rose now wears a bell collar and carries a feather duster.</ul>"
-			+"<ul>Nyan will now sell the lab coat under 'specials' (after her daily inventory reset).</ul>"
-			+"<ul>Changed slave values to reflect their race's rarity/slave suitability.</ul>"
-				
-			+"<li>Items:</li>"
-			+"<ul><b>Clothing:</b> Bell collar (no femininity requirements, neck slot).</ul>"
-			+"<ul><b>Weapon:</b> Feather duster (pretty much 0 damage). Vicky will sell this (after her daily inventory reset).</ul>"
-				
 			+"<li>Bugs:</li>"
-			+"<ul>Minor typo fixes.</ul>"
-			+"<ul>Event log will now correctly update when over 50 entries have been recorded.</ul>"
-			+"<ul>Reduced unintended prostitute spawn rate of 80% down to 50%.</ul>"
-			+"<ul>Angel ass, wing, & leg values are now properly configured. (Angels are only obtainable through the debug menu at the moment.)</ul>"
+			+"<ul>Fixed an issue with older character exports not being imported correctly (related to an old personality value being changed in newer versions).</ul>"
+			+"<ul>Fixed an issue with used condoms causing game imports to break.</ul>"
+			+"<ul>Imported slaves can now be impregnated.</ul>"
+			+"<ul>Fixed chemise and pantyhose blocking displacement of each other (which was causing a major crash during sex).</ul>"
+			+"<ul>Minor grammatical and typo fixes.</ul>"
+			+"<ul>Fixed bug where imported slaves would call you by their own name. (Will take effect for newly exported slaves from now on.)</ul>"
+			+"<ul>Slaves should now go to, and return from, work on time. (They were an hour late for both.)</ul>"
+			+"<ul>Fixed several causes of major errors when importing old games.</ul>"
+			+"<ul>Fixed a few minor dialogue bugs in Zaranix's house.</ul>"
+			+"<ul>Fixed major bug of Zaranix's house being repeatable once completed. (I will make it repeatable in the future, but for now it needs to be disabled to avoid major bugs & dialogue inconsistencies.)</ul>"
+			+"<ul>Fixed succubi only ever using the 'back-to-wall' position.</ul>"
+			+"<ul>Fixed bug where some slaves would have unchangeable names like 'horse-girl'.</ul>"
+			+"<ul>Stopped used condoms from being able to be spawned in using the debug menu (as it was causing issues).</ul>"
+			+"<ul>Versions prior to 0.1.95 will now have all NPC's hair lengths reset to default values (to address broken hair lengths in older versions).</ul>"
 		+"</list>"
 		;
 	
@@ -179,122 +162,119 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-		credits.add(new CreditsSlot("Anonymous", "", 0, 3, 68, 25));
+		credits.add(new CreditsSlot("Anonymous", "", 0, 9, 124, 41));
 		
 		credits.add(new CreditsSlot("Adhana Konker", "", 0, 0, 3, 0));
 		credits.add(new CreditsSlot("Lexi <3", "", 0, 0, 0, 1));
-		credits.add(new CreditsSlot("48days", "", 0, 0, 2, 2));
+		credits.add(new CreditsSlot("48days", "", 0, 0, 2, 3));
 		credits.add(new CreditsSlot("Spaghetti Code", "", 0, 0, 2, 0));
-		credits.add(new CreditsSlot("SchALLieS", "", 0, 0, 0, 3));
-		credits.add(new CreditsSlot("Argmoe", "", 0, 0, 3, 0));
-		credits.add(new CreditsSlot("Arkhan", "", 0, 0, 4, 0));
+		credits.add(new CreditsSlot("SchALLieS", "", 0, 0, 0, 4));
+		credits.add(new CreditsSlot("Argmoe", "", 0, 0, 4, 0));
+		credits.add(new CreditsSlot("HoneyNutQueerios", "", 0, 0, 2, 0));
+		credits.add(new CreditsSlot("Arkhan", "", 0, 0, 5, 0));
 		credits.add(new CreditsSlot("Avery", "", 0, 1, 2, 0));
-		credits.add(new CreditsSlot("b00marrows", "", 0, 1, 3, 0));
-		credits.add(new CreditsSlot("Baz GoldenClaw", "", 0, 0, 2, 0));
+		credits.add(new CreditsSlot("b00marrows", "", 0, 1, 4, 0));
+		credits.add(new CreditsSlot("Baz GoldenClaw", "", 0, 0, 3, 0));
 		credits.add(new CreditsSlot("Runehood66", "", 0, 0, 0, 1));
-		credits.add(new CreditsSlot("Blackcanine", "", 0, 0, 2, 0));
-		credits.add(new CreditsSlot("Blacktouch", "", 0, 0, 2, 2));
-		credits.add(new CreditsSlot("Blue999", "", 0, 0, 0, 4));
-		credits.add(new CreditsSlot("BRobort", "", 0, 0, 4, 0));
-		credits.add(new CreditsSlot("BloodsailXXII", "", 0, 0, 0, 4));
+		credits.add(new CreditsSlot("Blackcanine", "", 0, 0, 3, 0));
+		credits.add(new CreditsSlot("Blacktouch", "", 0, 0, 2, 3));
+		credits.add(new CreditsSlot("Blue999", "", 0, 0, 0, 5));
+		credits.add(new CreditsSlot("BreakerB", "", 0, 0, 2, 0));
+		credits.add(new CreditsSlot("BRobort", "", 0, 0, 5, 0));
+		credits.add(new CreditsSlot("BloodsailXXII", "", 0, 0, 0, 5));
 		credits.add(new CreditsSlot("Burt", "", 0, 0, 3, 0));
-		credits.add(new CreditsSlot("Calrak", "", 0, 0, 0, 3));
-		credits.add(new CreditsSlot("CelestialNightmare", "", 0, 0, 0, 4));
+		credits.add(new CreditsSlot("Calrak", "", 0, 0, 0, 4));
+		credits.add(new CreditsSlot("CelestialNightmare", "", 0, 0, 0, 5));
 		credits.add(new CreditsSlot("Sxythe", "", 0, 0, 0, 2));
-		credits.add(new CreditsSlot("Lexi the slut", "", 0, 0, 0, 4));
+		credits.add(new CreditsSlot("Lexi the slut", "", 0, 0, 0, 5));
 		credits.add(new CreditsSlot("Vmpireassassin (Chloe)", "", 0, 0, 0, 1));
-		credits.add(new CreditsSlot("crashtestdummy", "", 0, 0, 4, 0));
-		credits.add(new CreditsSlot("Crimson", "", 0, 0, 0, 2));
-		credits.add(new CreditsSlot("Cursed Rena", "", 0, 0, 1, 2));
+		credits.add(new CreditsSlot("crashtestdummy", "", 0, 0, 5, 0));
+		credits.add(new CreditsSlot("Crimson", "", 0, 0, 0, 3));
+		credits.add(new CreditsSlot("Cursed Rena", "", 0, 0, 1, 3));
+		credits.add(new CreditsSlot("DeadMasterZero", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("Destont", "", 0, 0, 2, 0));
 		credits.add(new CreditsSlot("Yllarius", "", 0, 0, 2, 0));
 		credits.add(new CreditsSlot("John Scarlet", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("rinoskin", "", 0, 0, 0, 2));
 		credits.add(new CreditsSlot("Alatar", "", 0, 0, 0, 2));
-		credits.add(new CreditsSlot("Elmsdor", "", 0, 0, 0, 4));
+		credits.add(new CreditsSlot("Elmsdor", "", 0, 0, 0, 5));
 		credits.add(new CreditsSlot("Gr33n B3ans", "", 0, 0, 0, 2));
-		credits.add(new CreditsSlot("Farseeker", "", 0, 0, 3, 0));
-		credits.add(new CreditsSlot("pupslut felix", "", 0, 0, 0, 1));
-		credits.add(new CreditsSlot("Fenrakk101", "", 0, 0, 3, 0));
-		credits.add(new CreditsSlot("Fiona", "", 0, 0, 0, 4));
-		credits.add(new CreditsSlot("ForeverFree2MeTaMax", "", 0, 0, 4, 0));
-		credits.add(new CreditsSlot("Niki Parks", "", 0, 0, 4, 0));
-		credits.add(new CreditsSlot("Georgio154", "", 0, 0, 1, 2));
+		credits.add(new CreditsSlot("Farseeker", "", 0, 0, 4, 0));
+		credits.add(new CreditsSlot("pupslut felix", "", 0, 0, 0, 3));
+		credits.add(new CreditsSlot("Fenrakk101", "", 0, 0, 4, 0));
+		credits.add(new CreditsSlot("Fiona", "", 0, 0, 0, 5));
+		credits.add(new CreditsSlot("ForeverFree2MeTaMax", "", 0, 0, 5, 0));
+		credits.add(new CreditsSlot("Niki Parks", "", 0, 0, 5, 0));
+		credits.add(new CreditsSlot("Georgio154", "", 0, 0, 1, 3));
 		credits.add(new CreditsSlot("glocknar", "", 0, 0, 2, 0));
 		credits.add(new CreditsSlot("Krissy2017", "", 0, 0, 0, 1));
-		credits.add(new CreditsSlot("Grakcnar", "", 0, 0, 2, 0));
-		credits.add(new CreditsSlot("Bocaj91", "", 0, 0, 0, 2));
-		credits.add(new CreditsSlot("Krejil", "", 0, 0, 2, 0));
-		credits.add(new CreditsSlot("suka", "", 0, 0, 4, 0));
-		credits.add(new CreditsSlot("Enigamatic Yoshi", "", 0, 0, 4, 0));
-		credits.add(new CreditsSlot("kenshin5491", "", 0, 0, 3, 0));
-		credits.add(new CreditsSlot("Kestrel", "", 0, 0, 4, 0));
-		credits.add(new CreditsSlot("Kiroberos", "", 0, 0, 0, 2));
+		credits.add(new CreditsSlot("Grakcnar", "", 0, 0, 3, 0));
+		credits.add(new CreditsSlot("Hedgehog", "", 0, 0, 0, 2));
+		credits.add(new CreditsSlot("Bocaj91", "", 0, 0, 0, 3));
+		credits.add(new CreditsSlot("Krejil", "", 0, 0, 3, 0));
+		credits.add(new CreditsSlot("suka", "", 0, 0, 5, 0));
+		credits.add(new CreditsSlot("Enigamatic Yoshi", "", 0, 0, 5, 0));
+		credits.add(new CreditsSlot("HerrKommissar11", "", 0, 0, 1, 1));
+		credits.add(new CreditsSlot("Kelly999", "", 0, 1, 2, 0));
+		credits.add(new CreditsSlot("kenshin5491", "", 0, 0, 4, 0));
+		credits.add(new CreditsSlot("Kestrel", "", 0, 0, 5, 0));
+		credits.add(new CreditsSlot("Kiroberos", "", 0, 0, 0, 3));
 		credits.add(new CreditsSlot("Kernog", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("Knight-Lord Xander", "", 0, 0, 0, 4));
-		credits.add(new CreditsSlot("Chris Turpin", "", 0, 0, 2, 0));
-		credits.add(new CreditsSlot("Pallid", "", 0, 0, 0, 4));
-		credits.add(new CreditsSlot("Mr L", "", 0, 0, 3, 0));
-		credits.add(new CreditsSlot("loveless", "", 0, 0, 0, 4));
-		credits.add(new CreditsSlot("KingofKings", "", 0, 0, 0, 3));
-		credits.add(new CreditsSlot("waaaghkus", "", 0, 0, 4, 0));
-		credits.add(new CreditsSlot("Nightmare", "", 0, 0, 0, 4));
-		credits.add(new CreditsSlot("AlphaOneBravo", "", 0, 0, 0, 4));
-		credits.add(new CreditsSlot("Max Nobody", "", 0, 0, 0, 3));
-		credits.add(new CreditsSlot("Muhaku", "", 0, 0, 2, 0));
-		credits.add(new CreditsSlot("Nick LaBlue", "", 0, 0, 3, 0));
-		credits.add(new CreditsSlot("Kvernik", "", 0, 0, 2, 0));
-		credits.add(new CreditsSlot("Niko", "", 0, 0, 4, 0));
-		credits.add(new CreditsSlot("Odd8Ball", "", 0, 0, 0, 3));
-		credits.add(new CreditsSlot("Party Commissar", "", 0, 0, 2, 0));
-		credits.add(new CreditsSlot("Rohsie", "", 0, 0, 0, 4));
-		credits.add(new CreditsSlot("P.", "", 0, 0, 0, 3));
-		credits.add(new CreditsSlot("Pierre Mura", "", 0, 0, 0, 4));
-		credits.add(new CreditsSlot("Pokys", "", 0, 0, 4, 0));
-		credits.add(new CreditsSlot("QQQ", "", 0, 0, 0, 4));
-		credits.add(new CreditsSlot("Rakesh", "", 0, 0, 3, 0));
-		credits.add(new CreditsSlot("Master's dumb bitch", "", 0, 0, 0, 4));
-		credits.add(new CreditsSlot("redwulfen", "", 0, 0, 0, 3));
-		credits.add(new CreditsSlot("Horagen81", "", 0, 0, 0, 3));
-		credits.add(new CreditsSlot("Saladine", "", 0, 0, 0, 4));
-		credits.add(new CreditsSlot("S", "", 0, 0, 1, 3));
-		credits.add(new CreditsSlot("Shas'O Dal'yth Kauyon Kais Taku", "", 0, 0, 4, 0));
-		credits.add(new CreditsSlot("Crow Invictus", "", 0, 0, 3, 0));
-		credits.add(new CreditsSlot("Sheltem", "", 0, 0, 2, 0));
-		credits.add(new CreditsSlot("Sorter", "", 0, 0, 0, 4));
-		credits.add(new CreditsSlot("Spookermen", "", 0, 0, 0, 4));
-		credits.add(new CreditsSlot("Swift Shot", "", 0, 0, 4, 0));
-		credits.add(new CreditsSlot("TalonMort", "", 0, 0, 2, 0));
-		credits.add(new CreditsSlot("Tanner D.", "", 0, 0, 0, 3));
+		credits.add(new CreditsSlot("Knight-Lord Xander", "", 0, 0, 0, 5));
+		credits.add(new CreditsSlot("Chris Turpin", "", 0, 0, 3, 0));
+		credits.add(new CreditsSlot("Pallid", "", 0, 0, 0, 5));
+		credits.add(new CreditsSlot("Mr L", "", 0, 0, 4, 0));
+		credits.add(new CreditsSlot("loveless", "", 0, 0, 0, 5));
+		credits.add(new CreditsSlot("Vaddex", "", 0, 0, 0, 2));
+		credits.add(new CreditsSlot("KingofKings", "", 0, 0, 0, 5));
+		credits.add(new CreditsSlot("waaaghkus", "", 0, 0, 5, 0));
+		credits.add(new CreditsSlot("Nightmare", "", 0, 0, 0, 5));
+		credits.add(new CreditsSlot("AlphaOneBravo", "", 0, 0, 0, 5));
+		credits.add(new CreditsSlot("Max Nobody", "", 0, 0, 0, 5));
+		credits.add(new CreditsSlot("Muhaku", "", 0, 0, 3, 0));
+		credits.add(new CreditsSlot("Nick LaBlue", "", 0, 0, 4, 0));
+		credits.add(new CreditsSlot("Kvernik", "", 0, 0, 3, 0));
+		credits.add(new CreditsSlot("Niko", "", 0, 0, 5, 0));
+		credits.add(new CreditsSlot("Odd8Ball", "", 0, 0, 0, 4));
+		credits.add(new CreditsSlot("Party Commissar", "", 0, 0, 3, 0));
+		credits.add(new CreditsSlot("Rohsie", "", 0, 0, 0, 5));
+		credits.add(new CreditsSlot("P.", "", 0, 0, 0, 4));
+		credits.add(new CreditsSlot("Pierre Mura", "", 0, 0, 0, 5));
+		credits.add(new CreditsSlot("Pokys", "", 0, 0, 5, 0));
+		credits.add(new CreditsSlot("QQQ", "", 0, 0, 0, 5));
+		credits.add(new CreditsSlot("Rakesh", "", 0, 0, 4, 0));
+		credits.add(new CreditsSlot("Master's dumb bitch", "", 0, 0, 0, 5));
+		credits.add(new CreditsSlot("redwulfen", "", 0, 0, 0, 4));
+		credits.add(new CreditsSlot("RogueRandom", "", 0, 0, 2, 0));
+		credits.add(new CreditsSlot("Horagen81", "", 0, 0, 0, 4));
+		credits.add(new CreditsSlot("RyubosJ", "", 0, 0, 2, 0));
+		credits.add(new CreditsSlot("Saladine", "", 0, 0, 0, 5));
+		credits.add(new CreditsSlot("S", "", 0, 0, 1, 4));
+		credits.add(new CreditsSlot("Shas'O Dal'yth Kauyon Kais Taku", "", 0, 0, 5, 0));
+		credits.add(new CreditsSlot("Crow Invictus", "", 0, 0, 4, 0));
+		credits.add(new CreditsSlot("Sheltem", "", 0, 0, 3, 0));
+		credits.add(new CreditsSlot("Silentark", "", 0, 0, 2, 0));
+		credits.add(new CreditsSlot("Sorter", "", 0, 0, 0, 5));
+		credits.add(new CreditsSlot("Spookermen", "", 0, 0, 0, 5));
+		credits.add(new CreditsSlot("Swift Shot", "", 0, 0, 5, 0));
+		credits.add(new CreditsSlot("TalonMort", "", 0, 0, 3, 0));
+		credits.add(new CreditsSlot("Tanner D.", "", 0, 0, 0, 4));
 		credits.add(new CreditsSlot("Terrance", "", 0, 0, 3, 0));
-		credits.add(new CreditsSlot("Jordan Aitken", "", 0, 0, 4, 0));
-		credits.add(new CreditsSlot("T. Garou", "", 0, 0, 0, 2));
-		credits.add(new CreditsSlot("Timmybond24", "", 0, 0, 0, 2));
-		credits.add(new CreditsSlot("Torinir", "", 0, 0, 4, 0));
-		credits.add(new CreditsSlot("Torsten015", "", 0, 0, 0, 3));
+		credits.add(new CreditsSlot("Jordan Aitken", "", 0, 0, 5, 0));
+		credits.add(new CreditsSlot("T. Garou", "", 0, 0, 0, 3));
+		credits.add(new CreditsSlot("Timmybond24", "", 0, 0, 0, 3));
+		credits.add(new CreditsSlot("Torinir", "", 0, 0, 5, 0));
+		credits.add(new CreditsSlot("Torsten015", "", 0, 0, 0, 4));
 		credits.add(new CreditsSlot("TreenVall", "", 0, 0, 2, 0));
-		credits.add(new CreditsSlot("triangleman", "", 0, 0, 4, 0));
-		credits.add(new CreditsSlot("Isidoros", "", 0, 0, 3, 0));
-		credits.add(new CreditsSlot("Vaelin", "", 0, 0, 2, 0));
-		credits.add(new CreditsSlot("iloveyouMiaoNiNi", "", 0, 0, 0, 4));
-		credits.add(new CreditsSlot("Whatever", "", 0, 0, 2, 0));
-		credits.add(new CreditsSlot("William Brown", "", 0, 0, 4, 0));
-		credits.add(new CreditsSlot("Wolfregis", "", 0, 0, 0, 4));
-		credits.add(new CreditsSlot("Nelson Adams", "", 0, 0, 4, 0));
-		
-		
-		credits.add(new CreditsSlot("HoneyNutQueerios", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("BreakerB", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("Destont", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("Hedgehog", "", 0, 0, 0, 1));
-		credits.add(new CreditsSlot("Kelly999", "", 0, 1, 1, 0));
-		credits.add(new CreditsSlot("Silentark", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("Antriad", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("DeadMasterZero", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("HerrKommissar11", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("RogueRandom", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("RyubosJ", "", 0, 0, 1, 0));
-		
-		 
+		credits.add(new CreditsSlot("triangleman", "", 0, 0, 5, 0));
+		credits.add(new CreditsSlot("Antriad", "", 0, 0, 1, 1));
+		credits.add(new CreditsSlot("Isidoros", "", 0, 0, 4, 0));
+		credits.add(new CreditsSlot("Vaelin", "", 0, 0, 4, 0));
+		credits.add(new CreditsSlot("iloveyouMiaoNiNi", "", 0, 0, 0, 5));
+		credits.add(new CreditsSlot("Whatever", "", 0, 0, 3, 0));
+		credits.add(new CreditsSlot("William Brown", "", 0, 0, 5, 0));
+		credits.add(new CreditsSlot("Wolfregis", "", 0, 0, 0, 5));
+		credits.add(new CreditsSlot("Nelson Adams", "", 0, 0, 5, 0));
 		
 		
 		credits.sort(Comparator.comparing((CreditsSlot a) -> a.getName().toLowerCase()));
@@ -419,6 +399,44 @@ public class Main extends Application {
 			}
 		});
 		new Thread(gen).start();
+	}
+	
+	public static boolean isVersionOlderThan(String versionToCheck, String versionToCheckAgainst) {
+		String[] v1 = versionToCheck.split("\\.");
+		String[] v2 = versionToCheckAgainst.split("\\.");
+		
+		try {
+			if(Integer.valueOf(v1[0]) < Integer.valueOf(v2[0])) {
+				return true;
+			}
+			
+			if(Integer.valueOf((v1[1].length()==1?v1[1]+"0":v1[1])) < Integer.valueOf((v2[1].length()==1?v2[1]+"0":v2[1]))) {
+				return true;
+			}
+			
+			if(Integer.valueOf((v1[2].length()==1?v1[2]+"0":v1[2])) < Integer.valueOf((v2[2].length()==1?v2[2]+"0":v2[2]))) {
+				return true;
+			}
+			
+			if(v1.length<4) {
+				if(v2.length<4) {
+					return false;
+				} else {
+					return true;
+				}
+			}
+			if(v2.length<4) {
+				return false;
+			}
+			
+			if(Integer.valueOf((v1[3].length()==1?v1[3]+"0":v1[3])) < Integer.valueOf((v2[3].length()==1?v2[3]+"0":v2[3]))) {
+				return true;
+			}
+		} catch(Exception ex) {
+			return true;
+		}
+		
+		return false;
 	}
 	
 	public static int getFontSize() {

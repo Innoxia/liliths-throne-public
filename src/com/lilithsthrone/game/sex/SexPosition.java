@@ -21,6 +21,10 @@ public enum SexPosition {
 	
 	CULTIST_ALTAR_MISSIONARY_ORAL_DOM("Missionary on Altar (Oral)", "[npc.Name] is lying back on top of the chapel's altar, and you're kneeling down between [npc.her] [npc.legs], ready to have some oral fun in the missionary position."),
 	CULTIST_ALTAR_MISSIONARY_DOM("Missionary on Altar", "[npc.Name] is lying back on top of the chapel's altar, and you're standing between [npc.her] [npc.legs], ready to have some fun in the missionary position."),
+
+	STOCKS_PARTNER_BEING_USED("Stocks (Behind)", "[npc.Name] is locked into the stocks, ready for public use. You're standing behind [npc.herHim], ready to take advantage of [npc.her] compromising position."),
+	STOCKS_PARTNER_PLAYER_PERFORMING_ORAL("Stocks (Kneeling Behind)", "[npc.Name] is locked into the stocks, ready for public use. You're kneeling behind [npc.herHim], ready to perform oral on [npc.herHim]."),
+	STOCKS_PARTNER_BEING_USED_ORAL("Stocks (Oral)", "[npc.Name] is locked into the stocks, ready for public use. You're standing in front of [npc.her] [npc.face], ready to put [npc.her] mouth to good use."),
 	
 	// Consensual:
 	
@@ -33,18 +37,18 @@ public enum SexPosition {
 	STANDING("Face-to-face", "You're standing face-to-face with [npc.name]."),
 	
 	DOGGY_PLAYER_ON_ALL_FOURS("Doggy-style (on all fours)", "You're down on all fours, presenting yourself to [npc.name], who's kneeling down behind you, eager to take advantage of your submissive position."),
-	
-	DOGGY_ORAL_PLAYER_ON_ALL_FOURS("Doggy-style (receiving oral)", "You're down on all fours, presenting yourself to [npc.name], who's similarly down on all fours behind you, ready to perform oral on you."),
-	
 	SELF_DOGGY_PLAYER_ON_ALL_FOURS("Doggy-style (on all fours)", "You're down on all fours, presenting yourself to [npc.name], who's kneeling down behind you, awaiting your permission to take advantage of your position."),
+	
+	DOGGY_ORAL_PLAYER_SUB_PLAYER_ON_ALL_FOURS("Doggy-style (receiving oral)", "You're down on all fours, presenting yourself to [npc.name], who's similarly down on all fours behind you, ready to perform oral on you."),
+	DOGGY_ORAL_PLAYER_DOM_PLAYER_ON_ALL_FOURS("Doggy-style (receiving oral)", "You're down on all fours, presenting yourself to [npc.name], who's similarly down on all fours behind you, ready to perform oral on you."),
 	
 	
 	DOGGY_PARTNER_ON_ALL_FOURS("Doggy-style (kneeling behind)", "[npc.Name] is down on all fours, presenting [npc.herself] to you. You're kneeling down behind [npc.herHim], ready to take advantage of [npc.her] submissive position."),
-
-	DOGGY_ORAL_PARTNER_ON_ALL_FOURS("Doggy-style (performing oral)", "[npc.Name] is down on all fours, presenting [npc.herself] to you. You're also down on all fours behind [npc.herHim], ready to perform oral on [npc.herHim]."),
-	
 	DOGGY_PARTNER_AS_DOM_ON_ALL_FOURS("Doggy-style (kneeling behind)", "[npc.Name] is down on all fours, presenting [npc.herself] to you. You're kneeling down behind [npc.herHim],"
 			+ " awaiting [npc.her] permission to take advantage of [npc.her] position."),
+	
+	DOGGY_ORAL_PLAYER_DOM_PARTNER_ON_ALL_FOURS("Doggy-style (performing oral)", "[npc.Name] is down on all fours, presenting [npc.herself] to you. You're also down on all fours behind [npc.herHim], ready to perform oral on [npc.herHim]."),
+	DOGGY_ORAL_PLAYER_SUB_PARTNER_ON_ALL_FOURS("Doggy-style (performing oral)", "[npc.Name] is down on all fours, presenting [npc.herself] to you. You're also down on all fours behind [npc.herHim], ready to perform oral on [npc.herHim]."),
 	
 	
 	COWGIRL_PARTNER_TOP("Cowgirl (bottom)", "You're lying down on your back as [npc.name] straddles your stomach in the cowgirl position."),

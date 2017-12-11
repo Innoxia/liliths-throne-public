@@ -9,6 +9,7 @@ import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
+import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMZaranixCockSucking;
 import com.lilithsthrone.game.sex.managers.universal.SMDomStanding;
@@ -205,6 +206,17 @@ public class ZaranixHomeFirstFloor {
 								+ " [kelly.speech(Oh yes! Fuck... I'm so fucking horny! I <i>need</i> you!)]"
 							+ "</p>");
 					
+				} else if (index == 3) {
+					return new Response("Transformations",
+							"Get Kelly to use [npc.her] demonic powers to transform [npc.herself]...",
+							BodyChanging.BODY_CHANGING_CORE){
+						@Override
+						public void effects() {
+							Main.game.saveDialogueNode();
+							BodyChanging.setTarget(Main.game.getKelly());
+						}
+					};
+					
 				} else {
 					return null;
 				}
@@ -323,49 +335,79 @@ public class ZaranixHomeFirstFloor {
 
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "Well-lit by a series of arcane-powered lights, and with a series of ceiling-height windows set into the opposite wall, the large room you find yourself stepping into is particularly well-illuminated."
-						+ " Numerous bookcases and shelves line the walls to either side of you, and within the main area itself, quite a number of long tables have been covered in all manner of books, bottles, and raw ingredients."
-						+ " In fact, the room looks very much like a small-scale version of Lilaya's laboratory, and, again similar to that of your aunt's lab, the sole occupants are this house's master and slave."
-					+ "</p>"
-					+ "<p>"
-						+ "Upon seeing you enter the room, the tall, purple-skinned figure of Zaranix turns towards you, and he shouts out,"
-						+ " [zaranix.speech(Who the hell are you?!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "As you look over towards him, you can't help but let out a gasp."
-						+ " This world's version of Arthur, standing right beside the imposing incubus, looks <i>exactly</i> the same as the one you used to know."
-						+ " His lanky, pale-skinned body, his bright blue eyes, and his mop of messy, dark-brown hair are all exactly as you remember them."
-						+ " In fact, the only difference between this Arthur and the one from your world appears to be in his choice of clothing."
-						+ " Instead of his usual tweed suit, this Arthur is wearing a lab coat and a pair of safety goggles, revealing the fact that, just like Lilaya, he's not a historian in this world, but an arcane researcher."
-					+ "</p>"
-					+ "<p>"
-						+ "[zaranix.speech(Well?! Explain yourself!)]"
-						+ " Zaranix calls out once more, striding towards you with an angry look on his face."
-					+ "</p>";
+			if(Main.game.getZaranix().getFoughtPlayerCount()!=0) {
+				return "<p>"
+							+ "Well-lit by a series of arcane-powered lights, and with a series of ceiling-height windows set into the opposite wall, the large room you find yourself stepping into is particularly well-illuminated."
+							+ " Numerous bookcases and shelves line the walls to either side of you, and within the main area itself, quite a number of long tables have been covered in all manner of books, bottles, and raw ingredients."
+							+ " In fact, the room looks very much like a small-scale version of Lilaya's laboratory, and, again similar to that of your aunt's lab, the sole occupants are this house's master and slave."
+						+ "</p>"
+						+ "<p>"
+							+ "Upon seeing you enter the room, the tall, purple-skinned figure of Zaranix turns towards you, and he shouts out,"
+							+ " [zaranix.speech(You again?! Back for more, cock-sucker?!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "This world's version of Arthur is, once again, standing right beside the imposing incubus, and looks <i>exactly</i> the same as the one you used to know."
+							+ " His lanky, pale-skinned body, his bright blue eyes, and his mop of messy, dark-brown hair are all exactly as you remember them."
+							+ " In fact, the only difference between this Arthur and the one from your world appears to be in his choice of clothing."
+							+ " Instead of his usual tweed suit, this Arthur is wearing a lab coat and a pair of safety goggles, revealing the fact that, just like Lilaya, he's not a historian in this world, but an arcane researcher."
+						+ "</p>"
+						+ "<p>"
+							+ "[zaranix.speech(So, you've got a taste for my cock, have you?! Don't worry, I'll be giving you what you want right after I teach you another lesson!)]"
+							+ " Zaranix calls out once more, striding towards you with an angry look on his face."
+						+ "</p>";
+			} else {
+				return "<p>"
+							+ "Well-lit by a series of arcane-powered lights, and with a series of ceiling-height windows set into the opposite wall, the large room you find yourself stepping into is particularly well-illuminated."
+							+ " Numerous bookcases and shelves line the walls to either side of you, and within the main area itself, quite a number of long tables have been covered in all manner of books, bottles, and raw ingredients."
+							+ " In fact, the room looks very much like a small-scale version of Lilaya's laboratory, and, again similar to that of your aunt's lab, the sole occupants are this house's master and slave."
+						+ "</p>"
+						+ "<p>"
+							+ "Upon seeing you enter the room, the tall, purple-skinned figure of Zaranix turns towards you, and he shouts out,"
+							+ " [zaranix.speech(Who the hell are you?!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "As you look over towards him, you can't help but let out a gasp."
+							+ " This world's version of Arthur, standing right beside the imposing incubus, looks <i>exactly</i> the same as the one you used to know."
+							+ " His lanky, pale-skinned body, his bright blue eyes, and his mop of messy, dark-brown hair are all exactly as you remember them."
+							+ " In fact, the only difference between this Arthur and the one from your world appears to be in his choice of clothing."
+							+ " Instead of his usual tweed suit, this Arthur is wearing a lab coat and a pair of safety goggles, revealing the fact that, just like Lilaya, he's not a historian in this world, but an arcane researcher."
+						+ "</p>"
+						+ "<p>"
+							+ "[zaranix.speech(Well?! Explain yourself!)]"
+							+ " Zaranix calls out once more, striding towards you with an angry look on his face."
+						+ "</p>";
+			}
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(index==1) {
-				return new Response("Demand Arthur", "Refuse to tell Zaranix why you're here, and instead simply demand that he hand over Arthur to you.", ZARANIX_ROOM_NO_EXPLANATION) {
-					@Override
-					public boolean isCombatHighlight() {
-						return true;
-					}
-				};
-				
-			} else if(index==2) {
-				return new Response("Explain everything", "Tell Zaranix that Lilaya needs Arthur in order to help her unravel the mystery of inter-dimensional travel.", ZARANIX_ROOM_EXPLANATION) {
-					@Override
-					public void effects() {
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
-						Main.game.getArthur().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, false);
-					}
-				};
-				
+			if(Main.game.getZaranix().getFoughtPlayerCount()!=0) {
+				if(index==1) {
+					return new Response("Demand Arthur", "Refuse to tell Zaranix why you're here, and instead simply demand that he hand over Arthur to you.", ZARANIX_ROOM_NO_EXPLANATION) {
+						@Override
+						public boolean isCombatHighlight() {
+							return true;
+						}
+					};
+					
+				} else if(index==2) {
+					return new Response("Explain everything", "Tell Zaranix that Lilaya needs Arthur in order to help her unravel the mystery of inter-dimensional travel.", ZARANIX_ROOM_EXPLANATION) {
+						@Override
+						public void effects() {
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
+							Main.game.getArthur().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, false);
+						}
+					};
+					
+				} else {
+					return null;
+				}
 			} else {
-				return null;
+				if(index==1) {
+					return new ResponseCombat("Fight", "Defend yourself against Zaranix's attack!", ZARANIX_ROOM_NO_EXPLANATION, Main.game.getZaranix());
+				} else {
+					return null;
+				}
 			}
 		}
 	};

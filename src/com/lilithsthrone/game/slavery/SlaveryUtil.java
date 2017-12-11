@@ -13,7 +13,9 @@ import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
 import com.lilithsthrone.game.dialogue.eventLog.SlaveryEventLogEntry;
@@ -113,7 +115,9 @@ public class SlaveryUtil implements Serializable {
 			// ***** EVENTS: ***** //
 			
 			// Washing:
-			if(slave.hasStatusEffect(StatusEffect.CLOTHING_CUM) && slave.hasSlavePermissionSetting(SlavePermissionSetting.CLEANLINESS_WASH_CLOTHES)) {
+			if(slave.hasStatusEffect(StatusEffect.CLOTHING_CUM)
+					&& !slave.getWorkHours()[hour]
+					&& slave.hasSlavePermissionSetting(SlavePermissionSetting.CLEANLINESS_WASH_CLOTHES)) {
 				slave.cleanAllClothing();
 				for (AbstractClothing c : slave.getClothingCurrentlyEquipped()) {
 					c.setDirty(false);
@@ -128,6 +132,7 @@ public class SlaveryUtil implements Serializable {
 			
 			// Washing clothes:
 			if(slave.hasSlavePermissionSetting(SlavePermissionSetting.CLEANLINESS_WASH_BODY)
+					&& !slave.getWorkHours()[hour]
 					&& (slave.hasStatusEffect(StatusEffect.CREAMPIE_ANUS) || slave.hasStatusEffect(StatusEffect.CREAMPIE_VAGINA) || slave.hasStatusEffect(StatusEffect.CREAMPIE_NIPPLES) || slave.hasStatusEffect(StatusEffect.CREAMPIE_PENIS))) {
 				List<String> cleanedParts = new ArrayList<>();
 				
@@ -170,7 +175,7 @@ public class SlaveryUtil implements Serializable {
 			}
 			// Standard events:
 			if(!eventAdded) {
-				if(Math.random()>0.9f) {
+				if(Math.random()>0.9f || slave.getSlaveJob()==SlaveJob.PUBLIC_STOCKS) {
 					entry = generateEvent(hour, slave);
 					if(entry!=null) {
 						addSlaveryEvent(day, slave, entry);
@@ -277,7 +282,7 @@ public class SlaveryUtil implements Serializable {
 					if(slave.getSlaveJobSettings().isEmpty()) {
 						slave.incrementAffection(Main.game.getPlayer(), -1);
 						slave.incrementAffection(Main.game.getLilaya(), -5);
-						return new SlaveryEventLogEntry(hour, slave, "Testing", "Lilaya ran some rather intrusive tests on [npc.name].",
+						return new SlaveryEventLogEntry(hour, slave, "Testing", UtilText.parse(slave, "Lilaya ran some rather intrusive tests on [npc.name]."),
 								Util.newArrayListOfValues(
 										new ListValue<>("[style.boldBad(-1)] [style.boldAffection(Affection)]"),
 										new ListValue<>("[style.boldBad(-5)] [style.boldAffection(Affection towards Lilaya)]")));
@@ -307,7 +312,7 @@ public class SlaveryUtil implements Serializable {
 								if(!tf.isEmpty()) {
 									list.add(tf);
 								}
-								return new SlaveryEventLogEntry(hour, slave, "Feminine Testing", "Lilaya tested some very intrusive feminine transformations on [npc.name].",list);
+								return new SlaveryEventLogEntry(hour, slave, "Feminine Testing", UtilText.parse(slave, "Lilaya tested some very intrusive feminine transformations on [npc.name]."), list);
 								
 							case TEST_SUBJECT_ALLOW_TRANSFORMATIONS_MALE:
 								List<String> list2 = new ArrayList<>();
@@ -332,13 +337,158 @@ public class SlaveryUtil implements Serializable {
 								if(!tf2.isEmpty()) {
 									list2.add(tf2);
 								}
-								return new SlaveryEventLogEntry(hour, slave, "Masculine Testing", "Lilaya tested some very intrusive masculine transformations on [npc.name].",list2);
+								return new SlaveryEventLogEntry(hour, slave, "Masculine Testing", UtilText.parse(slave, "Lilaya tested some very intrusive masculine transformations on [npc.name]."), list2);
 								
 							default:
 								break;
 						}
 					}
 					break;
+					
+				case PUBLIC_STOCKS:
+					StringBuilder effectDescriptions = new StringBuilder();
+					List<String> effects = new ArrayList<>();
+					
+					// Please forgive this.
+					List<SlaveJobSetting> settingsEnabled = new ArrayList<>();
+					if(slave.getSlaveJobSettings().contains(SlaveJobSetting.SEX_VAGINAL) && slave.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+						settingsEnabled.add(SlaveJobSetting.SEX_VAGINAL);
+					}
+					if(slave.getSlaveJobSettings().contains(SlaveJobSetting.SEX_ANAL) && slave.isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
+						settingsEnabled.add(SlaveJobSetting.SEX_ANAL);
+					}
+					if(slave.getSlaveJobSettings().contains(SlaveJobSetting.SEX_ORAL) && slave.isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+						settingsEnabled.add(SlaveJobSetting.SEX_ORAL);
+					}
+					settingsEnabled.add(SlaveJobSetting.SEX_NIPPLES);
+					
+					SlaveJobSetting eventGenerated = settingsEnabled.get(Util.random.nextInt(settingsEnabled.size()));
+					
+					switch(eventGenerated) {
+						case SEX_ANAL:
+							if(Math.random()>0.25f) {
+								Main.game.getGenericMaleNPC().setBody(Gender.M_P_MALE, RacialBody.getRandomCommonRacialBodyFromPreferences(Gender.M_P_MALE), RaceStage.GREATER);
+								effectDescriptions.append(UtilText.parse(Main.game.getGenericMaleNPC(),
+										UtilText.returnStringAtRandom(
+												"[npc.A_race] came deep inside "+UtilText.parse(slave, "[npc.name]'s [npc.asshole+]!"),
+												"[npc.A_race] roughly fucked "+UtilText.parse(slave, "[npc.name]'s [npc.asshole+], before filling [npc.herHim] with"+UtilText.parse(Main.game.getGenericMaleNPC()," [npc.cum+]!")),
+												"[npc.A_race] filled "+UtilText.parse(slave, "[npc.name]'s [npc.asshole+]")+UtilText.parse(Main.game.getGenericMaleNPC()," with [npc.her] [npc.cum+]!"))));
+								
+							} else {
+								Main.game.getGenericFemaleNPC().setBody(Gender.F_P_V_B_FUTANARI, RacialBody.getRandomCommonRacialBodyFromPreferences(Gender.F_P_V_B_FUTANARI), RaceStage.GREATER);
+								effectDescriptions.append(UtilText.parse(Main.game.getGenericFemaleNPC(),
+										UtilText.returnStringAtRandom(
+												"[npc.A_race] came deep inside "+UtilText.parse(slave, "[npc.name]'s [npc.asshole+], "),
+												"[npc.A_race] roughly fucked "+UtilText.parse(slave, "[npc.name]'s [npc.asshole+], "),
+												"[npc.A_race] filled "+UtilText.parse(slave, "[npc.name]'s [npc.asshole+]")+UtilText.parse(Main.game.getGenericFemaleNPC()," with [npc.her] [npc.cum+], "))));
+								
+							}
+
+							slave.addStatusEffect(StatusEffect.CREAMPIE_ANUS, 120);
+							effects.add("<span style='color:"+Colour.CUMMED.toWebHexString()+";'>Anal Creampie</span>");
+							
+							slave.setAssVirgin(false);
+							slave.setLastTimeHadSex(Main.game.getMinutesPassed());
+							break;
+							
+						case SEX_ORAL:
+							if(Math.random()>0.25f) {
+								Main.game.getGenericMaleNPC().setBody(Gender.M_P_MALE, RacialBody.getRandomCommonRacialBodyFromPreferences(Gender.M_P_MALE), RaceStage.GREATER);
+								effectDescriptions.append(UtilText.parse(Main.game.getGenericMaleNPC(),
+										UtilText.returnStringAtRandom(
+												"[npc.A_race] came deep down "+UtilText.parse(slave, "[npc.name]'s throat!"),
+												"[npc.A_race] roughly face-fucked "+UtilText.parse(slave, "[npc.name], before filling [npc.her] stomach with"+UtilText.parse(Main.game.getGenericMaleNPC()," [npc.cum+]!")),
+												"[npc.A_race] filled "+UtilText.parse(slave, "[npc.name]'s stomach")+UtilText.parse(Main.game.getGenericMaleNPC()," with [npc.her] [npc.cum+]!"))));
+								
+							} else {
+								Main.game.getGenericFemaleNPC().setBody(Gender.F_P_V_B_FUTANARI, RacialBody.getRandomCommonRacialBodyFromPreferences(Gender.F_P_V_B_FUTANARI), RaceStage.GREATER);
+								effectDescriptions.append(UtilText.parse(Main.game.getGenericFemaleNPC(),
+										UtilText.returnStringAtRandom(
+												"[npc.A_race] came deep down "+UtilText.parse(slave, "[npc.name]'s throat!"),
+												"[npc.A_race] roughly face-fucked "+UtilText.parse(slave, "[npc.name], before filling [npc.her] stomach with"+UtilText.parse(Main.game.getGenericFemaleNPC()," [npc.cum+]!")),
+												"[npc.A_race] filled "+UtilText.parse(slave, "[npc.name]'s stomach")+UtilText.parse(Main.game.getGenericFemaleNPC()," with [npc.her] [npc.cum+]!"))));
+								
+							}
+
+							effects.add("<span style='color:"+Colour.CUMMED.toWebHexString()+";'>Swallowed Cum</span>");
+							
+							slave.setFaceVirgin(false);
+							break;
+							
+						case SEX_VAGINAL:
+							if(Math.random()>0.25f) {
+								Main.game.getGenericMaleNPC().setBody(Gender.M_P_MALE, RacialBody.getRandomCommonRacialBodyFromPreferences(Gender.M_P_MALE), RaceStage.GREATER);
+								effectDescriptions.append(UtilText.parse(Main.game.getGenericMaleNPC(),
+										UtilText.returnStringAtRandom(
+												"[npc.A_race] came deep inside "+UtilText.parse(slave, "[npc.name]'s [npc.pussy+], "),
+												"[npc.A_race] roughly fucked "+UtilText.parse(slave, "[npc.name]'s [npc.pussy+], "),
+												"[npc.A_race] filled "+UtilText.parse(slave, "[npc.name]'s [npc.pussy+]")+UtilText.parse(Main.game.getGenericMaleNPC()," with [npc.her] [npc.cum+], "))));
+								
+								if(!slave.isPregnant() && !slave.getSlaveJobSettings().contains(SlaveJobSetting.SEX_PROMISCUITY_PILLS)) {
+									slave.rollForPregnancy(Main.game.getGenericMaleNPC());
+								}
+							} else {
+								Main.game.getGenericFemaleNPC().setBody(Gender.F_P_V_B_FUTANARI, RacialBody.getRandomCommonRacialBodyFromPreferences(Gender.F_P_V_B_FUTANARI), RaceStage.GREATER);
+								effectDescriptions.append(UtilText.parse(Main.game.getGenericFemaleNPC(),
+										UtilText.returnStringAtRandom(
+												"[npc.A_race] came deep inside "+UtilText.parse(slave, "[npc.name]'s [npc.pussy+], "),
+												"[npc.A_race] roughly fucked "+UtilText.parse(slave, "[npc.name]'s [npc.pussy+], "),
+												"[npc.A_race] filled "+UtilText.parse(slave, "[npc.name]'s [npc.pussy+]")+UtilText.parse(Main.game.getGenericFemaleNPC()," with [npc.her] [npc.cum+], "))));
+								
+								if(!slave.isPregnant() && !slave.getSlaveJobSettings().contains(SlaveJobSetting.SEX_PROMISCUITY_PILLS)) {
+									slave.rollForPregnancy(Main.game.getGenericFemaleNPC());
+								}
+							}
+
+							slave.addStatusEffect(StatusEffect.CREAMPIE_VAGINA, 120);
+							effects.add("<span style='color:"+Colour.CUMMED.toWebHexString()+";'>Pussy Creampie</span>");
+							
+							if(slave.isVisiblyPregnant()) {
+								effectDescriptions.append(UtilText.parse(slave, "but as [npc.she]'s already pregnant, the only result is a fresh creampie..."));
+								
+							} else if(!slave.getSlaveJobSettings().contains(SlaveJobSetting.SEX_PROMISCUITY_PILLS)) {
+								effectDescriptions.append(UtilText.parse(slave, "resulting in a risk of pregnancy!"));
+								effects.add("<span style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Pregnancy Risk!</span>");
+								
+							} else {
+								if(slave.isHasAnyPregnancyEffects()) {
+									effectDescriptions.append(UtilText.parse(slave, "but as [npc.she]'s on promiscuity pills, there's no chance of [npc.herHim] getting pregnant. ([npc.She] already has a risk of pregnancy from a previous encounter, however...)"));
+								} else {
+									effectDescriptions.append(UtilText.parse(slave, "but as [npc.she]'s on promiscuity pills, there's no chance of [npc.herHim] getting pregnant."));
+								}
+							}
+							
+							slave.setVaginaVirgin(false);
+							slave.setLastTimeHadSex(Main.game.getMinutesPassed());
+							break;
+							
+						default:
+							if(Math.random()>0.25f) {
+								Main.game.getGenericMaleNPC().setBody(Gender.M_P_MALE, RacialBody.getRandomCommonRacialBodyFromPreferences(Gender.M_P_MALE), RaceStage.GREATER);
+								effectDescriptions.append(UtilText.parse(Main.game.getGenericMaleNPC(),
+										UtilText.returnStringAtRandom(
+												"[npc.A_race] groped and molested "+UtilText.parse(slave, "[npc.name]'s exposed body!"),
+												"[npc.A_race] roughly molested "+UtilText.parse(slave, "[npc.name]'s vulnerable body!"),
+												"[npc.A_race] spent some time groping and fondling every part of "+UtilText.parse(slave, "[npc.name]'s body!"))));
+								
+							} else {
+								Main.game.getGenericFemaleNPC().setBody(Gender.F_P_V_B_FUTANARI, RacialBody.getRandomCommonRacialBodyFromPreferences(Gender.F_P_V_B_FUTANARI), RaceStage.GREATER);
+								effectDescriptions.append(UtilText.parse(Main.game.getGenericFemaleNPC(),
+										UtilText.returnStringAtRandom(
+												"[npc.A_race] groped and molested "+UtilText.parse(slave, "[npc.name]'s exposed body!"),
+												"[npc.A_race] roughly molested "+UtilText.parse(slave, "[npc.name]'s vulnerable body!"),
+												"[npc.A_race] spent some time groping and fondling every part of "+UtilText.parse(slave, "[npc.name]'s body!"))));
+								
+							}
+
+							effects.add("<span style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Molested</span>");
+							
+							break;
+					
+					}
+					
+					return new SlaveryEventLogEntry(hour, slave, "Publicly Used", UtilText.parse(slave, effectDescriptions.toString()), effects);
+					
 				case IDLE:
 					// Can not reach :3
 					break;
@@ -451,6 +601,10 @@ public class SlaveryUtil implements Serializable {
 	 */
 	public static SlaveryEventLogEntry generateNPCInteractionEvent(int day, int hour, NPC slave, List<NPC> otherSlavesPresent) {
 		
+		if(slave.getSlaveJob()==SlaveJob.PUBLIC_STOCKS) {
+			return null;
+		}
+		
 		Collections.shuffle(otherSlavesPresent);
 		for(NPC npc : otherSlavesPresent) {
 			if(!npc.equals(slave)) {
@@ -537,6 +691,8 @@ public class SlaveryUtil implements Serializable {
 										Util.newArrayListOfValues(
 												new ListValue<>(impregnationAttempt?UtilText.parse(npc,"[style.colourSex([npc.Name] might have gotten pregnant!)]"):""),
 												new ListValue<>(gettingPregnantAttempt?"[style.colourSex("+slave.getName()+" might have gotten pregnant!)]":"")));
+							case PUBLIC_STOCKS:
+								break;
 						}
 					}
 				}

@@ -876,7 +876,7 @@ public class Brax extends NPC {
 								+ " Brax has transformed you into his perfect vision of a lesser wolf-girl, and your yellow, predatory eyes open wide in shock as you feel the weight of "
 									+(Main.getProperties().multiBreasts!=0?"three pairs of":"your")+" huge, E-cup tits that are now sitting on your chest."
 								+ " Fur covers your wolf-like arms and legs, and as Brax steps up behind you, you see that it's the exact same bright white colour as his is."
-								+ " Your face and the skin covering your torso are the only parts of your that haven't transformed into anthropormophic wolf-like counterparts,"
+								+ " Your face and the skin covering your torso are the only parts of your that haven't transformed into anthropomorphic wolf-like counterparts,"
 									+ " and you experimentally twitch your pair of fluffy wolf-like ears, while swishing your long, shaggy tail back and forth against Brax's leg."
 							+ "</p>");
 					break;
@@ -887,7 +887,7 @@ public class Brax extends NPC {
 							+ " Brax has transformed you into his perfect vision of a greater wolf-girl, and your yellow, predatory eyes open wide in shock as you feel the weight of "
 								+(Main.getProperties().multiBreasts!=0?"three pairs of":"your")+" huge, E-cup tits that are now sitting on your chest."
 							+ " Fur covers your entire body, and as Brax steps up behind you, you see that it's the exact same bright white colour as his is."
-							+ " Your hands, feet and face have all transformed into anthropormorphic wolf-like counterparts, and a pair of fluffy wolf-like ears and a long, shaggy tail finish off your new look."
+							+ " Your hands, feet and face have all transformed into anthropomorphic wolf-like counterparts, and a pair of fluffy wolf-like ears and a long, shaggy tail finish off your new look."
 						+ "</p>");
 					break;
 			}

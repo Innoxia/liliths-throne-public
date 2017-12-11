@@ -12,6 +12,7 @@ import com.lilithsthrone.game.sex.managers.universal.SMDomDoggyOral;
 import com.lilithsthrone.game.sex.managers.universal.SMDomFaceToWall;
 import com.lilithsthrone.game.sex.managers.universal.SMDomKneeling;
 import com.lilithsthrone.game.sex.managers.universal.SMDomSelfDoggy;
+import com.lilithsthrone.game.sex.managers.universal.SMDomSelfDoggyOral;
 import com.lilithsthrone.game.sex.managers.universal.SMDomSelfKneeling;
 import com.lilithsthrone.game.sex.managers.universal.SMDomSixtyNine;
 import com.lilithsthrone.game.sex.managers.universal.SMSubBackToWall;
@@ -21,6 +22,7 @@ import com.lilithsthrone.game.sex.managers.universal.SMSubDoggyOral;
 import com.lilithsthrone.game.sex.managers.universal.SMSubFaceToWall;
 import com.lilithsthrone.game.sex.managers.universal.SMSubKneeling;
 import com.lilithsthrone.game.sex.managers.universal.SMSubSelfDoggy;
+import com.lilithsthrone.game.sex.managers.universal.SMSubSelfDoggyOral;
 import com.lilithsthrone.game.sex.managers.universal.SMSubSelfKneeling;
 import com.lilithsthrone.game.sex.managers.universal.SMSubSixtyNine;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
@@ -217,13 +219,13 @@ public class GenericPositioning {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
-					&& Sex.getPosition() != SexPosition.DOGGY_ORAL_PARTNER_ON_ALL_FOURS
+					&& Sex.getPosition() != SexPosition.DOGGY_ORAL_PLAYER_DOM_PARTNER_ON_ALL_FOURS
 					&& Sex.isPlayerDom();
 		}
 		
 		@Override
 		public String getActionTitle() {
-			return "Doggy-style (oral)";
+			return "Doggy-style (perform oral)";
 		}
 
 		@Override
@@ -242,6 +244,48 @@ public class GenericPositioning {
 		@Override
 		public void applyEffects() {
 			Sex.setSexManager(new SMDomDoggyOral());
+			
+//			SexFlags.positioningBlockedPartner = true;
+			SexFlags.resetRequests();
+		}
+	};
+	
+	public static final SexAction PLAYER_FORCE_POSITION_SELF_DOGGY_ORAL = new SexAction(
+			SexActionType.PLAYER_POSITIONING,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			null) {
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !SexFlags.positioningBlockedPlayer
+					&& Sex.getPosition() != SexPosition.DOGGY_ORAL_PLAYER_DOM_PLAYER_ON_ALL_FOURS
+					&& Sex.isPlayerDom();
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Doggy-style (receive oral)";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Push [npc.name] down onto all fours and drop down in front of [npc.herHim], ready to receive oral from [npc.herHim] in the doggy-style position.";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Taking hold of [npc.name]'s shoulders, you push [npc.herHim] down on all fours."
+					+ " Stepping around in front of [npc.herHim], you drop down onto all fours yourself, shuffling backwards to press your [pc.ass+] up against [npc.her] [npc.face+]."
+					+ " Looking back over your shoulder, you [pc.moan], "
+					+ "[pc.speech(Be a good [npc.girl] and put your tongue to use!)]";
+		}
+
+		@Override
+		public void applyEffects() {
+			Sex.setSexManager(new SMDomSelfDoggyOral());
 			
 //			SexFlags.positioningBlockedPartner = true;
 			SexFlags.resetRequests();
@@ -536,13 +580,51 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
 					&& !SexFlags.requestedDoggyOral
-					&& Sex.getPosition() != SexPosition.DOGGY_ORAL_PLAYER_ON_ALL_FOURS
+					&& Sex.getPosition() != SexPosition.DOGGY_ORAL_PLAYER_SUB_PLAYER_ON_ALL_FOURS
 					&& !Sex.isPlayerDom();
 		}
 		
 		@Override
 		public String getActionTitle() {
-			return "Doggy-style oral (request)";
+			return "Doggy-style perform oral (request)";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Try and push [npc.name] down onto all fours in the hope that [npc.she] wants you to perform oral on [npc.herHim] in the doggy-style position.";
+		}
+
+		@Override
+		public String getDescription() {
+			return "You try to push [npc.name] down onto all fours, [pc.moaning],"
+					+ " [pc.speech(Let me perform oral on you... Please...)]";
+		}
+
+		@Override
+		public void applyEffects() {
+			SexFlags.requestedDoggyOral = true;
+		}
+	};
+	
+	public static final SexAction PLAYER_POSITION_REQUEST_DOGGY_RECEIVE_ORAL = new SexAction(
+			SexActionType.PLAYER_POSITIONING,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ONE_VANILLA,
+			null,
+			null) {
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !SexFlags.positioningBlockedPlayer
+					&& !SexFlags.requestedDoggyReceiveOral
+					&& Sex.getPosition() != SexPosition.DOGGY_ORAL_PLAYER_SUB_PLAYER_ON_ALL_FOURS
+					&& !Sex.isPlayerDom();
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Doggy-style receive oral (request)";
 		}
 
 		@Override
@@ -557,7 +639,7 @@ public class GenericPositioning {
 
 		@Override
 		public void applyEffects() {
-			SexFlags.requestedDoggyOral = true;
+			SexFlags.requestedDoggyReceiveOral = true;
 		}
 	};
 	
@@ -762,6 +844,7 @@ public class GenericPositioning {
 					|| SexFlags.requested69
 					|| SexFlags.requestedDoggy
 					|| SexFlags.requestedDoggyOral
+					|| SexFlags.requestedDoggyReceiveOral
 					|| SexFlags.requestedDomFuckedDoggy
 					|| SexFlags.requestedBackToWall
 					|| SexFlags.requestedFaceToWall
@@ -839,7 +922,25 @@ public class GenericPositioning {
 				}
 				
 			} else if(SexFlags.requestedDoggyOral) {
-				if(Sex.getPartner().getSexPositionPreferences().contains(SexPosition.DOGGY_ORAL_PLAYER_ON_ALL_FOURS) || Sex.getPartner().getSexPositionPreferences().isEmpty()) {
+				if(Sex.getPartner().getSexPositionPreferences().contains(SexPosition.DOGGY_ORAL_PLAYER_SUB_PLAYER_ON_ALL_FOURS) || Sex.getPartner().getSexPositionPreferences().isEmpty()) {
+					switch(Sex.getSexPacePartner()) {
+						case DOM_ROUGH:
+							return "[npc.Name] grabs hold of your shoulders and throws you down onto all fours."
+									+ " Stepping around in front of you, [npc.she] drops down onto all fours [npc.herself], before shuffling back and pressing [npc.her] [npc.ass+] up against your face, growling, "
+									+ "[npc.speech(That's right, put that tongue of yours to use like an obedient little bitch!)]";
+						default:
+							return "[npc.Name] takes hold of your shoulders and pushes you down onto all fours."
+									+ " Stepping around in front of you, [npc.she] drops down onto all fours [npc.herself], before shuffling back and pressing [npc.her] [npc.ass+] up against your face, [npc.moaning], "
+									+ "[npc.speech(Good [pc.girl]! This is gonna be fun!)]";
+					}
+					
+				} else {
+					return "Reaching down to grab you by the [pc.arm], [npc.name] pulls you back into your old position as [npc.she] angrily scolds you, "
+							+ "[npc.speech(What do you think you're doing?! Don't you <i>dare</i> try that again!)]";
+				}
+				
+			} else if(SexFlags.requestedDoggyReceiveOral) {
+				if(Sex.getPartner().getSexPositionPreferences().contains(SexPosition.DOGGY_ORAL_PLAYER_SUB_PLAYER_ON_ALL_FOURS) || Sex.getPartner().getSexPositionPreferences().isEmpty()) {
 					switch(Sex.getSexPacePartner()) {
 						case DOM_ROUGH:
 							return "Turning your head, you see [npc.name] drop down onto all fours behind you."
@@ -964,7 +1065,11 @@ public class GenericPositioning {
 				Sex.setSexManager(new SMSubDoggy());
 //				SexFlags.positioningBlockedPartner = true;
 				
-			} else if(SexFlags.requestedDoggyOral && (Sex.getPartner().getSexPositionPreferences().contains(SexPosition.DOGGY_ORAL_PLAYER_ON_ALL_FOURS) || Sex.getPartner().getSexPositionPreferences().isEmpty())) {
+			} else if(SexFlags.requestedDoggyOral && (Sex.getPartner().getSexPositionPreferences().contains(SexPosition.DOGGY_ORAL_PLAYER_SUB_PARTNER_ON_ALL_FOURS) || Sex.getPartner().getSexPositionPreferences().isEmpty())) {
+				Sex.setSexManager(new SMSubSelfDoggyOral());
+//				SexFlags.positioningBlockedPartner = true;
+				
+			} else if(SexFlags.requestedDoggyReceiveOral && (Sex.getPartner().getSexPositionPreferences().contains(SexPosition.DOGGY_ORAL_PLAYER_SUB_PLAYER_ON_ALL_FOURS) || Sex.getPartner().getSexPositionPreferences().isEmpty())) {
 				Sex.setSexManager(new SMSubDoggyOral());
 //				SexFlags.positioningBlockedPartner = true;
 				
@@ -1141,9 +1246,8 @@ public class GenericPositioning {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPartner
-					&& Sex.getPosition() != SexPosition.DOGGY_ORAL_PLAYER_ON_ALL_FOURS
-					&& (Sex.getPartner().getSexPositionPreferences().contains(SexPosition.DOGGY_ORAL_PLAYER_ON_ALL_FOURS) || Sex.getPartner().getSexPositionPreferences().isEmpty())
-					&& Sex.getPartner().hasPenis()
+					&& Sex.getPosition() != SexPosition.DOGGY_ORAL_PLAYER_SUB_PLAYER_ON_ALL_FOURS
+					&& (Sex.getPartner().getSexPositionPreferences().contains(SexPosition.DOGGY_ORAL_PLAYER_SUB_PLAYER_ON_ALL_FOURS) || Sex.getPartner().getSexPositionPreferences().isEmpty())
 					&& !Sex.isPlayerDom();
 		}
 		
@@ -1168,6 +1272,50 @@ public class GenericPositioning {
 		@Override
 		public void applyEffects() {
 			Sex.setSexManager(new SMSubDoggyOral());
+			
+//			SexFlags.positioningBlockedPartner = true;
+//			SexFlags.positioningBlockedPlayer = true;
+			SexFlags.resetRequests();
+		}
+	};
+	
+	public static final SexAction PARTNER_FORCE_POSITION_DOGGY_SELF_ORAL = new SexAction(
+			SexActionType.PARTNER_POSITIONING,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			null) {
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !SexFlags.positioningBlockedPartner
+					&& Sex.getPosition() != SexPosition.DOGGY_ORAL_PLAYER_SUB_PARTNER_ON_ALL_FOURS
+					&& (Sex.getPartner().getSexPositionPreferences().contains(SexPosition.DOGGY_ORAL_PLAYER_SUB_PARTNER_ON_ALL_FOURS) || Sex.getPartner().getSexPositionPreferences().isEmpty())
+					&& !Sex.isPlayerDom();
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Doggy-style (receive oral)";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Push [npc.name] down onto all fours and drop down on all fours in front of [npc.herHim], ready to receive oral on [npc.herHim] in the doggy-style position.";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Taking hold of your shoulders, [npc.name] pushes you down on all fours."
+					+ " Stepping around in front of you, [npc.she] similarly drops down onto all fours, shuffling backwards to bring [npc.her] [npc.ass+] up against your [pc.face+]."
+					+ " Once [npc.she]'s in position, [npc.she] [npc.moans], "
+					+ "[npc.speech(Good [pc.girl]! Now put that tongue of yours to use!)]";
+		}
+
+		@Override
+		public void applyEffects() {
+			Sex.setSexManager(new SMSubSelfDoggyOral());
 			
 //			SexFlags.positioningBlockedPartner = true;
 //			SexFlags.positioningBlockedPlayer = true;

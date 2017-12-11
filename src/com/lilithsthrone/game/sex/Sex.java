@@ -1015,7 +1015,7 @@ public enum Sex {
 		sexSB = new StringBuilder();
 
 		sexSB.append("<p>" + sexActionPlayer.getDescription() + "</p>");
-
+		
 		sexActionPlayer.baseEffects();
 		lastUsedPlayerAction = sexActionPlayer;
 		if(!repeatActionsPlayer.contains(sexActionPlayer)
@@ -1042,10 +1042,11 @@ public enum Sex {
 		} else {
 			// Partner action is done afterwards:
 			// Update lists for the partner's action choice.
+			
 			calculateAvailableSexActionsPartner();
 
 			SexActionInterface sexActionPartner = sexManager.getPartnerSexAction(sexActionPlayer);
-
+			
 			sexSB.append("</br><p>" + sexActionPartner.getDescription() + "</p>");
 
 			sexActionPartner.baseEffects();
@@ -1056,7 +1057,7 @@ public enum Sex {
 			s = UtilText.parse(sexSB.toString());
 			sexSB.setLength(0);
 			sexSB.append(s);
-
+			
 			sexDescription = sexSB.toString();
 
 			// End sex conditions:
@@ -1271,7 +1272,7 @@ public enum Sex {
 			}
 			
 		} else if(standardActions) {
-
+			
 			// Add actions:
 			for (SexActionInterface sexAction : sexManager.getActionsAvailablePartner()) {
 				if (sexAction.isAddedToAvailableSexActions() && (partnerAllowedToUseSelfActions?true:(!sexAction.isPartnerSelfPenetration()))) {
@@ -1303,7 +1304,7 @@ public enum Sex {
 					}
 				}
 			}
-
+			
 			if(!uniqueMax.isEmpty()) {
 				availableSexActionsPartner.addAll(uniqueMax);
 
@@ -1937,7 +1938,7 @@ public enum Sex {
 	}
 
 	private static void applyPenetrationEffects(PenetrationType penetrationType, OrificeType orifice) { //TODO formatting
-
+		
 		SexType relatedSexType = new SexType(penetrationType, orifice);
 		
 		if (penetrationType == PenetrationType.PENIS_PLAYER) {

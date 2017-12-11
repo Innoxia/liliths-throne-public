@@ -95,7 +95,7 @@ public class SMSubDoggyOral extends SexManagerDefault {
 	
 	@Override
 	public SexPosition getPosition() {
-		return SexPosition.DOGGY_ORAL_PLAYER_ON_ALL_FOURS;
+		return SexPosition.DOGGY_ORAL_PLAYER_SUB_PLAYER_ON_ALL_FOURS;
 	}
 
 	@Override

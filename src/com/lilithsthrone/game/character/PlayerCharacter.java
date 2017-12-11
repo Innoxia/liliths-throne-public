@@ -311,6 +311,13 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	}
 
 	/**
+	 * <b>Please use incrementQuest() instead! This is a utility method for game imports.</b>
+	 */
+	public void setQuestProgress(QuestLine questLine, int progress) {
+		quests.put(questLine, progress);
+	}
+	
+	/**
 	 * Increments the quest to the next stage.
 	 * 
 	 * @return Description of new quest added.

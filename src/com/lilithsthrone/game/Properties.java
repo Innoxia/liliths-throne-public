@@ -64,6 +64,8 @@ public class Properties implements Serializable {
 			newItemDiscovered = false,
 			newRaceDiscovered = false;
 	
+	public DifficultyLevel difficultyLevel = DifficultyLevel.NORMAL;
+	
 	public AndrogynousIdentification androgynousIdentification = AndrogynousIdentification.CLOTHING_FEMININE;
 
 	public Map<KeyboardAction, KeyCodeWithModifiers> hotkeyMapPrimary, hotkeyMapSecondary;
@@ -185,6 +187,9 @@ public class Properties implements Serializable {
 			createXMLElementWithValue(doc, settings, "newClothingDiscovered", String.valueOf(newClothingDiscovered));
 			createXMLElementWithValue(doc, settings, "newItemDiscovered", String.valueOf(newItemDiscovered));
 			createXMLElementWithValue(doc, settings, "newRaceDiscovered", String.valueOf(newRaceDiscovered));
+
+			createXMLElementWithValue(doc, settings, "difficultyLevel", difficultyLevel.toString());
+			
 			
 			
 			// Game key binds:
@@ -448,6 +453,10 @@ public class Properties implements Serializable {
 				newClothingDiscovered = Boolean.valueOf(((Element)element.getElementsByTagName("newClothingDiscovered").item(0)).getAttribute("value"));
 				newItemDiscovered = Boolean.valueOf(((Element)element.getElementsByTagName("newItemDiscovered").item(0)).getAttribute("value"));
 				newRaceDiscovered = Boolean.valueOf(((Element)element.getElementsByTagName("newRaceDiscovered").item(0)).getAttribute("value"));
+
+				if(element.getElementsByTagName("difficultyLevel").item(0)!=null) {
+					difficultyLevel = DifficultyLevel.valueOf(((Element)element.getElementsByTagName("difficultyLevel").item(0)).getAttribute("value"));
+				}
 				
 				overwriteWarning = Boolean.valueOf(((Element)element.getElementsByTagName("overwriteWarning").item(0)).getAttribute("value"));
 				fadeInText = Boolean.valueOf(((Element)element.getElementsByTagName("fadeInText").item(0)).getAttribute("value"));
@@ -739,4 +748,5 @@ public class Properties implements Serializable {
 	public void setNewRaceDiscovered(boolean newRaceDiscovered) {
 		this.newRaceDiscovered = newRaceDiscovered;
 	}
+	
 }

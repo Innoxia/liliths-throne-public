@@ -1095,7 +1095,7 @@ public class ClothingType {
 			false,
 			"scarf",
 			"scarfs",
-			"A unisex scarf, made of a soft, wooly fabric.",
+			"A unisex scarf, made of a soft, woolly fabric.",
 			1,
 			null,
 			InventorySlot.NECK,
@@ -3195,7 +3195,7 @@ public class ClothingType {
 									null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.PULLS_UP,
-									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
+									null,
 									Util.newArrayListOfValues(
 											new ListValue<CoverableArea>(CoverableArea.ANUS),
 											new ListValue<CoverableArea>(CoverableArea.PENIS),

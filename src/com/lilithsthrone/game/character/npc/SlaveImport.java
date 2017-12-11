@@ -39,34 +39,45 @@ public class SlaveImport extends NPC {
 		SlaveImport npc = new SlaveImport();
 		
 		loadNPCVariablesFromXML(npc, null, parentElement, doc);
-		npc.setId(Main.game.getNextNPCId(SlaveImport.class));
+//		npc.setId(Main.game.getNextNPCId(SlaveImport.class));
 //		npc.resetInventory();
 //		npc.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR), true, npc);
-		npc.clearNonEquippedInventory();
-		if(npc.getClothingInSlot(InventorySlot.NECK)!=null) {
-			npc.getClothingInSlot(InventorySlot.NECK).setSealed(false);
-			npc.unequipClothingIntoInventory(npc.getClothingInSlot(InventorySlot.NECK), true, npc);
-		}
-		npc.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR), true, npc);
-		npc.getClothingInSlot(InventorySlot.NECK).setSealed(true);
-		npc.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_AUCTIONING_BLOCK, true);
-		
-		
-		npc.clearAffectionMap();
-		npc.setObedience((float) Math.round((-25+(Math.random()*50))));
-		
-		npc.getSlavesOwned().clear();
-		
-		Main.game.getFinch().addSlave(npc);
-		
-		npc.setPlayerKnowsName(true);
 		
 		return npc;
+	}
+	
+	public void applyNewlyImportedSlaveVariables() {
+		// If the slave has only just been imported:
+//		if(this.getOwnerId().isEmpty()) {
+			Main.game.getFinch().addSlave(this);
+			this.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_AUCTIONING_BLOCK, true);
+			
+			this.clearNonEquippedInventory();
+			if(this.getClothingInSlot(InventorySlot.NECK)!=null) {
+				this.getClothingInSlot(InventorySlot.NECK).setSealed(false);
+				this.unequipClothingIntoInventory(this.getClothingInSlot(InventorySlot.NECK), true, this);
+			}
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR), true, this);
+			this.getClothingInSlot(InventorySlot.NECK).setSealed(true);
+			
+			
+			this.clearAffectionMap();
+			this.setObedience((float) Math.round((-25+(Math.random()*50))));
+			
+			this.getSlavesOwned().clear();
+			
+			this.setPlayerKnowsName(true);
+//		}
 	}
 	
 	@Override
 	public String getDescription() {
 		return UtilText.parse(this, "As a slave, [npc.name] is no more than someone's property. The first time you saw [npc.herHim], [npc.she] was being sold off at auction in Slaver Alley.");
+	}
+	
+	@Override
+	public boolean isAbleToBeImpregnated() {
+		return true;
 	}
 	
 	@Override

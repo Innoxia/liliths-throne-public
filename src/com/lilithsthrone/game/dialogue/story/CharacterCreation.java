@@ -544,7 +544,8 @@ public class CharacterCreation {
 				break;
 		}
 		
-		if(character.isPlayer() && character.getName().equals("James") && character.getSurname().equals("Bond")) {
+		if(character.isPlayer()
+				&& ((character.getName().equals("James") || character.getName().equals("Jane") || character.getName().equals("Tracy")) && character.getSurname().equals("Bond"))) {
 			character.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MAIN_WESTERN_KKP));
 		}
 	}
@@ -564,16 +565,20 @@ public class CharacterCreation {
 						+ " Having no choice but to step in line and wait your turn, you briefly glance over at the large glass windows of the building's modern facade to see your blurry reflection in the glass..."
 					+ "</p>"
 					+ "</br>"
+					
+					+ CharacterModificationUtils.getStartDateDiv()
+					
 					+ "<div class='cosmetics-container' style='background:transparent;'>"
+					
+						+ CharacterModificationUtils.getGenderChoiceDiv()
+						
+						+ CharacterModificationUtils.getFemininityChoiceDiv()
+						
 						+ "<div class='container-full-width' style='text-align:center;'>"
 							+ "You will be referred to as <span style='color:"+Main.game.getPlayer().getGender().getColour().toWebHexString()+";'>"
 								+UtilText.generateSingularDeterminer(Main.game.getPlayer().getGender().getName())+ " " + Main.game.getPlayer().getGender().getName()+"</span>.</br>"
 							+ "<i>You can change all gender names in the options menu.</i>"
 						+ "</div>"
-					
-						+ CharacterModificationUtils.getGenderChoiceDiv()
-						
-						+ CharacterModificationUtils.getFemininityChoiceDiv()
 						
 						+ CharacterModificationUtils.getOrientationChoiceDiv()
 					
@@ -848,7 +853,7 @@ public class CharacterCreation {
 						
 					+ CharacterModificationUtils.getHeightChoiceDiv()
 					
-					+ CharacterModificationUtils.getKatesDivNaturalCoverings(BodyCoveringType.HUMAN, "Skin Colour", "The colour of the skin that's covering your body.", false, false)
+					+ CharacterModificationUtils.getKatesDivNaturalCoverings(false, BodyCoveringType.HUMAN, "Skin Colour", "The colour of the skin that's covering your body.", false, false)
 					
 					+ "<div class='cosmetics-container' style='background:transparent;'>"
 					
@@ -893,7 +898,7 @@ public class CharacterCreation {
 					
 					+ CharacterModificationUtils.getLipPuffynessDiv()
 
-					+ CharacterModificationUtils.getKatesDivNaturalCoverings(BodyCoveringType.EYE_HUMAN, "Iris Colour", "The colour of your eye's irises.", true, false);
+					+ CharacterModificationUtils.getKatesDivNaturalCoverings(false, BodyCoveringType.EYE_HUMAN, "Iris Colour", "The colour of your eye's irises.", true, false);
 		}
 		
 		@Override
@@ -921,11 +926,11 @@ public class CharacterCreation {
 						+ "<i>All of these options can be influenced later on in the game.</i>"
 					+ "</div>"
 
-					+ CharacterModificationUtils.getKatesDivHairLengths("Hair Length", "Choose how long your hair is.")
+					+ CharacterModificationUtils.getKatesDivHairLengths(false, "Hair Length", "Choose how long your hair is.")
 					
-					+ CharacterModificationUtils.getKatesDivHairStyles("Hair Style", "Choose your hair style. Certain hair styles are unavailable at shorter hair lengths.")
+					+ CharacterModificationUtils.getKatesDivHairStyles(false, "Hair Style", "Choose your hair style. Certain hair styles are unavailable at shorter hair lengths.")
 
-					+ CharacterModificationUtils.getKatesDivCoverings(BodyCoveringType.HAIR_HUMAN, "Hair Colour", "The colour of your hair.", true, false);
+					+ CharacterModificationUtils.getKatesDivCoverings(false, BodyCoveringType.HAIR_HUMAN, "Hair Colour", "The colour of your hair.", true, false);
 		}
 		
 		@Override
@@ -1121,22 +1126,22 @@ public class CharacterCreation {
 					+ "</div>"
 							
 					+CharacterModificationUtils.getKatesDivCoverings(
-							BodyCoveringType.MAKEUP_BLUSHER, "Blusher", "Blusher (also called rouge) is used to colour the cheeks so as to provide a more youthful appearance, and to emphasise the cheekbones.", true, false)
+							false, BodyCoveringType.MAKEUP_BLUSHER, "Blusher", "Blusher (also called rouge) is used to colour the cheeks so as to provide a more youthful appearance, and to emphasise the cheekbones.", true, false)
 					
 					+CharacterModificationUtils.getKatesDivCoverings(
-							BodyCoveringType.MAKEUP_LIPSTICK, "Lipstick", "Lipstick is used to provide colour, texture, and protection to the wearer's lips.", true, false)
+							false, BodyCoveringType.MAKEUP_LIPSTICK, "Lipstick", "Lipstick is used to provide colour, texture, and protection to the wearer's lips.", true, false)
 
 					+CharacterModificationUtils.getKatesDivCoverings(
-							BodyCoveringType.MAKEUP_EYE_LINER, "Eyeliner", "Eyeliner is applied around the contours of the eyes to help to define shape or highlight different features.", true, false)
+							false, BodyCoveringType.MAKEUP_EYE_LINER, "Eyeliner", "Eyeliner is applied around the contours of the eyes to help to define shape or highlight different features.", true, false)
 
 					+CharacterModificationUtils.getKatesDivCoverings(
-							BodyCoveringType.MAKEUP_EYE_SHADOW, "Eye shadow", "Eye shadow is used to make the wearer's eyes stand out or look more attractive.", true, false)
+							false, BodyCoveringType.MAKEUP_EYE_SHADOW, "Eye shadow", "Eye shadow is used to make the wearer's eyes stand out or look more attractive.", true, false)
 
 					+CharacterModificationUtils.getKatesDivCoverings(
-							BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, "Nail polish", "Nail polish is used to colour and protect the nails on your [pc.hands].", true, false)
+							false, BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, "Nail polish", "Nail polish is used to colour and protect the nails on your [pc.hands].", true, false)
 
 					+CharacterModificationUtils.getKatesDivCoverings(
-							BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, "Toenail polish", "Toenail polish is used to colour and protect the nails on your [pc.feet].", true, false);
+							false, BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, "Toenail polish", "Toenail polish is used to colour and protect the nails on your [pc.feet].", true, false);
 		}
 		
 		@Override
@@ -1168,7 +1173,7 @@ public class CharacterCreation {
 			
 			if(Main.game.isPubicHairEnabled() || Main.game.isFacialHairEnabled() || Main.game.isBodyHairEnabled()) {
 				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivNaturalCoverings(
-						Main.game.getPlayer().getBodyHairCoveringType(), "Body hair", "This is the hair that covers all areas other than the head.", false, false));
+						false, Main.game.getPlayer().getBodyHairCoveringType(), "Body hair", "This is the hair that covers all areas other than the head.", false, false));
 			} else {
 				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivGenericBodyHairDisabled(
 						"Body hair", "This is the hair that covers all areas other than the head.", "All extra body hair options are disabled. You will not see any extra hair content."));

@@ -28,6 +28,7 @@ import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
+import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
@@ -118,6 +119,25 @@ public class Amber extends NPC {
 		loadNPCVariablesFromXML(npc, null, parentElement, doc);
 		
 		return npc;
+	}
+	
+	public void resetBody() {
+		this.setBody(Gender.F_P_V_B_FUTANARI, RacialBody.DEMON, RaceStage.GREATER);
+		
+		this.setHeight(180);
+		
+		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, CoveringPattern.NONE, Colour.EYE_AMBER, true, Colour.EYE_AMBER, true));
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, CoveringPattern.NONE, Colour.COVERING_AMBER, true, Colour.COVERING_AMBER, true), true);
+		this.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMedianValue());
+		this.setHairStyle(HairStyle.SIDECUT);
+		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_EBONY), true);
+		
+		this.setBreastSize(CupSize.DD.getMeasurement());
+		
+		this.setHornType(HornType.SWEPT_BACK);
+		
+		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
+		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
 	}
 
 	@Override
@@ -229,7 +249,12 @@ public class Amber extends NPC {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Continue", "Continue exploring Zaranix's house.", PlaceType.ZARANIX_GF_ENTRANCE.getDialogue(false));
+				return new Response("Continue", "Continue exploring Zaranix's house.", PlaceType.ZARANIX_GF_ENTRANCE.getDialogue(false)) {
+					@Override
+					public DialogueNodeOld getNextDialogue() {
+						return Main.game.getPlayer().getLocationPlace().getDialogue(false);
+					}
+				};
 				
 			} if(index==2) {
 				return new ResponseSex("Use Amber", "Have some fun with this fiery maid.",
@@ -262,6 +287,17 @@ public class Amber extends NPC {
 							+ "You reciprocate the gesture, but only spend a few moments sliding your tongues into one another's mouths before Amber pulls back, moaning,"
 							+ " [amber.speech(Good bitch! Fuck... I'm so fucking horny! I <i>need</i> you!)]"
 						+ "</p>");
+				
+			} else if (index == 4) {
+				return new Response("Transformations",
+						"Get Amber to use [npc.her] demonic powers to transform [npc.herself]...",
+						BodyChanging.BODY_CHANGING_CORE){
+					@Override
+					public void effects() {
+						Main.game.saveDialogueNode();
+						BodyChanging.setTarget(Main.game.getAmber());
+					}
+				};
 				
 			} else {
 				return null;

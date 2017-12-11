@@ -16,6 +16,7 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
+import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.Sex;
@@ -47,14 +48,14 @@ public class DominionSuccubusDialogue {
 							+ "</p>"
 							+ "<p>"
 								+ "Deciding that it's better to be safe than sorry, you start to take a step backwards, with the intention of doubling back on yourself and finding another route through the maze-like lanes."
-								+ " As you turn to leave, a familiar, feminine laughter suddenly rings out, echoing off the walls and leaving you turning this way and that as you try to locate the source of the sound."
+								+ " As you turn to leave, a familiar, [npc.feminine] laughter suddenly rings out, echoing off the walls and leaving you turning this way and that as you try to locate the source of the sound."
 							+ "</p>"
 							+ "<p>"
-								+ "Looking in the direction that you were going to be travelling in, you see the feminine figure of a succubus suddenly materialise out of thin air."
-								+ " A huge web, glistening pink with arcane energy, shimmers into life all around her, and with a snap of her fingers, it falls harmlessly to the ground."
+								+ "Looking in the direction that you were going to be travelling in, you see the [npc.feminine] figure of a [npc.race] suddenly materialise out of thin air."
+								+ " A huge web, glistening pink with arcane energy, shimmers into life all around [npc.herHim], and with a snap of [npc.her] fingers, it falls harmlessly to the ground."
 							+ "</p>"
 							+ "<p>"
-								+ "As she steps over the fallen webbing, you recognise your tormentor as the"
+								+ "As [npc.she] steps over the fallen webbing, you recognise your tormentor as the"
 								+ " <b style='color:"+Femininity.valueOf(Main.game.getActiveNPC().getFemininityValue()).getColour().toWebHexString()+";'>"+Femininity.getFemininityName(Main.game.getActiveNPC().getFemininityValue(), false)+"</b>"
 								+ " <b style='color:"+Main.game.getActiveNPC().getRaceStage().getColour().toWebHexString()+";'>" +Main.game.getActiveNPC().getRaceStage().getName()+"</b>"
 								+ " <b style='color:"+Main.game.getActiveNPC().getRace().getColour().toWebHexString()+";'>" + Main.game.getActiveNPC().getName() + "</b>"
@@ -67,7 +68,7 @@ public class DominionSuccubusDialogue {
 										+ UtilText.parseSpeech("Look what you fucking did!", Main.game.getActiveNPC()))
 							+ "</p>"
 							+ "<p>"
-							+ "As she walks towards you, she points down to her stomach, and you feel your eyes going wide as you see a clearly pregnant bump in her belly."
+								+ "As [npc.she] walks towards you, [npc.she] points down to [npc.her] stomach, and you feel your eyes going wide as you see a clearly pregnant bump in [npc.her] belly."
 							+ "</p>"
 							+ "<p>"
 							+ UtilText.parse(Main.game.getActiveNPC(),
@@ -76,9 +77,9 @@ public class DominionSuccubusDialogue {
 									+ UtilText.parseThought("So get down on your knees, <b>right now</b>, and beg to let me fuck you! Maybe then I won't be quite so mad at you!", Main.game.getActiveNPC()))
 							+ "</p>"
 							+ "<p>"
-							+ "Although she obviously still has a couple of tricks up her sleeve, you haven't seen any arcane elements materialising around her arms."
-							+ " Either due to spending too much energy on setting up that trap, or perhaps because she's become the mother of your children, this demon's arcane ability doesn't seem quite as potent as it should be."
-							+ " Perhaps you can beat her if you were to choose to fight?"
+								+ "Although [npc.she] obviously still has a couple of tricks up [npc.her] sleeve, you haven't seen any arcane elements materialising around [npc.her] arms."
+								+ " Either due to spending too much energy on setting up that trap, or perhaps because [npc.she]'s become the mother of your children, this demon's arcane ability doesn't seem quite as potent as it should be."
+								+ " Perhaps you can beat [npc.herHim] if you were to choose to fight?"
 							+ "</p>");
 				
 				} else {
@@ -89,14 +90,14 @@ public class DominionSuccubusDialogue {
 							+ "</p>"
 							+ "<p>"
 								+ "Deciding that it's better to be safe than sorry, you start to take a step backwards, with the intention of doubling back on yourself and finding another route through the maze-like lanes."
-								+ " As you turn to leave, a familiar, feminine laughter suddenly rings out, echoing off the walls and leaving you turning this way and that as you try to locate the source of the sound."
+								+ " As you turn to leave, a familiar, [npc.feminine] laughter suddenly rings out, echoing off the walls and leaving you turning this way and that as you try to locate the source of the sound."
 							+ "</p>"
 							+ "<p>"
-								+ "Looking in the direction that you were going to be travelling in, you see the feminine figure of a succubus suddenly materialise out of thin air."
-								+ " A huge web, glistening pink with arcane energy, shimmers into life all around her, and with a snap of her fingers, it falls harmlessly to the ground."
+								+ "Looking in the direction that you were going to be travelling in, you see the [npc.feminine] figure of a [npc.race] suddenly materialise out of thin air."
+								+ " A huge web, glistening pink with arcane energy, shimmers into life all around [npc.herHim], and with a snap of [npc.her] fingers, it falls harmlessly to the ground."
 							+ "</p>"
 							+ "<p>"
-								+ "As she steps over the fallen webbing, you recognise your tormentor as the"
+								+ "As [npc.she] steps over the fallen webbing, you recognise your tormentor as the"
 								+ " <b style='color:"+Femininity.valueOf(Main.game.getActiveNPC().getFemininityValue()).getColour().toWebHexString()+";'>"+Femininity.getFemininityName(Main.game.getActiveNPC().getFemininityValue(), false)+"</b>"
 								+ " <b style='color:"+Main.game.getActiveNPC().getRaceStage().getColour().toWebHexString()+";'>" +Main.game.getActiveNPC().getRaceStage().getName()+"</b>"
 								+ " <b style='color:"+Main.game.getActiveNPC().getRace().getColour().toWebHexString()+";'>" + Main.game.getActiveNPC().getName() + "</b>"
@@ -105,11 +106,11 @@ public class DominionSuccubusDialogue {
 							+ "<p>"
 								+ UtilText.parse(Main.game.getActiveNPC(),
 										UtilText.parseSpeech("It's <i>you</i> again?!", Main.game.getActiveNPC())
-										+ " [npc.she] growls, failing to conceal the angry look in her eyes, "
+										+ " [npc.she] growls, failing to conceal the angry look in [npc.her] eyes, "
 										+ UtilText.parseSpeech("I'm still carrying around your children, you fucking asshole!", Main.game.getActiveNPC()))
 							+ "</p>"
 							+ "<p>"
-							+ "As she walks towards you, she points down to her stomach, and you see that the pregnant bump in her belly has only gotten bigger since the last time you saw her."
+							+ "As [npc.she] walks towards you, [npc.she] points down to [npc.her] stomach, and you see that the pregnant bump in [npc.her] belly has only gotten bigger since the last time you saw [npc.herHim]."
 							+ "</p>"
 							+ "<p>"
 							+ UtilText.parse(Main.game.getActiveNPC(),
@@ -118,9 +119,9 @@ public class DominionSuccubusDialogue {
 									+ UtilText.parseThought("So get down on your knees, <b>right now</b>, and beg to let me fuck you! Maybe then I won't be quite so mad at you!", Main.game.getActiveNPC()))
 							+ "</p>"
 							+ "<p>"
-							+ "Although she obviously still has a couple of tricks up her sleeve, you haven't seen any arcane elements materialising around her arms."
-							+ " Either due to spending too much energy on setting up that trap, or perhaps because she's become the mother of your children, this demon's arcane ability doesn't seem quite as potent as it should be."
-							+ " Perhaps you can beat her if you were to choose to fight?"
+								+ "Although [npc.she] obviously still has a couple of tricks up [npc.her] sleeve, you haven't seen any arcane elements materialising around [npc.her] arms."
+								+ " Either due to spending too much energy on setting up that trap, or perhaps because [npc.she]'s become the mother of your children, this demon's arcane ability doesn't seem quite as potent as it should be."
+								+ " Perhaps you can beat [npc.herHim] if you were to choose to fight?"
 							+ "</p>");
 				}
 				
@@ -134,14 +135,14 @@ public class DominionSuccubusDialogue {
 						+ "</p>"
 						+ "<p>"
 							+ "Deciding that it's better to be safe than sorry, you start to take a step backwards, with the intention of doubling back on yourself and finding another route through the maze-like lanes."
-							+ " As you turn to leave, a familiar, feminine laughter suddenly rings out, echoing off the walls and leaving you turning this way and that as you try to locate the source of the sound."
+							+ " As you turn to leave, a familiar, [npc.feminine] laughter suddenly rings out, echoing off the walls and leaving you turning this way and that as you try to locate the source of the sound."
 						+ "</p>"
 						+ "<p>"
-							+ "Looking in the direction that you were going to be travelling in, you see the feminine figure of a succubus suddenly materialise out of thin air."
-							+ " A huge web, glistening pink with arcane energy, shimmers into life all around her, and with a snap of her fingers, it falls harmlessly to the ground."
+							+ "Looking in the direction that you were going to be travelling in, you see the [npc.feminine] figure of a [npc.race] suddenly materialise out of thin air."
+							+ " A huge web, glistening pink with arcane energy, shimmers into life all around [npc.herHim], and with a snap of [npc.her] fingers, it falls harmlessly to the ground."
 						+ "</p>"
 						+ "<p>"
-							+ "As she steps over the fallen webbing, you recognise your tormentor as the"
+							+ "As [npc.she] steps over the fallen webbing, you recognise your tormentor as the"
 							+ " <b style='color:"+Femininity.valueOf(Main.game.getActiveNPC().getFemininityValue()).getColour().toWebHexString()+";'>"+Femininity.getFemininityName(Main.game.getActiveNPC().getFemininityValue(), false)+"</b>"
 							+ " <b style='color:"+Main.game.getActiveNPC().getRaceStage().getColour().toWebHexString()+";'>" +Main.game.getActiveNPC().getRaceStage().getName()+"</b>"
 							+ " <b style='color:"+Main.game.getActiveNPC().getRace().getColour().toWebHexString()+";'>" + Main.game.getActiveNPC().getName() + "</b>"
@@ -150,13 +151,13 @@ public class DominionSuccubusDialogue {
 						+ "<p>"
 							+ UtilText.parse(Main.game.getActiveNPC(),
 									UtilText.parseSpeech("It's you again?!", Main.game.getActiveNPC())
-									+ " [npc.she] laughs, and you see the same hungry look in her eyes that [npc.she] had the last time you saw [npc.herHim], "
+									+ " [npc.she] laughs, and you see the same hungry look in [npc.her] eyes that [npc.she] had the last time you saw [npc.herHim], "
 									+ UtilText.parseSpeech("You're just asking to get fucked!", Main.game.getActiveNPC()))
 						+ "</p>"
 						+ "<p>"
-							+ "It doesn't look like [npc.she]'s any more capable than [npc.she] was the last time you fought [npc.herHim], and you still don't see any arcane elements materialising around her arms."
-							+ " Either due to spending too much energy on setting up that trap, or perhaps because she's too horny to focus on using the arcane in combat, this demon's arcane ability doesn't seem quite as potent as it should be."
-							+ " Perhaps you can beat her if you were to choose to fight? But then again, you could always kneel and submit..."
+							+ "It doesn't look like [npc.she]'s any more capable than [npc.she] was the last time you fought [npc.herHim], and you still don't see any arcane elements materialising around [npc.her] arms."
+							+ " Either due to spending too much energy on setting up that trap, or perhaps because [npc.she]'s too horny to focus on using the arcane in combat, this demon's arcane ability doesn't seem quite as potent as it should be."
+							+ " Perhaps you can beat [npc.herHim] if you were to choose to fight? But then again, you could always kneel and submit..."
 						+ "</p>");
 					
 				} else {
@@ -168,19 +169,19 @@ public class DominionSuccubusDialogue {
 							+ "</p>"
 							+ "<p>"
 								+ "Deciding that it's better to be safe than sorry, you start to take a step backwards, with the intention of doubling back on yourself and finding another route through the maze-like lanes."
-								+ " As you turn to leave, a high-pitched, feminine laughter suddenly rings out, echoing off the walls and leaving you turning this way and that as you try to locate the source of the sound."
+								+ " As you turn to leave, a high-pitched, [npc.feminine] laughter suddenly rings out, echoing off the walls and leaving you turning this way and that as you try to locate the source of the sound."
 								+ " For a brief instant, you're reminded of that fateful night back at the museum, but just as you remind yourself that Lilith sounded nothing like this, you catch a glimpse of your elusive tormentor."
 							+ "</p>"
 							+ "<p>"
-								+ "Looking in the direction that you were going to be travelling in, you see a feminine figure suddenly materialise out of thin air."
-								+ " A huge web, glistening pink with arcane energy, shimmers into life all around her, and with a snap of her fingers, it falls harmlessly to the ground."
+								+ "Looking in the direction that you were going to be travelling in, you see a [npc.feminine] figure suddenly materialise out of thin air."
+								+ " A huge web, glistening pink with arcane energy, shimmers into life all around [npc.herHim], and with a snap of [npc.her] fingers, it falls harmlessly to the ground."
 							+ "</p>"
 							+ "<p>"
-								+ "As she steps over the fallen webbing, you see that your tormentor is, in fact, "
+								+ "As [npc.she] steps over the fallen webbing, you see that your tormentor is, in fact, "
 								+ " <b style='color:"+Femininity.valueOf(Main.game.getActiveNPC().getFemininityValue()).getColour().toWebHexString()+";'>"+Femininity.getFemininityName(Main.game.getActiveNPC().getFemininityValue(), true)+"</b>"
 								+ " <b style='color:"+Main.game.getActiveNPC().getRaceStage().getColour().toWebHexString()+";'>" +Main.game.getActiveNPC().getRaceStage().getName()+"</b>"
 								+ " <b style='color:"+Main.game.getActiveNPC().getRace().getColour().toWebHexString()+";'>" + Main.game.getActiveNPC().getName() + "</b>"
-								+ ". Unlike Lilaya"+(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.kateIntroduced)?" or Kate":"")+", this demon has a hungry, primal look in her eyes, and as she moves closer, she starts to talk."
+								+ ". Unlike Lilaya"+(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.kateIntroduced)?" or Kate":"")+", this demon has a hungry, primal look in [npc.her] eyes, and as [npc.she] moves closer, [npc.she] starts to talk."
 							+ "</p>"
 							+ "<p>"
 								+ UtilText.parse(Main.game.getActiveNPC(),
@@ -193,7 +194,7 @@ public class DominionSuccubusDialogue {
 												+ " <i>Five fucking hours!</i>", Main.game.getActiveNPC()))
 							+ "</p>"
 							+ "<p>"
-							+ "Although she's been steadily walking towards you this whole time, she suddenly stops, about three metres in front of you, and you realise that she's a little unsure of what you're capable of."
+							+ "Although [npc.she]'s been steadily walking towards you this whole time, [npc.she] suddenly stops, about three metres in front of you, and you realise that [npc.she]'s a little unsure of what you're capable of."
 							+ "</p>"
 							+ "<p>"
 							+ UtilText.parse(Main.game.getActiveNPC(),
@@ -202,9 +203,9 @@ public class DominionSuccubusDialogue {
 									+ UtilText.parseThought("So get down on your knees, <b>right now</b>, and beg for me to fuck you!", Main.game.getActiveNPC()))
 							+ "</p>"
 							+ "<p>"
-							+ "Although she obviously still has a couple of tricks up her sleeve, you haven't seen any arcane elements materialising around her arms."
-							+ " Either due to spending too much energy on setting up that trap, or perhaps because all she can think about is sex, this demon's arcane ability doesn't seem quite as potent as it should be."
-							+ " Perhaps you can beat her if you were to choose to fight?"
+								+ "Although [npc.she] obviously still has a couple of tricks up [npc.her] sleeve, you haven't seen any arcane elements materialising around [npc.her] arms."
+								+ " Either due to spending too much energy on setting up that trap, or perhaps because all [npc.she] can think about is sex, this demon's arcane ability doesn't seem quite as potent as it should be."
+								+ " Perhaps you can beat [npc.herHim] if you were to choose to fight?"
 							+ "</p>");
 				}
 			}
@@ -213,7 +214,7 @@ public class DominionSuccubusDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "This demon doesn't look so tough! You're pretty sure you can beat her.", ALLEY_DEMON_ATTACK, Main.game.getActiveNPC()){
+				return new ResponseCombat("Fight", "This demon doesn't look so tough! You're pretty sure you can beat [npc.herHim].", ALLEY_DEMON_ATTACK, Main.game.getActiveNPC()){
 					@Override
 					public void effects() {
 						if(Main.game.getActiveNPC().isVisiblyPregnant())
@@ -222,7 +223,7 @@ public class DominionSuccubusDialogue {
 				};
 				
 			} else if (index == 2) {
-				return new Response("Kneel", "Maybe she'll go easy on you if you were to do as she says?", SUBMITTING){
+				return new Response("Kneel", "Maybe [npc.she]'ll go easy on you if you were to do as [npc.she] says?", SUBMITTING){
 					@Override
 					public void effects() {
 						if(Main.game.getActiveNPC().isVisiblyPregnant())
@@ -241,30 +242,31 @@ public class DominionSuccubusDialogue {
 
 		@Override
 		public String getDescription() {
-			return "You have defeated " + Main.game.getActiveNPC().getName("the") + "!";
+			return "You have defeated [npc.name]!";
 		}
 
 		@Override
-		public String getContent() {
+		public String getContent() { //TODO
 			return "<p>"
-						+ Main.game.getActiveNPC().getName("The") + " lets out a manic, passionate moan as she collapses back against a nearby wall."
-						+ " Much to your surprise, the hungry look in her eyes only seems to grow even fiercer in defeat, and she pouts at you before starting to desperately plead for sex."
+						+ "[npc.Name] lets out a manic, passionate moan as [npc.she] collapses back against a nearby wall."
+						+ " Much to your surprise, the hungry look in [npc.her] eyes only seems to grow even fiercer in defeat, and [npc.she] pouts at you before starting to desperately plead for sex."
 					+ "</p>"
 					+ "<p>"
 						+ UtilText.parseSpeech("Please! Let's just fuck already! I'll let you use my pussy! Or my mouth! Or even my ass! I just need to get off so badly!", Main.game.getActiveNPC())
-						+" she whines, letting out a little cry as she hungrily looks up and down your body, "
+						+" [npc.she] whines, letting out a little cry as [npc.she] hungrily looks up and down your body, "
 						+ UtilText.parseSpeech("You know how demons can transform themselves, right? You want me to grow a cock? I can do that too! Anything! Please!", Main.game.getActiveNPC())
 					+ "</p>"
 					+ "<p>"
-					+ "With that, she reaches down between her legs and starts pressing her dress up against her concealed pussy, clenching her thighs down around her hand as she carries on whining and pleading for you to use her."
-					+ " You wonder if you should help her out, or just walk away and leave her to get some release from the next person she bumps in to."
+					+ "With that, [npc.she] reaches down between [npc.her] legs and starts pressing [npc.her] dress up against [npc.her] concealed pussy,"
+						+ " clenching [npc.her] thighs down around [npc.her] hand as [npc.she] carries on whining and pleading for you to use [npc.herHim]."
+					+ " You wonder if you should help [npc.herHim] out, or just walk away and leave [npc.herHim] to get some release from the next person [npc.she] bumps in to."
 					+ "</p>";
 		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Leave her", "You don't really want to get involved with someone like this. Turn around and carry on your way.", null){
+				return new Response("Leave [npc.herHim]", "You don't really want to get involved with someone like this. Turn around and carry on your way.", null){
 					@Override
 					public DialogueNodeOld getNextDialogue() {
 						return DebugDialogue.getDefaultDialogueNoEncounter();
@@ -272,8 +274,18 @@ public class DominionSuccubusDialogue {
 				};
 				
 			} else if (index == 2) {
-				return new Response("Transformations",
-						"If all she wants is sex, then you're more than happy to oblige. Besides, if she's able to transform herself, you have a few ideas in mind...",
+				return new ResponseSex("Sex",
+						"Tell the [npc.race] that you want [npc.herHim] to make [npc.her] breasts as large as possible, which will leave [npc.herHim] with massive N-cup tits.",
+						true,
+						false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
+						"<p>"
+							+ "Satisfied with how [npc.name] looks, you decide to give [npc.herHim] what [npc.she] wants, and, stepping forwards, you allow [npc.herHim] to move towards you, grinning as [npc.she] starts grinding [npc.herself] up against you."
+							+ " Pressing your [pc.lips] to [npc.hers] and delivering a passionate kiss, you reach around and grope [npc.name]'s ass as [npc.she] moans hotly into your mouth..."
+						+ "</p>");
+				
+			} else if (index == 3) {
+				return new Response("Quick transformations",
+						"If all [npc.she] wants is sex, then you're more than happy to oblige. Besides, if [npc.she]'s able to transform [npc.herself], you have a few ideas in mind... (Proceed to sex with a few choices.)",
 						AFTER_COMBAT_TRANSFORMATIONS_PENIS){
 					@Override
 					public boolean isSexHighlight() {
@@ -281,48 +293,59 @@ public class DominionSuccubusDialogue {
 					}
 				};
 				
-			} else if (index == 3) {
+			} else if (index == 4) {
+				return new Response("Full transformations",
+						"Take a very detailed look at what [npc.name] can transform [npc.herself] into...",
+						BodyChanging.BODY_CHANGING_CORE){
+					@Override
+					public void effects() {
+						Main.game.saveDialogueNode();
+						BodyChanging.setTarget(Main.game.getActiveNPC());
+					}
+				};
+				
+			} else if (index == 5) {
 				return new ResponseSex("Submit",
-						"Seeing the desperate, whining form of the horny succubus is proving to be too much for you to bear."
-								+ " Perhaps you could cheer her up by <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>submitting to her</b> and letting her use your body?",
+						"Seeing the desperate, whining form of the horny [npc.race] is proving to be too much for you to bear."
+								+ " Perhaps you could cheer [npc.herHim] up by <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>submitting to [npc.herHim]</b> and letting [npc.herHim] use your body?",
 						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)),
 						null, null, null, null, null, true,
 						true, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT, "<p>"
-							+ "As "+Main.game.getActiveNPC().getName("the")+" carries on whining and desperately touching herself, you start to feel incredibly sorry for her."
-							+ " Stepping forwards, you lean down and look up into her "+Main.game.getActiveNPC().getEyeName()+", "
+							+ "As "+Main.game.getActiveNPC().getName("the")+" carries on whining and desperately touching [npc.herself], you start to feel incredibly sorry for [npc.herHim]."
+							+ " Stepping forwards, you lean down and look up into [npc.her] "+Main.game.getActiveNPC().getEyeName()+", "
 							+UtilText.parsePlayerSpeech("I'm sorry! I didn't mean to upset you!")
 						+ "</p>"
 						+ "<p>"
-						+ "Your efforts at calming "+Main.game.getActiveNPC().getName("the")+" down only seem to make her whine out even more, and,"
+						+ "Your efforts at calming "+Main.game.getActiveNPC().getName("the")+" down only seem to make [npc.herHim] whine out even more, and,"
 								+ " feeling extremely sorry for the poor, horny demon, you make an offer that you might soon regret..."
 						+ "</p>"
 						+ "<p>"
 						+UtilText.parsePlayerSpeech("So, you need me to help you get some release?")
 						+ "</p>"
 						+ "<p>"
-						+ Main.game.getActiveNPC().getName("The")+"'s eyes flick up as she stops whining for a moment, "
+						+ Main.game.getActiveNPC().getName("The")+"'s eyes flick up as [npc.she] stops whining for a moment, "
 						+ UtilText.parseSpeech("Yes... But I can't get off unless I'm the one in charge...", Main.game.getActiveNPC())
 						+ "</p>"
 						+ "<p>"
 						+UtilText.parsePlayerSpeech("Well, in that case, I'm happy to let yo- ~Mrph!~")
 						+ "</p>"
 						+ "<p>"
-						+ Main.game.getActiveNPC().getName("The")+" suddenly rocks forwards, pressing her lips against yours as she pulls you into a passionate kiss."
-							+ " Her whining instantly stopped as you started to offer your body to her, and as she grinds up against you, the only noises that come from her mouth are deep, pleasurable moans."
+						+ Main.game.getActiveNPC().getName("The")+" suddenly rocks forwards, pressing [npc.her] lips against yours as [npc.she] pulls you into a passionate kiss."
+							+ " [npc.Her] whining instantly stopped as you started to offer your body to [npc.herHim], and as [npc.she] grinds up against you, the only noises that come from [npc.her] mouth are deep, pleasurable moans."
 						+ "</p>"
 						+ "<p>"
-							+ "Before you really know what's going on, she's pulled you up to your feet, and as her body presses up tightly against yours, you feel a strange bulge digging into your leg."
-							+ " Breaking off the kiss for a moment, you look down, and your eyes go wide as you see the distinctive shape of a massive erection forming beneath the fabric of her dress."
-							+ " You gulp as you remember what she said just moments ago, and you realise that she's growing herself a cock to fuck you with."
+							+ "Before you really know what's going on, [npc.she]'s pulled you up to your feet, and as [npc.her] body presses up tightly against yours, you feel a strange bulge digging into your leg."
+							+ " Breaking off the kiss for a moment, you look down, and your eyes go wide as you see the distinctive shape of a massive erection forming beneath the fabric of [npc.her] dress."
+							+ " You gulp as you remember what [npc.she] said just moments ago, and you realise that [npc.she]'s growing [npc.herself] a cock to fuck you with."
 						+ "</p>"
 						+ "<p>"
-							+ "Seeing what you're looking at, the succubus lets out a playful giggle, "
+							+ "Seeing what you're looking at, the [npc.race] lets out a playful giggle, "
 							+ UtilText.parseSpeech("What? You didn't seriously think I'd let you use my pussy, did you?"
 									+ " You're the one who's offering to help here, remember?! If you didn't want to be my little fuck-toy, perhaps you should have just walked away!", Main.game.getActiveNPC())
 						+ "</p>"
 						+ "<p>"
-							+ "Before you can respond, she leans forwards and presses her lips against yours once more, thrusting her forked tongue into your mouth as she lets out a happy moan."
-							+ " You're far too submissive to consider putting a stop to this, and you find yourself desperately kissing her back as you resign yourself to your fate..."
+							+ "Before you can respond, [npc.she] leans forwards and presses [npc.her] lips against yours once more, thrusting [npc.her] forked tongue into your mouth as [npc.she] lets out a happy moan."
+							+ " You're far too submissive to consider putting a stop to this, and you find yourself desperately kissing [npc.herHim] back as you resign yourself to your fate..."
 						+ "</p>"){
 					@Override
 					public void effects() {
@@ -371,12 +394,12 @@ public class DominionSuccubusDialogue {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "You can't pass up an opportunity like this, and as you step towards the horny succubus, she lets out a delighted squeal, "
+						+ "You can't pass up an opportunity like this, and as you step towards the horny [npc.race], [npc.she] lets out a delighted squeal, "
 						+ UtilText.parseSpeech("Yes! Come fuck me!", Main.game.getActiveNPC())
 					+ "</p>"
 					+ "<p>"
-					+ "Jumping up onto her feet, she leaps forwards and tries to pull you into a kiss."
-					+ " Wanting to take her up on her offer of transforming herself, you grab her shoulders and prevent her from getting too close just yet."
+					+ "Jumping up onto [npc.her] feet, [npc.she] leaps forwards and tries to pull you into a kiss."
+					+ " Wanting to take [npc.herHim] up on [npc.her] offer of transforming [npc.herself], you grab [npc.her] shoulders and prevent [npc.herHim] from getting too close just yet."
 					+ "</p>";
 		}
 		
@@ -384,7 +407,7 @@ public class DominionSuccubusDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("No cock",
-						"Tell the succubus that you don't want her to grow a cock.",
+						"Tell the [npc.race] that you don't want [npc.herHim] to grow a cock.",
 						AFTER_COMBAT_TRANSFORMATIONS_VAGINA){
 					@Override
 					public boolean isSexHighlight() {
@@ -395,11 +418,11 @@ public class DominionSuccubusDialogue {
 						Main.game.getActiveNPC().getPlayerKnowsAreasMap().put(CoverableArea.PENIS, true);
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
-								+ "Not really liking the sound of having her grow a cock, you tell her as much, "
+								+ "Not really liking the sound of having [npc.herHim] grow a cock, you tell [npc.herHim] as much, "
 								+	UtilText.parsePlayerSpeech("I don't want to see you trying to grow a cock, ok?")
 								+ "</p>"
 								+ "<p>"
-								+ "Trying to wriggle out of your grasp, the succubus moans, "
+								+ "Trying to wriggle out of your grasp, the [npc.race] moans, "
 								+ UtilText.parseSpeech("Aww! You're no fun... Let's just get started already!", Main.game.getActiveNPC())
 								+"</p>");
 					}
@@ -407,7 +430,7 @@ public class DominionSuccubusDialogue {
 				
 			} else if (index == 2) {
 				return new Response("Tiny cock",
-						"Tell the succubus that you want her to grow a tiny little 1-inch cock.",
+						"Tell the [npc.race] that you want [npc.herHim] to grow a tiny little 1-inch cock.",
 						AFTER_COMBAT_TRANSFORMATIONS_VAGINA){
 					@Override
 					public boolean isSexHighlight() {
@@ -422,22 +445,22 @@ public class DominionSuccubusDialogue {
 						Main.game.getActiveNPC().setCumProduction(CumProduction.FIVE_HUGE.getMaximumValue());
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
-								+ "Deciding that she should have a cute little sissy-cock, you order the succubus to grow one, "
+								+ "Deciding that [npc.she] should have a cute little sissy-cock, you order the [npc.race] to grow one, "
 								+	UtilText.parsePlayerSpeech("I think a little bit of humiliation would do you good! You're going to grow a cute little cock for me, understood? And keep it tiny!")
 								+ "</p>"
 								+ "<p>"
-								+ "Trying to wriggle out of your grasp, the succubus moans, "
+								+ "Trying to wriggle out of your grasp, the [npc.race] moans, "
 								+ UtilText.parseSpeech("Fine! Just... Aah... Hold on... Ok, all done, can we start now?!", Main.game.getActiveNPC())
 								+"</p>"
 								+ "<p>"
-								+ "Looking down at her crotch, you don't see any sign of a bulge beneath her dress, but then again, if she's kept it tiny like you asked, you wouldn't expect to see anything there anyway."
+								+ "Looking down at [npc.her] crotch, you don't see any sign of a bulge beneath [npc.her] dress, but then again, if [npc.she]'s kept it tiny like you asked, you wouldn't expect to see anything there anyway."
 								+ "</p>");
 					}
 				};
 				
 			} else if (index == 3) {
 				return new Response("Average-sized cock",
-						"Tell the succubus that you want her to grow an average, 6-inch, cock.",
+						"Tell the [npc.race] that you want [npc.herHim] to grow an average, 6-inch, cock.",
 						AFTER_COMBAT_TRANSFORMATIONS_VAGINA){
 					@Override
 					public boolean isSexHighlight() {
@@ -452,22 +475,22 @@ public class DominionSuccubusDialogue {
 						Main.game.getActiveNPC().setCumProduction(CumProduction.FIVE_HUGE.getMaximumValue());
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
-								+ "Deciding that she should have an average-sized cock, you order the succubus to grow one, "
+								+ "Deciding that [npc.she] should have an average-sized cock, you order the [npc.race] to grow one, "
 								+	UtilText.parsePlayerSpeech("You're going to grow a cock for me, understood? And keep it a reasonable size! I don't want to see anything too big!")
 								+ "</p>"
 								+ "<p>"
-								+ "Trying to wriggle out of your grasp, the succubus moans, "
+								+ "Trying to wriggle out of your grasp, the [npc.race] moans, "
 								+ UtilText.parseSpeech("Fine! Just... Aah... Hold on... Ok, all done, can we start now?!", Main.game.getActiveNPC())
 								+"</p>"
 								+ "<p>"
-								+ "Looking down at her crotch, you see a small bulge beneath her dress, and you find yourself smiling in delight as you realise that the succubus is going to do anything you command."
+								+ "Looking down at [npc.her] crotch, you see a small bulge beneath [npc.her] dress, and you find yourself smiling in delight as you realise that the [npc.race] is going to do anything you command."
 								+ "</p>");
 					}
 				};
 				
 			} if (index == 4) {
 				return new Response("Large cock",
-						"Tell the succubus that you want her to grow a large, 11-inch cock.",
+						"Tell the [npc.race] that you want [npc.herHim] to grow a large, 11-inch cock.",
 						AFTER_COMBAT_TRANSFORMATIONS_VAGINA){
 					@Override
 					public boolean isSexHighlight() {
@@ -482,22 +505,22 @@ public class DominionSuccubusDialogue {
 						Main.game.getActiveNPC().setCumProduction(CumProduction.FIVE_HUGE.getMaximumValue());
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
-								+ "Deciding that she should have a nice, big cock, you order the succubus to grow one, "
+								+ "Deciding that [npc.she] should have a nice, big cock, you order the [npc.race] to grow one, "
 								+	UtilText.parsePlayerSpeech("You're going to grow a cock for me, understood? And make it a big one!")
 								+ "</p>"
 								+ "<p>"
-								+ "Trying to wriggle out of your grasp, the succubus moans, "
+								+ "Trying to wriggle out of your grasp, the [npc.race] moans, "
 								+ UtilText.parseSpeech("Fine! Just... Aah... Hold on... Ok, all done, can we start now?!", Main.game.getActiveNPC())
 								+"</p>"
 								+ "<p>"
-								+ "Looking down at her crotch, you see a large bulge beneath her dress, and you find yourself smiling in delight as you realise that the succubus is going to do anything you command."
+								+ "Looking down at [npc.her] crotch, you see a large bulge beneath [npc.her] dress, and you find yourself smiling in delight as you realise that the [npc.race] is going to do anything you command."
 								+ "</p>");
 					}
 				};
 				
 			} if (index == 5) {
 				return new Response("Enormous cock",
-						"Tell the succubus that you want her to grow a massive 19-inch cock.",
+						"Tell the [npc.race] that you want [npc.herHim] to grow a massive 19-inch cock.",
 						AFTER_COMBAT_TRANSFORMATIONS_VAGINA){
 					@Override
 					public boolean isSexHighlight() {
@@ -512,15 +535,15 @@ public class DominionSuccubusDialogue {
 						Main.game.getActiveNPC().setCumProduction(CumProduction.FIVE_HUGE.getMaximumValue());
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
-								+ "Deciding that she should have the biggest cock she's able to grow, you order the succubus to get started, "
+								+ "Deciding that [npc.she] should have the biggest cock [npc.she]'s able to grow, you order the [npc.race] to get started, "
 								+	UtilText.parsePlayerSpeech("You're going to grow a cock for me, understood? And make it as big as possible! If you aren't hung like a horse, I'm not interested!")
 								+ "</p>"
 								+ "<p>"
-								+ "Trying to wriggle out of your grasp, the succubus moans, "
+								+ "Trying to wriggle out of your grasp, the [npc.race] moans, "
 								+ UtilText.parseSpeech("Fine! Just... Aah... Hold on... Ok, all done, can we start now?!", Main.game.getActiveNPC())
 								+"</p>"
 								+ "<p>"
-								+ "Looking down at her crotch, you see a massive bulge beneath her dress, and you find yourself smiling in delight as you realise that the succubus is going to do anything you command."
+								+ "Looking down at [npc.her] crotch, you see a massive bulge beneath [npc.her] dress, and you find yourself smiling in delight as you realise that the [npc.race] is going to do anything you command."
 								+ "</p>");
 					}
 				};
@@ -539,7 +562,7 @@ public class DominionSuccubusDialogue {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "Panting and moaning, the succubus pleads with you, "
+						+ "Panting and moaning, the [npc.race] pleads with you, "
 						+ UtilText.parseSpeech("Come on! There isn't anything else is there? Let's just get going already!", Main.game.getActiveNPC())
 					+ "</p>";
 		}
@@ -548,7 +571,7 @@ public class DominionSuccubusDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Keep vagina",
-						"Tell the succubus that you want her to keep her pussy.",
+						"Tell the [npc.race] that you want [npc.herHim] to keep [npc.her] pussy.",
 						AFTER_COMBAT_TRANSFORMATIONS_BREASTS){
 					@Override
 					public boolean isSexHighlight() {
@@ -559,11 +582,11 @@ public class DominionSuccubusDialogue {
 						Main.game.getActiveNPC().getPlayerKnowsAreasMap().put(CoverableArea.VAGINA, true);
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
-								+ "Wanting to make sure that she keeps her pussy, you order her once more, "
+								+ "Wanting to make sure that [npc.she] keeps [npc.her] pussy, you order [npc.herHim] once more, "
 								+	UtilText.parsePlayerSpeech("Don't try and get rid of your pussy! I've got plans for it!")
 								+ "</p>"
 								+ "<p>"
-								+ "By now the succubus has stopped trying to get out of your grasp, and just obediently sighs, "
+								+ "By now the [npc.race] has stopped trying to get out of your grasp, and just obediently sighs, "
 								+ UtilText.parseSpeech("Ok, ok! I wasn't planning on getting rid of it anyway! Now let's start! Come on!", Main.game.getActiveNPC())
 								+"</p>");
 					}
@@ -571,7 +594,7 @@ public class DominionSuccubusDialogue {
 				
 			} else if (index == 2) {
 				return new Response("Remove vagina",
-						"Tell the succubus that she won't be needing her pussy.",
+						"Tell the [npc.race] that [npc.she] won't be needing [npc.her] pussy.",
 						AFTER_COMBAT_TRANSFORMATIONS_BREASTS){
 					@Override
 					public boolean isSexHighlight() {
@@ -583,15 +606,15 @@ public class DominionSuccubusDialogue {
 						Main.game.getActiveNPC().setVaginaType(VaginaType.NONE);
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
-								+ "Not having any plans to use her pussy, you decide to humiliate her a little, and bark out your second order, "
+								+ "Not having any plans to use [npc.her] pussy, you decide to humiliate [npc.herHim] a little, and bark out your second order, "
 								+	UtilText.parsePlayerSpeech("I don't want to see a pussy between your legs, understood? You're not getting off like that with me!")
 								+ "</p>"
 								+ "<p>"
-								+ "By now the succubus has stopped trying to get out of your grasp, but as you order her to remove her pussy, she shuffles around uncomfortably and lets out a mortified groan, "
+								+ "By now the [npc.race] has stopped trying to get out of your grasp, but as you order [npc.herHim] to remove [npc.her] pussy, [npc.she] shuffles around uncomfortably and lets out a mortified groan, "
 								+ UtilText.parseSpeech("No! Please, not my pussy! It's not a real orgasm if I don't have one!", Main.game.getActiveNPC())
 								+"</p>"
 								+ "<p>"
-								+ "Unimpressed by her reluctance to do as she's told, you give her a final ultimatum, "
+								+ "Unimpressed by [npc.her] reluctance to do as [npc.she]'s told, you give [npc.herHim] a final ultimatum, "
 								+	UtilText.parsePlayerSpeech("If you don't do as you're told, I'll just walk away, and you can wait for another five hours before someone else comes walking by.")
 								+ "</p>"
 								+ "<p>"
@@ -612,12 +635,12 @@ public class DominionSuccubusDialogue {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "Letting out a pitiful whine, the succubus stares up into your eyes, "
+						+ "Letting out a pitiful whine, the [npc.race] stares up into your eyes, "
 						+ UtilText.parseSpeech("You can't drag this out any more! Come on already!", Main.game.getActiveNPC())
 					+ "</p>"
 					+ "<p>"
-						+ "Ignoring her request, you wonder if you should get her to perform one final transformation."
-						+ " Her huge, E-cup breasts might need some work, after all..."
+						+ "Ignoring [npc.her] request, you wonder if you should get [npc.herHim] to perform one final transformation."
+						+ " [npc.Her] huge, E-cup breasts might need some work, after all..."
 					+ "</p>";
 		}
 		
@@ -625,20 +648,20 @@ public class DominionSuccubusDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("AA-cup",
-						"Tell the succubus to make her breasts tiny little AA-cups.",
+						"Tell the [npc.race] to make [npc.her] breasts tiny little AA-cups.",
 						true,
 						false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY, "<p>"
-							+ "Wanting to humiliate her a little, you order her to get rid of her breasts, "
+							+ "Wanting to humiliate [npc.herHim] a little, you order [npc.herHim] to get rid of [npc.her] breasts, "
 							+	UtilText.parsePlayerSpeech("These massive tits of yours are far too big! You're going to shrink them right down, understand? If they're anything bigger than little double-A's, I'm walking away!")
 						+ "</p>"
 						+ "<p>"
-							+ "With a desperate sob, the succubus does as you command, "
+							+ "With a desperate sob, the [npc.race] does as you command, "
 							+ UtilText.parseSpeech("Really?! Aah... I just need to get fucked so bad... Fine!", Main.game.getActiveNPC())
 						+"</p>"
 						+ "<p>"
-							+ "Looking down at her chest, you see her huge, E-cup breasts rapidly shrink down, and after just a couple of seconds, she's almost completely flat-chested."
-							+ " Satisfied with your changes, you decide to finally give the succubus what she wants, and, releasing her shoulders, you allow her to step forwards and grind herself up against you."
-							+ " Leaning down to deliver a passionate kiss, you reach around and grope the succubus's ass as she moans hotly into your mouth."
+							+ "Looking down at [npc.her] chest, you see [npc.her] huge, E-cup breasts rapidly shrink down, and after just a couple of seconds, [npc.she]'s almost completely flat-chested."
+							+ " Satisfied with your changes, you decide to finally give the [npc.race] what [npc.she] wants, and, releasing [npc.her] shoulders, you allow [npc.herHim] to step forwards and grind [npc.herself] up against you."
+							+ " Leaning down to deliver a passionate kiss, you reach around and grope the [npc.race]'s ass as [npc.she] moans hotly into your mouth."
 						+ "</p>"){
 					@Override
 					public void effects() {
@@ -648,20 +671,20 @@ public class DominionSuccubusDialogue {
 				
 			} else if (index == 2) {
 				return new ResponseSex("C-cup",
-						"Tell the succubus to make her breasts a more reasonable, C-cup size.",
+						"Tell the [npc.race] to make [npc.her] breasts a more reasonable, C-cup size.",
 						true,
 						false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY, "<p>"
-							+ "Wanting to reduce the size of her huge breasts a little, you order her to make the change, "
+							+ "Wanting to reduce the size of [npc.her] huge breasts a little, you order [npc.herHim] to make the change, "
 							+	UtilText.parsePlayerSpeech("These massive tits of yours are far too big! Make them a more reasonable size! C-cups should do just fine.")
 						+ "</p>"
 						+ "<p>"
-							+ "With a desperate moan, the succubus does as you command, "
+							+ "With a desperate moan, the [npc.race] does as you command, "
 							+ UtilText.parseSpeech("Aww... Fine!", Main.game.getActiveNPC())
 						+"</p>"
 						+ "<p>"
-							+ "Looking down at her chest, you see her huge, E-cup breasts rapidly shrink down, and after just a couple of seconds, she's left with a much more reasonable bust."
-							+ " Satisfied with your changes, you decide to finally give the succubus what she wants, and, releasing her shoulders, you allow her to step forwards and grind herself up against you."
-							+ " Leaning down to deliver a passionate kiss, you reach around and grope the succubus's ass as she moans hotly into your mouth."
+							+ "Looking down at [npc.her] chest, you see [npc.her] huge, E-cup breasts rapidly shrink down, and after just a couple of seconds, [npc.she]'s left with a much more reasonable bust."
+							+ " Satisfied with your changes, you decide to finally give the [npc.race] what [npc.she] wants, and, releasing [npc.her] shoulders, you allow [npc.herHim] to step forwards and grind [npc.herself] up against you."
+							+ " Leaning down to deliver a passionate kiss, you reach around and grope the [npc.race]'s ass as [npc.she] moans hotly into your mouth."
 						+ "</p>"){
 					@Override
 					public void effects() {
@@ -671,12 +694,12 @@ public class DominionSuccubusDialogue {
 				
 			} else if (index == 3) {
 				return new ResponseSex("E-cup",
-						"Tell the succubus to keep her breasts as E-cups.",
+						"Tell the [npc.race] to keep [npc.her] breasts as E-cups.",
 						true,
 						false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY, "<p>"
-							+ "Looking down at her chest, you find yourself happy enough already as you see her huge, E-cup breasts."
-							+ " Satisfied with your changes, you decide to finally give the succubus what she wants, and, releasing her shoulders, you allow her to step forwards and grind herself up against you."
-							+ " Leaning down to deliver a passionate kiss, you reach around and grope the succubus's ass as she moans hotly into your mouth."
+							+ "Looking down at [npc.her] chest, you find yourself happy enough already as you see [npc.her] huge, E-cup breasts."
+							+ " Satisfied with your changes, you decide to finally give the [npc.race] what [npc.she] wants, and, releasing [npc.her] shoulders, you allow [npc.herHim] to step forwards and grind [npc.herself] up against you."
+							+ " Leaning down to deliver a passionate kiss, you reach around and grope the [npc.race]'s ass as [npc.she] moans hotly into your mouth."
 						+ "</p>"){
 					@Override
 					public void effects() {
@@ -686,21 +709,21 @@ public class DominionSuccubusDialogue {
 				
 			} else if (index == 4) {
 				return new ResponseSex("H-cup",
-						"Tell the succubus to grow her breasts into huge H-cups.",
+						"Tell the [npc.race] to grow [npc.her] breasts into huge H-cups.",
 						true,
 						false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY, "<p>"
-							+ "Wanting to make her breasts a little bigger, you order her to make the change, "
+							+ "Wanting to make [npc.her] breasts a little bigger, you order [npc.herHim] to make the change, "
 							+	UtilText.parsePlayerSpeech("I thought succubi liked having big breasts? I don't know what you'd call those things, but they're definitely not big by my standards."
 									+ " Make them at least an H-cup, and we can finally get started.")
 						+ "</p>"
 						+ "<p>"
-							+ "You see the succubus's cheeks flash red, and you realise that you've obviously touched a nerve, "
+							+ "You see the [npc.race]'s cheeks flash red, and you realise that you've obviously touched a nerve, "
 							+ UtilText.parseSpeech("W-What?! But everyone always says that these are big enough! F-Fine... I can make them bigger for you...", Main.game.getActiveNPC())
 						+"</p>"
 						+ "<p>"
-							+ "Looking down at her chest, you see her huge, E-cup breasts start to expand, and after just a couple of seconds, she's left with a massive, H-cup bust."
-							+ " Satisfied with your changes, you decide to finally give the succubus what she wants, and, releasing her shoulders, you allow her to step forwards and grind herself up against you."
-							+ " Leaning down to deliver a passionate kiss, you reach around and grope the succubus's ass as she moans hotly into your mouth."
+							+ "Looking down at [npc.her] chest, you see [npc.her] huge, E-cup breasts start to expand, and after just a couple of seconds, [npc.she]'s left with a massive, H-cup bust."
+							+ " Satisfied with your changes, you decide to finally give the [npc.race] what [npc.she] wants, and, releasing [npc.her] shoulders, you allow [npc.herHim] to step forwards and grind [npc.herself] up against you."
+							+ " Leaning down to deliver a passionate kiss, you reach around and grope the [npc.race]'s ass as [npc.she] moans hotly into your mouth."
 						+ "</p>"){
 					@Override
 					public void effects() {
@@ -710,21 +733,21 @@ public class DominionSuccubusDialogue {
 				
 			} else if (index == 5) {
 				return new ResponseSex("N-cup",
-						"Tell the succubus that you want her to make her breasts as large as possible, which will leave her with massive N-cup tits.",
+						"Tell the [npc.race] that you want [npc.herHim] to make [npc.her] breasts as large as possible, which will leave [npc.herHim] with massive N-cup tits.",
 						true,
 						false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY, "<p>"
-								+ "Wanting to make her breasts as big as possible, you order her to make the change, "
+								+ "Wanting to make [npc.her] breasts as big as possible, you order [npc.herHim] to make the change, "
 								+	UtilText.parsePlayerSpeech("I thought succubi liked having big breasts? I don't know what you'd call those things, but they're definitely not big by my standards."
 										+ " I want to see just how big you can make them!")
 							+ "</p>"
 							+ "<p>"
-								+ "You see the succubus's cheeks flash red, and you realise that you've obviously touched a nerve, "
+								+ "You see the [npc.race]'s cheeks flash red, and you realise that you've obviously touched a nerve, "
 								+ UtilText.parseSpeech("W-What?! But everyone always says that these are big enough! F-Fine... I can make them bigger...", Main.game.getActiveNPC())
 							+"</p>"
 							+ "<p>"
-								+ "Looking down at her chest, you see her huge, E-cup breasts start to expand, and after just a couple of seconds, she's left with an absolutely massive, N-cup bust."
-								+ " Satisfied with your changes, you decide to finally give the succubus what she wants, and, releasing her shoulders, you allow her to step forwards and grind herself up against you."
-								+ " Leaning down to deliver a passionate kiss, you reach around and grope the succubus's ass as she moans hotly into your mouth."
+								+ "Looking down at [npc.her] chest, you see [npc.her] huge, E-cup breasts start to expand, and after just a couple of seconds, [npc.she]'s left with an absolutely massive, N-cup bust."
+								+ " Satisfied with your changes, you decide to finally give the [npc.race] what [npc.she] wants, and, releasing [npc.her] shoulders, you allow [npc.herHim] to step forwards and grind [npc.herself] up against you."
+								+ " Leaning down to deliver a passionate kiss, you reach around and grope the [npc.race]'s ass as [npc.she] moans hotly into your mouth."
 							+ "</p>"){
 					@Override
 					public void effects() {
@@ -752,32 +775,32 @@ public class DominionSuccubusDialogue {
 		public String getContent() {
 			return "<p>"
 						+ "You simply can't bring yourself to carry on fighting, and you stumble back against a nearby wall, panting heavily from exertion."
-						+ " Glancing up, you see a delighted smile flash across the succubus's face as she steps towards you."
+						+ " Glancing up, you see a delighted smile flash across the [npc.race]'s face as [npc.she] steps towards you."
 					+ "</p>"
 					+ "<p>"
-						+ "Moving up close before starting to grind herself up against your leg, she moans in your ear, "
+						+ "Moving up close before starting to grind [npc.herself] up against your leg, [npc.she] moans in your ear, "
 						+ UtilText.parseSpeech("~Aah!~ Yes! Finally, I can get some release!", Main.game.getActiveNPC())
 					+ "</p>"
 					+ "<p>"
-						+ "As her body presses tightly against yours, you feel a strange bulge pressing against your leg."
-						+ " Looking down, your eyes go wide as you see the distinctive shape of a massive erection forming beneath the fabric of her dress."
-						+ " You didn't see any signs of a bulge between her legs while you were fighting her, and you gulp as you suddenly realise that she's using her demonic powers to grow herself a cock to fuck you with."
+						+ "As [npc.her] body presses tightly against yours, you feel a strange bulge pressing against your leg."
+						+ " Looking down, your eyes go wide as you see the distinctive shape of a massive erection forming beneath the fabric of [npc.her] dress."
+						+ " You didn't see any signs of a bulge between [npc.her] legs while you were fighting [npc.herHim], and you gulp as you suddenly realise that [npc.she]'s using [npc.her] demonic powers to grow [npc.herself] a cock to fuck you with."
 					+ "</p>"
 					+ "<p>"
-						+ "Seeing what you're looking at, the succubus lets out a playful giggle, "
+						+ "Seeing what you're looking at, the [npc.race] lets out a playful giggle, "
 						+ UtilText.parseSpeech("What? You didn't seriously think I'd let you use my pussy, did you? Perhaps if you didn't want to be my little fuck-toy, you should have fought harder, hmm?", Main.game.getActiveNPC())
 					+ "</p>"
 					+ "<p>"
-						+ "Before you can respond, she leans forwards and presses her lips against yours, thrusting her forked tongue into your mouth as she lets out a happy moan."
-						+ " You're far too weak to resist her advances, and you find yourself desperately kissing her back as you resign yourself to your fate..."
+						+ "Before you can respond, [npc.she] leans forwards and presses [npc.her] lips against yours, thrusting [npc.her] forked tongue into your mouth as [npc.she] lets out a happy moan."
+						+ " You're far too weak to resist [npc.her] advances, and you find yourself desperately kissing [npc.herHim] back as you resign yourself to your fate..."
 					+ "</p>";
 		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseSex("Succubus's toy",
-						"The succubus is ready to use you as her little fuck-toy...",
+				return new ResponseSex("[npc.Race]'s toy",
+						"The [npc.race] is ready to use you as [npc.her] little fuck-toy...",
 						false,
 						false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT){
 					@Override
@@ -802,42 +825,42 @@ public class DominionSuccubusDialogue {
 
 		@Override
 		public String getDescription() {
-			return "You kneel before the succubus.";
+			return "You kneel before the [npc.race].";
 		}
 
 		@Override
 		public String getContent() {
 			return "<p>"
-					+ "You don't really want to fight " + Main.game.getActiveNPC().getName("the") + ", and decide to just do as she asks."
-					+ " Sinking to your knees, you look up at her and beg, "
+					+ "You don't really want to fight " + Main.game.getActiveNPC().getName("the") + ", and decide to just do as [npc.she] asks."
+					+ " Sinking to your knees, you look up at [npc.herHim] and beg, "
 					+ UtilText.parsePlayerSpeech("Please! Can you fuck me?")
 				+ "</p>"
 				+ "<p>"
-					+ "Looking a little surprised for a moment, the succubus quickly regains her composure and strides towards you, "
+					+ "Looking a little surprised for a moment, the [npc.race] quickly regains [npc.her] composure and strides towards you, "
 					+ UtilText.parseSpeech("Hah! Well, that was easy! What a good little submissive thing you are!", Main.game.getActiveNPC())
 				+ "</p>"
 				+ "<p>"
-					+ "Quickly coming to a halt just in front of you, she leans down and grabs your arm, pulling you back up to your feet before pressing her body up tightly against yours."
-					+ " As she starts to affectionately grind up against you, you feel a strange bulge pressing against your leg."
-					+ " Looking down, your eyes go wide as you see the distinctive shape of a massive erection forming beneath the fabric of her dress."
-					+ " You didn't see any signs of a bulge between her legs a moment ago, and you gulp as you suddenly realise that she's using her demonic powers to grow herself a cock to fuck you with."
+					+ "Quickly coming to a halt just in front of you, [npc.she] leans down and grabs your arm, pulling you back up to your feet before pressing [npc.her] body up tightly against yours."
+					+ " As [npc.she] starts to affectionately grind up against you, you feel a strange bulge pressing against your leg."
+					+ " Looking down, your eyes go wide as you see the distinctive shape of a massive erection forming beneath the fabric of [npc.her] dress."
+					+ " You didn't see any signs of a bulge between [npc.her] legs a moment ago, and you gulp as you suddenly realise that [npc.she]'s using [npc.her] demonic powers to grow [npc.herself] a cock to fuck you with."
 				+ "</p>"
 				+ "<p>"
-					+ "Seeing what you're looking at, the succubus lets out a playful giggle, "
+					+ "Seeing what you're looking at, the [npc.race] lets out a playful giggle, "
 					+ UtilText.parseSpeech("What? You didn't seriously think I'd let a submissive little bitch like you use my pussy, did you?"
 							+ " But you're an obedient little thing, I just know that you're going to love my cock!", Main.game.getActiveNPC())
 				+ "</p>"
 				+ "<p>"
-					+ "Before you can respond, she leans forwards and presses her lips against yours, thrusting her forked tongue into your mouth as she lets out a happy moan."
-					+ " Having already made the conscious decision to submit to this horny demon, you find yourself desperately kissing her back as you resign yourself to your fate..."
+					+ "Before you can respond, [npc.she] leans forwards and presses [npc.her] lips against yours, thrusting [npc.her] forked tongue into your mouth as [npc.she] lets out a happy moan."
+					+ " Having already made the conscious decision to submit to this horny demon, you find yourself desperately kissing [npc.herHim] back as you resign yourself to your fate..."
 				+ "</p>";
 		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseSex("Succubus's toy",
-						"The succubus is ready to use you as her little fuck-toy...",
+				return new ResponseSex("[npc.Race]'s toy",
+						"The [npc.race] is ready to use you as [npc.her] little fuck-toy...",
 						false,
 						false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT){
 					@Override
@@ -881,7 +904,7 @@ public class DominionSuccubusDialogue {
 			} else {
 				return UtilText.parse(Main.game.getActiveNPC(),
 						"<p>"
-							+ "As you step back from [npc.name], [npc.she] sinks to the floor, letting out a deeply satisfied sigh as [npc.she] slowly starts touching herself."
+							+ "As you step back from [npc.name], [npc.she] sinks to the floor, letting out a deeply satisfied sigh as [npc.she] slowly starts touching [npc.herself]."
 							+ " Despite the fact that you just brought [npc.herHim] to a climax, [npc.she]'s obviously still incredibly horny, and as [npc.her] sighs turn into lewd moans,"
 								+ " you wonder what it must be like to live in a perpetual state of uncontrollable lust..."
 						+ "</p>");

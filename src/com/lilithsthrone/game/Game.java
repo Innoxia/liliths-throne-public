@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.io.StringWriter;
 import java.lang.reflect.Method;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.EnumMap;
@@ -31,12 +32,14 @@ import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.History;
 import com.lilithsthrone.game.character.PlayerCharacter;
+import com.lilithsthrone.game.character.Quest;
 import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.gender.GenderPreference;
 import com.lilithsthrone.game.character.npc.GenericAndrogynousNPC;
 import com.lilithsthrone.game.character.npc.GenericFemaleNPC;
 import com.lilithsthrone.game.character.npc.GenericMaleNPC;
@@ -66,17 +69,20 @@ import com.lilithsthrone.game.character.npc.dominion.Pix;
 import com.lilithsthrone.game.character.npc.dominion.Ralph;
 import com.lilithsthrone.game.character.npc.dominion.Rose;
 import com.lilithsthrone.game.character.npc.dominion.Scarlett;
+import com.lilithsthrone.game.character.npc.dominion.SlaveInStocks;
 import com.lilithsthrone.game.character.npc.dominion.TestNPC;
 import com.lilithsthrone.game.character.npc.dominion.Vicky;
 import com.lilithsthrone.game.character.npc.dominion.Zaranix;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKatherine;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKelly;
+import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueFlags;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.MapDisplay;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
+import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloor;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -91,6 +97,7 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.slavery.SlaveJobSetting;
 import com.lilithsthrone.game.slavery.SlaveryUtil;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
@@ -118,36 +125,11 @@ public class Game implements Serializable, XMLSaving {
 
 	private PlayerCharacter player;
 	
-//	// Unique NPCs:
-//	private NPC
-//		prologueMale,			// Male NPC in the prologue.
-//		prologueFemale,			// Female NPC in the prologue.
-//		testNPC,				// NPC for testing purposes.
-//		lilaya,		 			// The player's aunt.
-//		rose,		 			// Lilaya's slave.
-//		brax,		 			// The enforcer chief.
-////		arthur,		 			// Lilaya's colleague.
-//		ralph,		 			// Ingredients & items shop-keeper.
-//		nyan,					// Clothing shop-keeper.
-//		vicky,		 			// Weapons & potions shop-keeper.
-//		pix, 		 			// Gym trainer.
-//		kate, 		 			// Beauty salon owner.
-//		scarlett, 	 			// Slave trader.
-//		alexa, 		 			// Harpy matriarch.
-//		harpyBimbo, 			// Bimbo harpy matriarch.
-//		harpyBimboCompanion,	// Bimbo harpy matriarch's companion.
-//		harpyDominant, 			// Dominant harpy matriarch.
-//		harpyDominantCompanion, // Dominant harpy matriarch's companion.
-//		harpyNympho, 			// Nymphomaniac harpy matriarch.
-//		harpyNymphoCompanion, 	// Nymphomaniac harpy matriarch's companion.
-//		pazu,					// Kumiko's harpy.
-//		candiReceptionist,		// Receptionist at the Enforcer HQ.	 
-//		finch;					// Manager of Slaver Alley's 'Slave Administration'
-	
 	// NPCs:
 	private NPC activeNPC;
 	private int npcTally = 0;
 	private Map<String, NPC> NPCMap;
+	private List<NPC> slavesInStocks;
 	
 	private Map<WorldType, World> worlds;
 	private long minutesPassed;
@@ -161,7 +143,7 @@ public class Game implements Serializable, XMLSaving {
 	private Encounter currentEncounter;
 
 	private boolean hintsOn, started, inNewWorld;
-
+	
 	private DialogueFlags dialogueFlags;
 	
 	// Responses:
@@ -186,7 +168,7 @@ public class Game implements Serializable, XMLSaving {
 		for (WorldType type : WorldType.values()) {
 			worlds.put(type, null);
 		}
-		startingDate = LocalDateTime.of(LocalDateTime.now().getYear(), LocalDateTime.now().getMonth(), LocalDateTime.now().getDayOfMonth(), 00, 00).plusYears(3).minusWeeks(1);
+		startingDate = LocalDateTime.of(LocalDateTime.now().getYear(), LocalDateTime.now().getMonth(), LocalDateTime.now().getDayOfMonth(), 00, 00).plusYears(3);
 		minutesPassed = 20 * 60;
 		inCombat = false;
 		inSex = false;
@@ -202,6 +184,7 @@ public class Game implements Serializable, XMLSaving {
 		inNewWorld = false;
 
 		NPCMap = new HashMap<>();
+		slavesInStocks = new ArrayList<>();
 
 		// Start in clouds:
 		currentWeather = Weather.CLOUD;
@@ -300,7 +283,9 @@ public class Game implements Serializable, XMLSaving {
 				// Load NPCs:
 				SlaveImport importedSlave = new SlaveImport();
 				importedSlave = importedSlave.loadFromXML(characterElement, doc);
+				importedSlave.applyNewlyImportedSlaveVariables();
 				Main.game.addNPC(importedSlave, false);
+				System.out.println("beep");
 				
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -447,6 +432,8 @@ public class Game implements Serializable, XMLSaving {
 				
 				Element informationNode = (Element) gameElement.getElementsByTagName("coreInfo").item(0);
 				
+				String version = informationNode.getAttribute("version");
+				
 				newGame.minutesPassed = Long.valueOf(informationNode.getAttribute("minutesPassed"));
 				newGame.debugMode = Boolean.valueOf(informationNode.getAttribute("debugMode"));
 				newGame.imperialMeasurements = Boolean.valueOf(informationNode.getAttribute("imperialMeasurements"));
@@ -490,23 +477,35 @@ public class Game implements Serializable, XMLSaving {
 				newGame.player = PlayerCharacter.loadFromXML(null, (Element) ((Element) gameElement.getElementsByTagName("playerCharacter").item(0)), doc);
 				
 				List<String> addedIds = new ArrayList<>();
+				List<NPC> slaveImports = new ArrayList<>();
 				// Load NPCs:
 				for(int i=0; i<gameElement.getElementsByTagName("NPC").getLength(); i++) {
 					Element e = (Element) gameElement.getElementsByTagName("NPC").item(i);
 					
+					//TODO this is just a huge mess. It needs to be remade.
 					if(!addedIds.contains(((Element)e.getElementsByTagName("id").item(0)).getAttribute("value"))) {
 						@SuppressWarnings("unchecked")
 						Class<? extends NPC> npcClass = (Class<? extends NPC>) Class.forName(((Element)e.getElementsByTagName("pathName").item(0)).getAttribute("value"));
 						Method m = npcClass.getMethod("loadFromXML", Element.class, Document.class);
 						
-						NPC npc = (NPC) m.invoke(npcClass.newInstance(), e, doc); //TODO You're loading the class twice!!!
+						//npcClass.getConstructor(Boolean.class).newInstance(true)
+						NPC npcClassDefault = npcClass.newInstance();
+						NPC npc = (NPC) m.invoke(npcClassDefault, e, doc); //TODO You're loading the class twice!!!
 						newGame.addNPC(npc, true);
 						addedIds.add(npc.getId());
+						
+						// To fix issues with older versions hair length:
+						if(Main.isVersionOlderThan(version, "0.1.90.5")) {
+							npc.getBody().getHair().setLength(null, npcClassDefault.getHairRawLengthValue());
+						}
+						
+						if(npc instanceof SlaveImport) {
+							slaveImports.add(npc);
+						}
 					} else {
 						System.out.println("duplicate");
 					}
 				}
-				
 				
 				// Add in new NPCS:
 				if(!newGame.NPCMap.containsKey(newGame.getUniqueNPCId(Zaranix.class))) {
@@ -540,13 +539,33 @@ public class Game implements Serializable, XMLSaving {
 					
 					newGame.addNPC(new Arthur(), false);
 				}
-					
+				
+				// To prevent errors from previous versions, reset Zaranix progress if prior to 0.1.95:
+				if(Main.isVersionOlderThan(version, "0.1.90.5")) {
+					if(Main.game.getPlayer().getWorldLocation() == WorldType.ZARANIX_HOUSE_GROUND_FLOOR
+							|| Main.game.getPlayer().getWorldLocation() == WorldType.ZARANIX_HOUSE_FIRST_FLOOR) {
+						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME, false);
+						
+						ZaranixHomeGroundFloor.resetHouseAfterLeaving();
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.zaranixDiscoveredHome, false);
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.zaranixKickedDownDoor, false);
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.zaranixKnockedOnDoor, false);
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.zaranixMaidsHostile, false);
+						
+						Main.game.getArthur().setLocation(WorldType.ZARANIX_HOUSE_FIRST_FLOOR, PlaceType.ZARANIX_FF_OFFICE, true);
+						
+						if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
+							Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE.getSortingOrder());
+						}
+					}
+				}
+				
+				Main.game.pendingSlaveInStocksReset = false;
 				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		
 		
 		
 		Main.game.setRenderMap(true);
@@ -725,11 +744,13 @@ public class Game implements Serializable, XMLSaving {
 	}
 	
 	private boolean isInNPCUpdateLoop = false;
+	public boolean pendingSlaveInStocksReset = true;
 	private List<NPC> npcsToRemove = new ArrayList<>();
 	private List<NPC> npcsToAdd = new ArrayList<>();
+	
 	public void endTurn(int turnTime, boolean advanceTime) {
 		
-		int startHour = getHour();
+		long startHour = getHour();
 		
 		if(advanceTime) {
 			minutesPassed += turnTime;
@@ -737,11 +758,9 @@ public class Game implements Serializable, XMLSaving {
 		}
 		
 		// Slavery: TODO
-		int hoursPassed = getHour() - startHour;
-		
-		int hourStartTo24 = startHour%24;
-		
-		for(int i=0; i < hoursPassed; i++) {
+		int hoursPassed = (int) (getHour() - startHour);
+		int hourStartTo24 = (int) (startHour%24);
+		for(int i=1; i <= hoursPassed; i++) {
 			slaveryUtil.performHourlyUpdate(this.getDayNumber(startHour*60 + i*60), (hourStartTo24+i)%24);
 		}
 		
@@ -753,6 +772,33 @@ public class Game implements Serializable, XMLSaving {
 			if(!Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCell(PlaceType.LILAYA_HOME_LAB).getInventory().hasClothing(goggles)) {
 				Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR).getCell(PlaceType.LILAYA_HOME_LAB).getInventory().addClothing(goggles);
 			}
+			
+			pendingSlaveInStocksReset = true;
+		}
+		
+		if(pendingSlaveInStocksReset && Main.game.getPlayer().getLocationPlace().getPlaceType()!=PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS) {
+			for(NPC npc : Main.game.getCharactersPresent(Main.game.getWorlds().get(WorldType.SLAVER_ALLEY).getCell(PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS))) {
+				if(npc instanceof SlaveInStocks) {
+					Main.game.banishNPC(npc);
+				}
+			}
+			
+			for(int i=0; i<4; i++) {
+				SlaveInStocks slave = new SlaveInStocks(GenderPreference.getGenderFromUserPreferences());
+				if(Math.random()>0.5f) {
+					Main.game.getGenericFemaleNPC().addSlave(slave);
+				} else {
+					Main.game.getGenericMaleNPC().addSlave(slave);	
+				}
+				try {
+					Main.game.addNPC(slave, false);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				slavesInStocks.add(slave);
+			}
+			
+			pendingSlaveInStocksReset = false;
 		}
 		
 		handleAtmosphericConditions(turnTime);
@@ -779,9 +825,25 @@ public class Game implements Serializable, XMLSaving {
 				npc.setPendingClothingDressing(false);
 			}
 			
+			if(npc.isPendingTransformationToGenderIdentity()) {
+				npc.setBody(npc.getGenderIdentity(), RacialBody.valueOfRace(npc.getRace()), npc.getRaceStage());
+				CharacterUtils.randomiseBody(npc);
+				npc.setPendingTransformationToGenderIdentity(false);
+			}
+			
 			// Prostitutes stay on promiscuity pills to avoid pregnancies
-			if(npc.hasVagina() && !npc.isPregnant() && !npc.isSlave() && npc.getHistory()==History.PROSTITUTE && !npc.hasStatusEffect(StatusEffect.PROMISCUITY_PILL) && !npc.getLocation().equals(Main.game.getPlayer().getLocation())) {
+			if((!npc.isPregnant()
+					&& npc.hasVagina()
+					&& !npc.isSlave()
+					&& npc.getHistory()==History.PROSTITUTE
+					&& !npc.hasStatusEffect(StatusEffect.PROMISCUITY_PILL)
+					&& !npc.getLocation().equals(Main.game.getPlayer().getLocation()))
+					|| (npc.isSlave() && npc.getSlaveJobSettings().contains(SlaveJobSetting.SEX_PROMISCUITY_PILLS))) {
 				npc.useItem(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL), npc, false);
+			}
+			
+			if(npc.isSlave() && npc.getSlaveJobSettings().contains(SlaveJobSetting.SEX_VIXENS_VIRILITY)) {
+				npc.useItem(AbstractItemType.generateItem(ItemType.VIXENS_VIRILITY), npc, false);
 			}
 			
 			if(npc.hasStatusEffect(StatusEffect.PREGNANT_3) && (minutesPassed - npc.getTimeProgressedToFinalPregnancyStage())>(12*60)) {
@@ -1961,6 +2023,17 @@ public class Game implements Serializable, XMLSaving {
 		return startingDate;
 	}
 	
+	public void setStartingDateMonth(Month month) {
+		if(startingDate.getMonthValue() > month.getValue()) {
+			startingDate = startingDate.minusMonths(startingDate.getMonthValue() - month.getValue());
+		} else {
+			startingDate = startingDate.plusMonths(month.getValue() - startingDate.getMonthValue());
+		}
+		
+		
+//		startingDate = LocalDateTime.of(LocalDateTime.now().getYear(), month, LocalDateTime.now().getDayOfMonth(), 00, 00).plusYears(3);
+	}
+	
 	public LocalDateTime getDateNow() {
 		return getStartingDate().plusMinutes(Main.game.getMinutesPassed());
 	}
@@ -1969,8 +2042,8 @@ public class Game implements Serializable, XMLSaving {
 		return Main.game.getDateNow().getYear();
 	}
 
-	public int getHour() {
-		return (int) (Main.game.getMinutesPassed() / 60);
+	public long getHour() {
+		return Main.game.getMinutesPassed() / 60l;
 	}
 	
 	public boolean isDayTime() {
@@ -2202,7 +2275,8 @@ public class Game implements Serializable, XMLSaving {
 		}
 		if(!NPCMap.containsKey(id)) {
 			System.err.println("!WARNING! getNPC("+id+") is returning null!");
-			throw new NullPointerException();
+			return null;
+//			throw new NullPointerException();
 		}
 		return NPCMap.get(id);
 	}

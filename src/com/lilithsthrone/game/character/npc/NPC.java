@@ -525,6 +525,17 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		}
 	}
 	
+	public boolean isPendingTransformationToGenderIdentity() {
+		return NPCFlagValues.contains(NPCFlagValue.pendingTransformationToGenderIdentity);
+	}
+	public void setPendingTransformationToGenderIdentity(boolean pendingTransformationToGenderIdentity) {
+		if(pendingTransformationToGenderIdentity) {
+			NPCFlagValues.add(NPCFlagValue.pendingTransformationToGenderIdentity);
+		} else {
+			NPCFlagValues.remove(NPCFlagValue.pendingTransformationToGenderIdentity);
+		}
+	}
+	
 	public long getLastTimeEncountered() {
 		return lastTimeEncountered;
 	}
@@ -1094,10 +1105,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						.horn(new Horn((stage.isHornFurry()?startingBodyType.getRandomHornType(false):HornType.NONE), (preferredGender.isFeminine() ? startingBodyType.getFemaleHornLength() : startingBodyType.getMaleHornLength())))
 						.antenna(new Antenna(stage.isAntennaFurry()?startingBodyType.getAntennaType():AntennaType.NONE))
 						.tail(new Tail(stage.isTailFurry()?startingBodyType.getTailType():TailType.NONE))
-						.wing(new Wing(stage.isWingFurry()?startingBodyType.getWingType():WingType.NONE))
+						.wing(new Wing((stage.isWingFurry()?startingBodyType.getWingType():WingType.NONE), (preferredGender.isFeminine() ? startingBodyType.getFemaleWingSize() : startingBodyType.getMaleWingSize())))
 						.build();
 		
-		// Apply fetish mdifiers:
+		// Apply fetish modifiers:
 		
 		GameCharacter genericOwner = Main.game.getGenericAndrogynousNPC();
 		
@@ -1460,10 +1471,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				} else if(foreplayPreference.equals(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER))
 						|| foreplayPreference.equals(new SexType(PenetrationType.TONGUE_PARTNER, OrificeType.VAGINA_PLAYER))){
 					sexPositionPreferences.add(SexPosition.KNEELING_PARTNER_PERFORMING_ORAL);
-					sexPositionPreferences.add(SexPosition.DOGGY_ORAL_PLAYER_ON_ALL_FOURS);
+					sexPositionPreferences.add(SexPosition.DOGGY_ORAL_PLAYER_SUB_PLAYER_ON_ALL_FOURS);
 					
 				} else if(foreplayPreference.equals(new SexType(PenetrationType.TONGUE_PARTNER, OrificeType.ANUS_PLAYER))){
-					sexPositionPreferences.add(SexPosition.DOGGY_ORAL_PLAYER_ON_ALL_FOURS);
+					sexPositionPreferences.add(SexPosition.DOGGY_ORAL_PLAYER_SUB_PLAYER_ON_ALL_FOURS);
 					
 				} else if(foreplayPreference.getOrificeType()==OrificeType.ANUS_PLAYER){
 					sexPositionPreferences.add(SexPosition.FACING_WALL_PLAYER);
@@ -1495,7 +1506,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						|| mainSexPreference.equals(new SexType(PenetrationType.TONGUE_PARTNER, OrificeType.VAGINA_PLAYER))){
 					sexPositionPreferences.add(SexPosition.SIXTY_NINE_PARTNER_TOP);
 					sexPositionPreferences.add(SexPosition.KNEELING_PARTNER_PERFORMING_ORAL);
-					sexPositionPreferences.add(SexPosition.DOGGY_ORAL_PLAYER_ON_ALL_FOURS);
+					sexPositionPreferences.add(SexPosition.DOGGY_ORAL_PLAYER_SUB_PLAYER_ON_ALL_FOURS);
 					
 				} else if(mainSexPreference.equals(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER))) {
 					sexPositionPreferences.add(SexPosition.FACING_WALL_PLAYER);
@@ -2788,7 +2799,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							return UtilText.returnStringAtRandom(
 									"That's right slut, keep sucking on my tits like the worthless little fuck toy you are!",
 									"Come on bitch! Get that [pc.tongue] of yours deeper into my nipples!",
-									"Fucking bitch, put some more effort in! You know how lucky you are, being allowed to suck on ym tits like this?!");
+									"Fucking bitch, put some more effort in! You know how lucky you are, being allowed to suck on my tits like this?!");
 						case SUB_EAGER:
 							return UtilText.returnStringAtRandom(
 									"Yes! I love the feeling of your lips on my tits! Don't stop!",
@@ -4373,7 +4384,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							return UtilText.returnStringAtRandom(
 									"That's right slut, keep sucking on my tits like the worthless little fuck toy you are!",
 									"Come on bitch! Get that [npc.tongue] of yours deeper into my nipples!",
-									"Fucking bitch, put some more effort in! You know how lucky you are, being allowed to suck on ym tits like this?!");
+									"Fucking bitch, put some more effort in! You know how lucky you are, being allowed to suck on my tits like this?!");
 						case SUB_EAGER:
 							return UtilText.returnStringAtRandom(
 									"Yes! I love the feeling of your lips on my tits! Don't stop!",

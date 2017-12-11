@@ -30,7 +30,7 @@ public enum AffectionLevel {
 	ZERO_NEUTRAL("neutral", "neither likes nor dislikes", -10, 10, Colour.AFFECTION_NEUTRAL),
 
 	/** 10 to 30*/
-	POSITIVE_ONE_FRIENDLY("friendly", "is friendly", 10, 30, Colour.AFFECTION_POSITIVE_ONE),
+	POSITIVE_ONE_FRIENDLY("friendly", "is friendly towards", 10, 30, Colour.AFFECTION_POSITIVE_ONE),
 
 	/** 30 to 50*/
 	POSITIVE_TWO_LIKE("likes", "likes", 30, 50, Colour.AFFECTION_POSITIVE_TWO),

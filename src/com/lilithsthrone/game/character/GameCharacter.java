@@ -18,6 +18,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import com.lilithsthrone.game.DifficultyLevel;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -84,6 +85,7 @@ import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueLength;
 import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
+import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkInterface;
@@ -179,6 +181,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	// Body:
 	protected Body body;
+	protected Gender genderIdentity; // What gender this character prefers to be. Used to determine NPC demonic transformations (i.e. a demon who identifies as a female will transform back into a female whenever possible.)
 	
 	
 	// Inventory:
@@ -388,6 +391,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 		// Set the character's starting body based on their gender and race:
 		setBody(startingGender, startingRace, stage);
+		genderIdentity = startingGender;
 	}
 	
 
@@ -414,7 +418,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "surname", this.getSurname());
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "description", this.getDescription());
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "playerPetName", this.getPlayerPetName());
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "playerPetName", playerPetName);
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "playerKnowsName", String.valueOf(this.isPlayerKnowsName()));
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "level", String.valueOf(this.getLevel()));
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "version", Main.VERSION_NUMBER);
@@ -422,6 +426,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "personality", this.getPersonality().toString());//TODO
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "sexualOrientation", this.getSexualOrientation().toString());//TODO
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "obedience", String.valueOf(this.getObedienceValue()));//TODO
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "genderIdentity", String.valueOf(this.getGenderIdentity()));
+		
 
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "experience", String.valueOf(this.getExperience()));
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "levelUpPoints", String.valueOf(this.getLevelUpPoints()));
@@ -802,13 +808,25 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			CharacterUtils.appendToImportLog(log, "</br>Set history: "+character.getHistory());
 		}
 		if(element.getElementsByTagName("personality").getLength()!=0) {
-			character.setPersonality(Personality.valueOf(((Element)element.getElementsByTagName("personality").item(0)).getAttribute("value")));
+			String personality = ((Element)element.getElementsByTagName("personality").item(0)).getAttribute("value");
+			if(personality.equals("AIR_SOCIALABLE")) {
+				personality = "AIR_SOCIABLE";
+			}
+			character.setPersonality(Personality.valueOf(personality));
 			CharacterUtils.appendToImportLog(log, "</br>Set personality: "+character.getPersonality());
 		}
 		if(element.getElementsByTagName("obedience").getLength()!=0) {
 			character.setObedience(Float.valueOf(((Element)element.getElementsByTagName("obedience").item(0)).getAttribute("value")));
 			CharacterUtils.appendToImportLog(log, "</br>Set obedience: "+character.getObedience());
 		}
+		
+		boolean setGenderIdentity = false;
+		if(element.getElementsByTagName("genderIdentity").getLength()!=0) {
+			character.setGenderIdentity(Gender.valueOf(((Element)element.getElementsByTagName("genderIdentity").item(0)).getAttribute("value")));
+			CharacterUtils.appendToImportLog(log, "</br>Set genderIdentity: "+character.getGenderIdentity());
+			setGenderIdentity = true;
+		}
+		
 		
 		
 		int extraLevelUpPoints=0;
@@ -899,6 +917,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		// ************** Body **************//
 		
 		character.body = Body.loadFromXML(log, (Element) parentElement.getElementsByTagName("body").item(0), doc);
+		if(!setGenderIdentity) {
+			character.setGenderIdentity(character.getGender());
+		}
 		
 		
 		
@@ -1292,7 +1313,12 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			return getName();
 			
 		} else {
-			return determiner + " " + getName();
+			return (determiner.equalsIgnoreCase("a") || determiner.equalsIgnoreCase("an")
+						?(Character.isUpperCase(determiner.charAt(0))
+								?Util.capitaliseSentence(UtilText.generateSingularDeterminer(getName()))
+								:UtilText.generateSingularDeterminer(getName()))
+						:determiner)
+					+ " " + getName();
 		}
 	}
 
@@ -1388,7 +1414,21 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		postTransformationCalculation();
 	}
 
+	public Gender getGenderIdentity() {
+		return genderIdentity;
+	}
+
+	public void setGenderIdentity(Gender genderIdentity) {
+		this.genderIdentity = genderIdentity;
+	}
+
+	
 	public String getName() {
+		if(this.isSlave()) {
+			if(this.getOwner().isPlayer()) {
+				playerKnowsName = true;
+			}
+		}
 		if((nameTriplet==null || !playerKnowsName) && !isPlayer()) {
 			if(isFeminine()) {
 				if(getRace()==Race.HUMAN)
@@ -1504,7 +1544,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	public float getObedienceValue() {
-		return obedience;
+		return Math.round(obedience*100)/100f;
 	}
 
 	public String setObedience(float obedience) {
@@ -1614,9 +1654,16 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public void setSlaveJob(SlaveJob slaveJob) {
 		slaveJobSettings.clear();
 		this.slaveJob = slaveJob;
+		for(SlaveJobSetting jobSetting : slaveJob.getDefaultMutuallyExclusiveSettings()) {
+			addSlaveJobSettings(jobSetting);
+		}
 	}
 	
 	public boolean addSlaveJobSettings(SlaveJobSetting setting) {
+		if(slaveJobSettings.contains(setting)) {
+			return false;
+		}
+		
 		return slaveJobSettings.add(setting);
 	}
 	
@@ -1857,7 +1904,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	public boolean isSlave() {
-		return getOwner() != null;
+		return !getOwnerId().isEmpty();
 	}
 	
 	public GameCharacter getMother() {
@@ -1919,7 +1966,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 
 	private int getExperienceNeededForNextLevel() {
-		return level * 10;
+		return getLevel() * 10;
 	}
 	
 	/**
@@ -1933,7 +1980,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		if (increment < 0)
 			throw new IllegalArgumentException("Cannot increment experience by a negative value!");
 
-		if (level == 20) {
+		if (getLevel() == 20) {
 			experience = 0;
 			return;
 		}
@@ -1950,7 +1997,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		float manaPercentage = getManaPercentage();
 		float staminaPercentage = getStaminaPercentage();
 		
-		while (experience >= getExperienceNeededForNextLevel() && level < 20) {
+		while (experience >= getExperienceNeededForNextLevel() && getLevel() < 20) {
 			experience -= getExperienceNeededForNextLevel();
 
 			level++;
@@ -1958,7 +2005,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			levelUpPoints += 5;
 			perkPoints++;
 		}
-		if (level == 20) {
+		if (getLevel() == 20) {
 			experience = 0;
 		}
 		
@@ -2009,17 +2056,17 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public float getBaseAttributeValue(Attribute attribute) {
 		// Special case for health:
 		if (attribute == Attribute.HEALTH_MAXIMUM) {
-			return (level * 10) + getAttributeValue(Attribute.STRENGTH);
+			return (getLevel() * 10) + getAttributeValue(Attribute.STRENGTH);
 		}
 
 		// Special case for mana:
 		if (attribute == Attribute.MANA_MAXIMUM) {
-			return (level * 10) + getAttributeValue(Attribute.INTELLIGENCE);
+			return (getLevel() * 10) + getAttributeValue(Attribute.INTELLIGENCE);
 		}
 
 		// Special case for stamina:
 		if (attribute == Attribute.STAMINA_MAXIMUM) {
-			return (level * 10) + getAttributeValue(Attribute.FITNESS);
+			return (getLevel() * 10) + getAttributeValue(Attribute.FITNESS);
 		}
 		
 		return attributes.get(attribute);
@@ -2042,19 +2089,19 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public float getAttributeValue(Attribute att) {
 		// Special case for health:
 		if (att == Attribute.HEALTH_MAXIMUM) {
-			float healthMax = (level * 10) + getAttributeValue(Attribute.STRENGTH) + bonusAttributes.get(Attribute.HEALTH_MAXIMUM);
+			float healthMax = (getLevel() * 10) + getAttributeValue(Attribute.STRENGTH) + bonusAttributes.get(Attribute.HEALTH_MAXIMUM);
 			return (healthMax < 1 ? 1 : healthMax);
 		}
 
 		// Special case for mana:
 		else if (att == Attribute.MANA_MAXIMUM) {
-			float manaMax = (level * 10) + getAttributeValue(Attribute.INTELLIGENCE) + bonusAttributes.get(Attribute.MANA_MAXIMUM);
+			float manaMax = (getLevel() * 10) + getAttributeValue(Attribute.INTELLIGENCE) + bonusAttributes.get(Attribute.MANA_MAXIMUM);
 			return (manaMax < 1 ? 1 : manaMax);
 		}
 
 		// Special case for stamina:
 		else if (att == Attribute.STAMINA_MAXIMUM) {
-			float maxStamina = (level * 10) + getAttributeValue(Attribute.FITNESS) + bonusAttributes.get(Attribute.STAMINA_MAXIMUM);
+			float maxStamina = (getLevel() * 10) + getAttributeValue(Attribute.FITNESS) + bonusAttributes.get(Attribute.STAMINA_MAXIMUM);
 			return (maxStamina < 1 ? 1 : maxStamina);
 		}
 
@@ -2582,7 +2629,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	 * @param fluid The FluidType to be ingested.
 	 * @param orificeIngestedThrough Orifice through which the fluid is being ingested.
 	 * @param addictive Is this fluid addictive or not.
-	 * @return A <b>formatted paragraph</b> description of addiction increasing/satsfied, or an empty String if no addictive effects occurr.
+	 * @return A <b>formatted paragraph</b> description of addiction increasing/satisfied, or an empty String if no addictive effects occur.
 	 */
 	public String ingestFluid(GameCharacter charactersFluid, FluidType fluid, OrificeType orificeIngestedThrough, boolean addictive) {
 		if(addictive) {
@@ -3189,7 +3236,21 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 
 	public int getLevel() {
-		return level;
+		if(this.isPlayer() || !Main.getProperties().difficultyLevel.isNPCLevelScaling()) {
+			return level;
+		} else {
+			if(Main.getProperties().difficultyLevel == DifficultyLevel.HELL) {
+				if(level < Main.game.getPlayer().getLevel() * 2) {
+					return Main.game.getPlayer().getLevel() * 2;
+				} else {
+					return level;
+				}
+			} else if(level < Main.game.getPlayer().getLevel()) {
+				return Main.game.getPlayer().getLevel();
+			} else {
+				return level;
+			}
+		}
 	}
 
 	public void setLevel(int level) {
@@ -7346,6 +7407,19 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	public String setWingType(WingType type) {
 		return body.getWing().setType(this, type);
+	}
+	// Size:
+	public WingSize getWingSize() {
+		return body.getWing().getSize();
+	}
+	public int getWingSizeValue() {
+		return body.getWing().getSizeValue();
+	}
+	public String setWingSize(int size) {
+		return body.getWing().setSize(this, size);
+	}
+	public String incrementWingSize(int increment) {
+		return body.getWing().setSize(this, getWingSizeValue()+increment);
 	}
 	// Names:
 	public String getWingName() {

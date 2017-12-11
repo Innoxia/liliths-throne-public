@@ -8,13 +8,16 @@ import com.lilithsthrone.game.character.attributes.StrengthLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.Amber;
+import com.lilithsthrone.game.character.npc.dominion.Zaranix;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKatherine;
+import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKelly;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
+import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
@@ -36,12 +39,18 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class ZaranixHomeGroundFloor {
 	
-	//TODO
 	public static void resetHouseAfterLeaving() {
 		// Maids:
 		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.zaranixAmberSubdued, false);
 		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.zaranixKatherineSubdued, false);
 		Main.game.getDialogueFlags().setFlag(DialogueFlagValue.zaranixKellySubdued, false);
+		
+		Main.game.getAmber().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, true);
+		
+		((Zaranix)Main.game.getZaranix()).resetBody();
+		((Amber)Main.game.getAmber()).resetBody();
+		((ZaranixMaidKatherine)Main.game.getKatherine()).resetBody();
+		((ZaranixMaidKelly)Main.game.getKelly()).resetBody();
 	}
 	
 	public static final DialogueNodeOld OUTSIDE = new DialogueNodeOld("", "", true) {
@@ -891,6 +900,7 @@ public class ZaranixHomeGroundFloor {
 				return new Response("Arthur", "You finally come face-to-face with your elusive quarry.", MEETING_ZARANIX_ARTHUR) {
 					@Override
 					public void effects() {
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
 						Main.game.getArthur().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, false);
 					}
 				};
@@ -1419,7 +1429,7 @@ public class ZaranixHomeGroundFloor {
 					+ "</p>"
 					+ "<p>"
 						+ "The main door to Zaranix's home is made from thick, sturdy oak, and there's nothing stopping you from opening it and taking your leave."
-						+ " <b>It looks like the door will locked behind you if you do this, so be prepared to gain entry all over again if you choose to leave now!</b>"
+						+ " <b>It looks like the door will be locked behind you if you do this, so be prepared to gain entry all over again if you choose to leave now!</b>"
 					+ "</p>");
 			
 			if(Main.game.getAmber().getLocationPlace().getPlaceType()==PlaceType.ZARANIX_GF_ENTRANCE) {
@@ -1477,6 +1487,17 @@ public class ZaranixHomeGroundFloor {
 							+ "You reciprocate the gesture, but only spend a few moments sliding your tongues into one another's mouths before Amber pulls back, moaning,"
 							+ " [amber.speech(Good bitch! Fuck... I'm so fucking horny! I <i>need</i> you!)]"
 						+ "</p>");
+				
+			} else if (index == 4 && Main.game.getAmber().getLocationPlace().getPlaceType()==PlaceType.ZARANIX_GF_ENTRANCE) {
+				return new Response("Transformations",
+						"Get Amber to use [npc.her] demonic powers to transform [npc.herself]...",
+						BodyChanging.BODY_CHANGING_CORE){
+					@Override
+					public void effects() {
+						Main.game.saveDialogueNode();
+						BodyChanging.setTarget(Main.game.getAmber());
+					}
+				};
 				
 			} else {
 				return null;
@@ -1824,6 +1845,17 @@ public class ZaranixHomeGroundFloor {
 								+ " [katherine.speech(Oh yes! Fuck... I'm so fucking horny! I <i>need</i> you!)]"
 							+ "</p>");
 					
+				} else if (index == 3) {
+					return new Response("Transformations",
+							"Get Katherine to use [npc.her] demonic powers to transform [npc.herself]...",
+							BodyChanging.BODY_CHANGING_CORE){
+						@Override
+						public void effects() {
+							Main.game.saveDialogueNode();
+							BodyChanging.setTarget(Main.game.getKatherine());
+						}
+					};
+					
 				} else {
 					return null;
 				}
@@ -1981,6 +2013,17 @@ public class ZaranixHomeGroundFloor {
 								+ "You reciprocate the gesture, but only spend a few moments sliding your tongues into one another's mouths before Amber pulls back, moaning,"
 								+ " [amber.speech(Good bitch! Fuck... I'm so fucking horny! I <i>need</i> you!)]"
 							+ "</p>");
+					
+				} else if (index == 3) {
+					return new Response("Transformations",
+							"Get Amber to use [npc.her] demonic powers to transform [npc.herself]...",
+							BodyChanging.BODY_CHANGING_CORE){
+						@Override
+						public void effects() {
+							Main.game.saveDialogueNode();
+							BodyChanging.setTarget(Main.game.getAmber());
+						}
+					};
 					
 				} else {
 					return null;

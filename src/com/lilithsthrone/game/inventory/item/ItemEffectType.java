@@ -783,7 +783,7 @@ public enum ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			return (target.isPlayer()
 						?"You start to feel more feminine..."
-						:UtilText.parse(target, "[npc.Name] starts to feel mroe feminine..."))
+						:UtilText.parse(target, "[npc.Name] starts to feel more feminine..."))
 					+ "</br>"
 					+ target.incrementFemininity(3)
 					+ "</br>"
@@ -2290,6 +2290,7 @@ public enum ItemEffectType {
 				
 			case TF_WINGS:
 				secondaryModPotencyMap.put(TFModifier.TF_TYPE_1, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE, TFPotency.getAllPotencies());
 				break;
 				
 			case TF_CUM: case TF_MILK: case TF_GIRLCUM:
@@ -3374,10 +3375,28 @@ public enum ItemEffectType {
 				}
 				
 			case TF_WINGS:
-				if(RacialBody.valueOfRace(race).getWingType() == WingType.NONE) {
-					return new RacialEffectUtil("Removes wings.", 0, "") { @Override public String applyEffect() { return target.setWingType(RacialBody.valueOfRace(race).getWingType()); } };
-				} else {
-					return new RacialEffectUtil(Util.capitaliseSentence(race.getName())+" wings transformation.", 0, "") { @Override public String applyEffect() { return target.setWingType(RacialBody.valueOfRace(race).getWingType()); } };
+				switch(secondaryModifier) {
+					case TF_MOD_SIZE:
+						switch(potency) {
+							case MAJOR_DRAIN:
+								return new RacialEffectUtil("Huge decrease in wing size.", smallChangeMajorDrain, " wing size") { @Override public String applyEffect() { return target.incrementWingSize(smallChangeMajorDrain); } };
+							case DRAIN:
+								return new RacialEffectUtil("Decrease in wing size.", smallChangeDrain, " wing size") { @Override public String applyEffect() { return target.incrementWingSize(smallChangeDrain); } };
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Small decrease in wing size.", smallChangeMinorDrain, " wing size") { @Override public String applyEffect() { return target.incrementWingSize(smallChangeMinorDrain); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Small increase in wing size.", smallChangeMinorBoost, " wing size") { @Override public String applyEffect() { return target.incrementWingSize(smallChangeMinorBoost); } };
+							case BOOST:
+								return new RacialEffectUtil("Increase in wing size.", smallChangeBoost, " wing size") { @Override public String applyEffect() { return target.incrementWingSize(smallChangeBoost); } };
+							case MAJOR_BOOST:
+								return new RacialEffectUtil("Huge increase in wing size.", smallChangeMajorBoost, " wing size") { @Override public String applyEffect() { return target.incrementWingSize(smallChangeMajorBoost); } };
+						}
+					default:
+						if(RacialBody.valueOfRace(race).getWingType() == WingType.NONE) {
+							return new RacialEffectUtil("Removes wings.", 0, "") { @Override public String applyEffect() { return target.setWingType(RacialBody.valueOfRace(race).getWingType()); } };
+						} else {
+							return new RacialEffectUtil(Util.capitaliseSentence(race.getName())+" wings transformation.", 0, "") { @Override public String applyEffect() { return target.setWingType(RacialBody.valueOfRace(race).getWingType()); } };
+						}
 				}
 				
 			case TF_CUM:
