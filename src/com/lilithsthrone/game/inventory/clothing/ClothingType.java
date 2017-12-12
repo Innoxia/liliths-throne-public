@@ -9236,7 +9236,8 @@ public class ClothingType {
 									))),
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_WHITE))) {
+					new ListValue<Colour>(Colour.CLOTHING_WHITE),
+					new ListValue<Colour>(Colour.CLOTHING_BLACK))) {
 		
 		private static final long serialVersionUID = 1L;
 		
