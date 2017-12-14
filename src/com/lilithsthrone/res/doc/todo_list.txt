@@ -12,6 +12,7 @@
 	
 	Contributions:
 		Added a black variation to the lab coat. (by rfpnj)
+		Improved NPC prostitution methods, which now allows males to be prostitutes, as well as providing a price based on the prostitute's body. (by tukaima)
 	
 	Other:
 		The blazer item of clothing now conceals the wearer's chest and waist until unbuttoned.
@@ -515,6 +516,9 @@ Another bug report: can't seem to remove those who identify as prostitutes from 
 	It's pretty weird that the descriptions for the stat "Fitness" are all about flexibility. What it actually does is in line with what I'd expect "Fitness" to do, but the flavour text is all about flexibility.
 	Tried out a harpy transformation, got told "You now have avian breasts and nipples, and when lactating, you will produce avian milk". Something about that sounds wrong…
 	
+	
+	
+	any chance of an option that lets NPCs fully transform you in one go after losing to them in battle? Either a toggle or a combination of fetishes on the player side (so it works with any NPC, not just ones where you've given them the right combination of fetishes)?
 	
 	
 	You were impregnated twice and you gave birth but it still says you're pregnant

@@ -23,7 +23,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.84
- * @version 0.1.86
+ * @version 0.1.95
  * @author Innoxia
  */
 public class ClothingType {

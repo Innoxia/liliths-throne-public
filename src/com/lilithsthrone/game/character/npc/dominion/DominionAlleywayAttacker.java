@@ -10,7 +10,6 @@ import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.History;
 import com.lilithsthrone.game.character.Name;
-import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -26,7 +25,6 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
@@ -38,7 +36,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.66
- * @version 0.1.89
+ * @version 0.1.95
  * @author Innoxia
  */
 public class DominionAlleywayAttacker extends NPC {
@@ -178,19 +176,7 @@ public class DominionAlleywayAttacker extends NPC {
 			
 			// PERSONALITY & BACKGROUND:
 			
-			if(this.isFeminine()) {
-				if(Math.random()>0.5f) {
-					this.setHistory(History.PROSTITUTE);
-					setSexualOrientation(SexualOrientation.AMBIPHILIC);
-					setName(Name.getRandomProstituteTriplet());
-					useItem(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL), this, false);
-				} else {
-					this.setHistory(History.MUGGER);
-				}
-				
-			} else {
-				this.setHistory(History.MUGGER);
-			}
+			CharacterUtils.setHistoryAndPersonality(this);
 			
 			// ADDING FETISHES:
 			

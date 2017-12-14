@@ -152,31 +152,67 @@ public class Util {
 	    }
 	}
 	
+	private static String[] numbersLessThanTwenty = {
+			"zero",
+			"one",
+			"two",
+			"three",
+			"four",
+			"five",
+			"six",
+			"seven",
+			"eight",
+			"nine",
+			"ten",
+			"eleven",
+			"twelve",
+			"thirteen",
+			"fourteen",
+			"fifteen",
+			"sixteen",
+			"seventeen",
+			"eighteen",
+			"nineteen"
+	};
+	private static String[] tensGreaterThanNineteen = {
+			"",
+			"",
+			"twenty",
+			"thirty",
+			"forty",
+			"fifty",
+			"sixty",
+			"seventy",
+			"eighty",
+			"ninety"
+	};
+	
 	public static String intToString(int integer) {
-		String[] strings = {
-				"zero",
-				"one",
-				"two",
-				"three",
-				"four",
-				"five",
-				"six",
-				"seven",
-				"eight",
-				"nine",
-				"ten",
-				"eleven",
-				"twelve",
-				"thirteen",
-				"fourteen",
-				"fifteen",
-				"sixteen",
-				"seventeen",
-				"eighteen",
-				"nineteen",
-				"twenty"
-		};
-		return integer < strings.length ? strings[integer] : String.valueOf(integer);
+		if(integer>=0 && integer<1000){
+			String intToString = "";
+			if(integer>=100) {
+				intToString = numbersLessThanTwenty[(integer%1000)/100]+" hundred";
+				if(integer%100!=0) {
+					if(integer%100<20) {
+						intToString+=" and "+numbersLessThanTwenty[integer%100];
+					} else {
+						intToString+=" and "+tensGreaterThanNineteen[(integer%100)/10] + ((integer%10!=0)?"-"+numbersLessThanTwenty[integer%10]:"");
+					}
+				}
+			} else {
+				if(integer%100!=0) {
+					if(integer%100<20) {
+						intToString+=numbersLessThanTwenty[integer%100];
+					} else {
+						intToString+=tensGreaterThanNineteen[(integer%100)/10] + ((integer%10!=0)?"-"+numbersLessThanTwenty[integer%10]:"");
+					}
+				}	
+			}
+			
+			return intToString;
+		}
+		
+		return String.valueOf(integer);
 	}
 	
 	public static String getKeyCodeCharacter(KeyCode code) {

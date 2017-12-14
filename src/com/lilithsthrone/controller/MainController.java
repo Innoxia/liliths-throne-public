@@ -142,6 +142,7 @@ import com.lilithsthrone.game.slavery.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
@@ -456,6 +457,9 @@ public class MainController implements Initializable {
 //							 for(NPC npc : Main.game.getNPCMap().values()) {
 //								 System.out.println(npc.getId());
 //							 }
+							 for(int i=0; i<=1000; i++) {
+								 System.out.println(Util.intToString(i));
+							 }
 							 
 							 System.out.println(Main.isVersionOlderThan("0.1.84", Main.VERSION_NUMBER));
 							 

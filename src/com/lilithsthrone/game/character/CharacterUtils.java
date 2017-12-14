@@ -80,6 +80,8 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.BlockedParts;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -89,8 +91,8 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.67
- * @version 0.1.87
- * @author Innoxia
+ * @version 0.1.95
+ * @author Innoxia, tukaima
  */
 public class CharacterUtils {
 	
@@ -1008,6 +1010,63 @@ public class CharacterUtils {
 		character.setVaginaStretchedCapacity(character.getVaginaRawCapacityValue());
 	}
 	
+	/**
+	 * Sets the History for the supplied character.
+	 * @param character
+	 */
+	public static void setHistoryAndPersonality(GameCharacter character) {
+		
+		double prostituteChance = 0.25f; // Base 0.25% chance for any random to be a prostitute.
+		 			
+		 if(character.isFeminine()) {
+			prostituteChance += 0.10f; // Bonus for femininity
+		 }
+		 
+		 prostituteChance += Math.min((character.body.getBreast().getRawSizeValue()-7)*0.02f, 0.35f); // Compare breast size to average.
+		 
+		 if(character.hasPenis()) {
+			prostituteChance += Math.min((character.body.getPenis().getRawSizeValue()-5)*0.01f, 0.10f); // Scaling based off of cock size. Very small cocks are a penalty.
+		 } 
+		 
+		 if(character.hasVagina()) {
+			prostituteChance += 0.15f; // Bonus for vagina.
+		 }
+		 
+		 if(character.body.getBreast().getNipples().getOrificeNipples().getRawCapacityValue() >= 4) {
+			prostituteChance += 0.05f; //Bonus for fuckable nipples.
+		 }
+		 
+		 if(character.hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
+			prostituteChance = 0; // addFetishes() can be called before or after this method. This is a catch for the case where addFetishes() is called before.
+		 }
+		 
+		 prostituteChance = Math.min(prostituteChance, 0.5f); // Prostitutes can only ever spawn at a maximum of a 50% chance.
+		 
+		 if(Math.random()<=prostituteChance) {
+		 	character.setHistory(History.PROSTITUTE);
+		 	
+		 	character.setAssVirgin(false);
+		 	character.setAssCapacity(character.getAssRawCapacityValue()*1.2f, true);
+		 	character.setAssStretchedCapacity(character.getAssRawCapacityValue());
+		 	
+		 	if(character.hasVagina()) {
+		 		character.setVaginaVirgin(false);
+		 		character.setVaginaCapacity(character.getVaginaRawCapacityValue()*1.2f, true);
+		 		character.setVaginaStretchedCapacity(character.getVaginaRawCapacityValue());
+		 	}
+		 	
+		 	character.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		 	character.setName(Name.getRandomProstituteTriplet());
+		 	character.useItem(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL), character, false);
+		 	
+		 } else {
+		 	character.setHistory(History.MUGGER);
+		 }
+		 
+		 //TODO Set personality based on history. (Or vice-versa, but one should lead to the other.)
+			
+	}
+	
 	public static void addFetishes(GameCharacter character) {
 		
 		List<Fetish> availableFetishes = new ArrayList<>();
@@ -1258,7 +1317,34 @@ public class CharacterUtils {
 			// Masculine characters
 		}
 	}
-	
+
+	public static int getProstitutePrice(GameCharacter prostitute) {
+		double prostitutePrice = 0.25f; // Base 0.25% chance for any random to be a prostitute.
+
+		if (prostitute.isFeminine()) {
+			prostitutePrice += 0.10f;
+		}
+		
+		prostitutePrice += (prostitute.getBody().getBreast().getRawSizeValue()- 7)* 0.02f; // Breast size.
+
+		if (prostitute.hasVagina()) {
+			prostitutePrice += 0.15f; // More expensive if prostitute has a vagina.
+		}
+
+		if (prostitute.hasPenis()) {
+			prostitutePrice += Math.min((prostitute.getBody().getPenis().getRawSizeValue() - 5) * 0.01f, 0.10f); // Penalises small penises, but adds price if penis is large.
+		}
+
+		if (prostitute.getBody().getBreast().getNipples().getOrificeNipples().getRawCapacityValue() >= 4) {
+			prostitutePrice += 0.05f;  // Fuckable nipples add to price.
+		}
+
+		if (prostitute.isVisiblyPregnant()) {
+			prostitutePrice = prostitutePrice * 0.8f; // Pregnant prostitutes charge 80% of their usual price.
+		}
+
+		return Math.max(25, (int) (prostitutePrice * 100)); // Minimum value is 25 flames.
+	}
 
 	private static Map<History, ArrayList<AbstractClothingType>> suitableFeminineClothing = new HashMap<>();
 	

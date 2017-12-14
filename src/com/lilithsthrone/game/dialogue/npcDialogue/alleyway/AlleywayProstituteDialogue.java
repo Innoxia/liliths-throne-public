@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.npcDialogue.alleyway;
 
+import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
@@ -25,6 +26,10 @@ import com.lilithsthrone.utils.Util.ListValue;
  */
 public class AlleywayProstituteDialogue {
 
+	private static int prostitutePrice() {
+		return CharacterUtils.getProstitutePrice(Main.game.getActiveNPC());
+	}
+	
 	public static final DialogueNodeOld ALLEY_PROSTITUTE = new DialogueNodeOld("Prostitute", "You run into someone who's selling their body.", true) {
 		private static final long serialVersionUID = 1L;
 		
@@ -106,7 +111,7 @@ public class AlleywayProstituteDialogue {
 								+ "</p>"
 								+ "<p>"
 									+ "As you're wondering how to react, the [npc.race] whines,"
-									+ " [npc.speech(Come on! Only fifty flames, and [npc.name]'s all yours!)]"
+									+ " [npc.speech(Come on! Only "+Util.intToString(prostitutePrice())+" flames, and [npc.name]'s all yours!)]"
 								+ "</p>");
 					}
 				} else {
@@ -164,7 +169,7 @@ public class AlleywayProstituteDialogue {
 								+ "</p>"
 								+ "<p>"
 									+ "As you're wondering how to react, the [npc.race] whines,"
-									+ " [npc.speech(Come on! Only fifty flames, and [npc.name]'s all yours!)]"
+									+ " [npc.speech(Come on! Only "+Util.intToString(prostitutePrice())+" flames, and [npc.name]'s all yours!)]"
 								+ "</p>");
 					}
 				}
@@ -195,7 +200,7 @@ public class AlleywayProstituteDialogue {
 					+ "</p>"
 					+ "<p>"
 						+ "As you're wondering what to make of [npc.herHim], the [npc.race] whines,"
-						+ " [npc.speech(Come on! Only fifty flames, and [npc.name]'s all yours!)]"
+						+ " [npc.speech(Come on! Only "+Util.intToString(prostitutePrice())+" flames, and [npc.name]'s all yours!)]"
 					+ "</p>";
 			}
 		}
@@ -218,7 +223,7 @@ public class AlleywayProstituteDialogue {
 				};
 				
 			} else if (index == 2) {
-				int cost = Main.game.getActiveNPC().isVisiblyPregnant()?40:50;
+				int cost = prostitutePrice();
 				
 				if(Main.game.getPlayer().getMoney()<cost) {
 					return new Response("Dominant Sex ("+UtilText.formatAsMoney(cost, "span")+")", "You don't have "+cost+" flames, so you can't afford a good time with [npc.name].", null);
@@ -253,7 +258,7 @@ public class AlleywayProstituteDialogue {
 				}
 				
 			} else if (index == 3) {
-				int cost = Main.game.getActiveNPC().isVisiblyPregnant()?40:50;
+				int cost = prostitutePrice();
 				
 				if(Main.game.getPlayer().getMoney()<cost) {
 					return new Response("Submissive Sex ("+UtilText.formatAsMoney(cost, "span")+")", "You don't have "+cost+" flames, so you can't afford a good time with [npc.name].", null);

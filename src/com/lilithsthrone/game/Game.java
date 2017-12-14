@@ -837,7 +837,7 @@ public class Game implements Serializable, XMLSaving {
 				npc.setPendingTransformationToGenderIdentity(false);
 			}
 			
-			// Prostitutes stay on promiscuity pills to avoid pregnancies
+			// Prostitutes stay on promiscuity pills to avoid pregnancies, and, if the NPC is male, to avoid knocking up their clients
 			if((!npc.isPregnant()
 					&& !npc.isSlave()
 					&& npc.getHistory()==History.PROSTITUTE

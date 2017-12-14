@@ -5,7 +5,6 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.History;
 import com.lilithsthrone.game.character.Name;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -29,7 +28,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.82
- * @version 0.1.86
+ * @version 0.1.95
  * @author Innoxia
  */
 public class NPCOffspring extends NPC {
@@ -73,17 +72,7 @@ public class NPCOffspring extends NPC {
 
 		// PERSONALITY & BACKGROUND:
 		
-		if(this.isFeminine()) {
-			if(Math.random()>0.2f) {
-				this.setHistory(History.PROSTITUTE);
-				setName(Name.getRandomProstituteTriplet());
-			} else {
-				this.setHistory(History.MUGGER);
-			}
-			
-		} else {
-			this.setHistory(History.MUGGER);
-		}
+		CharacterUtils.setHistoryAndPersonality(this);
 		
 		// ADDING FETISHES:
 		
