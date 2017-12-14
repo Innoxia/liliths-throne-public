@@ -634,6 +634,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			} else {
 				raceName = getPreferredBody().getGender().getName() + " " + getPreferredBody().getRace().getSingularMaleName();
 			}
+		}
 		
 		switch(getPreferredBody().getRace()) {
 			case CAT_MORPH:

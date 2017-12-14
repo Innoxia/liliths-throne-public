@@ -409,6 +409,7 @@ public enum Race {
 	
 	GATOR_MORPH(
 			"gator-morph",
+			"gator-morphs",
 			
 			"gator-boy",
 			"gator-girl",
@@ -417,23 +418,11 @@ public enum Race {
 			"gator-girls",
 
 			"<p>"
-				+ "Squirrel-morphs are one of the more common anthropomorphic races found in this world."
-				+ " Although they're mostly found in the wooded areas of the Foloi Fields, squirrel-morphs are also a regular sight in Dominion."
-				+ " Their long fluffy tails and small round ears are usually enough to identify a squirrel-morph."
+				+ "." //TODO
 			+ "</p>",
-			
+
 			"<p>"
-				+ "Squirrel-morphs have a reputation for their stunning agility."
-				+ " They are excellent climbers and can scale even the most sheer of walls by launching themselves at it, even from a standstill."
-				+ " Although their personalities can vary greatly, most squirrel-morphs tend to be a bit skittish most of the time."
-			+ "</p>"
-			+ "<p>"
-				+ "Squirrel-morphs, like the other common races, get heavily affected by arcane storms."
-				+ " Being exposed to arcane thunder will make squirrel-boys enter a potent rut, which, when combined with their great speed, makes them a dangerous foe to encounter during an arcane storm."
-				+ " Squirrel-girls will react to arcane thunder by going into heat, and will force themselves on anyone they might come across."
-			+ "</p>"
-			+ "<p>"
-				+ "Squirrel-morphs will give birth to one or two of their own kind, in much the same way that a human pregnancy works."
+				+ "." //TODO
 			+ "</p>",
 
 			Colour.RACE_GATOR_MORPH,
@@ -445,8 +434,10 @@ public enum Race {
 			0.5f,
 			1,
 			2,
-			
-			TFEssence.GATOR_MORPH),
+			Attribute.DAMAGE_GATOR_MORPH,
+			Attribute.RESISTANCE_GATOR_MORPH,
+			FurryPreference.NORMAL,
+			FurryPreference.NORMAL),
 
 	// SLIME:
 	SLIME("slime", "slimes",

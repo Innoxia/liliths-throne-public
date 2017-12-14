@@ -4734,6 +4734,38 @@ public enum StatusEffect {
 		}
 	},
 	
+	COMBAT_BONUS_ALLIGATOR_MORPH(
+			80,
+			"alligator-morph intuition",
+			"combatBonusAlligatorMorph",
+			Colour.RACE_GATOR_MORPH,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.STRENGTH, 2f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_GATOR_MORPH, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_GATOR_MORPH, 25f)),
+			null) {
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target == null) {
+				return "";
+			}
+			if (target.isPlayer()) {
+				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how alligator-morphs will behave.";
+			} else {
+				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how alligator-morphs will behave.");
+			}
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return false;
+		}
+	},
+	
 	COMBAT_BONUS_WOLF_MORPH(
 			80,
 			"wolf-morph intuition",

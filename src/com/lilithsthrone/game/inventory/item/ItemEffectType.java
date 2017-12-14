@@ -909,13 +909,16 @@ public enum ItemEffectType {
 	},
 	
  	BOTTLED_ESSENCE_GATOR_MORPH(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+1)] [style.boldGator(Gator-morph)] essence")),
+			new ListValue<>("[style.boldGood(+1)] [style.boldArcane(Arcane)] essence"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldAlligator(alligator-morphs)]"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldAlligator(alligator-morphs)]")),
 			Colour.RACE_GATOR_MORPH) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			target.incrementEssenceCount(TFEssence.GATOR_MORPH, 1);
-			return "You have absorbed [style.boldGood(+1)] [style.boldGator(Gator-morph)] essence!";
+			target.incrementEssenceCount(TFEssence.ARCANE, 1);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_ALLIGATOR_MORPH, 60*4);
+			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldAlligator(alligator-morphs)]!";
 		}
 	},
 	
@@ -1750,12 +1753,12 @@ public enum ItemEffectType {
 
 		@Override
 		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
-			return getRacialSecondaryModifiers(primaryModifier);
+			return getRacialSecondaryModifiers(Race.GATOR_MORPH, primaryModifier);
 		}
 		
 		@Override
 		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			return getRacialPotencyModifiers(primaryModifier, secondaryModifier);
+			return getRacialPotencyModifiers(Race.GATOR_MORPH, primaryModifier, secondaryModifier);
 		}
 		
 		@Override

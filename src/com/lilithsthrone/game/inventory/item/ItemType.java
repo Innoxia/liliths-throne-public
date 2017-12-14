@@ -450,13 +450,10 @@ public class ItemType {
 			Colour.ATTRIBUTE_STRENGTH,
 			25,
 			Rarity.UNCOMMON,
-			TFEssence.GATOR_MORPH,
+			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.STR_SWAMP_WATER, null, null, null, 0)))) {
 
-		/**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
@@ -478,7 +475,7 @@ public class ItemType {
 			if (user == Main.game.getPlayer() && target == Main.game.getPlayer()) {
 				return "<p>"
 							+ "You unscrew the cap and start drinking the bottle of 'Swamp Water'."
-							+ " Its taste is quite unlike that of any other liquor you've ever drunk, and it burns slighty going down."
+							+ " Its taste is quite unlike that of any other liquor you've ever drunk, and it burns slightly going down."
 							+ " As the last few drops slide down your throat, a strange, tangy aftertaste lingers on your tongue."
 						+ "</p>";
 				
@@ -1283,13 +1280,10 @@ public class ItemType {
 			Colour.RACE_GATOR_MORPH,
 			40,
 			Rarity.RARE,
-			TFEssence.GATOR_MORPH,
+			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_GATORS_GUMBO, null, null, null, 0)))) {
 
-		/**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
