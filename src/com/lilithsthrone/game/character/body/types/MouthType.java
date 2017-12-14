@@ -31,6 +31,8 @@ public enum MouthType implements BodyPartTypeInterface {
 	
 	SQUIRREL_MORPH(BodyCoveringType.MOUTH, Race.SQUIRREL_MORPH),
 	
+	GATOR_MORPH(BodyCoveringType.MOUTH, Race.GATOR_MORPH),
+	
 	HORSE_MORPH(BodyCoveringType.MOUTH, Race.HORSE_MORPH),
 	
 	HARPY(BodyCoveringType.MOUTH, Race.HARPY),

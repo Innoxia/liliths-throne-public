@@ -2820,6 +2820,9 @@ public class Lab {
 					case DOG_MORPH:
 						litterSB.append(" smiling");
 						break;
+					case GATOR_MORPH:
+						litterSB.append(" tough");
+						break;
 					case HARPY:
 						litterSB.append(" feminine");
 						break;
@@ -2864,6 +2867,9 @@ public class Lab {
 						break;
 					case DOG_MORPH:
 						litterSB.append(" smiling");
+						break;
+					case GATOR_MORPH:
+						litterSB.append(" tough");
 						break;
 					case HARPY:
 						litterSB.append(" feminine");
@@ -2910,6 +2916,9 @@ public class Lab {
 					case DOG_MORPH:
 						litterSB.append(" playful");
 						break;
+					case GATOR_MORPH:
+						litterSB.append(" tough");
+						break;
 					case HARPY:
 						litterSB.append(" feminine");
 						break;
@@ -2954,6 +2963,9 @@ public class Lab {
 						break;
 					case DOG_MORPH:
 						litterSB.append(" playful");
+						break;
+					case GATOR_MORPH:
+						litterSB.append(" tough");
 						break;
 					case HARPY:
 						litterSB.append(" feminine");

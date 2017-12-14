@@ -27,6 +27,8 @@ public enum TesticleType implements BodyPartTypeInterface {
 
 	FELINE(BodyCoveringType.FELINE_FUR, FluidType.CUM_CAT_MORPH, Race.CAT_MORPH, false),
 
+	REPTILE(BodyCoveringType.PENIS, FluidType.CUM_GATOR_MORPH, Race.GATOR_MORPH, true),
+
 	EQUINE(BodyCoveringType.PENIS, FluidType.CUM_HORSE_MORPH, Race.HORSE_MORPH, false),
 
 	SLIME(BodyCoveringType.SLIME, FluidType.CUM_SLIME, Race.SLIME, false),

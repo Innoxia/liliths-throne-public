@@ -165,6 +165,23 @@ public class Arm implements BodyPartInterface, Serializable {
 							+ "</p>");
 				}
 				break;
+			case GATOR_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" Within a matter of moments, a layer of [pc.armFullDescription] has quickly grown over them, and, looking down,"
+										+ " you see your scales growing over the backs of your new hands as sharp claws push out to replace your fingernails."
+								+ " Your palms rapidly transform to be covered in little scales, and at your upper-biceps, your new scales smoothly transitions into the [pc.skin] that's covering the rest of your body.</br>"
+								+ "As the transformation comes to an end, you're left with anthropomorphic, [style.boldGatorMorph(gator-like arms and hands)], which are covered in [pc.armFullDescription]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" Within a matter of moments, a layer of [npc.armFullDescription] has quickly grown over them, and, looking down,"
+										+ " [npc.she] sees [npc.her] scales growing over the backs of [npc.her] hands as sharp claws push out to replace [npc.her] fingernails."
+								+ " [npc.Her] palms rapidly transform to be covered in little scales, and at [npc.her] upper-biceps, [npc.her] new scales smoothly transitions into the [npc.skin] that's covering the rest of [npc.her] body.</br>"
+								+ "As the transformation comes to an end, [npc.name] is left with anthropomorphic, [style.boldGatorMorph(gator-like arms and hands)], which are covered in [npc.armFullDescription]."
+							+ "</p>");
+				}
+				break;
 			case HORSE_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(

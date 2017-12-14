@@ -32,6 +32,8 @@ public enum PenisType implements BodyPartTypeInterface {
 
 	FELINE(BodyCoveringType.PENIS, TesticleType.FELINE, Race.CAT_MORPH, PenisModifier.BARBED, PenisModifier.SHEATHED),
 
+	REPTILE(BodyCoveringType.PENIS, TesticleType.REPTILE, Race.GATOR_MORPH, PenisModifier.BLUNT),
+
 	EQUINE(BodyCoveringType.PENIS, TesticleType.EQUINE, Race.HORSE_MORPH, PenisModifier.FLARED, PenisModifier.VEINY, PenisModifier.SHEATHED),
 
 	SLIME(BodyCoveringType.PENIS, TesticleType.SLIME, Race.SLIME),
@@ -84,6 +86,8 @@ public enum PenisType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("horse-cock", "equine cock", "horse-like cock", "horse-dick");
 			case FELINE:
 				return UtilText.returnStringAtRandom("cat-cock", "feline cock", "cat-like cock", "cat-dick");
+			case REPTILE:
+				return UtilText.returnStringAtRandom("reptile-cock", "reptile cock", "reptile-like cock", "reptile-dick");
 			case HUMAN:
 				return UtilText.returnStringAtRandom("cock", "shaft");
 			case NONE:
@@ -114,6 +118,8 @@ public enum PenisType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("horse-cocks", "equine cocks", "horse-like cocks", "horse-dicks");
 			case FELINE:
 				return UtilText.returnStringAtRandom("cat-cocks", "feline cocks", "cat-like cocks", "cat-dicks");
+			case REPTILE:
+				return UtilText.returnStringAtRandom("reptile-cocks", "reptile cocks", "reptile-like cocks", "reptile-dicks");
 			case HUMAN:
 				return UtilText.returnStringAtRandom("cocks", "shafts");
 			case NONE:
@@ -147,6 +153,8 @@ public enum PenisType implements BodyPartTypeInterface {
 						return UtilText.returnStringAtRandom("bestial", "thick");
 					case FELINE:
 						return UtilText.returnStringAtRandom("bestial");
+					case REPTILE:
+						return UtilText.returnStringAtRandom("reptilian");
 					case HUMAN:
 						return UtilText.returnStringAtRandom("");
 					case NONE:
@@ -230,6 +238,8 @@ public enum PenisType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("tapered", "pointed");
 			case EQUINE:
 				return UtilText.returnStringAtRandom("wide", "flared", "flat");
+			case REPTILE:
+				return UtilText.returnStringAtRandom("blunt");
 			case FELINE:
 				return UtilText.returnStringAtRandom("");
 			case NONE:

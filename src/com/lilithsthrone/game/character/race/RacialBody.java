@@ -348,6 +348,35 @@ public enum RacialBody {
 		}
 	},
 
+	// REPTILE:
+	GATOR_MORPH(Util.newHashMapOfValues(
+	            new Value<Attribute, Float>(Attribute.STRENGTH, 60f),
+	            new Value<Attribute, Float>(Attribute.INTELLIGENCE, 20f),
+	            new Value<Attribute, Float>(Attribute.FITNESS, 60f),
+	            new Value<Attribute, Float>(Attribute.CORRUPTION, 0f)),
+		    AntennaType.NONE,
+		    ArmType.GATOR_MORPH, 1,
+		    AssType.GATOR_MORPH, AssSize.TWO_SMALL, AssSize.TWO_SMALL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
+		    BreastType.GATOR_MORPH,
+		    CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
+		    CupSize.A, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
+		    170, 25, BodySize.THREE_LARGE.getMedianValue(), Muscle.FOUR_RIPPED.getMedianValue(),
+		    170, 95, BodySize.ONE_SLENDER.getMedianValue(), Muscle.FOUR_RIPPED.getMedianValue(),
+		    EarType.GATOR_MORPH,
+		    EyeType.GATOR_MORPH,
+		    FaceType.GATOR_MORPH, LipSize.ONE_AVERAGE, LipSize.TWO_FULL,
+		    HairType.GATOR_MORPH, HairLength.FOUR_MID_BACK, HairLength.FOUR_MID_BACK,
+		    LegType.GATOR_MORPH,
+		    SkinType.GATOR_MORPH, BodyMaterial.FLESH,
+		    HornType.NONE, HornType.NONE,
+		    PenisType.REPTILE, PenisSize.FIVE_ENORMOUS,
+		    PenisType.NONE, PenisSize.TWO_AVERAGE,
+		    TesticleSize.FOUR_HUGE, 2, CumProduction.SEVEN_MONSTROUS,
+		    TailType.GATOR_MORPH,
+		    VaginaType.GATOR_MORPH, Wetness.SEVEN_DROOLING, Capacity.ONE_EXTREMELY_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY,
+		    WingType.NONE,
+		    GenitalArrangement.CLOACA),
+			
 	// SLIMES:
 	SLIME(Util.newHashMapOfValues(
 				new Value<Attribute, Float>(Attribute.STRENGTH, 5f),
@@ -626,6 +655,8 @@ public enum RacialBody {
 				return RacialBody.DEMON;
 			case DOG_MORPH:
 				return RacialBody.DOG_MORPH;
+			case GATOR_MORPH:
+				return RacialBody.GATOR_MORPH;
 			case HARPY:
 				return RacialBody.HARPY;
 			case HORSE_MORPH:

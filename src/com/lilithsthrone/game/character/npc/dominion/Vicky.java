@@ -57,6 +57,7 @@ public class Vicky extends NPC {
 			ItemType.RACE_INGREDIENT_WOLF_MORPH,
 			ItemType.RACE_INGREDIENT_SQUIRREL_MORPH,
 			ItemType.RACE_INGREDIENT_COW_MORPH,
+			ItemType.RACE_INGREDIENT_GATOR_MORPH,
 			ItemType.RACE_INGREDIENT_HUMAN,
 			ItemType.RACE_INGREDIENT_DEMON};
 
@@ -134,26 +135,30 @@ public class Vicky extends NPC {
 			primaryMod = TFModifier.getTFRacialBodyPartsList().get(Util.random.nextInt(TFModifier.getTFRacialBodyPartsList().size()));
 		}
 		
-		for(int i=0; i<25+Util.random.nextInt(20);i++)
-			this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_ARCANE), false);
-		for(int i=0; i<25+Util.random.nextInt(20);i++)
-			this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_CAT_MORPH), false);
-		for(int i=0; i<25+Util.random.nextInt(20);i++)
-			this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_DEMON), false);
-		for(int i=0; i<25+Util.random.nextInt(20);i++)
-			this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_DOG_MORPH), false);
-		for(int i=0; i<25+Util.random.nextInt(20);i++)
-			this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_HARPY), false);
-		for(int i=0; i<25+Util.random.nextInt(20);i++)
-			this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_HORSE_MORPH), false);
-		for(int i=0; i<25+Util.random.nextInt(20);i++)
-			this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_HUMAN), false);
-		for(int i=0; i<25+Util.random.nextInt(20);i++)
-			this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_WOLF_MORPH), false);
-		for(int i=0; i<25+Util.random.nextInt(20);i++)
-			this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_SQUIRREL_MORPH), false);
-		for(int i=0; i<25+Util.random.nextInt(20);i++)
-			this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_COW_MORPH), false);
+		if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
+			for(int i=0; i<25+Util.random.nextInt(20);i++)
+				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_ARCANE), false);
+			for(int i=0; i<25+Util.random.nextInt(20);i++)
+				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_CAT_MORPH), false);
+			for(int i=0; i<25+Util.random.nextInt(20);i++)
+				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_DEMON), false);
+			for(int i=0; i<25+Util.random.nextInt(20);i++)
+				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_DOG_MORPH), false);
+			for(int i=0; i<25+Util.random.nextInt(20);i++)
+				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_HARPY), false);
+			for(int i=0; i<25+Util.random.nextInt(20);i++)
+				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_HORSE_MORPH), false);
+			for(int i=0; i<25+Util.random.nextInt(20);i++)
+				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_HUMAN), false);
+			for(int i=0; i<25+Util.random.nextInt(20);i++)
+				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_WOLF_MORPH), false);
+			for(int i=0; i<25+Util.random.nextInt(20);i++)
+				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_SQUIRREL_MORPH), false);
+			for(int i=0; i<25+Util.random.nextInt(20);i++)
+				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_COW_MORPH), false);
+			for(int i=0; i<25+Util.random.nextInt(20);i++)
+				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_GATOR_MORPH), false);
+		}
 	}
 	
 	@Override
@@ -188,19 +193,21 @@ public class Vicky extends NPC {
 			return true;
 		
 		if(item instanceof AbstractItem) {
-			if(((AbstractItem)item).getItemType().equals(ItemType.BOTTLED_ESSENCE_ARCANE)
-					|| ((AbstractItem)item).getItemType().equals(ItemType.BOTTLED_ESSENCE_CAT_MORPH)
-					|| ((AbstractItem)item).getItemType().equals(ItemType.BOTTLED_ESSENCE_DEMON)
-					|| ((AbstractItem)item).getItemType().equals(ItemType.BOTTLED_ESSENCE_DOG_MORPH)
-					|| ((AbstractItem)item).getItemType().equals(ItemType.BOTTLED_ESSENCE_HARPY)
-					|| ((AbstractItem)item).getItemType().equals(ItemType.BOTTLED_ESSENCE_HORSE_MORPH)
-					|| ((AbstractItem)item).getItemType().equals(ItemType.BOTTLED_ESSENCE_HUMAN)
-					|| ((AbstractItem)item).getItemType().equals(ItemType.BOTTLED_ESSENCE_WOLF_MORPH)
-					|| ((AbstractItem)item).getItemType().equals(ItemType.BOTTLED_ESSENCE_COW_MORPH)
-					|| ((AbstractItem)item).getItemType().equals(ItemType.BOTTLED_ESSENCE_SQUIRREL_MORPH)
-					|| ((AbstractItem)item).getItemType().equals(ItemType.POTION)
-					|| ((AbstractItem)item).getItemType().equals(ItemType.ELIXIR)) {
-				return true;
+
+			if(((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_ARCANE
+					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_CAT_MORPH
+					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_DEMON
+					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_DOG_MORPH
+					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_HARPY
+					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_HORSE_MORPH
+					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_HUMAN
+					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_WOLF_MORPH
+					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_COW_MORPH
+					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_SQUIRREL_MORPH
+					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_GATOR_MORPH
+					|| ((AbstractItem)item).getItemType()==ItemType.POTION
+					|| ((AbstractItem)item).getItemType()==ItemType.ELIXIR) {
+;
 			}
 		}
 		

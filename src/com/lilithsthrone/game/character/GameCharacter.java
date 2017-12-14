@@ -5143,6 +5143,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				return BodyCoveringType.BODY_HAIR_DEMON;
 			case DOG_MORPH:
 				return BodyCoveringType.BODY_HAIR_CANINE_FUR;
+			case GATOR_MORPH:
+				return BodyCoveringType.BODY_HAIR_SCALES_GATOR;
 			case HARPY:
 				return BodyCoveringType.BODY_HAIR_HARPY;
 			case HORSE_MORPH:
