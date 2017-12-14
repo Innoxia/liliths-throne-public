@@ -7,8 +7,10 @@ import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.History;
 import com.lilithsthrone.game.character.Name;
+import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderPreference;
 import com.lilithsthrone.game.character.race.RaceStage;
@@ -20,6 +22,7 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
@@ -70,20 +73,6 @@ public class NPCOffspring extends NPC {
 		setSexualOrientation(RacialBody.valueOfRace(getRace()).getSexualOrientation(getGender()));
 
 		setName(Name.getRandomTriplet(getRace()));
-
-		// PERSONALITY & BACKGROUND:
-		
-		if(this.isFeminine()) {
-			if(Math.random()>0.2f) {
-				this.setHistory(History.PROSTITUTE);
-				setName(Name.getRandomProstituteTriplet());
-			} else {
-				this.setHistory(History.MUGGER);
-			}
-			
-		} else {
-			this.setHistory(History.MUGGER);
-		}
 		
 		// ADDING FETISHES:
 		
@@ -92,6 +81,39 @@ public class NPCOffspring extends NPC {
 		// BODY RANDOMISATION:
 		
 		CharacterUtils.randomiseBody(this);
+		
+		// PERSONALITY & BACKGROUND:
+		
+		double prostituteChance = 0.25f; //Base 0.25% chance for any random to be a prostitute.
+		
+		if(this.isFeminine()) { prostituteChance += 0.10f; }
+		
+		prostituteChance += Math.min((this.body.getBreast().getRawSizeValue()-7)*0.02f, 0.35f);
+		
+		if(this.hasPenis()) { prostituteChance += Math.min((this.body.getPenis().getRawSizeValue()-5)*0.01f, 0.10f); }
+		
+		if(this.hasVagina()) { prostituteChance += 0.15f; }
+		
+		if(this.body.getBreast().getNipples().getOrificeNipples().getRawCapacityValue() >= 4) { prostituteChance += 0.05f; }
+		
+		if(this.hasFetish(Fetish.FETISH_PURE_VIRGIN)) {prostituteChance = 0;}
+			
+		if(Math.random()<=prostituteChance) {
+			this.setHistory(History.PROSTITUTE);
+			this.setAssVirgin(false);
+			this.setAssCapacity(this.getAssRawCapacityValue()*1.2f, true);
+			this.setAssStretchedCapacity(this.getAssRawCapacityValue());
+			if(this.hasVagina()) {
+				this.setVaginaVirgin(false);
+				this.setVaginaCapacity(this.getVaginaRawCapacityValue()*1.2f, true);
+				this.setVaginaStretchedCapacity(this.getVaginaRawCapacityValue());
+			}
+			setSexualOrientation(SexualOrientation.AMBIPHILIC);
+			setName(Name.getRandomProstituteTriplet());
+			useItem(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL), this, false);
+		} else {
+			this.setHistory(History.MUGGER);
+		}
 		
 		// INVENTORY:
 		

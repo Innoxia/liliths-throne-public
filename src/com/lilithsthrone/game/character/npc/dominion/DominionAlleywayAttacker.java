@@ -12,6 +12,7 @@ import com.lilithsthrone.game.character.History;
 import com.lilithsthrone.game.character.Name;
 import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.FurryPreference;
@@ -176,22 +177,6 @@ public class DominionAlleywayAttacker extends NPC {
 			setDescription(UtilText.parse(this,
 					"[npc.Name] is a resident of Dominion, who, for reasons of [npc.her] own, prowls the back alleys in search of victims to prey upon."));
 			
-			// PERSONALITY & BACKGROUND:
-			
-			if(this.isFeminine()) {
-				if(Math.random()>0.5f) {
-					this.setHistory(History.PROSTITUTE);
-					setSexualOrientation(SexualOrientation.AMBIPHILIC);
-					setName(Name.getRandomProstituteTriplet());
-					useItem(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL), this, false);
-				} else {
-					this.setHistory(History.MUGGER);
-				}
-				
-			} else {
-				this.setHistory(History.MUGGER);
-			}
-			
 			// ADDING FETISHES:
 			
 			CharacterUtils.addFetishes(this);
@@ -199,6 +184,39 @@ public class DominionAlleywayAttacker extends NPC {
 			// BODY RANDOMISATION:
 			
 			CharacterUtils.randomiseBody(this);
+			
+			// PERSONALITY & BACKGROUND:
+			
+			double prostituteChance = 0.25f; //Base 0.25% chance for any random to be a prostitute.
+						
+			if(this.isFeminine()) { prostituteChance += 0.10f; } //Bonus for femininity
+			
+			prostituteChance += Math.min((this.body.getBreast().getRawSizeValue()-7)*0.02f, 0.35f); //Compare breast size to average.
+			
+			if(this.hasPenis()) { prostituteChance += Math.min((this.body.getPenis().getRawSizeValue()-5)*0.01f, 0.10f); } //Scaling based off of cock size. Very small cocks are a penalty.
+			
+			if(this.hasVagina()) { prostituteChance += 0.15f; } //Bonus for vagina.
+			
+			if(this.body.getBreast().getNipples().getOrificeNipples().getRawCapacityValue() >= 4) { prostituteChance += 0.05f; } //Bonus for fuckable nipples.
+			
+			if(this.hasFetish(Fetish.FETISH_PURE_VIRGIN)) {prostituteChance = 0;} // addFetishes() was supposed to handle this before.
+				
+			if(Math.random()<=prostituteChance) {
+				this.setHistory(History.PROSTITUTE);
+				this.setAssVirgin(false);
+				this.setAssCapacity(this.getAssRawCapacityValue()*1.2f, true);
+				this.setAssStretchedCapacity(this.getAssRawCapacityValue());
+				if(this.hasVagina()) {
+					this.setVaginaVirgin(false);
+					this.setVaginaCapacity(this.getVaginaRawCapacityValue()*1.2f, true);
+					this.setVaginaStretchedCapacity(this.getVaginaRawCapacityValue());
+				}
+				setSexualOrientation(SexualOrientation.AMBIPHILIC);
+				setName(Name.getRandomProstituteTriplet());
+				useItem(AbstractItemType.generateItem(ItemType.PROMISCUITY_PILL), this, false);
+			} else {
+				this.setHistory(History.MUGGER);
+			}
 			
 			// INVENTORY:
 			
