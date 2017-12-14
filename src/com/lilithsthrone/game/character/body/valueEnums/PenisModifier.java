@@ -12,6 +12,7 @@ public enum PenisModifier {
 	TENTACLED("tentacled"),
 	KNOTTED("knotted"),
 	TAPERED("tapered"),
+	BLUNT("blunt"),
 	FLARED("flared"),
 	BARBED("barbed"),
 	VEINY("veiny"),

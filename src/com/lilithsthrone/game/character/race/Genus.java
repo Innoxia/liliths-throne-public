@@ -34,7 +34,7 @@ public enum Genus {
 	AQUATIC("aquatic",
 			Colour.CLOTHING_RED), //TODO
 	REPTILE("reptilian",
-			Colour.CLOTHING_RED), //TODO
+			Colour.RACE_GATOR_MORPH), //TODO
 	DRAGON("dragon",
 			Colour.CLOTHING_RED), //TODO
 	DEMON("demon",
