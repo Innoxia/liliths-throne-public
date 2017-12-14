@@ -162,7 +162,19 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-		credits.add(new CreditsSlot("Anonymous", "", 0, 9, 124, 41));
+		credits.add(new CreditsSlot("Anonymous", "", 0, 7, 118, 39));
+		
+
+		credits.add(new CreditsSlot("fun_bot", "", 0, 0, 0, 1));
+		credits.add(new CreditsSlot("WodashGSJ", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("Dan", "", 0, 1, 0, 1));
+		credits.add(new CreditsSlot("Cryostorm", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("Testostetyrone", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("Tanall", "", 0, 1, 3, 0));
+		
+		
+		
+		
 		
 		credits.add(new CreditsSlot("Adhana Konker", "", 0, 0, 3, 0));
 		credits.add(new CreditsSlot("Lexi <3", "", 0, 0, 0, 1));
@@ -207,7 +219,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Niki Parks", "", 0, 0, 5, 0));
 		credits.add(new CreditsSlot("Georgio154", "", 0, 0, 1, 3));
 		credits.add(new CreditsSlot("glocknar", "", 0, 0, 2, 0));
-		credits.add(new CreditsSlot("Krissy2017", "", 0, 0, 0, 1));
+		credits.add(new CreditsSlot("Krissy2017", "", 0, 0, 0, 3));
 		credits.add(new CreditsSlot("Grakcnar", "", 0, 0, 3, 0));
 		credits.add(new CreditsSlot("Hedgehog", "", 0, 0, 0, 2));
 		credits.add(new CreditsSlot("Bocaj91", "", 0, 0, 0, 3));

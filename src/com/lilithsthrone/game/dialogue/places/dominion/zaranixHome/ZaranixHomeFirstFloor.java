@@ -381,7 +381,7 @@ public class ZaranixHomeFirstFloor {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getZaranix().getFoughtPlayerCount()!=0) {
+			if(Main.game.getZaranix().getFoughtPlayerCount()==0) {
 				if(index==1) {
 					return new Response("Demand Arthur", "Refuse to tell Zaranix why you're here, and instead simply demand that he hand over Arthur to you.", ZARANIX_ROOM_NO_EXPLANATION) {
 						@Override
@@ -395,7 +395,7 @@ public class ZaranixHomeFirstFloor {
 						@Override
 						public void effects() {
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
-							Main.game.getArthur().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, false);
+							Main.game.getArthur().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
 						}
 					};
 					

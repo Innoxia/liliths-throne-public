@@ -4,21 +4,59 @@
 		Update README
 		Create .exe version
 	
-	
-	
-	
-	
-	
-	
-	
-	
+	Update to Java 9.0.1?
 	
 	
 	
 	Patch notes:
 	
+	Contributions:
+		Added a black variation to the lab coat. (by rfpnj)
+	
+	Other:
+		The blazer item of clothing now conceals the wearer's chest and waist until unbuttoned.
+		Changed kissing dirty talk.
+		Added paizuri-specific dirty talk.
+		Added bovine-specific horns to HornTypes, to resolve the issue of horn races being inconsistent between demons and cow-morphs.
+		You can now pull down the Milk Maid's dress to expose breasts & nipples.
+		Lab coats now block breasts/genitals/ass, and can be unbuttoned and pulled up to reveal blocked parts.
+		Added option to pay for submissive sex with NPC prostitutes.
+		Added the full demonic transformations menu to the witch cultists.
+	
 	Bugs:
 		Fixed cause of characters present screen not opening.
+		Fixed (another) major bug related to game importing.
+		Flat-chested characters will no longer have their nipple be referred to as 'teats'.
+		Fixed multiple virginity loss readings in body description.
+		Corrected hair length in character viewer's stats panel to be displayed in inches.
+		Characters that are imported while wearing enchanted gear will now correctly have that gear's stats applied. (Before you would not receive gear bonuses upon import, and would then suffer attribute decreases when unequipping that clothing.)
+		Slave settings now import correctly (cleanliness settings will no longer reset on import).
+		Slaves locked in public use stocks will now have their nipples fucked (if they are accessible and are able to be penetrated).
+		Slave rooms (as well as all other places in all maps) will now correctly import all additions (such as obedience trainers, room service, arcane instruments, etc.).
+		Fixed major import error caused by the game trying to load the old position 'DOGGY_ORAL_PLAYER_ON_ALL_FOURS'.
+		Fixed incorrect transformation dialogue for NPCs who are forcibly transforming you.
+		Fixed minor description error in wing transformations.
+		Imported characters now correctly keep their available perk points.
+		Fixed bug with Zaranix's non-violent resolution option not being available.
+		Fixed bug where Arthur wouldn't be moved to Lilaya's Lab (this should correct itself when you import your game into this new version).
+		The 'Submissive talk' option in Lilaya's sex scene is now linked to the Submissive fetish.
+		Tidied up the total mess that was the 'repeat actions' tab in sex.
+		Androgynous characters will no longer be able to spawn in with a beard.
+		Growing horns now sets their starting length value to 'small' (2 inches), if their previous length is 0.
+		Changing difficulty level now correctly resets the health/willpower/stamina of all NPCs.
+		The 'pent up' status effect for slaves is now calculated based on the last time they orgasmed, not the last time they had sex, allowing you to have sex with your slave and stop before they orgasm to leave them pent-up.
+	
+	Demonic transformation menu bugs:
+		Iris shape and pupil shape now work correctly on NPCs.
+		Changing lip size now works correctly on all characters.
+		Added options to change lip & throat colour.
+		Changing hair colour now correctly changes the target's hair colour, instead of their skin colour.
+		Fixed bug where you couldn't turn off orifice or penis modifiers.
+		Added options to change throat and tongue modifiers.
+		You can now set ass and hip sizes to any value.
+		Removed duplicate lactation menu.
+		Added options to set elasticity, plasticity, wetness and capacity for anus.
+		Minor typo fixes.
 	
 	
 	
@@ -26,29 +64,42 @@
 	
 	
 	
+	Pazu feedback
 	
 	
 	
+	------------
+	
+	There's no skin color preference settings? Skin color preference settings when?
+	
+	Slaves still aren't interacting correctly outside of work/between jobs.
+	
+	Move urethral stuff to generic genitals
+	
+	[Possibly caused by buyback handling?]
+	- several places the game just hung on me, for example
+		1. visited Nyan's Clothing Store. I had a dress of unknown features, so I put it on, it had some minor effect, so I sold it and the other clothing items
+		2. visited another store, entered and clicked the 'Trade with ...' button and nothing. Tried another store and the same, also if I returned to Nyan's shop reloaded from a save.
+	- a few other times it just hung but I am not sure of any clear pattern to report, I get the general feel it is related to items in some way but not sure
+	
+	Freezing in Finch's screen (after getting slaver license)
+	
+	When your partner is about the cum the 'Prepare' button seems odd, and it resets what tab as such you are on so you have to re-select 'Sex Actions' or similar to resume.
+	
+	every so often when i try to enter a store or a sex scene the menu and description wont change
+	
+	I'll be working on adding knotting descriptions & actions this week! :3
+	I'm also going to be reworking the race detection system, which will allow for proper detection of hybrid races.
+	
+	I'll add more 'Dark Alleyway' tiles for succubi/incubi too. :3
+	
+	------------
 	
 	
-	Is submissive talk supposed to corrupt you even if you have the submissive fetish selected?
 	
-	is the lab coat which is knee length meant to cover less than the virgin-killer sweater
+	Sex work:	
 	
-	
-	Demon mode is broken the NPC level increases but not their stats
-	
-	
-	I noticed a bug with the logic of the "pent up" status effect for slaves. They lose the status effect after sex, even if they don't cum. This means that if you tease your slave to the edge of orgasm and stop, they still end up being sexually satisfied.
-
- Also, in the demonic transformation menu, the hair colour buttons enumerate all of the skin color options instead of hair color. If you pick a skin color as your hair color, you get an unexpected hair color (Eg: choosing "Ivory" hair, corresponds to "dark brown" hair when viewed in the selfie snapshot.)
-
-Also, in the demonic transformation menu, there are no options to change the capacity and elasticity of assholes like you can do with every other orifice. I'm not sure that that omission was intentional.
-	
-	
-	
-	
-	Exported a couple of time a save I've imported before and I don't have the <date/> field
+	- go through positioning actions and check conditions
 	
 	- Improve orgasm dialogue.
 		- Add in position-specific orgasm scenes.
@@ -69,30 +120,69 @@ Also, in the demonic transformation menu, there are no options to change the cap
 	
 	
 	
-	go through positioning actions and check conditions
+	
+	
+	
+	
+	
 	
 	FINISH SUCCUBUS DIALOGUE
 	
+	Add Amber repeat action (fence has arcane barrier now)
+	
+	
+	
+	
 	Bugs:
+	
+	----------------
+	
+	1. After trying to impregnate Lilaya when fighting an enemy my games freezing (I found out that this is because you impregnate her so get your D out of her before you defeating some enemy)
+	For your information the save files that I used is from 0.1.90 so I think there's no problem in exporting and importing files within the version
+	
 	After the first sex scene with Lilaya, the game just stopped working. I can't progress /  resume play at all
+	--------------
 	
 	Here's a five minute fix for the NPC AI. Currently, if the player has an accessible vagina, dominant npcs never go for the butt unless they have an anal fetish. Why not add the "rough" npc fetishes to that as well? Eg: dominant, sadist, and rapist npcs might also have a chance to target the ass instead of the pussy.
 Also, consider having the NPC take the PC's fetishes into account when deciding actions instead of just their own. I could see a submissive NPC trying to please their partner by doing what they like. This would add a whole lot of complexity to your AI system though, so it might be infeasible to add that to your system, as it is now, without risking breaking things.
 	
+	Fingering with gloves equipped? Right now they block fingers which I believe is both true and false at the same time: We might not be able to equip rings and such, but i believe we can push gloved fingers into an orifice.
 	
 	The quest is currently 'repeatable' after completion, you can enter the house and repeat everything up to the point where you meet arthur (either after fighting through the house or submitting).
 	 When meeting arthur when he is already gone the game hangs and you can't do anything.
 	
 	urethra pen
 	
-	Lipstick should leave a stain on your cock
+	I'm also getting bug where equipment stat changes do not carry over correctly during exporting 
 	
+	Just FYI that pregnancy stats continues to be broken on imported characters.
+	
+	Exporter/Importer broke. Can't import files, even unmooded ones.
+	
+	There also seems to be a bug with the slavery system's economy.  If you start a new game some of your debt from the previous character carries over to the new one.
+	
+	"before roughly bobbing your head up and down into your groin" should be "as you remind her who's in charge, before roughly bobbing your head up and down into her/his groin."
+	
+	
+	It seems exported characters have issues with offsprings.  My exported character was unable to access the pregnancy reports page.
+	
+	I don't know how, but I can't open my slaves' inventories from the slave overview page. The backpacks are greyed out but it gives a generic description like nothing's stopping it.
+Edit: Wouldn't let me open my own inv either. Exiting the process then opening a new one stops it though.
+	
+	
+	
+	Check the slavery jobs. If you give a slave a 24 hour work shift, it breaks the night/day cycle for some reason.  The dialogue options stay grayed out for all the slaves no matter how many times you rest.
+	
+	
+	I don't know if this is a bug or intentional but i cant seem to actually release Arthur. After the fight i try to release him and it just gets stuck and i cant go any farther but it wont let me leave the screen. 
 	
 	
 	"Bug" report: During the import process (for both game and NPC imports as far as I have noticed), the game forcefully sets the preferred body type to be an exact copy of the imported NPCs, rather than keeping any previous preferences from the old save.
 	 This results in any imported NPCs simply transforming you into themselves, limits and content permitting.
 		The reason seems to be that the body preference is set from the actual body parameters of the NPC, rather than getting it from the specified "preferredBody" element created during the export process when it is imported.
 	
+	
+	Could we get a "drop all inventory" feature? Or at least a better storage area? Different color clothing and potions clog up inventory space fast
 	
 	
 	I enslaved one of my daughters and now all of my slaves are calling me mom. The rename button does nothing.
@@ -126,13 +216,6 @@ Also, consider having the NPC take the PC's fetishes into account when deciding 
 	
 	
 	
-	----------------
-	
-	1. After trying to impregnate Lilaya when fighting an enemy my games freezing (I found out that this is because you impregnate her so get your D out of her before you defeating some enemy)
-	
-	For your information the save files that I used is from 0.1.90 so I think there's no problem in exporting and importing files within the version
-	
-	--------------
 	
 	
 	
@@ -208,6 +291,12 @@ Finally importing from 1.89.2 reset my slaves cleanliness permissions. Test subj
 	going to try a new save in a new install area so nothing is contaminated.
 	
 	In the new instance of the game, I was able to get 2 of the 4 non breeder slaves in an area to have sex... granted the slave they were having sex with was not attracted so its basicly rape, and the other work room where everyone was attractive to each other won't touch each other.
+	
+	
+	
+	Current bug After finding a fugitive (I've only found females so far):
+When enslaving them, their name will be whatever they spawned in as. IE ("the wolf girl" is her name) 
+when trying to change it, there's no way to do so. Typing in a name causes you to navigate through your menu options, even though you're typing in the name box. Also, hitting the check mark to lock her name in, just resets it back to the default.
 	
 	
 	----
@@ -342,6 +431,8 @@ Displacing a bikini describes it as "pulling it down", which sounds wrong to me.
 Submitted to a succubus, she called my PCs large DD breasts "tiny little things, how cute!", despite hers also being DDs.
 
 
+drop all in inventory
+
 	
 	can't seem to view the pregnancy tab and not sure if implemented yet, but slaves won't fuck each other.
 Another bug report: can't seem to remove those who identify as prostitutes from the map.
@@ -418,6 +509,11 @@ Another bug report: can't seem to remove those who identify as prostitutes from 
 	Alexa's slave display is still broken on imported games and old save files. It only updates correctly on new save games and imported characters. This is for the second hotfix.
 	also unable to view Alexa's description in slaver alley after she gets her first batch of slaves to sell.  It's viewable when you first get back to finish Scarlett's quest, but something breaks it when you visit the next day
 	
+	
+	
+	Weirdness
+	It's pretty weird that the descriptions for the stat "Fitness" are all about flexibility. What it actually does is in line with what I'd expect "Fitness" to do, but the flavour text is all about flexibility.
+	Tried out a harpy transformation, got told "You now have avian breasts and nipples, and when lactating, you will produce avian milk". Something about that sounds wrong…
 	
 	
 	

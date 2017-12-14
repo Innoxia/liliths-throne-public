@@ -560,6 +560,12 @@ public class Game implements Serializable, XMLSaving {
 					}
 				}
 				
+				if(Main.isVersionOlderThan(version, "0.1.95")) {
+					if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
+						Main.game.getArthur().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
+					}
+				}
+				
 				Main.game.pendingSlaveInStocksReset = false;
 				
 			} catch (Exception e) {

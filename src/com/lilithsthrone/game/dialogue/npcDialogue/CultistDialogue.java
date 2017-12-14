@@ -8,6 +8,7 @@ import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
+import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -441,11 +442,22 @@ public class CultistDialogue {
 							+ " The Witch's Seal appears to have completely immobilised her, but as you reach out and lift one of her legs, you discover that the spell still allows you to move her around."
 						+ "</p>"
 						+ "<p>"
-							+ "Grinning down at your new fuck-doll, you push her thighs apart to fully expose her pussy and cock, and prepare to have some fun..."
+							+ "Grinning down at your new fuck-doll, you push her thighs apart to fully expose her groin, and prepare to have some fun..."
 						+ "</p>") {
 					@Override
 					public void effects() {
 						((Cultist)Main.game.getActiveNPC()).setSealedSex(true);
+					}
+				};
+				
+			} else if (index == 4) {
+				return new Response("Full transformations",
+						"Take a very detailed look at what [npc.name] can transform [npc.herself] into...",
+						BodyChanging.BODY_CHANGING_CORE){
+					@Override
+					public void effects() {
+						Main.game.saveDialogueNode();
+						BodyChanging.setTarget(Main.game.getActiveNPC());
 					}
 				};
 				

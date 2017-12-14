@@ -123,6 +123,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	protected long lastTimeEncountered = -1;
 
 	protected long lastTimeHadSex = -1;
+	protected long lastTimeOrgasmed = -1;
 	
 	protected int romanceProgress = 0;
 	
@@ -167,6 +168,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 
 		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "lastTimeEncountered", String.valueOf(lastTimeEncountered));
 		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "lastTimeHadSex", String.valueOf(lastTimeHadSex));
+		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "lastTimeOrgasmed", String.valueOf(lastTimeOrgasmed));
 		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "romanceProgress", String.valueOf(romanceProgress));
 		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "buyModifier", String.valueOf(buyModifier));
 		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "sellModifier", String.valueOf(sellModifier));
@@ -201,7 +203,14 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		if(npcSpecificElement!=null) {
 			npc.setLastTimeEncountered(Long.valueOf(((Element)npcSpecificElement.getElementsByTagName("lastTimeEncountered").item(0)).getAttribute("value")));
-			npc.setLastTimeHadSex(Long.valueOf(((Element)npcSpecificElement.getElementsByTagName("lastTimeHadSex").item(0)).getAttribute("value")));
+			npc.setLastTimeHadSex(Long.valueOf(((Element)npcSpecificElement.getElementsByTagName("lastTimeHadSex").item(0)).getAttribute("value")), false);
+			
+			if(((Element)npcSpecificElement.getElementsByTagName("lastTimeOrgasmed").item(0))!=null) {
+				npc.setLastTimeOrgasmed(Long.valueOf(((Element)npcSpecificElement.getElementsByTagName("lastTimeOrgasmed").item(0)).getAttribute("value")));
+			} else {
+				npc.setLastTimeOrgasmed(npc.getLastTimeHadSex());
+			}
+			
 			npc.setRomanceProgress(Integer.valueOf(((Element)npcSpecificElement.getElementsByTagName("romanceProgress").item(0)).getAttribute("value")));
 			npc.setBuyModifier(Float.valueOf(((Element)npcSpecificElement.getElementsByTagName("buyModifier").item(0)).getAttribute("value")));
 			npc.setSellModifier(Float.valueOf(((Element)npcSpecificElement.getElementsByTagName("sellModifier").item(0)).getAttribute("value")));
@@ -215,7 +224,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			
 			for(int i=0; i<((Element) npcSpecificElement.getElementsByTagName("sexPositionPreferences").item(0)).getElementsByTagName("position").getLength(); i++){
 				Element e = (Element) ((Element) npcSpecificElement.getElementsByTagName("sexPositionPreferences").item(0)).getElementsByTagName("position").item(i);
-				npc.sexPositionPreferences.add(SexPosition.valueOf(e.getAttribute("value")));
+				try {
+					npc.sexPositionPreferences.add(SexPosition.valueOf(e.getAttribute("value")));
+				} catch(Exception ex) {
+				}
 			}
 			
 			npc.bodyPreference = Body.loadFromXML(log, (Element) parentElement.getElementsByTagName("body").item(0), doc);
@@ -547,10 +559,20 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	public long getLastTimeHadSex() {
 		return lastTimeHadSex;
 	}
-
-
-	public void setLastTimeHadSex(long lastTimeHadSex) {
+	
+	public void setLastTimeHadSex(long lastTimeHadSex, boolean orgasmed) {
 		this.lastTimeHadSex = lastTimeHadSex;
+		if(orgasmed) {
+			setLastTimeOrgasmed(lastTimeHadSex);
+		}
+	}
+	
+	public long getLastTimeOrgasmed() {
+		return lastTimeOrgasmed;
+	}
+	
+	public void setLastTimeOrgasmed(long lastTimeOrgasmed) {
+		this.lastTimeOrgasmed = lastTimeOrgasmed;
 	}
 
 
@@ -905,7 +927,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		}
 		
 		List<ItemEffect> keysAsArray = new ArrayList<>(possibleEffects.keySet());
-		ItemEffect effect = keysAsArray.get(Util.random.nextInt(keysAsArray.size()));
+//		ItemEffect effect = keysAsArray.get(Util.random.nextInt(keysAsArray.size()));
 		
 		for (int i = 0 ; i < numberOfTransformations ; i++) {
 			if(!keysAsArray.isEmpty()) {
@@ -916,7 +938,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		}
 		
 		return new Value<>(
-				possibleEffects.get(effect),
+				possibleEffects.get(effects.get(0)),
 				EnchantingUtils.craftItem(AbstractItemType.generateItem(itemType), effects));
 	}
 	
@@ -1577,11 +1599,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	}
 
 	public SexPace getSexPaceSubPreference(GameCharacter character){
-		if(this.hasFetish(Fetish.FETISH_NON_CON_SUB) && Main.game.isNonConEnabled()) {
-			return SexPace.SUB_RESISTING;
-		}
-		
-		if(!isAttractedTo(character)) {
+		if(!isAttractedTo(character) || this.hasFetish(Fetish.FETISH_NON_CON_SUB)) {
 			if(Main.game.isNonConEnabled()) {
 				if(isSlave()) {
 					if(this.getObedienceValue()>=ObedienceLevel.POSITIVE_FIVE_SUBSERVIENT.getMinimumValue()) {
@@ -1592,11 +1610,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					}
 				}
 				
-				if(motherId.equals(character.getId()) || fatherId.equals(character.getId())) {
-					if (getHistory() == History.PROSTITUTE) {
-						if(Sex.isConsensual()) {
-							return SexPace.SUB_NORMAL;
-						}
+				if (getHistory() == History.PROSTITUTE) {
+					if(Sex.isConsensual()) {
+						return SexPace.SUB_NORMAL;
 					}
 				}
 				
@@ -1855,7 +1871,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				+ "<tr style='height:8px; color:"+character.getGender().getColour().toWebHexString()+";'><th>Core</th></tr>"
 				+ statRow("Femininity", String.valueOf(character.getFemininityValue()))
 				+ statRow("Height (cm)", String.valueOf(character.getHeightValue()))
-				+ statRow("Hair length (cm)", String.valueOf(Util.conversionInchesToCentimetres(character.getHairRawLengthValue())))
+				+ statRow("Hair length (inches)", String.valueOf(Util.conversionInchesToCentimetres(character.getHairRawLengthValue())))
 				+ "<tr style='height:8px;'></tr>"
 
 				+ "<tr style='height:8px; color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'><th>Breasts</th></tr>"
@@ -2038,6 +2054,16 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			s = getDirtyTalkPlayerNipplePenetrated(isPlayerDom);
 			if(s!=null) {
 				if(!Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PLAYER).isPlayer()) {
+					speech.add(s);
+				} else {
+					speechSelf.add(s);
+				}
+			}
+			
+			// Giving breasts attention:
+			s = getDirtyTalkPartnerUsingBreasts(isPlayerDom);
+			if(s!=null) {
+				if(!Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PLAYER).isPlayer()) {
 					speech.add(s);
 				} else {
 					speechSelf.add(s);
@@ -2903,7 +2929,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 								return UtilText.returnStringAtRandom(
 										"That's right slut, take my cock! Your pussy belongs to me!",
 										"What a horny bitch! Take my cock you slut!",
-										"You feel that, fuck toy?! Do you feel my  cock sinking deep into your slutty little cunt?!");
+										"You feel that, fuck toy?! Do you feel my cock sinking deep into your slutty little cunt?!");
 							case SUB_EAGER:
 								return UtilText.returnStringAtRandom(
 										"Yes! Use my cock! I love your pussy!",
@@ -2941,7 +2967,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 								return UtilText.returnStringAtRandom(
 										"That's right slut, feel my [npc.tail] pushing deep into your worthless little cunt! Your pussy belongs to me!",
 										"What a horny bitch! Now moan for me as I fuck you with my tail!",
-										"You feel that, fuck toy?! Do you feel my  [npc.tail] sinking deep into your slutty little cunt?!");
+										"You feel that, fuck toy?! Do you feel my [npc.tail] sinking deep into your slutty little cunt?!");
 							case SUB_EAGER:
 								return UtilText.returnStringAtRandom(
 										"Yes! Use my [npc.tail]! I love your pussy!",
@@ -3081,7 +3107,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							return UtilText.returnStringAtRandom(
 									"That's right slut, take my cock! Your ass belongs to me!",
 									"What a horny bitch! Take my cock you filthy little butt-slut!",
-									"You feel that, fuck toy?! Do you feel my  cock sinking deep into your slutty little ass?!");
+									"You feel that, fuck toy?! Do you feel my cock sinking deep into your slutty little ass?!");
 						case SUB_EAGER:
 							return UtilText.returnStringAtRandom(
 									"Yes! Use my cock! I love your ass!",
@@ -3119,7 +3145,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							return UtilText.returnStringAtRandom(
 									"That's right bitch, feel my [npc.tail] pushing deep into your slutty ass!",
 									"What a horny slut! Now moan for me as I fuck your ass with my tail!",
-									"You feel that, fuck toy?! Do you feel my  [npc.tail] sinking deep into your slutty little ass?!");
+									"You feel that, fuck toy?! Do you feel my [npc.tail] sinking deep into your slutty little ass?!");
 						case SUB_EAGER:
 							return UtilText.returnStringAtRandom(
 									"Yes! Use my [npc.tail]! I love your ass!",
@@ -3323,29 +3349,29 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					switch(Sex.getSexPacePartner()) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
-									"I love getting my [npc.tongue] sucked!",
-									"Good [pc.girl]! Keep sucking my [npc.tongue]!",
-									"What a good [pc.girl]! I love having my [npc.tongue] sucked!");
+									"Your lips taste so good!",
+									"Good [pc.girl]! Don't stop!",
+									"What a good [pc.girl]!");
 						case DOM_NORMAL:
 							return UtilText.returnStringAtRandom(
-									"I love getting my [npc.tongue] sucked!",
-									"That's good! Keep sucking my [npc.tongue]!",
-									"I love having my [npc.tongue] sucked!");
+									"Your lips taste so good!",
+									"Good [pc.girl]! Don't stop!",
+									"What a good [pc.girl]!");
 						case DOM_ROUGH:
 							return UtilText.returnStringAtRandom(
-									"Come on slut, you can suck my [npc.tongue] better than that!",
-									"Put some more effort into this bitch! Suck my [npc.tongue] like you mean it!",
-									"Fucking slut, suck my [npc.tongue]! Put some more effort into it!");
+									"Come on slut, you can kiss better than that!",
+									"Put some more effort into this bitch! Kiss me like you mean it!",
+									"Fucking slut, you can kiss me better than this! Put some more effort into it!");
 						case SUB_EAGER:
 							return UtilText.returnStringAtRandom(
-									"Oh yes! I love having my [npc.tongue] sucked! I need more!",
-									"I love having my [npc.tongue] sucked! Yes, yes, yes!",
-									"Oh yes! I love having my [npc.tongue] sucked! Your lips feel so good!");
+									"Oh yes! Your lips taste so good! I need more!",
+									"I love kissing you! Yes, yes, yes!",
+									"Oh yes! Your lips taste so good!");
 						case SUB_NORMAL:
 							return UtilText.returnStringAtRandom(
-									"I love having my [npc.tongue] sucked! Keep going!",
-									"Keep sucking my [npc.tongue]!",
-									"I love having my [npc.tongue] sucked! Your lips feel so good!");
+									"Your lips taste so good! I need more!",
+									"I love kissing you!",
+									"Your lips taste so good!");
 						case SUB_RESISTING:
 							return UtilText.returnStringAtRandom(
 									"I don't want to do this! Please stop!",
@@ -3353,8 +3379,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 									"Please! Stop! I don't want this!");
 						default:
 							return UtilText.returnStringAtRandom(
-									"I love having my [npc.tongue] sucked!",
-									"Oh yeah! I love having my [npc.tongue] sucked!",
+									"Your lips taste so good!",
+									"I love kissing you!",
 									"Don't stop!");
 					}
 				default:// Self penetration:
@@ -3437,7 +3463,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							return UtilText.returnStringAtRandom(
 									"That's right slut, take my cock! Feel it pushing deep into your nipple!",
 									"What a horny bitch! Taking my cock deep into your tit like a slut!",
-									"You feel that, fuck toy?! Do you feel my  cock sinking deep into your slutty little nipple?!");
+									"You feel that, fuck toy?! Do you feel my cock sinking deep into your slutty little nipple?!");
 						case SUB_EAGER:
 							return UtilText.returnStringAtRandom(
 									"Yes! Use my cock! I love your tits!",
@@ -3475,7 +3501,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							return UtilText.returnStringAtRandom(
 									"That's right slut, take my [npc.tail]! Feel it pushing deep into your nipple!",
 									"What a horny bitch! Taking my [npc.tail] deep into your tit like a slut!",
-									"You feel that, fuck toy?! Do you feel my  [npc.tail] sinking deep into your slutty little nipple?!");
+									"You feel that, fuck toy?! Do you feel my [npc.tail] sinking deep into your slutty little nipple?!");
 						case SUB_EAGER:
 							return UtilText.returnStringAtRandom(
 									"Yes! Use my [npc.tail]! I love your tits!",
@@ -3506,7 +3532,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 									"What a good [pc.girl]! You love having my tongue in your nipple, don't you?");
 						case DOM_NORMAL:
 							return UtilText.returnStringAtRandom(
-									"Oh yes! Your tits tastes so good!",
+									"Oh yes! Your tits taste so good!",
 									"You like this? Feeling my tongue deep in your hot little nipple?!",
 									"I love the taste of your tits!");
 						case DOM_ROUGH:
@@ -3553,6 +3579,184 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		return null;
 	}
+	
+	/**
+	 * @return A <b>non-formatted</b> String of the player's speech related to the partner having their nipples used. Returns null if no penetration found.
+	 */
+	public String getDirtyTalkPartnerUsingBreasts(boolean isPlayerDom){
+		if(Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PLAYER) != null) {
+			switch(Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PLAYER)) {
+				case FINGER_PARTNER:
+					switch(Sex.getSexPacePartner()) {
+						case DOM_GENTLE:
+							return UtilText.returnStringAtRandom(
+									"Good [pc.girl], you love having your [pc.breasts] fondled like this, don't you?",
+									"I love your [pc.breasts]!",
+									"What a good [pc.girl]! Your tits love the feeling of my [npc.fingers], don't they?");
+						case DOM_NORMAL:
+							return UtilText.returnStringAtRandom(
+									"You love the feeling of having your [pc.breasts] fondled, don't you?!",
+									"I love your [pc.breasts+]!",
+									"You like it when I press my [npc.fingers] into your [pc.breasts], like <i>this</i>?!");
+						case DOM_ROUGH:
+							return UtilText.returnStringAtRandom(
+									"What a dirty slut! Moaning as I grope your [pc.breasts+]!",
+									"You love this, don't you bitch?! Having your [pc.breasts] groped and fondled like <i>this</i>!",
+									"That's right slut! Your [pc.breasts+] are mine to use however I want!");
+						case SUB_EAGER:
+							return UtilText.returnStringAtRandom(
+									"Yes! I love the feel of your [pc.breasts]!",
+									"I love giving your tits the attention they deserve!",
+									"I love your [pc.breasts]!");
+						case SUB_NORMAL:
+							return UtilText.returnStringAtRandom(
+									"Yes! I love the feel of your [pc.breasts]!",
+									"I love giving your tits the attention they deserve!",
+									"I love your [pc.breasts]!");
+						case SUB_RESISTING:
+							return UtilText.returnStringAtRandom(
+									"I don't want to do this! Please let me stop!",
+									"Let me go! I don't want to do this!",
+									"Please! Stop! I don't want this!");
+						default:
+							return(UtilText.returnStringAtRandom(
+									"Fuck!",
+									"Yeah!",
+									"Oh yeah!"));
+					}
+				case PENIS_PARTNER:
+					switch(Sex.getSexPacePartner()) {
+						case DOM_GENTLE:
+							return UtilText.returnStringAtRandom(
+									"Good [pc.girl]! Feel my cock slide up between your [pc.breasts]!",
+									"That's right, be a good [pc.girl] and moan for me! Feel my [npc.cock] sliding up between your [pc.breasts+]!",
+									"Your [pc.breasts] feel so good squeezing down around my [npc.cock]!");
+						case DOM_NORMAL:
+							return UtilText.returnStringAtRandom(
+									"Fuck! Your tits feel so good to fuck!",
+									"Oh yes! Wrap your tits around my cock!",
+									"Your tits were made for my cock!");
+						case DOM_ROUGH:
+							return UtilText.returnStringAtRandom(
+									"That's right slut, pleasure my cock! Push your tits together and make this good for me!",
+									"What a horny bitch! Using your tits to please my cock like a desperate slut!",
+									"You like this, fuck toy?! Squeezing your [pc.breasts] around my cock and pleasing me like the slut you are?!");
+						case SUB_EAGER:
+							return UtilText.returnStringAtRandom(
+									"Yes! Use my cock! I love your tits!",
+									"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+									"Oh yes! Use me! I love your tits!");
+						case SUB_NORMAL:
+							return UtilText.returnStringAtRandom(
+									"Yes! Fuck me!",
+									"Don't stop! Fuck me!",
+									"Oh yes! Fuck me!");
+						case SUB_RESISTING:
+							return UtilText.returnStringAtRandom(
+									"I don't want to do this! Please let me stop!",
+									"Let me go! Get off my cock!",
+									"Please! Stop! I don't want this!");
+						default:
+							return UtilText.returnStringAtRandom(
+									"Fuck me! Yes! Harder!",
+									"Oh yeah! Fuck me!",
+									"Harder! Don't stop!");
+					}
+				case TAIL_PARTNER:
+					switch(Sex.getSexPacePartner()) {
+						case DOM_GENTLE:
+							return UtilText.returnStringAtRandom(
+									"Good [pc.girl]! Feel my [npc.tail] slide up between your [pc.breasts]!",
+									"That's right, be a good [pc.girl] and moan for me! Feel my [npc.tail] sliding up between your [pc.breasts+]!",
+									"Your [pc.breasts] feel so good squeezing down around my [npc.tail]!");
+						case DOM_NORMAL:
+							return UtilText.returnStringAtRandom(
+									"Fuck! Your tits feel so good to fuck!",
+									"Oh yes! Wrap your tits around my [npc.tail]!",
+									"Your tits were made for my [npc.tail]!");
+						case DOM_ROUGH:
+							return UtilText.returnStringAtRandom(
+									"That's right slut, pleasure my [npc.tail]! Push your tits together and make this good for me!",
+									"What a horny bitch! Using your tits to please my [npc.tail] like a desperate slut!",
+									"You like this, fuck toy?! Squeezing your [pc.breasts] around my [npc.tail] and pleasing me like the slut you are?!");
+						case SUB_EAGER:
+							return UtilText.returnStringAtRandom(
+									"Yes! Use my [npc.tail]! I love your tits!",
+									"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+									"Oh yes! Use me! I love your tits!");
+						case SUB_NORMAL:
+							return UtilText.returnStringAtRandom(
+									"Yes! Fuck me!",
+									"Don't stop! Fuck me!",
+									"Oh yes! Fuck me!");
+						case SUB_RESISTING:
+							return UtilText.returnStringAtRandom(
+									"I don't want to do this! Please let me stop!",
+									"Let me go! Get off my [npc.tail]!",
+									"Please! Stop! I don't want this!");
+						default:
+							return UtilText.returnStringAtRandom(
+									"Fuck me! Yes! Harder!",
+									"Oh yeah! Fuck me!",
+									"Harder! Don't stop!");
+					}
+				case TONGUE_PARTNER:
+					switch(Sex.getSexPacePartner()) {
+						case DOM_GENTLE:
+							return UtilText.returnStringAtRandom(
+									"Your tits taste so good!",
+									"Good [pc.girl]! I love the taste of your tits!",
+									"What a good [pc.girl]! You love having your tits kissed like this, don't you?");
+						case DOM_NORMAL:
+							return UtilText.returnStringAtRandom(
+									"Oh yes! Your tits taste so good!",
+									"You like this? Feeling my tongue running over your breasts?!",
+									"I love the taste of your tits!");
+						case DOM_ROUGH:
+							return UtilText.returnStringAtRandom(
+									"Keep still slut, and be thankful that I'm giving your tits some attention!",
+									"Stay still bitch! Just keep moaning and enjoying this while it lasts!",
+									"You'd better appreciate this bitch! You know how lucky you are, having me lick your tits?!");
+						case SUB_EAGER:
+							return UtilText.returnStringAtRandom(
+									"Yes! I love your tits! Let me suck on your nipples!",
+									"Oh yes! Let me suck on your nipples! Yes, yes, yes!",
+									"Oh yes! I love your tits!");
+						case SUB_NORMAL:
+							return UtilText.returnStringAtRandom(
+									"I love your tits! Let me suck on your nipples!",
+									"Oh yes! Let me suck on your nipples!",
+									"I love your tits!");
+						case SUB_RESISTING:
+							return UtilText.returnStringAtRandom(
+									"I don't want to do this! Please let me stop!",
+									"Let me go! I don't want to do this!",
+									"Please! Stop! I don't want this!");
+						default:
+							return UtilText.returnStringAtRandom(
+									"Yes! Keep going!",
+									"Oh yeah! Keep going!",
+									"Don't stop!");
+					}
+				default:// Self penetration:
+					switch(Sex.getSexPacePartner()) {
+						case SUB_RESISTING:
+							return UtilText.returnStringAtRandom(
+									"Go away! Leave me alone!",
+									"Stop it! Just go away!",
+									"Please stop! Don't do this!");
+						default:
+							return UtilText.returnStringAtRandom(
+									"That's right, try to get yourself off!",
+									"You trying to get yourself off?",
+									"Yes! Keep going!");
+					}
+			}
+		}
+		
+		return null;
+	}
+	
 	
 	// Player dirty talk for this NPC:
 	
@@ -3647,6 +3851,17 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					speechSelf.add(s);
 				}
 			}
+			
+			// Giving paizuri:
+			s = getPlayerDirtyTalkPartnerBreastsUsed(isPlayerDom);
+			if(s!=null) {
+				if(Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PARTNER).isPlayer()) {
+					speech.add(s);
+				} else {
+					speechSelf.add(s);
+				}
+			}
+			
 			
 			
 			// Choose a random line to say:
@@ -4486,7 +4701,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 								return UtilText.returnStringAtRandom(
 										"That's right slut, take my cock! Your pussy belongs to me!",
 										"What a horny bitch! Take my cock you slut!",
-										"You feel that, fuck toy?! Do you feel my  cock sinking deep into your slutty little cunt?!");
+										"You feel that, fuck toy?! Do you feel my cock sinking deep into your slutty little cunt?!");
 							case SUB_EAGER:
 								return UtilText.returnStringAtRandom(
 										"Yes! Use my cock! I love your pussy!",
@@ -4524,7 +4739,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 								return UtilText.returnStringAtRandom(
 										"That's right slut, feel my [pc.tail] pushing deep into your worthless little cunt! Your pussy belongs to me!",
 										"What a horny bitch! Now moan for me as I fuck you with my tail!",
-										"You feel that, fuck toy?! Do you feel my  [pc.tail] sinking deep into your slutty little cunt?!");
+										"You feel that, fuck toy?! Do you feel my [pc.tail] sinking deep into your slutty little cunt?!");
 							case SUB_EAGER:
 								return UtilText.returnStringAtRandom(
 										"Yes! Use my [pc.tail]! I love your pussy!",
@@ -4664,7 +4879,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							return UtilText.returnStringAtRandom(
 									"That's right slut, take my cock! Your ass belongs to me!",
 									"What a horny bitch! Take my cock you filthy little butt-slut!",
-									"You feel that, fuck toy?! Do you feel my  cock sinking deep into your slutty little ass?!");
+									"You feel that, fuck toy?! Do you feel my cock sinking deep into your slutty little ass?!");
 						case SUB_EAGER:
 							return UtilText.returnStringAtRandom(
 									"Yes! Use my cock! I love your ass!",
@@ -4702,7 +4917,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							return UtilText.returnStringAtRandom(
 									"That's right bitch, feel my [pc.tail] pushing deep into your slutty ass!",
 									"What a horny slut! Now moan for me as I fuck your ass with my tail!",
-									"You feel that, fuck toy?! Do you feel my  [pc.tail] sinking deep into your slutty little ass?!");
+									"You feel that, fuck toy?! Do you feel my [pc.tail] sinking deep into your slutty little ass?!");
 						case SUB_EAGER:
 							return UtilText.returnStringAtRandom(
 									"Yes! Use my [pc.tail]! I love your ass!",
@@ -4905,29 +5120,29 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					switch(Sex.getSexPacePlayer()) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
-									"I love getting my [pc.tongue] sucked!",
-									"Good [npc.girl]! Keep sucking my [pc.tongue]!",
-									"What a good [npc.girl]! I love having my [pc.tongue] sucked!");
+									"Your lips taste so good!",
+									"Good [npc.girl]! Don't stop!",
+									"What a good [npc.girl]!");
 						case DOM_NORMAL:
 							return UtilText.returnStringAtRandom(
-									"I love getting my [pc.tongue] sucked!",
-									"That's good! Keep sucking my [pc.tongue]!",
-									"I love having my [pc.tongue] sucked!");
+									"Your lips taste so good!",
+									"Good [npc.girl]! Don't stop!",
+									"What a good [npc.girl]!");
 						case DOM_ROUGH:
 							return UtilText.returnStringAtRandom(
-									"Come on slut, you can suck my [pc.tongue] better than that!",
-									"Put some more effort into this bitch! Suck my [pc.tongue] like you mean it!",
-									"Fucking slut, suck my [pc.tongue]! Put some more effort into it!");
+									"Come on slut, you can kiss better than that!",
+									"Put some more effort into this bitch! Kiss me like you mean it!",
+									"Fucking slut, you can kiss me better than this! Put some more effort into it!");
 						case SUB_EAGER:
 							return UtilText.returnStringAtRandom(
-									"Oh yes! I love having my [pc.tongue] sucked! I need more!",
-									"I love having my [pc.tongue] sucked! Yes, yes, yes!",
-									"Oh yes! I love having my [pc.tongue] sucked! Your lips feel so good!");
+									"Oh yes! Your lips taste so good! I need more!",
+									"I love kissing you! Yes, yes, yes!",
+									"Oh yes! Your lips taste so good!");
 						case SUB_NORMAL:
 							return UtilText.returnStringAtRandom(
-									"I love having my [pc.tongue] sucked! Keep going!",
-									"Keep sucking my [pc.tongue]!",
-									"I love having my [pc.tongue] sucked! Your lips feel so good!");
+									"Your lips taste so good! I need more!",
+									"I love kissing you!",
+									"Your lips taste so good!");
 						case SUB_RESISTING:
 							return UtilText.returnStringAtRandom(
 									"I don't want to do this! Please stop!",
@@ -4935,8 +5150,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 									"Please! Stop! I don't want this!");
 						default:
 							return UtilText.returnStringAtRandom(
-									"I love having my [pc.tongue] sucked!",
-									"Oh yeah! I love having my [pc.tongue] sucked!",
+									"Your lips taste so good!",
+									"I love kissing you!",
 									"Don't stop!");
 					}
 				default:// Self penetration:
@@ -5018,7 +5233,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							return UtilText.returnStringAtRandom(
 									"That's right slut, take my cock! Feel it pushing deep into your nipple!",
 									"What a horny bitch! Taking my cock deep into your tit like a slut!",
-									"You feel that, fuck toy?! Do you feel my  cock sinking deep into your slutty little nipple?!");
+									"You feel that, fuck toy?! Do you feel my cock sinking deep into your slutty little nipple?!");
 						case SUB_EAGER:
 							return UtilText.returnStringAtRandom(
 									"Yes! Use my cock! I love your tits!",
@@ -5056,7 +5271,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							return UtilText.returnStringAtRandom(
 									"That's right slut, take my [pc.tail]! Feel it pushing deep into your nipple!",
 									"What a horny bitch! Taking my [pc.tail] deep into your tit like a slut!",
-									"You feel that, fuck toy?! Do you feel my  [pc.tail] sinking deep into your slutty little nipple?!");
+									"You feel that, fuck toy?! Do you feel my [pc.tail] sinking deep into your slutty little nipple?!");
 						case SUB_EAGER:
 							return UtilText.returnStringAtRandom(
 									"Yes! Use my [pc.tail]! I love your tits!",
@@ -5087,7 +5302,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 									"What a good [npc.girl]! You love having my tongue in your nipple, don't you?");
 						case DOM_NORMAL:
 							return UtilText.returnStringAtRandom(
-									"Oh yes! Your tits tastes so good!",
+									"Oh yes! Your tits taste so good!",
 									"You like this? Feeling my tongue deep in your hot little nipple?!",
 									"I love the taste of your tits!");
 						case DOM_ROUGH:
@@ -5135,6 +5350,182 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		return null;
 	}
 	
+	/**
+	 * @return A <b>non-formatted</b> String of the player's speech related to the partner having their nipples used. Returns null if no penetration found.
+	 */
+	public String getPlayerDirtyTalkPartnerBreastsUsed(boolean isPlayerDom){
+		if(Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PARTNER) != null) {
+			switch(Sex.getPenetrationTypeInOrifice(OrificeType.BREAST_PARTNER)) {
+				case FINGER_PLAYER:
+					switch(Sex.getSexPacePlayer()) {
+						case DOM_GENTLE:
+							return UtilText.returnStringAtRandom(
+									"Good [npc.girl], you love having your [npc.breasts] fondled like this, don't you?",
+									"I love your [npc.breasts]!",
+									"What a good [npc.girl]! Your tits love the feeling of my [pc.fingers], don't they?");
+						case DOM_NORMAL:
+							return UtilText.returnStringAtRandom(
+									"You love the feeling of having your [npc.breasts] fondled, don't you?!",
+									"I love your [npc.breasts+]!",
+									"You like it when I press my [pc.fingers] into your [npc.breasts], like <i>this</i>?!");
+						case DOM_ROUGH:
+							return UtilText.returnStringAtRandom(
+									"What a dirty slut! Moaning as I grope your [npc.breasts+]!",
+									"You love this, don't you bitch?! Having your [npc.breasts] groped and fondled like <i>this</i>!",
+									"That's right slut! Your [npc.breasts+] are mine to use however I want!");
+						case SUB_EAGER:
+							return UtilText.returnStringAtRandom(
+									"Yes! I love the feel of your [npc.breasts]!",
+									"I love giving your tits the attention they deserve!",
+									"I love your [npc.breasts]!");
+						case SUB_NORMAL:
+							return UtilText.returnStringAtRandom(
+									"Yes! I love the feel of your [npc.breasts]!",
+									"I love giving your tits the attention they deserve!",
+									"I love your [npc.breasts]!");
+						case SUB_RESISTING:
+							return UtilText.returnStringAtRandom(
+									"I don't want to do this! Please let me stop!",
+									"Let me go! I don't want to do this!",
+									"Please! Stop! I don't want this!");
+						default:
+							return(UtilText.returnStringAtRandom(
+									"Fuck!",
+									"Yeah!",
+									"Oh yeah!"));
+					}
+				case PENIS_PLAYER:
+					switch(Sex.getSexPacePlayer()) {
+						case DOM_GENTLE:
+							return UtilText.returnStringAtRandom(
+									"Good [npc.girl]! Feel my cock slide up between your [npc.breasts]!",
+									"That's right, be a good [npc.girl] and moan for me! Feel my [pc.cock] sliding up between your [npc.breasts+]!",
+									"Your [npc.breasts] feel so good squeezing down around my [pc.cock]!");
+						case DOM_NORMAL:
+							return UtilText.returnStringAtRandom(
+									"Fuck! Your tits feel so good to fuck!",
+									"Oh yes! Wrap your tits around my cock!",
+									"Your tits were made for my cock!");
+						case DOM_ROUGH:
+							return UtilText.returnStringAtRandom(
+									"That's right slut, pleasure my cock! Push your tits together and make this good for me!",
+									"What a horny bitch! Using your tits to please my cock like a desperate slut!",
+									"You like this, fuck toy?! Squeezing your [npc.breasts] around my cock and pleasing me like the slut you are?!");
+						case SUB_EAGER:
+							return UtilText.returnStringAtRandom(
+									"Yes! Use my cock! I love your tits!",
+									"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+									"Oh yes! Use me! I love your tits!");
+						case SUB_NORMAL:
+							return UtilText.returnStringAtRandom(
+									"Yes! Fuck me!",
+									"Don't stop! Fuck me!",
+									"Oh yes! Fuck me!");
+						case SUB_RESISTING:
+							return UtilText.returnStringAtRandom(
+									"I don't want to do this! Please let me stop!",
+									"Let me go! Get off my cock!",
+									"Please! Stop! I don't want this!");
+						default:
+							return UtilText.returnStringAtRandom(
+									"Fuck me! Yes! Harder!",
+									"Oh yeah! Fuck me!",
+									"Harder! Don't stop!");
+					}
+				case TAIL_PLAYER:
+					switch(Sex.getSexPacePlayer()) {
+						case DOM_GENTLE:
+							return UtilText.returnStringAtRandom(
+									"Good [npc.girl]! Feel my [pc.tail] slide up between your [npc.breasts]!",
+									"That's right, be a good [npc.girl] and moan for me! Feel my [pc.tail] sliding up between your [npc.breasts+]!",
+									"Your [npc.breasts] feel so good squeezing down around my [pc.tail]!");
+						case DOM_NORMAL:
+							return UtilText.returnStringAtRandom(
+									"Fuck! Your tits feel so good to fuck!",
+									"Oh yes! Wrap your tits around my [pc.tail]!",
+									"Your tits were made for my [pc.tail]!");
+						case DOM_ROUGH:
+							return UtilText.returnStringAtRandom(
+									"That's right slut, pleasure my [pc.tail]! Push your tits together and make this good for me!",
+									"What a horny bitch! Using your tits to please my [pc.tail] like a desperate slut!",
+									"You like this, fuck toy?! Squeezing your [npc.breasts] around my [pc.tail] and pleasing me like the slut you are?!");
+						case SUB_EAGER:
+							return UtilText.returnStringAtRandom(
+									"Yes! Use my [pc.tail]! I love your tits!",
+									"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+									"Oh yes! Use me! I love your tits!");
+						case SUB_NORMAL:
+							return UtilText.returnStringAtRandom(
+									"Yes! Fuck me!",
+									"Don't stop! Fuck me!",
+									"Oh yes! Fuck me!");
+						case SUB_RESISTING:
+							return UtilText.returnStringAtRandom(
+									"I don't want to do this! Please let me stop!",
+									"Let me go! Get off my [pc.tail]!",
+									"Please! Stop! I don't want this!");
+						default:
+							return UtilText.returnStringAtRandom(
+									"Fuck me! Yes! Harder!",
+									"Oh yeah! Fuck me!",
+									"Harder! Don't stop!");
+					}
+				case TONGUE_PLAYER:
+					switch(Sex.getSexPacePlayer()) {
+						case DOM_GENTLE:
+							return UtilText.returnStringAtRandom(
+									"Your tits taste so good!",
+									"Good [npc.girl]! I love the taste of your tits!",
+									"What a good [npc.girl]! You love having your tits kissed like this, don't you?");
+						case DOM_NORMAL:
+							return UtilText.returnStringAtRandom(
+									"Oh yes! Your tits taste so good!",
+									"You like this? Feeling my tongue running over your breasts?!",
+									"I love the taste of your tits!");
+						case DOM_ROUGH:
+							return UtilText.returnStringAtRandom(
+									"Keep still slut, and be thankful that I'm giving your tits some attention!",
+									"Stay still bitch! Just keep moaning and enjoying this while it lasts!",
+									"You'd better appreciate this bitch! You know how lucky you are, having me lick your tits?!");
+						case SUB_EAGER:
+							return UtilText.returnStringAtRandom(
+									"Yes! I love your tits! Let me suck on your nipples!",
+									"Oh yes! Let me suck on your nipples! Yes, yes, yes!",
+									"Oh yes! I love your tits!");
+						case SUB_NORMAL:
+							return UtilText.returnStringAtRandom(
+									"I love your tits! Let me suck on your nipples!",
+									"Oh yes! Let me suck on your nipples!",
+									"I love your tits!");
+						case SUB_RESISTING:
+							return UtilText.returnStringAtRandom(
+									"I don't want to do this! Please let me stop!",
+									"Let me go! I don't want to do this!",
+									"Please! Stop! I don't want this!");
+						default:
+							return UtilText.returnStringAtRandom(
+									"Yes! Keep going!",
+									"Oh yeah! Keep going!",
+									"Don't stop!");
+					}
+				default:// Self penetration:
+					switch(Sex.getSexPacePlayer()) {
+						case SUB_RESISTING:
+							return UtilText.returnStringAtRandom(
+									"Go away! Leave me alone!",
+									"Stop it! Just go away!",
+									"Please stop! Don't do this!");
+						default:
+							return UtilText.returnStringAtRandom(
+									"That's right, try to get yourself off!",
+									"You trying to get yourself off?",
+									"Yes! Keep going!");
+					}
+			}
+		}
+		
+		return null;
+	}
 	
 	
 	// Player area reveals:
@@ -6537,7 +6928,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					subQualifier = UtilText.returnStringAtRandom(" ", " ", "happily", "willingly");
 					subAction = UtilText.returnStringAtRandom("slide", "push", "drive", "thrust", "pump");
 					subReactionPrefix = UtilText.returnStringAtRandom("You let out [pc.a_moan+] as [npc.name]", "You grind yourself against [npc.name] as", "[pc.A_moan+] escapes from between your [pc.lips+] as [npc.name]");
-					subSelfReactionPrefix  = UtilText.returnStringAtRandom("You let out [pc.a_moan+]", "You press yourself against [npc.name]", "[pc.A_moan+] escapes from between your [pc.lips+]");
+					subSelfReactionPrefix = UtilText.returnStringAtRandom("You let out [pc.a_moan+]", "You press yourself against [npc.name]", "[pc.A_moan+] escapes from between your [pc.lips+]");
 					domPenSubReactionPostfix = UtilText.returnStringAtRandom(
 							" letting out a series of [npc.moans+]",
 							" making soothing noises as [npc.she] does so",
@@ -6554,7 +6945,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					subQualifier = UtilText.returnStringAtRandom("desperately", "frantically", "eagerly", "enthusiastically");
 					subAction = UtilText.returnStringAtRandom("slam", "hammer", "thrust", "pump");
 					subReactionPrefix = UtilText.returnStringAtRandom("[pc.A_moan+] bursts out from your mouth as [npc.name]", "You press yourself against [npc.name] as", "[pc.A_moan+] bursts out from between your [pc.lips+] as [npc.name]");
-					subSelfReactionPrefix  = UtilText.returnStringAtRandom("[pc.A_moan+] bursts out from your mouth", "You press yourself against [npc.name]", "[pc.A_moan+] bursts out from between your [pc.lips+]");
+					subSelfReactionPrefix = UtilText.returnStringAtRandom("[pc.A_moan+] bursts out from your mouth", "You press yourself against [npc.name]", "[pc.A_moan+] bursts out from between your [pc.lips+]");
 					domPenSubReactionPostfix = UtilText.returnStringAtRandom(
 							" letting out a series of [npc.moans+]",
 							" making soothing noises as [npc.she] does so",
@@ -6599,7 +6990,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					subQualifier = UtilText.returnStringAtRandom(" ", " ", "happily", "willingly");
 					subAction = UtilText.returnStringAtRandom("slide", "push", "drive", "thrust", "pump");
 					subReactionPrefix = UtilText.returnStringAtRandom("You let out [pc.a_moan+] as [npc.name]", "You grind yourself against [npc.name] as", "[pc.A_moan+] escapes from between your [pc.lips+] as [npc.name]");
-					subSelfReactionPrefix  = UtilText.returnStringAtRandom("You let out [pc.a_moan+]", "You press yourself against [npc.name]", "[pc.A_moan+] escapes from between your [pc.lips+]");
+					subSelfReactionPrefix = UtilText.returnStringAtRandom("You let out [pc.a_moan+]", "You press yourself against [npc.name]", "[pc.A_moan+] escapes from between your [pc.lips+]");
 					domPenSubReactionPostfix = UtilText.returnStringAtRandom(
 							" letting out a series of [npc.moans+]",
 							" letting out a series of [npc.moans+] as [npc.she] does so");
@@ -6615,7 +7006,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					subQualifier = UtilText.returnStringAtRandom("desperately", "frantically", "eagerly", "enthusiastically");
 					subAction = UtilText.returnStringAtRandom("slam", "hammer", "thrust", "pump");
 					subReactionPrefix = UtilText.returnStringAtRandom("[pc.A_moan+] bursts out from your mouth as [npc.name]", "You press yourself against [npc.name] as", "[pc.A_moan+] bursts out from between your [pc.lips+] as [npc.name]");
-					subSelfReactionPrefix  = UtilText.returnStringAtRandom("[pc.A_moan+] bursts out from your mouth", "You press yourself against [npc.name]", "[pc.A_moan+] bursts out from between your [pc.lips+]");
+					subSelfReactionPrefix = UtilText.returnStringAtRandom("[pc.A_moan+] bursts out from your mouth", "You press yourself against [npc.name]", "[pc.A_moan+] bursts out from between your [pc.lips+]");
 					domPenSubReactionPostfix = UtilText.returnStringAtRandom(
 							" letting out a series of [npc.moans+]",
 							" letting out a series of [npc.moans+] as [npc.she] does so");
@@ -6659,7 +7050,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					subQualifier = UtilText.returnStringAtRandom(" ", " ", "happily", "willingly");
 					subAction = UtilText.returnStringAtRandom("slide", "push", "drive", "thrust", "pump");
 					subReactionPrefix = UtilText.returnStringAtRandom("You let out [pc.a_moan+] as [npc.name]", "You grind yourself against [npc.name] as", "[pc.A_moan+] escapes from between your [pc.lips+] as [npc.name]");
-					subSelfReactionPrefix  = UtilText.returnStringAtRandom("You let out [pc.a_moan+]", "You press yourself against [npc.name]", "[pc.A_moan+] escapes from between your [pc.lips+]");
+					subSelfReactionPrefix = UtilText.returnStringAtRandom("You let out [pc.a_moan+]", "You press yourself against [npc.name]", "[pc.A_moan+] escapes from between your [pc.lips+]");
 					domPenSubReactionPostfix = UtilText.returnStringAtRandom(
 							" letting out a series of [npc.moans+]",
 							" letting out a series of [npc.moans+] as [npc.she] does so");
@@ -6675,7 +7066,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					subQualifier = UtilText.returnStringAtRandom("desperately", "frantically", "eagerly", "enthusiastically");
 					subAction = UtilText.returnStringAtRandom("slam", "hammer", "thrust", "pump");
 					subReactionPrefix = UtilText.returnStringAtRandom("[pc.A_moan+] bursts out from your mouth as [npc.name]", "You press yourself against [npc.name] as", "[pc.A_moan+] bursts out from between your [pc.lips+] as [npc.name]");
-					subSelfReactionPrefix  = UtilText.returnStringAtRandom("[pc.A_moan+] bursts out from your mouth", "You press yourself against [npc.name]", "[pc.A_moan+] bursts out from between your [pc.lips+]");
+					subSelfReactionPrefix = UtilText.returnStringAtRandom("[pc.A_moan+] bursts out from your mouth", "You press yourself against [npc.name]", "[pc.A_moan+] bursts out from between your [pc.lips+]");
 					domPenSubReactionPostfix = UtilText.returnStringAtRandom(
 							" letting out a series of [npc.moans+]",
 							" letting out a series of [npc.moans+] as [npc.she] does so");

@@ -221,9 +221,10 @@ public class AlleywayProstituteDialogue {
 				int cost = Main.game.getActiveNPC().isVisiblyPregnant()?40:50;
 				
 				if(Main.game.getPlayer().getMoney()<cost) {
-					return new Response("Sex ("+UtilText.formatAsMoney(cost, "span")+")", "You don't have "+cost+" flames, so you can't afford a good time with [npc.name].", null);
+					return new Response("Dominant Sex ("+UtilText.formatAsMoney(cost, "span")+")", "You don't have "+cost+" flames, so you can't afford a good time with [npc.name].", null);
+					
 				} else {
-					return new ResponseSex("Sex ("+UtilText.formatAsMoney(cost, "span")+")",
+					return new ResponseSex("Dominant Sex ("+UtilText.formatAsMoney(cost, "span")+")",
 							"Pay [npc.name] "+cost+" flames to have a good time with [npc.herHim].",
 							true, false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_PAID,
 							"<p>"
@@ -252,6 +253,42 @@ public class AlleywayProstituteDialogue {
 				}
 				
 			} else if (index == 3) {
+				int cost = Main.game.getActiveNPC().isVisiblyPregnant()?40:50;
+				
+				if(Main.game.getPlayer().getMoney()<cost) {
+					return new Response("Submissive Sex ("+UtilText.formatAsMoney(cost, "span")+")", "You don't have "+cost+" flames, so you can't afford a good time with [npc.name].", null);
+					
+				} else {
+					return new ResponseSex("Submissive Sex ("+UtilText.formatAsMoney(cost, "span")+")",
+							"Pay [npc.name] "+cost+" flames to have a good time with [npc.herHim].",
+							true, true, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_PAID,
+							"<p>"
+								+ "[pc.speech(Sure, I could do with having a good time,)]"
+								+ " you reply,"
+								+ " [pc.speech(but only if you're on top...)]"
+							+ "</p>"
+							+ "<p>"
+								+ "[npc.speech(~Mmm~ Don't you worry, sweet thing, I can take charge,)]"
+								+ " [npc.name] [npc.moans], stepping up to you and taking the "+cost+" flames from your [pc.hand],"
+								+ " [npc.speech(follow me!)]"
+							+ "</p>"
+							+ "<p>"
+								+ "Producing a key from [npc.her] bag, the [npc.race] turns around, before unlocking a nondescript door behind [npc.herHim]."
+								+ " Opening the door and motioning for you to follow [npc.herHim] in, [npc.name] steps inside."
+								+ " Trailing in [npc.her] footsteps, you enter the [npc.race]'s apartment, and find yourself pleasantly surprised by the clean, well-lit interior."
+							+ "</p>"
+							+ "<p>"
+								+ "Closing the door behind you, [npc.name] then leads you into [npc.her] bedroom, where [npc.she] turns around and grins at you,"
+								+ " [npc.speech(Let's get this party started!)]"
+							+ "</p>") {
+						@Override
+						public void effects() {
+							Main.game.getPlayer().incrementMoney(-cost);
+						}
+					};
+				}
+				
+			}  else if (index == 4) {
 				return new Response("Attack", "If you really wanted to, there's nothing stopping you from attacking [npc.name]. After all, if [npc.she]'s run afoul of the law, as you assume [npc.she] has, then [npc.she]'s fair game!", ALLEY_PROSTITUTE_FIGHT) {
 					@Override
 					public boolean isCombatHighlight() {

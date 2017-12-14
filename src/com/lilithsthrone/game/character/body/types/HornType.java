@@ -6,17 +6,20 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.1.89
+ * @version 0.1.95
  * @author Innoxia
  */
 public enum HornType implements BodyPartTypeInterface {
 	NONE("", null, null),
 
+	BOVINE_CURVED("curved", BodyCoveringType.HORN, Race.COW_MORPH),
+	BOVINE_STRAIGHT("straight", BodyCoveringType.HORN, Race.COW_MORPH),
+	
 	CURLED("curled", BodyCoveringType.HORN, Race.DEMON),
 	SPIRAL("spiral", BodyCoveringType.HORN, Race.DEMON),
-	CURVED("curved", BodyCoveringType.HORN, Race.COW_MORPH),
+	CURVED("curved", BodyCoveringType.HORN, Race.DEMON),
 	SWEPT_BACK("swept-back", BodyCoveringType.HORN, Race.DEMON),
-	STRAIGHT("straight", BodyCoveringType.HORN, Race.COW_MORPH);
+	STRAIGHT("straight", BodyCoveringType.HORN, Race.DEMON);
 	
 	//TODO if add any more, add more TFModifiers for enchanting
 	
@@ -61,11 +64,11 @@ public enum HornType implements BodyPartTypeInterface {
 				return "";
 			case SWEPT_BACK:
 				return UtilText.returnStringAtRandom("sleek");
-			case STRAIGHT:
+			case STRAIGHT: case BOVINE_STRAIGHT:
 				return UtilText.returnStringAtRandom("straight");
 			case CURLED:
 				return UtilText.returnStringAtRandom("curled");
-			case CURVED:
+			case CURVED: case BOVINE_CURVED:
 				return UtilText.returnStringAtRandom("curved");
 			case SPIRAL:
 				return UtilText.returnStringAtRandom("spiral");
@@ -79,11 +82,11 @@ public enum HornType implements BodyPartTypeInterface {
 				return "none";
 			case SWEPT_BACK:
 				return UtilText.returnStringAtRandom("swept-back");
-			case STRAIGHT:
+			case STRAIGHT: case BOVINE_STRAIGHT:
 				return UtilText.returnStringAtRandom("straight");
 			case CURLED:
 				return UtilText.returnStringAtRandom("curled");
-			case CURVED:
+			case CURVED: case BOVINE_CURVED:
 				return UtilText.returnStringAtRandom("curved");
 			case SPIRAL:
 				return UtilText.returnStringAtRandom("spiral");

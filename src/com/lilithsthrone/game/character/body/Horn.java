@@ -118,7 +118,7 @@ public class Horn implements BodyPartInterface, Serializable {
 								+ "</p>");
 				}
 				break;
-			case CURVED:
+			case CURVED: case BOVINE_CURVED:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 							" Hard nubs push out from the sides of your head, and you gasp as you feel them quickly grow out into "+getDeterminer(owner)+" slightly-curved horns."
@@ -148,7 +148,7 @@ public class Horn implements BodyPartInterface, Serializable {
 								+ "</p>");
 				}
 				break;
-			case STRAIGHT:
+			case STRAIGHT: case BOVINE_STRAIGHT:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 							" Hard nubs push out from the sides of your head, and you gasp as you feel them quickly grow out into "+getDeterminer(owner)+" sleek, straight horns."
@@ -196,6 +196,9 @@ public class Horn implements BodyPartInterface, Serializable {
 		}
 		
 		this.type = type;
+		if(this.length==0) {
+			length = HornLength.ONE_SMALL.getMinimumValue();
+		}
 		
 		return UtilText.parse(owner, UtilText.transformationContentSB.toString())
 				+ "<p>"

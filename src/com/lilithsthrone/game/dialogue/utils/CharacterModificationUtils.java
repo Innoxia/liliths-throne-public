@@ -46,6 +46,7 @@ import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.body.valueEnums.PiercingType;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
+import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
@@ -759,6 +760,56 @@ public class CharacterModificationUtils {
 				contentSB.toString());
 	}
 	
+	public static String getDemonThroatModifiersDiv() {
+		contentSB.setLength(0);
+		
+		for(OrificeModifier orificeMod : OrificeModifier.values()) {
+			if(BodyChanging.getTarget().hasFaceOrificeModifier(orificeMod)) {
+				contentSB.append(
+						"<div  id='CHANGE_MOUTH_MOD_"+orificeMod+"' class='cosmetics-button active'>"
+							+ "<b style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(orificeMod.getName())+"</b>"
+						+ "</div>");
+				
+			} else {
+				contentSB.append(
+						"<div id='CHANGE_MOUTH_MOD_"+orificeMod+"' class='cosmetics-button'>"
+							+ "<span style='color:"+Colour.RACE_DEMON.getShades()[0]+";'>"+Util.capitaliseSentence(orificeMod.getName())+"</span>"
+						+ "</div>");
+			}
+		}
+
+		return applyHalfWrapper("Lip & Throat Modifiers",
+				(BodyChanging.getTarget().isPlayer()
+					?"Change the modifiers for your lips & throat."
+					:UtilText.parse(BodyChanging.getTarget(), "Change the modifiers for [npc.name]'s lips & throat.")),
+				contentSB.toString());
+	}
+	
+	public static String getDemonTongueModifiersDiv() {
+		contentSB.setLength(0);
+		
+		for(TongueModifier tongueMod : TongueModifier.values()) {
+			if(BodyChanging.getTarget().hasTongueModifier(tongueMod)) {
+				contentSB.append(
+						"<div  id='CHANGE_TONGUE_MOD_"+tongueMod+"' class='cosmetics-button active'>"
+							+ "<b style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(tongueMod.getName())+"</b>"
+						+ "</div>");
+				
+			} else {
+				contentSB.append(
+						"<div id='CHANGE_TONGUE_MOD_"+tongueMod+"' class='cosmetics-button'>"
+							+ "<span style='color:"+Colour.RACE_DEMON.getShades()[0]+";'>"+Util.capitaliseSentence(tongueMod.getName())+"</span>"
+						+ "</div>");
+			}
+		}
+
+		return applyHalfWrapper("Tongue Modifiers",
+				(BodyChanging.getTarget().isPlayer()
+					?"Change the modifiers for your tongue."
+					:UtilText.parse(BodyChanging.getTarget(), "Change the modifiers for [npc.name]'s tongue.")),
+				contentSB.toString());
+	}
+	
 	public static String getDemonAssSizeDiv() {
 		contentSB.setLength(0);
 		
@@ -771,7 +822,7 @@ public class CharacterModificationUtils {
 				
 			} else {
 				contentSB.append(
-						"<div id='ASS_SIZE_"+as+"' class='cosmetics-button'>"
+						"<div id='CHANGE_ASS_SIZE_"+as+"' class='cosmetics-button'>"
 							+ "<span style='color:"+as.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(as.getDescriptor())+"</span>"
 						+ "</div>");
 			}
@@ -796,7 +847,7 @@ public class CharacterModificationUtils {
 				
 			} else {
 				contentSB.append(
-						"<div id='HIP_SIZE_"+hs+"' class='cosmetics-button'>"
+						"<div id='CHANGE_HIP_SIZE_"+hs+"' class='cosmetics-button'>"
 							+ "<span style='color:"+hs.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(hs.getDescriptor())+"</span>"
 						+ "</div>");
 			}
@@ -809,13 +860,113 @@ public class CharacterModificationUtils {
 				contentSB.toString());
 	}
 	
+	public static String getDemonAnusCapacityDiv() {
+		contentSB.setLength(0);
+		
+		for(Capacity value : Capacity.values()) {
+			if(BodyChanging.getTarget().getAssCapacity() == value) {
+				contentSB.append(
+						"<div class='cosmetics-button active'>"
+							+ "<b style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</b>"
+						+ "</div>");
+				
+			} else {
+				contentSB.append(
+						"<div id='ANUS_CAPACITY_"+value+"' class='cosmetics-button'>"
+							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+						+ "</div>");
+			}
+		}
+
+		return applyHalfWrapper("Anus Capacity",
+				(BodyChanging.getTarget().isPlayer()
+					?"Change the capacity of your asshole."
+					:UtilText.parse(BodyChanging.getTarget(), "Change the capacity of [npc.name]'s asshole.")),
+				contentSB.toString());
+	}
+	
+	public static String getDemonAnusWetnessDiv() {
+		contentSB.setLength(0);
+		
+		for(Wetness value : Wetness.values()) {
+			if(BodyChanging.getTarget().getAssWetness() == value) {
+				contentSB.append(
+						"<div class='cosmetics-button active'>"
+							+ "<b style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</b>"
+						+ "</div>");
+				
+			} else {
+				contentSB.append(
+						"<div id='ANUS_WETNESS_"+value+"' class='cosmetics-button'>"
+							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+						+ "</div>");
+			}
+		}
+
+		return applyHalfWrapper("Anus Wetness",
+				(BodyChanging.getTarget().isPlayer()
+					?"Change the wetness of your asshole."
+					:UtilText.parse(BodyChanging.getTarget(), "Change the wetness of [npc.name]'s asshole.")),
+				contentSB.toString());
+	}
+	
+	public static String getDemonAnusElasticityDiv() {
+		contentSB.setLength(0);
+		
+		for(OrificeElasticity value : OrificeElasticity.values()) {
+			if(BodyChanging.getTarget().getAssElasticity() == value) {
+				contentSB.append(
+						"<div class='cosmetics-button active'>"
+							+ "<b style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</b>"
+						+ "</div>");
+				
+			} else {
+				contentSB.append(
+						"<div id='ANUS_ELASTICITY_"+value+"' class='cosmetics-button'>"
+							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+						+ "</div>");
+			}
+		}
+
+		return applyHalfWrapper("Anus Elasticity",
+				(BodyChanging.getTarget().isPlayer()
+					?"Change the elasticity of your asshole."
+					:UtilText.parse(BodyChanging.getTarget(), "Change the elasticity of [npc.name]'s asshole.")),
+				contentSB.toString());
+	}
+	
+	public static String getDemonAnusPlasticityDiv() {
+		contentSB.setLength(0);
+
+		for(OrificePlasticity value : OrificePlasticity.values()) {
+			if(BodyChanging.getTarget().getAssPlasticity() == value) {
+				contentSB.append(
+						"<div class='cosmetics-button active'>"
+							+ "<b style='color:"+value.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</b>"
+						+ "</div>");
+				
+			} else {
+				contentSB.append(
+						"<div id='ANUS_PLASTICITY_"+value+"' class='cosmetics-button'>"
+							+ "<span style='color:"+value.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(value.getDescriptor())+"</span>"
+						+ "</div>");
+			}
+		}
+
+		return applyHalfWrapper("Anus Plasticity",
+				(BodyChanging.getTarget().isPlayer()
+					?"Change the plasticity of your asshole."
+					:UtilText.parse(BodyChanging.getTarget(), "Change the plasticity of [npc.name]'s asshole.")),
+				contentSB.toString());
+	}
+	
 	public static String getDemonAnusModifiersDiv() {
 		contentSB.setLength(0);
 		
 		for(OrificeModifier orificeMod : OrificeModifier.values()) {
 			if(BodyChanging.getTarget().hasAssOrificeModifier(orificeMod)) {
 				contentSB.append(
-						"<div class='cosmetics-button active'>"
+						"<div  id='CHANGE_ANUS_MOD_"+orificeMod+"' class='cosmetics-button active'>"
 							+ "<b style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(orificeMod.getName())+"</b>"
 						+ "</div>");
 				
@@ -1092,7 +1243,7 @@ public class CharacterModificationUtils {
 		for(OrificeModifier orificeMod : OrificeModifier.values()) {
 			if(BodyChanging.getTarget().hasNippleOrificeModifier(orificeMod)) {
 				contentSB.append(
-						"<div class='cosmetics-button active'>"
+						"<div id='CHANGE_NIPPLE_MOD_"+orificeMod+"' class='cosmetics-button active'>"
 							+ "<b style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(orificeMod.getName())+"</b>"
 						+ "</div>");
 				
@@ -1104,7 +1255,7 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyFullWrapper("Nipple Modifiers",
+		return applyHalfWrapper("Nipple Modifiers",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the modifiers for your nipples."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the modifiers for [npc.name]'s nipples.")),
@@ -1294,7 +1445,7 @@ public class CharacterModificationUtils {
 		for(OrificeModifier orificeMod : OrificeModifier.values()) {
 			if(BodyChanging.getTarget().hasVaginaOrificeModifier(orificeMod)) {
 				contentSB.append(
-						"<div class='cosmetics-button active'>"
+						"<div id='CHANGE_VAGINA_MOD_"+orificeMod+"' class='cosmetics-button active'>"
 							+ "<b style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(orificeMod.getName())+"</b>"
 						+ "</div>");
 				
@@ -1549,7 +1700,7 @@ public class CharacterModificationUtils {
 		for(PenisModifier orificeMod : PenisModifier.values()) {
 			if(BodyChanging.getTarget().hasPenisModifier(orificeMod)) {
 				contentSB.append(
-						"<div class='cosmetics-button active'>"
+						"<div id='CHANGE_PENIS_MOD_"+orificeMod+"' class='cosmetics-button active'>"
 							+ "<b style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(orificeMod.getName())+"</b>"
 						+ "</div>");
 				
@@ -1574,7 +1725,7 @@ public class CharacterModificationUtils {
 		for(OrificeModifier orificeMod : OrificeModifier.values()) {
 			if(BodyChanging.getTarget().hasUrethraOrificeModifier(orificeMod)) {
 				contentSB.append(
-						"<div class='cosmetics-button active'>"
+						"<div id='CHANGE_URETHRA_MOD_"+orificeMod+"' class='cosmetics-button active'>"
 							+ "<b style='color:"+Colour.RACE_DEMON.toWebHexString()+";'>"+Util.capitaliseSentence(orificeMod.getName())+"</b>"
 						+ "</div>");
 				

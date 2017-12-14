@@ -190,7 +190,7 @@ public enum RacialBody {
 			HairType.COW_MORPH, HairLength.TWO_SHORT, HairLength.THREE_SHOULDER_LENGTH,
 			LegType.COW_MORPH,
 			SkinType.COW_MORPH, BodyMaterial.FLESH,
-			HornLength.TWO_LONG, HornLength.ONE_SMALL, Util.newArrayListOfValues(new ListValue<>(HornType.CURVED), new ListValue<>(HornType.STRAIGHT)),
+			HornLength.TWO_LONG, HornLength.ONE_SMALL, Util.newArrayListOfValues(new ListValue<>(HornType.BOVINE_CURVED), new ListValue<>(HornType.BOVINE_STRAIGHT)),
 			PenisType.BOVINE, PenisSize.THREE_LARGE,
 			PenisType.NONE, PenisSize.TWO_AVERAGE,
 			TesticleSize.THREE_LARGE, 2, CumProduction.FOUR_LARGE,
@@ -539,6 +539,7 @@ public enum RacialBody {
 		this.skinType = skinType;
 		this.bodyMaterial = bodyMaterial;
 		this.hornTypes = hornTypes;
+		
 		this.penisType = penisType;
 		this.penisSecondType = penisSecondType;
 		this.tailType = tailType;

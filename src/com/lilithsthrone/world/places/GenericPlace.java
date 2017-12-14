@@ -1,8 +1,10 @@
 package com.lilithsthrone.world.places;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -83,9 +85,35 @@ public class GenericPlace implements Serializable, XMLSaving {
 		GenericPlace place = new GenericPlace(PlaceType.valueOf(placeType));
 		place.setName(parentElement.getAttribute("name"));
 		
-		for(int i=0; i<((Element) parentElement.getElementsByTagName("placeUpgrades").item(0)).getElementsByTagName("upgrade").getLength(); i++){
-			Element e = (Element) ((Element) parentElement.getElementsByTagName("placeUpgrades").item(0)).getElementsByTagName("upgrade").item(i);
-			place.addPlaceUpgrade(PlaceUpgrade.valueOf(e.getAttribute("type")));
+		if(((Element) parentElement.getElementsByTagName("placeUpgrades").item(0)).getElementsByTagName("upgrade").getLength()>0) {
+			List<PlaceUpgrade> coreUpgrades = new ArrayList<>();
+			List<PlaceUpgrade> upgrades = new ArrayList<>();
+			for(int i=0; i<((Element) parentElement.getElementsByTagName("placeUpgrades").item(0)).getElementsByTagName("upgrade").getLength(); i++){
+				Element e = (Element) ((Element) parentElement.getElementsByTagName("placeUpgrades").item(0)).getElementsByTagName("upgrade").item(i);
+				PlaceUpgrade upgrade = PlaceUpgrade.valueOf(e.getAttribute("type"));
+				
+				if(upgrade.isCoreRoomUpgrade()) {
+					coreUpgrades.add(upgrade);
+				} else {
+					upgrades.add(upgrade);
+				}
+			}
+			
+			// Add core upgrades first:
+			for(PlaceUpgrade coreUpgrade : coreUpgrades) {
+				if(!place.getPlaceUpgrades().contains(coreUpgrade)) {
+					if(!place.addPlaceUpgrade(coreUpgrade)) { // This line attempts to add the upgrade
+						System.err.println("WARNING: Import of GenericPlace ("+place.getPlaceType()+") was unable to add core upgrade: "+coreUpgrade.getName());
+					}
+				}
+			}
+			for(PlaceUpgrade upgrade : upgrades) {
+				if(!place.getPlaceUpgrades().contains(upgrade)) {
+					if(!place.addPlaceUpgrade(upgrade)) { // This line attempts to add the upgrade
+						System.err.println("WARNING: Import of GenericPlace ("+place.getPlaceType()+") was unable to add upgrade: "+upgrade.getName());
+					}
+				}
+			}
 		}
 		
 		return place;

@@ -1413,7 +1413,8 @@ public class GenericOrgasms {
 		}
 	};
 		
-	public static final SexAction PARTNER_GENERIC_ORGASM_PULL_OUT = new SexAction(SexActionType.PARTNER_ORGASM,
+	public static final SexAction PARTNER_GENERIC_ORGASM_PULL_OUT = new SexAction(
+			SexActionType.PARTNER_ORGASM,
 			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.ZERO_PURE,
@@ -1849,7 +1850,7 @@ public class GenericOrgasms {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Sex.isPlayerDom() ||Sex.isConsensual()) && Sex.isAnyPenetrationHappening();
+			return (Sex.isPlayerDom() || Sex.isSubHasEqualControl()) && Sex.isAnyPenetrationHappening();
 		}
 
 		@Override

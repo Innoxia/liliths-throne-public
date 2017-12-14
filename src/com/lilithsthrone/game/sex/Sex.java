@@ -367,7 +367,7 @@ public enum Sex {
 			}
 		}
 		
-		partner.setLastTimeHadSex(Main.game.getMinutesPassed());
+		partner.setLastTimeHadSex(Main.game.getMinutesPassed(), Sex.getNumberOfPartnerOrgasms()>0);
 		partner.endSex(true);
 	}
 
@@ -1017,13 +1017,6 @@ public enum Sex {
 		sexSB.append("<p>" + sexActionPlayer.getDescription() + "</p>");
 		
 		sexActionPlayer.baseEffects();
-		lastUsedPlayerAction = sexActionPlayer;
-		if(!repeatActionsPlayer.contains(sexActionPlayer)
-				&& sexActionPlayer.getActionType()!=SexActionType.PLAYER_PREPARE_PARTNER_ORGASM
-				&& sexActionPlayer.getActionType()!=SexActionType.PLAYER_ORGASM
-				&& sexActionPlayer.getActionType()!=SexActionType.PLAYER_ORGASM_NO_AROUSAL_RESET) {
-			repeatActionsPlayer.add(sexActionPlayer);
-		}
 		
 		applyGenericDescriptionsAndEffects(sexActionPlayer);
 		
@@ -1069,6 +1062,20 @@ public enum Sex {
 			// Re-populate lists for the player's next action choice.
 			populatePlayerSexLists();
 		}
+
+		lastUsedPlayerAction = sexActionPlayer;
+		if(!repeatActionsPlayer.contains(sexActionPlayer)
+				&& sexActionPlayer.getActionType()!=SexActionType.PLAYER_PREPARE_PARTNER_ORGASM
+				&& sexActionPlayer.getActionType()!=SexActionType.PLAYER_ORGASM
+				&& sexActionPlayer.getActionType()!=SexActionType.PLAYER_ORGASM_NO_AROUSAL_RESET) {
+			repeatActionsPlayer.add(sexActionPlayer);
+		}
+		
+		repeatActionsPlayer.removeIf(sa-> !sa.isAddedToAvailableSexActions());
+		repeatActionsPlayer.removeIf(sa-> !sa.isBaseRequirementsMet());
+		repeatActionsPlayer.remove(SexActionUtility.CLOTHING_DYE);
+		repeatActionsPlayer.remove(SexActionUtility.CLOTHING_REMOVAL);
+		repeatActionsPlayer.remove(SexActionUtility.PLAYER_USE_ITEM);
 	}
 
 	private static void populatePlayerSexLists() {

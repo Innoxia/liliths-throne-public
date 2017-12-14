@@ -72,7 +72,7 @@ public class Wing implements BodyPartInterface, Serializable {
 		} else {
 			UtilText.transformationContentSB.setLength(0);
 
-			if(type == WingType.NONE) {
+			if(type != WingType.NONE) {
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 							"<p>"
@@ -87,11 +87,11 @@ public class Wing implements BodyPartInterface, Serializable {
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 							"<p>"
-								+ "Your [pc.wings] suddenly start to twitch and wriggle with a mind of their own, and you let out a gasp as you feel them start to transform.");
+								+ "Your [pc.wings] suddenly start to twitch and flap with a mind of their own, and you let out a gasp as you feel them start to transform.");
 				} else {
 					UtilText.transformationContentSB.append(
 							"<p>"
-								+ "[npc.Name]'s [npc.wings] suddenly start to twitch and wriggle with a mind of their own, and [npc.she] lets out a gasp as [npc.she] feels them start to transform.");
+								+ "[npc.Name]'s [npc.wings] suddenly start to twitch and flap with a mind of their own, and [npc.she] lets out a gasp as [npc.she] feels them start to transform.");
 				}
 				
 			}

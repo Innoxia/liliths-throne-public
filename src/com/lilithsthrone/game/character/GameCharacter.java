@@ -796,8 +796,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			CharacterUtils.appendToImportLog(log, "</br>Set description");
 		}
 		if(element.getElementsByTagName("playerPetName").getLength()!=0) {
-			character.setPlayerPetName(((Element)element.getElementsByTagName("playerPetName").item(0)).getAttribute("value"));
-			CharacterUtils.appendToImportLog(log, "</br>Set playerPetName: "+character.getPlayerPetName());
+			String petName = ((Element)element.getElementsByTagName("playerPetName").item(0)).getAttribute("value");
+			character.setPlayerPetName(petName);
+			CharacterUtils.appendToImportLog(log, "</br>Set playerPetName: "+petName);
 		}
 		if(element.getElementsByTagName("playerKnowsName").getLength()!=0) {
 			character.setPlayerKnowsName(Boolean.valueOf(((Element)element.getElementsByTagName("playerKnowsName").item(0)).getAttribute("value")));
@@ -884,8 +885,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			character.setLevelUpPoints(Integer.valueOf(((Element)element.getElementsByTagName("levelUpPoints").item(0)).getAttribute("value")) + extraLevelUpPoints);
 			CharacterUtils.appendToImportLog(log, "</br>Set levelUpPoints: " + (Integer.valueOf(((Element)element.getElementsByTagName("levelUpPoints").item(0)).getAttribute("value")) + extraLevelUpPoints));
 			
-//			character.setPerkPoints(Integer.valueOf(((Element)element.getElementsByTagName("perkPoints").item(0)).getAttribute("value")));
-//			CharacterUtils.appendToImportLog(log, "</br>Set perkPoints: " + (Integer.valueOf(((Element)element.getElementsByTagName("perkPoints").item(0)).getAttribute("value")) + extraLevelUpPoints));
+			try {
+				character.setPerkPoints(Integer.valueOf(((Element)element.getElementsByTagName("perkPoints").item(0)).getAttribute("value")));
+				CharacterUtils.appendToImportLog(log, "</br>Set perkPoints: " + (Integer.valueOf(((Element)element.getElementsByTagName("perkPoints").item(0)).getAttribute("value")) + extraLevelUpPoints));
+			} catch(Exception ex) {
+			}
 		}
 		
 		
@@ -927,11 +931,17 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		character.resetInventory();
 		
-		
 		nodes = parentElement.getElementsByTagName("characterInventory");
 		element = (Element) nodes.item(0);
 		if(element!=null) {
 			character.inventory = CharacterInventory.loadFromXML(element, doc);
+			
+			for(AbstractClothing clothing : character.getClothingCurrentlyEquipped()) {
+				character.incrementBonusAttribute(Attribute.RESISTANCE_PHYSICAL, clothing.getClothingType().getPhysicalResistance());
+				for (Entry<Attribute, Integer> e : clothing.getAttributeModifiers().entrySet()) {
+					character.incrementBonusAttribute(e.getKey(), e.getValue());
+				}
+			}
 			
 		} else {
 			CharacterCreation.getDressed(character, false);
@@ -1160,6 +1170,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				SlaveJobSetting setting = SlaveJobSetting.valueOf(e.getAttribute("value"));
 				character.addSlaveJobSettings(setting);
 				CharacterUtils.appendToImportLog(log, "</br>Added slave job setting: "+setting);
+			}
+			
+			// Clear settings first:
+			for(SlavePermission key : character.getSlavePermissionSettings().keySet()) {
+				character.getSlavePermissionSettings().get(key).clear();
 			}
 			
 			for(int i=0; i<((Element) slaveryElement.getElementsByTagName("slavePermissionSettings").item(0)).getElementsByTagName("permission").getLength(); i++){
@@ -6431,7 +6446,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	// Facial hair:
 	public BodyHair getFacialHair() {
-		if(isFeminine()) {
+		if(this.getFemininityValue()>=Femininity.ANDROGYNOUS.getMinimumFemininity()) {
 			setFacialHair(BodyHair.ZERO_NONE);
 		}
 		return body.getFace().getFacialHair();

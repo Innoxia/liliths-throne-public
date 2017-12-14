@@ -69,16 +69,24 @@ public enum NippleType implements BodyPartTypeInterface {
 
 	@Override
 	public String getNameSingular(GameCharacter gc) {
-		String name[] = new String[] {"nipple", "teat"};
-		
-		return name[Util.random.nextInt(name.length)];
+		if(gc.hasBreasts()) {
+			String name[] = new String[] {"nipple", "teat"};
+			return name[Util.random.nextInt(name.length)];
+			
+		} else {
+			return "nipple";
+		}
 	}
 	
 	@Override
 	public String getNamePlural(GameCharacter gc) {
-		String name[] = new String[] {"nipples", "teats" };
-		
-		return name[Util.random.nextInt(name.length)];
+		if(gc.hasBreasts()) {
+			String name[] = new String[] {"nipples", "teats"};
+			return name[Util.random.nextInt(name.length)];
+			
+		} else {
+			return "nipples";
+		}
 	}
 	
 	@Override

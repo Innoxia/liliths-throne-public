@@ -13,6 +13,7 @@ import com.lilithsthrone.game.DifficultyLevel;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.KeyboardAction;
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.gender.AndrogynousIdentification;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -20,8 +21,10 @@ import com.lilithsthrone.game.character.gender.GenderNames;
 import com.lilithsthrone.game.character.gender.GenderPreference;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
 import com.lilithsthrone.game.character.gender.PronounType;
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.MapDisplay;
@@ -664,6 +667,15 @@ public class OptionsDialogue {
 								break;
 						}
 						Main.saveProperties();
+						
+						for(NPC npc : Main.game.getAllNPCs()) {
+							if(Main.game.isInCombat() && npc.equals(Combat.getOpponent())) {
+							} else {
+								npc.setMana(npc.getAttributeValue(Attribute.MANA_MAXIMUM));
+								npc.setHealth(npc.getAttributeValue(Attribute.HEALTH_MAXIMUM));
+								npc.setStamina(npc.getAttributeValue(Attribute.STAMINA_MAXIMUM));
+							}
+						}
 					}
 				};
 				

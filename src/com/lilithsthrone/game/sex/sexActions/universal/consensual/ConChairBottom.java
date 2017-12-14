@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.sex.sexActions.universal.consensual;
 
+import java.util.List;
+
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
@@ -17,6 +19,8 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.69.9
@@ -1184,6 +1188,11 @@ public class ConChairBottom {
 					"[pc.speech(I'm your worthless slut! Use me like your little fuck-toy!)]"));
 			
 			return descriptionSB.toString();
+		}
+		
+		@Override
+		public List<Fetish> getFetishesPlayer() {
+			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE));
 		}
 		
 	};

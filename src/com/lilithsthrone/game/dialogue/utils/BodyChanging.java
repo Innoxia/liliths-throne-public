@@ -185,13 +185,24 @@ public class BodyChanging {
 						+ CharacterModificationUtils.getDemonHornChoiceDiv()
 						+ CharacterModificationUtils.getDemonicLipSizeDiv()
 					+"</div>"
+					
+					+"<div style='clear:left;'>"
+						+ CharacterModificationUtils.getDemonThroatModifiersDiv()
+						+ CharacterModificationUtils.getDemonTongueModifiersDiv()
+					+"</div>"
+					
+					+ CharacterModificationUtils.getKatesDivCoverings(false, BodyCoveringType.MOUTH, "Lip & Throat colour",
+							(BodyChanging.getTarget().isPlayer()
+									?"The natural colour of your lips (top options) and your throat (bottom options). Lipstick can be used to conceal your natural lip colour."
+									:UtilText.parse(BodyChanging.getTarget(), "The natural colour of [npc.name]'s lips (top options) and [npc.her] throat (bottom options). Lipstick can be used to conceal [npc.her] natural lip colour.")),
+							true, true)
 
 					+ CharacterModificationUtils.getKatesDivHairLengths(false, "Hair Length",
 							(BodyChanging.getTarget().isPlayer()
 									?"You can harness the power of your demonic form to change the length of your hair."
 									:UtilText.parse(BodyChanging.getTarget(), "[npc.Name] can harness the power of [npc.her] demonic form to change the length of [npc.her] hair.")))
 					
-					+ CharacterModificationUtils.getKatesDivCoverings(false, BodyCoveringType.DEMON_COMMON, "Hair colour",
+					+ CharacterModificationUtils.getKatesDivCoverings(false, BodyChanging.getTarget().getHairCovering().getType(), "Hair colour",
 							(BodyChanging.getTarget().isPlayer()
 									?"You can harness the power of your demonic form to change the colour of your hair."
 									:UtilText.parse(BodyChanging.getTarget(), "[npc.Name] can harness the power of [npc.her] demonic form to change the colour of [npc.her] hair.")), true, true)
@@ -211,7 +222,7 @@ public class BodyChanging {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==2) {
-				return new Response("Face", "You are already in this screen!", null);
+				return new Response("Head", "You are already in this screen!", null);
 				
 			} else {
 				return getBodyChangingResponse(responseTab, index);
@@ -240,8 +251,18 @@ public class BodyChanging {
 						+ CharacterModificationUtils.getDemonHipSizeDiv()
 					+"</div>"
 					
-					+ CharacterModificationUtils.getDemonAnusModifiersDiv()
+					+"<div style='clear:left;'>"
+						+ CharacterModificationUtils.getDemonAnusCapacityDiv()
+						+ CharacterModificationUtils.getDemonAnusWetnessDiv()
+					+"</div>"
+
+					+"<div style='clear:left;'>"
+						+ CharacterModificationUtils.getDemonAnusElasticityDiv()
+						+ CharacterModificationUtils.getDemonAnusPlasticityDiv()
+					+"</div>"
 					
+					+ CharacterModificationUtils.getDemonAnusModifiersDiv()
+						
 					+ CharacterModificationUtils.getKatesDivCoverings(false, BodyCoveringType.ANUS, "Anus Colour", 
 							(BodyChanging.getTarget().isPlayer()
 									?"You can harness the power of your demonic form to change the colour of your asshole."
@@ -303,7 +324,7 @@ public class BodyChanging {
 					+"</div>"
 
 					+"<div style='clear:left;'>"
-						+ CharacterModificationUtils.getDemonLactationDiv()
+						+ CharacterModificationUtils.getDemonNippleModifiersDiv()
 						+ CharacterModificationUtils.getDemonNippleCapacityDiv()
 					+"</div>"
 
@@ -312,7 +333,6 @@ public class BodyChanging {
 						+ CharacterModificationUtils.getDemonNipplePlasticityDiv()
 					+"</div>"
 					
-					+ CharacterModificationUtils.getDemonNippleModifiersDiv()
 					
 					+ CharacterModificationUtils.getKatesDivCoverings(false, BodyCoveringType.NIPPLES, "Nipple Colour", 
 							(BodyChanging.getTarget().isPlayer()
