@@ -316,7 +316,7 @@ public class Breast implements BodyPartInterface, Serializable {
 								+ "</p>");
 				}
 				break;
-			case GATOR_MORPH:
+			case ALLIGATOR_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 							" Your nipples and areolae start tingling, and you find yourself panting and sweating as the intense transformation runs its course."

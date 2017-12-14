@@ -65,11 +65,11 @@ public enum TFEssence {
 //			Colour.RACE_HARPY,
 //			Rarity.UNCOMMON),
 //
-//	GATOR_MORPH("Gator-morph",
+//	ALLIGATOR_MORPH("Gator-morph",
 //			"An essence gained from a gator-morph.",
 //			"reptilian",
 //			"essenceGatorMorph",
-//			Colour.RACE_GATOR_MORPH,
+//			Colour.RACE_ALLIGATOR_MORPH,
 //			Rarity.COMMON),
 //	SLIME("Slime",
 //			"An essence gained from a slime.",
@@ -175,8 +175,8 @@ public enum TFEssence {
 //				return ItemType.BOTTLED_ESSENCE_DEMON;
 //			case DOG_MORPH:
 //				return ItemType.BOTTLED_ESSENCE_DOG_MORPH;
-//			case GATOR_MORPH:
-//				return ItemType.BOTTLED_ESSENCE_GATOR_MORPH;
+//			case ALLIGATOR_MORPH:
+//				return ItemType.BOTTLED_ESSENCE_ALLIGATOR_MORPH;
 //			case HARPY:
 //				return ItemType.BOTTLED_ESSENCE_HARPY;
 //			case HORSE_MORPH:

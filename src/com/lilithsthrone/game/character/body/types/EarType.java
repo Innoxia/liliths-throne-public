@@ -26,7 +26,7 @@ public enum EarType implements BodyPartTypeInterface {
 
 	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH),
 
-	GATOR_MORPH(BodyCoveringType.SCALES_GATOR, Race.GATOR_MORPH),
+	ALLIGATOR_MORPH(BodyCoveringType.SCALES_ALLIGATOR, Race.ALLIGATOR_MORPH),
 
 	HORSE_MORPH(BodyCoveringType.HORSE_HAIR, Race.HORSE_MORPH),
 
@@ -77,7 +77,7 @@ public enum EarType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("furry", "fur-coated", "dog-like");
 			case SQUIRREL_MORPH:
 				return UtilText.returnStringAtRandom("furry", "fur-coated", "squirrel-like");
-			case GATOR_MORPH:
+			case ALLIGATOR_MORPH:
 				return UtilText.returnStringAtRandom("scaled", "scale-covered");
 			case HARPY:
 				return UtilText.returnStringAtRandom("feathered", "feather-covered");
@@ -108,6 +108,8 @@ public enum EarType implements BodyPartTypeInterface {
 				return "bovine";
 			case SQUIRREL_MORPH:
 				return "furry";
+			case ALLIGATOR_MORPH:
+				return "alligator";
 			case HARPY:
 				return "avian";
 			case HORSE_MORPH:

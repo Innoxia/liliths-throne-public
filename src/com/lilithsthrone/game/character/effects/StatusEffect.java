@@ -1926,11 +1926,11 @@ public enum StatusEffect {
 	},
 
 	// REPTILE:
-		GATOR_MORPH(
+		ALLIGATOR_MORPH(
 				90,
 				"Gator-morph",
 				"raceGatorMorph",
-				Colour.RACE_GATOR_MORPH,
+				Colour.RACE_ALLIGATOR_MORPH,
 				true,
 				Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 10f),
 				new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, -10f),
@@ -1952,7 +1952,7 @@ public enum StatusEffect {
 
 			@Override
 			public boolean isConditionsMet(GameCharacter target) {
-				return target.getRace() == Race.GATOR_MORPH
+				return target.getRace() == Race.ALLIGATOR_MORPH
 						&& target.getRaceStage() == RaceStage.GREATER;
 			}
 		},
@@ -4738,12 +4738,12 @@ public enum StatusEffect {
 			80,
 			"alligator-morph intuition",
 			"combatBonusAlligatorMorph",
-			Colour.RACE_GATOR_MORPH,
+			Colour.RACE_ALLIGATOR_MORPH,
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.STRENGTH, 2f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_GATOR_MORPH, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_GATOR_MORPH, 25f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_ALLIGATOR_MORPH, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ALLIGATOR_MORPH, 25f)),
 			null) {
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {

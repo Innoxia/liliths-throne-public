@@ -1270,24 +1270,24 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType RACE_INGREDIENT_GATOR_MORPH = new AbstractItemType(
+	public static AbstractItemType RACE_INGREDIENT_ALLIGATOR_MORPH = new AbstractItemType(
 			"a",
 			false,
 			"Gator's Gumbo",
 			"Gator's Gumbo",
 			"An individually-wrapped bowl of gumbo, contains meat, okra, and other veggies.",
 			"raceGatorMorphGatorsGumbo",
-			Colour.RACE_GATOR_MORPH,
+			Colour.RACE_ALLIGATOR_MORPH,
 			40,
 			Rarity.RARE,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_GATORS_GUMBO, null, null, null, 0)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_ALLIGATORS_GUMBO, null, null, null, 0)))) {
 
 		private static final long serialVersionUID = 1L;
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
-			return ItemEffectType.RACE_GATOR_MORPH;
+			return ItemEffectType.RACE_ALLIGATOR_MORPH;
 		}
 
 		@Override
@@ -1665,19 +1665,19 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType BOTTLED_ESSENCE_GATOR_MORPH = new AbstractItemType(
+	public static AbstractItemType BOTTLED_ESSENCE_ALLIGATOR_MORPH = new AbstractItemType(
 			null,
 			false,
 			"Bottled Gator-morph Essence",
 			"Bottled Gator-morph Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
-					+ " Inside, the swirling "+Colour.RACE_GATOR_MORPH.getName()+" glow of a gator-morph essence flickers and swirls about in a mesmerising, cyclical pattern.",
+					+ " Inside, the swirling "+Colour.RACE_ALLIGATOR_MORPH.getName()+" glow of a gator-morph essence flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceGatorMorph",
-			Colour.RACE_GATOR_MORPH,
+			Colour.RACE_ALLIGATOR_MORPH,
 			10,
 			Rarity.COMMON,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_GATOR_MORPH, null, null, null, 0)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_ALLIGATOR_MORPH, null, null, null, 0)))) {
 
 		/**
 				 * 
@@ -1694,7 +1694,7 @@ public class ItemType {
 			if (user.isPlayer() && target.isPlayer()) {
 				return "<p>"
 							+ "Pulling the cork stopper out from the top of the little bottle, you release the gator-morph essence from its glass prison."
-							+ " Drawn towards your powerful arcane aura, the essence immediately darts towards you, and with a little "+Colour.RACE_GATOR_MORPH.getName()+" flash, it disappears from sight."
+							+ " Drawn towards your powerful arcane aura, the essence immediately darts towards you, and with a little "+Colour.RACE_ALLIGATOR_MORPH.getName()+" flash, it disappears from sight."
 							+ " You feel a subtle change in your aura, letting you know that you've successfully absorbed the essence."
 						+ "</p>";
 				
@@ -2594,18 +2594,18 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType BOOK_GATOR_MORPH = new AbstractItemType(
+	public static AbstractItemType BOOK_ALLIGATOR_MORPH = new AbstractItemType(
 			null,
 			false,
 			"Rasselin' Gators",
 			"Rasselin' Gators",
 			"A book all about gator-morphs, detailing their society and place within Dominion.",
 			"book_race_gator_morph",
-			Colour.RACE_GATOR_MORPH,
+			Colour.RACE_ALLIGATOR_MORPH,
 			10,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_GATOR_MORPH, null, null, null, 0)))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_ALLIGATOR_MORPH, null, null, null, 0)))) {
 		
 		/**
 				 * 
@@ -2614,7 +2614,7 @@ public class ItemType {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.getProperties().isAdvancedRaceKnowledgeDiscovered(Race.GATOR_MORPH);
+			return !Main.getProperties().isAdvancedRaceKnowledgeDiscovered(Race.ALLIGATOR_MORPH);
 		}
 
 		@Override

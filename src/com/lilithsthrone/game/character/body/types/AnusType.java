@@ -32,7 +32,7 @@ public enum AnusType implements BodyPartTypeInterface {
 	
 	HORSE_MORPH(BodyCoveringType.ANUS, Race.HORSE_MORPH, OrificeModifier.PUFFY),
 	
-	GATOR_MORPH(BodyCoveringType.ANUS, Race.GATOR_MORPH),
+	ALLIGATOR_MORPH(BodyCoveringType.ANUS, Race.ALLIGATOR_MORPH),
 	
 	HARPY(BodyCoveringType.ANUS, Race.HARPY),
 	

@@ -160,7 +160,7 @@ public class Leg implements BodyPartInterface, Serializable {
 							+ "</p>");
 				}
 				break;
-			case GATOR_MORPH:
+			case ALLIGATOR_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 								" A layer of gator-like scales quickly grows over your legs as they shift into a new form."

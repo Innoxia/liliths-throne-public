@@ -180,7 +180,7 @@ public enum Name {
 				break;
 			case DOG_MORPH:
 				break;
-			case GATOR_MORPH:
+			case ALLIGATOR_MORPH:
 				break;
 			case HARPY:
 				break;
@@ -223,7 +223,7 @@ public enum Name {
 				return getDemonName();
 			case DOG_MORPH:
 				break;
-			case GATOR_MORPH:
+			case ALLIGATOR_MORPH:
 				break;
 			case HARPY:
 				break;

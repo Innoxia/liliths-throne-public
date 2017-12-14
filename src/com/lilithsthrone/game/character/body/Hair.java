@@ -163,7 +163,7 @@ public class Hair implements BodyPartInterface, Serializable {
 							+ "</p>");
 				}
 				break;
-			case GATOR_MORPH:
+			case ALLIGATOR_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 								" The feeling goes away almost as quickly as it came, leaving you with a plume of scales in place of hair.</br>"

@@ -86,7 +86,7 @@ public class EnchantingUtils {
 			case RACE_SQUIRREL_MORPH:
 				potionDescriptor = "squirrel ";
 				break;
-			case RACE_GATOR_MORPH:
+			case RACE_ALLIGATOR_MORPH:
 				potionDescriptor = "gator ";
 				break;
 			default:

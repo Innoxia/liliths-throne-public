@@ -202,7 +202,7 @@ public class Ass implements BodyPartInterface, Serializable {
 							+ "</p>");
 				}
 				break;
-			case GATOR_MORPH:
+			case ALLIGATOR_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 							"You now have a [style.boldGatorMorph(gator-morph ass)], covered in [pc.assFullDescription].</br>"

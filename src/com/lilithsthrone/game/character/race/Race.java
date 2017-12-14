@@ -407,7 +407,7 @@ public enum Race {
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL),
 	
-	GATOR_MORPH(
+	ALLIGATOR_MORPH(
 			"gator-morph",
 			"gator-morphs",
 			
@@ -425,17 +425,17 @@ public enum Race {
 				+ "." //TODO
 			+ "</p>",
 
-			Colour.RACE_GATOR_MORPH,
+			Colour.RACE_ALLIGATOR_MORPH,
 			Genus.REPTILE,
 			Disposition.SAVAGE,
-			StatusEffect.GATOR_MORPH,
+			StatusEffect.ALLIGATOR_MORPH,
 			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SPECIAL_ATTACK), new ListValue<Attack>(Attack.MAIN)),
 			true,
 			0.5f,
 			1,
 			2,
-			Attribute.DAMAGE_GATOR_MORPH,
-			Attribute.RESISTANCE_GATOR_MORPH,
+			Attribute.DAMAGE_ALLIGATOR_MORPH,
+			Attribute.RESISTANCE_ALLIGATOR_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL),
 

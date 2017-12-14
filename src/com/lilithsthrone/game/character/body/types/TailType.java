@@ -25,7 +25,7 @@ public enum TailType implements BodyPartTypeInterface {
 
 	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH, false, false),
 	
-	GATOR_MORPH(BodyCoveringType.SCALES_GATOR, Race.SQUIRREL_MORPH, false, false),
+	ALLIGATOR_MORPH(BodyCoveringType.SCALES_ALLIGATOR, Race.SQUIRREL_MORPH, false, false),
 	
 	HORSE_MORPH(BodyCoveringType.HAIR_HORSE_HAIR, Race.HORSE_MORPH, false, false),
 
@@ -98,7 +98,7 @@ public enum TailType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("spaded", "demonic");
 			case DOG_MORPH:
 				return UtilText.returnStringAtRandom("dog-like");
-			case GATOR_MORPH:
+			case ALLIGATOR_MORPH:
 				return UtilText.returnStringAtRandom("gator-like");
 			case HARPY:
 				return UtilText.returnStringAtRandom("colourful", "bird-like");
@@ -133,6 +133,8 @@ public enum TailType implements BodyPartTypeInterface {
 				return "lupine";
 			case SQUIRREL_MORPH:
 				return "fluffy";
+			case ALLIGATOR_MORPH:
+				return "alligator";
 			case NONE:
 				return "none";
 		}

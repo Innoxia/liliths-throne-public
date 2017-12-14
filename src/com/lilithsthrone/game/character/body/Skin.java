@@ -213,7 +213,7 @@ public class Skin implements BodyPartInterface, Serializable {
 							+ "</p>");
 				}
 				break;
-			case GATOR_MORPH:
+			case ALLIGATOR_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 								" After just a few moments, the transformation comes to an end, and you let out a deep sigh as the itching finally stops, leaving your torso covered with a layer of beautiful, overlapping scaless."

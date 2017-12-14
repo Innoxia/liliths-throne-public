@@ -27,7 +27,7 @@ public enum ArmType implements BodyPartTypeInterface {
 
 	HORSE_MORPH(BodyCoveringType.HORSE_HAIR, Race.HORSE_MORPH),
 
-	GATOR_MORPH(BodyCoveringType.SCALES_GATOR, Race.GATOR_MORPH),
+	ALLIGATOR_MORPH(BodyCoveringType.SCALES_ALLIGATOR, Race.ALLIGATOR_MORPH),
 
 	SLIME(BodyCoveringType.SLIME, Race.SLIME),
 
@@ -103,7 +103,7 @@ public enum ArmType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("furry", "fur-coated");
 			case SQUIRREL_MORPH:
 				return UtilText.returnStringAtRandom("furry", "fur-coated");
-			case GATOR_MORPH:
+			case ALLIGATOR_MORPH:
 				return UtilText.returnStringAtRandom("scaled", "reptile-like");
 			case HARPY:
 				return UtilText.returnStringAtRandom("feathered", "bird-like");
@@ -134,6 +134,8 @@ public enum ArmType implements BodyPartTypeInterface {
 				return "bovine";
 			case SQUIRREL_MORPH:
 				return "furry";
+			case ALLIGATOR_MORPH:
+				return "alligator";
 			case HARPY:
 				return "feathered";
 			case HORSE_MORPH:
@@ -185,7 +187,7 @@ public enum ArmType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("soft", "feminine", "dog-like", "paw-like", "furry", "canine");
 				case COW_MORPH:
 					return UtilText.returnStringAtRandom("feminine", "bovine");
-				case GATOR_MORPH:
+				case ALLIGATOR_MORPH:
 					return UtilText.returnStringAtRandom("feminine", "scaled");
 				case HARPY:
 					return UtilText.returnStringAtRandom("feminine", "feathered");
@@ -214,7 +216,7 @@ public enum ArmType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("dog-like", "paw-like", "furry", "canine");
 				case COW_MORPH:
 					return UtilText.returnStringAtRandom("bovine");
-				case GATOR_MORPH:
+				case ALLIGATOR_MORPH:
 					return UtilText.returnStringAtRandom("scaled");
 				case HARPY:
 					return UtilText.returnStringAtRandom("feathered");
@@ -261,7 +263,7 @@ public enum ArmType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("soft", "feminine", "padded", "canine");
 				case COW_MORPH:
 					return UtilText.returnStringAtRandom("feminine", "bovine");
-				case GATOR_MORPH:
+				case ALLIGATOR_MORPH:
 					return UtilText.returnStringAtRandom("feminine", "scaled");
 				case HARPY:
 					return UtilText.returnStringAtRandom("feminine", "feathered");
@@ -290,7 +292,7 @@ public enum ArmType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("dog-like", "padded", "canine");
 				case COW_MORPH:
 					return UtilText.returnStringAtRandom("bovine");
-				case GATOR_MORPH:
+				case ALLIGATOR_MORPH:
 					return UtilText.returnStringAtRandom("scaled");
 				case HARPY:
 					return UtilText.returnStringAtRandom("feathered");

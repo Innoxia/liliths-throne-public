@@ -1631,7 +1631,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				value = 50000;
 				break;
 			case CAT_MORPH: case DOG_MORPH:
-				value = 1000;
+				value = 800;
 				break;
 			case COW_MORPH: case HORSE_MORPH:
 				value = 1500;
@@ -1640,7 +1640,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				value = 10000;
 				break;
 			case HARPY:
-				value = 800;
+				value = 1200;
 				break;
 			case HUMAN:
 				value = 400;
@@ -1648,10 +1648,13 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			case SLIME:
 				break;
 			case SQUIRREL_MORPH:
-				value = 800;
+				value = 600;
+				break;
+			case ALLIGATOR_MORPH:
+				value = 1000;
 				break;
 			case WOLF_MORPH:
-				value = 800;
+				value = 1000;
 				break;
 		}
 		
@@ -5143,8 +5146,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				return BodyCoveringType.BODY_HAIR_DEMON;
 			case DOG_MORPH:
 				return BodyCoveringType.BODY_HAIR_CANINE_FUR;
-			case GATOR_MORPH:
-				return BodyCoveringType.BODY_HAIR_SCALES_GATOR;
+			case ALLIGATOR_MORPH:
+				return BodyCoveringType.BODY_HAIR_SCALES_ALLIGATOR;
 			case HARPY:
 				return BodyCoveringType.BODY_HAIR_HARPY;
 			case HORSE_MORPH:

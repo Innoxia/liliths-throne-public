@@ -181,7 +181,7 @@ public class Eye implements BodyPartInterface, Serializable {
 								+ "[npc.Name] now has [style.boldSquirrelMorph(squirrel-like eyes)]");
 				}
 				break;
-			case GATOR_MORPH:
+			case ALLIGATOR_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 								" By the time you hesitantly open them again, they've changed into gator-like eyes, with larger-than-average pupils and small irises."

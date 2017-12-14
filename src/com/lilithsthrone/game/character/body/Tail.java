@@ -306,7 +306,7 @@ public class Tail implements BodyPartInterface, Serializable {
 							);
 				}
 				break;
-			case GATOR_MORPH:
+			case ALLIGATOR_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 							(owner.getTailCount()==1

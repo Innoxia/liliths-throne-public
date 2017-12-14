@@ -437,7 +437,7 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 					new ListValue<Colour>(Colour.FEATHERS_BLACK)),
 			null),
 
-	SCALES_GATOR(Race.GATOR_MORPH,
+	SCALES_ALLIGATOR(Race.ALLIGATOR_MORPH,
 			"a layer of",
 			true,
 			"scales",
@@ -916,7 +916,7 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 					new ListValue<Colour>(Colour.FEATHERS_BLACK)),
 			null),
 
-	BODY_HAIR_SCALES_GATOR(Race.GATOR_MORPH,
+	BODY_HAIR_SCALES_ALLIGATOR(Race.ALLIGATOR_MORPH,
 			"a plume of",
 			false,
 			"scales",
@@ -1096,7 +1096,7 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 			Colour.naturalIrisColours,
 			Colour.dyeIrisColours),
 
-	EYE_GATOR_MORPH(Race.GATOR_MORPH,
+	EYE_ALLIGATOR_MORPH(Race.ALLIGATOR_MORPH,
 			"a pair of",
 			true,
 			"eyes",

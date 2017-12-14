@@ -151,14 +151,14 @@ public enum ItemEffectType {
 		}
 	},
 	
-	BOOK_READ_GATOR_MORPH(Util.newArrayListOfValues(
+	BOOK_READ_ALLIGATOR_MORPH(Util.newArrayListOfValues(
 			new ListValue<>("Adds gator-morph encyclopedia entry."),
 			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
-			Colour.RACE_GATOR_MORPH) {
+			Colour.RACE_ALLIGATOR_MORPH) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return getBookEffect(Race.GATOR_MORPH, ItemType.BOOK_GATOR_MORPH);
+			return getBookEffect(Race.ALLIGATOR_MORPH, ItemType.BOOK_ALLIGATOR_MORPH);
 		}
 	},
 	
@@ -766,10 +766,10 @@ public enum ItemEffectType {
 		}
 	},
 	
-	RACE_GATORS_GUMBO(Util.newArrayListOfValues(
+	RACE_ALLIGATORS_GUMBO(Util.newArrayListOfValues(
 			new ListValue<>("[style.boldGood(+3)] [style.boldStrength(strength)] to 'potion effects'"),
 			new ListValue<>("[style.boldGood(+2)] [style.boldFitness(fitness)] to 'potion effects'")),
-			Colour.RACE_GATOR_MORPH) {
+			Colour.RACE_ALLIGATOR_MORPH) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
@@ -908,11 +908,11 @@ public enum ItemEffectType {
 		}
 	},
 	
- 	BOTTLED_ESSENCE_GATOR_MORPH(Util.newArrayListOfValues(
+ 	BOTTLED_ESSENCE_ALLIGATOR_MORPH(Util.newArrayListOfValues(
 			new ListValue<>("[style.boldGood(+1)] [style.boldArcane(Arcane)] essence"),
 			new ListValue<>("[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldAlligator(alligator-morphs)]"),
 			new ListValue<>("[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldAlligator(alligator-morphs)]")),
-			Colour.RACE_GATOR_MORPH) {
+			Colour.RACE_ALLIGATOR_MORPH) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
@@ -1743,8 +1743,8 @@ public enum ItemEffectType {
 		}
 	},
 	
-	RACE_GATOR_MORPH(null,
-			Colour.RACE_GATOR_MORPH) {
+	RACE_ALLIGATOR_MORPH(null,
+			Colour.RACE_ALLIGATOR_MORPH) {
 
 		@Override
 		public List<TFModifier> getPrimaryModifiers() {
@@ -1753,22 +1753,22 @@ public enum ItemEffectType {
 
 		@Override
 		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
-			return getRacialSecondaryModifiers(Race.GATOR_MORPH, primaryModifier);
+			return getRacialSecondaryModifiers(Race.ALLIGATOR_MORPH, primaryModifier);
 		}
 		
 		@Override
 		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			return getRacialPotencyModifiers(Race.GATOR_MORPH, primaryModifier, secondaryModifier);
+			return getRacialPotencyModifiers(Race.ALLIGATOR_MORPH, primaryModifier, secondaryModifier);
 		}
 		
 		@Override
 		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Util.newArrayListOfValues(new ListValue<>(getRacialEffect(Race.GATOR_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescription()));
+			return Util.newArrayListOfValues(new ListValue<>(getRacialEffect(Race.ALLIGATOR_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescription()));
 		}
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return getRacialEffect(Race.GATOR_MORPH, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
+			return getRacialEffect(Race.ALLIGATOR_MORPH, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
 		}
 	},
 	

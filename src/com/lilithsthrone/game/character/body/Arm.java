@@ -165,7 +165,7 @@ public class Arm implements BodyPartInterface, Serializable {
 							+ "</p>");
 				}
 				break;
-			case GATOR_MORPH:
+			case ALLIGATOR_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 								" Within a matter of moments, a layer of [pc.armFullDescription] has quickly grown over them, and, looking down,"

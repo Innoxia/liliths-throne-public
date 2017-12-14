@@ -33,7 +33,7 @@ public enum VaginaType implements BodyPartTypeInterface {
 
 	SQUIRREL_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_SQUIRREL_MORPH, Race.SQUIRREL_MORPH),
 	
-	GATOR_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_GATOR_MORPH, Race.GATOR_MORPH),
+	ALLIGATOR_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_ALLIGATOR_MORPH, Race.ALLIGATOR_MORPH),
 	
 	CAT_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_CAT_MORPH, Race.CAT_MORPH),
 
@@ -137,7 +137,7 @@ public enum VaginaType implements BodyPartTypeInterface {
 						return UtilText.returnStringAtRandom("hot", "animalistic", "cat-like", "feline");
 					case COW_MORPH:
 						return UtilText.returnStringAtRandom("hot", "animalistic", "cow-like", "bovine");
-					case GATOR_MORPH:
+					case ALLIGATOR_MORPH:
 						return UtilText.returnStringAtRandom("hot", "gator-like", "reptilian");
 					case HORSE_MORPH:
 						return UtilText.returnStringAtRandom("hot", "animalistic", "equine");
@@ -194,6 +194,8 @@ public enum VaginaType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("slime");
 			case SQUIRREL_MORPH:
 				return UtilText.returnStringAtRandom("squirrel");
+			case ALLIGATOR_MORPH:
+				return "alligator";
 			case WOLF_MORPH:
 				return UtilText.returnStringAtRandom("lupine");
 		}

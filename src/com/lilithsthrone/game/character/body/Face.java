@@ -215,7 +215,7 @@ public class Face implements BodyPartInterface, Serializable {
 							+ "</p>"));
 				}
 				break;
-			case GATOR_MORPH:
+			case ALLIGATOR_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 								" You feel your nose and mouth twitching and transforming as they push out into an anthropomorphic reptile muzzle, and your tongue narrows and thins, turning into a gator-like tongue."

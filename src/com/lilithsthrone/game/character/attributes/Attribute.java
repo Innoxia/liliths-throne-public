@@ -416,7 +416,7 @@ public enum Attribute {
 			return "Each point increases damage done vs squirrel-morphs by 1%.";
 		}
 	},
-	DAMAGE_GATOR_MORPH(0, "alligator-morph damage", "Alligator-morph damage", "swordIcon", Colour.RACE_SQUIRREL_MORPH, "alligator-morph-obliteration", "alligator-morph-mercy", null, null, null, null) {
+	DAMAGE_ALLIGATOR_MORPH(0, "alligator-morph damage", "Alligator-morph damage", "swordIcon", Colour.RACE_ALLIGATOR_MORPH, "alligator-morph-obliteration", "alligator-morph-mercy", null, null, null, null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases damage done vs alligator-morphs by 1%.";
@@ -483,7 +483,7 @@ public enum Attribute {
 			return "Each point increases resistance vs damage inflicted by squirrel-morphs by 1%.";
 		}
 	},
-	RESISTANCE_GATOR_MORPH(0, "alligator-morph resistance", "Alligator-morph resistance", "shieldIcon", Colour.RACE_SQUIRREL_MORPH, "alligator-morph-immunity", "alligator-morph-vulnerability", null, null, null, null) {
+	RESISTANCE_ALLIGATOR_MORPH(0, "alligator-morph resistance", "Alligator-morph resistance", "shieldIcon", Colour.RACE_ALLIGATOR_MORPH, "alligator-morph-immunity", "alligator-morph-vulnerability", null, null, null, null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases resistance vs damage inflicted by alligator-morphs by 1%.";

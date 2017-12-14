@@ -75,13 +75,13 @@ public enum FluidType implements BodyPartTypeInterface {
 					new ListValue<>(FluidModifier.SLIMY)),
 			Race.SQUIRREL_MORPH),
 	
-	CUM_GATOR_MORPH(BodyCoveringType.CUM,
+	CUM_ALLIGATOR_MORPH(BodyCoveringType.CUM,
 			FluidFlavour.CUM,
 			Util.newArrayListOfValues(new ListValue<>("gator")),
 			Util.newArrayListOfValues(
 					new ListValue<>(FluidModifier.STICKY),
 					new ListValue<>(FluidModifier.SLIMY)),
-			Race.GATOR_MORPH),
+			Race.ALLIGATOR_MORPH),
 	
 	CUM_HORSE_MORPH(BodyCoveringType.CUM,
 			FluidFlavour.CUM,
@@ -167,12 +167,12 @@ public enum FluidType implements BodyPartTypeInterface {
 					new ListValue<>(FluidModifier.SLIMY)),
 			Race.SQUIRREL_MORPH),
 	
-	GIRL_CUM_GATOR_MORPH(BodyCoveringType.GIRL_CUM,
+	GIRL_CUM_ALLIGATOR_MORPH(BodyCoveringType.GIRL_CUM,
 			FluidFlavour.GIRL_CUM,
 			Util.newArrayListOfValues(new ListValue<>("gator")),
 			Util.newArrayListOfValues(
 					new ListValue<>(FluidModifier.SLIMY)),
-			Race.GATOR_MORPH),
+			Race.ALLIGATOR_MORPH),
 	
 	GIRL_CUM_HORSE_MORPH(BodyCoveringType.GIRL_CUM,
 			FluidFlavour.GIRL_CUM,
@@ -252,11 +252,11 @@ public enum FluidType implements BodyPartTypeInterface {
 			Util.newArrayListOfValues(),
 			Race.SQUIRREL_MORPH),
 	
-	MILK_GATOR_MORPH(BodyCoveringType.MILK,
+	MILK_ALLIGATOR_MORPH(BodyCoveringType.MILK,
 			FluidFlavour.MILK,
 			Util.newArrayListOfValues(new ListValue<>("gator")),
 			Util.newArrayListOfValues(),
-			Race.GATOR_MORPH),
+			Race.ALLIGATOR_MORPH),
 	
 	MILK_HORSE_MORPH(BodyCoveringType.MILK,
 			FluidFlavour.MILK,
