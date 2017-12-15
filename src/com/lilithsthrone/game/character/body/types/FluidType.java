@@ -77,7 +77,7 @@ public enum FluidType implements BodyPartTypeInterface {
 	
 	CUM_ALLIGATOR_MORPH(BodyCoveringType.CUM,
 			FluidFlavour.CUM,
-			Util.newArrayListOfValues(new ListValue<>("gator")),
+			Util.newArrayListOfValues(new ListValue<>("alligator")),
 			Util.newArrayListOfValues(
 					new ListValue<>(FluidModifier.STICKY),
 					new ListValue<>(FluidModifier.SLIMY)),
@@ -169,7 +169,7 @@ public enum FluidType implements BodyPartTypeInterface {
 	
 	GIRL_CUM_ALLIGATOR_MORPH(BodyCoveringType.GIRL_CUM,
 			FluidFlavour.GIRL_CUM,
-			Util.newArrayListOfValues(new ListValue<>("gator")),
+			Util.newArrayListOfValues(new ListValue<>("alligator")),
 			Util.newArrayListOfValues(
 					new ListValue<>(FluidModifier.SLIMY)),
 			Race.ALLIGATOR_MORPH),
@@ -254,7 +254,7 @@ public enum FluidType implements BodyPartTypeInterface {
 	
 	MILK_ALLIGATOR_MORPH(BodyCoveringType.MILK,
 			FluidFlavour.MILK,
-			Util.newArrayListOfValues(new ListValue<>("gator")),
+			Util.newArrayListOfValues(new ListValue<>("alligator")),
 			Util.newArrayListOfValues(),
 			Race.ALLIGATOR_MORPH),
 	

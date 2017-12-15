@@ -27,7 +27,7 @@ public enum TongueType implements BodyPartTypeInterface {
 
 	COW_MORPH(BodyCoveringType.TONGUE, Race.COW_MORPH, 1),
 
-	ALLIGATOR_MORPH(BodyCoveringType.TONGUE, Race.ALLIGATOR_MORPH, 1, TongueModifier.BIFURCATED),
+	ALLIGATOR_MORPH(BodyCoveringType.TONGUE, Race.ALLIGATOR_MORPH, 1),
 
 	HORSE_MORPH(BodyCoveringType.TONGUE, Race.HORSE_MORPH, 1),
 

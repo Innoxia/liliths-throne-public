@@ -216,15 +216,15 @@ public class Skin implements BodyPartInterface, Serializable {
 			case ALLIGATOR_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
-								" After just a few moments, the transformation comes to an end, and you let out a deep sigh as the itching finally stops, leaving your torso covered with a layer of beautiful, overlapping scaless."
-								+ " Your new scales follow the lines of your figure, and are extremely smooth and soft to the touch, when rubbed with the flow of them."
+								" After just a few moments, the transformation comes to an end, and you let out a deep sigh as the itching finally stops, leaving your torso covered with a layer of tough, overlapping scales."
+								+ " Your new scales follow the lines of your figure, and, while being quite hard to the touch, are also very smooth when rubbed in the right direction."
 								+ "</br>"
 								+ "You now have [style.boldGatorMorph(reptile)], [pc.skinFullDescription]."
 							+ "</p>");
 				} else {
 					UtilText.transformationContentSB.append(
-								" After just a few moments, the transformation comes to an end, and [npc.she] lets out a deep sigh as the itching finally stops, leaving [npc.her] torso covered with beautiful, overlapping scales."
-								+ " [npc.Her] new scales follow the lines of [npc.her] figure, and are extremely smooth and soft to the touch, when rubbed with the flow of them."
+								" After just a few moments, the transformation comes to an end, and [npc.she] lets out a deep sigh as the itching finally stops, leaving [npc.her] torso covered with tough, overlapping scales."
+								+ " [npc.Her] new scales follow the lines of [npc.her] figure, and, while being quite hard to the touch, are also very smooth when rubbed in the right direction."
 								+ "</br>"
 								+ "[npc.Name] now has [style.boldGatorMorph(reptile)], [npc.skinFullDescription]."
 							+ "</p>");

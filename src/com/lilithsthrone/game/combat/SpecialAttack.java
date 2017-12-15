@@ -11,6 +11,7 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.body.types.LegType;
+import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -1175,6 +1176,63 @@ public enum SpecialAttack {
 		@Override
 		public boolean isConditionsMet(GameCharacter owner) {
 			return owner.getArmType() == ArmType.SQUIRREL_MORPH;
+		}
+	},
+	
+	ALLIGATOR_TAIL_SWIPE(50, "tail swipe", "tailSwipeIcon", Colour.RACE_ALLIGATOR_MORPH, DamageType.PHYSICAL, DamageLevel.HIGH, DamageVariance.HIGH, SpecialAttackSpellCosts.HIGH,
+			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.DAZED, 2))) {
+		@Override
+		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+
+			float damage = calculateDamage(caster, target, isCritical), cost = calculateCost(caster);
+
+			descriptionSB = new StringBuilder();
+			
+			if (caster == Main.game.getPlayer()) {
+				descriptionSB.append(UtilText.parse(target,
+						"<p>"
+							+ "You turn to one side, swinging your huge, alligator-like tail straight at [npc.name]."
+								+ (isHit
+										? " Your appendage connects fully with [npc.her] body, causing considerable damage and dazing [npc.herHim] from the powerful blow!"
+										: " [npc.Name] manages to dodge your attack, and you end up swiping at nothing more than thin air!")
+						+ "</p>")
+						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+			} else {
+				descriptionSB.append(UtilText.parse(caster,
+						"<p>"
+							+ "[npc.Name] turns to one side, swinging [npc.her] huge, alligator-like tail straight at you."
+								+ (isHit
+										? " [npc.Her] appendage connects fully with your body, causing considerable damage and dazing you from the powerful blow!"
+										: " You manage to dodge [npc.her] attack, and [npc.she] ends up swiping at nothing more than thin air!")
+						+ "</p>")
+						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+			}
+			
+			// If attack hits, apply damage and effects:
+			if (isHit) {
+				descriptionSB.append(target.incrementHealth(-damage));
+				for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
+					target.addStatusEffect(se.getKey(), se.getValue());
+			}
+
+			caster.incrementStamina(-cost);
+			
+			return descriptionSB.toString();
+			
+		}
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer())
+				return "Your powerful alligator-like tail can be swung at someone to cause huge damage!";
+			else
+				return UtilText.parse(owner,
+						"[npc.Name]'s powerful alligator-like tail can be swung at someone to cause huge damage!");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter owner) {
+			return owner.getTailType() == TailType.ALLIGATOR_MORPH;
 		}
 	},
 

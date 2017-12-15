@@ -27,7 +27,7 @@ public enum LegType implements BodyPartTypeInterface {
 	
 	CAT_MORPH(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH),
 
-	ALLIGATOR_MORPH(BodyCoveringType.SCALES_ALLIGATOR, Race.ALLIGATOR_MORPH),
+	ALLIGATOR_MORPH(BodyCoveringType.ALLIGATOR_SCALES, Race.ALLIGATOR_MORPH),
 	
 	HORSE_MORPH(BodyCoveringType.HORSE_HAIR, Race.HORSE_MORPH),
 

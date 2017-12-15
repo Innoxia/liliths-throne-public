@@ -27,7 +27,7 @@ public enum ArmType implements BodyPartTypeInterface {
 
 	HORSE_MORPH(BodyCoveringType.HORSE_HAIR, Race.HORSE_MORPH),
 
-	ALLIGATOR_MORPH(BodyCoveringType.SCALES_ALLIGATOR, Race.ALLIGATOR_MORPH),
+	ALLIGATOR_MORPH(BodyCoveringType.ALLIGATOR_SCALES, Race.ALLIGATOR_MORPH),
 
 	SLIME(BodyCoveringType.SLIME, Race.SLIME),
 

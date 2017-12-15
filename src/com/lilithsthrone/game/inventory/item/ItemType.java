@@ -1672,7 +1672,7 @@ public class ItemType {
 			"Bottled alligator-morph Essence",
 			"Bottled alligator-morph Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
-					+ " Inside, the swirling "+Colour.RACE_ALLIGATOR_MORPH.getName()+" glow of a alligator-morph essence flickers and swirls about in a mesmerising, cyclical pattern.",
+					+ " Inside, the swirling "+Colour.RACE_ALLIGATOR_MORPH.getName()+" glow of an alligator-morph essence flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceGatorMorph",
 			Colour.RACE_ALLIGATOR_MORPH,
 			10,

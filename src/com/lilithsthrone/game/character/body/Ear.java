@@ -199,14 +199,14 @@ public class Ear implements BodyPartInterface, Serializable {
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 								" They quickly shrink down into little nubs as most of the external cartilage shifts down into the sides of your head."
-								+ " A layer of [pc.earFullDescriptionColour] grow to cover your now-fully-internal ears, and as the transformation finishes, you discover that you've now got a pair of beautifully-scaled alligator ears."
+								+ " A layer of [pc.earFullDescriptionColour] grow to cover your now-fully-internal ears, and as the transformation finishes, you're left with the ears of an alligator-morph."
 								+ "</br>"
 								+ "You now have [style.boldGatorMorph(internal, scale-covered alligator ears)]."
 							+ "</p>");
 				} else {
 					UtilText.transformationContentSB.append(
 								" They quickly shrink down into little nubs as most of the external cartilage shifts down into the sides of [npc.her] head."
-								+ " A layer of [npc.earFullDescriptionColour] grow to cover [npc.her] now-fully-internal ears, and as the transformation finishes, [npc.she]'s left with a pair of beautifully-scaled alligator ears."
+								+ " A layer of [npc.earFullDescriptionColour] grow to cover [npc.her] now-fully-internal ears, and as the transformation finishes, [npc.she]'s left with the ears of an alligator-morph."
 								+ "</br>"
 								+ "[npc.Name] now has [style.boldGatorMorph(internal, scale-covered alligator ears)]."
 							+ "</p>");

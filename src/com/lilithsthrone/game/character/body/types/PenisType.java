@@ -32,7 +32,7 @@ public enum PenisType implements BodyPartTypeInterface {
 
 	FELINE(BodyCoveringType.PENIS, TesticleType.FELINE, Race.CAT_MORPH, PenisModifier.BARBED, PenisModifier.SHEATHED),
 
-	ALLIGATOR_MORPH(BodyCoveringType.PENIS, TesticleType.REPTILE, Race.ALLIGATOR_MORPH, PenisModifier.BLUNT),
+	ALLIGATOR_MORPH(BodyCoveringType.PENIS, TesticleType.ALLIGATOR_MORPH, Race.ALLIGATOR_MORPH, PenisModifier.BLUNT),
 
 	EQUINE(BodyCoveringType.PENIS, TesticleType.EQUINE, Race.HORSE_MORPH, PenisModifier.FLARED, PenisModifier.VEINY, PenisModifier.SHEATHED),
 

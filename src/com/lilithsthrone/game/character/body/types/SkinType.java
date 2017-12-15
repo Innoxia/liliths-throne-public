@@ -26,7 +26,7 @@ public enum SkinType implements BodyPartTypeInterface {
 
 	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH),
 
-	ALLIGATOR_MORPH(BodyCoveringType.SCALES_ALLIGATOR, Race.ALLIGATOR_MORPH),
+	ALLIGATOR_MORPH(BodyCoveringType.ALLIGATOR_SCALES, Race.ALLIGATOR_MORPH),
 
 	HORSE_MORPH(BodyCoveringType.HORSE_HAIR, Race.HORSE_MORPH),
 
@@ -53,7 +53,7 @@ public enum SkinType implements BodyPartTypeInterface {
 		switch(coveringType) {
 			case HAIR_HARPY:
 				return true;
-			case SCALES_ALLIGATOR:
+			case ALLIGATOR_SCALES:
 				return true;
 			default:
 				return false;
@@ -65,7 +65,7 @@ public enum SkinType implements BodyPartTypeInterface {
 		switch(coveringType) {
 		case HAIR_HARPY:
 			return "feather";
-		case SCALES_ALLIGATOR:
+		case ALLIGATOR_SCALES:
 			return "scale";
 		case HAIR_SLIME:
 			return "slime";
@@ -79,7 +79,7 @@ public enum SkinType implements BodyPartTypeInterface {
 		switch(coveringType) {
 			case HAIR_HARPY:
 				return "feathers";
-			case SCALES_ALLIGATOR:
+			case ALLIGATOR_SCALES:
 				return "scales";
 			case HAIR_SLIME:
 				return "slime";
