@@ -163,15 +163,15 @@ public class Leg implements BodyPartInterface, Serializable {
 			case ALLIGATOR_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
-								" A layer of gator-like scales quickly grows over your legs as they shift into a new form."
-								+ " As your new scales spread down to the ends of your toes, your toenails thicken into sharp claws, and little scales grow to cover your soles, leaving you with gator-like feet."
+								" A layer of alligator-like scales quickly grows over your legs as they shift into a new form."
+								+ " As your new scales spread down to the ends of your toes, your toenails thicken into sharp claws, and little scales grow to cover your soles, leaving you with alligator-like feet."
 								+ " As the transformation ends, you see that your new scales smoothly transition into the [pc.skin] covering the rest of your body at your upper-thigh.</br>"
 								+ "You're left with anthropomorphic, [style.boldGatorMorph(gator-like legs and feet)], which are covered in [pc.legFullDescription]."
 							+ "</p>");
 				} else {
 					UtilText.transformationContentSB.append(
-								" A layer of gator-like scales quickly grows over [npc.her] legs as they shift into a new form."
-								+ " As [npc.her] new scales spread down to the ends of [npc.her] toes, [npc.her] toenails thicken into sharp claws, and little scales grow to cover [npc.her] soles, leaving [npc.herHim] with gator-like feet."
+								" A layer of alligator-like scales quickly grows over [npc.her] legs as they shift into a new form."
+								+ " As [npc.her] new scales spread down to the ends of [npc.her] toes, [npc.her] toenails thicken into sharp claws, and little scales grow to cover [npc.her] soles, leaving [npc.herHim] with alligator-like feet."
 								+ " As the transformation ends, [npc.she] sees that [npc.her] new scales smoothly transitions into the [npc.skin] covering the rest of [npc.her] body at [npc.her] upper-thigh.</br>"
 								+ "[npc.Name] now has anthropomorphic, [style.boldGatorMorph(gator-like legs and feet)], which are covered in [npc.legFullDescription]."
 							+ "</p>");

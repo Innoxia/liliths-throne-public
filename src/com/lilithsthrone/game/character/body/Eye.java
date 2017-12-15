@@ -184,12 +184,12 @@ public class Eye implements BodyPartInterface, Serializable {
 			case ALLIGATOR_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
-								" By the time you hesitantly open them again, they've changed into gator-like eyes, with larger-than-average pupils and small irises."
+								" By the time you hesitantly open them again, they've changed into alligator-like eyes, with larger-than-average pupils and small irises."
 								+ "</br>"
 								+ "You now have [style.boldGatorMorph(gator-like eyes)]");
 				} else {
 					UtilText.transformationContentSB.append(
-								" By the time [npc.she] hesitantly opens them again, they've changed into gator-like eyes, with larger-than-average pupils and small irises."
+								" By the time [npc.she] hesitantly opens them again, they've changed into alligator-like eyes, with larger-than-average pupils and small irises."
 								+ "</br>"
 								+ "[npc.Name] now has [style.boldGatorMorph(gator-like eyes)]");
 				}

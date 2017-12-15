@@ -104,7 +104,7 @@ public enum FaceType implements BodyPartTypeInterface {
 			case SQUIRREL_MORPH:
 				return UtilText.returnStringAtRandom("anthropomorphic squirrel-like", "squirrel-like", "rodent");
 			case ALLIGATOR_MORPH:
-				return UtilText.returnStringAtRandom("anthropomorphic gator-like", "gator-like", "reptile");
+				return UtilText.returnStringAtRandom("anthropomorphic alligator-like", "gator-like", "reptile");
 			case HARPY:
 				return UtilText.returnStringAtRandom("anthropomorphic bird-like", "bird-like");
 			case HORSE_MORPH:

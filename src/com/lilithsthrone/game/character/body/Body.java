@@ -1358,7 +1358,7 @@ public class Body implements Serializable, XMLSaving {
 				sb.append(", anthropomorphic cat-like face, with a cute little muzzle.");
 				break;
 			case ALLIGATOR_MORPH:
-				sb.append(", anthropomorphic gator-like face, with a long flat muzzle.");
+				sb.append(", anthropomorphic alligator-like face, with a long flat muzzle.");
 				break;
 			case COW_MORPH:
 				sb.append(", anthropomorphic cow-like face, with a cute little muzzle.");
@@ -2184,10 +2184,10 @@ public class Body implements Serializable, XMLSaving {
 			case ALLIGATOR_MORPH:
 				if (owner.isPlayer())
 					sb.append("You have "+armDeterminer+" arms, which are covered in [pc.armFullDescription(true)]."
-								+ " Your hands are formed into anthropomorphic, gator-like hands, complete with little claws.");
+								+ " Your hands are formed into anthropomorphic, alligator-like hands, complete with little claws.");
 				else
 					sb.append("[npc.She] has "+armDeterminer+" arms, which are covered in [npc.armFullDescription(true)]."
-								+ " [npc.Her] hands are formed into anthropomorphic, gator-like hands, complete with little claws.");
+								+ " [npc.Her] hands are formed into anthropomorphic, alligator-like hands, complete with little claws.");
 				break;
 			case LYCAN:
 				if (owner.isPlayer())
@@ -2367,10 +2367,10 @@ public class Body implements Serializable, XMLSaving {
 			case ALLIGATOR_MORPH:
 				if (owner.isPlayer())
 					sb.append("Your legs are covered in <span style='color:[pc.legColourHex];'>[pc.legColour] [pc.legSkin]</span>,"
-							+ " and your feet are formed into anthropomorphic gator-like feet, complete with sharp claws.");
+							+ " and your feet are formed into anthropomorphic alligator-like feet, complete with sharp claws.");
 				else
 					sb.append("[npc.Her] legs are covered in <span style='color:[npc.legColourHex];'>[npc.legColour] [npc.legSkin]</span>,"
-							+ " and [npc.her] feet are formed into anthropomorphic gator-like feet, complete with sharp claws.");
+							+ " and [npc.her] feet are formed into anthropomorphic alligator-like feet, complete with sharp claws.");
 				break;
 			case CAT_MORPH:
 				if (owner.isPlayer())
@@ -2562,9 +2562,9 @@ public class Body implements Serializable, XMLSaving {
 						break;
 					case ALLIGATOR_MORPH:
 						if (owner.isPlayer()) {
-							sb.append("a long, [pc.tailColour(true)] gator-like tail, which you can swipe from side to side, but other than that, you don't have much control over it.");
+							sb.append("a long, [pc.tailColour(true)] alligator-like tail, which you can swipe from side to side, but other than that, you don't have much control over it.");
 						} else {
-							sb.append("a long, [npc.tailColour(true)] gator-like tail, which [npc.she] can swipe from side to side, but other than that, [npc.she] doesn't have much control over it.");
+							sb.append("a long, [npc.tailColour(true)] alligator-like tail, which [npc.she] can swipe from side to side, but other than that, [npc.she] doesn't have much control over it.");
 						}
 						break;
 					case HARPY:
@@ -2631,9 +2631,9 @@ public class Body implements Serializable, XMLSaving {
 						break;
 					case ALLIGATOR_MORPH:
 						if (owner.isPlayer()) {
-							sb.append("long, [pc.tailColour(true)] gator-like tails, which you can swipe from side to side, but other than that, you don't have much control over them.");
+							sb.append("long, [pc.tailColour(true)] alligator-like tails, which you can swipe from side to side, but other than that, you don't have much control over them.");
 						} else {
-							sb.append("long, [npc.tailColour(true)] gator-like tails, which [npc.she] can swipe from side to side, but other than that, [npc.she] doesn't have much control over them.");
+							sb.append("long, [npc.tailColour(true)] alligator-like tails, which [npc.she] can swipe from side to side, but other than that, [npc.she] doesn't have much control over them.");
 						}
 						break;
 					case HARPY:

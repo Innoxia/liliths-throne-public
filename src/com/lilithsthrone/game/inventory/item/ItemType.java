@@ -442,10 +442,10 @@ public class ItemType {
 	public static AbstractItemType STR_INGREDIENT_SWAMP_WATER = new AbstractItemType(
 			"a bottle of",
 			false,
-			"Swamp water",
+			"Swamp Water",
 			"Swamp Waters",
-			"A glass bottle of what looks to be some kind of moonshine."
-				+ " A label on the front shows a gator-boy biting the top off a bottle just like this one;",
+			"A glass bottle of what appears to be some kind of moonshine."
+				+ " A label on the front shows an alligator-boy biting the top off a bottle just like this one.",
 			"attributeGatorMorphDrink",
 			Colour.ATTRIBUTE_STRENGTH,
 			25,
@@ -474,15 +474,15 @@ public class ItemType {
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			if (user == Main.game.getPlayer() && target == Main.game.getPlayer()) {
 				return "<p>"
-							+ "You unscrew the cap and start drinking the bottle of 'Swamp Water'."
-							+ " Its taste is quite unlike that of any other liquor you've ever drunk, and it burns slightly going down."
-							+ " As the last few drops slide down your throat, a strange, tangy aftertaste lingers on your tongue."
+							+ "You pull out the stopper and take a large swig of the 'Swamp Water'."
+							+ " Thankfully, the liquid within isn't a literal version of its label, and turns out to be a strong liquor, which burns your throat a little as you gulp it down."
+							+ " Despite its intense potency, you find that the alcoholic taste is very different to anything you've tried before, and can't help but greedily finish the entire bottle, leaving a strange, tangy aftertaste lingering on your tongue."
 						+ "</p>";
 				
 			} else {
 				return UtilText.parse(target,
 						"<p>"
-							+ "[npc.Name] pulls out a bottle of 'Swamp water', and, after quickly popping off the cap, [npc.she] promptly downs the entire bottle."
+							+ "[npc.Name] pulls out a bottle of 'Swamp Water', and, after quickly pulling out the stopper, [npc.she] promptly gulps downs the entire bottle."
 						+ "</p>");
 			}
 		}
@@ -1275,7 +1275,8 @@ public class ItemType {
 			false,
 			"Gator's Gumbo",
 			"Gator's Gumbo",
-			"An individually-wrapped bowl of gumbo, contains meat, okra, and other veggies.",
+			"An iron bowl, complete with a sealable lid."
+				+ " The contents take the form of a delicious-smelling variety of gumbo, containing meat, okra, and a variety of other mysterious vegetables.",
 			"raceGatorMorphGatorsGumbo",
 			Colour.RACE_ALLIGATOR_MORPH,
 			40,
@@ -1304,14 +1305,14 @@ public class ItemType {
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			if (user == Main.game.getPlayer() && target == Main.game.getPlayer()) {
 				return "<p>"
-							+ "You peel off the paper top and spoon the Gumbo into your mouth."
-							+ " The strong taste of okra instantly fills your mouth, but before you have any time to relish the flavour, you find that it's flowed down your gullet and you have gulped down the tangy mess."
+							+ "You remove the bowl's lid and start eating the rich gumbo contained within."
+							+ " The delicious, slightly spicy taste of seafood instantly fills your mouth, but you don't take any time to really relish the flavour, as you can't help but greedily gulp down the tangy mess and move on to your next mouthful."
 						+ "</p>";
 				
 			} else {
 				return UtilText.parse(target,
 						"<p>"
-						+ "[npc.Name] pulls out Gator's Gumbo, and, quickly peeling off the paper top, spoons it into [npc.her] mouth and swallows it down."
+						+ "[npc.Name] pulls out a bowl of Gator's Gumbo, and, quickly removing the lid, shovels it onto [npc.her] mouth and swallows it down."
 						+ "</p>");
 			}
 		}
@@ -1668,10 +1669,10 @@ public class ItemType {
 	public static AbstractItemType BOTTLED_ESSENCE_ALLIGATOR_MORPH = new AbstractItemType(
 			null,
 			false,
-			"Bottled Gator-morph Essence",
-			"Bottled Gator-morph Essences",
+			"Bottled alligator-morph Essence",
+			"Bottled alligator-morph Essences",
 			"A small glass bottle, with a little cork stopper wedged firmly in the top."
-					+ " Inside, the swirling "+Colour.RACE_ALLIGATOR_MORPH.getName()+" glow of a gator-morph essence flickers and swirls about in a mesmerising, cyclical pattern.",
+					+ " Inside, the swirling "+Colour.RACE_ALLIGATOR_MORPH.getName()+" glow of a alligator-morph essence flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceGatorMorph",
 			Colour.RACE_ALLIGATOR_MORPH,
 			10,
@@ -1679,10 +1680,7 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_ALLIGATOR_MORPH, null, null, null, 0)))) {
 
-		/**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getUseName() {
@@ -1691,17 +1689,16 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			if (user.isPlayer() && target.isPlayer()) {
-				return "<p>"
-							+ "Pulling the cork stopper out from the top of the little bottle, you release the gator-morph essence from its glass prison."
-							+ " Drawn towards your powerful arcane aura, the essence immediately darts towards you, and with a little "+Colour.RACE_ALLIGATOR_MORPH.getName()+" flash, it disappears from sight."
-							+ " You feel a subtle change in your aura, letting you know that you've successfully absorbed the essence."
-						+ "</p>";
+			if (target.isPlayer()) {
+				return getEssenceAbsorbtionText(Colour.RACE_ALLIGATOR_MORPH);
 				
 			} else {
-				return "<p>"
-						+ "(You shouldn't be seeing this. x_x)"//TODO
-					+ "</p>";
+				return UtilText.parse(target,
+						"<p>"
+							+ "Pulling the cork stopper out from the top of the little bottle, you release the arcane essence from its glass prison."
+							+ " Drawn towards [npc.name]'s powerful arcane aura, the essence immediately darts towards [npc.herHim], and with a little "
+								+Colour.RACE_ALLIGATOR_MORPH.getName()+" flash, it disappears from sight as it's absorbed into [npc.her] aura."
+						+ "</p>");
 			}
 		}
 	};
@@ -2599,7 +2596,7 @@ public class ItemType {
 			false,
 			"Rasselin' Gators",
 			"Rasselin' Gators",
-			"A book all about gator-morphs, detailing their society and place within Dominion.",
+			"A book all about alligator-morphs, detailing their society and place within Dominion.",
 			"book_race_gator_morph",
 			Colour.RACE_ALLIGATOR_MORPH,
 			10,
@@ -2607,10 +2604,7 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_ALLIGATOR_MORPH, null, null, null, 0)))) {
 		
-		/**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -2620,11 +2614,6 @@ public class ItemType {
 		@Override
 		public String getUnableToBeUsedDescription(GameCharacter target) {
 			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
-		}
-		
-		@Override
-		public boolean canBeSold() {
-			return false;
 		}
 		
 		@Override

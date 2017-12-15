@@ -66,7 +66,7 @@ public enum TFEssence {
 //			Rarity.UNCOMMON),
 //
 //	ALLIGATOR_MORPH("Gator-morph",
-//			"An essence gained from a gator-morph.",
+//			"An essence gained from a alligator-morph.",
 //			"reptilian",
 //			"essenceGatorMorph",
 //			Colour.RACE_ALLIGATOR_MORPH,

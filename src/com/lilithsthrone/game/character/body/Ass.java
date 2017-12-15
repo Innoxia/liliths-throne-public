@@ -206,12 +206,12 @@ public class Ass implements BodyPartInterface, Serializable {
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 							"You now have a [style.boldGatorMorph(gator-morph ass)], covered in [pc.assFullDescription].</br>"
-							+ "You have also been left with [style.boldGatorMorph(a gator-morph)] [pc.assholeFullDescription]."
+							+ "You have also been left with [style.boldGatorMorph(a alligator-morph)] [pc.assholeFullDescription]."
 							+ "</p>");
 				} else {
 					UtilText.transformationContentSB.append(
 							"[npc.She] now has a [style.boldGatorMorph(gator-morph ass)], covered in [npc.assFullDescription].</br>"
-							+ "[npc.She] has also been left with [style.boldGatorMorph(a gator-morph)] [npc.assholeFullDescription]."
+							+ "[npc.She] has also been left with [style.boldGatorMorph(a alligator-morph)] [npc.assholeFullDescription]."
 							+ "</p>");
 				}
 				break;

@@ -152,7 +152,7 @@ public enum ItemEffectType {
 	},
 	
 	BOOK_READ_ALLIGATOR_MORPH(Util.newArrayListOfValues(
-			new ListValue<>("Adds gator-morph encyclopedia entry."),
+			new ListValue<>("Adds alligator-morph encyclopedia entry."),
 			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
 			Colour.RACE_ALLIGATOR_MORPH) {
 		

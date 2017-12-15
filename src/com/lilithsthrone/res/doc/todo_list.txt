@@ -11,6 +11,7 @@
 	Patch notes:
 	
 	Contributions:
+		<b>Added alligator-morphs</b>. (by rfpnj)
 		Added a black variation to the lab coat. (by rfpnj)
 		Improved NPC prostitution methods, which now allows males to be prostitutes, as well as providing a price based on the prostitute's body. (by tukaima)
 	
@@ -64,9 +65,16 @@
 	
 	
 	
+	FINISH SUCCUBUS DIALOGUE
+	
+	Clothing:
+		Default primary colours
+		Default secondary colours
+		+ Dye for both
 	
 	Pazu feedback
 	
+	SEX
 	
 	
 	------------
@@ -126,8 +134,6 @@
 	
 	
 	
-	
-	FINISH SUCCUBUS DIALOGUE
 	
 	Add Amber repeat action (fence has arcane barrier now)
 	

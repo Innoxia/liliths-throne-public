@@ -600,14 +600,14 @@ public class Vagina implements BodyPartInterface, Serializable {
 				if(owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 							" You let out a squeal of excitement as a wave of pleasure runs up from your groin, and you feel your slit shifting and contracting with a mind of its own."
-							+ " Within moments, the feeling fades away, and you discover that your pussy has shaped itself into a that of a gator."
+							+ " Within moments, the feeling fades away, and you discover that your pussy has shaped itself into a that of a alligator."
 							+ " Although it looks like a normal human pussy, a short layer of soft "+owner.getCovering(type.getBodyCoveringType()).getColourDescriptor(false, false)
 								+" scales have grown around it, giving your feminine sex a rather reptilian appearance."
 						+ "</p>"
 						+ "<p>"
 							+ "Just as you think that the transformation has come to an end, your pussy involuntarily clenches down,"
 								+ " and a desperate squeal escapes from between your [pc.lips+] as a warm, tingling feeling spreads up through your lower abdomen."
-							+ " Images of slamming your pussy down on cute little gator cocks flash before your eyes, and your squeal turns into a satisfied moan as you imagine them squirting their hot seed deep into your hungry reptilian cunt."
+							+ " Images of slamming your pussy down on cute little alligator cocks flash before your eyes, and your squeal turns into a satisfied moan as you imagine them squirting their hot seed deep into your hungry reptilian cunt."
 							+ " Just as quickly as they came, the images fade from your mind, and as one last wave of tingling pleasure washes through your body, you feel your female reproductive organs finishing their transformation."
 							+ "</br>"
 							+ "You now have an [style.boldGatorMorph(reptilian vagina)], with [pc.pussyColourPrimary(true)] labia and [pc.pussyColourSecondary(true)] internal walls."
@@ -616,14 +616,14 @@ public class Vagina implements BodyPartInterface, Serializable {
 					UtilText.transformationContentSB.append(UtilText.parse(owner, 
 							" [npc.She] lets out a squeal of excitement as a wave of pleasure runs up through [npc.her] groin, and as [npc.she] feels [npc.her] slit shifting and contracting with a mind of its own,"
 									+ " [npc.she] desperately clamps [npc.her] [npc.legs] shut."
-							+ " Within moments, the feeling fades away, and [npc.she] discovers that [npc.her] pussy has shaped itself into a that of a gator."
+							+ " Within moments, the feeling fades away, and [npc.she] discovers that [npc.her] pussy has shaped itself into a that of a alligator."
 							+ " Although it looks like a normal human pussy, a short layer of soft "+owner.getCovering(type.getBodyCoveringType()).getColourDescriptor(false, false)
 								+" scales have grown around it, giving [npc.her] feminine sex a rather reptilian appearance."
 						+ "</p>"
 						+ "<p>"
 							+ "Just as [npc.she] starts think that the transformation has come to an end, [npc.her] pussy involuntarily clenches down,"
 								+ " and a desperate squeal escapes from between [npc.her] [npc.lips+] as a warm, tingling feeling spreads up through [npc.her] lower abdomen."
-							+ " Images of slamming [npc.her] pussy down on cute little gator cocks flash before [npc.her] eyes,"
+							+ " Images of slamming [npc.her] pussy down on cute little alligator cocks flash before [npc.her] eyes,"
 								+ " and [npc.her] squeal turns into a satisfied moan as [npc.she] imagines them squirting their hot seed deep into [npc.her] hungry reptilian cunt."
 							+ " Just as quickly as they came, the images fade from [npc.her] mind, and as one last wave of tingling pleasure washes through [npc.her] body,"
 								+ " [npc.she] feels [npc.her] female reproductive organs finishing their transformation."
