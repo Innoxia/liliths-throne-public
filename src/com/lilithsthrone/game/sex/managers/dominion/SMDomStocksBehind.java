@@ -16,6 +16,7 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerUreth
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisAss;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisThighs;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTailAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTailVagina;
@@ -67,6 +68,7 @@ public class SMDomStocksBehind extends SexManagerDefault {
 				PlayerFingerVagina.class,
 				PlayerFingerAnus.class,
 				(vaginalAllowed?PlayerPenisVagina.class:null),
+				PlayerPenisThighs.class,
 				(analAllowed?PlayerPenisAnus.class:null),
 				PlayerPenisAss.class,
 				(vaginalAllowed?PlayerTailVagina.class:null),

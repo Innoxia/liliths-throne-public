@@ -23,6 +23,7 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerNippl
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerUrethra;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisThighs;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTailAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTailVagina;
@@ -91,6 +92,7 @@ public class SMSubCowgirl extends SexManagerDefault {
 				PlayerFingerUrethra.class,
 				PlayerFingerVagina.class,
 				PlayerPenisVagina.class,
+				PlayerPenisThighs.class,
 				PlayerPenisAnus.class,
 				PlayerTailVagina.class,
 				PlayerTailAnus.class,

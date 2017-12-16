@@ -317,7 +317,9 @@ public enum SlaveJob {
 	}
 	
 	public void sendToWorkLocation(GameCharacter slave) {
-		slave.setLocation(slave.getSlaveJob().getWorldLocation(), slave.getSlaveJob().getPlaceLocation(), false);
+		if(slave.getSlaveJob().getWorldLocation()!=null && slave.getSlaveJob().getPlaceLocation()!=null) {
+			slave.setLocation(slave.getSlaveJob().getWorldLocation(), slave.getSlaveJob().getPlaceLocation(), false);
+		}
 	}
 	
 	public boolean isAvailable(GameCharacter character) {

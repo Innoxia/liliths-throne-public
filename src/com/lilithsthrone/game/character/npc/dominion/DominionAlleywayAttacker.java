@@ -92,7 +92,8 @@ public class DominionAlleywayAttacker extends NPC {
 					new Value<>(Race.HORSE_MORPH, 20),
 					new Value<>(Race.WOLF_MORPH, 20),
 					new Value<>(Race.SQUIRREL_MORPH, 10),
-					new Value<>(Race.COW_MORPH, 10));
+					new Value<>(Race.COW_MORPH, 10),
+					new Value<>(Race.ALLIGATOR_MORPH, 5));
 			
 			if(gender.isFeminine()) {
 				for(Entry<Race, FurryPreference> entry : Main.getProperties().raceFemininePreferencesMap.entrySet()) {

@@ -17,6 +17,7 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerUreth
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisAss;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisThighs;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTailAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTailVagina;
@@ -86,6 +87,7 @@ public class SMDomDoggy extends SexManagerDefault {
 				PlayerFingerVagina.class,
 				PlayerFingerAnus.class,
 				PlayerPenisVagina.class,
+				PlayerPenisThighs.class,
 				PlayerPenisAnus.class,
 				PlayerPenisAss.class,
 				PlayerTailVagina.class,

@@ -13,6 +13,7 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerFingerNip
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerFingerUrethra;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerFingerVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerPenisAnus;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerPenisThighs;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerPenisVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTailAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTailVagina;
@@ -103,6 +104,7 @@ public class SMDomCowgirl extends SexManagerDefault {
 				PartnerFingerUrethra.class,
 				PartnerFingerVagina.class,
 				PartnerPenisVagina.class,
+				PartnerPenisThighs.class,
 				PartnerPenisAnus.class,
 				PartnerTailVagina.class,
 				PartnerTailAnus.class,

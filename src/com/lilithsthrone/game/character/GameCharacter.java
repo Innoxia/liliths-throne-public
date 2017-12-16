@@ -2668,7 +2668,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				case VAGINA_PARTNER: case VAGINA_PLAYER:
 					increment = 10;
 					break;
-				case BREAST_PARTNER: case BREAST_PLAYER: case ASS_PARTNER: case ASS_PLAYER:
+				case BREAST_PARTNER: case BREAST_PLAYER: case ASS_PARTNER: case ASS_PLAYER: case THIGHS_PARTNER: case THIGHS_PLAYER:
 					break;
 			}
 			incrementAddiction(fluid, increment, true);
@@ -4123,6 +4123,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				return isCoverableAreaExposed(CoverableArea.PENIS);
 			case VAGINA_PARTNER: case VAGINA_PLAYER:
 				return isCoverableAreaExposed(CoverableArea.VAGINA);
+			case THIGHS_PARTNER: case THIGHS_PLAYER:
+				return isCoverableAreaExposed(CoverableArea.THIGHS);
 			case BREAST_PARTNER: case BREAST_PLAYER:
 				return isCoverableAreaExposed(CoverableArea.BREASTS);
 		}

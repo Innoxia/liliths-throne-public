@@ -210,6 +210,8 @@ public abstract class SexAction implements SexActionInterface {
 							case VAGINA_PLAYER:
 								fetishesPlayer.add(Fetish.FETISH_MASTURBATION);
 								break;
+							case THIGHS_PLAYER:
+								break;
 								
 							case ANUS_PARTNER: case ASS_PARTNER:
 								fetishesPlayer.add(Fetish.FETISH_ANAL_GIVING);
@@ -227,6 +229,8 @@ public abstract class SexAction implements SexActionInterface {
 								break;
 							case VAGINA_PARTNER:
 								fetishesPlayer.add(Fetish.FETISH_MASTURBATION);
+								break;
+							case THIGHS_PARTNER:
 								break;
 						}
 						break;
@@ -249,6 +253,8 @@ public abstract class SexAction implements SexActionInterface {
 							case VAGINA_PLAYER:
 								fetishesPlayer.add(Fetish.FETISH_PREGNANCY);
 								fetishesPlayer.add(Fetish.FETISH_BROODMOTHER);
+								break;
+							case THIGHS_PLAYER:
 								break;
 							default:
 								break;
@@ -277,6 +283,9 @@ public abstract class SexAction implements SexActionInterface {
 								fetishesPlayer.add(Fetish.FETISH_IMPREGNATION);
 								fetishesPlayer.add(Fetish.FETISH_SEEDER);
 								break;
+							case THIGHS_PLAYER:
+								break;
+								
 							case ANUS_PARTNER: case ASS_PARTNER:
 								fetishesPlayer.add(Fetish.FETISH_ANAL_GIVING);
 								break;
@@ -294,6 +303,8 @@ public abstract class SexAction implements SexActionInterface {
 							case VAGINA_PARTNER:
 								fetishesPlayer.add(Fetish.FETISH_IMPREGNATION);
 								fetishesPlayer.add(Fetish.FETISH_SEEDER);
+								break;
+							case THIGHS_PARTNER:
 								break;
 						}
 						break;
@@ -314,6 +325,8 @@ public abstract class SexAction implements SexActionInterface {
 							case URETHRA_PLAYER:
 								break;
 							case VAGINA_PLAYER:
+								break;
+							case THIGHS_PLAYER:
 								break;
 							default:
 								break;
@@ -338,6 +351,9 @@ public abstract class SexAction implements SexActionInterface {
 								break;
 							case VAGINA_PLAYER:
 								break;
+							case THIGHS_PLAYER:
+								break;
+								
 							case ANUS_PARTNER: case ASS_PARTNER:
 								fetishesPlayer.add(Fetish.FETISH_ANAL_GIVING);
 								break;
@@ -353,6 +369,8 @@ public abstract class SexAction implements SexActionInterface {
 							case URETHRA_PARTNER:
 								break;
 							case VAGINA_PARTNER:
+								break;
+							case THIGHS_PARTNER:
 								break;
 						}
 						break;
@@ -373,6 +391,8 @@ public abstract class SexAction implements SexActionInterface {
 							case URETHRA_PLAYER:
 								break;
 							case VAGINA_PLAYER:
+								break;
+							case THIGHS_PLAYER:
 								break;
 							default:
 								break;
@@ -397,6 +417,9 @@ public abstract class SexAction implements SexActionInterface {
 								break;
 							case VAGINA_PLAYER:
 								break;
+							case THIGHS_PLAYER:
+								break;
+								
 							case ANUS_PARTNER: case ASS_PARTNER:
 								fetishesPlayer.add(Fetish.FETISH_ANAL_GIVING);
 								break;
@@ -412,6 +435,8 @@ public abstract class SexAction implements SexActionInterface {
 							case URETHRA_PARTNER:
 								break;
 							case VAGINA_PARTNER:
+								break;
+							case THIGHS_PARTNER:
 								break;
 						}
 						break;
@@ -439,6 +464,8 @@ public abstract class SexAction implements SexActionInterface {
 							case VAGINA_PLAYER:
 								fetishesPlayer.add(Fetish.FETISH_ORAL_RECEIVING);
 								break;
+							case THIGHS_PLAYER:
+								break;
 							default:
 								break;
 						}
@@ -465,6 +492,9 @@ public abstract class SexAction implements SexActionInterface {
 							case VAGINA_PLAYER:
 								fetishesPlayer.add(Fetish.FETISH_ORAL_GIVING);
 								break;
+							case THIGHS_PLAYER:
+								break;
+								
 							case ANUS_PARTNER: case ASS_PARTNER:
 								fetishesPlayer.add(Fetish.FETISH_ANAL_GIVING);
 								fetishesPlayer.add(Fetish.FETISH_ORAL_GIVING);
@@ -486,6 +516,8 @@ public abstract class SexAction implements SexActionInterface {
 								break;
 							case VAGINA_PARTNER:
 								fetishesPlayer.add(Fetish.FETISH_ORAL_GIVING);
+								break;
+							case THIGHS_PARTNER:
 								break;
 						}
 						break;
@@ -585,6 +617,9 @@ public abstract class SexAction implements SexActionInterface {
 							case VAGINA_PARTNER:
 								fetishesPartner.add(Fetish.FETISH_MASTURBATION);
 								break;
+							case THIGHS_PARTNER:
+								break;
+								
 							case ANUS_PLAYER: case ASS_PLAYER:
 								fetishesPartner.add(Fetish.FETISH_ANAL_GIVING);
 								break;
@@ -601,6 +636,8 @@ public abstract class SexAction implements SexActionInterface {
 								break;
 							case VAGINA_PLAYER:
 								fetishesPartner.add(Fetish.FETISH_MASTURBATION);
+								break;
+							case THIGHS_PLAYER:
 								break;
 						}
 						break;
@@ -623,6 +660,8 @@ public abstract class SexAction implements SexActionInterface {
 							case VAGINA_PARTNER:
 								fetishesPartner.add(Fetish.FETISH_PREGNANCY);
 								fetishesPartner.add(Fetish.FETISH_BROODMOTHER);
+								break;
+							case THIGHS_PARTNER:
 								break;
 							default:
 								break;
@@ -651,6 +690,9 @@ public abstract class SexAction implements SexActionInterface {
 								fetishesPartner.add(Fetish.FETISH_IMPREGNATION);
 								fetishesPartner.add(Fetish.FETISH_SEEDER);
 								break;
+							case THIGHS_PARTNER:
+								break;
+								
 							case ANUS_PLAYER: case ASS_PLAYER:
 								fetishesPartner.add(Fetish.FETISH_ANAL_GIVING);
 								break;
@@ -668,6 +710,8 @@ public abstract class SexAction implements SexActionInterface {
 							case VAGINA_PLAYER:
 								fetishesPartner.add(Fetish.FETISH_IMPREGNATION);
 								fetishesPartner.add(Fetish.FETISH_SEEDER);
+								break;
+							case THIGHS_PLAYER:
 								break;
 						}
 						break;
@@ -688,6 +732,8 @@ public abstract class SexAction implements SexActionInterface {
 							case URETHRA_PARTNER:
 								break;
 							case VAGINA_PARTNER:
+								break;
+							case THIGHS_PARTNER:
 								break;
 							default:
 								break;
@@ -712,6 +758,9 @@ public abstract class SexAction implements SexActionInterface {
 								break;
 							case VAGINA_PARTNER:
 								break;
+							case THIGHS_PARTNER:
+								break;
+								
 							case ANUS_PLAYER: case ASS_PLAYER:
 								fetishesPartner.add(Fetish.FETISH_ANAL_GIVING);
 								break;
@@ -727,6 +776,8 @@ public abstract class SexAction implements SexActionInterface {
 							case URETHRA_PLAYER:
 								break;
 							case VAGINA_PLAYER:
+								break;
+							case THIGHS_PLAYER:
 								break;
 						}
 						break;
@@ -747,6 +798,8 @@ public abstract class SexAction implements SexActionInterface {
 							case URETHRA_PARTNER:
 								break;
 							case VAGINA_PARTNER:
+								break;
+							case THIGHS_PARTNER:
 								break;
 							default:
 								break;
@@ -771,6 +824,9 @@ public abstract class SexAction implements SexActionInterface {
 								break;
 							case VAGINA_PARTNER:
 								break;
+							case THIGHS_PARTNER:
+								break;
+								
 							case ANUS_PLAYER: case ASS_PLAYER:
 								fetishesPartner.add(Fetish.FETISH_ANAL_GIVING);
 								break;
@@ -786,6 +842,8 @@ public abstract class SexAction implements SexActionInterface {
 							case URETHRA_PLAYER:
 								break;
 							case VAGINA_PLAYER:
+								break;
+							case THIGHS_PLAYER:
 								break;
 						}
 						break;
@@ -813,6 +871,8 @@ public abstract class SexAction implements SexActionInterface {
 							case VAGINA_PARTNER:
 								fetishesPartner.add(Fetish.FETISH_ORAL_RECEIVING);
 								break;
+							case THIGHS_PARTNER:
+								break;
 							default:
 								break;
 						}
@@ -839,6 +899,9 @@ public abstract class SexAction implements SexActionInterface {
 							case VAGINA_PARTNER:
 								fetishesPartner.add(Fetish.FETISH_ORAL_GIVING);
 								break;
+							case THIGHS_PARTNER:
+								break;
+								
 							case ANUS_PLAYER: case ASS_PLAYER:
 								fetishesPartner.add(Fetish.FETISH_ANAL_GIVING);
 								fetishesPartner.add(Fetish.FETISH_ORAL_GIVING);
@@ -860,6 +923,8 @@ public abstract class SexAction implements SexActionInterface {
 								break;
 							case VAGINA_PLAYER:
 								fetishesPartner.add(Fetish.FETISH_ORAL_GIVING);
+								break;
+							case THIGHS_PLAYER:
 								break;
 						}
 						break;

@@ -8,10 +8,27 @@
 	
 	
 	
+	
+	
+	- Improve orgasm dialogue, and add in position-specific orgasm scenes with body-part recognition (such as knotting, orifice modifiers, fluid modifiers, etc.).
+	- Add in missing content related to the new transformations. Addictive fluids, part modifiers referenced during sex, etc.
+	
+	- Work on final improvements to the sex system.
+	
+	
+	
+	
+	put a warning on the release post tonight that v9.01 isn't working yet
+	
+	
 	Patch notes:
 	
+	Gameplay & Sex:
+		Added a small (<5%) chance for alleyway attackers to be alligator morphs. (I'll move them into Submission when I add that area.)
+		<b>Added thigh sex</b> and associated thigh-related sex status effect (both receiving and performing action variants for both NPC's and PC's dom and sub paces).
+	
 	Contributions:
-		<b>Added alligator-morphs</b>. (by rfpnj)
+		<b>Added alligator-morphs</b>, with associated items/consumables/transformations. (by rfpnj)
 		Added a black variation to the lab coat. (by rfpnj)
 		Improved NPC prostitution methods, which now allows males to be prostitutes, as well as providing a price based on the prostitute's body. (by tukaima)
 	
@@ -24,6 +41,7 @@
 		Lab coats now block breasts/genitals/ass, and can be unbuttoned and pulled up to reveal blocked parts.
 		Added option to pay for submissive sex with NPC prostitutes.
 		Added the full demonic transformations menu to the witch cultists.
+		Fixed several inconsistencies in the new incubus encounter dialogue.
 	
 	Bugs:
 		Fixed cause of characters present screen not opening.
@@ -47,6 +65,7 @@
 		Growing horns now sets their starting length value to 'small' (2 inches), if their previous length is 0.
 		Changing difficulty level now correctly resets the health/willpower/stamina of all NPCs.
 		The 'pent up' status effect for slaves is now calculated based on the last time they orgasmed, not the last time they had sex, allowing you to have sex with your slave and stop before they orgasm to leave them pent-up.
+		Fixed bug where slaves were not getting paid and working when they weren't supposed to.
 	
 	Demonic transformation menu bugs:
 		Iris shape and pupil shape now work correctly on NPCs.
@@ -63,16 +82,9 @@
 	
 	
 	
-	FINISH SUCCUBUS DIALOGUE
-	
-	Clothing:
-		Default primary colours
-		Default secondary colours
-		+ Dye for both
 	
 	Pazu feedback
 	
-	SEX
 	
 	
 	------------
@@ -103,6 +115,14 @@
 	------------
 	
 	
+	get cloacas working
+	
+	Clothing:
+		Default primary colours
+		Default secondary colours
+		+ Dye for both
+	
+	Apparently, it doesn't like it when you ride the 19 inch succubi cock analy like a slut, tail peg her ass, and finger her pussy.. at the same time
 	
 	Sex work:	
 	
@@ -128,11 +148,6 @@
 	
 	
 	
-	
-	
-	
-	
-	
 	Add Amber repeat action (fence has arcane barrier now)
 	
 	
@@ -149,12 +164,9 @@
 	--------------
 	
 	Here's a five minute fix for the NPC AI. Currently, if the player has an accessible vagina, dominant npcs never go for the butt unless they have an anal fetish. Why not add the "rough" npc fetishes to that as well? Eg: dominant, sadist, and rapist npcs might also have a chance to target the ass instead of the pussy.
-Also, consider having the NPC take the PC's fetishes into account when deciding actions instead of just their own. I could see a submissive NPC trying to please their partner by doing what they like. This would add a whole lot of complexity to your AI system though, so it might be infeasible to add that to your system, as it is now, without risking breaking things.
+	Also, consider having the NPC take the PC's fetishes into account when deciding actions instead of just their own. I could see a submissive NPC trying to please their partner by doing what they like. This would add a whole lot of complexity to your AI system though, so it might be infeasible to add that to your system, as it is now, without risking breaking things.
 	
 	Fingering with gloves equipped? Right now they block fingers which I believe is both true and false at the same time: We might not be able to equip rings and such, but i believe we can push gloved fingers into an orifice.
-	
-	The quest is currently 'repeatable' after completion, you can enter the house and repeat everything up to the point where you meet arthur (either after fighting through the house or submitting).
-	 When meeting arthur when he is already gone the game hangs and you can't do anything.
 	
 	urethra pen
 	
@@ -384,7 +396,7 @@ I've found that if you strip someone before sex, take all of their stuff, then h
 	
 	
 	
-	
+	When you Molest a slave who enjoys it and has max affection they still say "I am yours to use mistress" and it says they did so coldly
 	
 	
 	

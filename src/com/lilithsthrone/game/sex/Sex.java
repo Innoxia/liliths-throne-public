@@ -1089,7 +1089,7 @@ public enum Sex {
 				}
 			}
 
-		} else if (Main.game.getPlayer().getArousal() >= ArousalLevel.FIVE_ORGASM_IMMINENT.getMaximumValue()) { // Add orgasm actions if ready to orgasm:
+		} else if (Main.game.getPlayer().getArousal() >= ArousalLevel.FIVE_ORGASM_IMMINENT.getMaximumValue()) { // Add orgasm actions if player ready to orgasm:
 			
 			// If mutual orgasm threshold has been reached, use a mutual orgasm:
 			boolean orgasmFound = false;
@@ -1112,7 +1112,7 @@ public enum Sex {
 				}
 			}
 
-		} else if (partner.getArousal() >= ArousalLevel.FIVE_ORGASM_IMMINENT.getMaximumValue()) { // Add orgasm reactions if ready to orgasm:
+		} else if (partner.getArousal() >= ArousalLevel.FIVE_ORGASM_IMMINENT.getMaximumValue()) { // Add orgasm reactions if partner is ready to orgasm:
 			for (SexActionInterface sexAction : sexManager.getActionsAvailablePlayer()) {
 				if (sexAction.getActionType()==SexActionType.PLAYER_PREPARE_PARTNER_ORGASM && sexAction.isAddedToAvailableSexActions()) {
 					availableSexActionsPlayer.add(sexAction);
@@ -2625,6 +2625,18 @@ public enum Sex {
 		}
 	}
 	
+	// Player thighs:
+	public static boolean isPlayerFreeThighs() {
+		return getPenetrationTypeInOrifice(OrificeType.THIGHS_PLAYER)==null;
+	}
+	public static boolean isPlayerThighsNoPartnerPenetration() {
+		if(getPenetrationTypeInOrifice(OrificeType.THIGHS_PLAYER)==null) {
+			return true;
+		} else {
+			return getPenetrationTypeInOrifice(OrificeType.THIGHS_PLAYER).isPlayer();
+		}
+	}
+	
 	// Player penis:
 	public static boolean isPlayerFreePenis() {
 		return !ongoingPenetrationMap.containsKey(PenetrationType.PENIS_PLAYER);
@@ -2716,6 +2728,18 @@ public enum Sex {
 			return true;
 		} else {
 			return getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER).isPlayer();
+		}
+	}
+	
+	// Partner thighs:
+	public static boolean isPartnerFreeThighs() {
+		return getPenetrationTypeInOrifice(OrificeType.THIGHS_PARTNER)==null;
+	}
+	public static boolean isPartnerThighsNoPlayerPenetration() {
+		if(getPenetrationTypeInOrifice(OrificeType.THIGHS_PARTNER)==null) {
+			return true;
+		} else {
+			return getPenetrationTypeInOrifice(OrificeType.THIGHS_PARTNER).isPlayer();
 		}
 	}
 	

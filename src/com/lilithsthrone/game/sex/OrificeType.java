@@ -95,6 +95,19 @@ public enum OrificeType {
 		}
 	},
 	
+	THIGHS_PLAYER(1, false) {
+		@Override
+		public String getName() {
+			return "thighs";
+		}
+		@Override
+		public boolean isThighs() { return true; }
+		@Override
+		public boolean isFree() {
+			return Sex.isPlayerFreeThighs();
+		}
+	},
+	
 	URETHRA_PLAYER(1, true) {
 		@Override
 		public String getName() {
@@ -196,6 +209,19 @@ public enum OrificeType {
 		}
 	},
 	
+	THIGHS_PARTNER(1, false) {
+		@Override
+		public String getName() {
+			return "thighs";
+		}
+		@Override
+		public boolean isThighs() { return true; }
+		@Override
+		public boolean isFree() {
+			return Sex.isPartnerFreeThighs();
+		}
+	},
+	
 	URETHRA_PARTNER(1, false) {
 		@Override
 		public String getName() {
@@ -237,6 +263,7 @@ public enum OrificeType {
 	public boolean isAss() { return false; }
 	public boolean isAnus() { return false; }
 	public boolean isVagina() { return false; }
+	public boolean isThighs() { return false; }
 	public boolean isUrethra() { return false; }
 	
 	public abstract String getName();

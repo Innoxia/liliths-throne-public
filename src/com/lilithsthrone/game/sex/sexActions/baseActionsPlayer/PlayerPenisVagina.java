@@ -493,19 +493,19 @@ public class PlayerPenisVagina {
 								" [npc.Name] eagerly thrusts [npc.her] [npc.hips] against you, letting out [npc.a_moan+] as [npc.she] enthusiastically helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+].",
 								" [npc.A_moan+] bursts out from between [npc.name]'s [npc.lips+], and, eagerly thrusting [npc.her] [npc.hips] into you, [npc.she] begs for you to carry on fucking [npc.herHim].",
 								" [npc.Moaning] in delight, [npc.name] eagerly grinds [npc.her] [npc.hips+] out against you,"
-										+ " eagerly begging for you to continue fucking [npc.herHim] as [npc.she] helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+]"));
+										+ " eagerly begging for you to continue fucking [npc.herHim] as [npc.she] helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+]."));
 						break;
 					case SUB_RESISTING:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" Desperately trying, and failing, to pull away from your groin, [npc.name] lets out [npc.a_sob+], tears streaming down [npc.her] face as [npc.she] weakly begs for you to pull out of [npc.her] [npc.pussy+].",
 								" [npc.A_sob+] bursts out from between [npc.her] [npc.lips] as [npc.she] weakly tries to push you away, tears streaming down [npc.her] face as [npc.she] pleads for you to pull out of [npc.her] [npc.pussy+].",
-								" [npc.Sobbing] in distress, and with tears running down [npc.her] cheeks, [npc.name] weakly struggles against you, pleading and crying for you to pull out of [npc.her] [npc.pussy+]"));
+								" [npc.Sobbing] in distress, and with tears running down [npc.her] cheeks, [npc.name] weakly struggles against you, pleading and crying for you to pull out of [npc.her] [npc.pussy+]."));
 						break;
 					default: // SUB_NORMAL and in case anything goes wrong:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" [npc.Name] thrusts [npc.her] [npc.hips] against you, letting out [npc.a_moan+] as [npc.she] helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+].",
 								" [npc.A_moan+] bursts out from between [npc.name]'s [npc.lips+], and, thrusting [npc.her] [npc.hips] into you, [npc.she] begs for you to carry on fucking [npc.herHim].",
-								" [npc.Moaning] in delight, [npc.name] grinds [npc.her] [npc.hips+] out against you, begging for you to continue fucking [npc.herHim] as [npc.she] helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+]"));
+								" [npc.Moaning] in delight, [npc.name] grinds [npc.her] [npc.hips+] out against you, begging for you to continue fucking [npc.herHim] as [npc.she] helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+]."));
 						break;
 				}
 				
@@ -522,19 +522,19 @@ public class PlayerPenisVagina {
 								" [npc.Name] eagerly thrusts [npc.her] [npc.hips] against you, letting out [npc.a_moan+] as [npc.she] enthusiastically helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+].",
 								" [npc.A_moan+] bursts out from between [npc.name]'s [npc.lips+], and, eagerly thrusting [npc.her] [npc.hips] into you, [npc.she] begs for you to carry on fucking [npc.herHim].",
 								" [npc.Moaning] in delight, [npc.name] eagerly grinds [npc.her] [npc.hips+] out against you,"
-										+ " eagerly begging for you to continue fucking [npc.herHim] as [npc.she] helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+]"));
+										+ " eagerly begging for you to continue fucking [npc.herHim] as [npc.she] helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+]."));
 						break;
 					case SUB_RESISTING:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" Desperately trying, and failing, to pull away from your groin, [npc.name] lets out [npc.a_sob+], tears streaming down [npc.her] face as [npc.she] weakly begs for you to pull out of [npc.her] [npc.pussy+].",
 								" [npc.A_sob+] bursts out from between [npc.her] [npc.lips] as [npc.she] weakly tries to push you away, tears streaming down [npc.her] face as [npc.she] pleads for you to pull out of [npc.her] [npc.pussy+].",
-								" [npc.Sobbing] in distress, and with tears running down [npc.her] cheeks, [npc.name] weakly struggles against you, pleading and crying for you to pull out of [npc.her] [npc.pussy+]"));
+								" [npc.Sobbing] in distress, and with tears running down [npc.her] cheeks, [npc.name] weakly struggles against you, pleading and crying for you to pull out of [npc.her] [npc.pussy+]."));
 						break;
 					default: // SUB_NORMAL and in case anything goes wrong:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" [npc.Name] thrusts [npc.her] [npc.hips] against you, letting out [npc.a_moan+] as [npc.she] helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+].",
 								" [npc.A_moan+] bursts out from between [npc.name]'s [npc.lips+], and, thrusting [npc.her] [npc.hips] into you, [npc.she] begs for you to carry on fucking [npc.herHim].",
-								" [npc.Moaning] in delight, [npc.name] grinds [npc.her] [npc.hips+] out against you, begging for you to continue fucking [npc.herHim] as [npc.she] helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+]"));
+								" [npc.Moaning] in delight, [npc.name] grinds [npc.her] [npc.hips+] out against you, begging for you to continue fucking [npc.herHim] as [npc.she] helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+]."));
 						break;
 				}
 			}
@@ -583,19 +583,19 @@ public class PlayerPenisVagina {
 							" [npc.Name] eagerly thrusts [npc.her] [npc.hips] against you, letting out [npc.a_moan+] as [npc.she] enthusiastically helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+].",
 							" [npc.A_moan+] bursts out from between [npc.name]'s [npc.lips+], and, eagerly thrusting [npc.her] [npc.hips] into you, [npc.she] begs for you to carry on fucking [npc.herHim].",
 							" [npc.Moaning] in delight, [npc.name] eagerly grinds [npc.her] [npc.hips+] out against you,"
-									+ " eagerly begging for you to continue fucking [npc.herHim] as [npc.she] helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+]"));
+									+ " eagerly begging for you to continue fucking [npc.herHim] as [npc.she] helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+]."));
 					break;
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" Desperately trying, and failing, to pull away from your groin, [npc.name] lets out [npc.a_sob+], tears streaming down [npc.her] face as [npc.she] weakly begs for you to pull out of [npc.her] [npc.pussy+].",
 							" [npc.A_sob+] bursts out from between [npc.her] [npc.lips] as [npc.she] weakly tries to push you away, tears streaming down [npc.her] face as [npc.she] pleads for you to pull out of [npc.her] [npc.pussy+].",
-							" [npc.Sobbing] in distress, and with tears running down [npc.her] cheeks, [npc.name] weakly struggles against you, pleading and crying for you to pull out of [npc.her] [npc.pussy+]"));
+							" [npc.Sobbing] in distress, and with tears running down [npc.her] cheeks, [npc.name] weakly struggles against you, pleading and crying for you to pull out of [npc.her] [npc.pussy+]."));
 					break;
 				default: // SUB_NORMAL and in case anything goes wrong:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc.Name] thrusts [npc.her] [npc.hips] against you, letting out [npc.a_moan+] as [npc.she] helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+].",
 							" [npc.A_moan+] bursts out from between [npc.name]'s [npc.lips+], and, thrusting [npc.her] [npc.hips] into you, [npc.she] begs for you to carry on fucking [npc.herHim].",
-							" [npc.Moaning] in delight, [npc.name] grinds [npc.her] [npc.hips+] out against you, begging for you to continue fucking [npc.herHim] as [npc.she] helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+]"));
+							" [npc.Moaning] in delight, [npc.name] grinds [npc.her] [npc.hips+] out against you, begging for you to continue fucking [npc.herHim] as [npc.she] helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+]."));
 					break;
 			}
 			
@@ -667,20 +667,20 @@ public class PlayerPenisVagina {
 								" [npc.Name] eagerly pushes [npc.her] [npc.ass] back against you, letting out [npc.a_moan+] as [npc.she] enthusiastically helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+].",
 								" [npc.A_moan+] bursts out from between [npc.name]'s [npc.lips+], and, eagerly pushing [npc.her] [npc.ass] back into you, [npc.she] begs for you to carry on fucking [npc.herHim].",
 								" [npc.Moaning] in delight, [npc.name] eagerly grinds [npc.her] [npc.ass+] back against you,"
-										+ " eagerly begging for you to continue fucking [npc.herHim] as [npc.she] helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+]"));
+										+ " eagerly begging for you to continue fucking [npc.herHim] as [npc.she] helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+]."));
 						break;
 					case SUB_RESISTING:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" Desperately trying, and failing, to crawl away from your groin, [npc.name] lets out [npc.a_sob+], tears streaming down [npc.her] face as [npc.she] weakly begs for you to stop abusing [npc.her] [npc.pussy+].",
 								" [npc.A_sob+] bursts out from between [npc.her] [npc.lips] as [npc.she] weakly tries to crawl away, tears streaming down [npc.her] face as [npc.she] pleads for you to pull out of [npc.her] [npc.pussy+].",
-								" [npc.Sobbing] in distress, and with tears running down [npc.her] cheeks, [npc.name] weakly tries crawling away, pleading and crying for you to pull out of [npc.her] [npc.pussy+]"));
+								" [npc.Sobbing] in distress, and with tears running down [npc.her] cheeks, [npc.name] weakly tries crawling away, pleading and crying for you to pull out of [npc.her] [npc.pussy+]."));
 						break;
 					default: // SUB_NORMAL and in case anything goes wrong:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" [npc.Name] pushes [npc.her] [npc.ass] back against you, letting out [npc.a_moan+] as [npc.she] helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+].",
 								" [npc.A_moan+] bursts out from between [npc.name]'s [npc.lips+], and, pushing [npc.her] [npc.ass] back into you, [npc.she] begs for you to carry on fucking [npc.herHim].",
 								" [npc.Moaning] in delight, [npc.name] grinds [npc.her] [npc.ass+] back out against you,"
-										+ " begging for you to continue fucking [npc.herHim] as [npc.she] helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+]"));
+										+ " begging for you to continue fucking [npc.herHim] as [npc.she] helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+]."));
 						break;
 				}
 				
@@ -734,19 +734,19 @@ public class PlayerPenisVagina {
 								" [npc.Name] eagerly thrusts [npc.her] [npc.hips] against you, letting out [npc.a_moan+] as [npc.she] enthusiastically helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+].",
 								" [npc.A_moan+] bursts out from between [npc.name]'s [npc.lips+], and, eagerly thrusting [npc.her] [npc.hips] into you, [npc.she] begs for you to carry on fucking [npc.herHim].",
 								" [npc.Moaning] in delight, [npc.name] eagerly grinds [npc.her] [npc.hips+] out against you,"
-										+ " eagerly begging for you to continue fucking [npc.herHim] as [npc.she] helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+]"));
+										+ " eagerly begging for you to continue fucking [npc.herHim] as [npc.she] helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+]."));
 						break;
 					case SUB_RESISTING:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" Desperately trying, and failing, to pull away from your groin, [npc.name] lets out [npc.a_sob+], tears streaming down [npc.her] face as [npc.she] weakly begs for you to stop abusing [npc.her] [npc.pussy+].",
 								" [npc.A_sob+] bursts out from between [npc.her] [npc.lips] as [npc.she] weakly tries to push you away, tears streaming down [npc.her] face as [npc.she] pleads for you to pull out of [npc.her] [npc.pussy+].",
-								" [npc.Sobbing] in distress, and with tears running down [npc.her] cheeks, [npc.name] weakly struggles against you, pleading and crying for you to pull out of [npc.her] [npc.pussy+]"));
+								" [npc.Sobbing] in distress, and with tears running down [npc.her] cheeks, [npc.name] weakly struggles against you, pleading and crying for you to pull out of [npc.her] [npc.pussy+]."));
 						break;
 					default: // SUB_NORMAL and in case anything goes wrong:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" [npc.Name] thrusts [npc.her] [npc.hips] against you, letting out [npc.a_moan+] as [npc.she] helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+].",
 								" [npc.A_moan+] bursts out from between [npc.name]'s [npc.lips+], and, thrusting [npc.her] [npc.hips] into you, [npc.she] begs for you to carry on fucking [npc.herHim].",
-								" [npc.Moaning] in delight, [npc.name] grinds [npc.her] [npc.hips+] out against you, begging for you to continue fucking [npc.herHim] as [npc.she] helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+]"));
+								" [npc.Moaning] in delight, [npc.name] grinds [npc.her] [npc.hips+] out against you, begging for you to continue fucking [npc.herHim] as [npc.she] helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+]."));
 						break;
 				}
 				
@@ -763,19 +763,19 @@ public class PlayerPenisVagina {
 								" [npc.Name] eagerly thrusts [npc.her] [npc.hips] against you, letting out [npc.a_moan+] as [npc.she] enthusiastically helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+].",
 								" [npc.A_moan+] bursts out from between [npc.name]'s [npc.lips+], and, eagerly thrusting [npc.her] [npc.hips] into you, [npc.she] begs for you to carry on fucking [npc.herHim].",
 								" [npc.Moaning] in delight, [npc.name] eagerly grinds [npc.her] [npc.hips+] out against you,"
-										+ " eagerly begging for you to continue fucking [npc.herHim] as [npc.she] helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+]"));
+										+ " eagerly begging for you to continue fucking [npc.herHim] as [npc.she] helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+]."));
 						break;
 					case SUB_RESISTING:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" Desperately trying, and failing, to pull away from your groin, [npc.name] lets out [npc.a_sob+], tears streaming down [npc.her] face as [npc.she] weakly begs for you to stop abusing [npc.her] [npc.pussy+].",
 								" [npc.A_sob+] bursts out from between [npc.her] [npc.lips] as [npc.she] weakly tries to push you away, tears streaming down [npc.her] face as [npc.she] pleads for you to pull out of [npc.her] [npc.pussy+].",
-								" [npc.Sobbing] in distress, and with tears running down [npc.her] cheeks, [npc.name] weakly struggles against you, pleading and crying for you to pull out of [npc.her] [npc.pussy+]"));
+								" [npc.Sobbing] in distress, and with tears running down [npc.her] cheeks, [npc.name] weakly struggles against you, pleading and crying for you to pull out of [npc.her] [npc.pussy+]."));
 						break;
 					default: // SUB_NORMAL and in case anything goes wrong:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" [npc.Name] thrusts [npc.her] [npc.hips] against you, letting out [npc.a_moan+] as [npc.she] helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+].",
 								" [npc.A_moan+] bursts out from between [npc.name]'s [npc.lips+], and, thrusting [npc.her] [npc.hips] into you, [npc.she] begs for you to carry on fucking [npc.herHim].",
-								" [npc.Moaning] in delight, [npc.name] grinds [npc.her] [npc.hips+] out against you, begging for you to continue fucking [npc.herHim] as [npc.she] helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+]"));
+								" [npc.Moaning] in delight, [npc.name] grinds [npc.her] [npc.hips+] out against you, begging for you to continue fucking [npc.herHim] as [npc.she] helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+]."));
 						break;
 				}
 			}
@@ -824,19 +824,19 @@ public class PlayerPenisVagina {
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc.She] slowly thrusts [npc.her] [npc.hips] out in response, letting out a soft [npc.moan] as [npc.she] starts gently imploring you to continue fucking [npc.herHim].",
 							" A soft [npc.moan] drifts out from between [npc.her] [npc.lips+], and, gently pushing [npc.her] [npc.hips] out against your groin, [npc.she] begs for you to continue fucking [npc.herHim].",
-							" [npc.Moaning] in delight, [npc.she] slowly grinds [npc.herself] against you, softly [npc.moaning] for you to continue as [npc.her] movements cause you to sink your [pc.cock+] deep into [npc.her] [npc.pussy+]"));
+							" [npc.Moaning] in delight, [npc.she] slowly grinds [npc.herself] against you, softly [npc.moaning] for you to continue as [npc.her] movements cause you to sink your [pc.cock+] deep into [npc.her] [npc.pussy+]."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc.She] violently thrusts [npc.her] [npc.hips] out in response, letting out [npc.a_moan+] as [npc.she] roughly demands that you continue fucking [npc.herHim].",
 							" [npc.A_moan+] bursts out from between [npc.her] [npc.lips+], and, roughly thrusting [npc.her] [npc.hips] out into your groin, [npc.she] orders you to continue fucking [npc.herHim].",
-							" [npc.She] roughly grinds [npc.herself] against you, ordering you to continue as [npc.her] aggressive movements cause you to sink your [pc.cock+] deep into [npc.her] [npc.pussy+]"));
+							" [npc.She] roughly grinds [npc.herself] against you, ordering you to continue as [npc.her] aggressive movements cause you to sink your [pc.cock+] deep into [npc.her] [npc.pussy+]."));
 					break;
 				default: // DOM_NORMAL and in case anything goes wrong:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc.She] thrusts [npc.her] [npc.hips] out in response, letting out [npc.a_moan+] as [npc.she] implores you to continue fucking [npc.herHim].",
 							" [npc.A_moan+] drifts out from between [npc.her] [npc.lips+], and, pushing [npc.her] [npc.hips] out against your groin, [npc.she] begs for you to continue fucking [npc.herHim].",
-							" [npc.Moaning] in delight, [npc.she] grinds [npc.herself] against you, [npc.moaning] for you to continue as [npc.her] movements cause you to sink your [pc.cock+] deep into [npc.her] [npc.pussy+]"));
+							" [npc.Moaning] in delight, [npc.she] grinds [npc.herself] against you, [npc.moaning] for you to continue as [npc.her] movements cause you to sink your [pc.cock+] deep into [npc.her] [npc.pussy+]."));
 					break;
 			}
 			
@@ -978,7 +978,7 @@ public class PlayerPenisVagina {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom() ||Sex.isConsensual(); // Player can only stop if they're in charge (otherwise, this is the partner fucking themselves on the player's cock).
+			return Sex.isPlayerDom() || Sex.isSubHasEqualControl();
 		}
 		
 		@Override

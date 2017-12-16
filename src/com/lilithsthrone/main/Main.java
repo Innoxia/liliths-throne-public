@@ -46,7 +46,7 @@ import javafx.stage.Stage;
 
 /**
  * @since 0.1.0
- * @version 0.1.89.5
+ * @version 0.1.95
  * @author Innoxia
  */
 public class Main extends Application {
@@ -60,7 +60,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.1.90.5",
+	public static final String VERSION_NUMBER = "0.1.95",
 			VERSION_DESCRIPTION = "Early Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
@@ -78,7 +78,22 @@ public class Main extends Application {
 		+ "</p>"
 			
 		+ "<p>"
-			+ "I've got all the non-sex-related goals pretty much finished now, so next week I can fully concentrate on adding in all the extra sex stuff (like knotting and position-specific orgasms), as well as get multiple-partner sex implemented. ^^"
+			+ "I spent a lot of my time this week getting a lot of work done on designing and programming multiple-partner sex mechanics."
+			+ " It isn't finished just yet (as I warned might happen last week), as it's a little complex, but I'm hoping to have it done by next week's release (which is another public release before I take a 1-week Christmas holiday). :3"
+		+ "</p>"
+			
+		+ "<p>"
+			+ "In the time I spent working on things other than the multiple-partner sex, I managed to fix a lot of bugs, add thigh-sex, and merge Rfpnj's alligator-morphs into the game! :3"
+		+ "</p>"
+			
+		+ "<p>"
+			+ "I hope you enjoy this release, and to those of you who are anticipating the new orgasm/body-part content,"
+				+ " please know that I spent a good deal of time planning out how that will fit into the new multiple-partner sex code (which took a while), and that I'll be writing the content in first thing on Monday. :3"
+		+ "</p>"
+				
+		+ "<p>"
+			+ "The next release on Friday 22nd December will be another public release, and will include the new orgasm content and a Christmas-related event."
+			+ " (I'm hoping for multiple-partner sex to be finished, but it's turning out to be quite a lot of work, so I can't promise it... ;_;)"
 		+ "</p>"
 			
 		+ "<p>"
@@ -133,6 +148,67 @@ public class Main extends Application {
 			+"<ul>Stopped used condoms from being able to be spawned in using the debug menu (as it was causing issues).</ul>"
 			+"<ul>Versions prior to 0.1.95 will now have all NPC's hair lengths reset to default values (to address broken hair lengths in older versions).</ul>"
 		+"</list>"
+			
+		+ "</br>"
+
+		+ "<list>"
+			+ "<h6>v0.1.95</h6>"
+			+"<li>Gameplay & Sex:</li>"
+			+"<ul>Added a small (<5%) chance for alleyway attackers to be alligator morphs. (I'll move them into Submission when I add that area.)</ul>"
+			+"<ul><b>Added thigh sex</b> and associated thigh-related sex status effect (both receiving and performing action variants for both NPC's and PC's dom and sub paces).</ul>"
+				
+			+"<li>Contributions:</li>"
+			+"<ul><b>Added alligator-morphs</b>, with associated items/consumables/transformations. (by rfpnj)</ul>"
+			+"<ul>Added a black variation to the lab coat. (by rfpnj)</ul>"
+			+"<ul>Improved NPC prostitution methods, which now allows males to be prostitutes, as well as providing a price based on the prostitute's body. (by tukaima)</ul>"
+				
+			+"<li>Other:</li>"
+			+"<ul>The blazer item of clothing now conceals the wearer's chest and waist until unbuttoned.</ul>"
+			+"<ul>Changed kissing dirty talk.</ul>"
+			+"<ul>Added paizuri-specific dirty talk.</ul>"
+			+"<ul>Added bovine-specific horns to HornTypes, to resolve the issue of horn races being inconsistent between demons and cow-morphs.</ul>"
+			+"<ul>You can now pull down the Milk Maid's dress to expose breasts & nipples.</ul>"
+			+"<ul>Lab coats now block breasts/genitals/ass, and can be unbuttoned and pulled up to reveal blocked parts.</ul>"
+			+"<ul>Added option to pay for submissive sex with NPC prostitutes.</ul>"
+			+"<ul>Added the full demonic transformations menu to the witch cultists.</ul>"
+			+"<ul>Fixed several inconsistencies in the new incubus encounter dialogue.</ul>"
+				
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed cause of characters present screen not opening.</ul>"
+			+"<ul>Fixed (another) major bug related to game importing.</ul>"
+			+"<ul>Flat-chested characters will no longer have their nipple be referred to as 'teats'.</ul>"
+			+"<ul>Fixed multiple virginity loss readings in body description.</ul>"
+			+"<ul>Corrected hair length in character viewer's stats panel to be displayed in inches.</ul>"
+			+"<ul>Characters that are imported while wearing enchanted gear will now correctly have that gear's stats applied. (Before you would not receive gear bonuses upon import, and would then suffer attribute decreases when unequipping that clothing.)</ul>"
+			+"<ul>Slave settings now import correctly (cleanliness settings will no longer reset on import).</ul>"
+			+"<ul>Slaves locked in public use stocks will now have their nipples fucked (if they are accessible and are able to be penetrated).</ul>"
+			+"<ul>Slave rooms (as well as all other places in all maps) will now correctly import all additions (such as obedience trainers, room service, arcane instruments, etc.).</ul>"
+			+"<ul>Fixed major import error caused by the game trying to load the old position 'DOGGY_ORAL_PLAYER_ON_ALL_FOURS'.</ul>"
+			+"<ul>Fixed incorrect transformation dialogue for NPCs who are forcibly transforming you.</ul>"
+			+"<ul>Fixed minor description error in wing transformations.</ul>"
+			+"<ul>Imported characters now correctly keep their available perk points.</ul>"
+			+"<ul>Fixed bug with Zaranix's non-violent resolution option not being available.</ul>"
+			+"<ul>Fixed bug where Arthur wouldn't be moved to Lilaya's Lab (this should correct itself when you import your game into this new version).</ul>"
+			+"<ul>The 'Submissive talk' option in Lilaya's sex scene is now linked to the Submissive fetish.</ul>"
+			+"<ul>Tidied up the total mess that was the 'repeat actions' tab in sex.</ul>"
+			+"<ul>Androgynous characters will no longer be able to spawn in with a beard.</ul>"
+			+"<ul>Growing horns now sets their starting length value to 'small' (2 inches), if their previous length is 0.</ul>"
+			+"<ul>Changing difficulty level now correctly resets the health/willpower/stamina of all NPCs.</ul>"
+			+"<ul>The 'pent up' status effect for slaves is now calculated based on the last time they orgasmed, not the last time they had sex, allowing you to have sex with your slave and stop before they orgasm to leave them pent-up.</ul>"
+			+"<ul>Fixed bug where slaves were not getting paid and working when they weren't supposed to.</ul>"
+				
+			+"<li>Demonic transformation menu bugs:</li>"
+			+"<ul>Iris shape and pupil shape now work correctly on NPCs.</ul>"
+			+"<ul>Changing lip size now works correctly on all characters.</ul>"
+			+"<ul>Added options to change lip & throat colour.</ul>"
+			+"<ul>Changing hair colour now correctly changes the target's hair colour, instead of their skin colour.</ul>"
+			+"<ul>Fixed bug where you couldn't turn off orifice or penis modifiers.</ul>"
+			+"<ul>Added options to change throat and tongue modifiers.</ul>"
+			+"<ul>You can now set ass and hip sizes to any value.</ul>"
+			+"<ul>Removed duplicate lactation menu.</ul>"
+			+"<ul>Added options to set elasticity, plasticity, wetness and capacity for anus.</ul>"
+			+"<ul>Minor typo fixes.</ul>"
+		+ "</list>"
 		;
 	
 	public static String disclaimer = "<h6 style='text-align: center; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>You must read and agree to the following in order to play this game!</h6>"

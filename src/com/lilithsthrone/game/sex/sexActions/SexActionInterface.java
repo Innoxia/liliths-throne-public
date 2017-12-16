@@ -629,6 +629,10 @@ public interface SexActionInterface {
 					if(!Main.game.getPlayer().hasVagina())
 						return false;
 					break;
+				case THIGHS_PLAYER: //TODO mermaid/centaur legs
+					break;
+				case THIGHS_PARTNER: //TODO mermaid/centaur legs
+					break;
 			}
 		}
 		

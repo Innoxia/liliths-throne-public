@@ -14,6 +14,7 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerFingerUre
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerFingerVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerPenisAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerPenisAss;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerPenisThighs;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerPenisVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTailAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTailVagina;
@@ -89,6 +90,7 @@ public class SMAmberDoggyFucked extends SexManagerDefault {
 				PartnerFingerVagina.class,
 				PartnerFingerAnus.class,
 				PartnerPenisVagina.class,
+				PartnerPenisThighs.class,
 				PartnerPenisAnus.class,
 				PartnerPenisAss.class,
 				PartnerTailVagina.class,

@@ -6645,6 +6645,12 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			case VAGINA_PLAYER:
 				orificeName = "[pc.pussy+]";
 				break;
+			case THIGHS_PARTNER:
+				orificeName = "thighs";
+				break;
+			case THIGHS_PLAYER:
+				orificeName = "thighs";
+				break;
 			case BREAST_PARTNER:
 				orificeName = "[npc.breasts+]";
 				break;
@@ -7492,7 +7498,15 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			
 			return generateGenericPenetrationDescription(penetrationType, orifice);
 			
-		}
+		} else if(orifice == OrificeType.THIGHS_PLAYER) {
+			
+			return generateGenericPenetrationDescription(penetrationType, orifice);
+			
+		} else if(orifice == OrificeType.THIGHS_PARTNER) {
+			
+			return generateGenericPenetrationDescription(penetrationType, orifice);
+			
+		} 
 		
 		return "";
 	}
@@ -7536,6 +7550,12 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				break;
 			case VAGINA_PLAYER:
 				orificeName = "[pc.pussy+]";
+				break;
+			case THIGHS_PARTNER:
+				orificeName = "thighs";
+				break;
+			case THIGHS_PLAYER:
+				orificeName = "thighs";
 				break;
 			case BREAST_PARTNER:
 				orificeName = "[npc.breasts+]";

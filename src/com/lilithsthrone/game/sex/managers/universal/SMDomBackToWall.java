@@ -12,6 +12,7 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.PlayerTalk;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerFingerNipple;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerFingerUrethra;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerFingerVagina;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerPenisThighs;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerPenisVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTailAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTailVagina;
@@ -21,6 +22,7 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTongueNip
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerNipple;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerUrethra;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerFingerVagina;
+import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisThighs;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerPenisVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTailAnus;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPlayer.PlayerTailVagina;
@@ -50,7 +52,7 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.69
- * @version 0.1.82
+ * @version 0.1.95
  * @author Innoxia
  */
 public class SMDomBackToWall extends SexManagerDefault {
@@ -92,6 +94,7 @@ public class SMDomBackToWall extends SexManagerDefault {
 				PlayerFingerUrethra.class,
 				PlayerFingerVagina.class,
 				PlayerPenisVagina.class,
+				PlayerPenisThighs.class,
 				PlayerTailVagina.class,
 				PlayerTailAnus.class,
 				
@@ -103,6 +106,7 @@ public class SMDomBackToWall extends SexManagerDefault {
 				PartnerFingerVagina.class,
 //				PartnerPenisAnus.class,
 				PartnerPenisVagina.class,
+				PartnerPenisThighs.class,
 				PartnerTailVagina.class,
 				PartnerTailAnus.class,
 				
