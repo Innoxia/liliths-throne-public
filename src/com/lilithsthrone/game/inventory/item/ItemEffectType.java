@@ -184,6 +184,17 @@ public enum ItemEffectType {
 		}
 	},
 	
+	BOOK_READ_REINDEER_MORPH(Util.newArrayListOfValues(
+			new ListValue<>("Adds reindeer-morph encyclopedia entry."),
+			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
+			Colour.RACE_REINDEER_MORPH) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			return getBookEffect(Race.REINDEER_MORPH, ItemType.BOOK_REINDEER_MORPH);
+		}
+	},
+	
 	BOOK_READ_HUMAN(Util.newArrayListOfValues(
 			new ListValue<>("Adds human encyclopedia entry."),
 			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
@@ -527,6 +538,23 @@ public enum ItemEffectType {
 		}
 	},
 	
+	FIT_EGG_NOG(Util.newArrayListOfValues(
+			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldStamina(stamina)]"),
+			new ListValue<>("[style.boldGood(+1)] [style.boldFitness(fitness)] to 'potion effects'")),
+			Colour.ATTRIBUTE_FITNESS) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			target.incrementStamina(target.getAttributeValue(Attribute.STAMINA_MAXIMUM)/20);
+
+			return (target.isPlayer()
+						?"A soothing wave of arcane energy washes over you......"
+						:UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]..."))
+					+ "</br>"
+					+ target.addPotionEffect(Attribute.FITNESS, 1);
+		}
+	},
+	
 	SEX_HARPY_PERFUME(Util.newArrayListOfValues(
 			new ListValue<>("[style.boldSex(+1)] [style.boldFeminine(femininity)]"),
 			new ListValue<>("[style.boldGood(+1)] [style.boldFitness(fitness)] to 'potion effects'")),
@@ -766,6 +794,23 @@ public enum ItemEffectType {
 		}
 	},
 	
+	RACE_SUGAR_COOKIE(Util.newArrayListOfValues(
+			new ListValue<>("[style.boldGood(+3)] [style.boldStrength(strength)] to 'potion effects'"),
+			new ListValue<>("[style.boldGood(+2)] [style.boldFitness(fitness)] to 'potion effects'")),
+			Colour.RACE_REINDEER_MORPH) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			return (target.isPlayer()
+						?"You start to feel a lot stronger..."
+						:UtilText.parse(target, "[npc.Name] starts to feel a lot stronger..."))
+					+ "</br>"
+					+ target.addPotionEffect(Attribute.STRENGTH, 3)
+					+ "</br>"
+					+ target.addPotionEffect(Attribute.FITNESS, 2);
+		}
+	},
+	
 	RACE_ALLIGATORS_GUMBO(Util.newArrayListOfValues(
 			new ListValue<>("[style.boldGood(+3)] [style.boldStrength(strength)] to 'potion effects'"),
 			new ListValue<>("[style.boldGood(+2)] [style.boldFitness(fitness)] to 'potion effects'")),
@@ -975,6 +1020,20 @@ public enum ItemEffectType {
 			target.incrementEssenceCount(TFEssence.ARCANE, 1);
 			target.addStatusEffect(StatusEffect.COMBAT_BONUS_HORSE_MORPH, 60*4);
 			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldHorse(horse-morphs)]!";
+		}
+	},
+	
+	BOTTLED_ESSENCE_REINDEER_MORPH(Util.newArrayListOfValues(
+			new ListValue<>("[style.boldGood(+1)] [style.boldArcane(Arcane)] essence"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldReindeer(reindeer-morphs)]"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldReindeer(reindeer-morphs)]")),
+			Colour.RACE_REINDEER_MORPH) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			target.incrementEssenceCount(TFEssence.ARCANE, 1);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_REINDEER_MORPH, 60*4);
+			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldReindeer(reindeer-morphs)]!";
 		}
 	},
 	
@@ -1798,6 +1857,35 @@ public enum ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			return getRacialEffect(Race.HORSE_MORPH, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
+		}
+	},
+	
+	RACE_REINDEER_MORPH(null,
+			Colour.RACE_REINDEER_MORPH) {
+
+		@Override
+		public List<TFModifier> getPrimaryModifiers() {
+			return TFModifier.getTFRacialBodyPartsList();
+		}
+
+		@Override
+		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+			return getRacialSecondaryModifiers(Race.REINDEER_MORPH, primaryModifier);
+		}
+		
+		@Override
+		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
+			return getRacialPotencyModifiers(Race.REINDEER_MORPH, primaryModifier, secondaryModifier);
+		}
+		
+		@Override
+		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			return Util.newArrayListOfValues(new ListValue<>(getRacialEffect(Race.REINDEER_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescriptionPlusChangeDescription()));
+		}
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			return getRacialEffect(Race.REINDEER_MORPH, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
 		}
 	},
 	

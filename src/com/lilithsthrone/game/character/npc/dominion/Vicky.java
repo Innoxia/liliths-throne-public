@@ -59,6 +59,7 @@ public class Vicky extends NPC {
 			ItemType.RACE_INGREDIENT_SQUIRREL_MORPH,
 			ItemType.RACE_INGREDIENT_COW_MORPH,
 			ItemType.RACE_INGREDIENT_ALLIGATOR_MORPH,
+			ItemType.RACE_INGREDIENT_REINDEER_MORPH,
 			ItemType.RACE_INGREDIENT_HUMAN,
 			ItemType.RACE_INGREDIENT_DEMON};
 
@@ -159,6 +160,8 @@ public class Vicky extends NPC {
 				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_COW_MORPH), false);
 			for(int i=0; i<25+Util.random.nextInt(20);i++)
 				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_ALLIGATOR_MORPH), false);
+			for(int i=0; i<25+Util.random.nextInt(20);i++)
+				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_REINDEER_MORPH), false);
 		}
 	}
 	
@@ -206,6 +209,7 @@ public class Vicky extends NPC {
 					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_COW_MORPH
 					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_SQUIRREL_MORPH
 					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_ALLIGATOR_MORPH
+					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_REINDEER_MORPH
 					|| ((AbstractItem)item).getItemType()==ItemType.POTION
 					|| ((AbstractItem)item).getItemType()==ItemType.ELIXIR) {
 ;

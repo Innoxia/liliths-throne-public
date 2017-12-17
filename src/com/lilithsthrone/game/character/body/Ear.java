@@ -229,6 +229,23 @@ public class Ear implements BodyPartInterface, Serializable {
 							+ "</p>");
 				}
 				break;
+			case REINDEER_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" They quickly grow into sturdy little upright points, and shift to sit higher up on your head than a normal pair of human ears would."
+								+ " A layer of [pc.earFullDescriptionColour] grows to cover them, and as the transformation finishes, you discover that you can easily twitch your new reindeer-like ears back and forth."
+								+ "</br>"
+								+ "You now have [style.boldReindeerMorph(anthropomorphic, reindeer-like ears)]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" They quickly grow into sturdy little upright points, and shift to sit higher up on [npc.her] head than a normal pair of human ears would."
+								+ " A layer of [npc.earFullDescriptionColour] grows to cover them, and as the transformation finishes, [npc.she] experimentally twitches [npc.her] new reindeer-like ears back and forth."
+								+ "</br>"
+								+ "[npc.Name] now has [style.boldReindeerMorph(anthropomorphic, reindeer-like ears)]."
+							+ "</p>");
+				}
+				break;
 			case HARPY:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(

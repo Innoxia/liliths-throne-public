@@ -182,6 +182,8 @@ public enum Name {
 				break;
 			case ALLIGATOR_MORPH:
 				break;
+			case REINDEER_MORPH:
+				break;
 			case HARPY:
 				break;
 			case HORSE_MORPH:
@@ -228,6 +230,8 @@ public enum Name {
 			case HARPY:
 				break;
 			case HORSE_MORPH:
+				break;
+			case REINDEER_MORPH:
 				break;
 			case HUMAN:
 				break;

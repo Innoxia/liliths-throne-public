@@ -15,6 +15,7 @@ public enum HornType implements BodyPartTypeInterface {
 	BOVINE_CURVED("curved", BodyCoveringType.HORN, Race.COW_MORPH),
 	BOVINE_STRAIGHT("straight", BodyCoveringType.HORN, Race.COW_MORPH),
 	
+	REINDEER_RACK("Multi-branched Rack", BodyCoveringType.ANTLER, Race.REINDEER_MORPH),
 	CURLED("curled", BodyCoveringType.HORN, Race.DEMON),
 	SPIRAL("spiral", BodyCoveringType.HORN, Race.DEMON),
 	CURVED("curved", BodyCoveringType.HORN, Race.DEMON),
@@ -64,6 +65,8 @@ public enum HornType implements BodyPartTypeInterface {
 				return "";
 			case SWEPT_BACK:
 				return UtilText.returnStringAtRandom("sleek");
+			case REINDEER_RACK:
+				return UtilText.returnStringAtRandom("branching");
 			case STRAIGHT: case BOVINE_STRAIGHT:
 				return UtilText.returnStringAtRandom("straight");
 			case CURLED:
@@ -82,6 +85,8 @@ public enum HornType implements BodyPartTypeInterface {
 				return "none";
 			case SWEPT_BACK:
 				return UtilText.returnStringAtRandom("swept-back");
+			case REINDEER_RACK:
+				return UtilText.returnStringAtRandom("branching");
 			case STRAIGHT: case BOVINE_STRAIGHT:
 				return UtilText.returnStringAtRandom("straight");
 			case CURLED:

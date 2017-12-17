@@ -30,6 +30,8 @@ public enum FaceType implements BodyPartTypeInterface {
 
 	HORSE_MORPH(BodyCoveringType.HORSE_HAIR, MouthType.HORSE_MORPH, TongueType.HORSE_MORPH, Race.HORSE_MORPH),
 
+	REINDEER_MORPH(BodyCoveringType.REINDEER_FUR, MouthType.REINDEER_MORPH, TongueType.REINDEER_MORPH, Race.REINDEER_MORPH),
+
 	SLIME(BodyCoveringType.SLIME, MouthType.SLIME, TongueType.SLIME, Race.SLIME),
 
 	HARPY(BodyCoveringType.FEATHERS, MouthType.HARPY, TongueType.TENGU, Race.HARPY);
@@ -109,6 +111,8 @@ public enum FaceType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("anthropomorphic bird-like", "bird-like");
 			case HORSE_MORPH:
 				return UtilText.returnStringAtRandom("anthropomorphic horse-like", "horse-like", "equine");
+			case REINDEER_MORPH:
+				return UtilText.returnStringAtRandom("anthropomorphic reindeer-like", "reindeer-like", "rangiferine");
 			case HUMAN:
 				return UtilText.returnStringAtRandom("");
 			case LYCAN:
@@ -140,6 +144,8 @@ public enum FaceType implements BodyPartTypeInterface {
 				return "avian";
 			case HORSE_MORPH:
 				return "equine";
+			case REINDEER_MORPH:
+				return "rangiferine";
 			case HUMAN:
 				return "human";
 			case LYCAN:

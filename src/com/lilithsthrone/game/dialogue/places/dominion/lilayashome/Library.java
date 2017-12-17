@@ -443,6 +443,9 @@ public class Library {
 			} else if (field == 2) {
 				return bookResponse(ItemType.BOOK_COW_MORPH, Race.COW_MORPH);
 
+			} else if (field == 3) {
+				return bookResponse(ItemType.BOOK_REINDEER_MORPH, Race.REINDEER_MORPH);
+
 			}  else if (field == 0) {
 				return new Response("Back to the shelves", "Return to strolling the shelves.", BROWSE_BOOKS);
 

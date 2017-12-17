@@ -252,6 +252,33 @@ public class Tail implements BodyPartInterface, Serializable {
 							);
 				}
 				break;
+			case REINDEER_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+							(owner.getTailCount()==1
+								?" A reindeer-like tail sprouts from just above your ass, rapidly growing in width until it takes up about a third of your rear."
+									+ " You quickly discover that your control over it is limited to twitching it."
+									+ "</br>"
+									+ "You now have a [style.boldReindeerMorph(reindeer-like tail)]"
+								:" [pc.TailCount] reindeer-like tails sprout from just above your ass, rapidly growing in width until they take up about a third of your rear."
+									+ " You quickly discover that your control over them is limited to twitching them."
+									+ "</br>"
+									+ "You now have [pc.tailCount] [style.boldReindeerMorph(reindeer-like tails)]")
+							);
+				} else {
+					UtilText.transformationContentSB.append(
+							(owner.getTailCount()==1
+								?" A reindeer-like tail sprouts from just above [npc.her] ass, rapidly growing in width until it takes up about a third of [npc.her] rear."
+									+ " [npc.She] quickly discovers that [npc.her] control over it is limited to twitching it."
+									+ "</br>"
+									+ "[npc.Name] now has a [style.boldReindeerMorph(reindeer-like tail)]"
+								:" [npc.TailCount] reindeer-like tails sprout from just above [npc.her] ass, rapidly growing in width until they take up about a third of [npc.her] rear."
+									+ " [npc.She] quickly discovers that [npc.her] control over them is limited to twitching them."
+									+ "</br>"
+									+ "[npc.Name] now has [npc.tailCount] [style.boldReindeerMorph(reindeer-like tails)]")
+							);
+				}
+				break;
 			case COW_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
