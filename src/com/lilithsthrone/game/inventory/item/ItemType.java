@@ -3380,9 +3380,9 @@ public class ItemType {
 					if(item!=ItemType.POTION && item!=ItemType.ELIXIR && item!=ItemType.FETISH_REFINED
 							&& item!=ItemType.HARPY_MATRIARCH_BIMBO_LOLLIPOP && item!=ItemType.HARPY_MATRIARCH_DOMINANT_PERFUME && item!=ItemType.HARPY_MATRIARCH_NYMPHO_LOLLIPOP
 							&& item!=ItemType.BOOK_CAT_MORPH && item!=ItemType.BOOK_DEMON && item!=ItemType.BOOK_DOG_MORPH
-							&& item!=ItemType.BOOK_HARPY && item!=ItemType.BOOK_HORSE_MORPH && item!=ItemType.BOOK_HUMAN && item!=ItemType.BOOK_WOLF_MORPH
-							&& item!=ItemType.BOTTLED_ESSENCE_ARCANE && item!=ItemType.BOTTLED_ESSENCE_CAT_MORPH && item!=ItemType.BOTTLED_ESSENCE_DEMON
-							&& item!=ItemType.BOTTLED_ESSENCE_DOG_MORPH && item!=ItemType.BOTTLED_ESSENCE_HARPY && item!=ItemType.BOTTLED_ESSENCE_HORSE_MORPH
+							&& item!=ItemType.BOOK_HARPY && item!=ItemType.BOOK_HORSE_MORPH && item!=ItemType.BOOK_HUMAN && item!=ItemType.BOOK_WOLF_MORPH && item!=ItemType.BOOK_REINDEER_MORPH && item!=ItemType.BOOK_ALLIGATOR_MORPH
+							&& item!=ItemType.BOTTLED_ESSENCE_ARCANE && item!=ItemType.BOTTLED_ESSENCE_CAT_MORPH && item!=ItemType.BOTTLED_ESSENCE_DEMON && item!=ItemType.BOTTLED_ESSENCE_REINDEER_MORPH
+							&& item!=ItemType.BOTTLED_ESSENCE_DOG_MORPH && item!=ItemType.BOTTLED_ESSENCE_HARPY && item!=ItemType.BOTTLED_ESSENCE_HORSE_MORPH && item!=ItemType.BOTTLED_ESSENCE_ALLIGATOR_MORPH
 							&& item!=ItemType.BOTTLED_ESSENCE_HUMAN && item!=ItemType.BOTTLED_ESSENCE_WOLF_MORPH && item!=ItemType.BOTTLED_ESSENCE_COW_MORPH && item!=ItemType.BOTTLED_ESSENCE_SQUIRREL_MORPH
 							&& item!=ItemType.EGGPLANT
 							) {
@@ -3397,7 +3397,9 @@ public class ItemType {
 							|| item==ItemType.BOTTLED_ESSENCE_HUMAN
 							|| item==ItemType.BOTTLED_ESSENCE_WOLF_MORPH
 							|| item==ItemType.BOTTLED_ESSENCE_COW_MORPH
-							|| item==ItemType.BOTTLED_ESSENCE_SQUIRREL_MORPH) {
+							|| item==ItemType.BOTTLED_ESSENCE_ALLIGATOR_MORPH
+						  	|| item==ItemType.BOTTLED_ESSENCE_REINDEER_MORPH
+						  	|| item==ItemType.BOTTLED_ESSENCE_SQUIRREL_MORPH) {
 						essences.add(item);
 					}
 					
