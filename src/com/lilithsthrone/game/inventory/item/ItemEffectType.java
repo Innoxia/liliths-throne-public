@@ -773,7 +773,9 @@ public enum ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return "You start to feel a lot stronger..."
+			return (target.isPlayer()
+						?"You start to feel a lot stronger..."
+						:UtilText.parse(target, "[npc.Name] starts to feel a lot stronger..."))
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.STRENGTH, 3)
 					+ "</br>"
