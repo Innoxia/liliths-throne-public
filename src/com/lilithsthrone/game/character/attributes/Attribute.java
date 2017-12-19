@@ -404,6 +404,12 @@ public enum Attribute {
 			return "Each point increases damage done vs horse-morphs by 1%.";
 		}
 	},
+	DAMAGE_REINDEER_MORPH(0, "reindeer-morph damage", "Reindeer-morph damage", "swordIcon", Colour.RACE_REINDEER_MORPH, "reindeer-morph-obliteration", "reindeer-morph-mercy", null, null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Each point increases damage done vs reindeer-morphs by 1%.";
+		}
+	},
 	DAMAGE_HUMAN(0, "human damage", "Human damage", "swordIcon", Colour.RACE_HUMAN, "human-obliteration", "human-mercy", null, null, null, null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -469,6 +475,12 @@ public enum Attribute {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases resistance vs damage inflicted by horse-morphs by 1%.";
+		}
+	},
+	RESISTANCE_REINDEER_MORPH(0, "reindeer-morph resistance", "Reindeer-morph resistance", "shieldIcon", Colour.RACE_REINDEER_MORPH, "reindeer-morph-immunity", "reindeer-morph-vulnerability", null, null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Each point increases resistance vs damage inflicted by reindeer-morphs by 1%.";
 		}
 	},
 	RESISTANCE_HUMAN(0, "human resistance", "Human resistance", "shieldIcon", Colour.RACE_HUMAN, "human-immunity", "human-vulnerability", null, null, null, null) {

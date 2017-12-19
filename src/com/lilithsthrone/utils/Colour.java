@@ -89,6 +89,7 @@ public enum Colour {
 	RACE_CAT_MORPH(BaseColour.VIOLET, "violet", Util.newArrayListOfValues(new ListValue<>("catMorph"), new ListValue<>("cat"))),
 	RACE_COW_MORPH(BaseColour.TAN, "tan", Util.newArrayListOfValues(new ListValue<>("cowMorph"), new ListValue<>("cow"))),
 	RACE_HORSE_MORPH(BaseColour.ORANGE, "orange", Util.newArrayListOfValues(new ListValue<>("horseMorph"), new ListValue<>("horse"))),
+	RACE_REINDEER_MORPH(BaseColour.ROSE, "ROSE", Util.newArrayListOfValues(new ListValue<>("reindeerMorph"), new ListValue<>("reindeer"))),
 	RACE_WOLF_MORPH(BaseColour.BLACK, "black", Util.newArrayListOfValues(new ListValue<>("wolfMorph"), new ListValue<>("wolf"))),
 	RACE_HARPY(BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues(new ListValue<>("harpy"))),
 	RACE_SLIME(BaseColour.PINK, "pink", Util.newArrayListOfValues(new ListValue<>("slime"))),
@@ -318,6 +319,13 @@ public enum Colour {
 	HORN_DARK_GREY(BaseColour.RED, "dark-grey"),
 	HORN_BLACK(BaseColour.BLACK, "black"),
 
+	// Antlers:
+	ANTLER_WHITE(BaseColour.WHITE, "ivory"),
+	ANTLER_TAN(BaseColour.TAN, "tan"),
+	ANTLER_GREY(BaseColour.RED, "grey"),
+	ANTLER_DARK_GREY(BaseColour.RED, "dark-grey"),
+	ANTLER_BLACK(BaseColour.BLACK, "black"),
+
 	// Orifices:
 	ORIFICE_INTERIOR(BaseColour.ROSE, "fleshy-pink"),
 
@@ -503,6 +511,13 @@ public enum Colour {
 			new ListValue<Colour>(Colour.HORN_GREY),
 			new ListValue<Colour>(Colour.HORN_DARK_GREY),
 			new ListValue<Colour>(Colour.HORN_BLACK));
+	
+	public static List<Colour> antlerColours = Util.newArrayListOfValues(
+			new ListValue<Colour>(Colour.ANTLER_WHITE),
+			new ListValue<Colour>(Colour.ANTLER_TAN),
+			new ListValue<Colour>(Colour.ANTLER_GREY),
+			new ListValue<Colour>(Colour.ANTLER_DARK_GREY),
+			new ListValue<Colour>(Colour.ANTLER_BLACK));
 	
 
 	// Orifices:

@@ -21,6 +21,8 @@ public enum Genus {
 			Colour.RACE_CAT_MORPH),
 	EQUINE("equine",
 			Colour.RACE_HORSE_MORPH),
+	rangiferine("rangiferine",
+			Colour.RACE_REINDEER_MORPH),
 	VULPINE("vulpine",
 			Colour.CLOTHING_RED), //TODO
 	BOVINE("bovine",

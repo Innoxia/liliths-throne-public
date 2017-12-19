@@ -30,6 +30,8 @@ public enum SkinType implements BodyPartTypeInterface {
 
 	HORSE_MORPH(BodyCoveringType.HORSE_HAIR, Race.HORSE_MORPH),
 
+	REINDEER_MORPH(BodyCoveringType.REINDEER_FUR, Race.REINDEER_MORPH),
+
 	HARPY(BodyCoveringType.FEATHERS, Race.HARPY),
 
 	SLIME(BodyCoveringType.SLIME, Race.SLIME);
@@ -109,6 +111,8 @@ public enum SkinType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("bird-like");
 			case HORSE_MORPH:
 				return UtilText.returnStringAtRandom("horse-like");
+			case REINDEER_MORPH:
+				return UtilText.returnStringAtRandom("reindeer-like");
 			case HUMAN:
 				return UtilText.returnStringAtRandom("");
 			case LYCAN:

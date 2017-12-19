@@ -358,6 +358,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.FIT_INGREDIENT_CANINE_CRUSH)));
 				case HORSE_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_EQUINE_CIDER)));
+				case REINDEER_MORPH:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.FIT_INGREDIENT_EGG_NOG)));
 				case WOLF_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_WOLF_WHISKEY)));
 				case HUMAN:
@@ -386,6 +388,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_DOG_MORPH)));
 				case HORSE_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_HORSE_MORPH)));
+				case REINDEER_MORPH:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_REINDEER_MORPH)));
 				case WOLF_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_WOLF_MORPH)));
 				case HUMAN:
@@ -414,6 +418,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_DOG_MORPH)));
 				case HORSE_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HORSE_MORPH)));
+				case REINDEER_MORPH:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_REINDEER_MORPH)));
 				case WOLF_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_WOLF_MORPH)));
 				case HUMAN:
@@ -638,60 +644,46 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			switch(getPreferredBody().getRace()) {
 				case CAT_MORPH:
 					itemType = ItemType.RACE_INGREDIENT_CAT_MORPH;
-					if(Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) {
-						genitalsItemType = ItemType.RACE_INGREDIENT_CAT_MORPH;
-					}
 					reaction = "Time to turn you into a cute little "+raceName+"!";
 					break;
 				case DOG_MORPH:
 					itemType = ItemType.RACE_INGREDIENT_DOG_MORPH;
-					if(Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) {
-						genitalsItemType = ItemType.RACE_INGREDIENT_DOG_MORPH;
-					}
 					reaction = "Time to turn you into an excitable little "+raceName+"!";
 					break;
 				case HARPY:
 					itemType = ItemType.RACE_INGREDIENT_HARPY;
-					if(Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) {
-						genitalsItemType = ItemType.RACE_INGREDIENT_HARPY;
-					}
 					reaction = "Time to turn you into a hot little "+raceName+"!";
 					break;
 				case HORSE_MORPH:
 					itemType = ItemType.RACE_INGREDIENT_HORSE_MORPH;
-					if(Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) {
-						genitalsItemType = ItemType.RACE_INGREDIENT_HORSE_MORPH;
-					}
 					if (getPreferredBody().getGender().isFeminine()) {
 						reaction = "Time to turn you into my little mare!";
 					} else {
 						reaction = "Time to turn you into my very own stallion!";
 					}
 					break;
+				case REINDEER_MORPH:
+					itemType = ItemType.RACE_INGREDIENT_REINDEER_MORPH;
+					if (getPreferredBody().getGender().isFeminine()) {
+						reaction = "Time to turn you into my little doe!";
+					} else {
+						reaction = "Time to turn you into my very own buck!";
+					}
+					break;
 				case SQUIRREL_MORPH:
 					itemType = ItemType.RACE_INGREDIENT_SQUIRREL_MORPH;
-					if(Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) {
-						genitalsItemType = ItemType.RACE_INGREDIENT_SQUIRREL_MORPH;
-					}
 					reaction = "Time to turn you into a cute little "+raceName+"!";
 					break;
 				case WOLF_MORPH:
 					itemType = ItemType.RACE_INGREDIENT_WOLF_MORPH;
-					if(Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) {
-						genitalsItemType = ItemType.RACE_INGREDIENT_WOLF_MORPH;
-					}
-					reaction = "Time to turn you into a "+raceName+"!";
-					break;
-				case COW_MORPH:
-					itemType = ItemType.RACE_INGREDIENT_COW_MORPH;
-					if(Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) {
-						genitalsItemType = ItemType.RACE_INGREDIENT_COW_MORPH;
-					}
 					reaction = "Time to turn you into a "+raceName+"!";
 					break;
 				case ALLIGATOR_MORPH:
 					itemType = ItemType.RACE_INGREDIENT_ALLIGATOR_MORPH;
-					reaction = "Time to turn you into "+UtilText.generateSingularDeterminer(raceName) + " "+raceName+"!";
+					reaction = "Time to turn you into a "+raceName+"!";
+					break;
+				case COW_MORPH:
+					itemType = ItemType.RACE_INGREDIENT_COW_MORPH;
 					break;
 				case ANGEL:
 				case DEMON:
@@ -7241,6 +7233,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 								return "You let out [pc.a_moan+] as you feel the little bumps lining [npc.name]'s demonic cock wriggling against the walls of your [pc.asshole] as [npc.she] penetrates you.";
 							case EQUINE:
 								return "You let out [pc.a_moan+] as you feel the flared head of [npc.name]'s horse-like cock push into your [pc.asshole+].";
+							case REINDEER_MORPH:
+								return "You let out [pc.a_moan+] as you feel the flared head of [npc.name]'s reindeer-like cock push into your [pc.asshole+].";
 							case FELINE:
 								return "You let out [pc.a_moan+] as you feel the barbs lining [npc.name]'s cat-like cock rake the walls of your [pc.asshole+] as [npc.she] starts to pull back.";
 							case HUMAN:
@@ -7313,6 +7307,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 								return "You let out [pc.a_moan+] as you feel the little bumps lining [npc.name]'s demonic cock wriggling against the walls of your [pc.pussy] as [npc.she] penetrates you.";
 							case EQUINE:
 								return "You let out [pc.a_moan+] as you feel the flared head of [npc.name]'s horse-like cock push into your [pc.pussy+].";
+							case REINDEER_MORPH:
+								return "You let out [pc.a_moan+] as you feel the flared head of [npc.name]'s reindeer-like cock push into your [pc.pussy+].";
 							case FELINE:
 								return "You let out [pc.a_moan+] as you feel the barbs lining [npc.name]'s cat-like cock rake the walls of your [pc.pussy+] as [npc.she] starts to pull back.";
 							case HUMAN:
@@ -7385,6 +7381,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 								return "You let out [pc.a_moan+] as you feel the little bumps lining [npc.name]'s demonic cock wriggling against the walls of your fuckable [pc.nipple] as [npc.she] penetrates you.";
 							case EQUINE:
 								return "You let out [pc.a_moan+] as you feel the flared head of [npc.name]'s horse-like cock push into your [pc.nipple+].";
+							case REINDEER_MORPH:
+								return "You let out [pc.a_moan+] as you feel the flared head of [npc.name]'s reindeer-like cock push into your [pc.nipple+].";
 							case FELINE:
 								return "You let out [pc.a_moan+] as you feel the barbs lining [npc.name]'s cat-like cock rake the walls of your [pc.nipple+] as [npc.she] starts to pull back.";
 							case HUMAN:
@@ -7457,6 +7455,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 								return "You let out a muffled [pc.moan] as you feel the little bumps lining [npc.name]'s demonic cock wriggling against your [pc.tongue+] as you start sucking [npc.herHim] off.";
 							case EQUINE:
 								return "You let out a muffled [pc.moan] as you feel the flared head of [npc.name]'s horse-like cock push its way into your mouth.";
+							case REINDEER_MORPH:
+								return "You let out a muffled [pc.moan] as you feel the flared head of [npc.name]'s reindeer-like cock push its way into your mouth.";
 							case FELINE:
 								return "You let out a muffled [pc.moan] as you feel the barbs lining [npc.name]'s cat-like cock rake over your [pc.tongue] as [npc.she] starts to pull back.";
 							case HUMAN:
@@ -7507,6 +7507,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 								return "[npc.Name] lets out a muffled [npc.moan] as [npc.she] feels the little bumps lining your demonic cock wriggling against [npc.her] [npc.tongue+] as [npc.she] starts sucking you off.";
 							case EQUINE:
 								return "[npc.Name] lets out a muffled [npc.moan] as [npc.she] feels the flared head of your horse-like cock push its way into [npc.her] mouth.";
+							case REINDEER_MORPH:
+								return "[npc.Name] lets out a muffled [npc.moan] as [npc.she] feels the flared head of your reindeer-like cock push its way into [npc.her] mouth.";
 							case FELINE:
 								return "[npc.Name] lets out a muffled [npc.moan] as [npc.she] feels the barbs lining your cat-like cock rake over [npc.her] [npc.tongue] as you start to thrust in and out of [npc.her] mouth.";
 							case HUMAN:

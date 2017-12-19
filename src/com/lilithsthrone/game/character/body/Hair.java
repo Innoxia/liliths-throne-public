@@ -189,6 +189,19 @@ public class Hair implements BodyPartInterface, Serializable {
 							+ "</p>");
 				}
 				break;
+			case REINDEER_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" The feeling goes away almost as quickly as it came, leaving you with coarse, reindeer-like hair.</br>"
+								+ "You now have [pc.hairColour] [style.boldReindeerMorph(rangiferine hair)]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" The transformation only lasts a matter of moments, leaving [npc.herHim] with coarse, reindeer-like hair.</br>"
+								+ "[npc.Name] now has [npc.hairColour] [style.boldReindeerMorph(rangiferine hair)]."
+							+ "</p>");
+				}
+				break;
 			case SQUIRREL_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(

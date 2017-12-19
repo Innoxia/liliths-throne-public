@@ -30,6 +30,8 @@ public enum HairType implements BodyPartTypeInterface {
 
 	HORSE_MORPH(BodyCoveringType.HAIR_HORSE_HAIR, Race.HORSE_MORPH),
 
+	REINDEER_MORPH(BodyCoveringType.HAIR_REINDEER_FUR, Race.REINDEER_MORPH),
+
 	HARPY(BodyCoveringType.HAIR_HARPY, Race.HARPY),
 
 	SLIME(BodyCoveringType.HAIR_SLIME, Race.SLIME);
@@ -109,6 +111,8 @@ public enum HairType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("bird-like");
 			case HORSE_MORPH:
 				return UtilText.returnStringAtRandom("horse-like");
+			case REINDEER_MORPH:
+				return UtilText.returnStringAtRandom("reindeer-like");
 			case HUMAN:
 				return UtilText.returnStringAtRandom("");
 			case LYCAN:

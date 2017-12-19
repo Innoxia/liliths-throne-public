@@ -364,6 +364,33 @@ public enum Race {
 			FurryPreference.NORMAL),
 
 	
+	 REINDEER_MORPH(
+			 "reindeer morph","reindeer-morphs",
+				
+			"reindeer-boy",
+			"reindeer-girl",
+			
+			"reindeer-boys",
+			"reindeer-girls",
+
+		 "Lore to be added",
+		 "lore to be added",
+		 
+	  Colour.RACE_REINDEER_MORPH,
+			Genus.RODENT,
+			Disposition.CIVILIZED,
+			StatusEffect.REINDEER_MORPH,
+			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SPECIAL_ATTACK), new ListValue<Attack>(Attack.MAIN)),
+			true,
+			0.5f,
+			6,
+			10,
+			Attribute.DAMAGE_REINDEER_MORPH,
+			Attribute.RESISTANCE_REINDEER_MORPH,
+			FurryPreference.NORMAL,
+			FurryPreference.NORMAL),
+			
+
 	SQUIRREL_MORPH(
 			"squirrel-morph", "squirrel-morphs",
 			

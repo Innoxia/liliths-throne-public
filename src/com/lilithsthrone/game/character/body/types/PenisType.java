@@ -36,6 +36,8 @@ public enum PenisType implements BodyPartTypeInterface {
 
 	EQUINE(BodyCoveringType.PENIS, TesticleType.EQUINE, Race.HORSE_MORPH, PenisModifier.FLARED, PenisModifier.VEINY, PenisModifier.SHEATHED),
 
+	REINDEER_MORPH(BodyCoveringType.PENIS, TesticleType.REINDEER_MORPH, Race.REINDEER_MORPH, PenisModifier.FLARED, PenisModifier.SHEATHED),
+
 	SLIME(BodyCoveringType.PENIS, TesticleType.SLIME, Race.SLIME),
 
 	AVIAN(BodyCoveringType.PENIS, TesticleType.AVIAN, Race.HARPY, PenisModifier.SHEATHED),
@@ -84,6 +86,8 @@ public enum PenisType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("cock", "demon-cock", "demon-dick");
 			case EQUINE:
 				return UtilText.returnStringAtRandom("horse-cock", "equine cock", "horse-like cock", "horse-dick");
+			case REINDEER_MORPH:
+				return UtilText.returnStringAtRandom("reindeer-cock", "rangiferine cock", "reindeer-like cock", "reindeer-dick");
 			case FELINE:
 				return UtilText.returnStringAtRandom("cat-cock", "feline cock", "cat-like cock", "cat-dick");
 			case ALLIGATOR_MORPH:
@@ -116,6 +120,8 @@ public enum PenisType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("cocks", "demon-cocks", "demon-dicks");
 			case EQUINE:
 				return UtilText.returnStringAtRandom("horse-cocks", "equine cocks", "horse-like cocks", "horse-dicks");
+			case REINDEER_MORPH:
+				return UtilText.returnStringAtRandom("reindeer-cocks", "rangiferine cocks", "reindeer-like cocks", "reindeer-dicks");
 			case FELINE:
 				return UtilText.returnStringAtRandom("cat-cocks", "feline cocks", "cat-like cocks", "cat-dicks");
 			case ALLIGATOR_MORPH:
@@ -150,6 +156,8 @@ public enum PenisType implements BodyPartTypeInterface {
 					case DEMON_COMMON:
 						return UtilText.returnStringAtRandom("demonic");
 					case EQUINE:
+						return UtilText.returnStringAtRandom("bestial", "thick");
+					case REINDEER_MORPH:
 						return UtilText.returnStringAtRandom("bestial", "thick");
 					case FELINE:
 						return UtilText.returnStringAtRandom("bestial");
@@ -192,6 +200,8 @@ public enum PenisType implements BodyPartTypeInterface {
 				return "demonic";
 			case EQUINE:
 				return "equine";
+			case REINDEER_MORPH:
+				return "rangiferine";
 			case FELINE:
 				return "feline";
 			case HUMAN:

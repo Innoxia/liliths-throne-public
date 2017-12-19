@@ -312,6 +312,19 @@ public class Penis implements BodyPartInterface, Serializable {
 							+ "[npc.She] has [style.boldHorseMorph([npc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" equine balls)], covered in [npc.ballsFullDescription(true)], which produce [npc.cumColour(true)] [style.boldHorseMorph(equine cum)].");
 				}
 				break;
+			case REINDEER_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+							"Letting out an involuntary moan, you feel your penis shifting into a new form, and you're hit by a wave of overwhelming arousal as your shaft grows wider and the head flattens down.</br>"
+							+ "You now have an [style.boldReindeerMorph(rangiferine penis)], covered in [pc.penisFullDescription(true)].</br>"
+							+ "You have [style.boldReindeerMorph([pc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" rangiferine balls)], covered in [pc.ballsFullDescription(true)], which produce [pc.cumColour(true)] [style.boldReindeerMorph(rangiferine cum)].");
+				} else {
+					UtilText.transformationContentSB.append(
+							"Letting out an involuntary moan, [npc.name] feels [npc.her] penis shifting into a new form, and [npc.she]'s hit by a wave of overwhelming arousal as [npc.her] shaft grows wider and the head flattens down.</br>"
+							+ "[npc.She] now has an [style.boldReindeerMorph(rangiferine penis)], covered in [npc.penisFullDescription(true)].</br>"
+							+ "[npc.She] has [style.boldReindeerMorph([npc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" rangiferine balls)], covered in [npc.ballsFullDescription(true)], which produce [npc.cumColour(true)] [style.boldReindeerMorph(rangiferine cum)].");
+				}
+				break;
 			case BOVINE:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
