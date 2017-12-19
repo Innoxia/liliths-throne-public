@@ -1283,6 +1283,7 @@ public enum StatusEffect {
 			return !Main.game.isInNewWorld();
 		}
 	},
+	
 	WEATHER_CLEAR(100,
 			"Clear skies",
 			"weatherDayClear",
@@ -1298,12 +1299,13 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			if(Main.game.isDayTime())
-				return "A hot summer's sun shines down on you, and you let out a contented sigh as you look up at the clear blue sky."
+			if(Main.game.isDayTime()) {
+				return "The sun shines down on you, and you let out a contented sigh as you look up at the clear blue sky."
 						+ " Although there's no sign of a storm at the moment, you can still feel the effects of the arcane manifesting in the form of an increased libido.";
-			else
+			} else {
 				return "The moon shines down through a clear night's sky, and you let out a contented sigh as you look up at the stars."
 						+ " Although there's no sign of a storm at the moment, you can still feel the effects of the arcane manifesting in the form of an increased libido.";
+			}
 		}
 
 		@Override
@@ -1319,6 +1321,7 @@ public enum StatusEffect {
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightClear();
 		}
 	},
+	
 	WEATHER_CLOUD(100,
 			"Cloudy skies",
 			"weatherDayCloudy",
@@ -1351,6 +1354,7 @@ public enum StatusEffect {
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightCloud();
 		}
 	},
+	
 	WEATHER_RAIN(100,
 			"Rain",
 			"weatherDayRain",
@@ -1366,12 +1370,8 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			if(Main.game.isDayTime())
-				return "The sudden downpour is a welcome relief from the hot summer sun."
-						+ " Although there's no sign of a storm at the moment, you can still feel the effects of the arcane manifesting in the form of an increased libido.";
-			else
-				return "The heavy rain clouds overhead have finally burst, and you find yourself out in the middle of a sudden downpour."
-						+ " Although there's no sign of an arcane storm at the moment, you can still feel its effects manifesting in the form of an increased libido.";
+			return "The heavy rain clouds overhead have finally burst, unleashing a sudden, and torrential, downpour."
+					+ " Although there's no sign of an arcane storm at the moment, you can still feel its effects manifesting in the form of an increased libido.";
 		}
 
 		@Override
@@ -1385,6 +1385,46 @@ public enum StatusEffect {
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherDayRain();
 			else
 				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightRain();
+		}
+	},
+	
+	WEATHER_SNOW(100,
+			"Snow",
+			"weatherDaySnow",
+			Colour.CLOTHING_WHITE,
+			false,
+			null,
+			Util.newArrayListOfValues(new ListValue<String>("<b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Enhanced libido</b>"))) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			if(target.isPlayer() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.hasSnowedThisWinter)) {
+				Main.game.getDialogueFlags().values.add(DialogueFlagValue.hasSnowedThisWinter);
+				return "<p>"
+						+ "Snow! :3"
+						+ "</p>";
+			} else {
+				return "";
+			}
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			return "The heavy clouds overhead have finally burst, unleashing a flurry of brilliant white snowflakes upon the land below."
+					+ " Although there's no sign of an arcane storm at the moment, you can still feel its effects manifesting in the form of an increased libido.";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return Main.game.getCurrentWeather()==Weather.SNOW && Main.game.isInNewWorld();
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			if(Main.game.isDayTime())
+				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherDaySnow();
+			else
+				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightSnow();
 		}
 	},
 	

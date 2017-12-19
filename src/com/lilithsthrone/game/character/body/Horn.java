@@ -153,13 +153,13 @@ public class Horn implements BodyPartInterface, Serializable {
 					UtilText.transformationContentSB.append(
 							" Hard nubs push out from the sides of your head, and you gasp as you feel them quickly grow out into "+getDeterminer(owner)+" branching, multi-pronged antlers."
 							+ "</br>"
-							+ "You now have "+getDeterminer(owner)+" [style.boldTfGeneric(antlers)]."
+							+ "You now have "+getDeterminer(owner)+" [style.boldTfGeneric(reindeer-like antlers)]."
 							+ "</p>");
 				} else {
 					UtilText.transformationContentSB.append(
 								" Hard nubs push out from the sides of [npc.her] head, and [npc.she] gasps as they quickly grow out into "+getDeterminer(owner)+" branching, multi-pronged antlers."
 								+ "</br>"
-								+ "[npc.Name] now has "+getDeterminer(owner)+" [style.boldTfGeneric(antlers)]."
+								+ "[npc.Name] now has "+getDeterminer(owner)+" [style.boldTfGeneric(reindeer-like antlers)]."
 								+ "</p>");
 				}
 				break;

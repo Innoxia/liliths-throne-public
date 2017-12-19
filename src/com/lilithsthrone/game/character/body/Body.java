@@ -1724,9 +1724,9 @@ public class Body implements Serializable, XMLSaving {
 				break;
 			case REINDEER_MORPH:
 				if (owner.isPlayer())
-					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, reindeer-like ears, which are positioned high up on your head and are are covered in [pc.earFullDescription(true)].");
+					sb.append(" You have a pair of oval-shaped, reindeer-like ears, which are covered in [pc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
 				else
-					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"upright, reindeer-like ears, which are positioned high up on [npc.her] head and are covered in [npc.earFullDescription(true)].");
+					sb.append(" [npc.She] has a pair of oval-shaped, reindeer-like ears, which are covered in [npc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
 				break;
 			case SLIME:
 				if (owner.isPlayer())
@@ -3051,9 +3051,9 @@ public class Body implements Serializable, XMLSaving {
 				
 			case REINDEER_MORPH:
 				if (isPlayer) {
-					descriptionSB.append("You have an rangiferine, [pc.anusFullDescription(true)]");
+					descriptionSB.append("You have a rangiferine, [pc.anusFullDescription(true)]");
 				} else {
-					descriptionSB.append("[npc.She] has an rangiferine, [npc.anusFullDescription(true)]");
+					descriptionSB.append("[npc.She] has a rangiferine, [npc.anusFullDescription(true)]");
 				}
 				break;
 				

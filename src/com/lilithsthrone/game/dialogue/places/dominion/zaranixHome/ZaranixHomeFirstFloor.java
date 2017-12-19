@@ -93,7 +93,7 @@ public class ZaranixHomeFirstFloor {
 						|| (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()+1) != null
 								&& Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()+1).getPlace().getPlaceType()==PlaceType.ZARANIX_FF_MAID))
 					
-					&& !Main.game.getDialogueFlags().getFlag(DialogueFlagValue.zaranixKellySubdued)) {
+					&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.zaranixKellySubdued)) {
 				UtilText.nodeContentSB.append(
 						"<p style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"
 							+ "<i>"
@@ -127,7 +127,7 @@ public class ZaranixHomeFirstFloor {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getDialogueFlags().getFlag(DialogueFlagValue.zaranixKellySubdued)) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.zaranixKellySubdued)) {
 				return "<p>"
 							+ "The ivory-skinned succubus, Kelly, is slumped down against the wall."
 							+ " Her pink maid's dress is hiked up around her waist, and she lets out moan after lewd moan as with one hand she fingers herself, while the other strokes up and down the length of her throbbing cock."
@@ -174,7 +174,7 @@ public class ZaranixHomeFirstFloor {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getDialogueFlags().getFlag(DialogueFlagValue.zaranixKellySubdued)) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.zaranixKellySubdued)) {
 				if(index==1) {
 					return new ResponseSex("Use Kelly", "Have some fun with this maid.",
 							true, false, Main.game.getKelly(), new SMDomStanding(), ZaranixMaidKelly.AFTER_SEX_VICTORY,
@@ -237,7 +237,7 @@ public class ZaranixHomeFirstFloor {
 		
 		@Override
 		public boolean isTravelDisabled() {
-			return !Main.game.getDialogueFlags().getFlag(DialogueFlagValue.zaranixKellySubdued);
+			return !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.zaranixKellySubdued);
 		}
 	};
 	

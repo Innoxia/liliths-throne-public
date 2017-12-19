@@ -763,6 +763,10 @@ public class Game implements Serializable, XMLSaving {
 			updateResponses();
 		}
 		
+		if(Main.game.getCurrentWeather()!=Weather.SNOW && Main.game.getSeason()!=Season.WINTER) {
+			Main.game.getDialogueFlags().values.remove(DialogueFlagValue.hasSnowedThisWinter);
+		}
+		
 		// Slavery: TODO
 		int hoursPassed = (int) (getHour() - startHour);
 		int hourStartTo24 = (int) (startHour%24);
@@ -913,8 +917,9 @@ public class Game implements Serializable, XMLSaving {
 		Main.mainController.getTooltip().hide();
 		
 		if(!Main.game.getPlayer().getStatusEffectDescriptions().isEmpty() && Main.game.getCurrentDialogueNode()!=MiscDialogue.STATUS_EFFECTS){
-			if(Main.game.getCurrentDialogueNode().getMapDisplay()==MapDisplay.NORMAL)
+			if(Main.game.getCurrentDialogueNode().getMapDisplay()==MapDisplay.NORMAL) {
 				Main.game.saveDialogueNode();
+			}
 			
 			Main.game.setContent(new Response("", "", MiscDialogue.STATUS_EFFECTS){
 				
@@ -932,7 +937,11 @@ public class Game implements Serializable, XMLSaving {
 			Main.game.getPlayer().getStatusEffectDescriptions().clear();
 		}
 	}
-
+	
+	public Season getSeason() {
+		return Season.getSeasonFromMonth(getDateNow().getMonth());
+	}
+	
 	// Set weather and time remaining.
 	// Handles Lilith's Lust build up.
 	// Appends description of storm gathering and breaking to mainController.
@@ -959,7 +968,11 @@ public class Game implements Serializable, XMLSaving {
 						weatherTimeRemaining = 4 * 60 + Util.random.nextInt(2 * 60); // Gathering storm lasts for 4-6 hours
 					} else {
 						if (Math.random() > 0.4) { // 40% chance that will start raining
-							currentWeather = Weather.RAIN;
+							if(getSeason()==Season.WINTER) {
+								currentWeather = Weather.SNOW;
+							} else {
+								currentWeather = Weather.RAIN;
+							}
 							weatherTimeRemaining = 1 * 60 + Util.random.nextInt(5 * 60); // Rain lasts for 1-6 hours
 						} else {
 							currentWeather = Weather.CLEAR;
@@ -980,7 +993,7 @@ public class Game implements Serializable, XMLSaving {
 					weatherTimeRemaining = 8 * 60 + Util.random.nextInt(4 * 60); // Storm lasts 8-12 hours
 					break;
 					
-				case RAIN:
+				case RAIN: case SNOW:
 					if(minutesPassed >= nextStormTime) {
 						currentWeather = Weather.MAGIC_STORM_GATHERING;
 						weatherTimeRemaining = 4 * 60 + Util.random.nextInt(2 * 60); // Gathering storm lasts for 4-6 hours
@@ -1965,29 +1978,34 @@ public class Game implements Serializable, XMLSaving {
 	public String getWeatherImage() {
 		if (isDayTime()) {
 			switch (currentWeather) {
-			case CLEAR:
-				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherDayClear();
-			case CLOUD:
-				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherDayCloud();
-			case RAIN:
-				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherDayRain();
-			case MAGIC_STORM_GATHERING:
-				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherDayStormIncoming();
-			case MAGIC_STORM:
-				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherDayStorm();
+				case CLEAR:
+					return SVGImages.SVG_IMAGE_PROVIDER.getWeatherDayClear();
+				case CLOUD:
+					return SVGImages.SVG_IMAGE_PROVIDER.getWeatherDayCloud();
+				case RAIN:
+					return SVGImages.SVG_IMAGE_PROVIDER.getWeatherDayRain();
+				case SNOW:
+					return SVGImages.SVG_IMAGE_PROVIDER.getWeatherDaySnow();
+				case MAGIC_STORM_GATHERING:
+					return SVGImages.SVG_IMAGE_PROVIDER.getWeatherDayStormIncoming();
+				case MAGIC_STORM:
+					return SVGImages.SVG_IMAGE_PROVIDER.getWeatherDayStorm();
 			}
+			
 		} else {
 			switch (currentWeather) {
-			case CLEAR:
-				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightClear();
-			case CLOUD:
-				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightCloud();
-			case RAIN:
-				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightRain();
-			case MAGIC_STORM_GATHERING:
-				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightStormIncoming();
-			case MAGIC_STORM:
-				return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightStorm();
+				case CLEAR:
+					return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightClear();
+				case CLOUD:
+					return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightCloud();
+				case RAIN:
+					return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightRain();
+				case SNOW:
+					return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightSnow();
+				case MAGIC_STORM_GATHERING:
+					return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightStormIncoming();
+				case MAGIC_STORM:
+					return SVGImages.SVG_IMAGE_PROVIDER.getWeatherNightStorm();
 			}
 		}
 		return "";

@@ -257,11 +257,11 @@ public class Tail implements BodyPartInterface, Serializable {
 					UtilText.transformationContentSB.append(
 							(owner.getTailCount()==1
 								?" A reindeer-like tail sprouts from just above your ass, rapidly growing in width until it takes up about a third of your rear."
-									+ " You quickly discover that your control over it is limited to twitching it."
+									+ " You quickly discover that your control over it is limited to simply twitching it up and down."
 									+ "</br>"
 									+ "You now have a [style.boldReindeerMorph(reindeer-like tail)]"
 								:" [pc.TailCount] reindeer-like tails sprout from just above your ass, rapidly growing in width until they take up about a third of your rear."
-									+ " You quickly discover that your control over them is limited to twitching them."
+									+ " You quickly discover that your control over them is limited to simply twitching them up and down."
 									+ "</br>"
 									+ "You now have [pc.tailCount] [style.boldReindeerMorph(reindeer-like tails)]")
 							);
@@ -269,11 +269,11 @@ public class Tail implements BodyPartInterface, Serializable {
 					UtilText.transformationContentSB.append(
 							(owner.getTailCount()==1
 								?" A reindeer-like tail sprouts from just above [npc.her] ass, rapidly growing in width until it takes up about a third of [npc.her] rear."
-									+ " [npc.She] quickly discovers that [npc.her] control over it is limited to twitching it."
+									+ " [npc.She] quickly discovers that [npc.her] control over it is limited to simply twitching it up and down."
 									+ "</br>"
 									+ "[npc.Name] now has a [style.boldReindeerMorph(reindeer-like tail)]"
 								:" [npc.TailCount] reindeer-like tails sprout from just above [npc.her] ass, rapidly growing in width until they take up about a third of [npc.her] rear."
-									+ " [npc.She] quickly discovers that [npc.her] control over them is limited to twitching them."
+									+ " [npc.She] quickly discovers that [npc.her] control over them is limited to simply twitching them up and down."
 									+ "</br>"
 									+ "[npc.Name] now has [npc.tailCount] [style.boldReindeerMorph(reindeer-like tails)]")
 							);

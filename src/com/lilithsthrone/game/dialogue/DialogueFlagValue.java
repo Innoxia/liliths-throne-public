@@ -8,6 +8,7 @@ package com.lilithsthrone.game.dialogue;
 public enum DialogueFlagValue {
 	quickTrade,
 	stormTextUpdateRequired,
+	hasSnowedThisWinter,
 	
 	// Essence reactions:
 	jinxedClothingDiscovered,

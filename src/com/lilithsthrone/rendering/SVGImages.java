@@ -33,8 +33,8 @@ public enum SVGImages {
 
 			perkTreeArrow, spellOverlay,
 
-			weatherDayClear, weatherDayCloud, weatherDayRain, weatherDayStormIncoming, weatherDayStorm, weatherDayStormProtected,
-			weatherNightClear, weatherNightCloud, weatherNightRain, weatherNightStormIncoming, weatherNightStorm, weatherNightStormProtected,
+			weatherDayClear, weatherDayCloud, weatherDayRain, weatherDaySnow, weatherDayStormIncoming, weatherDayStorm, weatherDayStormProtected,
+			weatherNightClear, weatherNightCloud, weatherNightRain, weatherNightSnow, weatherNightStormIncoming, weatherNightStorm, weatherNightStormProtected,
 
 			womensWatchHourHand, womensWatchMinuteHand, mensWatchHourHand, mensWatchMinuteHand,
 			
@@ -175,6 +175,8 @@ public enum SVGImages {
 			weatherDayCloud = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/weatherDayRain.svg");
 			weatherDayRain = Util.inputStreamToString(is);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/weatherDaySnow.svg");
+			weatherDaySnow = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/weatherDayStormIncoming.svg");
 			weatherDayStormIncoming = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/weatherDayStorm.svg");
@@ -189,6 +191,8 @@ public enum SVGImages {
 			weatherNightCloud = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/weatherNightRain.svg");
 			weatherNightRain = Util.inputStreamToString(is);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/weatherNightSnow.svg");
+			weatherNightSnow = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/weatherNightStormIncoming.svg");
 			weatherNightStormIncoming = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/weatherNightStorm.svg");
@@ -585,6 +589,10 @@ public enum SVGImages {
 	public String getWeatherDayRain() {
 		return weatherDayRain;
 	}
+	
+	public String getWeatherDaySnow() {
+		return weatherDaySnow;
+	}
 
 	public String getWeatherDayStormIncoming() {
 		return weatherDayStormIncoming;
@@ -608,6 +616,10 @@ public enum SVGImages {
 
 	public String getWeatherNightRain() {
 		return weatherNightRain;
+	}
+	
+	public String getWeatherNightSnow() {
+		return weatherNightSnow;
 	}
 
 	public String getWeatherNightStormIncoming() {

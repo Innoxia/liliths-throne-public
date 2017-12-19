@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.Season;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.History;
@@ -18,6 +19,7 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.Attack;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.alleyway.AlleywayAttackerDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.alleyway.AlleywayProstituteDialogue;
@@ -94,6 +96,10 @@ public class DominionAlleywayAttacker extends NPC {
 					new Value<>(Race.SQUIRREL_MORPH, 10),
 					new Value<>(Race.COW_MORPH, 10),
 					new Value<>(Race.ALLIGATOR_MORPH, 5));
+			
+			if(Main.game.getSeason()==Season.WINTER && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter)) {
+				availableRaces.put(Race.REINDEER_MORPH, 10);
+			}
 			
 			if(gender.isFeminine()) {
 				for(Entry<Race, FurryPreference> entry : Main.getProperties().raceFemininePreferencesMap.entrySet()) {

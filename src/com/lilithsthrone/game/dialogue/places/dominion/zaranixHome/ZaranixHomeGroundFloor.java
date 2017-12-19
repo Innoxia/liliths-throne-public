@@ -63,7 +63,7 @@ public class ZaranixHomeGroundFloor {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getDialogueFlags().getFlag(DialogueFlagValue.zaranixDiscoveredHome)) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.zaranixDiscoveredHome)) {
 				return "<p>"
 							+ "Once more you find yourself standing outside Zaranix's home."
 							+ " Much like all the other buildings in this area of the city, the incubi's residence takes the form of a grand, regency-style townhouse."
@@ -71,7 +71,7 @@ public class ZaranixHomeGroundFloor {
 							+ " A cast-iron fence, standing at around eight-feet tall, separates the garden from the street in which you're standing, but despite its height, you're sure that you could climb over it if you wanted to try and sneak inside."
 						+ "</p>"
 						+ "<p>"
-							+ (Main.game.getDialogueFlags().getFlag(DialogueFlagValue.zaranixMaidsHostile)
+							+ (Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.zaranixMaidsHostile)
 									? "As Zaranix's demonic maids are sure to recognise you on sight, you decide that knocking on the door would be an extremely bad idea."
 										+ " You'll have to either sneak in through the garden, or try to kick in the door and storm the place before the maids can call for help."
 									:"Then again, you could always just knock on the door like a regular visitor."
@@ -100,7 +100,7 @@ public class ZaranixHomeGroundFloor {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				if(Main.game.getDialogueFlags().getFlag(DialogueFlagValue.zaranixMaidsHostile)) {
+				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.zaranixMaidsHostile)) {
 					return new Response("Knock door", "Zaranix's maids will recognise you on sight, and won't let you in. You'll have to find another way to get inside.", null);
 				}
 				return new Response("Knock door", "Knock on the door and wait for someone to answer.", OUTSIDE_KNOCK_ON_DOOR) {
@@ -141,7 +141,7 @@ public class ZaranixHomeGroundFloor {
 				};
 
 			} else if (index == 3) {
-				if(Main.game.getDialogueFlags().getFlag(DialogueFlagValue.zaranixKickedDownDoor)) {
+				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.zaranixKickedDownDoor)) {
 					return new Response("Kick down door", "After your last entrance, the front door has been reinforced. You're unable to enter like this again.", null);
 					
 				} else if(Main.game.getPlayer().getAttributeValue(Attribute.STRENGTH) >= StrengthLevel.THREE_POWERFUL.getMinimumValue()) {
@@ -188,7 +188,7 @@ public class ZaranixHomeGroundFloor {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getDialogueFlags().getFlag(DialogueFlagValue.zaranixKnockedOnDoor)) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.zaranixKnockedOnDoor)) {
 				return "<p>"
 							+ "You decide to try knocking on the door again."
 							+ " After all, maybe a more reasonable maid will answer this time?"
@@ -228,7 +228,7 @@ public class ZaranixHomeGroundFloor {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getDialogueFlags().getFlag(DialogueFlagValue.zaranixKnockedOnDoor)) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.zaranixKnockedOnDoor)) {
 				if (index == 1) {
 					return new Response("Step back", "Step back from the door and think about finding another way in.", OUTSIDE) {
 						@Override
@@ -1366,7 +1366,7 @@ public class ZaranixHomeGroundFloor {
 					+ "<p>"
 						+ "[amber.speech(Be quiet Katherine! Get on with your work, I'll deal with this!)]"
 					+ "</p>"
-					+ (Main.game.getDialogueFlags().getFlag(DialogueFlagValue.zaranixKnockedOnDoor)
+					+ (Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.zaranixKnockedOnDoor)
 							?"<p>"
 								+ "Before you have the chance to take any action, the fiery-haired succubus maid who answered the door to you enters the hall."
 								+ " As her glowing-amber eyes fixate themselves onto yours, 'Miss Amber' screams,"
@@ -1533,7 +1533,7 @@ public class ZaranixHomeGroundFloor {
 						+ "You could use the stairs here to gain access to the first floor, which is where you're sure to find Zaranix."
 					+ "</p>");
 			
-			if(!Main.game.getDialogueFlags().getFlag(DialogueFlagValue.zaranixKatherineSubdued)) {
+			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.zaranixKatherineSubdued)) {
 				UtilText.nodeContentSB.append(
 						"<p style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"
 							+ "<i>"
@@ -1586,7 +1586,7 @@ public class ZaranixHomeGroundFloor {
 			
 			if(Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()-1) != null
 					&& Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()-1).getPlace().getPlaceType()==PlaceType.ZARANIX_GF_MAID
-					&& !Main.game.getDialogueFlags().getFlag(DialogueFlagValue.zaranixKatherineSubdued)) {
+					&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.zaranixKatherineSubdued)) {
 				UtilText.nodeContentSB.append(
 						"<p style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"
 							+ "<i>"
@@ -1732,7 +1732,7 @@ public class ZaranixHomeGroundFloor {
 			
 			if(Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX()-1, Main.game.getPlayer().getLocation().getY()) != null
 					&& Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX()-1, Main.game.getPlayer().getLocation().getY()).getPlace().getPlaceType()==PlaceType.ZARANIX_GF_MAID
-					&& !Main.game.getDialogueFlags().getFlag(DialogueFlagValue.zaranixKatherineSubdued)) {
+					&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.zaranixKatherineSubdued)) {
 				UtilText.nodeContentSB.append(
 						"<p style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"
 							+ "<i>"
@@ -1766,7 +1766,7 @@ public class ZaranixHomeGroundFloor {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getDialogueFlags().getFlag(DialogueFlagValue.zaranixKatherineSubdued)) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.zaranixKatherineSubdued)) {
 				return "<p>"
 							+ "The ivory-skinned succubus, Katherine, is slumped down against the wall."
 							+ " Her pink maid's dress is hiked up around her waist, and she lets out moan after lewd moan as with one hand she fingers herself, while the other strokes up and down the length of her throbbing cock."
@@ -1813,7 +1813,7 @@ public class ZaranixHomeGroundFloor {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getDialogueFlags().getFlag(DialogueFlagValue.zaranixKatherineSubdued)) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.zaranixKatherineSubdued)) {
 				if(index==1) {
 					return new ResponseSex("Use Katherine", "Have some fun with this maid.",
 							true, false, Main.game.getKatherine(), new SMDomStanding(), ZaranixMaidKatherine.AFTER_SEX_VICTORY,
@@ -1876,7 +1876,7 @@ public class ZaranixHomeGroundFloor {
 		
 		@Override
 		public boolean isTravelDisabled() {
-			return !Main.game.getDialogueFlags().getFlag(DialogueFlagValue.zaranixKatherineSubdued);
+			return !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.zaranixKatherineSubdued);
 		}
 	};
 	
@@ -1932,7 +1932,7 @@ public class ZaranixHomeGroundFloor {
 						+ "There doesn't appear to be anyone here right now, so you should probably continue on your way..."
 					+ "</p>";
 				
-			} else if(Main.game.getDialogueFlags().getFlag(DialogueFlagValue.zaranixAmberSubdued)) {
+			} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.zaranixAmberSubdued)) {
 				return "<p>"
 						+ "You find yourself standing in Zaranix's grand drawing room."
 						+ " Several sofas and chairs are tastefully arranged around a low table in the centre of the room, while numerous bookcases and cabinets line the floral-wallpapered walls."
@@ -1945,7 +1945,7 @@ public class ZaranixHomeGroundFloor {
 						+ "</i>"
 					+ "</p>";
 				
-			} else if(Main.game.getDialogueFlags().getFlag(DialogueFlagValue.zaranixKnockedOnDoor) || Main.game.getAmber().getFoughtPlayerCount()!=0) {
+			} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.zaranixKnockedOnDoor) || Main.game.getAmber().getFoughtPlayerCount()!=0) {
 				return "<p>"
 						+ "Carefully opening a heavy oaken door, you find yourself stepping into a grand drawing room."
 						+ " Several sofas and chairs are tastefully arranged around a low table in the centre of the room, while numerous bookcases and cabinets line the floral-wallpapered walls."
@@ -1981,7 +1981,7 @@ public class ZaranixHomeGroundFloor {
 			if(Main.game.getAmber().getLocationPlace().getPlaceType()!=PlaceType.ZARANIX_GF_LOUNGE) {
 				return null;
 				
-			} else if(Main.game.getDialogueFlags().getFlag(DialogueFlagValue.zaranixAmberSubdued)) {
+			} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.zaranixAmberSubdued)) {
 				if(index==1) {
 					return new ResponseSex("Use Amber", "Have some fun with this fiery maid.",
 							true, false, Main.game.getAmber(), new SMDomStanding(), Amber.AFTER_SEX_VICTORY,
@@ -2070,7 +2070,7 @@ public class ZaranixHomeGroundFloor {
 						+ " As she sees who you really are, her sentence is suddenly cut off, and an angry scowl covers her face."
 						+ " Her eyes, glowing amber just like her hair, lock onto yours, and she shouts, ");
 			
-			if(Main.game.getDialogueFlags().getFlag(DialogueFlagValue.zaranixKnockedOnDoor) || Main.game.getAmber().getFoughtPlayerCount()!=0) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.zaranixKnockedOnDoor) || Main.game.getAmber().getFoughtPlayerCount()!=0) {
 				UtilText.nodeContentSB.append("[amber.speech(You again?! How the fuck did you get in here?! You're in big trouble now!)]");
 			} else {
 				UtilText.nodeContentSB.append("[amber.speech(Who the fuck are you?! How the fuck did you get in here?! Whoever you are, you're in big trouble now!)]");

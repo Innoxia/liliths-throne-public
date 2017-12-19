@@ -93,7 +93,7 @@ public class DialogueFlags implements Serializable, XMLSaving {
 		return newFlags;
 	}
 
-	public boolean getFlag(DialogueFlagValue flag) {
+	public boolean hasFlag(DialogueFlagValue flag) {
 		return values.contains(flag);
 	}
 	

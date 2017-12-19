@@ -17,11 +17,14 @@
 	
 	<b>There were several bug reports (mainly the game's options locking up) that I was unable to reproduce. If you're having issues like that, please try exporting, then importing your game.</b>
 	
+	Gameplay:
+		Added weather type snow, which only occurs during winter (December, January, & February).
+		Added reindeer-morph encounters in alleyways during winter (they'll start appearing after it's snowed for the first time).
+	
 	Contributors:
 		Minor fix to Gator's Gumbo usage text. (by Rfpnj)
 		<b>Added reindeer morphs.</b> (by Rfpnj)
 		
-	
 	Other:
 		Nyan's hair and fur colours are now black.
 		Reduced maximum prostitute spawn chance from 50% to 30%.
@@ -32,6 +35,7 @@
 		Made all self-actions in sex have the masturbation fetish associated with them.
 		Added amber & grey colours for demon skin.
 		Added cock length to selfie/character viewer screens.
+		Updated all weather status effect icons.
 	
 	Bugs:
 		Fixed another cause of game imports not working.
@@ -59,16 +63,37 @@
 	
 	
 	
-	reindeer:
-		got to Face
-		restrict reindeer-morph spawns
+	8chan bugs
+	TFGS response & update
+	Jam commission
 	
 	
 	
+During arcane storm facing a random encounter on generic title and winning by dismissal, (just leave not using removal option), bug out the map and stop listening to mouse commands, keyboard still work and restore functionality after moving
+
+
+Is there a bug where if you attempt to get a submissive partner to fuck you in the ass, they'll do thigh sex and not stop no matter what you do?  Or are the characters in my game just scared of buttholes?
+
+Feline Fancy now open the enchanting screen for strength instead of intelligence as it should
+
+ Contrary to my hopes and dreams, you cannot use your tail to penetrate as a gator. Hopefully this is a bug. (Magic ought to be able to add prehensibility(?)!)
+	
+	"Morph difficulty": Enemies level up alongside your character and do normal (100%) damage.
 	
 	
+A small problem I just noticed, I tried to enable 'Light Theme' out of curiosity and everything displayed badly, White buttons on a white background, a list of shortcut key vertically on the left. It seemed to be in mobile device display mode but still with white text on a white background, except for the shortcut key references.
+
+	I'll add a way to change the date in the debug menu for the next release! ^^
 	
+The pullout thing is slightly bugged. In some cases, I've requested a pull-out, but then MC cums and it only gives the option to "Stay in position," which always results in a creampie. I will mention this is always during NC content.
 	
+Npc's are doing that black magic voodoo thing where they're pulling up my chemise from beneath my slip dress without pulling that up.
+
+	tell the NPCs to stop being so obsessed with thigh sex for the next version
+	
+	 I discovered that if you accidentally make too many slaves have overlapping shifts at the stocks, the cell is full and you're unable to enter it.	
+	 
+	 give NPCs a small chance to spawn with addictive fluids for this next update
 	
 	Having the Denial Fetish should turn the 'Sexually Frustrated' penalty into a bonus of some sort
 	
@@ -102,11 +127,6 @@
 	  Also initiating sex with them and (immediately) ending it makes it impossible to continue. I tested it in both versions and it's broken in both.
 	(Can confirm alligator morphs seem to break the game.)
 	
-	
-	
-	Patreon poll & messages & art
-	8chan bugs
-	TFGS response & update
 	
 	
 	

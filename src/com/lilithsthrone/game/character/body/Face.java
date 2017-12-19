@@ -248,15 +248,16 @@ public class Face implements BodyPartInterface, Serializable {
 			case REINDEER_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
-								" You feel your nose and mouth twitching and transforming as they push out into an anthropomorphic rangiferine muzzle, and your tongue grows thicker and stronger, turning into a reindeer-like tongue."
+								" You feel your nose and mouth twitching and transforming as they push out into an anthropomorphic reindeer-like muzzle, and your tongue grows thicker and stronger, turning into a rangiferine tongue."
 								+ " A layer of [pc.faceSkin+] quickly grows to cover your new face, and as the transformation finally comes to an end, you're left panting as you try to recover and catch your breath.</br>"
 								+ "You now have an anthropomorphic [style.boldReindeerMorph(reindeer-like face)], covered in [pc.faceFullDescription], and within your mouth, you have a [style.boldReindeerMorph(strong, reindeer-like tongue)]."
 							+ "</p>");
 				} else {
 					UtilText.transformationContentSB.append(UtilText.parse(owner,
-								" [npc.Her] nose and mouth twitch and transform as they push out into an anthropomorphic rangiferine muzzle, and [npc.her] tongue grows thicker and stronger, turning into a reindeer-like tongue."
+								" [npc.Her] nose and mouth twitch and transform as they push out into an anthropomorphic reindeer-like muzzle, and [npc.her] tongue grows thicker and stronger, turning into a rangiferine tongue."
 								+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, and as the transformation finally comes to an end, [npc.she]'s left panting as [npc.she] tries to recover and catch [npc.her] breath.</br>"
-								+ "[npc.Name] now has an anthropomorphic [style.boldReindeerMorph(reindeer-like face)], covered in [npc.faceFullDescription], and within [npc.her] mouth, [npc.she] has a [style.boldReindeerMorph(strong, reindeer-like tongue)]."
+								+ "[npc.Name] now has an anthropomorphic [style.boldReindeerMorph(reindeer-like face)], covered in [npc.faceFullDescription],"
+									+ " and within [npc.her] mouth, [npc.she] has a [style.boldReindeerMorph(strong, reindeer-like tongue)]."
 							+ "</p>"));
 				}
 				break;
