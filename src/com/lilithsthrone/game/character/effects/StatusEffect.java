@@ -1895,7 +1895,10 @@ public enum StatusEffect {
 			"raceReindeerMorph",
 			Colour.RACE_REINDEER_MORPH,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.FITNESS, 5f), new Value<Attribute, Float>(Attribute.STRENGTH, 5f)),
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.FITNESS, 5f),
+					new Value<Attribute, Float>(Attribute.STRENGTH, 5f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 10f)),
 			null) {
 
 		@Override
@@ -1905,11 +1908,11 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			if (target.isPlayer())
-				return "Your body possesses more strength, and you feel fitter.";
-			else
-				return UtilText.parse(target, target.getName("The")
-						+ "'s body possesses more strength, [npc.her] looks fitter.");
+			if (target.isPlayer()) {
+				return "Your reindeer-like body grants you significant resistance to the cold, as well as an increase in strength and fitness.";
+			} else {
+				return UtilText.parse(target, "[npc.Name]'s reindeer-like body grants [npc.herHim] significant resistance to the cold, as well as an increase in strength and fitness.");
+			}
 		}
 
 		@Override
@@ -1990,6 +1993,11 @@ public enum StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.getRace() == Race.ALLIGATOR_MORPH
 					&& target.getRaceStage() == RaceStage.GREATER;
+		}
+		
+		@Override
+		protected boolean needsDesaturated() {
+			return true;
 		}
 	},
 

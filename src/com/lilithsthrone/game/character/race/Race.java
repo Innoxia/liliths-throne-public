@@ -365,7 +365,7 @@ public enum Race {
 
 	
 	 REINDEER_MORPH(
-			 "reindeer morph","reindeer-morphs",
+			 "reindeer morph", "reindeer-morphs",
 				
 			"reindeer-boy",
 			"reindeer-girl",
@@ -373,18 +373,34 @@ public enum Race {
 			"reindeer-boys",
 			"reindeer-girls",
 
-		 "Lore to be added",
-		 "lore to be added",
+			"<p>"
+				+ "Reindeer-morphs are one of the rarer anthropomorphic races found in this world, and are almost exclusively found in the snowy tundra area far from Dominion."
+				+ " A large pair of multiple-branching antlers are usually enough to identify a reindeer-morph, the rounded shape of which is noticeably different from the sharper antlers of the more common deer-morphs."
+			+ "</p>",
+				
+			"<p>"
+				+ "Reindeer-morphs are, for most of the year, an extremely rare sight to see outside of their traditional tundra homeland."
+				+ " During the winter months, however, large groups of reindeer-morphs travel to Dominion, where they work to keep the streets shovelled clear of snow."
+				+ " These reindeer work-gangs usually operate under a dominant male or female reindeer-morph, although on occasion some groups can be found to be working for an overseer of a different race."
+			+ "</p>"
+			+ "<p>"
+				+ "Reindeer-morphs, like all non-demonic races, get heavily affected by arcane storms."
+				+ " Being exposed to arcane thunder will make reindeer-boys enter a potent rut, which, when combined with their strength and stamina, makes them very dangerous to meet in the middle of an arcane storm."
+				+ " Reindeer-girls will react to arcane thunder by going into heat, and will force themselves on anyone they might come across."
+			+ "</p>"
+			+ "<p>"
+				+ "A reindeer-morph's offspring will be a mixture of reindeer-morphs and offspring of their partner's race."
+			+ "</p>",
 		 
 	  Colour.RACE_REINDEER_MORPH,
-			Genus.RODENT,
+			Genus.RANGIFERINE,
 			Disposition.CIVILIZED,
 			StatusEffect.REINDEER_MORPH,
 			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SPECIAL_ATTACK), new ListValue<Attack>(Attack.MAIN)),
 			true,
 			0.5f,
-			6,
-			10,
+			1,
+			2,
 			Attribute.DAMAGE_REINDEER_MORPH,
 			Attribute.RESISTANCE_REINDEER_MORPH,
 			FurryPreference.NORMAL,

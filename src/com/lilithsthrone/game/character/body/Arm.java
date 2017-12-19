@@ -205,17 +205,17 @@ public class Arm implements BodyPartInterface, Serializable {
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 								" Within a matter of moments, a layer of [pc.armFullDescription] has quickly grown over them, and, looking down,"
-										+ " you see your hair growing over the backs of your new hands as tough, hoof-like nails push out in place of regular, human-like ones."
+										+ " you see your fur growing over the backs of your new hands as tough, hoof-like nails push out in place of regular, human-like ones."
 								+ " Despite their appearance, you're relieved to discover that your hands have lost none of their dexterity."
-								+ " As the transformation comes to an end, you see that at your upper-biceps, your new hair smoothly transitions into the [pc.skin] that's covering the rest of your body.</br>"
+								+ " As the transformation comes to an end, you see that at your upper-biceps, your new fur smoothly transitions into the [pc.skin] that's covering the rest of your body.</br>"
 								+ "You're left with anthropomorphic, [style.boldReindeerMorph(reindeer-like arms and hands)], which are covered in [pc.armFullDescription]."
 							+ "</p>");
 				} else {
 					UtilText.transformationContentSB.append(
 								" Within a matter of moments, a layer of [npc.armFullDescription] has quickly grown over them, and, looking down,"
-										+ " [npc.she] sees [npc.her] hair growing over the backs of [npc.her] new hands as tough, hoof-like nails push out in place of regular, human-like ones."
+										+ " [npc.she] sees [npc.her] fur growing over the backs of [npc.her] new hands as tough, hoof-like nails push out in place of regular, human-like ones."
 								+ " Despite their appearance, [npc.she]'s relieved to discover that [npc.her] hands have lost none of their dexterity."
-								+ " As the transformation comes to an end, [npc.she] sees that at [npc.her] upper-biceps, [npc.her] new hair smoothly transitions into the [npc.skin] that's covering the rest of [npc.her] body.</br>"
+								+ " As the transformation comes to an end, [npc.she] sees that at [npc.her] upper-biceps, [npc.her] new fur smoothly transitions into the [npc.skin] that's covering the rest of [npc.her] body.</br>"
 								+ "[npc.Name] is left with anthropomorphic, [style.boldReindeerMorph(reindeer-like arms and hands)], which are covered in [npc.armFullDescription]."
 							+ "</p>");
 				}

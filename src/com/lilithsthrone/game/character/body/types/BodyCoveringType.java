@@ -200,15 +200,15 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 	REINDEER_FUR(Race.REINDEER_MORPH,
 			"a layer of",
 			false,
-			"hair",
-			"hair",
+			"fur",
+			"fur",
 			"",
 			Util.newArrayListOfValues(
-					new ListValue<CoveringPattern>(CoveringPattern.NONE),
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
+			Util.newArrayListOfValues(
 					new ListValue<CoveringPattern>(CoveringPattern.MOTTLED),
 					new ListValue<CoveringPattern>(CoveringPattern.SPOTTED),
-					new ListValue<CoveringPattern>(CoveringPattern.STRIPED)),
-			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.STRIPED),
 					new ListValue<CoveringPattern>(CoveringPattern.HIGHLIGHTS)),
 			Colour.naturalFurColours,
 			Colour.dyeFurColours,
@@ -218,8 +218,8 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 	BOVINE_FUR(Race.COW_MORPH,
 			"a layer of",
 			false,
-			"hair",
-			"hair",
+			"fur",
+			"fur",
 			"",
 			Util.newArrayListOfValues(
 					new ListValue<CoveringPattern>(CoveringPattern.NONE),
@@ -504,7 +504,7 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 			Colour.hornColours,
 			null),
 
-	ANTLER(Race.HUMAN,
+	ANTLER_REINDEER(Race.REINDEER_MORPH,
 			"a layer of",
 			false,
 			"velvet",
@@ -665,9 +665,9 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 			"hair",
 			"coarse",
 			Util.newArrayListOfValues(
-					new ListValue<CoveringPattern>(CoveringPattern.NONE),
-					new ListValue<CoveringPattern>(CoveringPattern.HIGHLIGHTS)),
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
 			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.HIGHLIGHTS),
 					new ListValue<CoveringPattern>(CoveringPattern.MOTTLED),
 					new ListValue<CoveringPattern>(CoveringPattern.SPOTTED),
 					new ListValue<CoveringPattern>(CoveringPattern.STRIPED)),

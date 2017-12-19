@@ -15,7 +15,8 @@ public enum HornType implements BodyPartTypeInterface {
 	BOVINE_CURVED("curved", BodyCoveringType.HORN, Race.COW_MORPH),
 	BOVINE_STRAIGHT("straight", BodyCoveringType.HORN, Race.COW_MORPH),
 	
-	REINDEER_RACK("Multi-branched Rack", BodyCoveringType.ANTLER, Race.REINDEER_MORPH),
+	REINDEER_RACK("multi-branched", BodyCoveringType.ANTLER_REINDEER, Race.REINDEER_MORPH),
+	
 	CURLED("curled", BodyCoveringType.HORN, Race.DEMON),
 	SPIRAL("spiral", BodyCoveringType.HORN, Race.DEMON),
 	CURVED("curved", BodyCoveringType.HORN, Race.DEMON),

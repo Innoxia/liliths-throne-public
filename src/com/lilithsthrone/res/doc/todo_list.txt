@@ -18,7 +18,8 @@
 	<b>There were several bug reports (mainly the game's options locking up) that I was unable to reproduce. If you're having issues like that, please try exporting, then importing your game.</b>
 	
 	Contributors:
-		Minor fix to Gator's Gumbo usage text. (by rfpnj)
+		Minor fix to Gator's Gumbo usage text. (by Rfpnj)
+		<b>Added reindeer morphs.</b> (by Rfpnj)
 		
 	
 	Other:
@@ -58,8 +59,9 @@
 	
 	
 	
-	
-	
+	reindeer:
+		got to Face
+		restrict reindeer-morph spawns
 	
 	
 	
@@ -129,7 +131,6 @@
 	
 	
 	
-	Innoxia you will need to look at gamecharacter.java lines 5101 to adjust them for antlers
 	
 	Main char has wings that "are large enough that they can be used to allow you to fly", but "Fly after her" is disabled when Alexa heads off to give Scarlet a woopin' because I have no wings?
 	

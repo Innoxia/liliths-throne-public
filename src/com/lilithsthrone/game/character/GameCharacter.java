@@ -5116,17 +5116,29 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				if(bct!=null) {
 					body.getBodyCoveringTypesDiscovered().add(bct);
 					
+					String bctName = bct.getRace().getName();
+					if(bct == BodyCoveringType.HORN) {
+						bctName = "horn";
+					}
+					if(bct == BodyCoveringType.ANTLER_REINDEER) {
+						bctName = "antler";
+					}
+					
 					if(displayColourDiscovered) {
 						if(isPlayer()) {
 							postTFSB.append(
 									"<b>You have discovered that your natural</b> "
-									+ (bct == BodyCoveringType.HORN ? "<b>horn's</b>" : "<b style='color:"+bct.getRace().getColour().toWebHexString()+";'>"+bct.getRace().getName()+"'s</b>")
-									+ " <b>"+bct.getName(this)+" colour is "+getCovering(bct).getColourDescriptor(true, false)+"!</b>");
+									+ (bct == BodyCoveringType.HORN
+										? "<b>"+bctName+"'s"
+										: "<b style='color:"+bct.getRace().getColour().toWebHexString()+";'>"+bctName+"'s</b> <b>"+bct.getName(this))
+									+" colour is "+getCovering(bct).getColourDescriptor(true, false)+"!</b>");
 						} else {
 							postTFSB.append(UtilText.parse(this,
 									"<b>[npc.Name] has discovered that [npc.her] natural</b> "
-									+ (bct == BodyCoveringType.HORN ? "<b>horn's</b>" : "<b style='color:"+bct.getRace().getColour().toWebHexString()+";'>"+bct.getRace().getName()+"'s</b>")
-									+ " <b>"+bct.getName(this)+" colour is "+getCovering(bct).getColourDescriptor(true, false)+"!</b>"));
+									+ (bct == BodyCoveringType.HORN
+										? "<b>"+bctName+"'s"
+										: "<b style='color:"+bct.getRace().getColour().toWebHexString()+";'>"+bctName+"'s</b> <b>"+bct.getName(this))
+									+" colour is "+getCovering(bct).getColourDescriptor(true, false)+"!</b>"));
 						}
 					}
 				}
