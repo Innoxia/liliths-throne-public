@@ -549,7 +549,11 @@ public class SlaveDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			UtilText.nodeContentSB.append("<p>"
+			UtilText.nodeContentSB.append(
+					"<p>"
+						+ "<i>This isn't fully implemented yet!</i>"
+					+ "</p>"
+					+ "<p>"
 						+ "Deciding that you'd like to talk to [npc.name] about something a little more serious, you ask [npc.herHim] about [npc.her] life before becoming your slave,"
 						+ " [pc.speech(I'd like to know a little more about your past, [npc.name]. What was your life like before coming here?)]"
 					+ "</p>"
@@ -592,15 +596,15 @@ public class SlaveDialogue {
 					switch(ObedienceLevelBasic.getObedienceLevelFromValue(Main.game.getActiveNPC().getObedienceValue())) { //TODO
 						case DISOBEDIENT:
 							UtilText.nodeContentSB.append("Barely able to contain [npc.her] excitement at being asked about [npc.her] past life, [npc.name] quickly responds,"
-									+ " [npc.speech(Thanks for asking [npc.pcName]! Oh, there's so much to talk about !)]");
+									+ " [npc.speech(Thanks for asking [npc.pcName]! Oh, but maybe we should talk about this some other time...)]");
 							break;
 						case NEUTRAL:
 							UtilText.nodeContentSB.append("[npc.Name] smiles as you ask [npc.herHim] about [npc.her] past life, and responds,"
-									+ " [npc.speech(Hello [npc.pcName]! How are you? Is there anything I can do for you?)]");
+									+ " [npc.speech(Ah, [npc.pcName], maybe we should talk about this some other time...)]");
 							break;
 						case OBEDIENT:
 							UtilText.nodeContentSB.append("Clearly happy at being asked about [npc.her] past life, [npc.name] quickly responds,"
-									+ " [npc.speech(Hello [npc.pcName]! Is there anything I can do for you?)]");
+									+ " [npc.speech(I'm sorry, [npc.pcName], but we'll have to talk about this some other time...)]");
 							break;
 					}
 					break;
@@ -1714,7 +1718,7 @@ public class SlaveDialogue {
 						case DISOBEDIENT:
 							firstCry = "a startled cry";
 							firstReaction = "starts squirming and trying to shift [npc.her] body away from your touch";
-							firstSpeech = "[npc.PcName]! I thought you liked me?! W-WHy are you doing this?!";
+							firstSpeech = "[npc.PcName]! I thought you liked me?! W-Why are you doing this?!";
 							firstPCReaction = "[npc.Her] distressed tone does nothing to deter your advance upon [npc.her] body";
 							
 							secondReaction = "[npc.She] continues to struggle a little";

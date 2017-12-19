@@ -61,11 +61,11 @@ public class Nyan extends NPC {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
 			this.setEyeCovering(new Covering(BodyCoveringType.EYE_FELINE, Colour.EYE_BLUE));
-			this.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, Colour.COVERING_BLONDE), true);
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, Colour.COVERING_BLACK), true);
 			this.setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
 			this.setHairStyle(HairStyle.LOOSE);
 			
-			this.setSkinCovering(new Covering(BodyCoveringType.FELINE_FUR, Colour.COVERING_WHITE), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.FELINE_FUR, Colour.COVERING_BLACK), true);
 			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
 	
 			this.setBreastSize(CupSize.B.getMeasurement());
@@ -103,6 +103,8 @@ public class Nyan extends NPC {
 		Nyan npc = new Nyan(true);
 
 		loadNPCVariablesFromXML(npc, null, parentElement, doc);
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, Colour.COVERING_BLACK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.FELINE_FUR, Colour.COVERING_BLACK), true);
 		
 		return npc;
 	}

@@ -512,9 +512,7 @@ public class OptionsDialogue {
 					+ "-"
 					+ "</td>"
 					+ "<td style='min-width:200px;'>"
-						+"<form style='padding:0;margin:0;text-align:center;'><input type='text' id='new_save_name' value='"
-						+ "New Save"
-						+ "'>"
+						+"<form style='padding:0;margin:0;text-align:center;'><input type='text' id='new_save_name' value='New Save'>"
 						+ "</form>"
 					+ "</td>"
 					+ "<td>"
@@ -973,19 +971,19 @@ public class OptionsDialogue {
 					+ "</td>"
 					+ "<td style='min-width:160px;'>"
 						+"<form style='padding:0;margin:0;text-align:center;'><input type='text' id='GENDER_NAME_MASCULINE_" + name + "' value='"
-						+ Main.getProperties().genderNameMale.get(name)
+						+ Util.formatForHTML(Main.getProperties().genderNameMale.get(name))
 						+ "'>"
 						+ "</form>"
 					+ "</td>"
 					+ "<td style='min-width:160px;'>"
 						+"<form style='padding:0;margin:0;text-align:center;'><input type='text' id='GENDER_NAME_ANDROGYNOUS_" + name + "' value='"
-						+ Main.getProperties().genderNameNeutral.get(name)
+						+ Util.formatForHTML(Main.getProperties().genderNameNeutral.get(name))
 						+ "'>"
 						+ "</form>"
 					+ "</td>"
 					+ "<td style='min-width:160px;'>"
 						+"<form style='padding:0;margin:0;text-align:center;'><input type='text' id='GENDER_NAME_FEMININE_" + name + "' value='"
-						+ Main.getProperties().genderNameFemale.get(name)
+						+ Util.formatForHTML(Main.getProperties().genderNameFemale.get(name))
 						+ "'>"
 						+ "</form>"
 					+ "</td>"
@@ -998,11 +996,11 @@ public class OptionsDialogue {
 					+ pronoun.getName()
 				+ "</td>"
 					+ "<td style='min-width:160px;'>"
-					+"<form style='padding:0;margin:0;text-align:center;'><input type='text' id='masculine_" + pronoun + "' value='"+ Main.getProperties().genderPronounMale.get(pronoun)+ "'>"
+					+"<form style='padding:0;margin:0;text-align:center;'><input type='text' id='masculine_" + pronoun + "' value='"+ Util.formatForHTML(Main.getProperties().genderPronounMale.get(pronoun))+ "'>"
 					+ "</form>"
 				+ "</td>"
 				+ "<td style='min-width:160px;'>"
-					+"<form style='padding:0;margin:0;text-align:center;'><input type='text' id='feminine_" + pronoun + "' value='"+ Main.getProperties().genderPronounFemale.get(pronoun)+ "'></form>"
+					+"<form style='padding:0;margin:0;text-align:center;'><input type='text' id='feminine_" + pronoun + "' value='"+ Util.formatForHTML(Main.getProperties().genderPronounFemale.get(pronoun))+ "'></form>"
 				+ "</td>"
 				+ "</tr>";
 	}

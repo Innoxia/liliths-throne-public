@@ -1763,7 +1763,7 @@ public enum ItemEffectType {
 		
 		@Override
 		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return Util.newArrayListOfValues(new ListValue<>(getRacialEffect(Race.ALLIGATOR_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescription()));
+			return Util.newArrayListOfValues(new ListValue<>(getRacialEffect(Race.ALLIGATOR_MORPH, primaryModifier, secondaryModifier, potency, user, target).getDescriptionPlusChangeDescription()));
 		}
 		
 		@Override

@@ -392,6 +392,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		// Set the character's starting body based on their gender and race:
 		setBody(startingGender, startingRace, stage);
 		genderIdentity = startingGender;
+		
 	}
 	
 
@@ -823,9 +824,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		boolean setGenderIdentity = false;
 		if(element.getElementsByTagName("genderIdentity").getLength()!=0) {
-			character.setGenderIdentity(Gender.valueOf(((Element)element.getElementsByTagName("genderIdentity").item(0)).getAttribute("value")));
-			CharacterUtils.appendToImportLog(log, "</br>Set genderIdentity: "+character.getGenderIdentity());
-			setGenderIdentity = true;
+			try {
+				if(!((Element)element.getElementsByTagName("genderIdentity").item(0)).getAttribute("value").equals("null")) {
+					character.setGenderIdentity(Gender.valueOf(((Element)element.getElementsByTagName("genderIdentity").item(0)).getAttribute("value")));
+					CharacterUtils.appendToImportLog(log, "</br>Set genderIdentity: "+character.getGenderIdentity());
+					setGenderIdentity = true;
+				}
+			} catch (Exception ex) {
+			}
 		}
 		
 		
@@ -1493,6 +1499,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 	public String getPlayerPetName() {
 		if(playerPetName.isEmpty()) {
+			if(Main.game.getPlayer()==null) {
+				return "";
+			}
 			return Main.game.getPlayer().getName();
 		} else {
 			return playerPetName;

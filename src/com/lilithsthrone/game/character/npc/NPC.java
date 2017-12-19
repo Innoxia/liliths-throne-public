@@ -230,7 +230,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				}
 			}
 			
-			npc.bodyPreference = Body.loadFromXML(log, (Element) parentElement.getElementsByTagName("body").item(0), doc);
+			npc.bodyPreference = Body.loadFromXML(log, (Element) parentElement.getElementsByTagName("preferredBody").item(0), doc);
 		}
 	}
 	
@@ -634,51 +634,74 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			} else {
 				raceName = getPreferredBody().getGender().getName() + " " + getPreferredBody().getRace().getSingularMaleName();
 			}
+		
+			switch(getPreferredBody().getRace()) {
+				case CAT_MORPH:
+					itemType = ItemType.RACE_INGREDIENT_CAT_MORPH;
+					if(Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) {
+						genitalsItemType = ItemType.RACE_INGREDIENT_CAT_MORPH;
+					}
+					reaction = "Time to turn you into a cute little "+raceName+"!";
+					break;
+				case DOG_MORPH:
+					itemType = ItemType.RACE_INGREDIENT_DOG_MORPH;
+					if(Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) {
+						genitalsItemType = ItemType.RACE_INGREDIENT_DOG_MORPH;
+					}
+					reaction = "Time to turn you into an excitable little "+raceName+"!";
+					break;
+				case HARPY:
+					itemType = ItemType.RACE_INGREDIENT_HARPY;
+					if(Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) {
+						genitalsItemType = ItemType.RACE_INGREDIENT_HARPY;
+					}
+					reaction = "Time to turn you into a hot little "+raceName+"!";
+					break;
+				case HORSE_MORPH:
+					itemType = ItemType.RACE_INGREDIENT_HORSE_MORPH;
+					if(Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) {
+						genitalsItemType = ItemType.RACE_INGREDIENT_HORSE_MORPH;
+					}
+					if (getPreferredBody().getGender().isFeminine()) {
+						reaction = "Time to turn you into my little mare!";
+					} else {
+						reaction = "Time to turn you into my very own stallion!";
+					}
+					break;
+				case SQUIRREL_MORPH:
+					itemType = ItemType.RACE_INGREDIENT_SQUIRREL_MORPH;
+					if(Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) {
+						genitalsItemType = ItemType.RACE_INGREDIENT_SQUIRREL_MORPH;
+					}
+					reaction = "Time to turn you into a cute little "+raceName+"!";
+					break;
+				case WOLF_MORPH:
+					itemType = ItemType.RACE_INGREDIENT_WOLF_MORPH;
+					if(Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) {
+						genitalsItemType = ItemType.RACE_INGREDIENT_WOLF_MORPH;
+					}
+					reaction = "Time to turn you into a "+raceName+"!";
+					break;
+				case COW_MORPH:
+					itemType = ItemType.RACE_INGREDIENT_COW_MORPH;
+					if(Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) {
+						genitalsItemType = ItemType.RACE_INGREDIENT_COW_MORPH;
+					}
+					reaction = "Time to turn you into a "+raceName+"!";
+					break;
+				case ALLIGATOR_MORPH:
+					itemType = ItemType.RACE_INGREDIENT_ALLIGATOR_MORPH;
+					reaction = "Time to turn you into "+UtilText.generateSingularDeterminer(raceName) + " "+raceName+"!";
+					break;
+				case ANGEL:
+				case DEMON:
+				case SLIME:
+				case HUMAN:
+					itemType = ItemType.RACE_INGREDIENT_HUMAN;
+					break;
+			}
 		}
 		
-		switch(getPreferredBody().getRace()) {
-			case CAT_MORPH:
-				itemType = ItemType.RACE_INGREDIENT_CAT_MORPH;
-				reaction = "Time to turn you into a cute little "+raceName+"!";
-				break;
-			case DOG_MORPH:
-				itemType = ItemType.RACE_INGREDIENT_DOG_MORPH;
-				reaction = "Time to turn you into an excitable little "+raceName+"!";
-				break;
-			case HARPY:
-				itemType = ItemType.RACE_INGREDIENT_HARPY;
-				reaction = "Time to turn you into a hot little "+raceName+"!";
-				break;
-			case HORSE_MORPH:
-				itemType = ItemType.RACE_INGREDIENT_HORSE_MORPH;
-				if (getPreferredBody().getGender().isFeminine()) {
-					reaction = "Time to turn you into my little mare!";
-				} else {
-					reaction = "Time to turn you into my very own stallion!";
-				}
-				break;
-			case SQUIRREL_MORPH:
-				itemType = ItemType.RACE_INGREDIENT_SQUIRREL_MORPH;
-				reaction = "Time to turn you into a cute little "+raceName+"!";
-				break;
-			case WOLF_MORPH:
-				itemType = ItemType.RACE_INGREDIENT_WOLF_MORPH;
-				reaction = "Time to turn you into a "+raceName+"!";
-				break;
-			case ALLIGATOR_MORPH:
-				itemType = ItemType.RACE_INGREDIENT_ALLIGATOR_MORPH;
-				reaction = "Time to turn you into a "+raceName+"!";
-				break;
-			case COW_MORPH:
-				itemType = ItemType.RACE_INGREDIENT_COW_MORPH;
-				break;
-			case ANGEL:
-			case DEMON:
-			case SLIME:
-			case HUMAN:
-				itemType = ItemType.RACE_INGREDIENT_HUMAN;
-				break;
-		}
 		
 		Map<ItemEffect, String> possibleEffects = new HashMap<>();
 		
@@ -982,79 +1005,85 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		// Preferred race:
 		
 		Race race = getRace();
-		
-		// Chance for predator races to prefer prey races:
-		if(getRace()==Race.CAT_MORPH && Math.random()>0.8f) {
-			race = Race.HARPY;
-		}
-		if((getRace()==Race.WOLF_MORPH || getRace()==Race.DOG_MORPH) && Math.random()>0.8f) {
-			List<Race> availableRaces = new ArrayList<>();
-			availableRaces.add(Race.CAT_MORPH);
-			availableRaces.add(Race.HARPY);
-			availableRaces.add(Race.COW_MORPH);
-			availableRaces.add(Race.SQUIRREL_MORPH);
-			race = availableRaces.get(Util.random.nextInt(availableRaces.size()));
-		}
-		
-		// Chance for race to be random:
-		if(Math.random()>0.85f) {
-			List<Race> availableRaces = new ArrayList<>();
-			availableRaces.add(Race.CAT_MORPH);
-			availableRaces.add(Race.DOG_MORPH);
-			availableRaces.add(Race.HARPY);
-			availableRaces.add(Race.HORSE_MORPH);
-			availableRaces.add(Race.HUMAN);
-			availableRaces.add(Race.SQUIRREL_MORPH);
-			availableRaces.add(Race.COW_MORPH);
-			availableRaces.add(Race.WOLF_MORPH);
-			race = availableRaces.get(Util.random.nextInt(availableRaces.size()));
-		}
-		
+		RaceStage stage = getRaceStage();
 		RacialBody startingBodyType = RacialBody.valueOfRace(race);
 		
-		
-		// Preferred race stage:
-		
-		RaceStage stage = getRaceStage();
-		
-		if(preferredGender.isFeminine()) {
-			switch(Main.getProperties().raceFemininePreferencesMap.get(race)) {
-				case HUMAN:
-					stage = RaceStage.HUMAN;
-					break;
-				case MAXIMUM:
-					stage = RaceStage.GREATER;
-					break;
-				case MINIMUM:
-					stage = RaceStage.PARTIAL_FULL;
-					break;
-				case NORMAL:
-					stage = RaceStage.GREATER;
-					break;
-				case REDUCED:
-					stage = RaceStage.LESSER;
-					break;
-			}
+		if(Main.getProperties().forcedTFPreference==FurryPreference.HUMAN) {
+			race = Race.HUMAN;
+			stage = RaceStage.HUMAN;
+			startingBodyType = RacialBody.valueOfRace(race);
+			
 		} else {
-			switch(Main.getProperties().raceMasculinePreferencesMap.get(race)) {
-				case HUMAN:
-					stage = RaceStage.HUMAN;
-					break;
-				case MAXIMUM:
-					stage = RaceStage.GREATER;
-					break;
-				case MINIMUM:
-					stage = RaceStage.PARTIAL_FULL;
-					break;
-				case NORMAL:
-					stage = RaceStage.GREATER;
-					break;
-				case REDUCED:
-					stage = RaceStage.LESSER;
-					break;
+		
+			// Chance for predator races to prefer prey races:
+			if(getRace()==Race.CAT_MORPH && Math.random()>0.8f) {
+				race = Race.HARPY;
+			}
+			if((getRace()==Race.WOLF_MORPH || getRace()==Race.DOG_MORPH) && Math.random()>0.8f) {
+				List<Race> availableRaces = new ArrayList<>();
+				availableRaces.add(Race.CAT_MORPH);
+				availableRaces.add(Race.HARPY);
+				availableRaces.add(Race.COW_MORPH);
+				availableRaces.add(Race.SQUIRREL_MORPH);
+				race = availableRaces.get(Util.random.nextInt(availableRaces.size()));
+			}
+			
+			// Chance for race to be random:
+			if(Math.random()>0.85f) {
+				List<Race> availableRaces = new ArrayList<>();
+				availableRaces.add(Race.CAT_MORPH);
+				availableRaces.add(Race.DOG_MORPH);
+				availableRaces.add(Race.HARPY);
+				availableRaces.add(Race.HORSE_MORPH);
+				availableRaces.add(Race.HUMAN);
+				availableRaces.add(Race.SQUIRREL_MORPH);
+				availableRaces.add(Race.COW_MORPH);
+				availableRaces.add(Race.WOLF_MORPH);
+				race = availableRaces.get(Util.random.nextInt(availableRaces.size()));
+			}
+			
+			startingBodyType = RacialBody.valueOfRace(race);
+			
+			// Preferred race stage:
+			
+			if(preferredGender.isFeminine()) {
+				switch(Main.getProperties().raceFemininePreferencesMap.get(race)) {
+					case HUMAN:
+						stage = RaceStage.HUMAN;
+						break;
+					case MAXIMUM:
+						stage = RaceStage.GREATER;
+						break;
+					case MINIMUM:
+						stage = RaceStage.PARTIAL_FULL;
+						break;
+					case NORMAL:
+						stage = RaceStage.GREATER;
+						break;
+					case REDUCED:
+						stage = RaceStage.LESSER;
+						break;
+				}
+			} else {
+				switch(Main.getProperties().raceMasculinePreferencesMap.get(race)) {
+					case HUMAN:
+						stage = RaceStage.HUMAN;
+						break;
+					case MAXIMUM:
+						stage = RaceStage.GREATER;
+						break;
+					case MINIMUM:
+						stage = RaceStage.PARTIAL_FULL;
+						break;
+					case NORMAL:
+						stage = RaceStage.GREATER;
+						break;
+					case REDUCED:
+						stage = RaceStage.LESSER;
+						break;
+				}
 			}
 		}
-		
 		
 		Body body = new Body.BodyBuilder(
 				new Arm((stage.isArmFurry()?startingBodyType.getArmType():ArmType.HUMAN), startingBodyType.getArmRows()),
@@ -1085,7 +1114,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				new Eye(stage.isEyeFurry()?startingBodyType.getEyeType():EyeType.HUMAN),
 				new Ear(stage.isEarFurry()?startingBodyType.getEarType():EarType.HUMAN),
 				new Hair(stage.isHairFurry()?startingBodyType.getHairType():HairType.HUMAN,
-						(preferredGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength()),
+						(startingBodyType.isHairTypeLinkedToFaceType()
+								?(stage.isFaceFurry()
+										?(preferredGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength())
+										:(preferredGender.isFeminine() ? RacialBody.HUMAN.getFemaleHairLength() : RacialBody.HUMAN.getMaleHairLength()))
+								:(preferredGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength())),
 						HairStyle.getRandomHairStyle((preferredGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength()))),
 				new Leg(stage.isLegFurry()?startingBodyType.getLegType():LegType.HUMAN),
 				new Skin(stage.isSkinFurry()?startingBodyType.getSkinType():SkinType.HUMAN),
@@ -7616,217 +7649,393 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	}
 	
 	
+	private static StringBuilder StringBuilderSB = new StringBuilder();
+	
+	public String getVirginityLossDescription(PenetrationType penetration, OrificeType orifice) {
+		StringBuilderSB.setLength(0);
+		
+		switch(orifice) {
+			case ANUS_PLAYER:
+				StringBuilderSB.append(getPlayerAnalVirginityLossDescription(penetration));
+				break;
+			case MOUTH_PLAYER:
+				StringBuilderSB.append(getPlayerMouthVirginityLossDescription(penetration));
+				break;
+			case NIPPLE_PLAYER:
+				StringBuilderSB.append(getPlayerNippleVirginityLossDescription(penetration));
+				break;
+			case URETHRA_PLAYER:
+				StringBuilderSB.append(getPlayerUrethraVirginityLossDescription(penetration));
+				break;
+			case VAGINA_PLAYER:
+				StringBuilderSB.append(getPlayerVaginaVirginityLossDescription(penetration));
+				break;
+				
+			case ANUS_PARTNER:
+				StringBuilderSB.append(getPartnerAnalVirginityLossDescription(penetration));
+				break;
+			case MOUTH_PARTNER:
+				StringBuilderSB.append(getPartnerMouthVirginityLossDescription(penetration));
+				break;
+			case NIPPLE_PARTNER:
+				StringBuilderSB.append(getPartnerNippleVirginityLossDescription(penetration));
+				break;
+			case URETHRA_PARTNER:
+				StringBuilderSB.append(getPartnerUrethraVirginityLossDescription(penetration));
+				break;
+			case VAGINA_PARTNER:
+				StringBuilderSB.append(getPartnerVaginaVirginityLossDescription(penetration));
+				break;
+				
+ 
+			case ASS_PLAYER: case BREAST_PLAYER: case THIGHS_PLAYER: case ASS_PARTNER: case BREAST_PARTNER: case THIGHS_PARTNER:
+				// Don't have a virginity to lose.
+				break;
+		}
+		
+		switch(penetration) {
+			case PENIS_PARTNER:
+				StringBuilderSB.append(getPartnerPenileVirginityLossDescription(orifice));
+				break;
+			case PENIS_PLAYER:
+				StringBuilderSB.append(getPlayerPenileVirginityLossDescription(orifice));
+				break;
+			case FINGER_PARTNER: case FINGER_PLAYER: case TAIL_PARTNER: case TAIL_PLAYER: case TENTACLE_PARTNER: case TENTACLE_PLAYER: case TONGUE_PARTNER: case TONGUE_PLAYER:
+				break;
+		}
+		
+		return StringBuilderSB.toString();
+	}
+	
 	protected String formatVirginityLoss(String rawInput) {
 		return UtilText.formatVirginityLoss(rawInput);
 	}
-	protected String losingPureVirginity(){
-		return UtilText.parse(Sex.getPartner(),
-				"<p style='text-align:center;'>"
-					+ "<b style='color:"+Colour.GENERIC_TERRIBLE.toWebHexString()+";'>Broken Virgin</b>"
-				+ "</p>"
-				+ "<p>"
-					+ "You can't believe what's happening."
-					+ " As [npc.name]'s "+(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER).getName())
-					+" takes your virginity in a single thrust, you find yourself letting out a desperate gasp."
-				+ "</p>"
-				+ "<p style='text-align:center;'>"
-					+ "[pc.thought(This is how I lose my virginity?!</br>"
-							+ "To... <i>[npc.a_race]</i>?!</br>"
-							+ "This can't be happening!)]"
-				+ "</p>"
-				+ "<p>"
-					+ "You don't quite know how to react."
-					+ " The virginity that you prized so highly has been suddenly taken from you, and a vacant gaze settles over your face as your [pc.pussy+] spreads lewdly around the intruding object."
-				+ "</p>"
-				+ "<p>"
-					+ " While you were a virgin, you felt invincible."
-					+ " As though you could overcome any obstacle that was placed in your way."
-					+ " Now, however..."
-				+ "</p>"
-				+ "<p style='text-align:center;'>"
-				+ "[pc.thought(Now I'm just some regular old slut...</br>"
-						+ "Getting fucked by any random person I meet...</br>"
-						+ "All I'm good for now is being the next lucky guy's fuck-toy...)]"
-				+ "</p>"
-				+ "<p>"
-				+ "You're vaguely aware of [npc.name] grunting away somewhere in the background, completely oblivious to how hard you've been hit by the loss of your virginity."
-				+ " With a shuddering sigh, you decide to resign yourself to the fact that now you're nothing more than a <b style='color:"+StatusEffect.FETISH_BROKEN_VIRGIN.getColour().toWebHexString()+";'>broken virgin</b>..."
-				+ "</p>");
+	protected String losingPureVirginity(PenetrationType penetration){
+		if(penetration.isPlayer()) {
+			return UtilText.parse(Sex.getPartner(),
+					"<p style='text-align:center;'>"
+						+ "<b style='color:"+Colour.GENERIC_TERRIBLE.toWebHexString()+";'>Broken Virgin</b>"
+					+ "</p>"
+					+ "<p>"
+						+ "You can't quite believe what you're doing to yourself."
+						+ " As your "+(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER).getName())+" takes your own virginity in a single thrust, you find yourself letting out a desperate gasp."
+					+ "</p>"
+					+ "<p style='text-align:center;'>"
+						+ "[pc.thought(W-What am I doing?!</br>"
+								+ "I-I'm just so... <i>horny</i>!</br>"
+								+ "I-I can't help myself!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "You don't quite know how to react to your own actions."
+						+ " The virginity that you prized so highly is now gone, and a vacant gaze settles over your face as your [pc.pussy+] spreads lewdly around your own "+penetration.getName()+"."
+					+ "</p>"
+					+ "<p>"
+						+ "While you were a virgin, you felt invincible."
+						+ " As though you could overcome any obstacle that was placed in your way."
+						+ " Now, however..."
+					+ "</p>"
+					+ "<p style='text-align:center;'>"
+					+ "[pc.thought(Now I'm just some regular old slut...</br>"
+							+ "So turned on that I choose to fuck myself...</br>"
+							+ "All I'm good for now is being a worthless fuck-toy...)]"
+					+ "</p>"
+					+ "<p>"
+						+ "With a shuddering sigh, you decide to resign yourself to the fact that now you're nothing more than a <b style='color:"+StatusEffect.FETISH_BROKEN_VIRGIN.getColour().toWebHexString()+";'>broken virgin</b>..."
+					+ "</p>");
+			
+		} else {
+			return UtilText.parse(Sex.getPartner(),
+					"<p style='text-align:center;'>"
+						+ "<b style='color:"+Colour.GENERIC_TERRIBLE.toWebHexString()+";'>Broken Virgin</b>"
+					+ "</p>"
+					+ "<p>"
+						+ "You can't believe what's happening."
+						+ " As [npc.name]'s "+(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER).getName())
+						+" takes your virginity in a single thrust, you find yourself letting out a desperate gasp."
+					+ "</p>"
+					+ "<p style='text-align:center;'>"
+						+ "[pc.thought(This is how I lose my virginity?!</br>"
+								+ "To... <i>[npc.a_race]</i>?!</br>"
+								+ "This can't be happening!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "You don't quite know how to react."
+						+ " The virginity that you prized so highly has been suddenly taken from you, and a vacant gaze settles over your face as your [pc.pussy+] spreads lewdly around the intruding object."
+					+ "</p>"
+					+ "<p>"
+						+ "While you were a virgin, you felt invincible."
+						+ " As though you could overcome any obstacle that was placed in your way."
+						+ " Now, however..."
+					+ "</p>"
+					+ "<p style='text-align:center;'>"
+					+ "[pc.thought(Now I'm just some regular old slut...</br>"
+							+ "Getting fucked by any random person I meet...</br>"
+							+ "All I'm good for now is being the next lucky guy's fuck-toy...)]"
+					+ "</p>"
+					+ "<p>"
+					+ "You're vaguely aware of [npc.name] grunting away somewhere in the background, completely oblivious to how hard you've been hit by the loss of your virginity."
+					+ " With a shuddering sigh, you decide to resign yourself to the fact that now you're nothing more than a <b style='color:"+StatusEffect.FETISH_BROKEN_VIRGIN.getColour().toWebHexString()+";'>broken virgin</b>..."
+					+ "</p>");
+		}
 	}
 	
 	// Virginity loss:
 	
-	public String getPlayerAnalVirginityLossDescription(){
+	private String getPlayerAnalVirginityLossDescription(PenetrationType penetration){
 		StringBuilderSB = new StringBuilder();
 		
-		boolean isPenis = Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER)==PenetrationType.PENIS_PARTNER;
-		boolean isTail = Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER)==PenetrationType.TAIL_PARTNER;
+		boolean isPenis = penetration.isPenis();
+		boolean isTail = penetration.isTail();
 		
-		/*
-		 * Initial penetration -> Take into account wet/dry
-		 * Reaction -> player masochist
-		 * Reaction -> partner sadist, partner deflowering fetish
-		 * End -> continues fucking you through the receding pain
-		 */
-		
-		// Initial penetration:
-		if(Sex.getWetOrificeTypes().get(OrificeType.ANUS_PLAYER).isEmpty()) {
-			// Dry:
+		if(penetration.isPlayer()) { // SELF-PENETRATION
+			// Initial penetration:
+			if(Sex.getWetOrificeTypes().get(OrificeType.ANUS_PLAYER).isEmpty()) {
+				// Dry:
+				StringBuilderSB.append(
+						"<p>"
+							+ "You let out a painful cry as you force your "+(isPenis?"[pc.penis+]":"")+(isTail?"[pc.tail+]":"")+" into your dry [pc.asshole]."
+							+ " Squirming and shuffling in discomfort, your cries grow louder and louder as you start fucking your own [pc.ass]; the lack of lubrication turning your first anal experience into one of mind-numbing agony."
+						+ "</p>");
+				
+			} else {
+				 // Wet:
+				StringBuilderSB.append(
+						"<p>"
+							+ "You let out a painful cry as you force your "+(isPenis?"[pc.penis+]":"")+(isTail?"[pc.tail+]":"")+" into your [pc.asshole+]."
+							+ " Squirming and shuffling in discomfort, you continue letting out little whimpers as you start fucking your own [pc.ass]."
+							+ " Thankfully, your [pc.asshole] was lubricated beforehand, and you dread to think of how painful your first anal experience would have been otherwise."
+						+ "</p>");
+			}
+			
+			// Player masochist reaction:
+			if(Main.game.getPlayer().hasFetish(Fetish.FETISH_MASOCHIST)) {
+				StringBuilderSB.append(
+						"<p>"
+							+ "Due to being an extreme masochist, you find your painful cries being interspersed with lewd moans of pleasure."
+							+ " The pain and discomfort at the feeling of losing your anal virginity is pure bliss, and you soon find yourself [pc.moaning] in a delightful haze of overwhelming ecstasy."
+						+ "</p>");
+			} else {
+				StringBuilderSB.append(
+						"<p>"
+							+ "With tears welling up in your [pc.eyes], you let out another painful wail as you draw"+(isTail?" your [pc.tail]":"")+" back, before thrusting deep inside yourself once again."
+							+ " This time, the pain isn't as extreme as before, and you realise that you're starting to get used to the feeling of using your own ass."
+						+ "</p>");
+			}
+			
+			// Ending:
 			StringBuilderSB.append(
 					"<p>"
-						+ "You let out a painful cry as you feel [npc.name]'s "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")+" push into your dry [pc.asshole]."
-						+ " Squirming and shuffling in discomfort, your cries grow louder and louder as [npc.name] starts fucking your [pc.ass]; the lack of lubrication turning your first anal experience into one of mind-numbing agony."
+						+ "The throbbing, painful ache in your [pc.ass] slowly starts to fade away, and as your "+(isPenis?"[pc.penis+]":"")+(isTail?"[pc.tail+]":"")
+							+" pushes into your [pc.asshole+] once again, you let out a little whimper of relief as you feel that there's no accompanying stab of pain."
 					+ "</p>");
 			
-		} else {
-			 // Wet:
+		} else { // PARTNER PENETRATION
+			// Initial penetration:
+			if(Sex.getWetOrificeTypes().get(OrificeType.ANUS_PLAYER).isEmpty()) {
+				// Dry:
+				StringBuilderSB.append(
+						"<p>"
+							+ "You let out a painful cry as you feel [npc.name]'s "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")+" push into your dry [pc.asshole]."
+							+ " Squirming and shuffling in discomfort, your cries grow louder and louder as [npc.name] starts fucking your [pc.ass]; the lack of lubrication turning your first anal experience into one of mind-numbing agony."
+						+ "</p>");
+				
+			} else {
+				 // Wet:
+				StringBuilderSB.append(
+						"<p>"
+							+ "You let out a painful cry as you feel [npc.name]'s "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")+" push into your [pc.asshole+]."
+							+ " Squirming and shuffling in discomfort, you continue letting out little whimpers as [npc.name] starts fucking your [pc.ass]."
+							+ " Thankfully, your [pc.asshole] was lubricated beforehand, and you dread to think of how painful your first anal experience would have been otherwise."
+						+ "</p>");
+			}
+			
+			// Player masochist reaction:
+			if(Main.game.getPlayer().hasFetish(Fetish.FETISH_MASOCHIST)) {
+				StringBuilderSB.append(
+						"<p>"
+							+ "Due to being an extreme masochist, you find your painful cries being interspersed with lewd moans of pleasure."
+							+ " The pain and discomfort at the feeling of losing your anal virginity is pure bliss, and you soon find yourself [pc.moaning] in a delightful haze of overwhelming ecstasy."
+						+ "</p>");
+			}
+			
+			// Partner sadistic reaction:
+			if(Sex.getPartner().hasFetish(Fetish.FETISH_SADIST)) {
+				StringBuilderSB.append(
+						"<p>"
+							+ "With tears welling up in your [pc.eyes], you let out another painful wail as [npc.name] draws"+(isTail?" [npc.her] [npc.tail]":"")+" back, before violently thrusting deep inside you once again."
+							+ " [npc.She] lets out an evil laugh as [npc.she] causes you to writhe about in pain, [npc.her] sadistic nature fuelling [npc.her] rough thrusts into your [pc.asshole] as [npc.she] ruthlessly fucks your [pc.ass]."
+						+ "</p>");
+			} else {
+				StringBuilderSB.append(
+						"<p>"
+							+ "With tears welling up in your [pc.eyes], you let out another painful wail as [npc.name] draws"+(isTail?" [npc.her] [npc.tail]":"")+" back, before thrusting deep inside you once again."
+							+ " This time, the pain isn't as extreme as before, and you realise that you're starting to get used to the feeling of being fucked in the ass."
+						+ "</p>");
+			}
+			
+			// Partner deflowering reaction:
+			if(Sex.getPartner().hasFetish(Fetish.FETISH_DEFLOWERING)) {
+				StringBuilderSB.append(
+						"<p>"
+							+ "[npc.speech(Oh, yes!)] [npc.she] cries, [npc.speech(Good [pc.girl], saving your anal virginity for me!"
+								+ " Remember this moment, remember that <i>my</i> "+(isPenis?"cock":"")+(isTail?"tail":"")+" was the the one that turned you into "+(Main.game.getPlayer().isFeminine()?"a horny buttslut":"a little fucktoy")+"!)]"
+						+ "</p>");
+			}
+			
+			// Ending:
 			StringBuilderSB.append(
 					"<p>"
-						+ "You let out a painful cry as you feel [npc.name]'s "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")+" push into your [pc.asshole+]."
-						+ " Squirming and shuffling in discomfort, you continue letting out little whimpers as [npc.name] starts fucking your [pc.ass]."
-						+ " Thankfully, your [pc.asshole] was lubricated beforehand, and you dread to think of how painful your first anal experience would have been otherwise."
+						+ "The throbbing, painful ache in your [pc.ass] slowly starts to fade away, and as [npc.name]'s "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")
+							+" pushes into your [pc.asshole+] once again, you let out a little whimper of relief as you feel that there's no accompanying stab of pain."
 					+ "</p>");
 		}
 		
-		// Player masochist reaction:
-		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_MASOCHIST)) {
-			StringBuilderSB.append(
-					"<p>"
-						+ "Due to being an extreme masochist, you find your painful cries being interspersed with lewd moans of pleasure."
-						+ " The pain and discomfort at the feeling of losing your anal virginity is pure bliss, and you soon find yourself [pc.moaning] in a delightful haze of overwhelming ecstasy."
-					+ "</p>");
-		}
-		
-		// Partner sadistic reaction:
-		if(Sex.getPartner().hasFetish(Fetish.FETISH_SADIST)) {
-			StringBuilderSB.append(
-					"<p>"
-						+ "With tears welling up in your [pc.eyes], you let out another painful wail as [npc.name] draws"+(isTail?" [npc.her] [npc.tail]":"")+" back, before violently thrusting deep inside you once again."
-						+ " [npc.She] lets out an evil laugh as [npc.she] causes you to writhe about in pain, [npc.her] sadistic nature fuelling [npc.her] rough thrusts into your [pc.asshole] as [npc.she] ruthlessly fucks your [pc.ass]."
-					+ "</p>");
-		} else {
-			StringBuilderSB.append(
-					"<p>"
-						+ "With tears welling up in your [pc.eyes], you let out another painful wail as [npc.name] draws"+(isTail?" [npc.her] [npc.tail]":"")+" back, before thrusting deep inside you once again."
-						+ " This time, the pain isn't as extreme as before, and you realise that you're starting to get used to the feeling of being fucked in the ass."
-					+ "</p>");
-		}
-		
-		// Partner deflowering reaction:
-		if(Sex.getPartner().hasFetish(Fetish.FETISH_DEFLOWERING)) {
-			StringBuilderSB.append(
-					"<p>"
-						+ "[npc.speech(Oh, yes!)] [npc.she] cries, [npc.speech(Good [pc.girl], saving your anal virginity for me!"
-							+ " Remember this moment, remember that <i>my</i> "+(isPenis?"cock":"")+(isTail?"tail":"")+" was the the one that turned you into "+(Main.game.getPlayer().isFeminine()?"a horny buttslut":"a little fucktoy")+"!)]"
-					+ "</p>");
-		}
-		
-		// Ending:
-		StringBuilderSB.append(
-				"<p>"
-					+ "The throbbing, painful ache in your [pc.ass] slowly starts to fade away, and as [npc.name]'s "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")
-						+" pushes into your [pc.asshole+] once again, you let out a little whimper of relief as you feel that there's no accompanying stab of pain."
-				+ "</p>");
 		
 		StringBuilderSB.append(formatVirginityLoss("You'll always remember this moment as the time that you lost your anal virginity!"));
 		
 		return StringBuilderSB.toString();
 	}
 	
-	private static StringBuilder StringBuilderSB;
-	public String getPlayerVaginaVirginityLossDescription(boolean isPlayerDom){
+	
+	
+	protected String getPlayerVaginaVirginityLossDescription(PenetrationType penetration){
 		StringBuilderSB = new StringBuilder();
 		
-		boolean isPenis = Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER)==PenetrationType.PENIS_PARTNER;
-		boolean isTail = Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER)==PenetrationType.TAIL_PARTNER;
+		boolean isPenis = penetration.isPenis();
+		boolean isTail = penetration.isTail();
 		
-		/*
-		 * Initial penetration -> Take into account wet/dry
-		 * Reaction -> player masochist
-		 * Reaction -> partner sadist, partner deflowering fetish
-		 * End -> continues fucking you through the receding pain
-		 */
-		
-		// Initial penetration:
-		if(Sex.getWetOrificeTypes().get(OrificeType.VAGINA_PLAYER).isEmpty()) {
-			// Dry:
-			StringBuilderSB.append(
-					"<p>"
-						+ "As [npc.name]'s "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")+" drives deep into your dry [pc.pussy], your vision suddenly explodes in stars, and a painful, high-pitched shriek escapes from between your lips."
-						+ " Being penetrated without any form of lubrication would be uncomfortable at the best of times, but due to the fact that you're still a virgin, it's somewhat more than just a little discomfort,"
-							+ " and your shriek turns into a shuddering cry as you shuffle about in pure agony."
-					+ "</p>");
+		if(penetration.isPlayer()) { // SELF-PENETRATION
+			// Initial penetration:
+			if(Sex.getWetOrificeTypes().get(OrificeType.VAGINA_PLAYER).isEmpty()) {
+				// Dry:
+				StringBuilderSB.append(
+						"<p>"
+							+ "As you drive your "+(isPenis?"[pc.penis+]":"")+(isTail?"[pc.tail+]":"")+" deep into your dry [pc.pussy], your vision suddenly explodes in stars, and a painful, high-pitched shriek escapes from between your lips."
+							+ " Being penetrated without any form of lubrication would be uncomfortable at the best of times, but due to the fact that you're still a virgin, it's somewhat more than just a little discomfort,"
+								+ " and your shriek turns into a shuddering cry as you shuffle about in pure agony."
+						+ "</p>");
+				
+			} else {
+				 // Wet:
+				StringBuilderSB.append(
+							"<p>"
+								+ "As you drive your "+(isPenis?"[pc.penis+]":"")+(isTail?"[pc.tail+]":"")+" deep into your [pc.pussy+], your vision suddenly narrows down, and a painful, desperate wail escapes from between your lips."
+								+ " Luckily, your pussy was lubricated before being penetrated, but due to the fact that you're still a virgin, it isn't enough to completely prevent the pain you now feel between your legs,"
+									+ " and your wail turns into a shuddering moan as you shuffle about in discomfort."
+							+ "</p>");
+			}
 			
-		} else {
-			 // Wet:
-			StringBuilderSB.append(
-					"<p>"
-						+ "As [npc.name]'s "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")+" drives deep into your [pc.pussy+], your vision suddenly narrows down, and a painful, desperate wail escapes from between your lips."
-						+ " Luckily, your pussy was lubricated before being penetrated, but due to the fact that you're still a virgin, it isn't enough to completely prevent the pain you now feel between your legs,"
-							+ " and your wail turns into a shuddering moan as you shuffle about in discomfort."
-					+ "</p>");
+			// Player masochist reaction:
+			if(Main.game.getPlayer().hasFetish(Fetish.FETISH_MASOCHIST)) {
+				StringBuilderSB.append(
+						"<p>"
+							+ "Due to being an extreme masochist, you find your painful cries being interspersed with lewd moans of pleasure."
+							+ " The agony between your legs is pure bliss, and you focus on the pain as you squeal and moan in a delightful haze of overwhelming ecstasy."
+						+ "</p>");
+			}else {
+				StringBuilderSB.append(
+						"<p>"
+							+ "Instinctively trying to clench your legs together, you let out another painful wail as you draw"+(isTail?" your [pc.tail]":"")+" back, before thrusting deep inside yourself once again."
+							+ " This time, the pain isn't as extreme as before, and you realise that the initial hurt was due to your hymen being torn."
+						+ "</p>");
+			}
+			
+			// Ending:
+			if (Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
+				StringBuilderSB.append(
+						"<p>"
+							+ "As the pain recedes into a dull, throbbing ache between your legs, you feel a little trickle of blood running out of your now-broken-in pussy, and you can't help but let out yet another whimpering cry."
+							+ " The throbbing, painful ache in your groin slowly starts to fade away, and as you push your "+(isPenis?"[pc.penis+]":"")+(isTail?"[pc.tail+]":"")
+								+" into your [pc.pussy+] once again, you let out a sigh of relief as you feel that there's no accompanying stab of pain."
+						+ "</p>");
+			} else {
+				StringBuilderSB.append(
+						"<p>"
+							+ "The throbbing, painful ache in your groin slowly starts to fade away, and as you push your "+(isPenis?"[pc.penis+]":"")+(isTail?"[pc.tail+]":"")
+								+" into your [pc.pussy+] once again, you let out a sigh of relief as you feel that there's no accompanying stab of pain."
+						+ "</p>");
+			}
+			
+		} else { // PARTNER PENETRATION
+			// Initial penetration:
+			if(Sex.getWetOrificeTypes().get(OrificeType.VAGINA_PLAYER).isEmpty()) {
+				// Dry:
+				StringBuilderSB.append(
+						"<p>"
+							+ "As [npc.name]'s "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")+" drives deep into your dry [pc.pussy], your vision suddenly explodes in stars, and a painful, high-pitched shriek escapes from between your lips."
+							+ " Being penetrated without any form of lubrication would be uncomfortable at the best of times, but due to the fact that you're still a virgin, it's somewhat more than just a little discomfort,"
+								+ " and your shriek turns into a shuddering cry as you shuffle about in pure agony."
+						+ "</p>");
+				
+			} else {
+				 // Wet:
+				StringBuilderSB.append(
+							"<p>"
+								+ "As [npc.name]'s "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")+" drives deep into your [pc.pussy+], your vision suddenly narrows down, and a painful, desperate wail escapes from between your lips."
+								+ " Luckily, your pussy was lubricated before being penetrated, but due to the fact that you're still a virgin, it isn't enough to completely prevent the pain you now feel between your legs,"
+									+ " and your wail turns into a shuddering moan as you shuffle about in discomfort."
+							+ "</p>");
+			}
+			
+			// Player masochist reaction:
+			if(Main.game.getPlayer().hasFetish(Fetish.FETISH_MASOCHIST)) {
+				StringBuilderSB.append(
+						"<p>"
+							+ "Due to being an extreme masochist, you find your painful cries being interspersed with lewd moans of pleasure."
+							+ " The agony between your legs is pure bliss, and you focus on the pain as you squeal and moan in a delightful haze of overwhelming ecstasy."
+						+ "</p>");
+			}
+			
+			// Partner sadistic reaction:
+			if(Sex.getPartner().hasFetish(Fetish.FETISH_SADIST)) {
+				StringBuilderSB.append(
+						"<p>"
+							+ "Trying desperately to clench your legs together, you let out another painful wail as [npc.name] draws"+(isTail?" [npc.her] [npc.tail]":"")+" back, before violently thrusting deep inside you once again."
+							+ " [npc.She] lets out an evil laugh as [npc.she] causes you to writhe about in pain, [npc.her] sadistic nature fuelling [npc.her] rough thrusts into your pussy as [npc.she] ruthlessly tears through your hymen."
+						+ "</p>");
+			} else {
+				StringBuilderSB.append(
+						"<p>"
+							+ "Trying desperately to clench your legs together, you let out another painful wail as [npc.name] draws"+(isTail?" [npc.her] [npc.tail]":"")+" back, before thrusting deep inside you once again."
+							+ " This time, the pain isn't as extreme as before, and you realise that the initial hurt was due to your hymen being torn."
+						+ "</p>");
+			}
+			
+			// Partner deflowering reaction:
+			if(Sex.getPartner().hasFetish(Fetish.FETISH_DEFLOWERING)) {
+				StringBuilderSB.append(
+						"<p>"
+							+ "[npc.speech(Oh, yes!)] [npc.she] cries, [npc.speech(Good [pc.girl], saving your virginity for me!"
+								+ " Remember this moment, remember that <i>my</i> "+(isPenis?"cock":"")+(isTail?"tail":"")+" was the the one that broke you in!)]"
+						+ "</p>");
+			}
+			
+			// Ending:
+			if (Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
+				StringBuilderSB.append(
+						"<p>"
+							+ "As the pain recedes into a dull, throbbing ache between your legs, you feel a little trickle of blood running out of your now-broken-in pussy, and you can't help but let out yet another whimpering cry."
+							+ " The throbbing, painful ache in your groin slowly starts to fade away, and as [npc.name]'s "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")
+								+" pushes into your [pc.pussy+] once again, you let out a sigh of relief as you feel that there's no accompanying stab of pain."
+						+ "</p>");
+			} else {
+				StringBuilderSB.append(
+						"<p>"
+							+ "The throbbing, painful ache in your groin slowly starts to fade away, and as [npc.name]'s "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")
+								+" pushes into your [pc.pussy+] once again, you let out a sigh of relief as you feel that there's no accompanying stab of pain."
+						+ "</p>");
+			}
 		}
 		
-		// Player masochist reaction:
-		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_MASOCHIST)) {
-			StringBuilderSB.append(
-					"<p>"
-						+ "Due to being an extreme masochist, you find your painful cries being interspersed with lewd moans of pleasure."
-						+ " The agony between your legs is pure bliss, and you focus on the pain as you squeal and moan in a delightful haze of overwhelming ecstasy."
-					+ "</p>");
-		}
-		
-		// Partner sadistic reaction:
-		if(Sex.getPartner().hasFetish(Fetish.FETISH_SADIST)) {
-			StringBuilderSB.append(
-					"<p>"
-						+ "Trying desperately to clench your legs together, you let out another painful wail as [npc.name] draws"+(isTail?" [npc.her] [npc.tail]":"")+" back, before violently thrusting deep inside you once again."
-						+ " [npc.She] lets out an evil laugh as [npc.she] causes you to writhe about in pain, [npc.her] sadistic nature fuelling [npc.her] rough thrusts into your pussy as [npc.she] ruthlessly tears through your hymen."
-					+ "</p>");
-		} else {
-			StringBuilderSB.append(
-					"<p>"
-						+ "Trying desperately to clench your legs together, you let out another painful wail as [npc.name] draws"+(isTail?" [npc.her] [npc.tail]":"")+" back, before thrusting deep inside you once again."
-						+ " This time, the pain isn't as extreme as before, and you realise that the initial hurt was due to your hymen being torn."
-					+ "</p>");
-		}
-		
-		// Partner deflowering reaction:
-		if(Sex.getPartner().hasFetish(Fetish.FETISH_DEFLOWERING)) {
-			StringBuilderSB.append(
-					"<p>"
-						+ "[npc.speech(Oh, yes!)] [npc.she] cries, [npc.speech(Good [pc.girl], saving your virginity for me!"
-							+ " Remember this moment, remember that <i>my</i> "+(isPenis?"cock":"")+(isTail?"tail":"")+" was the the one that broke you in!)]"
-					+ "</p>");
-		}
-		
-		// Ending:
-		if (Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
-			StringBuilderSB.append(
-					"<p>"
-						+ "As the pain recedes into a dull, throbbing ache between your legs, you feel a little trickle of blood running out of your now-broken-in pussy, and you can't help but let out yet another whimpering cry."
-						+ " The throbbing, painful ache in your groin slowly starts to fade away, and as [npc.name]'s "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")
-							+" pushes into your [pc.pussy+] once again, you let out a sigh of relief as you feel that there's no accompanying stab of pain."
-					+ "</p>");
-		} else {
-			StringBuilderSB.append(
-					"<p>"
-						+ "The throbbing, painful ache in your groin slowly starts to fade away, and as [npc.name]'s "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")
-							+" pushes into your [pc.pussy+] once again, you let out a sigh of relief as you feel that there's no accompanying stab of pain."
-					+ "</p>");
-		}
 		
 		StringBuilderSB.append(formatVirginityLoss("Your hymen has been torn; you have lost your virginity!"));
 		
 		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
-			StringBuilderSB.append(losingPureVirginity());
+			StringBuilderSB.append(losingPureVirginity(penetration));
 		}
 		
 		return StringBuilderSB.toString();
 	}
-	
-	// TODO The difference in writing styles feels too jarring at the moment...
-	// This isn't a criticism of your writing style at all (which is very good), it's just that I feel like it doesn't fit in with all the surrounding descriptions.
 	
 //	public String getPlayerVaginaVirginityLossDescription(boolean isPlayerDom){
 //		VelocityContext context = new VelocityContext();
@@ -7840,32 +8049,39 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 //        return UtilText.parse("/res/txt/dialogue/sex/Generic/PlayerVaginaVirginityLossDescription.txt", context);
 //	}
 	
-	public String getPlayerPenileVirginityLossDescription(){
+	private String getPlayerPenileVirginityLossDescription(OrificeType orifice){
 		return formatVirginityLoss("You'll always remember this moment as the time that you lost your penile virginity!");
 	}
 	
-	public String getPlayerNippleVirginityLossDescription(){
+	private String getPlayerNippleVirginityLossDescription(PenetrationType penetration){
 		return formatVirginityLoss("You'll always remember this moment as the time that you lost your nipple virginity!");
 	}
 	
-	public String getPlayerUrethraVirginityLossDescription(){
+	private String getPlayerUrethraVirginityLossDescription(PenetrationType penetration){
 		return formatVirginityLoss("You have lost your urethral virginity!");
 	}
 	
-	public String getPlayerMouthVirginityLossDescription(){
-		if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER)==PenetrationType.PENIS_PARTNER 
-				|| Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER)==PenetrationType.PENIS_PLAYER) {
-			return formatVirginityLoss("You'll always remember this moment as the first time that you sucked a cock!");
+	private String getPlayerMouthVirginityLossDescription(PenetrationType penetration){
+		if(penetration.isPenis()) {
+			if(penetration.isPlayer()) {
+				return formatVirginityLoss("You'll always remember this moment as the first time that you sucked your own cock!");
+			} else {
+				return formatVirginityLoss("You'll always remember this moment as the first time that you sucked a cock!");
+			}
 			
-		} else if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER)==PenetrationType.TAIL_PARTNER) {
-			return formatVirginityLoss("You'll always remember this moment as the first time that you sucked someone's tail!");
+		} else if(penetration.isTail()) {
+			if(penetration.isPlayer()) {
+				return formatVirginityLoss("You'll always remember this moment as the first time that you sucked your tail!");
+			} else {
+				return formatVirginityLoss("You'll always remember this moment as the first time that you sucked someone's tail!");
+			}
 			
 		} else {
 			return formatVirginityLoss("You'll always remember this moment as the first time that you took something down your throat!");
 		}
 	}
 
-	public String getPartnerPenileVirginityLossDescription(){
+	private String getPartnerPenileVirginityLossDescription(OrificeType orifice){
 		return formatVirginityLoss("You have taken [npc.name]'s penile virginity!")
 				+(Main.game.getPlayer().hasFetish(Fetish.FETISH_DEFLOWERING)
 						?"<p style='text-align:center;><i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Due to your deflowering fetish, you gain</i>"
@@ -7874,7 +8090,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						:"");
 	}
 	
-	public String getPartnerAnalVirginityLossDescription(){
+	private String getPartnerAnalVirginityLossDescription(PenetrationType penetration){
 		if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER).isPlayer()) {
 			return formatVirginityLoss("You have taken [npc.name]'s anal virginity!")
 					+(Main.game.getPlayer().hasFetish(Fetish.FETISH_DEFLOWERING)
@@ -7888,7 +8104,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		}
 	}
 	
-	public String getPartnerVaginaVirginityLossDescription(){
+	private String getPartnerVaginaVirginityLossDescription(PenetrationType penetration){
 		if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER).isPlayer()) {
 			return formatVirginityLoss("[npc.Name]'s hymen has been torn; you have taken [npc.her] virginity!")
 					+(Main.game.getPlayer().hasFetish(Fetish.FETISH_DEFLOWERING)
@@ -7902,7 +8118,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		}
 	}
 	
-	public String getPartnerNippleVirginityLossDescription(){
+	private String getPartnerNippleVirginityLossDescription(PenetrationType penetration){
 		if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER).isPlayer()) {
 			return formatVirginityLoss("You have taken [npc.name]'s nipple virginity!")
 					+(Main.game.getPlayer().hasFetish(Fetish.FETISH_DEFLOWERING)
@@ -7916,7 +8132,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		}
 	}
 	
-	public String getPartnerUrethraVirginityLossDescription(){
+	private String getPartnerUrethraVirginityLossDescription(PenetrationType penetration){
 		if(Sex.getPenetrationTypeInOrifice(OrificeType.URETHRA_PARTNER).isPlayer()) {
 			return formatVirginityLoss("You have taken [npc.name]'s urethral virginity!")
 					+(Main.game.getPlayer().hasFetish(Fetish.FETISH_DEFLOWERING)
@@ -7929,7 +8145,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		}
 	}
 	
-	public String getPartnerMouthVirginityLossDescription(){
+	private String getPartnerMouthVirginityLossDescription(PenetrationType penetration){
 		if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER).isPlayer()) {
 			return formatVirginityLoss("You have given [npc.name] [npc.her] first oral experience!")
 					+(Main.game.getPlayer().hasFetish(Fetish.FETISH_DEFLOWERING)

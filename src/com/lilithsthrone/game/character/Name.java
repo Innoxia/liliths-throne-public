@@ -84,50 +84,64 @@ public enum Name {
 	// No offence if your name is on here... x_x
 	PROSTITUTE(Race.HUMAN,
 			Util.newArrayListOfValues(
-					new ListValue<>(new NameTriplet("Brandy", "Brandy", "Brandy")),
-					new ListValue<>(new NameTriplet("Heather", "Heather", "Heather")),
-					new ListValue<>(new NameTriplet("Channing", "Channing", "Channing")),
-					new ListValue<>(new NameTriplet("Brianna", "Brianna", "Brianna")),
 					new ListValue<>(new NameTriplet("Amber", "Amber", "Amber")),
-					new ListValue<>(new NameTriplet("Serena", "Serena", "Serena")),
-					new ListValue<>(new NameTriplet("Melody", "Melody", "Melody")),
-					new ListValue<>(new NameTriplet("Dakota", "Dakota", "Dakota")),
-					new ListValue<>(new NameTriplet("Sierra", "Sierra", "Sierra")),
-					new ListValue<>(new NameTriplet("Bambi", "Bambi", "Bambi")),
-					new ListValue<>(new NameTriplet("Crystal", "Crystal", "Crystal")),
-					new ListValue<>(new NameTriplet("Samantha", "Samantha", "Samantha")),
 					new ListValue<>(new NameTriplet("Autumn", "Autumn", "Autumn")),
-					new ListValue<>(new NameTriplet("Ruby", "Ruby", "Ruby")),
-					new ListValue<>(new NameTriplet("Taylor", "Taylor", "Taylor")),
-					new ListValue<>(new NameTriplet("Tara", "Tara", "Tara")),
-					new ListValue<>(new NameTriplet("Tammy", "Tammy", "Tammy")),
-					new ListValue<>(new NameTriplet("Lauren", "Lauren", "Lauren")),
-					new ListValue<>(new NameTriplet("Charlene", "Charlene", "Charlene")),
-					new ListValue<>(new NameTriplet("Chantelle", "Chantelle", "Chantelle")),
-					new ListValue<>(new NameTriplet("Courtney", "Courtney", "Courtney")),
-					new ListValue<>(new NameTriplet("Misty", "Misty", "Misty")),
-					new ListValue<>(new NameTriplet("Jenny", "Jenny", "Jenny")),
-					new ListValue<>(new NameTriplet("Krista", "Krista", "Krista")),
-					new ListValue<>(new NameTriplet("Mindy", "Mindy", "Mindy")),
-					new ListValue<>(new NameTriplet("Noel", "Noel", "Noel")),
-					new ListValue<>(new NameTriplet("Shelby", "Shelby", "Shelby")),
-					new ListValue<>(new NameTriplet("Trina", "Trina", "Trina")),
-					new ListValue<>(new NameTriplet("Reba", "Reba", "Reba")),
-					new ListValue<>(new NameTriplet("Cassandra", "Cassandra", "Cassandra")),
-					new ListValue<>(new NameTriplet("Nikki", "Nikki", "Nikki")),
-					new ListValue<>(new NameTriplet("Kelsey", "Kelsey", "Kelsey")),
-					new ListValue<>(new NameTriplet("Shawna", "Shawna", "Shawna")),
-					new ListValue<>(new NameTriplet("Jolene", "Jolene", "Jolene")),
-					new ListValue<>(new NameTriplet("Urleen", "Urleen", "Urleen")),
-					new ListValue<>(new NameTriplet("Claudia", "Claudia", "Claudia")),
-					new ListValue<>(new NameTriplet("Savannah", "Savannah", "Savannah")),
+
+					new ListValue<>(new NameTriplet("Bambi", "Bambi", "Bambi")),
+					new ListValue<>(new NameTriplet("Ben", "Brandy", "Brandy")),
+					new ListValue<>(new NameTriplet("Brian", "Brianna", "Brianna")),
+
+					new ListValue<>(new NameTriplet("Carl", "Chloe", "Chloe")),
+					new ListValue<>(new NameTriplet("Carl", "Claudia", "Claudia")),
+					new ListValue<>(new NameTriplet("Carl", "Charlene", "Charlene")),
+					new ListValue<>(new NameTriplet("Chad", "Chantelle", "Chantelle")),
+					new ListValue<>(new NameTriplet("Carl", "Courtney", "Courtney")),
+					new ListValue<>(new NameTriplet("Carl", "Cassandra", "Cassandra")),
+					new ListValue<>(new NameTriplet("Chad", "Channing", "Channing")),
+					new ListValue<>(new NameTriplet("Carl", "Crystal", "Crystal")),
 					new ListValue<>(new NameTriplet("Casey", "Casey", "Casey")),
-					new ListValue<>(new NameTriplet("Dolly", "Dolly", "Dolly")),
-					new ListValue<>(new NameTriplet("Kendra", "Kendra", "Kendra")),
-					new ListValue<>(new NameTriplet("Kylie", "Kylie", "Kylie")),
-					new ListValue<>(new NameTriplet("Chloe", "Chloe", "Chloe")),
+
+					new ListValue<>(new NameTriplet("Dom", "Dolly", "Dolly")),
 					new ListValue<>(new NameTriplet("Devon", "Devon", "Devon")),
-					new ListValue<>(new NameTriplet("Emmalou", "Emmalou", "Emmalou")))),
+					new ListValue<>(new NameTriplet("Dale", "Dakota", "Dakota")),
+
+					new ListValue<>(new NameTriplet("Emmett", "Emmalou", "Emmalou")), // Great Scott!
+					
+					new ListValue<>(new NameTriplet("Harry", "Heather", "Heather")),
+
+					new ListValue<>(new NameTriplet("Jimmy", "Jenny", "Jenny")),
+					new ListValue<>(new NameTriplet("Joe", "Jolene", "Jolene")),
+
+					new ListValue<>(new NameTriplet("Kyle", "Kylie", "Kylie")),
+					new ListValue<>(new NameTriplet("Karl", "Kendra", "Kendra")),
+					new ListValue<>(new NameTriplet("Karl", "Krista", "Krista")),
+					new ListValue<>(new NameTriplet("Kelsey", "Kelsey", "Kelsey")),
+
+					new ListValue<>(new NameTriplet("Lawrence", "Lauren", "Lauren")),
+					
+					new ListValue<>(new NameTriplet("Mike", "Misty", "Misty")),
+					new ListValue<>(new NameTriplet("Mike", "Melody", "Melody")),
+					new ListValue<>(new NameTriplet("Mike", "Mindy", "Mindy")),
+					
+					new ListValue<>(new NameTriplet("Nikki", "Nikki", "Nikki")),
+					new ListValue<>(new NameTriplet("Noel", "Noel", "Noel")),
+					
+					new ListValue<>(new NameTriplet("Ruby", "Ruby", "Ruby")),
+					new ListValue<>(new NameTriplet("Reba", "Reba", "Reba")),
+
+					new ListValue<>(new NameTriplet("Savannah", "Savannah", "Savannah")),
+					new ListValue<>(new NameTriplet("Sam", "Samantha", "Samantha")),
+					new ListValue<>(new NameTriplet("Sean", "Serena", "Serena")),
+					new ListValue<>(new NameTriplet("Sierra", "Sierra", "Sierra")),
+					new ListValue<>(new NameTriplet("Shelby", "Shelby", "Shelby")),
+					new ListValue<>(new NameTriplet("Shawn", "Shawna", "Shawna")),
+
+					new ListValue<>(new NameTriplet("Tim", "Trina", "Trina")),
+					new ListValue<>(new NameTriplet("Tammy", "Tammy", "Tammy")),
+					new ListValue<>(new NameTriplet("Tom", "Tara", "Tara")),
+					new ListValue<>(new NameTriplet("Taylor", "Taylor", "Taylor")),
+					
+					new ListValue<>(new NameTriplet("Urleen", "Urleen", "Urleen")))),
 	
 	;
 	

@@ -238,7 +238,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-		credits.add(new CreditsSlot("Anonymous", "", 0, 7, 118, 39));
+		credits.add(new CreditsSlot("Anonymous", "", 0, 6, 117, 38));
 		
 
 		credits.add(new CreditsSlot("fun_bot", "", 0, 0, 0, 1));
@@ -247,6 +247,12 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Cryostorm", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Testostetyrone", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Tanall", "", 0, 1, 3, 0));
+		credits.add(new CreditsSlot("vasadariu", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("Casper &quot;Cdaser&quot; D.", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("Ash", "", 0, 1, 0, 1));
+		credits.add(new CreditsSlot("BLKCandy", "", 0, 0, 1, 0));
+		
+		
 		
 		
 		

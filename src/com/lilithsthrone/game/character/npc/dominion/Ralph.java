@@ -354,15 +354,6 @@ public class Ralph extends NPC {
 	// Vagina:
 	
 	@Override
-	public String getPlayerVaginaVirginityLossDescription(boolean isPlayerDom){
-		return formatVirginityLoss("Ralph's massive black horse-cock tears through your hymen as he takes your virginity!")
-				+ 
-				(Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN)
-						?losingPureVirginity()
-						:"");
-	}
-	
-	@Override
 	public String getPlayerVaginaStretchingDescription(PenetrationType penetrationType) {
 		if(Math.random()<0.3) {
 			return super.getPlayerVaginaStretchingDescription(penetrationType);
@@ -383,11 +374,6 @@ public class Ralph extends NPC {
 	
 	// Mouth:
 
-	@Override
-	public String getPlayerMouthVirginityLossDescription(){
-		return formatVirginityLoss("You'd never have thought that your first time sucking cock would be like this!");
-	}
-	
 	@Override
 	public String getPlayerMouthStretchingDescription(PenetrationType penetrationType) {
 		if(Math.random()<0.3) {

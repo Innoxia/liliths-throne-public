@@ -74,8 +74,7 @@ public enum Combat {
 	 * Initialises combat, setting the opponent's health and composure to full.
 	 * 
 	 * @param npc
-	 * @param escapeChance
-	 *            Chance of an escape succeeding (out of 100)
+	 * @param escapeChance Chance of an escape succeeding (out of 100)
 	 */
 	public void initialiseCombat(NPC npc,
 			int escapePercentage,
@@ -1425,7 +1424,13 @@ public enum Combat {
 					
 				case MAIN:
 					damage = 0;
-					combatStringBuilder = new StringBuilder(opponent.getAttackDescription(opponentAttack, true));
+					combatStringBuilder = new StringBuilder(opponent.getAttackDescription(opponentAttack, true)
+							+(Main.game.getPlayer().isVisiblyPregnant()
+									?UtilText.parse(opponent,
+											"<p>"
+												+ "A powerful field of arcane energy is protecting your pregnant belly, which doesn't even come into play, as [npc.name]'s very careful not to hit anywhere near your stomach."
+											+ "</p>")
+											:""));
 					damage = Attack.calculateDamage(opponent, Main.game.getPlayer(), opponentAttack, critical);
 					combatStringBuilder.append("<p>"
 							+ "<b>You were " + (critical ? "<b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>critically</b> hit for " : " hit for ") + damage + " <b style='color: "
@@ -1445,7 +1450,13 @@ public enum Combat {
 					
 				case OFFHAND:
 					damage = 0;
-					combatStringBuilder = new StringBuilder(opponent.getAttackDescription(opponentAttack, true));
+					combatStringBuilder = new StringBuilder(opponent.getAttackDescription(opponentAttack, true)
+							+(Main.game.getPlayer().isVisiblyPregnant()
+									?UtilText.parse(opponent,
+											"<p>"
+												+ "A powerful field of arcane energy is protecting your pregnant belly, which doesn't even come into play, as [npc.name]'s very careful not to hit anywhere near your stomach."
+											+ "</p>")
+											:""));
 					damage = Attack.calculateDamage(opponent, Main.game.getPlayer(), opponentAttack, critical);
 					combatStringBuilder.append("<p>"
 							+ "<b>You were " + (critical ? "<b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>critically</b> hit for " : " hit for ") + damage + " <b style='color: "

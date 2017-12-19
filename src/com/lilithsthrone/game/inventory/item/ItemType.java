@@ -286,7 +286,7 @@ public class ItemType {
 //
 //		@Override
 //		public String getUseDescription(GameCharacter user, GameCharacter target) {
-//			if (user == Main.game.getPlayer())
+//			if (user.isPlayer())
 //				return "<p>"
 //							+ "You drink the testing fluid."
 //						+ "</p>";
@@ -335,7 +335,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			if (user == Main.game.getPlayer())
+			if (user.isPlayer())
 				return "<p>"
 							+ "Unscrewing the lid, you bring the bottle of 'Equine Cider' to your lips before tilting your head back and quickly gulping down the golden liquid."
 							+ " As the last few drops slide down your throat, you notice a faint, musky dryness permeating through the sweet liquid, which lingers for some time as a slightly unpleasant aftertaste."
@@ -380,7 +380,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			if (user == Main.game.getPlayer()) {
+			if (user.isPlayer()) {
 				return "<p>"
 							+ "Unscrewing the cap, you bring the bottle of Bubble Milk up to your [pc.lips+], before tilting your head back and quickly gulping down the creamy liquid."
 							+ " Despite its name and the appearance of being carbonated, the mellow taste lacks any sort of fizz, and, after draining the entire bottle, a soft, pleasant aftertaste lingers in your mouth."
@@ -426,7 +426,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			if (user == Main.game.getPlayer())
+			if (user.isPlayer())
 				return "<p>"
 							+ "Popping off the cap, you bring the bottle of 'Wolf Whiskey' up to your lips."
 							+ " A thick, musky scent rises from the opening, and with a gulp, you start downing the liquid, discovering that the liquid's taste is almost identical to its pungent aroma."
@@ -472,7 +472,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			if (user == Main.game.getPlayer() && target == Main.game.getPlayer()) {
+			if (user.isPlayer() && target.isPlayer()) {
 				return "<p>"
 							+ "You pull out the stopper and take a large swig of the 'Swamp Water'."
 							+ " Thankfully, the liquid within isn't a literal version of its label, and turns out to be a strong liquor, which burns your throat a little as you gulp it down."
@@ -523,7 +523,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			if (user == Main.game.getPlayer() && target == Main.game.getPlayer()) {
+			if (user.isPlayer() && target.isPlayer()) {
 				return "<p>"
 							+ "Opening the bottle, you eagerly bring it up to your waiting lips."
 							+ " A rich, creamy smell rises from the opening, and as you greedily drink down the cool liquid, you're delighted to discover that it tastes every bit as good as its delicious aroma suggested it would."
@@ -571,7 +571,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			if (user == Main.game.getPlayer() && target == Main.game.getPlayer()) {
+			if (user.isPlayer() && target.isPlayer()) {
 				return "<p>"
 							+ "After first unscrewing the cap, you bring the plastic bottle up to your mouth."
 							+ " A faint smell of vanilla informs you that this isn't any ordinary water, and as you tilt your head back and start drinking the cool liquid, the taste of vanilla overwhelms your senses."
@@ -621,7 +621,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			if (user == Main.game.getPlayer() && target == Main.game.getPlayer()) {
+			if (user.isPlayer() && target.isPlayer()) {
 				return "<p>"
 							+ "You pop off the cap and start drinking the bottle of 'Canine Crush'."
 							+ " It doesn't taste anything like any other beer you've ever drank, and it reminds you more of a sugary energy drink rather than any alcoholic beverage."
@@ -670,7 +670,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			if (user == Main.game.getPlayer() && target == Main.game.getPlayer()) {
+			if (user.isPlayer() && target.isPlayer()) {
 				return "<p>"
 							+ "You unscrew the cap and start drinking the bottle of 'Squirrel Java'."
 							+ " Its taste is quite unlike that of any other coffee you've ever drunk, and it reminds you more of a sugary energy drink rather than any caffeinated beverage."
@@ -719,7 +719,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			if (user == Main.game.getPlayer() && target == Main.game.getPlayer()) {
+			if (user.isPlayer() && target.isPlayer()) {
 				return "<p>"
 							+ "You take in a deep breath of an intoxicating feminine scent as you spray a little squirt of the 'Harpy Perfume' onto your neck."
 							+ " Looking down at the curiously now-empty bottle of perfume, you feel a bubbly wave of excitement running through you, and without thinking, you find yourself letting out a very girly giggle."
@@ -769,7 +769,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			if (user == Main.game.getPlayer())
+			if (user.isPlayer())
 				return "<p>"
 							+ "The moment you pull the stopper out from the top of the bottle of 'Lilith's Gift', you're filled with a desperate need to drink the bubbling pink liquid contained within."
 							+ " Instantly, you bring the bottle to your lips and gulp it all down, suppressing your gag reflex as your senses are overwhelmed by how sickeningly sweet it is."
@@ -870,7 +870,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			if (target == Main.game.getPlayer()) {
+			if (target.isPlayer()) {
 				return "<p>"
 							+ "You pull out the little stopper from the top of the glass vial, and quickly gulp down the sickly sweet liquid contained within..."
 						+ "</p>";
@@ -916,7 +916,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			if (target == Main.game.getPlayer()) {
+			if (target.isPlayer()) {
 				return "<p>"
 							+ "You pull out the crystal stopper from the top of the bottle, before quickly gulping down the tasteless liquid contained within..."
 						+ "</p>";
@@ -965,17 +965,18 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			if (user == Main.game.getPlayer())
+			if (user.isPlayer()) {
 				return "<p>"
 							+ "The moment you pull the stopper out from the top of the bottle of 'Innoxia's Gift', you're filled with a desperate need to drink the bubbling golden liquid contained within."
 							+ " Instantly, you bring the bottle to your lips and gulp it all down, suppressing your gag reflex as your senses are overwhelmed by how sickeningly sweet it is."
 						+ "</p>";
-			else
+			} else {
 				return UtilText.parse(user,
 						"<p>"
 							+ "[npc.Name] pulls out a bottle of 'Innoxia's Gift', and, after quickly pulling out the stopper, [npc.she] promptly downs the entire bottle."
 							+ " <i>How did [npc.she] get this?!</i>"
 						+ "</p>");
+			}
 		}
 	};
 	
@@ -1012,7 +1013,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			if (user == Main.game.getPlayer() && target == Main.game.getPlayer()) {
+			if (user.isPlayer() && target.isPlayer()) {
 				return "<p>"
 							+ "You pull out the little glass stopper and bring the vial to your lips."
 							+ " The faint scent of roses rises up from the opening, and you find yourself letting out a gentle sigh as you tilt back your head before drinking down the cool liquid."
@@ -1060,7 +1061,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			if (user == Main.game.getPlayer() && target == Main.game.getPlayer()) {
+			if (user.isPlayer() && target.isPlayer()) {
 				return "<p>"
 							+ "You pull back the ring-pull and peel off the can's lid."
 							+ " A rich, fishy smell accompanies the sight of what looks to be tinned salmon, and you find yourself unable to resist the delicious-looking meat."
@@ -1110,7 +1111,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			if (user == Main.game.getPlayer() && target == Main.game.getPlayer()) {
+			if (user.isPlayer() && target.isPlayer()) {
 				return "<p>"
 							+ "You peel back the foil lid to reveal the pot's contents."
 							+ " Despite this product being called 'Cream', it's actually a thick yoghurt that's contained within."
@@ -1160,7 +1161,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			if (user == Main.game.getPlayer() && target == Main.game.getPlayer()) {
+			if (user.isPlayer() && target.isPlayer()) {
 				return "<p>"
 							+ "You pull at the sides of one end of the bag, and open the package."
 							+ " A rich, earthy smell accompanies the sight of the round nights inside, and you find yourself unable to resist the delicious-looking display."
@@ -1208,7 +1209,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			if (user == Main.game.getPlayer() && target == Main.game.getPlayer()) {
+			if (user.isPlayer() && target.isPlayer()) {
 				return "<p>"
 						+ "You peel back the paper packaging and pop the Canine Crunch into your mouth."
 						+ " As you crunch down on the dry biscuit, you find that it's quite bland and salty."
@@ -1255,7 +1256,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			if (user == Main.game.getPlayer() && target == Main.game.getPlayer()) {
+			if (user.isPlayer() && target.isPlayer()) {
 				return "<p>"
 							+ "You peel off the paper packaging and pop the Sugar Carrot Cube into your mouth."
 							+ " The strong taste of carrots instantly fills your mouth, but before you have any time to relish the flavour, you find that it's dissolved in your saliva, and you've gulped down the sugary mess."
@@ -1303,7 +1304,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			if (user == Main.game.getPlayer() && target == Main.game.getPlayer()) {
+			if (user.isPlayer() && target.isPlayer()) {
 				return "<p>"
 							+ "You remove the bowl's lid and start eating the rich gumbo contained within."
 							+ " The delicious, slightly spicy taste of seafood instantly fills your mouth, but you don't take any time to really relish the flavour, as you can't help but greedily gulp down the tangy mess and move on to your next mouthful."
@@ -1350,17 +1351,17 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			if (user == Main.game.getPlayer() && target == Main.game.getPlayer()) {
+			if (user.isPlayer() && target.isPlayer()) {
 				return "<p>"
-						+ "You untie the brown string, and, peeling back the grease-proof paper, bring the now-exposed slab of meat to your mouth."
-						+ " A rich, bloody smell rises to fill your nostrils, but instead of repulsing you, you find yourself drooling at the thought of eating the raw meat."
-						+ " Without further thought, you greedily devour the dripping flesh, licking your fingers clean after rapidly finishing your impromptu meal."
+							+ "You untie the brown string, and, peeling back the grease-proof paper, bring the now-exposed slab of meat to your mouth."
+							+ " A rich, bloody smell rises to fill your nostrils, but instead of repulsing you, you find yourself drooling at the thought of eating the raw meat."
+							+ " Without further thought, you greedily devour the dripping flesh, licking your fingers clean after rapidly finishing your impromptu meal."
 						+ "</p>";
 				
 			} else {
 				return UtilText.parse(target,
 						"<p>"
-						+ "[npc.Name] pulls out a package of 'Meat & Marrow', and, tearing off the paper packaging, quickly devours the slab of raw meat that was stored within."
+								+ "[npc.Name] pulls out a package of 'Meat & Marrow', and, tearing off the paper packaging, quickly devours the slab of raw meat that was stored within."
 						+ "</p>");
 			}
 		}
@@ -1399,7 +1400,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			if (user == Main.game.getPlayer() && target == Main.game.getPlayer()) {
+			if (user.isPlayer() && target.isPlayer()) {
 				return "<p>"
 						+ "The moment you push the bright pink lollipop past your lips, your taste buds are overwhelmed by the sweet, sugary flavour of bubblegum."
 						+ " Before you know what you're doing, you're letting out soft little feminine moans, which soon turn into desperate whines as you find yourself unable to think about anything other than wildly sucking on the object in your mouth."
@@ -1675,8 +1676,8 @@ public class ItemType {
 					+ " Inside, the swirling "+Colour.RACE_ALLIGATOR_MORPH.getName()+" glow of an alligator-morph essence flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceGatorMorph",
 			Colour.RACE_ALLIGATOR_MORPH,
-			10,
-			Rarity.COMMON,
+			50,
+			Rarity.EPIC,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_ALLIGATOR_MORPH, null, null, null, 0)))) {
 
@@ -2157,7 +2158,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			if (target == Main.game.getPlayer()) {
+			if (target.isPlayer()) {
 				return "<p>"
 							+ "After gulping down the sweet liquid, you feel a strange tingling feeling spreading throughout your body as the potion's effects start to make themselves known..."
 						+ "</p>";
@@ -2207,7 +2208,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			if (target == Main.game.getPlayer()) {
+			if (target.isPlayer()) {
 				return "<p>"
 							+ "After gulping down the sweet liquid, you feel a strange tingling feeling spreading throughout your body as the elixir's effects start to make themselves known..."
 						+ "</p>";
@@ -2355,7 +2356,7 @@ public class ItemType {
 		
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			if (user == Main.game.getPlayer())
+			if (user.isPlayer())
 				return "<p>"
 							+ "Popping the little pink pill out of its foil wrapper, you quickly put it in your mouth and swallow it down."
 						+ "</p>";
@@ -2391,7 +2392,7 @@ public class ItemType {
 		
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			if (user == Main.game.getPlayer())
+			if (user.isPlayer())
 				return "<p>"
 							+ "Popping the little blue pill out of its foil wrapper, you quickly put it in your mouth and swallow it down."
 						+ "</p>";
@@ -2425,7 +2426,7 @@ public class ItemType {
 		
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			if (user == Main.game.getPlayer())
+			if (user.isPlayer())
 				return "<p>"
 							+ "Bringing the bottle up to your [pc.lips], you take the teat-like opening into your mouth, before greedily starting to suckle down the creamy liquid within."
 						+ "</p>";
@@ -2850,7 +2851,7 @@ public class ItemType {
 		
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			if (user == Main.game.getPlayer() && target == Main.game.getPlayer()) {
+			if (user.isPlayer() && target.isPlayer()) {
 				return "<p>"
 							+ "You eat the eggplant."
 						+ "</p>";
@@ -2873,7 +2874,7 @@ public class ItemType {
 //		
 //		@Override
 //		protected String extraEffects(GameCharacter user, GameCharacter target) {
-//			if (user == Main.game.getPlayer() && target == Main.game.getPlayer())
+//			if (user.isPlayer() && target.isPlayer())
 //				effectStringBuilder = new StringBuilder("<p>You unscrew the plastic cap and gulp down the bottle of <i>Masochist's Heaven</i>. The drink is quite bland, but a slight"
 //						+ " citrus aftertaste lingers in your mouth as you swallow the last few drops. As you lower the empty bottle, your mouth and throat suddenly feel incredibly"
 //						+ " dry, as though you haven't drunk anything for hours. Before you can think about getting another drink, the feeling quickly fades away, spreading a dry warmth throughout your entire body.</p>");
@@ -2906,7 +2907,7 @@ public class ItemType {
 //		
 //		@Override
 //		protected String extraEffects(GameCharacter user, GameCharacter target) {
-//			if (user == Main.game.getPlayer() && target == Main.game.getPlayer())
+//			if (user.isPlayer() && target.isPlayer())
 //				effectStringBuilder = new StringBuilder("<p>You unscrew the plastic cap and gulp down the bottle of <i>Going Big</i>."
 //						+ " Despite the fact that the liquid is clear, it has a very strong taste of apples, and after only a moment, you're licking the last few drops from your lips.</p>");
 //			else if (user != Main.game.getPlayer() && target != Main.game.getPlayer())
@@ -2938,7 +2939,7 @@ public class ItemType {
 //			"potion", Colour.CLOTHING_PINK_LIGHT, true, 25, Rarity.RARE, "Increases orifice wetness and capacity.") {
 //		@Override
 //		protected String extraEffects(GameCharacter user, GameCharacter target) {
-//			if (user == Main.game.getPlayer() && target == Main.game.getPlayer())
+//			if (user.isPlayer() && target.isPlayer())
 //				effectStringBuilder = new StringBuilder("<p>You unscrew the plastic cap and gulp down the bottle of <i>Wet Kiss</i>. The drink is quite bland, but a slight"
 //						+ " aftertaste of cranberries lingers in your mouth as you swallow the last few drops. Within seconds, you feel a slimy wetness squirming in your stomach,"
 //						+ " but before you have any time to worry, it quickly dissipates throughout your body.</p>");
@@ -2975,7 +2976,7 @@ public class ItemType {
 //		
 //		@Override
 //		protected String extraEffects(GameCharacter user, GameCharacter target) {
-//			if (user == Main.game.getPlayer() && target == Main.game.getPlayer())
+//			if (user.isPlayer() && target.isPlayer())
 //				effectStringBuilder = new StringBuilder("<p>You unscrew the plastic cap and gulp down the bottle of bubble-milk. It tastes just like regular milk, but as you"
 //						+ " swallow the last few drops, a funny bubbling sensation starts to spread throughout your torso before settling in your chest.</p>");
 //			else if (user != Main.game.getPlayer() && target != Main.game.getPlayer())
@@ -3007,7 +3008,7 @@ public class ItemType {
 //			"potion", Colour.CLOTHING_WHITE, true, 100, Rarity.EPIC, "Increases breast size, count, and lactation.") {
 //		@Override
 //		protected String extraEffects(GameCharacter user, GameCharacter target) {
-//			if (user == Main.game.getPlayer() && target == Main.game.getPlayer())
+//			if (user.isPlayer() && target.isPlayer())
 //				effectStringBuilder = new StringBuilder("<p>You unscrew the plastic cap and gulp down the bottle of bubble-cream. Its rich taste is exactly like that of regular"
 //						+ " cream, but as you swallow the last few drops, a strong bubbling sensation starts to spread throughout your torso before settling in your chest.</p>");
 //			else if (user != Main.game.getPlayer() && target != Main.game.getPlayer())
@@ -3040,7 +3041,7 @@ public class ItemType {
 //			"potion", Colour.CLOTHING_BLUE_LIGHT, true, 25, Rarity.RARE, "Increases penis and testicle size. Increases cum production.") {
 //		@Override
 //		protected String extraEffects(GameCharacter user, GameCharacter target) {
-//			if (user == Main.game.getPlayer() && target == Main.game.getPlayer())
+//			if (user.isPlayer() && target.isPlayer())
 //				effectStringBuilder = new StringBuilder("<p>You unscrew the plastic cap and gulp down the bottle of <i>Throbbing Glow</i>. It tastes a little sour, sort of like"
 //						+ " a cheap, sugary energy drink. As the last few drops slide down your throat, you feel a throbbing, deep-seated heat take root in your groin.</p>");
 //			else if (user != Main.game.getPlayer() && target != Main.game.getPlayer())
@@ -3073,7 +3074,7 @@ public class ItemType {
 //			"potion", Colour.CLOTHING_PINK_LIGHT, true, 25, Rarity.RARE, "Increases the body's feminine characteristics.") {
 //		@Override
 //		protected String extraEffects(GameCharacter user, GameCharacter target) {
-//			if (user == Main.game.getPlayer() && target == Main.game.getPlayer())
+//			if (user.isPlayer() && target.isPlayer())
 //				effectStringBuilder = new StringBuilder("<p>You unscrew the plastic cap and gulp down the bottle of <i>Flower's Warmth</i>. It tastes a little sour, sort of like"
 //						+ " a cheap, sugary energy drink. As the last few drops slide down your throat, you feel a deep-seated heat start to spread through in your groin.</p>");
 //			else if (user != Main.game.getPlayer() && target != Main.game.getPlayer())
@@ -3108,7 +3109,7 @@ public class ItemType {
 //			"potion", Colour.CLOTHING_PINK, true, 25, Rarity.RARE, "Increases all feminine aspects.") {
 //		@Override
 //		protected String extraEffects(GameCharacter user, GameCharacter target) {
-//			if (user == Main.game.getPlayer() && target == Main.game.getPlayer())
+//			if (user.isPlayer() && target.isPlayer())
 //				effectStringBuilder = new StringBuilder("<p>You unscrew the metal cap and gulp down the bottle of <i>Scarlet Whisper</i>. The liquid has a delicate, sweet flavour,"
 //						+ " which reminds you of strawberries and cream. As you finish the bottle, a wave of dizziness washes over you, filling your mind with a soft pink haze. Shaking"
 //						+ " your head, the feeling somehow seems to sink down into your body, leaving you tingling all over.</p>");
@@ -3141,7 +3142,7 @@ public class ItemType {
 //			"potion", Colour.CLOTHING_BLUE, true, 25, Rarity.RARE, "Increases all masculine aspects.") {
 //		@Override
 //		protected String extraEffects(GameCharacter user, GameCharacter target) {
-//			if (user == Main.game.getPlayer() && target == Main.game.getPlayer())
+//			if (user.isPlayer() && target.isPlayer())
 //				effectStringBuilder = new StringBuilder("<p>You unscrew the metal cap and gulp down the bottle of <i>Flaming Thunder</i>. The liquid has a strong flavour, and despite"
 //						+ " its blue colouring, tastes very similar to lemonade. As you finish the bottle, a wave of dizziness washes over you, filling your mind with a strange blue haze."
 //						+ " Shaking your head, the feeling somehow seems to sink down into your body, leaving you tingling all over.</p>");

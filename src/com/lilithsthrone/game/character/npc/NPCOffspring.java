@@ -230,7 +230,7 @@ public class NPCOffspring extends NPC {
 			case 1:
 				return UtilText.parse(this,
 						"<p>"
-							+ "[npc.Name] jumps forwards, trying to deliver a punch to your stomach."
+							+ "[npc.Name] jumps forwards, trying to deliver a punch to your upper torso."
 							+ (isHit ? "" : " You manage to twist to one side, narrowly avoiding [npc.her] attack.")
 						+ "</p>");
 			default:
@@ -397,6 +397,8 @@ public class NPCOffspring extends NPC {
 						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_DOG_MORPH)
 						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_HARPY)
 						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_HORSE_MORPH)
+						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_COW_MORPH)
+						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_ALLIGATOR_MORPH)
 						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_SQUIRREL_MORPH)
 						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_WOLF_MORPH)) {
 					
@@ -448,6 +450,8 @@ public class NPCOffspring extends NPC {
 						|| item.getItemType().equals(ItemType.FIT_INGREDIENT_SQUIRREL_JAVA)
 						|| item.getItemType().equals(ItemType.INT_INGREDIENT_FELINE_FANCY)
 						|| item.getItemType().equals(ItemType.STR_INGREDIENT_EQUINE_CIDER)
+						|| item.getItemType().equals(ItemType.STR_INGREDIENT_SWAMP_WATER)
+						|| item.getItemType().equals(ItemType.STR_INGREDIENT_BUBBLE_MILK)
 						|| item.getItemType().equals(ItemType.STR_INGREDIENT_WOLF_WHISKEY)) {
 					
 						if(Sex.isPlayerDom()) {

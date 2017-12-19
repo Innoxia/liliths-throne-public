@@ -282,12 +282,14 @@ public enum Colour {
 	
 	SKIN_RED(BaseColour.CRIMSON, "scarlet"),
 	SKIN_BROWN(BaseColour.BROWN, "brown"),
+	SKIN_AMBER(BaseColour.AMBER, "amber"),
 	SKIN_PINK(BaseColour.PINK_LIGHT, "light pink"),
 	SKIN_GREEN(BaseColour.GREEN, "green"),
 	SKIN_BLUE(BaseColour.BLUE_LIGHT, "light blue"),
 	SKIN_LILAC(BaseColour.LILAC, "lilac"),
 	SKIN_PURPLE(BaseColour.PURPLE, "purple"),
 	SKIN_IVORY(BaseColour.WHITE, "ivory"),
+	SKIN_GREY(BaseColour.GREY, "grey"),
 
 	// Slime types:
 	SLIME_BLUE(BaseColour.BLUE, "translucent blue"),
@@ -434,12 +436,14 @@ public enum Colour {
 	public static List<Colour> demonSkinColours = Util.newArrayListOfValues(
 			new ListValue<Colour>(Colour.SKIN_RED),
 			new ListValue<Colour>(Colour.SKIN_BROWN),
+			new ListValue<Colour>(Colour.SKIN_AMBER),
 			new ListValue<Colour>(Colour.SKIN_PINK),
 			new ListValue<Colour>(Colour.SKIN_GREEN),
 			new ListValue<Colour>(Colour.SKIN_BLUE),
 			new ListValue<Colour>(Colour.SKIN_LILAC),
 			new ListValue<Colour>(Colour.SKIN_PURPLE),
 			new ListValue<Colour>(Colour.SKIN_IVORY),
+			new ListValue<Colour>(Colour.SKIN_GREY),
 			new ListValue<Colour>(Colour.SKIN_EBONY));
 
 	public static List<Colour> allSkinColours = Util.newArrayListOfValues(
@@ -448,8 +452,10 @@ public enum Colour {
 			new ListValue<Colour>(Colour.SKIN_OLIVE),
 			new ListValue<Colour>(Colour.SKIN_DARK),
 			new ListValue<Colour>(Colour.SKIN_EBONY),
+			new ListValue<Colour>(Colour.SKIN_GREY),
 			new ListValue<Colour>(Colour.SKIN_RED),
 			new ListValue<Colour>(Colour.SKIN_BROWN),
+			new ListValue<Colour>(Colour.SKIN_AMBER),
 			new ListValue<Colour>(Colour.SKIN_PINK),
 			new ListValue<Colour>(Colour.SKIN_GREEN),
 			new ListValue<Colour>(Colour.SKIN_BLUE),

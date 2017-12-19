@@ -172,7 +172,7 @@ public class HarpyBimboCompanion extends NPC {
 			case 1:
 				return UtilText.parse(this,
 						"<p>"
-							+ "[npc.Name] jumps forwards, trying to deliver a punch to your stomach."
+							+ "[npc.Name] jumps forwards, trying to deliver a punch to your upper torso."
 							+ (isHit ? "" : " You manage to twist to one side, narrowly avoiding [npc.her] attack.")
 						+ "</p>");
 			default:

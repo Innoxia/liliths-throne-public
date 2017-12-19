@@ -7,83 +7,221 @@
 	Update to Java 9.0.1?
 	
 	
-	
-	
-	
 	- Improve orgasm dialogue, and add in position-specific orgasm scenes with body-part recognition (such as knotting, orifice modifiers, fluid modifiers, etc.).
 	- Add in missing content related to the new transformations. Addictive fluids, part modifiers referenced during sex, etc.
 	
 	- Work on final improvements to the sex system.
 	
 	
-	
-	
-	put a warning on the release post tonight that v9.01 isn't working yet
-	
-	
 	Patch notes:
 	
-	Gameplay & Sex:
-		Added a small (<5%) chance for alleyway attackers to be alligator morphs. (I'll move them into Submission when I add that area.)
-		<b>Added thigh sex</b> and associated thigh-related sex status effect (both receiving and performing action variants for both NPC's and PC's dom and sub paces).
+	<b>There were several bug reports (mainly the game's options locking up) that I was unable to reproduce. If you're having issues like that, please try exporting, then importing your game.</b>
 	
-	Contributions:
-		<b>Added alligator-morphs</b>, with associated items/consumables/transformations. (by rfpnj)
-		Added a black variation to the lab coat. (by rfpnj)
-		Improved NPC prostitution methods, which now allows males to be prostitutes, as well as providing a price based on the prostitute's body. (by tukaima)
+	Contributors:
+		Minor fix to Gator's Gumbo usage text. (by rfpnj)
+		
 	
 	Other:
-		The blazer item of clothing now conceals the wearer's chest and waist until unbuttoned.
-		Changed kissing dirty talk.
-		Added paizuri-specific dirty talk.
-		Added bovine-specific horns to HornTypes, to resolve the issue of horn races being inconsistent between demons and cow-morphs.
-		You can now pull down the Milk Maid's dress to expose breasts & nipples.
-		Lab coats now block breasts/genitals/ass, and can be unbuttoned and pulled up to reveal blocked parts.
-		Added option to pay for submissive sex with NPC prostitutes.
-		Added the full demonic transformations menu to the witch cultists.
-		Fixed several inconsistencies in the new incubus encounter dialogue.
+		Nyan's hair and fur colours are now black.
+		Reduced maximum prostitute spawn chance from 50% to 30%.
+		Added a 20% chance for NPCs to have unusual hair colours.
+		Changed hair length calculation to make alligator-morphs naturally bald, but only if their face type is that of an alligator-morph's (i.e. partial/lesser alligator-morphs will have human hair lengths).
+		NPCs will no longer generate new clothes while you're still interacting with them.
+		Added in (basic, to be expanded upon later) self-virginity-loss variants.
+		Made all self-actions in sex have the masturbation fetish associated with them.
+		Added amber & grey colours for demon skin.
+		Added cock length to selfie/character viewer screens.
 	
 	Bugs:
-		Fixed cause of characters present screen not opening.
-		Fixed (another) major bug related to game importing.
-		Flat-chested characters will no longer have their nipple be referred to as 'teats'.
-		Fixed multiple virginity loss readings in body description.
-		Corrected hair length in character viewer's stats panel to be displayed in inches.
-		Characters that are imported while wearing enchanted gear will now correctly have that gear's stats applied. (Before you would not receive gear bonuses upon import, and would then suffer attribute decreases when unequipping that clothing.)
-		Slave settings now import correctly (cleanliness settings will no longer reset on import).
-		Slaves locked in public use stocks will now have their nipples fucked (if they are accessible and are able to be penetrated).
-		Slave rooms (as well as all other places in all maps) will now correctly import all additions (such as obedience trainers, room service, arcane instruments, etc.).
-		Fixed major import error caused by the game trying to load the old position 'DOGGY_ORAL_PLAYER_ON_ALL_FOURS'.
-		Fixed incorrect transformation dialogue for NPCs who are forcibly transforming you.
-		Fixed minor description error in wing transformations.
-		Imported characters now correctly keep their available perk points.
-		Fixed bug with Zaranix's non-violent resolution option not being available.
-		Fixed bug where Arthur wouldn't be moved to Lilaya's Lab (this should correct itself when you import your game into this new version).
-		The 'Submissive talk' option in Lilaya's sex scene is now linked to the Submissive fetish.
-		Tidied up the total mess that was the 'repeat actions' tab in sex.
-		Androgynous characters will no longer be able to spawn in with a beard.
-		Growing horns now sets their starting length value to 'small' (2 inches), if their previous length is 0.
-		Changing difficulty level now correctly resets the health/willpower/stamina of all NPCs.
-		The 'pent up' status effect for slaves is now calculated based on the last time they orgasmed, not the last time they had sex, allowing you to have sex with your slave and stop before they orgasm to leave them pent-up.
-		Fixed bug where slaves were not getting paid and working when they weren't supposed to.
-	
-	Demonic transformation menu bugs:
-		Iris shape and pupil shape now work correctly on NPCs.
-		Changing lip size now works correctly on all characters.
-		Added options to change lip & throat colour.
-		Changing hair colour now correctly changes the target's hair colour, instead of their skin colour.
-		Fixed bug where you couldn't turn off orifice or penis modifiers.
-		Added options to change throat and tongue modifiers.
-		You can now set ass and hip sizes to any value.
-		Removed duplicate lactation menu.
-		Added options to set elasticity, plasticity, wetness and capacity for anus.
+		Fixed another cause of game imports not working.
+		Fixed leg skin/fur colour not being displayed properly in selfie view.
+		Fixed bug where NPCs trying to pull down the Milk Maid's dress would cause a game crash (by fixing bug where the top couldn't be pulled down).
+		Gator's Gumbo TF menu now shows correct number modifiers for TF descriptions in enchantment menu.
+		Alligator-morph items can now be fed to NPCs like other consumables.
+		Fixed form input fields not displaying apostrophes and quotation marks correctly.
 		Minor typo fixes.
+		Changing your body (using the demonic transformation menu) during sex will now correctly update sex actions accordingly.
+		Fixed cause of UI bugs where the bottom response bar would not be anchored to the bottom of the screen.
+		Fixed some incorrect stats for the 'alligator-morph' status effect.
+		Fixed more causes of crashes in game importing.
+		Fixed male prostitute names.
+		Time will now pass in the Enforcer HQ area.
+		Fixed bug where highlighted hair was being treated as a natural colour.
+		Fixed rarity of alligator-morph's bottled essence.
+		NPC's body preferences (what they want to TF you into after beating you) should now be correctly loaded on game import.
+		Fixed forced TF bug (where all NPCs would keep giving you human penis or vagina parts even if they wanted to turn you into something else).
+		Slaves with the transformation fetish which are assigned as a test subject, but without feminine or masculine transformation specified, now correctly receive a gain in affection when Lilaya performs tests on them.
+		Having furry encounters enabled while having "forced TF racial limits" set to "Human Only" should no longer have the problem of the characters not giving you any genitals when you are transformed.
+		Prostitutes should no longer be able to spawn in as virgins.
 	
 	
 	
 	
 	
-	Pazu feedback
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	Having the Denial Fetish should turn the 'Sexually Frustrated' penalty into a bonus of some sort
+	
+	Is initiating submissive sex raising corruption a bug
+		submissive sex to alleyway attackers is still locked behind the submissive fetish
+		
+		
+	Also on that note, the selfie screen then says you lost that virginity—including oral if you sucked your tail—to that partner instead of to yourself. Should sucking your tail even count as "giving head"?
+	
+	Having multiple tails only lets you occupy a single one. Same with more than two hands, you can only use two at a time.
+	
+	Lilaya and Kate can use your tail in their special sitting position, but you cannot make that decision yourself. To use your tail on them, I mean.
+	The sitting position with Lilaya and Kate doesn't allow you to use your tail on them, even though they can use theirs on you. Doesn't matter if you're on top or bottom. Maybe they can use your tail, haven't seen it though.
+	
+	If the first option page is filled, the second page has the last item of the first page repeated and the entire page is missing tooltips.
+	If there are too many options and some get thrown into a second page, that second page has no tooltips and the first option on the second page is the last option on the first page repeated.
+	
+	Long tongues cannot take any virginities.
+	
+	The Virgin Killer meme sweater, when pulled up, only exposes your butt and groin. But it hardly goes past your hips and is fairly loose, shouldn't you be able to pull it up much further?
+	
+	On a similar note, what about being able to pull down some of the sleeveless dresses (skater, plunge, slip and frontal zip, although that last one can be zipped anyway), like you can with the one-piece swimsuit and the bodysuit?
+	
+	Even the nursing bra gives you a penalty if you stain it with your own milk. Not an expert, but aren't they made to be fairly absorbent?
+	
+	
+	I don't know if anyone else is getting this, but turning into an alligator made it impossible to open the selfie and status screens on the phone, as well the transformation text for some parts not showing up.
+	
+	Alligator Girls seem to be really bugged. Initiating Combat opens the inventory with the only way to continue being being to close it which results in you fleeing.
+	 Interestingly enough you can open other combat 'Submenus' from the inventory screen if you click where the button would normally be located.
+	  Also initiating sex with them and (immediately) ending it makes it impossible to continue. I tested it in both versions and it's broken in both.
+	(Can confirm alligator morphs seem to break the game.)
+	
+	
+	
+	Patreon poll & messages & art
+	8chan bugs
+	TFGS response & update
+	
+	
+	
+	
+	If you scroll down the room list menu and click to manage a room, the new menu remains scrolled down accordingly instead of being reset to the top of the menu.
+	
+	
+	so, cant get slaves to have sex with each other again
+	anyone doing anal on me is a last resort
+	most npcs seem to go this way
+	penis > vagina > oral > anal
+	in order of what they are most likely to use. 
+	
+	It would be nice if instead of a set income from the stocks, there were tips that were randomish, just so there is a reason to use them without making a meta game out of it. 
+	
+	in my experiance right now it seems every time I request someone dont cum inside they dont. the only exception seems to be oral
+	
+	it would also be nice to be able to put slaves into a rotation seeing as it looks like future jobs may be more demanding and instead of run them into the ground it would be nice to set up a rotation. 
+	
+	I also ran into a bug where I put someone in stocks and that ended up makine the stocks time not work when I took them out of the stocks.
+	
+	
+	
+	
+	Innoxia you will need to look at gamecharacter.java lines 5101 to adjust them for antlers
+	
+	Main char has wings that "are large enough that they can be used to allow you to fly", but "Fly after her" is disabled when Alexa heads off to give Scarlet a woopin' because I have no wings?
+	
+	Vicky will not buy arcane essences anymore, Ralph does now. 
+	
+	I'll extend the fix to reset hair lengths for all values out of normal ranges for versions prior to 0.1.95. :3
+		It should also apply to random NPCs. :3
+	
+	 tail and horn sizes meant to be in the enchantment menu
+	
+	Got a bug, when i came across a incubus, fought and defeated him, i did the quick transform option, no penis, vagina and d-cup breast, and when sex started it said he was now a succubus and yet he had his dick back and lost his vagina. 
+
+	Another bug when i went to meet brax for the first time, he acted like i met, fought and lost to him before despite it being the first time meeting him, the character i was playing as was imported from 1.89.2 to 1.90 then to this version so this might be a cause for this bug
+	
+	got another bug when i chose my sexual history as a trap i went with limited history it should of took my penile virginity but it didn't, tried moderate history and the same problem.
+	
+	
+	
+	
+	Started a new game in 1.95, chose “very experienced”, Lilaya’s tests, “You’ll always remember this moment as the time that you lost your penile virginity!”.
+	
+	Importing a save exported from 1.89, the center panel appears but the side panels don’t. Needless to say, the game is not playable in this state.
+	
+	Tried out the new thigh sex, and it told me that my partner’s pre-cum lubricated their thighs. It obviously should have been my thighs (and status-effect-wise it was, it’s just the narration that was wrong).
+	
+	The new Paizuri dirty talk is for the be-cocked partner, but not for the boobèd one.
+	Paizuri doesn’t have ongoing narration (pink italic text).
+	Thigh sex doesn’t have ongoing narration or dirty talk.
+	Hotdogging doesn’t have ongoing narration or dirty talk.
+	
+	When you’re fucking someone’s ass, and they come, it talks about their pussy squeezing down (if they have one), but not their ass. One would think that you’d be more likely to notice the one that you were actually in.
+	
+	My “Strengthened Aura” effect doesn’t seem to be affecting my willpower resist, at least according to the stat screen. It’s showing -70 from my “Frustrated” effect and my corruption, but that should be brought back up to -45 from the “Strengthened Aura”, which doesn’t appear to be the case.
+	
+	Weirdness:
+	
+	The “lacy plunge bra” and “lacy panties” don’t look particularly lacy to me.
+	
+	A black blazer is noticeably darker than other black clothing.
+	
+	I see a bunch of items geing generated with “+Stamina Damage” effect. Does this actually do anything? I don’t think I’ve come across any stamina damaging attacks so far.
+	
+	Lilaya makes such a big deal about your amazing aura after her “tests”, even going so far as saying you should warn any other demons you meet, yet none of these other demons seem to notice. OK, OK, maybe I just want to see the “lazy demon” get all hyper. I think that would be cute.
+	
+	
+		
+		
+	
+	I encountered a succubus, had my way with her after selecting preferences, then i clasped a slave collar onto her. she was sent to the slaver, but her and my stats on the right and left side remained. Also my and her items still remain visible. So it doesn't return you to the 'world view' screen after doing so
+	
+	missed the leg related fetishes for thigh sex preferences
+		'Strutter' and 'leg lover' are my suggestions for kink names.
+	
+	could we move the 'to the stage' option in char creation from the 'check clothes' menu to the main menu
+	
+	
+	missionary position + tribadism
+	
+	tongues be separate categories than faces
+	
+	I'm still getting importing bugs - both the enchanted gear bug and my perk points aren't being carried over
+	
+	Most of the time, when clicking on the "Fight!" button does nothing. After clicking on it, mousing over it again displays a message to the effect of "You can't do that while in combat!"
+	(Save + relaod fixed it)
+	
+	Anyone else have issues during TF scenes where the process gets "stuck"? As in, it will keep trying to TF a body part that you already have, and the process won't progress anymore?
+Currently, it seems that I cannot obtain non-human genitals from an NPC's TF scene
+So, the game keeps getting stuck there, and I can't get TF'd any further than a gender swap (unless I get pregnant)
+BlobHyperSweats1
+	
+	
+	: I exported my game and got extra 25 global resist + others
+	[clothing export bug?]
+	
+	there seems to be a glitch for, at least my, imported char where Brax attacks me when i meet him for the first time
+	
+	Tattoos and slave customisation at Kate's place
+	
+	
+	I encountered a succubus, had my way with her after selecting preferences, then i clasped a slave collar onto her. she was sent to the slaver, but her and my stats on the right and left side remained. Also my and her items still remain visible. So it doesn't return you to the 'world view' screen after doing so
+	had a saved game right after defeating her, so i loaded that up, no sex this time, clasped slave collar and no problem. I'll see if I can try and get it to act up again.
+[05:52] GrimWaltz: I've narrowed the problem down. It seems that after choosing having sex with the succubus after defeating her and turning her into a slave, the game gets the problem. If you don't have sex with her but turn her into a slave there's no problem.
+[05:57] GrimWaltz: Also there's a minor problem with removing the condom when you're having sex. When you click on the condom and then choose "discard", it seemingly does nothing, but after closing the inventory the condom will be removed, but you won't have a "discard" message like you normally would but checking your clothing menu you will see it has been removed. (this was present in the previous version as well)
+	
+	satisfying a slave's addiction should raise their affection
+	
+	is the unwilling fucktoy fetish supposed to make NPCs resist?
+		Because I gave it to a slave and she only sometimes resists
+	
+	day 0, I go outside (on the storm) got attacked by a cow girl, non consensual activated, maximum dficulty, I got smached, but on the sex, the ask to be freed give the dirty talk description onhover (but give the good acction)
+	
+	
 	
 	
 	
@@ -316,8 +454,25 @@ When enslaving them, their name will be whatever they spawned in as. IE ("the wo
 when trying to change it, there's no way to do so. Typing in a name causes you to navigate through your menu options, even though you're typing in the name box. Also, hitting the check mark to lock her name in, just resets it back to the default.
 	
 	
+	Are submissive NPCs supposed to be able to stop you fingering yourself?
+
+Men's trousers can only be black or white.
+
+Gynephilic causes you to deal half willpower damage to males. That's not what the description says it does.
+
+Importing a save directly from 1.89.2 to 1.90.5 is broken. The game loads, but the sidebars don't render, just the center panel. Error log here. Importing to 1.90 then exporting again works as a workaround.
+	[at java.lang.reflect.Method.invoke(Method.java:498)
+    at com.lilithsthrone.game.Game.importGame(Game.java:493)]
+
+Imported potions are different to newly enchanted ones. They don't stack with them and they have the word "null" instead of the pentagram background image.
+
+Once Kate's tail is in your ass, there's no way to get it out again.
+
+A girl with the virginity fetish probably shouldn't ask you to fuck her, however if you use the "Tease her pussy" action, she will.
+	
 	----
 	
+	Exporting and importing a game causes characters' transformation preferences to change. For example someone who wanted to turn you into a girl may now want to give you a penis.
 	
 	Urethral actions
 	
@@ -385,6 +540,24 @@ I haven't received a bugged line from a slave that has an affection rating of 24
 	---------------
 	
 	add in "doggy-style receiving oral" for victory scenes asap
+	
+	
+	---------------
+	SEX AI:
+	
+	or example, 9 times out of 10 when both the PC and NPC are female, and you submit to the NPC, all the NPC does is randomly stick her fingers in and out of her pussy and ass, then she usually just cums without anything else happening. Here's how it almost always goes (and this is regardless of NPC fetishes):
+
+	1. NPC exposes her pussy and yours.
+	2. NPC either sticks her fingers in your pussy or hers for a round or two, then pulls them out.
+	3. NPC will usually switch positions, then does the same thing till she cums. Most of the time, her fingers are not even in her pussy.
+	
+	Basically, it's like the dominant female NPC doesn't want to cum from anything other than random masturbation. I'm not a lesbian so I don't know if this is how real lesbian sex works, lol.
+	
+	Submissive sex with dom male NPCs is usually okay, but every once in a while I'll get a guy who would rather finger his own ass than do anything else.
+	
+	A lot of times the NPC will switch positions the very turn before they cum. So if you're submissively sucking off a male NPC, he might switch to 69 with you on bottom, and then he ends up cumming on the ground. It's annoying.
+	
+	---------------
 	
 	
 	
@@ -498,7 +671,7 @@ Another bug report: can't seem to remove those who identify as prostitutes from 
 	: Also you never re-added the manual insemination option
 	And there's the self impreg with used condoms thing that I hear people mention occasionally.
 	
-	PULL on github
+	Will we be able to change our tongue color at some point
 	
 	Vicky's shop inventory isnt updating on the next day as it should
 	Sometimes shops were unusable. For some reason sometimes inventory screen text in options showed up instead.
@@ -536,6 +709,7 @@ Another bug report: can't seem to remove those who identify as prostitutes from 
 	
 	any chance of an option that lets NPCs fully transform you in one go after losing to them in battle? Either a toggle or a combination of fetishes on the player side (so it works with any NPC, not just ones where you've given them the right combination of fetishes)?
 	
+	move the effects over to an alchemist perk, and then I'll think up of some sex-related effects for the transformer fetish
 	
 	You were impregnated twice and you gave birth but it still says you're pregnant
 	A daughter just attacked me
@@ -731,6 +905,9 @@ It's most noticeable with Lilaya an the other succubi, but it can happen with an
 	
 	slave obedience stuck at 99.600006
 	
+	Also, seeing NPC's show up from time to time with oddly long fractional numbers, such as vaginal capacity being displayed as 7.2000003 inches. So far I only see it happen with capacities if ever, in fact.
+	
+	Public stocks seem to ignore gender settings, specifically permitting NPC's to spawn that shouldn't according to the gender preferences menu. 
 	
 	in m/m sex scenes I saw npcs getting fairly confused when they are on top and they decide to move you back to a wall. With no vagina to penetrate they often perform only generic actions like kissing or jerking off.
 If I can give a suggestion, in these situations they could perform some frotting or decide to change position.
@@ -758,6 +935,8 @@ If I can give a suggestion, in these situations they could perform some frotting
 
 During sex, "Repeat Actions" tab contains entries to repeat shifting clothing and "Stay in position" when you cum.
 
+
+Something else that looks like a repeated continuity bug from previous builds: When importing slaves from character export files (using the auction block), their genital stats are listed as undiscovered, even if the slave is initially wearing no obstructing clothing.
 
 
 -can i ask how damage resistance is supposed to work? it seems to be a straight percentage, but if it were, higher than 100resistance would mean you take 0 of that type of damage, but i've got over 150 will resist and i still take direct will damage. not much, less than 1 per attack, usually, but still. if it's supposed to compete with the opponents damage stat, so if their damage% is higher than your resist%, you still take damage, that's sensible and less of an issue. still an issue, though as i keep taking the above damage from someone with only 130 will damage%. if, on the other hand, resistance is capped, so you can never block all damage, which again makes sense, then it is probably working right and you can ignore this.
@@ -1061,6 +1240,7 @@ It says "and grown larger" instead of have or has or some other sentence correct
 	Use you
 	House freedom
 	
+	add a 'Cowgirl (bottom)' position for dominant sex as soon as I can
 	
 	: Did you get the breast fetishests to actually use kneeling now?
 	Oh, so oral performers are still more into breastplay than breast fetishests?

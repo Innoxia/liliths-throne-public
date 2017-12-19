@@ -2332,90 +2332,90 @@ public class Body implements Serializable, XMLSaving {
 		switch (leg.getType()) {
 			case HUMAN:
 				if (owner.isPlayer())
-					sb.append("You have a pair of human legs and feet, which are covered in <span style='color:[pc.legColourHex];'>[pc.legColour] [pc.legSkin]</span>.");
+					sb.append("You have a pair of human legs and feet, which are covered in [pc.legFullDescription(true)].");
 				else
-					sb.append("[npc.Her] legs and feet are human, and are covered in <span style='color:[npc.legColourHex];'>[npc.legColour] [npc.legSkin]</span>.");
+					sb.append("[npc.Her] legs and feet are human, and are covered in [npc.legFullDescription(true)].");
 				break;
 			case ANGEL:
 				if (owner.isPlayer())
-					sb.append("Your legs and feet are human in shape, but are covered in <span style='color:[pc.legColourHex];'>[pc.legColour] [pc.legSkin]</span>.");
+					sb.append("Your legs and feet are human in shape, but are covered in [pc.legFullDescription(true)].");
 				else
-					sb.append("[npc.Her] legs and feet are human in shape, but are covered in <span style='color:[npc.legColourHex];'>[npc.legColour] [npc.legSkin]</span>.");
+					sb.append("[npc.Her] legs and feet are human in shape, but are covered in [npc.legFullDescription(true)].");
 				break;
 			case DEMON_COMMON:
 				if (owner.isPlayer())
-					sb.append("Your legs and feet are human in shape, but are covered in <span style='color:[pc.legColourHex];'>[pc.legColour] [pc.legSkin]</span>.");
+					sb.append("Your legs and feet are human in shape, but are covered in [pc.legFullDescription(true)].");
 				else
-					sb.append("[npc.Her] legs and feet are human in shape, but are covered in <span style='color:[npc.legColourHex];'>[npc.legColour] [npc.legSkin]</span>.");
+					sb.append("[npc.Her] legs and feet are human in shape, but are covered in [npc.legFullDescription(true)].");
 				break;
 			case DOG_MORPH:
 				if (owner.isPlayer())
-					sb.append("Your legs are covered in <span style='color:[pc.legColourHex];'>[pc.legColour] [pc.legSkin]</span>,"
+					sb.append("Your legs are covered in [pc.legFullDescription(true)],"
 							+ " and your feet are formed into anthropomorphic dog-like paws, complete with little blunt claws and leathery pads.");
 				else
-					sb.append("[npc.Her] legs are covered in <span style='color:[npc.legColourHex];'>[npc.legColour] [npc.legSkin]</span>,"
+					sb.append("[npc.Her] legs are covered in [npc.legFullDescription(true)],"
 							+ " and [npc.her] feet are formed into anthropomorphic dog-like paws, complete with little blunt claws and leathery pads.");
 				break;
 			case LYCAN:
 				if (owner.isPlayer())
-					sb.append("Your legs are covered in <span style='color:[pc.legColourHex];'>[pc.legColour] [pc.legSkin]</span>,"
+					sb.append("Your legs are covered in [pc.legFullDescription(true)],"
 							+ " and your feet are formed into anthropomorphic wolf-like paws, complete with sharp claws and tough leathery pads.");
 				else
-					sb.append("[npc.Her] legs are covered in <span style='color:[npc.legColourHex];'>[npc.legColour] [npc.legSkin]</span>,"
+					sb.append("[npc.Her] legs are covered in [npc.legFullDescription(true)],"
 							+ " and [npc.her] feet are formed into anthropomorphic wolf-like paws, complete with sharp claws and tough leathery pads.");
 				break;
 			case ALLIGATOR_MORPH:
 				if (owner.isPlayer())
-					sb.append("Your legs are covered in <span style='color:[pc.legColourHex];'>[pc.legColour] [pc.legSkin]</span>,"
+					sb.append("Your legs are covered in [pc.legFullDescription(true)],"
 							+ " and your feet are formed into anthropomorphic alligator-like feet, complete with sharp claws.");
 				else
-					sb.append("[npc.Her] legs are covered in <span style='color:[npc.legColourHex];'>[npc.legColour] [npc.legSkin]</span>,"
+					sb.append("[npc.Her] legs are covered in [npc.legFullDescription(true)],"
 							+ " and [npc.her] feet are formed into anthropomorphic alligator-like feet, complete with sharp claws.");
 				break;
 			case CAT_MORPH:
 				if (owner.isPlayer())
-					sb.append("Your legs are covered in <span style='color:[pc.legColourHex];'>[pc.legColour] [pc.legSkin]</span>,"
+					sb.append("Your legs are covered in [pc.legFullDescription(true)],"
 							+ " and your feet are formed into anthropomorphic cat-like paws, complete with retractable claws and pink pads.");
 				else
-					sb.append("[npc.Her] legs are covered in <span style='color:[npc.legColourHex];'>[npc.legColour] [npc.legSkin]</span>,"
+					sb.append("[npc.Her] legs are covered in [npc.legFullDescription(true)],"
 							+ " and [npc.her] feet are formed into anthropomorphic cat-like paws, complete with retractable claws and pink pads.");
 				break;
 			case SQUIRREL_MORPH:
 				if (owner.isPlayer())
-					sb.append("Your legs are covered in <span style='color:[pc.legColourHex];'>[pc.legColour] [pc.legSkin]</span>,"
+					sb.append("Your legs are covered in [pc.legFullDescription(true)],"
 							+ " and your feet are formed into anthropomorphic squirrel-like paws, complete with claws and pink pads.");
 				else
-					sb.append("[npc.Her] legs are covered in <span style='color:[npc.legColourHex];'>[npc.legColour] [npc.legSkin]</span>,"
+					sb.append("[npc.Her] legs are covered in [npc.legFullDescription(true)],"
 							+ " and [npc.her] feet are formed into anthropomorphic squirrel-like paws, complete with claws and pink pads.");
 				break;
 			case HORSE_MORPH:
 				if (owner.isPlayer())
-					sb.append("Your legs are covered in <span style='color:[pc.legColourHex];'>[pc.legColour] [pc.legSkin]</span>,"
+					sb.append("Your legs are covered in [pc.legFullDescription(true)],"
 							+ " and your feet are formed into anthropomorphic horse-like hooves.");
 				else
-					sb.append("[npc.Her] legs are covered in <span style='color:[npc.legColourHex];'>[npc.legColour] [npc.legSkin]</span>,"
+					sb.append("[npc.Her] legs are covered in [npc.legFullDescription(true)],"
 							+ " and [npc.her] feet are formed into anthropomorphic horse-like hooves.");
 				break;
 			case COW_MORPH:
 				if (owner.isPlayer())
-					sb.append("Your legs are covered in <span style='color:[pc.legColourHex];'>[pc.legColour] [pc.legSkin]</span>,"
+					sb.append("Your legs are covered in [pc.legFullDescription(true)],"
 							+ " and your feet are formed into anthropomorphic cow-like hooves.");
 				else
-					sb.append("[npc.Her] legs are covered in <span style='color:[npc.legColourHex];'>[npc.legColour] [npc.legSkin]</span>,"
+					sb.append("[npc.Her] legs are covered in [npc.legFullDescription(true)],"
 							+ " and [npc.her] feet are formed into anthropomorphic cow-like hooves.");
 				break;
 			case SLIME:
 				if (owner.isPlayer())
-					sb.append("Your legs, although human-shaped, are made out of <span style='color:[pc.legColourHex];'>[pc.legColour] [pc.legSkin]</span>.");
+					sb.append("Your legs, although human-shaped, are made out of [pc.legFullDescription(true)].");
 				else
-					sb.append("[npc.Her] legs, although human-shaped, are made out of <span style='color:[npc.legColourHex];'>[npc.legColour] [npc.legSkin]</span>.");
+					sb.append("[npc.Her] legs, although human-shaped, are made out of [npc.legFullDescription(true)].");
 				break;
 			case HARPY:
 				if (owner.isPlayer())
-					sb.append("Your upper thighs are covered in <span style='color:[pc.legColourHex];'>[pc.legColour] [pc.legSkin]</span>, which transition into leathery bird-like skin just above your knee."
+					sb.append("Your upper thighs are covered in [pc.legFullDescription(true)], which transition into leathery bird-like skin just above your knee."
 							+ " While your legs still retain a human-like shape, your feet have transformed into bird-like talons.");
 				else
-					sb.append("[npc.Her] upper thighs are covered in <span style='color:[npc.legColourHex];'>[npc.legColour] [npc.legSkin]</span>, which transition into leathery bird-like skin just above [npc.her] knee."
+					sb.append("[npc.Her] upper thighs are covered in [npc.legFullDescription(true)], which transition into leathery bird-like skin just above [npc.her] knee."
 							+ " While [npc.her] legs still retain a human-like shape, [npc.her] feet have transformed into bird-like talons.");
 				break;
 			default:
@@ -3682,9 +3682,9 @@ public class Body implements Serializable, XMLSaving {
 		descriptionSB = new StringBuilder();
 		
 		if (isPlayer) {
-			descriptionSB.append("You have [pc.a_penisSize]");
+			descriptionSB.append("You have [pc.a_penisSize], "+owner.getPenisRawSizeValue()+"-inch");
 		} else {
-			descriptionSB.append("[npc.She] has [npc.a_penisSize]");
+			descriptionSB.append("[npc.She] has [npc.a_penisSize], "+owner.getPenisRawSizeValue()+"-inch");
 		}
 		
 		switch (penis.getType()) {
@@ -3980,7 +3980,7 @@ public class Body implements Serializable, XMLSaving {
 			if (isPlayer) {
 				descriptionSB.append(" Your [pc.ballsCount] [pc.balls+] have shifted to sit inside your body, leaving your [pc.cock] as the only visible part of your male reproductive organs.");
 			} else {
-				descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls+] have shifted to sit inside [npc.her] body, leaving [npc.her] [npc.cock] as the only visible part of [pc.her] male reproductive organs.");
+				descriptionSB.append(" [npc.Her] [npc.ballsCount] [npc.balls+] have shifted to sit inside [npc.her] body, leaving [npc.her] [npc.cock] as the only visible part of [npc.her] male reproductive organs.");
 			}
 			
 		} else {
@@ -4731,7 +4731,7 @@ public class Body implements Serializable, XMLSaving {
 	public Gender getGender() {
 		boolean hasPenis = penis.getType() != PenisType.NONE;
 		boolean hasVagina = vagina.getType() != VaginaType.NONE;
-		boolean hasBreasts = breast.getSize().getMeasurement() >= CupSize.AA.getMeasurement();
+		boolean hasBreasts = breast.hasBreasts();
 		
 		// Looks male:
 		if (femininity <= Femininity.MASCULINE.getMaximumFemininity()) {

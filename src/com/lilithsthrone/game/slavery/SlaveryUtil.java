@@ -280,12 +280,24 @@ public class SlaveryUtil implements Serializable {
 					return new SlaveryEventLogEntry(hour, slave, "Book fun", "", Util.newArrayListOfValues(new ListValue<>("")));
 				case TEST_SUBJECT:
 					if(slave.getSlaveJobSettings().isEmpty()) {
-						slave.incrementAffection(Main.game.getPlayer(), -1);
-						slave.incrementAffection(Main.game.getLilaya(), -5);
-						return new SlaveryEventLogEntry(hour, slave, "Testing", UtilText.parse(slave, "Lilaya ran some rather intrusive tests on [npc.name]."),
-								Util.newArrayListOfValues(
-										new ListValue<>("[style.boldBad(-1)] [style.boldAffection(Affection)]"),
-										new ListValue<>("[style.boldBad(-5)] [style.boldAffection(Affection towards Lilaya)]")));
+						if(slave.hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)) {
+							slave.incrementAffection(Main.game.getPlayer(), 1);
+							slave.incrementAffection(Main.game.getLilaya(), 5);
+							return new SlaveryEventLogEntry(hour, slave, "Testing", UtilText.parse(slave, "Lilaya ran some rather intrusive tests on [npc.name]."),
+									Util.newArrayListOfValues(
+											new ListValue<>("[style.boldGood(+1)] [style.boldAffection(Affection)]"),
+											new ListValue<>("[style.boldGood(+5)] [style.boldAffection(Affection towards Lilaya)]")));
+							
+						} else {
+							slave.incrementAffection(Main.game.getPlayer(), -1);
+							slave.incrementAffection(Main.game.getLilaya(), -5);
+							return new SlaveryEventLogEntry(hour, slave, "Testing", UtilText.parse(slave, "Lilaya ran some rather intrusive tests on [npc.name]."),
+									Util.newArrayListOfValues(
+											new ListValue<>("[style.boldBad(-1)] [style.boldAffection(Affection)]"),
+											new ListValue<>("[style.boldBad(-5)] [style.boldAffection(Affection towards Lilaya)]")));
+						}
+						
+						
 						
 					} else {
 						switch(slave.getSlaveJobSettings().get(Util.random.nextInt(slave.getSlaveJobSettings().size()))) {

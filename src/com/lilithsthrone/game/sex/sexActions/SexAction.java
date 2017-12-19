@@ -522,6 +522,9 @@ public abstract class SexAction implements SexActionInterface {
 						}
 						break;
 				}
+				if(!fetishesPlayer.contains(Fetish.FETISH_MASTURBATION) && this.getAssociatedOrificeType().isPlayer() && this.getAssociatedPenetrationType().isPlayer()) {
+					fetishesPlayer.add(Fetish.FETISH_MASTURBATION);
+				}
 			}
 		}
 		
@@ -928,6 +931,9 @@ public abstract class SexAction implements SexActionInterface {
 								break;
 						}
 						break;
+				}
+				if(!fetishesPartner.contains(Fetish.FETISH_MASTURBATION) && !this.getAssociatedOrificeType().isPlayer() && !this.getAssociatedPenetrationType().isPlayer()) {
+					fetishesPartner.add(Fetish.FETISH_MASTURBATION);
 				}
 			}
 		}

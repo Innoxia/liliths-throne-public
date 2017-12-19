@@ -1932,9 +1932,10 @@ public enum StatusEffect {
 			"raceGatorMorph",
 			Colour.RACE_ALLIGATOR_MORPH,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 10f),
-			new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, -10f),
-			new Value<Attribute, Float>(Attribute.FITNESS, 15f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 15f),
+			new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 5f),
+			new Value<Attribute, Float>(Attribute.STRENGTH, 5f),
+			new Value<Attribute, Float>(Attribute.FITNESS, 5f)),
 			null) {
 
 		@Override

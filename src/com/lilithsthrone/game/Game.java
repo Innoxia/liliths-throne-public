@@ -97,6 +97,7 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.slavery.SlaveJobSetting;
 import com.lilithsthrone.game.slavery.SlaveryUtil;
 import com.lilithsthrone.main.Main;
@@ -285,7 +286,6 @@ public class Game implements Serializable, XMLSaving {
 				importedSlave = importedSlave.loadFromXML(characterElement, doc);
 				importedSlave.applyNewlyImportedSlaveVariables();
 				Main.game.addNPC(importedSlave, false);
-				System.out.println("beep");
 				
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -826,7 +826,9 @@ public class Game implements Serializable, XMLSaving {
 		for (NPC npc : NPCMap.values()) {
 			npc.calculateStatusEffects(turnTime);
 			
-			if(npc.isPendingClothingDressing()) {
+			if(npc.isPendingClothingDressing()
+					&& (Main.game.getCurrentDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false))
+						|| !(npc.getWorldLocation()==Main.game.getPlayer().getWorldLocation() && npc.getLocation().equals(Main.game.getPlayer().getLocation())))) {
 				npc.equipClothing(true, true);
 				npc.setPendingClothingDressing(false);
 			}
@@ -1825,39 +1827,68 @@ public class Game implements Serializable, XMLSaving {
 		dialogueTitle = UtilText.parse(savedDialogueNode.getLabel());
 		
 		currentDialogueNode = savedDialogueNode;
-
+		
+		if(Main.game.isInSex()) {
+			Sex.recalculateSexActions();
+		}
+		//TODO
 		if (currentDialogueNode.reloadOnRestore()) {
 			String headerContent = currentDialogueNode.getHeaderContent();
 			String content = currentDialogueNode.getContent();
-			currentDialogue = "<body onLoad='scrollBack()'>"
-								+ " <script>function scrollBack() {"
-										+ "document.getElementById('content-block').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop;"
-								+ "}</script>"
-								+ "<div id='main-content'>"
-									+ getTitleDiv(dialogueTitle)
-									+ "<span id='position" + positionAnchor + "'></span>"
-										+ "<div class='div-center' id='content-block'>"
-											+ getMapDiv()
-											+ (headerContent != null
-												? "<div id='header-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;-webkit-user-select: none;'>"
-													+ (currentDialogueNode.disableHeaderParsing() ? headerContent : UtilText.parse(headerContent))
-													+ "</div>"
-												: "")
-											+ (content != null
-												? "<div "+(Main.getProperties().fadeInText?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
-														+ content
-													+ "</div>"
-												: "")
+			
+			currentDialogue = "<body onLoad='scrollToElement()'>"
+					+ "<script>function scrollToElement() {document.getElementById('content-block').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop -64;}</script>"
+					+ "<div id='main-content'>"
+						+ getTitleDiv(dialogueTitle)
+						+ "<div class='div-center' id='content-block'>"
+								+ getMapDiv()
+								+ (headerContent != null
+									? "<div id='header-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;-webkit-user-select: none;'>"
+										+ (currentDialogueNode.disableHeaderParsing() ? headerContent : UtilText.parse(headerContent))
 										+ "</div>"
-									+"<div id='bottom-text'>Game saved!</div>"
-								+ "</div>"
-								+ getResponsesDiv(currentDialogueNode)
-							+ "</body>";
+									: "")
+								+ (content != null
+										? "<div "+(Main.getProperties().fadeInText?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
+												+ content
+											+ "</div>"
+										: "")
+						+ "</div>"
+						+"<div id='bottom-text'>Game saved!</div>"
+						+ getResponsesDiv(currentDialogueNode)
+					+ "</div>"
+				+ "</body>";
+			
+			
+//			currentDialogue = "<body onLoad='scrollBack()'>"
+//								+ " <script>function scrollBack() {"
+//										+ "document.getElementById('content-block').scrollTop = document.getElementById('position" + (positionAnchor) + "').offsetTop;"
+//								+ "}</script>"
+//								+ "<div id='main-content'>"
+//									+ getTitleDiv(dialogueTitle)
+//									+ "<span id='position" + positionAnchor + "'></span>"
+//										+ "<div class='div-center' id='content-block'>"
+//											+ getMapDiv()
+//											+ (headerContent != null
+//												? "<div id='header-content' style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;-webkit-user-select: none;'>"
+//													+ (currentDialogueNode.disableHeaderParsing() ? headerContent : UtilText.parse(headerContent))
+//													+ "</div>"
+//												: "")
+//											+ (content != null
+//												? "<div "+(Main.getProperties().fadeInText?"id='text-content'":"")+" style='font-size:" + Main.getProperties().fontSize + "px; line-height:" + (Main.getProperties().fontSize + 6) + "px;'>"
+//														+ content
+//													+ "</div>"
+//												: "")
+//										+ "</div>"
+//									+"<div id='bottom-text'>Game saved!</div>"
+//								+ "</div>"
+//								+ getResponsesDiv(currentDialogueNode)
+//							+ "</body>";
 			
 			
 		} else {
 			currentDialogue = savedDialogue;
 		}
+		
 		pastDialogueSB.setLength(0);
 		pastDialogueSB.append(previousPastDialogueSBContents);
 

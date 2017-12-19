@@ -85,7 +85,12 @@ public class EnforcerHQDialogue {
 	
 	public static final DialogueNodeOld CORRIDOR = new DialogueNodeOld("Corridor", "-", false) {
 		private static final long serialVersionUID = 1L;
-
+		
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+		
 		@Override
 		public String getContent() {
 			return "<p>"
@@ -103,6 +108,11 @@ public class EnforcerHQDialogue {
 	public static final DialogueNodeOld ENTRANCE = new DialogueNodeOld("Entrance hall", "-", false) {
 		private static final long serialVersionUID = 1L;
 
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+		
 		@Override
 		public String getContent() {
 			return "<p>"
@@ -131,6 +141,11 @@ public class EnforcerHQDialogue {
 	public static final DialogueNodeOld WAITING_AREA = new DialogueNodeOld("Waiting area", "-", false) {
 		private static final long serialVersionUID = 1L;
 
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+		
 		@Override
 		public String getContent() {
 			if(Main.game.getPlayer().getCharactersEncountered().contains(Main.game.getCandi().getId())) {
@@ -174,6 +189,11 @@ public class EnforcerHQDialogue {
 	public static final DialogueNodeOld GUARDED_DOOR = new DialogueNodeOld("Guarded door", "-", true) {
 		private static final long serialVersionUID = 1L;
 
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+		
 		@Override
 		public String getContent() {
 			if(isBraxMainQuestComplete()) {
@@ -239,6 +259,11 @@ public class EnforcerHQDialogue {
 	public static final DialogueNodeOld RECEPTION_DESK = new DialogueNodeOld("Reception desk", "-", false) {
 		private static final long serialVersionUID = 1L;
 
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+		
 		@Override
 		public String getContent() {
 			if(isBraxMainQuestComplete()) {
@@ -1240,6 +1265,11 @@ public class EnforcerHQDialogue {
 	public static final DialogueNodeOld INTERIOR_BRAX = new DialogueNodeOld("[brax.name]'s Office", "-", true) {
 		private static final long serialVersionUID = 1L;
 
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+		
 		@Override
 		public String getContent() {
 			return "<p>"

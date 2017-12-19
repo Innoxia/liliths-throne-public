@@ -768,7 +768,13 @@ public class HarpyNestsAttackerDialogue {
 							+ " Reluctantly, you do as [npc.she] says, and, after giving [npc.herHim] some of your cash, [npc.she] roughly pushes you to the floor once more."
 						+ "</p>"
 						+ "<p>"
-							+ "[npc.speech(You're not good enough for me to be interested in you just yet!)] [npc.she] growls down at you, [npc.speech(Come back and pay me another visit, <i>or else</i>! I'm not finished turning you into my bitch yet!)]"
+							+ "[npc.speech(You're not good enough for me to be interested in you just yet!)] [npc.she] growls down at you, [npc.speech(Come back and pay me another visit, <i>or else</i>! I'm going to turn you into my perfect little "
+								+"<b style='color:"+Main.game.getActiveNPC().getPreferredBody().getGender().getColour().toWebHexString()+";'>"
+									+(Main.game.getActiveNPC().getPreferredBody().getGender().getName())
+								+"</b> "
+								+"<b style='color:"+Main.game.getActiveNPC().getPreferredBody().getRace().getColour().toWebHexString()+";'>"
+									+(Main.game.getActiveNPC().getPreferredBody().getRace().getName())
+								+"</b>!)]"
 						+ "</p>"
 						+ "<p>"
 							+ "With that, [npc.she] turns around and runs off, leaving you panting and sweating as you attempt to recover from the transformations that were just forced upon you..."

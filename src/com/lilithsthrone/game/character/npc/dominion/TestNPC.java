@@ -650,7 +650,9 @@ public class TestNPC extends NPC {
 				} else if(item.getItemType().equals(ItemType.RACE_INGREDIENT_CAT_MORPH)
 						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_DOG_MORPH)
 						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_HARPY)
+						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_COW_MORPH)
 						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_HORSE_MORPH)
+						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_ALLIGATOR_MORPH)
 						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_SQUIRREL_MORPH)
 						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_WOLF_MORPH)) {
 					
@@ -700,9 +702,11 @@ public class TestNPC extends NPC {
 						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_DEMON)
 						|| item.getItemType().equals(ItemType.FIT_INGREDIENT_CANINE_CRUSH)
 						|| item.getItemType().equals(ItemType.FIT_INGREDIENT_SQUIRREL_JAVA)
+						|| item.getItemType().equals(ItemType.STR_INGREDIENT_BUBBLE_MILK)
 						|| item.getItemType().equals(ItemType.INT_INGREDIENT_FELINE_FANCY)
 						|| item.getItemType().equals(ItemType.STR_INGREDIENT_EQUINE_CIDER)
-						|| item.getItemType().equals(ItemType.STR_INGREDIENT_WOLF_WHISKEY)) {
+						|| item.getItemType().equals(ItemType.STR_INGREDIENT_WOLF_WHISKEY)
+						|| item.getItemType().equals(ItemType.STR_INGREDIENT_SWAMP_WATER)) {
 					
 						if(Sex.isPlayerDom()) {
 							return "<p>"

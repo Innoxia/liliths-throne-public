@@ -508,9 +508,9 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 			"hair",
 			"",
 			Util.newArrayListOfValues(
-					new ListValue<CoveringPattern>(CoveringPattern.NONE),
-					new ListValue<CoveringPattern>(CoveringPattern.HIGHLIGHTS)),
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
 			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.HIGHLIGHTS),
 					new ListValue<CoveringPattern>(CoveringPattern.MOTTLED),
 					new ListValue<CoveringPattern>(CoveringPattern.SPOTTED),
 					new ListValue<CoveringPattern>(CoveringPattern.STRIPED)),
@@ -526,9 +526,9 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 			"hair",
 			"silken",
 			Util.newArrayListOfValues(
-					new ListValue<CoveringPattern>(CoveringPattern.NONE),
-					new ListValue<CoveringPattern>(CoveringPattern.HIGHLIGHTS)),
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
 			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.HIGHLIGHTS),
 					new ListValue<CoveringPattern>(CoveringPattern.MOTTLED),
 					new ListValue<CoveringPattern>(CoveringPattern.SPOTTED),
 					new ListValue<CoveringPattern>(CoveringPattern.STRIPED)),
@@ -544,9 +544,9 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 			"hair",
 			"silken",
 			Util.newArrayListOfValues(
-					new ListValue<CoveringPattern>(CoveringPattern.NONE),
-					new ListValue<CoveringPattern>(CoveringPattern.HIGHLIGHTS)),
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
 			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.HIGHLIGHTS),
 					new ListValue<CoveringPattern>(CoveringPattern.MOTTLED),
 					new ListValue<CoveringPattern>(CoveringPattern.SPOTTED),
 					new ListValue<CoveringPattern>(CoveringPattern.STRIPED)),
@@ -562,9 +562,9 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 			"hair",
 			"fur-like",
 			Util.newArrayListOfValues(
-					new ListValue<CoveringPattern>(CoveringPattern.NONE),
-					new ListValue<CoveringPattern>(CoveringPattern.HIGHLIGHTS)),
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
 			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.HIGHLIGHTS),
 					new ListValue<CoveringPattern>(CoveringPattern.MOTTLED),
 					new ListValue<CoveringPattern>(CoveringPattern.SPOTTED),
 					new ListValue<CoveringPattern>(CoveringPattern.STRIPED)),
@@ -580,9 +580,9 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 			"hair",
 			"fur-like",
 			Util.newArrayListOfValues(
-					new ListValue<CoveringPattern>(CoveringPattern.NONE),
-					new ListValue<CoveringPattern>(CoveringPattern.HIGHLIGHTS)),
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
 			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.HIGHLIGHTS),
 					new ListValue<CoveringPattern>(CoveringPattern.MOTTLED),
 					new ListValue<CoveringPattern>(CoveringPattern.SPOTTED),
 					new ListValue<CoveringPattern>(CoveringPattern.STRIPED)),
@@ -598,9 +598,9 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 			"hair",
 			"fur-like",
 			Util.newArrayListOfValues(
-					new ListValue<CoveringPattern>(CoveringPattern.NONE),
-					new ListValue<CoveringPattern>(CoveringPattern.HIGHLIGHTS)),
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
 			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.HIGHLIGHTS),
 					new ListValue<CoveringPattern>(CoveringPattern.MOTTLED),
 					new ListValue<CoveringPattern>(CoveringPattern.SPOTTED),
 					new ListValue<CoveringPattern>(CoveringPattern.STRIPED)),
@@ -616,9 +616,9 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 			"hair",
 			"coarse",
 			Util.newArrayListOfValues(
-					new ListValue<CoveringPattern>(CoveringPattern.NONE),
-					new ListValue<CoveringPattern>(CoveringPattern.HIGHLIGHTS)),
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
 			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.HIGHLIGHTS),
 					new ListValue<CoveringPattern>(CoveringPattern.MOTTLED),
 					new ListValue<CoveringPattern>(CoveringPattern.SPOTTED),
 					new ListValue<CoveringPattern>(CoveringPattern.STRIPED)),
@@ -634,9 +634,9 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 			"hair",
 			"coarse",
 			Util.newArrayListOfValues(
-					new ListValue<CoveringPattern>(CoveringPattern.NONE),
-					new ListValue<CoveringPattern>(CoveringPattern.HIGHLIGHTS)),
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
 			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.HIGHLIGHTS),
 					new ListValue<CoveringPattern>(CoveringPattern.MOTTLED),
 					new ListValue<CoveringPattern>(CoveringPattern.SPOTTED),
 					new ListValue<CoveringPattern>(CoveringPattern.STRIPED)),
@@ -652,9 +652,9 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 			"hair",
 			"fur-like",
 			Util.newArrayListOfValues(
-					new ListValue<CoveringPattern>(CoveringPattern.NONE),
-					new ListValue<CoveringPattern>(CoveringPattern.HIGHLIGHTS)),
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
 			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.HIGHLIGHTS),
 					new ListValue<CoveringPattern>(CoveringPattern.MOTTLED),
 					new ListValue<CoveringPattern>(CoveringPattern.SPOTTED),
 					new ListValue<CoveringPattern>(CoveringPattern.STRIPED)),

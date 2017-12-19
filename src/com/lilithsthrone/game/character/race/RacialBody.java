@@ -140,8 +140,8 @@ public enum RacialBody {
 			BreastType.DEMON_COMMON,
 			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
 			CupSize.F, 3, Lactation.ZERO_NONE, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY, NippleSize.ZERO_TINY, NippleShape.VAGINA, AreolaeSize.TWO_BIG, 1,
-			190, 10, BodySize.THREE_LARGE.getMedianValue(), Muscle.FOUR_RIPPED.getMedianValue(),
-			180, 90, BodySize.ONE_SLENDER.getMedianValue(), Muscle.FOUR_RIPPED.getMedianValue(),
+			190, 10, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
+			180, 90, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
 			EarType.DEMON_COMMON,
 			EyeType.DEMON_COMMON,
 			FaceType.DEMON_COMMON, LipSize.ONE_AVERAGE, LipSize.TWO_FULL,
@@ -375,7 +375,18 @@ public enum RacialBody {
 		    TailType.ALLIGATOR_MORPH,
 		    VaginaType.ALLIGATOR_MORPH, Wetness.SEVEN_DROOLING, Capacity.ONE_EXTREMELY_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY,
 		    WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
-		    GenitalArrangement.CLOACA),
+		    GenitalArrangement.CLOACA) {
+
+		@Override
+		public Personality getPersionality() {
+			return generatePersonality(10, 40, 40, 10);
+		}
+		
+		@Override
+		public boolean isHairTypeLinkedToFaceType() {
+			return true;
+		}
+	},
 			
 	// SLIMES:
 	SLIME(Util.newHashMapOfValues(
@@ -799,6 +810,13 @@ public enum RacialBody {
 
 	public HairType getHairType() {
 		return hairType;
+	}
+	
+	/**
+	 * @return true if this RacialBody requires FaceType to not be human in order to apply hair settings.
+	 */
+	public boolean isHairTypeLinkedToFaceType() {
+		return false;
 	}
 
 	public LegType getLegType() {

@@ -856,7 +856,11 @@ public class CharacterUtils {
 				new Eye(stage.isEyeFurry()?startingBodyType.getEyeType():EyeType.HUMAN),
 				new Ear(stage.isEarFurry()?startingBodyType.getEarType():EarType.HUMAN),
 				new Hair(stage.isHairFurry()?startingBodyType.getHairType():HairType.HUMAN,
-						(startingGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength()),
+						(startingBodyType.isHairTypeLinkedToFaceType()
+							?(stage.isFaceFurry()
+									?(startingGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength())
+									:(startingGender.isFeminine() ? RacialBody.HUMAN.getFemaleHairLength() : RacialBody.HUMAN.getMaleHairLength()))
+							:(startingGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength())),
 						HairStyle.getRandomHairStyle((startingGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength()))),
 				new Leg(stage.isLegFurry()?startingBodyType.getLegType():LegType.HUMAN),
 				new Skin(stage.isSkinFurry()?startingBodyType.getSkinType():SkinType.HUMAN),
@@ -956,7 +960,7 @@ public class CharacterUtils {
 		}
 		
 		// Face:
-		if(character.hasFetish(Fetish.FETISH_ORAL_GIVING)) {
+		if(character.hasFetish(Fetish.FETISH_ORAL_GIVING) || character.getHistory()==History.PROSTITUTE) {
 			character.setFaceCapacity(Capacity.FIVE_ROOMY.getMedianValue(), true);
 			character.setFaceStretchedCapacity(character.getFaceRawCapacityValue());
 			character.setFaceVirgin(false);
@@ -970,7 +974,23 @@ public class CharacterUtils {
 		}
 		
 		// Hair:
-		character.setHairLength(character.getHairLength().getMinimumValue() + Util.random.nextInt(character.getHairLength().getMaximumValue() - character.getHairLength().getMinimumValue()) +1);
+		if(Math.random()<=0.2f && !character.getHairCovering().getType().getDyePatterns().isEmpty()) { // 20% chance to have a non-natural hair colour:
+			character.setHairCovering(new Covering(
+					character.getHairCovering().getType(),
+					character.getHairCovering().getType().getDyePatterns().get(Util.random.nextInt(character.getHairCovering().getType().getDyePatterns().size())),
+					character.getHairCovering().getType().getAllPrimaryColours().isEmpty()
+						?character.getHairCovering().getPrimaryColour()
+						:character.getHairCovering().getType().getAllPrimaryColours().get(Util.random.nextInt(character.getHairCovering().getType().getAllPrimaryColours().size())),
+					Math.random()<=0.05f,
+					character.getHairCovering().getType().getAllSecondaryColours().isEmpty()
+						?character.getHairCovering().getSecondaryColour()
+						:character.getHairCovering().getType().getAllSecondaryColours().get(Util.random.nextInt(character.getHairCovering().getType().getAllSecondaryColours().size())),
+					Math.random()<=0.05f),
+					true);
+		}
+		if(character.getHairRawLengthValue()!=0 || (character.getFaceType() == FaceType.ALLIGATOR_MORPH && Math.random()<=0.2f)) {
+			character.setHairLength(character.getHairLength().getMinimumValue() + Util.random.nextInt(character.getHairLength().getMaximumValue() - character.getHairLength().getMinimumValue()) +1);
+		}
 		
 		// Penis:
 		if(character.hasPenis()) {
@@ -986,7 +1006,7 @@ public class CharacterUtils {
 		
 		// Vagina:
 		if(character.hasVagina()) {
-			if(character.hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
+			if(character.hasFetish(Fetish.FETISH_PURE_VIRGIN) && character.getHistory()!=History.PROSTITUTE) {
 				character.setVaginaVirgin(true);
 				int capacity = Capacity.ZERO_IMPENETRABLE.getMinimumValue() + Util.random.nextInt(Capacity.TWO_TIGHT.getMaximumValue()-Capacity.ZERO_IMPENETRABLE.getMinimumValue());
 				character.setVaginaCapacity(capacity, true);
@@ -1016,7 +1036,7 @@ public class CharacterUtils {
 	 */
 	public static void setHistoryAndPersonality(GameCharacter character) {
 		
-		double prostituteChance = 0.25f; // Base 0.25% chance for any random to be a prostitute.
+		double prostituteChance = 0.15f; // Base 0.15% chance for any random to be a prostitute.
 		 			
 		 if(character.isFeminine()) {
 			prostituteChance += 0.10f; // Bonus for femininity
@@ -1040,9 +1060,9 @@ public class CharacterUtils {
 			prostituteChance = 0; // addFetishes() can be called before or after this method. This is a catch for the case where addFetishes() is called before.
 		 }
 		 
-		 prostituteChance = Math.min(prostituteChance, 0.5f); // Prostitutes can only ever spawn at a maximum of a 50% chance.
+		 prostituteChance = Math.min(prostituteChance, 0.3f); // Prostitutes can only ever spawn at a maximum of a 30% chance.
 		 
-		 if(Math.random()<=prostituteChance) {
+		 if(Math.random()<prostituteChance) {
 		 	character.setHistory(History.PROSTITUTE);
 		 	
 		 	character.setAssVirgin(false);
