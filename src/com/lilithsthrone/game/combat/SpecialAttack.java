@@ -1068,6 +1068,71 @@ public enum SpecialAttack {
 		}
 	},
 
+	ANTLER_HEADBUTT(50,
+			"Headbutt",
+			"hornsIcon",
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			DamageType.PHYSICAL,
+			DamageLevel.HIGH,
+			DamageVariance.LOW,
+			SpecialAttackSpellCosts.MEDIUM,
+			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.DAZED, 2))) {
+		@Override
+		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+
+			float damage = calculateDamage(caster, target, isCritical), cost = calculateCost(caster);
+
+			descriptionSB = new StringBuilder();
+			
+			if (caster == Main.game.getPlayer()) {
+				descriptionSB.append(UtilText.parse(target,
+						"<p>"
+							+ "With a burst of energy, you leap forwards, trying to butt your head into [npc.name]."
+							+ (isHit
+									? " You manage to make contact; ramming your forehead into [npc.her] body and whacking [npc.herHim] with the sides of your antlers,"
+											+ " you knock the wind out of [npc.herHim] and cause [npc.herHim] to stagger backwards in a daze."
+									: " [npc.She] manages to jump to one side, and there's an audible whoosh as you thrust your antlers through the air.")
+						+ "</p>")
+						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+			} else {
+				descriptionSB.append(UtilText.parse(caster,
+						"<p>"
+							+ "With a burst of energy, [npc.name] leaps forwards, trying to butt [npc.her] head into you."
+							+ (isHit
+									? " [npc.She] manages to make contact; ramming [npc.her] forehead into your body and whacking you with the sides of [npc.her] antlers,"
+											+ " [npc.she] knocks the wind out of you and causes you to stagger backwards in a daze."
+									: " You manage to jump to one side, and there's an audible whoosh as [npc.she] thrusts [npc.her] antlers through the air.")
+						+ "</p>")
+						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+			}
+			
+			// If attack hits, apply damage and effects:
+			if (isHit) {
+				descriptionSB.append(target.incrementHealth(-damage));
+				for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
+					target.addStatusEffect(se.getKey(), se.getValue());
+			}
+
+			caster.incrementStamina(-cost);
+			
+			return descriptionSB.toString();
+		}
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "Your anthropomorphic reindeer-like head and antlers can be used to deliver a powerful attack.";
+			} else {
+				return UtilText.parse(owner, "[npc.Name]'s anthropomorphic reindeer-like head and antlers can be used to deliver a powerful attack.");
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter owner) {
+			return owner.getFaceType() == FaceType.REINDEER_MORPH && owner.hasHorns();
+		}
+	},
+
 	WOLF_SAVAGE(50, "savage attack", "savageIcon", Colour.DAMAGE_TYPE_PHYSICAL, DamageType.PHYSICAL, DamageLevel.EXTREME, DamageVariance.HIGH, SpecialAttackSpellCosts.EXTREME,
 			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.CRIPPLE, 5))) {
 		@Override

@@ -92,6 +92,15 @@ public enum FluidType implements BodyPartTypeInterface {
 					new ListValue<>(FluidModifier.SLIMY)),
 			Race.HORSE_MORPH),
 	
+	CUM_REINDEER_MORPH(BodyCoveringType.CUM,
+			FluidFlavour.CUM,
+			Util.newArrayListOfValues(new ListValue<>("rangiferine")),
+			Util.newArrayListOfValues(
+					new ListValue<>(FluidModifier.MUSKY),
+					new ListValue<>(FluidModifier.STICKY),
+					new ListValue<>(FluidModifier.SLIMY)),
+			Race.REINDEER_MORPH),
+	
 	CUM_COW_MORPH(BodyCoveringType.CUM,
 			FluidFlavour.CUM,
 			Util.newArrayListOfValues(new ListValue<>("bovine")),
@@ -181,6 +190,13 @@ public enum FluidType implements BodyPartTypeInterface {
 					new ListValue<>(FluidModifier.SLIMY)),
 			Race.HORSE_MORPH),
 	
+	GIRL_CUM_REINDEER_MORPH(BodyCoveringType.GIRL_CUM,
+			FluidFlavour.GIRL_CUM,
+			Util.newArrayListOfValues(new ListValue<>("rangiferine")),
+			Util.newArrayListOfValues(
+					new ListValue<>(FluidModifier.SLIMY)),
+			Race.REINDEER_MORPH),
+	
 	GIRL_CUM_COW_MORPH(BodyCoveringType.GIRL_CUM,
 			FluidFlavour.GIRL_CUM,
 			Util.newArrayListOfValues(new ListValue<>("bovine")),
@@ -263,6 +279,12 @@ public enum FluidType implements BodyPartTypeInterface {
 			Util.newArrayListOfValues(new ListValue<>("equine")),
 			Util.newArrayListOfValues(),
 			Race.HORSE_MORPH),
+	
+	MILK_REINDEER_MORPH(BodyCoveringType.MILK,
+			FluidFlavour.MILK,
+			Util.newArrayListOfValues(new ListValue<>("rangiferine")),
+			Util.newArrayListOfValues(),
+			Race.REINDEER_MORPH),
 	
 	MILK_HARPY(BodyCoveringType.MILK,
 			FluidFlavour.MILK,

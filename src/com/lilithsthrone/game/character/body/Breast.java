@@ -354,6 +354,25 @@ public class Breast implements BodyPartInterface, Serializable {
 								+ "</p>");
 				}
 				break;
+			case REINDEER_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+							" Your nipples and areolae start tingling, and you find yourself panting and sweating as the intense transformation runs its course."
+							+ " After a few moments, the feeling starts to fade away, leaving you with rangiferine breasts, covered in [pc.breastFullDescriptionColour]."
+							+ " The transformation has also left you with [pc.nipplesFullDescriptionColour]."
+							+ "</br>"
+							+ "You now have [style.boldReindeerMorph(rangiferine breasts and [pc.nipples])], and when lactating, you will produce [style.boldReindeerMorph(rangiferine milk)]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" [npc.Her] nipples and areolae start tingling, causing [npc.herHim] to pant and sweat as the intense transformation runs its course."
+								+ " After a few moments, the feeling starts to fade away, leaving [npc.herHim] with rangiferine breasts, covered in [npc.breastFullDescriptionColour]."
+								+ " The transformation has also left [npc.herHim] with [npc.nipplesFullDescriptionColour]."
+								+ "</br>"
+								+ "[npc.She] now has [style.boldReindeerMorph(rangiferine breasts and [npc.nipples])], and when lactating, [npc.she] will produce [style.boldReindeerMorph(rangiferine milk)]."
+								+ "</p>");
+				}
+				break;
 			case HARPY:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(

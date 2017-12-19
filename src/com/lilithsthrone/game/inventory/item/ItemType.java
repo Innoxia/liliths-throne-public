@@ -686,6 +686,55 @@ public class ItemType {
 		}
 	};
 	
+	public static AbstractItemType FIT_INGREDIENT_EGG_NOG = new AbstractItemType(
+			"a bottle of",
+			false,
+			"Egg nog",
+			"Egg nogs",
+			"A glass bottle of what looks to be some kind of creamy drink."
+				+ " A label on the front shows a squirrel-girl fingering herself over the top of a bottle just like this one; her juices dripping down into the nog to provide some extra cream.",
+			"attributeReindeerMorphDrink",
+			Colour.ATTRIBUTE_FITNESS,
+			25,
+			Rarity.UNCOMMON,
+			TFEssence.ARCANE,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.FIT_EGG_NOG, null, null, null, 0)))) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public ItemEffectType getEnchantmentEffect() {
+			return ItemEffectType.ATTRIBUTE_FITNESS;
+		}
+
+		@Override
+		public AbstractItemType getEnchantmentItemType() {
+			return POTION;
+		}
+
+		@Override
+		public String getUseName() {
+			return "drink";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			if (user == Main.game.getPlayer() && target == Main.game.getPlayer()) {
+				return "<p>"
+							+ "You unscrew the cap and start drinking the bottle of 'Egg Nog'."
+							+ " Its taste is quite unlike that of any other nog you've ever drunk, and it reminds you more of a sugary drink rather than any nog beverage."
+							+ " As the last few drops slide down your throat, a strange, sweet aftertaste lingers on your tongue."
+						+ "</p>";
+				
+			} else {
+				return UtilText.parse(target,
+						"<p>"
+							+ "[npc.Name] pulls out a bottle of 'Egg Nog', and, after quickly popping off the cap, [npc.she] promptly downs the entire bottle."
+						+ "</p>");
+			}
+		}
+	};
+	
 	public static AbstractItemType SEX_INGREDIENT_HARPY_PERFUME = new AbstractItemType(
 			"a bottle of",
 			false,
@@ -1265,6 +1314,53 @@ public class ItemType {
 				return UtilText.parse(target,
 						"<p>"
 						+ "[npc.Name] pulls out a Sugar Carrot Cube, and, quickly peeling off the paper packaging, pops it into [npc.her] mouth and swallows it down."
+						+ "</p>");
+			}
+		}
+	};
+	
+	public static AbstractItemType RACE_INGREDIENT_REINDEER_MORPH = new AbstractItemType(
+			"a",
+			false,
+			"Sugar Cookies",
+			"Sugar Cookies",
+			"An individually-wrapped sugar cookie, which, except for the fact that it's bright pink and smells of sugar, appears to be identical to every other sugar cookie you've seen.",
+			"raceReindeerMorphSugarCookie",
+			Colour.RACE_REINDEER_MORPH,
+			40,
+			Rarity.RARE,
+			TFEssence.ARCANE,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_SUGAR_COOKIE, null, null, null, 0)))) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public ItemEffectType getEnchantmentEffect() {
+			return ItemEffectType.RACE_REINDEER_MORPH;
+		}
+
+		@Override
+		public AbstractItemType getEnchantmentItemType() {
+			return ELIXIR;
+		}
+
+		@Override
+		public String getUseName() {
+			return "eat";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			if (user == Main.game.getPlayer() && target == Main.game.getPlayer()) {
+				return "<p>"
+							+ "You peel off the paper packaging and pop the Sugar Cookie into your mouth."
+							+ " The strong taste of vanilla instantly fills your mouth, but before you have any time to relish the flavour, you find that it's dissolved in your saliva, and you've gulped down the sugary mess."
+						+ "</p>";
+				
+			} else {
+				return UtilText.parse(target,
+						"<p>"
+						+ "[npc.Name] pulls out a Sugar Cookie, and, quickly peeling off the paper packaging, pops it into [npc.her] mouth and swallows it down."
 						+ "</p>");
 			}
 		}
@@ -1871,6 +1967,51 @@ public class ItemType {
 							+ "Pulling the cork stopper out from the top of the little bottle, you release the arcane essence from its glass prison."
 							+ " Drawn towards [npc.name]'s powerful arcane aura, the essence immediately darts towards [npc.herHim], and with a little "
 								+Colour.RACE_HORSE_MORPH.getName()+" flash, it disappears from sight as it's absorbed into [npc.her] aura."
+						+ "</p>");
+			}
+		}
+		
+		public boolean isAbleToBeUsed(GameCharacter target) {
+			return target.getRace()==Race.DEMON || target.isPlayer();
+		}
+		
+		public String getUnableToBeUsedDescription(GameCharacter target) {
+			return "Only people with a demonic-strength aura are able to absorb arcane essences!";
+		}
+	};
+	
+	public static AbstractItemType BOTTLED_ESSENCE_REINDEER_MORPH = new AbstractItemType(
+			null,
+			false,
+			"Bottled Reindeer-morph Essence",
+			"Bottled Reindeer-morph Essences",
+			"A small glass bottle, with a little cork stopper wedged firmly in the top."
+					+ " Inside, the swirling "+Colour.RACE_REINDEER_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a reindeer-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
+			"bottledEssenceReindeerMorph",
+			Colour.RACE_REINDEER_MORPH,
+			50,
+			Rarity.EPIC,
+			null,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_REINDEER_MORPH, null, null, null, 0)))) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getUseName() {
+			return "absorb";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			if (target.isPlayer()) {
+				return getEssenceAbsorbtionText(Colour.RACE_REINDEER_MORPH);
+				
+			} else {
+				return UtilText.parse(target,
+						"<p>"
+							+ "Pulling the cork stopper out from the top of the little bottle, you release the arcane essence from its glass prison."
+							+ " Drawn towards [npc.name]'s powerful arcane aura, the essence immediately darts towards [npc.herHim], and with a little "
+								+Colour.RACE_REINDEER_MORPH.getName()+" flash, it disappears from sight as it's absorbed into [npc.her] aura."
 						+ "</p>");
 			}
 		}
@@ -2685,6 +2826,44 @@ public class ItemType {
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
 			return !Main.getProperties().isAdvancedRaceKnowledgeDiscovered(Race.HORSE_MORPH);
+		}
+
+		@Override
+		public String getUnableToBeUsedDescription(GameCharacter target) {
+			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
+		}
+		
+		@Override
+		public String getUseName() {
+			return "read";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return "<p>"
+						+ "Opening the book, you read its contents..."
+					+ "</p>";
+		}
+	};
+	
+	public static AbstractItemType BOOK_REINDEER_MORPH = new AbstractItemType(
+			null,
+			false,
+			"The Eight",
+			"The Eight",
+			"A book all about reindeer-morphs.",
+			"book_race_reindeer_morph",
+			Colour.RACE_REINDEER_MORPH,
+			10,
+			Rarity.LEGENDARY,
+			null,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_REINDEER_MORPH, null, null, null, 0)))) {
+		
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public boolean isAbleToBeUsed(GameCharacter target) {
+			return !Main.getProperties().isAdvancedRaceKnowledgeDiscovered(Race.REINDEER_MORPH);
 		}
 
 		@Override

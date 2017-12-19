@@ -2829,6 +2829,9 @@ public class Lab {
 					case HORSE_MORPH:
 						litterSB.append(" strong");
 						break;
+					case REINDEER_MORPH:
+						litterSB.append(" strong");
+						break;
 					case HUMAN:
 						litterSB.append(" smiling");
 						break;
@@ -2875,6 +2878,9 @@ public class Lab {
 						litterSB.append(" feminine");
 						break;
 					case HORSE_MORPH:
+						litterSB.append(" strong");
+						break;
+					case REINDEER_MORPH:
 						litterSB.append(" strong");
 						break;
 					case HUMAN:
@@ -2925,6 +2931,9 @@ public class Lab {
 					case HORSE_MORPH:
 						litterSB.append(" confident");
 						break;
+					case REINDEER_MORPH:
+						litterSB.append(" strong");
+						break;
 					case HUMAN:
 						litterSB.append(" smiling");
 						break;
@@ -2972,6 +2981,9 @@ public class Lab {
 						break;
 					case HORSE_MORPH:
 						litterSB.append(" confident");
+						break;
+					case REINDEER_MORPH:
+						litterSB.append(" strong");
 						break;
 					case HUMAN:
 						litterSB.append(" smiling");
