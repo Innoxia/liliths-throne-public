@@ -329,7 +329,9 @@ public class CityPlaces {
 					UtilText.nodeContentSB.append(
 							UtilText.parse(npc,"You have <b style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+";'>fought</b> [npc.herHim] <b>"));
 							
-							if(npc.getFoughtPlayerCount()==1) {
+							if(npc.getFoughtPlayerCount()==0) {
+								UtilText.nodeContentSB.append("never.");
+							} else if(npc.getFoughtPlayerCount()==1) {
 								UtilText.nodeContentSB.append("once.");
 							} else if(npc.getFoughtPlayerCount()==2) {
 								UtilText.nodeContentSB.append("twice.");
@@ -341,7 +343,9 @@ public class CityPlaces {
 									+ "</br>"
 									+ "You have <b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>won</b> <b>");
 							
-							if(npc.getLostCombatCount()==1) {
+							if(npc.getLostCombatCount()==0) {
+								UtilText.nodeContentSB.append("never.");
+							} else if(npc.getLostCombatCount()==1) {
 								UtilText.nodeContentSB.append("once.");
 							} else if(npc.getLostCombatCount()==2) {
 								UtilText.nodeContentSB.append("twice.");
@@ -352,7 +356,9 @@ public class CityPlaces {
 					UtilText.nodeContentSB.append("</b>"
 							+ "</br>"
 							+ "You have <b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>lost</b> <b>");
-							if(npc.getWonCombatCount()==1) {
+							if(npc.getWonCombatCount()==0) {
+								UtilText.nodeContentSB.append("never.");
+							} else if(npc.getWonCombatCount()==1) {
 								UtilText.nodeContentSB.append("once.");
 							} else if(npc.getWonCombatCount()==2) {
 								UtilText.nodeContentSB.append("twice.");
@@ -369,7 +375,9 @@ public class CityPlaces {
 							UtilText.parse(npc,
 									"You have had <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>submissive sex</b> with [npc.herHim]<b> "));
 					
-							if(npc.getSexAsDomCount()==1) {
+							if(npc.getSexAsDomCount()==0) {
+								UtilText.nodeContentSB.append("never.");
+							} else if(npc.getSexAsDomCount()==1) {
 								UtilText.nodeContentSB.append("once.");
 							} else if(npc.getSexAsDomCount()==2) {
 								UtilText.nodeContentSB.append("twice.");
@@ -383,7 +391,9 @@ public class CityPlaces {
 									+ "</br>"
 									+ "You have had <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>dominant sex</b> with  [npc.herHim]<b> "));
 					
-							if(npc.getSexAsSubCount()==1) {
+							if(npc.getSexAsSubCount()==0) {
+								UtilText.nodeContentSB.append("never.");
+							} else if(npc.getSexAsSubCount()==1) {
 								UtilText.nodeContentSB.append("once.");
 							} else if(npc.getSexAsSubCount()==2) {
 								UtilText.nodeContentSB.append("twice.");
@@ -445,7 +455,9 @@ public class CityPlaces {
 					UtilText.nodeContentSB.append(
 							UtilText.parse(npc,"You have <b style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+";'>fought</b> [npc.herHim] <b>"));
 							
-							if(npc.getFoughtPlayerCount()==1) {
+							if(npc.getFoughtPlayerCount()==0) {
+								UtilText.nodeContentSB.append("never.");
+							} else if (npc.getFoughtPlayerCount()==1) {
 								UtilText.nodeContentSB.append("once.");
 							} else if(npc.getFoughtPlayerCount()==2) {
 								UtilText.nodeContentSB.append("twice.");
@@ -457,7 +469,9 @@ public class CityPlaces {
 									+ "</br>"
 									+ "You have <b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>won</b> <b>");
 							
-							if(npc.getLostCombatCount()==1) {
+							if(npc.getLostCombatCount()==0) {
+								UtilText.nodeContentSB.append("never.");
+							} else if(npc.getLostCombatCount()==1) {
 								UtilText.nodeContentSB.append("once.");
 							} else if(npc.getLostCombatCount()==2) {
 								UtilText.nodeContentSB.append("twice.");
@@ -468,7 +482,9 @@ public class CityPlaces {
 					UtilText.nodeContentSB.append("</b>"
 							+ "</br>"
 							+ "You have <b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>lost</b> <b>");
-							if(npc.getWonCombatCount()==1) {
+							if(npc.getWonCombatCount()==0) {
+								UtilText.nodeContentSB.append("never.");
+							} else if(npc.getWonCombatCount()==1) {
 								UtilText.nodeContentSB.append("once.");
 							} else if(npc.getWonCombatCount()==2) {
 								UtilText.nodeContentSB.append("twice.");
@@ -485,7 +501,9 @@ public class CityPlaces {
 							UtilText.parse(npc,
 									"You have had <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>submissive sex</b> with [npc.herHim] <b>"));
 					
-							if(npc.getSexAsDomCount()==1) {
+							if(npc.getSexAsDomCount()==0) {
+								UtilText.nodeContentSB.append("never.");
+							} else if(npc.getSexAsDomCount()==1) {
 								UtilText.nodeContentSB.append("once.");
 							} else if(npc.getSexAsDomCount()==2) {
 								UtilText.nodeContentSB.append("twice.");
@@ -499,7 +517,9 @@ public class CityPlaces {
 									+ "</br>"
 									+ "You have had <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>dominant sex</b> with [npc.herHim] <b>"));
 					
-							if(npc.getSexAsSubCount()==1) {
+							if(npc.getSexAsSubCount()==0) {
+								UtilText.nodeContentSB.append("never.");
+							} else if(npc.getSexAsSubCount()==1) {
 								UtilText.nodeContentSB.append("once.");
 							} else if(npc.getSexAsSubCount()==2) {
 								UtilText.nodeContentSB.append("twice.");
