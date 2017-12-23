@@ -13,15 +13,12 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
-import com.lilithsthrone.utils.Vector2i;
-import com.lilithsthrone.world.Cell;
-import com.lilithsthrone.world.World;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.87
- * @version 0.1.87
+ * @version 0.1.95
  * @author Innoxia
  */
 public enum SlaveJob {
@@ -58,44 +55,16 @@ public enum SlaveJob {
 		@Override
 		public void sendToWorkLocation(GameCharacter slave) {
 			if(slave.getLocationPlace().getPlaceType() == PlaceType.LILAYA_HOME_CORRIDOR) {
-				World world = Main.game.getWorlds().get(slave.getWorldLocation());
-				List<Vector2i> availableLocations = new ArrayList<>();
-				
-				if(world.getCell(slave.getLocation().getX()+1, slave.getLocation().getY())!=null && world.getCell(slave.getLocation().getX()+1, slave.getLocation().getY()).getPlace().getPlaceType()==PlaceType.LILAYA_HOME_CORRIDOR) {
-					availableLocations.add(new Vector2i(slave.getLocation().getX()+1, slave.getLocation().getY()));
-				}
-				if(world.getCell(slave.getLocation().getX()-1, slave.getLocation().getY())!=null && world.getCell(slave.getLocation().getX()-1, slave.getLocation().getY()).getPlace().getPlaceType()==PlaceType.LILAYA_HOME_CORRIDOR) {
-					availableLocations.add(new Vector2i(slave.getLocation().getX()-1, slave.getLocation().getY()));
-				}
-				if(world.getCell(slave.getLocation().getX(), slave.getLocation().getY()+1)!=null && world.getCell(slave.getLocation().getX(), slave.getLocation().getY()+1).getPlace().getPlaceType()==PlaceType.LILAYA_HOME_CORRIDOR) {
-					availableLocations.add(new Vector2i(slave.getLocation().getX(), slave.getLocation().getY()+1));
-				}
-				if(world.getCell(slave.getLocation().getX(), slave.getLocation().getY()-1)!=null && world.getCell(slave.getLocation().getX(), slave.getLocation().getY()-1).getPlace().getPlaceType()==PlaceType.LILAYA_HOME_CORRIDOR) {
-					availableLocations.add(new Vector2i(slave.getLocation().getX(), slave.getLocation().getY()-1));
-				}
-				
-				slave.setLocation(availableLocations.get(Util.random.nextInt(availableLocations.size())));
-					
+				slave.moveToAdjacentMatchingCellType();
+			
 			} else {
 				// 50/50 of being upstairs or downstairs:
 				WorldType worldTypeToUse = WorldType.LILAYAS_HOUSE_FIRST_FLOOR;
 				if(Math.random()>0.5f) {
 					worldTypeToUse = WorldType.LILAYAS_HOUSE_GROUND_FLOOR;
 				}
-				World world = Main.game.getWorlds().get(worldTypeToUse);
-				Cell[][] cellGrid =world.getCellGrid();
-				List<Cell> corridorCells = new ArrayList<>();
-				for(int i = 0; i< cellGrid.length; i++) {
-					for(int j = 0; j < cellGrid[0].length; j++) {
-						if(cellGrid[i][j].getPlace().getPlaceType() == PlaceType.LILAYA_HOME_CORRIDOR) {
-							corridorCells.add(cellGrid[i][j]);
-						}
-					}
-				}
 				
-				Cell c = corridorCells.get(Util.random.nextInt(corridorCells.size()));
-				
-				slave.setLocation(worldTypeToUse, c.getLocation(), false);
+				slave.setRandomLocation(worldTypeToUse, PlaceType.LILAYA_HOME_CORRIDOR, false);
 			}
 		}
 	},

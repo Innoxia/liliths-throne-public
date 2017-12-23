@@ -147,6 +147,10 @@ public enum InventorySlot {
 			return null;
 		}
 		
+		if(character.getHairRawLengthValue()==0 && this == InventorySlot.HAIR) {
+			return character.getHairRace();
+		}
+		
 		if (character.getLegType() == LegType.HORSE_MORPH && this == InventorySlot.FOOT) {
 			return Race.HORSE_MORPH;
 		}
@@ -179,12 +183,29 @@ public enum InventorySlot {
 	 * @return A description of why this slot can't be used.
 	 */
 	public String getCannotBeWornDescription(GameCharacter character) {
+		
+		if(character.getHairRawLengthValue()==0 && this == InventorySlot.HAIR) {
+			if(character.isPlayer())
+				return "You don't have any hair, so you can't wear any hair accessories!";
+			else
+				return UtilText.parse(character,
+						"[npc.Name] doesn't have any hair, so [npc.she] can't wear any hair accessories!");
+		}
+		
 		if (character.getLegType() == LegType.HORSE_MORPH && this == InventorySlot.FOOT) {
 			if(character.isPlayer())
 				return "Your horse-like hooves prevent you from wearing footwear of any kind!";
 			else
 				return UtilText.parse(character,
 						"[npc.Name]'s horse-like hooves prevent [npc.herHim] from wearing footwear of any kind!");
+		}
+		
+		if (character.getLegType() == LegType.REINDEER_MORPH && this == InventorySlot.FOOT) {
+			if(character.isPlayer())
+				return "Your reindeer-like hooves prevent you from wearing footwear of any kind!";
+			else
+				return UtilText.parse(character,
+						"[npc.Name]'s reindeer-like hooves prevent [npc.herHim] from wearing footwear of any kind!");
 		}
 		
 		if (character.getLegType() == LegType.COW_MORPH && this == InventorySlot.FOOT) {

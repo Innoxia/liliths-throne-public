@@ -15,8 +15,7 @@ import com.lilithsthrone.utils.Util.ListValue;
  */
 public enum Name {
 
-	HUMAN(Race.HUMAN,
-			Util.newArrayListOfValues(
+	HUMAN(Util.newArrayListOfValues(
 					new ListValue<>(new NameTriplet("Alexander", "Alex", "Alexandria")),
 					new ListValue<>(new NameTriplet("Alexius", "Alex", "Alexia")),
 					new ListValue<>(new NameTriplet("Alex", "Alex", "Alex")),
@@ -81,9 +80,77 @@ public enum Name {
 					new ListValue<>(new NameTriplet("William", "Winter", "Whitney")),
 					new ListValue<>(new NameTriplet("Will", "Wynne", "Willow")))),
 	
+	EQUINE(Util.newArrayListOfValues(
+					new ListValue<>(new NameTriplet("Aqua", "Aqua", "Aqua")),
+					
+					new ListValue<>(new NameTriplet("Bramble", "Bramble", "Bramble")),
+
+					new ListValue<>(new NameTriplet("Dasher", "Dasher", "Dasher")),
+					new ListValue<>(new NameTriplet("Dazzle", "Dazzle", "Dazzle")),
+
+					new ListValue<>(new NameTriplet("Flint", "Flint", "Flint")),
+					
+					new ListValue<>(new NameTriplet("Fleet", "Fleet", "Fleet")),
+					
+					new ListValue<>(new NameTriplet("Midnight", "Midnight", "Midnight")),
+					new ListValue<>(new NameTriplet("Moonwind", "Moonwind", "Moonwind")),
+
+					new ListValue<>(new NameTriplet("Nimbus", "Nimbus", "Nimbus")),
+
+					new ListValue<>(new NameTriplet("Pearl", "Pearl", "Pearl")),
+					new ListValue<>(new NameTriplet("Prixie", "Prixie", "Prixie")),
+					
+					new ListValue<>(new NameTriplet("Skyfeet", "Skyfeet", "Skyfeet")),
+					new ListValue<>(new NameTriplet("Starr", "Starr", "Starr")),
+					new ListValue<>(new NameTriplet("Spirit", "Spirit", "Spirit")),
+					
+					new ListValue<>(new NameTriplet("Thundermane", "Thundermane", "Thundermane")),
+					new ListValue<>(new NameTriplet("Twilight", "Twilight", "Twilight")),
+					
+					new ListValue<>(new NameTriplet("Wildlight", "Wildlight", "Wildlight")))),
+	
+	// Similar to equine names
+	REINDEER(Util.newArrayListOfValues(
+			
+			new ListValue<>(new NameTriplet("Dasher", "Dasher", "Dasher")),
+			new ListValue<>(new NameTriplet("Dancer", "Dancer", "Dancer")),
+			new ListValue<>(new NameTriplet("Prancer", "Prancer", "Prancer")),
+			new ListValue<>(new NameTriplet("Vixen", "Vixen", "Vixen")),
+			new ListValue<>(new NameTriplet("Comet", "Comet", "Comet")),
+			new ListValue<>(new NameTriplet("Cupid", "Cupid", "Cupid")),
+			new ListValue<>(new NameTriplet("Dunder", "Dunder", "Dunder")),
+			new ListValue<>(new NameTriplet("Blixem", "Blixem", "Blixem")),
+			
+			new ListValue<>(new NameTriplet("Aqua", "Aqua", "Aqua")),
+			
+			new ListValue<>(new NameTriplet("Bramble", "Bramble", "Bramble")),
+
+			new ListValue<>(new NameTriplet("Dasher", "Dasher", "Dasher")),
+			new ListValue<>(new NameTriplet("Dazzle", "Dazzle", "Dazzle")),
+
+			new ListValue<>(new NameTriplet("Flint", "Flint", "Flint")),
+			
+			new ListValue<>(new NameTriplet("Fleet", "Fleet", "Fleet")),
+			
+			new ListValue<>(new NameTriplet("Midnight", "Midnight", "Midnight")),
+			new ListValue<>(new NameTriplet("Moonwind", "Moonwind", "Moonwind")),
+
+			new ListValue<>(new NameTriplet("Nimbus", "Nimbus", "Nimbus")),
+
+			new ListValue<>(new NameTriplet("Pearl", "Pearl", "Pearl")),
+			new ListValue<>(new NameTriplet("Prixie", "Prixie", "Prixie")),
+			
+			new ListValue<>(new NameTriplet("Skyfeet", "Skyfeet", "Skyfeet")),
+			new ListValue<>(new NameTriplet("Starr", "Starr", "Starr")),
+			new ListValue<>(new NameTriplet("Spirit", "Spirit", "Spirit")),
+			
+			new ListValue<>(new NameTriplet("Thundermane", "Thundermane", "Thundermane")),
+			new ListValue<>(new NameTriplet("Twilight", "Twilight", "Twilight")),
+			
+			new ListValue<>(new NameTriplet("Wildlight", "Wildlight", "Wildlight")))),
+	
 	// No offence if your name is on here... x_x
-	PROSTITUTE(Race.HUMAN,
-			Util.newArrayListOfValues(
+	PROSTITUTE(Util.newArrayListOfValues(
 					new ListValue<>(new NameTriplet("Amber", "Amber", "Amber")),
 					new ListValue<>(new NameTriplet("Autumn", "Autumn", "Autumn")),
 
@@ -178,11 +245,13 @@ public enum Name {
 	
 	private List<NameTriplet> names;
 
-	private Name(Race race, List<NameTriplet> names) {
+	private Name(List<NameTriplet> names) {
 		this.names = names;
 	}
 	
 	public static String getRandomName(GameCharacter gc) {
+		Name name = Name.HUMAN;
+		
 		switch(gc.getRace()) {
 			case ANGEL:
 				break;
@@ -197,10 +266,12 @@ public enum Name {
 			case ALLIGATOR_MORPH:
 				break;
 			case REINDEER_MORPH:
+				name = Name.REINDEER;
 				break;
 			case HARPY:
 				break;
 			case HORSE_MORPH:
+				name = Name.EQUINE;
 				break;
 			case HUMAN:
 				break;
@@ -213,13 +284,13 @@ public enum Name {
 		}
 		
 		if(gc.getFemininityValue() <= Femininity.MASCULINE.getMaximumFemininity()) {
-			return HUMAN.getNameTriplets().get(Util.random.nextInt(HUMAN.getNameTriplets().size())).getMasculine();
+			return name.getNameTriplets().get(Util.random.nextInt(name.getNameTriplets().size())).getMasculine();
 			
 		} else if (gc.getFemininityValue() <= Femininity.ANDROGYNOUS.getMaximumFemininity()) {
-			return HUMAN.getNameTriplets().get(Util.random.nextInt(HUMAN.getNameTriplets().size())).getAndrogynous();
+			return name.getNameTriplets().get(Util.random.nextInt(name.getNameTriplets().size())).getAndrogynous();
 			
 		} else {
-			return HUMAN.getNameTriplets().get(Util.random.nextInt(HUMAN.getNameTriplets().size())).getFeminine();
+			return name.getNameTriplets().get(Util.random.nextInt(name.getNameTriplets().size())).getFeminine();
 		}
 	}
 	
@@ -228,6 +299,8 @@ public enum Name {
 	}
 	
 	public static NameTriplet getRandomTriplet(Race r) {
+		Name name = Name.HUMAN;
+		
 		switch(r) {
 			case ANGEL:
 				break;
@@ -241,11 +314,13 @@ public enum Name {
 				break;
 			case ALLIGATOR_MORPH:
 				break;
+			case REINDEER_MORPH:
+				name = Name.REINDEER;
+				break;
 			case HARPY:
 				break;
 			case HORSE_MORPH:
-				break;
-			case REINDEER_MORPH:
+				name = Name.EQUINE;
 				break;
 			case HUMAN:
 				break;
@@ -257,7 +332,7 @@ public enum Name {
 				break;
 		}
 		
-		return HUMAN.getNameTriplets().get(Util.random.nextInt(HUMAN.getNameTriplets().size()));
+		return name.getNameTriplets().get(Util.random.nextInt(name.getNameTriplets().size()));
 	}
 	
 	private static NameTriplet getDemonName() {

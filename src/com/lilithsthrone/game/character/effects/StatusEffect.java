@@ -23,7 +23,9 @@ import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.AddictionLevel;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
+import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.combat.DamageType;
@@ -41,10 +43,12 @@ import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.1.87
+ * @version 0.1.96
  * @author Innoxia
  */
 public enum StatusEffect {
@@ -1400,8 +1404,43 @@ public enum StatusEffect {
 		public String applyEffect(GameCharacter target, int minutesPassed) {
 			if(target.isPlayer() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.hasSnowedThisWinter)) {
 				Main.game.getDialogueFlags().values.add(DialogueFlagValue.hasSnowedThisWinter);
+				
+				if(Main.game.getReindeerOverseers().isEmpty()) {
+					try {
+						for(int i=0; i<2; i++) {
+							Main.game.addNPC(new ReindeerOverseer(Gender.M_P_MALE), false);
+						}
+						for(int i=0; i<2; i++) {
+							Main.game.addNPC(new ReindeerOverseer(Gender.F_V_B_FEMALE), false);
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				} else {
+					for(NPC npc : Main.game.getReindeerOverseers()) {
+						npc.setRandomLocation(WorldType.DOMINION, PlaceType.DOMINION_STREET, true);
+					}
+				}
 				return "<p>"
-						+ "Snow! :3"
+							+ "The oppressive, dark-grey clouds which have been hanging over Dominion for the past few hours finally burst."
+							+ " Large, fluffy snowflakes slowly drift down from above, and although the first few crystals quickly melt away upon coming into contact with the ground below,"
+								+ " it doesn't take long before a thin white dusting of powdery white has settled upon the rooftops and pathways of the capital."
+						+ "</p>"
+						+ "<p>"
+							+ "What looked at first to be no more than a quick flurry soon intensifies into a wild snowstorm, and in less than an hour, a thick white blanket of snow has begun to smother the streets."
+							+ " Another hour later, and the snow's built up to such a degree that all travel through the city slows to a crawl."
+							+ " A few demons try to use their arcane fire to blast a path through the freezing snowdrifts, but the snowfall is so heavy that even their powerful spells seem to have a limited impact."
+						+ "</p>"
+						+ "<p>"
+							+ "Just as it seems as though the entire capital is about to grind to a halt, the faint jingle of bells heralds the arrival of the city's saviours."
+							+ " Travelling a great distance from their frozen tundra homeland, a host of reindeer-morphs descends upon Dominion."
+							+ " Their large, cloven hooves allow them to traverse the snow-bound streets with incredible ease, and they quickly split up into numerous snow-shovelling groups,"
+								+ " before setting off into different areas of the city."
+							+ " Under the guidance of particularly large, muscular individuals, the reindeer-morphs quickly set about clearing a path through the snow."
+						+ "</p>"
+						+ "<p>"
+							+ "Although the weather refuses to let up, it only takes a few hours for the impressive reindeer-morphs to clear all of the snow from the streets."
+							+ " Talk soon spreads about how the visitors will be staying in Dominion to work until the end of February, making sure that the city is able to function through these cold winter months."
 						+ "</p>";
 			} else {
 				return "";
@@ -4472,6 +4511,81 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return ClothingSet.CATTLE.isCharacterWearingCompleteSet(target);
+		}
+	},
+	
+	SET_GEISHA(
+			70,
+			"Geisha",
+			"set_geisha",
+			Colour.BASE_ROSE,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.FITNESS, 15f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_MANA, 10f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				if(target.isPlayer()) {
+					return "You are wearing a kitsune's ceremonial outfit, which closely resembles traditional Japanese clothing.";
+					
+				} else {
+					return UtilText.parse(target, "[npc.Name] is wearing a kitsune's ceremonial outfit, which closely resembles traditional Japanese clothing.");
+					
+				}
+			} else {
+				return "";
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return ClothingSet.GEISHA.isCharacterWearingCompleteSet(target);
+		}
+	},
+	
+	SET_JOLNIR(
+			70,
+			"J&oacute;lnir",
+			"set_jolnir",
+			Colour.BASE_BLACK,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.INTELLIGENCE, 25f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_PURE, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 10f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				if(target.isPlayer()) {
+					return "By wearing the outfit of the 'Yule figure', both your wisdom and prowess in battle are greatly increased!";
+					
+				} else {
+					return UtilText.parse(target, "[npc.Name] is wearing the outfit of the 'Yule figure', thereby greatly increasing [npc.her] wisdom and prowess in battle.");
+					
+				}
+			} else {
+				return "";
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return ClothingSet.JOLNIR.isCharacterWearingCompleteSet(target);
 		}
 	},
 	

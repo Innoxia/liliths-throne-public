@@ -17,13 +17,40 @@
 	
 	<b>There were several bug reports (mainly the game's options locking up) that I was unable to reproduce. If you're having issues like that, please try exporting, then importing your game.</b>
 	
-	Gameplay:
-		Added weather type snow, which only occurs during winter (December, January, & February).
-		Added reindeer-morph encounters in alleyways during winter (they'll start appearing after it's snowed for the first time).
+	Engine:
+		Enabled support for clothing to have secondary and tertiary colours. Certain clothing (such as the new kimono) can have different parts dyed in different colours, allowing you to customise your clothing even more.
 	
+	Gameplay:
+		Added weather type 'snow', which only occurs during winter (December, January, & February).
+		Added reindeer-morph encounters in alleyways during winter (they only start appearing after it's snowed for the first time).
+		<b>Added:</b> Reindeer-morph encounters in the streets of Dominion. Four reindeer-morphs will spawn in Dominion when it first snows. (They are only present during the winter months.)
+		Added 'December' entry to your room's calendar.
+		Added new way to initiate a sex scene with Lilaya (go to her lab while having a present in your inventory; you need to perform the related action 3 times).
+	
+	Sex:
+		Slightly reworked the way orgasms are handled in the game. Now, instead of combining both orgasms into one action if you're orgasming at the same time (which was essentially just concatenating both orgasm descriptions and presenting it as one action), your orgasm is resolved first, then you choose a reaction for your partner's orgasm. (I wanted to give you a little more control over how orgasms are played out.)
+		Partners should no longer be able to perform a penetrative action in the same turn that you stop penetration. (This is to stop the situation where you'd stop an ongoing sex type, then the NPC would immediately start it again.)
+		
 	Contributors:
 		Minor fix to Gator's Gumbo usage text. (by Rfpnj)
-		<b>Added reindeer morphs.</b> (by Rfpnj)
+		<b>Added reindeer morphs & associated consumable items (Sugar Cookie & Egg Nog).</b> (by Rfpnj)
+		
+	Clothing & Items:
+		Added: Mince pie (non-racial consumable item).
+		Added: Antler headband (neutral femininity, head slot).
+		Added: Snowflake earrings (neutral femininity, ear piercing slot).
+		Added: Snowflake nose stud (neutral femininity, nose piercing slot).
+		Added: Snowflake necklace (neutral femininity, neck slot).
+		Added: Festive sweater (neutral femininity, torso-over slot).
+		Added: Jolnir's hat (neutral femininity, head slot, Jolnir set).
+		Added: Jolnir's dress (feminine, torso slot, Jolnir set).
+		Added: Jolnir's coat (neutral femininity, torso slot, Jolnir set).
+		Added: Jolnir's boots (masculine, foot slot, Jolnir set).
+		Added: Jolnir's heeled boots (feminine, foot slot, Jolnir set).
+		Added: Kimono (feminine, torso slot, Geisha set).
+		Added: Kanzashi (feminine, hair slot, Geisha set).
+		Added: Geta (feminine, foot slot, Geisha set).
+		Added: Dress coat (feminine, torso-over slot).
 		
 	Other:
 		Nyan's hair and fur colours are now black.
@@ -36,6 +63,9 @@
 		Added amber & grey colours for demon skin.
 		Added cock length to selfie/character viewer screens.
 		Updated all weather status effect icons.
+		Added horn length enchantment option when making potions.
+		Added horse-morph and reindeer-morph names.
+		Added 'Morph' difficulty level (enemies scale level with you, but do normal damage).
 	
 	Bugs:
 		Fixed another cause of game imports not working.
@@ -63,14 +93,47 @@
 	
 	
 	
-	8chan bugs
-	TFGS response & update
+	
+	make a date changing option in the debug menu
+	
+	I get issues with constant tail and thigh sex
+	
+	Choosing very experienced leaves you with both penile and anal virginity
+	
+	
+	Slave customisation
+	
+	
+	
+	Add 'Find new Overseer'
+	
+	FINISH NEW ORGASM ACTIONS
+	
+	
+	The start tf menu is describing me as a succubus (Which was the last NPC I used this menu in)
+	And you can access your phone despite the fact it's blocked by clicking "Level 1 Woman" in the top left
+	
+	
+	6:32] NoFratChicks: System.setProperty("prism.lcdtext", "false"); near-doubled the speed for me, so it does seem to be rendering related
+	[06:34] NoFratChicks: Not sure what it does, renders text with greyscale rather than LCD subpixels? Anyway might be worth adding an option to turn that off, I'll tell you if I find something else that has a signficant effect. I'm sure there's something to disable general anti-aliasing that would help as well.
+	[06:34] NoFratChicks: The 10 other people with this kind of setup will thank you :weary:
+	[07:11] NoFratChicks: Removing the fade-in effect on tooltips has improved my experience, might be worth disabling that if the menu fade option is disabled, the same people are going to want tooltip fade off.
+	
+	dirty talk for thigh sex is "How best to use you, I wonder..."
+	
+	can receive paizuri while having oral sex
+	
+	
 	Jam commission
 	
+	add Mega Milk pose as a special attack
+		It better scale with boob size
 	
+	eggplant usable
 	
 During arcane storm facing a random encounter on generic title and winning by dismissal, (just leave not using removal option), bug out the map and stop listening to mouse commands, keyboard still work and restore functionality after moving
 
+Thigh sex, paizuri, butt jobs, and blowjobs shouldn't count for losing penile virginity.
 
 Is there a bug where if you attempt to get a submissive partner to fuck you in the ass, they'll do thigh sex and not stop no matter what you do?  Or are the characters in my game just scared of buttholes?
 
@@ -78,8 +141,7 @@ Feline Fancy now open the enchanting screen for strength instead of intelligence
 
  Contrary to my hopes and dreams, you cannot use your tail to penetrate as a gator. Hopefully this is a bug. (Magic ought to be able to add prehensibility(?)!)
 	
-	"Morph difficulty": Enemies level up alongside your character and do normal (100%) damage.
-	
+	If i import my character, im stuck at the "survive the evening" quest.
 	
 A small problem I just noticed, I tried to enable 'Light Theme' out of curiosity and everything displayed badly, White buttons on a white background, a list of shortcut key vertically on the left. It seemed to be in mobile device display mode but still with white text on a white background, except for the shortcut key references.
 
@@ -129,7 +191,7 @@ Npc's are doing that black magic voodoo thing where they're pulling up my chemis
 	
 	
 	
-	
+	"you have fought her times"
 	
 	If you scroll down the room list menu and click to manage a room, the new menu remains scrolled down accordingly instead of being reset to the top of the menu.
 	
@@ -275,11 +337,6 @@ BlobHyperSweats1
 	
 	
 	get cloacas working
-	
-	Clothing:
-		Default primary colours
-		Default secondary colours
-		+ Dye for both
 	
 	Apparently, it doesn't like it when you ride the 19 inch succubi cock analy like a slut, tail peg her ass, and finger her pussy.. at the same time
 	

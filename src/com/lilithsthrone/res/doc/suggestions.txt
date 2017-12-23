@@ -4,15 +4,46 @@
 	
 	isPenisPrehensile()
 	
+	
+	
 	1) Players will have parties made up of summoned battle pets.
-	2) Battle pets can be acquired based on lovers, likely also quests, transformations, and corruption.
-	3) You have masturbation scenes with your pets.
+	2) Battle pets can be acquired based on lovers, also quests, transformations, and corruption.
+	3) You'll have masturbation scenes with your pets.
 	4) Combat will have a round by round system, with each character only choosing actions once per round.
 	5) Winning or losing in combat will be based on a single health bar on both sides, representing aura strength.  It will be depleted by all forms of attack.
-	6) Attacks are either lust or physical, modified by attack and defence stats.
+	6) Attacks are either lust or physical, modified by attack and defense stats.
 	7) Attacks also have a type associated with them, modified by resistances.
-	8) Lust based attacks will have as many types or elements associated with it as physical/magical attacks. Possible ideas: Groping, flashing, mind control, telekenesis, dirty talking.
-	9) Fetishes will no longer have special attacks, instead flavouring seduction attacks based on the attacker and defender's fetishes (ex: Fondle goes for the breasts if the target has that fetish and is extra flustered.)
+	8) Lust based attacks will have as many types or elements associated with it as physical/magical attacks.
+	9) Attack types are, fire, water, air, earth.  Possibly have coresponding seductive versions that use the same affinities to determine damage/resistance?  (display, mind, voice, and touch.)
+	10) Fetishes will no longer have special attacks, instead flavoring seduction attacks based on the attacker and defender's fetishes (ex: Fondle goes for the breasts if the target has that fetish and is extra flustered.)
+	11) Combat stats and/or skills will unlock out of combat options.
+	12) Pets are a set of abilities and stat modifiers, equippable in safe spaces.
+	13) Pets have a turn in combat where they use their abilities.  They can be affected by buffs and debuffs, but share health with their master/summoner.
+	14) Several basic pets will be given to the player near the start of the game.  The harpy nest side-quest could be about teaching the player how to make the right choices with their basic ones to overcome the challenges they face.
+	15) Each pet will have a number of lines of flavor text that appear in decriptions for exploring areas, when they're summoned, when they're put away, their appearance, and for each of their attacks.  They are always tagged onto another scene to avoid extra clicks for the player.
+	
+	
+	Here's the start of the discussion:
+	That's a good point.  A score system like what CoC/TiTS uses might make more sense.
+	That also lets you work with overlapping TFs without essentially duplicating them.
+	The scores would be like, dog tail gives +1 dog and +1 wolf...
+	If your highest score is dog and it rates 2-4 you're a partial dog, if it rates 4-6 you're a lesser dog, if it rates 6+ you're a greater dog.
+	Face and full body fur would be among the highest scoring items.(edited)
+	Humans are if you score low on everything, a chimera or similar name would come up if you score high on several items.
+	You can also have hidden race combos to find that would give special names too.
+	Like a rabbit morph with antlers could be called a jackalope.
+	The other idea I had was a serpent, with antlers, and whiskers would be called an eastern dragon or long.
+	
+	It's actually almost like a set collection thing in Diablo.
+	You could have a recipe book in the game that records each of the hidden race combinations the player has found.
+	Even if there's no benefit to them other than a fancy name, that gives a reason to go out and find all the combinations.
+	
+	That's what I was going for with the encyclopedia entries as well, but I think I need to re-design the UI to make it a little more concise. It's a bit of a mess at the moment.
+	You're right, that fits very well into the encyclopedia. Especially once it's changed to account wide.  It's almost like your achievement system for the game
+	
+	
+	
+	
 	
 	Would be interesting to be able to put them into a pool of random encounters or whatnot. 
 	

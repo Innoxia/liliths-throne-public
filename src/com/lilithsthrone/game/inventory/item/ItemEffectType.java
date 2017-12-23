@@ -48,6 +48,9 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryBookAddedToLibrary;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
+import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
@@ -572,6 +575,23 @@ public enum ItemEffectType {
 		}
 	},
 	
+	SEX_MINCE_PIE(Util.newArrayListOfValues(
+			new ListValue<>("[style.boldGood(+1)] [style.boldDmgMana(willpower damage)] to 'potion effects'"),
+			new ListValue<>("[style.boldGood(+1)] [style.boldDmgFire(fire damage)] to 'potion effects'")),
+			Colour.GENERIC_SEX) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			return (target.isPlayer()
+						?"A warm wave of arcane energy washes over you......"
+						:UtilText.parse(target, "A warm wave of arcane energy washes over [npc.name]..."))
+					+ "</br>"
+							+ target.addPotionEffect(Attribute.DAMAGE_MANA, 1)
+					+ "</br>"
+					+ target.addPotionEffect(Attribute.DAMAGE_FIRE, 1);
+		}
+	},
+	
 	// Corruption:
 	
 	COR_LILITHS_GIFT(Util.newArrayListOfValues(
@@ -679,6 +699,66 @@ public enum ItemEffectType {
 				return "It's kind of tasty.";
 			} else {
 				return "";
+			}
+		}
+	},
+	
+	PRESENT(Util.newArrayListOfValues(
+			new ListValue<>("Contains a random item.")),
+			Colour.GENERIC_EXCELLENT) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			List<AbstractItemType> items = new ArrayList<>();
+			items.add(ItemType.FIT_INGREDIENT_EGG_NOG);
+			items.add(ItemType.SEX_INGREDIENT_MINCE_PIE);
+			items.add(ItemType.RACE_INGREDIENT_REINDEER_MORPH);
+			
+			Map<AbstractClothingType, Integer> clothingMap = new HashMap<>();
+			// Common clothing (60%):
+			clothingMap.put(ClothingType.HEAD_ANTLER_HEADBAND, 12);
+			clothingMap.put(ClothingType.NECK_SNOWFLAKE_NECKLACE, 12);
+			clothingMap.put(ClothingType.PIERCING_EAR_SNOW_FLAKES, 12);
+			clothingMap.put(ClothingType.PIERCING_NOSE_SNOWFLAKE_STUD, 12);
+			clothingMap.put(ClothingType.TORSO_OVER_CHRISTMAS_SWEATER, 12);
+			
+			// Uncommon clothing (40%):
+			clothingMap.put(ClothingType.JOLNIR_BOOTS, 5);
+			clothingMap.put(ClothingType.JOLNIR_BOOTS_FEMININE, 5);
+			clothingMap.put(ClothingType.JOLNIR_COAT, 5);
+			clothingMap.put(ClothingType.JOLNIR_DRESS, 5);
+			clothingMap.put(ClothingType.JOLNIR_HAT, 5);
+			
+			clothingMap.put(ClothingType.KIMONO_DRESS, 5);
+			clothingMap.put(ClothingType.KIMONO_GETA, 5);
+			clothingMap.put(ClothingType.KIMONO_HAIR_KANZASHI, 5);
+			
+			// 50% chance for consumable, 50% for clothing:
+			if(Math.random()<0.5f) {
+				AbstractItemType itemType = items.get(Util.random.nextInt(items.size()));
+				
+				return "<p>"
+							+ "The present contained: <b>"+itemType.getDisplayName(true)+"</b>!"
+						+ "</p>"
+						+ user.addItem(AbstractItemType.generateItem(itemType), false);
+				
+			} else {
+				AbstractClothingType clothingType = Util.getRandomObjectFromWeightedMap(clothingMap);
+				AbstractClothing clothing = AbstractClothingType.generateClothing(clothingType);
+				
+				if(!Main.game.getPlayerCell().getInventory().isInventoryFull()) {
+					Main.game.getPlayerCell().getInventory().addClothing(clothing);
+					return "<p>"
+								+ "The present contained: <b>"+clothing.getDisplayName(true)+"</b>!"
+							+ "</p>"
+							+ user.addClothing(clothing, true);
+					
+				} else {
+					return "<p>"
+								+ "The present contained: <b>"+clothing.getDisplayName(true)+"</b>!"
+							+ "</p>"
+							+ user.addClothing(clothing, false);
+				}
 			}
 		}
 	},
@@ -2397,6 +2477,7 @@ public enum ItemEffectType {
 				for(int i=0; i< RacialBody.valueOfRace(race).getHornType().size();i++) {
 					secondaryModPotencyMap.put(TFModifier.valueOf("TF_TYPE_"+(i+1)), Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
 				}
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_COUNT, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_DRAIN), new ListValue<>(TFPotency.MINOR_BOOST)));
 				break;
 				
@@ -3157,6 +3238,22 @@ public enum ItemEffectType {
 				
 			case TF_HORNS:
 				switch(secondaryModifier) {
+					case TF_MOD_SIZE:
+						switch(potency) {
+							case MAJOR_DRAIN:
+								return new RacialEffectUtil("Huge decrease in horn length.", mediumChangeMajorDrain, " inches") { @Override public String applyEffect() { return target.incrementHornLength(mediumChangeMajorDrain); } };
+							case DRAIN:
+								return new RacialEffectUtil("Decrease in horn length.", mediumChangeDrain, " inches") { @Override public String applyEffect() { return target.incrementHornLength(mediumChangeDrain); } };
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Small decrease in horn length.", mediumChangeMinorDrain, " inches") { @Override public String applyEffect() { return target.incrementHornLength(mediumChangeMinorDrain); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Small increase in horn length.", mediumChangeMinorBoost, " inches") { @Override public String applyEffect() { return target.incrementHornLength(mediumChangeMinorBoost); } };
+							case BOOST:
+								return new RacialEffectUtil("Increase in horn length.", mediumChangeBoost, " inches") { @Override public String applyEffect() { return target.incrementHornLength(mediumChangeBoost); } };
+							case MAJOR_BOOST:
+								return new RacialEffectUtil("Huge increase in horn length.", mediumChangeMajorBoost, " inches") { @Override public String applyEffect() { return target.incrementHornLength(mediumChangeMajorBoost); } };
+						}
+				
 					case TF_MOD_COUNT:
 						switch(potency) {
 							case MINOR_DRAIN:
@@ -3164,6 +3261,7 @@ public enum ItemEffectType {
 							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Adds an extra pair of horns.", singleBoost, " pair of horns") { @Override public String applyEffect() { return target.incrementHornRows(singleBoost); } };
 						}
+						
 					case TF_TYPE_1:
 						return new RacialEffectUtil((RacialBody.valueOfRace(race).getHornType().get(0)==HornType.NONE?"Removes horns.":"Grows "+RacialBody.valueOfRace(race).getHornType().get(0).getName(true, Main.game.getPlayer())+"."), 0, "") {
 							@Override public String applyEffect() { return target.setHornType(RacialBody.valueOfRace(race).getHornType().get(0)); } };

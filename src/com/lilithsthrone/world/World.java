@@ -1,7 +1,9 @@
 package com.lilithsthrone.world;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -9,6 +11,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.places.GenericPlace;
@@ -105,6 +108,9 @@ public class World implements Serializable, XMLSaving {
 	}
 
 	public Cell getCell(int i, int j) {
+		if(i<0 || j<0 || i >= WORLD_WIDTH || j >= WORLD_HEIGHT) {
+			return null;
+		}
 		return grid[i][j];
 	}
 
@@ -112,6 +118,10 @@ public class World implements Serializable, XMLSaving {
 		return grid[vec.getX()][vec.getY()];
 	}
 	
+	/**
+	 * @param place The PlaceType to find a Cell of.
+	 * @return A Cell of the PlaceType defined by the argument 'place'. If there are multiple Cells with the same PlaceType, the first one that is found is returned.
+	 */
 	public Cell getCell(PlaceType place) {
 		for(int i=0; i<grid.length; i++) {
 			for(int j=0; j<grid[0].length; j++) {
@@ -121,6 +131,26 @@ public class World implements Serializable, XMLSaving {
 			}
 		}
 		return null;
+	}
+	
+	/**
+	 * @param place The PlaceType to find a Cell of.
+	 * @return A Cell of the PlaceType defined by the argument 'place'. If there are multiple Cells with the same PlaceType, a random one is returned.
+	 */
+	public Cell getRandomCell(PlaceType place) {
+		List<Cell> corridorCells = new ArrayList<>();
+		for(int i=0; i<grid.length; i++) {
+			for(int j=0; j<grid[0].length; j++) {
+				if(grid[i][j].getPlace().getPlaceType().equals(place)) {
+					corridorCells.add(grid[i][j]);
+				}
+			}
+		}
+		if(corridorCells.isEmpty()) {
+			return null;
+		}
+		
+		return corridorCells.get(Util.random.nextInt(corridorCells.size()));
 	}
 
 	public Cell[][] getCellGrid() {

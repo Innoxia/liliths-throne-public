@@ -153,8 +153,8 @@ public class Ralph extends NPC {
 			}
 		}
 		
-		Colour condomColour1 = ClothingType.PENIS_CONDOM.getAvailableColours().get(Util.random.nextInt(ClothingType.PENIS_CONDOM.getAvailableColours().size()));
-		Colour condomColour2 = ClothingType.PENIS_CONDOM.getAvailableColours().get(Util.random.nextInt(ClothingType.PENIS_CONDOM.getAvailableColours().size()));
+		Colour condomColour1 = ClothingType.PENIS_CONDOM.getAvailablePrimaryColours().get(Util.random.nextInt(ClothingType.PENIS_CONDOM.getAvailablePrimaryColours().size()));
+		Colour condomColour2 = ClothingType.PENIS_CONDOM.getAvailablePrimaryColours().get(Util.random.nextInt(ClothingType.PENIS_CONDOM.getAvailablePrimaryColours().size()));
 		
 		for (int i = 0; i < 3+(Util.random.nextInt(6)); i++) {
 			this.addClothing(AbstractClothingType.generateClothing(ClothingType.PENIS_CONDOM, condomColour1, false), false);

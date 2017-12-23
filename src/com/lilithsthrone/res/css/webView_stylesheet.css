@@ -215,6 +215,22 @@ input:focus {
 .container-half-width.inner {
 	background:#222;
 }
+.container-quarter-width {
+	position:relative;
+	float:left;
+	background:#19191a;
+	border-radius:5px;
+	
+	padding:4px;
+	margin:8px;
+	
+	width: calc(25% - 16px);
+	-webkit-user-select: none;
+	box-sizing: border-box;
+}
+.container-quarter-width.inner {
+	background:#222;
+}
 
 .square-button {
 	background-color: #333333;
@@ -987,7 +1003,7 @@ position:relative;
 	background-color: #4b4b4e;
 	border-radius: 5px;
 	margin:4px 4px 0 0;
-	width:25%;
+	width: calc(25% - 4px);
 }
 .inventoryImage:after{
 	content: "";

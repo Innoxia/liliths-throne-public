@@ -1750,125 +1750,125 @@ public class GenericOrgasms {
 	};
 	
 	
-	// Mutual orgasms:
-	
-	public static final SexAction PLAYER_GENERIC_MUTUAL_ORGASM_CUM_INSIDE = new SexAction(
-			SexActionType.MUTUAL_ORGASM,
-			ArousalIncrease.FIVE_EXTREME,
-			ArousalIncrease.FIVE_EXTREME,
-			CorruptionLevel.ZERO_PURE,
-			null,
-			null) {
-		@Override
-		public String getActionTitle() {
-			return "Stay in position";
-		}
-
-		@Override
-		public String getActionDescription() {
-			return "You've reached your climax, and can't hold back your orgasm any longer.";
-		}
-
-		@Override
-		public boolean isBaseRequirementsMet() {
-			return true;
-		}
-
-		@Override
-		public String getDescription() {
-			return(PLAYER_GENERIC_ORGASM_CUM_INSIDE.getDescription()
-					+"</br></br>"
-					+PARTNER_GENERIC_ORGASM_CUM_INSIDE.getDescription());
-		}
-
-		@Override
-		public void applyEffects() {
-			if (!Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS) && Main.game.getPlayer().getPenisType()!=PenisType.NONE && !Main.game.getPlayer().isWearingCondom())
-				Main.game.getPlayer().getLowestZLayerCoverableArea(CoverableArea.PENIS).setDirty(true);
-		}
-		
-		@Override
-		public List<OrificeType> getPlayerAreasCummedIn() {
-			if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER) == PenetrationType.PENIS_PARTNER) {
-				return Util.newArrayListOfValues(new ListValue<>(OrificeType.VAGINA_PLAYER));
-				
-			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER) == PenetrationType.PENIS_PARTNER) {
-				return Util.newArrayListOfValues(new ListValue<>(OrificeType.ANUS_PLAYER));
-				
-			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER) == PenetrationType.PENIS_PARTNER) {
-				return Util.newArrayListOfValues(new ListValue<>(OrificeType.MOUTH_PLAYER));
-				
-			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PLAYER) == PenetrationType.PENIS_PARTNER) {
-				return Util.newArrayListOfValues(new ListValue<>(OrificeType.NIPPLE_PLAYER));
-				
-			} else {
-				return null;
-			}
-		}
-		
-		@Override
-		public List<OrificeType> getPartnerAreasCummedIn() {
-			if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER) == PenetrationType.PENIS_PLAYER) {
-				return Util.newArrayListOfValues(new ListValue<>(OrificeType.VAGINA_PARTNER));
-				
-			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER) == PenetrationType.PENIS_PLAYER) {
-				return Util.newArrayListOfValues(new ListValue<>(OrificeType.ANUS_PARTNER));
-				
-			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER) == PenetrationType.PENIS_PLAYER) {
-				return Util.newArrayListOfValues(new ListValue<>(OrificeType.MOUTH_PARTNER));
-				
-			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER) == PenetrationType.PENIS_PLAYER) {
-				return Util.newArrayListOfValues(new ListValue<>(OrificeType.NIPPLE_PARTNER));
-				
-			} else {
-				return null;
-			}
-		}
-		
-		@Override
-		public boolean endsSex() {
-			return !Sex.isPlayerDom() && !Sex.isConsensual();
-		}
-	};
-	
-	public static final SexAction PLAYER_GENERIC_MUTUAL_ORGASM_PULL_OUT = new SexAction(
-			SexActionType.MUTUAL_ORGASM,
-			ArousalIncrease.FIVE_EXTREME,
-			ArousalIncrease.FIVE_EXTREME,
-			CorruptionLevel.ZERO_PURE,
-			null,
-			null) {
-		@Override
-		public String getActionTitle() {
-			return "Pull out";
-		}
-
-		@Override
-		public String getActionDescription() {
-			return "You've reached your climax, and can't hold back your orgasm any longer.";
-		}
-
-		@Override
-		public boolean isBaseRequirementsMet() {
-			return (Sex.isPlayerDom() || Sex.isSubHasEqualControl()) && Sex.isAnyPenetrationHappening();
-		}
-
-		@Override
-		public String getDescription() {
-			return(PLAYER_GENERIC_ORGASM_PULL_OUT.getDescription()
-					+"</br></br>"
-					+PARTNER_GENERIC_ORGASM_PULL_OUT.getDescription());
-		}
-
-		@Override
-		public void applyEffects() {
-			if (!Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS) && Main.game.getPlayer().getPenisType()!=PenisType.NONE && !Main.game.getPlayer().isWearingCondom())
-				Main.game.getPlayer().getLowestZLayerCoverableArea(CoverableArea.PENIS).setDirty(true);
-		}
-		
-		@Override
-		public boolean endsSex() {
-			return !Sex.isPlayerDom() && !Sex.isConsensual();
-		}
-	};
+//	// Mutual orgasms:
+//	
+//	public static final SexAction PLAYER_GENERIC_MUTUAL_ORGASM_CUM_INSIDE = new SexAction(
+//			SexActionType.MUTUAL_ORGASM,
+//			ArousalIncrease.FIVE_EXTREME,
+//			ArousalIncrease.FIVE_EXTREME,
+//			CorruptionLevel.ZERO_PURE,
+//			null,
+//			null) {
+//		@Override
+//		public String getActionTitle() {
+//			return "Stay in position";
+//		}
+//
+//		@Override
+//		public String getActionDescription() {
+//			return "You've reached your climax, and can't hold back your orgasm any longer.";
+//		}
+//
+//		@Override
+//		public boolean isBaseRequirementsMet() {
+//			return true;
+//		}
+//
+//		@Override
+//		public String getDescription() {
+//			return(PLAYER_GENERIC_ORGASM_CUM_INSIDE.getDescription()
+//					+"</br></br>"
+//					+PARTNER_GENERIC_ORGASM_CUM_INSIDE.getDescription());
+//		}
+//
+//		@Override
+//		public void applyEffects() {
+//			if (!Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS) && Main.game.getPlayer().getPenisType()!=PenisType.NONE && !Main.game.getPlayer().isWearingCondom())
+//				Main.game.getPlayer().getLowestZLayerCoverableArea(CoverableArea.PENIS).setDirty(true);
+//		}
+//		
+//		@Override
+//		public List<OrificeType> getPlayerAreasCummedIn() {
+//			if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER) == PenetrationType.PENIS_PARTNER) {
+//				return Util.newArrayListOfValues(new ListValue<>(OrificeType.VAGINA_PLAYER));
+//				
+//			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER) == PenetrationType.PENIS_PARTNER) {
+//				return Util.newArrayListOfValues(new ListValue<>(OrificeType.ANUS_PLAYER));
+//				
+//			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER) == PenetrationType.PENIS_PARTNER) {
+//				return Util.newArrayListOfValues(new ListValue<>(OrificeType.MOUTH_PLAYER));
+//				
+//			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PLAYER) == PenetrationType.PENIS_PARTNER) {
+//				return Util.newArrayListOfValues(new ListValue<>(OrificeType.NIPPLE_PLAYER));
+//				
+//			} else {
+//				return null;
+//			}
+//		}
+//		
+//		@Override
+//		public List<OrificeType> getPartnerAreasCummedIn() {
+//			if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER) == PenetrationType.PENIS_PLAYER) {
+//				return Util.newArrayListOfValues(new ListValue<>(OrificeType.VAGINA_PARTNER));
+//				
+//			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER) == PenetrationType.PENIS_PLAYER) {
+//				return Util.newArrayListOfValues(new ListValue<>(OrificeType.ANUS_PARTNER));
+//				
+//			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER) == PenetrationType.PENIS_PLAYER) {
+//				return Util.newArrayListOfValues(new ListValue<>(OrificeType.MOUTH_PARTNER));
+//				
+//			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER) == PenetrationType.PENIS_PLAYER) {
+//				return Util.newArrayListOfValues(new ListValue<>(OrificeType.NIPPLE_PARTNER));
+//				
+//			} else {
+//				return null;
+//			}
+//		}
+//		
+//		@Override
+//		public boolean endsSex() {
+//			return !Sex.isPlayerDom() && !Sex.isConsensual();
+//		}
+//	};
+//	
+//	public static final SexAction PLAYER_GENERIC_MUTUAL_ORGASM_PULL_OUT = new SexAction(
+//			SexActionType.MUTUAL_ORGASM,
+//			ArousalIncrease.FIVE_EXTREME,
+//			ArousalIncrease.FIVE_EXTREME,
+//			CorruptionLevel.ZERO_PURE,
+//			null,
+//			null) {
+//		@Override
+//		public String getActionTitle() {
+//			return "Pull out";
+//		}
+//
+//		@Override
+//		public String getActionDescription() {
+//			return "You've reached your climax, and can't hold back your orgasm any longer.";
+//		}
+//
+//		@Override
+//		public boolean isBaseRequirementsMet() {
+//			return (Sex.isPlayerDom() || Sex.isSubHasEqualControl()) && Sex.isAnyPenetrationHappening();
+//		}
+//
+//		@Override
+//		public String getDescription() {
+//			return(PLAYER_GENERIC_ORGASM_PULL_OUT.getDescription()
+//					+"</br></br>"
+//					+PARTNER_GENERIC_ORGASM_PULL_OUT.getDescription());
+//		}
+//
+//		@Override
+//		public void applyEffects() {
+//			if (!Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS) && Main.game.getPlayer().getPenisType()!=PenisType.NONE && !Main.game.getPlayer().isWearingCondom())
+//				Main.game.getPlayer().getLowestZLayerCoverableArea(CoverableArea.PENIS).setDirty(true);
+//		}
+//		
+//		@Override
+//		public boolean endsSex() {
+//			return !Sex.isPlayerDom() && !Sex.isConsensual();
+//		}
+//	};
 }

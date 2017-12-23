@@ -119,21 +119,7 @@ public class DominionAlleywayAttacker extends NPC {
 				setBody(gender, RacialBody.HUMAN, RaceStage.HUMAN);
 				
 			} else {
-				int total = 0;
-				for(int i : availableRaces.values()) {
-					total+=i;
-				}
-				
-				int choice = Util.random.nextInt(total) + 1;
-				
-				total = 0;
-				for(Entry<Race, Integer> entry : availableRaces.entrySet()) {
-					total+=entry.getValue();
-					if(choice<=total) {
-						race = entry.getKey();
-						break;
-					}
-				}
+				race = Util.getRandomObjectFromWeightedMap(availableRaces);
 				
 				if(gender.isFeminine()) {
 					switch(Main.getProperties().raceFemininePreferencesMap.get(race)) {

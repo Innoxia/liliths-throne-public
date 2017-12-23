@@ -38,22 +38,29 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	private static final long serialVersionUID = 1L;
 
 	private AbstractClothingType clothingType;
-
+	
+	private Colour secondaryColour, tertiaryColour;
 	private boolean sealed, cummedIn, enchantmentKnown, badEnchantment;
 	private List<DisplacementType> displacedList;
 
 	private Attribute coreEnchantment;
 
-	public AbstractClothing(AbstractClothingType clothingType, Colour colour, boolean allowRandomEnchantment) {
-		super(clothingType.getName(), clothingType.getNamePlural(), clothingType.getPathName(),
-				clothingType.getAvailableColours().contains(colour) ? colour : clothingType.getAvailableColours().get(Util.random.nextInt(clothingType.getAvailableColours().size())),
-				clothingType.getRarity(), clothingType.getAttributeModifiers());
+	public AbstractClothing(AbstractClothingType clothingType, Colour colour, Colour secondaryColour, Colour tertiaryColour, boolean allowRandomEnchantment) {
+		super(clothingType.getName(),
+				clothingType.getNamePlural(),
+				clothingType.getPathName(),
+				clothingType.getAllAvailablePrimaryColours().contains(colour) ? colour : clothingType.getAllAvailablePrimaryColours().get(Util.random.nextInt(clothingType.getAllAvailablePrimaryColours().size())),
+				clothingType.getRarity(),
+				clothingType.getAttributeModifiers());
 
 		this.clothingType = clothingType;
 		
 		sealed = false;
 		cummedIn = false;
 		enchantmentKnown = true;
+		
+		this.secondaryColour = secondaryColour;
+		this.tertiaryColour = tertiaryColour;
 
 		displacedList = new ArrayList<>();
 
@@ -100,9 +107,13 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		}
 	}
 	
-	public AbstractClothing(AbstractClothingType clothingType, Colour colour, Map<Attribute, Integer> enchantmentMap) {
-		super(clothingType.getName(), clothingType.getNamePlural(), clothingType.getPathName(), clothingType.getAvailableColours().contains(colour) ? colour : clothingType.getAvailableColours().get(Util.random.nextInt(clothingType.getAvailableColours().size())),
-				clothingType.getRarity(), clothingType.getAttributeModifiers());
+	public AbstractClothing(AbstractClothingType clothingType, Colour colour, Colour secondaryColour, Colour tertiaryColour, Map<Attribute, Integer> enchantmentMap) {
+		super(clothingType.getName(),
+				clothingType.getNamePlural(),
+				clothingType.getPathName(),
+				clothingType.getAllAvailablePrimaryColours().contains(colour) ? colour : clothingType.getAllAvailablePrimaryColours().get(Util.random.nextInt(clothingType.getAllAvailablePrimaryColours().size())),
+				clothingType.getRarity(),
+				clothingType.getAttributeModifiers());
 
 		this.clothingType = clothingType;
 
@@ -110,6 +121,9 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		cummedIn = false;
 		enchantmentKnown = true;
 
+		this.secondaryColour = secondaryColour;
+		this.tertiaryColour = tertiaryColour;
+		
 		displacedList = new ArrayList<>();
 
 		attributeModifiers = enchantmentMap;
@@ -141,6 +155,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		if(super.equals(o)){
 			if(o instanceof AbstractClothing){
 				if(((AbstractClothing)o).getClothingType().equals(getClothingType())
+						&& ((AbstractClothing)o).getSecondaryColour()==secondaryColour
+						&& ((AbstractClothing)o).getTertiaryColour()==tertiaryColour
 						&& ((AbstractClothing)o).isSealed()==sealed
 						&& ((AbstractClothing)o).isDirty()==cummedIn
 						&& ((AbstractClothing)o).isEnchantmentKnown()==enchantmentKnown
@@ -158,6 +174,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	public int hashCode() {
 		int result = super.hashCode();
 		result = 31 * result + getClothingType().hashCode();
+		result = 31 * result + getSecondaryColour().hashCode();
+		result = 31 * result + getTertiaryColour().hashCode();
 		result = 31 * result + (sealed ? 1 : 0);
 		result = 31 * result + (cummedIn ? 1 : 0);
 		result = 31 * result + (enchantmentKnown ? 1 : 0);
@@ -174,6 +192,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		
 		CharacterUtils.addAttribute(doc, element, "id", this.getClothingType().getId());
 		CharacterUtils.addAttribute(doc, element, "colour", this.getColour().toString());
+		CharacterUtils.addAttribute(doc, element, "colourSecondary", this.getSecondaryColour().toString());
+		CharacterUtils.addAttribute(doc, element, "colourTertiary", this.getTertiaryColour().toString());
 		CharacterUtils.addAttribute(doc, element, "rarity", this.getRarity().toString());
 		CharacterUtils.addAttribute(doc, element, "sealed", String.valueOf(this.isSealed()));
 		CharacterUtils.addAttribute(doc, element, "isDirty", String.valueOf(this.isDirty()));
@@ -206,6 +226,13 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		AbstractClothing clothing = AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId(parentElement.getAttribute("id")), false);
 		
 		clothing.setColour(Colour.valueOf(parentElement.getAttribute("colour")));
+		if(!parentElement.getAttribute("colourSecondary").isEmpty()) {
+			clothing.setSecondaryColour(Colour.valueOf(parentElement.getAttribute("colourSecondary")));
+		}
+		if(!parentElement.getAttribute("colourTertiary").isEmpty()) {
+			clothing.setTertiaryColour(Colour.valueOf(parentElement.getAttribute("colourTertiary")));
+		}
+		
 		clothing.rarity = (Rarity.valueOf(parentElement.getAttribute("rarity")));
 		clothing.setSealed(Boolean.valueOf(parentElement.getAttribute("sealed")));
 		clothing.setDirty(Boolean.valueOf(parentElement.getAttribute("isDirty")));
@@ -233,6 +260,22 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		return clothing;
 	}
 	
+	public Colour getSecondaryColour() {
+		return secondaryColour;
+	}
+
+	public void setSecondaryColour(Colour secondaryColour) {
+		this.secondaryColour = secondaryColour;
+	}
+
+	public Colour getTertiaryColour() {
+		return tertiaryColour;
+	}
+
+	public void setTertiaryColour(Colour tertiaryColour) {
+		this.tertiaryColour = tertiaryColour;
+	}
+
 	/**
 	 * @return the name of a css class to use as a displayed rarity in inventory screens
 	 */
@@ -386,11 +429,11 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 
 	@Override
 	public String getSVGString() {
-		return getClothingType().getSVGImage(colourShade);
+		return getClothingType().getSVGImage(colourShade, secondaryColour, tertiaryColour);
 	}
 	
 	public String getSVGEquippedString(GameCharacter character) {
-		return getClothingType().getSVGEquippedImage(character, colourShade);
+		return getClothingType().getSVGEquippedImage(character, colourShade, secondaryColour, tertiaryColour);
 	}
 
 	/**

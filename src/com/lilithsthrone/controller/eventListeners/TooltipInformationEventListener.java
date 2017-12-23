@@ -450,7 +450,7 @@ public class TooltipInformationEventListener implements EventListener {
 				tooltipSB.append(getBodyPartDiv("Ears", owner.getEarRace(), owner.getEarType().getBodyCoveringType()));
 				tooltipSB.append(getBodyPartDiv("Tongue", owner.getTongueRace(), owner.getTongueType().getBodyCoveringType()));
 				if (owner.getHornType() != HornType.NONE) {
-					tooltipSB.append(getBodyPartDiv("Horns", owner.getHornRace(), owner.getHornType().getBodyCoveringType()));
+					tooltipSB.append(getBodyPartDiv((owner.hasHorns()?Util.capitaliseSentence(owner.getHornName()):"Horns"), owner.getHornRace(), owner.getHornType().getBodyCoveringType()));
 				} else {
 					tooltipSB.append("<div class='subTitle-half body'>" + "Horns - <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>" + "</div>");
 				}

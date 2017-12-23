@@ -9,14 +9,13 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
- * @version 0.1.89
+ * @version 0.1.96
  * @author Innoxia
  */
 public class DialogueFlags implements Serializable, XMLSaving {
@@ -33,7 +32,11 @@ public class DialogueFlags implements Serializable, XMLSaving {
 	// Amount of dialogue choices you can make before offspring interaction ends:
 	public int offspringDialogueTokens = 2;
 	
-	public BodyCoveringType skinTypeSelected;
+	// Reindeer event related flags:
+	private Set<String> reindeerEncounteredIDs = new HashSet<>();
+	private Set<String> reindeerWorkedForIDs = new HashSet<>();
+	private Set<String> reindeerFuckedIDs = new HashSet<>();
+	
 	
 	private String slaveTrader;
 	private String slaveryManagerSlaveSelected;
@@ -48,8 +51,6 @@ public class DialogueFlags implements Serializable, XMLSaving {
 		ralphDiscount=0;
 		
 		scarlettPrice = 2000;
-		
-		skinTypeSelected = null;
 	}
 	
 	public Element saveAsXML(Element parentElement, Document doc) {
@@ -60,7 +61,6 @@ public class DialogueFlags implements Serializable, XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, element, "ralphDiscount", String.valueOf(ralphDiscount));
 		CharacterUtils.createXMLElementWithValue(doc, element, "scarlettPrice", String.valueOf(scarlettPrice));
 		CharacterUtils.createXMLElementWithValue(doc, element, "offspringDialogueTokens", String.valueOf(offspringDialogueTokens));
-//		CharacterUtils.createXMLElementWithValue(doc, element, "skinTypeSelected", skinTypeSelected.toString());
 		CharacterUtils.createXMLElementWithValue(doc, element, "slaveTrader", slaveTrader);
 		CharacterUtils.createXMLElementWithValue(doc, element, "slaveryManagerSlaveSelected", slaveryManagerSlaveSelected);
 		
@@ -80,7 +80,6 @@ public class DialogueFlags implements Serializable, XMLSaving {
 		newFlags.ralphDiscount = Integer.valueOf(((Element)parentElement.getElementsByTagName("ralphDiscount").item(0)).getAttribute("value"));
 		newFlags.scarlettPrice = Integer.valueOf(((Element)parentElement.getElementsByTagName("scarlettPrice").item(0)).getAttribute("value"));
 		newFlags.offspringDialogueTokens = Integer.valueOf(((Element)parentElement.getElementsByTagName("offspringDialogueTokens").item(0)).getAttribute("value"));
-//		newFlags.skinTypeSelected = BodyCoveringType.valueOf(((Element)parentElement.getElementsByTagName("skinTypeSelected").item(0)).getAttribute("value"));
 		newFlags.slaveTrader = ((Element)parentElement.getElementsByTagName("slaveTrader").item(0)).getAttribute("value");
 		newFlags.slaveryManagerSlaveSelected = ((Element)parentElement.getElementsByTagName("slaveryManagerSlaveSelected").item(0)).getAttribute("value");
 		
@@ -151,4 +150,38 @@ public class DialogueFlags implements Serializable, XMLSaving {
 		this.slaveryManagerSlaveSelected = slaveryManagerSlaveSelected;
 	}
 
+	// Reindeer event:
+	
+	public void addReindeerEncountered(String reindeerID) {
+		reindeerEncounteredIDs.add(reindeerID);
+	}
+	
+	public boolean hasEncounteredReindeer(String reindeerID) {
+		return reindeerEncounteredIDs.contains(reindeerID);
+	}
+	
+	public boolean hasEncounteredAnyReindeers() {
+		return !reindeerEncounteredIDs.isEmpty();
+	}
+	
+	public void addReindeerDailyWorkedFor(String reindeerID) {
+		reindeerWorkedForIDs.add(reindeerID);
+	}
+	
+	public boolean hasWorkedForReindeer(String reindeerID) {
+		return reindeerWorkedForIDs.contains(reindeerID);
+	}
+	
+	public void addReindeerDailyFucked(String reindeerID) {
+		reindeerFuckedIDs.add(reindeerID);
+	}
+	
+	public boolean hasFuckedReindeer(String reindeerID) {
+		return reindeerFuckedIDs.contains(reindeerID);
+	}
+	
+	public void dailyReindeerReset(String reindeerID) {
+		reindeerWorkedForIDs.remove(reindeerID);
+	}
+	
 }

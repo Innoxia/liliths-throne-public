@@ -21,9 +21,13 @@ import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
+import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.managers.dominion.lilaya.SMChairBottomLilaya;
+import com.lilithsthrone.game.sex.managers.universal.SMDomStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -168,7 +172,8 @@ public class Lab {
 									Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)),
 									null,
 									CorruptionLevel.FOUR_LUSTFUL, null, null, null, true,
-									true, Main.game.getLilaya(), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX, "<p>"
+									true, Main.game.getLilaya(), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX,
+									"<p>"
 										+ "Stepping forwards, you reach up and take Lilaya's head in your hands, eagerly pressing your lips against hers as you give her a clear response to her question."
 										+ " You hear her little bat-like wings fluttering in excitement, and as you carry on kissing the horny half-demon, she starts moaning into your mouth."
 									+ "</p>"
@@ -191,7 +196,8 @@ public class Lab {
 									Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)),
 									null,
 									CorruptionLevel.FOUR_LUSTFUL, null, null, null, true,
-									true, Main.game.getLilaya(), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX, "<p>"
+									true, Main.game.getLilaya(), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX,
+									"<p>"
 										+ "Stepping forwards, you reach up and take Lilaya's head in your hands, eagerly pressing your lips against hers as you give her a clear response to her question."
 										+ " You hear her little bat-like wings fluttering in excitement, and as you carry on kissing the horny half-demon, she starts moaning into your mouth."
 									+ "</p>"
@@ -290,6 +296,43 @@ public class Lab {
 						});
 					}
 					
+					if(Main.game.getPlayer().hasItemType(ItemType.PRESENT) && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.givenLilayaPresent3)) {
+						generatedResponses.add(new Response("Give Present", "Give the present in your inventory to Lilaya.", LILAYA_PRESENT) {
+							@Override
+							public void effects() {
+								Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.PRESENT));//TODO
+								
+								if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.givenLilayaPresent2)) {
+									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.givenLilayaPresent3, true);
+									
+								} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.givenLilayaPresent1)) {
+									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.givenLilayaPresent2, true);
+									
+								} else {
+									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.givenLilayaPresent1, true);
+								}
+							}
+						});
+					}
+					
+					if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.givenLilayaPresent3)) {
+						generatedResponses.add(new Response("Geisha Lilaya", "Ask Lilaya if she'd like to wear the gifts you got for her.", LILAYA_GEISHA) {
+							@Override
+							public void effects() {
+								Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_LILAYA, true);
+								Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_LILAYA, true);
+								Main.game.getLilaya().resetInventory();
+
+								Main.game.getLilaya().equipClothingFromNowhere(
+										AbstractClothingType.generateClothing(ClothingType.KIMONO_HAIR_KANZASHI, Colour.CLOTHING_PINK, Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_PURPLE, false), true, Main.game.getLilaya());
+								Main.game.getLilaya().equipClothingFromNowhere(
+										AbstractClothingType.generateClothing(ClothingType.KIMONO_DRESS, Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_PURPLE, Colour.CLOTHING_PINK, false), true, Main.game.getLilaya());
+								Main.game.getLilaya().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.KIMONO_GETA, Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_PINK, null, false), true, Main.game.getLilaya());
+								Main.game.getLilaya().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getLilaya());
+							}
+						});
+					}
+					
 					// Return responses:
 					if(index==0) {
 						return null;
@@ -342,8 +385,7 @@ public class Lab {
 	};
 	
 	public static final DialogueNodeOld LAB_EXIT = new DialogueNodeOld("Lilaya's Laboratory", "", false) {
-		/**
-		 */
+		
 		private static final long serialVersionUID = 1L;
 
 		
@@ -365,6 +407,236 @@ public class Lab {
 			return LAB.getResponse(0, index);
 		}
 	};
+	
+	public static final DialogueNodeOld LILAYA_PRESENT = new DialogueNodeOld("Lilaya's Laboratory", "", false) {
+		
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getContent() {
+
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.givenLilayaPresent3)) {
+				return "<p>"
+						+ "[pc.speech(Seeing as you have the other two parts already, I thought I'd get you one last gift, to see if it contains the kimono to finish the set,)]"
+						+ " you say, holding out the wrapped gift towards Lilaya,"
+						+ " [pc.speech(so here you go. Happy Yuletide yet again Lilaya!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "Your demonic aunt cheeks turn a deep shade of scarlet, and she stutters in her embarrassment,"
+						+ " [lilaya.speech(P-Please! [pc.Name]! I-I said you'd already given me enough!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "[pc.speech(I know, I know,)]"
+						+ " you laugh, pressing the gift into Lilaya's hands,"
+						+ " [pc.speech(but I really wanted to get you the whole set!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "[lilaya.speech(W-Well, these are random gifts, right? S-So it's probably not even going to be a kimono, b-but thank you anyway,)]"
+						+ " Lilaya says, placing the gift down on the table beside her, before pulling off the ribbon and wrapping paper."
+						+ " Lifting off the lid, your easily-embarrassed aunt fails to contain an excited little cry as she sees what's inside."
+						+ " Your suspicions as to what it is are proven correct, as she quickly lifts out a beautiful pink "+ClothingType.KIMONO_DRESS.getNamePlural()+", before turning and beaming at you in delight,"
+						+ " [lilaya.speech(Thank you so, so much [pc.name]! This is the best Yuletide ever!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "Before you can say anything, your demonic aunt leaps forwards and pulls you into the most loving hug yet; her [lilaya.breastSize] breasts squishing up against your body as she holds you close."
+						+ " After a moment, she then pulls back, and, placing the "+ClothingType.KIMONO_DRESS.getNamePlural()+" to one side, she waits to see what you'd like to discuss next."
+					+ "</p>";
+				
+			} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.givenLilayaPresent2)) {
+				return "<p>"
+						+ "[pc.speech(After I saw how happy you were to receive that "+ClothingType.KIMONO_HAIR_KANZASHI.getName()+", I decided to get you another Yuletide gift,)]"
+						+ " you say, holding out another wrapped gift towards Lilaya,"
+						+ " [pc.speech(so here you go. Happy Yuletide again, Lilaya!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "Your aunt's cheeks flush bright red as you give her another gift,"
+						+ " [lilaya.speech([pc.name]! Y-You didn't have to! O-One gift was more than enough!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "[pc.speech(I know I didn't have to, but I wanted to,)]"
+						+ " you smile, handing the gift over to Lilaya,"
+						+ " [pc.speech(so go on, open it and let's find out what it is this time!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "Doing as you suggest, Lilaya places the gift down on the table beside her, before pulling off the ribbon and wrapping paper."
+						+ " Taking off the lid, she reaches inside and produces a pair of "+ClothingType.KIMONO_GETA.getNamePlural()+", before turning and smiling lovingly at you,"
+						+ " [lilaya.speech(Thank you [pc.name]! These will go perfectly with the "+ClothingType.KIMONO_HAIR_KANZASHI.getName()+" you got me before!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "[pc.speech(Now all you need is the kimono itself,)]"
+						+ " you reply,"
+						+ " [pc.speech(and then you've got the full set!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "[lilaya.speech(P-Please,)]"
+						+ " Lilaya stutters a little,"
+						+ " [lilaya.speech(don't feel obliged to get me any more gifts! This is already far more than I ever would have dreamed of!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "Almost as if to hide her sudden embarrassment, your demonic aunt steps forwards and pulls you into another tight hug; her [lilaya.breastSize] breasts pressing up against you as she holds you close."
+						+ " After a moment, she then pulls back, and, placing the "+ClothingType.KIMONO_GETA.getNamePlural()+" to one side, she waits to see what you'd like to discuss next."
+					+ "</p>";
+					
+			} else {
+				return "<p>"
+							+ "[pc.speech(I wanted to get you something for Yuletide, to thank you for everything,)]"
+							+ " you say, holding out the wrapped gift towards Lilaya,"
+							+ " [pc.speech(so here you go. Happy Yuletide Lilaya!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "Your aunt gasps as you give her the gift you bought,"
+							+ " [lilaya.speech([pc.Name]! Y-You didn't have to do that! Oh my goodness, t-thank you so much!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "She seems completely shocked at the fact that you're giving her a gift, and awkwardly takes the present from out of your hands,"
+							+ " [lilaya.speech(S-Should I open it now?)]"
+						+ "</p>"
+						+ "<p>"
+							+ "[pc.speech(Go on, it'll be fun,)]"
+							+ " you reply,"
+							+ " [pc.speech(I got it from one of the reindeer-morphs who're working to keep the streets clear of snow."
+								+ " The contents are a surprise, so I guess we'll find out what's in there together!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "Lilaya sets the present down on the table behind her, before pulling off the ribbon and tearing off the wrapping paper."
+							+ " Opening the top of the box, she gasps as she sees what's inside, and then just a moment later you see it too, as she reaches in and lifts out a beautiful pink "+ClothingType.KIMONO_HAIR_KANZASHI.getName()+"."
+						+ "</p>"
+						+ "<p>"
+							+ "Lilaya turns towards you, a huge smile on her face as she exclaims,"
+							+ " [lilaya.speech(Oh, [pc.name]! It's beautiful! Thank you so much!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "Before you can react, your demonic aunt leaps forwards and pulls you into a loving hug; a gesture that you instantly reciprocate."
+							+ " You feel the warmth of her body as she presses herself tightly against you, squashing her [lilaya.breastSize] breasts into your chest as she sighs,"
+							+ " [lilaya.speech(Really, thank you so much.)]"
+						+ "</p>"
+						+ "<p>"
+							+ "After a few moments, Lilaya pulls back, placing the "+ClothingType.KIMONO_HAIR_KANZASHI.getName()+" to one side and waiting to see what you'd like to discuss next."
+						+ "</p>";
+			}
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return LAB.getResponse(0, index);
+		}
+	};
+	
+	public static final DialogueNodeOld LILAYA_GEISHA = new DialogueNodeOld("Lilaya's Bedroom", "", true) {
+		
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "[pc.speech(I really want to see how you look wearing that kimono,)]"
+						+ " you say,"
+						+ " [pc.speech(would you like to try it on and show me?)]"
+					+ "</p>"
+					+ "<p>"
+						+ "Lilaya's cheeks flush bright red, and, without saying a word, she grabs your hand and starts pulling you towards the door."
+						+ " For a moment, you think she's going to throw you out of the lab, but she instead leads you out into the corridor and over towards the staircase."
+					+ "</p>"
+					+ "<p>"
+						+ "[lilaya.speech(I-I haven't r-really thought about h-how I look in it yet,)]"
+						+ " Lilaya stammers out, without turning to look at you,"
+						+ " [lilaya.speech(s-so I hope you like it!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "Leading you up the stairs, your demonic aunt pulls you along the first-floor corridor, and, without hesitation, into her exceptionally-messy room."
+						+ " Her clothes are scattered all over the floor, and every available surface is littered with beauty products and yet more discarded clothing."
+						+ " You don't have any time to think about the state of your aunt's room, however, as you're far more concerned with the fact that she's instantly started stripping off in front of you."
+					+ "</p>"
+					+ "<p>"
+						+ "Either because she's completely indifferent to you seeing her naked, or, more likely, that she's so flustered at the prospect of modelling her kimono for you that she's forgotten you're there,"
+							+ " your aunt quickly pulls off all of her clothes with little regard to your presence."
+						+ " Deciding that it would be best both for her dignity and for the surprise of seeing her wearing her kimono, you turn your back to Lilaya, and allow her to get changed into the clothes that you gifted her."
+					+ "</p>"
+					+ "<p>"
+						+ "[lilaya.speech(Aah! I-I forgot you were there!)]"
+						+ " Lilaya calls out, proving the second assumption to be true,"
+						+ " [lilaya.speech(Y-You can turn around now.)]"
+					+ "</p>"
+					+ "<p>"
+						+ "Turning around, you see your demonic aunt blushing profusely as she looks to the floor."
+						+ " The elegant pink kimono, delicate kanzashi, and delightful geta that you bought her as a Yuletide gift all work together to accentuate your aunt's natural beauty."
+						+ " You find yourself gasping at how gorgeous she looks, which makes her look up and smile shyly at you."
+					+ "</p>"
+					+ "<p>"
+						+ "[pc.speech(Wow, Lilaya, you look gorgeous!)]"
+						+ " you exclaim, causing her cheeks to turn an even deeper shade of red."
+					+ "</p>"
+					+ "<p>"
+						+ "[lilaya.speech(R-Really?)]"
+						+ " Lilaya asks, stepping forwards as a huge smile breaks out across her face,"
+						+ " [lilaya.speech(W-Well, I have you to thank for giving it to me.)]"
+					+ "</p>"
+					+ "<p>"
+						+ "The tone of your aunt's voice changes as she moves closer, and you realise that now she's been assured that she looks good, something other than embarrassent is on her mind,"
+						+ " [lilaya.speech(You know, I really do need to show you how thankful I am... While I'm wearing my kimono, perhaps you'd like to have some fun?)]"
+					+ "</p>";
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new ResponseSex("Sex", "Start having sex with Lilaya.",
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
+						true, true, Main.game.getLilaya(), new SMDomStanding(), Lilaya.AUNT_END_SEX_GEISHA,
+								"<p>"
+									+ "You can't resist an offer like that, and, stepping forwards, you pull your demonic aunt into your embrace,"
+									+ " [pc.speech(~Mmm!~ Yes Lilaya, that sounds good to me!)]"
+								+ "</p>"
+								+ "<p>"
+									+ "As Lilaya locks her [lilaya.eyes+] onto yours, she throws you a seductive smile, before taking your head in both hands and pressing her lips against your mouth."
+									+ " You reach up and pull her close, passionately making out with one another as you both give in to your lust."
+								+ "</p>"){
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.hadSexWithLilaya);
+					}
+				};
+
+			} else if (index == 2) {
+				return new Response("Leave",
+						"Tell Lilaya that she looks stunning, but you don't want to have sex with her.",
+						RoomPlayer.ROOM){
+					@Override public void effects() {
+
+						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
+						Main.game.getLilaya().resetInventory();
+						
+						Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER, true);
+						
+						Main.game.getLilaya().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_BLACK, false), true, Main.game.getLilaya());
+						Main.game.getLilaya().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_BLACK, false), true, Main.game.getLilaya());
+						Main.game.getLilaya().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_PENCIL_SKIRT, Colour.CLOTHING_BLACK, false), true, Main.game.getLilaya());
+						Main.game.getLilaya().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_WHITE, false), true, Main.game.getLilaya());
+						Main.game.getLilaya().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false), true, Main.game.getLilaya());
+						Main.game.getLilaya().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getLilaya());
+						
+						Main.game.getTextStartStringBuilder().append(
+								"<p>"
+									+ "[pc.speech(You really do look amazing Lilaya, but that might be going a little too far,)]"
+									+ " you respond, not liking the idea of having sex with your aunt."
+								+ "</p>"
+								+ "<p>"
+									+ "[lilaya.speech(Aww, well, I understand,)]"
+									+ " Lilaya responds, before turning around to get changed back into her regular clothes,"
+									+ " [lilaya.speech(just let me know if you want to see me in this again!)]"
+								+ "</p>"
+								+ "<p>"
+									+ "Reassuring her that you will, you exit your aunt's bedroom and head back to your own, pleased that your gift looks so good on her."
+								+ "</p>");
+					}
+				};
+
+			} else {
+				return null;
+			}
+		}
+	};
+	
 	
 	public static final DialogueNodeOld LILAYA_EXPLAINS_ESSENCES = new DialogueNodeOld("", "", true, true) {
 		

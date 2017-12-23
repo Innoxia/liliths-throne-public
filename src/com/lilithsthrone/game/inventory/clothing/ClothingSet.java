@@ -9,7 +9,7 @@ import com.lilithsthrone.game.combat.Spell;
 
 /**
  * @since 0.1.0
- * @version 0.1.89
+ * @version 0.1.96
  * @author Innoxia
  */
 public enum ClothingSet {
@@ -28,6 +28,10 @@ public enum ClothingSet {
 	BDSM("BDSM", StatusEffect.SET_BDSM, 4, null, null),
 	
 	CATTLE("Cattle", StatusEffect.SET_CATTLE, 3, null, null),
+	
+	GEISHA("Geisha", StatusEffect.SET_GEISHA, 3, null, null), // "We want the /jp/ audience." - Innoxia, probably.
+
+	JOLNIR("J&oacute;lnir", StatusEffect.SET_JOLNIR, 3, null, null),
 
 	RAINBOW("Rainbow", StatusEffect.SET_RAINBOW, 2, null, null);
 

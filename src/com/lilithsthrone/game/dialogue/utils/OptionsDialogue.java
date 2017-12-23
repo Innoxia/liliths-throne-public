@@ -652,6 +652,9 @@ public class OptionsDialogue {
 					public void effects() {
 						switch(Main.getProperties().difficultyLevel) {
 							case NORMAL:
+								Main.getProperties().difficultyLevel = DifficultyLevel.LEVEL_SCALING;
+								break;
+							case LEVEL_SCALING:
 								Main.getProperties().difficultyLevel = DifficultyLevel.HARD;
 								break;
 							case HARD:

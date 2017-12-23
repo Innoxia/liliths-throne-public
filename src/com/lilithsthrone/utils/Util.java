@@ -7,8 +7,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.Map.Entry;
 import java.util.function.Function;
 
 import com.lilithsthrone.game.character.body.CoverableArea;
@@ -23,7 +25,7 @@ import javafx.scene.paint.Color;
  * This is just a big mess of utility classes that I wanted to throw somewhere.
  * 
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.1.96
  * @author Innoxia
  */
 public class Util {
@@ -138,6 +140,25 @@ public class Util {
 			list.add(v.value);
 
 		return list;
+	}
+	
+	public static <T> T getRandomObjectFromWeightedMap(Map<T, Integer> map) {
+		int total = 0;
+		for(int i : map.values()) {
+			total+=i;
+		}
+		
+		int choice = Util.random.nextInt(total) + 1;
+		
+		total = 0;
+		for(Entry<T, Integer> entry : map.entrySet()) {
+			total+=entry.getValue();
+			if(choice<=total) {
+				return entry.getKey();
+			}
+		}
+
+		return null;
 	}
 
 	public static String getDayOfMonthSuffix(int n) {

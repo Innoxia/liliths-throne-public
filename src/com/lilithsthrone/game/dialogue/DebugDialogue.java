@@ -404,7 +404,12 @@ public class DebugDialogue {
 				for(AbstractClothingType clothingType : clothingTotal) {
 					if(clothingType.getSlot()==activeSlot) {
 						inventorySB.append("<div class='inventory-item-slot unequipped "+ clothingType.getRarity().getName() + "'>"
-												+ "<div class='inventory-icon-content'>"+clothingType.getSVGImage(clothingType.getAvailableColours().get(0))+"</div>"
+												+ "<div class='inventory-icon-content'>"
+													+clothingType.getSVGImage(
+														clothingType.getAllAvailablePrimaryColours().get(0),
+														clothingType.getAvailableSecondaryColours().isEmpty()?null:clothingType.getAvailableSecondaryColours().get(0),
+														clothingType.getAvailableTertiaryColours().isEmpty()?null:clothingType.getAvailableTertiaryColours().get(0))
+												+"</div>"
 												+ "<div class='overlay' id='" + clothingType.getId() + "_SPAWN'></div>"
 											+ "</div>");
 						count++;

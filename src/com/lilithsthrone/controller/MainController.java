@@ -1327,7 +1327,7 @@ public class MainController implements Initializable {
 					addEventListener(document, id, "mousemove", moveTooltipListener, false);
 					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
 					
-					InventoryTooltipEventListener el = new InventoryTooltipEventListener().setGenericClothing(clothingType, clothingType.getAvailableColours().get(0));
+					InventoryTooltipEventListener el = new InventoryTooltipEventListener().setGenericClothing(clothingType, clothingType.getAvailablePrimaryColours().get(0));
 					addEventListener(document, id, "mouseenter", el, false);
 				}
 			}
@@ -3705,15 +3705,54 @@ public class MainController implements Initializable {
 			// -------------------- Phone listeners -------------------- // TODO track listeners
 			
 			// Phone item viewer:
-			for (AbstractClothingType clothing : ClothingType.getAllClothing())
-				for (Colour c : clothing.getAvailableColours()) {
-					if ((EventTarget) document.getElementById(clothing.hashCode() + "_" + c.toString()) != null) {
-						addEventListener(document, clothing.hashCode() + "_" + c.toString(), "mousemove", moveTooltipListener, false);
-						addEventListener(document, clothing.hashCode() + "_" + c.toString(), "mouseleave", hideTooltipListener, false);
-						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setGenericClothing(clothing, c);
-						addEventListener(document, clothing.hashCode() + "_" + c.toString(), "mouseenter", el2, false);
+			for (AbstractClothingType clothing : ClothingType.getAllClothing()) {
+				for (Colour c : clothing.getAllAvailablePrimaryColours()) {
+					id = "PRIMARY_"+clothing.hashCode() + "_" + c.toString();
+					if ((EventTarget) document.getElementById(id) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							InventoryDialogue.dyePreviewPrimary = c;
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+						
+						addEventListener(document, id, "mousemove", moveTooltipListener, false);
+						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setDyeClothingPrimary(InventoryDialogue.getClothing(), c);
+						addEventListener(document, id, "mouseenter", el2, false);
 					}
 				}
+				if(!clothing.getAllAvailableSecondaryColours().isEmpty()) {
+					for (Colour c : clothing.getAllAvailableSecondaryColours()) {
+						id = "SECONDARY_"+clothing.hashCode() + "_" + c.toString();
+						if ((EventTarget) document.getElementById(id) != null) {
+							((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+								InventoryDialogue.dyePreviewSecondary = c;
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+							}, false);
+							
+							addEventListener(document, id, "mousemove", moveTooltipListener, false);
+							addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+							InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setDyeClothingSecondary(InventoryDialogue.getClothing(), c);
+							addEventListener(document, id, "mouseenter", el2, false);
+						}
+					}
+				}
+				if(!clothing.getAllAvailableTertiaryColours().isEmpty()) {
+					for (Colour c : clothing.getAllAvailableTertiaryColours()) {
+						id = "TERTIARY_"+clothing.hashCode() + "_" + c.toString();
+						if ((EventTarget) document.getElementById(id) != null) {
+							((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+								InventoryDialogue.dyePreviewTertiary = c;
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+							}, false);
+							
+							addEventListener(document, id, "mousemove", moveTooltipListener, false);
+							addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+							InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setDyeClothingTertiary(InventoryDialogue.getClothing(), c);
+							addEventListener(document, id, "mouseenter", el2, false);
+						}
+					}
+				}
+			}
 			for (AbstractWeaponType weapon : WeaponType.allweapons)
 				for (DamageType dt : weapon.getAvailableDamageTypes()) {
 					if ((EventTarget) document.getElementById(weapon.hashCode() + "_" + dt.toString()) != null) {

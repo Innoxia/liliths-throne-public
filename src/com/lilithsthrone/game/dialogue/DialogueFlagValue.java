@@ -38,6 +38,10 @@ public enum DialogueFlagValue {
 	readBook1,
 	readBook2,
 	readBook3,
+
+	givenLilayaPresent1,
+	givenLilayaPresent2,
+	givenLilayaPresent3,
 	
 	// Brax:
 	accessToEnforcerHQ,

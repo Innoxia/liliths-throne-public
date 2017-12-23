@@ -67,6 +67,7 @@ import com.lilithsthrone.game.character.npc.dominion.Nyan;
 import com.lilithsthrone.game.character.npc.dominion.Pazu;
 import com.lilithsthrone.game.character.npc.dominion.Pix;
 import com.lilithsthrone.game.character.npc.dominion.Ralph;
+import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
 import com.lilithsthrone.game.character.npc.dominion.Rose;
 import com.lilithsthrone.game.character.npc.dominion.Scarlett;
 import com.lilithsthrone.game.character.npc.dominion.SlaveInStocks;
@@ -765,6 +766,11 @@ public class Game implements Serializable, XMLSaving {
 		
 		if(Main.game.getCurrentWeather()!=Weather.SNOW && Main.game.getSeason()!=Season.WINTER) {
 			Main.game.getDialogueFlags().values.remove(DialogueFlagValue.hasSnowedThisWinter);
+			for(NPC npc : Main.game.getReindeerOverseers()) {
+				if(npc.getLocation()!=Main.game.getPlayer().getLocation()) {
+					npc.setLocation(WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
+				}
+			}
 		}
 		
 		// Slavery: TODO
@@ -784,6 +790,14 @@ public class Game implements Serializable, XMLSaving {
 			}
 			
 			pendingSlaveInStocksReset = true;
+			
+			// Reindeer:
+			for(NPC npc : Main.game.getReindeerOverseers()) {
+				if(npc.getLocationPlace().getPlaceType()==PlaceType.DOMINION_STREET && !npc.getLocation().equals(Main.game.getPlayer().getLocation())) {
+					npc.moveToAdjacentMatchingCellType();
+					Main.game.getDialogueFlags().dailyReindeerReset(npc.getId());
+				}
+			}
 		}
 		
 		if(pendingSlaveInStocksReset && Main.game.getPlayer().getLocationPlace().getPlaceType()!=PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS) {
@@ -2313,6 +2327,14 @@ public class Game implements Serializable, XMLSaving {
 		offspringSpawned.removeIf(npc -> npc.getWorldLocation()==WorldType.EMPTY);
 		
 		return offspringSpawned;
+	}
+	
+	public List<NPC> getReindeerOverseers() {
+		List<NPC> reindeerOverseers = new ArrayList<>(getAllNPCs());
+		
+		reindeerOverseers.removeIf(npc -> !npc.getClass().equals(ReindeerOverseer.class));
+		
+		return reindeerOverseers;
 	}
 	
 	public List<NPC> getAllNPCs() {

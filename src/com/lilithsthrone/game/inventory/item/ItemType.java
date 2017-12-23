@@ -21,7 +21,7 @@ import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.84
- * @version 0.1.87
+ * @version 0.1.96
  * @author Innoxia
  */
 public class ItemType {
@@ -779,6 +779,71 @@ public class ItemType {
 						"<p>"
 							+ "[npc.Name] pulls out a bottle of 'Harpy Perfume', and, after quickly popping off the cap, [npc.she] promptly sprays a little squirt onto [npc.her] neck."
 						+ "</p>");
+			}
+		}
+	};
+	
+	public static AbstractItemType SEX_INGREDIENT_MINCE_PIE = new AbstractItemType(
+			"a",
+			false,
+			"mince pie",
+			"mince pies",
+			"A sweet pie, filled with a mixture of dried fruits and spices."
+					+ " Curiously, the pie seems to remain permanently warm to the touch, revealing that an enchantment of some sort must have been placed on it...",
+			"attributeNoRaceMincePie",
+			Colour.GENERIC_SEX,
+			25,
+			Rarity.UNCOMMON,
+			TFEssence.ARCANE,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.SEX_MINCE_PIE, null, null, null, 0)))) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public ItemEffectType getEnchantmentEffect() {
+			return ItemEffectType.ATTRIBUTE_SEXUAL;
+		}
+
+		@Override
+		public AbstractItemType getEnchantmentItemType() {
+			return POTION;
+		}
+
+		@Override
+		public String getUseName() {
+			return "eat";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			if(user!=null && user.isPlayer()) {
+				if (target.isPlayer()) {
+					return "<p>"
+								+ "You bring the enchanted mince pie up to your mouth, before taking a bite."
+								+ " The warm, spiced fruit filling is absolutely delicious, and you greedily wolf down the entire pie."
+							+ "</p>";
+					
+				} else {
+					return UtilText.parse(target,
+							"<p>"
+								+ "You bring the enchanted mince pie up to [npc.name]'s mouth, before feeding it to [npc.herHim]."
+							+ "</p>");
+				}
+				
+			} else {
+				if (target.isPlayer()) {
+					return UtilText.parse(target,
+							"<p>"
+								+ "[npc.Name] brings an enchanted mince pie up to your mouth, before starting to feed it to you."
+								+ " The warm, spiced fruit filling is absolutely delicious, and you greedily wolf down the entire pie."
+							+ "</p>");
+					
+				} else {
+					return UtilText.parse(target,
+							"<p>"
+								+ "[npc.Name] pulls out a mince pie, and promptly wolfs it down."
+							+ "</p>");
+				}
 			}
 		}
 	};
@@ -2996,6 +3061,44 @@ public class ItemType {
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return "<p>"
 						+ "Opening the book, you read its contents..."
+					+ "</p>";
+		}
+	};
+	
+	public static AbstractItemType PRESENT = new AbstractItemType(
+			"a",
+			false,
+			"Yuletide Gift",
+			"Yuletide Gift",
+			"A wrapped present, sold by one of the reindeer-morph overseers in Dominion. It contains a random item from their store, and can also be given as a gift to your offspring, slaves, or Lilaya.",
+			"present",
+			Colour.GENERIC_ARCANE,
+			10,
+			Rarity.RARE,
+			null,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.PRESENT, null, null, null, 0)))) {
+
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public boolean isAbleToBeUsed(GameCharacter target) {
+			return !(target.isInventoryFull() && Main.game.getPlayerCell().getInventory().isInventoryFull());
+		}
+
+		@Override
+		public String getUnableToBeUsedDescription(GameCharacter target) {
+			return "There's no space in your inventory or on the ground for whatever item is contained within!";
+		}
+		
+		@Override
+		public String getUseName() {
+			return "open";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return "<p>"
+						+ "You untie the ribbon and peel off the wrapping paper, before opening the box to discover what's inside..."
 					+ "</p>";
 		}
 	};

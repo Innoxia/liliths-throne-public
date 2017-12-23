@@ -1499,14 +1499,14 @@ public class PhoneDialogue {
 			for (AbstractClothingType clothing : clothingDiscoveredList) {
 				if (Main.getProperties().isClothingDiscovered(clothing)) {
 					String sizeClass = ""; //hack to prevent overflow... works for up to 30 colours
-					if (clothing.getAvailableColours().size() > 15){
+					if (clothing.getAllAvailablePrimaryColours().size() > 15){
 						sizeClass = "extraAttribute-third-large";
 					}
 					journalSB.append("<div class='extraAttribute-third "+sizeClass+" slot'>" + Util.capitaliseSentence(clothing.getSlot().getName()) + "</div>");
 					journalSB.append("<div class='extraAttribute-third "+sizeClass+" name' style='color:" + clothing.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(clothing.getName()) + "</div>");
 
 					journalSB.append("<div class='extraAttribute-third "+sizeClass+" colours'>");
-					for (Colour c : clothing.getAvailableColours())
+					for (Colour c : clothing.getAllAvailablePrimaryColours())
 						journalSB.append("<div class='phone-item-colour' id='" + (clothing.hashCode() + "_" + c.toString()) + "' style='background-color:" + c.toWebHexString() + ";'></div>");
 					journalSB.append("</div>");
 

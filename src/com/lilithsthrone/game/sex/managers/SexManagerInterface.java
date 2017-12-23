@@ -19,13 +19,15 @@ public interface SexManagerInterface {
 	public default void initSexActions() {
 	}
 	
+	public void addSexActionClass(Class<?> container);
+	
 	public SexPosition getPosition();
 	
 	public List<SexActionInterface> getActionsAvailablePlayer();
 	public List<SexActionInterface> getActionsAvailablePartner();
 	public List<SexActionInterface> getOrgasmActionsPlayer();
 	public List<SexActionInterface> getOrgasmActionsPartner();
-	public List<SexActionInterface> getMutualOrgasmActions();
+//	public List<SexActionInterface> getMutualOrgasmActions();
 	
 	/**
 	 * @param sexActionPlayer The action that the player just took before the partner's turn.

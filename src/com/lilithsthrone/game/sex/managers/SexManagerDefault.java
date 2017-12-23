@@ -29,19 +29,19 @@ import java.util.Set;
 
 /**
  * @since 0.1.0
- * @version 0.1.88
+ * @version 0.1.96
  * @author Innoxia
  */
 public abstract class SexManagerDefault implements SexManagerInterface {
 	
-	private static List<SexActionInterface> actionsAvailablePlayer, actionsAvailablePartner, orgasmActionsPlayer, orgasmActionsPartner, mutualOrgasmActions;
+	private static List<SexActionInterface> actionsAvailablePlayer, actionsAvailablePartner, orgasmActionsPlayer, orgasmActionsPartner;//, mutualOrgasmActions;
 	
 	public SexManagerDefault(Class<?>... coreContainers) {
 		actionsAvailablePlayer = new ArrayList<>();
 		actionsAvailablePartner = new ArrayList<>();
 		orgasmActionsPlayer = new ArrayList<>();
 		orgasmActionsPartner = new ArrayList<>();
-		mutualOrgasmActions = new ArrayList<>();
+//		mutualOrgasmActions = new ArrayList<>();
 
 		try {
 			if (coreContainers.length != 0) {
@@ -53,10 +53,11 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 							
 							if (SexAction.class.isAssignableFrom(f.getType())) {
 								if (((SexAction) f.get(null)).getActionType().isOrgasmOption()) {
-									if (((SexAction) f.get(null)).getActionType() == SexActionType.MUTUAL_ORGASM) {
-										mutualOrgasmActions.add(((SexAction) f.get(null)));
-										
-									} else  if (((SexAction) f.get(null)).getActionType().isPlayerAction()) {
+//									if (((SexAction) f.get(null)).getActionType() == SexActionType.MUTUAL_ORGASM) {
+//										mutualOrgasmActions.add(((SexAction) f.get(null)));
+//										
+//									} else  
+									if (((SexAction) f.get(null)).getActionType().isPlayerAction()) {
 										orgasmActionsPlayer.add(((SexAction) f.get(null)));
 										
 									} else {
@@ -83,46 +84,81 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		}
 	}
 	
-	// A+ quality code example: /s
-	protected void overrideAction(SexActionInterface oldAction, SexActionInterface newAction){
-		for(int i=0 ; i< actionsAvailablePlayer.size(); i++){
-			if(actionsAvailablePlayer.get(i) == oldAction) {
-				actionsAvailablePlayer.set(i, newAction);
-				return;
+	@Override
+	public void addSexActionClass(Class<?> container) {
+		try {
+			if(container!=null) {
+				Field[] fields = container.getFields();
+				
+				for(Field f : fields){
+					
+					if (SexAction.class.isAssignableFrom(f.getType())) {
+						if (((SexAction) f.get(null)).getActionType().isOrgasmOption()) {
+							if (((SexAction) f.get(null)).getActionType().isPlayerAction()) {
+								orgasmActionsPlayer.add(((SexAction) f.get(null)));
+								
+							} else {
+								orgasmActionsPartner.add(((SexAction) f.get(null)));
+							}
+							
+						} else {
+							if (((SexAction) f.get(null)).getActionType().isPlayerAction()) {
+								actionsAvailablePlayer.add(((SexAction) f.get(null)));
+								
+							} else {
+								actionsAvailablePartner.add(((SexAction) f.get(null)));
+							}
+						}
+					}
+				}
 			}
-		}
-		for(int i=0 ; i< actionsAvailablePartner.size(); i++){
-			if(actionsAvailablePartner.get(i) == oldAction) {
-				actionsAvailablePartner.set(i, newAction);
-				return;
-			}
-		}
-		for(int i=0 ; i< orgasmActionsPlayer.size(); i++){
-			if(orgasmActionsPlayer.get(i) == oldAction) {
-				orgasmActionsPlayer.set(i, newAction);
-				return;
-			}
-		}
-		for(int i=0 ; i< orgasmActionsPartner.size(); i++){
-			if(orgasmActionsPartner.get(i) == oldAction) {
-				orgasmActionsPartner.set(i, newAction);
-				return;
-			}
-		}
-		for(int i=0 ; i< mutualOrgasmActions.size(); i++){
-			if(mutualOrgasmActions.get(i) == oldAction) {
-				mutualOrgasmActions.set(i, newAction);
-				return;
-			}
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
 		}
 	}
+	
+//	// A+ quality code example: /s
+//	protected void overrideAction(SexActionInterface oldAction, SexActionInterface newAction){
+//		for(int i=0 ; i< actionsAvailablePlayer.size(); i++){
+//			if(actionsAvailablePlayer.get(i) == oldAction) {
+//				actionsAvailablePlayer.set(i, newAction);
+//				return;
+//			}
+//		}
+//		for(int i=0 ; i< actionsAvailablePartner.size(); i++){
+//			if(actionsAvailablePartner.get(i) == oldAction) {
+//				actionsAvailablePartner.set(i, newAction);
+//				return;
+//			}
+//		}
+//		for(int i=0 ; i< orgasmActionsPlayer.size(); i++){
+//			if(orgasmActionsPlayer.get(i) == oldAction) {
+//				orgasmActionsPlayer.set(i, newAction);
+//				return;
+//			}
+//		}
+//		for(int i=0 ; i< orgasmActionsPartner.size(); i++){
+//			if(orgasmActionsPartner.get(i) == oldAction) {
+//				orgasmActionsPartner.set(i, newAction);
+//				return;
+//			}
+//		}
+//		for(int i=0 ; i< mutualOrgasmActions.size(); i++){
+//			if(mutualOrgasmActions.get(i) == oldAction) {
+//				mutualOrgasmActions.set(i, newAction);
+//				return;
+//			}
+//		}
+//	}
 	
 	protected void removeAction(SexActionInterface action){
 		actionsAvailablePlayer.remove(action);
 		actionsAvailablePartner.remove(action);
 		orgasmActionsPlayer.remove(action);
 		orgasmActionsPartner.remove(action);
-		mutualOrgasmActions.remove(action);
+//		mutualOrgasmActions.remove(action);
 	}
 	
 	@Override
@@ -141,10 +177,10 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 	public List<SexActionInterface> getOrgasmActionsPartner(){
 		return orgasmActionsPartner;
 	}
-	@Override
-	public List<SexActionInterface> getMutualOrgasmActions(){
-		return mutualOrgasmActions;
-	}
+//	@Override
+//	public List<SexActionInterface> getMutualOrgasmActions(){
+//		return mutualOrgasmActions;
+//	}
 
 	private static List<SexActionInterface> possibleActions = new ArrayList<>(), bannedActions = new ArrayList<>();
 	
@@ -489,13 +525,13 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		// Perform foreplay action if arousal is < 25 and haven't orgasmed yet:
 		SexAction actionToPerform = null;
 		if(Sex.isInForeplay()) {
-			actionToPerform = performForeplayAction();
+			actionToPerform = performForeplayAction(sexActionPlayer);
 			if(actionToPerform!=null) {
 				return actionToPerform;
 			}
 			
 		} else {
-			actionToPerform = performSexAction();
+			actionToPerform = performSexAction(sexActionPlayer);
 			if(actionToPerform!=null) {
 				return actionToPerform;
 			}
@@ -528,9 +564,14 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 	/**
 	 * Finger and tongue actions are considered foreplay.
 	 */
-	private SexAction performForeplayAction() {
+	private SexAction performForeplayAction(SexActionInterface sexActionPlayer) {
 		List<SexActionInterface> availableActions = Sex.getAvailableSexActionsPartner();
 		bannedActions.add(PartnerSelfFingerMouth.PARTNER_SELF_FINGER_MOUTH_PENETRATION);
+		
+		if(sexActionPlayer.getActionType()==SexActionType.PLAYER_STOP_PENETRATION) {
+			availableActions.removeIf(sexAction -> sexAction.getActionType()==SexActionType.PARTNER_PENETRATION);
+		}
+		
 		availableActions.removeAll(bannedActions);
 
 		// If the NPC has a preference, they are more likely to choose actions related to that:
@@ -595,8 +636,13 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 
 	private boolean removedAllPenetrationAfterForeplay = false;
 	
-	private SexAction performSexAction() {
+	private SexAction performSexAction(SexActionInterface sexActionPlayer) {
 		List<SexActionInterface> availableActions = Sex.getAvailableSexActionsPartner();
+		
+		if(sexActionPlayer.getActionType()==SexActionType.PLAYER_STOP_PENETRATION) {
+			availableActions.removeIf(sexAction -> sexAction.getActionType()==SexActionType.PARTNER_PENETRATION);
+		}
+		
 		bannedActions.add(PartnerSelfFingerMouth.PARTNER_SELF_FINGER_MOUTH_PENETRATION);
 		availableActions.removeAll(bannedActions);
 		List<SexActionInterface> returnableActions = new ArrayList<>();

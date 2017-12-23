@@ -46,6 +46,8 @@ public enum HornType implements BodyPartTypeInterface {
 	@Override
 	public String getNameSingular(GameCharacter gc) {
 		switch(this){
+			case REINDEER_RACK:
+				return "antler";
 			default:
 				return UtilText.returnStringAtRandom("horn");
 		}
@@ -54,6 +56,8 @@ public enum HornType implements BodyPartTypeInterface {
 	@Override
 	public String getNamePlural(GameCharacter gc) {
 		switch(this){
+			case REINDEER_RACK:
+				return "antlers";
 			default:
 				return UtilText.returnStringAtRandom("horns");
 		}

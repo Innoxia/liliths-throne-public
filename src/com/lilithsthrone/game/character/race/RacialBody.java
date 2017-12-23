@@ -364,7 +364,7 @@ public enum RacialBody {
 			EarType.REINDEER_MORPH,
 			EyeType.REINDEER_MORPH,
 			FaceType.REINDEER_MORPH, LipSize.ONE_AVERAGE, LipSize.TWO_FULL,
-			HairType.REINDEER_MORPH, HairLength.TWO_SHORT, HairLength.TWO_SHORT,
+			HairType.REINDEER_MORPH, HairLength.TWO_SHORT, HairLength.THREE_SHOULDER_LENGTH,
 			LegType.REINDEER_MORPH,
 			SkinType.REINDEER_MORPH, BodyMaterial.FLESH,
 			HornLength.THREE_HUGE, HornLength.TWO_LONG, Util.newArrayListOfValues(new ListValue<>(HornType.REINDEER_RACK)),
@@ -802,7 +802,7 @@ public enum RacialBody {
 			}
 			
 		} else {
-			if(chance<0.15f) {
+			if(chance<0.10f) {
 				return SexualOrientation.ANDROPHILIC;
 			} else if (chance<0.5f) {
 				return SexualOrientation.GYNEPHILIC;
