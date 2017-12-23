@@ -354,7 +354,7 @@ public class CityPlaces {
 								} else if(npc.getFoughtPlayerCount()==2) {
 									UtilText.nodeContentSB.append("twice.");
 								} else {
-									UtilText.nodeContentSB.append(Util.intToString(npc.getLostCombatCount())+" times.");
+									UtilText.nodeContentSB.append(Util.intToString(npc.getFoughtPlayerCount())+" times.");
 								}
 								
 						UtilText.nodeContentSB.append("</b>"

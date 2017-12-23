@@ -221,13 +221,11 @@ public class Util {
 					}
 				}
 			} else {
-				if(integer%100!=0) {
-					if(integer%100<20) {
-						intToString+=numbersLessThanTwenty[integer%100];
-					} else {
-						intToString+=tensGreaterThanNineteen[(integer%100)/10] + ((integer%10!=0)?"-"+numbersLessThanTwenty[integer%10]:"");
-					}
-				}	
+				if(integer%100<20) {
+					intToString+=numbersLessThanTwenty[integer%100];
+				} else {
+					intToString+=tensGreaterThanNineteen[(integer%100)/10] + ((integer%10!=0)?"-"+numbersLessThanTwenty[integer%10]:"");
+				}
 			}
 			
 			return intToString;
