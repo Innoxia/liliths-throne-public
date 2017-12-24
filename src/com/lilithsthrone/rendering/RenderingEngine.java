@@ -354,7 +354,8 @@ public enum RenderingEngine {
 					+ (charactersInventoryToRender!=null && InventoryDialogue.getNPCInventoryInteraction() == InventoryInteraction.TRADING
 							? (InventoryDialogue.getInventoryNPC().willBuy(entry.getKey()) || !charactersInventoryToRender.isPlayer() ? "" : " dark")
 							: (entry.getKey() instanceof AbstractItem
-									?((Main.game.isInSex() && !((AbstractItem)entry.getKey()).isAbleToBeUsedInSex()) || (Main.game.isInCombat() && !((AbstractItem)entry.getKey()).isAbleToBeUsedInCombat())?" disabled":"")
+									?((Main.game.isInSex() && (!((AbstractItem)entry.getKey()).isAbleToBeUsedInSex()) || (charactersInventoryToRender!=null?!charactersInventoryToRender.isPlayer():false))
+											|| (Main.game.isInCombat() && !((AbstractItem)entry.getKey()).isAbleToBeUsedInCombat())?" disabled":"")
 									:(entry.getKey() instanceof AbstractClothing
 											?((Main.game.isInSex() && !((AbstractClothing)entry.getKey()).getClothingType().isAbleToBeEquippedDuringSex()) || Main.game.isInCombat() ?" disabled":"")
 											:(Main.game.isInSex() || Main.game.isInCombat() ?" disabled":""))))
@@ -856,6 +857,20 @@ public enum RenderingEngine {
 	public static GameCharacter getCharacterToRender() {
 		return npcToRender;
 	}
+	
+	private static String getEntryBackgroundColour(boolean alternative) {
+		if(Main.getProperties().lightTheme) {
+			if(alternative) {
+				return "#d9d9d9";
+			}
+			return "#dddddd";
+		} else {
+			if(alternative) {
+				return "#292929";
+			}
+			return "#222222";  
+		}
+	}
 
 	public void renderAttributesPanelRight() {
 		uiAttributeSB.setLength(0);
@@ -1291,7 +1306,7 @@ public enum RenderingEngine {
 				for(NPC character : charactersPresent) {
 					if(count%2==0) {
 						uiAttributeSB.append(
-								"<div class='event-log-entry' style='background:#222222;'>"
+								"<div class='event-log-entry' style='background:"+getEntryBackgroundColour(false)+";'>"
 									+ "<span style='color:"+character.getFemininity().getColour().toWebHexString()+";'>"+character.getName("A")+"</span>"
 									+ " - <span style='color:"+character.getRace().getColour().toWebHexString()+";'>"
 										+Util.capitaliseSentence((character.isFeminine()?character.getRace().getSingularFemaleName():character.getRace().getSingularMaleName()))+"</span>"
@@ -1299,7 +1314,7 @@ public enum RenderingEngine {
 								+ "</div>");
 					} else {
 						uiAttributeSB.append(
-								"<div class='event-log-entry' style='background:#292929;'>"
+								"<div class='event-log-entry' style='background:"+getEntryBackgroundColour(true)+";'>"
 									+ "<span style='color:"+character.getFemininity().getColour().toWebHexString()+";'>"+character.getName("A")+"</span>"
 									+ " - <span style='color:"+character.getRace().getColour().toWebHexString()+";'>"
 										+Util.capitaliseSentence((character.isFeminine()?character.getRace().getSingularFemaleName():character.getRace().getSingularMaleName()))+"</span>"
@@ -1321,13 +1336,13 @@ public enum RenderingEngine {
 				for(Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateWeapons().entrySet()) {
 					if(count%2==0) {
 						uiAttributeSB.append(
-								"<div class='event-log-entry' style='background:#222222;'>"
+								"<div class='event-log-entry' style='background:"+getEntryBackgroundColour(false)+";'>"
 										+entry.getValue()+"x "+UtilText.parse(entry.getKey().getDisplayName(true))
 										+ "<div class='overlay-inventory' id='WEAPON_FLOOR_"+entry.getKey().hashCode()+"'></div>"
 								+"</div>");
 					} else {
 						uiAttributeSB.append(
-								"<div class='event-log-entry' style='background:#292929;'>"
+								"<div class='event-log-entry' style='background:"+getEntryBackgroundColour(true)+";'>"
 										+entry.getValue()+"x "+UtilText.parse(entry.getKey().getDisplayName(true))
 										+ "<div class='overlay-inventory' id='WEAPON_FLOOR_"+entry.getKey().hashCode()+"'></div>"
 								+"</div>");
@@ -1337,13 +1352,13 @@ public enum RenderingEngine {
 				for(Entry<AbstractClothing, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateClothing().entrySet()) {
 					if(count%2==0) {
 						uiAttributeSB.append(
-								"<div class='event-log-entry' style='background:#222222;'>"
+								"<div class='event-log-entry' style='background:"+getEntryBackgroundColour(false)+";'>"
 										+entry.getValue()+"x "+UtilText.parse(entry.getKey().getDisplayName(true))
 										+ "<div class='overlay-inventory' id='CLOTHING_FLOOR_"+entry.getKey().hashCode()+"'></div>"
 								+"</div>");
 					} else {
 						uiAttributeSB.append(
-								"<div class='event-log-entry' style='background:#292929;'>"
+								"<div class='event-log-entry' style='background:"+getEntryBackgroundColour(true)+";'>"
 										+entry.getValue()+"x "+UtilText.parse(entry.getKey().getDisplayName(true))
 										+ "<div class='overlay-inventory' id='CLOTHING_FLOOR_"+entry.getKey().hashCode()+"'></div>"
 								+"</div>");
@@ -1353,13 +1368,13 @@ public enum RenderingEngine {
 				for(Entry<AbstractItem, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateItems().entrySet()) {
 					if(count%2==0) {
 						uiAttributeSB.append(
-								"<div class='event-log-entry' style='background:#222222;'>"
+								"<div class='event-log-entry' style='background:"+getEntryBackgroundColour(false)+";'>"
 										+entry.getValue()+"x "+UtilText.parse(entry.getKey().getDisplayName(true))
 										+ "<div class='overlay-inventory' id='ITEM_FLOOR_"+entry.getKey().hashCode()+"'></div>"
 								+"</div>");
 					} else {
 						uiAttributeSB.append(
-								"<div class='event-log-entry' style='background:#292929;'>"
+								"<div class='event-log-entry' style='background:"+getEntryBackgroundColour(true)+";'>"
 										+entry.getValue()+"x "+UtilText.parse(entry.getKey().getDisplayName(true))
 										+ "<div class='overlay-inventory' id='ITEM_FLOOR_"+entry.getKey().hashCode()+"'></div>"
 								+"</div>");
@@ -1388,18 +1403,18 @@ public enum RenderingEngine {
 			if(Main.game.getEventLog().size()>50) {
 				for(EventLogEntry event : Main.game.getEventLog().subList(Main.game.getEventLog().size()-50, Main.game.getEventLog().size())) {
 					if(count%2==0) {
-						uiAttributeSB.append("<div class='event-log-entry' style='background:#222222;'>"+UtilText.parse(event.getFormattedEntry())+"</div>");
+						uiAttributeSB.append("<div class='event-log-entry' style='background:"+getEntryBackgroundColour(false)+";'>"+UtilText.parse(event.getFormattedEntry())+"</div>");
 					} else {
-						uiAttributeSB.append("<div class='event-log-entry' style='background:#292929;'>"+UtilText.parse(event.getFormattedEntry())+"</div>");
+						uiAttributeSB.append("<div class='event-log-entry' style='background:"+getEntryBackgroundColour(true)+";'>"+UtilText.parse(event.getFormattedEntry())+"</div>");
 					}
 					count++;
 				}
 			} else {
 				for(EventLogEntry event : Main.game.getEventLog()) {
 					if(count%2==0) {
-						uiAttributeSB.append("<div class='event-log-entry' style='background:#222222;'>"+UtilText.parse(event.getFormattedEntry())+"</div>");
+						uiAttributeSB.append("<div class='event-log-entry' style='background:"+getEntryBackgroundColour(false)+";'>"+UtilText.parse(event.getFormattedEntry())+"</div>");
 					} else {
-						uiAttributeSB.append("<div class='event-log-entry' style='background:#292929;'>"+UtilText.parse(event.getFormattedEntry())+"</div>");
+						uiAttributeSB.append("<div class='event-log-entry' style='background:"+getEntryBackgroundColour(true)+";'>"+UtilText.parse(event.getFormattedEntry())+"</div>");
 					}
 					count++;
 				}

@@ -715,23 +715,27 @@ public enum ItemEffectType {
 			items.add(ItemType.RACE_INGREDIENT_REINDEER_MORPH);
 			
 			Map<AbstractClothingType, Integer> clothingMap = new HashMap<>();
-			// Common clothing (60%):
-			clothingMap.put(ClothingType.HEAD_ANTLER_HEADBAND, 12);
-			clothingMap.put(ClothingType.NECK_SNOWFLAKE_NECKLACE, 12);
-			clothingMap.put(ClothingType.PIERCING_EAR_SNOW_FLAKES, 12);
-			clothingMap.put(ClothingType.PIERCING_NOSE_SNOWFLAKE_STUD, 12);
-			clothingMap.put(ClothingType.TORSO_OVER_CHRISTMAS_SWEATER, 12);
+			// Common clothing (55%):
+			clothingMap.put(ClothingType.HEAD_ANTLER_HEADBAND, 11);
+			clothingMap.put(ClothingType.NECK_SNOWFLAKE_NECKLACE, 11);
+			clothingMap.put(ClothingType.PIERCING_EAR_SNOW_FLAKES, 11);
+			clothingMap.put(ClothingType.PIERCING_NOSE_SNOWFLAKE_STUD, 11);
+			clothingMap.put(ClothingType.TORSO_OVER_CHRISTMAS_SWEATER, 11);
 			
-			// Uncommon clothing (40%):
-			clothingMap.put(ClothingType.JOLNIR_BOOTS, 5);
-			clothingMap.put(ClothingType.JOLNIR_BOOTS_FEMININE, 5);
-			clothingMap.put(ClothingType.JOLNIR_COAT, 5);
-			clothingMap.put(ClothingType.JOLNIR_DRESS, 5);
-			clothingMap.put(ClothingType.JOLNIR_HAT, 5);
+			// Uncommon clothing (44%):
+			clothingMap.put(ClothingType.JOLNIR_BOOTS, 4);
+			clothingMap.put(ClothingType.JOLNIR_BOOTS_FEMININE, 4);
+			clothingMap.put(ClothingType.JOLNIR_COAT, 4);
+			clothingMap.put(ClothingType.JOLNIR_DRESS, 4);
+			clothingMap.put(ClothingType.JOLNIR_HAT, 4);
 			
-			clothingMap.put(ClothingType.KIMONO_DRESS, 5);
-			clothingMap.put(ClothingType.KIMONO_GETA, 5);
-			clothingMap.put(ClothingType.KIMONO_HAIR_KANZASHI, 5);
+			clothingMap.put(ClothingType.KIMONO_DRESS, 4);
+			clothingMap.put(ClothingType.KIMONO_GETA, 4);
+			clothingMap.put(ClothingType.KIMONO_HAIR_KANZASHI, 4);
+
+			clothingMap.put(ClothingType.KIMONO_MENS_KIMONO, 4);
+			clothingMap.put(ClothingType.KIMONO_MENS_GETA, 4);
+			clothingMap.put(ClothingType.KIMONO_HAORI, 4);
 			
 			// 50% chance for consumable, 50% for clothing:
 			if(Math.random()<0.5f) {

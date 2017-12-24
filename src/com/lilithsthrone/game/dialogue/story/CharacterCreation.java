@@ -1424,7 +1424,8 @@ public class CharacterCreation {
 
 		Main.game.getPlayer().setSexCount(new SexType(PenetrationType.FINGER_PARTNER, OrificeType.VAGINA_PLAYER), 0);
 		Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.FINGER_PARTNER, OrificeType.VAGINA_PLAYER), null);
-		
+
+		Main.game.getPlayer().setPenisVirgin(true);
 		Main.game.getPlayer().setVaginaVirgin(true);
 		Main.game.getPlayer().setAssVirgin(true);
 		Main.game.getPlayer().setFaceVirgin(true);
@@ -1515,6 +1516,7 @@ public class CharacterCreation {
 							String virginityLossText = Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC?"your boyfriend":"your girlfriend";
 							
 							if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+								Main.game.getPlayer().setPenisVirgin(false);
 								Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER), virginityLossText);
 								Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER), 10 + Util.random.nextInt(20));
 								Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER), 5 + Util.random.nextInt(10));
@@ -1529,6 +1531,7 @@ public class CharacterCreation {
 								Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), 5 + Util.random.nextInt(10));
 								
 							} else {
+								Main.game.getPlayer().setPenisVirgin(false);
 								Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER), virginityLossText);
 								Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER), 10 + Util.random.nextInt(20));
 								Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER), 5 + Util.random.nextInt(10));
@@ -1576,6 +1579,7 @@ public class CharacterCreation {
 							String virginityLossText = Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC?"your first boyfriend":"your first girlfriend";
 							
 							if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+								Main.game.getPlayer().setPenisVirgin(false);
 								Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER), virginityLossText);
 								Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER), 50 + Util.random.nextInt(30));
 								Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER), 25 + Util.random.nextInt(15));
@@ -1590,6 +1594,7 @@ public class CharacterCreation {
 								Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), 25 + Util.random.nextInt(15));
 								
 							} else {
+								Main.game.getPlayer().setPenisVirgin(false);
 								Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PLAYER), virginityLossText);
 								Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PLAYER), 50 + Util.random.nextInt(30));
 								Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PLAYER), 25 + Util.random.nextInt(15));
@@ -1644,6 +1649,7 @@ public class CharacterCreation {
 							String virginityLossText = Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC?"some guy in a club's restroom":"some girl in her apartment";
 							
 							if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.GYNEPHILIC) {
+								Main.game.getPlayer().setPenisVirgin(false);
 								Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER), virginityLossText);
 								Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER), 50 + Util.random.nextInt(30));
 								Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER), 25 + Util.random.nextInt(15));
@@ -1653,6 +1659,7 @@ public class CharacterCreation {
 								Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER), 25 + Util.random.nextInt(15));
 								
 							} else {
+								Main.game.getPlayer().setPenisVirgin(false);
 								Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER), virginityLossText);
 								Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER), 50 + Util.random.nextInt(30));
 								Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER), 25 + Util.random.nextInt(15));
@@ -1665,6 +1672,11 @@ public class CharacterCreation {
 								Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), virginityLossText);
 								Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), 50 + Util.random.nextInt(30));
 								Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), 25 + Util.random.nextInt(15));
+								
+								Main.game.getPlayer().setAssVirgin(false);
+								Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER), virginityLossText);
+								Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER), 20 + Util.random.nextInt(10));
+								Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER), 10 + Util.random.nextInt(5));
 								
 							}
 						}

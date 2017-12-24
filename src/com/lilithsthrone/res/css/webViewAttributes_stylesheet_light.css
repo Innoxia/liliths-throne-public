@@ -449,8 +449,8 @@ h6{
 .inventory-item-slot.disabled{
 	background: repeating-linear-gradient(
 	  135deg,
-	  #333,
-	  #333 10px,
+	  #555,
+	  #555 10px,
 	  #ddd 10px,
 	  #ddd 20px
 	);

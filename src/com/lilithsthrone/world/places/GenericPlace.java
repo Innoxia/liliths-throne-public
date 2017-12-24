@@ -239,18 +239,18 @@ public class GenericPlace implements Serializable, XMLSaving {
 		return upkeep;
 	}
 	
-	public float getAffectionChange() {
+	public float getHourlyAffectionChange() {
 		float affectionChange = 0;
 		for(PlaceUpgrade pu : placeUpgrades) {
-			affectionChange+=pu.getAffectionGain();
+			affectionChange+=pu.getHourlyAffectionGain();
 		}
 		return affectionChange;
 	}
 	
-	public float getObedienceChange() {
+	public float getHourlyObedienceChange() {
 		float obedienceChange = 0;
 		for(PlaceUpgrade pu : placeUpgrades) {
-			obedienceChange+=pu.getObedienceGain();
+			obedienceChange+=pu.getHourlyObedienceGain();
 		}
 		return obedienceChange;
 	}

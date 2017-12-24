@@ -4551,6 +4551,45 @@ public enum StatusEffect {
 		}
 	},
 	
+	SET_RONIN(
+			70,
+			"Ronin",
+			"set_ronin",
+			Colour.BASE_ROSE,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.STRENGTH, 5f),
+					new Value<Attribute, Float>(Attribute.FITNESS, 5f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 15f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				if(target.isPlayer()) {
+					return "<i>You understand there is something outside yourself that has to be served. And when that need is gone, when belief has died, what are you? [pc.A_man] without a master.</i>";
+					
+				} else {
+					return UtilText.parse(target,
+							"<i>[npc.Name] understands there is something outside [npc.herself] that has to be served. And when that need is gone, when belief has died, what is [npc.she]? [npc.A_man] without a master.</i>");
+					
+				}
+			} else {
+				return "";
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return ClothingSet.RONIN.isCharacterWearingCompleteSet(target);
+		}
+	},
+	
 	SET_JOLNIR(
 			70,
 			"J&oacute;lnir",

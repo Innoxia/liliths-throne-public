@@ -3260,7 +3260,7 @@ public class MainController implements Initializable {
 			
 			
 			boolean noCost = !Main.game.isInNewWorld() || Main.game.getCurrentDialogueNode().getMapDisplay()==MapDisplay.PHONE;
-			
+
 			for(BodyCoveringType bct : BodyCoveringType.values()) {
 				id = bct+"_PRIMARY_GLOW_OFF";
 				
@@ -3398,8 +3398,8 @@ public class MainController implements Initializable {
 						}, false);
 					}
 				}
-				
-				for(Colour colour : bct.getAllColours()) {
+
+				for(Colour colour : bct.getAllPrimaryColours()) {
 					id = bct+"_PRIMARY_"+colour;
 					
 					if (((EventTarget) document.getElementById(id)) != null) {
@@ -3435,7 +3435,8 @@ public class MainController implements Initializable {
 							}
 						}, false);
 					}
-					
+				}
+				for(Colour colour : bct.getAllSecondaryColours()) {
 					id = bct+"_SECONDARY_"+colour;
 					
 					if (((EventTarget) document.getElementById(id)) != null) {

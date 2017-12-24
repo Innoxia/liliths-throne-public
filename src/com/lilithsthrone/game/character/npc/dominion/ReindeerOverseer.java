@@ -55,7 +55,10 @@ public class ReindeerOverseer extends NPC {
 			ClothingType.JOLNIR_HAT,
 			ClothingType.KIMONO_DRESS,
 			ClothingType.KIMONO_GETA,
-			ClothingType.KIMONO_HAIR_KANZASHI};
+			ClothingType.KIMONO_HAIR_KANZASHI,
+			ClothingType.KIMONO_MENS_KIMONO,
+			ClothingType.KIMONO_MENS_GETA,
+			ClothingType.KIMONO_HAORI};
 	
 	public ReindeerOverseer() {
 		this(Gender.F_V_B_FEMALE, false);

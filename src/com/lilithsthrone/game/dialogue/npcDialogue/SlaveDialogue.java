@@ -13,6 +13,8 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.universal.SMDomStanding;
@@ -449,6 +451,21 @@ public class SlaveDialogue {
 					};
 				} else {
 					return new Response("Pettings", "You've already spent time petting [npc.name] today.", null);
+				}
+				
+			} else if (index == 9) {
+				if(Main.game.getPlayer().hasItemType(ItemType.PRESENT)) {
+					return new Response("Give Present", "Give [npc.name] the present that you're carrying.", SLAVE_PRESENT) {
+						@Override
+						public void effects() {
+							Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.PRESENT));
+							
+							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 10));
+							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementObedience(-2));
+						}
+					};
+				} else {
+					return null;
 				}
 				
 			} else if (index == 11) {
@@ -1222,6 +1239,117 @@ public class SlaveDialogue {
 								+ "<i>Due to the fact that [npc.name]"
 									+ " <span style='"+Main.game.getActiveNPC().getAffectionLevel(Main.game.getPlayer()).getColour().toWebHexString()+"'>"+Main.game.getActiveNPC().getAffectionLevel(Main.game.getPlayer()).getDescriptor()+"</span>"
 									+ " you, giving [npc.herHim] such intimate physical attention has made [npc.her] like you a lot more! However, being treated in such a familiar manner has had a slightly negative impact on [npc.her] obedience...</i>"
+							+ "</p>");
+					break;
+			}
+			UtilText.nodeContentSB.append(getFooterText());
+			
+			return UtilText.parse(slave(), UtilText.nodeContentSB.toString());
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return SLAVE_START.getResponse(0, index);
+		}
+	};
+	
+	public static final DialogueNodeOld SLAVE_PRESENT = new DialogueNodeOld("", "", true, true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getLabel(){
+			return "Giving [npc.Name] a present";
+		}
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append("<p>"
+							+ "Deciding that [npc.name] deserves a gift this Yuletide, you hold out the present towards [npc.herHim],"
+							+ " [pc.speech(This is for you, [npc.name]. Happy Yuletide!)]"
+						+ "</p>"
+						+ "<p>");
+			
+			switch(AffectionLevelBasic.getAffectionLevelFromValue(Main.game.getActiveNPC().getAffection(Main.game.getPlayer()))) {
+				case DISLIKE:
+					switch(ObedienceLevelBasic.getObedienceLevelFromValue(Main.game.getActiveNPC().getObedienceValue())) {
+						case DISOBEDIENT:
+							UtilText.nodeContentSB.append(
+										"Taken completely off-guard, [npc.name] doesn't seem to know how to respond, and as you press the gift into [npc.her] [npc.hands], [npc.she] mutters,"
+										+ " [npc.speech(F-For me? I still hate you, you know...)]"
+									+ "</p>");
+							break;
+						case NEUTRAL:
+							UtilText.nodeContentSB.append(
+									"Taken completely off-guard, [npc.name] doesn't seem to know how to respond, and as you press the gift into [npc.her] [npc.hands], [npc.she] mutters,"
+									+ " [npc.speech(F-For me? I guess I'll take it then...)]"
+								+ "</p>");
+							break;
+						case OBEDIENT:
+							UtilText.nodeContentSB.append(
+									"Taken completely off-guard, [npc.name] doesn't seem to know how to respond, but as you press the gift into [npc.her] [npc.hands], [npc.she] regains [npc.her] composure and coldly states,"
+									+ " [npc.speech(I will accept this if it your wish, [npc.pcName].)]"
+								+ "</p>");
+							break;
+					}
+					UtilText.nodeContentSB.append(
+							"<p>"
+								+ "<i>Despite the fact that [npc.she]"
+									+ " <span style='"+Main.game.getActiveNPC().getAffectionLevel(Main.game.getPlayer()).getColour().toWebHexString()+"'>"+Main.game.getActiveNPC().getAffectionLevel(Main.game.getPlayer()).getDescriptor()+"</span>"
+									+ " you, [npc.name] is happy to have been given a gift!</i>"
+							+ "</p>");
+					break;
+				case NEUTRAL:
+					switch(ObedienceLevelBasic.getObedienceLevelFromValue(Main.game.getActiveNPC().getObedienceValue())) {
+						case DISOBEDIENT:
+							UtilText.nodeContentSB.append(
+										"Taken completely off-guard, [npc.name] lets out a happy little cry, and as you press the gift into [npc.her] [npc.hands], [npc.she] smiles at you,"
+										+ " [npc.speech(F-For me? Thank you [npc.pcName]!)]"
+									+ "</p>");
+							break;
+						case NEUTRAL:
+							UtilText.nodeContentSB.append(
+									"Taken completely off-guard, [npc.name] lets out a happy little cry, and as you press the gift into [npc.her] [npc.hands], [npc.she] smiles at you,"
+									+ " [npc.speech(F-For me? Thank you [npc.pcName]!)]"
+								+ "</p>");
+							break;
+						case OBEDIENT:
+							UtilText.nodeContentSB.append(
+									"Taken completely off-guard, [npc.name] lets out a happy little cry, and as you press the gift into [npc.her] [npc.hands], [npc.she] smiles at you,"
+									+ " [npc.speech(Thank you [npc.pcName], I wish you a happy Yuletide as well!)]"
+								+ "</p>");
+							break;
+					}
+					UtilText.nodeContentSB.append(
+							"<p>"
+								+ "<i>While [npc.name] is happy to have been given a gift, being treated in such a friendly manner has had a slightly negative impact on [npc.her] obedience...</i>"
+							+ "</p>");
+					break;
+				case LIKE:
+					switch(ObedienceLevelBasic.getObedienceLevelFromValue(Main.game.getActiveNPC().getObedienceValue())) {
+						case DISOBEDIENT:
+							UtilText.nodeContentSB.append(
+										"Taken completely off-guard, [npc.name] lets out an ecstatic cry, and as you press the gift into [npc.her] [npc.hands], [npc.she] bursts out,"
+										+ " [npc.speech([npc.PcName]! Thank you so much! Happy Yuletide to you too!)]"
+									+ "</p>");
+							break;
+						case NEUTRAL:
+							UtilText.nodeContentSB.append(
+									"Taken completely off-guard, [npc.name] lets out an ecstatic cry, and as you press the gift into [npc.her] [npc.hands], [npc.she] bursts out,"
+									+ " [npc.speech([npc.PcName]! Thank you so much! Happy Yuletide to you too!)]"
+								+ "</p>");
+							break;
+						case OBEDIENT:
+							UtilText.nodeContentSB.append(
+									"Taken completely off-guard, [npc.name] lets out an ecstatic cry, and as you press the gift into [npc.her] [npc.hands], [npc.she] beams at you,"
+									+ " [npc.speech(Thank you [npc.pcName]! Happy Yuletide to you too!)]"
+								+ "</p>");
+							break;
+					}
+					UtilText.nodeContentSB.append(
+							"<p>"
+								+ "<i>While [npc.name] is happy to have been given a gift, being treated in such a friendly manner has had a slightly negative impact on [npc.her] obedience...</i>"
 							+ "</p>");
 					break;
 			}

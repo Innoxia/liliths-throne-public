@@ -2926,6 +2926,149 @@ public class CharacterModificationUtils {
 		
 		return contentSB.toString();
 	}
+
+	// TODO map of temp coverings "+(Main.game.getPlayer().getCovering(coveringType).getPrimaryColour()==)+"
+	
+	public static String getKatesDivCoveringsNew(boolean withCost, BodyCoveringType coveringType, String title, String description, boolean withSecondary, boolean withGlow) {
+		contentSB = new StringBuilder(
+				"<div class='container-full-width' style='text-align:center;'>"
+					+ "<div class='container-quarter-width'>"
+						+ "<p>"
+							+ "<b>"
+								+ Util.capitaliseSentence(title)
+							+ "</b>"
+						+ "</p>"
+						+ "<p>"
+							+ "Currently: <i>"+BodyChanging.getTarget().getCovering(coveringType).getFullDescription(BodyChanging.getTarget(), true)+"</i>."
+//							+ "Primary: " + BodyChanging.getTarget().getCovering(coveringType).getPrimaryColourDescriptor(true)
+//							+ "</br>Secondary: " + BodyChanging.getTarget().getCovering(coveringType).getSecondaryColourDescriptor(true)
+						+ "</p>"
+						
+						+ "<div class='normal-button' style='width:90%; margin:2% auto; padding:0; text-align:center; bottom:0;'>"
+								+ "Apply Changes"+ (withCost
+										?"</br>("+(Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(coveringType)
+										? UtilText.formatAsMoney(SuccubisSecrets.getBodyCoveringTypeCost(coveringType), "b")
+										: UtilText.formatAsMoney(SuccubisSecrets.getBodyCoveringTypeCost(coveringType), "b", Colour.GENERIC_BAD))+")"
+									:"")
+							+ "</div>"
+						
+					+ "</div>"
+					+ "<div class='container-quarter-width'>"
+					+ "Pattern:</br>");
+
+		for (CoveringPattern pattern : coveringType.getAllPatterns()) {
+			if (BodyChanging.getTarget().getCovering(coveringType).getPattern() == pattern) {
+				contentSB.append(
+						"<div class='cosmetics-button active'>"
+							+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>" + Util.capitaliseSentence(pattern.getName()) + "</b>"
+						+ "</div>");
+			} else {
+				contentSB.append(
+						"<div id='"+coveringType+"_PATTERN_"+pattern+"' class='cosmetics-button'>"
+								+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(coveringType) || !withCost
+									? "<span style='color:"+Colour.TRANSFORMATION_GENERIC.getShades()[0]+";'>" + Util.capitaliseSentence(pattern.getName()) + "</span>"
+									: "[style.colourDisabled(" + Util.capitaliseSentence(pattern.getName()) + ")]")
+						+ "</div>");
+			}
+		}
+		
+		contentSB.append("</div>"
+				+ "<div class='container-quarter-width'>"
+				+ "Primary Colour:</br>");
+
+		for (Colour c : coveringType.getAllPrimaryColours()) {
+			contentSB.append("<div class='normal-button"+(BodyChanging.getTarget().getCovering(coveringType).getPrimaryColour()==c?" selected":"")+"' id='"+coveringType+"_PRIMARY_"+c+"'"
+									+ " style='width:auto; margin-right:4px;"+(BodyChanging.getTarget().getCovering(coveringType).getPrimaryColour()==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+								+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
+							+ "</div>");
+		}
+		contentSB.append("</br>");
+		if(BodyChanging.getTarget().getCovering(coveringType).getPrimaryColour() == Colour.COVERING_NONE || !withGlow) { // Disable glow:
+				contentSB.append(
+						"<div class='normal-button disabled' style='width:50%; margin:2% auto; padding:0; text-align:center;'>"
+							+ "[style.colourDisabled(Glow)]"
+						+ "</div>");
+			
+		} else {
+			if(BodyChanging.getTarget().getCovering(coveringType).isPrimaryGlowing()) {
+				contentSB.append(
+						"<div class='normal-button active' id='"+coveringType+"_PRIMARY_GLOW_OFF' style='width:50%; margin:2% auto; padding:0; text-align:center;'>"
+							+ "[style.boldArcane(Glow)]"
+						+ "</div>");
+			} else {
+				contentSB.append(
+						"<div id='"+coveringType+"_PRIMARY_GLOW_ON' class='normal-button' style='width:50%; margin:2% auto; padding:0; text-align:center;'>"
+							+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(coveringType) || !withCost
+								?"<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Glow</span>"
+								:"[style.colourDisabled(Glowing)]")
+						+ "</div>");
+			}
+		}
+		contentSB.append("<p>"
+					+ "<b style='color:"+BodyChanging.getTarget().getCovering(coveringType).getPrimaryColour().toWebHexString()+";"
+							+(BodyChanging.getTarget().getCovering(coveringType).isPrimaryGlowing()?"text-shadow: 0px 0px 4px "+BodyChanging.getTarget().getCovering(coveringType).getPrimaryColour().getShades()[4]+";":"")+"'>"
+						+Util.capitaliseSentence(BodyChanging.getTarget().getCovering(coveringType).getPrimaryColour().getName())
+					+"</b>"
+				+ "</p>");
+		
+		contentSB.append("</div>"
+				+ "<div class='container-quarter-width'>"
+				+ "Secondary Colour:</br>");
+
+		for (Colour c : coveringType.getAllSecondaryColours()) {
+			if(BodyChanging.getTarget().getCovering(coveringType).getPattern()==CoveringPattern.NONE || !withSecondary) {
+				contentSB.append("<div class='normal-button disabled' style='width:auto; margin-right:4px;'>"
+					+ "<div class='phone-item-colour' style='background-color:" + c.getShades()[0] + ";'></div>"
+				+ "</div>");
+				
+			} else {
+				contentSB.append("<div class='normal-button"+(BodyChanging.getTarget().getCovering(coveringType).getSecondaryColour()==c?" selected":"")+"' id='"+coveringType+"_SECONDARY_"+c+"'"
+										+ " style='width:auto; margin-right:4px;"+(BodyChanging.getTarget().getCovering(coveringType).getSecondaryColour()==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+									+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
+								+ "</div>");
+			}
+		}
+		contentSB.append("</br>");
+		if(BodyChanging.getTarget().getCovering(coveringType).getSecondaryColour() == Colour.COVERING_NONE || !withGlow || BodyChanging.getTarget().getCovering(coveringType).getPattern()==CoveringPattern.NONE || !withSecondary) { // Disable glow:
+				contentSB.append(
+						"<div class='normal-button disabled' style='width:50%; margin:2% auto; padding:0; text-align:center;'>"
+							+ "[style.colourDisabled(Glow)]"
+						+ "</div>");
+			
+		} else {
+			if(BodyChanging.getTarget().getCovering(coveringType).isSecondaryGlowing()) {
+				contentSB.append(
+						"<div class='normal-button active' id='"+coveringType+"_SECONDARY_GLOW_OFF' style='width:50%; margin:2% auto; padding:0; text-align:center;'>"
+							+ "[style.boldArcane(Glow)]"
+						+ "</div>");
+			} else {
+				contentSB.append(
+						"<div id='"+coveringType+"_SECONDARY_GLOW_ON' class='normal-button' style='width:50%; margin:2% auto; padding:0; text-align:center;'>"
+							+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(coveringType) || !withCost
+								?"<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Glow</span>"
+								:"[style.colourDisabled(Glowing)]")
+						+ "</div>");
+			}
+		}
+		if(BodyChanging.getTarget().getCovering(coveringType).getPattern()==CoveringPattern.NONE || !withSecondary) {
+			contentSB.append("<p>"
+					+ "[style.boldDisabled(Disabled)]"
+				+ "</p>");
+			
+		} else {
+			contentSB.append("<p>"
+					+ "<b style='color:"+BodyChanging.getTarget().getCovering(coveringType).getSecondaryColour().toWebHexString()+";"
+							+(BodyChanging.getTarget().getCovering(coveringType).isSecondaryGlowing()?"text-shadow: 0px 0px 4px "+BodyChanging.getTarget().getCovering(coveringType).getSecondaryColour().getShades()[4]+";":"")+"'>"
+						+Util.capitaliseSentence(BodyChanging.getTarget().getCovering(coveringType).getSecondaryColour().getName())
+					+"</b>"
+				+ "</p>");
+		}
+		
+		contentSB.append("</div>");
+		contentSB.append("</div>");
+		
+		return contentSB.toString();
+	}
 	
 	public static String getKatesDivCoverings(boolean withCost, BodyCoveringType coveringType, String title, String description, boolean withSecondary, boolean withGlow) {
 		contentSB.setLength(0);

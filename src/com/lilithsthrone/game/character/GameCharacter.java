@@ -1596,14 +1596,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public float getHourlyObedienceChange(int hour) {
 		if(this.workHours[hour]) {
 			if(this.getSlaveJob()==SlaveJob.IDLE) {
-				return this.getHomeLocationPlace().getObedienceChange();
+				return this.getHomeLocationPlace().getHourlyObedienceChange();
 			}
 			// To get rid of e.g. 2.3999999999999999999999:
 			return Math.round(this.getSlaveJob().getObedienceGain(this)*100)/100f;
 		}
 		
 		// To get rid of e.g. 2.3999999999999999999999:
-		return Math.round(this.getHomeLocationPlace().getObedienceChange()*100)/100f;
+		return Math.round(this.getHomeLocationPlace().getHourlyObedienceChange()*100)/100f;
 	}
 	
 	public float getDailyObedienceChange() {
@@ -1611,14 +1611,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		for (int workHour = 0; workHour < this.getTotalHoursWorked(); workHour++) {
 			if(this.getSlaveJob()==SlaveJob.IDLE) {
-				totalObedienceChange+=this.getHomeLocationPlace().getObedienceChange();
+				totalObedienceChange+=this.getHomeLocationPlace().getHourlyObedienceChange();
 			}
 			totalObedienceChange+=this.getSlaveJob().getObedienceGain(this);
 			
 		}
 		
 		for (int homeHour = 0; homeHour < 24-this.getTotalHoursWorked(); homeHour++) {
-			totalObedienceChange+=this.getHomeLocationPlace().getObedienceChange();
+			totalObedienceChange+=this.getHomeLocationPlace().getHourlyObedienceChange();
 		}
 		// To get rid of e.g. 2.3999999999999999999999:
 		return Math.round(totalObedienceChange*100)/100f;
@@ -1777,7 +1777,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public float getAffection(GameCharacter character) {
 		affectionMap.putIfAbsent(character.getId(), 0f);
 		
-		return affectionMap.get(character.getId());
+		return Math.round(affectionMap.get(character.getId())*100)/100f;
 	}
 	
 	public AffectionLevel getAffectionLevel(GameCharacter character) {

@@ -15,6 +15,8 @@ import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.managers.universal.SMDomStanding;
@@ -1409,6 +1411,23 @@ public class DominionOffspringDialogue {
 						};
 					}
 					
+				} else if (index == 7) {
+					if(Main.game.getPlayer().hasItemType(ItemType.PRESENT)) {
+						return new Response("Give Present", "Give [npc.name] the present that you're carrying.", OFFSPRING_PRESENT) {
+							@Override
+							public void effects() {
+								Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.PRESENT));
+								
+								Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 15));
+								
+								offspring().flagApartmentIntroduced = true;
+								Main.game.getDialogueFlags().offspringDialogueTokens--;
+							}
+						};
+					} else {
+						return null;
+					}
+					
 				} else if (index == 9) {
 					return new Response("Sex", "Tell [npc.name] that you want to have sex with [npc.herHim].", OFFSPRING_ENCOUNTER_SEX,
 							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)),
@@ -1899,6 +1918,53 @@ public class DominionOffspringDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 5 && Main.game.getDialogueFlags().offspringDialogueTokens>0) {
 				return new Response("Pet name", "You're already asking [npc.name] to call you by a different name.", null);
+				
+			} else {
+				return OFFSPRING_ENCOUNTER_TALKING.getResponse(0, index);
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld OFFSPRING_PRESENT = new DialogueNodeOld("", "", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getLabel(){
+			return getOffspringLabel();
+		}
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(
+					"<p>"
+						+ "Deciding that it would be nice to give your [npc.daughter] a present this Yuletide, you hold out the gift towards [npc.herHim],"
+						+ " [pc.speech(This is for you, [npc.name]. Happy Yuletide!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "[npc.Name] lets out a little gasp as you give [npc.herHim] the present, and, looking up into your [pc.eyes], [npc.she] cries out,"
+						+ " [npc.speech([npc.pcName]! Thank you so much! I-I don't know what to say!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "Choosing to express [npc.her] gratitude in a more physical form, [npc.name] places the present to one side, before moving up next to you and pulling you into a loving hug."
+						+ " You return your [npc.daughter]'s warm embrace, and spend a few moments pressing your body against [npc.hers] as you both share in a loving moment together."
+					+ "</p>"
+					+ "<p>"
+						+ "After a little while, [npc.name] pulls back, before smiling up at you,"
+						+ " [npc.speech(Really, thank you [npc.pcName]. That really means a lot to me...)]"
+					+ "</p>"
+					);
+			
+			UtilText.nodeContentSB.append(getFooterInformationText());
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 7 && Main.game.getDialogueFlags().offspringDialogueTokens>0) {
+				return new Response("Give Present", "You're already giving [npc.name] a present.", null);
 				
 			} else {
 				return OFFSPRING_ENCOUNTER_TALKING.getResponse(0, index);

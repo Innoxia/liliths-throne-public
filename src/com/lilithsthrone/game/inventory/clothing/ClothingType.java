@@ -771,7 +771,7 @@ public class ClothingType {
 			null,
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null))),
 			null,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BROWN)), Colour.allClothingColours, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BROWN)), null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -3469,7 +3469,7 @@ public class ClothingType {
 									null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.PULLS_UP,
-									null,
+									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
 									Util.newArrayListOfValues(
 											new ListValue<CoverableArea>(CoverableArea.ANUS),
 											new ListValue<CoverableArea>(CoverableArea.PENIS),
@@ -9690,6 +9690,194 @@ public class ClothingType {
 					new ListValue<Colour>(Colour.CLOTHING_TURQUOISE),
 					new ListValue<Colour>(Colour.CLOTHING_WHITE),
 					new ListValue<Colour>(Colour.CLOTHING_YELLOW)), Colour.allClothingColours,
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.CLOTHING_BLACK)), Colour.allClothingColours, null, null){
+		
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You slip your [pc.feet] into the geta.",
+					"You push [npc.name]'s [npc.feet] into the geta.",
+					"You force the geta onto [npc.name]'s [npc.feet].",
+					"[npc.Name] slips [npc.her] [npc.feet] into the geta.",
+					"[npc.Name] pushes your [pc.feet] into the geta.",
+					"[npc.Name] forces the geta onto your [pc.feet].");
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You slide off your geta.",
+					"You pull [npc.name]'s geta off.",
+					"You grab [npc.name]'s [npc.feet] and pull [npc.her] geta off.",
+					"[npc.Name] slides off [npc.her] geta.",
+					"[npc.Name] pulls off your geta.",
+					"[npc.Name] grabs your [pc.feet] and pulls your geta off.");
+		}
+	};
+	
+	public static AbstractClothingType KIMONO_MENS_KIMONO = new AbstractClothingType(
+			"a",
+			false,
+			"men's kimono",
+			"men's kimonos",
+			"Primarily worn by the reclusive kitsunes, these full-length robes are identical to their traditional Japanese namesake.",
+			1,
+			Femininity.MASCULINE,
+			InventorySlot.TORSO_UNDER,
+			Rarity.EPIC,
+			ClothingSet.RONIN,
+			"kimono_torso_mens_kimono",
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.STRENGTH, 5),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 10)),
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
+									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.BREASTS),
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST)))),
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.UNTIE,
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.ANUS),
+											new ListValue<CoverableArea>(CoverableArea.PENIS),
+											new ListValue<CoverableArea>(CoverableArea.VAGINA),
+											new ListValue<CoverableArea>(CoverableArea.BREASTS),
+											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN),
+											new ListValue<ClothingAccess>(ClothingAccess.CHEST),
+											new ListValue<ClothingAccess>(ClothingAccess.WAIST)))),
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.PULLS_UP,
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.ANUS),
+											new ListValue<CoverableArea>(CoverableArea.PENIS),
+											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
+			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)),
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.CLOTHING_BLACK),
+					new ListValue<Colour>(Colour.CLOTHING_GREY),
+					new ListValue<Colour>(Colour.CLOTHING_BLUE)), Colour.allClothingColours,
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
+					new ListValue<Colour>(Colour.CLOTHING_WHITE)), Colour.allClothingColours,
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.CLOTHING_GREY)), Colour.allClothingColours){
+		
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You pull on the kimono.",
+					"You pull the kimono onto [npc.name].",
+					null,
+					"[npc.Name] pulls on the kimono.",
+					"[npc.Name] pulls the kimono onto you.",
+					null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You take off your kimono.",
+					"You pull off [npc.name]'s kimono.",
+					null,
+					"[npc.Name] takes [npc.her] kimono off.",
+					"[npc.Name] takes your kimono off.",
+					null);
+		}
+	};
+	
+	public static AbstractClothingType KIMONO_HAORI = new AbstractClothingType("a",
+			false,
+			"men's haori",
+			"men's haori",
+			"A traditional thigh-length kimono-style jacket.",
+			1,
+			Femininity.MASCULINE,
+			InventorySlot.TORSO_OVER,
+			Rarity.EPIC,
+			ClothingSet.RONIN,
+			"kimono_torso_over_haori",
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 5)),
+			Util.newArrayListOfValues(
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.REMOVE_OR_EQUIP,
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER))
+									))),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.CLOTHING_BLACK),
+					new ListValue<Colour>(Colour.CLOTHING_GREY),
+					new ListValue<Colour>(Colour.CLOTHING_BLUE)), Colour.allClothingColours,
+			null, null, null, null){
+		
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You pull on the haori.",
+					"You guide [npc.name]'s [npc.arms] through the haori's sleeves as you pull it on [npc.herHim].",
+					null,
+					"[npc.Name] pulls on the haori.",
+					"[npc.Name] guides your [pc.arms] through the haori's sleeves as [npc.she] pulls it on you.",
+					null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You take off your haori.",
+					"You pull off [npc.name]'s haori.",
+					null,
+					"[npc.Name] takes [npc.her] haori off.",
+					"[npc.Name] pulls your haori off.",
+					null);
+		}
+	};
+	
+	public static AbstractClothingType KIMONO_MENS_GETA = new AbstractClothingType(
+			"a pair of",
+			true,
+			"men's geta",
+			"men's geta",
+			"These sandals have a slightly elevated wooden base, and are held onto the foot by means of a cloth thong.",
+			1,
+			Femininity.MASCULINE,
+			InventorySlot.FOOT,
+			Rarity.EPIC,
+			ClothingSet.RONIN,
+			"kimono_foot_mens_geta",
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 5)),
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, null))),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.CLOTHING_BLACK),
+					new ListValue<Colour>(Colour.CLOTHING_GREY),
+					new ListValue<Colour>(Colour.CLOTHING_BLUE)), Colour.allClothingColours,
 			Util.newArrayListOfValues(
 					new ListValue<Colour>(Colour.CLOTHING_BLACK)), Colour.allClothingColours, null, null){
 		

@@ -1057,7 +1057,7 @@ public class CharacterUtils {
 		 }
 		 
 		 if(character.hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
-			prostituteChance = 0; // addFetishes() can be called before or after this method. This is a catch for the case where addFetishes() is called before.
+			prostituteChance = 0.03f; // addFetishes() can be called before or after this method. This is a catch for the case where addFetishes() is called before.
 		 }
 		 
 		 prostituteChance = Math.min(prostituteChance, 0.3f); // Prostitutes can only ever spawn at a maximum of a 30% chance.
@@ -1092,7 +1092,7 @@ public class CharacterUtils {
 		List<Fetish> availableFetishes = new ArrayList<>();
 		for(Fetish f : Fetish.values()) {
 			if (f==Fetish.FETISH_PURE_VIRGIN) {
-				if(character.hasVagina() && character.getHistory()!=History.PROSTITUTE)
+				if(character.hasVagina() && (character.getHistory()!=History.PROSTITUTE?Math.random()<=0.25f:true)) // 25% chance for prostitutes, as when drawn from amongst all the other fetishes, the actual chance will be much lower.
 					availableFetishes.add(f);
 				
 			} else if (f==Fetish.FETISH_BIMBO) {

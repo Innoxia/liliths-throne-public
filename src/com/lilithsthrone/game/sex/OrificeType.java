@@ -95,7 +95,7 @@ public enum OrificeType {
 		}
 	},
 	
-	THIGHS_PLAYER(1, false) {
+	THIGHS_PLAYER(1, true) {
 		@Override
 		public String getName() {
 			return "thighs";

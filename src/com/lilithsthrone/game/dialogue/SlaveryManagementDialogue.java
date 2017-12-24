@@ -374,8 +374,8 @@ public class SlaveryManagementDialogue {
 			Cell cell = Main.game.getPlayerCell();
 			GenericPlace place = cell.getPlace();
 			List<NPC> charactersPresent = Main.game.getCharactersTreatingCellAsHome(cell);
-			float affectionChange = place.getAffectionChange();
-			float obedienceChange = place.getObedienceChange();
+			float affectionChange = place.getHourlyAffectionChange();
+			float obedienceChange = place.getHourlyObedienceChange();
 			UtilText.nodeContentSB.append(
 					"<div class='container-full-width' style='text-align:center;'>"
 						+ "<h6 style='color:"+Colour.GENERIC_GOOD.toWebHexString()+"; text-align:center;'>Current Location</h6>"
@@ -523,7 +523,7 @@ public class SlaveryManagementDialogue {
 
 		for(Cell c : sortingCells) {
 			GenericPlace place = c.getPlace();
-			worldRoomSB.append(getRoomEntry(!place.isAbleToBeUpgraded(), false, c, Main.game.getCharactersTreatingCellAsHome(c), place.getAffectionChange(), place.getObedienceChange()));
+			worldRoomSB.append(getRoomEntry(!place.isAbleToBeUpgraded(), false, c, Main.game.getCharactersTreatingCellAsHome(c), place.getHourlyAffectionChange(), place.getHourlyObedienceChange()));
 		}
 		
 		worldRoomSB.append("</div>");
@@ -571,8 +571,8 @@ public class SlaveryManagementDialogue {
 			
 			
 			GenericPlace place = cellToInspect.getPlace();
-			float affectionChange = place.getAffectionChange();
-			float obedienceChange = place.getObedienceChange();
+			float affectionChange = place.getHourlyAffectionChange();
+			float obedienceChange = place.getHourlyObedienceChange();
 			
 			UtilText.nodeContentSB.append(
 					"<div class='container-full-width inner' style='margin-bottom:0;'>"
@@ -604,11 +604,11 @@ public class SlaveryManagementDialogue {
 							+"</div>"
 							+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
 								+ "<span style='color:"+(affectionChange==0?Colour.BASE_GREY:(affectionChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(affectionChange>0?"+":"")
-									+decimalFormat.format(affectionChange)+"</span>/day"
+									+decimalFormat.format(affectionChange)+"</span>/hour"
 							+"</div>"
 							+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
 								+ "<span style='color:"+(obedienceChange==0?Colour.BASE_GREY:(obedienceChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(obedienceChange>0?"+":"")
-									+decimalFormat.format(obedienceChange)+"</span>/day"
+									+decimalFormat.format(obedienceChange)+"</span>/hour"
 							+"</div>"
 							+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
 								+ (place.getUpkeep()>0
@@ -707,8 +707,8 @@ public class SlaveryManagementDialogue {
 	private static String getUpgradeEntry(Cell cell, PlaceUpgrade upgrade) {
 		miscDialogueSB.setLength(0);
 		GenericPlace place = cell.getPlace();
-		float affectionChange = upgrade.getAffectionGain();
-		float obedienceChange = upgrade.getObedienceGain();
+		float affectionChange = upgrade.getHourlyAffectionGain();
+		float obedienceChange = upgrade.getHourlyObedienceGain();
 		boolean owned = place.getPlaceUpgrades().contains(upgrade);
 		boolean availableForPurchase = upgrade.isPrerequisitesMet(place) && upgrade.isAvailable(cell) && (owned?Main.game.getPlayer().getMoney()>=upgrade.getRemovalCost():Main.game.getPlayer().getMoney()>=upgrade.getInstallCost());
 		boolean canBuy = availableForPurchase;
@@ -731,17 +731,17 @@ public class SlaveryManagementDialogue {
 						+ "</div>"
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
 							+ (affectionChange>0
-									?"<b style='color:"+Colour.AFFECTION.toWebHexString()+";'>+"+decimalFormat.format(affectionChange)+ "</b>/day"
+									?"<b style='color:"+Colour.AFFECTION.toWebHexString()+";'>+"+decimalFormat.format(affectionChange)+ "</b>/hour"
 									:(affectionChange<0
-											?"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+decimalFormat.format(affectionChange)+ "</b>/day"
-											:"[style.colourDisabled(0)]/day"))
+											?"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+decimalFormat.format(affectionChange)+ "</b>/hour"
+											:"[style.colourDisabled(0)]/hour"))
 						+"</div>"
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
 							+ (obedienceChange>0
-									?"<b style='color:"+Colour.OBEDIENCE.toWebHexString()+";'>+"+decimalFormat.format(obedienceChange)+ "</b>/day"
+									?"<b style='color:"+Colour.OBEDIENCE.toWebHexString()+";'>+"+decimalFormat.format(obedienceChange)+ "</b>/hour"
 									:(obedienceChange<0
-											?"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+decimalFormat.format(obedienceChange)+ "</b>/day"
-											:"[style.colourDisabled(0)]/day"))
+											?"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>"+decimalFormat.format(obedienceChange)+ "</b>/hour"
+											:"[style.colourDisabled(0)]/hour"))
 						+"</div>"
 						+ "<div style='float:left; width:10%; margin:0; padding:0;'>"
 							+ (upgrade.getUpkeep()>0
@@ -1115,7 +1115,7 @@ public class SlaveryManagementDialogue {
 							+ "<span style='color:"+character.getWorldLocation().getColour().toWebHexString()+";'>"+character.getWorldLocation().getName()+"</span>"
 						+ "</div>"
 						+ "<div style='float:left; width:15%; margin:0; padding:0;'>"
-							+ "<b style='color:"+affection.getColour().toWebHexString()+";'>"+character.getAffection(Main.game.getPlayer())+ "</b>"
+							+ "<b style='color:"+affection.getColour().toWebHexString()+";'>"+character.getAffection(Main.game.getPlayer())+ "</b>" //TODO
 							+ "</br><span style='color:"+(affectionChange==0?Colour.BASE_GREY:(affectionChange>0?Colour.GENERIC_GOOD:Colour.GENERIC_BAD)).toWebHexString()+";'>"+(affectionChange>0?"+":"")
 								+decimalFormat.format(affectionChange)+"</span>/day"
 							+ "</br>"

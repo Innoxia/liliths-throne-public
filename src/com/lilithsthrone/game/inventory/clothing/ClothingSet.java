@@ -30,6 +30,8 @@ public enum ClothingSet {
 	CATTLE("Cattle", StatusEffect.SET_CATTLE, 3, null, null),
 	
 	GEISHA("Geisha", StatusEffect.SET_GEISHA, 3, null, null), // "We want the /jp/ audience." - Innoxia, probably.
+	
+	RONIN("Ronin", StatusEffect.SET_RONIN, 3, null, null),
 
 	JOLNIR("J&oacute;lnir", StatusEffect.SET_JOLNIR, 3, null, null),
 

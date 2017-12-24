@@ -452,14 +452,14 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	public float getHourlyAffectionChange(int hour) {
 		if(this.workHours[hour]) {
 			if(this.getSlaveJob()==SlaveJob.IDLE) {
-				return this.getHomeLocationPlace().getAffectionChange();
+				return this.getHomeLocationPlace().getHourlyAffectionChange();
 			}
 			// To get rid of e.g. 2.3999999999999999999999:
 			return Math.round(this.getSlaveJob().getAffectionGain(this)*100)/100f;
 		}
 		
 		// To get rid of e.g. 2.3999999999999999999999:
-		return Math.round(this.getHomeLocationPlace().getAffectionChange()*100)/100f;
+		return Math.round(this.getHomeLocationPlace().getHourlyAffectionChange()*100)/100f;
 	}
 	
 	public float getDailyAffectionChange() {
@@ -467,13 +467,13 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		for (int workHour = 0; workHour < this.getTotalHoursWorked(); workHour++) {
 			if(this.getSlaveJob()==SlaveJob.IDLE) {
-				totalAffectionChange+=this.getHomeLocationPlace().getAffectionChange();
+				totalAffectionChange+=this.getHomeLocationPlace().getHourlyAffectionChange();
 			}
 			totalAffectionChange += this.getSlaveJob().getAffectionGain(this);
 		}
 		
 		for (int homeHour = 0; homeHour < 24-this.getTotalHoursWorked(); homeHour++) {
-			totalAffectionChange += this.getHomeLocationPlace().getAffectionChange();
+			totalAffectionChange += this.getHomeLocationPlace().getHourlyAffectionChange();
 		}
 		
 		// To get rid of e.g. 2.3999999999999999999999:
@@ -1683,9 +1683,15 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				
 			// Player uses item on NPC:
 			} else {
-				return "<p>"
-							+ "You try to give [npc.name] the "+item.getName()+", but [npc.she] refuses to take it. You put the "+item.getName()+" back in your inventory."
-						+ "</p>";
+				if(target.isSlave()) {
+					return Main.game.getPlayer().useItem(item, target, false);
+					
+				} else {
+					return "<p>"
+								+ "You try to give [npc.name] the "+item.getName()+", but [npc.she] refuses to take it. You put the "+item.getName()+" back in your inventory."
+							+ "</p>";
+					
+				}
 			}
 			
 		// NPC is using an item:
@@ -7697,10 +7703,14 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		switch(penetration) {
 			case PENIS_PARTNER:
-				StringBuilderSB.append(getPartnerPenileVirginityLossDescription(orifice));
+				if(this.isPenisVirgin()) {
+					StringBuilderSB.append(getPartnerPenileVirginityLossDescription(orifice));
+				}
 				break;
 			case PENIS_PLAYER:
-				StringBuilderSB.append(getPlayerPenileVirginityLossDescription(orifice));
+				if(Main.game.getPlayer().isPenisVirgin()) {
+					StringBuilderSB.append(getPlayerPenileVirginityLossDescription(orifice));
+				}
 				break;
 			case FINGER_PARTNER: case FINGER_PLAYER: case TAIL_PARTNER: case TAIL_PLAYER: case TENTACLE_PARTNER: case TENTACLE_PLAYER: case TONGUE_PARTNER: case TONGUE_PLAYER:
 				break;

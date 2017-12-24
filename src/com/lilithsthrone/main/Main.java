@@ -46,7 +46,7 @@ import javafx.stage.Stage;
 
 /**
  * @since 0.1.0
- * @version 0.1.95
+ * @version 0.1.96.1
  * @author Innoxia
  */
 public class Main extends Application {
@@ -60,7 +60,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.1.96",
+	public static final String VERSION_NUMBER = "0.1.96.1",
 			VERSION_DESCRIPTION = "Early Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
@@ -77,6 +77,10 @@ public class Main extends Application {
 			+ "Hello everyone! ^^"
 		+ "</p>"
 			
+		+ "<p>"
+			+ "(This is the 0.1.96.1 hotfix version, which addresses some bugs and adds in a male variant of the kimono. The extra patch notes are at the bottom of this page. :3)"
+		+ "</p>"	
+		
 		+ "<p>"
 			+ "First of all, I wish you all a very Merry Christmas, and a Happy New year! :3"
 		+ "</p>"
@@ -179,6 +183,46 @@ public class Main extends Application {
 			+"<ul>Slaves with the transformation fetish which are assigned as a test subject, but without feminine or masculine transformation specified, now correctly receive a gain in affection when Lilaya performs tests on them.</ul>"
 			+"<ul>Having furry encounters enabled while having 'forced TF racial limits' set to 'Human Only' should no longer have the problem of the characters not giving you any genitals when you are transformed.</ul>"
 			+"<ul>Prostitutes should no longer be able to spawn in as virgins.</ul>"
+		+ "</list>"
+
+		
+		+ "</br>"
+
+		+ "<list>"
+			+ "<h6>v0.1.96.1 (Hotfix)</h6>"
+			+"<li>Contributors:</li>"
+			+"<ul>Minor typo fixes. (by Rfnpj)</ul>"
+			+"<ul>Fixed instances of wings being described as allowing flight when they shouldn't. (by tukaima)</ul>"
+			+"<ul>Fixed integer to string parsing error, as well as correcting the 'times fought' value on NPC-occupied city street squares. (by Lucasvdlaan)</ul>"
+				
+			+"<li>Clothing:</li>"
+			+"<ul>Added: Men's kimono (masculine, torso slot, Ronin set).</ul>"
+			+"<ul>Added: Haori (masculine, over-torso slot, Ronin set).</ul>"
+			+"<ul>Added: Men's geta (masculine, foot slot, Ronin set).</ul>"
+				
+			+"<li>Other:</li>"
+			+"<ul>Added option to have submissive sex with geisha Lilaya.</ul>"
+			+"<ul>Reverted prostitutes not being able to be pure virgins (3% chance of pure virgins to be prostitutes).</ul>"
+			+"<ul>You can now give Yuletide Gifts to slaves and offspring.</ul>"
+			+"<ul>Added options to change the current month in the debug menu.</ul>"
+				
+			+"<li>Bugs:</li>"
+			+"<ul>Yuletide Gifts, mince pies, egg nog, and sugar cookies will no longer spawn in alleyways.</ul>"
+			+"<ul>Fixed antler headband being able to be dyed multiple colours.</ul>"
+			+"<ul>You can no longer use NPCs' items during sex.</ul>"
+			+"<ul>Fixed the cause of several strange issues where thigh sex would be treated as a self action.</ul>"
+			+"<ul>Fixed some slave room values displaying '/day' instead of '/hour'.</ul>"
+			+"<ul>Fixed rounding errors in the slave management screen.</ul>"
+			+"<ul>Ending Lilaya's geisha sex scene now correctly moves you back to your room.</ul>"
+			+"<ul>Moved Lilaya's and Kate's 'Grow cock' action to all sex scenes (available if your partner is a demon).</ul>"
+			+"<ul>Chemise should no longer be able to be pulled up without first removing/displacing appropriate clothing.</ul>"
+			+"<ul>Fixed bug where both NPCs and the player would be able to lose penile virginity multiple times.</ul>"
+			+"<ul>Fixed bug where changing body-part colours in Kate's shop would charge you double (most cases were of being charged 400 instead of 200).</ul>"
+			+"<ul>Fixed bug in Kate's shop where recolouring body hair wouldn't work.</ul>"
+			+"<ul>Fixed major display bugs in the light theme (although the colours are still not great...).</ul>"
+			+"<ul>Fixed some bugs in character creation's sex experience options (you now correctly start having lost penile and anal virginities if you select the appropriate choices).</ul>"
+			+"<ul>Scarlett should now be able to be fed items during sex (some of the text might not be correct, but the effects should work).</ul>"
+			+"<ul>Fixed major (and quite specific) bug which was causing both trader and player inventory to become unresponsive.</ul>"
 		+ "</list>"
 		;
 	

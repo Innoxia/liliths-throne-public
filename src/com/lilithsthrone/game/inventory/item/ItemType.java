@@ -3508,6 +3508,10 @@ public class ItemType {
 							&& item!=ItemType.BOTTLED_ESSENCE_COW_MORPH
 							&& item!=ItemType.BOTTLED_ESSENCE_SQUIRREL_MORPH
 							&& item!=ItemType.EGGPLANT
+							&& item!=ItemType.PRESENT
+							&& item!=ItemType.SEX_INGREDIENT_MINCE_PIE
+							&& item!=ItemType.FIT_INGREDIENT_EGG_NOG
+							&& item!=ItemType.RACE_INGREDIENT_REINDEER_MORPH
 							) {
 						commonItems.add(item);
 						

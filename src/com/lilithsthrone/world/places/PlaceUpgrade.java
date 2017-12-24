@@ -362,11 +362,11 @@ public enum PlaceUpgrade {
 		return capacity;
 	}
 
-	public float getAffectionGain() {
+	public float getHourlyAffectionGain() {
 		return affectionGain;
 	}
 
-	public float getObedienceGain() {
+	public float getHourlyObedienceGain() {
 		return obedienceGain;
 	}
 

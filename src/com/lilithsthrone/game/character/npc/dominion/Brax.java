@@ -127,6 +127,8 @@ public class Brax extends NPC {
 
 		loadNPCVariablesFromXML(npc, null, parentElement, doc);
 		
+		this.setPenisVirgin(false);
+		
 		return npc;
 	}
 

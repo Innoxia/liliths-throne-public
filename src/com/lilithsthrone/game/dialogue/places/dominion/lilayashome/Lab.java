@@ -28,6 +28,7 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.managers.dominion.lilaya.SMChairBottomLilaya;
 import com.lilithsthrone.game.sex.managers.universal.SMDomStanding;
+import com.lilithsthrone.game.sex.managers.universal.SMSubStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -38,7 +39,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.75
- * @version 0.1.87
+ * @version 0.1.96.1
  * @author Innoxia
  */
 public class Lab {
@@ -48,8 +49,17 @@ public class Lab {
 
 		@Override
 		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
+				UtilText.nodeContentSB.append(
+						"<p>"
+							+ "[style.boldBad(This is as far as the main quest goes for now! Thank you for playing! :3)]"
+						+ "</p>");
+			}
+			
 			if(Main.game.getLilaya().hasStatusEffect(StatusEffect.PREGNANT_0)) {
-				return "<p>"
+				UtilText.nodeContentSB.append("<p>"
 							+ "As you approach the door to Lilaya's lab, you notice that it's been firmly pulled shut."
 							+ " A little piece of paper has been stuck on it, and you see that Lilaya has left you a handwritten note:"
 						+ "</p>"
@@ -62,12 +72,12 @@ public class Lab {
 						+ "<p>"
 							+ "Letting out a little sigh, you decide against risking angering her any further, and decide not to knock on the door."
 							+ " It looks like you'll just have to wait until she's calmed down."
-						+ "</p>";
+						+ "</p>");
 				
 			} else {
 				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.waitingOnLilayaPregnancyResults)) {
 					if(Main.game.getLilaya().isVisiblyPregnant()) {
-						return "<p>"
+						UtilText.nodeContentSB.append("<p>"
 									+ "Approaching the door to Lilaya's laboratory, you see that it's been left wide open."
 									+ " Quickly stepping inside, you scan the interior for any sign of life."
 								+ "</p>"
@@ -94,10 +104,10 @@ public class Lab {
 								+ "<p>"
 									+ "[lilaya.speech(You know, as inconvenient as being pregnant is, wouldn't it be fun to run some more <i>tests</i> like this? After all, it's not like you need to pull out any more...)]"
 									+ " she asks, biting her lip at you."
-								+ "</p>";
+								+ "</p>");
 						
 					} else {
-						return "<p>"
+						UtilText.nodeContentSB.append("<p>"
 									+ "Approaching the door to Lilaya's laboratory, you see that it's been left wide open."
 									+ " Quickly stepping inside, you scan the interior for any sign of life."
 								+ "</p>"
@@ -118,11 +128,11 @@ public class Lab {
 								+ "<p>"
 									+ "[lilaya.speech(You know, I'm feeling pretty good right now about not getting pregnant..."
 									+ " You want me to run some more <i>tests</i>? Just, promise to pull out this time, ok?)] she asks, biting her lip at you."
-								+ "</p>";
+								+ "</p>");
 					}
 					
 				} else {
-					return "<p>"
+					UtilText.nodeContentSB.append("<p>"
 								+ "You head down to Lilaya's lab, and as you arrive, you see that the door has been left wide open."
 								+ " Stepping forwards into the room, you glance around to see if anyone's here."
 							+ "</p>"
@@ -147,9 +157,11 @@ public class Lab {
 							+ "<p>"
 								+ "Brushing down her skirt, Lilaya clears her throat,"
 								+ " [lilaya.speech(Ahem! So, what is it you need?)]"
-							+ "</p>";
+							+ "</p>");
 				}
 			}
+			
+			return UtilText.nodeContentSB.toString();
 		}
 		
 		@Override
@@ -300,7 +312,7 @@ public class Lab {
 						generatedResponses.add(new Response("Give Present", "Give the present in your inventory to Lilaya.", LILAYA_PRESENT) {
 							@Override
 							public void effects() {
-								Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.PRESENT));//TODO
+								Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.PRESENT));
 								
 								if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.givenLilayaPresent2)) {
 									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.givenLilayaPresent3, true);
@@ -597,7 +609,25 @@ public class Lab {
 					}
 				};
 
-			} else if (index == 2) {
+			} if (index == 2) {
+				return new ResponseSex("Submissive Sex", "Start having submissive sex with Lilaya.",
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
+						true, true, Main.game.getLilaya(), new SMSubStanding(), Lilaya.AUNT_END_SEX_GEISHA,
+								"<p>"
+									+ "You can't resist an offer like that, and, stepping forwards, you allow your demonic aunt to reach up and pull you into her embrace,"
+									+ " [pc.speech(~Mmm!~ Yes Lilaya, that sounds good to me!)]"
+								+ "</p>"
+								+ "<p>"
+									+ "As Lilaya locks her [lilaya.eyes+] onto yours, she throws you a seductive smile, before taking your head in both hands and pressing her lips against your mouth."
+									+ " You let out a desperate little whine as she pulls you close to her body, and, passionately making out with one another, you both give in to your lust."
+								+ "</p>"){
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.hadSexWithLilaya);
+					}
+				};
+
+			} else if (index == 3) {
 				return new Response("Leave",
 						"Tell Lilaya that she looks stunning, but you don't want to have sex with her.",
 						RoomPlayer.ROOM){

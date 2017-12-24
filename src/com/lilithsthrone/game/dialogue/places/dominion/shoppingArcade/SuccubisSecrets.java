@@ -867,8 +867,9 @@ public class SuccubisSecrets {
 
 		@Override
 		public String getHeaderContent() {
+			UtilText.nodeContentSB.setLength(0);
 			
-			return "<p>"
+			UtilText.nodeContentSB.append("<p>"
 						+ "Kate also offers some other miscellaneous services, such as anal bleaching and body hair colouring."
 					+ "</p>"
 					+ "<h6 style='text-align:center;'>"
@@ -876,10 +877,10 @@ public class SuccubisSecrets {
 					+ "</h6>"
 					+CharacterModificationUtils.getKatesDivAnalBleaching("Anal bleaching", "Anal bleaching is the process of lightening the colour of the skin around the anus, to make it more uniform with the surrounding area.")
 
-					+(Main.game.isFacialHairEnabled() || Main.game.isBodyHairEnabled() || Main.game.isPubicHairEnabled()
-							?CharacterModificationUtils.getKatesDivCoverings(
-									true, Main.game.getPlayer().getBodyHairCoveringType(), "Body hair", "This is the hair that covers all areas other than the head.", true, true)
-							:"")
+//					+(Main.game.isFacialHairEnabled() || Main.game.isBodyHairEnabled() || Main.game.isPubicHairEnabled()
+//							?CharacterModificationUtils.getKatesDivCoveringsNew(
+//									true, Main.game.getPlayer().getBodyHairCoveringType(), "Body hair", "This is the hair that covers all areas other than the head.", true, true)
+//							:"")
 					
 					+(Main.game.isFacialHairEnabled()
 							?CharacterModificationUtils.getKatesDivFacialHair("Facial hair", "The body hair found on your face. Feminine characters cannot grow facial hair.")
@@ -896,7 +897,19 @@ public class SuccubisSecrets {
 					+(Main.game.isBodyHairEnabled()
 							?CharacterModificationUtils.getKatesDivAssHair("Ass hair", "The body hair found around your asshole.")
 							:"")
-					;
+					);
+			
+			for(BodyCoveringType bct : BodyCoveringType.values()) {
+				if((Main.game.isFacialHairEnabled() && Main.game.getPlayer().getFacialHairType().getType()==bct)
+						|| (Main.game.isBodyHairEnabled() && (Main.game.getPlayer().getUnderarmHairType().getType()==bct || Main.game.getPlayer().getAssHairType().getType()==bct))
+						|| (Main.game.isPubicHairEnabled() && Main.game.getPlayer().getPubicHairType().getType()==bct)) {
+					UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivCoverings(
+							true, bct, "Body hair", "This is your body hair ("+bct.getRace().getName()+").", true, true));
+					
+				}
+			}
+			
+			return UtilText.nodeContentSB.toString();
 			
 		}
 
