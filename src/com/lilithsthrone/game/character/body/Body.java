@@ -2563,6 +2563,8 @@ public class Body implements Serializable, XMLSaving {
 						sb.append(" They aren't large enough to allow [npc.her] to fly.");
 					}
 				}
+			} else if (wing.getType()!=WingType.NONE) {
+				sb.append(" They are entirely incapable of flight.");
 			}
 			
 			// Tail:
