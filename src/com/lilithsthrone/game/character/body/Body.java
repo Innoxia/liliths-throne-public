@@ -2549,7 +2549,7 @@ public class Body implements Serializable, XMLSaving {
 				default:
 					break;
 			}
-			if(wing.getType()!=WingType.NONE) {
+			if(wing.getType().allowsFlight()) {
 				if(wing.getSizeValue() >= WingSize.TWO_AVERAGE.getValue()) {
 					if (owner.isPlayer()) {
 						sb.append(" They are large enough that they can be used to allow you to fly.");
@@ -2563,6 +2563,8 @@ public class Body implements Serializable, XMLSaving {
 						sb.append(" They aren't large enough to allow [npc.her] to fly.");
 					}
 				}
+			} else if (wing.getType()!=WingType.NONE) {
+				sb.append(" They are entirely incapable of flight.");
 			}
 			
 			// Tail:
