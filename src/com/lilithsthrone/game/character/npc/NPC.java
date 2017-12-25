@@ -629,7 +629,6 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		int numberOfTransformations = Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)?2 + Util.random.nextInt(7):1 + Util.random.nextInt(4);
 		List<ItemEffect> effects = new ArrayList<>();
 		
-		AbstractItemType genitalsItemType = ItemType.RACE_INGREDIENT_HUMAN;
 		AbstractItemType itemType = ItemType.RACE_INGREDIENT_HUMAN;
 		String reaction = "Time to transform you!";
 		String raceName = "human";
@@ -693,6 +692,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					break;
 			}
 		}
+		AbstractItemType genitalsItemType = itemType;
+		
+		if(Main.getProperties().forcedTFPreference==FurryPreference.HUMAN || Main.getProperties().forcedTFPreference==FurryPreference.MINIMUM) {
+			genitalsItemType = ItemType.RACE_INGREDIENT_HUMAN;
+		}
 		
 		
 		Map<ItemEffect, String> possibleEffects = new HashMap<>();
@@ -715,7 +719,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						possibleEffects.put(new ItemEffect(genitalsItemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), "Let's get rid of that tight little cunt of yours!");
 						removingVagina = true;
 					}
-				} else if(Main.getProperties().forcedTFPreference != FurryPreference.HUMAN && Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) {
+				} else if((Main.getProperties().forcedTFPreference != FurryPreference.HUMAN && Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) || getPreferredBody().getVagina().getType()==VaginaType.HUMAN) {
 					possibleEffects.put(new ItemEffect(genitalsItemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
 							"Let's give you a nice "+getPreferredBody().getVagina().getName(Main.game.getPlayer(), false)+"!");
 					addingVagina = true;
@@ -731,8 +735,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					possibleEffects.put(new ItemEffect(genitalsItemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), "Let's get rid of that pathetic little cock of yours!");
 					removingPenis = true;
 				}
-			} else if(Main.getProperties().forcedTFPreference != FurryPreference.HUMAN && Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) {
-				possibleEffects.put(new ItemEffect(genitalsItemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), "Let's give you a nice "+getPreferredBody().getPenis().getName(Main.game.getPlayer(), false)+"!");
+			} else if((Main.getProperties().forcedTFPreference != FurryPreference.HUMAN && Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) || getPreferredBody().getPenis().getType()==PenisType.HUMAN) {
+				possibleEffects.put(new ItemEffect(genitalsItemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
+						"Let's give you a nice "+getPreferredBody().getPenis().getName(Main.game.getPlayer(), false)+"!");
 				addingPenis = true;
 			}
 		}
@@ -764,6 +769,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			}
 			return new Value<>(s, EnchantingUtils.craftItem(AbstractItemType.generateItem(itemType), effects));
 		}
+		
+		
 		
 		// All minor part transformations:
 		if(Main.getProperties().forcedTFPreference != FurryPreference.HUMAN) {
@@ -845,10 +852,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		// Femininity:
 		if(Main.game.getPlayer().getFemininityValue() < getPreferredBody().getFemininity() && Femininity.valueOf(Main.game.getPlayer().getFemininityValue()) != Femininity.valueOf(getPreferredBody().getFemininity())) {
-			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_FEMININITY, TFPotency.BOOST, 1), "I'm gonna need you to be more feminine!");
+			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_FEMININITY, TFPotency.MAJOR_BOOST, 1), "I'm gonna need you to be more feminine!");
 			
 		} else if(Main.game.getPlayer().getFemininityValue() > getPreferredBody().getFemininity() && Femininity.valueOf(Main.game.getPlayer().getFemininityValue()) != Femininity.valueOf(getPreferredBody().getFemininity())) {
-			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_FEMININITY, TFPotency.DRAIN, 1), "I'm gonna need you to be more of a man!");
+			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_FEMININITY, TFPotency.MAJOR_DRAIN, 1), "I'm gonna need you to be more of a man!");
 		}
 		
 		// Height:
@@ -928,6 +935,22 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		if(possibleEffects.isEmpty()) {
 			return null;
 		}
+		
+		
+//		List<ItemEffect> keysAsArray = new ArrayList<>(possibleEffects.keySet());
+//		ItemEffect effect = keysAsArray.get(Util.random.nextInt(keysAsArray.size()));
+//
+//		for (int i = 0; i < numberOfTransformations; i++) {
+//			if (!keysAsArray.isEmpty()) {
+//				ItemEffect e = keysAsArray.get(Util.random.nextInt(keysAsArray.size()));
+//				effects.add(e);
+//				keysAsArray.remove(e);
+//			}
+//		}
+//
+//		return new Value<>(
+//				possibleEffects.get(effect),
+//				EnchantingUtils.craftItem(AbstractItemType.generateItem(itemType), effects));
 		
 		List<ItemEffect> keysAsArray = new ArrayList<>(possibleEffects.keySet());
 //		ItemEffect effect = keysAsArray.get(Util.random.nextInt(keysAsArray.size()));

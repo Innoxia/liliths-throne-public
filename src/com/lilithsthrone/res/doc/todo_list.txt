@@ -17,43 +17,16 @@
 	
 	
 	
-	Contributors:
-		Minor typo fixes. (by Rfnpj)
-		Fixed instances of wings being described as allowing flight when they shouldn't. (by tukaima)
-		Fixed integer to string parsing error, as well as correcting the 'times fought' value on NPC-occupied city street squares. (by Lucasvdlaan)
-	
-	Clothing:
-		Added: Men's kimono (masculine, torso slot, Ronin set).
-		Added: Haori (masculine, over-torso slot, Ronin set).
-		Added: Men's geta (masculine, foot slot, Ronin set).
-	
-	Other:
-		Added option to have submissive sex with geisha Lilaya.
-		Reverted prostitutes not being able to be pure virgins (3% chance of pure virgins to be prostitutes).
-		You can now give Yuletide Gifts to slaves and offspring.
-		Added options to change the current month in the debug menu.
-	
-	Bugs:
-		Yuletide Gifts, mince pies, egg nog, and sugar cookies will no longer spawn in alleyways.
-		Fixed antler headband being able to be dyed multiple colours.
-		You can no longer use NPCs' items during sex.
-		Fixed the cause of several strange issues where thigh sex would be treated as a self action.
-		Fixed some slave room values displaying '/day' instead of '/hour'.
-		Fixed rounding errors in the slave management screen.
-		Ending Lilaya's geisha sex scene now correctly moves you back to your room.
-		Moved Lilaya's and Kate's 'Grow cock' action to all sex scenes (available if your partner is a demon).
-		Chemise should no longer be able to be pulled up without first removing/displacing appropriate clothing.
-		Fixed bug where both NPCs and the player would be able to lose penile virginity multiple times.
-		Fixed bug where changing body-part colours in Kate's shop would charge you double (most cases were of being charged 400 instead of 200).
-		Fixed bug in Kate's shop where recolouring body hair wouldn't work.
-		Fixed major display bugs in the light theme (although the colours are still not great...).
-		Fixed some bugs in character creation's sex experience options (you now correctly start having lost penile and anal virginities if you select the appropriate choices).
-		Scarlett should now be able to be fed items during sex (some of the text might not be correct, but the effects should work).
-		Fixed major (and quite specific) bug which was causing both trader and player inventory to become unresponsive.
 	
 	
 	
-
+	There's still a bug with Forced TF that only changes your genitalia to be male or female. Also, Transformation Test Subject only gives one TF instead of 3.
+	
+	Also, I had a cat boy who tried to turn me into a harpy-girl, but kept on using human TF potions on my human character. That was in the pre-hotfix version, tho. Not sure if it's still there, but I don't see anything in the changelog about that.
+	
+	
+	
+	if you encounter a halloween succubus and a reindeer on the same tile the succubus will get the reindeer's name
 	
 	
 	Add in player-NPC variations for all item usages.
