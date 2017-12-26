@@ -1123,8 +1123,14 @@ public class GenericOrgasms {
 				return true;
 			}
 			
-			return SexFlags.playerRequestedCreampie
-					|| (!SexFlags.playerRequestedPullOut && !SexFlags.playerRequestedCreampie);
+			boolean possible = SexFlags.playerRequestedCreampie || (!SexFlags.playerRequestedPullOut && !SexFlags.playerRequestedCreampie);
+			if(!Sex.isPlayerDom()) {
+				if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER) == PenetrationType.PENIS_PARTNER) {
+					possible |= Sex.getPartner().hasFetish(Fetish.FETISH_IMPREGNATION) || Sex.getPartner().hasFetish(Fetish.FETISH_SEEDER);
+				}
+				possible |= Math.random() < 0.5;//chance of npc without fetish listening --- 50%
+			}
+			return possible;
 		}
 
 		@Override
