@@ -607,19 +607,22 @@ public class Breast implements BodyPartInterface, Serializable {
 	}
 
 	public boolean isFuckable() {
-		return nipples.getOrificeNipples().getCapacity() != Capacity.ZERO_IMPENETRABLE && size >= CupSize.C.getMeasurement();
+		return nipples.getOrificeNipples().getCapacity() != Capacity.ZERO_IMPENETRABLE && nippleCountPerBreast>0 && size >= CupSize.C.getMeasurement();
 	}
-
 
 	public int getNippleCountPerBreast() {
 		return nippleCountPerBreast;
 	}
+	
+	public boolean hasNipples() {
+		return nippleCountPerBreast > 0;
+	}
 
 	/**
-	 * Minimum 1, maximum MAXIMUM_NIPPLES_PER_BREAST
+	 * Minimum 0, maximum MAXIMUM_NIPPLES_PER_BREAST
 	 */
 	public String setNippleCountPerBreast(GameCharacter owner, int nippleCountPerBreast) {
-		nippleCountPerBreast = Math.max(1, Math.min(nippleCountPerBreast, MAXIMUM_NIPPLES_PER_BREAST));
+		nippleCountPerBreast = Math.max(0, Math.min(nippleCountPerBreast, MAXIMUM_NIPPLES_PER_BREAST));
 		
 		if (this.nippleCountPerBreast == nippleCountPerBreast) {
 			if(owner.isPlayer()) {
@@ -637,14 +640,14 @@ public class Breast implements BodyPartInterface, Serializable {
 						"<p>"
 							+ "You feel a strange tingling sensation running just beneath the surface of the [pc.breastSkin] that covers your [pc.breasts]."
 							+ " A shocked gasp bursts from your mouth as the force shoots up into your [pc.nipples], and you feel some of them [style.boldShrink(shrinking)] into the flesh of your [pc.breasts].</br>"
-							+ "You now have [style.boldSex("+ Util.intToString(nippleCountPerBreast) + " "+ (nippleCountPerBreast > 1 ? "[pc.nipples]" : "[pc.nipple]") + " on each of your " + (hasBreasts() ? "breasts" : "pecs") +")]!" 
+							+ "You now have [style.boldSex("+ Util.intToString(nippleCountPerBreast) + " "+ (nippleCountPerBreast != 1 ? "[pc.nipples]" : "[pc.nipple]") + " on each of your " + (hasBreasts() ? "breasts" : "pecs") +")]!" 
 						+ "</p>";
 			} else {
 				transformation = UtilText.parse(owner,
 						"<p>"
 							+ "[npc.Name] feels a strange tingling sensation running just beneath the surface of the [npc.breastSkin] that covers [npc.her] [npc.breasts]."
 							+ " A shocked gasp bursts from [npc.her] mouth as the force shoots up into [npc.her] [npc.nipples], and [npc.she] continues [npc.moaning] as some of them [style.boldShrink(shrink)] into the flesh of [npc.her] [npc.breasts].</br>"
-							+ "[npc.Name] now has [style.boldSex("+ Util.intToString(nippleCountPerBreast) + " "+ (nippleCountPerBreast > 1 ? "[npc.nipples]" : "[npc.nipple]") + " on each of [npc.her] " + (hasBreasts() ? "breasts" : "pecs") +")]!" 
+							+ "[npc.Name] now has [style.boldSex("+ Util.intToString(nippleCountPerBreast) + " "+ (nippleCountPerBreast != 1 ? "[npc.nipples]" : "[npc.nipple]") + " on each of [npc.her] " + (hasBreasts() ? "breasts" : "pecs") +")]!" 
 						+ "</p>");
 			}
 			
@@ -654,7 +657,7 @@ public class Breast implements BodyPartInterface, Serializable {
 						"<p>"
 							+ "You feel a strange tingling sensation running just beneath the surface of the [pc.breastSkin] that covers your [pc.breasts]."
 							+ " A shocked gasp bursts from your mouth as the force shoots up into your [pc.nipples], and you continue [pc.moaning] as you feel new ones [style.boldGrow(growing)] out of the flesh of your [pc.breasts].</br>"
-							+ "You now have [style.boldSex("+ Util.intToString(nippleCountPerBreast) + " "+ (nippleCountPerBreast > 1 ? "[pc.nipples]" : "[pc.nipple]") + " on each of your " + (hasBreasts() ? "breasts" : "pecs") +")]!" 
+							+ "You now have [style.boldSex("+ Util.intToString(nippleCountPerBreast) + " "+ (nippleCountPerBreast != 1 ? "[pc.nipples]" : "[pc.nipple]") + " on each of your " + (hasBreasts() ? "breasts" : "pecs") +")]!" 
 						+ "</p>";
 			} else {
 				transformation = UtilText.parse(owner,
@@ -662,7 +665,7 @@ public class Breast implements BodyPartInterface, Serializable {
 							+ "[npc.Name] feels a strange tingling sensation running just beneath the surface of the [npc.breastSkin] that covers [npc.her] [npc.breasts]."
 							+ " A shocked gasp bursts from [npc.her] mouth as the force shoots up into [npc.her] [npc.nipples],"
 								+ " and [npc.she] continues [npc.moaning] as [npc.she] feels new ones [style.boldGrow(growing)] out of the flesh of [npc.her] [npc.breasts].</br>"
-							+ "[npc.Name] now has [style.boldSex("+ Util.intToString(nippleCountPerBreast) + " "+ (nippleCountPerBreast > 1 ? "[npc.nipples]" : "[npc.nipple]") + " on each of [npc.her] " + (hasBreasts() ? "breasts" : "pecs") +")]!" 
+							+ "[npc.Name] now has [style.boldSex("+ Util.intToString(nippleCountPerBreast) + " "+ (nippleCountPerBreast != 1 ? "[npc.nipples]" : "[npc.nipple]") + " on each of [npc.her] " + (hasBreasts() ? "breasts" : "pecs") +")]!" 
 						+ "</p>");
 			}
 		}
