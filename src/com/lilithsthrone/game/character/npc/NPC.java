@@ -86,6 +86,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
+import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
@@ -1986,19 +1987,30 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	// ****************** Sex & Dirty talk: ***************************
 	
 	public String getCondomEquipEffects(GameCharacter equipper, GameCharacter target, boolean rough) {
+		public String getCondomEquipEffects(GameCharacter equipper, GameCharacter target, boolean rough) {
 		if(Main.game.isInSex() && !target.isPlayer()) {
-			if(Sex.isPlayerDom() ||Sex.isConsensual()) {
+			if(Sex.isPlayerDom() ||Sex.isSubHasEqualControl()) {
 				return "<p>"
 						+ "Holding out a condom to [npc.name], you force [npc.herHim] to take it and put it on."
 						+ " Quickly ripping it out of its little foil wrapper, [npc.she] rolls it down the length of [npc.her] [npc.cock+] as [npc.she] whines at you,"
 						+ " [npc.speech(Do I really have to? It feels so much better without one...)]"
 						+ "</p>";
 			} else {
-				return "<p>"
-						+ "Holding out a condom to [npc.name], you let out a sigh of relief as [npc.she] reluctantly takes it."
-						+ " Quickly ripping it out of its little foil wrapper, [npc.she] rolls it down the length of [npc.her] [npc.cock+] as [npc.she] growls at you,"
-						+ " [npc.speech(You'd better be glad that I'm in a good mood!)]"
-						+ "</p>";
+				if(target.hasFetish(Fetish.FETISH_IMPREGNATION) || target.hasFetish(Fetish.FETISH_SEEDER) || Math.random() < 0.5) {
+					target.unequipClothingIntoVoid(target.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()), true, equipper);
+					return "<p>"
+							+ "You pull out a condom and try to give it to the horny [npc.race], but [npc.she] simply laughs in your face before grabbing the little foil packet and tearing it in two."
+							+ " Mocking your attempt at trying to get [npc.her] to wear a rubber, [npc.she] sneers,"
+							+ " [npc.speech(Hah! I don't think so!)]"
+							+ "</p>";
+				}	
+				else {
+					return "<p>"
+							+ "Holding out a condom to [npc.name], you let out a sigh of relief as [npc.she] reluctantly takes it."
+							+ " Quickly ripping it out of its little foil wrapper, [npc.she] rolls it down the length of [npc.her] [npc.cock+] as [npc.she] growls at you,"
+							+ " [npc.speech(You'd better be glad that I'm in a good mood!)]"
+							+ "</p>";
+				}
 			}
 		}
 		return AbstractClothingType.getEquipDescriptions(target, equipper, rough,
