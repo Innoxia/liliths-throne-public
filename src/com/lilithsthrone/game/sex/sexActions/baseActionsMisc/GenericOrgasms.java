@@ -1124,7 +1124,7 @@ public class GenericOrgasms {
 			}
 			
 			boolean possible = SexFlags.playerRequestedCreampie || (!SexFlags.playerRequestedPullOut && !SexFlags.playerRequestedCreampie);
-			if(!Sex.isPlayerDom()) {
+			if(!Sex.isPlayerDom() || !Sex.isSubHasEqualControl()) {
 				if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER) == PenetrationType.PENIS_PARTNER) {
 					possible |= Sex.getPartner().hasFetish(Fetish.FETISH_IMPREGNATION) || Sex.getPartner().hasFetish(Fetish.FETISH_SEEDER);
 				}
