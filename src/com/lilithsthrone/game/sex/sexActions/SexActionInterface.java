@@ -606,8 +606,12 @@ public interface SexActionInterface {
 				case MOUTH_PLAYER:
 					break;
 				case NIPPLE_PARTNER:
+					if(!Sex.getPartner().hasNipples())
+						return false;
 					break;
 				case NIPPLE_PLAYER:
+					if(!Main.game.getPlayer().hasNipples())
+						return false;
 					break;
 				case BREAST_PARTNER:
 					break;

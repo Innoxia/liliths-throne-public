@@ -3310,353 +3310,147 @@ public class Body implements Serializable, XMLSaving {
 			descriptionSB.append("You've never seen [npc.her] naked chest, so you don't know what [npc.her] nipples look like.");
 			
 		} else if (isPlayer) {
-			descriptionSB.append("On each of your "+(owner.hasBreasts()?owner.getBreastShape().getName()+" breasts":"pecs")+", you have "+Util.intToString(owner.getNippleCountPerBreast())+" [pc.nippleSize], ");
-			
-			switch(owner.getNippleShape()) {
-				case NORMAL:
-					descriptionSB.append(" [pc.nipplePrimaryColour(true)]");
-					break;
-				case LIPS:
-					descriptionSB.append(" [pc.nipplePrimaryColour(true)]-lipped");
-					break;
-				case VAGINA:
-					descriptionSB.append(" [pc.nipplePrimaryColour(true)]-lipped");
-					break;
-			}
-			if(owner.getNippleCountPerBreast()>1) {
-				descriptionSB.append(" [pc.nipples],");
-			} else {
-				descriptionSB.append(" [pc.nipple],");
-			}
-			
-			switch(owner.getAreolaeShape()) {
-				case NORMAL:
-					descriptionSB.append(" with [pc.areolaeSize], circular areolae.");
-					break;
-				case HEART:
-					descriptionSB.append(" with [pc.areolaeSize], heart-shaped areolae.");
-					break;
-				case STAR:
-					descriptionSB.append(" with [pc.areolaeSize], star-shaped areolae.");
-					break;
-			}
-
-			if(owner.isPiercedNipple()) {
-				descriptionSB.append(" They have been pierced.");
-			}
-			
-			if(owner.getNippleCapacity() != Capacity.ZERO_IMPENETRABLE) {
-				if (breast.isFuckable()) {
-					descriptionSB.append("</br>Your [pc.breasts] have internal, [pc.nippleSecondaryColour(true)] channels, allowing your [pc.breastCapacity] [pc.nipples] to be comfortably penetrated by "
-							+ Capacity.getCapacityFromValue(breast.getNipples().getOrificeNipples().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " objects with sufficient lubrication.");
+			if(owner.hasNipples()) {
+				descriptionSB.append("On each of your "+(owner.hasBreasts()?owner.getBreastShape().getName()+" breasts":"pecs")+", you have "+Util.intToString(owner.getNippleCountPerBreast())+" [pc.nippleSize], ");
+				
+				switch(owner.getNippleShape()) {
+					case NORMAL:
+						descriptionSB.append(" [pc.nipplePrimaryColour(true)]");
+						break;
+					case LIPS:
+						descriptionSB.append(" [pc.nipplePrimaryColour(true)]-lipped");
+						break;
+					case VAGINA:
+						descriptionSB.append(" [pc.nipplePrimaryColour(true)]-lipped");
+						break;
+				}
+				if(owner.getNippleCountPerBreast()>1) {
+					descriptionSB.append(" [pc.nipples],");
+				} else {
+					descriptionSB.append(" [pc.nipple],");
+				}
+				
+				switch(owner.getAreolaeShape()) {
+					case NORMAL:
+						descriptionSB.append(" with [pc.areolaeSize], circular areolae.");
+						break;
+					case HEART:
+						descriptionSB.append(" with [pc.areolaeSize], heart-shaped areolae.");
+						break;
+					case STAR:
+						descriptionSB.append(" with [pc.areolaeSize], star-shaped areolae.");
+						break;
+				}
+	
+				if(owner.isPiercedNipple()) {
+					descriptionSB.append(" They have been pierced.");
+				}
+				
+				if(owner.getNippleCapacity() != Capacity.ZERO_IMPENETRABLE) {
+					if (breast.isFuckable()) {
+						descriptionSB.append("</br>Your [pc.breasts] have internal, [pc.nippleSecondaryColour(true)] channels, allowing your [pc.breastCapacity] [pc.nipples] to be comfortably penetrated by "
+								+ Capacity.getCapacityFromValue(breast.getNipples().getOrificeNipples().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " objects with sufficient lubrication.");
+						
+					} else {
+						descriptionSB.append("</br>Your [pc.breasts] have internal, [pc.nippleSecondaryColour(true)] channels, but you'd need at least D-cups before your [pc.breastCapacity] [pc.nipples] could be penetrated.");
+					}
+					
+					// Nipple elasticity & plasticity:
+					switch (breast.getNipples().getOrificeNipples().getElasticity()) {
+						case ZERO_UNYIELDING:
+							descriptionSB.append(" [style.colourSex(They are extremely unyielding,");
+							break;
+						case ONE_RIGID:
+							descriptionSB.append(" [style.colourSex(They take a huge amount of effort to stretch out,");
+							break;
+						case TWO_FIRM:
+							descriptionSB.append(" [style.colourSex(They do not stretch very easily,");
+							break;
+						case THREE_FLEXIBLE:
+							descriptionSB.append(" [style.colourSex(They reluctantly stretch out when penetrated,");
+							break;
+						case FOUR_LIMBER:
+							descriptionSB.append(" [style.colourSex(They are somewhat resistant to being stretched out,");
+							break;
+						case FIVE_STRETCHY:
+							descriptionSB.append(" [style.colourSex(They stretch out fairly easily,");
+							break;
+						case SIX_SUPPLE:
+							descriptionSB.append(" [style.colourSex(They stretch out very easily,");
+							break;
+						case SEVEN_ELASTIC:
+							descriptionSB.append(" [style.colourSex(They are extremely elastic,");
+							break;
+						default:
+							break;
+					}
+					switch (breast.getNipples().getOrificeNipples().getPlasticity()) {
+						case ZERO_RUBBERY:
+							descriptionSB.append(" and instantly return to their original size.)]");
+							break;
+						case ONE_SPRINGY:
+							descriptionSB.append(" and return to their original size within a matter of hours.)]");
+							break;
+						case TWO_TENSILE:
+							descriptionSB.append(" and return to their original size within a day or so.)]");
+							break;
+						case THREE_RESILIENT:
+							descriptionSB.append(" and will return to their original size after a couple of days.)]");
+							break;
+						case FOUR_ACCOMMODATING:
+							descriptionSB.append(" and take a while to return to their original size.)]");
+							break;
+						case FIVE_YIELDING:
+							descriptionSB.append(" and struggle to return to their original size.)]");
+							break;
+						case SIX_MALLEABLE:
+							descriptionSB.append(" and lose a good portion of their original tightness.)]");
+							break;
+						case SEVEN_MOULDABLE:
+							descriptionSB.append(" and once stretched out, they stay that way.)]");
+							break;
+						default:
+							break;
+					}
+					
+					for(OrificeModifier om : OrificeModifier.values()) {
+						if(owner.hasNippleOrificeModifier(om)) {
+							switch(om) {
+								case MUSCLE_CONTROL:
+									descriptionSB.append(" You have a series of muscles lining the inside of your [pc.nipples], allowing you to expertly squeeze and grip down on any intruding object.");
+									break;
+								case PUFFY:
+									descriptionSB.append(" Your [pc.nipples] have swollen up to be exceptionally plump and puffy.");
+									break;
+								case RIBBED:
+									descriptionSB.append(" The insides of your [pc.nipples] are lined with sensitive, fleshy ribs, which grant you extra pleasure when stimulated.");
+									break;
+								case TENTACLED:
+									descriptionSB.append(" Your [pc.nipples] are filled with tiny little tentacles, which wriggle and squirm with a mind of their own.");
+									break;
+							}
+						}
+					}
+					
+					if (!breast.getNipples().getOrificeNipples().isVirgin()) {
+						for(PenetrationType pt : PenetrationType.values()) {
+							if(owner.getVirginityLoss(new SexType(pt, OrificeType.NIPPLE_PLAYER))!=null && !owner.getVirginityLoss(new SexType(pt, OrificeType.NIPPLE_PLAYER)).isEmpty()) {
+								descriptionSB.append(" [style.colourArcane(You lost your nipple virginity to "+ owner.getVirginityLoss(new SexType(pt, OrificeType.NIPPLE_PLAYER)) + ".)]");
+								break;
+							}
+						}
+					} else {
+						descriptionSB.append(" [style.colourGood(You have retained your nipple virginity.)]");
+					}
 					
 				} else {
-					descriptionSB.append("</br>Your [pc.breasts] have internal, [pc.nippleSecondaryColour(true)] channels, but you'd need at least D-cups before your [pc.breastCapacity] [pc.nipples] could be penetrated.");
-				}
-				
-				// Nipple elasticity & plasticity:
-				switch (breast.getNipples().getOrificeNipples().getElasticity()) {
-					case ZERO_UNYIELDING:
-						descriptionSB.append(" [style.colourSex(They are extremely unyielding,");
-						break;
-					case ONE_RIGID:
-						descriptionSB.append(" [style.colourSex(They take a huge amount of effort to stretch out,");
-						break;
-					case TWO_FIRM:
-						descriptionSB.append(" [style.colourSex(They do not stretch very easily,");
-						break;
-					case THREE_FLEXIBLE:
-						descriptionSB.append(" [style.colourSex(They reluctantly stretch out when penetrated,");
-						break;
-					case FOUR_LIMBER:
-						descriptionSB.append(" [style.colourSex(They are somewhat resistant to being stretched out,");
-						break;
-					case FIVE_STRETCHY:
-						descriptionSB.append(" [style.colourSex(They stretch out fairly easily,");
-						break;
-					case SIX_SUPPLE:
-						descriptionSB.append(" [style.colourSex(They stretch out very easily,");
-						break;
-					case SEVEN_ELASTIC:
-						descriptionSB.append(" [style.colourSex(They are extremely elastic,");
-						break;
-					default:
-						break;
-				}
-				switch (breast.getNipples().getOrificeNipples().getPlasticity()) {
-					case ZERO_RUBBERY:
-						descriptionSB.append(" and instantly return to their original size.)]");
-						break;
-					case ONE_SPRINGY:
-						descriptionSB.append(" and return to their original size within a matter of hours.)]");
-						break;
-					case TWO_TENSILE:
-						descriptionSB.append(" and return to their original size within a day or so.)]");
-						break;
-					case THREE_RESILIENT:
-						descriptionSB.append(" and will return to their original size after a couple of days.)]");
-						break;
-					case FOUR_ACCOMMODATING:
-						descriptionSB.append(" and take a while to return to their original size.)]");
-						break;
-					case FIVE_YIELDING:
-						descriptionSB.append(" and struggle to return to their original size.)]");
-						break;
-					case SIX_MALLEABLE:
-						descriptionSB.append(" and lose a good portion of their original tightness.)]");
-						break;
-					case SEVEN_MOULDABLE:
-						descriptionSB.append(" and once stretched out, they stay that way.)]");
-						break;
-					default:
-						break;
-				}
-				
-				for(OrificeModifier om : OrificeModifier.values()) {
-					if(owner.hasNippleOrificeModifier(om)) {
-						switch(om) {
-							case MUSCLE_CONTROL:
-								descriptionSB.append(" You have a series of muscles lining the inside of your [pc.nipples], allowing you to expertly squeeze and grip down on any intruding object.");
-								break;
-							case PUFFY:
-								descriptionSB.append(" Your [pc.nipples] have swollen up to be exceptionally plump and puffy.");
-								break;
-							case RIBBED:
-								descriptionSB.append(" The insides of your [pc.nipples] are lined with sensitive, fleshy ribs, which grant you extra pleasure when stimulated.");
-								break;
-							case TENTACLED:
-								descriptionSB.append(" Your [pc.nipples] are filled with tiny little tentacles, which wriggle and squirm with a mind of their own.");
-								break;
-						}
+					if(owner.hasNippleOrificeModifier(OrificeModifier.PUFFY)) {
+						descriptionSB.append(" Your [pc.nipples] have swollen up to be exceptionally plump and puffy.");
 					}
 				}
-				
-				if (!breast.getNipples().getOrificeNipples().isVirgin()) {
-					for(PenetrationType pt : PenetrationType.values()) {
-						if(owner.getVirginityLoss(new SexType(pt, OrificeType.NIPPLE_PLAYER))!=null && !owner.getVirginityLoss(new SexType(pt, OrificeType.NIPPLE_PLAYER)).isEmpty()) {
-							descriptionSB.append(" [style.colourArcane(You lost your nipple virginity to "+ owner.getVirginityLoss(new SexType(pt, OrificeType.NIPPLE_PLAYER)) + ".)]");
-							break;
-						}
-					}
-				} else {
-					descriptionSB.append(" [style.colourGood(You have retained your nipple virginity.)]");
-				}
-				
-			} else {
-				if(owner.hasNippleOrificeModifier(OrificeModifier.PUFFY)) {
-					descriptionSB.append(" Your [pc.nipples] have swollen up to be exceptionally plump and puffy.");
-				}
-			}
-
-			if (breast.getRawLactationValue() > 0) {
-				descriptionSB.append("</br>You are currently producing "+ breast.getRawLactationValue() + "mL of [pc.milkPrimaryColour(true)] [pc.milk]");
-				
-				switch(breast.getMilk().getFlavour()) {
-					case CHOCOLATE:
-						descriptionSB.append(", which tastes of chocolate.");
-						break;
-					case CUM:
-						descriptionSB.append(", which tastes exactly like cum.");
-						break;
-					case GIRL_CUM:
-						descriptionSB.append(", which tastes of girl-cum.");
-						break;
-					case HONEY:
-						descriptionSB.append(", which tastes of honey.");
-						break;
-					case MILK:
-						descriptionSB.append(", which tastes like regular milk.");
-						break;
-					case MINT:
-						descriptionSB.append(", which tastes of mint.");
-						break;
-					case PINEAPPLE:
-						descriptionSB.append(", which tastes of pineapple.");
-						break;
-					case SLIME:
-						descriptionSB.append(", which is mostly tasteless, but very sweet.");
-						break;
-					case STRAWBERRY:
-						descriptionSB.append(", which tastes of strawberries.");
-						break;
-					case BEER:
-						descriptionSB.append(", which tastes like beer.");
-						break;
-					case VANILLA:
-						descriptionSB.append(", which tastes of vanilla.");
-						break;
-				}
-				
-				for(FluidModifier fm : FluidModifier.values()) {
-					if(owner.hasMilkModifier(fm)) {
-						switch(fm) {
-							case ADDICTIVE:
-								descriptionSB.append(" It is highly addictive, and anyone who drinks too much will quickly become dependent on it.");
-								break;
-							case BUBBLING:
-								descriptionSB.append(" It fizzes and bubbles like a carbonated drink.");
-								break;
-							case HALLUCINOGENIC:
-								descriptionSB.append(" Anyone who ingests it suffers psychoactive effects, which can manifest in lactation-related hallucinations or sensitivity to hypnotic suggestion.");
-								break;
-							case MUSKY:
-								descriptionSB.append(" It has a strong, musky smell.");
-								break;
-							case SLIMY:
-								descriptionSB.append(" It has a slimy, oily texture.");
-								break;
-							case STICKY:
-								descriptionSB.append(" It's quite sticky, and is difficult to fully wash off without soap.");
-								break;
-							case VISCOUS:
-								descriptionSB.append(" It's quite viscous, and slowly drips in large globules, much like thick treacle.");
-								break;
-							case ALCOHOLIC:
-								descriptionSB.append(" It has a high alcohol content, and will get those who consume it very drunk.");
-								break;
-						}
-					}
-				}
-				
-			} else {
-				descriptionSB.append("</br>You are not producing any milk.");
-			}
-			
-		} else {
-			descriptionSB.append("On each of [npc.her] "+(owner.hasBreasts()?owner.getBreastShape().getName()+" breasts":"pecs")+", [npc.she] has "+Util.intToString(owner.getNippleCountPerBreast())+" [npc.nippleSize], ");
-			
-			switch(owner.getNippleShape()) {
-				case NORMAL:
-					descriptionSB.append(" [npc.nipplePrimaryColour(true)]");
-					break;
-				case LIPS:
-					descriptionSB.append(" [npc.nipplePrimaryColour(true)]-lipped");
-					break;
-				case VAGINA:
-					descriptionSB.append(" [npc.nipplePrimaryColour(true)]-lipped");
-					break;
-			}
-			if(owner.getNippleCountPerBreast()>1) {
-				descriptionSB.append(" [npc.nipples],");
-			} else {
-				descriptionSB.append(" [npc.nipple],");
-			}
-			
-			switch(owner.getAreolaeShape()) {
-				case NORMAL:
-					descriptionSB.append(" with [npc.areolaeSize], circular areolae.");
-					break;
-				case HEART:
-					descriptionSB.append(" with [npc.areolaeSize], heart-shaped areolae.");
-					break;
-				case STAR:
-					descriptionSB.append(" with [npc.areolaeSize], star-shaped areolae.");
-					break;
-			}
-			
-			if(owner.isPiercedNipple()) {
-				descriptionSB.append(" They have been pierced.");
-			}
-			
-			if(owner.getNippleCapacity() != Capacity.ZERO_IMPENETRABLE) {
-				if (breast.isFuckable()) {
-					descriptionSB.append("</br>[npc.Her] [npc.breasts] have internal, [npc.nippleSecondaryColour(true)] channels, allowing [npc.her] [npc.breastCapacity] [npc.nipples] to be comfortably penetrated by "
-							+ Capacity.getCapacityFromValue(breast.getNipples().getOrificeNipples().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " objects with sufficient lubrication.");
-					
-				} else {
-					descriptionSB.append("</br>[npc.Her] [npc.breasts] have internal, [npc.nippleSecondaryColour(true)] channels, but [npc.she]'s need at least D-cups before [npc.her] [npc.breastCapacity] [npc.nipples] could be penetrated.");
-				}
-				
-				// Nipple elasticity & plasticity:
-				switch (breast.getNipples().getOrificeNipples().getElasticity()) {
-					case ZERO_UNYIELDING:
-						descriptionSB.append(" [style.colourSex(They are extremely unyielding,");
-						break;
-					case ONE_RIGID:
-						descriptionSB.append(" [style.colourSex(They take a huge amount of effort to stretch out,");
-						break;
-					case TWO_FIRM:
-						descriptionSB.append(" [style.colourSex(They do not stretch very easily,");
-						break;
-					case THREE_FLEXIBLE:
-						descriptionSB.append(" [style.colourSex(They reluctantly stretch out when penetrated,");
-						break;
-					case FOUR_LIMBER:
-						descriptionSB.append(" [style.colourSex(They are somewhat resistant to being stretched out,");
-						break;
-					case FIVE_STRETCHY:
-						descriptionSB.append(" [style.colourSex(They stretch out fairly easily,");
-						break;
-					case SIX_SUPPLE:
-						descriptionSB.append(" [style.colourSex(They stretch out very easily,");
-						break;
-					case SEVEN_ELASTIC:
-						descriptionSB.append(" [style.colourSex(They are extremely elastic,");
-						break;
-					default:
-						break;
-				}
-				switch (breast.getNipples().getOrificeNipples().getPlasticity()) {
-					case ZERO_RUBBERY:
-						descriptionSB.append(" and instantly return to their original size.)]");
-						break;
-					case ONE_SPRINGY:
-						descriptionSB.append(" and return to their original size within a matter of hours.)]");
-						break;
-					case TWO_TENSILE:
-						descriptionSB.append(" and return to their original size within a day or so.)]");
-						break;
-					case THREE_RESILIENT:
-						descriptionSB.append(" and will return to their original size after a couple of days.)]");
-						break;
-					case FOUR_ACCOMMODATING:
-						descriptionSB.append(" and take a while to return to their original size.)]");
-						break;
-					case FIVE_YIELDING:
-						descriptionSB.append(" and struggle to return to their original size.)]");
-						break;
-					case SIX_MALLEABLE:
-						descriptionSB.append(" and lose a good portion of their original tightness.)]");
-						break;
-					case SEVEN_MOULDABLE:
-						descriptionSB.append(" and once stretched out, they stay that way.)]");
-						break;
-					default:
-						break;
-				}
-				
-				for(OrificeModifier om : OrificeModifier.values()) {
-					if(owner.hasNippleOrificeModifier(om)) {
-						switch(om) {
-							case MUSCLE_CONTROL:
-								descriptionSB.append(" [npc.She] has a series of muscles lining the insides of [npc.her] [npc.nipples], allowing [npc.herHim] to expertly squeeze and grip down on any intruding object.");
-								break;
-							case PUFFY:
-								descriptionSB.append(" [npc.Her] [npc.nipples] have swollen up to be exceptionally plump and puffy.");
-								break;
-							case RIBBED:
-								descriptionSB.append(" The insides of [npc.her] [npc.nipples] are lined with sensitive, fleshy ribs, which grant [npc.herHim] extra pleasure when stimulated.");
-								break;
-							case TENTACLED:
-								descriptionSB.append(" [npc.Her] [npc.nipples] are filled with tiny little tentacles, which wriggle and squirm with a mind of their own.");
-								break;
-						}
-					}
-				}
-				
-				if (!breast.getNipples().getOrificeNipples().isVirgin()) {
-					for(PenetrationType pt : PenetrationType.values()) {
-						if(owner.getVirginityLoss(new SexType(pt, OrificeType.NIPPLE_PARTNER))!=null && !owner.getVirginityLoss(new SexType(pt, OrificeType.NIPPLE_PARTNER)).isEmpty()) {
-							descriptionSB.append(" [style.colourArcane([npc.Name] lost [npc.her] nipple virginity to "+ owner.getVirginityLoss(new SexType(pt, OrificeType.NIPPLE_PARTNER)) + ".)]");
-							break;
-						}
-					}
-				} else {
-					descriptionSB.append(" [style.colourGood([npc.Name] has retained [npc.her] nipple virginity.)]");
-				}
-				
+	
 				if (breast.getRawLactationValue() > 0) {
-					descriptionSB.append("</br>[npc.She] is currently producing "+ breast.getRawLactationValue() + "mL of [npc.milkPrimaryColour(true)] [npc.milk]");
+					descriptionSB.append("</br>You are currently producing "+ breast.getRawLactationValue() + "mL of [pc.milkPrimaryColour(true)] [pc.milk]");
 					
 					switch(breast.getMilk().getFlavour()) {
 						case CHOCOLATE:
@@ -3726,12 +3520,226 @@ public class Body implements Serializable, XMLSaving {
 					}
 					
 				} else {
-					descriptionSB.append("</br>[npc.She] is not producing any milk.");
+					descriptionSB.append("</br>You are not producing any milk.");
 				}
 			} else {
-				if(owner.hasNippleOrificeModifier(OrificeModifier.PUFFY)) {
-					descriptionSB.append(" [npc.Her] [npc.nipples] have swollen up to be exceptionally plump and puffy.");
+				descriptionSB.append("Your "+(owner.hasBreasts()?owner.getBreastShape().getName()+" breasts":"pecs")+" have no nipples.");
+			}
+			
+		} else {
+			if(owner.hasNipples()) {
+				descriptionSB.append("On each of [npc.her] "+(owner.hasBreasts()?owner.getBreastShape().getName()+" breasts":"pecs")+", [npc.she] has "+Util.intToString(owner.getNippleCountPerBreast())+" [npc.nippleSize], ");
+				
+				switch(owner.getNippleShape()) {
+					case NORMAL:
+						descriptionSB.append(" [npc.nipplePrimaryColour(true)]");
+						break;
+					case LIPS:
+						descriptionSB.append(" [npc.nipplePrimaryColour(true)]-lipped");
+						break;
+					case VAGINA:
+						descriptionSB.append(" [npc.nipplePrimaryColour(true)]-lipped");
+						break;
 				}
+				if(owner.getNippleCountPerBreast()>1) {
+					descriptionSB.append(" [npc.nipples],");
+				} else {
+					descriptionSB.append(" [npc.nipple],");
+				}
+				
+				switch(owner.getAreolaeShape()) {
+					case NORMAL:
+						descriptionSB.append(" with [npc.areolaeSize], circular areolae.");
+						break;
+					case HEART:
+						descriptionSB.append(" with [npc.areolaeSize], heart-shaped areolae.");
+						break;
+					case STAR:
+						descriptionSB.append(" with [npc.areolaeSize], star-shaped areolae.");
+						break;
+				}
+				
+				if(owner.isPiercedNipple()) {
+					descriptionSB.append(" They have been pierced.");
+				}
+				
+				if(owner.getNippleCapacity() != Capacity.ZERO_IMPENETRABLE) {
+					if (breast.isFuckable()) {
+						descriptionSB.append("</br>[npc.Her] [npc.breasts] have internal, [npc.nippleSecondaryColour(true)] channels, allowing [npc.her] [npc.breastCapacity] [npc.nipples] to be comfortably penetrated by "
+								+ Capacity.getCapacityFromValue(breast.getNipples().getOrificeNipples().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " objects with sufficient lubrication.");
+						
+					} else {
+						descriptionSB.append("</br>[npc.Her] [npc.breasts] have internal, [npc.nippleSecondaryColour(true)] channels, but [npc.she]'s need at least D-cups before [npc.her] [npc.breastCapacity] [npc.nipples] could be penetrated.");
+					}
+					
+					// Nipple elasticity & plasticity:
+					switch (breast.getNipples().getOrificeNipples().getElasticity()) {
+						case ZERO_UNYIELDING:
+							descriptionSB.append(" [style.colourSex(They are extremely unyielding,");
+							break;
+						case ONE_RIGID:
+							descriptionSB.append(" [style.colourSex(They take a huge amount of effort to stretch out,");
+							break;
+						case TWO_FIRM:
+							descriptionSB.append(" [style.colourSex(They do not stretch very easily,");
+							break;
+						case THREE_FLEXIBLE:
+							descriptionSB.append(" [style.colourSex(They reluctantly stretch out when penetrated,");
+							break;
+						case FOUR_LIMBER:
+							descriptionSB.append(" [style.colourSex(They are somewhat resistant to being stretched out,");
+							break;
+						case FIVE_STRETCHY:
+							descriptionSB.append(" [style.colourSex(They stretch out fairly easily,");
+							break;
+						case SIX_SUPPLE:
+							descriptionSB.append(" [style.colourSex(They stretch out very easily,");
+							break;
+						case SEVEN_ELASTIC:
+							descriptionSB.append(" [style.colourSex(They are extremely elastic,");
+							break;
+						default:
+							break;
+					}
+					switch (breast.getNipples().getOrificeNipples().getPlasticity()) {
+						case ZERO_RUBBERY:
+							descriptionSB.append(" and instantly return to their original size.)]");
+							break;
+						case ONE_SPRINGY:
+							descriptionSB.append(" and return to their original size within a matter of hours.)]");
+							break;
+						case TWO_TENSILE:
+							descriptionSB.append(" and return to their original size within a day or so.)]");
+							break;
+						case THREE_RESILIENT:
+							descriptionSB.append(" and will return to their original size after a couple of days.)]");
+							break;
+						case FOUR_ACCOMMODATING:
+							descriptionSB.append(" and take a while to return to their original size.)]");
+							break;
+						case FIVE_YIELDING:
+							descriptionSB.append(" and struggle to return to their original size.)]");
+							break;
+						case SIX_MALLEABLE:
+							descriptionSB.append(" and lose a good portion of their original tightness.)]");
+							break;
+						case SEVEN_MOULDABLE:
+							descriptionSB.append(" and once stretched out, they stay that way.)]");
+							break;
+						default:
+							break;
+					}
+					
+					for(OrificeModifier om : OrificeModifier.values()) {
+						if(owner.hasNippleOrificeModifier(om)) {
+							switch(om) {
+								case MUSCLE_CONTROL:
+									descriptionSB.append(" [npc.She] has a series of muscles lining the insides of [npc.her] [npc.nipples], allowing [npc.herHim] to expertly squeeze and grip down on any intruding object.");
+									break;
+								case PUFFY:
+									descriptionSB.append(" [npc.Her] [npc.nipples] have swollen up to be exceptionally plump and puffy.");
+									break;
+								case RIBBED:
+									descriptionSB.append(" The insides of [npc.her] [npc.nipples] are lined with sensitive, fleshy ribs, which grant [npc.herHim] extra pleasure when stimulated.");
+									break;
+								case TENTACLED:
+									descriptionSB.append(" [npc.Her] [npc.nipples] are filled with tiny little tentacles, which wriggle and squirm with a mind of their own.");
+									break;
+							}
+						}
+					}
+					
+					if (!breast.getNipples().getOrificeNipples().isVirgin()) {
+						for(PenetrationType pt : PenetrationType.values()) {
+							if(owner.getVirginityLoss(new SexType(pt, OrificeType.NIPPLE_PARTNER))!=null && !owner.getVirginityLoss(new SexType(pt, OrificeType.NIPPLE_PARTNER)).isEmpty()) {
+								descriptionSB.append(" [style.colourArcane([npc.Name] lost [npc.her] nipple virginity to "+ owner.getVirginityLoss(new SexType(pt, OrificeType.NIPPLE_PARTNER)) + ".)]");
+								break;
+							}
+						}
+					} else {
+						descriptionSB.append(" [style.colourGood([npc.Name] has retained [npc.her] nipple virginity.)]");
+					}
+					
+					if (breast.getRawLactationValue() > 0) {
+						descriptionSB.append("</br>[npc.She] is currently producing "+ breast.getRawLactationValue() + "mL of [npc.milkPrimaryColour(true)] [npc.milk]");
+						
+						switch(breast.getMilk().getFlavour()) {
+							case CHOCOLATE:
+								descriptionSB.append(", which tastes of chocolate.");
+								break;
+							case CUM:
+								descriptionSB.append(", which tastes exactly like cum.");
+								break;
+							case GIRL_CUM:
+								descriptionSB.append(", which tastes of girl-cum.");
+								break;
+							case HONEY:
+								descriptionSB.append(", which tastes of honey.");
+								break;
+							case MILK:
+								descriptionSB.append(", which tastes like regular milk.");
+								break;
+							case MINT:
+								descriptionSB.append(", which tastes of mint.");
+								break;
+							case PINEAPPLE:
+								descriptionSB.append(", which tastes of pineapple.");
+								break;
+							case SLIME:
+								descriptionSB.append(", which is mostly tasteless, but very sweet.");
+								break;
+							case STRAWBERRY:
+								descriptionSB.append(", which tastes of strawberries.");
+								break;
+							case BEER:
+								descriptionSB.append(", which tastes like beer.");
+								break;
+							case VANILLA:
+								descriptionSB.append(", which tastes of vanilla.");
+								break;
+						}
+						
+						for(FluidModifier fm : FluidModifier.values()) {
+							if(owner.hasMilkModifier(fm)) {
+								switch(fm) {
+									case ADDICTIVE:
+										descriptionSB.append(" It is highly addictive, and anyone who drinks too much will quickly become dependent on it.");
+										break;
+									case BUBBLING:
+										descriptionSB.append(" It fizzes and bubbles like a carbonated drink.");
+										break;
+									case HALLUCINOGENIC:
+										descriptionSB.append(" Anyone who ingests it suffers psychoactive effects, which can manifest in lactation-related hallucinations or sensitivity to hypnotic suggestion.");
+										break;
+									case MUSKY:
+										descriptionSB.append(" It has a strong, musky smell.");
+										break;
+									case SLIMY:
+										descriptionSB.append(" It has a slimy, oily texture.");
+										break;
+									case STICKY:
+										descriptionSB.append(" It's quite sticky, and is difficult to fully wash off without soap.");
+										break;
+									case VISCOUS:
+										descriptionSB.append(" It's quite viscous, and slowly drips in large globules, much like thick treacle.");
+										break;
+									case ALCOHOLIC:
+										descriptionSB.append(" It has a high alcohol content, and will get those who consume it very drunk.");
+										break;
+								}
+							}
+						}
+						
+					} else {
+						descriptionSB.append("</br>[npc.She] is not producing any milk.");
+					}
+				} else {
+					if(owner.hasNippleOrificeModifier(OrificeModifier.PUFFY)) {
+						descriptionSB.append(" [npc.Her] [npc.nipples] have swollen up to be exceptionally plump and puffy.");
+					}
+				}
+			} else {
+				descriptionSB.append("[npc.Her] "+(owner.hasBreasts()?owner.getBreastShape().getName()+" breasts":"pecs")+" have no nipples.");
 			}
 		}
 

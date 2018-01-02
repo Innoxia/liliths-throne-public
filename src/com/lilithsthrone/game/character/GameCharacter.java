@@ -6080,6 +6080,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public int getNippleCountPerBreast() {
 		return body.getBreast().getNippleCountPerBreast();
 	}
+	public boolean hasNipples() {
+		return body.getBreast().hasNipples();
+	}
 	public String setNippleCountPerBreast(int count) {
 		return body.getBreast().setNippleCountPerBreast(this, count);
 	}
@@ -7520,5 +7523,4 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public String getWingPronoun() {
 		return body.getWing().getType().getPronoun();
 	}
-
 }

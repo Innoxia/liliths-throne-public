@@ -1619,13 +1619,15 @@ public enum Sex {
 		}
 		if (!areasExposedPlayer.contains(CoverableArea.NIPPLES)) {
 			if (Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.NIPPLES, false)) {
-				sexSB.append(
-						formatCoverableAreaBecomingExposed(
-								(atStartOfSex
-										?"Your [pc.nipples+] were already exposed before starting sex!"
-										:"Your [pc.nipples+] are now exposed!"))
-						+ sexManager.getPlayerBreastsRevealReaction(isPlayerDom())
-						+ formatCoverableAreaGettingWet(getLubricationDescription(OrificeType.NIPPLE_PLAYER)));
+				if (Main.game.getPlayer().hasNipples()) {
+					sexSB.append(
+							formatCoverableAreaBecomingExposed(
+									(atStartOfSex
+											?"Your [pc.nipples+] were already exposed before starting sex!"
+											:"Your [pc.nipples+] are now exposed!"))
+							+ sexManager.getPlayerBreastsRevealReaction(isPlayerDom())
+							+ formatCoverableAreaGettingWet(getLubricationDescription(OrificeType.NIPPLE_PLAYER)));
+				}
 				areasExposedPlayer.add(CoverableArea.NIPPLES);
 			}
 		}
@@ -1681,14 +1683,16 @@ public enum Sex {
 		}
 		if (!areasExposedPartner.contains(CoverableArea.NIPPLES)) {
 			if (partner.isAbleToAccessCoverableArea(CoverableArea.NIPPLES, false)) {
-				sexSB.append(
-						formatCoverableAreaBecomingExposed(
-								(atStartOfSex
-										?"[npc.Name]'s [npc.nipples+] were already exposed before starting sex!"
-										:"[npc.Name]'s [npc.nipples+] are now exposed!"))
-							+ sexManager.getPartnerBreastsRevealReaction(isPlayerDom())
-							+ formatCoverableAreaGettingWet(getLubricationDescription(OrificeType.NIPPLE_PARTNER)));
-				areasExposedPartner.add(CoverableArea.NIPPLES);
+				if (partner.hasNipples()) {
+					sexSB.append(
+							formatCoverableAreaBecomingExposed(
+									(atStartOfSex
+											?"[npc.Name]'s [npc.nipples+] were already exposed before starting sex!"
+											:"[npc.Name]'s [npc.nipples+] are now exposed!"))
+								+ sexManager.getPartnerBreastsRevealReaction(isPlayerDom())
+								+ formatCoverableAreaGettingWet(getLubricationDescription(OrificeType.NIPPLE_PARTNER)));
+				}
+				areasExposedPartner.add(CoverableArea.NIPPLES);			
 			}
 		}
 	}

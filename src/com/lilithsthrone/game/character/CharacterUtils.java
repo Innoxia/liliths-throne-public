@@ -1277,7 +1277,7 @@ public class CharacterUtils {
 				
 				for(BlockedParts bp : ct.getBlockedPartsList()) {
 					boolean leavesAnusExposed = character.isCoverableAreaExposed(CoverableArea.ANUS) && !bp.blockedBodyParts.contains(CoverableArea.ANUS),
-							leavesNipplesExposed = character.isCoverableAreaExposed(CoverableArea.NIPPLES) && !bp.blockedBodyParts.contains(CoverableArea.NIPPLES),
+							leavesNipplesExposed = character.hasNipples()?(character.isCoverableAreaExposed(CoverableArea.NIPPLES) && !bp.blockedBodyParts.contains(CoverableArea.NIPPLES)):true,
 							leavesPenisExposed = character.hasPenis()?(character.isCoverableAreaExposed(CoverableArea.PENIS) && !bp.blockedBodyParts.contains(CoverableArea.PENIS)):true,
 							leavesVaginaExposed = character.hasVagina()?(character.isCoverableAreaExposed(CoverableArea.VAGINA) && !bp.blockedBodyParts.contains(CoverableArea.VAGINA)):true;
 					//TODO
