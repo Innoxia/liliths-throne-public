@@ -607,7 +607,7 @@ public class Breast implements BodyPartInterface, Serializable {
 	}
 
 	public boolean isFuckable() {
-		return nipples.getOrificeNipples().getCapacity() != Capacity.ZERO_IMPENETRABLE && nippleCountPerBreast>0 && size >= CupSize.C.getMeasurement();
+		return nipples.getOrificeNipples().getCapacity() != Capacity.ZERO_IMPENETRABLE && hasNipples() && size >= CupSize.C.getMeasurement();
 	}
 
 	public int getNippleCountPerBreast() {
