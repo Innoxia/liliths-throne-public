@@ -1652,6 +1652,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			case DEMON:
 				value = 10000;
 				break;
+			case GARGOYLE:
+				value = 30000;
+				break;
 			case HARPY:
 				value = 1200;
 				break;
@@ -5205,6 +5208,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				return BodyCoveringType.BODY_HAIR_BOVINE_FUR;
 			case DEMON:
 				return BodyCoveringType.BODY_HAIR_DEMON;
+			case GARGOYLE:
+				return BodyCoveringType.GARGOYLE_STONE;
 			case DOG_MORPH:
 				return BodyCoveringType.BODY_HAIR_CANINE_FUR;
 			case ALLIGATOR_MORPH:

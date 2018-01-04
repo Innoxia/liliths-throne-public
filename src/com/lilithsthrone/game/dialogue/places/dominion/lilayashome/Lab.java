@@ -3123,6 +3123,7 @@ public class Lab {
 						litterSB.append(" smiling");
 						break;
 					case ALLIGATOR_MORPH:
+					case GARGOYLE:
 						litterSB.append(" tough");
 						break;
 					case HARPY:
@@ -3174,6 +3175,7 @@ public class Lab {
 						litterSB.append(" smiling");
 						break;
 					case ALLIGATOR_MORPH:
+					case GARGOYLE:
 						litterSB.append(" tough");
 						break;
 					case HARPY:
@@ -3225,6 +3227,7 @@ public class Lab {
 						litterSB.append(" playful");
 						break;
 					case ALLIGATOR_MORPH:
+					case GARGOYLE:
 						litterSB.append(" tough");
 						break;
 					case HARPY:
@@ -3276,6 +3279,7 @@ public class Lab {
 						litterSB.append(" playful");
 						break;
 					case ALLIGATOR_MORPH:
+					case GARGOYLE:
 						litterSB.append(" tough");
 						break;
 					case HARPY:

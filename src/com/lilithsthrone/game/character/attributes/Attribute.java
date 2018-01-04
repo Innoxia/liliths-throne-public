@@ -386,6 +386,12 @@ public enum Attribute {
 			return "Each point increases damage done vs demons by 1%.";
 		}
 	},
+	DAMAGE_GARGOYLE(0, "gargoyle damage", "Gargoyle damage", "swordIcon", Colour.RACE_GARGOYLE, "gargoyle-obliteration", "gargoyle-mercy", null, null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Each point increases damage done vs gargoyles by 1%.";
+		}
+	},
 	DAMAGE_DOG_MORPH(0, "dog-morph damage", "Dog-morph damage", "swordIcon", Colour.RACE_DOG_MORPH, "dog-morph-obliteration", "dog-morph-mercy", null, null, null, null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -457,6 +463,12 @@ public enum Attribute {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases resistance vs damage inflicted by demons by 1%.";
+		}
+	},
+	RESISTANCE_GARGOYLE(0, "gargoyle resistance", "Gargoyle resistance", "shieldIcon", Colour.RACE_GARGOYLE, "gargoyle-immunity", "gargoyle-vulnerability", null, null, null, null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Each point increases resistance vs damage inflicted by gargoyles by 1%.";
 		}
 	},
 	RESISTANCE_DOG_MORPH(0, "dog-morph resistance", "Dog-morph resistance", "shieldIcon", Colour.RACE_DOG_MORPH, "dog-morph-immunity", "dog-morph-vulnerability", null, null, null, null) {

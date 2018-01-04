@@ -241,6 +241,41 @@ public enum RacialBody {
 		}
 	},
 	
+	DOG_MORPH_FLOPPY_EARS(
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.STRENGTH, 25f),
+					new Value<Attribute, Float>(Attribute.INTELLIGENCE, 20f),
+					new Value<Attribute, Float>(Attribute.FITNESS, 20f),
+					new Value<Attribute, Float>(Attribute.CORRUPTION, 20f)),
+			AntennaType.NONE,
+			ArmType.DOG_MORPH, 1,
+			AssType.DOG_MORPH, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
+			BreastType.DOG_MORPH,
+			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
+			CupSize.C, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
+			180, 30, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
+			170, 70, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.TWO_TONED.getMedianValue(),
+			EarType.DOG_MORPH_FLOPPY,
+			EyeType.DOG_MORPH,
+			FaceType.DOG_MORPH, LipSize.ONE_AVERAGE, LipSize.TWO_FULL,
+			HairType.DOG_MORPH, HairLength.TWO_SHORT, HairLength.THREE_SHOULDER_LENGTH,
+			LegType.DOG_MORPH,
+			SkinType.DOG_MORPH, BodyMaterial.FLESH,
+			HornLength.ZERO_TINY, HornLength.ZERO_TINY, Util.newArrayListOfValues(new ListValue<>(HornType.NONE)),
+			PenisType.CANINE, PenisSize.THREE_LARGE,
+			PenisType.NONE, PenisSize.TWO_AVERAGE,
+			TesticleSize.THREE_LARGE, 2, CumProduction.FOUR_LARGE,
+			TailType.DOG_MORPH,
+			VaginaType.DOG_MORPH, Wetness.THREE_WET, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
+			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
+			GenitalArrangement.NORMAL) {
+
+		@Override
+		public Personality getPersionality() {
+			return generatePersonality(60, 10, 20, 10);
+		}
+	},
+	
 	WOLF_MORPH(
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.STRENGTH, 30f),
@@ -530,6 +565,326 @@ public enum RacialBody {
 				return SexualOrientation.AMBIPHILIC;
 			}
 		}
+	},
+	
+	// GARGOYLES:
+	// Gargoyle racialbody variants should be identical to the race they're based off of, except for their attributes, skin, body material, personality, and sexual orientation.
+	GARGOYLE(Util.newHashMapOfValues(
+				new Value<Attribute, Float>(Attribute.STRENGTH, 100f),
+				new Value<Attribute, Float>(Attribute.INTELLIGENCE, 5f),
+				new Value<Attribute, Float>(Attribute.FITNESS, 100f),
+				new Value<Attribute, Float>(Attribute.CORRUPTION, 50f)),
+			AntennaType.NONE,
+			ArmType.DEMON_COMMON, 1,
+			AssType.DEMON_COMMON, AssSize.TWO_SMALL, AssSize.FOUR_LARGE, Wetness.FOUR_SLIMY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY,
+			BreastType.DEMON_COMMON,
+			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
+			CupSize.F, 3, Lactation.ZERO_NONE, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY, NippleSize.ZERO_TINY, NippleShape.VAGINA, AreolaeSize.TWO_BIG, 1,
+			190, 10, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
+			180, 90, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
+			EarType.DEMON_COMMON,
+			EyeType.DEMON_COMMON,
+			FaceType.DEMON_COMMON, LipSize.ONE_AVERAGE, LipSize.TWO_FULL,
+			HairType.DEMON_COMMON, HairLength.TWO_SHORT, HairLength.FIVE_ABOVE_ASS,
+			LegType.DEMON_COMMON,
+			SkinType.GARGOYLE, (Math.random()>0.9f?BodyMaterial.MARBLE:BodyMaterial.SANDSTONE),
+			HornLength.ONE_SMALL, HornLength.TWO_LONG,
+				Util.newArrayListOfValues(new ListValue<>(HornType.CURLED), new ListValue<>(HornType.SPIRAL), new ListValue<>(HornType.SWEPT_BACK), new ListValue<>(HornType.CURVED), new ListValue<>(HornType.STRAIGHT)),
+			PenisType.DEMON_COMMON, PenisSize.FIVE_ENORMOUS,
+			PenisType.NONE, PenisSize.TWO_AVERAGE,
+			TesticleSize.FOUR_HUGE, 4, CumProduction.SIX_EXTREME,
+			TailType.DEMON_COMMON,
+			VaginaType.DEMON_COMMON, Wetness.SEVEN_DROOLING, Capacity.ONE_EXTREMELY_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY,
+			WingType.DEMON_COMMON, WingSize.ONE_SMALL, WingSize.ONE_SMALL,
+			GenitalArrangement.NORMAL) {
+		
+		@Override
+		public Personality getPersionality() {
+			return generatePersonality(40, 10, 30, 20);
+		}
+		
+		@Override
+		public SexualOrientation getSexualOrientation(Gender gender) {
+			return SexualOrientation.AMBIPHILIC;
+		}
+	},
+	
+	GARGOYLE_COW(Util.newHashMapOfValues(
+				new Value<Attribute, Float>(Attribute.STRENGTH, 100f),
+				new Value<Attribute, Float>(Attribute.INTELLIGENCE, 5f),
+				new Value<Attribute, Float>(Attribute.FITNESS, 100f),
+				new Value<Attribute, Float>(Attribute.CORRUPTION, 50f)),
+			AntennaType.NONE,
+			ArmType.COW_MORPH, 1,
+			AssType.COW_MORPH, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE,  OrificePlasticity.THREE_RESILIENT,
+			BreastType.COW_MORPH,
+			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE,  OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
+			CupSize.E, 3, Lactation.THREE_DECENT_AMOUNT, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE,  OrificePlasticity.THREE_RESILIENT, NippleSize.THREE_LARGE, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 4,
+			180, 30, BodySize.THREE_LARGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
+			170, 70, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.TWO_TONED.getMedianValue(),
+			EarType.COW_MORPH, 
+			EyeType.COW_MORPH,
+			FaceType.COW_MORPH, LipSize.ONE_AVERAGE, LipSize.TWO_FULL,
+			HairType.COW_MORPH, HairLength.TWO_SHORT, HairLength.THREE_SHOULDER_LENGTH,
+			LegType.COW_MORPH,
+			SkinType.GARGOYLE, (Math.random()>0.9f?BodyMaterial.MARBLE:BodyMaterial.SANDSTONE),
+			HornLength.TWO_LONG, HornLength.ONE_SMALL, Util.newArrayListOfValues(new ListValue<>(HornType.BOVINE_CURVED), new ListValue<>(HornType.BOVINE_STRAIGHT)),
+			PenisType.BOVINE, PenisSize.THREE_LARGE,
+			PenisType.NONE, PenisSize.TWO_AVERAGE,
+			TesticleSize.THREE_LARGE, 2, CumProduction.FOUR_LARGE,
+			TailType.COW_MORPH,
+			VaginaType.COW_MORPH, Wetness.THREE_WET, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
+			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
+			GenitalArrangement.NORMAL) {
+		
+		@Override
+		public Personality getPersionality() {
+			return generatePersonality(40, 10, 30, 20);
+		}
+		
+		@Override
+		public SexualOrientation getSexualOrientation(Gender gender) {
+		return SexualOrientation.AMBIPHILIC;
+		}
+	},
+	
+	GARGOYLE_DOG(Util.newHashMapOfValues(
+				new Value<Attribute, Float>(Attribute.STRENGTH, 100f),
+				new Value<Attribute, Float>(Attribute.INTELLIGENCE, 5f),
+				new Value<Attribute, Float>(Attribute.FITNESS, 100f),
+				new Value<Attribute, Float>(Attribute.CORRUPTION, 50f)),
+			AntennaType.NONE,
+			ArmType.DOG_MORPH, 1,
+			AssType.DOG_MORPH, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
+			BreastType.DOG_MORPH,
+			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
+			CupSize.C, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
+			180, 30, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
+			170, 70, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.TWO_TONED.getMedianValue(),
+			EarType.DOG_MORPH,
+			EyeType.DOG_MORPH,
+			FaceType.DOG_MORPH, LipSize.ONE_AVERAGE, LipSize.TWO_FULL,
+			HairType.DOG_MORPH, HairLength.TWO_SHORT, HairLength.THREE_SHOULDER_LENGTH,
+			LegType.DOG_MORPH,
+			SkinType.GARGOYLE, (Math.random()>0.9f?BodyMaterial.MARBLE:BodyMaterial.SANDSTONE),
+			HornLength.ZERO_TINY, HornLength.ZERO_TINY, Util.newArrayListOfValues(new ListValue<>(HornType.NONE)),
+			PenisType.CANINE, PenisSize.THREE_LARGE,
+			PenisType.NONE, PenisSize.TWO_AVERAGE,
+			TesticleSize.THREE_LARGE, 2, CumProduction.FOUR_LARGE,
+			TailType.DOG_MORPH,
+			VaginaType.DOG_MORPH, Wetness.THREE_WET, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
+			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
+			GenitalArrangement.NORMAL) {
+		
+		@Override
+		public Personality getPersionality() {
+			return generatePersonality(40, 10, 30, 20);
+		}
+		
+		@Override
+		public SexualOrientation getSexualOrientation(Gender gender) {
+			return SexualOrientation.AMBIPHILIC;
+		}
+	},
+	
+	GARGOYLE_WOLF(Util.newHashMapOfValues(
+				new Value<Attribute, Float>(Attribute.STRENGTH, 100f),
+				new Value<Attribute, Float>(Attribute.INTELLIGENCE, 5f),
+				new Value<Attribute, Float>(Attribute.FITNESS, 100f),
+				new Value<Attribute, Float>(Attribute.CORRUPTION, 50f)),
+			AntennaType.NONE,
+			ArmType.LYCAN, 1,
+			AssType.WOLF_MORPH, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
+			BreastType.WOLF_MORPH,
+			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
+			CupSize.C, 3, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
+			185, 15, BodySize.THREE_LARGE.getMedianValue(), Muscle.FOUR_RIPPED.getMedianValue(),
+			175, 75, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
+			EarType.LYCAN,
+			EyeType.LYCAN,
+			FaceType.LYCAN, LipSize.ONE_AVERAGE, LipSize.TWO_FULL,
+			HairType.LYCAN, HairLength.TWO_SHORT, HairLength.THREE_SHOULDER_LENGTH,
+			LegType.LYCAN,
+			SkinType.GARGOYLE, (Math.random()>0.9f?BodyMaterial.MARBLE:BodyMaterial.SANDSTONE),
+			HornLength.ZERO_TINY, HornLength.ZERO_TINY, Util.newArrayListOfValues(new ListValue<>(HornType.NONE)),
+			PenisType.LUPINE, PenisSize.THREE_LARGE,
+			PenisType.NONE, PenisSize.TWO_AVERAGE,
+			TesticleSize.THREE_LARGE, 2, CumProduction.FIVE_HUGE,
+			TailType.LYCAN,
+			VaginaType.WOLF_MORPH, Wetness.FOUR_SLIMY, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
+			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
+			GenitalArrangement.NORMAL) {
+		
+		@Override
+		public Personality getPersionality() {
+			return generatePersonality(40, 10, 30, 20);
+		}
+		
+		@Override
+		public SexualOrientation getSexualOrientation(Gender gender) {
+			return SexualOrientation.AMBIPHILIC;
+		}
+	},
+	
+	GARGOYLE_CAT(Util.newHashMapOfValues(
+				new Value<Attribute, Float>(Attribute.STRENGTH, 100f),
+				new Value<Attribute, Float>(Attribute.INTELLIGENCE, 5f),
+				new Value<Attribute, Float>(Attribute.FITNESS, 100f),
+				new Value<Attribute, Float>(Attribute.CORRUPTION, 50f)),
+			AntennaType.NONE,
+			ArmType.CAT_MORPH, 1,
+			AssType.CAT_MORPH, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
+			BreastType.CAT_MORPH,
+			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
+			CupSize.C, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
+			170, 35, BodySize.ONE_SLENDER.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
+			160, 85, BodySize.ONE_SLENDER.getMedianValue(), Muscle.TWO_TONED.getMedianValue(),
+			EarType.CAT_MORPH,
+			EyeType.CAT_MORPH,
+			FaceType.CAT_MORPH, LipSize.ONE_AVERAGE, LipSize.TWO_FULL,
+			HairType.CAT_MORPH, HairLength.TWO_SHORT, HairLength.THREE_SHOULDER_LENGTH,
+			LegType.CAT_MORPH,
+			SkinType.GARGOYLE, (Math.random()>0.9f?BodyMaterial.MARBLE:BodyMaterial.SANDSTONE),
+			HornLength.ZERO_TINY, HornLength.ZERO_TINY, Util.newArrayListOfValues(new ListValue<>(HornType.NONE)),
+			PenisType.FELINE, PenisSize.TWO_AVERAGE,
+			PenisType.NONE, PenisSize.TWO_AVERAGE,
+			TesticleSize.TWO_AVERAGE, 2, CumProduction.THREE_AVERAGE,
+			TailType.CAT_MORPH,
+			VaginaType.CAT_MORPH, Wetness.TWO_MOIST, Capacity.TWO_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
+			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
+			GenitalArrangement.NORMAL) {
+		
+		@Override
+		public Personality getPersionality() {
+			return generatePersonality(40, 10, 30, 20);
+		}
+		
+		@Override
+		public SexualOrientation getSexualOrientation(Gender gender) {
+			return SexualOrientation.AMBIPHILIC;
+		}
+	},
+	
+	GARGOYLE_HORSE(Util.newHashMapOfValues(
+				new Value<Attribute, Float>(Attribute.STRENGTH, 100f),
+				new Value<Attribute, Float>(Attribute.INTELLIGENCE, 5f),
+				new Value<Attribute, Float>(Attribute.FITNESS, 100f),
+				new Value<Attribute, Float>(Attribute.CORRUPTION, 50f)),
+			AntennaType.NONE,
+			ArmType.HORSE_MORPH, 1,
+			AssType.HORSE_MORPH, AssSize.TWO_SMALL, AssSize.FIVE_HUGE, Wetness.ZERO_DRY, Capacity.THREE_SLIGHTLY_LOOSE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
+			BreastType.HORSE_MORPH,
+			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
+			CupSize.GG, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
+			180, 10, BodySize.FOUR_HUGE.getMedianValue(), Muscle.FOUR_RIPPED.getMedianValue(),
+			170, 70, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.FOUR_RIPPED.getMedianValue(),
+			EarType.HORSE_MORPH,
+			EyeType.HORSE_MORPH,
+			FaceType.HORSE_MORPH, LipSize.ONE_AVERAGE, LipSize.TWO_FULL,
+			HairType.HORSE_MORPH, HairLength.TWO_SHORT, HairLength.FOUR_MID_BACK,
+			LegType.HORSE_MORPH,
+			SkinType.GARGOYLE, (Math.random()>0.9f?BodyMaterial.MARBLE:BodyMaterial.SANDSTONE),
+			HornLength.ZERO_TINY, HornLength.ZERO_TINY, Util.newArrayListOfValues(new ListValue<>(HornType.NONE)),
+			PenisType.EQUINE, PenisSize.FOUR_HUGE,
+			PenisType.NONE, PenisSize.TWO_AVERAGE,
+			TesticleSize.FOUR_HUGE, 2, CumProduction.FIVE_HUGE,
+			TailType.HORSE_MORPH,
+			VaginaType.HORSE_MORPH, Wetness.THREE_WET, Capacity.THREE_SLIGHTLY_LOOSE, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
+			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
+			GenitalArrangement.NORMAL) {
+		
+		@Override
+		public Personality getPersionality() {
+			return generatePersonality(40, 10, 30, 20);
+		}
+		
+		@Override
+		public SexualOrientation getSexualOrientation(Gender gender) {
+			return SexualOrientation.AMBIPHILIC;
+		}
+	},
+	
+	GARGOYLE_ALLIGATOR(Util.newHashMapOfValues(
+				new Value<Attribute, Float>(Attribute.STRENGTH, 100f),
+				new Value<Attribute, Float>(Attribute.INTELLIGENCE, 5f),
+				new Value<Attribute, Float>(Attribute.FITNESS, 100f),
+				new Value<Attribute, Float>(Attribute.CORRUPTION, 50f)),
+			AntennaType.NONE,
+		    ArmType.ALLIGATOR_MORPH, 1,
+		    AssType.ALLIGATOR_MORPH, AssSize.TWO_SMALL, AssSize.TWO_SMALL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
+		    BreastType.ALLIGATOR_MORPH,
+		    CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
+		    CupSize.A, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
+		    170, 25, BodySize.THREE_LARGE.getMedianValue(), Muscle.FOUR_RIPPED.getMedianValue(),
+		    170, 95, BodySize.ONE_SLENDER.getMedianValue(), Muscle.FOUR_RIPPED.getMedianValue(),
+		    EarType.ALLIGATOR_MORPH,
+		    EyeType.ALLIGATOR_MORPH,
+		    FaceType.ALLIGATOR_MORPH, LipSize.ONE_AVERAGE, LipSize.ONE_AVERAGE,
+		    HairType.ALLIGATOR_MORPH, HairLength.ZERO_BALD, HairLength.ZERO_BALD,
+		    LegType.ALLIGATOR_MORPH,
+		    SkinType.GARGOYLE, (Math.random()>0.9f?BodyMaterial.MARBLE:BodyMaterial.SANDSTONE),
+			HornLength.ZERO_TINY, HornLength.ZERO_TINY, Util.newArrayListOfValues(new ListValue<>(HornType.NONE)),
+		    PenisType.ALLIGATOR_MORPH, PenisSize.FIVE_ENORMOUS,
+		    PenisType.NONE, PenisSize.TWO_AVERAGE,
+		    TesticleSize.FOUR_HUGE, 2, CumProduction.FIVE_HUGE,
+		    TailType.ALLIGATOR_MORPH,
+		    VaginaType.ALLIGATOR_MORPH, Wetness.SEVEN_DROOLING, Capacity.ONE_EXTREMELY_TIGHT, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY,
+		    WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
+		    GenitalArrangement.CLOACA) {
+		
+		@Override
+		public Personality getPersionality() {
+			return generatePersonality(40, 10, 30, 20);
+		}
+		
+		@Override
+		public SexualOrientation getSexualOrientation(Gender gender) {
+			return SexualOrientation.AMBIPHILIC;
+		}
+		
+		@Override
+		public boolean isHairTypeLinkedToFaceType() {
+			return true;
+		}
+	},
+	
+	GARGOYLE_SQUIRREL(Util.newHashMapOfValues(
+				new Value<Attribute, Float>(Attribute.STRENGTH, 100f),
+				new Value<Attribute, Float>(Attribute.INTELLIGENCE, 5f),
+				new Value<Attribute, Float>(Attribute.FITNESS, 100f),
+				new Value<Attribute, Float>(Attribute.CORRUPTION, 50f)),
+			AntennaType.NONE,
+			ArmType.SQUIRREL_MORPH, 1,
+			AssType.SQUIRREL_MORPH, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
+			BreastType.SQUIRREL_MORPH,
+			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
+			CupSize.D, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
+			170, 35, BodySize.ONE_SLENDER.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
+			160, 85, BodySize.ONE_SLENDER.getMedianValue(), Muscle.TWO_TONED.getMedianValue(),
+			EarType.SQUIRREL_MORPH,
+			EyeType.SQUIRREL_MORPH,
+			FaceType.SQUIRREL_MORPH, LipSize.ONE_AVERAGE, LipSize.TWO_FULL,
+			HairType.SQUIRREL_MORPH, HairLength.ONE_VERY_SHORT, HairLength.TWO_SHORT,
+			LegType.SQUIRREL_MORPH,
+			SkinType.GARGOYLE, (Math.random()>0.9f?BodyMaterial.MARBLE:BodyMaterial.SANDSTONE),
+			HornLength.ZERO_TINY, HornLength.ZERO_TINY, Util.newArrayListOfValues(new ListValue<>(HornType.NONE)),
+			PenisType.SQUIRREL, PenisSize.THREE_LARGE,
+			PenisType.NONE, PenisSize.TWO_AVERAGE,
+			TesticleSize.THREE_LARGE, 2, CumProduction.THREE_AVERAGE,
+			TailType.SQUIRREL_MORPH,
+			VaginaType.SQUIRREL_MORPH, Wetness.TWO_MOIST, Capacity.FOUR_LOOSE, ClitorisSize.ONE_BIG, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
+			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
+			GenitalArrangement.NORMAL) {
+		
+		@Override
+		public Personality getPersionality() {
+			return generatePersonality(40, 10, 30, 20);
+		}
+		
+		@Override
+		public SexualOrientation getSexualOrientation(Gender gender) {
+			return SexualOrientation.AMBIPHILIC;
+		}
 	};
 
 	// Attributes modified by this Trait:
@@ -698,6 +1053,8 @@ public enum RacialBody {
 				return RacialBody.COW_MORPH;
 			case DEMON:
 				return RacialBody.DEMON;
+			case GARGOYLE:
+				return RacialBody.GARGOYLE;
 			case DOG_MORPH:
 				return RacialBody.DOG_MORPH;
 			case ALLIGATOR_MORPH:

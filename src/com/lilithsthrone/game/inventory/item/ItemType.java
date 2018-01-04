@@ -1094,6 +1094,52 @@ public class ItemType {
 		}
 	};
 	
+//	public static AbstractItemType RACE_INGREDIENT_GARGOYLE = new AbstractItemType(
+//			"a chunk of",
+//			false,
+//			"Rock Candy",
+//			"Rock Candy",
+//			"A moderately sized piece of hard candy.",
+//			"present",
+//			Colour.RACE_GARGOYLE,
+//			250,
+//			Rarity.RARE,
+//			TFEssence.ARCANE,
+//			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_ROUND_NUTS, null, null, null, 0)))) {
+//
+//		private static final long serialVersionUID = 1L;
+//
+//		@Override
+//		public ItemEffectType getEnchantmentEffect() {
+//			return ItemEffectType.RACE_GARGOYLE;
+//		}
+//
+//		@Override
+//		public AbstractItemType getEnchantmentItemType() {
+//			return ELIXIR;
+//		}
+//
+//		@Override
+//		public String getUseName() {
+//			return "eat";
+//		}
+//
+//		@Override
+//		public String getUseDescription(GameCharacter user, GameCharacter target) {
+//			if (user!=null && user.isPlayer() && target.isPlayer()) {
+//				return "<p>"
+//							+ "You cram the chunk of rock candy into your mouth, several sickening crunches sounding out. You feel the urgent need to get a dental checkup."
+//						+ "</p>";
+//				
+//			} else {
+//				return UtilText.parse(target,
+//						"<p>"
+//								+ "[npc.Name] crams the chunk of rock candy into [npc.herHis] mouth and chews, several sickening crunches sounding out."
+//						+ "</p>");
+//			}
+//		}
+//	};
+	
 	public static AbstractItemType RACE_INGREDIENT_HUMAN = new AbstractItemType(
 			"a vial of",
 			false,
@@ -2760,6 +2806,44 @@ public class ItemType {
 					+ "</p>";
 		}
 	};
+	
+//	public static AbstractItemType BOOK_GARGOYLE = new AbstractItemType(
+//			null,
+//			false,
+//			"Monstrous Statues",
+//			"Monstrous Statues'",
+//			"A book about gargoyles.",
+//			"book_race_demon", //TODO Icon for this.
+//			Colour.RACE_GARGOYLE,
+//			10,
+//			Rarity.LEGENDARY,
+//			null,
+//			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_DEMON, null, null, null, 0)))) {
+//
+//		private static final long serialVersionUID = 1L;
+//
+//		@Override
+//		public boolean isAbleToBeUsed(GameCharacter target) {
+//			return !Main.getProperties().isAdvancedRaceKnowledgeDiscovered(Race.DEMON);
+//		}
+//
+//		@Override
+//		public String getUnableToBeUsedDescription(GameCharacter target) {
+//			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
+//		}
+//		
+//		@Override
+//		public String getUseName() {
+//			return "read";
+//		}
+//		
+//		@Override
+//		public String getUseDescription(GameCharacter user, GameCharacter target) {
+//			return "<p>"
+//						+ "Opening the book, you read its contents..."
+//					+ "</p>";
+//		}
+//	};
 	
 	public static AbstractItemType BOOK_DOG_MORPH = new AbstractItemType(
 			null,

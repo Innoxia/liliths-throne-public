@@ -606,8 +606,44 @@ public enum Race {
 			Attribute.DAMAGE_HARPY,
 			Attribute.RESISTANCE_HARPY,
 			null,
-			null);
+			null),
 
+	GARGOYLE("gargoyle", "gargoyles",
+			"gargoyle",
+			"gargoyle",
+			"gargoyles",
+			"gargoyles",
+
+			"<p>"
+				+ "Gargoyles are entities created almost exclusively by the effect of an arcane storm."
+				+ " During that time, a statue may come to life, and due to the effects of the arcane, almost immediately begins attacking people."
+				+ " Due to this, a gargoyle is capable of resembling almost any race, but their body is always composed of inorganic material."
+				+ " Those resembling demons are largely more common than those resembling morphs, but in specific locales this may differ."
+			+ "</p>",
+			
+			"<p>"
+				+ "Gargoyles are primarily limited to areas such as Dominion and Submission, where statues may be seen."
+				+ " Due to their body's makeup, they are far more sturdy and powerful than most other races."
+				+ " Having a gargoyle slave is considered to be a status symbol, even moreso based on their body's material and coloring."
+				+ " Gargoyles, as a race, have no civilization or culture of their own, and usually just integrate into where they happen to be."
+				+ " If a gargoyle breeds, the resultant offspring always resembles its partner." //Let's be real, delivering a baby made of stone would be a terrible experience.
+			+ "</p>",
+
+
+			Colour.RACE_GARGOYLE,
+			Genus.GARGOYLE,
+			Disposition.SAVAGE,
+			StatusEffect.GARGOYLE,
+			Util.newArrayListOfValues(new ListValue<Attack>(Attack.MAIN)),
+			true,
+			0.5f,
+			1,
+			1,
+			Attribute.DAMAGE_GARGOYLE,
+			Attribute.RESISTANCE_GARGOYLE,
+			null,
+			null);
+	
 	/*
 	 * // INSECTS: BEE_MORPH("bee-morph",
 	 * 

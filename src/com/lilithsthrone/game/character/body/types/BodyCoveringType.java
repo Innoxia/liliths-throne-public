@@ -488,6 +488,23 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 			Colour.dyeScaleColours,
 			Colour.naturalScaleColours,
 			Colour.dyeScaleColours),
+	
+	GARGOYLE_STONE(Race.GARGOYLE,
+			"a layer of",
+			true,
+			"stone",
+			"stone",
+			"",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.MOTTLED),
+					new ListValue<CoveringPattern>(CoveringPattern.STRIPED),
+					new ListValue<CoveringPattern>(CoveringPattern.SPOTTED)),
+			Colour.stoneColours,
+			Colour.stoneColours,
+			Colour.stoneColours,
+			Colour.stoneColours),
 
 	// MISC:
 	

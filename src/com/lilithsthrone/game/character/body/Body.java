@@ -5117,6 +5117,9 @@ public class Body implements Serializable, XMLSaving {
 				case DEMON:
 					coverings.put(BodyCoveringType.BODY_HAIR_DEMON, new Covering(BodyCoveringType.BODY_HAIR_DEMON, coverings.get(BodyCoveringType.HAIR_DEMON).getPrimaryColour()));
 					break;
+				case GARGOYLE:
+					coverings.put(BodyCoveringType.GARGOYLE_STONE, new Covering(BodyCoveringType.GARGOYLE_STONE, coverings.get(BodyCoveringType.GARGOYLE_STONE).getPrimaryColour()));
+					break;
 				case DOG_MORPH:
 					coverings.put(BodyCoveringType.BODY_HAIR_CANINE_FUR, new Covering(BodyCoveringType.BODY_HAIR_CANINE_FUR, coverings.get(BodyCoveringType.HAIR_CANINE_FUR).getPrimaryColour()));
 					break;
@@ -5187,6 +5190,9 @@ public class Body implements Serializable, XMLSaving {
 						break;
 					case DEMON:
 						coverings.put(BodyCoveringType.BODY_HAIR_DEMON, new Covering(BodyCoveringType.BODY_HAIR_DEMON, coverings.get(BodyCoveringType.HAIR_DEMON).getPrimaryColour()));
+						break;
+					case GARGOYLE:
+						coverings.put(BodyCoveringType.GARGOYLE_STONE, new Covering(BodyCoveringType.GARGOYLE_STONE, coverings.get(BodyCoveringType.GARGOYLE_STONE).getPrimaryColour()));
 						break;
 					case DOG_MORPH:
 						coverings.put(BodyCoveringType.BODY_HAIR_CANINE_FUR, new Covering(BodyCoveringType.BODY_HAIR_CANINE_FUR, coverings.get(BodyCoveringType.HAIR_CANINE_FUR).getPrimaryColour()));

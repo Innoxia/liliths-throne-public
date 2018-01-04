@@ -1789,6 +1789,42 @@ public enum StatusEffect {
 			return true;
 		}
 	},
+	
+	GARGOYLE(
+			90,
+			"gargoyle",
+			"raceDemon", //TODO Make a Gargoyle icon and replace this.
+			Colour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 80f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer())
+				return "Your solid body renders most physical attacks ineffective.')";
+			else
+				return UtilText.parse(target,
+						target.getName("This")+"'s solid body renders most physical attacks ineffective.");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.GARGOYLE
+					&& target.getRaceStage() == RaceStage.GREATER;
+		}
+		
+		@Override
+		protected boolean needsDesaturated() {
+			return true;
+		}
+	},
 
 	// CANINE:
 	DOG_MORPH(

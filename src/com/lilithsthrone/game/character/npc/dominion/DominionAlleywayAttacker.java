@@ -18,6 +18,7 @@ import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.RacialSelector;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
@@ -72,6 +73,7 @@ public class DominionAlleywayAttacker extends NPC {
 			// RACE & NAME:
 			
 			Race race = Race.DOG_MORPH;
+			RacialBody racialBody = RacialBody.DOG_MORPH;
 			
 			double humanChance = 0;
 			
@@ -95,7 +97,9 @@ public class DominionAlleywayAttacker extends NPC {
 					new Value<>(Race.WOLF_MORPH, 20),
 					new Value<>(Race.SQUIRREL_MORPH, 10),
 					new Value<>(Race.COW_MORPH, 10),
-					new Value<>(Race.ALLIGATOR_MORPH, 5));
+					new Value<>(Race.ALLIGATOR_MORPH, 5)
+					//new Value<>(Race.GARGOYLE, 2)
+					);
 			
 			if(Main.game.getSeason()==Season.WINTER && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter)) {
 				availableRaces.put(Race.REINDEER_MORPH, 10);
@@ -120,6 +124,7 @@ public class DominionAlleywayAttacker extends NPC {
 				
 			} else {
 				race = Util.getRandomObjectFromWeightedMap(availableRaces);
+				racialBody = RacialSelector.getBodyFromSelector(RacialSelector.valueOfRace(race));
 				
 				if(gender.isFeminine()) {
 					switch(Main.getProperties().raceFemininePreferencesMap.get(race)) {
@@ -136,7 +141,7 @@ public class DominionAlleywayAttacker extends NPC {
 							setBodyFromPreferences(3, gender, race);
 							break;
 						case MAXIMUM:
-							setBody(gender, RacialBody.valueOfRace(race), RaceStage.GREATER);
+							setBody(gender, racialBody, RaceStage.GREATER);
 							break;
 					}
 				} else {
@@ -154,7 +159,7 @@ public class DominionAlleywayAttacker extends NPC {
 							setBodyFromPreferences(3, gender, race);
 							break;
 						case MAXIMUM:
-							setBody(gender, RacialBody.valueOfRace(race), RaceStage.GREATER);
+							setBody(gender, racialBody, RaceStage.GREATER);
 							break;
 					}
 				}
@@ -225,7 +230,7 @@ public class DominionAlleywayAttacker extends NPC {
 			raceStage = RaceStage.GREATER;
 		}
 		
-		setBody(gender, RacialBody.valueOfRace(race), raceStage);
+		setBody(gender, RacialSelector.getBodyFromSelector(RacialSelector.valueOfRace(race)), raceStage);
 	}
 	
 	@Override

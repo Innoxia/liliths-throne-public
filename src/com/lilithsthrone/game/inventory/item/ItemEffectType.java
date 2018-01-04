@@ -1743,6 +1743,35 @@ public enum ItemEffectType {
 		}
 	},
 	
+//	RACE_GARGOYLE(null,
+//			Colour.RACE_GARGOYLE) {
+//
+//		@Override
+//		public List<TFModifier> getPrimaryModifiers() { //TODO change this into just a bodymaterial enchant
+//			return TFModifier.getTFRacialBodyPartsList();
+//		}
+//
+//		@Override
+//		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+//			return getRacialSecondaryModifiers(Race.GARGOYLE, primaryModifier);
+//		}
+//		
+//		@Override
+//		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
+//			return getRacialPotencyModifiers(Race.GARGOYLE, primaryModifier, secondaryModifier);
+//		}
+//		
+//		@Override
+//		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+//			return Util.newArrayListOfValues(new ListValue<>(getRacialEffect(Race.GARGOYLE, primaryModifier, secondaryModifier, potency, user, target).getDescriptionPlusChangeDescription()));
+//		}
+//		
+//		@Override
+//		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+//			return getRacialEffect(Race.GARGOYLE, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
+//		}
+//	},
+	
 	RACE_HUMAN(null,
 			Colour.RACE_HUMAN) {
 
@@ -2031,7 +2060,7 @@ public enum ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			return getRacialEffect(Race.HARPY, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
 		}
-	},;
+	};
 	
 	
 	private List<String> effectsDescriptions;
