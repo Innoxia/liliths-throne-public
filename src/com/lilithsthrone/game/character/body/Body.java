@@ -2600,6 +2600,13 @@ public class Body implements Serializable, XMLSaving {
 							sb.append("a furry, [npc.tailColour(true)] dog-like tail, which wags uncontrollably when [npc.she] gets excited.");
 						}
 						break;
+					case DOG_MORPH_CURLY:
+						if (owner.isPlayer()) {
+							sb.append("a curled, [pc.tailColour(true)] dog-like tail, which wags uncontrollably when you get excited.");
+						} else {
+							sb.append("a curled, [npc.tailColour(true)] dog-like tail, which wags uncontrollably when [npc.she] gets excited.");
+						}
+						break;
 					case ALLIGATOR_MORPH:
 						if (owner.isPlayer()) {
 							sb.append("a long, [pc.tailColour(true)] alligator-like tail, which you can swipe from side to side with considerable force.");
@@ -2674,6 +2681,13 @@ public class Body implements Serializable, XMLSaving {
 							sb.append("furry, [pc.tailColour(true)] dog-like tails, which wag uncontrollably when you get excited.");
 						} else {
 							sb.append("furry, [npc.tailColour(true)] dog-like tails, which wag uncontrollably when [npc.she] gets excited.");
+						}
+						break;
+					case DOG_MORPH_CURLY:
+						if (owner.isPlayer()) {
+							sb.append("curled, [pc.tailColour(true)] dog-like tails, which wag uncontrollably when you get excited.");
+						} else {
+							sb.append("curled, [npc.tailColour(true)] dog-like tails, which wag uncontrollably when [npc.she] gets excited.");
 						}
 						break;
 					case ALLIGATOR_MORPH:

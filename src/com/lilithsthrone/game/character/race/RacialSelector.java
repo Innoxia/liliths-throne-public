@@ -24,9 +24,7 @@ public enum RacialSelector {
 	COW_MORPH(Util.newHashMapOfValues(new Value<RacialBody, Integer>(RacialBody.COW_MORPH, 100))),
 	
 	// CANINES:
-	DOG_MORPH(Util.newHashMapOfValues(
-			new Value<RacialBody, Integer>(RacialBody.DOG_MORPH, 100),
-			new Value<RacialBody, Integer>(RacialBody.DOG_MORPH_FLOPPY_EARS, 100))),
+	DOG_MORPH(Util.newHashMapOfValues(new Value<RacialBody, Integer>(RacialBody.DOG_MORPH, 100))),
 	
 	WOLF_MORPH(Util.newHashMapOfValues(new Value<RacialBody, Integer>(RacialBody.WOLF_MORPH, 100))),
 
@@ -47,13 +45,10 @@ public enum RacialSelector {
 	// GARGOYLES:
 	GARGOYLE(Util.newHashMapOfValues(
 			new Value<RacialBody, Integer>(RacialBody.GARGOYLE, 100),
-			new Value<RacialBody, Integer>(RacialBody.GARGOYLE_CAT, 20),
-			new Value<RacialBody, Integer>(RacialBody.GARGOYLE_DOG, 20),
-			new Value<RacialBody, Integer>(RacialBody.GARGOYLE_WOLF, 20),
-			new Value<RacialBody, Integer>(RacialBody.GARGOYLE_HORSE, 20),
-			new Value<RacialBody, Integer>(RacialBody.GARGOYLE_COW, 10),
-			new Value<RacialBody, Integer>(RacialBody.GARGOYLE_SQUIRREL, 10),
-			new Value<RacialBody, Integer>(RacialBody.GARGOYLE_ALLIGATOR, 5))),
+			new Value<RacialBody, Integer>(RacialBody.CAT_MORPH, 20),
+			new Value<RacialBody, Integer>(RacialBody.DOG_MORPH, 20),
+			new Value<RacialBody, Integer>(RacialBody.WOLF_MORPH, 20),
+			new Value<RacialBody, Integer>(RacialBody.HORSE_MORPH, 20))),
 
 	// RODENTS:
 	SQUIRREL_MORPH(Util.newHashMapOfValues(new Value<RacialBody, Integer>(RacialBody.SQUIRREL_MORPH, 100))),

@@ -13,7 +13,7 @@ public enum BodyMaterial {
 	ICE("ice"),
 	RUBBER("rubber"),
 	SANDSTONE("sandstone"),
-	MARBLE("sandstone");
+	MARBLE("marble");
 	
 	private String descriptor;
 
