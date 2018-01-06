@@ -55,7 +55,7 @@ public class InventoryTooltipEventListener implements EventListener {
 	private Colour secondaryColour;
 	private Colour tertiaryColour;
 	private AbstractClothingType genericClothing;
-	private AbstractClothing dyeClothing;
+	private AbstractClothingType dyeClothing;
 	private InventorySlot invSlot;
 	private TFModifier enchantmentModifier;
 	private TFEssence essence;
@@ -156,29 +156,19 @@ public class InventoryTooltipEventListener implements EventListener {
 
 			Main.mainController.setTooltipSize(360, 446);
 
+			Colour primary = colour != null ? colour
+					: dyeClothing.getAvailablePrimaryColours().get(0); // Primary cannot be null
+			Colour secondary = secondaryColour != null ? secondaryColour
+					: dyeClothing.getAvailableSecondaryColours().stream().findFirst().orElse(null);
+			Colour tertiary = tertiaryColour != null ? tertiaryColour
+					: dyeClothing.getAvailableTertiaryColours().stream().findFirst().orElse(null);
+
 			tooltipSB.setLength(0);
-			if(colour!=null) {
-				tooltipSB.append("<div class='title' style='color:" + dyeClothing.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(dyeClothing.getName()) + "</div>"
-						
-						+ "<div class='subTitle'>" + Util.capitaliseSentence(colour.getName()) + "</div>"
-	
-						+ "<div class='picture full' style='position:relative;'>" + dyeClothing.getClothingType().getSVGImage(colour, InventoryDialogue.dyePreviewSecondary, InventoryDialogue.dyePreviewTertiary) + "</div>");
-			
-			} else if(secondaryColour!=null) {
-				tooltipSB.append("<div class='title' style='color:" + dyeClothing.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(dyeClothing.getName()) + "</div>"
-						
-						+ "<div class='subTitle'>" + Util.capitaliseSentence(secondaryColour.getName()) + "</div>"
-	
-						+ "<div class='picture full' style='position:relative;'>" + dyeClothing.getClothingType().getSVGImage(InventoryDialogue.dyePreviewPrimary, secondaryColour, InventoryDialogue.dyePreviewTertiary) + "</div>");
-				
-			} else if(tertiaryColour!=null) {
-				tooltipSB.append("<div class='title' style='color:" + dyeClothing.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(dyeClothing.getName()) + "</div>"
-						
-						+ "<div class='subTitle'>" + Util.capitaliseSentence(tertiaryColour.getName()) + "</div>"
-	
-						+ "<div class='picture full' style='position:relative;'>" + dyeClothing.getClothingType().getSVGImage(InventoryDialogue.dyePreviewPrimary, InventoryDialogue.dyePreviewSecondary, tertiaryColour) + "</div>");
-				
-			}
+			tooltipSB.append("<div class='title' style='color:" + dyeClothing.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(dyeClothing.getName()) + "</div>"
+
+					+ "<div class='subTitle'>" + Util.capitaliseSentence(colour.getName()) + "</div>"
+
+					+ "<div class='picture full' style='position:relative;'>" + dyeClothing.getSVGImage(primary, secondary, tertiary) + "</div>");
 			
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
@@ -403,21 +393,21 @@ public class InventoryTooltipEventListener implements EventListener {
 		return this;
 	}
 
-	public InventoryTooltipEventListener setDyeClothingPrimary(AbstractClothing dyeClothing, Colour colour) {
+	public InventoryTooltipEventListener setDyeClothingPrimary(AbstractClothingType dyeClothing, Colour colour) {
 		resetVariables();
 		this.dyeClothing = dyeClothing;
 		this.colour = colour;
 		return this;
 	}
 	
-	public InventoryTooltipEventListener setDyeClothingSecondary(AbstractClothing dyeClothing, Colour secondaryColour) {
+	public InventoryTooltipEventListener setDyeClothingSecondary(AbstractClothingType dyeClothing, Colour secondaryColour) {
 		resetVariables();
 		this.dyeClothing = dyeClothing;
 		this.secondaryColour = secondaryColour;
 		return this;
 	}
 	
-	public InventoryTooltipEventListener setDyeClothingTertiary(AbstractClothing dyeClothing, Colour tertiaryColour) {
+	public InventoryTooltipEventListener setDyeClothingTertiary(AbstractClothingType dyeClothing, Colour tertiaryColour) {
 		resetVariables();
 		this.dyeClothing = dyeClothing;
 		this.tertiaryColour = tertiaryColour;
