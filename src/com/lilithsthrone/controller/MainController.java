@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
 
+import com.lilithsthrone.rendering.AttributesPanel;
+import com.lilithsthrone.rendering.ButtonsPanel;
 import org.w3c.dom.Document;
 import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
@@ -187,7 +189,9 @@ public class MainController implements Initializable {
 	@FXML
 	private WebView webViewMain, webViewAttributes, webViewRight, webViewButtons;
 
-	private WebEngine webEngine, webEngineTooltip, webEngineAttributes, webEngineRight, webEngineButtons;
+	private WebEngine webEngine, webEngineTooltip, webEngineRight;
+	private AttributesPanel attributesPanel;
+	private ButtonsPanel buttonsPanel;
 	private WebView webviewTooltip;
 	private Tooltip tooltip;
 	private EventHandler<KeyEvent> actionKeyPressed, actionKeyReleased;
@@ -934,12 +938,14 @@ public class MainController implements Initializable {
 	private void unbindListeners(Document document) {
 		cookieManager.getCookieStore().removeAll();
 		if(document!=null) {
-			for(EventListenerData data : EventListenerDataMap.get(document)) {
-				((EventTarget) document.getElementById(data.ID)).removeEventListener(data.type, data.listener, data.useCapture);
+			List<EventListenerData> listeners = EventListenerDataMap.get(document);
+			if (listeners != null) {
+				for (EventListenerData data : listeners) {
+					((EventTarget) document.getElementById(data.ID)).removeEventListener(data.type, data.listener, data.useCapture);
+				}
+				listeners.clear();
+				EventListenerDataMap.remove(document);
 			}
-			EventListenerDataMap.get(document).clear();
-			
-			EventListenerDataMap.remove(document);
 		}
 	}
 	
@@ -990,42 +996,39 @@ public class MainController implements Initializable {
 		// Buttons webview:
 
 		webViewButtons.setContextMenuEnabled(false);
-		webEngineButtons = webViewButtons.getEngine();
-		webEngineButtons.getHistory().setMaxSize(0);
-		
-		if (Main.getProperties().lightTheme) {
-			webEngineButtons.setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewButtons_stylesheet_light.css").toExternalForm());
-		} else {
-			webEngineButtons.setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewButtons_stylesheet.css").toExternalForm());
-		}
-		
-		if(debugAllowListeners)
-		webEngineButtons.getLoadWorker().stateProperty().addListener((ObservableValue<? extends State> ov, State oldState, State newState) -> {
-			if (newState == State.SUCCEEDED) {
-				unbindListeners(documentButtons);
-				manageButtonListeners();
-			}
+		buttonsPanel = new ButtonsPanel(webViewButtons.getEngine());
+		buttonsPanel.setBeforeContentUpdate((WebEngineEx)->{
+			unbindListeners(documentButtons);
 		});
+		buttonsPanel.setAfterContentUpdate((WebEngineEx)->{
+			manageButtonListeners();
+		});
+		if(debugAllowListeners) {
+			buttonsPanel.getEngine().getLoadWorker().stateProperty().addListener((ObservableValue<? extends State> ov, State oldState, State newState) -> {
+				if (newState == State.SUCCEEDED) {
+					unbindListeners(documentButtons);
+					manageButtonListeners();
+				}
+			});
+		}
 
 		
 		// Attributes WebView:
 		webViewAttributes.setContextMenuEnabled(false);
-		webEngineAttributes = webViewAttributes.getEngine();
-		webEngineAttributes.getHistory().setMaxSize(0);
-		
-		if (Main.getProperties().lightTheme) {
-			webEngineAttributes.setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewAttributes_stylesheet_light.css").toExternalForm());
-		} else {
-			webEngineAttributes.setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewAttributes_stylesheet.css").toExternalForm());
-		}
-		
-		if(debugAllowListeners)
-		webEngineAttributes.getLoadWorker().stateProperty().addListener((ObservableValue<? extends State> ov, State oldState, State newState) -> {
-			if (newState == State.SUCCEEDED) {
-				unbindListeners(documentAttributes);
-				manageAttributeListeners();
-			}
+		attributesPanel = new AttributesPanel(webViewAttributes.getEngine());
+		attributesPanel.setBeforeContentUpdate((WebEngineEx)->{
+			unbindListeners(documentAttributes);
 		});
+		attributesPanel.setAfterContentUpdate((WebEngineEx)->{
+			manageAttributeListeners();
+		});
+		if(debugAllowListeners) {
+			attributesPanel.getEngine().getLoadWorker().stateProperty().addListener((ObservableValue<? extends State> ov, State oldState, State newState) -> {
+				if (newState == State.SUCCEEDED) {
+					manageAttributeListeners();
+				}
+			});
+		}
 		
 		// Attributes WebView:
 		webViewRight.setContextMenuEnabled(false);
@@ -4626,7 +4629,7 @@ public class MainController implements Initializable {
 	}
 	
 	private void manageButtonListeners() {
-		documentButtons = (Document) webEngineButtons.executeScript("document");
+		documentButtons = (Document) buttonsPanel.getEngine().executeScript("document");
 		EventListenerDataMap.put(documentButtons, new ArrayList<>());
 		
 		if(((EventTarget) documentButtons.getElementById("mainMenu"))!=null)
@@ -4642,7 +4645,7 @@ public class MainController implements Initializable {
 	}
 	
 	private void manageAttributeListeners() {
-		documentAttributes = (Document) webEngineAttributes.executeScript("document");
+		documentAttributes = (Document) attributesPanel.getEngine().executeScript("document");
 		EventListenerDataMap.put(documentAttributes, new ArrayList<>());
 		
 		// Map:
@@ -5063,21 +5066,16 @@ public class MainController implements Initializable {
 			}
 		}
 	}
-	
-	
+
 	private boolean useJavascriptToSetContent = true;
-	
+
 	private void setWebEngineContent(WebEngine engine, String content) {
-		content=content.replaceAll("\r", "");
-		content=content.replaceAll("\n", "");
-		content=content.replaceAll("\"", "'");
-		
 		engine.executeScript(
 			"document.open('text/html');"
-			+ "document.write(\""+content+"\");"
+			+ "document.write("+ WebEngineEx.escapeJsString(content)+");"
 			+"document.close();");
 	}
-	
+
 	public void setMainContent(String content) {
 		if(useJavascriptToSetContent) {
 			unbindListeners(document);
@@ -5096,16 +5094,6 @@ public class MainController implements Initializable {
 		}
 	}
 	
-	public void setAttributePanelContent(String content) {
-		if(useJavascriptToSetContent) {
-			unbindListeners(documentAttributes);
-			setWebEngineContent(webEngineAttributes, content);
-			manageAttributeListeners();
-		} else {
-			webEngineAttributes.loadContent(content);
-		}
-	}
-	
 	public void setRightPanelContent(String content) {
 		if(useJavascriptToSetContent) {
 			unbindListeners(documentRight);
@@ -5113,16 +5101,6 @@ public class MainController implements Initializable {
 			manageRightListeners();
 		} else {
 			webEngineRight.loadContent(content);
-		}
-	}
-	
-	public void setButtonsContent(String content) {
-		if(useJavascriptToSetContent) {
-			unbindListeners(documentButtons);
-			setWebEngineContent(webEngineButtons, content);
-			manageButtonListeners();
-		} else {
-			webEngineButtons.loadContent(content);
 		}
 	}
 	
@@ -5161,14 +5139,16 @@ public class MainController implements Initializable {
 	 */
 	public void updateUI() {
 		if (Main.game.isRenderAttributesSection()) {
-			RenderingEngine.ENGINE.renderAttributesPanel();
+			unbindListeners(documentAttributes);
+			attributesPanel.render();
+			manageAttributeListeners();
 			RenderingEngine.ENGINE.renderAttributesPanelRight();
 		}
-		RenderingEngine.ENGINE.renderButtons();
+		getButtonsPanel().render();
 	}
 	
 	public void updateUILeftPanel() {
-		RenderingEngine.ENGINE.renderAttributesPanel();
+		attributesPanel.render();
 	}
 	
 	public void updateUIRightPanel() {
@@ -5180,7 +5160,7 @@ public class MainController implements Initializable {
 			RenderingEngine.setZoomedIn(!RenderingEngine.isZoomedIn());
 			
 			Main.game.reloadContent();
-			RenderingEngine.ENGINE.renderButtons();
+			getButtonsPanel().render();
 		}
 	}
 
@@ -5282,18 +5262,18 @@ public class MainController implements Initializable {
 		return webEngineTooltip;
 	}
 	
-	public WebEngine getWebEngineAttributes() {
-		return webEngineAttributes;
+	public AttributesPanel getAttributesPanel() {
+		return attributesPanel;
 	}
-	
+
+	public ButtonsPanel getButtonsPanel() {
+		return buttonsPanel;
+	}
+
 	public WebEngine getWebEngineRight() {
 		return webEngineRight;
 	}
 	
-	public WebEngine getWebEngineButtons() {
-		return webEngineButtons;
-	}
-
 	// UI related:
 	public Tooltip getTooltip() {
 		return tooltip;
@@ -5319,11 +5299,11 @@ public class MainController implements Initializable {
 	}
 	
 	public void switchTheme() {
+		attributesPanel.setTheme();
+		buttonsPanel.setTheme();
 		if (Main.getProperties().lightTheme) {
 			getWebEngineTooltip().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewTooltip_stylesheet.css").toExternalForm());
 			getWebEngine().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webView_stylesheet.css").toExternalForm());
-			getWebEngineButtons().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewButtons_stylesheet.css").toExternalForm());
-			getWebEngineAttributes().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewAttributes_stylesheet.css").toExternalForm());
 			getWebEngineRight().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewAttributes_stylesheet.css").toExternalForm());
 	
 			Main.mainScene.getStylesheets().clear();
@@ -5332,8 +5312,6 @@ public class MainController implements Initializable {
 		} else {
 			getWebEngineTooltip().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewTooltip_stylesheet_light.css").toExternalForm());
 			getWebEngine().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webView_stylesheet_light.css").toExternalForm());
-			getWebEngineButtons().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewButtons_stylesheet_light.css").toExternalForm());
-			getWebEngineAttributes().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewAttributes_stylesheet_light.css").toExternalForm());
 			getWebEngineRight().setUserStyleSheetLocation(getClass().getResource("/com/lilithsthrone/res/css/webViewAttributes_stylesheet_light.css").toExternalForm());
 	
 			Main.mainScene.getStylesheets().clear();

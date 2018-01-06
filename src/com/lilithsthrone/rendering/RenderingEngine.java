@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.game.KeyboardAction;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.ArousalLevel;
@@ -56,9 +57,9 @@ public enum RenderingEngine {
 	
 	private static boolean zoomedIn = true, renderedDisabledMap = false;
 
-	private static Colour[] orgasmColours = new Colour[]{Colour.AROUSAL_STAGE_ZERO, Colour.AROUSAL_STAGE_ONE, Colour.AROUSAL_STAGE_TWO, Colour.AROUSAL_STAGE_THREE, Colour.AROUSAL_STAGE_FOUR, Colour.AROUSAL_STAGE_FIVE, Colour.GENERIC_ARCANE};
+	static Colour[] orgasmColours = new Colour[]{Colour.AROUSAL_STAGE_ZERO, Colour.AROUSAL_STAGE_ONE, Colour.AROUSAL_STAGE_TWO, Colour.AROUSAL_STAGE_THREE, Colour.AROUSAL_STAGE_FOUR, Colour.AROUSAL_STAGE_FIVE, Colour.GENERIC_ARCANE};
 
-	private static InventorySlot[] inventorySlots = {
+	static InventorySlot[] inventorySlots = {
 			InventorySlot.EYES,			InventorySlot.HEAD,			InventorySlot.NECK,		InventorySlot.HAIR,		InventorySlot.HORNS,
 			InventorySlot.TORSO_OVER,	InventorySlot.TORSO_UNDER,	InventorySlot.CHEST,	InventorySlot.MOUTH,	InventorySlot.WINGS,
 			InventorySlot.HAND,			InventorySlot.HIPS,			InventorySlot.STOMACH,	InventorySlot.NIPPLE,	InventorySlot.TAIL,
@@ -399,460 +400,14 @@ public enum RenderingEngine {
 	}
 
 	// DecimalFormat decimalFormatter = new DecimalFormat("#,###");
-	private StringBuilder uiAttributeSB = new StringBuilder();
 
 	private static float
-			renderedPlayerStrengthValue = 0, renderedPlayerIntelligenceValue = 0, renderedPlayerFitnessValue = 0, renderedPlayerCorruptionValue = 0,
-			renderedPlayerHealthValue = 0, renderedPlayerManaValue = 0, renderedPlayerStaminaValue = 0, renderedPlayerArousalValue = 0,
-			
+
 			renderedNPCStrengthValue = 0, renderedNPCIntelligenceValue = 0, renderedNPCFitnessValue = 0, renderedNPCCorruptionValue = 0,
 			renderedNPCHealthValue = 0, renderedNPCManaValue = 0, renderedNPCStaminaValue = 0, renderedNPCArousalValue = 0;
 
 	private DialogueNodeOld renderedDialogueNode = null;
-	
-	public void renderAttributesPanel() {
-		uiAttributeSB.setLength(0);
-		
-		uiAttributeSB.append(
-				"<body onLoad='scrollEventLogToBottom()'>"
-					+ " <script>"
-						+"function scrollEventLogToBottom() {document.getElementById('event-log-inner-id').scrollTop = document.getElementById('event-log-inner-id').scrollHeight;}"
-					+ "</script>"
-					+ "<div class='full'>"
-						
-						// Name box:
-						+ "<div class='attribute-container'>"
-							+ "<div class='full-width-container'>"
-								+ "<p class='character-name' style='color:"+ Femininity.valueOf(Main.game.getPlayer().getFemininityValue()).getColour().toWebHexString() + ";'>"
-									+ (Main.game.getPlayer().getName().length() == 0 ? (Main.game.getPlayer().getFemininityValue() <= Femininity.MASCULINE.getMaximumFemininity() ? "Hero" : "Heroine") : Main.game.getPlayer().getName())
-								+ "</p>"
-								+ "<div class='overlay' id='EXTRA_ATTRIBUTES'></div>"
-							+ "</div>"
-							+ "<div class='full-width-container' style='margin:0;padding:0;'>"
-								+ "<p style='text-align:center;'>"
-									+ "<b>Level " + Main.game.getPlayer().getLevel()+ "</b> "
-										+ (Main.game.getPlayer().getRaceStage().getName()!=""
-											?"<b style='color:"+Main.game.getPlayer().getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(Main.game.getPlayer().getRaceStage().getName())+"</b> ":"")
-										+ "<b style='color:"+Main.game.getPlayer().getRace().getColour().toWebHexString()+";'>"
-										+ (Main.game.getPlayer().isFeminine()?Util.capitaliseSentence(Main.game.getPlayer().getRace().getSingularFemaleName()):Util.capitaliseSentence(Main.game.getPlayer().getRace().getSingularMaleName()))
-										+ "</b>"
-								+"</p>"
-								+ "<div class='barBackgroundExp'>"
-								+ (Main.game.getPlayer().getLevel() != 20
-									? "<div style=' mix-blend-mode: difference; width:" + (Main.game.getPlayer().getExperience() / (Main.game.getPlayer().getLevel() * 10f)) * 90 + "vw; height:2vw; background:" + Colour.CLOTHING_BLUE_LIGHT.toWebHexString()
-											+ "; float:left; border-radius: 2px;'></div>"
-									: "<div style=' mix-blend-mode: difference; width:90vw; height:2vw; background:" + Colour.GENERIC_EXCELLENT.toWebHexString() + "; float:left; border-radius: 2px;'></div>")
-								+ "</div>"
-								+ "<div class='overlay' id='PLAYER_" + Attribute.EXPERIENCE.getName() + "' style='cursor:pointer;'></div>"
-							+ "</div>"
-							+ "<div class='full-width-container'>"
-								+ "<div class='half-width-container' style='text-align:center;'>"
-									+ UtilText.formatAsEssences(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE), "b", true)
-								+ "</div>"
-								+ "<div class='half-width-container' style='text-align:center;'>"
-									+ UtilText.formatAsMoney(Main.game.getPlayer().getMoney(), "b")
-								+ "</div>"
-							+ "</div>"
-						+ "</div>");
-		
-		if(Main.mainController.getWebViewAttributes().getHeight()>=750) {
-			uiAttributeSB.append("<div class='attribute-container'>"
-								+ "<div class='full-width-container' style='margin:8 0 0 0; margin:0; padding:0;'>"
-								+ "<div class='icon small'><div class='icon-content'>"
-									+ StrengthLevel.getStrengthLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.STRENGTH)).getRelatedStatusEffect().getSVGString(Main.game.getPlayer()) + "</div></div>"
-								+ "<div class='barBackgroundAtt'>"
-									+ "<div style='width:" + Main.game.getPlayer().getAttributeValue(Attribute.STRENGTH) * 0.65 + "vw; height:5vw; background:" + Colour.GENERIC_ATTRIBUTE.toWebHexString() + "; float:left; border-radius: 2px;'></div>"
-								+ "</div>"
-								+ "<p style='text-align:center; margin:2vw 0 0 0; padding:0;color:"+ (renderedPlayerStrengthValue < Main.game.getPlayer().getAttributeValue(Attribute.STRENGTH)
-										? (Colour.GENERIC_GOOD.toWebHexString())
-										: (renderedPlayerStrengthValue > Main.game.getPlayer().getAttributeValue(Attribute.STRENGTH) ? (Colour.GENERIC_BAD.toWebHexString()) : "default"))+ ";'>"
-										+ (int) Math.ceil(Main.game.getPlayer().getAttributeValue(Attribute.STRENGTH))
-								+ "</p>"
-								+ "<div class='overlay' id='PLAYER_" + Attribute.STRENGTH.getName() + "'></div>"
-							+ "</div>"
-		
-							// Intelligence:
-							+ "<div class='full-width-container' style='margin:0;padding:0;'>"
-								+ "<div class='icon small'><div class='icon-content'>"
-									+ IntelligenceLevel.getIntelligenceLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.INTELLIGENCE)).getRelatedStatusEffect().getSVGString(Main.game.getPlayer()) + "</div></div>"
-								+ "<div class='barBackgroundAtt'>"
-									+ "<div style='width:" + Main.game.getPlayer().getAttributeValue(Attribute.INTELLIGENCE) * 0.65 + "vw; height:5vw; background:" + Colour.GENERIC_ATTRIBUTE.toWebHexString() + "; float:left; border-radius: 2px;'></div>"
-								+ "</div>"
-								+ "<p style='text-align:center; margin:2vw 0 0 0; padding:0;color:" + (renderedPlayerIntelligenceValue < Main.game.getPlayer().getAttributeValue(Attribute.INTELLIGENCE)
-										? (Colour.GENERIC_GOOD.toWebHexString())
-										: (renderedPlayerIntelligenceValue > Main.game.getPlayer().getAttributeValue(Attribute.INTELLIGENCE) ? (Colour.GENERIC_BAD.toWebHexString()) : "default")) + ";'>"
-										+ (int) Math.ceil(Main.game.getPlayer().getAttributeValue(Attribute.INTELLIGENCE))
-								+ "</p>"
-								+ "<div class='overlay' id='PLAYER_" + Attribute.INTELLIGENCE.getName() + "'></div>"
-							+ "</div>"
-									
-							// Fitness:
-							+ "<div class='full-width-container' style='margin:0;padding:0;'>"
-								+ "<div class='icon small'><div class='icon-content'>"
-									+ FitnessLevel.getFitnessLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.FITNESS)).getRelatedStatusEffect().getSVGString(Main.game.getPlayer()) + "</div></div>"
-								+ "<div class='barBackgroundAtt'>"
-									+ "<div style='width:" + Main.game.getPlayer().getAttributeValue(Attribute.FITNESS) * 0.65 + "vw; height:5vw; background:" + Colour.GENERIC_ATTRIBUTE.toWebHexString() + "; float:left; border-radius: 2px;'></div>"
-								+ "</div>"
-								+ "<p style='text-align:center; margin:2vw 0 0 0; padding:0;color:" + (renderedPlayerFitnessValue < Main.game.getPlayer().getAttributeValue(Attribute.FITNESS)
-										? (Colour.GENERIC_GOOD.toWebHexString())
-										: (renderedPlayerFitnessValue > Main.game.getPlayer().getAttributeValue(Attribute.FITNESS) ? (Colour.GENERIC_BAD.toWebHexString()) : "default")) + ";'>"
-										+ (int) Math.ceil(Main.game.getPlayer().getAttributeValue(Attribute.FITNESS))
-								+ "</p>"
-								+ "<div class='overlay' id='PLAYER_" + Attribute.FITNESS.getName() + "'></div>"
-							+ "</div>"
-									
-							// Corruption:
-							+ "<div class='full-width-container' style='padding:0;'>"
-								+ "<div class='icon small'><div class='icon-content'>"
-									+ CorruptionLevel.getCorruptionLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION)).getRelatedStatusEffect().getSVGString(Main.game.getPlayer()) + "</div></div>"
-								+ "<div class='barBackgroundAtt corruption'>"
-									+ "<div style='width:" + Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION) * 0.65 + "vw; height:5vw; background:"
-										+ Attribute.CORRUPTION.getColour().toWebHexString() + "; float:left; border-radius: 2px;'></div>"
-								+ "</div>"
-								+ "<p style='text-align:center; margin:2vw 0 0 0; padding:0;color:" + (renderedPlayerCorruptionValue < Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION)
-										? (Colour.GENERIC_GOOD.toWebHexString())
-										: (renderedPlayerCorruptionValue > Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION) ? (Colour.GENERIC_BAD.toWebHexString()) : "default")) + ";'>"
-										+ (int) Math.ceil(Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION))
-								+ "</p>"
-								+ "<div class='overlay' id='PLAYER_" + Attribute.CORRUPTION.getName() + "'></div>"
-							+ "</div>"
-									
-						+ "</div>");
-		} else {
-			uiAttributeSB.append("<div class='attribute-container'>"
-						+ "<div class='quarter-width-container'>"
-						+ "<div class='icon' style='width:45%'><div class='icon-content'>"
-							+ StrengthLevel.getStrengthLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.STRENGTH)).getRelatedStatusEffect().getSVGString(Main.game.getPlayer()) + "</div></div>"
-							+ "<div style='text-align:center;height:30px;padding:0;margin:0;line-height:30px;'>"+ "<b style='color:" + Attribute.STRENGTH.getColour().toWebHexString() + ";'>"
-								+ (int) Main.game.getPlayer().getAttributeValue(Attribute.STRENGTH) + "</b>" + "</div>"
-							+ "<div class='overlay' id='PLAYER_"+ Attribute.STRENGTH.getName() + "'></div>"
-						+ "</div>"
 
-						+ "<div class='quarter-width-container'>"
-						+ "<div class='icon' style='width:45%'><div class='icon-content'>"
-							+ IntelligenceLevel.getIntelligenceLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.INTELLIGENCE)).getRelatedStatusEffect().getSVGString(Main.game.getPlayer()) + "</div></div>"
-							+ "<div style='text-align:center;height:30px;padding:0;margin:0;line-height:30px;'>" + "<b style='color:" + Attribute.INTELLIGENCE.getColour().toWebHexString() + ";'>"
-								+ (int) Main.game.getPlayer().getAttributeValue(Attribute.INTELLIGENCE) + "</b>" + "</div>"
-							+ "<div class='overlay' id='PLAYER_" + Attribute.INTELLIGENCE.getName() + "'></div>"
-						+ "</div>"
-
-						+ "<div class='quarter-width-container'>"
-						+ "<div class='icon' style='width:45%'><div class='icon-content'>"
-							+ FitnessLevel.getFitnessLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.FITNESS)).getRelatedStatusEffect().getSVGString(Main.game.getPlayer()) + "</div></div>"
-							+ "<div style='text-align:center;height:30px;padding:0;margin:0;line-height:30px;'>" + "<b style='color:" + Attribute.FITNESS.getColour().toWebHexString() + ";'>"
-								+ (int) Main.game.getPlayer().getAttributeValue(Attribute.FITNESS) + "</b>" + "</div>"
-							+ "<div class='overlay' id='PLAYER_" + Attribute.FITNESS.getName() + "'></div>"
-						+ "</div>"
-
-						+ "<div class='quarter-width-container'>"
-						+ "<div class='icon' style='width:45%'><div class='icon-content'>"
-							+ CorruptionLevel.getCorruptionLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION)).getRelatedStatusEffect().getSVGString(Main.game.getPlayer()) + "</div></div>"
-							+ "<div style='text-align:center;height:30px;padding:0;margin:0;line-height:30px;'>" + "<b style='color:"+ Attribute.CORRUPTION.getColour().toWebHexString() + ";'>"
-								+ (int) Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION) + "</b>" + "</div>"
-							+ "<div class='overlay' id='PLAYER_" + Attribute.CORRUPTION.getName() + "'></div>"
-						+ "</div>"
-					+ "</div>");
-		}
-						
-		if(Main.game.isInSex()) {
-			Colour playerOrgasmColour = Colour.GENERIC_ARCANE;
-			if(Sex.getNumberOfPlayerOrgasms()<orgasmColours.length) {
-				playerOrgasmColour = orgasmColours[Sex.getNumberOfPlayerOrgasms()];
-			}
-			
-			uiAttributeSB.append("<div class='attribute-container'>"
-					+ "<p style='text-align:center;padding:0;margin:0;'>"
-						+(Sex.isPlayerDom()?"<b style='color:"+Colour.BASE_CRIMSON.toWebHexString()+";'>Dominant</b>":"<b style='color:"+Colour.BASE_PINK_LIGHT.toWebHexString()+";'>Submissive</b>")+"<b> partner</b>"
-					+"</p>"
-					+ "<p style='text-align:center;padding:0;margin:0;'>"
-						+ "<b style='color:"+Sex.getSexPacePlayer().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(Sex.getSexPacePlayer().getName())+"</b><b> pace</b>"
-					+ "</p>"
-					+ "<p style='text-align:center;padding:0;margin:0;'><b>Orgasms: </b><b style='color:"+playerOrgasmColour.toWebHexString()+";'>"+Sex.getNumberOfPlayerOrgasms()+"</b></p>"
-					
-					// Arousal:
-					+ "<div class='full-width-container' style='margin:8 0 0 0; margin:0; padding:0;'>"
-						+ "<div class='icon small'><div class='icon-content'>" + ArousalLevel.getArousalLevelFromValue(Main.game.getPlayer().getArousal()).getRelatedStatusEffect().getSVGString(Main.game.getPlayer()) + "</div></div>"
-						+ "<div class='barBackgroundAtt'>"
-							+ "<div style='width:" + Main.game.getPlayer().getArousal() * 0.65 + "vw; height:5vw; background:"
-								+ ArousalLevel.getArousalLevelFromValue(Main.game.getPlayer().getArousal()).getColour().toWebHexString() + "; float:left; border-radius: 2px;'></div>"
-						+ "</div>"
-						+ "<p style='text-align:center; margin:2vw 0 0 0; padding:0;color:"+ (renderedPlayerArousalValue < Main.game.getPlayer().getArousal()
-								? (Colour.GENERIC_GOOD.toWebHexString())
-								: (renderedPlayerArousalValue > Main.game.getPlayer().getArousal() ? (Colour.GENERIC_BAD.toWebHexString()) : "default"))+ ";'>"
-								+ (int) Math.ceil(Main.game.getPlayer().getArousal())
-						+ "</p>"
-						+ "<div class='overlay' id='PLAYER_" + Attribute.AROUSAL.getName() + "'></div>"
-					+ "</div>"
-					
-				+ "</div>");
-			
-										
-			// Status effects:
-
-			uiAttributeSB.append("<div class='attribute-container effects'>"
-									+ "<p style='text-align:center;padding:0;margin:0;'><b>Effects</b></p>");
-			boolean hasStatusEffects = false;
-			
-			for (StatusEffect se : Main.game.getPlayer().getStatusEffects()) {
-				if (se.isSexEffect()) {
-					uiAttributeSB.append(
-							"<div class='icon'><div class='icon-content'>"
-									+ se.getSVGString(Main.game.getPlayer())
-									+ "<div class='overlay' id='SE_PLAYER_" + se + "'></div>"
-							+ "</div></div>");
-					hasStatusEffects = true;
-				}
-			}
-			
-			for (Fetish f : Main.game.getPlayer().getFetishes()) {
-				uiAttributeSB.append(
-						"<div class='icon'><div class='icon-content'>"
-								+ f.getSVGString()
-								+ "<div class='overlay' id='FETISH_PLAYER_" + f + "'></div>"
-						+ "</div></div>");
-				hasStatusEffects = true;
-			}
-			
-			
-			if(!hasStatusEffects) {
-				uiAttributeSB.append("<p style='text-align:center;padding:0;margin:0;height:12vw;'><b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No sex effects</b></p>");
-			}
-//			uiAttributeSB.append("</div>");
-						
-		} else {
-		
-			// Health, mana and experience:
-			uiAttributeSB.append("<div class='attribute-container'>"
-						+ "<p style='text-align:center;padding:0;margin:0;'><b>Combat</b></p>"
-						
-						+ "<div class='full-width-container' style='margin:0;padding:0;'>"
-							+ "<div class='icon small'><div class='icon-content'>" + Attribute.HEALTH_MAXIMUM.getSVGString() + "</div></div>" + "<div class='barBackgroundAtt'>" + "<div style='width:"
-							+ (Main.game.getPlayer().getHealth() / Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM)) * 65 + "vw; height:5vw; background:" + Colour.ATTRIBUTE_HEALTH.toWebHexString()
-							+ "; float:left; border-radius: 2px;'></div>" + "</div>" + "<p style='text-align:center; margin:1 0 0 0; padding:0;color:"
-							+ (renderedPlayerHealthValue < Main.game.getPlayer().getHealth() ? Colour.GENERIC_GOOD.toWebHexString() : renderedPlayerHealthValue > Main.game.getPlayer().getHealth() ? (Colour.GENERIC_BAD.toWebHexString()) : "default") + ";'>"
-							+ (int) Math.ceil(Main.game.getPlayer().getHealth()) + "</p>" + "<div class='overlay' id='PLAYER_" + Attribute.HEALTH_MAXIMUM.getName() + "'></div>"
-						+ "</div>"
-	
-						+ "<div class='full-width-container' style='margin:0;padding:0;'>"
-							+ "<div class='icon small'><div class='icon-content'>" + Attribute.MANA_MAXIMUM.getSVGString() + "</div></div>" + "<div class='barBackgroundAtt'>" + "<div style='width:"
-							+ (Main.game.getPlayer().getMana() / Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM)) * 65 + "vw; height:5vw; background:" + Colour.ATTRIBUTE_MANA.toWebHexString()
-							+ "; float:left; border-radius: 2px;'></div>" + "</div>" + "<p style='text-align:center; margin:1 0 0 0; padding:0;color:"
-							+ (renderedPlayerManaValue < Main.game.getPlayer().getMana() ? (Colour.GENERIC_GOOD.toWebHexString()) : (renderedPlayerManaValue > Main.game.getPlayer().getMana() ? (Colour.GENERIC_BAD.toWebHexString()) : "default")) + ";'>"
-							+ (int) Math.ceil(Main.game.getPlayer().getMana()) + "</p>" + "<div class='overlay' id='PLAYER_" + Attribute.MANA_MAXIMUM.getName() + "'></div>"
-						+ "</div>"
-	
-						+ "<div class='full-width-container' style='margin:0;padding:0;'>"
-							+ "<div class='icon small'><div class='icon-content'>" + Attribute.STAMINA_MAXIMUM.getSVGString() + "</div></div>" + "<div class='barBackgroundAtt'>"
-							+ "<div style='width:" + (Main.game.getPlayer().getStaminaPercentage() * 65) + "vw; height:5vw; background:" + Colour.ATTRIBUTE_FITNESS.toWebHexString() + "; float:left; border-radius: 2px;'></div>" + "</div>"
-							+ "<p style='text-align:center; margin:1 0 0 0; padding:0;color:"
-							+ (renderedPlayerStaminaValue < Main.game.getPlayer().getStamina() ? (Colour.GENERIC_GOOD.toWebHexString()) : (renderedPlayerStaminaValue > Main.game.getPlayer().getStamina() ? (Colour.GENERIC_BAD.toWebHexString()) : "default"))
-							+ ";'>" + (int) Math.ceil(Main.game.getPlayer().getStamina()) + "</p>" + "<div class='overlay' id='PLAYER_" + Attribute.STAMINA_MAXIMUM.getName() + "'></div>"
-						+ "</div>"
-						
-					+ "</div>");
-			
-			
-			// Status effects:
-			uiAttributeSB.append("<div class='attribute-container effects'>"
-									+ "<p style='text-align:center;padding:0;margin:0;'><b>Effects</b></p>");
-			
-			// Infinite duration:
-			for (StatusEffect se : Main.game.getPlayer().getStatusEffects()) {
-				if (!se.isCombatEffect() && Main.game.getPlayer().getStatusEffectDuration(se)==-1 && se.renderInEffectsPanel())
-					uiAttributeSB.append(
-							"<div class='icon'>"
-									+ "<div class='icon-content'>"
-										+ se.getSVGString(Main.game.getPlayer())
-										+ "<div class='overlay' id='SE_PLAYER_" + se + "'></div>"
-									+ "</div>"
-							+ "</div>");
-			}
-			// Timed:
-			for (StatusEffect se : Main.game.getPlayer().getStatusEffects()) {
-				if (!se.isCombatEffect() && Main.game.getPlayer().getStatusEffectDuration(se)!=-1 && se.renderInEffectsPanel()) {
-					int timerHeight = (int) ((Main.game.getPlayer().getStatusEffectDuration(se)/(60*6f))*100);
-
-					Colour timerColour = Colour.STATUS_EFFECT_TIME_HIGH;
-					
-					if(timerHeight>100) {
-						timerHeight=100;
-						timerColour = Colour.STATUS_EFFECT_TIME_OVERFLOW;
-					} else if(timerHeight<15) {
-						timerColour = Colour.STATUS_EFFECT_TIME_LOW;
-					} else if (timerHeight<50) {
-						timerColour = Colour.STATUS_EFFECT_TIME_MEDIUM;
-					}
-					
-					uiAttributeSB.append(
-							"<div class='icon'>"
-									+ "<div class='timer-background' style='width:"+timerHeight+"%; background:"+ timerColour.toWebHexString() + ";'></div>"
-									+ "<div class='icon-content'>"
-										+ se.getSVGString(Main.game.getPlayer())
-										+ "<div class='overlay' id='SE_PLAYER_" + se + "'></div>"
-									+ "</div>"
-							+ "</div>");
-				}
-			}
-//			// Fetishes:
-//			for (Fetish f : Main.game.getPlayer().getFetishes()) {
-//				uiAttributeSB.append(
-//						"<div class='icon'><div class='icon-content'>"
-//								+ f.getSVGString()
-//								+ "<div class='overlay' id='FETISH_PLAYER_" + f + "'></div>"
-//						+ "</div></div>");
-//			}
-//			// Special attacks:
-//			for (SpecialAttack sa : Main.game.getPlayer().getSpecialAttacks()) {
-//				uiAttributeSB.append(
-//						"<div class='icon'><div class='icon-content'>"
-//								+ sa.getSVGString()
-//								+ "<div class='overlay' id='SA_" + sa + "'></div>"
-//						+ "</div></div>");
-//			}
-//			if (Main.game.getPlayer().getMainWeapon() != null) {
-//				for (Spell s : Main.game.getPlayer().getMainWeapon().getSpells()) {
-//					uiAttributeSB.append(
-//							"<div class='icon'><div class='icon-content'>"
-//									+ s.getSVGString()
-//									+ "<div class='overlay' id='SPELL_MAIN_" + s + "'></div>"
-//							+ "</div></div>");
-//				}
-//			}
-//			if (Main.game.getPlayer().getOffhandWeapon() != null) {
-//				for (Spell s : Main.game.getPlayer().getOffhandWeapon().getSpells()) {
-//					uiAttributeSB.append(
-//							"<div class='icon'><div class='icon-content'>"
-//									+ s.getSVGString()
-//									+ "<div class='overlay' id='SPELL_OFFHAND_" + s + "'></div>"
-//							+ "</div></div>");
-//				}
-//			}
-		}
-		
-		//TODO
-		uiAttributeSB.append("</div>"
-				+ "<div class='attribute-container' style=' margin-bottom:1px;'>"
-					+ "<div class='full-width-container' style='text-align:center; margin-left:4px;'>"
-					+"<div class='item-inline' style='float:left;'><div class='overlay' id='DATE_DISPLAY_TOGGLE'>"+SVGImages.SVG_IMAGE_PROVIDER.getCalendarIcon()+"</div></div>"
-							+ "<p style='color:"+Colour.TEXT.getShades(8)[3]+"; float:left; width:50%;'>"
-								+ (Main.getProperties().calendarDisplay
-									? Main.game.getDateNow().format(DateTimeFormatter.ofPattern("d", Locale.ENGLISH))
-										+ Util.getDayOfMonthSuffix(Main.game.getDateNow().getDayOfMonth())
-										+ " "
-										+ Main.game.getDateNow().format(DateTimeFormatter.ofPattern("MMMM", Locale.ENGLISH))
-									:"Day "+Main.game.getDayNumber())
-							+ "</p>"
-							+ "<p style='float:right; margin-right:8px;'>");
-		
-		if(Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST)!=null
-				&& (Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST).getClothingType().equals(ClothingType.WRIST_WOMENS_WATCH)
-						|| Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST).getClothingType().equals(ClothingType.WRIST_MENS_WATCH))) {
-			uiAttributeSB.append("<div class='item-inline' style='float:left;'><div class='overlay' id='TWENTY_FOUR_HOUR_TIME_TOGGLE'>"
-						+Main.game.getPlayer().getClothingInSlot(InventorySlot.WRIST).getSVGEquippedString(Main.game.getPlayer())+"</div></div>");
-			
-		} else {
-			uiAttributeSB.append("<div class='item-inline' style='float:left;'><div class='overlay' id='TWENTY_FOUR_HOUR_TIME_TOGGLE'>"+SVGImages.SVG_IMAGE_PROVIDER.getJournalIcon()+"</div></div>");
-		}
-		
-		uiAttributeSB.append((Main.getProperties().twentyFourHourTime
-								?Main.game.getDateNow().format(DateTimeFormatter.ofPattern("HH:mm", Locale.ENGLISH))
-								:Main.game.getDateNow().format(DateTimeFormatter.ofPattern("hh:mma", Locale.ENGLISH)))
-							+"</p>"
-					+ "</div>"
-				+ "</div>"
-				+ "</div>"
-				);
-		
-		
-		if(Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.INVENTORY || Main.game.isInCombat() || Main.game.isInSex()) {
-			
-			Set<InventorySlot> blockedSlots = new HashSet<>();
-			
-			for (AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped()) {
-				if (c.getClothingType().getIncompatibleSlots() != null) {
-					for (InventorySlot is : c.getClothingType().getIncompatibleSlots()) {
-						blockedSlots.add(is);
-					}
-				}
-			}
-			// EQUIPPED:
-			uiAttributeSB.append("<div class='inventory-equipped'>");
-			
-			for (InventorySlot invSlot : inventorySlots) {
-				
-				AbstractClothing clothing = Main.game.getPlayer().getClothingInSlot(invSlot);
-				
-				if (clothing != null) {
-					// add to content:
-					uiAttributeSB.append(
-							// If slot is sealed:
-							"<div class='inventory-item-slot" + getClassRarityIdentifier(clothing.getRarity()) + "'"
-								+ (clothing.isSealed() ? "style='border-width:2px; border-color:" + Colour.SEALED.toWebHexString() + "; border-style:solid;'" : "") + ">"
-								
-								// Picture:
-								+ "<div class='inventory-icon-content'>"+clothing.getSVGEquippedString(Main.game.getPlayer())+"</div>"
-								
-								// If clothing is displaced:
-								+ (!clothing.getDisplacedList().isEmpty() ? "<div class='displacedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getDisplacedIcon() + "</div>" : "")
-								// If clothing is cummed in:
-								+ (clothing.isDirty() ? "<div class='cummedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getCummedInIcon() + "</div>" : "")
-								// If clothing is too masculine:
-								+ (clothing.getClothingType().getFemininityMaximum() < Main.game.getPlayer().getFemininityValue() ? "<div class='femininityIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getMasculineWarningIcon() + "</div>" : "")
-								// If clothing is too feminine:
-								+ (clothing.getClothingType().getFemininityMinimum() > Main.game.getPlayer().getFemininityValue() ? "<div class='femininityIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getFeminineWarningIcon() + "</div>" : "")
-
-								+ "<div class='overlay-inventory' id='" + invSlot.toString() + "Slot'>" + "</div>" + "</div>");
-				} else {
-					// add to content:
-					if (blockedSlots.contains(invSlot)) {
-						uiAttributeSB.append("<div class='inventory-item-slot disabled'><div class='overlay' id='" + invSlot.toString() + "Slot'></div></div>");
-						
-					} else if (invSlot.slotBlockedByRace(Main.game.getPlayer()) != null) {
-						uiAttributeSB.append(
-								"<div class='inventory-item-slot disabled'>"
-									+ "<div class='overlay' id='" + invSlot.toString() + "Slot'></div>"
-									+ "<div class='raceBlockIcon'>" + invSlot.slotBlockedByRace(Main.game.getPlayer()).getStatusEffect().getSVGString(Main.game.getPlayer()) + "</div>"
-								+ "</div>");
-						
-					} else {
-						uiAttributeSB.append("<div class='inventory-item-slot' id='" + invSlot.toString() + "Slot'></div>");
-					}
-				}
-			}
-
-			uiAttributeSB.append("</div>");
-			
-		} else {
-			uiAttributeSB.append("<div>" + renderedHTMLMap() + "</div>");
-		}
-		
-		uiAttributeSB.append("</body>");
-
-		if (Main.mainController != null) {
-			if (Main.game.getCurrentDialogueNode() != null) {
-				if (!Main.game.getCurrentDialogueNode().isNoTextForContinuesDialogue() && renderedDialogueNode != Main.game.getCurrentDialogueNode()) {
-
-					renderedPlayerHealthValue = Main.game.getPlayer().getHealth();
-					renderedPlayerManaValue = Main.game.getPlayer().getMana();
-					renderedPlayerStaminaValue = Main.game.getPlayer().getStamina();
-					if (Main.game.isInSex()) {
-						renderedPlayerArousalValue = Main.game.getPlayer().getArousal();
-					}
-					renderedPlayerStrengthValue = Main.game.getPlayer().getAttributeValue(Attribute.STRENGTH);
-					renderedPlayerIntelligenceValue = Main.game.getPlayer().getAttributeValue(Attribute.INTELLIGENCE);
-					renderedPlayerFitnessValue = Main.game.getPlayer().getAttributeValue(Attribute.FITNESS);
-					renderedPlayerCorruptionValue = Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION);
-					
-
-					renderedDialogueNode = Main.game.getCurrentDialogueNode();
-
-				}
-			}
-		}
-		
-		Main.mainController.setAttributePanelContent(uiAttributeSB.toString());
-	}
-	
 	private static GameCharacter npcToRender = null;
 	public static GameCharacter getCharacterToRender() {
 		return npcToRender;
@@ -873,7 +428,7 @@ public enum RenderingEngine {
 	}
 
 	public void renderAttributesPanelRight() {
-		uiAttributeSB.setLength(0);
+		StringBuilder uiAttributeSB = new StringBuilder();
 		
 			uiAttributeSB.append(
 					"<body onLoad='scrollEventLogToBottom()'>"
@@ -1696,55 +1251,6 @@ public enum RenderingEngine {
 		}
 	}
 
-	public void renderButtons() {
-		Main.mainController.setButtonsContent(
-				"<div class='quarterContainer'>"
-					+ "<div class='button" + (!Main.game.getCurrentDialogueNode().isOptionsDisabled() ? "" : " disabled") + "' id='mainMenu'>"
-						+ SVGImages.SVG_IMAGE_PROVIDER.getMenuIcon() + (!Main.game.getCurrentDialogueNode().isOptionsDisabled() ? "" : "<div class='disabledLayer'></div>")
-					+ "</div>"
-				+ "</div>"
-
-				+ "<div class='quarterContainer'>"
-					+ "<div class='button" + (
-							Main.game.getPlayer().isMainQuestUpdated()
-							|| Main.game.getPlayer().isSideQuestUpdated()
-							|| Main.game.getPlayer().isRomanceQuestUpdated()
-							|| Main.getProperties().isNewWeaponDiscovered()
-							|| Main.getProperties().isNewClothingDiscovered()
-							|| Main.getProperties().isNewItemDiscovered()
-							|| Main.getProperties().isNewRaceDiscovered()
-							|| Main.game.getPlayer().getPerkPoints()>0
-							|| (Main.game.getPlayer().getLevelUpPoints()>0
-									&& (Main.game.getPlayer().getBaseAttributeValue(Attribute.STRENGTH) + Main.game.getPlayer().getBaseAttributeValue(Attribute.INTELLIGENCE) + Main.game.getPlayer().getBaseAttributeValue(Attribute.FITNESS))<300)
-								?" highlight"
-								:"")
-						+ (!Main.game.getCurrentDialogueNode().isOptionsDisabled() && Main.game.isInNewWorld() ? "" : " disabled") + "' id='journal'>" + SVGImages.SVG_IMAGE_PROVIDER.getJournalIcon()
-						+ (!Main.game.getCurrentDialogueNode().isOptionsDisabled() && Main.game.isInNewWorld() ? "" : "<div class='disabledLayer'></div>")
-					+ "</div>"
-				+ "</div>"
-
-				+ "<div class='quarterContainer'>"
-					+ "<div class='button" + (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().getInventorySlotsTaken()>0 ? " highlight" : "")
-					+ (Main.mainController.isInventoryDisabled() ? " disabled" : "") + "' id='inventory'>"
-						+ SVGImages.SVG_IMAGE_PROVIDER.getInventoryIcon()
-						+ (Main.mainController.isInventoryDisabled() ? "<div class='disabledLayer'></div>" : "")
-					+ "</div>"
-				+ "</div>"
-
-				+ "<div class='quarterContainer'>"
-					+ "<div class='button" + (Main.game.getCharactersPresent().isEmpty() && Main.game.getCurrentDialogueNode().getMapDisplay() != MapDisplay.CHARACTERS_PRESENT ? " disabled" : "")
-					+ "' id='charactersPresent'>" + SVGImages.SVG_IMAGE_PROVIDER.getPeopleIcon()
-						+ (Main.game.getCharactersPresent().isEmpty() && Main.game.getCurrentDialogueNode().getMapDisplay() != MapDisplay.CHARACTERS_PRESENT ? "<div class='disabledLayer'></div>" : "")
-					+ "</div>"
-				+ "</div>"
-
-				+ "<div class='quarterContainer'>"
-					+ "<div class='button" + (Main.game.getCurrentDialogueNode().isTravelDisabled() ? " disabled" : "") + "' id='mapZoom'>"
-						+ (RenderingEngine.isZoomedIn() ? SVGImages.SVG_IMAGE_PROVIDER.getZoomOutIcon() : SVGImages.SVG_IMAGE_PROVIDER.getZoomInIcon()) + (Main.game.getCurrentDialogueNode().isTravelDisabled() ? "<div class='disabledLayer'></div>" : "")
-					+ "</div>"
-				+ "</div>");
-	}
-
 	public static boolean isZoomedIn() {
 		return zoomedIn;
 	}
@@ -1761,7 +1267,7 @@ public enum RenderingEngine {
 		RenderingEngine.renderedDisabledMap = renderedDisabledMap;
 	}
 	
-	private String getClassRarityIdentifier(Rarity rarity) {
+	static String getClassRarityIdentifier(Rarity rarity) {
 		return (rarity == Rarity.COMMON ? " common" : "")
 				+ (rarity == Rarity.UNCOMMON ? " uncommon" : "")
 				+ (rarity == Rarity.RARE ? " rare" : "")
