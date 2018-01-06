@@ -24,6 +24,8 @@ import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.character.race.SubspeciesPreference;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
@@ -688,6 +690,9 @@ public class OptionsDialogue {
 			
 			} else if (index == 8) {
 				return new Response("Furry preferences", "Set your preferred transformation encounter rates.", FURRY_PREFERENCE);
+				
+			} else if (index == 9) {
+				return new Response("Subspecies preferences", "Set your preferred subspecies encounter rates.", SPECIES_PREFERENCE);
 			
 			} else if (index == 0) {
 				return new Response("Back", "Back to the main menu.", MENU);
@@ -1117,9 +1122,9 @@ public class OptionsDialogue {
 					+ "A character is considered to have breasts if they are at least an AA-cup."
 					+ "</div>");
 			
-			UtilText.nodeContentSB.append(getGenerPreferencesPanel(PronounType.MASCULINE));
-			UtilText.nodeContentSB.append(getGenerPreferencesPanel(PronounType.NEUTRAL));
-			UtilText.nodeContentSB.append(getGenerPreferencesPanel(PronounType.FEMININE));
+			UtilText.nodeContentSB.append(getGenderPreferencesPanel(PronounType.MASCULINE));
+			UtilText.nodeContentSB.append(getGenderPreferencesPanel(PronounType.NEUTRAL));
+			UtilText.nodeContentSB.append(getGenderPreferencesPanel(PronounType.FEMININE));
 			
 			
 			return UtilText.nodeContentSB.toString();
@@ -1146,7 +1151,7 @@ public class OptionsDialogue {
 		}
 	};
 	
-	private static String getGenerPreferencesPanel(PronounType type) {
+	private static String getGenderPreferencesPanel(PronounType type) {
 		int count = 0;
 		Colour colour = Colour.MASCULINE;
 		switch(type) {
@@ -1390,6 +1395,128 @@ public class OptionsDialogue {
 			return MapDisplay.OPTIONS;
 		}
 	};
+	
+	private static String getSubspeciesRepresentation(Race race) {
+		
+		float total=0;
+		int subspeciesCount = Subspecies.values().length;
+		for(Subspecies s : Subspecies.values()) {
+			if (s.getRace() == race) {
+				total+=Main.getProperties().subspeciesPreferencesMap.get(s);
+			}
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		
+		if(total==0) {
+			sb.append("<div style='width:100%;height:12px;background:"+Colour.FEMININE.getShades()[3]+";float:left;margin:4vw 0 0 0;border-radius: 2px;'>");
+			
+		} else {
+			sb.append("<div style='width:100%;height:12px;background:#222;float:left;margin:4vw 0 0 0;border-radius: 2px;'>");
+			
+			int c=0;
+			for(Subspecies s : Subspecies.values()) {
+				if (s.getRace() == race) {					
+					sb.append("<div style='width:" + (Main.getProperties().subspeciesPreferencesMap.get(s)/total) * (100) + "%; height:12px; background:");
+					sb.append(s.getRace().getColour().getShades(subspeciesCount)[c] + "; float:left; border-radius: 2;'></div>");
+					c++;
+				}
+			}
+		}
+		
+		sb.append("</div>");
+		
+		return sb.toString();
+	}
+	
+	public static final DialogueNodeOld SPECIES_PREFERENCE = new DialogueNodeOld("Species preferences", "", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getHeaderContent(){
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(
+					"<div class='container-full-width'>"
+					+ "These options will determine how often a species variation will appear relative to the others of its race."
+					+ " Specific areas may not allow a given variation to appear within them, and if all options are set to \"Off\", humans or bipedal morphs may be used as a fallback."
+					+ "</div>");
+			
+			UtilText.nodeContentSB.append(getSpeciesPreferencesPanel(Race.COW_MORPH));
+			UtilText.nodeContentSB.append(getSpeciesPreferencesPanel(Race.DOG_MORPH));
+			UtilText.nodeContentSB.append(getSpeciesPreferencesPanel(Race.WOLF_MORPH));
+			UtilText.nodeContentSB.append(getSpeciesPreferencesPanel(Race.CAT_MORPH));
+			UtilText.nodeContentSB.append(getSpeciesPreferencesPanel(Race.HORSE_MORPH));
+			UtilText.nodeContentSB.append(getSpeciesPreferencesPanel(Race.REINDEER_MORPH));
+			UtilText.nodeContentSB.append(getSpeciesPreferencesPanel(Race.SQUIRREL_MORPH));
+			UtilText.nodeContentSB.append(getSpeciesPreferencesPanel(Race.ALLIGATOR_MORPH));
+			UtilText.nodeContentSB.append(getSpeciesPreferencesPanel(Race.GARGOYLE));
+			
+						
+			return UtilText.nodeContentSB.toString();
+		}
+		
+		@Override
+		public String getContent(){
+			return "";
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			 if (index == 0) {
+				return new Response("Back", "Go back to the options menu.", OPTIONS);
+				
+			}else {
+				return null;
+			}
+		}
+
+		@Override
+		public MapDisplay getMapDisplay() {
+			return MapDisplay.OPTIONS;
+		}
+	};
+	
+	private static String getSpeciesPreferencesPanel(Race race) {
+		int count = 0;
+		Colour colour = race.getColour();
+		int subspeciesCount = Subspecies.values().length;
+		
+		String baseName = race.getName();
+		
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("<div class='container-full-width' style='text-align:center;'>"
+				+ "<p><b style='color:"+colour.toWebHexString()+";'>"+Util.capitaliseSentence(baseName)+"</b></p>");
+		
+		for(Subspecies s : Subspecies.values()) {
+			if (s.getRace() == race) {
+				sb.append(
+						"<div style='display:inline-block; margin:4px auto;width:100%;'>"
+							+ "<div style='display:inline-block; margin:0 auto;'>"
+								+ "<div style='width:140px; float:left;'><b style='color:"+colour.getShades(subspeciesCount)[count]+";'>" +Util.capitaliseSentence(s.getName())+"</b></div>");
+				
+				for(SubspeciesPreference preference : SubspeciesPreference.values()) {
+					sb.append("<div id='"+preference+"_"+s+"' class='preference-button"+(Main.getProperties().subspeciesPreferencesMap.get(s)==preference.getValue()?" selected":"")+"'>"+Util.capitaliseSentence(preference.getName())+"</div>");
+				}
+								
+				sb.append("<p></br>"
+								+ s.getDescription()+"."
+								+ "</p>"
+							+ "</div>"
+						+ "</div>"
+						+ "<hr></hr>");
+				count++;
+			}
+		}
+		
+		sb.append(
+				getSubspeciesRepresentation(race)
+				+"</div>");
+		
+		return sb.toString();
+	};
+
 	
 	public static int[] forcedTFsettings = new int[] {0, 10, 40, 70, 100};
 	public static final DialogueNodeOld CONTENT_PREFERENCE = new DialogueNodeOld("Content Options", "", true) {

@@ -917,7 +917,55 @@ public enum TFModifier {
 	TF_MOD_FETISH_SUBMISSIVE(Fetish.FETISH_SUBMISSIVE),
 	TF_MOD_FETISH_TRANSFORMATION_GIVING(Fetish.FETISH_TRANSFORMATION_GIVING),
 	TF_MOD_FETISH_TRANSFORMATION_RECEIVING(Fetish.FETISH_TRANSFORMATION_RECEIVING),
-	;
+	
+	TF_MOD_MATERIAL_FLESH("flesh body", //TODO Need icons for these.
+			"Applies an effect related to changing bodily material.",
+			"flesh body",
+			"modifier_circle_flavour",
+			Colour.RACE_HUMAN,
+			Rarity.COMMON),
+	
+	TF_MOD_MATERIAL_SLIME("slime body",
+			"Applies an effect related to changing bodily material.",
+			"slime body",
+			"modifier_circle_flavour",
+			Colour.RACE_SLIME,
+			Rarity.COMMON),
+	
+	TF_MOD_MATERIAL_FIRE("fire body",
+			"Applies an effect related to changing bodily material.",
+			"fire body",
+			"modifier_circle_flavour",
+			Colour.BASE_RED,
+			Rarity.COMMON),
+	
+	TF_MOD_MATERIAL_ICE("ice body",
+			"Applies an effect related to changing bodily material.",
+			"ice body",
+			"modifier_circle_flavour",
+			Colour.BASE_BLUE_LIGHT,
+			Rarity.COMMON),
+	
+	TF_MOD_MATERIAL_RUBBER("rubber body",
+			"Applies an effect related to changing bodily material.",
+			"rubber body",
+			"modifier_circle_flavour",
+			Colour.BASE_YELLOW_LIGHT,
+			Rarity.COMMON),
+	
+	TF_MOD_MATERIAL_SANDSTONE("sandstone body",
+			"Applies an effect related to changing bodily material.",
+			"sandstone body",
+			"modifier_circle_flavour",
+			Colour.BASE_GREY,
+			Rarity.COMMON),
+	
+	TF_MOD_MATERIAL_MARBLE("marble body",
+			"Applies an effect related to changing bodily material.",
+			"marble body",
+			"modifier_circle_flavour",
+			Colour.BASE_WHITE,
+			Rarity.COMMON);
 
 	
 	private static List<TFModifier>
@@ -928,6 +976,7 @@ public enum TFModifier {
 		TFModSexualList = new ArrayList<>(),
 		TFAttributeList = new ArrayList<>(),
 		TFRacialBodyPartsList = new ArrayList<>(),
+		TFBodyMaterialList = new ArrayList<>(),
 		TFFetishList = new ArrayList<>();
 	
 	static {
@@ -993,6 +1042,13 @@ public enum TFModifier {
 		TFAttributeList.add(NONE);
 		TFAttributeList.add(ARCANE_BOOST);
 		
+		TFBodyMaterialList.add(TF_MOD_MATERIAL_FLESH);
+		TFBodyMaterialList.add(TF_MOD_MATERIAL_SLIME);
+		TFBodyMaterialList.add(TF_MOD_MATERIAL_FIRE);
+		TFBodyMaterialList.add(TF_MOD_MATERIAL_ICE);
+		TFBodyMaterialList.add(TF_MOD_MATERIAL_RUBBER);
+		TFBodyMaterialList.add(TF_MOD_MATERIAL_SANDSTONE);
+		TFBodyMaterialList.add(TF_MOD_MATERIAL_MARBLE);
 		
 		TFFetishList.add(TF_MOD_FETISH_ANAL_GIVING);
 		TFFetishList.add(TF_MOD_FETISH_ANAL_RECEIVING);
@@ -1185,6 +1241,10 @@ public enum TFModifier {
 
 	public static List<TFModifier> getTFRacialBodyPartsList() {
 		return TFRacialBodyPartsList;
+	}
+	
+	public static List<TFModifier> getTFBodyMaterialList() {
+		return TFBodyMaterialList;
 	}
 
 	public static List<TFModifier> getTFAttributeList() {

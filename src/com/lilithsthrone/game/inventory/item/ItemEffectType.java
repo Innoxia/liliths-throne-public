@@ -143,6 +143,17 @@ public enum ItemEffectType {
 		}
 	},
 	
+	BOOK_READ_GARGOYLE(Util.newArrayListOfValues(
+			new ListValue<>("Adds gargoyle encyclopedia entry."),
+			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
+			Colour.RACE_GARGOYLE) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			return getBookEffect(Race.GARGOYLE, ItemType.BOOK_GARGOYLE);
+		}
+	},
+	
 	BOOK_READ_DOG_MORPH(Util.newArrayListOfValues(
 			new ListValue<>("Adds dog-morph encyclopedia entry."),
 			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),

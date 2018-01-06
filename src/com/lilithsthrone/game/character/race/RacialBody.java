@@ -118,7 +118,7 @@ public enum RacialBody {
 			GenitalArrangement.NORMAL) {
 
 		@Override
-		public Personality getPersionality() {
+		public Personality getPersonality() {
 			return generatePersonality(50, 10, 20, 20);
 		}
 		
@@ -159,7 +159,7 @@ public enum RacialBody {
 			GenitalArrangement.NORMAL) {
 		
 		@Override
-		public Personality getPersionality() {
+		public Personality getPersonality() {
 			return generatePersonality(40, 10, 30, 20);
 		}
 		
@@ -200,7 +200,7 @@ public enum RacialBody {
 			GenitalArrangement.NORMAL) {
 
 		@Override
-		public Personality getPersionality() {
+		public Personality getPersonality() {
 			return generatePersonality(30, 50, 10, 10);
 		}
 	},
@@ -236,7 +236,7 @@ public enum RacialBody {
 			GenitalArrangement.NORMAL) {
 
 		@Override
-		public Personality getPersionality() {
+		public Personality getPersonality() {
 			return generatePersonality(60, 10, 20, 10);
 		}
 		
@@ -291,7 +291,7 @@ public enum RacialBody {
 			GenitalArrangement.NORMAL) {
 
 		@Override
-		public Personality getPersionality() {
+		public Personality getPersonality() {
 			return generatePersonality(20, 10, 60, 10);
 		}
 	},
@@ -327,7 +327,7 @@ public enum RacialBody {
 			GenitalArrangement.NORMAL) {
 
 		@Override
-		public Personality getPersionality() {
+		public Personality getPersonality() {
 			return generatePersonality(30, 20, 10, 40);
 		}
 	},
@@ -363,7 +363,7 @@ public enum RacialBody {
 			GenitalArrangement.NORMAL) {
 
 		@Override
-		public Personality getPersionality() {
+		public Personality getPersonality() {
 			return generatePersonality(20, 40, 30, 10);
 		}
 	},
@@ -397,7 +397,7 @@ public enum RacialBody {
 			GenitalArrangement.NORMAL) {
 	
 		@Override
-		public Personality getPersionality() {
+		public Personality getPersonality() {
 			return generatePersonality(30, 30, 20, 20);
 		}
 	},
@@ -432,7 +432,7 @@ public enum RacialBody {
 		    GenitalArrangement.CLOACA) {
 
 		@Override
-		public Personality getPersionality() {
+		public Personality getPersonality() {
 			return generatePersonality(10, 40, 40, 10);
 		}
 		
@@ -501,7 +501,7 @@ public enum RacialBody {
 			GenitalArrangement.NORMAL) {
 
 		@Override
-		public Personality getPersionality() {
+		public Personality getPersonality() {
 			return generatePersonality(40, 10, 10, 40);
 		}
 	},
@@ -536,7 +536,7 @@ public enum RacialBody {
 			GenitalArrangement.CLOACA) {
 		
 		@Override
-		public Personality getPersionality() {
+		public Personality getPersonality() {
 			return generatePersonality(70, 10, 10, 10);
 		}
 		
@@ -594,7 +594,7 @@ public enum RacialBody {
 		}
 		
 		@Override
-		public Personality getPersionality() {
+		public Personality getPersonality() {
 			return generatePersonality(40, 10, 30, 20);
 		}
 		
@@ -643,7 +643,7 @@ public enum RacialBody {
 		}
 		
 		@Override
-		public Personality getPersionality() {
+		public Personality getPersonality() {
 			return generatePersonality(40, 10, 30, 20);
 		}
 		
@@ -692,7 +692,7 @@ public enum RacialBody {
 		}
 		
 		@Override
-		public Personality getPersionality() {
+		public Personality getPersonality() {
 			return generatePersonality(40, 10, 30, 20);
 		}
 		
@@ -741,7 +741,7 @@ public enum RacialBody {
 		}
 		
 		@Override
-		public Personality getPersionality() {
+		public Personality getPersonality() {
 			return generatePersonality(40, 10, 30, 20);
 		}
 		
@@ -790,7 +790,7 @@ public enum RacialBody {
 		}
 		
 		@Override
-		public Personality getPersionality() {
+		public Personality getPersonality() {
 			return generatePersonality(40, 10, 30, 20);
 		}
 		
@@ -1025,7 +1025,7 @@ public enum RacialBody {
 		return valueOfRace(availableRaces.get(Util.random.nextInt(availableRaces.size())));
 	}
 	
-	public Personality getPersionality() {
+	public Personality getPersonality() {
 		return generatePersonality(25, 25, 25, 25);
 	}
 	

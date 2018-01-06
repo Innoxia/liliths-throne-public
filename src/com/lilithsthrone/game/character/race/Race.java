@@ -641,8 +641,8 @@ public enum Race {
 			1,
 			Attribute.DAMAGE_GARGOYLE,
 			Attribute.RESISTANCE_GARGOYLE,
-			null,
-			null);
+			FurryPreference.MAXIMUM,
+			FurryPreference.MAXIMUM);
 	
 	/*
 	 * // INSECTS: BEE_MORPH("bee-morph",

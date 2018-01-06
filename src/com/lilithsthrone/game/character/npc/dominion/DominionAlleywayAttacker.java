@@ -73,6 +73,7 @@ public class DominionAlleywayAttacker extends NPC {
 			// RACE & NAME:
 			
 			Race race = Race.DOG_MORPH;
+			Race preferencesRace = Race.DOG_MORPH;
 			RacialBody racialBody = RacialBody.DOG_MORPH;
 			
 			double humanChance = 0;
@@ -97,8 +98,8 @@ public class DominionAlleywayAttacker extends NPC {
 					new Value<>(Race.WOLF_MORPH, 20),
 					new Value<>(Race.SQUIRREL_MORPH, 10),
 					new Value<>(Race.COW_MORPH, 10),
-					new Value<>(Race.ALLIGATOR_MORPH, 5)
-					//new Value<>(Race.GARGOYLE, 2)
+					new Value<>(Race.ALLIGATOR_MORPH, 5),
+					new Value<>(Race.GARGOYLE, 0)
 					);
 			
 			if(Main.game.getSeason()==Season.WINTER && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter)) {
@@ -124,39 +125,59 @@ public class DominionAlleywayAttacker extends NPC {
 				
 			} else {
 				race = Util.getRandomObjectFromWeightedMap(availableRaces);
-				racialBody = RacialSelector.getBodyFromSelector(RacialSelector.valueOfRace(race));
+				preferencesRace = race;
+				racialBody = RacialSelector.getBodyFromSelector(RacialSelector.valueOfRace(race), RacialBody.valueOfRace(race));
+				
+				// This is a hack to get Gargoyles to lift the furry preferences of their "parent" race.
+				// If we have a bunch of races which do something similar, consider implementing a separate furry preference race setting for Race.java.
+				switch(racialBody) {
+				case GARGOYLE_CAT:
+					preferencesRace = Race.CAT_MORPH;
+					break;
+				case GARGOYLE_DOG:
+					preferencesRace = Race.DOG_MORPH;
+					break;
+				case GARGOYLE_WOLF:
+					preferencesRace = Race.WOLF_MORPH;
+					break;
+				case GARGOYLE_HORSE:
+					preferencesRace = Race.HORSE_MORPH;
+					break;
+				default:
+					break;
+				}
 				
 				if(gender.isFeminine()) {
-					switch(Main.getProperties().raceFemininePreferencesMap.get(race)) {
+					switch(Main.getProperties().raceFemininePreferencesMap.get(preferencesRace)) {
 						case HUMAN:
 							setBody(gender, RacialBody.HUMAN, RaceStage.HUMAN);
 							break;
 						case MINIMUM:
-							setBodyFromPreferences(1, gender, race);
+							setBodyFromPreferences(1, gender, preferencesRace);
 							break;
 						case REDUCED:
-							setBodyFromPreferences(2, gender, race);
+							setBodyFromPreferences(2, gender, preferencesRace);
 							break;
 						case NORMAL:
-							setBodyFromPreferences(3, gender, race);
+							setBodyFromPreferences(3, gender, preferencesRace);
 							break;
 						case MAXIMUM:
 							setBody(gender, racialBody, RaceStage.GREATER);
 							break;
 					}
 				} else {
-					switch(Main.getProperties().raceMasculinePreferencesMap.get(race)) {
+					switch(Main.getProperties().raceMasculinePreferencesMap.get(preferencesRace)) {
 						case HUMAN:
 							setBody(gender, RacialBody.HUMAN, RaceStage.HUMAN);
 							break;
 						case MINIMUM:
-							setBodyFromPreferences(1, gender, race);
+							setBodyFromPreferences(1, gender, preferencesRace);
 							break;
 						case REDUCED:
-							setBodyFromPreferences(2, gender, race);
+							setBodyFromPreferences(2, gender, preferencesRace);
 							break;
 						case NORMAL:
-							setBodyFromPreferences(3, gender, race);
+							setBodyFromPreferences(3, gender, preferencesRace);
 							break;
 						case MAXIMUM:
 							setBody(gender, racialBody, RaceStage.GREATER);

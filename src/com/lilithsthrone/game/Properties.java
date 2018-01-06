@@ -28,6 +28,7 @@ import com.lilithsthrone.game.character.gender.GenderNames;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryEncyclopediaUnlock;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -74,6 +75,7 @@ public class Properties implements Serializable {
 	public Map<GenderPronoun, String> genderPronounFemale, genderPronounMale;
 	
 	public Map<Gender, Integer> genderPreferencesMap;
+	public Map<Subspecies, Integer> subspeciesPreferencesMap;
 
 	public Map<Race, FurryPreference> raceFemininePreferencesMap, raceMasculinePreferencesMap;
 	
@@ -129,6 +131,11 @@ public class Properties implements Serializable {
 				raceFemininePreferencesMap.put(r, FurryPreference.NORMAL);
 				raceMasculinePreferencesMap.put(r, FurryPreference.NORMAL);
 			}
+		}
+		
+		subspeciesPreferencesMap = new EnumMap<>(Subspecies.class);
+		for(Subspecies s : Subspecies.values()) {
+			subspeciesPreferencesMap.put(s, s.getSubspeciesPreferenceDefault().getValue());
 		}
 		
 		itemsDiscovered = new HashSet<>();
@@ -325,6 +332,22 @@ public class Properties implements Serializable {
 				preference = doc.createAttribute("preference");
 				preference.setValue(raceMasculinePreferencesMap.get(r).toString());
 				element.setAttributeNode(preference);
+			}
+			
+			// Species preferences:
+			Element speciesPreferences = doc.createElement("speciesPreferences");
+			properties.appendChild(speciesPreferences);
+			for (Subspecies s : Subspecies.values()) {
+				Element element = doc.createElement("preference");
+				speciesPreferences.appendChild(element);
+							
+				Attr subspecies = doc.createAttribute("subspecies");
+				subspecies.setValue(s.toString());
+				element.setAttributeNode(subspecies);
+							
+				Attr value = doc.createAttribute("value");
+				value.setValue(String.valueOf(subspeciesPreferencesMap.get(s).intValue()));
+				element.setAttributeNode(value);
 			}
 			
 			// Discoveries:
@@ -597,6 +620,22 @@ public class Properties implements Serializable {
 						
 						if(!e.getAttribute("race").isEmpty())
 							raceMasculinePreferencesMap.put(Race.valueOf(e.getAttribute("race")), FurryPreference.valueOf(e.getAttribute("preference")));
+					}
+				}
+				
+				// Species preferences:
+				nodes = doc.getElementsByTagName("subspeciesPreferences");
+				element = (Element) nodes.item(0);
+				if(element!=null && element.getElementsByTagName("preference")!=null) {
+					for(int i=0; i<element.getElementsByTagName("preference").getLength(); i++){
+						Element e = ((Element)element.getElementsByTagName("preference").item(i));
+						
+						try {
+							if(!e.getAttribute("subspecies").isEmpty()) {
+								subspeciesPreferencesMap.put(Subspecies.valueOf(e.getAttribute("subspecies")), Integer.valueOf(e.getAttribute("value")));
+							}
+						} catch(IllegalArgumentException ex){
+						}
 					}
 				}
 				

@@ -96,6 +96,8 @@ import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.TestNPC;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.Subspecies;
+import com.lilithsthrone.game.character.race.SubspeciesPreference;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.SpecialAttack;
@@ -4220,6 +4222,21 @@ public class MainController implements Initializable {
 					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
 					TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(FurryPreference.MAXIMUM.getName(), FurryPreference.MAXIMUM.getDescriptionMasculine(r));
 					addEventListener(document, id, "mouseenter", el, false);
+				}
+			}
+		}
+		
+		// Race preferences:
+		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.SPECIES_PREFERENCE) {
+			for (Subspecies s : Subspecies.values()) {
+				for(SubspeciesPreference preference : SubspeciesPreference.values()) {
+					if (((EventTarget) document.getElementById(preference+"_"+s)) != null) {
+						((EventTarget) document.getElementById(preference+"_"+s)).addEventListener("click", e -> {
+							Main.getProperties().subspeciesPreferencesMap.put(s, preference.getValue());
+							Main.saveProperties();
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
 				}
 			}
 		}

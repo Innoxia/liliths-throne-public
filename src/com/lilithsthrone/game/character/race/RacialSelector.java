@@ -1,60 +1,65 @@
 package com.lilithsthrone.game.character.race;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.Value;
 
 /**
- * @since 0.1.0
- * @version 0.1.83
- * @author Innoxia
+ * @since 0.1.91
+ * @version 0.1.91
+ * @author Tukaima
  */
 public enum RacialSelector {
 
 	// HUMAN:
-	HUMAN(Util.newHashMapOfValues(new Value<RacialBody, Integer>(RacialBody.HUMAN, 100))),
+	HUMAN(Util.newHashMapOfValues(new Value<RacialBody, Integer>(RacialBody.HUMAN, Main.getProperties().subspeciesPreferencesMap.get(Subspecies.HUMAN)))),
 
 	// ANGEL:
-	ANGEL(Util.newHashMapOfValues(new Value<RacialBody, Integer>(RacialBody.ANGEL, 100))),
+	ANGEL(Util.newHashMapOfValues(new Value<RacialBody, Integer>(RacialBody.ANGEL, Main.getProperties().subspeciesPreferencesMap.get(Subspecies.ANGEL)))),
 
 	// DEMON:
-	DEMON(Util.newHashMapOfValues(new Value<RacialBody, Integer>(RacialBody.DEMON, 100))),
+	DEMON(Util.newHashMapOfValues(new Value<RacialBody, Integer>(RacialBody.DEMON, Main.getProperties().subspeciesPreferencesMap.get(Subspecies.DEMON)))),
 
 	// BOVINES:
-	COW_MORPH(Util.newHashMapOfValues(new Value<RacialBody, Integer>(RacialBody.COW_MORPH, 100))),
+	COW_MORPH(Util.newHashMapOfValues(new Value<RacialBody, Integer>(RacialBody.COW_MORPH, Main.getProperties().subspeciesPreferencesMap.get(Subspecies.COW_MORPH)))),
 	
 	// CANINES:
-	DOG_MORPH(Util.newHashMapOfValues(new Value<RacialBody, Integer>(RacialBody.DOG_MORPH, 100))),
+	DOG_MORPH(Util.newHashMapOfValues(new Value<RacialBody, Integer>(RacialBody.DOG_MORPH, Main.getProperties().subspeciesPreferencesMap.get(Subspecies.DOG_MORPH)))),
 	
-	WOLF_MORPH(Util.newHashMapOfValues(new Value<RacialBody, Integer>(RacialBody.WOLF_MORPH, 100))),
+	WOLF_MORPH(Util.newHashMapOfValues(new Value<RacialBody, Integer>(RacialBody.WOLF_MORPH, Main.getProperties().subspeciesPreferencesMap.get(Subspecies.WOLF_MORPH)))),
 
 	// FELINES:
-	CAT_MORPH(Util.newHashMapOfValues(new Value<RacialBody, Integer>(RacialBody.CAT_MORPH, 100))),
+	CAT_MORPH(Util.newHashMapOfValues(new Value<RacialBody, Integer>(RacialBody.CAT_MORPH, Main.getProperties().subspeciesPreferencesMap.get(Subspecies.CAT_MORPH)))),
 
 	// EQUINES:
-	HORSE_MORPH(Util.newHashMapOfValues(new Value<RacialBody, Integer>(RacialBody.HORSE_MORPH, 100))),
+	HORSE_MORPH(Util.newHashMapOfValues(new Value<RacialBody, Integer>(RacialBody.HORSE_MORPH, Main.getProperties().subspeciesPreferencesMap.get(Subspecies.HORSE_MORPH)))),
 
-	REINDEER_MORPH(Util.newHashMapOfValues(new Value<RacialBody, Integer>(RacialBody.REINDEER_MORPH, 100))),
+	REINDEER_MORPH(Util.newHashMapOfValues(new Value<RacialBody, Integer>(RacialBody.REINDEER_MORPH, Main.getProperties().subspeciesPreferencesMap.get(Subspecies.REINDEER_MORPH)))),
 
 	// REPTILE:
-	ALLIGATOR_MORPH(Util.newHashMapOfValues(new Value<RacialBody, Integer>(RacialBody.ALLIGATOR_MORPH, 100))),
+	ALLIGATOR_MORPH(Util.newHashMapOfValues(new Value<RacialBody, Integer>(RacialBody.ALLIGATOR_MORPH, Main.getProperties().subspeciesPreferencesMap.get(Subspecies.ALLIGATOR_MORPH)))),
 			
 	// SLIMES:
-	SLIME(Util.newHashMapOfValues(new Value<RacialBody, Integer>(RacialBody.SLIME, 100))),
+	SLIME(Util.newHashMapOfValues(new Value<RacialBody, Integer>(RacialBody.SLIME, Main.getProperties().subspeciesPreferencesMap.get(Subspecies.SLIME)))),
 	
 	// GARGOYLES:
 	GARGOYLE(Util.newHashMapOfValues(
-			new Value<RacialBody, Integer>(RacialBody.GARGOYLE, 100),
-			new Value<RacialBody, Integer>(RacialBody.CAT_MORPH, 20),
-			new Value<RacialBody, Integer>(RacialBody.DOG_MORPH, 20),
-			new Value<RacialBody, Integer>(RacialBody.WOLF_MORPH, 20),
-			new Value<RacialBody, Integer>(RacialBody.HORSE_MORPH, 20))),
+			new Value<RacialBody, Integer>(RacialBody.GARGOYLE, Main.getProperties().subspeciesPreferencesMap.get(Subspecies.GARGOYLE))
+			//new Value<RacialBody, Integer>(RacialBody.CAT_MORPH, Main.getProperties().subspeciesPreferencesMap.get(Subspecies.GARGOYLE_CAT)),
+			//new Value<RacialBody, Integer>(RacialBody.DOG_MORPH, Main.getProperties().subspeciesPreferencesMap.get(Subspecies.GARGOYLE_DOG)),
+			//new Value<RacialBody, Integer>(RacialBody.WOLF_MORPH, Main.getProperties().subspeciesPreferencesMap.get(Subspecies.GARGOYLE_WOLF)),
+			//new Value<RacialBody, Integer>(RacialBody.HORSE_MORPH, Main.getProperties().subspeciesPreferencesMap.get(Subspecies.GARGOYLE_HORSE))
+			)),
 
 	// RODENTS:
-	SQUIRREL_MORPH(Util.newHashMapOfValues(new Value<RacialBody, Integer>(RacialBody.SQUIRREL_MORPH, 100))),
+	SQUIRREL_MORPH(Util.newHashMapOfValues(new Value<RacialBody, Integer>(RacialBody.SQUIRREL_MORPH, Main.getProperties().subspeciesPreferencesMap.get(Subspecies.SQUIRREL_MORPH)))),
 
 	// AVIAN:
-	HARPY(Util.newHashMapOfValues(new Value<RacialBody, Integer>(RacialBody.HARPY, 100)));
+	HARPY(Util.newHashMapOfValues(new Value<RacialBody, Integer>(RacialBody.HARPY, Main.getProperties().subspeciesPreferencesMap.get(Subspecies.HARPY))));
 
 	private HashMap<RacialBody, Integer> selectableBodies;
 
@@ -100,7 +105,27 @@ public enum RacialSelector {
 		return selectableBodies;
 	}
 	
+	// This checks only to see if the RacialSelector is filled with at least one non-zero value.
+	public static boolean selectorUsable(Map<RacialBody, Integer> map) {
+		for(@SuppressWarnings("unused") int i : map.values()) {
+			for(Entry<RacialBody, Integer> entry : map.entrySet()) {
+				if(entry.getValue() > 0) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public static RacialBody getBodyFromSelector(RacialSelector racialSelector, RacialBody fallback) {
+		if (selectorUsable(racialSelector.getSelectableBodies()) == true) {
+			return Util.getRandomObjectFromWeightedMap(racialSelector.selectableBodies);
+		} else {
+			return fallback;
+		}
+	}
+	
 	public static RacialBody getBodyFromSelector(RacialSelector racialSelector) {
-		return Util.getRandomObjectFromWeightedMap(racialSelector.selectableBodies);
+		return RacialSelector.getBodyFromSelector(racialSelector, RacialBody.HUMAN);
 	}
 }
