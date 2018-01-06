@@ -48,11 +48,11 @@ public enum RacialSelector {
 	
 	// GARGOYLES:
 	GARGOYLE(Util.newHashMapOfValues(
-			new Value<RacialBody, Integer>(RacialBody.GARGOYLE, Main.getProperties().subspeciesPreferencesMap.get(Subspecies.GARGOYLE))
-			//new Value<RacialBody, Integer>(RacialBody.CAT_MORPH, Main.getProperties().subspeciesPreferencesMap.get(Subspecies.GARGOYLE_CAT)),
-			//new Value<RacialBody, Integer>(RacialBody.DOG_MORPH, Main.getProperties().subspeciesPreferencesMap.get(Subspecies.GARGOYLE_DOG)),
-			//new Value<RacialBody, Integer>(RacialBody.WOLF_MORPH, Main.getProperties().subspeciesPreferencesMap.get(Subspecies.GARGOYLE_WOLF)),
-			//new Value<RacialBody, Integer>(RacialBody.HORSE_MORPH, Main.getProperties().subspeciesPreferencesMap.get(Subspecies.GARGOYLE_HORSE))
+			new Value<RacialBody, Integer>(RacialBody.GARGOYLE, Main.getProperties().subspeciesPreferencesMap.get(Subspecies.GARGOYLE)),
+			new Value<RacialBody, Integer>(RacialBody.GARGOYLE_CAT, Main.getProperties().subspeciesPreferencesMap.get(Subspecies.GARGOYLE_CAT)),
+			new Value<RacialBody, Integer>(RacialBody.GARGOYLE_DOG, Main.getProperties().subspeciesPreferencesMap.get(Subspecies.GARGOYLE_DOG)),
+			new Value<RacialBody, Integer>(RacialBody.GARGOYLE_WOLF, Main.getProperties().subspeciesPreferencesMap.get(Subspecies.GARGOYLE_WOLF)),
+			new Value<RacialBody, Integer>(RacialBody.GARGOYLE_HORSE, Main.getProperties().subspeciesPreferencesMap.get(Subspecies.GARGOYLE_HORSE))
 			)),
 
 	// RODENTS:

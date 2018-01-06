@@ -98,8 +98,8 @@ public class DominionAlleywayAttacker extends NPC {
 					new Value<>(Race.WOLF_MORPH, 20),
 					new Value<>(Race.SQUIRREL_MORPH, 10),
 					new Value<>(Race.COW_MORPH, 10),
-					new Value<>(Race.ALLIGATOR_MORPH, 5),
-					new Value<>(Race.GARGOYLE, 0)
+					new Value<>(Race.ALLIGATOR_MORPH, 5)
+					//new Value<>(Race.GARGOYLE, 2)
 					);
 			
 			if(Main.game.getSeason()==Season.WINTER && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter)) {
@@ -153,13 +153,13 @@ public class DominionAlleywayAttacker extends NPC {
 							setBody(gender, RacialBody.HUMAN, RaceStage.HUMAN);
 							break;
 						case MINIMUM:
-							setBodyFromPreferences(1, gender, preferencesRace);
+							setBodyFromPreferences(1, gender, racialBody);
 							break;
 						case REDUCED:
-							setBodyFromPreferences(2, gender, preferencesRace);
+							setBodyFromPreferences(2, gender, racialBody);
 							break;
 						case NORMAL:
-							setBodyFromPreferences(3, gender, preferencesRace);
+							setBodyFromPreferences(3, gender, racialBody);
 							break;
 						case MAXIMUM:
 							setBody(gender, racialBody, RaceStage.GREATER);
@@ -171,13 +171,13 @@ public class DominionAlleywayAttacker extends NPC {
 							setBody(gender, RacialBody.HUMAN, RaceStage.HUMAN);
 							break;
 						case MINIMUM:
-							setBodyFromPreferences(1, gender, preferencesRace);
+							setBodyFromPreferences(1, gender, racialBody);
 							break;
 						case REDUCED:
-							setBodyFromPreferences(2, gender, preferencesRace);
+							setBodyFromPreferences(2, gender, racialBody);
 							break;
 						case NORMAL:
-							setBodyFromPreferences(3, gender, preferencesRace);
+							setBodyFromPreferences(3, gender, racialBody);
 							break;
 						case MAXIMUM:
 							setBody(gender, racialBody, RaceStage.GREATER);
@@ -212,7 +212,7 @@ public class DominionAlleywayAttacker extends NPC {
 	
 			CharacterUtils.equipClothing(this, true, false);
 			CharacterUtils.applyMakeup(this, true);
-			
+
 			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
 			setStamina(getAttributeValue(Attribute.STAMINA_MAXIMUM));
@@ -239,7 +239,22 @@ public class DominionAlleywayAttacker extends NPC {
 		return false;
 	}
 	
-	private void setBodyFromPreferences(int i, Gender gender, Race race) {
+//	private void setBodyFromPreferences(int i, Gender gender, Race race) {
+//		int choice = Util.random.nextInt(i)+1;
+//		RaceStage raceStage = RaceStage.PARTIAL;
+//		
+//		if (choice == 1) {
+//			raceStage = RaceStage.PARTIAL;
+//		} else if (choice == 2) {
+//			raceStage = RaceStage.LESSER;
+//		} else {
+//			raceStage = RaceStage.GREATER;
+//		}
+//		
+//		setBody(gender, RacialSelector.getBodyFromSelector(RacialSelector.valueOfRace(race)), raceStage);
+//	}
+	
+	private void setBodyFromPreferences(int i, Gender gender, RacialBody racialBody) {
 		int choice = Util.random.nextInt(i)+1;
 		RaceStage raceStage = RaceStage.PARTIAL;
 		
@@ -251,7 +266,7 @@ public class DominionAlleywayAttacker extends NPC {
 			raceStage = RaceStage.GREATER;
 		}
 		
-		setBody(gender, RacialSelector.getBodyFromSelector(RacialSelector.valueOfRace(race)), raceStage);
+		setBody(gender, racialBody, raceStage);
 	}
 	
 	@Override

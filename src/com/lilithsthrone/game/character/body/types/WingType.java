@@ -13,6 +13,8 @@ public enum WingType implements BodyPartTypeInterface {
 	NONE(null, null),
 
 	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON),
+	
+	GARGOYLE(BodyCoveringType.GARGOYLE_STONE, Race.GARGOYLE),
 
 	ANGEL(BodyCoveringType.ANGEL_FEATHER, Race.ANGEL) {
 		@Override
@@ -59,6 +61,8 @@ public enum WingType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("angelic", "huge", "feathered");
 			case DEMON_COMMON:
 				return UtilText.returnStringAtRandom("demonic", "little", "bat-like");
+			case GARGOYLE:
+				return UtilText.returnStringAtRandom("stone", "bat-like", "hard");
 			case NONE:
 				return UtilText.returnStringAtRandom("");
 			default:
@@ -72,6 +76,8 @@ public enum WingType implements BodyPartTypeInterface {
 				return "angelic";
 			case DEMON_COMMON:
 				return "bat-like";
+			case GARGOYLE:
+				return "earthen";
 			case NONE:
 				return "none";
 		}

@@ -335,11 +335,11 @@ public class Properties implements Serializable {
 			}
 			
 			// Species preferences:
-			Element speciesPreferences = doc.createElement("speciesPreferences");
-			properties.appendChild(speciesPreferences);
+			Element subspeciesPreferences = doc.createElement("subspeciesPreferences");
+			properties.appendChild(subspeciesPreferences);
 			for (Subspecies s : Subspecies.values()) {
 				Element element = doc.createElement("preference");
-				speciesPreferences.appendChild(element);
+				subspeciesPreferences.appendChild(element);
 							
 				Attr subspecies = doc.createAttribute("subspecies");
 				subspecies.setValue(s.toString());

@@ -1442,15 +1442,15 @@ public class OptionsDialogue {
 					+ " Specific areas may not allow a given variation to appear within them, and if all options are set to \"Off\", humans or bipedal morphs may be used as a fallback."
 					+ "</div>");
 			
-			UtilText.nodeContentSB.append(getSpeciesPreferencesPanel(Race.COW_MORPH));
-			UtilText.nodeContentSB.append(getSpeciesPreferencesPanel(Race.DOG_MORPH));
-			UtilText.nodeContentSB.append(getSpeciesPreferencesPanel(Race.WOLF_MORPH));
-			UtilText.nodeContentSB.append(getSpeciesPreferencesPanel(Race.CAT_MORPH));
-			UtilText.nodeContentSB.append(getSpeciesPreferencesPanel(Race.HORSE_MORPH));
-			UtilText.nodeContentSB.append(getSpeciesPreferencesPanel(Race.REINDEER_MORPH));
-			UtilText.nodeContentSB.append(getSpeciesPreferencesPanel(Race.SQUIRREL_MORPH));
-			UtilText.nodeContentSB.append(getSpeciesPreferencesPanel(Race.ALLIGATOR_MORPH));
-			UtilText.nodeContentSB.append(getSpeciesPreferencesPanel(Race.GARGOYLE));
+			UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(Race.COW_MORPH));
+			UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(Race.DOG_MORPH));
+			UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(Race.WOLF_MORPH));
+			UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(Race.CAT_MORPH));
+			UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(Race.HORSE_MORPH));
+			UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(Race.REINDEER_MORPH));
+			UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(Race.SQUIRREL_MORPH));
+			UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(Race.ALLIGATOR_MORPH));
+			UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(Race.GARGOYLE));
 			
 						
 			return UtilText.nodeContentSB.toString();
@@ -1477,7 +1477,7 @@ public class OptionsDialogue {
 		}
 	};
 	
-	private static String getSpeciesPreferencesPanel(Race race) {
+	private static String getSubspeciesPreferencesPanel(Race race) {
 		int count = 0;
 		Colour colour = race.getColour();
 		int subspeciesCount = Subspecies.values().length;
