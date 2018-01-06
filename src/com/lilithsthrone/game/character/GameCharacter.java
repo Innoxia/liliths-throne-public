@@ -3383,8 +3383,23 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return "<p style='text-align:center;'>" + "<b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Your inventory is full!</b>" + "</p>";
 	}
 	
+	/**
+	 * First unequips all clothing into void, so that clothing effects are preserved.
+	 */
 	public void resetInventory(){
+		unequipAllClothingIntoVoid();
+		
 		this.inventory = new CharacterInventory(0);
+	}
+	
+	public void unequipAllClothingIntoVoid() {
+		List<AbstractClothing> clothingEquipped = new ArrayList<>(this.getClothingCurrentlyEquipped());
+		for(AbstractClothing clothing : clothingEquipped) {
+			clothing.setSealed(false);
+		}
+		for(AbstractClothing clothing : clothingEquipped) {
+			this.unequipClothingIntoVoid(clothing, true, this);
+		}
 	}
 	
 	public int getMoney() {

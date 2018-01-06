@@ -39,7 +39,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.75
- * @version 0.1.96.1
+ * @version 0.1.97
  * @author Innoxia
  */
 public class Lab {
@@ -50,13 +50,6 @@ public class Lab {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			
-			if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
-				UtilText.nodeContentSB.append(
-						"<p>"
-							+ "[style.boldBad(This is as far as the main quest goes for now! Thank you for playing! :3)]"
-						+ "</p>");
-			}
 			
 			if(Main.game.getLilaya().hasStatusEffect(StatusEffect.PREGNANT_0)) {
 				UtilText.nodeContentSB.append("<p>"
@@ -75,89 +68,188 @@ public class Lab {
 						+ "</p>");
 				
 			} else {
-				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.waitingOnLilayaPregnancyResults)) {
-					if(Main.game.getLilaya().isVisiblyPregnant()) {
-						UtilText.nodeContentSB.append("<p>"
-									+ "Approaching the door to Lilaya's laboratory, you see that it's been left wide open."
-									+ " Quickly stepping inside, you scan the interior for any sign of life."
-								+ "</p>"
-								+ "<p>"
-									+ "On the opposite side of the room, you see Lilaya sitting down in a chair, looking straight at you."
-									+ " As soon as your eyes meet, she starts to stand up, but you notice that her movements are slightly unusual."
-									+ " Stepping around the desk that she was working at, you see the cause of her clumsy motions taking the form of a clearly swollen belly."
-								+ "</p>"
-								+ "<p>"
-									+ "[lilaya.speech(Yeah, that's right,)] she cries out as she approaches, [lilaya.speech(you ended up getting me pregnant!)]"
-								+ "</p>"
-								+ "<p>"
-									+ "You gulp nervously as you expect her to fly off in another angry fit, but, sensing your unease, Lilaya lets out a resigned sigh before lowering her voice,"
-									+ " [lilaya.speech(Don't worry, there's nothing that can be done about it now anyway. Being pregnant sucks, but I might have been a little too harsh on you."
-									+ " After all, it's only for a week or so that I've got to carry your kids around.)]"
-								+ "</p>"
-								+ "<p>"
-									+ "As she's been speaking, Lilaya has been gently rubbing her pregnant bump, and as she looks up at you, she notices that you're staring at her belly."
-								+ "</p>"
-								+ "<p>"
-									+ "[lilaya.speech(You want a feel?)] she asks, but before you can respond, she steps forwards and grabs your [pc.arm], before guiding your [pc.hand] down to rest on her stomach."
-									+ " Running your [pc.hands+] all over her round tummy, you hear Lilaya let out a happy little moan."
-								+ "</p>"
-								+ "<p>"
-									+ "[lilaya.speech(You know, as inconvenient as being pregnant is, wouldn't it be fun to run some more <i>tests</i> like this? After all, it's not like you need to pull out any more...)]"
-									+ " she asks, biting her lip at you."
-								+ "</p>");
+				
+				if(Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_I_ARTHURS_TALE) {
+					if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.waitingOnLilayaPregnancyResults)) { //TODO
+						if(Main.game.getLilaya().isVisiblyPregnant()) {
+							UtilText.nodeContentSB.append(// pregnant
+									"<p>"
+										+ "As you approach the door to Lilaya's lab, you hear Lilaya's high-pitched shouting getting louder and louder,"
+										+ " [lilaya.speech(...and I told you three times already! <i>Don't touch my notes!</i>)]"
+									+ "</p>"
+									+ "<p>"
+										+ "Pushing open the door, you see a rather flustered-looking Arthur sitting down on one of the lab's many chairs, his eyes cast to the floor as he endures your demonic aunt's furious scolding,"
+										+ " [arthur.speech(Sorry Lilaya, I just thought that-)]"
+									+ "</p>"
+									+ "<p>"
+										+ "[lilaya.speech(Be quiet!)]"
+										+ " Lilaya screams, before suddenly noticing that you're hovering near the door to her lab,"
+										+ " [lilaya.speech([pc.Name]! Come and take a seat, this instant!)]"
+									+ "</p>"
+									+ "<p>"
+										+ "Looking down at your aunt's stomach, you see the reason why she's addressing you in the same furious tone;"
+											+ " her belly is quite clearly swollen, and it's immediately obvious that you've ended up getting her pregnant."
+										+ " Knowing from experience that it's best to just do as you're told when your aunt's like this, you walk over to the chair next to Arthur and sit down."
+									+ "</p>"
+									+ "<p>"
+										+ "[lilaya.speech(You can consider yourself very lucky indeed, [pc.name]!)]"
+										+ " Lilaya shouts, before stepping back and lowering her voice a little,"
+										+ " [lilaya.speech(I've already decided to forgive you; after all, I've got bigger fish to fry right now.)]"
+									+ "</p>");
+							
+						} else {
+							UtilText.nodeContentSB.append(
+									"<p>"
+										+ "As you approach the door to Lilaya's lab, you hear Lilaya's high-pitched shouting getting louder and louder,"
+										+ " [lilaya.speech(...and I told you three times already! <i>Don't touch my notes!</i>)]"
+									+ "</p>"
+									+ "<p>"
+										+ "Pushing open the door, you see a rather flustered-looking Arthur sitting down on one of the lab's many chairs, his eyes cast to the floor as he endures your demonic aunt's furious scolding,"
+										+ " [arthur.speech(Sorry Lilaya, I just thought that-)]"
+									+ "</p>"
+									+ "<p>"
+										+ "[lilaya.speech(Be quiet!)]"
+										+ " Lilaya screams, before suddenly noticing that you're hovering near the door to her lab,"
+										+ " [lilaya.speech([pc.Name]! Come and take a seat, this instant!)]"
+									+ "</p>"
+									+ "<p>"
+										+ "Knowing from experience that it's best to just do as you're told when your aunt's like this, you walk over to the chair next to Arthur and sit down."
+										+ " Looking up at your aunt's flat stomach, you see that you didn't end up getting her pregnant after all."
+									+ "</p>"
+									+ "<p>"
+										+ "[lilaya.speech(You can consider yourself very lucky indeed, [pc.name]! As you can see, I'm not pregnant!)]"
+										+ " Lilaya shouts, before stepping back and lowering her voice a little,"
+										+ " [lilaya.speech(I've already decided to forgive you; after all, I've got bigger fish to fry right now.)]"
+									+ "</p>");
+						}
 						
 					} else {
-						UtilText.nodeContentSB.append("<p>"
-									+ "Approaching the door to Lilaya's laboratory, you see that it's been left wide open."
-									+ " Quickly stepping inside, you scan the interior for any sign of life."
+						UtilText.nodeContentSB.append(
+								"<p>"
+									+ "As you approach the door to Lilaya's lab, you hear Lilaya's high-pitched shouting getting louder and louder,"
+									+ " [lilaya.speech(...and I told you three times already! <i>Don't touch my notes!</i>)]"
 								+ "</p>"
 								+ "<p>"
-									+ "On the opposite side of the room, you see Lilaya sitting down in a chair, looking straight at you."
-									+ " As soon as your eyes meet, she stands up, and with a few quick strides, crosses the room."
+									+ "Pushing open the door, you see a rather flustered-looking Arthur sitting down on one of the lab's many chairs, his eyes cast to the floor as he endures your demonic aunt's furious scolding,"
+									+ " [arthur.speech(Sorry Lilaya, I just thought that-)]"
 								+ "</p>"
 								+ "<p>"
-									+ "[lilaya.speech(Yeah, that's right,)] she cries out as she approaches, [lilaya.speech(I'm not pregnant!)]"
+									+ "[lilaya.speech(Be quiet!)]"
+									+ " Lilaya screams, before suddenly noticing that you're hovering near the door to her lab,"
+									+ " [lilaya.speech([pc.Name]! Please come in and take a seat!)]"
 								+ "</p>"
 								+ "<p>"
-									+ "You gulp nervously as you expect her to give you another scolding, but, sensing your unease, Lilaya lets out a resigned sigh before lowering her voice,"
-									+ " [lilaya.speech(Don't worry, I'm not angry at you any more. Being pregnant sucks, but I might have been a little too harsh on you.)]"
-								+ "</p>"
-								+ "<p>"
-									+ "As she's been speaking, Lilaya has been greedily staring at your body, and as you realise that you're being let off the hook, you start to notice the sultry tone in her voice."
-								+ "</p>"
-								+ "<p>"
-									+ "[lilaya.speech(You know, I'm feeling pretty good right now about not getting pregnant..."
-									+ " You want me to run some more <i>tests</i>? Just, promise to pull out this time, ok?)] she asks, biting her lip at you."
+									+ "Knowing from experience that it's best to just do as you're told when your aunt's like this, you walk over to the chair next to Arthur and sit down."
 								+ "</p>");
 					}
 					
-				} else {
-					UtilText.nodeContentSB.append("<p>"
-								+ "You head down to Lilaya's lab, and as you arrive, you see that the door has been left wide open."
-								+ " Stepping forwards into the room, you glance around to see if anyone's here."
+					// Core argument:
+					UtilText.nodeContentSB.append(
+							"<p>"
+								+ "Lilaya starts pacing back and forth in front of you as she explains the situation,"
+								+ " [lilaya.speech(It's just impossible. Absolutely <i>impossible</i>!"
+									+ " I do need your help in order to figure out how to return [pc.name] to [pc.her] world, but I simply <i>cannot</i> be around you for longer than five minutes!)]"
 							+ "</p>"
 							+ "<p>"
-								+ "On the far side of the lab, Lilaya is sitting at one of the long tables, with her back to the door."
-								+ " Open books and pieces of paper litter the tabletop and floor around her, but she seems far more interested in something else at the moment."
-								+ " Rose is straddling her lap, leaning in Lilaya's chest as she whispers down to her demonic mistress."
-								+ " You see Lilaya's hand reaching up Rose's skirt, and from the movement of her arm, you can tell that she's fingering her cat-girl maid."
+								+ "[arthur.speech(Lilaya, please, how many times to I have to say I'm sorr-)]"
+								+ " Arthur starts, before being cut short by a sudden exclamation from your aunt."
 							+ "</p>"
 							+ "<p>"
-								+ "Rose hooks her arms around Lilaya's neck and leans back, letting out a deep moan as Lilaya's fingers continue working away between her legs."
-								+ " She suddenly notices you out of the corner or her eye, and, letting out a little eek, she leaps up onto her feet,"
-								+ " [rose.speech(M-Mistress! [pc.Name]'s here!)]"
+								+ "[lilaya.speech(You wouldn't have had to say sorry even <i>once</i> if you hadn't decided to fuck her!"
+									+ " And right here in my lab of all places!)]"
+								+ " Lilaya shouts, before stepping between the two of you and turning her back to Arthur as she addresses you,"
+								+ " [lilaya.speech([pc.Name], can you please help Rose to find a suitable room for Arthur? I simply can't have that insufferable asshole hanging around in my lab all the time.)]"
 							+ "</p>"
 							+ "<p>"
-								+ "Lilaya, upon hearing that, mirrors her maid's movements and leaps to her feet,"
-								+ " [lilaya.speech([pc.Name]! E-Erm, w-we were just... Doing an experiment! Yes! Isn't that right Rose?!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "[rose.speech(Yes mistress!)] Rose squeaks, [rose.speech(That's right!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "Brushing down her skirt, Lilaya clears her throat,"
-								+ " [lilaya.speech(Ahem! So, what is it you need?)]"
+								+ "Finding yourself in an increasingly awkward position as Lilaya waits for your answer, you realise that your only real option is to agree to do as she asks."
 							+ "</p>");
+					
+				} else {
+				
+					if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.waitingOnLilayaPregnancyResults)) {
+						if(Main.game.getLilaya().isVisiblyPregnant()) {
+							UtilText.nodeContentSB.append("<p>"
+										+ "Approaching the door to Lilaya's laboratory, you see that it's been left wide open."
+										+ " Quickly stepping inside, you scan the interior for any sign of life."
+									+ "</p>"
+									+ "<p>"
+										+ "On the opposite side of the room, you see Lilaya sitting down in a chair, looking straight at you."
+										+ " As soon as your eyes meet, she starts to stand up, but you notice that her movements are slightly unusual."
+										+ " Stepping around the desk that she was working at, you see the cause of her clumsy motions taking the form of a clearly swollen belly."
+									+ "</p>"
+									+ "<p>"
+										+ "[lilaya.speech(Yeah, that's right,)] she cries out as she approaches, [lilaya.speech(you ended up getting me pregnant!)]"
+									+ "</p>"
+									+ "<p>"
+										+ "You gulp nervously as you expect her to fly off in another angry fit, but, sensing your unease, Lilaya lets out a resigned sigh before lowering her voice,"
+										+ " [lilaya.speech(Don't worry, there's nothing that can be done about it now anyway. Being pregnant sucks, but I might have been a little too harsh on you."
+										+ " After all, it's only for a week or so that I've got to carry your kids around.)]"
+									+ "</p>"
+									+ "<p>"
+										+ "As she's been speaking, Lilaya has been gently rubbing her pregnant bump, and as she looks up at you, she notices that you're staring at her belly."
+									+ "</p>"
+									+ "<p>"
+										+ "[lilaya.speech(You want a feel?)] she asks, but before you can respond, she steps forwards and grabs your [pc.arm], before guiding your [pc.hand] down to rest on her stomach."
+										+ " Running your [pc.hands+] all over her round tummy, you hear Lilaya let out a happy little moan."
+									+ "</p>"
+									+ "<p>"
+										+ "[lilaya.speech(You know, as inconvenient as being pregnant is, wouldn't it be fun to run some more <i>tests</i> like this? After all, it's not like you need to pull out any more...)]"
+										+ " she asks, biting her lip at you."
+									+ "</p>");
+							
+						} else {
+							UtilText.nodeContentSB.append("<p>"
+										+ "Approaching the door to Lilaya's laboratory, you see that it's been left wide open."
+										+ " Quickly stepping inside, you scan the interior for any sign of life."
+									+ "</p>"
+									+ "<p>"
+										+ "On the opposite side of the room, you see Lilaya sitting down in a chair, looking straight at you."
+										+ " As soon as your eyes meet, she stands up, and with a few quick strides, crosses the room."
+									+ "</p>"
+									+ "<p>"
+										+ "[lilaya.speech(Yeah, that's right,)] she cries out as she approaches, [lilaya.speech(I'm not pregnant!)]"
+									+ "</p>"
+									+ "<p>"
+										+ "You gulp nervously as you expect her to give you another scolding, but, sensing your unease, Lilaya lets out a resigned sigh before lowering her voice,"
+										+ " [lilaya.speech(Don't worry, I'm not angry at you any more. Being pregnant sucks, but I might have been a little too harsh on you.)]"
+									+ "</p>"
+									+ "<p>"
+										+ "As she's been speaking, Lilaya has been greedily staring at your body, and as you realise that you're being let off the hook, you start to notice the sultry tone in her voice."
+									+ "</p>"
+									+ "<p>"
+										+ "[lilaya.speech(You know, I'm feeling pretty good right now about not getting pregnant..."
+										+ " You want me to run some more <i>tests</i>? Just, promise to pull out this time, ok?)] she asks, biting her lip at you."
+									+ "</p>");
+						}
+						
+					} else {
+						UtilText.nodeContentSB.append("<p>"
+									+ "You head down to Lilaya's lab, and as you arrive, you see that the door has been left wide open."
+									+ " Stepping forwards into the room, you glance around to see if anyone's here."
+								+ "</p>"
+								+ "<p>"
+									+ "On the far side of the lab, Lilaya is sitting at one of the long tables, with her back to the door."
+									+ " Open books and pieces of paper litter the tabletop and floor around her, but she seems far more interested in something else at the moment."
+									+ " Rose is straddling her lap, leaning in Lilaya's chest as she whispers down to her demonic mistress."
+									+ " You see Lilaya's hand reaching up Rose's skirt, and from the movement of her arm, you can tell that she's fingering her cat-girl maid."
+								+ "</p>"
+								+ "<p>"
+									+ "Rose hooks her arms around Lilaya's neck and leans back, letting out a deep moan as Lilaya's fingers continue working away between her legs."
+									+ " She suddenly notices you out of the corner or her eye, and, letting out a little eek, she leaps up onto her feet,"
+									+ " [rose.speech(M-Mistress! [pc.Name]'s here!)]"
+								+ "</p>"
+								+ "<p>"
+									+ "Lilaya, upon hearing that, mirrors her maid's movements and leaps to her feet,"
+									+ " [lilaya.speech([pc.Name]! E-Erm, w-we were just... Doing an experiment! Yes! Isn't that right Rose?!)]"
+								+ "</p>"
+								+ "<p>"
+									+ "[rose.speech(Yes mistress!)] Rose squeaks, [rose.speech(That's right!)]"
+								+ "</p>"
+								+ "<p>"
+									+ "Brushing down her skirt, Lilaya clears her throat,"
+									+ " [lilaya.speech(Ahem! So, what is it you need?)]"
+								+ "</p>");
+					}
 				}
 			}
 			
@@ -166,7 +258,8 @@ public class Lab {
 		
 		@Override
 		public boolean isTravelDisabled() {
-			return Main.game.getDialogueFlags().values.contains(DialogueFlagValue.waitingOnLilayaPregnancyResults) && !Main.game.getLilaya().hasStatusEffect(StatusEffect.PREGNANT_0);
+			return !Main.game.getLilaya().hasStatusEffect(StatusEffect.PREGNANT_0)
+					&& (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_I_ARTHURS_TALE || Main.game.getDialogueFlags().values.contains(DialogueFlagValue.waitingOnLilayaPregnancyResults));
 		}
 
 		@Override
@@ -175,216 +268,234 @@ public class Lab {
 				return null;
 				
 			} else {
-				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.waitingOnLilayaPregnancyResults)) {
-					if (index == 1) {
+				if(Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_I_ARTHURS_TALE) {
+					if(index == 1) {
+						return new Response("Agree", "Knowing how fierce your aunt can get when she's in one of these moods, you realise that you don't really have much of a choice...", LAB_ARTHURS_TALE){
+							@Override
+							public void effects() {
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
+								Main.game.getDialogueFlags().values.remove(DialogueFlagValue.waitingOnLilayaPregnancyResults);
+							}
+						};
 						
-						if(Main.game.getLilaya().isVisiblyPregnant()) {
-							return new ResponseSex("\"Tests\"",
-									"Let Lilaya run her \"tests\" on you.",
-									Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)),
-									null,
-									CorruptionLevel.FOUR_LUSTFUL, null, null, null, true,
-									true, Main.game.getLilaya(), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX,
-									"<p>"
-										+ "Stepping forwards, you reach up and take Lilaya's head in your hands, eagerly pressing your lips against hers as you give her a clear response to her question."
-										+ " You hear her little bat-like wings fluttering in excitement, and as you carry on kissing the horny half-demon, she starts moaning into your mouth."
-									+ "</p>"
-									+ "<p>"
-										+ "Wrapping her arms around your back, Lilaya clumsily pulls you over towards one of the lab's many chairs."
-										+ " You feel her swollen belly rubbing against your stomach as she guides you across the room, and as she pushes you down onto a seat, she slowly sinks down into your lap,"
-										+ " continuing her passionate kisses and moans as you both prepare for another round of \"tests\"."
-									+ "</p>"){
-								@Override
-								public void effects() {
-									Main.game.getDialogueFlags().values.add(DialogueFlagValue.hadSexWithLilaya);
-									Main.game.getDialogueFlags().values.remove(DialogueFlagValue.waitingOnLilayaPregnancyResults);
-									Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_ROSE, false);
-								}
-							};
-							
-						} else {
-							return new ResponseSex("\"Tests\"",
-									"Let Lilaya run her \"tests\" on you.",
-									Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)),
-									null,
-									CorruptionLevel.FOUR_LUSTFUL, null, null, null, true,
-									true, Main.game.getLilaya(), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX,
-									"<p>"
-										+ "Stepping forwards, you reach up and take Lilaya's head in your hands, eagerly pressing your lips against hers as you give her a clear response to her question."
-										+ " You hear her little bat-like wings fluttering in excitement, and as you carry on kissing the horny half-demon, she starts moaning into your mouth."
-									+ "</p>"
-									+ "<p>"
-										+ "Wrapping her arms around your back, Lilaya pulls you over towards one of the lab's many chairs."
-										+ " Spinning you around and pushing you down into the seat, she sits down in your lap, continuing her passionate kisses and moans as you both prepare for another round of \"tests\"."
-									+ "</p>"){
-								@Override
-								public void effects() {
-									Main.game.getDialogueFlags().values.add(DialogueFlagValue.hadSexWithLilaya);
-									Main.game.getDialogueFlags().values.remove(DialogueFlagValue.waitingOnLilayaPregnancyResults);
-									Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_ROSE, false);
-								}
-							};
-						}
-	
-					} else if(index == 0) {
-							return new Response("Leave", "Tell Lilaya that you don't have time, but you're glad that she's not angry with you any more.", LAB_EXIT){
-								@Override
-								public void effects() {
-									Main.game.getDialogueFlags().values.remove(DialogueFlagValue.waitingOnLilayaPregnancyResults);
-								}
-							};
-							
 					} else {
 						return null;
 					}
 					
 				} else {
-					
-					List<Response> generatedResponses = new ArrayList<>();
-					
-					if (Main.game.getPlayer().isVisiblyPregnant()) {
-						if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
-							generatedResponses.add(new Response("Pregnancy", "You'll need to complete Lilaya's initial tests before she'll agree to help you deal with your pregnancy.", null));
-							
-						} else {
-							generatedResponses.add(new Response("Pregnancy", "Speak to Lilaya about your pregnancy.", LILAYA_ASSISTS_PREGNANCY){
-								@Override
-								public QuestLine getQuestLine() {
-									if (Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
-										if (Main.game.getPlayer().getQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY) == Quest.SIDE_PREGNANCY_CONSULT_LILAYA) {
-											return QuestLine.SIDE_FIRST_TIME_PREGNANCY;
-										} else {
-											return null;
-										}
-									} else {
-										return null;
+					if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.waitingOnLilayaPregnancyResults)) {
+						if (index == 1) {
+							if(Main.game.getLilaya().isVisiblyPregnant()) {
+								return new ResponseSex("\"Tests\"",
+										"Let Lilaya run her \"tests\" on you.",
+										Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)),
+										null,
+										CorruptionLevel.FOUR_LUSTFUL, null, null, null, true,
+										true, Main.game.getLilaya(), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX,
+										"<p>"
+											+ "Stepping forwards, you reach up and take Lilaya's head in your hands, eagerly pressing your lips against hers as you give her a clear response to her question."
+											+ " You hear her little bat-like wings fluttering in excitement, and as you carry on kissing the horny half-demon, she starts moaning into your mouth."
+										+ "</p>"
+										+ "<p>"
+											+ "Wrapping her arms around your back, Lilaya clumsily pulls you over towards one of the lab's many chairs."
+											+ " You feel her swollen belly rubbing against your stomach as she guides you across the room, and as she pushes you down onto a seat, she slowly sinks down into your lap,"
+											+ " continuing her passionate kisses and moans as you both prepare for another round of \"tests\"."
+										+ "</p>"){
+									@Override
+									public void effects() {
+										Main.game.getDialogueFlags().values.add(DialogueFlagValue.hadSexWithLilaya);
+										Main.game.getDialogueFlags().values.remove(DialogueFlagValue.waitingOnLilayaPregnancyResults);
+										Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_ROSE, false);
 									}
-								}
-								@Override
-								public void effects() {
-									if (!Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY))
-										Main.game.getPlayer().incrementQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY);
-								}
-							});
-						}
-					}
-					
-					if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-						if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-							if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
-								generatedResponses.add(new Response("Essences & Jinxes", "You'll need to complete Lilaya's initial tests before you're able to ask her about that strange energy you absorbed.", null));
+								};
 								
 							} else {
-								generatedResponses.add(new Response("Essences & Jinxes", "Ask Lilaya about that strange energy you absorbed.", LILAYA_EXPLAINS_ESSENCES));
+								return new ResponseSex("\"Tests\"",
+										"Let Lilaya run her \"tests\" on you.",
+										Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)),
+										null,
+										CorruptionLevel.FOUR_LUSTFUL, null, null, null, true,
+										true, Main.game.getLilaya(), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX,
+										"<p>"
+											+ "Stepping forwards, you reach up and take Lilaya's head in your hands, eagerly pressing your lips against hers as you give her a clear response to her question."
+											+ " You hear her little bat-like wings fluttering in excitement, and as you carry on kissing the horny half-demon, she starts moaning into your mouth."
+										+ "</p>"
+										+ "<p>"
+											+ "Wrapping her arms around your back, Lilaya pulls you over towards one of the lab's many chairs."
+											+ " Spinning you around and pushing you down into the seat, she sits down in your lap, continuing her passionate kisses and moans as you both prepare for another round of \"tests\"."
+										+ "</p>"){
+									@Override
+									public void effects() {
+										Main.game.getDialogueFlags().values.add(DialogueFlagValue.hadSexWithLilaya);
+										Main.game.getDialogueFlags().values.remove(DialogueFlagValue.waitingOnLilayaPregnancyResults);
+										Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_ROSE, false);
+									}
+								};
 							}
-							
-						} else {
-							if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.essenceExtractionKnown)) {
-								generatedResponses.add(new Response("Extract Essences", "Ask Lilaya if you can use her equipment to extract some essences.", ESSENCE_EXTRACTION));
-							} else {
-								generatedResponses.add(new Response("Extract Essences", "Ask Lilaya if there's any way to extract essences you've absorbed.", ESSENCE_EXTRACTION));
-							}
-						}
-					}
-					
-					if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_SLAVERY)) {
-						if(Main.game.getPlayer().getQuest(QuestLine.SIDE_SLAVERY) == Quest.SIDE_SLAVER_NEED_RECOMMENDATION) {
-							if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
-								generatedResponses.add(new Response("Slaver", "You'll need to complete Lilaya's initial tests before you can ask her for a letter of recommendation.", null));
+		
+						} else if(index == 0) {
+								return new Response("Leave", "Tell Lilaya that you don't have time, but you're glad that she's not angry with you any more.", LAB_EXIT){
+									@Override
+									public void effects() {
+										Main.game.getDialogueFlags().values.remove(DialogueFlagValue.waitingOnLilayaPregnancyResults);
+									}
+								};
 								
-							} else {
-								generatedResponses.add(new Response("Slaver", "Ask Lilaya for a letter of recommendation in order to obtain a slaver license.", LILAYA_SLAVER_RECOMMENDATION));
-							}
-						}
-					}
-					
-					if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.lilayaDateTalk)
-							&& Main.game.getDialogueFlags().values.contains(DialogueFlagValue.knowsDate)) {
-						generatedResponses.add(new Response("Current Date", "Ask Lilaya why the calendar in your room is three years ahead of the correct date.", LILAYA_CURRENT_DATE_TALK) {
-							@Override
-							public void effects() {
-								Main.game.getDialogueFlags().values.add(DialogueFlagValue.lilayaDateTalk);
-							}
-						});
-					}
-					
-					if(Main.game.getPlayer().hasItemType(ItemType.PRESENT) && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.givenLilayaPresent3)) {
-						generatedResponses.add(new Response("Give Present", "Give the present in your inventory to Lilaya.", LILAYA_PRESENT) {
-							@Override
-							public void effects() {
-								Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.PRESENT));
-								
-								if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.givenLilayaPresent2)) {
-									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.givenLilayaPresent3, true);
-									
-								} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.givenLilayaPresent1)) {
-									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.givenLilayaPresent2, true);
-									
-								} else {
-									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.givenLilayaPresent1, true);
-								}
-							}
-						});
-					}
-					
-					if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.givenLilayaPresent3)) {
-						generatedResponses.add(new Response("Geisha Lilaya", "Ask Lilaya if she'd like to wear the gifts you got for her.", LILAYA_GEISHA) {
-							@Override
-							public void effects() {
-								Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_LILAYA, true);
-								Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_LILAYA, true);
-								Main.game.getLilaya().resetInventory();
-
-								Main.game.getLilaya().equipClothingFromNowhere(
-										AbstractClothingType.generateClothing(ClothingType.KIMONO_HAIR_KANZASHI, Colour.CLOTHING_PINK, Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_PURPLE, false), true, Main.game.getLilaya());
-								Main.game.getLilaya().equipClothingFromNowhere(
-										AbstractClothingType.generateClothing(ClothingType.KIMONO_DRESS, Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_PURPLE, Colour.CLOTHING_PINK, false), true, Main.game.getLilaya());
-								Main.game.getLilaya().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.KIMONO_GETA, Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_PINK, null, false), true, Main.game.getLilaya());
-								Main.game.getLilaya().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getLilaya());
-							}
-						});
-					}
-					
-					// Return responses:
-					if(index==0) {
-						return null;
-						
-					} else if (index == 1) {
-						if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_A_LILAYAS_TESTS) {
-							return new Response("Tests", "Let Lilaya know that you're here to let her run her tests on you.", AUNT_HOME_LABORATORY_TESTING);
-						} else {
-							if (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.hadSexWithLilaya)) {
-								return new Response("\"Tests\"", "Let Lilaya know that you're here to let her run more of her \"tests\" on you.", AUNT_HOME_LABORATORY_TESTING_MORE_SEX);
-							} else {
-								return new Response("Tests", "Let Lilaya know that you're here to let her run more of her tests on you.", AUNT_HOME_LABORATORY_TESTING_REPEAT);
-							}
-						}
-	
-					} else if(index<6) {
-						if(index-2 < generatedResponses.size()) {
-							return generatedResponses.get(index-2);
 						} else {
 							return null;
 						}
 						
-					} else if (index == 6) {
-						return new ResponseEffectsOnly("Entrance hall", "Fast travel to the entrance hall."){
-							@Override
-							public void effects() {
-								Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), PlaceType.LILAYA_HOME_ENTRANCE_HALL, true);
-							}
-						};
-			
-					} else if (index == 7) {
-						return new ResponseEffectsOnly("Your Room", "Fast travel up to your room."){
-							@Override
-							public void effects() {
-								Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR), PlaceType.LILAYA_HOME_ROOM_PLAYER, true);
-							}
-						};
-
 					} else {
-						return null;
+						
+						List<Response> generatedResponses = new ArrayList<>();
+						
+						if (Main.game.getPlayer().isVisiblyPregnant()) {
+							if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
+								generatedResponses.add(new Response("Pregnancy", "You'll need to complete Lilaya's initial tests before she'll agree to help you deal with your pregnancy.", null));
+								
+							} else {
+								generatedResponses.add(new Response("Pregnancy", "Speak to Lilaya about your pregnancy.", LILAYA_ASSISTS_PREGNANCY){
+									@Override
+									public QuestLine getQuestLine() {
+										if (Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
+											if (Main.game.getPlayer().getQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY) == Quest.SIDE_PREGNANCY_CONSULT_LILAYA) {
+												return QuestLine.SIDE_FIRST_TIME_PREGNANCY;
+											} else {
+												return null;
+											}
+										} else {
+											return null;
+										}
+									}
+									@Override
+									public void effects() {
+										if (!Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY))
+											Main.game.getPlayer().incrementQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY);
+									}
+								});
+							}
+						}
+						
+						if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
+							if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
+								if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
+									generatedResponses.add(new Response("Essences & Jinxes", "You'll need to complete Lilaya's initial tests before you're able to ask her about that strange energy you absorbed.", null));
+									
+								} else {
+									generatedResponses.add(new Response("Essences & Jinxes", "Ask Lilaya about that strange energy you absorbed.", LILAYA_EXPLAINS_ESSENCES));
+								}
+								
+							} else {
+								if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.essenceExtractionKnown)) {
+									generatedResponses.add(new Response("Extract Essences", "Ask Lilaya if you can use her equipment to extract some essences.", ESSENCE_EXTRACTION));
+								} else {
+									generatedResponses.add(new Response("Extract Essences", "Ask Lilaya if there's any way to extract essences you've absorbed.", ESSENCE_EXTRACTION));
+								}
+							}
+						}
+						
+						if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_SLAVERY)) {
+							if(Main.game.getPlayer().getQuest(QuestLine.SIDE_SLAVERY) == Quest.SIDE_SLAVER_NEED_RECOMMENDATION) {
+								if (!Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS)) {
+									generatedResponses.add(new Response("Slaver", "You'll need to complete Lilaya's initial tests before you can ask her for a letter of recommendation.", null));
+									
+								} else {
+									generatedResponses.add(new Response("Slaver", "Ask Lilaya for a letter of recommendation in order to obtain a slaver license.", LILAYA_SLAVER_RECOMMENDATION));
+								}
+							}
+						}
+						
+						if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.lilayaDateTalk)
+								&& Main.game.getDialogueFlags().values.contains(DialogueFlagValue.knowsDate)) {
+							generatedResponses.add(new Response("Current Date", "Ask Lilaya why the calendar in your room is three years ahead of the correct date.", LILAYA_CURRENT_DATE_TALK) {
+								@Override
+								public void effects() {
+									Main.game.getDialogueFlags().values.add(DialogueFlagValue.lilayaDateTalk);
+								}
+							});
+						}
+						
+						if(Main.game.getPlayer().hasItemType(ItemType.PRESENT) && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.givenLilayaPresent3)) {
+							generatedResponses.add(new Response("Give Present", "Give the present in your inventory to Lilaya.", LILAYA_PRESENT) {
+								@Override
+								public void effects() {
+									Main.game.getPlayer().removeItem(AbstractItemType.generateItem(ItemType.PRESENT));
+									
+									if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.givenLilayaPresent2)) {
+										Main.game.getDialogueFlags().setFlag(DialogueFlagValue.givenLilayaPresent3, true);
+										
+									} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.givenLilayaPresent1)) {
+										Main.game.getDialogueFlags().setFlag(DialogueFlagValue.givenLilayaPresent2, true);
+										
+									} else {
+										Main.game.getDialogueFlags().setFlag(DialogueFlagValue.givenLilayaPresent1, true);
+									}
+								}
+							});
+						}
+						
+						if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.givenLilayaPresent3)) {
+							generatedResponses.add(new Response("Geisha Lilaya", "Ask Lilaya if she'd like to wear the gifts you got for her.", LILAYA_GEISHA) {
+								@Override
+								public void effects() {
+									Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_LILAYA, true);
+									Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_LILAYA, true);
+									Main.game.getLilaya().resetInventory();
+									
+									Main.game.getLilaya().equipClothingFromNowhere(
+											AbstractClothingType.generateClothing(ClothingType.KIMONO_HAIR_KANZASHI, Colour.CLOTHING_PINK, Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_PURPLE, false), true, Main.game.getLilaya());
+									Main.game.getLilaya().equipClothingFromNowhere(
+											AbstractClothingType.generateClothing(ClothingType.KIMONO_DRESS, Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_PURPLE, Colour.CLOTHING_PINK, false), true, Main.game.getLilaya());
+									Main.game.getLilaya().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.KIMONO_GETA, Colour.CLOTHING_PINK_LIGHT, Colour.CLOTHING_PINK, null, false), true, Main.game.getLilaya());
+									Main.game.getLilaya().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false), true, Main.game.getLilaya());
+								}
+							});
+						}
+						
+						// Return responses:
+						if(index==0) {
+							return null;
+							
+						} else if (index == 1) {
+							if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_A_LILAYAS_TESTS) {
+								return new Response("Tests", "Let Lilaya know that you're here to let her run her tests on you.", AUNT_HOME_LABORATORY_TESTING);
+							} else {
+								if(Main.game.getArthur().getLocationPlace().getPlaceType()==PlaceType.LILAYA_HOME_LAB) {
+									return new Response("\"Tests\"", "Lilaya can't run any \"tests\" on you while Arthur is still present in her lab. Find him a suitable room first.", null);
+									
+								} else if (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.hadSexWithLilaya)) {
+									return new Response("\"Tests\"", "Let Lilaya know that you're here to let her run more of her \"tests\" on you.", AUNT_HOME_LABORATORY_TESTING_MORE_SEX);
+								} else {
+									return new Response("Tests", "Let Lilaya know that you're here to let her run more of her tests on you.", AUNT_HOME_LABORATORY_TESTING_REPEAT);
+								}
+							}
+		
+						} else if(index<6) {
+							if(index-2 < generatedResponses.size()) {
+								return generatedResponses.get(index-2);
+							} else {
+								return null;
+							}
+							
+						} else if (index == 6) {
+							return new ResponseEffectsOnly("Entrance hall", "Fast travel to the entrance hall."){
+								@Override
+								public void effects() {
+									Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_GROUND_FLOOR), PlaceType.LILAYA_HOME_ENTRANCE_HALL, true);
+								}
+							};
+				
+						} else if (index == 7) {
+							return new ResponseEffectsOnly("Your Room", "Fast travel up to your room."){
+								@Override
+								public void effects() {
+									Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR), PlaceType.LILAYA_HOME_ROOM_PLAYER, true);
+								}
+							};
+	
+						} else {
+							return null;
+						}
 					}
 				}
 			}
@@ -419,6 +530,26 @@ public class Lab {
 			return LAB.getResponse(0, index);
 		}
 	};
+	
+	public static final DialogueNodeOld LAB_EXIT_THROWN_OUT = new DialogueNodeOld("Lilaya's Laboratory", "", false) {
+		
+		private static final long serialVersionUID = 1L;
+
+		
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "You find yourself standing outside the door to Lilaya's laboratory."
+						+ " Your demonic aunt seemed pretty angry, and you think that it's probably a good idea if you gave her some time to cool off before trying to speak to her again..."
+					+ "</p>";
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return null;
+		}
+	};
+	
 	
 	public static final DialogueNodeOld LILAYA_PRESENT = new DialogueNodeOld("Lilaya's Laboratory", "", false) {
 		
@@ -2160,10 +2291,8 @@ public class Lab {
 							+ "[lilaya.speech(Well, that's a relief! Oh, right, I need to explain what's going on!)]"
 							+ " she says, putting the instrument down on a nearby table before turning back to face you, "
 							+ "[lilaya.speech(So, it turns out that your body has completely adapted to this world, and you're going to be obeying the same sort of rules for pregnancy as the rest of us!"
-									+ " What I'm trying to say is that you're not going to be pregnant for the better part of a year; it's going to be more like one or two weeks."
-									+ " Oh, and also, the sort of children you're going to give birth to is dependent on what sort of vagina and reproductive system you've got."
-									+ " Human reproduction is kind of special, in that they always give birth to children of whatever race the father was."
-									+ " Otherwise, you'll give birth to children of the same race as your reproductive system."
+									+ " What I'm trying to say is that you're not going to be pregnant for the better part of a year; it's going to be more like a few weeks."
+									+ " Oh, and also, the races of the children you're going to give birth to will be a split between your race, and the race of the father."
 									+ " Pretty exciting, huh?!)]"
 						+ "</p>"
 						+ "<p>"
@@ -3325,6 +3454,101 @@ public class Lab {
 			} else {
 				return null;
 			}
+		}
+	};
+	
+	public static final DialogueNodeOld LAB_ARTHURS_TALE = new DialogueNodeOld("Lilaya's Laboratory", "", true, true) {
+		
+		private static final long serialVersionUID = 1L;
+
+		
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "[pc.speech(Ok, Lilaya, I'll find a room for Arthur,)]"
+						+ " you answer, trying to get your aunt to calm down as you agree to do as she asks."
+					+ "</p>"
+					+ "<p>"
+						+ "[lilaya.speech(Thank you [pc.name], I would have asked Rose to do it for me, but as I agreed to let you use the empty rooms already, I thought it best that you should be the one to decide where Arthur goes,)]"
+						+ " Lilaya says, before stepping to one side and turning to face Arthur,"
+						+ " [lilaya.speech(You should let [pc.name] know how you ended up as Zaranix's slave; after all, [pc.she] was the one who went through all that trouble to free you.)]"
+					+ "</p>"
+					+ "<p>"
+						+ "[arthur.speech(Yes Lilaya,)]"
+						+ " Arthur responds, before turning to address you,"
+						+ " [arthur.speech(We can discuss it a little more some other time, but the basic gist of it is that I decided to do a little research into arcane teleportation.)]"
+					+ "</p>"
+					+ "<p>"
+						+ "[lilaya.speech(Which is illegal,)]"
+						+ " Lilaya interjects."
+					+ "</p>"
+					+ "<p>"
+						+ "[arthur.speech(Yes, thank you Lilaya. Which is illegal."
+							+ " Anyway, thanks to a certain amber-haired demon, who I <i>assumed</i> was no more than a succubus looking to make some quick cash, I ended up creating a teleportation device that actually worked!"
+							+ " Well, it sort of worked... It didn't quite take me to where I wanted to go...)]"
+					+ "</p>"
+					+ "<p>"
+						+ "You notice Arthur glance across to Lilaya, and the pair of them exchange a slightly worried look, before he continues,"
+						+ " [arthur.speech(Anyway, when I returned, I discovered that Amber had already called for the enforcers."
+							+ " After immediately being enslaved for 'treason', I was quickly shunted through the legal process, and, through a series of bribes, Zaranix quickly gained possession of me."
+							+ " It turned out that he'd been watching me for months, waiting for me to make a mistake so that he could get me enslaved."
+							+ " He was under the rather deluded impression that I'd be able to make a demonic transformative, among other things, and that I'd make him rich.)]"
+					+ "</p>"
+					+ "<p>"
+						+ "[lilaya.speech(Which could actually be possible, by the way,)]"
+						+ " Lilaya interrupts again, leaning back against a desk and crossing her arms."
+					+ "</p>"
+					+ "<p>"
+						+ "[arthur.speech(Erm, no. It isn't possible. You can harness arcane power to create transformatives for other races, but demonic essence is actually-)]"
+					+ "</p>"
+					+ "<p>"
+						+ "[lilaya.speech(Oh please, give me a break. Who was it that said inter-dimensional travel wasn't possible, even when the entire rest of the research community said it was?"
+							+ " Oh, that'd be you. And look what's sitting right next to you. Proof that it is possible!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "[arthur.speech(L-Lilaya, we can discuss that another time. What I'm talking about it demonic essences being, by their very nature, incompatible with transformative consumables, or indeed items of any sort!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "[lilaya.speech(I honestly can't believe how thick you are sometimes Arthur. But then again, it is to be expected of someone who'd go behind their lover's back to fuck-)]"
+					+ "</p>"
+					+ "<p>"
+						+ "[arthur.speech(How many times do I have to apologise?)]"
+					+ "</p>"
+					+ "<p>"
+						+ "[lilaya.speech(Oh, I'm sorry, I thought <i>I</i> was talking."
+							+ " But that's ok."
+							+ " Seeing as you want to interrupt me, you're obviously very eager to talk about how much you liked fucking her behind my back, so please, do go on!)]"
+					+ "</p>";
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index == 1) {
+				return new Response("Leave", "Head out to find a suitable room for Arthur to stay in.", LAB_LEAVE);
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld LAB_LEAVE = new DialogueNodeOld("Lilaya's Laboratory", "", false, true) {
+		
+		private static final long serialVersionUID = 1L;
+
+		
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "Sensing that Lilaya's temper is about to flare up again, you stand up and move to make your exit."
+						+ " Sure enough, by the time you've reached the door to the lab and stepped out into the corridor beyond, you start to hear Lilaya's voice raise into shouts and screams again."
+						+ " Finding yourself glad to not be in Arthur's position right now, you set off to find a suitable room for him..."
+					+ "</p>";
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return null;
 		}
 	};
 }

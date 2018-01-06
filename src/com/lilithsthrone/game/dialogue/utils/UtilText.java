@@ -904,6 +904,24 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
+						new ListValue<>("bitch"),
+						new ListValue<>("slut")),
+				true,
+				true,
+				"",
+				"Returns a random mean word to describe this person, based on their femininity."){ // R-Rude!
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(character.isFeminine()) {
+					return UtilText.returnStringAtRandom("bitch", "slut", "cunt", "whore", "skank");
+				} else {
+					return UtilText.returnStringAtRandom("bitch", "bastard", "fuckface", "fucker");
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
 						new ListValue<>("race")),
 				true,
 				true,

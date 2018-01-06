@@ -2,6 +2,8 @@ package com.lilithsthrone.game.character.npc.dominion;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -31,6 +33,7 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexPosition;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -394,7 +397,42 @@ public class DominionSuccubusAttacker extends NPC {
 			return new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER);
 		}
 		
-		return foreplayPreference;
+		return mainSexPreference;
+	}
+	
+	public Set<SexPosition> getSexPositionPreferences() {
+		sexPositionPreferences.clear();
+		
+		if(Sex.isInForeplay()) {
+			if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+				sexPositionPreferences.add(SexPosition.BACK_TO_WALL_PLAYER);
+				sexPositionPreferences.add(SexPosition.DOGGY_PLAYER_ON_ALL_FOURS);
+				sexPositionPreferences.add(SexPosition.FACING_WALL_PLAYER);
+				
+			} else if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
+				sexPositionPreferences.add(SexPosition.DOGGY_PLAYER_ON_ALL_FOURS);
+				sexPositionPreferences.add(SexPosition.FACING_WALL_PLAYER);
+				
+			} else {
+				return super.getSexPositionPreferences();
+			}
+			
+		} else {
+			if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+				sexPositionPreferences.add(SexPosition.BACK_TO_WALL_PLAYER);
+				sexPositionPreferences.add(SexPosition.DOGGY_PLAYER_ON_ALL_FOURS);
+				sexPositionPreferences.add(SexPosition.FACING_WALL_PLAYER);
+				
+			} else if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
+				sexPositionPreferences.add(SexPosition.DOGGY_PLAYER_ON_ALL_FOURS);
+				sexPositionPreferences.add(SexPosition.FACING_WALL_PLAYER);
+				
+			} else {
+				return super.getSexPositionPreferences();
+			}
+		}
+		
+		return sexPositionPreferences;
 	}
 	
 	@Override

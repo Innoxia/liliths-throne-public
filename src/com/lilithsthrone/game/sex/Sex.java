@@ -1093,36 +1093,35 @@ public enum Sex {
 		// Populate available SexActions from the current SexPosition.
 		availableSexActionsPlayer.clear();
 
-//		if(lastUsedPartnerAction == SexActionUtility.PARTNER_ORGASM_MUTUAL_WAIT) {
-//			for (SexActionInterface sexAction : sexManager.getMutualOrgasmActions()) {
-//				if (sexAction.isAddedToAvailableSexActions()) {
-//					availableSexActionsPlayer.add(sexAction);
-//				}
-//			}
-//
-//		} else
-		if (Main.game.getPlayer().getArousal() >= ArousalLevel.FIVE_ORGASM_IMMINENT.getMaximumValue()) { // Add orgasm actions if player ready to orgasm:
+		if(lastUsedPartnerAction == SexActionUtility.PARTNER_ORGASM_MUTUAL_WAIT) {
+			for (SexActionInterface sexAction : sexManager.getMutualOrgasmActions()) {
+				if (sexAction.isAddedToAvailableSexActions()) {
+					availableSexActionsPlayer.add(sexAction);
+				}
+			}
+
+		} else if (Main.game.getPlayer().getArousal() >= ArousalLevel.FIVE_ORGASM_IMMINENT.getMaximumValue()) { // Add orgasm actions if player ready to orgasm:
 			
-//			// If mutual orgasm threshold has been reached, use a mutual orgasm:
-//			boolean orgasmFound = false;
-//
-//			if (ArousalLevel.getArousalLevelFromValue(partner.getArousal()).isMutualOrgasm()) {
-//				for (SexActionInterface sexAction : sexManager.getMutualOrgasmActions()) {
-//					if (sexAction.isAddedToAvailableSexActions()) {
-//						availableSexActionsPlayer.add(sexAction);
-//						orgasmFound = true;
-//					}
-//				}
-//			}
-//
-//			// If there were no mutual orgasm options available (or mutual orgasm threshold wasn't reached), use a standard one:
-//			if (!orgasmFound) {
+			// If mutual orgasm threshold has been reached, use a mutual orgasm:
+			boolean orgasmFound = false;
+
+			if (ArousalLevel.getArousalLevelFromValue(partner.getArousal()).isMutualOrgasm()) {
+				for (SexActionInterface sexAction : sexManager.getMutualOrgasmActions()) {
+					if (sexAction.isAddedToAvailableSexActions()) {
+						availableSexActionsPlayer.add(sexAction);
+						orgasmFound = true;
+					}
+				}
+			}
+
+			// If there were no mutual orgasm options available (or mutual orgasm threshold wasn't reached), use a standard one:
+			if (!orgasmFound) {
 				for (SexActionInterface sexAction : sexManager.getOrgasmActionsPlayer()) {
 					if (sexAction.isAddedToAvailableSexActions()) {
 						availableSexActionsPlayer.add(sexAction);
 					}
 				}
-//			}
+			}
 
 		} else if (partner.getArousal() >= ArousalLevel.FIVE_ORGASM_IMMINENT.getMaximumValue()) { // Add orgasm reactions if partner is ready to orgasm:
 			for (SexActionInterface sexAction : sexManager.getActionsAvailablePlayer()) {
@@ -1188,22 +1187,22 @@ public enum Sex {
 		if (partner.getArousal() >= ArousalLevel.FIVE_ORGASM_IMMINENT.getMaximumValue()) {
 			standardActions = false;
 
-//			// If mutual orgasm threshold has been reached, use a mutual orgasm:
-//			boolean orgasmFound = false;
-//
-//			// If mutual orgasm threshold has been reached, use a mutual orgasm:
-//			if (ArousalLevel.getArousalLevelFromValue(Main.game.getPlayer().getArousal()).isMutualOrgasm()) {
-//				for (SexActionInterface sexAction : sexManager.getMutualOrgasmActions()) {
-//					if (sexAction.isAddedToAvailableSexActions()) {
-//						availableSexActionsPartner.add(SexActionUtility.PARTNER_ORGASM_MUTUAL_WAIT);
-//						orgasmFound = true;
-//						break;
-//					}
-//				}
-//			}
-//			
-//			// If there were no mutual orgasm options available (or mutual orgasm threshold wasn't reached), use a standard one:
-//			if(!orgasmFound) {
+			// If mutual orgasm threshold has been reached, use a mutual orgasm:
+			boolean orgasmFound = false;
+
+			// If mutual orgasm threshold has been reached, use a mutual orgasm:
+			if (ArousalLevel.getArousalLevelFromValue(Main.game.getPlayer().getArousal()).isMutualOrgasm()) {
+				for (SexActionInterface sexAction : sexManager.getMutualOrgasmActions()) {
+					if (sexAction.isAddedToAvailableSexActions()) {
+						availableSexActionsPartner.add(SexActionUtility.PARTNER_ORGASM_MUTUAL_WAIT);
+						orgasmFound = true;
+						break;
+					}
+				}
+			}
+			
+			// If there were no mutual orgasm options available (or mutual orgasm threshold wasn't reached), use a standard one:
+			if(!orgasmFound) {
 				if(SexFlags.playerPreparedForOrgasm) {
 					for (SexActionInterface sexAction : sexManager.getOrgasmActionsPartner()) {
 						if (sexAction.isAddedToAvailableSexActions()) {
@@ -1226,7 +1225,7 @@ public enum Sex {
 				} else {
 					standardActions = true;
 				}
-//			}
+			}
 
 			if(!uniqueMax.isEmpty()) {
 				availableSexActionsPartner.addAll(uniqueMax);
@@ -1513,38 +1512,38 @@ public enum Sex {
 			SexFlags.playerRequestedPullOut = false;
 			SexFlags.playerPreparedForOrgasm = false;
 		}
-//		// Handle mutual orgasms:
-//		if(sexAction.getActionType()==SexActionType.MUTUAL_ORGASM) {
-//			// Condom removal:
-//			if(Main.game.getPlayer().isWearingCondom()){
-//				Main.game.getPlayer().getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()).setSealed(false);
-//				if(Main.game.getPlayer().getPenisRawCumProductionValue()>0) {
-//					sexSB.append(Main.game.getPlayer().addItem(AbstractItemType.generateFilledCondom(Main.game.getPlayer().getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()).getColour(), Main.game.getPlayer(), Main.game.getPlayer().getCum()), false));
-//				}
-//				Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()), true, Main.game.getPlayer());
-//				
-//			}
-//			if(partner.isWearingCondom()){
-//				partner.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()).setSealed(false);
-//				if(partner.getPenisRawCumProductionValue()>0) {
-//					sexSB.append(Main.game.getPlayer().addItem(AbstractItemType.generateFilledCondom(partner.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()).getColour(), partner, partner.getCum()), false));
-//				}
-//				partner.unequipClothingIntoVoid(partner.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()), true, partner);
-//				
-//			}
-//			// Apply orgasm arousal resets:
-//			numberOfPlayerOrgasms++;
-//			player().setArousal(0);
-//			// Apply orgasm arousal resets:
-//			numberOfPartnerOrgasms++;
-//			partner.setArousal(0);
-//
-//			// Reset appropriate flags:
-//			SexFlags.partnerRequestedCreampie = false;
-//			SexFlags.partnerRequestedPullOut = false;
-//			SexFlags.playerRequestedCreampie = false;
-//			SexFlags.playerRequestedPullOut = false;
-//		}
+		// Handle mutual orgasms:
+		if(sexAction.getActionType()==SexActionType.MUTUAL_ORGASM) {
+			// Condom removal:
+			if(Main.game.getPlayer().isWearingCondom()){
+				Main.game.getPlayer().getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()).setSealed(false);
+				if(Main.game.getPlayer().getPenisRawCumProductionValue()>0) {
+					sexSB.append(Main.game.getPlayer().addItem(AbstractItemType.generateFilledCondom(Main.game.getPlayer().getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()).getColour(), Main.game.getPlayer(), Main.game.getPlayer().getCum()), false));
+				}
+				Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()), true, Main.game.getPlayer());
+				
+			}
+			if(partner.isWearingCondom()){
+				partner.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()).setSealed(false);
+				if(partner.getPenisRawCumProductionValue()>0) {
+					sexSB.append(Main.game.getPlayer().addItem(AbstractItemType.generateFilledCondom(partner.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()).getColour(), partner, partner.getCum()), false));
+				}
+				partner.unequipClothingIntoVoid(partner.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()), true, partner);
+				
+			}
+			// Apply orgasm arousal resets:
+			numberOfPlayerOrgasms++;
+			player().setArousal(0);
+			// Apply orgasm arousal resets:
+			numberOfPartnerOrgasms++;
+			partner.setArousal(0);
+
+			// Reset appropriate flags:
+			SexFlags.partnerRequestedCreampie = false;
+			SexFlags.partnerRequestedPullOut = false;
+			SexFlags.playerRequestedCreampie = false;
+			SexFlags.playerRequestedPullOut = false;
+		}
 
 		// Handle if parts have just become exposed:
 		if (sexAction == SexActionUtility.CLOTHING_REMOVAL) {
@@ -1554,7 +1553,7 @@ public enum Sex {
 		// Only apply penetration effects if this action isn't an orgasm, and it isn't the end of sex. (Otherwise, ongoing descriptions get appended after the main description, which usually don't make sense.) TODO
 		if (!sexManager.getOrgasmActionsPlayer().contains(sexAction)
 				&& !sexManager.getOrgasmActionsPartner().contains(sexAction)
-//				&& !sexManager.getMutualOrgasmActions().contains(sexAction)
+				&& !sexManager.getMutualOrgasmActions().contains(sexAction)
 				&& sexAction.getActionType() != SexActionType.PARTNER_POSITIONING
 				&& sexAction.getActionType() != SexActionType.PLAYER_POSITIONING
 				&& !sexAction.endsSex()) {
@@ -2850,12 +2849,12 @@ public enum Sex {
 	public static boolean isPartnerReadyToOrgasm() {
 		return partner.getArousal()>=ArousalLevel.FIVE_ORGASM_IMMINENT.getMinimumValue();
 	}
-//	public static boolean isPlayerAbleToMutualOrgasm() {
-//		return ArousalLevel.getArousalLevelFromValue(Main.game.getPlayer().getArousal()).isMutualOrgasm();
-//	}
-//	public static boolean isPartnerAbleToMutualOrgasm() {
-//		return ArousalLevel.getArousalLevelFromValue(Main.game.getPlayer().getArousal()).isMutualOrgasm();
-//	}
+	public static boolean isPlayerAbleToMutualOrgasm() {
+		return ArousalLevel.getArousalLevelFromValue(Main.game.getPlayer().getArousal()).isMutualOrgasm();
+	}
+	public static boolean isPartnerAbleToMutualOrgasm() {
+		return ArousalLevel.getArousalLevelFromValue(Main.game.getPlayer().getArousal()).isMutualOrgasm();
+	}
 	
 	
 	

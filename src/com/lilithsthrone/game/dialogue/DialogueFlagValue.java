@@ -2,7 +2,7 @@ package com.lilithsthrone.game.dialogue;
 
 /**
  * @since 0.1.89
- * @version 0.1.89
+ * @version 0.1.97
  * @author Innoxia
  */
 public enum DialogueFlagValue {
@@ -25,6 +25,7 @@ public enum DialogueFlagValue {
 	ralphIntroduced,
 	nyanIntroduced,
 	kateIntroduced,
+	vickyIntroduced,
 	reactedToKatePregnancy,
 	
 	// Aunt's Home:
@@ -38,7 +39,10 @@ public enum DialogueFlagValue {
 	readBook1,
 	readBook2,
 	readBook3,
-
+	
+	arthursRoomInstalled,
+	arthursPackageObtained,
+	
 	givenLilayaPresent1,
 	givenLilayaPresent2,
 	givenLilayaPresent3,

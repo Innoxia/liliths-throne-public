@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.AntennaType;
@@ -239,6 +240,118 @@ public enum ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			return getBookEffect(Race.WOLF_MORPH, ItemType.BOOK_WOLF_MORPH);
+		}
+	},
+	
+	ORIENTATION_CHANGE(Util.newArrayListOfValues(
+			new ListValue<>("Sets orientation to gynephilic."),
+			new ListValue<>("[style.boldExcellent(+50)] [style.boldCorruption(corruption)]")),
+			Colour.FEMININE_PLUS) {
+		
+		@Override
+		public List<TFModifier> getPrimaryModifiers() {
+			return Util.newArrayListOfValues(
+					new ListValue<>(TFModifier.REMOVAL),
+					new ListValue<>(TFModifier.ORIENTATION_GYNEPHILIC),
+					new ListValue<>(TFModifier.ORIENTATION_AMBIPHILIC),
+					new ListValue<>(TFModifier.ORIENTATION_ANDROPHILIC));
+		}
+
+		@Override
+		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+			return Util.newArrayListOfValues(
+					new ListValue<>(TFModifier.ARCANE_BOOST));
+		}
+
+		@Override
+		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
+			return Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST));
+		}
+		
+		@Override
+		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			descriptions.clear();
+			
+			if(primaryModifier!=null && primaryModifier!=TFModifier.NONE) {
+				if(primaryModifier==TFModifier.REMOVAL) {
+					descriptions.add("No effect.");
+					
+				} else if(primaryModifier==TFModifier.ORIENTATION_GYNEPHILIC) {
+					descriptions.add("Sets orientation to [style.boldFeminineStrong(gynephilic)].");
+					descriptions.add("[style.boldTerrible(+5)] [style.boldCorruption(corruption)]");
+					
+				} else if(primaryModifier==TFModifier.ORIENTATION_AMBIPHILIC) {
+					descriptions.add("Sets orientation to [style.boldAndrogynous(ambiphilic)].");
+					descriptions.add("[style.boldTerrible(+5)] [style.boldCorruption(corruption)]");
+					
+				} else {
+					descriptions.add("Sets orientation to [style.boldMasculineStrong(androphilic)].");
+					descriptions.add("[style.boldTerrible(+5)] [style.boldCorruption(corruption)]");
+				}
+			}
+			
+			return descriptions;
+		}
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			
+			if(primaryModifier!=null && primaryModifier!=TFModifier.NONE && primaryModifier!=TFModifier.REMOVAL) {
+				target.incrementAttribute(Attribute.CORRUPTION, 5);
+				
+				if(primaryModifier==TFModifier.ORIENTATION_GYNEPHILIC) {
+					boolean alreadyGynephilic = target.getSexualOrientation()==SexualOrientation.GYNEPHILIC;
+					target.setSexualOrientation(SexualOrientation.GYNEPHILIC);
+					if(target.isPlayer()) {//TODO
+						return "<p style='text-align:center;'>"
+									+ (alreadyGynephilic?"[style.disabled(You're already gynephilic, so nothing happens...)]":"You're now [style.femininePlus(gynephilic)]!")
+								+ "</p>";
+					
+					} else {
+						return UtilText.parse(target,
+								"<p style='text-align:center;'>"
+										+ (alreadyGynephilic?"[style.disabled([npc.Name] is already gynephilic, so nothing happens...)]":"[npc.Name] is now [style.femininePlus(gynephilic)]!")
+									+ "</p>");
+					}
+					
+				} else if(primaryModifier==TFModifier.ORIENTATION_AMBIPHILIC) {
+					boolean alreadyAmbiphilic = target.getSexualOrientation()==SexualOrientation.AMBIPHILIC;
+					target.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+					if(target.isPlayer()) {//TODO
+						return "<p style='text-align:center;'>"
+									+ (alreadyAmbiphilic?"[style.disabled(You're already ambiphilic, so nothing happens...)]":"You're now [style.androgynous(ambiphilic)]!")
+								+ "</p>";
+					
+					} else {
+						return UtilText.parse(target,
+								"<p style='text-align:center;'>"
+										+ (alreadyAmbiphilic?"[style.disabled([npc.Name] is already ambiphilic, so nothing happens...)]":"[npc.Name] is now [style.androgynous(ambiphilic)]!")
+									+ "</p>");
+					}
+					
+				} else {
+					boolean alreadyAndrophilic = target.getSexualOrientation()==SexualOrientation.AMBIPHILIC;
+					target.setSexualOrientation(SexualOrientation.ANDROPHILIC);
+					if(target.isPlayer()) {//TODO
+						return "<p style='text-align:center;'>"
+									+ (alreadyAndrophilic?"[style.disabled(You're already androphilic, so nothing happens...)]":"You're now [style.masculinePlus(androphilic)]!")
+								+ "</p>";
+					
+					} else {
+						return UtilText.parse(target,
+								"<p style='text-align:center;'>"
+										+ (alreadyAndrophilic?"[style.disabled([npc.Name] is already androphilic, so nothing happens...)]":"[npc.Name] is now [style.masculinePlus(androphilic)]!")
+									+ "</p>");
+					}
+				}
+				
+			} else {
+				return "<p>"
+							+ "Nothing happens, as the Hypno-Watch has had its enchantment removed."
+							+ " You'll need to enchant it if you want to put it to use."
+						+ "</p>";
+			}
+			
 		}
 	},
 	

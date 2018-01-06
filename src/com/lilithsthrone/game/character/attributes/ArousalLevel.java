@@ -5,7 +5,7 @@ import com.lilithsthrone.utils.Colour;
 
 /**
  * @since 0.1.65
- * @version 0.1.79
+ * @version 0.1.97
  * @author Innoxia
  */
 public enum ArousalLevel {
@@ -43,12 +43,20 @@ public enum ArousalLevel {
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.AROUSAL_PERK_4;
 		}
+		@Override
+		public boolean isMutualOrgasm() {
+			return true;
+		}
 	},
 
 	FIVE_ORGASM_IMMINENT("imminent orgasm", 95, 100, Colour.AROUSAL_STAGE_FIVE) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.AROUSAL_PERK_5;
+		}
+		@Override
+		public boolean isMutualOrgasm() {
+			return true;
 		}
 	};
 	
@@ -95,4 +103,7 @@ public enum ArousalLevel {
 		return FIVE_ORGASM_IMMINENT;
 	}
 
+	public boolean isMutualOrgasm() {
+		return false;
+	}
 }

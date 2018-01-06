@@ -15,42 +15,149 @@
 	
 	Patch notes:
 	
+	Engine:
+		Slightly improved enchanting mechanics to add in a limit to the number of enchantments possible on each item (default 100).
+	
+	Gameplay:
+		Added a small section of the main quest (just finishing up Arthur moving into Lilaya's home).
+		Added the side-quest 'Arthur's Experiments', available after assigning a room to Arthur, and from which you obtain a way to change both the PC's and NPCs' sexual orientation.
+	
+	Sex:
+		Reverted the removal of mutual orgasms.
+		Dominant NPCs will no longer respect your requests in non-consensual sex.
+		Added 'spread ass' action.
+	
+	Other:
+		Legendary items, weapons, and clothing will no longer be removed from tiles.
+		Demonic wings now allow flight when grown to be large enough. (Flight only affects a couple of actions so far.)
+		Added correct player-partner use descriptions for all items.
+		Slightly adjusted item prices.
+		Very slightly changed Rose's 'Slavery' dialogue (the one about her and Lilaya's relationship).
+		Removed ability to cycle orientation in the phone's fetish screen (as this can now be achieved by using the new item).
+		Updated Kate's clothing and appearance.
+	
+	Contributors:
+		Fixed alligator-morph eyes from having round to vertical pupils by default. (Rfpnj)
+	
+	Bugs:
+		Jolnir's hat is no longer feminine.
+		Demon attackers will now correctly prefer to use their penis.
+		Nyan should now have correct hair/fur colour (black) when importing older games.
+		Fixed some unfinished reindeer overseer dialogue.
+		Fixed Lilaya's pregnancy dialogue to correctly reflect how pregnancies work in LT.
+		Fixed major bug in AbstractClothing's hashCode method that was causing crashes.
+		Fixed bug where physical resistance (and other effects) from clothing would not be removed when inventory was reset (most noticeably in character creation, when pressing start <-> back repeatedly).
+		Fixed old elixir and potion imports showing 'null' as their background icon.
+		Minor fix to Lilaya's post-creampie-sex scene.
+		Fixed minor inventory text formatting bug.
+		Temporarily stopped chemise from blocking groin areas until I can rework the clothing displacement system (there were some major issues with wearing chemise & pantyhose).
 	
 	
 	
 	
 	
+	
+	
+	
+	
+	Finish Arthur side quest to use slaves as test subjects
+	Also add watch use descriptions
+	
+	
+	: BUG: So when I'm letting the other party dom, let's say it's a girl. A girl making my character pound into her doggy-style.
+	 There is this irritating tendency for them, RIGHT when the arousal gauges are a hair away from climax, to suddenly switch into another position.
+	  Suddenly, she's pinning him down cowgirl, BUT: that switch in position pulled him out of her, and that was the turn his arousal hit 100.
+	   Because she switched positions RIGHT THEN, even though both partners want him to cum inside, he's technically not inside when he cums, so he can't.
+	
+	
+	
+	
+	Importing characters as slaves needs to reset pregnancies and sex stats
+	
+	
+	
+	[blocks & requires access same for both clothing is causing this]
+	more chemise problems: when wearing both a chemise and pantyhose (SOCK_TIGHTS), the AI gets stuck in a loop trying to decide which they need to pull up/down first, causing the game to softlock
+	
+	
+	got a bug when i was changing what my slave calls me i accidentally pressed enter when the box was empty and the whole middle section disappear, and i couldn't do any thing else expect close the game. 
+		I tried to reproduce it and it's quite easy to redo just press enter when the text box for "what she calls you?" is empty. The slave in question is scarlett
+	
+	
+	
+	also have a couple small bugs in the importer:
+	-while the clothing stats now carry over properly and no longer cause negatives when removed, i wound up getting that bug from a chaos feather i had that had +3 Int.
+	-second, and extremely minor, i found that importing a character and skipping the prologue does not give you the crystal or money you get for going through the prologue. granted, if you're importing a character, you probably don't need it, but it's still a little bit annoying to my ingrained rpg "get all the things" instincts. :P
+	
+	Add skip sex button
+	
+	removing and adding penis doesn't work for penile virginity
+	
+	[use colour]
+	'horse-like' and 'squirrel-like' et al really aren't sexy eye descriptors
+	
+	you can tell that giving harpies beaks isn't fully supported yet. Kissing: 'you slide your tongue past her full lips'
+	
+	And now here's an odd one:
+		If you have enchanted (green/blue, doesn't matter) panties (also doesn't matter which exactly, anything in the groin slot apart from the groinless options) and an unenchanted pantyhose, and then get creampied—ass or vagina, doesn't matter—then your pantyhose gets dirtied, not your panties. If the pantyhose is enchanted as well or if the pantyhose is enchanted and the panties are unenchanted, it works normally and dirties the panties.
+		And in that same vein: If you have an enchanted pantyhose and any—enchanted or unenchanted—onepiece bodysuit or swimsuit, then getting creampied dirties the onepiece, even though it's supposed to go over the pantyhose. All other enchantment configurations seem to work normally.
+	
+	[old tooltip bug]
+	I can't add any points in my skill tree that is on the right side. i.e, i can't get runner, flirty, barren etc, but i can get arcane power.
+	
+	
+	There seems to be a memory leak every time you load a save. The RAM usage just keeps piling up until the game slows to a crawl. Takes a while to become noticeable, and probably varies from machine to machine.
+	Using the .jar version here with an old-ish version of Java, 1.8.0_131.
+	
+	Check NPC generatePotion
+		won't make your balls any bigger in successive encounters. So if they give you a cock and balls, your stuck with tiny balls unless you use a potion to make them bigger
+		Forgot to mention they also won't grow your nipples/areola, change your muscles/body size, change your hair color and makeup, change your tongue length, or give you modifiers such as puffy anything(nips, vag, anus, urethra). I'm not sure if these just haven't been implemented yet but I think they should be at some point.
+	[fixed, but needs more work]
 	There's still a bug with Forced TF that only changes your genitalia to be male or female. Also, Transformation Test Subject only gives one TF instead of 3.
-	
 	Also, I had a cat boy who tried to turn me into a harpy-girl, but kept on using human TF potions on my human character. That was in the pre-hotfix version, tho. Not sure if it's still there, but I don't see anything in the changelog about that.
 	
 	
+	Slaves assigned to cooking duty have reduced impact from negative obedience compared to the other jobs. (0.05* Obedience) as opposed to (0.1* Obedience) like with maid duty and librarian duty. 
+		(If anything since they're being trusted to prepare food it seems like being trust worthy/ having high obedience would be even more important. Cause a slave that handles your food is in a prime position to do unsavory things to it. They probably can't poison you cause of the slave collar but it probably doesnt stop them from doing things like spitting in your food eh?)
 	
 	if you encounter a halloween succubus and a reindeer on the same tile the succubus will get the reindeer's name
 	
+	Plantigrade, Digitigrade, Unguligrade as leg TF
 	
-	Add in player-NPC variations for all item usages.
-	
-	
+	alleyway demons do not appear to have behavior for inducing transformations, period
 
 	2) "Fixed forced TF bug (where all NPCs would keep giving you human penis or vagina parts even if they wanted to turn you into something else)."
 		This one seems to still be around, unfortunately. Unless it's tied to me keeping my preferences file from the 0.1.95.
 		The workaround seems to be to give yourself the right genitals (species and sex) for what the NPC was trying to turn you into, at which point they'll start TFing you again.
 	 Sorry to report, but the forced transformation bug with human parts is still happening.
 	
+	I seem to be having a lot of trouble getting dominant buttsluts to ever initiate anal. You would expect a buttslut, in the absence of other fetishes to take precedence, to want cock up their butt... but nope, they keep picking thigh sex.
 	
+	: i made a potion that adds 5 fitness and when i drank it the message appeared twice. It still only added 5+ and not 10+
 	
+	Speaking of which, Innoxia, if you're reading this, it seems there's a bug with the incest fetish. If one of your offspring doesn't have it and you force it on them with the kink potion, they don't seem to be willing to fuck afterwards. The game will still cite their purely familial love and won't be attracted to you.
+
+	creating a new generic system for Body Part TFs based on Body Part + race
+	like dogs having the option of either pointy or lopped ears
+
+	: i was checking a item i found in a alleyway and when i backed out to continue moving i got the post-sex sence from dom'ing Brax dispite me being outside the police station.
 	
+	ok, two weird stuff: first, everytime i entered brax's fight, he said that candi gave me the pass again, even in the first time. Secondly, and this is more complex, i tried to brew a potion of submissiveness right after DIANA, the dominant harpy offers herself. Once back in the main story menu, it told me BRITTANY was worn out from sex and to go back to BRITTANY'S place, and lo and behold, the info in that section was the one of brittany instead of diana's. I had to move over the original brittany's place to get it back right.
+	WOW, First Brax is not talking just about you, candy has a habit of giving out passes. As for the sexond one I am completely lost how that happened
 	
-	
+	: Got a bug, i was in the arcade checking Nyan's specials menu then i clicked on section under her name to check her appearance and instead i got the apperance of my imported slave
 	
 	FINISH NEW KATE MENU & USE FOR SLAVE CUSTOMISATION
 	Slave customisation
+	able to change our tongue color
 	
-	
+	Slave action inspect should give an affection gain if slave has exhibitionist fetish
 	
 	have big red text in the main menu if the java version being used is different from what the game was coded for
 	
+	It's kinda odd to see sub slaves forcing themselves on you when they have the "Use You" permission enabled. I believe it would be more realistic if they meekly ask you for sex, giving you options to be dominant or submissive partner or simply dismiss them.
+	
+	Thighfucking in the doggy style position, the 'cum on back' option was available. And I guess it reused the text from other things, because it mentions pulling out of a hole. ...Not really accurate for thighfucking.
 	
 	thigh sex NPCs will incessantly do it
 	I get issues with constant tail and thigh sex
@@ -59,12 +166,38 @@
 	also, with the changes to orgasms I had 96 arousal but when brax was the dominant partner I ended up not orgasming at all (The problem is that arousal that high should have triggered a simultanious orgasm)
 	
 	
+	One crash to a previous scene after taking Lilanya's goggles from her lab. Exiting inventory, I was forced to an earlier fight, which then skipped to another sex scene. But the auto-save just before picking up the glasses was solid.
+	NPCs on the street waste potions on you that won't work or don't give further TF. They should probably recognize that they're wasting +vagina potions on girls? Getting Furry TFs seems really hard to get to activate. (Which isn't bad, but waste potions is disappointing ^-^
+	Only nitpick I'd have is that NPCs and locations are hard to track on the map. A mouse-over that listed unique location titles and who's there would make it; and pathing, please, I know it's hard... But it'd make moving around alot easier.
+	
+	Another weird thing: I used Diana's Perfume and got the transformation, and it said my natural feather color was 'black'. But then it reverted to 'red' when I took a selfie. It may be because I set my body color to red but shouldn't it have shown me that in the transformation text?
+	
+	
+	If you finish with your character then go to the clothes section after.
+		Supposing you gave your character piercings for their ears.
+		Then you press the back option, and then enter the clothes selection again.
+		You will see an extra pair of earrings in the inventory to the right.
+		Its a repeatable bug that doesnt affect the game after you start, but i thought you would want to know?
+		It may increase memory usage or something for all i know.
+	
+	jobs & repeatable side quests
+	
+	add a male virginity fetish, along with some NPCs spawning in with penile virginity
 	
 	While I'm at it, NPCs don't seem to have any kind of preference for body weight - would be nice if they did and adjusted body weight to suit their tastes when force TFing you. :)
 	
 	
+	I'll add a way to reset each of the reindeer overseers (for if you don't like their generated fetishes). :3
+
+I'll try and add in some way to deal with the overcrowding of Dominion's squares at some point.
+
+I did consider adding ethnicities when I was first making the game, but decided to leave it up to the player's imagination. However, it would be valuable in making pre-set skin/hair/eye colours for randomly generated NPCs, as well as for helping to describe some of the races I have planned, so I might add ethnicity at some point. :3
+
+I'll also add a way to change NPC's sexuality soon, as that seems to be a heavily-requested feature. :3
+	
 	add in strutter and leg lover
 	
+	add the "self-insemination" action to sex scenes soon (the one that used to be present in Brax's sex scene), so I'll get virgins with pregnancy/broodmother fetishes to use that
 	
 	Slaves without the “Exhibitionist” fetish should probably lose affection if you make them go naked.
 	
@@ -83,6 +216,7 @@ I just met a trap, and despite never having seen her naked, I apparently just kn
 
 NPCs with the “Transformer” fetish don’t respect gender content options. They don’t need to follow the same frequency or anything, but if I’ve completely disabled a body-type from being in the game, it might be an idea to filter it from NPC TF preferences too.
 	
+	have a button for Take All, Sell All in the inventory
 	
 	The slave management UI is not very good at the moment... x_x
 I'll improve it as soon as I can! :3
@@ -101,10 +235,10 @@ other bug is that it say that brax and kate are pregnant with my children despit
 	When I next work on improving the slave UI, I'll see if I can add a "quick view" icon to the slave list, which you'll be able to hover over to see their status effects. :3
 	
 	
+	I'll change it soon so that offspring will spawn in even without the incest option turned on (although no sex actions will turn up if incest is turned off). :3
 	
 	
-	
-	
+	I might slightly tweak the ass+breasts transformations later on, as it does seem a little silly to need to grow furry breasts in order to gain access to the associated race's milk.
 	
 	
 	Add 'Find new Overseer'
@@ -369,6 +503,39 @@ BlobHyperSweats1
 	Add Amber repeat action (fence has arcane barrier now)
 	
 	
+	
+	----------
+	
+		When buying Scarlett, maybe add a third option for players who aren’t that keen on owning a slave but don’t want to just eat the ¤2500 they spent, so offer that you’ll free her if she works it off. She’d presumably start out hating you less, and being less unruly, with a big hit later if you decide to screw her over down the line.
+	
+		In a scene, when an NPC rubs their crotch through their clothes, maybe it shouldn’t tell you that a trap or shemale is rubbing their cock if you haven’t seen it before, just say “crotch”?
+		
+		Speaking of which, how come we can grope our own crotch, but not an NPC’s?
+		
+		Bug Reports:
+		
+		I know it’s on the radar already, but I thought it worth a reminder that there is basically no lesbian option for the chair scene Lilaya and Kate use.
+		
+		Speaking of Lilaya, I just had a scene with her where she kept on using her tail on herself, I kept pulling it out and she immediately reinserted it, Every. Single. Time. Something like a couple dozen times in a row. And because you’re technically still the submissive partner in that scene even if you turn things around, you can’t forbid her from doing this.
+		
+		I think I found a bug with an encounter with an NPC with the “Unwilling Fuck-toy” fetish. She was ambiphillic, so her resisting should have been an act, but her arousal obviously had the large penalty an NPC gets when they really don’t want you fucking them, as it kept dropping to zero. This might have had something to do with her being a slave in the stocks; maybe that uses the wrong “resisting” scene, the real one, by mistake?
+		
+		Penises are regaining their virginity on export/import. Well… sort of. They show as virgin on the selfie screen, and are described as virgin when exposed, but using one doesn’t count as losing/taking virginity. This affects NPCs as well as the player.
+		
+		Imported potions have proper backgrounds now, but they still don’t stack with newly brewed ones, even when they have identical effects. Given the limited number of inventory slots, this is something of an issue.
+		
+		I’m not sure why ankle boots are listed as feminine; they look pretty neutral to me. Likewise with the headband, which is listed as neutral despite looking obviously feminine.
+		
+		When switching to doggy style, PC’s line (“Be a good girl and hold still while I fuck you like the bitch you are!”) fits in fine with the dirty talk from the “Rough” pace, but seems rather out of place if you’re in the “Gentle” pace.
+		
+		Kate’s intro says she has plump lips and wavy hair, but she actually has full lips and a bob cut. Also says she has three pairs of breasts even if your settings limit her to one pair.
+		
+		Looking back on things, I’m pretty sure every feminine NPC I’ve met has had “full” sized lips, they never seem to have larger or smaller ones.
+		
+		Found a bug with the character generation screen; I went to start a new game (from within a running game, not a new session) and when I went to change body style (that is, skinny-huge and soft-ripped) the result body type stayed fixed at “Average”, not changing like it should. Unfortunately, I haven’t been able to reproduce it, and there was nothing in the error log, so this report probably isn’t going to be useful; I include it simply so you know there’s a possible issue there.
+	
+	
+	-----------
 	
 	
 	Bugs:
@@ -1400,6 +1567,7 @@ It says "and grown larger" instead of have or has or some other sentence correct
 	-Can we get a change of priority for the "Effects" icons, particularly in sex? If you get too many fetishes, the icons for those push the icons for ass/mouth/boobs/pussy status down to where you have to scroll to see them.
 	And as soon as you do any actions, it scrolls back up to the top of the effects.
 	
+	Playing as a male, wearing a chastity cage, and with zero output of sperm I somehow still manage to dirty the chastity device even though the text describes the inability to produce cum.
 	
 	And another one about sex
 	-Whether you and your partner come together can effect which orgasm scenes you are able to see. I've mainly noticed it when getting a blowjob while dominant, coming together prevents the choices for deepthroat and facial from showing up. May be others, but I either haven't seen them or narrowed them down yet.

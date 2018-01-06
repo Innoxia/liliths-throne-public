@@ -11,7 +11,6 @@ import com.lilithsthrone.game.character.PregnancyPossibility;
 import com.lilithsthrone.game.character.Quest;
 import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.QuestType;
-import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
@@ -54,7 +53,7 @@ import com.lilithsthrone.utils.WeaponRarityComparator;
 
 /**
  * @since 0.1.0
- * @version 0.1.88
+ * @version 0.1.97
  * @author Innoxia
  */
 public class PhoneDialogue {
@@ -2088,26 +2087,26 @@ public class PhoneDialogue {
 				}
 			
 			}
-			else if (index == 2) {
-				return new Response("Orientation", "Cycle your sexual orientation. (Hover over the status effect on the left of the screen to see what each orientation means.)", CHARACTER_FETISHES){
-					@Override
-					public void effects() {
-						if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.GYNEPHILIC) {
-							Main.game.getPlayer().setSexualOrientation(SexualOrientation.ANDROPHILIC);
-							
-						} else if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
-							Main.game.getPlayer().setSexualOrientation(SexualOrientation.AMBIPHILIC);
-							
-						} else {
-							Main.game.getPlayer().setSexualOrientation(SexualOrientation.GYNEPHILIC);
-							
-						}
-
-						PhoneDialogue.confirmReset = false;
-					}
-				};
-				
-			}
+//			else if (index == 2) {
+//				return new Response("Orientation", "Cycle your sexual orientation. (Hover over the status effect on the left of the screen to see what each orientation means.)", CHARACTER_FETISHES){
+//					@Override
+//					public void effects() {
+//						if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.GYNEPHILIC) {
+//							Main.game.getPlayer().setSexualOrientation(SexualOrientation.ANDROPHILIC);
+//							
+//						} else if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+//							Main.game.getPlayer().setSexualOrientation(SexualOrientation.AMBIPHILIC);
+//							
+//						} else {
+//							Main.game.getPlayer().setSexualOrientation(SexualOrientation.GYNEPHILIC);
+//							
+//						}
+//
+//						PhoneDialogue.confirmReset = false;
+//					}
+//				};
+//				
+//			}
 			else if (index == 5) {
 				if (!confirmReset) {
 					return new Response("Reset", "This will remove all of your fetishes, and you will be refunded half of their <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'> arcane essence</b> cost!", CHARACTER_FETISHES) {

@@ -362,6 +362,10 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	 * @return true if added, false if inventory was full.
 	 */
 	public boolean addItem(AbstractItem item) {
+		if(item==null) {
+			return false;
+		}
+		
 		if (canAddItem(item)) {
 			itemsInInventory.add(item);
 			recalculateMapOfDuplicateItems();
@@ -583,6 +587,10 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	 */
 	
 	public boolean addClothing(AbstractClothing clothing) {
+		if(clothing==null) {
+			return false;
+		}
+		
 		if (canAddClothing(clothing)) {
 			clothingInInventory.add(clothing);
 			recalculateMapOfDuplicateClothing();

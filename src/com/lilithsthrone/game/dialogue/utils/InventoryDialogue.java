@@ -961,7 +961,7 @@ public class InventoryDialogue {
 						}
 						
 					} else if(index == 5) {
-						if(item.getEnchantmentItemType()==null) {
+						if(item.getEnchantmentItemType(null)==null) {
 							return new Response("Enchant", "This item cannot be enchanted!", null);
 							
 						} else if(Main.game.isDebugMode()) {
@@ -1176,7 +1176,7 @@ public class InventoryDialogue {
 								};
 								
 							} else if(index == 5) {
-								if(item.getEnchantmentItemType()==null) {
+								if(item.getEnchantmentItemType(null)==null) {
 									return new Response("Enchant", "This item cannot be enchanted!", null);
 									
 								} else if(Main.game.isDebugMode()) {
@@ -1463,7 +1463,7 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 5) {
-								if(item.getEnchantmentItemType()==null) {
+								if(item.getEnchantmentItemType(null)==null) {
 									return new Response("Enchant", "This item cannot be enchanted!", null);
 									
 								} else if(Main.game.isDebugMode()) {
@@ -2179,7 +2179,7 @@ public class InventoryDialogue {
 						}
 						
 					} else if(index == 5) {
-						if(weapon.getEnchantmentItemType()==null) {
+						if(weapon.getEnchantmentItemType(null)==null) {
 							return new Response("Enchant", "This weapon cannot be enchanted!", null);
 							
 						} else if(Main.game.isDebugMode()) {
@@ -2314,7 +2314,7 @@ public class InventoryDialogue {
 								};
 								
 							} else if(index == 5) {
-								if(weapon.getEnchantmentItemType()==null) {
+								if(weapon.getEnchantmentItemType(null)==null) {
 									return new Response("Enchant", "This weapon cannot be enchanted!", null);
 									
 								} else if(Main.game.isDebugMode()) {
@@ -2448,7 +2448,7 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 5) {
-								if(weapon.getEnchantmentItemType()==null) {
+								if(weapon.getEnchantmentItemType(null)==null) {
 									return new Response("Enchant", "This weapon cannot be enchanted!", null);
 									
 								} else if(Main.game.isDebugMode()) {
@@ -2960,7 +2960,7 @@ public class InventoryDialogue {
 						}
 						
 					} else if(index == 5) {
-						if(clothing.getEnchantmentItemType()==null) {
+						if(clothing.getEnchantmentItemType(null)==null) {
 							return new Response("Enchant", "This clothing cannot be enchanted!", null);
 							
 						} else if(Main.game.isDebugMode()) {
@@ -3110,7 +3110,7 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 5) {
-								if(clothing.getEnchantmentItemType()==null) {
+								if(clothing.getEnchantmentItemType(null)==null) {
 									return new Response("Enchant", "This clothing cannot be enchanted!", null);
 									
 								} else if(Main.game.isDebugMode()) {
@@ -3307,7 +3307,7 @@ public class InventoryDialogue {
 								}
 								
 							} else if(index == 5) {
-								if(clothing.getEnchantmentItemType()==null) {
+								if(clothing.getEnchantmentItemType(null)==null) {
 									return new Response("Enchant", "This clothing cannot be enchanted!", null);
 									
 								} else if(Main.game.isDebugMode()) {
@@ -5462,7 +5462,9 @@ public class InventoryDialogue {
 				+ "</div>"
 			+ "</div>"
 			+ "<h4><b>"+title+"</b></h4>"
-			+ description;
+			+ "<p>"
+				+ description
+			+ "</p>";
 	}
 	
 	private static String getGeneralResponseTabTitle(int index) {

@@ -104,9 +104,11 @@ import com.lilithsthrone.game.combat.SpecialAttack;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.MapDisplay;
 import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.CityHall;
+import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaHomeGeneric;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaverAlleyDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -123,6 +125,7 @@ import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -145,6 +148,7 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
@@ -168,7 +172,7 @@ import javafx.scene.web.WebView;
 
 /**
  * @since 0.1.0
- * @version 0.1.95
+ * @version 0.1.97
  * @author Innoxia
  */
 public class MainController implements Initializable {
@@ -1846,14 +1850,26 @@ public class MainController implements Initializable {
 					id = placeUpgrade+"_BUY";
 					if (((EventTarget) document.getElementById(id)) != null) {
 						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
-								@Override
-								public void effects() {
-									SlaveryManagementDialogue.cellToInspect.getPlace().addPlaceUpgrade(placeUpgrade);
-									Main.game.getPlayer().incrementMoney(-placeUpgrade.getInstallCost());
-								}
-							});
+							if(placeUpgrade!=PlaceUpgrade.LILAYA_ARTHUR_ROOM) {
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+									@Override
+									public void effects() {
+										SlaveryManagementDialogue.cellToInspect.getPlace().addPlaceUpgrade(placeUpgrade);
+										Main.game.getPlayer().incrementMoney(-placeUpgrade.getInstallCost());
+									}
+								});
+							} else {
+								Main.game.setContent(new Response("", "", LilayaHomeGeneric.ROOM_ARTHUR_INSTALLATION){
+									@Override
+									public void effects() {
+										Main.game.getArthur().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), true);
+										SlaveryManagementDialogue.cellToInspect.getPlace().addPlaceUpgrade(placeUpgrade);
+										Main.game.getDialogueFlags().setFlag(DialogueFlagValue.arthursRoomInstalled, true);
+									}
+								});
+							}
 						}, false);
+						
 						addEventListener(document, id, "mousemove", moveTooltipListener, false);
 						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
 
@@ -5206,8 +5222,9 @@ public class MainController implements Initializable {
 	public void moveNorth() {
 		if (Main.game.getPlayer().getLocation().getY() + 1 < Main.game.getActiveWorld().WORLD_HEIGHT) {
 			if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() + 1).getPlace().getPlaceType() != PlaceType.GENERIC_IMPASSABLE) {
-				if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().isItemsDisappear())
-					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory();
+				if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().isItemsDisappear()) {
+					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory(Util.newArrayListOfValues(new ListValue<>(Rarity.LEGENDARY)));
+				}
 				Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() + 1));
 				DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
 				Main.game.setContent(new Response("", "", dn));
@@ -5221,8 +5238,9 @@ public class MainController implements Initializable {
 	public void moveSouth() {
 		if (Main.game.getPlayer().getLocation().getY() - 1 >= 0) {
 			if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() - 1).getPlace().getPlaceType() != PlaceType.GENERIC_IMPASSABLE) {
-				if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().isItemsDisappear())
-					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory();
+				if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().isItemsDisappear()) {
+					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory(Util.newArrayListOfValues(new ListValue<>(Rarity.LEGENDARY)));
+				}
 				Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY() - 1));
 				DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
 				Main.game.setContent(new Response("", "", dn));
@@ -5236,8 +5254,9 @@ public class MainController implements Initializable {
 	public void moveEast() {
 		if (Main.game.getPlayer().getLocation().getX() + 1 < Main.game.getActiveWorld().WORLD_WIDTH) {
 			if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX() + 1, Main.game.getPlayer().getLocation().getY()).getPlace().getPlaceType() != PlaceType.GENERIC_IMPASSABLE) {
-				if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().isItemsDisappear())
-					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory();
+				if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().isItemsDisappear()) {
+					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory(Util.newArrayListOfValues(new ListValue<>(Rarity.LEGENDARY)));
+				}
 				Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX() + 1, Main.game.getPlayer().getLocation().getY()));
 				DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
 				Main.game.setContent(new Response("", "", dn));
@@ -5251,8 +5270,9 @@ public class MainController implements Initializable {
 	public void moveWest() {
 		if (Main.game.getPlayer().getLocation().getX() - 1 >= 0) {
 			if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation().getX() - 1, Main.game.getPlayer().getLocation().getY()).getPlace().getPlaceType() != PlaceType.GENERIC_IMPASSABLE) {
-				if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().isItemsDisappear())
-					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory();
+				if (Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().isItemsDisappear()) {
+					Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).resetInventory(Util.newArrayListOfValues(new ListValue<>(Rarity.LEGENDARY)));
+				}
 				Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX() - 1, Main.game.getPlayer().getLocation().getY()));
 				DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
 				Main.game.setContent(new Response("", "", dn));

@@ -1,22 +1,28 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.util.Set;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.SexualOrientation;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
+import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
+import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.Attack;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -34,6 +40,11 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
+import com.lilithsthrone.game.sex.OrificeType;
+import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexPosition;
+import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -43,7 +54,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.1.89
+ * @version 0.1.97
  * @author Innoxia
  */
 public class Vicky extends NPC {
@@ -79,12 +90,18 @@ public class Vicky extends NPC {
 			this.setHairCovering(new Covering(BodyCoveringType.HAIR_LYCAN_FUR, Colour.COVERING_BLACK), true);
 			this.setSkinCovering(new Covering(BodyCoveringType.LYCAN_FUR, Colour.COVERING_BLACK), true);
 	
+			this.setPenisSize(PenisSize.FOUR_HUGE.getMedianValue());
+			
 			this.setVaginaVirgin(false);
 			this.setVaginaCapacity(Capacity.FIVE_ROOMY.getMedianValue(), true);
 			this.setBreastSize(CupSize.C.getMeasurement());
 	
 			this.setMuscle(Muscle.FOUR_RIPPED.getMedianValue());
 			this.setBodySize(BodySize.THREE_LARGE.getMedianValue());
+			
+			this.addFetish(Fetish.FETISH_DOMINANT);
+			this.addFetish(Fetish.FETISH_ANAL_GIVING);
+			this.addFetish(Fetish.FETISH_NON_CON_DOM);
 			
 			this.setMoney(10);
 			
@@ -104,6 +121,12 @@ public class Vicky extends NPC {
 		Vicky npc = new  Vicky(true);
 
 		loadNPCVariablesFromXML(npc, null, parentElement, doc);
+
+		npc.addFetish(Fetish.FETISH_DOMINANT);
+		npc.addFetish(Fetish.FETISH_ANAL_GIVING);
+		npc.addFetish(Fetish.FETISH_NON_CON_DOM);
+		
+		npc.setPenisSize(PenisSize.FOUR_HUGE.getMedianValue());
 		
 		return npc;
 	}
@@ -197,7 +220,6 @@ public class Vicky extends NPC {
 			return true;
 		
 		if(item instanceof AbstractItem) {
-
 			if(((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_ARCANE
 					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_CAT_MORPH
 					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_DEMON
@@ -212,7 +234,7 @@ public class Vicky extends NPC {
 					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_REINDEER_MORPH
 					|| ((AbstractItem)item).getItemType()==ItemType.POTION
 					|| ((AbstractItem)item).getItemType()==ItemType.ELIXIR) {
-;
+				return true;
 			}
 		}
 		
@@ -221,6 +243,12 @@ public class Vicky extends NPC {
 
 	@Override
 	public void endSex(boolean applyEffects) {
+		if(applyEffects) {
+			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.arthursPackageObtained)) {
+				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.arthursPackageObtained, true);
+				Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.ARTHURS_PACKAGE), false));
+			}
+		}
 	}
 
 	// Combat:
@@ -247,6 +275,45 @@ public class Vicky extends NPC {
 	@Override
 	public int getExperienceFromVictory() {
 		return 0;
+	}
+	
+	// Sex:
+	
+	@Override
+	public boolean getSexBehaviourDeniesRequests() {
+		return false;
+	}
+	
+	public Set<SexPosition> getSexPositionPreferences() {
+		sexPositionPreferences.clear();
+		
+		sexPositionPreferences.add(SexPosition.VICKY_DESK_MISSIONARY);
+		
+		return sexPositionPreferences;
+	}
+	
+	public SexType getForeplayPreference() {
+		if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true) && Sex.getPlayerPenetrationRequests().contains(OrificeType.ANUS_PLAYER)) {
+			return new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER);
+			
+		} else if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) && Main.game.getPlayer().hasVagina()) {
+			return new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER);
+			
+		} else {
+			return new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER);
+		}
+	}
+	
+	public SexType getMainSexPreference() {
+		if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true) && Sex.getPlayerPenetrationRequests().contains(OrificeType.ANUS_PLAYER)) {
+			return new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER);
+			
+		} else if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) && Main.game.getPlayer().hasVagina()) {
+			return new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER);
+			
+		} else {
+			return new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER);
+		}
 	}
 
 }

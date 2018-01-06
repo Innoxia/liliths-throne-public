@@ -228,8 +228,7 @@ public class OrgasmPositionBackToWall {
 				takingCock = true;
 			}
 			
-			return !takingCock
-					&& Sex.getSexPacePlayer()!=SexPace.SUB_RESISTING;
+			return !takingCock && Sex.getSexPacePlayer()!=SexPace.SUB_RESISTING;
 		}
 		
 		@Override

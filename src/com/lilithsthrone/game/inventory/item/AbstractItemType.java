@@ -147,6 +147,10 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 	
 	// Enchantments:
 	
+	public int getEnchantmentLimit() {
+		return 100;
+	}
+	
 	public ItemEffectType getEnchantmentEffect() {
 		return null;
 	}
@@ -155,7 +159,7 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 		return relatedEssence;
 	}
 	
-	public AbstractItemType getEnchantmentItemType() {
+	public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
 		return null;
 	}
 	

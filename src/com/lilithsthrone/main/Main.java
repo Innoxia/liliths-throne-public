@@ -46,7 +46,7 @@ import javafx.stage.Stage;
 
 /**
  * @since 0.1.0
- * @version 0.1.96.1
+ * @version 0.1.97
  * @author Innoxia
  */
 public class Main extends Application {
@@ -60,7 +60,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.1.96.1",
+	public static final String VERSION_NUMBER = "0.1.97",
 			VERSION_DESCRIPTION = "Early Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
@@ -78,151 +78,59 @@ public class Main extends Application {
 		+ "</p>"
 			
 		+ "<p>"
-			+ "(This is the 0.1.96.1 hotfix version, which addresses some bugs and adds in a male variant of the kimono. The extra patch notes are at the bottom of this page. :3)"
-		+ "</p>"	
-		
-		+ "<p>"
-			+ "First of all, I wish you all a very Merry Christmas, and a Happy New year! :3"
+			+ "This week's progress was a little hindered by the fact that I had a 4-day week (as I returned to working on LT after my 1-week break on January 2nd), as well as the fact that I made a large mistake with the new orgasm content."
+			+ " After spending a day implementing the framework in the engine, I realised that it wasn't going to work with the multiple-partner sex stuff, so I had to revert it all... x_x"
 		+ "</p>"
 			
 		+ "<p>"
-			+ "I didn't quite get as much done this version as I'd hoped (the new orgasm work was pushed back due to the Christmas content taking a while), but hopefully you'll have fun with the content that I did manage to include."
-			+ " Some of it may be a little rough around the edges, so if I find any major bugs in this version, I'll make a hotfix as soon as I can."
-		+ "</p>"
-			
-		+ "<p>"
-			+ "<b>To those of you who have reported bugs:</b> I am working on getting them all fixed, so if I've replied to your bug report saying 'I'll get it fixed asap!', then please know that I really am! ^^"
+			+ "I hope that there's still enough here to make this preview interesting, and I'll have the new orgasm & sex stuff done for the full release on the 12th. :3"
 		+ "</p>"
 		
 		+ "<p>"
-			+ "I will be taking next week off to have a break over the holiday; I'll back to working on LT on January 2nd! :3"
-		+ "</p>"
-		
-		+ "<p>"
-			+ "Thank you all for playing Lilith's Throne! And a very big thank you to all the people supporting me on Patreon! :3"
-		+ "</p>"
-		
-		+ "<p>"
-			+ "If you wanted to ask me any specific questions about the game, you can either find me on my blog, or on the Lilith's Throne Discord. You can find a link to the discord on my blog. ^^"
+			+ "Thank you all for playing Lilith's Throne! And a very big thank you to all the people supporting me on Patreon!"
+			+ " If you wanted to ask me any specific questions about the game, you can either find me on my blog, or on the Lilith's Throne Discord. You can find a link to the discord on my blog. ^^"
 		+ "</p>"
 			
 		+ "</br>"
 
 		+ "<list>"
-			+ "<h6>v0.1.96</h6>"
-			+"<ul><b>There were several bug reports (mainly the game's options locking up) that I was unable to reproduce. If you're having issues like that, please try exporting, then importing your game.</b></ul>"
-			
+			+ "<h6>v0.1.97</h6>"
 			+"<li>Engine:</li>"
-			+"<ul>Enabled support for clothing to have secondary and tertiary colours. Certain clothing (such as the new kimono) can have different parts dyed in different colours, allowing you to customise your clothing even more.</ul>"
+			+"<ul>Slightly improved enchanting mechanics to add in a limit to the number of enchantments possible on each item (default 100).</ul>"
 				
 			+"<li>Gameplay:</li>"
-			+"<ul>Added weather type 'snow', which only occurs during winter (December, January, & February).</ul>"
-			+"<ul>Added reindeer-morph encounters in alleyways during winter (they only start appearing after it's snowed for the first time).</ul>"
-			+"<ul><b>Added:</b> Reindeer-morph encounters in the streets of Dominion. Four reindeer-morphs will spawn in Dominion when it first snows. (They are only present during the winter months.)</ul>"
-			+"<ul>Added 'December' entry to your room's calendar.</ul>"
-			+"<ul>Added new way to initiate a sex scene with Lilaya (go to her lab while having a present in your inventory; you need to perform the related action 3 times).</ul>"
+			+"<ul>Added a small section of the main quest (just finishing up Arthur moving into Lilaya's home).</ul>"
+			+"<ul>Added the side-quest 'Arthur's Experiments', available after assigning a room to Arthur, and from which you obtain a way to change both the PC's and NPCs' sexual orientation.</ul>"
 				
 			+"<li>Sex:</li>"
-			+"<ul>Slightly reworked the way orgasms are handled in the game. Now, instead of combining both orgasms into one action if you're orgasming at the same time (which was essentially just concatenating both orgasm descriptions and presenting it as one action), your orgasm is resolved first, then you choose a reaction for your partner's orgasm. (I wanted to give you a little more control over how orgasms are played out.)</ul>"
-			+"<ul>Partners should no longer be able to perform a penetrative action in the same turn that you stop penetration. (This is to stop the situation where you'd stop an ongoing sex type, then the NPC would immediately start it again.)</ul>"
-	
-			+"<li>Contributors:</li>"
-			+"<ul>Minor fix to Gator's Gumbo usage text. (by Rfpnj)</ul>"
-			+"<ul><b>Added reindeer morphs & associated consumable items (Sugar Cookie & Egg Nog).</b> (by Rfpnj)</ul>"
-	
-			+"<li>Clothing & Items:</li>"
-			+"<ul>Added: Mince pie (non-racial consumable item).</ul>"
-			+"<ul>Added: Antler headband (neutral femininity, head slot).</ul>"
-			+"<ul>Added: Snowflake earrings (neutral femininity, ear piercing slot).</ul>"
-			+"<ul>Added: Snowflake nose stud (neutral femininity, nose piercing slot).</ul>"
-			+"<ul>Added: Snowflake necklace (neutral femininity, neck slot).</ul>"
-			+"<ul>Added: Festive sweater (neutral femininity, torso-over slot).</ul>"
-			+"<ul>Added: Jolnir's hat (neutral femininity, head slot, Jolnir set).</ul>"
-			+"<ul>Added: Jolnir's dress (feminine, torso slot, Jolnir set).</ul>"
-			+"<ul>Added: Jolnir's coat (neutral femininity, torso slot, Jolnir set).</ul>"
-			+"<ul>Added: Jolnir's boots (masculine, foot slot, Jolnir set).</ul>"
-			+"<ul>Added: Jolnir's heeled boots (feminine, foot slot, Jolnir set).</ul>"
-			+"<ul>Added: Kimono (feminine, torso slot, Geisha set).</ul>"
-			+"<ul>Added: Kanzashi (feminine, hair slot, Geisha set).</ul>"
-			+"<ul>Added: Geta (feminine, foot slot, Geisha set).</ul>"
-			+"<ul>Added: Dress coat (feminine, torso-over slot).</ul>"
-	
-			+"<li>Other:</li>"
-			+"<ul>Nyan's hair and fur colours are now black.</ul>"
-			+"<ul>Reduced maximum prostitute spawn chance from 50% to 30%.</ul>"
-			+"<ul>Added a 20% chance for NPCs to have unusual hair colours.</ul>"
-			+"<ul>Changed hair length calculation to make alligator-morphs naturally bald, but only if their face type is that of an alligator-morph's (i.e. partial/lesser alligator-morphs will have human hair lengths).</ul>"
-			+"<ul>NPCs will no longer generate new clothes while you're still interacting with them.</ul>"
-			+"<ul>Added in (basic, to be expanded upon later) self-virginity-loss variants.</ul>"
-			+"<ul>Made all self-actions in sex have the masturbation fetish associated with them.</ul>"
-			+"<ul>Added amber & grey colours for demon skin.</ul>"
-			+"<ul>Added cock length to selfie/character viewer screens.</ul>"
-			+"<ul>Updated all weather status effect icons.</ul>"
-			+"<ul>Added horn length enchantment option when making potions.</ul>"
-			+"<ul>Added horse-morph and reindeer-morph names.</ul>"
-			+"<ul>Added 'Morph' difficulty level (enemies scale level with you, but do normal damage).</ul>"
-				
-			+"<li>Bugs:</li>"
-			+"<ul>Fixed another cause of game imports not working.</ul>"
-			+"<ul>Fixed leg skin/fur colour not being displayed properly in selfie view.</ul>"
-			+"<ul>Fixed bug where NPCs trying to pull down the Milk Maid's dress would cause a game crash (by fixing bug where the top couldn't be pulled down).</ul>"
-			+"<ul>Gator's Gumbo TF menu now shows correct number modifiers for TF descriptions in enchantment menu.</ul>"
-			+"<ul>Alligator-morph items can now be fed to NPCs like other consumables.</ul>"
-			+"<ul>Fixed form input fields not displaying apostrophes and quotation marks correctly.</ul>"
-			+"<ul>Minor typo fixes.</ul>"
-			+"<ul>Changing your body (using the demonic transformation menu) during sex will now correctly update sex actions accordingly.</ul>"
-			+"<ul>Fixed cause of UI bugs where the bottom response bar would not be anchored to the bottom of the screen.</ul>"
-			+"<ul>Fixed some incorrect stats for the 'alligator-morph' status effect.</ul>"
-			+"<ul>Fixed more causes of crashes in game importing.</ul>"
-			+"<ul>Fixed male prostitute names.</ul>"
-			+"<ul>Time will now pass in the Enforcer HQ area.</ul>"
-			+"<ul>Fixed bug where highlighted hair was being treated as a natural colour.</ul>"
-			+"<ul>Fixed rarity of alligator-morph's bottled essence.</ul>"
-			+"<ul>NPC's body preferences (what they want to TF you into after beating you) should now be correctly loaded on game import.</ul>"
-			+"<ul>Fixed forced TF bug (where all NPCs would keep giving you human penis or vagina parts even if they wanted to turn you into something else).</ul>"
-			+"<ul>Slaves with the transformation fetish which are assigned as a test subject, but without feminine or masculine transformation specified, now correctly receive a gain in affection when Lilaya performs tests on them.</ul>"
-			+"<ul>Having furry encounters enabled while having 'forced TF racial limits' set to 'Human Only' should no longer have the problem of the characters not giving you any genitals when you are transformed.</ul>"
-			+"<ul>Prostitutes should no longer be able to spawn in as virgins.</ul>"
-		+ "</list>"
-
-		
-		+ "</br>"
-
-		+ "<list>"
-			+ "<h6>v0.1.96.1 (Hotfix)</h6>"
-			+"<li>Contributors:</li>"
-			+"<ul>Minor typo fixes. (by Rfnpj)</ul>"
-			+"<ul>Fixed instances of wings being described as allowing flight when they shouldn't. (by tukaima)</ul>"
-			+"<ul>Fixed integer to string parsing error, as well as correcting the 'times fought' value on NPC-occupied city street squares. (by Lucasvdlaan)</ul>"
-				
-			+"<li>Clothing:</li>"
-			+"<ul>Added: Men's kimono (masculine, torso slot, Ronin set).</ul>"
-			+"<ul>Added: Haori (masculine, over-torso slot, Ronin set).</ul>"
-			+"<ul>Added: Men's geta (masculine, foot slot, Ronin set).</ul>"
+			+"<ul>Reverted the removal of mutual orgasms.</ul>"
+			+"<ul>Dominant NPCs will no longer respect your requests in non-consensual sex.</ul>"
+			+"<ul>Added 'spread ass' action.</ul>"
 				
 			+"<li>Other:</li>"
-			+"<ul>Added option to have submissive sex with geisha Lilaya.</ul>"
-			+"<ul>Reverted prostitutes not being able to be pure virgins (3% chance of pure virgins to be prostitutes).</ul>"
-			+"<ul>You can now give Yuletide Gifts to slaves and offspring.</ul>"
-			+"<ul>Added options to change the current month in the debug menu.</ul>"
+			+"<ul>Legendary items, weapons, and clothing will no longer be removed from tiles.</ul>"
+			+"<ul>Demonic wings now allow flight when grown to be large enough. (Flight only affects a couple of actions so far.)</ul>"
+			+"<ul>Added correct player-partner use descriptions for all items.</ul>"
+			+"<ul>Slightly adjusted item prices.</ul>"
+			+"<ul>Very slightly changed Rose's 'Slavery' dialogue (the one about her and Lilaya's relationship).</ul>"
+			+"<ul>Removed ability to cycle orientation in the phone's fetish screen (as this can now be achieved by using the new item).</ul>"
+			+"<ul>Updated Kate's clothing and appearance.</ul>"
+				
+			+"<li>Contributors:</li>"
+			+"<ul>Fixed alligator-morph eyes from having round to vertical pupils by default. (Rfpnj)</ul>"
 				
 			+"<li>Bugs:</li>"
-			+"<ul>Yuletide Gifts, mince pies, egg nog, and sugar cookies will no longer spawn in alleyways.</ul>"
-			+"<ul>Fixed antler headband being able to be dyed multiple colours.</ul>"
-			+"<ul>You can no longer use NPCs' items during sex.</ul>"
-			+"<ul>Fixed the cause of several strange issues where thigh sex would be treated as a self action.</ul>"
-			+"<ul>Fixed some slave room values displaying '/day' instead of '/hour'.</ul>"
-			+"<ul>Fixed rounding errors in the slave management screen.</ul>"
-			+"<ul>Ending Lilaya's geisha sex scene now correctly moves you back to your room.</ul>"
-			+"<ul>Moved Lilaya's and Kate's 'Grow cock' action to all sex scenes (available if your partner is a demon).</ul>"
-			+"<ul>Chemise should no longer be able to be pulled up without first removing/displacing appropriate clothing.</ul>"
-			+"<ul>Fixed bug where both NPCs and the player would be able to lose penile virginity multiple times.</ul>"
-			+"<ul>Fixed bug where changing body-part colours in Kate's shop would charge you double (most cases were of being charged 400 instead of 200).</ul>"
-			+"<ul>Fixed bug in Kate's shop where recolouring body hair wouldn't work.</ul>"
-			+"<ul>Fixed major display bugs in the light theme (although the colours are still not great...).</ul>"
-			+"<ul>Fixed some bugs in character creation's sex experience options (you now correctly start having lost penile and anal virginities if you select the appropriate choices).</ul>"
-			+"<ul>Scarlett should now be able to be fed items during sex (some of the text might not be correct, but the effects should work).</ul>"
-			+"<ul>Fixed major (and quite specific) bug which was causing both trader and player inventory to become unresponsive.</ul>"
+			+"<ul>Jolnir's hat is no longer feminine.</ul>"
+			+"<ul>Demon attackers will now correctly prefer to use their penis.</ul>"
+			+"<ul>Nyan should now have correct hair/fur colour (black) when importing older games.</ul>"
+			+"<ul>Fixed some unfinished reindeer overseer dialogue.</ul>"
+			+"<ul>Fixed Lilaya's pregnancy dialogue to correctly reflect how pregnancies work in LT.</ul>"
+			+"<ul>Fixed major bug in AbstractClothing's hashCode method that was causing crashes.</ul>"
+			+"<ul>Fixed bug where physical resistance (and other effects) from clothing would not be removed when inventory was reset (most noticeably in character creation, when pressing start/back repeatedly).</ul>"
+			+"<ul>Fixed old elixir and potion imports showing 'null' as their background icon.</ul>"
+			+"<ul>Minor fix to Lilaya's post-creampie-sex scene.</ul>"
+			+"<ul>Fixed minor inventory text formatting bug.</ul>"
+			+"<ul>Temporarily stopped chemise from blocking groin areas until I can rework the clothing displacement system (there were some major issues with wearing chemise & pantyhose).</ul>"
 		+ "</list>"
 		;
 	
@@ -253,7 +161,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-		credits.add(new CreditsSlot("Anonymous", "", 0, 6, 115, 38));
+		credits.add(new CreditsSlot("Anonymous", "", 0, 6, 115, 37));
 		
 
 		credits.add(new CreditsSlot("fun_bot", "", 0, 0, 0, 1));
@@ -268,6 +176,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("BLKCandy", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("CMPirate9867", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("Brandon Stach", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("Garth614", "", 0, 0, 0, 1));
 		
 		
 		
