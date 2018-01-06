@@ -2,6 +2,7 @@ package com.lilithsthrone.game.inventory;
 
 import java.io.Serializable;
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -11,6 +12,7 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
+import com.lilithsthrone.game.inventory.item.ItemEffect;
 import com.lilithsthrone.game.inventory.item.ItemEffectType;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.XMLSaving;
@@ -63,14 +65,18 @@ public abstract class AbstractCoreItem implements Serializable, XMLSaving {
 	
 	public boolean isAbleToBeEnchanted() {
 		return getEnchantmentEffect() != null
-				&& getEnchantmentItemType() != null;
+				&& getEnchantmentItemType(null) != null;
+	}
+	
+	public int getEnchantmentLimit() {
+		return 100;
 	}
 	
 	public ItemEffectType getEnchantmentEffect() {
 		return null;
 	}
 	
-	public AbstractCoreType getEnchantmentItemType() {
+	public AbstractCoreType getEnchantmentItemType(List<ItemEffect> effects) {
 		return null;
 	}
 	
@@ -99,7 +105,7 @@ public abstract class AbstractCoreItem implements Serializable, XMLSaving {
 				&& ((AbstractCoreItem)o).getRarity() == rarity
 				&& ((AbstractCoreItem)o).getAttributeModifiers().equals(attributeModifiers)
 				&& ((AbstractCoreItem)o).getEnchantmentEffect() == getEnchantmentEffect()
-				&& ((AbstractCoreItem)o).getEnchantmentItemType() == getEnchantmentItemType()
+				&& ((AbstractCoreItem)o).getEnchantmentItemType(null) == getEnchantmentItemType(null)
 				&& ((AbstractCoreItem)o).getRelatedEssence() == getRelatedEssence()){
 					return true;
 			}
@@ -116,8 +122,8 @@ public abstract class AbstractCoreItem implements Serializable, XMLSaving {
 		result = 31 * result + attributeModifiers.hashCode();
 		if(getEnchantmentEffect()!=null)
 			result = 31 * result + getEnchantmentEffect().hashCode();
-		if(getEnchantmentItemType()!=null)
-		result = 31 * result + getEnchantmentItemType().hashCode();
+		if(getEnchantmentItemType(null)!=null)
+		result = 31 * result + getEnchantmentItemType(null).hashCode();
 		if(getRelatedEssence()!=null)
 			result = 31 * result + getRelatedEssence().hashCode();
 		return result;

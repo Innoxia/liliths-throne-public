@@ -3466,15 +3466,17 @@ public class ClothingType {
 									Util.newArrayListOfValues(
 											new ListValue<CoverableArea>(CoverableArea.BREASTS),
 											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
-									null)),
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.PULLS_UP,
-									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.ANUS),
-											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
+									null))
+//					,
+//					new ListValue<BlockedParts>(
+//							new BlockedParts(DisplacementType.PULLS_UP,
+//									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
+//									Util.newArrayListOfValues(
+//											new ListValue<CoverableArea>(CoverableArea.ANUS),
+//											new ListValue<CoverableArea>(CoverableArea.PENIS),
+//											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+//									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN))))
+					),
 			null,
 			Colour.lingerieColours, null, null, null, null, null){
 		
@@ -5239,9 +5241,18 @@ public class ClothingType {
 			"leg_pencil_skirt",
 			null,
 
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.PULLS_UP, null,
-					Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.ANUS), new ListValue<CoverableArea>(CoverableArea.PENIS), new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-					Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+					new BlockedParts(
+							DisplacementType.PULLS_UP,
+							null,
+							Util.newArrayListOfValues(new ListValue<CoverableArea>(
+									CoverableArea.ANUS),
+									new ListValue<CoverableArea>(
+											CoverableArea.PENIS),
+									new ListValue<CoverableArea>(
+											CoverableArea.VAGINA)),
+							Util.newArrayListOfValues(new ListValue<ClothingAccess>(
+									ClothingAccess.GROIN))))),
 
 			null,
 
@@ -7197,13 +7208,31 @@ public class ClothingType {
 			"sock_tights",
 			null,
 
-			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET), new ListValue<ClothingAccess>(ClothingAccess.CALVES), new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)), null,
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL)))),
-					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.PULLS_DOWN, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-							Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.ANUS), new ListValue<CoverableArea>(CoverableArea.PENIS), new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(new ListValue<ClothingAccess>(
+									ClothingAccess.FEET),
+									new ListValue<ClothingAccess>(
+											ClothingAccess.CALVES),
+									new ListValue<ClothingAccess>(
+											ClothingAccess.LEGS_UP_TO_GROIN)),
+							null,
+							Util.newArrayListOfValues(new ListValue<ClothingAccess>(
+									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL)))),
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.PULLS_DOWN,
+									Util.newArrayListOfValues(new ListValue<ClothingAccess>(
+											ClothingAccess.GROIN)),
+									Util.newArrayListOfValues(new ListValue<CoverableArea>(
+											CoverableArea.ANUS),
+											new ListValue<CoverableArea>(
+													CoverableArea.PENIS),
+											new ListValue<CoverableArea>(
+													CoverableArea.VAGINA)),
+									Util.newArrayListOfValues(new ListValue<ClothingAccess>(
+											ClothingAccess.GROIN))))),
 
 			null,
 
@@ -9914,7 +9943,7 @@ public class ClothingType {
 			"J&oacute;lnir's hats",
 			"A hat made in the same style as that worn by the Yule figure.",
 			1,
-			Femininity.FEMININE,
+			null,
 			InventorySlot.HEAD,
 			Rarity.EPIC,
 			ClothingSet.JOLNIR,

@@ -13,7 +13,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.7
- * @version 0.1.83
+ * @version 0.1.97
  * @author Innoxia
  */
 public enum TFModifier {
@@ -40,6 +40,29 @@ public enum TFModifier {
 			"modifier_circle_removal",
 			Colour.GENERIC_TERRIBLE,
 			Rarity.UNCOMMON),
+	
+	// Misc:
+	
+	ORIENTATION_GYNEPHILIC("gynephilia",
+			"Applies an effect related to changing orientation to gynephilic.",
+			"gynephilia",
+			"modifier_circle_orientation_gynephilic",
+			Colour.FEMININE_PLUS,
+			Rarity.LEGENDARY),
+	
+	ORIENTATION_AMBIPHILIC("ambiphilia",
+			"Applies an effect related to changing orientation to ambiphilic.",
+			"ambiphilia",
+			"modifier_circle_orientation_ambiphilic",
+			Colour.ANDROGYNOUS,
+			Rarity.LEGENDARY),
+	
+	ORIENTATION_ANDROPHILIC("androphilia",
+			"Applies an effect related to changing orientation to androphilic.",
+			"androphilia",
+			"modifier_circle_orientation_androphilic",
+			Colour.MASCULINE_PLUS,
+			Rarity.LEGENDARY),
 	
 	// Attributes:
 	

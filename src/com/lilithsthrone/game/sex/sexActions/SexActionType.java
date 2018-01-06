@@ -2,7 +2,7 @@ package com.lilithsthrone.game.sex.sexActions;
 
 /**
  * @since 0.1.65
- * @version 0.1.79
+ * @version 0.1.97
  * @author Innoxia
  */
 public enum SexActionType {
@@ -40,11 +40,11 @@ public enum SexActionType {
 	PLAYER_SPECIAL(true),
 
 	
-//	// Mutual:
-//	
-//	/**Mutual orgasms. Player is always in control of these.*/
-//	MUTUAL_ORGASM(true),
-//	
+	// Mutual:
+	
+	/**Mutual orgasms. Player is always in control of these.*/
+	MUTUAL_ORGASM(true),
+	
 	
 	// Partner:
 
@@ -94,8 +94,8 @@ public enum SexActionType {
 				|| this == PLAYER_ORGASM_NO_AROUSAL_RESET
 
 				|| this == PARTNER_ORGASM
-				|| this == PARTNER_ORGASM_NO_AROUSAL_RESET;
+				|| this == PARTNER_ORGASM_NO_AROUSAL_RESET
 				
-//				|| this == MUTUAL_ORGASM;
+				|| this == MUTUAL_ORGASM;
 	}
 }

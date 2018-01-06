@@ -7,15 +7,63 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
+import com.lilithsthrone.game.sex.SexPosition;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 
 /**
  * @since 0.1.79
- * @version 0.1.79
+ * @version 0.1.97
  * @author Innoxia
  */
 public class PartnerSelfFingerAnus {
+	
+	public static final SexAction PARTNER_SELF_FINGER_ANUS_SPREAD_ASS = new SexAction(
+			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.TWO_LOW,
+			CorruptionLevel.ONE_VANILLA,
+			PenetrationType.FINGER_PARTNER,
+			OrificeType.ANUS_PARTNER) {
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getSexPacePartner()!=SexPace.SUB_RESISTING;
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Spread ass";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Use your [npc.hands] to spread your ass.";
+		}
+
+		@Override
+		public String getDescription() {
+			if(Sex.getPosition() == SexPosition.DOGGY_PARTNER_ON_ALL_FOURS
+					|| Sex.getPosition() == SexPosition.DOGGY_PARTNER_AS_DOM_ON_ALL_FOURS
+					|| Sex.getPosition() == SexPosition.DOGGY_ORAL_PLAYER_SUB_PARTNER_ON_ALL_FOURS
+					|| Sex.getPosition() == SexPosition.DOGGY_ORAL_PLAYER_DOM_PARTNER_ON_ALL_FOURS) {
+				return (UtilText.returnStringAtRandom(
+						"Reaching back with one [npc.hand], [npc.name] grabs [npc.her] [npc.ass+] and pulls to one side, letting out [npc.a_moan+] as [npc.she] presents [npc.her] [npc.asshole+] to you.",
+						"[npc.Name] reaches back with one [npc.hand], moaning softly as [npc.she] grabs hold of [npc.her] [npc.ass+], before invitingly pulling to one side and presenting [npc.her] [npc.asshole+] to you.",
+						"Sliding [npc.her] fingertips over [npc.her] [npc.asshole+],"
+								+ " [npc.name] lets out [npc.a_moan+] as [npc.she] grabs one of [npc.her] [npc.assSize] ass cheeks and pulls to one one side in order to present [npc.her] [npc.asshole+] to you.",
+						"[npc.Name] eagerly slides [npc.her] [npc.fingers] over [npc.her] needy [npc.asshole],"
+								+ " [npc.moaning+] as [npc.she] uses [npc.her] [npc.hand] to pull [npc.her] ass cheek to one side and present [npc.herself] for anal penetration."));
+			} else {
+				return (UtilText.returnStringAtRandom(
+						"Reaching back with both [npc.hands], [npc.name] grabs [npc.her] [npc.assSize] ass cheeks and pulls them apart, letting out [npc.a_moan+] as [npc.she] presents [npc.her] [npc.asshole+] to you.",
+						"[npc.Name] reaches back with both [npc.hands], moaning softly as [npc.she] invitingly pulls [npc.her] [npc.assSize] ass cheeks apart and presents [npc.her] [npc.asshole+] to you.",
+						"Sliding [npc.her] fingertips over [npc.her] [npc.asshole+],"
+								+ " [npc.name] lets out [npc.a_moan+] as [npc.she] grabs [npc.her] [npc.assSize] ass cheeks and pulls them apart in order to present [npc.her] [npc.asshole+] to you.",
+						"[npc.Name] eagerly slides [npc.her] [npc.fingers] over [npc.her] needy [npc.asshole], [npc.moaning+] as [npc.she] uses [npc.her] [npc.hands] to pull [npc.her] ass cheeks aside and present [npc.herself] for anal penetration."));
+			}
+		}
+	};
 	
 	public static final SexAction PARTNER_SELF_FINGER_ANUS_PENETRATION = new SexAction(
 			SexActionType.PARTNER_PENETRATION,

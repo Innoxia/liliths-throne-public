@@ -44,7 +44,7 @@
 	
 	
 	
-	
+	missionary, leg lift, anvil positions
 	
 	a prostitute who specialises in losing her virginity (through regrowing her hymen)
 	
@@ -377,6 +377,11 @@ Torn and destroyed items will be able to be repaired, so you won't lose your clo
 	
 	contacts and pupil shapes given by Kate
 	
+	the ability to change the colour of the head/glans of the penis independently
+	
+	will foreskin ever be added? I think it could work just like how pubic hair works now. Starting with nothing but having several sizes up from that, and eventually being long enough to be dangling down from the penis. You could probably add an option in the 'content options' menu for toggling them on or off for those that don't want them.
+	
+	
 	Maybe there could be a side quest where you could unlock a spell for LIlaya where she can boost development and deliver in one event
 	
 	Strip tease -> removes a piece of clothing but deals high tease damage
@@ -422,6 +427,10 @@ Torn and destroyed items will be able to be repaired, so you won't lose your clo
 	 if you used the tease on a member of the same sex it would be more of taunt that has a chance to stun the target (intimidation) saying things along the lines that all guys/ladies are yours to breed with.
 	
 	give each each tile a tooltip that shows who's in the tile, as well as what items are on the floor there
+	
+	a) Enemies felt a bit static. Like, defeat the same guy/gal 10 times and they still are the same, do the same etc. Feels a bit odd. 
+	b) Potions feel a bit too "easy" right now. Like, with how varying you can be in effects etc and still do all in one simple step. I'd like that to be more challenging, I think.
+	c) "Enchanting" as a button kind of confused me in the beginning; Brewing, Alchemy or something I think would have been clearer for me. Enchanting is rather something I associate with items (or people maybe).
 	
 	Produce milk -> make nipples wet!!!
 	

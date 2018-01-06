@@ -103,8 +103,8 @@ public class Nyan extends NPC {
 		Nyan npc = new Nyan(true);
 
 		loadNPCVariablesFromXML(npc, null, parentElement, doc);
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, Colour.COVERING_BLACK), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.FELINE_FUR, Colour.COVERING_BLACK), true);
+		npc.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, Colour.COVERING_BLACK), true);
+		npc.setSkinCovering(new Covering(BodyCoveringType.FELINE_FUR, Colour.COVERING_BLACK), true);
 		
 		return npc;
 	}

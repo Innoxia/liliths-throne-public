@@ -14,14 +14,13 @@ import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
 import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
-import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
- * @version 0.1.87
+ * @version 0.1.97
  * @author Innoxia
  */
 public abstract class AbstractItem extends AbstractCoreItem implements Serializable, XMLSaving {
@@ -76,25 +75,30 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 	}
 	
 	public static AbstractItem loadFromXML(Element parentElement, Document doc) {
-		AbstractItem item = AbstractItemType.generateItem(ItemType.idToItemMap.get(parentElement.getAttribute("id")));
-		
-		if(!parentElement.getAttribute("name").isEmpty()) {
-			item.setName(parentElement.getAttribute("name"));
+		try {
+			AbstractItem item = AbstractItemType.generateItem(ItemType.idToItemMap.get(parentElement.getAttribute("id")));
+			
+			if(!parentElement.getAttribute("name").isEmpty()) {
+				item.setName(parentElement.getAttribute("name"));
+			}
+			
+			List<ItemEffect> effectsToBeAdded = new ArrayList<>();
+			Element element = (Element)parentElement.getElementsByTagName("itemEffects").item(0);
+			for(int i=0; i<element.getElementsByTagName("effect").getLength(); i++){
+				Element e = ((Element)element.getElementsByTagName("effect").item(i));
+				effectsToBeAdded.add(ItemEffect.loadFromXML(e, doc));
+			}
+			item.setItemEffects(effectsToBeAdded);
+			
+			if(!effectsToBeAdded.isEmpty() && (item.getItemType().getId().equals(ItemType.ELIXIR.getId()) || item.getItemType().getId().equals(ItemType.POTION.getId()))) {
+				item.setSVGString(EnchantingUtils.getImportedSVGString(item, (parentElement.getAttribute("colour").isEmpty()?Colour.GENERIC_ARCANE:Colour.valueOf(parentElement.getAttribute("colour"))), effectsToBeAdded));
+			}
+			
+			return item;
+		} catch(Exception ex) {
+			System.err.println("Warning: An instance of AbstractItem was unable to be imported.");
+			return null;
 		}
-		
-		List<ItemEffect> effectsToBeAdded = new ArrayList<>();
-		Element element = (Element)parentElement.getElementsByTagName("itemEffects").item(0);
-		for(int i=0; i<element.getElementsByTagName("effect").getLength(); i++){
-			Element e = ((Element)element.getElementsByTagName("effect").item(i));
-			effectsToBeAdded.add(ItemEffect.loadFromXML(e, doc));
-		}
-		item.setItemEffects(effectsToBeAdded);
-		
-		if(!effectsToBeAdded.isEmpty() && (item.getItemType().getId().equals(ItemType.ELIXIR.getId()) || item.getItemType().getId().equals(ItemType.POTION.getId()))) {
-			item.setSVGString(EnchantingUtils.getImportedSVGString(item, (parentElement.getAttribute("colour").isEmpty()?Colour.GENERIC_ARCANE:Colour.valueOf(parentElement.getAttribute("colour"))), effectsToBeAdded));
-		}
-		
-		return item;
 	}
 
 	public AbstractItemType getItemType() {
@@ -122,13 +126,18 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 	// Enchantments:
 
 	@Override
+	public int getEnchantmentLimit() {
+		return itemType.getEnchantmentLimit();
+	}
+	
+	@Override
 	public ItemEffectType getEnchantmentEffect() {
 		return itemType.getEnchantmentEffect();
 	}
 	
 	@Override
-	public AbstractCoreType getEnchantmentItemType() {
-		return itemType.getEnchantmentItemType();
+	public AbstractCoreType getEnchantmentItemType(List<ItemEffect> effects) {
+		return itemType.getEnchantmentItemType(effects);
 	}
 	
 	@Override
@@ -149,61 +158,7 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 	
 	@Override
 	public int getValue() {
-		int additionalValue=0;
-		if(getItemEffects()!=null) {
-			for(ItemEffect ie : getItemEffects()) {
-				additionalValue+=5;
-				if(ie.getPrimaryModifier()!=null) {
-					if(ie.getPrimaryModifier()!=TFModifier.NONE) {
-						switch(ie.getPrimaryModifier().getRarity()) {
-							case JINXED:
-								additionalValue++;
-								break;
-							case COMMON:
-								additionalValue+=5;
-								break;
-							case UNCOMMON:
-								additionalValue+=10;
-								break;
-							case RARE:
-								additionalValue+=20;
-								break;
-							case EPIC:
-								additionalValue+=40;
-								break;
-							case LEGENDARY:
-								additionalValue+=60;
-								break;
-						}
-					}
-				}
-				if(ie.getSecondaryModifier()!=null) {
-					if(ie.getSecondaryModifier()!=TFModifier.NONE) {
-						switch(ie.getSecondaryModifier().getRarity()) {
-							case JINXED:
-								additionalValue++;
-								break;
-							case COMMON:
-								additionalValue+=5;
-								break;
-							case UNCOMMON:
-								additionalValue+=10;
-								break;
-							case RARE:
-								additionalValue+=20;
-								break;
-							case EPIC:
-								additionalValue+=40;
-								break;
-							case LEGENDARY:
-								additionalValue+=60;
-								break;
-						}
-					}
-				}
-			}
-		}
-		return itemType.getValue()+additionalValue;
+		return itemType.getValue();
 	}
 	
 	public String getExtraDescription(GameCharacter user, GameCharacter target) {

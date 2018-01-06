@@ -117,7 +117,9 @@ public class ReindeerOverseerDialogue {
 							+ " [npc.speech(Hello again [pc.name]!)]"
 						+ "</p>"
 						+ "<p>"
-							+ "You spend a little while making small talk, and discover that [npc.name]'s "
+							+ "You spend a little while making small talk and getting to know [npc.name] a little better."
+							+ " Most of [npc.her] interests seem to be related to snow in one way or another, and you're a little relieved when [npc.she] finally brings the conversation to a close,"
+							+ " [npc.speech(I really should be getting on with work, but if you wanted to take a look at the goods I've got for sale, I could spare some time for that.)]"
 						+ "</p>");
 				
 			} else {

@@ -3,6 +3,7 @@ package com.lilithsthrone.world.places;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -11,7 +12,7 @@ import com.lilithsthrone.world.Cell;
 
 /**
  * @since 0.1.85
- * @version 0.1.87
+ * @version 0.1.97
  * @author Innoxia
  */
 public enum PlaceUpgrade {
@@ -60,6 +61,45 @@ public enum PlaceUpgrade {
 			
 			for(PlaceUpgrade upgrade : PlaceUpgrade.values()) {
 				if(upgrade != LILAYA_EMPTY_ROOM) {
+					place.removePlaceUpgrade(upgrade);
+				}
+			}
+		}
+		
+		@Override
+		public boolean isAvailable(Cell cell) {
+			return Main.game.getCharactersTreatingCellAsHome(cell).isEmpty() && !cell.getPlace().getPlaceUpgrades().contains(LILAYA_ARTHUR_ROOM);
+		}
+
+		@Override
+		public String getAvailabilityDescription(Cell cell) {
+			if(Main.game.getCharactersTreatingCellAsHome(cell).isEmpty()) {
+				return "";
+			} else {
+				return "This room needs to be unoccupied in order to purchase this modification.";
+			}
+		}
+	},
+	
+	LILAYA_ARTHUR_ROOM(true,
+			Colour.RACE_HUMAN,
+			"Arthur's Room",
+			"Help Rose to move arcane instrumentation into this room in order to make it suitable for Arthur to stay in. <b>This is a permanent modification, and can never be undone!</b>",
+			"This room now belongs to Arthur, who uses it as his personal lab-cum-bedroom.",
+			"This room is unoccupied, and although Rose seems to be doing an excellent job of keeping it clean and well-dusted, it seems a shame that it's not being used to its full potential...",
+			0,
+			0,
+			0,
+			0,
+			0,
+			0,
+			null) {
+		@Override
+		public void applyInstallationEffects(GenericPlace place) {
+			place.setPlaceType(PlaceType.LILAYA_HOME_ARTHUR_ROOM);
+			
+			for(PlaceUpgrade upgrade : PlaceUpgrade.values()) {
+				if(upgrade != LILAYA_ARTHUR_ROOM) {
 					place.removePlaceUpgrade(upgrade);
 				}
 			}
@@ -118,6 +158,11 @@ public enum PlaceUpgrade {
 						+ " Beside it, there's a simple bedside cabinet, complete with arcane-powered lamp."
 						+ " Other than that, the only other pieces of furniture in here are a wooden wardrobe and chest of drawers.";
 			}
+		}
+		
+		@Override
+		public boolean isAvailable(Cell cell) {
+			return Main.game.getCharactersTreatingCellAsHome(cell).isEmpty() && !cell.getPlace().getPlaceUpgrades().contains(LILAYA_ARTHUR_ROOM);
 		}
 		
 		@Override
@@ -258,11 +303,30 @@ public enum PlaceUpgrade {
 			null);
 	
 	
-	public static ArrayList<PlaceUpgrade> coreRoomUpgrades, slaveQuartersUpgrades;
+	private static ArrayList<PlaceUpgrade> coreRoomUpgrades, slaveQuartersUpgrades;
 	
+	public static ArrayList<PlaceUpgrade> getCoreRoomUpgrades() {
+		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.arthursRoomInstalled)) {
+			ArrayList<PlaceUpgrade> listArthurRemoved = new ArrayList<>(coreRoomUpgrades);
+			listArthurRemoved.remove(PlaceUpgrade.LILAYA_ARTHUR_ROOM);
+			return listArthurRemoved;
+		}
+		return coreRoomUpgrades;
+	}
+
+	public static ArrayList<PlaceUpgrade> getSlaveQuartersUpgrades() {
+		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.arthursRoomInstalled)) {
+			ArrayList<PlaceUpgrade> listArthurRemoved = new ArrayList<>(slaveQuartersUpgrades);
+			listArthurRemoved.remove(PlaceUpgrade.LILAYA_ARTHUR_ROOM);
+			return listArthurRemoved;
+		}
+		return slaveQuartersUpgrades;
+	}
+
 	static {
 		coreRoomUpgrades = Util.newArrayListOfValues(
-				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM));
+				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM),
+				new ListValue<>(PlaceUpgrade.LILAYA_ARTHUR_ROOM));
 		
 		slaveQuartersUpgrades = Util.newArrayListOfValues(
 				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM_ROOM_SERVICE),
@@ -273,9 +337,9 @@ public enum PlaceUpgrade {
 				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM_ARCANE_INSTRUMENTS),
 				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM_OBEDIENCE_TRAINER),
 				
-				new ListValue<>(PlaceUpgrade.LILAYA_EMPTY_ROOM));
+				new ListValue<>(PlaceUpgrade.LILAYA_EMPTY_ROOM),
+				new ListValue<>(PlaceUpgrade.LILAYA_ARTHUR_ROOM));
 	}
-	
 	
 	private boolean isCoreRoomUpgrade;
 	private String name, descriptionForPurchase, descriptionAfterPurchase, roomDescription;

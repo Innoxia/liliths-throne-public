@@ -24,7 +24,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.7
- * @version 0.1.83
+ * @version 0.1.97
  * @author Innoxia
  */
 public class EnchantmentDialogue {
@@ -96,10 +96,21 @@ public class EnchantmentDialogue {
 							+ UtilText.formatAsEssences(effect.getCost(), "b", false)
 						+ "</div>");
 
-				inventorySB.append(
-						"<div class='enchant-button-add' id='ENCHANT_ADD_BUTTON'>"
-						+ "Add"
-						+ "</div>");
+				if(effects.size() >= ingredient.getEnchantmentLimit()
+						|| ingredient.getEnchantmentEffect().getEffectsDescription(primaryMod, secondaryMod, potency, limit, Main.game.getPlayer(), Main.game.getPlayer())==null
+						|| ingredient.getEnchantmentEffect().getEffectsDescription(primaryMod, secondaryMod, potency, limit, Main.game.getPlayer(), Main.game.getPlayer()).isEmpty()) {
+					inventorySB.append(
+							"<div class='enchant-button-add disabled'>"
+							+ "Add"
+							+ "</div>");
+					
+				} else {
+					inventorySB.append(
+							"<div class='enchant-button-add' id='ENCHANT_ADD_BUTTON'>"
+							+ "Add"
+							+ "</div>");
+					
+				}
 				
 				inventorySB.append(
 						"<div class='enchanting-text' style='text-align: center; display:block; margin:0 auto; padding:8px 0 8px 0;'>"
@@ -164,7 +175,7 @@ public class EnchantmentDialogue {
 		inventorySB.append("<div class='enchanting-essence-main'>");
 
 			inventorySB.append("<div class='enchanting-essence-inner-left'>");
-				inventorySB.append("<div class='enchanting-ingredient " + ((AbstractItemType) ingredient.getEnchantmentItemType()).getRarity().getName() + "'>"
+				inventorySB.append("<div class='enchanting-ingredient " + ((AbstractItemType) ingredient.getEnchantmentItemType(effects)).getRarity().getName() + "'>"
 						+ "<div class='enchanting-ingredient-content'>"+EnchantingUtils.getSVGString(ingredient, effects)+"</div>"
 						+ "<div class='overlay' id='OUTPUT_ENCHANTING'></div>"
 						+ "</div>");
@@ -173,8 +184,10 @@ public class EnchantmentDialogue {
 			inventorySB.append(
 						"<div class='enchanting-essence-inner-right'>"
 							+ "<div class='enchanting-text' style='text-align:center;'>"
-								+ "<b>"+Util.capitaliseSentence(EnchantingUtils.getPotionName(ingredient, effects))+"</b> | Cost to craft: "
-								+ UtilText.formatAsEssences(EnchantingUtils.getCost(ingredient, effects), "b", false)
+								+ "<b>Effects (</b>"
+									+ (effects.size()>=ingredient.getEnchantmentLimit()?"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>":"<b>")+""
+											+ effects.size()+"/"+ingredient.getEnchantmentLimit()+"</b><b>)</b></br>"
+								+ "<b>"+Util.capitaliseSentence(EnchantingUtils.getPotionName(ingredient, effects))+"</b> | Cost to craft: "+ UtilText.formatAsEssences(EnchantingUtils.getCost(ingredient, effects), "b", false)
 							+"</div>");
 			
 			// Effects:
@@ -234,7 +247,12 @@ public class EnchantmentDialogue {
 			// Ingredients:
 			} else if (index == 1) {
 				
-				if(ingredient.getEnchantmentEffect().getEffectsDescription(primaryMod, secondaryMod, potency, limit, Main.game.getPlayer(), Main.game.getPlayer())==null) {
+				if(effects.size() >= ingredient.getEnchantmentLimit()) {
+					return new Response("Add", "You cannot add any more effects!", null);
+				}
+				
+				if(ingredient.getEnchantmentEffect().getEffectsDescription(primaryMod, secondaryMod, potency, limit, Main.game.getPlayer(), Main.game.getPlayer())==null
+						|| ingredient.getEnchantmentEffect().getEffectsDescription(primaryMod, secondaryMod, potency, limit, Main.game.getPlayer(), Main.game.getPlayer()).isEmpty()) {
 					return new Response("Add", "You cannot add an effect using these components!", null);
 				}
 				

@@ -257,8 +257,8 @@ public class SuccubisSecrets {
 							Main.game.getKate())
 					+ "</p>"
 					+ "<p>"
-						+ "You see her tail snaking around beneath her, and as you watch, the spaded tip slips up beneath the fabric of her pink mini-skirt and thrusts forwards between her legs."
-						+ " Your eyes widen as you watch it start to pump back and forth, and, not being able to resist, you tilt your head down to see that the horny demon isn't wearing any underwear."
+						+ "You see her tail snaking around beneath her, and as you watch, the spaded tip slips up between her legs, and, pulling her pink v-string panties to one side, thrusts up into her pussy."
+						+ " Due to the fact that she's wearing nothing more than an impossibly-small micro-skirt around her waist, you're able to see everything as she starts to pump her tail back and forth."
 						+ " Her spaded tail is buried deep in her drooling slit, and as it enthusiastically fucks its owner's eager cunt, she starts alternately squealing and sighing in delight. "
 						+ UtilText.parseSpeech("Deeper... Aaah yeah, like that!",
 								Main.game.getKate())

@@ -6,13 +6,18 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.1.97
  * @author Innoxia
  */
 public enum WingType implements BodyPartTypeInterface {
 	NONE(null, null),
 
-	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON),
+	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON) {
+		@Override
+		public boolean allowsFlight() {
+			return true;
+		}
+	},
 
 	ANGEL(BodyCoveringType.ANGEL_FEATHER, Race.ANGEL) {
 		@Override

@@ -15,6 +15,8 @@ import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.body.valueEnums.HairLength;
+import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.effects.Fetish;
@@ -65,10 +67,13 @@ public class Kate extends NPC {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 	
 			this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_GREEN));
-			this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_BLACK), true);
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_RED), true);
+			this.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMedianValue());
+			this.setHairStyle(HairStyle.SIDECUT);
 			this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_PINK), true);
-
-			this.setHornType(HornType.CURVED);
+			
+			this.setHornType(HornType.CURLED);
+			this.setSkinCovering(new Covering(BodyCoveringType.HORN, Colour.HORN_DARK_GREY), true);
 			
 			this.setBreastSize(CupSize.F.getMeasurement());
 			
@@ -81,15 +86,20 @@ public class Kate extends NPC {
 			this.setFaceVirgin(false);
 			this.setPenisVirgin(false);
 			
+			this.setPiercedEar(true);
+			
 			this.addFetish(Fetish.FETISH_SUBMISSIVE);
 			this.addFetish(Fetish.FETISH_PREGNANCY);
 	
 			this.setMoney(10);
-			
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_MINI_SKIRT, Colour.CLOTHING_PINK, false), true, this);
+
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_VSTRING, Colour.CLOTHING_PINK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_MICRO_SKIRT_BELTED, Colour.CLOTHING_BLACK, false), true, this);
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, Colour.CLOTHING_PINK, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_KNEEHIGH_SOCKS, Colour.CLOTHING_WHITE, false), true, this);
-			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_PINK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_BLAZER, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_FISHNET_STOCKINGS, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_GOLD, false), true, this);
 			
 			dailyReset();
 		}
@@ -102,6 +112,27 @@ public class Kate extends NPC {
 		loadNPCVariablesFromXML(npc, null, parentElement, doc);
 
 		npc.setWingSize(WingSize.ONE_SMALL.getValue());
+		
+		npc.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_RED), true);
+		npc.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMedianValue());
+		npc.setHairStyle(HairStyle.SIDECUT);
+
+		npc.setHornType(HornType.CURLED);
+		npc.setSkinCovering(new Covering(BodyCoveringType.HORN, Colour.HORN_DARK_GREY), true);
+		
+		npc.deleteAllEquippedClothing();
+
+		npc.setPiercedEar(true);
+		
+		npc.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_VSTRING, Colour.CLOTHING_PINK, false), true, this);
+		npc.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_MICRO_SKIRT_BELTED, Colour.CLOTHING_BLACK, false), true, this);
+		npc.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, Colour.CLOTHING_PINK, false), true, this);
+		npc.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_BLAZER, Colour.CLOTHING_BLACK, false), true, this);
+		npc.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_FISHNET_STOCKINGS, Colour.CLOTHING_BLACK, false), true, this);
+		npc.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false), true, this);
+		npc.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_GOLD, false), true, this);
+
+		dailyReset();
 		
 		return npc;
 	}

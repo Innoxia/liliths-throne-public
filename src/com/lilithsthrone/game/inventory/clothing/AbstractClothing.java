@@ -174,8 +174,12 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	public int hashCode() {
 		int result = super.hashCode();
 		result = 31 * result + getClothingType().hashCode();
-		result = 31 * result + getSecondaryColour().hashCode();
-		result = 31 * result + getTertiaryColour().hashCode();
+		if(getSecondaryColour()!=null) {
+			result = 31 * result + getSecondaryColour().hashCode();
+		}
+		if(getTertiaryColour()!=null) {
+			result = 31 * result + getTertiaryColour().hashCode();
+		}
 		result = 31 * result + (sealed ? 1 : 0);
 		result = 31 * result + (cummedIn ? 1 : 0);
 		result = 31 * result + (enchantmentKnown ? 1 : 0);
@@ -223,41 +227,47 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	}
 	
 	public static AbstractClothing loadFromXML(Element parentElement, Document doc) {
-		AbstractClothing clothing = AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId(parentElement.getAttribute("id")), false);
-		
-		clothing.setColour(Colour.valueOf(parentElement.getAttribute("colour")));
-		if(!parentElement.getAttribute("colourSecondary").isEmpty()) {
-			clothing.setSecondaryColour(Colour.valueOf(parentElement.getAttribute("colourSecondary")));
+		try {
+			AbstractClothing clothing = AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId(parentElement.getAttribute("id")), false);
+			
+			clothing.setColour(Colour.valueOf(parentElement.getAttribute("colour")));
+			if(!parentElement.getAttribute("colourSecondary").isEmpty()) {
+				clothing.setSecondaryColour(Colour.valueOf(parentElement.getAttribute("colourSecondary")));
+			}
+			if(!parentElement.getAttribute("colourTertiary").isEmpty()) {
+				clothing.setTertiaryColour(Colour.valueOf(parentElement.getAttribute("colourTertiary")));
+			}
+			
+			clothing.rarity = (Rarity.valueOf(parentElement.getAttribute("rarity")));
+			clothing.setSealed(Boolean.valueOf(parentElement.getAttribute("sealed")));
+			clothing.setDirty(Boolean.valueOf(parentElement.getAttribute("isDirty")));
+			clothing.setEnchantmentKnown(Boolean.valueOf(parentElement.getAttribute("enchantmentKnown")));
+			clothing.badEnchantment = (Boolean.valueOf(parentElement.getAttribute("badEnchantment")));
+			
+			if(!parentElement.getAttribute("coreEnchantment").equals("null")) {
+				clothing.coreEnchantment = Attribute.valueOf(parentElement.getAttribute("coreEnchantment"));
+			}
+			
+			clothing.setAttributeModifiers(new HashMap<Attribute, Integer>());
+			Element element = (Element)parentElement.getElementsByTagName("attributeModifiers").item(0);
+			for(int i=0; i<element.getElementsByTagName("modifier").getLength(); i++){
+				Element e = ((Element)element.getElementsByTagName("modifier").item(i));
+				clothing.getAttributeModifiers().put(Attribute.valueOf(e.getAttribute("attribute")), Integer.valueOf(e.getAttribute("value")));
+			}
+			
+			clothing.displacedList = new ArrayList<>();
+			element = (Element)parentElement.getElementsByTagName("displacedList").item(0);
+			for(int i=0; i<element.getElementsByTagName("spell").getLength(); i++){
+				Element e = ((Element)element.getElementsByTagName("displacementType").item(i));
+				clothing.displacedList.add(DisplacementType.valueOf(e.getAttribute("value")));
+			}
+			
+			return clothing;
+			
+		} catch(Exception ex) {
+			System.err.println("Warning: An instance of AbstractClothing was unable to be imported.");
+			return null;
 		}
-		if(!parentElement.getAttribute("colourTertiary").isEmpty()) {
-			clothing.setTertiaryColour(Colour.valueOf(parentElement.getAttribute("colourTertiary")));
-		}
-		
-		clothing.rarity = (Rarity.valueOf(parentElement.getAttribute("rarity")));
-		clothing.setSealed(Boolean.valueOf(parentElement.getAttribute("sealed")));
-		clothing.setDirty(Boolean.valueOf(parentElement.getAttribute("isDirty")));
-		clothing.setEnchantmentKnown(Boolean.valueOf(parentElement.getAttribute("enchantmentKnown")));
-		clothing.badEnchantment = (Boolean.valueOf(parentElement.getAttribute("badEnchantment")));
-		
-		if(!parentElement.getAttribute("coreEnchantment").equals("null")) {
-			clothing.coreEnchantment = Attribute.valueOf(parentElement.getAttribute("coreEnchantment"));
-		}
-		
-		clothing.setAttributeModifiers(new HashMap<Attribute, Integer>());
-		Element element = (Element)parentElement.getElementsByTagName("attributeModifiers").item(0);
-		for(int i=0; i<element.getElementsByTagName("modifier").getLength(); i++){
-			Element e = ((Element)element.getElementsByTagName("modifier").item(i));
-			clothing.getAttributeModifiers().put(Attribute.valueOf(e.getAttribute("attribute")), Integer.valueOf(e.getAttribute("value")));
-		}
-		
-		clothing.displacedList = new ArrayList<>();
-		element = (Element)parentElement.getElementsByTagName("displacedList").item(0);
-		for(int i=0; i<element.getElementsByTagName("spell").getLength(); i++){
-			Element e = ((Element)element.getElementsByTagName("displacementType").item(i));
-			clothing.displacedList.add(DisplacementType.valueOf(e.getAttribute("value")));
-		}
-		
-		return clothing;
 	}
 	
 	public Colour getSecondaryColour() {

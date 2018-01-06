@@ -166,11 +166,11 @@ public enum Colour {
 	AFFECTION_POSITIVE_FOUR(Util.newColour(0xffd42a), Util.newColour(0xf2aadf), "gold"),
 	AFFECTION_POSITIVE_FIVE(Util.newColour(0xffcc00), Util.newColour(0xfbbcf4), "gold"),
 
-	MASCULINE(Util.newColour(0x8ABEFF), Util.newColour(0x8ABEFF), "blue", Util.newArrayListOfValues(new ListValue<>("masculine"), new ListValue<>("mas"))),
+	MASCULINE(Util.newColour(0x8ABEFF), Util.newColour(0x8ABEFF), "blue", Util.newArrayListOfValues(new ListValue<>("masculine"), new ListValue<>("mas"), new ListValue<>("masculinePlus"))),
 	MASCULINE_PLUS(Util.newColour(0x4D9DFF), Util.newColour(0x4D9DFF), "dark blue", Util.newArrayListOfValues(new ListValue<>("masculineStrong"), new ListValue<>("masStr"))),
 	ANDROGYNOUS(Util.newColour(0xB39EFF), Util.newColour(0xB39EFF), "purple", Util.newArrayListOfValues(new ListValue<>("androgynous"), new ListValue<>("andro"))),
 	FEMININE(Util.newColour(0xFFBDFF), Util.newColour(0xFFFBDFF), "pink", Util.newArrayListOfValues(new ListValue<>("feminine"), new ListValue<>("fem"))),
-	FEMININE_PLUS(Util.newColour(0xFF85FF), Util.newColour(0xFF85FF), "pink", Util.newArrayListOfValues(new ListValue<>("feminineStrong"), new ListValue<>("femStr"))),
+	FEMININE_PLUS(Util.newColour(0xFF85FF), Util.newColour(0xFF85FF), "pink", Util.newArrayListOfValues(new ListValue<>("feminineStrong"), new ListValue<>("femStr"), new ListValue<>("femininePlus"))),
 	
 	BODY_SIZE_ZERO(Util.newColour(0xFFEBD6), Util.newColour(0x241D00), "tan", Util.newArrayListOfValues(new ListValue<>("bodySizeZero"))),
 	BODY_SIZE_ONE(Util.newColour(0xFFE0BD), Util.newColour(0x3D3100), "tan", Util.newArrayListOfValues(new ListValue<>("bodySizeOne"))),
@@ -239,9 +239,9 @@ public enum Colour {
 	DISPLACED(BaseColour.CRIMSON, "crimson"),
 
 	// Text colours:
-	TEXT(Util.newColour(0xDDDDDD), Util.newColour(0x262626), "grey",  Util.newArrayListOfValues(new ListValue<>("text"))),
-	TEXT_HALF_GREY(Util.newColour(0xBBBBBB), Util.newColour(0x444444), "grey",  Util.newArrayListOfValues(new ListValue<>("disabled"))),
-	TEXT_GREY(Util.newColour(0x777777), Util.newColour(0x777777), "grey",  Util.newArrayListOfValues(new ListValue<>("disabled"))),
+	TEXT(Util.newColour(0xDDDDDD), Util.newColour(0x262626), "grey", Util.newArrayListOfValues(new ListValue<>("text"))),
+	TEXT_HALF_GREY(Util.newColour(0xBBBBBB), Util.newColour(0x444444), "grey", Util.newArrayListOfValues(new ListValue<>("halfDisabled"))),
+	TEXT_GREY(Util.newColour(0x777777), Util.newColour(0x777777), "grey", Util.newArrayListOfValues(new ListValue<>("disabled"))),
 
 	// Standard colours used for clothing:
 	CLOTHING_RED(Util.newColour(0xD84646), Util.newColour(0xD84646), "red"),

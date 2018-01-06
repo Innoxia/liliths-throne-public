@@ -34,14 +34,14 @@ import java.util.Set;
  */
 public abstract class SexManagerDefault implements SexManagerInterface {
 	
-	private static List<SexActionInterface> actionsAvailablePlayer, actionsAvailablePartner, orgasmActionsPlayer, orgasmActionsPartner;//, mutualOrgasmActions;
+	private static List<SexActionInterface> actionsAvailablePlayer, actionsAvailablePartner, orgasmActionsPlayer, orgasmActionsPartner, mutualOrgasmActions;
 	
 	public SexManagerDefault(Class<?>... coreContainers) {
 		actionsAvailablePlayer = new ArrayList<>();
 		actionsAvailablePartner = new ArrayList<>();
 		orgasmActionsPlayer = new ArrayList<>();
 		orgasmActionsPartner = new ArrayList<>();
-//		mutualOrgasmActions = new ArrayList<>();
+		mutualOrgasmActions = new ArrayList<>();
 
 		try {
 			if (coreContainers.length != 0) {
@@ -53,11 +53,10 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 							
 							if (SexAction.class.isAssignableFrom(f.getType())) {
 								if (((SexAction) f.get(null)).getActionType().isOrgasmOption()) {
-//									if (((SexAction) f.get(null)).getActionType() == SexActionType.MUTUAL_ORGASM) {
-//										mutualOrgasmActions.add(((SexAction) f.get(null)));
-//										
-//									} else  
-									if (((SexAction) f.get(null)).getActionType().isPlayerAction()) {
+									if (((SexAction) f.get(null)).getActionType() == SexActionType.MUTUAL_ORGASM) {
+										mutualOrgasmActions.add(((SexAction) f.get(null)));
+										
+									} else if (((SexAction) f.get(null)).getActionType().isPlayerAction()) {
 										orgasmActionsPlayer.add(((SexAction) f.get(null)));
 										
 									} else {
@@ -158,7 +157,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		actionsAvailablePartner.remove(action);
 		orgasmActionsPlayer.remove(action);
 		orgasmActionsPartner.remove(action);
-//		mutualOrgasmActions.remove(action);
+		mutualOrgasmActions.remove(action);
 	}
 	
 	@Override
@@ -177,10 +176,10 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 	public List<SexActionInterface> getOrgasmActionsPartner(){
 		return orgasmActionsPartner;
 	}
-//	@Override
-//	public List<SexActionInterface> getMutualOrgasmActions(){
-//		return mutualOrgasmActions;
-//	}
+	@Override
+	public List<SexActionInterface> getMutualOrgasmActions(){
+		return mutualOrgasmActions;
+	}
 
 	private static List<SexActionInterface> possibleActions = new ArrayList<>(), bannedActions = new ArrayList<>();
 	
@@ -198,8 +197,6 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 	 * - main (self-actions take minimum priority)
 	 * - orgasm
 	 */
-	
-	
 	
 	@Override
 	public SexActionInterface getPartnerSexAction(SexActionInterface sexActionPlayer) {
@@ -235,7 +232,6 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 			} else {
 				return availableActions.get(Util.random.nextInt(availableActions.size()));
 			}
-			
 		}
 		
 		

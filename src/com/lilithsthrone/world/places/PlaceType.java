@@ -306,7 +306,7 @@ public enum PlaceType {
 		}
 		@Override
 		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
-			return PlaceUpgrade.coreRoomUpgrades;
+			return PlaceUpgrade.getCoreRoomUpgrades();
 		}
 		@Override
 		public boolean isAbleToBeUpgraded() {
@@ -325,7 +325,7 @@ public enum PlaceType {
 		}
 		@Override
 		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
-			return PlaceUpgrade.coreRoomUpgrades;
+			return PlaceUpgrade.getCoreRoomUpgrades();
 		}
 		@Override
 		public boolean isAbleToBeUpgraded() {
@@ -344,7 +344,7 @@ public enum PlaceType {
 		}
 		@Override
 		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
-			return PlaceUpgrade.coreRoomUpgrades;
+			return PlaceUpgrade.getCoreRoomUpgrades();
 		}
 		@Override
 		public boolean isAbleToBeUpgraded() {
@@ -363,7 +363,7 @@ public enum PlaceType {
 		}
 		@Override
 		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
-			return PlaceUpgrade.coreRoomUpgrades;
+			return PlaceUpgrade.getCoreRoomUpgrades();
 		}
 		@Override
 		public boolean isAbleToBeUpgraded() {
@@ -378,7 +378,7 @@ public enum PlaceType {
 	LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_SLAVE("Slave's Room", "dominion/lilayasHome/roomSlave", BaseColour.CRIMSON, LilayaHomeGeneric.ROOM_WINDOW_SLAVE, null, true, false, true, false, "in Lilaya's Home") {
 		@Override
 		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
-			return PlaceUpgrade.slaveQuartersUpgrades;
+			return PlaceUpgrade.getSlaveQuartersUpgrades();
 		}
 		@Override
 		public boolean isAbleToBeUpgraded() {
@@ -389,7 +389,7 @@ public enum PlaceType {
 	LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_SLAVE("Slave's Garden Room", "dominion/lilayasHome/roomSlave", BaseColour.CRIMSON, LilayaHomeGeneric.ROOM_GARDEN_GROUND_FLOOR_SLAVE, null, true, false, true, false, "in Lilaya's Home") {
 		@Override
 		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
-			return PlaceUpgrade.slaveQuartersUpgrades;
+			return PlaceUpgrade.getSlaveQuartersUpgrades();
 		}
 		@Override
 		public boolean isAbleToBeUpgraded() {
@@ -400,7 +400,7 @@ public enum PlaceType {
 	LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_SLAVE("Slave's Room", "dominion/lilayasHome/roomSlave", BaseColour.CRIMSON, LilayaHomeGeneric.ROOM_WINDOW_SLAVE, null, true, false, true, false, "in Lilaya's Home") {
 		@Override
 		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
-			return PlaceUpgrade.slaveQuartersUpgrades;
+			return PlaceUpgrade.getSlaveQuartersUpgrades();
 		}
 		@Override
 		public boolean isAbleToBeUpgraded() {
@@ -411,13 +411,15 @@ public enum PlaceType {
 	LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_SLAVE("Slave's Garden Room", "dominion/lilayasHome/roomSlave", BaseColour.CRIMSON, LilayaHomeGeneric.ROOM_GARDEN_SLAVE, null, true, false, true, false, "in Lilaya's Home") {
 		@Override
 		public ArrayList<PlaceUpgrade> getAvailablePlaceUpgrades() {
-			return PlaceUpgrade.slaveQuartersUpgrades;
+			return PlaceUpgrade.getSlaveQuartersUpgrades();
 		}
 		@Override
 		public boolean isAbleToBeUpgraded() {
 			return true;
 		}
 	},
+	
+	LILAYA_HOME_ARTHUR_ROOM("Arthur's Room", "dominion/lilayasHome/roomArthur", BaseColour.BLUE_STEEL, LilayaHomeGeneric.ROOM_ARTHUR, null, true, false, true, false, "in Arthur's Room"),
 	
 	LILAYA_HOME_BIRTHING_ROOM("Room", "dominion/lilayasHome/roomBirthing", BaseColour.PINK, LilayaHomeGeneric.BIRTHING_ROOM, null, true, false, true, false, "in Lilaya's Home"),
 	

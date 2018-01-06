@@ -2,7 +2,7 @@ package com.lilithsthrone.game.sex;
 
 /**
  * @since 0.1.69
- * @version 0.1.90
+ * @version 0.1.97
  * @author Innoxia
  */
 public enum SexPosition {
@@ -14,6 +14,9 @@ public enum SexPosition {
 	PIX_SHOWER_RAPE("Face-to-wall (Pix behind)", "You're standing with your face pressed up against one wall of the shower, and behind you, Pix is growling hungrily into your ear."),
 
 	RALPH_UNDER_DESK("Kneeling under counter", "You're kneeling under Ralph's desk, with your face just inches away from his crotch."),
+
+	VICKY_DESK_MISSIONARY("Missionary on Desk", "You're lying back on top of Arcane Arts' front desk, and Vicky's standing between your [pc.legs], growling down at you as she prepares to fuck you in the missionary position."),
+	
 
 	CULTIST_ALTAR_MISSIONARY_ORAL("Missionary on Altar (Oral)", "You're lying back on top of the chapel's altar, and [npc.name]'s knelt down so that [npc.her] face is between your [pc.legs],"
 			+ " ready to have some oral fun with you in the missionary position."),

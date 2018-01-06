@@ -12,7 +12,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.79
+ * @version 0.1.97
  * @author Innoxia
  */
 public enum SVGImages {
@@ -53,12 +53,17 @@ public enum SVGImages {
 			
 			transactionBuy, transactionBuyDisabled, transactionBid, transactionBidDisabled, transactionSell, transactionSellDisabled,
 			
+			// Items:
+			
+			hypnoWatchBase, hypnoWatchGynephilic, hypnoWatchAmbiphilic, hypnoWatchAndrophilic,
+			
 			// Sex:
 			coverableAreaMouth, coverableAreaAnus, coverableAreaBreasts, coverableAreaBreastsFlat, coverableAreaNipple, coverableAreaVagina, coverableAreaThighs,
 			penetrationTypeFinger, penetrationTypePenis, penetrationTypeTail, penetrationTypeTongue,
 			combinationStretching, combinationTooLoose, combinationWet, combinationDry,
 			stretching, holeTooBig;
 	
+
 	private Map<Colour, String> refinedBackgroundMap = new EnumMap<>(Colour.class);
 	private Map<Colour, String> refinedSwirlsMap = new EnumMap<>(Colour.class);
 
@@ -372,6 +377,25 @@ public enum SVGImages {
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/transactionSellDisabled.svg");
 			transactionSellDisabled = Util.inputStreamToString(is);
 			transactionSellDisabled = setColour(transactionSellDisabled, Colour.BASE_GREY);
+			
+			
+			// Items:
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/items/hypnoClockBase.svg");
+			hypnoWatchBase = Util.inputStreamToString(is);
+			hypnoWatchBase = setColour(hypnoWatchBase, Colour.BASE_GREY);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/items/hypnoClockGyne.svg");
+			hypnoWatchGynephilic = Util.inputStreamToString(is);
+			hypnoWatchGynephilic = setColour(hypnoWatchGynephilic, Colour.FEMININE_PLUS);
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/items/hypnoClockAmbi.svg");
+			hypnoWatchAmbiphilic = Util.inputStreamToString(is);
+			hypnoWatchAmbiphilic = setColour(hypnoWatchAmbiphilic, Colour.ANDROGYNOUS);
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/items/hypnoClockAndro.svg");
+			hypnoWatchAndrophilic = Util.inputStreamToString(is);
+			hypnoWatchAndrophilic = setColour(hypnoWatchAndrophilic, Colour.MASCULINE_PLUS);
 			
 			
 			// Sex:
@@ -780,6 +804,22 @@ public enum SVGImages {
 
 	public Map<Colour, String> getRefinedSwirlsMap() {
 		return refinedSwirlsMap;
+	}
+	
+	public String getHypnoWatchBase() {
+		return hypnoWatchBase;
+	}
+	
+	public String getHypnoWatchGynephilic() {
+		return hypnoWatchGynephilic;
+	}
+
+	public String getHypnoWatchAmbiphilic() {
+		return hypnoWatchAmbiphilic;
+	}
+
+	public String getHypnoWatchAndrophilic() {
+		return hypnoWatchAndrophilic;
 	}
 
 	public String getScaleZero() {

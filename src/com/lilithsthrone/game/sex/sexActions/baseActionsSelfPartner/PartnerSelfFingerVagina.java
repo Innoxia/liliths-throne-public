@@ -13,7 +13,7 @@ import com.lilithsthrone.game.sex.sexActions.SexActionType;
 
 /**
  * @since 0.1.79
- * @version 0.1.88
+ * @version 0.1.97
  * @author Innoxia
  */
 public class PartnerSelfFingerVagina {
@@ -43,7 +43,10 @@ public class PartnerSelfFingerVagina {
 
 		@Override
 		public String getDescription() {
-			if(Sex.getPosition() == SexPosition.DOGGY_PLAYER_ON_ALL_FOURS || Sex.getPosition() == SexPosition.DOGGY_PLAYER_ON_ALL_FOURS) {
+			if(Sex.getPosition() == SexPosition.DOGGY_PARTNER_ON_ALL_FOURS
+					|| Sex.getPosition() == SexPosition.DOGGY_PARTNER_AS_DOM_ON_ALL_FOURS
+					|| Sex.getPosition() == SexPosition.DOGGY_ORAL_PLAYER_SUB_PARTNER_ON_ALL_FOURS
+					|| Sex.getPosition() == SexPosition.DOGGY_ORAL_PLAYER_DOM_PARTNER_ON_ALL_FOURS) {
 				return (UtilText.returnStringAtRandom(
 						"Reaching back between [npc.her] [npc.legs], [npc.name] teases [npc.her] [npc.fingers] over the entrance to [npc.her] [npc.pussy+],"
 								+ " before letting out [npc.a_moan+] as [npc.she] uses [npc.her] digits to spread out [npc.her] labia for you.",

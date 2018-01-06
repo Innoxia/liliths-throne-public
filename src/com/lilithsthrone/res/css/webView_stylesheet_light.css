@@ -1293,6 +1293,15 @@ position:relative;
 	background:#999999;
 	cursor:pointer;
 }
+.enchant-button-add.disabled{
+	background: #ccc;
+	color:#777;
+}
+.enchant-button-add.disabled:hover{
+	background: #ccc;
+	color:#777;
+	cursor:default;
+}
 
 .enchanting-text{
 	font-size:3vw;
