@@ -288,10 +288,8 @@ public class Lab {
 							if(Main.game.getLilaya().isVisiblyPregnant()) {
 								return new ResponseSex("\"Tests\"",
 										"Let Lilaya run her \"tests\" on you.",
-										Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)),
-										null,
-										CorruptionLevel.FOUR_LUSTFUL, null, null, null, true,
-										true, Main.game.getLilaya(), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX,
+										Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
+										true, true, Main.game.getLilaya(), Main.game.getPlayer(), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX,
 										"<p>"
 											+ "Stepping forwards, you reach up and take Lilaya's head in your hands, eagerly pressing your lips against hers as you give her a clear response to her question."
 											+ " You hear her little bat-like wings fluttering in excitement, and as you carry on kissing the horny half-demon, she starts moaning into your mouth."
@@ -314,8 +312,8 @@ public class Lab {
 										"Let Lilaya run her \"tests\" on you.",
 										Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)),
 										null,
-										CorruptionLevel.FOUR_LUSTFUL, null, null, null, true,
-										true, Main.game.getLilaya(), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX,
+										CorruptionLevel.FOUR_LUSTFUL, null, null, null,
+										true, true, Main.game.getLilaya(), Main.game.getPlayer(), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX,
 										"<p>"
 											+ "Stepping forwards, you reach up and take Lilaya's head in your hands, eagerly pressing your lips against hers as you give her a clear response to her question."
 											+ " You hear her little bat-like wings fluttering in excitement, and as you carry on kissing the horny half-demon, she starts moaning into your mouth."
@@ -725,7 +723,7 @@ public class Lab {
 			if (index == 1) {
 				return new ResponseSex("Sex", "Start having sex with Lilaya.",
 						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
-						true, true, Main.game.getLilaya(), new SMDomStanding(), Lilaya.AUNT_END_SEX_GEISHA,
+						true, true, Main.game.getPlayer(), Main.game.getLilaya(), new SMDomStanding(), Lilaya.AUNT_END_SEX_GEISHA,
 								"<p>"
 									+ "You can't resist an offer like that, and, stepping forwards, you pull your demonic aunt into your embrace,"
 									+ " [pc.speech(~Mmm!~ Yes Lilaya, that sounds good to me!)]"
@@ -743,7 +741,7 @@ public class Lab {
 			} if (index == 2) {
 				return new ResponseSex("Submissive Sex", "Start having submissive sex with Lilaya.",
 						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
-						true, true, Main.game.getLilaya(), new SMSubStanding(), Lilaya.AUNT_END_SEX_GEISHA,
+						true, true, Main.game.getLilaya(), Main.game.getPlayer(), new SMSubStanding(), Lilaya.AUNT_END_SEX_GEISHA,
 								"<p>"
 									+ "You can't resist an offer like that, and, stepping forwards, you allow your demonic aunt to reach up and pull you into her embrace,"
 									+ " [pc.speech(~Mmm!~ Yes Lilaya, that sounds good to me!)]"
@@ -1707,8 +1705,8 @@ public class Lab {
 				return new ResponseSex("Sex",
 						"Start having sex with Lilaya.", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)),
 						null,
-						CorruptionLevel.FOUR_LUSTFUL, null, null, null, true,
-						true, Main.game.getLilaya(), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX, "<p>"
+						CorruptionLevel.FOUR_LUSTFUL, null, null, null,
+						true, true, Main.game.getLilaya(), Main.game.getPlayer(), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX, "<p>"
 								+ "You briefly wonder if it's your aura that's making Lilaya so horny, but whatever it is, you're feeling the same effects."
 								+ " You've never wanted someone as badly as you want her right now, and you feel your heart pounding as her soft, delicate fingers stroke over your lips."
 								+ " Before you can make a move, Lilaya straightens up behind you and takes the initiative."
@@ -1949,7 +1947,7 @@ public class Lab {
 				return new ResponseSex("Let it happen",
 						"You know that this can only end one way. Although Lilaya reminds you of your aunt Lily, you always did have a crush on her...", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)),
 						null, CorruptionLevel.FOUR_LUSTFUL, null, null, null, true,
-						true, Main.game.getLilaya(), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX, "<p>"
+						true, Main.game.getLilaya(), Main.game.getPlayer(), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX, "<p>"
 								+ "You briefly wonder if it's your aura that's making Lilaya so horny, but whatever it is, you're feeling the same effects."
 								+ " You've never wanted someone as badly as you want her right now, and you feel your heart pounding as her soft, delicate fingers stroke over your lips."
 								+ " Before you can make a move, Lilaya straightens up behind you and takes the initiative."

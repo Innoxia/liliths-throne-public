@@ -2,17 +2,19 @@ package com.lilithsthrone.game.sex.sexActions.dominion.brax;
 
 import java.util.List;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexFlags;
-import com.lilithsthrone.game.sex.SexPosition;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.managers.dominion.brax.SMBraxSubCowgirl;
 import com.lilithsthrone.game.sex.managers.dominion.brax.SMBraxSubDoggy;
 import com.lilithsthrone.game.sex.managers.dominion.brax.SMBraxSubStart;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
 
@@ -35,8 +37,8 @@ public class BraxPositioning {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
-					&& Sex.getPosition() != SexPosition.DOGGY_PARTNER_ON_ALL_FOURS
-					&& Sex.isPlayerDom();
+					&& Sex.getPosition() != SexPositionType.DOGGY_PARTNER_ON_ALL_FOURS
+					&& Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -66,8 +68,12 @@ public class BraxPositioning {
 		}
 		
 		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT), new ListValue<>(Fetish.FETISH_ANAL_GIVING));
+		public List<Fetish> getFetishes(GameCharacter character) {
+			if(character.isPlayer()) {
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT), new ListValue<>(Fetish.FETISH_ANAL_GIVING));
+			} else {
+				return null;
+			}
 		}
 	};
 	
@@ -92,9 +98,9 @@ public class BraxPositioning {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
-					&& Sex.getPosition() != SexPosition.COWGIRL_PLAYER_TOP
-					&& Sex.isPlayerDom()
-					&& Sex.getPartner().hasPenis();
+					&& Sex.getPosition() != SexPositionType.COWGIRL_PLAYER_TOP
+					&& Sex.isDom(Main.game.getPlayer())
+					&& Sex.getActivePartner().hasPenis();
 		}
 
 		@Override
@@ -112,7 +118,7 @@ public class BraxPositioning {
 		}
 		
 		@Override
-		public List<Fetish> getFetishesPlayer() {
+		public List<Fetish> getFetishes(GameCharacter character) {
 			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT), new ListValue<>(Fetish.FETISH_ANAL_RECEIVING));
 		}
 	};
@@ -138,8 +144,8 @@ public class BraxPositioning {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
-					&& Sex.getPosition() != SexPosition.KNEELING_PARTNER_PERFORMING_ORAL
-					&& Sex.isPlayerDom();
+					&& Sex.getPosition() != SexPositionType.KNEELING_PARTNER_PERFORMING_ORAL
+					&& Sex.isDom(Main.game.getPlayer());
 		}
 
 		@Override

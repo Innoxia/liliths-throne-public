@@ -298,7 +298,7 @@ public class DominionSuccubusDialogue {
 			} else if (index == 2) {
 				return new ResponseSex("Sex",
 						"Tell the [npc.race] that you want to fuck [npc.herHim] just as [npc.she] is.",
-						true, false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
+						true, false, Main.game.getPlayer(), Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
 						"<p>"
 							+ "Satisfied with how [npc.name] looks, you decide to give [npc.herHim] what [npc.she] wants, and, stepping forwards, you allow [npc.herHim] to move towards you, grinning as [npc.she] starts grinding [npc.herself] up against you."
 							+ " Pressing your [pc.lips] to [npc.hers] and delivering a passionate kiss, you reach around and grope [npc.name]'s ass as [npc.she] moans hotly into your mouth..."
@@ -331,7 +331,7 @@ public class DominionSuccubusDialogue {
 								+ " Perhaps you could cheer [npc.herHim] up by <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>submitting to [npc.herHim]</b> and letting [npc.herHim] use your body?",
 						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)),
 						null, null, null, null, null, true,
-						true, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT, "<p>"
+						true, Main.game.getActiveNPC(), Main.game.getPlayer(), new SMSubStanding(), AFTER_SEX_DEFEAT, "<p>"
 							+ "As "+Main.game.getActiveNPC().getName("the")+" carries on whining and desperately touching [npc.herself], you start to feel incredibly sorry for [npc.herHim]."
 							+ " Stepping forwards, you lean down and look up into [npc.her] "+Main.game.getActiveNPC().getEyeName()+", "
 							+UtilText.parsePlayerSpeech("I'm sorry! I didn't mean to upset you!")
@@ -680,8 +680,8 @@ public class DominionSuccubusDialogue {
 				if (index == 1) {
 					return new ResponseSex("AA-cup",
 							"Tell the [npc.race] to make [npc.her] breasts tiny little AA-cups.",
-							true,
-							false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY, "<p>"
+							true, false, Main.game.getPlayer(), Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
+							"<p>"
 								+ "Wanting to humiliate [npc.herHim] a little, you order [npc.herHim] to get rid of [npc.her] breasts, "
 								+	UtilText.parsePlayerSpeech("These massive tits of yours are far too big! You're going to shrink them right down, understand? If they're anything bigger than little double-A's, I'm walking away!")
 							+ "</p>"
@@ -703,8 +703,8 @@ public class DominionSuccubusDialogue {
 				} else if (index == 2) {
 					return new ResponseSex("C-cup",
 							"Tell the [npc.race] to make [npc.her] breasts a more reasonable, C-cup size.",
-							true,
-							false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY, "<p>"
+							true, false, Main.game.getPlayer(), Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
+							"<p>"
 								+ "Wanting to reduce the size of [npc.her] huge breasts a little, you order [npc.herHim] to make the change, "
 								+	UtilText.parsePlayerSpeech("These massive tits of yours are far too big! Make them a more reasonable size! C-cups should do just fine.")
 							+ "</p>"
@@ -726,8 +726,8 @@ public class DominionSuccubusDialogue {
 				} else if (index == 3) {
 					return new ResponseSex("E-cup",
 							"Tell the [npc.race] to keep [npc.her] breasts as E-cups.",
-							true,
-							false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY, "<p>"
+							true, false, Main.game.getPlayer(), Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
+							"<p>"
 								+ "Looking down at [npc.her] chest, you find yourself happy enough already as you see [npc.her] huge, E-cup breasts."
 								+ " Satisfied with your changes, you decide to finally give the [npc.race] what [npc.she] wants, and, releasing [npc.her] shoulders, you allow [npc.herHim] to step forwards and grind [npc.herself] up against you."
 								+ " Leaning down to deliver a passionate kiss, you reach around and grope the [npc.race]'s ass as [npc.she] moans hotly into your mouth."
@@ -741,8 +741,8 @@ public class DominionSuccubusDialogue {
 				} else if (index == 4) {
 					return new ResponseSex("H-cup",
 							"Tell the [npc.race] to grow [npc.her] breasts into huge H-cups.",
-							true,
-							false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY, "<p>"
+							true, false, Main.game.getPlayer(), Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
+							"<p>"
 								+ "Wanting to make [npc.her] breasts a little bigger, you order [npc.herHim] to make the change, "
 								+	UtilText.parsePlayerSpeech("I thought succubi liked having big breasts? I don't know what you'd call those things, but they're definitely not big by my standards."
 										+ " Make them at least an H-cup, and we can finally get started.")
@@ -765,21 +765,21 @@ public class DominionSuccubusDialogue {
 				} else if (index == 5) {
 					return new ResponseSex("N-cup",
 							"Tell the [npc.race] that you want [npc.herHim] to make [npc.her] breasts as large as possible, which will leave [npc.herHim] with massive N-cup tits.",
-							true,
-							false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY, "<p>"
-									+ "Wanting to make [npc.her] breasts as big as possible, you order [npc.herHim] to make the change, "
-									+	UtilText.parsePlayerSpeech("I thought succubi liked having big breasts? I don't know what you'd call those things, but they're definitely not big by my standards."
-											+ " I want to see just how big you can make them!")
-								+ "</p>"
-								+ "<p>"
-									+ "You see the [npc.race]'s cheeks flash red, and you realise that you've obviously touched a nerve, "
-									+ UtilText.parseSpeech("W-What?! But everyone always says that these are big enough! F-Fine... I can make them bigger...", Main.game.getActiveNPC())
-								+"</p>"
-								+ "<p>"
-									+ "Looking down at [npc.her] chest, you see [npc.her] huge, E-cup breasts start to expand, and after just a couple of seconds, [npc.she]'s left with an absolutely massive, N-cup bust."
-									+ " Satisfied with your changes, you decide to finally give the [npc.race] what [npc.she] wants, and, releasing [npc.her] shoulders, you allow [npc.herHim] to step forwards and grind [npc.herself] up against you."
-									+ " Leaning down to deliver a passionate kiss, you reach around and grope the [npc.race]'s ass as [npc.she] moans hotly into your mouth."
-								+ "</p>"){
+							true, false, Main.game.getPlayer(), Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
+							"<p>"
+								+ "Wanting to make [npc.her] breasts as big as possible, you order [npc.herHim] to make the change, "
+								+	UtilText.parsePlayerSpeech("I thought succubi liked having big breasts? I don't know what you'd call those things, but they're definitely not big by my standards."
+										+ " I want to see just how big you can make them!")
+							+ "</p>"
+							+ "<p>"
+								+ "You see the [npc.race]'s cheeks flash red, and you realise that you've obviously touched a nerve, "
+								+ UtilText.parseSpeech("W-What?! But everyone always says that these are big enough! F-Fine... I can make them bigger...", Main.game.getActiveNPC())
+							+"</p>"
+							+ "<p>"
+								+ "Looking down at [npc.her] chest, you see [npc.her] huge, E-cup breasts start to expand, and after just a couple of seconds, [npc.she]'s left with an absolutely massive, N-cup bust."
+								+ " Satisfied with your changes, you decide to finally give the [npc.race] what [npc.she] wants, and, releasing [npc.her] shoulders, you allow [npc.herHim] to step forwards and grind [npc.herself] up against you."
+								+ " Leaning down to deliver a passionate kiss, you reach around and grope the [npc.race]'s ass as [npc.she] moans hotly into your mouth."
+							+ "</p>"){
 						@Override
 						public void effects() {
 							Main.game.getActiveNPC().setBreastSize(CupSize.N.getMeasurement());
@@ -794,7 +794,7 @@ public class DominionSuccubusDialogue {
 				if (index == 1) {
 					return new ResponseSex("Incubus",
 							"Tell the [npc.race] that you're ready to use [npc.herHim] now.",
-							true, false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
+							true, false, Main.game.getPlayer(), Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
 							"<p>"
 								+ "Satisfied with your changes, you decide to finally give the [npc.race] what [npc.she] wants, and, releasing [npc.her] shoulders, you allow [npc.herHim] to step forwards and grind [npc.herself] up against you."
 								+ " Leaning down to deliver a passionate kiss, you reach around and grope the [npc.race]'s ass as [npc.she] moans hotly into your mouth."
@@ -804,7 +804,7 @@ public class DominionSuccubusDialogue {
 					return new ResponseSex("AA-cup Succubus",
 							"Tell the [npc.race] to transform into a succubus with tiny little AA-cup breasts.",
 							true,
-							false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
+							false, Main.game.getPlayer(), Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
 							"<p>"
 								+ "Wanting to humiliate him a little, you order [npc.name] to transform into a succubus, "
 								+	UtilText.parsePlayerSpeech("I think you'd look far better as a succubus! Transform yourself into one right now, and if your tits are anything bigger than little double-A's, I'm walking away!")
@@ -829,8 +829,7 @@ public class DominionSuccubusDialogue {
 				} else if (index == 3) {
 					return new ResponseSex("C-cup Succubus",
 							"Tell the [npc.race] to transform into a succubus with C-cup breasts.",
-							true,
-							false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
+							true, false, Main.game.getPlayer(), Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
 							"<p>"
 								+ "Wanting to humiliate him a little, you order [npc.name] to transform into a succubus, "
 								+	UtilText.parsePlayerSpeech("I think you'd look far better as a succubus! Transform yourself into one right now, and make sure your tits are a more reasonable size! C-cups should do just fine.")
@@ -855,8 +854,7 @@ public class DominionSuccubusDialogue {
 				} else if (index == 4) {
 					return new ResponseSex("E-cup Succubus",
 							"Tell the [npc.race] to transform into a succubus with E-cup breasts.",
-							true,
-							false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
+							true, false, Main.game.getPlayer(), Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
 							"<p>"
 								+ "Wanting to humiliate him a little, you order [npc.name] to transform into a succubus, "
 								+	UtilText.parsePlayerSpeech("I think you'd look far better as a succubus! Transform yourself into one right now, and make sure your tits are nice and big! E-cups should do just fine.")
@@ -881,8 +879,7 @@ public class DominionSuccubusDialogue {
 				} else if (index == 5) {
 					return new ResponseSex("H-cup Succubus",
 							"Tell the [npc.race] to transform into a succubus with huge, H-cup breasts.",
-							true,
-							false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
+							true, false, Main.game.getPlayer(), Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
 							"<p>"
 								+ "Wanting to humiliate him a little, you order [npc.name] to transform into a succubus, "
 								+	UtilText.parsePlayerSpeech("I think you'd look far better as a succubus! Transform yourself into one right now, and make sure your tits are huge! H-cups at least!")
@@ -907,8 +904,7 @@ public class DominionSuccubusDialogue {
 				} else if (index == 6) {
 					return new ResponseSex("N-cup Succubus",
 							"Tell the [npc.race] to transform into a succubus with breasts as large as possible, which will leave [npc.herHim] with massive N-cup tits.",
-							true,
-							false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
+							true, false, Main.game.getPlayer(), Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
 							"<p>"
 									+ "Wanting to humiliate him a little, you order [npc.name] to transform into a succubus, "
 									+	UtilText.parsePlayerSpeech("I think you'd look far better as a succubus! Transform yourself into one right now, and make sure your tits are as large as possible!")
@@ -976,8 +972,7 @@ public class DominionSuccubusDialogue {
 			if (index == 1) {
 				return new ResponseSex("[npc.Race]'s toy",
 						"The [npc.race] is ready to use you as [npc.her] little fuck-toy...",
-						false,
-						false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT){
+						false, false, Main.game.getActiveNPC(), Main.game.getPlayer(), new SMSubStanding(), AFTER_SEX_DEFEAT){
 					@Override
 					public void effects() {
 						Main.game.getActiveNPC().setPenisType(PenisType.DEMON_COMMON);
@@ -1035,8 +1030,7 @@ public class DominionSuccubusDialogue {
 			if (index == 1) {
 				return new ResponseSex("[npc.Race]'s toy",
 						"The [npc.race] is ready to use you as [npc.her] little fuck-toy...",
-						false,
-						false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT){
+						false, false, Main.game.getActiveNPC(), Main.game.getPlayer(), new SMSubStanding(), AFTER_SEX_DEFEAT){
 					@Override
 					public void effects() {
 						Main.game.getActiveNPC().setPenisType(PenisType.DEMON_COMMON);
@@ -1067,7 +1061,7 @@ public class DominionSuccubusDialogue {
 
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfPartnerOrgasms()==0) {
+			if(Sex.getNumberOfOrgasms(Sex.getActivePartner())==0) {
 				return UtilText.parse(Main.game.getActiveNPC(),
 						"<p>"
 							+ "As you step back from [npc.name], [npc.she] sinks to the floor, whining and desperately touching [npc.herself] as [npc.she] tries to get [npc.herself] off."

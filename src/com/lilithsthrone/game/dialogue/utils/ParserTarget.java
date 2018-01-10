@@ -50,7 +50,7 @@ public enum ParserTarget {
 						return Combat.getOpponent();
 						
 					} else if (Main.game.isInSex()) {
-						return Sex.getPartner();
+						return Sex.getActivePartner();
 						
 					} else if (Main.game.getCurrentDialogueNode()!=null) {
 						if(Main.game.getCurrentDialogueNode()==CharactersPresentDialogue.MENU || Main.game.getCurrentDialogueNode()==PhoneDialogue.CONTACTS) {

@@ -604,8 +604,7 @@ public class SlaverAlleyDialogue {
 				return new ResponseSex(
 						"Use "+charactersPresent.get(index-1).getName(),
 						UtilText.parse(charactersPresent.get(index-1), "Walk up to [npc.name] and have some fun..."),
-						false,
-						false, charactersPresent.get(index-1), new SMDomStocksBehind(
+						false, false, Main.game.getPlayer(), charactersPresent.get(index-1), new SMDomStocksBehind(
 								charactersPresent.get(index-1).getSlaveJobSettings().contains(SlaveJobSetting.SEX_VAGINAL),
 								charactersPresent.get(index-1).getSlaveJobSettings().contains(SlaveJobSetting.SEX_ANAL)), AFTER_STOCKS_SEX,
 						UtilText.parse(Main.game.getActiveNPC(),

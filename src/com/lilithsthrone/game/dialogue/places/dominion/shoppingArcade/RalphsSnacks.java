@@ -230,7 +230,7 @@ public class RalphsSnacks {
 				return new ResponseSex("Agree", "Agree to do as Ralph says and suck his cock.", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_GIVING)),
 						null, CorruptionLevel.TWO_HORNY, null,
 						null, null, true,
-						true, Main.game.getRalph(), new SexManagerRalphDiscount(), Ralph.AFTER_SEX, ""){
+						true, Main.game.getRalph(), Main.game.getPlayer(), new SexManagerRalphDiscount(), Ralph.AFTER_SEX, ""){
 					@Override
 					public void effects() {
 						Main.game.getRalph().getPlayerKnowsAreasMap().put(CoverableArea.PENIS, true);

@@ -2,6 +2,7 @@ package com.lilithsthrone.game.sex.sexActions;
 
 import java.util.List;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.effects.StatusEffect;
@@ -38,14 +39,9 @@ public interface SexActionInterface {
 	public default OrificeType getAssociatedOrificeType() { return null; }
 	
 	/**
-	 * @return A list of fetishes that affect the player in this sex action.
+	 * @return A list of fetishes that affect the character in this sex action.
 	 */
-	public List<Fetish> getFetishesPlayer();
-	
-	/**
-	 * @return A list of fetishes that affect the partner in this sex action.
-	 */
-	public List<Fetish> getFetishesPartner();
+	public List<Fetish> getFetishes(GameCharacter character);
 	
 	// Sex-specific:
 	
@@ -133,15 +129,10 @@ public interface SexActionInterface {
 	}
 	
 	/**
-	 * Defines if this SexAction switches the pace of sex.
+	 * Defines if this SexAction switches the pace of sex for the character.
 	 * @return null if no switch.
 	 */
-	public SexPace getSexPacePlayer();
-	/**
-	 * Defines if this SexAction switches the pace of sex.
-	 * @return null if no switch.
-	 */
-	public SexPace getSexPacePartner();
+	public SexPace getSexPace(GameCharacter character);
 	
 	public default boolean endsSex() {
 		return false;
@@ -176,7 +167,7 @@ public interface SexActionInterface {
 			}
 
 			// You can't resist in scenes that don't allow it or if non-con is disabled:
-			if((getSexPacePlayer()==SexPace.SUB_RESISTING || getSexPacePartner()==SexPace.SUB_RESISTING)) {
+			if((getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING || getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)) {
 				if(Sex.isConsensual() || !Main.game.isNonConEnabled()) {
 					return null;
 				}
@@ -187,7 +178,7 @@ public interface SexActionInterface {
 				
 //				if(Sex.isAnyNonSelfPenetrationHappening()
 //						&& (!Sex.isConsensual() || getSexPacePlayer()==SexPace.SUB_RESISTING || getSexPacePartner()==SexPace.SUB_RESISTING)
-//						&& ((getActionType().isPlayerAction() && !Sex.isPlayerDom()) || (!getActionType().isPlayerAction() && Sex.isPlayerDom()))) {
+//						&& ((getActionType().isPlayerAction() && !Sex.isDom(Main.game.getPlayer())) || (!getActionType().isPlayerAction() && Sex.isDom(Main.game.getPlayer())))) {
 //					return convertToNullResponse();
 //					
 //				} else {
@@ -200,12 +191,12 @@ public interface SexActionInterface {
 				if(getAssociatedPenetrationType()!=null && getAssociatedOrificeType()!=null) {
 					if(getAssociatedPenetrationType().isPlayer() != getAssociatedOrificeType().isPlayer()) { // This is a penetrative action between both partners:
 						if(getActionType().isPlayerAction()) { // Player is performing action:
-							if(!Sex.isSubHasEqualControl() && !Sex.isPlayerDom()) {
+							if(!Sex.isSubHasEqualControl() && !Sex.isDom(Main.game.getPlayer())) {
 								return null;
 							}
 							
 						} else { // Partner is performing action:
-							if((!Sex.isSubHasEqualControl() && Sex.isPlayerDom())) {
+							if((!Sex.isSubHasEqualControl() && Sex.isDom(Main.game.getPlayer()))) {
 								return null;
 							}
 						}
@@ -223,7 +214,7 @@ public interface SexActionInterface {
 				
 				if(getActionType() == SexActionType.PARTNER_PENETRATION
 						&& (getAssociatedOrificeType() == OrificeType.VAGINA_PARTNER && getAssociatedPenetrationType().isTakesVirginity()
-								&& (Sex.getPartner().hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN)) || Sex.getPartner().hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN_LUSTY_MAIDEN))) {
+								&& (Sex.getActivePartner().hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN)) || Sex.getActivePartner().hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN_LUSTY_MAIDEN))) {
 					return null;
 				}
 				
@@ -231,12 +222,12 @@ public interface SexActionInterface {
 				if(getAssociatedPenetrationType()!=null && getAssociatedOrificeType()!=null) {
 					if(getAssociatedPenetrationType().isPlayer() != getAssociatedOrificeType().isPlayer()) { // This is a penetrative action between both partners:
 						if(getActionType().isPlayerAction()) { // Player is performing action:
-							if((!Sex.isSubHasEqualControl() || getSexPacePlayer()==SexPace.SUB_RESISTING || getSexPacePartner()==SexPace.SUB_RESISTING) && !Sex.isPlayerDom()) {
+							if((!Sex.isSubHasEqualControl() || getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING || getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING) && !Sex.isDom(Main.game.getPlayer())) {
 								return null;
 							}
 							
 						} else { // Partner is performing action:
-							if(((!Sex.isSubHasEqualControl() || getSexPacePlayer()==SexPace.SUB_RESISTING || getSexPacePartner()==SexPace.SUB_RESISTING) && Sex.isPlayerDom())) {
+							if(((!Sex.isSubHasEqualControl() || getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING || getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING) && Sex.isDom(Main.game.getPlayer()))) {
 								return null;
 							}
 						}
@@ -251,7 +242,7 @@ public interface SexActionInterface {
 							return convertToNullResponse();
 						}
 					} else {
-						if(!Sex.getPartner().isPenetrationTypeExposed(getAssociatedPenetrationType())) {
+						if(!Sex.getActivePartner().isPenetrationTypeExposed(getAssociatedPenetrationType())) {
 							return convertToNullResponse();
 						}
 					}
@@ -266,7 +257,7 @@ public interface SexActionInterface {
 				if(getAssociatedOrificeType() != null) {
 					switch(getAssociatedOrificeType()){
 						case NIPPLE_PARTNER:
-							if(!Sex.getPartner().isBreastFuckableNipplePenetration())
+							if(!Sex.getActivePartner().isBreastFuckableNipplePenetration())
 								return null;
 							break;
 						case NIPPLE_PLAYER:
@@ -283,7 +274,7 @@ public interface SexActionInterface {
 							return convertToNullResponse();
 						}
 					} else {
-						if(!Sex.getPartner().isOrificeTypeExposed(getAssociatedOrificeType())) {
+						if(!Sex.getActivePartner().isOrificeTypeExposed(getAssociatedOrificeType())) {
 							return convertToNullResponse();
 						}
 					}
@@ -306,7 +297,7 @@ public interface SexActionInterface {
 							return convertToNullResponse();
 						}
 					} else {
-						if(!Sex.getPartner().isPenetrationTypeExposed(getAssociatedPenetrationType())) {
+						if(!Sex.getActivePartner().isPenetrationTypeExposed(getAssociatedPenetrationType())) {
 							return convertToNullResponse();
 						}
 					}
@@ -324,7 +315,7 @@ public interface SexActionInterface {
 							return convertToNullResponse();
 						}
 					} else {
-						if(!Sex.getPartner().isOrificeTypeExposed(getAssociatedOrificeType())) {
+						if(!Sex.getActivePartner().isOrificeTypeExposed(getAssociatedOrificeType())) {
 							return convertToNullResponse();
 						}
 					}
@@ -405,10 +396,10 @@ public interface SexActionInterface {
 	
 	public default Response convertToResponse() {
 		return new Response(getActionTitle(), getActionDescription(), Sex.SEX_DIALOGUE,
-				getFetishesPlayer(),
+				getFetishes(Main.game.getPlayer()),
 				getCorruptionNeeded(),
 				null, null, null,
-				getAssociatedPenetrationType(), getAssociatedOrificeType(), Sex.getPartner()){
+				getAssociatedPenetrationType(), getAssociatedOrificeType(), Sex.getActivePartner()){
 			
 			@Override
 			public void effects() {
@@ -428,7 +419,7 @@ public interface SexActionInterface {
 			}
 			@Override
 			public SexPace getSexPace() {
-				return getSexPacePlayer();
+				return SexActionInterface.this.getSexPace(Main.game.getPlayer());
 			}
 			@Override
 			public SexActionType getSexActionType() {
@@ -444,10 +435,10 @@ public interface SexActionInterface {
 		
 		if(getActionType()==SexActionType.PLAYER_POSITIONING || getActionType()==SexActionType.PARTNER_POSITIONING) {
 			return new Response(getActionTitle(), getActionDescription(), null,
-					getFetishesPlayer(),
+					getFetishes(Main.game.getPlayer()),
 					getCorruptionNeeded(),
 					null, null, null,
-					getAssociatedPenetrationType(), getAssociatedOrificeType(), Sex.getPartner()){
+					getAssociatedPenetrationType(), getAssociatedOrificeType(), Sex.getActivePartner()){
 				@Override
 				public boolean isSexPenetrationHighlight() {
 					return getActionType()==SexActionType.PLAYER_PENETRATION || getActionType()==SexActionType.PLAYER_STOP_PENETRATION;
@@ -458,7 +449,7 @@ public interface SexActionInterface {
 				}
 				@Override
 				public SexPace getSexPace() {
-					return getSexPacePlayer();
+					return SexActionInterface.this.getSexPace(Main.game.getPlayer());
 				}
 				@Override
 				public SexActionType getSexActionType() {
@@ -525,10 +516,10 @@ public interface SexActionInterface {
 		
 		
 		return new Response(getActionTitle(), getActionDescription(), null,
-				getFetishesPlayer(),
+				getFetishes(Main.game.getPlayer()),
 				getCorruptionNeeded(),
 				null, null, null,
-				getAssociatedPenetrationType(), getAssociatedOrificeType(), Sex.getPartner()){
+				getAssociatedPenetrationType(), getAssociatedOrificeType(), Sex.getActivePartner()){
 			@Override
 			public boolean isSexPenetrationHighlight() {
 				return getActionType()==SexActionType.PLAYER_PENETRATION || getActionType()==SexActionType.PLAYER_STOP_PENETRATION;
@@ -539,7 +530,7 @@ public interface SexActionInterface {
 			}
 			@Override
 			public SexPace getSexPace() {
-				return getSexPacePlayer();
+				return SexActionInterface.this.getSexPace(Main.game.getPlayer());
 			}
 			@Override
 			public SexActionType getSexActionType() {
@@ -557,7 +548,7 @@ public interface SexActionInterface {
 				case FINGER_PLAYER:
 					break;
 				case PENIS_PARTNER:
-					if(!Sex.getPartner().hasPenis())
+					if(!Sex.getActivePartner().hasPenis())
 						return false;
 					break;
 				case PENIS_PLAYER:
@@ -565,10 +556,10 @@ public interface SexActionInterface {
 						return false;
 					break;
 				case TAIL_PARTNER:
-					if(!Sex.getPartner().getTailType().isPrehensile()) {
+					if(!Sex.getActivePartner().getTailType().isPrehensile()) {
 						return false;
 						
-					} else if(!Sex.getPartner().getTailType().isSuitableForPenetration() && !Main.getProperties().furryTailPenetrationContent) {
+					} else if(!Sex.getActivePartner().getTailType().isSuitableForPenetration() && !Main.getProperties().furryTailPenetrationContent) {
 						return false;
 					}
 					break;
@@ -614,7 +605,7 @@ public interface SexActionInterface {
 				case BREAST_PLAYER:
 					break;
 				case URETHRA_PARTNER:
-					if(!Sex.getPartner().hasPenis())
+					if(!Sex.getActivePartner().hasPenis())
 						return false;
 					break;
 				case URETHRA_PLAYER:
@@ -622,7 +613,7 @@ public interface SexActionInterface {
 						return false;
 					break;
 				case VAGINA_PARTNER:
-					if(!Sex.getPartner().hasVagina())
+					if(!Sex.getActivePartner().hasVagina())
 						return false;
 					break;
 				case VAGINA_PLAYER:

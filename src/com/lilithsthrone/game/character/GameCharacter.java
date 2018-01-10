@@ -2985,6 +2985,28 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public void incrementArousal(float increment) {
 		setArousal(getArousal() + increment);
 	}
+	
+	public float getLust() {
+		return getAttributeValue(Attribute.LUST);
+	}
+	
+	public void setLust(float arousal) {
+		if (arousal < 0) {
+			setAttribute(Attribute.LUST, 0);
+			
+		} else if (arousal > 100) {
+			setAttribute(Attribute.LUST, 100);
+			
+		} else {
+			setAttribute(Attribute.LUST, arousal);
+		}
+
+		updateAttributeListeners();
+	}
+	
+	public void incrementLust(float increment) {
+		setLust(getLust() + increment);
+	}
 
 	public boolean isWearingCondom() {
 //		if(Main.game.isInSex() && this == Sex.getPartner())

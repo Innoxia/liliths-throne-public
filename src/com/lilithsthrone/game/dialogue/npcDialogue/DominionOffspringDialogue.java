@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.npcDialogue;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.History;
 import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
@@ -2054,8 +2055,7 @@ public class DominionOffspringDialogue {
 				if (index == 1) {
 					return new ResponseSex("Incestuous sex",
 							"It's time to show your [npc.daughter] what [npc.her] [pc.mother] can do!",
-							true,
-							false, offspring(), new SMDomStanding(), AFTER_SEX_CONSENSUAL);
+							true, false, Main.game.getPlayer(), offspring(), new SMDomStanding(), AFTER_SEX_CONSENSUAL);
 					
 				} else {
 					return null;
@@ -2066,8 +2066,7 @@ public class DominionOffspringDialogue {
 					if(Main.game.getPlayer().getMoney()>=100) {
 						return new ResponseSex("Pay "+UtilText.formatAsMoney(100, "span"),
 								"Pay your [npc.daughter] 100 flames to get what you want!",
-								true,
-								false, offspring(), new SMDomStanding(), AFTER_SEX_CONSENSUAL);
+								true, false, Main.game.getPlayer(), offspring(), new SMDomStanding(), AFTER_SEX_CONSENSUAL);
 					} else {
 						return new Response("Pay "+UtilText.formatAsMoneyUncoloured(100, "span"), "You don't have enough money...", null);
 					}
@@ -2217,9 +2216,9 @@ public class DominionOffspringDialogue {
 				if(offspring().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
 					return new ResponseSex("Sex",
 							"Well, [npc.she] <i>is</i> asking for it!",
-							null,
-							null, null, null, null, null, true,
-							false, offspring(), new SMDomStanding(), AFTER_SEX_VICTORY, "<p>"
+							null, null, null, null, null, null,
+							true, false, Main.game.getPlayer(), offspring(), new SMDomStanding(), AFTER_SEX_VICTORY,
+							"<p>"
 								+ "Reaching down to take hold of one of [npc.name]'s [npc.arms], you pull [npc.herHim] to [npc.her] [npc.feet], before wrapping your [pc.arms] around [npc.her] back and stepping forwards."
 								+ " Tilting your head to one side, you press your [pc.lips+] against [npc.hers] and start passionately thrusting your [pc.tongue+] into [npc.her] mouth."
 							+ "</p>"
@@ -2231,9 +2230,9 @@ public class DominionOffspringDialogue {
 				} else {
 					return new ResponseSex(
 							"Rape [npc.herHim]", "[npc.She] needs to be punished for attacking you like that...", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)),
-							null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null,
-							null, null, false,
-							false, offspring(), new SMDomStanding(), AFTER_SEX_VICTORY, "<p>"
+							null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
+							false, false, Main.game.getPlayer(), offspring(), new SMDomStanding(), AFTER_SEX_VICTORY,
+							"<p>"
 								+ "Reaching down, you grab [npc.name]'s [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start grinding yourself up against [npc.herHim]."
 								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you hold [npc.herHim] firmly in your embrace."
 							+ "</p>"
@@ -2251,9 +2250,8 @@ public class DominionOffspringDialogue {
 				if(offspring().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
 					return new ResponseSex("Gentle sex",
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
-							null,
-							null, null, null, null, null, true,
-							false, offspring(), new SMDomStanding(), AFTER_SEX_VICTORY, "<p>"
+							null, null, null, null, null, null,
+							true, false, Main.game.getPlayer(), offspring(), new SMDomStanding(), AFTER_SEX_VICTORY, "<p>"
 								+ "Reaching down to take hold of one of [npc.name]'s [npc.arms], you gently lift [npc.herHim] to [npc.her] [npc.feet], before wrapping your [pc.arms] around [npc.her] back and stepping forwards."
 								+ " Tilting your head to one side, you softly press your [pc.lips+] against [npc.hers] and start slowly thrusting your [pc.tongue+] into [npc.her] mouth."
 							+ "</p>"
@@ -2262,16 +2260,20 @@ public class DominionOffspringDialogue {
 								+ " [npc.speech(Yes [npc.pcName]... Fuck me...)]"
 							+ "</p>") {
 						@Override
-						public void effects() {
-							sexPacePlayer = (SexPace.DOM_GENTLE);
+						public SexPace getStartingSexPaceModifier(GameCharacter character) {
+							if(character.isPlayer()) {
+								return SexPace.DOM_GENTLE;
+							}
+							return null;
 						}
 					};
 					
 				} else {
-					return new ResponseSex("Rape [npc.herHim] (gentle)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'gentle' pace.)", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)),
-							null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null,
-							null, null, false,
-							false, offspring(), new SMDomStanding(), AFTER_SEX_VICTORY, "<p>"
+					return new ResponseSex("Rape [npc.herHim] (gentle)",
+							"[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'gentle' pace.)", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)),
+							null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
+							false, false, Main.game.getPlayer(), offspring(), new SMDomStanding(), AFTER_SEX_VICTORY,
+							"<p>"
 								+ "Reaching down, you take hold of [npc.name]'s [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start pressing yourself up against [npc.herHim]."
 								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you hold [npc.herHim] in your embrace."
 							+ "</p>"
@@ -2280,8 +2282,14 @@ public class DominionOffspringDialogue {
 							+ "</p>") {
 						@Override
 						public void effects() {
-							sexPacePlayer = (SexPace.DOM_GENTLE);
 							offspring().flagRapeApologyNeeded = true;
+						}
+						@Override
+						public SexPace getStartingSexPaceModifier(GameCharacter character) {
+							if(character.isPlayer()) {
+								return SexPace.DOM_GENTLE;
+							}
+							return null;
 						}
 					};
 				}
@@ -2290,9 +2298,9 @@ public class DominionOffspringDialogue {
 				if(offspring().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
 					return new ResponseSex("Rough sex",
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'rough' pace.)",
-							null,
-							null, null, null, null, null, true,
-							false, offspring(), new SMDomStanding(), AFTER_SEX_VICTORY, "<p>"
+							null, null, null, null, null, null,
+							true, false, Main.game.getPlayer(), offspring(), new SMDomStanding(), AFTER_SEX_VICTORY,
+							"<p>"
 								+ "Reaching down to take hold of one of [npc.name]'s [npc.arms], you roughly yank [npc.herHim] to [npc.her] [npc.feet], before wrapping your [pc.arms] around [npc.her] back and stepping forwards."
 								+ " Tilting your head to one side, you greedily press your [pc.lips+] against [npc.hers] and start dominantly thrusting your [pc.tongue+] into [npc.her] mouth."
 							+ "</p>"
@@ -2301,16 +2309,20 @@ public class DominionOffspringDialogue {
 								+ " [npc.speech(Yes [npc.pcName]... Fuck me...)]"
 							+ "</p>") {
 						@Override
-						public void effects() {
-							sexPacePlayer = (SexPace.DOM_ROUGH);
+						public SexPace getStartingSexPaceModifier(GameCharacter character) {
+							if(character.isPlayer()) {
+								return SexPace.DOM_ROUGH;
+							}
+							return null;
 						}
 					};
 					
 				} else {
-					return new ResponseSex("Rape [npc.herHim] (rough)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'rough' pace.)", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)),
-							null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null,
-							null, null, false,
-							false, offspring(), new SMDomStanding(), AFTER_SEX_VICTORY, "<p>"
+					return new ResponseSex("Rape [npc.herHim] (rough)",
+							"[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'rough' pace.)", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)),
+							null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
+							false, false, Main.game.getPlayer(), offspring(), new SMDomStanding(), AFTER_SEX_VICTORY,
+							"<p>"
 								+ "Reaching down, you grab [npc.name]'s [npc.arm], and, roughly yanking [npc.herHim] to [npc.her] feet, you start forcefully grinding yourself up against [npc.herHim]."
 								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you firmly hold [npc.herHim] in your embrace."
 							+ "</p>"
@@ -2319,8 +2331,14 @@ public class DominionOffspringDialogue {
 							+ "</p>") {
 						@Override
 						public void effects() {
-							sexPacePlayer = (SexPace.DOM_ROUGH);
 							offspring().flagRapeApologyNeeded = true;
+						}
+						@Override
+						public SexPace getStartingSexPaceModifier(GameCharacter character) {
+							if(character.isPlayer()) {
+								return SexPace.DOM_ROUGH;
+							}
+							return null;
 						}
 					};
 				}
@@ -2330,9 +2348,9 @@ public class DominionOffspringDialogue {
 					return new ResponseSex("Submit",
 							"You're not really sure what to do now...</br>"
 								+ "Perhaps it would be best to let [npc.name] choose what to do next?",
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)),
-							null, null, null, null, null, true,
-							true, offspring(), new SMSubStanding(), AFTER_SEX_DEFEAT, "<p>"
+							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null, null,
+							true, true, offspring(), Main.game.getPlayer(), new SMSubStanding(), AFTER_SEX_DEFEAT,
+							"<p>"
 								+ "Looking down at your [npc.daughter] as [npc.she] shuffles about on the floor, you're suddenly overcome with regret, and, kneeling down next to [npc.herHim], you pull [npc.herHim] into a loving hug."
 								+ " Leaning in over [npc.her] shoulder as you press yourself to [npc.herHim], you apologise for what you've done,"
 								+ " [pc.speech([npc.Name], I'm so sorry! I don't know what came over me! Please forgive me!)]"
@@ -2510,8 +2528,8 @@ public class DominionOffspringDialogue {
 				if (index == 1) {
 					return new ResponseSex("Sex",
 							"[npc.Name] forces [npc.herself] on you...",
-							false,
-							false, offspring(), new SMSubStanding(), AFTER_SEX_DEFEAT, "<p>"
+							false, false, offspring(), Main.game.getPlayer(), new SMSubStanding(), AFTER_SEX_DEFEAT,
+							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally breaking away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
 							+ "</p>"
@@ -2527,8 +2545,8 @@ public class DominionOffspringDialogue {
 				} else if (index == 2) {
 					return new ResponseSex("Eager Sex",
 							"[npc.Name] forces [npc.herself] on you...",
-							false,
-							false, offspring(), new SMSubStanding(), AFTER_SEX_DEFEAT, "<p>"
+							false, false, offspring(), Main.game.getPlayer(), new SMSubStanding(), AFTER_SEX_DEFEAT,
+							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.she]'s going to want more than just a kiss..."
 							+ "</p>"
@@ -2537,16 +2555,22 @@ public class DominionOffspringDialogue {
 							+ "</p>") {
 						@Override
 						public void effects() {
-							sexPacePlayer = (SexPace.SUB_EAGER);
 							offspring().flagFightApologyNeeded = false;
+						}
+						@Override
+						public SexPace getStartingSexPaceModifier(GameCharacter character) {
+							if(character.isPlayer()) {
+								return SexPace.SUB_EAGER;
+							}
+							return null;
 						}
 					};
 					
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
 					return new ResponseSex("Resist Sex",
 							"[npc.Name] forces [npc.herself] on you...",
-							false,
-							false, offspring(), new SMSubStanding(), AFTER_SEX_DEFEAT, "<p>"
+							false, false, offspring(), Main.game.getPlayer(), new SMSubStanding(), AFTER_SEX_DEFEAT,
+							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 								+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
 								+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.she]'s not going to let you go..."
@@ -2556,8 +2580,14 @@ public class DominionOffspringDialogue {
 							+ "</p>") {
 						@Override
 						public void effects() {
-							sexPacePlayer = (SexPace.SUB_RESISTING);
 							offspring().flagFightApologyNeeded = false;
+						}
+						@Override
+						public SexPace getStartingSexPaceModifier(GameCharacter character) {
+							if(character.isPlayer()) {
+								return SexPace.SUB_RESISTING;
+							}
+							return null;
 						}
 					};
 					
@@ -2600,7 +2630,7 @@ public class DominionOffspringDialogue {
 
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfPartnerOrgasms() >= 1) {
+			if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
 				return UtilText.parse(offspring(),
 						"<p>"
 							+ "Disentangling yourselves from each other's clutches, you both sink down onto [npc.name]'s sofa once again."
@@ -2664,11 +2694,11 @@ public class DominionOffspringDialogue {
 							+ "</p>");
 					
 				} else {
-					if(Sex.getNumberOfPartnerOrgasms() >= 1) {
+					if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
 						return UtilText.parse(offspring(),
 								"<p>"
 									+ "As you step back from [npc.name], [npc.she] grabs on to the edge of the sofa and sinks to the floor,"
-										+ " totally worn out from the orgasm"+(Sex.getNumberOfPartnerOrgasms() > 1?"s":"")+" you gave to [npc.herHim]."
+										+ " totally worn out from the orgasm"+(Sex.getNumberOfOrgasms(Sex.getActivePartner()) > 1?"s":"")+" you gave to [npc.herHim]."
 									+ " Looking up at you, a satisfied smile settles across [npc.her] face, and you lean down to pat [npc.her] head."
 								+ "</p>"
 								+ "<p>"
@@ -2696,10 +2726,10 @@ public class DominionOffspringDialogue {
 							+ "</p>");
 					
 				} else {
-					if(Sex.getNumberOfPartnerOrgasms() >= 1) {
+					if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
 						return UtilText.parse(offspring(),
 								"<p>"
-									+ "As you step back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her] orgasm"+(Sex.getNumberOfPartnerOrgasms() > 1?"s":"")+"."
+									+ "As you step back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her] orgasm"+(Sex.getNumberOfOrgasms(Sex.getActivePartner()) > 1?"s":"")+"."
 									+ " Looking up at you, a satisfied smile settles across [npc.her] face, and you realise that you gave [npc.herHim] exactly what [npc.she] wanted."
 								+ "</p>"
 								+ "<p>"
@@ -2733,7 +2763,7 @@ public class DominionOffspringDialogue {
 								Main.game.getTextStartStringBuilder().append(" Smirking down at your [npc.daughter] one last time, you turn around and walk over to the door, before pulling it open and heading back out into the alleyways.");
 								
 							} else {
-								if(Sex.getNumberOfPartnerOrgasms() >= 1) {
+								if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
 									Main.game.getTextStartStringBuilder().append("Leaving [npc.herHim] to recover by [npc.herself], you turn around and walk over to the door, before pulling it open and heading back out into the alleyways.");
 								} else {
 									Main.game.getTextStartStringBuilder().append("Having already had your fun, you leave [npc.herHim] to get some pleasure by [npc.herself]."
@@ -2747,7 +2777,7 @@ public class DominionOffspringDialogue {
 											+ " Smirking down at your [npc.daughter] one last time, you turn around and take your leave, feeling thoroughly satisfied as you continue on your journey through the alleyways.");
 								
 							} else {
-								if(Sex.getNumberOfPartnerOrgasms() >= 1) {
+								if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
 									Main.game.getTextStartStringBuilder().append("Leaving [npc.herHim] to recover by [npc.herself], you set off and continue on your journey through the alleyways.");
 								} else {
 									Main.game.getTextStartStringBuilder().append("Leaving [npc.herHim] to get some pleasure by [npc.herself], you set off and continue on your journey through the alleyways.");

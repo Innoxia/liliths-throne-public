@@ -6,7 +6,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexFlags;
-import com.lilithsthrone.game.sex.SexPosition;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.managers.dominion.cultist.SMDomSex;
 import com.lilithsthrone.game.sex.managers.dominion.cultist.SMDomSexOral;
 import com.lilithsthrone.game.sex.managers.dominion.cultist.SMSubMissionary;
@@ -15,6 +15,7 @@ import com.lilithsthrone.game.sex.managers.dominion.cultist.SMSubSealed;
 import com.lilithsthrone.game.sex.managers.dominion.cultist.SMSubSealedOral;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.88
@@ -42,7 +43,7 @@ public class SASpecialCultist {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom() && ((Cultist)Sex.getPartner()).isSealedSex();
+			return Sex.isDom(Main.game.getPlayer()) && ((Cultist)Sex.getActivePartner()).isSealedSex();
 		}
 
 		@Override
@@ -76,7 +77,7 @@ public class SASpecialCultist {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom() && ((Cultist)Sex.getPartner()).isSealedSex();
+			return !Sex.isDom(Main.game.getPlayer()) && ((Cultist)Sex.getActivePartner()).isSealedSex();
 		}
 
 		@Override
@@ -102,8 +103,8 @@ public class SASpecialCultist {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
-					&& Sex.getPosition() != SexPosition.CULTIST_ALTAR_MISSIONARY_DOM
-					&& Sex.isPlayerDom();
+					&& Sex.getPosition() != SexPositionType.CULTIST_ALTAR_MISSIONARY_DOM
+					&& Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -143,8 +144,8 @@ public class SASpecialCultist {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
-					&& Sex.getPosition() != SexPosition.CULTIST_ALTAR_MISSIONARY_ORAL_DOM
-					&& Sex.isPlayerDom();
+					&& Sex.getPosition() != SexPositionType.CULTIST_ALTAR_MISSIONARY_ORAL_DOM
+					&& Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -183,9 +184,9 @@ public class SASpecialCultist {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPartner
-					&& Sex.getPosition() != SexPosition.CULTIST_ALTAR_MISSIONARY_ORAL
-					&& Sex.getPartner().getSexPositionPreferences().contains(SexPosition.CULTIST_ALTAR_MISSIONARY_ORAL)
-					&& !Sex.isPlayerDom();
+					&& Sex.getPosition() != SexPositionType.CULTIST_ALTAR_MISSIONARY_ORAL
+					&& Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionType.CULTIST_ALTAR_MISSIONARY_ORAL)
+					&& !Sex.isDom(Main.game.getPlayer());
 		}
 
 		@Override
@@ -206,7 +207,7 @@ public class SASpecialCultist {
 
 		@Override
 		public void applyEffects() {
-			if(((Cultist)Sex.getPartner()).isSealedSex()) {
+			if(((Cultist)Sex.getActivePartner()).isSealedSex()) {
 				Sex.setSexManager(new SMSubSealedOral());
 			} else {
 				Sex.setSexManager(new SMSubMissionaryOral());
@@ -228,9 +229,9 @@ public class SASpecialCultist {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPartner
-					&& Sex.getPosition() != SexPosition.CULTIST_ALTAR_MISSIONARY
-					&& Sex.getPartner().getSexPositionPreferences().contains(SexPosition.CULTIST_ALTAR_MISSIONARY)
-					&& !Sex.isPlayerDom();
+					&& Sex.getPosition() != SexPositionType.CULTIST_ALTAR_MISSIONARY
+					&& Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionType.CULTIST_ALTAR_MISSIONARY)
+					&& !Sex.isDom(Main.game.getPlayer());
 		}
 
 		@Override
@@ -251,7 +252,7 @@ public class SASpecialCultist {
 
 		@Override
 		public void applyEffects() {
-			if(((Cultist)Sex.getPartner()).isSealedSex()) {
+			if(((Cultist)Sex.getActivePartner()).isSealedSex()) {
 				Sex.setSexManager(new SMSubSealed());
 			} else {
 				Sex.setSexManager(new SMSubMissionary());

@@ -183,7 +183,7 @@ public class PrologueFemale extends NPC {
 						+ "[brax.name] lets out a surprised grunt as your tiny "
 						+ Main.game.getPlayer().getPenisName(false)
 						+ " is revealed, "
-						+ UtilText.parseSpeech("Wait, what?! I thought you were a girl!", Sex.getPartner())
+						+ UtilText.parseSpeech("Wait, what?! I thought you were a girl!", Sex.getActivePartner())
 						+ "</p>";
 
 			} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()) {
@@ -195,7 +195,7 @@ public class PrologueFemale extends NPC {
 						+ " is revealed, "
 						+ UtilText.parseSpeech("Wait, what?! You're a "
 								+ Main.game.getPlayer().getGender().getName()
-								+ "?!", Sex.getPartner())
+								+ "?!", Sex.getActivePartner())
 						+ "</p>";
 
 			} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.FOUR_HUGE.getMaximumValue()) {
@@ -205,7 +205,7 @@ public class PrologueFemale extends NPC {
 						+ " "
 						+ Main.game.getPlayer().getPenisName(false)
 						+ " is revealed, "
-						+ UtilText.parseSpeech("I should have guessed from that bulge...", Sex.getPartner())
+						+ UtilText.parseSpeech("I should have guessed from that bulge...", Sex.getActivePartner())
 						+ "</p>";
 
 			} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.SIX_GIGANTIC.getMaximumValue()) {
@@ -217,19 +217,19 @@ public class PrologueFemale extends NPC {
 						+ " is revealed, "
 						+ UtilText.parseSpeech("Really?! A "
 								+ Main.game.getPlayer().getGender().getName()
-								+ " has a bigger cock than <i>me</i>?!", Sex.getPartner())
+								+ " has a bigger cock than <i>me</i>?!", Sex.getActivePartner())
 						+ "</p>";
 
 			} else {
 				return "<p>"
 						+ "The "
-						+ Sex.getPartner().getName()
+						+ Sex.getActivePartner().getName()
 						+ "'s jaw drops as your stallion-sized "
 						+ Main.game.getPlayer().getPenisName(false)
 						+ " is revealed, "
 						+ UtilText.parseSpeech("How does a "
 								+ Main.game.getPlayer().getGender().getName()
-								+ " get a cock that big?!", Sex.getPartner())
+								+ " get a cock that big?!", Sex.getActivePartner())
 						+ "</p>";
 			}
 
@@ -241,7 +241,7 @@ public class PrologueFemale extends NPC {
 	public String getPlayerVaginaRevealReaction(boolean isPlayerDom) {
 		return "<p>"
 				+ "[brax.name] lets out an amused grunt as he sees your doll-like crotch, "
-				+ UtilText.parseSpeech("Hah! Guess I'll have to be using your ass then...", Sex.getPartner())
+				+ UtilText.parseSpeech("Hah! Guess I'll have to be using your ass then...", Sex.getActivePartner())
 				+ "</p>";
 	}
 

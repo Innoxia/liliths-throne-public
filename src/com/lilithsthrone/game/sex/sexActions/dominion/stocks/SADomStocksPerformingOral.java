@@ -4,12 +4,13 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexFlags;
-import com.lilithsthrone.game.sex.SexPosition;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.managers.dominion.SMDomStocksBehind;
 import com.lilithsthrone.game.sex.managers.dominion.SMDomStocksOral;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.game.slavery.SlaveJobSetting;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.95
@@ -29,8 +30,8 @@ public class SADomStocksPerformingOral {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
-					&& Sex.getPosition() != SexPosition.STOCKS_PARTNER_BEING_USED_ORAL
-					&& Sex.isPlayerDom();
+					&& Sex.getPosition() != SexPositionType.STOCKS_PARTNER_BEING_USED_ORAL
+					&& Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -52,9 +53,9 @@ public class SADomStocksPerformingOral {
 
 		@Override
 		public void applyEffects() {
-			Sex.setSexManager(new SMDomStocksOral(Sex.getPartner().getSlaveJobSettings().contains(SlaveJobSetting.SEX_VAGINAL),
-					Sex.getPartner().getSlaveJobSettings().contains(SlaveJobSetting.SEX_ANAL),
-					Sex.getPartner().getSlaveJobSettings().contains(SlaveJobSetting.SEX_ORAL)));
+			Sex.setSexManager(new SMDomStocksOral(Sex.getActivePartner().getSlaveJobSettings().contains(SlaveJobSetting.SEX_VAGINAL),
+					Sex.getActivePartner().getSlaveJobSettings().contains(SlaveJobSetting.SEX_ANAL),
+					Sex.getActivePartner().getSlaveJobSettings().contains(SlaveJobSetting.SEX_ORAL)));
 			
 			SexFlags.resetRequests();
 		}
@@ -71,8 +72,8 @@ public class SADomStocksPerformingOral {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
-					&& Sex.getPosition() != SexPosition.STOCKS_PARTNER_BEING_USED
-					&& Sex.isPlayerDom();
+					&& Sex.getPosition() != SexPositionType.STOCKS_PARTNER_BEING_USED
+					&& Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -95,8 +96,8 @@ public class SADomStocksPerformingOral {
 		@Override
 		public void applyEffects() {
 			Sex.setSexManager(new SMDomStocksBehind(
-					Sex.getPartner().getSlaveJobSettings().contains(SlaveJobSetting.SEX_VAGINAL),
-					Sex.getPartner().getSlaveJobSettings().contains(SlaveJobSetting.SEX_ANAL)));
+					Sex.getActivePartner().getSlaveJobSettings().contains(SlaveJobSetting.SEX_VAGINAL),
+					Sex.getActivePartner().getSlaveJobSettings().contains(SlaveJobSetting.SEX_ANAL)));
 			
 			SexFlags.resetRequests();
 		}

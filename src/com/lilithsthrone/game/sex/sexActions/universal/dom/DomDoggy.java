@@ -37,7 +37,7 @@ public class DomDoggy {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -73,7 +73,7 @@ public class DomDoggy {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -91,7 +91,7 @@ public class DomDoggy {
 			String tailSpecial1 = "", tailSpecial2 = "";
 			
 			if (Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER)==PenetrationType.PENIS_PLAYER) {
-				switch(Sex.getPartner().getTailType()) {
+				switch(Sex.getActivePartner().getTailType()) {
 					case NONE:
 						tailSpecial1 = "Hilting your [pc.cock+] deep inside [npc.name]'s [npc.pussy+], you reach down and roughly grope [npc.her] [npc.ass+], before starting to deliver a series of stinging slaps to [npc.her] exposed cheeks.";
 						break;
@@ -100,7 +100,7 @@ public class DomDoggy {
 											+ " raising [npc.her] [npc.ass+] up high in the air before starting to deliver a series of stinging slaps to [npc.her] exposed cheeks.";
 						break;
 				}
-				switch(Sex.getPartner().getTailType()) {
+				switch(Sex.getActivePartner().getTailType()) {
 					case NONE:
 						tailSpecial2 = "Still ploughing away at [npc.her] [npc.pussy+], you growl down that you're going to put [npc.name] in [npc.her] place before starting to aggressively slap [npc.her] exposed ass cheeks.";
 						break;
@@ -110,7 +110,7 @@ public class DomDoggy {
 						break;
 				}
 			
-				return UtilText.genderParsing(Sex.getPartner(),
+				return UtilText.genderParsing(Sex.getActivePartner(),
 					UtilText.returnStringAtRandom(
 							tailSpecial1,
 							tailSpecial2,
@@ -119,7 +119,7 @@ public class DomDoggy {
 							"While you continue pounding away at [npc.name]'s [npc.pussy+], you reach down and start to roughly slap [npc.her] [npc.ass+], growling in glee as [npc.she] squirms and squeals under your stinging blows."));
 				
 			} else if (Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER)==PenetrationType.PENIS_PLAYER) {
-				switch(Sex.getPartner().getTailType()) {
+				switch(Sex.getActivePartner().getTailType()) {
 					case NONE:
 						tailSpecial1 = "Hilting your [pc.cock+] deep inside [npc.name]'s [npc.asshole+], you reach down and roughly grope [npc.her] [npc.ass+], before starting to deliver a series of stinging slaps to [npc.her] exposed cheeks.";
 						break;
@@ -128,7 +128,7 @@ public class DomDoggy {
 											+ " raising [npc.her] [npc.ass+] up high in the air before starting to deliver a series of stinging slaps to [npc.her] exposed cheeks.";
 						break;
 				}
-				switch(Sex.getPartner().getTailType()) {
+				switch(Sex.getActivePartner().getTailType()) {
 					case NONE:
 						tailSpecial2 = "Still ploughing away at [npc.her] [npc.asshole+], you growl down that you're going to put [npc.name] in [npc.her] place before starting to aggressively slap [npc.her] exposed ass cheeks.";
 						break;
@@ -138,7 +138,7 @@ public class DomDoggy {
 						break;
 				}
 			
-				return UtilText.genderParsing(Sex.getPartner(),
+				return UtilText.genderParsing(Sex.getActivePartner(),
 					UtilText.returnStringAtRandom(
 							tailSpecial1,
 							tailSpecial2,
@@ -147,7 +147,7 @@ public class DomDoggy {
 							"While you continue pounding away at [npc.name]'s [npc.asshole+], you reach down and start to roughly slap [npc.her] [npc.ass+], growling in glee as [npc.she] squirms and squeals under your stinging blows."));
 				
 			} else {
-				switch(Sex.getPartner().getTailType()) {
+				switch(Sex.getActivePartner().getTailType()) {
 					case NONE:
 						tailSpecial1 = "Growling down into [npc.name]'s [npc.ear+], you reach down and grab [npc.her] waist, using one hand to hold [npc.herHim] still,"
 											+ " while using your other to deliver a series of stinging slaps to [npc.her] [npc.ass+].";
@@ -157,7 +157,7 @@ public class DomDoggy {
 									+ " raising [npc.her] [npc.ass+] up high in the air before starting to deliver a series of stinging slaps to [npc.her] exposed cheeks.";
 						break;
 				}
-				switch(Sex.getPartner().getTailType()) {
+				switch(Sex.getActivePartner().getTailType()) {
 					case NONE:
 						tailSpecial2 = "You reach down and grab [npc.name]'s waist with one hand, holding [npc.herHim] firmly in your grip as you start to aggressively slap [npc.her] exposed cheeks.";
 						break;
@@ -167,7 +167,7 @@ public class DomDoggy {
 						break;
 				}
 			
-				return UtilText.genderParsing(Sex.getPartner(),
+				return UtilText.genderParsing(Sex.getActivePartner(),
 					UtilText.returnStringAtRandom(
 							tailSpecial1,
 							tailSpecial2,
@@ -345,11 +345,11 @@ public class DomDoggy {
 			
 			String flaredSpecial = "", knottedSpecial = "";
 			
-			if(Sex.getPartner().hasPenisModifier(PenisModifier.KNOTTED)) {
+			if(Sex.getActivePartner().hasPenisModifier(PenisModifier.KNOTTED)) {
 				knottedSpecial = " You feel your [pc.cock+] violently throbbing, and, knowing that you're about to cum,"
 						+ " you slam forwards with a violent force, driving your thick knot into [npc.name]'s [npc.pussy] just before it swells up, locking you together.";
 			}
-			if(Sex.getPartner().hasPenisModifier(PenisModifier.FLARED)) {
+			if(Sex.getActivePartner().hasPenisModifier(PenisModifier.FLARED)) {
 				flaredSpecial = " You feel your [pc.cock+] violently throbbing, and, knowing that you're about to cum,"
 						+ " you slam forwards with a violent force, driving your flared head into [npc.name]'s [npc.pussy] as you let out [pc.a_moan+].";
 			}
@@ -545,32 +545,32 @@ public class DomDoggy {
 						break;
 					case ONE_TRICKLE:
 						UtilText.nodeContentSB.append(" A small trickle of [pc.cum+] squirts onto [npc.name]'s ass, and you groan in satisfaction as you see your [pc.cum] sliding down over [npc.her] "
-								+(Sex.getPartner().isCoverableAreaExposed(CoverableArea.ANUS)?"exposed asshole":Sex.getPartner().getHighestZLayerCoverableArea(CoverableArea.ANUS).getName())+".");
+								+(Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.ANUS)?"exposed asshole":Sex.getActivePartner().getHighestZLayerCoverableArea(CoverableArea.ANUS).getName())+".");
 						break;
 					case TWO_SMALL_AMOUNT:
 						UtilText.nodeContentSB.append(" A small amount of [pc.cum+] squirts onto [npc.name]'s ass, and you groan in satisfaction as you see your sticky seed sliding down over [npc.her] "
-								+(Sex.getPartner().isCoverableAreaExposed(CoverableArea.ANUS)?"exposed asshole":Sex.getPartner().getHighestZLayerCoverableArea(CoverableArea.ANUS).getName())+".");
+								+(Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.ANUS)?"exposed asshole":Sex.getActivePartner().getHighestZLayerCoverableArea(CoverableArea.ANUS).getName())+".");
 						break;
 					case THREE_AVERAGE:
 						UtilText.nodeContentSB.append(" Your [pc.cum+] shoots out as your cock throbs, and you groan in satisfaction as you see your sticky seed splatter over [npc.name]'s ass and lower back, before dripping down over [npc.her] "
-								+(Sex.getPartner().isCoverableAreaExposed(CoverableArea.ANUS)?"exposed asshole":Sex.getPartner().getHighestZLayerCoverableArea(CoverableArea.ANUS).getName())+".");
+								+(Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.ANUS)?"exposed asshole":Sex.getActivePartner().getHighestZLayerCoverableArea(CoverableArea.ANUS).getName())+".");
 						break;
 					case FOUR_LARGE:
 						UtilText.nodeContentSB.append(" Your [pc.cum+] shoots out as your cock throbs, and you groan in satisfaction as you see your sticky seed splatter over [npc.name]'s ass and lower back, before dripping down over [npc.her] "
-								+(Sex.getPartner().isCoverableAreaExposed(CoverableArea.ANUS)?"exposed asshole":Sex.getPartner().getHighestZLayerCoverableArea(CoverableArea.ANUS).getName())+".");
+								+(Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.ANUS)?"exposed asshole":Sex.getActivePartner().getHighestZLayerCoverableArea(CoverableArea.ANUS).getName())+".");
 						break;
 					case FIVE_HUGE:
 						UtilText.nodeContentSB.append(" Your large load pours out as your cock throbs, and you groan in satisfaction as you see your [pc.cum+] splatter all over [npc.name]'s ass and lower back, before sliding down over [npc.her] "
-								+(Sex.getPartner().isCoverableAreaExposed(CoverableArea.ANUS)?"exposed asshole":Sex.getPartner().getHighestZLayerCoverableArea(CoverableArea.ANUS).getName())+".");
+								+(Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.ANUS)?"exposed asshole":Sex.getActivePartner().getHighestZLayerCoverableArea(CoverableArea.ANUS).getName())+".");
 						break;
 					case SIX_EXTREME:
 						UtilText.nodeContentSB.append(" Your huge load pours out as your cock throbs, and you groan in satisfaction as you see your [pc.cum+] completely cover [npc.name]'s ass and back, before sliding down all over [npc.her] "
-								+(Sex.getPartner().isCoverableAreaExposed(CoverableArea.ANUS)?"exposed asshole":Sex.getPartner().getHighestZLayerCoverableArea(CoverableArea.ANUS).getName())+".");
+								+(Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.ANUS)?"exposed asshole":Sex.getActivePartner().getHighestZLayerCoverableArea(CoverableArea.ANUS).getName())+".");
 						break;
 					case SEVEN_MONSTROUS:
 						UtilText.nodeContentSB.append(" Your enormous load pours out as your cock throbs, and you groan in satisfaction as you see your [pc.cum+] completely drenching [npc.name]'s ass and back,"
 								+ " before pouring down all over [npc.her] "
-								+(Sex.getPartner().isCoverableAreaExposed(CoverableArea.ANUS)?"exposed asshole":Sex.getPartner().getHighestZLayerCoverableArea(CoverableArea.ANUS).getName())+" to form a puddle around [npc.her] knees.");
+								+(Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.ANUS)?"exposed asshole":Sex.getActivePartner().getHighestZLayerCoverableArea(CoverableArea.ANUS).getName())+" to form a puddle around [npc.her] knees.");
 						break;
 					default:
 						break;
@@ -611,7 +611,7 @@ public class DomDoggy {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPartner().isCoverableAreaExposed(CoverableArea.MOUTH) && Sex.isPlayerDom();
+			return Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.MOUTH) && Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -713,7 +713,7 @@ public class DomDoggy {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPartner().isCoverableAreaExposed(CoverableArea.MOUTH) && Sex.isPlayerDom();
+			return Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.MOUTH) && Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override

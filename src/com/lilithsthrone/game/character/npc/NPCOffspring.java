@@ -309,7 +309,7 @@ public class NPCOffspring extends NPC {
 			}else{
 				if(item.getItemType().equals(ItemType.PROMISCUITY_PILL)) {
 						Main.game.getPlayer().useItem(item, target, false);
-						if(Sex.isPlayerDom()) {
+						if(Sex.isDom(Main.game.getPlayer())) {
 							return "<p>"
 									+ "Holding out a 'Promiscuity pill' to [npc.name], you tell [npc.her] to swallow it so that you don't have to worry about any unexpected pregnancies."
 									+ " Letting out a reluctant sigh, [npc.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [npc.she] whines at you,"
@@ -326,7 +326,7 @@ public class NPCOffspring extends NPC {
 				} else if(item.getItemType().equals(ItemType.VIXENS_VIRILITY)) {
 					
 						Main.game.getPlayer().useItem(item, target, false);
-						if(Sex.isPlayerDom()) {
+						if(Sex.isDom(Main.game.getPlayer())) {
 							return "<p>"
 									+ "Holding out a 'Vixen's Virility' pill to [npc.name], you tell [npc.her] to swallow it."
 									+ " Letting out a reluctant sigh, [npc.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [npc.she] whines at you,"
@@ -342,7 +342,7 @@ public class NPCOffspring extends NPC {
 						
 				} else if(item.getItemType().equals(ItemType.POTION) || item.getItemType().equals(ItemType.ELIXIR) || item.getItemType().equals(ItemType.FETISH_UNREFINED) || item.getItemType().equals(ItemType.FETISH_REFINED)) {
 					
-						if(Sex.isPlayerDom()) {
+						if(Sex.isDom(Main.game.getPlayer())) {
 							return "<p>"
 										+ "Taking your "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
 										+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
@@ -373,7 +373,7 @@ public class NPCOffspring extends NPC {
 						
 				} else if(item.getItemType().equals(ItemType.MOTHERS_MILK)) {
 					
-						if(Sex.isPlayerDom()) {
+						if(Sex.isDom(Main.game.getPlayer())) {
 							return "<p>"
 										+ "Taking the bottle of "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
 										+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
@@ -402,7 +402,7 @@ public class NPCOffspring extends NPC {
 						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_SQUIRREL_MORPH)
 						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_WOLF_MORPH)) {
 					
-						if(Sex.isPlayerDom()) {
+						if(Sex.isDom(Main.game.getPlayer())) {
 							return "<p>"
 										+ "Taking the "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
 										+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
@@ -424,7 +424,7 @@ public class NPCOffspring extends NPC {
 						
 				} else if(item.getItemType().equals(ItemType.SEX_INGREDIENT_HARPY_PERFUME)) {
 					
-						if(Sex.isPlayerDom()) {
+						if(Sex.isDom(Main.game.getPlayer())) {
 							return "<p>"
 										+ "Taking the "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
 										+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
@@ -454,7 +454,7 @@ public class NPCOffspring extends NPC {
 						|| item.getItemType().equals(ItemType.STR_INGREDIENT_BUBBLE_MILK)
 						|| item.getItemType().equals(ItemType.STR_INGREDIENT_WOLF_WHISKEY)) {
 					
-						if(Sex.isPlayerDom()) {
+						if(Sex.isDom(Main.game.getPlayer())) {
 							return "<p>"
 										+ "Taking the bottle of "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
 										+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
@@ -476,7 +476,7 @@ public class NPCOffspring extends NPC {
 
 				} else if(item.getItemType().equals(ItemType.EGGPLANT)) {
 					
-					if(Sex.isPlayerDom()) {
+					if(Sex.isDom(Main.game.getPlayer())) {
 						return "<p>"
 									+ "Taking the eggplant from your inventory, you hold it out to [npc.name]."
 									+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
@@ -503,7 +503,7 @@ public class NPCOffspring extends NPC {
 			
 		// NPC is using an item:
 		}else{
-			return Sex.getPartner().useItem(item, target, false);
+			return Sex.getActivePartner().useItem(item, target, false);
 		}
 	}
 	

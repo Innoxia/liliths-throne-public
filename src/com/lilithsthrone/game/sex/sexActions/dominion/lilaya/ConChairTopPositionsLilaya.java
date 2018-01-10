@@ -34,17 +34,17 @@ public class ConChairTopPositionsLilaya {
 
 		@Override
 		public String getActionDescription() {
-			return UtilText.genderParsing(Sex.getPartner(),
-					"Switch positions with "+Sex.getPartner().getName("the")+", so that you're the one sitting down.");
+			return UtilText.genderParsing(Sex.getActivePartner(),
+					"Switch positions with "+Sex.getActivePartner().getName("the")+", so that you're the one sitting down.");
 		}
 
 		@Override
 		public String getDescription() {
-			return UtilText.genderParsing(Sex.getPartner(),
-					"You reach down and grab "+Sex.getPartner().getName("the")+"'s "+Sex.getPartner().getHipSize().getDescriptor()+" hips, and with a determined pull, you cause <herPro> to stand up."
+			return UtilText.genderParsing(Sex.getActivePartner(),
+					"You reach down and grab "+Sex.getActivePartner().getName("the")+"'s "+Sex.getActivePartner().getHipSize().getDescriptor()+" hips, and with a determined pull, you cause <herPro> to stand up."
 					+ " Still holding <her> hips, you move <herPro> to one side, sitting down in the space that <she> just vacated before pulling <herPro> forwards into your crotch."
 					+ " Looking down at you, <she> smiles, "
-					+ UtilText.parseSpeech("You want a go on the bottom, huh?", Sex.getPartner()));
+					+ UtilText.parseSpeech("You want a go on the bottom, huh?", Sex.getActivePartner()));
 		}
 
 		@Override

@@ -7,9 +7,10 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPosition;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.79
@@ -28,7 +29,7 @@ public class PlayerSelfFingerVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexPacePlayer()!=SexPace.SUB_RESISTING;
+			return Sex.getSexPace(Main.game.getPlayer())!=SexPace.SUB_RESISTING;
 		}
 		
 		@Override
@@ -43,10 +44,10 @@ public class PlayerSelfFingerVagina {
 
 		@Override
 		public String getDescription() {
-			if(Sex.getPosition() == SexPosition.DOGGY_PLAYER_ON_ALL_FOURS
-					|| Sex.getPosition() == SexPosition.SELF_DOGGY_PLAYER_ON_ALL_FOURS
-					|| Sex.getPosition() == SexPosition.DOGGY_ORAL_PLAYER_SUB_PLAYER_ON_ALL_FOURS
-					|| Sex.getPosition() == SexPosition.DOGGY_ORAL_PLAYER_DOM_PLAYER_ON_ALL_FOURS) {
+			if(Sex.getPosition() == SexPositionType.DOGGY_PLAYER_ON_ALL_FOURS
+					|| Sex.getPosition() == SexPositionType.SELF_DOGGY_PLAYER_ON_ALL_FOURS
+					|| Sex.getPosition() == SexPositionType.DOGGY_ORAL_PLAYER_SUB_PLAYER_ON_ALL_FOURS
+					|| Sex.getPosition() == SexPositionType.DOGGY_ORAL_PLAYER_DOM_PLAYER_ON_ALL_FOURS) {
 				return (UtilText.returnStringAtRandom(
 						"Reaching back between your [pc.legs], you tease your fingers over the entrance to your [pc.pussy+], before letting out [pc.a_moan+] as you use your digits to spread out your labia for [npc.name].",
 						"You probe your fingers back between your [pc.legs], moaning softly as you use two of your digits to invitingly spread out your [pc.pussy+] and present yourself to [npc.name].",
@@ -107,7 +108,7 @@ public class PlayerSelfFingerVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -146,7 +147,7 @@ public class PlayerSelfFingerVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -185,7 +186,7 @@ public class PlayerSelfFingerVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -224,7 +225,7 @@ public class PlayerSelfFingerVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -263,7 +264,7 @@ public class PlayerSelfFingerVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override

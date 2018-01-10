@@ -103,7 +103,7 @@ public enum PenetrationType {
 	PENIS_PARTNER(4, false, true) {
 		@Override
 		public String getName() {
-			return Sex.getPartner().getPenisName();
+			return Sex.getActivePartner().getPenisName();
 		}
 
 		@Override
@@ -120,7 +120,7 @@ public enum PenetrationType {
 	TONGUE_PARTNER(2, false, false) {
 		@Override
 		public String getName() {
-			return Sex.getPartner().getTongueName();
+			return Sex.getActivePartner().getTongueName();
 		}
 
 		@Override
@@ -137,7 +137,7 @@ public enum PenetrationType {
 	FINGER_PARTNER(1, false, false) {
 		@Override
 		public String getName() {
-			return Sex.getPartner().getArmType().getFingersNamePlural(Sex.getPartner());
+			return Sex.getActivePartner().getArmType().getFingersNamePlural(Sex.getActivePartner());
 		}
 		@Override
 		public boolean isPlural() {
@@ -157,7 +157,7 @@ public enum PenetrationType {
 	TAIL_PARTNER(2, false, true) {
 		@Override
 		public String getName() {
-			return Sex.getPartner().getTailName();
+			return Sex.getActivePartner().getTailName();
 		}
 
 		@Override

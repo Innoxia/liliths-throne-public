@@ -406,10 +406,9 @@ h6{
 	float:left;
 	display:inline-block;
 	background-color:#F0F0F0;
-	width:100%;
+	width:66.666%;
 	margin:0;
 	padding:0;
-	bottom:8px;
 	border-radius:5px;
 	-webkit-user-select: none;
 }
@@ -425,13 +424,25 @@ h6{
 	position:relative;
 	float:left;
 	border-radius: 5px;
-	width:18%;
+	width:23%;
 	margin:1%;
 	-webkit-box-sizing: border-box;
 }
+
+.inventory-equipped.accessories{
+	float:left;
+	background-color:#ccc;
+	text-align: center;
+	width:33.333%;
+	margin:0;
+	padding:0;
+	border-radius:5px;
+	-webkit-user-select: none;
+}
+
 .inventory-item-slot.piercing{
-	width:23%;
-	margin:1%;
+	width:40%;
+	margin:5%;
 }
 .inventory-item-slot.weapon{
 	width:46%;
@@ -446,7 +457,7 @@ h6{
 	display: block;
 	padding-bottom: 100%;
 }
-.inventory-item-slot.disabled{
+.inventory-item-slot.disabled, .inventory-item-slot.piercing.disabled {
 	background: repeating-linear-gradient(
 	  135deg,
 	  #555,

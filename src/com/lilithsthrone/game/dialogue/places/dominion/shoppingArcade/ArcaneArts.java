@@ -135,7 +135,7 @@ public class ArcaneArts {
 					if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true) || (Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) && Main.game.getPlayer().hasVagina())) {
 						return new ResponseSex("Offer body", "Let Vicky use your body.",
 								Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, CorruptionLevel.TWO_HORNY, null, null, null,
-								true, false, Main.game.getVicky(), new SMVickyOverDesk(), VICKY_POST_SEX,
+								true, false, Main.game.getVicky(), Main.game.getPlayer(), new SMVickyOverDesk(), VICKY_POST_SEX,
 									"<p>"
 										+ "[pc.speech(I was wondering... If you'd like to use me...)]"
 										+ " you say, looking sheepishly up at Vicky."
@@ -167,7 +167,7 @@ public class ArcaneArts {
 							Util.newArrayListOfValues(
 									new ListValue<>(Fetish.FETISH_SUBMISSIVE),
 									new ListValue<>(Fetish.FETISH_NON_CON_SUB)), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
-							false, false, Main.game.getVicky(), sm, VICKY_POST_SEX_RAPE,
+							false, false, Main.game.getVicky(), Main.game.getPlayer(), sm, VICKY_POST_SEX_RAPE,
 								"<p>"
 									+ "Feeling more than a little intimidated by the overbearing wolf-girl's attitude, you try to back away towards the front door, muttering,"
 									+ " [pc.speech(E-Erm.. M-Maybe I'll come back later...)]"
@@ -270,7 +270,7 @@ public class ArcaneArts {
 				if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true) || (Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) && Main.game.getPlayer().hasVagina())) {
 					return new ResponseSex("Offer body", "Let Vicky use your body as payment for the fee.",
 							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, CorruptionLevel.TWO_HORNY, null, null, null,
-							true, false, Main.game.getVicky(), new SMVickyOverDesk(), VICKY_POST_SEX,
+							true, false, Main.game.getVicky(), Main.game.getPlayer(), new SMVickyOverDesk(), VICKY_POST_SEX,
 								"<p>"
 									+ "[pc.speech(That second option doesn't sound so bad...)]"
 									+ " you say, grinning up at Vicky as she roughly presses you against the wall."
@@ -301,7 +301,7 @@ public class ArcaneArts {
 							Util.newArrayListOfValues(
 									new ListValue<>(Fetish.FETISH_SUBMISSIVE),
 									new ListValue<>(Fetish.FETISH_NON_CON_SUB)), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
-							false, false, Main.game.getVicky(), sm, VICKY_POST_SEX_RAPE,
+							false, false, Main.game.getVicky(), Main.game.getPlayer(), sm, VICKY_POST_SEX_RAPE,
 								"<p>"
 									+ "Feeling more than a little intimidated by the overbearing wolf-girl's advances, you try to slip away, muttering,"
 									+ " [pc.speech(E-Erm.. M-Maybe I'll come back later...)]"

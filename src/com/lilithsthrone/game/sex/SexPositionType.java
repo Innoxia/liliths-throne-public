@@ -5,11 +5,11 @@ package com.lilithsthrone.game.sex;
  * @version 0.1.97
  * @author Innoxia
  */
-public enum SexPosition {
+public enum SexPositionType {
 	
 	// Unique:
 	
-	ROSE_STANDING("Extreme-hand-holding", "You're standing in one of the many empty bedrooms in Lilaya's home. Before you, the cat-girl maid, Rose, is displaying her hands for your benefit."),
+	ROSE_STANDING("Extreme hand-holding", "You're standing in one of the many empty bedrooms in Lilaya's home. Before you, the cat-girl maid, Rose, is displaying her hands for your benefit."),
 	
 	PIX_SHOWER_RAPE("Face-to-wall (Pix behind)", "You're standing with your face pressed up against one wall of the shower, and behind you, Pix is growling hungrily into your ear."),
 
@@ -81,7 +81,7 @@ public enum SexPosition {
 	
 	private String name, description;
 
-	private SexPosition(String name, String description) {
+	private SexPositionType(String name, String description) {
 		this.name = name;
 		this.description = description;
 	}

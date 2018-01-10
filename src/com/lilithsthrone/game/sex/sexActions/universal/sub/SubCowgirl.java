@@ -4,6 +4,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.83
@@ -39,7 +40,7 @@ public class SubCowgirl {
 					"Leaning down, [npc.name] lets out [npc.a_moan+] as [npc.she] presses [npc.her] [npc.lips+] against yours and starts to eagerly kiss you."));
 		}
 
-		switch(Sex.getSexPacePlayer()) {
+		switch(Sex.getSexPace(Main.game.getPlayer())) {
 			case SUB_EAGER:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						" You happily push your [pc.tongue] deep into [npc.her] mouth, eagerly pressing your [pc.lips+] back against [npc.hers] and [pc.moaning] in delight as you greedily return [npc.her] display of affection.",
@@ -69,7 +70,7 @@ public class SubCowgirl {
 		
 		UtilText.nodeContentSB.setLength(0);
 		
-		switch(Sex.getSexPacePartner()) {
+		switch(Sex.getSexPace(Sex.getActivePartner())) {
 			case DOM_GENTLE:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"[npc.Name] reaches down to take hold of your [pc.cock+], before shuffling around to get into a good position."
@@ -94,7 +95,7 @@ public class SubCowgirl {
 			default:
 				break;
 		}
-		switch(Sex.getSexPacePlayer()) {
+		switch(Sex.getSexPace(Main.game.getPlayer())) {
 			case SUB_EAGER:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						" You let out [pc.a_moan+] as you enter [npc.herHim], eagerly bucking your [pc.hips] up as you start fucking [npc.her] [npc.pussy+].",
@@ -148,7 +149,7 @@ public class SubCowgirl {
 		
 		UtilText.nodeContentSB.setLength(0);
 		
-		switch(Sex.getSexPacePartner()) {
+		switch(Sex.getSexPace(Sex.getActivePartner())) {
 			case DOM_ROUGH:
 				UtilText.nodeContentSB.append("Reaching down, [npc.name] roughly grabs the base of your [pc.cock], before lifting [npc.herself] up and allowing your [pc.cock+] to slide out of [npc.her] [npc.pussy+].");
 				break;
@@ -157,7 +158,7 @@ public class SubCowgirl {
 				break;
 		}
 		
-		switch(Sex.getSexPacePlayer()) {
+		switch(Sex.getSexPace(Main.game.getPlayer())) {
 			case SUB_RESISTING:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						" You let out a relieved sigh, which soon turns into [pc.a_sob+] as you realise that [npc.she] isn't finished with you yet.",
@@ -177,7 +178,7 @@ public class SubCowgirl {
 		
 		UtilText.nodeContentSB.setLength(0);
 		
-		switch(Sex.getSexPacePartner()) {
+		switch(Sex.getSexPace(Sex.getActivePartner())) {
 			case DOM_GENTLE:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"[npc.Name] reaches down to take hold of your [pc.cock+], before shuffling around to get into a good position."
@@ -202,7 +203,7 @@ public class SubCowgirl {
 			default:
 				break;
 		}
-		switch(Sex.getSexPacePlayer()) {
+		switch(Sex.getSexPace(Main.game.getPlayer())) {
 			case SUB_EAGER:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						" You let out [pc.a_moan+] as you enter [npc.herHim], eagerly bucking your [pc.hips] up as you start fucking [npc.her] [npc.asshole+].",
@@ -256,7 +257,7 @@ public class SubCowgirl {
 		
 		UtilText.nodeContentSB.setLength(0);
 		
-		switch(Sex.getSexPacePartner()) {
+		switch(Sex.getSexPace(Sex.getActivePartner())) {
 			case DOM_ROUGH:
 				UtilText.nodeContentSB.append("Reaching back beneath [npc.herHim], [npc.name] roughly grabs the base of your [pc.cock], before lifting [npc.herself] up and allowing your [pc.cock+] to slide out of [npc.her] [npc.asshole+].");
 				break;
@@ -265,7 +266,7 @@ public class SubCowgirl {
 				break;
 		}
 		
-		switch(Sex.getSexPacePlayer()) {
+		switch(Sex.getSexPace(Main.game.getPlayer())) {
 			case SUB_RESISTING:
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						" You let out a relieved sigh, which soon turns into [pc.a_sob+] as you realise that [npc.she] isn't finished with you yet.",

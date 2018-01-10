@@ -9,6 +9,7 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.79
@@ -61,7 +62,7 @@ public class PartnerSelfTailVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -100,7 +101,7 @@ public class PartnerSelfTailVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -139,7 +140,7 @@ public class PartnerSelfTailVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -178,7 +179,7 @@ public class PartnerSelfTailVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -217,7 +218,7 @@ public class PartnerSelfTailVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override

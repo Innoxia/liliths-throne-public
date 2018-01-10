@@ -33,7 +33,7 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexPosition;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -200,7 +200,7 @@ public class DominionSuccubusAttacker extends NPC {
 				if(item.getItemType().equals(ItemType.PROMISCUITY_PILL)) {
 					
 						Main.game.getPlayer().useItem(item, target, false);
-						if(Sex.isPlayerDom()) {
+						if(Sex.isDom(Main.game.getPlayer())) {
 							return "<p>"
 									+ "Holding out a 'Promiscuity pill' to [npc.name], you tell [npc.her] to swallow it so that you don't have to worry about any unexpected pregnancies."
 									+ " Letting out a reluctant sigh, [npc.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [npc.she] whines at you,"
@@ -217,7 +217,7 @@ public class DominionSuccubusAttacker extends NPC {
 				} else if(item.getItemType().equals(ItemType.VIXENS_VIRILITY)) {
 
 						Main.game.getPlayer().useItem(item, target, false);
-						if(Sex.isPlayerDom()) {
+						if(Sex.isDom(Main.game.getPlayer())) {
 							return "<p>"
 									+ "Holding out a 'Vixen's Virility' pill to [npc.name], you tell [npc.her] to swallow it."
 									+ " Letting out a reluctant sigh, [npc.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [npc.she] whines at you,"
@@ -233,7 +233,7 @@ public class DominionSuccubusAttacker extends NPC {
 						
 				} else if(item.getItemType().equals(ItemType.POTION) || item.getItemType().equals(ItemType.ELIXIR)) {
 					
-						if(Sex.isPlayerDom()) {
+						if(Sex.isDom(Main.game.getPlayer())) {
 							Main.game.getPlayer().removeItem(item);
 							return "<p>"
 										+ "Taking your "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
@@ -255,7 +255,7 @@ public class DominionSuccubusAttacker extends NPC {
 						
 				} else if(item.getItemType().equals(ItemType.FETISH_UNREFINED) || item.getItemType().equals(ItemType.FETISH_REFINED)) {
 					
-					if(Sex.isPlayerDom()) {
+					if(Sex.isDom(Main.game.getPlayer())) {
 						Main.game.getPlayer().removeItem(item);
 						return "<p>"
 									+ "Taking your "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
@@ -277,7 +277,7 @@ public class DominionSuccubusAttacker extends NPC {
 					}
 					
 				} else if(item.getItemType().equals(ItemType.EGGPLANT)) {
-						if(Sex.isPlayerDom()) {
+						if(Sex.isDom(Main.game.getPlayer())) {
 							return "<p>"
 										+ "Taking the eggplant from your inventory, you hold it out to [npc.name]."
 										+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
@@ -304,7 +304,7 @@ public class DominionSuccubusAttacker extends NPC {
 			
 		// NPC is using an item:
 		}else{
-			return Sex.getPartner().useItem(item, target, false);
+			return Sex.getActivePartner().useItem(item, target, false);
 		}
 	}
 	
@@ -400,18 +400,18 @@ public class DominionSuccubusAttacker extends NPC {
 		return mainSexPreference;
 	}
 	
-	public Set<SexPosition> getSexPositionPreferences() {
+	public Set<SexPositionType> getSexPositionPreferences() {
 		sexPositionPreferences.clear();
 		
 		if(Sex.isInForeplay()) {
 			if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
-				sexPositionPreferences.add(SexPosition.BACK_TO_WALL_PLAYER);
-				sexPositionPreferences.add(SexPosition.DOGGY_PLAYER_ON_ALL_FOURS);
-				sexPositionPreferences.add(SexPosition.FACING_WALL_PLAYER);
+				sexPositionPreferences.add(SexPositionType.BACK_TO_WALL_PLAYER);
+				sexPositionPreferences.add(SexPositionType.DOGGY_PLAYER_ON_ALL_FOURS);
+				sexPositionPreferences.add(SexPositionType.FACING_WALL_PLAYER);
 				
 			} else if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
-				sexPositionPreferences.add(SexPosition.DOGGY_PLAYER_ON_ALL_FOURS);
-				sexPositionPreferences.add(SexPosition.FACING_WALL_PLAYER);
+				sexPositionPreferences.add(SexPositionType.DOGGY_PLAYER_ON_ALL_FOURS);
+				sexPositionPreferences.add(SexPositionType.FACING_WALL_PLAYER);
 				
 			} else {
 				return super.getSexPositionPreferences();
@@ -419,13 +419,13 @@ public class DominionSuccubusAttacker extends NPC {
 			
 		} else {
 			if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
-				sexPositionPreferences.add(SexPosition.BACK_TO_WALL_PLAYER);
-				sexPositionPreferences.add(SexPosition.DOGGY_PLAYER_ON_ALL_FOURS);
-				sexPositionPreferences.add(SexPosition.FACING_WALL_PLAYER);
+				sexPositionPreferences.add(SexPositionType.BACK_TO_WALL_PLAYER);
+				sexPositionPreferences.add(SexPositionType.DOGGY_PLAYER_ON_ALL_FOURS);
+				sexPositionPreferences.add(SexPositionType.FACING_WALL_PLAYER);
 				
 			} else if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
-				sexPositionPreferences.add(SexPosition.DOGGY_PLAYER_ON_ALL_FOURS);
-				sexPositionPreferences.add(SexPosition.FACING_WALL_PLAYER);
+				sexPositionPreferences.add(SexPositionType.DOGGY_PLAYER_ON_ALL_FOURS);
+				sexPositionPreferences.add(SexPositionType.FACING_WALL_PLAYER);
 				
 			} else {
 				return super.getSexPositionPreferences();
@@ -438,7 +438,7 @@ public class DominionSuccubusAttacker extends NPC {
 	@Override
 	public String getCondomEquipEffects(GameCharacter equipper, GameCharacter target, boolean rough) {
 		if(Main.game.isInSex()) {
-			if((Sex.isPlayerDom() || Sex.isSubHasEqualControl()) && !target.isPlayer()) {
+			if((Sex.isDom(Main.game.getPlayer()) || Sex.isSubHasEqualControl()) && !target.isPlayer()) {
 				return "<p>"
 							+ "Holding out a condom to [npc.name], you force [npc.herHim] to take it and put it on."
 							+ " Quickly ripping it out of its little foil wrapper, [npc.she] rolls it down the length of [npc.her] [npc.cock+] as [npc.she] whines at you,"
@@ -597,7 +597,7 @@ public class DominionSuccubusAttacker extends NPC {
 					+ " <b style='color:"+StatusEffect.FETISH_BROKEN_VIRGIN.getColour().toWebHexString()+";'>broken virgin</b>..."
 				+ "</p>");
 		
-		return UtilText.parse(Sex.getPartner(),
+		return UtilText.parse(Sex.getActivePartner(),
 				StringBuilderSB.toString());
 	}
 	

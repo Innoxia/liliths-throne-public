@@ -275,8 +275,9 @@ public class HarpyNestDominant {
 		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.dominantPacified)) {
 				if (index == 1) {
-					return new ResponseSex("Sex", "Have dominant sex with [harpyDominant.name].", true,
-							false, Main.game.getHarpyDominant(), new SMHarpyStanding(), HARPY_NEST_DOMINANT_AFTER_SEX, "<p>"
+					return new ResponseSex("Sex", "Have dominant sex with [harpyDominant.name].",
+							true, false, Main.game.getPlayer(), Main.game.getHarpyDominant(), new SMHarpyStanding(), HARPY_NEST_DOMINANT_AFTER_SEX,
+							"<p>"
 								+ "Eager to put [harpyDominant.name] in her place in front of her flock, you reach down and grab her wings."
 								+ " Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyDominant.lips+]."
 							+ "</p>"
@@ -539,8 +540,9 @@ public class HarpyNestDominant {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			 if (index == 1) {
-				return new ResponseSex("Sex", "Have dominant sex with [harpyDominant.name].", true,
-						false, Main.game.getHarpyDominant(), new SMHarpyStanding(), HARPY_NEST_DOMINANT_AFTER_SEX, "<p>"
+				return new ResponseSex("Sex", "Have dominant sex with [harpyDominant.name].",
+						true, false, Main.game.getPlayer(), Main.game.getHarpyDominant(), new SMHarpyStanding(), HARPY_NEST_DOMINANT_AFTER_SEX,
+						"<p>"
 							+ "Eager to put [harpyDominant.name] in her place in front of your new flock, you reach down and grab her wings."
 							+ " Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyDominant.lips+]."
 						+ "</p>"
@@ -841,8 +843,9 @@ public class HarpyNestDominant {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			 if (index == 1) {
-				return new ResponseSex("Sex", "Have dominant sex with [harpyDominant.name].", true,
-						false, Main.game.getHarpyDominant(), new SMHarpyStanding(), HARPY_NEST_DOMINANT_AFTER_SEX, "<p>"
+				return new ResponseSex("Sex", "Have dominant sex with [harpyDominant.name].",
+						true, false, Main.game.getPlayer(), Main.game.getHarpyDominant(), new SMHarpyStanding(), HARPY_NEST_DOMINANT_AFTER_SEX,
+						"<p>"
 							+ "Eager to put [harpyDominant.name] in her place in front of your new flock, you reach down and grab her wings."
 							+ " Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyDominant.lips+]."
 						+ "</p>"
@@ -1003,9 +1006,9 @@ public class HarpyNestDominant {
 		
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfPartnerOrgasms() >= 1) {
+			if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
 				return "<p>"
-							+ "As you step back from [harpyDominant.name], she sinks to the floor, totally worn out from her orgasm"+(Sex.getNumberOfPartnerOrgasms() > 1?"s":"")+"."
+							+ "As you step back from [harpyDominant.name], she sinks to the floor, totally worn out from her orgasm"+(Sex.getNumberOfOrgasms(Sex.getActivePartner()) > 1?"s":"")+"."
 							+ " The surrounding harpies, having watched the whole thing, kneel in submission as you finish with their matriarch."
 						+ "</p>";
 			} else {

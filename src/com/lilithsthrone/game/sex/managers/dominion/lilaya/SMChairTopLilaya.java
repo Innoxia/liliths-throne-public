@@ -1,7 +1,7 @@
 package com.lilithsthrone.game.sex.managers.dominion.lilaya;
 
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPosition;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
@@ -90,8 +90,8 @@ public class SMChairTopLilaya extends SexManagerDefault {
 	}
 	
 	@Override
-	public SexPosition getPosition() {
-		return SexPosition.CHAIR_TOP;
+	public SexPositionType getPosition() {
+		return SexPositionType.CHAIR_TOP;
 	}
 
 	@Override

@@ -16,6 +16,7 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.FitnessLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
+import com.lilithsthrone.game.character.attributes.LustLevel;
 import com.lilithsthrone.game.character.attributes.StrengthLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.FluidType;
@@ -1259,6 +1260,240 @@ public enum StatusEffect {
 			return false;
 		}
 	},
+	
+	
+	// Arousal:
+	LUST_PERK_0(
+			100,
+			"none",
+			"attLust0",
+			Colour.LUST_STAGE_ZERO,
+			false,
+			null,
+			null) {
+		
+		@Override
+		public String getName(GameCharacter target) {
+			return Util.capitaliseSentence(LustLevel.ZERO_COLD.getName());
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter character) {
+			return LustLevel.ZERO_COLD.getSVGImage(character);
+		}
+		
+		@Override
+		public List<String> getModifiersAsStringList(GameCharacter target) {
+			modifiersList.clear();
+			modifiersList.add(LustLevel.ZERO_COLD.getStatusEffectModifierDescription(target));
+			return modifiersList;
+		}
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			return LustLevel.ZERO_COLD.getStatusEffectDescription(target);
+		}
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return LustLevel.getLustLevelFromValue(target.getAttributeValue(Attribute.LUST)) == LustLevel.ZERO_COLD;
+		}
+		
+		@Override
+		public boolean renderInEffectsPanel() {
+			return false;
+		}
+	},
+	LUST_PERK_1(
+			100,
+			"turned on",
+			"attLust1",
+			Colour.LUST_STAGE_ONE,
+			false,
+			null,
+			null) {
+		
+		@Override
+		public String getName(GameCharacter target) {
+			return Util.capitaliseSentence(LustLevel.ONE_HORNY.getName());
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter character) {
+			return LustLevel.ONE_HORNY.getSVGImage(character);
+		}
+		
+		@Override
+		public List<String> getModifiersAsStringList(GameCharacter target) {
+			modifiersList.clear();
+			modifiersList.add(LustLevel.ONE_HORNY.getStatusEffectModifierDescription(target));
+			return modifiersList;
+		}
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			return LustLevel.ONE_HORNY.getStatusEffectDescription(target);
+		}
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return LustLevel.getLustLevelFromValue(target.getAttributeValue(Attribute.LUST)) == LustLevel.ONE_HORNY;
+		}
+		
+		@Override
+		public boolean renderInEffectsPanel() {
+			return false;
+		}
+	},
+	LUST_PERK_2(
+			100,
+			"excited",
+			"attLust2",
+			Colour.LUST_STAGE_TWO,
+			false,
+			null,
+			null) {
+		
+		@Override
+		public String getName(GameCharacter target) {
+			return Util.capitaliseSentence(LustLevel.TWO_AMOROUS.getName());
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter character) {
+			return LustLevel.TWO_AMOROUS.getSVGImage(character);
+		}
+		
+		@Override
+		public List<String> getModifiersAsStringList(GameCharacter target) {
+			modifiersList.clear();
+			modifiersList.add(LustLevel.TWO_AMOROUS.getStatusEffectModifierDescription(target));
+			return modifiersList;
+		}
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			return LustLevel.TWO_AMOROUS.getStatusEffectDescription(target);
+		}
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return LustLevel.getLustLevelFromValue(target.getAttributeValue(Attribute.LUST)) == LustLevel.TWO_AMOROUS;
+		}
+		
+		@Override
+		public boolean renderInEffectsPanel() {
+			return false;
+		}
+	},
+	LUST_PERK_3(
+			100,
+			"heated",
+			"attLust3",
+			Colour.LUST_STAGE_THREE,
+			false,
+			null,
+			null) {
+		
+		@Override
+		public String getName(GameCharacter target) {
+			return Util.capitaliseSentence(LustLevel.THREE_IMPASSIONED.getName());
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter character) {
+			return LustLevel.THREE_IMPASSIONED.getSVGImage(character);
+		}
+		
+		@Override
+		public List<String> getModifiersAsStringList(GameCharacter target) {
+			modifiersList.clear();
+			modifiersList.add(LustLevel.THREE_IMPASSIONED.getStatusEffectModifierDescription(target));
+			return modifiersList;
+		}
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			return LustLevel.THREE_IMPASSIONED.getStatusEffectDescription(target);
+		}
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return LustLevel.getLustLevelFromValue(target.getAttributeValue(Attribute.LUST)) == LustLevel.THREE_IMPASSIONED;
+		}
+		
+		@Override
+		public boolean renderInEffectsPanel() {
+			return false;
+		}
+	},
+	LUST_PERK_4(
+			100,
+			"passionate",
+			"attLust4",
+			Colour.LUST_STAGE_FOUR,
+			false,
+			null,
+			null) {
+		
+		@Override
+		public String getName(GameCharacter target) {
+			return Util.capitaliseSentence(LustLevel.FOUR_BURNING.getName());
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter character) {
+			return LustLevel.FOUR_BURNING.getSVGImage(character);
+		}
+		
+		@Override
+		public List<String> getModifiersAsStringList(GameCharacter target) {
+			modifiersList.clear();
+			modifiersList.add(LustLevel.FOUR_BURNING.getStatusEffectModifierDescription(target));
+			return modifiersList;
+		}
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			return LustLevel.FOUR_BURNING.getStatusEffectDescription(target);
+		}
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return LustLevel.getLustLevelFromValue(target.getAttributeValue(Attribute.LUST)) == LustLevel.FOUR_BURNING;
+		}
+		
+		@Override
+		public boolean renderInEffectsPanel() {
+			return false;
+		}
+	},
+	
 	
 	
 	
@@ -5952,12 +6187,12 @@ public enum StatusEffect {
 							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc.name]'s [npc.asshole]!");
 							break;
 						case FINGER_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getPartner(),
+							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
 									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc.her] own [npc.asshole]!"));
 							break;
 							
 						case PENIS_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getPartner(),
+							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
 									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc.her] own [npc.asshole]!"));
 							break;
 						case PENIS_PLAYER:
@@ -5968,7 +6203,7 @@ public enum StatusEffect {
 							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc.name]'s [npc.asshole]!");
 							break;
 						case TAIL_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getPartner(),
+							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
 									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc.her] own [npc.asshole]!"));
 							break;
 							
@@ -6260,7 +6495,7 @@ public enum StatusEffect {
 							break;
 							
 						case PENIS_PARTNER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking [npc.name]'s "+Sex.getPartner().getPenisName(true)+"</b>!");
+							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking [npc.name]'s "+Sex.getActivePartner().getPenisName(true)+"</b>!");
 							break;
 						case PENIS_PLAYER:
 							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking your own "+Main.game.getPlayer().getPenisName(true)+"</b>!");
@@ -6274,7 +6509,7 @@ public enum StatusEffect {
 							break;
 							
 						case TONGUE_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getPartner(),
+							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
 									"[npc.Name]'s tongue is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking [npc.her] own throat</b>!"));
 							break;
 						case TONGUE_PLAYER:
@@ -6336,13 +6571,13 @@ public enum StatusEffect {
 							descriptionSB.append("[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking your fingers</b>!");
 							break;
 						case FINGER_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getPartner(),
+							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
 									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking [npc.her] own fingers</b>!"));
 							break;
 							
 						case PENIS_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getPartner(),
-									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking[npc.her] own "+Sex.getPartner().getPenisName(true)+"</b> !"));
+							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
+									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking[npc.her] own "+Sex.getActivePartner().getPenisName(true)+"</b> !"));
 							break;
 						case PENIS_PLAYER:
 							descriptionSB.append("[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking your "+Main.game.getPlayer().getPenisName(true)+"</b>!");
@@ -6352,7 +6587,7 @@ public enum StatusEffect {
 							descriptionSB.append("[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking your tail</b>!");
 							break;
 						case TAIL_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getPartner(),
+							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
 									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking [npc.her] own tail</b>!"));
 							break;
 							
@@ -6748,12 +6983,12 @@ public enum StatusEffect {
 							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>massaging</b> [npc.name]'s [npc.breasts]!");
 							break;
 						case FINGER_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getPartner(),
+							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
 									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>massaging</b> [npc.her] own [npc.breasts]!"));
 							break;
 							
 						case PENIS_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getPartner(),
+							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
 									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc.her] own [npc.breasts]!"));
 							break;
 						case PENIS_PLAYER:
@@ -6764,12 +6999,12 @@ public enum StatusEffect {
 							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc.name]'s [npc.breasts]!");
 							break;
 						case TAIL_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getPartner(),
+							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
 									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking [npc.her] own [npc.breasts]</b>!"));
 							break;
 							
 						case TONGUE_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getPartner(),
+							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
 									"[npc.Name]'s is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc.her] [npc.breasts]!"));
 							break;
 						case TONGUE_PLAYER:
@@ -7157,12 +7392,12 @@ public enum StatusEffect {
 							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc.name]'s [npc.nipples]!");
 							break;
 						case FINGER_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getPartner(),
+							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
 									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc.her] own [npc.nipples]!"));
 							break;
 							
 						case PENIS_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getPartner(),
+							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
 									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc.her] own [npc.nipples]!"));
 							break;
 						case PENIS_PLAYER:
@@ -7173,12 +7408,12 @@ public enum StatusEffect {
 							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc.name]'s [npc.nipples]!");
 							break;
 						case TAIL_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getPartner(),
+							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
 									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking [npc.her] own [npc.nipples]</b>!"));
 							break;
 							
 						case TONGUE_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getPartner(),
+							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
 									"[npc.Name]'s is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>eating out</b> [npc.her] [npc.nipples]!"));
 							break;
 						case TONGUE_PLAYER:
@@ -7558,12 +7793,12 @@ public enum StatusEffect {
 							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc.name]!");
 							break;
 						case FINGER_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getPartner(),
+							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
 									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc.herself]!"));
 							break;
 							
 						case PENIS_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getPartner(),
+							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
 									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc.herself]!"));
 							break;
 						case PENIS_PLAYER:
@@ -7574,7 +7809,7 @@ public enum StatusEffect {
 							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc.name]!");
 							break;
 						case TAIL_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getPartner(),
+							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
 									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking [npc.herself]</b>!"));
 							break;
 							
@@ -7593,20 +7828,20 @@ public enum StatusEffect {
 				}
 				
 				if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.VAGINA_PARTNER)) {
-					descriptionSB.append("</br>[npc.Name]'s "+Sex.getPartner().getVaginaName(true)+" is being <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>stretched</b>!");
+					descriptionSB.append("</br>[npc.Name]'s "+Sex.getActivePartner().getVaginaName(true)+" is being <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>stretched</b>!");
 					
 				} else if(Sex.getAreasTooLoosePartner().contains(OrificeType.VAGINA_PARTNER)) {
-					descriptionSB.append("</br>[npc.Name]'s "+Sex.getPartner().getVaginaName(true)+" is <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>too loose</b>!");
+					descriptionSB.append("</br>[npc.Name]'s "+Sex.getActivePartner().getVaginaName(true)+" is <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>too loose</b>!");
 				} else {
 					descriptionSB.append("</br><b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No stretch effect.</b>");
 				}
 				
 				
 				if(Sex.getWetOrificeTypes().get(OrificeType.VAGINA_PARTNER).isEmpty()) {
-					descriptionSB.append("</br>[npc.Name]'s "+Sex.getPartner().getVaginaName(true)+" is <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>dry</b>!");
+					descriptionSB.append("</br>[npc.Name]'s "+Sex.getActivePartner().getVaginaName(true)+" is <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>dry</b>!");
 					
 				} else {
-					descriptionSB.append("</br>[npc.Name]'s "+Sex.getPartner().getVaginaName(true)+" has been <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>lubricated</b> by:</br>");
+					descriptionSB.append("</br>[npc.Name]'s "+Sex.getActivePartner().getVaginaName(true)+" has been <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>lubricated</b> by:</br>");
 					int i=0;
 					for(LubricationType lt : Sex.getWetOrificeTypes().get(OrificeType.VAGINA_PARTNER)) {
 						if(i!=0) {
@@ -7914,34 +8149,34 @@ public enum StatusEffect {
 							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> [npc.name]'s thighs!");
 							break;
 						case FINGER_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getPartner(),
+							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
 									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> [npc.her] own thighs!"));
 							break;
 							
 						case PENIS_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getPartner(),
+							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
 									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc.her] own thighs!"));
 							break;
 						case PENIS_PLAYER:
-							descriptionSB.append(UtilText.parse(Sex.getPartner(),
+							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
 									"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc.name]'s thighs!"));
 							break;
 							
 						case TAIL_PLAYER:
-							descriptionSB.append(UtilText.parse(Sex.getPartner(),
+							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
 									"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc.name]'s thighs!"));
 							break;
 						case TAIL_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getPartner(),
+							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
 									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc.her] own thighs!"));
 							break;
 							
 						case TONGUE_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getPartner(),
+							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
 									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>licking</b> [npc.her] own thighs!"));
 							break;
 						case TONGUE_PLAYER:
-							descriptionSB.append(UtilText.parse(Sex.getPartner(),
+							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
 									"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>licking</b> [npc.name]'s thighs!"));
 							break;
 						default:

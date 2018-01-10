@@ -2,7 +2,7 @@ package com.lilithsthrone.game.sex.managers.universal;
 
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPosition;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
@@ -107,8 +107,8 @@ public class SMSubSelfDoggy extends SexManagerDefault {
 	}
 	
 	@Override
-	public SexPosition getPosition() {
-		return SexPosition.DOGGY_PARTNER_AS_DOM_ON_ALL_FOURS;
+	public SexPositionType getPosition() {
+		return SexPositionType.DOGGY_PARTNER_AS_DOM_ON_ALL_FOURS;
 	}
 
 	@Override
@@ -148,7 +148,7 @@ public class SMSubSelfDoggy extends SexManagerDefault {
 
 	@Override
 	public SexPace getStartingSexPacePartner() {
-		return Sex.getPartner().getSexPaceDomPreference();
+		return Sex.getActivePartner().getSexPaceDomPreference();
 	}
 
 }

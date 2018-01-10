@@ -30,7 +30,7 @@ public class SubDoggy {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -65,7 +65,7 @@ public class SubDoggy {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -101,7 +101,7 @@ public class SubDoggy {
 						break;
 				}
 			
-				return UtilText.genderParsing(Sex.getPartner(),
+				return UtilText.genderParsing(Sex.getActivePartner(),
 					UtilText.returnStringAtRandom(
 							tailSpecial1,
 							tailSpecial2,
@@ -128,7 +128,7 @@ public class SubDoggy {
 						break;
 				}
 			
-				return UtilText.genderParsing(Sex.getPartner(),
+				return UtilText.genderParsing(Sex.getActivePartner(),
 					UtilText.returnStringAtRandom(
 							tailSpecial1,
 							tailSpecial2,
@@ -156,7 +156,7 @@ public class SubDoggy {
 						break;
 				}
 			
-				return UtilText.genderParsing(Sex.getPartner(),
+				return UtilText.genderParsing(Sex.getActivePartner(),
 					UtilText.returnStringAtRandom(
 							tailSpecial1,
 							tailSpecial2,

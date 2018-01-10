@@ -7,7 +7,7 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPosition;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
@@ -31,7 +31,7 @@ public class PartnerFingerUrethra {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexPacePartner()!=SexPace.SUB_RESISTING;
+			return Sex.getSexPace(Sex.getActivePartner())!=SexPace.SUB_RESISTING;
 		}
 		
 		@Override
@@ -49,7 +49,7 @@ public class PartnerFingerUrethra {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Reaching down between your [pc.legs], [npc.name] wraps [npc.her] [npc.fingers] around your [pc.cock+], letting out a soft [npc.moan] as [npc.she] starts slowly stroking up and down its length.",
@@ -83,7 +83,7 @@ public class PartnerFingerUrethra {
 				default:
 					break;
 			}
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" Letting out a soft [pc.moan], you start gently bucking your [pc.hips] against [npc.her] [npc.hand], focusing on the feeling of your [pc.cock+] as it throbs in response to [npc.her] touch.",
@@ -139,7 +139,7 @@ public class PartnerFingerUrethra {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Main.game.getPlayer().isInternalTesticles() && Sex.getSexPacePartner()!=SexPace.SUB_RESISTING;
+			return !Main.game.getPlayer().isInternalTesticles() && Sex.getSexPace(Sex.getActivePartner())!=SexPace.SUB_RESISTING;
 		}
 		
 		@Override
@@ -154,7 +154,7 @@ public class PartnerFingerUrethra {
 
 		@Override
 		public String getDescription() {
-			if(Sex.getPosition()==SexPosition.SIXTY_NINE_PARTNER_TOP) {
+			if(Sex.getPosition()==SexPositionType.SIXTY_NINE_PARTNER_TOP) {
 				return UtilText.returnStringAtRandom(
 						"[npc.Name] props [npc.herself] up on one [npc.arm], before using [npc.her] free [npc.hand] to stroke and squeeze your [pc.balls+].",
 						"[npc.Name] lets out [npc.a_moan+] as [npc.she] props [npc.herself] up on one [npc.arm], before reaching down and starting to stroke and play with your [pc.balls+].",

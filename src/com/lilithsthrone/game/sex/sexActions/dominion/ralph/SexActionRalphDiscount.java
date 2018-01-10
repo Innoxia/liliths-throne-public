@@ -2,6 +2,7 @@ package com.lilithsthrone.game.sex.sexActions.dominion.ralph;
 
 import java.util.List;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.VaginaType;
@@ -334,13 +335,12 @@ public class SexActionRalphDiscount {
 		}
 		
 		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_PREGNANCY));
-		}
-
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_PREGNANCY));
+		public List<Fetish> getFetishes(GameCharacter character) {
+			if(character.isPlayer()) {
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_PREGNANCY), new ListValue<>(Fetish.FETISH_BROODMOTHER));
+			} else {
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_IMPREGNATION));
+			}
 		}
 	};
 	
@@ -399,14 +399,12 @@ public class SexActionRalphDiscount {
 		}
 		
 		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_ANAL_RECEIVING));
-		}
-
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING));
+		public List<Fetish> getFetishes(GameCharacter character) {
+			if(character.isPlayer()) {
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_ANAL_RECEIVING));
+			} else {
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING));
+			}
 		}
 	};
 
@@ -1112,7 +1110,7 @@ public class SexActionRalphDiscount {
 					+ " Suddenly, you feel a strong pair of hands grab your hips, and before you can react, Ralph pushes you down, face first, onto the counter-top."
 					+ " You let out a little moan at his dominant treatment of you, and as he roughly gropes and squeezes your "+Main.game.getPlayer().getAssSize().getDescriptor()+" ass, he leans down and growls in your ear, "
 					+ UtilText.parseSpeech(
-						(Sex.getPartner().isWearingCondom()
+						(Sex.getActivePartner().isWearingCondom()
 							?"So you want a bigger discount, huh?! You know, it's a shame you insisted on the condom, but I'll still give you another twenty percent if you let me fuck you."
 							:(Main.game.getPlayer().isVisiblyPregnant()
 									?"So you want a bigger discount, huh?! You know, it's a shame you're already pregnant, but I'll still give you another twenty percent if you let me fuck you."
@@ -1131,7 +1129,7 @@ public class SexActionRalphDiscount {
 					+ " With a quick step forwards, Ralph suddenly rams his impatient member deep into your hungry snatch, and you gasp and moan as he starts fucking you on the shop's counter-top."
 					+ "</br></br>"
 					+ "<b>You will now earn a</b> <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>"
-							+(SexFlags.ralphDiscount+(Sex.getPartner().isWearingCondom()||Main.game.getPlayer().isVisiblyPregnant()?20:25)-(SexFlags.alertedCustomer?5:0))
+							+(SexFlags.ralphDiscount+(Sex.getActivePartner().isWearingCondom()||Main.game.getPlayer().isVisiblyPregnant()?20:25)-(SexFlags.alertedCustomer?5:0))
 					+"%</b> <b>discount.</b>");
 			
 			return UtilText.nodeContentSB.toString();
@@ -1145,7 +1143,7 @@ public class SexActionRalphDiscount {
 					SexFlags.ralphDiscount-=5;
 			
 			SexFlags.alertedCustomer=false;
-			if(Sex.getPartner().isWearingCondom() || Main.game.getPlayer().isVisiblyPregnant() || Main.game.getPlayer().getVaginaType()==VaginaType.NONE) {
+			if(Sex.getActivePartner().isWearingCondom() || Main.game.getPlayer().isVisiblyPregnant() || Main.game.getPlayer().getVaginaType()==VaginaType.NONE) {
 				SexFlags.ralphDiscount+=20;
 			} else {
 				SexFlags.ralphDiscount+=25;
@@ -1233,7 +1231,7 @@ public class SexActionRalphDiscount {
 					SexFlags.ralphDiscount-=5;
 			
 			SexFlags.alertedCustomer=false;
-			if(Sex.getPartner().isWearingCondom() || Main.game.getPlayer().isVisiblyPregnant() || Main.game.getPlayer().getVaginaType()==VaginaType.NONE)
+			if(Sex.getActivePartner().isWearingCondom() || Main.game.getPlayer().isVisiblyPregnant() || Main.game.getPlayer().getVaginaType()==VaginaType.NONE)
 				SexFlags.ralphDiscount+=20;
 			else
 				SexFlags.ralphDiscount+=25;
@@ -1268,7 +1266,7 @@ public class SexActionRalphDiscount {
 								+ " With his legs in position on either side of yours, he focuses his movements solely in his hips, and your screams of ecstasy come out in little bursts as he jackhammers his huge horse-cock into your slit."
 						:"Grabbing your "+Main.game.getPlayer().getHipSize().getDescriptor()+" hips, Ralph pushes you hard into the counter, leaning down heavily on top of you as he starts relentlessly pounding away at your slutty cunt."
 							+ " Using your body as a cushion, he focuses his movements solely in his hips, and your screams of ecstasy come out in little bursts as he jackhammers his huge horse-cock between your legs.")
-					+ (Sex.getPartner().isWearingCondom()
+					+ (Sex.getActivePartner().isWearingCondom()
 						?" Every time he bottoms out, the momentum in his heavy sack causes his balls to swing up and slap against you, oblivious to the fact that their contents are going to be caught in the condom you made their owner wear."
 						:" Every time he bottoms out, the momentum in his heavy sack causes his balls to swing up and slap against you, giving you a little reminder as to the origin of your impending creampie's filling.");
 		}
@@ -1296,7 +1294,7 @@ public class SexActionRalphDiscount {
 		public String getDescription() {
 			return "Grabbing your "+Main.game.getPlayer().getHipSize().getDescriptor()+" hips, Ralph pushes you hard into the counter, leaning down heavily on top of you as he starts relentlessly pounding away at your slutty ass."
 				+ " Using your body as a cushion, he focuses his movements solely in his hips, and your screams of ecstasy come out in little bursts as he jackhammers his huge horse-cock into your back door."
-				+ (Sex.getPartner().isWearingCondom()
+				+ (Sex.getActivePartner().isWearingCondom()
 					?" Every time he bottoms out, the momentum in his heavy sack causes his balls to swing up and slap against you, oblivious to the fact that their contents are going to be caught in the condom you made their owner wear."
 					:" Every time he bottoms out, the momentum in his heavy sack causes his balls to swing up and slap against you, giving you a little reminder as to the origin of your impending creampie's filling.");
 		}
@@ -1326,7 +1324,7 @@ public class SexActionRalphDiscount {
 						?"Ralph continues holding your hips tightly, rocking you forwards and back as he fills you with his huge, black horse-cock."
 						:"Ralph continues holding your hips tightly, rocking you into the counter as he fills you with his huge, black horse-cock.")
 					+ " His heavy balls swing to and fro, impatient to deposit their potent load "
-					+ (Sex.getPartner().isWearingCondom()
+					+ (Sex.getActivePartner().isWearingCondom()
 						?"into the condom that you've provided."
 						:(Main.game.getPlayer().isVisiblyPregnant()?"deep into your hungry cunt.":"deep in your waiting womb."));
 		}
@@ -1354,7 +1352,7 @@ public class SexActionRalphDiscount {
 		public String getDescription() {
 				return "Ralph continues holding your hips tightly, rocking you into the counter as he fills you with his huge, black horse-cock."
 					+ " His heavy balls swing to and fro, impatient to deposit their potent load "
-					+ (Sex.getPartner().isWearingCondom()
+					+ (Sex.getActivePartner().isWearingCondom()
 						?"into the condom that you've provided."
 						:"deep in your waiting ass.");
 		}

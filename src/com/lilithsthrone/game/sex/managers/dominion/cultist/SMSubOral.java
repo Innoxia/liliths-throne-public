@@ -2,7 +2,7 @@ package com.lilithsthrone.game.sex.managers.dominion.cultist;
 
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPosition;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
@@ -91,8 +91,8 @@ public class SMSubOral extends SexManagerDefault {
 	}
 	
 	@Override
-	public SexPosition getPosition() {
-		return SexPosition.KNEELING_PLAYER_PERFORMING_ORAL;
+	public SexPositionType getPosition() {
+		return SexPositionType.KNEELING_PLAYER_PERFORMING_ORAL;
 	}
 
 	@Override
@@ -132,7 +132,7 @@ public class SMSubOral extends SexManagerDefault {
 
 	@Override
 	public SexPace getStartingSexPacePartner() {
-		return Sex.getPartner().getSexPaceDomPreference();
+		return Sex.getActivePartner().getSexPaceDomPreference();
 	}
 
 }

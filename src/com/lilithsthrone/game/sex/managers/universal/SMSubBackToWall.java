@@ -2,7 +2,7 @@ package com.lilithsthrone.game.sex.managers.universal;
 
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPosition;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
@@ -124,8 +124,8 @@ public class SMSubBackToWall extends SexManagerDefault {
 	}
 	
 	@Override
-	public SexPosition getPosition() {
-		return SexPosition.BACK_TO_WALL_PLAYER;
+	public SexPositionType getPosition() {
+		return SexPositionType.BACK_TO_WALL_PLAYER;
 	}
 
 	@Override
@@ -165,7 +165,7 @@ public class SMSubBackToWall extends SexManagerDefault {
 
 	@Override
 	public SexPace getStartingSexPacePartner() {
-		return Sex.getPartner().getSexPaceDomPreference();
+		return Sex.getActivePartner().getSexPaceDomPreference();
 	}
 
 }

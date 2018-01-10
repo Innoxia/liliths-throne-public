@@ -2,6 +2,7 @@ package com.lilithsthrone.game.sex.sexActions.dominion.pix;
 
 import java.util.List;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
@@ -190,12 +191,7 @@ public class PixOrgasms {
 		}
 		
 		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DENIAL));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
+		public List<Fetish> getFetishes(GameCharacter character) {
 			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DENIAL));
 		}
 	};

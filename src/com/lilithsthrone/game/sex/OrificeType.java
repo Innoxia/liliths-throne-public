@@ -139,7 +139,7 @@ public enum OrificeType {
 	NIPPLE_PARTNER(2, false) {
 		@Override
 		public String getName() {
-			return Sex.getPartner().getNippleName();
+			return Sex.getActivePartner().getNippleName();
 		}
 		@Override
 		public boolean isPlural() {
@@ -156,7 +156,7 @@ public enum OrificeType {
 	BREAST_PARTNER(1, false) {
 		@Override
 		public String getName() {
-			return Sex.getPartner().getBreastName();
+			return Sex.getActivePartner().getBreastName();
 		}
 		@Override
 		public boolean isPlural() {
@@ -173,7 +173,7 @@ public enum OrificeType {
 	ASS_PARTNER(2, false) {
 		@Override
 		public String getName() {
-			return Sex.getPartner().getAssName(false);
+			return Sex.getActivePartner().getAssName(false);
 		}
 		@Override
 		public boolean isAss() { return true; }
@@ -186,7 +186,7 @@ public enum OrificeType {
 	ANUS_PARTNER(2, false) {
 		@Override
 		public String getName() {
-			return Sex.getPartner().getAnusName(false);
+			return Sex.getActivePartner().getAnusName(false);
 		}
 		@Override
 		public boolean isAnus() { return true; }
@@ -199,7 +199,7 @@ public enum OrificeType {
 	VAGINA_PARTNER(4, false) {
 		@Override
 		public String getName() {
-			return Sex.getPartner().getVaginaName(false);
+			return Sex.getActivePartner().getVaginaName(false);
 		}
 		@Override
 		public boolean isVagina() { return true; }

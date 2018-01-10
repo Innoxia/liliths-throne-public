@@ -343,7 +343,7 @@ public class Kate extends NPC {
 			
 		// NPC is using an item:
 		}else{
-			return Sex.getPartner().useItem(item, target, false);
+			return Sex.getActivePartner().useItem(item, target, false);
 		}
 	}
 	

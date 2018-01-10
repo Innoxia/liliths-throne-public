@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.dialogue.npcDialogue.alleyway;
 
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
@@ -231,7 +232,7 @@ public class AlleywayProstituteDialogue {
 				} else {
 					return new ResponseSex("Dominant Sex ("+UtilText.formatAsMoney(cost, "span")+")",
 							"Pay [npc.name] "+cost+" flames to have a good time with [npc.herHim].",
-							true, false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_PAID,
+							true, false, Main.game.getPlayer(), Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_PAID,
 							"<p>"
 									+ "[pc.speech(Sure, I could do with having a good time,)]"
 									+ " you reply, handing over "+cost+" flames to the [npc.race]."
@@ -266,7 +267,7 @@ public class AlleywayProstituteDialogue {
 				} else {
 					return new ResponseSex("Submissive Sex ("+UtilText.formatAsMoney(cost, "span")+")",
 							"Pay [npc.name] "+cost+" flames to have a good time with [npc.herHim].",
-							true, true, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_PAID,
+							true, true, Main.game.getActiveNPC(), Main.game.getPlayer(), new SMSubStanding(), AFTER_SEX_PAID,
 							"<p>"
 								+ "[pc.speech(Sure, I could do with having a good time,)]"
 								+ " you reply,"
@@ -381,28 +382,31 @@ public class AlleywayProstituteDialogue {
 			} else if (index == 2) {
 				return new ResponseSex("Have some fun",
 						"It's clear that [npc.she] wants you. Have some fun with [npc.name].",
-						true,
-						false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY);
+						true, false, Main.game.getPlayer(), Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY);
 				
 			} else if (index == 3) {
 				return new ResponseSex("Gentle fun",
 						"It's clear that [npc.she] wants you. Have some fun with [npc.name]. (Start the sex scene in the 'gentle' pace.)",
-						true,
-						false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY) {
+						true, false, Main.game.getPlayer(), Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY) {
 					@Override
-					public void effects() {
-						sexPacePlayer = (SexPace.DOM_GENTLE);
+					public SexPace getStartingSexPaceModifier(GameCharacter character) {
+						if(character.isPlayer()) {
+							return SexPace.DOM_GENTLE;
+						}
+						return null;
 					}
 				};
 				
 			} else if (index == 4) {
 				return new ResponseSex("Rough fun",
 						"It's clear that [npc.she] wants you. Have some fun with [npc.name]. (Start the sex scene in the 'rough' pace.)",
-						true,
-						false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY) {
+						true, false, Main.game.getPlayer(), Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY) {
 					@Override
-					public void effects() {
-						sexPacePlayer = (SexPace.DOM_ROUGH);
+					public SexPace getStartingSexPaceModifier(GameCharacter character) {
+						if(character.isPlayer()) {
+							return SexPace.DOM_ROUGH;
+						}
+						return null;
 					}
 				};
 				
@@ -412,7 +416,8 @@ public class AlleywayProstituteDialogue {
 							+ "Perhaps it would be best to let [npc.name] choose what to do next?",
 						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)),
 						null, null, null, null, null, true,
-						true, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT, "<p>"
+						true, Main.game.getActiveNPC(), Main.game.getPlayer(), new SMSubStanding(), AFTER_SEX_DEFEAT,
+						"<p>"
 							+ "You really aren't sure what to do next, and start to feel pretty uncomfortable with the fact that you just beat up this poor [npc.race]."
 							+ " Leaning down, you do the first thing that comes into your mind, and start apologising,"
 							+ " [pc.speech(Sorry... I don't know what I was thinking... Erm... Is there anything I can do to make it up to you?)]"
@@ -477,8 +482,7 @@ public class AlleywayProstituteDialogue {
 			if (index == 1) {
 				return new ResponseSex("Sex",
 						"[npc.Name] forces [npc.herself] on you...",
-						false,
-						false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT,
+						false, false, Main.game.getActiveNPC(), Main.game.getPlayer(), new SMSubStanding(), AFTER_SEX_DEFEAT,
 						"<p>"
 							+ "[npc.Name]'s [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally pulling away."
 							+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
@@ -487,31 +491,34 @@ public class AlleywayProstituteDialogue {
 			} else if (index == 2) {
 				return new ResponseSex("Eager Sex",
 						"[npc.Name] forces [npc.herself] on you...",
-						false,
-						false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT,
+						false, false, Main.game.getActiveNPC(), Main.game.getPlayer(), new SMSubStanding(), AFTER_SEX_DEFEAT,
 						"<p>"
 							+ "[npc.Name]'s [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 							+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.she]'s going to want more than just a kiss..."
 						+ "</p>") {
-					@Override
-					public void effects() {
-						sexPacePlayer = (SexPace.SUB_EAGER);
+					public SexPace getStartingSexPaceModifier(GameCharacter character) {
+						if(character.isPlayer()) {
+							return SexPace.SUB_EAGER;
+						}
+						return null;
 					}
 				};
 				
 			} else if (index == 3 && Main.game.isNonConEnabled()) {
 				return new ResponseSex("Resist Sex",
 						"[npc.Name] forces [npc.herself] on you...",
-						false,
-						false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT,
+						false, false, Main.game.getActiveNPC(), Main.game.getPlayer(), new SMSubStanding(), AFTER_SEX_DEFEAT,
 						"<p>"
 							+ "[npc.Name]'s [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 							+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
 							+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.she]'s not going to let you go..."
 						+ "</p>") {
 					@Override
-					public void effects() {
-						sexPacePlayer = (SexPace.SUB_RESISTING);
+					public SexPace getStartingSexPaceModifier(GameCharacter character) {
+						if(character.isPlayer()) {
+							return SexPace.SUB_RESISTING;
+						}
+						return null;
 					}
 				};
 				
@@ -536,10 +543,10 @@ public class AlleywayProstituteDialogue {
 
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfPartnerOrgasms() >= 1) {
+			if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
 				return UtilText.parse(Main.game.getActiveNPC(),
 						"<p>"
-							+ "As you step back from [npc.name], [npc.she] sinks back onto [npc.her] bed, totally worn out from [npc.her] orgasm"+(Sex.getNumberOfPartnerOrgasms() > 1?"s":"")+"."
+							+ "As you step back from [npc.name], [npc.she] sinks back onto [npc.her] bed, totally worn out from [npc.her] orgasm"+(Sex.getNumberOfOrgasms(Sex.getActivePartner()) > 1?"s":"")+"."
 							+ " Looking up at you, a satisfied smile settles across [npc.her] face, and [npc.she] sighs,"
 							+ " [npc.speech(Damn, you're good! It looks like I've got a new favourite customer! Please come back again soon!)]"
 						+ "</p>");
@@ -712,10 +719,10 @@ public class AlleywayProstituteDialogue {
 
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfPartnerOrgasms() >= 1) {
+			if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
 				return UtilText.parse(Main.game.getActiveNPC(),
 						"<p>"
-							+ "As you step back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her] orgasm"+(Sex.getNumberOfPartnerOrgasms() > 1?"s":"")+"."
+							+ "As you step back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her] orgasm"+(Sex.getNumberOfOrgasms(Sex.getActivePartner()) > 1?"s":"")+"."
 							+ " Looking up at you, a satisfied smile settles across [npc.her] face, and you realise that you gave [npc.herHim] exactly what [npc.she] wanted."
 						+ "</p>"
 						+ "<p>"

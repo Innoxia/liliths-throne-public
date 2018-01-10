@@ -57,7 +57,7 @@ public class ReindeerOverseerDialogue {
 			} else {
 				return new ResponseSex("Relieve stress",
 					"Ask [npc.name] if [npc.she]'d like to blow off some steam with you.",
-					true, true, reindeer(), new SMDomStanding(), AFTER_SEX,
+					true, true, Main.game.getPlayer(), reindeer(), new SMDomStanding(), AFTER_SEX,
 					"<p>"
 						+ "Putting on your most seductive voice, you step close to [npc.name] and ask,"
 						+ " [pc.speech(You know, if you're feeling stressed from all this work, maybe I could help you to blow off some steam?)]"
@@ -502,7 +502,7 @@ public class ReindeerOverseerDialogue {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			if(Sex.getNumberOfPartnerOrgasms() >= 1) {
+			if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "With a satisfied sigh, [npc.name] begins to get [npc.her] clothing in order,"

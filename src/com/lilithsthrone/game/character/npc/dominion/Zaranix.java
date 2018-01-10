@@ -35,7 +35,7 @@ import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexPosition;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMZaranixCockSucking;
 import com.lilithsthrone.game.sex.managers.universal.SMDomStanding;
@@ -270,7 +270,7 @@ public class Zaranix extends NPC {
 				
 			} else if(index==2) {
 				return new ResponseSex("Use Zaranix", "Have some fun with this incubus.",
-						true, false, Main.game.getZaranix(), new SMDomStanding(), AFTER_SEX_VICTORY,
+						true, false, Main.game.getPlayer(), Main.game.getZaranix(), new SMDomStanding(), AFTER_SEX_VICTORY,
 						"<p>"
 							+ "[pc.speech(You made me go through a lot of trouble to find Arthur,)]"
 							+ " you say, stepping towards the exhausted [zaranix.race],"
@@ -289,7 +289,7 @@ public class Zaranix extends NPC {
 				return new ResponseSex("Submit",
 						"Allow Zaranix to fuck you.",
 						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null, null,
-						true, true, Main.game.getZaranix(), new SMSubStanding(), AFTER_SEX_VICTORY,
+						true, true, Main.game.getZaranix(), Main.game.getPlayer(), new SMSubStanding(), AFTER_SEX_VICTORY,
 						"<p>"
 							+ "You weren't really expecting it to be so easy to convince [zaranix.name] to part with Arthur, and, feeling a little guilty for fighting [zaranix.herHim] in [zaranix.her] own house,"
 								+ " you decide to try and make it up to [zaranix.herHim]."
@@ -326,7 +326,7 @@ public class Zaranix extends NPC {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			if(Sex.getNumberOfPartnerOrgasms() >= 1) {
+			if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "[npc.Name] steps back and sinks down into a nearby chair, a happy smile on [npc.her] face as [npc.she] gazes up at you,"
@@ -442,7 +442,7 @@ public class Zaranix extends NPC {
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new ResponseSex("Used", "Zaranix forces you to orally service him.",
-						false, false, Main.game.getZaranix(), new SMZaranixCockSucking(), AFTER_SEX_DEFEAT,
+						false, false, Main.game.getZaranix(), Main.game.getPlayer(), new SMZaranixCockSucking(), AFTER_SEX_DEFEAT,
 						"<p>"
 							+ "Grabbing you by the [pc.arm], Zaranix roughly drags you across the lab."
 							+ " Collapsing down in a nearby chair, he pulls you forwards on your knees as he spreads his legs, bringing your face right up against his crotch and booming,"
@@ -490,7 +490,7 @@ public class Zaranix extends NPC {
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new ResponseSex("Need... Cock...", "Zaranix's potion has had quite a strong effect... You really need to suck his cock, then maybe you'll be able to think clearly again?",
-						true, false, Main.game.getZaranix(), new SMZaranixCockSucking(), AFTER_SEX_DEFEAT,
+						true, false, Main.game.getZaranix(), Main.game.getPlayer(), new SMZaranixCockSucking(), AFTER_SEX_DEFEAT,
 						"<p>"
 							+ "Zaranix steps back and sits down in one of the lab's many chairs."
 							+ " Spreading his legs, he grins down at you,"
@@ -571,7 +571,7 @@ public class Zaranix extends NPC {
 	// Sex:
 	
 	public SexType getForeplayPreference() {
-		if(Sex.getSexManager().getPosition() == SexPosition.KNEELING_PLAYER_PERFORMING_ORAL && this.hasPenis()) {
+		if(Sex.getSexManager().getPosition() == SexPositionType.KNEELING_PLAYER_PERFORMING_ORAL && this.hasPenis()) {
 			return new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER);
 		}
 		
@@ -579,7 +579,7 @@ public class Zaranix extends NPC {
 	}
 	
 	public SexType getMainSexPreference() {
-		if(Sex.getSexManager().getPosition() == SexPosition.KNEELING_PLAYER_PERFORMING_ORAL && this.hasPenis()) {
+		if(Sex.getSexManager().getPosition() == SexPositionType.KNEELING_PLAYER_PERFORMING_ORAL && this.hasPenis()) {
 			return new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER);
 		}
 

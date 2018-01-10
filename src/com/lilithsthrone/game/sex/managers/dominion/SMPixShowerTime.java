@@ -1,7 +1,7 @@
 package com.lilithsthrone.game.sex.managers.dominion;
 
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPosition;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.sexActions.dominion.pix.PixOrgasms;
 import com.lilithsthrone.game.sex.sexActions.dominion.pix.PixShowerTime;
@@ -18,8 +18,8 @@ public class SMPixShowerTime extends SexManagerDefault {
 	}
 	
 	@Override
-	public SexPosition getPosition() {
-		return SexPosition.PIX_SHOWER_RAPE;
+	public SexPositionType getPosition() {
+		return SexPositionType.PIX_SHOWER_RAPE;
 	}
 
 	@Override

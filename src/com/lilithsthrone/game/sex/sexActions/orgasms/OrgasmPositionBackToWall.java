@@ -6,9 +6,10 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPosition;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.main.Main;
 
 /**
  * Orgasms for the generic position of two characters standing face-to-face.
@@ -26,10 +27,10 @@ public class OrgasmPositionBackToWall {
 		orgasmSB.setLength(0);
 		
 		// Start:
-		if(Sex.getPosition()==SexPosition.BACK_TO_WALL_PARTNER) {
+		if(Sex.getPosition()==SexPositionType.BACK_TO_WALL_PARTNER) {
 			if(partnerOrgasm) {
 				orgasmSB.append("<p>");
-				switch(Sex.getSexPacePartner()) {
+				switch(Sex.getSexPace(Sex.getActivePartner())) {
 					case DOM_GENTLE:
 						orgasmSB.append("[npc.Name] reaches up and slowly wraps [npc.her] [npc.arms] around you, leaning back against the wall as [npc.she] gently pulls you forwards and lets out a soft [npc.moan],"
 								+ " [npc.speech(Yes... I'm going to cum!)]");
@@ -59,7 +60,7 @@ public class OrgasmPositionBackToWall {
 			}
 			if(playerOrgasm) {
 				orgasmSB.append("<p>");
-				switch(Sex.getSexPacePlayer()) {
+				switch(Sex.getSexPace(Main.game.getPlayer())) {
 					case DOM_GENTLE:
 						orgasmSB.append("You step forwards, gently pressing yourself up against [npc.name]'s body as you softly [pc.moanVerb] into [npc.her] [npc.ear],"
 								+ " [pc.speech(I'm cumming!)]");
@@ -91,7 +92,7 @@ public class OrgasmPositionBackToWall {
 		} else {
 			if(partnerOrgasm) {
 				orgasmSB.append("<p>");
-				switch(Sex.getSexPacePlayer()) {
+				switch(Sex.getSexPace(Main.game.getPlayer())) {
 					case DOM_GENTLE:
 						orgasmSB.append("You reach up and slowly wrap your [pc.arms] around [npc.name], leaning back against the wall as you gently pull [npc.herHim] forwards and let out a soft [pc.moan],"
 								+ " [pc.speech(Yes... I'm going to cum!)]");
@@ -121,7 +122,7 @@ public class OrgasmPositionBackToWall {
 			}
 			if(playerOrgasm) {
 				orgasmSB.append("<p>");
-				switch(Sex.getSexPacePartner()) {
+				switch(Sex.getSexPace(Sex.getActivePartner())) {
 					case DOM_GENTLE:
 						orgasmSB.append("[npc.Name] steps forwards, gently pressing [npc.herself] up against your body as [npc.she] softly [npc.moansVerb] into your [pc.ear],"
 								+ " [npc.speech(I'm cumming!)]");
@@ -228,7 +229,7 @@ public class OrgasmPositionBackToWall {
 				takingCock = true;
 			}
 			
-			return !takingCock && Sex.getSexPacePlayer()!=SexPace.SUB_RESISTING;
+			return !takingCock && Sex.getSexPace(Main.game.getPlayer())!=SexPace.SUB_RESISTING;
 		}
 		
 		@Override
@@ -243,7 +244,7 @@ public class OrgasmPositionBackToWall {
 		
 		@Override
 		public String getDescription() {
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_GENTLE:
 					return "Realising that [npc.name] is about to reach [npc.her] orgasm, you gently taking hold of [npc.her] [npc.hips], before pulling [npc.herHim] up against you and softly [pc.moaning], [pc.speech(Go on, cum for me!)]";
 				case DOM_NORMAL:

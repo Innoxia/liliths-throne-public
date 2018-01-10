@@ -9,6 +9,7 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.79
@@ -48,7 +49,7 @@ public class PartnerSelfFingerNipple {
 					
 					"With [npc.a_moan+], [npc.name] reaches up to [npc.her] [npc.nipples+], pinching and flicking them as [npc.she] continues to cry out in delight."));
 			
-			switch (Sex.getPartner().getBreastLactation()) {
+			switch (Sex.getActivePartner().getBreastLactation()) {
 				case ONE_TRICKLE:
 					UtilText.nodeContentSB.append(" A small trickle of [npc.milk] leaks out around [npc.her] fingertips.");
 					break;
@@ -111,7 +112,7 @@ public class PartnerSelfFingerNipple {
 					"With a lewd cry, [npc.name] sinks [npc.her] digits into [npc.her] inviting nipple-cunts, panting heavily as [npc.she] start eagerly fingering [npc.herself]."));
 			
 		
-			switch (Sex.getPartner().getBreastLactation()) {
+			switch (Sex.getActivePartner().getBreastLactation()) {
 				case ONE_TRICKLE:
 					UtilText.nodeContentSB.append(" A small trickle of [npc.milk] leaks out around [npc.her] fingertips.");
 					break;
@@ -154,7 +155,7 @@ public class PartnerSelfFingerNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -193,7 +194,7 @@ public class PartnerSelfFingerNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -232,7 +233,7 @@ public class PartnerSelfFingerNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -271,7 +272,7 @@ public class PartnerSelfFingerNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -310,7 +311,7 @@ public class PartnerSelfFingerNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override

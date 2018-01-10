@@ -38,7 +38,7 @@ public class DomSelfKneeling {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getPartner().hasVagina() && !Sex.getPartner().hasPenis();
+			return !Sex.getActivePartner().hasVagina() && !Sex.getActivePartner().hasPenis();
 		}
 
 		@Override
@@ -75,7 +75,7 @@ public class DomSelfKneeling {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getPartner().hasVagina() && !Sex.getPartner().hasPenis();
+			return !Sex.getActivePartner().hasVagina() && !Sex.getActivePartner().hasPenis();
 		}
 
 		@Override

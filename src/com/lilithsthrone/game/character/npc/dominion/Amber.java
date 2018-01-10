@@ -39,7 +39,7 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPosition;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMAmberDoggyFucked;
 import com.lilithsthrone.game.sex.managers.universal.SMDomStanding;
@@ -258,7 +258,7 @@ public class Amber extends NPC {
 				
 			} if(index==2) {
 				return new ResponseSex("Use Amber", "Have some fun with this fiery maid.",
-						true, false, Main.game.getAmber(), new SMDomStanding(), AFTER_SEX_VICTORY,
+						true, false, Main.game.getPlayer(), Main.game.getAmber(), new SMDomStanding(), AFTER_SEX_VICTORY,
 						"<p>"
 							+ "It doesn't look like any of the other maids of the household are coming to help her, so you decide to take this opportunity to have a little fun with Amber."
 							+ " Stepping over to where she's leaning against the wall, you reach forwards and take hold of her arm, before pulling her hand out from under her dress."
@@ -273,7 +273,7 @@ public class Amber extends NPC {
 				return new ResponseSex("Submit",
 						"Amber's fiery personality is seriously turning you on. You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with her. Perhaps if you submitted, she'd be willing to fuck you?",
 						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null, null,
-						true, true, Main.game.getAmber(), new SMSubStanding(), AFTER_SEX_VICTORY,
+						true, true, Main.game.getAmber(), Main.game.getPlayer(), new SMSubStanding(), AFTER_SEX_VICTORY,
 						"<p>"
 							+ "Despite her currently-defeated state, you find yourself incredibly turned on by Amber's dominant, fiery personality."
 							+ " Not willing to take the dominant role, but with a deep desire to have sex with the now-very-horny succubus, you walk up to where she's leaning against the wall, and sigh,"
@@ -311,7 +311,7 @@ public class Amber extends NPC {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			if(Sex.getNumberOfPartnerOrgasms() >= 1) {
+			if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "Amber lets out a deeply satisfied sigh, before sinking to the floor in total exhaustion."
@@ -378,7 +378,7 @@ public class Amber extends NPC {
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new ResponseSex("Used", "Amber starts fucking you.",
-						false, false, Main.game.getAmber(), new SMAmberDoggyFucked(), AFTER_SEX_DEFEAT,
+						false, false, Main.game.getAmber(), Main.game.getPlayer(), new SMAmberDoggyFucked(), AFTER_SEX_DEFEAT,
 						"<p>"
 							+ "Amber takes a firm grasp of your hips, before roughly lifting your ass a little higher."
 							+ " The sharp slap of her hand across your right cheek causes you to let out a little cry, which is met by the maid's aggressive growl,"
@@ -460,7 +460,7 @@ public class Amber extends NPC {
 	// Sex:
 	
 	public SexType getForeplayPreference() {
-		if(Sex.getSexManager().getPosition() == SexPosition.DOGGY_PLAYER_ON_ALL_FOURS) {
+		if(Sex.getSexManager().getPosition() == SexPositionType.DOGGY_PLAYER_ON_ALL_FOURS) {
 			if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
 				return new SexType(PenetrationType.FINGER_PARTNER, OrificeType.VAGINA_PLAYER);
 			} else {
@@ -472,7 +472,7 @@ public class Amber extends NPC {
 	}
 	
 	public SexType getMainSexPreference() {
-		if(Sex.getSexManager().getPosition() == SexPosition.DOGGY_PLAYER_ON_ALL_FOURS) {
+		if(Sex.getSexManager().getPosition() == SexPositionType.DOGGY_PLAYER_ON_ALL_FOURS) {
 			if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
 				return new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER);
 			} else {

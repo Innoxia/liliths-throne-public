@@ -2,6 +2,7 @@ package com.lilithsthrone.game.sex.sexActions.dominion.brax;
 
 import java.util.List;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -88,13 +89,12 @@ public class SABraxSubStart {
 		}
 		
 		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE));
+		public List<Fetish> getFetishes(GameCharacter character) {
+			if(character.isPlayer()) {
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT));
+			} else {
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE));
+			}
 		}
 	};
 	
@@ -139,16 +139,16 @@ public class SABraxSubStart {
 			
 			switch(Util.random.nextInt(4)){
 				case 0:
-					UtilText.nodeContentSB.append(UtilText.parseSpeech("I-I want to be your little bitch...", Sex.getPartner()));
+					UtilText.nodeContentSB.append(UtilText.parseSpeech("I-I want to be your little bitch...", Sex.getActivePartner()));
 					break;
 				case 1:
-					UtilText.nodeContentSB.append(UtilText.parseSpeech("Come on, do it already...", Sex.getPartner()));
+					UtilText.nodeContentSB.append(UtilText.parseSpeech("Come on, do it already...", Sex.getActivePartner()));
 					break;
 				case 2:
-					UtilText.nodeContentSB.append(UtilText.parseSpeech("I-I want you to get started...", Sex.getPartner()));
+					UtilText.nodeContentSB.append(UtilText.parseSpeech("I-I want you to get started...", Sex.getActivePartner()));
 					break;
 				default:
-					UtilText.nodeContentSB.append(UtilText.parseSpeech("Please... Can you start now?", Sex.getPartner()));
+					UtilText.nodeContentSB.append(UtilText.parseSpeech("Please... Can you start now?", Sex.getActivePartner()));
 					break;
 			}
 			

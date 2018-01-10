@@ -3,7 +3,7 @@ package com.lilithsthrone.game.sex.managers.dominion;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPosition;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.dominion.ralph.SARalphOrgasms;
@@ -23,8 +23,8 @@ public class SexManagerRalphDiscount extends SexManagerDefault {
 	}
 	
 	@Override
-	public SexPosition getPosition() {
-		return SexPosition.RALPH_UNDER_DESK;
+	public SexPositionType getPosition() {
+		return SexPositionType.RALPH_UNDER_DESK;
 	}
 	
 	@Override

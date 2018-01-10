@@ -1,7 +1,7 @@
 package com.lilithsthrone.game.sex.managers.dominion.brax;
 
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPosition;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
@@ -109,8 +109,8 @@ public class SMBraxSubDoggy extends SexManagerDefault {
 	}
 	
 	@Override
-	public SexPosition getPosition() {
-		return SexPosition.DOGGY_PARTNER_ON_ALL_FOURS;
+	public SexPositionType getPosition() {
+		return SexPositionType.DOGGY_PARTNER_ON_ALL_FOURS;
 	}
 	
 	@Override

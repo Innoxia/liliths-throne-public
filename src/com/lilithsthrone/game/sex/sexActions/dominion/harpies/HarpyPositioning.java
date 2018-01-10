@@ -4,12 +4,13 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexFlags;
-import com.lilithsthrone.game.sex.SexPosition;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.managers.universal.SMDomDoggy;
 import com.lilithsthrone.game.sex.managers.universal.SMDomKneeling;
 import com.lilithsthrone.game.sex.managers.universal.SMDomSixtyNine;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.8
@@ -31,8 +32,8 @@ public class HarpyPositioning {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
-					&& Sex.getPosition() != SexPosition.DOGGY_PARTNER_ON_ALL_FOURS
-					&& Sex.isPlayerDom();
+					&& Sex.getPosition() != SexPositionType.DOGGY_PARTNER_ON_ALL_FOURS
+					&& Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -73,8 +74,8 @@ public class HarpyPositioning {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
-					&& Sex.getPosition() != SexPosition.KNEELING_PARTNER_PERFORMING_ORAL
-					&& Sex.isPlayerDom();
+					&& Sex.getPosition() != SexPositionType.KNEELING_PARTNER_PERFORMING_ORAL
+					&& Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -114,8 +115,8 @@ public class HarpyPositioning {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
-					&& Sex.getPosition() != SexPosition.SIXTY_NINE_PLAYER_TOP
-					&& Sex.isPlayerDom();
+					&& Sex.getPosition() != SexPositionType.SIXTY_NINE_PLAYER_TOP
+					&& Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override

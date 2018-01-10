@@ -177,7 +177,7 @@ public class ZaranixHomeFirstFloor {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.zaranixKellySubdued)) {
 				if(index==1) {
 					return new ResponseSex("Use Kelly", "Have some fun with this maid.",
-							true, false, Main.game.getKelly(), new SMDomStanding(), ZaranixMaidKelly.AFTER_SEX_VICTORY,
+							true, false, Main.game.getPlayer(), Main.game.getKelly(), new SMDomStanding(), ZaranixMaidKelly.AFTER_SEX_VICTORY,
 							"<p>"
 								+ "It doesn't look like any of the other maids of the household will interrupt you, so you decide to take this opportunity to have a little fun with Kelly."
 								+ " Stepping over to where she's sunk down against the wall, you reach forwards and take hold of her arm, before pulling her to her feet."
@@ -192,7 +192,7 @@ public class ZaranixHomeFirstFloor {
 					return new ResponseSex("Submit",
 							"You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with Kelly. Perhaps if you submitted, she'd be willing to fuck you?",
 							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null, null,
-							true, true, Main.game.getKelly(), new SMSubStanding(), ZaranixMaidKelly.AFTER_SEX_VICTORY,
+							true, true, Main.game.getKelly(), Main.game.getPlayer(), new SMSubStanding(), ZaranixMaidKelly.AFTER_SEX_VICTORY,
 							"<p>"
 								+ "Not willing to take the dominant role, but with a deep desire to have sex with the now-very-horny succubus, you walk up to where Kelly's collapsed against the wall, and sigh,"
 								+ " [pc.speech(Kelly... Erm... If you're feeling a little horny, perhaps you could use me? I mean, I-)]"
@@ -564,7 +564,7 @@ public class ZaranixHomeFirstFloor {
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new ResponseSex("Suck cock", "Show Zaranix how good you are at sucking cock.",
-						true, true, Main.game.getZaranix(), new SMZaranixCockSucking(), AFTER_SEX_THANKING_ZARANIX,
+						true, true, Main.game.getZaranix(), Main.game.getPlayer(), new SMZaranixCockSucking(), AFTER_SEX_THANKING_ZARANIX,
 						"<p>"
 						+ "</p>");
 			} else {

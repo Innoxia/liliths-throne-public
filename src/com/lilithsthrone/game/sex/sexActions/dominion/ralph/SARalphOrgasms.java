@@ -49,7 +49,7 @@ public class SARalphOrgasms {
 		
 		@Override
 		public String getDescription() {
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_GENTLE:
 					return "You let out a soft [pc.moan] of encouragement as you prepare for [npc.name] to reach [npc.her] orgasm.";
 				case DOM_NORMAL:
@@ -239,7 +239,7 @@ public class SARalphOrgasms {
 						+ ", and you let out a defeated sigh as you realise that you forgot they were there.");
 			}
 			
-			return UtilText.genderParsing(Sex.getPartner(),
+			return UtilText.genderParsing(Sex.getActivePartner(),
 					UtilText.nodeContentSB.toString());
 		}
 
@@ -277,7 +277,7 @@ public class SARalphOrgasms {
 		
 		@Override
 		public String getDescription() {
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_GENTLE:
 					return "[npc.Name] lets out a soft [npc.moan] of encouragement as [npc.she] prepares for you to reach your orgasm.";
 				case DOM_NORMAL:
@@ -333,7 +333,7 @@ public class SARalphOrgasms {
 						+ "</br>"
 						+ " Grinding the base of his cock against your outer folds, his massive balls tense up as Ralph starts to cum.");
 				
-				if(Sex.getPartner().isWearingCondom()) {
+				if(Sex.getActivePartner().isWearingCondom()) {
 					UtilText.nodeContentSB.append(" With a powerful rocking motion, his gigantic dick spurts out its potent load directly into the condom, and as you feel the hot seed ballooning out the rubber inside of you, you let out a satisfied sigh."
 							+ " His cock continues to pump a few more times, the huge, black equine shaft quickly depositing its seed harmlessly into the protection you've provided."
 							+ "</br></br>"
@@ -365,7 +365,7 @@ public class SARalphOrgasms {
 						+ "</br>"
 						+ " Grinding the base of his cock against your asshole, his massive balls tense up as Ralph starts to cum.");
 				 
-				if(Sex.getPartner().isWearingCondom()) {
+				if(Sex.getActivePartner().isWearingCondom()) {
 					UtilText.nodeContentSB.append(" With a powerful rocking motion, his gigantic dick spurts out its potent load directly into the condom, and as you feel the hot seed ballooning out the rubber inside of you, you let out a satisfied sigh."
 							+ " His cock continues to pump a few more times, the huge, black equine shaft quickly depositing its seed harmlessly into the protection you've provided."
 							+ "</br></br>"
@@ -407,7 +407,7 @@ public class SARalphOrgasms {
 						+ "</br></br>"
 						+ "Grinding the base of his cock against your lips, his massive balls tense up as Ralph starts to cum.");
 				
-				if(Sex.getPartner().isWearingCondom()) {
+				if(Sex.getActivePartner().isWearingCondom()) {
 					UtilText.nodeContentSB.append(" With a powerful rocking motion, his gigantic dick spurts out its potent load directly into the condom, and as you feel the hot seed ballooning out the tip of the protection you've provided,"
 								+ " you let out a very muffled moan."
 							+ " The huge, black equine shaft continues to pump and twitch a few more times as it deposits its seed harmlessly into the protection you've provided."

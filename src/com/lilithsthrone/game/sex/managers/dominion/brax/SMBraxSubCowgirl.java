@@ -1,7 +1,7 @@
 package com.lilithsthrone.game.sex.managers.dominion.brax;
 
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPosition;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
@@ -120,8 +120,8 @@ public class SMBraxSubCowgirl extends SexManagerDefault {
 	}
 	
 	@Override
-	public SexPosition getPosition() {
-		return SexPosition.COWGIRL_PLAYER_TOP;
+	public SexPositionType getPosition() {
+		return SexPositionType.COWGIRL_PLAYER_TOP;
 	}
 
 	@Override

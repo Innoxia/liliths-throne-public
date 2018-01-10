@@ -1,7 +1,7 @@
 package com.lilithsthrone.game.sex.managers.dominion;
 
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPosition;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericOrgasms;
 import com.lilithsthrone.game.sex.sexActions.dominion.SARoseHands;
@@ -18,8 +18,8 @@ public class SMRoseHands extends SexManagerDefault {
 	}
 	
 	@Override
-	public SexPosition getPosition() {
-		return SexPosition.ROSE_STANDING;
+	public SexPositionType getPosition() {
+		return SexPositionType.ROSE_STANDING;
 	}
 
 	@Override

@@ -336,17 +336,17 @@ public class Ralph extends NPC {
 			if(penetrationType == PenetrationType.PENIS_PARTNER && orifice == OrificeType.VAGINA_PLAYER) {
 				return UtilText.returnStringAtRandom(
 						"Ralph carries on driving you into the counter-top as he fucks your "+Main.game.getPlayer().getVaginaName(true)+".",
-						"You feel Ralph's strong grip on your hips as his "+Sex.getPartner().getPenisName(true)+" pounds away at your "+Main.game.getPlayer().getVaginaName(true)+".",
-						"Ralph's "+Sex.getPartner().getPenisName(true)+" carries on slamming in and out of your greedy "+Main.game.getPlayer().getVaginaName(false)+".",
-						"Your pussy lips spread around Ralph's "+Sex.getPartner().getPenisName(true)+" as he fucks you on the counter-top.");
+						"You feel Ralph's strong grip on your hips as his "+Sex.getActivePartner().getPenisName(true)+" pounds away at your "+Main.game.getPlayer().getVaginaName(true)+".",
+						"Ralph's "+Sex.getActivePartner().getPenisName(true)+" carries on slamming in and out of your greedy "+Main.game.getPlayer().getVaginaName(false)+".",
+						"Your pussy lips spread around Ralph's "+Sex.getActivePartner().getPenisName(true)+" as he fucks you on the counter-top.");
 			}
 			
 			if(penetrationType == PenetrationType.PENIS_PARTNER && orifice == OrificeType.MOUTH_PLAYER) {
 				return UtilText.returnStringAtRandom(
-						"Slimy saliva drools down your chin as you carry on sucking Ralph's "+Sex.getPartner().getPenisName(true)+".",
-						"You look down at the "+Sex.getPartner().getPenisName(true)+" sliding in and out of your mouth.",
-						"Ralph's "+Sex.getPartner().getPenisName(true)+" pushes its way past your lips as you kneel beneath him.",
-						"You bob your head back and forth as you carry on servicing Ralph's "+Sex.getPartner().getPenisName(true)+".");
+						"Slimy saliva drools down your chin as you carry on sucking Ralph's "+Sex.getActivePartner().getPenisName(true)+".",
+						"You look down at the "+Sex.getActivePartner().getPenisName(true)+" sliding in and out of your mouth.",
+						"Ralph's "+Sex.getActivePartner().getPenisName(true)+" pushes its way past your lips as you kneel beneath him.",
+						"You bob your head back and forth as you carry on servicing Ralph's "+Sex.getActivePartner().getPenisName(true)+".");
 			}
 		}
 
@@ -361,10 +361,10 @@ public class Ralph extends NPC {
 			return super.getPlayerVaginaStretchingDescription(penetrationType);
 		} else {
 			return formatStretching(UtilText.returnStringAtRandom(
-					"You squirm about uncomfortably on the counter-top as Ralph's " +Sex.getPartner().getPenisName(true)+" struggles to fit in your "+Main.game.getPlayer().getVaginaCapacity().getDescriptor()+" "+Main.game.getPlayer().getVaginaName(false)+".",
-					"Ralph's " +Sex.getPartner().getPenisName(true)+" painfully stretches you out as it rams its way in and out of your "+Main.game.getPlayer().getVaginaCapacity().getDescriptor()+" "+Main.game.getPlayer().getVaginaName(false)+".",
-					"Ralph's "+Sex.getPartner().getPenisName(true)+" is too large for your "+Main.game.getPlayer().getVaginaCapacity().getDescriptor()+" "+Main.game.getPlayer().getVaginaName(false)+", and you let out an uncomfortable whine as it stretches you out.",
-					"Your "+Main.game.getPlayer().getVaginaCapacity().getDescriptor()+" little "+Main.game.getPlayer().getVaginaName(false)+" struggles to accommodate the sheer size of Ralph's "+Sex.getPartner().getPenisName(true)+"."));
+					"You squirm about uncomfortably on the counter-top as Ralph's " +Sex.getActivePartner().getPenisName(true)+" struggles to fit in your "+Main.game.getPlayer().getVaginaCapacity().getDescriptor()+" "+Main.game.getPlayer().getVaginaName(false)+".",
+					"Ralph's " +Sex.getActivePartner().getPenisName(true)+" painfully stretches you out as it rams its way in and out of your "+Main.game.getPlayer().getVaginaCapacity().getDescriptor()+" "+Main.game.getPlayer().getVaginaName(false)+".",
+					"Ralph's "+Sex.getActivePartner().getPenisName(true)+" is too large for your "+Main.game.getPlayer().getVaginaCapacity().getDescriptor()+" "+Main.game.getPlayer().getVaginaName(false)+", and you let out an uncomfortable whine as it stretches you out.",
+					"Your "+Main.game.getPlayer().getVaginaCapacity().getDescriptor()+" little "+Main.game.getPlayer().getVaginaName(false)+" struggles to accommodate the sheer size of Ralph's "+Sex.getActivePartner().getPenisName(true)+"."));
 		}
 	}
 	
@@ -382,10 +382,10 @@ public class Ralph extends NPC {
 			return super.getPlayerMouthStretchingDescription(penetrationType);
 		} else {
 			return formatStretching(UtilText.returnStringAtRandom(
-					"You feel tears streaming down your face as you force the "+Sex.getPartner().getPenisName(true)+" down your throat.",
-					"You aren't skilled enough at giving head to be able to comfortably handle Ralph's "+Sex.getPartner().getPenisName(true)+".",
-					"You squirm and choke as you do your best to fit the "+Sex.getPartner().getPenisName(true)+" down your throat.",
-					"You struggle to fit Ralph's "+Sex.getPartner().getPenisName(true)+" down your throat."));
+					"You feel tears streaming down your face as you force the "+Sex.getActivePartner().getPenisName(true)+" down your throat.",
+					"You aren't skilled enough at giving head to be able to comfortably handle Ralph's "+Sex.getActivePartner().getPenisName(true)+".",
+					"You squirm and choke as you do your best to fit the "+Sex.getActivePartner().getPenisName(true)+" down your throat.",
+					"You struggle to fit Ralph's "+Sex.getActivePartner().getPenisName(true)+" down your throat."));
 		}
 	}
 	
@@ -469,7 +469,7 @@ public class Ralph extends NPC {
 			
 		// NPC is using an item:
 		}else{
-			return Sex.getPartner().useItem(item, target, false);
+			return Sex.getActivePartner().useItem(item, target, false);
 		}
 	}
 	

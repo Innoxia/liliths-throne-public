@@ -242,7 +242,7 @@ public class ZaranixMaidKatherine extends NPC {
 				
 			} if(index==2) {
 				return new ResponseSex("Use Katherine", "Have some fun with the horny maid.",
-						true, false, Main.game.getKatherine(), new SMDomStanding(), AFTER_SEX_VICTORY,
+						true, false, Main.game.getPlayer(), Main.game.getKatherine(), new SMDomStanding(), AFTER_SEX_VICTORY,
 						"<p>"
 							+ "It doesn't look like any of the other maids of the household will interrupt you, so you decide to take this opportunity to have a little fun with Katherine."
 							+ " Stepping over to where she's leaning back against the wall, you reach forwards and take hold of her arm, before pulling her hand away from her groin."
@@ -257,7 +257,7 @@ public class ZaranixMaidKatherine extends NPC {
 				return new ResponseSex("Submit",
 						"You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with Katherine. Perhaps if you submitted, she'd be willing to fuck you?",
 						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null, null,
-						true, true, Main.game.getKatherine(), new SMSubStanding(), ZaranixMaidKatherine.AFTER_SEX_VICTORY,
+						true, true, Main.game.getPlayer(), Main.game.getKatherine(), new SMSubStanding(), ZaranixMaidKatherine.AFTER_SEX_VICTORY,
 						"<p>"
 							+ "Not willing to take the dominant role, but with a deep desire to have sex with the horny succubus, you walk up to where Katherine's collapsed against the wall, and sigh,"
 							+ " [pc.speech(Katherine... Erm... If you're feeling a little horny, perhaps you could use me? I mean, I-)]"
@@ -294,7 +294,7 @@ public class ZaranixMaidKatherine extends NPC {
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			if(Sex.getNumberOfPartnerOrgasms() >= 1) {
+			if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "With a satisfied sigh, Katherine slumps back against the wall,"
@@ -359,7 +359,7 @@ public class ZaranixMaidKatherine extends NPC {
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new ResponseSex("Used", "Katherine uses you.",
-						false, false, Main.game.getKatherine(), new SMSubStanding(), AFTER_SEX_DEFEAT);
+						false, false, Main.game.getKatherine(), Main.game.getPlayer(), new SMSubStanding(), AFTER_SEX_DEFEAT);
 			} else {
 				return null;
 			}

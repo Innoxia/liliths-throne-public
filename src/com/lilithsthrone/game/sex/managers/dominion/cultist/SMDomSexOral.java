@@ -4,7 +4,7 @@ import com.lilithsthrone.game.character.attributes.ArousalLevel;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPosition;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
@@ -100,11 +100,11 @@ public class SMDomSexOral extends SexManagerDefault {
 	@Override
 	public SexActionInterface getPartnerSexAction(SexActionInterface sexActionPlayer) {
 		// If orgasming, use an orgasm action:
-		if (ArousalLevel.getArousalLevelFromValue(Sex.getPartner().getArousal()) == ArousalLevel.FIVE_ORGASM_IMMINENT) {
+		if (ArousalLevel.getArousalLevelFromValue(Sex.getActivePartner().getArousal()) == ArousalLevel.FIVE_ORGASM_IMMINENT) {
 			return super.getPartnerSexAction(sexActionPlayer);
 		}
 		
-		if(((Cultist)Sex.getPartner()).isSealedSex()) {
+		if(((Cultist)Sex.getActivePartner()).isSealedSex()) {
 			return SASpecialCultist.PARTNER_SEALED;
 			
 		} else {
@@ -113,8 +113,8 @@ public class SMDomSexOral extends SexManagerDefault {
 	}
 	
 	@Override
-	public SexPosition getPosition() {
-		return SexPosition.CULTIST_ALTAR_MISSIONARY_ORAL_DOM;
+	public SexPositionType getPosition() {
+		return SexPositionType.CULTIST_ALTAR_MISSIONARY_ORAL_DOM;
 	}
 
 	@Override
@@ -154,6 +154,6 @@ public class SMDomSexOral extends SexManagerDefault {
 
 	@Override
 	public SexPace getStartingSexPacePartner() {
-		return Sex.getPartner().getSexPaceSubPreference(Main.game.getPlayer());
+		return Sex.getActivePartner().getSexPaceSubPreference(Main.game.getPlayer());
 	}
 }
