@@ -8,8 +8,8 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.npc.NPCOffspring;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
+import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -20,12 +20,13 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.managers.universal.SMDomStanding;
-import com.lilithsthrone.game.sex.managers.universal.SMSubStanding;
+import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
@@ -2055,7 +2056,11 @@ public class DominionOffspringDialogue {
 				if (index == 1) {
 					return new ResponseSex("Incestuous sex",
 							"It's time to show your [npc.daughter] what [npc.her] [pc.mother] can do!",
-							true, false, Main.game.getPlayer(), offspring(), new SMDomStanding(), AFTER_SEX_CONSENSUAL);
+							true, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(offspring(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX_CONSENSUAL);
 					
 				} else {
 					return null;
@@ -2066,7 +2071,11 @@ public class DominionOffspringDialogue {
 					if(Main.game.getPlayer().getMoney()>=100) {
 						return new ResponseSex("Pay "+UtilText.formatAsMoney(100, "span"),
 								"Pay your [npc.daughter] 100 flames to get what you want!",
-								true, false, Main.game.getPlayer(), offspring(), new SMDomStanding(), AFTER_SEX_CONSENSUAL);
+								true, false,
+								new SMStanding(
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(offspring(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								AFTER_SEX_CONSENSUAL);
 					} else {
 						return new Response("Pay "+UtilText.formatAsMoneyUncoloured(100, "span"), "You don't have enough money...", null);
 					}
@@ -2217,7 +2226,11 @@ public class DominionOffspringDialogue {
 					return new ResponseSex("Sex",
 							"Well, [npc.she] <i>is</i> asking for it!",
 							null, null, null, null, null, null,
-							true, false, Main.game.getPlayer(), offspring(), new SMDomStanding(), AFTER_SEX_VICTORY,
+							true, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(offspring(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX_VICTORY,
 							"<p>"
 								+ "Reaching down to take hold of one of [npc.name]'s [npc.arms], you pull [npc.herHim] to [npc.her] [npc.feet], before wrapping your [pc.arms] around [npc.her] back and stepping forwards."
 								+ " Tilting your head to one side, you press your [pc.lips+] against [npc.hers] and start passionately thrusting your [pc.tongue+] into [npc.her] mouth."
@@ -2231,7 +2244,11 @@ public class DominionOffspringDialogue {
 					return new ResponseSex(
 							"Rape [npc.herHim]", "[npc.She] needs to be punished for attacking you like that...", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)),
 							null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
-							false, false, Main.game.getPlayer(), offspring(), new SMDomStanding(), AFTER_SEX_VICTORY,
+							false, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(offspring(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX_VICTORY,
 							"<p>"
 								+ "Reaching down, you grab [npc.name]'s [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start grinding yourself up against [npc.herHim]."
 								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you hold [npc.herHim] firmly in your embrace."
@@ -2251,7 +2268,11 @@ public class DominionOffspringDialogue {
 					return new ResponseSex("Gentle sex",
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
 							null, null, null, null, null, null,
-							true, false, Main.game.getPlayer(), offspring(), new SMDomStanding(), AFTER_SEX_VICTORY, "<p>"
+							true, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(offspring(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX_VICTORY, "<p>"
 								+ "Reaching down to take hold of one of [npc.name]'s [npc.arms], you gently lift [npc.herHim] to [npc.her] [npc.feet], before wrapping your [pc.arms] around [npc.her] back and stepping forwards."
 								+ " Tilting your head to one side, you softly press your [pc.lips+] against [npc.hers] and start slowly thrusting your [pc.tongue+] into [npc.her] mouth."
 							+ "</p>"
@@ -2272,7 +2293,11 @@ public class DominionOffspringDialogue {
 					return new ResponseSex("Rape [npc.herHim] (gentle)",
 							"[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'gentle' pace.)", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)),
 							null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
-							false, false, Main.game.getPlayer(), offspring(), new SMDomStanding(), AFTER_SEX_VICTORY,
+							false, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(offspring(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX_VICTORY,
 							"<p>"
 								+ "Reaching down, you take hold of [npc.name]'s [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start pressing yourself up against [npc.herHim]."
 								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you hold [npc.herHim] in your embrace."
@@ -2299,7 +2324,11 @@ public class DominionOffspringDialogue {
 					return new ResponseSex("Rough sex",
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'rough' pace.)",
 							null, null, null, null, null, null,
-							true, false, Main.game.getPlayer(), offspring(), new SMDomStanding(), AFTER_SEX_VICTORY,
+							true, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(offspring(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX_VICTORY,
 							"<p>"
 								+ "Reaching down to take hold of one of [npc.name]'s [npc.arms], you roughly yank [npc.herHim] to [npc.her] [npc.feet], before wrapping your [pc.arms] around [npc.her] back and stepping forwards."
 								+ " Tilting your head to one side, you greedily press your [pc.lips+] against [npc.hers] and start dominantly thrusting your [pc.tongue+] into [npc.her] mouth."
@@ -2321,7 +2350,11 @@ public class DominionOffspringDialogue {
 					return new ResponseSex("Rape [npc.herHim] (rough)",
 							"[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'rough' pace.)", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)),
 							null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
-							false, false, Main.game.getPlayer(), offspring(), new SMDomStanding(), AFTER_SEX_VICTORY,
+							false, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(offspring(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX_VICTORY,
 							"<p>"
 								+ "Reaching down, you grab [npc.name]'s [npc.arm], and, roughly yanking [npc.herHim] to [npc.her] feet, you start forcefully grinding yourself up against [npc.herHim]."
 								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you firmly hold [npc.herHim] in your embrace."
@@ -2349,7 +2382,11 @@ public class DominionOffspringDialogue {
 							"You're not really sure what to do now...</br>"
 								+ "Perhaps it would be best to let [npc.name] choose what to do next?",
 							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null, null,
-							true, true, offspring(), Main.game.getPlayer(), new SMSubStanding(), AFTER_SEX_DEFEAT,
+							true, true,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(offspring(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX_DEFEAT,
 							"<p>"
 								+ "Looking down at your [npc.daughter] as [npc.she] shuffles about on the floor, you're suddenly overcome with regret, and, kneeling down next to [npc.herHim], you pull [npc.herHim] into a loving hug."
 								+ " Leaning in over [npc.her] shoulder as you press yourself to [npc.herHim], you apologise for what you've done,"
@@ -2528,7 +2565,11 @@ public class DominionOffspringDialogue {
 				if (index == 1) {
 					return new ResponseSex("Sex",
 							"[npc.Name] forces [npc.herself] on you...",
-							false, false, offspring(), Main.game.getPlayer(), new SMSubStanding(), AFTER_SEX_DEFEAT,
+							false, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(offspring(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX_DEFEAT,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally breaking away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
@@ -2545,7 +2586,11 @@ public class DominionOffspringDialogue {
 				} else if (index == 2) {
 					return new ResponseSex("Eager Sex",
 							"[npc.Name] forces [npc.herself] on you...",
-							false, false, offspring(), Main.game.getPlayer(), new SMSubStanding(), AFTER_SEX_DEFEAT,
+							false, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(offspring(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX_DEFEAT,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.she]'s going to want more than just a kiss..."
@@ -2569,7 +2614,11 @@ public class DominionOffspringDialogue {
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
 					return new ResponseSex("Resist Sex",
 							"[npc.Name] forces [npc.herself] on you...",
-							false, false, offspring(), Main.game.getPlayer(), new SMSubStanding(), AFTER_SEX_DEFEAT,
+							false, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(offspring(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX_DEFEAT,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 								+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."

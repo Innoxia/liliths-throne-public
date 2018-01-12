@@ -8,7 +8,8 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPositionType;
+import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
@@ -46,7 +47,7 @@ public class PlayerTongueVagina {
 		@Override
 		public String getDescription() {
 			
-			if(Sex.getPosition()==SexPositionType.SIXTY_NINE_PARTNER_TOP) {
+			if(Sex.getPosition()==SexPositionNew.SIXTY_NINE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.SIXTY_NINE_BOTTOM) {
 				
 				switch(Sex.getSexPace(Main.game.getPlayer())) {
 					case SUB_RESISTING:
@@ -339,7 +340,7 @@ public class PlayerTongueVagina {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPositionType.SIXTY_NINE_PLAYER_TOP) {
+			if(Sex.getPosition()==SexPositionNew.SIXTY_NINE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.SIXTY_NINE_TOP) {
 				
 				switch(Sex.getSexPace(Main.game.getPlayer())) {
 					case DOM_GENTLE:
@@ -771,7 +772,7 @@ public class PlayerTongueVagina {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPositionType.KNEELING_PLAYER_PERFORMING_ORAL) {
+			if(Sex.getPosition()==SexPositionNew.KNEELING_ORAL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.KNEELING_PERFORMING_ORAL) {
 				
 				return UtilText.returnStringAtRandom(
 						"Lifting your [pc.hands] up, you reach around and take hold of [npc.name]'s [npc.ass], and before [npc.she] can react, you pull [npc.herHim] forwards and bury your [pc.tongue+] deep in [npc.her] [npc.pussy+].",
@@ -905,7 +906,7 @@ public class PlayerTongueVagina {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPositionType.KNEELING_PLAYER_PERFORMING_ORAL) {
+			if(Sex.getPosition()==SexPositionNew.KNEELING_ORAL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.KNEELING_PERFORMING_ORAL) {
 				
 				switch(Sex.getSexPace(Sex.getActivePartner())) {
 					case DOM_GENTLE:
@@ -933,7 +934,7 @@ public class PlayerTongueVagina {
 						break;
 				}
 				
-			} else if(Sex.getPosition()==SexPositionType.SIXTY_NINE_PARTNER_TOP) {
+			} else if(Sex.getPosition()==SexPositionNew.SIXTY_NINE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.SIXTY_NINE_BOTTOM) {
 				
 				switch(Sex.getSexPace(Sex.getActivePartner())) {
 					case DOM_GENTLE:
@@ -1182,7 +1183,7 @@ public class PlayerTongueVagina {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPositionType.KNEELING_PLAYER_PERFORMING_ORAL) {
+			if(Sex.getPosition()==SexPositionNew.KNEELING_ORAL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.KNEELING_PERFORMING_ORAL) {
 				
 				switch(Sex.getSexPace(Sex.getActivePartner())) {
 					case SUB_EAGER:
@@ -1214,7 +1215,7 @@ public class PlayerTongueVagina {
 						break;
 				}
 				
-			} else if(Sex.getPosition()==SexPositionType.SIXTY_NINE_PARTNER_TOP) {
+			} else if(Sex.getPosition()==SexPositionNew.SIXTY_NINE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.SIXTY_NINE_BOTTOM) {
 				
 				switch(Sex.getSexPace(Main.game.getPlayer())) {
 					case SUB_EAGER:
@@ -1482,7 +1483,7 @@ public class PlayerTongueVagina {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPositionType.SIXTY_NINE_PARTNER_TOP) {
+			if(Sex.getPosition()==SexPositionNew.SIXTY_NINE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.SIXTY_NINE_BOTTOM) {
 				UtilText.nodeContentSB.append("Using [npc.her] knees to lift [npc.herself] up, [npc.name] allows your [pc.tongue] to slip out of [npc.her] [npc.pussy+],"
 						+ " and you look up to see a thin strand of saliva linking your lips for a brief moment, before breaking to fall down over your [pc.face].");
 				

@@ -12,11 +12,13 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
+import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.dominion.SexManagerRalphDiscount;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -228,9 +230,46 @@ public class RalphsSnacks {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("Agree", "Agree to do as Ralph says and suck his cock.", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_GIVING)),
-						null, CorruptionLevel.TWO_HORNY, null,
-						null, null, true,
-						true, Main.game.getRalph(), Main.game.getPlayer(), new SexManagerRalphDiscount(), Ralph.AFTER_SEX, ""){
+						null, CorruptionLevel.TWO_HORNY, null, null, null,
+						true, true,
+						new SexManagerRalphDiscount(
+								Util.newHashMapOfValues(new Value<>(Main.game.getRalph(), SexPositionSlot.KNEELING_RECEIVING_ORAL_RALPH)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_PERFORMING_ORAL_RALPH))),
+						Ralph.AFTER_SEX,
+						"<p>"
+							+ UtilText.parsePlayerSpeech("Ok, I'll do it,") + " you say, looking up at Ralph to see his smile grow even wider." + "</p>" + "<p>"
+							+ "He leans in, and you half-expect him to try and kiss you, but instead, he simply grabs your " + Main.game.getPlayer().getArmNameSingular() + " and starts to drag you back to his desk."
+							+ " As he walks, he starts instructing you on what's about to happen."
+						+ "</p>"
+						+ "<p>"
+							+ UtilText.parseSpeech("You're going to kneel under my desk over here, and I don't expect to have to do any of the work, understood?", Main.game.getRalph())
+							+ " he asks, and as you answer in the affirmative, he continues, "
+							+ UtilText.parseSpeech("This is a respectable shop, so if anyone comes in, you're to keep quiet! For each customer that hears you, I'm going to knock five percent off our deal.", Main.game.getRalph())
+						+ "</p>"
+						+ "<p>"
+							+ "By this time, Ralph's led you behind the shop's front desk, and you see that there's a hollow space beneath the counter-top, large enough for you to kneel inside quite comfortably."
+							+ " The desk's solid front conceals you from the rest of the shop, and you realise that if you keep quiet, any customers will be completely oblivious as to what's going on."
+							+ " Ralph places his hands on your shoulders, and, feeling that it's too late to back out now, you allow him to push you to your knees."
+							+ " Shuffling back, you occupy the space under his desk, and Ralph steps forwards, bringing the massive bulge in his trousers right up to your face."
+						+ "</p>"
+						+ "<p>"
+							+ UtilText.parseSpeech("Make sure you give my balls some attention as well,", Main.game.getRalph()) + " you hear him command."
+						+ "</p>"
+						+ "<p>"
+							+ "Just as you're about to answer him, you hear the little bell over the shop's front door ring out, announcing the arrival of a customer."
+							+ " You hear Ralph calling out his friendly greeting, but as he does so, he pushes his hips forwards, making it quite clear that he wants you to get started."
+							+ " There isn't much room for you to move around, and you realise that you're going to be totally restricted to using just your mouth in order to earn your discount."
+						+ "</p>"
+						+ "<p>"
+							+ "As the customer walks off to another part of the shop, Ralph reaches down and unbuttons his trousers."
+							+ " With a quick tug, he pulls them, along with his boxers, down to pool around his ankles."
+							+ " You feel your eyes go wide as you see the gigantic length of Ralph's rapidly-hardening horse-cock rise up to bump against your chin."
+							+ " His huge pair of black-skinned balls droop down loosely at the base of his bestial shaft, and you gulp at the thought of what's about to happen..."
+						+ "</p>" 
+						+ "<p>" 
+							+ "<b>There are</b> <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>no customers</b> <b>near the counter.</b>"
+							+ " <b>You will earn a</b> <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>25%</b> <b>discount.</b>"
+						+ "</p>"){
 					@Override
 					public void effects() {
 						Main.game.getRalph().getPlayerKnowsAreasMap().put(CoverableArea.PENIS, true);

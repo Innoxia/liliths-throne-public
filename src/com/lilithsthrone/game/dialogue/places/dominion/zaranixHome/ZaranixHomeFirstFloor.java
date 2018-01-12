@@ -11,13 +11,14 @@ import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMZaranixCockSucking;
-import com.lilithsthrone.game.sex.managers.universal.SMDomStanding;
-import com.lilithsthrone.game.sex.managers.universal.SMSubStanding;
+import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -177,7 +178,11 @@ public class ZaranixHomeFirstFloor {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.zaranixKellySubdued)) {
 				if(index==1) {
 					return new ResponseSex("Use Kelly", "Have some fun with this maid.",
-							true, false, Main.game.getPlayer(), Main.game.getKelly(), new SMDomStanding(), ZaranixMaidKelly.AFTER_SEX_VICTORY,
+							true, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getKelly(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							ZaranixMaidKelly.AFTER_SEX_VICTORY,
 							"<p>"
 								+ "It doesn't look like any of the other maids of the household will interrupt you, so you decide to take this opportunity to have a little fun with Kelly."
 								+ " Stepping over to where she's sunk down against the wall, you reach forwards and take hold of her arm, before pulling her to her feet."
@@ -192,7 +197,11 @@ public class ZaranixHomeFirstFloor {
 					return new ResponseSex("Submit",
 							"You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with Kelly. Perhaps if you submitted, she'd be willing to fuck you?",
 							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null, null,
-							true, true, Main.game.getKelly(), Main.game.getPlayer(), new SMSubStanding(), ZaranixMaidKelly.AFTER_SEX_VICTORY,
+							true, true,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getKelly(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							ZaranixMaidKelly.AFTER_SEX_VICTORY,
 							"<p>"
 								+ "Not willing to take the dominant role, but with a deep desire to have sex with the now-very-horny succubus, you walk up to where Kelly's collapsed against the wall, and sigh,"
 								+ " [pc.speech(Kelly... Erm... If you're feeling a little horny, perhaps you could use me? I mean, I-)]"
@@ -564,7 +573,11 @@ public class ZaranixHomeFirstFloor {
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new ResponseSex("Suck cock", "Show Zaranix how good you are at sucking cock.",
-						true, true, Main.game.getZaranix(), Main.game.getPlayer(), new SMZaranixCockSucking(), AFTER_SEX_THANKING_ZARANIX,
+						true, true,
+						new SMZaranixCockSucking(
+								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.KNEELING_RECEIVING_ORAL_ZARANIX)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_PERFORMING_ORAL_ZARANIX))),
+						AFTER_SEX_THANKING_ZARANIX,
 						"<p>"
 						+ "</p>");
 			} else {

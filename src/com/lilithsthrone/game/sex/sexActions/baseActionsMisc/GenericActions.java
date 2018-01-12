@@ -17,7 +17,8 @@ import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPositionType;
+import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
@@ -115,31 +116,31 @@ public class GenericActions {
 		@Override
 		public String getDescription() {
 			
-			if(Sex.getPosition()==SexPositionType.BACK_TO_WALL_PLAYER) {
+			if(Sex.getPosition()==SexPositionNew.BACK_TO_WALL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.BACK_TO_WALL_AGAINST_WALL) {
 				return UtilText.returnStringAtRandom(
 						"You slap, hit, and kick [npc.name] as you desperately try to struggle out of [npc.her] grip, but your efforts prove to be in vain as [npc.she] easily keeps you pinned back against the wall.",
 						"Struggling against [npc.name], you let out [pc.a_sob+] as you weakly try to wriggle out of [npc.her] grasp, but [npc.her] grip is too strong for you, and [npc.she] easily keeps you pushed you back against the wall.",
 						"Begging for [npc.herHim] to leave you alone, you desperately struggle against [npc.name], [pc.sobbing] in distress as [npc.she] pushes you back against the wall.");
 				
-			} else if(Sex.getPosition()==SexPositionType.DOGGY_PLAYER_ON_ALL_FOURS) {
+			} else if(Sex.getPosition()==SexPositionNew.DOGGY_STYLE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.DOGGY_ON_ALL_FOURS) {
 				return UtilText.returnStringAtRandom(
 						"You let out [pc.a_sob+] as you try to crawl away from [npc.name], but your efforts prove to be in vain as [npc.she] grabs your [pc.hips] and pulls your [pc.ass] back into [npc.her] groin.",
 						"Trying to crawl away from [npc.name] on all fours, you let out [pc.a_sob+] as you feel [npc.herHim] grasp your [pc.hips], before pulling you back into position.",
 						"Begging for [npc.herHim] to leave you alone, you desperately try to crawl away from [npc.name], [pc.sobbing] in distress as [npc.she] takes hold of your [pc.hips] and pulls you back into [npc.herHim].");
 				
-			} else if(Sex.getPosition()==SexPositionType.FACING_WALL_PLAYER) {
+			} else if(Sex.getPosition()==SexPositionNew.FACING_WALL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.FACE_TO_WALL_AGAINST_WALL) {
 				return UtilText.returnStringAtRandom(
 						"You slap, hit, and kick [npc.name] as you desperately try to struggle out of [npc.her] grip, but your efforts prove to be in vain as [npc.she] easily keeps you pinned up against the wall.",
 						"Struggling against [npc.name], you let out [pc.a_sob+] as you weakly try to wriggle out of [npc.her] grasp, but [npc.her] grip is too strong for you, and [npc.she] easily keeps you pushed up against the wall.",
 						"Begging for [npc.herHim] to leave you alone, you desperately struggle against [npc.name], [pc.sobbing] in distress as [npc.she] pushes you up against the wall.");
 				
-			} else if(Sex.getPosition()==SexPositionType.KNEELING_PLAYER_PERFORMING_ORAL) {
+			} else if(Sex.getPosition()==SexPositionNew.KNEELING_ORAL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.KNEELING_PERFORMING_ORAL) {
 				return UtilText.returnStringAtRandom(
 						"You try to push [npc.name]'s groin away from your [pc.face], but your efforts prove to be in vain as [npc.she] grabs hold of your head and pulls you back into [npc.her] crotch.",
 						"Struggling against [npc.name], you let out [pc.a_sob+] as you weakly try to pull your [pc.face] away from [npc.her] groin, but [npc.her] grasp on your head is too strong, and you're quickly forced back into position.",
 						"Begging for [npc.herHim] to leave you alone, you desperately struggle against [npc.name], [pc.sobbing] in distress as [npc.she] pulls your [pc.face] back into [npc.her] groin.");
 				
-			} else if(Sex.getPosition()==SexPositionType.SIXTY_NINE_PARTNER_TOP) {
+			} else if(Sex.getPosition()==SexPositionNew.SIXTY_NINE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.SIXTY_NINE_BOTTOM) {
 				return UtilText.returnStringAtRandom(
 						"You try to push [npc.name] off of you as you desperately try to wriggle out from under [npc.herHim], but your efforts prove to be in vain as [npc.she] easily pins you to the floor.",
 						"Struggling against [npc.name], you let out [pc.a_sob+] as you weakly try to wriggle out from under [npc.herHim], but [npc.she] presses [npc.her] body down onto yours, preventing you from getting away.",
@@ -661,32 +662,32 @@ public class GenericActions {
 		@Override
 		public String getDescription() {
 			
-			if(Sex.getPosition()==SexPositionType.BACK_TO_WALL_PARTNER) {
+			if(Sex.getPosition()==SexPositionNew.BACK_TO_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.BACK_TO_WALL_AGAINST_WALL) {
 				return UtilText.returnStringAtRandom(
 						"[npc.Name] slaps, hits, and kicks you as [npc.she] desperately tries to struggle out of your grip, but [npc.her] efforts prove to be in vain as you easily keep [npc.herHim] pinned back against the wall.",
 						"Struggling against you, [npc.name] lets out [npc.a_sob+] as [npc.she] weakly tries to wriggle out of your grasp, but your grip is too strong for [npc.herHim], and you easily keep [npc.herHim] pushed back against the wall.",
 						"Begging for you to leave [npc.herHim] alone, [npc.name] desperately struggles against you, [npc.sobbing] in distress as you push [npc.herHim] back against the wall.");
 				
-			} else if(Sex.getPosition()==SexPositionType.DOGGY_PARTNER_ON_ALL_FOURS) {
+			} else if(Sex.getPosition()==SexPositionNew.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_ON_ALL_FOURS) {
 				return UtilText.returnStringAtRandom(
 						"[npc.Name] lets out [npc.a_sob+] as [npc.she] tries to crawl away from you, but [npc.her] efforts prove to be in vain as you grab [npc.her] [npc.hips] and pull [npc.her] [npc.ass] back into your groin.",
 						"Trying to crawl away from you on all fours, [npc.name] lets out [npc.a_sob+] as you grasp [npc.her] [npc.hips], before pulling [npc.herHim] back into position.",
 						"Begging for you to leave [npc.herHim] alone, [npc.name] desperately tries to crawl away from you, [npc.sobbing] in distress as you take hold of [npc.her] [npc.hips] and pull [npc.herHim] back into you.");
 				
-			} else if(Sex.getPosition()==SexPositionType.FACING_WALL_PARTNER) {
+			} else if(Sex.getPosition()==SexPositionNew.FACING_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_TO_WALL_AGAINST_WALL) {
 				return UtilText.returnStringAtRandom(
 						"[npc.Name] slaps, hits, and kicks you as [npc.she] desperately tries to struggle out of your grip, but [npc.her] efforts prove to be in vain as you easily keep [npc.herHim] pinned up against the wall.",
 						"Struggling against you, [npc.name] lets out [npc.a_sob+] as [npc.she] weakly tries to wriggle out of your grasp, but your grip is too strong for [npc.herHim], and you easily keep [npc.herHim] pushed up against the wall.",
 						"Begging for you to leave [npc.herHim] alone, [npc.name] desperately struggles against you, [npc.sobbing] in distress as you push [npc.herHim] up against the wall.");
 				
-			} else if(Sex.getPosition()==SexPositionType.KNEELING_PARTNER_PERFORMING_ORAL) {
+			} else if(Sex.getPosition()==SexPositionNew.KNEELING_ORAL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_PERFORMING_ORAL) {
 				return UtilText.returnStringAtRandom(
 						"[npc.Name] tries to push your groin away from [npc.her] [npc.face], but [npc.her] efforts prove to be in vain as you grab hold of [npc.her] head and pull [npc.herHim] back into your crotch.",
 						"Struggling against you, [npc.name] lets out [npc.a_sob+] as [npc.she] weakly tries to pull [npc.her] [npc.face] away from your groin,"
 								+ " but your grasp on [npc.her] head is too strong, and you quickly force [npc.herHim] back into position.",
 						"Begging for you to leave [npc.herHim] alone, [npc.name] desperately struggles against you, [npc.sobbing] in distress as you pull [npc.her] [npc.face] back into your groin.");
 				
-			} else if(Sex.getPosition()==SexPositionType.SIXTY_NINE_PLAYER_TOP) {
+			} else if(Sex.getPosition()==SexPositionNew.SIXTY_NINE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.SIXTY_NINE_BOTTOM) {
 				return UtilText.returnStringAtRandom(
 						"[npc.Name] tries to push you off of [npc.herHim] as [npc.she] desperately tries to wriggle out from under you, but [npc.her] efforts prove to be in vain as you easily pin [npc.herHim] to the floor.",
 						"Struggling against you, [npc.name] lets out [npc.a_sob+] as [npc.she] weakly tries to wriggle out from under you, but you press your body down onto [npc.hers], preventing [npc.herHim] from getting away.",

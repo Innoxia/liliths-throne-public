@@ -10,7 +10,8 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPositionType;
+import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
@@ -64,7 +65,7 @@ public class PlayerPenisMouth {
 		@Override
 		public String getDescription() {
 
-			if(Sex.getPosition()==SexPositionType.KNEELING_PARTNER_PERFORMING_ORAL) {
+			if(Sex.getPosition()==SexPositionNew.KNEELING_ORAL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_PERFORMING_ORAL) {
 				
 				return UtilText.returnStringAtRandom(
 						"Pulling your [pc.hips] back, you slide your [pc.cock+] out of [npc.name]'s mouth."
@@ -479,7 +480,7 @@ public class PlayerPenisMouth {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPositionType.KNEELING_PARTNER_PERFORMING_ORAL) {
+			if(Sex.getPosition()==SexPositionNew.KNEELING_ORAL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_PERFORMING_ORAL) {
 				
 				switch(Sex.getSexPace(Main.game.getPlayer())) {
 					case DOM_GENTLE:
@@ -507,7 +508,7 @@ public class PlayerPenisMouth {
 						break;
 				}
 				
-			} else if(Sex.getPosition()==SexPositionType.SIXTY_NINE_PLAYER_TOP) {
+			} else if(Sex.getPosition()==SexPositionNew.SIXTY_NINE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.SIXTY_NINE_TOP) {
 				
 				switch(Sex.getSexPace(Main.game.getPlayer())) {
 					case DOM_GENTLE:
@@ -753,7 +754,7 @@ public class PlayerPenisMouth {
 
 			UtilText.nodeContentSB.setLength(0);
 
-			if(Sex.getPosition()==SexPositionType.KNEELING_PARTNER_PERFORMING_ORAL) {
+			if(Sex.getPosition()==SexPositionNew.KNEELING_ORAL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_PERFORMING_ORAL) {
 				
 				String knottedSpecial = "", barbedSpecial = "", flaredSpecial = "";
 				
@@ -788,7 +789,7 @@ public class PlayerPenisMouth {
 									+ " As a slimy stream of saliva "+(Sex.getWetPenetrationTypes().get(PenetrationType.PENIS_PLAYER).contains(LubricationType.PLAYER_PRECUM)?"and precum ":"")
 									+"drools from the corners of [npc.her] mouth, you buck back, letting [npc.herHim] gasp for air for a brief moment before starting to aggressively fuck [npc.her] [npc.face]."));
 			
-			} else if(Sex.getPosition()==SexPositionType.SIXTY_NINE_PLAYER_TOP) {
+			} else if(Sex.getPosition()==SexPositionNew.SIXTY_NINE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.SIXTY_NINE_TOP) {
 				
 				String knottedSpecial = "", barbedSpecial = "", flaredSpecial = "";
 				
@@ -1075,7 +1076,7 @@ public class PlayerPenisMouth {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPositionType.SIXTY_NINE_PLAYER_TOP) {
+			if(Sex.getPosition()==SexPositionNew.SIXTY_NINE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.SIXTY_NINE_TOP) {
 				UtilText.nodeContentSB.append("Using your knees to lift yourself up, you allow your [pc.cock+] to slide up and out of [npc.name]'s mouth,"
 							+ " and you feel a slimy strand of saliva linking [npc.her] [npc.lips+] to the [pc.cockHead+] of your [pc.cock] for a brief moment, before breaking to fall down over [npc.her] [npc.face].");
 				
@@ -1142,7 +1143,7 @@ public class PlayerPenisMouth {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPositionType.SIXTY_NINE_PARTNER_TOP) {
+			if(Sex.getPosition()==SexPositionNew.SIXTY_NINE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.SIXTY_NINE_BOTTOM) {
 				
 				switch(Sex.getSexPace(Sex.getActivePartner())) {
 					case DOM_GENTLE:

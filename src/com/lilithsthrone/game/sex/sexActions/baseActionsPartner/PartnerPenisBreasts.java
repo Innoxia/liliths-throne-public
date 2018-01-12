@@ -7,7 +7,7 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPositionType;
+import com.lilithsthrone.game.sex.SexPositionNew;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
@@ -38,8 +38,11 @@ public class PartnerPenisBreasts {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexPace(Sex.getActivePartner())!=SexPace.SUB_RESISTING && Sex.getActivePartner().getPenisRawSizeValue()>=6 && Sex.isPlayerFreeMouth() && Main.game.getPlayer().isBreastFuckablePaizuri()
-					&& Sex.getPosition() != SexPositionType.SIXTY_NINE_PARTNER_TOP && Sex.getPosition() != SexPositionType.SIXTY_NINE_PLAYER_TOP;
+			return Sex.getSexPace(Sex.getActivePartner())!=SexPace.SUB_RESISTING
+					&& Sex.getActivePartner().getPenisRawSizeValue()>=6
+					&& Sex.isPlayerFreeMouth()
+					&& Main.game.getPlayer().isBreastFuckablePaizuri()
+					&& Sex.getPosition() != SexPositionNew.SIXTY_NINE;
 		}
 
 		@Override
@@ -143,8 +146,11 @@ public class PartnerPenisBreasts {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexPace(Main.game.getPlayer())!=SexPace.SUB_RESISTING && Sex.getActivePartner().getPenisRawSizeValue()>=6 && Sex.isPlayerFreeMouth() && Main.game.getPlayer().isBreastFuckablePaizuri()
-					&& Sex.getPosition() != SexPositionType.SIXTY_NINE_PARTNER_TOP && Sex.getPosition() != SexPositionType.SIXTY_NINE_PLAYER_TOP;
+			return Sex.getSexPace(Main.game.getPlayer())!=SexPace.SUB_RESISTING
+					&& Sex.getActivePartner().getPenisRawSizeValue()>=6
+					&& Sex.isPlayerFreeMouth()
+					&& Main.game.getPlayer().isBreastFuckablePaizuri()
+					&& Sex.getPosition() != SexPositionNew.SIXTY_NINE;
 		}
 
 		@Override

@@ -23,12 +23,16 @@
 	
 	Bugs:
 		Minor formatting error fixes.
+		The sex action 'Spread ass' is now correctly available for the player.
 	
 	
 	
 	
+	refactor all methods and positions
+	Check Cultist sex scenes
+	Check oral/anal/vaginal allowed for stocks
+	Set up doggy test sex scene
 	
-	Set up test sex scene with proper SM and position (refactor SM methods and positions)
 	
 	Sex action stats (stamina, lust, arousal)
 	

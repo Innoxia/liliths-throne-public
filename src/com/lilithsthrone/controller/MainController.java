@@ -4739,8 +4739,8 @@ public class MainController implements Initializable {
 		
 		List<GameCharacter> charactersBeingRendered = new ArrayList<>();
 		if(Main.game.isInSex()) {
-			charactersBeingRendered.addAll(Sex.getDominantParticipants());
-			charactersBeingRendered.addAll(Sex.getSubmissiveParticipants());
+			charactersBeingRendered.addAll(Sex.getDominantParticipants().keySet());
+			charactersBeingRendered.addAll(Sex.getSubmissiveParticipants().keySet());
 		} else {
 			charactersBeingRendered.add(Main.game.getPlayer());
 		}
@@ -5154,8 +5154,8 @@ public class MainController implements Initializable {
 			
 			List<GameCharacter> charactersBeingRendered = new ArrayList<>();
 			if(Main.game.isInSex()) {
-				charactersBeingRendered.addAll(Sex.getDominantParticipants());
-				charactersBeingRendered.addAll(Sex.getSubmissiveParticipants());
+				charactersBeingRendered.addAll(Sex.getDominantParticipants().keySet());
+				charactersBeingRendered.addAll(Sex.getSubmissiveParticipants().keySet());
 			} else {
 				charactersBeingRendered.add(RenderingEngine.getCharacterToRender());
 			}

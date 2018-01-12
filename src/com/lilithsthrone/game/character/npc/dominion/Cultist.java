@@ -36,7 +36,7 @@ import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexPositionType;
+import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -433,20 +433,22 @@ public class Cultist extends NPC {
 		return true;
 	}
 	
-	public Set<SexPositionType> getSexPositionPreferences() {
+	public Set<SexPositionSlot> getSexPositionPreferences() {
 		sexPositionPreferences.clear();
 		
 		if(Sex.isInForeplay()) {
-			sexPositionPreferences.add(SexPositionType.CULTIST_ALTAR_MISSIONARY_ORAL);
+			sexPositionPreferences.add(SexPositionSlot.MISSIONARY_ALTAR_KNEELING_BETWEEN_LEGS);
+			sexPositionPreferences.add(SexPositionSlot.MISSIONARY_ALTAR_SEALED_KNEELING_BETWEEN_LEGS);
 		} else {
-			sexPositionPreferences.add(SexPositionType.CULTIST_ALTAR_MISSIONARY);
+			sexPositionPreferences.add(SexPositionSlot.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS);
+			sexPositionPreferences.add(SexPositionSlot.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS);
 		}
 		
 		return sexPositionPreferences;
 	}
 	
 	public SexType getForeplayPreference() {
-		if(Sex.getSexManager().getPosition()==SexPositionType.CULTIST_ALTAR_MISSIONARY_ORAL) {
+		if(Sex.getSexPositionSlot(this)==SexPositionSlot.MISSIONARY_ALTAR_KNEELING_BETWEEN_LEGS || Sex.getSexPositionSlot(this)==SexPositionSlot.MISSIONARY_ALTAR_SEALED_KNEELING_BETWEEN_LEGS) {
 			if(requestedAnal) {
 				return new SexType(PenetrationType.TONGUE_PARTNER, OrificeType.ANUS_PLAYER);
 			} else {
@@ -458,7 +460,7 @@ public class Cultist extends NPC {
 	}
 	
 	public SexType getMainSexPreference() {
-		if(Sex.getSexManager().getPosition()==SexPositionType.CULTIST_ALTAR_MISSIONARY) {
+		if(Sex.getSexPositionSlot(this)==SexPositionSlot.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS || Sex.getSexPositionSlot(this)==SexPositionSlot.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS) {
 			if(requestedAnal) {
 				return new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER);
 			} else {

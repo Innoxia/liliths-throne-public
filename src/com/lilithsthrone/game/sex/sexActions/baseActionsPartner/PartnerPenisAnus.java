@@ -13,7 +13,8 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPositionType;
+import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.game.sex.sexActions.universal.dom.DomCowgirl;
@@ -23,7 +24,7 @@ import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.79
- * @version 0.1.84
+ * @version 0.1.97
  * @author Innoxia
  */
 public class PartnerPenisAnus {
@@ -255,7 +256,7 @@ public class PartnerPenisAnus {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPositionType.DOGGY_PLAYER_ON_ALL_FOURS) {// Doggy-style penetration descriptions:
+			if(Sex.getPosition()==SexPositionNew.DOGGY_STYLE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.DOGGY_ON_ALL_FOURS) {// Doggy-style penetration descriptions:
 				
 				switch(Sex.getSexPace(Sex.getActivePartner())) {
 					case DOM_GENTLE:
@@ -535,7 +536,7 @@ public class PartnerPenisAnus {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPositionType.DOGGY_PLAYER_ON_ALL_FOURS) { // Doggy-style descriptions:
+			if(Sex.getPosition()==SexPositionNew.DOGGY_STYLE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.DOGGY_ON_ALL_FOURS) { // Doggy-style descriptions:
 				
 				String tailSpecial="",  hairSpecial="";
 				
@@ -906,7 +907,7 @@ public class PartnerPenisAnus {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPositionType.COWGIRL_PLAYER_TOP) {
+			if(Sex.getPosition()==SexPositionNew.COWGIRL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.COWGIRL_RIDING) {
 				
 				return DomCowgirl.getPlayerStartingAnalPenetrationDescription();
 				
@@ -1017,7 +1018,7 @@ public class PartnerPenisAnus {
 
 		@Override
 		public String getDescription() {
-			if(Sex.getPosition()==SexPositionType.COWGIRL_PLAYER_TOP) {
+			if(Sex.getPosition()==SexPositionNew.COWGIRL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.COWGIRL_RIDING) {
 				
 				return DomCowgirl.getPlayerRidingCockAnallyGentle();
 				
@@ -1058,7 +1059,7 @@ public class PartnerPenisAnus {
 
 		@Override
 		public String getDescription() {
-			if(Sex.getPosition()==SexPositionType.COWGIRL_PLAYER_TOP) {
+			if(Sex.getPosition()==SexPositionNew.COWGIRL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.COWGIRL_RIDING) {
 				
 				return DomCowgirl.getPlayerRidingCockAnallyNormal();
 				
@@ -1100,7 +1101,7 @@ public class PartnerPenisAnus {
 
 		@Override
 		public String getDescription() {
-			if(Sex.getPosition()==SexPositionType.COWGIRL_PLAYER_TOP) {
+			if(Sex.getPosition()==SexPositionNew.COWGIRL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.COWGIRL_RIDING) {
 				
 				return DomCowgirl.getPlayerRidingCockAnallyRough();
 				
@@ -1144,7 +1145,7 @@ public class PartnerPenisAnus {
 			UtilText.nodeContentSB.setLength(0);
 			
 			
-			if(Sex.getPosition()==SexPositionType.DOGGY_PLAYER_ON_ALL_FOURS) {// Doggy-style penetration descriptions:
+			if(Sex.getPosition()==SexPositionNew.DOGGY_STYLE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.DOGGY_ON_ALL_FOURS) {// Doggy-style penetration descriptions:
 				
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"Bracing yourself with both hands flat on the floor, you start to push back against [npc.name] in time with [npc.her] thrusts,"
@@ -1294,7 +1295,7 @@ public class PartnerPenisAnus {
 		@Override
 		public String getDescription() {
 			
-			if(Sex.getPosition()==SexPositionType.COWGIRL_PLAYER_TOP) {
+			if(Sex.getPosition()==SexPositionNew.COWGIRL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.COWGIRL_RIDING) {
 				
 				return DomCowgirl.getPlayerStoppingAnalPenetrationDescription();
 				

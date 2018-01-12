@@ -33,7 +33,7 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexPositionType;
+import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -400,18 +400,18 @@ public class DominionSuccubusAttacker extends NPC {
 		return mainSexPreference;
 	}
 	
-	public Set<SexPositionType> getSexPositionPreferences() {
+	public Set<SexPositionSlot> getSexPositionPreferences() {
 		sexPositionPreferences.clear();
 		
 		if(Sex.isInForeplay()) {
 			if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
-				sexPositionPreferences.add(SexPositionType.BACK_TO_WALL_PLAYER);
-				sexPositionPreferences.add(SexPositionType.DOGGY_PLAYER_ON_ALL_FOURS);
-				sexPositionPreferences.add(SexPositionType.FACING_WALL_PLAYER);
+				sexPositionPreferences.add(SexPositionSlot.BACK_TO_WALL_FACING_TARGET);
+				sexPositionPreferences.add(SexPositionSlot.DOGGY_BEHIND);
+				sexPositionPreferences.add(SexPositionSlot.FACE_TO_WALL_FACING_TARGET);
 				
 			} else if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
-				sexPositionPreferences.add(SexPositionType.DOGGY_PLAYER_ON_ALL_FOURS);
-				sexPositionPreferences.add(SexPositionType.FACING_WALL_PLAYER);
+				sexPositionPreferences.add(SexPositionSlot.DOGGY_BEHIND);
+				sexPositionPreferences.add(SexPositionSlot.FACE_TO_WALL_FACING_TARGET);
 				
 			} else {
 				return super.getSexPositionPreferences();
@@ -419,13 +419,13 @@ public class DominionSuccubusAttacker extends NPC {
 			
 		} else {
 			if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
-				sexPositionPreferences.add(SexPositionType.BACK_TO_WALL_PLAYER);
-				sexPositionPreferences.add(SexPositionType.DOGGY_PLAYER_ON_ALL_FOURS);
-				sexPositionPreferences.add(SexPositionType.FACING_WALL_PLAYER);
+				sexPositionPreferences.add(SexPositionSlot.BACK_TO_WALL_FACING_TARGET);
+				sexPositionPreferences.add(SexPositionSlot.DOGGY_BEHIND);
+				sexPositionPreferences.add(SexPositionSlot.FACE_TO_WALL_FACING_TARGET);
 				
 			} else if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
-				sexPositionPreferences.add(SexPositionType.DOGGY_PLAYER_ON_ALL_FOURS);
-				sexPositionPreferences.add(SexPositionType.FACING_WALL_PLAYER);
+				sexPositionPreferences.add(SexPositionSlot.DOGGY_BEHIND);
+				sexPositionPreferences.add(SexPositionSlot.FACE_TO_WALL_FACING_TARGET);
 				
 			} else {
 				return super.getSexPositionPreferences();

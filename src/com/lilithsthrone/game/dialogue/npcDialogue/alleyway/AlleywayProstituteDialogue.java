@@ -14,11 +14,12 @@ import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.managers.universal.SMDomStanding;
-import com.lilithsthrone.game.sex.managers.universal.SMSubStanding;
+import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.95
@@ -232,7 +233,11 @@ public class AlleywayProstituteDialogue {
 				} else {
 					return new ResponseSex("Dominant Sex ("+UtilText.formatAsMoney(cost, "span")+")",
 							"Pay [npc.name] "+cost+" flames to have a good time with [npc.herHim].",
-							true, false, Main.game.getPlayer(), Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_PAID,
+							true, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX_PAID,
 							"<p>"
 									+ "[pc.speech(Sure, I could do with having a good time,)]"
 									+ " you reply, handing over "+cost+" flames to the [npc.race]."
@@ -267,7 +272,11 @@ public class AlleywayProstituteDialogue {
 				} else {
 					return new ResponseSex("Submissive Sex ("+UtilText.formatAsMoney(cost, "span")+")",
 							"Pay [npc.name] "+cost+" flames to have a good time with [npc.herHim].",
-							true, true, Main.game.getActiveNPC(), Main.game.getPlayer(), new SMSubStanding(), AFTER_SEX_PAID,
+							true, true,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX_PAID,
 							"<p>"
 								+ "[pc.speech(Sure, I could do with having a good time,)]"
 								+ " you reply,"
@@ -382,12 +391,20 @@ public class AlleywayProstituteDialogue {
 			} else if (index == 2) {
 				return new ResponseSex("Have some fun",
 						"It's clear that [npc.she] wants you. Have some fun with [npc.name].",
-						true, false, Main.game.getPlayer(), Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY);
+						true, false,
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						AFTER_SEX_VICTORY);
 				
 			} else if (index == 3) {
 				return new ResponseSex("Gentle fun",
 						"It's clear that [npc.she] wants you. Have some fun with [npc.name]. (Start the sex scene in the 'gentle' pace.)",
-						true, false, Main.game.getPlayer(), Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY) {
+						true, false,
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						AFTER_SEX_VICTORY) {
 					@Override
 					public SexPace getStartingSexPaceModifier(GameCharacter character) {
 						if(character.isPlayer()) {
@@ -400,7 +417,11 @@ public class AlleywayProstituteDialogue {
 			} else if (index == 4) {
 				return new ResponseSex("Rough fun",
 						"It's clear that [npc.she] wants you. Have some fun with [npc.name]. (Start the sex scene in the 'rough' pace.)",
-						true, false, Main.game.getPlayer(), Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY) {
+						true, false,
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						AFTER_SEX_VICTORY) {
 					@Override
 					public SexPace getStartingSexPaceModifier(GameCharacter character) {
 						if(character.isPlayer()) {
@@ -414,9 +435,12 @@ public class AlleywayProstituteDialogue {
 				return new ResponseSex("Submit",
 						"You're not really sure what to do now...</br>"
 							+ "Perhaps it would be best to let [npc.name] choose what to do next?",
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)),
-						null, null, null, null, null, true,
-						true, Main.game.getActiveNPC(), Main.game.getPlayer(), new SMSubStanding(), AFTER_SEX_DEFEAT,
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null, null,
+						true, true,
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						AFTER_SEX_DEFEAT,
 						"<p>"
 							+ "You really aren't sure what to do next, and start to feel pretty uncomfortable with the fact that you just beat up this poor [npc.race]."
 							+ " Leaning down, you do the first thing that comes into your mind, and start apologising,"
@@ -482,7 +506,11 @@ public class AlleywayProstituteDialogue {
 			if (index == 1) {
 				return new ResponseSex("Sex",
 						"[npc.Name] forces [npc.herself] on you...",
-						false, false, Main.game.getActiveNPC(), Main.game.getPlayer(), new SMSubStanding(), AFTER_SEX_DEFEAT,
+						false, false,
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						AFTER_SEX_DEFEAT,
 						"<p>"
 							+ "[npc.Name]'s [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally pulling away."
 							+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
@@ -491,7 +519,11 @@ public class AlleywayProstituteDialogue {
 			} else if (index == 2) {
 				return new ResponseSex("Eager Sex",
 						"[npc.Name] forces [npc.herself] on you...",
-						false, false, Main.game.getActiveNPC(), Main.game.getPlayer(), new SMSubStanding(), AFTER_SEX_DEFEAT,
+						false, false,
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						AFTER_SEX_DEFEAT,
 						"<p>"
 							+ "[npc.Name]'s [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 							+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.she]'s going to want more than just a kiss..."
@@ -507,7 +539,11 @@ public class AlleywayProstituteDialogue {
 			} else if (index == 3 && Main.game.isNonConEnabled()) {
 				return new ResponseSex("Resist Sex",
 						"[npc.Name] forces [npc.herself] on you...",
-						false, false, Main.game.getActiveNPC(), Main.game.getPlayer(), new SMSubStanding(), AFTER_SEX_DEFEAT,
+						false, false,
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						AFTER_SEX_DEFEAT,
 						"<p>"
 							+ "[npc.Name]'s [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 							+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."

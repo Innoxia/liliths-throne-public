@@ -43,7 +43,7 @@ import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexPositionType;
+import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -284,10 +284,10 @@ public class Vicky extends NPC {
 		return false;
 	}
 	
-	public Set<SexPositionType> getSexPositionPreferences() {
+	public Set<SexPositionSlot> getSexPositionPreferences() {
 		sexPositionPreferences.clear();
 		
-		sexPositionPreferences.add(SexPositionType.VICKY_DESK_MISSIONARY);
+		sexPositionPreferences.add(SexPositionSlot.MISSIONARY_DESK_DOM_VICKY);
 		
 		return sexPositionPreferences;
 	}

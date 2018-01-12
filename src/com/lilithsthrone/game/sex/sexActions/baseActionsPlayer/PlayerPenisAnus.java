@@ -13,7 +13,8 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPositionType;
+import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.game.sex.sexActions.universal.sub.SubCowgirl;
@@ -255,7 +256,7 @@ public class PlayerPenisAnus {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPositionType.DOGGY_PARTNER_ON_ALL_FOURS) {// Doggy-style penetration descriptions:
+			if(Sex.getPosition()==SexPositionNew.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_ON_ALL_FOURS) {// Doggy-style penetration descriptions:
 				
 				switch(Sex.getSexPace(Main.game.getPlayer())) {
 					case DOM_GENTLE:
@@ -525,7 +526,7 @@ public class PlayerPenisAnus {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPositionType.DOGGY_PARTNER_ON_ALL_FOURS) { // Doggy-style descriptions:
+			if(Sex.getPosition()==SexPositionNew.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_ON_ALL_FOURS) { // Doggy-style descriptions:
 				
 				String tailSpecial="",  hairSpecial="";
 				
@@ -894,7 +895,7 @@ public class PlayerPenisAnus {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPositionType.COWGIRL_PARTNER_TOP) {
+			if(Sex.getPosition()==SexPositionNew.COWGIRL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.COWGIRL_RIDING) {
 				
 				return SubCowgirl.getPartnerStartingAnalPenetrationDescription();
 				
@@ -1009,7 +1010,7 @@ public class PlayerPenisAnus {
 
 		@Override
 		public String getDescription() {
-			if(Sex.getPosition()==SexPositionType.COWGIRL_PARTNER_TOP) {
+			if(Sex.getPosition()==SexPositionNew.COWGIRL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.COWGIRL_RIDING) {
 				
 				return SubCowgirl.getPartnerRidingCockAnallyGentle();
 				
@@ -1051,7 +1052,7 @@ public class PlayerPenisAnus {
 
 		@Override
 		public String getDescription() {
-			if(Sex.getPosition()==SexPositionType.COWGIRL_PARTNER_TOP) {
+			if(Sex.getPosition()==SexPositionNew.COWGIRL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.COWGIRL_RIDING) {
 				
 				return SubCowgirl.getPartnerRidingCockAnallyNormal();
 				
@@ -1093,7 +1094,7 @@ public class PlayerPenisAnus {
 
 		@Override
 		public String getDescription() {
-			if(Sex.getPosition()==SexPositionType.COWGIRL_PARTNER_TOP) {
+			if(Sex.getPosition()==SexPositionNew.COWGIRL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.COWGIRL_RIDING) {
 				
 				return SubCowgirl.getPartnerRidingCockAnallyRough();
 				
@@ -1137,7 +1138,7 @@ public class PlayerPenisAnus {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 
-			if(Sex.getPosition()==SexPositionType.DOGGY_PARTNER_ON_ALL_FOURS) {// Doggy-style penetration descriptions:
+			if(Sex.getPosition()==SexPositionNew.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_ON_ALL_FOURS) {// Doggy-style penetration descriptions:
 				
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"Bracing [npc.herself] with both hands flat on the floor, [npc.name] starts to push back against you in time with your thrusts,"
@@ -1286,7 +1287,7 @@ public class PlayerPenisAnus {
 		@Override
 		public String getDescription() {
 			
-			if(Sex.getPosition()==SexPositionType.COWGIRL_PARTNER_TOP) {
+			if(Sex.getPosition()==SexPositionNew.COWGIRL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.COWGIRL_RIDING) {
 				
 				return SubCowgirl.getPartnerStoppingAnalPenetrationDescription();
 				

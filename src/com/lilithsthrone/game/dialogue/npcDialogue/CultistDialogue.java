@@ -3,8 +3,8 @@ package com.lilithsthrone.game.dialogue.npcDialogue;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
+import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -18,18 +18,18 @@ import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.managers.dominion.cultist.SMDomSex;
-import com.lilithsthrone.game.sex.managers.dominion.cultist.SMSubOral;
-import com.lilithsthrone.game.sex.managers.dominion.cultist.SMSubSealed;
-import com.lilithsthrone.game.sex.managers.dominion.cultist.SMSubMissionary;
+import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.managers.dominion.cultist.SMAltarMissionary;
+import com.lilithsthrone.game.sex.managers.dominion.cultist.SMAltarMissionarySealed;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.88
- * @version 0.1.88
+ * @version 0.1.97
  * @author Innoxia
  */
 public class CultistDialogue {
@@ -159,7 +159,11 @@ public class CultistDialogue {
 				
 			} else if(index==2) {
 				return new ResponseSex("Accept", "Drop to your knees and prepare to service her orally.",
-						false, false, Main.game.getActiveNPC(), Main.game.getPlayer(), new SMSubOral(), ENCOUNTER_CHAPEL_POST_ORAL_SEX,
+						true, false,
+						new SMAltarMissionary(
+								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.MISSIONARY_ALTAR_LYING_ON_ALTAR)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ALTAR_SEALED_KNEELING_BETWEEN_LEGS))),
+						ENCOUNTER_CHAPEL_POST_ORAL_SEX,
 						"<p>"
 							+ "You do as [npc.name] commands, and obediently drop to your knees in front of her."
 							+ " Looking down at your submissive form, the succubus cultist coos in delight,"
@@ -194,13 +198,13 @@ public class CultistDialogue {
 			} else if(index == 3) {
 				if(Main.game.getPlayer().hasVagina()) {
 					return new ResponseSex("Offer Pussy", "Offer [npc.name] your pussy instead.", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_PREGNANCY), new ListValue<>(Fetish.FETISH_BROODMOTHER)),
-							null,
-							Fetish.FETISH_PREGNANCY.getAssociatedCorruptionLevel(),
-							null,
-							null,
-							null,
-							false,
-							false, Main.game.getActiveNPC(), Main.game.getPlayer(), new SMSubMissionary(), ENCOUNTER_CHAPEL_POST_VAGINAL_SEX, "<p>"
+							null, Fetish.FETISH_PREGNANCY.getAssociatedCorruptionLevel(), null, null, null,
+							true, false,
+							new SMAltarMissionary(
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ALTAR_LYING_ON_ALTAR))),
+							ENCOUNTER_CHAPEL_POST_VAGINAL_SEX,
+							"<p>"
 								+ "You smirk at [npc.name], before batting your eyelids and putting on the most seductive voice you can muster,"
 								+ " [pc.speech(Please [npc.name], could I get your gift elsewhere?)]"
 							+ "</p>"
@@ -239,13 +243,13 @@ public class CultistDialogue {
 				
 			} else if(index==4) {
 				return new ResponseSex("Offer Ass", "Offer [npc.name] your ass instead.", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING)),
-						null,
-						Fetish.FETISH_ANAL_RECEIVING.getAssociatedCorruptionLevel(),
-						null,
-						null,
-						null,
-						false,
-						false, Main.game.getActiveNPC(), Main.game.getPlayer(), new SMSubMissionary(), ENCOUNTER_CHAPEL_POST_ANAL_SEX, "<p>"
+						null, Fetish.FETISH_ANAL_RECEIVING.getAssociatedCorruptionLevel(), null, null, null,
+						true, false,
+						new SMAltarMissionary(
+								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ALTAR_LYING_ON_ALTAR))),
+						ENCOUNTER_CHAPEL_POST_ANAL_SEX,
+						"<p>"
 							+ "You smirk at [npc.name], before stepping forwards and asking,"
 							+ " [pc.speech(Please [npc.name], could I get your gift elsewhere?)]"
 						+ "</p>"
@@ -415,7 +419,11 @@ public class CultistDialogue {
 			
 			} else if(index==2) {
 				return new ResponseSex("Sex", "Sex.",
-						false, false, Main.game.getPlayer(), Main.game.getActiveNPC(), new SMDomSex(), ENCOUNTER_CHAPEL_POST_DOM_SEX,
+						true, false,
+						new SMAltarMissionary(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.MISSIONARY_ALTAR_LYING_ON_ALTAR))),
+						ENCOUNTER_CHAPEL_POST_DOM_SEX,
 						"<p>"
 							+ "You decide against using her broomstick, and step forwards so that you're standing between [npc.name]'s legs."
 							+ " She lets out an excited moan as you run your [pc.hands] up the length of her soft thighs, and props herself up on her elbows as she bites her lip at you,"
@@ -429,7 +437,11 @@ public class CultistDialogue {
 			
 			} else if(index == 3) {
 				return new ResponseSex("Witch's Seal", "Use her broomstick to cast Witch's Seal on her.",
-						false, false, Main.game.getPlayer(), Main.game.getActiveNPC(), new SMDomSex(), ENCOUNTER_CHAPEL_POST_DOM_SEALED_SEX,
+						false, false,
+						new SMAltarMissionarySealed(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.MISSIONARY_ALTAR_LYING_ON_ALTAR))),
+						ENCOUNTER_CHAPEL_POST_DOM_SEALED_SEX,
 						"<p>"
 							+ "As you pick up [npc.name]'s broomstick, you feel a powerful surge of arcane energy flowing into your body."
 							+ " Without even needing to be told, you instantly know exactly how to harness the spells within this powerful weapon."
@@ -505,7 +517,11 @@ public class CultistDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(index == 1) {
 				return new ResponseSex("Witch's Toy", "You're completely immobilised, and can do nothing as the witch prepares to use you as her toy.",
-						false, false, Main.game.getActiveNPC(), Main.game.getPlayer(), new SMSubSealed(), ENCOUNTER_CHAPEL_POST_ORAL_SEX,
+						false, false,
+						new SMAltarMissionarySealed(
+								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ALTAR_LYING_ON_ALTAR))),
+						ENCOUNTER_CHAPEL_POST_ORAL_SEX,
 						(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)
 							?"<p>"
 								+ "You look up to see [npc.name]'s grin turn into a puzzled frown as she realises that she's not able to get access to your groin."

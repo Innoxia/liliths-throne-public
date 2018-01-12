@@ -6,7 +6,8 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPositionType;
+import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
@@ -27,7 +28,7 @@ public class OrgasmPositionBackToWall {
 		orgasmSB.setLength(0);
 		
 		// Start:
-		if(Sex.getPosition()==SexPositionType.BACK_TO_WALL_PARTNER) {
+		if(Sex.getPosition()==SexPositionNew.BACK_TO_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.BACK_TO_WALL_AGAINST_WALL) {
 			if(partnerOrgasm) {
 				orgasmSB.append("<p>");
 				switch(Sex.getSexPace(Sex.getActivePartner())) {

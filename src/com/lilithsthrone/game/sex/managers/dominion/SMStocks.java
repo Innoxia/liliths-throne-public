@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.sex.managers.dominion.zaranix;
+package com.lilithsthrone.game.sex.managers.dominion;
 
 import java.util.Map;
 
@@ -12,10 +12,10 @@ import com.lilithsthrone.game.sex.managers.SexManagerDefault;
  * @version 0.1.97
  * @author Innoxia
  */
-public class SMAmberDoggyFucked extends SexManagerDefault {
+public class SMStocks extends SexManagerDefault {
 
-	public SMAmberDoggyFucked(Map<GameCharacter, SexPositionSlot> dominants, Map<GameCharacter, SexPositionSlot> submissives) {
-		super(SexPositionNew.DOGGY_AMBER,
+	public SMStocks(boolean vaginalAllowed, boolean analAllowed, boolean oralAllowed, Map<GameCharacter, SexPositionSlot> dominants, Map<GameCharacter, SexPositionSlot> submissives) {
+		super(SexPositionNew.STOCKS_SEX,
 				dominants,
 				submissives);
 	}

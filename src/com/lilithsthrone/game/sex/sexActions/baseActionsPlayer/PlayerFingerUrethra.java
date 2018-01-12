@@ -7,7 +7,8 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPositionType;
+import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
@@ -154,7 +155,7 @@ public class PlayerFingerUrethra {
 
 		@Override
 		public String getDescription() {
-			if(Sex.getPosition()==SexPositionType.SIXTY_NINE_PARTNER_TOP) {
+			if(Sex.getPosition()==SexPositionNew.SIXTY_NINE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.SIXTY_NINE_BOTTOM) {
 				return UtilText.returnStringAtRandom(
 						"You prop yourself up on one [pc.arm], before using your free [pc.hand] to stroke and squeeze [npc.name]'s [npc.balls+].",
 						"You let out [pc.a_moan+] as you prop yourself up on one [pc.arm], before reaching down and starting to stroke and play with [npc.name]'s [npc.balls+].",

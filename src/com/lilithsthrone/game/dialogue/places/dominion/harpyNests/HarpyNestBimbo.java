@@ -13,14 +13,16 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemEffectType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.managers.dominion.harpies.SMHarpyStanding;
+import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.8
- * @version 0.1.87
+ * @version 0.1.97
  * @author Innoxia
  */
 public class HarpyNestBimbo {
@@ -231,7 +233,11 @@ public class HarpyNestBimbo {
 			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.bimboPacified)) {
 				if (index == 1) {
 					return new ResponseSex("Sex", "Have dominant sex with [bimboHarpy.name].",
-							true, false, Main.game.getPlayer(), Main.game.getHarpyBimbo(), new SMHarpyStanding(), HARPY_NEST_BIMBO_AFTER_SEX,
+							true, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getHarpyBimbo(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							HARPY_NEST_BIMBO_AFTER_SEX,
 							"<p>"
 								+ "Eager to put [harpyBimbo.name] in her place in front of her inner-circle, you reach down and grab her by her wings."
 								+ " Pulling her to her feet, you step forwards, planting a deep kiss on her [harpyBimbo.lips+] and drawing a series of excited giggles from the surrounding bimbo harpies."
@@ -491,7 +497,11 @@ public class HarpyNestBimbo {
 		public Response getResponse(int responseTab, int index) {
 			 if (index == 1) {
 				return new ResponseSex("Sex", "Have dominant sex with [bimboHarpy.name] in front of her flock.",
-						true, false, Main.game.getPlayer(), Main.game.getHarpyBimbo(), new SMHarpyStanding(), HARPY_NEST_BIMBO_AFTER_SEX,
+						true, false,
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getHarpyBimbo(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						HARPY_NEST_BIMBO_AFTER_SEX,
 						"<p>"
 							+ "Eager to put [harpyBimbo.name] in her place in front of her inner-circle, you reach down and grab her by her wings."
 							+ " Pulling her to her feet, you step forwards, planting a deep kiss on her [harpyBimbo.lips+] and drawing a series of excited giggles from the surrounding bimbo harpies."
@@ -792,7 +802,11 @@ public class HarpyNestBimbo {
 		public Response getResponse(int responseTab, int index) {
 			 if (index == 1) {
 				return new ResponseSex("Sex", "Have dominant sex with [bimboHarpy.name].",
-						true, false, Main.game.getPlayer(),Main.game.getHarpyBimbo(), new SMHarpyStanding(), HARPY_NEST_BIMBO_AFTER_SEX,
+						true, false,
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getHarpyBimbo(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						HARPY_NEST_BIMBO_AFTER_SEX,
 						"<p>"
 							+ "Eager to put [harpyBimbo.name] in her place in front of her inner-circle, you reach down and grab her by her wings."
 							+ " Pulling her to her feet, you step forwards, planting a deep kiss on her [harpyBimbo.lips+] and drawing a series of excited giggles from the surrounding bimbo harpies."

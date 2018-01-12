@@ -2,6 +2,7 @@ package com.lilithsthrone.game.dialogue;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.ArmType;
@@ -35,12 +36,13 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
-import com.lilithsthrone.game.sex.managers.dominion.lilaya.SMChairBottomLilaya;
+import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.0
@@ -289,8 +291,12 @@ public class DebugDialogue {
 						"Let Lilaya and Rose run some \"tests\" on you.",
 						null, null, null, null, null, null,
 						true, true,
-						Util.newArrayListOfValues(new ListValue<>(Main.game.getRose())),
-						Util.newArrayListOfValues(new ListValue<>(Main.game.getLilaya()), new ListValue<>(Main.game.getPlayer())), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX,
+						new SMDoggy(
+								Util.newHashMapOfValues(
+										new Value<>(Main.game.getRose(), SexPositionSlot.DOGGY_INFRONT),
+										new Value<>(Main.game.getLilaya(), SexPositionSlot.DOGGY_BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
+						Lilaya.AUNT_END_SEX,
 						"<p>"
 							+ "With a maniacal laugh, Rose throws you and Lilaya to the floor, ready for her special \"tests\"."
 						+ "</p>");

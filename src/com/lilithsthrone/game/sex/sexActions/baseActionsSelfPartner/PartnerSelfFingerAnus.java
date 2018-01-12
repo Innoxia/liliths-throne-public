@@ -7,7 +7,8 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPositionType;
+import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
@@ -44,10 +45,7 @@ public class PartnerSelfFingerAnus {
 
 		@Override
 		public String getDescription() {
-			if(Sex.getPosition() == SexPositionType.DOGGY_PARTNER_ON_ALL_FOURS
-					|| Sex.getPosition() == SexPositionType.DOGGY_PARTNER_AS_DOM_ON_ALL_FOURS
-					|| Sex.getPosition() == SexPositionType.DOGGY_ORAL_PLAYER_SUB_PARTNER_ON_ALL_FOURS
-					|| Sex.getPosition() == SexPositionType.DOGGY_ORAL_PLAYER_DOM_PARTNER_ON_ALL_FOURS) {
+			if(Sex.getPosition()==SexPositionNew.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_ON_ALL_FOURS) {
 				return (UtilText.returnStringAtRandom(
 						"Reaching back with one [npc.hand], [npc.name] grabs [npc.her] [npc.ass+] and pulls to one side, letting out [npc.a_moan+] as [npc.she] presents [npc.her] [npc.asshole+] to you.",
 						"[npc.Name] reaches back with one [npc.hand], moaning softly as [npc.she] grabs hold of [npc.her] [npc.ass+], before invitingly pulling to one side and presenting [npc.her] [npc.asshole+] to you.",

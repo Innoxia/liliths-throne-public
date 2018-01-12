@@ -26,13 +26,14 @@ import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
-import com.lilithsthrone.game.sex.managers.dominion.lilaya.SMChairBottomLilaya;
-import com.lilithsthrone.game.sex.managers.universal.SMDomStanding;
-import com.lilithsthrone.game.sex.managers.universal.SMSubStanding;
+import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.managers.dominion.lilaya.SMChairLilaya;
+import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.GenericPlace;
 import com.lilithsthrone.world.places.PlaceType;
@@ -289,7 +290,11 @@ public class Lab {
 								return new ResponseSex("\"Tests\"",
 										"Let Lilaya run her \"tests\" on you.",
 										Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
-										true, true, Main.game.getLilaya(), Main.game.getPlayer(), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX,
+										true, true,
+										new SMChairLilaya(
+												Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP_LILAYA)),
+												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM_LILAYA))),
+										Lilaya.AUNT_END_SEX,
 										"<p>"
 											+ "Stepping forwards, you reach up and take Lilaya's head in your hands, eagerly pressing your lips against hers as you give her a clear response to her question."
 											+ " You hear her little bat-like wings fluttering in excitement, and as you carry on kissing the horny half-demon, she starts moaning into your mouth."
@@ -313,7 +318,11 @@ public class Lab {
 										Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)),
 										null,
 										CorruptionLevel.FOUR_LUSTFUL, null, null, null,
-										true, true, Main.game.getLilaya(), Main.game.getPlayer(), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX,
+										true, true,
+										new SMChairLilaya(
+												Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP_LILAYA)),
+												Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM_LILAYA))),
+										Lilaya.AUNT_END_SEX,
 										"<p>"
 											+ "Stepping forwards, you reach up and take Lilaya's head in your hands, eagerly pressing your lips against hers as you give her a clear response to her question."
 											+ " You hear her little bat-like wings fluttering in excitement, and as you carry on kissing the horny half-demon, she starts moaning into your mouth."
@@ -723,15 +732,19 @@ public class Lab {
 			if (index == 1) {
 				return new ResponseSex("Sex", "Start having sex with Lilaya.",
 						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
-						true, true, Main.game.getPlayer(), Main.game.getLilaya(), new SMDomStanding(), Lilaya.AUNT_END_SEX_GEISHA,
-								"<p>"
-									+ "You can't resist an offer like that, and, stepping forwards, you pull your demonic aunt into your embrace,"
-									+ " [pc.speech(~Mmm!~ Yes Lilaya, that sounds good to me!)]"
-								+ "</p>"
-								+ "<p>"
-									+ "As Lilaya locks her [lilaya.eyes+] onto yours, she throws you a seductive smile, before taking your head in both hands and pressing her lips against your mouth."
-									+ " You reach up and pull her close, passionately making out with one another as you both give in to your lust."
-								+ "</p>"){
+						true, true,
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						Lilaya.AUNT_END_SEX_GEISHA,
+						"<p>"
+							+ "You can't resist an offer like that, and, stepping forwards, you pull your demonic aunt into your embrace,"
+							+ " [pc.speech(~Mmm!~ Yes Lilaya, that sounds good to me!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "As Lilaya locks her [lilaya.eyes+] onto yours, she throws you a seductive smile, before taking your head in both hands and pressing her lips against your mouth."
+							+ " You reach up and pull her close, passionately making out with one another as you both give in to your lust."
+						+ "</p>"){
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.hadSexWithLilaya);
@@ -741,7 +754,11 @@ public class Lab {
 			} if (index == 2) {
 				return new ResponseSex("Submissive Sex", "Start having submissive sex with Lilaya.",
 						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
-						true, true, Main.game.getLilaya(), Main.game.getPlayer(), new SMSubStanding(), Lilaya.AUNT_END_SEX_GEISHA,
+						true, true,
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						Lilaya.AUNT_END_SEX_GEISHA,
 								"<p>"
 									+ "You can't resist an offer like that, and, stepping forwards, you allow your demonic aunt to reach up and pull you into her embrace,"
 									+ " [pc.speech(~Mmm!~ Yes Lilaya, that sounds good to me!)]"
@@ -1706,19 +1723,23 @@ public class Lab {
 						"Start having sex with Lilaya.", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)),
 						null,
 						CorruptionLevel.FOUR_LUSTFUL, null, null, null,
-						true, true, Main.game.getLilaya(), Main.game.getPlayer(), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX, "<p>"
-								+ "You briefly wonder if it's your aura that's making Lilaya so horny, but whatever it is, you're feeling the same effects."
-								+ " You've never wanted someone as badly as you want her right now, and you feel your heart pounding as her soft, delicate fingers stroke over your lips."
-								+ " Before you can make a move, Lilaya straightens up behind you and takes the initiative."
-								+ " Stepping around to one side, she quickly throws one leg over you and slides down to sit in your lap, face-to-face."
-								+ "</p>"
-
-								+ "<p>"
-								+ "You look up at her [lilaya.eyes+], and she gives you a seductive smile before taking your head"
-								+ " in both hands and pressing her lips against yours."
-								+ " Her tongue slips out of her mouth, and, parting your lips, you allow it to slide into yours."
-								+ " You reach up and pull her close, passionately making out with one another as you both give in to your lust."
-								+ "</p>"){
+						true, true,
+						new SMChairLilaya(
+								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP_LILAYA)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM_LILAYA))),
+						Lilaya.AUNT_END_SEX,
+						"<p>"
+							+ "You briefly wonder if it's your aura that's making Lilaya so horny, but whatever it is, you're feeling the same effects."
+							+ " You've never wanted someone as badly as you want her right now, and you feel your heart pounding as her soft, delicate fingers stroke over your lips."
+							+ " Before you can make a move, Lilaya straightens up behind you and takes the initiative."
+							+ " Stepping around to one side, she quickly throws one leg over you and slides down to sit in your lap, face-to-face."
+						+ "</p>"
+						+ "<p>"
+							+ "You look up at her [lilaya.eyes+], and she gives you a seductive smile before taking your head"
+							+ " in both hands and pressing her lips against yours."
+							+ " Her tongue slips out of her mouth, and, parting your lips, you allow it to slide into yours."
+							+ " You reach up and pull her close, passionately making out with one another as you both give in to your lust."
+						+ "</p>"){
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.hadSexWithLilaya);
@@ -1946,20 +1967,24 @@ public class Lab {
 			if (index == 1) {
 				return new ResponseSex("Let it happen",
 						"You know that this can only end one way. Although Lilaya reminds you of your aunt Lily, you always did have a crush on her...", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_INCEST)),
-						null, CorruptionLevel.FOUR_LUSTFUL, null, null, null, true,
-						true, Main.game.getLilaya(), Main.game.getPlayer(), new SMChairBottomLilaya(), Lilaya.AUNT_END_SEX, "<p>"
-								+ "You briefly wonder if it's your aura that's making Lilaya so horny, but whatever it is, you're feeling the same effects."
-								+ " You've never wanted someone as badly as you want her right now, and you feel your heart pounding as her soft, delicate fingers stroke over your lips."
-								+ " Before you can make a move, Lilaya straightens up behind you and takes the initiative."
-								+ " Stepping around to one side, she quickly throws one leg over you and slides down to sit in your lap, face-to-face."
-								+ "</p>"
-
-								+ "<p>"
-								+ "You look up at her [lilaya.eyes], and she gives you a seductive smile before taking your head"
-								+ " in both hands and pressing her lips against yours."
-								+ " Her tongue slips out of her mouth, and, parting your lips, you allow it to slide into yours."
-								+ " You reach up and pull her close, passionately making out with one another as you both give in to your lust."
-								+ "</p>"){
+						null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
+						true, true,
+						new SMChairLilaya(
+								Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP_LILAYA)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM_LILAYA))),
+						Lilaya.AUNT_END_SEX,
+						"<p>"
+							+ "You briefly wonder if it's your aura that's making Lilaya so horny, but whatever it is, you're feeling the same effects."
+							+ " You've never wanted someone as badly as you want her right now, and you feel your heart pounding as her soft, delicate fingers stroke over your lips."
+							+ " Before you can make a move, Lilaya straightens up behind you and takes the initiative."
+							+ " Stepping around to one side, she quickly throws one leg over you and slides down to sit in your lap, face-to-face."
+						+ "</p>"
+						+ "<p>"
+							+ "You look up at her [lilaya.eyes], and she gives you a seductive smile before taking your head"
+							+ " in both hands and pressing her lips against yours."
+							+ " Her tongue slips out of her mouth, and, parting your lips, you allow it to slide into yours."
+							+ " You reach up and pull her close, passionately making out with one another as you both give in to your lust."
+						+ "</p>"){
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.hadSexWithLilaya);

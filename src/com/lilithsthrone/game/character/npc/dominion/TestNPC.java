@@ -32,12 +32,14 @@ import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.managers.universal.SMDomDoggy;
-import com.lilithsthrone.game.sex.managers.universal.SMDomStanding;
+import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
+import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -279,10 +281,14 @@ public class TestNPC extends NPC {
 					};
 				
 			} else if (index == 2 && Main.game.isNonConEnabled()) {
-				return new ResponseSex("Rape [test.herHim]", "[test.Her] back is turned, and [test.she] hasn't noticed you enter the room...", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)),
-						null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null,
-						null, null, false,
-						false, Main.game.getPlayer(), Main.game.getTestNPC(), new SMDomDoggy(), TEST_DIALOGUE_AFTER_RAPE, "<p>"
+				return new ResponseSex("Rape [test.herHim]", "[test.Her] back is turned, and [test.she] hasn't noticed you enter the room...",
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
+						false, false,
+						new SMDoggy(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getTestNPC(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
+						TEST_DIALOGUE_AFTER_RAPE,
+						"<p>"
 							+ "You quietly close the door and lock it behind you. After all, you wouldn't want anyone interrupting your fun."
 							+ " Stealthily moving forwards, you approach the oblivious [test.race], smiling to yourself as you hear [test.her] grumbling and mumbling to [test.herself]."
 						+ "</p>"
@@ -298,10 +304,14 @@ public class TestNPC extends NPC {
 						+ "</p>");
 				
 			} else if (index == 3 && Main.game.isNonConEnabled()) {
-				return new ResponseSex("Rape [test.herHim] (gentle)", "[test.Her] back is turned, and [test.she] hasn't noticed you enter the room... (Start the sex scene in the 'gentle' pace.)", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)),
-						null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null,
-						null, null, false,
-						false, Main.game.getPlayer(), Main.game.getTestNPC(), new SMDomDoggy(), TEST_DIALOGUE_AFTER_RAPE, "<p>"
+				return new ResponseSex("Rape [test.herHim] (gentle)", "[test.Her] back is turned, and [test.she] hasn't noticed you enter the room... (Start the sex scene in the 'gentle' pace.)",
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
+						false, false,
+						new SMDoggy(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getTestNPC(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
+						TEST_DIALOGUE_AFTER_RAPE,
+						"<p>"
 							+ "You quietly close the door and lock it behind you. After all, you wouldn't want anyone interrupting your fun."
 							+ " Stealthily moving forwards, you approach the oblivious [test.race], smiling to yourself as you hear [test.her] grumbling and mumbling to [test.herself]."
 						+ "</p>"
@@ -325,10 +335,14 @@ public class TestNPC extends NPC {
 				};
 				
 			} else if (index == 4 && Main.game.isNonConEnabled()) {
-				return new ResponseSex("Rape [test.herHim] (rough)", "[test.Her] back is turned, and [test.she] hasn't noticed you enter the room... (Start the sex scene in the 'rough' pace.)", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)),
-						null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null,
-						null, null, false,
-						false, Main.game.getPlayer(), Main.game.getTestNPC(), new SMDomDoggy(), TEST_DIALOGUE_AFTER_RAPE, "<p>"
+				return new ResponseSex("Rape [test.herHim] (rough)", "[test.Her] back is turned, and [test.she] hasn't noticed you enter the room... (Start the sex scene in the 'rough' pace.)",
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
+						false, false,
+						new SMDoggy(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getTestNPC(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
+						TEST_DIALOGUE_AFTER_RAPE,
+						"<p>"
 							+ "You quietly close the door and lock it behind you. After all, you wouldn't want anyone interrupting your fun."
 							+ " Stealthily moving forwards, you approach the oblivious [test.race], smiling to yourself as you hear [test.her] grumbling and mumbling to [test.herself]."
 						+ "</p>"
@@ -400,8 +414,12 @@ public class TestNPC extends NPC {
 			if (index == 1) {
 				return new ResponseSex("Sex",
 						"Well, [test.she] <i>is</i> asking for it!",
-						true,
-						true, Main.game.getPlayer(), Main.game.getTestNPC(), new SMDomStanding(), TEST_DIALOGUE_AFTER_SEX, "<p>"
+						true, true,
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getTestNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						TEST_DIALOGUE_AFTER_SEX,
+						"<p>"
 							+ "You step forwards, wrapping your [pc.arms] around the [test.race] and pulling [test.herHim] into you."
 						+ "</p>"
 						+ "<p>"
@@ -412,8 +430,12 @@ public class TestNPC extends NPC {
 			} else if (index == 2) {
 				return new ResponseSex("Sex (gentle)",
 						"Well, [test.she] <i>is</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
-						true,
-						true, Main.game.getPlayer(), Main.game.getTestNPC(), new SMDomStanding(), TEST_DIALOGUE_AFTER_SEX, "<p>"
+						true, true,
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getTestNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						TEST_DIALOGUE_AFTER_SEX,
+						"<p>"
 							+ "You step forwards, gently wrapping your [pc.arms] around the [test.race] and lovingly pulling [test.herHim] into you."
 						+ "</p>"
 						+ "<p>"
@@ -432,8 +454,12 @@ public class TestNPC extends NPC {
 			} else if (index == 3) {
 				return new ResponseSex("Sex (rough)",
 						"Well, [test.she] <i>is</i> asking for it! (Start the sex scene in the 'rough' pace.)",
-						true,
-						true, Main.game.getPlayer(), Main.game.getTestNPC(), new SMDomStanding(), TEST_DIALOGUE_AFTER_SEX, "<p>"
+						true, true,
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getTestNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						TEST_DIALOGUE_AFTER_SEX,
+						"<p>"
 								+ "You step forwards, wrapping your [pc.arms] around the [test.race] and roughly pulling [test.herHim] into you."
 							+ "</p>"
 							+ "<p>"

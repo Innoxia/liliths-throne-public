@@ -19,9 +19,12 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.dominion.SMRoseHands;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.GenericPlace;
 import com.lilithsthrone.world.places.PlaceType;
@@ -1834,7 +1837,11 @@ public class LilayaHomeGeneric {
 			if (index == 1) {
 				return new ResponseSex("Hand-holding", "Warning: This content contains extreme descriptions of hand-holding, finger sucking, and even palm-licking."
 						+ " <b>Please remember that you need to have read the disclaimer before playing this game!</b> <b style='color:"+BaseColour.CRIMSON.toWebHexString()+";'>18+ only!</b>",
-						true, false, Main.game.getPlayer(), Main.game.getRose(), new SMRoseHands(), Rose.END_HAND_SEX);
+						true, false,
+						new SMRoseHands(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.HAND_SEX_DOM_ROSE)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getRose(), SexPositionSlot.HAND_SEX_SUB_ROSE))),
+						Rose.END_HAND_SEX);
 
 			} else {
 				return null;

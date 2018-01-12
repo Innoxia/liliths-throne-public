@@ -13,7 +13,8 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPositionType;
+import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
@@ -72,7 +73,7 @@ public class PlayerTalk {
 		@Override
 		public String getDescription() {
 			
-			if(Sex.getPosition()==SexPositionType.DOGGY_PLAYER_ON_ALL_FOURS) {
+			if(Sex.getPosition()==SexPositionNew.DOGGY_STYLE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.DOGGY_ON_ALL_FOURS) {
 				
 				switch(Sex.getSexPace(Main.game.getPlayer())) {
 					case SUB_EAGER:
@@ -92,7 +93,7 @@ public class PlayerTalk {
 								+ Sex.getActivePartner().getPlayerDirtyTalk(Sex.isDom(Main.game.getPlayer()));
 				}
 				
-			} else if(Sex.getPosition()==SexPositionType.KNEELING_PARTNER_PERFORMING_ORAL) {
+			} else if(Sex.getPosition()==SexPositionNew.KNEELING_ORAL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_PERFORMING_ORAL) {
 				
 				switch(Sex.getSexPace(Main.game.getPlayer())) {
 					case DOM_GENTLE:
@@ -112,7 +113,7 @@ public class PlayerTalk {
 								+ Sex.getActivePartner().getPlayerDirtyTalk(Sex.isDom(Main.game.getPlayer()));
 				}
 				
-			} else if(Sex.getPosition()==SexPositionType.KNEELING_PLAYER_PERFORMING_ORAL) {
+			} else if(Sex.getPosition()==SexPositionNew.KNEELING_ORAL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.KNEELING_PERFORMING_ORAL) {
 				
 				switch(Sex.getSexPace(Main.game.getPlayer())) {
 					case SUB_EAGER:
@@ -132,7 +133,7 @@ public class PlayerTalk {
 								+ Sex.getActivePartner().getPlayerDirtyTalk(Sex.isDom(Main.game.getPlayer()));
 				}
 				
-			} else if(Sex.getPosition()==SexPositionType.SIXTY_NINE_PLAYER_TOP) {
+			} else if(Sex.getPosition()==SexPositionNew.SIXTY_NINE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.SIXTY_NINE_TOP) {
 				
 				switch(Sex.getSexPace(Main.game.getPlayer())) {
 					case DOM_GENTLE:

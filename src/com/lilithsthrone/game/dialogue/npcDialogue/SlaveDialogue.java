@@ -8,8 +8,8 @@ import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.race.Race;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
+import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
@@ -18,12 +18,13 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.managers.universal.SMDomStanding;
-import com.lilithsthrone.game.sex.managers.universal.SMSubStanding;
+import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.game.slavery.SlaveJob;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.85
@@ -328,9 +329,12 @@ public class SlaveDialogue {
 			} else if (index == 4) {
 				if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
 					return new ResponseSex("Submissive sex", "Have submissive sex with [npc.name].", 
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)),
-							null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
-							true, true, Main.game.getActiveNPC(), Main.game.getPlayer(), new SMSubStanding(), AFTER_SEX,
+							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, Fetish.FETISH_SUBMISSIVE.getAssociatedCorruptionLevel(), null, null, null,
+							true, true,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX,
 							"<p>"
 								+ "Taking hold of [npc.name]'s [npc.arms], you take a step forwards, guiding [npc.her] [npc.hands] around your body as you press forwards into a passionate kiss."
 								+ " [npc.She] eagerly pulls you into [npc.herHim], [npc.moaning],"
@@ -348,7 +352,12 @@ public class SlaveDialogue {
 			} else if (index == 5) { //TODO improve descriptions and affection hit from rape
 				if(Main.game.isNonConEnabled() && !Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
 					return new ResponseSex("Rape", "[npc.Name] is definitely not interested in having sex with you, but it's not like [npc.she] has a choice in the matter...", 
-							false, false, Main.game.getPlayer(), Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX, "<p>"
+							false, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX,
+							"<p>"
 								+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
 								+ " [npc.She] desperately tries to push you away, [npc.moaning],"
 								+ " [npc.speech(No! Stop!)]"
@@ -361,7 +370,12 @@ public class SlaveDialogue {
 					
 				} else {
 					return new ResponseSex("Sex", "Have sex with [npc.name].", 
-							true, false, Main.game.getPlayer(), Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX, "<p>"
+							true, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX,
+							"<p>"
 								+ "Grinning, you step forwards and pull [npc.name] into a passionate kiss."
 								+ " [npc.She] desperately leans into you, [npc.moaning],"
 								+ " [npc.speech(~Mmm!~ Yes!)]"
@@ -2075,7 +2089,12 @@ public class SlaveDialogue {
 			if (index == 1) {
 				return new ResponseSex("Sex",
 						"[npc.Name] forces [npc.herself] on you...",
-						false, false, Main.game.getActiveNPC(), Main.game.getPlayer(), new SMSubStanding(), SLAVE_USES_YOU_POST_SEX, "<p>"
+						false, false,
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						SLAVE_USES_YOU_POST_SEX,
+						"<p>"
 							+ "[npc.Name]'s [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally pulling away."
 							+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
 						+ "</p>");
@@ -2083,8 +2102,12 @@ public class SlaveDialogue {
 			} else if (index == 2) {
 				return new ResponseSex("Eager Sex",
 						"[npc.Name] forces [npc.herself] on you...",
-						false,
-						false, Main.game.getActiveNPC(), Main.game.getPlayer(), new SMSubStanding(), SLAVE_USES_YOU_POST_SEX, "<p>"
+						false, false,
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						SLAVE_USES_YOU_POST_SEX,
+						"<p>"
 							+ "[npc.Name]'s [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 							+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.she]'s going to want more than just a kiss..."
 						+ "</p>") {
@@ -2100,8 +2123,12 @@ public class SlaveDialogue {
 			} else if (index == 3 && Main.game.isNonConEnabled()) {
 				return new ResponseSex("Resist Sex",
 						"[npc.Name] forces [npc.herself] on you...",
-						false,
-						false, Main.game.getActiveNPC(), Main.game.getPlayer(), new SMSubStanding(), SLAVE_USES_YOU_POST_SEX, "<p>"
+						false, false,
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						SLAVE_USES_YOU_POST_SEX,
+						"<p>"
 							+ "[npc.Name]'s [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 							+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
 							+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.she]'s not going to let you go..."

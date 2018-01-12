@@ -15,10 +15,12 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemEffectType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.managers.dominion.harpies.SMHarpyStanding;
+import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.8
@@ -264,7 +266,12 @@ public class HarpyNestNympho {
 			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.nymphoPacified)) {
 				if (index == 1) {
 					return new ResponseSex("Sex", "Have dominant sex with [harpyNympho.name].",
-							true, false, Main.game.getPlayer(), Main.game.getHarpyNympho(), new SMHarpyStanding(), HARPY_NEST_NYMPHO_AFTER_SEX, "<p>"
+							true, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getHarpyNympho(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							HARPY_NEST_NYMPHO_AFTER_SEX,
+							"<p>"
 								+ "Eager to help satisfy [harpyNympho.name]'s craving for sex, you reach down and grab her wings."
 								+ " Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyNympho.lips+]."
 							+ "</p>"
@@ -533,7 +540,11 @@ public class HarpyNestNympho {
 		public Response getResponse(int responseTab, int index) {
 			 if (index == 1) {
 				return new ResponseSex("Sex", "Have dominant sex with [harpyNympho.name].",
-						true, false, Main.game.getPlayer(), Main.game.getHarpyNympho(), new SMHarpyStanding(), HARPY_NEST_NYMPHO_AFTER_SEX,
+						true, false,
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getHarpyNympho(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						HARPY_NEST_NYMPHO_AFTER_SEX,
 						"<p>"
 							+ "Eager to help satisfy [harpyNympho.name]'s craving for sex, you reach down and grab her wings."
 							+ " Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyNympho.lips+]."
@@ -840,7 +851,12 @@ public class HarpyNestNympho {
 		public Response getResponse(int responseTab, int index) {
 			 if (index == 1) {
 				return new ResponseSex("Sex", "Have dominant sex with [harpyNympho.name].",
-						true, false, Main.game.getPlayer(), Main.game.getHarpyNympho(), new SMHarpyStanding(), HARPY_NEST_NYMPHO_AFTER_SEX, "<p>"
+						true, false,
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getHarpyNympho(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						HARPY_NEST_NYMPHO_AFTER_SEX,
+						"<p>"
 							+ "Eager to show this nest who's in charge, you reach down and grab [harpyNympho.name]'s wings."
 							+ " Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyNympho.lips+]."
 						+ "</p>"

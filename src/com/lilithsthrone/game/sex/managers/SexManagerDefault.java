@@ -1,11 +1,12 @@
 package com.lilithsthrone.game.sex.managers;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.ArousalLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.effects.Fetish;
@@ -15,6 +16,8 @@ import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexPace;
+import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
@@ -29,175 +32,73 @@ import java.util.Set;
 
 /**
  * @since 0.1.0
- * @version 0.1.96
+ * @version 0.1.97
  * @author Innoxia
  */
 public abstract class SexManagerDefault implements SexManagerInterface {
 	
-	private static List<SexActionInterface> actionsAvailablePlayer, actionsAvailablePartner, orgasmActionsPlayer, orgasmActionsPartner, mutualOrgasmActions;
+	private SexPositionNew position;
+	private Map<GameCharacter, SexPositionSlot> dominants;
+	private Map<GameCharacter, SexPositionSlot> submissives;
 	
-	public SexManagerDefault(Class<?>... coreContainers) {
-		actionsAvailablePlayer = new ArrayList<>();
-		actionsAvailablePartner = new ArrayList<>();
-		orgasmActionsPlayer = new ArrayList<>();
-		orgasmActionsPartner = new ArrayList<>();
-		mutualOrgasmActions = new ArrayList<>();
-
-		try {
-			if (coreContainers.length != 0) {
-				for(Class<?> container : coreContainers) {
-					if(container!=null) {
-						Field[] fields = container.getFields();
-						
-						for(Field f : fields){
-							
-							if (SexAction.class.isAssignableFrom(f.getType())) {
-								if (((SexAction) f.get(null)).getActionType().isOrgasmOption()) {
-									if (((SexAction) f.get(null)).getActionType() == SexActionType.MUTUAL_ORGASM) {
-										mutualOrgasmActions.add(((SexAction) f.get(null)));
-										
-									} else if (((SexAction) f.get(null)).getActionType().isPlayerAction()) {
-										orgasmActionsPlayer.add(((SexAction) f.get(null)));
-										
-									} else {
-										orgasmActionsPartner.add(((SexAction) f.get(null)));
-									}
-									
-								} else {
-									if (((SexAction) f.get(null)).getActionType().isPlayerAction()) {
-										actionsAvailablePlayer.add(((SexAction) f.get(null)));
-										
-									} else {
-										actionsAvailablePartner.add(((SexAction) f.get(null)));
-									}
-								}
-							}
-						}
-					}
+	public SexManagerDefault(SexPositionNew position, Map<GameCharacter, SexPositionSlot> dominants, Map<GameCharacter, SexPositionSlot> submissives) {
+		if(dominants.size()+submissives.size()>position.getMaximumSlots()) {
+			throw new IllegalArgumentException("Too many characters for Sex Manager!");
+		}
+		
+		for(List<SexPositionSlot> slots : position.getAvailableSlots()) {
+			int count = 0;
+			for(SexPositionSlot assignedSlot : dominants.values()) {
+				if(slots.contains(assignedSlot)) {
+					count++;
 				}
 			}
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	@Override
-	public void addSexActionClass(Class<?> container) {
-		try {
-			if(container!=null) {
-				Field[] fields = container.getFields();
-				
-				for(Field f : fields){
-					
-					if (SexAction.class.isAssignableFrom(f.getType())) {
-						if (((SexAction) f.get(null)).getActionType().isOrgasmOption()) {
-							if (((SexAction) f.get(null)).getActionType().isPlayerAction()) {
-								orgasmActionsPlayer.add(((SexAction) f.get(null)));
-								
-							} else {
-								orgasmActionsPartner.add(((SexAction) f.get(null)));
-							}
-							
-						} else {
-							if (((SexAction) f.get(null)).getActionType().isPlayerAction()) {
-								actionsAvailablePlayer.add(((SexAction) f.get(null)));
-								
-							} else {
-								actionsAvailablePartner.add(((SexAction) f.get(null)));
-							}
-						}
-					}
+			for(SexPositionSlot assignedSlot : submissives.values()) {
+				if(slots.contains(assignedSlot)) {
+					count++;
 				}
 			}
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			if(count>1) {
+				throw new IllegalArgumentException("Multiple partners assigned to a single slot!");
+			}
 		}
-	}
-	
-//	// A+ quality code example: /s
-//	protected void overrideAction(SexActionInterface oldAction, SexActionInterface newAction){
-//		for(int i=0 ; i< actionsAvailablePlayer.size(); i++){
-//			if(actionsAvailablePlayer.get(i) == oldAction) {
-//				actionsAvailablePlayer.set(i, newAction);
-//				return;
-//			}
-//		}
-//		for(int i=0 ; i< actionsAvailablePartner.size(); i++){
-//			if(actionsAvailablePartner.get(i) == oldAction) {
-//				actionsAvailablePartner.set(i, newAction);
-//				return;
-//			}
-//		}
-//		for(int i=0 ; i< orgasmActionsPlayer.size(); i++){
-//			if(orgasmActionsPlayer.get(i) == oldAction) {
-//				orgasmActionsPlayer.set(i, newAction);
-//				return;
-//			}
-//		}
-//		for(int i=0 ; i< orgasmActionsPartner.size(); i++){
-//			if(orgasmActionsPartner.get(i) == oldAction) {
-//				orgasmActionsPartner.set(i, newAction);
-//				return;
-//			}
-//		}
-//		for(int i=0 ; i< mutualOrgasmActions.size(); i++){
-//			if(mutualOrgasmActions.get(i) == oldAction) {
-//				mutualOrgasmActions.set(i, newAction);
-//				return;
-//			}
-//		}
-//	}
-	
-	protected void removeAction(SexActionInterface action){
-		actionsAvailablePlayer.remove(action);
-		actionsAvailablePartner.remove(action);
-		orgasmActionsPlayer.remove(action);
-		orgasmActionsPartner.remove(action);
-		mutualOrgasmActions.remove(action);
+		
+		this.position = position;
+		this.dominants = dominants;
+		this.submissives = submissives;
 	}
 	
 	@Override
-	public List<SexActionInterface> getActionsAvailablePlayer(){
-		return actionsAvailablePlayer;
-	}
-	@Override
-	public List<SexActionInterface> getActionsAvailablePartner(){
-		return actionsAvailablePartner;
-	}
-	@Override
-	public List<SexActionInterface> getOrgasmActionsPlayer(){
-		return orgasmActionsPlayer;
-	}
-	@Override
-	public List<SexActionInterface> getOrgasmActionsPartner(){
-		return orgasmActionsPartner;
-	}
-	@Override
-	public List<SexActionInterface> getMutualOrgasmActions(){
-		return mutualOrgasmActions;
+	public SexPositionNew getPosition() {
+		return position;
 	}
 
+	@Override
+	public Map<GameCharacter, SexPositionSlot> getDominants() {
+		return dominants;
+	}
+
+	@Override
+	public Map<GameCharacter, SexPositionSlot> getSubmissives() {
+		return submissives;
+	}
+	
+	
 	private static List<SexActionInterface> possibleActions = new ArrayList<>(), bannedActions = new ArrayList<>();
 	
-	
-	/*
-	 * New:
-	 * - Get accessible areas
-	 * - Choose foreplay & main sex
-	 * - Choose positions for each
-	 * - Clothing for foreplay
-	 * - position
-	 * - foreplay (self-actions take minimum priority)
-	 * - clothing for main
-	 * - position
-	 * - main (self-actions take minimum priority)
+	/**
+	 * New:</br>
+	 * - Get accessible areas</br>
+	 * - Choose foreplay & main sex</br>
+	 * - Choose positions for each</br>
+	 * - Clothing for foreplay</br>
+	 * - position</br>
+	 * - foreplay (self-actions take minimum priority)</br>
+	 * - clothing for main</br>
+	 * - position</br>
+	 * - main (self-actions take minimum priority)</br>
 	 * - orgasm
 	 */
-	
 	@Override
 	public SexActionInterface getPartnerSexAction(SexActionInterface sexActionPlayer) {
 		
@@ -253,7 +154,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		
 		// --- Priority 3 | Move into one of the partner's preferred positions ---
 		
-		if(!Sex.getActivePartner().getSexPositionPreferences().contains(getPosition())) {
+		if(!Sex.getActivePartner().getSexPositionPreferences().contains(Sex.getSexPositionSlot(Sex.getActivePartner()))) {
 			for(SexActionInterface action : availableActions) {
 				if(action.getActionType()==SexActionType.PARTNER_POSITIONING) {
 					possibleActions.add(action);
@@ -752,31 +653,6 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		}
 		
 		return null;
-	}
-
-	@Override
-	public boolean isPlayerCanRemoveOwnClothes(){
-		return true;
-	}
-	
-	@Override
-	public boolean isPlayerCanRemovePartnersClothes(){
-		return true;
-	}
-	
-	@Override
-	public boolean isPartnerCanRemoveOwnClothes(){
-		return true;
-	}
-	
-	@Override
-	public boolean isPartnerCanRemovePlayersClothes(){
-		return true;
-	}
-
-	@Override
-	public String getStartSexDescription() {
-		return "";//"<p>You are having sex with " + Sex.getPartner().getName("the") + ".</p>"; // TODO
 	}
 	
 }

@@ -462,12 +462,12 @@ public enum RenderingEngine {
 				+ "<div class='attribute-container effects'>");
 			
 			if(Sex.isDom(Main.game.getPlayer())) {
-				for(GameCharacter character : Sex.getDominantParticipants()) {
+				for(GameCharacter character : Sex.getDominantParticipants().keySet()) {
 					uiAttributeSB.append(getSexParticipantDiv(character.isPlayer()?"PLAYER_":"NPC_"+character.getId()+"_", character));
 				}
 				
 			} else {
-				for(GameCharacter character : Sex.getSubmissiveParticipants()) {
+				for(GameCharacter character : Sex.getSubmissiveParticipants().keySet()) {
 					uiAttributeSB.append(getSexParticipantDiv(character.isPlayer()?"PLAYER_":"NPC_"+character.getId()+"_", character));
 				}
 			}
@@ -785,12 +785,12 @@ public enum RenderingEngine {
 					+ "<div class='attribute-container effects'>");
 				
 				if(!Sex.isDom(Main.game.getPlayer())) {
-					for(GameCharacter character : Sex.getDominantParticipants()) {
+					for(GameCharacter character : Sex.getDominantParticipants().keySet()) {
 						uiAttributeSB.append(getSexParticipantDiv("NPC_"+character.getId()+"_", character));
 					}
 					
 				} else {
-					for(GameCharacter character : Sex.getSubmissiveParticipants()) {
+					for(GameCharacter character : Sex.getSubmissiveParticipants().keySet()) {
 						uiAttributeSB.append(getSexParticipantDiv("NPC_"+character.getId()+"_", character));
 					}
 				}

@@ -21,14 +21,15 @@ import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
+import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMAmberDoggyFucked;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMZaranixCockSucking;
-import com.lilithsthrone.game.sex.managers.universal.SMDomStanding;
-import com.lilithsthrone.game.sex.managers.universal.SMSubStanding;
+import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -1157,7 +1158,11 @@ public class ZaranixHomeGroundFloor {
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new ResponseSex("Suck cock", "Show Zaranix how good you are at sucking cock.",
-						true, true, Main.game.getZaranix(), Main.game.getPlayer(), new SMZaranixCockSucking(), AFTER_SEX_THANKING_ZARANIX,
+						true, true,
+						new SMZaranixCockSucking(
+								Util.newHashMapOfValues(new Value<>(Main.game.getZaranix(), SexPositionSlot.KNEELING_RECEIVING_ORAL_ZARANIX)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_PERFORMING_ORAL_ZARANIX))),
+						AFTER_SEX_THANKING_ZARANIX,
 						"<p>"
 						+ "</p>");
 			} else {
@@ -1219,7 +1224,11 @@ public class ZaranixHomeGroundFloor {
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new ResponseSex("Lift ass", "Do as Amber commands and lift your ass towards her.",
-						true, true, Main.game.getAmber(), Main.game.getPlayer(), new SMAmberDoggyFucked(), AFTER_SEX_THANKING_AMBER,
+						true, true,
+						new SMAmberDoggyFucked(
+								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.DOGGY_BEHIND_AMBER)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS_AMBER))),
+						AFTER_SEX_THANKING_AMBER,
 						"<p>"
 							+ "You obediently lift your ass towards Amber, letting out a little cry as you suddenly feel the sharp slap of her hand across your right cheek, before she growls out,"
 							+ " [amber.speech(Squeal all you want bitch, <i>you're mine now!</i>)]"
@@ -1458,7 +1467,11 @@ public class ZaranixHomeGroundFloor {
 
 			} else if(index==2 && Main.game.getAmber().getLocationPlace().getPlaceType()==PlaceType.ZARANIX_GF_ENTRANCE) {
 				return new ResponseSex("Use Amber", "Have some fun with this fiery maid.",
-						true, false, Main.game.getPlayer(), Main.game.getAmber(), new SMDomStanding(), Amber.AFTER_SEX_VICTORY,
+						true, false,
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						Amber.AFTER_SEX_VICTORY,
 						"<p>"
 							+ "It doesn't look like any of the other maids of the household will interrupt you, so you decide to take this opportunity to have a little fun with Amber."
 							+ " Stepping over to where she's sunk down against the wall, you reach forwards and take hold of her arm, before pulling her to her feet."
@@ -1473,7 +1486,11 @@ public class ZaranixHomeGroundFloor {
 				return new ResponseSex("Submit",
 						"Amber's fiery personality is seriously turning you on. You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with her. Perhaps if you submitted, she'd be willing to fuck you?",
 						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null, null,
-						true, true, Main.game.getAmber(), Main.game.getPlayer(), new SMSubStanding(), Amber.AFTER_SEX_VICTORY,
+						true, true,
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						Amber.AFTER_SEX_VICTORY,
 						"<p>"
 							+ "Despite her current state, you find yourself incredibly turned on by Amber's dominant, fiery personality."
 							+ " Not willing to take the dominant role, but with a deep desire to have sex with the now-very-horny succubus, you walk up to where she's collapsed against the wall, and sigh,"
@@ -1816,7 +1833,11 @@ public class ZaranixHomeGroundFloor {
 			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.zaranixKatherineSubdued)) {
 				if(index==1) {
 					return new ResponseSex("Use Katherine", "Have some fun with this maid.",
-							true, false, Main.game.getPlayer(), Main.game.getKatherine(), new SMDomStanding(), ZaranixMaidKatherine.AFTER_SEX_VICTORY,
+							true, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getKatherine(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							ZaranixMaidKatherine.AFTER_SEX_VICTORY,
 							"<p>"
 								+ "It doesn't look like any of the other maids of the household will interrupt you, so you decide to take this opportunity to have a little fun with Katherine."
 								+ " Stepping over to where she's sunk down against the wall, you reach forwards and take hold of her arm, before pulling her to her feet."
@@ -1831,7 +1852,11 @@ public class ZaranixHomeGroundFloor {
 					return new ResponseSex("Submit",
 							"You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with Katherine. Perhaps if you submitted, she'd be willing to fuck you?",
 							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null, null,
-							true, true, Main.game.getKatherine(), Main.game.getPlayer(), new SMSubStanding(), ZaranixMaidKatherine.AFTER_SEX_VICTORY,
+							true, true,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getKatherine(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							ZaranixMaidKatherine.AFTER_SEX_VICTORY,
 							"<p>"
 								+ "Not willing to take the dominant role, but with a deep desire to have sex with the now-very-horny succubus, you walk up to where Katherine's collapsed against the wall, and sigh,"
 								+ " [pc.speech(Katherine... Erm... If you're feeling a little horny, perhaps you could use me? I mean, I-)]"
@@ -1984,7 +2009,11 @@ public class ZaranixHomeGroundFloor {
 			} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.zaranixAmberSubdued)) {
 				if(index==1) {
 					return new ResponseSex("Use Amber", "Have some fun with this fiery maid.",
-							true, false, Main.game.getPlayer(), Main.game.getAmber(), new SMDomStanding(), Amber.AFTER_SEX_VICTORY,
+							true, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							Amber.AFTER_SEX_VICTORY,
 							"<p>"
 								+ "It doesn't look like any of the other maids of the household will interrupt you, so you decide to take this opportunity to have a little fun with Amber."
 								+ " Stepping over to where she's sunk down against the wall, you reach forwards and take hold of her arm, before pulling her to her feet."
@@ -1999,7 +2028,11 @@ public class ZaranixHomeGroundFloor {
 					return new ResponseSex("Submit",
 							"Amber's fiery personality is seriously turning you on. You can't bring yourself to take the dominant role, but you <i>do</i> want to have sex with her. Perhaps if you submitted, she'd be willing to fuck you?",
 							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null, null,
-							true, true, Main.game.getAmber(), Main.game.getPlayer(), new SMSubStanding(), Amber.AFTER_SEX_VICTORY,
+							true, true,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getAmber(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							Amber.AFTER_SEX_VICTORY,
 							"<p>"
 								+ "Despite her current state, you find yourself incredibly turned on by Amber's dominant, fiery personality."
 								+ " Not willing to take the dominant role, but with a deep desire to have sex with the now-very-horny succubus, you walk up to where she's collapsed against the wall, and sigh,"

@@ -17,12 +17,14 @@ import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.responses.ResponseTrade;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.sex.managers.dominion.SMDomStocksBehind;
+import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.managers.dominion.SMStocks;
 import com.lilithsthrone.game.slavery.SlaveJobSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -604,9 +606,14 @@ public class SlaverAlleyDialogue {
 				return new ResponseSex(
 						"Use "+charactersPresent.get(index-1).getName(),
 						UtilText.parse(charactersPresent.get(index-1), "Walk up to [npc.name] and have some fun..."),
-						false, false, Main.game.getPlayer(), charactersPresent.get(index-1), new SMDomStocksBehind(
+						false, false,
+						new SMStocks(
 								charactersPresent.get(index-1).getSlaveJobSettings().contains(SlaveJobSetting.SEX_VAGINAL),
-								charactersPresent.get(index-1).getSlaveJobSettings().contains(SlaveJobSetting.SEX_ANAL)), AFTER_STOCKS_SEX,
+								charactersPresent.get(index-1).getSlaveJobSettings().contains(SlaveJobSetting.SEX_ANAL),
+								charactersPresent.get(index-1).getSlaveJobSettings().contains(SlaveJobSetting.SEX_ORAL),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STOCKS_FUCKING)),
+								Util.newHashMapOfValues(new Value<>(charactersPresent.get(index-1), SexPositionSlot.STOCKS_LOCKED_IN_STOCKS))),
+						AFTER_STOCKS_SEX,
 						UtilText.parse(Main.game.getActiveNPC(),
 						"<p>"
 							+ "Deciding that you'd like to have some fun with the [npc.race] in the stocks nearest to you, you walk up behind [npc.herHim]."

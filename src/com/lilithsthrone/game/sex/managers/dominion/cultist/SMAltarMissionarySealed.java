@@ -1,39 +1,40 @@
-package com.lilithsthrone.game.sex.managers.dominion;
+package com.lilithsthrone.game.sex.managers.dominion.cultist;
 
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPositionNew;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
+import com.lilithsthrone.main.Main;
 
 /**
- * @since 0.1.97
+ * @since 0.1.88
  * @version 0.1.97
  * @author Innoxia
  */
-public class SMVickyOverDesk extends SexManagerDefault {
+public class SMAltarMissionarySealed extends SexManagerDefault {
 
-	public SMVickyOverDesk(Map<GameCharacter, SexPositionSlot> dominants, Map<GameCharacter, SexPositionSlot> submissives) {
-		super(SexPositionNew.MISSIONARY_DESK_VICKY,
+	public SMAltarMissionarySealed(Map<GameCharacter, SexPositionSlot> dominants, Map<GameCharacter, SexPositionSlot> submissives) {
+		super(SexPositionNew.MISSIONARY_ALTAR_SEALED_CULTIST,
 				dominants,
 				submissives);
 	}
 	
-	
 	@Override
 	public boolean isPlayerAbleToStopSex() {
-		return false;
+		return Sex.isDom(Main.game.getPlayer());
 	}
 	
 	@Override
 	public boolean isPlayerCanRemoveOwnClothes(){
-		return true;
+		return false;
 	}
 	
 	@Override
 	public boolean isPlayerCanRemovePartnersClothes(){
-		return true;
+		return false;
 	}
 	
 	@Override
@@ -45,4 +46,5 @@ public class SMVickyOverDesk extends SexManagerDefault {
 	public boolean isPartnerCanRemovePlayersClothes(){
 		return true;
 	}
+
 }

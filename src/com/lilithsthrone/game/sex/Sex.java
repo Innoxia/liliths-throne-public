@@ -1,11 +1,13 @@
 package com.lilithsthrone.game.sex;
 
 import java.util.AbstractMap.SimpleEntry;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -39,6 +41,7 @@ import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.sex.managers.SexManagerInterface;
+import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionCategory;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
@@ -121,8 +124,8 @@ public enum Sex {
 	private static boolean consensual;
 	private static boolean subHasEqualControl;
 
-	private static List<GameCharacter> dominants;
-	private static List<GameCharacter> submissives;
+	private static Map<GameCharacter, SexPositionSlot> dominants;
+	private static Map<GameCharacter, SexPositionSlot> submissives;
 	private static NPC activePartner;
 	private static SexManagerInterface sexManager;
 	private static String sexDescription, unequipClothingText, dyeClothingText, usingItemText;
@@ -131,6 +134,13 @@ public enum Sex {
 	private static List<SexActionInterface> availableSexActionsPlayer, miscActionsPlayer, selfActionsPlayer, sexActionsPlayer, positionActionsPlayer;
 	private static SizedStack<SexActionInterface> repeatActionsPlayer;
 	private static List<SexActionInterface> availableSexActionsPartner;
+	
+	// Actions that are currently available from all SexPositionSlots
+	private static Set<SexActionInterface> actionsAvailablePlayer;
+	private static Set<SexActionInterface> actionsAvailablePartner;
+	private static Set<SexActionInterface> orgasmActionsPlayer;
+	private static Set<SexActionInterface> orgasmActionsPartner;
+	private static Set<SexActionInterface> mutualOrgasmActions;
 
 	private static DialogueNodeOld postSexDialogue;
 
@@ -162,46 +172,56 @@ public enum Sex {
 	public DialogueNodeOld initialiseSex(
 			boolean consensual,
 			boolean subHasEqualControl,
-			List<GameCharacter> dominants,
-			List<GameCharacter> submissives,
 			SexManagerInterface sexManager,
 			DialogueNodeOld postSexDialogue,
 			String sexStartDescription) {
 
 		SexFlags.reset();
 		
+		actionsAvailablePlayer = new HashSet<>();
+		actionsAvailablePartner = new HashSet<>();
+		orgasmActionsPlayer = new HashSet<>();
+		orgasmActionsPartner = new HashSet<>();
+		mutualOrgasmActions = new HashSet<>();
+		
 		Sex.consensual = consensual;
 		Sex.subHasEqualControl = subHasEqualControl;
-
-		Sex.dominants = dominants;
-		Sex.submissives = submissives;
 		
-		Collections.sort(Sex.dominants, (p1, p2) -> p1.isPlayer()?-1:1);
-		Collections.sort(Sex.submissives, (p1, p2) -> p1.isPlayer()?-1:1);
-		
-		// Re-initialise all sex action variables:
-		sexManager.initSexActions();
-		
+		// Add dominants to map, with player as the first entry:
+		List<GameCharacter> tempCharacterList = new ArrayList<>(sexManager.getDominants().keySet());
+		Collections.sort(tempCharacterList, (p1, p2) -> p1.isPlayer()?-1:1);
+		Sex.dominants = new LinkedHashMap<>();
+		for(GameCharacter character : tempCharacterList) {
+			Sex.dominants.put(character, sexManager.getDominants().get(character));
+		}
 		if(!Sex.isDom(Main.game.getPlayer())) {
-			if(dominants.isEmpty()) {
+			if(tempCharacterList.isEmpty()) {
 				activePartner = null;
 			} else {
-				activePartner = (NPC) dominants.get(0);
+				activePartner = (NPC) tempCharacterList.get(0);
 			}
-		} else {
-			if(submissives.isEmpty()) {
+		}
+
+		// Add submissives to map, with player as the first entry:
+		tempCharacterList = new ArrayList<>(sexManager.getSubmissives().keySet());
+		Collections.sort(tempCharacterList, (p1, p2) -> p1.isPlayer()?-1:1);
+		Sex.submissives = new LinkedHashMap<>();
+		for(GameCharacter character : tempCharacterList) {
+			Sex.submissives.put(character, sexManager.getSubmissives().get(character));
+		}
+		if(Sex.isDom(Main.game.getPlayer())) {
+			if(tempCharacterList.isEmpty()) {
 				activePartner = null;
 			} else {
-				activePartner = (NPC) submissives.get(0);
+				activePartner = (NPC) tempCharacterList.get(0);
 			}
 		}
 		
 		Main.game.setActiveNPC(activePartner);
 		
 		Sex.sexManager = sexManager;
-		if(activePartner.equals(Main.game.getLilaya())) {// TODO move to somewhere logical
-			Sex.sexManager.addSexActionClass(SALilayaSpecials.class);
-		}
+		updateAvailableActions();
+		
 		Sex.activePartner.generateSexChoices();
 		Sex.postSexDialogue = postSexDialogue;
 		
@@ -1092,7 +1112,7 @@ public enum Sex {
 		availableSexActionsPlayer.clear();
 
 		if(lastUsedPartnerAction == SexActionUtility.PARTNER_ORGASM_MUTUAL_WAIT) {
-			for (SexActionInterface sexAction : sexManager.getMutualOrgasmActions()) {
+			for (SexActionInterface sexAction : Sex.getMutualOrgasmActions()) {
 				if (sexAction.isAddedToAvailableSexActions()) {
 					availableSexActionsPlayer.add(sexAction);
 				}
@@ -1104,7 +1124,7 @@ public enum Sex {
 			boolean orgasmFound = false;
 
 			if (ArousalLevel.getArousalLevelFromValue(activePartner.getArousal()).isMutualOrgasm()) {
-				for (SexActionInterface sexAction : sexManager.getMutualOrgasmActions()) {
+				for (SexActionInterface sexAction : Sex.getMutualOrgasmActions()) {
 					if (sexAction.isAddedToAvailableSexActions()) {
 						availableSexActionsPlayer.add(sexAction);
 						orgasmFound = true;
@@ -1114,7 +1134,7 @@ public enum Sex {
 
 			// If there were no mutual orgasm options available (or mutual orgasm threshold wasn't reached), use a standard one:
 			if (!orgasmFound) {
-				for (SexActionInterface sexAction : sexManager.getOrgasmActionsPlayer()) {
+				for (SexActionInterface sexAction : Sex.getOrgasmActionsPlayer()) {
 					if (sexAction.isAddedToAvailableSexActions()) {
 						availableSexActionsPlayer.add(sexAction);
 					}
@@ -1122,7 +1142,7 @@ public enum Sex {
 			}
 
 		} else if (activePartner.getArousal() >= ArousalLevel.FIVE_ORGASM_IMMINENT.getMaximumValue()) { // Add orgasm reactions if partner is ready to orgasm:
-			for (SexActionInterface sexAction : sexManager.getActionsAvailablePlayer()) {
+			for (SexActionInterface sexAction : Sex.getActionsAvailablePlayer()) {
 				if (sexAction.getActionType()==SexActionType.PLAYER_PREPARE_PARTNER_ORGASM && sexAction.isAddedToAvailableSexActions()) {
 					availableSexActionsPlayer.add(sexAction);
 				}
@@ -1139,7 +1159,7 @@ public enum Sex {
 			}
 
 			// Add actions:
-			for (SexActionInterface sexAction : sexManager.getActionsAvailablePlayer()) {
+			for (SexActionInterface sexAction : Sex.getActionsAvailablePlayer()) {
 				if (sexAction.isAddedToAvailableSexActions()){
 					availableSexActionsPlayer.add(sexAction);
 				}
@@ -1190,7 +1210,7 @@ public enum Sex {
 
 			// If mutual orgasm threshold has been reached, use a mutual orgasm:
 			if (ArousalLevel.getArousalLevelFromValue(Main.game.getPlayer().getArousal()).isMutualOrgasm()) {
-				for (SexActionInterface sexAction : sexManager.getMutualOrgasmActions()) {
+				for (SexActionInterface sexAction : Sex.getMutualOrgasmActions()) {
 					if (sexAction.isAddedToAvailableSexActions()) {
 						availableSexActionsPartner.add(SexActionUtility.PARTNER_ORGASM_MUTUAL_WAIT);
 						orgasmFound = true;
@@ -1202,7 +1222,7 @@ public enum Sex {
 			// If there were no mutual orgasm options available (or mutual orgasm threshold wasn't reached), use a standard one:
 			if(!orgasmFound) {
 				if(SexFlags.playerPreparedForOrgasm) {
-					for (SexActionInterface sexAction : sexManager.getOrgasmActionsPartner()) {
+					for (SexActionInterface sexAction : Sex.getOrgasmActionsPartner()) {
 						if (sexAction.isAddedToAvailableSexActions()) {
 							switch(sexAction.getPriority()){
 								case LOW:
@@ -1247,7 +1267,7 @@ public enum Sex {
 		}
 		
 		if (Main.game.getPlayer().getArousal() >= ArousalLevel.FIVE_ORGASM_IMMINENT.getMaximumValue()) { // Add orgasm reactions if ready to orgasm:
-			for (SexActionInterface sexAction : sexManager.getActionsAvailablePartner()) {
+			for (SexActionInterface sexAction : Sex.getActionsAvailablePartner()) {
 				if (sexAction.getActionType()==SexActionType.PARTNER_PREPARE_PLAYER_ORGASM) {
 					if (sexAction.isAddedToAvailableSexActions()) {
 						switch(sexAction.getPriority()){
@@ -1290,7 +1310,7 @@ public enum Sex {
 		} else if(standardActions) {
 			
 			// Add actions:
-			for (SexActionInterface sexAction : sexManager.getActionsAvailablePartner()) {
+			for (SexActionInterface sexAction : Sex.getActionsAvailablePartner()) {
 				if (sexAction.isAddedToAvailableSexActions() && (partnerAllowedToUseSelfActions?true:(!sexAction.isPartnerSelfPenetration()))) {
 					
 					if(Main.game.isNonConEnabled()
@@ -1541,9 +1561,9 @@ public enum Sex {
 		}
 		
 		// Only apply penetration effects if this action isn't an orgasm, and it isn't the end of sex. (Otherwise, ongoing descriptions get appended after the main description, which usually don't make sense.) TODO
-		if (!sexManager.getOrgasmActionsPlayer().contains(sexAction)
-				&& !sexManager.getOrgasmActionsPartner().contains(sexAction)
-				&& !sexManager.getMutualOrgasmActions().contains(sexAction)
+		if (!Sex.getOrgasmActionsPlayer().contains(sexAction)
+				&& !Sex.getOrgasmActionsPartner().contains(sexAction)
+				&& !Sex.getMutualOrgasmActions().contains(sexAction)
 				&& sexAction.getActionType() != SexActionType.PARTNER_POSITIONING
 				&& sexAction.getActionType() != SexActionType.PLAYER_POSITIONING
 				&& !sexAction.endsSex()) {
@@ -2491,11 +2511,15 @@ public enum Sex {
 		return activePartner;
 	}
 	
-	public static List<GameCharacter> getDominantParticipants() {
+	public static int getTotalParticipantCount() {
+		return dominants.size()+submissives.size();
+	}
+	
+	public static Map<GameCharacter, SexPositionSlot> getDominantParticipants() {
 		return dominants;
 	}
 	
-	public static List<GameCharacter> getSubmissiveParticipants() {
+	public static Map<GameCharacter, SexPositionSlot> getSubmissiveParticipants() {
 		return submissives;
 	}
 	
@@ -2880,17 +2904,93 @@ public enum Sex {
 			Sex.getOngoingPenetrationMap().remove(pt);
 		}
 		Sex.sexManager = sexManager;
-		Sex.sexManager.initSexActions();
 		
-		if(activePartner.equals(Main.game.getLilaya())) {// TODO move to somewhere logical
-			Sex.sexManager.addSexActionClass(SALilayaSpecials.class);
-		}
+		updateAvailableActions();
 		
 		sexSB.append(
 				"<p style='text-align:center;'><b>New position:</b> <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"+Sex.sexManager.getPosition().getName()+"</b></br>"
 				+"<i><b>"+Sex.sexManager.getPosition().getDescription()+"</b></i></p>");
 	}
+	
+	//TODO setSlot with updateAvailableActions();
+	
+	private static void updateAvailableActions() {
+		actionsAvailablePlayer.clear();
+		actionsAvailablePartner.clear();
+		orgasmActionsPlayer.clear();
+		orgasmActionsPartner.clear();
+		mutualOrgasmActions.clear();
+		
+		for(SexPositionSlot slot : Sex.getDominantParticipants().values()) {
+			actionsAvailablePlayer.addAll(slot.getActionsAvailablePlayer());
+			actionsAvailablePartner.addAll(slot.getActionsAvailablePartner());
+			orgasmActionsPlayer.addAll(slot.getOrgasmActionsPlayer());
+			orgasmActionsPartner.addAll(slot.getOrgasmActionsPartner());
+			mutualOrgasmActions.addAll(slot.getMutualOrgasmActions());
+		}
+		
+		if(activePartner.equals(Main.game.getLilaya())) {// TODO move to somewhere logical
+			Sex.addSexActionClass(SALilayaSpecials.class);
+		}
+	}
+	
+	private static void addSexActionClass(Class<?> classToAddSexActionsFrom) {
+		try {
+			if(classToAddSexActionsFrom!=null) {
+				Field[] fields = classToAddSexActionsFrom.getFields();
+				
+				for(Field f : fields){
+					
+					if (SexAction.class.isAssignableFrom(f.getType())) {
+						if (((SexAction) f.get(null)).getActionType().isOrgasmOption()) {
+							if (((SexAction) f.get(null)).getActionType() == SexActionType.MUTUAL_ORGASM) {
+								mutualOrgasmActions.add(((SexAction) f.get(null)));
+								
+							} else if (((SexAction) f.get(null)).getActionType().isPlayerAction()) {
+								orgasmActionsPlayer.add(((SexAction) f.get(null)));
+								
+							} else {
+								orgasmActionsPartner.add(((SexAction) f.get(null)));
+							}
+							
+						} else {
+							if (((SexAction) f.get(null)).getActionType().isPlayerAction()) {
+								actionsAvailablePlayer.add(((SexAction) f.get(null)));
+								
+							} else {
+								actionsAvailablePartner.add(((SexAction) f.get(null)));
+							}
+						}
+					}
+				}
+			}
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static Set<SexActionInterface> getActionsAvailablePlayer() {
+		return actionsAvailablePlayer;
+	}
 
+	public static Set<SexActionInterface> getActionsAvailablePartner() {
+		return actionsAvailablePartner;
+	}
+
+	public static Set<SexActionInterface> getOrgasmActionsPlayer() {
+		return orgasmActionsPlayer;
+	}
+
+	public static Set<SexActionInterface> getOrgasmActionsPartner() {
+		return orgasmActionsPartner;
+	}
+
+	public static Set<SexActionInterface> getMutualOrgasmActions() {
+		return mutualOrgasmActions;
+	}
+	
 	public static List<SexActionInterface> getAvailableSexActionsPlayer() {
 		return availableSexActionsPlayer;
 	}
@@ -2907,8 +3007,61 @@ public enum Sex {
 		return LustLevel.getLustLevelFromValue(character.getLust()).getSexPace(character);
 	}
 	
+	public static SexPositionSlot getSexPositionSlot(GameCharacter character) {
+		if(Sex.dominants.keySet().contains(character)) {
+			return Sex.dominants.get(character);
+			
+		} else if(Sex.submissives.keySet().contains(character)) {
+			return Sex.submissives.get(character);
+		}
+		
+		throw new IllegalArgumentException("The passed character in Sex.getSexPositionSlot(character) is not detected as a participant in this Sex scene!");
+	}
+	
+	public static void setSexPositionSlot(GameCharacter character, SexPositionSlot slot) {
+		// Check to see if character is in this sex scene:
+		if(!Sex.dominants.keySet().contains(character) && !Sex.submissives.keySet().contains(character)) {
+			throw new IllegalArgumentException("This character is not in this sex scene!");
+		}
+		
+		// Check to see if this slot is available:
+		boolean found = false;
+		for(List<SexPositionSlot> availableSlots : getPosition().getAvailableSlots()) {
+			if(availableSlots.contains(slot)) {
+				found = true;
+				for(Entry<GameCharacter, SexPositionSlot> e : dominants.entrySet()) {
+					if(!e.getKey().equals(character)) {
+						if(availableSlots.contains(e.getValue())) {
+							throw new IllegalArgumentException("A dominant participant ("+character.getName()+") is already occupying this slot ("+slot+")!");
+						}
+					}
+				}
+				for(Entry<GameCharacter, SexPositionSlot> e : submissives.entrySet()) {
+					if(!e.getKey().equals(character)) {
+						if(availableSlots.contains(e.getValue())) {
+							throw new IllegalArgumentException("A submissive participant ("+character.getName()+") is already occupying this slot ("+slot+")!");
+						}
+					}
+				}
+				break;
+			}
+		}
+		if(!found) {
+			throw new IllegalArgumentException("This slot ("+slot+") is not available in this position ("+getPosition()+")!");
+		}
+		
+		if(Sex.dominants.keySet().contains(character)) {
+			Sex.dominants.put(character, slot);
+		}
+		if(Sex.submissives.keySet().contains(character)) {
+			Sex.submissives.put(character, slot);
+		}
+		
+		updateAvailableActions();
+	}
+	
 	public static boolean isDom(GameCharacter character) {
-		return Sex.dominants.contains(character);
+		return Sex.dominants.keySet().contains(character);
 	}
 	
 	public static boolean isSexFinished() {
@@ -2957,7 +3110,7 @@ public enum Sex {
 		orgasmCountMap.put(character, orgasmCountMap.get(character)+increment);
 	}
 	
-	public static SexPositionType getPosition() {
+	public static SexPositionNew getPosition() {
 		return sexManager.getPosition();
 	}
 
@@ -2983,5 +3136,45 @@ public enum Sex {
 
 	public static void setPartnerCanRemovePlayersClothes(boolean partnerCanRemovePlayersClothes) {
 		Sex.partnerCanRemovePlayersClothes = partnerCanRemovePlayersClothes;
+	}
+
+	public static Map<GameCharacter, SexPositionSlot> getSubmissives() {
+		return submissives;
+	}
+
+	public static String getSexDescription() {
+		return sexDescription;
+	}
+
+	public static StringBuilder getSexSB() {
+		return sexSB;
+	}
+
+	public static List<SexActionInterface> getSelfActionsPlayer() {
+		return selfActionsPlayer;
+	}
+
+	public static List<SexActionInterface> getSexActionsPlayer() {
+		return sexActionsPlayer;
+	}
+
+	public static List<SexActionInterface> getPositionActionsPlayer() {
+		return positionActionsPlayer;
+	}
+
+	public static SizedStack<SexActionInterface> getRepeatActionsPlayer() {
+		return repeatActionsPlayer;
+	}
+
+	public static DialogueNodeOld getPostSexDialogue() {
+		return postSexDialogue;
+	}
+
+	public static SexActionCategory getResponseCategory() {
+		return responseCategory;
+	}
+
+	public static DialogueNodeOld getSexDialogue() {
+		return SEX_DIALOGUE;
 	}
 }

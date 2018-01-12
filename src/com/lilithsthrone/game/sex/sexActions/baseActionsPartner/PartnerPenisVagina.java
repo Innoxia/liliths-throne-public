@@ -15,7 +15,8 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPositionType;
+import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.game.sex.sexActions.universal.dom.DomCowgirl;
@@ -247,7 +248,7 @@ public class PartnerPenisVagina {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPositionType.DOGGY_PLAYER_ON_ALL_FOURS) {// Doggy-style penetration descriptions:
+			if(Sex.getPosition()==SexPositionNew.DOGGY_STYLE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.DOGGY_ON_ALL_FOURS) {// Doggy-style penetration descriptions:
 				
 				switch(Sex.getSexPace(Sex.getActivePartner())) {
 					case DOM_GENTLE:
@@ -294,7 +295,7 @@ public class PartnerPenisVagina {
 						break;
 				}
 				
-			} else if(Sex.getPosition()==SexPositionType.BACK_TO_WALL_PLAYER) {// Back-to-wall penetration descriptions:
+			} else if(Sex.getPosition()==SexPositionNew.BACK_TO_WALL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.BACK_TO_WALL_AGAINST_WALL) {// Back-to-wall penetration descriptions:
 				
 				switch(Sex.getSexPace(Sex.getActivePartner())) {
 					case DOM_GENTLE:
@@ -447,7 +448,7 @@ public class PartnerPenisVagina {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPositionType.BACK_TO_WALL_PLAYER) {// Back-to-wall descriptions:
+			if(Sex.getPosition()==SexPositionNew.BACK_TO_WALL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.BACK_TO_WALL_AGAINST_WALL) {// Back-to-wall descriptions:
 				
 				String barbedSpecial = "", flaredSpecial = "", knottedSpecial = "", ribbedSpecial = "", tentacledSpecial = "";
 				
@@ -637,7 +638,7 @@ public class PartnerPenisVagina {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPositionType.DOGGY_PLAYER_ON_ALL_FOURS) { // Doggy-style descriptions:
+			if(Sex.getPosition()==SexPositionNew.DOGGY_STYLE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.DOGGY_ON_ALL_FOURS) { // Doggy-style descriptions:
 				
 				String tailSpecial="",  hairSpecial="";
 				
@@ -686,7 +687,7 @@ public class PartnerPenisVagina {
 						break;
 				}
 				
-			} else if(Sex.getPosition()==SexPositionType.BACK_TO_WALL_PLAYER) {// Back-to-wall descriptions:
+			} else if(Sex.getPosition()==SexPositionNew.BACK_TO_WALL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.BACK_TO_WALL_AGAINST_WALL) {// Back-to-wall descriptions:
 				
 				String barbedSpecial = "", flaredSpecial = "", knottedSpecial = "", ribbedSpecial = "", tentacledSpecial = "";
 				
@@ -1069,7 +1070,7 @@ public class PartnerPenisVagina {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPositionType.COWGIRL_PLAYER_TOP) {
+			if(Sex.getPosition()==SexPositionNew.COWGIRL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.COWGIRL_RIDING) {
 				
 				return DomCowgirl.getPlayerStartingVaginalPenetrationDescription();
 				
@@ -1181,11 +1182,11 @@ public class PartnerPenisVagina {
 		@Override
 		public String getDescription() {
 			
-			if(Sex.getPosition()==SexPositionType.COWGIRL_PLAYER_TOP) {
+			if(Sex.getPosition()==SexPositionNew.COWGIRL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.COWGIRL_RIDING) {
 				
 				return DomCowgirl.getPlayerRidingCockGentle();
 				
-			} else if(Sex.getPosition()==SexPositionType.BACK_TO_WALL_PARTNER) {// Back-to-wall descriptions:
+			} else if(Sex.getPosition()==SexPositionNew.BACK_TO_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.BACK_TO_WALL_AGAINST_WALL) {// Back-to-wall descriptions:
 				
 				return UtilText.returnStringAtRandom(
 						"Reaching down to gently take hold of [npc.name]'s hips, you start bucking back and forth, pressing [npc.herHim] against the wall as you repeatedly impale your [pc.pussy+] on [npc.her] [npc.cock+].",
@@ -1232,7 +1233,7 @@ public class PartnerPenisVagina {
 		@Override
 		public String getDescription() {
 			
-			if(Sex.getPosition()==SexPositionType.COWGIRL_PLAYER_TOP) {
+			if(Sex.getPosition()==SexPositionNew.COWGIRL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.COWGIRL_RIDING) {
 				
 				return DomCowgirl.getPlayerRidingCockNormal();
 				
@@ -1274,11 +1275,11 @@ public class PartnerPenisVagina {
 		@Override
 		public String getDescription() {
 			
-			if(Sex.getPosition()==SexPositionType.COWGIRL_PLAYER_TOP) {
+			if(Sex.getPosition()==SexPositionNew.COWGIRL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.COWGIRL_RIDING) {
 				
 				return DomCowgirl.getPlayerRidingCockRough();
 				
-			} else if(Sex.getPosition()==SexPositionType.BACK_TO_WALL_PARTNER) {
+			} else if(Sex.getPosition()==SexPositionNew.BACK_TO_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.BACK_TO_WALL_AGAINST_WALL) {
 				
 				String barbedSpecial = "", flaredSpecial = "", knottedSpecial = "", ribbedSpecial = "", tentacledSpecial = "";
 				
@@ -1360,7 +1361,7 @@ public class PartnerPenisVagina {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 
-			if(Sex.getPosition()==SexPositionType.DOGGY_PLAYER_ON_ALL_FOURS) {// Doggy-style penetration descriptions:
+			if(Sex.getPosition()==SexPositionNew.DOGGY_STYLE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.DOGGY_ON_ALL_FOURS) {// Doggy-style penetration descriptions:
 				
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"Bracing yourself with both hands flat on the floor, you start to push back against [npc.name] in time with [npc.her] thrusts,"
@@ -1509,7 +1510,7 @@ public class PartnerPenisVagina {
 		@Override
 		public String getDescription() {
 			
-			if(Sex.getPosition()==SexPositionType.COWGIRL_PLAYER_TOP) {
+			if(Sex.getPosition()==SexPositionNew.COWGIRL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.COWGIRL_RIDING) {
 				
 				return DomCowgirl.getPlayerStoppingVaginalPenetrationDescription();
 				

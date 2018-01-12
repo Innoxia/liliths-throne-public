@@ -1,33 +1,36 @@
 package com.lilithsthrone.game.sex.managers;
 
-import java.util.List;
+import java.util.Map;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPositionType;
+import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.1.86
+ * @version 0.1.97
  * @author Innoxia
  */
 public interface SexManagerInterface {
 
-	public default void initSexActions() {
+	public SexPositionNew getPosition();
+	
+	public Map<GameCharacter, SexPositionSlot> getDominants();
+	public Map<GameCharacter, SexPositionSlot> getSubmissives();
+	
+	public default SexPace getStartingSexPaceOverride(GameCharacter character) {
+		return null;
 	}
 	
-	public void addSexActionClass(Class<?> container);
-	
-	public SexPositionType getPosition();
-	
-	public List<SexActionInterface> getActionsAvailablePlayer();
-	public List<SexActionInterface> getActionsAvailablePartner();
-	public List<SexActionInterface> getOrgasmActionsPlayer();
-	public List<SexActionInterface> getOrgasmActionsPartner();
-	public List<SexActionInterface> getMutualOrgasmActions();
+	public default boolean isPlayerDom() {
+		return getDominants().containsKey(Main.game.getPlayer());
+	}
 	
 	/**
 	 * @param sexActionPlayer The action that the player just took before the partner's turn.
@@ -35,16 +38,30 @@ public interface SexManagerInterface {
 	 */
 	public SexActionInterface getPartnerSexAction(SexActionInterface sexActionPlayer);
 	
-	public boolean isPlayerAbleToStopSex();
 	
-	public SexPace getStartingSexPacePlayer();
-	public SexPace getStartingSexPacePartner();
+	public default String getStartSexDescription() {
+		return "";
+	}
 	
-	public boolean isPlayerCanRemoveOwnClothes();
-	public boolean isPlayerCanRemovePartnersClothes();
+	public default boolean isPlayerAbleToStopSex() {
+		return true;
+	}
 	
-	public boolean isPartnerCanRemoveOwnClothes();
-	public boolean isPartnerCanRemovePlayersClothes();
+	public default boolean isPlayerCanRemoveOwnClothes(){
+		return true;
+	}
+	
+	public default boolean isPlayerCanRemovePartnersClothes(){
+		return true;
+	}
+	
+	public default boolean isPartnerCanRemoveOwnClothes(){
+		return true;
+	}
+	
+	public default boolean isPartnerCanRemovePlayersClothes(){
+		return false;
+	}
 	
 	public default boolean isItemUseAvailable() {
 		return true;
@@ -58,9 +75,6 @@ public interface SexManagerInterface {
 		return false;
 	}
 	
-	
-
-	public String getStartSexDescription();
 	
 	// Revealing CoverableAreas:
 

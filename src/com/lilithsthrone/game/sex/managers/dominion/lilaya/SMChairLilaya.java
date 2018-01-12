@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.sex.managers.dominion.zaranix;
+package com.lilithsthrone.game.sex.managers.dominion.lilaya;
 
 import java.util.Map;
 
@@ -8,14 +8,14 @@ import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 
 /**
- * @since 0.1.95
+ * @since 0.1.7
  * @version 0.1.97
  * @author Innoxia
  */
-public class SMAmberDoggyFucked extends SexManagerDefault {
+public class SMChairLilaya extends SexManagerDefault {
 
-	public SMAmberDoggyFucked(Map<GameCharacter, SexPositionSlot> dominants, Map<GameCharacter, SexPositionSlot> submissives) {
-		super(SexPositionNew.DOGGY_AMBER,
+	public SMChairLilaya(Map<GameCharacter, SexPositionSlot> dominants, Map<GameCharacter, SexPositionSlot> submissives) {
+		super(SexPositionNew.CHAIR_SEX_LILAYA,
 				dominants,
 				submissives);
 	}

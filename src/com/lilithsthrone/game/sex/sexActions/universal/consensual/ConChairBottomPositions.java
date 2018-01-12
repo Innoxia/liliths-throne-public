@@ -4,13 +4,17 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.managers.universal.consensual.SMChairTop;
+import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.managers.universal.consensual.SMChair;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.69.9
- * @version 0.1.69.9
+ * @version 0.1.97
  * @author Innoxia
  */
 public class ConChairBottomPositions {
@@ -50,7 +54,9 @@ public class ConChairBottomPositions {
 
 		@Override
 		public void applyEffects() {
-			Sex.setSexManager(new SMChairTop()); // TODO May need override in some sex scenes
+			Sex.setSexManager(new SMChair(
+					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_TOP)),
+					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.CHAIR_BOTTOM))));
 		}
 	};
 }
