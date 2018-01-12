@@ -3426,6 +3426,8 @@ public class ItemType {
 							&& item!=ItemType.SEX_INGREDIENT_MINCE_PIE
 							&& item!=ItemType.FIT_INGREDIENT_EGG_NOG
 							&& item!=ItemType.RACE_INGREDIENT_REINDEER_MORPH
+                                                && item!=ItemType.ARTHURS_PACKAGE
+                                                && item!=ItemType.ORIENTATION_HYPNO_WATCH
 							) {
 						commonItems.add(item);
 						
