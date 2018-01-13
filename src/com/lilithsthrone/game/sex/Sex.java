@@ -272,8 +272,47 @@ public enum Sex {
 		areasCummedInPlayer = new HashSet<>();
 		areasCummedInPartner = new HashSet<>();
 
-		Main.game.getPlayer().setArousal(0);
-		activePartner.setArousal(0);
+
+		
+		
+		for(GameCharacter character : Sex.getAllParticipants()) {
+			character.setLust(50);
+			character.setArousal(0);
+			
+			if(Main.getProperties().nonConContent) {
+				if(!character.isPlayer()) {
+					if(!((NPC) character).isAttractedTo(Main.game.getPlayer())) {
+						character.setLust(0);
+					}
+				}
+			}
+			
+			if(sexManager.getStartingSexPaceOverride(character)!=null) {
+				switch(sexManager.getStartingSexPaceOverride(character)) {
+					case DOM_GENTLE:
+						character.setLust(10);
+						break;
+					case DOM_NORMAL:
+						character.setArousal(5);
+						break;
+					case DOM_ROUGH:
+						character.setLust(85);
+						character.setArousal(10);
+						break;
+					case SUB_EAGER:
+						character.setLust(85);
+						character.setArousal(10);
+						break;
+					case SUB_NORMAL:
+						character.setArousal(5);
+						break;
+					case SUB_RESISTING:
+						character.setLust(0);
+						break;
+				}
+			}
+		}
+		
 		
 		// Set starting wetness values:
 		wetPenetrationTypes = new HashMap<>();
@@ -840,7 +879,6 @@ public enum Sex {
 
 		@Override
 		public String getResponseTabTitle(int index) {
-
 			if (sexFinished
 					|| lastUsedPartnerAction == SexActionUtility.PARTNER_ORGASM_MUTUAL_WAIT
 					|| Main.game.getPlayer().getArousal() >= ArousalLevel.FIVE_ORGASM_IMMINENT.getMaximumValue()
@@ -1053,7 +1091,7 @@ public enum Sex {
 			
 			GameCharacter active = Sex.getActivePartner();
 			
-			for(GameCharacter character : Sex.getDominantParticipants().keySet()) {
+			for(GameCharacter character : Sex.getAllParticipants()) {
 				if(!character.isPlayer()) {
 					Sex.setActivePartner((NPC) character);
 					

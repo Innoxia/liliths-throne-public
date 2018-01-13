@@ -1631,7 +1631,7 @@ public enum RenderingEngine {
 					}
 				
 					sexSB.append("<div class='half-width-container' style='color:"+orgasmColour.toWebHexString()+"; text-align:center;'>"
-						+ Sex.getNumberOfOrgasms(character)+" orgasm"+(Sex.getNumberOfOrgasms(character)>1?"s":"")
+						+ Sex.getNumberOfOrgasms(character)+" orgasm"+(Sex.getNumberOfOrgasms(character)!=1?"s":"")
 					+ "</div>"
 
 					+ "<div class='half-width-container' style='color:"+Sex.getSexPace(character).getColour().toWebHexString()+"; text-align:center;'>"

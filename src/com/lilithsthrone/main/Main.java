@@ -60,7 +60,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.1.96.5",
+	public static final String VERSION_NUMBER = "0.1.96.9",
 			VERSION_DESCRIPTION = "Early Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
@@ -78,12 +78,7 @@ public class Main extends Application {
 		+ "</p>"
 			
 		+ "<p>"
-			+ "This week's progress was a little hindered by the fact that I had a 4-day week (as I returned to working on LT after my 1-week break on January 2nd), as well as the fact that I made a large mistake with the new orgasm content."
-			+ " After spending a day implementing the framework in the engine, I realised that it wasn't going to work with the multiple-partner sex stuff, so I had to revert it all... x_x"
-		+ "</p>"
-			
-		+ "<p>"
-			+ "I hope that there's still enough here to make this preview interesting, and I'll have the new orgasm & sex stuff done for the full release on the 12th. :3"
+			+ "I ran out of time in which to get 0.1.97 finished, so this release is <b>a buggy preview build</b>! I will do my best to get a more polished, finalised version of 0.1.97 out as soon as I can. x_x"
 		+ "</p>"
 		
 		+ "<p>"
@@ -131,6 +126,49 @@ public class Main extends Application {
 			+"<ul>Minor fix to Lilaya's post-creampie-sex scene.</ul>"
 			+"<ul>Fixed minor inventory text formatting bug.</ul>"
 			+"<ul>Temporarily stopped chemise from blocking groin areas until I can rework the clothing displacement system (there were some major issues with wearing chemise & pantyhose).</ul>"
+		+ "</list>"
+
+		+ "</br>"
+		
+		+ "<list>"
+			+ "<h6>v0.1.96.9</h6>"
+			+"<li>Engine:</li>"
+			+"<ul>Added: Huge amount of engine support for multiple partners in sex. This required an enormous refactor of how sex is handled in the engine, which took up ~90% of the time this week.</ul>"
+			+"<ul>Final sex mechanics (taking the form of 'lust' and stamina) have been half-added to the engine.</ul>"
+				
+			+"<li>Sex:</li>"
+			+"<ul>You should now be able to use all of your hands/tails during sex.</ul>"
+				
+			+"<li>Gameplay:</li>"
+			+"<ul>Added double room upgrade, so you can now house two slaves in each room.</ul>"
+				
+			+"<li>Clothing:</li>"
+			+"<ul>Added: Women's leather jacket (feminine, over-torso slot). (I added this to complete Kate's new outfit.)</ul>"
+			+"<ul>Added: Striped panties (feminine, groin slot).</ul>"
+			+"<ul>Added: Striped bra (feminine, chest slot).</ul>"
+			+"<ul>Added: Striped thigh-high socks (feminine, sock slot).</ul>"
+				
+			+"<li>UI:</li>"
+			+"<ul>Moved weapons & jewellery into the 'equipped' panel, so all equipped items are now grouped into the same UI element.</ul>"
+			+"<ul>Fixed bugs related to tooltip positioning causing some UI elements to become inaccessible.</ul>"
+				
+			+"<li>Other:</li>"
+			+"<ul>Removed 'Wing' clothing slot. (I might add this again in the future, but I was struggling to think of any 'wing clothing' to add to that slot.)	</ul>"
+			+"<ul>Tweaked drop rate of racial consumables (the ones that are able to be enchanted into transformatives are now a little more common).</ul>"
+			+"<ul>Added more control over selecting font size in the option menu.</ul>"
+				
+			+"<li>Bugs:</li>"
+			+"<ul>Minor formatting error fixes.</ul>"
+			+"<ul>The sex action 'Spread ass' is now correctly available for the player.</ul>"
+			+"<ul>NPCs should no longer get stuck on trying to transform your genitals after beating you in combat.</ul>"
+			+"<ul>Enchanted weapons (those with with stat buffs) now correctly apply their buffs when importing a save/character.</ul>"
+			+"<ul>Minor fix to default gender names (changed an instance of 'doll' to 'neuter').</ul>"
+			+"<ul>Minor typo fixes.</ul>"
+			+"<ul>Fixed hypno-watch and Arthur's package being found in alleyways.</ul>"
+			+"<ul>You can no longer purchase Arthur's Room upgrade before progressing to the correct point in the main quest.</ul>"
+			+"<ul>Fixed encyclopedia preview pictures not working.</ul>"
+			+"<ul>Fixed an error in changing what your slave calls you through the 'Permissions' screen.</ul>"
+			+"<ul>Fixed bug where pressing enter on a blank text field would cause the centre panel of the UI to go blank.</ul>"
 		+ "</list>"
 		;
 	
