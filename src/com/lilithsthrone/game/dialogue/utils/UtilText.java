@@ -248,11 +248,11 @@ public class UtilText {
 		
 		// Apply speech effects:
 		if(Main.game.isInSex()) {
-			if(Sex.isPlayerPenetrated()) {
+			if(Sex.isCharacterPenetrated(Main.game.getPlayer())) {
 				modifiedSentence = Util.addSexSounds(modifiedSentence, 6);
 			}
 			
-			if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER)!=null) {
+			if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER)!=null) {
 				modifiedSentence = Util.addMuffle(modifiedSentence, 6);
 			} else {
 				if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
@@ -294,10 +294,10 @@ public class UtilText {
 		// Apply speech effects:
 		if(Main.game.isInSex()) {
 			if(target.isPlayer()) {
-				if(Sex.isPlayerPenetrated()) {
+				if(Sex.isCharacterPenetrated(Main.game.getPlayer())) {
 					modifiedSentence = Util.addSexSounds(modifiedSentence, 6);
 				}
-				if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER)!=null) {
+				if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER)!=null) {
 					modifiedSentence = Util.addMuffle(modifiedSentence, 6);
 				} else {
 					if(!target.isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
@@ -311,11 +311,11 @@ public class UtilText {
 				}
 				
 			} else {
-				if(Sex.isPartnerPenetrated()) {
+				if(Sex.isCharacterPenetrated(character)) {
 					modifiedSentence = Util.addSexSounds(modifiedSentence, 6);
 				}
 				
-				if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER)!=null) {
+				if(Sex.getPenetrationTypeInOrifice(character, OrificeType.MOUTH_PARTNER)!=null) {
 					modifiedSentence = Util.addMuffle(modifiedSentence, 6);
 				} else {
 					if(!target.isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
@@ -377,7 +377,7 @@ public class UtilText {
 
 		// Apply speech effects:
 		if(Main.game.isInSex()) {
-			if(Sex.isPartnerPenetrated())
+			if(Sex.isCharacterPenetrated(target))
 				modifiedSentence = Util.addSexSounds(modifiedSentence, 5);
 		}
 
@@ -1230,7 +1230,7 @@ public class UtilText {
 			@Override
 			public String parse(String command, String arguments, String target) {
 				if(Main.game.isInSex()) {
-					if((character.isPlayer() && Sex.getSexPacePlayer()==SexPace.SUB_RESISTING) || (!character.isPlayer() && Sex.getSexPacePartner()==SexPace.SUB_RESISTING)) {
+					if((character.isPlayer() && Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING) || (!character.isPlayer() && Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)) {
 						if(character.isFeminine()) {
 							return returnStringAtRandom("sob", "scream", "cry");
 						} else {
@@ -1266,7 +1266,7 @@ public class UtilText {
 			@Override
 			public String parse(String command, String arguments, String target) {
 				if(Main.game.isInSex()) {
-					if((character.isPlayer() && Sex.getSexPacePlayer()==SexPace.SUB_RESISTING) || (!character.isPlayer() && Sex.getSexPacePartner()==SexPace.SUB_RESISTING)) {
+					if((character.isPlayer() && Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING) || (!character.isPlayer() && Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)) {
 						if(character.isFeminine()) {
 							return returnStringAtRandom("miserable", "pathetic", "distressed") + " " + returnStringAtRandom("sob", "scream", "cry");
 						} else {
@@ -1297,7 +1297,7 @@ public class UtilText {
 			@Override
 			public String parse(String command, String arguments, String target) {
 				if(Main.game.isInSex()) {
-					if((character.isPlayer() && Sex.getSexPacePlayer()==SexPace.SUB_RESISTING) || (!character.isPlayer() && Sex.getSexPacePartner()==SexPace.SUB_RESISTING)) {
+					if((character.isPlayer() && Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING) || (!character.isPlayer() && Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)) {
 						if(character.isFeminine()) {
 							return returnStringAtRandom("sob", "scream", "cry");
 						} else {
@@ -1333,7 +1333,7 @@ public class UtilText {
 			@Override
 			public String parse(String command, String arguments, String target) {
 				if(Main.game.isInSex()) {
-					if((character.isPlayer() && Sex.getSexPacePlayer()==SexPace.SUB_RESISTING) || (!character.isPlayer() && Sex.getSexPacePartner()==SexPace.SUB_RESISTING)) {
+					if((character.isPlayer() && Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING) || (!character.isPlayer() && Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)) {
 						if(character.isFeminine()) {
 							return returnStringAtRandom("miserably", "pathetically") + " " + returnStringAtRandom("sob", "scream", "cry");
 						} else {
@@ -1365,7 +1365,7 @@ public class UtilText {
 			@Override
 			public String parse(String command, String arguments, String target) {
 				if(Main.game.isInSex()) {
-					if((character.isPlayer() && Sex.getSexPacePlayer()==SexPace.SUB_RESISTING) || (!character.isPlayer() && Sex.getSexPacePartner()==SexPace.SUB_RESISTING)) {
+					if((character.isPlayer() && Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING) || (!character.isPlayer() && Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)) {
 						if(character.isFeminine()) {
 							return returnStringAtRandom("sobs", "cries");
 						} else {
@@ -1402,7 +1402,7 @@ public class UtilText {
 			@Override
 			public String parse(String command, String arguments, String target) {
 				if(Main.game.isInSex()) {
-					if((character.isPlayer() && Sex.getSexPacePlayer()==SexPace.SUB_RESISTING) || (!character.isPlayer() && Sex.getSexPacePartner()==SexPace.SUB_RESISTING)) {
+					if((character.isPlayer() && Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING) || (!character.isPlayer() && Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)) {
 						if(character.isFeminine()) {
 							return returnStringAtRandom("miserable", "pathetic", "distressed") + " " + returnStringAtRandom("sobs", "cries");
 						} else {
@@ -1434,7 +1434,7 @@ public class UtilText {
 			@Override
 			public String parse(String command, String arguments, String target) {
 				if(Main.game.isInSex()) {
-					if((character.isPlayer() && Sex.getSexPacePlayer()==SexPace.SUB_RESISTING) || (!character.isPlayer() && Sex.getSexPacePartner()==SexPace.SUB_RESISTING)) {
+					if((character.isPlayer() && Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING) || (!character.isPlayer() && Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)) {
 						if(character.isFeminine()) {
 							return returnStringAtRandom("sobs", "cries");
 						} else {
@@ -1471,7 +1471,7 @@ public class UtilText {
 			@Override
 			public String parse(String command, String arguments, String target) {
 				if(Main.game.isInSex()) {
-					if((character.isPlayer() && Sex.getSexPacePlayer()==SexPace.SUB_RESISTING) || (!character.isPlayer() && Sex.getSexPacePartner()==SexPace.SUB_RESISTING)) {
+					if((character.isPlayer() && Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING) || (!character.isPlayer() && Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)) {
 						if(character.isFeminine()) {
 							return returnStringAtRandom("miserably", "pathetically", "desperately") + " " + returnStringAtRandom("sobs", "cries");
 						} else {
@@ -1501,7 +1501,7 @@ public class UtilText {
 			@Override
 			public String parse(String command, String arguments, String target) {
 				if(Main.game.isInSex()) {
-					if((character.isPlayer() && Sex.getSexPacePlayer()==SexPace.SUB_RESISTING) || (!character.isPlayer() && Sex.getSexPacePartner()==SexPace.SUB_RESISTING)) {
+					if((character.isPlayer() && Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING) || (!character.isPlayer() && Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)) {
 						if(character.isFeminine()) {
 							return returnStringAtRandom("sobbing", "crying");
 						} else {
@@ -1535,7 +1535,7 @@ public class UtilText {
 			@Override
 			public String parse(String command, String arguments, String target) {
 				if(Main.game.isInSex()) {
-					if((character.isPlayer() && Sex.getSexPacePlayer()==SexPace.SUB_RESISTING) || (!character.isPlayer() && Sex.getSexPacePartner()==SexPace.SUB_RESISTING)) {
+					if((character.isPlayer() && Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING) || (!character.isPlayer() && Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)) {
 						if(character.isFeminine()) {
 							return returnStringAtRandom("miserably", "pathetically", "desperately") + " " + returnStringAtRandom("sobbing", "crying");
 						} else {
@@ -2766,6 +2766,35 @@ public class UtilText {
 		});
 		
 		// Leg:
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("thighs")),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.LEG){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return "thighs";
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("thighs+"),
+						new ListValue<>("thighsD")),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.LEG){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return "thighs";
+			}
+		});
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(

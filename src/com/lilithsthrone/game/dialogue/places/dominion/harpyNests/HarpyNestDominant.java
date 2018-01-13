@@ -13,14 +13,16 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemEffectType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.managers.dominion.harpies.SMHarpyStanding;
+import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.8
- * @version 0.1.87
+ * @version 0.1.97
  * @author Innoxia
  */
 public class HarpyNestDominant {
@@ -275,8 +277,13 @@ public class HarpyNestDominant {
 		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.dominantPacified)) {
 				if (index == 1) {
-					return new ResponseSex("Sex", "Have dominant sex with [harpyDominant.name].", true,
-							false, Main.game.getHarpyDominant(), new SMHarpyStanding(), HARPY_NEST_DOMINANT_AFTER_SEX, "<p>"
+					return new ResponseSex("Sex", "Have dominant sex with [harpyDominant.name].",
+							true, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getHarpyDominant(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							HARPY_NEST_DOMINANT_AFTER_SEX,
+							"<p>"
 								+ "Eager to put [harpyDominant.name] in her place in front of her flock, you reach down and grab her wings."
 								+ " Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyDominant.lips+]."
 							+ "</p>"
@@ -539,8 +546,13 @@ public class HarpyNestDominant {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			 if (index == 1) {
-				return new ResponseSex("Sex", "Have dominant sex with [harpyDominant.name].", true,
-						false, Main.game.getHarpyDominant(), new SMHarpyStanding(), HARPY_NEST_DOMINANT_AFTER_SEX, "<p>"
+				return new ResponseSex("Sex", "Have dominant sex with [harpyDominant.name].",
+						true, false,
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getHarpyDominant(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						HARPY_NEST_DOMINANT_AFTER_SEX,
+						"<p>"
 							+ "Eager to put [harpyDominant.name] in her place in front of your new flock, you reach down and grab her wings."
 							+ " Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyDominant.lips+]."
 						+ "</p>"
@@ -841,8 +853,13 @@ public class HarpyNestDominant {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			 if (index == 1) {
-				return new ResponseSex("Sex", "Have dominant sex with [harpyDominant.name].", true,
-						false, Main.game.getHarpyDominant(), new SMHarpyStanding(), HARPY_NEST_DOMINANT_AFTER_SEX, "<p>"
+				return new ResponseSex("Sex", "Have dominant sex with [harpyDominant.name].",
+						true, false,
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getHarpyDominant(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						HARPY_NEST_DOMINANT_AFTER_SEX,
+						"<p>"
 							+ "Eager to put [harpyDominant.name] in her place in front of your new flock, you reach down and grab her wings."
 							+ " Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyDominant.lips+]."
 						+ "</p>"
@@ -1003,9 +1020,9 @@ public class HarpyNestDominant {
 		
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfPartnerOrgasms() >= 1) {
+			if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
 				return "<p>"
-							+ "As you step back from [harpyDominant.name], she sinks to the floor, totally worn out from her orgasm"+(Sex.getNumberOfPartnerOrgasms() > 1?"s":"")+"."
+							+ "As you step back from [harpyDominant.name], she sinks to the floor, totally worn out from her orgasm"+(Sex.getNumberOfOrgasms(Sex.getActivePartner()) > 1?"s":"")+"."
 							+ " The surrounding harpies, having watched the whole thing, kneel in submission as you finish with their matriarch."
 						+ "</p>";
 			} else {

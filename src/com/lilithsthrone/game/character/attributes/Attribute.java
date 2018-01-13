@@ -121,6 +121,24 @@ public enum Attribute {
 								"How aroused [npc.name] is. [npc.She] will orgasm when [npc.her] arousal maxes out.");
 				}
 			},
+	
+	LUST(0,
+			"lust",
+			"Lust",
+			"arousalIcon",
+			Colour.ATTRIBUTE_LUST,
+			"passion",
+			"indifference",
+			null, null, null, null) {
+				@Override
+				public String getDescription(GameCharacter owner) {
+					if(owner.isPlayer())
+						return "How desperate for sexual contact you are. Your lust influences the pace that you adopt during sex.";
+					else
+						return UtilText.parse(owner,
+								"How desperate for sexual contact [npc.name] is. [npc.Her] lust influences the pace that [npc.she] adopts during sex.");
+				}
+			},
 
 	STRENGTH(0,
 			"strength",

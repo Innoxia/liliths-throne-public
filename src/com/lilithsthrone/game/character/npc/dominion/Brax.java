@@ -66,9 +66,10 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.managers.dominion.brax.SMBraxDom;
-import com.lilithsthrone.game.sex.managers.dominion.brax.SMBraxSubCowgirl;
-import com.lilithsthrone.game.sex.managers.dominion.brax.SMBraxSubStart;
+import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.managers.universal.SMCowgirl;
+import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
+import com.lilithsthrone.game.sex.managers.universal.SMKneeling;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -79,7 +80,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.5
- * @version 0.1.89
+ * @version 0.1.97
  * @author Innoxia
  */
 public class Brax extends NPC {
@@ -513,8 +514,13 @@ public class Brax extends NPC {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseSex("Get started", "Start dominating your new bitch.", false,
-						false, Main.game.getBrax(), new SMBraxSubStart(), AFTER_DOMINANT_SEX, "<p>"
+				return new ResponseSex("Get started", "Start dominating your new bitch.",
+						false, false,
+						new SMKneeling(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.KNEELING_RECEIVING_ORAL)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.KNEELING_PERFORMING_ORAL))),
+						AFTER_DOMINANT_SEX,
+						"<p>"
 							+ "With a forceful push, you shove Brax down onto his knees before you."
 							+ " His meek, submissive look couldn't be further from the aggressive snarl that he greeted you with when you entered his office, and you grin down at him as you prepare to make him your bitch."
 						+ "</p>");
@@ -564,8 +570,13 @@ public class Brax extends NPC {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseSex("Obey", "Do as Brax says and present yourself for him.", false,
-						true, Main.game.getBrax(), new SMBraxDom(), AFTER_SUBMISSIVE_SEX, "<p>"
+				return new ResponseSex("Obey", "Do as Brax says and present yourself for him.",
+						false, true,
+						new SMDoggy(
+								Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.DOGGY_BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
+						AFTER_SUBMISSIVE_SEX,
+						"<p>"
 							+ "You obediently do as Brax commands and drop down on all fours right there in the middle of his office."
 							+ (Main.game.getPlayer().getTailType() == TailType.LYCAN
 								?" You can't help but shake your ass at the dominant wolf-boy, and you playfully flick your wolf-like tail back and forth, making pitiful little whining noises as you eagerly plead for Brax's thick cock."
@@ -807,8 +818,13 @@ public class Brax extends NPC {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseSex("Dominated", "Brax is far too strong for you to resist...", false,
-						false, Main.game.getBrax(), new SMBraxDom(), AFTER_SUBMISSIVE_SEX, "<p>"
+				return new ResponseSex("Dominated", "Brax is far too strong for you to resist...",
+						false, false,
+						new SMDoggy(
+								Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.DOGGY_BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
+						AFTER_SUBMISSIVE_SEX,
+						"<p>"
 							+ "Brax spins you around, and with a forceful shove, pushes you down to the ground."
 							+ " You land on all-fours, with your ass raised up towards the dominant wolf-boy."
 							+ " Hearing him let out a deep growl, you make a pitiful little whining noise in response as you realise that you're perfectly presented for Brax to take you, doggy-style."
@@ -915,8 +931,13 @@ public class Brax extends NPC {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseSex("Obey", "The arousing liquid you've just been forced to drink is forcing you to obey, and you eagerly fall down on all fours so that Brax can fuck you, doggy-style.", false,
-						false, Main.game.getBrax(), new SMBraxDom(), AFTER_SUBMISSIVE_SEX, "<p>"
+				return new ResponseSex("Obey", "The arousing liquid you've just been forced to drink is forcing you to obey, and you eagerly fall down on all fours so that Brax can fuck you, doggy-style.",
+						false, false,
+						new SMDoggy(
+								Util.newHashMapOfValues(new Value<>(Main.game.getBrax(), SexPositionSlot.DOGGY_BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
+						AFTER_SUBMISSIVE_SEX,
+						"<p>"
 							+ "You obediently do as Brax commands and drop down on all fours right there in the middle of his office."
 							+ (Main.game.getPlayer().getTailType() == TailType.LYCAN
 								?" You can't help but shake your ass at the dominant wolf-boy, and you playfully flick your wolf-like tail back and forth, making pitiful little whining noises as you eagerly plead for Brax's thick cock."
@@ -1084,7 +1105,7 @@ public class Brax extends NPC {
 							+ "[brax.name] lets out a surprised grunt as your tiny "
 							+ Main.game.getPlayer().getPenisName(false)
 							+ " is revealed, "
-							+ UtilText.parseSpeech("Wait, what?! I thought you were a girl!", Sex.getPartner())
+							+ UtilText.parseSpeech("Wait, what?! I thought you were a girl!", Sex.getActivePartner())
 							+ "</p>";
 
 				} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()) {
@@ -1096,7 +1117,7 @@ public class Brax extends NPC {
 							+ " is revealed, "
 							+ UtilText.parseSpeech("Wait, what?! You're a "
 									+ Main.game.getPlayer().getGender().getName()
-									+ "?!", Sex.getPartner())
+									+ "?!", Sex.getActivePartner())
 							+ "</p>";
 
 				} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.FOUR_HUGE.getMaximumValue()) {
@@ -1106,7 +1127,7 @@ public class Brax extends NPC {
 							+ " "
 							+ Main.game.getPlayer().getPenisName(false)
 							+ " is revealed, "
-							+ UtilText.parseSpeech("I should have guessed from that bulge...", Sex.getPartner())
+							+ UtilText.parseSpeech("I should have guessed from that bulge...", Sex.getActivePartner())
 							+ "</p>";
 
 				} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.SIX_GIGANTIC.getMaximumValue()) {
@@ -1118,19 +1139,19 @@ public class Brax extends NPC {
 							+ " is revealed, "
 							+ UtilText.parseSpeech("Really?! A "
 									+ Main.game.getPlayer().getGender().getName()
-									+ " has a bigger cock than <i>me</i>?!", Sex.getPartner())
+									+ " has a bigger cock than <i>me</i>?!", Sex.getActivePartner())
 							+ "</p>";
 
 				} else {
 					return "<p>"
 							+ "The "
-							+ Sex.getPartner().getName()
+							+ Sex.getActivePartner().getName()
 							+ "'s jaw drops as your stallion-sized "
 							+ Main.game.getPlayer().getPenisName(false)
 							+ " is revealed, "
 							+ UtilText.parseSpeech("How does a "
 									+ Main.game.getPlayer().getGender().getName()
-									+ " get a cock that big?!", Sex.getPartner())
+									+ " get a cock that big?!", Sex.getActivePartner())
 							+ "</p>";
 				}
 
@@ -1146,7 +1167,7 @@ public class Brax extends NPC {
 		} else {
 			return "<p>"
 					+ "[brax.name] lets out an amused grunt as he sees your doll-like crotch, "
-					+ UtilText.parseSpeech("Hah! Guess I'll have to be using your ass then...", Sex.getPartner())
+					+ UtilText.parseSpeech("Hah! Guess I'll have to be using your ass then...", Sex.getActivePartner())
 					+ "</p>";
 		}
 	}
@@ -1156,7 +1177,7 @@ public class Brax extends NPC {
 	@Override
 	public String getPenetrationDescription(boolean initialPenetration, PenetrationType penetrationType, OrificeType orifice) {
 		if(Math.random()>0.3) {
-			if(Sex.getSexManager() instanceof SMBraxSubCowgirl){
+			if(Sex.getSexManager() instanceof SMCowgirl){
 				if(orifice == OrificeType.VAGINA_PLAYER) {
 					if(penetrationType == PenetrationType.PENIS_PARTNER) {
 						return UtilText.returnStringAtRandom(

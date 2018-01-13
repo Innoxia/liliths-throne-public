@@ -1,12 +1,13 @@
 package com.lilithsthrone.game.dialogue.npcDialogue;
 
 import com.lilithsthrone.game.Weather;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.race.Race;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
+import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -16,12 +17,13 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.managers.universal.SMDomStanding;
-import com.lilithsthrone.game.sex.managers.universal.SMSubStanding;
+import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
+import com.lilithsthrone.utils.Util.Value;
 
 public class HarpyNestsAttackerDialogue {
 	public static final DialogueNodeOld HARPY_ATTACKS = new DialogueNodeOld("Angry harpy", "An angry harpy swoops down on you!", true) {
@@ -287,28 +289,43 @@ public class HarpyNestsAttackerDialogue {
 				} else if (index == 2) {
 					return new ResponseSex("Have some fun",
 							"Well, [npc.she] <i>is</i> asking for it!",
-							true,
-							false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY);
+							true, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX_VICTORY);
 					
 				} else if (index == 3) {
 					return new ResponseSex("Have some gentle fun",
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
-							true,
-							false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY) {
+							true, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX_VICTORY) {
 						@Override
-						public void effects() {
-							sexPacePlayer = (SexPace.DOM_GENTLE);
+						public SexPace getStartingSexPaceModifier(GameCharacter character) {
+							if(character.isPlayer()) {
+								return SexPace.DOM_GENTLE;
+							}
+							return null;
 						}
 					};
 					
 				} else if (index == 4) {
 					return new ResponseSex("Have some rough fun",
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'rough' pace.)",
-							true,
-							false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY) {
+							true, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX_VICTORY) {
 						@Override
-						public void effects() {
-							sexPacePlayer = (SexPace.DOM_ROUGH);
+						public SexPace getStartingSexPaceModifier(GameCharacter character) {
+							if(character.isPlayer()) {
+								return SexPace.DOM_ROUGH;
+							}
+							return null;
 						}
 					};
 					
@@ -317,8 +334,13 @@ public class HarpyNestsAttackerDialogue {
 							"You're not really sure what to do now...</br>"
 								+ "Perhaps it would be best to let [npc.name] choose what to do next?",
 							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)),
-							null, null, null, null, null, true,
-							true, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT, "<p>"
+							null, null, null, null, null,
+							true, true,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX_DEFEAT,
+							"<p>"
 								+ "You really aren't sure what to do next, and start to feel pretty uncomfortable with the fact that you just beat up this poor [npc.race]."
 								+ " Leaning down, you do the first thing that comes into your mind, and start apologising,"
 								+ " [pc.speech(Sorry... I was just trying to defend myself, you know... Erm... Is there anything I can do to make it up to you?)]"
@@ -378,37 +400,58 @@ public class HarpyNestsAttackerDialogue {
 					return new ResponseSex(
 							"Rape [npc.herHim]", "[npc.She] needs to be punished for attacking you like that...", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)),
 							null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null,
-							null, null, false,
-							false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY, "<p>"
+							null, null,
+							false, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX_VICTORY,
+							"<p>"
 								+ "Reaching down, you grab [npc.name]'s [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start grinding yourself up against [npc.herHim]."
 								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you hold [npc.herHim] firmly in your embrace..."
 							+ "</p>");
 					
 				} else if (index == 3) {
-					return new ResponseSex("Rape [npc.herHim] (gentle)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'gentle' pace.)", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)),
-							null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null,
-							null, null, false,
-							false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY, "<p>"
+					return new ResponseSex("Rape [npc.herHim] (gentle)",
+							"[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'gentle' pace.)", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)),
+							null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
+							false, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX_VICTORY,
+							"<p>"
 								+ "Reaching down, you take hold of [npc.name]'s [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start pressing yourself up against [npc.herHim]."
 								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you hold [npc.herHim] in your embrace..."
 							+ "</p>") {
 						@Override
-						public void effects() {
-							sexPacePlayer = (SexPace.DOM_GENTLE);
+						public SexPace getStartingSexPaceModifier(GameCharacter character) {
+							if(character.isPlayer()) {
+								return SexPace.DOM_GENTLE;
+							}
+							return null;
 						}
 					};
 					
 				} else if (index == 4) {
-					return new ResponseSex("Rape [npc.herHim] (rough)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'rough' pace.)", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)),
-							null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null,
-							null, null, false,
-							false, Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY, "<p>"
+					return new ResponseSex("Rape [npc.herHim] (rough)",
+							"[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'rough' pace.)", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)),
+							null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
+							false, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX_VICTORY,
+							"<p>"
 								+ "Reaching down, you grab [npc.name]'s [npc.arm], and, roughly yanking [npc.herHim] to [npc.her] feet, you start forcefully grinding yourself up against [npc.herHim]."
 								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you firmly hold [npc.herHim] in your embrace..."
 							+ "</p>") {
 						@Override
-						public void effects() {
-							sexPacePlayer = (SexPace.DOM_ROUGH);
+						public SexPace getStartingSexPaceModifier(GameCharacter character) {
+							if(character.isPlayer()) {
+								return SexPace.DOM_ROUGH;
+							}
+							return null;
 						}
 					};
 					
@@ -581,8 +624,12 @@ public class HarpyNestsAttackerDialogue {
 					if (index == 1) {
 						return new ResponseSex("Sex",
 								"[npc.Name] forces [npc.herself] on you...",
-								false,
-								false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT, "<p>"
+								false, false,
+								new SMStanding(
+										Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								AFTER_SEX_DEFEAT,
+								"<p>"
 									+ "[npc.Name]'s [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally breaking away from you."
 									+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
 								+ "</p>");
@@ -590,29 +637,43 @@ public class HarpyNestsAttackerDialogue {
 					} else if (index == 2) {
 						return new ResponseSex("Eager Sex",
 								"[npc.Name] forces [npc.herself] on you...",
-								false,
-								false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT, "<p>"
+								false, false,
+								new SMStanding(
+										Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								AFTER_SEX_DEFEAT,
+								"<p>"
 									+ "[npc.Name]'s [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 									+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.she]'s going to want more than just a kiss..."
 								+ "</p>") {
 							@Override
-							public void effects() {
-								sexPacePlayer = (SexPace.SUB_EAGER);
+							public SexPace getStartingSexPaceModifier(GameCharacter character) {
+								if(character.isPlayer()) {
+									return SexPace.SUB_EAGER;
+								}
+								return null;
 							}
 						};
 						
 					} else if (index == 3 && Main.game.isNonConEnabled()) {
 						return new ResponseSex("Resist Sex",
 								"[npc.Name] forces [npc.herself] on you...",
-								false,
-								false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT, "<p>"
+								false, false,
+								new SMStanding(
+										Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								AFTER_SEX_DEFEAT,
+								"<p>"
 									+ "[npc.Name]'s [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 									+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
 									+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.she]'s not going to let you go..."
 								+ "</p>") {
 							@Override
-							public void effects() {
-								sexPacePlayer = (SexPace.SUB_RESISTING);
+							public SexPace getStartingSexPaceModifier(GameCharacter character) {
+								if(character.isPlayer()) {
+									return SexPace.SUB_RESISTING;
+								}
+								return null;
 							}
 						};
 						
@@ -687,8 +748,12 @@ public class HarpyNestsAttackerDialogue {
 				if (index == 1) {
 					return new ResponseSex("Sex",
 							"[npc.Name] forces [npc.herself] on you...",
-							false,
-							false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT, "<p>"
+							false, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX_DEFEAT,
+							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally breaking away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
 							+ "</p>");
@@ -696,29 +761,43 @@ public class HarpyNestsAttackerDialogue {
 				} else if (index == 2) {
 					return new ResponseSex("Eager Sex",
 							"[npc.Name] forces [npc.herself] on you...",
-							false,
-							false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT, "<p>"
+							false, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX_DEFEAT,
+							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.she]'s going to want more than just a kiss..."
 							+ "</p>") {
 						@Override
-						public void effects() {
-							sexPacePlayer = (SexPace.SUB_EAGER);
+						public SexPace getStartingSexPaceModifier(GameCharacter character) {
+							if(character.isPlayer()) {
+								return SexPace.SUB_EAGER;
+							}
+							return null;
 						}
 					};
 					
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
 					return new ResponseSex("Resist Sex",
 							"[npc.Name] forces [npc.herself] on you...",
-							false,
-							false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT, "<p>"
+							false, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX_DEFEAT,
+							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 								+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
 								+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.she]'s not going to let you go..."
 							+ "</p>") {
 						@Override
-						public void effects() {
-							sexPacePlayer = (SexPace.SUB_RESISTING);
+						public SexPace getStartingSexPaceModifier(GameCharacter character) {
+							if(character.isPlayer()) {
+								return SexPace.SUB_RESISTING;
+							}
+							return null;
 						}
 					};
 					
@@ -788,8 +867,12 @@ public class HarpyNestsAttackerDialogue {
 				if (index == 1) {
 					return new ResponseSex("Sex",
 							"[npc.Name] forces [npc.herself] on you...",
-							false,
-							false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT, "<p>"
+							false, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX_DEFEAT,
+							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally breaking away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
 							+ "</p>");
@@ -797,29 +880,43 @@ public class HarpyNestsAttackerDialogue {
 				} else if (index == 2) {
 					return new ResponseSex("Eager Sex",
 							"[npc.Name] forces [npc.herself] on you...",
-							false,
-							false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT, "<p>"
+							false, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX_DEFEAT,
+							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.she]'s going to want more than just a kiss..."
 							+ "</p>") {
 						@Override
-						public void effects() {
-							sexPacePlayer = (SexPace.SUB_EAGER);
+						public SexPace getStartingSexPaceModifier(GameCharacter character) {
+							if(character.isPlayer()) {
+								return SexPace.SUB_EAGER;
+							}
+							return null;
 						}
 					};
 					
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
 					return new ResponseSex("Resist Sex",
 							"[npc.Name] forces [npc.herself] on you...",
-							false,
-							false, Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT, "<p>"
+							false, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX_DEFEAT,
+							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 								+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
 								+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.she]'s not going to let you go..."
 							+ "</p>") {
 						@Override
-						public void effects() {
-							sexPacePlayer = (SexPace.SUB_RESISTING);
+						public SexPace getStartingSexPaceModifier(GameCharacter character) {
+							if(character.isPlayer()) {
+								return SexPace.SUB_RESISTING;
+							}
+							return null;
 						}
 					};
 					
@@ -858,10 +955,10 @@ public class HarpyNestsAttackerDialogue {
 
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfPartnerOrgasms() >= 1) {
+			if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
 				return UtilText.parse(Main.game.getActiveNPC(),
 						"<p>"
-							+ "As you step back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her] orgasm"+(Sex.getNumberOfPartnerOrgasms() > 1?"s":"")+"."
+							+ "As you step back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her] orgasm"+(Sex.getNumberOfOrgasms(Sex.getActivePartner()) > 1?"s":"")+"."
 							+ " Looking up at you, a satisfied smile settles across [npc.her] face, and you realise that you gave [npc.herHim] exactly what [npc.she] wanted."
 						+ "</p>");
 			} else {

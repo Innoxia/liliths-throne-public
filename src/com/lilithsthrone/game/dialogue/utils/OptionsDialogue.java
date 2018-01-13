@@ -568,8 +568,10 @@ public class OptionsDialogue {
 					+ "</p>"
 					
 					+"<p>"
-					+ "<b>Font-size:</b>"
-					+ "</br>This cycles the game's base font size. This currently only affects the size of the text in the main dialogue, but in the future I'll expand it to include every display element."
+					+ "<b>Font-size:</b></br>"
+					+ "This cycles the game's base font size. This currently only affects the size of the text in the main dialogue, but in the future I'll expand it to include every display element.</br>"
+					+ "Minimum font size is "+Game.FONT_SIZE_MINIMUM+". Default font size is "+Game.FONT_SIZE_NORMAL+". Maximum font size is "+Game.FONT_SIZE_HUGE+".</br>"
+					+ "Current font size: "+Main.getProperties().fontSize+"."
 					+ "</p>"
 
 					+"<p>"
@@ -620,25 +622,34 @@ public class OptionsDialogue {
 				}
 
 			} else if (index == 3) {
-				return new Response("Font-size: " + (Main.getProperties().fontSize == Game.FONT_SIZE_NORMAL ? "<b>Normal</b>" : (Main.getProperties().fontSize == Game.FONT_SIZE_LARGE ? "<b>Large</b>" : "<b>Huge</b>")),
-						"Cycle the font size between:</br>" + (Main.getProperties().fontSize == Game.FONT_SIZE_NORMAL ? "<b>Normal</b>" : "Normal") + " | " + (Main.getProperties().fontSize == Game.FONT_SIZE_LARGE ? "<b>Large</b>" : "Large") + " | "
-								+ (Main.getProperties().fontSize == Game.FONT_SIZE_HUGE ? "<b>Huge</b>" : "Huge") + "</br></br>" + "<b>This is still a work in progress - expect a better version soon!</b>",
+				return new Response("Font-size -",
+						"Increase the size of the game's font. Default value is 18. Current value is "+Main.getProperties().fontSize+".",
 								OPTIONS){
 					@Override
 					public void effects() {
-						if (Main.getProperties().fontSize <= Game.FONT_SIZE_NORMAL)
-							Main.getProperties().fontSize = Game.FONT_SIZE_LARGE;
-						else if (Main.getProperties().fontSize < Game.FONT_SIZE_HUGE)
-							Main.getProperties().fontSize = Game.FONT_SIZE_HUGE;
-						else
-							Main.getProperties().fontSize = Game.FONT_SIZE_NORMAL;
-
+						if (Main.getProperties().fontSize > Game.FONT_SIZE_MINIMUM) {
+							Main.getProperties().fontSize--;
+						}
 						Main.saveProperties();
 						
 					}
 				};
 			
 			} else if (index == 4) {
+				return new Response("Font-size +",
+						"Increase the size of the game's font. Default value is 18. Current value is "+Main.getProperties().fontSize+".",
+								OPTIONS){
+					@Override
+					public void effects() {
+						if (Main.getProperties().fontSize < Game.FONT_SIZE_HUGE) {
+							Main.getProperties().fontSize++;
+						}
+						Main.saveProperties();
+						
+					}
+				};
+			
+			} else if (index == 5) {
 				return new Response("Fade-in: "+(Main.getProperties().fadeInText?"[style.boldGood(ON)]":"[style.boldBad(OFF)]"), "Toggle the fading in of the game's text. If turned on, it may cause some minor lag in inventory screens.", OPTIONS){
 					@Override
 					public void effects() {
@@ -648,7 +659,7 @@ public class OptionsDialogue {
 					}
 				};
 				
-			} else if (index == 5) {
+			} else if (index == 6) {
 				return new Response("Difficulty: "+Main.getProperties().difficultyLevel.getName(), "Cycle the game's difficulty.", OPTIONS){
 					@Override
 					public void effects() {
@@ -682,13 +693,13 @@ public class OptionsDialogue {
 					}
 				};
 				
-			} else if (index == 6) {
+			} else if (index == 7) {
 				return new Response("Gender pronouns", "Customise all gender pronouns and names.", OPTIONS_PRONOUNS);
 				
-			} else if (index == 7) {
+			} else if (index == 8) {
 				return new Response("Gender preferences", "Set your preferred gender encounter rates.", GENDER_PREFERENCE);
 			
-			} else if (index == 8) {
+			} else if (index == 9) {
 				return new Response("Furry preferences", "Set your preferred transformation encounter rates.", FURRY_PREFERENCE);
 				
 			} else if (index == 9) {

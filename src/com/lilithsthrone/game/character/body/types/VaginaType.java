@@ -158,9 +158,9 @@ public enum VaginaType implements BodyPartTypeInterface {
 				}
 			case 1:
 				if(Main.game.isInSex()) {
-					if(gc.isPlayer() && !Sex.getWetOrificeTypes().get(OrificeType.VAGINA_PLAYER).isEmpty()) {
+					if(gc.isPlayer() && !Sex.getWetOrificeTypes(gc).get(OrificeType.VAGINA_PLAYER).isEmpty()) {
 						return "wet";
-					} else if(!gc.isPlayer() && !Sex.getWetOrificeTypes().get(OrificeType.VAGINA_PARTNER).isEmpty()) {
+					} else if(!gc.isPlayer() && !Sex.getWetOrificeTypes(gc).get(OrificeType.VAGINA_PARTNER).isEmpty()) {
 						return "wet";
 					} else {
 						return gc.getVaginaWetness().getDescriptor();

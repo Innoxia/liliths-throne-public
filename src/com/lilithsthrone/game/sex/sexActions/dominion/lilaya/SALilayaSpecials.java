@@ -41,7 +41,7 @@ public class SALilayaSpecials {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return (Main.game.getPlayer().getArousal() >= ArousalLevel.THREE_HEATED.getMinimumValue()
-					|| Sex.getPartner().getArousal() >= ArousalLevel.FOUR_PASSIONATE.getMinimumValue())
+					|| Sex.getActivePartner().getArousal() >= ArousalLevel.FOUR_PASSIONATE.getMinimumValue())
 					&& !SexFlags.partnerRequestedPullOut
 					&& !Main.game.getLilaya().isVisiblyPregnant();
 		}
@@ -74,7 +74,7 @@ public class SALilayaSpecials {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER) != PenetrationType.PENIS_PLAYER;
+			return Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER) != PenetrationType.PENIS_PLAYER;
 		}
 
 		@Override
@@ -94,7 +94,7 @@ public class SALilayaSpecials {
 		
 		@Override
 		public String getDescription() {
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case DOM_GENTLE:
 					return "[npc.Name] lets out a soft [npc.moan] of encouragement as [npc.she] prepares for you to reach your orgasm.";
 				case DOM_NORMAL:
@@ -132,7 +132,7 @@ public class SALilayaSpecials {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER) == PenetrationType.PENIS_PLAYER;
+			return Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER) == PenetrationType.PENIS_PLAYER;
 		}
 
 		@Override
@@ -172,7 +172,7 @@ public class SALilayaSpecials {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPartner().hasStatusEffect(StatusEffect.CREAMPIE_VAGINA)
+			return Sex.getActivePartner().hasStatusEffect(StatusEffect.CREAMPIE_VAGINA)
 					&& !Main.game.getLilaya().isVisiblyPregnant();
 		}
 

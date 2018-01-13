@@ -9,6 +9,7 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.69.9
@@ -178,7 +179,7 @@ public class SARoseHands {
 		}
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerFreeMouth();
+			return Sex.isOrificeFree(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER);
 		}
 		@Override
 		public String getDescription() {
@@ -427,7 +428,7 @@ public class SARoseHands {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getNumberOfPartnerOrgasms()>=1 && Sex.getNumberOfPlayerOrgasms()>=1;
+			return Sex.getNumberOfOrgasms(Sex.getActivePartner())>=1 && Sex.getNumberOfOrgasms(Main.game.getPlayer())>=1;
 		}
 
 		@Override

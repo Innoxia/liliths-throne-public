@@ -2,7 +2,7 @@ package com.lilithsthrone.game.character.gender;
 
 /**
  * @since 0.1.86
- * @version 0.1.86
+ * @version 0.1.97
  * @author Innoxia
  */
 public enum GenderNames {
@@ -13,7 +13,7 @@ public enum GenderNames {
 	Y_PENIS_N_VAGINA_N_BREASTS(true, false, false, "trap", "trap", "male"),
 	N_PENIS_Y_VAGINA_Y_BREASTS(false, true, true, "female", "tomboy",  "butch"),
 	N_PENIS_Y_VAGINA_N_BREASTS(false, true, false, "female", "tomboy", "cuntboy"),
-	N_PENIS_N_VAGINA_Y_BREASTS(false, false, true, "doll", "doll", "mannequin"),
+	N_PENIS_N_VAGINA_Y_BREASTS(false, false, true, "doll", "neuter", "mannequin"),
 	N_PENIS_N_VAGINA_N_BREASTS(false, false, false, "doll", "neuter", "mannequin");
 	
 	

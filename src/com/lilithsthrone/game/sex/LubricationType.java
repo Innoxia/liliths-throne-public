@@ -18,8 +18,8 @@ public enum LubricationType {
 	PARTNER_SALIVA(false) {
 		@Override
 		public String getName() {
-			if(Sex.getPartner()!=null) {
-				return Sex.getPartner().getName("the")+"'s saliva";
+			if(Sex.getActivePartner()!=null) {
+				return Sex.getActivePartner().getName("the")+"'s saliva";
 			} else {
 				return "saliva";
 			}
@@ -35,8 +35,8 @@ public enum LubricationType {
 	PARTNER_MILK(false) {
 		@Override
 		public String getName() {
-			if(Sex.getPartner()!=null) {
-				return Sex.getPartner().getName("the")+"'s milk";
+			if(Sex.getActivePartner()!=null) {
+				return Sex.getActivePartner().getName("the")+"'s milk";
 			} else {
 				return "milk";
 			}
@@ -52,8 +52,8 @@ public enum LubricationType {
 	PARTNER_PRECUM(false) {
 		@Override
 		public String getName() {
-			if(Sex.getPartner()!=null) {
-				return Sex.getPartner().getName("the")+"'s precum";
+			if(Sex.getActivePartner()!=null) {
+				return Sex.getActivePartner().getName("the")+"'s precum";
 			} else {
 				return "precum";
 			}
@@ -69,8 +69,8 @@ public enum LubricationType {
 	PARTNER_CUM(false) {
 		@Override
 		public String getName() {
-			if(Sex.getPartner()!=null) {
-				return Sex.getPartner().getName("the")+"'s "+Sex.getPartner().getCumName();
+			if(Sex.getActivePartner()!=null) {
+				return Sex.getActivePartner().getName("the")+"'s "+Sex.getActivePartner().getCumName();
 			} else {
 				return "cum";
 			}
@@ -95,8 +95,8 @@ public enum LubricationType {
 	PARTNER_NATURAL_LUBRICATION(true) {
 		@Override
 		public String getName() {
-			if(Sex.getPartner()!=null) {
-				return Sex.getPartner().getName("the")+"'s juices";
+			if(Sex.getActivePartner()!=null) {
+				return Sex.getActivePartner().getName("the")+"'s juices";
 			} else {
 				return "juices";
 			}

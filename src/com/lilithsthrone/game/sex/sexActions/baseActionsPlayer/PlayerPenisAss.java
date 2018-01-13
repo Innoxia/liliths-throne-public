@@ -2,6 +2,7 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsPlayer;
 
 import java.util.List;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -43,7 +44,7 @@ public class PlayerPenisAss {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom() || Sex.isSubHasEqualControl();
+			return Sex.isDom(Main.game.getPlayer()) || Sex.isSubHasEqualControl();
 		}
 
 		@Override
@@ -51,7 +52,7 @@ public class PlayerPenisAss {
 				
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Gently pushing [npc.name]'s [npc.assSize] ass cheeks together, you start slowly sliding the [pc.cockHead] of your [pc.cock+] up and down over the cleft that's formed.",
@@ -71,7 +72,7 @@ public class PlayerPenisAss {
 							"With a greedy grasp on each of [npc.name]'s ass cheeks, you eagerly push them together, before enthusiastically teasing the [pc.cockHead] of your [pc.cock+] up against the crevice that's formed."));
 					break;
 			}
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc.A_moan+] bursts out from between [npc.name]'s [npc.lips+] as you prepare to start using [npc.her] [npc.ass], [npc.speech(Ah, yes!)]",
@@ -98,17 +99,16 @@ public class PlayerPenisAss {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Main.game.getPlayer(), Sex.getPartner(), PenetrationType.PENIS_PLAYER, OrificeType.ASS_PARTNER);
+			Sex.transferLubrication(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.PENIS_PLAYER, OrificeType.ASS_PARTNER);
 		}
 		
 		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING), new ListValue<>(Fetish.FETISH_DENIAL));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING));
+		public List<Fetish> getFetishes(GameCharacter character) {
+			if(character.isPlayer()) {
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING), new ListValue<>(Fetish.FETISH_DENIAL));
+			} else {
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING));
+			}
 		}
 	};
 	
@@ -131,7 +131,7 @@ public class PlayerPenisAss {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom() || Sex.isSubHasEqualControl();
+			return !Sex.isDom(Main.game.getPlayer()) || Sex.isSubHasEqualControl();
 		}
 
 		@Override
@@ -139,7 +139,7 @@ public class PlayerPenisAss {
 				
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Shifting [npc.her] [npc.hips] a little, [npc.name] reaches back and presses [npc.her] ass cheeks together, before slowly sliding the [pc.cockHead] of your [pc.cock+] up and down over the cleft that's formed.",
@@ -159,7 +159,7 @@ public class PlayerPenisAss {
 							"With a firm grasp on each of [npc.her] ass cheeks, [npc.name] eagerly pushes them together, before teasing the [pc.cockHead] of your [pc.cock+] up against the crevice that's formed."));
 					break;
 			}
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [pc.A_moan+] bursts out from between your [pc.lips+], [pc.speech(Please! Let me use your ass already!)]",
@@ -186,17 +186,16 @@ public class PlayerPenisAss {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Sex.getPartner(), Main.game.getPlayer(), PenetrationType.PENIS_PLAYER, OrificeType.ASS_PARTNER);
+			Sex.transferLubrication(Sex.getActivePartner(), Main.game.getPlayer(), PenetrationType.PENIS_PLAYER, OrificeType.ASS_PARTNER);
 		}
 		
 		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING), new ListValue<>(Fetish.FETISH_DENIAL));
+		public List<Fetish> getFetishes(GameCharacter character) {
+			if(character.isPlayer()) {
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING));
+			} else {
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING), new ListValue<>(Fetish.FETISH_DENIAL));
+			}
 		}
 	};
 	
@@ -212,7 +211,7 @@ public class PlayerPenisAss {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			// You can't penetrate if your partner is already fucking you, due to physical limitations. (I mean, if you're facing opposite ways and lying on top of each other, it might be possible, but that position will be special.)
-			return Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PARTNER)==null && (Sex.isPlayerDom() || Sex.isSubHasEqualControl());
+			return Sex.isPenetrationTypeFree(Sex.getActivePartner(), PenetrationType.PENIS_PARTNER) && (Sex.isDom(Main.game.getPlayer()) || Sex.isSubHasEqualControl());
 		}
 		
 		@Override
@@ -230,7 +229,7 @@ public class PlayerPenisAss {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Slowly pushing [npc.name]'s [npc.assSize] ass cheeks together, you press the [pc.cockHead+] of your [pc.cock+] up against [npc.her] [npc.ass],"
@@ -258,7 +257,7 @@ public class PlayerPenisAss {
 				default:
 					break;
 			}
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc.She] lets out a soft [npc.moan] as you start using [npc.her] ass, gently bucking [npc.her] [npc.hips] back against you as [npc.she] helps to sink your [pc.cock+] even deeper between [npc.her] cheeks.",
@@ -319,7 +318,7 @@ public class PlayerPenisAss {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 
 		@Override
@@ -327,7 +326,7 @@ public class PlayerPenisAss {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Gently sinking your [pc.cock+] between [npc.name]'s ass cheeks, you draw an eager [npc.moan] from [npc.her] [npc.lips+] as you start bucking your [pc.hips],"
@@ -378,7 +377,7 @@ public class PlayerPenisAss {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 
 		@Override
@@ -386,7 +385,7 @@ public class PlayerPenisAss {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Desperately sinking your [pc.cock+] between [npc.name]'s ass cheeks, you draw an eager [npc.moan] from [npc.her] [npc.lips+] as you start bucking your [pc.hips],"
@@ -438,7 +437,7 @@ public class PlayerPenisAss {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 
 
@@ -447,7 +446,7 @@ public class PlayerPenisAss {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Roughly slamming your [pc.cock+] between [npc.name]'s ass cheeks, you draw an eager [npc.moan] from [npc.her] [npc.lips+] as you start violently pumping your [pc.hips],"
@@ -499,7 +498,7 @@ public class PlayerPenisAss {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 
 		@Override
@@ -507,7 +506,7 @@ public class PlayerPenisAss {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Sinking your [pc.cock+] between [npc.name]'s ass cheeks, you draw an eager [npc.moan] from [npc.her] [npc.lips+] as you start bucking your [pc.hips],"
@@ -560,7 +559,7 @@ public class PlayerPenisAss {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 
 		@Override
@@ -568,7 +567,7 @@ public class PlayerPenisAss {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Desperately sinking your [pc.cock+] between [npc.name]'s ass cheeks, you draw an eager [npc.moan] from [npc.her] [npc.lips+] as you start bucking your [pc.hips],"
@@ -621,7 +620,7 @@ public class PlayerPenisAss {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 
 		@Override
@@ -629,7 +628,7 @@ public class PlayerPenisAss {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Desperately trying, and failing, to pull your [pc.cock] away from [npc.name]'s [npc.ass+], you can't help but let out [pc.a_sob+] as, ignoring your protests,"
@@ -674,7 +673,7 @@ public class PlayerPenisAss {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom() || Sex.isSubHasEqualControl(); // Player can only stop if they're in charge (otherwise, this is the partner fucking themselves on the player's cock).
+			return Sex.isDom(Main.game.getPlayer()) || Sex.isSubHasEqualControl(); // Player can only stop if they're in charge (otherwise, this is the partner fucking themselves on the player's cock).
 		}
 		
 		@Override
@@ -692,7 +691,7 @@ public class PlayerPenisAss {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Roughly yanking your [pc.cock+] out of [npc.name]'s ass cleavage, you dominantly slide your [pc.cockHead] up and down over [npc.her] [npc.assSize] cheeks one last time before pulling your [pc.hips] back.",
@@ -705,7 +704,7 @@ public class PlayerPenisAss {
 					break;
 			}
 			
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc.Name] [npc.sobsVerb+] as you stop, but [npc.she] doesn't stop crying as [npc.she] continues to weakly struggle against you.",
@@ -737,10 +736,10 @@ public class PlayerPenisAss {
 		public boolean isBaseRequirementsMet() {
 			// Partner can only start fucking themselves on the player's cock in consensual sex or if they're the dom.
 			// You can't penetrate if your partner is already fucking you, due to physical limitations. (I mean, if you're facing opposite ways and lying on top of each other, it might be possible, but that position will be special.)
-			if(Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PARTNER)==null) {
-				return !Sex.isPlayerDom() || Sex.isSubHasEqualControl();
+			if(Sex.isPenetrationTypeFree(Sex.getActivePartner(), PenetrationType.PENIS_PARTNER)) {
+				return !Sex.isDom(Main.game.getPlayer()) || Sex.isSubHasEqualControl();
 			} else {
-				return false; //(Sex.isConsensual() || !Sex.isPlayerDom()) && !Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PARTNER).contains(OrificeType.VAGINA_PLAYER);
+				return false; //(Sex.isConsensual() || !Sex.isDom(Main.game.getPlayer())) && !Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PARTNER).contains(OrificeType.VAGINA_PLAYER);
 			}
 		}
 		
@@ -759,7 +758,7 @@ public class PlayerPenisAss {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Pressing [npc.herself] against you, [npc.name] slowly slides your [pc.cock+] over [npc.her] [npc.ass+],"
@@ -792,7 +791,7 @@ public class PlayerPenisAss {
 					break;
 			}
 			
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" You let out a soft [pc.moan], gently bucking your [pc.hips] as you start to fucking [npc.her] ass cheeks.",
@@ -839,7 +838,7 @@ public class PlayerPenisAss {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -876,7 +875,7 @@ public class PlayerPenisAss {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -911,7 +910,7 @@ public class PlayerPenisAss {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -947,7 +946,7 @@ public class PlayerPenisAss {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -982,7 +981,7 @@ public class PlayerPenisAss {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -1018,7 +1017,7 @@ public class PlayerPenisAss {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -1036,7 +1035,7 @@ public class PlayerPenisAss {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Tears start to well up in [npc.name]'s [npc.eyes], before [npc.she] suddenly lets out [npc.a_sob+], weakly trying to push your [pc.cock] away from [npc.her] [npc.ass+] as you continue gently fucking [npc.her] ass cheeks.",
@@ -1077,7 +1076,7 @@ public class PlayerPenisAss {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom() || Sex.isSubHasEqualControl();
+			return !Sex.isDom(Main.game.getPlayer()) || Sex.isSubHasEqualControl();
 		}
 		
 		@Override
@@ -1095,7 +1094,7 @@ public class PlayerPenisAss {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Yanking your [pc.cock] away from [npc.her] ass cheeks, [npc.name] growls at you as [npc.she] commands you to stop.",
@@ -1108,7 +1107,7 @@ public class PlayerPenisAss {
 					break;
 			}
 			
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" You let out a relieved sigh, which soon turns into [pc.a_sob+] as you realise that [npc.she] isn't finished with you yet.",

@@ -7,9 +7,11 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPosition;
+import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.79
@@ -30,7 +32,7 @@ public class PlayerFingerUrethra {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexPacePlayer()!=SexPace.SUB_RESISTING;
+			return Sex.getSexPace(Main.game.getPlayer())!=SexPace.SUB_RESISTING;
 		}
 		
 		@Override
@@ -48,7 +50,7 @@ public class PlayerFingerUrethra {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Reaching down between [npc.name]'s [npc.legs], you wrap your [pc.fingers] around [npc.her] [npc.cock+], letting out a soft [pc.moan] as you start slowly stroking up and down its length.",
@@ -82,7 +84,7 @@ public class PlayerFingerUrethra {
 				default:
 					break;
 			}
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" Letting out a soft [npc.moan], [npc.she] starts gently bucking [npc.her] [npc.hips] against your [pc.hand], and you feel [npc.her] [npc.cock+] throbbing in response to your touch.",
@@ -138,7 +140,7 @@ public class PlayerFingerUrethra {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getPartner().isInternalTesticles() && Sex.getSexPacePlayer()!=SexPace.SUB_RESISTING;
+			return !Sex.getActivePartner().isInternalTesticles() && Sex.getSexPace(Main.game.getPlayer())!=SexPace.SUB_RESISTING;
 		}
 		
 		@Override
@@ -153,7 +155,7 @@ public class PlayerFingerUrethra {
 
 		@Override
 		public String getDescription() {
-			if(Sex.getPosition()==SexPosition.SIXTY_NINE_PARTNER_TOP) {
+			if(Sex.getPosition()==SexPositionNew.SIXTY_NINE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.SIXTY_NINE_BOTTOM) {
 				return UtilText.returnStringAtRandom(
 						"You prop yourself up on one [pc.arm], before using your free [pc.hand] to stroke and squeeze [npc.name]'s [npc.balls+].",
 						"You let out [pc.a_moan+] as you prop yourself up on one [pc.arm], before reaching down and starting to stroke and play with [npc.name]'s [npc.balls+].",

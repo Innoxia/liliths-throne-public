@@ -32,7 +32,7 @@ public class SAAmberDoggyFucked {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getNumberOfPartnerOrgasms()>=1;
+			return Sex.getNumberOfOrgasms(Sex.getActivePartner())>=1;
 		}
 		
 		@Override

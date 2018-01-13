@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.Quest;
 import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -15,10 +16,12 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.SexPace;
+import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.dominion.SMVickyOverDesk;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -135,7 +138,11 @@ public class ArcaneArts {
 					if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true) || (Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) && Main.game.getPlayer().hasVagina())) {
 						return new ResponseSex("Offer body", "Let Vicky use your body.",
 								Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, CorruptionLevel.TWO_HORNY, null, null, null,
-								true, false, Main.game.getVicky(), new SMVickyOverDesk(), VICKY_POST_SEX,
+								true, false,
+								new SMVickyOverDesk(
+										Util.newHashMapOfValues(new Value<>(Main.game.getVicky(), SexPositionSlot.MISSIONARY_DESK_DOM_VICKY)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_DESK_SUB_VICKY))),
+								VICKY_POST_SEX,
 									"<p>"
 										+ "[pc.speech(I was wondering... If you'd like to use me...)]"
 										+ " you say, looking sheepishly up at Vicky."
@@ -157,39 +164,47 @@ public class ArcaneArts {
 				
 			} else if (index == 3 && Main.getProperties().nonConContent && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.arthursPackageObtained)) {
 				if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true) || (Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) && Main.game.getPlayer().hasVagina())) {
-					SMVickyOverDesk sm = new SMVickyOverDesk() {
-						@Override
-						public SexPace getStartingSexPacePlayer() {
-							return SexPace.SUB_RESISTING;
-						}
-					};
+					
 					return new ResponseSex("Nervously leave", "Vicky is far too intimidating for you... Turn around and try to escape from her gaze. [style.boldBad(You get the feeling that this will result in non-consensual sex...)]",
 							Util.newArrayListOfValues(
 									new ListValue<>(Fetish.FETISH_SUBMISSIVE),
 									new ListValue<>(Fetish.FETISH_NON_CON_SUB)), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
-							false, false, Main.game.getVicky(), sm, VICKY_POST_SEX_RAPE,
-								"<p>"
-									+ "Feeling more than a little intimidated by the overbearing wolf-girl's attitude, you try to back away towards the front door, muttering,"
-									+ " [pc.speech(E-Erm.. M-Maybe I'll come back later...)]"
-								+ "</p>"
-								+ "<p>"
-									+ "Sensing your weakness, Vicky suddenly leaps over the counter and pounces on you."
-									+ " Grabbing hold of your shoulders, and, with considerable force, slamming you back against the wall, she snarls,"
-									+ " [vicky.speech(So you came to waste my time, huh? I don't put up with that shit!)]"
-								+ "</p>"
-								+ "<p>"
-									+ "You let out a startled cry as the aggressive wolf-girl suddenly throws you to the floor."
-									+ " Looking up as you struggle to your feet, you see Vicky quickly locking the the front door, before she turns around and bounds over to you,"
-									+ " [vicky.speech(You're just begging to be fucked!)]"
-								+ "</p>"
-								+ "<p>"
-									+ "[pc.speech(W-Wait! No! L-Let me go! I- ~Aaah!~)]"
-									+ " Your protests are cut short as Vicky grabs you by the waist and hurls you back onto the counter-top."
-								+ "</p>"
-								+ "<p>"
-									+ "Stepping forwards, she positions herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
-									+ " [vicky.speech(Scream and cry as much as you want! I hope you like it rough, because I don't go easy with pathetic bitches like you!)]"
-								+ "</p>");
+							false, false,
+							new SMVickyOverDesk(
+									Util.newHashMapOfValues(new Value<>(Main.game.getVicky(), SexPositionSlot.MISSIONARY_DESK_DOM_VICKY)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_DESK_SUB_VICKY))),
+							VICKY_POST_SEX_RAPE,
+							"<p>"
+								+ "Feeling more than a little intimidated by the overbearing wolf-girl's attitude, you try to back away towards the front door, muttering,"
+								+ " [pc.speech(E-Erm.. M-Maybe I'll come back later...)]"
+							+ "</p>"
+							+ "<p>"
+								+ "Sensing your weakness, Vicky suddenly leaps over the counter and pounces on you."
+								+ " Grabbing hold of your shoulders, and, with considerable force, slamming you back against the wall, she snarls,"
+								+ " [vicky.speech(So you came to waste my time, huh? I don't put up with that shit!)]"
+							+ "</p>"
+							+ "<p>"
+								+ "You let out a startled cry as the aggressive wolf-girl suddenly throws you to the floor."
+								+ " Looking up as you struggle to your feet, you see Vicky quickly locking the the front door, before she turns around and bounds over to you,"
+								+ " [vicky.speech(You're just begging to be fucked!)]"
+							+ "</p>"
+							+ "<p>"
+								+ "[pc.speech(W-Wait! No! L-Let me go! I- ~Aaah!~)]"
+								+ " Your protests are cut short as Vicky grabs you by the waist and hurls you back onto the counter-top."
+							+ "</p>"
+							+ "<p>"
+								+ "Stepping forwards, she positions herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
+								+ " [vicky.speech(Scream and cry as much as you want! I hope you like it rough, because I don't go easy with pathetic bitches like you!)]"
+							+ "</p>") {
+						@Override
+						public SexPace getStartingSexPaceModifier(GameCharacter character) {
+							if(character.isPlayer()) {
+								return SexPace.SUB_RESISTING;
+							}
+							return null;
+						}
+					};
+					
 				} else {
 					return new Response("Nervously leave", "Vicky needs to be able to access your anus"+(Main.game.getPlayer().hasVagina()?" or vagina":"")+"!", null);
 				}
@@ -270,7 +285,11 @@ public class ArcaneArts {
 				if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true) || (Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) && Main.game.getPlayer().hasVagina())) {
 					return new ResponseSex("Offer body", "Let Vicky use your body as payment for the fee.",
 							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, CorruptionLevel.TWO_HORNY, null, null, null,
-							true, false, Main.game.getVicky(), new SMVickyOverDesk(), VICKY_POST_SEX,
+							true, false,
+							new SMVickyOverDesk(
+									Util.newHashMapOfValues(new Value<>(Main.game.getVicky(), SexPositionSlot.MISSIONARY_DESK_DOM_VICKY)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_DESK_SUB_VICKY))),
+							VICKY_POST_SEX,
 								"<p>"
 									+ "[pc.speech(That second option doesn't sound so bad...)]"
 									+ " you say, grinning up at Vicky as she roughly presses you against the wall."
@@ -291,38 +310,46 @@ public class ArcaneArts {
 				
 			} else if (index == 3 && Main.getProperties().nonConContent) {
 				if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true) || (Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true) && Main.game.getPlayer().hasVagina())) {
-					SMVickyOverDesk sm = new SMVickyOverDesk() {
-						@Override
-						public SexPace getStartingSexPacePlayer() {
-							return SexPace.SUB_RESISTING;
-						}
-					};
+					
 					return new ResponseSex("Weakly refuse", "You can't bring yourself to say no to such an intimidating person... Try to wriggle free and leave... [style.boldBad(You get the feeling that this will result in non-consensual sex...)]",
 							Util.newArrayListOfValues(
 									new ListValue<>(Fetish.FETISH_SUBMISSIVE),
 									new ListValue<>(Fetish.FETISH_NON_CON_SUB)), null, CorruptionLevel.FOUR_LUSTFUL, null, null, null,
-							false, false, Main.game.getVicky(), sm, VICKY_POST_SEX_RAPE,
-								"<p>"
-									+ "Feeling more than a little intimidated by the overbearing wolf-girl's advances, you try to slip away, muttering,"
-									+ " [pc.speech(E-Erm.. M-Maybe I'll come back later...)]"
-								+ "</p>"
-								+ "<p>"
-									+ "Sensing your weakness, Vicky grabs hold of your shoulders, and, with considerable force, slams you back against the wall, snarling,"
-									+ " [vicky.speech(Playing hard-to-get, huh? I don't have time for that shit!)]"
-								+ "</p>"
-								+ "<p>"
-									+ "You let out a startled cry as the aggressive wolf-girl suddenly throws you to the floor."
-									+ " Looking up as you struggle to your feet, you see Vicky quickly locking the the front door, before she turns around and bounds over to you,"
-									+ " [vicky.speech(You're just begging to be fucked!)]"
-								+ "</p>"
-								+ "<p>"
-									+ "[pc.speech(W-Wait! No! L-Let me go! I- ~Aaah!~)]"
-									+ " Your protests are cut short as Vicky grabs you by the waist and hurls you back onto the counter-top."
-								+ "</p>"
-								+ "<p>"
-									+ "Stepping forwards, she positions herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
-									+ " [vicky.speech(Scream and cry as much as you want! I hope you like it rough, because I don't go easy with pathetic bitches like you!)]"
-								+ "</p>");
+							false, false,
+							new SMVickyOverDesk(
+									Util.newHashMapOfValues(new Value<>(Main.game.getVicky(), SexPositionSlot.MISSIONARY_DESK_DOM_VICKY)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_DESK_SUB_VICKY))),
+							VICKY_POST_SEX_RAPE,
+							"<p>"
+								+ "Feeling more than a little intimidated by the overbearing wolf-girl's advances, you try to slip away, muttering,"
+								+ " [pc.speech(E-Erm.. M-Maybe I'll come back later...)]"
+							+ "</p>"
+							+ "<p>"
+								+ "Sensing your weakness, Vicky grabs hold of your shoulders, and, with considerable force, slams you back against the wall, snarling,"
+								+ " [vicky.speech(Playing hard-to-get, huh? I don't have time for that shit!)]"
+							+ "</p>"
+							+ "<p>"
+								+ "You let out a startled cry as the aggressive wolf-girl suddenly throws you to the floor."
+								+ " Looking up as you struggle to your feet, you see Vicky quickly locking the the front door, before she turns around and bounds over to you,"
+								+ " [vicky.speech(You're just begging to be fucked!)]"
+							+ "</p>"
+							+ "<p>"
+								+ "[pc.speech(W-Wait! No! L-Let me go! I- ~Aaah!~)]"
+								+ " Your protests are cut short as Vicky grabs you by the waist and hurls you back onto the counter-top."
+							+ "</p>"
+							+ "<p>"
+								+ "Stepping forwards, she positions herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
+								+ " [vicky.speech(Scream and cry as much as you want! I hope you like it rough, because I don't go easy with pathetic bitches like you!)]"
+							+ "</p>") {
+						@Override
+						public SexPace getStartingSexPaceModifier(GameCharacter character) {
+							if(character.isPlayer()) {
+								return SexPace.SUB_RESISTING;
+							}
+							return null;
+						}
+					};
+					
 				} else {
 					return new Response("Weakly refuse", "Vicky needs to be able to access your anus"+(Main.game.getPlayer().hasVagina()?" or vagina":"")+"!", null);
 				}

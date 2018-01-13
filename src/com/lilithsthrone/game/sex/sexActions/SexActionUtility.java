@@ -4,6 +4,7 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 
 /**
@@ -34,7 +35,7 @@ public class SexActionUtility {
 
 		@Override
 		public String getDescription() {
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_GENTLE:
 					return UtilText.returnStringAtRandom(
 							"You remain in position, gently pressing yourself against [npc.name], but not making any sort of move on [npc.herHim].",
@@ -90,7 +91,7 @@ public class SexActionUtility {
 
 		@Override
 		public String getDescription() {
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
 			case DOM_GENTLE:
 				return UtilText.returnStringAtRandom(
 						"You take a moment to focus on something other than [npc.name], calming yourself down in the process.",
@@ -146,7 +147,7 @@ public class SexActionUtility {
 
 		@Override
 		public String getDescription() {
-			return Sex.getPartner().getName("The") + " doesn't make a move.";
+			return Sex.getActivePartner().getName("The") + " doesn't make a move.";
 		}
 	};
 	
@@ -286,12 +287,12 @@ public class SexActionUtility {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 
 		@Override
 		public String getDescription() {
-			return UtilText.parse(Sex.getPartner(),
+			return UtilText.parse(Sex.getActivePartner(),
 					"Taking control of the situation, you hold [npc.name] quite still, only releasing [npc.herHim] once [npc.she]'s lost a good portion of [npc.her] arousal.");
 		}
 	};

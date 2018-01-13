@@ -11,7 +11,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.1.85
+ * @version 0.1.97
  * @author Innoxia
  */
 public enum InventorySlot {
@@ -47,7 +47,7 @@ public enum InventorySlot {
 	
 	// OPTIONAL EXTRAS:
 	HORNS(50, "horns", false, false), // Decorations
-	WINGS(50, "wings", false, false), // Decorations
+//	WINGS(50, "wings", false, false), // Decorations
 	TAIL(50, "tail", false, false), // Decorations
 	PENIS(0, "penis", false, false), // Cock socks & insertables
 	VAGINA(0, "vagina", false, false), // Insertables

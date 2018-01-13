@@ -27,7 +27,7 @@ public class PlayerSelfFingerMouth {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getWetPenetrationTypes().get(PenetrationType.FINGER_PLAYER).contains(LubricationType.PLAYER_SALIVA);
+			return !Sex.getWetPenetrationTypes(Main.game.getPlayer()).get(PenetrationType.FINGER_PLAYER).contains(LubricationType.PLAYER_SALIVA);
 		}
 		
 		@Override

@@ -1352,7 +1352,7 @@ public class InventoryDialogue {
 											Util.capitaliseSentence(item.getItemType().getUseName()) + " the " + item.getName() + ".", Sex.SEX_DIALOGUE){
 										@Override
 										public void effects(){
-											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, Main.game.getPlayer(), Main.game.getPlayer()));
+											Sex.setUsingItemText(Sex.getActivePartner().getItemUseEffects(item, Main.game.getPlayer(), Main.game.getPlayer()));
 											resetPostAction();
 											Main.mainController.openInventory();
 											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
@@ -1387,7 +1387,7 @@ public class InventoryDialogue {
 											null){
 										@Override
 										public void effects(){
-											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, Main.game.getPlayer(), inventoryNPC));
+											Sex.setUsingItemText(Sex.getActivePartner().getItemUseEffects(item, Main.game.getPlayer(), inventoryNPC));
 											resetPostAction();
 											Main.mainController.openInventory();
 											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);
@@ -1400,7 +1400,7 @@ public class InventoryDialogue {
 											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".", Sex.SEX_DIALOGUE){
 										@Override
 										public void effects(){
-											Sex.setUsingItemText(Sex.getPartner().getItemUseEffects(item, Main.game.getPlayer(), inventoryNPC));
+											Sex.setUsingItemText(Sex.getActivePartner().getItemUseEffects(item, Main.game.getPlayer(), inventoryNPC));
 											resetPostAction();
 											Main.mainController.openInventory();
 											Sex.endSexTurn(SexActionUtility.PLAYER_USE_ITEM);

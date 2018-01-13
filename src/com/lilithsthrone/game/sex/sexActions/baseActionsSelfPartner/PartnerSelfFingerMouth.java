@@ -25,9 +25,9 @@ public class PartnerSelfFingerMouth {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getWetPenetrationTypes().get(PenetrationType.FINGER_PARTNER).isEmpty()
+			return Sex.getWetPenetrationTypes(Sex.getActivePartner()).get(PenetrationType.FINGER_PARTNER).isEmpty()
 					&& Sex.isInForeplay()
-					&& (Sex.getPartner().getForeplayPreference()!=null && Sex.getPartner().getForeplayPreference().getPenetrationType()==PenetrationType.FINGER_PARTNER);
+					&& (Sex.getActivePartner().getForeplayPreference()!=null && Sex.getActivePartner().getForeplayPreference().getPenetrationType()==PenetrationType.FINGER_PARTNER);
 		}
 		
 		@Override
@@ -48,7 +48,7 @@ public class PartnerSelfFingerMouth {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Sex.getPartner(), Sex.getPartner(), PenetrationType.FINGER_PARTNER, OrificeType.MOUTH_PARTNER);
+			Sex.transferLubrication(Sex.getActivePartner(), Sex.getActivePartner(), PenetrationType.FINGER_PARTNER, OrificeType.MOUTH_PARTNER);
 		}
 	};
 	

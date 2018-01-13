@@ -271,7 +271,7 @@ public class HarpyBimbo extends NPC {
 	@Override
 	public String getItemUseEffects(AbstractItem item, GameCharacter user, GameCharacter target){
 		if(user.isPlayer() && !target.isPlayer() && (item.getItemType().equals(ItemType.FETISH_UNREFINED) || item.getItemType().equals(ItemType.FETISH_REFINED))){
-			if(Sex.isPlayerDom()) {
+			if(Sex.isDom(Main.game.getPlayer())) {
 				Main.game.getPlayer().removeItem(item);
 				return "<p>"
 							+ "Taking your "+item.getName()+" out from your inventory, you hold it out to [npc.name]."

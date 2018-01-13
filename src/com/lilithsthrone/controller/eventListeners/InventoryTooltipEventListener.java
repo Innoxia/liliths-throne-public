@@ -268,55 +268,75 @@ public class InventoryTooltipEventListener implements EventListener {
 							switch(invSlot){
 								case PIERCING_VAGINA:
 									if(equippedToCharacter.getVaginaType()==VaginaType.NONE) {
-										setBlockedTooltipContent("You don't have a vagina.");
+										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+													"You don't have a vagina.",
+													"[npc.Name] doesn't have a vagina."));
 										piercingBlocked=true;
 									} else if(!equippedToCharacter.isPiercedVagina()) {
-										setBlockedTooltipContent("Your vagina has not been pierced.");
+										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+												"Your vagina has not been pierced.",
+												"[npc.Name]'s vagina has not been pierced."));
 										piercingBlocked=true;
 									}
 									break;
 								case PIERCING_EAR:
 									if(!equippedToCharacter.isPiercedEar()) {
-										setBlockedTooltipContent("Your ears have not been pierced.");
+										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+												"Your ears have not been pierced.",
+												"[npc.Name]'s ears have not been pierced."));
 										piercingBlocked=true;
 									}
 									break;
 								case PIERCING_LIP:
 									if(!equippedToCharacter.isPiercedLip()) {
-										setBlockedTooltipContent("Your lips have not been pierced.");
+										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+												"Your lips have not been pierced.",
+												"[npc.Name]'s lips have not been pierced."));
 										piercingBlocked=true;
 									}
 									break;
 								case PIERCING_NIPPLE:
 									if(!equippedToCharacter.isPiercedNipple()) {
-										setBlockedTooltipContent("Your nipples have not been pierced.");
+										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+												"Your nipples have not been pierced.",
+												"[npc.Name]'s nipples have not been pierced."));
 										piercingBlocked=true;
 									}
 									break;
 								case PIERCING_NOSE:
 									if(!equippedToCharacter.isPiercedNose()) {
-										setBlockedTooltipContent("Your nose has not been pierced.");
+										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+												"Your nose has not been pierced.",
+												"[npc.Name]'s nose has not been pierced."));
 										piercingBlocked=true;
 									}
 									break;
 								case PIERCING_PENIS:
 									if(equippedToCharacter.getPenisType()==PenisType.NONE) {
-										setBlockedTooltipContent("You don't have a penis.");
+										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+												"You don't have a penis.",
+												"[npc.Name] doesn't have a penis."));
 										piercingBlocked=true;
 									} else if(!equippedToCharacter.isPiercedPenis()) {
-										setBlockedTooltipContent("Your penis has not been pierced.");
+										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+												"Your penis has not been pierced.",
+												"[npc.Name]'s penis has not been pierced."));
 										piercingBlocked=true;
 									}
 									break;
 								case PIERCING_STOMACH:
 									if(!equippedToCharacter.isPiercedNavel()) {
-										setBlockedTooltipContent("Your navel has not been pierced.");
+										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+												"Your navel has not been pierced.",
+												"[npc.Name]'s navel has not been pierced."));
 										piercingBlocked=true;
 									}
 									break;
 								case PIERCING_TONGUE:
 									if(!equippedToCharacter.isPiercedTongue()) {
-										setBlockedTooltipContent("Your tongue has not been pierced.");
+										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+												"Your tongue has not been pierced.",
+												"[npc.Name]'s tongue has not been pierced."));
 										piercingBlocked=true;
 									}
 									break;
@@ -654,5 +674,13 @@ public class InventoryTooltipEventListener implements EventListener {
 	        }
 	    }
 	    throw new IllegalArgumentException("That's not a buyback item");
+	}
+	
+	private static String getTooltipText(GameCharacter character, String playerText, String NPCText) {
+		if(character.isPlayer()) {
+			return playerText;
+		} else {
+			return UtilText.parse(character, NPCText);
+		}
 	}
 }

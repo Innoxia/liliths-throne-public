@@ -1470,7 +1470,8 @@ public class SlaveryManagementDialogue {
 				
 				UtilText.nodeContentSB.append("</div>");
 			}
-			UtilText.nodeContentSB.append("</div>");
+			UtilText.nodeContentSB.append("</div>"
+					+ "<p id='hiddenFieldName' style='display:none;'></p>");
 			
 			return UtilText.parse(character, UtilText.nodeContentSB.toString());
 		}

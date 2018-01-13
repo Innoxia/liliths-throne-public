@@ -8,16 +8,19 @@ import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPosition;
-import com.lilithsthrone.game.sex.managers.dominion.SMDomStocksOral;
-import com.lilithsthrone.game.sex.managers.dominion.SMDomStocksPerformOral;
+import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.managers.dominion.SMStocks;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.game.slavery.SlaveJobSetting;
+import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.95
- * @version 0.1.95
+ * @version 0.1.97
  * @author Innoxia
  */
 public class SADomStocksBehind {
@@ -33,8 +36,8 @@ public class SADomStocksBehind {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
-					&& Sex.getPosition() != SexPosition.STOCKS_PARTNER_BEING_USED_ORAL
-					&& Sex.isPlayerDom();
+					&& !(Sex.getPosition() == SexPositionNew.STOCKS_SEX && Sex.getSexPositionSlot(Main.game.getPlayer()) == SexPositionSlot.STOCKS_RECEIVING_ORAL)
+					&& Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -56,9 +59,12 @@ public class SADomStocksBehind {
 
 		@Override
 		public void applyEffects() {
-			Sex.setSexManager(new SMDomStocksOral(Sex.getPartner().getSlaveJobSettings().contains(SlaveJobSetting.SEX_VAGINAL),
-					Sex.getPartner().getSlaveJobSettings().contains(SlaveJobSetting.SEX_ANAL),
-					Sex.getPartner().getSlaveJobSettings().contains(SlaveJobSetting.SEX_ORAL)));
+			Sex.setSexManager(new SMStocks(
+					Sex.getActivePartner().getSlaveJobSettings().contains(SlaveJobSetting.SEX_VAGINAL),
+					Sex.getActivePartner().getSlaveJobSettings().contains(SlaveJobSetting.SEX_ANAL),
+					Sex.getActivePartner().getSlaveJobSettings().contains(SlaveJobSetting.SEX_ORAL),
+					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STOCKS_RECEIVING_ORAL)),
+					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.STOCKS_LOCKED_IN_STOCKS))));
 			
 			SexFlags.resetRequests();
 		}
@@ -75,8 +81,8 @@ public class SADomStocksBehind {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
-					&& Sex.getPosition() != SexPosition.STOCKS_PARTNER_PLAYER_PERFORMING_ORAL
-					&& Sex.isPlayerDom();
+					&& !(Sex.getPosition() == SexPositionNew.STOCKS_SEX && Sex.getSexPositionSlot(Main.game.getPlayer()) == SexPositionSlot.STOCKS_PERFORMING_ORAL)
+					&& Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -98,8 +104,12 @@ public class SADomStocksBehind {
 
 		@Override
 		public void applyEffects() {
-			Sex.setSexManager(new SMDomStocksPerformOral(Sex.getPartner().getSlaveJobSettings().contains(SlaveJobSetting.SEX_VAGINAL),
-					Sex.getPartner().getSlaveJobSettings().contains(SlaveJobSetting.SEX_ANAL)));
+			Sex.setSexManager(new SMStocks(
+					Sex.getActivePartner().getSlaveJobSettings().contains(SlaveJobSetting.SEX_VAGINAL),
+					Sex.getActivePartner().getSlaveJobSettings().contains(SlaveJobSetting.SEX_ANAL),
+					Sex.getActivePartner().getSlaveJobSettings().contains(SlaveJobSetting.SEX_ORAL),
+					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STOCKS_PERFORMING_ORAL)),
+					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.STOCKS_LOCKED_IN_STOCKS))));
 			
 			SexFlags.resetRequests();
 		}
@@ -119,7 +129,7 @@ public class SADomStocksBehind {
 			
 			@Override
 			public boolean isBaseRequirementsMet() {
-				return Sex.isPlayerDom();
+				return Sex.isDom(Main.game.getPlayer());
 			}
 			
 			@Override
@@ -136,8 +146,8 @@ public class SADomStocksBehind {
 			public String getDescription() {
 				String tailSpecial1 = "", tailSpecial2 = "";
 				
-				if (Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER)==PenetrationType.PENIS_PLAYER) {
-					switch(Sex.getPartner().getTailType()) {
+				if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PARTNER)==PenetrationType.PENIS_PLAYER) {
+					switch(Sex.getActivePartner().getTailType()) {
 						case NONE:
 							tailSpecial1 = "Hilting your [pc.cock+] deep inside [npc.name]'s [npc.pussy+], you reach down and roughly grope [npc.her] [npc.ass+], before starting to deliver a series of stinging slaps to [npc.her] exposed cheeks.";
 							break;
@@ -146,7 +156,7 @@ public class SADomStocksBehind {
 												+ " raising [npc.her] [npc.ass+] up high in the air before starting to deliver a series of stinging slaps to [npc.her] exposed cheeks.";
 							break;
 					}
-					switch(Sex.getPartner().getTailType()) {
+					switch(Sex.getActivePartner().getTailType()) {
 						case NONE:
 							tailSpecial2 = "Still ploughing away at [npc.her] [npc.pussy+], you growl down that you're going to put [npc.name] in [npc.her] place before starting to aggressively slap [npc.her] exposed ass cheeks.";
 							break;
@@ -156,7 +166,7 @@ public class SADomStocksBehind {
 							break;
 					}
 				
-					return UtilText.genderParsing(Sex.getPartner(),
+					return UtilText.genderParsing(Sex.getActivePartner(),
 						UtilText.returnStringAtRandom(
 								tailSpecial1,
 								tailSpecial2,
@@ -164,8 +174,8 @@ public class SADomStocksBehind {
 								"Hilting your [pc.cock+] deep inside [npc.name]'s [npc.pussy], you use one [pc.hand] to hold [npc.herHim] still, while using your other to deliver a series of stinging slaps to [npc.her] exposed ass cheeks.",
 								"While you continue pounding away at [npc.name]'s [npc.pussy+], you reach down and start to roughly slap [npc.her] [npc.ass+], growling in glee as [npc.she] squirms and squeals under your stinging blows."));
 					
-				} else if (Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER)==PenetrationType.PENIS_PLAYER) {
-					switch(Sex.getPartner().getTailType()) {
+				} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PARTNER)==PenetrationType.PENIS_PLAYER) {
+					switch(Sex.getActivePartner().getTailType()) {
 						case NONE:
 							tailSpecial1 = "Hilting your [pc.cock+] deep inside [npc.name]'s [npc.asshole+], you reach down and roughly grope [npc.her] [npc.ass+], before starting to deliver a series of stinging slaps to [npc.her] exposed cheeks.";
 							break;
@@ -174,7 +184,7 @@ public class SADomStocksBehind {
 												+ " raising [npc.her] [npc.ass+] up high in the air before starting to deliver a series of stinging slaps to [npc.her] exposed cheeks.";
 							break;
 					}
-					switch(Sex.getPartner().getTailType()) {
+					switch(Sex.getActivePartner().getTailType()) {
 						case NONE:
 							tailSpecial2 = "Still ploughing away at [npc.her] [npc.asshole+], you growl down that you're going to put [npc.name] in [npc.her] place before starting to aggressively slap [npc.her] exposed ass cheeks.";
 							break;
@@ -184,7 +194,7 @@ public class SADomStocksBehind {
 							break;
 					}
 				
-					return UtilText.genderParsing(Sex.getPartner(),
+					return UtilText.genderParsing(Sex.getActivePartner(),
 						UtilText.returnStringAtRandom(
 								tailSpecial1,
 								tailSpecial2,
@@ -193,7 +203,7 @@ public class SADomStocksBehind {
 								"While you continue pounding away at [npc.name]'s [npc.asshole+], you reach down and start to roughly slap [npc.her] [npc.ass+], growling in glee as [npc.she] squirms and squeals under your stinging blows."));
 					
 				} else {
-					switch(Sex.getPartner().getTailType()) {
+					switch(Sex.getActivePartner().getTailType()) {
 						case NONE:
 							tailSpecial1 = "Growling down into [npc.name]'s [npc.ear+], you reach down and grab [npc.her] waist, using one hand to hold [npc.herHim] still,"
 												+ " while using your other to deliver a series of stinging slaps to [npc.her] [npc.ass+].";
@@ -203,7 +213,7 @@ public class SADomStocksBehind {
 										+ " raising [npc.her] [npc.ass+] up high in the air before starting to deliver a series of stinging slaps to [npc.her] exposed cheeks.";
 							break;
 					}
-					switch(Sex.getPartner().getTailType()) {
+					switch(Sex.getActivePartner().getTailType()) {
 						case NONE:
 							tailSpecial2 = "You reach down and grab [npc.name]'s waist with one hand, holding [npc.herHim] firmly in your grip as you start to aggressively slap [npc.her] exposed cheeks.";
 							break;
@@ -213,7 +223,7 @@ public class SADomStocksBehind {
 							break;
 					}
 				
-					return UtilText.genderParsing(Sex.getPartner(),
+					return UtilText.genderParsing(Sex.getActivePartner(),
 						UtilText.returnStringAtRandom(
 								tailSpecial1,
 								tailSpecial2,

@@ -186,7 +186,7 @@ public class DomKneeling {
 		
 		@Override
 		public void applyEffects() {
-			Sex.removePenetration(PenetrationType.TONGUE_PARTNER, OrificeType.VAGINA_PLAYER);
+			Sex.removePenetration(Sex.getActivePartner(), Main.game.getPlayer(), PenetrationType.TONGUE_PARTNER, OrificeType.VAGINA_PLAYER);
 		}
 		
 	};
@@ -275,7 +275,7 @@ public class DomKneeling {
 
 		@Override
 		public void applyEffects() {
-			Sex.removePenetration(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER);
+			Sex.removePenetration(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER);
 		}
 		
 		@Override
@@ -362,7 +362,7 @@ public class DomKneeling {
 
 		@Override
 		public void applyEffects() {
-			Sex.removePenetration(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER);
+			Sex.removePenetration(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER);
 		}
 		
 		@Override
