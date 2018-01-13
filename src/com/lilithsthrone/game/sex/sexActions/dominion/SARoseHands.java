@@ -179,7 +179,7 @@ public class SARoseHands {
 		}
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerFreeMouth();
+			return Sex.isOrificeFree(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER);
 		}
 		@Override
 		public String getDescription() {

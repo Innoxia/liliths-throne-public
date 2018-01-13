@@ -28,7 +28,7 @@ public class DomBackToWall {
 //
 //		@Override
 //		public boolean isBaseRequirementsMet() {
-//			return Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER)==(PenetrationType.FINGER_PARTNER) && partnerCumOnLegs;
+//			return Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER)==(PenetrationType.FINGER_PARTNER) && partnerCumOnLegs;
 //		}
 //
 //		@Override

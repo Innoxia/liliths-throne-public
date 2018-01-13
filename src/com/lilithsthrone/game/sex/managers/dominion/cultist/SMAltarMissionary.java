@@ -11,6 +11,7 @@ import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.dominion.cultist.SASpecialCultist;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.88
@@ -41,27 +42,22 @@ public class SMAltarMissionary extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isPlayerAbleToStopSex() {
-		return true;
-	}
-	
-	@Override
 	public boolean isPlayerCanRemoveOwnClothes(){
-		return true;
+		return !((Cultist)Sex.getActivePartner()).isSealedSex() || Sex.isDom(Main.game.getPlayer());
 	}
 	
 	@Override
 	public boolean isPlayerCanRemovePartnersClothes(){
-		return true;
+		return !((Cultist)Sex.getActivePartner()).isSealedSex() || Sex.isDom(Main.game.getPlayer());
 	}
 	
 	@Override
 	public boolean isPartnerCanRemoveOwnClothes(){
-		return true;
+		return !((Cultist)Sex.getActivePartner()).isSealedSex() || Sex.isDom(Sex.getActivePartner());
 	}
 	
 	@Override
 	public boolean isPartnerCanRemovePlayersClothes(){
-		return false;
+		return !((Cultist)Sex.getActivePartner()).isSealedSex() || Sex.isDom(Sex.getActivePartner());
 	}
 }

@@ -90,7 +90,7 @@ public class DomDoggy {
 		public String getDescription() {
 			String tailSpecial1 = "", tailSpecial2 = "";
 			
-			if (Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER)==PenetrationType.PENIS_PLAYER) {
+			if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PARTNER)==PenetrationType.PENIS_PLAYER) {
 				switch(Sex.getActivePartner().getTailType()) {
 					case NONE:
 						tailSpecial1 = "Hilting your [pc.cock+] deep inside [npc.name]'s [npc.pussy+], you reach down and roughly grope [npc.her] [npc.ass+], before starting to deliver a series of stinging slaps to [npc.her] exposed cheeks.";
@@ -118,7 +118,7 @@ public class DomDoggy {
 							"Hilting your [pc.cock+] deep inside [npc.name]'s [npc.pussy], you use one [pc.hand] to hold [npc.herHim] still, while using your other to deliver a series of stinging slaps to [npc.her] exposed ass cheeks.",
 							"While you continue pounding away at [npc.name]'s [npc.pussy+], you reach down and start to roughly slap [npc.her] [npc.ass+], growling in glee as [npc.she] squirms and squeals under your stinging blows."));
 				
-			} else if (Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER)==PenetrationType.PENIS_PLAYER) {
+			} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PARTNER)==PenetrationType.PENIS_PLAYER) {
 				switch(Sex.getActivePartner().getTailType()) {
 					case NONE:
 						tailSpecial1 = "Hilting your [pc.cock+] deep inside [npc.name]'s [npc.asshole+], you reach down and roughly grope [npc.her] [npc.ass+], before starting to deliver a series of stinging slaps to [npc.her] exposed cheeks.";
@@ -308,7 +308,7 @@ public class DomDoggy {
 
 		@Override
 		public void applyEffects() {
-			Sex.removePenetration(PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER);
+			Sex.removePenetration(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER);
 		}
 
 		@Override
@@ -443,7 +443,7 @@ public class DomDoggy {
 
 		@Override
 		public void applyEffects() {
-			Sex.removePenetration(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER);
+			Sex.removePenetration(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER);
 		}
 
 		@Override
@@ -474,7 +474,7 @@ public class DomDoggy {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(!Sex.isPlayerFreePenis()) {
+			if(!Sex.isPenetrationTypeFree(Main.game.getPlayer(), PenetrationType.PENIS_PLAYER)) {
 				UtilText.nodeContentSB.append("As you feel yourself reaching your climax, you decide that you're going to shoot your sticky seed all over [npc.name]'s ass."
 						+ " Grabbing [npc.her] hips, you slide backwards, slipping your cock free from [npc.her] well-used hole, and brace for your orgasm. ");
 				
@@ -593,8 +593,8 @@ public class DomDoggy {
 
 		@Override
 		public void applyEffects() {
-			Sex.removePenetration(PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER);
-			Sex.removePenetration(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER);
+			Sex.removePenetration(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER);
+			Sex.removePenetration(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER);
 		}
 		
 	};
@@ -696,7 +696,7 @@ public class DomDoggy {
 
 		@Override
 		public void applyEffects() {
-			Sex.removePenetration(PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER);
+			Sex.removePenetration(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER);
 		}
 		
 	};
@@ -798,7 +798,7 @@ public class DomDoggy {
 
 		@Override
 		public void applyEffects() {
-			Sex.removePenetration(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER);
+			Sex.removePenetration(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER);
 		}
 		
 	};

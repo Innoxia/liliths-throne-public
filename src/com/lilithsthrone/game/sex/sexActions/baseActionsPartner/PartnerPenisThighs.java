@@ -29,7 +29,7 @@ public class PartnerPenisThighs {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			// NPC can't penetrate if PC is already fucking them, due to physical limitations.
-			return Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PLAYER)==null;
+			return Sex.isPenetrationTypeFree(Main.game.getPlayer(), PenetrationType.PENIS_PLAYER);
 		}
 		
 		@Override
@@ -556,7 +556,7 @@ public class PartnerPenisThighs {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			if(Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PLAYER)==null) {
+			if(Sex.isPenetrationTypeFree(Main.game.getPlayer(), PenetrationType.PENIS_PLAYER)) {
 				return (Sex.isSubHasEqualControl() || Sex.isDom(Main.game.getPlayer()));
 			} else {
 				return false;

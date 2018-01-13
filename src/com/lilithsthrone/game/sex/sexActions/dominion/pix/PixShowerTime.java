@@ -52,7 +52,7 @@ public class PixShowerTime {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPartnerFreeMouth() && Sex.isPlayerFreeMouth();
+			return Sex.isOrificeFree(Sex.getActivePartner(), OrificeType.MOUTH_PARTNER) && Sex.isOrificeFree(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER);
 		}
 
 		@Override
@@ -460,7 +460,7 @@ public class PixShowerTime {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.hasFreeHandPartner();
+			return Sex.isPenetrationTypeFree(Sex.getActivePartner(), PenetrationType.FINGER_PARTNER);
 		}
 
 		@Override

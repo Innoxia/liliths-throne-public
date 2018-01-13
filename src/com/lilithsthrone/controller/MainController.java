@@ -640,18 +640,21 @@ public class MainController implements Initializable {
 						}
 						
 						boolean allowInput = true;
+						boolean enterConsumed = false;
 						
 						// Name selections:
 						if(Main.game.getCurrentDialogueNode() == CharacterCreation.CHOOSE_NAME || Main.game.getCurrentDialogueNode() == CityHall.CITY_HALL_NAME_CHANGE_FORM){
 							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('nameInput') === document.activeElement")) {
 								allowInput = false;
 								if (event.getCode() == KeyCode.ENTER) {
+									enterConsumed = true;
 									Main.game.setContent(1);
 								}
 							}
 							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('surnameInput') === document.activeElement")) {
 								allowInput = false;
 								if (event.getCode() == KeyCode.ENTER) {
+									enterConsumed = true;
 									Main.game.setContent(1);
 								}
 							}
@@ -660,6 +663,7 @@ public class MainController implements Initializable {
 							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('nameInput') === document.activeElement")) {
 								allowInput = false;
 								if (event.getCode() == KeyCode.ENTER) {
+									enterConsumed = true;
 									boolean unsuitableName = false;
 									if(Main.mainController.getWebEngine().executeScript("document.getElementById('nameInput')")!=null) {
 										 
@@ -680,6 +684,8 @@ public class MainController implements Initializable {
 													Main.game.getPlayerCell().getPlace().setName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
 												}
 											});
+										} else {
+											Main.game.setContent(new Response("Rename Room", "", Main.game.getCurrentDialogueNode()));
 										}
 									}
 								}
@@ -689,6 +695,7 @@ public class MainController implements Initializable {
 							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('nameInput') === document.activeElement")) {
 								allowInput = false;
 								if (event.getCode() == KeyCode.ENTER) {
+									enterConsumed = true;
 									Main.game.setContent(1);
 								}
 							}
@@ -697,6 +704,7 @@ public class MainController implements Initializable {
 							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('new_save_name') === document.activeElement")) {
 								allowInput = false;
 								if (event.getCode() == KeyCode.ENTER) {
+									enterConsumed = true;
 									Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('new_save_name').value;");
 									Main.saveGame(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent(), false);
 								}
@@ -708,6 +716,7 @@ public class MainController implements Initializable {
 							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('slaveToPlayerNameInput') === document.activeElement")) {
 								allowInput = false;
 								if (event.getCode() == KeyCode.ENTER) {
+									enterConsumed = true;
 									boolean unsuitableName = false;
 								 	if(Main.mainController.getWebEngine().executeScript("document.getElementById('slaveToPlayerNameInput')")!=null) {
 									 
@@ -728,6 +737,8 @@ public class MainController implements Initializable {
 													Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().setPlayerPetName(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent());
 												}
 											});
+										} else {
+											Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()));
 										}
 										
 									}
@@ -736,6 +747,7 @@ public class MainController implements Initializable {
 							if(((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('slaveNameInput') === document.activeElement"))) {
 								allowInput = false;
 								if (event.getCode() == KeyCode.ENTER) {
+									enterConsumed = true;
 									boolean unsuitableName = false;
 								 	if(Main.mainController.getWebEngine().executeScript("document.getElementById('slaveNameInput')")!=null) {
 									 
@@ -756,6 +768,8 @@ public class MainController implements Initializable {
 													Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().setName(new NameTriplet(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent()));
 												}
 											});
+										} else {
+											Main.game.setContent(new Response("Rename", "", Main.game.getCurrentDialogueNode()));
 										}
 									}
 								}
@@ -771,9 +785,10 @@ public class MainController implements Initializable {
 								if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('feminine_" + gp + "') === document.activeElement")
 									|| (boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('masculine_" + gp + "') === document.activeElement")) {
 									allowInput = false;
-								if (event.getCode() == KeyCode.ENTER) {
-									Main.game.setContent(1);
-								}
+									if (event.getCode() == KeyCode.ENTER) {
+										enterConsumed = true;
+										Main.game.setContent(1);
+									}
 								}
 							}
 							for(GenderNames genderName : GenderNames.values()) {
@@ -781,9 +796,10 @@ public class MainController implements Initializable {
 									|| (boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('GENDER_NAME_ANDROGYNOUS_" + genderName + "') === document.activeElement")
 									|| (boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('GENDER_NAME_FEMININE_" + genderName + "') === document.activeElement")) {
 									allowInput = false;
-								if (event.getCode() == KeyCode.ENTER) {
-									Main.game.setContent(1);
-								}
+									if (event.getCode() == KeyCode.ENTER) {
+										enterConsumed = true;
+										Main.game.setContent(1);
+									}
 								}
 							}
 						}
@@ -823,7 +839,13 @@ public class MainController implements Initializable {
 							}
 							
 							if (keyEventMatchesBindings(KeyboardAction.MENU_SELECT, event)) {
-								Main.game.setContent(Main.game.getResponsePointer());
+								if(event.getCode() == KeyCode.ENTER) {
+									if(!enterConsumed) {
+										Main.game.setContent(Main.game.getResponsePointer());
+									}
+								} else {
+									Main.game.setContent(Main.game.getResponsePointer());
+								}
 							}
 							
 						}
@@ -3770,7 +3792,18 @@ public class MainController implements Initializable {
 					}
 				}
 			}
-			for (AbstractWeaponType weapon : WeaponType.allweapons)
+			
+			for (AbstractClothingType clothing : ClothingType.getAllClothing()) {
+				for (Colour colour : clothing.getAllAvailablePrimaryColours()) {
+					if ((EventTarget) document.getElementById(clothing.hashCode() + "_" + colour.toString()) != null) {
+						addEventListener(document, clothing.hashCode() + "_" + colour.toString(), "mousemove", moveTooltipListener, false);
+						addEventListener(document, clothing.hashCode() + "_" + colour.toString(), "mouseleave", hideTooltipListener, false);
+						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setGenericClothing(clothing, colour);
+						addEventListener(document, clothing.hashCode() + "_" + colour.toString(), "mouseenter", el2, false);
+					}
+				}
+			}
+			for (AbstractWeaponType weapon : WeaponType.allweapons) {
 				for (DamageType dt : weapon.getAvailableDamageTypes()) {
 					if ((EventTarget) document.getElementById(weapon.hashCode() + "_" + dt.toString()) != null) {
 						addEventListener(document, weapon.hashCode() + "_" + dt.toString(), "mousemove", moveTooltipListener, false);
@@ -3779,7 +3812,8 @@ public class MainController implements Initializable {
 						addEventListener(document, weapon.hashCode() + "_" + dt.toString(), "mouseenter", el2, false);
 					}
 				}
-	
+			}
+			
 			// Level up dialogue:
 			if (((EventTarget) document.getElementById("strength-increase")) != null)
 				addEventListener(document, "strength-increase", "click", new LevelUpButtonsEventListener().increaseStrength(), false);

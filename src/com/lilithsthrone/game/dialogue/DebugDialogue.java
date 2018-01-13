@@ -19,11 +19,9 @@ import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.npc.dominion.Lilaya;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.dialogue.responses.Response;
-import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.ParserCommand;
 import com.lilithsthrone.game.dialogue.utils.ParserTarget;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -36,13 +34,10 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
-import com.lilithsthrone.game.sex.SexPositionSlot;
-import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.0
@@ -286,22 +281,24 @@ public class DebugDialogue {
 						}
 					};
 					
-			} else if (index == 23) {
-				return new ResponseSex("Special \"Tests\"",
-						"Let Lilaya and Rose run some \"tests\" on you.",
-						null, null, null, null, null, null,
-						true, true,
-						new SMDoggy(
-								Util.newHashMapOfValues(
-										new Value<>(Main.game.getRose(), SexPositionSlot.DOGGY_INFRONT),
-										new Value<>(Main.game.getLilaya(), SexPositionSlot.DOGGY_BEHIND)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
-						Lilaya.AUNT_END_SEX,
-						"<p>"
-							+ "With a maniacal laugh, Rose throws you and Lilaya to the floor, ready for her special \"tests\"."
-						+ "</p>");
-				
-			} else {
+			}
+//			else if (index == 23) {
+//				return new ResponseSex("Special \"Tests\"",
+//						"Let Lilaya and Rose run some \"tests\" on you.",
+//						null, null, null, null, null, null,
+//						true, true,
+//						new SMDoggy(
+//								Util.newHashMapOfValues(
+//										new Value<>(Main.game.getRose(), SexPositionSlot.DOGGY_INFRONT),
+//										new Value<>(Main.game.getLilaya(), SexPositionSlot.DOGGY_BEHIND)),
+//								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
+//						Lilaya.AUNT_END_SEX,
+//						"<p>"
+//							+ "With a maniacal laugh, Rose throws you and Lilaya to the floor, ready for her special \"tests\"."
+//						+ "</p>");
+//				
+//			}
+			else {
 				return null;
 			}
 		}

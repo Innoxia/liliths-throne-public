@@ -248,11 +248,11 @@ public class UtilText {
 		
 		// Apply speech effects:
 		if(Main.game.isInSex()) {
-			if(Sex.isPlayerPenetrated()) {
+			if(Sex.isCharacterPenetrated(Main.game.getPlayer())) {
 				modifiedSentence = Util.addSexSounds(modifiedSentence, 6);
 			}
 			
-			if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER)!=null) {
+			if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER)!=null) {
 				modifiedSentence = Util.addMuffle(modifiedSentence, 6);
 			} else {
 				if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
@@ -294,10 +294,10 @@ public class UtilText {
 		// Apply speech effects:
 		if(Main.game.isInSex()) {
 			if(target.isPlayer()) {
-				if(Sex.isPlayerPenetrated()) {
+				if(Sex.isCharacterPenetrated(Main.game.getPlayer())) {
 					modifiedSentence = Util.addSexSounds(modifiedSentence, 6);
 				}
-				if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER)!=null) {
+				if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER)!=null) {
 					modifiedSentence = Util.addMuffle(modifiedSentence, 6);
 				} else {
 					if(!target.isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
@@ -311,11 +311,11 @@ public class UtilText {
 				}
 				
 			} else {
-				if(Sex.isPartnerPenetrated()) {
+				if(Sex.isCharacterPenetrated(character)) {
 					modifiedSentence = Util.addSexSounds(modifiedSentence, 6);
 				}
 				
-				if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER)!=null) {
+				if(Sex.getPenetrationTypeInOrifice(character, OrificeType.MOUTH_PARTNER)!=null) {
 					modifiedSentence = Util.addMuffle(modifiedSentence, 6);
 				} else {
 					if(!target.isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
@@ -377,7 +377,7 @@ public class UtilText {
 
 		// Apply speech effects:
 		if(Main.game.isInSex()) {
-			if(Sex.isPartnerPenetrated())
+			if(Sex.isCharacterPenetrated(target))
 				modifiedSentence = Util.addSexSounds(modifiedSentence, 5);
 		}
 

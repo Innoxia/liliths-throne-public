@@ -17,7 +17,7 @@ public class SubCowgirl {
 		
 		UtilText.nodeContentSB.setLength(0);
 		
-		if (Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER) == PenetrationType.PENIS_PLAYER) {
+		if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PARTNER) == PenetrationType.PENIS_PLAYER) {
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"[npc.Name] sinks down onto your [pc.penis+], letting out a happy squeal as [npc.she] feels you sink deep inside [npc.her] [npc.asshole+]."
 								+ " Bottoming out on your [pc.cock], [npc.she] leans down and grabs your head in both hands, before pulling you up into a passionate kiss.",
@@ -25,7 +25,7 @@ public class SubCowgirl {
 					"[npc.Name] lets your [pc.penis+] slide even deeper into [npc.her] [npc.asshole+] as [npc.she] leans down and pulls you into a desperate kiss.",
 					"Leaning down, [npc.name] lets out [npc.a_moan+] as [npc.she] buries [npc.herself] on your [pc.penis+], before leaning forwards and pressing [npc.her] [npc.lips+] against yours."));
 			
-		} else if (Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER) == PenetrationType.PENIS_PLAYER) {
+		} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PARTNER) == PenetrationType.PENIS_PLAYER) {
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"[npc.Name] sinks down onto your [pc.penis+], letting out a happy squeal as [npc.she] feels you sink deep inside [npc.her] [npc.pussy+]."
 								+ " Bottoming out on your [pc.cock], [npc.she] leans down and grabs your head in both hands, before pulling you up into a passionate kiss.",

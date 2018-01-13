@@ -25,7 +25,7 @@ public class PartnerSelfFingerMouth {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getWetPenetrationTypes().get(PenetrationType.FINGER_PARTNER).isEmpty()
+			return Sex.getWetPenetrationTypes(Sex.getActivePartner()).get(PenetrationType.FINGER_PARTNER).isEmpty()
 					&& Sex.isInForeplay()
 					&& (Sex.getActivePartner().getForeplayPreference()!=null && Sex.getActivePartner().getForeplayPreference().getPenetrationType()==PenetrationType.FINGER_PARTNER);
 		}

@@ -211,7 +211,7 @@ public class PlayerPenisAss {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			// You can't penetrate if your partner is already fucking you, due to physical limitations. (I mean, if you're facing opposite ways and lying on top of each other, it might be possible, but that position will be special.)
-			return Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PARTNER)==null && (Sex.isDom(Main.game.getPlayer()) || Sex.isSubHasEqualControl());
+			return Sex.isPenetrationTypeFree(Sex.getActivePartner(), PenetrationType.PENIS_PARTNER) && (Sex.isDom(Main.game.getPlayer()) || Sex.isSubHasEqualControl());
 		}
 		
 		@Override
@@ -736,7 +736,7 @@ public class PlayerPenisAss {
 		public boolean isBaseRequirementsMet() {
 			// Partner can only start fucking themselves on the player's cock in consensual sex or if they're the dom.
 			// You can't penetrate if your partner is already fucking you, due to physical limitations. (I mean, if you're facing opposite ways and lying on top of each other, it might be possible, but that position will be special.)
-			if(Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PARTNER)==null) {
+			if(Sex.isPenetrationTypeFree(Sex.getActivePartner(), PenetrationType.PENIS_PARTNER)) {
 				return !Sex.isDom(Main.game.getPlayer()) || Sex.isSubHasEqualControl();
 			} else {
 				return false; //(Sex.isConsensual() || !Sex.isDom(Main.game.getPlayer())) && !Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PARTNER).contains(OrificeType.VAGINA_PLAYER);

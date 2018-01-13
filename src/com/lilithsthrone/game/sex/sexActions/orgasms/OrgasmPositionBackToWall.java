@@ -152,61 +152,61 @@ public class OrgasmPositionBackToWall {
 				orgasmSB.append("</p>");
 			}
 		}
-		
-		for(PenetrationType penetrationType : PenetrationType.values()) {
-			if(Sex.getOngoingPenetrationMap().get(penetrationType)!=null && !Sex.getOngoingPenetrationMap().get(penetrationType).isEmpty()) {
-				for(OrificeType orifice : Sex.getOngoingPenetrationMap().get(penetrationType)) {
-					switch(penetrationType) {
-						case FINGER_PARTNER:
-							switch(orifice) {
-								case ANUS_PARTNER:
-									break;
-								case ANUS_PLAYER:
-									break;
-								case MOUTH_PARTNER:
-									break;
-								case MOUTH_PLAYER:
-									break;
-								case NIPPLE_PARTNER:
-									break;
-								case NIPPLE_PLAYER:
-									break;
-								case VAGINA_PARTNER:
-									break;
-								case VAGINA_PLAYER:
-									break;
-								case URETHRA_PARTNER: case URETHRA_PLAYER:
-									// TODO
-									break;
-								case ASS_PARTNER: case ASS_PLAYER: case BREAST_PARTNER: case BREAST_PLAYER: case THIGHS_PARTNER: case THIGHS_PLAYER:
-									// Not needed
-									break;
-							}
-							break;
-						case FINGER_PLAYER:
-							break;
-						case PENIS_PARTNER:
-							break;
-						case PENIS_PLAYER:
-							break;
-						case TAIL_PARTNER:
-							break;
-						case TAIL_PLAYER:
-							break;
-						case TENTACLE_PARTNER:
-							break;
-						case TENTACLE_PLAYER:
-							break;
-						case TONGUE_PARTNER:
-							break;
-						case TONGUE_PLAYER:
-							break;
-					}
-				}
-			}
-			
-			
-		}
+		//TODO
+//		for(PenetrationType penetrationType : PenetrationType.values()) {
+//			if(Sex.getOngoingPenetrationMap().get(penetrationType)!=null && !Sex.getOngoingPenetrationMap().get(penetrationType).isEmpty()) {
+//				for(OrificeType orifice : Sex.getOngoingPenetrationMap().get(penetrationType)) {
+//					switch(penetrationType) {
+//						case FINGER_PARTNER:
+//							switch(orifice) {
+//								case ANUS_PARTNER:
+//									break;
+//								case ANUS_PLAYER:
+//									break;
+//								case MOUTH_PARTNER:
+//									break;
+//								case MOUTH_PLAYER:
+//									break;
+//								case NIPPLE_PARTNER:
+//									break;
+//								case NIPPLE_PLAYER:
+//									break;
+//								case VAGINA_PARTNER:
+//									break;
+//								case VAGINA_PLAYER:
+//									break;
+//								case URETHRA_PARTNER: case URETHRA_PLAYER:
+//									// TODO
+//									break;
+//								case ASS_PARTNER: case ASS_PLAYER: case BREAST_PARTNER: case BREAST_PLAYER: case THIGHS_PARTNER: case THIGHS_PLAYER:
+//									// Not needed
+//									break;
+//							}
+//							break;
+//						case FINGER_PLAYER:
+//							break;
+//						case PENIS_PARTNER:
+//							break;
+//						case PENIS_PLAYER:
+//							break;
+//						case TAIL_PARTNER:
+//							break;
+//						case TAIL_PLAYER:
+//							break;
+//						case TENTACLE_PARTNER:
+//							break;
+//						case TENTACLE_PLAYER:
+//							break;
+//						case TONGUE_PARTNER:
+//							break;
+//						case TONGUE_PLAYER:
+//							break;
+//					}
+//				}
+//			}
+//			
+//			
+//		}
 		
 		return orgasmSB.toString();
 	}
@@ -223,10 +223,10 @@ public class OrgasmPositionBackToWall {
 		public boolean isBaseRequirementsMet() {
 			boolean takingCock = false;
 			
-			if((Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER) == PenetrationType.PENIS_PARTNER)
-					|| (Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER) == PenetrationType.PENIS_PARTNER)
-					|| (Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PLAYER) == PenetrationType.PENIS_PARTNER)
-					|| (Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER) == PenetrationType.PENIS_PARTNER)) {
+			if((Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER) == PenetrationType.PENIS_PARTNER)
+					|| (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER) == PenetrationType.PENIS_PARTNER)
+					|| (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE_PLAYER) == PenetrationType.PENIS_PARTNER)
+					|| (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER) == PenetrationType.PENIS_PARTNER)) {
 				takingCock = true;
 			}
 			

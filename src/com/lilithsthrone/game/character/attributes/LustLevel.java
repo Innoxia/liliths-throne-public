@@ -1,11 +1,11 @@
 package com.lilithsthrone.game.character.attributes;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
 
 /**
@@ -106,51 +106,58 @@ public enum LustLevel {
 		return sexPaceDominant;
 	}
 	
-	public SexPace getSexPace(GameCharacter character) {
+	public SexPace getSexPace(boolean consensual, GameCharacter character) {
+		SexPace pace;
 		if(Sex.isDom(character)) {
-			return getSexPaceDominant();
+			pace = getSexPaceDominant();
 		} else {
-			return getSexPaceSubmissive();
+			pace = getSexPaceSubmissive();
 		}
+		
+		if(consensual && pace==SexPace.SUB_RESISTING && !character.hasFetish(Fetish.FETISH_NON_CON_SUB)) {
+			pace = SexPace.SUB_NORMAL;
+		}
+		
+		return pace;
 	}
 	
-	public String getSVGImage(GameCharacter character) {
-		if(Sex.isDom(character)) {
-			switch(this.getSexPaceDominant()) {
-				case DOM_GENTLE:
-					return SVGImages.SVG_IMAGE_PROVIDER.getResponseDomGentle();
-				case DOM_NORMAL:
-					return SVGImages.SVG_IMAGE_PROVIDER.getResponseDomNormal();
-				case DOM_ROUGH:
-					return SVGImages.SVG_IMAGE_PROVIDER.getResponseDomRough();
-				case SUB_EAGER:
-					return SVGImages.SVG_IMAGE_PROVIDER.getResponseSubEager();
-				case SUB_NORMAL:
-					return SVGImages.SVG_IMAGE_PROVIDER.getResponseSubNormal();
-				case SUB_RESISTING:
-					return SVGImages.SVG_IMAGE_PROVIDER.getResponseSubResist();
-			}
-		} else {
-			switch(this.getSexPaceSubmissive()) {
-				case DOM_GENTLE:
-					return SVGImages.SVG_IMAGE_PROVIDER.getResponseDomGentle();
-				case DOM_NORMAL:
-					return SVGImages.SVG_IMAGE_PROVIDER.getResponseDomNormal();
-				case DOM_ROUGH:
-					return SVGImages.SVG_IMAGE_PROVIDER.getResponseDomRough();
-				case SUB_EAGER:
-					return SVGImages.SVG_IMAGE_PROVIDER.getResponseSubEager();
-				case SUB_NORMAL:
-					return SVGImages.SVG_IMAGE_PROVIDER.getResponseSubNormal();
-				case SUB_RESISTING:
-					return SVGImages.SVG_IMAGE_PROVIDER.getResponseSubResist();
-			}
-		}
-		return "";	
-	}
+//	public String getSVGImage(GameCharacter character) {
+//		if(Sex.isDom(character)) {
+//			switch(this.getSexPaceDominant()) {
+//				case DOM_GENTLE:
+//					return SVGImages.SVG_IMAGE_PROVIDER.getResponseDomGentle();
+//				case DOM_NORMAL:
+//					return SVGImages.SVG_IMAGE_PROVIDER.getResponseDomNormal();
+//				case DOM_ROUGH:
+//					return SVGImages.SVG_IMAGE_PROVIDER.getResponseDomRough();
+//				case SUB_EAGER:
+//					return SVGImages.SVG_IMAGE_PROVIDER.getResponseSubEager();
+//				case SUB_NORMAL:
+//					return SVGImages.SVG_IMAGE_PROVIDER.getResponseSubNormal();
+//				case SUB_RESISTING:
+//					return SVGImages.SVG_IMAGE_PROVIDER.getResponseSubResist();
+//			}
+//		} else {
+//			switch(this.getSexPaceSubmissive()) {
+//				case DOM_GENTLE:
+//					return SVGImages.SVG_IMAGE_PROVIDER.getResponseDomGentle();
+//				case DOM_NORMAL:
+//					return SVGImages.SVG_IMAGE_PROVIDER.getResponseDomNormal();
+//				case DOM_ROUGH:
+//					return SVGImages.SVG_IMAGE_PROVIDER.getResponseDomRough();
+//				case SUB_EAGER:
+//					return SVGImages.SVG_IMAGE_PROVIDER.getResponseSubEager();
+//				case SUB_NORMAL:
+//					return SVGImages.SVG_IMAGE_PROVIDER.getResponseSubNormal();
+//				case SUB_RESISTING:
+//					return SVGImages.SVG_IMAGE_PROVIDER.getResponseSubResist();
+//			}
+//		}
+//		return "";	
+//	}
 	
-	public String getStatusEffectModifierDescription(GameCharacter character) {
-		switch(this.getSexPace(character)) {
+	public String getStatusEffectModifierDescription(boolean consensual, GameCharacter character) {
+		switch(this.getSexPace(consensual, character)) {
 			case DOM_GENTLE:
 				return "<b style='color: " + SexPace.DOM_GENTLE.getColour().toWebHexString() + "'>Gentle</b> pace";
 			case DOM_NORMAL:
@@ -167,8 +174,8 @@ public enum LustLevel {
 		return "";
 	}
 	
-	public String getStatusEffectDescription(GameCharacter character) {
-		switch(this.getSexPace(character)) {
+	public String getStatusEffectDescription(boolean consensual, GameCharacter character) {
+		switch(this.getSexPace(consensual, character)) {
 			case DOM_GENTLE:
 				if (character.isPlayer()) {
 					return "You feel like taking things slow and gentle.";

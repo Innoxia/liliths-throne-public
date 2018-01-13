@@ -289,14 +289,14 @@ public class Ralph extends NPC {
 	@Override
 	public String getCondomEquipEffects(GameCharacter equipper, GameCharacter target, boolean rough) {
 		if(Main.game.isInSex() && !target.isPlayer()) {
-			if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER)==(PenetrationType.PENIS_PARTNER)) {
+			if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER)==(PenetrationType.PENIS_PARTNER)) {
 				return "<p>"
 						+ "You pull out a condom from your inventory, and, making a muffled questioning sound, hold it up to Ralph."
 							+ " He looks down at you before nodding and stepping back, sliding his huge cock free from your mouth."
 							+ " You get a moment to catch your breath as Ralph tears opens the little foil package before rolling the condom down the length of his massive shaft."
 							+ " Stepping forwards once more, he shoves his rubber-bound dick back down your throat, and you let out a muffled sigh of relief, happy that he did as you asked."
 					+ "</p>";
-			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER)==(PenetrationType.PENIS_PARTNER)) {
+			} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER)==(PenetrationType.PENIS_PARTNER)) {
 				return "<p>"
 							+ "As Ralph carries on slamming his huge cock in and out of your pussy, you fumble around in your inventory and produce a condom."
 								+ " Suppressing your moans, you turn back, holding out your hand as you ask him to put it on."
@@ -304,7 +304,7 @@ public class Ralph extends NPC {
 									+ " tears opens the little foil package before rolling the condom down the length of his massive shaft."
 								+ " Once the condom is securely in place, he lines himself up and pushes forwards, burying his rubber-bound dick deep into your pussy."
 						+ "</p>";
-			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER)==(PenetrationType.PENIS_PARTNER)) {
+			} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER)==(PenetrationType.PENIS_PARTNER)) {
 				return "<p>"
 					+ "As Ralph carries on slamming his huge cock in and out of your ass, you fumble around in your inventory and produce a condom."
 						+ " Suppressing your groans, you turn back, holding out your hand as you ask him to put it on."
@@ -408,13 +408,13 @@ public class Ralph extends NPC {
 				if(item.getItemType().equals(ItemType.VIXENS_VIRILITY)) {
 					
 						Main.game.getPlayer().useItem(item, target, false);
-						if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER)==(PenetrationType.PENIS_PARTNER))
+						if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER)==(PenetrationType.PENIS_PARTNER))
 							return "<p>"
 									+ "You pull out a Vixen's Virility pill from your inventory, and, making a muffled questioning sound, hold it up to Ralph."
 										+ " He looks down at you, letting out a little laugh and shrugging his shoulders as he sees what you're trying to give him."
 										+ " Quickly popping the pill out of its plastic container, he swallows it, and you let out a happy, although somewhat muffled, giggle, knowing that his sperm just got a lot more potent."
 								+ "</p>";
-						else if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER)==(PenetrationType.PENIS_PARTNER))
+						else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER)==(PenetrationType.PENIS_PARTNER))
 							return "<p>"
 										+ "As Ralph carries on slamming his huge cock in and out of your pussy, you fumble around in your inventory and produce a Vixen's Virility pill."
 											+ " Suppressing your moans, you turn back, holding out your hand as you ask him to swallow it."
@@ -426,7 +426,7 @@ public class Ralph extends NPC {
 														?"Uhh, you're already pregnant, but sure, why not?"
 														:UtilText.parseSpeech("Hoping to get pregnant, huh? Well, I'm more than happy to help with that!", Main.game.getRalph())))
 									+ "</p>";
-						else if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER)==(PenetrationType.PENIS_PARTNER))
+						else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER)==(PenetrationType.PENIS_PARTNER))
 							return "<p>"
 										+ "As Ralph carries on slamming his huge cock in and out of your ass, you fumble around in your inventory and produce a Vixen's Virility pill."
 											+ " Suppressing your groans, you turn back, holding out your hand as you ask him to swallow it."
@@ -442,18 +442,18 @@ public class Ralph extends NPC {
 							+ "</p>";
 						
 				} else {
-						if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER)!=null)
+						if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER)!=null)
 							return "<p>"
 									+ "You pull out "+item.getItemType().getDeterminer()+" "+item.getName()+" from your inventory, and, making a muffled questioning sound, hold it up to Ralph."
 										+ " He looks down at you before making a dismissive grunt and stepping forwards slightly, ramming his cock that little bit further down your throat as you put the "+item.getName()+" back in your inventory."
 								+ "</p>";
-						else if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER)!=null)
+						else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER)!=null)
 							return "<p>"
 										+ "As Ralph carries on slamming his huge cock in and out of your pussy, you fumble around in your inventory and produce a "+item.getItemType().getDeterminer()+" "+item.getName()+"."
 											+ " Suppressing your moans, you ask him if he'd like to "+item.getItemType().getUseName()+" it, but he simply makes a dismissive grunt and carries on fucking you."
 											+ " You start sighing and crying out in pleasure once more as you put the "+item.getName()+" back in your inventory."
 									+ "</p>";
-						else if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER)!=null)
+						else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER)!=null)
 							return "<p>"
 										+ "As Ralph carries on slamming his huge cock in and out of your ass, you fumble around in your inventory and produce a "+item.getItemType().getDeterminer()+" "+item.getName()+"."
 										+ " Suppressing your groans, you ask him if he'd like to "+item.getItemType().getUseName()+" it, but he simply makes a dismissive grunt and carries on fucking you."

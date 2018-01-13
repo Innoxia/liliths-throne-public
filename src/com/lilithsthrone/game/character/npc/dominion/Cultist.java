@@ -501,7 +501,7 @@ public class Cultist extends NPC {
 //	// Losing virginity: TODO
 //	private static StringBuilder StringBuilderSB;
 //	public String getPlayerVaginaVirginityLossDescription(boolean isPlayerDom){
-//		if(isPlayerDom || Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER)==PenetrationType.TAIL_PARTNER) {
+//		if(isPlayerDom || Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER)==PenetrationType.TAIL_PARTNER) {
 //			return super.getPlayerVaginaVirginityLossDescription(isPlayerDom);
 //		}
 //		

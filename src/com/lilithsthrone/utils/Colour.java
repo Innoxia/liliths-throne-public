@@ -152,11 +152,11 @@ public enum Colour {
 	AROUSAL_STAGE_FOUR(Util.newColour(0xf824ff), Util.newColour(0xf824ff), "pink"),
 	AROUSAL_STAGE_FIVE(Util.newColour(0xf700ff), Util.newColour(0xf700ff), "pink"),
 	
-	LUST_STAGE_ZERO(Util.newColour(0xFFB3D0), Util.newColour(0xfee6ff), "pink"),
-	LUST_STAGE_ONE(Util.newColour(0xFF99C0), Util.newColour(0xfcb3ff), "pink"),
-	LUST_STAGE_TWO(Util.newColour(0xFF80B0), Util.newColour(0xfb80ff), "pink"),
-	LUST_STAGE_THREE(Util.newColour(0xFF66A1), Util.newColour(0xf94dff), "pink"),
-	LUST_STAGE_FOUR(Util.newColour(0xFF4D91), Util.newColour(0xf824ff), "pink"),
+	LUST_STAGE_ZERO(Util.newColour(0x80CAFF), Util.newColour(0xfee6ff), "blue"),
+	LUST_STAGE_ONE(Util.newColour(0xB699FF), Util.newColour(0xfcb3ff), "purple"),
+	LUST_STAGE_TWO(Util.newColour(0xFF99D1), Util.newColour(0xfb80ff), "pink"),
+	LUST_STAGE_THREE(Util.newColour(0xFF61AB), Util.newColour(0xf94dff), "pink"),
+	LUST_STAGE_FOUR(Util.newColour(0xFF3377), Util.newColour(0xf824ff), "dark pink"),
 
 	AFFECTION(BaseColour.PINK_LIGHT, "light pink",  Util.newArrayListOfValues(new ListValue<>("affection"))),
 	OBEDIENCE(BaseColour.PURPLE_LIGHT, "light purple",  Util.newArrayListOfValues(new ListValue<>("obedience"))),

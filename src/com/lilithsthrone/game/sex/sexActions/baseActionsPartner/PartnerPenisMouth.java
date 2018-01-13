@@ -70,14 +70,15 @@ public class PartnerPenisMouth {
 				return UtilText.returnStringAtRandom(
 						"[npc.Name] suddenly pulls back, sliding [npc.her] [npc.cock+] out of your mouth."
 							+ " As you look up at [npc.herHim], [npc.she] slaps [npc.her] hard shaft against your cheek, splattering "
-								+(Sex.getWetOrificeTypes().get(OrificeType.MOUTH_PLAYER).contains(LubricationType.PARTNER_PRECUM)?"cummy ":"")+"saliva across your face, before thrusting [npc.her] [npc.cock+] back down your throat.",
+								+(Sex.getWetOrificeTypes(Main.game.getPlayer()).get(OrificeType.MOUTH_PLAYER).contains(LubricationType.PARTNER_PRECUM)?"cummy ":"")
+								+"saliva across your face, before thrusting [npc.her] [npc.cock+] back down your throat.",
 								
 						"Stepping back, [npc.name] slides [npc.her] [npc.cock+] free from your mouth, and then proceeds to slap the saliva-coated head against your cheeks."
 								+ " As you open your mouth to gasp in shock, [npc.she] uses the opportunity to guide [npc.her] the [npc.cockHead] of [npc.her] [npc.cock] back past your lips, before pushing it deep down your throat.",
 						
 						"[npc.Name] suddenly steps back and allows [npc.her] [npc.cock+] to slide out from your mouth."
 							+ " Looking up at [npc.herHim], you're taken by surprise as [npc.she] slaps [npc.her] hard shaft against your face,"
-							+ " leaving a streak of "+(Sex.getWetOrificeTypes().get(OrificeType.MOUTH_PLAYER).contains(LubricationType.PARTNER_PRECUM)?"cummy ":"")
+							+ " leaving a streak of "+(Sex.getWetOrificeTypes(Main.game.getPlayer()).get(OrificeType.MOUTH_PLAYER).contains(LubricationType.PARTNER_PRECUM)?"cummy ":"")
 							+"saliva drooling down your cheek, before forcing [npc.her] [npc.cock+] back down your throat.",
 								
 						"Quickly pulling [npc.her] [npc.cock+] out from your mouth, [npc.name] holds the base in one hand while holding your head still with the other."
@@ -89,12 +90,12 @@ public class PartnerPenisMouth {
 				return UtilText.returnStringAtRandom(
 						"Pulling [npc.her] [npc.hips] back, [npc.name] slides [npc.her] [npc.cock+] out of your mouth."
 							+ " Before you can react, [npc.she] suddenly slaps [npc.her] hard shaft against your cheek, splattering saliva "
-							+(Sex.getWetPenetrationTypes().get(PenetrationType.PENIS_PARTNER).contains(LubricationType.PARTNER_PRECUM)?"and precum ":"")+"across your [pc.face], before thrusting [npc.her] [npc.cock+] back down your throat.",
+							+(Sex.getWetPenetrationTypes(Sex.getActivePartner()).get(PenetrationType.PENIS_PARTNER).contains(LubricationType.PARTNER_PRECUM)?"and precum ":"")+"across your [pc.face], before thrusting [npc.her] [npc.cock+] back down your throat.",
 								
 						"Pulling back, [npc.name] slides [npc.her] [npc.cock+] free from your mouth, and with [npc.a_moan+], [npc.she] proceeds to slap the saliva-coated [npc.cockHead] against your [pc.face].",
 						
 						"[npc.Name] slides [npc.her] [npc.cock+] out from your mouth, and, grinning to [npc.herself], [npc.she] then slaps [npc.her] hard shaft against your [pc.face],"
-							+ " leaving a streak of "+(Sex.getWetPenetrationTypes().get(PenetrationType.PENIS_PARTNER).contains(LubricationType.PARTNER_PRECUM)?"cummy ":"")
+							+ " leaving a streak of "+(Sex.getWetPenetrationTypes(Sex.getActivePartner()).get(PenetrationType.PENIS_PARTNER).contains(LubricationType.PARTNER_PRECUM)?"cummy ":"")
 							+"saliva drooling down your cheek, before forcing [npc.her] [npc.cock] back down your throat.",
 								
 						"Quickly pulling [npc.her] [npc.hips+] back, [npc.name] draws [npc.her] [npc.cock+] out from your mouth before starting to slap its slimy length against your cheeks.");
@@ -348,7 +349,8 @@ public class PartnerPenisMouth {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexPace(Main.game.getPlayer())!=SexPace.SUB_RESISTING && Sex.getActivePartner().hasVagina() && Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.VAGINA) && Sex.isPartnerFreeVagina();
+			return Sex.getSexPace(Main.game.getPlayer())!=SexPace.SUB_RESISTING && Sex.getActivePartner().hasVagina() && Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.VAGINA)
+					&& Sex.isOrificeFree(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER);
 		}
 		
 		@Override
@@ -791,7 +793,7 @@ public class PartnerPenisMouth {
 								"Grabbing the sides of your head, [npc.name] roughly pulls you into [npc.her] groin, sinking [npc.her] [npc.cock+] deep down your throat before starting to ruthlessly fuck your [pc.face].",
 										
 								"With a forceful thrust, [npc.name] hilts [npc.her] [npc.cock+] deep down your throat."
-									+ " As a slimy stream of saliva "+(Sex.getWetPenetrationTypes().get(PenetrationType.PENIS_PARTNER).contains(LubricationType.PARTNER_PRECUM)?"and precum ":"")
+									+ " As a slimy stream of saliva "+(Sex.getWetPenetrationTypes(Sex.getActivePartner()).get(PenetrationType.PENIS_PARTNER).contains(LubricationType.PARTNER_PRECUM)?"and precum ":"")
 									+"drools from the corners of your mouth, [npc.she] bucks back, letting you gasp for air for a brief moment before starting to aggressively fuck your [pc.face]."));
 			
 			} else if(Sex.getPosition()==SexPositionNew.SIXTY_NINE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.SIXTY_NINE_BOTTOM) {
@@ -831,7 +833,7 @@ public class PartnerPenisMouth {
 										+ " letting out [npc.a_moan+] before starting to violently thrust [npc.her] [npc.hips] up and down as [npc.she] ruthlessly fucks your face.",
 										
 								"With a forceful thrust, [npc.name] hilts [npc.her] [npc.cock+] deep down your throat."
-									+ " As a slimy stream of "+(Sex.getWetOrificeTypes().get(OrificeType.MOUTH_PLAYER).contains(LubricationType.PARTNER_PRECUM)?"cummy ":"")
+									+ " As a slimy stream of "+(Sex.getWetOrificeTypes(Main.game.getPlayer()).get(OrificeType.MOUTH_PLAYER).contains(LubricationType.PARTNER_PRECUM)?"cummy ":"")
 									+"saliva drools from the corners of your mouth, [npc.she] lifts [npc.herself] up, letting you gasp for air for a brief moment before sinking down once more and starting to aggressively fuck your face."));
 				
 			} else {

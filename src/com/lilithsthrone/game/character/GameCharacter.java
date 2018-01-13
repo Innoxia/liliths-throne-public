@@ -950,6 +950,18 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				}
 			}
 			
+			if(character.getMainWeapon()!=null) {
+				for (Entry<Attribute, Integer> e : character.getMainWeapon().getAttributeModifiers().entrySet()) {
+					character.incrementBonusAttribute(e.getKey(), e.getValue());
+				}
+			}
+			
+			if(character.getOffhandWeapon()!=null) {
+				for (Entry<Attribute, Integer> e : character.getOffhandWeapon().getAttributeModifiers().entrySet()) {
+					character.incrementBonusAttribute(e.getKey(), e.getValue());
+				}
+			}
+			
 		} else {
 			CharacterCreation.getDressed(character, false);
 		}

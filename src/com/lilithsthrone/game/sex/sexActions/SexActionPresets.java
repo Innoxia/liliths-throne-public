@@ -66,8 +66,7 @@ import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTai
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer.PlayerSelfTailVagina;
 import com.lilithsthrone.game.sex.sexActions.dominion.SARoseHands;
 import com.lilithsthrone.game.sex.sexActions.dominion.cultist.SASpecialCultist;
-import com.lilithsthrone.game.sex.sexActions.dominion.lilaya.ConChairBottomPositionsLilaya;
-import com.lilithsthrone.game.sex.sexActions.dominion.lilaya.ConChairTopPositionsLilaya;
+import com.lilithsthrone.game.sex.sexActions.dominion.lilaya.ConChairPositionsLilaya;
 import com.lilithsthrone.game.sex.sexActions.dominion.lilaya.SALilayaSpecials;
 import com.lilithsthrone.game.sex.sexActions.dominion.pix.PixOrgasms;
 import com.lilithsthrone.game.sex.sexActions.dominion.pix.PixShowerTime;
@@ -79,9 +78,8 @@ import com.lilithsthrone.game.sex.sexActions.dominion.stocks.SADomStocksPerformi
 import com.lilithsthrone.game.sex.sexActions.dominion.zaranix.SAAmberDoggyFucked;
 import com.lilithsthrone.game.sex.sexActions.dominion.zaranix.SAZaranixCockSucking;
 import com.lilithsthrone.game.sex.sexActions.universal.consensual.ConChairBottom;
-import com.lilithsthrone.game.sex.sexActions.universal.consensual.ConChairBottomPositions;
+import com.lilithsthrone.game.sex.sexActions.universal.consensual.ConChairPositions;
 import com.lilithsthrone.game.sex.sexActions.universal.consensual.ConChairTop;
-import com.lilithsthrone.game.sex.sexActions.universal.consensual.ConChairTopPositions;
 import com.lilithsthrone.game.sex.sexActions.universal.dom.DomBackToWall;
 import com.lilithsthrone.game.sex.sexActions.universal.dom.DomCowgirl;
 import com.lilithsthrone.game.sex.sexActions.universal.dom.DomDoggy;
@@ -237,7 +235,10 @@ public class SexActionPresets {
 
 	public static List<Class<?>> playerMissionaryDeskDomVicky = new ArrayList<>();
 	public static List<Class<?>> partnerMissionaryDeskDomVicky = new ArrayList<>();
-	
+
+
+	public static List<Class<?>> partnerKneelingReceivingOralCultist = new ArrayList<>();
+	public static List<Class<?>> playerKneelingPerformingOralCultist = new ArrayList<>();
 	
 	public static List<Class<?>> playerMissionaryAltarSubCultist = new ArrayList<>();
 	public static List<Class<?>> partnerMissionaryAltarSubCultist = new ArrayList<>();
@@ -786,13 +787,18 @@ public class SexActionPresets {
 		playerChairTop.addAll(playerDefaultSelf);
 		playerChairTop.addAll(playerGenerics);
 		playerChairTop.remove(GenericPositioning.class);
+
+		playerChairTop.add(ConChairTop.class);
+		playerChairTop.add(ConChairPositions.class);
 		
 		// Chair partner top:
 
 		partnerChairTop.addAll(partnerDefaultSelf);
 		partnerChairTop.addAll(partnerGenerics);
 		partnerChairTop.remove(GenericPositioning.class);
-		
+
+//		partnerChairTop.add(ConChairTop.class);
+		partnerChairTop.add(ConChairPositions.class);
 
 		// Chair player bottom:
 		
@@ -804,8 +810,7 @@ public class SexActionPresets {
 		playerChairBottom.add(PartnerTongueNipple.class);
 		
 		playerChairBottom.add(ConChairBottom.class);
-		
-		playerChairBottom.add(ConChairBottomPositions.class);
+		playerChairBottom.add(ConChairPositions.class);
 		
 		playerChairBottom.add(GenericActions.class);
 		playerChairBottom.add(GenericOrgasms.class);
@@ -818,10 +823,9 @@ public class SexActionPresets {
 		partnerChairBottom.add(PlayerTongueNipple.class);
 		partnerChairBottom.add(PartnerTongueBreasts.class);
 		partnerChairBottom.add(PartnerTongueNipple.class);
-		
-		partnerChairBottom.add(ConChairTop.class);
-		
-		partnerChairBottom.add(ConChairTopPositions.class);
+
+		partnerChairBottom.add(ConChairBottom.class);
+		partnerChairBottom.add(ConChairPositions.class);
 		
 		partnerChairBottom.add(GenericActions.class);
 		partnerChairBottom.add(GenericOrgasms.class);
@@ -947,19 +951,21 @@ public class SexActionPresets {
 		
 		//Lilaya:
 		playerChairTopLilaya.addAll(playerChairTop);
+		playerChairTopLilaya.remove(ConChairPositions.class);
 		playerChairTopLilaya.remove(PlayerTalk.class);
 		
 		partnerChairTopLilaya.addAll(partnerChairTop);
+		partnerChairTopLilaya.remove(ConChairPositions.class);
 		partnerChairTopLilaya.remove(PartnerTalk.class);
 		
 		playerChairBottomLilaya.addAll(playerChairBottom);
-		playerChairBottomLilaya.remove(ConChairBottomPositions.class);
-		playerChairBottom.add(ConChairBottomPositionsLilaya.class);
-		playerChairBottom.add(SALilayaSpecials.class);
+		playerChairBottomLilaya.remove(ConChairPositions.class);
+		playerChairBottomLilaya.add(ConChairPositionsLilaya.class);
+		playerChairBottomLilaya.add(SALilayaSpecials.class);
 		
 		partnerChairBottomLilaya.addAll(partnerChairBottom);
-		partnerChairBottomLilaya.remove(ConChairTopPositions.class);
-		partnerChairBottomLilaya.add(ConChairTopPositionsLilaya.class);
+		partnerChairBottomLilaya.remove(ConChairPositions.class);
+		partnerChairBottomLilaya.add(ConChairPositionsLilaya.class);
 		partnerChairBottomLilaya.add(SALilayaSpecials.class);
 		
 		
@@ -1030,8 +1036,17 @@ public class SexActionPresets {
 		partnerMissionaryDeskDomVicky.add(PartnerTailVagina.class);
 		partnerMissionaryDeskDomVicky.add(PartnerTailAnus.class);
 		
-		// Cultist:
 		
+		
+		// Cultist kneeling:
+
+		partnerKneelingReceivingOralCultist.addAll(partnerKneelingReceivingOral);
+		partnerKneelingReceivingOralCultist.remove(GenericPositioning.class);
+		
+		playerKneelingPerformingOralCultist.addAll(playerKneelingPerformingOral);
+		playerKneelingPerformingOralCultist.remove(GenericPositioning.class);
+		
+		// Cultist altar:
 		
 		playerMissionaryAltarSubCultist.addAll(playerDefaultSelf);
 		playerMissionaryAltarSubCultist.addAll(playerGenerics);
@@ -1109,14 +1124,16 @@ public class SexActionPresets {
 		playerMissionaryAltarSealedSubCultist.remove(GenericPositioning.class);
 		
 		partnerMissionaryAltarSealedSubCultist.add(GenericActions.class);
-		playerMissionaryAltarSealedSubCultist.remove(PartnerTalk.class);
+		partnerMissionaryAltarSealedSubCultist.remove(PartnerTalk.class);
 		partnerMissionaryAltarSealedSubCultist.add(GenericOrgasms.class);
 		partnerMissionaryAltarSealedSubCultist.remove(GenericPositioning.class);
 		
 		playerMissionaryAltarSealedDomCultist.addAll(playerMissionaryAltarDomCultist);
+		
 		partnerMissionaryAltarSealedDomCultist.addAll(partnerMissionaryAltarDomCultist);
 
 		playerMissionaryAltarSealedDomCultistOral.addAll(playerMissionaryAltarDomCultistOral);
+		
 		partnerMissionaryAltarSealedDomCultistOral.addAll(partnerMissionaryAltarDomCultistOral);
 		
 	}

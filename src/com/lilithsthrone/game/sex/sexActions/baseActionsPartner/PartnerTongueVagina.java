@@ -227,7 +227,9 @@ public class PartnerTongueVagina {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexPace(Sex.getActivePartner())!=SexPace.SUB_RESISTING && Main.game.getPlayer().hasPenis() && Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS) && Sex.isPlayerFreePenis();
+			return Sex.getSexPace(Sex.getActivePartner())!=SexPace.SUB_RESISTING && Main.game.getPlayer().hasPenis()
+					&& Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS)
+					&& Sex.isPenetrationTypeFree(Main.game.getPlayer(), PenetrationType.PENIS_PLAYER);
 		}
 
 		@Override

@@ -123,7 +123,7 @@ import com.lilithsthrone.world.places.PlaceType;
 public class Game implements Serializable, XMLSaving {
 	private static final long serialVersionUID = 1L;
 
-	public static final int FONT_SIZE_NORMAL = 18, FONT_SIZE_LARGE = 24, FONT_SIZE_HUGE = 30;
+	public static final int FONT_SIZE_MINIMUM = 12, FONT_SIZE_NORMAL = 18, FONT_SIZE_LARGE = 24, FONT_SIZE_HUGE = 36;
 
 	private PlayerCharacter player;
 	

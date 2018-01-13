@@ -547,9 +547,17 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		boolean isSexPenetration = false;
 		
 		// Is any sexual penetration happening:
-		for(Entry<PenetrationType, Set<OrificeType>> e : Sex.getOngoingPenetrationMap().entrySet()) {
-			if(e.getKey().isPenis() || e.getKey().isTail() || e.getKey().isTentacle()) {
-				isSexPenetration = true;
+		outerloop:
+		for(GameCharacter penetrator : Sex.getAllParticipants()) {
+			for(GameCharacter penetrated : Sex.getAllParticipants()) {
+				if(penetrator.equals(Sex.getActivePartner()) || penetrated.equals(Sex.getActivePartner())) {
+					for(Entry<PenetrationType, Set<OrificeType>> e : Sex.getOngoingPenetrationMap(penetrator).get(penetrated).entrySet()) {
+						if(e.getKey().isPenis() || e.getKey().isTail() || e.getKey().isTentacle()) {
+							isSexPenetration = true;
+							break outerloop;
+						}
+					}
+				}
 			}
 		}
 		

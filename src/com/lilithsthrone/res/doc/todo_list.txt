@@ -15,23 +15,51 @@
 	
 	Patch notes:
 	
+	Engine:
+		Added: Support for multiple partners in sex. This required a huge refactor of how sex is handled in the engine, which took up ~90% of the time this week.
+	
+	Sex:
+		You should now be able to use all of your hands/tails during sex.
+	
+	Gameplay:
+		Added double room upgrade, so you can now house two slaves in each room.
+	
+	Clothing:
+		Added: Women's leather jacket (feminine, over-torso slot). (I added this to complete Kate's new outfit.)
+		Added: Striped panties (feminine, groin slot).
+		Added: Striped bra (feminine, chest slot).
+		Added: Striped thigh-high socks (feminine, sock slot).
+	
 	UI:
 		Moved weapons & jewellery into the 'equipped' panel, so all equipped items are now grouped into the same UI element.
+		Fixed bugs related to tooltip positioning causing some UI elements to become inaccessible.
 	
 	Other:
 		Removed 'Wing' clothing slot. (I might add this again in the future, but I was struggling to think of any 'wing clothing' to add to that slot.)	
+		Tweaked drop rate of racial consumables (the ones that are able to be enchanted into transformatives are now a little more common).
+		Added more control over selecting font size in the option menu.
 	
 	Bugs:
 		Minor formatting error fixes.
 		The sex action 'Spread ass' is now correctly available for the player.
+		NPCs should no longer get stuck on trying to transform your genitals after beating you in combat.
+		Enchanted weapons (those with with stat buffs) now correctly apply their buffs when importing a save/character.
+		Minor fix to default gender names (changed an instance of 'doll' to 'neuter').
+		Minor typo fixes.
+		Fixed hypno-watch and Arthur's package being found in alleyways.
+		You can no longer purchase Arthur's Room upgrade before progressing to the correct point in the main quest.
+		Fixed encyclopedia preview pictures not working.
+		Fixed an error in changing what your slave calls you through the 'Permissions' screen.
+		Fixed bug where pressing enter on a blank text field would cause the centre panel of the UI to go blank.
 	
 	
 	
 	
-	refactor all methods and positions
-	Check Cultist sex scenes
-	Check oral/anal/vaginal allowed for stocks
+	
+	
 	Set up doggy test sex scene
+		Cycling through NPCs in each sex turn
+		Text for positions
 	
 	
 	Sex action stats (stamina, lust, arousal)
@@ -40,7 +68,8 @@
 	Fetish levels and experience
 	Fetishes should boost in power based on experience level
 	
-	Lust use default svgs
+	Check oral/anal/vaginal allowed for stocks
+	
 	
 	Corruption - fetish bypasses
 	Stamina - drained by actions (minor) and orgasms (major). If falls to 0, can't continue/exhausted.
@@ -90,6 +119,12 @@
 	
 	
 	
+	
+	Add forced TF to offer body
+	
+	submissive sex option for offspring
+	
+	
 	you should have two statuses, at least, for pure virgins who lose it
 		One where they see themselves as worthless fuckmeat
 		That would be what happens if they actually start having second thoughts during the sex scene and it isn't somehow negated
@@ -98,21 +133,14 @@
 		Which would have a heavy corruption boost, but they'd gain a significant bonus to seduction, sexuality, stamina, etc.
 	
 	
-	I was exploring some alleyways today and found both a hypno watch and an arthur's package
-		Also, the only book I've encountered in the alleyways is the cow book
 	
-	speaking of inventory bugs, what's going on with the equipped enchanted weapons when importing a save
 	
-	I seem to be able to set up Arthur's room as soon as I unlock slave content. I don't suppose I'm supposed to be able to do that until after I've actually goon and found him, am I?
-
-Also if I try to change my slave's pet names for what they call me through Permissions, the game suffers a hard lock. This does not, however, happen when changing pet names through the Inspect Slave menu (magnifying glass).
+	
 	
 	I'll go through and check to make sure that it's correctly respecting your content preferences for the next release (i.e. if you have non-con turned off, they should always respect your requests)
 	
 	"Stop partner" doesn't do anything seemingly anywhere it's available. In fact, you just end up skipping your turn and your partner performs actions twice to make up for it.
 		[I'll make it so that the NPC is blocked from starting any ongoing action on the turn immediately after you get them to stop.]
-	
-	"Spread ass" is bugged and is never available for the player
 	
 	I kept playing the game to see if it was a fluke, the game won't let me click the beg for pullout, but when I just click inventory, the phone until my arousal becomes high, I become able to click beg to cum inside.
 	
@@ -126,19 +154,8 @@ Also if I try to change my slave's pet names for what they call me through Permi
 	
 	add the transformation mechanic to the 'Offer body' option
 	
-	In gender preferences the last two choices for masculine are
-		Doll - no penis/vagina, has breasts
-		Neuter - no penis/vagina/breasts
-		For feminine the same choices are listed but BOTH are named Doll. ie no penis/vagina/breasts is also called Doll. I assume the last should be also named Neuter
-
 	is time supposed to pass when you open your phone and/or bag
 
-	Just checked the option to alter font size, I note you say it is a work in progress. I would like to use a slightly larger font size in the game, but large and huge are too big. Any chance of a 'Medium' size between normal and large, or a user selectable point size (a pulldown/editbox)
-	
-	submissive sex option for offspring
-	
-	the drop rate for non-racial potions is a little higher. I think I might change this so that they're 50/50
-	
 	adding a derived fetish for the two non-con fetishes
 	
 	would it be possible to be able to add your offspring to the cell you're standing in via buggy
@@ -147,30 +164,30 @@ Also if I try to change my slave's pet names for what they call me through Permi
 	
 	Suggestions:
 
-Maybe the “Anal Fingering” action should have the “Masturbation” fetish applied to it?
-
-It might be a good idea to block NPCs from doing the “spread pussy/ass” action if you’re already fucking them.
-
-There really should be a way to access a slave’s inventory while talking to them.
-
-It would be good if, during sex scenes, it remembered which tab you’re on when an orgasm reaction comes up; as of now, you get switched to the “Misc. Actions” tab, rather than back to the one you were on.
-
-It might be an idea for finger sucking (and tail sucking for demons) to be limited to those with the “Oral Performer” fetish. Quickly getting them wet is one thing, but keeping on sucking them is kind of weird, unless it’s a stand in for some other kind of sucking they’d rather be doing.
-
-If a wandering NPC is addicted to you, maybe their encounter rate should go up as they go into withdrawal? I mean, they should be actively seeking you out, right?
-
-Currently, when you leave a wandering NPC, they get brand new clothing for six of their slots (less the bra if they have no breasts). Presently, they always seem to get this, but maybe they sometimes shouldn’t. It might be nice if NPCs didn’t always bother with underwear, or for some items of underwear, they don’t really need anything on top — the bikini and croptop spring to mind here, and I’ve used the boyshorts as a stand-in for athletic wear before too. Exhibitionist NPCs might not bother with anything, going topless or even full nude.
-
-Bug Reports:
-
-The introduction for prostitutes refers to slutty clothes and heavy makeup, but as far as I can see they actually wear pretty much the same outfits as any other NPC, and don’t necessarily wear makeup either (and males don’t seem to ever wear makeup without the crossdressing fetish).
-
-In character descriptions, “dark grey” text appears as red.
-
-I went to the slavery screen, opened a slave’s inventory, then clicked on their name at the top-right to examine them. What I got was not them, but the last NPC I examined out in the city.
-
-During a sex scene, on the NPC’s turn, instead of them taking an action it played out that I was spreading my ass out for them.
-	
+		Maybe the “Anal Fingering” action should have the “Masturbation” fetish applied to it?
+		
+		It might be a good idea to block NPCs from doing the “spread pussy/ass” action if you’re already fucking them.
+		
+		There really should be a way to access a slave’s inventory while talking to them.
+		
+		It would be good if, during sex scenes, it remembered which tab you’re on when an orgasm reaction comes up; as of now, you get switched to the “Misc. Actions” tab, rather than back to the one you were on.
+		
+		It might be an idea for finger sucking (and tail sucking for demons) to be limited to those with the “Oral Performer” fetish. Quickly getting them wet is one thing, but keeping on sucking them is kind of weird, unless it’s a stand in for some other kind of sucking they’d rather be doing.
+		
+		If a wandering NPC is addicted to you, maybe their encounter rate should go up as they go into withdrawal? I mean, they should be actively seeking you out, right?
+		
+		Currently, when you leave a wandering NPC, they get brand new clothing for six of their slots (less the bra if they have no breasts). Presently, they always seem to get this, but maybe they sometimes shouldn’t. It might be nice if NPCs didn’t always bother with underwear, or for some items of underwear, they don’t really need anything on top — the bikini and croptop spring to mind here, and I’ve used the boyshorts as a stand-in for athletic wear before too. Exhibitionist NPCs might not bother with anything, going topless or even full nude.
+		
+		Bug Reports:
+		
+		The introduction for prostitutes refers to slutty clothes and heavy makeup, but as far as I can see they actually wear pretty much the same outfits as any other NPC, and don’t necessarily wear makeup either (and males don’t seem to ever wear makeup without the crossdressing fetish).
+		
+		In character descriptions, “dark grey” text appears as red.
+		
+		I went to the slavery screen, opened a slave’s inventory, then clicked on their name at the top-right to examine them. What I got was not them, but the last NPC I examined out in the city.
+		
+		During a sex scene, on the NPC’s turn, instead of them taking an action it played out that I was spreading my ass out for them.
+		
 	
 	
 	
@@ -181,14 +198,6 @@ During a sex scene, on the NPC’s turn, instead of them taking an action it pla
 	Patreon icons
 	
 	move all of the slave management stuff to your phone
-	
-	GET THE FORCED TF BUG FIXED
-	
-	So do enchanted weapons with stat buffs work when you import a save in 1.96.5, or is it still bugged
-	
-	as part of your fixes for the public version, you will want to lock the ability to get arthur his room until after you have spoken to Lilaya. Otherwise it locks you out of completing the next quest.
-	
-	"Taking hold of William's head, you pull your bestial cat-cock out of his mouth, eliciting a manic squeal as your barbs ruthlessly rake the inner walls of his VAGINA. As your tiny balls tense up, you look down to see your cum squirting out all over William's face."
 	
 	
 	Just made a harpy slave androphilic and got this text:

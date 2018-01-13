@@ -40,7 +40,7 @@ public class PartnerPenisBreasts {
 		public boolean isBaseRequirementsMet() {
 			return Sex.getSexPace(Sex.getActivePartner())!=SexPace.SUB_RESISTING
 					&& Sex.getActivePartner().getPenisRawSizeValue()>=6
-					&& Sex.isPlayerFreeMouth()
+					&& Sex.isOrificeFree(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER)
 					&& Main.game.getPlayer().isBreastFuckablePaizuri()
 					&& Sex.getPosition() != SexPositionNew.SIXTY_NINE;
 		}
@@ -148,7 +148,7 @@ public class PartnerPenisBreasts {
 		public boolean isBaseRequirementsMet() {
 			return Sex.getSexPace(Main.game.getPlayer())!=SexPace.SUB_RESISTING
 					&& Sex.getActivePartner().getPenisRawSizeValue()>=6
-					&& Sex.isPlayerFreeMouth()
+					&& Sex.isOrificeFree(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER)
 					&& Main.game.getPlayer().isBreastFuckablePaizuri()
 					&& Sex.getPosition() != SexPositionNew.SIXTY_NINE;
 		}
@@ -247,7 +247,8 @@ public class PartnerPenisBreasts {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER) != PenetrationType.PENIS_PLAYER && Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER) != PenetrationType.PENIS_PLAYER;
+			return Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS_PARTNER) != PenetrationType.PENIS_PLAYER
+					&& Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER) != PenetrationType.PENIS_PLAYER;
 		}
 		
 		@Override
@@ -1261,7 +1262,8 @@ public class PartnerPenisBreasts {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER) != PenetrationType.PENIS_PLAYER && Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER) != PenetrationType.PENIS_PLAYER;
+			return Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS_PARTNER) != PenetrationType.PENIS_PLAYER
+					&& Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER) != PenetrationType.PENIS_PLAYER;
 		}
 
 		@Override

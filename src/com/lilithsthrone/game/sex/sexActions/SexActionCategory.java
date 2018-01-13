@@ -6,6 +6,8 @@ package com.lilithsthrone.game.sex.sexActions;
  * @author Innoxia
  */
 public enum SexActionCategory {
+
+	CHARACTER_SWITCH,
 	
 	MISCELLANEOUS,
 	SELF,

@@ -171,7 +171,7 @@ public class GenericPlace implements Serializable, XMLSaving {
 	}
 
 	public String getSVGString() {
-		return placeType.getSVGString();
+		return placeType.getSVGString(placeUpgrades);
 	}
 	
 	

@@ -186,7 +186,7 @@ public class SubKneeling {
 		
 		@Override
 		public void applyEffects() {
-			Sex.removePenetration(PenetrationType.TONGUE_PLAYER, OrificeType.VAGINA_PARTNER);
+			Sex.removePenetration(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.TONGUE_PLAYER, OrificeType.VAGINA_PARTNER);
 		}
 	};
 	
@@ -283,7 +283,7 @@ public class SubKneeling {
 
 		@Override
 		public void applyEffects() {
-			Sex.removePenetration(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER);
+			Sex.removePenetration(Sex.getActivePartner(), Main.game.getPlayer(), PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER);
 		}
 
 		@Override
@@ -384,7 +384,7 @@ public class SubKneeling {
 					Main.game.getPlayer().getHighestZLayerCoverableArea(CoverableArea.NIPPLES).setDirty(true);
 				}
 			}
-			Sex.removePenetration(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER);
+			Sex.removePenetration(Sex.getActivePartner(), Main.game.getPlayer(), PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER);
 		}
 
 		@Override

@@ -60,7 +60,7 @@ public class SexActionRalphDiscount {
 			UtilText.nodeContentSB.append("With Ralph's cock being as large as it is, you don't even need to lean forwards in order to start earning your discount."
 					+ " Opening your mouth, you simply move your lips down to kiss the flared head of his horse-like shaft.");
 			
-			if(Sex.getWetPenetrationTypes().get(PenetrationType.PENIS_PARTNER).contains(LubricationType.PARTNER_PRECUM))
+			if(Sex.getWetPenetrationTypes(Sex.getActivePartner()).get(PenetrationType.PENIS_PARTNER).contains(LubricationType.PARTNER_PRECUM))
 				UtilText.nodeContentSB.append(" As the tip of your tongue slides over his bumpy equine urethra, a dollop of salty pre-cum leaks into your mouth."
 						+ " You let out a surprised moan as the salty liquid drips past your lips");
 			else

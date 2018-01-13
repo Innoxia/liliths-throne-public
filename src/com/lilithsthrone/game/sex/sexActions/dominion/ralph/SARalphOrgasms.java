@@ -94,13 +94,13 @@ public class SARalphOrgasms {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER) == PenetrationType.PENIS_PARTNER) {
+			if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER) == PenetrationType.PENIS_PARTNER) {
 				UtilText.nodeContentSB.append("As Ralph's huge black cock thrusts deep down your throat, you feel yourself reaching your climax, and before you know what's happening, you're letting out a desperate, muffled [pc.moan].");
 				
-			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER) == PenetrationType.PENIS_PARTNER) {
+			} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER) == PenetrationType.PENIS_PARTNER) {
 				UtilText.nodeContentSB.append("As Ralph's huge black cock thrusts deep into your [pc.pussy+], you feel yourself reaching your climax, and before you know what's happening, you're letting out [pc.a_moan+].");
 				
-			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER) == PenetrationType.PENIS_PARTNER) {
+			} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER) == PenetrationType.PENIS_PARTNER) {
 				UtilText.nodeContentSB.append("As Ralph's huge black cock thrusts deep into your [pc.asshole+], you feel yourself reaching your climax, and before you know what's happening, you're letting out [pc.a_moan+].");
 				
 			} else {
@@ -180,8 +180,8 @@ public class SARalphOrgasms {
 				UtilText.nodeContentSB.append("</br></br>"
 						+ "A desperate, shuddering heat suddenly crashes up from your [pc.pussy+], and you let out a manic squeal as a blinding wave of pure ecstasy washes over you.");
 				
-				if (Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER) != null) {
-					switch(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER)) {
+				if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER) != null) {
+					switch(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER)) {
 						case FINGER_PARTNER:
 							UtilText.nodeContentSB.append(" [npc.Name]'s fingers carry on pumping away at your [pc.pussy+]"
 									+", and you let out a series of high-pitched moans as your vaginal muscles grip and squeeze around the intruding digits.");
@@ -327,7 +327,7 @@ public class SARalphOrgasms {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER)!=null){
+			if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER)!=null){
 				UtilText.nodeContentSB.append("Ralph starts letting out a series of low, heavy grunts, and you gasp as you feel his member start to twitch inside of you."
 						+ " With a roar, he slams his massive horse-cock deep into your cunt, and you let out a squeal as you feel his powerful shaft ride up inside of you as it prepares for its master's orgasm."
 						+ "</br>"
@@ -359,7 +359,7 @@ public class SARalphOrgasms {
 							+ UtilText.parseSpeech("Hey! I've got a shop to run here, remember? Anyway, I think you've more than earned that discount...", Main.game.getRalph()));
 				}
 				
-			}else if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER)!=null){
+			}else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER)!=null){
 				UtilText.nodeContentSB.append("Ralph starts letting out a series of low, heavy grunts, and you gasp as you feel his member start to twitch inside of you."
 						+ " With a roar, he slams his massive horse-cock deep into your ass, and you let out a cry as you feel his powerful shaft ride up inside of you as it prepares for its master's orgasm."
 						+ "</br>"
@@ -464,16 +464,16 @@ public class SARalphOrgasms {
 		
 		@Override
 		public List<OrificeType> getPlayerAreasCummedIn() {
-			if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER) == PenetrationType.PENIS_PARTNER) {
+			if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER) == PenetrationType.PENIS_PARTNER) {
 				return Util.newArrayListOfValues(new ListValue<>(OrificeType.VAGINA_PLAYER));
 				
-			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER) == PenetrationType.PENIS_PARTNER) {
+			} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER) == PenetrationType.PENIS_PARTNER) {
 				return Util.newArrayListOfValues(new ListValue<>(OrificeType.ANUS_PLAYER));
 				
-			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER) == PenetrationType.PENIS_PARTNER) {
+			} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER) == PenetrationType.PENIS_PARTNER) {
 				return Util.newArrayListOfValues(new ListValue<>(OrificeType.MOUTH_PLAYER));
 				
-			} else if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PLAYER) == PenetrationType.PENIS_PARTNER) {
+			} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE_PLAYER) == PenetrationType.PENIS_PARTNER) {
 				return Util.newArrayListOfValues(new ListValue<>(OrificeType.NIPPLE_PLAYER));
 				
 			} else {

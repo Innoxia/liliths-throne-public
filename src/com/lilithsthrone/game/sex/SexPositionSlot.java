@@ -196,6 +196,14 @@ public enum SexPositionSlot {
 			SexActionPresets.playerMissionaryDeskDomVicky,
 			SexActionPresets.playerMissionaryDeskDomVicky),
 	
+
+	KNEELING_RECEIVING_ORAL_CULTIST("Standing",
+			SexActionPresets.empty,
+			SexActionPresets.partnerKneelingReceivingOralCultist),
+	
+	KNEELING_PERFORMING_ORAL_CULTIST("Kneeling",
+			SexActionPresets.playerKneelingPerformingOralCultist,
+			SexActionPresets.empty),
 	
 	MISSIONARY_ALTAR_LYING_ON_ALTAR("Lying on altar",
 			SexActionPresets.playerMissionaryAltarSubCultist,
@@ -226,30 +234,38 @@ public enum SexPositionSlot {
 	
 	private String name;
 	
-	private List<SexActionInterface> actionsAvailablePlayer;
-	private List<SexActionInterface> actionsAvailablePartner;
-	private List<SexActionInterface> orgasmActionsPlayer;
-	private List<SexActionInterface> orgasmActionsPartner;
-	private List<SexActionInterface> mutualOrgasmActions;
+	private List<SexActionInterface> playerSlotActionsAvailablePlayer;
+	private List<SexActionInterface> playerSlotActionsAvailablePartner;
+	private List<SexActionInterface> playerSlotOrgasmActionsPlayer;
+	private List<SexActionInterface> playerSlotOrgasmActionsPartner;
+	private List<SexActionInterface> playerSlotMutualOrgasmActions;
+
+	private List<SexActionInterface> partnerSlotActionsAvailablePlayer;
+	private List<SexActionInterface> partnerSlotActionsAvailablePartner;
+	private List<SexActionInterface> partnerSlotOrgasmActionsPlayer;
+	private List<SexActionInterface> partnerSlotOrgasmActionsPartner;
+	private List<SexActionInterface> partnerSlotMutualOrgasmActions;
 	
 	private SexPositionSlot(String name,
 			List<Class<?>> playerSexActionContainingClasses,
 			List<Class<?>> partnerSexActionContainingClasses) {
 		this.name = name;
-		
-		List<Class<?>> sexActionContainingClasses = new ArrayList<>();
-		sexActionContainingClasses.addAll(playerSexActionContainingClasses);
-		sexActionContainingClasses.addAll(partnerSexActionContainingClasses);
 
-		actionsAvailablePlayer = new ArrayList<>();
-		actionsAvailablePartner = new ArrayList<>();
-		orgasmActionsPlayer = new ArrayList<>();
-		orgasmActionsPartner = new ArrayList<>();
-		mutualOrgasmActions = new ArrayList<>();
+		playerSlotActionsAvailablePlayer = new ArrayList<>();
+		playerSlotActionsAvailablePartner = new ArrayList<>();
+		playerSlotOrgasmActionsPlayer = new ArrayList<>();
+		playerSlotOrgasmActionsPartner = new ArrayList<>();
+		playerSlotMutualOrgasmActions = new ArrayList<>();
+		
+		partnerSlotActionsAvailablePlayer = new ArrayList<>();
+		partnerSlotActionsAvailablePartner = new ArrayList<>();
+		partnerSlotOrgasmActionsPlayer = new ArrayList<>();
+		partnerSlotOrgasmActionsPartner = new ArrayList<>();
+		partnerSlotMutualOrgasmActions = new ArrayList<>();
 		
 		try {
-			if (!sexActionContainingClasses.isEmpty()) {
-				for(Class<?> container : sexActionContainingClasses) {
+			if (!playerSexActionContainingClasses.isEmpty()) {
+				for(Class<?> container : playerSexActionContainingClasses) {
 					if(container!=null) {
 						Field[] fields = container.getFields();
 						
@@ -258,21 +274,54 @@ public enum SexPositionSlot {
 							if (SexAction.class.isAssignableFrom(f.getType())) {
 								if (((SexAction) f.get(null)).getActionType().isOrgasmOption()) {
 									if (((SexAction) f.get(null)).getActionType() == SexActionType.MUTUAL_ORGASM) {
-										mutualOrgasmActions.add(((SexAction) f.get(null)));
+										playerSlotMutualOrgasmActions.add(((SexAction) f.get(null)));
 										
 									} else if (((SexAction) f.get(null)).getActionType().isPlayerAction()) {
-										orgasmActionsPlayer.add(((SexAction) f.get(null)));
+										playerSlotOrgasmActionsPlayer.add(((SexAction) f.get(null)));
 										
 									} else {
-										orgasmActionsPartner.add(((SexAction) f.get(null)));
+										playerSlotOrgasmActionsPartner.add(((SexAction) f.get(null)));
 									}
 									
 								} else {
 									if (((SexAction) f.get(null)).getActionType().isPlayerAction()) {
-										actionsAvailablePlayer.add(((SexAction) f.get(null)));
+										playerSlotActionsAvailablePlayer.add(((SexAction) f.get(null)));
 										
 									} else {
-										actionsAvailablePartner.add(((SexAction) f.get(null)));
+										playerSlotActionsAvailablePartner.add(((SexAction) f.get(null)));
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			
+			if (!partnerSexActionContainingClasses.isEmpty()) {
+				for(Class<?> container : partnerSexActionContainingClasses) {
+					if(container!=null) {
+						Field[] fields = container.getFields();
+						
+						for(Field f : fields){
+							
+							if (SexAction.class.isAssignableFrom(f.getType())) {
+								if (((SexAction) f.get(null)).getActionType().isOrgasmOption()) {
+									if (((SexAction) f.get(null)).getActionType() == SexActionType.MUTUAL_ORGASM) {
+										partnerSlotMutualOrgasmActions.add(((SexAction) f.get(null)));
+										
+									} else if (((SexAction) f.get(null)).getActionType().isPlayerAction()) {
+										partnerSlotOrgasmActionsPlayer.add(((SexAction) f.get(null)));
+										
+									} else {
+										partnerSlotOrgasmActionsPartner.add(((SexAction) f.get(null)));
+									}
+									
+								} else {
+									if (((SexAction) f.get(null)).getActionType().isPlayerAction()) {
+										partnerSlotActionsAvailablePlayer.add(((SexAction) f.get(null)));
+										
+									} else {
+										partnerSlotActionsAvailablePartner.add(((SexAction) f.get(null)));
 									}
 								}
 							}
@@ -291,23 +340,44 @@ public enum SexPositionSlot {
 		return name;
 	}
 
-	public List<SexActionInterface> getActionsAvailablePlayer() {
-		return actionsAvailablePlayer;
+	public List<SexActionInterface> getPlayerSlotActionsAvailablePlayer() {
+		return playerSlotActionsAvailablePlayer;
 	}
 
-	public List<SexActionInterface> getActionsAvailablePartner() {
-		return actionsAvailablePartner;
+	public List<SexActionInterface> getPlayerSlotActionsAvailablePartner() {
+		return playerSlotActionsAvailablePartner;
 	}
 
-	public List<SexActionInterface> getOrgasmActionsPlayer() {
-		return orgasmActionsPlayer;
+	public List<SexActionInterface> getPlayerSlotOrgasmActionsPlayer() {
+		return playerSlotOrgasmActionsPlayer;
 	}
 
-	public List<SexActionInterface> getOrgasmActionsPartner() {
-		return orgasmActionsPartner;
+	public List<SexActionInterface> getPlayerSlotOrgasmActionsPartner() {
+		return playerSlotOrgasmActionsPartner;
 	}
 
-	public List<SexActionInterface> getMutualOrgasmActions() {
-		return mutualOrgasmActions;
+	public List<SexActionInterface> getPlayerSlotMutualOrgasmActions() {
+		return playerSlotMutualOrgasmActions;
 	}
+
+	public List<SexActionInterface> getPartnerSlotActionsAvailablePlayer() {
+		return partnerSlotActionsAvailablePlayer;
+	}
+
+	public List<SexActionInterface> getPartnerSlotActionsAvailablePartner() {
+		return partnerSlotActionsAvailablePartner;
+	}
+
+	public List<SexActionInterface> getPartnerSlotOrgasmActionsPlayer() {
+		return partnerSlotOrgasmActionsPlayer;
+	}
+
+	public List<SexActionInterface> getPartnerSlotOrgasmActionsPartner() {
+		return partnerSlotOrgasmActionsPartner;
+	}
+
+	public List<SexActionInterface> getPartnerSlotMutualOrgasmActions() {
+		return partnerSlotMutualOrgasmActions;
+	}
+
 }

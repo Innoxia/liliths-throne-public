@@ -174,6 +174,16 @@ public enum SexPositionNew {
 		}
 	},
 	
+	KNEELING_ORAL_CULTIST("Kneeling",
+			Util.newArrayListOfValues(
+					new ListValue<>(Util.newArrayListOfValues(new ListValue<>(SexPositionSlot.KNEELING_RECEIVING_ORAL_CULTIST))),
+					new ListValue<>(Util.newArrayListOfValues(new ListValue<>(SexPositionSlot.KNEELING_PERFORMING_ORAL_CULTIST))))) {
+		@Override
+		public String getDescription() {
+			return null;
+		}
+	},
+	
 	MISSIONARY_ALTAR_CULTIST("Missionary on altar",
 			Util.newArrayListOfValues(
 					new ListValue<>(Util.newArrayListOfValues(new ListValue<>(SexPositionSlot.MISSIONARY_ALTAR_LYING_ON_ALTAR))),

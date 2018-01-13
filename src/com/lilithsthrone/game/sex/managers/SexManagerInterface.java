@@ -48,7 +48,7 @@ public interface SexManagerInterface {
 	}
 	
 	public default boolean isPlayerCanRemoveOwnClothes(){
-		return true;
+		return Sex.isDom(Main.game.getPlayer()) || Sex.isSubHasEqualControl();
 	}
 	
 	public default boolean isPlayerCanRemovePartnersClothes(){
@@ -60,7 +60,7 @@ public interface SexManagerInterface {
 	}
 	
 	public default boolean isPartnerCanRemovePlayersClothes(){
-		return false;
+		return true;
 	}
 	
 	public default boolean isItemUseAvailable() {

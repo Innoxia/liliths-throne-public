@@ -145,6 +145,8 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 		return true;
 	}
 	
+	public abstract boolean isCommonItem();
+	
 	// Enchantments:
 	
 	public int getEnchantmentLimit() {

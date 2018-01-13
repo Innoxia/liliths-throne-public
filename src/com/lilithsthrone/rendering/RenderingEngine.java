@@ -463,12 +463,12 @@ public enum RenderingEngine {
 			
 			if(Sex.isDom(Main.game.getPlayer())) {
 				for(GameCharacter character : Sex.getDominantParticipants().keySet()) {
-					uiAttributeSB.append(getSexParticipantDiv(character.isPlayer()?"PLAYER_":"NPC_"+character.getId()+"_", character));
+					uiAttributeSB.append(getSexParticipantDiv(Sex.getDominantParticipants().size()>=2, character.isPlayer()?"PLAYER_":"NPC_"+character.getId()+"_", character));
 				}
 				
 			} else {
 				for(GameCharacter character : Sex.getSubmissiveParticipants().keySet()) {
-					uiAttributeSB.append(getSexParticipantDiv(character.isPlayer()?"PLAYER_":"NPC_"+character.getId()+"_", character));
+					uiAttributeSB.append(getSexParticipantDiv(Sex.getSubmissiveParticipants().size()>=2, character.isPlayer()?"PLAYER_":"NPC_"+character.getId()+"_", character));
 				}
 			}
 			
@@ -722,9 +722,25 @@ public enum RenderingEngine {
 		Main.mainController.setAttributePanelContent(uiAttributeSB.toString());
 	}
 	
-	private static GameCharacter npcToRender = null;
 	public static GameCharacter getCharacterToRender() {
-		return npcToRender;
+		
+		if(Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.CHARACTERS_PRESENT || Main.game.getCurrentDialogueNode() == PhoneDialogue.CONTACTS_CHARACTER) {
+			return (NPC) CharactersPresentDialogue.characterViewed;
+		}
+		
+		if(Main.game.isInSex()) {
+			return Sex.getActivePartner();
+		}
+		
+		if(InventoryDialogue.getInventoryNPC()!=null) {
+			return InventoryDialogue.getInventoryNPC();
+		}
+		
+		if(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected()!=null) {
+			return Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected();
+		}
+		
+		return Main.game.getActiveNPC();
 	}
 	
 	private static String getEntryBackgroundColour(boolean alternative) {
@@ -751,24 +767,17 @@ public enum RenderingEngine {
 						+ "</script>"
 						+ "<div class='full'>");
 			
-			npcToRender = Main.game.getActiveNPC();
 			boolean renderNPC = false;
 			
-			if(InventoryDialogue.getInventoryNPC()!=null) {
-				npcToRender = InventoryDialogue.getInventoryNPC();
-			}
-			
 			if(Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.CHARACTERS_PRESENT || Main.game.getCurrentDialogueNode() == PhoneDialogue.CONTACTS_CHARACTER) {
-				npcToRender = (NPC) CharactersPresentDialogue.characterViewed;
 				renderNPC = true;
 			}
 			
 			if(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected()!=null) {
-				npcToRender = Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected();
 				renderNPC = true;
 			}
 			
-			if(npcToRender!=null
+			if(getCharacterToRender()!=null
 					&& (Main.game.isInCombat() || Main.game.isInSex() || renderNPC
 							|| (Main.game.getCurrentDialogueNode().getMapDisplay()==MapDisplay.INVENTORY && InventoryDialogue.getInventoryNPC()!=null))) {
 			
@@ -786,12 +795,12 @@ public enum RenderingEngine {
 				
 				if(!Sex.isDom(Main.game.getPlayer())) {
 					for(GameCharacter character : Sex.getDominantParticipants().keySet()) {
-						uiAttributeSB.append(getSexParticipantDiv("NPC_"+character.getId()+"_", character));
+						uiAttributeSB.append(getSexParticipantDiv(Sex.getDominantParticipants().size()>=2, "NPC_"+character.getId()+"_", character));
 					}
 					
 				} else {
 					for(GameCharacter character : Sex.getSubmissiveParticipants().keySet()) {
-						uiAttributeSB.append(getSexParticipantDiv("NPC_"+character.getId()+"_", character));
+						uiAttributeSB.append(getSexParticipantDiv(Sex.getSubmissiveParticipants().size()>=2, "NPC_"+character.getId()+"_", character));
 					}
 				}
 				
@@ -799,31 +808,31 @@ public enum RenderingEngine {
 				
 			
 			} else {
-				String idModifier = npcToRender.getId()+"_";
+				String idModifier = getCharacterToRender().getId()+"_";
 				
 				uiAttributeSB.append(
 						// Name box:
 						"<div class='attribute-container'>"
 								+ "<div class='full-width-container'>"
-									+ "<p class='character-name' style='color:"+ Femininity.valueOf(npcToRender.getFemininityValue()).getColour().toWebHexString() + ";'>"
-										+ (npcToRender.getName().length() == 0
-												? (npcToRender.getFemininityValue() <= Femininity.MASCULINE.getMaximumFemininity() ? "Hero" : "Heroine") 
-												: Util.capitaliseSentence(npcToRender.getName()))
+									+ "<p class='character-name' style='color:"+ Femininity.valueOf(getCharacterToRender().getFemininityValue()).getColour().toWebHexString() + ";'>"
+										+ (getCharacterToRender().getName().length() == 0
+												? (getCharacterToRender().getFemininityValue() <= Femininity.MASCULINE.getMaximumFemininity() ? "Hero" : "Heroine") 
+												: Util.capitaliseSentence(getCharacterToRender().getName()))
 									+ "</p>"
 									+ "<div class='overlay' id='NPC_"+idModifier+"ATTRIBUTES'></div>"
 								+ "</div>"
 									+ "<div class='full-width-container' style='margin:0;padding:0;'>"
 									+ "<p style='text-align:center;'>"
-										+ "<b>Level " + npcToRender.getLevel()+ "</b> "
-											+ (npcToRender.getRaceStage().getName()!=""
-												?"<b style='color:"+npcToRender.getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(npcToRender.getRaceStage().getName())+"</b> ":"")
-											+ "<b style='color:"+npcToRender.getRace().getColour().toWebHexString()+";'>"
-											+ (npcToRender.isFeminine()?Util.capitaliseSentence(npcToRender.getRace().getSingularFemaleName()):Util.capitaliseSentence(npcToRender.getRace().getSingularMaleName()))
+										+ "<b>Level " + getCharacterToRender().getLevel()+ "</b> "
+											+ (getCharacterToRender().getRaceStage().getName()!=""
+												?"<b style='color:"+getCharacterToRender().getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(getCharacterToRender().getRaceStage().getName())+"</b> ":"")
+											+ "<b style='color:"+getCharacterToRender().getRace().getColour().toWebHexString()+";'>"
+											+ (getCharacterToRender().isFeminine()?Util.capitaliseSentence(getCharacterToRender().getRace().getSingularFemaleName()):Util.capitaliseSentence(getCharacterToRender().getRace().getSingularMaleName()))
 											+ "</b>"
 									+"</p>"
 									+ "<div class='barBackgroundExp'>"
-									+ (npcToRender.getLevel() != 20
-										? "<div style=' mix-blend-mode: difference; width:" + (npcToRender.getExperience() / (npcToRender.getLevel() * 10f)) * 90 + "vw; height:2vw; background:" + Colour.CLOTHING_BLUE_LIGHT.toWebHexString()
+									+ (getCharacterToRender().getLevel() != 20
+										? "<div style=' mix-blend-mode: difference; width:" + (getCharacterToRender().getExperience() / (getCharacterToRender().getLevel() * 10f)) * 90 + "vw; height:2vw; background:" + Colour.CLOTHING_BLUE_LIGHT.toWebHexString()
 												+ "; float:left; border-radius: 2px;'></div>"
 										: "<div style=' mix-blend-mode: difference; width:90vw; height:2vw; background:" + Colour.GENERIC_EXCELLENT.toWebHexString() + "; float:left; border-radius: 2px;'></div>")
 									+ "</div>"
@@ -831,13 +840,13 @@ public enum RenderingEngine {
 								+ "</div>"
 								+ "<div class='full-width-container' style='padding:0 8px 0 8px'>"
 									+ "<div class='half-width-container' style='text-align:center;'>"
-										+ UtilText.formatAsEssences(npcToRender.getEssenceCount(TFEssence.ARCANE), "b", true)
+										+ UtilText.formatAsEssences(getCharacterToRender().getEssenceCount(TFEssence.ARCANE), "b", true)
 									+ "</div>"
 									+ "<div class='half-width-container' style='text-align:center;'>"
-										+ UtilText.formatAsMoney(npcToRender.getMoney(), "b")
+										+ UtilText.formatAsMoney(getCharacterToRender().getMoney(), "b")
 									+ "</div>"
 //									+ "<span style='float:right;'>"
-//										+ UtilText.formatAsMoney(npcToRender.getMoney(), "b")
+//										+ UtilText.formatAsMoney(getCharacterToRender().getMoney(), "b")
 //									+ "</span>"
 								+ "</div>"
 							+ "</div>");
@@ -846,51 +855,51 @@ public enum RenderingEngine {
 						
 					uiAttributeSB.append("<div class='attribute-container'>"
 										
-									+getAttributeBar(StrengthLevel.getStrengthLevelFromValue(npcToRender.getAttributeValue(Attribute.STRENGTH)).getRelatedStatusEffect().getSVGString(npcToRender),
+									+getAttributeBar(StrengthLevel.getStrengthLevelFromValue(getCharacterToRender().getAttributeValue(Attribute.STRENGTH)).getRelatedStatusEffect().getSVGString(getCharacterToRender()),
 											Colour.GENERIC_ATTRIBUTE,
-											npcToRender.getAttributeValue(Attribute.STRENGTH),
+											getCharacterToRender().getAttributeValue(Attribute.STRENGTH),
 											100,
 											"NPC_"+idModifier + Attribute.STRENGTH.getName())
 									
-									+getAttributeBar(IntelligenceLevel.getIntelligenceLevelFromValue(npcToRender.getAttributeValue(Attribute.INTELLIGENCE)).getRelatedStatusEffect().getSVGString(npcToRender),
+									+getAttributeBar(IntelligenceLevel.getIntelligenceLevelFromValue(getCharacterToRender().getAttributeValue(Attribute.INTELLIGENCE)).getRelatedStatusEffect().getSVGString(getCharacterToRender()),
 											Colour.GENERIC_ATTRIBUTE,
-											npcToRender.getAttributeValue(Attribute.INTELLIGENCE),
+											getCharacterToRender().getAttributeValue(Attribute.INTELLIGENCE),
 											100,
 											"NPC_"+idModifier + Attribute.INTELLIGENCE.getName())
 
-									+getAttributeBar(FitnessLevel.getFitnessLevelFromValue(npcToRender.getAttributeValue(Attribute.FITNESS)).getRelatedStatusEffect().getSVGString(npcToRender),
+									+getAttributeBar(FitnessLevel.getFitnessLevelFromValue(getCharacterToRender().getAttributeValue(Attribute.FITNESS)).getRelatedStatusEffect().getSVGString(getCharacterToRender()),
 											Colour.GENERIC_ATTRIBUTE,
-											npcToRender.getAttributeValue(Attribute.FITNESS),
+											getCharacterToRender().getAttributeValue(Attribute.FITNESS),
 											100,
 											"NPC_"+idModifier + Attribute.FITNESS.getName())
 
-									+getAttributeBar(CorruptionLevel.getCorruptionLevelFromValue(npcToRender.getAttributeValue(Attribute.CORRUPTION)).getRelatedStatusEffect().getSVGString(npcToRender),
+									+getAttributeBar(CorruptionLevel.getCorruptionLevelFromValue(getCharacterToRender().getAttributeValue(Attribute.CORRUPTION)).getRelatedStatusEffect().getSVGString(getCharacterToRender()),
 											Attribute.CORRUPTION.getColour(),
-											npcToRender.getAttributeValue(Attribute.CORRUPTION),
+											getCharacterToRender().getAttributeValue(Attribute.CORRUPTION),
 											100,
 											"NPC_"+idModifier + Attribute.CORRUPTION.getName())
 									
 								+ "</div>");
 				} else {
 					uiAttributeSB.append("<div class='attribute-container'>"
-								+ getArrtibuteBarCompact(StrengthLevel.getStrengthLevelFromValue(npcToRender.getAttributeValue(Attribute.STRENGTH)).getRelatedStatusEffect().getSVGString(npcToRender),
+								+ getArrtibuteBarCompact(StrengthLevel.getStrengthLevelFromValue(getCharacterToRender().getAttributeValue(Attribute.STRENGTH)).getRelatedStatusEffect().getSVGString(getCharacterToRender()),
 										Colour.ATTRIBUTE_STRENGTH,
-										npcToRender.getAttributeValue(Attribute.STRENGTH),
+										getCharacterToRender().getAttributeValue(Attribute.STRENGTH),
 										"NPC_"+idModifier + Attribute.STRENGTH.getName())
 							
-								+getArrtibuteBarCompact(IntelligenceLevel.getIntelligenceLevelFromValue(npcToRender.getAttributeValue(Attribute.INTELLIGENCE)).getRelatedStatusEffect().getSVGString(npcToRender),
+								+getArrtibuteBarCompact(IntelligenceLevel.getIntelligenceLevelFromValue(getCharacterToRender().getAttributeValue(Attribute.INTELLIGENCE)).getRelatedStatusEffect().getSVGString(getCharacterToRender()),
 										Colour.ATTRIBUTE_INTELLIGENCE,
-										npcToRender.getAttributeValue(Attribute.INTELLIGENCE),
+										getCharacterToRender().getAttributeValue(Attribute.INTELLIGENCE),
 										"NPC_"+idModifier + Attribute.INTELLIGENCE.getName())
 
-								+getArrtibuteBarCompact(FitnessLevel.getFitnessLevelFromValue(npcToRender.getAttributeValue(Attribute.FITNESS)).getRelatedStatusEffect().getSVGString(npcToRender),
+								+getArrtibuteBarCompact(FitnessLevel.getFitnessLevelFromValue(getCharacterToRender().getAttributeValue(Attribute.FITNESS)).getRelatedStatusEffect().getSVGString(getCharacterToRender()),
 										Colour.ATTRIBUTE_FITNESS,
-										npcToRender.getAttributeValue(Attribute.FITNESS),
+										getCharacterToRender().getAttributeValue(Attribute.FITNESS),
 										"NPC_"+idModifier + Attribute.FITNESS.getName())
 
-								+getArrtibuteBarCompact(CorruptionLevel.getCorruptionLevelFromValue(npcToRender.getAttributeValue(Attribute.CORRUPTION)).getRelatedStatusEffect().getSVGString(npcToRender),
+								+getArrtibuteBarCompact(CorruptionLevel.getCorruptionLevelFromValue(getCharacterToRender().getAttributeValue(Attribute.CORRUPTION)).getRelatedStatusEffect().getSVGString(getCharacterToRender()),
 										Attribute.CORRUPTION.getColour(),
-										npcToRender.getAttributeValue(Attribute.CORRUPTION),
+										getCharacterToRender().getAttributeValue(Attribute.CORRUPTION),
 										"NPC_"+idModifier + Attribute.CORRUPTION.getName())
 							+ "</div>");
 					
@@ -902,20 +911,20 @@ public enum RenderingEngine {
 							
 							+getAttributeBar(Attribute.HEALTH_MAXIMUM.getSVGString(),
 									Colour.ATTRIBUTE_HEALTH,
-									npcToRender.getHealth(),
-									npcToRender.getAttributeValue(Attribute.HEALTH_MAXIMUM),
+									getCharacterToRender().getHealth(),
+									getCharacterToRender().getAttributeValue(Attribute.HEALTH_MAXIMUM),
 									"NPC_"+idModifier + Attribute.HEALTH_MAXIMUM.getName())
 							
 							+getAttributeBar(Attribute.MANA_MAXIMUM.getSVGString(),
 									Colour.ATTRIBUTE_MANA,
-									npcToRender.getMana(),
-									npcToRender.getAttributeValue(Attribute.MANA_MAXIMUM),
+									getCharacterToRender().getMana(),
+									getCharacterToRender().getAttributeValue(Attribute.MANA_MAXIMUM),
 									"NPC_"+idModifier + Attribute.MANA_MAXIMUM.getName())
 							
 							+getAttributeBar(Attribute.STAMINA_MAXIMUM.getSVGString(),
 									Colour.ATTRIBUTE_FITNESS,
-									npcToRender.getStamina(),
-									npcToRender.getAttributeValue(Attribute.STAMINA_MAXIMUM),
+									getCharacterToRender().getStamina(),
+									getCharacterToRender().getAttributeValue(Attribute.STAMINA_MAXIMUM),
 									"NPC_"+idModifier + Attribute.STAMINA_MAXIMUM.getName())
 							
 						+ "</div>");
@@ -925,20 +934,20 @@ public enum RenderingEngine {
 				uiAttributeSB.append("<div class='attribute-container effects'>"
 										+ "<p style='text-align:center;padding:0;margin:0;'><b>Effects</b></p>");
 				// Infinite duration:
-				for (StatusEffect se : npcToRender.getStatusEffects()) {
-					if (!se.isCombatEffect() && npcToRender.getStatusEffectDuration(se)==-1 && se.renderInEffectsPanel())
+				for (StatusEffect se : getCharacterToRender().getStatusEffects()) {
+					if (!se.isCombatEffect() && getCharacterToRender().getStatusEffectDuration(se)==-1 && se.renderInEffectsPanel())
 						uiAttributeSB.append(
 								"<div class='icon'>"
 										+ "<div class='icon-content'>"
-											+ se.getSVGString(npcToRender)
+											+ se.getSVGString(getCharacterToRender())
 											+ "<div class='overlay' id='SE_NPC_"+idModifier + se + "'></div>"
 										+ "</div>"
 								+ "</div>");
 				}
 				// Timed:
-				for (StatusEffect se : npcToRender.getStatusEffects()) {
-					if (!se.isCombatEffect() && npcToRender.getStatusEffectDuration(se)!=-1 && se.renderInEffectsPanel()) {
-						int timerHeight = (int) ((npcToRender.getStatusEffectDuration(se)/(60*6f))*100);
+				for (StatusEffect se : getCharacterToRender().getStatusEffects()) {
+					if (!se.isCombatEffect() && getCharacterToRender().getStatusEffectDuration(se)!=-1 && se.renderInEffectsPanel()) {
+						int timerHeight = (int) ((getCharacterToRender().getStatusEffectDuration(se)/(60*6f))*100);
 	
 						Colour timerColour = Colour.STATUS_EFFECT_TIME_HIGH;
 						
@@ -955,30 +964,32 @@ public enum RenderingEngine {
 								"<div class='icon'>"
 										+ "<div class='timer-background' style='width:"+timerHeight+"%; background:"+ timerColour.toWebHexString() + ";'></div>"
 										+ "<div class='icon-content'>"
-											+ se.getSVGString(npcToRender)
+											+ se.getSVGString(getCharacterToRender())
 											+ "<div class='overlay' id='SE_NPC_"+idModifier + se + "'></div>"
 										+ "</div>"
 								+ "</div>");
 					}
 				}
 				// Fetishes:
-				for (Fetish f : npcToRender.getFetishes()) {
+				for (Fetish f : getCharacterToRender().getFetishes()) {
 					uiAttributeSB.append(
-							"<div class='icon'><div class='icon-content'>"
-									+ f.getSVGString()
-									+ "<div class='overlay' id='FETISH_NPC_"+idModifier + f + "'></div>"
-							+ "</div></div>");
+							"<div class='icon'>"
+								+ "<div class='icon-content'>"
+										+ f.getSVGString()
+										+ "<div class='overlay' id='FETISH_NPC_"+idModifier + f + "'></div>"
+								+ "</div>"
+							+ "</div>");
 				}
 //				// Special attacks:
-//				for (SpecialAttack sa : npcToRender.getSpecialAttacks()) {
+//				for (SpecialAttack sa : getCharacterToRender().getSpecialAttacks()) {
 //					uiAttributeSB.append(
 //							"<div class='icon'><div class='icon-content'>"
 //									+ sa.getSVGString()
 //									+ "<div class='overlay' id='SA_" + sa + "'></div>"
 //							+ "</div></div>");
 //				}
-//				if (npcToRender.getMainWeapon() != null) {
-//					for (Spell s : npcToRender.getMainWeapon().getSpells()) {
+//				if (getCharacterToRender().getMainWeapon() != null) {
+//					for (Spell s : getCharacterToRender().getMainWeapon().getSpells()) {
 //						uiAttributeSB.append(
 //								"<div class='icon'><div class='icon-content'>"
 //										+ s.getSVGString()
@@ -986,8 +997,8 @@ public enum RenderingEngine {
 //								+ "</div></div>");
 //					}
 //				}
-//				if (npcToRender.getOffhandWeapon() != null) {
-//					for (Spell s : npcToRender.getOffhandWeapon().getSpells()) {
+//				if (getCharacterToRender().getOffhandWeapon() != null) {
+//					for (Spell s : getCharacterToRender().getOffhandWeapon().getSpells()) {
 //						uiAttributeSB.append(
 //								"<div class='icon'><div class='icon-content'>"
 //										+ s.getSVGString()
@@ -995,11 +1006,20 @@ public enum RenderingEngine {
 //								+ "</div></div>");
 //					}
 //				}
+				uiAttributeSB.append("</div>");
 			}
-			uiAttributeSB.append("</div></div>");
+			uiAttributeSB.append(
+						"<div class='attribute-container' style='margin-bottom:1px;'>"
+							+ "<div class='full-width-container' style='text-align:center;'>"
+									+ "<p>"
+										+ UtilText.parse(getCharacterToRender(), "[npc.Name]'s Inventory")
+									+ "</p>"
+							+ "</div>"
+						+ "</div>"
+					+ "</div>");
 			
 			//TODO
-			uiAttributeSB.append(getInventoryEquippedPanel(npcToRender));
+			uiAttributeSB.append(getInventoryEquippedPanel(getCharacterToRender()));
 				
 		} else {
 			PlaceType place = Main.game.getPlayer().getWorldLocation().getStandardPlace();
@@ -1533,7 +1553,7 @@ public enum RenderingEngine {
 				+ "</div>";
 	}
 	
-	private static String getSexParticipantDiv(String idPrefix, GameCharacter character) {
+	private static String getSexParticipantDiv(boolean compact, String idPrefix, GameCharacter character) {
 		StringBuilder sexSB = new StringBuilder();
 		
 		Colour orgasmColour = Colour.GENERIC_ARCANE;
@@ -1542,47 +1562,80 @@ public enum RenderingEngine {
 		}
 		
 		sexSB.append(
-				"<div class='attribute-container' style='border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+"; overflow:auto;'>"
+				"<div class='attribute-container' style='"
+						+ (Sex.getActivePartner().equals(character)?"border:2px solid "+Colour.GENERIC_ARCANE.toWebHexString()+";":"border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+";")
+							+ " overflow:auto;'>"
 					+ "<div class='full-width-container'>"
-						+ "<p style='text-align:center;padding:0;margin:0;color:"+ Femininity.valueOf(character.getFemininityValue()).getColour().toWebHexString() + ";'>"
-							+ "<b>"
+						+ "<p style='text-align:center;padding:0;margin:0;float:left;width:100%;'>"
+							+ "<b style='color:"+ Femininity.valueOf(character.getFemininityValue()).getColour().toWebHexString() + ";'>"
 								+ (character.getName().length() == 0
 										? Util.capitaliseSentence(character.isFeminine()?character.getRace().getSingularFemaleName():character.getRace().getSingularMaleName())
 										: Util.capitaliseSentence(character.getName()))
 							+"</b>"
-							+"<div class='overlay' id='" + idPrefix + Attribute.EXPERIENCE.getName() + "' style='cursor:pointer;'></div>"
+							+ " - <span style='color:"+ character.getRace().getColour().toWebHexString() + ";'>"
+								+ (Util.capitaliseSentence(character.isFeminine()?character.getRace().getSingularFemaleName():character.getRace().getSingularMaleName()))
+							+"</span>"
 						+"</p>"
-					+"</div>"
-			
-					+getAttributeBarHalf(CorruptionLevel.getCorruptionLevelFromValue(character.getAttributeValue(Attribute.CORRUPTION)).getRelatedStatusEffect().getSVGString(character),
-							Attribute.CORRUPTION.getColour(),
-							character.getAttributeValue(Attribute.CORRUPTION),
-							100,
-							idPrefix + Attribute.CORRUPTION.getName())
-					
-					+getAttributeBarHalf(Attribute.STAMINA_MAXIMUM.getSVGString(),
-							Colour.ATTRIBUTE_FITNESS,
-							character.getStamina(),
-							character.getAttributeValue(Attribute.STAMINA_MAXIMUM),
-							idPrefix + Attribute.STAMINA_MAXIMUM.getName())
-	
-					+getAttributeBarHalf(LustLevel.getLustLevelFromValue(character.getLust()).getRelatedStatusEffect().getSVGString(character),
-							LustLevel.getLustLevelFromValue(character.getLust()).getColour(),
-							character.getLust(),
-							100,
-							idPrefix + Attribute.LUST.getName())
-					
-					+getAttributeBarHalf(ArousalLevel.getArousalLevelFromValue(character.getArousal()).getRelatedStatusEffect().getSVGString(character),
-							ArousalLevel.getArousalLevelFromValue(character.getArousal()).getColour(),
-							character.getArousal(),
-							100,
-							idPrefix + Attribute.AROUSAL.getName())
+						+"<div class='overlay' id='" + idPrefix + Attribute.EXPERIENCE.getName() + "' style='cursor:pointer;'></div>"
+					+"</div>");
+						
+					if(compact) {
+						sexSB.append(getAttributeBarHalf(CorruptionLevel.getCorruptionLevelFromValue(character.getAttributeValue(Attribute.CORRUPTION)).getRelatedStatusEffect().getSVGString(character),
+											Attribute.CORRUPTION.getColour(),
+											character.getAttributeValue(Attribute.CORRUPTION),
+											100,
+											idPrefix + Attribute.CORRUPTION.getName())
+									
+									+getAttributeBarHalf(Attribute.STAMINA_MAXIMUM.getSVGString(),
+											Colour.ATTRIBUTE_FITNESS,
+											character.getStamina(),
+											character.getAttributeValue(Attribute.STAMINA_MAXIMUM),
+											idPrefix + Attribute.STAMINA_MAXIMUM.getName())
+				
+									+getAttributeBarHalf(ArousalLevel.getArousalLevelFromValue(character.getArousal()).getRelatedStatusEffect().getSVGString(character),
+											ArousalLevel.getArousalLevelFromValue(character.getArousal()).getColour(),
+											character.getArousal(),
+											100,
+											idPrefix + Attribute.AROUSAL.getName())
+									
+									+getAttributeBarHalf(LustLevel.getLustLevelFromValue(character.getLust()).getRelatedStatusEffect().getSVGString(character),
+											LustLevel.getLustLevelFromValue(character.getLust()).getColour(),
+											character.getLust(),
+											100,
+											idPrefix + Attribute.LUST.getName()));
+						
+					} else {
+						sexSB.append(getAttributeBar(CorruptionLevel.getCorruptionLevelFromValue(character.getAttributeValue(Attribute.CORRUPTION)).getRelatedStatusEffect().getSVGString(character),
+											Attribute.CORRUPTION.getColour(),
+											character.getAttributeValue(Attribute.CORRUPTION),
+											100,
+											idPrefix + Attribute.CORRUPTION.getName())
+									
+									+getAttributeBar(Attribute.STAMINA_MAXIMUM.getSVGString(),
+											Colour.ATTRIBUTE_FITNESS,
+											character.getStamina(),
+											character.getAttributeValue(Attribute.STAMINA_MAXIMUM),
+											idPrefix + Attribute.STAMINA_MAXIMUM.getName())
+				
+									+getAttributeBar(ArousalLevel.getArousalLevelFromValue(character.getArousal()).getRelatedStatusEffect().getSVGString(character),
+											ArousalLevel.getArousalLevelFromValue(character.getArousal()).getColour(),
+											character.getArousal(),
+											100,
+											idPrefix + Attribute.AROUSAL.getName())
+									
+									+getAttributeBar(LustLevel.getLustLevelFromValue(character.getLust()).getRelatedStatusEffect().getSVGString(character),
+											LustLevel.getLustLevelFromValue(character.getLust()).getColour(),
+											character.getLust(),
+											100,
+											idPrefix + Attribute.LUST.getName()));
+					}
+				
+					sexSB.append("<div class='half-width-container' style='color:"+orgasmColour.toWebHexString()+"; text-align:center;'>"
+						+ Sex.getNumberOfOrgasms(character)+" orgasm"+(Sex.getNumberOfOrgasms(character)>1?"s":"")
+					+ "</div>"
 
 					+ "<div class='half-width-container' style='color:"+Sex.getSexPace(character).getColour().toWebHexString()+"; text-align:center;'>"
 						+ Util.capitaliseSentence(Sex.getSexPace(character).getName())+" pace"
-					+ "</div>"
-					+ "<div class='half-width-container' style='color:"+orgasmColour.toWebHexString()+"; text-align:center;'>"
-						+ Sex.getNumberOfOrgasms(character)+" orgasms"
 					+ "</div>");
 		
 									
@@ -1593,7 +1646,7 @@ public enum RenderingEngine {
 			for (StatusEffect se : character.getStatusEffects()) {
 				if (se.isSexEffect()) {
 					sexSB.append(
-							"<div class='icon effect'>"
+							"<div class='icon"+(compact?" effect":"")+"'>"
 								+ "<div class='icon-content'>"
 									+ se.getSVGString(character)
 									+ "<div class='overlay' id='SE_" + idPrefix + se + "'></div>"
@@ -1604,7 +1657,7 @@ public enum RenderingEngine {
 			
 			for (Fetish f : character.getFetishes()) {
 				sexSB.append(
-						"<div class='icon effect'>"
+						"<div class='icon"+(compact?" effect":"")+"'>"
 							+ "<div class='icon-content'>"
 								+ f.getSVGString()
 								+ "<div class='overlay' id='FETISH_"+ idPrefix + f + "'></div>"
