@@ -2,6 +2,7 @@ package com.lilithsthrone.game.sex.managers;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -40,6 +41,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 	private SexPositionNew position;
 	private Map<GameCharacter, SexPositionSlot> dominants;
 	private Map<GameCharacter, SexPositionSlot> submissives;
+	protected Map<GameCharacter, List<OrificeType>> orificesBannedMap;
 	
 	public SexManagerDefault(SexPositionNew position, Map<GameCharacter, SexPositionSlot> dominants, Map<GameCharacter, SexPositionSlot> submissives) {
 		if(dominants.size()+submissives.size()>position.getMaximumSlots()) {
@@ -66,6 +68,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		this.position = position;
 		this.dominants = dominants;
 		this.submissives = submissives;
+		orificesBannedMap = new HashMap<>();
 	}
 	
 	@Override
@@ -82,7 +85,10 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 	public Map<GameCharacter, SexPositionSlot> getSubmissives() {
 		return submissives;
 	}
-	
+
+	public Map<GameCharacter, List<OrificeType>> getOrificesBannedMap() {
+		return orificesBannedMap;
+	}
 	
 	private static List<SexActionInterface> possibleActions = new ArrayList<>(), bannedActions = new ArrayList<>();
 	

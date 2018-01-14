@@ -587,9 +587,14 @@ public class SlaverAlleyDialogue {
 					sexAvailability.add(" <b style='color:"+Colour.BASE_PINK_DEEP.toWebHexString()+";'>anal</b>");
 				}
 				
-				UtilText.nodeContentSB.append(
-						Util.stringsToStringList(sexAvailability, false)
-						+" use.</p>");
+				if(!sexAvailability.isEmpty()) {
+					UtilText.nodeContentSB.append(
+							Util.stringsToStringList(sexAvailability, false)
+							+" use.</p>");
+				} else {
+					UtilText.nodeContentSB.append(
+							" receiving oral only.</p>");
+				}
 			}
 			
 			return UtilText.nodeContentSB.toString();

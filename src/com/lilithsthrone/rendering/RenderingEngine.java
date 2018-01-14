@@ -456,7 +456,9 @@ public enum RenderingEngine {
 			uiAttributeSB.append(
 				"<div class='attribute-container'>"
 					+ "<div class='full-width-container'>"
-						+ "<p class='character-name' style='color:"+ (Sex.isDom(Main.game.getPlayer())?Colour.BASE_CRIMSON.toWebHexString()+";'>Dominants</b>":Colour.BASE_PINK_LIGHT.toWebHexString()+";'>Submissives</b>")
+						+ "<p class='character-name' style='color:"+ (Sex.isDom(Main.game.getPlayer())
+								?Colour.BASE_CRIMSON.toWebHexString()+";'>Dominant"+(Sex.getDominantParticipants().size()>1?"s":"")+"</b>"
+								:Colour.BASE_PINK_LIGHT.toWebHexString()+";'>Submissive"+(Sex.getSubmissiveParticipants().size()>1?"s":"")+"</b>")
 					+ "</div>"
 				+ "</div>"
 				+ "<div class='attribute-container effects'>");
@@ -788,7 +790,9 @@ public enum RenderingEngine {
 				uiAttributeSB.append(
 					"<div class='attribute-container'>"
 						+ "<div class='full-width-container'>"
-							+ "<p class='character-name' style='color:"+ (!Sex.isDom(Main.game.getPlayer())?Colour.BASE_CRIMSON.toWebHexString()+";'>Dominants</b>":Colour.BASE_PINK_LIGHT.toWebHexString()+";'>Submissives</b>")
+							+ "<p class='character-name' style='color:"+ (!Sex.isDom(Main.game.getPlayer())
+									?Colour.BASE_CRIMSON.toWebHexString()+";'>Dominant"+(Sex.getDominantParticipants().size()>1?"s":"")+"</b>"
+									:Colour.BASE_PINK_LIGHT.toWebHexString()+";'>Submissive"+(Sex.getSubmissiveParticipants().size()>1?"s":"")+"</b>")
 						+ "</div>"
 					+ "</div>"
 					+ "<div class='attribute-container effects'>");
@@ -1577,7 +1581,10 @@ public enum RenderingEngine {
 							+"</span>"
 						+"</p>"
 						+"<div class='overlay' id='" + idPrefix + Attribute.EXPERIENCE.getName() + "' style='cursor:pointer;'></div>"
-					+"</div>");
+					+"</div>"
+					+ "<div class='full-width-container' style='text-align:center;'>"
+						+ Util.capitaliseSentence(Sex.getSexPositionSlot(character).getName())
+					+ "</div>");
 						
 					if(compact) {
 						sexSB.append(getAttributeBarHalf(CorruptionLevel.getCorruptionLevelFromValue(character.getAttributeValue(Attribute.CORRUPTION)).getRelatedStatusEffect().getSVGString(character),

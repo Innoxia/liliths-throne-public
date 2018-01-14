@@ -2047,14 +2047,6 @@ public enum Sex {
 	public static void applyPenetration(GameCharacter characterPenetrating, GameCharacter characterPenetrated, PenetrationType penetration, OrificeType orifice) {
 		
 		SexType relatedSexType = new SexType(penetration, orifice);
-		if (orifice.isPlayer()){
-			characterPenetrated = Main.game.getPlayer();
-			characterPenetrating = Sex.getActivePartner();
-		} else {
-			characterPenetrated = Sex.getActivePartner();
-			characterPenetrating = Main.game.getPlayer();
-		}
-		
 		
 		// Free up orifice and penetrator:
 		removePenetration(characterPenetrating, characterPenetrated, penetration, orifice);

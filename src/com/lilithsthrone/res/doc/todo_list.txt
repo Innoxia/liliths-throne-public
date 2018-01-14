@@ -15,44 +15,25 @@
 	
 	Patch notes:
 	
-	Engine:
-		Added: Support for multiple partners in sex. This required a huge refactor of how sex is handled in the engine, which took up ~90% of the time this week.
-		Final sex mechanics (taking the form of 'lust' and stamina) have been half-added to the engine.
-	
-	Sex:
-		You should now be able to use all of your hands/tails during sex.
-	
-	Gameplay:
-		Added double room upgrade, so you can now house two slaves in each room.
-	
-	Clothing:
-		Added: Women's leather jacket (feminine, over-torso slot). (I added this to complete Kate's new outfit.)
-		Added: Striped panties (feminine, groin slot).
-		Added: Striped bra (feminine, chest slot).
-		Added: Striped thigh-high socks (feminine, sock slot).
-	
 	UI:
-		Moved weapons & jewellery into the 'equipped' panel, so all equipped items are now grouped into the same UI element.
-		Fixed bugs related to tooltip positioning causing some UI elements to become inaccessible.
-	
+		Minor fixes to some of the new elements in sex.
+		Fixed minor error in light theme's sex display.
+		
 	Other:
-		Removed 'Wing' clothing slot. (I might add this again in the future, but I was struggling to think of any 'wing clothing' to add to that slot.)	
-		Tweaked drop rate of racial consumables (the ones that are able to be enchanted into transformatives are now a little more common).
-		Added more control over selecting font size in the option menu.
+		Slaves with the 'unwilling fuck-toy' fetish will no longer lose affection from being assigned to the public stocks.
 	
 	Bugs:
-		Minor formatting error fixes.
-		The sex action 'Spread ass' is now correctly available for the player.
-		NPCs should no longer get stuck on trying to transform your genitals after beating you in combat.
-		Enchanted weapons (those with with stat buffs) now correctly apply their buffs when importing a save/character.
-		Minor fix to default gender names (changed an instance of 'doll' to 'neuter').
-		Minor typo fixes.
-		Fixed hypno-watch and Arthur's package being found in alleyways.
-		You can no longer purchase Arthur's Room upgrade before progressing to the correct point in the main quest.
-		Fixed encyclopedia preview pictures not working.
-		Fixed an error in changing what your slave calls you through the 'Permissions' screen.
-		Fixed bug where pressing enter on a blank text field would cause the centre panel of the UI to go blank.
-	
+		Fixed major bug where you couldn't interact with any items an NPC had in their inventory (making all shopkeepers unable to sell you anything).
+		Vicky no longer has her penile virginity.
+		Vicky will now correctly perform penetrative actions in her sex scene.
+		Fixed 'stop sex' being available in all scenes.
+		Fixed bug where you couldn't remove your own clothing in some sex scenes.
+		'Core lust' changes should no longer show up in the event log.
+		'Stop penetration' sex actions should now correctly work again.
+		Antler headband is no longer feminine.
+		Nyan will no longer stock Christmas-themed clothing.
+		Fixed incorrect & buggy orgasm descriptions.
+		Fixed 'Locked in stocks' sex's orifices being available when they shouldn't have been.
 	
 	
 	

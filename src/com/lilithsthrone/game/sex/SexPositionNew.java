@@ -208,8 +208,8 @@ public enum SexPositionNew {
 	
 	MISSIONARY_DESK_VICKY("Missionary on counter",
 			Util.newArrayListOfValues(
-					new ListValue<>(Util.newArrayListOfValues(new ListValue<>(SexPositionSlot.MISSIONARY_DESK_SUB_VICKY))),
-					new ListValue<>(Util.newArrayListOfValues(new ListValue<>(SexPositionSlot.MISSIONARY_DESK_DOM_VICKY))))) {
+					new ListValue<>(Util.newArrayListOfValues(new ListValue<>(SexPositionSlot.MISSIONARY_DESK_DOM_VICKY))),
+					new ListValue<>(Util.newArrayListOfValues(new ListValue<>(SexPositionSlot.MISSIONARY_DESK_SUB_VICKY))))) {
 		@Override
 		public String getDescription() {
 			return "You're lying back on top of Arcane Arts' front desk, and Vicky's standing between your [pc.legs], growling down at you as she prepares to fuck you in the missionary position.";

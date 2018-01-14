@@ -231,9 +231,7 @@ public class SexActionPresets {
 	
 	
 	public static List<Class<?>> playerMissionaryDeskSubVicky = new ArrayList<>();
-	public static List<Class<?>> partnerMissionaryDeskSubVicky = new ArrayList<>();
 
-	public static List<Class<?>> playerMissionaryDeskDomVicky = new ArrayList<>();
 	public static List<Class<?>> partnerMissionaryDeskDomVicky = new ArrayList<>();
 
 
