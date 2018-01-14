@@ -171,12 +171,12 @@ public enum SexPositionSlot {
 	
 	
 	FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX("Facing wall",
-			SexActionPresets.playerFacingWallAgainstWallPix,
-			SexActionPresets.empty),
+			SexActionPresets.empty,
+			SexActionPresets.playerFacingWallAgainstWallPix),
 	
 	FACE_TO_WALL_FACING_TARGET_SHOWER_PIX("Pinning against wall",
-			SexActionPresets.empty,
-			SexActionPresets.partnerFacingWallFacingTargetPix),
+			SexActionPresets.partnerFacingWallFacingTargetPix,
+			SexActionPresets.empty),
 	
 	
 	HAND_SEX_DOM_ROSE("Standing",
