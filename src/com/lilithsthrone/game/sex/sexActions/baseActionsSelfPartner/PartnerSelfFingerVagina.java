@@ -1,26 +1,68 @@
 package com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner;
 
-import java.util.List;
-
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
+import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
-import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.79
- * @version 0.1.79
+ * @version 0.1.97
  * @author Innoxia
  */
 public class PartnerSelfFingerVagina {
+	
+	public static final SexAction PARTNER_SELF_FINGER_VAGINA_SPREAD_PUSSY = new SexAction(
+			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.TWO_LOW,
+			CorruptionLevel.ONE_VANILLA,
+			PenetrationType.FINGER_PARTNER,
+			OrificeType.VAGINA_PARTNER) {
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getSexPace(Sex.getActivePartner())!=SexPace.SUB_RESISTING;
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Spread pussy";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Use your [npc.fingers] to spread your pussy.";
+		}
+
+		@Override
+		public String getDescription() {
+			if(Sex.getPosition()==SexPositionNew.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_ON_ALL_FOURS) {
+				return (UtilText.returnStringAtRandom(
+						"Reaching back between [npc.her] [npc.legs], [npc.name] teases [npc.her] [npc.fingers] over the entrance to [npc.her] [npc.pussy+],"
+								+ " before letting out [npc.a_moan+] as [npc.she] uses [npc.her] digits to spread out [npc.her] labia for you.",
+						"[npc.Name] probes [npc.her] [npc.fingers] back between [npc.her] [npc.legs], moaning softly as [npc.she] uses two of [npc.her] digits to invitingly spread out [npc.her] [npc.pussy+] and present [npc.herself] to you.",
+						"Sliding [npc.her] fingertips over [npc.her] [npc.pussy+], [npc.name] lets out [npc.a_moan+] as [npc.she] shakes [npc.her] ass a little, before using [npc.her] digits to spread out [npc.her] pussy lips.",
+						"[npc.Name] eagerly slides [npc.her] [npc.fingers] over [npc.her] needy [npc.pussy], [npc.moaning+] as [npc.she] uses [npc.her] digits to part [npc.her] soft folds and present [npc.herself] for penetration."));
+			} else {
+				return (UtilText.returnStringAtRandom(
+						"Reaching down between [npc.her] [npc.legs], [npc.name] teases [npc.her] [npc.fingers] over the entrance to [npc.her] [npc.pussy+],"
+								+ " before letting out [npc.a_moan+] as [npc.she] uses [npc.her] digits to spread out [npc.her] labia.",
+						"[npc.Name] probes [npc.her] [npc.fingers] down between [npc.her] [npc.legs], moaning softly as [npc.she] uses two of [npc.her] digits to invitingly spread out [npc.her] [npc.pussy+].",
+						"Sliding [npc.her] fingertips over [npc.her] [npc.pussy+], [npc.name] lets out [npc.a_moan+] as [npc.she] uses [npc.her] digits to spread out [npc.her] pussy lips.",
+						"[npc.Name] eagerly slides [npc.her] [npc.fingers] over [npc.her] needy [npc.pussy], [npc.moaning+] as [npc.she] uses [npc.her] digits to part [npc.her] soft folds and present [npc.herself] for penetration."));
+			}
+		}
+		
+	};
 	
 	public static final SexAction PARTNER_SELF_FINGER_VAGINA_PENETRATION = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
@@ -52,10 +94,6 @@ public class PartnerSelfFingerVagina {
 					"[npc.Name] eagerly pushes [npc.her] fingers into [npc.her] needy [npc.pussy], [npc.moaning+] as [npc.she] curls [npc.her] digits up inside [npc.herself] and starts stroking in a 'come-hither' motion."));
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction DOM_PARTNER_SELF_FINGER_VAGINA_GENTLE = new SexAction(
@@ -70,7 +108,7 @@ public class PartnerSelfFingerVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -95,10 +133,6 @@ public class PartnerSelfFingerVagina {
 					"Focusing on the pleasure [npc.she]'s giving [npc.herself] between [npc.her] [npc.legs], [npc.name] starts gently pumping [npc.her] [npc.fingers] in and out of [npc.her] [npc.pussy+].");
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction DOM_PARTNER_SELF_FINGER_VAGINA_NORMAL = new SexAction(
@@ -113,7 +147,7 @@ public class PartnerSelfFingerVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -138,10 +172,6 @@ public class PartnerSelfFingerVagina {
 					"Focusing on the pleasure [npc.she]'s giving [npc.herself] between [npc.her] [npc.legs], [npc.name] starts pumping [npc.her] [npc.fingers] in and out of [npc.her] [npc.pussy+].");
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction DOM_PARTNER_SELF_FINGER_VAGINA_ROUGH = new SexAction(
@@ -156,7 +186,7 @@ public class PartnerSelfFingerVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -181,10 +211,6 @@ public class PartnerSelfFingerVagina {
 					"Focusing on the pleasure [npc.she]'s giving [npc.herself] between [npc.her] [npc.legs], [npc.name] starts roughly slamming [npc.her] [npc.fingers] in and out of [npc.her] [npc.pussy+].");
 		}
 
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASOCHIST), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction SUB_PARTNER_SELF_FINGER_VAGINA_NORMAL = new SexAction(
@@ -199,7 +225,7 @@ public class PartnerSelfFingerVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -224,10 +250,6 @@ public class PartnerSelfFingerVagina {
 					"Focusing on the pleasure [npc.she]'s giving [npc.herself] between [npc.her] [npc.legs], [npc.name] starts pumping [npc.her] [npc.fingers] in and out of [npc.her] [npc.pussy+].");
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction SUB_PARTNER_SELF_FINGER_VAGINA_EAGER = new SexAction(
@@ -242,7 +264,7 @@ public class PartnerSelfFingerVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -267,10 +289,6 @@ public class PartnerSelfFingerVagina {
 					"Focusing on the pleasure [npc.she]'s giving [npc.herself] between [npc.her] [npc.legs], [npc.name] eagerly starts slamming [npc.her] [npc.fingers] in and out of [npc.her] [npc.pussy+].");
 		}
 
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASOCHIST), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction PARTNER_SELF_FINGER_VAGINA_STOP_PENETRATION = new SexAction(

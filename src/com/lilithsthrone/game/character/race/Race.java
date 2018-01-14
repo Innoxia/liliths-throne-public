@@ -2,22 +2,22 @@ package com.lilithsthrone.game.character.race;
 
 import java.util.List;
 
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.combat.Attack;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.0
- * @version 0.1.79
+ * @version 0.1.87
  * @author Innoxia
  */
 public enum Race {
 
 	// HUMAN:
-	HUMAN("human",
+	HUMAN("human", "humans",
 			
 			"man",
 			"woman",
@@ -54,16 +54,13 @@ public enum Race {
 			0.5f,
 			1,
 			1,
-			
-			TFEssence.HUMAN){
-		@Override
-		public boolean isAffectedByFurryPreference() {
-			return false;
-		}
-	},
+			Attribute.DAMAGE_HUMAN,
+			Attribute.RESISTANCE_HUMAN,
+			null,
+			null),
 
 	// ANGEL:
-	ANGEL("angel",
+	ANGEL("angel", "angels",
 			"angel",
 			"angel",
 			"angel",
@@ -96,17 +93,13 @@ public enum Race {
 			0.25f,
 			1,
 			1,
-			
-			TFEssence.HUMAN // ANGEL
-			){
-		@Override
-		public boolean isAffectedByFurryPreference() {
-			return false;
-		}
-	},
+			Attribute.DAMAGE_ANGEL,
+			Attribute.RESISTANCE_ANGEL,
+			null,
+			null),
 
 	// DEMON:
-	DEMON("demon",
+	DEMON("demon", "demons",
 			"incubus",
 			"succubus",
 			"incubi",
@@ -140,10 +133,12 @@ public enum Race {
 			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SEDUCTION), new ListValue<Attack>(Attack.SPELL)),
 			false,
 			0f,
-			4,
-			8,
-			
-			TFEssence.DEMON){
+			2,
+			3,
+			Attribute.DAMAGE_DEMON,
+			Attribute.RESISTANCE_DEMON,
+			null,
+			null){
 		
 		@Override
 		public String getOffspringMaleName() {
@@ -162,15 +157,10 @@ public enum Race {
 		public String getOffspringFemaleNameSingular() {
 			return "imp";
 		}
-		
-		@Override
-		public boolean isAffectedByFurryPreference() {
-			return false;
-		}
 	},
 
 	// BOVINES:
-	COW_MORPH("cow-morph",
+	COW_MORPH("cow-morph", "cow-morphs",
 			"cow-boy",
 			"cow-girl",
 			"cow-boys",
@@ -202,12 +192,14 @@ public enum Race {
 			true,
 			0.5f,
 			1,
-			2,
-			
-			TFEssence.COW_MORPH),
+			1,
+			Attribute.DAMAGE_COW_MORPH,
+			Attribute.RESISTANCE_COW_MORPH,
+			FurryPreference.NORMAL,
+			FurryPreference.NORMAL),
 
 	// CANINES:
-	DOG_MORPH("dog-morph",
+	DOG_MORPH("dog-morph", "dog-morphs",
 			"dog-boy",
 			"dog-girl",
 			"dog-boys",
@@ -237,13 +229,15 @@ public enum Race {
 			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SPECIAL_ATTACK), new ListValue<Attack>(Attack.MAIN), new ListValue<Attack>(Attack.SEDUCTION)),
 			true,
 			0.5f,
+			1,
 			2,
-			6,
-			
-			TFEssence.DOG_MORPH),
+			Attribute.DAMAGE_DOG_MORPH,
+			Attribute.RESISTANCE_DOG_MORPH,
+			FurryPreference.NORMAL,
+			FurryPreference.NORMAL),
 
 	WOLF_MORPH(
-			"wolf-morph",
+			"wolf-morph", "wolf-morphs",
 			
 			"wolf-boy",
 			"wolf-girl",
@@ -276,13 +270,15 @@ public enum Race {
 			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SPECIAL_ATTACK), new ListValue<Attack>(Attack.MAIN)),
 			true,
 			0.5f,
+			1,
 			2,
-			6,
-			
-			TFEssence.WOLF_MORPH),
+			Attribute.DAMAGE_WOLF_MORPH,
+			Attribute.RESISTANCE_WOLF_MORPH,
+			FurryPreference.NORMAL,
+			FurryPreference.NORMAL),
 
 	// FELINES:
-	CAT_MORPH("cat-morph",
+	CAT_MORPH("cat-morph", "cat-morphs",
 			
 			"cat-boy",
 			"cat-girl",
@@ -317,14 +313,16 @@ public enum Race {
 			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SPECIAL_ATTACK), new ListValue<Attack>(Attack.MAIN), new ListValue<Attack>(Attack.SEDUCTION)),
 			true,
 			0.5f,
+			1,
 			2,
-			6,
-			
-			TFEssence.CAT_MORPH),
+			Attribute.DAMAGE_CAT_MORPH,
+			Attribute.RESISTANCE_CAT_MORPH,
+			FurryPreference.NORMAL,
+			FurryPreference.NORMAL),
 
 	// EQUINE:
 	HORSE_MORPH(
-			"horse-morph",
+			"horse-morph", "horse-morphs",
 			
 			"horse-boy",
 			"horse-girl",
@@ -359,13 +357,58 @@ public enum Race {
 			true,
 			0.5f,
 			1,
-			2,
-			
-			TFEssence.HORSE_MORPH),
+			1,
+			Attribute.DAMAGE_HORSE_MORPH,
+			Attribute.RESISTANCE_HORSE_MORPH,
+			FurryPreference.NORMAL,
+			FurryPreference.NORMAL),
 
 	
+	 REINDEER_MORPH(
+			 "reindeer morph", "reindeer-morphs",
+				
+			"reindeer-boy",
+			"reindeer-girl",
+			
+			"reindeer-boys",
+			"reindeer-girls",
+
+			"<p>"
+				+ "Reindeer-morphs are one of the rarer anthropomorphic races found in this world, and are almost exclusively found in the snowy tundra area far from Dominion."
+				+ " A large pair of multiple-branching antlers are usually enough to identify a reindeer-morph, the rounded shape of which is noticeably different from the sharper antlers of the more common deer-morphs."
+			+ "</p>",
+				
+			"<p>"
+				+ "Reindeer-morphs are, for most of the year, an extremely rare sight to see outside of their traditional tundra homeland."
+				+ " During the winter months, however, large groups of reindeer-morphs travel to Dominion, where they work to keep the streets shovelled clear of snow."
+				+ " These reindeer work-gangs usually operate under a dominant male or female reindeer-morph, although on occasion some groups can be found to be working for an overseer of a different race."
+			+ "</p>"
+			+ "<p>"
+				+ "Reindeer-morphs, like all non-demonic races, get heavily affected by arcane storms."
+				+ " Being exposed to arcane thunder will make reindeer-boys enter a potent rut, which, when combined with their strength and stamina, makes them very dangerous to meet in the middle of an arcane storm."
+				+ " Reindeer-girls will react to arcane thunder by going into heat, and will force themselves on anyone they might come across."
+			+ "</p>"
+			+ "<p>"
+				+ "A reindeer-morph's offspring will be a mixture of reindeer-morphs and offspring of their partner's race."
+			+ "</p>",
+		 
+	  Colour.RACE_REINDEER_MORPH,
+			Genus.RANGIFERINE,
+			Disposition.CIVILIZED,
+			StatusEffect.REINDEER_MORPH,
+			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SPECIAL_ATTACK), new ListValue<Attack>(Attack.MAIN)),
+			true,
+			0.5f,
+			1,
+			2,
+			Attribute.DAMAGE_REINDEER_MORPH,
+			Attribute.RESISTANCE_REINDEER_MORPH,
+			FurryPreference.NORMAL,
+			FurryPreference.NORMAL),
+			
+
 	SQUIRREL_MORPH(
-			"squirrel-morph",
+			"squirrel-morph", "squirrel-morphs",
 			
 			"squirrel-boy",
 			"squirrel-girl",
@@ -401,13 +444,62 @@ public enum Race {
 			true,
 			0.25f,
 			1,
-			1,
-			
-			TFEssence.SQUIRREL_MORPH),
+			2,
+			Attribute.DAMAGE_SQUIRREL_MORPH,
+			Attribute.RESISTANCE_SQUIRREL_MORPH,
+			FurryPreference.NORMAL,
+			FurryPreference.NORMAL),
 	
+	ALLIGATOR_MORPH(
+			"alligator-morph",
+			"alligator-morphs",
+			
+			"alligator-boy",
+			"alligator-girl",
+			
+			"alligator-boys",
+			"alligator-girls",
+
+			"<p>"
+				+ "Alligator-morphs are one of the more common races of this world."
+				+ " They're almost exclusively found in the watery undercity of Submission, making them one of the rarer races to be seen walking the streets of Dominion, in spite of their significant population."
+				+ " Their large reptilian tails and alligator-like snouts make alligator-morphs very easy to identify."
+			+ "</p>",
+			
+			"<p>"
+				+ "Alligator-morphs are usually quite laid-back and easy-going, and prefer to live down in Submission to get away from the busy hustle-and-bustle of Dominion's streets."
+				+ " They also love swimming, and are responsible for having converted huge parts of Submission's tunnels into slow-flowing waterways."
+				+ " Being very similar in looks to the hyper-aggressive crocodile-morphs found in other parts of the world, alligator-morphs have, very unfairly, gained a slight reputation for being aggressive trouble-makers."
+				+ " In contrast to how most of the population see them, alligator-morph's personalities vary greatly between individuals, and are no more or less aggressive than any of the common morphs that roam Dominion's streets."
+			+ "</p>"
+			+ "<p>"
+				+ "Alligator-morphs, like all non-demonic races, get heavily affected by arcane storms."
+				+ " Being exposed to arcane thunder will make alligator-morphs enter a potent mating frenzy, which, when combined with their great strength, makes them a dangerous foe to encounter during an arcane storm."
+				+ " This is yet another reason for their self-imposed exile to Submission, as they're able to escape the effects of arcane storms down there."
+			+ "</p>"
+			+ "<p>"
+				+ "Alligator-morph pregnancies are a mix between mammalian and reptilian reproduction."
+				+ " They are impregnated in much the same way as a human, but instead of giving birth to live young, a clutch of eggs will grow inside an alligator-girl's womb once she's been fertilised."
+				+ " Pregnancy advances just like that of other common races, but when it comes time to give birth, the alligator-girl will seek out a safe place to lay her eggs."
+				+ " After incubating her clutch for for approximately eighteen to twenty-four hours, the alligator-morph's young will hatch, with the resulting offspring being a mixture of alligator-morphs and offspring of their partner's race."
+			+ "</p>",
+
+			Colour.RACE_ALLIGATOR_MORPH,
+			Genus.REPTILE,
+			Disposition.NEUTRAL,
+			StatusEffect.ALLIGATOR_MORPH,
+			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SPECIAL_ATTACK), new ListValue<Attack>(Attack.MAIN)),
+			true,
+			0.5f,
+			3,
+			4,
+			Attribute.DAMAGE_ALLIGATOR_MORPH,
+			Attribute.RESISTANCE_ALLIGATOR_MORPH,
+			FurryPreference.NORMAL,
+			FurryPreference.NORMAL),
 
 	// SLIME:
-	SLIME("slime",
+	SLIME("slime", "slimes",
 			
 			"slime",
 			"slime",
@@ -445,19 +537,15 @@ public enum Race {
 			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SEDUCTION)),
 			true,
 			0.5f,
-			2,
-			6,
-			
-			TFEssence.HUMAN //SLIME
-			){
-		@Override
-		public boolean isAffectedByFurryPreference() {
-			return false;
-		}
-	},
+			1,
+			1,
+			Attribute.DAMAGE_HUMAN,
+			Attribute.RESISTANCE_HUMAN,
+			null,
+			null),
 
 	// AVIAN:
-	HARPY("harpy",
+	HARPY("harpy", "harpies",
 			
 			"harpy",
 			"harpy",
@@ -513,15 +601,12 @@ public enum Race {
 			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SPECIAL_ATTACK), new ListValue<Attack>(Attack.SEDUCTION)),
 			true,
 			0.5f,
+			3,
 			4,
-			8,
-			
-			TFEssence.HARPY){
-		@Override
-		public boolean isAffectedByFurryPreference() {
-			return false;
-		}
-	};
+			Attribute.DAMAGE_HARPY,
+			Attribute.RESISTANCE_HARPY,
+			null,
+			null);
 
 	/*
 	 * // INSECTS: BEE_MORPH("bee-morph",
@@ -956,7 +1041,7 @@ public enum Race {
 	 * 
 	 * "Imps are a small, mischievous, tribal race, found primarily in the subterranean city of Submission."
 	 * +
-	 * " Despite their short stature, Imps are birthed fully mature, and inherit the caliber of intelligence from their mother."
+	 * " Despite their short stature, Imps are birthed fully mature, and inherit the calibre of intelligence from their mother."
 	 * +
 	 * " Imps are exclusively male, and form tribes based on their birthing heritage."
 	 * +
@@ -1478,7 +1563,7 @@ public enum Race {
 	 * StatusEffect.LILIN);
 	 */
 
-	private String name, singularMaleName, singularFemaleName, pluralMaleName, pluralFemaleName, basicDescription, advancedDescription;
+	private String name, namePlural, singularMaleName, singularFemaleName, pluralMaleName, pluralFemaleName, basicDescription, advancedDescription;
 	private Colour colour;
 	private Genus genus;
 	private Disposition disposition;
@@ -1487,10 +1572,12 @@ public enum Race {
 	private boolean vulnerableToLilithsLustStorm;
 	private int numberOfOffspringLow, numberOfOffspringHigh;
 	private float chanceForMaleOffspring;
-	private TFEssence relatedEssence;
-
+	private Attribute damageMultiplier, resistanceMultiplier;
+	private FurryPreference defaultFemininePreference, defaultMasculinePreference;
+	
 	private Race(
 			String name,
+			String namePlural,
 			String singularMaleName,
 			String singularFemaleName,
 			String pluralMaleName,
@@ -1509,8 +1596,13 @@ public enum Race {
 			float chanceForMaleOffspring,
 			int numberOfOffspringLow, int numberOfOffspringHigh,
 			
-			TFEssence relatedEssence) {
+			Attribute damageMultiplier,
+			Attribute resistanceMultiplier,
+			
+			FurryPreference defaultFemininePreference,
+			FurryPreference defaultMasculinePreference) {
 		this.name = name;
+		this.namePlural = namePlural;
 
 		this.singularMaleName = singularMaleName;
 		this.singularFemaleName = singularFemaleName;
@@ -1534,13 +1626,20 @@ public enum Race {
 		
 		this.numberOfOffspringLow = numberOfOffspringLow;
 		this.numberOfOffspringHigh = numberOfOffspringHigh;
-
 		
-		this.relatedEssence = relatedEssence;
+		this.damageMultiplier = damageMultiplier;
+		this.resistanceMultiplier = resistanceMultiplier;
+		
+		this.defaultFemininePreference = defaultFemininePreference;
+		this.defaultMasculinePreference = defaultMasculinePreference;
 	}
 
 	public String getName() {
 		return name;
+	}
+	
+	public String getNamePlural() {
+		return namePlural;
 	}
 
 	public String getBasicDescription() {
@@ -1600,7 +1699,7 @@ public enum Race {
 	}
 	
 	public boolean isAffectedByFurryPreference() {
-		return true;
+		return defaultFemininePreference != null && defaultMasculinePreference!=null;
 	}
 	
 	// Offspring names:
@@ -1623,8 +1722,20 @@ public enum Race {
 		return singularFemaleName;
 	}
 
-	public TFEssence getRelatedEssence() {
-		return relatedEssence;
+	public Attribute getDamageMultiplier() {
+		return damageMultiplier;
+	}
+
+	public Attribute getResistanceMultiplier() {
+		return resistanceMultiplier;
+	}
+
+	public FurryPreference getDefaultFemininePreference() {
+		return defaultFemininePreference;
+	}
+
+	public FurryPreference getDefaultMasculinePreference() {
+		return defaultMasculinePreference;
 	}
 
 }

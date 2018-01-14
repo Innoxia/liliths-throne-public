@@ -5,7 +5,7 @@ import com.lilithsthrone.utils.Colour;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.1.97
  * @author Innoxia
  */
 public enum Quest {
@@ -156,7 +156,7 @@ public enum Quest {
 		}
 	},
 	
-	MAIN_1_H_THE_GREAT_ESCAPE(8, QuestType.MAIN, 8, 200) {
+	MAIN_1_H_THE_GREAT_ESCAPE(8, QuestType.MAIN, 10, 200) {
 		@Override
 		public String getName() {
 			return "The search for Arthur; The Great Escape";
@@ -171,6 +171,65 @@ public enum Quest {
 		@Override
 		public String getCompletedDescription() {
 			return "After defeating Zaranix, you saved Arthur and brought him back to Lilaya's home.";
+		}
+	},
+	
+	MAIN_1_I_ARTHURS_TALE(9, QuestType.MAIN, 10, 30) {
+		@Override
+		public String getName() {
+			return "The search for Arthur; Conclusion";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Now that you've rescued Arthur from the clutches of Zaranix, you should travel back to Lilaya's home and get the full story of what happened from him.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "Arthur explained how he was dabbling in the forbidden art of teleportation spells."
+					+ " He'd succeeded in transporting himself several hundreds of miles away from Dominion, and found himself in the midst of a pitched battle between demons and humans."
+					+ " Through one of his agents, Zaranix found out about this, and had no difficulty in getting Arthur enslaved for treason."
+					+ " Now that you've rescued him, he's keen to repay the favour by finding out how to send you back home.";
+		}
+	},
+	
+	MAIN_1_J_ARTHURS_ROOM(10, QuestType.MAIN, 10, 30) {
+		@Override
+		public String getName() {
+			return "The search for Arthur; A room of his own";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Lilaya really doesn't want Arthur in her lab, and has tasked you to help Rose find a suitable room for him to stay in.</br>"
+					+ "<i>Go into one of the empty rooms in Lilaya's House, and through the room management window, upgrade it to 'Arthur's Room'.</i>";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You located a suitable room for Arthur, and, with Rose's help, moved a significant amount of arcane instrumentation into his new lab-cum-bedroom.";
+		}
+	},
+	
+	
+	MAIN_2_A_INTO_THE_DEPTHS(11, QuestType.MAIN, 12, 30) {
+		@Override
+		public String getName() {
+			return "Into the depths; The world of Submission";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Arthur was able to explain the mechanism by which you were transported into this new world, but he seemed to hold back on some of the details."
+					+ " He said that he'd explain everything fully once he knew for certain what was going on, but in order for that to happen, he'll need to talk to one of the seven elder Lilin."
+					+ " After much arguing, Lilaya agreed to convince her mother to help, but you'll have to be the one to deliver the message.</br>"
+					+ "<i>Travel down into the undercity of Submission and seek an audience with Lilaya's mother, Lyssieth.</i>";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "Spoilers! :3"; //TODO
 		}
 	},
 
@@ -256,7 +315,7 @@ public enum Quest {
 
 		@Override
 		public String getDescription() {
-			return "You recently felt a strange force entering your body, and, although it doesn't seem to have had any obvious effect, you should probably have it checked out."
+			return "You recently felt a strange force entering your body, and although it doesn't seem to have had any obvious effect, you should probably have it checked out."
 					+ " Lilaya is sure to know more, so perhaps you should go and talk to her about it.";
 		}
 
@@ -266,23 +325,23 @@ public enum Quest {
 					+ " She seemed a little worried that you're able to do this, as apparently it's normally only Lilin who are able to gather essences in this fashion...";
 		}
 	},
-	SIDE_ENCHANTMENTS_ENCHANT_SOMETHING(1, QuestType.SIDE, 1, 10) {
-		@Override
-		public String getName() {
-			return "Enchant something";
-		}
-
-		@Override
-		public String getDescription() {
-			return "Lilaya informed you that essences are the vital component in infusing the arcane into objects in order to create enchanted items."
-					+ " You should try enchanting something! (Select an enchantable item in your inventory, then choose 'enchant'!)";
-		}
-
-		@Override
-		public String getCompletedDescription() {
-			return "You've managed to enchant an item!";
-		}
-	},
+//	SIDE_ENCHANTMENTS_ENCHANT_SOMETHING(1, QuestType.SIDE, 1, 10) {
+//		@Override
+//		public String getName() {
+//			return "Enchant something";
+//		}
+//
+//		@Override
+//		public String getDescription() {
+//			return "Lilaya informed you that essences are the vital component in infusing the arcane into objects in order to create enchanted items."
+//					+ " You should try enchanting something! (Select an enchantable item in your inventory, then choose 'enchant'!)";
+//		}
+//
+//		@Override
+//		public String getCompletedDescription() {
+//			return "You've managed to enchant an item!";
+//		}
+//	},
 
 	// For the first time you get pregnant:
 	
@@ -352,6 +411,44 @@ public enum Quest {
 		@Override
 		public String getCompletedDescription() {
 			return "You presented the letter of recommendation to [finch.name], and, after paying the 500 flame fee, you obtained a slaver license!";
+		}
+	},
+	
+	SIDE_HYPNO_WATCH_VICKY(0, QuestType.SIDE, 1, 10) {
+		@Override
+		public String getName() {
+			return "Order at Arcane Arts";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Arthur informed you that he was instructed by Zaranix to find an arcane method of changing a person's sexual orientation."
+					+ " While he reassured you that he had no intention of ever using such an item himself, Arthur did express an interest in completing his research,"
+						+ " and asked you to fetch a special order from the store 'Arcane Arts' in the Shopping Arcade.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You retrieved the package from Arcane Arts, and brought it back to Arthur.";
+		}
+	},
+	
+	SIDE_HYPNO_WATCH_TEST_SUBJECT(1, QuestType.SIDE, 1, 10) {
+		@Override
+		public String getName() {
+			return "Test subject";
+		}
+
+		@Override
+		public String getDescription() {
+			return "After Lilaya followed Arthur's instructions to enchant the watch, she asked if it would be possible to test it on you...";
+//					+ " You could either offer yourself, or, if you own any slaves, offer one of those to Arthur instead.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "The Hypno-Watch appeared to work, although Lilaya stopped the test before it had a permanent effect."
+					+ " She warned that it will have a strong corruptive effect upon the mind of the whoever is targeted, and disenchanted it for good measure, before handing it over to you.";
 		}
 	},
 	

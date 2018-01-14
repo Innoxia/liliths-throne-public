@@ -1,15 +1,11 @@
 package com.lilithsthrone.game.sex.sexActions;
 
-import java.util.List;
-
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
-import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.0
@@ -39,7 +35,7 @@ public class SexActionUtility {
 
 		@Override
 		public String getDescription() {
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_GENTLE:
 					return UtilText.returnStringAtRandom(
 							"You remain in position, gently pressing yourself against [npc.name], but not making any sort of move on [npc.herHim].",
@@ -78,7 +74,7 @@ public class SexActionUtility {
 	
 	public static final SexAction PLAYER_CALM_DOWN = new SexAction(
 			SexActionType.PLAYER,
-			ArousalIncrease.NEGATIVE_MINOR,
+			ArousalIncrease.NEGATIVE,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
 			null,
@@ -95,7 +91,7 @@ public class SexActionUtility {
 
 		@Override
 		public String getDescription() {
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
 			case DOM_GENTLE:
 				return UtilText.returnStringAtRandom(
 						"You take a moment to focus on something other than [npc.name], calming yourself down in the process.",
@@ -151,7 +147,7 @@ public class SexActionUtility {
 
 		@Override
 		public String getDescription() {
-			return Sex.getPartner().getName("The") + " doesn't make a move.";
+			return Sex.getActivePartner().getName("The") + " doesn't make a move.";
 		}
 	};
 	
@@ -286,23 +282,18 @@ public class SexActionUtility {
 
 		@Override
 		public String getActionDescription() {
-			return "Force "+Sex.getPartner().getName("the")+" to stay perfectly still, holding them in position until they've lost a good portion of their arousal.";
+			return "Force [npc.name] to stay perfectly still, holding them in position until they've lost a good portion of their arousal.";
 		}
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 
 		@Override
 		public String getDescription() {
-			return UtilText.genderParsing(Sex.getPartner(),
-					"Taking control of the situation, you hold "+Sex.getPartner().getName("the")+" quite still, only releasing <herPro> once <she>'s lost a good portion of <her> arousal.");
-		}
-
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DENIAL));
+			return UtilText.parse(Sex.getActivePartner(),
+					"Taking control of the situation, you hold [npc.name] quite still, only releasing [npc.herHim] once [npc.she]'s lost a good portion of [npc.her] arousal.");
 		}
 	};
 }

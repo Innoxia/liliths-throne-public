@@ -1,13 +1,13 @@
 package com.lilithsthrone.game.dialogue.npcDialogue;
 
 import com.lilithsthrone.game.Weather;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.QuestLine;
-import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.GenericDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -17,12 +17,13 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.managers.universal.SMDomStanding;
-import com.lilithsthrone.game.sex.managers.universal.SMSubStanding;
+import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
+import com.lilithsthrone.utils.Util.Value;
 
 public class HarpyNestsAttackerDialogue {
 	public static final DialogueNodeOld HARPY_ATTACKS = new DialogueNodeOld("Angry harpy", "An angry harpy swoops down on you!", true) {
@@ -212,7 +213,7 @@ public class HarpyNestsAttackerDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseCombat("Fight", "You find yourself fighting " + Main.game.getActiveNPC().getName("the") + "!", HARPY_ATTACKS, Main.game.getActiveNPC()){
 					@Override
@@ -240,7 +241,7 @@ public class HarpyNestsAttackerDialogue {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getActiveNPC().isWantsToHaveSexWithPlayer() || !Main.game.isNonConEnabled()) {
+			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
 				return UtilText.parse(Main.game.getActiveNPC(),
 						"<p>"
 							+ "[npc.Name] collapses to the floor, completely defeated."
@@ -275,41 +276,56 @@ public class HarpyNestsAttackerDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
-			if(Main.game.getActiveNPC().isWantsToHaveSexWithPlayer() || !Main.game.isNonConEnabled()) {
+		public Response getResponse(int responseTab, int index) {
+			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer()) || !Main.game.isNonConEnabled()) {
 				if (index == 1) {
 					return new Response("Continue", "Carry on your way...", null){
 						@Override
 						public DialogueNodeOld getNextDialogue() {
-							return GenericDialogue.getDefaultDialogueNoEncounter();
+							return DebugDialogue.getDefaultDialogueNoEncounter();
 						}
 					};
 					
 				} else if (index == 2) {
 					return new ResponseSex("Have some fun",
 							"Well, [npc.she] <i>is</i> asking for it!",
-							AFTER_SEX_VICTORY,
-							Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY);
+							true, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX_VICTORY);
 					
 				} else if (index == 3) {
 					return new ResponseSex("Have some gentle fun",
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
-							AFTER_SEX_VICTORY,
-							Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY) {
+							true, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX_VICTORY) {
 						@Override
-						public void effects() {
-							sexPacePlayer = (SexPace.DOM_GENTLE);
+						public SexPace getStartingSexPaceModifier(GameCharacter character) {
+							if(character.isPlayer()) {
+								return SexPace.DOM_GENTLE;
+							}
+							return null;
 						}
 					};
 					
 				} else if (index == 4) {
 					return new ResponseSex("Have some rough fun",
 							"Well, [npc.she] <i>is</i> asking for it! (Start the sex scene in the 'rough' pace.)",
-							AFTER_SEX_VICTORY,
-							Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY) {
+							true, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX_VICTORY) {
 						@Override
-						public void effects() {
-							sexPacePlayer = (SexPace.DOM_ROUGH);
+						public SexPace getStartingSexPaceModifier(GameCharacter character) {
+							if(character.isPlayer()) {
+								return SexPace.DOM_ROUGH;
+							}
+							return null;
 						}
 					};
 					
@@ -317,9 +333,13 @@ public class HarpyNestsAttackerDialogue {
 					return new ResponseSex("Submit",
 							"You're not really sure what to do now...</br>"
 								+ "Perhaps it would be best to let [npc.name] choose what to do next?",
+							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)),
+							null, null, null, null, null,
+							true, true,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							AFTER_SEX_DEFEAT,
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE)), null, null, null, null, null,
-							Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT,
 							"<p>"
 								+ "You really aren't sure what to do next, and start to feel pretty uncomfortable with the fact that you just beat up this poor [npc.race]."
 								+ " Leaning down, you do the first thing that comes into your mind, and start apologising,"
@@ -355,11 +375,11 @@ public class HarpyNestsAttackerDialogue {
 							AFTER_COMBAT_VICTORY){
 						@Override
 						public DialogueNodeOld getNextDialogue() {
-							return GenericDialogue.getDefaultDialogueNoEncounter();
+							return DebugDialogue.getDefaultDialogueNoEncounter();
 						}
 						@Override
 						public void effects() {
-							Main.game.removeNPC(Main.game.getActiveNPC());
+							Main.game.banishNPC(Main.game.getActiveNPC());
 						}
 					};
 					
@@ -372,48 +392,66 @@ public class HarpyNestsAttackerDialogue {
 					return new Response("Continue", "Carry on your way...", null){
 						@Override
 						public DialogueNodeOld getNextDialogue() {
-							return GenericDialogue.getDefaultDialogueNoEncounter();
+							return DebugDialogue.getDefaultDialogueNoEncounter();
 						}
 					};
 					
 				} else if (index == 2) {
 					return new ResponseSex(
-							"Rape [npc.herHim]", "[npc.She] needs to be punished for attacking you like that...", AFTER_SEX_VICTORY,
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)), null, CorruptionLevel.FOUR_LUSTFUL,
-							null, null, null,
-							Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
+							"Rape [npc.herHim]", "[npc.She] needs to be punished for attacking you like that...", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)),
+							null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null,
+							null, null,
+							false, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX_VICTORY,
 							"<p>"
 								+ "Reaching down, you grab [npc.name]'s [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start grinding yourself up against [npc.herHim]."
 								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you hold [npc.herHim] firmly in your embrace..."
 							+ "</p>");
 					
 				} else if (index == 3) {
-					return new ResponseSex("Rape [npc.herHim] (gentle)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'gentle' pace.)", AFTER_SEX_VICTORY,
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)), null, CorruptionLevel.FOUR_LUSTFUL,
-							null, null, null,
-							Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
+					return new ResponseSex("Rape [npc.herHim] (gentle)",
+							"[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'gentle' pace.)", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)),
+							null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
+							false, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX_VICTORY,
 							"<p>"
 								+ "Reaching down, you take hold of [npc.name]'s [npc.arm], and, pulling [npc.herHim] to [npc.her] feet, you start pressing yourself up against [npc.herHim]."
 								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you hold [npc.herHim] in your embrace..."
 							+ "</p>") {
 						@Override
-						public void effects() {
-							sexPacePlayer = (SexPace.DOM_GENTLE);
+						public SexPace getStartingSexPaceModifier(GameCharacter character) {
+							if(character.isPlayer()) {
+								return SexPace.DOM_GENTLE;
+							}
+							return null;
 						}
 					};
 					
 				} else if (index == 4) {
-					return new ResponseSex("Rape [npc.herHim] (rough)", "[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'rough' pace.)", AFTER_SEX_VICTORY,
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)), null, CorruptionLevel.FOUR_LUSTFUL,
-							null, null, null,
-							Main.game.getActiveNPC(), new SMDomStanding(), AFTER_SEX_VICTORY,
+					return new ResponseSex("Rape [npc.herHim] (rough)",
+							"[npc.She] needs to be punished for attacking you like that... (Start the sex scene in the 'rough' pace.)", Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)),
+							null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
+							false, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX_VICTORY,
 							"<p>"
 								+ "Reaching down, you grab [npc.name]'s [npc.arm], and, roughly yanking [npc.herHim] to [npc.her] feet, you start forcefully grinding yourself up against [npc.herHim]."
 								+ " Seeing the lustful look in your [pc.eyes], [npc.she] lets out a little [npc.sob], desperately trying to struggle out of your grip as you firmly hold [npc.herHim] in your embrace..."
 							+ "</p>") {
 						@Override
-						public void effects() {
-							sexPacePlayer = (SexPace.DOM_ROUGH);
+						public SexPace getStartingSexPaceModifier(GameCharacter character) {
+							if(character.isPlayer()) {
+								return SexPace.DOM_ROUGH;
+							}
+							return null;
 						}
 					};
 					
@@ -437,11 +475,11 @@ public class HarpyNestsAttackerDialogue {
 							AFTER_COMBAT_VICTORY){
 						@Override
 						public DialogueNodeOld getNextDialogue() {
-							return GenericDialogue.getDefaultDialogueNoEncounter();
+							return DebugDialogue.getDefaultDialogueNoEncounter();
 						}
 						@Override
 						public void effects() {
-							Main.game.removeNPC(Main.game.getActiveNPC());
+							Main.game.banishNPC(Main.game.getActiveNPC());
 						}
 					};
 					
@@ -453,10 +491,10 @@ public class HarpyNestsAttackerDialogue {
 	};
 
 	public static final DialogueNodeOld AFTER_COMBAT_DEFEAT = new DialogueNodeOld("Defeat", "", true) {
-		/**
-		 */
 		private static final long serialVersionUID = 1L;
 
+		Util.Value<String, AbstractItem> potion = null;
+		
 		@Override
 		public String getDescription() {
 			return "You have been defeated by [npc.name]!";
@@ -464,184 +502,32 @@ public class HarpyNestsAttackerDialogue {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getActiveNPC().isWantsToHaveSexWithPlayer()) {
+			
+			if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING)) {
+				potion = Main.game.getActiveNPC().generateTransformativePotion();
 				
-				if(Main.game.isForcedTFEnabled()) {
-					Util.Value<String, AbstractItem> potion = Main.game.getActiveNPC().generateTransformativePotion();
-					
-					if(potion == null) {
-						return UtilText.parse(Main.game.getActiveNPC(),
-									"<p>"
-										+ "You can't carry on fighting any more, and you feel your [pc.legs] giving out beneath you as you collapse to the ground, defeated."
-										+ " A mocking laugh causes you to look up, and you see [npc.name] grinning down at you."
-									+ "</p>"
-									+ "<p>"
-										+ "[npc.speech(Hah! How pathetic!)] [npc.she] taunts, looming over you, [npc.speech(I was kinda hoping you'd put up at least a little resistance!)]"
-									+ "</p>"
-									+ "<p>"
-										+ "Leaning down to grab you by the [pc.arm], [npc.name] pulls you to your feet."
-										+ " Yanking you towards [npc.herHim], [npc.she] starts grinding [npc.herself] up against you, [npc.moaning] into your [pc.ear] as [npc.she] starts groping your body."
-									+ "</p>"
-									+ "<p>"
-										+ "[npc.speech(You're my perfect little "
-													+"<b style='color:"+Main.game.getActiveNPC().getPreferredBody().getGender().getColour().toWebHexString()+";'>"
-														+(Main.game.getActiveNPC().getPreferredBody().getGender().getName())
-													+"</b> "
-													+"<b style='color:"+Main.game.getActiveNPC().getPreferredBody().getRace().getColour().toWebHexString()+";'>"
-														+(Main.game.getActiveNPC().getPreferredBody().getRace().getName())
-													+"</b>"
-													+ " now! Don't forget bitch, <i>I'm</i> the one in charge!)] [npc.she] growls, before pulling you into a forceful kiss."
-									+ "</p>");
-						
-					} else {
-					
-						if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION)) {
-							
-							UtilText.nodeContentSB.setLength(0);
-							
-							UtilText.nodeContentSB.append(
-									UtilText.parse(Main.game.getActiveNPC(),
-										"<p>"
-											+ "You can't carry on fighting any more, and you feel your [pc.legs] giving out beneath you as you collapse to the ground, defeated."
-											+ " A mocking laugh causes you to look up, and you see [npc.name] grinning down at you."
-										+ "</p>"
-										+ "<p>"
-											+ "[npc.speech(Hah! How pathetic!)] [npc.she] taunts, before leaning down and pushing you to the ground."
-										+ "</p>"
-										+ "<p>"
-											+ "As [npc.she] pins you to the floor, [npc.she] produces a curious little bottle from somewhere out of sight, and shakes it from side to side, grinning,"
-											+ " [npc.speech(I think you could do with some <i>improvements</i>!)]"
-										+ "</p>"
-										+ "<p>"
-											+ "[npc.She] pulls out the little stopper from the top of the bottle, and as you open your mouth to protest, [npc.she] suddenly shoves the neck into your mouth."
-											+ " You cough and splutter as the sickly-sweet fluid drains down into your throat, and you find yourself desperately gulping down the liquid so as not to choke on it."
-											+ " As you drain the contents of the bottle, [npc.name] grinds [npc.herself] against you, [npc.moaning] into your [pc.ear] as [npc.she] starts groping your body."
-										+ "</p>"
-										+ "<p>"
-											+ "[npc.speech(Good [pc.girl]! Now, let's see the changes take effect!)] [npc.she] growls, before suddenly standing up, and, grabbing you by the [pc.arm], yanking you to your feet."
-											+ " You're far too weak to resist as [npc.she] holds you still, and you notice that there's an especially hungry look in [npc.her] [npc.eyes] as [npc.she] lustfully gazes down at your body, sighing,"
-											+ " [npc.speech("+potion.getKey()+")]"
-										+ "</p>"
-										+ "<p>"
-											+Main.game.getActiveNPC().useItem(potion.getValue(), Main.game.getPlayer(), false)
-										+"</p>"));
-	
-							potion = Main.game.getActiveNPC().generateTransformativePotion();
-							if(potion == null) {
-								UtilText.nodeContentSB.append(
-										UtilText.parse(
-												"<p>"
-													+ "[npc.speech(You're my perfect little "
-													+"<b style='color:"+Main.game.getActiveNPC().getPreferredBody().getGender().getColour().toWebHexString()+";'>"
-														+(Main.game.getActiveNPC().getPreferredBody().getGender().getName())
-													+"</b> "
-													+"<b style='color:"+Main.game.getActiveNPC().getPreferredBody().getRace().getColour().toWebHexString()+";'>"
-														+(Main.game.getActiveNPC().getPreferredBody().getRace().getName())
-													+"</b>"
-													+ " now! Don't forget bitch, <i>I'm</i> the one in charge!)] [npc.she] growls, before pulling you into a forceful kiss."
-												+ "</p>"));
-								
-							} else {
-								UtilText.nodeContentSB.append(
-										UtilText.parse(Main.game.getActiveNPC(),
-											"<p>"
-												+ "You stagger about a little, overwhelmed by the changes that [npc.name] is forcing you to go through."
-												+ " Before you can protest or react to the transformation, [npc.she] suddenly grabs hold of your chin, and you look up to see that [npc.she]'s holding another two bottles of yet more transformative fluids."
-												+ " While you were undergoing your first transformation, [npc.she] was obviously getting these next ones ready, as you see that the stoppers have already been removed from both of them."
-											+ "</p>"
-											+ "<p>"
-												+ "Holding you steady, [npc.she] forces the first bottle into your mouth, and you once more find yourself with no other option but to gulp down the sweet liquid."
-												+ " [npc.Name] laughs as you cough and splutter on the fluid, before growling into your [pc.ear],"
-												+ " [npc.speech("+potion.getKey()+")]"
-											+ "</p>"
-											+ "<p>"
-												+Main.game.getActiveNPC().useItem(potion.getValue(), Main.game.getPlayer(), false)
-											+"</p>"));
-								
-								potion = Main.game.getActiveNPC().generateTransformativePotion();
-								if(potion == null) {
-									UtilText.nodeContentSB.append(
-											UtilText.parse(
-													"<p>"
-														+ "[npc.speech(You're my perfect little "
-														+"<b style='color:"+Main.game.getActiveNPC().getPreferredBody().getGender().getColour().toWebHexString()+";'>"
-															+(Main.game.getActiveNPC().getPreferredBody().getGender().getName())
-														+"</b> "
-														+"<b style='color:"+Main.game.getActiveNPC().getPreferredBody().getRace().getColour().toWebHexString()+";'>"
-															+(Main.game.getActiveNPC().getPreferredBody().getRace().getName())
-														+"</b>"
-														+ " now! Don't forget bitch, <i>I'm</i> the one in charge!)] [npc.she] growls, before pulling you into a forceful kiss."
-													+ "</p>"));
-									
-								} else {
-									UtilText.nodeContentSB.append(
-											UtilText.parse(Main.game.getActiveNPC(),
-												"<p>"
-													+ "As you struggle to recover from your second transformation, [npc.name] shoves the last of the three bottles into your mouth, forcing yet more of the transformative fluids down your throat."
-													+ " [npc.Name] holds you firmly in [npc.her] grasp, laughing and groping your body as [npc.she] taunts you,"
-													+ " [npc.speech("+potion.getKey()+")]"
-												+ "</p>"
-												+ "<p>"
-													+Main.game.getActiveNPC().useItem(potion.getValue(), Main.game.getPlayer(), false)
-												+"</p>"
-												+"<p>"
-													+ "Having forced you to consume all of [npc.her] potions, [npc.name] throws the now-empty bottles to one side, before pulling you into a forceful kiss."
-													+ " You're powerless to resist [npc.her] advances, and as [npc.her] [npc.hands] reach around to give your [pc.ass+] a squeeze, [npc.she] laughs,"
-													+ " [npc.speech(I'll turn you into my perfect little "
-														+"<b style='color:"+Main.game.getActiveNPC().getPreferredBody().getGender().getColour().toWebHexString()+";'>"
-															+(Main.game.getActiveNPC().getPreferredBody().getGender().getName())
-														+"</b> "
-														+"<b style='color:"+Main.game.getActiveNPC().getPreferredBody().getRace().getColour().toWebHexString()+";'>"
-															+(Main.game.getActiveNPC().getPreferredBody().getRace().getName())
-														+"</b>"
-														+ "! Now for the real fun!)]"
-												+ "</p>"));
-								}
-							}
-							
-							return UtilText.nodeContentSB.toString();
-							
-						} else {
-							return UtilText.parse(Main.game.getActiveNPC(),
-									"<p>"
-										+ "You can't carry on fighting any more, and you feel your [pc.legs] giving out beneath you as you collapse to the ground, defeated."
-										+ " A mocking laugh causes you to look up, and you see [npc.name] grinning down at you."
-									+ "</p>"
-									+ "<p>"
-										+ "[npc.speech(Hah! How pathetic!)] [npc.she] taunts, before leaning down and pushing you to the ground."
-									+ "</p>"
-									+ "<p>"
-										+ "As [npc.she] pins you to the floor, [npc.she] produces a curious little bottle from somewhere out of sight, and shakes it from side to side, grinning,"
-										+ " [npc.speech(I think you could do with some <i>improvements</i>!)]"
-									+ "</p>"
-									+ "<p>"
-										+ "[npc.She] pulls out the little stopper from the top of the bottle, and as you open your mouth to protest, [npc.she] suddenly shoves the neck into your mouth."
-										+ " You cough and splutter as the sickly-sweet fluid drains down into your throat, and you find yourself desperately gulping down the liquid so as not to choke on it."
-										+ " As you drain the contents of the bottle, [npc.name] grinds [npc.herself] against you, [npc.moaning] into your [pc.ear] as [npc.she] starts groping your body."
-									+ "</p>"
-									+ "<p>"
-										+ "[npc.speech(Good [pc.girl]! Now, let's see the changes take effect!)] [npc.she] growls, before suddenly standing up, and, grabbing you by the [pc.arm], yanking you to your feet."
-										+ " You're far too weak to resist as [npc.she] holds you still, and you notice that there's an especially hungry look in [npc.her] [npc.eyes] as [npc.she] lustfully gazes down at your body, sighing,"
-										+ " [npc.speech("+potion.getKey()+")]"
-									+ "</p>")
-									+ "<p>"
-										+Main.game.getActiveNPC().useItem(potion.getValue(), Main.game.getPlayer(), false)
-									+"</p>"
-									+"<p>"
-										+ "As you struggle to recover from your transformation, [npc.name] throws the now-empty bottle to one side, before pulling you into a forceful kiss."
-										+ " You're powerless to resist [npc.her] advances, and as [npc.her] [npc.hands] reach around to give your [pc.ass+] a squeeze, [npc.she] laughs,"
-										+ " [npc.speech(I'll turn you into my perfect little "
+				if(potion == null) {
+					return UtilText.parse(Main.game.getActiveNPC(),
+							"<p>"
+								+ "You can't carry on fighting any more, and you feel your [pc.legs] giving out beneath you as you collapse to the ground, defeated."
+								+ " A mocking laugh causes you to look up, and you see [npc.name] grinning down at you."
+							+ "</p>"
+							+ "<p>"
+								+ "[npc.speech(Hah! That was too easy!)] [npc.she] says, before leaning down to grab one of your [pc.arms]."
+							+ "</p>"
+							+ "<p>"
+								+ "Pulling you to your feet, [npc.name] starts grinding [npc.herself] up against you, [npc.moaning] into your [pc.ear] as [npc.she] starts groping your body."
+							+ "</p>"
+							+ "<p>"
+								+ "[npc.speech(You're my perfect little "
 											+"<b style='color:"+Main.game.getActiveNPC().getPreferredBody().getGender().getColour().toWebHexString()+";'>"
 												+(Main.game.getActiveNPC().getPreferredBody().getGender().getName())
 											+"</b> "
 											+"<b style='color:"+Main.game.getActiveNPC().getPreferredBody().getRace().getColour().toWebHexString()+";'>"
 												+(Main.game.getActiveNPC().getPreferredBody().getRace().getName())
 											+"</b>"
-											+ "! Now for the real fun!)]"
-									+ "</p>";
-						}
-					
-					}
+											+ " now! Don't forget bitch, <i>I'm</i> the one in charge!)] [npc.she] growls, before pulling you into a forceful kiss."
+							+ "</p>");
 					
 				} else {
 					return UtilText.parse(Main.game.getActiveNPC(),
@@ -650,16 +536,38 @@ public class HarpyNestsAttackerDialogue {
 								+ " A mocking laugh causes you to look up, and you see [npc.name] grinning down at you."
 							+ "</p>"
 							+ "<p>"
-								+ "[npc.speech(Hah! How pathetic!)] [npc.she] taunts, looming over you, [npc.speech(I was kinda hoping you'd put up at least a little resistance!)]"
+								+ "[npc.speech(Hah! That was too easy!)] [npc.she] says, before leaning down and pushing you to the ground."
 							+ "</p>"
 							+ "<p>"
-								+ "Leaning down to grab you by the [pc.arm], [npc.name] pulls you to your feet."
-								+ " Yanking you towards [npc.herHim], [npc.she] starts grinding [npc.herself] up against you, [npc.moaning] into your [pc.ear] as [npc.she] starts groping your body."
+								+ "As [npc.she] pins you to the floor, [npc.she] produces a curious little bottle from somewhere out of sight, and shakes it from side to side, grinning,"
+								+ " [npc.speech(I think you could do with some <i>improvements</i>!)]"
 							+ "</p>"
 							+ "<p>"
-								+ "[npc.speech(It looks like I'll have to show you your place!)] [npc.she] growls, before pulling you into a forceful kiss."
+								+ "[npc.She] pulls out the little stopper from the top of the bottle, and as you open your mouth to protest, [npc.she] suddenly shoves the neck past your [pc.lips+]."
+								+ " As the sickly-sweet fluid pours out into your mouth, you let out a muffled whine; the only act of resistance that you're able to summon in your current state."
+							+ "</p>"
+							+ "<p>"
+								+ "[npc.speech(Come on! Swallow it all down already!)] [npc.she] growls, throwing the now-empty vessel to one side as [npc.she] tries to force you to swallow the strange fluid..."
 							+ "</p>");
 				}
+			}
+				
+			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
+					return UtilText.parse(Main.game.getActiveNPC(),
+							"<p>"
+								+ "You can't carry on fighting any more, and you feel your [pc.legs] giving out beneath you as you collapse to the ground, defeated."
+								+ " A mocking laugh causes you to look up, and you see [npc.name] grinning down at you."
+							+ "</p>"
+							+ "<p>"
+								+ "[npc.speech(Hah! That was too easy!)] [npc.she] says, before leaning down to grab one of your [pc.arms]."
+							+ "</p>"
+							+ "<p>"
+								+ "Pulling you to your feet, [npc.name] starts grinding [npc.herself] up against you, [npc.moaning] into your [pc.ear] as [npc.she] starts groping your body."
+							+ "</p>"
+							+ "<p>"
+								+ "[npc.speech(Don't try anything bitch! <i>I'm</i> the one in charge here!)] [npc.she] growls, before pulling you into a forceful kiss."
+							+ "</p>");
+				
 				
 			} else {
 				return UtilText.parse(Main.game.getActiveNPC(),
@@ -668,28 +576,183 @@ public class HarpyNestsAttackerDialogue {
 							+ " A mocking laugh causes you to look up, and you see [npc.name] grinning down at you."
 						+ "</p>"
 						+ "<p>"
-							+ "[npc.speech(Hah! How pathetic!)] [npc.she] taunts, looming over you, [npc.speech(I was kinda hoping you'd put up at least a little resistance!)]"
+							+ "[npc.speech(Hah! That was too easy!)] [npc.she] says, before leaning down to grab one of your [pc.arms]."
 						+ "</p>"
 						+ "<p>"
-							+ "Leaning down to grab you by the [pc.arm], [npc.name] pulls you to your feet before shoving you back against the walkway's railing."
-							+ " Not having the strength to resist, you have no other option to comply with [npc.name]'s demand as [npc.she] orders you to hand over your money."
-							+ " After giving [npc.herHim] some of your cash, [npc.she] roughly pushes you to the floor once more, laughing."
+							+ "Pulling you to your feet, [npc.name] pushes you against a nearby wall, before demanding that you hand over your money."
+							+ " Reluctantly, you do as [npc.she] says, and, after giving [npc.herHim] some of your cash, [npc.she] roughly pushes you to the floor once more."
 						+ "</p>"
 						+ "<p>"
-							+ "[npc.speech(You're even more pathetic than the males in our flock!)] [npc.she] sneers, before turning around and, with a flap of [npc.her] wings, flying off."
+							+ "[npc.speech(Don't even <i>think</i> about reporting this to the enforcers!)] [npc.she] growls down at you, before turning around and running off."
 						+ "</p>");
 			}
 		}
 		
 		@Override
-		public Response getResponse(int index) {
-			if(Main.game.getActiveNPC().isWantsToHaveSexWithPlayer()) {
+		public Response getResponse(int responseTab, int index) {
+			if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) && potion != null) {
+				if (index == 1) {
+					return new Response("Spit", "Spit out the potion.", AFTER_COMBAT_TRANSFORMATION_REFUSED);
+					
+				} else if (index == 2) {
+					return new Response("Swallow", "Do as you're told and swallow the strange potion.", AFTER_COMBAT_TRANSFORMATION,
+							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_RECEIVING)),
+							Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel(),
+							null,
+							null,
+							null){
+						@Override
+						public void effects(){
+							Util.Value<String, AbstractItem> potion = Main.game.getActiveNPC().generateTransformativePotion();
+							Main.game.getTextStartStringBuilder().append(
+									"<p>"
+										+ "[npc.Name] steps back, grinning down at you as you obediently swallow the strange liquid,"
+										+ " [npc.speech(Good [pc.girl]! "+potion.getKey()+")]"
+									+ "</p>"
+									+ "<p>"
+										+Main.game.getActiveNPC().useItem(potion.getValue(), Main.game.getPlayer(), false)
+									+"</p>");
+						}
+					};
+					
+				} else {
+					return null;
+				}
 				
+			} else {
+				if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
+					if (index == 1) {
+						return new ResponseSex("Sex",
+								"[npc.Name] forces [npc.herself] on you...",
+								false, false,
+								new SMStanding(
+										Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								AFTER_SEX_DEFEAT,
+								"<p>"
+									+ "[npc.Name]'s [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally breaking away from you."
+									+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
+								+ "</p>");
+						
+					} else if (index == 2) {
+						return new ResponseSex("Eager Sex",
+								"[npc.Name] forces [npc.herself] on you...",
+								false, false,
+								new SMStanding(
+										Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								AFTER_SEX_DEFEAT,
+								"<p>"
+									+ "[npc.Name]'s [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
+									+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.she]'s going to want more than just a kiss..."
+								+ "</p>") {
+							@Override
+							public SexPace getStartingSexPaceModifier(GameCharacter character) {
+								if(character.isPlayer()) {
+									return SexPace.SUB_EAGER;
+								}
+								return null;
+							}
+						};
+						
+					} else if (index == 3 && Main.game.isNonConEnabled()) {
+						return new ResponseSex("Resist Sex",
+								"[npc.Name] forces [npc.herself] on you...",
+								false, false,
+								new SMStanding(
+										Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								AFTER_SEX_DEFEAT,
+								"<p>"
+									+ "[npc.Name]'s [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
+									+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
+									+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.she]'s not going to let you go..."
+								+ "</p>") {
+							@Override
+							public SexPace getStartingSexPaceModifier(GameCharacter character) {
+								if(character.isPlayer()) {
+									return SexPace.SUB_RESISTING;
+								}
+								return null;
+							}
+						};
+						
+					} else {
+						return null;
+					}
+					
+				} else {
+					if (index == 1) {
+						return new Response("Continue", "Carry on your way.", AFTER_COMBAT_DEFEAT){
+							@Override
+							public DialogueNodeOld getNextDialogue() {
+								return DebugDialogue.getDefaultDialogueNoEncounter();
+							}
+						};
+						
+					} else {
+						return null;
+					}
+				}
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld AFTER_COMBAT_TRANSFORMATION_REFUSED = new DialogueNodeOld("Avoided Transformation", "", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getContent() {
+			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
+				return UtilText.parse(Main.game.getActiveNPC(),
+						"<p>"
+							+ "Despite [npc.name]'s best efforts, you manage to twist your head to one side and spit the strange fluid out onto the floor."
+							+ " Your response is met by an anguished groan from your assailant, and, turning your head back up to look at them once more, you see them snarling down angrily at you,"
+							+ " [npc.speech(You <i>"+(Main.game.getPlayer().isFeminine()?"bitch":"bastard")+"</i>! Do you know how much that cost me?!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "After shouting down into your face, [npc.name] stands up, pulling you roughly to your [pc.feet] as [npc.she] does so, before pressing [npc.herself] against you and forcing you into a wet kiss."
+							+ " You're powerless to resist [npc.her] advances, and as [npc.her] [npc.hands] reach around to give your [pc.ass+] a squeeze, [npc.she] laughs,"
+							+ " [npc.speech(I'll turn you into my perfect little "
+								+"<b style='color:"+Main.game.getActiveNPC().getPreferredBody().getGender().getColour().toWebHexString()+";'>"
+									+(Main.game.getActiveNPC().getPreferredBody().getGender().getName())
+								+"</b> "
+								+"<b style='color:"+Main.game.getActiveNPC().getPreferredBody().getRace().getColour().toWebHexString()+";'>"
+									+(Main.game.getActiveNPC().getPreferredBody().getRace().getName())
+								+"</b> next time! For now, I'm going to get some fun out of you just as you are!)]"
+						+ "</p>");
+			
+			} else {
+				return UtilText.parse(Main.game.getActiveNPC(),
+						"<p>"
+							+ "Despite [npc.name]'s best efforts, you manage to twist your head to one side and spit the strange fluid out onto the floor."
+							+ " Your response is met by an anguished groan from your assailant, and, turning your head back up to look at them once more, you see them snarling down angrily at you,"
+							+ " [npc.speech(You <i>"+(Main.game.getPlayer().isFeminine()?"bitch":"bastard")+"</i>! Do you know how much that cost me?!)]"
+						+ "</p>"
+						+"<p>"
+							+ "After shouting down into your face, [npc.name] stands up, pulling you roughly to your [pc.feet] as [npc.she] does so, before pushing you against a nearby wall and demanding that you hand over your money."
+							+ " Reluctantly, you do as [npc.she] says, and, after giving [npc.herHim] some of your cash, [npc.she] shoves you down to the floor once more."
+						+ "</p>"
+						+ "<p>"
+							+ "[npc.speech(This money of yours is going to pay for your next potion!)] [npc.she] growls down at you, [npc.speech(Come back and pay me another visit, <i>or else</i>! And don't you dare refuse to swallow next time!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "With that, [npc.she] turns around and runs off, leaving you to recover from your ordeal and continue on your way..."
+						+ "</p>");
+			}
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
 				if (index == 1) {
 					return new ResponseSex("Sex",
 							"[npc.Name] forces [npc.herself] on you...",
+							false, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							AFTER_SEX_DEFEAT,
-							Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally breaking away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
@@ -698,31 +761,43 @@ public class HarpyNestsAttackerDialogue {
 				} else if (index == 2) {
 					return new ResponseSex("Eager Sex",
 							"[npc.Name] forces [npc.herself] on you...",
+							false, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							AFTER_SEX_DEFEAT,
-							Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.she]'s going to want more than just a kiss..."
 							+ "</p>") {
 						@Override
-						public void effects() {
-							sexPacePlayer = (SexPace.SUB_EAGER);
+						public SexPace getStartingSexPaceModifier(GameCharacter character) {
+							if(character.isPlayer()) {
+								return SexPace.SUB_EAGER;
+							}
+							return null;
 						}
 					};
 					
 				} else if (index == 3 && Main.game.isNonConEnabled()) {
 					return new ResponseSex("Resist Sex",
 							"[npc.Name] forces [npc.herself] on you...",
+							false, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							AFTER_SEX_DEFEAT,
-							Main.game.getActiveNPC(), new SMSubStanding(), AFTER_SEX_DEFEAT,
 							"<p>"
 								+ "[npc.Name]'s [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 								+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
 								+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.she]'s not going to let you go..."
 							+ "</p>") {
 						@Override
-						public void effects() {
-							sexPacePlayer = (SexPace.SUB_RESISTING);
+						public SexPace getStartingSexPaceModifier(GameCharacter character) {
+							if(character.isPlayer()) {
+								return SexPace.SUB_RESISTING;
+							}
+							return null;
 						}
 					};
 					
@@ -734,8 +809,127 @@ public class HarpyNestsAttackerDialogue {
 				if (index == 1) {
 					return new Response("Continue", "Carry on your way.", AFTER_COMBAT_DEFEAT){
 						@Override
-						public DialogueNodeOld getNextDialogue(){
-							return GenericDialogue.getDefaultDialogueNoEncounter();
+						public DialogueNodeOld getNextDialogue() {
+							return DebugDialogue.getDefaultDialogueNoEncounter();
+						}
+					};
+					
+				} else {
+					return null;
+				}
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld AFTER_COMBAT_TRANSFORMATION = new DialogueNodeOld("Transformed", "", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getContent() {
+			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
+				return UtilText.parse(Main.game.getActiveNPC(),
+						"<p>"
+							+ "As you struggle to recover from your transformation, [npc.name] pulls you to your [pc.feet], before pressing [npc.herself] against you and forcing you into a wet kiss."
+							+ " You're powerless to resist [npc.her] advances, and as [npc.her] [npc.hands] reach around to give your [pc.ass+] a squeeze, [npc.she] laughs,"
+							+ " [npc.speech(I'll turn you into my perfect little "
+								+"<b style='color:"+Main.game.getActiveNPC().getPreferredBody().getGender().getColour().toWebHexString()+";'>"
+									+(Main.game.getActiveNPC().getPreferredBody().getGender().getName())
+								+"</b> "
+								+"<b style='color:"+Main.game.getActiveNPC().getPreferredBody().getRace().getColour().toWebHexString()+";'>"
+									+(Main.game.getActiveNPC().getPreferredBody().getRace().getName())
+								+"</b>! Now for the real fun!)]"
+						+ "</p>");
+			
+			} else {
+				return UtilText.parse(Main.game.getActiveNPC(),
+						"<p>"
+							+ "As you struggle to recover from your transformation, [npc.name] pulls you to your [pc.feet], before pushing you against a nearby wall and demanding that you hand over your money."
+							+ " Reluctantly, you do as [npc.she] says, and, after giving [npc.herHim] some of your cash, [npc.she] roughly pushes you to the floor once more."
+						+ "</p>"
+						+ "<p>"
+							+ "[npc.speech(You're not good enough for me to be interested in you just yet!)] [npc.she] growls down at you, [npc.speech(Come back and pay me another visit, <i>or else</i>! I'm going to turn you into my perfect little "
+								+"<b style='color:"+Main.game.getActiveNPC().getPreferredBody().getGender().getColour().toWebHexString()+";'>"
+									+(Main.game.getActiveNPC().getPreferredBody().getGender().getName())
+								+"</b> "
+								+"<b style='color:"+Main.game.getActiveNPC().getPreferredBody().getRace().getColour().toWebHexString()+";'>"
+									+(Main.game.getActiveNPC().getPreferredBody().getRace().getName())
+								+"</b>!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "With that, [npc.she] turns around and runs off, leaving you panting and sweating as you attempt to recover from the transformations that were just forced upon you..."
+						+ "</p>");
+			}
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
+				if (index == 1) {
+					return new ResponseSex("Sex",
+							"[npc.Name] forces [npc.herself] on you...",
+							false, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX_DEFEAT,
+							"<p>"
+								+ "[npc.Name]'s [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally breaking away from you."
+								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
+							+ "</p>");
+					
+				} else if (index == 2) {
+					return new ResponseSex("Eager Sex",
+							"[npc.Name] forces [npc.herself] on you...",
+							false, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX_DEFEAT,
+							"<p>"
+								+ "[npc.Name]'s [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
+								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.she]'s going to want more than just a kiss..."
+							+ "</p>") {
+						@Override
+						public SexPace getStartingSexPaceModifier(GameCharacter character) {
+							if(character.isPlayer()) {
+								return SexPace.SUB_EAGER;
+							}
+							return null;
+						}
+					};
+					
+				} else if (index == 3 && Main.game.isNonConEnabled()) {
+					return new ResponseSex("Resist Sex",
+							"[npc.Name] forces [npc.herself] on you...",
+							false, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX_DEFEAT,
+							"<p>"
+								+ "[npc.Name]'s [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
+								+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
+								+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.she]'s not going to let you go..."
+							+ "</p>") {
+						@Override
+						public SexPace getStartingSexPaceModifier(GameCharacter character) {
+							if(character.isPlayer()) {
+								return SexPace.SUB_RESISTING;
+							}
+							return null;
+						}
+					};
+					
+				} else {
+					return null;
+				}
+				
+			} else {
+				if (index == 1) {
+					return new Response("Continue", "Carry on your way.", AFTER_COMBAT_DEFEAT){
+						@Override
+						public DialogueNodeOld getNextDialogue() {
+							return DebugDialogue.getDefaultDialogueNoEncounter();
 						}
 					};
 					
@@ -761,34 +955,36 @@ public class HarpyNestsAttackerDialogue {
 
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfPartnerOrgasms() >= 1) {
+			if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
 				return UtilText.parse(Main.game.getActiveNPC(),
 						"<p>"
-							+ "As you step back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her] orgasm"+(Sex.getNumberOfPartnerOrgasms() > 1?"s":"")+"."
+							+ "As you step back from [npc.name], [npc.she] sinks to the floor, totally worn out from [npc.her] orgasm"+(Sex.getNumberOfOrgasms(Sex.getActivePartner()) > 1?"s":"")+"."
 							+ " Looking up at you, a satisfied smile settles across [npc.her] face, and you realise that you gave [npc.herHim] exactly what [npc.she] wanted."
-						+ "</p>"
-						+ "<p>"
-							+ "Leaving [npc.herHim] to recover by [npc.herself], you set off and continue on your way."
 						+ "</p>");
 			} else {
 				return UtilText.parse(Main.game.getActiveNPC(),
 						"<p>"
 							+ "As you step back from [npc.name], [npc.she] sinks to the floor, letting out a desperate whine as [npc.she] realises that you've finished."
 							+ " [npc.Her] [npc.hands] dart down between [npc.her] [npc.legs], and [npc.she] frantically starts masturbating as [npc.she] seeks to finish what you started."
-						+ "</p>"
-						+ "<p>"
-							+ "Leaving [npc.herHim] to get some pleasure by [npc.herself], you set off and continue on your way."
 						+ "</p>");
 			}
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", AFTER_SEX_VICTORY){
 					@Override
 					public DialogueNodeOld getNextDialogue(){
 						return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(false);
+					}
+				};
+				
+			} else if (index == 6) {
+				return new ResponseEffectsOnly("Inventory", "There's nothing stopping you from helping yourself to [npc.name]'s clothing and items..."){
+					@Override
+					public void effects() {
+						Main.mainController.openInventory(Main.game.getActiveNPC(), InventoryInteraction.FULL_MANAGEMENT);
 					}
 				};
 				
@@ -800,11 +996,11 @@ public class HarpyNestsAttackerDialogue {
 					
 					@Override
 					public DialogueNodeOld getNextDialogue() {
-						return GenericDialogue.getDefaultDialogueNoEncounter();
+						return DebugDialogue.getDefaultDialogueNoEncounter();
 					}
 					@Override
 					public void effects() {
-						Main.game.removeNPC(Main.game.getActiveNPC());
+						Main.game.banishNPC(Main.game.getActiveNPC());
 					}
 				};
 				
@@ -843,7 +1039,7 @@ public class HarpyNestsAttackerDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", AFTER_SEX_VICTORY){
 					@Override
@@ -881,16 +1077,18 @@ public class HarpyNestsAttackerDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", ENSLAVEMENT_DIALOGUE){
 					@Override
 					public void effects() {
 						Main.game.getActiveNPC().setPlayerKnowsName(true);
+						Main.game.getActiveNPC().setAffection(Main.game.getPlayer(), -100+Util.random.nextInt(10));
+						Main.game.getActiveNPC().setObedience(-100+Util.random.nextInt(10));
 					}
 					@Override
 					public DialogueNodeOld getNextDialogue(){
-						return GenericDialogue.getDefaultDialogueNoEncounter();
+						return DebugDialogue.getDefaultDialogueNoEncounter();
 					}
 				};
 				

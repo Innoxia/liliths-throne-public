@@ -7,13 +7,15 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.Map.Entry;
 import java.util.function.Function;
 
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
-import com.lilithsthrone.game.inventory.clothing.CoverableArea;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 
 import javafx.scene.input.KeyCode;
@@ -23,7 +25,7 @@ import javafx.scene.paint.Color;
  * This is just a big mess of utility classes that I wanted to throw somewhere.
  * 
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.1.96
  * @author Innoxia
  */
 public class Util {
@@ -139,55 +141,101 @@ public class Util {
 
 		return list;
 	}
-
-	// This seems stupid... ;_;
-	public static String intToString(int integer) {
-		switch (integer) {
-		case 0:
-			return "zero";
-		case 1:
-			return "one";
-		case 2:
-			return "two";
-		case 3:
-			return "three";
-		case 4:
-			return "four";
-		case 5:
-			return "five";
-		case 6:
-			return "six";
-		case 7:
-			return "seven";
-		case 8:
-			return "eight";
-		case 9:
-			return "nine";
-		case 10:
-			return "ten";
-		case 11:
-			return "eleven";
-		case 12:
-			return "twelve";
-		case 13:
-			return "thirteen";
-		case 14:
-			return "fourteen";
-		case 15:
-			return "fifteen";
-		case 16:
-			return "sixteen";
-		case 17:
-			return "seventeen";
-		case 18:
-			return "eighteen";
-		case 19:
-			return "nineteen";
-		case 20:
-			return "twenty";
-		default:
-			return String.valueOf(integer);
+	
+	public static <T> T getRandomObjectFromWeightedMap(Map<T, Integer> map) {
+		int total = 0;
+		for(int i : map.values()) {
+			total+=i;
 		}
+		
+		int choice = Util.random.nextInt(total) + 1;
+		
+		total = 0;
+		for(Entry<T, Integer> entry : map.entrySet()) {
+			total+=entry.getValue();
+			if(choice<=total) {
+				return entry.getKey();
+			}
+		}
+
+		return null;
+	}
+
+	public static String getDayOfMonthSuffix(int n) {
+		if (n >= 11 && n <= 13) {
+	    	return "th";
+	    }
+	    switch (n % 10) {
+	    	case 1:  return "st";
+	    	case 2:  return "nd";
+	    	case 3:  return "rd";
+	    	default: return "th";
+	    }
+	}
+	
+	private static String[] numbersLessThanTwenty = {
+			"zero",
+			"one",
+			"two",
+			"three",
+			"four",
+			"five",
+			"six",
+			"seven",
+			"eight",
+			"nine",
+			"ten",
+			"eleven",
+			"twelve",
+			"thirteen",
+			"fourteen",
+			"fifteen",
+			"sixteen",
+			"seventeen",
+			"eighteen",
+			"nineteen"
+	};
+	private static String[] tensGreaterThanNineteen = {
+			"",
+			"",
+			"twenty",
+			"thirty",
+			"forty",
+			"fifty",
+			"sixty",
+			"seventy",
+			"eighty",
+			"ninety"
+	};
+	
+	public static String intToString(int integer) {
+		if(integer>=0 && integer<1000){
+			String intToString = "";
+			if(integer>=100) {
+				intToString = numbersLessThanTwenty[(integer%1000)/100]+" hundred";
+				if(integer%100!=0) {
+					if(integer%100<20) {
+						intToString+=" and "+numbersLessThanTwenty[integer%100];
+					} else {
+						intToString+=" and "+tensGreaterThanNineteen[(integer%100)/10] + ((integer%10!=0)?"-"+numbersLessThanTwenty[integer%10]:"");
+					}
+				}
+			} else {
+				if(integer%100<20) {
+					intToString+=numbersLessThanTwenty[integer%100];
+				} else {
+					intToString+=tensGreaterThanNineteen[(integer%100)/10] + ((integer%10!=0)?"-"+numbersLessThanTwenty[integer%10]:"");
+				}
+			}
+			
+			return intToString;
+		}
+		
+		return String.valueOf(integer);
+	}
+	
+	public static String formatForHTML(String input) {
+		return input.replaceAll("'", "&apos;").replaceAll("\"", "&quot;");
 	}
 	
 	public static String getKeyCodeCharacter(KeyCode code) {

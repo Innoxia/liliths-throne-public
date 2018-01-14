@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lilithsthrone.game.character.body.CoverableArea;
+
 /**
  * @since 0.1.6?
  * @version 0.1.78

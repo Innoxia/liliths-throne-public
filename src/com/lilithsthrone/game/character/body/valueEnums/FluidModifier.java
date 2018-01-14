@@ -2,7 +2,7 @@ package com.lilithsthrone.game.character.body.valueEnums;
 
 /**
  * @since 0.1.83
- * @version 0.1.83
+ * @version 0.1.89
  * @author Innoxia
  */
 public enum FluidModifier {
@@ -14,7 +14,7 @@ public enum FluidModifier {
 	BUBBLING("bubbling"),
 	ALCOHOLIC("alcoholic"),
 	ADDICTIVE("addictive"),
-	HALLUCINOGENIC("hallucinogenic");
+	HALLUCINOGENIC("psychoactive");
 	
 	private String descriptor;
 

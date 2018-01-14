@@ -2,6 +2,7 @@ package com.lilithsthrone.game.sex.sexActions.dominion.pix;
 
 import java.util.List;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
@@ -17,12 +18,36 @@ import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.69.9
- * @version 0.1.69.9
+ * @version 0.1.89
  * @author Innoxia
  */
 public class PixOrgasms {
 
 	// Player:
+	
+	public static final SexAction PLAYER_PREPARE = new SexAction(
+			SexActionType.PLAYER_PREPARE_PARTNER_ORGASM,
+			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.TWO_LOW,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			null) {
+		
+		@Override
+		public String getActionTitle() {
+			return "Prepare";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "You can feel that [npc.name] is fast approaching [npc.her] orgasm. Prepare yourself for it.";
+		}
+		
+		@Override
+		public String getDescription() {
+			return "You find yourself unable to make a move as Pix presses herself against your back; pinning you to the wall of the shower as she prepares to orgasm.";
+		}
+	};
 	
 	public static final SexAction PLAYER_ORGASM_PROMISE = new SexAction(
 			SexActionType.PLAYER_ORGASM,
@@ -128,7 +153,7 @@ public class PixOrgasms {
 	
 	public static final SexAction PLAYER_ORGASM_REFUSE = new SexAction(
 			SexActionType.PLAYER_ORGASM_NO_AROUSAL_RESET,
-			ArousalIncrease.NEGATIVE,
+			ArousalIncrease.NEGATIVE_MAJOR,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
 			null,
@@ -166,17 +191,37 @@ public class PixOrgasms {
 		}
 		
 		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DENIAL));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
+		public List<Fetish> getFetishes(GameCharacter character) {
 			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DENIAL));
 		}
 	};
 	
 	// Pix orgasm:
+	
+	public static final SexAction PARTNER_PREPARE = new SexAction(
+			SexActionType.PARTNER_PREPARE_PLAYER_ORGASM,
+			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.TWO_LOW,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			null) {
+		
+		@Override
+		public String getActionTitle() {
+			return "Prepare";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "You can feel that [pc.name] is fast approaching [pc.her] orgasm. Prepare yourself for it.";
+		}
+		
+		@Override
+		public String getDescription() {
+			return "Pix suddenly presses you up against the wall, and, leaning in over your shoulder, she growls into your ear, "
+					+"[npc.speech(Aww, you ready to cum? Promise that you're gonna come back to train, or else you're never gonna get off!)]";
+		}
+	};
 	
 	public static final SexAction PARTNER_ORGASM_PIX_REWARD = new SexAction(
 			SexActionType.PARTNER_ORGASM,

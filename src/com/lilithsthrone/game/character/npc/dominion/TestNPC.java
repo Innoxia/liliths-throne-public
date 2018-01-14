@@ -1,10 +1,12 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
@@ -18,7 +20,7 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.npcDialogue.DominionAlleywayAttackerDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.alleyway.AlleywayAttackerDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
@@ -30,20 +32,22 @@ import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.managers.universal.SMDomDoggy;
-import com.lilithsthrone.game.sex.managers.universal.SMDomStanding;
+import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
+import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.Jungle;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * Test class that I'm using to try out some methods and stuff. It might end up as a bit of a mess, but don't remove it.
  * 
  * @since 0.1.83
- * @version 0.1.84
+ * @version 0.1.89
  * @author Innoxia
  */
 public class TestNPC extends NPC {
@@ -51,68 +55,94 @@ public class TestNPC extends NPC {
 	private static final long serialVersionUID = 1L;
 
 	public TestNPC() {
+		this(false);
+	}
+	
+	private TestNPC(boolean isImported) {
 		super(new NameTriplet("TestNPC"),
 				"A mysterious [test.race] that you found in the back of one of the Shopping Arcade's many shops.",
 				1, Gender.F_V_B_FEMALE, RacialBody.CAT_MORPH, RaceStage.PARTIAL_FULL,
-				new CharacterInventory(10), WorldType.JUNGLE, Jungle.JUNGLE_CLUB, true); //TODO need to test moving into a 'null' world
+				new CharacterInventory(10), WorldType.JUNGLE, PlaceType.JUNGLE_CLUB, true); //TODO need to test moving into a 'null' world
+		
+		if(!isImported) {
+			String s = "";
+			int[] nameArray = new int[] {78, 111, 120, 105, 110, 105, 97};
+			for(int c : nameArray) {
+				s+=(char)c;
+			}
+			this.setName(new NameTriplet(s));
+			
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+			
+			this.setEyeCovering(new Covering(BodyCoveringType.EYE_FELINE, Colour.EYE_GREEN));
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, Colour.COVERING_BROWN), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.FELINE_FUR, Colour.COVERING_BROWN), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
+	
+			this.setAttribute(Attribute.STRENGTH, 5);
+			this.setAttribute(Attribute.INTELLIGENCE, 25);
+			this.setAttribute(Attribute.FITNESS, 20);
+			this.setAttribute(Attribute.CORRUPTION, 0);
+			
+			this.setFemininity(75);
+			
+			this.setHeight(170);
+			
+			this.setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
+			
+			this.setAssSize(AssSize.THREE_NORMAL.getValue());
+			
+			this.setBreastSize(CupSize.B.getMeasurement());
+			
+			this.setHipSize(HipSize.FOUR_WOMANLY.getValue());
+			
+			this.setPiercedEar(true);
+			
+			this.setAssVirgin(true);
+			this.setNippleVirgin(true);
+			this.setVaginaVirgin(true);
+			this.setFaceVirgin(true);
+			
+			this.addFetish(Fetish.FETISH_ANAL_RECEIVING);
+			this.addFetish(Fetish.FETISH_BREASTS_SELF);
+			this.addFetish(Fetish.FETISH_BROODMOTHER);
+			this.addFetish(Fetish.FETISH_CUM_ADDICT);
+			this.addFetish(Fetish.FETISH_DOMINANT);
+			this.addFetish(Fetish.FETISH_INCEST);
+			this.addFetish(Fetish.FETISH_MASOCHIST);
+			this.addFetish(Fetish.FETISH_MASTURBATION);
+			this.addFetish(Fetish.FETISH_NON_CON_SUB);
+			this.addFetish(Fetish.FETISH_ORAL_GIVING);
+			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
+			this.addFetish(Fetish.FETISH_PREGNANCY);
+			this.addFetish(Fetish.FETISH_PURE_VIRGIN);
+			this.addFetish(Fetish.FETISH_SUBMISSIVE);
+			this.addFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING);
+			
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_WHITE, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_HOODIE, Colour.CLOTHING_PINK_LIGHT, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_HOTPANTS, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_THIGHHIGH_SOCKS, Colour.CLOTHING_WHITE, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HEAD_HEADBAND, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false), true, this);
+		}
+		
+		this.setEnslavementDialogue(AlleywayAttackerDialogue.ENSLAVEMENT_DIALOGUE);
+	}
+	
+	@Override
+	public TestNPC loadFromXML(Element parentElement, Document doc) {
+		TestNPC npc = new  TestNPC(true);
 
-		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		loadNPCVariablesFromXML(npc, null, parentElement, doc);
 		
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_FELINE, Colour.EYE_GREEN));
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, Colour.COVERING_BROWN), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.FELINE_FUR, Colour.COVERING_BROWN), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
+		return npc;
+	}
 
-		this.setAttribute(Attribute.STRENGTH, 5);
-		this.setAttribute(Attribute.INTELLIGENCE, 25);
-		this.setAttribute(Attribute.FITNESS, 20);
-		this.setAttribute(Attribute.CORRUPTION, 0);
-		
-		this.setFemininity(75);
-		
-		this.setHeight(170);
-		
-		this.setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
-		
-		this.setAssSize(AssSize.THREE_NORMAL.getValue());
-		
-		this.setBreastSize(CupSize.B.getMeasurement());
-		
-		this.setHipSize(HipSize.FOUR_WOMANLY.getValue());
-		
-		this.setPiercedEar(true);
-		
-		this.setAssVirgin(true);
-		this.setNippleVirgin(true);
-		this.setVaginaVirgin(true);
-		this.setFaceVirgin(true);
-		
-		this.addFetish(Fetish.FETISH_ANAL_RECEIVING);
-		this.addFetish(Fetish.FETISH_BREASTS_SELF);
-		this.addFetish(Fetish.FETISH_BROODMOTHER);
-		this.addFetish(Fetish.FETISH_CUM_ADDICT);
-		this.addFetish(Fetish.FETISH_DOMINANT);
-		this.addFetish(Fetish.FETISH_INCEST);
-		this.addFetish(Fetish.FETISH_MASOCHIST);
-		this.addFetish(Fetish.FETISH_MASTURBATION);
-		this.addFetish(Fetish.FETISH_NON_CON);
-		this.addFetish(Fetish.FETISH_ORAL_GIVING);
-		this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
-		this.addFetish(Fetish.FETISH_PREGNANCY);
-		this.addFetish(Fetish.FETISH_PURE_VIRGIN);
-		this.addFetish(Fetish.FETISH_SUBMISSIVE);
-		this.addFetish(Fetish.FETISH_TRANSFORMATION);
-		
-
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_HOODIE, Colour.CLOTHING_PINK_LIGHT, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_HOTPANTS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_THIGHHIGH_SOCKS, Colour.CLOTHING_WHITE, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HEAD_HEADBAND, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false), true, this);
-		
-		this.setEnslavementDialogue(DominionAlleywayAttackerDialogue.ENSLAVEMENT_DIALOGUE);
+	@Override
+	public boolean isUnique() {
+		return true;
 	}
 	
 	@Override
@@ -158,14 +188,14 @@ public class TestNPC extends NPC {
 	}
 	
 	@Override
-	public boolean isWantsToHaveSexWithPlayer() {
-		return getSexPaceSubPreference()!=SexPace.SUB_RESISTING;
+	public boolean isAttractedTo(GameCharacter character) {
+		return getSexPaceSubPreference(Main.game.getPlayer())!=SexPace.SUB_RESISTING;
 	}
 
 	public static boolean resisting = true;
 	
 	@Override
-	public SexPace getSexPaceSubPreference(){
+	public SexPace getSexPaceSubPreference(GameCharacter character){
 		if(resisting && Main.game.isNonConEnabled()) {
 			return SexPace.SUB_RESISTING;
 		} else {
@@ -194,7 +224,7 @@ public class TestNPC extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new Response("Step inside", "Slip through the open door, careful not to alert the occupant of your presence.", TEST_DIALOGUE_ENTER) {
 					@Override
@@ -241,7 +271,7 @@ public class TestNPC extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
 				return new Response("Say hello", "Say hello and ask [test.herHim] what [test.she]'s doing.", TEST_DIALOGUE_GREET) {
 						@Override
@@ -251,11 +281,13 @@ public class TestNPC extends NPC {
 					};
 				
 			} else if (index == 2 && Main.game.isNonConEnabled()) {
-				return new ResponseSex(
-						"Rape [test.herHim]", "[test.Her] back is turned, and [test.she] hasn't noticed you enter the room...", TEST_DIALOGUE_AFTER_RAPE,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)), null, CorruptionLevel.FOUR_LUSTFUL,
-						null, null, null,
-						Main.game.getTestNPC(), new SMDomDoggy(), TEST_DIALOGUE_AFTER_RAPE,
+				return new ResponseSex("Rape [test.herHim]", "[test.Her] back is turned, and [test.she] hasn't noticed you enter the room...",
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
+						false, false,
+						new SMDoggy(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getTestNPC(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
+						TEST_DIALOGUE_AFTER_RAPE,
 						"<p>"
 							+ "You quietly close the door and lock it behind you. After all, you wouldn't want anyone interrupting your fun."
 							+ " Stealthily moving forwards, you approach the oblivious [test.race], smiling to yourself as you hear [test.her] grumbling and mumbling to [test.herself]."
@@ -272,10 +304,13 @@ public class TestNPC extends NPC {
 						+ "</p>");
 				
 			} else if (index == 3 && Main.game.isNonConEnabled()) {
-				return new ResponseSex("Rape [test.herHim] (gentle)", "[test.Her] back is turned, and [test.she] hasn't noticed you enter the room... (Start the sex scene in the 'gentle' pace.)", TEST_DIALOGUE_AFTER_RAPE,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)), null, CorruptionLevel.FOUR_LUSTFUL,
-						null, null, null,
-						Main.game.getTestNPC(), new SMDomDoggy(), TEST_DIALOGUE_AFTER_RAPE,
+				return new ResponseSex("Rape [test.herHim] (gentle)", "[test.Her] back is turned, and [test.she] hasn't noticed you enter the room... (Start the sex scene in the 'gentle' pace.)",
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
+						false, false,
+						new SMDoggy(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getTestNPC(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
+						TEST_DIALOGUE_AFTER_RAPE,
 						"<p>"
 							+ "You quietly close the door and lock it behind you. After all, you wouldn't want anyone interrupting your fun."
 							+ " Stealthily moving forwards, you approach the oblivious [test.race], smiling to yourself as you hear [test.her] grumbling and mumbling to [test.herself]."
@@ -291,16 +326,22 @@ public class TestNPC extends NPC {
 							+ " [pc.speech(Hush now, there's no point in struggling, you're mine now!)]"
 						+ "</p>") {
 					@Override
-					public void effects() {
-						sexPacePlayer = (SexPace.DOM_GENTLE);
+					public SexPace getStartingSexPaceModifier(GameCharacter character) {
+						if(character.isPlayer()) {
+							return SexPace.DOM_GENTLE;
+						}
+						return null;
 					}
 				};
 				
 			} else if (index == 4 && Main.game.isNonConEnabled()) {
-				return new ResponseSex("Rape [test.herHim] (rough)", "[test.Her] back is turned, and [test.she] hasn't noticed you enter the room... (Start the sex scene in the 'rough' pace.)", TEST_DIALOGUE_AFTER_RAPE,
-						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SADIST)), null, CorruptionLevel.FOUR_LUSTFUL,
-						null, null, null,
-						Main.game.getTestNPC(), new SMDomDoggy(), TEST_DIALOGUE_AFTER_RAPE,
+				return new ResponseSex("Rape [test.herHim] (rough)", "[test.Her] back is turned, and [test.she] hasn't noticed you enter the room... (Start the sex scene in the 'rough' pace.)",
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM)), null, Fetish.FETISH_NON_CON_DOM.getAssociatedCorruptionLevel(), null, null, null,
+						false, false,
+						new SMDoggy(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getTestNPC(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
+						TEST_DIALOGUE_AFTER_RAPE,
 						"<p>"
 							+ "You quietly close the door and lock it behind you. After all, you wouldn't want anyone interrupting your fun."
 							+ " Stealthily moving forwards, you approach the oblivious [test.race], smiling to yourself as you hear [test.her] grumbling and mumbling to [test.herself]."
@@ -317,8 +358,11 @@ public class TestNPC extends NPC {
 							+ " [pc.speech(Scream all you want, bitch! You're mine now!)]"
 						+ "</p>") {
 					@Override
-					public void effects() {
-						sexPacePlayer = (SexPace.DOM_ROUGH);
+					public SexPace getStartingSexPaceModifier(GameCharacter character) {
+						if(character.isPlayer()) {
+							return SexPace.DOM_ROUGH;
+						}
+						return null;
 					}
 				};
 				
@@ -366,12 +410,15 @@ public class TestNPC extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseSex("Sex",
 						"Well, [test.she] <i>is</i> asking for it!",
+						true, true,
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getTestNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
 						TEST_DIALOGUE_AFTER_SEX,
-						Main.game.getTestNPC(), new SMDomStanding(), TEST_DIALOGUE_AFTER_SEX,
 						"<p>"
 							+ "You step forwards, wrapping your [pc.arms] around the [test.race] and pulling [test.herHim] into you."
 						+ "</p>"
@@ -383,8 +430,11 @@ public class TestNPC extends NPC {
 			} else if (index == 2) {
 				return new ResponseSex("Sex (gentle)",
 						"Well, [test.she] <i>is</i> asking for it! (Start the sex scene in the 'gentle' pace.)",
+						true, true,
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getTestNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
 						TEST_DIALOGUE_AFTER_SEX,
-						Main.game.getTestNPC(), new SMDomStanding(), TEST_DIALOGUE_AFTER_SEX,
 						"<p>"
 							+ "You step forwards, gently wrapping your [pc.arms] around the [test.race] and lovingly pulling [test.herHim] into you."
 						+ "</p>"
@@ -393,16 +443,22 @@ public class TestNPC extends NPC {
 							+ " [test.speech(Fuck me!)]"
 						+ "</p>") {
 					@Override
-					public void effects() {
-						sexPacePlayer = (SexPace.DOM_GENTLE);
+					public SexPace getStartingSexPaceModifier(GameCharacter character) {
+						if(character.isPlayer()) {
+							return SexPace.DOM_GENTLE;
+						}
+						return null;
 					}
 				};
 				
 			} else if (index == 3) {
 				return new ResponseSex("Sex (rough)",
 						"Well, [test.she] <i>is</i> asking for it! (Start the sex scene in the 'rough' pace.)",
+						true, true,
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getTestNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
 						TEST_DIALOGUE_AFTER_SEX,
-						Main.game.getTestNPC(), new SMDomStanding(), TEST_DIALOGUE_AFTER_SEX,
 						"<p>"
 								+ "You step forwards, wrapping your [pc.arms] around the [test.race] and roughly pulling [test.herHim] into you."
 							+ "</p>"
@@ -411,8 +467,11 @@ public class TestNPC extends NPC {
 								+ " [test.speech(Yes! I like it rough!)]"
 							+ "</p>") {
 					@Override
-					public void effects() {
-						sexPacePlayer = (SexPace.DOM_ROUGH);
+					public SexPace getStartingSexPaceModifier(GameCharacter character) {
+						if(character.isPlayer()) {
+							return SexPace.DOM_ROUGH;
+						}
+						return null;
 					}
 				};
 				
@@ -443,7 +502,7 @@ public class TestNPC extends NPC {
 
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfPartnerOrgasms() >= 1) {
+			if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
 				return "<p>"
 							+ "The [test.race] collapses to the floor, sobbing."
 							+ " Grinning down at [test.her] despoiled body, you turn to the door and prepare to make your exit."
@@ -464,7 +523,7 @@ public class TestNPC extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(index==0) {
 				return new Response("Leave", "Exit the room.", TEST_DIALOGUE) {
 					@Override
@@ -484,9 +543,9 @@ public class TestNPC extends NPC {
 
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfPartnerOrgasms() >= 1) {
+			if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
 				return "<p>"
-							+ "The [test.race] collapses to the floor, totally worn out and satisfied from the orgasm"+(Sex.getNumberOfPartnerOrgasms() > 1?"s":"")+" you gave to [test.herHim]."
+							+ "The [test.race] collapses to the floor, totally worn out and satisfied from the orgasm"+(Sex.getNumberOfOrgasms(Sex.getActivePartner()) > 1?"s":"")+" you gave to [test.herHim]."
 							+ " Grinning down at [test.her] delicate body, you turn to the door and prepare to make your exit."
 							+ " As you reach for the handle, you turn around and chuckle,"
 							+ " [test.speech(That was fun! Maybe I'll pay you another visit some time!)]"
@@ -502,7 +561,7 @@ public class TestNPC extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if(index==0) {
 				return new Response("Leave", "Exit the room.", TEST_DIALOGUE) {
 					@Override
@@ -516,16 +575,6 @@ public class TestNPC extends NPC {
 			}
 		}
 	};
-	
-	@Override
-	public String getName() {
-		String s = "";
-		int[] nameArray = new int[] {78, 111, 120, 105, 110, 105, 97};
-		for(int c : nameArray) {
-			s+=(char)c;
-		}
-		return s;
-	}
 	
 	// Combat:
 	@Override
@@ -550,11 +599,6 @@ public class TestNPC extends NPC {
 	}
 	
 	@Override
-	public String getLostVirginityDescriptor() {
-		return "as you fucked her in her room";
-	}
-	
-	@Override
 	public String getItemUseEffects(AbstractItem item, GameCharacter user, GameCharacter target){
 		// Player is using an item:
 		if(user.isPlayer()){
@@ -564,36 +608,9 @@ public class TestNPC extends NPC {
 				
 			// Player uses item on NPC:
 			}else{
-				if(item.getItemType().equals(ItemType.CONDOM)) {
-					if(target.isWearingCondom()) {
-						return "<p>"
-								+ "[npc.Name] is already wearing a condom, and [npc.she] refuses to wear two at once."
-								+ "</p>";
-						
-					} else if(target.hasPenis()) {
-						Main.game.getPlayer().useItem(item, target, false);
-						if(Sex.isPlayerDom()) {
-							return "<p>"
-									+ "Holding out a condom to [npc.name], you force [npc.herHim] to take it and put it on."
-									+ " Quickly ripping it out of its little foil wrapper, [npc.she] rolls it down the length of [npc.her] [npc.cock+] as [npc.she] whines at you,"
-									+ " [npc.speech(Do I really have to? It feels so much better without one...)]"
-									+ "</p>";
-						} else {
-							return "<p>"
-									+ "Holding out a condom to [npc.name], you let out a sigh of relief as [npc.she] reluctantly takes it."
-									+ " Quickly ripping it out of its little foil wrapper, [npc.she] rolls it down the length of [npc.her] [npc.cock+] as [npc.she] growls at you,"
-									+ " [npc.speech(You'd better be glad that I'm in a good mood!)]"
-									+ "</p>";
-						}
-					} else {
-						return "<p>"
-								+ "[npc.Name] doesn't have a penis, so [npc.she] can't use the condom!"
-								+ "</p>";
-					}
-					
-			} else if(item.getItemType().equals(ItemType.PROMISCUITY_PILL)) {
+				if(item.getItemType().equals(ItemType.PROMISCUITY_PILL)) {
 					Main.game.getPlayer().useItem(item, target, false);
-					if(Sex.isPlayerDom()) {
+					if(Sex.isDom(Main.game.getPlayer())) {
 						return "<p>"
 								+ "Holding out a 'Promiscuity pill' to [npc.name], you tell [npc.her] to swallow it so that you don't have to worry about any unexpected pregnancies."
 								+ " Letting out a reluctant sigh, [npc.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [npc.she] whines at you,"
@@ -610,7 +627,7 @@ public class TestNPC extends NPC {
 				} else if(item.getItemType().equals(ItemType.VIXENS_VIRILITY)) {
 					
 						Main.game.getPlayer().useItem(item, target, false);
-						if(Sex.isPlayerDom()) {
+						if(Sex.isDom(Main.game.getPlayer())) {
 							return "<p>"
 									+ "Holding out a 'Vixen's Virility' pill to [npc.name], you tell [npc.her] to swallow it."
 									+ " Letting out a reluctant sigh, [npc.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [npc.she] whines at you,"
@@ -624,9 +641,9 @@ public class TestNPC extends NPC {
 									+ "</p>";
 						}
 						
-				} else if(item.getItemType().equals(ItemType.POTION) || item.getItemType().equals(ItemType.ELIXIR)) {
+				} else if(item.getItemType().equals(ItemType.POTION) || item.getItemType().equals(ItemType.ELIXIR) || item.getItemType().equals(ItemType.FETISH_UNREFINED) || item.getItemType().equals(ItemType.FETISH_REFINED)) {
 					
-						if(Sex.isPlayerDom()) {
+						if(Sex.isDom(Main.game.getPlayer())) {
 							return "<p>"
 										+ "Taking your "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
 										+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
@@ -648,7 +665,7 @@ public class TestNPC extends NPC {
 						
 				} else if(item.getItemType().equals(ItemType.MOTHERS_MILK)) {
 					
-						if(Sex.isPlayerDom()) {
+						if(Sex.isDom(Main.game.getPlayer())) {
 							return "<p>"
 										+ "Taking the bottle of "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
 										+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
@@ -671,11 +688,13 @@ public class TestNPC extends NPC {
 				} else if(item.getItemType().equals(ItemType.RACE_INGREDIENT_CAT_MORPH)
 						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_DOG_MORPH)
 						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_HARPY)
+						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_COW_MORPH)
 						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_HORSE_MORPH)
+						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_ALLIGATOR_MORPH)
 						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_SQUIRREL_MORPH)
 						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_WOLF_MORPH)) {
 					
-						if(Sex.isPlayerDom()) {
+						if(Sex.isDom(Main.game.getPlayer())) {
 							return "<p>"
 										+ "Taking the "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
 										+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
@@ -697,7 +716,7 @@ public class TestNPC extends NPC {
 						
 				} else if(item.getItemType().equals(ItemType.SEX_INGREDIENT_HARPY_PERFUME)) {
 					
-						if(Sex.isPlayerDom()) {
+						if(Sex.isDom(Main.game.getPlayer())) {
 							return "<p>"
 										+ "Taking the "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
 										+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
@@ -721,11 +740,13 @@ public class TestNPC extends NPC {
 						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_DEMON)
 						|| item.getItemType().equals(ItemType.FIT_INGREDIENT_CANINE_CRUSH)
 						|| item.getItemType().equals(ItemType.FIT_INGREDIENT_SQUIRREL_JAVA)
+						|| item.getItemType().equals(ItemType.STR_INGREDIENT_BUBBLE_MILK)
 						|| item.getItemType().equals(ItemType.INT_INGREDIENT_FELINE_FANCY)
 						|| item.getItemType().equals(ItemType.STR_INGREDIENT_EQUINE_CIDER)
-						|| item.getItemType().equals(ItemType.STR_INGREDIENT_WOLF_WHISKEY)) {
+						|| item.getItemType().equals(ItemType.STR_INGREDIENT_WOLF_WHISKEY)
+						|| item.getItemType().equals(ItemType.STR_INGREDIENT_SWAMP_WATER)) {
 					
-						if(Sex.isPlayerDom()) {
+						if(Sex.isDom(Main.game.getPlayer())) {
 							return "<p>"
 										+ "Taking the bottle of "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
 										+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
@@ -747,7 +768,7 @@ public class TestNPC extends NPC {
 	
 				} else if(item.getItemType().equals(ItemType.EGGPLANT)) {
 					
-					if(Sex.isPlayerDom()) {
+					if(Sex.isDom(Main.game.getPlayer())) {
 						return "<p>"
 									+ "Taking the eggplant from your inventory, you hold it out to [npc.name]."
 									+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
@@ -775,7 +796,7 @@ public class TestNPC extends NPC {
 			
 		// NPC is using an item:
 		}else{
-			return Sex.getPartner().useItem(item, target, false);
+			return Sex.getActivePartner().useItem(item, target, false);
 		}
 	}
 }

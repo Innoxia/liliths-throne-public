@@ -33,11 +33,15 @@ public enum VaginaType implements BodyPartTypeInterface {
 
 	SQUIRREL_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_SQUIRREL_MORPH, Race.SQUIRREL_MORPH),
 	
+	ALLIGATOR_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_ALLIGATOR_MORPH, Race.ALLIGATOR_MORPH),
+	
 	CAT_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_CAT_MORPH, Race.CAT_MORPH),
 
 	COW_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_COW_MORPH, Race.COW_MORPH),
 
 	HORSE_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_HORSE_MORPH, Race.HORSE_MORPH, OrificeModifier.PUFFY),
+
+	REINDEER_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_REINDEER_MORPH, Race.REINDEER_MORPH, OrificeModifier.PUFFY),
 
 	SLIME(BodyCoveringType.VAGINA_SLIME, FluidType.GIRL_CUM_SLIME, Race.SLIME),
 
@@ -135,8 +139,12 @@ public enum VaginaType implements BodyPartTypeInterface {
 						return UtilText.returnStringAtRandom("hot", "animalistic", "cat-like", "feline");
 					case COW_MORPH:
 						return UtilText.returnStringAtRandom("hot", "animalistic", "cow-like", "bovine");
+					case ALLIGATOR_MORPH:
+						return UtilText.returnStringAtRandom("hot", "gator-like", "reptilian");
 					case HORSE_MORPH:
 						return UtilText.returnStringAtRandom("hot", "animalistic", "equine");
+					case REINDEER_MORPH:
+						return UtilText.returnStringAtRandom("hot", "animalistic", "reindeer-like", "rangiferine");
 					case HUMAN:
 						return UtilText.returnStringAtRandom("hot");
 					case NONE:
@@ -150,9 +158,9 @@ public enum VaginaType implements BodyPartTypeInterface {
 				}
 			case 1:
 				if(Main.game.isInSex()) {
-					if(gc.isPlayer() && !Sex.getWetOrificeTypes().get(OrificeType.VAGINA_PLAYER).isEmpty()) {
+					if(gc.isPlayer() && !Sex.getWetOrificeTypes(gc).get(OrificeType.VAGINA_PLAYER).isEmpty()) {
 						return "wet";
-					} else if(!gc.isPlayer() && !Sex.getWetOrificeTypes().get(OrificeType.VAGINA_PARTNER).isEmpty()) {
+					} else if(!gc.isPlayer() && !Sex.getWetOrificeTypes(gc).get(OrificeType.VAGINA_PARTNER).isEmpty()) {
 						return "wet";
 					} else {
 						return gc.getVaginaWetness().getDescriptor();
@@ -166,6 +174,40 @@ public enum VaginaType implements BodyPartTypeInterface {
 		
 	}
 
+	public String getTransformName() {
+		switch(this){
+			case ANGEL:
+				return UtilText.returnStringAtRandom("angelic");
+			case HARPY:
+				return UtilText.returnStringAtRandom("avian");
+			case COW_MORPH:
+				return UtilText.returnStringAtRandom("bovine");
+			case DOG_MORPH:
+				return UtilText.returnStringAtRandom("canine");
+			case DEMON_COMMON:
+				return UtilText.returnStringAtRandom("demonic");
+			case HORSE_MORPH:
+				return UtilText.returnStringAtRandom("equine");
+			case REINDEER_MORPH:
+				return UtilText.returnStringAtRandom("rangiferine");
+			case CAT_MORPH:
+				return UtilText.returnStringAtRandom("feline");
+			case HUMAN:
+				return UtilText.returnStringAtRandom("human");
+			case NONE:
+				return UtilText.returnStringAtRandom("none");
+			case SLIME:
+				return UtilText.returnStringAtRandom("slime");
+			case SQUIRREL_MORPH:
+				return UtilText.returnStringAtRandom("squirrel");
+			case ALLIGATOR_MORPH:
+				return "alligator";
+			case WOLF_MORPH:
+				return UtilText.returnStringAtRandom("lupine");
+		}
+		return "";
+	}
+	
 	@Override
 	public BodyCoveringType getBodyCoveringType() {
 		return skinType;

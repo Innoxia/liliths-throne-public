@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
@@ -14,19 +18,20 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.ItemEffect;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.83
- * @version 0.1.83
+ * @version 0.1.89
  * @author Innoxia
  */
-public class FluidCum implements BodyPartInterface, Serializable {
+public class FluidCum implements BodyPartInterface, Serializable, XMLSaving {
 	private static final long serialVersionUID = 1L;
 	
-	private FluidType type;
-	private FluidFlavour flavour;
-	private List<FluidModifier> fluidModifiers;
-	private List<ItemEffect> transformativeEffects;
+	protected FluidType type;
+	protected FluidFlavour flavour;
+	protected List<FluidModifier> fluidModifiers;
+	protected List<ItemEffect> transformativeEffects;
 
 	public FluidCum(FluidType type) {
 		this.type = type;
@@ -39,6 +44,39 @@ public class FluidCum implements BodyPartInterface, Serializable {
 		}
 	}
 
+	public Element saveAsXML(Element parentElement, Document doc) {
+		Element element = doc.createElement("cum");
+		parentElement.appendChild(element);
+
+		CharacterUtils.addAttribute(doc, element, "type", this.type.toString());
+		CharacterUtils.addAttribute(doc, element, "flavour", this.flavour.toString());
+		Element cumModifiers = doc.createElement("cumModifiers");
+		element.appendChild(cumModifiers);
+		for(FluidModifier fm : FluidModifier.values()) {
+			CharacterUtils.addAttribute(doc, cumModifiers, fm.toString(), String.valueOf(this.hasFluidModifier(fm)));
+		}
+		
+		return element;
+	}
+	
+	public static FluidCum loadFromXML(Element parentElement, Document doc) {
+		
+		Element cum = (Element)parentElement.getElementsByTagName("cum").item(0);
+
+		FluidCum fluidCum = new FluidCum(FluidType.valueOf(cum.getAttribute("type")));
+		
+		fluidCum.flavour = (FluidFlavour.valueOf(cum.getAttribute("flavour")));
+		
+		Element cumModifiers = (Element)cum.getElementsByTagName("cumModifiers").item(0);
+		for(FluidModifier fm : FluidModifier.values()) {
+			if(Boolean.valueOf(cumModifiers.getAttribute(fm.toString()))) {
+				fluidCum.fluidModifiers.add(fm);
+			}
+		}
+		
+		return fluidCum;
+	}
+	
 	@Override
 	public String getDeterminer(GameCharacter gc) {
 		return type.getDeterminer(gc);
@@ -101,10 +139,15 @@ public class FluidCum implements BodyPartInterface, Serializable {
 	}
 
 	public String setFlavour(GameCharacter owner, FluidFlavour flavour) {
+		if(owner==null) {
+			this.flavour = flavour;
+			return "";
+		}
+		
 		if(this.flavour == flavour || !owner.hasPenis()) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
-
+		
 		this.flavour = flavour;
 		
 		if(owner.isPlayer()) {
@@ -126,6 +169,11 @@ public class FluidCum implements BodyPartInterface, Serializable {
 	}
 	
 	public String addFluidModifier(GameCharacter owner, FluidModifier fluidModifier) {
+		if(owner==null) {
+			fluidModifiers.add(fluidModifier);
+			return "";
+		}
+		
 		if(fluidModifiers.contains(fluidModifier) || !owner.hasPenis()) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
@@ -176,13 +224,13 @@ public class FluidCum implements BodyPartInterface, Serializable {
 				if(owner.isPlayer()) {
 					return "<p>"
 								+ "You feel a series of strange pulses shoot up into your [pc.balls], causing you to let out [pc.a_moan+].</br>"
-								+ "Your [pc.cum] is now [style.boldGrow(hallucinogenic)]!"
+								+ "Your [pc.cum] is now [style.boldGrow(psychoactive)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
 								+ "A series of strange pulses shoot up into [npc.name]'s [npc.balls], causing [npc.herHim] to let out [npc.a_moan+].</br>"
-								+ "[npc.Name]'s [npc.cum] is now [style.boldGrow(hallucinogenic)]!"
+								+ "[npc.Name]'s [npc.cum] is now [style.boldGrow(psychoactive)]!"
 							+ "</p>");
 				}
 			case MUSKY:
@@ -293,13 +341,13 @@ public class FluidCum implements BodyPartInterface, Serializable {
 				if(owner.isPlayer()) {
 					return "<p>"
 								+ "You feel a series of soothing waves wash up into your [pc.balls], causing you to let out a gentle sigh.</br>"
-								+ "Your [pc.cum] is [style.boldShrink(no longer hallucinogenic)]!"
+								+ "Your [pc.cum] is [style.boldShrink(no longer psychoactive)]!"
 							+ "</p>";
 				} else {
 					return UtilText.parse(owner,
 							"<p>"
 								+ "A series of soothing waves wash up into [npc.name]'s [npc.balls], causing [npc.herHim] to let out a gentle sigh.</br>"
-								+ "[npc.Name]'s [npc.cum] is [style.boldShrink(no longer hallucinogenic)]!"
+								+ "[npc.Name]'s [npc.cum] is [style.boldShrink(no longer psychoactive)]!"
 							+ "</p>");
 				}
 			case MUSKY:
@@ -392,5 +440,12 @@ public class FluidCum implements BodyPartInterface, Serializable {
 	
 	public List<ItemEffect> getTransformativeEffects() {
 		return transformativeEffects;
+	}
+
+	/**
+	 * DO NOT MODIFY!
+	 */
+	public List<FluidModifier> getFluidModifiers() {
+		return fluidModifiers;
 	}
 }

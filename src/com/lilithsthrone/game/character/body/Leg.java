@@ -14,7 +14,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 public class Leg implements BodyPartInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private LegType type;
+	protected LegType type;
 
 	public Leg(LegType type) {
 		this.type = type;
@@ -160,6 +160,23 @@ public class Leg implements BodyPartInterface, Serializable {
 							+ "</p>");
 				}
 				break;
+			case ALLIGATOR_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" A layer of alligator-like scales quickly grows over your legs as they shift into a new form."
+								+ " As your new scales spread down to the ends of your toes, your toenails thicken into sharp claws, and little scales grow to cover your soles, leaving you with alligator-like feet."
+								+ " As the transformation ends, you see that your new scales smoothly transition into the [pc.skin] covering the rest of your body at your upper-thigh.</br>"
+								+ "You're left with anthropomorphic, [style.boldGatorMorph(alligator-like legs and feet)], which are covered in [pc.legFullDescription]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" A layer of alligator-like scales quickly grows over [npc.her] legs as they shift into a new form."
+								+ " As [npc.her] new scales spread down to the ends of [npc.her] toes, [npc.her] toenails thicken into sharp claws, and little scales grow to cover [npc.her] soles, leaving [npc.herHim] with alligator-like feet."
+								+ " As the transformation ends, [npc.she] sees that [npc.her] new scales smoothly transitions into the [npc.skin] covering the rest of [npc.her] body at [npc.her] upper-thigh.</br>"
+								+ "[npc.Name] now has anthropomorphic, [style.boldGatorMorph(alligator-like legs and feet)], which are covered in [npc.legFullDescription]."
+							+ "</p>");
+				}
+				break;
 			case HORSE_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
@@ -175,6 +192,25 @@ public class Leg implements BodyPartInterface, Serializable {
 									+ " quickly transforming to turn [npc.her] feet into horse-like hooves."
 								+ " As the transformation ends, [npc.she] sees that [npc.her] new fur smoothly transitions into the [npc.skin] covering the rest of [npc.her] body at [npc.her] upper-thigh.</br>"
 								+ "[npc.Name] now has anthropomorphic, [style.boldHorseMorph(horse-like legs and hoofed feet)], which are covered in [npc.legFullDescription]."
+							+ "</p>");
+				}
+				break;
+			case REINDEER_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" A layer of short, reindeer-like hair quickly grows over your legs as they shift into a new form."
+								+ " As your new fur spreads down to the ends of your toes, they suddenly push together, and you let out a cry as a crescent-shaped, cloven hoof grows in their place,"
+									+ " quickly transforming your feet into reindeer-like hooves."
+								+ " As the transformation ends, you see that your new fur smoothly transitions into the [pc.skin] covering the rest of your body at your upper-thigh.</br>"
+								+ "You're left with anthropomorphic, [style.boldReindeerMorph(reindeer-like legs and hoofed feet)], which are covered in [pc.legFullDescription]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" A layer of short, reindeer-like hair quickly grows over [npc.her] legs as they shift into a new form."
+								+ " As [npc.her] new fur spreads down to the ends of [npc.her] toes, they suddenly push together, and [npc.she] lets out a cry as a crescent-shaped, cloven hoof grows in their place,"
+									+ " quickly transforming [npc.her] feet into reindeer-like hooves."
+								+ " As the transformation ends, [npc.she] sees that [npc.her] new fur smoothly transitions into the [npc.skin] covering the rest of [npc.her] body at [npc.her] upper-thigh.</br>"
+								+ "[npc.Name] now has anthropomorphic, [style.boldReindeerMorph(reindeer-like legs and hoofed feet)], which are covered in [npc.legFullDescription]."
 							+ "</p>");
 				}
 				break;

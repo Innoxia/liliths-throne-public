@@ -1,7 +1,7 @@
 package com.lilithsthrone.game.dialogue.encounters;
 
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.GenericDialogue;
+import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -30,9 +30,9 @@ public class DominionEncounterDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Take", "Add the " + Encounter.getRandomItem().getName() + " to your inventory.", GenericDialogue.getDefaultDialogueNoEncounter()){
+				return new Response("Take", "Add the " + Encounter.getRandomItem().getName() + " to your inventory.", DebugDialogue.getDefaultDialogueNoEncounter()){
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addItem(Encounter.getRandomItem(), true));
@@ -40,7 +40,7 @@ public class DominionEncounterDialogue {
 				};
 				
 			} else if (index == 2) {
-				return new Response("Leave", "Leave the " + Encounter.getRandomItem().getName() + " on the floor.", GenericDialogue.getDefaultDialogueNoEncounter());
+				return new Response("Leave", "Leave the " + Encounter.getRandomItem().getName() + " on the floor.", DebugDialogue.getDefaultDialogueNoEncounter());
 				
 			} else {
 				return null;
@@ -65,9 +65,9 @@ public class DominionEncounterDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Take", "Add the " + Encounter.getRandomClothing().getName() + " to your inventory.", GenericDialogue.getDefaultDialogueNoEncounter()){
+				return new Response("Take", "Add the " + Encounter.getRandomClothing().getName() + " to your inventory.", DebugDialogue.getDefaultDialogueNoEncounter()){
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addClothing(Encounter.getRandomClothing(), true));
@@ -75,7 +75,7 @@ public class DominionEncounterDialogue {
 				};
 				
 			} else if (index == 2) {
-				return new Response("Leave", "Leave the " + Encounter.getRandomClothing().getName() + " on the floor.", GenericDialogue.getDefaultDialogueNoEncounter());
+				return new Response("Leave", "Leave the " + Encounter.getRandomClothing().getName() + " on the floor.", DebugDialogue.getDefaultDialogueNoEncounter());
 				
 			} else {
 				return null;
@@ -100,9 +100,9 @@ public class DominionEncounterDialogue {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Take", "Add the " + Encounter.getRandomWeapon().getName() + " to your inventory.", GenericDialogue.getDefaultDialogueNoEncounter()){
+				return new Response("Take", "Add the " + Encounter.getRandomWeapon().getName() + " to your inventory.", DebugDialogue.getDefaultDialogueNoEncounter()){
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addWeapon(Encounter.getRandomWeapon(), true));
@@ -110,7 +110,7 @@ public class DominionEncounterDialogue {
 				};
 				
 			} else if (index == 2) {
-				return new Response("Leave", "Leave the " + Encounter.getRandomWeapon().getName() + " on the floor.", GenericDialogue.getDefaultDialogueNoEncounter());
+				return new Response("Leave", "Leave the " + Encounter.getRandomWeapon().getName() + " on the floor.", DebugDialogue.getDefaultDialogueNoEncounter());
 				
 			} else {
 				return null;
@@ -139,9 +139,9 @@ public class DominionEncounterDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Take", "Add the " + Encounter.getRandomItem().getName() + " to your inventory.", GenericDialogue.getDefaultDialogueNoEncounter()){
+				return new Response("Take", "Add the " + Encounter.getRandomItem().getName() + " to your inventory.", DebugDialogue.getDefaultDialogueNoEncounter()){
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addItem(Encounter.getRandomItem(), true));
@@ -149,7 +149,7 @@ public class DominionEncounterDialogue {
 				};
 				
 			} else if (index == 2) {
-				return new Response("Leave", "Leave the " + Encounter.getRandomItem().getName() + " on the floor.", GenericDialogue.getDefaultDialogueNoEncounter());
+				return new Response("Leave", "Leave the " + Encounter.getRandomItem().getName() + " on the floor.", DebugDialogue.getDefaultDialogueNoEncounter());
 				
 			} else {
 				return null;

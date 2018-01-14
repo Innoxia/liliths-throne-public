@@ -3,35 +3,44 @@ package com.lilithsthrone.game.character.npc.dominion;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.PenisType;
+import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
+import com.lilithsthrone.game.character.body.valueEnums.Muscle;
+import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.Attack;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.Lab;
+import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.LilayasHome;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.1.82
+ * @version 0.1.89
  * @author Innoxia
  */
 public class Lilaya extends NPC {
@@ -40,41 +49,67 @@ public class Lilaya extends NPC {
 
 	// Mother's name is Lyssieth
 
-	private AbstractClothing panties = AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_BLACK, false),
-			skirt = AbstractClothingType.generateClothing(ClothingType.LEG_PENCIL_SKIRT, Colour.CLOTHING_BLACK, false),
-			bra = AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_BLACK, false),
-			torso = AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_WHITE, false),
-			heels = AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false),
-			glasses = AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false);
-
 	public Lilaya() {
+		this(false);
+	}
+	
+	private Lilaya(boolean isImported) {
 		super(new NameTriplet("Lilaya"),
 				"Along with your twin cousins, your aunt Lily was the only family you'd ever known." + " Although she still exists in this world, she isn't your aunt any more, and in this reality, she's a half-demon called 'Lilaya'."
 						+ " Whereas your old aunt was a researcher at the city museum, Lilaya is a privately-funded researcher of the arcane."
 						+ " Due to her demonic appearance and the fact that she's the daughter of the Lilin Lyssieth, people usually regard Lilaya with a mixture of fear and respect.",
-				10, Gender.F_V_B_FEMALE, RacialBody.DEMON, RaceStage.PARTIAL_FULL, new CharacterInventory(10), WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB, true);
+				10, Gender.F_V_B_FEMALE, RacialBody.DEMON, RaceStage.PARTIAL_FULL, new CharacterInventory(10), WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
 
-		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		if(!isImported) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+			
+			this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_YELLOW));
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_BLACK), true);
+			this.setHairStyle(HairStyle.STRAIGHT);
+			this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_RED), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Main.game.getPlayer().getCovering(BodyCoveringType.HUMAN).getPrimaryColour()), true);
+
+			this.setWingSize(WingSize.ZERO_TINY.getValue());
+			
+			this.setHornType(HornType.SWEPT_BACK);
+			
+			this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
+			this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
+			
+			this.setVaginaVirgin(false);
+			this.setAssVirgin(false);
+			this.setFaceVirgin(false);
+			this.setNippleVirgin(false);
+			this.setPenisVirgin(false);
+			this.setBreastSize(CupSize.E.getMeasurement());
+			
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_PENCIL_SKIRT, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_WHITE, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false), true, this);
+		}
+	}
+	
+	@Override
+	public Lilaya loadFromXML(Element parentElement, Document doc) {
+		Lilaya npc = new Lilaya(true);
+
+		loadNPCVariablesFromXML(npc, null, parentElement, doc);
 		
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_YELLOW));
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_BLACK), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_RED), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Main.game.getPlayer().getCovering(BodyCoveringType.HUMAN).getPrimaryColour()), true);
-
-		this.setVaginaVirgin(false);
-		this.setAssVirgin(false);
-		this.setFaceVirgin(false);
-		this.setNippleVirgin(false);
-		this.setBreastSize(CupSize.E.getMeasurement());
-
-		this.equipClothingFromNowhere(panties, true, this);
-		this.equipClothingFromNowhere(bra, true, this);
-		this.equipClothingFromNowhere(skirt, true, this);
-		this.equipClothingFromNowhere(torso, true, this);
-		this.equipClothingFromNowhere(heels, true, this);
-		this.equipClothingFromNowhere(glasses, true, this);
+		npc.setWingSize(WingSize.ZERO_TINY.getValue());
+		
+		return npc;
 	}
 
+	@Override
+	public boolean isUnique() {
+		return true;
+	}
+	
+	
+	
 	@Override
 	public String getSpeechColour() {
 		return "#ff66a3";
@@ -88,11 +123,21 @@ public class Lilaya extends NPC {
 	public DialogueNodeOld getEncounterDialogue() {
 		return null;
 	}
-
+	
 	@Override
 	public void endSex(boolean applyEffects) {
 		if (applyEffects) {
 			setPenisType(PenisType.NONE);
+			
+			this.setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
+			this.resetInventory();
+			
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_PENCIL_SKIRT, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_WHITE, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false), true, this);
 		}
 	}
 	
@@ -167,16 +212,16 @@ public class Lilaya extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if(Main.game.getLilaya().hasStatusEffect(StatusEffect.CREAMPIE_VAGINA) && !Main.game.getLilaya().isVisiblyPregnant()) {
-					return new Response("Thrown out", "Maybe it's best to leave Lilaya to cool down for a while.", Lab.LAB_EXIT){
+					return new Response("Thrown out", "Maybe it's best to leave Lilaya to cool down for a while.", Lab.LAB_EXIT_THROWN_OUT){
 						@Override
 						public void effects() {
 							if(Main.game.getLilaya().hasStatusEffect(StatusEffect.CREAMPIE_VAGINA) && !Main.game.getLilaya().isVisiblyPregnant()) {
-								Main.game.getDialogueFlags().waitingOnLilayaPregnancyResults = true;
+								Main.game.getDialogueFlags().values.add(DialogueFlagValue.waitingOnLilayaPregnancyResults);
 							}
-							Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB);
+							Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
 						}
 					};
 					
@@ -185,9 +230,96 @@ public class Lilaya extends NPC {
 						@Override
 						public void effects() {
 							if(Main.game.getLilaya().hasStatusEffect(StatusEffect.CREAMPIE_VAGINA) && !Main.game.getLilaya().isVisiblyPregnant()) {
-								Main.game.getDialogueFlags().waitingOnLilayaPregnancyResults = true;
+								Main.game.getDialogueFlags().values.add(DialogueFlagValue.waitingOnLilayaPregnancyResults);
 							}
-							Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, LilayasHome.LILAYA_HOME_LAB);
+							Main.game.getRose().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
+						}
+					};
+				}
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld AUNT_END_SEX_GEISHA = new DialogueNodeOld("Lilaya's Bedroom", ".", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public int getMinutesPassed(){
+			return 15;
+		}
+		
+		@Override
+		public String getLabel() {
+			if(Main.game.getLilaya().hasStatusEffect(StatusEffect.CREAMPIE_VAGINA) && !Main.game.getLilaya().isVisiblyPregnant()) {
+				return "Oops...";
+			} else {
+				return "Lilaya's Bedroom";
+			}
+		}
+
+		@Override
+		public String getDescription() {
+			if(Main.game.getLilaya().hasStatusEffect(StatusEffect.CREAMPIE_VAGINA) && !Main.game.getLilaya().isVisiblyPregnant()) {
+				return "Lilaya looks pretty pissed, maybe you should have pulled out...";
+			} else {
+				return "Lilaya collapses back on her bed with a satisfied sigh.";
+			}
+		}
+
+		@Override
+		public String getContent() {
+			if(Main.game.getLilaya().hasStatusEffect(StatusEffect.CREAMPIE_VAGINA) && !Main.game.getLilaya().isVisiblyPregnant()) {
+				return "<p>"
+							+ "Lilaya forcefully shoves you away from her, and with a look of disbelief on her face, looks down at the [pc.cum+] dripping out from between her thighs,"
+							+ " [lilaya.speech(What the fuck?! What the fuck?! I fucking told you to pull out!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "Grabbing a tissue from a nearby cabinet, she starts frantically trying to clean your [pc.cum] out of her creampied pussy."
+							+ " Her face has gone completely scarlet, and as the reality of what you've just done sinks in, she turns on you in a furious rage,"
+							+ " [lilaya.speech(What did I say?! Huh?! I fucking told you to pull out! Do you know how fucking fertile demons are?! Oh fuck... You'd better fucking hope I don't get pregnant from this!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "Continuing to shout and curse, she grabs you by the [pc.arm] and marches you over to her bedroom door."
+							+ " With one last angry cry, she throws you out, before slamming the door behind you."
+							+ " You start to wonder if perhaps you made a mistake, but surely she'll have calmed down in a couple of hours..."
+						+ "</p>";
+				
+			} else {
+				return "<p>"
+							+ "Lilaya collapses back onto her bed, letting out a very satisfied sigh as she stretches out her arms and wings,"
+							+ " [lilaya.speech(That was amazing! We definitely need to do this again some time!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "Reassuring her that you will, you exit your aunt's bedroom and head back to your own, allowing her to get changed and head back down to her lab."
+						+ "</p>";
+			}
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				if(Main.game.getLilaya().hasStatusEffect(StatusEffect.CREAMPIE_VAGINA) && !Main.game.getLilaya().isVisiblyPregnant()) {
+					return new Response("Thrown out", "Maybe it's best to leave Lilaya to cool down for a while.", RoomPlayer.ROOM){
+						@Override
+						public void effects() {
+							Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER, true);
+							if(Main.game.getLilaya().hasStatusEffect(StatusEffect.CREAMPIE_VAGINA) && !Main.game.getLilaya().isVisiblyPregnant()) {
+								Main.game.getDialogueFlags().values.add(DialogueFlagValue.waitingOnLilayaPregnancyResults);
+							}
+						}
+					};
+					
+				} else {
+					return new Response("To your room", "Head back to your room.", RoomPlayer.ROOM){
+						@Override
+						public void effects() {
+							Main.game.getPlayer().setLocation(WorldType.LILAYAS_HOUSE_FIRST_FLOOR, PlaceType.LILAYA_HOME_ROOM_PLAYER, true);
+							if(Main.game.getLilaya().hasStatusEffect(StatusEffect.CREAMPIE_VAGINA) && !Main.game.getLilaya().isVisiblyPregnant()) {
+								Main.game.getDialogueFlags().values.add(DialogueFlagValue.waitingOnLilayaPregnancyResults);
+							}
 						}
 					};
 				}
@@ -220,11 +352,6 @@ public class Lilaya extends NPC {
 		return 0;
 	}
 	
-	@Override
-	public String getLostVirginityDescriptor() {
-		return "as she performed some extra \"tests\" on you";
-	}
-	
 	
 	// Dirty talk:
 
@@ -254,39 +381,5 @@ public class Lilaya extends NPC {
 		
 		return speech.get(Util.random.nextInt(speech.size()));
 	}
-	
-
-	
-//	@Override
-//	public String getPartnerVaginaPenetrationDescription(boolean initialPenetration, PenetrationType penetrationType) {
-//		if(initialPenetration){
-//			return "";
-//		}else{
-//			if(Math.random()<0.3)
-//				return super.getPartnerVaginaPenetrationDescription(initialPenetration, penetrationType);
-//			else
-//				return formatPenetration(UtilText.returnStringAtRandom(
-//						"Lilaya squeals in delight as she bounces up and down on your "+Main.game.getPlayer().getPenisName(true)+".",
-//						"You carry on slamming your "+Main.game.getPlayer().getPenisName(true)+" in and out of Lilaya's "+Sex.getPartner().getVaginaName(true)+".",
-//						"Lilaya's demonic "+Sex.getPartner().getVaginaName(false)+" carries on milking your "+Main.game.getPlayer().getPenisName(true)+" with its tentacles.",
-//						"You let out a series of lewd groans and moans as your demonic aunt's tentacle-lined "+Sex.getPartner().getVaginaName(false)+" expertly massages your "+Main.game.getPlayer().getPenisName(true)+"."));
-//		}
-//	}
-//
-//	@Override
-//	public String getPartnerAnalPenetrationDescription(boolean initialPenetration, PenetrationType penetrationType) {
-//		if(initialPenetration){
-//			return "";
-//		}else{
-//			if(Math.random()<0.3)
-//				return super.getPartnerAnalPenetrationDescription(initialPenetration, penetrationType);
-//			else
-//				return formatPenetration(UtilText.returnStringAtRandom(
-//						"Lilaya squeals in delight as she bounces up and down on your "+Main.game.getPlayer().getPenisName(true)+".",
-//						"You carry on slamming your "+Main.game.getPlayer().getPenisName(true)+" in and out of Lilaya's "+Sex.getPartner().getAssholeName(true)+".",
-//						"Lilaya's pussy-like "+Sex.getPartner().getAssholeName(false)+" carries on squeezing down around your "+Main.game.getPlayer().getPenisName(true)+".",
-//						"You let out a series of lewd groans and moans as your demonic aunt's "+Sex.getPartner().getAssholeName(false)+" expertly milks your "+Main.game.getPlayer().getPenisName(true)+"."));
-//		}
-//	}
 
 }

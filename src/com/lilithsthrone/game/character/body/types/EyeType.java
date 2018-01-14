@@ -27,7 +27,11 @@ public enum EyeType implements BodyPartTypeInterface {
 
 	SQUIRREL_MORPH(BodyCoveringType.EYE_SQUIRREL, Race.SQUIRREL_MORPH, 1, EyeShape.ROUND, EyeShape.ROUND),
 
+	ALLIGATOR_MORPH(BodyCoveringType.EYE_ALLIGATOR_MORPH, Race.ALLIGATOR_MORPH, 1, EyeShape.ROUND, EyeShape.VERTICAL),
+
 	HORSE_MORPH(BodyCoveringType.EYE_HORSE_MORPH, Race.HORSE_MORPH, 1, EyeShape.ROUND, EyeShape.HORIZONTAL),
+
+	REINDEER_MORPH(BodyCoveringType.EYE_REINDEER_MORPH, Race.REINDEER_MORPH, 1, EyeShape.ROUND, EyeShape.HORIZONTAL),
 
 	HARPY(BodyCoveringType.EYE_HARPY, Race.HARPY, 1, EyeShape.ROUND, EyeShape.ROUND),
 
@@ -82,10 +86,14 @@ public enum EyeType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("dog-like");
 			case SQUIRREL_MORPH:
 				return UtilText.returnStringAtRandom("squirrel-like");
+			case ALLIGATOR_MORPH:
+				return UtilText.returnStringAtRandom("reptile-like");
 			case HARPY:
 				return UtilText.returnStringAtRandom("bird-like");
 			case HORSE_MORPH:
 				return UtilText.returnStringAtRandom("horse-like");
+			case REINDEER_MORPH:
+				return UtilText.returnStringAtRandom("reindeer-like");
 			case HUMAN:
 				return UtilText.returnStringAtRandom("");
 			case LYCAN:
@@ -95,6 +103,38 @@ public enum EyeType implements BodyPartTypeInterface {
 			default:
 				return UtilText.returnStringAtRandom("");
 		}
+	}
+	
+	public String getTransformName() {
+		switch(this){
+			case ANGEL:
+				return "angelic";
+			case CAT_MORPH:
+				return "feline";
+			case DEMON_COMMON:
+				return "demonic";
+			case DOG_MORPH:
+				return "canine";
+			case COW_MORPH:
+				return "bovine";
+			case SQUIRREL_MORPH:
+				return "squirrel-like";
+			case ALLIGATOR_MORPH:
+				return "alligator";
+			case HARPY:
+				return "avian";
+			case HORSE_MORPH:
+				return "equine";
+			case REINDEER_MORPH:
+				return "rangiferine";
+			case HUMAN:
+				return "human";
+			case LYCAN:
+				return "lupine";
+			case SLIME:
+				return "slimy";
+		}
+		return "";
 	}
 
 	@Override

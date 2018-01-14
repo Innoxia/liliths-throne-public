@@ -6,13 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.7
- * @version 0.1.83
+ * @version 0.1.97
  * @author Innoxia
  */
 public enum TFModifier {
@@ -39,6 +40,29 @@ public enum TFModifier {
 			"modifier_circle_removal",
 			Colour.GENERIC_TERRIBLE,
 			Rarity.UNCOMMON),
+	
+	// Misc:
+	
+	ORIENTATION_GYNEPHILIC("gynephilia",
+			"Applies an effect related to changing orientation to gynephilic.",
+			"gynephilia",
+			"modifier_circle_orientation_gynephilic",
+			Colour.FEMININE_PLUS,
+			Rarity.LEGENDARY),
+	
+	ORIENTATION_AMBIPHILIC("ambiphilia",
+			"Applies an effect related to changing orientation to ambiphilic.",
+			"ambiphilia",
+			"modifier_circle_orientation_ambiphilic",
+			Colour.ANDROGYNOUS,
+			Rarity.LEGENDARY),
+	
+	ORIENTATION_ANDROPHILIC("androphilia",
+			"Applies an effect related to changing orientation to androphilic.",
+			"androphilia",
+			"modifier_circle_orientation_androphilic",
+			Colour.MASCULINE_PLUS,
+			Rarity.LEGENDARY),
 	
 	// Attributes:
 	
@@ -347,6 +371,41 @@ public enum TFModifier {
 	
 	// Body part modifiers:
 	
+	TF_TYPE_1("transformative I",
+			"Transforms the related body part into that of a different race.",
+			"transformative",
+			"modifier_circle_tf_1",
+			Colour.TRANSFORMATION_GENERIC,
+			Rarity.COMMON),
+	
+	TF_TYPE_2("transformative II",
+			"Transforms the related body part into that of a different race.",
+			"transformative",
+			"modifier_circle_tf_2",
+			Colour.TRANSFORMATION_GENERIC,
+			Rarity.COMMON),
+	
+	TF_TYPE_3("transformative III",
+			"Transforms the related body part into that of a different race.",
+			"transformative",
+			"modifier_circle_tf_3",
+			Colour.TRANSFORMATION_GENERIC,
+			Rarity.COMMON),
+	
+	TF_TYPE_4("transformative IV",
+			"Transforms the related body part into that of a different race.",
+			"transformative",
+			"modifier_circle_tf_4",
+			Colour.TRANSFORMATION_GENERIC,
+			Rarity.COMMON),
+	
+	TF_TYPE_5("transformative V",
+			"Transforms the related body part into that of a different race.",
+			"transformative",
+			"modifier_circle_tf_5",
+			Colour.TRANSFORMATION_GENERIC,
+			Rarity.COMMON),
+	
 	TF_MOD_FEMININITY("femininity",
 			"Applies an effect to change the user's femininity.",
 			"feminine",
@@ -540,35 +599,42 @@ public enum TFModifier {
 	TF_MOD_BREAST_SHAPE_ROUND("round breasts",
 			"Applies an effect related to making breasts take on a round shape.",
 			"round breasts",
-			"modifier_circle_breastShape_round_new",
+			"modifier_circle_breastShape_round",
 			Colour.BASE_PURPLE_LIGHT,
 			Rarity.COMMON),
 	
 	TF_MOD_BREAST_SHAPE_NARROW("narrow breasts",
 			"Applies an effect related to making breasts take on a narrow shape.",
 			"narrow breasts",
-			"modifier_circle_breastShape_narrow_new",
+			"modifier_circle_breastShape_narrow",
 			Colour.BASE_PURPLE_LIGHT,
 			Rarity.COMMON),
 	
 	TF_MOD_BREAST_SHAPE_WIDE("wide breasts",
 			"Applies an effect related to making breasts take on a wide shape.",
 			"wide breasts",
-			"modifier_circle_breastShape_wide_new",
+			"modifier_circle_breastShape_wide",
 			Colour.BASE_PURPLE_LIGHT,
 			Rarity.COMMON),
 	
 	TF_MOD_BREAST_SHAPE_POINTY("pointy breasts",
 			"Applies an effect related to making breasts take on a pointy shape.",
 			"pointy breasts",
-			"modifier_circle_breastShape_pointy_new",
+			"modifier_circle_breastShape_pointy",
+			Colour.BASE_PURPLE_LIGHT,
+			Rarity.COMMON),
+	
+	TF_MOD_BREAST_SHAPE_PERKY("perky breasts",
+			"Applies an effect related to making breasts take on a perky shape.",
+			"perky breasts",
+			"modifier_circle_breastShape_perky",
 			Colour.BASE_PURPLE_LIGHT,
 			Rarity.COMMON),
 	
 	TF_MOD_BREAST_SHAPE_SIDESET("side-set breasts",
 			"Applies an effect related to making breasts take on a side-set shape.",
 			"side-set breasts",
-			"modifier_circle_breastShape_sideset_new",
+			"modifier_circle_breastShape_sideset",
 			Colour.BASE_PURPLE_LIGHT,
 			Rarity.COMMON),
 	
@@ -711,56 +777,56 @@ public enum TFModifier {
 	TF_MOD_FLUID_MUSKY("musky",
 			"Applies an effect related to changing a fluid.",
 			"musk",
-			"modifier_circle_wetness",
+			"modifier_circle_fluid_modifier",
 			Colour.BASE_BROWN,
 			Rarity.COMMON),
 	
 	TF_MOD_FLUID_VISCOUS("viscous",
 			"Applies an effect related to changing a fluid.",
 			"viscous",
-			"modifier_circle_wetness",
+			"modifier_circle_fluid_modifier",
 			Colour.BASE_BLACK,
 			Rarity.COMMON),
 	
 	TF_MOD_FLUID_STICKY("sticky",
 			"Applies an effect related to changing a fluid.",
 			"sticky",
-			"modifier_circle_wetness",
+			"modifier_circle_fluid_modifier",
 			Colour.BASE_YELLOW_LIGHT,
 			Rarity.COMMON),
 	
 	TF_MOD_FLUID_SLIMY("slimy",
 			"Applies an effect related to changing a fluid.",
 			"slimy",
-			"modifier_circle_wetness",
+			"modifier_circle_fluid_modifier",
 			Colour.BASE_BLUE_LIGHT,
 			Rarity.COMMON),
 	
 	TF_MOD_FLUID_BUBBLING("bubbling",
 			"Applies an effect related to changing a fluid.",
 			"bubbling",
-			"modifier_circle_wetness",
+			"modifier_circle_fluid_modifier",
 			Colour.BASE_AQUA,
 			Rarity.COMMON),
 	
 	TF_MOD_FLUID_ALCOHOLIC("alcoholic",
 			"Applies an effect related to changing a fluid.",
 			"alcoholic",
-			"modifier_circle_wetness",
+			"modifier_circle_fluid_modifier",
 			Colour.BASE_ORANGE,
 			Rarity.COMMON),
 	
 	TF_MOD_FLUID_ADDICTIVE("addictive",
 			"Applies an effect related to changing a fluid.",
 			"addictive",
-			"modifier_circle_wetness",
+			"modifier_circle_fluid_modifier",
 			Colour.BASE_PINK_DEEP,
 			Rarity.COMMON),
 	
-	TF_MOD_FLUID_HALLUCINOGENIC("hallucinogenic",
+	TF_MOD_FLUID_HALLUCINOGENIC("psychoactive",
 			"Applies an effect related to changing a fluid.",
-			"hallucinogenic",
-			"modifier_circle_wetness",
+			"psychoactive",
+			"modifier_circle_fluid_modifier",
 			Colour.BASE_MAGENTA,
 			Rarity.COMMON),
 	
@@ -841,7 +907,39 @@ public enum TFModifier {
 			"mint-flavour",
 			"modifier_circle_flavour",
 			Colour.BASE_GREEN_LIME,
-			Rarity.COMMON)
+			Rarity.COMMON),
+	
+	
+	// Fetishes:
+	
+	TF_MOD_FETISH_ANAL_GIVING(Fetish.FETISH_ANAL_GIVING),
+	TF_MOD_FETISH_ANAL_RECEIVING(Fetish.FETISH_ANAL_RECEIVING),
+	TF_MOD_FETISH_BIMBO(Fetish.FETISH_BIMBO),
+	TF_MOD_FETISH_BREASTS_OTHERS(Fetish.FETISH_BREASTS_OTHERS),
+	TF_MOD_FETISH_BREASTS_SELF(Fetish.FETISH_BREASTS_SELF),
+	TF_MOD_FETISH_BROODMOTHER(Fetish.FETISH_BROODMOTHER),
+	TF_MOD_FETISH_CROSS_DRESSER(Fetish.FETISH_CROSS_DRESSER),
+	TF_MOD_FETISH_CUM_ADDICT(Fetish.FETISH_CUM_ADDICT),
+	TF_MOD_FETISH_CUM_STUD(Fetish.FETISH_CUM_STUD),
+	TF_MOD_FETISH_DEFLOWERING(Fetish.FETISH_DEFLOWERING),
+	TF_MOD_FETISH_DENIAL(Fetish.FETISH_DENIAL),
+	TF_MOD_FETISH_DOMINANT(Fetish.FETISH_DOMINANT),
+	TF_MOD_FETISH_EXHIBITIONIST(Fetish.FETISH_EXHIBITIONIST),
+	TF_MOD_FETISH_IMPREGNATION(Fetish.FETISH_IMPREGNATION),
+	TF_MOD_FETISH_INCEST(Fetish.FETISH_INCEST),
+	TF_MOD_FETISH_MASOCHIST(Fetish.FETISH_MASOCHIST),
+	TF_MOD_FETISH_MASTURBATION(Fetish.FETISH_MASTURBATION),
+	TF_MOD_FETISH_NON_CON_DOM(Fetish.FETISH_NON_CON_DOM),
+	TF_MOD_FETISH_NON_CON_SUB(Fetish.FETISH_NON_CON_SUB),
+	TF_MOD_FETISH_ORAL_GIVING(Fetish.FETISH_ORAL_GIVING),
+	TF_MOD_FETISH_ORAL_RECEIVING(Fetish.FETISH_ORAL_RECEIVING),
+	TF_MOD_FETISH_PREGNANCY(Fetish.FETISH_PREGNANCY),
+	TF_MOD_FETISH_PURE_VIRGIN(Fetish.FETISH_PURE_VIRGIN),
+	TF_MOD_FETISH_SADIST(Fetish.FETISH_SADIST),
+	TF_MOD_FETISH_SEEDER(Fetish.FETISH_SEEDER),
+	TF_MOD_FETISH_SUBMISSIVE(Fetish.FETISH_SUBMISSIVE),
+	TF_MOD_FETISH_TRANSFORMATION_GIVING(Fetish.FETISH_TRANSFORMATION_GIVING),
+	TF_MOD_FETISH_TRANSFORMATION_RECEIVING(Fetish.FETISH_TRANSFORMATION_RECEIVING),
 	;
 
 	
@@ -852,7 +950,8 @@ public enum TFModifier {
 		TFModCorruptionList = new ArrayList<>(),
 		TFModSexualList = new ArrayList<>(),
 		TFAttributeList = new ArrayList<>(),
-		TFRacialBodyPartsList = new ArrayList<>();
+		TFRacialBodyPartsList = new ArrayList<>(),
+		TFFetishList = new ArrayList<>();
 	
 	static {
 
@@ -917,6 +1016,35 @@ public enum TFModifier {
 		TFAttributeList.add(NONE);
 		TFAttributeList.add(ARCANE_BOOST);
 		
+		
+		TFFetishList.add(TF_MOD_FETISH_ANAL_GIVING);
+		TFFetishList.add(TF_MOD_FETISH_ANAL_RECEIVING);
+		TFFetishList.add(TF_MOD_FETISH_BIMBO);
+		TFFetishList.add(TF_MOD_FETISH_BREASTS_OTHERS);
+		TFFetishList.add(TF_MOD_FETISH_BREASTS_SELF);
+		TFFetishList.add(TF_MOD_FETISH_BROODMOTHER);
+		TFFetishList.add(TF_MOD_FETISH_CROSS_DRESSER);
+		TFFetishList.add(TF_MOD_FETISH_CUM_ADDICT);
+		TFFetishList.add(TF_MOD_FETISH_CUM_STUD);
+		TFFetishList.add(TF_MOD_FETISH_DEFLOWERING);
+		TFFetishList.add(TF_MOD_FETISH_DENIAL);
+		TFFetishList.add(TF_MOD_FETISH_DOMINANT);
+		TFFetishList.add(TF_MOD_FETISH_EXHIBITIONIST);
+		TFFetishList.add(TF_MOD_FETISH_IMPREGNATION);
+		TFFetishList.add(TF_MOD_FETISH_INCEST);
+		TFFetishList.add(TF_MOD_FETISH_MASOCHIST);
+		TFFetishList.add(TF_MOD_FETISH_MASTURBATION);
+		TFFetishList.add(TF_MOD_FETISH_NON_CON_DOM);
+		TFFetishList.add(TF_MOD_FETISH_NON_CON_SUB);
+		TFFetishList.add(TF_MOD_FETISH_ORAL_GIVING);
+		TFFetishList.add(TF_MOD_FETISH_ORAL_RECEIVING);
+		TFFetishList.add(TF_MOD_FETISH_PREGNANCY);
+		TFFetishList.add(TF_MOD_FETISH_PURE_VIRGIN);
+		TFFetishList.add(TF_MOD_FETISH_SADIST);
+		TFFetishList.add(TF_MOD_FETISH_SEEDER);
+		TFFetishList.add(TF_MOD_FETISH_SUBMISSIVE);
+		TFFetishList.add(TF_MOD_FETISH_TRANSFORMATION_GIVING);
+		TFFetishList.add(TF_MOD_FETISH_TRANSFORMATION_RECEIVING);
 	}
 	
 	
@@ -932,6 +1060,7 @@ public enum TFModifier {
 	private String name, description, descriptor, SVGString;
 	private Colour colour;
 	private Rarity rarity;
+	private Fetish fetish;
 	
 	private TFModifier(AttributeCategory attributeCategory, Attribute associatedAttribute, String description, String SVGString, Rarity rarity) {
 		this.attributeCategory=attributeCategory;
@@ -990,6 +1119,17 @@ public enum TFModifier {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+	}
+	
+	private TFModifier(Fetish f) {
+		this.name = f.getName(null);
+		this.description = "Applies an effect related to the "+name+" fetish.";
+		this.descriptor = name;
+		this.rarity = Rarity.EPIC;
+		this.colour = Colour.FETISH;
+		this.fetish = f;
+		this.SVGString = f.getSVGString();
+		
 	}
 	
 	public int getValue() {
@@ -1072,5 +1212,13 @@ public enum TFModifier {
 
 	public static List<TFModifier> getTFAttributeList() {
 		return TFAttributeList;
+	}
+
+	public static List<TFModifier> getTFFetishList() {
+		return TFFetishList;
+	}
+
+	public Fetish getFetish() {
+		return fetish;
 	}
 }

@@ -15,8 +15,8 @@ import com.lilithsthrone.utils.Util;
 public class Tail implements BodyPartInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private TailType type;
-	private int tailCount;
+	protected TailType type;
+	protected int tailCount;
 
 	public Tail(TailType type) {
 		this.type = type;
@@ -252,6 +252,33 @@ public class Tail implements BodyPartInterface, Serializable {
 							);
 				}
 				break;
+			case REINDEER_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+							(owner.getTailCount()==1
+								?" A reindeer-like tail sprouts from just above your ass, rapidly growing in width until it takes up about a third of your rear."
+									+ " You quickly discover that your control over it is limited to simply twitching it up and down."
+									+ "</br>"
+									+ "You now have a [style.boldReindeerMorph(reindeer-like tail)]"
+								:" [pc.TailCount] reindeer-like tails sprout from just above your ass, rapidly growing in width until they take up about a third of your rear."
+									+ " You quickly discover that your control over them is limited to simply twitching them up and down."
+									+ "</br>"
+									+ "You now have [pc.tailCount] [style.boldReindeerMorph(reindeer-like tails)]")
+							);
+				} else {
+					UtilText.transformationContentSB.append(
+							(owner.getTailCount()==1
+								?" A reindeer-like tail sprouts from just above [npc.her] ass, rapidly growing in width until it takes up about a third of [npc.her] rear."
+									+ " [npc.She] quickly discovers that [npc.her] control over it is limited to simply twitching it up and down."
+									+ "</br>"
+									+ "[npc.Name] now has a [style.boldReindeerMorph(reindeer-like tail)]"
+								:" [npc.TailCount] reindeer-like tails sprout from just above [npc.her] ass, rapidly growing in width until they take up about a third of [npc.her] rear."
+									+ " [npc.She] quickly discovers that [npc.her] control over them is limited to simply twitching them up and down."
+									+ "</br>"
+									+ "[npc.Name] now has [npc.tailCount] [style.boldReindeerMorph(reindeer-like tails)]")
+							);
+				}
+				break;
 			case COW_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
@@ -303,6 +330,33 @@ public class Tail implements BodyPartInterface, Serializable {
 									+ " [npc.She] quickly realises that [npc.she] has limited control over them, and it takes a lot of effort to stop them from betraying [npc.her] emotions."
 									+ "</br>"
 									+ "[npc.Name] now has [npc.tailCount] [style.boldWolfMorph(wolf-like tails)]")
+							);
+				}
+				break;
+			case ALLIGATOR_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+							(owner.getTailCount()==1
+								?" A scaly, alligator-like tail sprouts from just above your ass, rapidly growing in size until it's almost as long as your body."
+									+ " You quickly discover that you can swish it from side to side with considerable force."
+									+ "</br>"
+									+ "You now have an [style.boldGatorMorph(alligator-like tail)]"
+								:" [pc.TailCount] scaly, alligator-like tails sprout from just above your ass, rapidly growing in size until they're each almost as long as your body."
+									+ " You quickly discover that you can swish them from side to side with considerable force."
+									+ "</br>"
+									+ "You now have [pc.tailCount] [style.boldGatorMorph(alligator-like tails)]")
+							);
+				} else {
+					UtilText.transformationContentSB.append(
+							(owner.getTailCount()==1
+								?" A scaly, alligator-like tail sprouts from just above [npc.her] ass, rapidly growing in size until it's almost as long as [npc.her] body."
+									+ " [npc.She] quickly discovers that [npc.she] can swish it from side to side with considerable force."
+									+ "</br>"
+									+ "[npc.Name] now has an [style.boldGatorMorph(alligator-like tail)]"
+								:" [npc.TailCount] scaly, alligator-like tails sprout from just above [npc.her] ass, rapidly growing in size until they're each almost as long as [npc.her] body."
+									+ " [npc.She] quickly discovers that [npc.she] can swish them from side to side with considerable force."
+									+ "</br>"
+									+ "[npc.Name] now has [npc.tailCount] [style.boldGatorMorph(alligator-like tails)]")
 							);
 				}
 				break;

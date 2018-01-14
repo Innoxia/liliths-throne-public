@@ -6,9 +6,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.History;
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
@@ -18,10 +23,12 @@ import com.lilithsthrone.game.character.attributes.FitnessLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.attributes.StrengthLevel;
+import com.lilithsthrone.game.character.body.Antenna;
 import com.lilithsthrone.game.character.body.Arm;
 import com.lilithsthrone.game.character.body.Ass;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.Breast;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.Ear;
 import com.lilithsthrone.game.character.body.Eye;
 import com.lilithsthrone.game.character.body.Face;
@@ -33,6 +40,7 @@ import com.lilithsthrone.game.character.body.Skin;
 import com.lilithsthrone.game.character.body.Tail;
 import com.lilithsthrone.game.character.body.Vagina;
 import com.lilithsthrone.game.character.body.Wing;
+import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.AssType;
 import com.lilithsthrone.game.character.body.types.BreastType;
@@ -65,6 +73,7 @@ import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
@@ -76,7 +85,7 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
-import com.lilithsthrone.game.inventory.clothing.CoverableArea;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
@@ -90,55 +99,55 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPosition;
+import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.SexType;
+import com.lilithsthrone.game.slavery.SlaveJob;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.utils.XMLSaving;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.GenericPlace;
-import com.lilithsthrone.world.places.PlaceInterface;
-import com.lilithsthrone.world.places.PlaceUpgrade;
-
-import java.util.Set;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.1.84
+ * @version 0.1.97
  * @author Innoxia
  */
-public abstract class NPC extends GameCharacter {
+public abstract class NPC extends GameCharacter implements XMLSaving {
 	private static final long serialVersionUID = 1L;
 	
 	protected long lastTimeEncountered = -1;
+
+	protected long lastTimeHadSex = -1;
+	protected long lastTimeOrgasmed = -1;
 	
 	protected int romanceProgress = 0;
 	
 	protected float buyModifier, sellModifier;
 
-	protected boolean knowsPlayerGender = false, addedToContacts, reactedToPregnancy, pendingClothingDressing;
+	protected boolean addedToContacts;
+
+	public Set<NPCFlagValue> NPCFlagValues;
 	
-	protected Set<SexPosition> sexPositionPreferences;
+	protected Set<SexPositionSlot> sexPositionPreferences;
 	
 	protected Body bodyPreference = null;
 	
-	
 	protected NPC(NameTriplet nameTriplet, String description, int level, Gender startingGender, RacialBody startingRace,
-			RaceStage stage, CharacterInventory inventory, WorldType worldLocation, PlaceInterface startingPlace, boolean addedToContacts) {
+			RaceStage stage, CharacterInventory inventory, WorldType worldLocation, PlaceType startingPlace, boolean addedToContacts) {
 		super(nameTriplet, description, level, startingGender, startingRace, stage, inventory, worldLocation, startingPlace);
 
 		this.addedToContacts = addedToContacts;
-		
-		reactedToPregnancy = false;
-		pendingClothingDressing = false;
 		
 		sexPositionPreferences = new HashSet<>();
 		
 		buyModifier=0.75f;
 		sellModifier=1.5f;
+		
+		NPCFlagValues = new HashSet<>();
 		
 		if(getLocation().equals(Main.game.getPlayer().getLocation()) && getWorldLocation()==Main.game.getPlayer().getWorldLocation()) {
 			for(CoverableArea ca : CoverableArea.values()) {
@@ -148,7 +157,95 @@ public abstract class NPC extends GameCharacter {
 			}
 		}
 	}
+	
+	@Override
+	public Element saveAsXML(Element parentElement, Document doc) {
+		Element properties = super.saveAsXML(parentElement, doc);
+		
+		Element npcSpecific = doc.createElement("npcSpecific");
+		properties.appendChild(npcSpecific);
 
+		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "lastTimeEncountered", String.valueOf(lastTimeEncountered));
+		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "lastTimeHadSex", String.valueOf(lastTimeHadSex));
+		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "lastTimeOrgasmed", String.valueOf(lastTimeOrgasmed));
+		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "romanceProgress", String.valueOf(romanceProgress));
+		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "buyModifier", String.valueOf(buyModifier));
+		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "sellModifier", String.valueOf(sellModifier));
+		CharacterUtils.createXMLElementWithValue(doc, npcSpecific, "addedToContacts", String.valueOf(addedToContacts));
+
+		Element valuesElement = doc.createElement("NPCValues");
+		npcSpecific.appendChild(valuesElement);
+		for(NPCFlagValue value : NPCFlagValues) {
+			CharacterUtils.createXMLElementWithValue(doc, valuesElement, "NPCValue", value.toString());
+		}
+
+		// Recalculated in method, so don't need to save
+//		Element positionsElement = doc.createElement("sexPositionPreferences");
+//		npcSpecific.appendChild(positionsElement);
+//		for(SexPositionSlot position : sexPositionPreferences) {
+//			CharacterUtils.createXMLElementWithValue(doc, valuesElement, "position", position.toString());
+//		}
+		
+		Element preferredBody = doc.createElement("preferredBody");
+		npcSpecific.appendChild(preferredBody);
+		getPreferredBody().saveAsXML(preferredBody, doc);
+		
+		return properties;
+	}
+	
+	public abstract NPC loadFromXML(Element parentElement, Document doc);
+	
+	public static void loadNPCVariablesFromXML(NPC npc, StringBuilder log, Element parentElement, Document doc) {
+		
+		GameCharacter.loadGameCharacterVariablesFromXML(npc, log, parentElement, doc);
+		
+		Element npcSpecificElement = (Element) parentElement.getElementsByTagName("npcSpecific").item(0);
+		
+		if(npcSpecificElement!=null) {
+			npc.setLastTimeEncountered(Long.valueOf(((Element)npcSpecificElement.getElementsByTagName("lastTimeEncountered").item(0)).getAttribute("value")));
+			npc.setLastTimeHadSex(Long.valueOf(((Element)npcSpecificElement.getElementsByTagName("lastTimeHadSex").item(0)).getAttribute("value")), false);
+			
+			if(((Element)npcSpecificElement.getElementsByTagName("lastTimeOrgasmed").item(0))!=null) {
+				npc.setLastTimeOrgasmed(Long.valueOf(((Element)npcSpecificElement.getElementsByTagName("lastTimeOrgasmed").item(0)).getAttribute("value")));
+			} else {
+				npc.setLastTimeOrgasmed(npc.getLastTimeHadSex());
+			}
+			
+			npc.setRomanceProgress(Integer.valueOf(((Element)npcSpecificElement.getElementsByTagName("romanceProgress").item(0)).getAttribute("value")));
+			npc.setBuyModifier(Float.valueOf(((Element)npcSpecificElement.getElementsByTagName("buyModifier").item(0)).getAttribute("value")));
+			npc.setSellModifier(Float.valueOf(((Element)npcSpecificElement.getElementsByTagName("sellModifier").item(0)).getAttribute("value")));
+			npc.addedToContacts = (Boolean.valueOf(((Element)npcSpecificElement.getElementsByTagName("addedToContacts").item(0)).getAttribute("value")));
+		
+	
+			for(int i=0; i<((Element) npcSpecificElement.getElementsByTagName("NPCValues").item(0)).getElementsByTagName("NPCValue").getLength(); i++){
+				Element e = (Element) ((Element) npcSpecificElement.getElementsByTagName("NPCValues").item(0)).getElementsByTagName("NPCValue").item(i);
+				npc.NPCFlagValues.add(NPCFlagValue.valueOf(e.getAttribute("value")));
+			}
+			
+			// Recalculated in method, so don't need to save
+//			for(int i=0; i<((Element) npcSpecificElement.getElementsByTagName("sexPositionPreferences").item(0)).getElementsByTagName("position").getLength(); i++){
+//				Element e = (Element) ((Element) npcSpecificElement.getElementsByTagName("sexPositionPreferences").item(0)).getElementsByTagName("position").item(i);
+//				try {
+//					npc.sexPositionPreferences.add(SexPositionType.valueOf(e.getAttribute("value")));
+//				} catch(Exception ex) {
+//				}
+//			}
+			
+			npc.bodyPreference = Body.loadFromXML(log, (Element) parentElement.getElementsByTagName("preferredBody").item(0), doc);
+		}
+	}
+	
+	public void resetSlaveFlags() {
+		NPCFlagValues.remove(NPCFlagValue.flagSlaveBackground);
+		NPCFlagValues.remove(NPCFlagValue.flagSlaveSmallTalk);
+		NPCFlagValues.remove(NPCFlagValue.flagSlaveEncourage);
+		NPCFlagValues.remove(NPCFlagValue.flagSlaveHug);
+		NPCFlagValues.remove(NPCFlagValue.flagSlavePettings);
+		NPCFlagValues.remove(NPCFlagValue.flagSlaveInspect);
+		NPCFlagValues.remove(NPCFlagValue.flagSlaveSpanking);
+		NPCFlagValues.remove(NPCFlagValue.flagSlaveMolest);
+	}
+	
 	/**
 	 * Resets this character to their default state.
 	 */
@@ -165,19 +262,6 @@ public abstract class NPC extends GameCharacter {
 	
 	public boolean isClothingStealable() {
 		return false;
-	}
-	
-	public void setLocation(WorldType worldType, Vector2i location) {
-		setWorldLocation(worldType);
-		setLocation(location);
-	}
-	
-	public void setLocation(WorldType worldType, PlaceInterface placeType) {
-		setLocation(worldType, Main.game.getWorlds().get(worldType).getPlacesOfInterest().get(new GenericPlace(placeType)));
-	}
-	
-	public void setLocation(WorldType worldType, GenericPlace place) {
-		setLocation(worldType, Main.game.getWorlds().get(worldType).getPlacesOfInterest().get(place));
 	}
 	
 	// Trader:
@@ -226,7 +310,7 @@ public abstract class NPC extends GameCharacter {
 
 	public abstract String getAttackDescription(Attack attackType, boolean isHit);
 
-	public abstract Response endCombat(boolean applyEffects, boolean victory);
+	public abstract Response endCombat(boolean applyEffects, boolean playerVictory);
 
 	public abstract Attack attackType();
 
@@ -259,7 +343,13 @@ public abstract class NPC extends GameCharacter {
 	public List<AbstractCoreItem> getLootItems() {
 		double rnd = Math.random();
 		
-		if(rnd <= 0.7) {
+		if(rnd<=0.05) {
+			return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.FETISH_UNREFINED)));
+			
+		} else if(rnd<=0.1) {
+			return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.ADDICTION_REMOVAL)));
+			
+		} else if(rnd <= 0.6) {
 			switch(getRace()) {
 				case CAT_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.INT_INGREDIENT_FELINE_FANCY)));
@@ -269,6 +359,8 @@ public abstract class NPC extends GameCharacter {
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.FIT_INGREDIENT_CANINE_CRUSH)));
 				case HORSE_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_EQUINE_CIDER)));
+				case REINDEER_MORPH:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.FIT_INGREDIENT_EGG_NOG)));
 				case WOLF_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_WOLF_WHISKEY)));
 				case HUMAN:
@@ -281,6 +373,8 @@ public abstract class NPC extends GameCharacter {
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.SEX_INGREDIENT_HARPY_PERFUME)));
 				case SLIME:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.DYE_BRUSH)));
+				case ALLIGATOR_MORPH:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_SWAMP_WATER)));
 				case SQUIRREL_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.FIT_INGREDIENT_SQUIRREL_JAVA)));
 			}
@@ -288,7 +382,6 @@ public abstract class NPC extends GameCharacter {
 		} else if(rnd <= 0.8 && !Main.getProperties().isRaceDiscovered(getRace())) {
 			switch(getRace()) {
 				case CAT_MORPH:
-
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_CAT_MORPH)));
 				case COW_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_COW_MORPH)));
@@ -296,6 +389,8 @@ public abstract class NPC extends GameCharacter {
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_DOG_MORPH)));
 				case HORSE_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_HORSE_MORPH)));
+				case REINDEER_MORPH:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_REINDEER_MORPH)));
 				case WOLF_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_WOLF_MORPH)));
 				case HUMAN:
@@ -308,6 +403,8 @@ public abstract class NPC extends GameCharacter {
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_HARPY)));
 				case SLIME:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.DYE_BRUSH)));
+				case ALLIGATOR_MORPH:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_ALLIGATOR_MORPH)));
 				case SQUIRREL_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_SQUIRREL_MORPH)));
 			}
@@ -322,6 +419,8 @@ public abstract class NPC extends GameCharacter {
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_DOG_MORPH)));
 				case HORSE_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HORSE_MORPH)));
+				case REINDEER_MORPH:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_REINDEER_MORPH)));
 				case WOLF_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_WOLF_MORPH)));
 				case HUMAN:
@@ -334,6 +433,8 @@ public abstract class NPC extends GameCharacter {
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HARPY)));
 				case SLIME:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HUMAN)));
+				case ALLIGATOR_MORPH:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_ALLIGATOR_MORPH)));
 				case SQUIRREL_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_SQUIRREL_MORPH)));
 			}
@@ -343,45 +444,41 @@ public abstract class NPC extends GameCharacter {
 	}
 	
 	public Map<TFEssence, Integer> getLootEssenceDrops() {
-		return Util.newHashMapOfValues(new Value<>(getRace().getRelatedEssence(), Util.random.nextInt(6)+6));
+		return Util.newHashMapOfValues(new Value<>(TFEssence.ARCANE, Util.random.nextInt(this.getLevel())+1+this.getLevel()));
 	}
+	
 	
 	// Relationships:
 	
-	
-	
-	public float getDailyAffectionChange() {
-		// Forgive me, for I am tired x_x
-		
-		float affectionTrack = getAffection(Main.game.getPlayer());
-		
-		for(PlaceUpgrade upgrade : this.getLocationPlace().getPlaceUpgrades()) {
-			if(upgrade.getAffectionCap()==null) {
-				affectionTrack += upgrade.getAffectionGain();
-				
-			} else {
-				if(upgrade.getAffectionGain()>0) {
-					if(getAffection(Main.game.getPlayer()) < upgrade.getAffectionCap().getMaximumValue()) {
-						if(getAffection(Main.game.getPlayer()) + upgrade.getAffectionGain() > upgrade.getAffectionCap().getMaximumValue()) {
-							affectionTrack = upgrade.getAffectionCap().getMaximumValue();
-						} else {
-							affectionTrack += upgrade.getAffectionGain();
-						}
-					}
-					
-				} else if(upgrade.getAffectionGain()<0) {
-					if(getAffection(Main.game.getPlayer()) > upgrade.getAffectionCap().getMinimumValue()) {
-						if(getAffection(Main.game.getPlayer()) + upgrade.getAffectionGain() < upgrade.getAffectionCap().getMinimumValue()) {
-							affectionTrack = upgrade.getAffectionCap().getMinimumValue();
-						} else {
-							affectionTrack += upgrade.getAffectionGain();
-						}
-					}
-				}
+	public float getHourlyAffectionChange(int hour) {
+		if(this.workHours[hour]) {
+			if(this.getSlaveJob()==SlaveJob.IDLE) {
+				return this.getHomeLocationPlace().getHourlyAffectionChange();
 			}
+			// To get rid of e.g. 2.3999999999999999999999:
+			return Math.round(this.getSlaveJob().getAffectionGain(this)*100)/100f;
 		}
 		
-		return affectionTrack - getAffection(Main.game.getPlayer());
+		// To get rid of e.g. 2.3999999999999999999999:
+		return Math.round(this.getHomeLocationPlace().getHourlyAffectionChange()*100)/100f;
+	}
+	
+	public float getDailyAffectionChange() {
+		float totalAffectionChange = 0;
+		
+		for (int workHour = 0; workHour < this.getTotalHoursWorked(); workHour++) {
+			if(this.getSlaveJob()==SlaveJob.IDLE) {
+				totalAffectionChange+=this.getHomeLocationPlace().getHourlyAffectionChange();
+			}
+			totalAffectionChange += this.getSlaveJob().getAffectionGain(this);
+		}
+		
+		for (int homeHour = 0; homeHour < 24-this.getTotalHoursWorked(); homeHour++) {
+			totalAffectionChange += this.getHomeLocationPlace().getHourlyAffectionChange();
+		}
+		
+		// To get rid of e.g. 2.3999999999999999999999:
+		return Math.round(totalAffectionChange*100)/100f;
 	}
 	
 	
@@ -397,13 +494,73 @@ public abstract class NPC extends GameCharacter {
 	}
 
 	public boolean isKnowsPlayerGender() {
-		return knowsPlayerGender;
+		return NPCFlagValues.contains(NPCFlagValue.knowsPlayerGender);
 	}
 
 	public void setKnowsPlayerGender(boolean knowsPlayerGender) {
-		this.knowsPlayerGender = knowsPlayerGender;
+		if(knowsPlayerGender) {
+			NPCFlagValues.add(NPCFlagValue.knowsPlayerGender);
+		} else {
+			NPCFlagValues.remove(NPCFlagValue.knowsPlayerGender);
+		}
+	}
+	
+	public boolean isIntroducedToPlayer() {
+		return NPCFlagValues.contains(NPCFlagValue.introducedToPlayer);
 	}
 
+	public void setIntroducedToPlayer(boolean introducedToPlayer) {
+		if(introducedToPlayer) {
+			NPCFlagValues.add(NPCFlagValue.introducedToPlayer);
+		} else {
+			NPCFlagValues.remove(NPCFlagValue.introducedToPlayer);
+		}
+	}
+	
+	public boolean isReactedToPregnancy() {
+		return NPCFlagValues.contains(NPCFlagValue.reactedToPregnancy);
+	}
+	public void setReactedToPregnancy(boolean reactedToPregnancy) {
+		if(reactedToPregnancy) {
+			NPCFlagValues.add(NPCFlagValue.reactedToPregnancy);
+		} else {
+			NPCFlagValues.remove(NPCFlagValue.reactedToPregnancy);
+		}
+	}
+	
+	public boolean isReactedToPlayerPregnancy() {
+		return NPCFlagValues.contains(NPCFlagValue.reactedToPlayerPregnancy);
+	}
+	public void setReactedToPlayerPregnancy(boolean reactedToPlayerPregnancy) {
+		if(reactedToPlayerPregnancy) {
+			NPCFlagValues.add(NPCFlagValue.reactedToPlayerPregnancy);
+		} else {
+			NPCFlagValues.remove(NPCFlagValue.reactedToPlayerPregnancy);
+		}
+	}
+	
+	public boolean isPendingClothingDressing() {
+		return NPCFlagValues.contains(NPCFlagValue.pendingClothingDressing);
+	}
+	public void setPendingClothingDressing(boolean pendingClothingDressing) {
+		if(pendingClothingDressing) {
+			NPCFlagValues.add(NPCFlagValue.pendingClothingDressing);
+		} else {
+			NPCFlagValues.remove(NPCFlagValue.pendingClothingDressing);
+		}
+	}
+	
+	public boolean isPendingTransformationToGenderIdentity() {
+		return NPCFlagValues.contains(NPCFlagValue.pendingTransformationToGenderIdentity);
+	}
+	public void setPendingTransformationToGenderIdentity(boolean pendingTransformationToGenderIdentity) {
+		if(pendingTransformationToGenderIdentity) {
+			NPCFlagValues.add(NPCFlagValue.pendingTransformationToGenderIdentity);
+		} else {
+			NPCFlagValues.remove(NPCFlagValue.pendingTransformationToGenderIdentity);
+		}
+	}
+	
 	public long getLastTimeEncountered() {
 		return lastTimeEncountered;
 	}
@@ -411,6 +568,26 @@ public abstract class NPC extends GameCharacter {
 	public void setLastTimeEncountered(long minutesPassed) {
 		this.lastTimeEncountered = minutesPassed;
 	}
+
+	public long getLastTimeHadSex() {
+		return lastTimeHadSex;
+	}
+	
+	public void setLastTimeHadSex(long lastTimeHadSex, boolean orgasmed) {
+		this.lastTimeHadSex = lastTimeHadSex;
+		if(orgasmed) {
+			setLastTimeOrgasmed(lastTimeHadSex);
+		}
+	}
+	
+	public long getLastTimeOrgasmed() {
+		return lastTimeOrgasmed;
+	}
+	
+	public void setLastTimeOrgasmed(long lastTimeOrgasmed) {
+		this.lastTimeOrgasmed = lastTimeOrgasmed;
+	}
+
 
 	public int getRomanceProgress() {
 		return romanceProgress;
@@ -450,142 +627,241 @@ public abstract class NPC extends GameCharacter {
 		 * Throat modifiers
 		 */
 		
+		int numberOfTransformations = Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_RECEIVING)?2 + Util.random.nextInt(7):1 + Util.random.nextInt(4);
+		List<ItemEffect> effects = new ArrayList<>();
 		
 		AbstractItemType itemType = ItemType.RACE_INGREDIENT_HUMAN;
-		String reaction = "Time to transform you!", raceName = "human";
+		String reaction = "Time to transform you!";
+		String raceName = "human";
 		
-		if (getPreferredBody().getGender().isFeminine()) {
-			raceName = getPreferredBody().getRace().getSingularFemaleName();
-		} else {
-			raceName = getPreferredBody().getRace().getSingularMaleName();
+		if(Main.getProperties().forcedTFPreference != FurryPreference.HUMAN) {
+			if (getPreferredBody().getGender().isFeminine()) {
+				raceName = getPreferredBody().getGender().getName() + " " + getPreferredBody().getRace().getSingularFemaleName();
+			} else {
+				raceName = getPreferredBody().getGender().getName() + " " + getPreferredBody().getRace().getSingularMaleName();
+			}
+		
+			switch(getPreferredBody().getRace()) {
+				case CAT_MORPH:
+					itemType = ItemType.RACE_INGREDIENT_CAT_MORPH;
+					reaction = "Time to turn you into a cute little "+raceName+"!";
+					break;
+				case DOG_MORPH:
+					itemType = ItemType.RACE_INGREDIENT_DOG_MORPH;
+					reaction = "Time to turn you into an excitable little "+raceName+"!";
+					break;
+				case HARPY:
+					itemType = ItemType.RACE_INGREDIENT_HARPY;
+					reaction = "Time to turn you into a hot little "+raceName+"!";
+					break;
+				case HORSE_MORPH:
+					itemType = ItemType.RACE_INGREDIENT_HORSE_MORPH;
+					if (getPreferredBody().getGender().isFeminine()) {
+						reaction = "Time to turn you into my little mare!";
+					} else {
+						reaction = "Time to turn you into my very own stallion!";
+					}
+					break;
+				case REINDEER_MORPH:
+					itemType = ItemType.RACE_INGREDIENT_REINDEER_MORPH;
+					if (getPreferredBody().getGender().isFeminine()) {
+						reaction = "Time to turn you into my little doe!";
+					} else {
+						reaction = "Time to turn you into my very own buck!";
+					}
+					break;
+				case SQUIRREL_MORPH:
+					itemType = ItemType.RACE_INGREDIENT_SQUIRREL_MORPH;
+					reaction = "Time to turn you into a cute little "+raceName+"!";
+					break;
+				case WOLF_MORPH:
+					itemType = ItemType.RACE_INGREDIENT_WOLF_MORPH;
+					reaction = "Time to turn you into a "+raceName+"!";
+					break;
+				case ALLIGATOR_MORPH:
+					itemType = ItemType.RACE_INGREDIENT_ALLIGATOR_MORPH;
+					reaction = "Time to turn you into a "+raceName+"!";
+					break;
+				case COW_MORPH:
+					itemType = ItemType.RACE_INGREDIENT_COW_MORPH;
+					break;
+				case ANGEL:
+				case DEMON:
+				case SLIME:
+				case HUMAN:
+					itemType = ItemType.RACE_INGREDIENT_HUMAN;
+					break;
+			}
 		}
 		
-		switch(getPreferredBody().getRace()) {
-			case CAT_MORPH:
-				itemType = ItemType.RACE_INGREDIENT_CAT_MORPH;
-				reaction = "Time to turn you into a cute little "+raceName+"!";
-				break;
-			case DOG_MORPH:
-				itemType = ItemType.RACE_INGREDIENT_DOG_MORPH;
-				reaction = "Time to turn you into an excitable little "+raceName+"!";
-				break;
-			case HARPY:
-				itemType = ItemType.RACE_INGREDIENT_HARPY;
-				reaction = "Time to turn you into a hot little "+raceName+"!";
-				break;
-			case HORSE_MORPH:
-				itemType = ItemType.RACE_INGREDIENT_HORSE_MORPH;
-				if (getPreferredBody().getGender().isFeminine()) {
-					reaction = "Time to turn you into my little mare!";
-				} else {
-					reaction = "Time to turn you into my very own stallion!";
-				}
-				break;
-			case SQUIRREL_MORPH:
-				itemType = ItemType.RACE_INGREDIENT_SQUIRREL_MORPH;
-				reaction = "Time to turn you into a cute little "+raceName+"!";
-				break;
-			case WOLF_MORPH:
-				itemType = ItemType.RACE_INGREDIENT_WOLF_MORPH;
-				reaction = "Time to turn you into a "+raceName+"!";
-				break;
-			case COW_MORPH:
-				itemType = ItemType.RACE_INGREDIENT_COW_MORPH;
-				break;
-			case ANGEL:
-			case DEMON:
-			case SLIME:
-			case HUMAN:
-				itemType = ItemType.RACE_INGREDIENT_HUMAN;
-				break;
+		AbstractItemType genitalsItemType = itemType;
+		boolean skipGenitalsTF = false;
+		
+		if(Main.getProperties().forcedTFPreference==FurryPreference.HUMAN || Main.getProperties().forcedTFPreference==FurryPreference.MINIMUM) {
+			genitalsItemType = ItemType.RACE_INGREDIENT_HUMAN;
+			
+			boolean vaginaSet = false;
+			boolean penisSet = false;
+			
+			if((Main.game.getPlayer().getVaginaType() == getPreferredBody().getVagina().getType()) || (getPreferredBody().getVagina().getType()!=VaginaType.NONE && Main.game.getPlayer().hasVagina())) {
+				vaginaSet = true;
+			}
+			
+			if((Main.game.getPlayer().getPenisType() == getPreferredBody().getPenis().getType()) || (getPreferredBody().getPenis().getType()!=PenisType.NONE && Main.game.getPlayer().hasPenis())) {
+				penisSet = true;
+			}
+			
+			skipGenitalsTF = vaginaSet && penisSet;
 		}
+		
 		
 		Map<ItemEffect, String> possibleEffects = new HashMap<>();
 		
 		// Order of transformation preferences are: Sexual organs -> minor parts -> Legs & arms -> Face & skin 
-
-		// Sexual transformations:
-		if(!Main.game.getPlayer().isHasAnyPregnancyEffects()) { // Vagina cannot be transformed if pregnant, so skip this
-			if(Main.game.getPlayer().getVaginaType() != getPreferredBody().getVagina().getType()) {
-				if(getPreferredBody().getVagina().getType() == VaginaType.NONE) {
-					if(Main.game.getPlayer().getVaginaRawCapacityValue() > 1) {
-						possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_CAPACITY, TFPotency.DRAIN, 1), "Let's get to work on getting rid of that little cunt of yours!");
-					} else {
-						possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), "Let's get rid of that tight little cunt of yours!");
+		
+		
+		if(!skipGenitalsTF) {
+			// Sexual transformations:
+			boolean removingVagina = false;
+			boolean addingVagina = false;
+			boolean removingPenis = false;
+			boolean addingPenis = false;
+			if(!Main.game.getPlayer().isHasAnyPregnancyEffects()) { // Vagina cannot be transformed if pregnant, so skip this
+				if(Main.game.getPlayer().getVaginaType() != getPreferredBody().getVagina().getType()) {
+					if(getPreferredBody().getVagina().getType() == VaginaType.NONE) {
+						if(Main.game.getPlayer().getVaginaRawCapacityValue() > 1) {
+							possibleEffects.put(new ItemEffect(genitalsItemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.TF_MOD_CAPACITY, TFPotency.DRAIN, 1), "Let's get to work on getting rid of that little cunt of yours!");
+							removingVagina = true;
+						} else {
+							possibleEffects.put(new ItemEffect(genitalsItemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), "Let's get rid of that tight little cunt of yours!");
+							removingVagina = true;
+						}
+					} else if((Main.getProperties().forcedTFPreference != FurryPreference.HUMAN && Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) || getPreferredBody().getVagina().getType()==VaginaType.HUMAN) {
+						possibleEffects.put(new ItemEffect(genitalsItemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
+								"Let's give you a nice "+getPreferredBody().getVagina().getName(Main.game.getPlayer(), false)+"!");
+						addingVagina = true;
 					}
-				} else {
-					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_VAGINA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), "Let's give you a nice "+getPreferredBody().getVagina().getName(Main.game.getPlayer(), false)+"!");
 				}
 			}
-		}
-		if(Main.game.getPlayer().getPenisType() != getPreferredBody().getPenis().getType()) {
-			if(getPreferredBody().getPenis().getType() == PenisType.NONE) {
-				if(Main.game.getPlayer().getPenisRawSizeValue() > 1) {
-					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.DRAIN, 1), "Let's get to work on getting rid of that cock of yours!");
-				} else {
-					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), "Let's get rid of that pathetic little cock of yours!");
+			if(Main.game.getPlayer().getPenisType() != getPreferredBody().getPenis().getType()) {
+				if(getPreferredBody().getPenis().getType() == PenisType.NONE) {
+					if(Main.game.getPlayer().getPenisRawSizeValue() > 1) {
+						possibleEffects.put(new ItemEffect(genitalsItemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.TF_MOD_SIZE, TFPotency.DRAIN, 1), "Let's get to work on getting rid of that cock of yours!");
+						removingPenis = true;
+					} else {
+						possibleEffects.put(new ItemEffect(genitalsItemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.REMOVAL, TFPotency.MINOR_BOOST, 1), "Let's get rid of that pathetic little cock of yours!");
+						removingPenis = true;
+					}
+				} else if((Main.getProperties().forcedTFPreference != FurryPreference.HUMAN && Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) || getPreferredBody().getPenis().getType()==PenisType.HUMAN) {
+					possibleEffects.put(new ItemEffect(genitalsItemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1),
+							"Let's give you a nice "+getPreferredBody().getPenis().getName(Main.game.getPlayer(), false)+"!");
+					addingPenis = true;
 				}
-			} else {
-				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_PENIS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), "Let's give you a nice "+getPreferredBody().getPenis().getName(Main.game.getPlayer(), false)+"!");
+			}
+			if(!possibleEffects.isEmpty()) {
+				String s = "";
+				if(possibleEffects.size()>1) {
+					if(removingVagina) {
+						s+="Let's get to work on getting rid of that cunt of yours,";
+						if(removingPenis) {
+							s+=" and I thinking it's also time to say goodbye to your pathetic cock as well!";
+						} else if(addingPenis) {
+							s+=" and give you a nice cock instead!";
+						}
+					} else if(addingVagina) {
+						s+="Let's give you a "+getPreferredBody().getVagina().getName(Main.game.getPlayer(), false)+",";
+						if(removingPenis) {
+							s+=" and I think I'll get rid of your pathetic cock at the same time!";
+						} else if(addingPenis) {
+							s+=" and a nice cock as well!";
+						}
+					}
+				}
+				
+				for(Entry<ItemEffect, String> entry : possibleEffects.entrySet()) {
+					if(possibleEffects.size()==1){
+						s = entry.getValue();
+					}
+					effects.add(entry.getKey());
+				}
+				return new Value<>(s, EnchantingUtils.craftItem(AbstractItemType.generateItem(itemType), effects));
 			}
 		}
+		
+		
 		// All minor part transformations:
-		if(possibleEffects.isEmpty() || Math.random()>0.33f) {
-			if(Main.game.getPlayer().getAntennaType() != getPreferredBody().getAntenna().getType()) {
-				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ANTENNA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+		if(Main.getProperties().forcedTFPreference != FurryPreference.HUMAN) {
+			if(possibleEffects.isEmpty() || Math.random()>0.33f) {
+				if(Main.game.getPlayer().getAntennaType() != getPreferredBody().getAntenna().getType()) {
+					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ANTENNA, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+				}
+				if(Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) {
+					if(Main.game.getPlayer().getAssType() != getPreferredBody().getAss().getType()) {
+						possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+					}
+					if(Main.game.getPlayer().getBreastType() != getPreferredBody().getBreast().getType()) {
+						possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+					}
+				}
+				if(Main.game.getPlayer().getEarType() != getPreferredBody().getEar().getType()) {
+					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_EARS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+				}
+				if(Main.game.getPlayer().getEyeType() != getPreferredBody().getEye().getType()) {
+					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_EYES, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+				}
+				if(Main.game.getPlayer().getHairType() != getPreferredBody().getHair().getType()) {
+					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+				}
+				if(Main.game.getPlayer().getHornType() != getPreferredBody().getHorn().getType()) {
+					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HORNS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+				}
+				if(Main.game.getPlayer().getTailType() != getPreferredBody().getTail().getType()) {
+					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_TAIL, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+				}
+				if(Main.game.getPlayer().getWingType() != getPreferredBody().getWing().getType()) {
+					possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_WINGS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+				}
 			}
-			if(Main.game.getPlayer().getAssType() != getPreferredBody().getAss().getType()) {
-				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ASS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+			
+			// Leg & Arm transformations:
+			if(Main.getProperties().forcedTFPreference != FurryPreference.MINIMUM) {
+				if(possibleEffects.isEmpty()) {
+					if(Main.game.getPlayer().getArmType() != getPreferredBody().getArm().getType()) {
+						possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ARMS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+					}
+					if(Main.game.getPlayer().getLegType() != getPreferredBody().getLeg().getType()) {
+						possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_LEGS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+					}
+				}
 			}
-			if(Main.game.getPlayer().getBreastType() != getPreferredBody().getBreast().getType()) {
-				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_BREASTS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
-			}
-			if(Main.game.getPlayer().getEarType() != getPreferredBody().getEar().getType()) {
-				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_EARS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
-			}
-			if(Main.game.getPlayer().getEyeType() != getPreferredBody().getEye().getType()) {
-				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_EYES, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
-			}
-			if(Main.game.getPlayer().getHairType() != getPreferredBody().getHair().getType()) {
-				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HAIR, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
-			}
-			if(Main.game.getPlayer().getHornType() != getPreferredBody().getHorn().getType()) {
-				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_HORNS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
-			}
-			if(Main.game.getPlayer().getTailType() != getPreferredBody().getTail().getType()) {
-				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_TAIL, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
-			}
-			if(Main.game.getPlayer().getWingType() != getPreferredBody().getWing().getType()) {
-				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_WINGS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
-			}
-		}
-		// Leg & Arm transformations:
-		if(possibleEffects.isEmpty()) {
-			if(Main.game.getPlayer().getArmType() != getPreferredBody().getArm().getType()) {
-				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_ARMS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
-			}
-			if(Main.game.getPlayer().getLegType() != getPreferredBody().getLeg().getType()) {
-				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_LEGS, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
-			}
-		}
-		// Face & Skin transformations:
-		if(possibleEffects.isEmpty()) {
-			if(Main.game.getPlayer().getSkinType() != getPreferredBody().getSkin().getType()) {
-				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_SKIN, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
-			}
-			if(Main.game.getPlayer().getFaceType() != getPreferredBody().getFace().getType()) {
-				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+			// Face & Skin transformations:
+			if(Main.getProperties().forcedTFPreference == FurryPreference.NORMAL || Main.getProperties().forcedTFPreference == FurryPreference.MAXIMUM) {
+				if(possibleEffects.isEmpty()) {
+					if(Main.game.getPlayer().getSkinType() != getPreferredBody().getSkin().getType()) {
+						possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_SKIN, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+					}
+					if(Main.game.getPlayer().getFaceType() != getPreferredBody().getFace().getType()) {
+						possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_FACE, TFModifier.NONE, TFPotency.MINOR_BOOST, 1), reaction);
+					}
+				}
 			}
 		}
 		
 		// 50% chance of type TF:
 		if(Math.random()<0.5f && !possibleEffects.isEmpty()) {
 			List<ItemEffect> keysAsArray = new ArrayList<>(possibleEffects.keySet());
-			ItemEffect effect = keysAsArray.get(Util.random.nextInt(keysAsArray.size()));
+			
+			for (int i = 0 ; i < numberOfTransformations ; i++) {
+				if(!keysAsArray.isEmpty()) {
+					ItemEffect e = keysAsArray.get(Util.random.nextInt(keysAsArray.size()));
+					effects.add(e);
+					keysAsArray.remove(e);
+				}
+			}
 			
 			return new Value<>(
-					possibleEffects.get(effect),
-					EnchantingUtils.craftItem(AbstractItemType.generateItem(itemType), Util.newArrayListOfValues(new ListValue<>(effect))));
+					reaction,
+					EnchantingUtils.craftItem(AbstractItemType.generateItem(itemType), effects));
 		}
 		
 		
@@ -593,10 +869,10 @@ public abstract class NPC extends GameCharacter {
 		
 		// Femininity:
 		if(Main.game.getPlayer().getFemininityValue() < getPreferredBody().getFemininity() && Femininity.valueOf(Main.game.getPlayer().getFemininityValue()) != Femininity.valueOf(getPreferredBody().getFemininity())) {
-			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_FEMININITY, TFPotency.BOOST, 1), "I'm gonna need you to be more feminine!");
+			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_FEMININITY, TFPotency.MAJOR_BOOST, 1), "I'm gonna need you to be more feminine!");
 			
 		} else if(Main.game.getPlayer().getFemininityValue() > getPreferredBody().getFemininity() && Femininity.valueOf(Main.game.getPlayer().getFemininityValue()) != Femininity.valueOf(getPreferredBody().getFemininity())) {
-			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_FEMININITY, TFPotency.DRAIN, 1), "I'm gonna need you to be more of a man!");
+			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_FEMININITY, TFPotency.MAJOR_DRAIN, 1), "I'm gonna need you to be more of a man!");
 		}
 		
 		// Height:
@@ -677,12 +953,36 @@ public abstract class NPC extends GameCharacter {
 			return null;
 		}
 		
+		
+//		List<ItemEffect> keysAsArray = new ArrayList<>(possibleEffects.keySet());
+//		ItemEffect effect = keysAsArray.get(Util.random.nextInt(keysAsArray.size()));
+//
+//		for (int i = 0; i < numberOfTransformations; i++) {
+//			if (!keysAsArray.isEmpty()) {
+//				ItemEffect e = keysAsArray.get(Util.random.nextInt(keysAsArray.size()));
+//				effects.add(e);
+//				keysAsArray.remove(e);
+//			}
+//		}
+//
+//		return new Value<>(
+//				possibleEffects.get(effect),
+//				EnchantingUtils.craftItem(AbstractItemType.generateItem(itemType), effects));
+		
 		List<ItemEffect> keysAsArray = new ArrayList<>(possibleEffects.keySet());
-		ItemEffect effect = keysAsArray.get(Util.random.nextInt(keysAsArray.size()));
+//		ItemEffect effect = keysAsArray.get(Util.random.nextInt(keysAsArray.size()));
+		
+		for (int i = 0 ; i < numberOfTransformations ; i++) {
+			if(!keysAsArray.isEmpty()) {
+				ItemEffect e = keysAsArray.get(Util.random.nextInt(keysAsArray.size()));
+				effects.add(e);
+				keysAsArray.remove(e);
+			}
+		}
 		
 		return new Value<>(
-				possibleEffects.get(effect),
-				EnchantingUtils.craftItem(AbstractItemType.generateItem(itemType), Util.newArrayListOfValues(new ListValue<>(effect))));
+				possibleEffects.get(effects.get(0)),
+				EnchantingUtils.craftItem(AbstractItemType.generateItem(itemType), effects));
 	}
 	
 	private Body generatePreferredBody() {
@@ -737,77 +1037,85 @@ public abstract class NPC extends GameCharacter {
 		// Preferred race:
 		
 		Race race = getRace();
-		
-		// Chance for predator races to prefer prey races:
-		if(getRace()==Race.CAT_MORPH && Math.random()>0.6f) {
-			race = Race.HARPY;
-		}
-		if((getRace()==Race.WOLF_MORPH || getRace()==Race.DOG_MORPH) && Math.random()>0.6f) {
-			List<Race> availableRaces = new ArrayList<>();
-			availableRaces.add(Race.CAT_MORPH);
-			availableRaces.add(Race.HARPY);
-			availableRaces.add(Race.SQUIRREL_MORPH);
-			race = availableRaces.get(Util.random.nextInt(availableRaces.size()));
-		}
-		
-		// Chance for race to be random:
-		if(Math.random()>0.85f) {
-			List<Race> availableRaces = new ArrayList<>();
-			availableRaces.add(Race.CAT_MORPH);
-			availableRaces.add(Race.DOG_MORPH);
-			availableRaces.add(Race.HARPY);
-			availableRaces.add(Race.HORSE_MORPH);
-			availableRaces.add(Race.HUMAN);
-			availableRaces.add(Race.SQUIRREL_MORPH);
-			availableRaces.add(Race.WOLF_MORPH);
-			race = availableRaces.get(Util.random.nextInt(availableRaces.size()));
-		}
-		
+		RaceStage stage = getRaceStage();
 		RacialBody startingBodyType = RacialBody.valueOfRace(race);
 		
-		
-		// Preferred race stage:
-		
-		RaceStage stage = getRaceStage();
-		
-		if(preferredGender.isFeminine()) {
-			switch(Main.getProperties().raceFemininePreferencesMap.get(race)) {
-				case HUMAN:
-					stage = RaceStage.HUMAN;
-					break;
-				case MAXIMUM:
-					stage = RaceStage.GREATER;
-					break;
-				case MINIMUM:
-					stage = RaceStage.PARTIAL_FULL;
-					break;
-				case NORMAL:
-					stage = RaceStage.GREATER;
-					break;
-				case REDUCED:
-					stage = RaceStage.LESSER;
-					break;
-			}
+		if(Main.getProperties().forcedTFPreference==FurryPreference.HUMAN) {
+			race = Race.HUMAN;
+			stage = RaceStage.HUMAN;
+			startingBodyType = RacialBody.valueOfRace(race);
+			
 		} else {
-			switch(Main.getProperties().raceMasculinePreferencesMap.get(race)) {
-				case HUMAN:
-					stage = RaceStage.HUMAN;
-					break;
-				case MAXIMUM:
-					stage = RaceStage.GREATER;
-					break;
-				case MINIMUM:
-					stage = RaceStage.PARTIAL_FULL;
-					break;
-				case NORMAL:
-					stage = RaceStage.GREATER;
-					break;
-				case REDUCED:
-					stage = RaceStage.LESSER;
-					break;
+		
+			// Chance for predator races to prefer prey races:
+			if(getRace()==Race.CAT_MORPH && Math.random()>0.8f) {
+				race = Race.HARPY;
+			}
+			if((getRace()==Race.WOLF_MORPH || getRace()==Race.DOG_MORPH) && Math.random()>0.8f) {
+				List<Race> availableRaces = new ArrayList<>();
+				availableRaces.add(Race.CAT_MORPH);
+				availableRaces.add(Race.HARPY);
+				availableRaces.add(Race.COW_MORPH);
+				availableRaces.add(Race.SQUIRREL_MORPH);
+				race = availableRaces.get(Util.random.nextInt(availableRaces.size()));
+			}
+			
+			// Chance for race to be random:
+			if(Math.random()>0.85f) {
+				List<Race> availableRaces = new ArrayList<>();
+				availableRaces.add(Race.CAT_MORPH);
+				availableRaces.add(Race.DOG_MORPH);
+				availableRaces.add(Race.HARPY);
+				availableRaces.add(Race.HORSE_MORPH);
+				availableRaces.add(Race.HUMAN);
+				availableRaces.add(Race.SQUIRREL_MORPH);
+				availableRaces.add(Race.COW_MORPH);
+				availableRaces.add(Race.WOLF_MORPH);
+				race = availableRaces.get(Util.random.nextInt(availableRaces.size()));
+			}
+			
+			startingBodyType = RacialBody.valueOfRace(race);
+			
+			// Preferred race stage:
+			
+			if(preferredGender.isFeminine()) {
+				switch(Main.getProperties().raceFemininePreferencesMap.get(race)) {
+					case HUMAN:
+						stage = RaceStage.HUMAN;
+						break;
+					case MAXIMUM:
+						stage = RaceStage.GREATER;
+						break;
+					case MINIMUM:
+						stage = RaceStage.PARTIAL_FULL;
+						break;
+					case NORMAL:
+						stage = RaceStage.GREATER;
+						break;
+					case REDUCED:
+						stage = RaceStage.LESSER;
+						break;
+				}
+			} else {
+				switch(Main.getProperties().raceMasculinePreferencesMap.get(race)) {
+					case HUMAN:
+						stage = RaceStage.HUMAN;
+						break;
+					case MAXIMUM:
+						stage = RaceStage.GREATER;
+						break;
+					case MINIMUM:
+						stage = RaceStage.PARTIAL_FULL;
+						break;
+					case NORMAL:
+						stage = RaceStage.GREATER;
+						break;
+					case REDUCED:
+						stage = RaceStage.LESSER;
+						break;
+				}
 			}
 		}
-		
 		
 		Body body = new Body.BodyBuilder(
 				new Arm((stage.isArmFurry()?startingBodyType.getArmType():ArmType.HUMAN), startingBodyType.getArmRows()),
@@ -820,7 +1128,7 @@ public abstract class NPC extends GameCharacter {
 						true),
 				new Breast(stage.isBreastFurry()?startingBodyType.getBreastType():BreastType.HUMAN,
 						BreastShape.getRandomBreastShape(),
-						(preferredGender.isFeminine() ? startingBodyType.getFemaleBreastSize() : startingBodyType.getMaleBreastSize()),
+						(preferredGender.isFeminine() ? startingBodyType.getBreastSize() : startingBodyType.getNoBreastSize()),
 						(preferredGender.isFeminine() ? startingBodyType.getFemaleLactationRate() : startingBodyType.getMaleLactationRate()),
 						((stage.isSkinFurry() && Main.getProperties().multiBreasts==1) || (stage.isBreastFurry() && Main.getProperties().multiBreasts==2)
 								?(preferredGender.isFeminine() ? startingBodyType.getBreastCountFemale() : startingBodyType.getBreastCountMale())
@@ -838,7 +1146,11 @@ public abstract class NPC extends GameCharacter {
 				new Eye(stage.isEyeFurry()?startingBodyType.getEyeType():EyeType.HUMAN),
 				new Ear(stage.isEarFurry()?startingBodyType.getEarType():EarType.HUMAN),
 				new Hair(stage.isHairFurry()?startingBodyType.getHairType():HairType.HUMAN,
-						(preferredGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength()),
+						(startingBodyType.isHairTypeLinkedToFaceType()
+								?(stage.isFaceFurry()
+										?(preferredGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength())
+										:(preferredGender.isFeminine() ? RacialBody.HUMAN.getFemaleHairLength() : RacialBody.HUMAN.getMaleHairLength()))
+								:(preferredGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength())),
 						HairStyle.getRandomHairStyle((preferredGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength()))),
 				new Leg(stage.isLegFurry()?startingBodyType.getLegType():LegType.HUMAN),
 				new Skin(stage.isSkinFurry()?startingBodyType.getSkinType():SkinType.HUMAN),
@@ -865,14 +1177,13 @@ public abstract class NPC extends GameCharacter {
 									startingBodyType.getCumProduction(),
 									startingBodyType.getTesticleQuantity())
 								: new Penis(PenisType.NONE, 0, 0, 0, 2))
-						.horn(startingBodyType.getHornTypeFemale() == HornType.NONE ? new Horn(HornType.NONE) : new Horn(!preferredGender.isFeminine()
-								? (stage.isHornFurry()?startingBodyType.getHornTypeMale():HornType.NONE)
-								: (stage.isHornFurry()?startingBodyType.getHornTypeFemale():HornType.NONE)))
+						.horn(new Horn((stage.isHornFurry()?startingBodyType.getRandomHornType(false):HornType.NONE), (preferredGender.isFeminine() ? startingBodyType.getFemaleHornLength() : startingBodyType.getMaleHornLength())))
+						.antenna(new Antenna(stage.isAntennaFurry()?startingBodyType.getAntennaType():AntennaType.NONE))
 						.tail(new Tail(stage.isTailFurry()?startingBodyType.getTailType():TailType.NONE))
-						.wing(new Wing(stage.isWingFurry()?startingBodyType.getWingType():WingType.NONE))
+						.wing(new Wing((stage.isWingFurry()?startingBodyType.getWingType():WingType.NONE), (preferredGender.isFeminine() ? startingBodyType.getFemaleWingSize() : startingBodyType.getMaleWingSize())))
 						.build();
 		
-		// Apply fetish mdifiers:
+		// Apply fetish modifiers:
 		
 		GameCharacter genericOwner = Main.game.getGenericAndrogynousNPC();
 		
@@ -967,123 +1278,393 @@ public abstract class NPC extends GameCharacter {
 	// Sex:
 	
 	public String getLostVirginityDescriptor() {
-		return "";
+		return this.getLocationPlace().getPlaceType().getVirgintyLossDescription();
 	}
 	
 	public void endSex(boolean applyEffects) {
 	}
 	
-	public Set<SexPosition> getSexPositionPreferences(){
+	public boolean getSexBehaviourDeniesRequests() {
+		return hasFetish(Fetish.FETISH_DOMINANT);
+	}
+	
+	protected SexType foreplayPreference;
+	protected SexType mainSexPreference;
+	
+	public SexType getForeplayPreference() {
+		return foreplayPreference;
+	}
+
+	public void setForeplayPreference(SexType foreplayPreference) {
+		this.foreplayPreference = foreplayPreference;
+	}
+
+	public SexType getMainSexPreference() {
+		return mainSexPreference;
+	}
+
+	public void setMainSexPreference(SexType mainSexPreference) {
+		this.mainSexPreference = mainSexPreference;
+	}
+
+	public void generateSexChoices() {
+		List<SexType> foreplaySexTypes = new ArrayList<>();
+		List<SexType> mainSexTypes = new ArrayList<>();
+		
+		NPC partner = this;
+		
+		// ************************ Populate possibilities from fetishes. These all have the same weighting, as all fetishes are equally important. ************************ //
+		
+		if(partner.hasFetish(Fetish.FETISH_BREASTS_OTHERS)) {
+			foreplaySexTypes.add(new SexType(PenetrationType.FINGER_PARTNER, OrificeType.BREAST_PLAYER));
+			foreplaySexTypes.add(new SexType(PenetrationType.TONGUE_PARTNER, OrificeType.BREAST_PLAYER));
+			foreplaySexTypes.add(new SexType(PenetrationType.FINGER_PARTNER, OrificeType.NIPPLE_PLAYER));
+			foreplaySexTypes.add(new SexType(PenetrationType.TONGUE_PARTNER, OrificeType.NIPPLE_PLAYER));
+			foreplaySexTypes.add(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.BREAST_PLAYER));
+			
+			mainSexTypes.add(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.BREAST_PLAYER));
+			mainSexTypes.add(new SexType(PenetrationType.TAIL_PARTNER, OrificeType.BREAST_PLAYER));
+			mainSexTypes.add(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.NIPPLE_PLAYER));
+			mainSexTypes.add(new SexType(PenetrationType.TAIL_PARTNER, OrificeType.NIPPLE_PLAYER));
+		}
+		if(partner.hasFetish(Fetish.FETISH_BREASTS_SELF)) {
+			foreplaySexTypes.add(new SexType(PenetrationType.FINGER_PLAYER, OrificeType.BREAST_PARTNER));
+			foreplaySexTypes.add(new SexType(PenetrationType.TONGUE_PLAYER, OrificeType.BREAST_PARTNER));
+			foreplaySexTypes.add(new SexType(PenetrationType.FINGER_PLAYER, OrificeType.NIPPLE_PARTNER));
+			foreplaySexTypes.add(new SexType(PenetrationType.TONGUE_PLAYER, OrificeType.NIPPLE_PARTNER));
+			foreplaySexTypes.add(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.BREAST_PARTNER));
+
+			mainSexTypes.add(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.BREAST_PARTNER));
+			mainSexTypes.add(new SexType(PenetrationType.TAIL_PLAYER, OrificeType.BREAST_PARTNER));
+			mainSexTypes.add(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.NIPPLE_PARTNER));
+			mainSexTypes.add(new SexType(PenetrationType.TAIL_PLAYER, OrificeType.NIPPLE_PARTNER));
+		}
+		if(partner.hasFetish(Fetish.FETISH_ANAL_GIVING)) {
+			foreplaySexTypes.add(new SexType(PenetrationType.FINGER_PARTNER, OrificeType.ANUS_PLAYER));
+			foreplaySexTypes.add(new SexType(PenetrationType.TONGUE_PARTNER, OrificeType.ANUS_PLAYER));
+			
+			mainSexTypes.add(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER));
+			mainSexTypes.add(new SexType(PenetrationType.TAIL_PARTNER, OrificeType.ANUS_PLAYER));
+		}
+		if(partner.hasFetish(Fetish.FETISH_ANAL_RECEIVING)) {
+			foreplaySexTypes.add(new SexType(PenetrationType.FINGER_PLAYER, OrificeType.ANUS_PARTNER));
+			foreplaySexTypes.add(new SexType(PenetrationType.TONGUE_PLAYER, OrificeType.ANUS_PARTNER));
+
+			mainSexTypes.add(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER));
+			mainSexTypes.add(new SexType(PenetrationType.TAIL_PLAYER, OrificeType.ANUS_PARTNER));
+		}
+		if((partner.hasFetish(Fetish.FETISH_DEFLOWERING) && Main.game.getPlayer().isVaginaVirgin()) || partner.hasFetish(Fetish.FETISH_IMPREGNATION) || partner.hasFetish(Fetish.FETISH_SEEDER)) {
+			mainSexTypes.add(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER));
+		}
+		if(partner.hasFetish(Fetish.FETISH_PREGNANCY) || partner.hasFetish(Fetish.FETISH_BROODMOTHER)) {
+			mainSexTypes.add(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER));
+		}
+		if(partner.hasFetish(Fetish.FETISH_ORAL_RECEIVING)) {
+			foreplaySexTypes.add(new SexType(PenetrationType.TONGUE_PLAYER, OrificeType.VAGINA_PARTNER));
+			foreplaySexTypes.add(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER));
+			mainSexTypes.add(new SexType(PenetrationType.TONGUE_PLAYER, OrificeType.VAGINA_PARTNER));
+			mainSexTypes.add(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER));
+		}
+		if(partner.hasFetish(Fetish.FETISH_ORAL_GIVING)) {
+			foreplaySexTypes.add(new SexType(PenetrationType.TONGUE_PARTNER, OrificeType.VAGINA_PLAYER));
+			foreplaySexTypes.add(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER));
+			mainSexTypes.add(new SexType(PenetrationType.TONGUE_PARTNER, OrificeType.VAGINA_PLAYER));
+			mainSexTypes.add(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER));
+		}
+		
+		// ************************ This section deals with the possibilities that no fetish-related SexTypes were chosen ************************ //
+		
+		// If no preferences from fetishes, add all common foreplay actions:
+		if(foreplaySexTypes.isEmpty()) {
+			// Player penetrates:
+			List<PenetrationType> penTypes = Util.newArrayListOfValues(
+					new ListValue<>(PenetrationType.FINGER_PLAYER),
+					new ListValue<>(PenetrationType.TONGUE_PLAYER));
+
+			List<OrificeType> orificeTypes = Util.newArrayListOfValues(
+					new ListValue<>(OrificeType.BREAST_PARTNER),
+					new ListValue<>(OrificeType.NIPPLE_PARTNER),
+					new ListValue<>(OrificeType.VAGINA_PARTNER));
+			
+			for(PenetrationType pen : penTypes) {
+				for(OrificeType orifice : orificeTypes) {
+					foreplaySexTypes.add(new SexType(pen, orifice));
+				}
+			}
+			foreplaySexTypes.add(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER));
+			
+			// Partner penetrates:
+			penTypes = Util.newArrayListOfValues(
+					new ListValue<>(PenetrationType.FINGER_PARTNER),
+					new ListValue<>(PenetrationType.TONGUE_PARTNER));
+
+			orificeTypes = Util.newArrayListOfValues(
+					new ListValue<>(OrificeType.BREAST_PLAYER),
+					new ListValue<>(OrificeType.NIPPLE_PLAYER),
+					new ListValue<>(OrificeType.VAGINA_PLAYER));
+			
+			for(PenetrationType pen : penTypes) {
+				for(OrificeType orifice : orificeTypes) {
+					foreplaySexTypes.add(new SexType(pen, orifice));
+				}
+			}
+			foreplaySexTypes.add(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER));
+		}
+		// If no preferences from fetishes, add all common sex actions:
+		if(mainSexTypes.isEmpty()) { //TODO make a better weighting method, rather than just adding multiple entries
+			// Player penetrates:
+			List<PenetrationType> penTypes = Util.newArrayListOfValues(
+					new ListValue<>(PenetrationType.PENIS_PLAYER),
+					new ListValue<>(PenetrationType.PENIS_PLAYER),
+					new ListValue<>(PenetrationType.PENIS_PLAYER),
+					new ListValue<>(PenetrationType.TAIL_PLAYER));
+
+			List<OrificeType> orificeTypes = Util.newArrayListOfValues(
+					new ListValue<>(OrificeType.BREAST_PARTNER),
+					new ListValue<>(OrificeType.VAGINA_PARTNER),
+					new ListValue<>(OrificeType.VAGINA_PARTNER),
+					new ListValue<>(OrificeType.VAGINA_PARTNER));
+			
+			for(PenetrationType pen : penTypes) {
+				for(OrificeType orifice : orificeTypes) {
+					mainSexTypes.add(new SexType(pen, orifice));
+				}
+			}
+			
+			// Partner penetrates:
+			penTypes = Util.newArrayListOfValues(
+					new ListValue<>(PenetrationType.PENIS_PARTNER),
+					new ListValue<>(PenetrationType.PENIS_PARTNER),
+					new ListValue<>(PenetrationType.PENIS_PARTNER),
+					new ListValue<>(PenetrationType.TAIL_PARTNER));
+
+			orificeTypes = Util.newArrayListOfValues(
+					new ListValue<>(OrificeType.BREAST_PLAYER),
+					new ListValue<>(OrificeType.VAGINA_PLAYER),
+					new ListValue<>(OrificeType.VAGINA_PLAYER),
+					new ListValue<>(OrificeType.VAGINA_PLAYER));
+			
+			for(PenetrationType pen : penTypes) {
+				for(OrificeType orifice : orificeTypes) {
+					mainSexTypes.add(new SexType(pen, orifice));
+				}
+			}
+		}
+
+		// ************************ Remove SexTypes that are physically impossible to perform, or that are not wanted by the NPC. ************************ //
+		
+		// Penis:
+		if(!Main.game.getPlayer().hasPenis() || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
+			foreplaySexTypes.removeIf(sexType -> sexType.getPenetrationType()==PenetrationType.PENIS_PLAYER);
+			mainSexTypes.removeIf(sexType -> sexType.getPenetrationType()==PenetrationType.PENIS_PLAYER);
+		}
+		if(!partner.hasPenis() || !partner.isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
+			foreplaySexTypes.removeIf(sexType -> sexType.getPenetrationType()==PenetrationType.PENIS_PARTNER);
+			mainSexTypes.removeIf(sexType -> sexType.getPenetrationType()==PenetrationType.PENIS_PARTNER);
+		}
+		// Vagina:
+		if(!Main.game.getPlayer().hasVagina() || !Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+			foreplaySexTypes.removeIf(sexType -> sexType.getOrificeType()==OrificeType.VAGINA_PLAYER);
+			mainSexTypes.removeIf(sexType -> sexType.getOrificeType()==OrificeType.VAGINA_PLAYER);
+		}
+		if(partner.hasFetish(Fetish.FETISH_PURE_VIRGIN) || !partner.hasVagina() || !partner.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+			foreplaySexTypes.removeIf(sexType -> sexType.getOrificeType()==OrificeType.VAGINA_PARTNER);
+			mainSexTypes.removeIf(sexType -> sexType.getOrificeType()==OrificeType.VAGINA_PARTNER);
+		}
+		// Anus:
+		if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
+			foreplaySexTypes.removeIf(sexType -> sexType.getOrificeType()==OrificeType.ANUS_PLAYER);
+			mainSexTypes.removeIf(sexType -> sexType.getOrificeType()==OrificeType.ANUS_PLAYER);
+		}
+		if(!partner.isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
+			foreplaySexTypes.removeIf(sexType -> sexType.getOrificeType()==OrificeType.ANUS_PARTNER);
+			mainSexTypes.removeIf(sexType -> sexType.getOrificeType()==OrificeType.ANUS_PARTNER);
+		}
+		// Oral:
+		if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+			foreplaySexTypes.removeIf(sexType -> sexType.getOrificeType()==OrificeType.MOUTH_PLAYER);
+			foreplaySexTypes.removeIf(sexType -> sexType.getPenetrationType()==PenetrationType.TONGUE_PLAYER);
+			mainSexTypes.removeIf(sexType -> sexType.getOrificeType()==OrificeType.MOUTH_PLAYER);
+			mainSexTypes.removeIf(sexType -> sexType.getPenetrationType()==PenetrationType.TONGUE_PLAYER);
+		}
+		if(!partner.isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
+			foreplaySexTypes.removeIf(sexType -> sexType.getOrificeType()==OrificeType.MOUTH_PARTNER);
+			foreplaySexTypes.removeIf(sexType -> sexType.getPenetrationType()==PenetrationType.TONGUE_PARTNER);
+			mainSexTypes.removeIf(sexType -> sexType.getOrificeType()==OrificeType.MOUTH_PARTNER);
+			mainSexTypes.removeIf(sexType -> sexType.getPenetrationType()==PenetrationType.TONGUE_PARTNER);
+		}
+		// Breasts:
+		if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.NIPPLES, true) || (!Main.game.getPlayer().hasBreasts() && !Main.game.getPlayer().isBreastFuckableNipplePenetration())) {
+			foreplaySexTypes.removeIf(sexType -> sexType.getOrificeType()==OrificeType.NIPPLE_PLAYER);
+			foreplaySexTypes.removeIf(sexType -> sexType.getOrificeType()==OrificeType.BREAST_PLAYER);
+			mainSexTypes.removeIf(sexType -> sexType.getOrificeType()==OrificeType.NIPPLE_PLAYER);
+			mainSexTypes.removeIf(sexType -> sexType.getOrificeType()==OrificeType.BREAST_PLAYER);
+		}
+		if(!partner.isAbleToAccessCoverableArea(CoverableArea.NIPPLES, true) || (!partner.hasBreasts() && !partner.isBreastFuckableNipplePenetration())) {
+			foreplaySexTypes.removeIf(sexType -> sexType.getOrificeType()==OrificeType.NIPPLE_PARTNER);
+			foreplaySexTypes.removeIf(sexType -> sexType.getOrificeType()==OrificeType.BREAST_PARTNER);
+			mainSexTypes.removeIf(sexType -> sexType.getOrificeType()==OrificeType.NIPPLE_PARTNER);
+			mainSexTypes.removeIf(sexType -> sexType.getOrificeType()==OrificeType.BREAST_PARTNER);
+		}
+		// Tail:
+		if(Main.game.getPlayer().getTailType() == TailType.NONE || (!Main.game.getPlayer().getTailType().isSuitableForPenetration() && !Main.getProperties().furryTailPenetrationContent)) {
+			foreplaySexTypes.removeIf(sexType -> sexType.getPenetrationType()==PenetrationType.TAIL_PLAYER);
+			mainSexTypes.removeIf(sexType -> sexType.getPenetrationType()==PenetrationType.TAIL_PLAYER);
+		}
+		if(partner.getTailType() == TailType.NONE || (!partner.getTailType().isSuitableForPenetration() && !Main.getProperties().furryTailPenetrationContent)) {
+			foreplaySexTypes.removeIf(sexType -> sexType.getPenetrationType()==PenetrationType.TAIL_PARTNER);
+			mainSexTypes.removeIf(sexType -> sexType.getPenetrationType()==PenetrationType.TAIL_PARTNER);
+		}
+		
+		
+		// ************************ Finally, set preferences from the resulting lists. ************************ //
+		
+		if(foreplaySexTypes.isEmpty()) {
+			foreplayPreference = null;
+		} else {
+			foreplayPreference = foreplaySexTypes.get(Util.random.nextInt(foreplaySexTypes.size()));
+//			System.out.println("Foreplay: "+foreplayPreference.getPenetrationType().toString()+" "+foreplayPreference.getOrificeType().toString());
+		}
+		
+		if(mainSexTypes.isEmpty()) {
+			mainSexPreference = null;
+		} else {
+			mainSexPreference = mainSexTypes.get(Util.random.nextInt(mainSexTypes.size()));
+//			System.out.println("Main: "+mainSexPreference.getPenetrationType().toString()+" "+mainSexPreference.getOrificeType().toString());
+		}
+	}
+	
+	public Set<SexPositionSlot> getSexPositionPreferences() {
 		sexPositionPreferences.clear();
 		
-		// Doggy, kneeling, 69, wall back, wall front
-		
-		if(Sex.isPlayerDom()) { // These are irrelevant, as the player can always choose what to do if they're the dom:
-			if(hasFetish(Fetish.FETISH_ORAL_GIVING) && canUseMouth()) {
-				sexPositionPreferences.add(SexPosition.KNEELING_PARTNER_PERFORMING_ORAL);
-				sexPositionPreferences.add(SexPosition.SIXTY_NINE_PLAYER_TOP);
+		if(Sex.isInForeplay()) {
+			if(foreplayPreference!=null) {
+				if(foreplayPreference.equals(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER))
+						|| foreplayPreference.equals(new SexType(PenetrationType.TONGUE_PLAYER, OrificeType.VAGINA_PARTNER))) {
+					sexPositionPreferences.add(SexPositionSlot.KNEELING_RECEIVING_ORAL);
+					
+				} else if(foreplayPreference.equals(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER))
+						|| foreplayPreference.equals(new SexType(PenetrationType.TONGUE_PARTNER, OrificeType.VAGINA_PLAYER))){
+					sexPositionPreferences.add(SexPositionSlot.KNEELING_PERFORMING_ORAL);
+					sexPositionPreferences.add(SexPositionSlot.DOGGY_BEHIND_ORAL);
+					
+				} else if(foreplayPreference.equals(new SexType(PenetrationType.TONGUE_PARTNER, OrificeType.ANUS_PLAYER))){
+					sexPositionPreferences.add(SexPositionSlot.DOGGY_BEHIND_ORAL);
+					
+				} else if(foreplayPreference.getOrificeType()==OrificeType.ANUS_PLAYER){
+					sexPositionPreferences.add(SexPositionSlot.FACE_TO_WALL_FACING_TARGET);
+					
+				} else if(foreplayPreference.equals(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.BREAST_PARTNER))
+						|| foreplayPreference.equals(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.NIPPLE_PARTNER))) {
+					sexPositionPreferences.add(SexPositionSlot.KNEELING_PERFORMING_ORAL);
+					
+				}
+				
+			} 
+			if(sexPositionPreferences.isEmpty()){ // If no preferences found, add 'standard' positions:
+				sexPositionPreferences.add(SexPositionSlot.BACK_TO_WALL_FACING_TARGET);
+				sexPositionPreferences.add(SexPositionSlot.DOGGY_BEHIND);
+				sexPositionPreferences.add(SexPositionSlot.FACE_TO_WALL_FACING_TARGET);
+				sexPositionPreferences.add(SexPositionSlot.KNEELING_RECEIVING_ORAL);
+				sexPositionPreferences.add(SexPositionSlot.SIXTY_NINE_TOP);
+				sexPositionPreferences.add(SexPositionSlot.COWGIRL_RIDING);
 			}
 			
-			if(this.hasFetish(Fetish.FETISH_ANAL_RECEIVING) && canUseAnus()) {
-				sexPositionPreferences.add(SexPosition.DOGGY_PARTNER_ON_ALL_FOURS);
-				sexPositionPreferences.add(SexPosition.FACING_WALL_PARTNER);
+		} else {
+			if(mainSexPreference!=null) {
+				if(mainSexPreference.equals(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER))
+						|| mainSexPreference.equals(new SexType(PenetrationType.TONGUE_PLAYER, OrificeType.VAGINA_PARTNER))) {
+					sexPositionPreferences.add(SexPositionSlot.SIXTY_NINE_TOP);
+					sexPositionPreferences.add(SexPositionSlot.KNEELING_RECEIVING_ORAL);
+					
+				} else if(mainSexPreference.equals(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER))
+						|| mainSexPreference.equals(new SexType(PenetrationType.TONGUE_PARTNER, OrificeType.VAGINA_PLAYER))){
+					sexPositionPreferences.add(SexPositionSlot.SIXTY_NINE_TOP);
+					sexPositionPreferences.add(SexPositionSlot.KNEELING_PERFORMING_ORAL);
+					sexPositionPreferences.add(SexPositionSlot.DOGGY_BEHIND_ORAL);
+					
+				} else if(mainSexPreference.equals(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER))) {
+					sexPositionPreferences.add(SexPositionSlot.FACE_TO_WALL_FACING_TARGET);
+					sexPositionPreferences.add(SexPositionSlot.DOGGY_BEHIND);
+					
+				} else if(mainSexPreference.equals(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER))) {
+					sexPositionPreferences.add(SexPositionSlot.FACE_TO_WALL_FACING_TARGET);
+					sexPositionPreferences.add(SexPositionSlot.BACK_TO_WALL_FACING_TARGET);
+					sexPositionPreferences.add(SexPositionSlot.DOGGY_BEHIND);
+					
+				} else if(mainSexPreference.equals(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER))) {
+					sexPositionPreferences.add(SexPositionSlot.COWGIRL_RIDING);
+					sexPositionPreferences.add(SexPositionSlot.DOGGY_ON_ALL_FOURS);
+					
+				} else if(mainSexPreference.equals(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER))) {
+					sexPositionPreferences.add(SexPositionSlot.COWGIRL_RIDING);
+					sexPositionPreferences.add(SexPositionSlot.BACK_TO_WALL_FACING_TARGET);
+					sexPositionPreferences.add(SexPositionSlot.DOGGY_ON_ALL_FOURS);
+					
+				} else if(mainSexPreference.equals(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.BREAST_PARTNER))
+						|| mainSexPreference.equals(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.NIPPLE_PARTNER))) {
+					sexPositionPreferences.add(SexPositionSlot.KNEELING_PERFORMING_ORAL);
+					
+				} else if(mainSexPreference.equals(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.BREAST_PLAYER))
+						|| mainSexPreference.equals(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.NIPPLE_PLAYER))) {
+					sexPositionPreferences.add(SexPositionSlot.KNEELING_PERFORMING_ORAL);
+				}
+				
 			}
-			
-			if(this.hasFetish(Fetish.FETISH_PREGNANCY) && canUseVagina()) {
-				sexPositionPreferences.add(SexPosition.DOGGY_PARTNER_ON_ALL_FOURS);
-				sexPositionPreferences.add(SexPosition.FACING_WALL_PARTNER);
-				sexPositionPreferences.add(SexPosition.BACK_TO_WALL_PARTNER);
+			if(sexPositionPreferences.isEmpty()){ // If no preferences found, add 'standard' positions:
+				sexPositionPreferences.add(SexPositionSlot.BACK_TO_WALL_FACING_TARGET);
+				sexPositionPreferences.add(SexPositionSlot.DOGGY_BEHIND);
+				sexPositionPreferences.add(SexPositionSlot.FACE_TO_WALL_FACING_TARGET);
+				sexPositionPreferences.add(SexPositionSlot.KNEELING_RECEIVING_ORAL);
+				sexPositionPreferences.add(SexPositionSlot.SIXTY_NINE_TOP);
+				sexPositionPreferences.add(SexPositionSlot.COWGIRL_RIDING);
 			}
-
-			if(this.hasFetish(Fetish.FETISH_IMPREGNATION) && canUsePenis()) {
-				sexPositionPreferences.add(SexPosition.BACK_TO_WALL_PARTNER);
-			}
-			
-			if(getRace()==Race.DOG_MORPH || getRace()==Race.WOLF_MORPH) {
-				sexPositionPreferences.add(SexPosition.DOGGY_PARTNER_ON_ALL_FOURS);
-			}
-			
-		} else { // Taking into account partner and player body parts and accessibility:
-			if(hasFetish(Fetish.FETISH_ORAL_RECEIVING) && playerCanUseMouth() && (canUsePenis() || canUseVagina())) {
-				sexPositionPreferences.add(SexPosition.KNEELING_PLAYER_PERFORMING_ORAL);
-			}
-			
-			if(hasFetish(Fetish.FETISH_ORAL_GIVING) && canUseMouth() && (playerCanUsePenis() || playerCanUseVagina())) {
-				sexPositionPreferences.add(SexPosition.KNEELING_PARTNER_PERFORMING_ORAL);
-				sexPositionPreferences.add(SexPosition.SIXTY_NINE_PARTNER_TOP);
-			}
-			
-			if(hasFetish(Fetish.FETISH_ANAL_GIVING) && canUsePenis() && playerCanUseAnus()) {
-				sexPositionPreferences.add(SexPosition.DOGGY_PLAYER_ON_ALL_FOURS);
-				sexPositionPreferences.add(SexPosition.FACING_WALL_PLAYER);
-			}
-			
-			if(hasFetish(Fetish.FETISH_ANAL_RECEIVING) && playerCanUsePenis() && canUseAnus()) {
-				sexPositionPreferences.add(SexPosition.COWGIRL_PARTNER_TOP);
-			}
-			
-			if((hasFetish(Fetish.FETISH_IMPREGNATION) || hasFetish(Fetish.FETISH_SEEDER)) && canUsePenis() && playerCanUseVagina()) {
-				sexPositionPreferences.add(SexPosition.DOGGY_PLAYER_ON_ALL_FOURS);
-				sexPositionPreferences.add(SexPosition.FACING_WALL_PLAYER);
-				sexPositionPreferences.add(SexPosition.BACK_TO_WALL_PLAYER);
-			}
-			
-			if((hasFetish(Fetish.FETISH_PREGNANCY) || hasFetish(Fetish.FETISH_BROODMOTHER)) && playerCanUsePenis() && canUseVagina()) {
-				sexPositionPreferences.add(SexPosition.BACK_TO_WALL_PLAYER);
-				sexPositionPreferences.add(SexPosition.COWGIRL_PARTNER_TOP);
-			}
-			
-			if(sexPositionPreferences.isEmpty()) { // If no preferences found, add 'standard' positions
-				sexPositionPreferences.add(SexPosition.BACK_TO_WALL_PLAYER);
-				sexPositionPreferences.add(SexPosition.DOGGY_PLAYER_ON_ALL_FOURS);
-				sexPositionPreferences.add(SexPosition.FACING_WALL_PLAYER);
-				sexPositionPreferences.add(SexPosition.KNEELING_PLAYER_PERFORMING_ORAL);
-				sexPositionPreferences.add(SexPosition.SIXTY_NINE_PARTNER_TOP);
-				sexPositionPreferences.add(SexPosition.COWGIRL_PARTNER_TOP);
-			}
-			
 		}
 		
 		return sexPositionPreferences;
 	}
 	
-	public boolean isWantsToHaveSexWithPlayer() {
+	
+	public boolean isAttractedTo(GameCharacter character) {
 		if(hasStatusEffect(StatusEffect.WEATHER_STORM_VULNERABLE)) { // If they're vulnerable to arcane storms, they will always be eager during a storm:
 			return true;
 		}
 		
-		if(isSlave()) {
-			if(this.getAffection(Main.game.getPlayer())<AffectionLevel.POSITIVE_ONE_FRIENDLY.getMinimumValue()) {
-				return false;
-			}
-		}
+//		if(isSlave()) {
+//			if(this.getAffection(character)<AffectionLevel.POSITIVE_ONE_FRIENDLY.getMinimumValue()) {
+//				return false;
+//			}
+//		}
 		
-		if(hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN)
-				|| (getSexualOrientation()==SexualOrientation.ANDROPHILIC && Main.game.getPlayer().isFeminine())
-				|| (getSexualOrientation()==SexualOrientation.GYNEPHILIC && !Main.game.getPlayer().isFeminine())
-				|| hasFetish(Fetish.FETISH_NON_CON)) {
+		if((getSexualOrientation()==SexualOrientation.ANDROPHILIC && character.isFeminine())
+				|| (getSexualOrientation()==SexualOrientation.GYNEPHILIC && !character.isFeminine())
+				) {
 			return false;
 		}
 		
-		if(mother!=null && father!=null) {
-			if(mother.isPlayer() || father.isPlayer()) {
-				if (!hasFetish(Fetish.FETISH_INCEST)) {
-					return false;
-				}
+		if(motherId.equals(character.getId()) || fatherId.equals(character.getId())) {
+			if (!hasFetish(Fetish.FETISH_INCEST)) {
+				return false;
 			}
 		}
 		
 		return true;
 	}
 
-	public SexPace getSexPaceSubPreference(){
-		if(!isWantsToHaveSexWithPlayer()) {
+	public SexPace getSexPaceSubPreference(GameCharacter character){
+		if(!isAttractedTo(character) || this.hasFetish(Fetish.FETISH_NON_CON_SUB)) {
 			if(Main.game.isNonConEnabled()) {
 				if(isSlave()) {
-					if(this.getObedience()>=ObedienceLevel.POSITIVE_FIVE_SUBSERVIENT.getMinimumValue()) {
+					if(this.getObedienceValue()>=ObedienceLevel.POSITIVE_FIVE_SUBSERVIENT.getMinimumValue()) {
 						return SexPace.SUB_EAGER;
 						
-					} else if(this.getObedience()>=ObedienceLevel.POSITIVE_TWO_OBEDIENT.getMinimumValue()) {
+					} else if(this.getObedienceValue()>=ObedienceLevel.POSITIVE_TWO_OBEDIENT.getMinimumValue()) {
+						return SexPace.SUB_NORMAL;
+					}
+				}
+				
+				if (getHistory() == History.PROSTITUTE) {
+					if(Sex.isConsensual()) {
 						return SexPace.SUB_NORMAL;
 					}
 				}
@@ -1101,8 +1682,8 @@ public abstract class NPC extends GameCharacter {
 		}
 		
 		if (hasFetish(Fetish.FETISH_SUBMISSIVE) // Subs like being sub I guess ^^
-				|| (hasFetish(Fetish.FETISH_PREGNANCY) && Main.game.getPlayer().hasPenis() && hasVagina()) // Want to get pregnant
-				|| (hasFetish(Fetish.FETISH_IMPREGNATION) && Main.game.getPlayer().hasVagina() && hasPenis()) // Want to impregnate player
+				|| (hasFetish(Fetish.FETISH_PREGNANCY) && character.hasPenis() && hasVagina()) // Want to get pregnant
+				|| (hasFetish(Fetish.FETISH_IMPREGNATION) && character.hasVagina() && hasPenis()) // Want to impregnate player
 				) {
 			return SexPace.SUB_EAGER;
 		}
@@ -1111,7 +1692,6 @@ public abstract class NPC extends GameCharacter {
 	}
 	
 	public SexPace getSexPaceDomPreference(){
-		
 		if(hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN)
 				|| (hasFetish(Fetish.FETISH_SUBMISSIVE) && !hasFetish(Fetish.FETISH_DOMINANT)) // Subs like being sub I guess ^^
 				) {
@@ -1127,49 +1707,7 @@ public abstract class NPC extends GameCharacter {
 		return SexPace.DOM_NORMAL;
 	}
 	
-	private boolean canUseMouth() {
-		return isAbleToAccessCoverableArea(CoverableArea.MOUTH, true);
-	}
-	private boolean canUsePenis() {
-		return hasPenis() && isAbleToAccessCoverableArea(CoverableArea.PENIS, true);
-	}
-	private boolean canUseVagina() {
-		return hasVagina() && isAbleToAccessCoverableArea(CoverableArea.VAGINA, true);
-	}
-	private boolean canUseAnus() {
-		return hasVagina() && isAbleToAccessCoverableArea(CoverableArea.ANUS, true);
-	}
-	private boolean playerCanUseMouth() {
-		return Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true);
-	}
-	private boolean playerCanUsePenis() {
-		return Main.game.getPlayer().hasPenis() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true);
-	}
-	private boolean playerCanUseVagina() {
-		return Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true);
-	}
-	private boolean playerCanUseAnus() {
-		return Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true);
-	}
 	
-	
-	public boolean isReactedToPregnancy() {
-		return reactedToPregnancy;
-	}
-
-	public void setReactedToPregnancy(boolean reactedToPregnancy) {
-		this.reactedToPregnancy = reactedToPregnancy;
-	}
-	
-	public boolean isPendingClothingDressing() {
-		return pendingClothingDressing;
-	}
-
-
-	public void setPendingClothingDressing(boolean pendingClothingDressing) {
-		this.pendingClothingDressing = pendingClothingDressing;
-	}
-
 
 	/**
 	 * Returns a description of how this npc reacts to item usage.
@@ -1185,14 +1723,20 @@ public abstract class NPC extends GameCharacter {
 				
 			// Player uses item on NPC:
 			} else {
-				return "<p>"
-							+ "You try to give [npc.name] the "+item.getName()+", but [npc.she] refuses to take it. You put the "+item.getName()+" back in your inventory."
-						+ "</p>";
+				if(target.isSlave()) {
+					return Main.game.getPlayer().useItem(item, target, false);
+					
+				} else {
+					return "<p>"
+								+ "You try to give [npc.name] the "+item.getName()+", but [npc.she] refuses to take it. You put the "+item.getName()+" back in your inventory."
+							+ "</p>";
+					
+				}
 			}
 			
 		// NPC is using an item:
 		} else {
-			return Sex.getPartner().useItem(item, target, false);
+			return this.useItem(item, target, false);
 		}
 	}
 	
@@ -1202,11 +1746,7 @@ public abstract class NPC extends GameCharacter {
 		infoScreenSB.setLength(0);
 		
 		infoScreenSB.append(
-				"<div class='inventory-container right'>"
-					+ RenderingEngine.ENGINE.getInventoryEquippedPanel(character)
-				+ "</div>"
-				+ getCharacterInfoBox(character)
-				+ "<h4>Background</h4>"
+				"<h4>Background</h4>"
 				+ "<p>"
 					+ character.getDescription()
 				+ "</p>"
@@ -1217,9 +1757,10 @@ public abstract class NPC extends GameCharacter {
 					+ AffectionLevel.getDescription(character, Main.game.getPlayer(),
 							AffectionLevel.getAffectionLevelFromValue(character.getAffection(Main.game.getPlayer())), true));
 		
-		for(Entry<GameCharacter, Float> entry : character.getAffectionMap().entrySet()) {
-			if(!entry.getKey().isPlayer()) {
-				infoScreenSB.append("</br>" + AffectionLevel.getDescription(character, entry.getKey(), AffectionLevel.getAffectionLevelFromValue(character.getAffection(entry.getKey())), true));
+		for(Entry<String, Float> entry : character.getAffectionMap().entrySet()) {
+			GameCharacter target = Main.game.getNPCById(entry.getKey());
+			if(!target.isPlayer()) {
+				infoScreenSB.append("</br>" + AffectionLevel.getDescription(character, target, AffectionLevel.getAffectionLevelFromValue(character.getAffection(target)), true));
 			}
 		}
 		
@@ -1229,15 +1770,15 @@ public abstract class NPC extends GameCharacter {
 							(character.isSlave()
 								?"[npc.Name] [style.boldArcane(is a slave)], owned by "+(character.getOwner().isPlayer()?"you!":character.getOwner().getName("a")+".")
 								:"[npc.Name] [style.boldGood(is not a slave)]."))
-					+ "</br>"+ObedienceLevel.getDescription(character, ObedienceLevel.getObedienceLevelFromValue(character.getObedience()), true, true)
+					+ "</br>"+ObedienceLevel.getDescription(character, ObedienceLevel.getObedienceLevelFromValue(character.getObedienceValue()), true, true)
 					+"</br></br>"
 					+ "[style.boldArcane(Slaves owned:)]");
 		
 		if(character.getSlavesOwned().isEmpty()) {
 			infoScreenSB.append("</br>[style.colourDisabled(None)]");
 		} else {
-			for(GameCharacter slave : character.getSlavesOwned()) {
-				infoScreenSB.append(UtilText.parse(slave, "</br>[npc.Name]"));
+			for(String id : character.getSlavesOwned()) {
+				infoScreenSB.append(UtilText.parse(Main.game.getNPCById(id), "</br>[npc.Name]"));
 			}
 		}
 		
@@ -1385,7 +1926,7 @@ public abstract class NPC extends GameCharacter {
 				+ "<tr style='height:8px; color:"+character.getGender().getColour().toWebHexString()+";'><th>Core</th></tr>"
 				+ statRow("Femininity", String.valueOf(character.getFemininityValue()))
 				+ statRow("Height (cm)", String.valueOf(character.getHeightValue()))
-				+ statRow("Hair length (cm)", String.valueOf(Util.conversionInchesToCentimetres(character.getHairRawLengthValue())))
+				+ statRow("Hair length (inches)", String.valueOf(Util.conversionInchesToCentimetres(character.getHairRawLengthValue())))
 				+ "<tr style='height:8px;'></tr>"
 
 				+ "<tr style='height:8px; color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'><th>Breasts</th></tr>"
@@ -1455,7 +1996,32 @@ public abstract class NPC extends GameCharacter {
 	
 	
 	
-	// ****************** Dirty talk: ***************************
+	// ****************** Sex & Dirty talk: ***************************
+	
+	public String getCondomEquipEffects(GameCharacter equipper, GameCharacter target, boolean rough) {
+		if(Main.game.isInSex() && !target.isPlayer()) {
+			if(Sex.isDom(Main.game.getPlayer()) ||Sex.isConsensual()) {
+				return "<p>"
+						+ "Holding out a condom to [npc.name], you force [npc.herHim] to take it and put it on."
+						+ " Quickly ripping it out of its little foil wrapper, [npc.she] rolls it down the length of [npc.her] [npc.cock+] as [npc.she] whines at you,"
+						+ " [npc.speech(Do I really have to? It feels so much better without one...)]"
+						+ "</p>";
+			} else {
+				return "<p>"
+						+ "Holding out a condom to [npc.name], you let out a sigh of relief as [npc.she] reluctantly takes it."
+						+ " Quickly ripping it out of its little foil wrapper, [npc.she] rolls it down the length of [npc.her] [npc.cock+] as [npc.she] growls at you,"
+						+ " [npc.speech(You'd better be glad that I'm in a good mood!)]"
+						+ "</p>";
+			}
+		}
+		return AbstractClothingType.getEquipDescriptions(target, equipper, rough,
+				"You tear open the packet and roll the condom down the length of your [pc.penis].",
+				"You tear open the packet and roll the condom down the length of [npc.name]'s [npc.penis].",
+				"You tear open the packet and forcefully roll the condom down the length [npc.name]'s [npc.penis].",
+				"[npc.Name] tears open the packet and rolls the condom down the length of [npc.her] [npc.penis].",
+				"[npc.Name] tears open the packet and rolls the condom down the length of your [pc.penis].",
+				"[npc.Name] tears open the packet and forcefully rolls the condom down the length of your [pc.penis].");
+	}
 	
 	/**
 	 * @return A <b>formatted</b> piece of NPC speech, reacting to any current penetration.
@@ -1471,7 +2037,7 @@ public abstract class NPC extends GameCharacter {
 			// Taking vaginal:
 			s = getDirtyTalkVaginaPenetrated(isPlayerDom);
 			if(s!=null) {
-				if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER).isPlayer()) {
+				if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER).isPlayer()) {
 					speech.add(s);
 				} else {
 					speechSelf.add(s);
@@ -1481,7 +2047,7 @@ public abstract class NPC extends GameCharacter {
 			// Taking anal:
 			s = getDirtyTalkAssPenetrated(isPlayerDom);
 			if(s!=null) {
-				if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER).isPlayer()) {
+				if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS_PARTNER).isPlayer()) {
 					speech.add(s);
 				} else {
 					speechSelf.add(s);
@@ -1491,7 +2057,7 @@ public abstract class NPC extends GameCharacter {
 			// Taking something in their mouth:
 			s = getDirtyTalkMouthPenetrated(isPlayerDom);
 			if(s!=null) {
-				if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER).isPlayer()) {
+				if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.MOUTH_PARTNER).isPlayer()) {
 					speech.add(s);
 				} else {
 					speechSelf.add(s);
@@ -1501,7 +2067,7 @@ public abstract class NPC extends GameCharacter {
 			// Taking nipple penetration:
 			s = getDirtyTalkNipplePenetrated(isPlayerDom);
 			if(s!=null) {
-				if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER).isPlayer()) {
+				if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.NIPPLE_PARTNER).isPlayer()) {
 					speech.add(s);
 				} else {
 					speechSelf.add(s);
@@ -1512,7 +2078,7 @@ public abstract class NPC extends GameCharacter {
 			// Giving vaginal:
 			s = getDirtyTalkPlayerVaginaPenetrated(isPlayerDom);
 			if(s!=null) {
-				if(!Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER).isPlayer()) {
+				if(!Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER).isPlayer()) {
 					speech.add(s);
 				} else {
 					speechSelf.add(s);
@@ -1522,7 +2088,7 @@ public abstract class NPC extends GameCharacter {
 			// Giving anal:
 			s = getDirtyTalkPlayerAssPenetrated(isPlayerDom);
 			if(s!=null) {
-				if(!Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER).isPlayer()) {
+				if(!Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER).isPlayer()) {
 					speech.add(s);
 				} else {
 					speechSelf.add(s);
@@ -1532,7 +2098,7 @@ public abstract class NPC extends GameCharacter {
 			// Putting something into the player's mouth:
 			s = getDirtyTalkPlayerMouthPenetrated(isPlayerDom);
 			if(s!=null) {
-				if(!Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER).isPlayer()) {
+				if(!Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER).isPlayer()) {
 					speech.add(s);
 				} else {
 					speechSelf.add(s);
@@ -1542,7 +2108,17 @@ public abstract class NPC extends GameCharacter {
 			// Giving nipple penetration:
 			s = getDirtyTalkPlayerNipplePenetrated(isPlayerDom);
 			if(s!=null) {
-				if(!Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PLAYER).isPlayer()) {
+				if(!Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE_PLAYER).isPlayer()) {
+					speech.add(s);
+				} else {
+					speechSelf.add(s);
+				}
+			}
+			
+			// Giving breasts attention:
+			s = getDirtyTalkPartnerUsingBreasts(isPlayerDom);
+			if(s!=null) {
+				if(!Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.BREAST_PLAYER).isPlayer()) {
 					speech.add(s);
 				} else {
 					speechSelf.add(s);
@@ -1569,7 +2145,7 @@ public abstract class NPC extends GameCharacter {
 	 * @return A <b>non-formatted</b> String of this NPCs speech related to no ongoing penetration.
 	 */
 	public String getDirtyTalkNoPenetration(boolean isPlayerDom){
-		switch(Sex.getSexPacePartner()) {
+		switch(Sex.getSexPace(this)) {
 			case DOM_GENTLE:
 				return UtilText.returnStringAtRandom(
 						"I'll be gentle, don't worry!",
@@ -1589,22 +2165,46 @@ public abstract class NPC extends GameCharacter {
 						"You're my bitch now, understand?!",
 						"I'm going to use you however I want, you fucking slut!");
 			case SUB_EAGER:
-				return UtilText.returnStringAtRandom(
-						"Come on, fuck me already! Please!",
-						"Fuck me! Please!",
-						"What are you waiting for?! Come on, fuck me!",
-						"I'm so horny! Please, fuck me!");
+				if(this.isVaginaVirgin() && this.hasVagina()) {
+					return UtilText.returnStringAtRandom(
+							"Come on, fuck me already! Take my virginity!",
+							"I'm still a virgin! Please, break me in already!",
+							"What are you waiting for?! Fuck my virgin pussy already!",
+							"I'm so horny! Please, fuck my pussy! Take my virginity!");
+				} else {
+					return UtilText.returnStringAtRandom(
+							"Come on, fuck me already! Please!",
+							"Fuck me! Please!",
+							"What are you waiting for?! Come on, fuck me!",
+							"I'm so horny! Please, fuck me!");
+				}
 			case SUB_NORMAL:
-				return UtilText.returnStringAtRandom(
-						"I'll be a good [npc.girl]!",
-						"I'll do whatever you want!",
-						"Let's get started!",
-						"Let's have some fun!");
+				if(this.isVaginaVirgin() && this.hasVagina()) {
+					return UtilText.returnStringAtRandom(
+							"I'll be a good [npc.girl]! Just... I'm still a virgin, ok?",
+							"I'll do whatever you want! I'm still a virgin though...",
+							"Let's get started! But... I'm still a virgin...",
+							"Let's have some fun! But... I'm still a virgin, ok?");
+				} else {
+					return UtilText.returnStringAtRandom(
+							"I'll be a good [npc.girl]!",
+							"I'll do whatever you want!",
+							"Let's get started!",
+							"Let's have some fun!");
+				}
 			case SUB_RESISTING:
-				return UtilText.returnStringAtRandom(
-						"Go away! Leave me alone!",
-						"Stop it! Just go away!",
-						"Please stop! Don't do this!");
+				if(this.isVaginaVirgin() && this.hasVagina()) {
+					return UtilText.returnStringAtRandom(
+							"Go away! I-I'm still a virgin! Leave me alone!",
+							"Stop it! Just go away! I-I'm still a virgin!",
+							"Please stop! I don't want to lose my virginity!",
+							"Don't do this! I'm still a virgin!");
+				} else {
+					return UtilText.returnStringAtRandom(
+							"Go away! Leave me alone!",
+							"Stop it! Just go away!",
+							"Please stop! Don't do this!");
+				}
 			default:
 				return UtilText.returnStringAtRandom(
 						"This is going to be good!",
@@ -1620,10 +2220,10 @@ public abstract class NPC extends GameCharacter {
 	public String getDirtyTalkVaginaPenetrated(boolean isPlayerDom){
 		
 		if(getVaginaType()!=VaginaType.NONE) {
-			if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER) != null) {
-				switch(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER)) {
+			if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER) != null) {
+				switch(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER)) {
 					case FINGER_PLAYER:
-						switch(Sex.getSexPacePartner()) {
+						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
 								return UtilText.returnStringAtRandom(
 										"That's right, be a good [pc.girl] now and push your [pc.fingers] in deeper!",
@@ -1661,7 +2261,7 @@ public abstract class NPC extends GameCharacter {
 										"Oh yeah!"));
 						}
 					case PENIS_PLAYER:
-						switch(Sex.getSexPacePartner()) {
+						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
 								return UtilText.returnStringAtRandom(
 										"My pussy loves your [pc.cock]!",
@@ -1699,7 +2299,7 @@ public abstract class NPC extends GameCharacter {
 										"Harder! Don't stop!");
 						}
 					case TAIL_PLAYER:
-						switch(Sex.getSexPacePartner()) {
+						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
 								return UtilText.returnStringAtRandom(
 										"My pussy loves your [pc.tail]! Keep going!",
@@ -1737,10 +2337,10 @@ public abstract class NPC extends GameCharacter {
 										"Harder! Don't stop!");
 						}
 					case TONGUE_PLAYER:
-						switch(Sex.getSexPacePartner()) {
+						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
 								return UtilText.returnStringAtRandom(
-										"That's right, keep eating me out like a good [pc.girl]!",
+										"That's right, keep eating me out!",
 										"Good [pc.girl]! Keep that [pc.tongue] of yours busy!",
 										"What a good [pc.girl]! You love the taste of my pussy, don't you?!");
 							case DOM_NORMAL:
@@ -1775,7 +2375,7 @@ public abstract class NPC extends GameCharacter {
 										"Deeper! Don't stop!");
 						}
 					default:// Self penetration:
-						switch(Sex.getSexPacePartner()) {
+						switch(Sex.getSexPace(this)) {
 							case SUB_RESISTING:
 								return UtilText.returnStringAtRandom(
 										"Go away! Leave me alone!",
@@ -1799,10 +2399,10 @@ public abstract class NPC extends GameCharacter {
 	 */
 	public String getDirtyTalkAssPenetrated(boolean isPlayerDom){
 		
-		if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER) != null) {
-			switch(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER)) {
+		if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS_PARTNER) != null) {
+			switch(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS_PARTNER)) {
 				case FINGER_PLAYER:
-					switch(Sex.getSexPacePartner()) {
+					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"That's right, be a good [pc.girl] now and push your [pc.fingers] in deeper!",
@@ -1840,7 +2440,7 @@ public abstract class NPC extends GameCharacter {
 									"Oh yeah!"));
 					}
 				case PENIS_PLAYER:
-					switch(Sex.getSexPacePartner()) {
+					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"My ass loves your [pc.cock]!",
@@ -1878,7 +2478,7 @@ public abstract class NPC extends GameCharacter {
 									"Harder! Don't stop!");
 					}
 				case TAIL_PLAYER:
-					switch(Sex.getSexPacePartner()) {
+					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"My ass loves your [pc.tail]! Keep going!",
@@ -1916,7 +2516,7 @@ public abstract class NPC extends GameCharacter {
 									"Harder! Don't stop!");
 					}
 				case TONGUE_PLAYER:
-					switch(Sex.getSexPacePartner()) {
+					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"That's right, keep that rimjob going like a good [pc.girl]!",
@@ -1954,7 +2554,7 @@ public abstract class NPC extends GameCharacter {
 									"Deeper! Don't stop!");
 					}
 				default:// Self penetration:
-					switch(Sex.getSexPacePartner()) {
+					switch(Sex.getSexPace(this)) {
 						case SUB_RESISTING:
 							return UtilText.returnStringAtRandom(
 									"Go away! Leave me alone!",
@@ -1977,10 +2577,10 @@ public abstract class NPC extends GameCharacter {
 	 */
 	public String getDirtyTalkMouthPenetrated(boolean isPlayerDom){
 
-		if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER) != null) {
-			switch(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER)) {
+		if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.MOUTH_PARTNER) != null) {
+			switch(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.MOUTH_PARTNER)) {
 				case FINGER_PLAYER:
-					switch(Sex.getSexPacePartner()) {
+					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"Your fingers taste good!",
@@ -2017,7 +2617,7 @@ public abstract class NPC extends GameCharacter {
 									"Oh yeah!"));
 					}
 				case PENIS_PLAYER:
-					switch(Sex.getSexPacePartner()) {
+					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"I love your [pc.cock]!",
@@ -2055,7 +2655,7 @@ public abstract class NPC extends GameCharacter {
 									"Don't stop!");
 					}
 				case TAIL_PLAYER:
-					switch(Sex.getSexPacePartner()) {
+					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"I love sucking your [pc.tail]!",
@@ -2093,7 +2693,7 @@ public abstract class NPC extends GameCharacter {
 									"Don't stop!");
 					}
 				case TONGUE_PLAYER:
-					switch(Sex.getSexPacePartner()) {
+					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"Yes! Good [pc.girl]!",
@@ -2126,7 +2726,7 @@ public abstract class NPC extends GameCharacter {
 									"Don't stop!");
 					}
 				default:// Self penetration:
-					switch(Sex.getSexPacePartner()) {
+					switch(Sex.getSexPace(this)) {
 						case SUB_RESISTING:
 							return UtilText.returnStringAtRandom(
 									"Go away! Leave me alone!",
@@ -2148,10 +2748,10 @@ public abstract class NPC extends GameCharacter {
 	 * @return A <b>non-formatted</b> String of this NPCs speech related to having their nipples used. Returns null if no penetration found.
 	 */
 	public String getDirtyTalkNipplePenetrated(boolean isPlayerDom){
-		if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER) != null) {
-			switch(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER)) {
+		if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.NIPPLE_PARTNER) != null) {
+			switch(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.NIPPLE_PARTNER)) {
 				case FINGER_PLAYER:
-					switch(Sex.getSexPacePartner()) {
+					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"That's right, be a good [pc.girl] now and push your [pc.fingers] deeper into my nipple!",
@@ -2189,7 +2789,7 @@ public abstract class NPC extends GameCharacter {
 									"Oh yeah!"));
 					}
 				case PENIS_PLAYER:
-					switch(Sex.getSexPacePartner()) {
+					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"My nipples love your [pc.cock]!",
@@ -2227,7 +2827,7 @@ public abstract class NPC extends GameCharacter {
 									"Harder! Don't stop!");
 					}
 				case TAIL_PLAYER:
-					switch(Sex.getSexPacePartner()) {
+					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"My tits love your [pc.tail]! Keep going!",
@@ -2265,7 +2865,7 @@ public abstract class NPC extends GameCharacter {
 									"Harder! Don't stop!");
 					}
 				case TONGUE_PLAYER:
-					switch(Sex.getSexPacePartner()) {
+					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"That's right, keep sucking on my nipples like a good [pc.girl]!",
@@ -2280,7 +2880,7 @@ public abstract class NPC extends GameCharacter {
 							return UtilText.returnStringAtRandom(
 									"That's right slut, keep sucking on my tits like the worthless little fuck toy you are!",
 									"Come on bitch! Get that [pc.tongue] of yours deeper into my nipples!",
-									"Fucking bitch, put some more effort in! You know how lucky you are, being allowed to suck on ym tits like this?!");
+									"Fucking bitch, put some more effort in! You know how lucky you are, being allowed to suck on my tits like this?!");
 						case SUB_EAGER:
 							return UtilText.returnStringAtRandom(
 									"Yes! I love the feeling of your lips on my tits! Don't stop!",
@@ -2303,7 +2903,7 @@ public abstract class NPC extends GameCharacter {
 									"Deeper! Don't stop!");
 					}
 				default:// Self penetration:
-					switch(Sex.getSexPacePartner()) {
+					switch(Sex.getSexPace(this)) {
 						case SUB_RESISTING:
 							return UtilText.returnStringAtRandom(
 									"Go away! Leave me alone!",
@@ -2328,10 +2928,10 @@ public abstract class NPC extends GameCharacter {
 	 */
 	public String getDirtyTalkPlayerVaginaPenetrated(boolean isPlayerDom){
 		if(Main.game.getPlayer().getVaginaType()!=VaginaType.NONE) {
-			if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER) != null) {
-				switch(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER)) {
+			if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER) != null) {
+				switch(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER)) {
 					case FINGER_PARTNER:
-						switch(Sex.getSexPacePartner()) {
+						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
 								return UtilText.returnStringAtRandom(
 										"Good [pc.girl], you love feeling my [npc.fingers] deep in your pussy, don't you?",
@@ -2369,7 +2969,7 @@ public abstract class NPC extends GameCharacter {
 										"Oh yeah!"));
 						}
 					case PENIS_PARTNER:
-						switch(Sex.getSexPacePartner()) {
+						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
 								return UtilText.returnStringAtRandom(
 										"Good [pc.girl]! Feel my [npc.cock] slide deep into your little pussy!",
@@ -2384,7 +2984,7 @@ public abstract class NPC extends GameCharacter {
 								return UtilText.returnStringAtRandom(
 										"That's right slut, take my cock! Your pussy belongs to me!",
 										"What a horny bitch! Take my cock you slut!",
-										"You feel that, fuck toy?! Do you feel my  cock sinking deep into your slutty little cunt?!");
+										"You feel that, fuck toy?! Do you feel my cock sinking deep into your slutty little cunt?!");
 							case SUB_EAGER:
 								return UtilText.returnStringAtRandom(
 										"Yes! Use my cock! I love your pussy!",
@@ -2407,7 +3007,7 @@ public abstract class NPC extends GameCharacter {
 										"Harder! Don't stop!");
 						}
 					case TAIL_PARTNER:
-						switch(Sex.getSexPacePartner()) {
+						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
 								return UtilText.returnStringAtRandom(
 										"Good [pc.girl]! Feel my [npc.tail] slide deep into your little pussy!",
@@ -2422,7 +3022,7 @@ public abstract class NPC extends GameCharacter {
 								return UtilText.returnStringAtRandom(
 										"That's right slut, feel my [npc.tail] pushing deep into your worthless little cunt! Your pussy belongs to me!",
 										"What a horny bitch! Now moan for me as I fuck you with my tail!",
-										"You feel that, fuck toy?! Do you feel my  [npc.tail] sinking deep into your slutty little cunt?!");
+										"You feel that, fuck toy?! Do you feel my [npc.tail] sinking deep into your slutty little cunt?!");
 							case SUB_EAGER:
 								return UtilText.returnStringAtRandom(
 										"Yes! Use my [npc.tail]! I love your pussy!",
@@ -2445,7 +3045,7 @@ public abstract class NPC extends GameCharacter {
 										"Harder! Don't stop!");
 						}
 					case TONGUE_PARTNER:
-						switch(Sex.getSexPacePartner()) {
+						switch(Sex.getSexPace(this)) {
 							case DOM_GENTLE:
 								return UtilText.returnStringAtRandom(
 										"Your pussy sure does taste good!",
@@ -2483,7 +3083,7 @@ public abstract class NPC extends GameCharacter {
 										"Deeper! Don't stop!");
 						}
 					default:// Self penetration:
-						switch(Sex.getSexPacePartner()) {
+						switch(Sex.getSexPace(this)) {
 							case SUB_RESISTING:
 								return UtilText.returnStringAtRandom(
 										"Go away! Leave me alone!",
@@ -2493,7 +3093,7 @@ public abstract class NPC extends GameCharacter {
 								return UtilText.returnStringAtRandom(
 										"That's right, try to get yourself off!",
 										"You trying to get yourself off?",
-										"Go on, keep using your fingers!");
+										"Yes! Keep going!");
 						}
 				}
 			}
@@ -2506,10 +3106,10 @@ public abstract class NPC extends GameCharacter {
 	 * @return A <b>non-formatted</b> String of this NPCs speech related to the player having their ass used. Returns null if no penetration found.
 	 */
 	public String getDirtyTalkPlayerAssPenetrated(boolean isPlayerDom){
-		if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER) != null) {
-			switch(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER)) {
+		if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER) != null) {
+			switch(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER)) {
 				case FINGER_PARTNER:
-					switch(Sex.getSexPacePartner()) {
+					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"Good [pc.girl], you love feeling my [npc.fingers] deep in your ass, don't you?",
@@ -2547,7 +3147,7 @@ public abstract class NPC extends GameCharacter {
 									"Oh yeah!"));
 					}
 				case PENIS_PARTNER:
-					switch(Sex.getSexPacePartner()) {
+					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"Good [pc.girl]! Feel my [npc.cock] slide deep into your ass!",
@@ -2562,7 +3162,7 @@ public abstract class NPC extends GameCharacter {
 							return UtilText.returnStringAtRandom(
 									"That's right slut, take my cock! Your ass belongs to me!",
 									"What a horny bitch! Take my cock you filthy little butt-slut!",
-									"You feel that, fuck toy?! Do you feel my  cock sinking deep into your slutty little ass?!");
+									"You feel that, fuck toy?! Do you feel my cock sinking deep into your slutty little ass?!");
 						case SUB_EAGER:
 							return UtilText.returnStringAtRandom(
 									"Yes! Use my cock! I love your ass!",
@@ -2585,7 +3185,7 @@ public abstract class NPC extends GameCharacter {
 									"Harder! Don't stop!");
 					}
 				case TAIL_PARTNER:
-					switch(Sex.getSexPacePartner()) {
+					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"Good [pc.girl]! Feel my [npc.tail] slide deep into your cute little ass!",
@@ -2600,7 +3200,7 @@ public abstract class NPC extends GameCharacter {
 							return UtilText.returnStringAtRandom(
 									"That's right bitch, feel my [npc.tail] pushing deep into your slutty ass!",
 									"What a horny slut! Now moan for me as I fuck your ass with my tail!",
-									"You feel that, fuck toy?! Do you feel my  [npc.tail] sinking deep into your slutty little ass?!");
+									"You feel that, fuck toy?! Do you feel my [npc.tail] sinking deep into your slutty little ass?!");
 						case SUB_EAGER:
 							return UtilText.returnStringAtRandom(
 									"Yes! Use my [npc.tail]! I love your ass!",
@@ -2623,7 +3223,7 @@ public abstract class NPC extends GameCharacter {
 									"Harder! Don't stop!");
 					}
 				case TONGUE_PARTNER:
-					switch(Sex.getSexPacePartner()) {
+					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"That's right, moan for me as I pleasure your ass!",
@@ -2661,7 +3261,7 @@ public abstract class NPC extends GameCharacter {
 									"Deeper! Don't stop!");
 					}
 				default:// Self penetration:
-					switch(Sex.getSexPacePartner()) {
+					switch(Sex.getSexPace(this)) {
 						case SUB_RESISTING:
 							return UtilText.returnStringAtRandom(
 									"Go away! Leave me alone!",
@@ -2671,7 +3271,7 @@ public abstract class NPC extends GameCharacter {
 							return UtilText.returnStringAtRandom(
 									"That's right, try to get yourself off!",
 									"You trying to get yourself off?",
-									"Go on, keep using your fingers!");
+									"Yes! Keep going!");
 					}
 			}
 		}
@@ -2684,10 +3284,10 @@ public abstract class NPC extends GameCharacter {
 	 */
 	public String getDirtyTalkPlayerMouthPenetrated(boolean isPlayerDom){
 		
-		if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER) != null) {
-			switch(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER)) {
+		if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER) != null) {
+			switch(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER)) {
 				case FINGER_PARTNER:
-					switch(Sex.getSexPacePartner()) {
+					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"Good [pc.girl], keep sucking on my [npc.fingers]!",
@@ -2725,7 +3325,7 @@ public abstract class NPC extends GameCharacter {
 									"Oh yeah!"));
 					}
 				case PENIS_PARTNER:
-					switch(Sex.getSexPacePartner()) {
+					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"Good [pc.girl], keep sucking my cock!",
@@ -2763,7 +3363,7 @@ public abstract class NPC extends GameCharacter {
 									"Harder! Don't stop!");
 					}
 				case TAIL_PARTNER:
-					switch(Sex.getSexPacePartner()) {
+					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"Good [pc.girl], keep sucking my [npc.tail]!",
@@ -2801,32 +3401,32 @@ public abstract class NPC extends GameCharacter {
 									"Harder! Don't stop!");
 					}
 				case TONGUE_PARTNER:
-					switch(Sex.getSexPacePartner()) {
+					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
-									"I love getting my [npc.tongue] sucked!",
-									"Good [pc.girl]! Keep sucking my [npc.tongue]!",
-									"What a good [pc.girl]! I love having my [npc.tongue] sucked!");
+									"Your lips taste so good!",
+									"Good [pc.girl]! Don't stop!",
+									"What a good [pc.girl]!");
 						case DOM_NORMAL:
 							return UtilText.returnStringAtRandom(
-									"I love getting my [npc.tongue] sucked!",
-									"That's good! Keep sucking my [npc.tongue]!",
-									"I love having my [npc.tongue] sucked!");
+									"Your lips taste so good!",
+									"Good [pc.girl]! Don't stop!",
+									"What a good [pc.girl]!");
 						case DOM_ROUGH:
 							return UtilText.returnStringAtRandom(
-									"Come on slut, you can suck my [npc.tongue] better than that!",
-									"Put some more effort into this bitch! Suck my [npc.tongue] like you mean it!",
-									"Fucking slut, suck my [npc.tongue]! Put some more effort into it!");
+									"Come on slut, you can kiss better than that!",
+									"Put some more effort into this bitch! Kiss me like you mean it!",
+									"Fucking slut, you can kiss me better than this! Put some more effort into it!");
 						case SUB_EAGER:
 							return UtilText.returnStringAtRandom(
-									"Oh yes! I love having my [npc.tongue] sucked! I need more!",
-									"I love having my [npc.tongue] sucked! Yes, yes, yes!",
-									"Oh yes! I love having my [npc.tongue] sucked! Your lips feel so good!");
+									"Oh yes! Your lips taste so good! I need more!",
+									"I love kissing you! Yes, yes, yes!",
+									"Oh yes! Your lips taste so good!");
 						case SUB_NORMAL:
 							return UtilText.returnStringAtRandom(
-									"I love having my [npc.tongue] sucked! Keep going!",
-									"Keep sucking my [npc.tongue]!",
-									"I love having my [npc.tongue] sucked! Your lips feel so good!");
+									"Your lips taste so good! I need more!",
+									"I love kissing you!",
+									"Your lips taste so good!");
 						case SUB_RESISTING:
 							return UtilText.returnStringAtRandom(
 									"I don't want to do this! Please stop!",
@@ -2834,12 +3434,12 @@ public abstract class NPC extends GameCharacter {
 									"Please! Stop! I don't want this!");
 						default:
 							return UtilText.returnStringAtRandom(
-									"I love having my [npc.tongue] sucked!",
-									"Oh yeah! I love having my [npc.tongue] sucked!",
+									"Your lips taste so good!",
+									"I love kissing you!",
 									"Don't stop!");
 					}
 				default:// Self penetration:
-					switch(Sex.getSexPacePartner()) {
+					switch(Sex.getSexPace(this)) {
 						case SUB_RESISTING:
 							return UtilText.returnStringAtRandom(
 									"Go away! Leave me alone!",
@@ -2849,7 +3449,7 @@ public abstract class NPC extends GameCharacter {
 							return UtilText.returnStringAtRandom(
 									"That's right, try to get yourself off!",
 									"You trying to get yourself off?",
-									"Go on, keep using your fingers!");
+									"Yes! Keep going!");
 					}
 			}
 		}
@@ -2862,10 +3462,10 @@ public abstract class NPC extends GameCharacter {
 	 */
 	public String getDirtyTalkPlayerNipplePenetrated(boolean isPlayerDom){
 		
-		if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PLAYER) != null) {
-			switch(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PLAYER)) {
+		if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE_PLAYER) != null) {
+			switch(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE_PLAYER)) {
 				case FINGER_PARTNER:
-					switch(Sex.getSexPacePartner()) {
+					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"Good [pc.girl], you love feeling my [npc.fingers] deep in your nipples, don't you?",
@@ -2903,7 +3503,7 @@ public abstract class NPC extends GameCharacter {
 									"Oh yeah!"));
 					}
 				case PENIS_PARTNER:
-					switch(Sex.getSexPacePartner()) {
+					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"Good [pc.girl]! Feel my cock slide deep into your breast!",
@@ -2918,7 +3518,7 @@ public abstract class NPC extends GameCharacter {
 							return UtilText.returnStringAtRandom(
 									"That's right slut, take my cock! Feel it pushing deep into your nipple!",
 									"What a horny bitch! Taking my cock deep into your tit like a slut!",
-									"You feel that, fuck toy?! Do you feel my  cock sinking deep into your slutty little nipple?!");
+									"You feel that, fuck toy?! Do you feel my cock sinking deep into your slutty little nipple?!");
 						case SUB_EAGER:
 							return UtilText.returnStringAtRandom(
 									"Yes! Use my cock! I love your tits!",
@@ -2941,7 +3541,7 @@ public abstract class NPC extends GameCharacter {
 									"Harder! Don't stop!");
 					}
 				case TAIL_PARTNER:
-					switch(Sex.getSexPacePartner()) {
+					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"Good [pc.girl]! Feel my [npc.tail] slide deep into your breast!",
@@ -2956,7 +3556,7 @@ public abstract class NPC extends GameCharacter {
 							return UtilText.returnStringAtRandom(
 									"That's right slut, take my [npc.tail]! Feel it pushing deep into your nipple!",
 									"What a horny bitch! Taking my [npc.tail] deep into your tit like a slut!",
-									"You feel that, fuck toy?! Do you feel my  [npc.tail] sinking deep into your slutty little nipple?!");
+									"You feel that, fuck toy?! Do you feel my [npc.tail] sinking deep into your slutty little nipple?!");
 						case SUB_EAGER:
 							return UtilText.returnStringAtRandom(
 									"Yes! Use my [npc.tail]! I love your tits!",
@@ -2979,7 +3579,7 @@ public abstract class NPC extends GameCharacter {
 									"Harder! Don't stop!");
 					}
 				case TONGUE_PARTNER:
-					switch(Sex.getSexPacePartner()) {
+					switch(Sex.getSexPace(this)) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"Your nipples taste so good!",
@@ -2987,7 +3587,7 @@ public abstract class NPC extends GameCharacter {
 									"What a good [pc.girl]! You love having my tongue in your nipple, don't you?");
 						case DOM_NORMAL:
 							return UtilText.returnStringAtRandom(
-									"Oh yes! Your tits tastes so good!",
+									"Oh yes! Your tits taste so good!",
 									"You like this? Feeling my tongue deep in your hot little nipple?!",
 									"I love the taste of your tits!");
 						case DOM_ROUGH:
@@ -3017,7 +3617,7 @@ public abstract class NPC extends GameCharacter {
 									"Deeper! Don't stop!");
 					}
 				default:// Self penetration:
-					switch(Sex.getSexPacePartner()) {
+					switch(Sex.getSexPace(this)) {
 						case SUB_RESISTING:
 							return UtilText.returnStringAtRandom(
 									"Go away! Leave me alone!",
@@ -3027,13 +3627,191 @@ public abstract class NPC extends GameCharacter {
 							return UtilText.returnStringAtRandom(
 									"That's right, try to get yourself off!",
 									"You trying to get yourself off?",
-									"Go on, keep using your fingers!");
+									"Yes! Keep going!");
 					}
 			}
 		}
 		
 		return null;
 	}
+	
+	/**
+	 * @return A <b>non-formatted</b> String of the player's speech related to the partner having their nipples used. Returns null if no penetration found.
+	 */
+	public String getDirtyTalkPartnerUsingBreasts(boolean isPlayerDom){
+		if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.BREAST_PLAYER) != null) {
+			switch(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.BREAST_PLAYER)) {
+				case FINGER_PARTNER:
+					switch(Sex.getSexPace(this)) {
+						case DOM_GENTLE:
+							return UtilText.returnStringAtRandom(
+									"Good [pc.girl], you love having your [pc.breasts] fondled like this, don't you?",
+									"I love your [pc.breasts]!",
+									"What a good [pc.girl]! Your tits love the feeling of my [npc.fingers], don't they?");
+						case DOM_NORMAL:
+							return UtilText.returnStringAtRandom(
+									"You love the feeling of having your [pc.breasts] fondled, don't you?!",
+									"I love your [pc.breasts+]!",
+									"You like it when I press my [npc.fingers] into your [pc.breasts], like <i>this</i>?!");
+						case DOM_ROUGH:
+							return UtilText.returnStringAtRandom(
+									"What a dirty slut! Moaning as I grope your [pc.breasts+]!",
+									"You love this, don't you bitch?! Having your [pc.breasts] groped and fondled like <i>this</i>!",
+									"That's right slut! Your [pc.breasts+] are mine to use however I want!");
+						case SUB_EAGER:
+							return UtilText.returnStringAtRandom(
+									"Yes! I love the feel of your [pc.breasts]!",
+									"I love giving your tits the attention they deserve!",
+									"I love your [pc.breasts]!");
+						case SUB_NORMAL:
+							return UtilText.returnStringAtRandom(
+									"Yes! I love the feel of your [pc.breasts]!",
+									"I love giving your tits the attention they deserve!",
+									"I love your [pc.breasts]!");
+						case SUB_RESISTING:
+							return UtilText.returnStringAtRandom(
+									"I don't want to do this! Please let me stop!",
+									"Let me go! I don't want to do this!",
+									"Please! Stop! I don't want this!");
+						default:
+							return(UtilText.returnStringAtRandom(
+									"Fuck!",
+									"Yeah!",
+									"Oh yeah!"));
+					}
+				case PENIS_PARTNER:
+					switch(Sex.getSexPace(this)) {
+						case DOM_GENTLE:
+							return UtilText.returnStringAtRandom(
+									"Good [pc.girl]! Feel my cock slide up between your [pc.breasts]!",
+									"That's right, be a good [pc.girl] and moan for me! Feel my [npc.cock] sliding up between your [pc.breasts+]!",
+									"Your [pc.breasts] feel so good squeezing down around my [npc.cock]!");
+						case DOM_NORMAL:
+							return UtilText.returnStringAtRandom(
+									"Fuck! Your tits feel so good to fuck!",
+									"Oh yes! Wrap your tits around my cock!",
+									"Your tits were made for my cock!");
+						case DOM_ROUGH:
+							return UtilText.returnStringAtRandom(
+									"That's right slut, pleasure my cock! Push your tits together and make this good for me!",
+									"What a horny bitch! Using your tits to please my cock like a desperate slut!",
+									"You like this, fuck toy?! Squeezing your [pc.breasts] around my cock and pleasing me like the slut you are?!");
+						case SUB_EAGER:
+							return UtilText.returnStringAtRandom(
+									"Yes! Use my cock! I love your tits!",
+									"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+									"Oh yes! Use me! I love your tits!");
+						case SUB_NORMAL:
+							return UtilText.returnStringAtRandom(
+									"Yes! Fuck me!",
+									"Don't stop! Fuck me!",
+									"Oh yes! Fuck me!");
+						case SUB_RESISTING:
+							return UtilText.returnStringAtRandom(
+									"I don't want to do this! Please let me stop!",
+									"Let me go! Get off my cock!",
+									"Please! Stop! I don't want this!");
+						default:
+							return UtilText.returnStringAtRandom(
+									"Fuck me! Yes! Harder!",
+									"Oh yeah! Fuck me!",
+									"Harder! Don't stop!");
+					}
+				case TAIL_PARTNER:
+					switch(Sex.getSexPace(this)) {
+						case DOM_GENTLE:
+							return UtilText.returnStringAtRandom(
+									"Good [pc.girl]! Feel my [npc.tail] slide up between your [pc.breasts]!",
+									"That's right, be a good [pc.girl] and moan for me! Feel my [npc.tail] sliding up between your [pc.breasts+]!",
+									"Your [pc.breasts] feel so good squeezing down around my [npc.tail]!");
+						case DOM_NORMAL:
+							return UtilText.returnStringAtRandom(
+									"Fuck! Your tits feel so good to fuck!",
+									"Oh yes! Wrap your tits around my [npc.tail]!",
+									"Your tits were made for my [npc.tail]!");
+						case DOM_ROUGH:
+							return UtilText.returnStringAtRandom(
+									"That's right slut, pleasure my [npc.tail]! Push your tits together and make this good for me!",
+									"What a horny bitch! Using your tits to please my [npc.tail] like a desperate slut!",
+									"You like this, fuck toy?! Squeezing your [pc.breasts] around my [npc.tail] and pleasing me like the slut you are?!");
+						case SUB_EAGER:
+							return UtilText.returnStringAtRandom(
+									"Yes! Use my [npc.tail]! I love your tits!",
+									"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+									"Oh yes! Use me! I love your tits!");
+						case SUB_NORMAL:
+							return UtilText.returnStringAtRandom(
+									"Yes! Fuck me!",
+									"Don't stop! Fuck me!",
+									"Oh yes! Fuck me!");
+						case SUB_RESISTING:
+							return UtilText.returnStringAtRandom(
+									"I don't want to do this! Please let me stop!",
+									"Let me go! Get off my [npc.tail]!",
+									"Please! Stop! I don't want this!");
+						default:
+							return UtilText.returnStringAtRandom(
+									"Fuck me! Yes! Harder!",
+									"Oh yeah! Fuck me!",
+									"Harder! Don't stop!");
+					}
+				case TONGUE_PARTNER:
+					switch(Sex.getSexPace(this)) {
+						case DOM_GENTLE:
+							return UtilText.returnStringAtRandom(
+									"Your tits taste so good!",
+									"Good [pc.girl]! I love the taste of your tits!",
+									"What a good [pc.girl]! You love having your tits kissed like this, don't you?");
+						case DOM_NORMAL:
+							return UtilText.returnStringAtRandom(
+									"Oh yes! Your tits taste so good!",
+									"You like this? Feeling my tongue running over your breasts?!",
+									"I love the taste of your tits!");
+						case DOM_ROUGH:
+							return UtilText.returnStringAtRandom(
+									"Keep still slut, and be thankful that I'm giving your tits some attention!",
+									"Stay still bitch! Just keep moaning and enjoying this while it lasts!",
+									"You'd better appreciate this bitch! You know how lucky you are, having me lick your tits?!");
+						case SUB_EAGER:
+							return UtilText.returnStringAtRandom(
+									"Yes! I love your tits! Let me suck on your nipples!",
+									"Oh yes! Let me suck on your nipples! Yes, yes, yes!",
+									"Oh yes! I love your tits!");
+						case SUB_NORMAL:
+							return UtilText.returnStringAtRandom(
+									"I love your tits! Let me suck on your nipples!",
+									"Oh yes! Let me suck on your nipples!",
+									"I love your tits!");
+						case SUB_RESISTING:
+							return UtilText.returnStringAtRandom(
+									"I don't want to do this! Please let me stop!",
+									"Let me go! I don't want to do this!",
+									"Please! Stop! I don't want this!");
+						default:
+							return UtilText.returnStringAtRandom(
+									"Yes! Keep going!",
+									"Oh yeah! Keep going!",
+									"Don't stop!");
+					}
+				default:// Self penetration:
+					switch(Sex.getSexPace(this)) {
+						case SUB_RESISTING:
+							return UtilText.returnStringAtRandom(
+									"Go away! Leave me alone!",
+									"Stop it! Just go away!",
+									"Please stop! Don't do this!");
+						default:
+							return UtilText.returnStringAtRandom(
+									"That's right, try to get yourself off!",
+									"You trying to get yourself off?",
+									"Yes! Keep going!");
+					}
+			}
+		}
+		
+		return null;
+	}
+	
 	
 	// Player dirty talk for this NPC:
 	
@@ -3051,7 +3829,7 @@ public abstract class NPC extends GameCharacter {
 			// Taking vaginal:
 			s = getPlayerDirtyTalkVaginaPenetrated(isPlayerDom);
 			if(s!=null) {
-				if(!Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER).isPlayer()) {
+				if(!Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER).isPlayer()) {
 					speech.add(s);
 				} else {
 					speechSelf.add(s);
@@ -3061,7 +3839,7 @@ public abstract class NPC extends GameCharacter {
 			// Taking anal:
 			s = getPlayerDirtyTalkAssPenetrated(isPlayerDom);
 			if(s!=null) {
-				if(!Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER).isPlayer()) {
+				if(!Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER).isPlayer()) {
 					speech.add(s);
 				} else {
 					speechSelf.add(s);
@@ -3071,7 +3849,7 @@ public abstract class NPC extends GameCharacter {
 			// Taking something in their mouth:
 			s = getPlayerDirtyTalkMouthPenetrated(isPlayerDom);
 			if(s!=null) {
-				if(!Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER).isPlayer()) {
+				if(!Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER).isPlayer()) {
 					speech.add(s);
 				} else {
 					speechSelf.add(s);
@@ -3081,7 +3859,7 @@ public abstract class NPC extends GameCharacter {
 			// Taking nipple penetration:
 			s = getPlayerDirtyTalkNipplePenetrated(isPlayerDom);
 			if(s!=null) {
-				if(!Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PLAYER).isPlayer()) {
+				if(!Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE_PLAYER).isPlayer()) {
 					speech.add(s);
 				} else {
 					speechSelf.add(s);
@@ -3092,7 +3870,7 @@ public abstract class NPC extends GameCharacter {
 			// Giving vaginal:
 			s = getPlayerDirtyTalkPartnerVaginaPenetrated(isPlayerDom);
 			if(s!=null) {
-				if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER).isPlayer()) {
+				if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER).isPlayer()) {
 					speech.add(s);
 				} else {
 					speechSelf.add(s);
@@ -3102,7 +3880,7 @@ public abstract class NPC extends GameCharacter {
 			// Giving anal:
 			s = getPlayerDirtyTalkPartnerAssPenetrated(isPlayerDom);
 			if(s!=null) {
-				if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER).isPlayer()) {
+				if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS_PARTNER).isPlayer()) {
 					speech.add(s);
 				} else {
 					speechSelf.add(s);
@@ -3112,7 +3890,7 @@ public abstract class NPC extends GameCharacter {
 			// Putting something into the player's mouth:
 			s = getPlayerDirtyTalkPartnerMouthPenetrated(isPlayerDom);
 			if(s!=null) {
-				if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER).isPlayer()) {
+				if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.MOUTH_PARTNER).isPlayer()) {
 					speech.add(s);
 				} else {
 					speechSelf.add(s);
@@ -3122,12 +3900,23 @@ public abstract class NPC extends GameCharacter {
 			// Giving nipple penetration:
 			s = getPlayerDirtyTalkPartnerNipplePenetrated(isPlayerDom);
 			if(s!=null) {
-				if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER).isPlayer()) {
+				if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.NIPPLE_PARTNER).isPlayer()) {
 					speech.add(s);
 				} else {
 					speechSelf.add(s);
 				}
 			}
+			
+			// Giving paizuri:
+			s = getPlayerDirtyTalkPartnerBreastsUsed(isPlayerDom);
+			if(s!=null) {
+				if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.BREAST_PARTNER).isPlayer()) {
+					speech.add(s);
+				} else {
+					speechSelf.add(s);
+				}
+			}
+			
 			
 			
 			// Choose a random line to say:
@@ -3149,7 +3938,7 @@ public abstract class NPC extends GameCharacter {
 	 * @return A <b>non-formatted</b> String of this NPCs speech related to no ongoing penetration.
 	 */
 	public String getPlayerDirtyTalkNoPenetration(boolean isPlayerDom){
-		switch(Sex.getSexPacePlayer()) {
+		switch(Sex.getSexPace(Main.game.getPlayer())) {
 			case DOM_GENTLE:
 				return UtilText.returnStringAtRandom(
 						"I'll be gentle, don't worry!",
@@ -3201,10 +3990,10 @@ public abstract class NPC extends GameCharacter {
 		List<String> speech = new ArrayList<>();
 		
 		if(Main.game.getPlayer().getVaginaType()!=VaginaType.NONE) {
-			if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER) != null) {
-				switch(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER)) {
+			if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER) != null) {
+				switch(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER)) {
 					case FINGER_PARTNER:
-						switch(Sex.getSexPacePlayer()) {
+						switch(Sex.getSexPace(Main.game.getPlayer())) {
 							case DOM_GENTLE:
 								return UtilText.returnStringAtRandom(
 										"That's right, be a good [npc.girl] now and push your [npc.fingers] in deeper!",
@@ -3242,7 +4031,7 @@ public abstract class NPC extends GameCharacter {
 										"Oh yeah!"));
 						}
 					case PENIS_PARTNER:
-						switch(Sex.getSexPacePlayer()) {
+						switch(Sex.getSexPace(Main.game.getPlayer())) {
 							case DOM_GENTLE:
 								return UtilText.returnStringAtRandom(
 										"My pussy loves your [npc.cock]!",
@@ -3280,7 +4069,7 @@ public abstract class NPC extends GameCharacter {
 										"Harder! Don't stop!");
 						}
 					case TAIL_PARTNER:
-						switch(Sex.getSexPacePlayer()) {
+						switch(Sex.getSexPace(Main.game.getPlayer())) {
 							case DOM_GENTLE:
 								return UtilText.returnStringAtRandom(
 										"My pussy loves your [npc.tail]! Keep going!",
@@ -3318,7 +4107,7 @@ public abstract class NPC extends GameCharacter {
 										"Harder! Don't stop!");
 						}
 					case TONGUE_PARTNER:
-						switch(Sex.getSexPacePlayer()) {
+						switch(Sex.getSexPace(Main.game.getPlayer())) {
 							case DOM_GENTLE:
 								return UtilText.returnStringAtRandom(
 										"That's right, keep eating me out like a good [npc.girl]!",
@@ -3356,7 +4145,7 @@ public abstract class NPC extends GameCharacter {
 										"Deeper! Don't stop!");
 						}
 					default:// Self penetration:
-						switch(Sex.getSexPacePlayer()) {
+						switch(Sex.getSexPace(Main.game.getPlayer())) {
 							case SUB_RESISTING:
 								return UtilText.returnStringAtRandom(
 										"Go away! Leave me alone!",
@@ -3384,10 +4173,10 @@ public abstract class NPC extends GameCharacter {
 	 */
 	public String getPlayerDirtyTalkAssPenetrated(boolean isPlayerDom){
 		
-		if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER) != null) {
-			switch(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER)) {
+		if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER) != null) {
+			switch(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER)) {
 				case FINGER_PARTNER:
-					switch(Sex.getSexPacePlayer()) {
+					switch(Sex.getSexPace(Main.game.getPlayer())) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"That's right, be a good [npc.girl] now and push your [npc.fingers] in deeper!",
@@ -3425,7 +4214,7 @@ public abstract class NPC extends GameCharacter {
 									"Oh yeah!"));
 					}
 				case PENIS_PARTNER:
-					switch(Sex.getSexPacePlayer()) {
+					switch(Sex.getSexPace(Main.game.getPlayer())) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"My ass loves your [npc.cock]!",
@@ -3463,7 +4252,7 @@ public abstract class NPC extends GameCharacter {
 									"Harder! Don't stop!");
 					}
 				case TAIL_PARTNER:
-					switch(Sex.getSexPacePlayer()) {
+					switch(Sex.getSexPace(Main.game.getPlayer())) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"My ass loves your [npc.tail]! Keep going!",
@@ -3501,7 +4290,7 @@ public abstract class NPC extends GameCharacter {
 									"Harder! Don't stop!");
 					}
 				case TONGUE_PARTNER:
-					switch(Sex.getSexPacePlayer()) {
+					switch(Sex.getSexPace(Main.game.getPlayer())) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"That's right, keep that rimjob going like a good [npc.girl]!",
@@ -3539,7 +4328,7 @@ public abstract class NPC extends GameCharacter {
 									"Deeper! Don't stop!");
 					}
 				default:// Self penetration:
-					switch(Sex.getSexPacePlayer()) {
+					switch(Sex.getSexPace(Main.game.getPlayer())) {
 						case SUB_RESISTING:
 							return UtilText.returnStringAtRandom(
 									"Go away! Leave me alone!",
@@ -3562,10 +4351,10 @@ public abstract class NPC extends GameCharacter {
 	 */
 	public String getPlayerDirtyTalkMouthPenetrated(boolean isPlayerDom){
 
-		if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER) != null) {
-			switch(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER)) {
+		if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER) != null) {
+			switch(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER)) {
 				case FINGER_PARTNER:
-					switch(Sex.getSexPacePlayer()) {
+					switch(Sex.getSexPace(Main.game.getPlayer())) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"Your fingers taste good!",
@@ -3602,7 +4391,7 @@ public abstract class NPC extends GameCharacter {
 									"Oh yeah!"));
 					}
 				case PENIS_PARTNER:
-					switch(Sex.getSexPacePlayer()) {
+					switch(Sex.getSexPace(Main.game.getPlayer())) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"I love your [npc.cock]!",
@@ -3640,7 +4429,7 @@ public abstract class NPC extends GameCharacter {
 									"Don't stop!");
 					}
 				case TAIL_PARTNER:
-					switch(Sex.getSexPacePlayer()) {
+					switch(Sex.getSexPace(Main.game.getPlayer())) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"I love sucking your [npc.tail]!",
@@ -3678,7 +4467,7 @@ public abstract class NPC extends GameCharacter {
 									"Don't stop!");
 					}
 				case TONGUE_PARTNER:
-					switch(Sex.getSexPacePlayer()) {
+					switch(Sex.getSexPace(Main.game.getPlayer())) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"Yes! Good [npc.girl]!",
@@ -3711,7 +4500,7 @@ public abstract class NPC extends GameCharacter {
 									"Don't stop!");
 					}
 				default:// Self penetration:
-					switch(Sex.getSexPacePlayer()) {
+					switch(Sex.getSexPace(Main.game.getPlayer())) {
 						case SUB_RESISTING:
 							return UtilText.returnStringAtRandom(
 									"Go away! Leave me alone!",
@@ -3733,10 +4522,10 @@ public abstract class NPC extends GameCharacter {
 	 * @return A <b>non-formatted</b> String of the player's speech related to having their nipples used. Returns null if no penetration found.
 	 */
 	public String getPlayerDirtyTalkNipplePenetrated(boolean isPlayerDom){
-		if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PLAYER) != null) {
-			switch(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PLAYER)) {
+		if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE_PLAYER) != null) {
+			switch(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE_PLAYER)) {
 				case FINGER_PARTNER:
-					switch(Sex.getSexPacePlayer()) {
+					switch(Sex.getSexPace(Main.game.getPlayer())) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"That's right, be a good [npc.girl] now and push your [npc.fingers] deeper into my nipple!",
@@ -3774,7 +4563,7 @@ public abstract class NPC extends GameCharacter {
 									"Oh yeah!"));
 					}
 				case PENIS_PARTNER:
-					switch(Sex.getSexPacePlayer()) {
+					switch(Sex.getSexPace(Main.game.getPlayer())) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"My nipples love your [npc.cock]!",
@@ -3812,7 +4601,7 @@ public abstract class NPC extends GameCharacter {
 									"Harder! Don't stop!");
 					}
 				case TAIL_PARTNER:
-					switch(Sex.getSexPacePlayer()) {
+					switch(Sex.getSexPace(Main.game.getPlayer())) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"My tits love your [npc.tail]! Keep going!",
@@ -3850,7 +4639,7 @@ public abstract class NPC extends GameCharacter {
 									"Harder! Don't stop!");
 					}
 				case TONGUE_PARTNER:
-					switch(Sex.getSexPacePlayer()) {
+					switch(Sex.getSexPace(Main.game.getPlayer())) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"That's right, keep sucking on my nipples like a good [npc.girl]!",
@@ -3865,7 +4654,7 @@ public abstract class NPC extends GameCharacter {
 							return UtilText.returnStringAtRandom(
 									"That's right slut, keep sucking on my tits like the worthless little fuck toy you are!",
 									"Come on bitch! Get that [npc.tongue] of yours deeper into my nipples!",
-									"Fucking bitch, put some more effort in! You know how lucky you are, being allowed to suck on ym tits like this?!");
+									"Fucking bitch, put some more effort in! You know how lucky you are, being allowed to suck on my tits like this?!");
 						case SUB_EAGER:
 							return UtilText.returnStringAtRandom(
 									"Yes! I love the feeling of your lips on my tits! Don't stop!",
@@ -3888,7 +4677,7 @@ public abstract class NPC extends GameCharacter {
 									"Deeper! Don't stop!");
 					}
 				default:// Self penetration:
-					switch(Sex.getSexPacePlayer()) {
+					switch(Sex.getSexPace(Main.game.getPlayer())) {
 						case SUB_RESISTING:
 							return UtilText.returnStringAtRandom(
 									"Go away! Leave me alone!",
@@ -3910,11 +4699,11 @@ public abstract class NPC extends GameCharacter {
 	 * @return A <b>non-formatted</b> String of the player's speech related to the partner having their vagina used. Returns null if no vagina or penetration found.
 	 */
 	public String getPlayerDirtyTalkPartnerVaginaPenetrated(boolean isPlayerDom){
-		if(Sex.getPartner().getVaginaType()!=VaginaType.NONE) {
-			if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER) != null) {
-				switch(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER)) {
+		if(this.getVaginaType()!=VaginaType.NONE) {
+			if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER) != null) {
+				switch(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER)) {
 					case FINGER_PLAYER:
-						switch(Sex.getSexPacePlayer()) {
+						switch(Sex.getSexPace(Main.game.getPlayer())) {
 							case DOM_GENTLE:
 								return UtilText.returnStringAtRandom(
 										"Good [npc.girl], you love feeling my [pc.fingers] deep in your pussy, don't you?",
@@ -3952,7 +4741,7 @@ public abstract class NPC extends GameCharacter {
 										"Oh yeah!"));
 						}
 					case PENIS_PLAYER:
-						switch(Sex.getSexPacePlayer()) {
+						switch(Sex.getSexPace(Main.game.getPlayer())) {
 							case DOM_GENTLE:
 								return UtilText.returnStringAtRandom(
 										"Good [npc.girl]! Feel my [pc.cock] slide deep into your little pussy!",
@@ -3967,7 +4756,7 @@ public abstract class NPC extends GameCharacter {
 								return UtilText.returnStringAtRandom(
 										"That's right slut, take my cock! Your pussy belongs to me!",
 										"What a horny bitch! Take my cock you slut!",
-										"You feel that, fuck toy?! Do you feel my  cock sinking deep into your slutty little cunt?!");
+										"You feel that, fuck toy?! Do you feel my cock sinking deep into your slutty little cunt?!");
 							case SUB_EAGER:
 								return UtilText.returnStringAtRandom(
 										"Yes! Use my cock! I love your pussy!",
@@ -3990,7 +4779,7 @@ public abstract class NPC extends GameCharacter {
 										"Harder! Don't stop!");
 						}
 					case TAIL_PLAYER:
-						switch(Sex.getSexPacePlayer()) {
+						switch(Sex.getSexPace(Main.game.getPlayer())) {
 							case DOM_GENTLE:
 								return UtilText.returnStringAtRandom(
 										"Good [npc.girl]! Feel my [pc.tail] slide deep into your little pussy!",
@@ -4005,7 +4794,7 @@ public abstract class NPC extends GameCharacter {
 								return UtilText.returnStringAtRandom(
 										"That's right slut, feel my [pc.tail] pushing deep into your worthless little cunt! Your pussy belongs to me!",
 										"What a horny bitch! Now moan for me as I fuck you with my tail!",
-										"You feel that, fuck toy?! Do you feel my  [pc.tail] sinking deep into your slutty little cunt?!");
+										"You feel that, fuck toy?! Do you feel my [pc.tail] sinking deep into your slutty little cunt?!");
 							case SUB_EAGER:
 								return UtilText.returnStringAtRandom(
 										"Yes! Use my [pc.tail]! I love your pussy!",
@@ -4028,7 +4817,7 @@ public abstract class NPC extends GameCharacter {
 										"Harder! Don't stop!");
 						}
 					case TONGUE_PLAYER:
-						switch(Sex.getSexPacePlayer()) {
+						switch(Sex.getSexPace(Main.game.getPlayer())) {
 							case DOM_GENTLE:
 								return UtilText.returnStringAtRandom(
 										"Your pussy sure does taste good!",
@@ -4066,7 +4855,7 @@ public abstract class NPC extends GameCharacter {
 										"Deeper! Don't stop!");
 						}
 					default:// Self penetration:
-						switch(Sex.getSexPacePlayer()) {
+						switch(Sex.getSexPace(Main.game.getPlayer())) {
 							case SUB_RESISTING:
 								return UtilText.returnStringAtRandom(
 										"Go away! Leave me alone!",
@@ -4076,7 +4865,7 @@ public abstract class NPC extends GameCharacter {
 								return UtilText.returnStringAtRandom(
 										"That's right, try to get yourself off!",
 										"You trying to get yourself off?",
-										"Go on, keep using your fingers!");
+										"Yes! Keep going!");
 						}
 				}
 			}
@@ -4089,10 +4878,10 @@ public abstract class NPC extends GameCharacter {
 	 * @return A <b>non-formatted</b> String of the player's speech related to the partner having their ass used. Returns null if no penetration found.
 	 */
 	public String getPlayerDirtyTalkPartnerAssPenetrated(boolean isPlayerDom){
-		if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER) != null) {
-			switch(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER)) {
+		if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS_PARTNER) != null) {
+			switch(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS_PARTNER)) {
 				case FINGER_PLAYER:
-					switch(Sex.getSexPacePlayer()) {
+					switch(Sex.getSexPace(Main.game.getPlayer())) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"Good [npc.girl], you love feeling my [pc.fingers] deep in your ass, don't you?",
@@ -4130,7 +4919,7 @@ public abstract class NPC extends GameCharacter {
 									"Oh yeah!"));
 					}
 				case PENIS_PLAYER:
-					switch(Sex.getSexPacePlayer()) {
+					switch(Sex.getSexPace(Main.game.getPlayer())) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"Good [npc.girl]! Feel my [pc.cock] slide deep into your ass!",
@@ -4145,7 +4934,7 @@ public abstract class NPC extends GameCharacter {
 							return UtilText.returnStringAtRandom(
 									"That's right slut, take my cock! Your ass belongs to me!",
 									"What a horny bitch! Take my cock you filthy little butt-slut!",
-									"You feel that, fuck toy?! Do you feel my  cock sinking deep into your slutty little ass?!");
+									"You feel that, fuck toy?! Do you feel my cock sinking deep into your slutty little ass?!");
 						case SUB_EAGER:
 							return UtilText.returnStringAtRandom(
 									"Yes! Use my cock! I love your ass!",
@@ -4168,7 +4957,7 @@ public abstract class NPC extends GameCharacter {
 									"Harder! Don't stop!");
 					}
 				case TAIL_PLAYER:
-					switch(Sex.getSexPacePlayer()) {
+					switch(Sex.getSexPace(Main.game.getPlayer())) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"Good [npc.girl]! Feel my [pc.tail] slide deep into your cute little ass!",
@@ -4183,7 +4972,7 @@ public abstract class NPC extends GameCharacter {
 							return UtilText.returnStringAtRandom(
 									"That's right bitch, feel my [pc.tail] pushing deep into your slutty ass!",
 									"What a horny slut! Now moan for me as I fuck your ass with my tail!",
-									"You feel that, fuck toy?! Do you feel my  [pc.tail] sinking deep into your slutty little ass?!");
+									"You feel that, fuck toy?! Do you feel my [pc.tail] sinking deep into your slutty little ass?!");
 						case SUB_EAGER:
 							return UtilText.returnStringAtRandom(
 									"Yes! Use my [pc.tail]! I love your ass!",
@@ -4206,7 +4995,7 @@ public abstract class NPC extends GameCharacter {
 									"Harder! Don't stop!");
 					}
 				case TONGUE_PLAYER:
-					switch(Sex.getSexPacePlayer()) {
+					switch(Sex.getSexPace(Main.game.getPlayer())) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"That's right, moan for me as I pleasure your ass!",
@@ -4244,7 +5033,7 @@ public abstract class NPC extends GameCharacter {
 									"Deeper! Don't stop!");
 					}
 				default:// Self penetration:
-					switch(Sex.getSexPacePlayer()) {
+					switch(Sex.getSexPace(Main.game.getPlayer())) {
 						case SUB_RESISTING:
 							return UtilText.returnStringAtRandom(
 									"Go away! Leave me alone!",
@@ -4254,7 +5043,7 @@ public abstract class NPC extends GameCharacter {
 							return UtilText.returnStringAtRandom(
 									"That's right, try to get yourself off!",
 									"You trying to get yourself off?",
-									"Go on, keep using your fingers!");
+									"Yes! Keep going!");
 					}
 			}
 		}
@@ -4266,10 +5055,10 @@ public abstract class NPC extends GameCharacter {
 	 * @return A <b>non-formatted</b> String of the player's speech related to the partner having their mouth used. Returns null if no penetration found.
 	 */
 	public String getPlayerDirtyTalkPartnerMouthPenetrated(boolean isPlayerDom){
-		if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER) != null) {
-			switch(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER)) {
+		if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.MOUTH_PARTNER) != null) {
+			switch(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.MOUTH_PARTNER)) {
 				case FINGER_PLAYER:
-					switch(Sex.getSexPacePlayer()) {
+					switch(Sex.getSexPace(Main.game.getPlayer())) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"Good [npc.girl], keep sucking on my [pc.fingers]!",
@@ -4307,7 +5096,7 @@ public abstract class NPC extends GameCharacter {
 									"Oh yeah!"));
 					}
 				case PENIS_PLAYER:
-					switch(Sex.getSexPacePlayer()) {
+					switch(Sex.getSexPace(Main.game.getPlayer())) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"Good [npc.girl], keep sucking my cock!",
@@ -4345,7 +5134,7 @@ public abstract class NPC extends GameCharacter {
 									"Harder! Don't stop!");
 					}
 				case TAIL_PLAYER:
-					switch(Sex.getSexPacePlayer()) {
+					switch(Sex.getSexPace(Main.game.getPlayer())) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"Good [npc.girl], keep sucking my [pc.tail]!",
@@ -4383,32 +5172,32 @@ public abstract class NPC extends GameCharacter {
 									"Harder! Don't stop!");
 					}
 				case TONGUE_PLAYER:
-					switch(Sex.getSexPacePlayer()) {
+					switch(Sex.getSexPace(Main.game.getPlayer())) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
-									"I love getting my [pc.tongue] sucked!",
-									"Good [npc.girl]! Keep sucking my [pc.tongue]!",
-									"What a good [npc.girl]! I love having my [pc.tongue] sucked!");
+									"Your lips taste so good!",
+									"Good [npc.girl]! Don't stop!",
+									"What a good [npc.girl]!");
 						case DOM_NORMAL:
 							return UtilText.returnStringAtRandom(
-									"I love getting my [pc.tongue] sucked!",
-									"That's good! Keep sucking my [pc.tongue]!",
-									"I love having my [pc.tongue] sucked!");
+									"Your lips taste so good!",
+									"Good [npc.girl]! Don't stop!",
+									"What a good [npc.girl]!");
 						case DOM_ROUGH:
 							return UtilText.returnStringAtRandom(
-									"Come on slut, you can suck my [pc.tongue] better than that!",
-									"Put some more effort into this bitch! Suck my [pc.tongue] like you mean it!",
-									"Fucking slut, suck my [pc.tongue]! Put some more effort into it!");
+									"Come on slut, you can kiss better than that!",
+									"Put some more effort into this bitch! Kiss me like you mean it!",
+									"Fucking slut, you can kiss me better than this! Put some more effort into it!");
 						case SUB_EAGER:
 							return UtilText.returnStringAtRandom(
-									"Oh yes! I love having my [pc.tongue] sucked! I need more!",
-									"I love having my [pc.tongue] sucked! Yes, yes, yes!",
-									"Oh yes! I love having my [pc.tongue] sucked! Your lips feel so good!");
+									"Oh yes! Your lips taste so good! I need more!",
+									"I love kissing you! Yes, yes, yes!",
+									"Oh yes! Your lips taste so good!");
 						case SUB_NORMAL:
 							return UtilText.returnStringAtRandom(
-									"I love having my [pc.tongue] sucked! Keep going!",
-									"Keep sucking my [pc.tongue]!",
-									"I love having my [pc.tongue] sucked! Your lips feel so good!");
+									"Your lips taste so good! I need more!",
+									"I love kissing you!",
+									"Your lips taste so good!");
 						case SUB_RESISTING:
 							return UtilText.returnStringAtRandom(
 									"I don't want to do this! Please stop!",
@@ -4416,12 +5205,12 @@ public abstract class NPC extends GameCharacter {
 									"Please! Stop! I don't want this!");
 						default:
 							return UtilText.returnStringAtRandom(
-									"I love having my [pc.tongue] sucked!",
-									"Oh yeah! I love having my [pc.tongue] sucked!",
+									"Your lips taste so good!",
+									"I love kissing you!",
 									"Don't stop!");
 					}
 				default:// Self penetration:
-					switch(Sex.getSexPacePlayer()) {
+					switch(Sex.getSexPace(Main.game.getPlayer())) {
 						case SUB_RESISTING:
 							return UtilText.returnStringAtRandom(
 									"Go away! Leave me alone!",
@@ -4431,7 +5220,7 @@ public abstract class NPC extends GameCharacter {
 							return UtilText.returnStringAtRandom(
 									"That's right, try to get yourself off!",
 									"You trying to get yourself off?",
-									"Go on, keep using your fingers!");
+									"Yes! Keep going!");
 					}
 			}
 		}
@@ -4443,10 +5232,10 @@ public abstract class NPC extends GameCharacter {
 	 * @return A <b>non-formatted</b> String of the player's speech related to the partner having their nipples used. Returns null if no penetration found.
 	 */
 	public String getPlayerDirtyTalkPartnerNipplePenetrated(boolean isPlayerDom){
-		if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER) != null) {
-			switch(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER)) {
+		if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.NIPPLE_PARTNER) != null) {
+			switch(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.NIPPLE_PARTNER)) {
 				case FINGER_PLAYER:
-					switch(Sex.getSexPacePlayer()) {
+					switch(Sex.getSexPace(Main.game.getPlayer())) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"Good [npc.girl], you love feeling my [pc.fingers] deep in your nipples, don't you?",
@@ -4484,7 +5273,7 @@ public abstract class NPC extends GameCharacter {
 									"Oh yeah!"));
 					}
 				case PENIS_PLAYER:
-					switch(Sex.getSexPacePlayer()) {
+					switch(Sex.getSexPace(Main.game.getPlayer())) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"Good [npc.girl]! Feel my cock slide deep into your breast!",
@@ -4499,7 +5288,7 @@ public abstract class NPC extends GameCharacter {
 							return UtilText.returnStringAtRandom(
 									"That's right slut, take my cock! Feel it pushing deep into your nipple!",
 									"What a horny bitch! Taking my cock deep into your tit like a slut!",
-									"You feel that, fuck toy?! Do you feel my  cock sinking deep into your slutty little nipple?!");
+									"You feel that, fuck toy?! Do you feel my cock sinking deep into your slutty little nipple?!");
 						case SUB_EAGER:
 							return UtilText.returnStringAtRandom(
 									"Yes! Use my cock! I love your tits!",
@@ -4522,7 +5311,7 @@ public abstract class NPC extends GameCharacter {
 									"Harder! Don't stop!");
 					}
 				case TAIL_PLAYER:
-					switch(Sex.getSexPacePlayer()) {
+					switch(Sex.getSexPace(Main.game.getPlayer())) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"Good [npc.girl]! Feel my [pc.tail] slide deep into your breast!",
@@ -4537,7 +5326,7 @@ public abstract class NPC extends GameCharacter {
 							return UtilText.returnStringAtRandom(
 									"That's right slut, take my [pc.tail]! Feel it pushing deep into your nipple!",
 									"What a horny bitch! Taking my [pc.tail] deep into your tit like a slut!",
-									"You feel that, fuck toy?! Do you feel my  [pc.tail] sinking deep into your slutty little nipple?!");
+									"You feel that, fuck toy?! Do you feel my [pc.tail] sinking deep into your slutty little nipple?!");
 						case SUB_EAGER:
 							return UtilText.returnStringAtRandom(
 									"Yes! Use my [pc.tail]! I love your tits!",
@@ -4560,7 +5349,7 @@ public abstract class NPC extends GameCharacter {
 									"Harder! Don't stop!");
 					}
 				case TONGUE_PLAYER:
-					switch(Sex.getSexPacePlayer()) {
+					switch(Sex.getSexPace(Main.game.getPlayer())) {
 						case DOM_GENTLE:
 							return UtilText.returnStringAtRandom(
 									"Your nipples taste so good!",
@@ -4568,7 +5357,7 @@ public abstract class NPC extends GameCharacter {
 									"What a good [npc.girl]! You love having my tongue in your nipple, don't you?");
 						case DOM_NORMAL:
 							return UtilText.returnStringAtRandom(
-									"Oh yes! Your tits tastes so good!",
+									"Oh yes! Your tits taste so good!",
 									"You like this? Feeling my tongue deep in your hot little nipple?!",
 									"I love the taste of your tits!");
 						case DOM_ROUGH:
@@ -4598,7 +5387,7 @@ public abstract class NPC extends GameCharacter {
 									"Deeper! Don't stop!");
 					}
 				default:// Self penetration:
-					switch(Sex.getSexPacePlayer()) {
+					switch(Sex.getSexPace(Main.game.getPlayer())) {
 						case SUB_RESISTING:
 							return UtilText.returnStringAtRandom(
 									"Go away! Leave me alone!",
@@ -4608,7 +5397,184 @@ public abstract class NPC extends GameCharacter {
 							return UtilText.returnStringAtRandom(
 									"That's right, try to get yourself off!",
 									"You trying to get yourself off?",
-									"Go on, keep using your fingers!");
+									"Yes! Keep going!");
+					}
+			}
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * @return A <b>non-formatted</b> String of the player's speech related to the partner having their nipples used. Returns null if no penetration found.
+	 */
+	public String getPlayerDirtyTalkPartnerBreastsUsed(boolean isPlayerDom){
+		if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.BREAST_PARTNER) != null) {
+			switch(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.BREAST_PARTNER)) {
+				case FINGER_PLAYER:
+					switch(Sex.getSexPace(Main.game.getPlayer())) {
+						case DOM_GENTLE:
+							return UtilText.returnStringAtRandom(
+									"Good [npc.girl], you love having your [npc.breasts] fondled like this, don't you?",
+									"I love your [npc.breasts]!",
+									"What a good [npc.girl]! Your tits love the feeling of my [pc.fingers], don't they?");
+						case DOM_NORMAL:
+							return UtilText.returnStringAtRandom(
+									"You love the feeling of having your [npc.breasts] fondled, don't you?!",
+									"I love your [npc.breasts+]!",
+									"You like it when I press my [pc.fingers] into your [npc.breasts], like <i>this</i>?!");
+						case DOM_ROUGH:
+							return UtilText.returnStringAtRandom(
+									"What a dirty slut! Moaning as I grope your [npc.breasts+]!",
+									"You love this, don't you bitch?! Having your [npc.breasts] groped and fondled like <i>this</i>!",
+									"That's right slut! Your [npc.breasts+] are mine to use however I want!");
+						case SUB_EAGER:
+							return UtilText.returnStringAtRandom(
+									"Yes! I love the feel of your [npc.breasts]!",
+									"I love giving your tits the attention they deserve!",
+									"I love your [npc.breasts]!");
+						case SUB_NORMAL:
+							return UtilText.returnStringAtRandom(
+									"Yes! I love the feel of your [npc.breasts]!",
+									"I love giving your tits the attention they deserve!",
+									"I love your [npc.breasts]!");
+						case SUB_RESISTING:
+							return UtilText.returnStringAtRandom(
+									"I don't want to do this! Please let me stop!",
+									"Let me go! I don't want to do this!",
+									"Please! Stop! I don't want this!");
+						default:
+							return(UtilText.returnStringAtRandom(
+									"Fuck!",
+									"Yeah!",
+									"Oh yeah!"));
+					}
+				case PENIS_PLAYER:
+					switch(Sex.getSexPace(Main.game.getPlayer())) {
+						case DOM_GENTLE:
+							return UtilText.returnStringAtRandom(
+									"Good [npc.girl]! Feel my cock slide up between your [npc.breasts]!",
+									"That's right, be a good [npc.girl] and moan for me! Feel my [pc.cock] sliding up between your [npc.breasts+]!",
+									"Your [npc.breasts] feel so good squeezing down around my [pc.cock]!");
+						case DOM_NORMAL:
+							return UtilText.returnStringAtRandom(
+									"Fuck! Your tits feel so good to fuck!",
+									"Oh yes! Wrap your tits around my cock!",
+									"Your tits were made for my cock!");
+						case DOM_ROUGH:
+							return UtilText.returnStringAtRandom(
+									"That's right slut, pleasure my cock! Push your tits together and make this good for me!",
+									"What a horny bitch! Using your tits to please my cock like a desperate slut!",
+									"You like this, fuck toy?! Squeezing your [npc.breasts] around my cock and pleasing me like the slut you are?!");
+						case SUB_EAGER:
+							return UtilText.returnStringAtRandom(
+									"Yes! Use my cock! I love your tits!",
+									"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+									"Oh yes! Use me! I love your tits!");
+						case SUB_NORMAL:
+							return UtilText.returnStringAtRandom(
+									"Yes! Fuck me!",
+									"Don't stop! Fuck me!",
+									"Oh yes! Fuck me!");
+						case SUB_RESISTING:
+							return UtilText.returnStringAtRandom(
+									"I don't want to do this! Please let me stop!",
+									"Let me go! Get off my cock!",
+									"Please! Stop! I don't want this!");
+						default:
+							return UtilText.returnStringAtRandom(
+									"Fuck me! Yes! Harder!",
+									"Oh yeah! Fuck me!",
+									"Harder! Don't stop!");
+					}
+				case TAIL_PLAYER:
+					switch(Sex.getSexPace(Main.game.getPlayer())) {
+						case DOM_GENTLE:
+							return UtilText.returnStringAtRandom(
+									"Good [npc.girl]! Feel my [pc.tail] slide up between your [npc.breasts]!",
+									"That's right, be a good [npc.girl] and moan for me! Feel my [pc.tail] sliding up between your [npc.breasts+]!",
+									"Your [npc.breasts] feel so good squeezing down around my [pc.tail]!");
+						case DOM_NORMAL:
+							return UtilText.returnStringAtRandom(
+									"Fuck! Your tits feel so good to fuck!",
+									"Oh yes! Wrap your tits around my [pc.tail]!",
+									"Your tits were made for my [pc.tail]!");
+						case DOM_ROUGH:
+							return UtilText.returnStringAtRandom(
+									"That's right slut, pleasure my [pc.tail]! Push your tits together and make this good for me!",
+									"What a horny bitch! Using your tits to please my [pc.tail] like a desperate slut!",
+									"You like this, fuck toy?! Squeezing your [npc.breasts] around my [pc.tail] and pleasing me like the slut you are?!");
+						case SUB_EAGER:
+							return UtilText.returnStringAtRandom(
+									"Yes! Use my [pc.tail]! I love your tits!",
+									"Don't stop! Harder! Fuck me! Yes, yes, yes!",
+									"Oh yes! Use me! I love your tits!");
+						case SUB_NORMAL:
+							return UtilText.returnStringAtRandom(
+									"Yes! Fuck me!",
+									"Don't stop! Fuck me!",
+									"Oh yes! Fuck me!");
+						case SUB_RESISTING:
+							return UtilText.returnStringAtRandom(
+									"I don't want to do this! Please let me stop!",
+									"Let me go! Get off my [pc.tail]!",
+									"Please! Stop! I don't want this!");
+						default:
+							return UtilText.returnStringAtRandom(
+									"Fuck me! Yes! Harder!",
+									"Oh yeah! Fuck me!",
+									"Harder! Don't stop!");
+					}
+				case TONGUE_PLAYER:
+					switch(Sex.getSexPace(Main.game.getPlayer())) {
+						case DOM_GENTLE:
+							return UtilText.returnStringAtRandom(
+									"Your tits taste so good!",
+									"Good [npc.girl]! I love the taste of your tits!",
+									"What a good [npc.girl]! You love having your tits kissed like this, don't you?");
+						case DOM_NORMAL:
+							return UtilText.returnStringAtRandom(
+									"Oh yes! Your tits taste so good!",
+									"You like this? Feeling my tongue running over your breasts?!",
+									"I love the taste of your tits!");
+						case DOM_ROUGH:
+							return UtilText.returnStringAtRandom(
+									"Keep still slut, and be thankful that I'm giving your tits some attention!",
+									"Stay still bitch! Just keep moaning and enjoying this while it lasts!",
+									"You'd better appreciate this bitch! You know how lucky you are, having me lick your tits?!");
+						case SUB_EAGER:
+							return UtilText.returnStringAtRandom(
+									"Yes! I love your tits! Let me suck on your nipples!",
+									"Oh yes! Let me suck on your nipples! Yes, yes, yes!",
+									"Oh yes! I love your tits!");
+						case SUB_NORMAL:
+							return UtilText.returnStringAtRandom(
+									"I love your tits! Let me suck on your nipples!",
+									"Oh yes! Let me suck on your nipples!",
+									"I love your tits!");
+						case SUB_RESISTING:
+							return UtilText.returnStringAtRandom(
+									"I don't want to do this! Please let me stop!",
+									"Let me go! I don't want to do this!",
+									"Please! Stop! I don't want this!");
+						default:
+							return UtilText.returnStringAtRandom(
+									"Yes! Keep going!",
+									"Oh yeah! Keep going!",
+									"Don't stop!");
+					}
+				default:// Self penetration:
+					switch(Sex.getSexPace(Main.game.getPlayer())) {
+						case SUB_RESISTING:
+							return UtilText.returnStringAtRandom(
+									"Go away! Leave me alone!",
+									"Stop it! Just go away!",
+									"Please stop! Don't do this!");
+						default:
+							return UtilText.returnStringAtRandom(
+									"That's right, try to get yourself off!",
+									"You trying to get yourself off?",
+									"Yes! Keep going!");
 					}
 			}
 		}
@@ -4617,11 +5583,10 @@ public abstract class NPC extends GameCharacter {
 	}
 	
 	
-	
 	// Player area reveals:
 
 	public String getPlayerAssRevealReaction(boolean isPlayerDom) {
-		switch(Sex.getSexPacePartner()) {
+		switch(Sex.getSexPace(this)) {
 			case DOM_GENTLE:
 				return "<p>"
 							+ "[npc.Name] lets out a soft [npc.moan] as your [pc.asshole+] is revealed."
@@ -4654,8 +5619,8 @@ public abstract class NPC extends GameCharacter {
 	}
 
 	public String getPlayerBreastsRevealReaction(boolean isPlayerDom) {
-		if(Sex.getSexManager().isConsensualSex()) {
-			switch(Sex.getSexPacePartner()) {
+		if(Sex.isConsensual()) {
+			switch(Sex.getSexPace(this)) {
 				case DOM_GENTLE:
 					return "<p>"
 								+ "[npc.Name] lets out a soft [npc.moan] as your [pc.breasts+] are revealed."
@@ -4686,7 +5651,7 @@ public abstract class NPC extends GameCharacter {
 							+ "</p>";
 			}
 			
-		} else if(Sex.getSexPacePartner()==SexPace.SUB_RESISTING) {
+		} else if(Sex.getSexPace(this)==SexPace.SUB_RESISTING) {
 			return "<p>"
 					+ "[npc.Name] lets out [npc.a_sob+] as your [pc.breasts+] are revealed."
 				+ "</p>";
@@ -4699,27 +5664,27 @@ public abstract class NPC extends GameCharacter {
 						if (!Main.game.getPlayer().hasBreasts()) {
 							return "<p>"
 									+ "[npc.Name] struggles to stifle a mocking laugh as your flat chest is revealed, "
-									+ UtilText.parseSpeech("Pfft-hahaha!", Sex.getPartner())
+									+ UtilText.parseSpeech("Pfft-hahaha!", this)
 									+ "</p>";
 							
 						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.JJ.getMeasurement()) {
-							if(Sex.getPartner().getBreastSize().getMeasurement() >= Main.game.getPlayer().getBreastSize().getMeasurement()) {
+							if(this.getBreastSize().getMeasurement() >= Main.game.getPlayer().getBreastSize().getMeasurement()) {
 								return "<p>"
 										+ "[npc.Name] puts on a patronising smile as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("Aww... They're pretty cute!", Sex.getPartner())
+										+ UtilText.parseSpeech("Aww... They're pretty cute!", this)
 										+ "</p>";
 								
 							} else {
 								return "<p>"
 										+ "[npc.Name] looks embarrassed as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("They're so much bigger than mine...", Sex.getPartner())
+										+ UtilText.parseSpeech("They're so much bigger than mine...", this)
 										+ "</p>";
 							}
 							
 						} else {
 							return "<p>"
 									+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-									+ UtilText.parseSpeech("How much bubble milk have you been drinking?!", Sex.getPartner())
+									+ UtilText.parseSpeech("How much bubble milk have you been drinking?!", this)
 									+ "</p>";
 						}
 						
@@ -4730,27 +5695,27 @@ public abstract class NPC extends GameCharacter {
 						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
 							return "<p>"
 									+ "In a very patronising voice, [npc.name] reacts to your breasts being revealed, "
-									+ UtilText.parseSpeech("Aww, you trying to become a girl?", Sex.getPartner())
+									+ UtilText.parseSpeech("Aww, you trying to become a girl?", this)
 									+ "</p>";
 		
 						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.JJ.getMeasurement()) {
-							if(Sex.getPartner().getBreastSize().getMeasurement() >= Main.game.getPlayer().getBreastSize().getMeasurement()) {
+							if(this.getBreastSize().getMeasurement() >= Main.game.getPlayer().getBreastSize().getMeasurement()) {
 								return "<p>"
 										+ "[npc.Name] looks surprised as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("Why would a guy have tits like that?", Sex.getPartner())
+										+ UtilText.parseSpeech("Why would a guy have tits like that?", this)
 										+ "</p>";
 								
 							} else {
 								return "<p>"
 										+ "[npc.Name] fails to contain [npc.her] surprise as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("A <i>guy</i> has bigger tits than me?!", Sex.getPartner())
+										+ UtilText.parseSpeech("A <i>guy</i> has bigger tits than me?!", this)
 										+ "</p>";
 							}
 		
 						} else {
 							return "<p>"
 									+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-									+ UtilText.parseSpeech("How much bubble milk have you been drinking?!", Sex.getPartner())
+									+ UtilText.parseSpeech("How much bubble milk have you been drinking?!", this)
 									+ "</p>";
 						}
 						
@@ -4762,25 +5727,25 @@ public abstract class NPC extends GameCharacter {
 						if (!Main.game.getPlayer().hasBreasts()) {
 							return "<p>"
 									+ "[npc.Name] struggles to stifle a mocking laugh as your flat chest is revealed, "
-									+ UtilText.parseSpeech("Pfft-hahaha!", Sex.getPartner())
+									+ UtilText.parseSpeech("Pfft-hahaha!", this)
 									+ "</p>";
 							
 						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
 							return "<p>"
 									+ "[npc.Name] lets out a disappointed hum as your [pc.breastSize] breasts are revealed, "
-									+ UtilText.parseSpeech("Huh... They're pretty small you know...", Sex.getPartner())
+									+ UtilText.parseSpeech("Huh... They're pretty small you know...", this)
 									+ "</p>";
 							
 						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.JJ.getMeasurement()) {
-							return (UtilText.parse(Sex.getPartner(),
+							return (UtilText.parse(this,
 										"[npc.Name]'s eyes light up as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("Oh fuck yeah... Look at the size of those tits!", Sex.getPartner()))
+										+ UtilText.parseSpeech("Oh fuck yeah... Look at the size of those tits!", this))
 									+ "</p>");
 							
 						} else {
-							return (UtilText.parse(Sex.getPartner(),
+							return (UtilText.parse(this,
 										"[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("How much bubble milk have you been drinking?!", Sex.getPartner()))
+										+ UtilText.parseSpeech("How much bubble milk have you been drinking?!", this))
 									+ "</p>");
 						}
 						
@@ -4792,28 +5757,28 @@ public abstract class NPC extends GameCharacter {
 							return (
 									"<p>"
 										+ "In a mocking tone, [npc.name] questions you as your tiny breasts are revealed, "
-										+ UtilText.parseSpeech("Hah, you trying to become a girl?", Sex.getPartner())
+										+ UtilText.parseSpeech("Hah, you trying to become a girl?", this)
 									+ "</p>");
 							
 						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.FF.getMeasurement()) {
 							return (
 									"<p>"
 										+ "[npc.Name] looks surprised as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("Why would a guy have tits like that?", Sex.getPartner())
+										+ UtilText.parseSpeech("Why would a guy have tits like that?", this)
 									+ "</p>");
 							
 						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.JJ.getMeasurement()) {
 							return (
 									"<p>"
 										+ "[npc.Name] fails to contain his surprise as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("What's a <i>guy</i> doing with such massive tits?!", Sex.getPartner())
+										+ UtilText.parseSpeech("What's a <i>guy</i> doing with such massive tits?!", this)
 									+ "</p>");
 							
 						} else {
 							return (
 									"<p>"
 										+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("How much bubble milk have you been drinking?!", Sex.getPartner())
+										+ UtilText.parseSpeech("How much bubble milk have you been drinking?!", this)
 									+ "</p>");
 						}
 						
@@ -4827,28 +5792,28 @@ public abstract class NPC extends GameCharacter {
 						if (!Main.game.getPlayer().hasBreasts()) {
 							return "<p>"
 									+ "[npc.Name] lets out a mocking laugh as your flat chest is revealed, "
-									+ UtilText.parseSpeech("Hahaha, I don't think I've ever seen a girl with a chest <i>that</i> flat before!", Sex.getPartner())
+									+ UtilText.parseSpeech("Hahaha, I don't think I've ever seen a girl with a chest <i>that</i> flat before!", this)
 									+ "</p>";
 		
 						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.JJ.getMeasurement()) {
-							if(Sex.getPartner().getBreastSize().getMeasurement() >= Main.game.getPlayer().getBreastSize().getMeasurement()) {
+							if(this.getBreastSize().getMeasurement() >= Main.game.getPlayer().getBreastSize().getMeasurement()) {
 								return "<p>"
 										+ "[npc.Name] grins down at you as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("Aww, look at those tiny little things, how cute!", Sex.getPartner())
+										+ UtilText.parseSpeech("Aww, look at those tiny little things, how cute!", this)
 										+ "</p>";
 								
 							} else {
 								return "<p>"
-										+ Sex.getPartner().getName("The")
+										+ this.getName("The")
 										+ " looks annoyed as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("Are you trying to put me to shame or something?!", Sex.getPartner())
+										+ UtilText.parseSpeech("Are you trying to put me to shame or something?!", this)
 										+ "</p>";
 							}
 		
 						} else {
 							return "<p>"
 									+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-									+ UtilText.parseSpeech("How much bubble milk have you been drinking?!", Sex.getPartner())
+									+ UtilText.parseSpeech("How much bubble milk have you been drinking?!", this)
 									+ "</p>";
 						}
 		
@@ -4859,27 +5824,27 @@ public abstract class NPC extends GameCharacter {
 						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
 							return "<p>"
 									+ "[npc.Name] grins at you as your [pc.breastSize] breasts are revealed, "
-									+ UtilText.parseSpeech("Aww, you trying to become a girl?", Sex.getPartner())
+									+ UtilText.parseSpeech("Aww, you trying to become a girl?", this)
 									+ "</p>";
 		
 						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.JJ.getMeasurement()) {
-							if(Sex.getPartner().getBreastSize().getMeasurement() >= Main.game.getPlayer().getBreastSize().getMeasurement()) {
+							if(this.getBreastSize().getMeasurement() >= Main.game.getPlayer().getBreastSize().getMeasurement()) {
 								return "<p>"
 										+ "[npc.Name] looks surprised as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("Why would a guy have tits like that?", Sex.getPartner())
+										+ UtilText.parseSpeech("Why would a guy have tits like that?", this)
 										+ "</p>";
 								
 							} else {
 								return "<p>"
 										+ "[npc.Name] looks annoyed as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("Are you kidding me?! A <i>guy</i> has bigger tits than me?!", Sex.getPartner())
+										+ UtilText.parseSpeech("Are you kidding me?! A <i>guy</i> has bigger tits than me?!", this)
 										+ "</p>";
 							}
 		
 						} else {
 							return "<p>"
 									+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-									+ UtilText.parseSpeech("How much bubble milk have you been drinking?!", Sex.getPartner())
+									+ UtilText.parseSpeech("How much bubble milk have you been drinking?!", this)
 									+ "</p>";
 						}
 						
@@ -4891,31 +5856,31 @@ public abstract class NPC extends GameCharacter {
 						if (!Main.game.getPlayer().hasBreasts()) {
 							return "<p>"
 										+ "[npc.Name] lets out a mocking laugh as your flat chest is revealed, "
-										+ UtilText.parseSpeech("Hahaha, I don't think I've ever seen a girl with a chest <i>that</i> flat before!", Sex.getPartner())
+										+ UtilText.parseSpeech("Hahaha, I don't think I've ever seen a girl with a chest <i>that</i> flat before!", this)
 									+ "</p>";
 							
 						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
 							return "<p>"
 										+ "[npc.Name] growls down at you as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("I like my girls with bigger tits than that!", Sex.getPartner())
+										+ UtilText.parseSpeech("I like my girls with bigger tits than that!", this)
 									+ "</p>";
 							
 						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.FF.getMeasurement()) {
 							return "<p>"
 										+ "[npc.Name] grins as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("Mmm yeah, those are some nice tits!", Sex.getPartner())
+										+ UtilText.parseSpeech("Mmm yeah, those are some nice tits!", this)
 									+ "</p>";
 							
 						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.JJ.getMeasurement()) {
 							return "<p>"
 										+ "[npc.Name] looks delighted as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("Oh fuck yeah! Look at the size of those things!", Sex.getPartner())
+										+ UtilText.parseSpeech("Oh fuck yeah! Look at the size of those things!", this)
 									+ "</p>";
 							
 						} else {
 							return "<p>"
 										+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("How much bubble milk have you been drinking?! What a fucking tit-cow!", Sex.getPartner())
+										+ UtilText.parseSpeech("How much bubble milk have you been drinking?! What a fucking tit-cow!", this)
 									+ "</p>";
 						}
 						
@@ -4926,25 +5891,25 @@ public abstract class NPC extends GameCharacter {
 						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
 							return "<p>"
 										+ "[npc.Name] bursts out laughing as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("Hahaha, you trying to become a girl?!", Sex.getPartner())
+										+ UtilText.parseSpeech("Hahaha, you trying to become a girl?!", this)
 									+ "</p>";
 							
 						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.FF.getMeasurement()) {
 							return "<p>"
 										+ "[npc.Name] looks surprised as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("Why would a guy have tits like that?!", Sex.getPartner())
+										+ UtilText.parseSpeech("Why would a guy have tits like that?!", this)
 									+ "</p>";
 							
 						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.JJ.getMeasurement()) {
 							return "<p>"
 										+ "[npc.Name] lets out a mocking laugh as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("Are you kidding me?! Why does a <i>guy</i> have tits like that?!", Sex.getPartner())
+										+ UtilText.parseSpeech("Are you kidding me?! Why does a <i>guy</i> have tits like that?!", this)
 									+ "</p>";
 							
 						} else {
 							return "<p>"
 										+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("How much bubble milk have you been drinking?!", Sex.getPartner())
+										+ UtilText.parseSpeech("How much bubble milk have you been drinking?!", this)
 									+ "</p>";
 						}
 					}
@@ -4954,8 +5919,8 @@ public abstract class NPC extends GameCharacter {
 	}
 
 	public String getPlayerPenisRevealReaction(boolean isPlayerDom) {
-		if(Sex.getSexManager().isConsensualSex()) {
-			switch(Sex.getSexPacePartner()) {
+		if(Sex.isConsensual()) {
+			switch(Sex.getSexPace(this)) {
 				case DOM_GENTLE:
 					return "<p>"
 								+ "[npc.Name] lets out a soft [npc.moan] as your [pc.penis+] is revealed."
@@ -4986,7 +5951,7 @@ public abstract class NPC extends GameCharacter {
 							+ "</p>";
 			}
 			
-		} else if(Sex.getSexPacePartner()==SexPace.SUB_RESISTING) {
+		} else if(Sex.getSexPace(this)==SexPace.SUB_RESISTING) {
 			return "<p>"
 					+ "[npc.Name] lets out [npc.a_sob+] as your [pc.penis+] is revealed, [npc.speech(No, don't!)]"
 				+ "</p>";
@@ -4999,31 +5964,31 @@ public abstract class NPC extends GameCharacter {
 						if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
 							return "<p>"+
 										"[npc.Name] fails to suppress a little giggle as your tiny [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Aww, that's so cute! I didn't realise you were [pc.a_gender]!", Sex.getPartner())
+										+ UtilText.parseSpeech("Aww, that's so cute! I didn't realise you were [pc.a_gender]!", this)
 									+ "</p>";
 				
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()) {
 							return "<p>"+
 										"[npc.Name] lets out a surprised gasp as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Ooh! You're [pc.a_gender]?!", Sex.getPartner())
+										+ UtilText.parseSpeech("Ooh! You're [pc.a_gender]?!", this)
 									+ "</p>";
 				
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.FOUR_HUGE.getMaximumValue()) {
 							return "<p>"+
 										"[npc.Name] grins as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Y'know, what with the bulge and everything, it was pretty obvious you're [pc.a_gender]!", Sex.getPartner())
+										+ UtilText.parseSpeech("Y'know, what with the bulge and everything, it was pretty obvious you're [pc.a_gender]!", this)
 									+ "</p>";
 				
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.SIX_GIGANTIC.getMaximumValue()) {
 							return "<p>"+
 										"Her eyes open wide as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("I mean, I could see it was big from your bulge, but damn! I've never seen [pc.a_gender] with such a huge cock!", Sex.getPartner())
+										+ UtilText.parseSpeech("I mean, I could see it was big from your bulge, but damn! I've never seen [pc.a_gender] with such a huge cock!", this)
 									+ "</p>";
 							
 						} else {
 							return "<p>"+
 										"[npc.Name]'s jaw drops as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Holy shit! I didn't think [pc.gender]s could get cocks like that!", Sex.getPartner())
+										+ UtilText.parseSpeech("Holy shit! I didn't think [pc.gender]s could get cocks like that!", this)
 									+ "</p>";
 						}
 						
@@ -5031,31 +5996,31 @@ public abstract class NPC extends GameCharacter {
 						if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
 							return "<p>"+
 										"[npc.She] fails to suppress a mocking laugh as your tiny [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Hahaha, that's so pathetic! It's like a little clit!", Sex.getPartner())
+										+ UtilText.parseSpeech("Hahaha, that's so pathetic! It's like a little clit!", this)
 									+ "</p>";
 				
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()) {
 							return "<p>"+
 										"[npc.She] lets out a patronising 'aww' as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Look at that cute little thing!", Sex.getPartner())
+										+ UtilText.parseSpeech("Look at that cute little thing!", this)
 									+ "</p>";
 				
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.FOUR_HUGE.getMaximumValue()) {
 							return "<p>"+
 										"[npc.She] grins as your [pc.cockSize] [pc.cock] is revealed, "
-											+ UtilText.parseSpeech("~Mmm!~ Now that's what I like to see!", Sex.getPartner())
+											+ UtilText.parseSpeech("~Mmm!~ Now that's what I like to see!", this)
 									+ "</p>";
 				
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.SIX_GIGANTIC.getMaximumValue()) {
 							return "<p>"+
 										"Her eyes open wide as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Oh wow... This is gonna be good!", Sex.getPartner())
+										+ UtilText.parseSpeech("Oh wow... This is gonna be good!", this)
 									+ "</p>";
 							
 						} else {
 							return "<p>"+
 										"[npc.Name]'s jaw drops as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Holy shit! Now <i>that's</i> a cock!", Sex.getPartner())
+										+ UtilText.parseSpeech("Holy shit! Now <i>that's</i> a cock!", this)
 									+ "</p>";
 						}
 					}
@@ -5065,31 +6030,31 @@ public abstract class NPC extends GameCharacter {
 						if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
 							return "<p>"
 									+ "[npc.She] lets out a little giggle as your tiny [pc.cock] is revealed, "
-									+ UtilText.parseSpeech("Aww, that's so cute! I didn't realise you were [pc.a_gender]!", Sex.getPartner())
+									+ UtilText.parseSpeech("Aww, that's so cute! I didn't realise you were [pc.a_gender]!", this)
 									+ "</p>";
 		
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()) {
 							return "<p>"
 									+ "[npc.She] lets out a surprised gasp as your [pc.cockSize] [pc.cock] is revealed, "
-									+ UtilText.parseSpeech("Ooh! You're a cute little [pc.gender], aren't you?!", Sex.getPartner())
+									+ UtilText.parseSpeech("Ooh! You're a cute little [pc.gender], aren't you?!", this)
 									+ "</p>";
 		
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.FOUR_HUGE.getMaximumValue()) {
 							return "<p>"
 									+ "[npc.She] grins as your [pc.cockSize] [pc.cock] is revealed, "
-									+ UtilText.parseSpeech("Y'know, what with the bulge and everything, it was pretty obvious you're [pc.a_gender]!", Sex.getPartner())
+									+ UtilText.parseSpeech("Y'know, what with the bulge and everything, it was pretty obvious you're [pc.a_gender]!", this)
 									+ "</p>";
 		
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.SIX_GIGANTIC.getMaximumValue()) {
 							return "<p>"
 									+ "[npc.Her] eyes open wide as your [pc.cockSize] [pc.cock] is revealed, "
-									+ UtilText.parseSpeech("I mean, I could see it was big from your bulge, but damn! I've never seen [pc.a_gender] with such a huge cock!", Sex.getPartner())
+									+ UtilText.parseSpeech("I mean, I could see it was big from your bulge, but damn! I've never seen [pc.a_gender] with such a huge cock!", this)
 									+ "</p>";
 		
 						} else {
 							return "<p>"
 									+ "[npc.Her] jaw drops as your [pc.cockSize] [pc.cock] is revealed, "
-									+ UtilText.parseSpeech("Holy shit! I didn't think [pc.gender]s could get cocks like that!", Sex.getPartner())
+									+ UtilText.parseSpeech("Holy shit! I didn't think [pc.gender]s could get cocks like that!", this)
 									+ "</p>";
 						}
 		
@@ -5097,31 +6062,31 @@ public abstract class NPC extends GameCharacter {
 						if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
 							return "<p>"
 									+ "[npc.She] lets out a mocking laugh as your tiny [pc.cock] is revealed, "
-									+ UtilText.parseSpeech("Hahaha, that's so pathetic!", Sex.getPartner())
+									+ UtilText.parseSpeech("Hahaha, that's so pathetic!", this)
 									+ "</p>";
 		
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()) {
 							return "<p>"
 									+ "[npc.She] lets out a patronising 'aww' as your [pc.cockSize] [pc.cock] is revealed, "
-									+ UtilText.parseSpeech("Look at that cute little thing!", Sex.getPartner())
+									+ UtilText.parseSpeech("Look at that cute little thing!", this)
 									+ "</p>";
 		
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.FOUR_HUGE.getMaximumValue()) {
 							return "<p>"
 									+ "[npc.She] grins as your [pc.cockSize] [pc.cock] is revealed, "
-									+ UtilText.parseSpeech("~Mmm!~ That looks pretty good!", Sex.getPartner())
+									+ UtilText.parseSpeech("~Mmm!~ That looks pretty good!", this)
 									+ "</p>";
 		
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.SIX_GIGANTIC.getMaximumValue()) {
 							return "<p>"
 									+ "Her eyes open wide as your [pc.cockSize] [pc.cock] is revealed, "
-									+ UtilText.parseSpeech("Oh wow...", Sex.getPartner())
+									+ UtilText.parseSpeech("Oh wow...", this)
 									+ "</p>";
 		
 						} else {
 							return "<p>"
 									+ "[npc.Her] jaw drops as your [pc.cockSize] [pc.cock] is revealed, "
-									+ UtilText.parseSpeech("Holy shit! Now <i>that's</i> a cock!", Sex.getPartner())
+									+ UtilText.parseSpeech("Holy shit! Now <i>that's</i> a cock!", this)
 									+ "</p>";
 						}
 					}
@@ -5134,31 +6099,31 @@ public abstract class NPC extends GameCharacter {
 						if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
 							return "<p>"
 										+ "[npc.Name] lets out a surprised grunt as your tiny [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Wait, what?! I thought you were a girl... Well, it looks cute enough...", Sex.getPartner())
+										+ UtilText.parseSpeech("Wait, what?! I thought you were a girl... Well, it looks cute enough...", this)
 									+ "</p>";
 				
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()) {
 							return "<p>"
 										+ "[npc.Name] lets out a surprised grunt as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Wait, what?! You're [pc.a_gender]?!", Sex.getPartner())
+										+ UtilText.parseSpeech("Wait, what?! You're [pc.a_gender]?!", this)
 									+ "</p>";
 				
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.FOUR_HUGE.getMaximumValue()) {
 							return "<p>"
 										+ "[npc.Name] lets out a surprised grunt as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("I should have guessed from that bulge...", Sex.getPartner())
+										+ UtilText.parseSpeech("I should have guessed from that bulge...", this)
 									+ "</p>";
 				
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.SIX_GIGANTIC.getMaximumValue()) {
 							return "<p>"
 										+ "[npc.Name] lets out a surprised grunt as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("I saw you had a bulge, but what the hell?! How does [pc.a_gender] have a bigger cock than <i>me</i>?!", Sex.getPartner())
+										+ UtilText.parseSpeech("I saw you had a bulge, but what the hell?! How does [pc.a_gender] have a bigger cock than <i>me</i>?!", this)
 									+ "</p>";
 							
 						} else {
 							return "<p>"
 										+ "[npc.Name]'s jaw drops as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Holy shit! I didn't think "+Main.game.getPlayer().getGender().getName()+"s could get cocks that big!", Sex.getPartner())
+										+ UtilText.parseSpeech("Holy shit! I didn't think "+Main.game.getPlayer().getGender().getName()+"s could get cocks that big!", this)
 									+ "</p>";
 						}
 						
@@ -5166,31 +6131,31 @@ public abstract class NPC extends GameCharacter {
 						if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
 							return "<p>"
 										+ "[npc.Name] struggles to suppress a mocking grunt as your tiny [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Pfft! What a cute little thing...", Sex.getPartner())
+										+ UtilText.parseSpeech("Pfft! What a cute little thing...", this)
 									+ "</p>";
 				
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()) {
 							return "<p>"
 										+ "[npc.Name] lets out a patronising grunt as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Hah! Look at that little thing!", Sex.getPartner())
+										+ UtilText.parseSpeech("Hah! Look at that little thing!", this)
 									+ "</p>";
 				
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.FOUR_HUGE.getMaximumValue()) {
 							return "<p>"
 										+ "[npc.Name] lets out a grunt as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Huh... That's just as big as mine...", Sex.getPartner())
+										+ UtilText.parseSpeech("Huh... That's just as big as mine...", this)
 									+ "</p>";
 				
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.SIX_GIGANTIC.getMaximumValue()) {
 							return "<p>"
 										+ "[npc.Name] lets out a surprised grunt as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Fuck... It's even bigger than mine!", Sex.getPartner())
+										+ UtilText.parseSpeech("Fuck... It's even bigger than mine!", this)
 									+ "</p>";
 							
 						} else {
 							return "<p>"
 										+ "[npc.Name] gulps nervously as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Fuck... That's pretty big...", Sex.getPartner())
+										+ UtilText.parseSpeech("Fuck... That's pretty big...", this)
 									+ "</p>";
 						}
 					}
@@ -5200,31 +6165,31 @@ public abstract class NPC extends GameCharacter {
 						if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
 							return "<p>"
 										+ "[npc.Name] lets out a surprised grunt as your tiny [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Wait, what?! I thought you were a girl! Well, it doesn't really matter...", Sex.getPartner())
+										+ UtilText.parseSpeech("Wait, what?! I thought you were a girl! Well, it doesn't really matter...", this)
 									+ "</p>";
 				
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()) {
 							return "<p>"
 										+ "[npc.Name] lets out a surprised grunt as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Wait, what?! You're [pc.a_gender]?!", Sex.getPartner())
+										+ UtilText.parseSpeech("Wait, what?! You're [pc.a_gender]?!", this)
 									+ "</p>";
 				
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.FOUR_HUGE.getMaximumValue()) {
 							return "<p>"
 										+ "[npc.Name] lets out a surprised grunt as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("I should have guessed from that bulge...", Sex.getPartner())
+										+ UtilText.parseSpeech("I should have guessed from that bulge...", this)
 									+ "</p>";
 				
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.SIX_GIGANTIC.getMaximumValue()) {
 							return "<p>"
 										+ "[npc.Name] lets out a surprised grunt as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("I saw you had a bulge, but what the hell?! How does [pc.a_gender] have a bigger cock than <i>me</i>?!", Sex.getPartner())
+										+ UtilText.parseSpeech("I saw you had a bulge, but what the hell?! How does [pc.a_gender] have a bigger cock than <i>me</i>?!", this)
 									+ "</p>";
 							
 						} else {
 							return "<p>"
 										+ "[npc.Name]'s jaw drops as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Holy shit! I didn't think [pc.gender]s could get cocks that big!", Sex.getPartner())
+										+ UtilText.parseSpeech("Holy shit! I didn't think [pc.gender]s could get cocks that big!", this)
 									+ "</p>";
 						}
 						
@@ -5232,31 +6197,31 @@ public abstract class NPC extends GameCharacter {
 						if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
 							return "<p>"
 										+ "[npc.Name] lets out a derisive sneer as your tiny [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Hah! That's so pathetic! I'll show you what a real man's cock is like!", Sex.getPartner())
+										+ UtilText.parseSpeech("Hah! That's so pathetic! I'll show you what a real man's cock is like!", this)
 									+ "</p>";
 				
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()) {
 							return "<p>"
 										+ "[npc.Name] lets out a patronising sneer as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Hah! Look at that little thing!", Sex.getPartner())
+										+ UtilText.parseSpeech("Hah! Look at that little thing!", this)
 									+ "</p>";
 				
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.FOUR_HUGE.getMaximumValue()) {
 							return "<p>"
 										+ "[npc.Name] lets out a derisive sneer as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Huh... Trying to compete with me for size are you?", Sex.getPartner())
+										+ UtilText.parseSpeech("Huh... Trying to compete with me for size are you?", this)
 									+ "</p>";
 				
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.SIX_GIGANTIC.getMaximumValue()) {
 							return "<p>"
 										+ "[npc.Name] lets out a surprised grunt as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Fuck... You're even bigger than me...", Sex.getPartner())
+										+ UtilText.parseSpeech("Fuck... You're even bigger than me...", this)
 									+ "</p>";
 							
 						} else {
 							return "<p>"
 										+ "[npc.Name]'s jaw drops as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Fuck...", Sex.getPartner())
+										+ UtilText.parseSpeech("Fuck...", this)
 									+ "</p>";
 						}
 					}
@@ -5266,8 +6231,8 @@ public abstract class NPC extends GameCharacter {
 	}
 
 	public String getPlayerVaginaRevealReaction(boolean isPlayerDom) {
-		if(Sex.getSexManager().isConsensualSex()) {
-			switch(Sex.getSexPacePartner()) {
+		if(Sex.isConsensual()) {
+			switch(Sex.getSexPace(this)) {
 				case DOM_GENTLE:
 					return "<p>"
 								+ "[npc.Name] lets out a soft [npc.moan] as your [pc.pussy+] is revealed."
@@ -5298,47 +6263,47 @@ public abstract class NPC extends GameCharacter {
 							+ "</p>";
 			}
 			
-		} else if(Sex.getSexPacePartner()==SexPace.SUB_RESISTING) {
+		} else if(Sex.getSexPace(this)==SexPace.SUB_RESISTING) {
 			return "<p>"
 					+ "[npc.Name] lets out [npc.a_sob+] as your [pc.pussy+] is revealed, [npc.speech(Stop it! Go away!)]"
 				+ "</p>";
 			
 		} else {
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(this)) {
 				case DOM_GENTLE:
 					return "<p>"
 							+ "[npc.Name] lets out a soft [npc.moan] as [npc.she] sees "
-									+ (Sex.getWetOrificeTypes().get(OrificeType.VAGINA_PLAYER).contains(LubricationType.PLAYER_NATURAL_LUBRICATION)
+									+ (Sex.getWetOrificeTypes(Main.game.getPlayer()).get(OrificeType.VAGINA_PLAYER).contains(LubricationType.PLAYER_NATURAL_LUBRICATION)
 											? "your wet [pc.pussy] betraying your arousal, "
 											: "your [pc.pussy+], ")
-									+ (Sex.getPartner().hasPenis()
+									+ (this.hasPenis()
 											?"[npc.speech(You're going to love this, I promise...)]"
 											:"[npc.speech(I'll make this feel good, I promise...)]")
 							+ "</p>";
 				case DOM_NORMAL:
 					return "<p>"
 							+ "[npc.Name] lets out a soft [npc.moan] as [npc.she] sees "
-									+ (Sex.getWetOrificeTypes().get(OrificeType.VAGINA_PLAYER).contains(LubricationType.PLAYER_NATURAL_LUBRICATION)
+									+ (Sex.getWetOrificeTypes(Main.game.getPlayer()).get(OrificeType.VAGINA_PLAYER).contains(LubricationType.PLAYER_NATURAL_LUBRICATION)
 											? "your wet [pc.pussy] betraying your arousal, "
 											: "your [pc.pussy+], ")
-									+ (Sex.getPartner().hasPenis()
+									+ (this.hasPenis()
 											?"[npc.speech(You're going to be a good fuck!)]"
 											:"[npc.speech(This is going to be fun!)]")
 							+ "</p>";
 				case DOM_ROUGH:
 					return "<p>"
 							+ "[npc.Name] smirks when [npc.she] sees "
-									+ (Sex.getWetOrificeTypes().get(OrificeType.VAGINA_PLAYER).contains(LubricationType.PLAYER_NATURAL_LUBRICATION)
+									+ (Sex.getWetOrificeTypes(Main.game.getPlayer()).get(OrificeType.VAGINA_PLAYER).contains(LubricationType.PLAYER_NATURAL_LUBRICATION)
 											? "your wet [pc.pussy] betraying your arousal, "
 											: "your [pc.pussy+], ")
-									+ (Sex.getPartner().hasPenis()
+									+ (this.hasPenis()
 											?"[npc.speech(Ready for a good hard fucking, slut?)]"
 											:"[npc.speech(Looking good, slut!)]")
 							+ "</p>";
 				case SUB_EAGER:
 					return "<p>"
 							+ "[npc.Name]'s eyes light up when [npc.she] sees "
-							+ (Sex.getWetOrificeTypes().get(OrificeType.VAGINA_PLAYER).contains(LubricationType.PLAYER_NATURAL_LUBRICATION)
+							+ (Sex.getWetOrificeTypes(Main.game.getPlayer()).get(OrificeType.VAGINA_PLAYER).contains(LubricationType.PLAYER_NATURAL_LUBRICATION)
 									? "your wet [pc.pussy] betraying your arousal."
 									: "your [pc.pussy].")
 							+ "</p>";
@@ -5349,7 +6314,7 @@ public abstract class NPC extends GameCharacter {
 				case SUB_RESISTING:
 					return "<p>"
 							+ "[npc.Name] tries to pull away from you as "
-							+ (Sex.getWetOrificeTypes().get(OrificeType.VAGINA_PLAYER).contains(LubricationType.PLAYER_NATURAL_LUBRICATION)
+							+ (Sex.getWetOrificeTypes(Main.game.getPlayer()).get(OrificeType.VAGINA_PLAYER).contains(LubricationType.PLAYER_NATURAL_LUBRICATION)
 									? "your wet [pc.pussy] is revealed."
 									: "your [pc.pussy+] is revealed.")
 							+ "</p>";
@@ -5362,8 +6327,8 @@ public abstract class NPC extends GameCharacter {
 	}
 
 	public String getPlayerMoundRevealReaction(boolean isPlayerDom) {
-		if(Sex.getSexManager().isConsensualSex()) {
-			switch(Sex.getSexPacePartner()) {
+		if(Sex.isConsensual()) {
+			switch(Sex.getSexPace(this)) {
 				case DOM_GENTLE:
 					return "<p>"
 								+ "[npc.Name] lets out a soft [npc.moan] as your genderless mound is revealed."
@@ -5393,7 +6358,7 @@ public abstract class NPC extends GameCharacter {
 								+ "[npc.Name] lets out [npc.a_moan] as your genderless mound is revealed."
 							+ "</p>";
 			}
-		} else if(Sex.getSexPacePartner()==SexPace.SUB_RESISTING) {
+		} else if(Sex.getSexPace(this)==SexPace.SUB_RESISTING) {
 			return "<p>"
 					+ "[npc.Name] lets out [npc.a_sob+] as your genderless mound is revealed, [npc.speech(Get away from me!)]"
 				+ "</p>";
@@ -5403,12 +6368,12 @@ public abstract class NPC extends GameCharacter {
 				if (isPlayerDom) {
 					return "<p>"
 							+ "[npc.Name] looks confused for a moment before letting out a patronising sigh, "
-							+ UtilText.parseSpeech("Awww... You're like a little doll down there! That's so cute!", Sex.getPartner())
+							+ UtilText.parseSpeech("Awww... You're like a little doll down there! That's so cute!", this)
 							+ "</p>";
 				} else {
 					return "<p>"
 							+ "[npc.Name] looks confused for a moment before breaking out into a mocking laugh, "
-							+ UtilText.parseSpeech("Hahaha! You're like a little doll down there!", Sex.getPartner())
+							+ UtilText.parseSpeech("Hahaha! You're like a little doll down there!", this)
 							+ "</p>";
 				}
 			// Masculine NPC:
@@ -5416,12 +6381,12 @@ public abstract class NPC extends GameCharacter {
 				if(isPlayerDom) {
 					return "<p>"
 							+ "[npc.Name] looks confused for a moment before letting out a patronising sneer, "
-							+ UtilText.parseSpeech("Awww... You're like a little doll down there! That's so cute!", Sex.getPartner())
+							+ UtilText.parseSpeech("Awww... You're like a little doll down there! That's so cute!", this)
 						+ "</p>";
 				} else {
 					return "<p>"
 								+ "[npc.Name] looks confused for a moment before breaking out into a mocking laugh, "
-								+ UtilText.parseSpeech("Hahaha! You're like a little doll down there!", Sex.getPartner())
+								+ UtilText.parseSpeech("Hahaha! You're like a little doll down there!", this)
 							+ "</p>";
 				}
 			}
@@ -5440,7 +6405,7 @@ public abstract class NPC extends GameCharacter {
 
 	public String getPartnerPenisRevealReaction(boolean isPlayerDom) {
 		if(this.getPlayerKnowsAreasMap().get(CoverableArea.PENIS) || !isFeminine()) {
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(this)) {
 				case DOM_GENTLE:
 						return "<p>"
 								+ "[npc.Name] lets out a soft [npc.moan] as [npc.her] [npc.cock+] is revealed."
@@ -5471,13 +6436,13 @@ public abstract class NPC extends GameCharacter {
 							+ "</p>";
 			}
 			
-		} else if(Sex.getSexPacePartner()==SexPace.SUB_RESISTING) {
+		} else if(Sex.getSexPace(this)==SexPace.SUB_RESISTING) {
 			return "<p>"
 					+ "[npc.Name] lets out [npc.a_sob] and tries to pull away from you as [npc.her] [npc.cock+] is revealed."
 				+ "</p>";
 			
 		} else {
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(this)) {
 				case DOM_GENTLE:
 					return "<p>"
 								+ "[npc.Name] lets out a soft giggle as [npc.she] sees you staring at [npc.her] [npc.cock+],"
@@ -5519,7 +6484,7 @@ public abstract class NPC extends GameCharacter {
 
 	public String getPartnerVaginaRevealReaction(boolean isPlayerDom) {
 		if(this.getPlayerKnowsAreasMap().get(CoverableArea.VAGINA) || isFeminine()) {
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(this)) {
 				case DOM_GENTLE:
 						return "<p>"
 								+ "[npc.Name] lets out a soft [npc.moan] as [npc.her] [npc.pussy+] is revealed."
@@ -5550,13 +6515,13 @@ public abstract class NPC extends GameCharacter {
 							+ "</p>";
 			}
 			
-		} else if(Sex.getSexPacePartner()==SexPace.SUB_RESISTING) {
+		} else if(Sex.getSexPace(this)==SexPace.SUB_RESISTING) {
 			return "<p>"
 					+ "[npc.Name] lets out [npc.a_sob] and tries to pull away from you as [npc.her] [npc.pussy+] is revealed."
 				+ "</p>";
 			
 		} else {
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(this)) {
 				case DOM_GENTLE:
 					return "<p>"
 								+ "[npc.Name] lets out a soft [npc.moan] as [npc.her] [npc.pussy+] is revealed,"
@@ -5606,7 +6571,7 @@ public abstract class NPC extends GameCharacter {
 		
 		// Kissing:
 		if(penetrationType == PenetrationType.TONGUE_PLAYER && orifice == OrificeType.MOUTH_PARTNER) {
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_GENTLE:
 					return UtilText.returnStringAtRandom(
 							"Your soft [pc.moans] are muffled into [npc.name]'s mouth as you continue kissing [npc.herHim].",
@@ -5640,7 +6605,7 @@ public abstract class NPC extends GameCharacter {
 			}
 		}
 		if(penetrationType == PenetrationType.TONGUE_PARTNER && orifice == OrificeType.MOUTH_PLAYER) {
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(this)) {
 				case DOM_GENTLE:
 					return UtilText.returnStringAtRandom(
 							"[npc.Name]'s soft [npc.moans] are muffled into your mouth as [npc.she] continues kissing you.",
@@ -5719,6 +6684,12 @@ public abstract class NPC extends GameCharacter {
 			case ANUS_PLAYER:
 				orificeName = "[pc.asshole+]";
 				break;
+			case ASS_PARTNER:
+				orificeName = "[npc.ass+]";
+				break;
+			case ASS_PLAYER:
+				orificeName = "[pc.ass+]";
+				break;
 			case MOUTH_PARTNER:
 				orificeName = "mouth";
 				break;
@@ -5741,6 +6712,12 @@ public abstract class NPC extends GameCharacter {
 			case VAGINA_PLAYER:
 				orificeName = "[pc.pussy+]";
 				break;
+			case THIGHS_PARTNER:
+				orificeName = "thighs";
+				break;
+			case THIGHS_PLAYER:
+				orificeName = "thighs";
+				break;
 			case BREAST_PARTNER:
 				orificeName = "[npc.breasts+]";
 				break;
@@ -5749,8 +6726,8 @@ public abstract class NPC extends GameCharacter {
 				break;
 		}
 		
-		if(Sex.isPlayerDom()) {
-			if(Sex.getSexPacePlayer()==SexPace.DOM_GENTLE) {
+		if(Sex.isDom(Main.game.getPlayer())) {
+			if(Sex.getSexPace(Main.game.getPlayer())==SexPace.DOM_GENTLE) {
 				domQualifier = UtilText.returnStringAtRandom("gently", "slowly", "steadily");
 				domAction = UtilText.returnStringAtRandom("slide", "pump", "thrust");
 				domReactionPrefix = UtilText.returnStringAtRandom("You let out a soft [pc.moan]", "You make soothing noises", "A soft [pc.moan] drifts out from between your [pc.lips+]");
@@ -5759,7 +6736,7 @@ public abstract class NPC extends GameCharacter {
 						" letting out a soft [pc.moan] as you do so",
 						" driving a soft [pc.moan] from between your [pc.lips+]");
 				
-				if(Sex.getSexPacePartner()==SexPace.SUB_RESISTING) {
+				if(Sex.getSexPace(this)==SexPace.SUB_RESISTING) {
 					subQualifier = UtilText.returnStringAtRandom("reluctantly", "half-heartedly", "hesitantly");
 					subAction = UtilText.returnStringAtRandom("slides", "pushes", "drives");
 					subReactionPrefix = UtilText.returnStringAtRandom("[npc.Name] struggles and tries to protest", "[npc.Name] attempts to push you away", "[npc.Name] lets out a protesting whine");
@@ -5776,7 +6753,7 @@ public abstract class NPC extends GameCharacter {
 							" failing to suppress [npc.a_moan+] as [npc.she] does so",
 							" letting out [npc.a_moan+] as [npc.she] does so");
 					
-				} else if(Sex.getSexPacePartner()==SexPace.SUB_NORMAL) {
+				} else if(Sex.getSexPace(this)==SexPace.SUB_NORMAL) {
 					subQualifier = UtilText.returnStringAtRandom(" ", " ", "happily", "willingly");
 					subAction = UtilText.returnStringAtRandom("slides", "pushes", "drives", "thrusts", "pumps");
 					subReactionPrefix = UtilText.returnStringAtRandom("[npc.Name] lets out [npc.a_moan+]", "[npc.Name] grinds [npc.herself] against you", "[npc.A_moan+] escapes from between [npc.name]'s [npc.lips+]");
@@ -5793,7 +6770,7 @@ public abstract class NPC extends GameCharacter {
 							" [npc.moaning] in delight as [npc.she] does so",
 							" letting out [npc.a_moan+] as [npc.she] does so");
 					
-				} else if(Sex.getSexPacePartner()==SexPace.SUB_EAGER) {
+				} else if(Sex.getSexPace(this)==SexPace.SUB_EAGER) {
 					subQualifier = UtilText.returnStringAtRandom("desperately", "frantically", "eagerly", "enthusiastically");
 					subAction = UtilText.returnStringAtRandom("slams", "hammers", "thrusts", "pumps");
 					subReactionPrefix = UtilText.returnStringAtRandom("[npc.A_moan+] bursts out from [npc.name]'s mouth", "[npc.Name] presses [npc.herself] against you", "[npc.A_moan+] bursts out from between [npc.name]'s [npc.lips+]");
@@ -5812,7 +6789,7 @@ public abstract class NPC extends GameCharacter {
 					
 				}
 				
-			} else if(Sex.getSexPacePlayer()==SexPace.DOM_NORMAL) {
+			} else if(Sex.getSexPace(Main.game.getPlayer())==SexPace.DOM_NORMAL) {
 				domQualifier = UtilText.returnStringAtRandom(" ", " ", "readily", "happily");
 				domAction = UtilText.returnStringAtRandom("slide", "push", "drive", "thrust", "pump");
 				domReactionPrefix = UtilText.returnStringAtRandom("You let out [pc.a_moan]", "[pc.A_moan+] escapes from between your [pc.lips+]", "You let out a series of [pc.moans+]");
@@ -5821,7 +6798,7 @@ public abstract class NPC extends GameCharacter {
 						" letting out [pc.a_moan+] as you do so",
 						" driving out [pc.a_moan+] from between your [pc.lips+]");
 				
-				if(Sex.getSexPacePartner()==SexPace.SUB_RESISTING) {
+				if(Sex.getSexPace(this)==SexPace.SUB_RESISTING) {
 					subQualifier = UtilText.returnStringAtRandom("reluctantly", "half-heartedly", "hesitantly");
 					subAction = UtilText.returnStringAtRandom("slides", "pushes", "drives");
 					subReactionPrefix = UtilText.returnStringAtRandom("[npc.Name] struggles and tries to protest", "[npc.Name] attempts to push you away", "[npc.Name] lets out a protesting whine");
@@ -5838,7 +6815,7 @@ public abstract class NPC extends GameCharacter {
 							" failing to suppress [npc.a_moan+] as [npc.she] does so",
 							" letting out [npc.a_moan+] as [npc.she] does so");
 					
-				} else if(Sex.getSexPacePartner()==SexPace.SUB_NORMAL) {
+				} else if(Sex.getSexPace(this)==SexPace.SUB_NORMAL) {
 					subQualifier = UtilText.returnStringAtRandom(" ", " ", "happily", "willingly");
 					subAction = UtilText.returnStringAtRandom("slides", "pushes", "drives", "thrusts", "pumps");
 					subReactionPrefix = UtilText.returnStringAtRandom("[npc.Name] lets out [npc.a_moan+]", "[npc.Name] grinds [npc.herself] against you", "[npc.A_moan+] escapes from between [npc.name]'s [npc.lips+]");
@@ -5854,7 +6831,7 @@ public abstract class NPC extends GameCharacter {
 							" [npc.moaning] in delight as [npc.she] does so",
 							" letting out [npc.a_moan+] as [npc.she] does so");
 					
-				} else if(Sex.getSexPacePartner()==SexPace.SUB_EAGER) {
+				} else if(Sex.getSexPace(this)==SexPace.SUB_EAGER) {
 					subQualifier = UtilText.returnStringAtRandom("desperately", "frantically", "eagerly", "enthusiastically");
 					subAction = UtilText.returnStringAtRandom("slams", "hammers", "thrusts", "pumps");
 					subReactionPrefix = UtilText.returnStringAtRandom("[npc.A_moan+] bursts out from [npc.name]'s mouth", "[npc.Name] presses [npc.herself] against you", "[npc.A_moan+] bursts out from between [npc.name]'s [npc.lips+]");
@@ -5873,7 +6850,7 @@ public abstract class NPC extends GameCharacter {
 					
 				}
 				
-			} else if(Sex.getSexPacePlayer()==SexPace.DOM_ROUGH) {
+			} else if(Sex.getSexPace(Main.game.getPlayer())==SexPace.DOM_ROUGH) {
 				domQualifier = UtilText.returnStringAtRandom("roughly", "forcefully", "mercilessly");
 				domAction = UtilText.returnStringAtRandom("slam", "hammer", "thrust", "pump", "piston");
 				domReactionPrefix = UtilText.returnStringAtRandom("You let out a [pc.moan]", "[pc.A_moan+] escapes from between your [pc.lips+]", "You let out a series of [pc.moans+]");
@@ -5882,7 +6859,7 @@ public abstract class NPC extends GameCharacter {
 						" letting out [pc.a_moan+] as you do so",
 						" driving out [pc.a_moan+] from between your [pc.lips+]");
 				
-				if(Sex.getSexPacePartner()==SexPace.SUB_RESISTING) {
+				if(Sex.getSexPace(this)==SexPace.SUB_RESISTING) {
 					subQualifier = UtilText.returnStringAtRandom("reluctantly", "half-heartedly", "hesitantly");
 					subAction = UtilText.returnStringAtRandom("slides", "pushes", "drives");
 					subReactionPrefix = UtilText.returnStringAtRandom("[npc.Name] struggles and tries to protest", "[npc.Name] attempts to push you away", "[npc.Name] lets out a protesting whine");
@@ -5899,7 +6876,7 @@ public abstract class NPC extends GameCharacter {
 							" failing to suppress [npc.a_moan+] as [npc.she] does so",
 							" letting out [npc.a_moan+] as [npc.she] does so");
 					
-				} else if(Sex.getSexPacePartner()==SexPace.SUB_NORMAL) {
+				} else if(Sex.getSexPace(this)==SexPace.SUB_NORMAL) {
 					subQualifier = UtilText.returnStringAtRandom(" ", " ", "happily", "willingly");
 					subAction = UtilText.returnStringAtRandom("slides", "pushes", "drives", "thrusts", "pumps");
 					subReactionPrefix = UtilText.returnStringAtRandom("[npc.Name] lets out [npc.a_moan+]", "[npc.Name] grinds [npc.herself] against you", "[npc.A_moan+] escapes from between [npc.name]'s [npc.lips+]");
@@ -5915,7 +6892,7 @@ public abstract class NPC extends GameCharacter {
 							" [npc.moaning] in delight as [npc.she] does so",
 							" letting out [npc.a_moan+] as [npc.she] does so");
 					
-				} else if(Sex.getSexPacePartner()==SexPace.SUB_EAGER) {
+				} else if(Sex.getSexPace(this)==SexPace.SUB_EAGER) {
 					subQualifier = UtilText.returnStringAtRandom("desperately", "frantically", "eagerly", "enthusiastically");
 					subAction = UtilText.returnStringAtRandom("slams", "hammers", "thrusts", "pumps");
 					subReactionPrefix = UtilText.returnStringAtRandom("[npc.A_moan+] bursts out from [npc.name]'s mouth", "[npc.Name] presses [npc.herself] against you", "[npc.A_moan+] bursts out from between [npc.name]'s [npc.lips+]");
@@ -5982,7 +6959,7 @@ public abstract class NPC extends GameCharacter {
 			
 		} else { // Player is sub:
 			
-			if(Sex.getSexPacePartner()==SexPace.DOM_GENTLE) {
+			if(Sex.getSexPace(this)==SexPace.DOM_GENTLE) {
 				domQualifier = UtilText.returnStringAtRandom("gently", "slowly", "steadily");
 				domAction = UtilText.returnStringAtRandom("slides", "pumps", "thrusts");
 				domReactionPrefix = UtilText.returnStringAtRandom("[npc.Name] lets out a soft [pc.moan]", "[npc.Name] makes soothing noises", "A soft [npc.moan] drifts out from between [npc.name]'s [npc.lips+]");
@@ -5991,7 +6968,7 @@ public abstract class NPC extends GameCharacter {
 						" letting out a soft [npc.moan] as [npc.she] does so",
 						" driving a soft [npc.moan] from between [npc.her] [npc.lips+]");
 				
-				if(Sex.getSexPacePlayer()==SexPace.SUB_RESISTING) {
+				if(Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING) {
 					subQualifier = UtilText.returnStringAtRandom("reluctantly", "half-heartedly", "hesitantly");
 					subAction = UtilText.returnStringAtRandom("slide", "push", "drive");
 					subReactionPrefix = UtilText.returnStringAtRandom("You struggle and try to protest as [npc.name]", "You try to pull away as [npc.name]", "You let out a protesting whine as [npc.name]");
@@ -6008,11 +6985,11 @@ public abstract class NPC extends GameCharacter {
 							" failing to suppress [pc.a_moan+] as you do so",
 							" letting out [pc.a_moan+] as you do so");
 					
-				} else if(Sex.getSexPacePlayer()==SexPace.SUB_NORMAL) {
+				} else if(Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_NORMAL) {
 					subQualifier = UtilText.returnStringAtRandom(" ", " ", "happily", "willingly");
 					subAction = UtilText.returnStringAtRandom("slide", "push", "drive", "thrust", "pump");
 					subReactionPrefix = UtilText.returnStringAtRandom("You let out [pc.a_moan+] as [npc.name]", "You grind yourself against [npc.name] as", "[pc.A_moan+] escapes from between your [pc.lips+] as [npc.name]");
-					subSelfReactionPrefix  = UtilText.returnStringAtRandom("You let out [pc.a_moan+]", "You press yourself against [npc.name]", "[pc.A_moan+] escapes from between your [pc.lips+]");
+					subSelfReactionPrefix = UtilText.returnStringAtRandom("You let out [pc.a_moan+]", "You press yourself against [npc.name]", "[pc.A_moan+] escapes from between your [pc.lips+]");
 					domPenSubReactionPostfix = UtilText.returnStringAtRandom(
 							" letting out a series of [npc.moans+]",
 							" making soothing noises as [npc.she] does so",
@@ -6025,17 +7002,17 @@ public abstract class NPC extends GameCharacter {
 							" [pc.moaning] in delight as you do so",
 							" letting out [pc.a_moan+] as you do so");
 					
-				} else if(Sex.getSexPacePlayer()==SexPace.SUB_EAGER) {
+				} else if(Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_EAGER) {
 					subQualifier = UtilText.returnStringAtRandom("desperately", "frantically", "eagerly", "enthusiastically");
 					subAction = UtilText.returnStringAtRandom("slam", "hammer", "thrust", "pump");
 					subReactionPrefix = UtilText.returnStringAtRandom("[pc.A_moan+] bursts out from your mouth as [npc.name]", "You press yourself against [npc.name] as", "[pc.A_moan+] bursts out from between your [pc.lips+] as [npc.name]");
-					subSelfReactionPrefix  = UtilText.returnStringAtRandom("[pc.A_moan+] bursts out from your mouth", "You press yourself against [npc.name]", "[pc.A_moan+] bursts out from between your [pc.lips+]");
+					subSelfReactionPrefix = UtilText.returnStringAtRandom("[pc.A_moan+] bursts out from your mouth", "You press yourself against [npc.name]", "[pc.A_moan+] bursts out from between your [pc.lips+]");
 					domPenSubReactionPostfix = UtilText.returnStringAtRandom(
 							" letting out a series of [npc.moans+]",
 							" making soothing noises as [npc.she] does so",
 							" letting out a series of [npc.moans+] as [npc.she] does so");
 					subPenDomReactionPostfix = UtilText.returnStringAtRandom(
-							" causing [pc.herHim] to let out a soft [npc.moan]",
+							" causing [npc.herHim] to let out a soft [npc.moan]",
 							" letting out [pc.a_moan+] as you do so",
 							" letting out a series of [pc.moans+] as you do so");
 					subPenSelfReactionPostfix = UtilText.returnStringAtRandom(
@@ -6044,7 +7021,7 @@ public abstract class NPC extends GameCharacter {
 					
 				}
 				
-			} else if(Sex.getSexPacePartner()==SexPace.DOM_NORMAL) {
+			} else if(Sex.getSexPace(this)==SexPace.DOM_NORMAL) {
 				domQualifier = UtilText.returnStringAtRandom(" ", " ", "readily", "happily");
 				domAction = UtilText.returnStringAtRandom("slides", "pushes", "drives", "thrusts", "pumps");
 				domReactionPrefix = UtilText.returnStringAtRandom("[npc.Name] lets out [npc.a_moan]", "[npc.A_moan+] escapes from between [npc.name]'s [npc.lips+]", "[npc.Name] lets out a series of [npc.moans+]");
@@ -6053,9 +7030,9 @@ public abstract class NPC extends GameCharacter {
 						" letting out [npc.a_moan+] as [npc.she] does so",
 						" driving out [npc.a_moan+] from between [npc.her] [npc.lips+]");
 				
-				if(Sex.getSexPacePlayer()==SexPace.SUB_RESISTING) {
+				if(Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING) {
 					subQualifier = UtilText.returnStringAtRandom("reluctantly", "half-heartedly", "hesitantly");
-					subAction = UtilText.returnStringAtRandom("slides", "pushes", "drives");
+					subAction = UtilText.returnStringAtRandom("slide", "push", "drive");
 					subReactionPrefix = UtilText.returnStringAtRandom("You struggle and try to protest as [npc.name]", "You try to pull away as [npc.name]", "You let out a protesting whine as [npc.name]");
 					subSelfReactionPrefix = UtilText.returnStringAtRandom("You try not to look at [npc.name]", "You try to shuffle away from [npc.name]", "You fail to suppress a desperate whine");
 					domPenSubReactionPostfix = UtilText.returnStringAtRandom(
@@ -6070,11 +7047,11 @@ public abstract class NPC extends GameCharacter {
 							" failing to suppress [pc.a_moan+] as you do so",
 							" letting out [pc.a_moan+] as you do so");
 					
-				} else if(Sex.getSexPacePlayer()==SexPace.SUB_NORMAL) {
+				} else if(Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_NORMAL) {
 					subQualifier = UtilText.returnStringAtRandom(" ", " ", "happily", "willingly");
 					subAction = UtilText.returnStringAtRandom("slide", "push", "drive", "thrust", "pump");
 					subReactionPrefix = UtilText.returnStringAtRandom("You let out [pc.a_moan+] as [npc.name]", "You grind yourself against [npc.name] as", "[pc.A_moan+] escapes from between your [pc.lips+] as [npc.name]");
-					subSelfReactionPrefix  = UtilText.returnStringAtRandom("You let out [pc.a_moan+]", "You press yourself against [npc.name]", "[pc.A_moan+] escapes from between your [pc.lips+]");
+					subSelfReactionPrefix = UtilText.returnStringAtRandom("You let out [pc.a_moan+]", "You press yourself against [npc.name]", "[pc.A_moan+] escapes from between your [pc.lips+]");
 					domPenSubReactionPostfix = UtilText.returnStringAtRandom(
 							" letting out a series of [npc.moans+]",
 							" letting out a series of [npc.moans+] as [npc.she] does so");
@@ -6086,11 +7063,11 @@ public abstract class NPC extends GameCharacter {
 							" [pc.moaning] in delight as you do so",
 							" letting out [pc.a_moan+] as you do so");
 					
-				} else if(Sex.getSexPacePlayer()==SexPace.SUB_EAGER) {
+				} else if(Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_EAGER) {
 					subQualifier = UtilText.returnStringAtRandom("desperately", "frantically", "eagerly", "enthusiastically");
 					subAction = UtilText.returnStringAtRandom("slam", "hammer", "thrust", "pump");
 					subReactionPrefix = UtilText.returnStringAtRandom("[pc.A_moan+] bursts out from your mouth as [npc.name]", "You press yourself against [npc.name] as", "[pc.A_moan+] bursts out from between your [pc.lips+] as [npc.name]");
-					subSelfReactionPrefix  = UtilText.returnStringAtRandom("[pc.A_moan+] bursts out from your mouth", "You press yourself against [npc.name]", "[pc.A_moan+] bursts out from between your [pc.lips+]");
+					subSelfReactionPrefix = UtilText.returnStringAtRandom("[pc.A_moan+] bursts out from your mouth", "You press yourself against [npc.name]", "[pc.A_moan+] bursts out from between your [pc.lips+]");
 					domPenSubReactionPostfix = UtilText.returnStringAtRandom(
 							" letting out a series of [npc.moans+]",
 							" letting out a series of [npc.moans+] as [npc.she] does so");
@@ -6104,7 +7081,7 @@ public abstract class NPC extends GameCharacter {
 					
 				}
 				
-			} else if(Sex.getSexPacePartner()==SexPace.DOM_ROUGH) {
+			} else if(Sex.getSexPace(this)==SexPace.DOM_ROUGH) {
 				domQualifier = UtilText.returnStringAtRandom("roughly", "forcefully", "mercilessly");
 				domAction = UtilText.returnStringAtRandom("slams", "hammers", "thrusts", "pumps", "pistons");
 				domReactionPrefix = UtilText.returnStringAtRandom("[npc.Name] lets out [npc.a_moan]", "[npc.A_moan+] escapes from between [npc.name]'s [npc.lips+]", "[npc.Name] lets out a series of [npc.moans+]");
@@ -6113,7 +7090,7 @@ public abstract class NPC extends GameCharacter {
 						" letting out [npc.a_moan+] as [npc.she] does so",
 						" driving out [npc.a_moan+] from between [npc.her] [npc.lips+]");
 				
-				if(Sex.getSexPacePlayer()==SexPace.SUB_RESISTING) {
+				if(Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING) {
 					subQualifier = UtilText.returnStringAtRandom("reluctantly", "half-heartedly", "hesitantly");
 					subAction = UtilText.returnStringAtRandom("slide", "pushes", "drive");
 					subReactionPrefix = UtilText.returnStringAtRandom("You struggle and try to protest as [npc.name]", "You try to pull away as [npc.name]", "You let out a protesting whine as [npc.name]");
@@ -6130,11 +7107,11 @@ public abstract class NPC extends GameCharacter {
 							" failing to suppress [pc.a_moan+] as you do so",
 							" letting out [pc.a_moan+] as you do so");
 					
-				} else if(Sex.getSexPacePlayer()==SexPace.SUB_NORMAL) {
+				} else if(Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_NORMAL) {
 					subQualifier = UtilText.returnStringAtRandom(" ", " ", "happily", "willingly");
 					subAction = UtilText.returnStringAtRandom("slide", "push", "drive", "thrust", "pump");
 					subReactionPrefix = UtilText.returnStringAtRandom("You let out [pc.a_moan+] as [npc.name]", "You grind yourself against [npc.name] as", "[pc.A_moan+] escapes from between your [pc.lips+] as [npc.name]");
-					subSelfReactionPrefix  = UtilText.returnStringAtRandom("You let out [pc.a_moan+]", "You press yourself against [npc.name]", "[pc.A_moan+] escapes from between your [pc.lips+]");
+					subSelfReactionPrefix = UtilText.returnStringAtRandom("You let out [pc.a_moan+]", "You press yourself against [npc.name]", "[pc.A_moan+] escapes from between your [pc.lips+]");
 					domPenSubReactionPostfix = UtilText.returnStringAtRandom(
 							" letting out a series of [npc.moans+]",
 							" letting out a series of [npc.moans+] as [npc.she] does so");
@@ -6146,11 +7123,11 @@ public abstract class NPC extends GameCharacter {
 							" [pc.moaning] in delight as you do so",
 							" letting out [pc.a_moan+] as you do so");
 					
-				} else if(Sex.getSexPacePlayer()==SexPace.SUB_EAGER) {
+				} else if(Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_EAGER) {
 					subQualifier = UtilText.returnStringAtRandom("desperately", "frantically", "eagerly", "enthusiastically");
 					subAction = UtilText.returnStringAtRandom("slam", "hammer", "thrust", "pump");
 					subReactionPrefix = UtilText.returnStringAtRandom("[pc.A_moan+] bursts out from your mouth as [npc.name]", "You press yourself against [npc.name] as", "[pc.A_moan+] bursts out from between your [pc.lips+] as [npc.name]");
-					subSelfReactionPrefix  = UtilText.returnStringAtRandom("[pc.A_moan+] bursts out from your mouth", "You press yourself against [npc.name]", "[pc.A_moan+] bursts out from between your [pc.lips+]");
+					subSelfReactionPrefix = UtilText.returnStringAtRandom("[pc.A_moan+] bursts out from your mouth", "You press yourself against [npc.name]", "[pc.A_moan+] bursts out from between your [pc.lips+]");
 					domPenSubReactionPostfix = UtilText.returnStringAtRandom(
 							" letting out a series of [npc.moans+]",
 							" letting out a series of [npc.moans+] as [npc.she] does so");
@@ -6217,7 +7194,7 @@ public abstract class NPC extends GameCharacter {
 		String penetrationVerb=" slides", penetrationAdverb="";
 		
 		if(penetrationType.isPlayer()) {
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_GENTLE:
 					penetrationAdverb = UtilText.returnStringAtRandom(" slowly", " gently");
 					penetrationVerb = UtilText.returnStringAtRandom(" slide", " push", " glide");
@@ -6245,7 +7222,7 @@ public abstract class NPC extends GameCharacter {
 					break;
 			}
 		} else {
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(this)) {
 				case DOM_GENTLE:
 					penetrationAdverb = UtilText.returnStringAtRandom(" slowly", " gently");
 					penetrationVerb = UtilText.returnStringAtRandom(" slides", " pushes", " glides");
@@ -6290,12 +7267,16 @@ public abstract class NPC extends GameCharacter {
 								return "You let out [pc.a_moan+] as you feel [npc.name]'s dog-like cock push into your [pc.asshole+].";
 							case LUPINE:
 								return "You let out [pc.a_moan+] as you feel [npc.name]'s wolf-like cock push into your [pc.asshole+].";
+							case ALLIGATOR_MORPH:
+								return "You let out [pc.a_moan+] as you feel [npc.name]'s reptile-like cock push into your [pc.asshole+].";
 							case SQUIRREL:
 								return "You let out [pc.a_moan+] as you feel [npc.name]'s squirrel-like cock push into your [pc.asshole+].";
 							case DEMON_COMMON:
 								return "You let out [pc.a_moan+] as you feel the little bumps lining [npc.name]'s demonic cock wriggling against the walls of your [pc.asshole] as [npc.she] penetrates you.";
 							case EQUINE:
 								return "You let out [pc.a_moan+] as you feel the flared head of [npc.name]'s horse-like cock push into your [pc.asshole+].";
+							case REINDEER_MORPH:
+								return "You let out [pc.a_moan+] as you feel the flared head of [npc.name]'s reindeer-like cock push into your [pc.asshole+].";
 							case FELINE:
 								return "You let out [pc.a_moan+] as you feel the barbs lining [npc.name]'s cat-like cock rake the walls of your [pc.asshole+] as [npc.she] starts to pull back.";
 							case HUMAN:
@@ -6360,12 +7341,16 @@ public abstract class NPC extends GameCharacter {
 								return "You let out [pc.a_moan+] as you feel [npc.name]'s dog-like cock push into your [pc.pussy+].";
 							case LUPINE:
 								return "You let out [pc.a_moan+] as you feel [npc.name]'s wolf-like cock push into your [pc.pussy+].";
+							case ALLIGATOR_MORPH:
+								return "You let out [pc.a_moan+] as you feel [npc.name]'s reptile-like cock push into your [pc.pussy+].";
 							case SQUIRREL:
 								return "You let out [pc.a_moan+] as you feel [npc.name]'s squirrel-like cock push into your [pc.pussy+].";
 							case DEMON_COMMON:
 								return "You let out [pc.a_moan+] as you feel the little bumps lining [npc.name]'s demonic cock wriggling against the walls of your [pc.pussy] as [npc.she] penetrates you.";
 							case EQUINE:
 								return "You let out [pc.a_moan+] as you feel the flared head of [npc.name]'s horse-like cock push into your [pc.pussy+].";
+							case REINDEER_MORPH:
+								return "You let out [pc.a_moan+] as you feel the flared head of [npc.name]'s reindeer-like cock push into your [pc.pussy+].";
 							case FELINE:
 								return "You let out [pc.a_moan+] as you feel the barbs lining [npc.name]'s cat-like cock rake the walls of your [pc.pussy+] as [npc.she] starts to pull back.";
 							case HUMAN:
@@ -6430,12 +7415,16 @@ public abstract class NPC extends GameCharacter {
 								return "You let out [pc.a_moan+] as you feel [npc.name]'s dog-like cock push into your [pc.nipple+].";
 							case LUPINE:
 								return "You let out [pc.a_moan+] as you feel [npc.name]'s wolf-like cock push into your [pc.nipple+].";
+							case ALLIGATOR_MORPH:
+								return "You let out [pc.a_moan+] as you feel [npc.name]'s reptile-like cock push into your [pc.nipple+].";
 							case SQUIRREL:
 								return "You let out [pc.a_moan+] as you feel [npc.name]'s squirrel-like cock push into your [pc.nipple+].";
 							case DEMON_COMMON:
 								return "You let out [pc.a_moan+] as you feel the little bumps lining [npc.name]'s demonic cock wriggling against the walls of your fuckable [pc.nipple] as [npc.she] penetrates you.";
 							case EQUINE:
 								return "You let out [pc.a_moan+] as you feel the flared head of [npc.name]'s horse-like cock push into your [pc.nipple+].";
+							case REINDEER_MORPH:
+								return "You let out [pc.a_moan+] as you feel the flared head of [npc.name]'s reindeer-like cock push into your [pc.nipple+].";
 							case FELINE:
 								return "You let out [pc.a_moan+] as you feel the barbs lining [npc.name]'s cat-like cock rake the walls of your [pc.nipple+] as [npc.she] starts to pull back.";
 							case HUMAN:
@@ -6500,12 +7489,16 @@ public abstract class NPC extends GameCharacter {
 								return "You let out a muffled [pc.moan] as [npc.name]'s dog-like cock pushes its way into your mouth.";
 							case LUPINE:
 								return "You let out a muffled [pc.moan] as [npc.name]'s wolf-like cock pushes its way into your mouth.";
+							case ALLIGATOR_MORPH:
+								return "You let out a muffled [pc.moan] as [npc.name]'s reptile-like cock pushes its way into your mouth.";
 							case SQUIRREL:
 								return "You let out a muffled [pc.moan] as [npc.name]'s squirrel-like cock pushes its way into your mouth.";
 							case DEMON_COMMON:
 								return "You let out a muffled [pc.moan] as you feel the little bumps lining [npc.name]'s demonic cock wriggling against your [pc.tongue+] as you start sucking [npc.herHim] off.";
 							case EQUINE:
 								return "You let out a muffled [pc.moan] as you feel the flared head of [npc.name]'s horse-like cock push its way into your mouth.";
+							case REINDEER_MORPH:
+								return "You let out a muffled [pc.moan] as you feel the flared head of [npc.name]'s reindeer-like cock push its way into your mouth.";
 							case FELINE:
 								return "You let out a muffled [pc.moan] as you feel the barbs lining [npc.name]'s cat-like cock rake over your [pc.tongue] as [npc.she] starts to pull back.";
 							case HUMAN:
@@ -6548,12 +7541,16 @@ public abstract class NPC extends GameCharacter {
 								return "[npc.Name] lets out a muffled [npc.moan] as your dog-like cock pushes its way into [npc.her] mouth.";
 							case LUPINE:
 								return "[npc.Name] lets out a muffled [npc.moan] as your wolf-like cock pushes its way into [npc.her] mouth.";
+							case ALLIGATOR_MORPH:
+								return "[npc.Name] lets out a muffled [npc.moan] as your reptile-like cock pushes its way into [npc.her] mouth.";
 							case SQUIRREL:
 								return "[npc.Name] lets out a muffled [npc.moan] as your squirrel-like cock pushes its way into [npc.her] mouth.";
 							case DEMON_COMMON:
 								return "[npc.Name] lets out a muffled [npc.moan] as [npc.she] feels the little bumps lining your demonic cock wriggling against [npc.her] [npc.tongue+] as [npc.she] starts sucking you off.";
 							case EQUINE:
 								return "[npc.Name] lets out a muffled [npc.moan] as [npc.she] feels the flared head of your horse-like cock push its way into [npc.her] mouth.";
+							case REINDEER_MORPH:
+								return "[npc.Name] lets out a muffled [npc.moan] as [npc.she] feels the flared head of your reindeer-like cock push its way into [npc.her] mouth.";
 							case FELINE:
 								return "[npc.Name] lets out a muffled [npc.moan] as [npc.she] feels the barbs lining your cat-like cock rake over [npc.her] [npc.tongue] as you start to thrust in and out of [npc.her] mouth.";
 							case HUMAN:
@@ -6578,7 +7575,15 @@ public abstract class NPC extends GameCharacter {
 			
 			return generateGenericPenetrationDescription(penetrationType, orifice);
 			
-		}
+		} else if(orifice == OrificeType.THIGHS_PLAYER) {
+			
+			return generateGenericPenetrationDescription(penetrationType, orifice);
+			
+		} else if(orifice == OrificeType.THIGHS_PARTNER) {
+			
+			return generateGenericPenetrationDescription(penetrationType, orifice);
+			
+		} 
 		
 		return "";
 	}
@@ -6592,6 +7597,12 @@ public abstract class NPC extends GameCharacter {
 				break;
 			case ANUS_PLAYER:
 				orificeName = "[pc.asshole+]";
+				break;
+			case ASS_PARTNER:
+				orificeName = "[npc.ass+]";
+				break;
+			case ASS_PLAYER:
+				orificeName = "[pc.ass+]";
 				break;
 			case MOUTH_PARTNER:
 				orificeName = "mouth";
@@ -6616,6 +7627,12 @@ public abstract class NPC extends GameCharacter {
 				break;
 			case VAGINA_PLAYER:
 				orificeName = "[pc.pussy+]";
+				break;
+			case THIGHS_PARTNER:
+				orificeName = "thighs";
+				break;
+			case THIGHS_PLAYER:
+				orificeName = "thighs";
 				break;
 			case BREAST_PARTNER:
 				orificeName = "[npc.breasts+]";
@@ -6676,217 +7693,397 @@ public abstract class NPC extends GameCharacter {
 	}
 	
 	
+	private static StringBuilder StringBuilderSB = new StringBuilder();
+	
+	public String getVirginityLossDescription(PenetrationType penetration, OrificeType orifice) {
+		StringBuilderSB.setLength(0);
+		
+		switch(orifice) {
+			case ANUS_PLAYER:
+				StringBuilderSB.append(getPlayerAnalVirginityLossDescription(penetration));
+				break;
+			case MOUTH_PLAYER:
+				StringBuilderSB.append(getPlayerMouthVirginityLossDescription(penetration));
+				break;
+			case NIPPLE_PLAYER:
+				StringBuilderSB.append(getPlayerNippleVirginityLossDescription(penetration));
+				break;
+			case URETHRA_PLAYER:
+				StringBuilderSB.append(getPlayerUrethraVirginityLossDescription(penetration));
+				break;
+			case VAGINA_PLAYER:
+				StringBuilderSB.append(getPlayerVaginaVirginityLossDescription(penetration));
+				break;
+				
+			case ANUS_PARTNER:
+				StringBuilderSB.append(getPartnerAnalVirginityLossDescription(penetration));
+				break;
+			case MOUTH_PARTNER:
+				StringBuilderSB.append(getPartnerMouthVirginityLossDescription(penetration));
+				break;
+			case NIPPLE_PARTNER:
+				StringBuilderSB.append(getPartnerNippleVirginityLossDescription(penetration));
+				break;
+			case URETHRA_PARTNER:
+				StringBuilderSB.append(getPartnerUrethraVirginityLossDescription(penetration));
+				break;
+			case VAGINA_PARTNER:
+				StringBuilderSB.append(getPartnerVaginaVirginityLossDescription(penetration));
+				break;
+				
+ 
+			case ASS_PLAYER: case BREAST_PLAYER: case THIGHS_PLAYER: case ASS_PARTNER: case BREAST_PARTNER: case THIGHS_PARTNER:
+				// Don't have a virginity to lose.
+				break;
+		}
+		
+		switch(penetration) {
+			case PENIS_PARTNER:
+				if(this.isPenisVirgin()) {
+					StringBuilderSB.append(getPartnerPenileVirginityLossDescription(orifice));
+				}
+				break;
+			case PENIS_PLAYER:
+				if(Main.game.getPlayer().isPenisVirgin()) {
+					StringBuilderSB.append(getPlayerPenileVirginityLossDescription(orifice));
+				}
+				break;
+			case FINGER_PARTNER: case FINGER_PLAYER: case TAIL_PARTNER: case TAIL_PLAYER: case TENTACLE_PARTNER: case TENTACLE_PLAYER: case TONGUE_PARTNER: case TONGUE_PLAYER:
+				break;
+		}
+		
+		return StringBuilderSB.toString();
+	}
+	
 	protected String formatVirginityLoss(String rawInput) {
 		return UtilText.formatVirginityLoss(rawInput);
 	}
-	protected String losingPureVirginity(){
-		return UtilText.parse(Sex.getPartner(),
-				"<p style='text-align:center;'>"
-					+ "<b style='color:"+Colour.GENERIC_TERRIBLE.toWebHexString()+";'>Broken Virgin</b>"
-				+ "</p>"
-				+ "<p>"
-					+ "You can't believe what's happening."
-					+ " As [npc.name]'s "+(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER).getName())
-					+" takes your virginity in a single thrust, you find yourself letting out a desperate gasp."
-				+ "</p>"
-				+ "<p style='text-align:center;'>"
-					+ "[pc.thought(This is how I lose my virginity?!</br>"
-							+ "To... <i>[npc.a_race]</i>?!</br>"
-							+ "This can't be happening!)]"
-				+ "</p>"
-				+ "<p>"
-					+ "You don't quite know how to react."
-					+ " The virginity that you prized so highly has been suddenly taken from you, and a vacant gaze settles over your face as your [pc.pussy+] spreads lewdly around the intruding object."
-				+ "</p>"
-				+ "<p>"
-					+ " While you were a virgin, you felt invincible."
-					+ " As though you could overcome any obstacle that was placed in your way."
-					+ " Now, however..."
-				+ "</p>"
-				+ "<p style='text-align:center;'>"
-				+ "[pc.thought(Now I'm just some regular old slut...</br>"
-						+ "Getting fucked by any random person I meet...</br>"
-						+ "All I'm good for now is being the next lucky guy's fuck-toy...)]"
-				+ "</p>"
-				+ "<p>"
-				+ "You're vaguely aware of [npc.name] grunting away somewhere in the background, completely oblivious to how hard you've been hit by the loss of your virginity."
-				+ " With a shuddering sigh, you decide to resign yourself to the fact that now you're nothing more than a <b style='color:"+StatusEffect.FETISH_BROKEN_VIRGIN.getColour().toWebHexString()+";'>broken virgin</b>..."
-				+ "</p>");
+	protected String losingPureVirginity(PenetrationType penetration){
+		if(penetration.isPlayer()) {
+			return UtilText.parse(this,
+					"<p style='text-align:center;'>"
+						+ "<b style='color:"+Colour.GENERIC_TERRIBLE.toWebHexString()+";'>Broken Virgin</b>"
+					+ "</p>"
+					+ "<p>"
+						+ "You can't quite believe what you're doing to yourself."
+						+ " As your "+(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER).getName())+" takes your own virginity in a single thrust, you find yourself letting out a desperate gasp."
+					+ "</p>"
+					+ "<p style='text-align:center;'>"
+						+ "[pc.thought(W-What am I doing?!</br>"
+								+ "I-I'm just so... <i>horny</i>!</br>"
+								+ "I-I can't help myself!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "You don't quite know how to react to your own actions."
+						+ " The virginity that you prized so highly is now gone, and a vacant gaze settles over your face as your [pc.pussy+] spreads lewdly around your own "+penetration.getName()+"."
+					+ "</p>"
+					+ "<p>"
+						+ "While you were a virgin, you felt invincible."
+						+ " As though you could overcome any obstacle that was placed in your way."
+						+ " Now, however..."
+					+ "</p>"
+					+ "<p style='text-align:center;'>"
+					+ "[pc.thought(Now I'm just some regular old slut...</br>"
+							+ "So turned on that I choose to fuck myself...</br>"
+							+ "All I'm good for now is being a worthless fuck-toy...)]"
+					+ "</p>"
+					+ "<p>"
+						+ "With a shuddering sigh, you decide to resign yourself to the fact that now you're nothing more than a <b style='color:"+StatusEffect.FETISH_BROKEN_VIRGIN.getColour().toWebHexString()+";'>broken virgin</b>..."
+					+ "</p>");
+			
+		} else {
+			return UtilText.parse(this,
+					"<p style='text-align:center;'>"
+						+ "<b style='color:"+Colour.GENERIC_TERRIBLE.toWebHexString()+";'>Broken Virgin</b>"
+					+ "</p>"
+					+ "<p>"
+						+ "You can't believe what's happening."
+						+ " As [npc.name]'s "+(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER).getName())
+						+" takes your virginity in a single thrust, you find yourself letting out a desperate gasp."
+					+ "</p>"
+					+ "<p style='text-align:center;'>"
+						+ "[pc.thought(This is how I lose my virginity?!</br>"
+								+ "To... <i>[npc.a_race]</i>?!</br>"
+								+ "This can't be happening!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "You don't quite know how to react."
+						+ " The virginity that you prized so highly has been suddenly taken from you, and a vacant gaze settles over your face as your [pc.pussy+] spreads lewdly around the intruding object."
+					+ "</p>"
+					+ "<p>"
+						+ "While you were a virgin, you felt invincible."
+						+ " As though you could overcome any obstacle that was placed in your way."
+						+ " Now, however..."
+					+ "</p>"
+					+ "<p style='text-align:center;'>"
+					+ "[pc.thought(Now I'm just some regular old slut...</br>"
+							+ "Getting fucked by any random person I meet...</br>"
+							+ "All I'm good for now is being the next lucky guy's fuck-toy...)]"
+					+ "</p>"
+					+ "<p>"
+					+ "You're vaguely aware of [npc.name] grunting away somewhere in the background, completely oblivious to how hard you've been hit by the loss of your virginity."
+					+ " With a shuddering sigh, you decide to resign yourself to the fact that now you're nothing more than a <b style='color:"+StatusEffect.FETISH_BROKEN_VIRGIN.getColour().toWebHexString()+";'>broken virgin</b>..."
+					+ "</p>");
+		}
 	}
 	
 	// Virginity loss:
 	
-	public String getPlayerAnalVirginityLossDescription(){
+	private String getPlayerAnalVirginityLossDescription(PenetrationType penetration){
 		StringBuilderSB = new StringBuilder();
 		
-		boolean isPenis = Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER)==PenetrationType.PENIS_PARTNER;
-		boolean isTail = Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER)==PenetrationType.TAIL_PARTNER;
+		boolean isPenis = penetration.isPenis();
+		boolean isTail = penetration.isTail();
 		
-		/*
-		 * Initial penetration -> Take into account wet/dry
-		 * Reaction -> player masochist
-		 * Reaction -> partner sadist, partner deflowering fetish
-		 * End -> continues fucking you through the receding pain
-		 */
-		
-		// Initial penetration:
-		if(Sex.getWetOrificeTypes().get(OrificeType.ANUS_PLAYER).isEmpty()) {
-			// Dry:
+		if(penetration.isPlayer()) { // SELF-PENETRATION
+			// Initial penetration:
+			if(Sex.getWetOrificeTypes(Main.game.getPlayer()).get(OrificeType.ANUS_PLAYER).isEmpty()) {
+				// Dry:
+				StringBuilderSB.append(
+						"<p>"
+							+ "You let out a painful cry as you force your "+(isPenis?"[pc.penis+]":"")+(isTail?"[pc.tail+]":"")+" into your dry [pc.asshole]."
+							+ " Squirming and shuffling in discomfort, your cries grow louder and louder as you start fucking your own [pc.ass]; the lack of lubrication turning your first anal experience into one of mind-numbing agony."
+						+ "</p>");
+				
+			} else {
+				 // Wet:
+				StringBuilderSB.append(
+						"<p>"
+							+ "You let out a painful cry as you force your "+(isPenis?"[pc.penis+]":"")+(isTail?"[pc.tail+]":"")+" into your [pc.asshole+]."
+							+ " Squirming and shuffling in discomfort, you continue letting out little whimpers as you start fucking your own [pc.ass]."
+							+ " Thankfully, your [pc.asshole] was lubricated beforehand, and you dread to think of how painful your first anal experience would have been otherwise."
+						+ "</p>");
+			}
+			
+			// Player masochist reaction:
+			if(Main.game.getPlayer().hasFetish(Fetish.FETISH_MASOCHIST)) {
+				StringBuilderSB.append(
+						"<p>"
+							+ "Due to being an extreme masochist, you find your painful cries being interspersed with lewd moans of pleasure."
+							+ " The pain and discomfort at the feeling of losing your anal virginity is pure bliss, and you soon find yourself [pc.moaning] in a delightful haze of overwhelming ecstasy."
+						+ "</p>");
+			} else {
+				StringBuilderSB.append(
+						"<p>"
+							+ "With tears welling up in your [pc.eyes], you let out another painful wail as you draw"+(isTail?" your [pc.tail]":"")+" back, before thrusting deep inside yourself once again."
+							+ " This time, the pain isn't as extreme as before, and you realise that you're starting to get used to the feeling of using your own ass."
+						+ "</p>");
+			}
+			
+			// Ending:
 			StringBuilderSB.append(
 					"<p>"
-						+ "You let out a painful cry as you feel [npc.name]'s "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")+" push into your dry [pc.asshole]."
-						+ " Squirming and shuffling in discomfort, your cries grow louder and louder as [npc.name] starts fucking your [pc.ass]; the lack of lubrication turning your first anal experience into one of mind-numbing agony."
+						+ "The throbbing, painful ache in your [pc.ass] slowly starts to fade away, and as your "+(isPenis?"[pc.penis+]":"")+(isTail?"[pc.tail+]":"")
+							+" pushes into your [pc.asshole+] once again, you let out a little whimper of relief as you feel that there's no accompanying stab of pain."
 					+ "</p>");
 			
-		} else {
-			 // Wet:
+		} else { // PARTNER PENETRATION
+			// Initial penetration:
+			if(Sex.getWetOrificeTypes(Main.game.getPlayer()).get(OrificeType.ANUS_PLAYER).isEmpty()) {
+				// Dry:
+				StringBuilderSB.append(
+						"<p>"
+							+ "You let out a painful cry as you feel [npc.name]'s "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")+" push into your dry [pc.asshole]."
+							+ " Squirming and shuffling in discomfort, your cries grow louder and louder as [npc.name] starts fucking your [pc.ass]; the lack of lubrication turning your first anal experience into one of mind-numbing agony."
+						+ "</p>");
+				
+			} else {
+				 // Wet:
+				StringBuilderSB.append(
+						"<p>"
+							+ "You let out a painful cry as you feel [npc.name]'s "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")+" push into your [pc.asshole+]."
+							+ " Squirming and shuffling in discomfort, you continue letting out little whimpers as [npc.name] starts fucking your [pc.ass]."
+							+ " Thankfully, your [pc.asshole] was lubricated beforehand, and you dread to think of how painful your first anal experience would have been otherwise."
+						+ "</p>");
+			}
+			
+			// Player masochist reaction:
+			if(Main.game.getPlayer().hasFetish(Fetish.FETISH_MASOCHIST)) {
+				StringBuilderSB.append(
+						"<p>"
+							+ "Due to being an extreme masochist, you find your painful cries being interspersed with lewd moans of pleasure."
+							+ " The pain and discomfort at the feeling of losing your anal virginity is pure bliss, and you soon find yourself [pc.moaning] in a delightful haze of overwhelming ecstasy."
+						+ "</p>");
+			}
+			
+			// Partner sadistic reaction:
+			if(this.hasFetish(Fetish.FETISH_SADIST)) {
+				StringBuilderSB.append(
+						"<p>"
+							+ "With tears welling up in your [pc.eyes], you let out another painful wail as [npc.name] draws"+(isTail?" [npc.her] [npc.tail]":"")+" back, before violently thrusting deep inside you once again."
+							+ " [npc.She] lets out an evil laugh as [npc.she] causes you to writhe about in pain, [npc.her] sadistic nature fuelling [npc.her] rough thrusts into your [pc.asshole] as [npc.she] ruthlessly fucks your [pc.ass]."
+						+ "</p>");
+			} else {
+				StringBuilderSB.append(
+						"<p>"
+							+ "With tears welling up in your [pc.eyes], you let out another painful wail as [npc.name] draws"+(isTail?" [npc.her] [npc.tail]":"")+" back, before thrusting deep inside you once again."
+							+ " This time, the pain isn't as extreme as before, and you realise that you're starting to get used to the feeling of being fucked in the ass."
+						+ "</p>");
+			}
+			
+			// Partner deflowering reaction:
+			if(this.hasFetish(Fetish.FETISH_DEFLOWERING)) {
+				StringBuilderSB.append(
+						"<p>"
+							+ "[npc.speech(Oh, yes!)] [npc.she] cries, [npc.speech(Good [pc.girl], saving your anal virginity for me!"
+								+ " Remember this moment, remember that <i>my</i> "+(isPenis?"cock":"")+(isTail?"tail":"")+" was the the one that turned you into "+(Main.game.getPlayer().isFeminine()?"a horny buttslut":"a little fucktoy")+"!)]"
+						+ "</p>");
+			}
+			
+			// Ending:
 			StringBuilderSB.append(
 					"<p>"
-						+ "You let out a painful cry as you feel [npc.name]'s "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")+" push into your [pc.asshole+]."
-						+ " Squirming and shuffling in discomfort, you continue letting out little whimpers as [npc.name] starts fucking your [pc.ass]."
-						+ " Thankfully, your [pc.asshole] was lubricated beforehand, and you dread to think of how painful your first anal experience would have been otherwise."
+						+ "The throbbing, painful ache in your [pc.ass] slowly starts to fade away, and as [npc.name]'s "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")
+							+" pushes into your [pc.asshole+] once again, you let out a little whimper of relief as you feel that there's no accompanying stab of pain."
 					+ "</p>");
 		}
 		
-		// Player masochist reaction:
-		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_MASOCHIST)) {
-			StringBuilderSB.append(
-					"<p>"
-						+ "Due to being an extreme masochist, you find your painful cries being interspersed with lewd moans of pleasure."
-						+ " The pain and discomfort at the feeling of losing your anal virginity is pure bliss, and you soon find yourself [pc.moaning] in a delightful haze of overwhelming ecstasy."
-					+ "</p>");
-		}
-		
-		// Partner sadistic reaction:
-		if(Sex.getPartner().hasFetish(Fetish.FETISH_SADIST)) {
-			StringBuilderSB.append(
-					"<p>"
-						+ "With tears welling up in your [pc.eyes], you let out another painful wail as [npc.name] draws"+(isTail?" [npc.her] [npc.tail]":"")+" back, before violently thrusting deep inside you once again."
-						+ " [npc.She] lets out an evil laugh as [npc.she] causes you to writhe about in pain, [npc.her] sadistic nature fuelling [npc.her] rough thrusts into your [pc.asshole] as [npc.she] ruthlessly fucks your [pc.ass]."
-					+ "</p>");
-		} else {
-			StringBuilderSB.append(
-					"<p>"
-						+ "With tears welling up in your [pc.eyes], you let out another painful wail as [npc.name] draws"+(isTail?" [npc.her] [npc.tail]":"")+" back, before thrusting deep inside you once again."
-						+ " This time, the pain isn't as extreme as before, and you realise that you're starting to get used to the feeling of being fucked in the ass."
-					+ "</p>");
-		}
-		
-		// Partner deflowering reaction:
-		if(Sex.getPartner().hasFetish(Fetish.FETISH_DEFLOWERING)) {
-			StringBuilderSB.append(
-					"<p>"
-						+ "[npc.speech(Oh, yes!)] [npc.she] cries, [npc.speech(Good [pc.girl], saving your anal virginity for me!"
-							+ " Remember this moment, remember that <i>my</i> "+(isPenis?"cock":"")+(isTail?"tail":"")+" was the the one that turned you into "+(Main.game.getPlayer().isFeminine()?"a horny buttslut":"a little fucktoy")+"!)]"
-					+ "</p>");
-		}
-		
-		// Ending:
-		StringBuilderSB.append(
-				"<p>"
-					+ "The throbbing, painful ache in your [pc.ass] slowly starts to fade away, and as [npc.name]'s "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")
-						+" pushes into your [pc.asshole+] once again, you let out a little whimper of relief as you feel that there's no accompanying stab of pain."
-				+ "</p>");
 		
 		StringBuilderSB.append(formatVirginityLoss("You'll always remember this moment as the time that you lost your anal virginity!"));
 		
 		return StringBuilderSB.toString();
 	}
 	
-	private static StringBuilder StringBuilderSB;
-	public String getPlayerVaginaVirginityLossDescription(boolean isPlayerDom){
+	
+	
+	protected String getPlayerVaginaVirginityLossDescription(PenetrationType penetration){
 		StringBuilderSB = new StringBuilder();
 		
-		boolean isPenis = Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER)==PenetrationType.PENIS_PARTNER;
-		boolean isTail = Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER)==PenetrationType.TAIL_PARTNER;
+		boolean isPenis = penetration.isPenis();
+		boolean isTail = penetration.isTail();
 		
-		/*
-		 * Initial penetration -> Take into account wet/dry
-		 * Reaction -> player masochist
-		 * Reaction -> partner sadist, partner deflowering fetish
-		 * End -> continues fucking you through the receding pain
-		 */
-		
-		// Initial penetration:
-		if(Sex.getWetOrificeTypes().get(OrificeType.VAGINA_PLAYER).isEmpty()) {
-			// Dry:
-			StringBuilderSB.append(
-					"<p>"
-						+ "As [npc.name]'s "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")+" drives deep into your dry [pc.pussy], your vision suddenly explodes in stars, and a painful, high-pitched shriek escapes from between your lips."
-						+ " Being penetrated without any form of lubrication would be uncomfortable at the best of times, but due to the fact that you're still a virgin, it's somewhat more than just a little discomfort,"
-							+ " and your shriek turns into a shuddering cry as you shuffle about in pure agony."
-					+ "</p>");
+		if(penetration.isPlayer()) { // SELF-PENETRATION
+			// Initial penetration:
+			if(Sex.getWetOrificeTypes(Main.game.getPlayer()).get(OrificeType.VAGINA_PLAYER).isEmpty()) {
+				// Dry:
+				StringBuilderSB.append(
+						"<p>"
+							+ "As you drive your "+(isPenis?"[pc.penis+]":"")+(isTail?"[pc.tail+]":"")+" deep into your dry [pc.pussy], your vision suddenly explodes in stars, and a painful, high-pitched shriek escapes from between your lips."
+							+ " Being penetrated without any form of lubrication would be uncomfortable at the best of times, but due to the fact that you're still a virgin, it's somewhat more than just a little discomfort,"
+								+ " and your shriek turns into a shuddering cry as you shuffle about in pure agony."
+						+ "</p>");
+				
+			} else {
+				 // Wet:
+				StringBuilderSB.append(
+							"<p>"
+								+ "As you drive your "+(isPenis?"[pc.penis+]":"")+(isTail?"[pc.tail+]":"")+" deep into your [pc.pussy+], your vision suddenly narrows down, and a painful, desperate wail escapes from between your lips."
+								+ " Luckily, your pussy was lubricated before being penetrated, but due to the fact that you're still a virgin, it isn't enough to completely prevent the pain you now feel between your legs,"
+									+ " and your wail turns into a shuddering moan as you shuffle about in discomfort."
+							+ "</p>");
+			}
 			
-		} else {
-			 // Wet:
-			StringBuilderSB.append(
-					"<p>"
-						+ "As [npc.name]'s "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")+" drives deep into your [pc.pussy+], your vision suddenly narrows down, and a painful, desperate wail escapes from between your lips."
-						+ " Luckily, your pussy was lubricated before being penetrated, but due to the fact that you're still a virgin, it isn't enough to completely prevent the pain you now feel between your legs,"
-							+ " and your wail turns into a shuddering moan as you shuffle about in discomfort."
-					+ "</p>");
+			// Player masochist reaction:
+			if(Main.game.getPlayer().hasFetish(Fetish.FETISH_MASOCHIST)) {
+				StringBuilderSB.append(
+						"<p>"
+							+ "Due to being an extreme masochist, you find your painful cries being interspersed with lewd moans of pleasure."
+							+ " The agony between your legs is pure bliss, and you focus on the pain as you squeal and moan in a delightful haze of overwhelming ecstasy."
+						+ "</p>");
+			}else {
+				StringBuilderSB.append(
+						"<p>"
+							+ "Instinctively trying to clench your legs together, you let out another painful wail as you draw"+(isTail?" your [pc.tail]":"")+" back, before thrusting deep inside yourself once again."
+							+ " This time, the pain isn't as extreme as before, and you realise that the initial hurt was due to your hymen being torn."
+						+ "</p>");
+			}
+			
+			// Ending:
+			if (Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
+				StringBuilderSB.append(
+						"<p>"
+							+ "As the pain recedes into a dull, throbbing ache between your legs, you feel a little trickle of blood running out of your now-broken-in pussy, and you can't help but let out yet another whimpering cry."
+							+ " The throbbing, painful ache in your groin slowly starts to fade away, and as you push your "+(isPenis?"[pc.penis+]":"")+(isTail?"[pc.tail+]":"")
+								+" into your [pc.pussy+] once again, you let out a sigh of relief as you feel that there's no accompanying stab of pain."
+						+ "</p>");
+			} else {
+				StringBuilderSB.append(
+						"<p>"
+							+ "The throbbing, painful ache in your groin slowly starts to fade away, and as you push your "+(isPenis?"[pc.penis+]":"")+(isTail?"[pc.tail+]":"")
+								+" into your [pc.pussy+] once again, you let out a sigh of relief as you feel that there's no accompanying stab of pain."
+						+ "</p>");
+			}
+			
+		} else { // PARTNER PENETRATION
+			// Initial penetration:
+			if(Sex.getWetOrificeTypes(Main.game.getPlayer()).get(OrificeType.VAGINA_PLAYER).isEmpty()) {
+				// Dry:
+				StringBuilderSB.append(
+						"<p>"
+							+ "As [npc.name]'s "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")+" drives deep into your dry [pc.pussy], your vision suddenly explodes in stars, and a painful, high-pitched shriek escapes from between your lips."
+							+ " Being penetrated without any form of lubrication would be uncomfortable at the best of times, but due to the fact that you're still a virgin, it's somewhat more than just a little discomfort,"
+								+ " and your shriek turns into a shuddering cry as you shuffle about in pure agony."
+						+ "</p>");
+				
+			} else {
+				 // Wet:
+				StringBuilderSB.append(
+							"<p>"
+								+ "As [npc.name]'s "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")+" drives deep into your [pc.pussy+], your vision suddenly narrows down, and a painful, desperate wail escapes from between your lips."
+								+ " Luckily, your pussy was lubricated before being penetrated, but due to the fact that you're still a virgin, it isn't enough to completely prevent the pain you now feel between your legs,"
+									+ " and your wail turns into a shuddering moan as you shuffle about in discomfort."
+							+ "</p>");
+			}
+			
+			// Player masochist reaction:
+			if(Main.game.getPlayer().hasFetish(Fetish.FETISH_MASOCHIST)) {
+				StringBuilderSB.append(
+						"<p>"
+							+ "Due to being an extreme masochist, you find your painful cries being interspersed with lewd moans of pleasure."
+							+ " The agony between your legs is pure bliss, and you focus on the pain as you squeal and moan in a delightful haze of overwhelming ecstasy."
+						+ "</p>");
+			}
+			
+			// Partner sadistic reaction:
+			if(this.hasFetish(Fetish.FETISH_SADIST)) {
+				StringBuilderSB.append(
+						"<p>"
+							+ "Trying desperately to clench your legs together, you let out another painful wail as [npc.name] draws"+(isTail?" [npc.her] [npc.tail]":"")+" back, before violently thrusting deep inside you once again."
+							+ " [npc.She] lets out an evil laugh as [npc.she] causes you to writhe about in pain, [npc.her] sadistic nature fuelling [npc.her] rough thrusts into your pussy as [npc.she] ruthlessly tears through your hymen."
+						+ "</p>");
+			} else {
+				StringBuilderSB.append(
+						"<p>"
+							+ "Trying desperately to clench your legs together, you let out another painful wail as [npc.name] draws"+(isTail?" [npc.her] [npc.tail]":"")+" back, before thrusting deep inside you once again."
+							+ " This time, the pain isn't as extreme as before, and you realise that the initial hurt was due to your hymen being torn."
+						+ "</p>");
+			}
+			
+			// Partner deflowering reaction:
+			if(this.hasFetish(Fetish.FETISH_DEFLOWERING)) {
+				StringBuilderSB.append(
+						"<p>"
+							+ "[npc.speech(Oh, yes!)] [npc.she] cries, [npc.speech(Good [pc.girl], saving your virginity for me!"
+								+ " Remember this moment, remember that <i>my</i> "+(isPenis?"cock":"")+(isTail?"tail":"")+" was the the one that broke you in!)]"
+						+ "</p>");
+			}
+			
+			// Ending:
+			if (Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
+				StringBuilderSB.append(
+						"<p>"
+							+ "As the pain recedes into a dull, throbbing ache between your legs, you feel a little trickle of blood running out of your now-broken-in pussy, and you can't help but let out yet another whimpering cry."
+							+ " The throbbing, painful ache in your groin slowly starts to fade away, and as [npc.name]'s "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")
+								+" pushes into your [pc.pussy+] once again, you let out a sigh of relief as you feel that there's no accompanying stab of pain."
+						+ "</p>");
+			} else {
+				StringBuilderSB.append(
+						"<p>"
+							+ "The throbbing, painful ache in your groin slowly starts to fade away, and as [npc.name]'s "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")
+								+" pushes into your [pc.pussy+] once again, you let out a sigh of relief as you feel that there's no accompanying stab of pain."
+						+ "</p>");
+			}
 		}
 		
-		// Player masochist reaction:
-		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_MASOCHIST)) {
-			StringBuilderSB.append(
-					"<p>"
-						+ "Due to being an extreme masochist, you find your painful cries being interspersed with lewd moans of pleasure."
-						+ " The agony between your legs is pure bliss, and you focus on the pain as you squeal and moan in a delightful haze of overwhelming ecstasy."
-					+ "</p>");
-		}
-		
-		// Partner sadistic reaction:
-		if(Sex.getPartner().hasFetish(Fetish.FETISH_SADIST)) {
-			StringBuilderSB.append(
-					"<p>"
-						+ "Trying desperately to clench your legs together, you let out another painful wail as [npc.name] draws"+(isTail?" [npc.her] [npc.tail]":"")+" back, before violently thrusting deep inside you once again."
-						+ " [npc.She] lets out an evil laugh as [npc.she] causes you to writhe about in pain, [npc.her] sadistic nature fuelling [npc.her] rough thrusts into your pussy as [npc.she] ruthlessly tears through your hymen."
-					+ "</p>");
-		} else {
-			StringBuilderSB.append(
-					"<p>"
-						+ "Trying desperately to clench your legs together, you let out another painful wail as [npc.name] draws"+(isTail?" [npc.her] [npc.tail]":"")+" back, before thrusting deep inside you once again."
-						+ " This time, the pain isn't as extreme as before, and you realise that the initial hurt was due to your hymen being torn."
-					+ "</p>");
-		}
-		
-		// Partner deflowering reaction:
-		if(Sex.getPartner().hasFetish(Fetish.FETISH_DEFLOWERING)) {
-			StringBuilderSB.append(
-					"<p>"
-						+ "[npc.speech(Oh, yes!)] [npc.she] cries, [npc.speech(Good [pc.girl], saving your virginity for me!"
-							+ " Remember this moment, remember that <i>my</i> "+(isPenis?"cock":"")+(isTail?"tail":"")+" was the the one that broke you in!)]"
-					+ "</p>");
-		}
-		
-		// Ending:
-		if (Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
-			StringBuilderSB.append(
-					"<p>"
-						+ "As the pain recedes into a dull, throbbing ache between your legs, you feel a little trickle of blood running out of your now-broken-in pussy, and you can't help but let out yet another whimpering cry."
-						+ " The throbbing, painful ache in your groin slowly starts to fade away, and as [npc.name]'s "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")
-							+" pushes into your [pc.pussy+] once again, you let out a sigh of relief as you feel that there's no accompanying stab of pain."
-					+ "</p>");
-		} else {
-			StringBuilderSB.append(
-					"<p>"
-						+ "The throbbing, painful ache in your groin slowly starts to fade away, and as [npc.name]'s "+(isPenis?"[npc.penis+]":"")+(isTail?"[npc.tail+]":"")
-							+" pushes into your [pc.pussy+] once again, you let out a sigh of relief as you feel that there's no accompanying stab of pain."
-					+ "</p>");
-		}
 		
 		StringBuilderSB.append(formatVirginityLoss("Your hymen has been torn; you have lost your virginity!"));
 		
 		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_PURE_VIRGIN)) {
-			StringBuilderSB.append(losingPureVirginity());
+			StringBuilderSB.append(losingPureVirginity(penetration));
 		}
 		
 		return StringBuilderSB.toString();
 	}
-	
-	// TODO The difference in writing styles feels too jarring at the moment...
-	// This isn't a criticism of your writing style at all (which is very good), it's just that I feel like it doesn't fit in with all the surrounding descriptions.
 	
 //	public String getPlayerVaginaVirginityLossDescription(boolean isPlayerDom){
 //		VelocityContext context = new VelocityContext();
@@ -6900,30 +8097,49 @@ public abstract class NPC extends GameCharacter {
 //        return UtilText.parse("/res/txt/dialogue/sex/Generic/PlayerVaginaVirginityLossDescription.txt", context);
 //	}
 	
-	public String getPlayerNippleVirginityLossDescription(){
+	private String getPlayerPenileVirginityLossDescription(OrificeType orifice){
+		return formatVirginityLoss("You'll always remember this moment as the time that you lost your penile virginity!");
+	}
+	
+	private String getPlayerNippleVirginityLossDescription(PenetrationType penetration){
 		return formatVirginityLoss("You'll always remember this moment as the time that you lost your nipple virginity!");
 	}
 	
-	public String getPlayerUrethraVirginityLossDescription(){
+	private String getPlayerUrethraVirginityLossDescription(PenetrationType penetration){
 		return formatVirginityLoss("You have lost your urethral virginity!");
 	}
 	
-	public String getPlayerMouthVirginityLossDescription(){
-		if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER)==PenetrationType.PENIS_PARTNER 
-				|| Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER)==PenetrationType.PENIS_PLAYER) {
-			return formatVirginityLoss("You'll always remember this moment as the first time that you sucked a cock!");
+	private String getPlayerMouthVirginityLossDescription(PenetrationType penetration){
+		if(penetration.isPenis()) {
+			if(penetration.isPlayer()) {
+				return formatVirginityLoss("You'll always remember this moment as the first time that you sucked your own cock!");
+			} else {
+				return formatVirginityLoss("You'll always remember this moment as the first time that you sucked a cock!");
+			}
 			
-		} else if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER)==PenetrationType.TAIL_PARTNER) {
-			return formatVirginityLoss("You'll always remember this moment as the first time that you sucked someone's tail!");
+		} else if(penetration.isTail()) {
+			if(penetration.isPlayer()) {
+				return formatVirginityLoss("You'll always remember this moment as the first time that you sucked your tail!");
+			} else {
+				return formatVirginityLoss("You'll always remember this moment as the first time that you sucked someone's tail!");
+			}
 			
 		} else {
 			return formatVirginityLoss("You'll always remember this moment as the first time that you took something down your throat!");
 		}
 	}
 
+	private String getPartnerPenileVirginityLossDescription(OrificeType orifice){
+		return formatVirginityLoss("You have taken [npc.name]'s penile virginity!")
+				+(Main.game.getPlayer().hasFetish(Fetish.FETISH_DEFLOWERING)
+						?"<p style='text-align:center;><i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Due to your deflowering fetish, you gain</i>"
+						+ " <i style='color:"+Colour.GENERIC_EXPERIENCE.toWebHexString()+";'>"+Fetish.getExperienceGainFromTakingOtherVirginity(Main.game.getPlayer())+"</i>"
+						+ " <i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>experience!</i></p>"
+						:"");
+	}
 	
-	public String getPartnerAnalVirginityLossDescription(){
-		if(Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER).isPlayer()) {
+	private String getPartnerAnalVirginityLossDescription(PenetrationType penetration){
+		if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS_PARTNER).isPlayer()) {
 			return formatVirginityLoss("You have taken [npc.name]'s anal virginity!")
 					+(Main.game.getPlayer().hasFetish(Fetish.FETISH_DEFLOWERING)
 							?"<p style='text-align:center;><i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Due to your deflowering fetish, you gain</i>"
@@ -6936,8 +8152,8 @@ public abstract class NPC extends GameCharacter {
 		}
 	}
 	
-	public String getPartnerVaginaVirginityLossDescription(){
-		if(Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER).isPlayer()) {
+	private String getPartnerVaginaVirginityLossDescription(PenetrationType penetration){
+		if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER).isPlayer()) {
 			return formatVirginityLoss("[npc.Name]'s hymen has been torn; you have taken [npc.her] virginity!")
 					+(Main.game.getPlayer().hasFetish(Fetish.FETISH_DEFLOWERING)
 							?"<p style='text-align:center;><i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Due to your deflowering fetish, you gain</i>"
@@ -6950,8 +8166,8 @@ public abstract class NPC extends GameCharacter {
 		}
 	}
 	
-	public String getPartnerNippleVirginityLossDescription(){
-		if(Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PARTNER).isPlayer()) {
+	private String getPartnerNippleVirginityLossDescription(PenetrationType penetration){
+		if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.NIPPLE_PARTNER).isPlayer()) {
 			return formatVirginityLoss("You have taken [npc.name]'s nipple virginity!")
 					+(Main.game.getPlayer().hasFetish(Fetish.FETISH_DEFLOWERING)
 							?"<p style='text-align:center;><i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Due to your deflowering fetish, you gain</i>"
@@ -6964,8 +8180,8 @@ public abstract class NPC extends GameCharacter {
 		}
 	}
 	
-	public String getPartnerUrethraVirginityLossDescription(){
-		if(Sex.getPenetrationTypeInOrifice(OrificeType.URETHRA_PARTNER).isPlayer()) {
+	private String getPartnerUrethraVirginityLossDescription(PenetrationType penetration){
+		if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.URETHRA_PARTNER).isPlayer()) {
 			return formatVirginityLoss("You have taken [npc.name]'s urethral virginity!")
 					+(Main.game.getPlayer().hasFetish(Fetish.FETISH_DEFLOWERING)
 							?"<p style='text-align:center;><i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Due to your deflowering fetish, you gain</i>"
@@ -6977,8 +8193,8 @@ public abstract class NPC extends GameCharacter {
 		}
 	}
 	
-	public String getPartnerMouthVirginityLossDescription(){
-		if(Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PARTNER).isPlayer()) {
+	private String getPartnerMouthVirginityLossDescription(PenetrationType penetration){
+		if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.MOUTH_PARTNER).isPlayer()) {
 			return formatVirginityLoss("You have given [npc.name] [npc.her] first oral experience!")
 					+(Main.game.getPlayer().hasFetish(Fetish.FETISH_DEFLOWERING)
 							?"<p style='text-align:center;><i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Due to your deflowering fetish, you gain</i>"
@@ -7123,18 +8339,18 @@ public abstract class NPC extends GameCharacter {
 		switch(penetrationType) {
 			case FINGER_PLAYER: case FINGER_PARTNER:
 				return formatStretching(UtilText.returnStringAtRandom(
-							"Your fingers are stretching out [npc.name]'s "+Sex.getPartner().getNippleName(true)+"."));
+							"Your fingers are stretching out [npc.name]'s "+this.getNippleName(true)+"."));
 			case PENIS_PLAYER: case PENIS_PARTNER:
 				return formatStretching(UtilText.returnStringAtRandom(
-							"Your [pc.penis+] is stretching out [npc.name]'s "+Sex.getPartner().getNippleName(true)+"."));
+							"Your [pc.penis+] is stretching out [npc.name]'s "+this.getNippleName(true)+"."));
 			case TAIL_PLAYER: case TAIL_PARTNER:
 				return formatStretching(UtilText.returnStringAtRandom(
-							"Your tail is stretching out [npc.name]'s "+Sex.getPartner().getNippleName(true)+"."));
+							"Your tail is stretching out [npc.name]'s "+this.getNippleName(true)+"."));
 			case TONGUE_PLAYER: case TONGUE_PARTNER:
 				return formatStretching(UtilText.returnStringAtRandom(
-							"Your tongue is stretching out [npc.name]'s "+Sex.getPartner().getNippleName(true)+"."));
+							"Your tongue is stretching out [npc.name]'s "+this.getNippleName(true)+"."));
 			default:
-				return "[npc.Name]'s "+Sex.getPartner().getNippleName(true)+" are being stretched.";
+				return "[npc.Name]'s "+this.getNippleName(true)+" are being stretched.";
 		}
 	}
 

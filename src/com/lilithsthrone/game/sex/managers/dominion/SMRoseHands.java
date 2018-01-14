@@ -1,35 +1,23 @@
 package com.lilithsthrone.game.sex.managers.dominion;
 
-import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPosition;
+import java.util.Map;
+
+import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
-import com.lilithsthrone.game.sex.sexActions.dominion.SARoseHands;
-import com.lilithsthrone.game.sex.sexActions.universal.GenericOrgasms;
 
 /**
  * @since 0.1.7?
- * @version 0.1.79
+ * @version 0.1.97
  * @author Innoxia
  */
 public class SMRoseHands extends SexManagerDefault {
 
-	public SMRoseHands() {
-		super(SARoseHands.class, GenericOrgasms.class);
-	}
-	
-	@Override
-	public SexPosition getPosition() {
-		return SexPosition.ROSE_STANDING;
-	}
-
-	@Override
-	public String getStartSexDescription() {
-		return "";
-	}
-	
-	@Override
-	public boolean isConsensualSex(){
-		return true;
+	public SMRoseHands(Map<GameCharacter, SexPositionSlot> dominants, Map<GameCharacter, SexPositionSlot> submissives) {
+		super(SexPositionNew.HANDS_ROSE,
+				dominants,
+				submissives);
 	}
 	
 	@Override
@@ -62,23 +50,4 @@ public class SMRoseHands extends SexManagerDefault {
 		return false;
 	}
 
-	@Override
-	public boolean isPlayerStartNaked() {
-		return false;
-	}
-
-	@Override
-	public boolean isPartnerStartNaked() {
-		return false;
-	}
-
-	@Override
-	public SexPace getStartingSexPacePlayer() {
-		return SexPace.DOM_NORMAL;
-	}
-
-	@Override
-	public SexPace getStartingSexPacePartner() {
-		return SexPace.SUB_NORMAL;
-	}
 }

@@ -26,13 +26,13 @@
 
 <GridPane fx:id="mainPane" minHeight="600.0" minWidth="800.0" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lilithsthrone.controller.MainController">
   <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="4.0" minWidth="4.0" prefWidth="4.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="4.0" prefWidth="4.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="240.0" minWidth="240.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="4.0" minWidth="4.0" prefWidth="4.0" />
-    <ColumnConstraints hgrow="SOMETIMES" />
+    <ColumnConstraints hgrow="ALWAYS" maxWidth="1000.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="4.0" minWidth="4.0" prefWidth="4.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="240.0" minWidth="240.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="4.0" minWidth="4.0" prefWidth="4.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="4.0" prefWidth="4.0" />
   </columnConstraints>
   <rowConstraints>
       <RowConstraints maxHeight="4.0" minHeight="4.0" prefHeight="4.0" vgrow="SOMETIMES" />
@@ -41,7 +41,7 @@
       <RowConstraints maxHeight="4.0" minHeight="4.0" prefHeight="4.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <WebView fx:id="webViewMain" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+      <WebView fx:id="webViewMain" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.rowSpan="2" />
       <VBox fx:id="vBoxLeft" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
          <children>
             <WebView fx:id="webViewAttributes" prefHeight="-1.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
@@ -52,11 +52,6 @@
             </HBox>
          </children>
       </VBox>
-      <HBox alignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="2">
-         <children>
-            <WebView fx:id="webViewResponse" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
-         </children>
-      </HBox>
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="5" GridPane.rowIndex="1" GridPane.rowSpan="2">
          <children>
             <WebView fx:id="webViewRight" prefHeight="-1.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />

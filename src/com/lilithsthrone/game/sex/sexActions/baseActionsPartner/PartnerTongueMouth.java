@@ -1,21 +1,18 @@
 package com.lilithsthrone.game.sex.sexActions.baseActionsPartner;
 
-import java.util.List;
-
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPosition;
+import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.game.sex.sexActions.universal.sub.SubCowgirl;
-import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
+import com.lilithsthrone.main.Main;
 
 /**
  * Designed for kissing when the player is sub.
@@ -48,13 +45,13 @@ public class PartnerTongueMouth {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPosition.COWGIRL_PARTNER_TOP) {
+			if(Sex.getPosition()==SexPositionNew.COWGIRL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.COWGIRL_RIDING) {
 				
 				return SubCowgirl.getPartnerTongueMouthDescription();
 			
-			} else if(Sex.getPosition()==SexPosition.FACING_WALL_PLAYER) {// Face-to-wall penetration descriptions:
+			} else if(Sex.getPosition()==SexPositionNew.FACING_WALL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.FACE_TO_WALL_AGAINST_WALL) {// Face-to-wall penetration descriptions:
 				
-				switch(Sex.getSexPacePartner()) {
+				switch(Sex.getSexPace(Sex.getActivePartner())) {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Reaching up to take hold of your chin, [npc.name] leans forwards, pressing [npc.her] [npc.lips+] against yours as [npc.she] pulls you into a gentle kiss.",
@@ -76,7 +73,7 @@ public class PartnerTongueMouth {
 					default:
 						break;
 				}
-				switch(Sex.getSexPacePlayer()) {
+				switch(Sex.getSexPace(Main.game.getPlayer())) {
 					case SUB_EAGER:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" You happily push your [pc.tongue] deep into [npc.her] mouth, eagerly pressing your [pc.lips+] back against [npc.hers] and [pc.moaning] in delight as you greedily return [npc.her] display of affection.",
@@ -101,43 +98,43 @@ public class PartnerTongueMouth {
 				
 			} else { // Default penetration descriptions:
 			
-				switch(Sex.getSexPacePartner()) {
+				switch(Sex.getSexPace(Sex.getActivePartner())) {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Looking into your [pc.eyes], [npc.name] leans forwards, pressing [npc.her] [npc.lips+] against yours as [npc.she] pulls you into a gentle kiss.",
-								"[npc.Name] leans forwards, and you find yourself breathing in [npc.her] "+(Sex.getPartner().isFeminine()?"feminine scent":"masculine musk")+" as [npc.she] gently presses [npc.her] [npc.lips+] against yours.",
+								"[npc.Name] leans forwards, and you find yourself breathing in [npc.her] "+(Sex.getActivePartner().isFeminine()?"feminine scent":"masculine musk")+" as [npc.she] gently presses [npc.her] [npc.lips+] against yours.",
 								"[npc.Name] leans in against your [pc.breasts+], tilting [npc.her] head slightly to one side before gently pulling you into a loving kiss."));
 						break;
 					case DOM_NORMAL:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Looking into your [pc.eyes], [npc.name] leans forwards, pressing [npc.her] [npc.lips+] against yours as [npc.she] pulls you into a passionate kiss.",
-								"[npc.Name] leans forwards, and you find yourself breathing in [npc.her] "+(Sex.getPartner().isFeminine()?"feminine scent":"masculine musk")+" as [npc.she] eagerly presses [npc.her] [npc.lips+] against yours.",
+								"[npc.Name] leans forwards, and you find yourself breathing in [npc.her] "+(Sex.getActivePartner().isFeminine()?"feminine scent":"masculine musk")+" as [npc.she] eagerly presses [npc.her] [npc.lips+] against yours.",
 								"[npc.Name] leans in against your [pc.breasts+], tilting [npc.her] head slightly to one side as [npc.she] pulls you into a passionate kiss."));
 						break;
 					case DOM_ROUGH:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Looking into your [pc.eyes], [npc.name] leans forwards, grinding [npc.her] [npc.lips+] against yours as [npc.she] pulls you into a rough kiss.",
-								"[npc.Name] leans forwards, and you find yourself breathing in [npc.her] "+(Sex.getPartner().isFeminine()?"feminine scent":"masculine musk")+" as [npc.she] roughly grinds [npc.her] [npc.lips+] against yours.",
+								"[npc.Name] leans forwards, and you find yourself breathing in [npc.her] "+(Sex.getActivePartner().isFeminine()?"feminine scent":"masculine musk")+" as [npc.she] roughly grinds [npc.her] [npc.lips+] against yours.",
 								"[npc.Name] leans in against your [pc.breasts+], violently pulling you into a rough kiss as [npc.she] grinds [npc.her] body against yours."));
 						break;
 					case SUB_EAGER:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-								"Looking into your [npc.eyes], [npc.name] leans forwards, eagerly pressing [npc.her] [npc.lips+] against yours as [npc.she] lets out lewd little [npc.moaning] noises,"
+								"Looking into your [pc.eyes], [npc.name] leans forwards, eagerly pressing [npc.her] [npc.lips+] against yours as [npc.she] lets out lewd little [npc.moaning] noises,"
 										+ " encouraging you to pull [npc.herHim] into a passionate kiss.",
-								"[npc.Name] leans forwards, and you find yourself breathing in [npc.her] "+(Sex.getPartner().isFeminine()?"feminine scent":"masculine musk")+" as [npc.she] eagerly presses [npc.her] [npc.lips+] against yours.",
+								"[npc.Name] leans forwards, and you find yourself breathing in [npc.her] "+(Sex.getActivePartner().isFeminine()?"feminine scent":"masculine musk")+" as [npc.she] eagerly presses [npc.her] [npc.lips+] against yours.",
 								"[npc.Name] leans in against your [pc.breasts+], tilting [npc.her] head slightly to one side before planting a desperate, passionate kiss on your [pc.lips+]."));
 						break;
 					case SUB_NORMAL:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Looking into your [pc.eyes], [npc.name] leans forwards, pressing [npc.her] [npc.lips+] against yours as [npc.she] lets out a series of soft [npc.moans], encouraging you to pull [npc.herHim] into a passionate kiss.",
-								"[npc.Name] leans forwards, and you find yourself breathing in [npc.her] "+(Sex.getPartner().isFeminine()?"feminine scent":"masculine musk")+" as [npc.she] eagerly presses [npc.her] [npc.lips+] against yours.",
+								"[npc.Name] leans forwards, and you find yourself breathing in [npc.her] "+(Sex.getActivePartner().isFeminine()?"feminine scent":"masculine musk")+" as [npc.she] eagerly presses [npc.her] [npc.lips+] against yours.",
 								"[npc.Name] leans in against your [pc.breasts+], tilting [npc.her] head slightly to one side before planting a passionate kiss on your [pc.lips+]."));
 						break;
 					default:
 						break;
 				}
 				
-				switch(Sex.getSexPacePlayer()) {
+				switch(Sex.getSexPace(Main.game.getPlayer())) {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" You slowly push your [pc.tongue] into [npc.her] mouth, reaching up to gently caress [npc.her] [npc.face] as you happily return [npc.her] display of affection.",
@@ -206,7 +203,7 @@ public class PartnerTongueMouth {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 
 		@Override
@@ -214,7 +211,7 @@ public class PartnerTongueMouth {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPosition.FACING_WALL_PLAYER) {// Face-to-wall penetration descriptions:
+			if(Sex.getPosition()==SexPositionNew.FACING_WALL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.FACE_TO_WALL_AGAINST_WALL) {// Face-to-wall penetration descriptions:
 				
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"Still leaning into your back, [npc.name] gently presses [npc.her] [npc.lips+] against yours, before planting a series of soft kisses on your mouth.",
@@ -225,12 +222,12 @@ public class PartnerTongueMouth {
 			
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"Gently pressing [npc.her] [npc.lips+] against yours, [npc.name] plants a series of soft kisses on your mouth.",
-						"[npc.Name] gently leans in against you, and you find yourself breathing in [npc.her] "+(Sex.getPartner().isFeminine()?"feminine scent":"masculine musk")+" as [npc.she] plants a series of soft kisses on your [pc.lips+].",
+						"[npc.Name] gently leans in against you, and you find yourself breathing in [npc.her] "+(Sex.getActivePartner().isFeminine()?"feminine scent":"masculine musk")+" as [npc.she] plants a series of soft kisses on your [pc.lips+].",
 						"[npc.Name] gently presses up against your [pc.breasts+], tilting [npc.her] head slightly to one side as [npc.she] softly kisses your [pc.lips+]."));
 			
 			}
 			
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" You let out an eager [pc.moan] in response, enthusiastically pressing yourself against [npc.herHim] and thrusting your [pc.tongue] into [npc.her] mouth as you eagerly return [npc.her] display of affection.",
@@ -276,7 +273,7 @@ public class PartnerTongueMouth {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 
 		@Override
@@ -284,7 +281,7 @@ public class PartnerTongueMouth {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPosition.FACING_WALL_PLAYER) {// Face-to-wall penetration descriptions:
+			if(Sex.getPosition()==SexPositionNew.FACING_WALL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.FACE_TO_WALL_AGAINST_WALL) {// Face-to-wall penetration descriptions:
 				
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"Still leaning into your back, [npc.name] eagerly presses [npc.her] [npc.lips+] against yours, before planting a series of passionate kisses on your mouth.",
@@ -295,13 +292,13 @@ public class PartnerTongueMouth {
 			
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"With [npc.a_moan+], [npc.name] plants a series of passionate kisses on your mouth, before sliding [npc.her] [npc.tongue] past your [pc.lips+].",
-						"[npc.Name] leans in against you, and you find yourself breathing in [npc.her] "+(Sex.getPartner().isFeminine()?"feminine scent":"masculine musk")
+						"[npc.Name] leans in against you, and you find yourself breathing in [npc.her] "+(Sex.getActivePartner().isFeminine()?"feminine scent":"masculine musk")
 							+" as [npc.she] slides [npc.her] [npc.tongue] past your [pc.lips+], pulling you into a passionate kiss.",
 						"[npc.Name] presses up against your [pc.breasts+], tilting [npc.her] head slightly to one side before pushing [npc.her] [npc.tongue] past your [pc.lips+]."));
 			
 			}
 			
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" You let out an eager [pc.moan] in response, enthusiastically pressing yourself against [npc.herHim] and thrusting your [pc.tongue] into [npc.her] mouth as you eagerly return [npc.her] display of affection.",
@@ -347,7 +344,7 @@ public class PartnerTongueMouth {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 
 		@Override
@@ -355,7 +352,7 @@ public class PartnerTongueMouth {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPosition.FACING_WALL_PLAYER) {// Face-to-wall penetration descriptions:
+			if(Sex.getPosition()==SexPositionNew.FACING_WALL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.FACE_TO_WALL_AGAINST_WALL) {// Face-to-wall penetration descriptions:
 				
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"Still violently grinding into your back, [npc.name] forcefully presses [npc.her] [npc.lips+] against your mouth before greedily thrusting [npc.her] [npc.tongue] deep down your throat.",
@@ -367,13 +364,13 @@ public class PartnerTongueMouth {
 			
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"With [npc.a_moan+], [npc.name] roughly grinds [npc.herself] up against you, violently pressing [npc.her] [npc.lips+] against your mouth before greedily thrusting [npc.her] [npc.tongue] deep down your throat.",
-						"[npc.Name] grinds [npc.herself] against you, and you find yourself taking in a deep breath of [npc.her] "+(Sex.getPartner().isFeminine()?"feminine scent":"masculine musk")
+						"[npc.Name] grinds [npc.herself] against you, and you find yourself taking in a deep breath of [npc.her] "+(Sex.getActivePartner().isFeminine()?"feminine scent":"masculine musk")
 							+" as [npc.she] forces [npc.her] [npc.tongue] past your [pc.lips+], roughly pulling you up against [npc.herHim] as [npc.she] greedily tongue-fucks your mouth.",
 						"[npc.Name] presses up against your [pc.breasts+], leaning in to roughly grind [npc.her] [npc.lips+] against your mouth, before thrusting [npc.her] [npc.tongue] deep down your throat."));
 			
 			}
 			
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" You let out an eager [pc.moan] in response, enthusiastically pressing yourself against [npc.herHim] as you willingly submit to [npc.her] rough treatment.",
@@ -397,15 +394,6 @@ public class PartnerTongueMouth {
 			return UtilText.nodeContentSB.toString();
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_MASOCHIST));
-		}
-
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT), new ListValue<>(Fetish.FETISH_SADIST));
-		}
 	};
 	
 	public static final SexAction PARTNER_KISS_SUB_NORMAL = new SexAction(
@@ -429,7 +417,7 @@ public class PartnerTongueMouth {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 
 		@Override
@@ -439,11 +427,11 @@ public class PartnerTongueMouth {
 			
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"With [npc.a_moan+], [npc.name] leans in against your [pc.breasts+], before planting a series of passionate kisses on your [pc.lips+].",
-					"[npc.Name] leans in against you, and you catch a breath of [npc.her] "+(Sex.getPartner().isFeminine()?"feminine scent":"masculine musk")
+					"[npc.Name] leans in against you, and you catch a breath of [npc.her] "+(Sex.getActivePartner().isFeminine()?"feminine scent":"masculine musk")
 						+" as [npc.she] presses [npc.her] [npc.lips+] against yours, encouraging you to pull [npc.herHim] into a passionate kiss.",
 					"[npc.Name] grinds up against your [pc.breasts+], tilting [npc.her] head slightly to one side before passionately pressing [npc.her] [npc.lips+] against yours."));
 			
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" You let out a soft [pc.moan] in response, taking a moment to plant a series of gentle kisses on [npc.her] [npc.lips+], before gently sliding your [pc.tongue] into [npc.her] mouth.",
@@ -490,7 +478,7 @@ public class PartnerTongueMouth {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 
 		@Override
@@ -500,11 +488,11 @@ public class PartnerTongueMouth {
 			
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"With [npc.a_moan+], [npc.name] presses [npc.herself] against your [pc.breasts+], before planting a series of frantic, passionate kisses on your [pc.lips+].",
-					"[npc.Name] eagerly leans in against you, and you find yourself breathing in [npc.her] "+(Sex.getPartner().isFeminine()?"feminine scent":"masculine musk")
+					"[npc.Name] eagerly leans in against you, and you find yourself breathing in [npc.her] "+(Sex.getActivePartner().isFeminine()?"feminine scent":"masculine musk")
 						+" as [npc.she] presses [npc.her] [npc.lips+] against yours, encouraging you to pull [npc.herHim] into a passionate kiss.",
 					"[npc.Name] eagerly leans in against your [pc.breasts+], tilting [npc.her] head slightly to one side before frantically pressing [npc.her] [npc.lips+] against yours."));
 			
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" You let out a soft [pc.moan] in response, taking a moment to plant a series of gentle kisses on [npc.her] [npc.lips+], before gently sliding your [pc.tongue] into [npc.her] mouth.",
@@ -553,22 +541,22 @@ public class PartnerTongueMouth {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Pulling back, [npc.name] roughly pushes you away from [npc.herHim] as [npc.she] puts an end to [npc.her] kiss.",
-							"As you take in a deep breath of [npc.name]'s "+(Sex.getPartner().isFeminine()?"feminine scent":"masculine musk")+", [npc.she] suddenly, and roughly, pushes you away from [npc.herHim], bringing an end to [npc.her] kiss.",
+							"As you take in a deep breath of [npc.name]'s "+(Sex.getActivePartner().isFeminine()?"feminine scent":"masculine musk")+", [npc.she] suddenly, and roughly, pushes you away from [npc.herHim], bringing an end to [npc.her] kiss.",
 							"[npc.Name] pulls back from your [pc.breasts+], roughly pushing you away from [npc.herHim] as [npc.she] breaks off [npc.her] kiss."));
 					break;
 				default:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Looking into your [pc.eyes], [npc.name] pulls back, taking [npc.her] [npc.lips+] away from yours as [npc.she] puts an end to [npc.her] kiss.",
-							"As you take in a deep breath of [npc.name]'s "+(Sex.getPartner().isFeminine()?"feminine scent":"masculine musk")+", [npc.she] suddenly pulls back, bringing an end to [npc.her] kiss.",
+							"As you take in a deep breath of [npc.name]'s "+(Sex.getActivePartner().isFeminine()?"feminine scent":"masculine musk")+", [npc.she] suddenly pulls back, bringing an end to [npc.her] kiss.",
 							"[npc.Name] pulls back from your [pc.breasts+], taking [npc.her] [npc.lips+] away from yours as [npc.she] breaks off [npc.her] kiss."));
 					break;
 			}
 			
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" You breathe out a little sigh of relief, before continuing to [pc.sob] and struggle against [npc.name] as you try to break free from [npc.her] grasp.",
@@ -609,7 +597,7 @@ public class PartnerTongueMouth {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 
 		@Override
@@ -619,10 +607,10 @@ public class PartnerTongueMouth {
 			
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Gently pressing your [pc.lips+] against [npc.name]'s, you plant a series of soft kisses on [npc.her] mouth.",
-					"You gently lean in against [npc.name], breathing in [npc.her] "+(Sex.getPartner().isFeminine()?"feminine scent":"masculine musk")+" as you plant a series of soft kisses on [npc.her] [npc.lips+].",
+					"You gently lean in against [npc.name], breathing in [npc.her] "+(Sex.getActivePartner().isFeminine()?"feminine scent":"masculine musk")+" as you plant a series of soft kisses on [npc.her] [npc.lips+].",
 					"You gently press up against [npc.name]'s [npc.breasts+], tilting your head slightly to one side as you softly kiss [npc.her] [npc.lips+]."));
 			
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc.She] lets out an eager [npc.moan] in response, enthusiastically pressing [npc.herself] against you and thrusting [npc.her] [npc.tongue] into your mouth as [npc.she] eagerly returns your display of affection.",
@@ -668,7 +656,7 @@ public class PartnerTongueMouth {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 
 		@Override
@@ -678,10 +666,10 @@ public class PartnerTongueMouth {
 			
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"With [pc.a_moan+], you plant a series of passionate kisses on [npc.name]'s mouth, before sliding your [pc.tongue] past [npc.her] [npc.lips+].",
-					"You lean in against [npc.name], breathing in [npc.her] "+(Sex.getPartner().isFeminine()?"feminine scent":"masculine musk")+" as you slide your [pc.tongue] past [npc.her] [npc.lips+], pulling [npc.herHim] into a passionate kiss.",
+					"You lean in against [npc.name], breathing in [npc.her] "+(Sex.getActivePartner().isFeminine()?"feminine scent":"masculine musk")+" as you slide your [pc.tongue] past [npc.her] [npc.lips+], pulling [npc.herHim] into a passionate kiss.",
 					"You press up against [npc.name]'s [npc.breasts+], tilting your head slightly to one side before pushing your [pc.tongue] past [npc.her] [npc.lips+]."));
 			
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc.She] lets out an eager [npc.moan] in response, enthusiastically pressing [npc.herself] against you and thrusting [npc.her] [npc.tongue] into your mouth as [npc.she] eagerly returns your display of affection.",
@@ -727,7 +715,7 @@ public class PartnerTongueMouth {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 
 		@Override
@@ -737,11 +725,11 @@ public class PartnerTongueMouth {
 			
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"With [pc.a_moan+], you roughly grind yourself up against [npc.name], violently pressing your [pc.lips+] against [npc.her] mouth before greedily thrusting your [pc.tongue] down [npc.her] throat.",
-					"You grind yourself against [npc.name], taking in a deep breath of [npc.her] "+(Sex.getPartner().isFeminine()?"feminine scent":"masculine musk")
+					"You grind yourself against [npc.name], taking in a deep breath of [npc.her] "+(Sex.getActivePartner().isFeminine()?"feminine scent":"masculine musk")
 						+" as you force your [pc.tongue] past [npc.her] [npc.lips+], violently pulling [npc.herHim] up against you as you greedily tongue-fuck [npc.her] mouth.",
 					"You press up against [npc.name]'s [npc.breasts+], leaning in to roughly grind your [pc.lips+] against [npc.her] mouth, before thrusting your [pc.tongue] deep down [npc.her] throat."));
 			
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc.She] lets out an eager [npc.moan] in response, enthusiastically pressing [npc.herself] against you as [npc.she] willingly submits to your rough treatment.",
@@ -765,15 +753,6 @@ public class PartnerTongueMouth {
 			return UtilText.nodeContentSB.toString();
 		}
 
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT), new ListValue<>(Fetish.FETISH_SADIST));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_MASOCHIST));
-		}
 	};
 	
 	public static final SexAction PLAYER_KISS_SUB_RESIST = new SexAction(
@@ -797,7 +776,7 @@ public class PartnerTongueMouth {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 
 		@Override
@@ -807,11 +786,11 @@ public class PartnerTongueMouth {
 			
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Feeling tears welling up in your eyes, you let out [pc.a_sob+], trying to push back against [npc.name] in response to [npc.her] unwanted kisses.",
-					"[npc.Name]'s "+(Sex.getPartner().isFeminine()?"feminine scent":"masculine musk")+" overwhelms your senses as you let out a muffled [pc.sob],"
+					"[npc.Name]'s "+(Sex.getActivePartner().isFeminine()?"feminine scent":"masculine musk")+" overwhelms your senses as you let out a muffled [pc.sob],"
 							+ " desperately trying to push [npc.herHim] off of you as [npc.she] continues assaulting your mouth with [npc.her] [npc.lips] and [npc.tongue].",
 					"You desperately try to push [npc.name] away, [pc.sobbing] in distress as [npc.she] continues kissing and grinding up against you."));
 			
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc.She] lets out a soothing [npc.moan] in response, ignoring your protests as [npc.she] tries to calm you down by continuing to gently kiss your sealed [pc.lips].",
@@ -857,7 +836,7 @@ public class PartnerTongueMouth {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 
 		@Override
@@ -865,7 +844,7 @@ public class PartnerTongueMouth {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPosition.FACING_WALL_PLAYER) {// Face-to-wall penetration descriptions:
+			if(Sex.getPosition()==SexPositionNew.FACING_WALL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.FACE_TO_WALL_AGAINST_WALL) {// Face-to-wall penetration descriptions:
 				
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"With [pc.a_moan+], you lean back against [npc.name]'s [npc.breasts+], before planting a series of passionate kisses on [npc.her] [npc.lips+].",
@@ -876,13 +855,13 @@ public class PartnerTongueMouth {
 			
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"With [pc.a_moan+], you lean in against [npc.name]'s [npc.breasts+], before planting a series of passionate kisses on [npc.her] [npc.lips+].",
-						"You lean in against [npc.name], breathing in [npc.her] "+(Sex.getPartner().isFeminine()?"feminine scent":"masculine musk")
+						"You lean in against [npc.name], breathing in [npc.her] "+(Sex.getActivePartner().isFeminine()?"feminine scent":"masculine musk")
 							+" as you press your [pc.lips+] against [npc.hers], encouraging [npc.herHim] to pull you into a passionate kiss.",
 						"You press up against [npc.name]'s [npc.breasts+], tilting your head slightly to one side before pressing your [pc.lips+] against [npc.hers]."));
 			
 			}
 			
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc.She] lets out a soft [npc.moan] in response, taking a moment to plant a series of gentle kisses on your [pc.lips+], before gently sliding [npc.her] tongue into your mouth.",
@@ -929,7 +908,7 @@ public class PartnerTongueMouth {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 
 		@Override
@@ -937,7 +916,7 @@ public class PartnerTongueMouth {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPosition.FACING_WALL_PLAYER) {// Face-to-wall penetration descriptions:
+			if(Sex.getPosition()==SexPositionNew.FACING_WALL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.FACE_TO_WALL_AGAINST_WALL) {// Face-to-wall penetration descriptions:
 
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"With [pc.a_moan+], you press yourself back against [npc.name]'s [npc.breasts+], before planting a series of frantic, passionate kisses on [npc.her] [npc.lips+].",
@@ -948,13 +927,13 @@ public class PartnerTongueMouth {
 			
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"With [pc.a_moan+], you press yourself against [npc.name]'s [npc.breasts+], before planting a series of frantic, passionate kisses on [npc.her] [npc.lips+].",
-						"You eagerly lean in against [npc.name], taking a deep breath of [npc.her] "+(Sex.getPartner().isFeminine()?"feminine scent":"masculine musk")
+						"You eagerly lean in against [npc.name], taking a deep breath of [npc.her] "+(Sex.getActivePartner().isFeminine()?"feminine scent":"masculine musk")
 							+" as you press your [pc.lips+] against [npc.hers], encouraging [npc.herHim] to pull you into a passionate kiss.",
 						"You eagerly lean in against [npc.name]'s [npc.breasts+], tilting your head slightly to one side before frantically pressing your [pc.lips+] against [npc.hers]."));
 			
 			}
 			
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc.She] lets out a soft [npc.moan] in response, taking a moment to plant a series of gentle kisses on your [pc.lips+], before gently sliding [npc.her] tongue into your mouth.",
@@ -990,7 +969,7 @@ public class PartnerTongueMouth {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexManager().isConsensualSex() || Sex.isPlayerDom(); // Player can only stop in consensual sex or if they're the dom.
+			return Sex.isConsensual() || Sex.isDom(Main.game.getPlayer()); // Player can only stop in consensual sex or if they're the dom.
 		}
 		
 		@Override
@@ -1008,22 +987,22 @@ public class PartnerTongueMouth {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Pulling back, you roughly push [npc.name] away from you as you put an end to your kiss.",
-							"Taking in one last breath of [npc.name]'s "+(Sex.getPartner().isFeminine()?"feminine scent":"masculine musk")+", you push [npc.her] away from you, bringing an end to your kiss.",
+							"Taking in one last breath of [npc.name]'s "+(Sex.getActivePartner().isFeminine()?"feminine scent":"masculine musk")+", you push [npc.her] away from you, bringing an end to your kiss.",
 							"You pull back from [npc.name]'s [npc.breasts+], pushing [npc.her] away from you as you break off your kiss."));
 					break;
 				default:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Looking into [npc.name]'s [npc.eyes], you pull back, taking your [pc.lips+] away from [npc.hers] as you put an end to your kiss.",
-							"Taking in one last breath of [npc.name]'s "+(Sex.getPartner().isFeminine()?"feminine scent":"masculine musk")+", you pull back, bringing an end to your kiss.",
+							"Taking in one last breath of [npc.name]'s "+(Sex.getActivePartner().isFeminine()?"feminine scent":"masculine musk")+", you pull back, bringing an end to your kiss.",
 							"You pull back from [npc.name]'s [npc.breasts+], taking your [pc.lips+] away from [npc.hers] as you break off your kiss."));
 					break;
 			}
 			
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc.Name] breathes a little sigh of relief, before continuing to [npc.sob] and struggle against you as [npc.she] realises that you aren't finished just yet.",

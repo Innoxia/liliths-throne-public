@@ -20,17 +20,17 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 public class Face implements BodyPartInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private FaceType type;
-	private boolean piercedNose;
-	private BodyHair facialHair;
+	protected FaceType type;
+	protected boolean piercedNose;
+	protected BodyHair facialHair;
 	
-	private Mouth mouth;
-	private Tongue tongue;
+	protected Mouth mouth;
+	protected Tongue tongue;
 
 	public Face(FaceType type, int lipSize) {
 		this.type = type;
 		piercedNose = false;
-		facialHair = BodyHair.NONE;
+		facialHair = BodyHair.ZERO_NONE;
 		
 		mouth = new Mouth(type.getMouthType(), lipSize, Wetness.THREE_WET.getValue(), Capacity.THREE_SLIGHTLY_LOOSE.getMedianValue(), OrificeElasticity.FOUR_LIMBER.getValue(), OrificePlasticity.THREE_RESILIENT.getValue(), true);
 		tongue = new Tongue(type.getTongueType());
@@ -215,6 +215,21 @@ public class Face implements BodyPartInterface, Serializable {
 							+ "</p>"));
 				}
 				break;
+			case ALLIGATOR_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" You feel your nose and mouth twitching and transforming as they push out into an anthropomorphic reptile muzzle, and your tongue flattens out, turning into an alligator-like tongue."
+								+ " A layer of [pc.faceSkin+] quickly grows to cover your new face, and as the transformation finally comes to an end, you're left panting as you try to recover and catch your breath.</br>"
+								+ "You now have an anthropomorphic [style.boldGatorMorph(alligator-like face)], covered in [pc.faceFullDescription], and within your mouth, you have a [style.boldGatorMorph(flat, alligator-like tongue)]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(UtilText.parse(owner,
+								" [npc.Her] nose and mouth twitch and transform as they push out into an anthropomorphic reptile muzzle, and [npc.her] tongue flattens out, turning into an alligator-like tongue."
+								+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, and as the transformation finally comes to an end, [npc.she]'s left panting as [npc.she] tries to recover and catch [npc.her] breath.</br>"
+								+ "[npc.Name] now has an anthropomorphic [style.boldGatorMorph(alligator-like face)], covered in [npc.faceFullDescription], and within [npc.her] mouth, [npc.she] has a [style.boldGatorMorph(flat, alligator-like tongue)]."
+							+ "</p>"));
+				}
+				break;
 			case HORSE_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
@@ -227,6 +242,22 @@ public class Face implements BodyPartInterface, Serializable {
 								" [npc.Her] nose and mouth twitch and transform as they push out into an anthropomorphic equine muzzle, and [npc.her] tongue grows thicker and stronger, turning into a horse-like tongue."
 								+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, and as the transformation finally comes to an end, [npc.she]'s left panting as [npc.she] tries to recover and catch [npc.her] breath.</br>"
 								+ "[npc.Name] now has an anthropomorphic [style.boldHorseMorph(horse-like face)], covered in [npc.faceFullDescription], and within [npc.her] mouth, [npc.she] has a [style.boldHorseMorph(strong, horse-like tongue)]."
+							+ "</p>"));
+				}
+				break;
+			case REINDEER_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" You feel your nose and mouth twitching and transforming as they push out into an anthropomorphic reindeer-like muzzle, and your tongue grows thicker and stronger, turning into a rangiferine tongue."
+								+ " A layer of [pc.faceSkin+] quickly grows to cover your new face, and as the transformation finally comes to an end, you're left panting as you try to recover and catch your breath.</br>"
+								+ "You now have an anthropomorphic [style.boldReindeerMorph(reindeer-like face)], covered in [pc.faceFullDescription], and within your mouth, you have a [style.boldReindeerMorph(strong, reindeer-like tongue)]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(UtilText.parse(owner,
+								" [npc.Her] nose and mouth twitch and transform as they push out into an anthropomorphic reindeer-like muzzle, and [npc.her] tongue grows thicker and stronger, turning into a rangiferine tongue."
+								+ " A layer of [npc.faceSkin+] quickly grows to cover [npc.her] new face, and as the transformation finally comes to an end, [npc.she]'s left panting as [npc.she] tries to recover and catch [npc.her] breath.</br>"
+								+ "[npc.Name] now has an anthropomorphic [style.boldReindeerMorph(reindeer-like face)], covered in [npc.faceFullDescription],"
+									+ " and within [npc.her] mouth, [npc.she] has a [style.boldReindeerMorph(strong, reindeer-like tongue)]."
 							+ "</p>"));
 				}
 				break;
@@ -324,7 +355,7 @@ public class Face implements BodyPartInterface, Serializable {
 			return "";
 		}
 		
-		if(owner.getFemininityValue()>=Femininity.ANDROGYNOUS.getMinimumFemininity() && facialHair!=BodyHair.NONE) {
+		if(owner.getFemininityValue()>=Femininity.ANDROGYNOUS.getMinimumFemininity() && facialHair!=BodyHair.ZERO_NONE) {
 			if(owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(You're too feminine to be able to grow a beard...)]</p>";
 			} else {
@@ -339,56 +370,56 @@ public class Face implements BodyPartInterface, Serializable {
 			UtilText.transformationContentSB.setLength(0);
 			
 			switch(facialHair) {
-				case NONE:
+				case ZERO_NONE:
 					if(owner.isPlayer()) {
 						UtilText.transformationContentSB.append("<p>There is no longer any trace of "+getFacialHairType(owner).getFullDescription(owner, true)+" on your face.</p>");
 					} else {
 						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>There is no longer any trace of "+getFacialHairType(owner).getFullDescription(owner, true)+" on [npc.her] face.</p>"));
 					}
 					break;
-				case STUBBLE:
+				case ONE_STUBBLE:
 					if(owner.isPlayer()) {
 						UtilText.transformationContentSB.append("<p>You now have a stubbly layer of "+getFacialHairType(owner).getFullDescription(owner, true)+" on your face.</p>");
 					} else {
 						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now has a stubbly layer of "+getFacialHairType(owner).getFullDescription(owner, true)+" on [npc.her] face.</p>"));
 					}
 					break;
-				case MANICURED:
+				case TWO_MANICURED:
 					if(owner.isPlayer()) {
 						UtilText.transformationContentSB.append("<p>You now have a small amount of "+getFacialHairType(owner).getFullDescription(owner, true)+" on your face.</p>");
 					} else {
 						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now has a small amount of "+getFacialHairType(owner).getFullDescription(owner, true)+" on [npc.her] face.</p>"));
 					}
 					break;
-				case TRIMMED:
+				case THREE_TRIMMED:
 					if(owner.isPlayer()) {
 						UtilText.transformationContentSB.append("<p>You now have a well-trimmed beard of "+getFacialHairType(owner).getFullDescription(owner, true)+" on your face.</p>");
 					} else {
 						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now has a well-trimmed beard of "+getFacialHairType(owner).getFullDescription(owner, true)+" on [npc.her] face.</p>"));
 					}
 					break;
-				case NATURAL:
+				case FOUR_NATURAL:
 					if(owner.isPlayer()) {
 						UtilText.transformationContentSB.append("<p>You now have a beard, made of "+getFacialHairType(owner).getFullDescription(owner, true)+".</p>");
 					} else {
 						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now has a beard, made of "+getFacialHairType(owner).getFullDescription(owner, true)+".</p>"));
 					}
 					break;
-				case UNKEMPT:
+				case FIVE_UNKEMPT:
 					if(owner.isPlayer()) {
 						UtilText.transformationContentSB.append("<p>You now have an unkempt, bushy beard, made of "+getFacialHairType(owner).getFullDescription(owner, true)+".</p>");
 					} else {
 						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now has an unkempt, bushy beard, made of "+getFacialHairType(owner).getFullDescription(owner, true)+".</p>"));
 					}
 					break;
-				case BUSHY:
+				case SIX_BUSHY:
 					if(owner.isPlayer()) {
 						UtilText.transformationContentSB.append("<p>You now have a large, bushy beard, made of "+getFacialHairType(owner).getFullDescription(owner, true)+".</p>");
 					} else {
 						UtilText.transformationContentSB.append(UtilText.parse(owner, "<p>[npc.Name] now has a large, bushy beard, made of "+getFacialHairType(owner).getFullDescription(owner, true)+".</p>"));
 					}
 					break;
-				case WILD:
+				case SEVEN_WILD:
 					if(owner.isPlayer()) {
 						UtilText.transformationContentSB.append("<p>You now have a wild, thick beard, made of "+getFacialHairType(owner).getFullDescription(owner, true)+".</p>");
 					} else {

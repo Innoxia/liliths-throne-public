@@ -1,9 +1,6 @@
 package com.lilithsthrone.game.sex.sexActions.universal.sub;
 
-import java.util.List;
-
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.OrificeType;
@@ -13,8 +10,6 @@ import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.69
@@ -57,16 +52,6 @@ public class SubSixtyNine {
 						"Dropping [npc.her] head down into your crotch, [npc.name] roughly grinds [npc.her] mouth against your genderless crotch, snogging and licking your sensitive mound as you [pc.moan+] beneath [npc.herHim].",
 						"Pushing [npc.her] face down into your groin, [npc.name] starts grinding [npc.her] [npc.lips+] against your genderless mound, roughly snogging and licking your sensitive crotch as you [pc.moan+] beneath [npc.herHim].");
 		}
-		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_RECEIVING));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_GIVING));
-		}
 	};
 	
 	public static final SexAction PARTNER_MOUND_KISSING = new SexAction(
@@ -100,16 +85,6 @@ public class SubSixtyNine {
 					"You let out [pc.a_moan+] as you feel [npc.name] drop [npc.her] head between your [pc.legs] before starting to passionately snog your doll-like mound.",
 					"Dropping [npc.her] head down into your crotch, [npc.name] passionately presses [npc.her] mouth against your genderless crotch, snogging and licking your sensitive mound as you [pc.moan+] beneath [npc.herHim].",
 					"Pushing [npc.her] face down into your groin, [npc.name] starts pressing [npc.her] [npc.lips+] against your genderless mound, eagerly snogging and licking your sensitive crotch as you [pc.moan+] beneath [npc.herHim].");
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_RECEIVING));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_GIVING));
 		}
 	};
 	
@@ -145,16 +120,6 @@ public class SubSixtyNine {
 					"Dropping [npc.her] head down into your crotch, [npc.name] presses [npc.her] mouth against your genderless crotch, planting a series of gentle kisses on your sensitive mound as you [pc.moan+] beneath [npc.herHim].",
 					"Pushing [npc.her] face down into your groin, [npc.name] presses [npc.her] [npc.lips+] against your genderless mound, gently kissing and licking your sensitive crotch as you [pc.moan+] beneath [npc.herHim].");
 		}
-		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_RECEIVING));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_GIVING));
-		}
 	};
 	
 	// Player actions:
@@ -180,7 +145,7 @@ public class SubSixtyNine {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getPartner().hasVagina() && !Sex.getPartner().hasPenis();
+			return !Sex.getActivePartner().hasVagina() && !Sex.getActivePartner().hasPenis();
 		}
 
 		@Override
@@ -191,16 +156,6 @@ public class SubSixtyNine {
 						"Pushing your head up, you eagerly press your mouth against [npc.name]'s genderless crotch, snogging and licking [npc.her] sensitive mound as [npc.she] squeals and cries out in pleasure.",
 						"Reaching around and grabbing [npc.name]'s [npc.ass+], you pull [npc.herHim] down onto your [pc.face+],"
 								+ " grinding your [pc.lips] against [npc.her] genderless mound as you enthusiastically snog and lick at [npc.her] sensitive crotch.");
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_GIVING));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_RECEIVING));
 		}
 	};
 	
@@ -225,7 +180,7 @@ public class SubSixtyNine {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getPartner().hasVagina() && !Sex.getPartner().hasPenis();
+			return !Sex.getActivePartner().hasVagina() && !Sex.getActivePartner().hasPenis();
 		}
 
 		@Override
@@ -233,18 +188,8 @@ public class SubSixtyNine {
 			return UtilText.returnStringAtRandom(
 						"You plant a series of delicate kisses on [npc.name]'s doll-like mound, causing [npc.herHim] to let out [npc.a_moan+] and push [npc.her] [npc.hips] down against your [pc.face+].",
 						"[npc.Name] lets out [npc.a_moan+] as you gently kiss and lick [npc.her] doll-like crotch.",
-						"With delicate care, you plant a series of gentle kisses on [npc.name]'s genderless mound, causing [npc.her] to let out [npc.a_moan+].",
-						"You gently kiss and lick at [npc.name]'s genderless crotch, causing [npc.her] to let out [npc.a_moan+].");
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_GIVING));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_RECEIVING));
+						"With delicate care, you plant a series of gentle kisses on [npc.name]'s genderless mound, causing [npc.herHim] to let out [npc.a_moan+].",
+						"You gently kiss and lick at [npc.name]'s genderless crotch, causing [npc.herHim] to let out [npc.a_moan+].");
 		}
 	};
 }

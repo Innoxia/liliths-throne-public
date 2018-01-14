@@ -2,10 +2,14 @@ package com.lilithsthrone.game.dialogue.encounters;
 
 /**
  * @since 0.1.69.9
- * @version 0.1.8
+ * @version 0.1.88
  * @author Innoxia
  */
 public enum EncounterType {
+
+	SPECIAL_DOMINION_CULTIST,
+	
+	SLAVE_USES_YOU,
 	
 	DOMINION_FIND_ITEM,
 	DOMINION_FIND_CLOTHING,

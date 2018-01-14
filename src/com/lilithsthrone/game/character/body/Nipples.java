@@ -9,6 +9,7 @@ import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
 import com.lilithsthrone.game.character.body.types.NippleType;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeShape;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
+import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.NippleShape;
 import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
@@ -26,15 +27,15 @@ public class Nipples implements BodyPartInterface, Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private NippleType type;
-	private OrificeNipples orificeNipples;
-	private NippleShape nippleShape;
-	private AreolaeShape areolaeShape;
-	private int areolaeSize;
-	private int nippleSize;
-	private boolean pierced;
+	protected NippleType type;
+	protected OrificeNipples orificeNipples;
+	protected NippleShape nippleShape;
+	protected AreolaeShape areolaeShape;
+	protected int areolaeSize;
+	protected int nippleSize;
+	protected boolean pierced;
 
-	public Nipples(NippleType type, int nippleSize, NippleShape nippleShape, int areolaeSize, int wetness, int capacity, int elasticity, int plasticity, boolean virgin) {
+	public Nipples(NippleType type, int nippleSize, NippleShape nippleShape, int areolaeSize, int wetness, float capacity, int elasticity, int plasticity, boolean virgin) {
 		this.type = type;
 		this.nippleSize = nippleSize;
 		this.nippleShape = nippleShape;
@@ -99,17 +100,26 @@ public class Nipples implements BodyPartInterface, Serializable {
 			descriptorList.add(om.getName());
 		}
 		
-		String wetnessDescriptor = owner.getBreastLactation().getAssociatedWetness().getDescriptor();
+		switch(owner.getBreastLactation().getAssociatedWetness()) {
+			case ONE_SLIGHTLY_MOIST: case TWO_MOIST: case THREE_WET: case FOUR_SLIMY: case FIVE_SLOPPY: case SIX_SOPPING_WET: case SEVEN_DROOLING:
+				descriptorList.add(owner.getBreastLactation().getAssociatedWetness().getDescriptor());
+				break;
+			default:
+				break;
+		}
+		
 		if(Main.game.isInSex()) {
-			if(owner.isPlayer() && !Sex.getWetOrificeTypes().get(OrificeType.NIPPLE_PLAYER).isEmpty()) {
-				wetnessDescriptor = "wet";
-			} else if(!owner.isPlayer() && !Sex.getWetOrificeTypes().get(OrificeType.NIPPLE_PARTNER).isEmpty()) {
-				wetnessDescriptor = "wet";
+			if(owner.isPlayer() && !Sex.getWetOrificeTypes(owner).get(OrificeType.NIPPLE_PLAYER).isEmpty()) {
+				descriptorList.add("wet");
+			} else if(!owner.isPlayer() && !Sex.getWetOrificeTypes(owner).get(OrificeType.NIPPLE_PARTNER).isEmpty()) {
+				descriptorList.add("wet");
 			}
 		}
-		descriptorList.add(wetnessDescriptor);
+		
 		descriptorList.add(type.getDescriptor(owner));
-		descriptorList.add(orificeNipples.getCapacity().getDescriptor());
+		if(orificeNipples.getCapacity()!= Capacity.ZERO_IMPENETRABLE) {
+			descriptorList.add(orificeNipples.getCapacity().getDescriptor());
+		}
 		
 		return UtilText.returnStringAtRandom(descriptorList.toArray(new String[]{}));
 	}

@@ -9,6 +9,7 @@ import com.lilithsthrone.game.character.body.types.MouthType;
 import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.83
@@ -19,10 +20,10 @@ public class Mouth implements BodyPartInterface, Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private MouthType type;
-	private OrificeMouth orificeMouth;
-	private int lipSize;
-	private boolean piercedLip;
+	protected MouthType type;
+	protected OrificeMouth orificeMouth;
+	protected int lipSize;
+	protected boolean piercedLip;
 
 	public Mouth(MouthType type, int lipSize, int wetness, int capacity, int elasticity, int plasticity, boolean virgin) {
 		this.type = type;
@@ -80,11 +81,18 @@ public class Mouth implements BodyPartInterface, Serializable {
 	}
 
 	public String getLipsDescriptor(GameCharacter gc) {
-		if (gc.isFeminine()) {
-			return UtilText.returnStringAtRandom("soft", "plump", "full");
-		} else {
-			return UtilText.returnStringAtRandom("");
+		List<String> descriptorList = new ArrayList<>();
+		
+		if(!Main.game.isInSex() || getLipSize()!=LipSize.ONE_AVERAGE) {
+			descriptorList.add(getLipSize().getName());
 		}
+		
+		if (gc.isFeminine()) {
+			descriptorList.add("soft");
+			descriptorList.add("delicate");
+		}
+		
+		return UtilText.returnStringAtRandom(descriptorList.toArray(new String[]{}));
 	}
 
 	public void setType(MouthType type) {

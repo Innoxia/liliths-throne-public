@@ -52,7 +52,10 @@ public class InventoryTooltipEventListener implements EventListener {
 	private DamageType dt;
 	private AbstractClothing clothing;
 	private Colour colour;
+	private Colour secondaryColour;
+	private Colour tertiaryColour;
 	private AbstractClothingType genericClothing;
+	private AbstractClothing dyeClothing;
 	private InventorySlot invSlot;
 	private TFModifier enchantmentModifier;
 	private TFEssence essence;
@@ -116,24 +119,20 @@ public class InventoryTooltipEventListener implements EventListener {
 					+ "<div class='description' style='height:104px'>" + UtilText.parse(item.getDescription()) + "</div>"
 					
 					
-					+ "<div class='subTitle'>" + "<b style='color: " + com.lilithsthrone.utils.Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol()
-					+ "</b> <b>" + item.getValue() + "</b>" + "</div>");
+					+ "<div class='subTitle'>" + UtilText.formatAsMoney(item.getValue()) + "</div>");
 
 			if (InventoryDialogue.getInventoryNPC() != null && InventoryDialogue.getNPCInventoryInteraction() == InventoryInteraction.TRADING) {
 				if (owner.isPlayer()) {
 					if (InventoryDialogue.getInventoryNPC().willBuy(item))
-						tooltipSB.append("<div class='subTitle'>" + InventoryDialogue.getInventoryNPC().getName("The") + " offers " + " <b style='color: " + com.lilithsthrone.utils.Colour.CURRENCY.toWebHexString() + ";'>"
-								+ Main.game.getCurrencySymbol() + "</b> <b>" + item.getPrice(InventoryDialogue.getInventoryNPC().getBuyModifier()) + "</b>" + "</div>");
+						tooltipSB.append("<div class='subTitle'>" + InventoryDialogue.getInventoryNPC().getName("The") + " offers " + UtilText.formatAsMoney(item.getPrice(InventoryDialogue.getInventoryNPC().getBuyModifier())) + "</div>");
 					else
 						tooltipSB.append(
 								"<div class='subTitle'>" + "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>" + InventoryDialogue.getInventoryNPC().getName("The") + " will not buy this</span>" + "</div>");
 				} else {
 					if (InventoryDialogue.isBuyback()) {
-						tooltipSB.append("<div class='subTitle'>" + InventoryDialogue.getInventoryNPC().getName("The") + " wants " + " <b style='color: " + com.lilithsthrone.utils.Colour.CURRENCY.toWebHexString() + ";'>"
-								+ Main.game.getCurrencySymbol() + "</b> <b>" + getBuybackPriceFor(item) + "</b>" + "</div>");
+						tooltipSB.append("<div class='subTitle'>" + InventoryDialogue.getInventoryNPC().getName("The") + " wants " + UtilText.formatAsMoney(getBuybackPriceFor(item)) + "</div>");
 					} else {
-						tooltipSB.append("<div class='subTitle'>" + InventoryDialogue.getInventoryNPC().getName("The") + " wants " + " <b style='color: " + com.lilithsthrone.utils.Colour.CURRENCY.toWebHexString() + ";'>"
-								+ Main.game.getCurrencySymbol() + "</b> <b>" + item.getPrice(InventoryDialogue.getInventoryNPC().getSellModifier()) + "</b>" + "</div>");
+						tooltipSB.append("<div class='subTitle'>" + InventoryDialogue.getInventoryNPC().getName("The") + " wants " + UtilText.formatAsMoney(item.getPrice(InventoryDialogue.getInventoryNPC().getSellModifier())) + "</div>");
 					}
 					
 				}
@@ -153,6 +152,36 @@ public class InventoryTooltipEventListener implements EventListener {
 			
 			clothingTooltip(clothing);
 
+		} else if (dyeClothing != null) {
+
+			Main.mainController.setTooltipSize(360, 446);
+
+			tooltipSB.setLength(0);
+			if(colour!=null) {
+				tooltipSB.append("<div class='title' style='color:" + dyeClothing.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(dyeClothing.getName()) + "</div>"
+						
+						+ "<div class='subTitle'>" + Util.capitaliseSentence(colour.getName()) + "</div>"
+	
+						+ "<div class='picture full' style='position:relative;'>" + dyeClothing.getClothingType().getSVGImage(colour, InventoryDialogue.dyePreviewSecondary, InventoryDialogue.dyePreviewTertiary) + "</div>");
+			
+			} else if(secondaryColour!=null) {
+				tooltipSB.append("<div class='title' style='color:" + dyeClothing.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(dyeClothing.getName()) + "</div>"
+						
+						+ "<div class='subTitle'>" + Util.capitaliseSentence(secondaryColour.getName()) + "</div>"
+	
+						+ "<div class='picture full' style='position:relative;'>" + dyeClothing.getClothingType().getSVGImage(InventoryDialogue.dyePreviewPrimary, secondaryColour, InventoryDialogue.dyePreviewTertiary) + "</div>");
+				
+			} else if(tertiaryColour!=null) {
+				tooltipSB.append("<div class='title' style='color:" + dyeClothing.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(dyeClothing.getName()) + "</div>"
+						
+						+ "<div class='subTitle'>" + Util.capitaliseSentence(tertiaryColour.getName()) + "</div>"
+	
+						+ "<div class='picture full' style='position:relative;'>" + dyeClothing.getClothingType().getSVGImage(InventoryDialogue.dyePreviewPrimary, InventoryDialogue.dyePreviewSecondary, tertiaryColour) + "</div>");
+				
+			}
+			
+			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
+
 		} else if (genericItem != null) {
 			Main.mainController.setTooltipSize(360, 60);
 			Main.mainController.setTooltipContent(UtilText.parse("<div class='title'>" + Util.capitaliseSentence(genericItem.getName(false)) + "</div>"));
@@ -163,11 +192,13 @@ public class InventoryTooltipEventListener implements EventListener {
 
 			tooltipSB.setLength(0);
 			tooltipSB.append("<div class='title' style='color:" + genericClothing.getRarity().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(genericClothing.getName()) + "</div>"
-
+					
 					+ "<div class='subTitle'>" + Util.capitaliseSentence(colour.getName()) + "</div>"
 
-					+ "<div class='picture full' style='position:relative;'>" + genericClothing.getSVGImage(colour) + "</div>");
-
+					+ "<div class='picture full' style='position:relative;'>" + genericClothing.getSVGImage(colour,
+							genericClothing.getAvailableSecondaryColours().isEmpty()?null:genericClothing.getAvailableSecondaryColours().get(0),
+							genericClothing.getAvailableTertiaryColours().isEmpty()?null:genericClothing.getAvailableTertiaryColours().get(0)) + "</div>");
+			
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
 		} else if (genericWeapon != null) {
@@ -237,55 +268,75 @@ public class InventoryTooltipEventListener implements EventListener {
 							switch(invSlot){
 								case PIERCING_VAGINA:
 									if(equippedToCharacter.getVaginaType()==VaginaType.NONE) {
-										setBlockedTooltipContent("You don't have a vagina.");
+										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+													"You don't have a vagina.",
+													"[npc.Name] doesn't have a vagina."));
 										piercingBlocked=true;
 									} else if(!equippedToCharacter.isPiercedVagina()) {
-										setBlockedTooltipContent("Your vagina has not been pierced.");
+										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+												"Your vagina has not been pierced.",
+												"[npc.Name]'s vagina has not been pierced."));
 										piercingBlocked=true;
 									}
 									break;
 								case PIERCING_EAR:
 									if(!equippedToCharacter.isPiercedEar()) {
-										setBlockedTooltipContent("Your ears have not been pierced.");
+										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+												"Your ears have not been pierced.",
+												"[npc.Name]'s ears have not been pierced."));
 										piercingBlocked=true;
 									}
 									break;
 								case PIERCING_LIP:
 									if(!equippedToCharacter.isPiercedLip()) {
-										setBlockedTooltipContent("Your lips have not been pierced.");
+										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+												"Your lips have not been pierced.",
+												"[npc.Name]'s lips have not been pierced."));
 										piercingBlocked=true;
 									}
 									break;
 								case PIERCING_NIPPLE:
 									if(!equippedToCharacter.isPiercedNipple()) {
-										setBlockedTooltipContent("Your nipples have not been pierced.");
+										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+												"Your nipples have not been pierced.",
+												"[npc.Name]'s nipples have not been pierced."));
 										piercingBlocked=true;
 									}
 									break;
 								case PIERCING_NOSE:
 									if(!equippedToCharacter.isPiercedNose()) {
-										setBlockedTooltipContent("Your nose has not been pierced.");
+										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+												"Your nose has not been pierced.",
+												"[npc.Name]'s nose has not been pierced."));
 										piercingBlocked=true;
 									}
 									break;
 								case PIERCING_PENIS:
 									if(equippedToCharacter.getPenisType()==PenisType.NONE) {
-										setBlockedTooltipContent("You don't have a penis.");
+										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+												"You don't have a penis.",
+												"[npc.Name] doesn't have a penis."));
 										piercingBlocked=true;
 									} else if(!equippedToCharacter.isPiercedPenis()) {
-										setBlockedTooltipContent("Your penis has not been pierced.");
+										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+												"Your penis has not been pierced.",
+												"[npc.Name]'s penis has not been pierced."));
 										piercingBlocked=true;
 									}
 									break;
 								case PIERCING_STOMACH:
 									if(!equippedToCharacter.isPiercedNavel()) {
-										setBlockedTooltipContent("Your navel has not been pierced.");
+										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+												"Your navel has not been pierced.",
+												"[npc.Name]'s navel has not been pierced."));
 										piercingBlocked=true;
 									}
 									break;
 								case PIERCING_TONGUE:
 									if(!equippedToCharacter.isPiercedTongue()) {
-										setBlockedTooltipContent("Your tongue has not been pierced.");
+										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
+												"Your tongue has not been pierced.",
+												"[npc.Name]'s tongue has not been pierced."));
 										piercingBlocked=true;
 									}
 									break;
@@ -318,8 +369,8 @@ public class InventoryTooltipEventListener implements EventListener {
 					+ UtilText.parse(enchantmentModifier.getDescription())
 					+ "</div>"
 					+ "<div class='subTitle'>"
-							+ "Costs: <b style='color:"+EnchantmentDialogue.ingredient.getRelatedEssence().getColour().toWebHexString() + ";'>"
-								+ enchantmentModifier.getValue()+" "+EnchantmentDialogue.ingredient.getRelatedEssence().getName()+"</b> essence"+(enchantmentModifier.getValue()>1?"s":"")
+							+ "<b style='color:"+EnchantmentDialogue.ingredient.getRelatedEssence().getColour().toWebHexString() + ";'>+"
+								+ enchantmentModifier.getValue()+" "+EnchantmentDialogue.ingredient.getRelatedEssence().getName()+"</b> essence cost"
 					+ "</div>"));
 		
 		} else if (essence != null) {
@@ -372,6 +423,27 @@ public class InventoryTooltipEventListener implements EventListener {
 		return this;
 	}
 
+	public InventoryTooltipEventListener setDyeClothingPrimary(AbstractClothing dyeClothing, Colour colour) {
+		resetVariables();
+		this.dyeClothing = dyeClothing;
+		this.colour = colour;
+		return this;
+	}
+	
+	public InventoryTooltipEventListener setDyeClothingSecondary(AbstractClothing dyeClothing, Colour secondaryColour) {
+		resetVariables();
+		this.dyeClothing = dyeClothing;
+		this.secondaryColour = secondaryColour;
+		return this;
+	}
+	
+	public InventoryTooltipEventListener setDyeClothingTertiary(AbstractClothing dyeClothing, Colour tertiaryColour) {
+		resetVariables();
+		this.dyeClothing = dyeClothing;
+		this.tertiaryColour = tertiaryColour;
+		return this;
+	}
+	
 	public InventoryTooltipEventListener setGenericClothing(AbstractClothingType genericClothing, Colour colour) {
 		resetVariables();
 		this.genericClothing = genericClothing;
@@ -425,6 +497,9 @@ public class InventoryTooltipEventListener implements EventListener {
 		dt = null;
 		clothing = null;
 		colour = null;
+		dyeClothing = null;
+		secondaryColour = null;
+		tertiaryColour = null;
 		genericClothing = null;
 		invSlot = null;
 		enchantmentModifier = null;
@@ -487,22 +562,19 @@ public class InventoryTooltipEventListener implements EventListener {
 		tooltipSB.append("</div>");
 
 		// Value:
-		tooltipSB.append("<div class='subTitle'>" + "<b style='color: " + com.lilithsthrone.utils.Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + absWep.getValue() + "</b>" + "</div>");
+		tooltipSB.append("<div class='subTitle'>" + UtilText.formatAsMoney(absWep.getValue()) + "</div>");
 
 		if (InventoryDialogue.getInventoryNPC() != null && InventoryDialogue.getNPCInventoryInteraction() == InventoryInteraction.TRADING) {
-			if (owner.isPlayer()) {
+			if (owner!=null && owner.isPlayer()) {
 				if (InventoryDialogue.getInventoryNPC().willBuy(absWep))
-					tooltipSB.append("<div class='subTitle'>" + InventoryDialogue.getInventoryNPC().getName("The") + " offers " + " <b style='color: " + com.lilithsthrone.utils.Colour.CURRENCY.toWebHexString() + ";'>"
-							+ Main.game.getCurrencySymbol() + "</b> <b>" + absWep.getPrice(InventoryDialogue.getInventoryNPC().getBuyModifier()) + "</b>" + "</div>");
+					tooltipSB.append("<div class='subTitle'>" + InventoryDialogue.getInventoryNPC().getName("The") + " offers " + UtilText.formatAsMoney(absWep.getPrice(InventoryDialogue.getInventoryNPC().getBuyModifier())) + "</div>");
 				else
 					tooltipSB.append("<div class='subTitle'>" + "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>" + InventoryDialogue.getInventoryNPC().getName("The") + " will not buy this</span>" + "</div>");
 			} else {
 				if (InventoryDialogue.isBuyback()) {
-					tooltipSB.append("<div class='subTitle'>" + InventoryDialogue.getInventoryNPC().getName("The") + " wants " + " <b style='color: " + com.lilithsthrone.utils.Colour.CURRENCY.toWebHexString() + ";'>"
-							+ Main.game.getCurrencySymbol() + "</b> <b>" + getBuybackPriceFor(absWep) + "</b>" + "</div>");
+					tooltipSB.append("<div class='subTitle'>" + InventoryDialogue.getInventoryNPC().getName("The") + " wants " + UtilText.formatAsMoney(getBuybackPriceFor(absWep)) + "</div>");
 				} else {
-					tooltipSB.append("<div class='subTitle'>" + InventoryDialogue.getInventoryNPC().getName("The") + " wants " + " <b style='color: " + com.lilithsthrone.utils.Colour.CURRENCY.toWebHexString() + ";'>"
-							+ Main.game.getCurrencySymbol() + "</b> <b>" + absWep.getPrice(InventoryDialogue.getInventoryNPC().getSellModifier()) + "</b>" + "</div>");
+					tooltipSB.append("<div class='subTitle'>" + InventoryDialogue.getInventoryNPC().getName("The") + " wants " + UtilText.formatAsMoney (absWep.getPrice(InventoryDialogue.getInventoryNPC().getSellModifier())) + "</div>");
 				}
 				
 			}
@@ -575,23 +647,19 @@ public class InventoryTooltipEventListener implements EventListener {
 		tooltipSB.append("</div>");
 
 		// Value:
-		tooltipSB.append("<div class='subTitle'>" + "<b style='color: " + com.lilithsthrone.utils.Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol() + "</b> <b>" + (absClothing.isEnchantmentKnown() ? absClothing.getValue() : "?")
-				+ "</b>" + "</div>");
+		tooltipSB.append("<div class='subTitle'>" + (absClothing.isEnchantmentKnown() ? UtilText.formatAsMoney(absClothing.getValue()) : "?") + "</div>");
 
 		if (InventoryDialogue.getInventoryNPC() != null && InventoryDialogue.getNPCInventoryInteraction() == InventoryInteraction.TRADING) {
 			if (owner.isPlayer()) {
 				if (InventoryDialogue.getInventoryNPC().willBuy(absClothing))
-					tooltipSB.append("<div class='subTitle'>" + InventoryDialogue.getInventoryNPC().getName("The") + " offers " + " <b style='color: " + com.lilithsthrone.utils.Colour.CURRENCY.toWebHexString() + ";'>"
-							+ Main.game.getCurrencySymbol() + "</b> <b>" + absClothing.getPrice(InventoryDialogue.getInventoryNPC().getBuyModifier()) + "</b>" + "</div>");
+					tooltipSB.append("<div class='subTitle'>" + InventoryDialogue.getInventoryNPC().getName("The") + " offers " + UtilText.formatAsMoney(absClothing.getPrice(InventoryDialogue.getInventoryNPC().getBuyModifier())) + "</div>");
 				else
 					tooltipSB.append("<div class='subTitle'>" + "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>" + InventoryDialogue.getInventoryNPC().getName("The") + " will not buy this</span>" + "</div>");
 			} else {
 				if (InventoryDialogue.isBuyback()) {
-					tooltipSB.append("<div class='subTitle'>" + InventoryDialogue.getInventoryNPC().getName("The") + " wants " + " <b style='color: " + com.lilithsthrone.utils.Colour.CURRENCY.toWebHexString() + ";'>"
-							+ Main.game.getCurrencySymbol() + "</b> <b>" + getBuybackPriceFor(absClothing) + "</b>" + "</div>");
+					tooltipSB.append("<div class='subTitle'>" + InventoryDialogue.getInventoryNPC().getName("The") + " wants " + UtilText.formatAsMoney( + getBuybackPriceFor(absClothing)) + "</div>");
 				} else {
-					tooltipSB.append("<div class='subTitle'>" + InventoryDialogue.getInventoryNPC().getName("The") + " wants " + " <b style='color: " + com.lilithsthrone.utils.Colour.CURRENCY.toWebHexString() + ";'>"
-							+ Main.game.getCurrencySymbol() + "</b> <b>" + absClothing.getPrice(InventoryDialogue.getInventoryNPC().getSellModifier()) + "</b>" + "</div>");
+					tooltipSB.append("<div class='subTitle'>" + InventoryDialogue.getInventoryNPC().getName("The") + " wants " + UtilText.formatAsMoney(absClothing.getPrice(InventoryDialogue.getInventoryNPC().getSellModifier())) + "</div>");
 				}
 			}
 		}
@@ -606,5 +674,13 @@ public class InventoryTooltipEventListener implements EventListener {
 	        }
 	    }
 	    throw new IllegalArgumentException("That's not a buyback item");
+	}
+	
+	private static String getTooltipText(GameCharacter character, String playerText, String NPCText) {
+		if(character.isPlayer()) {
+			return playerText;
+		} else {
+			return UtilText.parse(character, NPCText);
+		}
 	}
 }

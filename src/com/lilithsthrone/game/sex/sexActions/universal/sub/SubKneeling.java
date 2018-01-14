@@ -3,13 +3,12 @@ package com.lilithsthrone.game.sex.sexActions.universal.sub;
 import java.util.List;
 
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
-import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.clothing.CoverableArea;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
@@ -49,7 +48,7 @@ public class SubKneeling {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getPartner().hasVagina() && !Sex.getPartner().hasPenis();
+			return !Sex.getActivePartner().hasVagina() && !Sex.getActivePartner().hasPenis();
 		}
 
 		@Override
@@ -62,15 +61,6 @@ public class SubKneeling {
 					"With a little shuffle forwards, you  eagerly press your mouth against [npc.name]'s genderless crotch, snogging and licking [npc.her] sensitive mound as [npc.she] squeals and cries out in pleasure.",
 
 					"Reaching around and grabbing [npc.name]'s [npc.ass+], you pull [npc.herHim] forwards, grinding your [pc.lips+] against [npc.her] genderless mound as you enthusiastically snog and lick [npc.her] sensitive crotch.");
-		}
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_GIVING));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_RECEIVING));
 		}
 	};
 	
@@ -95,7 +85,7 @@ public class SubKneeling {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getPartner().hasVagina() && !Sex.getPartner().hasPenis();
+			return !Sex.getActivePartner().hasVagina() && !Sex.getActivePartner().hasPenis();
 		}
 
 		@Override
@@ -108,16 +98,6 @@ public class SubKneeling {
 					"With delicate care, you plant a series of gentle kisses on [npc.name]'s genderless mound, causing [npc.herHim] to let out [npc.a_moan+].",
 
 					"You kiss and lick [npc.name]'s genderless crotch, causing [npc.herHim] to start moaning and sighing at the feel of your gentle touch.");
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_GIVING));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ORAL_RECEIVING));
 		}
 	};
 	
@@ -150,14 +130,14 @@ public class SubKneeling {
 					+ " You're quickly slammed to the floor, and you find yourself looking up at [npc.name]'s [npc.breasts+] as [npc.she] sits on your face,"
 					+ " screaming in ecstasy as [npc.her] [npc.pussy+] spasms and clenches down around your [pc.tongue+].");
 			
-			if(Sex.getPartner().hasPenis()) {
+			if(Sex.getActivePartner().hasPenis()) {
 				UtilText.nodeContentSB.append("</br></br>"
 						+ "As [npc.she] grinds [npc.her] [npc.pussy+] down against your [pc.lips], [npc.her] other sexual organ starts to react to [npc.her] climax.");
 				
-				if(Sex.getPartner().hasPenisModifier(PenisModifier.KNOTTED)) {
+				if(Sex.getActivePartner().hasPenisModifier(PenisModifier.KNOTTED)) {
 					UtilText.nodeContentSB.append(" [npc.She] lets out [npc.a_moan+] as the knot at the base of [npc.her] [npc.cock+] swells up as [npc.she] prepares to cum,");
 					
-				} else if(Sex.getPartner().hasPenisModifier(PenisModifier.FLARED)) {
+				} else if(Sex.getActivePartner().hasPenisModifier(PenisModifier.FLARED)) {
 					UtilText.nodeContentSB.append(" [npc.She] lets out [npc.a_moan+] as the wide, flared head of [npc.her] [pc.cock+] swells up as [npc.she] prepares to cum,");
 					
 				} else {
@@ -206,17 +186,7 @@ public class SubKneeling {
 		
 		@Override
 		public void applyEffects() {
-			Sex.removePenetration(PenetrationType.TONGUE_PLAYER, OrificeType.VAGINA_PARTNER);
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_ORAL_GIVING));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT), new ListValue<>(Fetish.FETISH_ORAL_RECEIVING));
+			Sex.removePenetration(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.TONGUE_PLAYER, OrificeType.VAGINA_PARTNER);
 		}
 	};
 	
@@ -230,7 +200,7 @@ public class SubKneeling {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPartner().getPenisRawSizeValue() >= PenisSize.TWO_AVERAGE.getMedianValue();
+			return Sex.getActivePartner().getPenisRawSizeValue() >= PenisSize.TWO_AVERAGE.getMedianValue();
 		}
 		
 		@Override
@@ -249,13 +219,13 @@ public class SubKneeling {
 			
 			UtilText.nodeContentSB.append("You feel [npc.name]'s [npc.cock] start to twitch and throb in your mouth, and before you can react, [npc.she] grabs the sides of your head and slams [npc.her] entire length fully down your throat.");
 			
-			if(Sex.getPartner().hasPenisModifier(PenisModifier.KNOTTED)) {
+			if(Sex.getActivePartner().hasPenisModifier(PenisModifier.KNOTTED)) {
 				UtilText.nodeContentSB.append(" Forcing the knot at the base of [npc.her] [npc.cock] past your [pc.lips+], you shuffle around on your knees as it quickly swells up, locking you both in place");
 				
-			} else if(Sex.getPartner().hasPenisModifier(PenisModifier.FLARED)) {
+			} else if(Sex.getActivePartner().hasPenisModifier(PenisModifier.FLARED)) {
 				UtilText.nodeContentSB.append(" You feel it start to twitch and throb, and [npc.she] reaches down to hold your head in position as [npc.her] wide, flared head swells up in your throat.");
 				
-			} else if(Sex.getPartner().hasPenisModifier(PenisModifier.BARBED)) {
+			} else if(Sex.getActivePartner().hasPenisModifier(PenisModifier.BARBED)) {
 				UtilText.nodeContentSB.append(" You feel it start to twitch and throb, and [npc.she] starts making little thrusting motions into your [pc.face],"
 						+ " raking [npc.her] barbs up and down your throat as [npc.she] brings [npc.herself] to a climax.");
 				
@@ -264,36 +234,40 @@ public class SubKneeling {
 			}
 
 			UtilText.nodeContentSB.append(" [npc.Her] [npc.balls+] tense up, and as [npc.she] lets out [npc.a_moan+]");
-			switch (Sex.getPartner().getPenisCumProduction()) {
-				case ZERO_NONE:
-					UtilText.nodeContentSB.append(", you realise that [npc.she]'s not able to produce even one drop of cum.");
-					break;
-				case ONE_TRICKLE:
-					UtilText.nodeContentSB.append(", you feel a small trickle of [npc.cum+] squirting down your throat into your stomach.");
-					break;
-				case TWO_SMALL_AMOUNT:
-					UtilText.nodeContentSB.append(", you feel a small amount of [npc.cum+] squirting down your throat into your stomach.");
-					break;
-				case THREE_AVERAGE:
-					UtilText.nodeContentSB.append(", you feel [npc.her] [npc.cum+] squirting down your throat into your stomach.");
-					break;
-				case FOUR_LARGE:
-					UtilText.nodeContentSB.append(", you feel [npc.her] [npc.cum+] shooting down your throat into your stomach.");
-					break;
-				case FIVE_HUGE:
-					UtilText.nodeContentSB.append(", you feel [npc.her] [npc.cum+] pouring down your throat into your stomach.");
-					break;
-				case SIX_EXTREME:
-					UtilText.nodeContentSB.append(", you feel [npc.her] [npc.cum+] pouring down your throat into your stomach.");
-					break;
-				case SEVEN_MONSTROUS:
-					UtilText.nodeContentSB.append(", you feel [npc.her] [npc.cum+] pouring down your throat into your stomach.");
-					break;
-				default:
-					break;
+			if(Sex.getActivePartner().isWearingCondom()) {
+				UtilText.nodeContentSB.append(", [npc.her] [npc.cum+] pours out into the condom that [npc.she]'s wearing.");
+			} else {
+				switch (Sex.getActivePartner().getPenisCumProduction()) {
+					case ZERO_NONE:
+						UtilText.nodeContentSB.append(", you realise that [npc.she]'s not able to produce even one drop of cum.");
+						break;
+					case ONE_TRICKLE:
+						UtilText.nodeContentSB.append(", you feel a small trickle of [npc.cum+] squirting down your throat into your stomach.");
+						break;
+					case TWO_SMALL_AMOUNT:
+						UtilText.nodeContentSB.append(", you feel a small amount of [npc.cum+] squirting down your throat into your stomach.");
+						break;
+					case THREE_AVERAGE:
+						UtilText.nodeContentSB.append(", you feel [npc.her] [npc.cum+] squirting down your throat into your stomach.");
+						break;
+					case FOUR_LARGE:
+						UtilText.nodeContentSB.append(", you feel [npc.her] [npc.cum+] shooting down your throat into your stomach.");
+						break;
+					case FIVE_HUGE:
+						UtilText.nodeContentSB.append(", you feel [npc.her] [npc.cum+] pouring down your throat into your stomach.");
+						break;
+					case SIX_EXTREME:
+						UtilText.nodeContentSB.append(", you feel [npc.her] [npc.cum+] pouring down your throat into your stomach.");
+						break;
+					case SEVEN_MONSTROUS:
+						UtilText.nodeContentSB.append(", you feel [npc.her] [npc.cum+] pouring down your throat into your stomach.");
+						break;
+					default:
+						break;
+				}
 			}
 			
-			if(Sex.getPartner().hasVagina()) {
+			if(Sex.getActivePartner().hasVagina()) {
 				UtilText.nodeContentSB.append("</br></br>"
 						+ "Letting out a desperate moan, [npc.name]'s climax drops down into [npc.her] [npc.pussy+],"
 							+ " and [npc.she] roughly grinds the base of [npc.her] [npc.cock+] down against your lips as [npc.she] shudders and moans in pleasure.");
@@ -303,28 +277,18 @@ public class SubKneeling {
 						+ "After a few moments, [npc.her] balls have completely emptied themselves, and [npc.she] steps back,"
 							+ " sliding [npc.her] rapidly-softening [npc.cock] out from your [pc.lips+] as [npc.she] inadvertently covers your [pc.tongue] with the last few drops of [npc.her] salty seed.");
 			
-			return UtilText.genderParsing(Sex.getPartner(),
+			return UtilText.genderParsing(Sex.getActivePartner(),
 					UtilText.nodeContentSB.toString());
 		}
 
 		@Override
 		public void applyEffects() {
-			Sex.removePenetration(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER);
+			Sex.removePenetration(Sex.getActivePartner(), Main.game.getPlayer(), PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER);
 		}
 
 		@Override
 		public List<OrificeType> getPlayerAreasCummedIn() {
 			return Util.newArrayListOfValues(new ListValue<>(OrificeType.MOUTH_PLAYER));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_ORAL_GIVING));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT), new ListValue<>(Fetish.FETISH_ORAL_RECEIVING));
 		}
 	};
 	
@@ -350,15 +314,15 @@ public class SubKneeling {
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append("You feel [npc.name]'s [npc.cock] start to twitch and throb in your mouth, and before you can react, [npc.she] suddenly slides [npc.her] shaft up out of your throat"
-					+ (Sex.getPartner().isWearingCondom()?", sliding [npc.her] condom off as [npc.she] does so.":"."));
+					+ (Sex.getActivePartner().isWearingCondom()?", sliding [npc.her] condom off as [npc.she] does so.":"."));
 			
-			if(Sex.getPartner().hasPenisModifier(PenisModifier.KNOTTED)) {
+			if(Sex.getActivePartner().hasPenisModifier(PenisModifier.KNOTTED)) {
 				UtilText.nodeContentSB.append(" Reaching down to start masturbating over your face, [npc.she] uses your slimy saliva as lubrication as [npc.she] squeezes and fondles [npc.her] thick swollen knot.");
 				
-			} else if(Sex.getPartner().hasPenisModifier(PenisModifier.FLARED)) {
+			} else if(Sex.getActivePartner().hasPenisModifier(PenisModifier.FLARED)) {
 				UtilText.nodeContentSB.append(" Looking down at you, [npc.she] quickly starts masturbating, using your slimy saliva as lubrication as [npc.she] rubs [npc.her] thumb over the top of [npc.her] wide, flared head.");
 				
-			} else if(Sex.getPartner().hasPenisModifier(PenisModifier.BARBED)) {
+			} else if(Sex.getActivePartner().hasPenisModifier(PenisModifier.BARBED)) {
 				UtilText.nodeContentSB.append(" You let out a desperate wail as [npc.her] barbs rake their way up your throat, but [npc.she] seems oblivious to your discomfort as [npc.she] quickly starts masturbating,"
 							+ " using your slimy saliva as lubrication as [npc.she] rapidly brings [npc.herself] to a climax.");
 				
@@ -367,7 +331,7 @@ public class SubKneeling {
 			}
 
 			UtilText.nodeContentSB.append(" [npc.Her] [npc.balls+] tense up, and as [npc.she] lets out [npc.a_moan+]");
-			switch (Sex.getPartner().getPenisCumProduction()) {
+			switch (Sex.getActivePartner().getPenisCumProduction()) {
 				case ZERO_NONE:
 					UtilText.nodeContentSB.append(", you see that [npc.she]'s not able to produce even one drop of cum.");
 					break;
@@ -396,12 +360,12 @@ public class SubKneeling {
 					break;
 			}
 			
-			if(Sex.getPartner().getPenisCumProduction()!=CumProduction.ZERO_NONE) {
+			if(Sex.getActivePartner().getPenisCumProduction()!=CumProduction.ZERO_NONE) {
 				UtilText.nodeContentSB.append("  You flinch as you receive your facial, noticing that quite a few strands of [npc.cum] fall down to land on your "
 						+(Main.game.getPlayer().getHighestZLayerCoverableArea(CoverableArea.NIPPLES) != null ? Main.game.getPlayer().getHighestZLayerCoverableArea(CoverableArea.NIPPLES).getName() : "exposed [pc.breasts]")+".");
 			}
 			
-			if(Sex.getPartner().getVaginaType()!=VaginaType.NONE) {
+			if(Sex.getActivePartner().getVaginaType()!=VaginaType.NONE) {
 				UtilText.nodeContentSB.append("</br></br>"
 						+ "Letting out [npc.a_moan+], [npc.name]'s climax drops down into [npc.her] [npc.pussy+], and [npc.she] roughly grinds [npc.her] feminine sex down against your forehead,"
 							+ " shuddering and moaning in pleasure as [npc.her] [npc.cock+] flops down on the top of your head.");
@@ -415,22 +379,12 @@ public class SubKneeling {
 
 		@Override
 		public void applyEffects() {
-			if(Sex.getPartner().getPenisCumProduction()!=CumProduction.ZERO_NONE) {
+			if(Sex.getActivePartner().getPenisCumProduction()!=CumProduction.ZERO_NONE) {
 				if (Main.game.getPlayer().getHighestZLayerCoverableArea(CoverableArea.NIPPLES) != null) {
 					Main.game.getPlayer().getHighestZLayerCoverableArea(CoverableArea.NIPPLES).setDirty(true);
 				}
 			}
-			Sex.removePenetration(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER);
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT));
+			Sex.removePenetration(Sex.getActivePartner(), Main.game.getPlayer(), PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER);
 		}
 
 		@Override

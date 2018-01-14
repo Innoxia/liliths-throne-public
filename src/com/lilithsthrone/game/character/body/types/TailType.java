@@ -25,8 +25,12 @@ public enum TailType implements BodyPartTypeInterface {
 
 	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH, false, false),
 	
+	ALLIGATOR_MORPH(BodyCoveringType.ALLIGATOR_SCALES, Race.ALLIGATOR_MORPH, false, false),
+	
 	HORSE_MORPH(BodyCoveringType.HAIR_HORSE_HAIR, Race.HORSE_MORPH, false, false),
 
+	REINDEER_MORPH(BodyCoveringType.REINDEER_FUR, Race.REINDEER_MORPH, false, false),
+	
 	HARPY(BodyCoveringType.FEATHERS, Race.HARPY, false, false);
 
 	private BodyCoveringType skinType;
@@ -96,10 +100,14 @@ public enum TailType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("spaded", "demonic");
 			case DOG_MORPH:
 				return UtilText.returnStringAtRandom("dog-like");
+			case ALLIGATOR_MORPH:
+				return UtilText.returnStringAtRandom("gator-like");
 			case HARPY:
 				return UtilText.returnStringAtRandom("colourful", "bird-like");
 			case HORSE_MORPH:
 				return UtilText.returnStringAtRandom("horse-like");
+			case REINDEER_MORPH:
+				return UtilText.returnStringAtRandom("reindeer-like");
 			case LYCAN:
 				return UtilText.returnStringAtRandom("wolf-like");
 			case SQUIRREL_MORPH:
@@ -109,6 +117,34 @@ public enum TailType implements BodyPartTypeInterface {
 			default:
 				return UtilText.returnStringAtRandom("");
 		}
+	}
+	
+	public String getTransformName() {
+		switch(this){
+			case CAT_MORPH:
+				return "feline";
+			case COW_MORPH:
+				return "bovine";
+			case DEMON_COMMON:
+				return "spaded";
+			case DOG_MORPH:
+				return "canine";
+			case HARPY:
+				return "plume";
+			case HORSE_MORPH:
+				return "equine";
+			case REINDEER_MORPH:
+				return "rangiferine";
+			case LYCAN:
+				return "lupine";
+			case SQUIRREL_MORPH:
+				return "fluffy";
+			case ALLIGATOR_MORPH:
+				return "alligator";
+			case NONE:
+				return "none";
+		}
+		return "";
 	}
 	
 	public String getTailTipName(GameCharacter gc) {

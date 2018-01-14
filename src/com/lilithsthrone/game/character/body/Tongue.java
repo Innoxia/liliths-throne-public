@@ -21,10 +21,10 @@ import com.lilithsthrone.utils.Util;
 public class Tongue implements BodyPartInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private TongueType type;
-	private Set<TongueModifier> tongueModifiers;
-	private int tongueLength;
-	private boolean pierced;
+	protected TongueType type;
+	protected Set<TongueModifier> tongueModifiers;
+	protected int tongueLength;
+	protected boolean pierced;
 
 	public Tongue(TongueType type) {
 		this.type = type;

@@ -14,11 +14,11 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
  * @author Innoxia
  */
 public class Hair implements BodyPartInterface, Serializable {
-
 	private static final long serialVersionUID = 1L;
-	private HairType type;
-	private int length;
-	private HairStyle style;
+	
+	protected HairType type;
+	protected int length;
+	protected HairStyle style;
 
 	public Hair(HairType type, int length, HairStyle style) {
 		this.type = type;
@@ -163,6 +163,19 @@ public class Hair implements BodyPartInterface, Serializable {
 							+ "</p>");
 				}
 				break;
+			case ALLIGATOR_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" The feeling goes away almost as quickly as it came, leaving you with a mass of scales in place of hair.</br>"
+								+ "You now have [pc.hairColour] [style.boldGatorMorph(scales in place of hair)]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" The transformation only lasts a matter of moments, leaving [npc.herHim] with a mass of scales in place of hair.</br>"
+								+ "[npc.Name] now has [npc.hairColour] [style.boldGatorMorph(scales in place of hair)]."
+							+ "</p>");
+				}
+				break;
 			case HORSE_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
@@ -173,6 +186,19 @@ public class Hair implements BodyPartInterface, Serializable {
 					UtilText.transformationContentSB.append(
 								" The transformation only lasts a matter of moments, leaving [npc.herHim] with coarse, horse-like hair.</br>"
 								+ "[npc.Name] now has [npc.hairColour] [style.boldHorseMorph(equine hair)]."
+							+ "</p>");
+				}
+				break;
+			case REINDEER_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" The feeling goes away almost as quickly as it came, leaving you with coarse, reindeer-like hair.</br>"
+								+ "You now have [pc.hairColour] [style.boldReindeerMorph(rangiferine hair)]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" The transformation only lasts a matter of moments, leaving [npc.herHim] with coarse, reindeer-like hair.</br>"
+								+ "[npc.Name] now has [npc.hairColour] [style.boldReindeerMorph(rangiferine hair)]."
 							+ "</p>");
 				}
 				break;
@@ -229,6 +255,10 @@ public class Hair implements BodyPartInterface, Serializable {
 		int oldLength = this.length;
 		this.length = Math.max(0, Math.min(length, HairLength.SEVEN_TO_FLOOR.getMaximumValue()));
 		int sizeChange = this.length - oldLength;
+		
+		if(owner==null) {
+			return "";
+		}
 		
 		String styleChange = "";
 		if(this.length < owner.getHairStyle().getMinimumLengthRequired()) {
@@ -348,6 +378,30 @@ public class Hair implements BodyPartInterface, Serializable {
 					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a sidecut.</p>";
 				} else {
 					return UtilText.parse(owner, "<p>[npc.Name]'s [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a sidecut.</p>");
+				}
+			case BOB_CUT:
+				if(owner.isPlayer()) {
+					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a bob cut.</p>";
+				} else {
+					return UtilText.parse(owner, "<p>[npc.Name]'s [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a bob cut.</p>");
+				}
+			case PIXIE:
+				if(owner.isPlayer()) {
+					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a pixie cut.</p>";
+				} else {
+					return UtilText.parse(owner, "<p>[npc.Name]'s [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into a pixie cut.</p>");
+				}
+			case SLICKED_BACK:
+				if(owner.isPlayer()) {
+					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now slicked back.</p>";
+				} else {
+					return UtilText.parse(owner, "<p>[npc.Name]'s [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now slicked back.</p>");
+				}
+			case MESSY:
+				if(owner.isPlayer()) {
+					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now unstyled, and particularly messy.</p>";
+				} else {
+					return UtilText.parse(owner, "<p>[npc.Name]'s [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now unstyled, and particularly messy.</p>");
 				}
 		}
 		

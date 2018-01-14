@@ -15,8 +15,8 @@ import com.lilithsthrone.utils.Util;
 public class Antenna implements BodyPartInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private AntennaType type;
-	private int rows;
+	protected AntennaType type;
+	protected int rows;
 	
 	public Antenna(AntennaType type) {
 		this.type = type;

@@ -20,21 +20,22 @@ import com.lilithsthrone.utils.Util;
 public class Breast implements BodyPartInterface, Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
+	public static final int MAXIMUM_BREAST_ROWS = 5;
 	public static final int MAXIMUM_NIPPLES_PER_BREAST = 4;
 	
-	private BreastType type;
-	private BreastShape shape;
-	private int size, rows, lactation, nippleCountPerBreast;
+	protected BreastType type;
+	protected BreastShape shape;
+	protected int size, rows, lactation, nippleCountPerBreast;
 	
-	private Nipples nipples;
-	private FluidMilk milk;
+	protected Nipples nipples;
+	protected FluidMilk milk;
 	
 	/**
 	 * @param size in inches from bust to underbust using the UK system.
 	 * @param lactation in mL.
 	 */
-	public Breast(BreastType type, BreastShape shape, int size, int lactation, int rows, int nippleSize, NippleShape nippleShape, int areolaeSize, int nippleCountPerBreast, int capacity, int elasticity, int plasticity, boolean virgin) {
+	public Breast(BreastType type, BreastShape shape, int size, int lactation, int rows, int nippleSize, NippleShape nippleShape, int areolaeSize, int nippleCountPerBreast, float capacity, int elasticity, int plasticity, boolean virgin) {
 		this.type = type;
 		this.shape = shape;
 		this.size = size;
@@ -141,7 +142,7 @@ public class Breast implements BodyPartInterface, Serializable {
 	}
 
 	public String getLactationDescription(GameCharacter gc) {
-		if (lactation <= Lactation.ZERO_NONE.getMaximumValue()) {
+		if (lactation < Lactation.ZERO_NONE.getMaximumValue()) {
 			return " aren't producing any " + milk.getName(gc);
 		} else {
 			return " are producing " + getLactation().getDescriptor() + " " + milk.getName(gc) + ", averaging about " + lactation + "mL each time you are milked.";
@@ -315,6 +316,25 @@ public class Breast implements BodyPartInterface, Serializable {
 								+ "</p>");
 				}
 				break;
+			case ALLIGATOR_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+							" Your nipples and areolae start tingling, and you find yourself panting and sweating as the intense transformation runs its course."
+							+ " After a few moments, the feeling starts to fade away, leaving you with reptilian breasts, covered in [pc.breastFullDescriptionColour]."
+							+ " The transformation has also left you with [pc.nipplesFullDescriptionColour]."
+							+ "</br>"
+							+ "You now have [style.boldGatorMorph(reptilian breasts and [pc.nipples])], and when lactating, you will produce [style.boldGatorMorph(alligator-morph milk)]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" [npc.Her] nipples and areolae start tingling, causing [npc.herHim] to pant and sweat as the intense transformation runs its course."
+								+ " After a few moments, the feeling starts to fade away, leaving [npc.herHim] with reptilian breasts, covered in [npc.breastFullDescriptionColour]."
+								+ " The transformation has also left [npc.herHim] with [npc.nipplesFullDescriptionColour]."
+								+ "</br>"
+								+ "[npc.She] now has [style.boldGatorMorph(reptilian breasts and [npc.nipples])], and when lactating, [npc.she] will produce [style.boldGatorMorph(alligator-morph milk)]."
+								+ "</p>");
+				}
+				break;
 			case HORSE_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
@@ -331,6 +351,25 @@ public class Breast implements BodyPartInterface, Serializable {
 								+ " The transformation has also left [npc.herHim] with [npc.nipplesFullDescriptionColour]."
 								+ "</br>"
 								+ "[npc.She] now has [style.boldHorseMorph(equine breasts and [npc.nipples])], and when lactating, [npc.she] will produce [style.boldHorseMorph(equine milk)]."
+								+ "</p>");
+				}
+				break;
+			case REINDEER_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+							" Your nipples and areolae start tingling, and you find yourself panting and sweating as the intense transformation runs its course."
+							+ " After a few moments, the feeling starts to fade away, leaving you with rangiferine breasts, covered in [pc.breastFullDescriptionColour]."
+							+ " The transformation has also left you with [pc.nipplesFullDescriptionColour]."
+							+ "</br>"
+							+ "You now have [style.boldReindeerMorph(rangiferine breasts and [pc.nipples])], and when lactating, you will produce [style.boldReindeerMorph(rangiferine milk)]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" [npc.Her] nipples and areolae start tingling, causing [npc.herHim] to pant and sweat as the intense transformation runs its course."
+								+ " After a few moments, the feeling starts to fade away, leaving [npc.herHim] with rangiferine breasts, covered in [npc.breastFullDescriptionColour]."
+								+ " The transformation has also left [npc.herHim] with [npc.nipplesFullDescriptionColour]."
+								+ "</br>"
+								+ "[npc.She] now has [style.boldReindeerMorph(rangiferine breasts and [npc.nipples])], and when lactating, [npc.she] will produce [style.boldReindeerMorph(rangiferine milk)]."
 								+ "</p>");
 				}
 				break;
@@ -408,7 +447,7 @@ public class Breast implements BodyPartInterface, Serializable {
 							+ "You now have [style.boldSex(" + sizeDescriptor + (getSize().getMeasurement()>CupSize.AA.getMeasurement()?", "+getSize().getCupSizeName()+"-cup":"") + " breasts)]!"
 						+ "</p>";
 			} else {
-				return UtilText.genderParsing(owner,
+				return UtilText.parse(owner,
 						"</p>"
 							+ "[npc.Name] feels a tingling heat quickly spreading throughout [npc.her] torso, and [npc.she] can't help but let out [npc.a_moan+] as [npc.her] "
 							+ (hadBreasts
@@ -426,7 +465,7 @@ public class Breast implements BodyPartInterface, Serializable {
 							:"You now have [style.boldSex(" + sizeDescriptor + (getSize().getMeasurement()>CupSize.AA.getMeasurement()?", "+getSize().getCupSizeName()+"-cup":"") + " breasts)]!")
 					+ "</p>";
 			} else {
-				return UtilText.genderParsing(owner,
+				return UtilText.parse(owner,
 						"</p>"
 							+ "[npc.Name] feels a tingling heat quickly spreading throughout [npc.her] torso, and [npc.she] can't help but let out a frustrated [npc.moan] as [npc.her] [npc.breasts] shrink down and [style.boldShrink(get smaller)].</br>"
 							+ (this.size==0
@@ -472,7 +511,7 @@ public class Breast implements BodyPartInterface, Serializable {
 							+ "You are now producing [style.boldSex(" + lactationDescriptor + " [pc.milk])]!"
 						+ "</p>";
 			} else {
-				return UtilText.genderParsing(owner,
+				return UtilText.parse(owner,
 						"</p>"
 							+ "[npc.Name] feels a strange bubbling and churning taking place deep within [npc.her] [npc.breasts], and [npc.a_moan+] drifts out from between [npc.her] [npc.lips] as a few drops of [npc.milk] suddenly leak"
 								+ " from [npc.her] [npc.nipples]; clear evidence that that [npc.her] [npc.milk] production has [style.boldGrow(increased)].</br>"
@@ -486,7 +525,7 @@ public class Breast implements BodyPartInterface, Serializable {
 							+ "You are now producing [style.boldSex(" + lactationDescriptor + " [pc.milk])]."
 						+ "</p>";
 			} else {
-				return UtilText.genderParsing(owner,
+				return UtilText.parse(owner,
 						"</p>"
 							+ "[npc.Name] feels a strange sucking sensation deep within [npc.her] [npc.breasts],"
 								+ " and a frustrated sigh drifts out from between [npc.her] [npc.lips] as [npc.she] realises that [npc.she]'s feeling [npc.her] [npc.milk] production [style.boldShrink(drying up)].</br>"
@@ -501,7 +540,7 @@ public class Breast implements BodyPartInterface, Serializable {
 	}
 
 	public String setRows(GameCharacter owner, int rows) {
-		rows = Math.max(0, Math.min(rows, 3));
+		rows = Math.max(1, Math.min(rows, MAXIMUM_BREAST_ROWS));
 		
 		if(rows == getRows()) {
 			if(owner.isPlayer()) {
@@ -513,29 +552,27 @@ public class Breast implements BodyPartInterface, Serializable {
 		
 		String transformation = "";
 		
+		int rowsDifference = Math.abs(rows - getRows());
+		
 		if (rows < getRows()) {
 			if (owner.isPlayer()) {
 				transformation =
 						"<p>"
-							+ "You feel a strange bubbling sensation within your [pc.breasts], and before you have time to react, "
-							+ (getRows() == 3
-								? (rows == 2
-									? "the lowest of your extra pairs"
-									: "your two extra pairs")
-								: "your extra pair")
-							+ " of " + (hasBreasts() ? "breasts" : "pecs") + " rapidly shrink away and [style.boldShrink(disappear)] into the [pc.skin] of your torso.</br>"
+							+ "You feel a strange bubbling sensation within your [pc.breasts], and before you have time to react, your"
+								+ (rowsDifference==1
+									?"lowest pair of [pc.breasts]"
+									:"lowest "+Util.intToString(rowsDifference)+" pairs of [pc.breasts]")
+							+ " rapidly shrink away and [style.boldShrink(disappear)] into the [pc.skin] of your torso.</br>"
 							+ "You now have [style.boldSex("+ Util.intToString(rows) + " pair"+ (rows > 1 ? "s" : "") + " of " + (hasBreasts() ? "breasts" : "pecs") +")]!" 
 						+ "</p>";
 			} else {
 				transformation = UtilText.parse(owner,
 							"<p>"
-								+ "[npc.Name] glances down worriedly at [npc.her] [npc.breasts], and before [npc.she] has time to react, "
-								+ (getRows() == 3
-									? (rows == 2
-										? "the lowest of [npc.her] extra pairs"
-										: "[npc.her] two extra pairs")
-									: "[npc.her] extra pair")
-								+ " of " + (hasBreasts() ? "breasts" : "pecs") + " rapidly shrink away and [style.boldShrink(disappear)] into the [npc.skin] of [npc.her] torso.</br>"
+								+ "[npc.Name] glances down worriedly at [npc.her] [npc.breasts], and before [npc.she] has time to react, [npc.her] "
+								+ (rowsDifference==1
+									?"lowest pair of [npc.breasts]"
+									:"lowest "+Util.intToString(rowsDifference)+" pairs of [npc.breasts]")
+								+ " rapidly shrink away and [style.boldShrink(disappear)] into the [npc.skin] of [npc.her] torso.</br>"
 								+ "[npc.Name] now has [style.boldSex("+ Util.intToString(rows) + " pair"+ (rows > 1 ? "s" : "") + " of " + (hasBreasts() ? "breasts" : "pecs") +")]!" 
 							+ "</p>");
 			}
@@ -545,24 +582,20 @@ public class Breast implements BodyPartInterface, Serializable {
 				transformation =
 						"<p>"
 							+ "You feel a strange bubbling sensation within your [pc.breasts], and before you have time to react, "
-							+ (getRows() == 1
-								? (rows == 3
-									? "two extra pairs"
-									: "an extra pair")
-								: "an extra pair")
-							+ " of " + (hasBreasts() ? "breasts" : "pecs") + " rapidly [style.boldGrow(grow)] out of the [pc.skin] of your torso.</br>"
+							+ (rowsDifference==1
+								?"an extra pair of [pc.breasts]"
+								:Util.intToString(rowsDifference)+" extra pairs of [pc.breasts]")
+							+ " rapidly [style.boldGrow(grow)] out of the [pc.skin] of your torso.</br>"
 							+ "You now have [style.boldSex("+ Util.intToString(rows) + " pair"+ (rows > 1 ? "s" : "") + " of " + (hasBreasts() ? "breasts" : "pecs") +")]!" 
 						+ "</p>";
 			} else {
 				transformation = UtilText.parse(owner,
 							"<p>"
 								+ "[npc.Name] glances down worriedly at [npc.her] [npc.breasts], and before [npc.she] has time to react, "
-								+ (getRows() == 1
-									? (rows == 3
-										? "two extra pairs"
-										: "an extra pair")
-									: "an extra pair")
-								+ " of " + (hasBreasts() ? "breasts" : "pecs") + " rapidly [style.boldGrow(grow)] out of the [npc.skin] of [npc.her] torso.</br>"
+								+ (rowsDifference==1
+									?"an extra pair of [npc.breasts]"
+									:Util.intToString(rowsDifference)+" extra pairs of [npc.breasts]")
+								+ " rapidly [style.boldGrow(grow)] out of the [npc.skin] of [npc.her] torso.</br>"
 								+ "[npc.Name] now has [style.boldSex("+ Util.intToString(rows) + " pair"+ (rows > 1 ? "s" : "") + " of " + (hasBreasts() ? "breasts" : "pecs") +")]!" 
 							+ "</p>");
 			}

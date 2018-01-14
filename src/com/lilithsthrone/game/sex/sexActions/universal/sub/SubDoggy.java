@@ -1,9 +1,6 @@
 package com.lilithsthrone.game.sex.sexActions.universal.sub;
 
-import java.util.List;
-
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.OrificeType;
@@ -13,8 +10,6 @@ import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.69
@@ -32,6 +27,12 @@ public class SubDoggy {
 			null,
 			SexPace.SUB_EAGER,
 			null) {
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !Sex.isDom(Main.game.getPlayer());
+		}
+		
 		@Override
 		public String getActionTitle() {
 			return "Seductive look";
@@ -61,6 +62,12 @@ public class SubDoggy {
 			null,
 			null,
 			SexPace.DOM_ROUGH) {
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !Sex.isDom(Main.game.getPlayer());
+		}
+		
 		@Override
 		public String getActionTitle() {
 			return "Slap ass";
@@ -75,7 +82,7 @@ public class SubDoggy {
 		public String getDescription() {
 			String tailSpecial1 = "", tailSpecial2 = "";
 			
-			if (Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER)==PenetrationType.PENIS_PARTNER) {
+			if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER)==PenetrationType.PENIS_PARTNER) {
 				switch(Main.game.getPlayer().getTailType()) {
 					case NONE:
 						tailSpecial1 = "Hilting [npc.her] [npc.cock+] deep inside your [pc.pussy+], [npc.name] reaches down and roughly gropes your [pc.ass+], before starting to deliver a series of stinging slaps to your exposed cheeks.";
@@ -94,7 +101,7 @@ public class SubDoggy {
 						break;
 				}
 			
-				return UtilText.genderParsing(Sex.getPartner(),
+				return UtilText.genderParsing(Sex.getActivePartner(),
 					UtilText.returnStringAtRandom(
 							tailSpecial1,
 							tailSpecial2,
@@ -102,7 +109,7 @@ public class SubDoggy {
 							"Hilting [npc.her] [npc.cock+] deep inside your [pc.pussy+], [npc.name] uses one [npc.hand] to hold you still, while the other starts to deliver a series of stinging slaps to your [pc.ass+].",
 							"While [npc.name] continues to fuck your [pc.pussy+], [npc.she] starts to roughly slap your [pc.ass+], growling in glee as you squirm and squeal under [npc.her] stinging blows."));
 				
-			} else if (Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER)==PenetrationType.PENIS_PARTNER) {
+			} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER)==PenetrationType.PENIS_PARTNER) {
 				switch(Main.game.getPlayer().getTailType()) {
 					case NONE:
 						tailSpecial1 = "Hilting [npc.her] [npc.cock+] deep inside your [pc.asshole+], [npc.name] reaches down and roughly gropes your [pc.ass+], before starting to deliver a series of stinging slaps to your exposed cheeks.";
@@ -121,7 +128,7 @@ public class SubDoggy {
 						break;
 				}
 			
-				return UtilText.genderParsing(Sex.getPartner(),
+				return UtilText.genderParsing(Sex.getActivePartner(),
 					UtilText.returnStringAtRandom(
 							tailSpecial1,
 							tailSpecial2,
@@ -149,7 +156,7 @@ public class SubDoggy {
 						break;
 				}
 			
-				return UtilText.genderParsing(Sex.getPartner(),
+				return UtilText.genderParsing(Sex.getActivePartner(),
 					UtilText.returnStringAtRandom(
 							tailSpecial1,
 							tailSpecial2,
@@ -157,16 +164,6 @@ public class SubDoggy {
 							"You let out a startled cry as [npc.name] starts to roughly slap your [pc.ass+], growling in glee as you squirm and squeal under [npc.her] relentless blows.",
 							"[npc.Name] growls down that [npc.she]'s going to put you in your place, before starting to aggressively slap your [pc.ass+], causing you to squeal and cry out as you squirm beneath [npc.her] stinging blows."));
 			}
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_MASOCHIST));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT), new ListValue<>(Fetish.FETISH_SADIST));
 		}
 	};
 }

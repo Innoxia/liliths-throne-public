@@ -13,9 +13,9 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
  */
 public class Ear implements BodyPartInterface, Serializable {
 
-	private static final long serialVersionUID = 1L;
-	private EarType type;
-	private boolean pierced;
+	protected static final long serialVersionUID = 1L;
+	protected EarType type;
+	protected boolean pierced;
 
 	public Ear(EarType type) {
 		this.type = type;
@@ -195,6 +195,23 @@ public class Ear implements BodyPartInterface, Serializable {
 							+ "</p>");
 				}
 				break;
+			case ALLIGATOR_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" They quickly shrink down into little nubs as most of the external cartilage shifts down into the sides of your head."
+								+ " A layer of [pc.earFullDescriptionColour] grow to cover your now-fully-internal ears, and as the transformation finishes, you're left with the ears of an alligator-morph."
+								+ "</br>"
+								+ "You now have [style.boldGatorMorph(internal, scale-covered alligator ears)]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" They quickly shrink down into little nubs as most of the external cartilage shifts down into the sides of [npc.her] head."
+								+ " A layer of [npc.earFullDescriptionColour] grow to cover [npc.her] now-fully-internal ears, and as the transformation finishes, [npc.she]'s left with the ears of an alligator-morph."
+								+ "</br>"
+								+ "[npc.Name] now has [style.boldGatorMorph(internal, scale-covered alligator ears)]."
+							+ "</p>");
+				}
+				break;
 			case HORSE_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
@@ -209,6 +226,23 @@ public class Ear implements BodyPartInterface, Serializable {
 								+ " A layer of [npc.earFullDescriptionColour] grows to cover them, and as the transformation finishes, [npc.she] experimentally twitches [npc.her] new horse-like ears back and forth."
 								+ "</br>"
 								+ "[npc.Name] now has [style.boldHorseMorph(anthropomorphic, horse-like ears)]."
+							+ "</p>");
+				}
+				break;
+			case REINDEER_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" They quickly take on a distinctly reindeer-like shape by growing out and narrowing down into long, slightly-folded ovals."
+								+ " A layer of [pc.earFullDescriptionColour] grows to cover them, and as the transformation finishes, you discover that you're able to twitch your new rangiferine ears back and forth."
+								+ "</br>"
+								+ "You now have [style.boldReindeerMorph(anthropomorphic, reindeer-like ears)]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" They quickly take on a distinctly reindeer-like shape by growing out and narrowing down into long, slightly-folded ovals."
+								+ " A layer of [npc.earFullDescriptionColour] grows to cover them, and as the transformation finishes, [npc.she] experimentally twitches [npc.her] new rangiferine ears back and forth."
+								+ "</br>"
+								+ "[npc.Name] now has [style.boldReindeerMorph(anthropomorphic, reindeer-like ears)]."
 							+ "</p>");
 				}
 				break;

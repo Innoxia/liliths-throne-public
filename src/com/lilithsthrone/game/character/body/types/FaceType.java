@@ -26,7 +26,11 @@ public enum FaceType implements BodyPartTypeInterface {
 
 	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, MouthType.SQUIRREL_MORPH, TongueType.SQUIRREL_MORPH, Race.SQUIRREL_MORPH),
 
+	ALLIGATOR_MORPH(BodyCoveringType.ALLIGATOR_SCALES, MouthType.ALLIGATOR_MORPH, TongueType.ALLIGATOR_MORPH, Race.ALLIGATOR_MORPH),
+
 	HORSE_MORPH(BodyCoveringType.HORSE_HAIR, MouthType.HORSE_MORPH, TongueType.HORSE_MORPH, Race.HORSE_MORPH),
+
+	REINDEER_MORPH(BodyCoveringType.REINDEER_FUR, MouthType.REINDEER_MORPH, TongueType.REINDEER_MORPH, Race.REINDEER_MORPH),
 
 	SLIME(BodyCoveringType.SLIME, MouthType.SLIME, TongueType.SLIME, Race.SLIME),
 
@@ -101,10 +105,14 @@ public enum FaceType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("anthropomorphic dog-like", "dog-like", "canine");
 			case SQUIRREL_MORPH:
 				return UtilText.returnStringAtRandom("anthropomorphic squirrel-like", "squirrel-like", "rodent");
+			case ALLIGATOR_MORPH:
+				return UtilText.returnStringAtRandom("anthropomorphic alligator-like", "gator-like", "reptile");
 			case HARPY:
 				return UtilText.returnStringAtRandom("anthropomorphic bird-like", "bird-like");
 			case HORSE_MORPH:
 				return UtilText.returnStringAtRandom("anthropomorphic horse-like", "horse-like", "equine");
+			case REINDEER_MORPH:
+				return UtilText.returnStringAtRandom("anthropomorphic reindeer-like", "reindeer-like", "rangiferine");
 			case HUMAN:
 				return UtilText.returnStringAtRandom("");
 			case LYCAN:
@@ -116,6 +124,38 @@ public enum FaceType implements BodyPartTypeInterface {
 		}
 	}
 
+	public String getTransformName() {
+		switch(this){
+			case ANGEL:
+				return "angelic";
+			case CAT_MORPH:
+				return "feline";
+			case DEMON_COMMON:
+				return "demonic";
+			case DOG_MORPH:
+				return "canine";
+			case COW_MORPH:
+				return "bovine";
+			case SQUIRREL_MORPH:
+				return "furry";
+			case ALLIGATOR_MORPH:
+				return "alligator";
+			case HARPY:
+				return "avian";
+			case HORSE_MORPH:
+				return "equine";
+			case REINDEER_MORPH:
+				return "rangiferine";
+			case HUMAN:
+				return "human";
+			case LYCAN:
+				return "lupine";
+			case SLIME:
+				return "slimy";
+		}
+		return "";
+	}
+	
 	@Override
 	public BodyCoveringType getBodyCoveringType() {
 		return skinType;

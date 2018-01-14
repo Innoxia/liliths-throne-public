@@ -5,6 +5,7 @@ import org.w3c.dom.events.EventListener;
 
 import com.lilithsthrone.controller.TooltipUpdateThread;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.MapDisplay;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
@@ -38,8 +39,8 @@ public class InventorySelectedItemEventListener implements EventListener {
 			if(Main.game.getCurrentDialogueNode().getMapDisplay()!=MapDisplay.INVENTORY) {
 				Main.mainController.openInventory();
 			}
-			if(Main.game.getDialogueFlags().quickTrade) {
-				switch(InventoryDialogue.getNPCInventoryInteraction()) {
+			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.quickTrade)) {
+				switch(InventoryDialogue.getNPCInventoryInteraction()) { //TODO
 					case COMBAT:
 						break;
 					case FULL_MANAGEMENT:
@@ -57,6 +58,7 @@ public class InventorySelectedItemEventListener implements EventListener {
 				InventoryDialogue.setOwner(owner);
 				InventoryDialogue.setItem(item);
 				InventoryDialogue.setBuyBackIndex(buyBackIndex);
+				Main.game.setResponseTab(1);
 				Main.game.setContent(new Response("", "", InventoryDialogue.ITEM_INVENTORY));
 			}
 			
@@ -67,6 +69,7 @@ public class InventorySelectedItemEventListener implements EventListener {
 			InventoryDialogue.setOwner(owner);
 			InventoryDialogue.setClothing(clothing);
 			InventoryDialogue.setBuyBackIndex(buyBackIndex);
+			Main.game.setResponseTab(1);
 			Main.game.setContent(new Response("", "", InventoryDialogue.CLOTHING_INVENTORY));
 			
 		} else if (weapon != null) {
@@ -76,6 +79,7 @@ public class InventorySelectedItemEventListener implements EventListener {
 			InventoryDialogue.setOwner(owner);
 			InventoryDialogue.setWeapon(weapon);
 			InventoryDialogue.setBuyBackIndex(buyBackIndex);
+			Main.game.setResponseTab(1);
 			Main.game.setContent(new Response("", "", InventoryDialogue.WEAPON_INVENTORY));
 
 		} else if (clothingEquipped != null) {
@@ -85,6 +89,7 @@ public class InventorySelectedItemEventListener implements EventListener {
 			InventoryDialogue.setOwner(owner);
 			InventoryDialogue.setClothing(clothingEquipped);
 			InventoryDialogue.setBuyBackIndex(buyBackIndex);
+			Main.game.setResponseTab(1);
 			Main.game.setContent(new Response("", "", InventoryDialogue.CLOTHING_EQUIPPED));
 
 		} else if (weaponEquipped != null) {
@@ -94,6 +99,7 @@ public class InventorySelectedItemEventListener implements EventListener {
 			InventoryDialogue.setOwner(owner);
 			InventoryDialogue.setWeapon(weaponEquipped);
 			InventoryDialogue.setBuyBackIndex(buyBackIndex);
+			Main.game.setResponseTab(1);
 			Main.game.setContent(new Response("", "", InventoryDialogue.WEAPON_EQUIPPED));
 		}
 

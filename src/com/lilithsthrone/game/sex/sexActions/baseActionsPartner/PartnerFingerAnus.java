@@ -1,9 +1,6 @@
 package com.lilithsthrone.game.sex.sexActions.baseActionsPartner;
 
-import java.util.List;
-
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.OrificeType;
@@ -12,8 +9,7 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
-import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.79
@@ -44,7 +40,7 @@ public class PartnerFingerAnus {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Slowly teasing [npc.her] [npc.fingers+] over your [pc.ass], [npc.name] lets out a little [npc.moan] before slowly sinking [npc.her] digits into your [pc.asshole+].",
@@ -73,37 +69,37 @@ public class PartnerFingerAnus {
 				default:
 					break;
 			}
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" You let out a soft [pc.moan] as [npc.her] [npc.fingers] enter you, gently bucking your [pc.ass] back against [npc.her] [npc.hand] as you help to sink [npc.her] [npc.fingers] even deeper into your [pc.asshole+].",
-							" With a soft [pc.moan], you start gently bucking your [pc.ass] back against [npc.her] [npc.hand], encouraging [npc.herHim] to sink [npc.her] [npc.fingers] even deeper into your [npc.asshole+]."));
+							" With a soft [pc.moan], you start gently bucking your [pc.ass] back against [npc.her] [npc.hand], encouraging [npc.herHim] to sink [npc.her] [npc.fingers] even deeper into your [pc.asshole+]."));
 					break;
 				case DOM_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" You let out [pc.a_moan+] as [npc.her] [npc.fingers] enter you,"
 									+ " eagerly bucking your [pc.ass] back against [npc.her] [npc.hand] as you enthusiastically help to sink [npc.her] [npc.fingers] even deeper into your [pc.asshole+].",
-							" With [pc.a_moan+], you start eagerly bucking your [pc.ass] back against [npc.her] [npc.hand], desperately encouraging [npc.herHim] to sink [npc.her] [npc.fingers] even deeper into your [npc.asshole+]."));
+							" With [pc.a_moan+], you start eagerly bucking your [pc.ass] back against [npc.her] [npc.hand], desperately encouraging [npc.herHim] to sink [npc.her] [npc.fingers] even deeper into your [pc.asshole+]."));
 					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" You let out [pc.a_moan+] as [npc.her] [npc.fingers] enter you, violently bucking your [pc.ass] back against [npc.her] [npc.hand] as you roughly force [npc.her] [npc.fingers] even deeper into your [pc.asshole+].",
-							" With [pc.a_moan+], you start violently bucking your [pc.ass] back against [npc.her] [npc.hand], roughly forcing [npc.herHim] to sink [npc.her] [npc.fingers] even deeper into your [npc.asshole+]."));
+							" With [pc.a_moan+], you start violently bucking your [pc.ass] back against [npc.her] [npc.hand], roughly forcing [npc.herHim] to sink [npc.her] [npc.fingers] even deeper into your [pc.asshole+]."));
 					break;
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" You let out [pc.a_moan+] as [npc.her] [npc.fingers] enter you,"
 									+ " eagerly bucking your [pc.ass] back against [npc.her] [npc.hand] as you enthusiastically help to sink [npc.her] [npc.fingers] even deeper into your [pc.asshole+].",
-							" With [pc.a_moan+], you start eagerly bucking your [pc.ass] back against [npc.her] [npc.hand], desperately encouraging [npc.herHim] to sink [npc.her] [npc.fingers] even deeper into your [npc.asshole+]."));
+							" With [pc.a_moan+], you start eagerly bucking your [pc.ass] back against [npc.her] [npc.hand], desperately encouraging [npc.herHim] to sink [npc.her] [npc.fingers] even deeper into your [pc.asshole+]."));
 					break;
 				case SUB_NORMAL:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" You let out [pc.a_moan+] as [npc.her] [npc.fingers] enter you, bucking your [pc.ass] back against [npc.her] [npc.hand] as you help to sink [npc.her] [npc.fingers] even deeper into your [pc.asshole+].",
-							" With [pc.a_moan+], you start bucking your [pc.ass] back against [npc.her] [npc.hand], encouraging [npc.herHim] to sink [npc.her] [npc.fingers] even deeper into your [npc.asshole+]."));
+							" With [pc.a_moan+], you start bucking your [pc.ass] back against [npc.her] [npc.hand], encouraging [npc.herHim] to sink [npc.her] [npc.fingers] even deeper into your [pc.asshole+]."));
 					break;
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" You let out [pc.a_sob+] as you feel [npc.her] [npc.fingers] enter you, and you try, in vain, to pull your [npc.ass] away from [npc.her] unwanted penetration, struggling and [pc.sobbing] all the while.",
+							" You let out [pc.a_sob+] as you feel [npc.her] [npc.fingers] enter you, and you try, in vain, to pull your [pc.ass] away from [npc.her] unwanted penetration, struggling and [pc.sobbing] all the while.",
 							" With [pc.a_sob+], you try, in vain, to pull away from the unwanted penetration, [pc.sobbing] and struggling against [npc.name] as [npc.her] unwelcome [npc.fingers] push deep into your [pc.asshole+]."));
 					break;
 				default:
@@ -113,15 +109,6 @@ public class PartnerFingerAnus {
 			return UtilText.nodeContentSB.toString();
 		}
 
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction PARTNER_ANAL_FINGERING_DOM_GENTLE = new SexAction(
@@ -145,7 +132,7 @@ public class PartnerFingerAnus {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 
 		@Override
@@ -153,7 +140,7 @@ public class PartnerFingerAnus {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Gently sinking [npc.her] [npc.fingers+] into your [pc.asshole+], [npc.name] starts slowly sliding [npc.her] digits in and out,"
@@ -184,15 +171,6 @@ public class PartnerFingerAnus {
 			return UtilText.nodeContentSB.toString();
 		}
 
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction PARTNER_ANAL_FINGERING_DOM_NORMAL = new SexAction(
@@ -216,7 +194,7 @@ public class PartnerFingerAnus {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 
 		@Override
@@ -224,7 +202,7 @@ public class PartnerFingerAnus {
 
 			UtilText.nodeContentSB.setLength(0);
 
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Eagerly sinking [npc.her] [npc.fingers+] deep into your [pc.asshole+], [npc.name] starts enthusiastically sliding [npc.her] digits in and out,"
@@ -256,15 +234,6 @@ public class PartnerFingerAnus {
 			return UtilText.nodeContentSB.toString();
 		}
 
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction PARTNER_ANAL_FINGERING_DOM_ROUGH = new SexAction(
@@ -288,16 +257,15 @@ public class PartnerFingerAnus {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
-
 
 		@Override
 		public String getDescription() {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Greedily thrusting [npc.her] [npc.fingers+] deep into your [pc.asshole+], [npc.name] starts roughly slamming [npc.her] digits in and out,"
@@ -329,15 +297,6 @@ public class PartnerFingerAnus {
 			return UtilText.nodeContentSB.toString();
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING), new ListValue<>(Fetish.FETISH_MASTURBATION), new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_MASOCHIST));
-		}
-
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING), new ListValue<>(Fetish.FETISH_MASTURBATION), new ListValue<>(Fetish.FETISH_DOMINANT), new ListValue<>(Fetish.FETISH_SADIST));
-		}
 	};
 	
 	public static final SexAction PARTNER_ANAL_FINGERING_SUB_NORMAL = new SexAction(
@@ -361,7 +320,7 @@ public class PartnerFingerAnus {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 
 		@Override
@@ -369,7 +328,7 @@ public class PartnerFingerAnus {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Sinking [npc.her] [npc.fingers+] into your [pc.asshole+], [npc.name] starts sliding [npc.her] digits in and out,"
@@ -402,15 +361,6 @@ public class PartnerFingerAnus {
 			return UtilText.nodeContentSB.toString();
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction PARTNER_ANAL_FINGERING_SUB_EAGER = new SexAction(
@@ -434,7 +384,7 @@ public class PartnerFingerAnus {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 
 		@Override
@@ -442,7 +392,7 @@ public class PartnerFingerAnus {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Eagerly sinking [npc.her] [npc.fingers+] deep into your [pc.asshole+], [npc.name] starts rapidly sliding [npc.her] digits in and out,"
@@ -475,15 +425,6 @@ public class PartnerFingerAnus {
 			return UtilText.nodeContentSB.toString();
 		}
 
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING), new ListValue<>(Fetish.FETISH_MASTURBATION), new ListValue<>(Fetish.FETISH_SUBMISSIVE));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction PARTNER_ANAL_FINGERING_STOP = new SexAction(
@@ -508,7 +449,7 @@ public class PartnerFingerAnus {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Roughly yanking [npc.her] [npc.fingers] out of your [pc.asshole+], [npc.name] quickly takes [npc.her] [npc.hand] away from your [pc.ass].",
@@ -521,7 +462,7 @@ public class PartnerFingerAnus {
 					break;
 			}
 			
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" You gasp as [npc.name] withdraws from your [pc.asshole], before letting out [pc.a_sob+] as you continue to struggle against [npc.herHim].",
@@ -551,7 +492,7 @@ public class PartnerFingerAnus {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexManager().isConsensualSex() || Sex.isPlayerDom(); // Player can only start fingering in consensual sex or if they're the dom.
+			return Sex.isConsensual() || Sex.isDom(Main.game.getPlayer()); // Player can only start fingering in consensual sex or if they're the dom.
 		}
 		
 		@Override
@@ -569,7 +510,7 @@ public class PartnerFingerAnus {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Taking a gentle, but firm, grip on [npc.her] [npc.hand], you slowly guide [npc.name]'s [npc.fingers] over your [pc.ass], letting out a little [pc.moan] before pushing [npc.her] digits into your [pc.asshole+].",
@@ -599,7 +540,7 @@ public class PartnerFingerAnus {
 					break;
 			}
 			
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc.She] lets out a soft [npc.moan] as [npc.she] enters you, curling [npc.her] [npc.fingers] up before gently starting to finger your [pc.asshole+].",
@@ -637,15 +578,6 @@ public class PartnerFingerAnus {
 			return UtilText.nodeContentSB.toString();
 		}
 
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING), new ListValue<>(Fetish.FETISH_MASTURBATION), new ListValue<>(Fetish.FETISH_DOMINANT));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING), new ListValue<>(Fetish.FETISH_MASTURBATION), new ListValue<>(Fetish.FETISH_SUBMISSIVE));
-		}
 	};
 	
 	public static final SexAction PLAYER_ANALLY_FINGERED_DOM_GENTLE = new SexAction(
@@ -660,7 +592,7 @@ public class PartnerFingerAnus {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -680,20 +612,11 @@ public class PartnerFingerAnus {
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Gently pushing your [pc.ass] back against [npc.name]'s [npc.hand], you let out a soft [pc.moan] as you help to sink [npc.her] [npc.fingers+] deep into your [pc.asshole+].",
 					"With a soft [pc.moan], you gently start gyrating your [pc.ass] back against [npc.name]'s [npc.hand], forcing [npc.her] [npc.fingers+] ever deeper into your [pc.asshole+].",
-					"Slowly thrusting your [pc.ass] back against [npc.name]'s [npc.hand], a soft [pc.moan] drifts out from between your [pc.lips+] as your movements force [npc.her] [npc.fingers+] deep into your [npc.asshole+]."));
+					"Slowly thrusting your [pc.ass] back against [npc.name]'s [npc.hand], a soft [pc.moan] drifts out from between your [pc.lips+] as your movements force [npc.her] [npc.fingers+] deep into your [pc.asshole+]."));
 
 			return UtilText.nodeContentSB.toString();
 		}
 
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction PLAYER_ANALLY_FINGERED_DOM_NORMAL = new SexAction(
@@ -708,7 +631,7 @@ public class PartnerFingerAnus {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -728,20 +651,11 @@ public class PartnerFingerAnus {
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Eagerly pushing your [pc.ass] back against [npc.name]'s [npc.hand], you let out [pc.a_moan+] as you energetically help to sink [npc.her] [npc.fingers+] deep into your [pc.asshole+].",
 					"With [pc.a_moan+], you energetically start gyrating your [pc.ass] back against [npc.name]'s [npc.hand], forcing [npc.her] [npc.fingers+] ever deeper into your [pc.asshole+].",
-					"Enthusiastically thrusting your [pc.ass] back against [npc.name]'s [npc.hand], [pc.a_moan+] bursts out from between your [pc.lips+] as your movements force [npc.her] [npc.fingers+] deep into your [npc.asshole+]."));
+					"Enthusiastically thrusting your [pc.ass] back against [npc.name]'s [npc.hand], [pc.a_moan+] bursts out from between your [pc.lips+] as your movements force [npc.her] [npc.fingers+] deep into your [pc.asshole+]."));
 			
 			return UtilText.nodeContentSB.toString();
 		}
 
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction PLAYER_ANALLY_FINGERED_DOM_ROUGH = new SexAction(
@@ -756,7 +670,7 @@ public class PartnerFingerAnus {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -776,20 +690,11 @@ public class PartnerFingerAnus {
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Violently slamming your [pc.ass] back against [npc.name]'s [npc.hand], you let out [pc.a_moan+] as you roughly force [npc.her] [npc.fingers+] deep into your [pc.asshole+].",
 					"With [pc.a_moan+], you aggressively start gyrating your [pc.ass] back against [npc.name]'s [npc.hand], forcing [npc.her] [npc.fingers+] ever deeper into your [pc.asshole+].",
-					"Roughly thrusting your [pc.ass] back against [npc.name]'s [npc.hand], [pc.a_moan+] bursts out from between your [pc.lips+] as your forceful movements drive [npc.her] [npc.fingers+] deep into your [npc.asshole+]."));
+					"Roughly thrusting your [pc.ass] back against [npc.name]'s [npc.hand], [pc.a_moan+] bursts out from between your [pc.lips+] as your forceful movements drive [npc.her] [npc.fingers+] deep into your [pc.asshole+]."));
 			
 			return UtilText.nodeContentSB.toString();
 		}
 
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction PLAYER_ANALLY_FINGERED_SUB_NORMAL = new SexAction(
@@ -804,7 +709,7 @@ public class PartnerFingerAnus {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -824,20 +729,11 @@ public class PartnerFingerAnus {
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Eagerly pushing your [pc.ass] back against [npc.name]'s [npc.hand], you let out [pc.a_moan+] as you energetically help to sink [npc.her] [npc.fingers+] deep into your [pc.asshole+].",
 					"With [pc.a_moan+], you energetically start gyrating your [pc.ass] back against [npc.name]'s [npc.hand], forcing [npc.her] [npc.fingers+] ever deeper into your [pc.asshole+].",
-					"Enthusiastically thrusting your [pc.ass] back against [npc.name]'s [npc.hand], [pc.a_moan+] bursts out from between your [pc.lips+] as your movements force [npc.her] [npc.fingers+] deep into your [npc.asshole+]."));
+					"Enthusiastically thrusting your [pc.ass] back against [npc.name]'s [npc.hand], [pc.a_moan+] bursts out from between your [pc.lips+] as your movements force [npc.her] [npc.fingers+] deep into your [pc.asshole+]."));
 			
 			return UtilText.nodeContentSB.toString();
 		}
 
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction PLAYER_ANALLY_FINGERED_SUB_EAGER = new SexAction(
@@ -852,7 +748,7 @@ public class PartnerFingerAnus {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -872,20 +768,11 @@ public class PartnerFingerAnus {
 			UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 					"Eagerly pushing your [pc.ass] back against [npc.name]'s [npc.hand], you let out [pc.a_moan+] as you energetically help to sink [npc.her] [npc.fingers+] deep into your [pc.asshole+].",
 					"With [pc.a_moan+], you energetically start gyrating your [pc.ass] back against [npc.name]'s [npc.hand], forcing [npc.her] [npc.fingers+] ever deeper into your [pc.asshole+].",
-					"Enthusiastically thrusting your [pc.ass] back against [npc.name]'s [npc.hand], [pc.a_moan+] bursts out from between your [pc.lips+] as your movements force [npc.her] [npc.fingers+] deep into your [npc.asshole+]."));
+					"Enthusiastically thrusting your [pc.ass] back against [npc.name]'s [npc.hand], [pc.a_moan+] bursts out from between your [pc.lips+] as your movements force [npc.her] [npc.fingers+] deep into your [pc.asshole+]."));
 			
 			return UtilText.nodeContentSB.toString();
 		}
 
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction PLAYER_ANAL_FINGERING_SUB_RESIST = new SexAction(
@@ -909,7 +796,7 @@ public class PartnerFingerAnus {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 
 		@Override
@@ -917,7 +804,7 @@ public class PartnerFingerAnus {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"You feel tears starting to well up in your [pc.eyes], and, unable to keep it in any longer, [pc.a_sob+] bursts out from your mouth as you weakly try to pull [npc.name]'s [npc.fingers] out of your [pc.asshole+].",
@@ -947,15 +834,6 @@ public class PartnerFingerAnus {
 			return UtilText.nodeContentSB.toString();
 		}
 
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING), new ListValue<>(Fetish.FETISH_MASTURBATION), new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_MASOCHIST));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING), new ListValue<>(Fetish.FETISH_MASTURBATION), new ListValue<>(Fetish.FETISH_DOMINANT), new ListValue<>(Fetish.FETISH_SADIST));
-		}
 	};
 	
 	public static final SexAction PLAYER_ANAL_FINGERING_STOP = new SexAction(
@@ -968,7 +846,7 @@ public class PartnerFingerAnus {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getSexManager().isConsensualSex() || Sex.isPlayerDom(); // Player can only stop in consensual sex or if they're the dom.
+			return Sex.isConsensual() || Sex.isDom(Main.game.getPlayer()); // Player can only stop in consensual sex or if they're the dom.
 		}
 		
 		@Override
@@ -986,7 +864,7 @@ public class PartnerFingerAnus {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Yanking [npc.her] [npc.fingers] out of your [pc.asshole+], you growl at [npc.name] as you command [npc.herHim] to stop fingering you.",
@@ -999,7 +877,7 @@ public class PartnerFingerAnus {
 					break;
 			}
 			
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc.Name] lets out a relieved sigh, which soon turns into [npc.a_sob+] as [npc.she] realises that you aren't finished with [npc.herHim] yet.",

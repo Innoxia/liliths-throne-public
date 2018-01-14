@@ -14,10 +14,10 @@ public enum PenisSize {
 	NEGATIVE_UTILITY_VALUE("N/A", -1, -1, Colour.GENERIC_SIZE_ONE),
 
 	/**Barely even anything there. (0-1 inches)*/
-	ZERO_MICROSCOPIC("microscopic", 0, 2, Colour.GENERIC_SIZE_TWO),
+	ZERO_MICROSCOPIC("tiny", 0, 2, Colour.GENERIC_SIZE_TWO),
 
 	/**Average size for a harpy. (2-3 inches)*/
-	ONE_TINY("tiny", 2, 4, Colour.GENERIC_SIZE_TWO),
+	ONE_TINY("small", 2, 4, Colour.GENERIC_SIZE_TWO),
 
 	/**Average size for a cat-morph or human. (4-7 inches)*/
 	TWO_AVERAGE("average-sized", 4, 8, Colour.GENERIC_SIZE_THREE),

@@ -13,7 +13,9 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.FitnessLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
+import com.lilithsthrone.game.character.attributes.LustLevel;
 import com.lilithsthrone.game.character.attributes.StrengthLevel;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.HornType;
@@ -33,7 +35,6 @@ import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
 import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.clothing.CoverableArea;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -335,7 +336,12 @@ public class TooltipInformationEventListener implements EventListener {
 
 		} else if (attribute != null) {
 			
-			if (attribute == Attribute.STRENGTH || attribute == Attribute.INTELLIGENCE || attribute == Attribute.FITNESS || attribute == Attribute.CORRUPTION || attribute == Attribute.AROUSAL) {
+			if (attribute == Attribute.STRENGTH
+					|| attribute == Attribute.INTELLIGENCE
+					|| attribute == Attribute.FITNESS
+					|| attribute == Attribute.CORRUPTION
+					|| attribute == Attribute.AROUSAL
+					|| attribute == Attribute.LUST) {
 				StatusEffect currentAttributeStatusEffect=null;
 				int minimumLevelValue=0, maximumLevelValue=0;
 				
@@ -359,10 +365,15 @@ public class TooltipInformationEventListener implements EventListener {
 					minimumLevelValue = CorruptionLevel.getCorruptionLevelFromValue(owner.getAttributeValue(Attribute.CORRUPTION)).getMinimumValue();
 					maximumLevelValue = CorruptionLevel.getCorruptionLevelFromValue(owner.getAttributeValue(Attribute.CORRUPTION)).getMaximumValue();
 					
-				} else {
+				} else if(attribute == Attribute.AROUSAL) {
 					currentAttributeStatusEffect = ArousalLevel.getArousalLevelFromValue(owner.getAttributeValue(Attribute.AROUSAL)).getRelatedStatusEffect();
 					minimumLevelValue = ArousalLevel.getArousalLevelFromValue(owner.getAttributeValue(Attribute.AROUSAL)).getMinimumValue();
 					maximumLevelValue = ArousalLevel.getArousalLevelFromValue(owner.getAttributeValue(Attribute.AROUSAL)).getMaximumValue();
+					
+				} else if(attribute == Attribute.LUST) {
+					currentAttributeStatusEffect = LustLevel.getLustLevelFromValue(owner.getAttributeValue(Attribute.LUST)).getRelatedStatusEffect();
+					minimumLevelValue = LustLevel.getLustLevelFromValue(owner.getAttributeValue(Attribute.LUST)).getMinimumValue();
+					maximumLevelValue = LustLevel.getLustLevelFromValue(owner.getAttributeValue(Attribute.LUST)).getMaximumValue();
 				}
 				
 				
@@ -450,7 +461,7 @@ public class TooltipInformationEventListener implements EventListener {
 				tooltipSB.append(getBodyPartDiv("Ears", owner.getEarRace(), owner.getEarType().getBodyCoveringType()));
 				tooltipSB.append(getBodyPartDiv("Tongue", owner.getTongueRace(), owner.getTongueType().getBodyCoveringType()));
 				if (owner.getHornType() != HornType.NONE) {
-					tooltipSB.append(getBodyPartDiv("Horns", owner.getHornRace(), owner.getHornType().getBodyCoveringType()));
+					tooltipSB.append(getBodyPartDiv((owner.hasHorns()?Util.capitaliseSentence(owner.getHornName()):"Horns"), owner.getHornRace(), owner.getHornType().getBodyCoveringType()));
 				} else {
 					tooltipSB.append("<div class='subTitle-half body'>" + "Horns - <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>" + "</div>");
 				}
@@ -564,7 +575,7 @@ public class TooltipInformationEventListener implements EventListener {
 					+ extraAttributeTableRow(owner, "Willpower", Attribute.DAMAGE_MANA, Attribute.RESISTANCE_MANA)
 					+ extraAttributeTableRow(owner, "Stamina", Attribute.DAMAGE_STAMINA, Attribute.RESISTANCE_STAMINA)
 
-					+ extraAttributeTableRow(owner, "Pure", Attribute.DAMAGE_PURE, Attribute.DAMAGE_PURE)
+					+ extraAttributeTableRow(owner, "Pure", Attribute.DAMAGE_PURE, Attribute.RESISTANCE_PURE)
 					
 					+ extraAttributeBonus(owner, Attribute.FERTILITY)
 					+ extraAttributeBonus(owner, Attribute.VIRILITY)

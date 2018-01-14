@@ -3,16 +3,23 @@ package com.lilithsthrone.game.inventory.item;
 import java.io.Serializable;
 import java.util.List;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
+import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.8
  * @version 0.1.83
  * @author Innoxia
  */
-public class ItemEffect implements Serializable {
+public class ItemEffect implements Serializable, XMLSaving {
 	private static final long serialVersionUID = 1L;
 	
 	private ItemEffectType itemEffectType;
@@ -60,6 +67,28 @@ public class ItemEffect implements Serializable {
 		return result;
 	}
 	
+	public Element saveAsXML(Element parentElement, Document doc) {
+		Element effect = doc.createElement("effect");
+		parentElement.appendChild(effect);
+
+		CharacterUtils.addAttribute(doc, effect, "itemEffectType", getItemEffectType().toString());
+		CharacterUtils.addAttribute(doc, effect, "primaryModifier", (getPrimaryModifier()==null?"null":getPrimaryModifier().toString()));
+		CharacterUtils.addAttribute(doc, effect, "secondaryModifier", (getSecondaryModifier()==null?"null":getSecondaryModifier().toString()));
+		CharacterUtils.addAttribute(doc, effect, "potency", (getPotency()==null?"null":getPotency().toString()));
+		CharacterUtils.addAttribute(doc, effect, "limit", String.valueOf(getLimit()));
+		
+		return effect;
+	}
+	
+	public static ItemEffect loadFromXML(Element parentElement, Document doc) {
+		return new ItemEffect(
+				ItemEffectType.valueOf(parentElement.getAttribute("itemEffectType")),
+				(parentElement.getAttribute("primaryModifier").equals("null")?null:TFModifier.valueOf(parentElement.getAttribute("primaryModifier"))),
+				(parentElement.getAttribute("secondaryModifier").equals("null")?null:TFModifier.valueOf(parentElement.getAttribute("secondaryModifier"))),
+				(parentElement.getAttribute("potency").equals("null")?null:TFPotency.valueOf(parentElement.getAttribute("potency"))),
+				Integer.valueOf(parentElement.getAttribute("limit")));
+	}
+	
 	public String applyEffect(GameCharacter user, GameCharacter target) {
 		return getItemEffectType().applyEffect(getPrimaryModifier(), getSecondaryModifier(), getPotency(), getLimit(), user, target);
 	}
@@ -86,6 +115,11 @@ public class ItemEffect implements Serializable {
 		if(getLimit()!=-1) {
 			cost+=1;
 		}
+
+		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING)) {
+			cost/=2;
+		}
+		
 		return cost;
 	}
 	

@@ -2,6 +2,7 @@ package com.lilithsthrone.game.sex.sexActions.dominion.pix;
 
 import java.util.List;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.ArousalLevel;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.effects.Fetish;
@@ -51,7 +52,7 @@ public class PixShowerTime {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPartnerFreeMouth() && Sex.isPlayerFreeMouth();
+			return Sex.isOrificeFree(Sex.getActivePartner(), OrificeType.MOUTH_PARTNER) && Sex.isOrificeFree(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER);
 		}
 
 		@Override
@@ -64,12 +65,7 @@ public class PixShowerTime {
 		}
 
 		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DENIAL));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
+		public List<Fetish> getFetishes(GameCharacter character) {
 			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DENIAL));
 		}
 	};
@@ -110,12 +106,7 @@ public class PixShowerTime {
 		}
 		
 		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DENIAL));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
+		public List<Fetish> getFetishes(GameCharacter character) {
 			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DENIAL));
 		}
 	};
@@ -152,12 +143,7 @@ public class PixShowerTime {
 		}
 		
 		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DENIAL));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
+		public List<Fetish> getFetishes(GameCharacter character) {
 			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DENIAL));
 		}
 	};
@@ -192,12 +178,7 @@ public class PixShowerTime {
 		}
 
 		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DENIAL));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
+		public List<Fetish> getFetishes(GameCharacter character) {
 			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DENIAL));
 		}
 	};
@@ -237,13 +218,12 @@ public class PixShowerTime {
 		}
 		
 		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT));
+		public List<Fetish> getFetishes(GameCharacter character) {
+			if(character.isPlayer()) {
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE));
+			} else {
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT));
+			}
 		}
 	};
 	
@@ -277,13 +257,12 @@ public class PixShowerTime {
 		}
 		
 		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT));
+		public List<Fetish> getFetishes(GameCharacter character) {
+			if(character.isPlayer()) {
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE));
+			} else {
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT));
+			}
 		}
 	};
 	
@@ -452,13 +431,12 @@ public class PixShowerTime {
 		}
 		
 		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_SELF));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_OTHERS));
+		public List<Fetish> getFetishes(GameCharacter character) {
+			if(character.isPlayer()) {
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_SELF));
+			} else {
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_OTHERS));
+			}
 		}
 		
 	};
@@ -482,12 +460,12 @@ public class PixShowerTime {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.hasFreeHandPartner();
+			return Sex.isPenetrationTypeFree(Sex.getActivePartner(), PenetrationType.FINGER_PARTNER);
 		}
 
 		@Override
 		public String getDescription() {
-			return UtilText.genderParsing(Sex.getPartner(),
+			return UtilText.genderParsing(Sex.getActivePartner(),
 					UtilText.returnStringAtRandom(
 					"Reaching around between your legs, Pix suddenly grabs your [pc.cock+], and as she starts stroking up and down its length, you find yourself letting out [pc.a_moan+] and leaning back into her.",
 					
@@ -524,7 +502,7 @@ public class PixShowerTime {
 
 		@Override
 		public String getDescription() {
-			return UtilText.genderParsing(Sex.getPartner(),
+			return UtilText.genderParsing(Sex.getActivePartner(),
 					"You feel Pix press heavily into your back, and as she growls menacingly into your ear, she reaches around with [pix.a_hand+] to start stroking and probing at your outer labia."
 						+ " With [pc.a_moan+], you lean back into her, and as the sound of falling water echoes off the walls all around you, she suddenly thrusts her [pix.fingers+] up, penetrating your [pc.pussy+] in one swift strike.");
 		}
@@ -598,13 +576,12 @@ public class PixShowerTime {
 		}
 		
 		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT));
+		public List<Fetish> getFetishes(GameCharacter character) {
+			if(character.isPlayer()) {
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE));
+			} else {
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT));
+			}
 		}
 	};
 	
@@ -714,7 +691,7 @@ public class PixShowerTime {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getNumberOfPlayerOrgasms()>=1;
+			return Sex.getNumberOfOrgasms(Main.game.getPlayer())>=1;
 		}
 
 		@Override
