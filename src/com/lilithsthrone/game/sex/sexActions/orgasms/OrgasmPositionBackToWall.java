@@ -6,9 +6,11 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPosition;
+import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
+import com.lilithsthrone.main.Main;
 
 /**
  * Orgasms for the generic position of two characters standing face-to-face.
@@ -26,10 +28,10 @@ public class OrgasmPositionBackToWall {
 		orgasmSB.setLength(0);
 		
 		// Start:
-		if(Sex.getPosition()==SexPosition.BACK_TO_WALL_PARTNER) {
+		if(Sex.getPosition()==SexPositionNew.BACK_TO_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.BACK_TO_WALL_AGAINST_WALL) {
 			if(partnerOrgasm) {
 				orgasmSB.append("<p>");
-				switch(Sex.getSexPacePartner()) {
+				switch(Sex.getSexPace(Sex.getActivePartner())) {
 					case DOM_GENTLE:
 						orgasmSB.append("[npc.Name] reaches up and slowly wraps [npc.her] [npc.arms] around you, leaning back against the wall as [npc.she] gently pulls you forwards and lets out a soft [npc.moan],"
 								+ " [npc.speech(Yes... I'm going to cum!)]");
@@ -59,7 +61,7 @@ public class OrgasmPositionBackToWall {
 			}
 			if(playerOrgasm) {
 				orgasmSB.append("<p>");
-				switch(Sex.getSexPacePlayer()) {
+				switch(Sex.getSexPace(Main.game.getPlayer())) {
 					case DOM_GENTLE:
 						orgasmSB.append("You step forwards, gently pressing yourself up against [npc.name]'s body as you softly [pc.moanVerb] into [npc.her] [npc.ear],"
 								+ " [pc.speech(I'm cumming!)]");
@@ -91,7 +93,7 @@ public class OrgasmPositionBackToWall {
 		} else {
 			if(partnerOrgasm) {
 				orgasmSB.append("<p>");
-				switch(Sex.getSexPacePlayer()) {
+				switch(Sex.getSexPace(Main.game.getPlayer())) {
 					case DOM_GENTLE:
 						orgasmSB.append("You reach up and slowly wrap your [pc.arms] around [npc.name], leaning back against the wall as you gently pull [npc.herHim] forwards and let out a soft [pc.moan],"
 								+ " [pc.speech(Yes... I'm going to cum!)]");
@@ -121,7 +123,7 @@ public class OrgasmPositionBackToWall {
 			}
 			if(playerOrgasm) {
 				orgasmSB.append("<p>");
-				switch(Sex.getSexPacePartner()) {
+				switch(Sex.getSexPace(Sex.getActivePartner())) {
 					case DOM_GENTLE:
 						orgasmSB.append("[npc.Name] steps forwards, gently pressing [npc.herself] up against your body as [npc.she] softly [npc.moansVerb] into your [pc.ear],"
 								+ " [npc.speech(I'm cumming!)]");
@@ -150,61 +152,61 @@ public class OrgasmPositionBackToWall {
 				orgasmSB.append("</p>");
 			}
 		}
-		
-		for(PenetrationType penetrationType : PenetrationType.values()) {
-			if(Sex.getOngoingPenetrationMap().get(penetrationType)!=null && !Sex.getOngoingPenetrationMap().get(penetrationType).isEmpty()) {
-				for(OrificeType orifice : Sex.getOngoingPenetrationMap().get(penetrationType)) {
-					switch(penetrationType) {
-						case FINGER_PARTNER:
-							switch(orifice) {
-								case ANUS_PARTNER:
-									break;
-								case ANUS_PLAYER:
-									break;
-								case MOUTH_PARTNER:
-									break;
-								case MOUTH_PLAYER:
-									break;
-								case NIPPLE_PARTNER:
-									break;
-								case NIPPLE_PLAYER:
-									break;
-								case VAGINA_PARTNER:
-									break;
-								case VAGINA_PLAYER:
-									break;
-								case URETHRA_PARTNER: case URETHRA_PLAYER:
-									// TODO
-									break;
-								case ASS_PARTNER: case ASS_PLAYER: case BREAST_PARTNER: case BREAST_PLAYER: case THIGHS_PARTNER: case THIGHS_PLAYER:
-									// Not needed
-									break;
-							}
-							break;
-						case FINGER_PLAYER:
-							break;
-						case PENIS_PARTNER:
-							break;
-						case PENIS_PLAYER:
-							break;
-						case TAIL_PARTNER:
-							break;
-						case TAIL_PLAYER:
-							break;
-						case TENTACLE_PARTNER:
-							break;
-						case TENTACLE_PLAYER:
-							break;
-						case TONGUE_PARTNER:
-							break;
-						case TONGUE_PLAYER:
-							break;
-					}
-				}
-			}
-			
-			
-		}
+		//TODO
+//		for(PenetrationType penetrationType : PenetrationType.values()) {
+//			if(Sex.getOngoingPenetrationMap().get(penetrationType)!=null && !Sex.getOngoingPenetrationMap().get(penetrationType).isEmpty()) {
+//				for(OrificeType orifice : Sex.getOngoingPenetrationMap().get(penetrationType)) {
+//					switch(penetrationType) {
+//						case FINGER_PARTNER:
+//							switch(orifice) {
+//								case ANUS_PARTNER:
+//									break;
+//								case ANUS_PLAYER:
+//									break;
+//								case MOUTH_PARTNER:
+//									break;
+//								case MOUTH_PLAYER:
+//									break;
+//								case NIPPLE_PARTNER:
+//									break;
+//								case NIPPLE_PLAYER:
+//									break;
+//								case VAGINA_PARTNER:
+//									break;
+//								case VAGINA_PLAYER:
+//									break;
+//								case URETHRA_PARTNER: case URETHRA_PLAYER:
+//									// TODO
+//									break;
+//								case ASS_PARTNER: case ASS_PLAYER: case BREAST_PARTNER: case BREAST_PLAYER: case THIGHS_PARTNER: case THIGHS_PLAYER:
+//									// Not needed
+//									break;
+//							}
+//							break;
+//						case FINGER_PLAYER:
+//							break;
+//						case PENIS_PARTNER:
+//							break;
+//						case PENIS_PLAYER:
+//							break;
+//						case TAIL_PARTNER:
+//							break;
+//						case TAIL_PLAYER:
+//							break;
+//						case TENTACLE_PARTNER:
+//							break;
+//						case TENTACLE_PLAYER:
+//							break;
+//						case TONGUE_PARTNER:
+//							break;
+//						case TONGUE_PLAYER:
+//							break;
+//					}
+//				}
+//			}
+//			
+//			
+//		}
 		
 		return orgasmSB.toString();
 	}
@@ -221,14 +223,14 @@ public class OrgasmPositionBackToWall {
 		public boolean isBaseRequirementsMet() {
 			boolean takingCock = false;
 			
-			if((Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER) == PenetrationType.PENIS_PARTNER)
-					|| (Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER) == PenetrationType.PENIS_PARTNER)
-					|| (Sex.getPenetrationTypeInOrifice(OrificeType.NIPPLE_PLAYER) == PenetrationType.PENIS_PARTNER)
-					|| (Sex.getPenetrationTypeInOrifice(OrificeType.MOUTH_PLAYER) == PenetrationType.PENIS_PARTNER)) {
+			if((Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER) == PenetrationType.PENIS_PARTNER)
+					|| (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER) == PenetrationType.PENIS_PARTNER)
+					|| (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE_PLAYER) == PenetrationType.PENIS_PARTNER)
+					|| (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER) == PenetrationType.PENIS_PARTNER)) {
 				takingCock = true;
 			}
 			
-			return !takingCock && Sex.getSexPacePlayer()!=SexPace.SUB_RESISTING;
+			return !takingCock && Sex.getSexPace(Main.game.getPlayer())!=SexPace.SUB_RESISTING;
 		}
 		
 		@Override
@@ -243,7 +245,7 @@ public class OrgasmPositionBackToWall {
 		
 		@Override
 		public String getDescription() {
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_GENTLE:
 					return "Realising that [npc.name] is about to reach [npc.her] orgasm, you gently taking hold of [npc.her] [npc.hips], before pulling [npc.herHim] up against you and softly [pc.moaning], [pc.speech(Go on, cum for me!)]";
 				case DOM_NORMAL:

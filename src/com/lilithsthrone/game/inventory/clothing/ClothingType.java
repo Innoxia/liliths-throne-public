@@ -763,7 +763,7 @@ public class ClothingType {
 			"antler headbands",
 			"A thin band of metal that sits atop your head.",
 			1,
-			Femininity.FEMININE,
+			null,
 			InventorySlot.HEAD,
 			Rarity.COMMON,
 			null,
@@ -1919,6 +1919,66 @@ public class ClothingType {
 					null,
 					"[npc.Name] takes [npc.her] blazer off.",
 					"[npc.Name] pulls your blazer off.",
+					null);
+		}
+	};
+	
+	public static AbstractClothingType TORSO_OVER_WOMENS_LEATHER_JACKET = new AbstractClothingType("a",
+			false,
+			"women's leather jacket",
+			"women's leather jackets",
+			"A feminine leather jacket, able to be worn both open and, by means of a zip, closed.",
+			3,
+			Femininity.FEMININE,
+			InventorySlot.TORSO_OVER,
+			Rarity.COMMON,
+			null,
+			"torso_over_womens_leather_jacket",
+			null,
+
+			Util.newArrayListOfValues(
+					new ListValue<BlockedParts>(new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
+							null,
+							Util.newArrayListOfValues(
+							new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)))),
+					new ListValue<BlockedParts>(new BlockedParts(
+							DisplacementType.UNZIPS,
+							null,
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.BREASTS),
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.CLOTHING_BLACK)), Colour.allClothingColours,
+			null, null, null, null){
+		
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You pull on the leather jacket.",
+					"You guide [npc.name]'s [npc.arms] through the leather jacket's sleeves as you pull it on [npc.herHim].",
+					null,
+					"[npc.Name] pulls on the leather jacket.",
+					"[npc.Name] guides your [pc.arms] through the leather jacket's sleeves as [npc.she] pulls it on you.",
+					null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You take off your leather jacket.",
+					"You pull off [npc.name]'s leather jacket.",
+					null,
+					"[npc.Name] takes [npc.her] leather jacket off.",
+					"[npc.Name] pulls your leather jacket off.",
 					null);
 		}
 	};
@@ -4181,6 +4241,67 @@ public class ClothingType {
 		}
 	};
 
+	public static AbstractClothingType CHEST_STRIPED_BRA = new AbstractClothingType("a",
+			false,
+			"striped bra",
+			"striped bras",
+			"A cotton bikini-style bra, designed to match with a pair of striped panties.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.CHEST,
+			Rarity.COMMON,
+			null,
+			"chest_striped_bra",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<BlockedParts>(
+							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
+											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
+									null,
+									null)),
+					new ListValue<BlockedParts>(
+							new BlockedParts(DisplacementType.PULLS_DOWN,
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.CHEST))
+									))
+					),
+			null,
+			Util.newArrayListOfValues(new ListValue<Colour>(Colour.BASE_BLUE_LIGHT), new ListValue<Colour>(Colour.BASE_PINK_LIGHT)), Colour.allClothingColours,
+			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_WHITE)), Colour.allClothingColours,
+			null, null){
+		
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You place the bra over your chest before tying up the strings at your back.",
+					"You place the bra over [npc.name]'s chest before tying up the strings at [npc.her] back.",
+					null,
+					"[npc.Name] places the bra over [npc.her] chest before tying up the strings at [npc.her] back.",
+					"[npc.Name] places the bra over your chest before tying up the strings at your back.",
+					null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You untie the bra's strings and take it off.",
+					"You untie [npc.name]'s bra's strings and take it off.",
+					null,
+					"[npc.Name] unties [npc.her] bra's strings and takes it off.",
+					"[npc.Name] unties your bra's strings and takes it off.",
+					null);
+		}
+	};
+
+	
+	
 	public static AbstractClothingType CHEST_BIKINI = new AbstractClothingType(
 			"a",
 			false,
@@ -6208,6 +6329,65 @@ public class ClothingType {
 		}
 	};
 	
+	public static AbstractClothingType GROIN_SHIMAPAN = new AbstractClothingType("a pair of",
+			true,
+			"striped panties",
+			"striped panties",
+			"A pair of distinctly feminine, striped panties, made from soft cotton. They are sometimes referred to as 'shima-pantsu' (striped panties).",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.GROIN,
+			Rarity.COMMON,
+			null,
+			"groin_shimapan",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<BlockedParts>(
+							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL),
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN),
+									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
+							null,
+							null)),
+					new ListValue<BlockedParts>(
+							new BlockedParts(DisplacementType.SHIFTS_ASIDE,
+							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.ANUS),
+									new ListValue<CoverableArea>(CoverableArea.PENIS),
+									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+							null))),
+
+			null,
+			Util.newArrayListOfValues(new ListValue<Colour>(Colour.BASE_BLUE_LIGHT), new ListValue<Colour>(Colour.BASE_PINK_LIGHT)), Colour.allClothingColours,
+			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_WHITE)), Colour.allClothingColours, null, null){
+		
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You step into the panties before pulling them up to cover your private parts.",
+					"You pull the panties up [npc.name]'s [npc.legs] to cover [npc.her] private parts.",
+					null,
+					"[npc.Name] steps into the panties before pulling them up to cover [npc.her] private parts.",
+					"[npc.Name] pulls the panties up your [pc.legs] to cover your private parts.",
+					null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You pull down your panties and kick them off your [pc.feet].",
+					"You pull down [npc.name]'s panties and slide them off [npc.her] [npc.feet].",
+					null,
+					"[npc.Name] pulls [npc.her] panties down and kicks them off [npc.her] [npc.feet].",
+					"[npc.Name] pulls your panties down and slides them off your [pc.feet].",
+					null);
+		}
+	};
+	
 	public static AbstractClothingType GROIN_LACY_PANTIES = new AbstractClothingType("a pair of",
 			true,
 			"lacy panties",
@@ -7170,6 +7350,55 @@ public class ClothingType {
 		
 		
 				private static final long serialVersionUID = 1L;
+
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You put on the socks and pull them up to your mid-thigh.",
+					"You put the socks on [npc.name] and pull them up to [npc.her] mid-thigh.",
+					null,
+					"[npc.Name] puts on the socks and pulls them up to [npc.her] mid-thigh.",
+					"[npc.Name] puts the socks on your [pc.feet] and pulls them up to your mid-thigh.",
+					null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You pull off your socks.",
+					"You pull off [npc.name]'s socks.",
+					null,
+					"[npc.Name] pulls off [npc.her] socks.",
+					"[npc.Name] pulls off your socks.",
+					null);
+		}
+	};
+	
+	public static AbstractClothingType SOCK_THIGHHIGH_SOCKS_STRIPED = new AbstractClothingType("a pair of",
+			true,
+			"striped thigh-high socks",
+			"striped thigh-high socks",
+			"A pair of striped thigh-high socks, made from cotton and with an elastic band at the top.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.SOCK,
+			Rarity.COMMON,
+			null,
+			"sock_thighhigh_socks_striped",
+			null,
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.FEET),
+									new ListValue<ClothingAccess>(ClothingAccess.CALVES)),
+							null,
+							null))),
+			null,
+			Util.newArrayListOfValues(new ListValue<Colour>(Colour.BASE_BLUE_LIGHT), new ListValue<Colour>(Colour.BASE_PINK_LIGHT)), Colour.allClothingColours,
+			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_WHITE)), Colour.allClothingColours, null, null){
+		
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -10483,7 +10712,12 @@ public class ClothingType {
 					
 					allClothing.add(ct);
 					
-					if(ct==ClothingType.PENIS_CONDOM) {
+					if(ct==ClothingType.PENIS_CONDOM
+							|| ct==ClothingType.TORSO_OVER_CHRISTMAS_SWEATER
+							|| ct==ClothingType.HEAD_ANTLER_HEADBAND
+							|| ct==ClothingType.PIERCING_EAR_SNOW_FLAKES
+							|| ct==ClothingType.PIERCING_NOSE_SNOWFLAKE_STUD
+							|| ct==ClothingType.NECK_SNOWFLAKE_NECKLACE) {
 						continue;
 					}
 					

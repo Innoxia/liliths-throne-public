@@ -43,7 +43,7 @@ import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexPosition;
+import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -91,6 +91,7 @@ public class Vicky extends NPC {
 			this.setSkinCovering(new Covering(BodyCoveringType.LYCAN_FUR, Colour.COVERING_BLACK), true);
 	
 			this.setPenisSize(PenisSize.FOUR_HUGE.getMedianValue());
+			this.setPenisVirgin(false);
 			
 			this.setVaginaVirgin(false);
 			this.setVaginaCapacity(Capacity.FIVE_ROOMY.getMedianValue(), true);
@@ -127,6 +128,7 @@ public class Vicky extends NPC {
 		npc.addFetish(Fetish.FETISH_NON_CON_DOM);
 		
 		npc.setPenisSize(PenisSize.FOUR_HUGE.getMedianValue());
+		npc.setPenisVirgin(false);
 		
 		return npc;
 	}
@@ -284,10 +286,10 @@ public class Vicky extends NPC {
 		return false;
 	}
 	
-	public Set<SexPosition> getSexPositionPreferences() {
+	public Set<SexPositionSlot> getSexPositionPreferences() {
 		sexPositionPreferences.clear();
 		
-		sexPositionPreferences.add(SexPosition.VICKY_DESK_MISSIONARY);
+		sexPositionPreferences.add(SexPositionSlot.MISSIONARY_DESK_DOM_VICKY);
 		
 		return sexPositionPreferences;
 	}

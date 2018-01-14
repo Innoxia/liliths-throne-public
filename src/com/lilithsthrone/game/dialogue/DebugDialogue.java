@@ -2,6 +2,7 @@ package com.lilithsthrone.game.dialogue;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.ArmType;
@@ -40,7 +41,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.88
+ * @version 0.1.97
  * @author Innoxia
  */
 public class DebugDialogue {
@@ -57,7 +58,7 @@ public class DebugDialogue {
 
 	public static final DialogueNodeOld DEBUG_MENU = new DialogueNodeOld("A powerful tool", "Open debug menu.", false) {
 		private static final long serialVersionUID = 1L;
-
+		
 		@Override
 		public String getContent() {
 			return "<p>"
@@ -280,7 +281,24 @@ public class DebugDialogue {
 						}
 					};
 					
-			} else {
+			}
+//			else if (index == 23) {
+//				return new ResponseSex("Special \"Tests\"",
+//						"Let Lilaya and Rose run some \"tests\" on you.",
+//						null, null, null, null, null, null,
+//						true, true,
+//						new SMDoggy(
+//								Util.newHashMapOfValues(
+//										new Value<>(Main.game.getRose(), SexPositionSlot.DOGGY_INFRONT),
+//										new Value<>(Main.game.getLilaya(), SexPositionSlot.DOGGY_BEHIND)),
+//								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
+//						Lilaya.AUNT_END_SEX,
+//						"<p>"
+//							+ "With a maniacal laugh, Rose throws you and Lilaya to the floor, ready for her special \"tests\"."
+//						+ "</p>");
+//				
+//			}
+			else {
 				return null;
 			}
 		}

@@ -3,6 +3,8 @@ package com.lilithsthrone.world.places;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lilithsthrone.game.character.Quest;
+import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -188,6 +190,74 @@ public enum PlaceUpgrade {
 		}
 	},
 	
+	LILAYA_SLAVE_ROOM_DOUBLE(true,
+			Colour.BASE_MAGENTA,
+			"Double Slave Room",
+			"Rose will prepare this room just like she would for any other guest, making it suitable for housing two of your slaves."
+					+ " While more cost-effective than giving each slave their own room, the occupants will no doubt be a little frustrated at having to share their personal space with another slave.",
+			"This room has been converted into a suitable place for housing two of your slaves.",
+			"You've paid to have this room converted so that it's suitable for housing two of your slaves."
+					+ " A pair of single-size beds, covered in a plain white duvets, sit against opposite walls."
+					+ " Beside each one, there's a simple bedside cabinet, complete with arcane-powered lamp."
+					+ " Other than that, the only other pieces of furniture in here are a single wooden wardrobe and solitary chest of drawers.",
+			350,
+			0,
+			10,
+			2,
+			-0.05f,
+			0,
+			null) {
+		
+		@Override
+		public String getRoomDescription(GenericPlace place) {
+			if(place.getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_UPGRADE_BED)) {
+				return "You've paid to have this room converted so that it's suitable for housing two of your slaves."
+							+ " A pair of comfortable double size beds, covered in warm fully duvets, sit against opposite walls."
+							+ " Beside each one, there's a simple bedside cabinet, complete with arcane-powered lamp."
+							+ " Other than that, the only other pieces of furniture in here are a single wooden wardrobe and solitary chest of drawers.";
+				
+			} else if(place.getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOWNGRADE_BED)) {
+				return "You've paid to have this room converted so that it's suitable for housing two of your slaves."
+						+ " A pair of uncomfortable single-size beds, covered in thin blankets, sit against opposite walls."
+						+ " Beside each one, there's a simple bedside cabinet, complete with arcane-powered lamp."
+						+ " Other than that, the only other pieces of furniture in here are a single wooden wardrobe and solitary chest of drawers.";
+		
+			}else {
+				return "You've paid to have this room converted so that it's suitable for housing two of your slaves."
+					+ " A pair of single-size beds, covered in a plain white duvets, sit against opposite walls."
+					+ " Beside each one, there's a simple bedside cabinet, complete with arcane-powered lamp."
+					+ " Other than that, the only other pieces of furniture in here are a single wooden wardrobe and solitary chest of drawers.";
+			}
+		}
+		
+		@Override
+		public boolean isAvailable(Cell cell) {
+			return Main.game.getCharactersTreatingCellAsHome(cell).isEmpty() && !cell.getPlace().getPlaceUpgrades().contains(LILAYA_ARTHUR_ROOM);
+		}
+		
+		@Override
+		public void applyInstallationEffects(GenericPlace place) {
+			if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR) {
+				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_SLAVE);
+				
+			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR) {
+				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_SLAVE);
+				
+			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR) {
+				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_SLAVE);
+				
+			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR) {
+				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_SLAVE);
+			}
+			
+			for(PlaceUpgrade upgrade : PlaceUpgrade.values()) {
+				if(upgrade != LILAYA_SLAVE_ROOM_DOUBLE) {
+					place.removePlaceUpgrade(upgrade);
+				}
+			}
+		}
+	},
+	
 	LILAYA_SLAVE_ROOM_DOWNGRADE_BED(false,
 			Colour.GENERIC_BAD,
 			"Small Steel Bed",
@@ -306,7 +376,7 @@ public enum PlaceUpgrade {
 	private static ArrayList<PlaceUpgrade> coreRoomUpgrades, slaveQuartersUpgrades;
 	
 	public static ArrayList<PlaceUpgrade> getCoreRoomUpgrades() {
-		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.arthursRoomInstalled)) {
+		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.arthursRoomInstalled) || Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_1_J_ARTHURS_ROOM)) {
 			ArrayList<PlaceUpgrade> listArthurRemoved = new ArrayList<>(coreRoomUpgrades);
 			listArthurRemoved.remove(PlaceUpgrade.LILAYA_ARTHUR_ROOM);
 			return listArthurRemoved;
@@ -315,7 +385,7 @@ public enum PlaceUpgrade {
 	}
 
 	public static ArrayList<PlaceUpgrade> getSlaveQuartersUpgrades() {
-		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.arthursRoomInstalled)) {
+		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.arthursRoomInstalled) || Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_1_J_ARTHURS_ROOM)) {
 			ArrayList<PlaceUpgrade> listArthurRemoved = new ArrayList<>(slaveQuartersUpgrades);
 			listArthurRemoved.remove(PlaceUpgrade.LILAYA_ARTHUR_ROOM);
 			return listArthurRemoved;
@@ -326,6 +396,8 @@ public enum PlaceUpgrade {
 	static {
 		coreRoomUpgrades = Util.newArrayListOfValues(
 				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM),
+				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE),
+				
 				new ListValue<>(PlaceUpgrade.LILAYA_ARTHUR_ROOM));
 		
 		slaveQuartersUpgrades = Util.newArrayListOfValues(

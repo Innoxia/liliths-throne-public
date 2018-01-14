@@ -7,9 +7,12 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.dominion.SMPixShowerTime;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -625,8 +628,12 @@ public class PixsPlayground {
 			if(index==1) {
 				return new ResponseSex("Too tired",
 						"Tell Pix that you're far too tired to do any more physical exercise right now.",
-						false,
-						false, Main.game.getPix(), new SMPixShowerTime(), PIX_POST_SEX, "<p>"
+						false, false,
+						new SMPixShowerTime(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPix(), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX))),
+						PIX_POST_SEX,
+						"<p>"
 							+ "You're far too tired to do any more physical exercise right now, and tell Pix as such, "
 							+UtilText.parsePlayerSpeech("I wasn't avoiding you, I'm just too tired for this right now. Maybe we can carry on in about half an hour or something?")
 						+ "</p>"
@@ -650,8 +657,12 @@ public class PixsPlayground {
 			} else if(index==2) {
 				return new ResponseSex("Make it up to her",
 						"Tell Pix that you can make it up to her right now.",
-						false,
-						false, Main.game.getPix(), new SMPixShowerTime(), PIX_POST_SEX, "<p>"
+						false, false,
+						new SMPixShowerTime(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPix(), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX))),
+						PIX_POST_SEX,
+						"<p>"
 							+ "As tired as you are, Pix turns you on far too much to refuse her advances, and you turn your head to one side as you eagerly respond, "
 							+UtilText.parsePlayerSpeech("Perhaps you'll let me make it up to you?")
 						+ "</p>"
@@ -675,8 +686,12 @@ public class PixsPlayground {
 			} else if(index==3) {
 				return new ResponseSex("Apologise",
 						"Apologise to Pix and accept her punishment.",
-						false,
-						false, Main.game.getPix(), new SMPixShowerTime(), PIX_POST_SEX, "<p>"
+						false, false,
+						new SMPixShowerTime(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPix(), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX))),
+						PIX_POST_SEX,
+						"<p>"
 							+ "You don't want Pix to think that you've been avoiding her, and you turn your head to one side as you apologise, "
 							+UtilText.parsePlayerSpeech("Sorry Pix, I wasn't trying to avoid you, I just didn't see you anywhere nearby!")
 						+ "</p>"

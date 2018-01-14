@@ -13,6 +13,7 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.FitnessLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
+import com.lilithsthrone.game.character.attributes.LustLevel;
 import com.lilithsthrone.game.character.attributes.StrengthLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.AntennaType;
@@ -335,7 +336,12 @@ public class TooltipInformationEventListener implements EventListener {
 
 		} else if (attribute != null) {
 			
-			if (attribute == Attribute.STRENGTH || attribute == Attribute.INTELLIGENCE || attribute == Attribute.FITNESS || attribute == Attribute.CORRUPTION || attribute == Attribute.AROUSAL) {
+			if (attribute == Attribute.STRENGTH
+					|| attribute == Attribute.INTELLIGENCE
+					|| attribute == Attribute.FITNESS
+					|| attribute == Attribute.CORRUPTION
+					|| attribute == Attribute.AROUSAL
+					|| attribute == Attribute.LUST) {
 				StatusEffect currentAttributeStatusEffect=null;
 				int minimumLevelValue=0, maximumLevelValue=0;
 				
@@ -359,10 +365,15 @@ public class TooltipInformationEventListener implements EventListener {
 					minimumLevelValue = CorruptionLevel.getCorruptionLevelFromValue(owner.getAttributeValue(Attribute.CORRUPTION)).getMinimumValue();
 					maximumLevelValue = CorruptionLevel.getCorruptionLevelFromValue(owner.getAttributeValue(Attribute.CORRUPTION)).getMaximumValue();
 					
-				} else {
+				} else if(attribute == Attribute.AROUSAL) {
 					currentAttributeStatusEffect = ArousalLevel.getArousalLevelFromValue(owner.getAttributeValue(Attribute.AROUSAL)).getRelatedStatusEffect();
 					minimumLevelValue = ArousalLevel.getArousalLevelFromValue(owner.getAttributeValue(Attribute.AROUSAL)).getMinimumValue();
 					maximumLevelValue = ArousalLevel.getArousalLevelFromValue(owner.getAttributeValue(Attribute.AROUSAL)).getMaximumValue();
+					
+				} else if(attribute == Attribute.LUST) {
+					currentAttributeStatusEffect = LustLevel.getLustLevelFromValue(owner.getAttributeValue(Attribute.LUST)).getRelatedStatusEffect();
+					minimumLevelValue = LustLevel.getLustLevelFromValue(owner.getAttributeValue(Attribute.LUST)).getMinimumValue();
+					maximumLevelValue = LustLevel.getLustLevelFromValue(owner.getAttributeValue(Attribute.LUST)).getMaximumValue();
 				}
 				
 				

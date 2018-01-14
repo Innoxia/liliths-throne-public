@@ -950,6 +950,18 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				}
 			}
 			
+			if(character.getMainWeapon()!=null) {
+				for (Entry<Attribute, Integer> e : character.getMainWeapon().getAttributeModifiers().entrySet()) {
+					character.incrementBonusAttribute(e.getKey(), e.getValue());
+				}
+			}
+			
+			if(character.getOffhandWeapon()!=null) {
+				for (Entry<Attribute, Integer> e : character.getOffhandWeapon().getAttributeModifiers().entrySet()) {
+					character.incrementBonusAttribute(e.getKey(), e.getValue());
+				}
+			}
+			
 		} else {
 			CharacterCreation.getDressed(character, false);
 		}
@@ -2156,7 +2168,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	public String setAttribute(Attribute att, float value, boolean appendAttributeChangeText) {
-		return incrementAttribute(att, value - attributes.get(att));
+		return incrementAttribute(att, value - attributes.get(att), appendAttributeChangeText);
 	}
 
 	public String incrementAttribute(Attribute att, float increment) {
@@ -2181,7 +2193,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		}
 		attributes.put(att, value);
 		
-		if(isPlayer() && att != Attribute.AROUSAL) {
+		if(isPlayer() && appendAttributeChangeText) {
 			Main.game.addEvent(new EventLogEntryAttributeChange(att, increment, true), !Main.game.isInSex());
 		}
 
@@ -2970,13 +2982,13 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	public void setArousal(float arousal) {
 		if (arousal < 0) {
-			setAttribute(Attribute.AROUSAL, 0);
+			setAttribute(Attribute.AROUSAL, 0, false);
 			
 		} else if (arousal > 100) {
-			setAttribute(Attribute.AROUSAL, 100);
+			setAttribute(Attribute.AROUSAL, 100, false);
 			
 		} else {
-			setAttribute(Attribute.AROUSAL, arousal);
+			setAttribute(Attribute.AROUSAL, arousal, false);
 		}
 
 		updateAttributeListeners();
@@ -2984,6 +2996,28 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	public void incrementArousal(float increment) {
 		setArousal(getArousal() + increment);
+	}
+	
+	public float getLust() {
+		return getAttributeValue(Attribute.LUST);
+	}
+	
+	public void setLust(float arousal) {
+		if (arousal < 0) {
+			setAttribute(Attribute.LUST, 0, false);
+			
+		} else if (arousal > 100) {
+			setAttribute(Attribute.LUST, 100, false);
+			
+		} else {
+			setAttribute(Attribute.LUST, arousal, false);
+		}
+
+		updateAttributeListeners();
+	}
+	
+	public void incrementLust(float increment) {
+		setLust(getLust() + increment);
 	}
 
 	public boolean isWearingCondom() {

@@ -36,7 +36,7 @@ import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexPosition;
+import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -282,7 +282,7 @@ public class Cultist extends NPC {
 			// Player uses item on NPC:
 			} else {
 				if(item.getItemType().equals(ItemType.PROMISCUITY_PILL)) {
-					if(Sex.isPlayerDom()) {
+					if(Sex.isDom(Main.game.getPlayer())) {
 						Main.game.getPlayer().useItem(item, target, false);
 						return "<p>"
 								+ "Holding out a 'Promiscuity pill' to [npc.name], you tell [npc.her] to swallow it so that you don't have to worry about any unexpected pregnancies."
@@ -300,7 +300,7 @@ public class Cultist extends NPC {
 						
 				} else if(item.getItemType().equals(ItemType.VIXENS_VIRILITY)) {
 					Main.game.getPlayer().useItem(item, target, false);
-					if(Sex.isPlayerDom()) {
+					if(Sex.isDom(Main.game.getPlayer())) {
 						return "<p>"
 									+ "Holding out a 'Vixen's Virility' to [npc.name], you tell [npc.her] to swallow it."
 									+ " [npc.She] lets out a delighted cry, and eagerly swallows the little pink pill,"
@@ -316,7 +316,7 @@ public class Cultist extends NPC {
 						
 				} else if(item.getItemType().equals(ItemType.POTION) || item.getItemType().equals(ItemType.ELIXIR)) {
 					
-					if(Sex.isPlayerDom()) {
+					if(Sex.isDom(Main.game.getPlayer())) {
 						Main.game.getPlayer().removeItem(item);
 						return "<p>"
 									+ "Taking your "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
@@ -338,7 +338,7 @@ public class Cultist extends NPC {
 					
 				} else if(item.getItemType().equals(ItemType.FETISH_UNREFINED) || item.getItemType().equals(ItemType.FETISH_REFINED)) {
 					
-					if(Sex.isPlayerDom()) {
+					if(Sex.isDom(Main.game.getPlayer())) {
 						Main.game.getPlayer().removeItem(item);
 						return "<p>"
 									+ "Taking your "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
@@ -360,7 +360,7 @@ public class Cultist extends NPC {
 					}
 					
 				} else if(item.getItemType().equals(ItemType.EGGPLANT)) {
-					if(Sex.isPlayerDom()) {
+					if(Sex.isDom(Main.game.getPlayer())) {
 						return "<p>"
 									+ "Taking the eggplant from your inventory, you hold it out to [npc.name]."
 									+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
@@ -387,7 +387,7 @@ public class Cultist extends NPC {
 			
 		// NPC is using an item:
 		}else{
-			return Sex.getPartner().useItem(item, target, false);
+			return Sex.getActivePartner().useItem(item, target, false);
 		}
 	}
 	
@@ -433,20 +433,22 @@ public class Cultist extends NPC {
 		return true;
 	}
 	
-	public Set<SexPosition> getSexPositionPreferences() {
+	public Set<SexPositionSlot> getSexPositionPreferences() {
 		sexPositionPreferences.clear();
 		
 		if(Sex.isInForeplay()) {
-			sexPositionPreferences.add(SexPosition.CULTIST_ALTAR_MISSIONARY_ORAL);
+			sexPositionPreferences.add(SexPositionSlot.MISSIONARY_ALTAR_KNEELING_BETWEEN_LEGS);
+			sexPositionPreferences.add(SexPositionSlot.MISSIONARY_ALTAR_SEALED_KNEELING_BETWEEN_LEGS);
 		} else {
-			sexPositionPreferences.add(SexPosition.CULTIST_ALTAR_MISSIONARY);
+			sexPositionPreferences.add(SexPositionSlot.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS);
+			sexPositionPreferences.add(SexPositionSlot.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS);
 		}
 		
 		return sexPositionPreferences;
 	}
 	
 	public SexType getForeplayPreference() {
-		if(Sex.getSexManager().getPosition()==SexPosition.CULTIST_ALTAR_MISSIONARY_ORAL) {
+		if(Sex.getSexPositionSlot(this)==SexPositionSlot.MISSIONARY_ALTAR_KNEELING_BETWEEN_LEGS || Sex.getSexPositionSlot(this)==SexPositionSlot.MISSIONARY_ALTAR_SEALED_KNEELING_BETWEEN_LEGS) {
 			if(requestedAnal) {
 				return new SexType(PenetrationType.TONGUE_PARTNER, OrificeType.ANUS_PLAYER);
 			} else {
@@ -458,7 +460,7 @@ public class Cultist extends NPC {
 	}
 	
 	public SexType getMainSexPreference() {
-		if(Sex.getSexManager().getPosition()==SexPosition.CULTIST_ALTAR_MISSIONARY) {
+		if(Sex.getSexPositionSlot(this)==SexPositionSlot.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS || Sex.getSexPositionSlot(this)==SexPositionSlot.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS) {
 			if(requestedAnal) {
 				return new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER);
 			} else {
@@ -472,7 +474,7 @@ public class Cultist extends NPC {
 	@Override
 	public String getCondomEquipEffects(GameCharacter equipper, GameCharacter target, boolean rough) {
 		if(Main.game.isInSex()) {
-			if((Sex.isPlayerDom() || Sex.isSubHasEqualControl()) && !target.isPlayer()) {
+			if((Sex.isDom(Main.game.getPlayer()) || Sex.isSubHasEqualControl()) && !target.isPlayer()) {
 				return "<p>"
 							+ "Holding out a condom to [npc.name], you force [npc.herHim] to take it and put it on."
 							+ " Quickly ripping it out of its little foil wrapper, [npc.she] rolls it down the length of [npc.her] [npc.cock+] as [npc.she] whines at you,"
@@ -499,7 +501,7 @@ public class Cultist extends NPC {
 //	// Losing virginity: TODO
 //	private static StringBuilder StringBuilderSB;
 //	public String getPlayerVaginaVirginityLossDescription(boolean isPlayerDom){
-//		if(isPlayerDom || Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER)==PenetrationType.TAIL_PARTNER) {
+//		if(isPlayerDom || Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER)==PenetrationType.TAIL_PARTNER) {
 //			return super.getPlayerVaginaVirginityLossDescription(isPlayerDom);
 //		}
 //		

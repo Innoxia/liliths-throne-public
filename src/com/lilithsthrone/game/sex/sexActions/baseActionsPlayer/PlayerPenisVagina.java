@@ -2,6 +2,7 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsPlayer;
 
 import java.util.List;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
@@ -14,7 +15,8 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPosition;
+import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.game.sex.sexActions.universal.sub.SubCowgirl;
@@ -48,7 +50,7 @@ public class PlayerPenisVagina {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom() ||Sex.isConsensual();
+			return Sex.isDom(Main.game.getPlayer()) ||Sex.isConsensual();
 		}
 
 		@Override
@@ -56,7 +58,7 @@ public class PlayerPenisVagina {
 				
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Lining your [pc.cock+] up to [npc.name]'s [npc.pussy+], you start slowly teasing the [pc.cockHead+] up and down between [npc.her] pussy lips, ready to penetrate [npc.herHim] at any moment.",
@@ -79,7 +81,7 @@ public class PlayerPenisVagina {
 				default:
 					break;
 			}
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc.A_moan+] bursts out from between [npc.name]'s [npc.lips+], [npc.speech(Please! Fuck me! I need your cock inside of me!)]",
@@ -93,7 +95,7 @@ public class PlayerPenisVagina {
 							" [npc.Name] [npc.moansVerb] out loud as [npc.she] speaks to you, [npc.speech(Come on, fuck me already!)]"));
 					break;
 				case SUB_RESISTING:
-					if(Sex.getPartner().isVaginaVirgin()) {
+					if(Sex.getActivePartner().isVaginaVirgin()) {
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" [npc.A_sob+] bursts out from between [npc.name]'s [npc.lips+], [npc.speech(No! Don't! Please! I-I'm a virgin! You can't do this!)]",
 								" [npc.Name] lets out a desperate [npc.sob], before pleading, [npc.speech(Please! Don't do this! I'm still a virgin!)]",
@@ -116,11 +118,11 @@ public class PlayerPenisVagina {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Main.game.getPlayer(), Sex.getPartner(), PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER);
+			Sex.transferLubrication(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER);
 		}
 		
 		@Override
-		public List<Fetish> getFetishesPlayer() {
+		public List<Fetish> getFetishes(GameCharacter character) {
 			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DENIAL));
 		}
 	};
@@ -144,7 +146,7 @@ public class PlayerPenisVagina {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom() ||Sex.isConsensual();
+			return !Sex.isDom(Main.game.getPlayer()) ||Sex.isConsensual();
 		}
 
 		@Override
@@ -152,7 +154,7 @@ public class PlayerPenisVagina {
 				
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Shifting [npc.her] [npc.hips], [npc.name] lines your [pc.cock+] up to [npc.her] [npc.pussy+],"
@@ -180,7 +182,7 @@ public class PlayerPenisVagina {
 				default:
 					break;
 			}
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [pc.A_moan+] bursts out from between your [pc.lips+], [pc.speech(Please! Let me fuck you already!)]",
@@ -209,11 +211,11 @@ public class PlayerPenisVagina {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Sex.getPartner(), Main.game.getPlayer(), PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER);
+			Sex.transferLubrication(Sex.getActivePartner(), Main.game.getPlayer(), PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER);
 		}
 		
 		@Override
-		public List<Fetish> getFetishesPartner() {
+		public List<Fetish> getFetishes(GameCharacter character) {
 			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DENIAL));
 		}
 	};
@@ -230,7 +232,7 @@ public class PlayerPenisVagina {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			// You can't penetrate if your partner is already fucking you, due to physical limitations. (I mean, if you're facing opposite ways and lying on top of each other, it might be possible, but that position will be special.)
-			return Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PARTNER)==null;
+			return Sex.isPenetrationTypeFree(Sex.getActivePartner(), PenetrationType.PENIS_PARTNER);
 		}
 		
 		@Override
@@ -248,9 +250,9 @@ public class PlayerPenisVagina {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPosition.DOGGY_PARTNER_ON_ALL_FOURS) {// Doggy-style penetration descriptions:
+			if(Sex.getPosition()==SexPositionNew.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_ON_ALL_FOURS) {// Doggy-style penetration descriptions:
 				
-				switch(Sex.getSexPacePlayer()) {
+				switch(Sex.getSexPace(Main.game.getPlayer())) {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Gently gripping [npc.name]'s [npc.hips+], you shuffle forwards, and, after taking a moment to tease the [pc.cockHead+] of your [pc.cock] between [npc.her] outer labia,"
@@ -275,7 +277,7 @@ public class PlayerPenisVagina {
 					default:
 						break;
 				}
-				switch(Sex.getSexPacePartner()) {
+				switch(Sex.getSexPace(Sex.getActivePartner())) {
 					case SUB_EAGER:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" [npc.She] lets out [npc.a_moan+] as you enter [npc.herHim], eagerly pushing back against you as [npc.she] helps to sink your [pc.cock+] even deeper into [npc.her] [npc.pussy+].",
@@ -295,9 +297,9 @@ public class PlayerPenisVagina {
 						break;
 				}
 				
-			} else if(Sex.getPosition()==SexPosition.BACK_TO_WALL_PARTNER) {// Back-to-wall penetration descriptions:
+			} else if(Sex.getPosition()==SexPositionNew.BACK_TO_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.BACK_TO_WALL_AGAINST_WALL) {// Back-to-wall penetration descriptions:
 				
-				switch(Sex.getSexPacePlayer()) {
+				switch(Sex.getSexPace(Main.game.getPlayer())) {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Leaning into [npc.name] as you push [npc.herHim] back against the wall, you slowly tease the [pc.cockHead+] of your [pc.cock] between [npc.her] outer labia,"
@@ -322,7 +324,7 @@ public class PlayerPenisVagina {
 					default:
 						break;
 				}
-				switch(Sex.getSexPacePartner()) {
+				switch(Sex.getSexPace(Sex.getActivePartner())) {
 					case SUB_EAGER:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" [npc.She] lets out [npc.a_moan+] as you enter [npc.herHim], eagerly bucking [npc.her] [npc.hips] back against you as [npc.she] helps to sink your [pc.cock+] even deeper into [npc.her] [npc.pussy+].",
@@ -344,7 +346,7 @@ public class PlayerPenisVagina {
 				
 			} else { // Default penetration descriptions:
 				
-				switch(Sex.getSexPacePlayer()) {
+				switch(Sex.getSexPace(Main.game.getPlayer())) {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Slowly teasing the [pc.cockHead+] of your [pc.cock] between [npc.name]'s outer labia, you let out a little [pc.moan] before slowly pushing your [pc.hips] forwards,"
@@ -375,7 +377,7 @@ public class PlayerPenisVagina {
 					default:
 						break;
 				}
-				switch(Sex.getSexPacePartner()) {
+				switch(Sex.getSexPace(Sex.getActivePartner())) {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" [npc.She] lets out a soft [npc.moan] as you enter [npc.herHim], gently bucking [npc.her] [npc.hips] back against you as [npc.she] helps to sink your [pc.cock+] even deeper into [npc.her] [npc.pussy+].",
@@ -437,7 +439,7 @@ public class PlayerPenisVagina {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 
 		@Override
@@ -445,7 +447,7 @@ public class PlayerPenisVagina {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPosition.BACK_TO_WALL_PARTNER) {// Back-to-wall descriptions:
+			if(Sex.getPosition()==SexPositionNew.BACK_TO_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.BACK_TO_WALL_AGAINST_WALL) {// Back-to-wall descriptions:
 				
 				String barbedSpecial = "", flaredSpecial = "", knottedSpecial = "", ribbedSpecial = "", tentacledSpecial = "";
 				
@@ -487,7 +489,7 @@ public class PlayerPenisVagina {
 						"Leaning into [npc.name], you take a deep breath of [npc.her] [npc.scent] as you gently press [npc.herHim] back against the wall, before starting to slowly slide your [pc.cock+] in and out of [npc.her] [npc.pussy+]."));
 				
 			
-				switch(Sex.getSexPacePartner()) {
+				switch(Sex.getSexPace(Sex.getActivePartner())) {
 					case SUB_EAGER:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" [npc.Name] eagerly thrusts [npc.her] [npc.hips] against you, letting out [npc.a_moan+] as [npc.she] enthusiastically helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+].",
@@ -516,7 +518,7 @@ public class PlayerPenisVagina {
 						"Slowly pushing your [pc.cock+] into [npc.name]'s [npc.pussy+], you gently thrust your [pc.hips] against [npc.herHim], letting out a little [pc.moan] as you fuck [npc.herHim].",
 						"Sliding your [pc.cock+] into [npc.name]'s [npc.pussy+], you let out a little [pc.moan] before starting to gently buck your [pc.hips], breathing in [npc.her] [npc.scent] as you slowly fuck [npc.herHim]."));
 				
-				switch(Sex.getSexPacePartner()) {
+				switch(Sex.getSexPace(Sex.getActivePartner())) {
 					case SUB_EAGER:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" [npc.Name] eagerly thrusts [npc.her] [npc.hips] against you, letting out [npc.a_moan+] as [npc.she] enthusiastically helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+].",
@@ -564,7 +566,7 @@ public class PlayerPenisVagina {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 
 		@Override
@@ -577,7 +579,7 @@ public class PlayerPenisVagina {
 					"Eagerly pushing your [pc.cock+] into [npc.name]'s [npc.pussy+], you start thrusting your [pc.hips] into [npc.herHim], letting out [pc.a_moan+] as you fuck [npc.herHim].",
 					"Eagerly thrusting your [pc.cock+] into [npc.name]'s [npc.pussy+], you let out [pc.a_moan+] as you start frantically bucking your [pc.hips], breathing in [npc.her] [npc.scent] as you fuck [npc.herHim]."));
 			
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case SUB_EAGER:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc.Name] eagerly thrusts [npc.her] [npc.hips] against you, letting out [npc.a_moan+] as [npc.she] enthusiastically helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+].",
@@ -624,7 +626,7 @@ public class PlayerPenisVagina {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 
 
@@ -633,18 +635,18 @@ public class PlayerPenisVagina {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPosition.DOGGY_PARTNER_ON_ALL_FOURS) { // Doggy-style descriptions:
+			if(Sex.getPosition()==SexPositionNew.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_ON_ALL_FOURS) { // Doggy-style descriptions:
 				
 				String tailSpecial="",  hairSpecial="";
 				
 				// Tail special:
-				if(Sex.getPartner().getTailType()!=TailType.NONE){
+				if(Sex.getActivePartner().getTailType()!=TailType.NONE){
 						tailSpecial = "Grabbing the base of [npc.name]'s [npc.tail+], you start roughly pulling [npc.herHim] back onto your [pc.cock+] in time with your thrusts,"
 								+ " letting out [pc.moans+] as you violently pound away at [npc.her] [npc.pussy+].";
 				}
 				
 				// Hair special:
-				if(Sex.getPartner().getHairRawLengthValue()>=HairLength.THREE_SHOULDER_LENGTH.getMinimumValue()) {
+				if(Sex.getActivePartner().getHairRawLengthValue()>=HairLength.THREE_SHOULDER_LENGTH.getMinimumValue()) {
 					hairSpecial = "Letting out an ominous growl, you reach down and grab a fistful of [npc.name]'s [npc.hair+],"
 							+ " using your new leverage to pull [npc.herHim] back onto your [pc.cock+] as you start roughly fucking [npc.her] [npc.pussy+] at an incredible pace.";
 				}
@@ -661,7 +663,7 @@ public class PlayerPenisVagina {
 									+ " letting out a series of [pc.moans+] as you slam into [npc.herHim] over and over again."));
 				
 			
-				switch(Sex.getSexPacePartner()) {
+				switch(Sex.getSexPace(Sex.getActivePartner())) {
 					case SUB_EAGER:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" [npc.Name] eagerly pushes [npc.her] [npc.ass] back against you, letting out [npc.a_moan+] as [npc.she] enthusiastically helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+].",
@@ -684,7 +686,7 @@ public class PlayerPenisVagina {
 						break;
 				}
 				
-			} else if(Sex.getPosition()==SexPosition.BACK_TO_WALL_PARTNER) {// Back-to-wall descriptions:
+			} else if(Sex.getPosition()==SexPositionNew.BACK_TO_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.BACK_TO_WALL_AGAINST_WALL) {// Back-to-wall descriptions:
 				
 				String barbedSpecial = "", flaredSpecial = "", knottedSpecial = "", ribbedSpecial = "", tentacledSpecial = "";
 				
@@ -728,7 +730,7 @@ public class PlayerPenisVagina {
 						"Leaning into [npc.name], you take a deep breath of [npc.her] [npc.scent] as you pin [npc.herHim] back against the wall, before starting to ruthlessly pound your [pc.cock+] in and out of [npc.her] [npc.pussy+]."));
 				
 			
-				switch(Sex.getSexPacePartner()) {
+				switch(Sex.getSexPace(Sex.getActivePartner())) {
 					case SUB_EAGER:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" [npc.Name] eagerly thrusts [npc.her] [npc.hips] against you, letting out [npc.a_moan+] as [npc.she] enthusiastically helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+].",
@@ -757,7 +759,7 @@ public class PlayerPenisVagina {
 						"Violently thrusting your [pc.cock+] deep into [npc.name]'s [npc.pussy+], you start slamming your [pc.hips] into [npc.herHim], letting out [pc.a_moan+] as you roughly fuck [npc.herHim].",
 						"Ruthlessly thrusting your [pc.cock+] deep into [npc.name]'s [npc.pussy+], you let out [pc.a_moan+] as you start violently thrusting your [pc.hips], breathing in [npc.her] [npc.scent] as you roughly fuck [npc.herHim]."));
 				
-				switch(Sex.getSexPacePartner()) {
+				switch(Sex.getSexPace(Sex.getActivePartner())) {
 					case SUB_EAGER:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" [npc.Name] eagerly thrusts [npc.her] [npc.hips] against you, letting out [npc.a_moan+] as [npc.she] enthusiastically helps to sink your [pc.cock+] deep into [npc.her] [npc.pussy+].",
@@ -806,7 +808,7 @@ public class PlayerPenisVagina {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 
 		@Override
@@ -819,7 +821,7 @@ public class PlayerPenisVagina {
 					"Pushing your [pc.cock+] into [npc.name]'s [npc.pussy+], you start thrusting your [pc.hips] into [npc.herHim], letting out [pc.a_moan+] as you fuck [npc.herHim].",
 					"Thrusting your [pc.cock+] into [npc.name]'s [npc.pussy+], you let out [pc.a_moan+] as you start bucking your [pc.hips], breathing in [npc.her] [npc.scent] as you fuck [npc.herHim]."));
 			
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc.She] slowly thrusts [npc.her] [npc.hips] out in response, letting out a soft [npc.moan] as [npc.she] starts gently imploring you to continue fucking [npc.herHim].",
@@ -865,7 +867,7 @@ public class PlayerPenisVagina {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 
 		@Override
@@ -878,7 +880,7 @@ public class PlayerPenisVagina {
 					"Eagerly pushing your [pc.cock+] into [npc.name]'s [npc.pussy+], you start thrusting your [pc.hips] into [npc.herHim], letting out [pc.a_moan+] as you fuck [npc.herHim].",
 					"Eagerly thrusting your [pc.cock+] into [npc.name]'s [npc.pussy+], you let out [pc.a_moan+] as you start frantically bucking your [pc.hips], breathing in [npc.her] [npc.scent] as you fuck [npc.herHim]."));
 			
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc.She] slowly thrusts [npc.her] [npc.hips] out in response, letting out a soft [npc.moan] as [npc.she] starts gently imploring you to continue fucking [npc.herHim].",
@@ -925,7 +927,7 @@ public class PlayerPenisVagina {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 
 		@Override
@@ -938,7 +940,7 @@ public class PlayerPenisVagina {
 					" [pc.A_sob+] bursts out from between your [pc.lips] as you weakly try to push [npc.name] away, pleading for [npc.herHim] to get [npc.her] [npc.pussy+] off your [pc.cock].",
 					" [pc.Sobbing] in distress, you weakly struggle against [npc.name], pleading for [npc.herHim] to let go of your [pc.cock]."));
 			
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" Ignoring your protests, [npc.she] slowly thrusts [npc.her] [npc.hips] out against you, letting out a soft [npc.moan] as [npc.she] continues gently fucking [npc.herself] on your [pc.cock+].",
@@ -978,7 +980,7 @@ public class PlayerPenisVagina {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom() || Sex.isSubHasEqualControl();
+			return Sex.isDom(Main.game.getPlayer()) || Sex.isSubHasEqualControl();
 		}
 		
 		@Override
@@ -996,7 +998,7 @@ public class PlayerPenisVagina {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Roughly yanking your [pc.cock+] out of [npc.name]'s [npc.pussy+], you dominantly slide your [pc.cockHead] up and down between [npc.her] folds one last time before pulling your [pc.hips] back.",
@@ -1009,7 +1011,7 @@ public class PlayerPenisVagina {
 					break;
 			}
 			
-			switch(Sex.getSexPacePartner()) {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [npc.Name] [npc.sobsVerb+] as you pull out of [npc.her] [npc.pussy], but [npc.she] doesn't stop crying as [npc.she] continues to weakly struggle against you.",
@@ -1042,10 +1044,10 @@ public class PlayerPenisVagina {
 			// Partner can only start fucking themselves on the player's cock in consensual sex or if they're the dom.
 			// You can't penetrate if your partner is already fucking you, due to physical limitations. (I mean, if you're facing opposite ways and lying on top of each other, it might be possible, but that position will be special.)
 			
-			if(Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PARTNER)==null) {
-				return (Sex.isConsensual() || !Sex.isPlayerDom());
+			if(Sex.isPenetrationTypeFree(Sex.getActivePartner(), PenetrationType.PENIS_PARTNER)) {
+				return (Sex.isConsensual() || !Sex.isDom(Main.game.getPlayer()));
 			} else {
-				return false; //(Sex.isConsensual() || !Sex.isPlayerDom()) && !Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PARTNER).contains(OrificeType.VAGINA_PLAYER);
+				return false; //(Sex.isConsensual() || !Sex.isDom(Main.game.getPlayer())) && !Sex.getOngoingPenetrationMap().get(PenetrationType.PENIS_PARTNER).contains(OrificeType.VAGINA_PLAYER);
 			}
 		}
 		
@@ -1064,13 +1066,13 @@ public class PlayerPenisVagina {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPosition.COWGIRL_PARTNER_TOP) {
+			if(Sex.getPosition()==SexPositionNew.COWGIRL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.COWGIRL_RIDING) {
 				
 				return SubCowgirl.getPartnerStartingVaginalPenetrationDescription();
 				
 			} else {
 			
-				switch(Sex.getSexPacePartner()) {
+				switch(Sex.getSexPace(Sex.getActivePartner())) {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Pressing [npc.herself] against you, [npc.name] slowly slides your [pc.cock+] over [npc.her] outer labia,"
@@ -1110,7 +1112,7 @@ public class PlayerPenisVagina {
 						break;
 				}
 				
-				switch(Sex.getSexPacePlayer()) {
+				switch(Sex.getSexPace(Main.game.getPlayer())) {
 					case DOM_GENTLE:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" You let out a soft [pc.moan] as you enter [npc.herHim], gently bucking your [pc.hips] as you start to fuck [npc.her] [npc.pussy+].",
@@ -1164,7 +1166,7 @@ public class PlayerPenisVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -1180,11 +1182,11 @@ public class PlayerPenisVagina {
 		@Override
 		public String getDescription() {
 			
-			if(Sex.getPosition()==SexPosition.COWGIRL_PARTNER_TOP) {
+			if(Sex.getPosition()==SexPositionNew.COWGIRL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.COWGIRL_RIDING) {
 				
 				return SubCowgirl.getPartnerRidingCockGentle();
 				
-			} else if(Sex.getPosition()==SexPosition.BACK_TO_WALL_PARTNER) {// Back-to-wall descriptions:
+			} else if(Sex.getPosition()==SexPositionNew.BACK_TO_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.BACK_TO_WALL_AGAINST_WALL) {// Back-to-wall descriptions:
 				
 				return UtilText.returnStringAtRandom(
 						"Reaching down to gently take hold of your [pc.hips+], [npc.name] starts bucking back and forth, pressing you against the wall as [npc.she] repeatedly impales [npc.her] [npc.pussy+] on your [pc.cock+].",
@@ -1215,7 +1217,7 @@ public class PlayerPenisVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -1230,7 +1232,7 @@ public class PlayerPenisVagina {
 
 		@Override
 		public String getDescription() {
-			if(Sex.getPosition()==SexPosition.COWGIRL_PARTNER_TOP) {
+			if(Sex.getPosition()==SexPositionNew.COWGIRL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.COWGIRL_RIDING) {
 				
 				return SubCowgirl.getPartnerRidingCockNormal();
 				
@@ -1255,7 +1257,7 @@ public class PlayerPenisVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -1270,11 +1272,11 @@ public class PlayerPenisVagina {
 
 		@Override
 		public String getDescription() {
-			if(Sex.getPosition()==SexPosition.COWGIRL_PARTNER_TOP) {
+			if(Sex.getPosition()==SexPositionNew.COWGIRL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.COWGIRL_RIDING) {
 				
 				return SubCowgirl.getPartnerRidingCockRough();
 				
-			} else if(Sex.getPosition()==SexPosition.BACK_TO_WALL_PLAYER) {
+			} else if(Sex.getPosition()==SexPositionNew.BACK_TO_WALL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.BACK_TO_WALL_AGAINST_WALL) {
 				
 				String barbedSpecial = "", flaredSpecial = "", knottedSpecial = "", ribbedSpecial = "", tentacledSpecial = "";
 				
@@ -1339,7 +1341,7 @@ public class PlayerPenisVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -1357,7 +1359,7 @@ public class PlayerPenisVagina {
 			UtilText.nodeContentSB.setLength(0);
 			
 
-			if(Sex.getPosition()==SexPosition.DOGGY_PARTNER_ON_ALL_FOURS) {// Doggy-style penetration descriptions:
+			if(Sex.getPosition()==SexPositionNew.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_ON_ALL_FOURS) {// Doggy-style penetration descriptions:
 				
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"Bracing [npc.herself] with both hands flat on the floor, [npc.name] starts to push back against you in time with your thrusts,"
@@ -1391,7 +1393,7 @@ public class PlayerPenisVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -1430,7 +1432,7 @@ public class PlayerPenisVagina {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -1448,7 +1450,7 @@ public class PlayerPenisVagina {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			switch(Sex.getSexPacePlayer()) {
+			switch(Sex.getSexPace(Main.game.getPlayer())) {
 				case DOM_GENTLE:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Tears start to well up in [npc.name]'s [npc.eyes], before [npc.she] suddenly lets out [npc.a_sob+], weakly trying to pull your [pc.cock] out of [npc.her] [npc.pussy+] as you continue gently fucking [npc.herHim].",
@@ -1489,7 +1491,7 @@ public class PlayerPenisVagina {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isConsensual() || !Sex.isPlayerDom(); // Partner can only stop in consensual sex or if they're the dom.
+			return Sex.isConsensual() || !Sex.isDom(Main.game.getPlayer()); // Partner can only stop in consensual sex or if they're the dom.
 		}
 		
 		@Override
@@ -1505,7 +1507,7 @@ public class PlayerPenisVagina {
 		@Override
 		public String getDescription() {
 
-			if(Sex.getPosition()==SexPosition.COWGIRL_PARTNER_TOP) {
+			if(Sex.getPosition()==SexPositionNew.COWGIRL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.COWGIRL_RIDING) {
 				
 				return SubCowgirl.getPartnerStoppingVaginalPenetrationDescription();
 				
@@ -1513,7 +1515,7 @@ public class PlayerPenisVagina {
 				
 				UtilText.nodeContentSB.setLength(0);
 				
-				switch(Sex.getSexPacePartner()) {
+				switch(Sex.getSexPace(Sex.getActivePartner())) {
 					case DOM_ROUGH:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								"Yanking your [pc.cock] out of [npc.her] [npc.pussy+], [npc.name] growls at you as [npc.she] commands you to stop fucking [npc.herHim].",
@@ -1526,7 +1528,7 @@ public class PlayerPenisVagina {
 						break;
 				}
 				
-				switch(Sex.getSexPacePlayer()) {
+				switch(Sex.getSexPace(Main.game.getPlayer())) {
 					case SUB_RESISTING:
 						UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 								" You let out a relieved sigh, which soon turns into [pc.a_sob+] as you realise that [npc.she] isn't finished with you yet.",
@@ -1563,7 +1565,7 @@ public class PlayerPenisVagina {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPartner().getVaginaType()==VaginaType.DEMON_COMMON;
+			return Sex.getActivePartner().getVaginaType()==VaginaType.DEMON_COMMON;
 		}
 
 		@Override
