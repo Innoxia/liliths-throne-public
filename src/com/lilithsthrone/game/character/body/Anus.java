@@ -23,18 +23,18 @@ public class Anus implements BodyPartInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	// Asshole variables:
-	private AnusType type;
-	private OrificeAnus orificeAnus;
-	private boolean bleached;
-	private BodyHair assHair;
+	protected AnusType type;
+	protected OrificeAnus orificeAnus;
+	protected boolean bleached;
+	protected BodyHair assHair;
 
-	public Anus(AnusType type, int wetness, int capacity, int elasticity, int plasticity, boolean virgin) {
+	public Anus(AnusType type, int wetness, float capacity, int elasticity, int plasticity, boolean virgin) {
 		this.type = type;
 		
 		orificeAnus = new OrificeAnus(wetness, capacity, elasticity, plasticity, virgin, type.getDefaultRacialOrificeModifiers());
 		
 		bleached = false;
-		assHair = BodyHair.NONE;
+		assHair = BodyHair.ZERO_NONE;
 	}
 
 	@Override
@@ -67,14 +67,14 @@ public class Anus implements BodyPartInterface, Serializable {
 		
 		String wetnessDescriptor = orificeAnus.getWetness(owner).getDescriptor();
 		if(Main.game.isInSex()) {
-			if(owner.isPlayer() && !Sex.getWetOrificeTypes().get(OrificeType.ANUS_PLAYER).isEmpty()) {
+			if(owner.isPlayer() && !Sex.getWetOrificeTypes(owner).get(OrificeType.ANUS_PLAYER).isEmpty()) {
 				wetnessDescriptor = "wet";
-			} else if(!owner.isPlayer() && !Sex.getWetOrificeTypes().get(OrificeType.ANUS_PARTNER).isEmpty()) {
+			} else if(!owner.isPlayer() && !Sex.getWetOrificeTypes(owner).get(OrificeType.ANUS_PARTNER).isEmpty()) {
 				wetnessDescriptor = "wet";
 			}
 		}
 		descriptorList.add(wetnessDescriptor);
-		if((owner.getAssHair()==BodyHair.BUSHY || owner.getAssHair()==BodyHair.TRIMMED) && Main.game.isBodyHairEnabled()) {
+		if((owner.getAssHair()==BodyHair.SIX_BUSHY || owner.getAssHair()==BodyHair.THREE_TRIMMED) && Main.game.isBodyHairEnabled()) {
 			descriptorList.add("hairy");
 		}
 		descriptorList.add(type.getDescriptor(owner));
@@ -146,56 +146,56 @@ public class Anus implements BodyPartInterface, Serializable {
 		} else {
 			if(owner.isPlayer()) {
 				switch(assHair) {
-					case NONE:
+					case ZERO_NONE:
 						transformation = "<p>There is no longer any trace of "+getAssHairType(owner).getFullDescription(owner, true)+" around your asshole.</p>";
 						break;
-					case STUBBLE:
+					case ONE_STUBBLE:
 						transformation = "<p>You now have a stubbly patch of "+getAssHairType(owner).getFullDescription(owner, true)+" around your asshole.</p>";
 						break;
-					case MANICURED:
+					case TWO_MANICURED:
 						transformation = "<p>You now have a well-manicured patch of "+getAssHairType(owner).getFullDescription(owner, true)+" around your asshole.</p>";
 						break;
-					case TRIMMED:
+					case THREE_TRIMMED:
 						transformation = "<p>You now have a trimmed patch of "+getAssHairType(owner).getFullDescription(owner, true)+" around your asshole.</p>";
 						break;
-					case NATURAL:
+					case FOUR_NATURAL:
 						transformation = "<p>You now have a natural amount of "+getAssHairType(owner).getFullDescription(owner, true)+" around your asshole.</p>";
 						break;
-					case UNKEMPT:
+					case FIVE_UNKEMPT:
 						transformation = "<p>You now have an unkempt bush of "+getAssHairType(owner).getFullDescription(owner, true)+" around your asshole.</p>";
 						break;
-					case BUSHY:
+					case SIX_BUSHY:
 						transformation = "<p>You now have a thick, bushy mass of "+getAssHairType(owner).getFullDescription(owner, true)+" around your asshole.</p>";
 						break;
-					case WILD:
+					case SEVEN_WILD:
 						transformation = "<p>You now have a wild, bushy mass of "+getAssHairType(owner).getFullDescription(owner, true)+" around your asshole.</p>";
 						break;
 				}
 				
 			} else {
 				switch(assHair) {
-					case NONE:
+					case ZERO_NONE:
 						transformation = UtilText.parse(owner, "<p>There is no longer any trace of "+getAssHairType(owner).getFullDescription(owner, true)+" around [npc.name]'s asshole.</p>");
 						break;
-					case STUBBLE:
+					case ONE_STUBBLE:
 						transformation = UtilText.parse(owner, "<p>[npc.Name] now has a stubbly patch of "+getAssHairType(owner).getFullDescription(owner, true)+" around [npc.her] asshole.</p>");
 						break;
-					case MANICURED:
+					case TWO_MANICURED:
 						transformation = UtilText.parse(owner, "<p>[npc.Name] now has a well-manicured patch of "+getAssHairType(owner).getFullDescription(owner, true)+" around [npc.her] asshole.</p>");
 						break;
-					case TRIMMED:
+					case THREE_TRIMMED:
 						transformation = UtilText.parse(owner, "<p>[npc.Name] now has a trimmed patch of "+getAssHairType(owner).getFullDescription(owner, true)+" around [npc.her] asshole.</p>");
 						break;
-					case NATURAL:
+					case FOUR_NATURAL:
 						transformation = UtilText.parse(owner, "<p>[npc.Name] now has a natural amount of "+getAssHairType(owner).getFullDescription(owner, true)+" around [npc.her] asshole.</p>");
 						break;
-					case UNKEMPT:
+					case FIVE_UNKEMPT:
 						transformation = UtilText.parse(owner, "<p>[npc.Name] now has a unkempt bush of "+getAssHairType(owner).getFullDescription(owner, true)+" around [npc.her] asshole.</p>");
 						break;
-					case BUSHY:
+					case SIX_BUSHY:
 						transformation = UtilText.parse(owner, "<p>[npc.Name] now has a thick, bushy mass of "+getAssHairType(owner).getFullDescription(owner, true)+" around [npc.her] asshole.</p>");
 						break;
-					case WILD:
+					case SEVEN_WILD:
 						transformation = UtilText.parse(owner, "<p>[npc.Name] now has a wild, bushy mass of "+getAssHairType(owner).getFullDescription(owner, true)+" around [npc.her] asshole.</p>");
 						break;
 				}

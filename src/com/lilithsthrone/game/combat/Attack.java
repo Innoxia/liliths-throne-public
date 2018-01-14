@@ -5,6 +5,7 @@ import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
@@ -125,6 +126,12 @@ public enum Attack {
 		// Round float value to nearest 1 decimal place:
 		damage = (Math.round(damage*10))/10f;
 		
+		if(attacker.isPlayer()) {
+			damage *= Main.getProperties().difficultyLevel.getDamageModifierPlayer();
+		} else {
+			damage *= Main.getProperties().difficultyLevel.getDamageModifierNPC();
+		}
+		
 		return damage;
 	}
 
@@ -201,7 +208,7 @@ public enum Attack {
 		return damage;
 	}
 	public static float getMaximumDamage(GameCharacter attacker, GameCharacter defender, Attack attackType) {
-		return getMinimumDamage(attacker, defender, attackType, (attackType == MAIN ? attacker.getMainWeapon() : attackType == OFFHAND ? attacker.getOffhandWeapon() : null));
+		return getMaximumDamage(attacker, defender, attackType, (attackType == MAIN ? attacker.getMainWeapon() : attackType == OFFHAND ? attacker.getOffhandWeapon() : null));
 	}
 
 	/**
@@ -287,16 +294,22 @@ public enum Attack {
 		}
 
 		if (defender != null) {
+			// Modifiers based on race resistance:
+			damage *= ((100 - defender.getAttributeValue(attacker.getRace().getResistanceMultiplier())) / 100f);
+			// Modifiers based on race damage:
+			damage *= ((100 + attacker.getAttributeValue(defender.getRace().getDamageMultiplier())) / 100f);
+			
 			// Modifiers based on level:
-			if (defender.getLevel() - attacker.getLevel() >= 3)
-				return damage * 0.75f;
-			else if (defender.getLevel() - attacker.getLevel() <= -3)
-				return damage * 1.25f;
-			else
-				return damage;
-
-		} else
-			return damage;
+			if (defender.getLevel() - attacker.getLevel() >= 3) {
+				damage = damage * 0.75f;
+			} else if (defender.getLevel() - attacker.getLevel() <= -3) {
+				damage = damage * 1.25f;
+			}
+			
+			
+		}
+		
+		return damage;
 	}
 
 }

@@ -9,7 +9,6 @@ import com.lilithsthrone.game.dialogue.MapDisplay;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
-import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
@@ -25,7 +24,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.7
- * @version 0.1.83
+ * @version 0.1.97
  * @author Innoxia
  */
 public class EnchantmentDialogue {
@@ -49,26 +48,6 @@ public class EnchantmentDialogue {
 	private static String inventoryView() {
 		inventorySB.setLength(0);
 		
-		// Display essences at top of page:
-		inventorySB.append("<div class='enchanting-essence-title'>"
-				+ "<div class='enchanting-text'>"
-//				+ "Owned essences: "
-				);
-		for(TFEssence essence : TFEssence.values()) {
-			inventorySB.append(
-					"<div style='width:28px; display:inline-block; margin:0 4px 0 4px;'>"
-						+ "<div class='essence-inline" + getRarityIdentifier(essence.getRarity()) + "'>"
-							+ essence.getSVGString()
-							+ "<div class='overlay no-pointer' id='ESSENCE_"+essence.hashCode()+"'></div>"
-						+ "</div>"
-						+ " <div style='display:inline-block; height:16px; vertical-align: middle;'>"
-							+ "<b style='color:"+essence.getColour().toWebHexString()+";'>"+Main.game.getPlayer().getEssenceCount(essence)+"</b>"
-						+ "</div>"
-					+ "</div>"
-					);
-		}
-		inventorySB.append("</div></div>");
-		
 		
 		// Create main enchanting block:
 		
@@ -77,14 +56,14 @@ public class EnchantmentDialogue {
 			inventorySB.append("<div class='enchanting-essence-inner-left'>");
 //				inventorySB.append("<div class='crafting-item-background empty'></div>");
 				
-				inventorySB.append("<div class='enchanting-ingredient" + getRarityIdentifier(ingredient.getRarity()) + "'>"
+				inventorySB.append("<div class='enchanting-ingredient " + ingredient.getRarity().getName() + "'>"
 						+ "<div class='enchanting-ingredient-content'>"+ingredient.getSVGString()+"</div>"
 						+ "<div class='overlay' id='INGREDIENT_ENCHANTING'></div>"
 						+ "<div class='enchanting-ingredient-count'><b>x" + Main.game.getPlayer().getItemCount((AbstractItem) ingredient)+ "</b></div>"
 						+ "</div>");
 				
 				if(primaryMod != null) {
-					inventorySB.append("<div class='enchanting-modifier" + getRarityIdentifier(primaryMod.getRarity()) + "'>"
+					inventorySB.append("<div class='enchanting-modifier " + primaryMod.getRarity().getName() + "'>"
 							+ "<div class='enchanting-modifier-content'>"+primaryMod.getSVGString()+"</div>"
 							+ "<div class='overlay' id='MOD_PRIMARY_ENCHANTING'></div>"
 							+ "</div>");
@@ -96,7 +75,7 @@ public class EnchantmentDialogue {
 				}
 				
 				if(secondaryMod != null) {
-					inventorySB.append("<div class='enchanting-modifier" + getRarityIdentifier(secondaryMod.getRarity()) + "'>"
+					inventorySB.append("<div class='enchanting-modifier " + secondaryMod.getRarity().getName() + "'>"
 							+ "<div class='enchanting-modifier-content'>"+secondaryMod.getSVGString()+"</div>"
 							+ "<div class='overlay' id='MOD_SECONDARY_ENCHANTING'></div>"
 							+ "</div>");
@@ -113,22 +92,32 @@ public class EnchantmentDialogue {
 						"<div class='enchanting-text' style='text-align: center; display:block; margin:0 auto; padding:8px 0 8px 0;'>"
 							+ "<b style='color:"+potency.getColour().toWebHexString()+";'>"+potency.getName()+"</b>"
 							+ "</br></br>"
-//							+ "<b>Limit:</b> " + limit
-//							+ "</br></br>"
-							+ "<b>Cost:</b>"
-							+ " <div class='essence-inline" + getRarityIdentifier(ingredient.getRelatedEssence().getRarity()) + "'>"
-								+ ingredient.getRelatedEssence().getSVGString()
-								+ "<div class='overlay no-pointer' id='ESSENCE_COST_"+ingredient.getRelatedEssence().hashCode()+"'></div>"
-							+ "</div>"
-							+ " <div style='display:inline-block; vertical-align: middle;'>"
-								+ "<b style='color:"+ingredient.getRelatedEssence().getColour().toWebHexString()+";'>"+effect.getCost()+"</b>"
-							+ "</div>"
+							+ "<b>Cost:</b> "
+							+ UtilText.formatAsEssences(effect.getCost(), "b", false)
 						+ "</div>");
 
+				if(effects.size() >= ingredient.getEnchantmentLimit()
+						|| ingredient.getEnchantmentEffect().getEffectsDescription(primaryMod, secondaryMod, potency, limit, Main.game.getPlayer(), Main.game.getPlayer())==null
+						|| ingredient.getEnchantmentEffect().getEffectsDescription(primaryMod, secondaryMod, potency, limit, Main.game.getPlayer(), Main.game.getPlayer()).isEmpty()) {
+					inventorySB.append(
+							"<div class='enchant-button-add disabled'>"
+							+ "Add"
+							+ "</div>");
+					
+				} else {
+					inventorySB.append(
+							"<div class='enchant-button-add' id='ENCHANT_ADD_BUTTON'>"
+							+ "Add"
+							+ "</div>");
+					
+				}
+				
 				inventorySB.append(
-						"<div class='enchant-button-add' id='ENCHANT_ADD_BUTTON'>"
-						+ "Add"
-						+ "</div>");
+						"<div class='enchanting-text' style='text-align: center; display:block; margin:0 auto; padding:8px 0 8px 0;'>"
+								+ "</br>"
+								+ "<b>You have:</b> "
+								+ UtilText.formatAsEssences(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE), "b", false)
+							+ "</div>");
 				
 			inventorySB.append("</div>");
 			
@@ -138,7 +127,7 @@ public class EnchantmentDialogue {
 				// Primary mods:
 				inventorySB.append("<div class='modifier-container'>");
 				for (TFModifier tfMod : ingredient.getEnchantmentEffect().getPrimaryModifiers()) {
-					inventorySB.append("<div class='modifier-icon" + getRarityIdentifier(tfMod.getRarity()) + "'>"
+					inventorySB.append("<div class='modifier-icon " + tfMod.getRarity().getName() + "'>"
 							+ "<div class='modifier-icon-content'>"+tfMod.getSVGString()+"</div>"
 							+ "<div class='overlay' id='MOD_PRIMARY_"+tfMod.hashCode()+"'></div>"
 							+ "</div>");
@@ -152,7 +141,7 @@ public class EnchantmentDialogue {
 				// Secondary mods:
 				inventorySB.append("<div class='modifier-container'>");
 				for (TFModifier tfMod : ingredient.getEnchantmentEffect().getSecondaryModifiers(primaryMod)) {
-					inventorySB.append("<div class='modifier-icon" + getRarityIdentifier(tfMod.getRarity()) + "'>"
+					inventorySB.append("<div class='modifier-icon " + tfMod.getRarity().getName() + "'>"
 							+ "<div class='modifier-icon-content'>"+tfMod.getSVGString()+"</div>"
 							+ "<div class='overlay' id='MOD_SECONDARY_"+tfMod.hashCode()+"'></div>"
 							+ "</div>");
@@ -186,7 +175,7 @@ public class EnchantmentDialogue {
 		inventorySB.append("<div class='enchanting-essence-main'>");
 
 			inventorySB.append("<div class='enchanting-essence-inner-left'>");
-				inventorySB.append("<div class='enchanting-ingredient" + getRarityIdentifier(((AbstractItemType) ingredient.getEnchantmentItemType()).getRarity()) + "'>"
+				inventorySB.append("<div class='enchanting-ingredient " + ((AbstractItemType) ingredient.getEnchantmentItemType(effects)).getRarity().getName() + "'>"
 						+ "<div class='enchanting-ingredient-content'>"+EnchantingUtils.getSVGString(ingredient, effects)+"</div>"
 						+ "<div class='overlay' id='OUTPUT_ENCHANTING'></div>"
 						+ "</div>");
@@ -195,13 +184,11 @@ public class EnchantmentDialogue {
 			inventorySB.append(
 						"<div class='enchanting-essence-inner-right'>"
 							+ "<div class='enchanting-text' style='text-align:center;'>"
-								+ "<b>"+Util.capitaliseSentence(EnchantingUtils.getPotionName(ingredient, effects))+"</b> | Cost to craft: ");
-			inventorySB.append("<div class='essence-inline" + getRarityIdentifier(ingredient.getRelatedEssence().getRarity()) + "'>"
-						+ ingredient.getRelatedEssence().getSVGString()
-						+ "<div class='overlay no-pointer' id='ESSENCE_COST_"+ingredient.getRelatedEssence().hashCode()+"'></div>"
-					+ "</div>"
-					+ " <span style='color:"+ingredient.getRelatedEssence().getColour().toWebHexString()+";'>"+EnchantingUtils.getCost(ingredient, effects)+"</span>");
-			inventorySB.append("</div>");
+								+ "<b>Effects (</b>"
+									+ (effects.size()>=ingredient.getEnchantmentLimit()?"<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>":"<b>")+""
+											+ effects.size()+"/"+ingredient.getEnchantmentLimit()+"</b><b>)</b></br>"
+								+ "<b>"+Util.capitaliseSentence(EnchantingUtils.getPotionName(ingredient, effects))+"</b> | Cost to craft: "+ UtilText.formatAsEssences(EnchantingUtils.getCost(ingredient, effects), "b", false)
+							+"</div>");
 			
 			// Effects:
 			inventorySB.append("<div class='enchanting-text' style='text-align:center;padding-top:4px;'>");
@@ -220,6 +207,7 @@ public class EnchantmentDialogue {
 			}
 			inventorySB.append("</div>");
 		
+		inventorySB.append("</div>");
 		inventorySB.append("</div>");
 		
 
@@ -246,11 +234,12 @@ public class EnchantmentDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Stop enchanting.", InventoryDialogue.ITEM_INVENTORY){
 					@Override
 					public void effects() {
+						Main.game.setResponseTab(1);
 						EnchantmentDialogue.resetEnchantmentVariables();
 					}
 				};
@@ -258,7 +247,12 @@ public class EnchantmentDialogue {
 			// Ingredients:
 			} else if (index == 1) {
 				
-				if(ingredient.getEnchantmentEffect().getEffectsDescription(primaryMod, secondaryMod, potency, limit, Main.game.getPlayer(), Main.game.getPlayer())==null) {
+				if(effects.size() >= ingredient.getEnchantmentLimit()) {
+					return new Response("Add", "You cannot add any more effects!", null);
+				}
+				
+				if(ingredient.getEnchantmentEffect().getEffectsDescription(primaryMod, secondaryMod, potency, limit, Main.game.getPlayer(), Main.game.getPlayer())==null
+						|| ingredient.getEnchantmentEffect().getEffectsDescription(primaryMod, secondaryMod, potency, limit, Main.game.getPlayer(), Main.game.getPlayer()).isEmpty()) {
 					return new Response("Add", "You cannot add an effect using these components!", null);
 				}
 				
@@ -400,24 +394,6 @@ public class EnchantmentDialogue {
 		EnchantmentDialogue.secondaryMod = TFModifier.NONE;
 		EnchantmentDialogue.potency = TFPotency.MINOR_BOOST;
 		EnchantmentDialogue.limit = 0;
-	}
-	
-	private static String getRarityIdentifier(Rarity rarity) {
-		switch(rarity) {
-			case JINXED:
-				return " jinxed";
-			case COMMON:
-				return " common";
-			case UNCOMMON:
-				return " uncommon";
-			case RARE:
-				return " rare";
-			case EPIC:
-				return " epic";
-			case LEGENDARY:
-				return " legendary";
-		}
-		return "";
 	}
 	
 	private static void incrementPotency() {

@@ -73,8 +73,7 @@ public enum Perk implements PerkInterface {
 			if (owner.isPlayer())
 				return "You almost never miss your target.";
 			else
-				return UtilText.genderParsing(owner, owner.getName("The")
-						+ " almost never misses <her> target.");
+				return UtilText.parse(owner, "[npc.Name] almost never misses [npc.her] target.");
 		}
 	},
 	TANK(20,
@@ -110,8 +109,7 @@ public enum Perk implements PerkInterface {
 			if (owner.isPlayer())
 				return "You can shrug off attacks that would floor most people.";
 			else
-				return UtilText.genderParsing(owner, owner.getName("The")
-						+ " can shrug off attacks that would floor most people.");
+				return UtilText.parse(owner, "[npc.Name] can shrug off attacks that would floor most people.");
 		}
 	},
 	TANK_2(20,
@@ -148,9 +146,7 @@ public enum Perk implements PerkInterface {
 			if (owner.isPlayer())
 				return "The mightiest of blows from the greatest of warriors would do little to impede you.";
 			else
-				return UtilText.genderParsing(owner, "The mightiest of blows from the greatest of warriors would do little to impede "
-						+ owner.getName("the")
-						+ ".");
+				return UtilText.parse(owner, "The mightiest of blows from the greatest of warriors would do little to impede [npc.name].");
 		}
 	},
 	INDEFATIGABLE(20,
@@ -178,8 +174,7 @@ public enum Perk implements PerkInterface {
 			if (owner.isPlayer())
 				return "You can continue fighting through almost anything. You will no longer lose combat if your willpower or stamina drop to 0.";
 			else
-				return UtilText.genderParsing(owner, owner.getName("The")
-						+ " is relentless. Even if <her> willpower or stamina drop to 0, <she> will continue fighting.");
+				return UtilText.parse(owner, "[npc.Name] is relentless. Even if [npc.her] willpower or stamina drop to 0, [npc.she] will continue fighting.");
 		}
 	},
 
@@ -207,8 +202,7 @@ public enum Perk implements PerkInterface {
 				return "You are very perceptive, and are capable of noticing the slightest of changes in your surroundings."
 						+ " You are always able to determine a person's gender, even if you have no knowledge of what their groin looks like.";
 			} else {
-				return UtilText.genderParsing(owner, owner.getName("The")
-						+ " is very perceptive, and she continuously scans <her> surroundings for signs of danger.");
+				return UtilText.parse(owner, "[npc.Name] is very perceptive, and [npc.she] continuously scans [npc.her] surroundings for signs of danger.");
 			}
 		}
 	},
@@ -242,8 +236,7 @@ public enum Perk implements PerkInterface {
 			if (owner.isPlayer())
 				return "You have focused on improving your ability to harness the arcane and cast spells.";
 			else
-				return UtilText.genderParsing(owner, owner.getName("The")
-						+ " seems reasonably competent at casting spells.");
+				return UtilText.parse(owner, "[npc.Name] seems reasonably competent at casting spells.");
 		}
 	},
 	SPELL_POWER_2(20,
@@ -280,8 +273,7 @@ public enum Perk implements PerkInterface {
 			if (owner.isPlayer())
 				return "You have focused your ability to harness the arcane to the point where you can greatly enhance the effects of any spell.";
 			else
-				return UtilText.genderParsing(owner, owner.getName("The")
-						+ " is highly competent at harnessing the arcane and improving <her> spells.");
+				return UtilText.parse(owner, "[npc.Name] is highly competent at harnessing the arcane and improving [npc.her] spells.");
 		}
 	},
 	SPELL_POWER_3(20,
@@ -318,8 +310,7 @@ public enum Perk implements PerkInterface {
 			if (owner.isPlayer()) {
 				return "You are a master at harnessing the arcane. Even if you didn't have an aura as strong as a demon's, you'd still be one of the greatest arcane users in Dominion.";
 			} else
-				return UtilText.genderParsing(owner, owner.getName("The")
-						+ " is a master at harnessing the arcane and improving <her> spells.");
+				return UtilText.parse(owner, "[npc.Name] is a master of harnessing the arcane and improving [npc.her] spells.");
 		}
 	},
 
@@ -351,8 +342,7 @@ public enum Perk implements PerkInterface {
 			if (owner.isPlayer())
 				return "You have a heightened affinity with arcane fire. You know just how to manipulate it in order to maximise the damage caused.";
 			else
-				return UtilText.genderParsing(owner, owner.getName("The")
-						+ " has a heightened affinity with arcane fire. <She> knows just how to manipulate it in order to maximise the damage caused.");
+				return UtilText.parse(owner, "[npc.Name] has a heightened affinity with arcane fire. [npc.She] knows just how to manipulate it in order to maximise the damage caused.");
 		}
 	},
 	FIRE_ENHANCEMENT_2(20,
@@ -389,8 +379,7 @@ public enum Perk implements PerkInterface {
 			if (owner.isPlayer())
 				return "You are an expert at manipulating arcane fire. Not only are you able to maximise its damage, but you also have a heightened resistance to its effects.";
 			else
-				return UtilText.genderParsing(owner, owner.getName("The")
-						+ " is an expert at manipulating arcane fire. Not only is <she> able to maximise its damage, but <she> also has a heightened resistance to its effects.");
+				return UtilText.parse(owner, "[npc.Name] is an expert at manipulating arcane fire. Not only is [npc.she] able to maximise its damage, but [npc.she] also has a heightened resistance to its effects.");
 		}
 	},
 	COLD_ENHANCEMENT(20,
@@ -421,8 +410,7 @@ public enum Perk implements PerkInterface {
 			if (owner.isPlayer())
 				return "You have a heightened affinity with arcane ice. You know just how to manipulate it in order to maximise the damage caused.";
 			else
-				return UtilText.genderParsing(owner, owner.getName("The")
-						+ " has a heightened affinity with arcane ice. <She> knows just how to manipulate it in order to maximise the damage caused.");
+				return UtilText.parse(owner, "[npc.Name] has a heightened affinity with arcane ice. [npc.She] knows just how to manipulate it in order to maximise the damage caused.");
 		}
 	},
 	COLD_ENHANCEMENT_2(20,
@@ -459,8 +447,7 @@ public enum Perk implements PerkInterface {
 			if (owner.isPlayer())
 				return "You are an expert at manipulating arcane ice. Not only are you able to maximise its damage, but you also have a heightened resistance to its effects.";
 			else
-				return UtilText.genderParsing(owner, owner.getName("The")
-						+ " is an expert at manipulating arcane ice. Not only is <she> able to maximise its damage, but <she> also has a heightened resistance to its effects.");
+				return UtilText.parse(owner, "[npc.Name] is an expert at manipulating arcane ice. Not only is [npc.she] able to maximise its damage, but [npc.she] also has a heightened resistance to its effects.");
 		}
 	},
 	POISON_ENHANCEMENT(20,
@@ -491,8 +478,7 @@ public enum Perk implements PerkInterface {
 			if (owner.isPlayer())
 				return "You have a heightened affinity with arcane poison. You know just how to manipulate it in order to maximise the damage caused.";
 			else
-				return UtilText.genderParsing(owner, owner.getName("The")
-						+ " has a heightened affinity with arcane poison. <She> knows just how to manipulate it in order to maximise the damage caused.");
+				return UtilText.parse(owner, "[npc.Name] has a heightened affinity with arcane poison. [npc.She] knows just how to manipulate it in order to maximise the damage caused.");
 		}
 	},
 	POISON_ENHANCEMENT_2(20,
@@ -529,8 +515,7 @@ public enum Perk implements PerkInterface {
 			if (owner.isPlayer())
 				return "You are an expert at manipulating arcane poison. Not only are you able to maximise its damage, but you also have a heightened resistance to its effects.";
 			else
-				return UtilText.genderParsing(owner, owner.getName("The")
-						+ " is an expert at manipulating arcane poison. Not only is <she> able to maximise its damage, but <she> also has a heightened resistance to its effects.");
+				return UtilText.parse(owner, "[npc.Name] is an expert at manipulating arcane poison. Not only is [npc.she] able to maximise its damage, but [npc.she] also has a heightened resistance to its effects.");
 		}
 	},
 
@@ -570,8 +555,7 @@ public enum Perk implements PerkInterface {
 			if (owner.isPlayer())
 				return "You're a natural runner and possess a good level of stamina.";
 			else
-				return UtilText.genderParsing(owner, owner.getName("The")
-						+ " is natural runner and possesses a good level of stamina.");
+				return UtilText.parse(owner, "[npc.Name] is natural runner and possesses a good level of stamina.");
 		}
 	},
 	RUNNER_2(20,
@@ -616,14 +600,9 @@ public enum Perk implements PerkInterface {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			if (owner.isPlayer())
-				return "You're the "
-						+ (owner.isFeminine() ? "queen" : "king")
-						+ " of cardio, possessing a seemingly endless reserve of energy.";
+				return "You're the " + (owner.isFeminine() ? "queen" : "king") + " of cardio, possessing a seemingly endless reserve of energy.";
 			else
-				return UtilText.genderParsing(owner, owner.getName("The")
-						+ " is the "
-						+ (owner.isFeminine() ? "queen" : "king")
-						+ " of cardio, possessing a seemingly endless reserve of energy.");
+				return UtilText.parse(owner, "[npc.Name] is the " + (owner.isFeminine() ? "queen" : "king") + " of cardio, possessing a seemingly endless reserve of energy.");
 		}
 	},
 	FEMALE_ATTRACTION(60,
@@ -650,8 +629,7 @@ public enum Perk implements PerkInterface {
 			if (owner.isPlayer())
 				return "You're very flirtatious, and although your charms work well on both sexes, you find that you get more opportunities to seduce women than you do men.";
 			else
-				return UtilText.genderParsing(owner, owner.getName("The")
-						+ " is very popular with the ladies.");
+				return UtilText.parse(owner, "[npc.Name] is very popular with the ladies.");
 		}
 
 		@Override
@@ -749,8 +727,7 @@ public enum Perk implements PerkInterface {
 			if (owner.isPlayer())
 				return "You're quite a tease, and although your charms work well on both sexes, you find that you get more opportunities to seduce men than you do women.";
 			else
-				return UtilText.genderParsing(owner, owner.getName("The")
-						+ " is very popular with men.");
+				return UtilText.parse(owner, "[npc.Name] is very popular with men.");
 		}
 
 		@Override
@@ -834,7 +811,7 @@ public enum Perk implements PerkInterface {
 			Colour.GENERIC_SEX,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.RESISTANCE_MANA, -25)),
-			Util.newArrayListOfValues(new ListValue<>("Earn 2 <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString()+ ";'>arcane essences</span> from each orgasm"))) {
+			Util.newArrayListOfValues(new ListValue<>("Doubles <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString()+ ";'>arcane essence gain</span> from each orgasm"))) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
 			return "";
@@ -897,8 +874,7 @@ public enum Perk implements PerkInterface {
 			if (owner.isPlayer())
 				return "You love flirting, and, from your experience, your partners love it too!";
 			else
-				return UtilText.genderParsing(owner, owner.getName("The")
-						+ " is extremely flirty.");
+				return UtilText.parse(owner, "[npc.Name] is extremely flirty.");
 		}
 	},
 	SEDUCTION_2(20,
@@ -935,8 +911,7 @@ public enum Perk implements PerkInterface {
 			if (owner.isPlayer())
 				return "You're somewhat more than the typical flirt. You know just how to move your body in order to seduce even the most frigid of potential partners.";
 			else
-				return UtilText.genderParsing(owner, owner.getName("The")
-						+ " moves in a highly seductive manner.");
+				return UtilText.parse(owner, "[npc.Name] moves in a highly seductive manner.");
 		}
 	},
 	SEDUCTION_3(20,
@@ -973,8 +948,7 @@ public enum Perk implements PerkInterface {
 			if (owner.isPlayer())
 				return "Your every move drips with sexually suggestive body language. You're a walking sex bomb, and from the reactions of those around you, everyone can see it.";
 			else
-				return UtilText.genderParsing(owner, owner.getName("The")
-						+ " is a walking sex bomb. <Her> every movement drips with suggestive body language, and you can't help but feel extremely aroused just by looking at <herPro>.");
+				return UtilText.parse(owner, "[npc.Name] is a walking sex bomb. [npc.Her] every movement drips with suggestive body language, and you can't help but feel extremely aroused just by looking at [npc.herHim].");
 		}
 	},
 	

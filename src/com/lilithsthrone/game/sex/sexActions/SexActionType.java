@@ -2,7 +2,7 @@ package com.lilithsthrone.game.sex.sexActions;
 
 /**
  * @since 0.1.65
- * @version 0.1.79
+ * @version 0.1.97
  * @author Innoxia
  */
 public enum SexActionType {
@@ -27,6 +27,9 @@ public enum SexActionType {
 	/**Player action. Changes position.*/
 	PLAYER_POSITIONING(true),
 
+	/**Player action. The action taken to prepare for partner's orgasm.*/
+	PLAYER_PREPARE_PARTNER_ORGASM(true),
+	
 	/**Player action. Orgasm.*/
 	PLAYER_ORGASM(true),
 	
@@ -62,6 +65,9 @@ public enum SexActionType {
 	
 	/**Partner action. Changes position.*/
 	PARTNER_POSITIONING(false),
+	
+	/**Partner action. The action taken to prepare for player's orgasm.*/
+	PARTNER_PREPARE_PLAYER_ORGASM(false),
 	
 	/**Partner action. Orgasm.*/
 	PARTNER_ORGASM(false),

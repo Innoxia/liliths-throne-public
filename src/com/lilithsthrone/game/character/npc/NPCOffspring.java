@@ -1,11 +1,15 @@
 package com.lilithsthrone.game.character.npc;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.History;
 import com.lilithsthrone.game.character.Name;
+import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.gender.GenderPreference;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.Attack;
@@ -20,11 +24,11 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.Jungle;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.82
- * @version 0.1.86
+ * @version 0.1.95
  * @author Innoxia
  */
 public class NPCOffspring extends NPC {
@@ -32,10 +36,15 @@ public class NPCOffspring extends NPC {
 	private static final long serialVersionUID = 1L;
 	
 	public boolean flagIntroduced = false;
+	public boolean flagApartmentIntroduced = false;
+	public boolean flagFightApologyNeeded = false;
+	public boolean flagRapeApologyNeeded = false;
+	public boolean fightInApartment = false;
+	public int flagBackgroundProgress = 0;
 
 	public NPCOffspring(GameCharacter mother, GameCharacter father) {
 		super(null, "", 3, Gender.F_V_B_FEMALE, RacialBody.DOG_MORPH, RaceStage.GREATER,
-				new CharacterInventory(10), WorldType.JUNGLE, Jungle.JUNGLE_CLUB, true); //TODO move to null tile
+				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 
 		setAttribute(Attribute.STRENGTH, (int)(this.getAttributeValue(Attribute.STRENGTH) * (0.5f+Math.random())));
 		setAttribute(Attribute.INTELLIGENCE, (int)(this.getAttributeValue(Attribute.INTELLIGENCE) * (0.5f+Math.random())));
@@ -45,15 +54,15 @@ public class NPCOffspring extends NPC {
 		this.setMother(mother);
 		this.setFather(father);
 		
+		this.setAffection(mother, AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
+		this.setAffection(father, AffectionLevel.POSITIVE_TWO_LIKE.getMedianValue());
+		
 		// Set random level from 1 to 3:
 		setLevel(Util.random.nextInt(3) + 1);
 		
 		// BODY GENERATION:
 		
-		Gender gender = Gender.F_V_FEMALE;
-		if(Math.random()<0.5) {
-			gender = Gender.M_P_MALE;
-		}
+		Gender gender = GenderPreference.getGenderFromUserPreferences();
 		
 		setBody(gender, mother, father);
 		
@@ -63,33 +72,7 @@ public class NPCOffspring extends NPC {
 
 		// PERSONALITY & BACKGROUND:
 		
-		if(this.isFeminine()) {
-			if(Math.random()>0.25f) {
-				this.setHistory(History.PROSTITUTE);
-			} else {
-				this.setHistory(History.MUGGER);
-			}
-			
-		} else {
-			if(Math.random()>0.95f) {
-				this.setHistory(History.PROSTITUTE);
-			} else {
-				this.setHistory(History.MUGGER);
-			}
-		}
-		
-//		switch(personality) {
-//			case AIR_SOCIABLE:
-//				if()
-//				break;
-//			case EARTH_CALM:
-//				break;
-//			case FIRE_COMMANDING:
-//				break;
-//			case WATER_ANALYTICAL:
-//				break;
-//		
-//		}
+		CharacterUtils.setHistoryAndPersonality(this);
 		
 		// ADDING FETISHES:
 		
@@ -105,12 +88,34 @@ public class NPCOffspring extends NPC {
 		inventory.setMoney(10 + Util.random.nextInt(getLevel()*10) + 1);
 		
 		CharacterUtils.equipClothing(this, true, false);
+		
+		CharacterUtils.applyMakeup(this, true);
 
 		this.setEnslavementDialogue(DominionOffspringDialogue.ENSLAVEMENT_DIALOGUE);
 		
 		setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 		setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
 		setStamina(getAttributeValue(Attribute.STAMINA_MAXIMUM));
+	}
+	
+	public NPCOffspring() {
+		super(null, "", 3, Gender.F_V_B_FEMALE, RacialBody.DOG_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
+		
+		this.setEnslavementDialogue(DominionOffspringDialogue.ENSLAVEMENT_DIALOGUE);
+	}
+
+	@Override
+	public NPCOffspring loadFromXML(Element parentElement, Document doc) {
+		NPCOffspring offspring = new  NPCOffspring();
+
+		loadNPCVariablesFromXML(offspring, null, parentElement, doc);
+		
+		return offspring;
+	}
+	
+	@Override
+	public boolean isUnique() {
+		return false;
 	}
 	
 	@Override
@@ -127,12 +132,6 @@ public class NPCOffspring extends NPC {
 			} else {
 				return "Daddy";
 			}
-		} else if (playerPetName.equalsIgnoreCase("Mistress") || playerPetName.equalsIgnoreCase("Master")) {
-			if(Main.game.getPlayer().isFeminine()) {
-				return "Mistress";
-			} else {
-				return "Master";
-			}
 		} else {
 			return playerPetName;
 		}
@@ -141,6 +140,9 @@ public class NPCOffspring extends NPC {
 	@Override
 	public String getDescription() {
 		int timeToBirth = this.getDayOfBirth()-this.getDayOfConception();
+		if(this.getMother()==null || this.getFather()==null) {
+			return "";
+		}
 		return (UtilText.parse(this,
 				"[npc.Name] is your [npc.daughter], who you "+(this.getMother().isPlayer()?"mothered with "+(this.getFather().getName("a")):"fathered with "+(this.getMother().getName("a")))+"."
 						+ " [npc.She] was conceived on day "+this.getDayOfConception()+", and "
@@ -204,7 +206,7 @@ public class NPCOffspring extends NPC {
 			return "The consequence of your refusal to pull out of [npc.name] is standing right before you."
 					+ " Visibly pregnant, your one-time sexual partner has a devious grin on [npc.her] face, and you're not quite sure if you want to know what [npc.she]'s planning for [npc.her] revenge...";
 		} else {
-			if(this.isWantsToHaveSexWithPlayer()) {
+			if(this.isAttractedTo(Main.game.getPlayer())) {
 				return UtilText.parse(this, "[npc.Name] is quite clearly turned on by your strong aura. [npc.She]'s willing to fight you in order to claim your body.");
 				
 			} else {
@@ -228,7 +230,7 @@ public class NPCOffspring extends NPC {
 			case 1:
 				return UtilText.parse(this,
 						"<p>"
-							+ "[npc.Name] jumps forwards, trying to deliver a punch to your stomach."
+							+ "[npc.Name] jumps forwards, trying to deliver a punch to your upper torso."
 							+ (isHit ? "" : " You manage to twist to one side, narrowly avoiding [npc.her] attack.")
 						+ "</p>");
 			default:
@@ -296,11 +298,6 @@ public class NPCOffspring extends NPC {
 	}
 	
 	@Override
-	public String getLostVirginityDescriptor() {
-		return "in the streets of Dominion";
-	}
-	
-	@Override
 	public String getItemUseEffects(AbstractItem item, GameCharacter user, GameCharacter target){
 		// Player is using an item:
 		if(user.isPlayer()){
@@ -310,36 +307,9 @@ public class NPCOffspring extends NPC {
 				
 			// Player uses item on NPC:
 			}else{
-				if(item.getItemType().equals(ItemType.CONDOM)) {
-						if(target.isWearingCondom()) {
-							return "<p>"
-									+ "[npc.Name] is already wearing a condom, and [npc.she] refuses to wear two at once."
-									+ "</p>";
-							
-						} else if(target.hasPenis()) {
-							Main.game.getPlayer().useItem(item, target, false);
-							if(Sex.isPlayerDom()) {
-								return "<p>"
-										+ "Holding out a condom to [npc.name], you force [npc.herHim] to take it and put it on."
-										+ " Quickly ripping it out of its little foil wrapper, [npc.she] rolls it down the length of [npc.her] [npc.cock+] as [npc.she] whines at you,"
-										+ " [npc.speech(Do I really have to? It feels so much better without one...)]"
-										+ "</p>";
-							} else {
-								return "<p>"
-										+ "Holding out a condom to [npc.name], you let out a sigh of relief as [npc.she] reluctantly takes it."
-										+ " Quickly ripping it out of its little foil wrapper, [npc.she] rolls it down the length of [npc.her] [npc.cock+] as [npc.she] growls at you,"
-										+ " [npc.speech(You'd better be glad that I'm in a good mood!)]"
-										+ "</p>";
-							}
-						} else {
-							return "<p>"
-									+ "[npc.Name] doesn't have a penis, so [npc.she] can't use the condom!"
-									+ "</p>";
-						}
-						
-				} else if(item.getItemType().equals(ItemType.PROMISCUITY_PILL)) {
+				if(item.getItemType().equals(ItemType.PROMISCUITY_PILL)) {
 						Main.game.getPlayer().useItem(item, target, false);
-						if(Sex.isPlayerDom()) {
+						if(Sex.isDom(Main.game.getPlayer())) {
 							return "<p>"
 									+ "Holding out a 'Promiscuity pill' to [npc.name], you tell [npc.her] to swallow it so that you don't have to worry about any unexpected pregnancies."
 									+ " Letting out a reluctant sigh, [npc.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [npc.she] whines at you,"
@@ -356,7 +326,7 @@ public class NPCOffspring extends NPC {
 				} else if(item.getItemType().equals(ItemType.VIXENS_VIRILITY)) {
 					
 						Main.game.getPlayer().useItem(item, target, false);
-						if(Sex.isPlayerDom()) {
+						if(Sex.isDom(Main.game.getPlayer())) {
 							return "<p>"
 									+ "Holding out a 'Vixen's Virility' pill to [npc.name], you tell [npc.her] to swallow it."
 									+ " Letting out a reluctant sigh, [npc.she] nevertheless takes the pill out of your hand, and, popping it out of its wrapping, [npc.she] whines at you,"
@@ -370,9 +340,9 @@ public class NPCOffspring extends NPC {
 									+ "</p>";
 						}
 						
-				} else if(item.getItemType().equals(ItemType.POTION) || item.getItemType().equals(ItemType.ELIXIR)) {
+				} else if(item.getItemType().equals(ItemType.POTION) || item.getItemType().equals(ItemType.ELIXIR) || item.getItemType().equals(ItemType.FETISH_UNREFINED) || item.getItemType().equals(ItemType.FETISH_REFINED)) {
 					
-						if(Sex.isPlayerDom()) {
+						if(Sex.isDom(Main.game.getPlayer())) {
 							return "<p>"
 										+ "Taking your "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
 										+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
@@ -385,7 +355,7 @@ public class NPCOffspring extends NPC {
 									+ "</p>"
 									+Main.game.getPlayer().useItem(item, target, false, true);
 							
-						} else if(Sex.getSexManager().isConsensualSex()) {
+						} else if(Sex.isConsensual()) {
 							return "<p>"
 									+ "Taking your "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
 									+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, before agreeing to take the bottle, "
@@ -403,7 +373,7 @@ public class NPCOffspring extends NPC {
 						
 				} else if(item.getItemType().equals(ItemType.MOTHERS_MILK)) {
 					
-						if(Sex.isPlayerDom()) {
+						if(Sex.isDom(Main.game.getPlayer())) {
 							return "<p>"
 										+ "Taking the bottle of "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
 										+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
@@ -427,10 +397,12 @@ public class NPCOffspring extends NPC {
 						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_DOG_MORPH)
 						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_HARPY)
 						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_HORSE_MORPH)
+						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_COW_MORPH)
+						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_ALLIGATOR_MORPH)
 						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_SQUIRREL_MORPH)
 						|| item.getItemType().equals(ItemType.RACE_INGREDIENT_WOLF_MORPH)) {
 					
-						if(Sex.isPlayerDom()) {
+						if(Sex.isDom(Main.game.getPlayer())) {
 							return "<p>"
 										+ "Taking the "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
 										+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
@@ -452,7 +424,7 @@ public class NPCOffspring extends NPC {
 						
 				} else if(item.getItemType().equals(ItemType.SEX_INGREDIENT_HARPY_PERFUME)) {
 					
-						if(Sex.isPlayerDom()) {
+						if(Sex.isDom(Main.game.getPlayer())) {
 							return "<p>"
 										+ "Taking the "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
 										+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
@@ -478,9 +450,11 @@ public class NPCOffspring extends NPC {
 						|| item.getItemType().equals(ItemType.FIT_INGREDIENT_SQUIRREL_JAVA)
 						|| item.getItemType().equals(ItemType.INT_INGREDIENT_FELINE_FANCY)
 						|| item.getItemType().equals(ItemType.STR_INGREDIENT_EQUINE_CIDER)
+						|| item.getItemType().equals(ItemType.STR_INGREDIENT_SWAMP_WATER)
+						|| item.getItemType().equals(ItemType.STR_INGREDIENT_BUBBLE_MILK)
 						|| item.getItemType().equals(ItemType.STR_INGREDIENT_WOLF_WHISKEY)) {
 					
-						if(Sex.isPlayerDom()) {
+						if(Sex.isDom(Main.game.getPlayer())) {
 							return "<p>"
 										+ "Taking the bottle of "+item.getName()+" out from your inventory, you hold it out to [npc.name]."
 										+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
@@ -502,7 +476,7 @@ public class NPCOffspring extends NPC {
 
 				} else if(item.getItemType().equals(ItemType.EGGPLANT)) {
 					
-					if(Sex.isPlayerDom()) {
+					if(Sex.isDom(Main.game.getPlayer())) {
 						return "<p>"
 									+ "Taking the eggplant from your inventory, you hold it out to [npc.name]."
 									+ " Seeing what you're offering [npc.herHim], [npc.she] shifts about uncomfortably, "
@@ -529,7 +503,7 @@ public class NPCOffspring extends NPC {
 			
 		// NPC is using an item:
 		}else{
-			return Sex.getPartner().useItem(item, target, false);
+			return Sex.getActivePartner().useItem(item, target, false);
 		}
 	}
 	

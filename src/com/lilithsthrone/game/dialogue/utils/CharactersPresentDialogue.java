@@ -43,7 +43,7 @@ public class CharactersPresentDialogue {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new ResponseEffectsOnly("Back", "Stop viewing the characters present and return to the main game."){
 					@Override

@@ -23,11 +23,15 @@ public enum AssType implements BodyPartTypeInterface {
 
 	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, AnusType.SQUIRREL_MORPH, Race.SQUIRREL_MORPH),
 	
+	ALLIGATOR_MORPH(BodyCoveringType.ALLIGATOR_SCALES, AnusType.ALLIGATOR_MORPH, Race.ALLIGATOR_MORPH),
+	
 	WOLF_MORPH(BodyCoveringType.LYCAN_FUR, AnusType.WOLF_MORPH, Race.WOLF_MORPH),
 	
 	CAT_MORPH(BodyCoveringType.FELINE_FUR, AnusType.CAT_MORPH, Race.CAT_MORPH),
 	
 	HORSE_MORPH(BodyCoveringType.HORSE_HAIR, AnusType.HORSE_MORPH, Race.HORSE_MORPH),
+	
+	REINDEER_MORPH(BodyCoveringType.REINDEER_FUR, AnusType.REINDEER_MORPH, Race.REINDEER_MORPH),
 	
 	HARPY(BodyCoveringType.FEATHERS, AnusType.HARPY, Race.HARPY),
 	

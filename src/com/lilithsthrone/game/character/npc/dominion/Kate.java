@@ -3,19 +3,29 @@ package com.lilithsthrone.game.character.npc.dominion;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.PenisType;
+import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.body.valueEnums.HairLength;
+import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
+import com.lilithsthrone.game.character.body.valueEnums.Muscle;
+import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.Attack;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -32,53 +42,104 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.ShoppingArcade;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.66
- * @version 0.1.78
+ * @version 0.1.89
  * @author Innoxia
  */
 public class Kate extends NPC {
 
 	private static final long serialVersionUID = 1L;
 
-	private AbstractClothing
-			skirt = AbstractClothingType.generateClothing(ClothingType.LEG_MINI_SKIRT, Colour.CLOTHING_PINK, false),
-			torso = AbstractClothingType.generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, Colour.CLOTHING_PINK, false),
-			socks = AbstractClothingType.generateClothing(ClothingType.SOCK_KNEEHIGH_SOCKS, Colour.CLOTHING_WHITE, false),
-			shoes = AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_PINK, false);
-
 	public Kate() {
+		this(false);
+	}
+	
+	private Kate(boolean isImported) {
 		super(new NameTriplet("Kate"), "Kate is a demon who owns the beauty salon 'Succubi's Secrets'."
 				+ " Despite being incredibly good at what she does, she's exceedingly lazy, and prefers to keep the exterior of her shop looking run-down so as to scare off potential customers.",
 				10, Gender.F_V_B_FEMALE, RacialBody.DEMON, RaceStage.GREATER,
-				new CharacterInventory(10), WorldType.SHOPPING_ARCADE, ShoppingArcade.KATES_SHOP_BEAUTY, true);
+				new CharacterInventory(10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_KATES_SHOP, true);
 
-		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		if(!isImported) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+	
+			this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_GREEN));
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_RED), true);
+			this.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMedianValue());
+			this.setHairStyle(HairStyle.SIDECUT);
+			this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_PINK), true);
+			
+			this.setHornType(HornType.CURLED);
+			this.setSkinCovering(new Covering(BodyCoveringType.HORN, Colour.HORN_DARK_GREY), true);
+			
+			this.setBreastSize(CupSize.F.getMeasurement());
+			
+			this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
+			this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
+			
+			this.setAssVirgin(false);
+			this.setNippleVirgin(false);
+			this.setVaginaVirgin(false);
+			this.setFaceVirgin(false);
+			this.setPenisVirgin(false);
+			
+			this.setPiercedEar(true);
+			
+			this.addFetish(Fetish.FETISH_SUBMISSIVE);
+			this.addFetish(Fetish.FETISH_PREGNANCY);
+	
+			this.setMoney(10);
 
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_GREEN));
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_BLACK), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.DEMON_COMMON, Colour.SKIN_PINK), true);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_VSTRING, Colour.CLOTHING_PINK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_MICRO_SKIRT_BELTED, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, Colour.CLOTHING_PINK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_WOMENS_LEATHER_JACKET, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_FISHNET_STOCKINGS, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_GOLD, false), true, this);
+			
+			dailyReset();
+		}
+	}
+	
+	@Override
+	public Kate loadFromXML(Element parentElement, Document doc) {
+		Kate npc = new Kate(true);
 
-		this.setBreastSize(CupSize.F.getMeasurement());
-		
-		this.setAssVirgin(false);
-		this.setNippleVirgin(false);
-		this.setVaginaVirgin(false);
-		this.setFaceVirgin(false);
-		
-		this.addFetish(Fetish.FETISH_SUBMISSIVE);
-		this.addFetish(Fetish.FETISH_PREGNANCY);
+		loadNPCVariablesFromXML(npc, null, parentElement, doc);
 
-		this.setMoney(10);
+		npc.setWingSize(WingSize.ONE_SMALL.getValue());
 		
-		this.equipClothingFromNowhere(skirt, true, this);
-		this.equipClothingFromNowhere(torso, true, this);
-		this.equipClothingFromNowhere(socks, true, this);
-		this.equipClothingFromNowhere(shoes, true, this);
+		npc.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_RED), true);
+		npc.setHairLength(HairLength.THREE_SHOULDER_LENGTH.getMedianValue());
+		npc.setHairStyle(HairStyle.SIDECUT);
+
+		npc.setHornType(HornType.CURLED);
+		npc.setSkinCovering(new Covering(BodyCoveringType.HORN, Colour.HORN_DARK_GREY), true);
 		
+		npc.deleteAllEquippedClothing();
+
+		npc.setPiercedEar(true);
+		
+		npc.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_VSTRING, Colour.CLOTHING_PINK, false), true, this);
+		npc.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_MICRO_SKIRT_BELTED, Colour.CLOTHING_BLACK, false), true, this);
+		npc.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, Colour.CLOTHING_PINK, false), true, this);
+		npc.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_WOMENS_LEATHER_JACKET, Colour.CLOTHING_BLACK, false), true, this);
+		npc.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_FISHNET_STOCKINGS, Colour.CLOTHING_BLACK, false), true, this);
+		npc.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false), true, this);
+		npc.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_GOLD, false), true, this);
+
 		dailyReset();
+		
+		return npc;
+	}
+
+	@Override
+	public boolean isUnique() {
+		return true;
 	}
 
 	@Override
@@ -187,12 +248,12 @@ public class Kate extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Services", "Read the brochure that Kate just handed to you.", SuccubisSecrets.SHOP_BEAUTY_SALON_MAIN){
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().kateIntroduced = true;
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.kateIntroduced);
 					}
 				};
 			} else {
@@ -226,7 +287,7 @@ public class Kate extends NPC {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Services", "Read the brochure that Kate just handed to you.", SuccubisSecrets.SHOP_BEAUTY_SALON_MAIN);
 			} else {
@@ -258,30 +319,13 @@ public class Kate extends NPC {
 	}
 	
 	@Override
-	public String getLostVirginityDescriptor() {
-		return "as you fucked her on a chair in her beauty salon";
-	}
-	
-	@Override
 	public String getItemUseEffects(AbstractItem item, GameCharacter user, GameCharacter target){
 		// Player is using an item:
 		if(user.isPlayer()){
 			// Player uses item on themselves:
 			if(target.isPlayer()){
-				if(item.getItemType().equals(ItemType.CONDOM)) {
-							Main.game.getPlayer().removeItem(item);
-							return "<p>"
-								+ "As you pull out a condom, a worried frown flashes across Kate's face, "
-								+ UtilText.parseSpeech("Oh! Erm, let me put that on for you!", Main.game.getKate())
-								+"</br>"
-								+ "Before you can react, Kate snatches the condom out of your hands, and with a devious smile, uses her sharp little canines to bite a big hole straight through the centre."
-								+ " She laughs at your shocked reaction, "
-								+ UtilText.parseSpeech("It's no fun if I don't get any cum!", Main.game.getKate())
-							+ "</p>";
-				} else {
-						return Main.game.getPlayer().useItem(item, target, false);
-				}
-				
+				return Main.game.getPlayer().useItem(item, target, false);
+						
 			// Player uses item on NPC:
 			}else{
 				if(item.getItemType().equals(ItemType.VIXENS_VIRILITY)) {
@@ -299,9 +343,44 @@ public class Kate extends NPC {
 			
 		// NPC is using an item:
 		}else{
-			return Sex.getPartner().useItem(item, target, false);
+			return Sex.getActivePartner().useItem(item, target, false);
 		}
 	}
+	
+	
+	
+	
+	
+	@Override
+	public String getCondomEquipEffects(GameCharacter equipper, GameCharacter target, boolean rough) {
+		if(Main.game.isInSex()) {
+			if(!target.isPlayer()) {
+				return "<p>"
+							+ "Holding out a condom to [npc.name], you force [npc.herHim] to take it and put it on."
+							+ " Quickly ripping it out of its little foil wrapper, [npc.she] rolls it down the length of [npc.her] [npc.cock+] as [npc.she] whines at you,"
+							+ " [npc.speech(Do I really have to? It feels so much better without one...)]"
+						+ "</p>";
+			} else {
+				Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()), true, equipper);
+				return "<p>"
+							+ "As you pull out a condom, a worried frown flashes across Kate's face, "
+							+ UtilText.parseSpeech("Oh! Erm, let me put that on for you!", Main.game.getKate())
+							+"</br>"
+							+ "Before you can react, Kate snatches the condom out of your hands, and with a devious smile, uses her sharp little canines to bite a big hole straight through the centre."
+							+ " She laughs at your shocked reaction, "
+							+ UtilText.parseSpeech("It's no fun if I don't get any cum!", Main.game.getKate())
+						+ "</p>";
+			}
+		}
+		return AbstractClothingType.getEquipDescriptions(target, equipper, rough,
+				"You tear open the packet and roll the condom down the length of your [pc.penis].",
+				"You tear open the packet and roll the condom down the length of [npc.name]'s [npc.penis].",
+				"You tear open the packet and forcefully roll the condom down the length [npc.name]'s [npc.penis].",
+				"[npc.Name] tears open the packet and rolls the condom down the length of [npc.her] [npc.penis].",
+				"[npc.Name] tears open the packet and rolls the condom down the length of your [pc.penis].",
+				"[npc.Name] tears open the packet and forcefully rolls the condom down the length of your [pc.penis].");
+	}
+	
 	
 	// Dirty talk:
 

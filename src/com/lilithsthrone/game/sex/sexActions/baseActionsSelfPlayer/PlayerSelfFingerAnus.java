@@ -1,27 +1,66 @@
 package com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer;
 
-import java.util.List;
-
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
+import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.79
- * @version 0.1.79
+ * @version 0.1.97
  * @author Innoxia
  */
 public class PlayerSelfFingerAnus {
+	
+	public static final SexAction PLAYER_SELF_FINGER_ANUS_SPREAD_ASS = new SexAction(
+			SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.TWO_LOW,
+			CorruptionLevel.ONE_VANILLA,
+			PenetrationType.FINGER_PLAYER,
+			OrificeType.ANUS_PLAYER) {
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getSexPace(Main.game.getPlayer())!=SexPace.SUB_RESISTING;
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Spread ass";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Use your [pc.hands] to spread your ass.";
+		}
+
+		@Override
+		public String getDescription() {
+			if((Sex.getPosition()==SexPositionNew.DOGGY_STYLE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.DOGGY_ON_ALL_FOURS)
+					|| (Sex.getPosition()==SexPositionNew.DOGGY_AMBER && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.DOGGY_ON_ALL_FOURS_AMBER)) {
+				return (UtilText.returnStringAtRandom(
+						"Reaching back with one [pc.hand], you grab your [pc.ass+] and pull to one side, letting out [pc.a_moan+] as you present your [pc.asshole+] to [npc.name].",
+						"You reach back with one [pc.hand], moaning softly as you take hold of your [pc.ass+], before invitingly pulling to one side and presenting your [pc.asshole+] to [npc.name].",
+						"Sliding your fingertips over your [pc.asshole+], you let out [pc.a_moan+] as you grab one of your [pc.assSize] ass cheeks and pull to one one side in order to present your [pc.asshole+] to [npc.name].",
+						"You eagerly slide your [pc.fingers] over your needy [pc.asshole], [pc.moaning+] as you use your [pc.hand] to pull your ass cheek to one side and present yourself for anal penetration."));
+			} else {
+				return (UtilText.returnStringAtRandom(
+						"Reaching back with both [pc.hands], you grab your [pc.assSize] ass cheeks and pull them apart, letting out [pc.a_moan+] as you present your [pc.asshole+] to [npc.name].",
+						"You reach back with both [pc.hands], moaning softly as you invitingly pull your [pc.assSize] ass cheeks apart and present your [pc.asshole+] to [npc.name].",
+						"Sliding your fingertips over your [pc.asshole+], you let out [pc.a_moan+] as you grab your [pc.assSize] ass cheeks and pull them apart in order to present your [pc.asshole+] to [npc.name].",
+						"You eagerly slide your [pc.fingers] over your needy [pc.asshole], [pc.moaning+] as you use your [pc.hands] to pull your ass cheeks aside and present yourself for anal penetration."));
+			}
+		}
+	};
 	
 	public static final SexAction PLAYER_SELF_FINGER_ANUS_PENETRATION = new SexAction(
 			SexActionType.PLAYER_PENETRATION,
@@ -53,10 +92,6 @@ public class PlayerSelfFingerAnus {
 					"You eagerly push your [pc.fingers] into your [pc.asshole+], [pc.moaning] out loud as you start pumping your digits in and out of your [pc.ass].");
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction DOM_PLAYER_SELF_FINGER_ANUS_GENTLE = new SexAction(
@@ -71,7 +106,7 @@ public class PlayerSelfFingerAnus {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -96,10 +131,6 @@ public class PlayerSelfFingerAnus {
 					"Focusing on pleasuring your [pc.ass+], you start gently pumping your [pc.fingers] in and out of your [pc.asshole+].");
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction DOM_PLAYER_SELF_FINGER_ANUS_NORMAL = new SexAction(
@@ -114,7 +145,7 @@ public class PlayerSelfFingerAnus {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -139,10 +170,6 @@ public class PlayerSelfFingerAnus {
 					"Focusing on pleasuring your [pc.ass+], you start pumping your [pc.fingers] in and out of your [pc.asshole+].");
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction DOM_PLAYER_SELF_FINGER_ANUS_ROUGH = new SexAction(
@@ -157,7 +184,7 @@ public class PlayerSelfFingerAnus {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -185,10 +212,6 @@ public class PlayerSelfFingerAnus {
 					"Focusing on pleasuring your [pc.ass+], you start roughly slamming your [pc.fingers] in and out of your [pc.asshole+].");
 		}
 
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASOCHIST), new ListValue<>(Fetish.FETISH_ANAL_RECEIVING), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction SUB_PLAYER_SELF_FINGER_ANUS_NORMAL = new SexAction(
@@ -203,7 +226,7 @@ public class PlayerSelfFingerAnus {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -228,10 +251,6 @@ public class PlayerSelfFingerAnus {
 					"Focusing on pleasuring your [pc.ass+], you start pumping your [pc.fingers] in and out of your [pc.asshole+].");
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction SUB_PLAYER_SELF_FINGER_ANUS_EAGER = new SexAction(
@@ -246,7 +265,7 @@ public class PlayerSelfFingerAnus {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -274,10 +293,6 @@ public class PlayerSelfFingerAnus {
 					"Focusing on pleasuring your [pc.ass+], you eagerly start slamming your [pc.fingers] in and out of your [pc.asshole+].");
 		}
 
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASOCHIST), new ListValue<>(Fetish.FETISH_ANAL_RECEIVING), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction PLAYER_SELF_FINGER_ANUS_STOP_PENETRATION = new SexAction(

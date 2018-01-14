@@ -9,7 +9,7 @@ import com.lilithsthrone.main.Main;
  */
 public enum PenetrationType {
 	
-	PENIS_PLAYER(true, true) {
+	PENIS_PLAYER(4, true, true) {
 		@Override
 		public String getName() {
 			return Main.game.getPlayer().getPenisName();
@@ -17,7 +17,7 @@ public enum PenetrationType {
 
 		@Override
 		public boolean isFree() {
-			return Sex.isPlayerFreePenis();
+			return Sex.isPenetrationTypeFree(Main.game.getPlayer(), this);
 		}
 		
 		@Override
@@ -26,7 +26,7 @@ public enum PenetrationType {
 		}
 	},
 	
-	TONGUE_PLAYER(true, false) {
+	TONGUE_PLAYER(2, true, false) {
 		@Override
 		public String getName() {
 			return Main.game.getPlayer().getTongueName();
@@ -34,7 +34,7 @@ public enum PenetrationType {
 
 		@Override
 		public boolean isFree() {
-			return Sex.isPlayerFreeMouth();
+			return Sex.isOrificeFree(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER);
 		}
 		
 		@Override
@@ -43,7 +43,7 @@ public enum PenetrationType {
 		}
 	},
 	
-	FINGER_PLAYER(true, false) {
+	FINGER_PLAYER(1, true, false) {
 		@Override
 		public String getName() {
 			return Main.game.getPlayer().getArmType().getFingersNamePlural(Main.game.getPlayer());
@@ -54,7 +54,7 @@ public enum PenetrationType {
 		}
 		@Override
 		public boolean isFree() {
-			return Sex.hasFreeHandPlayer();
+			return Sex.isPenetrationTypeFree(Main.game.getPlayer(), this);
 		}
 		
 		@Override
@@ -63,7 +63,7 @@ public enum PenetrationType {
 		}
 	},
 	
-	TAIL_PLAYER(true, true) {
+	TAIL_PLAYER(2, true, true) {
 		@Override
 		public String getName() {
 			return Main.game.getPlayer().getTailName();
@@ -71,7 +71,7 @@ public enum PenetrationType {
 
 		@Override
 		public boolean isFree() {
-			return Sex.isPlayerFreeTail();
+			return Sex.isPenetrationTypeFree(Main.game.getPlayer(), this);
 		}
 		
 		@Override
@@ -80,7 +80,7 @@ public enum PenetrationType {
 		}
 	},
 	
-	TENTACLE_PLAYER(true, true) {
+	TENTACLE_PLAYER(3, true, true) {
 		@Override
 		public String getName() {
 			return "tentacle";
@@ -100,15 +100,15 @@ public enum PenetrationType {
 	
 	// Partner:
 	
-	PENIS_PARTNER(false, true) {
+	PENIS_PARTNER(4, false, true) {
 		@Override
 		public String getName() {
-			return Sex.getPartner().getPenisName();
+			return Sex.getActivePartner().getPenisName();
 		}
 
 		@Override
 		public boolean isFree() {
-			return Sex.isPartnerFreePenis();
+			return Sex.isPenetrationTypeFree(Sex.getActivePartner(), this);
 		}
 		
 		@Override
@@ -117,15 +117,15 @@ public enum PenetrationType {
 		}
 	},
 	
-	TONGUE_PARTNER(false, false) {
+	TONGUE_PARTNER(2, false, false) {
 		@Override
 		public String getName() {
-			return Sex.getPartner().getTongueName();
+			return Sex.getActivePartner().getTongueName();
 		}
 
 		@Override
 		public boolean isFree() {
-			return Sex.isPartnerFreeMouth();
+			return Sex.isOrificeFree(Sex.getActivePartner(), OrificeType.MOUTH_PARTNER);
 		}
 		
 		@Override
@@ -134,10 +134,10 @@ public enum PenetrationType {
 		}
 	},
 	
-	FINGER_PARTNER(false, false) {
+	FINGER_PARTNER(1, false, false) {
 		@Override
 		public String getName() {
-			return Sex.getPartner().getArmType().getFingersNamePlural(Sex.getPartner());
+			return Sex.getActivePartner().getArmType().getFingersNamePlural(Sex.getActivePartner());
 		}
 		@Override
 		public boolean isPlural() {
@@ -145,7 +145,7 @@ public enum PenetrationType {
 		}
 		@Override
 		public boolean isFree() {
-			return Sex.hasFreeHandPartner();
+			return Sex.isPenetrationTypeFree(Sex.getActivePartner(), this);
 		}
 		
 		@Override
@@ -154,15 +154,15 @@ public enum PenetrationType {
 		}
 	},
 	
-	TAIL_PARTNER(false, true) {
+	TAIL_PARTNER(2, false, true) {
 		@Override
 		public String getName() {
-			return Sex.getPartner().getTailName();
+			return Sex.getActivePartner().getTailName();
 		}
 
 		@Override
 		public boolean isFree() {
-			return Sex.isPartnerFreeTail();
+			return Sex.isPenetrationTypeFree(Sex.getActivePartner(), this);
 		}
 		
 		@Override
@@ -171,7 +171,7 @@ public enum PenetrationType {
 		}
 	},
 	
-	TENTACLE_PARTNER(false, true) {
+	TENTACLE_PARTNER(3, false, true) {
 		@Override
 		public String getName() {
 			return "tentacle";
@@ -190,11 +190,17 @@ public enum PenetrationType {
 	};
 
 	
+	private float baseArousalWhenPenetrating;
 	private boolean isPlayer, takesVirginity;
 
-	private PenetrationType(boolean isPlayer, boolean takesVirginity) {
+	private PenetrationType(float baseArousalWhenPenetrating, boolean isPlayer, boolean takesVirginity) {
+		this.baseArousalWhenPenetrating = baseArousalWhenPenetrating;
 		this.isPlayer = isPlayer;
 		this.takesVirginity = takesVirginity;
+	}
+
+	public float getBaseArousalWhenPenetrating() {
+		return baseArousalWhenPenetrating;
 	}
 	
 	public boolean isPlayer() {
@@ -230,4 +236,5 @@ public enum PenetrationType {
 	public boolean isTentacle() {
 		return false;
 	}
+
 }

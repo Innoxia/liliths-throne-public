@@ -6,8 +6,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -16,6 +19,8 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.Rarity;
+import com.lilithsthrone.game.inventory.item.AbstractItem;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
@@ -30,7 +35,7 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 
 	protected static final long serialVersionUID = 1L;
 	
-	private String determiner, name, namePlural, description, pathName;
+	private String determiner, name, namePlural, description, pathName, pathNameEquipped;
 
 	private boolean plural;
 	private int physicalResistance, femininityMinimum, femininityMaximum;
@@ -43,14 +48,25 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 
 	private Map<Attribute, Integer> attributeModifiers;
 
-	private Map<Colour, String> SVGStringMap;
+	private Map<Colour, Map<Colour, Map<Colour, String>>> SVGStringMap;
+	private Map<Colour, Map<Colour, Map<Colour, String>>> SVGStringEquippedMap;
 
 	private ClothingSet clothingSet;
 	private Rarity rarity;
-	private List<Colour> availableColours;
+	private List<Colour> availablePrimaryColours;
+	private List<Colour> availablePrimaryDyeColours;
+	private List<Colour> allAvailablePrimaryColours;
+	
+	private List<Colour> availableSecondaryColours;
+	private List<Colour> availableSecondaryDyeColours;
+	private List<Colour> allAvailableSecondaryColours;
+	
+	private List<Colour> availableTertiaryColours;
+	private List<Colour> availableTertiaryDyeColours;
+	private List<Colour> allAvailableTertiaryColours;
 
 	private List<DisplacementType> displacementTypesAvailableWithoutNONE;
-
+	
 	public AbstractClothingType(
 			String determiner,
 			boolean plural,
@@ -65,7 +81,55 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 			String pathName,
 			Map<Attribute, Integer> attributeModifiers,
 			List<BlockedParts> blockedPartsList, List<InventorySlot> incompatibleSlots,
-			List<Colour> availableColours) {
+			List<Colour> availablePrimaryColours,
+			List<Colour> availablePrimaryDyeColours,
+			List<Colour> availableSecondaryColours,
+			List<Colour> availableSecondaryDyeColours,
+			List<Colour> availableTertiaryColours,
+			List<Colour> availableTertiaryDyeColours) {
+		this(determiner,
+				plural,
+				name,
+				namePlural,
+				description,
+				physicalResistance,
+				femininityRestriction,
+				slot,
+				rarity,
+				clothingSet,
+				pathName,
+				null,
+				attributeModifiers,
+				blockedPartsList, incompatibleSlots,
+				availablePrimaryColours,
+				availablePrimaryDyeColours,
+				availableSecondaryColours,
+				availableSecondaryDyeColours,
+				availableTertiaryColours,
+				availableTertiaryDyeColours);
+	}
+	
+	public AbstractClothingType(
+			String determiner,
+			boolean plural,
+			String name,
+			String namePlural,
+			String description,
+			int physicalResistance,
+			Femininity femininityRestriction,
+			InventorySlot slot,
+			Rarity rarity,
+			ClothingSet clothingSet,
+			String pathName,
+			String pathNameEquipped,
+			Map<Attribute, Integer> attributeModifiers,
+			List<BlockedParts> blockedPartsList, List<InventorySlot> incompatibleSlots,
+			List<Colour> availablePrimaryColours,
+			List<Colour> availablePrimaryDyeColours,
+			List<Colour> availableSecondaryColours,
+			List<Colour> availableSecondaryDyeColours,
+			List<Colour> availableTertiaryColours,
+			List<Colour> availableTertiaryDyeColours) {
 
 		this.determiner = determiner;
 		this.plural = plural;
@@ -96,6 +160,7 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 		this.clothingSet = clothingSet;
 
 		this.pathName = pathName;
+		this.pathNameEquipped = pathNameEquipped;
 
 		// Attribute modifiers:
 		if (attributeModifiers != null) {
@@ -118,17 +183,75 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 			this.incompatibleSlots = new ArrayList<>();
 		}
 		
-		this.availableColours = new ArrayList<>();
-		if (availableColours == null) {
-			this.availableColours.add(Colour.CLOTHING_BLACK);
+		this.availablePrimaryColours = new ArrayList<>();
+		if (availablePrimaryColours == null) {
+			this.availablePrimaryColours.add(Colour.CLOTHING_BLACK);
 		} else {
-			this.availableColours.addAll(availableColours);
+			this.availablePrimaryColours.addAll(availablePrimaryColours);
 		}
 
-		SVGStringMap = new EnumMap<>(Colour.class);
+		Set<Colour> colourSet = new HashSet<>();
+		
+		this.availablePrimaryDyeColours = new ArrayList<>();
+		if (availablePrimaryDyeColours != null) {
+			this.availablePrimaryDyeColours.addAll(availablePrimaryDyeColours);
+		}
+		
+		this.allAvailablePrimaryColours = new ArrayList<>();
+		colourSet.addAll(availablePrimaryColours);
+		if(availablePrimaryDyeColours!=null) {
+			colourSet.addAll(availablePrimaryDyeColours);
+		}
+		this.allAvailablePrimaryColours.addAll(colourSet);
+		
+		
+		this.availableSecondaryColours = new ArrayList<>();
+		if (availableSecondaryColours != null) {
+			this.availableSecondaryColours.addAll(availableSecondaryColours);
+		}
+		
+		this.availableSecondaryDyeColours = new ArrayList<>();
+		if (availableSecondaryDyeColours != null) {
+			this.availableSecondaryDyeColours.addAll(availableSecondaryDyeColours);
+		}
+
+		colourSet.clear();
+		this.allAvailableSecondaryColours = new ArrayList<>();
+		if(availableSecondaryColours!=null) {
+			colourSet.addAll(availableSecondaryColours);
+		}
+		if(availableSecondaryDyeColours!=null) {
+			colourSet.addAll(availableSecondaryDyeColours);
+		}
+		this.allAvailableSecondaryColours.addAll(colourSet);
+
+		
+		this.availableTertiaryColours = new ArrayList<>();
+		if (availableTertiaryColours != null) {
+			this.availableTertiaryColours.addAll(availableTertiaryColours);
+		}
+		
+		this.availableTertiaryDyeColours = new ArrayList<>();
+		if (availableTertiaryDyeColours != null) {
+			this.availableTertiaryDyeColours.addAll(availableTertiaryDyeColours);
+		}
+
+		colourSet.clear();
+		this.allAvailableTertiaryColours = new ArrayList<>();
+		if(availableTertiaryColours!=null) {
+			colourSet.addAll(availableTertiaryColours);
+		}
+		if(availableTertiaryDyeColours!=null) {
+			colourSet.addAll(availableTertiaryDyeColours);
+		}
+		this.allAvailableTertiaryColours.addAll(colourSet);
+		
+
+		SVGStringMap = new HashMap<>();
+		SVGStringEquippedMap = new HashMap<>();
 
 		displacementTypesAvailableWithoutNONE = new ArrayList<>();
-		for (BlockedParts bp : blockedPartsList) {
+		for (BlockedParts bp : this.blockedPartsList) {
 			if (bp.displacementType != DisplacementType.REMOVE_OR_EQUIP) {
 				displacementTypesAvailableWithoutNONE.add(bp.displacementType);
 			}
@@ -175,47 +298,130 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 		return result;
 	}
 	
-	public static AbstractClothing generateClothing(AbstractClothingType clothingType, Colour colourShade, boolean allowRandomEnchantment) {
-		Colour c = colourShade;
+	public static AbstractClothing generateClothing(AbstractClothingType clothingType, Colour primaryColour, Colour secondaryColour, Colour tertiaryColour, boolean allowRandomEnchantment) {
+		Colour c1 = primaryColour;
+		Colour c2 = secondaryColour;
+		Colour c3 = tertiaryColour;
 
-		if (clothingType.getAvailableColours() != null) {
-			if (!clothingType.getAvailableColours().contains(colourShade)) {
-				c = clothingType.getAvailableColours().get(Util.random.nextInt(clothingType.getAvailableColours().size()));
+		if (clothingType.getAllAvailablePrimaryColours() != null) {
+			if (!clothingType.getAllAvailablePrimaryColours().contains(primaryColour)) {
+				c1 = clothingType.getAllAvailablePrimaryColours().get(Util.random.nextInt(clothingType.getAllAvailablePrimaryColours().size()));
 			}
 		}
 		
-		return new AbstractClothing(clothingType, c, allowRandomEnchantment) {
+		if (secondaryColour == null) {
+			if(clothingType.getAvailableSecondaryColours().isEmpty()) {
+				c2 = Colour.CLOTHING_BLACK;
+			} else {
+				c2 = clothingType.getAvailableSecondaryColours().get(Util.random.nextInt(clothingType.getAvailableSecondaryColours().size()));
+			}
+		} else if(!clothingType.getAllAvailableSecondaryColours().contains(secondaryColour)) {
+			if(clothingType.getAllAvailableSecondaryColours().isEmpty()) {
+				c2 = Colour.CLOTHING_BLACK;
+			} else {
+				c2 = clothingType.getAllAvailableSecondaryColours().get(Util.random.nextInt(clothingType.getAllAvailableSecondaryColours().size()));
+			}
+		}
+		
+		if (tertiaryColour == null) {
+			if(clothingType.getAvailableTertiaryColours().isEmpty()) {
+				c3 = Colour.CLOTHING_BLACK;
+			} else {
+				c3 = clothingType.getAvailableTertiaryColours().get(Util.random.nextInt(clothingType.getAvailableTertiaryColours().size()));
+			}
+			
+		} else if(!clothingType.getAllAvailableTertiaryColours().contains(tertiaryColour)) {
+			if(clothingType.getAllAvailableTertiaryColours().isEmpty()) {
+				c3 = Colour.CLOTHING_BLACK;
+			} else {
+				c3 = clothingType.getAllAvailableTertiaryColours().get(Util.random.nextInt(clothingType.getAllAvailableTertiaryColours().size()));
+			}
+		}
+		
+		return new AbstractClothing(clothingType, c1, c2, c3, allowRandomEnchantment) {
 			private static final long serialVersionUID = 1L;
 		};
+	}
+
+	public static AbstractClothing generateClothing(AbstractClothingType clothingType, Colour colourShade, boolean allowRandomEnchantment) {
+		return AbstractClothingType.generateClothing(clothingType, colourShade, null, null, allowRandomEnchantment);
 	}
 
 	/**
 	 * Allows random enchantment. Uses random colour.
 	 */
 	public static AbstractClothing generateClothing(AbstractClothingType clothingType) {
-		return AbstractClothingType.generateClothing(clothingType, clothingType.getAvailableColours().get(Util.random.nextInt(clothingType.getAvailableColours().size())), true);
+		return AbstractClothingType.generateClothing(clothingType, clothingType.getAvailablePrimaryColours().get(Util.random.nextInt(clothingType.getAvailablePrimaryColours().size())), true);
 	}
 
 	/**
 	 * Uses random colour.
 	 */
 	public static AbstractClothing generateClothing(AbstractClothingType clothingType, boolean allowRandomEnchantment) {
-		return AbstractClothingType.generateClothing(clothingType, clothingType.getAvailableColours().get(Util.random.nextInt(clothingType.getAvailableColours().size())), allowRandomEnchantment);
+		return AbstractClothingType.generateClothing(clothingType, clothingType.getAvailablePrimaryColours().get(Util.random.nextInt(clothingType.getAvailablePrimaryColours().size())), allowRandomEnchantment);
+	}
+	
+	
+	/**
+	 * Generates clothing with the provided enchantments.
+	 */
+	public static AbstractClothing generateClothing(AbstractClothingType clothingType, Colour primaryColour, Colour secondaryColour, Colour tertiaryColour, Map<Attribute, Integer> enchantmentMap) {
+		Colour c1 = primaryColour;
+		Colour c2 = secondaryColour;
+		Colour c3 = tertiaryColour;
+
+		if (clothingType.getAllAvailablePrimaryColours() != null) {
+			if (!clothingType.getAllAvailablePrimaryColours().contains(primaryColour)) {
+				c1 = clothingType.getAllAvailablePrimaryColours().get(Util.random.nextInt(clothingType.getAllAvailablePrimaryColours().size()));
+			}
+		}
+		
+		if (secondaryColour == null) {
+			if(clothingType.getAvailableSecondaryColours().isEmpty()) {
+				c2 = Colour.CLOTHING_BLACK;
+			} else {
+				c2 = clothingType.getAvailableSecondaryColours().get(Util.random.nextInt(clothingType.getAvailableSecondaryColours().size()));
+			}
+		} else if(!clothingType.getAllAvailableSecondaryColours().contains(secondaryColour)) {
+			if(clothingType.getAllAvailableSecondaryColours().isEmpty()) {
+				c2 = Colour.CLOTHING_BLACK;
+			} else {
+				c2 = clothingType.getAllAvailableSecondaryColours().get(Util.random.nextInt(clothingType.getAllAvailableSecondaryColours().size()));
+			}
+		}
+		
+		if (tertiaryColour == null) {
+			if(clothingType.getAvailableTertiaryColours().isEmpty()) {
+				c3 = Colour.CLOTHING_BLACK;
+			} else {
+				c3 = clothingType.getAvailableTertiaryColours().get(Util.random.nextInt(clothingType.getAvailableTertiaryColours().size()));
+			}
+			
+		} else if(!clothingType.getAllAvailableTertiaryColours().contains(tertiaryColour)) {
+			if(clothingType.getAllAvailableTertiaryColours().isEmpty()) {
+				c3 = Colour.CLOTHING_BLACK;
+			} else {
+				c3 = clothingType.getAllAvailableTertiaryColours().get(Util.random.nextInt(clothingType.getAllAvailableTertiaryColours().size()));
+			}
+		}
+		
+		return new AbstractClothing(clothingType, c1, c2, c3, enchantmentMap) {
+			private static final long serialVersionUID = 1L;
+		};
 	}
 	
 	/**
 	 * Generates clothing with the provided enchantments.
 	 */
 	public static AbstractClothing generateClothing(AbstractClothingType clothingType, Colour colour, Map<Attribute, Integer> enchantmentMap) {
-		return new AbstractClothing(clothingType, colour, enchantmentMap) {
-			private static final long serialVersionUID = 1L;
-		};
+		return generateClothing(clothingType, colour, null, null, enchantmentMap);
 	}
+	
 	/**
 	 * Uses random colour.
 	 */
 	public static AbstractClothing generateClothing(AbstractClothingType clothingType, Map<Attribute, Integer> enchantmentMap) {
-		return AbstractClothingType.generateClothing(clothingType, clothingType.getAvailableColours().get(Util.random.nextInt(clothingType.getAvailableColours().size())), enchantmentMap);
+		return AbstractClothingType.generateClothing(clothingType, clothingType.getAvailablePrimaryColours().get(Util.random.nextInt(clothingType.getAvailablePrimaryColours().size())), enchantmentMap);
 	}
 	
 	/**
@@ -227,19 +433,18 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 		
 		enchantments.put(rndAtt, Util.random.nextInt(5)+1);
 		
-		return new AbstractClothing(clothingType, colour, enchantments) {
-			private static final long serialVersionUID = 1L;
-		};
+		return generateClothing(clothingType, colour, enchantments);
 	}
+	
 	/**
 	 * Uses random colour.
 	 */
 	public static AbstractClothing generateClothingWithEnchantment(AbstractClothingType clothingType) {
-		return AbstractClothingType.generateClothingWithEnchantment(clothingType, clothingType.getAvailableColours().get(Util.random.nextInt(clothingType.getAvailableColours().size())));
+		return AbstractClothingType.generateClothingWithEnchantment(clothingType, clothingType.getAvailablePrimaryColours().get(Util.random.nextInt(clothingType.getAvailablePrimaryColours().size())));
 	}
 	
 	public String getId() {
-		return ClothingType.clothingToIdMap.get(this);
+		return ClothingType.getIdFromClothingType(this);
 	}
 
 	static Map<ClothingSet, List<AbstractClothingType>> clothingSetMap = new EnumMap<>(ClothingSet.class);
@@ -259,7 +464,7 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 		return setOfClothing;
 	}
 	
-	protected String getEquipDescriptions(GameCharacter clothingOwner, GameCharacter clothingEquipper, boolean rough,
+	public static String getEquipDescriptions(GameCharacter clothingOwner, GameCharacter clothingEquipper, boolean rough,
 			String playerEquipping, String playerEquippingNpc, String playerEquippingNpcRough, String npcEquipping, String npcEquippingPlayer, String npcEquippingPlayerRough) {
 		if (clothingEquipper.isPlayer()) {
 			if(clothingOwner.isPlayer()) {
@@ -350,12 +555,12 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 		} else {
 			if (clothingOwner.isPlayer()) {
 				if(rough) {
-					return UtilText.parse(clothingRemover, "[npc.Name] roughly "+dt.getDescription()+" your "+this.getName()+".");
+					return UtilText.parse(clothingRemover, "[npc.Name] roughly "+dt.getDescriptionThirdPerson()+" your "+this.getName()+".");
 				} else {
-					return UtilText.parse(clothingRemover, "[npc.Name] "+dt.getDescription()+" your "+this.getName()+".");
+					return UtilText.parse(clothingRemover, "[npc.Name] "+dt.getDescriptionThirdPerson()+" your "+this.getName()+".");
 				}
 			} else {
-				return UtilText.parse(clothingOwner, "[npc.Name] "+dt.getDescription()+" [npc.her] "+this.getName()+".");
+				return UtilText.parse(clothingOwner, "[npc.Name] "+dt.getDescriptionThirdPerson()+" [npc.her] "+this.getName()+".");
 			}
 		}
 	}
@@ -375,12 +580,12 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 		} else {
 			if (clothingOwner.isPlayer()) {
 				if(rough) {
-					return UtilText.parse(clothingRemover, "[npc.Name] roughly "+dt.getOppositeDescription()+" your "+this.getName()+".");
+					return UtilText.parse(clothingRemover, "[npc.Name] roughly "+dt.getOppositeDescriptionThirdPerson()+" your "+this.getName()+".");
 				} else {
-					return UtilText.parse(clothingRemover, "[npc.Name] "+dt.getOppositeDescription()+" your "+this.getName()+".");
+					return UtilText.parse(clothingRemover, "[npc.Name] "+dt.getOppositeDescriptionThirdPerson()+" your "+this.getName()+".");
 				}
 			} else {
-				return UtilText.parse(clothingOwner, "[npc.Name] "+dt.getOppositeDescription()+" [npc.her] "+this.getName()+".");
+				return UtilText.parse(clothingOwner, "[npc.Name] "+dt.getOppositeDescriptionThirdPerson()+" [npc.her] "+this.getName()+".");
 			}
 		}
 	}
@@ -405,7 +610,15 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 	}
 	
 	// Getters & setters:
-
+	
+	public boolean isDiscardedOnUnequip() {
+		return false;
+	}
+	
+	public boolean isAbleToBeEquippedDuringSex() {
+		return false;
+	}
+	
 	public String getDeterminer() {
 		return determiner;
 	}
@@ -420,7 +633,7 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 		}
 		return name;
 	}
-	
+
 	public String getNamePlural() {
 		return namePlural;
 	}
@@ -461,6 +674,10 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 		return pathName;
 	}
 
+	public String getPathNameEquipped() {
+		return pathNameEquipped;
+	}
+
 	public int getzLayer() {
 		return slot.getZLayer();
 	}
@@ -469,87 +686,290 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 		return clothingSet;
 	}
 
-	public List<Colour> getAvailableColours() {
-		return availableColours;
+	public List<Colour> getAvailablePrimaryColours() {
+		return availablePrimaryColours;
+	}
+	
+	public List<Colour> getAvailablePrimaryDyeColours() {
+		return availablePrimaryDyeColours;
+	}
+	
+	public List<Colour> getAllAvailablePrimaryColours() {
+		return allAvailablePrimaryColours;
 	}
 
-	public Map<Colour, String> getSVGStringMap() {
-		return SVGStringMap;
+	public List<Colour> getAvailableSecondaryColours() {
+		return availableSecondaryColours;
 	}
 
-	public String getSVGImage(Colour colour) {
-		if (!availableColours.contains(colour)) {
+	public List<Colour> getAvailableSecondaryDyeColours() {
+		return availableSecondaryDyeColours;
+	}
+	
+	public List<Colour> getAllAvailableSecondaryColours() {
+		return allAvailableSecondaryColours;
+	}
+	
+	public List<Colour> getAvailableTertiaryColours() {
+		return availableTertiaryColours;
+	}
+
+	public List<Colour> getAvailableTertiaryDyeColours() {
+		return availableTertiaryDyeColours;
+	}
+	
+	public List<Colour> getAllAvailableTertiaryColours() {
+		return allAvailableTertiaryColours;
+	}
+	
+//	public Map<Colour, String> getSVGStringMap() {
+//		return SVGStringMap;
+//	}
+//	
+//	public Map<Colour, String> getSVGStringEquippedMap() {
+//		return SVGStringEquippedMap;
+//	}
+	
+	private void addSVGStringMapping(Colour colour, Colour colourSecondary, Colour colourTertiary, String s) {
+		if(SVGStringMap.get(colour)==null) {
+			SVGStringMap.put(colour, new HashMap<>());
+			SVGStringMap.get(colour).put(colourSecondary, new HashMap<>());
+			
+		} else if(SVGStringMap.get(colour).get(colourSecondary)==null) {
+			SVGStringMap.get(colour).put(colourSecondary, new HashMap<>());
+		}
+		
+		SVGStringMap.get(colour).get(colourSecondary).put(colourTertiary, s);
+	}
+	
+	private void addSVGStringEquippedMapping(Colour colour, Colour colourSecondary, Colour colourTertiary, String s) {
+		if(SVGStringEquippedMap.get(colour)==null) {
+			SVGStringEquippedMap.put(colour, new HashMap<>());
+			SVGStringEquippedMap.get(colour).put(colourSecondary, new HashMap<>());
+			
+		} else if(SVGStringEquippedMap.get(colour).get(colourSecondary)==null) {
+			SVGStringEquippedMap.get(colour).put(colourSecondary, new HashMap<>());
+		}
+		
+		SVGStringEquippedMap.get(colour).get(colourSecondary).put(colourTertiary, s);
+	}
+	
+	
+	private String getSVGStringFromMap(Colour colour, Colour colourSecondary, Colour colourTertiary) {
+		if(SVGStringMap.get(colour)==null) {
+			return null;
+		} else {
+			if(SVGStringMap.get(colour).get(colourSecondary)==null) {
+				return null;
+			} else {
+				return SVGStringMap.get(colour).get(colourSecondary).get(colourTertiary);
+			}
+		}
+	}
+	
+	private String getSVGStringFromEquippedMap(Colour colour, Colour colourSecondary, Colour colourTertiary) {
+		if(SVGStringEquippedMap.get(colour)==null) {
+			return null;
+		} else {
+			if(SVGStringEquippedMap.get(colour).get(colourSecondary)==null) {
+				return null;
+			} else {
+				return SVGStringEquippedMap.get(colour).get(colourSecondary).get(colourTertiary);
+			}
+		}
+	}
+
+	/**
+	 * @param colour You need to pass a colour in here.
+	 * @param colourSecondary This can be null.
+	 * @param colourTertiary This can be null.
+	 */
+	public String getSVGImage(Colour colour, Colour colourSecondary, Colour colourTertiary) {
+		return getSVGImage(null, colour, colourSecondary, colourTertiary, false);
+	}
+	
+	/**
+	 * @param character The character this clothing is equipped to.
+	 * @param colour You need to pass a colour in here.
+	 * @param colourSecondary This can be null.
+	 * @param colourTertiary This can be null.
+	 */
+	public String getSVGEquippedImage(GameCharacter character, Colour colour, Colour colourSecondary, Colour colourTertiary) {
+		return getSVGImage(character, colour, colourSecondary, colourTertiary, true);
+	}
+	
+	private String colourReplacement(Colour colour, Colour colourSecondary, Colour colourTertiary, String inputString) {
+		String s = inputString;
+		for (int i = 0; i <= 14; i++) {
+			s = s.replaceAll("linearGradient" + i, this.hashCode() + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "linearGradient" + i);
+			s = s.replaceAll("innoGrad" + i, this.hashCode() + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "innoGrad" + i);
+			
+		}
+		s = s.replaceAll("#ff2a2a", colour.getShades()[0]);
+		s = s.replaceAll("#ff5555", colour.getShades()[1]);
+		s = s.replaceAll("#ff8080", colour.getShades()[2]);
+		s = s.replaceAll("#ffaaaa", colour.getShades()[3]);
+		s = s.replaceAll("#ffd5d5", colour.getShades()[4]);
+		
+		if(colourSecondary!=null) {
+			s = s.replaceAll("#ff7f2a", colourSecondary.getShades()[0]);
+			s = s.replaceAll("#ff9955", colourSecondary.getShades()[1]);
+			s = s.replaceAll("#ffb380", colourSecondary.getShades()[2]);
+			s = s.replaceAll("#ffccaa", colourSecondary.getShades()[3]);
+			s = s.replaceAll("#ffe6d5", colourSecondary.getShades()[4]);
+		}
+		
+		if(colourTertiary!=null) {
+			s = s.replaceAll("#ffd42a", colourTertiary.getShades()[0]);
+			s = s.replaceAll("#ffdd55", colourTertiary.getShades()[1]);
+			s = s.replaceAll("#ffe680", colourTertiary.getShades()[2]);
+			s = s.replaceAll("#ffeeaa", colourTertiary.getShades()[3]);
+			s = s.replaceAll("#fff6d5", colourTertiary.getShades()[4]);
+		}
+		
+		return s;
+	}
+	
+	private String getSVGImage(GameCharacter character, Colour colour, Colour colourSecondary, Colour colourTertiary, boolean equippedVariant) {
+		if (!allAvailablePrimaryColours.contains(colour)) {
 			return "";
 		}
 		
-//		if (SVGStringMap.containsKey(colour))  {
-//			return SVGStringMap.get(colour);
-//			
-//		}else {
-//			if (availableColours.contains(colour)) {
-//				try {
-//					InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/" + pathName + ".svg");
-//					String s = Util.inputStreamToString(is);
-//
-//					for (int i = 0; i <= 14; i++)
-//						s = s.replaceAll("linearGradient" + i, this.hashCode() + colour.toString() + "linearGradient" + i);
-//					s = s.replaceAll("#ff2a2a", colour.getShades()[0]);
-//					s = s.replaceAll("#ff5555", colour.getShades()[1]);
-//					s = s.replaceAll("#ff8080", colour.getShades()[2]);
-//					s = s.replaceAll("#ffaaaa", colour.getShades()[3]);
-//					s = s.replaceAll("#ffd5d5", colour.getShades()[4]);
-//					
-//					SVGStringMap.put(colour, s);
-//
-//					is.close();
-//
-//					return s;
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		}
-		
-//		return "";
-//		
-//		//TODO
-		
-		if (SVGStringMap.containsKey(colour) && this != ClothingType.WRIST_WOMENS_WATCH && this != ClothingType.WRIST_MENS_WATCH) {
-			return SVGStringMap.get(colour);
-			
-		}else {
-			if (availableColours.contains(colour)) {
+		if(this.equals(ClothingType.HIPS_CONDOMS)) {
+			if (getAllAvailablePrimaryColours().contains(colour)) {
 				try {
-					InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/" + pathName + ".svg");
-					String s = Util.inputStreamToString(is);
-
-					for (int i = 0; i <= 14; i++)
-						s = s.replaceAll("linearGradient" + i, this.hashCode() + colour.toString() + "linearGradient" + i);
-					s = s.replaceAll("#ff2a2a", colour.getShades()[0]);
-					s = s.replaceAll("#ff5555", colour.getShades()[1]);
-					s = s.replaceAll("#ff8080", colour.getShades()[2]);
-					s = s.replaceAll("#ffaaaa", colour.getShades()[3]);
-					s = s.replaceAll("#ffd5d5", colour.getShades()[4]);
-					
-					// Add minute and hour hands to women's and men's watches:
-					s += (this == ClothingType.WRIST_WOMENS_WATCH ? "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + ((Main.game.getMinutesPassed() % (60 * 24)) / 2f) + "deg);'>"
-							+ SVGImages.SVG_IMAGE_PROVIDER.getWomensWatchHourHand() + "</div>" + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + (Main.game.getMinutesPassed() % (60)) * 6 + "deg);'>"
-							+ SVGImages.SVG_IMAGE_PROVIDER.getWomensWatchMinuteHand() + "</div>" : "")
-							+ (this == ClothingType.WRIST_MENS_WATCH ? "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + ((Main.game.getMinutesPassed() % (60 * 24)) / 2f) + "deg);'>"
-									+ SVGImages.SVG_IMAGE_PROVIDER.getMensWatchHourHand() + "</div>" + "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + (Main.game.getMinutesPassed() % (60)) * 6
-									+ "deg);'>" + SVGImages.SVG_IMAGE_PROVIDER.getMensWatchMinuteHand() + "</div>" : "");
-					
-					SVGStringMap.put(colour, s);
-
+					InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_base_back.svg");
+					String s = "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>"+Util.inputStreamToString(is)+"</div>";
 					is.close();
+					s = colourReplacement(colour, colourSecondary, colourTertiary, s);
 
-					return s;
+					if(!equippedVariant) {
+						is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_base_front.svg");
+						s += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>" + Util.inputStreamToString(is) + "</div>";
+						s = colourReplacement(colour, colourSecondary, colourTertiary, s);
+						is.close();
+						
+						addSVGStringEquippedMapping(colour, colourSecondary, colourTertiary, s);
+						
+						return s;
+						
+					} else {
+						List<Colour> condomColours = new ArrayList<>();
+						// Draw all backs:
+						for(AbstractItem item : character.getAllItemsInInventory()) {
+							if(item.getItemType().equals(ItemType.CONDOM_USED)) {
+								if(condomColours.size()<8) {
+									condomColours.add(item.getColour());
+									
+									is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_"+condomColours.size()+"_back.svg");
+									s += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>" + Util.inputStreamToString(is) + "</div>";
+									s = colourReplacement(item.getColour(), null, null, s);
+									is.close();
+								}
+							}
+						}
+						
+						is.close();
+						is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_base_front.svg");
+						s += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>" + Util.inputStreamToString(is) + "</div>";
+						s = colourReplacement(colour, colourSecondary, colourTertiary, s);
+						is.close();
+						
+						int i = 1;
+						for(Colour c : condomColours) {
+							is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/belt_used_condoms_"+i+"_front.svg");
+							s += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;padding:0;margin:0'>" + Util.inputStreamToString(is) + "</div>";
+							s = colourReplacement(c, null, null, s);
+							is.close();
+							i++;
+						}
+						
+						return s;
+					}
+					
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
-		}
+			
+		} else {
+			if(equippedVariant && pathNameEquipped!=null) {
+				String stringFromMap = getSVGStringFromEquippedMap(colour, colourSecondary, colourTertiary);
+				if (stringFromMap!=null && !this.equals(ClothingType.WRIST_WOMENS_WATCH) && !this.equals(ClothingType.WRIST_MENS_WATCH)) {
+					return stringFromMap;
+					
+				} else {
+					if (getAllAvailablePrimaryColours().contains(colour)) {
+						try {
+							InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/" + pathNameEquipped + ".svg");
+							String s = Util.inputStreamToString(is);
+							
+							s = colourReplacement(colour, colourSecondary, colourTertiary, s);
+							
+							// Add minute and hour hands to women's and men's watches:
+							s += (this.equals(ClothingType.WRIST_WOMENS_WATCH)
+									? "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + ((Main.game.getMinutesPassed() % (60 * 24)) / 2f) + "deg);'>"
+										+ SVGImages.SVG_IMAGE_PROVIDER.getWomensWatchHourHand() + "</div>"
+										+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + (Main.game.getMinutesPassed() % (60)) * 6 + "deg);'>"
+										+ SVGImages.SVG_IMAGE_PROVIDER.getWomensWatchMinuteHand() + "</div>"
+									: "")
+									+ (this.equals(ClothingType.WRIST_MENS_WATCH)
+										? "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + ((Main.game.getMinutesPassed() % (60 * 24)) / 2f) + "deg);'>"
+											+ SVGImages.SVG_IMAGE_PROVIDER.getMensWatchHourHand() + "</div>"
+											+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + (Main.game.getMinutesPassed() % (60)) * 6
+											+ "deg);'>" + SVGImages.SVG_IMAGE_PROVIDER.getMensWatchMinuteHand() + "</div>"
+										: "");
 
+							addSVGStringEquippedMapping(colour, colourSecondary, colourTertiary, s);
+							
+							is.close();
+		
+							return s;
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+				
+			} else {
+				String stringFromMap = getSVGStringFromMap(colour, colourSecondary, colourTertiary);
+				if (stringFromMap!=null && !this.equals(ClothingType.WRIST_WOMENS_WATCH) && !this.equals(ClothingType.WRIST_MENS_WATCH)) {
+					return stringFromMap;
+					
+				} else {
+					if (getAllAvailablePrimaryColours().contains(colour)) {
+						try {
+							InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/clothing/" + pathName + ".svg");
+							String s = Util.inputStreamToString(is);
+							
+							s = colourReplacement(colour, colourSecondary, colourTertiary, s);
+							
+							// Add minute and hour hands to women's and men's watches:
+							s += (this.equals(ClothingType.WRIST_WOMENS_WATCH)
+									? "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + ((Main.game.getMinutesPassed() % (60 * 24)) / 2f) + "deg);'>"
+										+ SVGImages.SVG_IMAGE_PROVIDER.getWomensWatchHourHand() + "</div>"
+										+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + (Main.game.getMinutesPassed() % (60)) * 6 + "deg);'>"
+										+ SVGImages.SVG_IMAGE_PROVIDER.getWomensWatchMinuteHand() + "</div>"
+									: "")
+									+ (this.equals(ClothingType.WRIST_MENS_WATCH)
+										? "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + ((Main.game.getMinutesPassed() % (60 * 24)) / 2f) + "deg);'>"
+											+ SVGImages.SVG_IMAGE_PROVIDER.getMensWatchHourHand() + "</div>"
+											+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;-webkit-transform: rotate(" + (Main.game.getMinutesPassed() % (60)) * 6
+											+ "deg);'>" + SVGImages.SVG_IMAGE_PROVIDER.getMensWatchMinuteHand() + "</div>"
+										: "");
+							
+							addSVGStringMapping(colour, colourSecondary, colourTertiary, s);
+							
+							is.close();
+		
+							return s;
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+			}
+		}
 		return "";
 	}
 

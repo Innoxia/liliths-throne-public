@@ -2,10 +2,11 @@ package com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer;
 
 import java.util.List;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.clothing.CoverableArea;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
@@ -59,10 +60,6 @@ public class PlayerSelfNoPen {
 			}
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	
@@ -104,10 +101,6 @@ public class PlayerSelfNoPen {
 			}
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	
@@ -159,8 +152,12 @@ public class PlayerSelfNoPen {
 		}
 		
 		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASTURBATION));
+		public List<Fetish> getFetishes(GameCharacter character) {
+			if(character.isPlayer()) {
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASTURBATION));
+			} else {
+				return null;
+			}
 		}
 	};
 }

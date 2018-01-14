@@ -3,8 +3,9 @@ package com.lilithsthrone.world.places;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lilithsthrone.game.character.attributes.AffectionLevel;
-import com.lilithsthrone.game.character.attributes.ObedienceLevel;
+import com.lilithsthrone.game.character.Quest;
+import com.lilithsthrone.game.character.QuestLine;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -13,7 +14,7 @@ import com.lilithsthrone.world.Cell;
 
 /**
  * @since 0.1.85
- * @version 0.1.85
+ * @version 0.1.97
  * @author Innoxia
  */
 public enum PlaceUpgrade {
@@ -28,10 +29,8 @@ public enum PlaceUpgrade {
 			0,
 			0,
 			1000,
-			-5,
-			null,
-			-5,
-			null,
+			-0.5f,
+			-0.5f,
 			null),
 	
 	LILAYA_EMPTY_ROOM(true,
@@ -45,20 +44,21 @@ public enum PlaceUpgrade {
 			0,
 			0,
 			0,
-			null,
 			0,
-			null,
 			null) {
 		@Override
 		public void applyInstallationEffects(GenericPlace place) {
-			if(place.getPlaceType() == LilayasHome.LILAYA_HOME_ROOM_WINDOW_SLAVE) {
-				place.setPlaceType(LilayasHome.LILAYA_HOME_ROOM_WINDOW);
+			if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_SLAVE) {
+				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR);
 				
-			} else if(place.getPlaceType() == LilayasHome.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_SLAVE) {
-				place.setPlaceType(LilayasHome.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR);
+			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_SLAVE) {
+				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR);
 				
-			} else if(place.getPlaceType() == LilayasHome.LILAYA_HOME_ROOM_GARDEN_SLAVE) {
-				place.setPlaceType(LilayasHome.LILAYA_HOME_ROOM_GARDEN);
+			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_SLAVE) {
+				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR);
+				
+			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_SLAVE) {
+				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR);
 			}
 			
 			for(PlaceUpgrade upgrade : PlaceUpgrade.values()) {
@@ -70,12 +70,51 @@ public enum PlaceUpgrade {
 		
 		@Override
 		public boolean isAvailable(Cell cell) {
-			return Main.game.getCharactersPresent(cell).isEmpty();
+			return Main.game.getCharactersTreatingCellAsHome(cell).isEmpty() && !cell.getPlace().getPlaceUpgrades().contains(LILAYA_ARTHUR_ROOM);
 		}
 
 		@Override
 		public String getAvailabilityDescription(Cell cell) {
-			if(Main.game.getCharactersPresent(cell).isEmpty()) {
+			if(Main.game.getCharactersTreatingCellAsHome(cell).isEmpty()) {
+				return "";
+			} else {
+				return "This room needs to be unoccupied in order to purchase this modification.";
+			}
+		}
+	},
+	
+	LILAYA_ARTHUR_ROOM(true,
+			Colour.RACE_HUMAN,
+			"Arthur's Room",
+			"Help Rose to move arcane instrumentation into this room in order to make it suitable for Arthur to stay in. <b>This is a permanent modification, and can never be undone!</b>",
+			"This room now belongs to Arthur, who uses it as his personal lab-cum-bedroom.",
+			"This room is unoccupied, and although Rose seems to be doing an excellent job of keeping it clean and well-dusted, it seems a shame that it's not being used to its full potential...",
+			0,
+			0,
+			0,
+			0,
+			0,
+			0,
+			null) {
+		@Override
+		public void applyInstallationEffects(GenericPlace place) {
+			place.setPlaceType(PlaceType.LILAYA_HOME_ARTHUR_ROOM);
+			
+			for(PlaceUpgrade upgrade : PlaceUpgrade.values()) {
+				if(upgrade != LILAYA_ARTHUR_ROOM) {
+					place.removePlaceUpgrade(upgrade);
+				}
+			}
+		}
+		
+		@Override
+		public boolean isAvailable(Cell cell) {
+			return Main.game.getCharactersTreatingCellAsHome(cell).isEmpty();
+		}
+
+		@Override
+		public String getAvailabilityDescription(Cell cell) {
+			if(Main.game.getCharactersTreatingCellAsHome(cell).isEmpty()) {
 				return "";
 			} else {
 				return "This room needs to be unoccupied in order to purchase this modification.";
@@ -97,25 +136,122 @@ public enum PlaceUpgrade {
 			0,
 			10,
 			1,
-			0.25f,
-			AffectionLevel.ZERO_NEUTRAL,
+			0.1f,
 			0,
-			null,
 			null) {
+		
+		@Override
+		public String getRoomDescription(GenericPlace place) {
+			if(place.getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_UPGRADE_BED)) {
+				return "You've paid to have this room converted into basic slave's quarters."
+						+ " A comfortable double size bed, covered in a warm fully duvet, sits against one wall."
+						+ " Beside it, there's a simple bedside cabinet, complete with arcane-powered lamp."
+						+ " Other than that, the only other pieces of furniture in here are a wooden wardrobe and chest of drawers.";
+				
+			} else if(place.getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOWNGRADE_BED)) {
+				return "You've paid to have this room converted into basic slave's quarters."
+						+ " An uncomfortable single-size bed, covered in a thin blanket, sits against one wall."
+						+ " Beside it, there's a simple bedside cabinet, complete with arcane-powered lamp."
+						+ " Other than that, the only other pieces of furniture in here are a wooden wardrobe and chest of drawers.";
+		
+			}else {
+				return "You've paid to have this room converted into basic slave's quarters."
+						+ " A single-size bed, covered in a plain white duvet, sits against one wall."
+						+ " Beside it, there's a simple bedside cabinet, complete with arcane-powered lamp."
+						+ " Other than that, the only other pieces of furniture in here are a wooden wardrobe and chest of drawers.";
+			}
+		}
+		
+		@Override
+		public boolean isAvailable(Cell cell) {
+			return Main.game.getCharactersTreatingCellAsHome(cell).isEmpty() && !cell.getPlace().getPlaceUpgrades().contains(LILAYA_ARTHUR_ROOM);
+		}
+		
 		@Override
 		public void applyInstallationEffects(GenericPlace place) {
-			if(place.getPlaceType() == LilayasHome.LILAYA_HOME_ROOM_WINDOW) {
-				place.setPlaceType(LilayasHome.LILAYA_HOME_ROOM_WINDOW_SLAVE);
+			if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR) {
+				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_SLAVE);
 				
-			} else if(place.getPlaceType() == LilayasHome.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR) {
-				place.setPlaceType(LilayasHome.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_SLAVE);
+			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR) {
+				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_SLAVE);
 				
-			} else if(place.getPlaceType() == LilayasHome.LILAYA_HOME_ROOM_GARDEN) {
-				place.setPlaceType(LilayasHome.LILAYA_HOME_ROOM_GARDEN_SLAVE);
+			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR) {
+				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_SLAVE);
+				
+			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR) {
+				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_SLAVE);
 			}
 			
 			for(PlaceUpgrade upgrade : PlaceUpgrade.values()) {
 				if(upgrade != LILAYA_SLAVE_ROOM) {
+					place.removePlaceUpgrade(upgrade);
+				}
+			}
+		}
+	},
+	
+	LILAYA_SLAVE_ROOM_DOUBLE(true,
+			Colour.BASE_MAGENTA,
+			"Double Slave Room",
+			"Rose will prepare this room just like she would for any other guest, making it suitable for housing two of your slaves."
+					+ " While more cost-effective than giving each slave their own room, the occupants will no doubt be a little frustrated at having to share their personal space with another slave.",
+			"This room has been converted into a suitable place for housing two of your slaves.",
+			"You've paid to have this room converted so that it's suitable for housing two of your slaves."
+					+ " A pair of single-size beds, covered in a plain white duvets, sit against opposite walls."
+					+ " Beside each one, there's a simple bedside cabinet, complete with arcane-powered lamp."
+					+ " Other than that, the only other pieces of furniture in here are a single wooden wardrobe and solitary chest of drawers.",
+			350,
+			0,
+			10,
+			2,
+			-0.05f,
+			0,
+			null) {
+		
+		@Override
+		public String getRoomDescription(GenericPlace place) {
+			if(place.getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_UPGRADE_BED)) {
+				return "You've paid to have this room converted so that it's suitable for housing two of your slaves."
+							+ " A pair of comfortable double size beds, covered in warm fully duvets, sit against opposite walls."
+							+ " Beside each one, there's a simple bedside cabinet, complete with arcane-powered lamp."
+							+ " Other than that, the only other pieces of furniture in here are a single wooden wardrobe and solitary chest of drawers.";
+				
+			} else if(place.getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOWNGRADE_BED)) {
+				return "You've paid to have this room converted so that it's suitable for housing two of your slaves."
+						+ " A pair of uncomfortable single-size beds, covered in thin blankets, sit against opposite walls."
+						+ " Beside each one, there's a simple bedside cabinet, complete with arcane-powered lamp."
+						+ " Other than that, the only other pieces of furniture in here are a single wooden wardrobe and solitary chest of drawers.";
+		
+			}else {
+				return "You've paid to have this room converted so that it's suitable for housing two of your slaves."
+					+ " A pair of single-size beds, covered in a plain white duvets, sit against opposite walls."
+					+ " Beside each one, there's a simple bedside cabinet, complete with arcane-powered lamp."
+					+ " Other than that, the only other pieces of furniture in here are a single wooden wardrobe and solitary chest of drawers.";
+			}
+		}
+		
+		@Override
+		public boolean isAvailable(Cell cell) {
+			return Main.game.getCharactersTreatingCellAsHome(cell).isEmpty() && !cell.getPlace().getPlaceUpgrades().contains(LILAYA_ARTHUR_ROOM);
+		}
+		
+		@Override
+		public void applyInstallationEffects(GenericPlace place) {
+			if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR) {
+				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_WINDOW_GROUND_FLOOR_SLAVE);
+				
+			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR) {
+				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_GARDEN_GROUND_FLOOR_SLAVE);
+				
+			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR) {
+				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_GARDEN_FIRST_FLOOR_SLAVE);
+				
+			} else if(place.getPlaceType() == PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR) {
+				place.setPlaceType(PlaceType.LILAYA_HOME_ROOM_WINDOW_FIRST_FLOOR_SLAVE);
+			}
+			
+			for(PlaceUpgrade upgrade : PlaceUpgrade.values()) {
+				if(upgrade != LILAYA_SLAVE_ROOM_DOUBLE) {
 					place.removePlaceUpgrade(upgrade);
 				}
 			}
@@ -134,10 +270,8 @@ public enum PlaceUpgrade {
 			25,
 			-1,
 			0,
-			-1f,
-			AffectionLevel.NEGATIVE_ONE_ANNOYED,
-			0.5f,
-			ObedienceLevel.ZERO_FREE_WILLED,
+			-0.1f,
+			0.2f,
 			null) {
 		
 		@Override
@@ -166,10 +300,8 @@ public enum PlaceUpgrade {
 			50,
 			5,
 			0,
-			1f,
-			AffectionLevel.POSITIVE_ONE_FRIENDLY,
-			-0.5f,
-			ObedienceLevel.ZERO_FREE_WILLED,
+			0.2f,
+			-0.1f,
 			null) {
 		
 		@Override
@@ -186,6 +318,43 @@ public enum PlaceUpgrade {
 		}
 	},
 	
+	LILAYA_SLAVE_ROOM_OBEDIENCE_TRAINER(false,
+			Colour.GENERIC_ARCANE,
+			"Obedience Trainer",
+			"Lilaya has asked you if you'd consider installing one of her experimental devices in this room; a so-called 'obedience trainer'."
+					+ " This particular addition takes the form of a large, glowing crystal that is to be placed in the centre of the room."
+					+ " Whenever the room's occupant thinks a disobedient thought, the crystal will shoot out a shocking bolt of arcane energy, thereby training a slave's obedience in the most intrusive fashion imaginable.",
+			"You've installed one one of Lilaya's experimental devices in this room; a so-called 'obedience trainer'."
+					+ " This particular addition takes the form of a large, glowing crystal that has been placed in the centre of the room."
+					+ " Whenever the room's occupant thinks a disobedient thought, the crystal shoots out a shocking bolt of arcane energy, thereby training a slave's obedience in the most intrusive fashion imaginable.",
+			"One of Lilaya's experimental devices, a so-called 'obedience trainer', has been installed in the middle of this room."
+					+ " Taking the form of a large, glowing crystal, the obedience trainer will shoot a shocking bolt of arcane energy at any slave nearby that dares to think a disobedient thought."
+					+ " Although highly effective at training obedience, any slaves subjected to this intrusive training method will be sure to loathe you before long...",
+			1000,
+			500,
+			5,
+			0,
+			-0.2f,
+			0.4f,
+			null),
+	
+	LILAYA_SLAVE_ROOM_ROOM_SERVICE(false,
+			Colour.GENERIC_ARCANE,
+			"Room service",
+			"You could offer this room's occupant unlimited room service."
+					+ " This isn't exactly how most owners treat their slaves, and while it's sure to make the occupant like you more, it's also going to cost quite a bit in upkeep, as well as have some negative effects on their obedience...",
+			"You've offered unlimited room service to the occupant of this room."
+					+ " It's definitely making them like you more, but it's also costing a fair amount in upkeep, and is having a negative effect on your slave's obedience...",
+			"An little push-trolley with a few empty silver plates and glasses stacked on top of it is evidence that the slave who lives here is taking full advantage of the unlimited room service you've offered to them."
+					+ " It's definitely making them like you more, but having such a luxury available to them is also having a negative impact on their obedience, not to mention the damage it's doing to your bank account...",
+			20,
+			0,
+			50,
+			0,
+			0.4f,
+			-0.2f,
+			null),
+	
 	LILAYA_SLAVE_ROOM_ARCANE_INSTRUMENTS(false,
 			Colour.GENERIC_ARCANE,
 			"Arcane Instruments",
@@ -199,40 +368,62 @@ public enum PlaceUpgrade {
 			50,
 			-5,
 			0,
-			-0.25f,
-			AffectionLevel.NEGATIVE_ONE_ANNOYED,
+			-0.1f,
 			0f,
-			null,
 			null);
 	
 	
-	public static ArrayList<PlaceUpgrade> coreRoomUpgrades, slaveQuartersUpgrades;
+	private static ArrayList<PlaceUpgrade> coreRoomUpgrades, slaveQuartersUpgrades;
 	
+	public static ArrayList<PlaceUpgrade> getCoreRoomUpgrades() {
+		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.arthursRoomInstalled) || Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_1_J_ARTHURS_ROOM)) {
+			ArrayList<PlaceUpgrade> listArthurRemoved = new ArrayList<>(coreRoomUpgrades);
+			listArthurRemoved.remove(PlaceUpgrade.LILAYA_ARTHUR_ROOM);
+			return listArthurRemoved;
+		}
+		return coreRoomUpgrades;
+	}
+
+	public static ArrayList<PlaceUpgrade> getSlaveQuartersUpgrades() {
+		if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.arthursRoomInstalled) || Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_1_J_ARTHURS_ROOM)) {
+			ArrayList<PlaceUpgrade> listArthurRemoved = new ArrayList<>(slaveQuartersUpgrades);
+			listArthurRemoved.remove(PlaceUpgrade.LILAYA_ARTHUR_ROOM);
+			return listArthurRemoved;
+		}
+		return slaveQuartersUpgrades;
+	}
+
 	static {
 		coreRoomUpgrades = Util.newArrayListOfValues(
-				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM));
+				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM),
+				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOUBLE),
+				
+				new ListValue<>(PlaceUpgrade.LILAYA_ARTHUR_ROOM));
 		
 		slaveQuartersUpgrades = Util.newArrayListOfValues(
+				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM_ROOM_SERVICE),
+				
 				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM_UPGRADE_BED),
 				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOWNGRADE_BED),
+				
 				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM_ARCANE_INSTRUMENTS),
-				new ListValue<>(PlaceUpgrade.LILAYA_EMPTY_ROOM));
+				new ListValue<>(PlaceUpgrade.LILAYA_SLAVE_ROOM_OBEDIENCE_TRAINER),
+				
+				new ListValue<>(PlaceUpgrade.LILAYA_EMPTY_ROOM),
+				new ListValue<>(PlaceUpgrade.LILAYA_ARTHUR_ROOM));
 	}
-	
 	
 	private boolean isCoreRoomUpgrade;
 	private String name, descriptionForPurchase, descriptionAfterPurchase, roomDescription;
 	private int installCost, removalCost, upkeep, capacity;
 	private Colour colour;
 	private float affectionGain, obedienceGain;
-	private AffectionLevel affectionCap;
-	private ObedienceLevel obedienceCap;
 	private List<PlaceUpgrade> prerequisites;
 
 	private PlaceUpgrade(boolean isCoreRoomUpgrade, Colour colour, String name, String descriptionForPurchase, String descriptionAfterPurchase, String roomDescription,
 			int installCost, int removalCost, int upkeep, int capacity,
-			float affectionGain, AffectionLevel affectionCap,
-			float obedienceGain, ObedienceLevel obedienceCap,
+			float affectionGain,
+			float obedienceGain,
 			List<PlaceUpgrade> prerequisites) {
 		
 		this.isCoreRoomUpgrade = isCoreRoomUpgrade;
@@ -248,10 +439,8 @@ public enum PlaceUpgrade {
 		this.capacity = capacity;
 		
 		this.affectionGain = affectionGain;
-		this.affectionCap = affectionCap;
 		
 		this.obedienceGain = obedienceGain;
-		this.obedienceCap = obedienceCap;
 		
 		if(prerequisites==null) {
 			this.prerequisites = new ArrayList<>();
@@ -281,7 +470,7 @@ public enum PlaceUpgrade {
 		return name;
 	}
 
-	public String getRoomDescription() {
+	public String getRoomDescription(GenericPlace place) {
 		return roomDescription;
 	}
 
@@ -309,11 +498,11 @@ public enum PlaceUpgrade {
 		return capacity;
 	}
 
-	public float getAffectionGain() {
+	public float getHourlyAffectionGain() {
 		return affectionGain;
 	}
 
-	public float getObedienceGain() {
+	public float getHourlyObedienceGain() {
 		return obedienceGain;
 	}
 
@@ -329,13 +518,5 @@ public enum PlaceUpgrade {
 	}
 
 	public void applyRemovalEffects(GenericPlace place) {
-	}
-
-	public AffectionLevel getAffectionCap() {
-		return affectionCap;
-	}
-
-	public ObedienceLevel getObedienceCap() {
-		return obedienceCap;
 	}
 }

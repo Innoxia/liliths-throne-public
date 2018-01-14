@@ -32,7 +32,11 @@ public enum MouthType implements BodyPartTypeInterface {
 	
 	SQUIRREL_MORPH(BodyCoveringType.MOUTH, Race.SQUIRREL_MORPH),
 	
+	ALLIGATOR_MORPH(BodyCoveringType.MOUTH, Race.ALLIGATOR_MORPH),
+	
 	HORSE_MORPH(BodyCoveringType.MOUTH, Race.HORSE_MORPH),
+	
+	REINDEER_MORPH(BodyCoveringType.MOUTH, Race.REINDEER_MORPH),
 	
 	HARPY(BodyCoveringType.MOUTH, Race.HARPY),
 
@@ -63,15 +67,13 @@ public enum MouthType implements BodyPartTypeInterface {
 	@Override
 	public String getNameSingular(GameCharacter gc) {
 		return UtilText.returnStringAtRandom(
-				"mouth",
-				"throat");
+				"mouth");
 	}
 	
 	@Override
 	public String getNamePlural(GameCharacter gc) {
 		return UtilText.returnStringAtRandom(
-				"mouths",
-				"throats");
+				"mouths");
 	}
 	
 	@Override

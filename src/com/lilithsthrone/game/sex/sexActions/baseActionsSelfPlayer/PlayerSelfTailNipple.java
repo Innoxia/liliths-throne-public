@@ -1,9 +1,6 @@
 package com.lilithsthrone.game.sex.sexActions.baseActionsSelfPlayer;
 
-import java.util.List;
-
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.OrificeType;
@@ -13,8 +10,6 @@ import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.79
@@ -83,10 +78,6 @@ public class PlayerSelfTailNipple {
 			return UtilText.nodeContentSB.toString();
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_SELF), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction DOM_PLAYER_SELF_TAIL_NIPPLE_GENTLE = new SexAction(
@@ -101,7 +92,7 @@ public class PlayerSelfTailNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -126,10 +117,6 @@ public class PlayerSelfTailNipple {
 					"Focusing on pleasuring your fuckable [pc.breasts], you start gently pumping your [pc.tail] in and out of one of your [pc.nipples+].");
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_SELF), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction DOM_PLAYER_SELF_TAIL_NIPPLE_NORMAL = new SexAction(
@@ -144,7 +131,7 @@ public class PlayerSelfTailNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -169,10 +156,6 @@ public class PlayerSelfTailNipple {
 					"Focusing on pleasuring your [pc.breasts+], you start pumping your [pc.tail] in and out of one of your [pc.nipples+].");
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_SELF), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction DOM_PLAYER_SELF_TAIL_NIPPLE_ROUGH = new SexAction(
@@ -187,7 +170,7 @@ public class PlayerSelfTailNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -212,10 +195,6 @@ public class PlayerSelfTailNipple {
 					"Focusing on pleasuring your [pc.breasts+], you start roughly slamming your [pc.tail] in and out of one of your [pc.nipples+].");
 		}
 
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASOCHIST), new ListValue<>(Fetish.FETISH_BREASTS_SELF), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction SUB_PLAYER_SELF_TAIL_NIPPLE_NORMAL = new SexAction(
@@ -230,7 +209,7 @@ public class PlayerSelfTailNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -255,10 +234,6 @@ public class PlayerSelfTailNipple {
 					"Focusing on pleasuring your [pc.breasts+], you start pumping your [pc.tail] in and out of one of your [pc.nipples+].");
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_SELF), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction SUB_PLAYER_SELF_TAIL_NIPPLE_EAGER = new SexAction(
@@ -273,7 +248,7 @@ public class PlayerSelfTailNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -298,10 +273,6 @@ public class PlayerSelfTailNipple {
 					"Focusing on pleasuring your [pc.breasts+], you eagerly start slamming your [pc.tail] in and out of one of your [pc.nipples+].");
 		}
 
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASOCHIST), new ListValue<>(Fetish.FETISH_BREASTS_SELF), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction PLAYER_SELF_TAIL_NIPPLE_STOP_PENETRATION = new SexAction(

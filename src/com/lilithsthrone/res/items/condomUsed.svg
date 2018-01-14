@@ -24,23 +24,15 @@
      id="defs4">
     <linearGradient
        inkscape:collect="always"
-       id="usedCondomGradient">
+       id="linearGradient4183">
       <stop
          style="stop-color:#ff5555;stop-opacity:1"
          offset="0"
-         id="stop4289" />
-      <stop
-         id="stop4295"
-         offset="0.13277246"
-         style="stop-color:#ff5555;stop-opacity:1" />
-      <stop
-         style="stop-color:#ff8080;stop-opacity:1"
-         offset="0.40352717"
-         id="stop4297" />
+         id="stop4185" />
       <stop
          style="stop-color:#ff8080;stop-opacity:1"
          offset="1"
-         id="stop4291" />
+         id="stop4187" />
     </linearGradient>
     <inkscape:path-effect
        effect="powerstroke"
@@ -336,14 +328,13 @@
        cusp_linecap_type="round" />
     <linearGradient
        inkscape:collect="always"
-       xlink:href="#usedCondomGradient"
-       id="linearGradient4293"
-       x1="133.34013"
-       y1="236.8071"
-       x2="134.60283"
-       y2="121.90225"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(-1.7857143,2.1428571)" />
+       xlink:href="#linearGradient4183"
+       id="linearGradient4189"
+       x1="130.35713"
+       y1="228.5"
+       x2="129.28571"
+       y2="177.42857"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -353,8 +344,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.8"
-     inkscape:cx="108.91677"
-     inkscape:cy="125.75229"
+     inkscape:cx="142.30963"
+     inkscape:cy="129.68086"
      inkscape:document-units="px"
      inkscape:current-layer="g4171"
      showgrid="false"
@@ -384,7 +375,7 @@
     <g
        id="g4171">
       <path
-         style="fill:url(#linearGradient4293);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         style="fill:url(#linearGradient4189);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          d="m 123.65926,111.33987 c -2.24933,62.20117 -21.25338,61.52151 -21.83245,80.74642 -0.33981,11.28186 2.10936,13.6004 6.7812,23.10309 4.7626,9.68729 0.10258,26.08084 18.13378,26.07365 26.12936,-0.0104 17.70247,-18.45552 22.87712,-28.05792 5.21561,-9.6784 6.36903,-12.46991 7.33958,-20.80298 0.89365,-7.67275 -6.4516,-9.25044 -7.42947,-23.34715 -0.97658,-14.0781 -4.76613,-27.13951 -7.26274,-42.14035 -2.06915,-12.4325 3.04075,-9.70941 -4.96187,-22.19059 z"
          id="path4183"
          inkscape:connector-curvature="0"

@@ -5,50 +5,58 @@ import com.lilithsthrone.utils.Colour;
 
 /**
  * @since 0.1.65
- * @version 0.1.79
+ * @version 0.1.97
  * @author Innoxia
  */
 public enum ArousalLevel {
 
-	ZERO_NONE("none", 0, 10, Colour.AROUSAL_STAGE_ZERO, false) {
+	ZERO_NONE("none", 0, 10, Colour.AROUSAL_STAGE_ZERO) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.AROUSAL_PERK_0;
 		}
 	},
 
-	ONE_TURNED_ON("turned on", 10, 25, Colour.AROUSAL_STAGE_ONE, false) {
+	ONE_TURNED_ON("turned on", 10, 25, Colour.AROUSAL_STAGE_ONE) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.AROUSAL_PERK_1;
 		}
 	},
 
-	TWO_EXCITED("excited", 25, 50, Colour.AROUSAL_STAGE_TWO, false) {
+	TWO_EXCITED("excited", 25, 50, Colour.AROUSAL_STAGE_TWO) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.AROUSAL_PERK_2;
 		}
 	},
 
-	THREE_HEATED("heated", 50, 80, Colour.AROUSAL_STAGE_THREE, false) {
+	THREE_HEATED("heated", 50, 80, Colour.AROUSAL_STAGE_THREE) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.AROUSAL_PERK_3;
 		}
 	},
 
-	FOUR_PASSIONATE("passionate", 80, 95, Colour.AROUSAL_STAGE_FOUR, true) {
+	FOUR_PASSIONATE("passionate", 80, 95, Colour.AROUSAL_STAGE_FOUR) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.AROUSAL_PERK_4;
 		}
+		@Override
+		public boolean isMutualOrgasm() {
+			return true;
+		}
 	},
 
-	FIVE_ORGASM_IMMINENT("imminent orgasm", 95, 100, Colour.AROUSAL_STAGE_FIVE, true) {
+	FIVE_ORGASM_IMMINENT("imminent orgasm", 95, 100, Colour.AROUSAL_STAGE_FIVE) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.AROUSAL_PERK_5;
+		}
+		@Override
+		public boolean isMutualOrgasm() {
+			return true;
 		}
 	};
 	
@@ -56,14 +64,12 @@ public enum ArousalLevel {
 	private String name;
 	private int minimumValue, maximumValue;
 	private Colour colour;
-	private boolean mutualOrgasm;
 
-	private ArousalLevel(String name, int minimumValue, int maximumValue, Colour colour, boolean mutualOrgasm) {
+	private ArousalLevel(String name, int minimumValue, int maximumValue, Colour colour) {
 		this.name = name;
 		this.minimumValue = minimumValue;
 		this.maximumValue = maximumValue;
 		this.colour = colour;
-		this.mutualOrgasm=mutualOrgasm;
 	}
 	
 	public abstract StatusEffect getRelatedStatusEffect();
@@ -87,10 +93,6 @@ public enum ArousalLevel {
 	public Colour getColour() {
 		return colour;
 	}
-	
-	public boolean isMutualOrgasm() {
-		return mutualOrgasm;
-	}
 
 	public static ArousalLevel getArousalLevelFromValue(float value){
 		for(ArousalLevel al : ArousalLevel.values()) {
@@ -101,4 +103,7 @@ public enum ArousalLevel {
 		return FIVE_ORGASM_IMMINENT;
 	}
 
+	public boolean isMutualOrgasm() {
+		return false;
+	}
 }

@@ -17,13 +17,13 @@ public class Ass implements BodyPartInterface, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private AssType type;
-	private int assSize;
-	private int hipSize;
+	protected AssType type;
+	protected int assSize;
+	protected int hipSize;
 	
-	private Anus anus;
+	protected Anus anus;
 
-	public Ass(AssType type, int size, int wetness, int capacity, int elasticity, int plasticity, boolean virgin) {
+	public Ass(AssType type, int size, int wetness, float capacity, int elasticity, int plasticity, boolean virgin) {
 		this.type = type;
 		assSize = size;
 		hipSize = size;
@@ -189,6 +189,19 @@ public class Ass implements BodyPartInterface, Serializable {
 							+ "</p>");
 				}
 				break;
+			case REINDEER_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+							"You now have a [style.boldReindeerMorph(reindeer-morph's ass)], covered in [pc.assFullDescription].</br>"
+							+ "You have also been left with [style.boldReindeerMorph(a rangiferine)] [pc.assholeFullDescription]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+							"[npc.She] now has an [style.boldReindeerMorph(reindeer-morph's ass)], covered in [npc.assFullDescription].</br>"
+							+ "[npc.She] has also been left with [style.boldReindeerMorph(a rangiferine)] [npc.assholeFullDescription]."
+							+ "</p>");
+				}
+				break;
 			case SQUIRREL_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
@@ -199,6 +212,19 @@ public class Ass implements BodyPartInterface, Serializable {
 					UtilText.transformationContentSB.append(
 							"[npc.She] now has a [style.boldSquirrelMorph(squirrel-morph ass)], covered in [npc.assFullDescription].</br>"
 							+ "[npc.She] has also been left with [style.boldSquirrelMorph(a squirrel-morph)] [npc.assholeFullDescription]."
+							+ "</p>");
+				}
+				break;
+			case ALLIGATOR_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+							"You now have an [style.boldGatorMorph(alligator-morph ass)], covered in [pc.assFullDescription].</br>"
+							+ "You have also been left with [style.boldGatorMorph(an alligator-morph)] [pc.assholeFullDescription]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+							"[npc.She] now has an [style.boldGatorMorph(alligator-morph ass)], covered in [npc.assFullDescription].</br>"
+							+ "[npc.She] has also been left with [style.boldGatorMorph(an alligator-morph)] [npc.assholeFullDescription]."
 							+ "</p>");
 				}
 				break;
@@ -268,7 +294,7 @@ public class Ass implements BodyPartInterface, Serializable {
 							+ "You now have [style.boldSex(" + UtilText.generateSingularDeterminer(sizeDescriptor) + " " + sizeDescriptor + " ass)]!"
 						+ "</p>";
 			} else {
-				return UtilText.genderParsing(owner,
+				return UtilText.parse(owner,
 						"</p>"
 							+ "[npc.Name] looks to be a little off-balance as [npc.her] [npc.ass] suddenly seems to get bigger, and as [npc.she] gives it an experimental shake, [npc.she] discovers that it's definitely [style.boldGrow(grown larger)].</br>"
 							+ "[npc.She] now has [style.boldSex(" + UtilText.generateSingularDeterminer(sizeDescriptor) + " " + sizeDescriptor + " ass)]!"
@@ -281,7 +307,7 @@ public class Ass implements BodyPartInterface, Serializable {
 							+ "You now have [style.boldSex(" + UtilText.generateSingularDeterminer(sizeDescriptor) + " " + sizeDescriptor + " ass)]!"
 						+ "</p>";
 			} else {
-				return UtilText.genderParsing(owner,
+				return UtilText.parse(owner,
 						"</p>"
 							+ "[npc.Name] looks to be a little off-balance as [npc.her] [npc.ass] suddenly seems to get smaller, and as [npc.she] gives it an experimental shake, [npc.she] discovers that it's definitely [style.boldShrink(shrunk)].</br>"
 							+ "[npc.She] now has [style.boldSex(" + UtilText.generateSingularDeterminer(sizeDescriptor) + " " + sizeDescriptor + " ass)]!"
@@ -323,7 +349,7 @@ public class Ass implements BodyPartInterface, Serializable {
 							+ "You now have " + styledSizeDescriptor + "!"
 						+ "</p>";
 			} else {
-				return UtilText.genderParsing(owner,
+				return UtilText.parse(owner,
 						"</p>"
 							+ "[npc.Name] inhales sharply in surprise as [npc.she] feels [npc.her] hips reshape themselves, pushing out and [style.boldGrow(growing wider)].</br>"
 							+ "[npc.She] now has " + styledSizeDescriptor + "!"
@@ -336,7 +362,7 @@ public class Ass implements BodyPartInterface, Serializable {
 							+ "You now have " + styledSizeDescriptor + "!"
 						+ "</p>";
 			} else {
-				return UtilText.genderParsing(owner,
+				return UtilText.parse(owner,
 						"</p>"
 							+ "[pc.Name] inhales sharply in surprise as [npc.she] feels [npc.her] hips collapse inwards and reshape themselves as they get [style.boldShrink(narrower)].</br>"
 							+ "[npc.She] now has " + styledSizeDescriptor + "!"

@@ -4,6 +4,7 @@ import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.Fetish;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
@@ -12,14 +13,16 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemEffectType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.managers.dominion.harpies.SMHarpyStanding;
+import com.lilithsthrone.game.sex.SexPositionSlot;
+import com.lilithsthrone.game.sex.managers.universal.SMStanding;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
+import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.8
- * @version 0.1.8
+ * @version 0.1.97
  * @author Innoxia
  */
 public class HarpyNestDominant {
@@ -40,7 +43,7 @@ public class HarpyNestDominant {
 		@Override
 		public String getContent() {
 			if (Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
-				if(Main.game.getDialogueFlags().dominantEncountered) {
+				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.dominantEncountered)) {
 					return "<p>"
 								+ "Due to the ongoing arcane storm, [harpyDominant.name]'s nest is completely deserted."
 								+ " Her entire flock has retreated into the safety of the upper-floor of the building below, leaving you with no choice but to return at another time if you wanted to speak to her."
@@ -53,7 +56,7 @@ public class HarpyNestDominant {
 				}
 				
 			} else {
-				if(Main.game.getDialogueFlags().dominantEncountered) {
+				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.dominantEncountered)) {
 					return "<p>"
 								+ "You find yourself standing on the outskirts of [harpyDominant.name]'s nest; one of the largest and most populous of all the nests in Dominion."
 								+ " A single, gigantic platform spans the roof-tops of several buildings, with little raised podiums scattered about its surface."
@@ -97,20 +100,20 @@ public class HarpyNestDominant {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_HARPY_PACIFICATION)) {
 					return new Response("Approach [harpyDominant.name]", "You have no need to talk to the matriarch of this nest.", null);
 					
 				} else if (Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
-					if(Main.game.getDialogueFlags().dominantEncountered) {
+					if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.dominantEncountered)) {
 						return new Response("Approach [harpyDominant.name]", "If you want to talk to [harpyDominant.name], you'll have to come back after the arcane storm has passed.", null);
 					} else {
 						return new Response("Approach matriarch", "If you want to talk to the matriarch, you'll have to come back after the arcane storm has passed.", null);
 					}
 					
 				} else {
-					if(Main.game.getDialogueFlags().dominantEncountered) {
+					if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.dominantEncountered)) {
 						return new Response("Approach [harpyDominant.name]", "Walk to the centre of the nest and talk to [harpyDominant.name].", HARPY_NEST_DOMINANT_APPROACH);
 					} else {
 						return new Response("Approach matriarch", "Walk to the centre of the nest and talk to the matriarch.", HARPY_NEST_DOMINANT_APPROACH);
@@ -133,8 +136,9 @@ public class HarpyNestDominant {
 		
 		@Override
 		public String getContent() {
-			if(Main.game.getDialogueFlags().dominantEncountered) {
-				if(Main.game.getDialogueFlags().dominantPacified) { //TODO ordered to stop abuse
+			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.dominantEncountered)) {
+				if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.dominantPacified)) {
+					//TODO ordered to stop abuse
 					return "<p>"
 							+ "Deciding to pay [harpyDominant.Name] another visit, you set off towards the centre podium."
 							+ " As you make your way towards the dominant matriarch, you get a good look at the harpies that make up her flock."
@@ -270,11 +274,15 @@ public class HarpyNestDominant {
 		}
 
 		@Override
-		public Response getResponse(int index) {
-			if(Main.game.getDialogueFlags().dominantPacified) {
+		public Response getResponse(int responseTab, int index) {
+			if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.dominantPacified)) {
 				if (index == 1) {
-					return new ResponseSex("Sex", "Have dominant sex with [harpyDominant.name].", HARPY_NEST_DOMINANT_APPROACH,
-							Main.game.getHarpyDominant(), new SMHarpyStanding(), HARPY_NEST_DOMINANT_AFTER_SEX,
+					return new ResponseSex("Sex", "Have dominant sex with [harpyDominant.name].",
+							true, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getHarpyDominant(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							HARPY_NEST_DOMINANT_AFTER_SEX,
 							"<p>"
 								+ "Eager to put [harpyDominant.name] in her place in front of her flock, you reach down and grab her wings."
 								+ " Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyDominant.lips+]."
@@ -308,7 +316,7 @@ public class HarpyNestDominant {
 					return new Response("Talk", "Try to convince [harpyDominant.name] to calm down.", HARPY_NEST_DOMINANT_TALK) {
 						@Override
 						public void effects() {
-							Main.game.getDialogueFlags().dominantEncountered = true;
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.dominantEncountered);
 						}
 					};
 						
@@ -317,8 +325,8 @@ public class HarpyNestDominant {
 							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT)), null, null, Femininity.FEMININE_STRONG, null) {
 						@Override
 						public void effects() {
-							Main.game.getDialogueFlags().dominantEncountered = true;
-							Main.game.getDialogueFlags().dominantPacified = true;
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.dominantEncountered);
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.dominantPacified);
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MATRIARCH_DOMINANT_PERFUME), false));
 						}
 						@Override
@@ -331,7 +339,7 @@ public class HarpyNestDominant {
 					return new Response("Call her ugly", "You know that this would be a terrible idea...", HARPY_NEST_DOMINANT_UGLY) {
 						@Override
 						public void effects() {
-							Main.game.getDialogueFlags().dominantEncountered = true;
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.dominantEncountered);
 						}
 						@Override
 						public boolean isCombatHighlight() {
@@ -343,7 +351,7 @@ public class HarpyNestDominant {
 					return new Response("Leave", "Decide to leave [harpyDominant.name]'s nest.", HARPY_NEST_DOMINANT) {
 						@Override
 						public void effects() {
-							Main.game.getDialogueFlags().dominantEncountered = true;
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.dominantEncountered);
 							Main.game.getTextStartStringBuilder().append(
 									"<p>"
 										+ "Deciding that now isn't the best time to be confronting [harpyDominant.name], you turn around and hurry away from the podium."
@@ -389,13 +397,13 @@ public class HarpyNestDominant {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Usurp throne", "Your patience has run out. It's time to show this bitch who's really in control here!", HARPY_NEST_DOMINANT_QUEEN,
 						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT)), null, null, Femininity.FEMININE_STRONG, null) {
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().dominantPacified = true;
+						Main.game.getDialogueFlags().values.add(DialogueFlagValue.dominantPacified);
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MATRIARCH_DOMINANT_PERFUME), false));
 					}
 					@Override
@@ -458,7 +466,7 @@ public class HarpyNestDominant {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseCombat("Fight", "[harpyDominantCompanion.Name] rushes to do her matriarch's bidding!", HARPY_NEST_DOMINANT_UGLY, Main.game.getHarpyDominantCompanion());
 					
@@ -536,10 +544,14 @@ public class HarpyNestDominant {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			 if (index == 1) {
-				return new ResponseSex("Sex", "Have dominant sex with [harpyDominant.name].", HARPY_NEST_DOMINANT_QUEEN,
-						Main.game.getHarpyDominant(), new SMHarpyStanding(), HARPY_NEST_DOMINANT_AFTER_SEX,
+				return new ResponseSex("Sex", "Have dominant sex with [harpyDominant.name].",
+						true, false,
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getHarpyDominant(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						HARPY_NEST_DOMINANT_AFTER_SEX,
 						"<p>"
 							+ "Eager to put [harpyDominant.name] in her place in front of your new flock, you reach down and grab her wings."
 							+ " Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyDominant.lips+]."
@@ -594,7 +606,7 @@ public class HarpyNestDominant {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseCombat("Fight", "[harpyDominantCompanion.Name] rushes to do her matriarch's bidding!", HARPY_NEST_DOMINANT_UGLY, Main.game.getHarpyDominantCompanion());
 					
@@ -615,33 +627,62 @@ public class HarpyNestDominant {
 		@Override
 		public String getContent() {
 			return "<p>"
-					+ "You fall to the floor, totally beaten."
-					+ " As you collapse, [harpyDominantCompanion.name] jumps down on top of you, pinning you to the floor as she calls out to her matriarch,"
-					+ " [harpyDominantCompanion.speechNoEffects([harpyDominant.Name]! The stupid bitch is ready for [pc.her] punishment now!)]"
-				+ "</p>"
-				+ "<p>"
-					+ "[harpyDominant.speech(Good girl [harpyDominantCompanion.name]!)] you hear her respond,"
-					+ " [harpyDominant.speech(I think it's time to teach this insolent little [pc.race] a lesson!)]"
-				+ "</p>"
-				+ "<p>"
-					+ "As [harpyDominantCompanion.name] continues holding you down, [harpyDominant.name] calls out for the rest of the surrounding harpies to help."
-					+ " Rushing to obey their mistress, several of the red-and-black harpies dash forwards and help to pin your [pc.arms] and [pc.legs] to the floor."
-				+ "</p>"
-				+ "<p>"
-					+ "[harpyDominant.speech(That's right, hold [pc.herHim] still!)] [harpyDominant.name] calls out, stepping down from her podium before strutting over to you,"
-					+ " [harpyDominant.speech(This is going to be fun!)]"
-				+ "</p>";
+						+ "You fall to the floor, totally beaten."
+						+ " As you collapse, [harpyDominantCompanion.name] jumps down on top of you, pinning you to the floor as she calls out to her matriarch,"
+						+ " [harpyDominantCompanion.speechNoEffects([harpyDominant.Name]! The stupid bitch is ready for [pc.her] punishment now!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "[harpyDominant.speech(Good girl [harpyDominantCompanion.name]!)] you hear her respond,"
+						+ " [harpyDominant.speech(I think it's time to teach this insolent little [pc.race] a lesson!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "As [harpyDominantCompanion.name] continues holding you down, [harpyDominant.name] calls out for the rest of the surrounding harpies to help."
+						+ " Rushing to obey their mistress, several of the red-and-black harpies dash forwards and help to pin your [pc.arms] and [pc.legs] to the floor."
+					+ "</p>"
+					+ "<p>"
+						+ "[harpyDominant.speech(That's right, hold [pc.herHim] still!)] [harpyDominant.name] calls out, stepping down from her podium before strutting over to you,"
+						+ " [harpyDominant.speech(Fucking bitch! I know just what you need! Coming into <i>my</i> nest, then trying to act all tough?! You just want to be a cute little matriarch yourself, don't you?!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "[pc.speechNoEffects(Let me go!)] you shout, struggling against the harpies holding you down."
+						+ " You're too weak to shake them off, however, and they easily continue to pin you to the floor, holding you quite still as [harpyDominant.name] stoops down next to your face."
+					+ "</p>"
+					+ "<p>"
+						+ "[harpyDominant.speech(That's the spirit!)]"
+						+ " she laughs,"
+						+ " [harpyDominant.speech(You're so feisty! It's better to channel all that pent up energy elsewhere though. Don't worry, <i>this</i> will help you with that!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "As [bimboHarpyCompanion.name] sits on your chest, laughing at your fruitless attempts to pull free, [harpyDominant.name] brings a dark red perfume bottle up to your face."
+						+ " Grinning evilly, she leans in to you, ready to spray the bottle's contents onto your helpless body..."
+					+ "</p>";
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Punished", "[harpyDominant.Name] proceeds with her punishment...", HARPY_NEST_DOMINANT_FIGHT_LOSE_PUNISHMENT){
+				return new Response("Smash bottle", "Don't let [harpyDominant.Name] spray you with that strange perfume...", HARPY_NEST_DOMINANT_FIGHT_LOSE_PUNISHMENT_NO_TF);
+					
+			} else if (index == 2) {
+				return new Response("Stay still",
+						"Allow [harpyDominant.Name] to spray you with the strange perfume... [style.boldBad(Warning:)] <b>Due to the nature of harpies needing a special form, this transformation bypasses TF preferences!</b>",
+						HARPY_NEST_DOMINANT_FIGHT_LOSE_PUNISHMENT,
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_RECEIVING)),
+						Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel(),
+						null,
+						null,
+						null){
 					@Override
 					public void effects() {
-						if(Main.game.isForcedTFEnabled()) {
-							Main.game.getTextEndStringBuilder().append(ItemEffectType.DOMINANT_PERFUME.applyEffect(null, null, null, 0, Main.game.getHarpyDominant(), Main.game.getPlayer()));
-						}
+						Main.game.getTextStartStringBuilder().append("<p>"
+								+ "You stay still, allowing [harpyDominant.name] to spray the bottle's contents onto your face and neck as she taunts you,"
+								+ " [harpyDominant.speech(You want to act like an angry, bitchy little harpy? You'd better have the body to match it!)]"
+							+ "</p>"
+							+ "<p>"
+								+ "You try to make a response, but as you open your mouth, the choking perfume enters your airways, leaving you coughing and spluttering on the floor."
+								+ " Before you know what you're doing, you're breathing in deeply, letting out little whining noises as you find yourself desperate to inhale as much of the sweet-smelling perfume as you possibly can..."
+							+ "</p>"
+							+ItemEffectType.DOMINANT_PERFUME.applyEffect(null, null, null, 0, Main.game.getHarpyDominant(), Main.game.getPlayer()));
 					}
 				};
 					
@@ -673,7 +714,7 @@ public class HarpyNestDominant {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new ResponseCombat("Fight", "[harpyDominant.Name] looks furious as she launches her attack on you!", HARPY_NEST_DOMINANT_FIGHT_BEAT_PET, Main.game.getHarpyDominant());
 					
@@ -708,19 +749,48 @@ public class HarpyNestDominant {
 				+ "<p>"
 					+ "[dominantHarpy.speech(Time for some revenge [bimboHarpyCompanion.name]!)]"
 					+ " [dominantHarpy.name] shouts out, and, as her companion moves to help the other harpies hold you down, she laughs,"
-					+ " [dominantHarpy.speech(Time for some fun!)]"
+					+ " [harpyDominant.speech(Stupid bitch! I know just what you need! Coming into <i>my</i> nest, then trying to act all tough?! You just want to be a cute little matriarch yourself, don't you?!)]"
+				+ "</p>"
+				+ "<p>"
+					+ "[pc.speechNoEffects(Let me go!)] you shout, struggling against the harpies holding you down."
+					+ " You're too weak to shake them off, however, and they easily continue to pin you to the floor, holding you quite still as [harpyDominant.name] stoops down next to your face."
+				+ "</p>"
+				+ "<p>"
+					+ "[harpyDominant.speech(That's the spirit!)]"
+					+ " she laughs,"
+					+ " [harpyDominant.speech(You're so feisty! It's better to channel all that pent up energy elsewhere though. Don't worry, <i>this</i> will help you with that!)]"
+				+ "</p>"
+				+ "<p>"
+					+ "As [bimboHarpyCompanion.name] sits on your chest, laughing at your fruitless attempts to pull free, [harpyDominant.name] brings a dark red perfume bottle up to your face."
+					+ " Grinning evilly, she leans in to you, ready to spray the bottle's contents onto your helpless body..."
 				+ "</p>";
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Punished", "[dominantHarpy.Name] proceeds with her punishment...", HARPY_NEST_DOMINANT_FIGHT_LOSE_PUNISHMENT){
+				return new Response("Smash bottle", "Don't let [harpyDominant.Name] spray you with that strange perfume...", HARPY_NEST_DOMINANT_FIGHT_LOSE_PUNISHMENT_NO_TF);
+					
+			} else if (index == 2) {
+				return new Response("Stay still",
+						"Allow [harpyDominant.Name] to spray you with the strange perfume... [style.boldBad(Warning:)] <b>Due to the nature of harpies needing a special form, this transformation bypasses TF preferences!</b>",
+						HARPY_NEST_DOMINANT_FIGHT_LOSE_PUNISHMENT,
+						Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_RECEIVING)),
+						Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel(),
+						null,
+						null,
+						null){
 					@Override
 					public void effects() {
-						if(Main.game.isForcedTFEnabled()) {
-							Main.game.getTextEndStringBuilder().append(ItemEffectType.DOMINANT_PERFUME.applyEffect(null, null, null, 0, Main.game.getHarpyDominant(), Main.game.getPlayer()));
-						}
+						Main.game.getTextStartStringBuilder().append("<p>"
+								+ "You stay still, allowing [harpyDominant.name] to spray the bottle's contents onto your face and neck as she taunts you,"
+								+ " [harpyDominant.speech(You want to act like an angry, bitchy little harpy? You'd better have the body to match it!)]"
+							+ "</p>"
+							+ "<p>"
+								+ "You try to make a response, but as you open your mouth, the choking perfume enters your airways, leaving you coughing and spluttering on the floor."
+								+ " Before you know what you're doing, you're breathing in deeply, letting out little whining noises as you find yourself desperate to inhale as much of the sweet-smelling perfume as you possibly can..."
+							+ "</p>"
+							+ItemEffectType.DOMINANT_PERFUME.applyEffect(null, null, null, 0, Main.game.getHarpyDominant(), Main.game.getPlayer()));
 					}
 				};
 					
@@ -781,10 +851,14 @@ public class HarpyNestDominant {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			 if (index == 1) {
-				return new ResponseSex("Sex", "Have dominant sex with [harpyDominant.name].", HARPY_NEST_DOMINANT_FIGHT_BEAT_DOMINANT,
-						Main.game.getHarpyDominant(), new SMHarpyStanding(), HARPY_NEST_DOMINANT_AFTER_SEX,
+				return new ResponseSex("Sex", "Have dominant sex with [harpyDominant.name].",
+						true, false,
+						new SMStanding(
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+								Util.newHashMapOfValues(new Value<>(Main.game.getHarpyDominant(), SexPositionSlot.STANDING_SUBMISSIVE))),
+						HARPY_NEST_DOMINANT_AFTER_SEX,
 						"<p>"
 							+ "Eager to put [harpyDominant.name] in her place in front of your new flock, you reach down and grab her wings."
 							+ " Pulling her to her feet, you step forwards, before planting a deep kiss on her [harpyDominant.lips+]."
@@ -815,7 +889,7 @@ public class HarpyNestDominant {
 		}
 	};
 	
-	public static final DialogueNodeOld HARPY_NEST_DOMINANT_FIGHT_LOSE_PUNISHMENT = new DialogueNodeOld("Harpy nest", ".", true) {
+	public static final DialogueNodeOld HARPY_NEST_DOMINANT_FIGHT_LOSE_PUNISHMENT_NO_TF = new DialogueNodeOld("Harpy nest", ".", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -825,42 +899,15 @@ public class HarpyNestDominant {
 		
 		@Override
 		public String getContent() {
-			if(Main.game.isForcedTFEnabled()) {
-				return "<p>"
-						+ "[harpyDominant.speech(Fucking bitch! I know just what you need!)]"
-						+ " [harpyDominant.name] laughs, stepping forwards to tower over you,"
-						+ " [harpyDominant.speech(Coming into <i>my</i> nest, then trying to act all tough?! You just want to be a cute little matriarch yourself, don't you?!)]"
+			return "<p>"
+						+ "Unwilling to be transformed into one of [harpyDominant.name]'s harpies, you furiously yank your arm free of their grip."
+						+ " In the seconds you have before you're restrained again, you reach up to grab the bottle of perfume from [harpyDominant.name]'s feathered had,"
+							+ " before hurling it across the nest to smash into pieces against the hard wooden floor."
 					+ "</p>"
 					+ "<p>"
-						+ "[pc.speechNoEffects(Let me go!)] you shout, struggling against the harpies holding you down."
-						+ " You're too weak to shake them off, however, and they easily continue to pin you to the floor, holding you quite still as [harpyDominant.name] stoops down next to your face."
-					+ "</p>"
-					+ "<p>"
-						+ "[harpyDominant.speech(That's the spirit!)]"
-						+ " she laughs,"
-						+ " [harpyDominant.speech(You're so feisty! It's better to channel all that pent up energy elsewhere though. Don't worry, <i>this</i> will help you with that!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "As [bimboHarpyCompanion.name] sits on your chest, laughing at your fruitless attempts to pull free, [harpyDominant.name] brings a dark red perfume bottle up to your face."
-						+ " Grinning evilly, she leans in to you, and, not being able to break free, you're left powerless as she spray's the bottle's contents onto your face and neck."
-					+ "</p>"
-					+ "<p>"
-						+ "[harpyDominant.speech(Good [pc.girl]! You want to act like an angry little harpy? You'd better have the body to match it!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "You try to make a response, but as you open your mouth, the choking perfume enters your airways, leaving you coughing and spluttering on the floor."
-						+ " Before you know what you're doing, you're breathing in deeply, letting out little whining noises as you find yourself desperate to inhale as much of the sweet-smelling perfume as you possibly can..."
-					+ "</p>";
-				
-			} else {
-				return "<p>"
-						+ "[harpyDominant.speech(Fucking bitch! I know just what you need!)]"
-						+ " [harpyDominant.name] laughs, stepping forwards to tower over you,"
-						+ " [harpyDominant.speech(Coming into <i>my</i> nest, then trying to act all tough?! You just wanted to get my attention, didn't you?!)]"
-					+ "</p>"
-					+"<p>"
-						+ "[harpyDominant.name] looks down at you, before letting out a little laugh,"
-						+ " [harpyDominant.speech([harpyDominantCompanion.Name]! This bitch wants my full attention! How about you help [pc.herHim] entertain me?!)]"
+						+ "[harpyDominant.speech(You fucking bitch!)]"
+						+ " [harpyDominant.name] screams, grabbing your chin and squeezing cruelly down as she scowls at you,"
+						+ " [harpyDominant.speech(You're going to fucking pay for that! [harpyDominantCompanion.Name]! This bitch wants my full attention! How about you help [pc.herHim] entertain me?!)]"
 					+ "</p>"
 					+ "<p>"
 						+ "Any protests or objections that you might have are muffled as [harpyDominantCompanion.name]'s feathered hand clamps down over your mouth."
@@ -876,46 +923,11 @@ public class HarpyNestDominant {
 						+ "As [harpyDominantCompanion.name] declares that she's bored of playing with you, [harpyDominant.name] finally sets you free,"
 						+ " [harpyDominant.speech(Alright bitch! I think you've had enough! Now get the fuck out of my nest!)]"
 					+ "</p>";
-			}
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				if(Main.game.isForcedTFEnabled()) {
-					return new Response("Transformed...", "Having had their fun, you're quickly thrown out of the nest.", HARPY_NEST_DOMINANT) {
-						@Override
-						public void effects() {
-							Main.game.getTextStartStringBuilder().append(
-									"<p>"
-										+ "As the perfume's transformative effects come to an end, the harpies' grip on your [pc.arms] and [pc.legs] loosens."
-										+ " Blinking slowly a few times, you let out an exhausted moan,"
-										+ " [pc.speech(Ahhh... You bitch...)]"
-									+ "</p>"
-									+ "<p>"
-										+ "The flock of harpies bursts out into laughter, and the ones who were holding you down finally release you before backing off."
-										+ " Scrambling to your knees, you find yourself looking up at [harpyDominant.Name] as she continues towering over you."
-									+ "</p>"
-									+ "<p>"
-										+ "[harpyDominant.speech(Good little harpy! Now, after you apologise, you can fuck off and make your own flock!)]"
-									+ "</p>"
-									+ "<p>"
-										+ "With the effects of the perfume still lingering in your mind, you find yourself blurting out,"
-										+ " [pc.speech(I'm not apologising to you! Fucking bitch, I'm out of here!)]"
-									+ "</p>"
-									+ "<p>"
-										+ "[harpyDominant.Name] grins down at you, and, to the background noise of dozens of harpies' laughter, she shouts,"
-										+ " [harpyDominant.speech(Good to see my perfume's mental effects are as strong as ever! Save that attitude of yours for another nest, you'll never win against me!)]"
-									+ "</p>"
-									+ "<p>"
-										+ "Scrambling to your feet, you ignore [harpyDominant.name]'s words."
-										+ " Turning your back on her, you leave the harpies' mocking laughter behind, and, walking back across the platform, you quickly find yourself on the outskirts of the nest once again..."
-									+ "</p>"
-									+ "</br>");
-						}
-					};
-					
-				} else {
 					return new Response("Thrown out", "Having had their fun, you're quickly thrown out of the nest.", HARPY_NEST_DOMINANT) {
 						@Override
 						public void effects() {
@@ -926,7 +938,71 @@ public class HarpyNestDominant {
 									+ "</p>");
 						}
 					};
-				}
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld HARPY_NEST_DOMINANT_FIGHT_LOSE_PUNISHMENT = new DialogueNodeOld("Harpy nest", ".", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getLabel() {
+			return "[harpyDominant.Name]'s nest";
+		}
+		
+		@Override
+		public String getContent() {
+			return "<p>"
+					+ "As the perfume's transformative effects come to an end, the harpies' grip on your [pc.arms] and [pc.legs] loosens."
+					+ " Blinking slowly a few times, you let out an exhausted moan,"
+					+ " [pc.speech(Ahhh... You bitch...)]"
+				+ "</p>"
+				+ "<p>"
+					+ "The flock of harpies bursts out into laughter, and the ones who were holding you down finally release you before backing off."
+					+ " Scrambling to your knees, you find yourself looking up at [harpyDominant.Name] as she continues towering over you."
+				+ "</p>"
+				+ "<p>"
+					+ "[harpyDominant.speech(Good little harpy! Now, after you apologise, you can fuck off and make your own flock!)]"
+				+ "</p>"
+				+ "<p>"
+					+ "With the effects of the perfume still lingering in your mind, you find yourself blurting out,"
+					+ " [pc.speech(I'm not apologising to you! Fucking bitch, I'm out of here!)]"
+				+ "</p>"
+				+ "<p>"
+					+ "[harpyDominant.Name] grins down at you, and, to the background noise of dozens of harpies' laughter, she shouts,"
+					+ " [harpyDominant.speech([harpyDominantCompanion.Name]! This bitch wants my full attention! How about you help [pc.herHim] entertain me?!)]"
+				+ "</p>"
+				+ "<p>"
+					+ "Any protests or objections that you might have are muffled as [harpyDominantCompanion.name]'s feathered hand clamps down over your mouth."
+					+ " Leaning down to stare into your eyes, she chuckles,"
+					+ " [harpyDominantCompanion.speech(Let's put on a show!)]"
+				+ "</p>"
+				+ "<p>"
+					+ "For the next few hours, you're forced to act as [harpyDominantCompanion.name]'s play-thing."
+					+ " Tying you up in bondage, publicly spanking you in front of [harpyDominant.name], and being walked around the nest on a leash are amongst the least humiliating things you suffer."
+					+ " Thankfully, the harpies don't show any interest in forcing you to perform any penetrative sexual acts, and they eventually all lose interest."
+				+ "</p>"
+				+ "<p>"
+					+ "As [harpyDominantCompanion.name] declares that she's bored of playing with you, [harpyDominant.name] finally sets you free,"
+					+ " [harpyDominant.speech(Alright bitch! I think you've had enough! Now get the fuck out of my nest!)]"
+				+ "</p>";
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+					return new Response("Thrown out", "Having had their fun, you're quickly thrown out of the nest.", HARPY_NEST_DOMINANT) {
+						@Override
+						public void effects() {
+							Main.game.getTextStartStringBuilder().append(
+									"<p>"
+										+ "Finally given an opportunity to leave, you do as [harpyDominant.name] commands."
+										+ " Running away from the harpies' mocking laughter, you dash across the platform, and before you know it, you find yourself back on the outskirts of the nest..."
+									+ "</p>");
+						}
+					};
 					
 			} else {
 				return null;
@@ -944,9 +1020,9 @@ public class HarpyNestDominant {
 		
 		@Override
 		public String getContent() {
-			if(Sex.getNumberOfPartnerOrgasms() >= 1) {
+			if(Sex.getNumberOfOrgasms(Sex.getActivePartner()) >= 1) {
 				return "<p>"
-							+ "As you step back from [harpyDominant.name], she sinks to the floor, totally worn out from her orgasm"+(Sex.getNumberOfPartnerOrgasms() > 1?"s":"")+"."
+							+ "As you step back from [harpyDominant.name], she sinks to the floor, totally worn out from her orgasm"+(Sex.getNumberOfOrgasms(Sex.getActivePartner()) > 1?"s":"")+"."
 							+ " The surrounding harpies, having watched the whole thing, kneel in submission as you finish with their matriarch."
 						+ "</p>";
 			} else {
@@ -959,7 +1035,7 @@ public class HarpyNestDominant {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Leave", "Having had your fun, you decide to leave.", HARPY_NEST_DOMINANT) {
 					@Override

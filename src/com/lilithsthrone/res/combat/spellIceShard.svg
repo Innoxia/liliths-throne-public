@@ -211,7 +211,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="3.959798"
-     inkscape:cx="228.28606"
+     inkscape:cx="185.22831"
      inkscape:cy="119.34891"
      inkscape:document-units="px"
      inkscape:current-layer="layer2"
@@ -230,7 +230,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -239,20 +239,15 @@
      id="layer2"
      inkscape:label="Layer 2"
      style="display:inline">
-    <path
-       style="display:inline;fill:#ff6bda;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.89051175;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 193.66553,73.554176 58.28768,-41.723819 -73.31233,0.122459 58.57245,41.790658 -21.7767,-69.348873 z"
-       id="path4300"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cccccc" />
     <g
-       id="g4260">
+       id="g4260"
+       transform="translate(-0.50507627,-22.475894)">
       <path
          sodipodi:nodetypes="ccccccccccccccc"
          inkscape:connector-curvature="0"
          id="path4248"
          d="m 115.8104,148.8941 -25.506352,-11.61676 53.285552,6.06091 -18.43529,-18.94035 53.28555,9.34391 -13.63706,-20.20305 87.37819,36.11295 -84.33948,38.03497 12.72616,-22.60365 -55.41335,16.38848 18.43528,-21.21319 -51.517784,9.3439 23.991124,-13.63706 -110.8642442,-4.54568 z"
-         style="fill:#ffd5d5;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
+         style="fill:#ffd5d5;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
       <path
          style="fill:#ff5555;fill-rule:evenodd;stroke:none;stroke-width:0.77378094px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          d="m 124.29447,150.62056 -13.03991,-7.56025 39.53491,2.99338 -16.49701,-17.15568 53.3742,10.623 -11.89139,-18.31131 67.61158,27.94352 -65.26028,29.43073 10.29368,-19.81171 -53.94922,16.60968 17.30058,-19.71794 -43.07776,7.94442 15.61745,-9.3914 -72.838217,-2.26734 z"

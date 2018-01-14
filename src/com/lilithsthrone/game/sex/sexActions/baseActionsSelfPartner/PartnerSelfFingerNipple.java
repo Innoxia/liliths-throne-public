@@ -1,9 +1,6 @@
 package com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner;
 
-import java.util.List;
-
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.OrificeType;
@@ -12,8 +9,7 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
-import com.lilithsthrone.utils.Util;
-import com.lilithsthrone.utils.Util.ListValue;
+import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.79
@@ -53,7 +49,7 @@ public class PartnerSelfFingerNipple {
 					
 					"With [npc.a_moan+], [npc.name] reaches up to [npc.her] [npc.nipples+], pinching and flicking them as [npc.she] continues to cry out in delight."));
 			
-			switch (Sex.getPartner().getBreastLactation()) {
+			switch (Sex.getActivePartner().getBreastLactation()) {
 				case ONE_TRICKLE:
 					UtilText.nodeContentSB.append(" A small trickle of [npc.milk] leaks out around [npc.her] fingertips.");
 					break;
@@ -64,7 +60,7 @@ public class PartnerSelfFingerNipple {
 					UtilText.nodeContentSB.append(" A trickle of [npc.milk] runs out around [npc.her] fingertips.");
 					break;
 				case FOUR_LARGE_AMOUNT:
-					UtilText.nodeContentSB.append(" Your [npc.milk] starts to flow out around [npc.her] fingers and run down [npc.her] [npc.breasts+].");
+					UtilText.nodeContentSB.append(" [npc.Her] [npc.milk] starts to flow out around [npc.her] fingers and run down [npc.her] [npc.breasts+].");
 					break;
 				case FIVE_VERY_LARGE_DROOLING:
 					UtilText.nodeContentSB.append(" [npc.Milk] starts drooling out in a little stream around [npc.her] fingers.");
@@ -82,10 +78,6 @@ public class PartnerSelfFingerNipple {
 			return UtilText.nodeContentSB.toString();
 		}
 
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_SELF));
-		}
 	};
 	
 	
@@ -120,7 +112,7 @@ public class PartnerSelfFingerNipple {
 					"With a lewd cry, [npc.name] sinks [npc.her] digits into [npc.her] inviting nipple-cunts, panting heavily as [npc.she] start eagerly fingering [npc.herself]."));
 			
 		
-			switch (Sex.getPartner().getBreastLactation()) {
+			switch (Sex.getActivePartner().getBreastLactation()) {
 				case ONE_TRICKLE:
 					UtilText.nodeContentSB.append(" A small trickle of [npc.milk] leaks out around [npc.her] fingertips.");
 					break;
@@ -149,10 +141,6 @@ public class PartnerSelfFingerNipple {
 			return UtilText.nodeContentSB.toString();
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_SELF), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction DOM_PARTNER_SELF_FINGER_NIPPLE_GENTLE = new SexAction(
@@ -167,7 +155,7 @@ public class PartnerSelfFingerNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -192,10 +180,6 @@ public class PartnerSelfFingerNipple {
 					"Focusing on pleasuring [npc.her] fuckable [npc.breasts], [npc.name] starts gently pumping [npc.her] [npc.fingers] in and out of one of [npc.her] [npc.nipples+].");
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_SELF), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction DOM_PARTNER_SELF_FINGER_NIPPLE_NORMAL = new SexAction(
@@ -210,7 +194,7 @@ public class PartnerSelfFingerNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -235,10 +219,6 @@ public class PartnerSelfFingerNipple {
 					"Focusing on pleasuring [npc.her] [npc.breasts+], [npc.name] starts pumping [npc.her] [npc.fingers] in and out of one of [npc.her] [npc.nipples+].");
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_SELF), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction DOM_PARTNER_SELF_FINGER_NIPPLE_ROUGH = new SexAction(
@@ -253,7 +233,7 @@ public class PartnerSelfFingerNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isPlayerDom();
+			return !Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -278,10 +258,6 @@ public class PartnerSelfFingerNipple {
 					"Focusing on pleasuring [npc.her] fuckable [npc.breasts+], [npc.name] starts roughly slamming [npc.her] [npc.fingers] in and out of one of [npc.her] [npc.nipples+].");
 		}
 
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASOCHIST), new ListValue<>(Fetish.FETISH_BREASTS_SELF), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction SUB_PARTNER_SELF_FINGER_NIPPLE_NORMAL = new SexAction(
@@ -296,7 +272,7 @@ public class PartnerSelfFingerNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -321,10 +297,6 @@ public class PartnerSelfFingerNipple {
 					"Focusing on pleasuring [npc.her] [npc.breasts+], [npc.name] starts pumping [npc.her] [npc.fingers] in and out of one of [npc.her] [npc.nipples+].");
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_SELF), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction SUB_PARTNER_SELF_FINGER_NIPPLE_EAGER = new SexAction(
@@ -339,7 +311,7 @@ public class PartnerSelfFingerNipple {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPlayerDom();
+			return Sex.isDom(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -364,10 +336,6 @@ public class PartnerSelfFingerNipple {
 					"Focusing on pleasuring [npc.her] fuckable [npc.breasts+], [npc.name] eagerly starts slamming [npc.her] [npc.fingers] in and out of one of [npc.her] [npc.nipples+].");
 		}
 
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_MASOCHIST), new ListValue<>(Fetish.FETISH_BREASTS_SELF), new ListValue<>(Fetish.FETISH_MASTURBATION));
-		}
 	};
 	
 	public static final SexAction PARTNER_SELF_FINGER_NIPPLE_STOP_PENETRATION = new SexAction(

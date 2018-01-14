@@ -3,6 +3,8 @@ package com.lilithsthrone.game.dialogue.places;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
@@ -24,7 +26,7 @@ public class SewerPlaces {
 
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 	};
@@ -42,7 +44,7 @@ public class SewerPlaces {
 
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 	};
@@ -60,7 +62,7 @@ public class SewerPlaces {
 
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 	};
@@ -78,7 +80,7 @@ public class SewerPlaces {
 
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			return null;
 		}
 	};
@@ -97,12 +99,12 @@ public class SewerPlaces {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Dominion", "Head back up to Dominion. (This will be added after the first chapter of the story is complete!)", null){
 					@Override
 					public void effects() {
-						Main.mainController.moveGameWorld(true);
+						Main.mainController.moveGameWorld(WorldType.DOMINION, PlaceType.DOMINION_EXIT_TO_SEWERS, true);
 					}
 				};
 

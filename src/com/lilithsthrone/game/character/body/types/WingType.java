@@ -6,15 +6,20 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.1.97
  * @author Innoxia
  */
 public enum WingType implements BodyPartTypeInterface {
 	NONE(null, null),
 
-	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON),
+	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON) {
+		@Override
+		public boolean allowsFlight() {
+			return true;
+		}
+	},
 
-	ANGEL(BodyCoveringType.DEMON_COMMON, Race.ANGEL) {
+	ANGEL(BodyCoveringType.ANGEL_FEATHER, Race.ANGEL) {
 		@Override
 		public boolean allowsFlight() {
 			return true;
@@ -64,6 +69,18 @@ public enum WingType implements BodyPartTypeInterface {
 			default:
 				return UtilText.returnStringAtRandom("");
 		}
+	}
+	
+	public String getTransformName() {
+		switch(this){
+			case ANGEL:
+				return "angelic";
+			case DEMON_COMMON:
+				return "bat-like";
+			case NONE:
+				return "none";
+		}
+		return "";
 	}
 
 	@Override

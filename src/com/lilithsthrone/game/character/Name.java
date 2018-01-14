@@ -1,5 +1,6 @@
 package com.lilithsthrone.game.character;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
@@ -14,8 +15,7 @@ import com.lilithsthrone.utils.Util.ListValue;
  */
 public enum Name {
 
-	HUMAN(Race.HUMAN,
-			Util.newArrayListOfValues(
+	HUMAN(Util.newArrayListOfValues(
 					new ListValue<>(new NameTriplet("Alexander", "Alex", "Alexandria")),
 					new ListValue<>(new NameTriplet("Alexius", "Alex", "Alexia")),
 					new ListValue<>(new NameTriplet("Alex", "Alex", "Alex")),
@@ -78,7 +78,139 @@ public enum Name {
 					new ListValue<>(new NameTriplet("Vinn", "Vic", "Vixen")),
 
 					new ListValue<>(new NameTriplet("William", "Winter", "Whitney")),
-					new ListValue<>(new NameTriplet("Will", "Wynne", "Willow"))));
+					new ListValue<>(new NameTriplet("Will", "Wynne", "Willow")))),
+	
+	EQUINE(Util.newArrayListOfValues(
+					new ListValue<>(new NameTriplet("Aqua", "Aqua", "Aqua")),
+					
+					new ListValue<>(new NameTriplet("Bramble", "Bramble", "Bramble")),
+
+					new ListValue<>(new NameTriplet("Dasher", "Dasher", "Dasher")),
+					new ListValue<>(new NameTriplet("Dazzle", "Dazzle", "Dazzle")),
+
+					new ListValue<>(new NameTriplet("Flint", "Flint", "Flint")),
+					
+					new ListValue<>(new NameTriplet("Fleet", "Fleet", "Fleet")),
+					
+					new ListValue<>(new NameTriplet("Midnight", "Midnight", "Midnight")),
+					new ListValue<>(new NameTriplet("Moonwind", "Moonwind", "Moonwind")),
+
+					new ListValue<>(new NameTriplet("Nimbus", "Nimbus", "Nimbus")),
+
+					new ListValue<>(new NameTriplet("Pearl", "Pearl", "Pearl")),
+					new ListValue<>(new NameTriplet("Prixie", "Prixie", "Prixie")),
+					
+					new ListValue<>(new NameTriplet("Skyfeet", "Skyfeet", "Skyfeet")),
+					new ListValue<>(new NameTriplet("Starr", "Starr", "Starr")),
+					new ListValue<>(new NameTriplet("Spirit", "Spirit", "Spirit")),
+					
+					new ListValue<>(new NameTriplet("Thundermane", "Thundermane", "Thundermane")),
+					new ListValue<>(new NameTriplet("Twilight", "Twilight", "Twilight")),
+					
+					new ListValue<>(new NameTriplet("Wildlight", "Wildlight", "Wildlight")))),
+	
+	// Similar to equine names
+	REINDEER(Util.newArrayListOfValues(
+			
+			new ListValue<>(new NameTriplet("Dasher", "Dasher", "Dasher")),
+			new ListValue<>(new NameTriplet("Dancer", "Dancer", "Dancer")),
+			new ListValue<>(new NameTriplet("Prancer", "Prancer", "Prancer")),
+			new ListValue<>(new NameTriplet("Vixen", "Vixen", "Vixen")),
+			new ListValue<>(new NameTriplet("Comet", "Comet", "Comet")),
+			new ListValue<>(new NameTriplet("Cupid", "Cupid", "Cupid")),
+			new ListValue<>(new NameTriplet("Dunder", "Dunder", "Dunder")),
+			new ListValue<>(new NameTriplet("Blixem", "Blixem", "Blixem")),
+			
+			new ListValue<>(new NameTriplet("Aqua", "Aqua", "Aqua")),
+			
+			new ListValue<>(new NameTriplet("Bramble", "Bramble", "Bramble")),
+
+			new ListValue<>(new NameTriplet("Dasher", "Dasher", "Dasher")),
+			new ListValue<>(new NameTriplet("Dazzle", "Dazzle", "Dazzle")),
+
+			new ListValue<>(new NameTriplet("Flint", "Flint", "Flint")),
+			
+			new ListValue<>(new NameTriplet("Fleet", "Fleet", "Fleet")),
+			
+			new ListValue<>(new NameTriplet("Midnight", "Midnight", "Midnight")),
+			new ListValue<>(new NameTriplet("Moonwind", "Moonwind", "Moonwind")),
+
+			new ListValue<>(new NameTriplet("Nimbus", "Nimbus", "Nimbus")),
+
+			new ListValue<>(new NameTriplet("Pearl", "Pearl", "Pearl")),
+			new ListValue<>(new NameTriplet("Prixie", "Prixie", "Prixie")),
+			
+			new ListValue<>(new NameTriplet("Skyfeet", "Skyfeet", "Skyfeet")),
+			new ListValue<>(new NameTriplet("Starr", "Starr", "Starr")),
+			new ListValue<>(new NameTriplet("Spirit", "Spirit", "Spirit")),
+			
+			new ListValue<>(new NameTriplet("Thundermane", "Thundermane", "Thundermane")),
+			new ListValue<>(new NameTriplet("Twilight", "Twilight", "Twilight")),
+			
+			new ListValue<>(new NameTriplet("Wildlight", "Wildlight", "Wildlight")))),
+	
+	// No offence if your name is on here... x_x
+	PROSTITUTE(Util.newArrayListOfValues(
+					new ListValue<>(new NameTriplet("Amber", "Amber", "Amber")),
+					new ListValue<>(new NameTriplet("Autumn", "Autumn", "Autumn")),
+
+					new ListValue<>(new NameTriplet("Bambi", "Bambi", "Bambi")),
+					new ListValue<>(new NameTriplet("Ben", "Brandy", "Brandy")),
+					new ListValue<>(new NameTriplet("Brian", "Brianna", "Brianna")),
+
+					new ListValue<>(new NameTriplet("Carl", "Chloe", "Chloe")),
+					new ListValue<>(new NameTriplet("Carl", "Claudia", "Claudia")),
+					new ListValue<>(new NameTriplet("Carl", "Charlene", "Charlene")),
+					new ListValue<>(new NameTriplet("Chad", "Chantelle", "Chantelle")),
+					new ListValue<>(new NameTriplet("Carl", "Courtney", "Courtney")),
+					new ListValue<>(new NameTriplet("Carl", "Cassandra", "Cassandra")),
+					new ListValue<>(new NameTriplet("Chad", "Channing", "Channing")),
+					new ListValue<>(new NameTriplet("Carl", "Crystal", "Crystal")),
+					new ListValue<>(new NameTriplet("Casey", "Casey", "Casey")),
+
+					new ListValue<>(new NameTriplet("Dom", "Dolly", "Dolly")),
+					new ListValue<>(new NameTriplet("Devon", "Devon", "Devon")),
+					new ListValue<>(new NameTriplet("Dale", "Dakota", "Dakota")),
+
+					new ListValue<>(new NameTriplet("Emmett", "Emmalou", "Emmalou")), // Great Scott!
+					
+					new ListValue<>(new NameTriplet("Harry", "Heather", "Heather")),
+
+					new ListValue<>(new NameTriplet("Jimmy", "Jenny", "Jenny")),
+					new ListValue<>(new NameTriplet("Joe", "Jolene", "Jolene")),
+
+					new ListValue<>(new NameTriplet("Kyle", "Kylie", "Kylie")),
+					new ListValue<>(new NameTriplet("Karl", "Kendra", "Kendra")),
+					new ListValue<>(new NameTriplet("Karl", "Krista", "Krista")),
+					new ListValue<>(new NameTriplet("Kelsey", "Kelsey", "Kelsey")),
+
+					new ListValue<>(new NameTriplet("Lawrence", "Lauren", "Lauren")),
+					
+					new ListValue<>(new NameTriplet("Mike", "Misty", "Misty")),
+					new ListValue<>(new NameTriplet("Mike", "Melody", "Melody")),
+					new ListValue<>(new NameTriplet("Mike", "Mindy", "Mindy")),
+					
+					new ListValue<>(new NameTriplet("Nikki", "Nikki", "Nikki")),
+					new ListValue<>(new NameTriplet("Noel", "Noel", "Noel")),
+					
+					new ListValue<>(new NameTriplet("Ruby", "Ruby", "Ruby")),
+					new ListValue<>(new NameTriplet("Reba", "Reba", "Reba")),
+
+					new ListValue<>(new NameTriplet("Savannah", "Savannah", "Savannah")),
+					new ListValue<>(new NameTriplet("Sam", "Samantha", "Samantha")),
+					new ListValue<>(new NameTriplet("Sean", "Serena", "Serena")),
+					new ListValue<>(new NameTriplet("Sierra", "Sierra", "Sierra")),
+					new ListValue<>(new NameTriplet("Shelby", "Shelby", "Shelby")),
+					new ListValue<>(new NameTriplet("Shawn", "Shawna", "Shawna")),
+
+					new ListValue<>(new NameTriplet("Tim", "Trina", "Trina")),
+					new ListValue<>(new NameTriplet("Tammy", "Tammy", "Tammy")),
+					new ListValue<>(new NameTriplet("Tom", "Tara", "Tara")),
+					new ListValue<>(new NameTriplet("Taylor", "Taylor", "Taylor")),
+					
+					new ListValue<>(new NameTriplet("Urleen", "Urleen", "Urleen")))),
+	
+	;
 	
 //	HUMAN_MALE(Race.HUMAN,
 //			new String[] { "Alexander", "Al", "Alex", "Bartholomew", "Bart", "Brett", "Charles", "Carl", "Charlie", "Daniel", "Dan", "Dale", "Edward", "Ed", "Eli", "Fredrick", "Fred", "Frankie", "George", "Garry", "Gray", "Harry", "Hank", "Iago",
@@ -113,11 +245,13 @@ public enum Name {
 	
 	private List<NameTriplet> names;
 
-	private Name(Race race, List<NameTriplet> names) {
+	private Name(List<NameTriplet> names) {
 		this.names = names;
 	}
 	
 	public static String getRandomName(GameCharacter gc) {
+		Name name = Name.HUMAN;
+		
 		switch(gc.getRace()) {
 			case ANGEL:
 				break;
@@ -129,9 +263,15 @@ public enum Name {
 				break;
 			case DOG_MORPH:
 				break;
+			case ALLIGATOR_MORPH:
+				break;
+			case REINDEER_MORPH:
+				name = Name.REINDEER;
+				break;
 			case HARPY:
 				break;
 			case HORSE_MORPH:
+				name = Name.EQUINE;
 				break;
 			case HUMAN:
 				break;
@@ -144,13 +284,13 @@ public enum Name {
 		}
 		
 		if(gc.getFemininityValue() <= Femininity.MASCULINE.getMaximumFemininity()) {
-			return HUMAN.getNameTriplets().get(Util.random.nextInt(HUMAN.getNameTriplets().size())).getMasculine();
+			return name.getNameTriplets().get(Util.random.nextInt(name.getNameTriplets().size())).getMasculine();
 			
 		} else if (gc.getFemininityValue() <= Femininity.ANDROGYNOUS.getMaximumFemininity()) {
-			return HUMAN.getNameTriplets().get(Util.random.nextInt(HUMAN.getNameTriplets().size())).getAndrogynous();
+			return name.getNameTriplets().get(Util.random.nextInt(name.getNameTriplets().size())).getAndrogynous();
 			
 		} else {
-			return HUMAN.getNameTriplets().get(Util.random.nextInt(HUMAN.getNameTriplets().size())).getFeminine();
+			return name.getNameTriplets().get(Util.random.nextInt(name.getNameTriplets().size())).getFeminine();
 		}
 	}
 	
@@ -159,6 +299,8 @@ public enum Name {
 	}
 	
 	public static NameTriplet getRandomTriplet(Race r) {
+		Name name = Name.HUMAN;
+		
 		switch(r) {
 			case ANGEL:
 				break;
@@ -167,12 +309,18 @@ public enum Name {
 			case COW_MORPH:
 				break;
 			case DEMON:
-				break;
+				return getDemonName();
 			case DOG_MORPH:
+				break;
+			case ALLIGATOR_MORPH:
+				break;
+			case REINDEER_MORPH:
+				name = Name.REINDEER;
 				break;
 			case HARPY:
 				break;
 			case HORSE_MORPH:
+				name = Name.EQUINE;
 				break;
 			case HUMAN:
 				break;
@@ -184,11 +332,36 @@ public enum Name {
 				break;
 		}
 		
-		if(Math.random()>0.999f) {
-			new ListValue<>(new NameTriplet("Innoxia", "Innoxia", "Innoxia"));// :3
+		return name.getNameTriplets().get(Util.random.nextInt(name.getNameTriplets().size()));
+	}
+	
+	private static NameTriplet getDemonName() {
+		String[] preixFem = new String[] {"Aella", "Bella", "Cae", "Deva", "Ella", "Fae", "Hela", "Isa", "Katha", "Loe", "Nysa", "Oella", "Rae", "Sytha", "Vixxa", "Wynna"};
+		String[] preixMas = new String[] {"Ada", "Boro", "Foro", "Helio", "Kiri", "Zara"};
+		
+		String[] postfixFem = new String[] {"jyx", "ryth", "ney", "nix", "sys", "trix"};
+		String[] postfixMas = new String[] {"jyx", "ryth", "ney", "nix", "sys", "trix"};
+		
+		String femName = preixFem[Util.random.nextInt(preixFem.length)] + postfixFem[Util.random.nextInt(postfixFem.length)];
+		char startingChar = femName.charAt(0);
+
+		String masName = preixMas[Util.random.nextInt(preixMas.length)] + postfixMas[Util.random.nextInt(postfixMas.length)];
+		
+		List<String> masculineNames = new ArrayList<>();
+		for(String s : preixMas) {
+			if(s.charAt(0) == startingChar) {
+				masculineNames.add(s);
+			}
+		}
+		if(!masculineNames.isEmpty()) {
+			masName = masculineNames.get(Util.random.nextInt(masculineNames.size())) + postfixMas[Util.random.nextInt(postfixMas.length)];
 		}
 		
-		return HUMAN.getNameTriplets().get(Util.random.nextInt(HUMAN.getNameTriplets().size()));
+		return new NameTriplet(masName, femName, femName);
+	}
+	
+	public static NameTriplet getRandomProstituteTriplet() {
+		return PROSTITUTE.getNameTriplets().get(Util.random.nextInt(PROSTITUTE.getNameTriplets().size()));
 	}
 
 	public List<NameTriplet> getNameTriplets() {

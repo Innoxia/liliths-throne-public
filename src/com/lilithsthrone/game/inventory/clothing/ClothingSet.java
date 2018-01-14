@@ -9,7 +9,7 @@ import com.lilithsthrone.game.combat.Spell;
 
 /**
  * @since 0.1.0
- * @version 0.1.85
+ * @version 0.1.96
  * @author Innoxia
  */
 public enum ClothingSet {
@@ -18,12 +18,22 @@ public enum ClothingSet {
 	ENFORCER("Enforcer", StatusEffect.SET_ENFORCER, 2, null, null),
 	
 	MAID("Maid", StatusEffect.SET_MAID, 5, null, null),
+
+	WITCH("Witch", StatusEffect.SET_WITCH, 3, null, null),
+	
+	SCIENTIST("Scientist", StatusEffect.SET_SCIENTIST, 2, null, null),
 	
 	MILK_MAID("Milk Maid", StatusEffect.SET_MILK_MAID, 2, null, null),
 
 	BDSM("BDSM", StatusEffect.SET_BDSM, 4, null, null),
 	
 	CATTLE("Cattle", StatusEffect.SET_CATTLE, 3, null, null),
+	
+	GEISHA("Geisha", StatusEffect.SET_GEISHA, 3, null, null), // "We want the /jp/ audience." - Innoxia, probably.
+	
+	RONIN("Ronin", StatusEffect.SET_RONIN, 3, null, null),
+
+	JOLNIR("J&oacute;lnir", StatusEffect.SET_JOLNIR, 3, null, null),
 
 	RAINBOW("Rainbow", StatusEffect.SET_RAINBOW, 2, null, null);
 

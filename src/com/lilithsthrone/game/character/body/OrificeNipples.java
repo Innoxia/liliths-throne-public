@@ -17,14 +17,14 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 public class OrificeNipples implements OrificeInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private int elasticity;
-	private int plasticity;
-	private float capacity;
-	private float stretchedCapacity;
-	private boolean virgin;
-	private Set<OrificeModifier> orificeModifiers;
+	protected int elasticity;
+	protected int plasticity;
+	protected float capacity;
+	protected float stretchedCapacity;
+	protected boolean virgin;
+	protected Set<OrificeModifier> orificeModifiers;
 
-	public OrificeNipples(int wetness, int capacity, int elasticity, int plasticity, boolean virgin, Collection<OrificeModifier> orificeModifiers) {
+	public OrificeNipples(int wetness, float capacity, int elasticity, int plasticity, boolean virgin, Collection<OrificeModifier> orificeModifiers) {
 		this.capacity = capacity;
 		stretchedCapacity = capacity;
 		this.elasticity = elasticity;
@@ -56,10 +56,12 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 	}
 	
 	@Override
-	public String setCapacity(GameCharacter owner, float capacity) {
+	public String setCapacity(GameCharacter owner, float capacity, boolean setStretchedValueToNewValue) {
 		float oldCapacity = this.capacity;
 		this.capacity = Math.max(0, Math.min(capacity, Capacity.SEVEN_GAPING.getMaximumValue()));
-		this.stretchedCapacity = this.capacity;
+		if(setStretchedValueToNewValue) {
+			this.stretchedCapacity = this.capacity;
+		}
 		float capacityChange = this.capacity - oldCapacity;
 		
 		if (capacityChange == 0) {
@@ -182,7 +184,7 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
-							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange slackening sensation pulsating deep within [npc.her] [npc.breasts] as your [npc.nipples]' [style.boldGrow(elasticity increases)].</br>"
+							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange slackening sensation pulsating deep within [npc.her] [npc.breasts] as [npc.her] [npc.nipple] [style.boldGrow(elasticity increases)].</br>"
 							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " [npc.nipples])]!"
 						+ "</p>");
 			}
@@ -196,7 +198,7 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
-							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange clenching sensation pulsating deep within [npc.her] [npc.breasts] as your [npc.nipples]' [style.boldShrink(elasticity decreases)].</br>"
+							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange clenching sensation pulsating deep within [npc.her] [npc.breasts] as [npc.her] [npc.nipple] [style.boldShrink(elasticity decreases)].</br>"
 							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(elasticityDescriptor) + " " + elasticityDescriptor + " [npc.nipples])]!"
 						+ "</p>");
 			}
@@ -232,7 +234,7 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
-							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange moulding sensation pulsating deep within [npc.her] [npc.breasts] as your [npc.nipples]' [style.boldGrow(plasticity increases)].</br>"
+							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange moulding sensation pulsating deep within [npc.her] [npc.breasts] as [npc.her] [npc.nipples]' [style.boldGrow(plasticity increases)].</br>"
 							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " [npc.nipples])]!"
 						+ "</p>");
 			}
@@ -246,7 +248,7 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 			} else {
 				return UtilText.parse(owner, 
 						"<p>"
-							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange softening sensation pulsating deep within [npc.her] [npc.breasts] as your [npc.nipples]' [style.boldShrink(plasticity decreases)].</br>"
+							+ "[npc.Name] lets out a little gasp as [npc.she] feels a strange softening sensation pulsating deep within [npc.her] [npc.breasts] as [npc.her] [npc.nipples]' [style.boldShrink(plasticity decreases)].</br>"
 							+ "The transformation quickly passes, leaving [npc.herHim] with [style.boldSex(" + UtilText.generateSingularDeterminer(plasticityDescriptor) + " " + plasticityDescriptor + " [npc.nipples])]!"
 						+ "</p>");
 			}

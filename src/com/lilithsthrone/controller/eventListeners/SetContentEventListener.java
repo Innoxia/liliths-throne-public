@@ -22,12 +22,14 @@ public class SetContentEventListener implements EventListener {
 		if (nextPage) {
 			if (Main.game.isHasNextResponsePage()) {
 				Main.game.setResponsePage(Main.game.getResponsePage() + 1);
-				Main.game.setResponses(Main.game.getCurrentDialogueNode());
+				Main.game.updateResponses();
+//				Main.game.setResponses(Main.game.getCurrentDialogueNode());
 			}
 		} else if (previousPage) {
 			if (Main.game.getResponsePage() != 0) {
 				Main.game.setResponsePage(Main.game.getResponsePage() - 1);
-				Main.game.setResponses(Main.game.getCurrentDialogueNode());
+				Main.game.updateResponses();
+//				Main.game.setResponses(Main.game.getCurrentDialogueNode());
 			}
 		} else {
 			if (Main.game.getResponsePage() == 0)

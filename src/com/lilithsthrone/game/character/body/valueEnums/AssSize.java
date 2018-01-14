@@ -6,12 +6,12 @@ import com.lilithsthrone.utils.Colour;
  * Arbitrary measurements in increments of 1, going from 0 to 7.
  * 
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.1.90
  * @author Innoxia
  */
 public enum AssSize {
 	
-	ZERO_FLAT("completely flat", 0, Colour.GENERIC_SIZE_ONE),
+	ZERO_FLAT("flat", 0, Colour.GENERIC_SIZE_ONE),
 	
 	ONE_TINY("tiny", 1, Colour.GENERIC_SIZE_TWO),
 	

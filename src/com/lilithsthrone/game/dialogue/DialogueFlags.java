@@ -1,70 +1,49 @@
 package com.lilithsthrone.game.dialogue;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
-import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
+import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
- * @version 0.1.85
+ * @version 0.1.96
  * @author Innoxia
  */
-public class DialogueFlags implements Serializable {
+public class DialogueFlags implements Serializable, XMLSaving {
 
 	private static final long serialVersionUID = 1L;
 
+	public Set<DialogueFlagValue> values;
+	
 	// Discounts:
 	public long ralphDiscountStartTime;
-	public int ralphDiscount, scarlettPrice;
+	public int ralphDiscount;
+	public int scarlettPrice;
 	
-	public BodyCoveringType skinTypeSelected;
+	// Amount of dialogue choices you can make before offspring interaction ends:
+	public int offspringDialogueTokens = 2;
 	
-	public TFEssence focusedEssence;
+	// Reindeer event related flags:
+	private Set<String> reindeerEncounteredIDs = new HashSet<>();
+	private Set<String> reindeerWorkedForIDs = new HashSet<>();
+	private Set<String> reindeerFuckedIDs = new HashSet<>();
 	
-	public DialogueNodeOld slaveryManagerRootDialogue;
-	public NPC slaveTrader, slaveryManagerSlaveSelected;
 	
-	public boolean
-			// Misc:
-			
-			quickTrade,
-			jinxedClothingDiscovered,
-			stormTextUpdateRequired,
+	private String slaveTrader;
+	private String slaveryManagerSlaveSelected;
 	
-			// Gym:
-			gymIntroduced, gymHadTour, gymIsMember,
-			
-			// Shopping arcade:
-			ralphIntroduced,
-			nyanIntroduced,
-			kateIntroduced, reactedToKatePregnancy,
-			
-			// Aunt's Home:
-			auntHomeJustEntered, hadSexWithLilaya, reactedToPregnancyLilaya, waitingOnLilayaPregnancyResults,
-			essenceExtractionKnown,
-			readBook1, readBook2, readBook3,
-			
-			// Brax:
-			accessToEnforcerHQ, braxTransformedPlayer, braxBeaten, seenBraxAfterQuest, feminisedBrax, bimbofiedBrax,
-			
-			// Harpy Nests:
-			hasHarpyNestAccess, bimboEncountered, bimboPacified, dominantEncountered, dominantPacified, nymphoEncountered, nymphoPacified,
-			punishedByAlexa,
-			
-			// Slaver Alley:
-			finchIntroduced;
-
 	public DialogueFlags() {
-
-		quickTrade = false;
-		jinxedClothingDiscovered = false;
-		stormTextUpdateRequired = false;
+		values = new HashSet<>();
 		
-		focusedEssence = null;
-		
-		slaveryManagerRootDialogue = null;
 		slaveryManagerSlaveSelected = null;
 		slaveTrader = null;
 		
@@ -72,48 +51,137 @@ public class DialogueFlags implements Serializable {
 		ralphDiscount=0;
 		
 		scarlettPrice = 2000;
+	}
+	
+	public Element saveAsXML(Element parentElement, Document doc) {
+		Element element = doc.createElement("dialogueFlags");
+		parentElement.appendChild(element);
 		
-		gymIntroduced = false;
-		gymHadTour = false;
-		gymIsMember = false;
+		CharacterUtils.createXMLElementWithValue(doc, element, "ralphDiscountStartTime", String.valueOf(ralphDiscountStartTime));
+		CharacterUtils.createXMLElementWithValue(doc, element, "ralphDiscount", String.valueOf(ralphDiscount));
+		CharacterUtils.createXMLElementWithValue(doc, element, "scarlettPrice", String.valueOf(scarlettPrice));
+		CharacterUtils.createXMLElementWithValue(doc, element, "offspringDialogueTokens", String.valueOf(offspringDialogueTokens));
+		CharacterUtils.createXMLElementWithValue(doc, element, "slaveTrader", slaveTrader);
+		CharacterUtils.createXMLElementWithValue(doc, element, "slaveryManagerSlaveSelected", slaveryManagerSlaveSelected);
 		
-		ralphIntroduced = false;
-		nyanIntroduced = false;
-		kateIntroduced = false;
-		reactedToKatePregnancy = false;
+		Element valuesElement = doc.createElement("dialogueValues");
+		element.appendChild(valuesElement);
+		for(DialogueFlagValue value : values) {
+			CharacterUtils.createXMLElementWithValue(doc, valuesElement, "dialogueValue", value.toString());
+		}
 		
-		skinTypeSelected = null;
-
-		// Aunt's Home:
-		auntHomeJustEntered = false;
-		hadSexWithLilaya = false;
-		reactedToPregnancyLilaya = false;
-		waitingOnLilayaPregnancyResults = false;
-		essenceExtractionKnown = false;
-		readBook1 = false;
-		readBook2 = false;
-		readBook3 = false;
+		return element;
+	}
+	
+	public static DialogueFlags loadFromXML(Element parentElement, Document doc) {
+		DialogueFlags newFlags = new DialogueFlags();
 		
-		// Brax:
-		accessToEnforcerHQ = false;
-		braxBeaten = false;
-		seenBraxAfterQuest = false;
-		feminisedBrax = false;
-		bimbofiedBrax = false;
-
-		// Harpy Nests:
-		hasHarpyNestAccess = false;
-		bimboEncountered = false;
-		bimboPacified = false;
-		dominantEncountered = false;
-		dominantPacified = false;
-		nymphoEncountered = false;
-		nymphoPacified = false;
+		newFlags.ralphDiscountStartTime = Long.valueOf(((Element)parentElement.getElementsByTagName("ralphDiscountStartTime").item(0)).getAttribute("value"));
+		newFlags.ralphDiscount = Integer.valueOf(((Element)parentElement.getElementsByTagName("ralphDiscount").item(0)).getAttribute("value"));
+		newFlags.scarlettPrice = Integer.valueOf(((Element)parentElement.getElementsByTagName("scarlettPrice").item(0)).getAttribute("value"));
+		newFlags.offspringDialogueTokens = Integer.valueOf(((Element)parentElement.getElementsByTagName("offspringDialogueTokens").item(0)).getAttribute("value"));
+		newFlags.slaveTrader = ((Element)parentElement.getElementsByTagName("slaveTrader").item(0)).getAttribute("value");
+		newFlags.slaveryManagerSlaveSelected = ((Element)parentElement.getElementsByTagName("slaveryManagerSlaveSelected").item(0)).getAttribute("value");
 		
-		punishedByAlexa = false;
-
-		// Slaver Alley:
-		finchIntroduced = false;
+		for(int i=0; i<((Element) parentElement.getElementsByTagName("dialogueValues").item(0)).getElementsByTagName("dialogueValue").getLength(); i++){
+			Element e = (Element) ((Element) parentElement.getElementsByTagName("dialogueValues").item(0)).getElementsByTagName("dialogueValue").item(i);
+			
+			newFlags.values.add(DialogueFlagValue.valueOf(e.getAttribute("value")));
+		}
+		
+		return newFlags;
 	}
 
+	public boolean hasFlag(DialogueFlagValue flag) {
+		return values.contains(flag);
+	}
+	
+	public void setFlag(DialogueFlagValue flag, boolean flagMarker) {
+		if(flagMarker) {
+			values.add(flag);
+		} else {
+			values.remove(flag);
+		}
+	}
+	
+	public NPC getSlaveTrader() {
+		if(slaveTrader==null) {
+			return null;
+		}
+		return (NPC) Main.game.getNPCById(slaveTrader);
+	}
+
+	public void setSlaveTrader(GameCharacter slaveTrader) {
+		if(slaveTrader==null) {
+			this.slaveTrader = null;
+		} else {
+			this.slaveTrader = slaveTrader.getId();
+		}
+	}
+	
+	public String getSlaveTraderId() {
+		return slaveTrader;
+	}
+
+	public void setSlaveTraderId(String slaveTrader) {
+		this.slaveTrader = slaveTrader;
+	}
+
+	public NPC getSlaveryManagerSlaveSelected() {
+		if(slaveryManagerSlaveSelected==null || slaveryManagerSlaveSelected.isEmpty()) {
+			return null;
+		}
+		return (NPC) Main.game.getNPCById(slaveryManagerSlaveSelected);
+	}
+
+	public void setSlaveryManagerSlaveSelected(GameCharacter slaveryManagerSlaveSelected) {
+		if(slaveryManagerSlaveSelected==null) {
+			this.slaveryManagerSlaveSelected = null;
+		} else {
+			this.slaveryManagerSlaveSelected = slaveryManagerSlaveSelected.getId();
+		}
+	}
+	
+	public String getSlaveryManagerSlaveSelectedId() {
+		return slaveryManagerSlaveSelected;
+	}
+
+	public void setSlaveryManagerSlaveSelectedId(String slaveryManagerSlaveSelected) {
+		this.slaveryManagerSlaveSelected = slaveryManagerSlaveSelected;
+	}
+
+	// Reindeer event:
+	
+	public void addReindeerEncountered(String reindeerID) {
+		reindeerEncounteredIDs.add(reindeerID);
+	}
+	
+	public boolean hasEncounteredReindeer(String reindeerID) {
+		return reindeerEncounteredIDs.contains(reindeerID);
+	}
+	
+	public boolean hasEncounteredAnyReindeers() {
+		return !reindeerEncounteredIDs.isEmpty();
+	}
+	
+	public void addReindeerDailyWorkedFor(String reindeerID) {
+		reindeerWorkedForIDs.add(reindeerID);
+	}
+	
+	public boolean hasWorkedForReindeer(String reindeerID) {
+		return reindeerWorkedForIDs.contains(reindeerID);
+	}
+	
+	public void addReindeerDailyFucked(String reindeerID) {
+		reindeerFuckedIDs.add(reindeerID);
+	}
+	
+	public boolean hasFuckedReindeer(String reindeerID) {
+		return reindeerFuckedIDs.contains(reindeerID);
+	}
+	
+	public void dailyReindeerReset(String reindeerID) {
+		reindeerWorkedForIDs.remove(reindeerID);
+	}
+	
 }

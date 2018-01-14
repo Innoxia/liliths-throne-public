@@ -19,7 +19,7 @@ public interface OrificeInterface {
 
 	public Capacity getCapacity();
 	public float getRawCapacityValue();
-	public String setCapacity(GameCharacter owner, float capacity);
+	public String setCapacity(GameCharacter owner, float capacity, boolean setStretchedValueToNewValue);
 	public float getStretchedCapacity();
 	public boolean setStretchedCapacity(float stretchedCapacity);
 

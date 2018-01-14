@@ -61,6 +61,10 @@ Calm:
 	Model
 	 */
 	
+	// Unique:
+
+	REINDEER_OVERSEER(false, true, "overseer", "-", null),
+	
 	// Partner histories:
 
 	UNEMPLOYED(false, true, "unemployed", "-", null),

@@ -15,7 +15,7 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.7
- * @version 0.1.78
+ * @version 0.1.89
  * @author Innoxia
  */
 public class SALilayaSpecials {
@@ -40,8 +40,8 @@ public class SALilayaSpecials {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Main.game.getPlayer().getArousal() >= ArousalLevel.FOUR_PASSIONATE.getMinimumValue()
-					|| Sex.getPartner().getArousal() >= ArousalLevel.FOUR_PASSIONATE.getMinimumValue())
+			return (Main.game.getPlayer().getArousal() >= ArousalLevel.THREE_HEATED.getMinimumValue()
+					|| Sex.getActivePartner().getArousal() >= ArousalLevel.FOUR_PASSIONATE.getMinimumValue())
 					&& !SexFlags.partnerRequestedPullOut
 					&& !Main.game.getLilaya().isVisiblyPregnant();
 		}
@@ -64,6 +64,93 @@ public class SALilayaSpecials {
 		}
 	};
 	
+	public static final SexAction PARTNER_PREPARE = new SexAction(
+			SexActionType.PARTNER_PREPARE_PLAYER_ORGASM,
+			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.TWO_LOW,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			null) {
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER) != PenetrationType.PENIS_PLAYER;
+		}
+
+		@Override
+		public SexActionPriority getPriority() {
+			return SexActionPriority.HIGH;
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Prepare";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "You can feel that [pc.name] is fast approaching [pc.her] orgasm. Prepare yourself for it.";
+		}
+		
+		@Override
+		public String getDescription() {
+			switch(Sex.getSexPace(Sex.getActivePartner())) {
+				case DOM_GENTLE:
+					return "[npc.Name] lets out a soft [npc.moan] of encouragement as [npc.she] prepares for you to reach your orgasm.";
+				case DOM_NORMAL:
+					return "[npc.Name] lets out [npc.a_moan+] of encouragement as [npc.she] prepares for you to reach your orgasm.";
+				case DOM_ROUGH:
+					return "[npc.Name] lets out [npc.a_moan+] of encouragement as [npc.she] prepares for you to reach your orgasm.";
+				case SUB_EAGER:
+					return "[npc.Name] lets out [npc.a_moan+] of encouragement as [npc.she] prepares for you to reach your orgasm.";
+				case SUB_NORMAL:
+					return "[npc.Name] lets out [npc.a_moan+] of encouragement as [npc.she] prepares for you to reach your orgasm.";
+				case SUB_RESISTING:
+					return "[npc.Name] lets out [npc.a_moan+] as [npc.she] desperately tries to pull away from you before you orgasm.";
+			}
+			
+			return "";
+		}
+	};
+	
+	public static final SexAction PARTNER_ASK_FOR_PULL_OUT = new SexAction(
+			SexActionType.PARTNER_PREPARE_PLAYER_ORGASM,
+			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.TWO_LOW,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			null) {
+		@Override
+		public String getActionTitle() {
+			return "";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "";
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER) == PenetrationType.PENIS_PLAYER;
+		}
+
+		@Override
+		public SexActionPriority getPriority() {
+			return SexActionPriority.HIGH;
+		}
+		
+		@Override
+		public String getDescription() {
+			return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out to you, "
+					+ "[npc.speech(Pull out! I don't want to get pregnant!)]";
+		}
+
+		@Override
+		public void applyEffects() {
+			SexFlags.partnerRequestedPullOut = true;
+		}
+	};
 	
 	// Furious stop sex
 	public static final SexAction PARTNER_FURIOUS_STOP_SEX = new SexAction(
@@ -85,7 +172,7 @@ public class SALilayaSpecials {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPartner().hasStatusEffect(StatusEffect.CREAMPIE_VAGINA)
+			return Sex.getActivePartner().hasStatusEffect(StatusEffect.CREAMPIE_VAGINA)
 					&& !Main.game.getLilaya().isVisiblyPregnant();
 		}
 

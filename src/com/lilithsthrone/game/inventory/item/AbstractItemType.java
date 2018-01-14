@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.FluidCum;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -75,6 +76,8 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/items/" + pathName + ".svg");
 			String s = Util.inputStreamToString(is);
 
+			for (int i = 0; i <= 14; i++)
+				s = s.replaceAll("linearGradient" + i, this.hashCode() + this.colourShade.toString() + "linearGradient" + i);
 			s = s.replaceAll("#ff2a2a", this.colourShade.getShades()[0]);
 			s = s.replaceAll("#ff5555", this.colourShade.getShades()[1]);
 			s = s.replaceAll("#ff8080", this.colourShade.getShades()[2]);
@@ -124,6 +127,12 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 		};
 	}
 	
+	public static AbstractItem generateFilledCondom(Colour colour, GameCharacter character, FluidCum cum) {
+		return new AbstractFilledCondom(ItemType.CONDOM_USED, colour, character, cum) {
+			private static final long serialVersionUID = 1L;
+		};
+	}
+	
 	public String getId() {
 		return ItemType.itemToIdMap.get(this);
 	}
@@ -136,7 +145,13 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 		return true;
 	}
 	
+	public abstract boolean isCommonItem();
+	
 	// Enchantments:
+	
+	public int getEnchantmentLimit() {
+		return 100;
+	}
 	
 	public ItemEffectType getEnchantmentEffect() {
 		return null;
@@ -146,7 +161,7 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 		return relatedEssence;
 	}
 	
-	public AbstractItemType getEnchantmentItemType() {
+	public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
 		return null;
 	}
 	
@@ -217,21 +232,29 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 	public boolean isAbleToBeUsedFromInventory() {
 		return true;
 	}
+	
 	public boolean isAbleToBeUsed(GameCharacter target) {
-		if(Main.game.isInCombat() && !target.isPlayer())
+		if(Main.game.isInCombat() && !target.isPlayer()) {
 			return false;
-		else
+		} else {
 			return true;
+		}
 	}
+	
 	public boolean isAbleToBeUsedInSex() {
 		return true;
 	}
+	
 	public boolean isAbleToBeUsedInCombat() {
 		return true;
 	}
 	
 	public boolean isConsumedOnUse() {
 		return true;
+	}
+	
+	public boolean isTransformative() {
+		return false;
 	}
 	
 	public String getUnableToBeUsedFromInventoryDescription() {
@@ -245,8 +268,7 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 	public String getDyeBrushEffects(AbstractClothing clothing, Colour colour) {
 		return "<p>"
 					+ "As you take hold of the Dye-brush, you see the purple glow around the tip growing in strength."
-					+ " The closer you move it to your " + clothing.getName()
-					+ ", the brighter the glow becomes, until suddenly, images of different colours start flashing through your mind."
+					+ " The closer you move it to your " + clothing.getName() + ", the brighter the glow becomes, until suddenly, images of different colours start flashing through your mind."
 					+ " As you touch the bristles to the " + clothing.getName() + "'s surface, the Dye-brush instantly evaporates!"
 					+ " You see that the arcane enchantment has dyed the " + clothing.getName() + " " + colour.getName() + "."
 				+ "</p>";

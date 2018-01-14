@@ -2,13 +2,19 @@ package com.lilithsthrone.game.inventory.clothing;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -18,35 +24,43 @@ import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.XMLSaving;
 
 import java.util.Set;
 
 /**
  * @since 0.1.0
- * @version 0.1.85
+ * @version 0.1.87
  * @author Innoxia
  */
-public abstract class AbstractClothing extends AbstractCoreItem implements Serializable {
+public abstract class AbstractClothing extends AbstractCoreItem implements Serializable, XMLSaving {
 
 	private static final long serialVersionUID = 1L;
 
 	private AbstractClothingType clothingType;
-
+	
+	private Colour secondaryColour, tertiaryColour;
 	private boolean sealed, cummedIn, enchantmentKnown, badEnchantment;
 	private List<DisplacementType> displacedList;
 
 	private Attribute coreEnchantment;
 
-	public AbstractClothing(AbstractClothingType clothingType, Colour colour, boolean allowRandomEnchantment) {
-		super(clothingType.getName(), clothingType.getNamePlural(), clothingType.getPathName(),
-				clothingType.getAvailableColours().contains(colour) ? colour : clothingType.getAvailableColours().get(Util.random.nextInt(clothingType.getAvailableColours().size())),
-				clothingType.getRarity(), clothingType.getAttributeModifiers());
+	public AbstractClothing(AbstractClothingType clothingType, Colour colour, Colour secondaryColour, Colour tertiaryColour, boolean allowRandomEnchantment) {
+		super(clothingType.getName(),
+				clothingType.getNamePlural(),
+				clothingType.getPathName(),
+				clothingType.getAllAvailablePrimaryColours().contains(colour) ? colour : clothingType.getAllAvailablePrimaryColours().get(Util.random.nextInt(clothingType.getAllAvailablePrimaryColours().size())),
+				clothingType.getRarity(),
+				clothingType.getAttributeModifiers());
 
 		this.clothingType = clothingType;
 		
 		sealed = false;
 		cummedIn = false;
 		enchantmentKnown = true;
+		
+		this.secondaryColour = secondaryColour;
+		this.tertiaryColour = tertiaryColour;
 
 		displacedList = new ArrayList<>();
 
@@ -93,9 +107,13 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		}
 	}
 	
-	public AbstractClothing(AbstractClothingType clothingType, Colour colour, Map<Attribute, Integer> enchantmentMap) {
-		super(clothingType.getName(), clothingType.getNamePlural(), clothingType.getPathName(), clothingType.getAvailableColours().contains(colour) ? colour : clothingType.getAvailableColours().get(Util.random.nextInt(clothingType.getAvailableColours().size())),
-				clothingType.getRarity(), clothingType.getAttributeModifiers());
+	public AbstractClothing(AbstractClothingType clothingType, Colour colour, Colour secondaryColour, Colour tertiaryColour, Map<Attribute, Integer> enchantmentMap) {
+		super(clothingType.getName(),
+				clothingType.getNamePlural(),
+				clothingType.getPathName(),
+				clothingType.getAllAvailablePrimaryColours().contains(colour) ? colour : clothingType.getAllAvailablePrimaryColours().get(Util.random.nextInt(clothingType.getAllAvailablePrimaryColours().size())),
+				clothingType.getRarity(),
+				clothingType.getAttributeModifiers());
 
 		this.clothingType = clothingType;
 
@@ -103,6 +121,9 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		cummedIn = false;
 		enchantmentKnown = true;
 
+		this.secondaryColour = secondaryColour;
+		this.tertiaryColour = tertiaryColour;
+		
 		displacedList = new ArrayList<>();
 
 		attributeModifiers = enchantmentMap;
@@ -129,12 +150,13 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		}
 	}
 	
-	
 	@Override
 	public boolean equals (Object o) {
 		if(super.equals(o)){
 			if(o instanceof AbstractClothing){
 				if(((AbstractClothing)o).getClothingType().equals(getClothingType())
+						&& ((AbstractClothing)o).getSecondaryColour()==secondaryColour
+						&& ((AbstractClothing)o).getTertiaryColour()==tertiaryColour
 						&& ((AbstractClothing)o).isSealed()==sealed
 						&& ((AbstractClothing)o).isDirty()==cummedIn
 						&& ((AbstractClothing)o).isEnchantmentKnown()==enchantmentKnown
@@ -152,6 +174,12 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	public int hashCode() {
 		int result = super.hashCode();
 		result = 31 * result + getClothingType().hashCode();
+		if(getSecondaryColour()!=null) {
+			result = 31 * result + getSecondaryColour().hashCode();
+		}
+		if(getTertiaryColour()!=null) {
+			result = 31 * result + getTertiaryColour().hashCode();
+		}
 		result = 31 * result + (sealed ? 1 : 0);
 		result = 31 * result + (cummedIn ? 1 : 0);
 		result = 31 * result + (enchantmentKnown ? 1 : 0);
@@ -162,6 +190,102 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		return result;
 	}
 	
+	public Element saveAsXML(Element parentElement, Document doc) {
+		Element element = doc.createElement("clothing");
+		parentElement.appendChild(element);
+		
+		CharacterUtils.addAttribute(doc, element, "id", this.getClothingType().getId());
+		CharacterUtils.addAttribute(doc, element, "colour", this.getColour().toString());
+		CharacterUtils.addAttribute(doc, element, "colourSecondary", this.getSecondaryColour().toString());
+		CharacterUtils.addAttribute(doc, element, "colourTertiary", this.getTertiaryColour().toString());
+		CharacterUtils.addAttribute(doc, element, "rarity", this.getRarity().toString());
+		CharacterUtils.addAttribute(doc, element, "sealed", String.valueOf(this.isSealed()));
+		CharacterUtils.addAttribute(doc, element, "isDirty", String.valueOf(this.isDirty()));
+		CharacterUtils.addAttribute(doc, element, "enchantmentKnown", String.valueOf(this.isEnchantmentKnown()));
+		CharacterUtils.addAttribute(doc, element, "badEnchantment", String.valueOf(this.isBadEnchantment()));
+		CharacterUtils.addAttribute(doc, element, "coreEnchantment", (this.getCoreEnchantment()==null?"null":this.getCoreEnchantment().toString()));
+		
+		Element attributeElement = doc.createElement("attributeModifiers");
+		element.appendChild(attributeElement);
+		for(Entry<Attribute, Integer> entry : this.getAttributeModifiers().entrySet()) {
+			Element modifier = doc.createElement("modifier");
+			attributeElement.appendChild(modifier);
+			
+			CharacterUtils.addAttribute(doc, modifier, "attribute", entry.getKey().toString());
+			CharacterUtils.addAttribute(doc, modifier, "value", String.valueOf(entry.getValue()));
+		}
+		
+		Element innerElement = doc.createElement("displacedList");
+		element.appendChild(innerElement);
+		for(DisplacementType dt : this.getDisplacedList()) {
+			Element displacementType = doc.createElement("displacementType");
+			innerElement.appendChild(displacementType);
+			CharacterUtils.addAttribute(doc, displacementType, "value", dt.toString());
+		}
+		
+		return element;
+	}
+	
+	public static AbstractClothing loadFromXML(Element parentElement, Document doc) {
+		try {
+			AbstractClothing clothing = AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId(parentElement.getAttribute("id")), false);
+			
+			clothing.setColour(Colour.valueOf(parentElement.getAttribute("colour")));
+			if(!parentElement.getAttribute("colourSecondary").isEmpty()) {
+				clothing.setSecondaryColour(Colour.valueOf(parentElement.getAttribute("colourSecondary")));
+			}
+			if(!parentElement.getAttribute("colourTertiary").isEmpty()) {
+				clothing.setTertiaryColour(Colour.valueOf(parentElement.getAttribute("colourTertiary")));
+			}
+			
+			clothing.rarity = (Rarity.valueOf(parentElement.getAttribute("rarity")));
+			clothing.setSealed(Boolean.valueOf(parentElement.getAttribute("sealed")));
+			clothing.setDirty(Boolean.valueOf(parentElement.getAttribute("isDirty")));
+			clothing.setEnchantmentKnown(Boolean.valueOf(parentElement.getAttribute("enchantmentKnown")));
+			clothing.badEnchantment = (Boolean.valueOf(parentElement.getAttribute("badEnchantment")));
+			
+			if(!parentElement.getAttribute("coreEnchantment").equals("null")) {
+				clothing.coreEnchantment = Attribute.valueOf(parentElement.getAttribute("coreEnchantment"));
+			}
+			
+			clothing.setAttributeModifiers(new HashMap<Attribute, Integer>());
+			Element element = (Element)parentElement.getElementsByTagName("attributeModifiers").item(0);
+			for(int i=0; i<element.getElementsByTagName("modifier").getLength(); i++){
+				Element e = ((Element)element.getElementsByTagName("modifier").item(i));
+				clothing.getAttributeModifiers().put(Attribute.valueOf(e.getAttribute("attribute")), Integer.valueOf(e.getAttribute("value")));
+			}
+			
+			clothing.displacedList = new ArrayList<>();
+			element = (Element)parentElement.getElementsByTagName("displacedList").item(0);
+			for(int i=0; i<element.getElementsByTagName("spell").getLength(); i++){
+				Element e = ((Element)element.getElementsByTagName("displacementType").item(i));
+				clothing.displacedList.add(DisplacementType.valueOf(e.getAttribute("value")));
+			}
+			
+			return clothing;
+			
+		} catch(Exception ex) {
+			System.err.println("Warning: An instance of AbstractClothing was unable to be imported.");
+			return null;
+		}
+	}
+	
+	public Colour getSecondaryColour() {
+		return secondaryColour;
+	}
+
+	public void setSecondaryColour(Colour secondaryColour) {
+		this.secondaryColour = secondaryColour;
+	}
+
+	public Colour getTertiaryColour() {
+		return tertiaryColour;
+	}
+
+	public void setTertiaryColour(Colour tertiaryColour) {
+		this.tertiaryColour = tertiaryColour;
+	}
+
 	/**
 	 * @return the name of a css class to use as a displayed rarity in inventory screens
 	 */
@@ -202,8 +326,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		descriptionSB.append(".</p>");
 
 		if (enchantmentKnown) {
-			descriptionSB.append("<p>" + (getClothingType().isPlural() ? "They" : "It") + " " + (getClothingType().isPlural() ? "have" : "has") + " a value of <b style='color: " + Colour.CURRENCY.toWebHexString() + ";'>" + Main.game.getCurrencySymbol()
-					+ "</b> <b>" + getValue() + "</b>.");
+			descriptionSB.append("<p>" + (getClothingType().isPlural() ? "They" : "It") + " " + (getClothingType().isPlural() ? "have" : "has") + " a value of " + UtilText.formatAsMoney(getValue()) + ".");
 		} else {
 			descriptionSB.append("</br>" + (getClothingType().isPlural() ? "They" : "It") + " " + (getClothingType().isPlural() ? "have" : "has") + " an <b>unknown value</b>!");
 		}
@@ -316,7 +439,11 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 
 	@Override
 	public String getSVGString() {
-		return getClothingType().getSVGImage(colourShade);
+		return getClothingType().getSVGImage(colourShade, secondaryColour, tertiaryColour);
+	}
+	
+	public String getSVGEquippedString(GameCharacter character) {
+		return getClothingType().getSVGEquippedImage(character, colourShade, secondaryColour, tertiaryColour);
 	}
 
 	/**
@@ -342,7 +469,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 					}
 					
 					pointlessSB.append("</br>"
-							+ "<b>You gain +1</b> <b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString()+ ";'>core</b> <b style='color:" + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + ";'>corruption</b> <b>from discovering their jinx...</b>"
+							+ "<b>"+(clothingOwner.isPlayer()?"You gain":UtilText.parse(clothingOwner, "[npc.Name] gains"))
+									+" +1</b> <b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString()+ ";'>core</b> <b style='color:" + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + ";'>corruption</b> <b>from discovering their jinx...</b>"
 							+ "</p>");
 					
 				} else {
@@ -392,13 +520,11 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	private static List<String> incompatibleClothing = new ArrayList<>();
 
 	/**
-	 * Returns a formatted description of if this clothing is sealed, cummedIn,
-	 * too feminine/masculine and what slots it is blocking.
+	 * Returns a formatted description of if this clothing is sealed, cummedIn, too feminine/masculine and what slots it is blocking.
 	 */
 	public String clothingExtraInformation(GameCharacter equippedToCharacter) {
 
-		if (equippedToCharacter == null) { // The clothing is not currently
-											// equipped by anyone:
+		if (equippedToCharacter == null) { // The clothing is not currently equipped by anyone:
 
 			incompatibleClothing.clear();
 			if (!getClothingType().getIncompatibleSlots().isEmpty()) {
@@ -413,6 +539,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 
 			return (!getClothingType().getIncompatibleSlots().isEmpty() ? "<p>Equipping " + (getClothingType().isPlural() ? "them" : "it") + " will <b style='color: " + Colour.GENERIC_BAD.toWebHexString() + ";'>block</b> your "
 					+ Util.inventorySlotsToStringList(getClothingType().getIncompatibleSlots()) + ".</p>" : "")
+					
+					+ (Main.game.getPlayer().getClothingInSlot(this.getClothingType().getSlot())!=null && Main.game.getPlayer().getClothingInSlot(this.getClothingType().getSlot()).getClothingType().isDiscardedOnUnequip()
+						?"[style.boldBad(Equipping this will cause the "+Main.game.getPlayer().getClothingInSlot(this.getClothingType().getSlot()).getName()+" you're already wearing to be discarded!)]"
+						:"")
 
 					+ (sealed && enchantmentKnown
 							? "<p>" + (getClothingType().isPlural() ? "They" : "It") + " will <b style='color: " + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + ";'>jinx</b> " + (getClothingType().isPlural() ? "themselves" : "itself") + " onto you!</p>" : "")
@@ -437,7 +567,9 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 			return (!getClothingType().getIncompatibleSlots().isEmpty() ? "<p>" + (getClothingType().isPlural() ? "They" : "It") + " " + (getClothingType().isPlural() ? "are" : "is") + " <b style='color: " + Colour.GENERIC_BAD.toWebHexString()
 					+ ";'>blocking</b> your " + Util.inventorySlotsToStringList(getClothingType().getIncompatibleSlots()) + "!</p>" : "")
 
-					+ (sealed ? "<p>" + (getClothingType().isPlural() ? "They" : "It") + " " + (getClothingType().isPlural() ? "are" : "is") + " <b style='color: " + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + ";'>jinxed</b> and can't be removed!</p>" : "")
+					+ (sealed
+							? "<p>" + (getClothingType().isPlural() ? "They" : "It") + " " + (getClothingType().isPlural() ? "are" : "is") + " <b style='color: " + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + ";'>jinxed</b> and can't be removed!</p>"
+							: this.getClothingType().isDiscardedOnUnequip()?"[style.boldBad(Removing your "+this.getName()+" will cause it to be discarded!)]":"")
 
 					+ (cummedIn ? "<p>" + (getClothingType().isPlural() ? "They" : "It") + " " + (getClothingType().isPlural() ? "have" : "has") + " been <b style='color: " + Colour.CUMMED.toWebHexString() + ";'>covered in sexual fluids</b>!</p>" : "")
 
@@ -452,25 +584,44 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 
 		} else { // Character is an NPC:
 
-			return UtilText.genderParsing(equippedToCharacter,
+			return UtilText.parse(equippedToCharacter,
+					(!getClothingType().getIncompatibleSlots().isEmpty()
+							? "<p>"
+									+ (getClothingType().isPlural() ? "They " : "It ")+ (getClothingType().isPlural() ? "are" : "is") + " [style.boldBad(blocking)] [npc.her] "
+									+ Util.inventorySlotsToStringList(getClothingType().getIncompatibleSlots()) + "!"
+								+ "</p>"
+							: "")
+					
+					+ (sealed
+							? "<p>"
+								+ (getClothingType().isPlural() ? "They " : "It ") + (getClothingType().isPlural() ? "are" : "is") + " [style.boldCorruption(jinxed)] and can't be removed!"
+								+ "</p>"
+							: this.getClothingType().isDiscardedOnUnequip()?"[style.boldBad(Removing [npc.name]'s "+this.getName()+" will cause it to be discarded!)]":"")
 
-					(!getClothingType().getIncompatibleSlots().isEmpty() ? "<p>" + (getClothingType().isPlural() ? "They" : "It") + " " + (getClothingType().isPlural() ? "are" : "is") + " <b style='color: " + Colour.GENERIC_BAD.toWebHexString()
-							+ ";'>blocking</b> <her> " + Util.inventorySlotsToStringList(getClothingType().getIncompatibleSlots()) + "!</p>" : "")
+					+ (cummedIn
+							? "<p>"
+									+ (getClothingType().isPlural() ? "They " : "It ") + (getClothingType().isPlural() ? "have" : "has") + " been [style.boldDirty(covered in sexual fluids)]!"
+								+ "</p>"
+							: "")
 
-							+ (sealed
-									? "<p>" + (getClothingType().isPlural() ? "They" : "It") + " " + (getClothingType().isPlural() ? "are" : "is") + " <b style='color: " + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + ";'>jinxed</b> and can't be removed!</p>"
-									: "")
+					+ (getClothingType().getFemininityMaximum() < equippedToCharacter.getFemininityValue()
+							? "<p>"
+									+ (getClothingType().isPlural() ? "They " : "It ") + (getClothingType().isPlural() ? "are" : "is") + " [style.boldMasculine(too masculine)] for [npc.herHim]."
+								+ "</p>"
+							: "")
 
-							+ (cummedIn ? "<p>" + (getClothingType().isPlural() ? "They" : "It") + " " + (getClothingType().isPlural() ? "have" : "has") + " been <b style='color: " + Colour.CUMMED.toWebHexString() + ";'>covered in sexual fluids</b>!</p>" : "")
+					+ (getClothingType().getFemininityMinimum() > equippedToCharacter.getFemininityValue()
+							? "<p>"
+									+ (getClothingType().isPlural() ? "They " : "It ") + (getClothingType().isPlural() ? "are" : "is") + " [style.boldFeminine(too feminine)] for [npc.herHim]."
+								+ "</p>"
+							: "")
 
-							+ (getClothingType().getFemininityMaximum() < equippedToCharacter.getFemininityValue()
-									? "<p>" + (getClothingType().isPlural() ? "They" : "It") + " " + (getClothingType().isPlural() ? "are" : "is") + " <b style='color: " + Colour.MASCULINE.toWebHexString() + ";'>too masculine</b> for <herPro>.</p>" : "")
-
-							+ (getClothingType().getFemininityMinimum() > equippedToCharacter.getFemininityValue()
-									? "<p>" + (getClothingType().isPlural() ? "They" : "It") + " " + (getClothingType().isPlural() ? "are" : "is") + " <b style='color: " + Colour.FEMININE.toWebHexString() + ";'>too feminine</b> for <herPro>.</p>" : "")
-
-							+ (!displacedList.isEmpty() ? "<p>" + (getClothingType().isPlural() ? "They" : "It") + " " + (getClothingType().isPlural() ? "have been" : "has been") + " <b style='color: " + Colour.FEMININE.toWebHexString() + ";'>"
-									+ Util.displacementTypesToStringList(displacedList) + "</b>!</p>" : ""));
+					+ (!displacedList.isEmpty()
+							? "<p>"
+									+ (getClothingType().isPlural() ? "They " : "It ") + (getClothingType().isPlural() ? "have been" : "has been") 
+										+ " <b style='color: " + Colour.GENERIC_BAD.toWebHexString() + ";'>"+ Util.displacementTypesToStringList(displacedList) + "</b>!"
+								+ "</p>"
+							: ""));
 		}
 	}
 	
@@ -588,12 +739,14 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 				if (bp.displacementType == dt)
 					coveredAreas.addAll(bp.blockedBodyParts);
 		}
-
-		if (owner.getVaginaType() == VaginaType.NONE)
-			coveredAreas.remove(CoverableArea.VAGINA);
-		if (owner.getPenisType() == PenisType.NONE)
-			coveredAreas.remove(CoverableArea.PENIS);
-
+		
+		if(owner!=null) {
+			if (owner.getVaginaType() == VaginaType.NONE)
+				coveredAreas.remove(CoverableArea.VAGINA);
+			if (owner.getPenisType() == PenisType.NONE)
+				coveredAreas.remove(CoverableArea.PENIS);
+		}
+		
 		if (!coveredAreas.isEmpty())
 			return preFix + Util.setToStringListCoverableArea(coveredAreas) + postFix;
 		else
@@ -620,8 +773,11 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 
 	public void setDirty(boolean cummedIn) {
 		this.cummedIn = cummedIn;
-		if(Main.game.getPlayer().getClothingCurrentlyEquipped().contains(this))
-			Main.game.getPlayer().updateInventoryListeners();
+		if(Main.game.getPlayer()!=null) {
+			if(Main.game.getPlayer().getClothingCurrentlyEquipped().contains(this)) {
+				Main.game.getPlayer().updateInventoryListeners();
+			}
+		}
 	}
 
 	public List<DisplacementType> getDisplacedList() {

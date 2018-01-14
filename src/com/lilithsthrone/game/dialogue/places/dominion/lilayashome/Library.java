@@ -1,16 +1,22 @@
 package com.lilithsthrone.game.dialogue.places.dominion.lilayashome;
 
+import java.util.List;
+
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
+import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.78
- * @version 0.1.84
+ * @version 0.1.87
  * @author Innoxia, Rfpnj
  */
 public class Library {
@@ -25,23 +31,75 @@ public class Library {
 
 		@Override
 		public String getContent() {
-			return "<p>"
+			UtilText.nodeContentSB.setLength(0);
+			List<NPC> charactersPresent = Main.game.getCharactersPresent();
+			
+			UtilText.nodeContentSB.append("<p>"
 					+ "Pushing open the heavy wooden door, you find yourself walking into Lilaya's library."
 					+ " Much like her lab, all four walls are covered in shelving; stacked full of what must be thousands of books of all shapes and sizes."
 					+ " Much of the room is taken up by free-standing book cases, although there's a little space on one side of the room, where a couple of comfortable leather-bound chairs flank an ornate fireplace."
-				+ "</p>";
+				+ "</p>");
+			
+			if(charactersPresent.isEmpty()) {
+				UtilText.nodeContentSB.append("<p>"
+							+ "The library is deserted at the moment..."
+						+ "</p>");
+			} else {
+				for(NPC slave : charactersPresent) {
+					switch(slave.getObedience()) {
+					case NEGATIVE_FIVE_REBELLIOUS: case NEGATIVE_FOUR_DEFIANT: case NEGATIVE_THREE_STRONG_INSUBORDINATE:
+						UtilText.nodeContentSB.append(UtilText.parse(slave,
+								"<p>"
+									+ "Although <b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.name]</b> is here, [npc.she]'s not even bothering to pretend that [npc.she]'s working."
+								+ "</p>"));
+						break;
+					case NEGATIVE_ONE_DISOBEDIENT:  case NEGATIVE_TWO_UNRULY:
+						UtilText.nodeContentSB.append(UtilText.parse(slave,
+								"<p>"
+									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b> appears to be half-heartedly ordering some books."
+								+ "</p>"));
+						break;
+					case ZERO_FREE_WILLED:
+						UtilText.nodeContentSB.append(UtilText.parse(slave,
+								"<p>"
+									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b> is dusting the shelves and making sure that everything is in order."
+								+ "</p>"));
+						break;
+					case POSITIVE_ONE_AGREEABLE: case POSITIVE_TWO_OBEDIENT:
+						UtilText.nodeContentSB.append(UtilText.parse(slave,
+								"<p>"
+									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b> is reorganising one of the shelves."
+								+ "</p>"));
+						break;
+					case POSITIVE_THREE_DISCIPLINED: case POSITIVE_FOUR_DUTIFUL: case POSITIVE_FIVE_SUBSERVIENT:
+						UtilText.nodeContentSB.append(UtilText.parse(slave,
+								"<p>"
+									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>[npc.Name]</b> is dutifully making a catalogue of all the books available in the library."
+								+ "</p>"));
+						break;
+					}
+				}
+			}
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
-		public Response getResponse(int main) {
-			if (main == 1) {
-				return new Response("Browse the Shelves", "Read one of the many books available in the library.", BROWSE_BOOKS) {
-				};
+		public Response getResponse(int responseTab, int index) {
+			if (index==0) {
+				return null;
+			 
+			} else if (index == 1) {
+				return new Response("Browse the Shelves", "Read one of the many books available in the library.", BROWSE_BOOKS);
 
-			} else if (main == 2) {
-				return new Response("Interact with Slaves", "Not yet implemented", null) {
+			} else if(index-2<Main.game.getCharactersPresent().size()) {
+				return new Response(UtilText.parse(Main.game.getCharactersPresent().get(index-2), "[npc.Name]"), UtilText.parse(Main.game.getCharactersPresent().get(index-2), "Interact with [npc.name]."), SlaveDialogue.SLAVE_START) {
+					@Override
+					public void effects() {
+						Main.game.setActiveNPC(Main.game.getCharactersPresent().get(index-2));
+					}
 				};
-
+					
 			} else {
 				return null;
 			}
@@ -71,7 +129,7 @@ public class Library {
 		}
 
 		@Override
-		public Response getResponse(int books) {
+		public Response getResponse(int responseTab, int books) {
 			if (books == 1) {
 				return new Response("General Knowledge", "A section of the library dedicated to books on common subjects.", LORE_BOOKS);
 
@@ -94,6 +152,9 @@ public class Library {
 //			} else if (books == 6) {
 //				return new Response("The Desert", "A section of the library dedicated to books on the area known as the Desert.", DESERT_BOOKS) {
 //				};
+
+			} else if (books == 0) {
+				return new Response("Back", "Return to the main library menu.", LIBRARY);
 
 			} else {
 				return null;
@@ -127,14 +188,14 @@ public class Library {
 
 		@Override
 
-		public Response getResponse(int lore) {
+		public Response getResponse(int responseTab, int lore) {
 			if (lore == 1) {
 				return new Response("Arcane Arousal", "A leather-bound tome that seems to offer an insight into how the arcane works.", ARCANE_AROUSAL) {
 					@Override
 					public void effects() {
-						if(!Main.game.getDialogueFlags().readBook1) {
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f));
-							Main.game.getDialogueFlags().readBook1 = true;
+						if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.readBook1)) {
+							Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f);
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.readBook1);
 						}
 					}
 				};
@@ -143,9 +204,9 @@ public class Library {
 				return new Response("Lilith's Dynasty", "A hardback book that might give some clues as to who exactly Lilith is.", LILITHS_DYNASTY) {
 					@Override
 					public void effects() {
-						if(!Main.game.getDialogueFlags().readBook2) {
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f));
-							Main.game.getDialogueFlags().readBook2 = true;
+						if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.readBook2)) {
+							Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f);
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.readBook2);
 						}
 					}
 				};
@@ -154,8 +215,8 @@ public class Library {
 				return new Response("Dominion's History", "A paperback book describing the events that led to the creation of the city you currently find yourself in.", DOMINION_HISTORY) {
 					@Override
 					public void effects() {
-						if(!Main.game.getDialogueFlags().readBook3) {
-							Main.game.getDialogueFlags().readBook3 = true;
+						if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.readBook3)) {
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.readBook3);
 						}
 					}
 				};
@@ -206,8 +267,8 @@ public class Library {
 		}
 
 		@Override
-		public Response getResponse(int lore) {
-			return LIBRARY.getResponse(lore);
+		public Response getResponse(int responseTab, int lore) {
+			return LIBRARY.getResponse(0, lore);
 		}
 		
 	};
@@ -251,8 +312,8 @@ public class Library {
 		}
 
 		@Override
-		public Response getResponse(int lore) {
-			return LIBRARY.getResponse(lore);
+		public Response getResponse(int responseTab, int lore) {
+			return LIBRARY.getResponse(0, lore);
 		}
 	};
 	
@@ -283,7 +344,7 @@ public class Library {
 					+ "<p>"
 						+ "Other than that snippet of trivia, the book doesn't contain anything useful."
 					+ "</p>"
-					+ (Main.game.getDialogueFlags().readBook3
+					+ (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.readBook3)
 							? ""
 							: "<p>"
 								+ "<b>The book is too simple to gain anything from reading it...</b>"
@@ -291,8 +352,8 @@ public class Library {
 		}
 
 		@Override
-		public Response getResponse(int lore) {
-			return LIBRARY.getResponse(lore);
+		public Response getResponse(int responseTab, int lore) {
+			return LIBRARY.getResponse(0, lore);
 		}
 	};
 	public static final DialogueNodeOld DOMINION_RACES = new DialogueNodeOld("", "", false) {
@@ -317,7 +378,7 @@ public class Library {
 		}
 
 		@Override
-		public Response getResponse(int city) {
+		public Response getResponse(int responseTab, int city) {
 			if (city == 1) {
 				return bookResponse(ItemType.BOOK_CAT_MORPH, Race.CAT_MORPH);
 
@@ -338,6 +399,9 @@ public class Library {
 
 			} else if (city == 7) {
 				return bookResponse(ItemType.BOOK_WOLF_MORPH, Race.WOLF_MORPH);
+
+			} else if (city == 8) {
+				return bookResponse(ItemType.BOOK_ALLIGATOR_MORPH, Race.ALLIGATOR_MORPH);
 
 			} else if (city == 0) {
 				return new Response("Back", "Return to browsing the shelves.", BROWSE_BOOKS);
@@ -372,12 +436,15 @@ public class Library {
 		}
 
 		@Override
-		public Response getResponse(int field) {
+		public Response getResponse(int responseTab, int field) {
 			if (field == 1) {
 				return bookResponse(ItemType.BOOK_SQUIRREL_MORPH, Race.SQUIRREL_MORPH);
 
 			} else if (field == 2) {
 				return bookResponse(ItemType.BOOK_COW_MORPH, Race.COW_MORPH);
+
+			} else if (field == 3) {
+				return bookResponse(ItemType.BOOK_REINDEER_MORPH, Race.REINDEER_MORPH);
 
 			}  else if (field == 0) {
 				return new Response("Back to the shelves", "Return to strolling the shelves.", BROWSE_BOOKS);

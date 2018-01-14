@@ -2,15 +2,13 @@ package com.lilithsthrone.game.sex.sexActions.universal.consensual;
 
 import java.util.List;
 
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
-import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.clothing.CoverableArea;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.LubricationType;
 import com.lilithsthrone.game.sex.OrificeType;
@@ -50,7 +48,7 @@ public class ConChairBottom {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isPartnerFreeMouth() && Sex.isPlayerFreeMouth();
+			return Sex.isOrificeFree(Sex.getActivePartner(), OrificeType.MOUTH_PARTNER) && Sex.isOrificeFree(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER);
 		}
 
 		@Override
@@ -154,15 +152,6 @@ public class ConChairBottom {
 			}
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_SELF));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_OTHERS));
-		}
 	};
 	
 	public static final SexAction PARTNER_PINCH_NIPPLES = new SexAction(
@@ -231,15 +220,6 @@ public class ConChairBottom {
 			return descriptionSB.toString();
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_SELF));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_OTHERS));
-		}
 	};
 	
 	public static final SexAction FINGER_PARTNER_NIPPLES = new SexAction(
@@ -266,13 +246,13 @@ public class ConChairBottom {
 			descriptionSB.append(
 					UtilText.returnStringAtRandom(
 					"Reaching down, [npc.name] circles [npc.her] fingers around your [pc.nipples+], before pushing forwards and sinking [npc.her] digits into the warm flesh of your [pc.breasts]."
-							+ " You let out [pc.a_moan+] at the sudden penetration, and as [npc.she] starts eagerly fingering your [npc.nipples], you look up at [npc.herHim] and continue moaning in pleasure.",
+							+ " You let out [pc.a_moan+] at the sudden penetration, and as [npc.she] starts eagerly fingering your [pc.nipples], you look up at [npc.herHim] and continue moaning in pleasure.",
 							
 					"[npc.Name] presses [npc.her] fingers down against your [pc.nipples+], and, with a steady pressure, [npc.she] sinks [npc.her] digits deep inside."
 							+ " You find yourself crying out and pushing your chest up into [npc.her] hands as [npc.she] starts rapidly fingering your [pc.breasts+].",
 							
 					"Your [pc.nipples+] prove to be too tempting for [npc.name] to ignore any longer."
-							+ " In one swift motion, [npc.she] brings [npc.her] [npc.hands+] down to your [npc.breasts], pushing [npc.her] digits inside as [npc.she] starts fingering your [pc.nipples+].",
+							+ " In one swift motion, [npc.she] brings [npc.her] [npc.hands+] down to your [pc.breasts], pushing [npc.her] digits inside as [npc.she] starts fingering your [pc.nipples+].",
 							
 					"Circling your [pc.nipples+] with [npc.her] fingers, [npc.name] decides to take it one step further, and, sinking [npc.her] digits into your inviting [npc.nipples],"
 							+ " [npc.she] starts fingering your [pc.breasts+], causing you to [pc.moan] and sigh in delight."));
@@ -306,15 +286,6 @@ public class ConChairBottom {
 			return descriptionSB.toString();
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_SELF));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_OTHERS));
-		}
 	};
 	
 	public static final SexAction PARTNER_KISS_NIPPLES = new SexAction(
@@ -355,7 +326,7 @@ public class ConChairBottom {
 					"You let out [pc.a_moan+] as [npc.name] presses [npc.her] mouth down over one of your [pc.nipples+]."
 							+ " As [npc.she] runs [npc.her] [npc.tongue] around your sensitive areolae, you find yourself [pc.moaning] in delight as you push your chest up against [npc.her] [npc.face]."));
 			
-			switch (Sex.getPartner().getBreastLactation()) {
+			switch (Sex.getActivePartner().getBreastLactation()) {
 				case ONE_TRICKLE:
 					descriptionSB.append(" As [npc.she] kisses and sucks on your [pc.nipples], a small trickle of [pc.milk] leaks out into [npc.her] mouth.");
 					break;
@@ -386,18 +357,9 @@ public class ConChairBottom {
 
 		@Override
 		public void applyEffects() {
-			Sex.addOrificeLubrication(OrificeType.NIPPLE_PLAYER, LubricationType.PARTNER_SALIVA);
+			Sex.addOrificeLubrication(Main.game.getPlayer(), OrificeType.NIPPLE_PLAYER, LubricationType.PARTNER_SALIVA);
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_SELF));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_OTHERS));
-		}
 	};
 	
 	public static final SexAction PARTNER_STOP_FINGER_NIPPLES = new SexAction(
@@ -448,7 +410,7 @@ public class ConChairBottom {
 					"[npc.Name] grins down at you as you [pc.moan] beneath [npc.herHim], ",
 					"You look up into [npc.name]'s [npc.eyes+] as [npc.she] speaks down to you, "));
 
-			descriptionSB.append(Sex.getPartner().getDirtyTalk(Sex.isPlayerDom()));
+			descriptionSB.append(Sex.getActivePartner().getDirtyTalk(Sex.isDom(Main.game.getPlayer())));
 			
 			return descriptionSB.toString(); 
 		}
@@ -473,7 +435,7 @@ public class ConChairBottom {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPartner().hasFetish(Fetish.FETISH_DOMINANT);
+			return Sex.getActivePartner().hasFetish(Fetish.FETISH_DOMINANT);
 		}
 
 		@Override
@@ -507,15 +469,6 @@ public class ConChairBottom {
 			return descriptionSB.toString();
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT));
-		}
 	};
 	
 	public static final SexAction PARTNER_PENETRATE = new SexAction(
@@ -537,8 +490,8 @@ public class ConChairBottom {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER)!=PenetrationType.PENIS_PLAYER
-					&& Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER)!=PenetrationType.PENIS_PLAYER;
+			return Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER)!=PenetrationType.PENIS_PLAYER
+					&& Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS_PARTNER)!=PenetrationType.PENIS_PLAYER;
 		}
 
 		@Override
@@ -547,7 +500,7 @@ public class ConChairBottom {
 			
 			descriptionSB.append("Lining the [npc.cockHead+] of [npc.her] [npc.cock] up to the entrance of your [pc.pussy+], [npc.name] starts to push forwards, letting out [npc.a_groan+] as [npc.she] penetrates your [pc.pussy+].");
 			
-			switch(Sex.getPartner().getPenisType()){
+			switch(Sex.getActivePartner().getPenisType()){
 				case CANINE:
 					descriptionSB.append(" Grinning down at you, [npc.she] starts bucking [npc.her] hips back and forth, slamming [npc.her] knot against your pussy lips as you [pc.moan] in delight, ");
 					break;
@@ -594,7 +547,7 @@ public class ConChairBottom {
 							
 					"As [npc.name] fills your [pc.pussy+] with [npc.her] [npc.cock+], you struggle to do anything other than look up at [npc.herHim] and let out a long, satisfied [pc.moan].",
 							
-					(Sex.hasFreeHandPartner()
+					(Sex.isPenetrationTypeFree(Sex.getActivePartner(), PenetrationType.FINGER_PARTNER)
 							?"[npc.Name] slides [npc.a_hand+] under your thigh, running down to grip you behind the knee before lifting your [pc.leg] up slightly as [npc.she] plunges [npc.her] [npc.cock+] in and out of your [pc.pussy+]."
 							:"[npc.Name] grins down at you as [npc.she] steadily pumps [npc.her] [npc.cock+] in and out of your [pc.pussy+]."));
 		}
@@ -619,7 +572,7 @@ public class ConChairBottom {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPartner().hasFetish(Fetish.FETISH_DOMINANT);
+			return Sex.getActivePartner().hasFetish(Fetish.FETISH_DOMINANT);
 		}
 
 		@Override
@@ -635,20 +588,11 @@ public class ConChairBottom {
 					"[npc.Name] roughly grabs your [pc.hips+], causing you to let out a startled cry as [npc.she] forcefully pulls you into [npc.her] crotch."
 								+ " You drop your [pc.hands] down for support as [npc.she] manhandles you forwards and back, repeatedly spearing your [pc.pussy+] on [npc.her] [npc.cock+].",
 							
-					(Sex.hasFreeHandPartner()
+					(Sex.isPenetrationTypeFree(Sex.getActivePartner(), PenetrationType.FINGER_PARTNER)
 							?"Reaching down, [npc.name] grabs your chin, pushing [npc.her] thumb into your mouth as [npc.she] roughly slams [npc.her] [npc.cock+] in and out of your [pc.pussy+]."
 							:"[npc.Name] grins down at you as [npc.she] starts roughly slamming [npc.her] [npc.cock+] in and out of your [pc.pussy+]."));
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT));
-		}
 	};
 	
 	public static final SexAction PARTNER_PENETRATE_ANAL = new SexAction(
@@ -670,9 +614,9 @@ public class ConChairBottom {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER)!=PenetrationType.PENIS_PLAYER
-					&& Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER)!=PenetrationType.PENIS_PLAYER
-					&& (Sex.getPartner().hasFetish(Fetish.FETISH_ANAL_GIVING) || !Main.game.getPlayer().hasVagina());
+			return Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER)!=PenetrationType.PENIS_PLAYER
+					&& Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS_PARTNER)!=PenetrationType.PENIS_PLAYER
+					&& (Sex.getActivePartner().hasFetish(Fetish.FETISH_ANAL_GIVING) || !Main.game.getPlayer().hasVagina());
 		}
 
 		@Override
@@ -681,7 +625,7 @@ public class ConChairBottom {
 			
 			descriptionSB.append("Lining the [npc.cockHead+] of [npc.her] [npc.cock] up to your [pc.ass+], [npc.name] starts to push forwards, letting out [npc.a_groan+] as [npc.she] penetrates your [pc.asshole+].");
 			
-			switch(Sex.getPartner().getPenisType()){
+			switch(Sex.getActivePartner().getPenisType()){
 				case CANINE:
 					descriptionSB.append(" Grinning down at you, [npc.she] starts bucking [npc.her] hips back and forth, slamming [npc.her] knot against your [pc.asshole] as you [pc.moan] in delight, ");
 					break;
@@ -701,15 +645,6 @@ public class ConChairBottom {
 			return descriptionSB.toString();
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING));
-		}
 	};
 	
 	public static final SexAction PARTNER_NORMAL_ANAL_FUCK = new SexAction(
@@ -738,20 +673,11 @@ public class ConChairBottom {
 							
 					"As [npc.name] fills your [pc.asshole+] with [npc.her] [npc.cock+], you struggle to do anything other than look up at [npc.herHim] and let out a long, satisfied [pc.moan].",
 							
-					(Sex.hasFreeHandPartner()
+					(Sex.isPenetrationTypeFree(Sex.getActivePartner(), PenetrationType.FINGER_PARTNER) 
 							?"[npc.Name] slides [npc.a_hand+] under your thigh, running down to grip you behind the knee before lifting your [pc.leg] up slightly as [npc.she] plunges [npc.her] [npc.cock+] in and out of your [pc.asshole+]."
 							:"[npc.Name] grins down at you as [npc.she] steadily pumps [npc.her] [npc.cock+] in and out of your [pc.asshole+]."));
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING));
-		}
 	};
 	
 	public static final SexAction PARTNER_ROUGH_ANAL_FUCK = new SexAction(
@@ -784,20 +710,11 @@ public class ConChairBottom {
 					"[npc.Name] roughly grabs your [pc.hips+], causing you to let out a startled cry as [npc.she] forcefully pulls your [pc.ass] into [npc.her] crotch."
 								+ " You drop your [pc.hands] down for support as [npc.she] manhandles you forwards and back, repeatedly spearing your [pc.asshole+] on [npc.her] [npc.cock+].",
 							
-					(Sex.hasFreeHandPartner()
+					(Sex.isPenetrationTypeFree(Sex.getActivePartner(), PenetrationType.FINGER_PARTNER)
 							?"Reaching down, [npc.name] grabs your chin, pushing [npc.her] thumb into your mouth as [npc.she] roughly slams [npc.her] [npc.cock+] in and out of your [pc.asshole+]."
 							:"[npc.Name] grins down at you as [npc.she] starts roughly slamming [npc.her] [npc.cock+] in and out of your [pc.asshole+]."));
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_ANAL_RECEIVING));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT), new ListValue<>(Fetish.FETISH_ANAL_GIVING));
-		}
 	};
 	
 	public static final SexAction PARTNER_PENETRATE_BREASTS = new SexAction(
@@ -819,9 +736,9 @@ public class ConChairBottom {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER)!=PenetrationType.PENIS_PLAYER
-					&& Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER)!=PenetrationType.PENIS_PLAYER
-					&& (Sex.getPartner().hasFetish(Fetish.FETISH_BREASTS_OTHERS) || !Main.game.getPlayer().hasVagina());
+			return Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER)!=PenetrationType.PENIS_PLAYER
+					&& Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS_PARTNER)!=PenetrationType.PENIS_PLAYER
+					&& (Sex.getActivePartner().hasFetish(Fetish.FETISH_BREASTS_OTHERS) || !Main.game.getPlayer().hasVagina());
 		}
 
 		@Override
@@ -831,15 +748,6 @@ public class ConChairBottom {
 					+ " Finally getting into a comfortable position, [npc.she] suddenly thrusts [npc.her] [npc.hips] forwards, penetrating your [pc.nipple+] and causing you to let out [pc.a_moan+] as [npc.she] starts fucking your [pc.breast].";
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_SELF));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_OTHERS));
-		}
 	};
 	
 	public static final SexAction PARTNER_NORMAL_NIPPLE_FUCK = new SexAction(
@@ -868,20 +776,11 @@ public class ConChairBottom {
 							
 					"As [npc.she] fills your [pc.nipple+] with [npc.her] [npc.cock+], [npc.name] looks down at you and lets out a gleeful [npc.moan].",
 							
-					(Sex.hasFreeHandPartner()
+					(Sex.isPenetrationTypeFree(Sex.getActivePartner(), PenetrationType.FINGER_PARTNER)
 							?"[npc.Name] slides [npc.a_hand+] down to your [pc.breast], lifting it up slightly as [npc.she] plunges [npc.her] [npc.cock+] in and out of your [pc.nipple+]."
 							:"[npc.Name] grins down at you as [npc.she] steadily pumps [npc.her] [npc.cock+] in and out of your [pc.nipple+]."));
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_SELF));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_OTHERS));
-		}
 	};
 	
 	public static final SexAction PARTNER_ROUGH_NIPPLE_FUCK = new SexAction(
@@ -917,15 +816,6 @@ public class ConChairBottom {
 							+ " Drawing back, [npc.she] then starts rapidly fucking your [pc.breast], letting out a series of [npc.moans+] as you pant and sigh beneath [npc.herHim].");
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_SELF), new ListValue<>(Fetish.FETISH_SUBMISSIVE));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_OTHERS), new ListValue<>(Fetish.FETISH_DOMINANT));
-		}
 	};
 	
 	
@@ -948,8 +838,8 @@ public class ConChairBottom {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER)!=PenetrationType.PENIS_PARTNER
-					&& Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER)!=PenetrationType.PENIS_PARTNER;
+			return Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER)!=PenetrationType.PENIS_PARTNER
+					&& Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER)!=PenetrationType.PENIS_PARTNER;
 		}
 
 		@Override
@@ -1009,7 +899,7 @@ public class ConChairBottom {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPartner().hasFetish(Fetish.FETISH_DOMINANT);
+			return Sex.getActivePartner().hasFetish(Fetish.FETISH_DOMINANT);
 		}
 
 		@Override
@@ -1017,27 +907,18 @@ public class ConChairBottom {
 			return UtilText.returnStringAtRandom(
 					(Main.game.getPlayer().hasHorns()
 						?"Reaching down, [npc.name] roughly grabs your [pc.horns+], using them for support as [npc.she] starts to rapidly bounce up and down on your [pc.cock+]."
-						:"Reaching down, [npc.name] roughly grabs your [pc.hips+], using them for support as [npc.she] starts to rapidly bounce up and down on your [npc.cock+]."),
+						:"Reaching down, [npc.name] roughly grabs your [pc.hips+], using them for support as [npc.she] starts to rapidly bounce up and down on your [pc.cock+]."),
 							
 					"Placing [npc.her] [npc.hands+] down on your [pc.breasts+], [npc.name] leans into you for support as [npc.she] starts roughly slamming [npc.her] [npc.pussy+] up and down on your [pc.cock+].",
 							
 					"Roughly grabbing your shoulders, [npc.name] lets out [npc.a_moan+] as [npc.she] starts frantically bouncing up and down in your lap,"
 							+ " repeatedly spearing [npc.her] [npc.pussy+] on your [pc.cock+] as you join your [pc.moans] with [npc.hers].",
 							
-					(Sex.hasFreeHandPartner()
+					(Sex.isPenetrationTypeFree(Sex.getActivePartner(), PenetrationType.FINGER_PARTNER)
 							?"Reaching down, [npc.name] grabs your chin, pushing [npc.her] thumb into your mouth as [npc.she] roughly bounces up and down on your [pc.cock+]."
 							:"[npc.Name] grins down at you as [npc.she] starts roughly bouncing up and down on your [pc.cock+]."));
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT));
-		}
 	};
 	
 	
@@ -1060,9 +941,9 @@ public class ConChairBottom {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER)!=PenetrationType.PENIS_PARTNER
-					&& Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER)!=PenetrationType.PENIS_PARTNER
-					&& (Sex.getPartner().hasFetish(Fetish.FETISH_ANAL_RECEIVING) || !Sex.getPartner().hasVagina());
+			return Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER)!=PenetrationType.PENIS_PARTNER
+					&& Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER)!=PenetrationType.PENIS_PARTNER
+					&& (Sex.getActivePartner().hasFetish(Fetish.FETISH_ANAL_RECEIVING) || !Sex.getActivePartner().hasVagina());
 		}
 
 		@Override
@@ -1072,15 +953,6 @@ public class ConChairBottom {
 					+ " spearing [npc.herself] on your [pc.cock+].";
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING));
-		}
 	};
 	
 	public static final SexAction PARTNER_NORMAL_ANAL_RIDE = new SexAction(
@@ -1112,15 +984,6 @@ public class ConChairBottom {
 					"With [npc.a_moan+], [npc.name] sinks down in your lap, squealing in delight as [npc.she] fills [npc.her] [npc.asshole+] with your [pc.cock+], before starting to slowly gyrate [npc.her] [npc.ass] down against your crotch.");
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING));
-		}
 	};
 	
 	public static final SexAction PARTNER_ROUGH_ANAL_RIDE = new SexAction(
@@ -1142,7 +1005,7 @@ public class ConChairBottom {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPartner().hasFetish(Fetish.FETISH_DOMINANT);
+			return Sex.getActivePartner().hasFetish(Fetish.FETISH_DOMINANT);
 		}
 
 		@Override
@@ -1150,27 +1013,18 @@ public class ConChairBottom {
 			return UtilText.returnStringAtRandom(
 					(Main.game.getPlayer().hasHorns()
 						?"Reaching down, [npc.name] roughly grabs your [pc.horns+], using them for support as [npc.she] starts to rapidly bounce up and down on your [pc.cock+]."
-						:"Reaching down, [npc.name] roughly grabs your [pc.hips+], using them for support as [npc.she] starts to rapidly bounce up and down on your [npc.cock+]."),
+						:"Reaching down, [npc.name] roughly grabs your [pc.hips+], using them for support as [npc.she] starts to rapidly bounce up and down on your [pc.cock+]."),
 							
 					"Placing [npc.her] [npc.hands+] down on your [pc.breasts+], [npc.name] leans into you for support as [npc.she] starts roughly slamming [npc.her] [npc.ass+] up and down on your [pc.cock+].",
 							
 					"Roughly grabbing your shoulders, [npc.name] lets out [npc.a_moan+] as [npc.she] starts frantically bouncing up and down in your lap,"
 							+ " repeatedly spearing [npc.her] [npc.asshole+] on your [pc.cock+] as you join your [pc.moans] with [npc.hers].",
 							
-					(Sex.hasFreeHandPartner()
+					(Sex.isPenetrationTypeFree(Sex.getActivePartner(), PenetrationType.FINGER_PARTNER)
 							?"Reaching down, [npc.name] grabs your chin, pushing [npc.her] thumb into your mouth as [npc.she] roughly bounces up and down on your [pc.cock+]."
 							:"[npc.Name] grins down at you as [npc.she] starts roughly bouncing up and down on your [pc.cock+]."));
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING), new ListValue<>(Fetish.FETISH_SUBMISSIVE));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING), new ListValue<>(Fetish.FETISH_DOMINANT));
-		}
 	};
 	
 	
@@ -1193,28 +1047,19 @@ public class ConChairBottom {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPartner().hasFetish(Fetish.FETISH_ANAL_RECEIVING);
+			return Sex.getActivePartner().hasFetish(Fetish.FETISH_ANAL_RECEIVING);
 		}
 
 		@Override
 		public String getDescription() {
 			return "Reaching down, [npc.name] suddenly grabs your [pc.tail+]."
 					+ " Guiding it around between [npc.her] [npc.legs], [npc.she] presses the tip up against [npc.her] exposed [npc.asshole], and you let out a happy cry as you realise what [npc.she] wants."
-					+ " With a determined, forceful thrust, you eagerly spear your [pc.tail] deep into [npc.her] [npc.ass], causing [npc.her] to let out [npc.a_moan+]."
-					+ (Sex.getPartner().hasPenis()
+					+ " With a determined, forceful thrust, you eagerly spear your [pc.tail] deep into [npc.her] [npc.ass], causing [npc.herHim] to let out [npc.a_moan+]."
+					+ (Sex.getActivePartner().hasPenis()
 						?" [npc.Her] [npc.moans] soon turn into a desperate gasp as you purposefully press your [pc.tail] up and start to massage and stroke [npc.her] prostate."
 						:"");
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING));
-		}
 	};
 	
 	public static final SexAction PARTNER_GET_TAIL_FUCKED = new SexAction(
@@ -1238,7 +1083,7 @@ public class ConChairBottom {
 		public String getDescription() {
 			return "Reaching down, [npc.name] suddenly grabs your [pc.tail+]."
 					+ " Guiding it up between [npc.her] [npc.legs], [npc.she] presses the tip up against [npc.her] exposed [npc.pussy], and you let out a happy cry as you realise what [npc.she] wants."
-					+ " With a determined, forceful thrust, you eagerly spear your [pc.tail] deep into [npc.her] [npc.pussy+], causing [npc.her] to let out [npc.a_moan+]."
+					+ " With a determined, forceful thrust, you eagerly spear your [pc.tail] deep into [npc.her] [npc.pussy+], causing [npc.herHim] to let out [npc.a_moan+]."
 					+ " [npc.Her] [npc.legs] shudder, and [npc.she] grips down tightly on your [pc.tail] for a moment, [npc.moaning] in pleasure as you start thrusting it in and out of [npc.her] [npc.pussy+].";
 		}
 	};
@@ -1302,7 +1147,7 @@ public class ConChairBottom {
 					"Looking up at [npc.name], you let out a little [pc.moan], ",
 					"Gazing up at [npc.name], you let out [pc.a_moan+], "));
 
-			descriptionSB.append(Sex.getPartner().getPlayerDirtyTalk(Sex.isPlayerDom()));
+			descriptionSB.append(Sex.getActivePartner().getPlayerDirtyTalk(Sex.isDom(Main.game.getPlayer())));
 			
 			return descriptionSB.toString();
 		}
@@ -1344,14 +1189,14 @@ public class ConChairBottom {
 		}
 		
 		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE));
+		public List<Fetish> getFetishes(GameCharacter character) {
+			if(character.isPlayer()) {
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE));
+			} else {
+				return null;
+			}
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT));
-		}
 	};
 	
 	public static final SexAction PLAYER_FEEL_BREASTS = new SexAction(
@@ -1373,12 +1218,12 @@ public class ConChairBottom {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPartner().hasBreasts();
+			return Sex.getActivePartner().hasBreasts();
 		}
 
 		@Override
 		public String getDescription() {
-			if(!Sex.getPartner().isCoverableAreaExposed(CoverableArea.NIPPLES)){
+			if(!Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.NIPPLES)){
 				return UtilText.returnStringAtRandom(
 						"Reaching up to [npc.name]'s chest, you start greedily groping and squeezing at [npc.her] [npc.breasts+],"
 								+ " driving the fabric of [npc.her] [npc.lowClothing(nipples)] into [npc.her] [npc.breasts] and causing [npc.herHim] to gasp and squirm under your touch.",
@@ -1405,15 +1250,6 @@ public class ConChairBottom {
 			}
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_OTHERS));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_SELF));
-		}
 	};
 	
 	public static final SexAction PLAYER_PINCH_NIPPLES = new SexAction(
@@ -1435,7 +1271,7 @@ public class ConChairBottom {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPartner().hasBreasts();
+			return Sex.getActivePartner().hasBreasts();
 		}
 
 		@Override
@@ -1455,7 +1291,7 @@ public class ConChairBottom {
 					"[npc.Name]'s [npc.breastRows] [npc.breasts+] lie fully exposed above you, and, unable to resist such a tempting opportunity,"
 							+ " you reach up and start pinching and squeezing [npc.her] [npc.nipples+], causing [npc.herHim] to cry out in pleasure."));
 			
-			switch (Sex.getPartner().getBreastLactation()) {
+			switch (Sex.getActivePartner().getBreastLactation()) {
 				case ONE_TRICKLE:
 					descriptionSB.append(" As you start pinching [npc.her] [npc.nipples], a small trickle of [npc.milk] leaks out to run down [npc.her] [npc.breasts+].");
 					break;
@@ -1484,15 +1320,6 @@ public class ConChairBottom {
 			return descriptionSB.toString();
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_OTHERS));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_SELF));
-		}
 	};
 	
 	public static final SexAction PLAYER_KISS_NIPPLES = new SexAction(
@@ -1514,7 +1341,7 @@ public class ConChairBottom {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPartner().hasBreasts();
+			return Sex.getActivePartner().hasBreasts();
 		}
 
 		@Override
@@ -1533,7 +1360,7 @@ public class ConChairBottom {
 					"[npc.Name] lets out [npc.a_moan+] as you press your mouth up against [npc.her] [npc.breasts+]."
 							+ " Running your [pc.tongue+] around [npc.her] sensitive areolae, [npc.her] [npc.moans] increase in intensity as you start kissing and nibbling on [npc.her] [npc.nipples+]."));
 			
-			switch (Sex.getPartner().getBreastLactation()) {
+			switch (Sex.getActivePartner().getBreastLactation()) {
 				case ONE_TRICKLE:
 					descriptionSB.append(" As you kiss and suck on [npc.her] [npc.nipples], a small trickle of [npc.milk] leaks out into your mouth.");
 					break;
@@ -1564,18 +1391,9 @@ public class ConChairBottom {
 
 		@Override
 		public void applyEffects() {
-			Sex.addOrificeLubrication(OrificeType.NIPPLE_PARTNER, LubricationType.PLAYER_SALIVA);
+			Sex.addOrificeLubrication(Sex.getActivePartner(), OrificeType.NIPPLE_PARTNER, LubricationType.PLAYER_SALIVA);
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_OTHERS));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_SELF));
-		}
 	};
 	
 	public static final SexAction TAIL_PLAYER_HELPS_PARTNER = new SexAction(
@@ -1598,7 +1416,7 @@ public class ConChairBottom {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Main.game.getPlayer().isTailPrehensile()
-					&& Sex.isPlayerFreeTail();
+					&& Sex.isPenetrationTypeFree(Main.game.getPlayer(), PenetrationType.TAIL_PLAYER);
 		}
 
 		@Override
@@ -1636,23 +1454,14 @@ public class ConChairBottom {
 			return UtilText.returnStringAtRandom(
 					"Grinning up at [npc.name], you force a surprised [npc.moan] out of [npc.her] mouth as you suddenly drive your [pc.tail] deep into [npc.her] [npc.ass].",
 					
-					"Winking at [npc.name], you thrust your [npc.tail+] up hard into [npc.her] [npc.asshole+], causing [npc.herHim] to let out [npc.a_moan+].",
+					"Winking at [npc.name], you thrust your [pc.tail+] up hard into [npc.her] [npc.asshole+], causing [npc.herHim] to let out [npc.a_moan+].",
 					
 					"Letting out [pc.a_moan+], you start thrusting your [pc.tail] in and out of [npc.name]'s [npc.ass],"
-							+ " quickly causing [npc.her] to join [npc.her] [npc.moans] with yours as you carry on using your [pc.tail] to fuck [npc.her] [npc.asshole].",
+							+ " quickly causing [npc.herHim] to join [npc.her] [npc.moans] with yours as you carry on using your [pc.tail] to fuck [npc.her] [npc.asshole].",
 					
 					"Smiling up at [npc.name], you force your [pc.tail+] up deep into [npc.her] [npc.ass], causing [npc.herHim] to let out [npc.a_moan+].");
 		}
 
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING));
-		}
 	};
 	
 	public static final SexAction TAIL_PLAYERFUCKING_FUN = new SexAction(
@@ -1677,10 +1486,10 @@ public class ConChairBottom {
 			return UtilText.returnStringAtRandom(
 					"Grinning up at [npc.name], you force a surprised [npc.moan] out of [npc.her] mouth as you suddenly drive your [pc.tail] deep into [npc.her] [npc.pussy+].",
 					
-					"Winking at [npc.name], you thrust your [npc.tail+] up hard into [npc.her] [npc.pussy+], causing [npc.herHim] to let out [npc.a_moan+].",
+					"Winking at [npc.name], you thrust your [pc.tail+] up hard into [npc.her] [npc.pussy+], causing [npc.herHim] to let out [npc.a_moan+].",
 					
 					"Letting out [pc.a_moan+], you start thrusting your [pc.tail] in and out of [npc.name]'s [npc.pussy],"
-							+ " quickly causing [npc.her] to join [npc.her] [npc.moans] with yours as you carry on using your [pc.tail] to fuck [npc.her] [npc.pussy+].",
+							+ " quickly causing [npc.herHim] to join [npc.her] [npc.moans] with yours as you carry on using your [pc.tail] to fuck [npc.her] [npc.pussy+].",
 					
 					"Smiling up at [npc.name], you force your [pc.tail+] up deep into [npc.her] [npc.pussy+], causing [npc.herHim] to let out [npc.a_moan+].");
 		}
@@ -1745,8 +1554,8 @@ public class ConChairBottom {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER)!=PenetrationType.PENIS_PLAYER
-					&& Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER)!=PenetrationType.PENIS_PLAYER;
+			return Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER)!=PenetrationType.PENIS_PLAYER
+					&& Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS_PARTNER)!=PenetrationType.PENIS_PLAYER;
 		}
 
 		@Override
@@ -1759,7 +1568,7 @@ public class ConChairBottom {
 					+ "Not giving [npc.herHim] any time to react, you use your [pc.legs] to pull [npc.herHim] forwards, letting out a delighted [pc.moan] as you force the [npc.cockHead+] of [npc.her] [npc.cock+] inside your [pc.pussy+].");
 			
 
-			switch(Sex.getPartner().getPenisType()){
+			switch(Sex.getActivePartner().getPenisType()){
 				case CANINE:
 					descriptionSB.append(" All too eager to respond to your request, [npc.she] starts bucking [npc.her] hips back and forth, slamming [npc.her] knot against your pussy lips as you squeal and moan in delight, "
 							+ "[pc.speech(Fuck! Yeah! Fuck me!)]");
@@ -1779,11 +1588,6 @@ public class ConChairBottom {
 			}
 			
 			return descriptionSB.toString();
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE));
 		}
 	};
 	
@@ -1806,8 +1610,8 @@ public class ConChairBottom {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PARTNER)!=PenetrationType.PENIS_PLAYER
-					&& Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PARTNER)!=PenetrationType.PENIS_PLAYER;
+			return Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER)!=PenetrationType.PENIS_PLAYER
+					&& Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS_PARTNER)!=PenetrationType.PENIS_PLAYER;
 		}
 
 		@Override
@@ -1821,7 +1625,7 @@ public class ConChairBottom {
 					+ " forcing the [npc.cockHead+] of [npc.her] [npc.cock+] inside your [pc.asshole+].");
 			
 
-			switch(Sex.getPartner().getPenisType()){
+			switch(Sex.getActivePartner().getPenisType()){
 				case CANINE:
 					descriptionSB.append(" All too eager to respond to your request, [npc.she] starts bucking [npc.her] hips back and forth, slamming [npc.her] knot against your [pc.ass] as you squeal and moan in delight, "
 							+ "[pc.speech(Fuck! Yeah! Fuck me!)]");
@@ -1843,15 +1647,6 @@ public class ConChairBottom {
 			return descriptionSB.toString();
 		}
 
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE), new ListValue<>(Fetish.FETISH_ANAL_GIVING));
-		}
 	};
 	
 	public static final SexAction PLAYER_STARTS_PARTNER_RIDE = new SexAction(
@@ -1873,8 +1668,8 @@ public class ConChairBottom {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPenetrationTypeInOrifice(OrificeType.VAGINA_PLAYER)!=PenetrationType.PENIS_PARTNER
-					&& Sex.getPenetrationTypeInOrifice(OrificeType.ANUS_PLAYER)!=PenetrationType.PENIS_PARTNER;
+			return Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER)!=PenetrationType.PENIS_PARTNER
+					&& Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER)!=PenetrationType.PENIS_PARTNER;
 		}
 
 		@Override
@@ -1908,15 +1703,6 @@ public class ConChairBottom {
 			return descriptionSB.toString();
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE));
-		}
 	};
 	
 	public static final SexAction PLAYER_LOCKS_PARTNER = new SexAction(
@@ -1947,11 +1733,6 @@ public class ConChairBottom {
 					"You wrap your [pc.legs] around [npc.name], pulling [npc.herHim] playfully forwards as you force [npc.herHim] to sink [npc.her] [npc.cock+] deep into your hungry [pc.pussy].",
 					
 					"You wrap your [pc.legs+] around [npc.name]'s lower back, before slowly, but firmly, pulling [npc.herHim] forwards, forcing [npc.herHim] to bury [npc.her] [npc.cock+] deep in your [pc.pussy+].");
-		}
-
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE));
 		}
 	};
 	
@@ -2044,15 +1825,6 @@ public class ConChairBottom {
 					"With [pc.a_moan+], you start violently bouncing [npc.name] up and down in your lap, roughly slamming your [pc.cock+] in and out of [npc.her] [npc.pussy+] as you grin up at [npc.herHim].");
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_SUBMISSIVE));
-		}
 	};
 	
 	public static final SexAction PLAYER_ANAL_BOUNCES = new SexAction(
@@ -2084,15 +1856,6 @@ public class ConChairBottom {
 					"With a little [pc.moan], you start bouncing [npc.name] up and down in your lap, filling [npc.her] [npc.asshole+] with your [pc.cock+] as you smile up at [npc.herHim].");
 		}
 		
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING));
-		}
 	};
 	
 	public static final SexAction PLAYER_ROUGH_ANAL_BOUNCES = new SexAction(
@@ -2124,15 +1887,6 @@ public class ConChairBottom {
 					"With [pc.a_moan+], you start violently bouncing [npc.name] up and down in your lap, roughly slamming your [pc.cock+] in and out of [npc.her] [npc.asshole+] as you grin up at [npc.herHim].");
 		}
 
-		@Override
-		public List<Fetish> getFetishesPlayer() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_GIVING), new ListValue<>(Fetish.FETISH_DOMINANT));
-		}
-		
-		@Override
-		public List<Fetish> getFetishesPartner() {
-			return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_ANAL_RECEIVING), new ListValue<>(Fetish.FETISH_SUBMISSIVE));
-		}
 	};
 	
 	public static final SexAction PLAYER_BUCKS_BACK = new SexAction(
@@ -2197,51 +1951,7 @@ public class ConChairBottom {
 	
 
 	
-	public static final SexAction PLAYER_GET_PARTNER_TO_GROW_PENIS = new SexAction(
-			SexActionType.PLAYER,
-			ArousalIncrease.ONE_MINIMUM,
-			ArousalIncrease.TWO_LOW,
-			CorruptionLevel.ONE_VANILLA,
-			null,
-			null) {
-		@Override
-		public String getActionTitle() {
-			return "Grow cock";
-		}
-
-		@Override
-		public String getActionDescription() {
-			return "Get [npc.name] to grow a demonic cock.";
-		}
-
-		@Override
-		public boolean isBaseRequirementsMet() {
-			return Sex.getPartner().getRace()==Race.DEMON
-					&& !Sex.getPartner().hasPenis();
-		}
-
-		@Override
-		public String getDescription() {
-			return "You decide that you'd like [npc.name] to use [npc.her] transformative powers to grow a nice thick demonic cock for you."
-					+ " Grinning down at [npc.herHim], you tell [npc.herHim] as much, [pc.speech(Why don't you grow a nice big cock, so we can have even more fun!)]"
-					+ "</br></br>"
-					+(Sex.getPartner().isCoverableAreaExposed(CoverableArea.PENIS)
-						?"[npc.Name] lets out a little giggle, and as you look down at [npc.her] naked groin, you see a large bump start to form beneath [npc.her] [npc.skin]."
-								+ " Before you have any time to change your mind, it quickly grows out into a fat demonic cock, and as you stare down at the little wriggling bumps that press out all along its shaft,"
-								+ " a little spurt of precum shoots out onto your stomach."
-						:"[npc.Name] lets out a little giggle, and as you look down at [npc.her] groin, you see a huge bulge quickly form beneath the fabric of [npc.her] "
-								+Sex.getPartner().getHighestZLayerCoverableArea(CoverableArea.VAGINA).getName()+"."
-								+ " Before you have any time to change your mind, [npc.name] lets out [npc.a_moan+], and you realise that [npc.she]'s now got a huge demonic cock hiding beneath [npc.her] clothing.");
-		}
-
-		@Override
-		public void applyEffects() {
-			Sex.getPartner().setPenisType(PenisType.DEMON_COMMON);
-			Sex.getPartner().setCumProduction(CumProduction.FIVE_HUGE.getMedianValue());
-			Sex.getPartner().setTesticleSize(0);
-			Sex.getPartner().setPenisSize(PenisSize.FIVE_ENORMOUS.getMedianValue());
-		}
-	};
+	
 	
 	public static final SexAction PLAYER_STOP_PENETRATION = new SexAction(
 			SexActionType.PLAYER_STOP_PENETRATION,
@@ -2285,7 +1995,7 @@ public class ConChairBottom {
 
 		@Override
 		public String getDescription() {
-			return "You push [npc.name] back, forcing [npc.her] [npc.cock+] to slide out of your [npc.asshole+], and ignoring the disappointed whine that [npc.she] makes.";
+			return "You push [npc.name] back, forcing [npc.her] [npc.cock+] to slide out of your [pc.asshole+], and ignoring the disappointed whine that [npc.she] makes.";
 		}
 	};
 	
@@ -2308,7 +2018,7 @@ public class ConChairBottom {
 
 		@Override
 		public String getDescription() {
-			return "You push [npc.name] back, forcing [npc.her] [npc.cock+] to slide out of your [npc.nipple+], and ignoring the disappointed whine that [npc.she] makes.";
+			return "You push [npc.name] back, forcing [npc.her] [npc.cock+] to slide out of your [pc.nipple+], and ignoring the disappointed whine that [npc.she] makes.";
 		}
 	};
 	

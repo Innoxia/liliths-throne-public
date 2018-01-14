@@ -17,9 +17,9 @@ import com.lilithsthrone.utils.Util;
 public class Eye implements BodyPartInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private EyeType type;
-	private int eyePairs;
-	private EyeShape irisShape, pupilShape;
+	protected EyeType type;
+	protected int eyePairs;
+	protected EyeShape irisShape, pupilShape;
 	
 	public Eye(EyeType type) {
 		this.type = type;
@@ -181,6 +181,19 @@ public class Eye implements BodyPartInterface, Serializable {
 								+ "[npc.Name] now has [style.boldSquirrelMorph(squirrel-like eyes)]");
 				}
 				break;
+			case ALLIGATOR_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" By the time you hesitantly open them again, they've changed into alligator-like eyes, with larger-than-average pupils and small irises."
+								+ "</br>"
+								+ "You now have [style.boldGatorMorph(alligator-like eyes)]");
+				} else {
+					UtilText.transformationContentSB.append(
+								" By the time [npc.she] hesitantly opens them again, they've changed into alligator-like eyes, with larger-than-average pupils and small irises."
+								+ "</br>"
+								+ "[npc.Name] now has [style.boldGatorMorph(alligator-like eyes)]");
+				}
+				break;
 			case HORSE_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
@@ -192,6 +205,19 @@ public class Eye implements BodyPartInterface, Serializable {
 								" By the time [npc.she] hesitantly opens them again, they've changed into horse-like eyes, with larger-than-average pupils and irises."
 								+ "</br>"
 								+ "[npc.Name] now has [style.boldHorseMorph(horse-like eyes)]");
+				}
+				break;
+			case REINDEER_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" By the time you hesitantly open them again, they've changed into reindeer-like eyes, with larger-than-average pupils and irises."
+								+ "</br>"
+								+ "You now have [style.boldReindeerMorph(reindeer-like eyes)]");
+				} else {
+					UtilText.transformationContentSB.append(
+								" By the time [npc.she] hesitantly opens them again, they've changed into reindeer-like eyes, with larger-than-average pupils and irises."
+								+ "</br>"
+								+ "[npc.Name] now has [style.boldReindeerMorph(reindeer-like eyes)]");
 				}
 				break;
 			case HARPY:

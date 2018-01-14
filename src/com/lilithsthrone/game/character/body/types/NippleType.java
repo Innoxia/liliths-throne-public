@@ -32,7 +32,11 @@ public enum NippleType implements BodyPartTypeInterface {
 	
 	SQUIRREL_MORPH(BodyCoveringType.NIPPLES, Race.SQUIRREL_MORPH),
 	
+	ALLIGATOR_MORPH(BodyCoveringType.NIPPLES, Race.ALLIGATOR_MORPH),
+	
 	HORSE_MORPH(BodyCoveringType.NIPPLES, Race.HORSE_MORPH),
+	
+	REINDEER_MORPH(BodyCoveringType.NIPPLES, Race.REINDEER_MORPH),
 	
 	HARPY(BodyCoveringType.NIPPLES, Race.HARPY),
 
@@ -68,16 +72,24 @@ public enum NippleType implements BodyPartTypeInterface {
 
 	@Override
 	public String getNameSingular(GameCharacter gc) {
-		String name[] = new String[] {"nipple", "teat"};
-		
-		return name[Util.random.nextInt(name.length)];
+		if(gc.hasBreasts()) {
+			String name[] = new String[] {"nipple", "teat"};
+			return name[Util.random.nextInt(name.length)];
+			
+		} else {
+			return "nipple";
+		}
 	}
 	
 	@Override
 	public String getNamePlural(GameCharacter gc) {
-		String name[] = new String[] {"nipples", "teats" };
-		
-		return name[Util.random.nextInt(name.length)];
+		if(gc.hasBreasts()) {
+			String name[] = new String[] {"nipples", "teats"};
+			return name[Util.random.nextInt(name.length)];
+			
+		} else {
+			return "nipples";
+		}
 	}
 	
 	@Override

@@ -1,8 +1,10 @@
 package com.lilithsthrone.game.dialogue.story;
 
 import java.io.File;
+
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.CharacterUtils;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.History;
 import com.lilithsthrone.game.character.Name;
 import com.lilithsthrone.game.character.NameTriplet;
@@ -10,8 +12,10 @@ import com.lilithsthrone.game.character.Personality;
 import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.QuestType;
 import com.lilithsthrone.game.character.SexualOrientation;
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
@@ -29,10 +33,9 @@ import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.inventory.enchanting.TFEssence;
-import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.OrificeType;
@@ -43,12 +46,11 @@ import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.GenericPlace;
-import com.lilithsthrone.world.places.Jungle;
-import com.lilithsthrone.world.places.LilayasHome;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.1.86
+ * @version 0.1.87
  * @author Innoxia
  */
 public class CharacterCreation {
@@ -62,7 +64,7 @@ public class CharacterCreation {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Agree", "You agree that you are the legal age to view pornographic material, and consent to being exposed to graphic content.", ALPHA_MESSAGE);
 			} else {
@@ -76,7 +78,7 @@ public class CharacterCreation {
 		
 		@Override
 		public String getLabel() {
-			return "Version " + Main.VERSION_NUMBER + " | <b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Very-early Alpha!</b>";
+			return "Version " + Main.VERSION_NUMBER + " | <b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Early Alpha!</b>";
 		}
 		
 		@Override
@@ -86,7 +88,7 @@ public class CharacterCreation {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Continue to the next screen.", CONTENT_PREFERENCES);
 				
@@ -116,7 +118,7 @@ public class CharacterCreation {
 		}
 
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Start", "Proceed to character creation.", CHOOSE_APPEARANCE){
 					@Override
@@ -137,7 +139,12 @@ public class CharacterCreation {
 				};
 				
 			} else if (index == 2) {
-				return new Response("Start (Import)", "Import a character from a previous version to use on game start.", IMPORT_CHOOSE);
+				return new Response("Start (Import)", "Import a character from a previous version to use on game start.", IMPORT_CHOOSE) {
+					@Override
+					public void effects() {
+						Main.game.getPlayerCell().resetInventory();
+					}
+				};
 				
 			} else {
 				return null;
@@ -147,11 +154,41 @@ public class CharacterCreation {
 	
 	public static void resetBodyAppearance() {
 		Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
+		Main.game.getLilaya().setSkinCovering(new Covering(BodyCoveringType.HUMAN, Main.game.getPlayer().getCovering(BodyCoveringType.HUMAN).getPrimaryColour()), true);
 		Main.game.getPlayer().setSkinCovering(new Covering(BodyCoveringType.EYE_HUMAN, Colour.EYE_BROWN), true);
 		Main.game.getPlayer().setHairCovering(new Covering(BodyCoveringType.HAIR_HUMAN, Colour.COVERING_BROWN), true);
 		Main.game.getPlayer().setBreastShape(BreastShape.ROUND);
 		Main.game.getPlayer().setVaginaLabiaSize(LabiaSize.TWO_AVERAGE.getValue());
 		Main.game.getPlayer().setPersonality(Personality.EARTH_CALM);
+
+		Main.game.getPlayer().setFacialHair(BodyHair.ZERO_NONE);
+		switch(Main.game.getPlayer().getFemininity()) {
+			case MASCULINE_STRONG:
+				Main.game.getPlayer().setUnderarmHair(BodyHair.FOUR_NATURAL);
+				Main.game.getPlayer().setAssHair(BodyHair.FOUR_NATURAL);
+				Main.game.getPlayer().setPubicHair(BodyHair.FOUR_NATURAL);
+				break;
+			case MASCULINE:
+				Main.game.getPlayer().setUnderarmHair(BodyHair.FOUR_NATURAL);
+				Main.game.getPlayer().setAssHair(BodyHair.FOUR_NATURAL);
+				Main.game.getPlayer().setPubicHair(BodyHair.FOUR_NATURAL);
+				break;
+			case ANDROGYNOUS:
+				Main.game.getPlayer().setUnderarmHair(BodyHair.ZERO_NONE);
+				Main.game.getPlayer().setAssHair(BodyHair.TWO_MANICURED);
+				Main.game.getPlayer().setPubicHair(BodyHair.FOUR_NATURAL);
+				break;
+			case FEMININE:
+				Main.game.getPlayer().setUnderarmHair(BodyHair.ZERO_NONE);
+				Main.game.getPlayer().setAssHair(BodyHair.TWO_MANICURED);
+				Main.game.getPlayer().setPubicHair(BodyHair.THREE_TRIMMED);
+				break;
+			case FEMININE_STRONG:
+				Main.game.getPlayer().setUnderarmHair(BodyHair.ZERO_NONE);
+				Main.game.getPlayer().setAssHair(BodyHair.ZERO_NONE);
+				Main.game.getPlayer().setPubicHair(BodyHair.ZERO_NONE);
+				break;
+		}
 	}
 	
 	public static void setGenderFemale() {
@@ -200,259 +237,316 @@ public class CharacterCreation {
 		CharacterCreation.resetBodyAppearance();
 	}
 	
-	public static void getDressed() {
-		Main.game.getPlayer().resetInventory();
-		Main.game.getPlayerCell().resetInventory();
-
-		
+	private static void equipPiercings() {
 		Colour colour1 = Main.game.getPlayer().isFeminine()?Colour.CLOTHING_GOLD:Colour.CLOTHING_BLACK_STEEL;
 		Colour colour2 = Main.game.getPlayer().isFeminine()?Colour.CLOTHING_ROSE_GOLD:Colour.CLOTHING_SILVER;
 		
+		// Ear piercings:
 		if(Main.game.getPlayer().isPiercedEar()) {
 			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, colour1, false), true, Main.game.getPlayer());
-		}
-		if(Main.game.getPlayer().isPiercedLip()) {
-			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_LIP_RINGS, colour1, false), true, Main.game.getPlayer());
-		}
-		if(Main.game.getPlayer().isPiercedNavel() && Main.game.getPlayer().isFeminine()) {
-			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NAVEL_GEM, colour2, false), true, Main.game.getPlayer());
-		}
-		if(Main.game.getPlayer().isPiercedNipple()) {
-			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NIPPLE_BARS, colour2, false), true, Main.game.getPlayer());
-		}
-		if(Main.game.getPlayer().isPiercedNose()) {
-			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NOSE_BASIC_RING, colour1, false), true, Main.game.getPlayer());
-		}
-		if(Main.game.getPlayer().hasPenis() && Main.game.getPlayer().isPiercedPenis()) {
-			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_PENIS_RING, colour2, false), true, Main.game.getPlayer());
-		}
-		if(Main.game.getPlayer().isPiercedTongue()) {
-			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_TONGUE_BAR, colour1, false), true, Main.game.getPlayer());
-		}
-		if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isPiercedVagina()) {
-			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_VAGINA_BARBELL_RING, colour2, false), true, Main.game.getPlayer());
+			
+		} else if(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_EAR)!=null){
+			Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_EAR), true, Main.game.getPlayer());
 		}
 		
-		switch(Main.game.getPlayer().getFemininity()) {
+		// Lip piercings:
+		if(Main.game.getPlayer().isPiercedLip()) {
+			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_LIP_RINGS, colour1, false), true, Main.game.getPlayer());
+			
+		} else if(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_LIP)!=null){
+			Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_LIP), true, Main.game.getPlayer());
+		}
+		
+		// Navel piercings:
+		if(Main.game.getPlayer().isPiercedNavel() && Main.game.getPlayer().isFeminine()) {
+			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NAVEL_GEM, colour2, false), true, Main.game.getPlayer());
+			
+		} else if(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_STOMACH)!=null){
+			Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_STOMACH), true, Main.game.getPlayer());
+		}
+
+		// Nipples piercings:
+		if(Main.game.getPlayer().isPiercedNipple()) {
+			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NIPPLE_BARS, colour2, false), true, Main.game.getPlayer());
+			
+		} else if(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_NIPPLE)!=null){
+			Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_NIPPLE), true, Main.game.getPlayer());
+		}
+
+		// Nose piercings:
+		if(Main.game.getPlayer().isPiercedNose()) {
+			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_NOSE_BASIC_RING, colour1, false), true, Main.game.getPlayer());
+			
+		} else if(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_NOSE)!=null){
+			Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_NOSE), true, Main.game.getPlayer());
+		}
+
+		// Penis piercings:
+		if(Main.game.getPlayer().hasPenis() && Main.game.getPlayer().isPiercedPenis()) {
+			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_PENIS_RING, colour2, false), true, Main.game.getPlayer());
+			
+		} else if(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_PENIS)!=null){
+			Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_PENIS), true, Main.game.getPlayer());
+		}
+
+		// Tongue piercings:
+		if(Main.game.getPlayer().isPiercedTongue()) {
+			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_TONGUE_BAR, colour1, false), true, Main.game.getPlayer());
+			
+		} else if(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_TONGUE)!=null){
+			Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_TONGUE), true, Main.game.getPlayer());
+		}
+
+		// Vagina piercings:
+		if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isPiercedVagina()) {
+			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_VAGINA_BARBELL_RING, colour2, false), true, Main.game.getPlayer());
+			
+		} else if(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_VAGINA)!=null){
+			Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(InventorySlot.PIERCING_VAGINA), true, Main.game.getPlayer());
+		}
+	}
+	
+	public static void getDressed() {
+		getDressed(Main.game.getPlayer(), true);
+	}
+	
+	public static void getDressed(GameCharacter character, boolean spawnClothingOnFloor) {
+		character.resetInventory();
+		Main.game.getPlayerCell().resetInventory();
+		
+		equipPiercings();
+		
+		switch(character.getFemininity()) {
 			case MASCULINE_STRONG:
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BRIEFS, Colour.CLOTHING_WHITE, false), true, Main.game.getPlayer());
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OXFORD_SHIRT, Colour.CLOTHING_WHITE, false), true, Main.game.getPlayer());
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_TIE, Colour.CLOTHING_RED, false), true, Main.game.getPlayer());
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_SUIT_JACKET, Colour.CLOTHING_BLACK, false), true, Main.game.getPlayer());
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_TROUSERS, Colour.CLOTHING_BLACK, false), true, Main.game.getPlayer());
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_BLACK, false), true, Main.game.getPlayer());
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_MENS_SMART_SHOES, Colour.CLOTHING_BLACK, false), true, Main.game.getPlayer());
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_MENS_WATCH, Colour.CLOTHING_GOLD, false), true, Main.game.getPlayer());
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BRIEFS, Colour.CLOTHING_WHITE, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OXFORD_SHIRT, Colour.CLOTHING_WHITE, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_TIE, Colour.CLOTHING_RED, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_SUIT_JACKET, Colour.CLOTHING_BLACK, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_TROUSERS, Colour.CLOTHING_BLACK, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_BLACK, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_MENS_SMART_SHOES, Colour.CLOTHING_BLACK, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_MENS_WATCH, Colour.CLOTHING_GOLD, false), true, character);
 				
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.FOOT_TRAINERS, Colour.CLOTHING_BLUE, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.FOOT_WORK_BOOTS, Colour.CLOTHING_TAN, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_WHITE, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.LEG_CARGO_TROUSERS, Colour.CLOTHING_BLACK, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.LEG_JEANS, Colour.CLOTHING_BLUE, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.GROIN_BOXERS, Colour.CLOTHING_BLACK, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.EYES_AVIATORS, Colour.CLOTHING_BLACK_STEEL, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.HAND_GLOVES, Colour.CLOTHING_BLACK, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.HEAD_CAP, Colour.CLOTHING_BLUE, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.NECK_SCARF, Colour.CLOTHING_BLACK, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_HOODIE, Colour.CLOTHING_BLACK, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_RIBBED_SWEATER, Colour.CLOTHING_GREY, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_WHITE, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_TSHIRT, Colour.CLOTHING_BLUE_LIGHT, false));
-				
+				if(spawnClothingOnFloor) {
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.FOOT_TRAINERS, Colour.CLOTHING_BLUE, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.FOOT_WORK_BOOTS, Colour.CLOTHING_TAN, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.FOOT_LOW_TOP_SKATER_SHOES, Colour.CLOTHING_RED, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_WHITE, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.LEG_CARGO_TROUSERS, Colour.CLOTHING_BLACK, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.LEG_JEANS, Colour.CLOTHING_BLUE, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.GROIN_BOXERS, Colour.CLOTHING_BLACK, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.EYES_AVIATORS, Colour.CLOTHING_BLACK_STEEL, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.HAND_GLOVES, Colour.CLOTHING_BLACK, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.HEAD_CAP, Colour.CLOTHING_BLUE, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.NECK_SCARF, Colour.CLOTHING_BLACK, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_HOODIE, Colour.CLOTHING_BLACK, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_RIBBED_SWEATER, Colour.CLOTHING_GREY, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_WHITE, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_TSHIRT, Colour.CLOTHING_BLUE_LIGHT, false));
+				}
 				break;
 				
 			case MASCULINE:
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BOXERS, Colour.CLOTHING_BLACK, false), true, Main.game.getPlayer());
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_WHITE, false), true, Main.game.getPlayer());
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_TROUSERS, Colour.CLOTHING_BLACK, false), true, Main.game.getPlayer());
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_BLACK, false), true, Main.game.getPlayer());
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_MENS_SMART_SHOES, Colour.CLOTHING_BLACK, false), true, Main.game.getPlayer());
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_MENS_WATCH, Colour.CLOTHING_SILVER, false), true, Main.game.getPlayer());
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BOXERS, Colour.CLOTHING_BLACK, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_WHITE, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_TROUSERS, Colour.CLOTHING_BLACK, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_BLACK, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_MENS_SMART_SHOES, Colour.CLOTHING_BLACK, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_MENS_WATCH, Colour.CLOTHING_SILVER, false), true, character);
 
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.GROIN_BRIEFS, Colour.CLOTHING_WHITE, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_OXFORD_SHIRT, Colour.CLOTHING_WHITE, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.NECK_TIE, Colour.CLOTHING_RED, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_SUIT_JACKET, Colour.CLOTHING_BLACK, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.FOOT_TRAINERS, Colour.CLOTHING_BLUE, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.FOOT_WORK_BOOTS, Colour.CLOTHING_TAN, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_WHITE, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.LEG_CARGO_TROUSERS, Colour.CLOTHING_BLACK, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.LEG_JEANS, Colour.CLOTHING_BLUE, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.EYES_AVIATORS, Colour.CLOTHING_BLACK_STEEL, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.HAND_GLOVES, Colour.CLOTHING_BLACK, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.HEAD_CAP, Colour.CLOTHING_BLUE, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.NECK_SCARF, Colour.CLOTHING_BLACK, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_HOODIE, Colour.CLOTHING_BLACK, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_RIBBED_SWEATER, Colour.CLOTHING_GREY, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_TSHIRT, Colour.CLOTHING_BLUE_LIGHT, false));
+				if(spawnClothingOnFloor) {
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.GROIN_BRIEFS, Colour.CLOTHING_WHITE, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_OXFORD_SHIRT, Colour.CLOTHING_WHITE, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.NECK_TIE, Colour.CLOTHING_RED, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_SUIT_JACKET, Colour.CLOTHING_BLACK, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.FOOT_TRAINERS, Colour.CLOTHING_BLUE, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.FOOT_WORK_BOOTS, Colour.CLOTHING_TAN, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.FOOT_LOW_TOP_SKATER_SHOES, Colour.CLOTHING_RED, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_WHITE, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.LEG_CARGO_TROUSERS, Colour.CLOTHING_BLACK, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.LEG_JEANS, Colour.CLOTHING_BLUE, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.EYES_AVIATORS, Colour.CLOTHING_BLACK_STEEL, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.HAND_GLOVES, Colour.CLOTHING_BLACK, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.HEAD_CAP, Colour.CLOTHING_BLUE, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.NECK_SCARF, Colour.CLOTHING_BLACK, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_HOODIE, Colour.CLOTHING_BLACK, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_RIBBED_SWEATER, Colour.CLOTHING_GREY, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_TSHIRT, Colour.CLOTHING_BLUE_LIGHT, false));
+				}
 				break;
 				
 			case ANDROGYNOUS:
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false), true, Main.game.getPlayer());
-				if(Main.game.getPlayer().getBreastRawSizeValue()!=0) {
-					Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_CROPTOP_BRA, Colour.CLOTHING_WHITE, false), true, Main.game.getPlayer());
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false), true, character);
+				if(character.getBreastRawSizeValue()!=0) {
+					character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_CROPTOP_BRA, Colour.CLOTHING_WHITE, false), true, character);
 				} else {
 					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.CHEST_CROPTOP_BRA, Colour.CLOTHING_WHITE, false));
 				}
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_WHITE, false), true, Main.game.getPlayer());
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_JEANS, Colour.CLOTHING_BLUE, false), true, Main.game.getPlayer());
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_WHITE, false), true, Main.game.getPlayer());
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_LOW_TOP_SKATER_SHOES, Colour.CLOTHING_RED, false), true, Main.game.getPlayer());
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_WHITE, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_JEANS, Colour.CLOTHING_BLUE, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_WHITE, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_LOW_TOP_SKATER_SHOES, Colour.CLOTHING_RED, false), true, character);
 				
-				
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.FOOT_TRAINERS, Colour.CLOTHING_PURPLE, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false));
-				
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.GROIN_THONG, Colour.CLOTHING_BLACK, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.GROIN_LACY_PANTIES, Colour.CLOTHING_RED, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.GROIN_BRIEFS, Colour.CLOTHING_WHITE, false));
-
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.CHEST_LACY_PLUNGE_BRA, Colour.CLOTHING_RED, false));
-
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.SOCK_KNEEHIGH_SOCKS, Colour.CLOTHING_WHITE, false));
-
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.LEG_CARGO_TROUSERS, Colour.CLOTHING_BLACK, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.LEG_TROUSERS, Colour.CLOTHING_BLACK, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.LEG_SKIRT, Colour.CLOTHING_BLACK, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.LEG_YOGA_PANTS, Colour.CLOTHING_PINK_LIGHT, false));
-
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.NECK_SCARF, Colour.CLOTHING_RED, false));
-				
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.HEAD_CAP, Colour.CLOTHING_BLUE, false));
-				
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.STOMACH_UNDERBUST_CORSET, Colour.CLOTHING_BLACK, false));
-
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_TSHIRT, Colour.CLOTHING_BLUE_LIGHT, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_BLOUSE, Colour.CLOTHING_BLUE_LIGHT, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, Colour.CLOTHING_GREEN, false));
-				
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_HOODIE, Colour.CLOTHING_PINK_LIGHT, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_OPEN_CARDIGAN, Colour.CLOTHING_BLACK, false));
-
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.FINGER_RING, Colour.CLOTHING_SILVER, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.NECK_HEART_NECKLACE, Colour.CLOTHING_SILVER, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WRIST_BANGLE, Colour.CLOTHING_SILVER, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.ANKLE_BRACELET, Colour.CLOTHING_SILVER, false));
+				if(spawnClothingOnFloor) {
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.FOOT_TRAINERS, Colour.CLOTHING_PURPLE, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false));
+					
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.GROIN_THONG, Colour.CLOTHING_BLACK, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.GROIN_LACY_PANTIES, Colour.CLOTHING_RED, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.GROIN_BRIEFS, Colour.CLOTHING_WHITE, false));
+	
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.CHEST_LACY_PLUNGE_BRA, Colour.CLOTHING_RED, false));
+	
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.SOCK_KNEEHIGH_SOCKS, Colour.CLOTHING_WHITE, false));
+	
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.LEG_CARGO_TROUSERS, Colour.CLOTHING_BLACK, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.LEG_TROUSERS, Colour.CLOTHING_BLACK, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.LEG_SKIRT, Colour.CLOTHING_BLACK, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.LEG_YOGA_PANTS, Colour.CLOTHING_PINK_LIGHT, false));
+	
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.NECK_SCARF, Colour.CLOTHING_RED, false));
+					
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.HEAD_CAP, Colour.CLOTHING_BLUE, false));
+					
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.STOMACH_UNDERBUST_CORSET, Colour.CLOTHING_BLACK, false));
+	
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_TSHIRT, Colour.CLOTHING_BLUE_LIGHT, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_BLOUSE, Colour.CLOTHING_BLUE_LIGHT, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, Colour.CLOTHING_GREEN, false));
+					
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_HOODIE, Colour.CLOTHING_PINK_LIGHT, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_OPEN_CARDIGAN, Colour.CLOTHING_BLACK, false));
+	
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.FINGER_RING, Colour.CLOTHING_SILVER, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.NECK_HEART_NECKLACE, Colour.CLOTHING_SILVER, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WRIST_BANGLE, Colour.CLOTHING_SILVER, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.ANKLE_BRACELET, Colour.CLOTHING_SILVER, false));
+				}
 				break;
 				
 			case FEMININE:
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false), true, Main.game.getPlayer());
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_PLUNGE_BRA, Colour.CLOTHING_WHITE, false), true, Main.game.getPlayer());
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SKATER_DRESS, Colour.CLOTHING_BLACK, false), true, Main.game.getPlayer());
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_TRAINER_SOCKS, Colour.CLOTHING_WHITE, false), true, Main.game.getPlayer());
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false), true, Main.game.getPlayer());
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_WOMENS_WATCH, Colour.BASE_PINK_LIGHT, false), true, Main.game.getPlayer());
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FINGER_RING, Colour.CLOTHING_SILVER, false), true, Main.game.getPlayer());
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_HEART_NECKLACE, Colour.CLOTHING_SILVER, false), true, Main.game.getPlayer());
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_PLUNGE_BRA, Colour.CLOTHING_WHITE, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SKATER_DRESS, Colour.CLOTHING_BLACK, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_TRAINER_SOCKS, Colour.CLOTHING_WHITE, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_WOMENS_WATCH, Colour.BASE_PINK_LIGHT, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FINGER_RING, Colour.CLOTHING_SILVER, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_HEART_NECKLACE, Colour.CLOTHING_SILVER, false), true, character);
 
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.GROIN_THONG, Colour.CLOTHING_BLACK, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.GROIN_LACY_PANTIES, Colour.CLOTHING_RED, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.GROIN_VSTRING, Colour.CLOTHING_BLACK, false));
-
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.CHEST_LACY_PLUNGE_BRA, Colour.CLOTHING_RED, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_BLACK, false));
-
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.SOCK_TIGHTS, Colour.CLOTHING_BLACK, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.SOCK_KNEEHIGH_SOCKS, Colour.CLOTHING_WHITE, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.SOCK_THIGHHIGH_SOCKS, Colour.CLOTHING_WHITE, false));
-
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.EYES_AVIATORS, Colour.CLOTHING_ROSE_GOLD, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false));
-
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.FOOT_ANKLE_BOOTS, Colour.CLOTHING_BLACK, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.FOOT_LOW_TOP_SKATER_SHOES, Colour.CLOTHING_PINK_LIGHT, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.FOOT_THIGH_HIGH_BOOTS, Colour.CLOTHING_TAN, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.FOOT_STILETTO_HEELS, Colour.CLOTHING_RED, false));
-
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.HAND_ELBOWLENGTH_GLOVES, Colour.CLOTHING_BLACK, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.HEAD_HEADBAND, Colour.CLOTHING_BLACK, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.HEAD_HEADBAND_BOW, Colour.CLOTHING_PINK_LIGHT, false));
-
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.LEG_HOTPANTS, Colour.CLOTHING_WHITE, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.LEG_MINI_SKIRT, Colour.CLOTHING_BLACK, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.LEG_SKIRT, Colour.CLOTHING_PINK, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.LEG_YOGA_PANTS, Colour.CLOTHING_PINK_LIGHT, false));
-
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.NECK_SCARF, Colour.CLOTHING_RED, false));
-				
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.STOMACH_UNDERBUST_CORSET, Colour.CLOTHING_BLACK, false));
-				
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_BLOUSE, Colour.CLOTHING_BLUE_LIGHT, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, Colour.CLOTHING_GREEN, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_LONG_SLEEVE_DRESS, Colour.CLOTHING_BLACK, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_CROPTOP, Colour.CLOTHING_PINK, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_VIRGIN_KILLER_SWEATER, Colour.CLOTHING_WHITE, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_SLIP_DRESS, Colour.CLOTHING_RED, false));
-				
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_OPEN_CARDIGAN, Colour.CLOTHING_BLACK, false));
-				
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WRIST_BANGLE, Colour.CLOTHING_GOLD, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.ANKLE_BRACELET, Colour.CLOTHING_GOLD, false));
+				if(spawnClothingOnFloor) {
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.GROIN_THONG, Colour.CLOTHING_BLACK, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.GROIN_LACY_PANTIES, Colour.CLOTHING_RED, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.GROIN_VSTRING, Colour.CLOTHING_BLACK, false));
+	
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.CHEST_LACY_PLUNGE_BRA, Colour.CLOTHING_RED, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_BLACK, false));
+	
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.SOCK_TIGHTS, Colour.CLOTHING_BLACK, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.SOCK_KNEEHIGH_SOCKS, Colour.CLOTHING_WHITE, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.SOCK_THIGHHIGH_SOCKS, Colour.CLOTHING_WHITE, false));
+	
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.EYES_AVIATORS, Colour.CLOTHING_ROSE_GOLD, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false));
+	
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.FOOT_ANKLE_BOOTS, Colour.CLOTHING_BLACK, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.FOOT_LOW_TOP_SKATER_SHOES, Colour.CLOTHING_PINK_LIGHT, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.FOOT_THIGH_HIGH_BOOTS, Colour.CLOTHING_TAN, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.FOOT_STILETTO_HEELS, Colour.CLOTHING_RED, false));
+	
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.HAND_ELBOWLENGTH_GLOVES, Colour.CLOTHING_BLACK, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.HEAD_HEADBAND, Colour.CLOTHING_BLACK, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.HEAD_HEADBAND_BOW, Colour.CLOTHING_PINK_LIGHT, false));
+	
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.LEG_HOTPANTS, Colour.CLOTHING_WHITE, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.LEG_MINI_SKIRT, Colour.CLOTHING_BLACK, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.LEG_SKIRT, Colour.CLOTHING_PINK, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.LEG_YOGA_PANTS, Colour.CLOTHING_PINK_LIGHT, false));
+	
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.NECK_SCARF, Colour.CLOTHING_RED, false));
+					
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.STOMACH_UNDERBUST_CORSET, Colour.CLOTHING_BLACK, false));
+					
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_BLOUSE, Colour.CLOTHING_BLUE_LIGHT, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, Colour.CLOTHING_GREEN, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_LONG_SLEEVE_DRESS, Colour.CLOTHING_BLACK, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_CROPTOP, Colour.CLOTHING_PINK, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_VIRGIN_KILLER_SWEATER, Colour.CLOTHING_WHITE, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_SLIP_DRESS, Colour.CLOTHING_RED, false));
+					
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_OPEN_CARDIGAN, Colour.CLOTHING_BLACK, false));
+					
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WRIST_BANGLE, Colour.CLOTHING_GOLD, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.ANKLE_BRACELET, Colour.CLOTHING_GOLD, false));
+				}
 				break;
 				
 			case FEMININE_STRONG:
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_THONG, Colour.CLOTHING_BLACK, false), true, Main.game.getPlayer());
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_PLUNGE_BRA, Colour.CLOTHING_BLACK, false), true, Main.game.getPlayer());
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SLIP_DRESS, Colour.CLOTHING_RED, false), true, Main.game.getPlayer());
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_TIGHTS, Colour.CLOTHING_BLACK, false), true, Main.game.getPlayer());
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_STILETTO_HEELS, Colour.CLOTHING_RED, false), true, Main.game.getPlayer());
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_WOMENS_WATCH, Colour.BASE_BLACK, false), true, Main.game.getPlayer());
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FINGER_RING, Colour.CLOTHING_GOLD, false), true, Main.game.getPlayer());
-				Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_HEART_NECKLACE, Colour.CLOTHING_GOLD, false), true, Main.game.getPlayer());
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_THONG, Colour.CLOTHING_BLACK, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_PLUNGE_BRA, Colour.CLOTHING_BLACK, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SLIP_DRESS, Colour.CLOTHING_RED, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_TIGHTS, Colour.CLOTHING_BLACK, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_STILETTO_HEELS, Colour.CLOTHING_RED, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_WOMENS_WATCH, Colour.BASE_BLACK, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FINGER_RING, Colour.CLOTHING_GOLD, false), true, character);
+				character.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_HEART_NECKLACE, Colour.CLOTHING_GOLD, false), true, character);
 
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.GROIN_LACY_PANTIES, Colour.CLOTHING_RED, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.GROIN_VSTRING, Colour.CLOTHING_BLACK, false));
-
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.CHEST_LACY_PLUNGE_BRA, Colour.CLOTHING_RED, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_BLACK, false));
-
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.SOCK_TRAINER_SOCKS, Colour.CLOTHING_WHITE, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.SOCK_KNEEHIGH_SOCKS, Colour.CLOTHING_WHITE, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.SOCK_THIGHHIGH_SOCKS, Colour.CLOTHING_WHITE, false));
-
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.EYES_AVIATORS, Colour.CLOTHING_ROSE_GOLD, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false));
-
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.FOOT_ANKLE_BOOTS, Colour.CLOTHING_BLACK, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.FOOT_LOW_TOP_SKATER_SHOES, Colour.CLOTHING_PINK_LIGHT, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.FOOT_THIGH_HIGH_BOOTS, Colour.CLOTHING_TAN, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false));
-
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.HAND_ELBOWLENGTH_GLOVES, Colour.CLOTHING_BLACK, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.HEAD_HEADBAND, Colour.CLOTHING_BLACK, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.HEAD_HEADBAND_BOW, Colour.CLOTHING_PINK_LIGHT, false));
-
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.LEG_HOTPANTS, Colour.CLOTHING_WHITE, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.LEG_MINI_SKIRT, Colour.CLOTHING_BLACK, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.LEG_SKIRT, Colour.CLOTHING_PINK, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.LEG_YOGA_PANTS, Colour.CLOTHING_PINK_LIGHT, false));
-
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.NECK_SCARF, Colour.CLOTHING_RED, false));
-				
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.STOMACH_UNDERBUST_CORSET, Colour.CLOTHING_BLACK, false));
-				
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_BLOUSE, Colour.CLOTHING_BLUE_LIGHT, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, Colour.CLOTHING_GREEN, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_LONG_SLEEVE_DRESS, Colour.CLOTHING_BLACK, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_CROPTOP, Colour.CLOTHING_PINK, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_VIRGIN_KILLER_SWEATER, Colour.CLOTHING_WHITE, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_SKATER_DRESS, Colour.CLOTHING_BLACK, false));
-				
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_OPEN_CARDIGAN, Colour.CLOTHING_BLACK, false));
-				
-				
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WRIST_BANGLE, Colour.CLOTHING_GOLD, false));
-				Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.ANKLE_BRACELET, Colour.CLOTHING_GOLD, false));
+				if(spawnClothingOnFloor) {
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.GROIN_PANTIES, Colour.CLOTHING_WHITE, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.GROIN_LACY_PANTIES, Colour.CLOTHING_RED, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.GROIN_VSTRING, Colour.CLOTHING_BLACK, false));
+	
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.CHEST_LACY_PLUNGE_BRA, Colour.CLOTHING_RED, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.CHEST_FULLCUP_BRA, Colour.CLOTHING_BLACK, false));
+	
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.SOCK_TRAINER_SOCKS, Colour.CLOTHING_WHITE, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.SOCK_KNEEHIGH_SOCKS, Colour.CLOTHING_WHITE, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.SOCK_THIGHHIGH_SOCKS, Colour.CLOTHING_WHITE, false));
+	
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.EYES_AVIATORS, Colour.CLOTHING_ROSE_GOLD, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.EYES_GLASSES, Colour.CLOTHING_BLACK_STEEL, false));
+	
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.FOOT_ANKLE_BOOTS, Colour.CLOTHING_BLACK, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.FOOT_LOW_TOP_SKATER_SHOES, Colour.CLOTHING_PINK_LIGHT, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.FOOT_THIGH_HIGH_BOOTS, Colour.CLOTHING_TAN, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false));
+	
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.HAND_ELBOWLENGTH_GLOVES, Colour.CLOTHING_BLACK, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.HEAD_HEADBAND, Colour.CLOTHING_BLACK, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.HEAD_HEADBAND_BOW, Colour.CLOTHING_PINK_LIGHT, false));
+	
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.LEG_HOTPANTS, Colour.CLOTHING_WHITE, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.LEG_MINI_SKIRT, Colour.CLOTHING_BLACK, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.LEG_SKIRT, Colour.CLOTHING_PINK, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.LEG_YOGA_PANTS, Colour.CLOTHING_PINK_LIGHT, false));
+	
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.NECK_SCARF, Colour.CLOTHING_RED, false));
+					
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.STOMACH_UNDERBUST_CORSET, Colour.CLOTHING_BLACK, false));
+					
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_BLOUSE, Colour.CLOTHING_BLUE_LIGHT, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_CAMITOP_STRAPS, Colour.CLOTHING_GREEN, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_LONG_SLEEVE_DRESS, Colour.CLOTHING_BLACK, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_CROPTOP, Colour.CLOTHING_PINK, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_VIRGIN_KILLER_SWEATER, Colour.CLOTHING_WHITE, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_SKATER_DRESS, Colour.CLOTHING_BLACK, false));
+					
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.TORSO_OVER_OPEN_CARDIGAN, Colour.CLOTHING_BLACK, false));
+					
+					
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.WRIST_BANGLE, Colour.CLOTHING_GOLD, false));
+					Main.game.getPlayerCell().getInventory().addClothing(AbstractClothingType.generateClothing(ClothingType.ANKLE_BRACELET, Colour.CLOTHING_GOLD, false));
+				}
 				break;
 			default:
 				break;
 		}
 		
-		if(Main.game.getPlayer().getName().equals("James") && Main.game.getPlayer().getSurname().equals("Bond")) {
-			Main.game.getPlayer().equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MAIN_WESTERN_KKP));
+		if(character.isPlayer()
+				&& ((character.getName().equals("James") || character.getName().equals("Jane") || character.getName().equals("Tracy")) && character.getSurname().equals("Bond"))) {
+			character.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MAIN_WESTERN_KKP));
 		}
 	}
 	
@@ -467,20 +561,24 @@ public class CharacterCreation {
 					+ "</p>"
 					+ "<p>"
 						+ "The street lights flicker into life as you rush over to the entrance, illuminating your surroundings with a dull orange glow."
-						+ " It only takes a moment before you're standing at the museum's front doors, where, much to your dismay, you see that there are a couple of people queueing up to gain entry."
+						+ " It only takes a moment before you're standing at the museum's front doors, where, much to your dismay, you see that a small queue has formed."
 						+ " Having no choice but to step in line and wait your turn, you briefly glance over at the large glass windows of the building's modern facade to see your blurry reflection in the glass..."
 					+ "</p>"
 					+ "</br>"
+					
+					+ CharacterModificationUtils.getStartDateDiv()
+					
 					+ "<div class='cosmetics-container' style='background:transparent;'>"
+					
+						+ CharacterModificationUtils.getGenderChoiceDiv()
+						
+						+ CharacterModificationUtils.getFemininityChoiceDiv()
+						
 						+ "<div class='container-full-width' style='text-align:center;'>"
 							+ "You will be referred to as <span style='color:"+Main.game.getPlayer().getGender().getColour().toWebHexString()+";'>"
 								+UtilText.generateSingularDeterminer(Main.game.getPlayer().getGender().getName())+ " " + Main.game.getPlayer().getGender().getName()+"</span>.</br>"
 							+ "<i>You can change all gender names in the options menu.</i>"
 						+ "</div>"
-					
-						+ CharacterModificationUtils.getGenderChoiceDiv()
-						
-						+ CharacterModificationUtils.getFemininityChoiceDiv()
 						
 						+ CharacterModificationUtils.getOrientationChoiceDiv()
 					
@@ -493,59 +591,9 @@ public class CharacterCreation {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Wait your turn, and hope that the event hasn't started yet.", CHOOSE_NAME);
-				
-			}
-			else if (index == 2) {
-				return new Response("Cycle Gender", "Cycle through the gender options.", CHOOSE_APPEARANCE) {
-					@Override
-					public void effects() {
-						if(Main.game.getPlayer().hasVagina()) {
-							setGenderMale();
-						} else {
-							setGenderFemale();
-						}
-					}
-				};
-				
-			} else if (index == 3) {
-				return new Response("Cycle Femininity", "Cycle through the femininity options.", CHOOSE_APPEARANCE) {
-					@Override
-					public void effects() {
-						if(Main.game.getPlayer().hasVagina()) {
-							switch(Main.game.getPlayer().getFemininity()) {
-								case ANDROGYNOUS:
-									Main.game.getPlayer().setFemininity(Femininity.FEMININE.getMedianFemininity());
-									break;
-								case FEMININE:
-									Main.game.getPlayer().setFemininity(Femininity.FEMININE_STRONG.getMedianFemininity());
-									break;
-								case FEMININE_STRONG:
-									Main.game.getPlayer().setFemininity(Femininity.ANDROGYNOUS.getMedianFemininity());
-									break;
-								default:
-									break;
-							}
-						} else {
-							switch(Main.game.getPlayer().getFemininity()) {
-								case ANDROGYNOUS:
-									Main.game.getPlayer().setFemininity(Femininity.MASCULINE.getMedianFemininity());
-									break;
-								case MASCULINE:
-									Main.game.getPlayer().setFemininity(Femininity.MASCULINE_STRONG.getMedianFemininity());
-									break;
-								case MASCULINE_STRONG:
-									Main.game.getPlayer().setFemininity(Femininity.ANDROGYNOUS.getMedianFemininity());
-									break;
-								default:
-									break;
-							}
-						}
-						getDressed();
-					}
-				};
 				
 			}
 			else if (index == 0) {
@@ -589,18 +637,17 @@ public class CharacterCreation {
 					+ "<div class='container-full-width' style='text-align:center;'>"
 						+ "<div style='position:relative; display:inline-block; padding-bottom:0; margin 0 auto; vertical-align:middle; width:100%; text-align:center;'>"
 							+ "<p style='display:inline-block; padding:0; margin:0; height:32px; line-height:32px; width:100px;'>First name: </p>"
-							+ "<form style='display:inline-block; padding:0; margin:0; text-align:center;'><input type='text' id='nameInput' value='"+ Main.game.getPlayer().getName()+ "'></form>"
+							+ "<form style='display:inline-block; padding:0; margin:0; text-align:center;'><input type='text' id='nameInput' value='"+ Util.formatForHTML(Main.game.getPlayer().getName())+ "'></form>"
 							+ "</br>"
 							+ "<p style='display:inline-block; padding:0; margin:0; height:32px; line-height:32px; width:100px;'>Surname: </p>"
-							+ "<form style='display:inline-block; padding:0; margin:0; text-align:center;'><input type='text' id='surnameInput' value='"+ Main.game.getPlayer().getSurname()+ "'></form>"
+							+ "<form style='display:inline-block; padding:0; margin:0; text-align:center;'><input type='text' id='surnameInput' value='"+ Util.formatForHTML(Main.game.getPlayer().getSurname())+ "'></form>"
 						+ "</div>"
 						+ "</br>"
-						+ "<i>Your name must be between 2 and 16 characters long. They can only include the standard letters a-z and their respective capitals. (Surname may be left blank.)</i>"
+						+ "<i>Your name must be between 2 and 16 characters long. You cannot use the square bracket characters or full stops. (Surname may be left blank.)</i>"
 						+ (unsuitableName ? "<p style='text-align:center;padding-top:0;'><b style=' color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Invalid name.</b></p>" : "")
 						+ (unsuitableSurname ? "<p style='text-align:center;padding-top:0;'><b style=' color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Invalid Surname.</b></p>" : "")
 					+ "</div>"
 					
-
 					+ "<p id='hiddenFieldName' style='display:none;'></p>"
 					+ "<p id='hiddenFieldSurname' style='display:none;'></p>";
 		}
@@ -611,50 +658,63 @@ public class CharacterCreation {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				
-				Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('nameInput').value;");
-				if(Main.mainController.getWebEngine().getDocument()!=null) {
-					if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 2
-							|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 16
-							|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().matches("[a-zA-Z]+"))
-						unsuitableName = true;
-					else {
-						unsuitableName = false;
-					}
-				}
-				
-				Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldSurname').innerHTML=document.getElementById('surnameInput').value;");
-				if(Main.mainController.getWebEngine().getDocument()!=null) {
-					if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length()>=1
-							&& (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length() > 16
-									|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().matches("[a-zA-Z]+")))
-						unsuitableSurname = true;
-					else {
-						unsuitableSurname = false;
-					}
-				}
-				
-				
-				if (unsuitableName || unsuitableSurname) {
-					return new Response("Continue", "Use this name and continue to the final character creation screen.", CHOOSE_NAME);
-					
-				} else {
-					return new Response("Continue", "Use this name and continue to the final character creation screen.", CHOOSE_ADVANCED_APPEARANCE){
-						@Override
-						public void effects() {
+				return new ResponseEffectsOnly("Continue", "Use this name and continue to the final character creation screen."){
+					@Override
+					public void effects() {
+						Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('nameInput').value;");
+						if(Main.mainController.getWebEngine().getDocument()!=null) {
+							if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 2
+									|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 16
+									|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().matches("[^\\[\\]\\.]+"))
+								unsuitableName = true;
+							else {
+								unsuitableName = false;
+							}
+						}
+						Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldSurname').innerHTML=document.getElementById('surnameInput').value;");
+						if(Main.mainController.getWebEngine().getDocument()!=null) {
+							if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length()>=1
+									&& (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length() > 16
+											|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().matches("[^\\[\\]\\.]+")))
+								unsuitableSurname = true;
+							else {
+								unsuitableSurname = false;
+							}
+						}
+						
+						if (unsuitableName || unsuitableSurname)  {
+							Main.game.setContent(new Response("" ,"", CHOOSE_NAME));
+							
+						} else {
+						
 							Main.game.getPlayer().setName(new NameTriplet(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent()));
 							Main.game.getPlayer().setSurname(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent());
+							getDressed();
+							Main.game.setContent(new Response("" ,"", CHOOSE_ADVANCED_APPEARANCE));
 						}
-					};
-				}
+					}
+				};
 				
 			} else if (index == 2) {
 				return new Response("Random", "Generate a random name based on your gender.", CHOOSE_NAME){
 					@Override
 					public void effects() {
-						unsuitableName = false;
+						Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldSurname').innerHTML=document.getElementById('surnameInput').value;");
+						if(Main.mainController.getWebEngine().getDocument()!=null) {
+							if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length()>=1
+									&& (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().length() > 16
+											|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent().matches("[^\\[\\]\\.]+")))
+								unsuitableSurname = true;
+							else {
+								unsuitableSurname = false;
+							}
+						}
+						if(!unsuitableSurname) {
+							Main.game.getPlayer().setSurname(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent());
+						}
 
 						Main.game.getPlayer().setName(new NameTriplet(Name.getRandomName(Main.game.getPlayer())));
 					}
@@ -664,8 +724,20 @@ public class CharacterCreation {
 				return new Response("Random Surname", "Generate a random surname.", CHOOSE_NAME){
 					@Override
 					public void effects() {
-						unsuitableName = false;
-
+						Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('nameInput').value;");
+						if(Main.mainController.getWebEngine().getDocument()!=null) {
+							if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 2
+									|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 16
+									|| !Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().matches("[^\\[\\]\\.]+"))
+								unsuitableName = true;
+							else {
+								unsuitableName = false;
+							}
+						}
+						if(!unsuitableName) {
+							Main.game.getPlayer().setName(new NameTriplet(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent()));
+						}
+						
 						Main.game.getPlayer().setSurname(Name.getRandomSurname());
 					}
 				};
@@ -700,6 +772,9 @@ public class CharacterCreation {
 						+ " On the far side of the grand hall, you see throngs of people surrounding a large stage, and you breathe a sigh of relief as you notice that it's currently empty."
 					+ "</p>"
 					+ "<p>"
+						+ "[pc.thought(Phew... I made it in time after all...)]"
+					+ "</p>"
+					+ "<p>"
 						+ "As Lily's opening speech seems to be running just as late as you are, you decide to step over to a nearby mirror to make sure that you're looking presentable..."
 					+ "</p>"
 					+ "</br>"
@@ -719,16 +794,15 @@ public class CharacterCreation {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseEffectsOnly("Check clothes", "Your clothes are a little messy after rushing here. Tidy yourself up before proceeding to the main stage.") {
+				return new Response("Check clothes", "Your clothes are a little messy after rushing here. Tidy yourself up before proceeding to the main stage.", InventoryDialogue.INVENTORY_MENU) {
 					@Override
 					public void effects() {
-						getDressed();
+						equipPiercings();
 						InventoryDialogue.setBuyback(false);
 						InventoryDialogue.setInventoryNPC(null);
 						InventoryDialogue.setNPCInventoryInteraction(InventoryInteraction.CHARACTER_CREATION);
-						Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
 					}
 				};
 				
@@ -779,7 +853,7 @@ public class CharacterCreation {
 						
 					+ CharacterModificationUtils.getHeightChoiceDiv()
 					
-					+ CharacterModificationUtils.getKatesDivNaturalCoverings(BodyCoveringType.HUMAN, "Skin Colour", "The colour of the skin that's covering your body.", false, false)
+					+ CharacterModificationUtils.getKatesDivNaturalCoverings(false, BodyCoveringType.HUMAN, "Skin Colour", "The colour of the skin that's covering your body.", false, false)
 					
 					+ "<div class='cosmetics-container' style='background:transparent;'>"
 					
@@ -801,7 +875,7 @@ public class CharacterCreation {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Confirm your choices and return to the content preferences menu.", CHOOSE_ADVANCED_APPEARANCE);
 				
@@ -824,7 +898,7 @@ public class CharacterCreation {
 					
 					+ CharacterModificationUtils.getLipPuffynessDiv()
 
-					+ CharacterModificationUtils.getKatesDivNaturalCoverings(BodyCoveringType.EYE_HUMAN, "Iris Colour", "The colour of your eye's irises.", true, false);
+					+ CharacterModificationUtils.getKatesDivNaturalCoverings(false, BodyCoveringType.EYE_HUMAN, "Iris Colour", "The colour of your eye's irises.", true, false);
 		}
 		
 		@Override
@@ -833,7 +907,7 @@ public class CharacterCreation {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Confirm your choices and return to the content preferences menu.", CHOOSE_ADVANCED_APPEARANCE);
 				
@@ -852,11 +926,11 @@ public class CharacterCreation {
 						+ "<i>All of these options can be influenced later on in the game.</i>"
 					+ "</div>"
 
-					+ CharacterModificationUtils.getKatesDivHairLengths("Hair Length", "Choose how long your hair is.")
+					+ CharacterModificationUtils.getKatesDivHairLengths(false, "Hair Length", "Choose how long your hair is.")
 					
-					+ CharacterModificationUtils.getKatesDivHairStyles("Hair Style", "Choose your hair style. Certain hair styles are unavailable at shorter hair lengths.")
+					+ CharacterModificationUtils.getKatesDivHairStyles(false, "Hair Style", "Choose your hair style. Certain hair styles are unavailable at shorter hair lengths.")
 
-					+ CharacterModificationUtils.getKatesDivCoverings(BodyCoveringType.HAIR_HUMAN, "Hair Colour", "The colour of your hair.", true, false);
+					+ CharacterModificationUtils.getKatesDivCoverings(false, BodyCoveringType.HAIR_HUMAN, "Hair Colour", "The colour of your hair.", true, false);
 		}
 		
 		@Override
@@ -865,7 +939,7 @@ public class CharacterCreation {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Confirm your choices and return to the content preferences menu.", CHOOSE_ADVANCED_APPEARANCE);
 				
@@ -903,7 +977,7 @@ public class CharacterCreation {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Confirm your choices and return to the content preferences menu.", CHOOSE_ADVANCED_APPEARANCE);
 				
@@ -935,7 +1009,7 @@ public class CharacterCreation {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Confirm your choices and return to the content preferences menu.", CHOOSE_ADVANCED_APPEARANCE);
 				
@@ -990,7 +1064,7 @@ public class CharacterCreation {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Confirm your choices and return to the content preferences menu.", CHOOSE_ADVANCED_APPEARANCE);
 				
@@ -1032,7 +1106,7 @@ public class CharacterCreation {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Confirm your choices and return to the content preferences menu.", CHOOSE_ADVANCED_APPEARANCE);
 				
@@ -1052,22 +1126,22 @@ public class CharacterCreation {
 					+ "</div>"
 							
 					+CharacterModificationUtils.getKatesDivCoverings(
-							BodyCoveringType.MAKEUP_BLUSHER, "Blusher", "Blusher (also called rouge) is used to colour the cheeks so as to provide a more youthful appearance, and to emphasise the cheekbones.", true, false)
+							false, BodyCoveringType.MAKEUP_BLUSHER, "Blusher", "Blusher (also called rouge) is used to colour the cheeks so as to provide a more youthful appearance, and to emphasise the cheekbones.", true, false)
 					
 					+CharacterModificationUtils.getKatesDivCoverings(
-							BodyCoveringType.MAKEUP_LIPSTICK, "Lipstick", "Lipstick is used to provide colour, texture, and protection to the wearer's lips.", true, false)
+							false, BodyCoveringType.MAKEUP_LIPSTICK, "Lipstick", "Lipstick is used to provide colour, texture, and protection to the wearer's lips.", true, false)
 
 					+CharacterModificationUtils.getKatesDivCoverings(
-							BodyCoveringType.MAKEUP_EYE_LINER, "Eyeliner", "Eyeliner is applied around the contours of the eyes to help to define shape or highlight different features.", true, false)
+							false, BodyCoveringType.MAKEUP_EYE_LINER, "Eyeliner", "Eyeliner is applied around the contours of the eyes to help to define shape or highlight different features.", true, false)
 
 					+CharacterModificationUtils.getKatesDivCoverings(
-							BodyCoveringType.MAKEUP_EYE_SHADOW, "Eye shadow", "Eye shadow is used to make the wearer's eyes stand out or look more attractive.", true, false)
+							false, BodyCoveringType.MAKEUP_EYE_SHADOW, "Eye shadow", "Eye shadow is used to make the wearer's eyes stand out or look more attractive.", true, false)
 
 					+CharacterModificationUtils.getKatesDivCoverings(
-							BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, "Nail polish", "Nail polish is used to colour and protect the nails on your [pc.hands].", true, false)
+							false, BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, "Nail polish", "Nail polish is used to colour and protect the nails on your [pc.hands].", true, false)
 
 					+CharacterModificationUtils.getKatesDivCoverings(
-							BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, "Toenail polish", "Toenail polish is used to colour and protect the nails on your [pc.feet].", true, false);
+							false, BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, "Toenail polish", "Toenail polish is used to colour and protect the nails on your [pc.feet].", true, false);
 		}
 		
 		@Override
@@ -1076,7 +1150,7 @@ public class CharacterCreation {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Confirm your choices and return to the content preferences menu.", CHOOSE_ADVANCED_APPEARANCE);
 				
@@ -1099,7 +1173,7 @@ public class CharacterCreation {
 			
 			if(Main.game.isPubicHairEnabled() || Main.game.isFacialHairEnabled() || Main.game.isBodyHairEnabled()) {
 				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivNaturalCoverings(
-						Main.game.getPlayer().getBodyHairCoveringType(), "Body hair", "This is the hair that covers all areas other than the head.", false, false));
+						false, Main.game.getPlayer().getBodyHairCoveringType(), "Body hair", "This is the hair that covers all areas other than the head.", false, false));
 			} else {
 				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivGenericBodyHairDisabled(
 						"Body hair", "This is the hair that covers all areas other than the head.", "All extra body hair options are disabled. You will not see any extra hair content."));
@@ -1142,7 +1216,7 @@ public class CharacterCreation {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Confirm your choices and return to the content preferences menu.", CHOOSE_ADVANCED_APPEARANCE);
 				
@@ -1159,7 +1233,7 @@ public class CharacterCreation {
 						+ " After all, this is a big evening for Lily, and you want her to see that you've put some effort into your appearance."
 					+ "</p>"
 					+ "<p>"
-						+ "Turning this way and that to get a better look at yourself in the mirror, you begin to notice just how attractive you're looking tonight..."
+						+ "Turning this way and that to get a better look at yourself in the mirror, you begin to notice just how "+(Main.game.getPlayer().isFeminine()?"hot":"handsome")+" you're looking tonight..."
 					+ "</p>"
 					+ "<p>"
 						+ "[pc.thought(Why am I feeling so horny all of a sudden?)]"
@@ -1173,16 +1247,20 @@ public class CharacterCreation {
 	
 	public static void moveNPCIntoPlayerTile() {
 		if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC || (Main.game.getPlayer().getSexualOrientation()==SexualOrientation.AMBIPHILIC && Main.game.getPlayer().hasVagina())) {
-			Main.game.getPrologueMale().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation());
+			Main.game.getPrologueMale().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 			
 		} else {
-			Main.game.getPrologueFemale().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation());
+			Main.game.getPrologueFemale().setLocation(Main.game.getPlayer().getWorldLocation(), Main.game.getPlayer().getLocation(), false);
 		}
 	}
 	
 	public static void moveNPCOutOfPlayerTile() {
-		Main.game.getPrologueMale().setLocation(WorldType.JUNGLE, Jungle.JUNGLE_CLUB);
-		Main.game.getPrologueFemale().setLocation(WorldType.JUNGLE, Jungle.JUNGLE_CLUB);
+		Main.game.getPrologueMale().setLocation(WorldType.JUNGLE, PlaceType.JUNGLE_CLUB, false);
+		Main.game.getPrologueFemale().setLocation(WorldType.JUNGLE, PlaceType.JUNGLE_CLUB, false);
+	}
+	
+	private static boolean femalePrologueNPC() {
+		return Main.game.getPlayer().getSexualOrientation()==SexualOrientation.GYNEPHILIC || (Main.game.getPlayer().getSexualOrientation()==SexualOrientation.AMBIPHILIC && Main.game.getPlayer().hasPenis());
 	}
 	
 	public static final DialogueNodeOld CHOOSE_BACKGROUND = new DialogueNodeOld("In the Museum", "-", true) {
@@ -1203,7 +1281,7 @@ public class CharacterCreation {
 						+ "Ducking behind a nearby pillar, you shake your head to try and dislodge the dirty thoughts that are starting to seep into your mind."
 						+ " As you lean back against the cold stone and take a deep breath, a voice suddenly interrupts your thoughts,");
 			
-			if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC || (Main.game.getPlayer().getSexualOrientation()==SexualOrientation.AMBIPHILIC && Main.game.getPlayer().hasVagina())) {
+			if(!femalePrologueNPC()) {
 				UtilText.nodeContentSB.append(" [prologueMale.speech(Taking a break from the crowds as well?)]"
 						+ "</p>"
 						+ "<p>"
@@ -1222,14 +1300,14 @@ public class CharacterCreation {
 						+ "</p>"
 						+ "<p>"
 							+ "[pc.speech(Haha,)]"
-							+ " you laugh,"
+							+ " you laugh, desperately trying not to imagine how he looks naked,"
 							+ " [pc.speech(I know <i>exactly</i> what you mean. My aunt is the lady giving the opening speech, and every time I meet her friends from the museum, I can never follow their conversations."
 									+ " Well, apart from Arthur that is. He's closer to our age, and is really easy-going and fun to talk to.)]"
 						+ "</p>"
 						+ "<p>"
 							+ "[prologueMale.speech(Hah! You know Arthur? I'm here by his invitation. He and I go way back,)]"
 							+ " the man cheerly replies, his smile causing your heart to race,"
-							+ " [prologueMale.speech(I'm [prologueMale.name] by the way, pleased you meet you"+(Main.game.getPlayer().isFeminine()?"Ms. ...?":"Mr. ...?")+")]"
+							+ " [prologueMale.speech(I'm [prologueMale.name] by the way, pleased you meet you "+(Main.game.getPlayer().isFeminine()?"Ms. ...?":"Mr. ...?")+")]"
 						+ "</p>"
 						+ "<p>"
 							+ "[pc.speech(Likewise,)] you respond, shaking his offered hand while trying not to think of how powerful and dominant his grip is, [pc.speech(I'm [pc.Name].)]"
@@ -1259,17 +1337,17 @@ public class CharacterCreation {
 						+ "</p>"
 						+ "<p>"
 							+ "[pc.speech(Haha,)]"
-							+ " you laugh,"
+							+ " you laugh, desperately trying not to imagine how she looks naked,"
 							+ " [pc.speech(I know <i>exactly</i> what you mean. My aunt is the lady giving the opening speech, and every time I meet her friends from the museum, I can never follow their conversations."
 									+ " Well, apart from Arthur that is. He's closer to our age, and is really easy-going and fun to talk to.)]"
 						+ "</p>"
 						+ "<p>"
 							+ "[prologueFemale.speech(Oh! You know Arthur? I'm here by his invitation, actually. He and I go way back,)]"
 							+ " the woman cheerly replies, her smile causing your heart to race,"
-							+ " [prologueFemale.speech(I'm [prologueFemale.name] by the way, pleased you meet you"+(Main.game.getPlayer().isFeminine()?"Ms. ...?":"Mr. ...?")+")]"
+							+ " [prologueFemale.speech(I'm [prologueFemale.name] by the way, pleased you meet you "+(Main.game.getPlayer().isFeminine()?"Ms. ...?":"Mr. ...?")+")]"
 						+ "</p>"
 						+ "<p>"
-							+ "[pc.speech(Likewise,)] you respond, shaking her offered hand while trying not to think of how soft and slender her hand is, [pc.speech(I'm [pc.Name].)]"
+							+ "[pc.speech(Likewise,)] you respond, shaking her offered hand while trying not to think of how soft and delicate her skin is, [pc.speech(I'm [pc.Name].)]"
 						+ "</p>"
 						+ "<p>"
 							+ "You and [prologueFemale.name] continue talking with one another as you wait for the presentation to start."
@@ -1286,7 +1364,7 @@ public class CharacterCreation {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new ResponseEffectsOnly("Back", "Return to clothing selection.") {
 					@Override
@@ -1308,6 +1386,8 @@ public class CharacterCreation {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setHistory(History.getAvailableHistories(Main.game.getPlayer()).get(index - 1));
+						// Remove attribute gain sentences in the start game screen:
+						Main.game.clearTextEndStringBuilder();
 					}
 				};
 				
@@ -1319,45 +1399,288 @@ public class CharacterCreation {
 	
 	//TODO
 	
+	private static void resetVirginity() {
+		if(Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION)>0) {
+			Main.game.getPlayer().setAttribute(Attribute.CORRUPTION, 0);
+		}
+		
+		Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER), 0);
+		Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER), null);
+
+		Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER), 0);
+		Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER), null);
+
+		Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER), 0);
+		Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER), null);
+
+		Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER), 0);
+		Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER), null);
+
+		Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), 0);
+		Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), null);
+		
+		Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER), 0);
+		Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER), null);
+
+		Main.game.getPlayer().setSexCount(new SexType(PenetrationType.FINGER_PARTNER, OrificeType.VAGINA_PLAYER), 0);
+		Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.FINGER_PARTNER, OrificeType.VAGINA_PLAYER), null);
+
+		Main.game.getPlayer().setPenisVirgin(true);
+		Main.game.getPlayer().setVaginaVirgin(true);
+		Main.game.getPlayer().setAssVirgin(true);
+		Main.game.getPlayer().setFaceVirgin(true);
+	}
+	
 	public static final DialogueNodeOld CHOOSE_SEX_EXPERIENCE = new DialogueNodeOld("Start", "", true) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
 		public String getContent() {
-			return "<div class='container-full-width' style='text-align:center;'>"
-						+ "<i><b>This is as far as I've got with the character creation work!</b>"
-						+ "</br>"
-						+ "What I have left to do (for the next release):</br>"
-						+ "Sexual experience</br>"
-						+ "Opportunity to 'have fun' with the NPC</br>"
-						+ "Polishing everything</i>"
-					+ "</div>"
-					+ "<p>"
-						+ "TODO!" //TODO
-					+ "</p>"
-					+ "<p>"
-						+ "Sexual experience choice. The current options are super, super placeholder!"
-					+ "</p>";
+			UtilText.nodeContentSB.setLength(0);
+			
+			if(femalePrologueNPC()) {
+				UtilText.nodeContentSB.append(
+						"<p>"
+							+ "As the two of you continue to talk, you find yourself getting more and more turned on."
+							+ " What's more, you begin to notice that [prologueFemale.name]'s cheeks are starting to flush red, and she keeps on glancing hungrily down at your body when she thinks that you aren't looking."
+						+ "</p>"
+						+ "<p>"
+							+ "As final evidence that she's getting just as turned on as you are, she starts openly talking about her sex life."
+							+ " To begin with, you're a little taken aback at her openness, but the more she talks, the more comfortable you find yourself with talking to this relative stranger about sex."
+						+ "</p>"
+						+ "<p>"
+							+ "And so, after talking with [prologueFemale.name] for no longer than ten minutes, you're telling her every little detail about your sexual experiences..."
+						+ "</p>");
+				
+			} else {
+				UtilText.nodeContentSB.append(
+						"<p>"
+							+ "As the two of you continue to talk, you find yourself getting more and more turned on."
+							+ " What's more, you begin to notice that [prologueMale.name]'s cheeks are starting to flush red, and he keeps on glancing hungrily down at your body when he thinks that you aren't looking."
+						+ "</p>"
+						+ "<p>"
+							+ "As final evidence that he's getting just as turned on as you are, he starts openly talking about his sex life."
+							+ " To begin with, you're a little taken aback at his openness, but the more he talks, the more comfortable you find yourself with talking to this relative stranger about sex."
+						+ "</p>"
+						+ "<p>"
+							+ "And so, after talking with [prologueMale.name] for no longer than ten minutes, you're telling him every little detail about your sexual experiences..."
+						+ "</p>");
+			}
+
+			UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align:center;'>"
+												+ "<i>This is a <b>temporary placeholder</b>. I'm planning on adding a detailed menu for you to choose your sexual experiences from!</i>"
+											+ "</div>");
+			
+			return UtilText.nodeContentSB.toString();
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Virgin start", "You still have your virginity.", START_GAME){
+				return new Response("Virgin", "You still have your virginity.", START_GAME){
 					@Override
 					public void effects() {
-						Main.game.getPlayer().setVaginaVirgin(true);
+						resetVirginity();
 					}
 				};
 				
 			} else if (index == 2) {
-				return new Response("Non-virgin start", "You have lost your virginity.", START_GAME){
+				return new Response("Limited experience",
+						(Main.game.getPlayer().hasVagina()
+								?"You have lost your vaginal virginity (but not your anal virginity), and have only had sex with one person."
+								:"You have lost your virginity (but not your anal virginity), and have only had sex with one person."),
+						START_GAME){
 					@Override
 					public void effects() {
-						Main.game.getPlayer().setVaginaVirgin(false);
-						Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER), "your first boyfriend");
-						Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER), 30 + Util.random.nextInt(20));
-						Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER), 10 + Util.random.nextInt(10));
+						resetVirginity();
+						
+						if(Main.game.getPlayer().hasVagina()) {
+							
+							String virginityLossText = Main.game.getPlayer().getSexualOrientation()==SexualOrientation.GYNEPHILIC?"your girlfriend":"your boyfriend";
+							
+							Main.game.getPlayer().setVaginaVirgin(false);
+							Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.FINGER_PARTNER, OrificeType.VAGINA_PLAYER), virginityLossText);
+							Main.game.getPlayer().setSexCount(new SexType(PenetrationType.FINGER_PARTNER, OrificeType.VAGINA_PLAYER), 10 + Util.random.nextInt(20));
+							Main.game.getPlayer().setCumCount(new SexType(PenetrationType.FINGER_PARTNER, OrificeType.VAGINA_PLAYER), 5 + Util.random.nextInt(10));
+
+							Main.game.getPlayer().setFaceVirgin(false);
+							Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), virginityLossText);
+							Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), 10 + Util.random.nextInt(20));
+							Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), 5 + Util.random.nextInt(10));
+
+							Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER), virginityLossText);
+							Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER), 10 + Util.random.nextInt(20));
+							Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER), 5 + Util.random.nextInt(10));
+							
+						} else {
+							String virginityLossText = Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC?"your boyfriend":"your girlfriend";
+							
+							if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+								Main.game.getPlayer().setPenisVirgin(false);
+								Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER), virginityLossText);
+								Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER), 10 + Util.random.nextInt(20));
+								Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER), 5 + Util.random.nextInt(10));
+
+								Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER), virginityLossText);
+								Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER), 10 + Util.random.nextInt(20));
+								Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER), 5 + Util.random.nextInt(10));
+
+								Main.game.getPlayer().setFaceVirgin(false);
+								Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), virginityLossText);
+								Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), 10 + Util.random.nextInt(20));
+								Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), 5 + Util.random.nextInt(10));
+								
+							} else {
+								Main.game.getPlayer().setPenisVirgin(false);
+								Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER), virginityLossText);
+								Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER), 10 + Util.random.nextInt(20));
+								Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER), 5 + Util.random.nextInt(10));
+
+								Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER), virginityLossText);
+								Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER), 10 + Util.random.nextInt(20));
+								Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER), 5 + Util.random.nextInt(10));
+								
+							}
+						}
+						Main.game.getPlayer().setAttribute(Attribute.CORRUPTION, 5);
+
+					}
+				};
+				
+			} else if (index == 3) {
+				return new Response("Moderate experience",
+						(Main.game.getPlayer().hasVagina()
+								?"You have lost your vaginal virginity (but not your anal virginity), and have had sex with quite a few people."
+								:"You have lost your virginity (but not your anal virginity), and have had sex with quite a few people."),
+						START_GAME){
+					@Override
+					public void effects() {
+						resetVirginity();
+						
+						if(Main.game.getPlayer().hasVagina()) {
+							
+							String virginityLossText = Main.game.getPlayer().getSexualOrientation()==SexualOrientation.GYNEPHILIC?"your first girlfriend":"your first boyfriend";
+							
+							Main.game.getPlayer().setVaginaVirgin(false);
+							Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.FINGER_PARTNER, OrificeType.VAGINA_PLAYER), virginityLossText);
+							Main.game.getPlayer().setSexCount(new SexType(PenetrationType.FINGER_PARTNER, OrificeType.VAGINA_PLAYER), 50 + Util.random.nextInt(30));
+							Main.game.getPlayer().setCumCount(new SexType(PenetrationType.FINGER_PARTNER, OrificeType.VAGINA_PLAYER), 25 + Util.random.nextInt(15));
+
+							Main.game.getPlayer().setFaceVirgin(false);
+							Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), virginityLossText);
+							Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), 50 + Util.random.nextInt(30));
+							Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), 25 + Util.random.nextInt(15));
+
+							Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER), virginityLossText);
+							Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER), 50 + Util.random.nextInt(30));
+							Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER), 25 + Util.random.nextInt(15));
+							
+						} else {
+							String virginityLossText = Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC?"your first boyfriend":"your first girlfriend";
+							
+							if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
+								Main.game.getPlayer().setPenisVirgin(false);
+								Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER), virginityLossText);
+								Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER), 50 + Util.random.nextInt(30));
+								Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER), 25 + Util.random.nextInt(15));
+
+								Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER), virginityLossText);
+								Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER), 50 + Util.random.nextInt(30));
+								Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER), 25 + Util.random.nextInt(15));
+
+								Main.game.getPlayer().setFaceVirgin(false);
+								Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), virginityLossText);
+								Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), 50 + Util.random.nextInt(30));
+								Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), 25 + Util.random.nextInt(15));
+								
+							} else {
+								Main.game.getPlayer().setPenisVirgin(false);
+								Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PLAYER), virginityLossText);
+								Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PLAYER), 50 + Util.random.nextInt(30));
+								Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PLAYER), 25 + Util.random.nextInt(15));
+
+								Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER), virginityLossText);
+								Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER), 50 + Util.random.nextInt(30));
+								Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER), 25 + Util.random.nextInt(15));
+								
+							}
+						}
+						Main.game.getPlayer().setAttribute(Attribute.CORRUPTION, 10);
+
+					}
+				};
+				
+			} else if (index == 4) {
+				return new Response("Highly experienced",
+						(Main.game.getPlayer().hasVagina()
+								?"You have lost both your vaginal virginity and anal virginity, and have had sex with more people than you can count."
+								:(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.GYNEPHILIC
+										?"You have lost your virginity (but not your anal virginity), and have had sex with more people than you can count"
+										:"You have lost both your virginity and anal virginity, and have had sex with more people than you can count.")),
+						START_GAME){
+					@Override
+					public void effects() {
+						resetVirginity();
+						
+						if(Main.game.getPlayer().hasVagina()) {
+							
+							String virginityLossText = Main.game.getPlayer().getSexualOrientation()==SexualOrientation.GYNEPHILIC?"some girl in her apartment":"some guy in a club's restroom";
+							
+							Main.game.getPlayer().setVaginaVirgin(false);
+							Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.FINGER_PARTNER, OrificeType.VAGINA_PLAYER), virginityLossText);
+							Main.game.getPlayer().setSexCount(new SexType(PenetrationType.FINGER_PARTNER, OrificeType.VAGINA_PLAYER), 50 + Util.random.nextInt(30));
+							Main.game.getPlayer().setCumCount(new SexType(PenetrationType.FINGER_PARTNER, OrificeType.VAGINA_PLAYER), 25 + Util.random.nextInt(15));
+
+							Main.game.getPlayer().setFaceVirgin(false);
+							Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), virginityLossText);
+							Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), 50 + Util.random.nextInt(30));
+							Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), 25 + Util.random.nextInt(15));
+
+							Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER), virginityLossText);
+							Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER), 50 + Util.random.nextInt(30));
+							Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER), 25 + Util.random.nextInt(15));
+
+							Main.game.getPlayer().setAssVirgin(false);
+							Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER), virginityLossText);
+							Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER), 20 + Util.random.nextInt(10));
+							Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER), 10 + Util.random.nextInt(5));
+							
+						} else {
+							String virginityLossText = Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC?"some guy in a club's restroom":"some girl in her apartment";
+							
+							if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.GYNEPHILIC) {
+								Main.game.getPlayer().setPenisVirgin(false);
+								Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER), virginityLossText);
+								Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER), 50 + Util.random.nextInt(30));
+								Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER), 25 + Util.random.nextInt(15));
+
+								Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER), virginityLossText);
+								Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER), 50 + Util.random.nextInt(30));
+								Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER), 25 + Util.random.nextInt(15));
+								
+							} else {
+								Main.game.getPlayer().setPenisVirgin(false);
+								Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER), virginityLossText);
+								Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER), 50 + Util.random.nextInt(30));
+								Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER), 25 + Util.random.nextInt(15));
+
+								Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER), virginityLossText);
+								Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER), 50 + Util.random.nextInt(30));
+								Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER), 25 + Util.random.nextInt(15));
+
+								Main.game.getPlayer().setFaceVirgin(false);
+								Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), virginityLossText);
+								Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), 50 + Util.random.nextInt(30));
+								Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER), 25 + Util.random.nextInt(15));
+								
+								Main.game.getPlayer().setAssVirgin(false);
+								Main.game.getPlayer().setVirginityLoss(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER), virginityLossText);
+								Main.game.getPlayer().setSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER), 20 + Util.random.nextInt(10));
+								Main.game.getPlayer().setCumCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER), 10 + Util.random.nextInt(5));
+								
+							}
+						}
+						Main.game.getPlayer().setAttribute(Attribute.CORRUPTION, 15);
 
 					}
 				};
@@ -1387,23 +1710,78 @@ public class CharacterCreation {
 		
 		@Override
 		public String getContent() {
-			return "<p>"
-						+ "<b>Still TODO!</b>"
-					+ "</p>"
-					+ "<p>"
-						+ "Meet Lily, she asks you to go and find Arthur."
-					+ "</p>"
-					+ "</br>"
-					+ "<div class='container-full-width'>"
-						+ "<h5 style='text-align:center;'>Appearance</h5>"
-						+ Main.game.getPlayer().getBodyDescription()
-					+ "</div>";
+			UtilText.nodeContentSB.setLength(0);
+			
+			if(femalePrologueNPC()) {
+				UtilText.nodeContentSB.append(
+						"<p>"
+							+ "As the two of you talk about your sexual backgrounds, you find yourself increasingly unable to control your arousal, and from the desperate look in [prologueFemale.name]'s eyes, she's having the same problem as you are."
+							+ " Stepping forwards, she half-speaks, half-moans,"
+							+ " [prologueFemale.speech(All this talk's got me pretty turned on... How about you and I-)]"
+						+ "</p>"
+						+ "<p>"
+							+ "[lilaya.speech([pc.Name]! There you are! I've been looking everywhere for you,)]"
+							+ " a very familiar, and at this moment very unwanted, voice calls out,"
+							+ " [lilaya.speech(sorry if I'm interrupting, but I really need your help!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "Turning towards the unmistakable voice of your aunt Lily, you suppress a frustrated sigh,"
+							+ " [pc.speech(Is this about the opening being delayed?)]"
+						+ "</p>"
+						+ "<p>"
+							+ "[prologueFemale.speech(I see you're going to be busy, perhaps I'll catch you later,)] [prologueFemale.name] says, before walking off and leaving you alone with your aunt."
+						+ "</p>");
+				
+			} else {
+				UtilText.nodeContentSB.append(
+						"<p>"
+							+ "As the two of you talk about your sexual backgrounds, you find yourself increasingly unable to control your arousal, and from the desperate look in [prologueMale.name]'s eyes, he's having the same problem as you are."
+							+ " Stepping forwards, he half-speaks, half-groans,"
+							+ " [prologueMale.speech(All this talk's got me pretty turned on... How about you and I-)]"
+						+ "</p>"
+						+ "<p>"
+							+ "[lilaya.speech([pc.Name]! There you are! I've been looking everywhere for you,)]"
+							+ " a very familiar, and at this moment very unwanted, voice calls out,"
+							+ " [lilaya.speech(sorry if I'm interrupting, but I really need your help!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "Turning towards the unmistakable voice of your aunt Lily, you suppress a frustrated sigh,"
+							+ " [pc.speech(Is this about the opening being delayed?)]"
+						+ "</p>"
+						+ "<p>"
+							+ "[prologueMale.speech(I see you're going to be busy, perhaps I'll catch you later,)] [prologueMale.name] says, before walking off and leaving you alone with your aunt."
+						+ "</p>");
+			}
+			
+			UtilText.nodeContentSB.append("<p>"
+					+ "[lilaya.speech(Erm... goodbye!)] Lily awkwardly calls out, completely oblivious as to what was just about to happen, before turning back to you,"
+					+ " [lilaya.speech(Yes! This is to do with the delay! Arthur's gone missing, and I can't start without him! Everyone's crowding me asking questions, so I can't go out and look for him myself."
+						+ " Please, please <i>please</i> can you go and find him for me?)]"
+				+ "</p>"
+				+ "<p>"
+					+ "Lily's puppy-dog eyes always were too much for you to say no to, and you find yourself agreeing to do as she asks,"
+					+ " [pc.speech(Ok Lily, I'll find him for you, don't worry.)]"
+				+ "</p>"
+				+ "<p>"
+					+ "As Lily starts thanking you, someone calls out from behind her, asking her to return to the stage."
+					+ " Thanking you once more, she then rushes off, leaving you to do as you said you would..."
+				+ "</p>"
+				+"<div class='container-full-width' style='text-align:center;'>"
+					+ "<i>Still a <b>temporary placeholder</b>. You'll be able to have sex with "+(femalePrologueNPC()?"[prologueFemale.name]":"[prologueMale.name]")+" soon!</i>"
+				+ "</div>"
+				+ "</br>"
+				+ "<div class='container-full-width'>"
+					+ "<h5 style='text-align:center;'>Appearance</h5>"
+					+ Main.game.getPlayer().getBodyDescription()
+				+ "</div>");
+			
+			return UtilText.nodeContentSB.toString();
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Start", "Use this character and start the game at the very beginning.", PrologueDialogue.INTRO_2){
+				return new Response("Start", "Use this character and start the game at the very beginning, with trying to find Arthur in the museum.", PrologueDialogue.INTRO_2){
 					@Override
 					public void effects() {
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
@@ -1423,7 +1801,14 @@ public class CharacterCreation {
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
 						
+						Main.game.getPlayer().setMoney(40);
+						Main.game.getPlayer().equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_RARE, DamageType.FIRE));
+						
 						applyGameStart();
+						Main.game.setActiveWorld(
+								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR),
+								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(new GenericPlace(PlaceType.LILAYA_HOME_ROOM_PLAYER)),
+								true);
 
 					}
 				};
@@ -1432,7 +1817,7 @@ public class CharacterCreation {
 				return new Response("Back", "Return to background selection.", CHOOSE_SEX_EXPERIENCE){
 					@Override
 					public void effects() {
-						Main.game.getPlayer().setVaginaVirgin(true);
+						resetVirginity();
 						
 						// Remove attribute gain sentences in the start game screen:
 						Main.game.clearTextEndStringBuilder();
@@ -1447,12 +1832,8 @@ public class CharacterCreation {
 
 	private static void applyGameStart() {
 		Main.getProperties().addRaceDiscovered(Race.HUMAN);
-		Main.getProperties().addItemDiscovered(ItemType.CONDOM);
 		
-		Main.game.getPlayer().setMoney(40);
-		Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 5);
-		
-		Main.game.getPlayer().equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_RARE, DamageType.FIRE));
+		Main.game.getLilaya().setSkinCovering(new Covering(BodyCoveringType.HUMAN, Main.game.getPlayer().getCovering(BodyCoveringType.HUMAN).getPrimaryColour()), true);
 
 		Main.game.clearTextStartStringBuilder();
 		Main.game.clearTextEndStringBuilder();
@@ -1467,11 +1848,6 @@ public class CharacterCreation {
 		
 		Main.game.getPlayerCell().resetInventory();
 		moveNPCOutOfPlayerTile();
-		
-		Main.game.setActiveWorld(
-				Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR),
-				Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(new GenericPlace(LilayasHome.LILAYA_HOME_ROOM_PLAYER)),
-				true);
 	}
 	
 	private static StringBuilder importSB;
@@ -1513,7 +1889,7 @@ public class CharacterCreation {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Refresh", "Refresh this page.", IMPORT_CHOOSE);
 				
@@ -1577,13 +1953,13 @@ public class CharacterCreation {
 		}
 		
 		@Override
-		public Response getResponse(int index) {
+		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Start", "Use this character and start the game at the very beginning.", PrologueDialogue.INTRO_2){
 					@Override
 					public void effects() {
+						Main.game.getPlayer().resetAllQuests();
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
-						
 						applyGameStart();
 					}
 				};
@@ -1592,15 +1968,18 @@ public class CharacterCreation {
 				return new ResponseEffectsOnly("Skip prologue", "Start the game and skip the prologue.</br></br><i style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Not recommended for first time playing!</i>"){
 					@Override
 					public void effects() {
-						getDressed();
-						
 						Main.game.setRenderMap(true);
 						Main.game.setInNewWorld(true);
-						
+
+						Main.game.getPlayer().resetAllQuests();
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
 						
 						applyGameStart();
+						Main.game.setActiveWorld(
+								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR),
+								Main.game.getWorlds().get(WorldType.LILAYAS_HOUSE_FIRST_FLOOR).getPlacesOfInterest().get(new GenericPlace(PlaceType.LILAYA_HOME_ROOM_PLAYER)),
+								true);
 					}
 				};
 				

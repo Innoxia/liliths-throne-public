@@ -21,11 +21,15 @@ public class SexFlags implements Serializable {
 	
 	// Generic:
 	mutualOrgasmsAllowed,
+	playerPreparedForOrgasm,
 	
 	// Position requests:
 	requestedCowgirl,
 	requested69,
 	requestedDoggy,
+	requestedDoggyOral,
+	requestedDoggyReceiveOral,
+	requestedDomFuckedDoggy,
 	requestedBackToWall,
 	requestedFaceToWall,
 	requestedKneeling,
@@ -63,6 +67,7 @@ public class SexFlags implements Serializable {
 		partnerRequestedCreampie = false;
 		
 		mutualOrgasmsAllowed = true;
+		playerPreparedForOrgasm = false;
 		
 		resetRequests();
 		
@@ -84,6 +89,9 @@ public class SexFlags implements Serializable {
 		requestedCowgirl = false;
 		requested69 = false;
 		requestedDoggy = false;
+		requestedDoggyOral = false;
+		requestedDoggyReceiveOral = false;
+		requestedDomFuckedDoggy = false;
 		requestedBackToWall = false;
 		requestedFaceToWall = false;
 		requestedKneeling = false;

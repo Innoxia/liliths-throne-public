@@ -33,7 +33,11 @@ public enum PenisType implements BodyPartTypeInterface {
 
 	FELINE(BodyCoveringType.PENIS, TesticleType.FELINE, Race.CAT_MORPH, PenisModifier.BARBED, PenisModifier.SHEATHED),
 
+	ALLIGATOR_MORPH(BodyCoveringType.PENIS, TesticleType.ALLIGATOR_MORPH, Race.ALLIGATOR_MORPH, PenisModifier.BLUNT),
+
 	EQUINE(BodyCoveringType.PENIS, TesticleType.EQUINE, Race.HORSE_MORPH, PenisModifier.FLARED, PenisModifier.VEINY, PenisModifier.SHEATHED),
+
+	REINDEER_MORPH(BodyCoveringType.PENIS, TesticleType.REINDEER_MORPH, Race.REINDEER_MORPH, PenisModifier.FLARED, PenisModifier.SHEATHED),
 
 	SLIME(BodyCoveringType.PENIS, TesticleType.SLIME, Race.SLIME),
 
@@ -81,8 +85,12 @@ public enum PenisType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("cock", "demon-cock", "demon-dick");
 			case EQUINE:
 				return UtilText.returnStringAtRandom("horse-cock", "equine cock", "horse-like cock", "horse-dick");
+			case REINDEER_MORPH:
+				return UtilText.returnStringAtRandom("reindeer-cock", "rangiferine cock", "reindeer-like cock", "reindeer-dick");
 			case FELINE:
 				return UtilText.returnStringAtRandom("cat-cock", "feline cock", "cat-like cock", "cat-dick");
+			case ALLIGATOR_MORPH:
+				return UtilText.returnStringAtRandom("reptile-cock", "reptile cock", "reptile-like cock", "reptile-dick");
 			case HUMAN:
 				return UtilText.returnStringAtRandom("cock", "shaft");
 			case NONE:
@@ -111,8 +119,12 @@ public enum PenisType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("cocks", "demon-cocks", "demon-dicks");
 			case EQUINE:
 				return UtilText.returnStringAtRandom("horse-cocks", "equine cocks", "horse-like cocks", "horse-dicks");
+			case REINDEER_MORPH:
+				return UtilText.returnStringAtRandom("reindeer-cocks", "rangiferine cocks", "reindeer-like cocks", "reindeer-dicks");
 			case FELINE:
 				return UtilText.returnStringAtRandom("cat-cocks", "feline cocks", "cat-like cocks", "cat-dicks");
+			case ALLIGATOR_MORPH:
+				return UtilText.returnStringAtRandom("reptile-cocks", "reptile cocks", "reptile-like cocks", "reptile-dicks");
 			case HUMAN:
 				return UtilText.returnStringAtRandom("cocks", "shafts");
 			case NONE:
@@ -144,8 +156,12 @@ public enum PenisType implements BodyPartTypeInterface {
 						return UtilText.returnStringAtRandom("demonic");
 					case EQUINE:
 						return UtilText.returnStringAtRandom("bestial", "thick");
+					case REINDEER_MORPH:
+						return UtilText.returnStringAtRandom("bestial", "thick");
 					case FELINE:
 						return UtilText.returnStringAtRandom("bestial");
+					case ALLIGATOR_MORPH:
+						return UtilText.returnStringAtRandom("reptilian");
 					case HUMAN:
 						return UtilText.returnStringAtRandom("");
 					case NONE:
@@ -167,6 +183,40 @@ public enum PenisType implements BodyPartTypeInterface {
 				}
 		}
 		
+	}
+	
+	public String getTransformName() {
+		switch(this){
+			case ANGEL:
+				return "angelic";
+			case AVIAN:
+				return "avian";
+			case BOVINE:
+				return "bovine";
+			case CANINE:
+				return "canine";
+			case DEMON_COMMON:
+				return "demonic";
+			case EQUINE:
+				return "equine";
+			case REINDEER_MORPH:
+				return "rangiferine";
+			case FELINE:
+				return "feline";
+			case HUMAN:
+				return "human";
+			case NONE:
+				return "none";
+			case SLIME:
+				return "slime";
+			case SQUIRREL:
+				return "squirrel";
+			case ALLIGATOR_MORPH:
+				return "alligator";
+			case LUPINE:
+				return "lupine";
+		}
+		return "";
 	}
 
 	@Override
@@ -199,6 +249,8 @@ public enum PenisType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("tapered", "pointed");
 			case EQUINE:
 				return UtilText.returnStringAtRandom("wide", "flared", "flat");
+			case ALLIGATOR_MORPH:
+				return UtilText.returnStringAtRandom("blunt");
 			case FELINE:
 				return UtilText.returnStringAtRandom("");
 			case NONE:

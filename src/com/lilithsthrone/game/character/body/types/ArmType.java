@@ -27,6 +27,10 @@ public enum ArmType implements BodyPartTypeInterface {
 
 	HORSE_MORPH(BodyCoveringType.HORSE_HAIR, Race.HORSE_MORPH),
 
+	REINDEER_MORPH(BodyCoveringType.REINDEER_FUR, Race.REINDEER_MORPH),
+
+	ALLIGATOR_MORPH(BodyCoveringType.ALLIGATOR_SCALES, Race.ALLIGATOR_MORPH),
+
 	SLIME(BodyCoveringType.SLIME, Race.SLIME),
 
 	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH),
@@ -101,10 +105,14 @@ public enum ArmType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("furry", "fur-coated");
 			case SQUIRREL_MORPH:
 				return UtilText.returnStringAtRandom("furry", "fur-coated");
+			case ALLIGATOR_MORPH:
+				return UtilText.returnStringAtRandom("scaled", "reptile-like");
 			case HARPY:
 				return UtilText.returnStringAtRandom("feathered", "bird-like");
 			case HORSE_MORPH:
 				return UtilText.returnStringAtRandom("");
+			case REINDEER_MORPH:
+				return UtilText.returnStringAtRandom("furry", "fur-coated");
 			case HUMAN:
 				return UtilText.returnStringAtRandom("");
 			case LYCAN:
@@ -114,6 +122,38 @@ public enum ArmType implements BodyPartTypeInterface {
 			default:
 				return UtilText.returnStringAtRandom("");
 		}
+	}
+	
+	public String getTransformName() {
+		switch(this){
+			case ANGEL:
+				return "angelic";
+			case CAT_MORPH:
+				return "feline";
+			case DEMON_COMMON:
+				return "demonic";
+			case DOG_MORPH:
+				return "canine";
+			case COW_MORPH:
+				return "bovine";
+			case SQUIRREL_MORPH:
+				return "furry";
+			case ALLIGATOR_MORPH:
+				return "alligator";
+			case HARPY:
+				return "feathered";
+			case HORSE_MORPH:
+				return "equine";
+			case REINDEER_MORPH:
+				return "rangiferine";
+			case HUMAN:
+				return "human";
+			case LYCAN:
+				return "lupine";
+			case SLIME:
+				return "slimy";
+		}
+		return "";
 	}
 
 	@Override
@@ -153,10 +193,14 @@ public enum ArmType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("soft", "feminine", "dog-like", "paw-like", "furry", "canine");
 				case COW_MORPH:
 					return UtilText.returnStringAtRandom("feminine", "bovine");
+				case ALLIGATOR_MORPH:
+					return UtilText.returnStringAtRandom("feminine", "scaled");
 				case HARPY:
 					return UtilText.returnStringAtRandom("feminine", "feathered");
 				case HORSE_MORPH:
 					return UtilText.returnStringAtRandom("feminine", "equine");
+				case REINDEER_MORPH:
+					return UtilText.returnStringAtRandom("feminine", "rangiferine");
 				case HUMAN:
 					return UtilText.returnStringAtRandom("soft", "feminine");
 				case LYCAN:
@@ -180,10 +224,14 @@ public enum ArmType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("dog-like", "paw-like", "furry", "canine");
 				case COW_MORPH:
 					return UtilText.returnStringAtRandom("bovine");
+				case ALLIGATOR_MORPH:
+					return UtilText.returnStringAtRandom("scaled");
 				case HARPY:
 					return UtilText.returnStringAtRandom("feathered");
 				case HORSE_MORPH:
 					return UtilText.returnStringAtRandom("equine");
+				case REINDEER_MORPH:
+					return UtilText.returnStringAtRandom("rangiferine");
 				case HUMAN:
 					return UtilText.returnStringAtRandom("");
 				case LYCAN:
@@ -225,10 +273,14 @@ public enum ArmType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("soft", "feminine", "padded", "canine");
 				case COW_MORPH:
 					return UtilText.returnStringAtRandom("feminine", "bovine");
+				case ALLIGATOR_MORPH:
+					return UtilText.returnStringAtRandom("feminine", "scaled");
 				case HARPY:
 					return UtilText.returnStringAtRandom("feminine", "feathered");
 				case HORSE_MORPH:
 					return UtilText.returnStringAtRandom("feminine", "equine");
+				case REINDEER_MORPH:
+					return UtilText.returnStringAtRandom("feminine", "rangiferine");
 				case HUMAN:
 					return UtilText.returnStringAtRandom("soft", "feminine");
 				case LYCAN:
@@ -252,10 +304,14 @@ public enum ArmType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("dog-like", "padded", "canine");
 				case COW_MORPH:
 					return UtilText.returnStringAtRandom("bovine");
+				case ALLIGATOR_MORPH:
+					return UtilText.returnStringAtRandom("scaled");
 				case HARPY:
 					return UtilText.returnStringAtRandom("feathered");
 				case HORSE_MORPH:
 					return UtilText.returnStringAtRandom("equine");
+				case REINDEER_MORPH:
+					return UtilText.returnStringAtRandom("rangiferine");
 				case HUMAN:
 					return UtilText.returnStringAtRandom("");
 				case LYCAN:

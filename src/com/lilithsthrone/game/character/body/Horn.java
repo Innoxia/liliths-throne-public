@@ -4,22 +4,25 @@ import java.io.Serializable;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.HornType;
+import com.lilithsthrone.game.character.body.valueEnums.HornLength;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.1.89
  * @author Innoxia
  */
 public class Horn implements BodyPartInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private HornType type;
-	private int rows;
+	protected HornType type;
+	protected int rows;
+	protected int length;
 	
-	public Horn(HornType type) {
+	public Horn(HornType type, int length) {
 		this.type = type;
+		this.length = length;
 		rows = 1;
 	}
 
@@ -100,63 +103,93 @@ public class Horn implements BodyPartInterface, Serializable {
 		}
 		
 		switch (type) {
-			case DEMON_COMMON_FEMALE:
+			case CURLED:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
-							" Hard nubs push out from your upper forehead, and you gasp as you feel "+getDeterminer(owner)+" long, sleek horns pushing out to sweep back across the sides of your head."
+							" Hard nubs push out from the sides of your head, and you gasp as you feel them quickly grow out into "+getDeterminer(owner)+" circular-curling horns."
 							+ "</br>"
-							+ "You now have "+getDeterminer(owner)+" [style.boldDemon(feminine-looking demonic horns)]."
+							+ "You now have "+getDeterminer(owner)+" [style.boldTfGeneric(curled horns)]."
 							+ "</p>");
 				} else {
 					UtilText.transformationContentSB.append(
-								" Hard nubs push out from [npc.her] upper forehead, and [npc.she] gasps as [npc.she] feels "+getDeterminer(owner)+" long, sleek horns pushing out to sweep back across the sides of [npc.her] head."
+								" Hard nubs push out from the sides of [npc.her] head, and [npc.she] gasps as they quickly grow out into "+getDeterminer(owner)+" circular-curling horns."
 								+ "</br>"
-								+ "[npc.Name] now has "+getDeterminer(owner)+" [style.boldDemon(feminine-looking demonic horns)]."
+								+ "[npc.Name] now has "+getDeterminer(owner)+" [style.boldTfGeneric(curled horns)]."
 								+ "</p>");
 				}
 				break;
-			case DEMON_COMMON_MALE:
+			case CURVED: case BOVINE_CURVED:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
-							" Hard nubs push out from your upper forehead, and you gasp as you feel "+getDeterminer(owner)+" short, ridged horns push out and slightly bend back over your head."
+							" Hard nubs push out from the sides of your head, and you gasp as you feel them quickly grow out into "+getDeterminer(owner)+" slightly-curved horns."
 							+ "</br>"
-							+ "You now have "+getDeterminer(owner)+" [style.boldDemon(masculine-looking demonic horns)]."
+							+ "You now have "+getDeterminer(owner)+" [style.boldTfGeneric(curved horns)]."
 							+ "</p>");
 				} else {
 					UtilText.transformationContentSB.append(
-								" Hard nubs push out from [npc.her] upper forehead, and [npc.she] gasps as [npc.she] feels "+getDeterminer(owner)+" short, ridged horns push out and slightly bend back over [npc.her] head."
+								" Hard nubs push out from the sides of [npc.her] head, and [npc.she] gasps as they quickly grow out into "+getDeterminer(owner)+" slightly-curved horns."
 								+ "</br>"
-								+ "[npc.Name] now has "+getDeterminer(owner)+" [style.boldDemon(masculine-looking demonic horns)]."
+								+ "[npc.Name] now has "+getDeterminer(owner)+" [style.boldTfGeneric(curved horns)]."
 								+ "</p>");
 				}
 				break;
-			case BOVINE_FEMALE:
+			case SPIRAL:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
-							" Hard nubs push out from the sides of your head, and you gasp as you feel them quickly grow out into "+getDeterminer(owner)+" short, sleek horns, much like a cow's."
+							" Hard nubs push out from the sides of your head, and you gasp as you feel them quickly grow out into "+getDeterminer(owner)+" twisted, spiralling horns."
 							+ "</br>"
-							+ "You now have "+getDeterminer(owner)+" [style.boldCowMorph(feminine-looking bovine horns)]."
+							+ "You now have "+getDeterminer(owner)+" [style.boldTfGeneric(spiral horns)]."
 							+ "</p>");
 				} else {
 					UtilText.transformationContentSB.append(
-								" Hard nubs push out from the sides of [npc.her] head, and [npc.she] gasps as they quickly grow out into "+getDeterminer(owner)+" short, sleek horns, much like a cow's."
+								" Hard nubs push out from the sides of [npc.her] head, and [npc.she] gasps as they quickly grow out into "+getDeterminer(owner)+" twisted, spiralling horns."
 								+ "</br>"
-								+ "[npc.Name] now has "+getDeterminer(owner)+" [style.boldCowMorph(feminine-looking bovine horns)]."
+								+ "[npc.Name] now has "+getDeterminer(owner)+" [style.boldTfGeneric(spiral horns)]."
 								+ "</p>");
 				}
 				break;
-			case BOVINE_MALE:
+			case REINDEER_RACK:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
-							" Hard nubs push out from the sides of your head, and you gasp as you feel them quickly grow out into "+getDeterminer(owner)+" long, curved horns, much like a bull's."
+							" Hard nubs push out from the sides of your head, and you gasp as you feel them quickly grow out into "+getDeterminer(owner)+" branching, multi-pronged antlers."
 							+ "</br>"
-							+ "You now have "+getDeterminer(owner)+" [style.boldCowMorph(masculine-looking bovine horns)]."
+							+ "You now have "+getDeterminer(owner)+" [style.boldTfGeneric(reindeer-like antlers)]."
 							+ "</p>");
 				} else {
 					UtilText.transformationContentSB.append(
-								" Hard nubs push out from the sides of [npc.her] head, and [npc.she] gasps as they quickly grow out into "+getDeterminer(owner)+" long, curved horns, much like a bull's."
+								" Hard nubs push out from the sides of [npc.her] head, and [npc.she] gasps as they quickly grow out into "+getDeterminer(owner)+" branching, multi-pronged antlers."
 								+ "</br>"
-								+ "[npc.Name] now has "+getDeterminer(owner)+" [style.boldCowMorph(masculine-looking bovine horns)]."
+								+ "[npc.Name] now has "+getDeterminer(owner)+" [style.boldTfGeneric(reindeer-like antlers)]."
+								+ "</p>");
+				}
+				break;
+			case STRAIGHT: case BOVINE_STRAIGHT:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+							" Hard nubs push out from the sides of your head, and you gasp as you feel them quickly grow out into "+getDeterminer(owner)+" sleek, straight horns."
+							+ "</br>"
+							+ "You now have "+getDeterminer(owner)+" [style.boldTfGeneric(straight horns)]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" Hard nubs push out from the sides of [npc.her] head, and [npc.she] gasps as they quickly grow out into "+getDeterminer(owner)+" sleek, straight horns."
+								+ "</br>"
+								+ "[npc.Name] now has "+getDeterminer(owner)+" [style.boldTfGeneric(straight horns)]."
+								+ "</p>");
+				}
+				break;
+			case SWEPT_BACK:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+							" Hard nubs push out from the sides of your head, and you gasp as you feel them quickly grow out and curve back over your head into "+getDeterminer(owner)+" swept-back horns."
+							+ "</br>"
+							+ "You now have "+getDeterminer(owner)+" [style.boldTfGeneric(swept-back horns)]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" Hard nubs push out from the sides of [npc.her] head, and [npc.she] gasps as they quickly grow out and curve back over [npc.her] head into "+getDeterminer(owner)+" swept-back horns."
+								+ "</br>"
+								+ "[npc.Name] now has "+getDeterminer(owner)+" [style.boldTfGeneric(swept-back horns)]."
 								+ "</p>");
 				}
 				break;
@@ -178,6 +211,9 @@ public class Horn implements BodyPartInterface, Serializable {
 		}
 		
 		this.type = type;
+		if(this.length==0) {
+			length = HornLength.ONE_SMALL.getMinimumValue();
+		}
 		
 		return UtilText.parse(owner, UtilText.transformationContentSB.toString())
 				+ "<p>"
@@ -235,6 +271,57 @@ public class Horn implements BodyPartInterface, Serializable {
 							+ " [npc.She] can't help but let out a little cry as [npc.she] feels new [npc.horns] [style.boldGrow(pushing up)] and growing out of [npc.her] [npc.faceSkin].</br>"
 							+ "After a few moments, [npc.she]'s left with [style.boldTfGeneric("+getDeterminer(owner)+" [npc.horns])]."
 						+ "</p>");
+			}
+		}
+	}
+	
+	public HornLength getHornLength() {
+		return HornLength.getHornLengthFromInt(length);
+	}
+	
+	public int getHornLengthValue() {
+		return length;
+	}
+
+	public String setHornLength(GameCharacter owner, int length) {
+		int oldLength = this.length;
+		this.length = Math.max(0, Math.min(length, HornLength.FOUR_MASSIVE.getMaximumValue()));
+		int sizeChange = this.length - oldLength;
+		
+		if(owner.getHornType()==HornType.NONE) {
+			if(owner.isPlayer()) {
+				return "<p style='text-align:center;'>[style.colourDisabled(You don't have any horns, so nothing seems to happen...)]</p>";
+			} else {
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] doesn't have any horns, so nothing seems to happen...)]</p>");
+			}
+		}
+		
+		if(sizeChange == 0) {
+			if(owner.isPlayer()) {
+				return "<p style='text-align:center;'>[style.colourDisabled(The length of your [pc.horns] doesn't change...)]</p>";
+			} else {
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The length of [npc.name]'s [npc.horns] doesn't change...)]</p>");
+			}
+		}
+		
+		if(sizeChange < 0) {
+			if(owner.isPlayer()) {
+				return "<p>A strange tingling sensation runs up through your [pc.face] and into your [pc.horns], causing you to let out a surprised gasp as you feel them [style.boldShrink(getting shorter)].</br>"
+						+ "You now have [style.boldTfGeneric([pc.hornSize] [pc.horns])]!</p>";
+			} else {
+				return UtilText.parse(owner, "<p>[npc.Name] lets out a little cry as [npc.she] feels a strange tingling sensation running up through [npc.her] [npc.face] and into [npc.her] [npc.horns],"
+							+ " before they suddenly shrink down and [style.boldShrink(get noticeably shorter)].</br>"
+						+ "[npc.Name] now has [style.boldTfGeneric([npc.hornSize] [npc.horns])]!</p>");
+			}
+			
+		} else {
+			if(owner.isPlayer()) {
+				return "<p>A warm pulsating sensation runs up through your [pc.face] and into your [pc.horns], causing you to let out a surprised gasp as you feel them [style.boldGrow(growing larger)].</br>"
+						+ "You now have [style.boldTfGeneric([pc.hornSize] [pc.horns])]!</p>";
+			} else {
+				return UtilText.parse(owner, "<p>[npc.Name] lets out a little cry as [npc.she] feels a warm pulsating sensation running up through [npc.her] [npc.face] and into [npc.her] [npc.horns],"
+						+ " before they suddenly grow out and [style.boldGrow(get noticeably longer)].</br>"
+						+ "[npc.Name] now has [style.boldTfGeneric([npc.hornSize] [npc.horns])]!</p>");
 			}
 		}
 	}
