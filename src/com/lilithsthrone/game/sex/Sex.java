@@ -2768,12 +2768,12 @@ public enum Sex {
 				break;
 			case PENIS_PARTNER: case PENIS_PLAYER:
 				if(!penetrator.hasPenis()) {
-					return false;
+					return true;
 				}
 				break;
 			case TAIL_PARTNER: case TAIL_PLAYER:
 				if(penetrator.getTailType()==TailType.NONE|| penetrator.getTailCount()==0) {
-					return false;
+					return true;
 				}
 				penetrationTypesAvailable = penetrator.getTailCount();
 				break;

@@ -53,9 +53,15 @@ public class ConChairPositionsLilaya {
 
 		@Override
 		public void applyEffects() {
-			Sex.setSexManager(new SMChairLilaya(
-					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM_LILAYA)),
-					Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP_LILAYA))));
+			if(Sex.isDom(Main.game.getPlayer())) {
+				Sex.setSexManager(new SMChairLilaya(
+						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM_LILAYA)),
+						Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP_LILAYA))));
+			} else {
+				Sex.setSexManager(new SMChairLilaya(
+						Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_TOP_LILAYA)),
+						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_BOTTOM_LILAYA))));
+			}
 		}
 	};
 	
@@ -94,9 +100,15 @@ public class ConChairPositionsLilaya {
 
 		@Override
 		public void applyEffects() {
-			Sex.setSexManager(new SMChairLilaya(
-					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_TOP_LILAYA)),
-					Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_BOTTOM_LILAYA))));
+			if(Sex.isDom(Main.game.getPlayer())) {
+				Sex.setSexManager(new SMChairLilaya(
+						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_TOP_LILAYA)),
+						Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_BOTTOM_LILAYA))));
+			} else {
+				Sex.setSexManager(new SMChairLilaya(
+						Util.newHashMapOfValues(new Value<>(Main.game.getLilaya(), SexPositionSlot.CHAIR_BOTTOM_LILAYA)),
+						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.CHAIR_TOP_LILAYA))));
+			}
 		}
 	};
 }

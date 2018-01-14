@@ -37,6 +37,31 @@
 	
 	
 	
+	FINISH SAVE COMPAT
+	
+	
+	So, I know that multiple-partner sex's implementation is still being worked on, but since the Spitroast option for slaves exists currently, I feel like I should tell you the issue that I ran into. Whenever I would initiate the spitroast, at first both slaves would appear as the dominant on the right, but after a few turns, one of them (almost always the second slave for me) would do something, causing the other slave to disappear from the right and not do anything anymore. From then on, only the slave who took the original action would be part of the scene. For reference (though I don't know if this matters) my character is a greater incubus and the slaves are both greater succubi. 
+	
+	Hey there, found a bug in the hotfix for the most recent version, 0.1.97.
+	  With Liliya, the character's aunt, I cannot get her to impregnate the character.
+	    I have tried matching the character's orgasm to Liliya's with always using the 'stay in position' option, with both sex positions, and Liliya still always pulls out to cum on the floor, instead of inside.
+Same thing happened with Kate as well.  I haven't explored further, but I hope it does not apply when your character is initiating sex with any other NPC.  I did get my character pregnant by the horse merchant, though.
+	
+	If you're on the receiving end of non-consensual sex with an dick giving npc, and they reach orgasm but you have not, you will stay on the "receive creampie" and "request pullout" screen until your character would have reached orgasm, but with no buildup or show there of. If this sounds confusing for you, say you're at 25 arousal while they're at 100 arousal, you will stay on the "request/do not request creampie page, but you will have to press one of the buttons based on the number of turns it would have taken you to reach 100 arousal yourself. While this is happening, nothing changes appearance wise in game until you reach 100 arousal, at which point the game proceeds normally.
+	
+	: I seem to be getting a lot of duplicate options in the Lilaya sex scene. I'm also getting the 'bounce' options despite being in the standing position (not sure if that one is intentional)
+	
+	Enslaved a horse-girl, beat up Brax, went to Lilaya's place, prepared some double slave rooms, went to move my new slave to the room and set her job, and Brax's stats show up in the right side.
+	
+	Also, when starting from a character import, things such like meeting Brax are preserved, so he'll complain about Candi letting you in "again" the first time you meet.
+	
+	Masc characters with no genitals, and their crotch covered, are assumed to be cuntboys or butches depending on the presence of breasts.
+Masc characters with a vagina, and their crotch covered, are assumed to be males or busty-boys depending on the presence of breasts.
+This is weird, and it should probably be consistent for both cases, since mannequins look like cuntboys, but cuntboys apparently look like males.
+	
+	
+	
+	
 	
 	
 	Set up doggy test sex scene
