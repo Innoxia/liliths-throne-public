@@ -502,7 +502,7 @@ public class SlaveDialogue {
 					}
 					
 				} else if (index == 0) {
-					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.her] some other time.", SLAVE_START) {
+					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", SLAVE_START) {
 						@Override
 						public DialogueNodeOld getNextDialogue() {
 							return DebugDialogue.getDefaultDialogueNoEncounter();
@@ -597,7 +597,7 @@ public class SlaveDialogue {
 					}
 				
 				} else if (index == 0) {
-					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.her] some other time.", SLAVE_START) {
+					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", SLAVE_START) {
 						@Override
 						public DialogueNodeOld getNextDialogue() {
 							return DebugDialogue.getDefaultDialogueNoEncounter();

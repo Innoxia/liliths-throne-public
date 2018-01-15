@@ -46,7 +46,7 @@ public class SABraxSubStart {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH_PARTNER)==(PenetrationType.PENIS_PLAYER)) {
+			if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.MOUTH_PARTNER)==(PenetrationType.PENIS_PLAYER)) {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"Looking down at [brax.name] as [brax.he] sucks your [pc.cock], you speak down to [brax.him], ",
 						"With a grin, you speak down to the [brax.race] between your legs, "));

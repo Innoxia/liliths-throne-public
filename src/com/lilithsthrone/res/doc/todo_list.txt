@@ -15,18 +15,26 @@
 	
 	Patch notes:
 	
-	Other:
-		Re-organised inventory UI slots to more logical placements.
+	
+	
+	
+	Contributors:
+		Added Linux font compatibility (added Carlito as an alternative font for Calibri). (by PyrophoricPlumage)
+		Fixed incorrect colour reference. (by CognitiveMist)
+		Numerous performance improvements. (by CognitiveMist)
+	
+	Bugs:
+		NPC orgasms should now function correctly (that is, they should now cum inside when they're supposed to).
+		Minor tooltip typo fixes.
+		Imported slaves at the auction block no longer spawn in as being pregnant.
+		Fixed bugs related to Finch's ownership of slaves. (He should now correctly lose ownership of slaves you purchase from the auction block.)
+		Fixed incorrect penis reveal dialogue (where the NPC would compare your penis size to their own, non-existent penis).
+		Fixed enchanting bug where crafting a potion to change a certain body type (primarily horns) would then lock out transformation options for other racial potions.
 	
 	
 	
 	
 	
-	
-	got a problem, when trying to examine slaves, I get stuck with seeing slaves that aren't the one I am looking at. I can work around to see them, but its annoying none the less.
-	
-	
-	: The tooltip for leaving a slave (including "catch her later" or something along those lines) incorrectly uses her/his when it should use her/him.
 	
 	FINISH SAVE COMPAT
 	
@@ -63,6 +71,7 @@ This is weird, and it should probably be consistent for both cases, since manneq
 	
 	AI in sex, so I'll make sure to tweak their preferences for performing self-actions
 	Is it supposed to be that Vaginal and anal sex never happens when you get defeated by a man? I've been several times and it either ends up in a blowjob or they just use their fingers.
+	my slaves insist on doggystyling the PC at first when I choose to be sub (and they don't even have dicks)
 	
 	There is a bug during sex when the partner decides to feel up my chest it only mentions 3 rows of breasts when I have 5.
 	
@@ -89,11 +98,42 @@ This is weird, and it should probably be consistent for both cases, since manneq
 	I don't know if this was on purpose or not, but telling someone to stop self penetrative actions(like self-fingering or tailfucking) doesn't do any good --they go right back to it within the same breath.
 	
 	3somes keep turning into 2somes
+	I tried out the group sex option (only spitroast the PC for now btw), and at one time it became one on one. it was when I tried giving a cunningulus
 	
 	: Probably been reported before, but if you have Forced Transformation on, play as a female and then get transformed into having cock and balls the transformer will never do anything about your balls or cum production. This gets especially curious if your transformer has either the pregnancy or cum addict fetish. Can just imagine them screaming "Why isn't this thing working?!"
 	
+	Bug: Hypnotizing someone has it where it says "The (character) is now command_unknown!" rather than saying "The (character) is now ambiphilic/gynephilic/androphilic"
 	
 	
+	lollipop nympho (and other fetishes) always describes you
+	
+	tooltips: : Looks like vanilla has the exact same text as dirty, and lewd the same as lustful.
+	
+	after going back to pix and taking a close look at her dialouge she seems to use bimbo speech but does not have the fetish
+	
+	enemies (and slaves) sometimes spawn with a fraction of HP, WP and Stamina like this
+	
+	the "pull out" and "cum in me" it only works when you manage to get your arousal to 76+ range (non-con?)
+	
+	Having a penis-item equipped should be indication of your character's gender. Meaning that say, a trap wears a chastity cage, if their groin is exposed, then you shouldn't have to unjinx and take off your chastity belt for NPCs to realize you're a trap.
+	
+	While in doggy style (giving oral) I could give cunningulus and aningulus at the same time.
+	
+	Vicky always says pay for package after sex
+	
+	when importing a game, if you have difficulty set to "Lillith", all characters levels are permanently doubled
+	
+	an overseer and a chapel seem to have spawned on the same tile - can't use chapel
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	got a problem, when trying to examine slaves, I get stuck with seeing slaves that aren't the one I am looking at. I can work around to see them, but its annoying none the less.
 	
 	Set up doggy test sex scene
 		Text for positions

@@ -1321,7 +1321,8 @@ public class SABraxSubCowgirl {
 
 		@Override
 		public String getDescription() {
-			if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER)==PenetrationType.TONGUE_PARTNER || Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PLAYER)==PenetrationType.TONGUE_PARTNER) {
+			if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER)==PenetrationType.TONGUE_PARTNER
+					|| Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER)==PenetrationType.TONGUE_PARTNER) {
 				return UtilText.returnStringAtRandom(
 						"As you carry on using his tongue, Brax reaches down to grab his [npc.penis+], letting out a series of pathetic whines as he starts jerking himself off.",
 
@@ -1602,7 +1603,8 @@ public class SABraxSubCowgirl {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER)==PenetrationType.TONGUE_PARTNER) || (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PLAYER)==PenetrationType.TONGUE_PARTNER);
+			return (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER)==PenetrationType.TONGUE_PARTNER)
+					|| (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER)==PenetrationType.TONGUE_PARTNER);
 		}
 
 		@Override
@@ -1722,7 +1724,8 @@ public class SABraxSubCowgirl {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER)==PenetrationType.PENIS_PARTNER) || (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PLAYER)==PenetrationType.PENIS_PARTNER);
+			return (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER)==PenetrationType.PENIS_PARTNER)
+					|| (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER)==PenetrationType.PENIS_PARTNER);
 		}
 
 		@Override

@@ -69,7 +69,7 @@ public enum HornType implements BodyPartTypeInterface {
 			case NONE:
 				return "";
 			case SWEPT_BACK:
-				return UtilText.returnStringAtRandom("sleek");
+				return UtilText.returnStringAtRandom("swept-back");
 			case REINDEER_RACK:
 				return UtilText.returnStringAtRandom("branching");
 			case STRAIGHT: case BOVINE_STRAIGHT:

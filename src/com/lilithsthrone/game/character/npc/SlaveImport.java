@@ -21,7 +21,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.90
- * @version 0.1.90
+ * @version 0.1.98
  * @author Innoxia
  */
 public class SlaveImport extends NPC {
@@ -39,9 +39,9 @@ public class SlaveImport extends NPC {
 		SlaveImport npc = new SlaveImport();
 		
 		loadNPCVariablesFromXML(npc, null, parentElement, doc);
-//		npc.setId(Main.game.getNextNPCId(SlaveImport.class));
-//		npc.resetInventory();
-//		npc.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_SLAVE_COLLAR), true, npc);
+		if(!npc.getId().endsWith("SlaveImport")) {
+			npc.setId(Main.game.getNextNPCId(SlaveImport.class));
+		}
 		
 		return npc;
 	}
@@ -51,6 +51,8 @@ public class SlaveImport extends NPC {
 //		if(this.getOwnerId().isEmpty()) {
 			Main.game.getFinch().addSlave(this);
 			this.setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_AUCTIONING_BLOCK, true);
+			
+			this.endPregnancy(false);
 			
 			this.clearNonEquippedInventory();
 			if(this.getClothingInSlot(InventorySlot.NECK)!=null) {

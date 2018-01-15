@@ -5664,27 +5664,27 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						if (!Main.game.getPlayer().hasBreasts()) {
 							return "<p>"
 									+ "[npc.Name] struggles to stifle a mocking laugh as your flat chest is revealed, "
-									+ UtilText.parseSpeech("Pfft-hahaha!", this)
+									+ "[npc.speech(Pfft-hahaha!)]"
 									+ "</p>";
 							
 						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.JJ.getMeasurement()) {
 							if(this.getBreastSize().getMeasurement() >= Main.game.getPlayer().getBreastSize().getMeasurement()) {
 								return "<p>"
 										+ "[npc.Name] puts on a patronising smile as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("Aww... They're pretty cute!", this)
+										+ "[npc.speech(Aww... They're pretty cute!)]"
 										+ "</p>";
 								
 							} else {
 								return "<p>"
 										+ "[npc.Name] looks embarrassed as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("They're so much bigger than mine...", this)
+										+ "[npc.speech(They're so much bigger than mine...)]"
 										+ "</p>";
 							}
 							
 						} else {
 							return "<p>"
 									+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-									+ UtilText.parseSpeech("How much bubble milk have you been drinking?!", this)
+									+ "[npc.speech(How much bubble milk have you been drinking?!)]"
 									+ "</p>";
 						}
 						
@@ -5695,27 +5695,27 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
 							return "<p>"
 									+ "In a very patronising voice, [npc.name] reacts to your breasts being revealed, "
-									+ UtilText.parseSpeech("Aww, you trying to become a girl?", this)
+									+ "[npc.speech(Aww, you trying to become a girl?)]"
 									+ "</p>";
 		
 						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.JJ.getMeasurement()) {
 							if(this.getBreastSize().getMeasurement() >= Main.game.getPlayer().getBreastSize().getMeasurement()) {
 								return "<p>"
 										+ "[npc.Name] looks surprised as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("Why would a guy have tits like that?", this)
+										+ "[npc.speech(Why would a guy have tits like that?)]"
 										+ "</p>";
 								
 							} else {
 								return "<p>"
 										+ "[npc.Name] fails to contain [npc.her] surprise as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("A <i>guy</i> has bigger tits than me?!", this)
+										+ "[npc.speech(A <i>guy</i> has bigger tits than me?!)]"
 										+ "</p>";
 							}
 		
 						} else {
 							return "<p>"
 									+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-									+ UtilText.parseSpeech("How much bubble milk have you been drinking?!", this)
+									+ "[npc.speech(How much bubble milk have you been drinking?!)]"
 									+ "</p>";
 						}
 						
@@ -5727,25 +5727,25 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						if (!Main.game.getPlayer().hasBreasts()) {
 							return "<p>"
 									+ "[npc.Name] struggles to stifle a mocking laugh as your flat chest is revealed, "
-									+ UtilText.parseSpeech("Pfft-hahaha!", this)
+									+ "[npc.speech(Pfft-hahaha!)]"
 									+ "</p>";
 							
 						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
 							return "<p>"
 									+ "[npc.Name] lets out a disappointed hum as your [pc.breastSize] breasts are revealed, "
-									+ UtilText.parseSpeech("Huh... They're pretty small you know...", this)
+									+ "[npc.speech(Huh... They're pretty small you know...)]"
 									+ "</p>";
 							
 						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.JJ.getMeasurement()) {
 							return (UtilText.parse(this,
 										"[npc.Name]'s eyes light up as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("Oh fuck yeah... Look at the size of those tits!", this))
+										+ "[npc.speech(Oh fuck yeah... Look at the size of those tits!)]")
 									+ "</p>");
 							
 						} else {
 							return (UtilText.parse(this,
 										"[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("How much bubble milk have you been drinking?!", this))
+										+ "[npc.speech(How much bubble milk have you been drinking?!)]")
 									+ "</p>");
 						}
 						
@@ -5757,28 +5757,28 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 							return (
 									"<p>"
 										+ "In a mocking tone, [npc.name] questions you as your tiny breasts are revealed, "
-										+ UtilText.parseSpeech("Hah, you trying to become a girl?", this)
+										+ "[npc.speech(Hah, you trying to become a girl?)]"
 									+ "</p>");
 							
 						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.FF.getMeasurement()) {
 							return (
 									"<p>"
 										+ "[npc.Name] looks surprised as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("Why would a guy have tits like that?", this)
+										+ "[npc.speech(Why would a guy have tits like that?)]"
 									+ "</p>");
 							
 						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.JJ.getMeasurement()) {
 							return (
 									"<p>"
 										+ "[npc.Name] fails to contain his surprise as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("What's a <i>guy</i> doing with such massive tits?!", this)
+										+ "[npc.speech(What's a <i>guy</i> doing with such massive tits?!)]"
 									+ "</p>");
 							
 						} else {
 							return (
 									"<p>"
 										+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("How much bubble milk have you been drinking?!", this)
+										+ "[npc.speech(How much bubble milk have you been drinking?!)]"
 									+ "</p>");
 						}
 						
@@ -5792,28 +5792,28 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						if (!Main.game.getPlayer().hasBreasts()) {
 							return "<p>"
 									+ "[npc.Name] lets out a mocking laugh as your flat chest is revealed, "
-									+ UtilText.parseSpeech("Hahaha, I don't think I've ever seen a girl with a chest <i>that</i> flat before!", this)
+									+ "[npc.speech(Hahaha, I don't think I've ever seen a girl with a chest <i>that</i> flat before!)]"
 									+ "</p>";
 		
 						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.JJ.getMeasurement()) {
 							if(this.getBreastSize().getMeasurement() >= Main.game.getPlayer().getBreastSize().getMeasurement()) {
 								return "<p>"
 										+ "[npc.Name] grins down at you as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("Aww, look at those tiny little things, how cute!", this)
+										+ "[npc.speech(Aww, look at those tiny little things, how cute!)]"
 										+ "</p>";
 								
 							} else {
 								return "<p>"
 										+ this.getName("The")
 										+ " looks annoyed as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("Are you trying to put me to shame or something?!", this)
+										+ "[npc.speech(Are you trying to put me to shame or something?!)]"
 										+ "</p>";
 							}
 		
 						} else {
 							return "<p>"
 									+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-									+ UtilText.parseSpeech("How much bubble milk have you been drinking?!", this)
+									+ "[npc.speech(How much bubble milk have you been drinking?!)]"
 									+ "</p>";
 						}
 		
@@ -5824,27 +5824,27 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
 							return "<p>"
 									+ "[npc.Name] grins at you as your [pc.breastSize] breasts are revealed, "
-									+ UtilText.parseSpeech("Aww, you trying to become a girl?", this)
+									+ "[npc.speech(Aww, you trying to become a girl?)]"
 									+ "</p>";
 		
 						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.JJ.getMeasurement()) {
 							if(this.getBreastSize().getMeasurement() >= Main.game.getPlayer().getBreastSize().getMeasurement()) {
 								return "<p>"
 										+ "[npc.Name] looks surprised as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("Why would a guy have tits like that?", this)
+										+ "[npc.speech(Why would a guy have tits like that?)]"
 										+ "</p>";
 								
 							} else {
 								return "<p>"
 										+ "[npc.Name] looks annoyed as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("Are you kidding me?! A <i>guy</i> has bigger tits than me?!", this)
+										+ "[npc.speech(Are you kidding me?! A <i>guy</i> has bigger tits than me?!)]"
 										+ "</p>";
 							}
 		
 						} else {
 							return "<p>"
 									+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-									+ UtilText.parseSpeech("How much bubble milk have you been drinking?!", this)
+									+ "[npc.speech(How much bubble milk have you been drinking?!)]"
 									+ "</p>";
 						}
 						
@@ -5856,31 +5856,31 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						if (!Main.game.getPlayer().hasBreasts()) {
 							return "<p>"
 										+ "[npc.Name] lets out a mocking laugh as your flat chest is revealed, "
-										+ UtilText.parseSpeech("Hahaha, I don't think I've ever seen a girl with a chest <i>that</i> flat before!", this)
+										+ "[npc.speech(Hahaha, I don't think I've ever seen a girl with a chest <i>that</i> flat before!)]"
 									+ "</p>";
 							
 						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
 							return "<p>"
 										+ "[npc.Name] growls down at you as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("I like my girls with bigger tits than that!", this)
+										+ "[npc.speech(I like my girls with bigger tits than that!)]"
 									+ "</p>";
 							
 						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.FF.getMeasurement()) {
 							return "<p>"
 										+ "[npc.Name] grins as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("Mmm yeah, those are some nice tits!", this)
+										+ "[npc.speech(Mmm yeah, those are some nice tits!)]"
 									+ "</p>";
 							
 						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.JJ.getMeasurement()) {
 							return "<p>"
 										+ "[npc.Name] looks delighted as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("Oh fuck yeah! Look at the size of those things!", this)
+										+ "[npc.speech(Oh fuck yeah! Look at the size of those things!)]"
 									+ "</p>";
 							
 						} else {
 							return "<p>"
 										+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("How much bubble milk have you been drinking?! What a fucking tit-cow!", this)
+										+ "[npc.speech(How much bubble milk have you been drinking?! What a fucking tit-cow!)]"
 									+ "</p>";
 						}
 						
@@ -5891,25 +5891,25 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
 							return "<p>"
 										+ "[npc.Name] bursts out laughing as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("Hahaha, you trying to become a girl?!", this)
+										+ "[npc.speech(Hahaha, you trying to become a girl?!)]"
 									+ "</p>";
 							
 						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.FF.getMeasurement()) {
 							return "<p>"
 										+ "[npc.Name] looks surprised as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("Why would a guy have tits like that?!", this)
+										+ "[npc.speech(Why would a guy have tits like that?!)]"
 									+ "</p>";
 							
 						} else if (Main.game.getPlayer().getBreastRawSizeValue() <= CupSize.JJ.getMeasurement()) {
 							return "<p>"
 										+ "[npc.Name] lets out a mocking laugh as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("Are you kidding me?! Why does a <i>guy</i> have tits like that?!", this)
+										+ "[npc.speech(Are you kidding me?! Why does a <i>guy</i> have tits like that?!)]"
 									+ "</p>";
 							
 						} else {
 							return "<p>"
 										+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-										+ UtilText.parseSpeech("How much bubble milk have you been drinking?!", this)
+										+ "[npc.speech(How much bubble milk have you been drinking?!)]"
 									+ "</p>";
 						}
 					}
@@ -5964,31 +5964,31 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
 							return "<p>"+
 										"[npc.Name] fails to suppress a little giggle as your tiny [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Aww, that's so cute! I didn't realise you were [pc.a_gender]!", this)
+										+ "[npc.speech(Aww, that's so cute! I didn't realise you were [pc.a_gender]!)]"
 									+ "</p>";
 				
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()) {
 							return "<p>"+
 										"[npc.Name] lets out a surprised gasp as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Ooh! You're [pc.a_gender]?!", this)
+										+ "[npc.speech(Ooh! You're [pc.a_gender]?!)]"
 									+ "</p>";
 				
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.FOUR_HUGE.getMaximumValue()) {
 							return "<p>"+
 										"[npc.Name] grins as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Y'know, what with the bulge and everything, it was pretty obvious you're [pc.a_gender]!", this)
+										+ "[npc.speech(Y'know, what with the bulge and everything, it was pretty obvious you're [pc.a_gender]!)]"
 									+ "</p>";
 				
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.SIX_GIGANTIC.getMaximumValue()) {
 							return "<p>"+
 										"Her eyes open wide as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("I mean, I could see it was big from your bulge, but damn! I've never seen [pc.a_gender] with such a huge cock!", this)
+										+ "[npc.speech(I mean, I could see it was big from your bulge, but damn! I've never seen [pc.a_gender] with such a huge cock!)]"
 									+ "</p>";
 							
 						} else {
 							return "<p>"+
 										"[npc.Name]'s jaw drops as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Holy shit! I didn't think [pc.gender]s could get cocks like that!", this)
+										+ "[npc.speech(Holy shit! I didn't think [pc.gender]s could get cocks like that!)]"
 									+ "</p>";
 						}
 						
@@ -5996,31 +5996,31 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
 							return "<p>"+
 										"[npc.She] fails to suppress a mocking laugh as your tiny [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Hahaha, that's so pathetic! It's like a little clit!", this)
+										+ "[npc.speech(Hahaha, that's so pathetic! It's like a little clit!)]"
 									+ "</p>";
 				
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()) {
 							return "<p>"+
 										"[npc.She] lets out a patronising 'aww' as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Look at that cute little thing!", this)
+										+ "[npc.speech(Look at that cute little thing!)]"
 									+ "</p>";
 				
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.FOUR_HUGE.getMaximumValue()) {
 							return "<p>"+
 										"[npc.She] grins as your [pc.cockSize] [pc.cock] is revealed, "
-											+ UtilText.parseSpeech("~Mmm!~ Now that's what I like to see!", this)
+											+ "[npc.speech(~Mmm!~ Now that's what I like to see!)]"
 									+ "</p>";
 				
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.SIX_GIGANTIC.getMaximumValue()) {
 							return "<p>"+
 										"Her eyes open wide as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Oh wow... This is gonna be good!", this)
+										+ "[npc.speech(Oh wow... This is gonna be good!)]"
 									+ "</p>";
 							
 						} else {
 							return "<p>"+
 										"[npc.Name]'s jaw drops as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Holy shit! Now <i>that's</i> a cock!", this)
+										+ "[npc.speech(Holy shit! Now <i>that's</i> a cock!)]"
 									+ "</p>";
 						}
 					}
@@ -6030,31 +6030,31 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
 							return "<p>"
 									+ "[npc.She] lets out a little giggle as your tiny [pc.cock] is revealed, "
-									+ UtilText.parseSpeech("Aww, that's so cute! I didn't realise you were [pc.a_gender]!", this)
+									+ "[npc.speech(Aww, that's so cute! I didn't realise you were [pc.a_gender]!)]"
 									+ "</p>";
 		
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()) {
 							return "<p>"
 									+ "[npc.She] lets out a surprised gasp as your [pc.cockSize] [pc.cock] is revealed, "
-									+ UtilText.parseSpeech("Ooh! You're a cute little [pc.gender], aren't you?!", this)
+									+ "[npc.speech(Ooh! You're a cute little [pc.gender], aren't you?!)]"
 									+ "</p>";
 		
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.FOUR_HUGE.getMaximumValue()) {
 							return "<p>"
 									+ "[npc.She] grins as your [pc.cockSize] [pc.cock] is revealed, "
-									+ UtilText.parseSpeech("Y'know, what with the bulge and everything, it was pretty obvious you're [pc.a_gender]!", this)
+									+ "[npc.speech(Y'know, what with the bulge and everything, it was pretty obvious you're [pc.a_gender]!)]"
 									+ "</p>";
 		
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.SIX_GIGANTIC.getMaximumValue()) {
 							return "<p>"
 									+ "[npc.Her] eyes open wide as your [pc.cockSize] [pc.cock] is revealed, "
-									+ UtilText.parseSpeech("I mean, I could see it was big from your bulge, but damn! I've never seen [pc.a_gender] with such a huge cock!", this)
+									+ "[npc.speech(I mean, I could see it was big from your bulge, but damn! I've never seen [pc.a_gender] with such a huge cock!)]"
 									+ "</p>";
 		
 						} else {
 							return "<p>"
 									+ "[npc.Her] jaw drops as your [pc.cockSize] [pc.cock] is revealed, "
-									+ UtilText.parseSpeech("Holy shit! I didn't think [pc.gender]s could get cocks like that!", this)
+									+ "[npc.speech(Holy shit! I didn't think [pc.gender]s could get cocks like that!)]"
 									+ "</p>";
 						}
 		
@@ -6062,31 +6062,31 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
 							return "<p>"
 									+ "[npc.She] lets out a mocking laugh as your tiny [pc.cock] is revealed, "
-									+ UtilText.parseSpeech("Hahaha, that's so pathetic!", this)
+									+ "[npc.speech(Hahaha, that's so pathetic!)]"
 									+ "</p>";
 		
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()) {
 							return "<p>"
 									+ "[npc.She] lets out a patronising 'aww' as your [pc.cockSize] [pc.cock] is revealed, "
-									+ UtilText.parseSpeech("Look at that cute little thing!", this)
+									+ "[npc.speech(Look at that cute little thing!)]"
 									+ "</p>";
 		
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.FOUR_HUGE.getMaximumValue()) {
 							return "<p>"
 									+ "[npc.She] grins as your [pc.cockSize] [pc.cock] is revealed, "
-									+ UtilText.parseSpeech("~Mmm!~ That looks pretty good!", this)
+									+ "[npc.speech(~Mmm!~ That looks pretty good!)]"
 									+ "</p>";
 		
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.SIX_GIGANTIC.getMaximumValue()) {
 							return "<p>"
 									+ "Her eyes open wide as your [pc.cockSize] [pc.cock] is revealed, "
-									+ UtilText.parseSpeech("Oh wow...", this)
+									+ "[npc.speech(Oh wow...)]"
 									+ "</p>";
 		
 						} else {
 							return "<p>"
 									+ "[npc.Her] jaw drops as your [pc.cockSize] [pc.cock] is revealed, "
-									+ UtilText.parseSpeech("Holy shit! Now <i>that's</i> a cock!", this)
+									+ "[npc.speech(Holy shit! Now <i>that's</i> a cock!)]"
 									+ "</p>";
 						}
 					}
@@ -6099,31 +6099,33 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
 							return "<p>"
 										+ "[npc.Name] lets out a surprised grunt as your tiny [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Wait, what?! I thought you were a girl... Well, it looks cute enough...", this)
+										+ "[npc.speech(Wait, what?! I thought you were a girl... Well, it looks cute enough...)]"
 									+ "</p>";
 				
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()) {
 							return "<p>"
 										+ "[npc.Name] lets out a surprised grunt as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Wait, what?! You're [pc.a_gender]?!", this)
+										+ "[npc.speech(Wait, what?! You're [pc.a_gender]?!)]"
 									+ "</p>";
 				
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.FOUR_HUGE.getMaximumValue()) {
 							return "<p>"
 										+ "[npc.Name] lets out a surprised grunt as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("I should have guessed from that bulge...", this)
+										+ "[npc.speech(I should have guessed from that bulge...)]"
 									+ "</p>";
 				
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.SIX_GIGANTIC.getMaximumValue()) {
 							return "<p>"
 										+ "[npc.Name] lets out a surprised grunt as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("I saw you had a bulge, but what the hell?! How does [pc.a_gender] have a bigger cock than <i>me</i>?!", this)
+										+ (this.hasPenis()&&this.getPenisRawSizeValue()<Main.game.getPlayer().getPenisRawSizeValue()
+												?"[npc.speech(I saw you had a bulge, but what the hell?! How does [pc.a_gender] have a bigger cock than <i>me</i>?!)]"
+												:"[npc.speech(I saw you had a bulge, but damn! That's one massive cock !)]")
 									+ "</p>";
 							
 						} else {
 							return "<p>"
 										+ "[npc.Name]'s jaw drops as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Holy shit! I didn't think "+Main.game.getPlayer().getGender().getName()+"s could get cocks that big!", this)
+										+ "[npc.speech(Holy shit! I didn't think "+Main.game.getPlayer().getGender().getName()+"s could get cocks that big!)]"
 									+ "</p>";
 						}
 						
@@ -6131,31 +6133,35 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
 							return "<p>"
 										+ "[npc.Name] struggles to suppress a mocking grunt as your tiny [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Pfft! What a cute little thing...", this)
+										+ "[npc.speech(Pfft! What a cute little thing...)]"
 									+ "</p>";
 				
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()) {
 							return "<p>"
 										+ "[npc.Name] lets out a patronising grunt as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Hah! Look at that little thing!", this)
+										+ "[npc.speech(Hah! Look at that little thing!)]"
 									+ "</p>";
 				
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.FOUR_HUGE.getMaximumValue()) {
 							return "<p>"
 										+ "[npc.Name] lets out a grunt as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Huh... That's just as big as mine...", this)
+										+ (this.hasPenis()&&this.getPenisRawSizeValue()<Main.game.getPlayer().getPenisRawSizeValue()
+												? "[npc.speech(Huh... That's even bigger than mine...)]"
+												: "[npc.speech(That's pretty big, I guess...)]")
 									+ "</p>";
 				
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.SIX_GIGANTIC.getMaximumValue()) {
 							return "<p>"
 										+ "[npc.Name] lets out a surprised grunt as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Fuck... It's even bigger than mine!", this)
+										+ (this.hasPenis()&&this.getPenisRawSizeValue()<Main.game.getPlayer().getPenisRawSizeValue()
+												? "[npc.speech(Fuck... It's even bigger than mine!)]"
+												: "[npc.speech(Now that's one huge cock!)]")
 									+ "</p>";
 							
 						} else {
 							return "<p>"
 										+ "[npc.Name] gulps nervously as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Fuck... That's pretty big...", this)
+										+ "[npc.speech(Fuck... That thing's massive...)]"
 									+ "</p>";
 						}
 					}
@@ -6165,31 +6171,33 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
 							return "<p>"
 										+ "[npc.Name] lets out a surprised grunt as your tiny [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Wait, what?! I thought you were a girl! Well, it doesn't really matter...", this)
+										+ "[npc.speech(Wait, what?! I thought you were a girl! Well, it doesn't really matter...)]"
 									+ "</p>";
 				
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()) {
 							return "<p>"
 										+ "[npc.Name] lets out a surprised grunt as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Wait, what?! You're [pc.a_gender]?!", this)
+										+ "[npc.speech(Wait, what?! You're [pc.a_gender]?!)]"
 									+ "</p>";
 				
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.FOUR_HUGE.getMaximumValue()) {
 							return "<p>"
 										+ "[npc.Name] lets out a surprised grunt as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("I should have guessed from that bulge...", this)
+										+ "[npc.speech(I should have guessed from that bulge...)]"
 									+ "</p>";
 				
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.SIX_GIGANTIC.getMaximumValue()) {
 							return "<p>"
 										+ "[npc.Name] lets out a surprised grunt as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("I saw you had a bulge, but what the hell?! How does [pc.a_gender] have a bigger cock than <i>me</i>?!", this)
+										+ (this.hasPenis()&&this.getPenisRawSizeValue()<Main.game.getPlayer().getPenisRawSizeValue()
+												? "[npc.speech(I saw you had a bulge, but what the hell?! How does [pc.a_gender] have a bigger cock than <i>me</i>?!)]"
+												: "[npc.speech(Now that's one huge cock!)]")
 									+ "</p>";
 							
 						} else {
 							return "<p>"
 										+ "[npc.Name]'s jaw drops as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Holy shit! I didn't think [pc.gender]s could get cocks that big!", this)
+										+ "[npc.speech(Holy shit! I didn't think [pc.gender]s could get cocks that big!)]"
 									+ "</p>";
 						}
 						
@@ -6197,31 +6205,37 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
 							return "<p>"
 										+ "[npc.Name] lets out a derisive sneer as your tiny [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Hah! That's so pathetic! I'll show you what a real man's cock is like!", this)
+										+ (this.hasPenis()&&this.getPenisRawSizeValue()<Main.game.getPlayer().getPenisRawSizeValue()
+											? "[npc.speech(Hah! That's so pathetic! I'll show you what a real cock looks like!)]"
+											: "[npc.speech(Hah! That's so pathetic!)]")
 									+ "</p>";
 				
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()) {
 							return "<p>"
 										+ "[npc.Name] lets out a patronising sneer as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Hah! Look at that little thing!", this)
+										+ "[npc.speech(Hah! Look at that little thing!)]"
 									+ "</p>";
 				
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.FOUR_HUGE.getMaximumValue()) {
 							return "<p>"
 										+ "[npc.Name] lets out a derisive sneer as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Huh... Trying to compete with me for size are you?", this)
+										+ (this.hasPenis()&&this.getPenisRawSizeValue()<Main.game.getPlayer().getPenisRawSizeValue()
+											? "[npc.speech(Huh... Trying to compete with me for size are you?)]"
+											: "[npc.speech(That's pretty big, I guess...)]")
 									+ "</p>";
 				
 						} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.SIX_GIGANTIC.getMaximumValue()) {
 							return "<p>"
 										+ "[npc.Name] lets out a surprised grunt as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Fuck... You're even bigger than me...", this)
+										+ (this.hasPenis()&&this.getPenisRawSizeValue()<Main.game.getPlayer().getPenisRawSizeValue()
+											? "[npc.speech(Fuck... You're even bigger than me...)]"
+											: "[npc.speech(Now that's one huge cock!)]")
 									+ "</p>";
 							
 						} else {
 							return "<p>"
 										+ "[npc.Name]'s jaw drops as your [pc.cockSize] [pc.cock] is revealed, "
-										+ UtilText.parseSpeech("Fuck...", this)
+										+ "[npc.speech(Fuck...)]"
 									+ "</p>";
 						}
 					}
@@ -6368,12 +6382,12 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				if (isPlayerDom) {
 					return "<p>"
 							+ "[npc.Name] looks confused for a moment before letting out a patronising sigh, "
-							+ UtilText.parseSpeech("Awww... You're like a little doll down there! That's so cute!", this)
+							+ "[npc.speech(Awww... You're like a little doll down there! That's so cute!)]"
 							+ "</p>";
 				} else {
 					return "<p>"
 							+ "[npc.Name] looks confused for a moment before breaking out into a mocking laugh, "
-							+ UtilText.parseSpeech("Hahaha! You're like a little doll down there!", this)
+							+ "[npc.speech(Hahaha! You're like a little doll down there!)]"
 							+ "</p>";
 				}
 			// Masculine NPC:
@@ -6381,12 +6395,12 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				if(isPlayerDom) {
 					return "<p>"
 							+ "[npc.Name] looks confused for a moment before letting out a patronising sneer, "
-							+ UtilText.parseSpeech("Awww... You're like a little doll down there! That's so cute!", this)
+							+ "[npc.speech(Awww... You're like a little doll down there! That's so cute!)]"
 						+ "</p>";
 				} else {
 					return "<p>"
 								+ "[npc.Name] looks confused for a moment before breaking out into a mocking laugh, "
-								+ UtilText.parseSpeech("Hahaha! You're like a little doll down there!", this)
+								+ "[npc.speech(Hahaha! You're like a little doll down there!)]"
 							+ "</p>";
 				}
 			}

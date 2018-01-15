@@ -104,7 +104,8 @@ public class GenericOrgasms {
 			null) {
 		@Override
 		public String getActionTitle() {
-			if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER) == PenetrationType.PENIS_PARTNER || Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.BREAST_PLAYER) == PenetrationType.PENIS_PARTNER) {
+			if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER) == PenetrationType.PENIS_PARTNER
+					|| Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.BREAST_PLAYER) == PenetrationType.PENIS_PARTNER) {
 				return "Request cum";
 			} else {
 				return "Request creampie";

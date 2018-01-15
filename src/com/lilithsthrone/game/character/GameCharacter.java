@@ -1172,8 +1172,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			for(int i=0; i<((Element) slaveryElement.getElementsByTagName("slavesOwned").item(0)).getElementsByTagName("slave").getLength(); i++){
 				Element e = ((Element)slaveryElement.getElementsByTagName("slave").item(i));
 				
-				character.getSlavesOwned().add(e.getAttribute("id"));
-				CharacterUtils.appendToImportLog(log, "</br>Added owned slave: "+e.getAttribute("id"));
+				if(!e.getAttribute("id").equals("NOT_SET")) {
+					character.getSlavesOwned().add(e.getAttribute("id"));
+					CharacterUtils.appendToImportLog(log, "</br>Added owned slave: "+e.getAttribute("id"));
+				}
 			}
 			
 
