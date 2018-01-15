@@ -1593,15 +1593,11 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 		if(naturalPatterns == null) {
 			allPatterns.add(CoveringPattern.NONE);
 		} else {
-			for(CoveringPattern pattern : naturalPatterns) {
-				allPatterns.add(pattern);
-			}
+			allPatterns.addAll(naturalPatterns);
 		}
 		
 		if(dyePatterns != null) {
-			for(CoveringPattern pattern : dyePatterns) {
-				allPatterns.add(pattern);
-			}
+			allPatterns.addAll(dyePatterns);
 		}
 		
 		

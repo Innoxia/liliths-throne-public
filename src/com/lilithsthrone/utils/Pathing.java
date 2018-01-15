@@ -1,6 +1,7 @@
 package com.lilithsthrone.utils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -160,8 +161,7 @@ public class Pathing {
 
 		List<WorldType> cellTypes = new ArrayList<>();
 		cellTypes.add(endType);
-		for (WorldType c : types)
-			cellTypes.add(c);
+		Collections.addAll(cellTypes, types);
 
 		if (cellTypes.contains(grid[startX][startY].getType()))
 			return path;
