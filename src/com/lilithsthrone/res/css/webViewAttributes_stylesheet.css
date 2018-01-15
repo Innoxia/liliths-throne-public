@@ -1,6 +1,6 @@
 html {
 	background: #1e1e20;
-    font-family:Calibri;
+	font-family:Calibri,Carlito;
 	font-size:11pt;
 	font-size:7vw; /*font-size:2vw;*/
 	color: #ffffff;
@@ -244,7 +244,7 @@ h6{
 	box-sizing:border-box;
 	border-radius: 5px;
 	background: #1B1B1D;
-    font-family:Calibri;
+	font-family:Calibri,Carlito;
 	font-size:11pt;
 	width:100%;
 	overflow-y: scroll;
