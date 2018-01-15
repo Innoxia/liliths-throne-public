@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.body.types;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -50,9 +51,7 @@ public enum TongueType implements BodyPartTypeInterface {
 		this.defaultTongueLength = defaultTongueLength;
 		
 		this.defaultRacialTongueModifiers = new ArrayList<>();
-		for(TongueModifier tm : defaultRacialTongueModifiers) {
-			this.defaultRacialTongueModifiers.add(tm);
-		}
+		Collections.addAll(this.defaultRacialTongueModifiers, defaultRacialTongueModifiers);
 	}
 
 	@Override

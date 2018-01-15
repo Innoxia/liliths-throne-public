@@ -444,8 +444,7 @@ public class MainController implements Initializable {
 					if (!buttonsPressed.contains(event.getCode())) {
 						buttonsPressed.add(event.getCode());
 
-						for (int i = 4; i > 0; i--)
-							lastKeys[i] = lastKeys[i - 1];
+						System.arraycopy(lastKeys, 0, lastKeys, 1, 4);
 						lastKeys[0] = event.getCode();
 						checkLastKeys();
 

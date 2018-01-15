@@ -677,29 +677,25 @@ public enum Colour {
 	}
 	
 	public String[] getShades(int shadesCount) {
-
+		String[] shadesString = new String[shadesCount];
 		float luminosity = -0.5f;
 		float increment = (Math.abs(luminosity)*2)/(shadesCount-1);
-		
-		String[] shadesString = new String[shadesCount];
-		String r = colour.toString().substring(2, 4), g = colour.toString().substring(4, 6), b = colour.toString().substring(6, 8), rgb = "#";
-		int colourValue = Integer.parseInt(r, 16);
+		int red = Integer.parseInt(colour.toString().substring(2, 4), 16);
+		int gre = Integer.parseInt(colour.toString().substring(4, 6), 16);
+		int blu = Integer.parseInt(colour.toString().substring(6, 8), 16);
+		int r, g, b;
 
 		for (int i = 0; i < shadesCount; i++) {
-			colourValue = Integer.parseInt(r, 16);
-			colourValue += (colourValue * (i * increment + luminosity));
-			rgb += String.format("%02X", Math.max(Math.min(colourValue, 255), 0), 16);
+			r = red + (int)(red * (i * increment + luminosity));
+			r = Math.max(Math.min(r, 255), 0);
 
-			colourValue = Integer.parseInt(g, 16);
-			colourValue += (colourValue * (i * increment + luminosity));
-			rgb += String.format("%02X", Math.max(Math.min(colourValue, 255), 0), 16);
+			g = gre + (int)(gre * (i * increment + luminosity));
+			g = Math.max(Math.min(g, 255), 0);
 
-			colourValue = Integer.parseInt(b, 16);
-			colourValue += (colourValue * (i * increment + luminosity));
-			rgb += String.format("%02X", Math.max(Math.min(colourValue, 255), 0), 16);
+			b = blu + (int)(blu * (i * increment + luminosity));
+			b = Math.max(Math.min(b, 255), 0);
 
-			shadesString[i] = rgb;
-			rgb = "#";
+			shadesString[i] = String.format("#%02X%02X%02X", r, g, b);
 		}
 
 		return shadesString;

@@ -575,7 +575,7 @@ public class TestNPC extends NPC {
 			}
 		}
 	};
-	
+
 	// Combat:
 	@Override
 	public String getCombatDescription() {
