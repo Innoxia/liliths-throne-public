@@ -60,7 +60,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.1.96.9",
+	public static final String VERSION_NUMBER = "0.1.97.1",
 			VERSION_DESCRIPTION = "Early Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
@@ -78,7 +78,8 @@ public class Main extends Application {
 		+ "</p>"
 			
 		+ "<p>"
-			+ "I ran out of time in which to get 0.1.97 finished, so this release is <b>a buggy preview build</b>! I will do my best to get a more polished, finalised version of 0.1.97 out as soon as I can. x_x"
+			+ "This is the hotfixed version 0.1.97. Everything should be working as it did in 0.1.96.5, but now I have the vast majority of the necessary framework in place to add in the first of the multiple-partner scenes in the next release."
+			+ " The multiple-partner sex scene which is found in slave's rooms at the moment is just for testing, and will still be quite buggy."
 		+ "</p>"
 		
 		+ "<p>"
@@ -169,6 +170,31 @@ public class Main extends Application {
 			+"<ul>Fixed encyclopedia preview pictures not working.</ul>"
 			+"<ul>Fixed an error in changing what your slave calls you through the 'Permissions' screen.</ul>"
 			+"<ul>Fixed bug where pressing enter on a blank text field would cause the centre panel of the UI to go blank.</ul>"
+		+ "</list>"
+
+		+ "</br>"
+		
+		+ "<list>"
+			+ "<h6>v0.1.97 (hotfix)</h6>"
+			+"<li>UI:</li>"
+			+"<ul>Minor fixes to some of the new elements in sex.</ul>"
+			+"<ul>Fixed minor error in light theme's sex display.</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Slaves with the 'unwilling fuck-toy' fetish will no longer lose affection from being assigned to the public stocks.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed major bug where you couldn't interact with any items an NPC had in their inventory (making all shopkeepers unable to sell you anything).</ul>"
+			+"<ul>Vicky no longer has her penile virginity.</ul>"
+			+"<ul>Vicky will now correctly perform penetrative actions in her sex scene.</ul>"
+			+"<ul>Fixed 'stop sex' being available in all scenes.</ul>"
+			+"<ul>Fixed bug where you couldn't remove your own clothing in some sex scenes.</ul>"
+			+"<ul>'Core lust' changes should no longer show up in the event log.</ul>"
+			+"<ul>'Stop penetration' sex actions should now correctly work again.</ul>"
+			+"<ul>Antler headband is no longer feminine.</ul>"
+			+"<ul>Nyan will no longer stock Christmas-themed clothing.</ul>"
+			+"<ul>Fixed incorrect & buggy orgasm descriptions.</ul>"
+			+"<ul>Fixed 'Locked in stocks' sex's orifices being available when they shouldn't have been.</ul>"
 		+ "</list>"
 		;
 	

@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.sex.sexActions;
 
 import java.util.List;
+import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -109,9 +110,22 @@ public interface SexActionInterface {
 							getAssociatedPenetrationType(),
 							getAssociatedOrificeType());
 				} else {
-					Sex.getOngoingPenetrationMap(getAssociatedPenetrationType().isPlayer()
+					Set<OrificeType> orificesToRemove =  Sex.getOngoingPenetrationMap(
+							getAssociatedPenetrationType().isPlayer()
 									?Main.game.getPlayer()
-									:Sex.getActivePartner()).get(getAssociatedPenetrationType().isPlayer()?Main.game.getPlayer():Sex.getActivePartner()).remove(getAssociatedPenetrationType()); // Remove all penetration if no orifice is specified.
+									:Sex.getActivePartner())
+							.get(getAssociatedOrificeType().isPlayer()
+									?Main.game.getPlayer()
+									:Sex.getActivePartner())
+							.get(getAssociatedPenetrationType()); // Remove all penetration if no orifice is specified.
+					
+					for(OrificeType orifice : orificesToRemove) {
+						Sex.removePenetration(
+								getAssociatedPenetrationType().isPlayer()?Main.game.getPlayer():Sex.getActivePartner(),
+								getAssociatedOrificeType().isPlayer()?Main.game.getPlayer():Sex.getActivePartner(),
+								getAssociatedPenetrationType(),
+								orifice);
+					}
 				}
 				
 			} else {
@@ -163,6 +177,10 @@ public interface SexActionInterface {
 		if(isBaseRequirementsMet()){
 			
 			if(!isPhysicallyPossible()) {
+				return null;
+			}
+			
+			if(isBannedFromSexManager()) {
 				return null;
 			}
 			
@@ -426,6 +444,57 @@ public interface SexActionInterface {
 					if(getCategory() == SexActionCategory.POSITIONING) {
 						Sex.responseCategory = null;
 					}
+					
+					if(SexActionInterface.this.getSexPace(Main.game.getPlayer())!=null) {
+						switch(SexActionInterface.this.getSexPace(Main.game.getPlayer())) {
+							case DOM_GENTLE:
+								Main.game.getPlayer().setLust(10);
+								break;
+							case DOM_NORMAL:
+								Main.game.getPlayer().setLust(50);
+								break;
+							case DOM_ROUGH:
+								Main.game.getPlayer().setLust(85);
+								break;
+							case SUB_EAGER:
+								Main.game.getPlayer().setLust(85);
+								break;
+							case SUB_NORMAL:
+								Main.game.getPlayer().setLust(50);
+								break;
+							case SUB_RESISTING:
+								Main.game.getPlayer().setLust(0);
+								break;
+							default:
+								break;
+						}
+					}
+					
+					if(SexActionInterface.this.getSexPace(Sex.getActivePartner())!=null) {
+						switch(SexActionInterface.this.getSexPace(Sex.getActivePartner())) {
+							case DOM_GENTLE:
+								Sex.getActivePartner().setLust(10);
+								break;
+							case DOM_NORMAL:
+								Sex.getActivePartner().setLust(50);
+								break;
+							case DOM_ROUGH:
+								Sex.getActivePartner().setLust(85);
+								break;
+							case SUB_EAGER:
+								Sex.getActivePartner().setLust(85);
+								break;
+							case SUB_NORMAL:
+								Sex.getActivePartner().setLust(50);
+								break;
+							case SUB_RESISTING:
+								Sex.getActivePartner().setLust(0);
+								break;
+							default:
+								break;
+						}
+					}
+					
 					Sex.setSexStarted(true);
 					Sex.endSexTurn(SexActionInterface.this);
 				}
@@ -578,6 +647,18 @@ public interface SexActionInterface {
 				return getActionType();
 			}
 		};
+	}
+	
+	public default boolean isBannedFromSexManager() {
+		if(getAssociatedOrificeType() != null) {
+			for(GameCharacter character : Sex.getAllParticipants()) {
+				if(Sex.getSexManager().getOrificesBannedMap().get(character)!=null && Sex.getSexManager().getOrificesBannedMap().get(character).contains(getAssociatedOrificeType())) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
 	}
 	
 	public default boolean isPhysicallyPossible() {

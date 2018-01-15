@@ -91,6 +91,7 @@ public class Vicky extends NPC {
 			this.setSkinCovering(new Covering(BodyCoveringType.LYCAN_FUR, Colour.COVERING_BLACK), true);
 	
 			this.setPenisSize(PenisSize.FOUR_HUGE.getMedianValue());
+			this.setPenisVirgin(false);
 			
 			this.setVaginaVirgin(false);
 			this.setVaginaCapacity(Capacity.FIVE_ROOMY.getMedianValue(), true);
@@ -127,6 +128,7 @@ public class Vicky extends NPC {
 		npc.addFetish(Fetish.FETISH_NON_CON_DOM);
 		
 		npc.setPenisSize(PenisSize.FOUR_HUGE.getMedianValue());
+		npc.setPenisVirgin(false);
 		
 		return npc;
 	}

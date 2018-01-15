@@ -1110,49 +1110,6 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType RACE_INGREDIENT_GARGOYLE = new AbstractItemType(
-			"a chunk of",
-			false,
-			"Rock Candy",
-			"Rock Candy",
-			"A moderately sized piece of hard candy.",
-			"present",
-			Colour.RACE_GARGOYLE,
-			250,
-			Rarity.RARE,
-			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_ROUND_NUTS, null, null, null, 0)))) {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public String getUseName() {
-			return "eat";
-		}
-
-		@Override
-		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			if (user!=null && user.isPlayer() && target.isPlayer()) {
-				return "<p>"
-							+ "You cram the chunk of rock candy into your mouth, several sickening crunches sounding out. You feel the urgent need to get a dental checkup."
-							+ " <i>This doesn't actually do anything yet.</i>"
-						+ "</p>";
-				
-			} else {
-				return UtilText.parse(target,
-						"<p>"
-							+ "[npc.Name] crams the chunk of rock candy into [npc.herHis] mouth and chews, several sickening crunches sounding out."
-							+ " <i>This doesn't actually do anything yet.</i>"
-						+ "</p>");
-			}
-		}
-		
-		@Override
-		public boolean isCommonItem() {
-			return true;
-		}
-	};
-	
 	public static AbstractItemType RACE_INGREDIENT_HUMAN = new AbstractItemType(
 			"a vial of",
 			false,

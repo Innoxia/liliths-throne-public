@@ -432,8 +432,7 @@ public class GenericActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Sex.isDom(Main.game.getPlayer()) && !Sex.isConsensual())
-					&& (Sex.isPartnerCanRemovePlayersClothes());
+			return (Sex.isDom(Main.game.getPlayer()) && !Sex.isSubHasEqualControl()) && (Sex.isPartnerCanRemovePlayersClothes());
 		}
 
 		@Override
@@ -467,8 +466,7 @@ public class GenericActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Sex.isDom(Main.game.getPlayer()) && !Sex.isSubHasEqualControl())
-					&& (!Sex.isPartnerCanRemovePlayersClothes());
+			return (Sex.isDom(Main.game.getPlayer()) && !Sex.isSubHasEqualControl()) && (!Sex.isPartnerCanRemovePlayersClothes());
 		}
 
 		@Override
@@ -502,8 +500,7 @@ public class GenericActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Sex.isDom(Main.game.getPlayer()) && !Sex.isSubHasEqualControl())
-					&& (Sex.isPartnerCanRemoveOwnClothes());
+			return (Sex.isDom(Main.game.getPlayer()) && !Sex.isSubHasEqualControl()) && (Sex.isPartnerCanRemoveOwnClothes());
 		}
 
 		@Override
@@ -537,8 +534,7 @@ public class GenericActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Sex.isDom(Main.game.getPlayer()) && !Sex.isSubHasEqualControl())
-					&& (!Sex.isPartnerCanRemoveOwnClothes());
+			return (Sex.isDom(Main.game.getPlayer()) && !Sex.isSubHasEqualControl()) && (!Sex.isPartnerCanRemoveOwnClothes());
 		}
 
 		@Override

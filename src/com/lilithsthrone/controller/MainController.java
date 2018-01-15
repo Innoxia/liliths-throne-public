@@ -1531,8 +1531,9 @@ public class MainController implements Initializable {
 			
 			// Partner:
 			if(InventoryDialogue.getInventoryNPC()!=null) {
+				String idModifier = "NPC_"+InventoryDialogue.getInventoryNPC().getId()+"_";
 				for (Entry<AbstractWeapon, Integer> entry : InventoryDialogue.getInventoryNPC().getMapOfDuplicateWeapons().entrySet()) {
-					id = "NPC_WEAPON_" + entry.getKey().hashCode();
+					id = idModifier+"WEAPON_" + entry.getKey().hashCode();
 					if (((EventTarget) document.getElementById(id)) != null) {
 						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setWeaponInventory(entry.getKey(), InventoryDialogue.getInventoryNPC());
 						addEventListener(document, id, "click", el, false);
@@ -1544,7 +1545,7 @@ public class MainController implements Initializable {
 				}
 				
 				for (Entry<AbstractClothing, Integer> entry : InventoryDialogue.getInventoryNPC().getMapOfDuplicateClothing().entrySet()) {
-					id = "NPC_CLOTHING_" + entry.getKey().hashCode();
+					id = idModifier+"CLOTHING_" + entry.getKey().hashCode();
 					if (((EventTarget) document.getElementById(id)) != null) {
 						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingInventory(entry.getKey(), InventoryDialogue.getInventoryNPC());
 						addEventListener(document, id, "click", el, false);
@@ -1556,7 +1557,7 @@ public class MainController implements Initializable {
 				}
 				
 				for (Entry<AbstractItem, Integer> entry : InventoryDialogue.getInventoryNPC().getMapOfDuplicateItems().entrySet()) {
-					id = "NPC_ITEM_" + entry.getKey().hashCode();
+					id = idModifier+"ITEM_" + entry.getKey().hashCode();
 					if (((EventTarget) document.getElementById(id)) != null) {
 						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setItemInventory(entry.getKey(), InventoryDialogue.getInventoryNPC());
 						addEventListener(document, id, "click", el, false);
@@ -4793,7 +4794,9 @@ public class MainController implements Initializable {
 			charactersBeingRendered.addAll(Sex.getDominantParticipants().keySet());
 			charactersBeingRendered.addAll(Sex.getSubmissiveParticipants().keySet());
 		} else {
-			charactersBeingRendered.add(Main.game.getPlayer());
+			if(Main.game.getPlayer()!=null) {
+				charactersBeingRendered.add(Main.game.getPlayer());
+			}
 		}
 		
 		for(GameCharacter character : charactersBeingRendered) {

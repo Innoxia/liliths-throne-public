@@ -702,7 +702,7 @@ public class OptionsDialogue {
 			} else if (index == 9) {
 				return new Response("Furry preferences", "Set your preferred transformation encounter rates.", FURRY_PREFERENCE);
 				
-			} else if (index == 9) {
+			} else if (index == 10) {
 				return new Response("Subspecies preferences", "Set your preferred subspecies encounter rates.", SPECIES_PREFERENCE);
 			
 			} else if (index == 0) {

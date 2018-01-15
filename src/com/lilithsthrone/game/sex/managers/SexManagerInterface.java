@@ -1,10 +1,12 @@
 package com.lilithsthrone.game.sex.managers;
 
+import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexPositionNew;
@@ -44,11 +46,11 @@ public interface SexManagerInterface {
 	}
 	
 	public default boolean isPlayerAbleToStopSex() {
-		return true;
+		return Sex.isDom(Main.game.getPlayer()) || Sex.isSubHasEqualControl();
 	}
 	
 	public default boolean isPlayerCanRemoveOwnClothes(){
-		return Sex.isDom(Main.game.getPlayer()) || Sex.isSubHasEqualControl();
+		return true;
 	}
 	
 	public default boolean isPlayerCanRemovePartnersClothes(){
@@ -75,6 +77,7 @@ public interface SexManagerInterface {
 		return false;
 	}
 	
+	public Map<GameCharacter, List<OrificeType>> getOrificesBannedMap();
 	
 	// Revealing CoverableAreas:
 

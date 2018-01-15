@@ -19,49 +19,49 @@ public enum SexPositionSlot {
 	/* Doggy-style */
 	
 	/**The partner who's on all fours, being fucked doggy-style.*/
-	DOGGY_ON_ALL_FOURS("All fours",
+	DOGGY_ON_ALL_FOURS("On all fours",
 			SexActionPresets.playerDoggyOnAllFours,
 			SexActionPresets.partnerDoggyOnAllFours),
 	
 	/**The partner who's behind the doggy-style target. They are kneeling, and can perform vaginal or anal penetration.*/
-	DOGGY_BEHIND("Behind",
+	DOGGY_BEHIND("Kneeling behind",
 			SexActionPresets.playerDoggyBehind,
 			SexActionPresets.partnerDoggyBehind),
 
 	/**The partner who's behind the doggy-style target. They are also on all fours, and can perform oral on the doggy-style target.*/
-	DOGGY_BEHIND_ORAL("Behind (oral)",
+	DOGGY_BEHIND_ORAL("On all fours behind",
 			SexActionPresets.playerDoggyBehindOral,
 			SexActionPresets.partnerDoggyBehindOral),
 
 	/**The partner who's in front of the doggy-style target. They can receive oral from the doggy-style target.*/
-	DOGGY_INFRONT("Infront",
+	DOGGY_INFRONT("Kneeling infront",
 			SexActionPresets.playerDoggyInfront,
 			SexActionPresets.partnerDoggyInfront),
 
 	/**The partner who's in front of the doggy-style target. They are turned around, and can receive anilingus from the doggy-style target.*/
-	DOGGY_INFRONT_ANAL("Infront (anal)",
+	DOGGY_INFRONT_ANAL("Kneeling infront (anal)",
 			SexActionPresets.playerDoggyInfrontAnal,
 			SexActionPresets.partnerDoggyInfrontAnal),
 	
 	
 	/* Back to wall */
 	
-	BACK_TO_WALL_AGAINST_WALL("Back-to-wall",
+	BACK_TO_WALL_AGAINST_WALL("Back against wall",
 			SexActionPresets.playerBackToWallAgainstWall,
 			SexActionPresets.partnerBackToWallAgainstWall),
 	
-	BACK_TO_WALL_FACING_TARGET("Pin against wall",
+	BACK_TO_WALL_FACING_TARGET("Pinning against wall",
 			SexActionPresets.playerBackToWallFacingTarget,
 			SexActionPresets.partnerBackToWallFacingTarget),
 
 
 	/* Face to wall */
 	
-	FACE_TO_WALL_AGAINST_WALL("Face-to-wall",
+	FACE_TO_WALL_AGAINST_WALL("Facing wall",
 			SexActionPresets.playerFacingWallAgainstWall,
 			SexActionPresets.partnerFacingWallAgainstWall),
 	
-	FACE_TO_WALL_FACING_TARGET("Pin against wall",
+	FACE_TO_WALL_FACING_TARGET("Pinning against wall",
 			SexActionPresets.playerFacingWallFacingTarget,
 			SexActionPresets.partnerFacingWallFacingTarget),
 	
@@ -145,15 +145,15 @@ public enum SexPositionSlot {
 			SexActionPresets.playerChairBottomLilaya,
 			SexActionPresets.partnerChairBottomLilaya),
 	
-	DOGGY_ON_ALL_FOURS_AMBER("All fours",
+	DOGGY_ON_ALL_FOURS_AMBER("On all fours",
 			SexActionPresets.playerDoggyOnAllFoursAmber,
 			SexActionPresets.empty),
 	
-	DOGGY_BEHIND_AMBER("Behind",
+	DOGGY_BEHIND_AMBER("Kneeling behind",
 			SexActionPresets.empty,
 			SexActionPresets.partnerDoggyBehindAmber),
 	
-	KNEELING_RECEIVING_ORAL_ZARANIX("Standing",
+	KNEELING_RECEIVING_ORAL_ZARANIX("Sitting",
 			SexActionPresets.empty,
 			SexActionPresets.partnerKneelingReceivingOralZaranix),
 	
@@ -170,11 +170,11 @@ public enum SexPositionSlot {
 			SexActionPresets.empty),
 	
 	
-	FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX("Face-to-wall",
+	FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX("Facing wall",
 			SexActionPresets.playerFacingWallAgainstWallPix,
 			SexActionPresets.empty),
 	
-	FACE_TO_WALL_FACING_TARGET_SHOWER_PIX("Pin against wall",
+	FACE_TO_WALL_FACING_TARGET_SHOWER_PIX("Pinning against wall",
 			SexActionPresets.empty,
 			SexActionPresets.partnerFacingWallFacingTargetPix),
 	
@@ -190,11 +190,11 @@ public enum SexPositionSlot {
 	
 	MISSIONARY_DESK_SUB_VICKY("Lying on counter",
 			SexActionPresets.playerMissionaryDeskSubVicky,
-			SexActionPresets.partnerMissionaryDeskSubVicky),
+			SexActionPresets.empty),
 	
 	MISSIONARY_DESK_DOM_VICKY("Standing between legs",
-			SexActionPresets.playerMissionaryDeskDomVicky,
-			SexActionPresets.playerMissionaryDeskDomVicky),
+			SexActionPresets.empty,
+			SexActionPresets.partnerMissionaryDeskDomVicky),
 	
 
 	KNEELING_RECEIVING_ORAL_CULTIST("Standing",

@@ -188,7 +188,6 @@ public enum Quest {
 		@Override
 		public String getCompletedDescription() {
 			return "Arthur explained how he was dabbling in the forbidden art of teleportation spells."
-					+ " He'd succeeded in transporting himself several hundreds of miles away from Dominion, and found himself in the midst of a pitched battle between demons and humans."
 					+ " Through one of his agents, Zaranix found out about this, and had no difficulty in getting Arthur enslaved for treason."
 					+ " Now that you've rescued him, he's keen to repay the favour by finding out how to send you back home.";
 		}

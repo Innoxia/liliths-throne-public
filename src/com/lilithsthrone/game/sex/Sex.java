@@ -2051,14 +2051,6 @@ public enum Sex {
 	public static void applyPenetration(GameCharacter characterPenetrating, GameCharacter characterPenetrated, PenetrationType penetration, OrificeType orifice) {
 		
 		SexType relatedSexType = new SexType(penetration, orifice);
-		if (orifice.isPlayer()){
-			characterPenetrated = Main.game.getPlayer();
-			characterPenetrating = Sex.getActivePartner();
-		} else {
-			characterPenetrated = Sex.getActivePartner();
-			characterPenetrating = Main.game.getPlayer();
-		}
-		
 		
 		// Free up orifice and penetrator:
 		removePenetration(characterPenetrating, characterPenetrated, penetration, orifice);
@@ -2780,12 +2772,12 @@ public enum Sex {
 				break;
 			case PENIS_PARTNER: case PENIS_PLAYER:
 				if(!penetrator.hasPenis()) {
-					return false;
+					return true;
 				}
 				break;
 			case TAIL_PARTNER: case TAIL_PLAYER:
 				if(penetrator.getTailType()==TailType.NONE|| penetrator.getTailCount()==0) {
-					return false;
+					return true;
 				}
 				penetrationTypesAvailable = penetrator.getTailCount();
 				break;

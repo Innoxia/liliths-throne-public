@@ -763,7 +763,7 @@ public class ClothingType {
 			"antler headbands",
 			"A thin band of metal that sits atop your head.",
 			1,
-			Femininity.FEMININE,
+			null,
 			InventorySlot.HEAD,
 			Rarity.COMMON,
 			null,
@@ -10712,7 +10712,12 @@ public class ClothingType {
 					
 					allClothing.add(ct);
 					
-					if(ct==ClothingType.PENIS_CONDOM) {
+					if(ct==ClothingType.PENIS_CONDOM
+							|| ct==ClothingType.TORSO_OVER_CHRISTMAS_SWEATER
+							|| ct==ClothingType.HEAD_ANTLER_HEADBAND
+							|| ct==ClothingType.PIERCING_EAR_SNOW_FLAKES
+							|| ct==ClothingType.PIERCING_NOSE_SNOWFLAKE_STUD
+							|| ct==ClothingType.NECK_SNOWFLAKE_NECKLACE) {
 						continue;
 					}
 					

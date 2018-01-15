@@ -124,7 +124,16 @@ public enum SlaveJob {
 			Util.newArrayListOfValues(
 					new ListValue<>(SlaveJobSetting.SEX_NO_PILLS)),
 			WorldType.SLAVER_ALLEY,
-			PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS),
+			PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS) {
+		@Override
+		public float getAffectionGain(GameCharacter slave) {
+			if(slave.hasFetish(Fetish.FETISH_NON_CON_SUB)) {
+				return 1f;
+			} else {
+				return -5f;
+			}
+		}
+	},
 	
 	
 //	BROTHEL(5, "Prostitute (Brothel)", "Prostitute (Brothel)", "Assign this slave to work as a prostitute at the brothel 'Angel's Kiss' in slaver ally.",

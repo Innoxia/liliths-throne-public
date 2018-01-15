@@ -131,7 +131,6 @@ public class Game implements Serializable, XMLSaving {
 	private NPC activeNPC;
 	private int npcTally = 0;
 	private Map<String, NPC> NPCMap;
-	private List<NPC> slavesInStocks;
 	
 	private Map<WorldType, World> worlds;
 	private long minutesPassed;
@@ -186,7 +185,6 @@ public class Game implements Serializable, XMLSaving {
 		inNewWorld = false;
 
 		NPCMap = new HashMap<>();
-		slavesInStocks = new ArrayList<>();
 
 		// Start in clouds:
 		currentWeather = Weather.CLOUD;
@@ -819,7 +817,6 @@ public class Game implements Serializable, XMLSaving {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				slavesInStocks.add(slave);
 			}
 			
 			pendingSlaveInStocksReset = false;

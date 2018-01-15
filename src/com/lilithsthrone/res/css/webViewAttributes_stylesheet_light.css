@@ -151,8 +151,6 @@ h6{
 	box-sizing: border-box;
 }
 
-
-
 .icon {
 	position:relative;
 	float:left;
@@ -165,7 +163,10 @@ h6{
 	box-sizing: border-box;
 }
 .icon.small {
-	width:12%;
+	width:10%;
+}
+.icon.effect {
+	width:10.5%;
 }
 .icon-content {
 	position: absolute;
