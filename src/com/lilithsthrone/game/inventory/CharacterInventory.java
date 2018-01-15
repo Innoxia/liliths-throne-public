@@ -305,9 +305,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	 * @return The number of inventory slots currently occupied. This takes into account weapon, clothing, and item stacking.
 	 */
 	public int getInventorySlotsTaken() {
-		int count = getUniqueWeaponCount() + getUniqueClothingCount() + getUniqueItemCount();
-		
-		return count;
+		return getUniqueWeaponCount() + getUniqueClothingCount() + getUniqueItemCount();
 	}
 	
 	

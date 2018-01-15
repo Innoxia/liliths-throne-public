@@ -1186,7 +1186,7 @@ public class CharacterModificationUtils {
 					:UtilText.parse(BodyChanging.getTarget(), "Change how much milk [npc.name] produces.")),
 				contentSB.toString());
 	}
-	
+
 	public static String getDemonNippleElasticityDiv() {
 		contentSB.setLength(0);
 		
@@ -1236,7 +1236,7 @@ public class CharacterModificationUtils {
 					:UtilText.parse(BodyChanging.getTarget(), "Change the plasticity of [npc.name]'s nipples.")),
 				contentSB.toString());
 	}
-	
+
 	public static String getDemonNippleModifiersDiv() {
 		contentSB.setLength(0);
 		
@@ -1288,7 +1288,7 @@ public class CharacterModificationUtils {
 					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s vagina type.")),
 				contentSB.toString());
 	}
-	
+
 	public static String getDemonVaginaCapacityDiv() {
 		contentSB.setLength(0);
 		
@@ -1338,7 +1338,7 @@ public class CharacterModificationUtils {
 					:UtilText.parse(BodyChanging.getTarget(), "Change the wetness of [npc.name]'s vagina.")),
 				contentSB.toString());
 	}
-	
+
 	public static String getDemonVaginaElasticityDiv() {
 		contentSB.setLength(0);
 		
@@ -2815,9 +2815,9 @@ public class CharacterModificationUtils {
 		if(withSecondary
 				&& BodyChanging.getTarget().getCovering(coveringType).getPrimaryColour() != Colour.COVERING_NONE
 				&& !coveringType.getAllPatterns().isEmpty()
-				&& (coveringType.getAllPatterns().size()==1
-					?!coveringType.getAllPatterns().contains(CoveringPattern.NONE)&&!coveringType.getAllPatterns().contains(CoveringPattern.EYE_IRISES)&&!coveringType.getAllPatterns().contains(CoveringPattern.EYE_PUPILS)
-					:true)
+				&& (coveringType.getAllPatterns().size() != 1 || (!coveringType.getAllPatterns().contains(CoveringPattern.NONE)
+																&& !coveringType.getAllPatterns().contains(CoveringPattern.EYE_IRISES)
+																&& !coveringType.getAllPatterns().contains(CoveringPattern.EYE_PUPILS)))
 				&& !coveringType.getAllSecondaryColours().isEmpty()) {
 			contentSB.append(
 					"</div>"
@@ -3156,9 +3156,7 @@ public class CharacterModificationUtils {
 		if(withSecondary
 				&& BodyChanging.getTarget().getCovering(coveringType).getPrimaryColour() != Colour.COVERING_NONE
 				&& !coveringType.getAllPatterns().isEmpty()
-				&& (coveringType.getAllPatterns().size()==1
-					?!coveringType.getAllPatterns().contains(CoveringPattern.NONE)&&!coveringType.getAllPatterns().contains(CoveringPattern.EYE_IRISES)&&!coveringType.getAllPatterns().contains(CoveringPattern.EYE_PUPILS)
-					:true)
+				&& ((coveringType.getAllPatterns().size() != 1) || (!coveringType.getAllPatterns().contains(CoveringPattern.NONE) && !coveringType.getAllPatterns().contains(CoveringPattern.EYE_IRISES) && !coveringType.getAllPatterns().contains(CoveringPattern.EYE_PUPILS)))
 				&& !coveringType.getAllSecondaryColours().isEmpty()) {
 			contentSB.append(
 					"</div>"

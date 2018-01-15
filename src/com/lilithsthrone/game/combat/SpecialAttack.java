@@ -473,11 +473,10 @@ public enum SpecialAttack {
 		@Override
 		public boolean isConditionsMet(GameCharacter owner) {
 			return owner.hasFetish(Fetish.FETISH_BREASTS_OTHERS)
-					&& (Main.game.isInCombat()
-							?(owner.isPlayer()
-									?Combat.getOpponent().hasBreasts()
-									:Main.game.getPlayer().hasBreasts())
-							:true);
+					&& (!Main.game.isInCombat()
+						|| (owner.isPlayer()
+							? Combat.getOpponent().hasBreasts()
+							: Main.game.getPlayer().hasBreasts()));
 		}
 	},
 	

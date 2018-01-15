@@ -37,7 +37,7 @@ import java.util.Set;
  * @author Innoxia
  */
 public abstract class SexManagerDefault implements SexManagerInterface {
-	
+
 	private SexPositionNew position;
 	private Map<GameCharacter, SexPositionSlot> dominants;
 	private Map<GameCharacter, SexPositionSlot> submissives;
