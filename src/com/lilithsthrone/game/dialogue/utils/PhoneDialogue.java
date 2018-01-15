@@ -1506,7 +1506,7 @@ public class PhoneDialogue {
 
 					journalSB.append("<div class='extraAttribute-third "+sizeClass+" colours'>");
 					for (Colour c : clothing.getAllAvailablePrimaryColours())
-						journalSB.append("<div class='phone-item-colour' id='" + (clothing.hashCode() + "_" + c.toString()) + "' style='background-color:" + c.toWebHexString() + ";'></div>");
+						journalSB.append("<div class='phone-item-colour' id='" + ("PRIMARY_" + clothing.hashCode() + "_" + c.toString()) + "' style='background-color:" + c.toWebHexString() + ";'></div>");
 					journalSB.append("</div>");
 
 				} else {

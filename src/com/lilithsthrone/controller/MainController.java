@@ -3756,7 +3756,7 @@ public class MainController implements Initializable {
 						
 						addEventListener(document, id, "mousemove", moveTooltipListener, false);
 						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
-						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setDyeClothingPrimary(InventoryDialogue.getClothing(), c);
+						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setDyeClothingPrimary(clothing, c);
 						addEventListener(document, id, "mouseenter", el2, false);
 					}
 				}
@@ -3771,7 +3771,7 @@ public class MainController implements Initializable {
 							
 							addEventListener(document, id, "mousemove", moveTooltipListener, false);
 							addEventListener(document, id, "mouseleave", hideTooltipListener, false);
-							InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setDyeClothingSecondary(InventoryDialogue.getClothing(), c);
+							InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setDyeClothingSecondary(clothing, c);
 							addEventListener(document, id, "mouseenter", el2, false);
 						}
 					}
@@ -3787,7 +3787,7 @@ public class MainController implements Initializable {
 							
 							addEventListener(document, id, "mousemove", moveTooltipListener, false);
 							addEventListener(document, id, "mouseleave", hideTooltipListener, false);
-							InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setDyeClothingTertiary(InventoryDialogue.getClothing(), c);
+							InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setDyeClothingTertiary(clothing, c);
 							addEventListener(document, id, "mouseenter", el2, false);
 						}
 					}
