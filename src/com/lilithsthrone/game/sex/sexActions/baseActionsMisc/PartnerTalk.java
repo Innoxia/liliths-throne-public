@@ -193,7 +193,7 @@ public class PartnerTalk {
 					return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_SUB));
 				}
 			}
-			
+
 			return null;
 		}
 	};

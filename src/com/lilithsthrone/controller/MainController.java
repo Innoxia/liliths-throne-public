@@ -444,8 +444,7 @@ public class MainController implements Initializable {
 					if (!buttonsPressed.contains(event.getCode())) {
 						buttonsPressed.add(event.getCode());
 
-						for (int i = 4; i > 0; i--)
-							lastKeys[i] = lastKeys[i - 1];
+						System.arraycopy(lastKeys, 0, lastKeys, 1, 4);
 						lastKeys[0] = event.getCode();
 						checkLastKeys();
 
@@ -669,12 +668,8 @@ public class MainController implements Initializable {
 										 
 										Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('nameInput').value;");
 										if(Main.mainController.getWebEngine().getDocument()!=null) {
-											if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
-													|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32)
-												unsuitableName = true;
-											else {
-												unsuitableName = false;
-											}
+											unsuitableName = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
+															|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32;
 										}
 										
 										if (!unsuitableName) {
@@ -722,12 +717,8 @@ public class MainController implements Initializable {
 									 
 										Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('slaveToPlayerNameInput').value;");
 										if(Main.mainController.getWebEngine().getDocument()!=null) {
-											if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
-													|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32)
-												unsuitableName = true;
-											else {
-												unsuitableName = false;
-											}
+											unsuitableName = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
+															|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32;
 										}
 										
 										if (!unsuitableName) {
@@ -753,12 +744,8 @@ public class MainController implements Initializable {
 									 
 										Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('slaveNameInput').value;");
 										if(Main.mainController.getWebEngine().getDocument()!=null) {
-											if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
-													|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32)
-												unsuitableName = true;
-											else {
-												unsuitableName = false;
-											}
+											unsuitableName = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
+															|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32;
 										}
 										
 										if (!unsuitableName) {
@@ -1949,12 +1936,8 @@ public class MainController implements Initializable {
 							 
 							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('nameInput').value;");
 							if(Main.mainController.getWebEngine().getDocument()!=null) {
-								if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
-										|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32)
-									unsuitableName = true;
-								else {
-									unsuitableName = false;
-								}
+								unsuitableName = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
+												|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32;
 							}
 							
 							if (!unsuitableName) {
@@ -2035,12 +2018,8 @@ public class MainController implements Initializable {
 						 
 							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('slaveToPlayerNameInput').value;");
 							if(Main.mainController.getWebEngine().getDocument()!=null) {
-								if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
-										|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32)
-									unsuitableName = true;
-								else {
-									unsuitableName = false;
-								}
+								unsuitableName = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
+												|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32;
 							}
 							
 							if (!unsuitableName) {
@@ -2066,12 +2045,8 @@ public class MainController implements Initializable {
 						 
 							Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenFieldName').innerHTML=document.getElementById('slaveToPlayerNameInput').value;");
 							if(Main.mainController.getWebEngine().getDocument()!=null) {
-								if (Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
-										|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32)
-									unsuitableName = true;
-								else {
-									unsuitableName = false;
-								}
+								unsuitableName = Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() < 1
+												|| Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent().length() > 32;
 							}
 							
 							if (!unsuitableName) {
@@ -3455,7 +3430,7 @@ public class MainController implements Initializable {
 												bct,
 												BodyChanging.getTarget().getCovering(bct).getPattern(),
 												colour,
-												(colour == Colour.COVERING_NONE ? false : BodyChanging.getTarget().getCovering(bct).isPrimaryGlowing()),
+												(colour != Colour.COVERING_NONE && BodyChanging.getTarget().getCovering(bct).isPrimaryGlowing()),
 												BodyChanging.getTarget().getCovering(bct).getSecondaryColour(),
 												BodyChanging.getTarget().getCovering(bct).isSecondaryGlowing()), false);
 										
@@ -3494,7 +3469,7 @@ public class MainController implements Initializable {
 												BodyChanging.getTarget().getCovering(bct).getPrimaryColour(),
 												BodyChanging.getTarget().getCovering(bct).isPrimaryGlowing(),
 												colour,
-												(colour == Colour.COVERING_NONE ? false : BodyChanging.getTarget().getCovering(bct).isSecondaryGlowing())), false);
+												(colour != Colour.COVERING_NONE && BodyChanging.getTarget().getCovering(bct).isSecondaryGlowing())), false);
 										
 									}
 								});

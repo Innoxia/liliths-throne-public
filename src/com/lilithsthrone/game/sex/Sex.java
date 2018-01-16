@@ -366,13 +366,11 @@ public enum Sex {
 				clothingPreSexMap.get(character).add(c);
 			}
 		}
-		
+
 		List<AbstractClothing> clothingToStrip = new ArrayList<>();
 
 		if(sexManager.isPlayerStartNaked()) {
-			for (AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped()) {
-				clothingToStrip.add(c);
-			}
+			clothingToStrip.addAll(Main.game.getPlayer().getClothingCurrentlyEquipped());
 
 			for (AbstractClothing c : clothingToStrip) {
 				Main.game.getPlayer().unequipClothingOntoFloor(c, true, Main.game.getPlayer());
@@ -384,9 +382,7 @@ public enum Sex {
 		if(sexManager.isPartnerStartNaked()) {
 			for(GameCharacter character : Sex.getAllParticipants()) {
 				if(!character.isPlayer()) {
-					for (AbstractClothing c : character.getClothingCurrentlyEquipped()) {
-						clothingToStrip.add(c);
-					}
+					clothingToStrip.addAll(character.getClothingCurrentlyEquipped());
 		
 					for (AbstractClothing c : clothingToStrip) {
 						character.unequipClothingOntoFloor(c, true, character);
@@ -1430,7 +1426,7 @@ public enum Sex {
 			
 			// Add actions:
 			for (SexActionInterface sexAction : Sex.getActionsAvailablePartner()) {
-				if (sexAction.isAddedToAvailableSexActions() && (partnerAllowedToUseSelfActions?true:(!sexAction.isPartnerSelfPenetration()))) {
+				if (sexAction.isAddedToAvailableSexActions() && (partnerAllowedToUseSelfActions || (!sexAction.isPartnerSelfPenetration()))) {
 					
 					if(Main.game.isNonConEnabled()
 							&& getSexPace(activePartner)==SexPace.SUB_RESISTING
@@ -1930,11 +1926,7 @@ public enum Sex {
 			if(!wetOrificeTypes.get(penetrated).get(orificeType).contains(lt)) {
 				wetOrificeTypes.get(penetrated).get(orificeType).add(lt);
 				lubricationTransferred.add(lt.getName());
-				if(lt.isPlural()) {
-					lastLubricationPlural = true;
-				} else {
-					lastLubricationPlural = false;
-				}
+				lastLubricationPlural = lt.isPlural();
 			}
 		}
 		
@@ -1950,11 +1942,7 @@ public enum Sex {
 			if(!wetPenetrationTypes.get(penetrator).get(penetrationType).contains(lt)) {
 				wetPenetrationTypes.get(penetrator).get(penetrationType).add(lt);
 				lubricationTransferred.add(lt.getName());
-				if(lt.isPlural()) {
-					lastLubricationPlural = true;
-				} else {
-					lastLubricationPlural = false;
-				}
+				lastLubricationPlural = lt.isPlural();
 			}
 		}
 		

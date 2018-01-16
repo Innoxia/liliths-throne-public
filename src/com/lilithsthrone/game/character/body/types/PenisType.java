@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.body.types;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
@@ -56,9 +57,7 @@ public enum PenisType implements BodyPartTypeInterface {
 		this.testicleType=testicleType;
 		
 		this.defaultPenisModifiers = new ArrayList<>();
-		for(PenisModifier pm : defaultPenisModifiers) {
-			this.defaultPenisModifiers.add(pm);
-		}
+		Collections.addAll(this.defaultPenisModifiers, defaultPenisModifiers);
 	}
 
 	@Override

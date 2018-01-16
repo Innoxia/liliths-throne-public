@@ -1,6 +1,6 @@
 html {
 	background: #fcfcfc;
-    font-family:Calibri;
+	font-family:Calibri,Carlito;
 	font-size:18px; /*font-size:2vw;*/
 	line-height:24px;
 	color: #262626;
@@ -166,7 +166,7 @@ td, th{
 
 input {
 	background:#ccc;
-    font-family:Calibri;
+	font-family:Calibri,Carlito;
 	font-size:18px; /*font-size:2vw;*/
 	line-height:24px;
 	color: #262626;

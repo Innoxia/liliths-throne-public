@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.QuestLine;
@@ -145,14 +146,8 @@ public enum Encounter {
 				
 				if(Main.game.isIncestEnabled() && Math.random()<0.2f) { // Incest
 					List<NPC> offspringAvailable = new ArrayList<>();
-					for(NPC npc : Main.game.getOffspring()) {
-						if(!npc.isSlave()) {
-							offspringAvailable.add(npc);
-						}
-					}
-					for(NPC npc : Main.game.getOffspringSpawned()) {
-						offspringAvailable.remove(npc);
-					}
+					offspringAvailable.addAll(Main.game.getOffspring().stream().filter(npc -> !npc.isSlave()).collect(Collectors.toList()));
+					offspringAvailable.removeAll(Main.game.getOffspringSpawned());
 					
 					if(!offspringAvailable.isEmpty()) {
 						NPC offspring = offspringAvailable.get(Util.random.nextInt(offspringAvailable.size()));

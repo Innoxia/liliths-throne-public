@@ -28,9 +28,8 @@ public class EnchantingUtils {
 		craftedItem = AbstractItemType.generateItem((AbstractItemType) ingredient.getEnchantmentItemType(effects));
 		
 		List<ItemEffect> effectsToBeAdded = new ArrayList<>();
-		for(ItemEffect ie : effects) {
-			effectsToBeAdded.add(ie);
-		}
+		effectsToBeAdded.addAll(effects);
+
 		craftedItem.setItemEffects(effectsToBeAdded);
 		
 		craftedItem.setName(getPotionName(ingredient, effectsToBeAdded));
