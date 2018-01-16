@@ -376,14 +376,11 @@ public class DebugDialogue {
 	public static InventorySlot activeSlot = null;
 	public static int spawnCount = 1;
 	static {
-		for (AbstractClothingType c : ClothingType.getAllClothing())
-			clothingTotal.add(c);
+		clothingTotal.addAll(ClothingType.getAllClothing());
 	}
 	public static List<AbstractWeaponType> weaponsTotal = new ArrayList<>();
 	static {
-		for (AbstractWeaponType c : WeaponType.allweapons) {
-			weaponsTotal.add(c);
-		}
+		weaponsTotal.addAll(WeaponType.allweapons);
 	}
 	public static List<AbstractItemType> itemsTotal = new ArrayList<>();
 	static {
@@ -468,7 +465,7 @@ public class DebugDialogue {
 			
 			return inventorySB.toString();
 		}
-		
+
 		@Override
 		public String getContent() {
 			return "";

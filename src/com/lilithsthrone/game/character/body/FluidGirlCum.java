@@ -32,9 +32,7 @@ public class FluidGirlCum implements BodyPartInterface, Serializable {
 		transformativeEffects = new ArrayList<>();
 		
 		fluidModifiers = new ArrayList<>();
-		for(FluidModifier fm : type.getFluidModifiers()) {
-			fluidModifiers.add(fm);
-		}
+		fluidModifiers.addAll(type.getFluidModifiers());
 	}
 
 	@Override

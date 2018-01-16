@@ -188,8 +188,8 @@ public enum SexPositionNew {
 	
 	SHOWER_TIME_PIX("Shower sex",
 			Util.newArrayListOfValues(
-					new ListValue<>(Util.newArrayListOfValues(new ListValue<>(SexPositionSlot.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX))),
-					new ListValue<>(Util.newArrayListOfValues(new ListValue<>(SexPositionSlot.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX))))) {
+					new ListValue<>(Util.newArrayListOfValues(new ListValue<>(SexPositionSlot.FACE_TO_WALL_FACING_TARGET_SHOWER_PIX))),
+					new ListValue<>(Util.newArrayListOfValues(new ListValue<>(SexPositionSlot.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX))))) {
 		@Override
 		public String getDescription() {
 			return "You're standing with your face pressed up against one wall of the shower, and behind you, Pix is growling hungrily into your ear.";

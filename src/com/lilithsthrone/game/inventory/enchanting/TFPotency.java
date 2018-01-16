@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.inventory.enchanting;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.lilithsthrone.utils.Colour;
@@ -22,9 +23,7 @@ public enum TFPotency {
 	private static List<TFPotency> allPotencies = new ArrayList<>();
 
 	static {
-		for(TFPotency p : TFPotency.values()) {
-			allPotencies.add(p);
-		}
+		Collections.addAll(allPotencies, TFPotency.values());
 	}
 	
 	private String name;

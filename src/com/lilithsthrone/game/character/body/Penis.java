@@ -46,9 +46,7 @@ public class Penis implements BodyPartInterface, Serializable {
 		orificeUrethra = new OrificeUrethra(testicle.getCumProduction().getAssociatedWetness().getValue(), 0, OrificeElasticity.ZERO_UNYIELDING.getValue(), OrificePlasticity.THREE_RESILIENT.getValue(), true, new ArrayList<>());
 		
 		this.penisModifiers = new HashSet<>();
-		for(PenisModifier pm : type.getDefaultPenisModifiers()) {
-			this.penisModifiers.add(pm);
-		}
+		this.penisModifiers.addAll(type.getDefaultPenisModifiers());
 	}
 
 	@Override
@@ -412,9 +410,7 @@ public class Penis implements BodyPartInterface, Serializable {
 		}
 
 		penisModifiers.clear();
-		for(PenisModifier pm : type.getDefaultPenisModifiers()) {
-			penisModifiers.add(pm);
-		}
+		penisModifiers.addAll(type.getDefaultPenisModifiers());
 
 		if (owner.isPlayer()) {
 			UtilText.transformationContentSB.append(

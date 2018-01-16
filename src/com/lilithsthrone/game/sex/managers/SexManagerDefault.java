@@ -37,7 +37,7 @@ import java.util.Set;
  * @author Innoxia
  */
 public abstract class SexManagerDefault implements SexManagerInterface {
-	
+
 	private SexPositionNew position;
 	private Map<GameCharacter, SexPositionSlot> dominants;
 	private Map<GameCharacter, SexPositionSlot> submissives;
@@ -146,9 +146,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		
 		// If the partner is resisting, they will not want to remove any clothing, and will instead simply use an available option. (Which will be a SUB_RESIST or neutral pace one.)
 		if(Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING) {
-			for (SexActionInterface action : Sex.getAvailableSexActionsPartner()) {
-				possibleActions.add(action);
-			}
+			possibleActions.addAll(Sex.getAvailableSexActionsPartner());
 			
 			if (!possibleActions.isEmpty()) {
 				return possibleActions.get(Util.random.nextInt(possibleActions.size()));
@@ -443,11 +441,8 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 //		System.out.println("---------------------------");
 		
 		// --- Priority 7 using other options at random ---
-		for (SexActionInterface action : availableActions) {
-			possibleActions.add(action);
-//			System.out.println(action.getActionTitle());
-		}
-		
+		possibleActions.addAll(availableActions);
+
 		possibleActions.removeAll(bannedActions);
 		
 //		System.out.println("REMOVED:");

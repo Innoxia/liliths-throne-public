@@ -15,30 +15,26 @@
 	
 	Patch notes:
 	
-	UI:
-		Minor fixes to some of the new elements in sex.
-		Fixed minor error in light theme's sex display.
-		
 	Other:
-		Slaves with the 'unwilling fuck-toy' fetish will no longer lose affection from being assigned to the public stocks.
-	
-	Bugs:
-		Fixed major bug where you couldn't interact with any items an NPC had in their inventory (making all shopkeepers unable to sell you anything).
-		Vicky no longer has her penile virginity.
-		Vicky will now correctly perform penetrative actions in her sex scene.
-		Fixed 'stop sex' being available in all scenes.
-		Fixed bug where you couldn't remove your own clothing in some sex scenes.
-		'Core lust' changes should no longer show up in the event log.
-		'Stop penetration' sex actions should now correctly work again.
-		Antler headband is no longer feminine.
-		Nyan will no longer stock Christmas-themed clothing.
-		Fixed incorrect & buggy orgasm descriptions.
-		Fixed 'Locked in stocks' sex's orifices being available when they shouldn't have been.
+		Re-organised inventory UI slots to more logical placements.
 	
 	
+	
+	
+	
+	
+	got a problem, when trying to examine slaves, I get stuck with seeing slaves that aren't the one I am looking at. I can work around to see them, but its annoying none the less.
+	
+	
+	: The tooltip for leaving a slave (including "catch her later" or something along those lines) incorrectly uses her/his when it should use her/him.
 	
 	FINISH SAVE COMPAT
 	
+	Possible change to the pirecings field to prevent being spoiled on genetals when not pireced
+		from "[character] doesnt have a [genitals]" to "[character] doesnt have a pierced [genitals]"
+	
+	
+	pulled up t-shirt before ribbed sweater
 	
 	So, I know that multiple-partner sex's implementation is still being worked on, but since the Spitroast option for slaves exists currently, I feel like I should tell you the issue that I ran into. Whenever I would initiate the spitroast, at first both slaves would appear as the dominant on the right, but after a few turns, one of them (almost always the second slave for me) would do something, causing the other slave to disappear from the right and not do anything anymore. From then on, only the slave who took the original action would be part of the scene. For reference (though I don't know if this matters) my character is a greater incubus and the slaves are both greater succubi. 
 	
@@ -60,6 +56,41 @@ Masc characters with a vagina, and their crotch covered, are assumed to be males
 This is weird, and it should probably be consistent for both cases, since mannequins look like cuntboys, but cuntboys apparently look like males.
 	
 	
+	The only other thing I could ask in relation to this, is someway that 'calming' myself wasn't possible, but I can always just not click the button lol. So that's no biggie.
+	
+	"Finger him/her", "Stroke his/her cock" and similar options appear when the other character has the right genitals for them, even if you can't see the genitals and don't have observant. Really spoils the surprise.
+	
+	
+	AI in sex, so I'll make sure to tweak their preferences for performing self-actions
+	Is it supposed to be that Vaginal and anal sex never happens when you get defeated by a man? I've been several times and it either ends up in a blowjob or they just use their fingers.
+	
+	There is a bug during sex when the partner decides to feel up my chest it only mentions 3 rows of breasts when I have 5.
+	
+	I have found that offspring will almost never have the same hip/ass size of their parent(s). Does it have something to do how offspring are generated making it so that even if an offspring would be close to having their parents hip/ass size that they still don't get it? If it is using random numbers to determine how much like the parent the offspring are, perhaps using the Math.round() method would help.
+	
+	In Vicky's scene, and as far as i can tell ONLY vicky's scene, the "request creampie/pullout" part hangs and appears to refuse input. It's taking some kind of input though because if you mash enough keys eventually your arousal will shoot up to 80-ish, enough to trigger the mutual-orgasm scene; then lets you choose cream/pullout, and ends the scene normally. It happens in both con / noncon versions of the scene.
+	
+	I just got hit with the interface freeze bug (the one where all the buttons stop working)
+		Exception in thread "JavaFX Application Thread" netscape.javascript.JSException: JavaScript execution terminated.
+	    at com.sun.webkit.dom.JSObject.fwkMakeException(JSObject.java:156)
+	    at com.sun.webkit.WebPage.twkExecuteScript(Native Method)
+	    at com.sun.webkit.WebPage.executeScript(WebPage.java:1509)
+	    at javafx.scene.web.WebEngine.executeScript(WebEngine.java:1005)
+	    at com.lilithsthrone.controller.MainController.setWebEngineContent(MainController.java:5075)
+	    at com.lilithsthrone.controller.MainController.setMainContent(MainController.java:5084)
+	    at com.lilithsthrone.game.Game.setContent(Game.java:1392)
+	    at com.lilithsthrone.game.Game.setContent(Game.java:1457)
+	    at com.lilithsthrone.controller.eventListeners.InventorySelectedItemEventListener.handleEvent(InventorySelectedItemEventListener.java:93)
+	    at com.sun.webkit.dom.EventListenerImpl.fwkHandleEvent(EventListenerImpl.java:129)
+	
+	
+	the prepare button seems to have broken mutual orgasms. it resolves the PC first and they pull out before the other person cums. making the followup scene be as if they came without penetrative action.
+	
+	I don't know if this was on purpose or not, but telling someone to stop self penetrative actions(like self-fingering or tailfucking) doesn't do any good --they go right back to it within the same breath.
+	
+	3somes keep turning into 2somes
+	
+	: Probably been reported before, but if you have Forced Transformation on, play as a female and then get transformed into having cock and balls the transformer will never do anything about your balls or cum production. This gets especially curious if your transformer has either the pregnancy or cum addict fetish. Can just imagine them screaming "Why isn't this thing working?!"
 	
 	
 	
@@ -121,7 +152,8 @@ This is weird, and it should probably be consistent for both cases, since manneq
 	
 	
 	
-	
+	Clothing removal - Before your chemise is able to be removed, Chemise and Dress coat need to be removed.
+*This will repeat forever, unless I remove the dress coat myself (which is already unbuttoned) I think it only happens when the NPC is targeting your character's breasts, but don't quote me.
 	
 	
 	
@@ -194,10 +226,24 @@ This is weird, and it should probably be consistent for both cases, since manneq
 		
 		During a sex scene, on the NPC’s turn, instead of them taking an action it played out that I was spreading my ass out for them.
 		
+		
+	Suggestion:
+
+This first one was written before I read this post, so it might be obsolete given the upcoming changes; I’m going to post it anyway because it might still be useful.
+NPCs always seem to end sex scenes as soon as each participant has had at least one orgasm (or sometimes if they have had one orgasm for rape scenes). It would be cool if, instead, they would want to end it after they’d had as many orgasms as they want, based on something like a “sex appetite” stat. This would vary from NPC to NPC (demons would obviously have a very high one). This could also link up with the orgasm control stuff we talked about before; when an NPC reaches their orgasm limit, they’d try to end the scene, depending on factors (they might not if they had lost combat, or had the forced orgasm or submissive fetishes, for example).
+This would also add depth to the post-sex scene, which at the moment is typically a binary satisfied/unsatisfied thing. You could have several varieties, from totally unsatisfied, through partially sated, totally satisfied, then a couple of overstimulated levels of panting and gasping exhaustion, depending on the ratio of orgasms to orgasm limit. One side-effect of this would be that player-submissive scenes could get very long if, for example, you lost a fight with a demon; one possible fix would be to have the PC pass out and wake up later, skipping the scene so you don’t have to watch the NPC fuck you to several dozen orgasms or whatever. Another could be a sensitivity stat so demons might come really quickly, reducing the time to rack up a high orgasm count.
+
+There perhaps should be a lesser version of the “Exposed” statuses for when a character’s underwear is exposed, but not their body. This probably shouldn’t have it’s own fetish, simply being covered by the exhibitionist fetish. Too many more fetishes will make the screen unwieldy, and require them to be categorised in some way. This would of course require clothing items to be flagged as being underwear or outerwear, since as I’ve previously observed, it isn’t reliable to do it by clothing slot.
+
+The feminine watch is really restricted in available colours. I can’t see why it shouldn’t have the same colour palette as any other item of clothing. Similarly, jewelry could easily be any of the regular colours as well as the metallic ones.
+
+Bug Reports:
+
+I recently commented on how NPCs might sometimes not fill all clothing slots, and how some underwears could really pass as outerwear. A counterpart to that is that, even when filling all slots, NPCs often end up not covering up fully. I’ve often seen NPCs spawning with the crotchless and cupless underwears in conjunction with a microskirt or fishnet top. This seems to be the norm for exhibitionists, but it happens with NPCs without the exhibitionist fetish too.
+
+When you use Arthur’s hypno-watch on someone, it says they are now “command_unknown”.
 	
 	
-	
-	the prepare button seems to have broken mutual orgasms. it resolves the PC first and they pull out before the other person cums. making the followup scene be as if they came without penetrative action.
 	
 	Lost virginity to an Incubus and the broken virgin fetish lines were referring to the Incubus as "she" and "her".
 	
@@ -367,6 +413,8 @@ I’m guessing this one is a “WONTFIX”, but for completeness sake: When you 
 	
 	While I'm at it, NPCs don't seem to have any kind of preference for body weight - would be nice if they did and adjusted body weight to suit their tastes when force TFing you. :)
 	
+	
+	During an arcane storm, people are sex-crazed in the streets with appropriate dialogue and you only get the 'Fight' option when you encounter them. If you head into the alleys, however, they are seemingly unaffected. The dialogue is the same as when the weather is clear and you get the regular Fight/Offer Money/Offer Body options, or meet prostitutes who likewise ply their trade as usual. Shouldn't people in the alleys be behaving identical to those in the streets?
 	
 	I'll add a way to reset each of the reindeer overseers (for if you don't like their generated fetishes). :3
 
@@ -683,6 +731,42 @@ BlobHyperSweats1
 	
 	
 	Add Amber repeat action (fence has arcane barrier now)
+	
+	
+	
+	
+	
+	
+	
+	Suggestions:
+
+If you force your way into Zaranix’s house, Katherine clearly hears you, but when you meet her she reacts the same as she does if you sneak in. Maybe she should say something about how you must have beaten Amber instead?
+
+You could put in interactions between slave’s obedience and affection, for example a slave that loves you but is defiant could gain obedience over time. Conversely, a slave that hates you could see their obedience suffer. I’m not sure if affection should track towards obedience, you could probably make a case either way for that.
+
+NPC dirty talk regarding virginity is a little odd. They will mention that they’re a virgin every other sentence, even if you don’t have a cock and couldn’t possibly take it, but they never mention they’re an anal or oral virgin even when you put them on their knees or rub your cock on their ass. They just say “That's right, fuck my ass!”, same as anyone else. Maybe they should wait until you actually get your cock out (especially if you’re feminine), and have some sort of comment if losing one of their other virginities is apparently imminent.
+
+Bug Reports:
+
+The “Repeat Actions” tab could still use a little work; actions that are unavailable even momentarily get removed from it, and stay out of it even if they become available again. It might be better to simply keep a list of all actions taken, and rebuild the “Repeat Actions” tab each turn. That way, you’d not only not lose actions that had been unavailable, the buttons would automatically be in order of how recently you used that action.
+
+When you drink a potion in combat, the description header still says the action you did last turn.
+
+While most of the witch set is obviously feminine, the hat should really be neutral.
+
+I beat a witch, transformed her, and there was no hilight on her current height (6′3″).
+
+After finishing with that witch, I decided to start a new game. The new game character customisation screen was showing everything for the witch, and no changes I made actually affected me.
+
+The heart necklace is noticably darker than other jewelry of the same colour.
+
+If you give someone (who doesn’t have one) a cock with a potion, it defaults to zeroes on all three sizes. I’m frankly amazed that nobody seems to have reported this before! I guess F2M isn’t all that popular or something?
+
+If you fuck someone who is too loose, the “Too loose” status remains even after you stop.
+
+Both Arthur’s package and his watch can be found randomly in alleyways.
+	
+	
 	
 	
 	

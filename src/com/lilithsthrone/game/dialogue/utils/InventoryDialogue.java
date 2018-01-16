@@ -5610,7 +5610,7 @@ public class InventoryDialogue {
 	}
 	
 	private static void sellItems(GameCharacter from, GameCharacter to, AbstractItem item, int count, int itemPrice) {
-		if (to.isPlayer()?(!to.isInventoryFull() || to.hasItem(item)):true) {
+		if (!to.isPlayer() || !to.isInventoryFull() || to.hasItem(item)) {
 			
 			if(buyback && to.isPlayer()) {
 				Main.game.getPlayer().incrementMoney(-itemPrice);

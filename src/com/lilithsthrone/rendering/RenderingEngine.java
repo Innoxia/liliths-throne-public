@@ -58,14 +58,14 @@ public enum RenderingEngine {
 	private static boolean zoomedIn = true, renderedDisabledMap = false;
 
 	private static Colour[] orgasmColours = new Colour[]{Colour.AROUSAL_STAGE_ZERO, Colour.AROUSAL_STAGE_ONE, Colour.AROUSAL_STAGE_TWO, Colour.AROUSAL_STAGE_THREE, Colour.AROUSAL_STAGE_FOUR, Colour.AROUSAL_STAGE_FIVE, Colour.GENERIC_ARCANE};
-
+	
 	private static InventorySlot[] inventorySlots = {
 			InventorySlot.EYES,			InventorySlot.HEAD,			InventorySlot.HAIR,		InventorySlot.HORNS,
-			InventorySlot.TORSO_OVER,	InventorySlot.CHEST,		InventorySlot.MOUTH,	InventorySlot.NECK,
-			InventorySlot.TORSO_UNDER,	InventorySlot.STOMACH,		InventorySlot.HIPS,		InventorySlot.NIPPLE,
-			InventorySlot.LEG,			InventorySlot.HAND,			InventorySlot.FINGER,	InventorySlot.WRIST,
-			InventorySlot.GROIN,		InventorySlot.TAIL,			InventorySlot.ANKLE,	InventorySlot.PENIS,
-			InventorySlot.FOOT,			InventorySlot.SOCK,			InventorySlot.ANUS,		InventorySlot.VAGINA };
+			InventorySlot.MOUTH,		InventorySlot.NECK,			InventorySlot.FINGER,	InventorySlot.WRIST,
+			InventorySlot.TORSO_OVER,	InventorySlot.CHEST,		InventorySlot.NIPPLE,	InventorySlot.HAND,
+			InventorySlot.TORSO_UNDER,	InventorySlot.STOMACH,		InventorySlot.HIPS,		InventorySlot.TAIL,
+			InventorySlot.LEG,			InventorySlot.GROIN,		InventorySlot.PENIS,	InventorySlot.VAGINA,
+			InventorySlot.FOOT,			InventorySlot.SOCK,			InventorySlot.ANKLE,	InventorySlot.ANUS};
 	//InventorySlot.WINGS,
 	
 	private static InventorySlot[] piercingSlots = {

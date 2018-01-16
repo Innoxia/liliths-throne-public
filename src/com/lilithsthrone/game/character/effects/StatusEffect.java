@@ -8401,8 +8401,7 @@ public enum StatusEffect {
 		}
 
 		if (extraEffects != null)
-			for (String s : extraEffects)
-				modifiersList.add(s);
+			modifiersList.addAll(extraEffects);
 	}
 	
 	protected boolean needsDesaturated() {
