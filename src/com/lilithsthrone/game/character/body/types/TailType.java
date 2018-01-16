@@ -17,6 +17,8 @@ public enum TailType implements BodyPartTypeInterface {
 
 	DOG_MORPH(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH, false, false),
 	
+	DOG_MORPH_CURLY(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH, false, false),
+	
 	LYCAN(BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH, false, false),
 
 	COW_MORPH(BodyCoveringType.BOVINE_FUR, Race.COW_MORPH, false, false),
@@ -129,6 +131,8 @@ public enum TailType implements BodyPartTypeInterface {
 				return "spaded";
 			case DOG_MORPH:
 				return "canine";
+			case DOG_MORPH_CURLY:
+				return "curled";
 			case HARPY:
 				return "plume";
 			case HORSE_MORPH:

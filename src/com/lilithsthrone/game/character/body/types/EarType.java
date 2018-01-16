@@ -17,6 +17,8 @@ public enum EarType implements BodyPartTypeInterface {
 	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON),
 
 	DOG_MORPH(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH),
+	
+	DOG_MORPH_FLOPPY(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH),
 
 	LYCAN(BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH),
 
@@ -76,7 +78,9 @@ public enum EarType implements BodyPartTypeInterface {
 			case DEMON_COMMON:
 				return UtilText.returnStringAtRandom("pointed", "demonic");
 			case DOG_MORPH:
-				return UtilText.returnStringAtRandom("furry", "fur-coated", "dog-like");
+				return UtilText.returnStringAtRandom("furry", "fur-coated", "pointed, dog-like");
+			case DOG_MORPH_FLOPPY:
+				return UtilText.returnStringAtRandom("furry", "fur-coated", "floppy, dog-like");
 			case SQUIRREL_MORPH:
 				return UtilText.returnStringAtRandom("furry", "fur-coated", "squirrel-like");
 			case ALLIGATOR_MORPH:
@@ -107,7 +111,9 @@ public enum EarType implements BodyPartTypeInterface {
 			case DEMON_COMMON:
 				return "demonic";
 			case DOG_MORPH:
-				return "canine";
+				return "pointy canine";
+			case DOG_MORPH_FLOPPY:
+				return "floppy canine";
 			case COW_MORPH:
 				return "bovine";
 			case SQUIRREL_MORPH:

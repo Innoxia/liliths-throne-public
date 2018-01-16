@@ -17,6 +17,8 @@ public enum SkinType implements BodyPartTypeInterface {
 	COW_MORPH(BodyCoveringType.BOVINE_FUR, Race.COW_MORPH),
 
 	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON),
+	
+	GARGOYLE(BodyCoveringType.GARGOYLE_STONE, Race.GARGOYLE),
 
 	DOG_MORPH(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH),
 

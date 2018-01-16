@@ -42,7 +42,9 @@ public enum Genus {
 	DEMON("demon",
 			Colour.RACE_DEMON),
 	CELESTIAL("celestial",
-			Colour.RACE_ANGEL);
+			Colour.RACE_ANGEL),
+	GARGOYLE("gargoyle",
+			Colour.RACE_GARGOYLE);
 
 	private String name;
 	private Colour colour;

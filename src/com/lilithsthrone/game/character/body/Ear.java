@@ -127,6 +127,17 @@ public class Ear implements BodyPartInterface, Serializable {
 							+ "</p>");
 				}
 				break;
+			case DOG_MORPH_FLOPPY:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" <i>This is placeholder text for floppy dog ears.</i>"
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" <i>This is placeholder text for floppy dog ears.</i>"
+							+ "</p>");
+				}
+				break;
 			case LYCAN:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(

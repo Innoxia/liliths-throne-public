@@ -2931,6 +2931,49 @@ public class ItemType {
 		}
 	};
 	
+	public static AbstractItemType BOOK_GARGOYLE = new AbstractItemType(
+			null,
+			false,
+			"Monstrous Statues",
+			"Monstrous Statues'",
+			"A book about gargoyles.",
+			"book_race_demon", //TODO Icon for this.
+			Colour.RACE_GARGOYLE,
+			10,
+			Rarity.LEGENDARY,
+			null,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_GARGOYLE, null, null, null, 0)))) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public boolean isAbleToBeUsed(GameCharacter target) {
+			return !Main.getProperties().isAdvancedRaceKnowledgeDiscovered(Race.GARGOYLE);
+		}
+
+		@Override
+		public String getUnableToBeUsedDescription(GameCharacter target) {
+			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
+		}
+		
+		@Override
+		public String getUseName() {
+			return "read";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return "<p>"
+						+ "Opening the book, you read its contents..."
+					+ "</p>";
+		}
+		
+		@Override
+		public boolean isCommonItem() {
+			return false;
+		}
+	};
+	
 	public static AbstractItemType BOOK_DOG_MORPH = new AbstractItemType(
 			null,
 			false,

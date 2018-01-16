@@ -95,6 +95,7 @@ public enum Colour {
 	RACE_SLIME(BaseColour.PINK, "pink", Util.newArrayListOfValues(new ListValue<>("slime"))),
 	RACE_SQUIRREL_MORPH(BaseColour.GINGER, "ginger", Util.newArrayListOfValues(new ListValue<>("squirrelMorph"), new ListValue<>("squirrel"))),
 	RACE_ALLIGATOR_MORPH(BaseColour.GREEN_DARK, "dark green", Util.newArrayListOfValues(new ListValue<>("alligatorMorph"), new ListValue<>("alligator"), new ListValue<>("gatorMorph"), new ListValue<>("gator"))),
+	RACE_GARGOYLE(BaseColour.GREY, "grey", Util.newArrayListOfValues(new ListValue<>("gargoyle"))),
 	
 	QUEST_MAIN(BaseColour.PINK, "pink"),
 	QUEST_SIDE(BaseColour.BLUE, "blue"),
@@ -512,6 +513,18 @@ public enum Colour {
 			new ListValue<Colour>(Colour.COVERING_PINK),
 			new ListValue<Colour>(Colour.COVERING_PURPLE),
 			new ListValue<Colour>(Colour.COVERING_RED));
+	
+	public static List<Colour> stoneColours = Util.newArrayListOfValues(
+			new ListValue<Colour>(Colour.COVERING_WHITE),
+			new ListValue<Colour>(Colour.COVERING_BROWN),
+			new ListValue<Colour>(Colour.COVERING_BROWN_DARK),
+			new ListValue<Colour>(Colour.COVERING_BLACK),
+			new ListValue<Colour>(Colour.COVERING_RED),
+			new ListValue<Colour>(Colour.COVERING_ORANGE),
+			new ListValue<Colour>(Colour.COVERING_AMBER),
+			new ListValue<Colour>(Colour.COVERING_GREEN),
+			new ListValue<Colour>(Colour.COVERING_BLUE),
+			new ListValue<Colour>(Colour.COVERING_PURPLE));
 
 	public static List<Colour> hornColours = Util.newArrayListOfValues(
 			new ListValue<Colour>(Colour.HORN_WHITE),

@@ -132,6 +132,23 @@ public class Wing implements BodyPartInterface, Serializable {
 							+ "</p>");
 				}
 				break;
+			case GARGOYLE:
+				if(owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" Your body shudders as a section of the flesh on your back transforms into stone, which grows rapidly until taking the shape of a set of vaguely bat-like wings."
+								+ " You soon after find that these wings are useless for flight, unable to move more than a couple of degrees in any direction."
+								+ "</br>"
+								+ "You now have [style.boldGargoyle(hard bat-like wings)]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" [npc.HerHis] body shudders as a section of the flesh on [npc.herHis] back transforms into stone, which grows rapidly until taking the shape of a set of vaguely bat-like wings."
+								+ " [npc.She] soon after finds that these wings are useless for flight, unable to move more than a couple of degrees in any direction."
+								+ "</br>"
+								+ "[npc.Name] now has [style.boldGargoyle(hard bat-like wings)]."
+							+ "</p>");
+				}
+				break;
 			case NONE:
 				if(owner.isPlayer()) {
 					UtilText.transformationContentSB.append(

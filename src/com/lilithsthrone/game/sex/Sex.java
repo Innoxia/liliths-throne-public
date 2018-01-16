@@ -1750,14 +1750,16 @@ public enum Sex {
 			}
 			if (!areasExposed.get(Main.game.getPlayer()).contains(CoverableArea.NIPPLES)) {
 				if (Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.NIPPLES, false)) {
-					sexSB.append(
-							formatCoverableAreaBecomingExposed(
-									(atStartOfSex
-											?"Your [pc.nipples+] were already exposed before starting sex!"
-											:"Your [pc.nipples+] are now exposed!"))
-							+ sexManager.getPlayerBreastsRevealReaction(isDom(Main.game.getPlayer()))
-							+ formatCoverableAreaGettingWet(getLubricationDescription(characterBeingExposed, OrificeType.NIPPLE_PLAYER)));
-					areasExposed.get(Main.game.getPlayer()).add(CoverableArea.NIPPLES);
+					if (Main.game.getPlayer().hasNipples()) {
+						sexSB.append(
+								formatCoverableAreaBecomingExposed(
+										(atStartOfSex
+												?"Your [pc.nipples+] were already exposed before starting sex!"
+												:"Your [pc.nipples+] are now exposed!"))
+								+ sexManager.getPlayerBreastsRevealReaction(isDom(Main.game.getPlayer()))
+								+ formatCoverableAreaGettingWet(getLubricationDescription(characterBeingExposed, OrificeType.NIPPLE_PLAYER)));
+						areasExposed.get(Main.game.getPlayer()).add(CoverableArea.NIPPLES);
+					}
 				}
 			}
 		} else {
@@ -1812,14 +1814,16 @@ public enum Sex {
 			}
 			if (!areasExposed.get(characterBeingExposed).contains(CoverableArea.NIPPLES)) {
 				if (activePartner.isAbleToAccessCoverableArea(CoverableArea.NIPPLES, false)) {
-					sexSB.append(
-							formatCoverableAreaBecomingExposed(
-									(atStartOfSex
-											?"[npc.Name]'s [npc.nipples+] were already exposed before starting sex!"
-											:"[npc.Name]'s [npc.nipples+] are now exposed!"))
-								+ sexManager.getPartnerBreastsRevealReaction(isDom(Main.game.getPlayer()))
-								+ formatCoverableAreaGettingWet(getLubricationDescription(characterBeingExposed, OrificeType.NIPPLE_PARTNER)));
-					areasExposed.get(characterBeingExposed).add(CoverableArea.NIPPLES);
+					if (characterBeingExposed.hasNipples()) {
+						sexSB.append(
+								formatCoverableAreaBecomingExposed(
+										(atStartOfSex
+												?"[npc.Name]'s [npc.nipples+] were already exposed before starting sex!"
+												:"[npc.Name]'s [npc.nipples+] are now exposed!"))
+									+ sexManager.getPartnerBreastsRevealReaction(isDom(Main.game.getPlayer()))
+									+ formatCoverableAreaGettingWet(getLubricationDescription(characterBeingExposed, OrificeType.NIPPLE_PARTNER)));
+						areasExposed.get(characterBeingExposed).add(CoverableArea.NIPPLES);
+					}
 				}
 			}
 		}

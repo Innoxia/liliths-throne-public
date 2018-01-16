@@ -198,6 +198,21 @@ public class Tail implements BodyPartInterface, Serializable {
 							);
 				}
 				break;
+			case DOG_MORPH_CURLY:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+							(owner.getTailCount()==1
+								?"<i>Placeholder text for gaining a curly dog tail.</i>"
+								:"<i>Placeholder text for gaining a curly dog tail.</i>")
+							);
+				} else {
+					UtilText.transformationContentSB.append(
+							(owner.getTailCount()==1
+								?"<i>Placeholder text for gaining a curly dog tail.</i>"
+								:"<i>Placeholder text for gaining a curly dog tail.</i>")
+							);
+				}
+				break;
 			case HARPY:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(

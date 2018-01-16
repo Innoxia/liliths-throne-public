@@ -287,7 +287,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		homeLocation = location;
 		
 		history = History.UNEMPLOYED;
-		personality = startingRace.getPersionality();
+		personality = startingRace.getPersonality();
 		sexualOrientation = startingRace.getSexualOrientation(startingGender);
 
 		affectionMap = new HashMap<>();
@@ -1663,6 +1663,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				break;
 			case DEMON:
 				value = 10000;
+				break;
+			case GARGOYLE:
+				value = 30000;
 				break;
 			case HARPY:
 				value = 1200;
@@ -5254,6 +5257,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				return BodyCoveringType.BODY_HAIR_BOVINE_FUR;
 			case DEMON:
 				return BodyCoveringType.BODY_HAIR_DEMON;
+			case GARGOYLE:
+				return BodyCoveringType.GARGOYLE_STONE;
 			case DOG_MORPH:
 				return BodyCoveringType.BODY_HAIR_CANINE_FUR;
 			case ALLIGATOR_MORPH:
@@ -6128,6 +6133,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	// Count:
 	public int getNippleCountPerBreast() {
 		return body.getBreast().getNippleCountPerBreast();
+	}
+	public boolean hasNipples() {
+		return body.getBreast().hasNipples();
 	}
 	public String setNippleCountPerBreast(int count) {
 		return body.getBreast().setNippleCountPerBreast(this, count);
@@ -7569,5 +7577,4 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public String getWingPronoun() {
 		return body.getWing().getType().getPronoun();
 	}
-
 }

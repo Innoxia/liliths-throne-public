@@ -111,6 +111,21 @@ public class Skin implements BodyPartInterface, Serializable {
 							+ "</p>");
 				}
 				break;
+			case GARGOYLE:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" After just a few moments, the transformation comes to an end, and when it's all over with you find your skin has hardened greatly."
+								+ "</br>"
+								+ "You now have [style.boldGargoyle(stone)], [pc.skinFullDescription]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" After just a few moments, the transformation comes to an end, and when it's all over with [npc.she] finds [npc.herHis] skin has hardened greatly."
+								+ "</br>"
+								+ "[npc.Name] now has [style.boldGargoyle(stone)], [npc.skinFullDescription]."
+							+ "</p>");
+				}
+				break;
 			case DOG_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(

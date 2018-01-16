@@ -18,6 +18,7 @@ import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.RacialSelector;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
@@ -72,6 +73,8 @@ public class DominionAlleywayAttacker extends NPC {
 			// RACE & NAME:
 			
 			Race race = Race.DOG_MORPH;
+			Race preferencesRace = Race.DOG_MORPH;
+			RacialBody racialBody = RacialBody.DOG_MORPH;
 			
 			double humanChance = 0;
 			
@@ -95,7 +98,9 @@ public class DominionAlleywayAttacker extends NPC {
 					new Value<>(Race.WOLF_MORPH, 20),
 					new Value<>(Race.SQUIRREL_MORPH, 10),
 					new Value<>(Race.COW_MORPH, 10),
-					new Value<>(Race.ALLIGATOR_MORPH, 5));
+					new Value<>(Race.ALLIGATOR_MORPH, 5)
+					//new Value<>(Race.GARGOYLE, 2)
+					);
 			
 			if(Main.game.getSeason()==Season.WINTER && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter)) {
 				availableRaces.put(Race.REINDEER_MORPH, 10);
@@ -120,41 +125,62 @@ public class DominionAlleywayAttacker extends NPC {
 				
 			} else {
 				race = Util.getRandomObjectFromWeightedMap(availableRaces);
+				preferencesRace = race;
+				racialBody = RacialSelector.getBodyFromSelector(RacialSelector.valueOfRace(race), RacialBody.valueOfRace(race));
+				
+				// This is a hack to get Gargoyles to lift the furry preferences of their "parent" race.
+				// If we have a bunch of races which do something similar, consider implementing a separate furry preference race setting for Race.java.
+				switch(racialBody) {
+				case GARGOYLE_CAT:
+					preferencesRace = Race.CAT_MORPH;
+					break;
+				case GARGOYLE_DOG:
+					preferencesRace = Race.DOG_MORPH;
+					break;
+				case GARGOYLE_WOLF:
+					preferencesRace = Race.WOLF_MORPH;
+					break;
+				case GARGOYLE_HORSE:
+					preferencesRace = Race.HORSE_MORPH;
+					break;
+				default:
+					break;
+				}
 				
 				if(gender.isFeminine()) {
-					switch(Main.getProperties().raceFemininePreferencesMap.get(race)) {
+					switch(Main.getProperties().raceFemininePreferencesMap.get(preferencesRace)) {
 						case HUMAN:
 							setBody(gender, RacialBody.HUMAN, RaceStage.HUMAN);
 							break;
 						case MINIMUM:
-							setBodyFromPreferences(1, gender, race);
+							setBodyFromPreferences(1, gender, racialBody);
 							break;
 						case REDUCED:
-							setBodyFromPreferences(2, gender, race);
+							setBodyFromPreferences(2, gender, racialBody);
 							break;
 						case NORMAL:
-							setBodyFromPreferences(3, gender, race);
+							setBodyFromPreferences(3, gender, racialBody);
 							break;
 						case MAXIMUM:
-							setBody(gender, RacialBody.valueOfRace(race), RaceStage.GREATER);
+							setBody(gender, racialBody, RaceStage.GREATER);
 							break;
 					}
 				} else {
-					switch(Main.getProperties().raceMasculinePreferencesMap.get(race)) {
+					switch(Main.getProperties().raceMasculinePreferencesMap.get(preferencesRace)) {
 						case HUMAN:
 							setBody(gender, RacialBody.HUMAN, RaceStage.HUMAN);
 							break;
 						case MINIMUM:
-							setBodyFromPreferences(1, gender, race);
+							setBodyFromPreferences(1, gender, racialBody);
 							break;
 						case REDUCED:
-							setBodyFromPreferences(2, gender, race);
+							setBodyFromPreferences(2, gender, racialBody);
 							break;
 						case NORMAL:
-							setBodyFromPreferences(3, gender, race);
+							setBodyFromPreferences(3, gender, racialBody);
 							break;
 						case MAXIMUM:
-							setBody(gender, RacialBody.valueOfRace(race), RaceStage.GREATER);
+							setBody(gender, racialBody, RaceStage.GREATER);
 							break;
 					}
 				}
@@ -186,7 +212,7 @@ public class DominionAlleywayAttacker extends NPC {
 	
 			CharacterUtils.equipClothing(this, true, false);
 			CharacterUtils.applyMakeup(this, true);
-			
+
 			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
 			setStamina(getAttributeValue(Attribute.STAMINA_MAXIMUM));
@@ -213,7 +239,22 @@ public class DominionAlleywayAttacker extends NPC {
 		return false;
 	}
 	
-	private void setBodyFromPreferences(int i, Gender gender, Race race) {
+//	private void setBodyFromPreferences(int i, Gender gender, Race race) {
+//		int choice = Util.random.nextInt(i)+1;
+//		RaceStage raceStage = RaceStage.PARTIAL;
+//		
+//		if (choice == 1) {
+//			raceStage = RaceStage.PARTIAL;
+//		} else if (choice == 2) {
+//			raceStage = RaceStage.LESSER;
+//		} else {
+//			raceStage = RaceStage.GREATER;
+//		}
+//		
+//		setBody(gender, RacialSelector.getBodyFromSelector(RacialSelector.valueOfRace(race)), raceStage);
+//	}
+	
+	private void setBodyFromPreferences(int i, Gender gender, RacialBody racialBody) {
 		int choice = Util.random.nextInt(i)+1;
 		RaceStage raceStage = RaceStage.PARTIAL;
 		
@@ -225,7 +266,7 @@ public class DominionAlleywayAttacker extends NPC {
 			raceStage = RaceStage.GREATER;
 		}
 		
-		setBody(gender, RacialBody.valueOfRace(race), raceStage);
+		setBody(gender, racialBody, raceStage);
 	}
 	
 	@Override
