@@ -4271,7 +4271,7 @@ public class ClothingType {
 									))
 					),
 			null,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.BASE_BLUE_LIGHT), new ListValue<Colour>(Colour.BASE_PINK_LIGHT)), Colour.allClothingColours,
+			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT), new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT)), Colour.allClothingColours,
 			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_WHITE)), Colour.allClothingColours,
 			null, null){
 		
@@ -6360,7 +6360,7 @@ public class ClothingType {
 							null))),
 
 			null,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.BASE_BLUE_LIGHT), new ListValue<Colour>(Colour.BASE_PINK_LIGHT)), Colour.allClothingColours,
+			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT), new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT)), Colour.allClothingColours,
 			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_WHITE)), Colour.allClothingColours, null, null){
 		
 		private static final long serialVersionUID = 1L;
@@ -7395,7 +7395,7 @@ public class ClothingType {
 							null,
 							null))),
 			null,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.BASE_BLUE_LIGHT), new ListValue<Colour>(Colour.BASE_PINK_LIGHT)), Colour.allClothingColours,
+			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT), new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT)), Colour.allClothingColours,
 			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_WHITE)), Colour.allClothingColours, null, null){
 		
 		private static final long serialVersionUID = 1L;
