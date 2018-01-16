@@ -101,7 +101,7 @@ public class SubDoggy {
 						break;
 				}
 			
-				return UtilText.genderParsing(Sex.getActivePartner(),
+				return UtilText.parse(Sex.getActivePartner(),
 					UtilText.returnStringAtRandom(
 							tailSpecial1,
 							tailSpecial2,
@@ -128,7 +128,7 @@ public class SubDoggy {
 						break;
 				}
 			
-				return UtilText.genderParsing(Sex.getActivePartner(),
+				return UtilText.parse(Sex.getActivePartner(),
 					UtilText.returnStringAtRandom(
 							tailSpecial1,
 							tailSpecial2,
@@ -156,7 +156,7 @@ public class SubDoggy {
 						break;
 				}
 			
-				return UtilText.genderParsing(Sex.getActivePartner(),
+				return UtilText.parse(Sex.getActivePartner(),
 					UtilText.returnStringAtRandom(
 							tailSpecial1,
 							tailSpecial2,

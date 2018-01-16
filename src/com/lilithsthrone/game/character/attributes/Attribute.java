@@ -221,11 +221,12 @@ public enum Attribute {
 					new ListValue<String>("<b>+0.5</b> <b style='color: " + Colour.DAMAGE_TYPE_MANA.toWebHexString() + "'>arousal damage</b> per 1 physical corruption"))) {
 						@Override
 						public String getDescription(GameCharacter owner) {
-							if(owner.isPlayer())
-								return "Corruption is a measure of how dirty minded you are, and affects <b style='color:" + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + ";'>availability of actions both in and out of sex</b>.";
-							else
+							if(owner.isPlayer()) {
+								return "Corruption is a measure of your perversion and depravity, and affects <b style='color:" + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + ";'>which sex actions you can perform in good conscience</b>.";
+							} else {
 								return UtilText.parse(owner,
-										"A measure of [npc.name]'s corruption.");
+										"Corruption is a measure of [npc.name]'s perversion and depravity. It does <i>not</i> reflect how good or evil [npc.she] is.");
+							}
 						}
 					},
 	

@@ -277,8 +277,7 @@ public class SubKneeling {
 						+ "After a few moments, [npc.her] balls have completely emptied themselves, and [npc.she] steps back,"
 							+ " sliding [npc.her] rapidly-softening [npc.cock] out from your [pc.lips+] as [npc.she] inadvertently covers your [pc.tongue] with the last few drops of [npc.her] salty seed.");
 			
-			return UtilText.genderParsing(Sex.getActivePartner(),
-					UtilText.nodeContentSB.toString());
+			return UtilText.parse(Sex.getActivePartner(), UtilText.nodeContentSB.toString());
 		}
 
 		@Override

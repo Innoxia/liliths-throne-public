@@ -45,7 +45,11 @@ public class HarpyNestsAttacker extends NPC {
 		this(gender, false);
 	}
 	
-	private HarpyNestsAttacker(Gender gender, boolean isImported) {
+	public HarpyNestsAttacker(boolean isImported) {
+		this(Gender.F_V_B_FEMALE, isImported);
+	}
+	
+	public HarpyNestsAttacker(Gender gender, boolean isImported) {
 		super(null, "", 4, gender, RacialBody.HARPY, RaceStage.LESSER,
 				new CharacterInventory(10), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_WALKWAYS, false);
 
@@ -97,12 +101,8 @@ public class HarpyNestsAttacker extends NPC {
 	}
 	
 	@Override
-	public HarpyNestsAttacker loadFromXML(Element parentElement, Document doc) {
-		HarpyNestsAttacker npc = new  HarpyNestsAttacker(Gender.F_V_B_FEMALE, true);
-
-		loadNPCVariablesFromXML(npc, null, parentElement, doc);
-		
-		return npc;
+	public void loadFromXML(Element parentElement, Document doc) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc);
 	}
 	
 	@Override

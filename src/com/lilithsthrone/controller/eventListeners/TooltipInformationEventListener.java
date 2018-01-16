@@ -670,12 +670,19 @@ public class TooltipInformationEventListener implements EventListener {
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
 		} else { // Standard information:
+			if(description==null || description.isEmpty()) {
+				Main.mainController.setTooltipSize(360, 64);
 
-			Main.mainController.setTooltipSize(360, 175);
+				Main.mainController.setTooltipContent(UtilText.parse(
+						"<div class='title'>"+title+"</div>"));
+				
+			} else {
+				Main.mainController.setTooltipSize(360, 175);
 
-			Main.mainController.setTooltipContent(UtilText.parse(
-					"<div class='title'>"+title+"</div>"
-					+ "<div class='description'>" + description + "</div>"));
+				Main.mainController.setTooltipContent(UtilText.parse(
+						"<div class='title'>"+title+"</div>"
+						+ "<div class='description'>" + description + "</div>"));
+			}
 		}
 
 		(new Thread(new TooltipUpdateThread())).start();

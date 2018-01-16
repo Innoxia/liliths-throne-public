@@ -42,6 +42,17 @@ public class NPCOffspring extends NPC {
 	public boolean fightInApartment = false;
 	public int flagBackgroundProgress = 0;
 
+	
+	public NPCOffspring() {
+		this(false);
+	}
+	
+	public NPCOffspring(boolean isImported) {
+		super(null, "", 3, Gender.F_V_B_FEMALE, RacialBody.DOG_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
+		
+		this.setEnslavementDialogue(DominionOffspringDialogue.ENSLAVEMENT_DIALOGUE);
+	}
+	
 	public NPCOffspring(GameCharacter mother, GameCharacter father) {
 		super(null, "", 3, Gender.F_V_B_FEMALE, RacialBody.DOG_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
@@ -98,19 +109,11 @@ public class NPCOffspring extends NPC {
 		setStamina(getAttributeValue(Attribute.STAMINA_MAXIMUM));
 	}
 	
-	public NPCOffspring() {
-		super(null, "", 3, Gender.F_V_B_FEMALE, RacialBody.DOG_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
-		
-		this.setEnslavementDialogue(DominionOffspringDialogue.ENSLAVEMENT_DIALOGUE);
-	}
+	
 
 	@Override
-	public NPCOffspring loadFromXML(Element parentElement, Document doc) {
-		NPCOffspring offspring = new  NPCOffspring();
-
-		loadNPCVariablesFromXML(offspring, null, parentElement, doc);
-		
-		return offspring;
+	public void loadFromXML(Element parentElement, Document doc) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc);
 	}
 	
 	@Override

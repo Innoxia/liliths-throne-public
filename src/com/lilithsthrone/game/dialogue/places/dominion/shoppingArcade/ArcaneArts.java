@@ -289,7 +289,7 @@ public class ArcaneArts {
 							new SMVickyOverDesk(
 									Util.newHashMapOfValues(new Value<>(Main.game.getVicky(), SexPositionSlot.MISSIONARY_DESK_DOM_VICKY)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_DESK_SUB_VICKY))),
-							VICKY_POST_SEX,
+							VICKY_POST_SEX_PACKAGE,
 								"<p>"
 									+ "[pc.speech(That second option doesn't sound so bad...)]"
 									+ " you say, grinning up at Vicky as she roughly presses you against the wall."
@@ -319,7 +319,7 @@ public class ArcaneArts {
 							new SMVickyOverDesk(
 									Util.newHashMapOfValues(new Value<>(Main.game.getVicky(), SexPositionSlot.MISSIONARY_DESK_DOM_VICKY)),
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_DESK_SUB_VICKY))),
-							VICKY_POST_SEX_RAPE,
+							VICKY_POST_SEX_RAPE_PACKAGE,
 							"<p>"
 								+ "Feeling more than a little intimidated by the overbearing wolf-girl's advances, you try to slip away, muttering,"
 								+ " [pc.speech(E-Erm.. M-Maybe I'll come back later...)]"
@@ -401,19 +401,69 @@ public class ArcaneArts {
 		}
 	};
 	
-	public static final DialogueNodeOld VICKY_POST_SEX = new DialogueNodeOld("Arcane Arts", "-", true) { //TODO package
+	
+	public static final DialogueNodeOld VICKY_POST_SEX_PACKAGE = new DialogueNodeOld("Arcane Arts", "-", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getContent() {
 			return "<p>"
 						+ "Vicky steps back, grinning down at you as she growls,"
-						+ " [vicky.speech(You're a pretty good fuck. I guess this counts as payment for your package."
+						+ " [vicky.speech(You're a pretty good fuck."
+							+ " I guess this counts as payment for your package."
 							+ " If you wanted to take a look at my goods, or if you ever want to be my bitch again, then let me know.)]"
 					+ "</p>"
 					+ "<p>"
 						+ "The wolf-girl strides over to the store's front door, barely giving you a moment to get your things in order before unlocking it and walking back behind her counter."
 						+ " You quickly finish gathering your things, and, taking the package from on top of the counter, you prepare to make your next move."
+						+ " Vicky leans back against the wall, fixing her gaze onto your face as she waits to see what you'll do next..."
+					+ "</p>";
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return SHOP_WEAPONS.getResponse(responseTab, index);
+		}
+	};
+	
+	public static final DialogueNodeOld VICKY_POST_SEX_RAPE_PACKAGE = new DialogueNodeOld("Arcane Arts", "-", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getContent() {
+			return "<p>"
+					+ "Vicky steps back, grinning down at you as she growls,"
+					+ " [vicky.speech(You're a pretty good fuck; I love it when bitches like you try to put up a fight."
+						+ " I guess this counts as payment for your package."
+						+ " If you wanted to take a look at my goods, or if you ever want to be my bitch again, then let me know.)]"
+				+ "</p>"
+				+ "<p>"
+					+ "The wolf-girl strides over to the store's front door, barely giving you a moment to get your things in order before unlocking it and walking back behind her counter."
+					+ " You quickly finish gathering your things, and, taking the package from on top of the counter, you prepare to make your next move."
+					+ " Vicky leans back against the wall, fixing her gaze onto your face as she waits to see what you'll do next..."
+				+ "</p>";
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return SHOP_WEAPONS.getResponse(responseTab, index);
+		}
+	};
+	
+	
+	public static final DialogueNodeOld VICKY_POST_SEX = new DialogueNodeOld("Arcane Arts", "-", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "Vicky steps back, grinning down at you as she growls,"
+						+ " [vicky.speech(You're a pretty good fuck."
+							+ " If you wanted to take a look at my goods, or if you ever want to be my bitch again, then let me know.)]"
+					+ "</p>"
+					+ "<p>"
+						+ "The wolf-girl strides over to the store's front door, barely giving you a moment to get your things in order before unlocking it and walking back behind her counter."
+						+ " You quickly finish gathering your things, and, scrambling to your [pc.feet], you prepare to make your next move."
 						+ " Vicky leans back against the wall, fixing her gaze onto your face as she waits to see what you'll do next..."
 					+ "</p>";
 		}
@@ -432,7 +482,6 @@ public class ArcaneArts {
 			return "<p>"
 					+ "Vicky steps back, grinning down at you as she growls,"
 					+ " [vicky.speech(You're a pretty good fuck; I love it when bitches like you try to put up a fight."
-						+ " I guess this counts as payment for your package."
 						+ " If you wanted to take a look at my goods, or if you ever want to be my bitch again, then let me know.)]"
 				+ "</p>"
 				+ "<p>"

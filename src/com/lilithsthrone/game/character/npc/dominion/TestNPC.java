@@ -58,7 +58,7 @@ public class TestNPC extends NPC {
 		this(false);
 	}
 	
-	private TestNPC(boolean isImported) {
+	public TestNPC(boolean isImported) {
 		super(new NameTriplet("TestNPC"),
 				"A mysterious [test.race] that you found in the back of one of the Shopping Arcade's many shops.",
 				1, Gender.F_V_B_FEMALE, RacialBody.CAT_MORPH, RaceStage.PARTIAL_FULL,
@@ -132,12 +132,8 @@ public class TestNPC extends NPC {
 	}
 	
 	@Override
-	public TestNPC loadFromXML(Element parentElement, Document doc) {
-		TestNPC npc = new  TestNPC(true);
-
-		loadNPCVariablesFromXML(npc, null, parentElement, doc);
-		
-		return npc;
+	public void loadFromXML(Element parentElement, Document doc) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc);
 	}
 
 	@Override

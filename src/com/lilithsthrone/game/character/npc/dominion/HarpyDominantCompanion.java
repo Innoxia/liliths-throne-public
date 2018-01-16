@@ -40,7 +40,7 @@ public class HarpyDominantCompanion extends NPC {
 		this(false);
 	}
 	
-	private HarpyDominantCompanion(boolean isImported) {
+	public HarpyDominantCompanion(boolean isImported) {
 		super(new NameTriplet("Harley"),
 				"Diana's favourite pet, Harley, does everything she can to please her matriarch."
 						+ " Just like most of the harpies in her mistress's nest, she does absolutely anything Diana orders her to do, which often involves administering humiliating punishments...",
@@ -83,12 +83,8 @@ public class HarpyDominantCompanion extends NPC {
 	}
 	
 	@Override
-	public HarpyDominantCompanion loadFromXML(Element parentElement, Document doc) {
-		HarpyDominantCompanion npc = new HarpyDominantCompanion(true);
-
-		loadNPCVariablesFromXML(npc, null, parentElement, doc);
-		
-		return npc;
+	public void loadFromXML(Element parentElement, Document doc) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc);
 	}
 
 	@Override

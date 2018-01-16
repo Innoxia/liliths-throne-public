@@ -822,7 +822,7 @@ public class SexActionPresets {
 		partnerChairBottom.add(PartnerTongueBreasts.class);
 		partnerChairBottom.add(PartnerTongueNipple.class);
 
-		partnerChairBottom.add(ConChairBottom.class);
+//		partnerChairBottom.add(ConChairBottom.class);
 		partnerChairBottom.add(ConChairPositions.class);
 		
 		partnerChairBottom.add(GenericActions.class);

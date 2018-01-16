@@ -53,7 +53,7 @@ public class Lilaya extends NPC {
 		this(false);
 	}
 	
-	private Lilaya(boolean isImported) {
+	public Lilaya(boolean isImported) {
 		super(new NameTriplet("Lilaya"),
 				"Along with your twin cousins, your aunt Lily was the only family you'd ever known." + " Although she still exists in this world, she isn't your aunt any more, and in this reality, she's a half-demon called 'Lilaya'."
 						+ " Whereas your old aunt was a researcher at the city museum, Lilaya is a privately-funded researcher of the arcane."
@@ -93,14 +93,10 @@ public class Lilaya extends NPC {
 	}
 	
 	@Override
-	public Lilaya loadFromXML(Element parentElement, Document doc) {
-		Lilaya npc = new Lilaya(true);
-
-		loadNPCVariablesFromXML(npc, null, parentElement, doc);
+	public void loadFromXML(Element parentElement, Document doc) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc);
 		
-		npc.setWingSize(WingSize.ZERO_TINY.getValue());
-		
-		return npc;
+		this.setWingSize(WingSize.ZERO_TINY.getValue());
 	}
 
 	@Override

@@ -42,7 +42,7 @@ public class HarpyNymphoCompanion extends NPC {
 		this(false);
 	}
 	
-	private HarpyNymphoCompanion(boolean isImported) {
+	public HarpyNymphoCompanion(boolean isImported) {
 		super(new NameTriplet("Max"),
 				"Lexi's favourite partner, Max, does everything she can to please her matriarch."
 						+ " Just like most of the harpies in her nest, she does absolutely anything Lexi orders her to do, which usually involves trying to sate her matriarch's never-ending lust.",
@@ -81,12 +81,8 @@ public class HarpyNymphoCompanion extends NPC {
 	}
 	
 	@Override
-	public HarpyNymphoCompanion loadFromXML(Element parentElement, Document doc) {
-		HarpyNymphoCompanion npc = new HarpyNymphoCompanion(true);
-
-		loadNPCVariablesFromXML(npc, null, parentElement, doc);
-		
-		return npc;
+	public void loadFromXML(Element parentElement, Document doc) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc);
 	}
 
 	@Override

@@ -52,7 +52,7 @@ public class HarpyDominant extends NPC {
 		this(false);
 	}
 	
-	private HarpyDominant(boolean isImported) {
+	public HarpyDominant(boolean isImported) {
 		super(new NameTriplet("Diana"),
 				"One of the more notable harpy matriarchs, Diana is the leader of a flock of harpies."
 						+ " As cruel as harpies come, Diana rules her flock with an iron fist, harshly punishing any harpies that try to challenge her dominance.",
@@ -98,12 +98,8 @@ public class HarpyDominant extends NPC {
 	}
 	
 	@Override
-	public HarpyDominant loadFromXML(Element parentElement, Document doc) {
-		HarpyDominant npc = new HarpyDominant(true);
-
-		loadNPCVariablesFromXML(npc, null, parentElement, doc);
-		
-		return npc;
+	public void loadFromXML(Element parentElement, Document doc) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc);
 	}
 
 	@Override

@@ -5,6 +5,7 @@ import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -184,6 +185,37 @@ public interface SexActionInterface {
 				return null;
 			}
 			
+			if(getAssociatedPenetrationType()==PenetrationType.PENIS_PARTNER && !Sex.getActivePartner().getPlayerKnowsAreasMap().get(CoverableArea.PENIS)) {
+				return null;
+			}
+			
+			if(getAssociatedOrificeType()!=null) {
+				switch(getAssociatedOrificeType()){
+					case NIPPLE_PARTNER:
+						if(!Sex.getActivePartner().getPlayerKnowsAreasMap().get(CoverableArea.NIPPLES)) {
+							return null;
+						}
+						break;
+					case ANUS_PARTNER:
+						if(!Sex.getActivePartner().getPlayerKnowsAreasMap().get(CoverableArea.ANUS)) {
+							return null;
+						}
+						break;
+					case URETHRA_PARTNER:
+						if(!Sex.getActivePartner().getPlayerKnowsAreasMap().get(CoverableArea.PENIS)) {
+							return null;
+						}
+						break;
+					case VAGINA_PARTNER:
+						if(!Sex.getActivePartner().getPlayerKnowsAreasMap().get(CoverableArea.VAGINA)) {
+							return null;
+						}
+						break;
+					default:
+						break;
+				}
+			}
+			
 			// You can't prepare for orgasms if your partner won't orgasm on the next turn:
 			if(getActionType() == SexActionType.PLAYER_PREPARE_PARTNER_ORGASM) {
 				if(!Sex.isPartnerReadyToOrgasm()) {
@@ -294,12 +326,14 @@ public interface SexActionInterface {
 				if(getAssociatedOrificeType() != null) {
 					switch(getAssociatedOrificeType()){
 						case NIPPLE_PARTNER:
-							if(!Sex.getActivePartner().isBreastFuckableNipplePenetration())
+							if(!Sex.getActivePartner().isBreastFuckableNipplePenetration()) {
 								return null;
+							}
 							break;
 						case NIPPLE_PLAYER:
-							if(!Main.game.getPlayer().isBreastFuckableNipplePenetration())
+							if(!Main.game.getPlayer().isBreastFuckableNipplePenetration()) {
 								return null;
+							}
 							break;
 						default:
 							break;

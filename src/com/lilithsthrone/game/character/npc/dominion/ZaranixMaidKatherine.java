@@ -55,7 +55,7 @@ public class ZaranixMaidKatherine extends NPC {
 		this(false);
 	}
 	
-	private ZaranixMaidKatherine(boolean isImported) {
+	public ZaranixMaidKatherine(boolean isImported) {
 		super(new NameTriplet("Katherine"),
 				"One of Zaranix's succubi maid twins, Katherine is clearly outraged by the fact that you're wandering around the house unsupervised.",
 				10, Gender.F_P_V_B_FUTANARI, RacialBody.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_MAID, true);
@@ -98,17 +98,13 @@ public class ZaranixMaidKatherine extends NPC {
 	}
 	
 	@Override
-	public ZaranixMaidKatherine loadFromXML(Element parentElement, Document doc) {
-		ZaranixMaidKatherine npc = new ZaranixMaidKatherine(true);
+	public void loadFromXML(Element parentElement, Document doc) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc);
 
-		loadNPCVariablesFromXML(npc, null, parentElement, doc);
-
-		if(npc.getMainWeapon()==null) {
-			npc.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MAIN_FEATHER_DUSTER));
+		if(this.getMainWeapon()==null) {
+			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MAIN_FEATHER_DUSTER));
 		}
-		npc.addFetish(Fetish.FETISH_MASOCHIST);
-		
-		return npc;
+		this.addFetish(Fetish.FETISH_MASOCHIST);
 	}
 	
 	public void resetBody() {

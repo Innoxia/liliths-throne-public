@@ -701,7 +701,10 @@ public class MainController implements Initializable {
 								if (event.getCode() == KeyCode.ENTER) {
 									enterConsumed = true;
 									Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('new_save_name').value;");
-									Main.saveGame(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent(), false);
+									if(Main.isSaveGameAvailable()) {
+										Main.saveGame(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent(), false);
+									}
+									Main.game.setContent(new Response("Save", "", Main.game.getCurrentDialogueNode()));
 								}
 							}
 						}
@@ -4387,8 +4390,9 @@ public class MainController implements Initializable {
 		// Save/load:
 		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.SAVE_LOAD && !Main.game.isInCombat() && !Main.game.isInSex()) {
 			for (File f : Main.getSavedGames()) {
-				if (((EventTarget) document.getElementById("overwrite_saved_" + f.getName().substring(0, f.getName().lastIndexOf('.')) )) != null) {
-					((EventTarget) document.getElementById("overwrite_saved_" + f.getName().substring(0, f.getName().lastIndexOf('.')) )).addEventListener("click", e -> {
+				id = "overwrite_saved_" + f.getName().substring(0, f.getName().lastIndexOf('.'));
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 						
 						if(!Main.getProperties().overwriteWarning || OptionsDialogue.overwriteConfirmationName.equals(f.getName())) {
 							OptionsDialogue.overwriteConfirmationName = "";
@@ -4401,9 +4405,15 @@ public class MainController implements Initializable {
 						}
 						
 					}, false);
+
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+					TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Overwrite", "");
+					addEventListener(document, id, "mouseenter", el2, false);
 				}
-				if (((EventTarget) document.getElementById("load_saved_" + f.getName().substring(0, f.getName().lastIndexOf('.')) )) != null) {
-					((EventTarget) document.getElementById("load_saved_" + f.getName().substring(0, f.getName().lastIndexOf('.')) )).addEventListener("click", e -> {
+				id = "load_saved_" + f.getName().substring(0, f.getName().lastIndexOf('.'));
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 						
 						if(!Main.getProperties().overwriteWarning || OptionsDialogue.loadConfirmationName.equals(f.getName())) {
 							OptionsDialogue.loadConfirmationName = "";
@@ -4416,9 +4426,15 @@ public class MainController implements Initializable {
 						}
 						
 					}, false);
+
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+					TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Load", "");
+					addEventListener(document, id, "mouseenter", el2, false);
 				}
-				if (((EventTarget) document.getElementById("delete_saved_" + f.getName().substring(0, f.getName().lastIndexOf('.')) )) != null) {
-					((EventTarget) document.getElementById("delete_saved_" + f.getName().substring(0, f.getName().lastIndexOf('.')) )).addEventListener("click", e -> {
+				id = "delete_saved_" + f.getName().substring(0, f.getName().lastIndexOf('.'));
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 						
 						if(!Main.getProperties().overwriteWarning || OptionsDialogue.deleteConfirmationName.equals(f.getName())) {
 							OptionsDialogue.deleteConfirmationName = "";
@@ -4431,50 +4447,61 @@ public class MainController implements Initializable {
 						}
 						
 					}, false);
+
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+					TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Delete", "");
+					addEventListener(document, id, "mouseenter", el2, false);
 				}
 			}
-			if (((EventTarget) document.getElementById("new_saved")) != null) {
-				((EventTarget) document.getElementById("new_saved")).addEventListener("click", e -> {
+			id = "new_saved";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 					Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('new_save_name').value;");
 					Main.saveGame(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent(), false);
 					
 				}, false);
+
+				addEventListener(document, id, "mousemove", moveTooltipListener, false);
+				addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+				TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Save", "");
+				addEventListener(document, id, "mouseenter", el2, false);
+			}
+			id = "new_saved_disabled";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				addEventListener(document, id, "mousemove", moveTooltipListener, false);
+				addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+				TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Save (Disabled)",
+						(!Main.game.isStarted()
+								?"You need to have started a game before you can save!"
+								:"You cannot save the game unless you are in a tile's default scene!"));
+				addEventListener(document, id, "mouseenter", el2, false);
 			}
 		}
 		
 		// Import:
 		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.IMPORT_EXPORT) {
-			for (File f : Main.getGamesForImport()) {
-				
-				if (((EventTarget) document.getElementById("import_game_" + f.getName().substring(0, f.getName().lastIndexOf('.')) )) != null) {
-					((EventTarget) document.getElementById("import_game_" + f.getName().substring(0, f.getName().lastIndexOf('.')) )).addEventListener("click", e -> {
-						
-						if(!Main.getProperties().overwriteWarning || OptionsDialogue.loadConfirmationName.equals(f.getName())) {
-							OptionsDialogue.loadConfirmationName = "";
-							Game.importGame(f.getName().substring(0, f.getName().lastIndexOf('.')));
-						} else {
-							OptionsDialogue.overwriteConfirmationName = "";
-							OptionsDialogue.loadConfirmationName = f.getName();
-							OptionsDialogue.deleteConfirmationName = "";
-							Main.game.setContent(new Response("Save/Load", "Open the save/load game window.", OptionsDialogue.IMPORT_EXPORT));
-						}
-						
-					}, false);
-				}
-				if (((EventTarget) document.getElementById("delete_imported_game_" + f.getName().substring(0, f.getName().lastIndexOf('.')) )) != null) {
-					((EventTarget) document.getElementById("delete_imported_game_" + f.getName().substring(0, f.getName().lastIndexOf('.')) )).addEventListener("click", e -> {
+			for (File f : Main.getCharactersForImport()) {
+				id = "delete_saved_character_" + f.getName().substring(0, f.getName().lastIndexOf('.'));
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 						
 						if(!Main.getProperties().overwriteWarning || OptionsDialogue.deleteConfirmationName.equals(f.getName())) {
 							OptionsDialogue.deleteConfirmationName = "";
-							Main.deleteExportedGame(f.getName().substring(0, f.getName().lastIndexOf('.')));
+							Main.deleteExportedCharacter(f.getName().substring(0, f.getName().lastIndexOf('.')));
 						} else {
 							OptionsDialogue.overwriteConfirmationName = "";
 							OptionsDialogue.loadConfirmationName = "";
 							OptionsDialogue.deleteConfirmationName = f.getName();
-							Main.game.setContent(new Response("Save/Load", "Open the save/load game window.", OptionsDialogue.IMPORT_EXPORT));
+							Main.game.setContent(new Response("Save/Load", "Open the save/load game window.", OptionsDialogue.SAVE_LOAD));
 						}
 						
 					}, false);
+
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+					TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Delete", "");
+					addEventListener(document, id, "mouseenter", el2, false);
 				}
 			}
 			if (((EventTarget) document.getElementById("new_saved")) != null) {

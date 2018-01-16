@@ -24,6 +24,8 @@ public enum SVGImages {
 
 			menuIcon, inventoryIcon, inventoryIconDisabled, inventorySwitchIcon, inventorySwitchOppositeIcon, journalIcon, peopleIcon, zoomInIcon, zoomOutIcon, copyIcon, exportIcon, calendarIcon,
 
+			diskSave, diskSaveDisabled, diskSaveConfirm, diskOverwrite, diskLoad, diskLoadConfirm, diskDelete, diskDeleteConfirm,
+			
 			itemsOnFloorIcon,
 			
 			playerMapIconMasculine, playerPlaceMapIconMasculine,
@@ -119,6 +121,35 @@ public enum SVGImages {
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/calendar.svg");
 			calendarIcon = Util.inputStreamToString(is);
 			calendarIcon = setColour(calendarIcon, Colour.BASE_CRIMSON);
+			
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/diskSave.svg");
+			diskSave = Util.inputStreamToString(is);
+			diskSave = setColour(diskSave, Colour.BASE_GREEN);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/diskSave.svg");
+			diskSaveDisabled = Util.inputStreamToString(is);
+			diskSaveDisabled = setColour(diskSaveDisabled, Colour.BASE_GREY);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/diskSave.svg");
+			diskOverwrite = Util.inputStreamToString(is);
+			diskOverwrite = setColour(diskOverwrite, Colour.BASE_ORANGE);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/diskSave.svg");
+			diskSaveConfirm = Util.inputStreamToString(is);
+			diskSaveConfirm = setColour(diskSaveConfirm, Colour.GENERIC_EXCELLENT);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/diskLoad.svg");
+			diskLoad = Util.inputStreamToString(is);
+			diskLoad = setColour(diskLoad, Colour.BASE_BLUE);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/diskLoad.svg");
+			diskLoadConfirm = Util.inputStreamToString(is);
+			diskLoadConfirm = setColour(diskLoadConfirm, Colour.GENERIC_EXCELLENT);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/diskDelete.svg");
+			diskDelete = Util.inputStreamToString(is);
+			diskDelete = setColour(diskDelete, Colour.BASE_CRIMSON);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/diskDelete.svg");
+			diskDeleteConfirm = Util.inputStreamToString(is);
+			diskDeleteConfirm = setColour(diskDeleteConfirm, Colour.GENERIC_EXCELLENT);
+			
 			
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/itemsOnFloor.svg");
@@ -540,6 +571,37 @@ public enum SVGImages {
 
 	public String getCalendarIcon() {
 		return calendarIcon;
+	}
+
+	public String getDiskSave() {
+		return diskSave;
+	}
+	public String getDiskSaveDisabled() {
+		return diskSaveDisabled;
+	}
+	
+	public String getDiskSaveConfirm() {
+		return diskSaveConfirm;
+	}
+
+	public String getDiskOverwrite() {
+		return diskOverwrite;
+	}
+
+	public String getDiskLoad() {
+		return diskLoad;
+	}
+	
+	public String getDiskLoadConfirm() {
+		return diskLoadConfirm;
+	}
+
+	public String getDiskDelete() {
+		return diskDelete;
+	}
+	
+	public String getDiskDeleteConfirm() {
+		return diskDeleteConfirm;
 	}
 
 	public String getItemsOnFloorIcon() {

@@ -62,7 +62,7 @@ public class Cultist extends NPC {
 		this(false);
 	}
 	
-	private Cultist(boolean isImported) {
+	public Cultist(boolean isImported) {
 		super(null,
 				"",
 				15,
@@ -176,12 +176,8 @@ public class Cultist extends NPC {
 	}
 	
 	@Override
-	public Cultist loadFromXML(Element parentElement, Document doc) {
-		Cultist npc = new Cultist(true);
-
-		loadNPCVariablesFromXML(npc, null, parentElement, doc);
-		
-		return npc;
+	public void loadFromXML(Element parentElement, Document doc) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc);
 	}
 	
 	@Override

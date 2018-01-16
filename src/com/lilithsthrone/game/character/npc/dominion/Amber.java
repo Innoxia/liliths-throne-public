@@ -65,7 +65,7 @@ public class Amber extends NPC {
 		this(false);
 	}
 	
-	private Amber(boolean isImported) {
+	public Amber(boolean isImported) {
 		super(new NameTriplet("Amber"),
 				"The highest-ranking of Zaranix's maids, Amber is clearly outraged by the fact that you're wandering around her master's house unsupervised.",
 				12, Gender.F_P_V_B_FUTANARI, RacialBody.DEMON, RaceStage.GREATER, new CharacterInventory(10), WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, true);
@@ -114,12 +114,8 @@ public class Amber extends NPC {
 	}
 	
 	@Override
-	public Amber loadFromXML(Element parentElement, Document doc) {
-		Amber npc = new Amber(true);
-
-		loadNPCVariablesFromXML(npc, null, parentElement, doc);
-		
-		return npc;
+	public void loadFromXML(Element parentElement, Document doc) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc);
 	}
 	
 	public void resetBody() {

@@ -24,19 +24,19 @@ public class GenericFemaleNPC extends NPC {
 	private static final long serialVersionUID = 1L;
 
 	public GenericFemaleNPC() {
+		this(false);
+	}
+	
+	public GenericFemaleNPC(boolean isImported) {
 		super(new NameTriplet("unknown female"), "Unknown.",
 				1, Gender.F_V_B_FEMALE, RacialBody.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(0), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 	}
 	
 	@Override
-	public GenericFemaleNPC loadFromXML(Element parentElement, Document doc) {
-		GenericFemaleNPC npc = new  GenericFemaleNPC();
-
-		loadNPCVariablesFromXML(npc, null, parentElement, doc);
-		npc.setName(new NameTriplet("unknown female"));
-		
-		return npc;
+	public void loadFromXML(Element parentElement, Document doc) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc);
+		this.setName(new NameTriplet("unknown female"));
 	}
 	
 	@Override

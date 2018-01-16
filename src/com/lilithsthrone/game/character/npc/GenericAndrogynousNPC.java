@@ -24,6 +24,10 @@ public class GenericAndrogynousNPC extends NPC {
 	private static final long serialVersionUID = 1L;
 
 	public GenericAndrogynousNPC() {
+		this(false);
+	}
+	
+	public GenericAndrogynousNPC(boolean isImported) {
 		super(new NameTriplet("Androgynous"), "Generic androgynous.",
 				1, Gender.N_P_V_HERMAPHRODITE, RacialBody.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(0), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
@@ -32,12 +36,8 @@ public class GenericAndrogynousNPC extends NPC {
 	}
 	
 	@Override
-	public GenericAndrogynousNPC loadFromXML(Element parentElement, Document doc) {
-		GenericAndrogynousNPC npc = new  GenericAndrogynousNPC();
-
-		loadNPCVariablesFromXML(npc, null, parentElement, doc);
-		
-		return npc;
+	public void loadFromXML(Element parentElement, Document doc) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc);
 	}
 	
 	@Override

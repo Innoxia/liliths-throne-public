@@ -60,7 +60,7 @@ public class Zaranix extends NPC {
 		this(false);
 	}
 	
-	private Zaranix(boolean isImported) {
+	public Zaranix(boolean isImported) {
 		super(new NameTriplet("Zaranix", "Zaranix", "Zoelix"),
 				"Zaranix is one of the few demons that feels more comfortable in his incubus, rather than succubus, form."
 						+ " Muscular, tall, and handsome, Zaranix uses both his cunning mind and good looks to get what he wants.",
@@ -100,20 +100,16 @@ public class Zaranix extends NPC {
 	}
 	
 	@Override
-	public Zaranix loadFromXML(Element parentElement, Document doc) {
-		Zaranix npc = new Zaranix(true);
+	public void loadFromXML(Element parentElement, Document doc) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc);
 
-		loadNPCVariablesFromXML(npc, null, parentElement, doc);
-
-		if(npc.getMainWeapon()==null) {
-			npc.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_EPIC, DamageType.PHYSICAL));
+		if(this.getMainWeapon()==null) {
+			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_EPIC, DamageType.PHYSICAL));
 		}
 		
-		npc.setWingSize(WingSize.THREE_LARGE.getValue());
+		this.setWingSize(WingSize.THREE_LARGE.getValue());
 		
-		npc.addFetish(Fetish.FETISH_ORAL_RECEIVING);
-		
-		return npc;
+		this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
 	}
 	
 	public void resetBody() {

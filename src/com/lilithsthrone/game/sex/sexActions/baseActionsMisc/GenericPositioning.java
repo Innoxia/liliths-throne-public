@@ -1182,7 +1182,7 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPartner
 					&& !(Sex.getPosition() == SexPositionNew.FACING_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_TO_WALL_FACING_TARGET)
-					&& SexPositionNew.FACING_WALL.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& 2>=Sex.getTotalParticipantCount()
 					&& (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.FACE_TO_WALL_FACING_TARGET) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())
 					&& Sex.getActivePartner().hasPenis()
 					&& !Sex.isDom(Main.game.getPlayer());
@@ -1229,7 +1229,7 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPartner
 					&& !(Sex.getPosition() == SexPositionNew.BACK_TO_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.BACK_TO_WALL_FACING_TARGET)
-					&& SexPositionNew.BACK_TO_WALL.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& 2>=Sex.getTotalParticipantCount()
 					&& (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.BACK_TO_WALL_FACING_TARGET) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())
 					&& !Sex.isDom(Main.game.getPlayer());
 		}
@@ -1275,7 +1275,7 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPartner
 					&& !(Sex.getPosition() == SexPositionNew.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_BEHIND)
-					&& SexPositionNew.DOGGY_STYLE.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& 2>=Sex.getTotalParticipantCount()
 					&& (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.DOGGY_BEHIND) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())
 					&& Sex.getActivePartner().hasPenis()
 					&& !Sex.isDom(Main.game.getPlayer());
@@ -1323,7 +1323,7 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPartner
 					&& !(Sex.getPosition() == SexPositionNew.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_BEHIND_ORAL)
-					&& SexPositionNew.DOGGY_STYLE.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& 2>=Sex.getTotalParticipantCount()
 					&& (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.DOGGY_BEHIND_ORAL) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())
 					&& !Sex.isDom(Main.game.getPlayer());
 		}
@@ -1370,7 +1370,7 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPartner
 					&& !(Sex.getPosition() == SexPositionNew.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_ON_ALL_FOURS)
-					&& SexPositionNew.DOGGY_STYLE.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& 2>=Sex.getTotalParticipantCount()
 					&& (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.DOGGY_ON_ALL_FOURS) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())
 					&& !Sex.isDom(Main.game.getPlayer());
 		}
@@ -1417,7 +1417,7 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPartner
 					&& !(Sex.getPosition() == SexPositionNew.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_ON_ALL_FOURS)
-					&& SexPositionNew.DOGGY_STYLE.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& 2>=Sex.getTotalParticipantCount()
 					&& (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.DOGGY_ON_ALL_FOURS) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())
 					&& !Sex.isDom(Main.game.getPlayer());
 		}
@@ -1464,7 +1464,7 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPartner
 					&& !(Sex.getPosition() == SexPositionNew.KNEELING_ORAL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_RECEIVING_ORAL)
-					&& SexPositionNew.KNEELING_ORAL.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& 2>=Sex.getTotalParticipantCount()
 							&& (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.KNEELING_RECEIVING_ORAL) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())
 					&& !Sex.isDom(Main.game.getPlayer());
 		}
@@ -1510,7 +1510,7 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPartner
 					&& !(Sex.getPosition() == SexPositionNew.KNEELING_ORAL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_PERFORMING_ORAL)
-					&& SexPositionNew.KNEELING_ORAL.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& 2>=Sex.getTotalParticipantCount()
 							&& (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.KNEELING_PERFORMING_ORAL) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())
 					&& !Sex.isDom(Main.game.getPlayer());
 		}
@@ -1556,7 +1556,7 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPartner
 					&& !(Sex.getPosition() == SexPositionNew.SIXTY_NINE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.SIXTY_NINE_TOP)
-					&& SexPositionNew.SIXTY_NINE.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& 2>=Sex.getTotalParticipantCount()
 					&& (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.SIXTY_NINE_TOP) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())
 					&& !Sex.isDom(Main.game.getPlayer());
 		}
@@ -1604,7 +1604,7 @@ public class GenericPositioning {
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPartner
 					&& !(Sex.getPosition() == SexPositionNew.COWGIRL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.COWGIRL_RIDING)
-					&& SexPositionNew.COWGIRL.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& 2>=Sex.getTotalParticipantCount()
 					&& (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.COWGIRL_RIDING) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())
 					&& !Sex.isDom(Main.game.getPlayer());
 		}

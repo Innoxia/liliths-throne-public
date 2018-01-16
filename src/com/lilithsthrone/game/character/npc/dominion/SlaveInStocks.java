@@ -53,6 +53,10 @@ public class SlaveInStocks extends NPC {
 		this(gender, false);
 	}
 	
+	public SlaveInStocks(boolean isImported) {
+		this(Gender.F_V_B_FEMALE, isImported);
+	}
+	
 	public SlaveInStocks(Gender gender, boolean isImported) {
 		super(null, "", 3, gender, RacialBody.DOG_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS, false);
@@ -230,12 +234,8 @@ public class SlaveInStocks extends NPC {
 	}
 	
 	@Override
-	public SlaveInStocks loadFromXML(Element parentElement, Document doc) {
-		SlaveInStocks npc = new SlaveInStocks(Gender.F_V_B_FEMALE, true);
-		
-		loadNPCVariablesFromXML(npc, null, parentElement, doc);
-		
-		return npc;
+	public void loadFromXML(Element parentElement, Document doc) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc);
 	}
 	
 	@Override

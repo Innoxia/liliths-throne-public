@@ -29,21 +29,22 @@ public class SlaveImport extends NPC {
 	private static final long serialVersionUID = 1L;
 
 	public SlaveImport() {
+		this(false);
+	}
+	
+	public SlaveImport(boolean isImported) {
 		super(new NameTriplet("Slave"), "Generic slave.",
 				1, Gender.F_V_B_FEMALE, RacialBody.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(0), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, false);
 	}
 	
 	@Override
-	public SlaveImport loadFromXML(Element parentElement, Document doc) {
-		SlaveImport npc = new SlaveImport();
+	public void loadFromXML(Element parentElement, Document doc) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc);
 		
-		loadNPCVariablesFromXML(npc, null, parentElement, doc);
-		if(!npc.getId().endsWith("SlaveImport")) {
-			npc.setId(Main.game.getNextNPCId(SlaveImport.class));
+		if(!this.getId().endsWith("SlaveImport")) {
+			this.setId(Main.game.getNextNPCId(SlaveImport.class));
 		}
-		
-		return npc;
 	}
 	
 	public void applyNewlyImportedSlaveVariables() {

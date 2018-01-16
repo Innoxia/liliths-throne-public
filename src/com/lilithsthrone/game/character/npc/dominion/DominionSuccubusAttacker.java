@@ -55,7 +55,7 @@ public class DominionSuccubusAttacker extends NPC {
 		this(false);
 	}
 	
-	private DominionSuccubusAttacker(boolean isImported) {
+	public DominionSuccubusAttacker(boolean isImported) {
 		super(null, "", 5, Gender.F_V_B_FEMALE, RacialBody.DEMON, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false);
 
@@ -109,12 +109,8 @@ public class DominionSuccubusAttacker extends NPC {
 	}
 	
 	@Override
-	public DominionSuccubusAttacker loadFromXML(Element parentElement, Document doc) {
-		DominionSuccubusAttacker npc = new  DominionSuccubusAttacker(true);
-
-		loadNPCVariablesFromXML(npc, null, parentElement, doc);
-		
-		return npc;
+	public void loadFromXML(Element parentElement, Document doc) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc);
 	}
 	
 	@Override

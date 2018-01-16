@@ -42,6 +42,10 @@ public class PrologueMale extends NPC {
 	private static final long serialVersionUID = 1L;
 
 	public PrologueMale() {
+		this(false);
+	}
+	
+	public PrologueMale(boolean isImported) {
 		super(new NameTriplet("Alexander", "Alex", "Alexandria"),
 				"One of the guests at the museum's opening exhibit. He's tall, handsome, and muscular, and, even better, he seems to have taken an instant liking towards you...",
 				3,
@@ -53,38 +57,36 @@ public class PrologueMale extends NPC {
 				PlaceType.GENERIC_EMPTY_TILE,
 				false);
 		
-		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-		
-		this.setFemininity(Femininity.MASCULINE_STRONG.getMedianFemininity());
-		this.setHeight(Height.THREE_TALL.getMedianValue());
-		this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
-		this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
-		
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HUMAN, Colour.EYE_BROWN));
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HUMAN, Colour.COVERING_BROWN_DARK), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
-
-		this.setPenisSize(PenisSize.THREE_LARGE.getMedianValue());
-		this.setPenisVirgin(false);
-
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BOXERS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_MENS_SMART_SHOES, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_TROUSERS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OXFORD_SHIRT, Colour.CLOTHING_BLUE_LIGHT, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_MENS_WATCH, Colour.CLOTHING_BLACK_STEEL, false), true, this);
-		
-		this.addFetish(Fetish.FETISH_CUM_STUD);
-		this.addFetish(Fetish.FETISH_BREASTS_OTHERS);
+		if(!isImported) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+			
+			this.setFemininity(Femininity.MASCULINE_STRONG.getMedianFemininity());
+			this.setHeight(Height.THREE_TALL.getMedianValue());
+			this.setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
+			this.setBodySize(BodySize.TWO_AVERAGE.getMedianValue());
+			
+			this.setEyeCovering(new Covering(BodyCoveringType.EYE_HUMAN, Colour.EYE_BROWN));
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HUMAN, Colour.COVERING_BROWN_DARK), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
+	
+			this.setPenisSize(PenisSize.THREE_LARGE.getMedianValue());
+			this.setPenisVirgin(false);
+	
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BOXERS, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_MENS_SMART_SHOES, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.LEG_TROUSERS, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_OXFORD_SHIRT, Colour.CLOTHING_BLUE_LIGHT, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_MENS_WATCH, Colour.CLOTHING_BLACK_STEEL, false), true, this);
+			
+			this.addFetish(Fetish.FETISH_CUM_STUD);
+			this.addFetish(Fetish.FETISH_BREASTS_OTHERS);
+		}
 	}
 	
 	@Override
-	public PrologueMale loadFromXML(Element parentElement, Document doc) {
-		PrologueMale npc = new  PrologueMale();
-
-		loadNPCVariablesFromXML(npc, null, parentElement, doc);
-		
-		return npc;
+	public void loadFromXML(Element parentElement, Document doc) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc);
 	}
 	
 	@Override

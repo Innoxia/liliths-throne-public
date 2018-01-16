@@ -1338,12 +1338,22 @@ public class EnforcerHQDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Truth", "Tell [brax.name] who you are, and that you're here to find out what happened to Arthur.", INTERIOR_BRAX_TRUTH);
+				return new Response("Truth", "Tell [brax.name] who you are, and that you're here to find out what happened to Arthur.", INTERIOR_BRAX_TRUTH) {
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.braxEncountered, true);
+					}
+				};
 					
 			} else if (index == 2) {
 				return new Response("Lie", "You notice that all of the models in the posters are wolf-girls. Perhaps you could pretend that Arthur is a patron of an exclusive wolf-girl themed brothel that you so happen to own...",
 						INTERIOR_BRAX_LIE,
-						null, null, Util.newArrayListOfValues(new ListValue<>(Perk.OBSERVANT)), null, null);
+						null, null, Util.newArrayListOfValues(new ListValue<>(Perk.OBSERVANT)), null, null) {
+					@Override
+					public void effects() {
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.braxEncountered, true);
+					}
+				};
 					
 			} else if (index == 3) {
 				return new Response("Wolf-tease", "Use your feminine wolf-like body to tease [brax.name] into giving you information about Arthur.", INTERIOR_BRAX_GETTING_TEASED,
@@ -1351,6 +1361,7 @@ public class EnforcerHQDialogue {
 					@Override
 					public void effects(){
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.braxBeaten);
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.braxEncountered, true);
 					}
 				};
 					

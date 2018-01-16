@@ -78,7 +78,7 @@ public class Vicky extends NPC {
 		this(false);
 	}
 	
-	private Vicky(boolean isImported) {
+	public Vicky(boolean isImported) {
 		super(new NameTriplet("Vicky"),
 				"Vicky is the owner of the shop 'Arcane Arts'. Her manner of staring at anyone who enters her shop is quite unsettling, and you feel as though she's ready to pounce on you at any moment...", 10, Gender.F_P_V_B_FUTANARI,
 				RacialBody.WOLF_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_VICKYS_SHOP, true);
@@ -118,19 +118,15 @@ public class Vicky extends NPC {
 	}
 	
 	@Override
-	public Vicky loadFromXML(Element parentElement, Document doc) {
-		Vicky npc = new  Vicky(true);
+	public void loadFromXML(Element parentElement, Document doc) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc);
 
-		loadNPCVariablesFromXML(npc, null, parentElement, doc);
-
-		npc.addFetish(Fetish.FETISH_DOMINANT);
-		npc.addFetish(Fetish.FETISH_ANAL_GIVING);
-		npc.addFetish(Fetish.FETISH_NON_CON_DOM);
+		this.addFetish(Fetish.FETISH_DOMINANT);
+		this.addFetish(Fetish.FETISH_ANAL_GIVING);
+		this.addFetish(Fetish.FETISH_NON_CON_DOM);
 		
-		npc.setPenisSize(PenisSize.FOUR_HUGE.getMedianValue());
-		npc.setPenisVirgin(false);
-		
-		return npc;
+		this.setPenisSize(PenisSize.FOUR_HUGE.getMedianValue());
+		this.setPenisVirgin(false);
 	}
 
 	@Override

@@ -37,7 +37,7 @@ public class Arthur extends NPC {
 		this(false);
 	}
 	
-	private Arthur(boolean isImported) {
+	public Arthur(boolean isImported) {
 		super(new NameTriplet("Arthur"),
 				"Arthur is ",
 				10,
@@ -74,12 +74,8 @@ public class Arthur extends NPC {
 	}
 	
 	@Override
-	public Arthur loadFromXML(Element parentElement, Document doc) {
-		Arthur npc = new Arthur(true);
-
-		loadNPCVariablesFromXML(npc, null, parentElement, doc);
-		
-		return npc;
+	public void loadFromXML(Element parentElement, Document doc) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc);
 	}
 
 	@Override

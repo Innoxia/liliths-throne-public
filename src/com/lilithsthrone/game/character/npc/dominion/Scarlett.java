@@ -39,7 +39,7 @@ public class Scarlett extends NPC {
 		this(false);
 	}
 	
-	private Scarlett(boolean isImported) {
+	public Scarlett(boolean isImported) {
 		super(new NameTriplet("Scarlett"),
 				"Scarlett is the owner of the rather unoriginally named establishment 'Scarlett's shop'."
 						+ " Rude, loud, and quick to anger, Scarlett isn't a very pleasant person to have to deal with.",
@@ -67,12 +67,8 @@ public class Scarlett extends NPC {
 	}
 	
 	@Override
-	public Scarlett loadFromXML(Element parentElement, Document doc) {
-		Scarlett npc = new Scarlett(true);
-
-		loadNPCVariablesFromXML(npc, null, parentElement, doc);
-		
-		return npc;
+	public void loadFromXML(Element parentElement, Document doc) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc);
 	}
 
 	@Override

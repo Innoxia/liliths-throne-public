@@ -48,6 +48,7 @@ public enum DialogueFlagValue {
 	givenLilayaPresent3,
 	
 	// Brax:
+	braxEncountered,
 	accessToEnforcerHQ,
 	braxTransformedPlayer,
 	braxBeaten,

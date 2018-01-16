@@ -44,7 +44,7 @@ public class Rose extends NPC {
 		this(false);
 	}
 	
-	private Rose(boolean isImported) {
+	public Rose(boolean isImported) {
 		super(new NameTriplet("Rose"),
 				"Rose is Lilaya's slave, and is the only other member of her household that you've ever seen."
 						+ " A partial cat-girl, Rose is treated with extreme fondness by Lilaya, and appears to be the only other person Lilaya has any regular contact with."
@@ -82,19 +82,15 @@ public class Rose extends NPC {
 	}
 	
 	@Override
-	public Rose loadFromXML(Element parentElement, Document doc) {
-		Rose npc = new Rose(true);
-
-		loadNPCVariablesFromXML(npc, null, parentElement, doc);
+	public void loadFromXML(Element parentElement, Document doc) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc);
 		
-		if(npc.getClothingInSlot(InventorySlot.NECK)==null) {
-			npc.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_BELL_COLLAR, Colour.CLOTHING_BLACK, false), true, this);
+		if(this.getClothingInSlot(InventorySlot.NECK)==null) {
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_BELL_COLLAR, Colour.CLOTHING_BLACK, false), true, this);
 		}
-		if(npc.getMainWeapon()==null) {
-			npc.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MAIN_FEATHER_DUSTER));
+		if(this.getMainWeapon()==null) {
+			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MAIN_FEATHER_DUSTER));
 		}
-		
-		return npc;
 	}
 
 	@Override

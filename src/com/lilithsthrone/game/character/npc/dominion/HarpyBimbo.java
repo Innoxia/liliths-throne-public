@@ -52,7 +52,7 @@ public class HarpyBimbo extends NPC {
 		this(false);
 	}
 	
-	private HarpyBimbo(boolean isImported) {
+	public HarpyBimbo(boolean isImported) {
 		super(new NameTriplet("Brittany"),
 				"One of the more notable harpy matriarchs, Brittany is the leader of a flock of harpies."
 						+ " In order to get into her good graces, most of her flock try to mimic her behaviour and appearance."
@@ -99,12 +99,8 @@ public class HarpyBimbo extends NPC {
 	}
 	
 	@Override
-	public HarpyBimbo loadFromXML(Element parentElement, Document doc) {
-		HarpyBimbo npc = new HarpyBimbo(true);
-
-		loadNPCVariablesFromXML(npc, null, parentElement, doc);
-		
-		return npc;
+	public void loadFromXML(Element parentElement, Document doc) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc);
 	}
 
 	@Override

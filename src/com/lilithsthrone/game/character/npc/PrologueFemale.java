@@ -47,6 +47,10 @@ public class PrologueFemale extends NPC {
 	private static final long serialVersionUID = 1L;
 
 	public PrologueFemale() {
+		this(false);
+	}
+	
+	public PrologueFemale(boolean isImported) {
 		super(new NameTriplet("Alexander", "Alex", "Alexandria"),
 				"One of the guests at the museum's opening exhibit. She's got a beautiful face and figure, and, even better, she seems to have taken an instant liking towards you...",
 				3,
@@ -58,50 +62,48 @@ public class PrologueFemale extends NPC {
 				PlaceType.GENERIC_EMPTY_TILE,
 				false);
 		
-		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
-		
-		this.setFemininity(Femininity.FEMININE_STRONG.getMedianFemininity());
-		this.setHeight(Height.TWO_AVERAGE.getMedianValue());
-		this.setMuscle(Muscle.TWO_TONED.getMedianValue());
-		this.setBodySize(BodySize.ONE_SLENDER.getMedianValue());
-		
-		this.setBreastSize(CupSize.D.getMeasurement());
-		this.setAssSize(AssSize.FOUR_LARGE.getValue());
-		this.setHipSize(HipSize.FOUR_WOMANLY.getValue());
-		this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, Colour.COVERING_RED));
-		this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, Colour.COVERING_RED));
-		this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
-		this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, Colour.COVERING_RED));
-		
-		this.setEyeCovering(new Covering(BodyCoveringType.EYE_HUMAN, Colour.EYE_BLUE));
-		this.setHairCovering(new Covering(BodyCoveringType.HAIR_HUMAN, Colour.COVERING_BLONDE), true);
-		this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
-		this.setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
-		this.setHairStyle(HairStyle.WAVY);
-		
-		this.setPiercedEar(true);
-		
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, Colour.CLOTHING_RED, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_OPEN_CUP_BRA, Colour.CLOTHING_RED, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_TIGHTS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_PLUNGE_DRESS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_STILETTO_HEELS, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FINGER_RING, Colour.CLOTHING_SILVER, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HAND_ELBOWLENGTH_GLOVES, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_WOMENS_WATCH, Colour.CLOTHING_BLACK, false), true, this);
-		this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_ROSE_GOLD, false), true, this);
-		
-		this.addFetish(Fetish.FETISH_MASOCHIST);
-		this.addFetish(Fetish.FETISH_ORAL_GIVING);
+		if(!isImported) {
+			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+			
+			this.setFemininity(Femininity.FEMININE_STRONG.getMedianFemininity());
+			this.setHeight(Height.TWO_AVERAGE.getMedianValue());
+			this.setMuscle(Muscle.TWO_TONED.getMedianValue());
+			this.setBodySize(BodySize.ONE_SLENDER.getMedianValue());
+			
+			this.setBreastSize(CupSize.D.getMeasurement());
+			this.setAssSize(AssSize.FOUR_LARGE.getValue());
+			this.setHipSize(HipSize.FOUR_WOMANLY.getValue());
+			this.setHandNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, Colour.COVERING_RED));
+			this.setFootNailPolish(new Covering(BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, Colour.COVERING_RED));
+			this.setEyeLiner(new Covering(BodyCoveringType.MAKEUP_EYE_LINER, Colour.COVERING_BLACK));
+			this.setLipstick(new Covering(BodyCoveringType.MAKEUP_LIPSTICK, Colour.COVERING_RED));
+			
+			this.setEyeCovering(new Covering(BodyCoveringType.EYE_HUMAN, Colour.EYE_BLUE));
+			this.setHairCovering(new Covering(BodyCoveringType.HAIR_HUMAN, Colour.COVERING_BLONDE), true);
+			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
+			this.setHairLength(HairLength.FOUR_MID_BACK.getMedianValue());
+			this.setHairStyle(HairStyle.WAVY);
+			
+			this.setPiercedEar(true);
+			
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, Colour.CLOTHING_RED, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_OPEN_CUP_BRA, Colour.CLOTHING_RED, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_TIGHTS, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_PLUNGE_DRESS, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_STILETTO_HEELS, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FINGER_RING, Colour.CLOTHING_SILVER, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.HAND_ELBOWLENGTH_GLOVES, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_WOMENS_WATCH, Colour.CLOTHING_BLACK, false), true, this);
+			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_ROSE_GOLD, false), true, this);
+			
+			this.addFetish(Fetish.FETISH_MASOCHIST);
+			this.addFetish(Fetish.FETISH_ORAL_GIVING);
+		}
 	}
 	
 	@Override
-	public PrologueFemale loadFromXML(Element parentElement, Document doc) {
-		PrologueFemale npc = new  PrologueFemale();
-
-		loadNPCVariablesFromXML(npc, null, parentElement, doc);
-		
-		return npc;
+	public void loadFromXML(Element parentElement, Document doc) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc);
 	}
 	
 	@Override

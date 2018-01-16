@@ -26,7 +26,6 @@ import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.MapDisplay;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -39,7 +38,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.87
+ * @version 0.1.98
  * @author Innoxia
  */
 public class OptionsDialogue {
@@ -129,7 +128,7 @@ public class OptionsDialogue {
 				}
 				
 			} else if (index == 3) {
-				return new Response("Export/Import", "Open the export/import game window.", IMPORT_EXPORT){
+				return new Response("Export character", "Open the character export game window.", IMPORT_EXPORT){
 					@Override
 					public void effects() {
 						loadConfirmationName = ""; overwriteConfirmationName = ""; deleteConfirmationName = "";
@@ -206,14 +205,18 @@ public class OptionsDialogue {
 					};
 					
 				} else {
-					return new ResponseEffectsOnly("Resume", "Continue playing from your last save."){
-						@Override
-						public void effects() {
-							Main.loadGame(Main.getProperties().lastSaveLocation);
-							confirmNewGame=false;
-							
-						}
-					};
+					if(Main.isLoadGameAvailable(Main.getProperties().lastSaveLocation)) {
+						return new ResponseEffectsOnly("Resume", "Continue playing from your last save."){
+							@Override
+							public void effects() {
+								Main.loadGame(Main.getProperties().lastSaveLocation);
+								confirmNewGame=false;
+								
+							}
+						};
+					} else {
+						return new Response("Resume", "Previously saved game (by the title '"+Main.getProperties().lastSaveLocation+"') not found in 'data/saves' folder.", null);
+					}
 				}
 				
 			} else {
@@ -287,33 +290,38 @@ public class OptionsDialogue {
 					+ "3. The 'QuickSave' file is automatically overwritten every time you quick save (default keybind is F5).</br>"
 					+ "<b>You cannot save during combat or sex due to some bugs that I need to fix!</b>"
 					+ "</p>"
-					+ "<p>"
-					+ "<table align='center'>"
-					+ "<tr>"
-					+ "<th></th>"
-					+ "<th>Name</th>"
-					+ "<th></th>"
-					+ "<th></th>"
-					+ "<th></th>"
-					+ "</tr>");
+					+ "<div class='container-full-width' style='padding:0; margin:0;'>"
+						+ "<div class='container-quarter-width' style='text-align:center;'>"
+							+ "Time"
+						+ "</div>"
+						+ "<div class='container-half-width' style='width:calc(55% - 16px); text-align:center; background:transparent;'>"
+							+ "Name"
+						+ "</div>"
+						+ "<div class='container-quarter-width' style='width:calc(20% - 16px); text-align:center; background:transparent;'>"
+							+ "Functions"
+						+ "</div>"
+					+ "</div>");
+
+
+			int i=0;
+			
+			if(Main.game.isStarted()) {
+				saveLoadSB.append(getSaveLoadRow(null, null, i%2==0));
+				i++;
+			}
 			
 			Main.getSavedGames().sort(Comparator.comparingLong(File::lastModified).reversed());
 			
 			for(File f : Main.getSavedGames()){
 				try {
-					saveLoadSB.append(getSaveLoadRow("<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+getFileTime(f)+"</span>", f.getName()));
+					saveLoadSB.append(getSaveLoadRow("<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+getFileTime(f)+"</span>", f.getName(), i%2==0));
 				} catch (IOException e3) {
 					e3.printStackTrace();
 				}
-			}
-
-			if(Main.game.isStarted()) {
-				saveLoadSB.append(getSaveLoadRow(null, null));
+				i++;
 			}
 			
-			saveLoadSB.append("</table>"
-					+ "</p>"
-					+ "<p id='hiddenPField' style='display:none;'></p>");
+			saveLoadSB.append("<p id='hiddenPField' style='display:none;'></p>");
 			
 			return saveLoadSB.toString();
 		}
@@ -357,7 +365,7 @@ public class OptionsDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld IMPORT_EXPORT = new DialogueNodeOld("Save game files", "", true) {
+	public static final DialogueNodeOld IMPORT_EXPORT = new DialogueNodeOld("Export character", "", true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -370,35 +378,35 @@ public class OptionsDialogue {
 			StringBuilder saveLoadSB = new StringBuilder();
 
 			saveLoadSB.append("<p>"
-					+ "<b>Please Note:</b></br>"
-					+ "<b>Game export is a little experimental!</b> It should ensure save compatibility, but some things might not quite be carried over (such as items in shops). I'll get it finished soon! :3"
-					+ "</p>"
-					+"<p>"
-					+ "<b>Also:</b></br>"
-					+ "<b>You can import your exported characters when you start a new game! (I'll add the option to do it from here soon!)"
+						+ "Here you can export your current character, or delete any characters that you've exported in the past."
+						+ " Any NPC can be exported in-game by viewing their information screen (either from the 'characters present' or your phone's 'contacts' screen), and then pressing the small 'export character' button in the top-right."
 					+ "</p>"
 					+ "<p>"
-					+ "<table align='center'>"
-					+ "<tr>"
-					+ "<th></th>"
-					+ "<th>Name</th>"
-					+ "<th></th>"
-					+ "<th></th>"
-					+ "</tr>");
+						+ "Exported characters can be used as a playable character when starting a new game (choose 'Start (Import)'), or as a importable slave at the Auction Block in Slaver Alley."
+					+ "</p>"
+					+ "<div class='container-full-width' style='padding:0; margin:0;'>"
+						+ "<div class='container-quarter-width' style='text-align:center;'>"
+							+ "Time"
+						+ "</div>"
+						+ "<div class='container-half-width' style='width:calc(55% - 16px); text-align:center; background:transparent;'>"
+							+ "Name"
+						+ "</div>"
+						+ "<div class='container-quarter-width' style='width:calc(20% - 16px); text-align:center; background:transparent;'>"
+							+ "Functions"
+						+ "</div>"
+					+ "</div>");
 			
-			Main.getGamesForImport().sort(Comparator.comparingLong(File::lastModified).reversed());
-			
-			for(File f : Main.getGamesForImport()){
+			Main.getCharactersForImport().sort(Comparator.comparingLong(File::lastModified).reversed());
+			int i = 0;
+			for(File f : Main.getCharactersForImport()){
 				try {
-					saveLoadSB.append(getImportRow("<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+getFileTime(f)+"</span>", f.getName()));
+					saveLoadSB.append(getImportRow("<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+getFileTime(f)+"</span>", f.getName(), i%2==0));
 				} catch (IOException e3) {
 					e3.printStackTrace();
 				}
 			}
 			
-			saveLoadSB.append("</table>"
-					+ "</p>"
-					+ "<p id='hiddenPField' style='display:none;'></p>");
+			saveLoadSB.append("<p id='hiddenPField' style='display:none;'></p>");
 			
 			return saveLoadSB.toString();
 		}
@@ -428,9 +436,9 @@ public class OptionsDialogue {
 					}
 				};
 
-			} else if (index == 6) {
+			} else if (index == 2) {
 				if(Main.game.isStarted()) {
-					return new ResponseEffectsOnly("Export character", "Exports your character file to the 'data/characters/' folder."){
+					return new Response("Export character", "Exports your character file to the 'data/characters/' folder.", IMPORT_EXPORT){
 						@Override
 						public void effects() {
 							CharacterUtils.saveCharacterAsXML(Main.game.getPlayer());
@@ -439,23 +447,6 @@ public class OptionsDialogue {
 					};
 				} else {
 					return new Response("Export character", "You'll need to start a game first!", null);
-				}
-			
-			} else if (index == 7) {
-				if(!Main.game.isStarted()) {
-					return new Response("Export game", "You'll need to start a game first!", null);
-					
-				} else if(Main.game.getSavedDialogueNode() != DebugDialogue.getDefaultDialogueNoEncounter()) {
-					return new Response("Export game", "You can only export your game while in a neutral dialogue (such as when moving through Dominion's streets)!", null);
-					
-				} else {
-					return new Response("Export game", "Exports your game file to the 'data/saves/' folder.", IMPORT_EXPORT){
-						@Override
-						public void effects() {
-							Game.exportGame();
-							Main.game.flashMessage(Colour.GENERIC_GOOD, "Game exported!");
-						}
-					};
 				}
 			
 			} else if (index == 0) {
@@ -477,78 +468,69 @@ public class OptionsDialogue {
 	    return dateFormat.format(file.lastModified());
 	}
 	
-	private static String getSaveLoadRow(String date, String name) {
+	private static String getSaveLoadRow(String date, String name, boolean altColour) {
 		if(name!=null){
 			String baseName = name.substring(0, name.lastIndexOf('.'));
-			return "<tr>"
-					+ "<td>"
-						+ date
-					+ "</td>"
-					+ "<td style='min-width:200px;'>"
-						+ baseName
-					+ "</td>"
-					+ "<td>"
-						+ (name.equals(loadConfirmationName)
-								?"<div class='saveLoadButton' id='load_saved_" + baseName + "' style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Confirm</div>"
-								:"<div class='saveLoadButton' id='load_saved_" + baseName + "' style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Load</div>")
-					+ "</td>"
-					+ "<td>"
-						+ (Main.game.isStarted()
-								?(name.equals(overwriteConfirmationName)
-									?"<div class='saveLoadButton' id='overwrite_saved_" + baseName + "' style='color:"+Colour.GENERIC_TERRIBLE.toWebHexString()+";'>Confirm</div>"
-									:"<div class='saveLoadButton' id='overwrite_saved_" + baseName + "' style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Overwrite</div>")
-										:"<div class='saveLoadButton disabled' style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Overwrite</div>")
-					+ "</td>"
-					+ "<td>"
-						+ (name.equals(deleteConfirmationName)
-							?"<div class='deleteSaveButton' id='delete_saved_" + baseName + "' style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Confirm</div>"
-							:"<div class='deleteSaveButton' id='delete_saved_" + baseName + "' style='color:"+Colour.CLOTHING_WHITE.toWebHexString()+";'>Delete</div>")
-					+ "</td>"
-					+ "</tr>";
+			
+			return "<div class='container-full-width' style='padding:0; margin:0 0 4px 0;"+(altColour?"background:#222;":"")+"'>"
+						+ "<div class='container-quarter-width' style='background:transparent;'>"
+							+ date
+						+ "</div>"
+						+ "<div class='container-half-width' style='width: calc(55% - 16px); background:transparent;'>"
+							+ baseName
+						+ "</div>"
+						+ "<div class='container-quarter-width' style='padding:auto 0; margin:auto 0; width:20%; text-align:center; background:transparent;'>"
+
+							+ (Main.game.isStarted()
+									?(name.equals(overwriteConfirmationName)
+										?"<div class='square-button big' id='overwrite_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveConfirm()+"</div></div>"
+										:"<div class='square-button big' id='overwrite_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskOverwrite()+"</div></div>")
+											:"<div class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveDisabled()+"</div></div>")
+							
+							+ (name.equals(loadConfirmationName)
+									?"<div class='square-button big' id='load_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskLoadConfirm()+"</div></div>"
+									:"<div class='square-button big' id='load_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskLoad()+"</div></div>")
+	
+	
+							+ (name.equals(deleteConfirmationName)
+								?"<div class='square-button big' id='delete_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDeleteConfirm()+"</div></div>"
+								:"<div class='square-button big' id='delete_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDelete()+"</div></div>")
+						+ "</div>"
+					+ "</div>";
 			
 		} else {
-			return "<tr>"
-					+ "<td>"
-					+ "-"
-					+ "</td>"
-					+ "<td style='min-width:200px;'>"
-						+"<form style='padding:0;margin:0;text-align:center;'><input type='text' id='new_save_name' value='New Save'>"
-						+ "</form>"
-					+ "</td>"
-					+ "<td>"
-						+ "<div class='saveLoadButton' id='new_saved' style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Save</div>"
-					+ "</td>"
-					+ "<td>"
-						+ "<div class='saveLoadButton disabled'>-</div>"
-					+ "</td>"
-					+ "<td>"
-						+ "<div class='saveLoadButton disabled'>-</div>"
-					+ "</td>"
-					+ "</tr>";
-			
+			return "<div class='container-full-width' style='padding:0; margin:0 0 4px 0;"+(altColour?"background:#222;":"")+"'>"
+						+ "<div class='container-quarter-width' style='background:transparent;'>"
+							+ "-"
+						+ "</div>"
+						+ "<div class='container-half-width' style='width: calc(55% - 16px); background:transparent;'>"
+							+"<form style='padding:0;margin:0;text-align:center;'><input type='text' id='new_save_name' value='New Save' style='width:100%;'></form>"
+						+ "</div>"
+						+ "<div class='container-quarter-width' style='padding:auto 0; margin:auto 0; width:20%; text-align:center; background:transparent;'>"
+							+ (Main.isSaveGameAvailable()
+								?"<div class='square-button big' id='new_saved' style='margin:0 auto;'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSave()+"</div></div>"
+								:"<div class='square-button big disabled' id='new_saved_disabled' style='margin:0 auto;'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveDisabled()+"</div></div>")
+						+ "</div>"
+					+ "</div>";
+				
 		}
 	}
 
-	private static String getImportRow(String date, String name) {
+	private static String getImportRow(String date, String name, boolean altColour) {
 		String baseName = name.substring(0, name.lastIndexOf('.'));
-		return "<tr>"
-				+ "<td>"
-					+ date
-				+ "</td>"
-				+ "<td style='min-width:200px;'>"
-					+ baseName
-				+ "</td>"
-				+ "<td>"
-					+ (name.equals(loadConfirmationName)
-							?"<div class='saveLoadButton' id='import_game_" + baseName + "' style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Confirm</div>"
-							:"<div class='saveLoadButton' id='import_game_" + baseName + "' style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Load</div>")
-				+ "</td>"
-				+ "<td>"
+		return "<div class='container-full-width' style='padding:0; margin:0 0 4px 0;"+(altColour?"background:#222;":"")+"'>"
+					+ "<div class='container-quarter-width' style='background:transparent;'>"
+						+ date
+					+ "</div>"
+					+ "<div class='container-half-width' style='width: calc(55% - 16px); background:transparent;'>"
+						+ baseName
+					+ "</div>"
+					+ "<div class='container-quarter-width' style='padding:auto 0; margin:auto 0; width:20%; text-align:center; background:transparent;'>"
 					+ (name.equals(deleteConfirmationName)
-						?"<div class='deleteSaveButton' id='delete_imported_game_" + baseName + "' style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Confirm</div>"
-						:"<div class='deleteSaveButton' id='delete_imported_game_" + baseName + "' style='color:"+Colour.CLOTHING_WHITE.toWebHexString()+";'>Delete</div>")
-				+ "</td>"
-				+ "</tr>";
+							?"<div class='square-button big' id='delete_saved_character_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDeleteConfirm()+"</div></div>"
+							:"<div class='square-button big' id='delete_saved_character_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDelete()+"</div></div>")
+					+ "</div>"
+				+ "</div>";
 	}
 	
 	

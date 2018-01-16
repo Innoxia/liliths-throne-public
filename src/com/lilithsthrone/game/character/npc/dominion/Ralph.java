@@ -81,7 +81,7 @@ public class Ralph extends NPC {
 		this(false);
 	}
 	
-	private Ralph(boolean isImported) {
+	public Ralph(boolean isImported) {
 		super(new NameTriplet("Ralph"), "Ralph is the owner of the shop 'Ralph's Snacks'. There's an air of confidence in the way he holds himself, and he behaves in a professional manner at all times.",
 				10, Gender.M_P_MALE, RacialBody.HORSE_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_RALPHS_SHOP, true);
@@ -108,19 +108,14 @@ public class Ralph extends NPC {
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.TORSO_SHORT_SLEEVE_SHIRT, Colour.CLOTHING_PINK_LIGHT, false), true, this);
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_MENS_WATCH, Colour.CLOTHING_GOLD, false), true, this);
 			
+			dailyReset();
 		}
-		//TODO import this:
-		dailyReset();
 		
 	}
 	
 	@Override
-	public Ralph loadFromXML(Element parentElement, Document doc) {
-		Ralph npc = new Ralph(true);
-
-		loadNPCVariablesFromXML(npc, null, parentElement, doc);
-		
-		return npc;
+	public void loadFromXML(Element parentElement, Document doc) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc);
 	}
 
 	@Override

@@ -68,6 +68,10 @@ public class ReindeerOverseer extends NPC {
 		this(gender, false);
 	}
 	
+	public ReindeerOverseer(boolean isImported) {
+		this(Gender.F_V_B_FEMALE, isImported);
+	}
+	
 	public ReindeerOverseer(Gender gender, boolean isImported) {
 		super(null, "", 10, gender, RacialBody.REINDEER_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_STREET, false);
@@ -156,12 +160,8 @@ public class ReindeerOverseer extends NPC {
 	}
 	
 	@Override
-	public ReindeerOverseer loadFromXML(Element parentElement, Document doc) {
-		ReindeerOverseer npc = new ReindeerOverseer(Gender.F_V_B_FEMALE, true);
-
-		loadNPCVariablesFromXML(npc, null, parentElement, doc);
-		
-		return npc;
+	public void loadFromXML(Element parentElement, Document doc) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc);
 	}
 	
 	@Override

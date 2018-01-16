@@ -10,6 +10,7 @@ import org.w3c.dom.events.EventListener;
 import com.lilithsthrone.controller.TooltipUpdateThread;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.combat.Attack;
@@ -251,10 +252,12 @@ public class InventoryTooltipEventListener implements EventListener {
 					if (equippedToCharacter.getClothingInSlot(invSlot) == null) {
 						
 						List<String> clothingBlockingThisSlot = new ArrayList<>();
-						for (AbstractClothing c : equippedToCharacter.getClothingCurrentlyEquipped())
-							if (c.getClothingType().getIncompatibleSlots().contains(invSlot))
+						for (AbstractClothing c : equippedToCharacter.getClothingCurrentlyEquipped()) {
+							if (c.getClothingType().getIncompatibleSlots().contains(invSlot)) {
 								clothingBlockingThisSlot.add(c.getName());
-
+							}
+						}
+						
 						if (!clothingBlockingThisSlot.isEmpty()) {
 							setBlockedTooltipContent("This slot is currently <b style='color:" + Colour.SEALED.toWebHexString() + ";'>blocked</b> by your " + Util.stringsToStringList(clothingBlockingThisSlot, false) + ".");
 							
@@ -270,12 +273,16 @@ public class InventoryTooltipEventListener implements EventListener {
 									if(equippedToCharacter.getVaginaType()==VaginaType.NONE) {
 										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 													"You don't have a vagina.",
-													"[npc.Name] doesn't have a vagina."));
+													(equippedToCharacter.getPlayerKnowsAreasMap().get(CoverableArea.VAGINA)
+														?"[npc.Name] doesn't have a vagina."
+														:"You don't know if [npc.name] has a vagina.")));
 										piercingBlocked=true;
 									} else if(!equippedToCharacter.isPiercedVagina()) {
 										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 												"Your vagina has not been pierced.",
-												"[npc.Name]'s vagina has not been pierced."));
+												(equippedToCharacter.getPlayerKnowsAreasMap().get(CoverableArea.VAGINA)
+														?"[npc.Name]'s vagina has not been pierced."
+														:"You don't know if [npc.name] has a vagina.")));
 										piercingBlocked=true;
 									}
 									break;
@@ -299,7 +306,9 @@ public class InventoryTooltipEventListener implements EventListener {
 									if(!equippedToCharacter.isPiercedNipple()) {
 										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 												"Your nipples have not been pierced.",
-												"[npc.Name]'s nipples have not been pierced."));
+												(equippedToCharacter.getPlayerKnowsAreasMap().get(CoverableArea.NIPPLES)
+														?"[npc.Name]'s nipples have not been pierced."
+														:"You don't know if [npc.name]'s nipples have been pierced.")));
 										piercingBlocked=true;
 									}
 									break;
@@ -315,12 +324,16 @@ public class InventoryTooltipEventListener implements EventListener {
 									if(equippedToCharacter.getPenisType()==PenisType.NONE) {
 										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 												"You don't have a penis.",
-												"[npc.Name] doesn't have a penis."));
+												(equippedToCharacter.getPlayerKnowsAreasMap().get(CoverableArea.PENIS)
+														?"[npc.Name] doesn't have a penis."
+														:"You don't know if [npc.name] has a penis.")));
 										piercingBlocked=true;
 									} else if(!equippedToCharacter.isPiercedPenis()) {
 										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 												"Your penis has not been pierced.",
-												"[npc.Name]'s penis has not been pierced."));
+												(equippedToCharacter.getPlayerKnowsAreasMap().get(CoverableArea.PENIS)
+														?"[npc.Name]'s penis has not been pierced."
+														:"You don't know if [npc.name] has a penis.")));
 										piercingBlocked=true;
 									}
 									break;

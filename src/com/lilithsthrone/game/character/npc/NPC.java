@@ -119,10 +119,12 @@ import com.lilithsthrone.world.places.PlaceType;
 public abstract class NPC extends GameCharacter implements XMLSaving {
 	private static final long serialVersionUID = 1L;
 	
-	protected long lastTimeEncountered = -1;
-
-	protected long lastTimeHadSex = -1;
-	protected long lastTimeOrgasmed = -1;
+	public static final int DEFAULT_TIME_START_VALUE = -1;
+	
+	protected long lastTimeEncountered = DEFAULT_TIME_START_VALUE;
+	
+	protected long lastTimeHadSex = DEFAULT_TIME_START_VALUE;
+	protected long lastTimeOrgasmed = DEFAULT_TIME_START_VALUE;
 	
 	protected int romanceProgress = 0;
 	
@@ -193,7 +195,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		return properties;
 	}
 	
-	public abstract NPC loadFromXML(Element parentElement, Document doc);
+	public abstract void loadFromXML(Element parentElement, Document doc);
 	
 	public static void loadNPCVariablesFromXML(NPC npc, StringBuilder log, Element parentElement, Document doc) {
 		

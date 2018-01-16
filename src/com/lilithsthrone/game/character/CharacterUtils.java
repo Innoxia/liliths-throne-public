@@ -809,7 +809,7 @@ public class CharacterUtils {
 		
 		if(variation != 0) {
 			int difference = variation - baseSize;
-			return (int) (baseSize + difference*Math.random());
+			return (int) Math.round(baseSize + difference*Math.random());
 		} else {
 			return baseSize;
 		}

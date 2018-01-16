@@ -38,7 +38,7 @@ public class Pazu extends NPC {
 		this(false);
 	}
 	
-	private Pazu(boolean isImported) {
+	public Pazu(boolean isImported) {
 		super(new NameTriplet("Pazu"),
 				"Pazu is a harpy matriarch, and a particularly gorgeous one at that. She is new to the job and needs your help in whipping her flock into shape.",
 				/* TODO (Once quest advances)
@@ -86,12 +86,8 @@ public class Pazu extends NPC {
 	}
 	
 	@Override
-	public Pazu loadFromXML(Element parentElement, Document doc) {
-		Pazu npc = new Pazu(true);
-
-		loadNPCVariablesFromXML(npc, null, parentElement, doc);
-		
-		return npc;
+	public void loadFromXML(Element parentElement, Document doc) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc);
 	}
 
 	@Override

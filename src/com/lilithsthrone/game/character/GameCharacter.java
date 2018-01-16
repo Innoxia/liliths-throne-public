@@ -422,7 +422,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "description", this.getDescription());
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "playerPetName", playerPetName);
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "playerKnowsName", String.valueOf(this.isPlayerKnowsName()));
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "level", String.valueOf(this.getLevel()));
+		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "level", String.valueOf(this.getTrueLevel()));
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "version", Main.VERSION_NUMBER);
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "history", this.getHistory().toString());//TODO
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "personality", this.getPersonality().toString());//TODO
@@ -2925,6 +2925,12 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		updateAttributeListeners();
 	}
 
+	/**
+	 * @param percentage Use value of 0 -> 1
+	 */
+	public void setHealthPercentage(float percentage) {
+		setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM) * percentage);
+	}
 
 	public float getMana() {
 		return mana;
@@ -2945,6 +2951,13 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			this.mana = mana;
 
 		updateAttributeListeners();
+	}
+	
+	/**
+	 * @param percentage Use value of 0 -> 1
+	 */
+	public void setManaPercentage(float percentage) {
+		setMana(getAttributeValue(Attribute.MANA_MAXIMUM) * percentage);
 	}
 	
 	public void incrementMana(float increment) {
@@ -2971,6 +2984,13 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			this.stamina = stamina;
 
 		updateAttributeListeners();
+	}
+
+	/**
+	 * @param percentage Use value of 0 -> 1
+	 */
+	public void setStaminaPercentage(float percentage) {
+		setStamina(getAttributeValue(Attribute.STAMINA_MAXIMUM) * percentage);
 	}
 	
 	public void incrementStamina(float increment) {
@@ -3336,6 +3356,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		setLocation(homeWorldLocation, homeLocation, true);
 	}
 
+	private int getTrueLevel() {
+		return level;
+	}
+	
 	public int getLevel() {
 		if(this.isPlayer() || !Main.getProperties().difficultyLevel.isNPCLevelScaling()) {
 			return level;
@@ -5075,11 +5099,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							return new GenderAppearance(
 									isPlayer()
 									?"Your genderless mound is concealed, so, due to your masculine appearance, strangers treat you as "
-											+UtilText.generateSingularDeterminer(Gender.M_V_CUNTBOY.getName())+" "+Gender.M_V_CUNTBOY.getName()+"."
+											+UtilText.generateSingularDeterminer(Gender.M_P_MALE.getName())+" "+Gender.M_P_MALE.getName()+"."
 									:UtilText.parse(this,
 											"Due to [npc.her] masculine appearance, everyone assumes that [npc.she]'s "
-												+UtilText.generateSingularDeterminer(Gender.M_V_CUNTBOY.getName())+" "+Gender.M_V_CUNTBOY.getName()+"."),
-									Gender.M_V_CUNTBOY);
+												+UtilText.generateSingularDeterminer(Gender.M_P_MALE.getName())+" "+Gender.M_P_MALE.getName()+"."),
+									Gender.M_P_MALE);
 						}
 					}
 				}

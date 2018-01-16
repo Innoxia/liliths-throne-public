@@ -17,7 +17,7 @@ public enum PenetrationType {
 
 		@Override
 		public boolean isFree() {
-			return Sex.isPenetrationTypeFree(Main.game.getPlayer(), this);
+			return Sex.isOrificeFree(Main.game.getPlayer(), OrificeType.URETHRA_PLAYER) && Sex.isPenetrationTypeFree(Main.game.getPlayer(), this);
 		}
 		
 		@Override
@@ -34,7 +34,7 @@ public enum PenetrationType {
 
 		@Override
 		public boolean isFree() {
-			return Sex.isOrificeFree(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER);
+			return Sex.isOrificeFree(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER) && Sex.isPenetrationTypeFree(Main.game.getPlayer(), this);
 		}
 		
 		@Override
@@ -108,7 +108,7 @@ public enum PenetrationType {
 
 		@Override
 		public boolean isFree() {
-			return Sex.isPenetrationTypeFree(Sex.getActivePartner(), this);
+			return Sex.isOrificeFree(Sex.getActivePartner(), OrificeType.URETHRA_PARTNER) && Sex.isPenetrationTypeFree(Sex.getActivePartner(), this);
 		}
 		
 		@Override
@@ -125,7 +125,7 @@ public enum PenetrationType {
 
 		@Override
 		public boolean isFree() {
-			return Sex.isOrificeFree(Sex.getActivePartner(), OrificeType.MOUTH_PARTNER);
+			return Sex.isOrificeFree(Sex.getActivePartner(), OrificeType.MOUTH_PARTNER) && Sex.isPenetrationTypeFree(Sex.getActivePartner(), this);
 		}
 		
 		@Override

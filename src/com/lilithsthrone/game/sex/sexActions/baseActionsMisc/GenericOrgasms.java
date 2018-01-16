@@ -1266,10 +1266,10 @@ public class GenericOrgasms {
 			if(Sex.getActivePartner() instanceof Cultist) { //TODO 
 				return true;
 			}
-
+			
 			boolean partnerListensToRequest = Sex.isDom(Main.game.getPlayer()) || Sex.isSubHasEqualControl();
 			
-			return (partnerListensToRequest?SexFlags.playerRequestedCreampie:false) || (!SexFlags.playerRequestedPullOut && !SexFlags.playerRequestedCreampie);
+			return !Sex.isAnyPenetrationHappening() || (partnerListensToRequest?(!SexFlags.playerRequestedPullOut):true);
 		}
 
 		@Override
@@ -1584,7 +1584,7 @@ public class GenericOrgasms {
 		public boolean isBaseRequirementsMet() {
 			boolean partnerListensToRequest = Sex.isDom(Main.game.getPlayer()) || Sex.isSubHasEqualControl();
 			
-			return Sex.isAnyPenetrationHappening() && ((partnerListensToRequest?SexFlags.playerRequestedPullOut:false) || (!SexFlags.playerRequestedPullOut && !SexFlags.playerRequestedCreampie));
+			return Sex.isAnyPenetrationHappening() && (partnerListensToRequest?(!SexFlags.playerRequestedCreampie):true);
 		}
 
 		@Override

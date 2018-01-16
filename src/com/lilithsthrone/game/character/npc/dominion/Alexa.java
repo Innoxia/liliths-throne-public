@@ -45,7 +45,7 @@ public class Alexa extends NPC {
 		this(false);
 	}
 	
-	private Alexa(boolean isImported) {
+	public Alexa(boolean isImported) {
 		super(new NameTriplet("Alexa"),
 				"Alexa is an extremely powerful harpy matriarch, and is in control of one of the largest harpy flocks in Dominion."
 						+ " Her beauty rivals that of even the most gorgeous of succubi, which, combined with her sharp mind and regal personality, makes her somewhat of an idol in harpy society.",
@@ -92,12 +92,8 @@ public class Alexa extends NPC {
 	}
 	
 	@Override
-	public Alexa loadFromXML(Element parentElement, Document doc) {
-		Alexa npc = new Alexa(true);
-
-		loadNPCVariablesFromXML(npc, null, parentElement, doc);
-		
-		return npc;
+	public void loadFromXML(Element parentElement, Document doc) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc);
 	}
 	
 	@Override

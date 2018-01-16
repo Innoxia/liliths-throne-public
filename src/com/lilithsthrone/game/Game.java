@@ -282,7 +282,7 @@ public class Game implements Serializable, XMLSaving {
 				
 				// Load NPCs:
 				SlaveImport importedSlave = new SlaveImport();
-				importedSlave = importedSlave.loadFromXML(characterElement, doc);
+				importedSlave.loadFromXML(characterElement, doc);
 				importedSlave.applyNewlyImportedSlaveVariables();
 				Main.game.addNPC(importedSlave, false);
 				
@@ -294,7 +294,31 @@ public class Game implements Serializable, XMLSaving {
 		return null;
 	}
 	
-	public static void exportGame() {
+	public static void exportGame(String exportFileName, boolean allowOverwrite) {
+		
+		File dir = new File("data/");
+		dir.mkdir();
+
+		dir = new File("data/saves");
+		dir.mkdir();
+		
+		boolean overwrite = false;
+		if (dir.isDirectory()) {
+			File[] directoryListing = dir.listFiles((path, filename) -> filename.endsWith(".xml"));
+			if (directoryListing != null) {
+				for (File child : directoryListing) {
+					if (child.getName().equals(exportFileName+".xml")){
+						if(!allowOverwrite) {
+							Main.game.flashMessage(Colour.GENERIC_BAD, "Name already exists!");
+							return;
+						} else {
+							overwrite = true;
+						}
+					}
+				}
+			}
+		}
+		
 		try {
 			if(timeLog) {
 				timeStart = System.nanoTime();
@@ -382,26 +406,19 @@ public class Game implements Serializable, XMLSaving {
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 			DOMSource source = new DOMSource(doc);
 			
-			File dir = new File("data/");
-			dir.mkdir();
-			
-			File dirCharacter = new File("data/saves/");
-			dirCharacter.mkdir();
-			
-			int saveNumber = 0;
-			String saveLocation = "data/saves/game_export_"+Main.game.getPlayer().getName()+"_day"+Main.game.getDayNumber()+".xml";
-			if(new File("data/saves/game_export_"+Main.game.getPlayer().getName()+"_day"+Main.game.getDayNumber()+".xml").exists()) {
-				saveLocation = "data/saves/game_export_"+Main.game.getPlayer().getName()+"_day"+Main.game.getDayNumber()+"("+saveNumber+").xml";
-			}
-			
-			while(new File("data/saves/game_export_"+Main.game.getPlayer().getName()+"_day"+Main.game.getDayNumber()+"("+saveNumber+").xml").exists()) {
-				saveNumber++;
-				saveLocation = "data/saves/game_export_"+Main.game.getPlayer().getName()+"_day"+Main.game.getDayNumber()+"("+saveNumber+").xml";
-			}
+			String saveLocation = "data/saves/"+exportFileName+".xml";
 			StreamResult result = new StreamResult(new File(saveLocation));
 			
 			transformer.transform(source, result);
 
+			if(overwrite) {
+				if(!exportFileName.startsWith("AutoSave")) {
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()), Colour.GENERIC_GOOD, "Save game overwritten!");
+				}
+			} else {
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()), Colour.GENERIC_GOOD, "Game saved!");
+			}
+			
 			if(timeLog) {
 				System.out.println("Difference: "+(System.nanoTime()-timeStart)/1000000000f);
 			}
@@ -481,21 +498,19 @@ public class Game implements Serializable, XMLSaving {
 				for(int i=0; i<gameElement.getElementsByTagName("NPC").getLength(); i++) {
 					Element e = (Element) gameElement.getElementsByTagName("NPC").item(i);
 					
-					//TODO this is just a huge mess. It needs to be remade.
 					if(!addedIds.contains(((Element)e.getElementsByTagName("id").item(0)).getAttribute("value"))) {
 						@SuppressWarnings("unchecked")
 						Class<? extends NPC> npcClass = (Class<? extends NPC>) Class.forName(((Element)e.getElementsByTagName("pathName").item(0)).getAttribute("value"));
 						Method m = npcClass.getMethod("loadFromXML", Element.class, Document.class);
 						
-						//npcClass.getConstructor(Boolean.class).newInstance(true)
-						NPC npcClassDefault = npcClass.newInstance();
-						NPC npc = (NPC) m.invoke(npcClassDefault, e, doc); //TODO You're loading the class twice!!!
+						NPC npc = npcClass.getDeclaredConstructor(boolean.class).newInstance(true);
+						m.invoke(npc, e, doc);
 						newGame.addNPC(npc, true);
 						addedIds.add(npc.getId());
 						
 						// To fix issues with older versions hair length:
 						if(Main.isVersionOlderThan(version, "0.1.90.5")) {
-							npc.getBody().getHair().setLength(null, npcClassDefault.getHairRawLengthValue());
+							npc.getBody().getHair().setLength(null, npc.isFeminine()?RacialBody.valueOfRace(npc.getRace()).getFemaleHairLength():RacialBody.valueOfRace(npc.getRace()).getMaleHairLength());
 						}
 						
 						if(npc instanceof SlaveImport) {
@@ -836,6 +851,11 @@ public class Game implements Serializable, XMLSaving {
 					&& !Main.game.getPlayer().getLocation().equals(npc.getLocation())) {
 						banishNPC(npc);
 					}
+			if(!Main.game.getPlayer().getLocation().equals(npc.getLocation())) {
+				npc.setHealthPercentage(1);
+				npc.setManaPercentage(1);
+				npc.setStaminaPercentage(1);
+			}
 		}
 		
 		for (NPC npc : NPCMap.values()) {

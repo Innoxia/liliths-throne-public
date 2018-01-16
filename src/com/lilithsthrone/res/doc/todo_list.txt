@@ -16,12 +16,30 @@
 	Patch notes:
 	
 	
+	Engine:
+		Updated to Java 9.0.1. If you're using the .jar version of the game, please update your Java to 9.0.1 (.exe versions are unaffected).
+		Finished converting the save system to .xml. All saves now use the new .xml system, so you won't need to export/import between versions anymore.
+		Optimised NPC load method, so loading a game should now be faster.
 	
+	UI:
+		Updated Save/Load UI, and changed Export/Import to exported character management screen.
+	
+	Sex AI:
+		NPCs should no longer switch positions just before they orgasm.
+		NPCs will no longer instantly re-penetrate themselves on the same turn that you forbid or stop all self-penetrative actions.
+	
+	Other:
+		Demons now only have 1 pair of breasts by default. (I originally intended this to be the case, but I ended up giving them 3 a long time ago to test multiple-breast rows, and forgot to change it back.)
+		Improved corruption descriptions to reflect the fact that corruption is a measure of perversion.
+		Offspring are now permanently removed from the encounterable NPC list when you tell them to leave. (I'll add a way to manually find them again in the future.)
+		Penis, anus, nipple, and vagina sex actions (such as 'Finger him/her' and 'Stroke his/her cock') are now completely hidden until you discover if the NPC has the correct genitals/nipples/anus to perform those actions on.
 	
 	Contributors:
 		Added Linux font compatibility (added Carlito as an alternative font for Calibri). (by PyrophoricPlumage)
 		Fixed incorrect colour reference. (by CognitiveMist)
 		Numerous performance improvements. (by CognitiveMist)
+		Addressed some control flow & code style items. (by CognitiveMist)
+		Fixed striped leggings, panties, and bra using incorrect colour variables. (by Tukaima)
 	
 	Bugs:
 		NPC orgasms should now function correctly (that is, they should now cum inside when they're supposed to).
@@ -30,100 +48,44 @@
 		Fixed bugs related to Finch's ownership of slaves. (He should now correctly lose ownership of slaves you purchase from the auction block.)
 		Fixed incorrect penis reveal dialogue (where the NPC would compare your penis size to their own, non-existent penis).
 		Fixed enchanting bug where crafting a potion to change a certain body type (primarily horns) would then lock out transformation options for other racial potions.
+		Fixed hypno-watch effect description returning 'command_unknown'.
+		Slightly changed piercing slot descriptions to reflect whether or not your character knows what the NPC's genitals/nipples look like.
+		Nyan's inventory is now correctly saved/loaded.
+		Multiple partner sex scenes should no loner suddenly lose one of the NPC partners.
+		Fixed major game-freezing bug where if you were on the receiving end of penetrative non-consensual sex, and your partner reached orgasm but you did not, you would get stuck on the 'receive creampie' and 'request pullout' options.
+		Fixed duplicate actions showing up in Kate's and Lilaya's sex scenes.
+		When starting from a character import, the flag that sets your having met Brax is now correctly reset.
+		Fixed minor bug in gender appearance method (masculine characters with no genitals are no assumed to be male if their groin is concealed).
+		Added correct description variants for NPCs when consuming the harpy matriarchs' special items.
+		Fixed bug where you could perform anilingus and cunnilingus at the same time. (Also fixed a related bug where multiple penis-related sex actions could be performed.)
+		Fixed four and five rows of breasts always being described as three.
+		Fixed issue where in some screens/dialogue/tooltips, incorrect NPC names or stats would be displayed.
+		Can no longer pull up T-shirt from under concealing/blocking clothing.
+		NPCs will no longer be stuck at having a fraction of their health, willpower, and stamina.
+		Vicky's post-sex scene will now correctly no longer reference Arthur's package after you've completed that section of the side-quest.
+		Importing a game that was exported while the difficulty was set to anything above 'Human' will no loner lock all NPC's levels to being double that of yours.
+		Slightly improved genetics/inheritance method, so that offspring's ass & hip sizes (and probably a few other things) will now more closely resemble that of their parents.
 	
 	
 	
 	
 	
+	: Probably been reported before, but if you have Forced Transformation on, play as a female and then get transformed into having cock and balls the transformer will never do anything about your balls or cum production.
+	 This gets especially curious if your transformer has either the pregnancy or cum addict fetish. Can just imagine them screaming "Why isn't this thing working?!"
 	
-	FINISH SAVE COMPAT
+	Having a penis-item equipped should be indication of your character's gender.
+	 Meaning that say, a trap wears a chastity cage, if their groin is exposed, then you shouldn't have to unjinx and take off your chastity belt for NPCs to realize you're a trap.
 	
-	Possible change to the pirecings field to prevent being spoiled on genetals when not pireced
-		from "[character] doesnt have a [genitals]" to "[character] doesnt have a pierced [genitals]"
-	
-	
-	pulled up t-shirt before ribbed sweater
-	
-	So, I know that multiple-partner sex's implementation is still being worked on, but since the Spitroast option for slaves exists currently, I feel like I should tell you the issue that I ran into. Whenever I would initiate the spitroast, at first both slaves would appear as the dominant on the right, but after a few turns, one of them (almost always the second slave for me) would do something, causing the other slave to disappear from the right and not do anything anymore. From then on, only the slave who took the original action would be part of the scene. For reference (though I don't know if this matters) my character is a greater incubus and the slaves are both greater succubi. 
-	
-	Hey there, found a bug in the hotfix for the most recent version, 0.1.97.
-	  With Liliya, the character's aunt, I cannot get her to impregnate the character.
-	    I have tried matching the character's orgasm to Liliya's with always using the 'stay in position' option, with both sex positions, and Liliya still always pulls out to cum on the floor, instead of inside.
-Same thing happened with Kate as well.  I haven't explored further, but I hope it does not apply when your character is initiating sex with any other NPC.  I did get my character pregnant by the horse merchant, though.
-	
-	If you're on the receiving end of non-consensual sex with an dick giving npc, and they reach orgasm but you have not, you will stay on the "receive creampie" and "request pullout" screen until your character would have reached orgasm, but with no buildup or show there of. If this sounds confusing for you, say you're at 25 arousal while they're at 100 arousal, you will stay on the "request/do not request creampie page, but you will have to press one of the buttons based on the number of turns it would have taken you to reach 100 arousal yourself. While this is happening, nothing changes appearance wise in game until you reach 100 arousal, at which point the game proceeds normally.
-	
-	: I seem to be getting a lot of duplicate options in the Lilaya sex scene. I'm also getting the 'bounce' options despite being in the standing position (not sure if that one is intentional)
-	
-	Enslaved a horse-girl, beat up Brax, went to Lilaya's place, prepared some double slave rooms, went to move my new slave to the room and set her job, and Brax's stats show up in the right side.
-	
-	Also, when starting from a character import, things such like meeting Brax are preserved, so he'll complain about Candi letting you in "again" the first time you meet.
-	
-	Masc characters with no genitals, and their crotch covered, are assumed to be cuntboys or butches depending on the presence of breasts.
-Masc characters with a vagina, and their crotch covered, are assumed to be males or busty-boys depending on the presence of breasts.
-This is weird, and it should probably be consistent for both cases, since mannequins look like cuntboys, but cuntboys apparently look like males.
+	an overseer and a chapel seem to have spawned on the same tile - can't use chapel
 	
 	
-	The only other thing I could ask in relation to this, is someway that 'calming' myself wasn't possible, but I can always just not click the button lol. So that's no biggie.
-	
-	"Finger him/her", "Stroke his/her cock" and similar options appear when the other character has the right genitals for them, even if you can't see the genitals and don't have observant. Really spoils the surprise.
 	
 	
 	AI in sex, so I'll make sure to tweak their preferences for performing self-actions
 	Is it supposed to be that Vaginal and anal sex never happens when you get defeated by a man? I've been several times and it either ends up in a blowjob or they just use their fingers.
 	my slaves insist on doggystyling the PC at first when I choose to be sub (and they don't even have dicks)
 	
-	There is a bug during sex when the partner decides to feel up my chest it only mentions 3 rows of breasts when I have 5.
-	
-	I have found that offspring will almost never have the same hip/ass size of their parent(s). Does it have something to do how offspring are generated making it so that even if an offspring would be close to having their parents hip/ass size that they still don't get it? If it is using random numbers to determine how much like the parent the offspring are, perhaps using the Math.round() method would help.
-	
-	In Vicky's scene, and as far as i can tell ONLY vicky's scene, the "request creampie/pullout" part hangs and appears to refuse input. It's taking some kind of input though because if you mash enough keys eventually your arousal will shoot up to 80-ish, enough to trigger the mutual-orgasm scene; then lets you choose cream/pullout, and ends the scene normally. It happens in both con / noncon versions of the scene.
-	
-	I just got hit with the interface freeze bug (the one where all the buttons stop working)
-		Exception in thread "JavaFX Application Thread" netscape.javascript.JSException: JavaScript execution terminated.
-	    at com.sun.webkit.dom.JSObject.fwkMakeException(JSObject.java:156)
-	    at com.sun.webkit.WebPage.twkExecuteScript(Native Method)
-	    at com.sun.webkit.WebPage.executeScript(WebPage.java:1509)
-	    at javafx.scene.web.WebEngine.executeScript(WebEngine.java:1005)
-	    at com.lilithsthrone.controller.MainController.setWebEngineContent(MainController.java:5075)
-	    at com.lilithsthrone.controller.MainController.setMainContent(MainController.java:5084)
-	    at com.lilithsthrone.game.Game.setContent(Game.java:1392)
-	    at com.lilithsthrone.game.Game.setContent(Game.java:1457)
-	    at com.lilithsthrone.controller.eventListeners.InventorySelectedItemEventListener.handleEvent(InventorySelectedItemEventListener.java:93)
-	    at com.sun.webkit.dom.EventListenerImpl.fwkHandleEvent(EventListenerImpl.java:129)
-	
-	
 	the prepare button seems to have broken mutual orgasms. it resolves the PC first and they pull out before the other person cums. making the followup scene be as if they came without penetrative action.
-	
-	I don't know if this was on purpose or not, but telling someone to stop self penetrative actions(like self-fingering or tailfucking) doesn't do any good --they go right back to it within the same breath.
-	
-	3somes keep turning into 2somes
-	I tried out the group sex option (only spitroast the PC for now btw), and at one time it became one on one. it was when I tried giving a cunningulus
-	
-	: Probably been reported before, but if you have Forced Transformation on, play as a female and then get transformed into having cock and balls the transformer will never do anything about your balls or cum production. This gets especially curious if your transformer has either the pregnancy or cum addict fetish. Can just imagine them screaming "Why isn't this thing working?!"
-	
-	Bug: Hypnotizing someone has it where it says "The (character) is now command_unknown!" rather than saying "The (character) is now ambiphilic/gynephilic/androphilic"
-	
-	
-	lollipop nympho (and other fetishes) always describes you
-	
-	tooltips: : Looks like vanilla has the exact same text as dirty, and lewd the same as lustful.
-	
-	after going back to pix and taking a close look at her dialouge she seems to use bimbo speech but does not have the fetish
-	
-	enemies (and slaves) sometimes spawn with a fraction of HP, WP and Stamina like this
-	
-	the "pull out" and "cum in me" it only works when you manage to get your arousal to 76+ range (non-con?)
-	
-	Having a penis-item equipped should be indication of your character's gender. Meaning that say, a trap wears a chastity cage, if their groin is exposed, then you shouldn't have to unjinx and take off your chastity belt for NPCs to realize you're a trap.
-	
-	While in doggy style (giving oral) I could give cunningulus and aningulus at the same time.
-	
-	Vicky always says pay for package after sex
-	
-	when importing a game, if you have difficulty set to "Lillith", all characters levels are permanently doubled
-	
-	an overseer and a chapel seem to have spawned on the same tile - can't use chapel
 	
 	
 	
@@ -959,6 +921,7 @@ Finally importing from 1.89.2 reset my slaves cleanliness permissions. Test subj
 	
 	I'll make some tweaks to the code to allow slaves with the 'masturbate' setting enabled to engage in using you as well. :3
 	
+	add a way to manually find removed offspring (search for offspring at city hall or something)
 	
 	Ok, every slave is set to 
 	house freedom

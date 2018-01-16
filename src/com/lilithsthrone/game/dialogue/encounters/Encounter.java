@@ -146,7 +146,7 @@ public enum Encounter {
 				
 				if(Main.game.isIncestEnabled() && Math.random()<0.2f) { // Incest
 					List<NPC> offspringAvailable = new ArrayList<>();
-					offspringAvailable.addAll(Main.game.getOffspring().stream().filter(npc -> !npc.isSlave()).collect(Collectors.toList()));
+					offspringAvailable.addAll(Main.game.getOffspring().stream().filter(npc -> !npc.isSlave() && npc.getLastTimeEncountered()==NPC.DEFAULT_TIME_START_VALUE).collect(Collectors.toList()));
 					offspringAvailable.removeAll(Main.game.getOffspringSpawned());
 					
 					if(!offspringAvailable.isEmpty()) {

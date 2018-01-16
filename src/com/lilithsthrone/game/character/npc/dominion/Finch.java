@@ -40,7 +40,7 @@ public class Finch extends NPC {
 		this(false);
 	}
 	
-	private Finch(boolean isImported) {
+	public Finch(boolean isImported) {
 		super(new NameTriplet("Finch"),
 				"Finch is the manager of Slaver Alley's 'Slave Administration' building."
 						+ " Although he acts friendly enough, you can't help but wonder if his disarming disposition is just for show."
@@ -81,12 +81,8 @@ public class Finch extends NPC {
 	}
 	
 	@Override
-	public Finch loadFromXML(Element parentElement, Document doc) {
-		Finch npc = new Finch(true);
-
-		loadNPCVariablesFromXML(npc, null, parentElement, doc);
-		
-		return npc;
+	public void loadFromXML(Element parentElement, Document doc) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc);
 	}
 
 	@Override

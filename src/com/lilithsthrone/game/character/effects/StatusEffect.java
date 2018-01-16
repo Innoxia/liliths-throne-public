@@ -787,10 +787,11 @@ public enum StatusEffect {
 		
 		@Override
 		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer())
-				return "Your body and mind are completely untainted by corruption. You might consider performing the most conservative of sexual acts with the person you love, but other than that, you're not interested in sex at all.";
-			else
-				return UtilText.parse(owner, "[npc.Name] is completely pure, and strongly resists temptation.");
+			if (owner.isPlayer()) {
+				return "You are completely uncorrupted, and aside from performing the most conservative of sexual acts with the person you love, you're not really interested in sex at all.";
+			} else {
+				return UtilText.parse(owner, "[npc.Name] is completely uncorrupted, and aside from performing the most conservative of sexual acts with the person [npc.she] loves, [npc.she]'s not really interested in sex at all.");
+			}
 		}
 
 		@Override
@@ -808,6 +809,7 @@ public enum StatusEffect {
 			return false;
 		}
 	},
+	
 	CORRUPTION_PERK_1(
 			100,
 			"Vanilla",
@@ -827,11 +829,11 @@ public enum StatusEffect {
 		
 		@Override
 		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer())
-				return "You're open to the idea of having some pretty vanilla sex (by this world's standards)."
-						+ " While you might be happy to turn the tables on anyone who tries to force you into sex, you remind yourself that you're only doing it because they're totally up for it.";
-			else
-				return UtilText.parse(owner, "[npc.Name] has a dirty look in [npc.her] eyes, and you often notice [npc.her] gaze lingering hungrily over your body.");
+			if (owner.isPlayer()) {
+				return "You're open to the idea of having casual sex, but are still unwilling to perform any extreme sexual acts.";
+			} else {
+				return UtilText.parse(owner, "[npc.Name] is open to the idea of having casual sex, but is unwilling to perform any extreme sexual acts.");
+			}
 		}
 
 		@Override
@@ -849,6 +851,7 @@ public enum StatusEffect {
 			return false;
 		}
 	},
+	
 	CORRUPTION_PERK_2(
 			100,
 			"dirty",
@@ -867,10 +870,11 @@ public enum StatusEffect {
 		
 		@Override
 		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer())
-				return "Your eyes have been opened by this world's casual attitude towards sex. Sexual acts that once may have made you feel uncomfortable are now the focus of your fantasies, and you can't wait to try them out on a willing partner...";
-			else
+			if (owner.isPlayer()) {
+				return "Sexual acts that once may have made you feel uncomfortable are now the focus of your fantasies, and you can't wait to try them out on a willing partner...";
+			} else {
 				return UtilText.parse(owner, "[npc.Name] has a dirty look in [npc.her] eyes, and you often notice [npc.her] gaze lingering hungrily over your body.");
+			}
 		}
 
 		@Override
@@ -888,6 +892,7 @@ public enum StatusEffect {
 			return false;
 		}
 	},
+	
 	CORRUPTION_PERK_3(
 			100,
 			"Lewd",
@@ -909,19 +914,27 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			if (owner.isPlayer()) {
-				if (Main.game.getPlayer().getVaginaType() != VaginaType.NONE)
-					return "Your body has started to react to some of the fantasies that constantly run through your mind, and you feel as though it's going to be far easier to get pregnant from now on...";
-				else if (Main.game.getPlayer().getPenisType() != PenisType.NONE)
-					return "Your body has started to react to some of the fantasies that constantly run through your mind, and you feel as though it's going to be far easier to impregnate your sexual partners from now on...";
-				else
-					return "Your body is trying to react to some of the fantasies that constantly run through your mind, but because you don't have any sexual organs, there's not much that's happened...";
+				if (Main.game.getPlayer().getVaginaType() != VaginaType.NONE) {
+					return "Given power by the fantasies that constantly run through your mind, the arcane is starting to have a physical effect on your body, and you feel as though it's going to be far easier to get pregnant from now on...";
+				} else if (Main.game.getPlayer().getPenisType() != PenisType.NONE) {
+					return "Given power by the fantasies that constantly run through your mind, the arcane is starting to have a physical effect on your body,"
+							+ " and you feel as though it's going to be far easier to impregnate your sexual partners from now on...";
+				} else {
+					return "Given power by the fantasies that constantly run through your mind, the arcane is starting to have a physical effect on your body, but because you don't have any sexual organs, there's not much that's happened...";
+				}
+				
 			} else {
-				if (owner.getVaginaType() != VaginaType.NONE)
-					return UtilText.parse(owner, "[npc.Name]'s body is extremely fertile, and [npc.her] thoughts often dwell on being fucked pregnant.");
-				else if (owner.getPenisType() != PenisType.NONE)
-					return UtilText.parse(owner, "[npc.Name]'s body has become extremely fertile, and [npc.her] thoughts often dwell on filling wombs with [npc.her] potent seed.");
-				else
-					return UtilText.parse(owner, "[npc.Name]'s body has become extremely fertile, and [npc.she] longs to have sexual organs with which to make use of [npc.her] breeder's body.");
+				if (owner.getVaginaType() != VaginaType.NONE) {
+					return UtilText.parse(owner,
+							"Given power by the fantasies that constantly run through [npc.her] mind, the arcane is starting to have a physical effect on [npc.name]'s body, making it far easier for [npc.herHim] to get pregnant.");
+				} else if (owner.getPenisType() != PenisType.NONE) {
+					return UtilText.parse(owner,
+							"Given power by the fantasies that constantly run through [npc.her] mind, the arcane is starting to have a physical effect on [npc.name]'s body, making it far easier for [npc.herHim] to impregnate others.");
+				} else {
+					return UtilText.parse(owner,
+							"Given power by the fantasies that constantly run through [npc.her] mind, the arcane is starting to have a physical effect on [npc.name]'s body,"
+							+ " but because [npc.she] doesn't have any sexual organs, there's not much that's happened.");
+				}
 			}
 		}
 
@@ -940,6 +953,7 @@ public enum StatusEffect {
 			return false;
 		}
 	},
+	
 	CORRUPTION_PERK_4(
 			100,
 			"Lustful",
@@ -961,19 +975,31 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			if (owner.isPlayer()) {
-				if (Main.game.getPlayer().getVaginaType() != VaginaType.NONE)
-					return "Your body is reacting strongly now to some of the fantasies that constantly run through your mind, and you feel as though it's going to be much easier to get pregnant from now on...";
-				else if (Main.game.getPlayer().getPenisType() != PenisType.NONE)
-					return "Your body is reacting strongly now to some of the fantasies that constantly run through your mind, and you feel as though it's going to be much easier to impregnate your sexual partners from now on...";
-				else
-					return "Your body is trying to react to some of the fantasies that constantly run through your mind, but because you don't have any sexual organs, there's not much that's happened...";
+				if (Main.game.getPlayer().getVaginaType() != VaginaType.NONE) {
+					return "Given a huge amount of power by the lewd fantasies that constantly run through your mind, the arcane is starting to have a physical effect on your body,"
+							+ " and you feel as though it's going to be far easier to get pregnant from now on...";
+				} else if (Main.game.getPlayer().getPenisType() != PenisType.NONE) {
+					return "Given a huge amount of power by the lewd fantasies that constantly run through your mind, the arcane is starting to have a physical effect on your body,"
+							+ " and you feel as though it's going to be far easier to impregnate your sexual partners from now on...";
+				} else {
+					return "Given a huge amount of power by the lewd fantasies that constantly run through your mind, the arcane is starting to have a physical effect on your body,"
+							+ " but because you don't have any sexual organs, there's not much that's happened...";
+				}
+				
 			} else {
-				if (owner.getVaginaType() != VaginaType.NONE)
-					return UtilText.parse(owner, "[npc.Name]'s body is extremely fertile, and [npc.her] thoughts often dwell on being fucked pregnant.");
-				else if (owner.getPenisType() != PenisType.NONE)
-					return UtilText.parse(owner, "[npc.Name]'s body has become extremely fertile, and [npc.her] thoughts often dwell on filling wombs with [npc.her] potent seed.");
-				else
-					return UtilText.parse(owner, "[npc.Name]'s body has become extremely fertile, and [npc.she] longs to have sexual organs with which to make use of [npc.her] breeder's body.");
+				if (owner.getVaginaType() != VaginaType.NONE) {
+					return UtilText.parse(owner,
+							"Given a huge amount of power by the lewd fantasies that constantly run through [npc.her] mind, the arcane is starting to have a physical effect on [npc.name]'s body,"
+							+ " making it far easier for [npc.herHim] to get pregnant.");
+				} else if (owner.getPenisType() != PenisType.NONE) {
+					return UtilText.parse(owner,
+							"Given a huge amount of power by the lewd fantasies that constantly run through [npc.her] mind, the arcane is starting to have a physical effect on [npc.name]'s body,"
+							+ " making it far easier for [npc.herHim] to impregnate others.");
+				} else {
+					return UtilText.parse(owner,
+							"Given a huge amount of power by the lewd fantasies that constantly run through [npc.her] mind, the arcane is starting to have a physical effect on [npc.name]'s body,"
+							+ " but because [npc.she] doesn't have any sexual organs, there's not much that's happened.");
+				}
 			}
 		}
 
@@ -1012,10 +1038,12 @@ public enum StatusEffect {
 		
 		@Override
 		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer())
-				return "You've been completely and utterly corrupted by the arcane. You're constantly thinking of new ways to fuck people, and you wonder what they'd say if they knew the sort of positions you're imagining them in...";
-			else
-				return UtilText.parse(owner, "[npc.Name] is completely and utterly corrupted.");
+			if (owner.isPlayer()) {
+				return "You are completely and utterly corrupted. The lewd thoughts and fantasies that continuously run through your mind have unlocked the full power of the arcane, making your body hyper-fertile and virile.";
+			} else {
+				return UtilText.parse(owner, "[npc.Name] is completely and utterly corrupted."
+						+ " The lewd thoughts and fantasies that continuously run through [npc.her] mind have unlocked the full power of the arcane, making [npc.her] body hyper-fertile and virile.");
+			}
 
 		}
 

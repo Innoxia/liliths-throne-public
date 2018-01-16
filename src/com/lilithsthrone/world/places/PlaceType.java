@@ -10,6 +10,7 @@ import java.util.Set;
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.Quest;
 import com.lilithsthrone.game.character.QuestLine;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.dialogue.places.JunglePlaces;
@@ -230,7 +231,7 @@ public enum PlaceType {
 	ENFORCER_HQ_BRAXS_OFFICE("Brax's Office", "dominion/enforcerHQ/braxsOffice", BaseColour.BLUE_STEEL, EnforcerHQDialogue.INTERIOR_BRAX, null, true, false, true, true, "in his office") {
 		@Override
 		public DialogueNodeOld getDialogue(boolean withRandomEncounter) {
-			if(Main.game.getPlayer().getCharactersEncountered().contains(Main.game.getBrax().getId())) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.braxEncountered)) {
 				return EnforcerHQDialogue.INTERIOR_BRAX_REPEAT;
 				
 			} else {
@@ -678,7 +679,7 @@ public enum PlaceType {
 	private static String getSVGOverride(String pathName, Colour colour) {
 		if(!SVGOverrides.keySet().contains(pathName+colour)) {
 			try {
-				InputStream is = SVGOverrides.getClass().getResourceAsStream("/com/lilithsthrone/res/map/" + pathName + ".svg");
+				InputStream is = colour.getClass().getResourceAsStream("/com/lilithsthrone/res/map/" + pathName + ".svg");
 				String s = Util.inputStreamToString(is);
 				
 				if(colour!=null) {
@@ -694,6 +695,7 @@ public enum PlaceType {
 	
 			} catch (Exception e1) {
 				System.err.println("Eeeeeek! PlaceType.getSVGOverride()");
+				e1.printStackTrace();
 				return "";
 			}
 		}

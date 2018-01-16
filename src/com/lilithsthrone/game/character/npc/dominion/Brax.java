@@ -91,7 +91,7 @@ public class Brax extends NPC {
 		this(false);
 	}
 	
-	private Brax(boolean isImported) {
+	public Brax(boolean isImported) {
 		super(new NameTriplet("Brax", "Bree", "Brandi"),
 				"The 'Chief of Dominion Operations', Brax is a high-ranking enforcer. Muscular, handsome, and with an incredibly dominant personality, he's the focus of every female enforcer's attention.", 3, Gender.M_P_MALE,
 				RacialBody.WOLF_MORPH, RaceStage.GREATER, new CharacterInventory(10), WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_BRAXS_OFFICE, true);
@@ -123,14 +123,10 @@ public class Brax extends NPC {
 	}
 	
 	@Override
-	public Brax loadFromXML(Element parentElement, Document doc) {
-		Brax npc = new Brax(true);
-
-		loadNPCVariablesFromXML(npc, null, parentElement, doc);
+	public void loadFromXML(Element parentElement, Document doc) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc);
 		
 		this.setPenisVirgin(false);
-		
-		return npc;
 	}
 
 	@Override

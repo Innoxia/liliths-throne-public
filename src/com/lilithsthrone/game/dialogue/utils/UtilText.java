@@ -5,7 +5,6 @@ import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -36,7 +35,7 @@ import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.0
- * @version 0.1.86
+ * @version 0.1.98
  * @author Innoxia
  */
 public class UtilText {
@@ -45,184 +44,6 @@ public class UtilText {
 	public static StringBuilder transformationContentSB = new StringBuilder(4096);
 	public static StringBuilder nodeContentSB = new StringBuilder(4096);
 	private static StringBuilder descriptionSB = new StringBuilder();
-
-	private static final Pattern[] patterns = {
-			Pattern.compile("<girl>"),
-			Pattern.compile("<woman>"),
-			Pattern.compile("<female>"),
-			Pattern.compile("<her>"),
-			Pattern.compile("<hers>"),
-			Pattern.compile("<herPro>"),
-			Pattern.compile("<she>"),
-			
-			Pattern.compile("<Girl>"),
-			Pattern.compile("<Woman>"),
-			Pattern.compile("<Female>"),
-			Pattern.compile("<Her>"),
-			Pattern.compile("<Hers>"),
-			Pattern.compile("<HerPro>"),
-			Pattern.compile("<She>") };
-
-	/**
-	 * <b>USE .parse() INSTEAD!</b> This method is deprecated, and will be deleted in a future update!
-	 */
-//	@Deprecated
-	public static String genderParsing(GameCharacter character, String text) {
-		modifiedSentence = text;
-		
-		boolean isFeminine = character.isFeminine();
-		
-		if(Femininity.valueOf(character.getFemininityValue()) == Femininity.ANDROGYNOUS) {
-			switch(Main.getProperties().androgynousIdentification){
-				case FEMININE:
-					isFeminine = true;
-					break;
-				case CLOTHING_FEMININE:
-					isFeminine = character.getClothingAverageFemininity() >= 50;
-					break;
-				case CLOTHING_MASCULINE:
-					isFeminine = character.getClothingAverageFemininity() > 50;
-					break;
-				case MASCULINE:
-					isFeminine = false;
-					break;
-				default:
-					break;
-			}
-		}
-		
-		
-		if (isFeminine)
-			for (int i = 0; i < patterns.length; i++)
-				modifiedSentence = patterns[i].matcher(modifiedSentence).replaceAll(getFemaleReplacement(i, character.isPlayer()));
-		else
-			for (int i = 0; i < patterns.length; i++)
-				modifiedSentence = patterns[i].matcher(modifiedSentence).replaceAll(getMaleReplacement(i, character.isPlayer()));
-
-		return modifiedSentence;
-	}
-	
-	private static String getFemaleReplacement(int i, boolean isPlayer){
-		switch(i){
-			case 0:
-				return Gender.F_V_B_FEMALE.getNounYoung();
-			case 1:
-				return Gender.F_V_B_FEMALE.getNoun();
-			case 2:
-				return Gender.F_V_B_FEMALE.getName();
-			case 3:
-				if(isPlayer)
-					return Gender.F_V_B_FEMALE.getPossessiveBeforeNoun();
-				else
-					return GenderPronoun.POSSESSIVE_BEFORE_NOUN.getFeminine();
-			case 4:
-				if(isPlayer)
-					return Gender.F_V_B_FEMALE.getPossessiveAlone();
-				else
-					return GenderPronoun.POSSESSIVE_ALONE.getFeminine();
-			case 5:
-				if(isPlayer)
-					return Gender.F_V_B_FEMALE.getThirdPerson();
-				else
-					return GenderPronoun.THIRD_PERSON.getFeminine();
-			case 6:
-				if(isPlayer)
-					return Gender.F_V_B_FEMALE.getSecondPerson();
-				else
-					return GenderPronoun.SECOND_PERSON.getFeminine();
-			// Capitalised:
-			case 7:
-				return Util.capitaliseSentence(Gender.F_V_B_FEMALE.getNounYoung());
-			case 8:
-				return Util.capitaliseSentence(Gender.F_V_B_FEMALE.getNoun());
-			case 9:
-				return Util.capitaliseSentence(Gender.F_V_B_FEMALE.getName());
-			case 10:
-				if(isPlayer)
-					return Util.capitaliseSentence(Gender.F_V_B_FEMALE.getPossessiveBeforeNoun());
-				else
-					return Util.capitaliseSentence(GenderPronoun.POSSESSIVE_BEFORE_NOUN.getFeminine());
-			case 11:
-				if(isPlayer)
-					return Util.capitaliseSentence(Gender.F_V_B_FEMALE.getPossessiveAlone());
-				else
-					return Util.capitaliseSentence(GenderPronoun.POSSESSIVE_ALONE.getFeminine());
-			case 12:
-				if(isPlayer)
-					return Util.capitaliseSentence(Gender.F_V_B_FEMALE.getThirdPerson());
-				else
-					return Util.capitaliseSentence(GenderPronoun.THIRD_PERSON.getFeminine());
-			case 13:
-				if(isPlayer)
-					return Util.capitaliseSentence(Gender.F_V_B_FEMALE.getSecondPerson());
-				else
-					return Util.capitaliseSentence(GenderPronoun.SECOND_PERSON.getFeminine());
-			default:
-				return "";
-		}
-	}
-	
-	private static String getMaleReplacement(int i, boolean isPlayer){
-		switch(i){
-			case 0:
-				return Gender.M_P_MALE.getNounYoung();
-			case 1:
-				return Gender.M_P_MALE.getNoun();
-			case 2:
-				return Gender.M_P_MALE.getName();
-			case 3:
-				if(isPlayer)
-					return Gender.M_P_MALE.getPossessiveBeforeNoun();
-				else
-					return GenderPronoun.POSSESSIVE_BEFORE_NOUN.getMasculine();
-			case 4:
-				if(isPlayer)
-					return Gender.M_P_MALE.getPossessiveAlone();
-				else
-					return GenderPronoun.POSSESSIVE_ALONE.getMasculine();
-			case 5:
-				if(isPlayer)
-					return Gender.M_P_MALE.getThirdPerson();
-				else
-					return GenderPronoun.THIRD_PERSON.getMasculine();
-			case 6:
-				if(isPlayer)
-					return Gender.M_P_MALE.getSecondPerson();
-				else
-					return GenderPronoun.SECOND_PERSON.getMasculine();
-			// Capitalised:
-			case 7:
-				return Util.capitaliseSentence(Gender.M_P_MALE.getNounYoung());
-			case 8:
-				return Util.capitaliseSentence(Gender.M_P_MALE.getNoun());
-			case 9:
-				return Util.capitaliseSentence(Gender.M_P_MALE.getName());
-			case 10:
-				if(isPlayer)
-					return Util.capitaliseSentence(Gender.M_P_MALE.getPossessiveBeforeNoun());
-				else
-					return Util.capitaliseSentence(GenderPronoun.POSSESSIVE_BEFORE_NOUN.getMasculine());
-			case 11:
-				if(isPlayer)
-					return Util.capitaliseSentence(Gender.M_P_MALE.getPossessiveAlone());
-				else
-					return Util.capitaliseSentence(GenderPronoun.POSSESSIVE_ALONE.getMasculine());
-			case 12:
-				if(isPlayer)
-					return Util.capitaliseSentence(Gender.M_P_MALE.getThirdPerson());
-				else
-					return Util.capitaliseSentence(GenderPronoun.THIRD_PERSON.getMasculine());
-			case 13:
-				if(isPlayer)
-					return Util.capitaliseSentence(Gender.M_P_MALE.getSecondPerson());
-				else
-					return Util.capitaliseSentence(GenderPronoun.SECOND_PERSON.getMasculine());
-			default:
-				return "";
-		}
-	}
-	
-	
 
 	public static String parsePlayerThought(String text) {
 		if(Main.game.getPlayer()==null) {
@@ -714,7 +535,7 @@ public class UtilText {
 		if(startIndex!=0 || endIndex!=0) {
 			return parse(specialNPC, input.substring(0, startIndex) + parseSyntaxNew(target, command, arguments, specialNPC) + input.substring(endIndex+1, input.length()));
 		} else {
-			return input;
+			return input;//.replaceAll(" a ", " <span style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>a big moo</span> ");
 		}
 	}
 	
@@ -2556,10 +2377,8 @@ public class UtilText {
 			public String parse(String command, String arguments, String target) {
 				if(character.getBreastRows()==1) {
 					return "pair of";
-				} else if(character.getBreastRows()==2) {
-					return "two pairs of";
 				} else {
-					return "three pairs of";
+					return Util.intToString(character.getBreastRows())+" pairs of";
 				}
 			}
 		});

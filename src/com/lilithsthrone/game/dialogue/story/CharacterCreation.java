@@ -1959,6 +1959,7 @@ public class CharacterCreation {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().resetAllQuests();
+						Main.game.getPlayer().getCharactersEncountered().clear();
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
 						applyGameStart();
 					}
@@ -1972,6 +1973,7 @@ public class CharacterCreation {
 						Main.game.setInNewWorld(true);
 
 						Main.game.getPlayer().resetAllQuests();
+						Main.game.getPlayer().getCharactersEncountered().clear();
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
 						

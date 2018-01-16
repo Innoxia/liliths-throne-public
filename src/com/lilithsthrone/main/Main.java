@@ -1,12 +1,6 @@
 package com.lilithsthrone.main;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -23,6 +17,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.MapDisplay;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -562,6 +557,10 @@ public class Main extends Application {
 //		}
 	}
 
+	public static boolean isSaveGameAvailable() {
+		return Main.game.isStarted() && Main.game.getSavedDialogueNode() == DebugDialogue.getDefaultDialogueNoEncounter();
+	}
+	
 	public static void saveGame(String name, boolean allowOverwrite) {
 		if (name.length()==0) {
 			Main.game.flashMessage(Colour.GENERIC_BAD, "Name too short!");
@@ -576,47 +575,9 @@ public class Main extends Application {
 			return;
 		}
 		
-		File dir = new File("data/");
-		dir.mkdir();
-
-		dir = new File("data/saves");
-		dir.mkdir();
-		
-		boolean overwrite = false;
-		if (dir.isDirectory()) {
-			File[] directoryListing = dir.listFiles((path, filename) -> filename.endsWith(".lts"));
-			if (directoryListing != null) {
-				for (File child : directoryListing) {
-					if (child.getName().equals(name+".lts")){
-						if(!allowOverwrite) {
-							Main.game.flashMessage(Colour.GENERIC_BAD, "Name already exists!");
-							return;
-						} else {
-							overwrite = true;
-						}
-					}
-				}
-			}
-		}
-		
-		File file = new File("data/saves/"+name+".lts");
-		try {
-			file.createNewFile();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		Game.exportGame(name, allowOverwrite);
 
 		try {
-//			long timeStart = System.nanoTime();
-//			System.out.println(timeStart);
-			
-			try (ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)))) {
-			  oos.writeObject(Main.game);
-			  oos.close();
-			}
-			
-//			System.out.println("Difference: "+(System.nanoTime()-timeStart)/1000000000f);
-
 			properties.lastSaveLocation = name;//"data/saves/"+name+".lts";
 			properties.nameColour = Femininity.valueOf(game.getPlayer().getFemininityValue()).getColour().toWebHexString();
 			properties.name = game.getPlayer().getName();
@@ -632,41 +593,22 @@ public class Main extends Application {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		
-		if(Main.game.getCurrentDialogueNode() == OptionsDialogue.SAVE_LOAD) {
-			if(overwrite) {
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()), Colour.GENERIC_GOOD, "Save game overwritten!");
-			} else {
-				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()), Colour.GENERIC_GOOD, "Game saved!");
-			}
-		} else if(name.equals("QuickSave_"+Main.game.getPlayer().getName())){
-			Main.game.flashMessage(Colour.GENERIC_GOOD, "Quick saved!");
-		}
 	}
 
+	public static boolean isLoadGameAvailable(String name) {
+		File file = new File("data/saves/"+name+".xml");
+
+		return file.exists();
+	}
+	
 	public static void loadGame(String name) {
-		
-		File file = new File("data/saves/"+name+".lts");
-		
-		if (file.exists()) {
-			try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
-				Main.game = (Game) ois.readObject();
-				Main.game.reloadContent();
-				if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.OPTIONS) {
-					Main.mainController.openOptions();
-				}
-				
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-			
-		} else {
-			Main.game.flashMessage(Colour.GENERIC_BAD, "File not found...");
+		if (isLoadGameAvailable(name)) {
+			Game.importGame(name);
 		}
 	}
 	
 	public static void deleteGame(String name) {
-		File file = new File("data/saves/"+name+".lts");
+		File file = new File("data/saves/"+name+".xml");
 
 		if (file.exists()) {
 			try {
@@ -718,7 +660,7 @@ public class Main extends Application {
 		
 		File dir = new File("data/saves");
 		if (dir.isDirectory()) {
-			File[] directoryListing = dir.listFiles((path, name) -> name.endsWith(".lts"));
+			File[] directoryListing = dir.listFiles((path, name) -> name.endsWith(".xml"));
 			if (directoryListing != null) {
 				filesList.addAll(Arrays.asList(directoryListing));
 			}

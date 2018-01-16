@@ -92,39 +92,39 @@ public class SexActionUtility {
 		@Override
 		public String getDescription() {
 			switch(Sex.getSexPace(Main.game.getPlayer())) {
-			case DOM_GENTLE:
-				return UtilText.returnStringAtRandom(
-						"You take a moment to focus on something other than [npc.name], calming yourself down in the process.",
-						"Closing your [pc.eyes], you take a deep breath, calming yourself down and lowering your arousal.",
-						"Taking a deep breath, you focus on calming yourself down a little.");
-			case DOM_NORMAL:
-				return UtilText.returnStringAtRandom(
-						"You take a moment to focus on something other than [npc.name], calming yourself down in the process.",
-						"Closing your [pc.eyes], you take a deep breath, calming yourself down and lowering your arousal.",
-						"Taking a deep breath, you focus on calming yourself down a little.");
-			case DOM_ROUGH:
-				return UtilText.returnStringAtRandom(
-						"You take a moment to focus on something other than [npc.name], calming yourself down in the process.",
-						"Closing your [pc.eyes], you take a deep breath, calming yourself down and lowering your arousal.",
-						"Taking a deep breath, you focus on calming yourself down a little.");
-			case SUB_EAGER:
-				return UtilText.returnStringAtRandom(
-						"You take a moment to focus on something other than [npc.name], calming yourself down in the process.",
-						"Closing your [pc.eyes], you take a deep breath, calming yourself down and lowering your arousal.",
-						"Taking a deep breath, you focus on calming yourself down a little.");
-			case SUB_NORMAL:
-				return UtilText.returnStringAtRandom(
-						"You take a moment to focus on something other than [npc.name], calming yourself down in the process.",
-						"Closing your [pc.eyes], you take a deep breath, calming yourself down and lowering your arousal.",
-						"Taking a deep breath, you focus on calming yourself down a little.");
-			case SUB_RESISTING:
-				return UtilText.returnStringAtRandom(
-						"Still weakly struggling against [npc.name], you try to calm yourself down a little, reminding yourself that this will all be over soon.",
-						"Scrunching your [pc.eyes] shut, you try to take a deep breath, pretending that this isn't happening as you seek to calm yourself down.",
-						"Taking a deep breath, you try to calm down a little, before continuing to struggle against [npc.name].");
-			default:
-				return "You try to focus on something other than the [npc.race] you're currently having sex with. By doing so, you manage to calm yourself down a little, reducing your arousal.";
-		}
+				case DOM_GENTLE:
+					return UtilText.returnStringAtRandom(
+							"You take a moment to focus on something other than [npc.name], calming yourself down in the process.",
+							"Closing your [pc.eyes], you take a deep breath, calming yourself down and lowering your arousal.",
+							"Taking a deep breath, you focus on calming yourself down a little.");
+				case DOM_NORMAL:
+					return UtilText.returnStringAtRandom(
+							"You take a moment to focus on something other than [npc.name], calming yourself down in the process.",
+							"Closing your [pc.eyes], you take a deep breath, calming yourself down and lowering your arousal.",
+							"Taking a deep breath, you focus on calming yourself down a little.");
+				case DOM_ROUGH:
+					return UtilText.returnStringAtRandom(
+							"You take a moment to focus on something other than [npc.name], calming yourself down in the process.",
+							"Closing your [pc.eyes], you take a deep breath, calming yourself down and lowering your arousal.",
+							"Taking a deep breath, you focus on calming yourself down a little.");
+				case SUB_EAGER:
+					return UtilText.returnStringAtRandom(
+							"You take a moment to focus on something other than [npc.name], calming yourself down in the process.",
+							"Closing your [pc.eyes], you take a deep breath, calming yourself down and lowering your arousal.",
+							"Taking a deep breath, you focus on calming yourself down a little.");
+				case SUB_NORMAL:
+					return UtilText.returnStringAtRandom(
+							"You take a moment to focus on something other than [npc.name], calming yourself down in the process.",
+							"Closing your [pc.eyes], you take a deep breath, calming yourself down and lowering your arousal.",
+							"Taking a deep breath, you focus on calming yourself down a little.");
+				case SUB_RESISTING:
+					return UtilText.returnStringAtRandom(
+							"Still weakly struggling against [npc.name], you try to calm yourself down a little, reminding yourself that this will all be over soon.",
+							"Scrunching your [pc.eyes] shut, you try to take a deep breath, pretending that this isn't happening as you seek to calm yourself down.",
+							"Taking a deep breath, you try to calm down a little, before continuing to struggle against [npc.name].");
+				default:
+					return "You try to focus on something other than the [npc.race] you're currently having sex with. By doing so, you manage to calm yourself down a little, reducing your arousal.";
+			}
 		}
 	};
 	

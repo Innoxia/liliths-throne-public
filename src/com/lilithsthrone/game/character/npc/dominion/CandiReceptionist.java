@@ -40,7 +40,7 @@ public class CandiReceptionist extends NPC {
 		this(false);
 	}
 	
-	private CandiReceptionist(boolean isImported) {
+	public CandiReceptionist(boolean isImported) {
 		super(new NameTriplet("Candi"),
 				"Candi is the receptionist at the Enforcer HQ."
 				+ " A completely brain-dead bimbo, Candi seems to only ever be interested in three things; applying makeup, flirting, and fucking.",
@@ -96,12 +96,8 @@ public class CandiReceptionist extends NPC {
 	}
 	
 	@Override
-	public CandiReceptionist loadFromXML(Element parentElement, Document doc) {
-		CandiReceptionist npc = new CandiReceptionist(true);
-
-		loadNPCVariablesFromXML(npc, null, parentElement, doc);
-		
-		return npc;
+	public void loadFromXML(Element parentElement, Document doc) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc);
 	}
 
 	@Override

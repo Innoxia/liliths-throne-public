@@ -38,17 +38,17 @@ public class ConChairPositionsLilaya {
 
 		@Override
 		public String getActionDescription() {
-			return UtilText.genderParsing(Sex.getActivePartner(),
-					"Switch positions with "+Sex.getActivePartner().getName("the")+", so that you're the one sitting down.");
+			return UtilText.parse(Sex.getActivePartner(),
+					"Switch positions with [npc.name], so that you're the one sitting down.");
 		}
 
 		@Override
 		public String getDescription() {
-			return UtilText.genderParsing(Sex.getActivePartner(),
-					"You reach down and grab "+Sex.getActivePartner().getName("the")+"'s "+Sex.getActivePartner().getHipSize().getDescriptor()+" hips, and with a determined pull, you cause <herPro> to stand up."
-					+ " Still holding <her> hips, you move <herPro> to one side, sitting down in the space that <she> just vacated before pulling <herPro> forwards into your crotch."
-					+ " Looking down at you, <she> smiles, "
-					+ UtilText.parseSpeech("You want a go on the bottom, huh?", Sex.getActivePartner()));
+			return UtilText.parse(Sex.getActivePartner(),
+					"You reach down and grab [npc.name]'s [npc.hipSize] hips, and with a determined pull, you cause [npc.herHim] to stand up."
+					+ " Still holding [npc.her] hips, you move [npc.herHim] to one side, sitting down in the space that [npc.she] just vacated before pulling [npc.herHim] forwards into your crotch."
+					+ " Looking down at you, [npc.she] smiles,"
+					+ " [npc.speech(You want a go on the bottom, huh?)]");
 		}
 
 		@Override
@@ -85,17 +85,17 @@ public class ConChairPositionsLilaya {
 
 		@Override
 		public String getActionDescription() {
-			return UtilText.genderParsing(Sex.getActivePartner(),
-					"Switch positions with "+Sex.getActivePartner().getName("the")+", so that <she>'s the one sitting down.");
+			return UtilText.parse(Sex.getActivePartner(),
+					"Switch positions with [npc.name], so that [npc.she]'s the one sitting down.");
 		}
 
 		@Override
 		public String getDescription() {
-			return UtilText.genderParsing(Sex.getActivePartner(),
-					"You reach up and grab "+Sex.getActivePartner().getName("the")+"'s "+Sex.getActivePartner().getHipSize().getDescriptor()+" hips, and with a determined push, you cause <herPro> to take a step back."
-					+ " Still holding <her> hips, you stand up, moving <herPro> around before pushing <herPro> down into the space that you just vacated."
-					+ " <She> smiles up at you as you step forwards between <her> legs, "
-					+ UtilText.parseSpeech("You want a go on the top, huh?", Sex.getActivePartner()));
+			return UtilText.parse(Sex.getActivePartner(),
+					"You reach up and grab [npc.name]'s [npc.hipSize] hips, and with a determined push, you cause [npc.herHim] to take a step back."
+					+ " Still holding [npc.her] hips, you stand up, moving [npc.herHim] around before pushing [npc.herHim] down into the space that you just vacated."
+					+ " [npc.She] smiles up at you as you step forwards between [npc.her] legs,"
+					+ " [npc.speech(You want a go on the top, huh?)]");
 		}
 
 		@Override

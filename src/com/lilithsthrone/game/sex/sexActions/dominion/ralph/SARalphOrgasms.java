@@ -239,8 +239,7 @@ public class SARalphOrgasms {
 						+ ", and you let out a defeated sigh as you realise that you forgot they were there.");
 			}
 			
-			return UtilText.genderParsing(Sex.getActivePartner(),
-					UtilText.nodeContentSB.toString());
+			return UtilText.parse(Sex.getActivePartner(), UtilText.nodeContentSB.toString());
 		}
 
 		@Override

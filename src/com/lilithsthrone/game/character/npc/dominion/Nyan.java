@@ -2,6 +2,8 @@ package com.lilithsthrone.game.character.npc.dominion;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -30,6 +32,7 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.Value;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -51,7 +54,7 @@ public class Nyan extends NPC {
 		this(false);
 	}
 	
-	private Nyan(boolean isImported) {
+	public Nyan(boolean isImported) {
 		super(new NameTriplet("Nyan"), "Nyan is the owner of the store 'Nyan's Clothing Emporium', found in Dominion's shopping arcade."
 				+ " She's extremely shy, and gets very nervous when having to talk to people.",
 				10, Gender.F_V_B_FEMALE, RacialBody.CAT_MORPH, RaceStage.LESSER,
@@ -83,7 +86,6 @@ public class Nyan extends NPC {
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.FOOT_HEELS, Colour.CLOTHING_BLACK, false), true, this);
 		}
 		
-		//TODO import these values
 		commonFemaleClothing = new ArrayList<>();
 		commonFemaleUnderwear = new ArrayList<>();
 		commonFemaleOtherLingerie = new ArrayList<>();
@@ -98,15 +100,54 @@ public class Nyan extends NPC {
 		dailyReset();
 	}
 	
+	private Map<String, List<AbstractClothing>> getAllClothingListsMap() {
+		return Util.newHashMapOfValues(
+				new Value<>("commonFemaleClothing", commonFemaleClothing),
+				new Value<>("commonFemaleUnderwear", commonFemaleUnderwear),
+				new Value<>("commonFemaleOtherLingerie", commonFemaleOtherLingerie),
+				new Value<>("commonFemaleAccessories", commonFemaleAccessories),
+				new Value<>("commonMaleClothing", commonMaleClothing),
+				new Value<>("commonMaleLingerie", commonMaleLingerie),
+				new Value<>("commonMaleAccessories", commonMaleAccessories),
+				new Value<>("commonAndrogynousClothing", commonAndrogynousClothing),
+				new Value<>("commonAndrogynousLingerie", commonAndrogynousLingerie),
+				new Value<>("commonAndrogynousAccessories", commonAndrogynousAccessories),
+				new Value<>("specials", specials));
+	}
+	
 	@Override
-	public Nyan loadFromXML(Element parentElement, Document doc) {
-		Nyan npc = new Nyan(true);
-
-		loadNPCVariablesFromXML(npc, null, parentElement, doc);
-		npc.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, Colour.COVERING_BLACK), true);
-		npc.setSkinCovering(new Covering(BodyCoveringType.FELINE_FUR, Colour.COVERING_BLACK), true);
+	public Element saveAsXML(Element parentElement, Document doc) {
+		Element properties = super.saveAsXML(parentElement, doc);
 		
-		return npc;
+		for(Entry<String, List<AbstractClothing>> entry : getAllClothingListsMap().entrySet()) {
+			Element clothingElement = doc.createElement(entry.getKey());
+			properties.appendChild(clothingElement);
+			for(AbstractClothing c : entry.getValue()) {
+				c.saveAsXML(clothingElement, doc);
+			}
+		}
+		return properties;
+	}
+	
+	@Override
+	public void loadFromXML(Element parentElement, Document doc) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc);
+		this.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, Colour.COVERING_BLACK), true);
+		this.setSkinCovering(new Covering(BodyCoveringType.FELINE_FUR, Colour.COVERING_BLACK), true);
+		
+
+		for(Entry<String, List<AbstractClothing>> entry : this.getAllClothingListsMap().entrySet()) {
+			Element npcSpecificElement = (Element) parentElement.getElementsByTagName(entry.getKey()).item(0);
+			if(npcSpecificElement!=null) {
+				entry.getValue().clear();
+				
+				for(int i=0; i<npcSpecificElement.getElementsByTagName("clothing").getLength(); i++){
+					Element e = (Element) npcSpecificElement.getElementsByTagName("clothing").item(i);
+					entry.getValue().add(AbstractClothing.loadFromXML(e, doc));
+				}
+				
+			}
+		}
 	}
 
 	@Override

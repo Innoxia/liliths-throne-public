@@ -53,6 +53,10 @@ public class DominionAlleywayAttacker extends NPC {
 		this(gender, false);
 	}
 	
+	public DominionAlleywayAttacker(boolean isImported) {
+		this(Gender.F_V_B_FEMALE, isImported);
+	}
+	
 	public DominionAlleywayAttacker(Gender gender, boolean isImported) {
 		super(null, "", 3, gender, RacialBody.DOG_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false);
@@ -200,12 +204,8 @@ public class DominionAlleywayAttacker extends NPC {
 	}
 	
 	@Override
-	public DominionAlleywayAttacker loadFromXML(Element parentElement, Document doc) {
-		DominionAlleywayAttacker npc = new DominionAlleywayAttacker(Gender.F_V_B_FEMALE, true);
-
-		loadNPCVariablesFromXML(npc, null, parentElement, doc);
-		
-		return npc;
+	public void loadFromXML(Element parentElement, Document doc) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc);
 	}
 	
 	@Override

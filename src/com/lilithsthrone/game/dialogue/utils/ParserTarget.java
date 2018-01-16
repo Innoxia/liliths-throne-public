@@ -55,10 +55,13 @@ public enum ParserTarget {
 					} else if (Main.game.getCurrentDialogueNode()!=null) {
 						if(Main.game.getCurrentDialogueNode()==CharactersPresentDialogue.MENU || Main.game.getCurrentDialogueNode()==PhoneDialogue.CONTACTS) {
 							return CharactersPresentDialogue.characterViewed;
-						} else if (!Main.game.getCharactersPresent().isEmpty()) {
-							return Main.game.getCharactersPresent().get(0);
+							
 						} else if(Main.game.getActiveNPC()!=null) {
 							return Main.game.getActiveNPC();
+							
+						} else if (!Main.game.getCharactersPresent().isEmpty()) {
+							return Main.game.getCharactersPresent().get(0);
+							
 						} else {
 							throw new NullPointerException();
 						}

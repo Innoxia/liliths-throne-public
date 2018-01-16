@@ -90,12 +90,8 @@ public class HarpyBimboCompanion extends NPC {
 	}
 	
 	@Override
-	public HarpyBimboCompanion loadFromXML(Element parentElement, Document doc) {
-		HarpyBimboCompanion npc = new HarpyBimboCompanion(true);
-
-		loadNPCVariablesFromXML(npc, null, parentElement, doc);
-		
-		return npc;
+	public void loadFromXML(Element parentElement, Document doc) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc);
 	}
 
 	@Override

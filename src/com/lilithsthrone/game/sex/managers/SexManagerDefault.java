@@ -24,6 +24,7 @@ import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.game.sex.sexActions.SexActionUtility;
+import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerFingerVagina;
 import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTongueMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerMouth;
@@ -115,7 +116,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		
 		// --- Priority 1 | If orgasming, bypass everything and use an orgasm option ---
 		
-		if (ArousalLevel.getArousalLevelFromValue(Sex.getActivePartner().getArousal()) == ArousalLevel.FIVE_ORGASM_IMMINENT) {
+		if (Sex.getActivePartner().getArousal() >= ArousalLevel.FIVE_ORGASM_IMMINENT.getMaximumValue()) {
 			List<SexActionInterface> priorityOrgasms = new ArrayList<>();
 			
 			for(SexActionInterface action : availableActions) {
@@ -466,7 +467,9 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		List<SexActionInterface> availableActions = Sex.getAvailableSexActionsPartner();
 		bannedActions.add(PartnerSelfFingerMouth.PARTNER_SELF_FINGER_MOUTH_PENETRATION);
 		
-		if(sexActionPlayer.getActionType()==SexActionType.PLAYER_STOP_PENETRATION) {
+		if(sexActionPlayer.getActionType()==SexActionType.PLAYER_STOP_PENETRATION
+				|| sexActionPlayer.equals(GenericActions.PLAYER_FORBID_PARTNER_SELF)
+				|| sexActionPlayer.equals(GenericActions.PLAYER_STOP_PARTNER_SELF)) {
 			availableActions.removeIf(sexAction -> sexAction.getActionType()==SexActionType.PARTNER_PENETRATION);
 		}
 		
@@ -537,7 +540,9 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 	private SexAction performSexAction(SexActionInterface sexActionPlayer) {
 		List<SexActionInterface> availableActions = Sex.getAvailableSexActionsPartner();
 		
-		if(sexActionPlayer.getActionType()==SexActionType.PLAYER_STOP_PENETRATION) {
+		if(sexActionPlayer.getActionType()==SexActionType.PLAYER_STOP_PENETRATION
+				|| sexActionPlayer.equals(GenericActions.PLAYER_FORBID_PARTNER_SELF)
+				|| sexActionPlayer.equals(GenericActions.PLAYER_STOP_PARTNER_SELF)) {
 			availableActions.removeIf(sexAction -> sexAction.getActionType()==SexActionType.PARTNER_PENETRATION);
 		}
 		
