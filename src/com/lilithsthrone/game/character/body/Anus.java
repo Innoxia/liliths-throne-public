@@ -67,9 +67,7 @@ public class Anus implements BodyPartInterface, Serializable {
 		
 		String wetnessDescriptor = orificeAnus.getWetness(owner).getDescriptor();
 		if(Main.game.isInSex()) {
-			if(owner.isPlayer() && !Sex.getWetOrificeTypes(owner).get(OrificeType.ANUS_PLAYER).isEmpty()) {
-				wetnessDescriptor = "wet";
-			} else if(!owner.isPlayer() && !Sex.getWetOrificeTypes(owner).get(OrificeType.ANUS_PARTNER).isEmpty()) {
+			if(!Sex.getWetOrificeTypes(owner).get(OrificeType.ANUS).isEmpty()) {
 				wetnessDescriptor = "wet";
 			}
 		}

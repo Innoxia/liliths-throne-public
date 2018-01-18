@@ -73,7 +73,7 @@ public class UtilText {
 				modifiedSentence = Util.addSexSounds(modifiedSentence, 6);
 			}
 			
-			if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER)!=null) {
+			if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH)!=null) {
 				modifiedSentence = Util.addMuffle(modifiedSentence, 6);
 			} else {
 				if(!Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
@@ -118,7 +118,7 @@ public class UtilText {
 				if(Sex.isCharacterPenetrated(Main.game.getPlayer())) {
 					modifiedSentence = Util.addSexSounds(modifiedSentence, 6);
 				}
-				if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER)!=null) {
+				if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH)!=null) {
 					modifiedSentence = Util.addMuffle(modifiedSentence, 6);
 				} else {
 					if(!target.isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
@@ -136,7 +136,7 @@ public class UtilText {
 					modifiedSentence = Util.addSexSounds(modifiedSentence, 6);
 				}
 				
-				if(Sex.getPenetrationTypeInOrifice(character, OrificeType.MOUTH_PARTNER)!=null) {
+				if(Sex.getPenetrationTypeInOrifice(character, OrificeType.MOUTH)!=null) {
 					modifiedSentence = Util.addMuffle(modifiedSentence, 6);
 				} else {
 					if(!target.isAbleToAccessCoverableArea(CoverableArea.MOUTH, false)) {
@@ -461,88 +461,198 @@ public class UtilText {
 //	}
 	
 	public static String parse(String input) {
-		return parse(null, input);
+		return parse(new ArrayList<>(), input);
+	}
+	
+
+	public static String parse(GameCharacter specialNPC, String input) {
+		return parse(Util.newArrayListOfValues(new ListValue<>(specialNPC)), input);
+	}
+	
+	public static String parse(GameCharacter specialNPC1, GameCharacter specialNPC2, String input) {
+		return parse(Util.newArrayListOfValues(new ListValue<>(specialNPC1), new ListValue<>(specialNPC2)), input);
 	}
 	
 	/**
 	 * Parses supplied text.
 	 */
-	public static String parse(GameCharacter specialNPC, String input) {
+	public static String parse(List<GameCharacter> specialNPC, String input) {
 		
 		// Loop through input, when find '[', start parsing.
+		// [target.command(arguments)]
+		
+		// {npc1.isPlayer?Your:[npc1.Name]'s} [npc1.moans] are muffled into {npc2.isPlayer?your:[npc2.name]'s} [npc2.mouth]. {npc1.isPlayer?{npc1.isPlayer?Your:[npc1.Name]'s} feel turned on...}
+		
 		StringBuilder sb = new StringBuilder();
 		
-		int openBrackets = 0, closeBrackets = 0,
-				openArg = 0, closeArg = 0,
-				startIndex = 0, endIndex = 0;
-		String target=null, command=null, arguments=null;
+		int openBrackets = 0;
+		int closeBrackets = 0;
+		int openArg = 0;
+		int closeArg = 0;
+		int conditionalThens = 0;
+		int startIndex = 0;
+		int endIndex = 0;
+		
+		String target=null;
+		String command=null;
+		String arguments=null;
+		String conditionalTrue=null;
+		String conditionalFalse=null;
+		
+		boolean conditionalElseFound=false;
+		boolean processingConditional=false;
+		boolean processingRegular=false;
 		
 		for (int i = 0; i < input.length(); i++) {
 			char c = input.charAt(i);
 			
-			// Process char
-			if(c=='[') {
-				if(openBrackets==0)
-					startIndex = i;
-				
-				openBrackets++;
-				
-			} else if(c=='.' && target==null) {
-				if(openBrackets>0) {
-					target=sb.toString().substring(1); // Cut off the '[' at the start.
-					sb.setLength(0);
-				}
-			
-			} else if(c=='(') {
-				if(openBrackets>0) {
-					if(command==null) {
-						command=sb.toString().substring(1); // Cut off the '.' at the start.
-						sb.setLength(0);
+			if(!processingRegular) {
+				if(c=='{') {
+					if(openBrackets==0) {
+						processingConditional=true;
+						startIndex = i;
 					}
 					
-					openArg++;
-				}
-				
-			} else if(c==')') {
-				if(openBrackets>0) {
-					closeArg++;
+					openBrackets++;
 					
-					if(openArg==closeArg){
-						arguments = sb.toString().substring(1);
-					}
-				}
-				
-			} else if(c==']') {
-				closeBrackets++;
-				
-				if(openBrackets==closeBrackets) {
-					if(command==null) {
-						command=sb.toString().substring(1); // Cut off the '.' at the start.
+				} else if(processingConditional) {
+					if(c=='.' && target==null) {
+						target=sb.toString().substring(1); // Cut off the '{' at the start.
 						sb.setLength(0);
+					
+					} else if(c=='(') {
+						if(command==null) {
+							command=sb.toString().substring(1); // Cut off the '.' at the start.
+							sb.setLength(0);
+						}
+						
+						openArg++;
+						
+					} else if(c==')') {
+						closeArg++;
+						
+						if(openArg==closeArg){
+							arguments = sb.toString().substring(1);
+						}
+						
+					} else if(c=='?') {
+						conditionalThens++;
+						
+						if(conditionalThens==1){
+							if(command==null) {
+								command=sb.toString().substring(1); // Cut off the '.' at the start.
+							}
+							sb.setLength(0);
+						}
+						
+					} else if(c==':' && openBrackets-1==closeBrackets) {
+						conditionalElseFound = true;
+						conditionalTrue = sb.toString().substring(1);
+						sb.setLength(0);
+						
+					} else if(c=='}') {
+						closeBrackets++;
+						
+						if(openBrackets==closeBrackets) {
+							
+							if(conditionalElseFound){
+								conditionalFalse = sb.toString().substring(1);
+							} else {
+								conditionalFalse = "";
+							}
+		
+							endIndex = i;
+							break;
+						}
 					}
-
-					endIndex = i;
-					break;
 				}
-				
 			}
 			
-			if(openBrackets>0)
+			if(!processingConditional) {
+				if(c=='[') {
+					if(openBrackets==0) {
+						processingRegular=true;
+						startIndex = i;
+					}
+					
+					openBrackets++;
+					
+				} else if(processingRegular) {
+					
+					if(c=='.' && target==null) {
+						target=sb.toString().substring(1); // Cut off the '[' at the start.
+						sb.setLength(0);
+					
+					} else if(c=='(') {
+						if(command==null) {
+							command=sb.toString().substring(1); // Cut off the '.' at the start.
+							sb.setLength(0);
+						}
+						
+						openArg++;
+						
+					} else if(c==')') {
+						closeArg++;
+						
+						if(openArg==closeArg){
+							arguments = sb.toString().substring(1);
+						}
+						
+					} else if(c==']') {
+						closeBrackets++;
+						
+						if(openBrackets==closeBrackets) {
+							if(command==null) {
+								command=sb.toString().substring(1); // Cut off the '.' at the start.
+								sb.setLength(0);
+							}
+		
+							endIndex = i;
+							break;
+						}
+					}
+				}
+			}
+			
+			
+			if(openBrackets>0) {
 				sb.append(c);
+			}
 		}
 		
 		
 		if(startIndex!=0 || endIndex!=0) {
-			return parse(specialNPC, input.substring(0, startIndex) + parseSyntaxNew(target, command, arguments, specialNPC) + input.substring(endIndex+1, input.length()));
+			return parse(specialNPC, input.substring(0, startIndex)
+					+ (processingConditional
+							?parseSyntaxNew(target, command, arguments, specialNPC)
+							:parseConditionalSyntaxNew(target, command, arguments, conditionalTrue, conditionalFalse))
+					+ input.substring(endIndex+1, input.length()));
 		} else {
 			return input;//.replaceAll(" a ", " <span style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>a big moo</span> ");
 		}
 	}
 	
+
+	public static List<ParserConditionalCommand> conditionalCommandsList = new ArrayList<>();
 	
 	public static List<ParserCommand> commandsList = new ArrayList<>();
 	public static Map<BodyPartType, List<ParserCommand>> commandsMap = new EnumMap<>(BodyPartType.class);
+	
 	static{
+		
+		conditionalCommandsList.add(new ParserConditionalCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("isPlayer"),
+						new ListValue<>("player")),
+				"",
+				"Returns true if the character is the player."){
+			@Override
+			public boolean process(String command, String arguments, String target) {
+				return character.isPlayer();
+			}
+		});
+		
+		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(new ListValue<>("name")),
 				true,
@@ -3397,11 +3507,12 @@ public class UtilText {
 		}
 	}
 
-	private static GameCharacter character = Main.game.getPlayer(), specialNPC = null;
+	private static GameCharacter character = Main.game.getPlayer();
+	private static List<GameCharacter> specialNPCList = new ArrayList<>();
 	private static boolean parseCapitalise, parseAddPronoun;
-	private static String parseSyntaxNew(String target, String command, String arguments, GameCharacter specialNPC) {
+	private static String parseSyntaxNew(String target, String command, String arguments, List<GameCharacter> specialNPCList) {
 		
-		UtilText.specialNPC=specialNPC;
+		UtilText.specialNPCList = specialNPCList;
 		parseCapitalise=false;
 		parseAddPronoun=false;
 		
@@ -3426,7 +3537,7 @@ public class UtilText {
 		for(ParserTarget parserTarget : ParserTarget.values()) {
 			for(String s : parserTarget.getTags()) {
 				if(s.toLowerCase().equals(target.toLowerCase())) {
-					character = parserTarget.getCharacter();
+					character = parserTarget.getCharacter(s.toLowerCase());
 					characterFound = true;
 					break targetLoop;
 				}
@@ -3471,8 +3582,44 @@ public class UtilText {
 		}
 	}
 	
-	public static GameCharacter getSpecialNPC() {
-		return specialNPC;
+	private static String parseConditionalSyntaxNew(String target, String command, String arguments, String conditionalTrue, String conditionalFalse) {
+		
+		boolean characterFound = false;
+		targetLoop:
+		for(ParserTarget parserTarget : ParserTarget.values()) {
+			for(String s : parserTarget.getTags()) {
+				if(s.toLowerCase().equals(target.toLowerCase())) {
+					character = parserTarget.getCharacter(s.toLowerCase());
+					characterFound = true;
+					break targetLoop;
+				}
+			}
+		}
+		if(!characterFound) {
+			return "INVALID_TARGET_NAME";
+		}
+		
+		// Commands with arguments:
+		
+		for(ParserConditionalCommand cmd : conditionalCommandsList) {
+			for(String s : cmd.getTags()) {
+				if(command.equalsIgnoreCase(s)) {
+					if (cmd.process(command, arguments, target)) {
+						return conditionalTrue;
+					} else {
+						return conditionalFalse;
+					}
+				}
+			}
+		}
+		
+		return "<i style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>command_unknown</i>";
+		
+	}
+	
+	
+	public static List<GameCharacter> getSpecialNPCList() {
+		return specialNPCList;
 	}
 	
 	/**

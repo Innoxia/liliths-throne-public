@@ -36,6 +36,7 @@ import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
@@ -446,24 +447,24 @@ public class Cultist extends NPC {
 	public SexType getForeplayPreference() {
 		if(Sex.getSexPositionSlot(this)==SexPositionSlot.MISSIONARY_ALTAR_KNEELING_BETWEEN_LEGS || Sex.getSexPositionSlot(this)==SexPositionSlot.MISSIONARY_ALTAR_SEALED_KNEELING_BETWEEN_LEGS) {
 			if(requestedAnal) {
-				return new SexType(PenetrationType.TONGUE_PARTNER, OrificeType.ANUS_PLAYER);
+				return new SexType(SexParticipantType.PITCHER, PenetrationType.TONGUE, OrificeType.ANUS);
 			} else {
-				return new SexType(PenetrationType.TONGUE_PARTNER, OrificeType.VAGINA_PLAYER);
+				return new SexType(SexParticipantType.PITCHER, PenetrationType.TONGUE, OrificeType.VAGINA);
 			}
 		} else {
-			return new SexType(PenetrationType.TONGUE_PLAYER, OrificeType.VAGINA_PARTNER);
+			return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH);
 		}
 	}
 	
 	public SexType getMainSexPreference() {
 		if(Sex.getSexPositionSlot(this)==SexPositionSlot.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS || Sex.getSexPositionSlot(this)==SexPositionSlot.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS) {
 			if(requestedAnal) {
-				return new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER);
+				return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.ANUS);
 			} else {
-				return new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER);
+				return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.VAGINA);
 			}
 		} else {
-			return new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER);
+			return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH);
 		}
 	}
 	
@@ -497,7 +498,7 @@ public class Cultist extends NPC {
 //	// Losing virginity: TODO
 //	private static StringBuilder StringBuilderSB;
 //	public String getPlayerVaginaVirginityLossDescription(boolean isPlayerDom){
-//		if(isPlayerDom || Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER)==PenetrationType.TAIL_PARTNER) {
+//		if(isPlayerDom || Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA)==PenetrationType.TAIL) {
 //			return super.getPlayerVaginaVirginityLossDescription(isPlayerDom);
 //		}
 //		

@@ -786,15 +786,9 @@ public interface SexActionInterface {
 		return true;
 	}
 	
-	public default List<OrificeType> getPlayerAreasCummedIn() { return null; }
-
-	public default List<OrificeType> getPartnerAreasCummedIn() { return null; }
+	public default List<OrificeType> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) { return null; }
 	
-	public default boolean ignorePlayerCondom() {
-		return false;
-	}
-	
-	public default boolean ignorePartnerCondom() {
+	public default boolean ignoreCondom(GameCharacter condomWearer) {
 		return false;
 	}
 }

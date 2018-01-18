@@ -5,6 +5,11 @@ import java.util.List;
 import com.lilithsthrone.game.character.body.types.BodyPartType;
 import com.lilithsthrone.utils.Colour;
 
+/**
+ * @since 0.1.?
+ * @version 0.1.?
+ * @author Innoxia
+ */
 public abstract class ParserCommand {
 	private boolean allowsCapitalisation, allowPronoun;
 	private String description, arguments;

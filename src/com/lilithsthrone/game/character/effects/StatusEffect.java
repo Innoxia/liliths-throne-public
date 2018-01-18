@@ -3838,11 +3838,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String extraRemovalEffects(GameCharacter target) {
-			if(target.isPlayer()) {
-				target.clearCummedInArea(OrificeType.VAGINA_PLAYER);
-			} else {
-				target.clearCummedInArea(OrificeType.VAGINA_PARTNER);
-			}
+			target.clearCummedInArea(OrificeType.VAGINA);
 			return "";
 		}
 
@@ -3899,11 +3895,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String extraRemovalEffects(GameCharacter target) {
-			if(target.isPlayer()) {
-				target.clearCummedInArea(OrificeType.ANUS_PLAYER);
-			} else {
-				target.clearCummedInArea(OrificeType.ANUS_PARTNER);
-			}
+			target.clearCummedInArea(OrificeType.ANUS);
 			return "";
 		}
 
@@ -3957,11 +3949,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String extraRemovalEffects(GameCharacter target) {
-			if(target.isPlayer()) {
-				target.clearCummedInArea(OrificeType.NIPPLE_PLAYER);
-			} else {
-				target.clearCummedInArea(OrificeType.NIPPLE_PARTNER);
-			}
+			target.clearCummedInArea(OrificeType.NIPPLE);
 			return "";
 		}
 
@@ -4014,11 +4002,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String extraRemovalEffects(GameCharacter target) {
-			if(target.isPlayer()) {
-				target.clearCummedInArea(OrificeType.URETHRA_PLAYER);
-			} else {
-				target.clearCummedInArea(OrificeType.URETHRA_PARTNER);
-			}
+			target.clearCummedInArea(OrificeType.URETHRA);
 			return "";
 		}
 
@@ -5989,80 +5973,14 @@ public enum StatusEffect {
 			false,
 			null,
 			null) {
-
+		
 		@Override
 		public float getArousalPerTurnSelf(GameCharacter target) {
-			float arousal = 0;
-			
-			if(target.isPlayer()) {
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.ANUS_PLAYER) != null) {
-					arousal+=OrificeType.ANUS_PLAYER.getBaseArousalWhenPenetrated();
-					
-					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.ANUS_PLAYER)) {
-						arousal-=0.5;
-					}
-					if(Sex.getAreasTooLoosePlayer().contains(OrificeType.ANUS_PLAYER)) {
-						arousal-=0.5;
-					}
-					
-					if(Sex.getWetOrificeTypes(target).get(OrificeType.ANUS_PLAYER).isEmpty()) {
-						arousal-=1;
-					}
-				}
-			} else {
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.ANUS_PARTNER) != null) {
-					arousal+=OrificeType.ANUS_PARTNER.getBaseArousalWhenPenetrated();
-					
-					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.ANUS_PARTNER)) {
-						arousal-=0.5;
-					}
-					if(Sex.getAreasTooLoosePartner().contains(OrificeType.ANUS_PARTNER)) {
-						arousal-=0.5;
-					}
-					
-					if(Sex.getWetOrificeTypes(target).get(OrificeType.ANUS_PARTNER).isEmpty()) {
-						arousal-=1;
-					}
-				}
-			}
-			
-			return arousal;
+			return getOrificeArousalPerTurnSelf(target, OrificeType.ANUS);
 		}
 		
 		public float getArousalPerTurnPartner(GameCharacter target) {
-			float arousal = 0;
-			
-			if(target.isPlayer()) {
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.ANUS_PARTNER) != null && Sex.getPenetrationTypeInOrifice(target, OrificeType.ANUS_PARTNER).isPlayer()) {
-					arousal+=Sex.getPenetrationTypeInOrifice(target, OrificeType.ANUS_PARTNER).getBaseArousalWhenPenetrating();
-					
-					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.ANUS_PARTNER)) {
-						arousal+=0.5;
-					}
-					if(Sex.getAreasTooLoosePlayer().contains(OrificeType.ANUS_PARTNER)) {
-						arousal-=0.5;
-					}
-					if(Sex.getWetOrificeTypes(target).get(OrificeType.ANUS_PARTNER).isEmpty()) {
-						arousal-=1;
-					}
-				}
-			} else {
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.ANUS_PLAYER) != null && !Sex.getPenetrationTypeInOrifice(target, OrificeType.ANUS_PLAYER).isPlayer()) {
-					arousal+=Sex.getPenetrationTypeInOrifice(target, OrificeType.ANUS_PLAYER).getBaseArousalWhenPenetrating();
-					
-					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.ANUS_PLAYER)) {
-						arousal+=0.5;
-					}
-					if(Sex.getAreasTooLoosePartner().contains(OrificeType.ANUS_PLAYER)) {
-						arousal-=0.5;
-					}
-					if(Sex.getWetOrificeTypes(target).get(OrificeType.ANUS_PLAYER).isEmpty()) {
-						arousal-=1;
-					}
-				}
-			}
-			
-			return arousal;
+			return getOrificeArousalPerTurnPartner(target, OrificeType.ANUS);
 		}
 		
 		@Override
@@ -6072,225 +5990,98 @@ public enum StatusEffect {
 		
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
-			modifiersList.clear();
-			
-			if(target.isPlayer()) {
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.ANUS_PLAYER) != null) {
-					modifiersList.add("+"+OrificeType.ANUS_PLAYER.getBaseArousalWhenPenetrated()
-							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					modifiersList.add("+"+Sex.getPenetrationTypeInOrifice(target, OrificeType.ANUS_PLAYER).getBaseArousalWhenPenetrating()
-							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					
-					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.ANUS_PLAYER)) {
-						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Stretching</b>)");
-						modifiersList.add("+0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Tight</b>)");
-					}
-					if(Sex.getAreasTooLoosePlayer().contains(OrificeType.ANUS_PLAYER)) {
-						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Too loose</b>)");
-						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Too loose</b>)");
-					}
-					if(Sex.getWetOrificeTypes(target).get(OrificeType.ANUS_PLAYER).isEmpty()) {
-						modifiersList.add("-1 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
-						modifiersList.add("-1 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
-					}
-				}
-				
-			} else {
-				
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.ANUS_PARTNER) != null) {
-					modifiersList.add("+"+OrificeType.ANUS_PARTNER.getBaseArousalWhenPenetrated()
-							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					modifiersList.add("+"+Sex.getPenetrationTypeInOrifice(target, OrificeType.ANUS_PARTNER).getBaseArousalWhenPenetrating()
-							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					
-					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.ANUS_PARTNER)) {
-						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Stretching</b>)");
-						modifiersList.add("+0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Tight</b>)");
-					}
-					if(Sex.getAreasTooLoosePartner().contains(OrificeType.ANUS_PARTNER)) {
-						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Too loose</b>)");
-						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Too loose</b>)");
-					}
-					if(Sex.getWetOrificeTypes(target).get(OrificeType.ANUS_PARTNER).isEmpty()) {
-						modifiersList.add("-1 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
-						modifiersList.add("-1 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
-						
-					}
-				}
-			}
-			
-			return modifiersList;
+			return getOrificeModifiersAsStringList(target, OrificeType.ANUS);
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
 			descriptionSB = new StringBuilder();
+			OrificeType type = OrificeType.ANUS;
 			
-			if(target.isPlayer()) {
-				descriptionSB.append("<p style='text-align:center;margin-top:0;'>");
-				
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.ANUS_PLAYER) != null) {
-					switch(Sex.getPenetrationTypeInOrifice(target, OrificeType.ANUS_PLAYER)){
-						case FINGER_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> your own [pc.asshole]!");
-							break;
-						case FINGER_PARTNER:
-							descriptionSB.append("[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> your [pc.asshole]!");
-							break;
-							
-						case PENIS_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> your own [pc.asshole]!");
-							break;
-						case PENIS_PARTNER:
-							descriptionSB.append("[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> your [pc.asshole]!");
-							break;
-							
-						case TAIL_PARTNER:
-							descriptionSB.append("[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> your [pc.asshole]!");
-							break;
-						case TAIL_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> your own [pc.asshole]!");
-							break;
-							
-						case TONGUE_PLAYER:
-							descriptionSB.append("You are performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>autoanilingus</b>!");
-							break;
-						case TONGUE_PARTNER:
-							descriptionSB.append("[npc.Name] is performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>anilingus</b> on you!");
-							break;
-						default:
-							descriptionSB.append("<b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Penetrated.</b>");
-							break;
-					}
-				} else {
-					descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
-				}
-				
-				if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.ANUS_PLAYER)) {
-					descriptionSB.append("</br>Your [pc.asshole] is being <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>stretched</b>!");
-					
-				} else if(Sex.getAreasTooLoosePlayer().contains(OrificeType.ANUS_PLAYER)) {
-					descriptionSB.append("</br>Your [pc.asshole] is <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>too loose</b>!");
-					
-				} else {
-					descriptionSB.append("</br><b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No stretch effect.</b>");
-				}
-				
-				
-				if(Sex.getWetOrificeTypes(target).get(OrificeType.ANUS_PLAYER).isEmpty()) {
-					descriptionSB.append("</br>Your [pc.asshole] is <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>dry</b>!");
-					
-				} else {
-					descriptionSB.append("</br>Your [pc.asshole] has been <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>lubricated</b> by:</br>");
-					int i=0;
-					for(LubricationType lt : Sex.getWetOrificeTypes(target).get(OrificeType.ANUS_PLAYER)) {
-						if(i!=0) {
-							if(i == Sex.getWetOrificeTypes(target).get(OrificeType.ANUS_PLAYER).size()-1) {
-								descriptionSB.append(", and ");
-							} else {
-								descriptionSB.append(", ");
-							}
+			descriptionSB.append("<p style='text-align:center;margin-top:0;'>");
+
+			GameCharacter penetrator = Sex.getPenetratingCharacterUsingOrifice(target ,type);
+			
+			if(Sex.getPenetrationTypeInOrifice(target, type) != null) {
+				switch(Sex.getPenetrationTypeInOrifice(target, type)){
+					case FINGER:
+						if(target.isPlayer()) {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> your own [pc.asshole]!"
+									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> your [pc.asshole]!");
+						} else {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc.name]'s [npc.asshole]!"
+									:(target.equals(penetrator)
+											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc.her] own [npc.asshole]!"
+											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
+													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc2.name]'s [npc2.asshole]!")));
 						}
+						break;
 						
-						if(i==0)
-							descriptionSB.append(Util.capitaliseSentence(lt.getName()));
-						else
-							descriptionSB.append(lt.getName());
-						
-						if(i == Sex.getWetOrificeTypes(target).get(OrificeType.ANUS_PLAYER).size()-1) {
-							descriptionSB.append(".");
+					case PENIS:
+						if(target.isPlayer()) {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> your own [pc.asshole]!"
+									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> your [pc.asshole]!");
+						} else {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc.name]'s [npc.asshole]!"
+									:(target.equals(penetrator)
+											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc.her] own [npc.asshole]!"
+											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
+													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.name]'s [npc2.asshole]!")));
 						}
+						break;
 						
-						i++;
-					}
+					case TAIL:
+						if(target.isPlayer()) {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> your own [pc.asshole]!"
+									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> your [pc.asshole]!");
+						} else {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc.name]'s [npc.asshole]!"
+									:(target.equals(penetrator)
+											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc.her] own [npc.asshole]!"
+											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
+													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc2.name]'s [npc2.asshole]!")));
+						}
+						break;
+						
+					case TONGUE:
+						if(target.isPlayer()) {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>autoanilingus</b>!"
+									:"[npc.Name] is performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>anilingus</b> on you!");
+						} else {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>anilingus</b> on [npc.name]!"
+									:(target.equals(penetrator)
+											?"[npc.Name] is performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>autoanilingus</b>!"
+											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
+													"[npc1.Name] is performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>anilingus</b> on [npc2.name]!")));
+						}
+						break;
+					default:
+						descriptionSB.append("<b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Penetrated.</b>");
+						break;
 				}
-				descriptionSB.append("</p>");
-				
 			} else {
-				descriptionSB.append("<p style='text-align:center;margin-top:0;'>");
-				
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.ANUS_PARTNER) != null) {
-					switch(Sex.getPenetrationTypeInOrifice(target, OrificeType.ANUS_PARTNER)){
-						case FINGER_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc.name]'s [npc.asshole]!");
-							break;
-						case FINGER_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
-									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc.her] own [npc.asshole]!"));
-							break;
-							
-						case PENIS_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
-									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc.her] own [npc.asshole]!"));
-							break;
-						case PENIS_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc.name]'s [npc.asshole]!");
-							break;
-							
-						case TAIL_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc.name]'s [npc.asshole]!");
-							break;
-						case TAIL_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
-									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc.her] own [npc.asshole]!"));
-							break;
-							
-						case TONGUE_PARTNER:
-							descriptionSB.append("[npc.Name] is performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>autoanilingus</b>!");
-							break;
-						case TONGUE_PLAYER:
-							descriptionSB.append("You are performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>anilingus</b> on [npc.name]!");
-							break;
-						default:
-							descriptionSB.append("<b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Penetrated.</b>");
-							break;
-					}
-				} else {
-					descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
-				}
-				
-				if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.ANUS_PARTNER)) {
-					descriptionSB.append("</br>[npc.Name]'s [npc.asshole] is being <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>stretched</b>!");
-					
-				} else if(Sex.getAreasTooLoosePartner().contains(OrificeType.ANUS_PARTNER)) {
-					descriptionSB.append("</br>[npc.Name]'s [npc.asshole] is <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>too loose</b>!");
-				} else {
-					descriptionSB.append("</br><b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No stretch effect.</b>");
-				}
-				
-				
-				if(Sex.getWetOrificeTypes(target).get(OrificeType.ANUS_PARTNER).isEmpty()) {
-					descriptionSB.append("</br>[npc.Name]'s [npc.asshole] is <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>dry</b>!");
-					
-				} else {
-					descriptionSB.append("</br>[npc.Name]'s [npc.asshole] has been <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>lubricated</b> by:</br>");
-					int i=0;
-					for(LubricationType lt : Sex.getWetOrificeTypes(target).get(OrificeType.ANUS_PARTNER)) {
-						if(i!=0) {
-							if(i == Sex.getWetOrificeTypes(target).get(OrificeType.ANUS_PARTNER).size()-1) {
-								descriptionSB.append(", and ");
-							} else {
-								descriptionSB.append(", ");
-							}
-						}
-						
-						if(i==0)
-							descriptionSB.append(Util.capitaliseSentence(lt.getName()));
-						else
-							descriptionSB.append(lt.getName());
-						
-						if(i == Sex.getWetOrificeTypes(target).get(OrificeType.ANUS_PARTNER).size()-1) {
-							descriptionSB.append(".");
-						}
-						
-						i++;
-					}
-				}
-				descriptionSB.append("</p>");
+				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 			
+			appendOrificeAdditionGenericDescriptions(target, OrificeType.ANUS, target.isPlayer()?"Your [pc.asshole]":UtilText.parse(target, "[npc.Name]'s [npc.asshole]"), descriptionSB);
 			
-			return descriptionSB.toString();
+			if(target.isPlayer()) {
+				if(penetrator!=null && !penetrator.isPlayer()) {
+					return UtilText.parse(penetrator, descriptionSB.toString());
+				} else {
+					return descriptionSB.toString();
+				}
+			} else {
+				return UtilText.parse(target, descriptionSB.toString());
+			}
 		}
 
 		@Override
@@ -6305,80 +6096,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			SVGImageSB = new StringBuilder();
-			
-			SVGImageSB.append(SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaAnus());
-			
-			if(owner.isPlayer()) {
-				if(Sex.getPenetrationTypeInOrifice(owner, OrificeType.ANUS_PLAYER) != null) {
-					switch(Sex.getPenetrationTypeInOrifice(owner, OrificeType.ANUS_PLAYER)){
-						case FINGER_PLAYER: case FINGER_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFinger()+"</div>");
-							break;
-						case PENIS_PLAYER: case PENIS_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypePenis()+"</div>");
-							break;
-						case TAIL_PLAYER: case TAIL_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTail()+"</div>");
-							break;
-						case TONGUE_PLAYER: case TONGUE_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTongue()+"</div>");
-							break;
-						default:
-							break;
-					}
-				}
-				
-				if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.ANUS_PLAYER)) {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationStretching()+"</div>");
-				}
-				
-				if(Sex.getAreasTooLoosePlayer().contains(OrificeType.ANUS_PLAYER)) {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationTooLoose()+"</div>");
-				}
-				
-				if(Sex.getWetOrificeTypes(owner).get(OrificeType.ANUS_PLAYER).isEmpty()) {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationDry()+"</div>");
-				} else {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationWet()+"</div>");
-				}
-				
-			} else {
-				if(Sex.getPenetrationTypeInOrifice(owner, OrificeType.ANUS_PARTNER) != null) {
-					switch(Sex.getPenetrationTypeInOrifice(owner, OrificeType.ANUS_PARTNER)){
-						case FINGER_PLAYER: case FINGER_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFinger()+"</div>");
-							break;
-						case PENIS_PLAYER: case PENIS_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypePenis()+"</div>");
-							break;
-						case TAIL_PLAYER: case TAIL_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTail()+"</div>");
-							break;
-						case TONGUE_PLAYER: case TONGUE_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTongue()+"</div>");
-							break;
-						default:
-							break;
-					}
-				}
-
-				if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.ANUS_PARTNER)) {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationStretching()+"</div>");
-				}
-				
-				if(Sex.getAreasTooLoosePartner().contains(OrificeType.ANUS_PARTNER)) {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationTooLoose()+"</div>");
-				}
-				
-				if(Sex.getWetOrificeTypes(owner).get(OrificeType.ANUS_PARTNER).isEmpty()) {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationDry()+"</div>");
-				} else {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationWet()+"</div>");
-				}
-			}
-			
-			return SVGImageSB.toString();
+			return getOrificeSVGString(owner, OrificeType.ANUS, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaAnus());
 		}
 	},
 	
@@ -6390,69 +6108,15 @@ public enum StatusEffect {
 			false,
 			null,
 			null) {
-		
+
 		@Override
 		public float getArousalPerTurnSelf(GameCharacter target) {
-			float arousal = 0;
-			
-			if(target.isPlayer()) {
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.MOUTH_PLAYER) != null) {
-					arousal+=OrificeType.MOUTH_PLAYER.getBaseArousalWhenPenetrated();
-					
-					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.MOUTH_PLAYER)) {
-						arousal-=0.5;
-					}
-					if(Sex.getAreasTooLoosePlayer().contains(OrificeType.MOUTH_PLAYER)) {
-						arousal-=0.5;
-					}
-				}
-			} else {
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.MOUTH_PARTNER) != null) {
-					arousal+=OrificeType.MOUTH_PARTNER.getBaseArousalWhenPenetrated();
-					
-					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.MOUTH_PARTNER)) {
-						arousal-=0.5;
-					}
-					if(Sex.getAreasTooLoosePartner().contains(OrificeType.MOUTH_PARTNER)) {
-						arousal-=0.5;
-					}
-				}
-			}
-			
-			return arousal;
+			return getOrificeArousalPerTurnSelf(target, OrificeType.MOUTH);
 		}
 		
-		@Override
 		public float getArousalPerTurnPartner(GameCharacter target) {
-			float arousal = 0;
-			
-			if(target.isPlayer()) {
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.MOUTH_PARTNER) != null && Sex.getPenetrationTypeInOrifice(target, OrificeType.MOUTH_PARTNER).isPlayer()) {
-					arousal+=Sex.getPenetrationTypeInOrifice(target, OrificeType.MOUTH_PARTNER).getBaseArousalWhenPenetrating();
-					
-					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.MOUTH_PARTNER)) {
-						arousal+=0.5;
-					}
-					if(Sex.getAreasTooLoosePlayer().contains(OrificeType.MOUTH_PARTNER)) {
-						arousal-=0.5;
-					}
-				}
-			} else {
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.MOUTH_PLAYER) != null && !Sex.getPenetrationTypeInOrifice(target, OrificeType.MOUTH_PLAYER).isPlayer()) {
-					arousal+=Sex.getPenetrationTypeInOrifice(target, OrificeType.MOUTH_PLAYER).getBaseArousalWhenPenetrating();
-					
-					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.MOUTH_PLAYER)) {
-						arousal+=0.5;
-					}
-					if(Sex.getAreasTooLoosePartner().contains(OrificeType.MOUTH_PLAYER)) {
-						arousal-=0.5;
-					}
-				}
-			}
-			
-			return arousal;
+			return getOrificeArousalPerTurnPartner(target, OrificeType.MOUTH);
 		}
-		
 		
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
@@ -6461,220 +6125,97 @@ public enum StatusEffect {
 		
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
-			modifiersList.clear();
-			
-			if(target.isPlayer()) {
-				
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.MOUTH_PLAYER) != null) {
-					modifiersList.add("+"+OrificeType.MOUTH_PLAYER.getBaseArousalWhenPenetrated()
-							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					modifiersList.add("+"+Sex.getPenetrationTypeInOrifice(target, OrificeType.MOUTH_PLAYER).getBaseArousalWhenPenetrating()
-							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					
-					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.MOUTH_PLAYER)) {
-						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Stretching</b>)");
-						modifiersList.add("+0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Tight</b>)");
-					}
-					
-					if(Sex.getAreasTooLoosePlayer().contains(OrificeType.MOUTH_PLAYER)) {
-						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Too loose</b>)");
-						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Too loose</b>)");
-					}
-				}
-				
-			} else {
-				
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.MOUTH_PARTNER) != null) {
-					modifiersList.add("+"+Sex.getPenetrationTypeInOrifice(target, OrificeType.MOUTH_PARTNER).getBaseArousalWhenPenetrating()
-							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					modifiersList.add("+"+OrificeType.MOUTH_PARTNER.getBaseArousalWhenPenetrated()
-							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					
-					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.MOUTH_PARTNER)) {
-						modifiersList.add("+0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Tight</b>)");
-						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Stretching</b>)");
-					}
-					
-					if(Sex.getAreasTooLoosePartner().contains(OrificeType.MOUTH_PARTNER)) {
-						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Too loose</b>)");
-						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Too loose</b>)");
-					}
-				}
-				
-			}
-			
-			return modifiersList;
+			return getOrificeModifiersAsStringList(target, OrificeType.MOUTH);
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
 			descriptionSB = new StringBuilder();
+			OrificeType type = OrificeType.MOUTH;
 			
-			if(target.isPlayer()) {
-				descriptionSB.append("<p style='text-align:center;margin-top:0;'>");
-				
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.MOUTH_PLAYER) != null) {
-					switch(Sex.getPenetrationTypeInOrifice(target, OrificeType.MOUTH_PLAYER)){
-						case FINGER_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking your fingers</b>!");
-							break;
-						case FINGER_PARTNER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking [npc.name]'s fingers</b>!");
-							break;
-							
-						case PENIS_PARTNER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking [npc.name]'s "+Sex.getActivePartner().getPenisName(true)+"</b>!");
-							break;
-						case PENIS_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking your own "+Main.game.getPlayer().getPenisName(true)+"</b>!");
-							break;
-							
-						case TAIL_PARTNER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking [npc.name]'s tail</b>!");
-							break;
-						case TAIL_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking your tail</b>!");
-							break;
-							
-						case TONGUE_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
-									"[npc.Name]'s tongue is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking [npc.her] own throat</b>!"));
-							break;
-						case TONGUE_PLAYER:
-							descriptionSB.append("[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>snogging</b> you!");
-							break;
-						default:
-							descriptionSB.append("<b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Penetrated.</b>");
-							break;
-					}
-				} else {
-					descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
-				}
-				
-				if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.MOUTH_PLAYER)) {
-					descriptionSB.append("</br>Your throat is being <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>stretched</b>!");
-					
-				} else if(Sex.getAreasTooLoosePlayer().contains(OrificeType.MOUTH_PLAYER)) {
-					descriptionSB.append("</br>Your throat is <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>too loose</b>!");
-				} else {
-					descriptionSB.append("</br><b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No stretch effect.</b>");
-				}
-				
-				
-				if(Sex.getWetOrificeTypes(target).get(OrificeType.MOUTH_PLAYER).isEmpty()) {
-					descriptionSB.append("</br>Your throat is <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>dry</b>!");
-					
-				} else {
-					descriptionSB.append("</br>Your throat has been <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>lubricated</b> by:</br>");
-					int i=0;
-					for(LubricationType lt : Sex.getWetOrificeTypes(target).get(OrificeType.MOUTH_PLAYER)) {
-						if(i!=0) {
-							if(i == Sex.getWetOrificeTypes(target).get(OrificeType.MOUTH_PLAYER).size()-1) {
-								descriptionSB.append(", and ");
-							} else {
-								descriptionSB.append(", ");
-							}
+			descriptionSB.append("<p style='text-align:center;margin-top:0;'>");
+
+			GameCharacter penetrator = Sex.getPenetratingCharacterUsingOrifice(target, type);
+			if(Sex.getPenetrationTypeInOrifice(target, type) != null) {
+				switch(Sex.getPenetrationTypeInOrifice(target, type)){
+					case FINGER:
+						if(target.isPlayer()) {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> your own [pc.fingers]!"
+									:"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> [npc.name]'s [npc.fingers]!");
+						} else {
+							descriptionSB.append(penetrator.isPlayer()
+									?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> your [pc.fingers]!"
+									:(target.equals(penetrator)
+											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> [npc.her] own [npc.fingers]!"
+											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
+													"[npc2.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> [npc1.name]'s [npc1.fingers]!")));
 						}
+						break;
 						
-						if(i==0)
-							descriptionSB.append(Util.capitaliseSentence(lt.getName()));
-						else
-							descriptionSB.append(lt.getName());
-						
-						if(i == Sex.getWetOrificeTypes(target).get(OrificeType.MOUTH_PLAYER).size()-1) {
-							descriptionSB.append(".");
+					case PENIS:
+						if(target.isPlayer()) {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> your own [pc.cock]!"
+									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> your [pc.cock]!");
+						} else {
+							descriptionSB.append(penetrator.isPlayer()
+									?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> your [pc.cock]!"
+									:(target.equals(penetrator)
+											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> [npc.her] own [npc.cock]!"
+											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
+													"[npc2.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> [npc1.name]'s [npc1.cock]!")));
 						}
+						break;
 						
-						i++;
-					}
+					case TAIL:
+						if(target.isPlayer()) {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> your own [pc.tail]!"
+									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> your [pc.tail]!");
+						} else {
+							descriptionSB.append(penetrator.isPlayer()
+									?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> your [pc.tail]!"
+									:(target.equals(penetrator)
+											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> [npc.her] own [npc.tail]!"
+											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
+													"[npc2.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking</b> [npc1.name]'s [npc1.tail]!")));
+						}
+						break;
+						
+					case TONGUE:
+						if(target.isPlayer()) {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> yourself! (Somehow... How are you seeing this?)"
+									:"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc.name]!");
+						} else {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc.name]!"
+									:(target.equals(penetrator)
+											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc.herself]! (Somehow... How are you seeing this?)"
+											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
+													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.name]!")));
+						}
+						break;
+					default:
+						descriptionSB.append("<b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Penetrated.</b>");
+						break;
 				}
-				descriptionSB.append("</p>");
-				
 			} else {
-				descriptionSB.append("<p style='text-align:center;margin-top:0;'>");
-				
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.MOUTH_PARTNER) != null) {
-					switch(Sex.getPenetrationTypeInOrifice(target, OrificeType.MOUTH_PARTNER)){
-						case FINGER_PLAYER:
-							descriptionSB.append("[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking your fingers</b>!");
-							break;
-						case FINGER_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
-									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking [npc.her] own fingers</b>!"));
-							break;
-							
-						case PENIS_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
-									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking[npc.her] own "+Sex.getActivePartner().getPenisName(true)+"</b> !"));
-							break;
-						case PENIS_PLAYER:
-							descriptionSB.append("[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking your "+Main.game.getPlayer().getPenisName(true)+"</b>!");
-							break;
-							
-						case TAIL_PLAYER:
-							descriptionSB.append("[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking your tail</b>!");
-							break;
-						case TAIL_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
-									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>sucking [npc.her] own tail</b>!"));
-							break;
-							
-						case TONGUE_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>snogging</b> [npc.name]!");
-							break;
-						case TONGUE_PARTNER:
-							descriptionSB.append("[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing herself</b>?");
-							break;
-						default:
-							descriptionSB.append("<b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Penetrated.</b>");
-							break;
-					}
-				} else {
-					descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
-				}
-				
-				if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.MOUTH_PARTNER)) {
-					descriptionSB.append("</br>[npc.Name]'s throat is being <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>stretched</b>!");
-					
-				} else if(Sex.getAreasTooLoosePartner().contains(OrificeType.MOUTH_PARTNER)) {
-					descriptionSB.append("</br>[npc.Name]'s throat is <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>too loose</b>!");
-				} else {
-					descriptionSB.append("</br><b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No stretch effect.</b>");
-				}
-				
-				
-				if(Sex.getWetOrificeTypes(target).get(OrificeType.MOUTH_PARTNER).isEmpty()) {
-					descriptionSB.append("</br>[npc.Name]'s throat is <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>dry</b>!");
-					
-				} else {
-					descriptionSB.append("</br>[npc.Name]'s throat has been <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>lubricated</b> by:</br>");
-					int i=0;
-					for(LubricationType lt : Sex.getWetOrificeTypes(target).get(OrificeType.MOUTH_PARTNER)) {
-						if(i!=0) {
-							if(i == Sex.getWetOrificeTypes(target).get(OrificeType.MOUTH_PARTNER).size()-1) {
-								descriptionSB.append(", and ");
-							} else {
-								descriptionSB.append(", ");
-							}
-						}
-						
-						if(i==0)
-							descriptionSB.append(Util.capitaliseSentence(lt.getName()));
-						else
-							descriptionSB.append(lt.getName());
-						
-						if(i == Sex.getWetOrificeTypes(target).get(OrificeType.MOUTH_PARTNER).size()-1) {
-							descriptionSB.append(".");
-						}
-						
-						i++;
-					}
-				}
-				descriptionSB.append("</p>");
+				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 			
+			appendOrificeAdditionGenericDescriptions(target, OrificeType.MOUTH, target.isPlayer()?"Your mouth":UtilText.parse(target, "[npc.Name]'s mouth"), descriptionSB);
 			
-			return descriptionSB.toString();
+			if(target.isPlayer()) {
+				if(penetrator!=null && !penetrator.isPlayer()) {
+					return UtilText.parse(penetrator, descriptionSB.toString());
+				} else {
+					return descriptionSB.toString();
+				}
+			} else {
+				return UtilText.parse(target, descriptionSB.toString());
+			}
 		}
 
 		@Override
@@ -6689,80 +6230,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			SVGImageSB = new StringBuilder();
-			
-			SVGImageSB.append(SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaMouth());
-			
-			if(owner.isPlayer()) {
-				if(Sex.getPenetrationTypeInOrifice(owner, OrificeType.MOUTH_PLAYER) != null) {
-					switch(Sex.getPenetrationTypeInOrifice(owner, OrificeType.MOUTH_PLAYER)){
-						case FINGER_PLAYER: case FINGER_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFinger()+"</div>");
-							break;
-						case PENIS_PLAYER: case PENIS_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypePenis()+"</div>");
-							break;
-						case TAIL_PLAYER: case TAIL_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTail()+"</div>");
-							break;
-						case TONGUE_PLAYER: case TONGUE_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTongue()+"</div>");
-							break;
-						default:
-							break;
-					}
-				}
-				
-				if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.MOUTH_PLAYER)) {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationStretching()+"</div>");
-				}
-				
-				if(Sex.getAreasTooLoosePlayer().contains(OrificeType.MOUTH_PLAYER)) {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationTooLoose()+"</div>");
-				}
-				
-				if(Sex.getWetOrificeTypes(owner).get(OrificeType.MOUTH_PLAYER).isEmpty()) {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationDry()+"</div>");
-				} else {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationWet()+"</div>");
-				}
-				
-			} else {
-				if(Sex.getPenetrationTypeInOrifice(owner, OrificeType.MOUTH_PARTNER) != null) {
-					switch(Sex.getPenetrationTypeInOrifice(owner, OrificeType.MOUTH_PARTNER)){
-						case FINGER_PLAYER: case FINGER_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFinger()+"</div>");
-							break;
-						case PENIS_PLAYER: case PENIS_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypePenis()+"</div>");
-							break;
-						case TAIL_PLAYER: case TAIL_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTail()+"</div>");
-							break;
-						case TONGUE_PLAYER: case TONGUE_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTongue()+"</div>");
-							break;
-						default:
-							break;
-					}
-				}
-
-				if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.MOUTH_PARTNER)) {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationStretching()+"</div>");
-				}
-				
-				if(Sex.getAreasTooLoosePartner().contains(OrificeType.MOUTH_PARTNER)) {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationTooLoose()+"</div>");
-				}
-				
-				if(Sex.getWetOrificeTypes(owner).get(OrificeType.MOUTH_PARTNER).isEmpty()) {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationDry()+"</div>");
-				} else {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationWet()+"</div>");
-				}
-			}
-			
-			return SVGImageSB.toString();
+			return getOrificeSVGString(owner, OrificeType.MOUTH, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaMouth());
 		}
 	},
 	
@@ -6783,79 +6251,14 @@ public enum StatusEffect {
 				return "Chest status";
 			}
 		}
-		
+
 		@Override
 		public float getArousalPerTurnSelf(GameCharacter target) {
-			float arousal = 0;
-			
-			if(target.isPlayer()) {
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.BREAST_PLAYER) != null) {
-					arousal+=OrificeType.BREAST_PLAYER.getBaseArousalWhenPenetrated();
-					
-					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.BREAST_PLAYER)) {
-						arousal-=0.5;
-					}
-					if(Sex.getAreasTooLoosePlayer().contains(OrificeType.BREAST_PLAYER)) {
-						arousal-=0.5;
-					}
-					if(Sex.getWetOrificeTypes(target).get(OrificeType.BREAST_PLAYER).isEmpty()) {
-						arousal-=1;
-					} 
-				}
-			} else {
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.BREAST_PARTNER) != null) {
-					arousal+=OrificeType.BREAST_PARTNER.getBaseArousalWhenPenetrated();
-					
-					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.BREAST_PARTNER)) {
-						arousal-=0.5;
-					}
-					if(Sex.getAreasTooLoosePartner().contains(OrificeType.BREAST_PARTNER)) {
-						arousal-=0.5;
-					}
-					if(Sex.getWetOrificeTypes(target).get(OrificeType.BREAST_PARTNER).isEmpty()) {
-						arousal-=1;
-					} 
-				}
-			}
-			
-			return arousal;
+			return getOrificeArousalPerTurnSelf(target, OrificeType.BREAST);
 		}
 		
-		@Override
 		public float getArousalPerTurnPartner(GameCharacter target) {
-			float arousal = 0;
-			
-			if(target.isPlayer()) {
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.BREAST_PARTNER) != null && Sex.getPenetrationTypeInOrifice(target, OrificeType.BREAST_PARTNER).isPlayer()) {
-					arousal+=Sex.getPenetrationTypeInOrifice(target, OrificeType.BREAST_PARTNER).getBaseArousalWhenPenetrating();
-					
-					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.BREAST_PARTNER)) {
-						arousal+=0.5;
-					}
-					if(Sex.getAreasTooLoosePlayer().contains(OrificeType.BREAST_PARTNER)) {
-						arousal-=0.5;
-					}
-					if(Sex.getWetOrificeTypes(target).get(OrificeType.BREAST_PARTNER).isEmpty()) {
-						arousal-=1;
-					} 
-				}
-			} else {
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.BREAST_PLAYER) != null && !Sex.getPenetrationTypeInOrifice(target, OrificeType.BREAST_PLAYER).isPlayer()) {
-					arousal+=Sex.getPenetrationTypeInOrifice(target, OrificeType.BREAST_PLAYER).getBaseArousalWhenPenetrating();
-					
-					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.BREAST_PLAYER)) {
-						arousal+=0.5;
-					}
-					if(Sex.getAreasTooLoosePartner().contains(OrificeType.BREAST_PLAYER)) {
-						arousal-=0.5;
-					}
-					if(Sex.getWetOrificeTypes(target).get(OrificeType.BREAST_PLAYER).isEmpty()) {
-						arousal-=1;
-					} 
-				}
-			}
-			
-			return arousal;
+			return getOrificeArousalPerTurnPartner(target, OrificeType.BREAST);
 		}
 		
 		@Override
@@ -6865,229 +6268,97 @@ public enum StatusEffect {
 		
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
-			modifiersList.clear();
-			
-			if(target.isPlayer()) {
-				
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.BREAST_PLAYER) != null) {
-					modifiersList.add("+"+OrificeType.BREAST_PLAYER.getBaseArousalWhenPenetrated()
-							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					modifiersList.add("+"+Sex.getPenetrationTypeInOrifice(target, OrificeType.BREAST_PLAYER).getBaseArousalWhenPenetrating()
-							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					
-					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.BREAST_PLAYER)) {
-						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Stretching</b>)");
-						modifiersList.add("+0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Tight</b>)");
-					}
-					if(Sex.getAreasTooLoosePlayer().contains(OrificeType.BREAST_PLAYER)) {
-						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Too loose</b>)");
-						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Too loose</b>)");
-					}
-					if(Sex.getWetOrificeTypes(target).get(OrificeType.BREAST_PLAYER).isEmpty()) {
-						modifiersList.add("-1 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
-						modifiersList.add("-1 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
-						
-					}
-				}
-				
-			} else {
-				
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.BREAST_PARTNER) != null) {
-					modifiersList.add("+"+Sex.getPenetrationTypeInOrifice(target, OrificeType.BREAST_PARTNER).getBaseArousalWhenPenetrating()
-							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					modifiersList.add("+"+OrificeType.BREAST_PARTNER.getBaseArousalWhenPenetrated()
-							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					
-					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.BREAST_PARTNER)) {
-						modifiersList.add("+0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Tight</b>)");
-						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Stretching</b>)");
-					}
-					
-					if(Sex.getAreasTooLoosePartner().contains(OrificeType.BREAST_PARTNER)) {
-						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Too loose</b>)");
-						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Too loose</b>)");
-					}
-					
-					if(Sex.getWetOrificeTypes(target).get(OrificeType.BREAST_PARTNER).isEmpty()) {
-						modifiersList.add("-1 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
-						modifiersList.add("-1 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
-						
-					}
-				}
-			}
-			
-			return modifiersList;
+			return getOrificeModifiersAsStringList(target, OrificeType.BREAST);
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
 			descriptionSB = new StringBuilder();
+			OrificeType type = OrificeType.BREAST;
 			
-			if(target.isPlayer()) {
-				descriptionSB.append("<p style='text-align:center;margin-top:0;'>");
-				
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.BREAST_PLAYER) != null) {
-					switch(Sex.getPenetrationTypeInOrifice(target, OrificeType.BREAST_PLAYER)){
-						case FINGER_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>massaging</b> your own [pc.breasts]!");
-							break;
-						case FINGER_PARTNER:
-							descriptionSB.append("[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>massaging</b> your [pc.breasts]!");
-							break;
-							
-						case PENIS_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> your own [pc.breasts]!");
-							break;
-						case PENIS_PARTNER:
-							descriptionSB.append("[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> your [pc.breasts]!");
-							break;
-							
-						case TAIL_PARTNER:
-							descriptionSB.append("[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> your [pc.breasts]!");
-							break;
-						case TAIL_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> your own [pc.breasts]!");
-							break;
-							
-						case TONGUE_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> your [pc.breasts]!");
-							break;
-						case TONGUE_PARTNER:
-							descriptionSB.append("[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> your [pc.breasts]!");
-							break;
-						default:
-							descriptionSB.append("<b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Penetrated.</b>");
-							break;
-					}
-				} else {
-					descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
-				}
-				
-				if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.BREAST_PLAYER)) {
-					descriptionSB.append("</br>Your [pc.breasts] are being <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>stretched</b>!");
-					
-				} else if(Sex.getAreasTooLoosePlayer().contains(OrificeType.BREAST_PLAYER)) {
-					descriptionSB.append("</br>Your [pc.breasts] are <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>too loose</b>!");
-				} else {
-					descriptionSB.append("</br><b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No stretch effect.</b>");
-				}
-				
-				
-				if(Sex.getWetOrificeTypes(target).get(OrificeType.BREAST_PLAYER).isEmpty()) {
-					descriptionSB.append("</br>Your [pc.breasts] are <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>dry</b>!");
-					
-				} else {
-					descriptionSB.append("</br>Your [pc.breasts] have been <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>lubricated</b> by:</br>");
-					int i=0;
-					for(LubricationType lt : Sex.getWetOrificeTypes(target).get(OrificeType.BREAST_PLAYER)) {
-						if(i!=0) {
-							if(i == Sex.getWetOrificeTypes(target).get(OrificeType.BREAST_PLAYER).size()-1) {
-								descriptionSB.append(", and ");
-							} else {
-								descriptionSB.append(", ");
-							}
+			descriptionSB.append("<p style='text-align:center;margin-top:0;'>");
+
+			GameCharacter penetrator = Sex.getPenetratingCharacterUsingOrifice(target, type);
+			if(Sex.getPenetrationTypeInOrifice(target, type) != null) {
+				switch(Sex.getPenetrationTypeInOrifice(target, type)){
+					case FINGER:
+						if(target.isPlayer()) {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> your own [pc.breasts]!"
+									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> your [pc.breasts]!");
+						} else {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> [npc.name]'s [npc.breasts]!"
+									:(target.equals(penetrator)
+											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> [npc.her] own [npc.breasts]!"
+											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
+													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> [npc2.name]'s [npc2.breasts]!")));
 						}
+						break;
 						
-						if(i==0)
-							descriptionSB.append(Util.capitaliseSentence(lt.getName()));
-						else
-							descriptionSB.append(lt.getName());
-						
-						if(i == Sex.getWetOrificeTypes(target).get(OrificeType.BREAST_PLAYER).size()-1) {
-							descriptionSB.append(".");
+					case PENIS:
+						if(target.isPlayer()) {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> your own [pc.breasts]!"
+									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> your [pc.breasts]!");
+						} else {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc.name]'s [npc.breasts]!"
+									:(target.equals(penetrator)
+											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc.her] own [npc.breasts]!"
+											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
+													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.name]'s [npc2.breasts]!")));
 						}
+						break;
 						
-						i++;
-					}
+					case TAIL:
+						if(target.isPlayer()) {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> your own [pc.breasts]!"
+									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> your [pc.breasts]!");
+						} else {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc.name]'s [npc.breasts]!"
+									:(target.equals(penetrator)
+											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc.her] own [npc.breasts]!"
+											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
+													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc2.name]'s [npc2.breasts]!")));
+						}
+						break;
+						
+					case TONGUE:
+						if(target.isPlayer()) {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> your own [pc.breasts]!"
+									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> your [pc.breasts]!");
+						} else {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc.name]'s [npc.breasts]!"
+									:(target.equals(penetrator)
+											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc.her] own [npc.breasts]!"
+											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
+													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.name]'s [npc.breasts]!")));
+						}
+						break;
+					default:
+						descriptionSB.append("<b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Penetrated.</b>");
+						break;
 				}
-				descriptionSB.append("</p>");
-				
 			} else {
-				descriptionSB.append("<p style='text-align:center;margin-top:0;'>");
-				
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.BREAST_PARTNER) != null) {
-					switch(Sex.getPenetrationTypeInOrifice(target, OrificeType.BREAST_PARTNER)){
-						case FINGER_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>massaging</b> [npc.name]'s [npc.breasts]!");
-							break;
-						case FINGER_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
-									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>massaging</b> [npc.her] own [npc.breasts]!"));
-							break;
-							
-						case PENIS_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
-									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc.her] own [npc.breasts]!"));
-							break;
-						case PENIS_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc.name]'s [npc.breasts]!");
-							break;
-							
-						case TAIL_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc.name]'s [npc.breasts]!");
-							break;
-						case TAIL_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
-									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking [npc.her] own [npc.breasts]</b>!"));
-							break;
-							
-						case TONGUE_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
-									"[npc.Name]'s is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc.her] [npc.breasts]!"));
-							break;
-						case TONGUE_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc.name]'s [npc.breasts]!");
-							break;
-						default:
-							descriptionSB.append("<b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Penetrated.</b>");
-							break;
-					}
-				} else {
-					descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
-				}
-				
-				if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.BREAST_PARTNER)) {
-					descriptionSB.append("</br>[npc.Name]'s [npc.breasts] are being <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>stretched</b>!");
-					
-				} else if(Sex.getAreasTooLoosePartner().contains(OrificeType.BREAST_PARTNER)) {
-					descriptionSB.append("</br>[npc.Name]'s [npc.breasts] are <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>too loose</b>!");
-				} else {
-					descriptionSB.append("</br><b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No stretch effect.</b>");
-				}
-				
-				
-				if(Sex.getWetOrificeTypes(target).get(OrificeType.BREAST_PARTNER).isEmpty()) {
-					descriptionSB.append("</br>[npc.Name]'s [npc.breasts] are <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>dry</b>!");
-					
-				} else {
-					descriptionSB.append("</br>[npc.Name]'s [npc.breasts] have been <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>lubricated</b> by:</br>");
-					int i=0;
-					for(LubricationType lt : Sex.getWetOrificeTypes(target).get(OrificeType.BREAST_PARTNER)) {
-						if(i!=0) {
-							if(i == Sex.getWetOrificeTypes(target).get(OrificeType.BREAST_PARTNER).size()-1) {
-								descriptionSB.append(", and ");
-							} else {
-								descriptionSB.append(", ");
-							}
-						}
-						
-						if(i==0)
-							descriptionSB.append(Util.capitaliseSentence(lt.getName()));
-						else
-							descriptionSB.append(lt.getName());
-						
-						if(i == Sex.getWetOrificeTypes(target).get(OrificeType.BREAST_PARTNER).size()-1) {
-							descriptionSB.append(".");
-						}
-						
-						i++;
-					}
-				}
-				descriptionSB.append("</p>");
+				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 			
+			appendOrificeAdditionGenericDescriptions(target, OrificeType.BREAST, target.isPlayer()?"Your [pc.breasts]":UtilText.parse(target, "[npc.Name]'s [npc.breasts]"), descriptionSB);
 			
-			return descriptionSB.toString();
+			if(target.isPlayer()) {
+				if(penetrator!=null && !penetrator.isPlayer()) {
+					return UtilText.parse(penetrator, descriptionSB.toString());
+				} else {
+					return descriptionSB.toString();
+				}
+			} else {
+				return UtilText.parse(target, descriptionSB.toString());
+			}
 		}
 
 		@Override
@@ -7102,83 +6373,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			SVGImageSB = new StringBuilder();
-			if(owner.hasBreasts()) {
-				SVGImageSB.append(SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaBreasts());
-			} else {
-				SVGImageSB.append(SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaBreastsFlat());
-			}
-			
-			if(owner.isPlayer()) {
-				if(Sex.getPenetrationTypeInOrifice(owner, OrificeType.BREAST_PLAYER) != null) {
-					switch(Sex.getPenetrationTypeInOrifice(owner, OrificeType.BREAST_PLAYER)){
-						case FINGER_PLAYER: case FINGER_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFinger()+"</div>");
-							break;
-						case PENIS_PLAYER: case PENIS_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypePenis()+"</div>");
-							break;
-						case TAIL_PLAYER: case TAIL_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTail()+"</div>");
-							break;
-						case TONGUE_PLAYER: case TONGUE_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTongue()+"</div>");
-							break;
-						default:
-							break;
-					}
-				}
-				
-				if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.BREAST_PLAYER)) {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationStretching()+"</div>");
-				}
-				
-				if(Sex.getAreasTooLoosePlayer().contains(OrificeType.BREAST_PLAYER)) {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationTooLoose()+"</div>");
-				}
-				
-				if(Sex.getWetOrificeTypes(owner).get(OrificeType.BREAST_PLAYER).isEmpty()) {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationDry()+"</div>");
-				} else {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationWet()+"</div>");
-				}
-				
-			} else {
-				if(Sex.getPenetrationTypeInOrifice(owner, OrificeType.BREAST_PARTNER) != null) {
-					switch(Sex.getPenetrationTypeInOrifice(owner, OrificeType.BREAST_PARTNER)){
-						case FINGER_PLAYER: case FINGER_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFinger()+"</div>");
-							break;
-						case PENIS_PLAYER: case PENIS_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypePenis()+"</div>");
-							break;
-						case TAIL_PLAYER: case TAIL_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTail()+"</div>");
-							break;
-						case TONGUE_PLAYER: case TONGUE_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTongue()+"</div>");
-							break;
-						default:
-							break;
-					}
-				}
-
-				if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.BREAST_PARTNER)) {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationStretching()+"</div>");
-				}
-				
-				if(Sex.getAreasTooLoosePartner().contains(OrificeType.BREAST_PARTNER)) {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationTooLoose()+"</div>");
-				}
-				
-				if(Sex.getWetOrificeTypes(owner).get(OrificeType.BREAST_PARTNER).isEmpty()) {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationDry()+"</div>");
-				} else {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationWet()+"</div>");
-				}
-			}
-			
-			return SVGImageSB.toString();
+			return getOrificeSVGString(owner, OrificeType.BREAST, owner.hasBreasts()?SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaBreasts():SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaBreastsFlat());
 		}
 	},
 	
@@ -7193,76 +6388,11 @@ public enum StatusEffect {
 
 		@Override
 		public float getArousalPerTurnSelf(GameCharacter target) {
-			float arousal = 0;
-			
-			if(target.isPlayer()) {
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.NIPPLE_PLAYER) != null) {
-					arousal+=OrificeType.NIPPLE_PLAYER.getBaseArousalWhenPenetrated();
-					
-					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.NIPPLE_PLAYER)) {
-						arousal-=0.5;
-					}
-					if(Sex.getAreasTooLoosePlayer().contains(OrificeType.NIPPLE_PLAYER)) {
-						arousal-=0.5;
-					}
-					if(Sex.getWetOrificeTypes(target).get(OrificeType.NIPPLE_PLAYER).isEmpty()) {
-						arousal-=1;
-					} 
-				}
-			} else {
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.NIPPLE_PARTNER) != null) {
-					arousal+=OrificeType.NIPPLE_PARTNER.getBaseArousalWhenPenetrated();
-					
-					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.NIPPLE_PARTNER)) {
-						arousal-=0.5;
-					}
-					if(Sex.getAreasTooLoosePartner().contains(OrificeType.NIPPLE_PARTNER)) {
-						arousal-=0.5;
-					}
-					if(Sex.getWetOrificeTypes(target).get(OrificeType.NIPPLE_PARTNER).isEmpty()) {
-						arousal-=1;
-					} 
-				}
-			}
-			
-			return arousal;
+			return getOrificeArousalPerTurnSelf(target, OrificeType.NIPPLE);
 		}
 		
-		@Override
 		public float getArousalPerTurnPartner(GameCharacter target) {
-			float arousal = 0;
-			
-			if(target.isPlayer()) {
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.NIPPLE_PARTNER) != null && Sex.getPenetrationTypeInOrifice(target, OrificeType.NIPPLE_PARTNER).isPlayer()) {
-					arousal+=Sex.getPenetrationTypeInOrifice(target, OrificeType.NIPPLE_PARTNER).getBaseArousalWhenPenetrating();
-					
-					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.NIPPLE_PARTNER)) {
-						arousal+=0.5;
-					}
-					if(Sex.getAreasTooLoosePlayer().contains(OrificeType.NIPPLE_PARTNER)) {
-						arousal-=0.5;
-					}
-					if(Sex.getWetOrificeTypes(target).get(OrificeType.NIPPLE_PARTNER).isEmpty()) {
-						arousal-=1;
-					} 
-				}
-			} else {
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.NIPPLE_PLAYER) != null && !Sex.getPenetrationTypeInOrifice(target, OrificeType.NIPPLE_PLAYER).isPlayer()) {
-					arousal+=Sex.getPenetrationTypeInOrifice(target, OrificeType.NIPPLE_PLAYER).getBaseArousalWhenPenetrating();
-					
-					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.NIPPLE_PLAYER)) {
-						arousal+=0.5;
-					}
-					if(Sex.getAreasTooLoosePartner().contains(OrificeType.NIPPLE_PLAYER)) {
-						arousal-=0.5;
-					}
-					if(Sex.getWetOrificeTypes(target).get(OrificeType.NIPPLE_PLAYER).isEmpty()) {
-						arousal-=1;
-					} 
-				}
-			}
-			
-			return arousal;
+			return getOrificeArousalPerTurnPartner(target, OrificeType.NIPPLE);
 		}
 		
 		@Override
@@ -7272,231 +6402,97 @@ public enum StatusEffect {
 		
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
-			modifiersList.clear();
-			
-			if(target.isPlayer()) {
-				
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.NIPPLE_PLAYER) != null) {
-					modifiersList.add("+"+OrificeType.NIPPLE_PLAYER.getBaseArousalWhenPenetrated()
-							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					modifiersList.add("+"+Sex.getPenetrationTypeInOrifice(target, OrificeType.NIPPLE_PLAYER).getBaseArousalWhenPenetrating()
-							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					
-					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.NIPPLE_PLAYER)) {
-						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Stretching</b>)");
-						modifiersList.add("+0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Tight</b>)");
-					}
-					
-					if(Sex.getAreasTooLoosePlayer().contains(OrificeType.NIPPLE_PLAYER)) {
-						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Too loose</b>)");
-						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Too loose</b>)");
-					}
-					
-					if(Sex.getWetOrificeTypes(target).get(OrificeType.NIPPLE_PLAYER).isEmpty()) {
-						modifiersList.add("-1 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
-						modifiersList.add("-1 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
-						
-					}
-				}
-				
-			} else {
-				
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.NIPPLE_PARTNER) != null) {
-					modifiersList.add("+"+Sex.getPenetrationTypeInOrifice(target, OrificeType.NIPPLE_PARTNER).getBaseArousalWhenPenetrating()
-							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					modifiersList.add("+"+OrificeType.NIPPLE_PARTNER.getBaseArousalWhenPenetrated()
-							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					
-					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.NIPPLE_PARTNER)) {
-						modifiersList.add("+0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Tight</b>)");
-						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Stretching</b>)");
-					}
-					
-					if(Sex.getAreasTooLoosePartner().contains(OrificeType.NIPPLE_PARTNER)) {
-						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Too loose</b>)");
-						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Too loose</b>)");
-					}
-					
-					if(Sex.getWetOrificeTypes(target).get(OrificeType.NIPPLE_PARTNER).isEmpty()) {
-						modifiersList.add("-1 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
-						modifiersList.add("-1 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
-						
-					}
-				}
-			}
-			
-			return modifiersList;
+			return getOrificeModifiersAsStringList(target, OrificeType.NIPPLE);
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
 			descriptionSB = new StringBuilder();
+			OrificeType type = OrificeType.NIPPLE;
 			
-			if(target.isPlayer()) {
-				descriptionSB.append("<p style='text-align:center;margin-top:0;'>");
-				
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.NIPPLE_PLAYER) != null) {
-					switch(Sex.getPenetrationTypeInOrifice(target, OrificeType.NIPPLE_PLAYER)){
-						case FINGER_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> your own [pc.nipple]!");
-							break;
-						case FINGER_PARTNER:
-							descriptionSB.append("[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> your [pc.nipple]!");
-							break;
-							
-						case PENIS_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> your own [pc.nipple]!");
-							break;
-						case PENIS_PARTNER:
-							descriptionSB.append("[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> your [pc.nipple]!");
-							break;
-							
-						case TAIL_PARTNER:
-							descriptionSB.append("[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> your [pc.nipple]!");
-							break;
-						case TAIL_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> your own [pc.nipple]!");
-							break;
-							
-						case TONGUE_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>eating out</b> your [pc.nipple]!");
-							break;
-						case TONGUE_PARTNER:
-							descriptionSB.append("[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>eating out</b> your [pc.nipple]!");
-							break;
-						default:
-							descriptionSB.append("<b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Penetrated.</b>");
-							break;
-					}
-				} else {
-					descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
-				}
-				
-				if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.NIPPLE_PLAYER)) {
-					descriptionSB.append("</br>Your [pc.nipple] are being <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>stretched</b>!");
-					
-				} else if(Sex.getAreasTooLoosePlayer().contains(OrificeType.NIPPLE_PLAYER)) {
-					descriptionSB.append("</br>Your [pc.nipple] are <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>too loose</b>!");
-				} else {
-					descriptionSB.append("</br><b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No stretch effect.</b>");
-				}
-				
-				
-				if(Sex.getWetOrificeTypes(target).get(OrificeType.NIPPLE_PLAYER).isEmpty()) {
-					descriptionSB.append("</br>Your [pc.nipple] are <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>dry</b>!");
-					
-				} else {
-					descriptionSB.append("</br>Your [pc.nipple] have been <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>lubricated</b> by:</br>");
-					int i=0;
-					for(LubricationType lt : Sex.getWetOrificeTypes(target).get(OrificeType.NIPPLE_PLAYER)) {
-						if(i!=0) {
-							if(i == Sex.getWetOrificeTypes(target).get(OrificeType.NIPPLE_PLAYER).size()-1) {
-								descriptionSB.append(", and ");
-							} else {
-								descriptionSB.append(", ");
-							}
+			descriptionSB.append("<p style='text-align:center;margin-top:0;'>");
+
+			GameCharacter penetrator = Sex.getPenetratingCharacterUsingOrifice(target, type);
+			if(Sex.getPenetrationTypeInOrifice(target, type) != null) {
+				switch(Sex.getPenetrationTypeInOrifice(target, type)){
+					case FINGER:
+						if(target.isPlayer()) {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> your own [pc.nipples]!"
+									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> your [pc.nipples]!");
+						} else {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc.name]'s [npc.nipples]!"
+									:(target.equals(penetrator)
+											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc.her] own [npc.nipples]!"
+											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
+													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc2.name]'s [npc2.nipples]!")));
 						}
+						break;
 						
-						if(i==0)
-							descriptionSB.append(Util.capitaliseSentence(lt.getName()));
-						else
-							descriptionSB.append(lt.getName());
-						
-						if(i == Sex.getWetOrificeTypes(target).get(OrificeType.NIPPLE_PLAYER).size()-1) {
-							descriptionSB.append(".");
+					case PENIS:
+						if(target.isPlayer()) {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> your own [pc.nipples]!"
+									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> your [pc.nipples]!");
+						} else {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc.name]'s [npc.nipples]!"
+									:(target.equals(penetrator)
+											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc.her] own [npc.nipples]!"
+											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
+													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.name]'s [npc2.nipples]!")));
 						}
+						break;
 						
-						i++;
-					}
+					case TAIL:
+						if(target.isPlayer()) {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> your own [pc.nipples]!"
+									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> your [pc.nipples]!");
+						} else {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc.name]'s [npc.nipples]!"
+									:(target.equals(penetrator)
+											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc.her] own [npc.nipples]!"
+											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
+													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc2.name]'s [npc2.nipples]!")));
+						}
+						break;
+						
+					case TONGUE:
+						if(target.isPlayer()) {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> your own [pc.nipples]!"
+									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> your [pc.nipples]!");
+						} else {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc.name]'s [npc.nipples]!"
+									:(target.equals(penetrator)
+											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc.her] own [npc.nipples]!"
+											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
+													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.name]'s [npc.nipples]!")));
+						}
+						break;
+					default:
+						descriptionSB.append("<b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Penetrated.</b>");
+						break;
 				}
-				descriptionSB.append("</p>");
-				
 			} else {
-				descriptionSB.append("<p style='text-align:center;margin-top:0;'>");
-				
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.NIPPLE_PARTNER) != null) {
-					switch(Sex.getPenetrationTypeInOrifice(target, OrificeType.NIPPLE_PARTNER)){
-						case FINGER_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc.name]'s [npc.nipples]!");
-							break;
-						case FINGER_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
-									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc.her] own [npc.nipples]!"));
-							break;
-							
-						case PENIS_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
-									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc.her] own [npc.nipples]!"));
-							break;
-						case PENIS_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc.name]'s [npc.nipples]!");
-							break;
-							
-						case TAIL_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc.name]'s [npc.nipples]!");
-							break;
-						case TAIL_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
-									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking [npc.her] own [npc.nipples]</b>!"));
-							break;
-							
-						case TONGUE_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
-									"[npc.Name]'s is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>eating out</b> [npc.her] [npc.nipples]!"));
-							break;
-						case TONGUE_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>eating out</b> [npc.name]'s [npc.nipples]!");
-							break;
-						default:
-							descriptionSB.append("<b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Penetrated.</b>");
-							break;
-					}
-				} else {
-					descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
-				}
-				
-				if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.NIPPLE_PARTNER)) {
-					descriptionSB.append("</br>[npc.Name]'s [npc.nipples] are being <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>stretched</b>!");
-					
-				} else if(Sex.getAreasTooLoosePartner().contains(OrificeType.NIPPLE_PARTNER)) {
-					descriptionSB.append("</br>[npc.Name]'s [npc.nipples] are <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>too loose</b>!");
-				} else {
-					descriptionSB.append("</br><b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No stretch effect.</b>");
-				}
-				
-				
-				if(Sex.getWetOrificeTypes(target).get(OrificeType.NIPPLE_PARTNER).isEmpty()) {
-					descriptionSB.append("</br>[npc.Name]'s [npc.nipples] are <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>dry</b>!");
-					
-				} else {
-					descriptionSB.append("</br>[npc.Name]'s [npc.nipples] have been <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>lubricated</b> by:</br>");
-					int i=0;
-					for(LubricationType lt : Sex.getWetOrificeTypes(target).get(OrificeType.NIPPLE_PARTNER)) {
-						if(i!=0) {
-							if(i == Sex.getWetOrificeTypes(target).get(OrificeType.NIPPLE_PARTNER).size()-1) {
-								descriptionSB.append(", and ");
-							} else {
-								descriptionSB.append(", ");
-							}
-						}
-						
-						if(i==0)
-							descriptionSB.append(Util.capitaliseSentence(lt.getName()));
-						else
-							descriptionSB.append(lt.getName());
-						
-						if(i == Sex.getWetOrificeTypes(target).get(OrificeType.NIPPLE_PARTNER).size()-1) {
-							descriptionSB.append(".");
-						}
-						
-						i++;
-					}
-				}
-				descriptionSB.append("</p>");
+				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 			
+			appendOrificeAdditionGenericDescriptions(target, OrificeType.NIPPLE, target.isPlayer()?"Your [pc.nipples]":UtilText.parse(target, "[npc.Name]'s [npc.nipples]"), descriptionSB);
 			
-			return descriptionSB.toString();
+			if(target.isPlayer()) {
+				if(penetrator!=null && !penetrator.isPlayer()) {
+					return UtilText.parse(penetrator, descriptionSB.toString());
+				} else {
+					return descriptionSB.toString();
+				}
+			} else {
+				return UtilText.parse(target, descriptionSB.toString());
+			}
 		}
 
 		@Override
@@ -7511,82 +6507,10 @@ public enum StatusEffect {
 		
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			SVGImageSB = new StringBuilder();
-			
-			SVGImageSB.append(SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaNipple());
-			
-			if(owner.isPlayer()) {
-				if(Sex.getPenetrationTypeInOrifice(owner, OrificeType.NIPPLE_PLAYER) != null) {
-					switch(Sex.getPenetrationTypeInOrifice(owner, OrificeType.NIPPLE_PLAYER)){
-						case FINGER_PLAYER: case FINGER_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFinger()+"</div>");
-							break;
-						case PENIS_PLAYER: case PENIS_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypePenis()+"</div>");
-							break;
-						case TAIL_PLAYER: case TAIL_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTail()+"</div>");
-							break;
-						case TONGUE_PLAYER: case TONGUE_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTongue()+"</div>");
-							break;
-						default:
-							break;
-					}
-				}
-				
-				if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.NIPPLE_PLAYER)) {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationStretching()+"</div>");
-				}
-				
-				if(Sex.getAreasTooLoosePlayer().contains(OrificeType.NIPPLE_PLAYER)) {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationTooLoose()+"</div>");
-				}
-				
-				if(Sex.getWetOrificeTypes(owner).get(OrificeType.NIPPLE_PLAYER).isEmpty()) {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationDry()+"</div>");
-				} else {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationWet()+"</div>");
-				}
-				
-			} else {
-				if(Sex.getPenetrationTypeInOrifice(owner, OrificeType.NIPPLE_PARTNER) != null) {
-					switch(Sex.getPenetrationTypeInOrifice(owner, OrificeType.NIPPLE_PARTNER)){
-						case FINGER_PLAYER: case FINGER_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFinger()+"</div>");
-							break;
-						case PENIS_PLAYER: case PENIS_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypePenis()+"</div>");
-							break;
-						case TAIL_PLAYER: case TAIL_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTail()+"</div>");
-							break;
-						case TONGUE_PLAYER: case TONGUE_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTongue()+"</div>");
-							break;
-						default:
-							break;
-					}
-				}
-
-				if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.NIPPLE_PARTNER)) {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationStretching()+"</div>");
-				}
-				
-				if(Sex.getAreasTooLoosePartner().contains(OrificeType.NIPPLE_PARTNER)) {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationTooLoose()+"</div>");
-				}
-				
-				if(Sex.getWetOrificeTypes(owner).get(OrificeType.NIPPLE_PARTNER).isEmpty()) {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationDry()+"</div>");
-				} else {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationWet()+"</div>");
-				}
-			}
-			
-			return SVGImageSB.toString();
+			return getOrificeSVGString(owner, OrificeType.NIPPLE, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaNipple());
 		}
 	},
+	
 	VAGINA_STATUS(
 			95,
 			"Pussy status",
@@ -7598,76 +6522,11 @@ public enum StatusEffect {
 
 		@Override
 		public float getArousalPerTurnSelf(GameCharacter target) {
-			float arousal = 0;
-			
-			if(target.isPlayer()) {
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.VAGINA_PLAYER) != null) {
-					arousal+=OrificeType.VAGINA_PLAYER.getBaseArousalWhenPenetrated();
-					
-					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.VAGINA_PLAYER)) {
-						arousal-=0.5;
-					}
-					if(Sex.getAreasTooLoosePlayer().contains(OrificeType.VAGINA_PLAYER)) {
-						arousal-=0.5;
-					}
-					if(Sex.getWetOrificeTypes(target).get(OrificeType.VAGINA_PLAYER).isEmpty()) {
-						arousal-=1;
-					} 
-				}
-			} else {
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.VAGINA_PARTNER) != null) {
-					arousal+=OrificeType.VAGINA_PARTNER.getBaseArousalWhenPenetrated();
-					
-					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.VAGINA_PARTNER)) {
-						arousal-=0.5;
-					}
-					if(Sex.getAreasTooLoosePartner().contains(OrificeType.VAGINA_PARTNER)) {
-						arousal-=0.5;
-					}
-					if(Sex.getWetOrificeTypes(target).get(OrificeType.VAGINA_PARTNER).isEmpty()) {
-						arousal-=1;
-					} 
-				}
-			}
-			
-			return arousal;
+			return getOrificeArousalPerTurnSelf(target, OrificeType.VAGINA);
 		}
 		
-		@Override
 		public float getArousalPerTurnPartner(GameCharacter target) {
-			float arousal = 0;
-			
-			if(target.isPlayer()) {
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.VAGINA_PARTNER) != null && Sex.getPenetrationTypeInOrifice(target, OrificeType.VAGINA_PARTNER).isPlayer()) {
-					arousal+=Sex.getPenetrationTypeInOrifice(target, OrificeType.VAGINA_PARTNER).getBaseArousalWhenPenetrating();
-					
-					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.VAGINA_PARTNER)) {
-						arousal+=0.5;
-					}
-					if(Sex.getAreasTooLoosePlayer().contains(OrificeType.VAGINA_PARTNER)) {
-						arousal-=0.5;
-					}
-					if(Sex.getWetOrificeTypes(target).get(OrificeType.VAGINA_PARTNER).isEmpty()) {
-						arousal-=1;
-					} 
-				}
-			} else {
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.VAGINA_PLAYER) != null && !Sex.getPenetrationTypeInOrifice(target, OrificeType.VAGINA_PLAYER).isPlayer()) {
-					arousal+=Sex.getPenetrationTypeInOrifice(target, OrificeType.VAGINA_PLAYER).getBaseArousalWhenPenetrating();
-					
-					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.VAGINA_PLAYER)) {
-						arousal+=0.5;
-					}
-					if(Sex.getAreasTooLoosePartner().contains(OrificeType.VAGINA_PLAYER)) {
-						arousal-=0.5;
-					}
-					if(Sex.getWetOrificeTypes(target).get(OrificeType.VAGINA_PLAYER).isEmpty()) {
-						arousal-=1;
-					} 
-				}
-			}
-			
-			return arousal;
+			return getOrificeArousalPerTurnPartner(target, OrificeType.VAGINA);
 		}
 		
 		@Override
@@ -7677,226 +6536,97 @@ public enum StatusEffect {
 		
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
-			modifiersList.clear();
-			
-			if(target.isPlayer()) {
-				
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.VAGINA_PLAYER) != null) {
-					modifiersList.add("+"+OrificeType.VAGINA_PLAYER.getBaseArousalWhenPenetrated()
-							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					modifiersList.add("+"+Sex.getPenetrationTypeInOrifice(target, OrificeType.VAGINA_PLAYER).getBaseArousalWhenPenetrating()
-							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					
-					if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.VAGINA_PLAYER)) {
-						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Stretching</b>)");
-						modifiersList.add("+0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Tight</b>)");
-					}
-					if(Sex.getAreasTooLoosePlayer().contains(OrificeType.VAGINA_PLAYER)) {
-						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Too loose</b>)");
-						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Too loose</b>)");
-					}
-					if(Sex.getWetOrificeTypes(target).get(OrificeType.VAGINA_PLAYER).isEmpty()) {
-						modifiersList.add("-1 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
-						modifiersList.add("-1 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
-						
-					}
-				}
-				
-			} else {
-				
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.VAGINA_PARTNER) != null) {
-					modifiersList.add("+"+Sex.getPenetrationTypeInOrifice(target, OrificeType.VAGINA_PARTNER).getBaseArousalWhenPenetrating()
-							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					modifiersList.add("+"+OrificeType.VAGINA_PARTNER.getBaseArousalWhenPenetrated()
-							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					
-					if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.VAGINA_PARTNER)) {
-						modifiersList.add("+0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Tight</b>)");
-						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Stretching</b>)");
-					}
-					if(Sex.getAreasTooLoosePartner().contains(OrificeType.VAGINA_PARTNER)) {
-						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Too loose</b>)");
-						modifiersList.add("-0.5 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Too loose</b>)");
-					}
-					if(Sex.getWetOrificeTypes(target).get(OrificeType.VAGINA_PARTNER).isEmpty()) {
-						modifiersList.add("-1 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
-						modifiersList.add("-1 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
-						
-					}
-				}
-			}
-			
-			return modifiersList;
+			return getOrificeModifiersAsStringList(target, OrificeType.VAGINA);
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
 			descriptionSB = new StringBuilder();
+			OrificeType type = OrificeType.VAGINA;
 			
-			if(target.isPlayer()) {
-				descriptionSB.append("<p style='text-align:center;margin-top:0;'>");
-				
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.VAGINA_PLAYER) != null) {
-					switch(Sex.getPenetrationTypeInOrifice(target, OrificeType.VAGINA_PLAYER)){
-						case FINGER_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> yourself!");
-							break;
-						case FINGER_PARTNER:
-							descriptionSB.append("[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> you!");
-							break;
-							
-						case PENIS_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> yourself!");
-							break;
-						case PENIS_PARTNER:
-							descriptionSB.append("[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> you!");
-							break;
-							
-						case TAIL_PARTNER:
-							descriptionSB.append("[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> you!");
-							break;
-						case TAIL_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> yourself!");
-							break;
-							
-						case TONGUE_PARTNER:
-							descriptionSB.append("[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>eating you out</b>!");
-							break;
-						case TONGUE_PLAYER:
-							descriptionSB.append("You are performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>autocunnilingus</b>!");
-							break;
-						default:
-							descriptionSB.append("<b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Penetrated.</b>");
-							break;
-					}
-				} else {
-					descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
-				}
-				
-				if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.VAGINA_PLAYER)) {
-					descriptionSB.append("</br>Your "+Main.game.getPlayer().getVaginaName(true)+" is being <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>stretched</b>!");
-					
-				} else if(Sex.getAreasTooLoosePlayer().contains(OrificeType.VAGINA_PLAYER)) {
-					descriptionSB.append("</br>Your "+Main.game.getPlayer().getVaginaName(true)+" is <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>too loose</b>!");
-				} else {
-					descriptionSB.append("</br><b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No stretch effect.</b>");
-				}
-				
-				
-				if(Sex.getWetOrificeTypes(target).get(OrificeType.VAGINA_PLAYER).isEmpty()) {
-					descriptionSB.append("</br>Your "+Main.game.getPlayer().getVaginaName(true)+" is <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>dry</b>!");
-					
-				} else {
-					descriptionSB.append("</br>Your "+Main.game.getPlayer().getVaginaName(true)+" has been <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>lubricated</b> by:</br>");
-					int i=0;
-					for(LubricationType lt : Sex.getWetOrificeTypes(target).get(OrificeType.VAGINA_PLAYER)) {
-						if(i!=0) {
-							if(i == Sex.getWetOrificeTypes(target).get(OrificeType.VAGINA_PLAYER).size()-1) {
-								descriptionSB.append(", and ");
-							} else {
-								descriptionSB.append(", ");
-							}
+			descriptionSB.append("<p style='text-align:center;margin-top:0;'>");
+
+			GameCharacter penetrator = Sex.getPenetratingCharacterUsingOrifice(target, type);
+			if(Sex.getPenetrationTypeInOrifice(target, type) != null) {
+				switch(Sex.getPenetrationTypeInOrifice(target, type)){
+					case FINGER:
+						if(target.isPlayer()) {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> your own [pc.pussy]!"
+									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> your [pc.pussy]!");
+						} else {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc.name]'s [npc.pussy]!"
+									:(target.equals(penetrator)
+											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc.her] own [npc.pussy]!"
+											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
+													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc2.name]'s [npc2.pussy]!")));
 						}
+						break;
 						
-						if(i==0)
-							descriptionSB.append(Util.capitaliseSentence(lt.getName()));
-						else
-							descriptionSB.append(lt.getName());
-						
-						if(i == Sex.getWetOrificeTypes(target).get(OrificeType.VAGINA_PLAYER).size()-1) {
-							descriptionSB.append(".");
+					case PENIS:
+						if(target.isPlayer()) {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> your own [pc.pussy]!"
+									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> your [pc.pussy]!");
+						} else {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc.name]'s [npc.pussy]!"
+									:(target.equals(penetrator)
+											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc.her] own [npc.pussy]!"
+											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
+													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.name]'s [npc2.pussy]!")));
 						}
+						break;
 						
-						i++;
-					}
+					case TAIL:
+						if(target.isPlayer()) {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> your own [pc.pussy]!"
+									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> your [pc.pussy]!");
+						} else {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc.name]'s [npc.pussy]!"
+									:(target.equals(penetrator)
+											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc.her] own [npc.pussy]!"
+											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
+													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc2.name]'s [npc2.pussy]!")));
+						}
+						break;
+						
+					case TONGUE:
+						if(target.isPlayer()) {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>autocunnilingus</b>!"
+									:"[npc.Name] is performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>cunnilingus</b> on you!");
+						} else {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>cunnilingus</b> on [npc.name]!"
+									:(target.equals(penetrator)
+											?"[npc.Name] is performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>autocunnilingus</b>!"
+											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
+													"[npc1.Name] is performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>cunnilingus</b> on [npc2.name]!")));
+						}
+						break;
+					default:
+						descriptionSB.append("<b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Penetrated.</b>");
+						break;
 				}
-				descriptionSB.append("</p>");
-				
 			} else {
-				descriptionSB.append("<p style='text-align:center;margin-top:0;'>");
-				
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.VAGINA_PARTNER) != null) {
-					switch(Sex.getPenetrationTypeInOrifice(target, OrificeType.VAGINA_PARTNER)){
-						case FINGER_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc.name]!");
-							break;
-						case FINGER_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
-									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fingering</b> [npc.herself]!"));
-							break;
-							
-						case PENIS_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
-									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc.herself]!"));
-							break;
-						case PENIS_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc.name]!");
-							break;
-							
-						case TAIL_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc.name]!");
-							break;
-						case TAIL_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
-									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking [npc.herself]</b>!"));
-							break;
-							
-						case TONGUE_PARTNER:
-							descriptionSB.append("[npc.Name] is performing <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>autocunnilingus</b>!");
-							break;
-						case TONGUE_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>eating out</b> [npc.name]!");
-							break;
-						default:
-							descriptionSB.append("<b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Penetrated.</b>");
-							break;
-					}
-				} else {
-					descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
-				}
-				
-				if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.VAGINA_PARTNER)) {
-					descriptionSB.append("</br>[npc.Name]'s "+Sex.getActivePartner().getVaginaName(true)+" is being <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>stretched</b>!");
-					
-				} else if(Sex.getAreasTooLoosePartner().contains(OrificeType.VAGINA_PARTNER)) {
-					descriptionSB.append("</br>[npc.Name]'s "+Sex.getActivePartner().getVaginaName(true)+" is <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>too loose</b>!");
-				} else {
-					descriptionSB.append("</br><b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No stretch effect.</b>");
-				}
-				
-				
-				if(Sex.getWetOrificeTypes(target).get(OrificeType.VAGINA_PARTNER).isEmpty()) {
-					descriptionSB.append("</br>[npc.Name]'s "+Sex.getActivePartner().getVaginaName(true)+" is <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>dry</b>!");
-					
-				} else {
-					descriptionSB.append("</br>[npc.Name]'s "+Sex.getActivePartner().getVaginaName(true)+" has been <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>lubricated</b> by:</br>");
-					int i=0;
-					for(LubricationType lt : Sex.getWetOrificeTypes(target).get(OrificeType.VAGINA_PARTNER)) {
-						if(i!=0) {
-							if(i == Sex.getWetOrificeTypes(target).get(OrificeType.VAGINA_PARTNER).size()-1) {
-								descriptionSB.append(", and ");
-							} else {
-								descriptionSB.append(", ");
-							}
-						}
-						
-						if(i==0)
-							descriptionSB.append(Util.capitaliseSentence(lt.getName()));
-						else
-							descriptionSB.append(lt.getName());
-						
-						if(i == Sex.getWetOrificeTypes(target).get(OrificeType.VAGINA_PARTNER).size()-1) {
-							descriptionSB.append(".");
-						}
-						
-						i++;
-					}
-				}
-				descriptionSB.append("</p>");
+				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 			
+			appendOrificeAdditionGenericDescriptions(target, OrificeType.VAGINA, target.isPlayer()?"Your [pc.pussy]":UtilText.parse(target, "[npc.Name]'s [npc.pussy]"), descriptionSB);
 			
-			return descriptionSB.toString();
+			if(target.isPlayer()) {
+				if(penetrator!=null && !penetrator.isPlayer()) {
+					return UtilText.parse(penetrator, descriptionSB.toString());
+				} else {
+					return descriptionSB.toString();
+				}
+			} else {
+				return UtilText.parse(target, descriptionSB.toString());
+			}
 		}
 
 		@Override
@@ -7916,80 +6646,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			SVGImageSB = new StringBuilder();
-			
-			SVGImageSB.append(SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaVagina());
-			
-			if(owner.isPlayer()) {
-				if(Sex.getPenetrationTypeInOrifice(owner, OrificeType.VAGINA_PLAYER) != null) {
-					switch(Sex.getPenetrationTypeInOrifice(owner, OrificeType.VAGINA_PLAYER)){
-						case FINGER_PLAYER: case FINGER_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFinger()+"</div>");
-							break;
-						case PENIS_PLAYER: case PENIS_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypePenis()+"</div>");
-							break;
-						case TAIL_PLAYER: case TAIL_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTail()+"</div>");
-							break;
-						case TONGUE_PLAYER: case TONGUE_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTongue()+"</div>");
-							break;
-						default:
-							break;
-					}
-				}
-				
-				if(Sex.getAreasCurrentlyStretchingPlayer().contains(OrificeType.VAGINA_PLAYER)) {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationStretching()+"</div>");
-				}
-				
-				if(Sex.getAreasTooLoosePlayer().contains(OrificeType.VAGINA_PLAYER)) {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationTooLoose()+"</div>");
-				}
-				
-				if(Sex.getWetOrificeTypes(owner).get(OrificeType.VAGINA_PLAYER).isEmpty()) {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationDry()+"</div>");
-				} else {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationWet()+"</div>");
-				}
-				
-			} else {
-				if(Sex.getPenetrationTypeInOrifice(owner, OrificeType.VAGINA_PARTNER) != null) {
-					switch(Sex.getPenetrationTypeInOrifice(owner, OrificeType.VAGINA_PARTNER)){
-						case FINGER_PLAYER: case FINGER_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFinger()+"</div>");
-							break;
-						case PENIS_PLAYER: case PENIS_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypePenis()+"</div>");
-							break;
-						case TAIL_PLAYER: case TAIL_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTail()+"</div>");
-							break;
-						case TONGUE_PLAYER: case TONGUE_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTongue()+"</div>");
-							break;
-						default:
-							break;
-					}
-				}
-
-				if(Sex.getAreasCurrentlyStretchingPartner().contains(OrificeType.VAGINA_PARTNER)) {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationStretching()+"</div>");
-				}
-				
-				if(Sex.getAreasTooLoosePartner().contains(OrificeType.VAGINA_PARTNER)) {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationTooLoose()+"</div>");
-				}
-				
-				if(Sex.getWetOrificeTypes(owner).get(OrificeType.VAGINA_PARTNER).isEmpty()) {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationDry()+"</div>");
-				} else {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationWet()+"</div>");
-				}
-			}
-			
-			return SVGImageSB.toString();
+			return getOrificeSVGString(owner, OrificeType.VAGINA, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaVagina());
 		}
 	},
 	
@@ -8004,52 +6661,11 @@ public enum StatusEffect {
 
 		@Override
 		public float getArousalPerTurnSelf(GameCharacter target) {
-			float arousal = 0;
-			
-			if(target.isPlayer()) {
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.THIGHS_PLAYER) != null) {
-					arousal+=OrificeType.THIGHS_PLAYER.getBaseArousalWhenPenetrated();
-					
-					if(Sex.getWetOrificeTypes(target).get(OrificeType.THIGHS_PLAYER).isEmpty()) {
-						arousal-=1;
-					} 
-				}
-			} else {
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.THIGHS_PARTNER) != null) {
-					arousal+=OrificeType.THIGHS_PARTNER.getBaseArousalWhenPenetrated();
-					
-					if(Sex.getWetOrificeTypes(target).get(OrificeType.THIGHS_PARTNER).isEmpty()) {
-						arousal-=1;
-					} 
-				}
-			}
-			
-			return arousal;
+			return getOrificeArousalPerTurnSelf(target, OrificeType.THIGHS);
 		}
 		
-		@Override
 		public float getArousalPerTurnPartner(GameCharacter target) {
-			float arousal = 0;
-			
-			if(target.isPlayer()) {
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.THIGHS_PARTNER) != null && Sex.getPenetrationTypeInOrifice(target, OrificeType.THIGHS_PARTNER).isPlayer()) {
-					arousal+=Sex.getPenetrationTypeInOrifice(target, OrificeType.THIGHS_PARTNER).getBaseArousalWhenPenetrating();
-					
-					if(Sex.getWetOrificeTypes(target).get(OrificeType.THIGHS_PARTNER).isEmpty()) {
-						arousal-=1;
-					} 
-				}
-			} else {
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.THIGHS_PLAYER) != null && !Sex.getPenetrationTypeInOrifice(target, OrificeType.THIGHS_PLAYER).isPlayer()) {
-					arousal+=Sex.getPenetrationTypeInOrifice(target, OrificeType.THIGHS_PLAYER).getBaseArousalWhenPenetrating();
-					
-					if(Sex.getWetOrificeTypes(target).get(OrificeType.THIGHS_PLAYER).isEmpty()) {
-						arousal-=1;
-					} 
-				}
-			}
-			
-			return arousal;
+			return getOrificeArousalPerTurnPartner(target, OrificeType.THIGHS);
 		}
 		
 		@Override
@@ -8059,194 +6675,97 @@ public enum StatusEffect {
 		
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
-			modifiersList.clear();
-			
-			if(target.isPlayer()) {
-				
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.THIGHS_PLAYER) != null) {
-					modifiersList.add("+"+OrificeType.THIGHS_PLAYER.getBaseArousalWhenPenetrated()
-							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					modifiersList.add("+"+Sex.getPenetrationTypeInOrifice(target, OrificeType.THIGHS_PLAYER).getBaseArousalWhenPenetrating()
-							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					
-					if(Sex.getWetOrificeTypes(target).get(OrificeType.THIGHS_PLAYER).isEmpty()) {
-						modifiersList.add("-1 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
-						modifiersList.add("-1 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
-						
-					}
-				}
-				
-			} else {
-				
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.THIGHS_PARTNER) != null) {
-					modifiersList.add("+"+Sex.getPenetrationTypeInOrifice(target, OrificeType.THIGHS_PARTNER).getBaseArousalWhenPenetrating()
-							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					modifiersList.add("+"+OrificeType.THIGHS_PARTNER.getBaseArousalWhenPenetrated()
-							+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
-					
-					if(Sex.getWetOrificeTypes(target).get(OrificeType.THIGHS_PARTNER).isEmpty()) {
-						modifiersList.add("-1 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>your arousal</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
-						modifiersList.add("-1 <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>partner's arousal</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
-						
-					}
-				}
-			}
-			
-			return modifiersList;
+			return getOrificeModifiersAsStringList(target, OrificeType.THIGHS);
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
 			descriptionSB = new StringBuilder();
+			OrificeType type = OrificeType.THIGHS;
 			
-			if(target.isPlayer()) {
-				descriptionSB.append("<p style='text-align:center;margin-top:0;'>");
-				
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.THIGHS_PLAYER) != null) {
-					switch(Sex.getPenetrationTypeInOrifice(target, OrificeType.THIGHS_PLAYER)){
-						case FINGER_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> your own thighs!");
-							break;
-						case FINGER_PARTNER:
-							descriptionSB.append("[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> your thighs!");
-							break;
-							
-						case PENIS_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> your own thighs!");
-							break;
-						case PENIS_PARTNER:
-							descriptionSB.append("[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> your thighs!");
-							break;
-							
-						case TAIL_PARTNER:
-							descriptionSB.append("[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> your thighs!");
-							break;
-						case TAIL_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> your own thighs!");
-							break;
-							
-						case TONGUE_PARTNER:
-							descriptionSB.append("[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>licking</b> your thighs!");
-							break;
-						case TONGUE_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>licking</b> your own thighs!");
-							break;
-						default:
-							descriptionSB.append("<b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Penetrated.</b>");
-							break;
-					}
-				} else {
-					descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
-				}
-				
-				if(Sex.getWetOrificeTypes(target).get(OrificeType.THIGHS_PLAYER).isEmpty()) {
-					descriptionSB.append("</br>Your thighs are <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>dry</b>!");
-					
-				} else {
-					descriptionSB.append("</br>Your thighs have been <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>lubricated</b> by:</br>");
-					int i=0;
-					for(LubricationType lt : Sex.getWetOrificeTypes(target).get(OrificeType.THIGHS_PLAYER)) {
-						if(i!=0) {
-							if(i == Sex.getWetOrificeTypes(target).get(OrificeType.THIGHS_PLAYER).size()-1) {
-								descriptionSB.append(", and ");
-							} else {
-								descriptionSB.append(", ");
-							}
+			descriptionSB.append("<p style='text-align:center;margin-top:0;'>");
+
+			GameCharacter penetrator = Sex.getPenetratingCharacterUsingOrifice(target, type);
+			if(Sex.getPenetrationTypeInOrifice(target, type) != null) {
+				switch(Sex.getPenetrationTypeInOrifice(target, type)){
+					case FINGER:
+						if(target.isPlayer()) {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> your own [pc.thighs]!"
+									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> your [pc.thighs]!");
+						} else {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> [npc.name]'s [npc.thighs]!"
+									:(target.equals(penetrator)
+											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> [npc.her] own [npc.thighs]!"
+											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
+													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> [npc2.name]'s [npc2.thighs]!")));
 						}
+						break;
 						
-						if(i==0)
-							descriptionSB.append(Util.capitaliseSentence(lt.getName()));
-						else
-							descriptionSB.append(lt.getName());
-						
-						if(i == Sex.getWetOrificeTypes(target).get(OrificeType.THIGHS_PLAYER).size()-1) {
-							descriptionSB.append(".");
+					case PENIS:
+						if(target.isPlayer()) {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> your own [pc.thighs]!"
+									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> your [pc.thighs]!");
+						} else {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc.name]'s [npc.thighs]!"
+									:(target.equals(penetrator)
+											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc.her] own [npc.thighs]!"
+											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
+													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc2.name]'s [npc2.thighs]!")));
 						}
+						break;
 						
-						i++;
-					}
+					case TAIL:
+						if(target.isPlayer()) {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> your own [pc.thighs]!"
+									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> your [pc.thighs]!");
+						} else {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc.name]'s [npc.thighs]!"
+									:(target.equals(penetrator)
+											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc.her] own [npc.thighs]!"
+											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
+													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc2.name]'s [npc2.thighs]!")));
+						}
+						break;
+						
+					case TONGUE:
+						if(target.isPlayer()) {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> your own [pc.thighs]!"
+									:"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> your [pc.thighs]!");
+						} else {
+							descriptionSB.append(penetrator.isPlayer()
+									?"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc.name]'s [npc.thighs]!"
+									:(target.equals(penetrator)
+											?"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc.her] own [npc.thighs]!"
+											:UtilText.parse(Util.newArrayListOfValues(new ListValue<>(penetrator), new ListValue<>(target)),
+													"[npc1.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>kissing</b> [npc2.name]'s [npc.thighs]!")));
+						}
+						break;
+					default:
+						descriptionSB.append("<b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Penetrated.</b>");
+						break;
 				}
-				descriptionSB.append("</p>");
-				
 			} else {
-				descriptionSB.append("<p style='text-align:center;margin-top:0;'>");
-				
-				if(Sex.getPenetrationTypeInOrifice(target, OrificeType.THIGHS_PARTNER) != null) {
-					switch(Sex.getPenetrationTypeInOrifice(target, OrificeType.THIGHS_PARTNER)){
-						case FINGER_PLAYER:
-							descriptionSB.append("You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> [npc.name]'s thighs!");
-							break;
-						case FINGER_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
-									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>groping</b> [npc.her] own thighs!"));
-							break;
-							
-						case PENIS_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
-									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc.her] own thighs!"));
-							break;
-						case PENIS_PLAYER:
-							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
-									"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>fucking</b> [npc.name]'s thighs!"));
-							break;
-							
-						case TAIL_PLAYER:
-							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
-									"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc.name]'s thighs!"));
-							break;
-						case TAIL_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
-									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>tail-fucking</b> [npc.her] own thighs!"));
-							break;
-							
-						case TONGUE_PARTNER:
-							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
-									"[npc.Name] is <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>licking</b> [npc.her] own thighs!"));
-							break;
-						case TONGUE_PLAYER:
-							descriptionSB.append(UtilText.parse(Sex.getActivePartner(),
-									"You are <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>licking</b> [npc.name]'s thighs!"));
-							break;
-						default:
-							descriptionSB.append("<b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Penetrated.</b>");
-							break;
-					}
-				} else {
-					descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
-				}
-				
-				if(Sex.getWetOrificeTypes(target).get(OrificeType.THIGHS_PARTNER).isEmpty()) {
-					descriptionSB.append("</br>[npc.Name]'s thighs are <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>dry</b>!");
-					
-				} else {
-					descriptionSB.append("</br>[npc.Name]'s thighs have been <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>lubricated</b> by:</br>");
-					int i=0;
-					for(LubricationType lt : Sex.getWetOrificeTypes(target).get(OrificeType.THIGHS_PARTNER)) {
-						if(i!=0) {
-							if(i == Sex.getWetOrificeTypes(target).get(OrificeType.THIGHS_PARTNER).size()-1) {
-								descriptionSB.append(", and ");
-							} else {
-								descriptionSB.append(", ");
-							}
-						}
-						
-						if(i==0)
-							descriptionSB.append(Util.capitaliseSentence(lt.getName()));
-						else
-							descriptionSB.append(lt.getName());
-						
-						if(i == Sex.getWetOrificeTypes(target).get(OrificeType.THIGHS_PARTNER).size()-1) {
-							descriptionSB.append(".");
-						}
-						
-						i++;
-					}
-				}
-				descriptionSB.append("</p>");
+				descriptionSB.append("<b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No penetration.</b>");
 			}
 			
+			appendOrificeAdditionGenericDescriptions(target, OrificeType.THIGHS, target.isPlayer()?"Your [pc.thighs]":UtilText.parse(target, "[npc.Name]'s [npc.thighs]"), descriptionSB);
 			
-			return descriptionSB.toString();
+			if(target.isPlayer()) {
+				if(penetrator!=null && !penetrator.isPlayer()) {
+					return UtilText.parse(penetrator, descriptionSB.toString());
+				} else {
+					return descriptionSB.toString();
+				}
+			} else {
+				return UtilText.parse(target, descriptionSB.toString());
+			}
 		}
 
 		@Override
@@ -8261,64 +6780,7 @@ public enum StatusEffect {
 		
 		@Override
 		public String getSVGString(GameCharacter owner) {
-			SVGImageSB = new StringBuilder();
-			
-			SVGImageSB.append(SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaThighs());
-			
-			if(owner.isPlayer()) {
-				if(Sex.getPenetrationTypeInOrifice(owner, OrificeType.THIGHS_PLAYER) != null) {
-					switch(Sex.getPenetrationTypeInOrifice(owner, OrificeType.THIGHS_PLAYER)){
-						case FINGER_PLAYER: case FINGER_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFinger()+"</div>");
-							break;
-						case PENIS_PLAYER: case PENIS_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypePenis()+"</div>");
-							break;
-						case TAIL_PLAYER: case TAIL_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTail()+"</div>");
-							break;
-						case TONGUE_PLAYER: case TONGUE_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTongue()+"</div>");
-							break;
-						default:
-							break;
-					}
-				}
-				
-				if(Sex.getWetOrificeTypes(owner).get(OrificeType.THIGHS_PLAYER).isEmpty()) {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationDry()+"</div>");
-				} else {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationWet()+"</div>");
-				}
-				
-			} else {
-				if(Sex.getPenetrationTypeInOrifice(owner, OrificeType.THIGHS_PARTNER) != null) {
-					switch(Sex.getPenetrationTypeInOrifice(owner, OrificeType.THIGHS_PARTNER)){
-						case FINGER_PLAYER: case FINGER_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFinger()+"</div>");
-							break;
-						case PENIS_PLAYER: case PENIS_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypePenis()+"</div>");
-							break;
-						case TAIL_PLAYER: case TAIL_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTail()+"</div>");
-							break;
-						case TONGUE_PLAYER: case TONGUE_PARTNER:
-							SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTongue()+"</div>");
-							break;
-						default:
-							break;
-					}
-				}
-
-				if(Sex.getWetOrificeTypes(owner).get(OrificeType.THIGHS_PARTNER).isEmpty()) {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationDry()+"</div>");
-				} else {
-					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationWet()+"</div>");
-				}
-			}
-			
-			return SVGImageSB.toString();
+			return getOrificeSVGString(owner, OrificeType.THIGHS, SVGImages.SVG_IMAGE_PROVIDER.getCoverableAreaThighs());
 		}
 	};
 
@@ -8485,5 +6947,165 @@ public enum StatusEffect {
 			return SVGStringDesaturated;
 		}
 		return SVGString;
+	}
+	
+	// Helper methods for sex effects:
+	
+	public static float getOrificeArousalPerTurnSelf(GameCharacter target, OrificeType orifice) {
+		float arousal = 0;
+		
+		if(Sex.getPenetrationTypeInOrifice(target, orifice) != null) {
+			arousal+=orifice.getBaseArousalWhenPenetrated();
+			
+			if(Sex.getAreasCurrentlyStretching(target).contains(orifice)) {
+				arousal += orifice.getArousalChangePenetratedStretching();
+			}
+			if(Sex.getAreasTooLoose(target).contains(orifice)) {
+				arousal += orifice.getArousalChangePenetratedTooLoose();
+			}
+			if(Sex.getWetOrificeTypes(target).get(orifice).isEmpty()) {
+				arousal += orifice.getArousalChangePenetratedDry();
+			}
+		}
+		
+		return arousal;
+	}
+	
+	public float getOrificeArousalPerTurnPartner(GameCharacter target, OrificeType orifice) {
+		float arousal = 0;
+		
+		arousal+=Sex.getPenetrationTypeInOrifice(target, orifice).getBaseArousalWhenPenetrating();
+		
+		if(Sex.getAreasCurrentlyStretching(target).contains(orifice)) {
+			arousal += orifice.getArousalChangePenetratingStretching();
+		}
+		if(Sex.getAreasTooLoose(target).contains(orifice)) {
+			arousal += orifice.getArousalChangePenetratingTooLoose();
+		}
+		if(Sex.getWetOrificeTypes(target).get(orifice).isEmpty()) {
+			arousal += orifice.getArousalChangePenetratingDry();
+		}
+		
+		return arousal;
+	}
+	
+	public List<String> getOrificeModifiersAsStringList(GameCharacter target, OrificeType orifice) {
+		modifiersList.clear();
+		
+		String targetName = target.isPlayer()?"your":UtilText.parse(target, "[npc.name]'s");
+		GameCharacter penetrator = Sex.getPenetratingCharacterUsingOrifice(target, orifice);
+		String penetratorName = penetrator.isPlayer()?"your":UtilText.parse(penetrator, "[npc.name]'s");
+		
+		if(Sex.getPenetrationTypeInOrifice(target, orifice) != null) {
+			modifiersList.add("+"+orifice.getBaseArousalWhenPenetrated()
+					+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+(target.isPlayer()?targetName:penetratorName)+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+			modifiersList.add("+"+Sex.getPenetrationTypeInOrifice(target, orifice).getBaseArousalWhenPenetrating()
+					+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+(target.isPlayer()?penetratorName:targetName)+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+			
+			if(Sex.getAreasCurrentlyStretching(target).contains(orifice)) {
+				modifiersList.add((orifice.getArousalChangePenetratedStretching()>0?"+":"")+orifice.getArousalChangePenetratedStretching()
+						+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+(target.isPlayer()?targetName:penetratorName)+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Stretching</b>)");
+				modifiersList.add((orifice.getArousalChangePenetratingStretching()>0?"+":"")+orifice.getArousalChangePenetratingStretching()
+						+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+(target.isPlayer()?penetratorName:targetName)+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Tight</b>)");
+			}
+			if(Sex.getAreasTooLoose(target).contains(orifice)) {
+				modifiersList.add((orifice.getArousalChangePenetratedTooLoose()>0?"+":"")+orifice.getArousalChangePenetratedTooLoose()
+						+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+(target.isPlayer()?targetName:penetratorName)+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Too loose</b>)");
+				modifiersList.add((orifice.getArousalChangePenetratingTooLoose()>0?"+":"")+orifice.getArousalChangePenetratingTooLoose()
+						+ "<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+(target.isPlayer()?penetratorName:targetName)+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Too loose</b>)");
+			}
+			if(Sex.getWetOrificeTypes(target).get(orifice).isEmpty()) {
+				modifiersList.add((orifice.getArousalChangePenetratedDry()>0?"+":"")+orifice.getArousalChangePenetratedDry()
+						+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+(target.isPlayer()?targetName:penetratorName)+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
+				modifiersList.add((orifice.getArousalChangePenetratingDry()>0?"+":"")+orifice.getArousalChangePenetratingDry()
+						+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+(target.isPlayer()?penetratorName:targetName)+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
+			}
+		}
+		
+		return modifiersList;
+	}
+	
+	public void appendOrificeAdditionGenericDescriptions(GameCharacter owner, OrificeType orificeType, String orificeName, StringBuilder stringBuilderToAppendTo) {
+		
+		if(Sex.getAreasCurrentlyStretching(owner).contains(orificeType)) {
+			stringBuilderToAppendTo.append("</br>"+orificeName+" is being <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>stretched</b>!");
+			
+		} else if(Sex.getAreasTooLoose(owner).contains(orificeType)) {
+			stringBuilderToAppendTo.append("</br>"+orificeName+" is <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>too loose</b>!");
+			
+		} else {
+			stringBuilderToAppendTo.append("</br><b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No stretch effect.</b>");
+		}
+		
+		
+		if(Sex.getWetOrificeTypes(owner).get(orificeType).isEmpty()) {
+			stringBuilderToAppendTo.append("</br>"+orificeName+" is <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>dry</b>!");
+			
+		} else {
+			stringBuilderToAppendTo.append("</br>"+orificeName+" has been <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>lubricated</b> by:</br>");
+			int i=0;
+			for(LubricationType lt : Sex.getWetOrificeTypes(owner).get(orificeType)) {
+				if(i!=0) {
+					if(i == Sex.getWetOrificeTypes(owner).get(orificeType).size()-1) {
+						stringBuilderToAppendTo.append(", and ");
+					} else {
+						stringBuilderToAppendTo.append(", ");
+					}
+				}
+				
+				if(i==0)
+					stringBuilderToAppendTo.append(Util.capitaliseSentence(lt.getName()));
+				else
+					stringBuilderToAppendTo.append(lt.getName());
+				
+				if(i == Sex.getWetOrificeTypes(owner).get(orificeType).size()-1) {
+					stringBuilderToAppendTo.append(".");
+				}
+				
+				i++;
+			}
+		}
+		stringBuilderToAppendTo.append("</p>");
+	}
+	
+	public String getOrificeSVGString(GameCharacter owner, OrificeType orifice, String baseSVG) {
+		SVGImageSB = new StringBuilder();
+		
+		SVGImageSB.append(baseSVG);
+		
+		if(Sex.getPenetrationTypeInOrifice(owner, orifice) != null) {
+			switch(Sex.getPenetrationTypeInOrifice(owner, orifice)){
+				case FINGER:
+					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeFinger()+"</div>");
+					break;
+				case PENIS:
+					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypePenis()+"</div>");
+					break;
+				case TAIL:
+					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTail()+"</div>");
+					break;
+				case TONGUE:
+					SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getPenetrationTypeTongue()+"</div>");
+					break;
+				default:
+					break;
+			}
+		}
+		
+		if(Sex.getAreasCurrentlyStretching(owner).contains(orifice)) {
+			SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationStretching()+"</div>");
+		}
+		
+		if(Sex.getAreasTooLoose(owner).contains(orifice)) {
+			SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationTooLoose()+"</div>");
+		}
+		
+		if(Sex.getWetOrificeTypes(owner).get(orifice).isEmpty()) {
+			SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationDry()+"</div>");
+		} else {
+			SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCombinationWet()+"</div>");
+		}
+		
+		return SVGImageSB.toString();
 	}
 }

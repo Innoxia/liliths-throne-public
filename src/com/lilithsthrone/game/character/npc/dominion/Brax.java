@@ -1088,100 +1088,20 @@ public class Brax extends NPC {
 		return Util.newHashMapOfValues(new Value<>(TFEssence.ARCANE, 8));
 	}
 	
-	// CoverableArea reveals:
-	
-	@Override
-	public String getPlayerPenisRevealReaction(boolean isPlayerDom) {
-		if (isPlayerDom) {
-			return super.getPlayerPenisRevealReaction(isPlayerDom);
-		} else {
-			if (Main.game.getPlayer().isFeminine()) {
-				if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
-					return "<p>"
-							+ "[brax.name] lets out a surprised grunt as your tiny "
-							+ Main.game.getPlayer().getPenisName(false)
-							+ " is revealed, "
-							+ UtilText.parseSpeech("Wait, what?! I thought you were a girl!", Sex.getActivePartner())
-							+ "</p>";
 
-				} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()) {
-					return "<p>"
-							+ "[brax.name] lets out a surprised grunt as your "
-							+ Main.game.getPlayer().getPenisSize().getDescriptor()
-							+ " "
-							+ Main.game.getPlayer().getPenisName(false)
-							+ " is revealed, "
-							+ UtilText.parseSpeech("Wait, what?! You're a "
-									+ Main.game.getPlayer().getGender().getName()
-									+ "?!", Sex.getActivePartner())
-							+ "</p>";
-
-				} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.FOUR_HUGE.getMaximumValue()) {
-					return "<p>"
-							+ "[brax.name] lets out a surprised grunt as your "
-							+ Main.game.getPlayer().getPenisSize().getDescriptor()
-							+ " "
-							+ Main.game.getPlayer().getPenisName(false)
-							+ " is revealed, "
-							+ UtilText.parseSpeech("I should have guessed from that bulge...", Sex.getActivePartner())
-							+ "</p>";
-
-				} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.SIX_GIGANTIC.getMaximumValue()) {
-					return "<p>"
-							+ "[brax.name] lets out a surprised grunt as your "
-							+ Main.game.getPlayer().getPenisSize().getDescriptor()
-							+ " "
-							+ Main.game.getPlayer().getPenisName(false)
-							+ " is revealed, "
-							+ UtilText.parseSpeech("Really?! A "
-									+ Main.game.getPlayer().getGender().getName()
-									+ " has a bigger cock than <i>me</i>?!", Sex.getActivePartner())
-							+ "</p>";
-
-				} else {
-					return "<p>"
-							+ "The "
-							+ Sex.getActivePartner().getName()
-							+ "'s jaw drops as your stallion-sized "
-							+ Main.game.getPlayer().getPenisName(false)
-							+ " is revealed, "
-							+ UtilText.parseSpeech("How does a "
-									+ Main.game.getPlayer().getGender().getName()
-									+ " get a cock that big?!", Sex.getActivePartner())
-							+ "</p>";
-				}
-
-			}
-			return super.getPlayerPenisRevealReaction(isPlayerDom);
-		}
-	}
-	
-	@Override
-	public String getPlayerMoundRevealReaction(boolean isPlayerDom) {
-		if (isPlayerDom) {
-			return super.getPlayerPenisRevealReaction(isPlayerDom);
-		} else {
-			return "<p>"
-					+ "[brax.name] lets out an amused grunt as he sees your doll-like crotch, "
-					+ UtilText.parseSpeech("Hah! Guess I'll have to be using your ass then...", Sex.getActivePartner())
-					+ "</p>";
-		}
-	}
-
-	
 	// Penetrations
 	@Override
-	public String getPenetrationDescription(boolean initialPenetration, PenetrationType penetrationType, OrificeType orifice) {
+	public String getPenetrationDescription(boolean initialPenetration, GameCharacter characterPenetrating, PenetrationType penetrationType, GameCharacter characterPenetrated, OrificeType orifice) {
 		if(Math.random()>0.3) {
 			if(Sex.getSexManager() instanceof SMCowgirl){
-				if(orifice == OrificeType.VAGINA_PLAYER) {
-					if(penetrationType == PenetrationType.PENIS_PARTNER) {
+				if(orifice == OrificeType.VAGINA) {
+					if(penetrationType == PenetrationType.PENIS) {
 						return UtilText.returnStringAtRandom(
 								"You keep bouncing up and down, slamming [brax.name]'s [npc.penis+] in and out of your [pc.pussy+].",
 								"With lewd little moans, you continue bouncing up and down on [brax.name]'s [npc.penis+].",
 								"You feel [brax.name]'s [npc.penis+] lewdly spreading out your [pc.pussy+] as you ride him.",
 								"You let out a gasp as you carry on spearing your [pc.pussy+] on [brax.name]'s [npc.penis+].");
-					} else if(penetrationType == PenetrationType.TONGUE_PARTNER) {
+					} else if(penetrationType == PenetrationType.TONGUE) {
 						return UtilText.returnStringAtRandom(
 								"You hold the top of [brax.name]'s head, moaning softly as he carries on eating you out.",
 								"With a little giggle, you grind your [pc.pussy+] down on [brax.name]'s wolf-like muzzle.",
@@ -1190,8 +1110,8 @@ public class Brax extends NPC {
 					}
 				}
 				
-				if(orifice == OrificeType.ANUS_PLAYER) {
-					if(penetrationType == PenetrationType.PENIS_PARTNER) {
+				if(orifice == OrificeType.ANUS) {
+					if(penetrationType == PenetrationType.PENIS) {
 						return UtilText.returnStringAtRandom(
 								"You keep bouncing up and down, slamming [brax.name]'s [npc.penis+] in and out of your [pc.asshole+].",
 								"With lewd little moans, you continue bouncing up and down on [brax.name]'s [npc.penis+].",
@@ -1207,7 +1127,7 @@ public class Brax extends NPC {
 				}
 			}
 			
-			if(penetrationType == PenetrationType.PENIS_PLAYER && orifice == OrificeType.ANUS_PARTNER) {
+			if(penetrationType == PenetrationType.PENIS && orifice == OrificeType.ANUS) {
 				return UtilText.returnStringAtRandom(
 						"You carry on slamming your [pc.penis+] into [brax.name]'s [npc.asshole+].",
 						"Holding his hips, you carry on fucking [brax.name]'s [npc.asshole+].",
@@ -1216,7 +1136,7 @@ public class Brax extends NPC {
 			}
 		}
 		
-		return super.getPenetrationDescription(initialPenetration, penetrationType, orifice);
+		return super.getPenetrationDescription(initialPenetration, characterPenetrating, penetrationType, characterPenetrated, orifice);
 	}
 	
 }

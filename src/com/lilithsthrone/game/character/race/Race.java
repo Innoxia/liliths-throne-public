@@ -365,7 +365,7 @@ public enum Race {
 
 	
 	 REINDEER_MORPH(
-			 "reindeer morph", "reindeer-morphs",
+			 "reindeer-morph", "reindeer-morphs",
 				
 			"reindeer-boy",
 			"reindeer-girl",

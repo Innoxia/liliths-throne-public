@@ -27,19 +27,19 @@ public class SMStocks extends SexManagerDefault {
 		
 		if(!vaginalAllowed) {
 			for(GameCharacter character : submissives.keySet()) {
-				orificesBannedMap.get(character).add(OrificeType.VAGINA_PARTNER);
+				orificesBannedMap.get(character).add(OrificeType.VAGINA);
 			}
 		}
 		
 		if(!analAllowed) {
 			for(GameCharacter character : submissives.keySet()) {
-				orificesBannedMap.get(character).add(OrificeType.ANUS_PARTNER);
+				orificesBannedMap.get(character).add(OrificeType.ANUS);
 			}
 		}
 		
 		if(!oralAllowed) {
 			for(GameCharacter character : submissives.keySet()) {
-				orificesBannedMap.get(character).add(OrificeType.MOUTH_PARTNER);
+				orificesBannedMap.get(character).add(OrificeType.MOUTH);
 			}
 		}
 	}

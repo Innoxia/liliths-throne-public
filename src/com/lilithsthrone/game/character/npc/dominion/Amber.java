@@ -39,6 +39,7 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
+import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexPositionNew;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.SexType;
@@ -471,9 +472,9 @@ public class Amber extends NPC {
 	public SexType getForeplayPreference() {
 		if(Sex.getSexManager().getPosition() == SexPositionNew.DOGGY_AMBER) {
 			if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
-				return new SexType(PenetrationType.FINGER_PARTNER, OrificeType.VAGINA_PLAYER);
+				return new SexType(SexParticipantType.PITCHER, PenetrationType.FINGER, OrificeType.VAGINA);
 			} else {
-				return new SexType(PenetrationType.FINGER_PARTNER, OrificeType.ANUS_PLAYER);
+				return new SexType(SexParticipantType.PITCHER, PenetrationType.FINGER, OrificeType.ANUS);
 			}
 		}
 		
@@ -483,9 +484,9 @@ public class Amber extends NPC {
 	public SexType getMainSexPreference() {
 		if(Sex.getSexManager().getPosition() == SexPositionNew.DOGGY_AMBER) {
 			if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
-				return new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER);
+				return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.VAGINA);
 			} else {
-				return new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER);
+				return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.ANUS);
 			}
 		}
 

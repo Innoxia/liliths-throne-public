@@ -1,270 +1,184 @@
 package com.lilithsthrone.game.sex;
 
-import com.lilithsthrone.main.Main;
+import com.lilithsthrone.game.character.GameCharacter;
 
 /**
  * @since 0.1.78
- * @version 0.1.90
+ * @version 0.1.98
  * @author Innoxia
  */
 public enum OrificeType {
 	
-	MOUTH_PLAYER(2, true) {
+	MOUTH(2,
+			-0.5f, -0.5f, -1f,
+			0.5f, -0.5f ,-1f) {
 		@Override
-		public String getName() {
+		public String getName(GameCharacter owner) {
 			return "mouth";
 		}
 		@Override
-		public boolean isMouth() { return true; }
-		@Override
-		public boolean isFree() {
-			return Sex.isOrificeFree(Main.game.getPlayer(), this);
+		public boolean isFree(GameCharacter owner) {
+			return Sex.isOrificeFree(owner, this);
 		}
 	},
 	
-	NIPPLE_PLAYER(2, true) {
+	NIPPLE(2,
+			-0.5f, -0.5f, -1f,
+			0.5f, -0.5f ,-1f) {
 		@Override
-		public String getName() {
-			return Main.game.getPlayer().getNippleName();
+		public String getName(GameCharacter owner) {
+			return owner.getNippleName();
 		}
 		@Override
 		public boolean isPlural() {
 			return true;
 		}
 		@Override
-		public boolean isNipple() { return true; }
-		@Override
-		public boolean isFree() {
-			return Sex.isOrificeFree(Main.game.getPlayer(), this);
+		public boolean isFree(GameCharacter owner) {
+			return Sex.isOrificeFree(owner, this);
 		}
 	},
 	
-	BREAST_PLAYER(1, true) {
+	BREAST(1,
+			-0.5f, -0.5f, -1f,
+			0.5f, -0.5f ,-1f) {
 		@Override
-		public String getName() {
-			return Main.game.getPlayer().getBreastName();
+		public String getName(GameCharacter owner) {
+			return owner.getBreastName();
 		}
 		@Override
 		public boolean isPlural() {
 			return true;
 		}
 		@Override
-		public boolean isBreasts() { return true; }
-		@Override
-		public boolean isFree() {
-			return Sex.isOrificeFree(Main.game.getPlayer(), this);
+		public boolean isFree(GameCharacter owner) {
+			return Sex.isOrificeFree(owner, this);
 		}
 	},
 	
-	ASS_PLAYER(1, true) {
+	ASS(1,
+			-0.5f, -0.5f, -1f,
+			0.5f, -0.5f ,-1f) {
 		@Override
-		public String getName() {
-			return Main.game.getPlayer().getAssName(false);
+		public String getName(GameCharacter owner) {
+			return owner.getAssName(false);
 		}
 		@Override
-		public boolean isAss() { return true; }
-		@Override
-		public boolean isFree() {
-			return Sex.isOrificeFree(Main.game.getPlayer(), this);
-		}
-	},
-	
-	ANUS_PLAYER(2, true) {
-		@Override
-		public String getName() {
-			return Main.game.getPlayer().getAnusName(false);
-		}
-		@Override
-		public boolean isAnus() { return true; }
-		@Override
-		public boolean isFree() {
-			return Sex.isOrificeFree(Main.game.getPlayer(), this);
+		public boolean isFree(GameCharacter owner) {
+			return Sex.isOrificeFree(owner, this);
 		}
 	},
 	
-	VAGINA_PLAYER(4, true) {
+	ANUS(2,
+			-0.5f, -0.5f, -1f,
+			0.5f, -0.5f ,-1f) {
 		@Override
-		public String getName() {
-			return Main.game.getPlayer().getVaginaName(false);
+		public String getName(GameCharacter owner) {
+			return owner.getAnusName(false);
 		}
 		@Override
-		public boolean isVagina() { return true; }
-		@Override
-		public boolean isFree() {
-			return Sex.isOrificeFree(Main.game.getPlayer(), this);
+		public boolean isFree(GameCharacter owner) {
+			return Sex.isOrificeFree(owner, this);
 		}
 	},
 	
-	THIGHS_PLAYER(1, true) {
+	VAGINA(4,
+			-0.5f, -0.5f, -1f,
+			0.5f, -0.5f ,-1f) {
 		@Override
-		public String getName() {
+		public String getName(GameCharacter owner) {
+			return owner.getVaginaName(false);
+		}
+		@Override
+		public boolean isFree(GameCharacter owner) {
+			return Sex.isOrificeFree(owner, this);
+		}
+	},
+	
+	THIGHS(1,
+			-0.5f, -0.5f, -1f,
+			0.5f, -0.5f ,-1f) {
+		@Override
+		public String getName(GameCharacter owner) {
 			return "thighs";
 		}
 		@Override
-		public boolean isThighs() { return true; }
-		@Override
-		public boolean isFree() {
-			return Sex.isOrificeFree(Main.game.getPlayer(), this);
+		public boolean isFree(GameCharacter owner) {
+			return Sex.isOrificeFree(owner, this);
 		}
 	},
 	
-	URETHRA_PLAYER(1, true) {
+	URETHRA(1,
+			-0.5f, -0.5f, -1f,
+			0.5f, -0.5f ,-1f) {
 		@Override
-		public String getName() {
+		public String getName(GameCharacter owner) {
 			return "urethra";
 		}
 		@Override
-		public boolean isUrethra() { return true; }
-		@Override
-		public boolean isFree() {
-			return Sex.isPenetrationTypeFree(Main.game.getPlayer(), PenetrationType.PENIS_PLAYER);
-		}
-	},
-	
-	// Partner:
-	
-	MOUTH_PARTNER(2, false) {
-		@Override
-		public String getName() {
-			return "mouth";
-		}
-		@Override
-		public boolean isMouth() { return true; }
-		@Override
-		public boolean isFree() {
-			return Sex.isOrificeFree(Sex.getActivePartner(), this);
-		}
-	},
-	
-	NIPPLE_PARTNER(2, false) {
-		@Override
-		public String getName() {
-			return Sex.getActivePartner().getNippleName();
-		}
-		@Override
-		public boolean isPlural() {
-			return true;
-		}
-		@Override
-		public boolean isNipple() { return true; }
-		@Override
-		public boolean isFree() {
-			return Sex.isOrificeFree(Sex.getActivePartner(), this);
-		}
-	},
-	
-	BREAST_PARTNER(1, false) {
-		@Override
-		public String getName() {
-			return Sex.getActivePartner().getBreastName();
-		}
-		@Override
-		public boolean isPlural() {
-			return true;
-		}
-		@Override
-		public boolean isBreasts() { return true; }
-		@Override
-		public boolean isFree() {
-			return Sex.isOrificeFree(Sex.getActivePartner(), this);
-		}
-	},
-	
-	ASS_PARTNER(2, false) {
-		@Override
-		public String getName() {
-			return Sex.getActivePartner().getAssName(false);
-		}
-		@Override
-		public boolean isAss() { return true; }
-		@Override
-		public boolean isFree() {
-			return Sex.isOrificeFree(Sex.getActivePartner(), this);
-		}
-	},
-	
-	ANUS_PARTNER(2, false) {
-		@Override
-		public String getName() {
-			return Sex.getActivePartner().getAnusName(false);
-		}
-		@Override
-		public boolean isAnus() { return true; }
-		@Override
-		public boolean isFree() {
-			return Sex.isOrificeFree(Sex.getActivePartner(), this);
-		}
-	},
-	
-	VAGINA_PARTNER(4, false) {
-		@Override
-		public String getName() {
-			return Sex.getActivePartner().getVaginaName(false);
-		}
-		@Override
-		public boolean isVagina() { return true; }
-		@Override
-		public boolean isFree() {
-			return Sex.isOrificeFree(Sex.getActivePartner(), this);
-		}
-	},
-	
-	THIGHS_PARTNER(1, false) {
-		@Override
-		public String getName() {
-			return "thighs";
-		}
-		@Override
-		public boolean isThighs() { return true; }
-		@Override
-		public boolean isFree() {
-			return Sex.isOrificeFree(Sex.getActivePartner(), this);
-		}
-	},
-	
-	URETHRA_PARTNER(1, false) {
-		@Override
-		public String getName() {
-			return "urethra";
-		}
-		@Override
-		public boolean isUrethra() { return true; }
-		@Override
-		public boolean isFree() {
-			return Sex.isPenetrationTypeFree(Sex.getActivePartner(), PenetrationType.PENIS_PARTNER);
+		public boolean isFree(GameCharacter owner) {
+			return Sex.isPenetrationTypeFree(owner, PenetrationType.PENIS);
 		}
 	};
 
 	private float baseArousalWhenPenetrated;
-	private boolean isPlayer;
+	private float arousalChangePenetratedStretching;
+	private float arousalChangePenetratedTooLoose;
+	private float arousalChangePenetratedDry;
+	private float arousalChangePenetratingStretching;
+	private float arousalChangePenetratingTooLoose;
+	private float arousalChangePenetratingDry;
 
-	private OrificeType(float baseArousalWhenPenetrated, boolean isPlayer) {
+	private OrificeType(float baseArousalWhenPenetrated,
+			float arousalChangePenetratedStretching,
+			float arousalChangePenetratedTooLoose,
+			float arousalChangePenetratedDry,
+			float arousalChangePenetratingStretching,
+			float arousalChangePenetratingTooLoose,
+			float arousalChangePenetratingDry) {
 		this.baseArousalWhenPenetrated = baseArousalWhenPenetrated;
-		this.isPlayer = isPlayer;
+		this.arousalChangePenetratedStretching = arousalChangePenetratedStretching;
+		this.arousalChangePenetratedTooLoose = arousalChangePenetratedTooLoose;
+		this.arousalChangePenetratedDry = arousalChangePenetratedDry;
+		this.arousalChangePenetratingStretching = arousalChangePenetratingStretching;
+		this.arousalChangePenetratingTooLoose = arousalChangePenetratingTooLoose;
+		this.arousalChangePenetratingDry = arousalChangePenetratingDry;
+	}
+
+	public abstract String getName(GameCharacter owner);
+	
+	public abstract boolean isFree(GameCharacter owner);
+
+	public boolean isPlural() {
+		return false;
 	}
 	
 	public float getBaseArousalWhenPenetrated() {
 		return baseArousalWhenPenetrated;
 	}
 	
-	public boolean isPlayer() {
-		return isPlayer;
+	public float getArousalChangePenetratedStretching() {
+		return arousalChangePenetratedStretching;
 	}
-	
-	public boolean isPlural() {
-		return false;
-	}
-	
-	public abstract boolean isFree();
 
-	public boolean isMouth() { return false; }
-	public boolean isNipple() { return false; }
-	public boolean isBreasts() { return false; }
-	public boolean isAss() { return false; }
-	public boolean isAnus() { return false; }
-	public boolean isVagina() { return false; }
-	public boolean isThighs() { return false; }
-	public boolean isUrethra() { return false; }
+	public float getArousalChangePenetratedTooLoose() {
+		return arousalChangePenetratedTooLoose;
+	}
+
+	public float getArousalChangePenetratedDry() {
+		return arousalChangePenetratedDry;
+	}
+
+	public float getArousalChangePenetratingStretching() {
+		return arousalChangePenetratingStretching;
+	}
+
+	public float getArousalChangePenetratingTooLoose() {
+		return arousalChangePenetratingTooLoose;
+	}
+
+	public float getArousalChangePenetratingDry() {
+		return arousalChangePenetratingDry;
+	}
 	
-	public abstract String getName();
 }

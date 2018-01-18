@@ -42,6 +42,7 @@ import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
@@ -777,58 +778,58 @@ public class PhoneDialogue {
 					+ "<div class='extraAttribute-sixth'>" + "Taken" + "</div>" + "<div class='extraAttribute-sixth'>" + "Cum Taken" + "</div>"
 
 					+ sexStatRow(Colour.AROUSAL_STAGE_TWO, "Fingering",
-							Main.game.getPlayer().getSexCount(new SexType(PenetrationType.FINGER_PLAYER, OrificeType.VAGINA_PARTNER)),
+							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.PITCHER, PenetrationType.FINGER, OrificeType.VAGINA)),
 							-1,
-							Main.game.getPlayer().getSexCount(new SexType(PenetrationType.FINGER_PARTNER, OrificeType.VAGINA_PLAYER)),
+							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.CATCHER, PenetrationType.FINGER, OrificeType.VAGINA)),
 							-1)
 					
 					+ sexStatRow(Colour.AROUSAL_STAGE_TWO, "Anal Fingering",
-							Main.game.getPlayer().getSexCount(new SexType(PenetrationType.FINGER_PLAYER, OrificeType.ANUS_PARTNER)),
+							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.PITCHER, PenetrationType.FINGER, OrificeType.ANUS)),
 							-1,
-							Main.game.getPlayer().getSexCount(new SexType(PenetrationType.FINGER_PARTNER, OrificeType.ANUS_PLAYER)),
+							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.CATCHER, PenetrationType.FINGER, OrificeType.ANUS)),
 							-1)
 					
 					+ sexStatRow(Colour.AROUSAL_STAGE_TWO, "Blowjobs",
-							Main.game.getPlayer().getSexCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER)),
-							Main.game.getPlayer().getCumCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER)),
-							Main.game.getPlayer().getSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER)),
-							Main.game.getPlayer().getCumCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER)))
+							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH)),
+							Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH)),
+							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH)),
+							Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH)))
 					
 					+ sexStatRow(Colour.AROUSAL_STAGE_TWO, "Cunnilingus",
-							Main.game.getPlayer().getSexCount(new SexType(PenetrationType.TONGUE_PLAYER, OrificeType.VAGINA_PARTNER)),
+							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.PITCHER, PenetrationType.TONGUE, OrificeType.VAGINA)),
 							-1,
-							Main.game.getPlayer().getSexCount(new SexType(PenetrationType.TONGUE_PARTNER, OrificeType.VAGINA_PLAYER)),
+							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.CATCHER, PenetrationType.TONGUE, OrificeType.VAGINA)),
 							-1)
 					
 					+ sexStatRow(Colour.AROUSAL_STAGE_TWO, "Anilingus",
-							Main.game.getPlayer().getSexCount(new SexType(PenetrationType.TONGUE_PLAYER, OrificeType.ANUS_PARTNER)),
+							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.PITCHER, PenetrationType.TONGUE, OrificeType.ANUS)),
 							-1,
-							Main.game.getPlayer().getSexCount(new SexType(PenetrationType.TONGUE_PARTNER, OrificeType.ANUS_PLAYER)),
+							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.CATCHER, PenetrationType.TONGUE, OrificeType.ANUS)),
 							-1)
 					
 					+ sexStatRow(Colour.AROUSAL_STAGE_FIVE, "Vaginal sex",
-							Main.game.getPlayer().getSexCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER)),
-							Main.game.getPlayer().getCumCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.VAGINA_PARTNER)),
-							Main.game.getPlayer().getSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER)),
-							Main.game.getPlayer().getCumCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER)))
+							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.VAGINA)),
+							Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.VAGINA)),
+							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.VAGINA)),
+							Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.VAGINA)))
 
 					+ sexStatRow(Colour.AROUSAL_STAGE_FIVE, "Anal sex",
-							Main.game.getPlayer().getSexCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER)),
-							Main.game.getPlayer().getCumCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.ANUS_PARTNER)),
-							Main.game.getPlayer().getSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER)),
-							Main.game.getPlayer().getCumCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER)))
+							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.ANUS)),
+							Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.ANUS)),
+							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.ANUS)),
+							Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.ANUS)))
 
 					+ sexStatRow(Colour.AROUSAL_STAGE_FIVE, "Nipple penetration",
-							Main.game.getPlayer().getSexCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.NIPPLE_PARTNER)),
-							Main.game.getPlayer().getCumCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.NIPPLE_PARTNER)),
-							Main.game.getPlayer().getSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.NIPPLE_PLAYER)),
-							Main.game.getPlayer().getCumCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.NIPPLE_PLAYER)))
+							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.NIPPLE)),
+							Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.NIPPLE)),
+							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.NIPPLE)),
+							Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.NIPPLE)))
 
 					+ sexStatRow(Colour.AROUSAL_STAGE_FIVE, "Urethra penetration",
-							Main.game.getPlayer().getSexCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.URETHRA_PARTNER)),
-							Main.game.getPlayer().getCumCount(new SexType(PenetrationType.PENIS_PLAYER, OrificeType.URETHRA_PARTNER)),
-							Main.game.getPlayer().getSexCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.URETHRA_PLAYER)),
-							Main.game.getPlayer().getCumCount(new SexType(PenetrationType.PENIS_PARTNER, OrificeType.URETHRA_PLAYER)));
+							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.URETHRA)),
+							Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.URETHRA)),
+							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.URETHRA)),
+							Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.URETHRA)));
 		}
 		
 		@Override

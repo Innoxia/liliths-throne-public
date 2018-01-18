@@ -17,7 +17,6 @@ import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.Height;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
-import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.race.RaceStage;
@@ -25,12 +24,9 @@ import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
-import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
-import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
-import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -142,109 +138,6 @@ public class PrologueFemale extends NPC {
 	@Override
 	public DialogueNodeOld getEncounterDialogue() {
 		return null;
-	}
-
-	public static final DialogueNodeOld AFTER_SEX = new DialogueNodeOld("Brax is done", "Brax has finished having his fun with you.", true) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed() {
-			return 20;
-		}
-
-		@Override
-		public String getContent() {
-			return "<p>"
-					+ "[brax.speech(You're a pretty good fuck, slut!)]"
-					+ "</p>";
-		}
-		
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new ResponseEffectsOnly("Carry on", "Get up and carry on your way.") {
-					@Override
-					public void effects() {
-						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.DOMINION), PlaceType.DOMINION_ENFORCER_HQ, true);
-					}
-				};
-				
-			} else {
-				return null;
-			}
-		}
-	};
-	
-	// CoverableArea reveals:
-	
-	@Override
-	public String getPlayerPenisRevealReaction(boolean isPlayerDom) {
-		if (Main.game.getPlayer().isFeminine()) {
-			if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
-				return "<p>"
-						+ "[brax.name] lets out a surprised grunt as your tiny "
-						+ Main.game.getPlayer().getPenisName(false)
-						+ " is revealed, "
-						+ UtilText.parseSpeech("Wait, what?! I thought you were a girl!", Sex.getActivePartner())
-						+ "</p>";
-
-			} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()) {
-				return "<p>"
-						+ "[brax.name] lets out a surprised grunt as your "
-						+ Main.game.getPlayer().getPenisSize().getDescriptor()
-						+ " "
-						+ Main.game.getPlayer().getPenisName(false)
-						+ " is revealed, "
-						+ UtilText.parseSpeech("Wait, what?! You're a "
-								+ Main.game.getPlayer().getGender().getName()
-								+ "?!", Sex.getActivePartner())
-						+ "</p>";
-
-			} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.FOUR_HUGE.getMaximumValue()) {
-				return "<p>"
-						+ "[brax.name] lets out a surprised grunt as your "
-						+ Main.game.getPlayer().getPenisSize().getDescriptor()
-						+ " "
-						+ Main.game.getPlayer().getPenisName(false)
-						+ " is revealed, "
-						+ UtilText.parseSpeech("I should have guessed from that bulge...", Sex.getActivePartner())
-						+ "</p>";
-
-			} else if (Main.game.getPlayer().getPenisRawSizeValue() <= PenisSize.SIX_GIGANTIC.getMaximumValue()) {
-				return "<p>"
-						+ "[brax.name] lets out a surprised grunt as your "
-						+ Main.game.getPlayer().getPenisSize().getDescriptor()
-						+ " "
-						+ Main.game.getPlayer().getPenisName(false)
-						+ " is revealed, "
-						+ UtilText.parseSpeech("Really?! A "
-								+ Main.game.getPlayer().getGender().getName()
-								+ " has a bigger cock than <i>me</i>?!", Sex.getActivePartner())
-						+ "</p>";
-
-			} else {
-				return "<p>"
-						+ "The "
-						+ Sex.getActivePartner().getName()
-						+ "'s jaw drops as your stallion-sized "
-						+ Main.game.getPlayer().getPenisName(false)
-						+ " is revealed, "
-						+ UtilText.parseSpeech("How does a "
-								+ Main.game.getPlayer().getGender().getName()
-								+ " get a cock that big?!", Sex.getActivePartner())
-						+ "</p>";
-			}
-
-		}
-		return super.getPlayerPenisRevealReaction(isPlayerDom);
-	}
-	
-	@Override
-	public String getPlayerVaginaRevealReaction(boolean isPlayerDom) {
-		return "<p>"
-				+ "[brax.name] lets out an amused grunt as he sees your doll-like crotch, "
-				+ UtilText.parseSpeech("Hah! Guess I'll have to be using your ass then...", Sex.getActivePartner())
-				+ "</p>";
 	}
 
 	@Override

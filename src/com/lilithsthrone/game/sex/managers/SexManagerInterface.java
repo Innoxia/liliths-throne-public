@@ -82,79 +82,79 @@ public interface SexManagerInterface {
 	// Revealing CoverableAreas:
 
 	// Player:
-	public default String getPlayerAssRevealReaction(boolean isSub) {
-		return Sex.getActivePartner().getPlayerAssRevealReaction(isSub);
+	public default String getPlayerAssRevealReaction() {
+		return Sex.getActivePartner().getAssRevealDescription(Main.game.getPlayer());
 	}
 
-	public default String getPlayerVaginaRevealReaction(boolean isSub) {
-		return Sex.getActivePartner().getPlayerVaginaRevealReaction(isSub);
+	public default String getPlayerVaginaRevealReaction() {
+		return Sex.getActivePartner().getVaginaRevealDescription(Main.game.getPlayer());
 	}
 
-	public default String getPlayerBreastsRevealReaction(boolean isSub) {
-		return Sex.getActivePartner().getPlayerBreastsRevealReaction(isSub);
+	public default String getPlayerBreastsRevealReaction() {
+		return Sex.getActivePartner().getBreastsRevealDescription(Main.game.getPlayer());
 	}
 
-	public default String getPlayerPenisRevealReaction(boolean isSub) {
-		return Sex.getActivePartner().getPlayerPenisRevealReaction(isSub);
+	public default String getPlayerPenisRevealReaction() {
+		return Sex.getActivePartner().getPenisRevealDescription(Main.game.getPlayer());
 	}
 
-	public default String getPlayerMoundRevealReaction(boolean isSub) {
-		return Sex.getActivePartner().getPlayerMoundRevealReaction(isSub);
+	public default String getPlayerMoundRevealReaction() {
+		return Sex.getActivePartner().getMoundRevealDescription(Main.game.getPlayer());
 	}
 
 	// Partner:
-	public default String getPartnerAssRevealReaction(boolean isSub) {
+	public default String getPartnerAssRevealReaction() {
 		Sex.getActivePartner().getPlayerKnowsAreasMap().put(CoverableArea.ANUS, true);
 		
 		String s = "<p>"
 				+ UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getAssDescription())
 				+ "</p>"
-				+ Sex.getActivePartner().getPartnerAssRevealReaction(isSub);
+				+ Sex.getActivePartner().getAssRevealDescription(Sex.getActivePartner());
 		
 		return s;
 	}
 
-	public default String getPartnerBreastsRevealReaction(boolean isSub) {
+	public default String getPartnerBreastsRevealReaction() {
 		Sex.getActivePartner().getPlayerKnowsAreasMap().put(CoverableArea.NIPPLES, true);
 		
 		String s = "<p>"
 				+ UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getBreastDescription())
 				+ "</p>"
-				+ Sex.getActivePartner().getPartnerBreastsRevealReaction(isSub);
+				+ Sex.getActivePartner().getBreastsRevealDescription(Sex.getActivePartner());
 		
 		return s;
 	}
 
-	public default String getPartnerPenisRevealReaction(boolean isSub) {
+	public default String getPartnerPenisRevealReaction() {
 		Sex.getActivePartner().getPlayerKnowsAreasMap().put(CoverableArea.PENIS, true);
 		
 		String s = "<p>"
 				+ UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getPenisDescription())
 				+ "</p>"
-				+ Sex.getActivePartner().getPartnerPenisRevealReaction(isSub);
+				+ Sex.getActivePartner().getPenisRevealDescription(Sex.getActivePartner());
 		
 		return s;
 	}
 
-	public default String getPartnerVaginaRevealReaction(boolean isSub) {
+	public default String getPartnerVaginaRevealReaction() {
 		Sex.getActivePartner().getPlayerKnowsAreasMap().put(CoverableArea.VAGINA, true);
 		
 		String s = "<p>"
 				+ UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getVaginaDescription())
 				+ "</p>"
-				+ Sex.getActivePartner().getPartnerVaginaRevealReaction(isSub);
+				+ Sex.getActivePartner().getVaginaRevealDescription(Sex.getActivePartner());
 		
 		return s;
 	}
 
-	public default String getPartnerMoundRevealReaction(boolean isSub) {
+	public default String getPartnerMoundRevealReaction() {
 		Sex.getActivePartner().getPlayerKnowsAreasMap().put(CoverableArea.PENIS, true);
 		Sex.getActivePartner().getPlayerKnowsAreasMap().put(CoverableArea.VAGINA, true);
 		
 		String s = "<p>"
 				+ UtilText.parse(Sex.getActivePartner(), Sex.getActivePartner().getMoundDescription())
 				+ "</p>"
-				+ Sex.getActivePartner().getPartnerMoundRevealReaction(isSub);
+				+ Sex.getActivePartner().getMoundRevealDescription(Sex.getActivePartner());
 		
 		return s;
 	}

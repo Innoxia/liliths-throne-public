@@ -35,6 +35,7 @@ import com.lilithsthrone.game.inventory.weapon.WeaponType;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.sex.managers.dominion.zaranix.SMZaranixCockSucking;
@@ -584,7 +585,7 @@ public class Zaranix extends NPC {
 
 	public SexType getForeplayPreference() {
 		if(Sex.getSexPositionSlot(Main.game.getZaranix())==SexPositionSlot.KNEELING_RECEIVING_ORAL_ZARANIX && this.hasPenis()) {
-			return new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER);
+			return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH);
 		}
 		
 		return super.getForeplayPreference();
@@ -592,7 +593,7 @@ public class Zaranix extends NPC {
 	
 	public SexType getMainSexPreference() {
 		if(Sex.getSexPositionSlot(Main.game.getZaranix())==SexPositionSlot.KNEELING_RECEIVING_ORAL_ZARANIX && this.hasPenis()) {
-			return new SexType(PenetrationType.PENIS_PARTNER, OrificeType.MOUTH_PLAYER);
+			return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH);
 		}
 
 		return super.getMainSexPreference();

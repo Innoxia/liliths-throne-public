@@ -90,9 +90,7 @@ public class Vagina implements BodyPartInterface, Serializable {
 		
 		String wetnessDescriptor = orificeVagina.getWetness(owner).getDescriptor();
 		if(Main.game.isInSex()) {
-			if(owner.isPlayer() && !Sex.getWetOrificeTypes(owner).get(OrificeType.VAGINA_PLAYER).isEmpty()) {
-				wetnessDescriptor = "wet";
-			} else if(!owner.isPlayer() && !Sex.getWetOrificeTypes(owner).get(OrificeType.VAGINA_PARTNER).isEmpty()) {
+			if(!Sex.getWetOrificeTypes(owner).get(OrificeType.VAGINA).isEmpty()) {
 				wetnessDescriptor = "wet";
 			}
 		}

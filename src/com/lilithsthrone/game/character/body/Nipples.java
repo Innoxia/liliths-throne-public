@@ -109,9 +109,7 @@ public class Nipples implements BodyPartInterface, Serializable {
 		}
 		
 		if(Main.game.isInSex()) {
-			if(owner.isPlayer() && !Sex.getWetOrificeTypes(owner).get(OrificeType.NIPPLE_PLAYER).isEmpty()) {
-				descriptorList.add("wet");
-			} else if(!owner.isPlayer() && !Sex.getWetOrificeTypes(owner).get(OrificeType.NIPPLE_PARTNER).isEmpty()) {
+			if(!Sex.getWetOrificeTypes(owner).get(OrificeType.NIPPLE).isEmpty()) {
 				descriptorList.add("wet");
 			}
 		}

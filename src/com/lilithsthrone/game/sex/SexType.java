@@ -4,17 +4,19 @@ import java.io.Serializable;
 
 /**
  * @since 0.1.53
- * @version 0.1.78
+ * @version 0.1.98
  * @author Innoxia
  */
 public class SexType implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
+	private SexParticipantType asParticipant;
 	private PenetrationType penetrationType;
 	private OrificeType orificeType;
 
-	public SexType(PenetrationType penetrationType, OrificeType orificeType) {
+	public SexType(SexParticipantType asParticipant, PenetrationType penetrationType, OrificeType orificeType) {
+		this.asParticipant = asParticipant;
 		this.penetrationType=penetrationType;
 		this.orificeType = orificeType;
 	}
@@ -22,7 +24,8 @@ public class SexType implements Serializable {
 	@Override
 	public boolean equals (Object o) {
 		if(o instanceof SexType){
-			if(((SexType)o).getPenetrationType().equals(getPenetrationType())
+			if(((SexType)o).getAsParticipant().equals(getAsParticipant())
+				&& ((SexType)o).getPenetrationType().equals(getPenetrationType())
 				&& ((SexType)o).getOrificeType().equals(getOrificeType())){
 					return true;
 			}
@@ -40,6 +43,10 @@ public class SexType implements Serializable {
 	
 	public String getName() {
 		return "";
+	}
+
+	public SexParticipantType getAsParticipant() {
+		return asParticipant;
 	}
 
 	public PenetrationType getPenetrationType() {

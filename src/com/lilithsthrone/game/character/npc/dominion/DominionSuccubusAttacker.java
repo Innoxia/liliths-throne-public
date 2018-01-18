@@ -33,6 +33,7 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
@@ -375,10 +376,10 @@ public class DominionSuccubusAttacker extends NPC {
 	@Override
 	public SexType getForeplayPreference() {
 		if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
-			return new SexType(PenetrationType.FINGER_PARTNER, OrificeType.VAGINA_PLAYER);
+			return new SexType(SexParticipantType.PITCHER, PenetrationType.FINGER, OrificeType.VAGINA);
 			
 		} else if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
-			return new SexType(PenetrationType.FINGER_PARTNER, OrificeType.ANUS_PLAYER);
+			return new SexType(SexParticipantType.PITCHER, PenetrationType.FINGER, OrificeType.ANUS);
 		}
 		
 		return foreplayPreference;
@@ -387,10 +388,10 @@ public class DominionSuccubusAttacker extends NPC {
 	@Override
 	public SexType getMainSexPreference() {
 		if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
-			return new SexType(PenetrationType.PENIS_PARTNER, OrificeType.VAGINA_PLAYER);
+			return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.VAGINA);
 			
 		} else if(Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
-			return new SexType(PenetrationType.PENIS_PARTNER, OrificeType.ANUS_PLAYER);
+			return new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.ANUS);
 		}
 		
 		return mainSexPreference;
@@ -460,9 +461,10 @@ public class DominionSuccubusAttacker extends NPC {
 	
 	// Losing virginity:
 	private static StringBuilder StringBuilderSB;
-	public String getPlayerVaginaVirginityLossDescription(PenetrationType penetration){
-		if(penetration!=PenetrationType.PENIS_PARTNER) {
-			return super.getPlayerVaginaVirginityLossDescription(penetration);
+	@Override
+	public String getVirginityLossDescription(GameCharacter characterPenetrating, PenetrationType penetrationType, GameCharacter characterPenetrated, OrificeType orifice){
+		if(!characterPenetrated.isPlayer() || penetrationType!=PenetrationType.PENIS) {
+			return super.getVirginityLossDescription(characterPenetrating, penetrationType, characterPenetrated, orifice);
 		}
 		
 		StringBuilderSB = new StringBuilder();
@@ -600,7 +602,7 @@ public class DominionSuccubusAttacker extends NPC {
 	// Dirty talk:
 	
 	@Override
-	public String getDirtyTalkNoPenetration(boolean isPlayerDom){
+	public String getDirtyTalkNoPenetration(GameCharacter target, boolean isPlayerDom){
 		List<String> speech = new ArrayList<>();
 		
 		if(isPlayerDom){
