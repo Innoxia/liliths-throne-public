@@ -10,6 +10,7 @@ import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
@@ -31,7 +32,8 @@ public class SABraxSubStart {
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null) {
+			null,
+			SexParticipantType.MISC) {
 		@Override
 		public String getActionTitle() {
 			return "Dirty talk";
@@ -46,7 +48,7 @@ public class SABraxSubStart {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.MOUTH_PARTNER)==(PenetrationType.PENIS_PLAYER)) {
+			if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.MOUTH)==(PenetrationType.PENIS)) {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"Looking down at [brax.name] as [brax.he] sucks your [pc.cock], you speak down to [brax.him], ",
 						"With a grin, you speak down to the [brax.race] between your legs, "));
@@ -59,7 +61,7 @@ public class SABraxSubStart {
 							"Aww, come on [brax.name]! Little betas like you should love sucking their alpha's cock!",
 							"Come on [brax.name]! This is what being a little beta is all about!")));
 				
-			} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER)==(PenetrationType.TONGUE_PARTNER)) {
+			} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA)==(PenetrationType.TONGUE)) {
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"Looking down at [brax.name]'s submissive form between your legs, you speak down to [brax.him], ",
 						"With a grin, you speak down to [brax.name], "));
@@ -109,7 +111,8 @@ public class SABraxSubStart {
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null) {
+			null,
+			SexParticipantType.MISC) {
 		@Override
 		public String getActionTitle() {
 			return "";

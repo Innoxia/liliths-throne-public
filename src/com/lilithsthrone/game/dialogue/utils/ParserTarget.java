@@ -36,7 +36,13 @@ public enum ParserTarget {
 			},
 	
 	NPC(Util.newArrayListOfValues(
-			new ListValue<>("npc")),
+			new ListValue<>("npc"),
+			new ListValue<>("npc1"),
+			new ListValue<>("npc2"),
+			new ListValue<>("npc3"),
+			new ListValue<>("npc4"),
+			new ListValue<>("npc5"),
+			new ListValue<>("npc6")),
 			"The currently 'active' NPC.</br>"
 			+"<b>The tag 'npc' can be extended with a number, starting at 1, to signify which npc in the scene it is referring to!</b> e.g. 'npc1' is the first npc, 'npc2' is the second, etc.</br>"
 			+ "If in <b>combat</b>, it returns your opponent.</br>"
@@ -48,7 +54,7 @@ public enum ParserTarget {
 						if(tag.equalsIgnoreCase("npc")) {
 							return UtilText.getSpecialNPCList().get(0);
 						} else {
-							return UtilText.getSpecialNPCList().get(Math.min(0, Integer.parseInt(tag.substring(3))-1));
+							return UtilText.getSpecialNPCList().get(Math.max(0, Integer.parseInt(tag.substring(3))-1));
 						}
 						
 					} else if(Main.game.isInCombat()) {

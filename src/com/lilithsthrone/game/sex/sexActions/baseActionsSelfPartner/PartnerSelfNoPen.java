@@ -11,6 +11,7 @@ import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.utils.Util;
@@ -28,8 +29,9 @@ public class PartnerSelfNoPen {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER_PARTNER,
-			OrificeType.VAGINA_PARTNER) {
+			PenetrationType.FINGER,
+			OrificeType.VAGINA,
+			SexParticipantType.SELF) {
 		
 		@Override
 		public String getActionTitle() {
@@ -72,8 +74,9 @@ public class PartnerSelfNoPen {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER_PARTNER,
-			OrificeType.URETHRA_PARTNER) {
+			PenetrationType.FINGER,
+			OrificeType.URETHRA,
+			SexParticipantType.SELF) {
 		
 		@Override
 		public String getActionTitle() {
@@ -116,8 +119,9 @@ public class PartnerSelfNoPen {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER_PARTNER,
-			null) {
+			PenetrationType.FINGER,
+			null,
+			SexParticipantType.SELF) {
 
 		@Override
 		public boolean isBaseRequirementsMet() {

@@ -8,6 +8,7 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
+import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexPositionNew;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
@@ -26,8 +27,9 @@ public class PartnerTongueVagina {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE_PARTNER,
-			OrificeType.VAGINA_PLAYER) {
+			PenetrationType.TONGUE,
+			OrificeType.VAGINA,
+			SexParticipantType.CATCHER) {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -97,8 +99,9 @@ public class PartnerTongueVagina {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE_PARTNER,
-			OrificeType.VAGINA_PLAYER) {
+			PenetrationType.TONGUE,
+			OrificeType.VAGINA,
+			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
 			return "Suck clit";
@@ -209,8 +212,9 @@ public class PartnerTongueVagina {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE_PARTNER,
-			OrificeType.VAGINA_PLAYER) {
+			PenetrationType.TONGUE,
+			OrificeType.VAGINA,
+			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
 			if(Main.game.getPlayer().isFeminine()) {
@@ -229,7 +233,7 @@ public class PartnerTongueVagina {
 		public boolean isBaseRequirementsMet() {
 			return Sex.getSexPace(Sex.getActivePartner())!=SexPace.SUB_RESISTING && Main.game.getPlayer().hasPenis()
 					&& Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS)
-					&& Sex.isPenetrationTypeFree(Main.game.getPlayer(), PenetrationType.PENIS_PLAYER);
+					&& Sex.isPenetrationTypeFree(Main.game.getPlayer(), PenetrationType.PENIS);
 		}
 
 		@Override
@@ -326,8 +330,9 @@ public class PartnerTongueVagina {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE_PARTNER,
-			OrificeType.VAGINA_PLAYER) {
+			PenetrationType.TONGUE,
+			OrificeType.VAGINA,
+			SexParticipantType.PITCHER) {
 		
 		@Override
 		public String getActionTitle() {
@@ -447,8 +452,9 @@ public class PartnerTongueVagina {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE_PARTNER,
-			OrificeType.VAGINA_PLAYER,
+			PenetrationType.TONGUE,
+			OrificeType.VAGINA,
+			SexParticipantType.PITCHER,
 			null,
 			SexPace.DOM_GENTLE) {
 
@@ -509,8 +515,9 @@ public class PartnerTongueVagina {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE_PARTNER,
-			OrificeType.VAGINA_PLAYER,
+			PenetrationType.TONGUE,
+			OrificeType.VAGINA,
+			SexParticipantType.PITCHER,
 			null,
 			SexPace.DOM_NORMAL) {
 
@@ -571,8 +578,9 @@ public class PartnerTongueVagina {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.TONGUE_PARTNER,
-			OrificeType.VAGINA_PLAYER,
+			PenetrationType.TONGUE,
+			OrificeType.VAGINA,
+			SexParticipantType.PITCHER,
 			null,
 			SexPace.DOM_ROUGH) {
 
@@ -633,8 +641,9 @@ public class PartnerTongueVagina {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE_PARTNER,
-			OrificeType.VAGINA_PLAYER,
+			PenetrationType.TONGUE,
+			OrificeType.VAGINA,
+			SexParticipantType.PITCHER,
 			null,
 			SexPace.SUB_RESISTING) {
 
@@ -695,8 +704,9 @@ public class PartnerTongueVagina {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE_PARTNER,
-			OrificeType.VAGINA_PLAYER,
+			PenetrationType.TONGUE,
+			OrificeType.VAGINA,
+			SexParticipantType.PITCHER,
 			null,
 			SexPace.SUB_NORMAL) {
 
@@ -757,8 +767,9 @@ public class PartnerTongueVagina {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE_PARTNER,
-			OrificeType.VAGINA_PLAYER,
+			PenetrationType.TONGUE,
+			OrificeType.VAGINA,
+			SexParticipantType.PITCHER,
 			null,
 			SexPace.SUB_EAGER) {
 
@@ -830,8 +841,9 @@ public class PartnerTongueVagina {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TONGUE_PARTNER,
-			OrificeType.VAGINA_PLAYER) {
+			PenetrationType.TONGUE,
+			OrificeType.VAGINA,
+			SexParticipantType.PITCHER) {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -892,8 +904,9 @@ public class PartnerTongueVagina {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE_PARTNER,
-			OrificeType.VAGINA_PLAYER) {
+			PenetrationType.TONGUE,
+			OrificeType.VAGINA,
+			SexParticipantType.CATCHER) {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1054,8 +1067,9 @@ public class PartnerTongueVagina {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE_PARTNER,
-			OrificeType.VAGINA_PLAYER,
+			PenetrationType.TONGUE,
+			OrificeType.VAGINA,
+			SexParticipantType.CATCHER,
 			SexPace.DOM_GENTLE,
 			null) {
 		
@@ -1112,8 +1126,9 @@ public class PartnerTongueVagina {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE_PARTNER,
-			OrificeType.VAGINA_PLAYER,
+			PenetrationType.TONGUE,
+			OrificeType.VAGINA,
+			SexParticipantType.CATCHER,
 			SexPace.DOM_NORMAL,
 			null) {
 		
@@ -1170,8 +1185,9 @@ public class PartnerTongueVagina {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE_PARTNER,
-			OrificeType.VAGINA_PLAYER,
+			PenetrationType.TONGUE,
+			OrificeType.VAGINA,
+			SexParticipantType.CATCHER,
 			SexPace.DOM_ROUGH,
 			null) {
 		
@@ -1289,8 +1305,9 @@ public class PartnerTongueVagina {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TONGUE_PARTNER,
-			OrificeType.VAGINA_PLAYER,
+			PenetrationType.TONGUE,
+			OrificeType.VAGINA,
+			SexParticipantType.CATCHER,
 			SexPace.SUB_RESISTING,
 			null) {
 
@@ -1351,8 +1368,9 @@ public class PartnerTongueVagina {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE_PARTNER,
-			OrificeType.VAGINA_PLAYER,
+			PenetrationType.TONGUE,
+			OrificeType.VAGINA,
+			SexParticipantType.CATCHER,
 			SexPace.SUB_NORMAL,
 			null) {
 		
@@ -1410,8 +1428,9 @@ public class PartnerTongueVagina {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TONGUE_PARTNER,
-			OrificeType.VAGINA_PLAYER,
+			PenetrationType.TONGUE,
+			OrificeType.VAGINA,
+			SexParticipantType.CATCHER,
 			SexPace.SUB_EAGER,
 			null) {
 		
@@ -1471,8 +1490,9 @@ public class PartnerTongueVagina {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TONGUE_PARTNER,
-			OrificeType.VAGINA_PLAYER) {
+			PenetrationType.TONGUE,
+			OrificeType.VAGINA,
+			SexParticipantType.CATCHER) {
 
 		@Override
 		public boolean isBaseRequirementsMet() {

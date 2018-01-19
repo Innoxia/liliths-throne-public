@@ -18,6 +18,7 @@ import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexPace;
+import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
@@ -34,6 +35,14 @@ public class GenericOrgasms {
 	
 	private static StringBuilder descriptionSB;
 	
+	private static boolean isTakingCock(GameCharacter character) {
+		return ((Sex.getPenetrationTypeInOrifice(character, OrificeType.VAGINA) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.VAGINA).equals(character))
+				|| (Sex.getPenetrationTypeInOrifice(character, OrificeType.ANUS) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.ANUS).equals(character))
+				|| (Sex.getPenetrationTypeInOrifice(character, OrificeType.NIPPLE) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.NIPPLE).equals(character))
+				|| (Sex.getPenetrationTypeInOrifice(character, OrificeType.MOUTH) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.MOUTH).equals(character)));
+		
+	}
+	
 	/*
 	 * Creampie
 	 * Pull out
@@ -48,20 +57,12 @@ public class GenericOrgasms {
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null) {
+			null,
+			SexParticipantType.MISC) {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			boolean takingCock = false;
-			
-			if((Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER) == PenetrationType.PENIS_PARTNER)
-					|| (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER) == PenetrationType.PENIS_PARTNER)
-					|| (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE_PLAYER) == PenetrationType.PENIS_PARTNER)
-					|| (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER) == PenetrationType.PENIS_PARTNER)) {
-				takingCock = true;
-			}
-			
-			return !takingCock;
+			return !isTakingCock(Main.game.getPlayer());
 		}
 		
 		@Override
@@ -101,11 +102,12 @@ public class GenericOrgasms {
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null) {
+			null,
+			SexParticipantType.MISC) {
 		@Override
 		public String getActionTitle() {
-			if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER) == PenetrationType.PENIS_PARTNER
-					|| Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.BREAST_PLAYER) == PenetrationType.PENIS_PARTNER) {
+			if((Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.MOUTH).isPlayer())
+					|| (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.BREAST) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.BREAST).isPlayer())) {
 				return "Request cum";
 			} else {
 				return "Request creampie";
@@ -119,35 +121,26 @@ public class GenericOrgasms {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			boolean takingCock = false;
-
-			if((Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER) == PenetrationType.PENIS_PARTNER)
-					|| (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER) == PenetrationType.PENIS_PARTNER)
-					|| (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE_PLAYER) == PenetrationType.PENIS_PARTNER)
-					|| (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER) == PenetrationType.PENIS_PARTNER)) {
-				takingCock = true;
-			}
-			
-			return takingCock;
+			return isTakingCock(Main.game.getPlayer());
 		}
 
 		@Override
 		public String getDescription() {
-			if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER) == PenetrationType.PENIS_PARTNER) {
+			if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.VAGINA).isPlayer()) {
 				return "Through your desperate moans and lewd cries, you somehow manage to formulate a sentence as you cry out for [npc.name]'s cum, "
 						+(Main.game.getPlayer().isVisiblyPregnant()
 								?"[pc.speech(Fuck! Cum in me! I need your cum!)]"
 								:"[pc.speech(Breed me! Cum in me! I need your cum!)]");
 				
-			} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER) == PenetrationType.PENIS_PARTNER) {
+			} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.ANUS).isPlayer()) {
 				return "Through your desperate moans and lewd cries, you somehow manage to formulate a sentence as you cry out for [npc.name]'s cum,"
 						+ " [pc.speech(Fuck! Cum in me! I need your cum!)]";
 				
-			} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE_PLAYER) == PenetrationType.PENIS_PARTNER) {
+			} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.NIPPLE).isPlayer()) {
 				return "Through your desperate moans and lewd cries, you somehow manage to formulate a sentence as you cry out for [npc.name]'s cum, "
 						+ " [pc.speech(Fuck! Cum in me! I need your cum!)]";
 				
-			} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.BREAST_PLAYER) == PenetrationType.PENIS_PARTNER) {
+			} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.BREAST) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.BREAST).isPlayer()) {
 				return "Through your desperate moans and lewd cries, you somehow manage to formulate a sentence as you cry out for [npc.name]'s cum, "
 						+ " [pc.speech(Yes! Cum for me! Cover my tits with your cum!)]";
 				
@@ -166,13 +159,13 @@ public class GenericOrgasms {
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
-				if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER) == PenetrationType.PENIS_PARTNER) {
+				if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.VAGINA).isPlayer()) {
 					return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_ADDICT), new ListValue<>(Fetish.FETISH_PREGNANCY));
 					
-				} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER) == PenetrationType.PENIS_PARTNER) {
+				} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.ANUS).isPlayer()) {
 					return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_ADDICT), new ListValue<>(Fetish.FETISH_ANAL_RECEIVING));
 					
-				} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE_PLAYER) == PenetrationType.PENIS_PARTNER) {
+				} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.NIPPLE).isPlayer()) {
 					return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_ADDICT), new ListValue<>(Fetish.FETISH_BREASTS_SELF));
 					
 				} else {
@@ -180,13 +173,13 @@ public class GenericOrgasms {
 				}
 				
 			} else {
-				if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER) == PenetrationType.PENIS_PARTNER) {
+				if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.VAGINA).isPlayer()) {
 					return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_STUD), new ListValue<>(Fetish.FETISH_IMPREGNATION));
 					
-				} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER) == PenetrationType.PENIS_PARTNER) {
+				} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.ANUS).isPlayer()) {
 					return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_STUD), new ListValue<>(Fetish.FETISH_ANAL_GIVING));
 					
-				} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE_PLAYER) == PenetrationType.PENIS_PARTNER) {
+				} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.NIPPLE).isPlayer()) {
 					return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_STUD), new ListValue<>(Fetish.FETISH_BREASTS_OTHERS));
 					
 				} else {
@@ -202,7 +195,8 @@ public class GenericOrgasms {
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null) {
+			null,
+			SexParticipantType.MISC) {
 		
 		@Override
 		public String getActionTitle() {
@@ -216,31 +210,22 @@ public class GenericOrgasms {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			boolean takingCock = false;
-
-			if((Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER) == PenetrationType.PENIS_PARTNER)
-					|| (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER) == PenetrationType.PENIS_PARTNER)
-					|| (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE_PLAYER) == PenetrationType.PENIS_PARTNER)
-					|| (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER) == PenetrationType.PENIS_PARTNER)) {
-				takingCock = true;
-			}
-			
-			return takingCock;
+			return isTakingCock(Main.game.getPlayer());
 		}
 
 		@Override
 		public String getDescription() {
-			if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER) == PenetrationType.PENIS_PARTNER) {
+			if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.VAGINA).isPlayer()) {
 				return "Through your desperate moans and lewd cries, you somehow manage to formulate a sentence as you cry out to [npc.name], "
 						+(Main.game.getPlayer().isVisiblyPregnant()
 								?"[pc.speech(Pull out! I don't want you to cum in me!)]"
 								:"[pc.speech(Pull out! I don't want to get pregnant!)]");
 				
-			} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER) == PenetrationType.PENIS_PARTNER) {
+			} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.ANUS).isPlayer()) {
 				return "Through your desperate moans and lewd cries, you somehow manage to formulate a sentence as you cry out to [npc.name], "
 						+ "[pc.speech(Pull out! I don't want you to cum in me!)]";
 				
-			} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE_PLAYER) == PenetrationType.PENIS_PARTNER) {
+			} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.NIPPLE).isPlayer()) {
 				return "Through your desperate moans and lewd cries, you somehow manage to formulate a sentence as you cry out to [npc.name], "
 						+ "[pc.speech(Pull out! I don't want you to cum in me!)]";
 				
@@ -342,7 +327,7 @@ public class GenericOrgasms {
 			}
 			
 			if(cumInside) { //TODO
-				if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER) == PenetrationType.PENIS_PLAYER) {
+				if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.VAGINA).isPlayer()) {
 					if(!Sex.getActivePartner().isVisiblyPregnant() && (Main.game.getPlayer().hasFetish(Fetish.FETISH_IMPREGNATION) || Main.game.getPlayer().hasFetish(Fetish.FETISH_SEEDER))) {
 						cumTargetSB.append(" deep into [npc.name]'s waiting womb.");
 					} else {
@@ -362,7 +347,7 @@ public class GenericOrgasms {
 							break;
 					}
 					
-				} else if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS_PARTNER) == PenetrationType.PENIS_PLAYER) {
+				} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.ANUS).isPlayer()) {
 					cumTargetSB.append(" deep into [npc.name]'s [npc.asshole+].");
 					switch (Main.game.getPlayer().getPenisCumProduction()) {
 						case SIX_EXTREME: case SEVEN_MONSTROUS:
@@ -376,7 +361,7 @@ public class GenericOrgasms {
 							break;
 					}
 					
-				} else if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.MOUTH_PARTNER) == PenetrationType.PENIS_PLAYER) {
+				} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.MOUTH) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.MOUTH).isPlayer()) {
 					cumTargetSB.append(" deep down [npc.name]'s throat.");
 					switch (Main.game.getPlayer().getPenisCumProduction()) {
 					case SIX_EXTREME: case SEVEN_MONSTROUS:
@@ -390,7 +375,7 @@ public class GenericOrgasms {
 						break;
 				}
 					
-				} else if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.NIPPLE_PARTNER) == PenetrationType.PENIS_PLAYER) {
+				} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.NIPPLE) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.NIPPLE).isPlayer()) {
 					cumTargetSB.append(" deep into [npc.name]'s [npc.breasts+].");
 				}
 			}
@@ -407,7 +392,8 @@ public class GenericOrgasms {
 			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null) {
+			null,
+			SexParticipantType.MISC) {
 		@Override
 		public String getActionTitle() {
 			return "Stay in position";
@@ -435,7 +421,7 @@ public class GenericOrgasms {
 			if(Main.game.getPlayer().getPenisType()!=PenisType.NONE){
 				
 				// Describe where penetration is occurring:
-				if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER) == PenetrationType.PENIS_PLAYER) {
+				if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.VAGINA).isPlayer()) {
 					switch(Main.game.getPlayer().getPenisType()){
 						case CANINE:
 							descriptionSB.append("Ramming the knot at the base of your [pc.cock+] into [npc.name]'s [npc.pussy+], you let out a deep groan as you feel it swelling up and locking you in place.");
@@ -451,7 +437,7 @@ public class GenericOrgasms {
 							break;
 					}
 					
-				} else if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS_PARTNER) == PenetrationType.PENIS_PLAYER) {
+				} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.ANUS).isPlayer()) {
 					switch(Main.game.getPlayer().getPenisType()){
 						case CANINE:
 							descriptionSB.append("Ramming the knot at the base of your [pc.cock+] into [npc.name]'s [npc.asshole+], you let out a deep groan as you feel it swelling up and locking you in place.");
@@ -467,7 +453,7 @@ public class GenericOrgasms {
 							break;
 					}
 					
-				} else if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.MOUTH_PARTNER) == PenetrationType.PENIS_PLAYER) {
+				} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.MOUTH) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.MOUTH).isPlayer()) {
 					switch(Main.game.getPlayer().getPenisType()){
 						case CANINE:
 							descriptionSB.append("Ramming the knot at the base of your [pc.cock+] past [npc.name]'s lips, you let out a deep groan as you feel it swelling up and locking you in place.");
@@ -483,7 +469,7 @@ public class GenericOrgasms {
 							break;
 					}
 					
-				} else if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.NIPPLE_PARTNER) == PenetrationType.PENIS_PLAYER) {
+				} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.NIPPLE) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.NIPPLE).isPlayer()) {
 					switch(Main.game.getPlayer().getPenisType()){
 						case CANINE:
 							descriptionSB.append("Ramming the knot at the base of your [pc.cock+] into [npc.name]'s [npc.nipple+], you let out a deep groan as you feel it swelling up and locking you in place.");
@@ -556,7 +542,7 @@ public class GenericOrgasms {
 						descriptionSB.append(" into your [pc.lowClothing(penis)].");
 						
 					} else {
-						if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER) == PenetrationType.PENIS_PLAYER) {
+						if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.VAGINA).isPlayer()) {
 							if(Sex.getActivePartner().isVisiblyPregnant()) {
 								descriptionSB.append(" deep into [npc.name]'s hungry [npc.pussy].");
 							} else {
@@ -576,7 +562,7 @@ public class GenericOrgasms {
 									break;
 							}
 							
-						} else if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS_PARTNER) == PenetrationType.PENIS_PLAYER) {
+						} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.ANUS).isPlayer()) {
 							descriptionSB.append(" deep into [npc.name]'s [npc.asshole+].");
 							switch (Main.game.getPlayer().getPenisCumProduction()) {
 								case SIX_EXTREME: case SEVEN_MONSTROUS:
@@ -590,7 +576,7 @@ public class GenericOrgasms {
 									break;
 							}
 							
-						} else if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.MOUTH_PARTNER) == PenetrationType.PENIS_PLAYER) {
+						} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.MOUTH) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.MOUTH).isPlayer()) {
 							descriptionSB.append(" deep down [npc.name]'s throat.");
 							switch (Main.game.getPlayer().getPenisCumProduction()) {
 							case SIX_EXTREME: case SEVEN_MONSTROUS:
@@ -604,7 +590,7 @@ public class GenericOrgasms {
 								break;
 						}
 							
-						} else if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.NIPPLE_PARTNER) == PenetrationType.PENIS_PLAYER) {
+						} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.NIPPLE) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.NIPPLE).isPlayer()) {
 							descriptionSB.append(" deep into [npc.name]'s [npc.breasts+].");
 							
 						} else {
@@ -622,37 +608,41 @@ public class GenericOrgasms {
 				
 				descriptionSB.append("A desperate, shuddering heat suddenly crashes up from your [pc.pussy+], and you let out a manic squeal as a blinding wave of pure ecstasy washes over you.");
 				
-				if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER) != null) {
-					switch(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER)) {
-						case FINGER_PARTNER:
-							descriptionSB.append(" [npc.Name]'s fingers carry on pumping away at your [pc.pussy+]"
-									+", and you let out a series of high-pitched moans as your vaginal muscles grip and squeeze around the intruding digits.");
+				if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA) != null) {
+					GameCharacter characterUsingPussy = Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.VAGINA);
+					switch(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA)) {
+						case FINGER:
+							if(characterUsingPussy.isPlayer()) {
+								descriptionSB.append(" You curl your fingers up deep inside your [pc.pussy+], and, while desperately stroking in a 'come-hither' motion,"
+										+ " you let out a series of high-pitched moans as your vaginal muscles grip and squeeze around your intruding digits.");
+							} else {
+								descriptionSB.append(UtilText.parse(characterUsingPussy,
+										" [npc.Name]'s fingers carry on pumping away at your [pc.pussy+], and you let out a series of high-pitched moans as your vaginal muscles grip and squeeze around the intruding digits."));
+							}
 							break;
-						case FINGER_PLAYER:
-							descriptionSB.append(" You curl your fingers up deep inside your [pc.pussy+]"
-									+", and, while desperately stroking in a 'come-hither' motion, you let out a series of high-pitched moans as your vaginal muscles grip and squeeze around your intruding digits.");
+						case PENIS:
+							if(characterUsingPussy.isPlayer()) {
+								descriptionSB.append(" You carry on fucking yourself through your orgasm, and you let out a series of high-pitched moans as your vaginal muscles grip and squeeze around your [pc.cock+].");
+							} else {
+								descriptionSB.append(UtilText.parse(characterUsingPussy,
+										" [npc.Name] carries on fucking your [pc.pussy+] through your orgasm, and you let out a series of high-pitched moans as your vaginal muscles grip and squeeze around [npc.her] [npc.penis+]."));
+							}
 							break;
-						case PENIS_PARTNER:
-							descriptionSB.append(" [npc.Name] carries on fucking your [pc.pussy+]"
-									+" through your orgasm, and you let out a series of high-pitched moans as your vaginal muscles grip and squeeze around [npc.her] [npc.penis+].");
+						case TAIL:
+							if(characterUsingPussy.isPlayer()) {
+								descriptionSB.append(" You carry on using your tail to fuck yourself through your orgasm, and you let out a series of high-pitched moans as your vaginal muscles grip and squeeze around the intruding object.");
+							} else {
+								descriptionSB.append(UtilText.parse(characterUsingPussy,
+										" [npc.Name]'s tail carries on fucking your [pc.pussy+] through your orgasm, and you let out a series of high-pitched moans as your vaginal muscles grip and squeeze around the intruding object."));
+							}
 							break;
-						case PENIS_PLAYER:
-							descriptionSB.append(" You carry on fucking yourself through your orgasm, and you let out a series of high-pitched moans as your vaginal muscles grip and squeeze around your [pc.cock+].");
-							break;
-						case TAIL_PARTNER:
-							descriptionSB.append(" [npc.Name]'s tail carries on fucking your [pc.pussy+]"
-									+" through your orgasm, and you let out a series of high-pitched moans as your vaginal muscles grip and squeeze around the intruding object.");
-							break;
-						case TAIL_PLAYER:
-							descriptionSB.append(" You carry on using your tail to fuck yourself through your orgasm, and you let out a series of high-pitched moans as your vaginal muscles grip and squeeze around the intruding object.");
-							break;
-						case TONGUE_PARTNER:
-							descriptionSB.append(" [npc.Name] carries on eating you out, licking and kissing at your [pc.pussy+]"
-									+" while you orgasm, and you let out a series of high-pitched moans as your vaginal muscles grip and squeeze around the intruding muscle.");
-							break;
-						case TONGUE_PLAYER:
-							descriptionSB.append(" You carry on thrusting your tongue deep into your [pc.pussy+]"
-									+" as you orgasm, and you let out a series of high-pitched moans as your vaginal muscles grip and squeeze around the intruding muscle.");
+						case TONGUE:
+							if(characterUsingPussy.isPlayer()) {
+								descriptionSB.append(" You carry on thrusting your tongue deep into your [pc.pussy+] as you orgasm, and you let out a series of high-pitched moans as your vaginal muscles grip and squeeze around the intruding muscle.");
+							} else {
+								descriptionSB.append(UtilText.parse(characterUsingPussy,
+										" [npc.Name] carries on eating you out, licking and kissing at your [pc.pussy+] while you orgasm, and you let out a series of high-pitched moans as your vaginal muscles grip and squeeze around the intruding muscle."));
+							}
 							break;
 						default:
 							break;
@@ -683,19 +673,23 @@ public class GenericOrgasms {
 		}
 		
 		@Override
-		public List<OrificeType> getPartnerAreasCummedIn() {
-			if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER) == PenetrationType.PENIS_PLAYER) {
-				return Util.newArrayListOfValues(new ListValue<>(OrificeType.VAGINA_PARTNER));
-				
-			} else if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS_PARTNER) == PenetrationType.PENIS_PLAYER) {
-				return Util.newArrayListOfValues(new ListValue<>(OrificeType.ANUS_PARTNER));
-				
-			} else if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.MOUTH_PARTNER) == PenetrationType.PENIS_PLAYER) {
-				return Util.newArrayListOfValues(new ListValue<>(OrificeType.MOUTH_PARTNER));
-				
-			} else if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.NIPPLE_PARTNER) == PenetrationType.PENIS_PLAYER) {
-				return Util.newArrayListOfValues(new ListValue<>(OrificeType.NIPPLE_PARTNER));
-				
+		public List<OrificeType> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(cumProvider.isPlayer() && cumTarget.equals(Sex.getTargetedPartner(cumProvider))) {
+				if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.VAGINA).isPlayer()) {
+					return Util.newArrayListOfValues(new ListValue<>(OrificeType.VAGINA));
+					
+				} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.ANUS).isPlayer()) {
+					return Util.newArrayListOfValues(new ListValue<>(OrificeType.ANUS));
+					
+				} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.MOUTH) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.MOUTH).isPlayer()) {
+					return Util.newArrayListOfValues(new ListValue<>(OrificeType.MOUTH));
+					
+				} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.NIPPLE) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.NIPPLE).isPlayer()) {
+					return Util.newArrayListOfValues(new ListValue<>(OrificeType.NIPPLE));
+					
+				} else {
+					return null;
+				}
 			} else {
 				return null;
 			}
@@ -708,7 +702,8 @@ public class GenericOrgasms {
 			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null) {
+			null,
+			SexParticipantType.MISC) {
 		@Override
 		public String getActionTitle() {
 			return "Pull out";
@@ -730,61 +725,79 @@ public class GenericOrgasms {
 			
 			descriptionSB.append("You feel a desperate heat building in your groin, and with a lewd cry, you reach your orgasm.");
 			
-			if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER)!=null) {
-				switch(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER)){
-					case FINGER_PARTNER:
-						descriptionSB.append(" You pull [npc.name]'s fingers out of your [pc.ass+].");
+			if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS)!=null) {
+				GameCharacter characterUsingOrifice = Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.ANUS);
+				switch(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS)){
+					case FINGER:
+						if(characterUsingOrifice.isPlayer()) {
+							descriptionSB.append(" You pull your fingers out of your [pc.ass+].");
+						} else {
+							descriptionSB.append(UtilText.parse(characterUsingOrifice,
+									" You pull [npc.name]'s fingers out of your [pc.ass+]."));
+						}
 						break;
-					case FINGER_PLAYER:
-						descriptionSB.append(" You pull your fingers out of your [pc.ass+].");
+					case PENIS:
+						if(characterUsingOrifice.isPlayer()) {
+							descriptionSB.append(" You pull your [pc.cock+] out of your [pc.ass+].");
+						} else {
+							descriptionSB.append(UtilText.parse(characterUsingOrifice,
+									" Grabbing [npc.name]'s hips, you push back, causing [npc.her] [npc.penis+] to slip out of your [pc.ass+]."));
+						}
 						break;
-					case PENIS_PARTNER:
-						descriptionSB.append(" Grabbing [npc.name]'s hips, you push back, causing [npc.her] [npc.penis+] to slip out of your [pc.ass+].");
+					case TAIL:
+						if(characterUsingOrifice.isPlayer()) {
+							descriptionSB.append(" Grabbing your tail, you pull it out of your [pc.ass+].");
+						} else {
+							descriptionSB.append(UtilText.parse(characterUsingOrifice,
+									" Grabbing [npc.name]'s tail, you pull it out of your [pc.ass+]."));
+						}
 						break;
-					case PENIS_PLAYER:
-						descriptionSB.append(" You pull your [pc.cock+] out of your [pc.ass+].");
-						break;
-					case TAIL_PARTNER:
-						descriptionSB.append(" Grabbing [npc.name]'s tail, you pull it out of your [pc.ass+].");
-						break;
-					case TAIL_PLAYER:
-						descriptionSB.append(" Grabbing your tail, you pull it out of your [pc.ass+].");
-						break;
-					case TONGUE_PARTNER:
-						descriptionSB.append(" Grabbing [npc.name]'s head, you push back, causing [npc.her] tongue to slip out of your [pc.ass+].");
-						break;
-					case TONGUE_PLAYER:
-						descriptionSB.append(" You slide your tongue out of your [pc.ass+].");
+					case TONGUE:
+						if(characterUsingOrifice.isPlayer()) {
+							descriptionSB.append(" You slide your tongue out of your [pc.ass+].");
+						} else {
+							descriptionSB.append(UtilText.parse(characterUsingOrifice,
+									" Grabbing [npc.name]'s head, you push back, causing [npc.her] tongue to slip out of your [pc.ass+]."));
+						}
 						break;
 					default:
 						break;
 				}
 			}
-			if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER)!=null) {
-				switch(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER)){
-					case FINGER_PARTNER:
-						descriptionSB.append(" You pull [npc.name]'s fingers out of your mouth.");
+			if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH)!=null) {
+				GameCharacter characterUsingOrifice = Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.ANUS);
+				switch(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH)){
+					case FINGER:
+						if(characterUsingOrifice.isPlayer()) {
+							descriptionSB.append(" You pull your fingers out of your mouth.");
+						} else {
+							descriptionSB.append(UtilText.parse(characterUsingOrifice,
+									" You pull [npc.name]'s fingers out of your mouth."));
+						}
 						break;
-					case FINGER_PLAYER:
-						descriptionSB.append(" You pull your fingers out of your mouth.");
+					case PENIS:
+						if(characterUsingOrifice.isPlayer()) {
+							descriptionSB.append(" You pull your [pc.cock+] out of your mouth.");
+						} else {
+							descriptionSB.append(UtilText.parse(characterUsingOrifice,
+									" Grabbing [npc.name]'s hips, you push back, causing [npc.her] [npc.penis+] to slip out of your mouth."));
+						}
 						break;
-					case PENIS_PARTNER:
-						descriptionSB.append(" Grabbing [npc.name]'s hips, you push back, causing [npc.her] [npc.penis+] to slip out of your mouth.");
+					case TAIL:
+						if(characterUsingOrifice.isPlayer()) {
+							descriptionSB.append(" Grabbing your tail, you pull it out of your mouth.");
+						} else {
+							descriptionSB.append(UtilText.parse(characterUsingOrifice,
+									" Grabbing [npc.name]'s tail, you pull it out of your mouth."));
+						}
 						break;
-					case PENIS_PLAYER:
-						descriptionSB.append(" You pull your [pc.cock+] out of your mouth.");
-						break;
-					case TAIL_PARTNER:
-						descriptionSB.append(" Grabbing [npc.name]'s tail, you pull it out of your mouth.");
-						break;
-					case TAIL_PLAYER:
-						descriptionSB.append(" Grabbing your tail, you pull it out of your mouth.");
-						break;
-					case TONGUE_PARTNER:
-						descriptionSB.append(" Grabbing [npc.name]'s head, you push back, causing [npc.her] tongue to slip out of your mouth.");
-						break;
-					case TONGUE_PLAYER:
-						descriptionSB.append(" You slide your tongue out of your throat.");
+					case TONGUE:
+						if(characterUsingOrifice.isPlayer()) {
+							descriptionSB.append("");
+						} else {
+							descriptionSB.append(UtilText.parse(characterUsingOrifice,
+									" Grabbing [npc.name]'s head, you push back, causing [npc.her] tongue to slip out of your mouth."));
+						}
 						break;
 					default:
 						break;
@@ -797,7 +810,7 @@ public class GenericOrgasms {
 			if(Main.game.getPlayer().getPenisType()!=PenisType.NONE){
 				
 				// Describe where penetration is occurring:
-				if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER) == PenetrationType.PENIS_PLAYER) {
+				if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.VAGINA).isPlayer()) {
 					switch(Main.game.getPlayer().getPenisType()){
 						case CANINE:
 							descriptionSB.append("Taking hold of [npc.name]'s [npc.hips+], you pull your [pc.cock+] out of [npc.her] [npc.pussy+] just as your fat knot starts to swell up.");
@@ -813,7 +826,7 @@ public class GenericOrgasms {
 							break;
 					}
 					
-				} else if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS_PARTNER) == PenetrationType.PENIS_PLAYER) {
+				} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.ANUS).isPlayer()) {
 					switch(Main.game.getPlayer().getPenisType()){
 						case CANINE:
 							descriptionSB.append("Taking hold of [npc.name]'s [npc.hips+], you pull your [pc.cock+] out of [npc.her] [npc.asshole+] just as your fat knot starts to swell up.");
@@ -829,7 +842,7 @@ public class GenericOrgasms {
 							break;
 					}
 					
-				} else if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.MOUTH_PARTNER) == PenetrationType.PENIS_PLAYER) {
+				} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.MOUTH) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.MOUTH).isPlayer()) {
 					switch(Main.game.getPlayer().getPenisType()){
 						case CANINE:
 							descriptionSB.append("Taking hold of [npc.name]'s head, you pull your [pc.cock+] out of [npc.her] mouth just as your fat knot starts to swell up.");
@@ -845,7 +858,7 @@ public class GenericOrgasms {
 							break;
 					}
 					
-				} else if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.NIPPLE_PARTNER) == PenetrationType.PENIS_PLAYER) {
+				} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.NIPPLE) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.NIPPLE).isPlayer()) {
 					switch(Main.game.getPlayer().getPenisType()){
 						case CANINE:
 							descriptionSB.append("Taking hold of [npc.name]'s [npc.breasts+], you pull your [pc.cock+] out of [npc.her] [npc.nipple+] just as your fat knot starts to swell up.");
@@ -918,16 +931,16 @@ public class GenericOrgasms {
 						descriptionSB.append(" into your [pc.lowClothing(penis)].");
 						
 					} else {
-						if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER) == PenetrationType.PENIS_PLAYER) {
+						if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.VAGINA).isPlayer()) {
 							descriptionSB.append(" out all over the entrance to [npc.name]'s [npc.pussy+].");
 							
-						} else if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS_PARTNER) == PenetrationType.PENIS_PLAYER) {
+						} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.ANUS).isPlayer()) {
 							descriptionSB.append(" out all over [npc.name]'s [npc.asshole+].");
 							
-						} else if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.MOUTH_PARTNER) == PenetrationType.PENIS_PLAYER) {
+						} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.MOUTH) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.MOUTH).isPlayer()) {
 							descriptionSB.append(" out all over [npc.name]'s face.");
 							
-						} else if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.NIPPLE_PARTNER) == PenetrationType.PENIS_PLAYER) {
+						} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.NIPPLE) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.NIPPLE).isPlayer()) {
 							descriptionSB.append(" out all over [npc.name]'s [npc.breasts+].");
 							
 						} else {
@@ -944,39 +957,44 @@ public class GenericOrgasms {
 				
 				descriptionSB.append("A desperate, shuddering heat suddenly crashes up from your [pc.pussy+], and you let out a manic squeal as a blinding wave of pure ecstasy washes over you.");
 				
-				if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER) != null) {
-					switch(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER)) {
-						case FINGER_PARTNER:
-							descriptionSB.append(" Grabbing [npc.name]'s hand, you pull [npc.her] fingers out of your [pc.pussy+],"
-									+ " letting out a high-pitched moan as your vaginal muscles grip and squeeze down on the sudden emptiness between your legs.");
+				if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA) != null) {
+					GameCharacter characterUsingOrifice = Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.VAGINA);
+					switch(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA)) {
+						case FINGER:
+							if(characterUsingOrifice.isPlayer()) {
+								descriptionSB.append(" Pulling your fingers out of your [pc.pussy+], letting out a high-pitched moan as your vaginal muscles grip and squeeze down on the sudden emptiness between your legs.");
+							} else {
+								descriptionSB.append(UtilText.parse(characterUsingOrifice,
+										" Grabbing [npc.name]'s hand, you pull [npc.her] fingers out of your [pc.pussy+],"
+										+ " letting out a high-pitched moan as your vaginal muscles grip and squeeze down on the sudden emptiness between your legs."));
+							}
 							break;
-						case FINGER_PLAYER:
-							descriptionSB.append(" Pulling your fingers out of your [pc.pussy+],"
-									+ " letting out a high-pitched moan as your vaginal muscles grip and squeeze down on the sudden emptiness between your legs.");
+						case PENIS:
+							if(characterUsingOrifice.isPlayer()) {
+								descriptionSB.append(" Sliding your [pc.cock+] out of your [pc.pussy+], you let out a high-pitched moan as your vaginal muscles grip and squeeze down on the sudden emptiness between your legs.");
+							} else {
+								descriptionSB.append(UtilText.parse(characterUsingOrifice,
+										" Grabbing [npc.name]'s hips, you pull back from [npc.her] groin, letting [npc.her] [npc.penis+] slide out of your [pc.pussy+],"
+										+ " and letting out a high-pitched moan as your vaginal muscles grip and squeeze down on the sudden emptiness between your legs."));
+							}
 							break;
-						case PENIS_PARTNER:
-							descriptionSB.append(" Grabbing [npc.name]'s hips, you pull back from [npc.her] groin, letting [npc.her] [npc.penis+] slide out of your [pc.pussy+]"
-									+", and letting out a high-pitched moan as your vaginal muscles grip and squeeze down on the sudden emptiness between your legs.");
+						case TAIL:
+							if(characterUsingOrifice.isPlayer()) {
+								descriptionSB.append(" Grabbing your tail, you slide it out of your [pc.pussy+], letting out a high-pitched moan as your vaginal muscles grip and squeeze down on the sudden emptiness between your legs.");
+							} else {
+								descriptionSB.append(UtilText.parse(characterUsingOrifice,
+										" Grabbing [npc.name]'s tail, you slide it out of your [pc.pussy+],"
+										+ " letting out a high-pitched moan as your vaginal muscles grip and squeeze down on the sudden emptiness between your legs."));
+							}
 							break;
-						case PENIS_PLAYER:
-							descriptionSB.append(" Sliding your [pc.cock+] out of your [pc.pussy+]"
-									+", you let out a high-pitched moan as your vaginal muscles grip and squeeze down on the sudden emptiness between your legs.");
-							break;
-						case TAIL_PARTNER:
-							descriptionSB.append(" Grabbing [npc.name]'s tail, you slide it out of your [pc.pussy+]"
-									+", letting out a high-pitched moan as your vaginal muscles grip and squeeze down on the sudden emptiness between your legs.");
-							break;
-						case TAIL_PLAYER:
-							descriptionSB.append(" Grabbing your tail, you slide it out of your [pc.pussy+]"
-									+", letting out a high-pitched moan as your vaginal muscles grip and squeeze down on the sudden emptiness between your legs.");
-							break;
-						case TONGUE_PARTNER:
-							descriptionSB.append(" Grabbing [npc.name]'s head, you push [npc.her] back away from your groin, letting [npc.her] tongue slip out from your [pc.pussy+]"
-									+", and you let out a high-pitched moan as your vaginal muscles grip and squeeze down on the sudden emptiness between your legs.");
-							break;
-						case TONGUE_PLAYER:
-							descriptionSB.append(" Sliding your tongue out from your [pc.pussy+]"
-									+", you let out a high-pitched moan as your vaginal muscles grip and squeeze down on the sudden emptiness between your legs.");
+						case TONGUE:
+							if(characterUsingOrifice.isPlayer()) {
+								descriptionSB.append(" Sliding your tongue out from your [pc.pussy+], you let out a high-pitched moan as your vaginal muscles grip and squeeze down on the sudden emptiness between your legs.");
+							} else {
+								descriptionSB.append(UtilText.parse(characterUsingOrifice,
+										" Grabbing [npc.name]'s head, you push [npc.her] back away from your groin, letting [npc.her] tongue slip out from your [pc.pussy+]"
+									+", and you let out a high-pitched moan as your vaginal muscles grip and squeeze down on the sudden emptiness between your legs."));
+							}
 							break;
 						default:
 							break;
@@ -1014,20 +1032,12 @@ public class GenericOrgasms {
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null) {
+			null,
+			SexParticipantType.MISC) {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			boolean takingCock = false;
-			
-			if((Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER) == PenetrationType.PENIS_PLAYER)
-					|| (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS_PARTNER) == PenetrationType.PENIS_PLAYER)
-					|| (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.NIPPLE_PARTNER) == PenetrationType.PENIS_PLAYER)
-					|| (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.MOUTH_PARTNER) == PenetrationType.PENIS_PLAYER)) {
-				takingCock = true;
-			}
-			
-			return !takingCock;
+			return !isTakingCock(Sex.getActivePartner());
 		}
 
 		@Override
@@ -1072,7 +1082,8 @@ public class GenericOrgasms {
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null) {
+			null,
+			SexParticipantType.MISC) {
 		@Override
 		public String getActionTitle() {
 			return "";
@@ -1085,21 +1096,14 @@ public class GenericOrgasms {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			boolean takingCock = false;
-			
-			if((Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER) == PenetrationType.PENIS_PLAYER)
-					|| (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS_PARTNER) == PenetrationType.PENIS_PLAYER)
-					|| (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.NIPPLE_PARTNER) == PenetrationType.PENIS_PLAYER)
-					|| (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.MOUTH_PARTNER) == PenetrationType.PENIS_PLAYER)) {
-				takingCock = true;
-			}
-			
-			return takingCock && Sex.getSexPace(Sex.getActivePartner())!=SexPace.SUB_RESISTING;
+			return isTakingCock(Sex.getActivePartner()) && Sex.getSexPace(Sex.getActivePartner())!=SexPace.SUB_RESISTING;
 		}
 
 		@Override
 		public SexActionPriority getPriority() {
-			if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER)==PenetrationType.PENIS_PARTNER && Sex.getActivePartner().hasFetish(Fetish.FETISH_PREGNANCY)) {
+			if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA)==PenetrationType.PENIS
+					&& Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.VAGINA).isPlayer()
+					&& Sex.getActivePartner().hasFetish(Fetish.FETISH_PREGNANCY)) {
 				return SexActionPriority.NORMAL;
 			} else {
 				return SexActionPriority.LOW;
@@ -1108,17 +1112,17 @@ public class GenericOrgasms {
 
 		@Override
 		public String getDescription() {
-			if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER) == PenetrationType.PENIS_PLAYER) {
+			if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.VAGINA).isPlayer()) {
 				return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out for your cum, "
 						+(Sex.getActivePartner().isVisiblyPregnant()
 								?"[npc.speech(Fuck! Cum in me! I need your cum!)]"
 								:"[npc.speech(Breed me! Cum in me! I need your cum!)]");
 				
-			} else if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS_PARTNER) == PenetrationType.PENIS_PLAYER) {
+			} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.ANUS).isPlayer()) {
 				return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out for your cum,"
 						+ " [npc.speech(Fuck! Cum in me! I need your cum!)]";
 				
-			} else if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.NIPPLE_PARTNER) == PenetrationType.PENIS_PLAYER) {
+			} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.NIPPLE) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.NIPPLE).isPlayer()) {
 				return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out for your cum, "
 						+ " [npc.speech(Fuck! Cum in me! I need your cum!)]";
 				
@@ -1137,13 +1141,13 @@ public class GenericOrgasms {
 		@Override
 		public List<Fetish> getFetishes(GameCharacter character) {
 			if(character.isPlayer()) {
-				if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER) == PenetrationType.PENIS_PLAYER) {
+				if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.VAGINA).isPlayer()) {
 					return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_STUD), new ListValue<>(Fetish.FETISH_IMPREGNATION));
 					
-				} else if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS_PARTNER) == PenetrationType.PENIS_PLAYER) {
+				} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.ANUS).isPlayer()) {
 					return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_STUD), new ListValue<>(Fetish.FETISH_ANAL_GIVING));
 					
-				} else if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.NIPPLE_PARTNER) == PenetrationType.PENIS_PLAYER) {
+				} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.NIPPLE) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.NIPPLE).isPlayer()) {
 					return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_STUD), new ListValue<>(Fetish.FETISH_BREASTS_OTHERS));
 					
 				} else {
@@ -1151,13 +1155,13 @@ public class GenericOrgasms {
 				}
 				
 			} else {
-				if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER) == PenetrationType.PENIS_PLAYER) {
+				if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.VAGINA).isPlayer()) {
 					return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_ADDICT), new ListValue<>(Fetish.FETISH_PREGNANCY));
 					
-				} else if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS_PARTNER) == PenetrationType.PENIS_PLAYER) {
+				} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.ANUS).isPlayer()) {
 					return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_ADDICT), new ListValue<>(Fetish.FETISH_ANAL_RECEIVING));
 					
-				} else if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.NIPPLE_PARTNER) == PenetrationType.PENIS_PLAYER) {
+				} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.NIPPLE) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.NIPPLE).isPlayer()) {
 					return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_CUM_ADDICT), new ListValue<>(Fetish.FETISH_BREASTS_SELF));
 					
 				} else {
@@ -1173,7 +1177,8 @@ public class GenericOrgasms {
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null) {
+			null,
+			SexParticipantType.MISC) {
 		@Override
 		public String getActionTitle() {
 			return "";
@@ -1186,21 +1191,12 @@ public class GenericOrgasms {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			boolean takingCock = false;
-			
-			if((Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER) == PenetrationType.PENIS_PLAYER)
-					|| (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS_PARTNER) == PenetrationType.PENIS_PLAYER)
-					|| (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.NIPPLE_PARTNER) == PenetrationType.PENIS_PLAYER)
-					|| (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.MOUTH_PARTNER) == PenetrationType.PENIS_PLAYER)) {
-				takingCock = true;
-			}
-			
-			return takingCock
+			return isTakingCock(Sex.getActivePartner())
 					&& (Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING
-						|| ((Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.MOUTH_PARTNER)==PenetrationType.PENIS_PLAYER
+						|| ((Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.MOUTH)==PenetrationType.PENIS
 							?!Sex.getActivePartner().hasFetish(Fetish.FETISH_CUM_ADDICT)
 							:true)
-						&& (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER)==PenetrationType.PENIS_PLAYER
+						&& (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA)==PenetrationType.PENIS
 							?(!Sex.getActivePartner().hasFetish(Fetish.FETISH_PREGNANCY) && !Sex.getActivePartner().hasFetish(Fetish.FETISH_BROODMOTHER))
 							:true)));
 		}
@@ -1212,17 +1208,17 @@ public class GenericOrgasms {
 		
 		@Override
 		public String getDescription() {
-			if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER) == PenetrationType.PENIS_PLAYER) {
+			if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.VAGINA).isPlayer()) {
 				return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out to you, "
 						+(Sex.getActivePartner().isVisiblyPregnant()
 								?"[npc.speech(Pull out! I don't want you to cum in me!)]"
 								:"[npc.speech(Pull out! I don't want to get pregnant!)]");
 				
-			} else if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS_PARTNER) == PenetrationType.PENIS_PLAYER) {
+			} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.ANUS).isPlayer()) {
 				return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out to you, "
 						+ "[npc.speech(Pull out! I don't want you to cum in me!)]";
 				
-			} else if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.NIPPLE_PARTNER) == PenetrationType.PENIS_PLAYER) {
+			} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.NIPPLE) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.NIPPLE).isPlayer()) {
 				return "Through [npc.her] desperate moans and lewd cries, [npc.name] somehow manages to formulate a sentence as [npc.she] cries out to you, "
 						+ "[npc.speech(Pull out! I don't want you to cum in me!)]";
 				
@@ -1245,7 +1241,8 @@ public class GenericOrgasms {
 			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null) {
+			null,
+			SexParticipantType.MISC) {
 		@Override
 		public String getActionTitle() {
 			return "Stay in position";
@@ -1285,7 +1282,7 @@ public class GenericOrgasms {
 				descriptionSB.append("</br></br>");
 				
 				// Describe where penetration is occurring:
-				if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER) == PenetrationType.PENIS_PARTNER) {
+				if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.VAGINA).isPlayer()) {
 					switch(Sex.getActivePartner().getPenisType()){
 						case CANINE:
 							descriptionSB.append("You squeal and squirm about as [npc.name] suddenly pushes forwards, ramming the knot at the base of [npc.her] "
@@ -1309,7 +1306,7 @@ public class GenericOrgasms {
 							break;
 					}
 					
-				} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER) == PenetrationType.PENIS_PARTNER) {
+				} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.ANUS).isPlayer()) {
 					switch(Sex.getActivePartner().getPenisType()){
 						case CANINE:
 							descriptionSB.append("You squeal and squirm about as [npc.name] suddenly pushes forwards, ramming the knot at the base of [npc.her] "
@@ -1334,7 +1331,7 @@ public class GenericOrgasms {
 							break;
 					}
 					
-				} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER) == PenetrationType.PENIS_PARTNER) {
+				} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.MOUTH).isPlayer()) {
 					switch(Sex.getActivePartner().getPenisType()){
 						case CANINE:
 							descriptionSB.append("You squeal and squirm about as [npc.name] suddenly pushes forwards, ramming the knot at the base of [npc.her] "
@@ -1359,7 +1356,7 @@ public class GenericOrgasms {
 							break;
 					}
 					
-				} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE_PLAYER) == PenetrationType.PENIS_PARTNER) {
+				} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.NIPPLE).isPlayer()) {
 					switch(Sex.getActivePartner().getPenisType()){
 						case CANINE:
 							descriptionSB.append("You squeal and squirm about as [npc.name] suddenly pushes forwards, ramming the knot at the base of [npc.her] "
@@ -1440,19 +1437,19 @@ public class GenericOrgasms {
 						descriptionSB.append(" into [npc.her] [npc.lowClothing(penis)].");
 						
 					} else {
-						if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER) == PenetrationType.PENIS_PARTNER) {
+						if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.VAGINA).isPlayer()) {
 							if(Main.game.getPlayer().isVisiblyPregnant())
 								descriptionSB.append(" deep into your hungry [pc.pussy], and you find yourself whining and moaning as you feel the [npc.cum+] deep inside of you.");
 							else
 								descriptionSB.append(" deep into your waiting womb, and you find yourself whining and moaning as you wonder if the [npc.cum+] will get you pregnant.");
 							
-						} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER) == PenetrationType.PENIS_PARTNER) {
+						} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.ANUS).isPlayer()) {
 							descriptionSB.append(" deep into your [pc.asshole+], and you find yourself whining and moaning as you feel the [npc.cum+] deep inside of you.");
 							
-						} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER) == PenetrationType.PENIS_PARTNER) {
+						} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.MOUTH).isPlayer()) {
 							descriptionSB.append(" deep down your throat, and you find yourself making muffled whining noises as you feel the [npc.cum+] sliding down into your stomach.");
 							
-						} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE_PLAYER) == PenetrationType.PENIS_PARTNER) {
+						} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.NIPPLE).isPlayer()) {
 							descriptionSB.append(" deep into your [pc.breasts+], and you find yourself whining and moaning as you feel the [npc.cum+] deep inside of your [pc.breasts+].");
 							
 						} else {
@@ -1470,39 +1467,44 @@ public class GenericOrgasms {
 				
 				descriptionSB.append("[npc.She] suddenly lets out a manic squeal as [npc.her] orgasm starts rising up from [npc.her] [npc.pussy+].");
 				
-				if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER) != null) {
-					switch(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER)) {
-						case FINGER_PARTNER:
-							descriptionSB.append(" [npc.She] curls [npc.her] fingers up deep inside [npc.her] [npc.pussy+]"
-									+", and [npc.she] lets out a series of high-pitched moans as [npc.her] vaginal muscles grip and squeeze around the intruding digits.");
+				if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA) != null) {
+					GameCharacter characterPenetrating = Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.VAGINA);
+					switch(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA)) {
+						case FINGER:
+							if(characterPenetrating.isPlayer()) {
+								descriptionSB.append(" You push your fingers deep inside [npc.her] [npc.pussy+]"
+										+", and, while eagerly stroking in a 'come-hither' motion, you feel [npc.her] vaginal muscles grip and squeeze around your intruding digits as [npc.she] lets out a series of high-pitched moans.");
+							} else {
+								descriptionSB.append(" [npc.She] curls [npc.her] fingers up deep inside [npc.her] [npc.pussy+]"
+										+", and [npc.she] lets out a series of high-pitched moans as [npc.her] vaginal muscles grip and squeeze around the intruding digits.");
+							}
 							break;
-						case FINGER_PLAYER:
-							descriptionSB.append(" You push your fingers deep inside [npc.her] [npc.pussy+]"
-									+", and, while eagerly stroking in a 'come-hither' motion, you feel [npc.her] vaginal muscles grip and squeeze around your intruding digits as [npc.she] lets out a series of high-pitched moans.");
+						case PENIS:
+							if(characterPenetrating.isPlayer()) {
+								descriptionSB.append(" You carry on fucking [npc.her] [npc.pussy+]"
+										+" through [npc.her] orgasm, causing [npc.herHim] to let out a series of desperate, high-pitched moans as [npc.her] vaginal muscles grip and squeeze around your [pc.cock+].");
+							} else {
+								descriptionSB.append(" [npc.She] carries on fucking [npc.herHim]self through [npc.her] orgasm, and [npc.she] starts letting out a series of high-pitched moans as [npc.her] vaginal muscles grip and squeeze around [npc.her] "
+										+"[npc.cock+].");
+							}
 							break;
-						case PENIS_PARTNER:
-							descriptionSB.append(" [npc.She] carries on fucking [npc.herHim]self through [npc.her] orgasm, and [npc.she] starts letting out a series of high-pitched moans as [npc.her] vaginal muscles grip and squeeze around [npc.her] "
-									+"[npc.cock+].");
+						case TAIL:
+							if(characterPenetrating.isPlayer()) {
+								descriptionSB.append(" You carry on using your tail to fuck [npc.her] [npc.pussy+]"
+										+" through [npc.her] orgasm, causing [npc.herHim] to let out a series of desperate, high-pitched moans as [npc.her] vaginal muscles grip and squeeze around the intruding object.");
+							} else {
+								descriptionSB.append(" [npc.She] carries on using [npc.her] tail to fuck [npc.herHim]self through [npc.her] orgasm,"
+										+ " and [npc.she] starts letting out a series of high-pitched moans as [npc.her] vaginal muscles grip and squeeze around the intruding object.");
+							}
 							break;
-						case PENIS_PLAYER:
-							descriptionSB.append(" You carry on fucking [npc.her] [npc.pussy+]"
-									+" through [npc.her] orgasm, causing [npc.herHim] to let out a series of desperate, high-pitched moans as [npc.her] vaginal muscles grip and squeeze around your [pc.cock+].");
-							break;
-						case TAIL_PARTNER:
-							descriptionSB.append(" [npc.She] carries on using [npc.her] tail to fuck [npc.herHim]self through [npc.her] orgasm,"
-									+ " and [npc.she] starts letting out a series of high-pitched moans as [npc.her] vaginal muscles grip and squeeze around the intruding object.");
-							break;
-						case TAIL_PLAYER:
-							descriptionSB.append(" You carry on using your tail to fuck [npc.her] [npc.pussy+]"
-									+" through [npc.her] orgasm, causing [npc.herHim] to let out a series of desperate, high-pitched moans as [npc.her] vaginal muscles grip and squeeze around the intruding object.");
-							break;
-						case TONGUE_PARTNER:
-							descriptionSB.append(" [npc.She] carries on thrusting [npc.her] tongue deep into [npc.her] [npc.pussy+]"
-									+" while [npc.she] orgasms, causing [npc.herHim] to let out a series of desperate, high-pitched moans as [npc.her] vaginal muscles grip and squeeze around the intruding muscle.");
-							break;
-						case TONGUE_PLAYER:
-							descriptionSB.append(" You carry on eating [npc.herHim] out, licking and kissing at [npc.her] [npc.pussy+]"
-									+" while [npc.she] orgasms, and you let out a muffled moan as you feel [npc.her] vaginal muscles grip and squeeze around your tongue.");
+						case TONGUE:
+							if(characterPenetrating.isPlayer()) {
+								descriptionSB.append(" You carry on eating [npc.herHim] out, licking and kissing at [npc.her] [npc.pussy+]"
+										+" while [npc.she] orgasms, and you let out a muffled moan as you feel [npc.her] vaginal muscles grip and squeeze around your tongue.");
+							} else {
+								descriptionSB.append(" [npc.She] carries on thrusting [npc.her] tongue deep into [npc.her] [npc.pussy+]"
+										+" while [npc.she] orgasms, causing [npc.herHim] to let out a series of desperate, high-pitched moans as [npc.her] vaginal muscles grip and squeeze around the intruding muscle.");
+							}
 							break;
 						default:
 							break;
@@ -1534,19 +1536,23 @@ public class GenericOrgasms {
 		}
 		
 		@Override
-		public List<OrificeType> getPlayerAreasCummedIn() {
-			if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER) == PenetrationType.PENIS_PARTNER) {
-				return Util.newArrayListOfValues(new ListValue<>(OrificeType.VAGINA_PLAYER));
-				
-			} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER) == PenetrationType.PENIS_PARTNER) {
-				return Util.newArrayListOfValues(new ListValue<>(OrificeType.ANUS_PLAYER));
-				
-			} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER) == PenetrationType.PENIS_PARTNER) {
-				return Util.newArrayListOfValues(new ListValue<>(OrificeType.MOUTH_PLAYER));
-				
-			} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE_PLAYER) == PenetrationType.PENIS_PARTNER) {
-				return Util.newArrayListOfValues(new ListValue<>(OrificeType.NIPPLE_PLAYER));
-				
+		public List<OrificeType> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(cumTarget.isPlayer() && cumProvider.equals(Sex.getActivePartner())) {
+				if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.VAGINA).isPlayer()) {
+					return Util.newArrayListOfValues(new ListValue<>(OrificeType.VAGINA));
+					
+				} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.ANUS).isPlayer()) {
+					return Util.newArrayListOfValues(new ListValue<>(OrificeType.ANUS));
+					
+				} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.MOUTH).isPlayer()) {
+					return Util.newArrayListOfValues(new ListValue<>(OrificeType.MOUTH));
+					
+				} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.NIPPLE).isPlayer()) {
+					return Util.newArrayListOfValues(new ListValue<>(OrificeType.NIPPLE));
+					
+				} else {
+					return null;
+				}
 			} else {
 				return null;
 			}
@@ -1564,7 +1570,8 @@ public class GenericOrgasms {
 			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null) {
+			null,
+			SexParticipantType.MISC) {
 		@Override
 		public String getActionTitle() {
 			return "Pull out";
@@ -1593,64 +1600,76 @@ public class GenericOrgasms {
 			
 			descriptionSB.append("[npc.Name] lets out a lewd cry as [npc.she] reaches [npc.her] orgasm.");
 			
-			if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS_PARTNER)!=null)
-				switch(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS_PARTNER)){
-					case FINGER_PARTNER:
-						descriptionSB.append(" [npc.She] pulls [npc.her] fingers out of [npc.her] [npc.ass+].");
+			if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS)!=null) {
+				GameCharacter characterPenetrating = Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.ANUS);
+				switch(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS)){
+					case FINGER:
+						if(characterPenetrating.isPlayer()) {
+							descriptionSB.append(" [npc.She] grabs your hand and pulls your fingers out of [npc.her] [npc.ass+].");
+						} else {
+							descriptionSB.append(" [npc.She] pulls [npc.her] fingers out of [npc.her] [npc.ass+].");
+						}
 						break;
-					case FINGER_PLAYER:
-						descriptionSB.append(" [npc.She] grabs your hand and pulls your fingers out of [npc.her] [npc.ass+].");
+					case PENIS:
+						if(characterPenetrating.isPlayer()) {
+							descriptionSB.append(" Grabbing your hips, [npc.she] pushes back, causing your [pc.cock+] to slip out of [npc.her] [npc.ass+].");
+						} else {
+							descriptionSB.append(" [npc.She] pulls [npc.her] [npc.penis+] out of [npc.her] [npc.ass+].");
+						}
 						break;
-					case PENIS_PARTNER:
-						descriptionSB.append(" [npc.She] pulls [npc.her] [npc.penis+] out of [npc.her] [npc.ass+].");
+					case TAIL:
+						if(characterPenetrating.isPlayer()) {
+							descriptionSB.append(" Grabbing your tail, [npc.she] pulls it out of [npc.her] [npc.ass+].");
+						} else {
+							descriptionSB.append(" Grabbing [npc.her] tail, [npc.she] pulls it out of [npc.her] [npc.ass+].");
+						}
 						break;
-					case PENIS_PLAYER:
-						descriptionSB.append(" Grabbing your hips, [npc.she] pushes back, causing your [pc.cock+] to slip out of [npc.her] [npc.ass+].");
-						break;
-					case TAIL_PARTNER:
-						descriptionSB.append(" Grabbing [npc.her] tail, [npc.she] pulls it out of [npc.her] [npc.ass+].");
-						break;
-					case TAIL_PLAYER:
-						descriptionSB.append(" Grabbing your tail, [npc.she] pulls it out of [npc.her] [npc.ass+].");
-						break;
-					case TONGUE_PARTNER:
-						descriptionSB.append(" [npc.She] slides [npc.her] tongue out of [npc.her] [npc.ass+].");
-						break;
-					case TONGUE_PLAYER:
-						descriptionSB.append(" Grabbing your head, [npc.she] pushes back, causing your tongue to slip out of [npc.her] [npc.ass+].");
-						break;
-					default:
-						break;
-				}
-			if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.MOUTH_PARTNER)!=null)
-				switch(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.MOUTH_PARTNER)){
-					case FINGER_PARTNER:
-						descriptionSB.append(" [npc.She] pulls [npc.her] fingers out of [npc.her] mouth.");
-						break;
-					case FINGER_PLAYER:
-						descriptionSB.append(" [npc.She] pulls your fingers out of [npc.her] mouth.");
-						break;
-					case PENIS_PARTNER:
-						descriptionSB.append(" [npc.She] pulls [npc.her] [npc.penis+] out of [npc.her] mouth.");
-						break;
-					case PENIS_PLAYER:
-						descriptionSB.append(" Grabbing your hips, [npc.she] pushes back, causing your [pc.cock+] to slip out of [npc.her] mouth.");
-						break;
-					case TAIL_PARTNER:
-						descriptionSB.append(" Grabbing [npc.her] tail, [npc.she] pulls it out of [npc.her] mouth.");
-						break;
-					case TAIL_PLAYER:
-						descriptionSB.append(" Grabbing your tail, [npc.she] pulls it out of [npc.her] mouth.");
-						break;
-					case TONGUE_PARTNER:
-						descriptionSB.append(" [npc.She] slides [npc.her] tongue out of [npc.her] throat.");
-						break;
-					case TONGUE_PLAYER:
-						descriptionSB.append(" Grabbing your head, [npc.she] pushes back, causing your tongue to slip out of [npc.her] mouth.");
+					case TONGUE:
+						if(characterPenetrating.isPlayer()) {
+							descriptionSB.append(" Grabbing your head, [npc.she] pushes back, causing your tongue to slip out of [npc.her] [npc.ass+].");
+						} else {
+							descriptionSB.append(" [npc.She] slides [npc.her] tongue out of [npc.her] [npc.ass+].");
+						}
 						break;
 					default:
 						break;
 				}
+			}
+			if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.MOUTH)!=null) {
+				GameCharacter characterPenetrating = Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.MOUTH);
+				switch(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.MOUTH)){
+					case FINGER:
+						if(characterPenetrating.isPlayer()) {
+							descriptionSB.append(" [npc.She] pulls your fingers out of [npc.her] mouth.");
+						} else {
+							descriptionSB.append(" [npc.She] pulls [npc.her] fingers out of [npc.her] mouth.");
+						}
+						break;
+					case PENIS:
+						if(characterPenetrating.isPlayer()) {
+							descriptionSB.append(" Grabbing your hips, [npc.she] pushes back, causing your [pc.cock+] to slip out of [npc.her] mouth.");
+						} else {
+							descriptionSB.append(" [npc.She] pulls [npc.her] [npc.penis+] out of [npc.her] mouth.");
+						}
+						break;
+					case TAIL:
+						if(characterPenetrating.isPlayer()) {
+							descriptionSB.append(" Grabbing your tail, [npc.she] pulls it out of [npc.her] mouth.");
+						} else {
+							descriptionSB.append(" Grabbing [npc.her] tail, [npc.she] pulls it out of [npc.her] mouth.");
+						}
+						break;
+					case TONGUE:
+						if(characterPenetrating.isPlayer()) {
+							descriptionSB.append(" Grabbing your head, [npc.she] pushes back, causing your tongue to slip out of [npc.her] mouth.");
+						} else {
+							descriptionSB.append("");
+						}
+						break;
+					default:
+						break;
+				}
+			}
 			
 			descriptionSB.append("</br></br>");
 			// PENIS ORGASM:
@@ -1658,7 +1677,7 @@ public class GenericOrgasms {
 			if(Sex.getActivePartner().getPenisType()!=PenisType.NONE){
 				
 				// Describe where penetration is occurring:
-				if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER) == PenetrationType.PENIS_PARTNER) {
+				if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.VAGINA).isPlayer()) {
 					switch(Sex.getActivePartner().getPenisType()){
 						case CANINE:
 							descriptionSB.append("You let out a surprised cry as [npc.name] suddenly grabs your hips, and, just as [npc.her] knot starts to swell up, [npc.she] pulls back, sliding [npc.her] "
@@ -1679,7 +1698,7 @@ public class GenericOrgasms {
 							break;
 					}
 					
-				} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER) == PenetrationType.PENIS_PARTNER) {
+				} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.ANUS).isPlayer()) {
 					switch(Sex.getActivePartner().getPenisType()){
 						case CANINE:
 							descriptionSB.append("You let out a surprised cry as [npc.name] suddenly grabs your hips, and, just as [npc.her] knot starts to swell up, [npc.she] pulls back, sliding [npc.her] "
@@ -1700,7 +1719,7 @@ public class GenericOrgasms {
 							break;
 					}
 					
-				} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER) == PenetrationType.PENIS_PARTNER) {
+				} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.MOUTH).isPlayer()) {
 					switch(Sex.getActivePartner().getPenisType()){
 						case CANINE:
 							descriptionSB.append("You let out a surprised cry as [npc.name] suddenly grabs your head, and, just as [npc.her] knot starts to swell up, [npc.she] pulls back, sliding [npc.her] "
@@ -1721,7 +1740,7 @@ public class GenericOrgasms {
 							break;
 					}
 					
-				} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE_PLAYER) == PenetrationType.PENIS_PARTNER) {
+				} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.NIPPLE).isPlayer()) {
 					switch(Sex.getActivePartner().getPenisType()){
 						case CANINE:
 							descriptionSB.append("You let out a surprised cry as [npc.name] suddenly grabs your [pc.breasts+], and, just as [npc.her] knot starts to swell up, [npc.she] pulls back, sliding [npc.her] "
@@ -1799,16 +1818,16 @@ public class GenericOrgasms {
 						descriptionSB.append(" into [npc.her] [npc.lowClothing(penis)].");
 						
 					} else {
-						if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER) == PenetrationType.PENIS_PARTNER) {
+						if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.VAGINA).isPlayer()) {
 							descriptionSB.append(" out all over the entrance to your [pc.pussy+].");
 							
-						} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER) == PenetrationType.PENIS_PARTNER) {
+						} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.ANUS).isPlayer()) {
 							descriptionSB.append(" out all over your [pc.asshole+].");
 							
-						} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER) == PenetrationType.PENIS_PARTNER) {
+						} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.MOUTH).isPlayer()) {
 							descriptionSB.append(" out all over your face, causing you to blink and flinch.");
 							
-						} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE_PLAYER) == PenetrationType.PENIS_PARTNER) {
+						} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.NIPPLE).isPlayer()) {
 							descriptionSB.append(" out all over your [pc.breasts+].");
 							
 						} else {
@@ -1828,39 +1847,44 @@ public class GenericOrgasms {
 				
 				descriptionSB.append("[npc.She] suddenly lets out a manic squeal as [npc.her] orgasm starts rising up from [npc.her] [npc.pussy+].");
 				
-				if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER) != null) {
-					switch(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER)) {
-						case FINGER_PARTNER:
-							descriptionSB.append(" Pulling [npc.her] fingers out of [npc.her] [npc.pussy+]"
-									+", [npc.she] lets out a high-pitched moan as [npc.her] vaginal muscles grip and squeeze down on the sudden emptiness between [npc.her] legs.");
+				if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA) != null) {
+					GameCharacter characterPenetrating = Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.VAGINA);
+					switch(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA)) {
+						case FINGER:
+							if(characterPenetrating.isPlayer()) {
+								descriptionSB.append(" Grabbing your hand, [npc.she] pulls your fingers out of [npc.her] [npc.pussy+]"
+										+", letting out a high-pitched moan as [npc.her] vaginal muscles grip and squeeze down on the sudden emptiness between [npc.her] legs.");
+							} else {
+								descriptionSB.append(" Pulling [npc.her] fingers out of [npc.her] [npc.pussy+]"
+										+", [npc.she] lets out a high-pitched moan as [npc.her] vaginal muscles grip and squeeze down on the sudden emptiness between [npc.her] legs.");
+							}
 							break;
-						case FINGER_PLAYER:
-							descriptionSB.append(" Grabbing your hand, [npc.she] pulls your fingers out of [npc.her] [npc.pussy+]"
-									+", letting out a high-pitched moan as [npc.her] vaginal muscles grip and squeeze down on the sudden emptiness between [npc.her] legs.");
+						case PENIS:
+							if(characterPenetrating.isPlayer()) {
+								descriptionSB.append(" Grabbing your hips, [npc.she] pulls back from your groin, letting your [pc.cock+] slide out of [npc.her] [npc.pussy+]"
+										+", and letting out a high-pitched moan as [npc.her] vaginal muscles grip and squeeze down on the sudden emptiness between [npc.her] legs.");
+							} else {
+								descriptionSB.append(" Sliding [npc.her] [npc.penis+] out of [npc.her] [npc.pussy+]"
+										+", [npc.she] lets out a high-pitched moan as [npc.her] vaginal muscles grip and squeeze down on the sudden emptiness between [npc.her] legs.");
+							}
 							break;
-						case PENIS_PARTNER:
-							descriptionSB.append(" Sliding [npc.her] [npc.penis+] out of [npc.her] [npc.pussy+]"
-									+", [npc.she] lets out a high-pitched moan as [npc.her] vaginal muscles grip and squeeze down on the sudden emptiness between [npc.her] legs.");
+						case TAIL:
+							if(characterPenetrating.isPlayer()) {
+								descriptionSB.append(" Grabbing your tail, [npc.she] slides it out of [npc.her] [npc.pussy+]"
+										+", letting out a high-pitched moan as [npc.her] vaginal muscles grip and squeeze down on the sudden emptiness between [npc.her] legs.");
+							} else {
+								descriptionSB.append(" Grabbing [npc.her] tail, [npc.she] slides it out of [npc.her] [npc.pussy+]"
+										+", letting out a high-pitched moan as [npc.her] vaginal muscles grip and squeeze down on the sudden emptiness between [npc.her] legs.");
+							}
 							break;
-						case PENIS_PLAYER:
-							descriptionSB.append(" Grabbing your hips, [npc.she] pulls back from your groin, letting your [pc.cock+] slide out of [npc.her] [npc.pussy+]"
-									+", and letting out a high-pitched moan as [npc.her] vaginal muscles grip and squeeze down on the sudden emptiness between [npc.her] legs.");
-							break;
-						case TAIL_PARTNER:
-							descriptionSB.append(" Grabbing [npc.her] tail, [npc.she] slides it out of [npc.her] [npc.pussy+]"
-									+", letting out a high-pitched moan as [npc.her] vaginal muscles grip and squeeze down on the sudden emptiness between [npc.her] legs.");
-							break;
-						case TAIL_PLAYER:
-							descriptionSB.append(" Grabbing your tail, [npc.she] slides it out of [npc.her] [npc.pussy+]"
-									+", letting out a high-pitched moan as [npc.her] vaginal muscles grip and squeeze down on the sudden emptiness between [npc.her] legs.");
-							break;
-						case TONGUE_PARTNER:
-							descriptionSB.append(" Sliding [npc.her] tongue out from [npc.her] [npc.pussy+]"
-									+", [npc.she] lets out a high-pitched moan as [npc.her] vaginal muscles grip and squeeze down on the sudden emptiness between [npc.her] legs.");
-							break;
-						case TONGUE_PLAYER:
-							descriptionSB.append(" Grabbing your head, [npc.she] pushes you back away from [npc.her] groin, causing your tongue to slip out from [npc.her] [npc.pussy+]."
-									+ " [npc.She] then lets out a high-pitched moan as [npc.her] vaginal muscles grip and squeeze down on the sudden emptiness between [npc.her] legs.");
+						case TONGUE:
+							if(characterPenetrating.isPlayer()) {
+								descriptionSB.append(" Grabbing your head, [npc.she] pushes you back away from [npc.her] groin, causing your tongue to slip out from [npc.her] [npc.pussy+]."
+										+ " [npc.She] then lets out a high-pitched moan as [npc.her] vaginal muscles grip and squeeze down on the sudden emptiness between [npc.her] legs.");
+							} else {
+								descriptionSB.append(" Sliding [npc.her] tongue out from [npc.her] [npc.pussy+]"
+										+", [npc.she] lets out a high-pitched moan as [npc.her] vaginal muscles grip and squeeze down on the sudden emptiness between [npc.her] legs.");
+							}
 							break;
 						default:
 							break;
@@ -1903,7 +1927,8 @@ public class GenericOrgasms {
 			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null) {
+			null,
+			SexParticipantType.MISC) {
 		@Override
 		public String getActionTitle() {
 			return "Stay in position";
@@ -1933,38 +1958,39 @@ public class GenericOrgasms {
 		}
 		
 		@Override
-		public List<OrificeType> getPlayerAreasCummedIn() {
-			if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER) == PenetrationType.PENIS_PARTNER) {
-				return Util.newArrayListOfValues(new ListValue<>(OrificeType.VAGINA_PLAYER));
-				
-			} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER) == PenetrationType.PENIS_PARTNER) {
-				return Util.newArrayListOfValues(new ListValue<>(OrificeType.ANUS_PLAYER));
-				
-			} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER) == PenetrationType.PENIS_PARTNER) {
-				return Util.newArrayListOfValues(new ListValue<>(OrificeType.MOUTH_PLAYER));
-				
-			} else if(Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE_PLAYER) == PenetrationType.PENIS_PARTNER) {
-				return Util.newArrayListOfValues(new ListValue<>(OrificeType.NIPPLE_PLAYER));
-				
-			} else {
-				return null;
-			}
-		}
-		
-		@Override
-		public List<OrificeType> getPartnerAreasCummedIn() {
-			if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA_PARTNER) == PenetrationType.PENIS_PLAYER) {
-				return Util.newArrayListOfValues(new ListValue<>(OrificeType.VAGINA_PARTNER));
-				
-			} else if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS_PARTNER) == PenetrationType.PENIS_PLAYER) {
-				return Util.newArrayListOfValues(new ListValue<>(OrificeType.ANUS_PARTNER));
-				
-			} else if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.MOUTH_PARTNER) == PenetrationType.PENIS_PLAYER) {
-				return Util.newArrayListOfValues(new ListValue<>(OrificeType.MOUTH_PARTNER));
-				
-			} else if(Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.NIPPLE_PARTNER) == PenetrationType.PENIS_PLAYER) {
-				return Util.newArrayListOfValues(new ListValue<>(OrificeType.NIPPLE_PARTNER));
-				
+		public List<OrificeType> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(cumProvider.isPlayer() && cumTarget.equals(Sex.getActivePartner())) {
+				if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.VAGINA) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.VAGINA).isPlayer()) {
+					return Util.newArrayListOfValues(new ListValue<>(OrificeType.VAGINA));
+					
+				} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.ANUS) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.ANUS).isPlayer()) {
+					return Util.newArrayListOfValues(new ListValue<>(OrificeType.ANUS));
+					
+				} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.MOUTH) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.MOUTH).isPlayer()) {
+					return Util.newArrayListOfValues(new ListValue<>(OrificeType.MOUTH));
+					
+				} else if (Sex.getPenetrationTypeInOrifice(Sex.getActivePartner(), OrificeType.NIPPLE) == PenetrationType.PENIS && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.NIPPLE).isPlayer()) {
+					return Util.newArrayListOfValues(new ListValue<>(OrificeType.NIPPLE));
+					
+				} else {
+					return null;
+				}
+			} else if(cumTarget.isPlayer() && cumProvider.equals(Sex.getActivePartner())) {
+				if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.VAGINA).isPlayer()) {
+					return Util.newArrayListOfValues(new ListValue<>(OrificeType.VAGINA));
+					
+				} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.ANUS).isPlayer()) {
+					return Util.newArrayListOfValues(new ListValue<>(OrificeType.ANUS));
+					
+				} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.MOUTH).isPlayer()) {
+					return Util.newArrayListOfValues(new ListValue<>(OrificeType.MOUTH));
+					
+				} else if (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE) == PenetrationType.PENIS && !Sex.getPenetratingCharacterUsingOrifice(Main.game.getPlayer(), OrificeType.NIPPLE).isPlayer()) {
+					return Util.newArrayListOfValues(new ListValue<>(OrificeType.NIPPLE));
+					
+				} else {
+					return null;
+				}
 			} else {
 				return null;
 			}
@@ -1982,7 +2008,8 @@ public class GenericOrgasms {
 			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null) {
+			null,
+			SexParticipantType.MISC) {
 		@Override
 		public String getActionTitle() {
 			return "Pull out";

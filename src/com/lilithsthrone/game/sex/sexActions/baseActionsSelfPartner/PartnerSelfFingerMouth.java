@@ -5,6 +5,7 @@ import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 
@@ -20,14 +21,15 @@ public class PartnerSelfFingerMouth {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER_PARTNER,
-			OrificeType.MOUTH_PARTNER) {
+			PenetrationType.FINGER,
+			OrificeType.MOUTH,
+			SexParticipantType.SELF) {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getWetPenetrationTypes(Sex.getActivePartner()).get(PenetrationType.FINGER_PARTNER).isEmpty()
+			return Sex.getWetPenetrationTypes(Sex.getActivePartner()).get(PenetrationType.FINGER).isEmpty()
 					&& Sex.isInForeplay()
-					&& (Sex.getActivePartner().getForeplayPreference()!=null && Sex.getActivePartner().getForeplayPreference().getPenetrationType()==PenetrationType.FINGER_PARTNER);
+					&& (Sex.getActivePartner().getForeplayPreference()!=null && Sex.getActivePartner().getForeplayPreference().getPenetrationType()==PenetrationType.FINGER);
 		}
 		
 		@Override
@@ -48,7 +50,7 @@ public class PartnerSelfFingerMouth {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Sex.getActivePartner(), Sex.getActivePartner(), PenetrationType.FINGER_PARTNER, OrificeType.MOUTH_PARTNER);
+			Sex.transferLubrication(Sex.getActivePartner(), Sex.getActivePartner(), PenetrationType.FINGER, OrificeType.MOUTH);
 		}
 	};
 	
@@ -57,8 +59,9 @@ public class PartnerSelfFingerMouth {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER_PARTNER,
-			OrificeType.MOUTH_PARTNER) {
+			PenetrationType.FINGER,
+			OrificeType.MOUTH,
+			SexParticipantType.SELF) {
 		
 		@Override
 		public String getActionTitle() {
@@ -81,8 +84,9 @@ public class PartnerSelfFingerMouth {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER_PARTNER,
-			OrificeType.MOUTH_PARTNER) {
+			PenetrationType.FINGER,
+			OrificeType.MOUTH,
+			SexParticipantType.SELF) {
 		
 		@Override
 		public String getActionTitle() {

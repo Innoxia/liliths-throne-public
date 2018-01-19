@@ -7,6 +7,7 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
+import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexPositionNew;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
@@ -25,8 +26,9 @@ public class PlayerSelfFingerAnus {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER_PLAYER,
-			OrificeType.ANUS_PLAYER) {
+			PenetrationType.FINGER,
+			OrificeType.ANUS,
+			SexParticipantType.SELF) {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -67,8 +69,9 @@ public class PlayerSelfFingerAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.FINGER_PLAYER,
-			OrificeType.ANUS_PLAYER) {
+			PenetrationType.FINGER,
+			OrificeType.ANUS,
+			SexParticipantType.SELF) {
 		
 		@Override
 		public String getActionTitle() {
@@ -99,8 +102,9 @@ public class PlayerSelfFingerAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.FINGER_PLAYER,
-			OrificeType.ANUS_PLAYER,
+			PenetrationType.FINGER,
+			OrificeType.ANUS,
+			SexParticipantType.SELF,
 			SexPace.DOM_GENTLE,
 			null) {
 		
@@ -138,8 +142,9 @@ public class PlayerSelfFingerAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.FINGER_PLAYER,
-			OrificeType.ANUS_PLAYER,
+			PenetrationType.FINGER,
+			OrificeType.ANUS,
+			SexParticipantType.SELF,
 			SexPace.DOM_NORMAL,
 			null) {
 		
@@ -177,8 +182,9 @@ public class PlayerSelfFingerAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.FINGER_PLAYER,
-			OrificeType.ANUS_PLAYER,
+			PenetrationType.FINGER,
+			OrificeType.ANUS,
+			SexParticipantType.SELF,
 			SexPace.DOM_ROUGH,
 			null) {
 		
@@ -219,8 +225,9 @@ public class PlayerSelfFingerAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.FINGER_PLAYER,
-			OrificeType.ANUS_PLAYER,
+			PenetrationType.FINGER,
+			OrificeType.ANUS,
+			SexParticipantType.SELF,
 			SexPace.SUB_NORMAL,
 			null) {
 		
@@ -258,8 +265,9 @@ public class PlayerSelfFingerAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.FINGER_PLAYER,
-			OrificeType.ANUS_PLAYER,
+			PenetrationType.FINGER,
+			OrificeType.ANUS,
+			SexParticipantType.SELF,
 			SexPace.SUB_EAGER,
 			null) {
 		
@@ -300,8 +308,9 @@ public class PlayerSelfFingerAnus {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER_PLAYER,
-			OrificeType.ANUS_PLAYER) {
+			PenetrationType.FINGER,
+			OrificeType.ANUS,
+			SexParticipantType.SELF) {
 		
 		@Override
 		public String getActionTitle() {

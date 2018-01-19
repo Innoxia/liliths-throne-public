@@ -7,6 +7,7 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
+import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
@@ -23,8 +24,9 @@ public class PlayerSelfTailAnus {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.TAIL_PLAYER,
-			OrificeType.ANUS_PLAYER) {
+			PenetrationType.TAIL,
+			OrificeType.ANUS,
+			SexParticipantType.SELF) {
 		@Override
 		public String getActionTitle() {
 			return "Tail-peg (self)";
@@ -55,8 +57,9 @@ public class PlayerSelfTailAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.TAIL_PLAYER,
-			OrificeType.ANUS_PLAYER,
+			PenetrationType.TAIL,
+			OrificeType.ANUS,
+			SexParticipantType.SELF,
 			SexPace.DOM_GENTLE,
 			null) {
 		
@@ -94,8 +97,9 @@ public class PlayerSelfTailAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.TAIL_PLAYER,
-			OrificeType.ANUS_PLAYER,
+			PenetrationType.TAIL,
+			OrificeType.ANUS,
+			SexParticipantType.SELF,
 			SexPace.DOM_NORMAL,
 			null) {
 		
@@ -133,8 +137,9 @@ public class PlayerSelfTailAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.TAIL_PLAYER,
-			OrificeType.ANUS_PLAYER,
+			PenetrationType.TAIL,
+			OrificeType.ANUS,
+			SexParticipantType.SELF,
 			SexPace.DOM_ROUGH,
 			null) {
 		
@@ -172,8 +177,9 @@ public class PlayerSelfTailAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.TAIL_PLAYER,
-			OrificeType.ANUS_PLAYER,
+			PenetrationType.TAIL,
+			OrificeType.ANUS,
+			SexParticipantType.SELF,
 			SexPace.SUB_NORMAL,
 			null) {
 		
@@ -211,8 +217,9 @@ public class PlayerSelfTailAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.TAIL_PLAYER,
-			OrificeType.ANUS_PLAYER,
+			PenetrationType.TAIL,
+			OrificeType.ANUS,
+			SexParticipantType.SELF,
 			SexPace.SUB_EAGER,
 			null) {
 		
@@ -250,8 +257,9 @@ public class PlayerSelfTailAnus {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TAIL_PLAYER,
-			OrificeType.ANUS_PLAYER) {
+			PenetrationType.TAIL,
+			OrificeType.ANUS,
+			SexParticipantType.SELF) {
 		@Override
 		public String getActionTitle() {
 			return "Stop tail-peg (self)";

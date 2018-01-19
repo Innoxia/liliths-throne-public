@@ -7,6 +7,7 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
+import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
@@ -24,8 +25,9 @@ public class PlayerSelfFingerNipple {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER_PLAYER,
-			OrificeType.NIPPLE_PLAYER) {
+			PenetrationType.FINGER,
+			OrificeType.NIPPLE,
+			SexParticipantType.SELF) {
 		@Override
 		public String getActionTitle() {
 			return "Pinch nipples (self)";
@@ -91,8 +93,9 @@ public class PlayerSelfFingerNipple {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER_PLAYER,
-			OrificeType.NIPPLE_PLAYER) {
+			PenetrationType.FINGER,
+			OrificeType.NIPPLE,
+			SexParticipantType.SELF) {
 		@Override
 		public String getActionTitle() {
 			return "Finger nipples (self)";
@@ -153,8 +156,9 @@ public class PlayerSelfFingerNipple {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER_PLAYER,
-			OrificeType.NIPPLE_PLAYER,
+			PenetrationType.FINGER,
+			OrificeType.NIPPLE,
+			SexParticipantType.SELF,
 			SexPace.DOM_GENTLE,
 			null) {
 		
@@ -192,8 +196,9 @@ public class PlayerSelfFingerNipple {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER_PLAYER,
-			OrificeType.NIPPLE_PLAYER,
+			PenetrationType.FINGER,
+			OrificeType.NIPPLE,
+			SexParticipantType.SELF,
 			SexPace.DOM_NORMAL,
 			null) {
 		
@@ -231,8 +236,9 @@ public class PlayerSelfFingerNipple {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER_PLAYER,
-			OrificeType.NIPPLE_PLAYER,
+			PenetrationType.FINGER,
+			OrificeType.NIPPLE,
+			SexParticipantType.SELF,
 			SexPace.DOM_ROUGH,
 			null) {
 		
@@ -270,8 +276,9 @@ public class PlayerSelfFingerNipple {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER_PLAYER,
-			OrificeType.NIPPLE_PLAYER,
+			PenetrationType.FINGER,
+			OrificeType.NIPPLE,
+			SexParticipantType.SELF,
 			SexPace.SUB_NORMAL,
 			null) {
 		
@@ -309,8 +316,9 @@ public class PlayerSelfFingerNipple {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.FINGER_PLAYER,
-			OrificeType.NIPPLE_PLAYER,
+			PenetrationType.FINGER,
+			OrificeType.NIPPLE,
+			SexParticipantType.SELF,
 			SexPace.SUB_EAGER,
 			null) {
 		
@@ -348,8 +356,9 @@ public class PlayerSelfFingerNipple {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER_PLAYER,
-			OrificeType.NIPPLE_PLAYER) {
+			PenetrationType.FINGER,
+			OrificeType.NIPPLE,
+			SexParticipantType.SELF) {
 		
 		@Override
 		public String getActionTitle() {

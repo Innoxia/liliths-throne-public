@@ -507,17 +507,17 @@ public class UtilText {
 			char c = input.charAt(i);
 			
 			if(!processingRegular) {
-				if(c=='{') {
+				if(c=='F' && i-1>1 && input.charAt(i-1)=='I' && i-2>=0 && input.charAt(i-2)=='#') {
 					if(openBrackets==0) {
 						processingConditional=true;
-						startIndex = i;
+						startIndex = i-2;
 					}
 					
 					openBrackets++;
 					
 				} else if(processingConditional) {
 					if(c=='.' && target==null) {
-						target=sb.toString().substring(1); // Cut off the '{' at the start.
+						target=sb.toString().substring(1); // Cut off the '#IF' at the start.
 						sb.setLength(0);
 					
 					} else if(c=='(') {
@@ -550,7 +550,7 @@ public class UtilText {
 						conditionalTrue = sb.toString().substring(1);
 						sb.setLength(0);
 						
-					} else if(c=='}') {
+					} else if(c=='#') {
 						closeBrackets++;
 						
 						if(openBrackets==closeBrackets) {
@@ -558,6 +558,7 @@ public class UtilText {
 							if(conditionalElseFound){
 								conditionalFalse = sb.toString().substring(1);
 							} else {
+								conditionalTrue = sb.toString().substring(1);
 								conditionalFalse = "";
 							}
 		
@@ -615,7 +616,7 @@ public class UtilText {
 			}
 			
 			
-			if(openBrackets>0) {
+			if(openBrackets>0 && ((target!=null && command!=null) || c!=' ')) {
 				sb.append(c);
 			}
 		}
@@ -624,8 +625,8 @@ public class UtilText {
 		if(startIndex!=0 || endIndex!=0) {
 			return parse(specialNPC, input.substring(0, startIndex)
 					+ (processingConditional
-							?parseSyntaxNew(target, command, arguments, specialNPC)
-							:parseConditionalSyntaxNew(target, command, arguments, conditionalTrue, conditionalFalse))
+							?parseConditionalSyntaxNew(target, command, arguments, conditionalTrue, conditionalFalse)
+							:parseSyntaxNew(target, command, arguments, specialNPC))
 					+ input.substring(endIndex+1, input.length()));
 		} else {
 			return input;//.replaceAll(" a ", " <span style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>a big moo</span> ");
@@ -3583,6 +3584,9 @@ public class UtilText {
 	}
 	
 	private static String parseConditionalSyntaxNew(String target, String command, String arguments, String conditionalTrue, String conditionalFalse) {
+		if(target==null || target.isEmpty()) {
+			target = "npc";
+		}
 		
 		boolean characterFound = false;
 		targetLoop:

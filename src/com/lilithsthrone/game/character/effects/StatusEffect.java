@@ -6974,16 +6974,18 @@ public enum StatusEffect {
 	public float getOrificeArousalPerTurnPartner(GameCharacter target, OrificeType orifice) {
 		float arousal = 0;
 		
-		arousal+=Sex.getPenetrationTypeInOrifice(target, orifice).getBaseArousalWhenPenetrating();
-		
-		if(Sex.getAreasCurrentlyStretching(target).contains(orifice)) {
-			arousal += orifice.getArousalChangePenetratingStretching();
-		}
-		if(Sex.getAreasTooLoose(target).contains(orifice)) {
-			arousal += orifice.getArousalChangePenetratingTooLoose();
-		}
-		if(Sex.getWetOrificeTypes(target).get(orifice).isEmpty()) {
-			arousal += orifice.getArousalChangePenetratingDry();
+		if(Sex.getPenetrationTypeInOrifice(target, orifice)!=null) {
+			arousal+=Sex.getPenetrationTypeInOrifice(target, orifice).getBaseArousalWhenPenetrating();
+			
+			if(Sex.getAreasCurrentlyStretching(target).contains(orifice)) {
+				arousal += orifice.getArousalChangePenetratingStretching();
+			}
+			if(Sex.getAreasTooLoose(target).contains(orifice)) {
+				arousal += orifice.getArousalChangePenetratingTooLoose();
+			}
+			if(Sex.getWetOrificeTypes(target).get(orifice).isEmpty()) {
+				arousal += orifice.getArousalChangePenetratingDry();
+			}
 		}
 		
 		return arousal;
@@ -6994,7 +6996,10 @@ public enum StatusEffect {
 		
 		String targetName = target.isPlayer()?"your":UtilText.parse(target, "[npc.name]'s");
 		GameCharacter penetrator = Sex.getPenetratingCharacterUsingOrifice(target, orifice);
-		String penetratorName = penetrator.isPlayer()?"your":UtilText.parse(penetrator, "[npc.name]'s");
+		String penetratorName = "";
+		if(penetrator!=null) {
+			penetratorName = penetrator.isPlayer()?"your":UtilText.parse(penetrator, "[npc.name]'s");
+		}
 		
 		if(Sex.getPenetrationTypeInOrifice(target, orifice) != null) {
 			modifiersList.add("+"+orifice.getBaseArousalWhenPenetrated()
@@ -7028,10 +7033,10 @@ public enum StatusEffect {
 	public void appendOrificeAdditionGenericDescriptions(GameCharacter owner, OrificeType orificeType, String orificeName, StringBuilder stringBuilderToAppendTo) {
 		
 		if(Sex.getAreasCurrentlyStretching(owner).contains(orificeType)) {
-			stringBuilderToAppendTo.append("</br>"+orificeName+" is being <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>stretched</b>!");
+			stringBuilderToAppendTo.append("</br>"+orificeName+" "+(orificeType.isPlural()?"are":"is")+" being <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>stretched</b>!");
 			
 		} else if(Sex.getAreasTooLoose(owner).contains(orificeType)) {
-			stringBuilderToAppendTo.append("</br>"+orificeName+" is <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>too loose</b>!");
+			stringBuilderToAppendTo.append("</br>"+orificeName+" "+(orificeType.isPlural()?"are":"is")+" <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>too loose</b>!");
 			
 		} else {
 			stringBuilderToAppendTo.append("</br><b style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>No stretch effect.</b>");
@@ -7039,10 +7044,10 @@ public enum StatusEffect {
 		
 		
 		if(Sex.getWetOrificeTypes(owner).get(orificeType).isEmpty()) {
-			stringBuilderToAppendTo.append("</br>"+orificeName+" is <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>dry</b>!");
+			stringBuilderToAppendTo.append("</br>"+orificeName+" "+(orificeType.isPlural()?"are":"is")+" <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>dry</b>!");
 			
 		} else {
-			stringBuilderToAppendTo.append("</br>"+orificeName+" has been <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>lubricated</b> by:</br>");
+			stringBuilderToAppendTo.append("</br>"+orificeName+" "+(orificeType.isPlural()?"have":"has")+" been <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>lubricated</b> by:</br>");
 			int i=0;
 			for(LubricationType lt : Sex.getWetOrificeTypes(owner).get(orificeType)) {
 				if(i!=0) {

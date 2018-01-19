@@ -4,6 +4,7 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 
@@ -18,8 +19,9 @@ public class PlayerSelfTailMouth {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TAIL_PLAYER,
-			OrificeType.MOUTH_PLAYER) {
+			PenetrationType.TAIL,
+			OrificeType.MOUTH,
+			SexParticipantType.SELF) {
 		
 		@Override
 		public String getActionTitle() {
@@ -42,8 +44,9 @@ public class PlayerSelfTailMouth {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TAIL_PLAYER,
-			OrificeType.MOUTH_PLAYER) {
+			PenetrationType.TAIL,
+			OrificeType.MOUTH,
+			SexParticipantType.SELF) {
 		
 		@Override
 		public String getActionTitle() {

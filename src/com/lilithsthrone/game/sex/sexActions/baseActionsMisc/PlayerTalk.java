@@ -13,6 +13,7 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexPace;
+import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexPositionNew;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
@@ -34,7 +35,8 @@ public class PlayerTalk {
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null) {
+			null,
+			SexParticipantType.MISC) {
 		
 		@Override
 		public CorruptionLevel getCorruptionNeeded(){
@@ -80,17 +82,17 @@ public class PlayerTalk {
 						return UtilText.returnStringAtRandom(
 								"Turning your head to look back at [npc.name], [pc.a_moan+] escapes from between your [pc.lips+], ",
 								"You turn your head to look back at [npc.name], letting out [pc.a_moan+] before calling out, ")
-								+ Sex.getActivePartner().getPlayerDirtyTalk(Sex.isDom(Main.game.getPlayer()));
+								+ Sex.getActivePartner().getDirtyTalk();
 					case SUB_RESISTING:
 						return UtilText.returnStringAtRandom(
 								"Desperately trying to crawl away from [npc.name], [npc.she] grabs your [pc.hips] and pulls you back as you [pc.sob], ",
 								"Trying to crawl away from [npc.name], [npc.she] holds you firmly in place as you let out [pc.a_sob+], ")
-								+ Sex.getActivePartner().getPlayerDirtyTalk(Sex.isDom(Main.game.getPlayer()));
+								+ Sex.getActivePartner().getDirtyTalk();
 					default: 
 						return UtilText.returnStringAtRandom(
 								"Turning your head to look back at [npc.name], [pc.a_moan] escapes from between your [pc.lips+], ",
 								"You turn your head to look back at [npc.name], letting out [pc.a_moan] before calling out, ")
-								+ Sex.getActivePartner().getPlayerDirtyTalk(Sex.isDom(Main.game.getPlayer()));
+								+ Sex.getActivePartner().getDirtyTalk();
 				}
 				
 			} else if(Sex.getPosition()==SexPositionNew.KNEELING_ORAL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_PERFORMING_ORAL) {
@@ -100,17 +102,17 @@ public class PlayerTalk {
 						return UtilText.returnStringAtRandom(
 								"You look down at [npc.name] as [npc.she] kneels beneath you, ",
 								"Looking down at [npc.name], you sigh, ")
-								+ Sex.getActivePartner().getPlayerDirtyTalk(Sex.isDom(Main.game.getPlayer()));
+								+ Sex.getActivePartner().getDirtyTalk();
 					case DOM_ROUGH:
 						return UtilText.returnStringAtRandom(
 								"You grin down at [npc.name] as [npc.she] kneels beneath you, ",
 								"Looking down at [npc.name], you growl, ")
-								+ Sex.getActivePartner().getPlayerDirtyTalk(Sex.isDom(Main.game.getPlayer()));
+								+ Sex.getActivePartner().getDirtyTalk();
 					default: 
 						return UtilText.returnStringAtRandom(
 								"You look down at [npc.name] as [npc.she] kneels beneath you, ",
 								"Looking down at [npc.name], you [pc.moan], ")
-								+ Sex.getActivePartner().getPlayerDirtyTalk(Sex.isDom(Main.game.getPlayer()));
+								+ Sex.getActivePartner().getDirtyTalk();
 				}
 				
 			} else if(Sex.getPosition()==SexPositionNew.KNEELING_ORAL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.KNEELING_PERFORMING_ORAL) {
@@ -120,17 +122,17 @@ public class PlayerTalk {
 						return UtilText.returnStringAtRandom(
 								"You glance up at [npc.name] as you [pc.moan] up to [npc.herHim], ",
 								"Looking up at [npc.name] standing above you, you [pc.moan] up to [npc.herHim], ")
-								+ Sex.getActivePartner().getPlayerDirtyTalk(Sex.isDom(Main.game.getPlayer()));
+								+ Sex.getActivePartner().getDirtyTalk();
 					case SUB_RESISTING:
 						return UtilText.returnStringAtRandom(
 								"You glance up at [npc.name] before letting out [pc.a_sob+], ",
 								"Looking up at [npc.name] standing above you, you let out [pc.a_sob+], ")
-								+ Sex.getActivePartner().getPlayerDirtyTalk(Sex.isDom(Main.game.getPlayer()));
+								+ Sex.getActivePartner().getDirtyTalk();
 					default: 
 						return UtilText.returnStringAtRandom(
 								"You glance up at [npc.name] as you speak up to [npc.herHim], ",
 								"Looking up at [npc.name] standing above you, you speak up to [npc.herHim], ")
-								+ Sex.getActivePartner().getPlayerDirtyTalk(Sex.isDom(Main.game.getPlayer()));
+								+ Sex.getActivePartner().getDirtyTalk();
 				}
 				
 			} else if(Sex.getPosition()==SexPositionNew.SIXTY_NINE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.SIXTY_NINE_TOP) {
@@ -140,17 +142,17 @@ public class PlayerTalk {
 						return UtilText.returnStringAtRandom(
 								"You look back at [npc.name] as [npc.she] lies beneath you, and speak down to [npc.herHim], ",
 								"Looking back at [npc.name] as [npc.she] lies beneath you, you speak down to [npc.herHim], ")
-								+ Sex.getActivePartner().getPlayerDirtyTalk(Sex.isDom(Main.game.getPlayer()));
+								+ Sex.getActivePartner().getDirtyTalk();
 					case DOM_ROUGH:
 						return UtilText.returnStringAtRandom(
 								"You look back at [npc.name] as [npc.she] lies beneath you, and growl down to [npc.herHim], ",
 								"Looking back at [npc.name] as [npc.she] lies beneath you, you growl down to [npc.herHim], ")
-								+ Sex.getActivePartner().getPlayerDirtyTalk(Sex.isDom(Main.game.getPlayer()));
+								+ Sex.getActivePartner().getDirtyTalk();
 					default: 
 						return UtilText.returnStringAtRandom(
 								"You look back at [npc.name] as [npc.she] lies beneath you, and [pc.moanVerb] down to [npc.herHim], ",
 								"Looking back at [npc.name] as [npc.she] lies beneath you, you [pc.moanVerb] down to [npc.herHim], ")
-								+ Sex.getActivePartner().getPlayerDirtyTalk(Sex.isDom(Main.game.getPlayer()));
+								+ Sex.getActivePartner().getDirtyTalk();
 				}
 				
 			} else {
@@ -160,27 +162,27 @@ public class PlayerTalk {
 						return UtilText.returnStringAtRandom(
 								"You let out a soft [pc.moan], ",
 								"You gently sigh, ")
-								+ Sex.getActivePartner().getPlayerDirtyTalk(Sex.isDom(Main.game.getPlayer()));
+								+ Sex.getActivePartner().getDirtyTalk();
 					case DOM_ROUGH:
 						return UtilText.returnStringAtRandom(
 								"You let out a rough growl before speaking out loud, ",
 								"You make a threatening growling noise before speaking, ")
-								+ Sex.getActivePartner().getPlayerDirtyTalk(Sex.isDom(Main.game.getPlayer()));
+								+ Sex.getActivePartner().getDirtyTalk();
 					case SUB_EAGER:
 						return UtilText.returnStringAtRandom(
 								"A desperate [pc.moan] escapes from between your [pc.lips+], ",
 								"You let out a desperate [pc.moan] before addressing [npc.name], ")
-								+ Sex.getActivePartner().getPlayerDirtyTalk(Sex.isDom(Main.game.getPlayer()));
+								+ Sex.getActivePartner().getDirtyTalk();
 					case SUB_RESISTING:
 						return UtilText.returnStringAtRandom(
 								"A protesting whine escapes from between your [pc.lips+] as you struggle against [npc.name], ",
 								"You let out a distressed whining noise as you try to shuffle away from [npc.name], ")
-								+ Sex.getActivePartner().getPlayerDirtyTalk(Sex.isDom(Main.game.getPlayer()));
+								+ Sex.getActivePartner().getDirtyTalk();
 					default: // DOM_NORMAL, SUB_NORMAL:
 						return UtilText.returnStringAtRandom(
 								"[pc.A_moan] escapes from between your [pc.lips+], ",
 								"You let out [pc.a_moan] before addressing [npc.name], ")
-								+ Sex.getActivePartner().getPlayerDirtyTalk(Sex.isDom(Main.game.getPlayer()));
+								+ Sex.getActivePartner().getDirtyTalk();
 				}
 			
 			}
@@ -208,7 +210,8 @@ public class PlayerTalk {
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null) {
+			null,
+			SexParticipantType.MISC) {
 		@Override
 		public String getActionTitle() {
 			return "Request vaginal";
@@ -222,7 +225,7 @@ public class PlayerTalk {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Main.game.getPlayer().hasVagina()
-					&& !Sex.getPlayerPenetrationRequests().contains(OrificeType.VAGINA_PLAYER)
+					&& !Sex.getPlayerPenetrationRequests().contains(OrificeType.VAGINA)
 					&& !SexFlags.requestsBlockedPlayer
 					&& !Sex.isDom(Main.game.getPlayer());
 		}
@@ -238,7 +241,7 @@ public class PlayerTalk {
 		@Override
 		public void applyEffects() {
 			Sex.clearPlayerPenetrationRequests();
-			Sex.addPlayerPenetrationRequest(OrificeType.VAGINA_PLAYER);
+			Sex.addPlayerPenetrationRequest(OrificeType.VAGINA);
 		}
 	};
 	
@@ -248,7 +251,8 @@ public class PlayerTalk {
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null) {
+			null,
+			SexParticipantType.MISC) {
 		
 		@Override
 		public String getActionTitle() {
@@ -262,7 +266,7 @@ public class PlayerTalk {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getPlayerPenetrationRequests().contains(OrificeType.ANUS_PLAYER)
+			return !Sex.getPlayerPenetrationRequests().contains(OrificeType.ANUS)
 					&& !SexFlags.requestsBlockedPlayer
 					&& !Sex.isDom(Main.game.getPlayer());
 		}
@@ -278,7 +282,7 @@ public class PlayerTalk {
 		@Override
 		public void applyEffects() {
 			Sex.clearPlayerPenetrationRequests();
-			Sex.addPlayerPenetrationRequest(OrificeType.ANUS_PLAYER);
+			Sex.addPlayerPenetrationRequest(OrificeType.ANUS);
 		}
 		
 		@Override
@@ -303,7 +307,8 @@ public class PlayerTalk {
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null) {
+			null,
+			SexParticipantType.MISC) {
 		@Override
 		public String getActionTitle() {
 			return "Request oral";
@@ -316,7 +321,7 @@ public class PlayerTalk {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getPlayerPenetrationRequests().contains(OrificeType.MOUTH_PLAYER)
+			return !Sex.getPlayerPenetrationRequests().contains(OrificeType.MOUTH)
 					&& !SexFlags.requestsBlockedPlayer
 					&& !Sex.isDom(Main.game.getPlayer());
 		}
@@ -332,7 +337,7 @@ public class PlayerTalk {
 		@Override
 		public void applyEffects() {
 			Sex.clearPlayerPenetrationRequests();
-			Sex.addPlayerPenetrationRequest(OrificeType.MOUTH_PLAYER);
+			Sex.addPlayerPenetrationRequest(OrificeType.MOUTH);
 		}
 		
 		@Override
@@ -352,7 +357,8 @@ public class PlayerTalk {
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null) {
+			null,
+			SexParticipantType.MISC) {
 		@Override
 		public String getActionTitle() {
 			return "Request nipple-sex";
@@ -365,7 +371,7 @@ public class PlayerTalk {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getPlayerPenetrationRequests().contains(OrificeType.NIPPLE_PLAYER)
+			return !Sex.getPlayerPenetrationRequests().contains(OrificeType.NIPPLE)
 					&& Main.game.getPlayer().isBreastFuckableNipplePenetration()
 					&& !SexFlags.requestsBlockedPlayer
 					&& !Sex.isDom(Main.game.getPlayer());
@@ -382,7 +388,7 @@ public class PlayerTalk {
 		@Override
 		public void applyEffects() {
 			Sex.clearPlayerPenetrationRequests();
-			Sex.addPlayerPenetrationRequest(OrificeType.NIPPLE_PLAYER);
+			Sex.addPlayerPenetrationRequest(OrificeType.NIPPLE);
 		}
 		
 		@Override
@@ -402,7 +408,8 @@ public class PlayerTalk {
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null) {
+			null,
+			SexParticipantType.MISC) {
 		@Override
 		public String getActionTitle() {
 			return "Request paizuri";
@@ -415,7 +422,7 @@ public class PlayerTalk {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getPlayerPenetrationRequests().contains(OrificeType.BREAST_PLAYER)
+			return !Sex.getPlayerPenetrationRequests().contains(OrificeType.BREAST)
 					&& Main.game.getPlayer().isBreastFuckablePaizuri()
 					&& !SexFlags.requestsBlockedPlayer
 					&& !Sex.isDom(Main.game.getPlayer())
@@ -434,7 +441,7 @@ public class PlayerTalk {
 		@Override
 		public void applyEffects() {
 			Sex.clearPlayerPenetrationRequests();
-			Sex.addPlayerPenetrationRequest(OrificeType.BREAST_PLAYER);
+			Sex.addPlayerPenetrationRequest(OrificeType.BREAST);
 		}
 		
 		@Override
@@ -454,7 +461,8 @@ public class PlayerTalk {
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			null,
-			null) {
+			null,
+			SexParticipantType.MISC) {
 		@Override
 		public String getActionTitle() {
 			return "Request naizuri";
@@ -467,7 +475,7 @@ public class PlayerTalk {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getPlayerPenetrationRequests().contains(OrificeType.BREAST_PLAYER)
+			return !Sex.getPlayerPenetrationRequests().contains(OrificeType.BREAST)
 					&& !Main.game.getPlayer().isBreastFuckablePaizuri()
 					&& !SexFlags.requestsBlockedPlayer
 					&& !Sex.isDom(Main.game.getPlayer())
@@ -486,7 +494,7 @@ public class PlayerTalk {
 		@Override
 		public void applyEffects() {
 			Sex.clearPlayerPenetrationRequests();
-			Sex.addPlayerPenetrationRequest(OrificeType.BREAST_PLAYER);
+			Sex.addPlayerPenetrationRequest(OrificeType.BREAST);
 		}
 		
 		@Override

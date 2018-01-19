@@ -4,6 +4,7 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.dominion.lilaya.SMChairLilaya;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
@@ -24,7 +25,8 @@ public class ConChairPositionsLilaya {
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null) {
+			null,
+			SexParticipantType.MISC) {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -71,7 +73,8 @@ public class ConChairPositionsLilaya {
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null) {
+			null,
+			SexParticipantType.MISC) {
 
 		@Override
 		public boolean isBaseRequirementsMet() {

@@ -7,6 +7,7 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
+import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
@@ -23,8 +24,9 @@ public class PlayerTongueAnus {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.TONGUE_PLAYER,
-			OrificeType.ANUS_PARTNER) {
+			PenetrationType.TONGUE,
+			OrificeType.ANUS,
+			SexParticipantType.PITCHER) {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -124,8 +126,9 @@ public class PlayerTongueAnus {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.TONGUE_PLAYER,
-			OrificeType.ANUS_PARTNER,
+			PenetrationType.TONGUE,
+			OrificeType.ANUS,
+			SexParticipantType.PITCHER,
 			SexPace.DOM_GENTLE,
 			null) {
 
@@ -186,8 +189,9 @@ public class PlayerTongueAnus {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.TONGUE_PLAYER,
-			OrificeType.ANUS_PARTNER,
+			PenetrationType.TONGUE,
+			OrificeType.ANUS,
+			SexParticipantType.PITCHER,
 			SexPace.DOM_NORMAL,
 			null) {
 
@@ -247,8 +251,9 @@ public class PlayerTongueAnus {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.FOUR_LUSTFUL,
-			PenetrationType.TONGUE_PLAYER,
-			OrificeType.ANUS_PARTNER,
+			PenetrationType.TONGUE,
+			OrificeType.ANUS,
+			SexParticipantType.PITCHER,
 			SexPace.DOM_ROUGH,
 			null) {
 
@@ -310,8 +315,9 @@ public class PlayerTongueAnus {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TONGUE_PLAYER,
-			OrificeType.ANUS_PARTNER,
+			PenetrationType.TONGUE,
+			OrificeType.ANUS,
+			SexParticipantType.PITCHER,
 			SexPace.SUB_RESISTING,
 			null) {
 
@@ -369,8 +375,9 @@ public class PlayerTongueAnus {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.TONGUE_PLAYER,
-			OrificeType.ANUS_PARTNER,
+			PenetrationType.TONGUE,
+			OrificeType.ANUS,
+			SexParticipantType.PITCHER,
 			SexPace.SUB_NORMAL,
 			null) {
 
@@ -428,8 +435,9 @@ public class PlayerTongueAnus {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.TONGUE_PLAYER,
-			OrificeType.ANUS_PARTNER,
+			PenetrationType.TONGUE,
+			OrificeType.ANUS,
+			SexParticipantType.PITCHER,
 			SexPace.SUB_EAGER,
 			null) {
 
@@ -491,8 +499,9 @@ public class PlayerTongueAnus {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TONGUE_PLAYER,
-			OrificeType.ANUS_PARTNER) {
+			PenetrationType.TONGUE,
+			OrificeType.ANUS,
+			SexParticipantType.PITCHER) {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -553,8 +562,9 @@ public class PlayerTongueAnus {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.TONGUE_PLAYER,
-			OrificeType.ANUS_PARTNER) {
+			PenetrationType.TONGUE,
+			OrificeType.ANUS,
+			SexParticipantType.CATCHER) {
 		
 		@Override
 		public String getActionTitle() {
@@ -650,8 +660,9 @@ public class PlayerTongueAnus {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.TONGUE_PLAYER,
-			OrificeType.ANUS_PARTNER,
+			PenetrationType.TONGUE,
+			OrificeType.ANUS,
+			SexParticipantType.CATCHER,
 			null,
 			SexPace.DOM_GENTLE) {
 		
@@ -708,8 +719,9 @@ public class PlayerTongueAnus {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.TONGUE_PLAYER,
-			OrificeType.ANUS_PARTNER,
+			PenetrationType.TONGUE,
+			OrificeType.ANUS,
+			SexParticipantType.CATCHER,
 			null,
 			SexPace.DOM_NORMAL) {
 		
@@ -766,8 +778,9 @@ public class PlayerTongueAnus {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.FOUR_LUSTFUL,
-			PenetrationType.TONGUE_PLAYER,
-			OrificeType.ANUS_PARTNER,
+			PenetrationType.TONGUE,
+			OrificeType.ANUS,
+			SexParticipantType.CATCHER,
 			null,
 			SexPace.DOM_ROUGH) {
 		
@@ -824,8 +837,9 @@ public class PlayerTongueAnus {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.TONGUE_PLAYER,
-			OrificeType.ANUS_PARTNER,
+			PenetrationType.TONGUE,
+			OrificeType.ANUS,
+			SexParticipantType.CATCHER,
 			null,
 			SexPace.SUB_NORMAL) {
 		
@@ -882,8 +896,9 @@ public class PlayerTongueAnus {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.THREE_DIRTY,
-			PenetrationType.TONGUE_PLAYER,
-			OrificeType.ANUS_PARTNER,
+			PenetrationType.TONGUE,
+			OrificeType.ANUS,
+			SexParticipantType.CATCHER,
 			null,
 			SexPace.SUB_EAGER) {
 		
@@ -940,8 +955,9 @@ public class PlayerTongueAnus {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TONGUE_PLAYER,
-			OrificeType.ANUS_PARTNER,
+			PenetrationType.TONGUE,
+			OrificeType.ANUS,
+			SexParticipantType.CATCHER,
 			null,
 			SexPace.SUB_RESISTING) {
 		@Override
@@ -1001,8 +1017,9 @@ public class PlayerTongueAnus {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TONGUE_PLAYER,
-			OrificeType.ANUS_PARTNER) {
+			PenetrationType.TONGUE,
+			OrificeType.ANUS,
+			SexParticipantType.CATCHER) {
 
 		@Override
 		public String getActionTitle() {

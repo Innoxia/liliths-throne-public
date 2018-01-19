@@ -7,6 +7,7 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
+import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexPositionNew;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
@@ -24,8 +25,9 @@ public class PlayerPenisBreasts {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS_PLAYER,
-			OrificeType.BREAST_PARTNER) {
+			PenetrationType.PENIS,
+			OrificeType.BREAST,
+			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
 			return "Thrust into mouth";
@@ -40,7 +42,7 @@ public class PlayerPenisBreasts {
 		public boolean isBaseRequirementsMet() {
 			return Sex.getSexPace(Main.game.getPlayer())!=SexPace.SUB_RESISTING
 					&& Main.game.getPlayer().getPenisRawSizeValue()>=6
-					&& Sex.isOrificeFree(Sex.getActivePartner(), OrificeType.MOUTH_PARTNER)
+					&& Sex.isOrificeFree(Sex.getActivePartner(), OrificeType.MOUTH)
 					&& Sex.getActivePartner().isBreastFuckablePaizuri()
 					&& Sex.getPosition() != SexPositionNew.SIXTY_NINE;
 		}
@@ -118,7 +120,7 @@ public class PlayerPenisBreasts {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER);
+			Sex.transferLubrication(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.PENIS, OrificeType.MOUTH);
 		}
 		
 	};
@@ -128,8 +130,9 @@ public class PlayerPenisBreasts {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS_PLAYER,
-			OrificeType.BREAST_PARTNER) {
+			PenetrationType.PENIS,
+			OrificeType.BREAST,
+			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
 			if(Sex.getActivePartner().isBreastFuckablePaizuri()) {
@@ -148,7 +151,7 @@ public class PlayerPenisBreasts {
 		public boolean isBaseRequirementsMet() {
 			return Sex.getSexPace(Sex.getActivePartner())!=SexPace.SUB_RESISTING
 					&& Main.game.getPlayer().getPenisRawSizeValue()>=6
-					&& Sex.isOrificeFree(Sex.getActivePartner(), OrificeType.MOUTH_PARTNER)
+					&& Sex.isOrificeFree(Sex.getActivePartner(), OrificeType.MOUTH)
 					&& Sex.getActivePartner().isBreastFuckablePaizuri()
 					&& Sex.getPosition() != SexPositionNew.SIXTY_NINE;
 		}
@@ -231,7 +234,7 @@ public class PlayerPenisBreasts {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.PENIS_PLAYER, OrificeType.MOUTH_PARTNER);
+			Sex.transferLubrication(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.PENIS, OrificeType.MOUTH);
 		}
 		
 	};
@@ -242,13 +245,14 @@ public class PlayerPenisBreasts {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS_PLAYER,
-			OrificeType.BREAST_PARTNER) {
+			PenetrationType.PENIS,
+			OrificeType.BREAST,
+			SexParticipantType.PITCHER) {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER) != PenetrationType.PENIS_PARTNER
-					&& Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER) != PenetrationType.PENIS_PARTNER;
+			return Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS) != PenetrationType.PENIS
+					&& Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA) != PenetrationType.PENIS;
 		}
 		
 		@Override
@@ -462,8 +466,9 @@ public class PlayerPenisBreasts {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS_PLAYER,
-			OrificeType.BREAST_PARTNER,
+			PenetrationType.PENIS,
+			OrificeType.BREAST,
+			SexParticipantType.PITCHER,
 			SexPace.DOM_GENTLE,
 			null) {
 		@Override
@@ -574,8 +579,9 @@ public class PlayerPenisBreasts {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS_PLAYER,
-			OrificeType.BREAST_PARTNER,
+			PenetrationType.PENIS,
+			OrificeType.BREAST,
+			SexParticipantType.PITCHER,
 			SexPace.DOM_NORMAL,
 			null) {
 		@Override
@@ -687,8 +693,9 @@ public class PlayerPenisBreasts {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS_PLAYER,
-			OrificeType.BREAST_PARTNER,
+			PenetrationType.PENIS,
+			OrificeType.BREAST,
+			SexParticipantType.PITCHER,
 			SexPace.DOM_ROUGH,
 			null) {
 		@Override
@@ -800,8 +807,9 @@ public class PlayerPenisBreasts {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS_PLAYER,
-			OrificeType.BREAST_PARTNER,
+			PenetrationType.PENIS,
+			OrificeType.BREAST,
+			SexParticipantType.PITCHER,
 			SexPace.SUB_NORMAL,
 			null) {
 		@Override
@@ -917,8 +925,9 @@ public class PlayerPenisBreasts {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS_PLAYER,
-			OrificeType.BREAST_PARTNER,
+			PenetrationType.PENIS,
+			OrificeType.BREAST,
+			SexParticipantType.PITCHER,
 			SexPace.SUB_EAGER,
 			null) {
 		@Override
@@ -1034,8 +1043,9 @@ public class PlayerPenisBreasts {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS_PLAYER,
-			OrificeType.BREAST_PARTNER,
+			PenetrationType.PENIS,
+			OrificeType.BREAST,
+			SexParticipantType.PITCHER,
 			SexPace.SUB_RESISTING,
 			null) {
 		@Override
@@ -1159,8 +1169,9 @@ public class PlayerPenisBreasts {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS_PLAYER,
-			OrificeType.BREAST_PARTNER) {
+			PenetrationType.PENIS,
+			OrificeType.BREAST,
+			SexParticipantType.PITCHER) {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -1258,13 +1269,14 @@ public class PlayerPenisBreasts {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS_PLAYER,
-			OrificeType.BREAST_PARTNER) {
+			PenetrationType.PENIS,
+			OrificeType.BREAST,
+			SexParticipantType.CATCHER) {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER) != PenetrationType.PENIS_PARTNER
-					&& Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER) != PenetrationType.PENIS_PARTNER;
+			return Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS) != PenetrationType.PENIS
+					&& Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA) != PenetrationType.PENIS;
 		}
 
 		@Override
@@ -1470,8 +1482,9 @@ public class PlayerPenisBreasts {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS_PLAYER,
-			OrificeType.BREAST_PARTNER,
+			PenetrationType.PENIS,
+			OrificeType.BREAST,
+			SexParticipantType.CATCHER,
 			null,
 			SexPace.DOM_GENTLE) {
 		
@@ -1535,8 +1548,9 @@ public class PlayerPenisBreasts {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS_PLAYER,
-			OrificeType.BREAST_PARTNER,
+			PenetrationType.PENIS,
+			OrificeType.BREAST,
+			SexParticipantType.CATCHER,
 			null,
 			SexPace.DOM_NORMAL) {
 		
@@ -1601,8 +1615,9 @@ public class PlayerPenisBreasts {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.PENIS_PLAYER,
-			OrificeType.BREAST_PARTNER,
+			PenetrationType.PENIS,
+			OrificeType.BREAST,
+			SexParticipantType.CATCHER,
 			null,
 			SexPace.DOM_ROUGH) {
 		
@@ -1668,8 +1683,9 @@ public class PlayerPenisBreasts {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS_PLAYER,
-			OrificeType.BREAST_PARTNER,
+			PenetrationType.PENIS,
+			OrificeType.BREAST,
+			SexParticipantType.CATCHER,
 			null,
 			SexPace.SUB_NORMAL) {
 		
@@ -1733,8 +1749,9 @@ public class PlayerPenisBreasts {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.PENIS_PLAYER,
-			OrificeType.BREAST_PARTNER,
+			PenetrationType.PENIS,
+			OrificeType.BREAST,
+			SexParticipantType.CATCHER,
 			null,
 			SexPace.SUB_EAGER) {
 		
@@ -1799,8 +1816,9 @@ public class PlayerPenisBreasts {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS_PLAYER,
-			OrificeType.BREAST_PARTNER,
+			PenetrationType.PENIS,
+			OrificeType.BREAST,
+			SexParticipantType.CATCHER,
 			null,
 			SexPace.SUB_RESISTING) {
 		
@@ -1863,8 +1881,9 @@ public class PlayerPenisBreasts {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.PENIS_PLAYER,
-			OrificeType.BREAST_PARTNER) {
+			PenetrationType.PENIS,
+			OrificeType.BREAST,
+			SexParticipantType.CATCHER) {
 
 		@Override
 		public boolean isBaseRequirementsMet() {

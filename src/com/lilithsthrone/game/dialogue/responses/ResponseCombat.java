@@ -14,7 +14,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.69
- * @version 0.1.88
+ * @version 0.1.98
  * @author Innoxia
  */
 public class ResponseCombat extends Response {
@@ -66,7 +66,7 @@ public class ResponseCombat extends Response {
 		super(title, tooltipText, nextDialogue,
 				fetishesForUnlock, corruptionBypass,
 				perksRequired, femininityRequired, raceRequired,
-				null, null, null);
+				null, null, null, null);
 		this.opponent = opponent;
 
 		this.playerStartingTitle = playerStartingTitle;

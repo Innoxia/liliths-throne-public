@@ -380,30 +380,30 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		// --- Priority 5 | Ban actions that make no sense for the partner to perform ---
 		
 		// Ban all penetrations if the partner is a virgin in the associated orifice:
-		for(SexActionInterface action : availableActions) {
-			if(action.getAssociatedOrificeType()!=null && action.getActionType()==SexActionType.PARTNER_PENETRATION) {
+		for(SexActionInterface action : availableActions) { //TODO
+			if(action.getAssociatedOrificeType()!=null && action.getActionType()==SexActionType.PARTNER_PENETRATION && action.getParticipantType().isUsingSelfOrificeType()) {
 				switch(action.getAssociatedOrificeType()) {
-					case ANUS_PARTNER:
+					case ANUS:
 						if(Sex.getActivePartner().isAssVirgin() && Sex.getSexPace(Sex.getActivePartner())!=SexPace.SUB_EAGER) {
 							bannedActions.add(action);
 						}
 						break;
-					case MOUTH_PARTNER:
+					case MOUTH:
 						if(Sex.getActivePartner().isFaceVirgin() && Sex.getSexPace(Sex.getActivePartner())!=SexPace.SUB_EAGER) {
 							bannedActions.add(action);
 						}
 						break;
-					case NIPPLE_PARTNER:
+					case NIPPLE:
 						if(Sex.getActivePartner().isNippleVirgin() && Sex.getSexPace(Sex.getActivePartner())!=SexPace.SUB_EAGER) {
 							bannedActions.add(action);
 						}
 						break;
-					case URETHRA_PARTNER:
+					case URETHRA:
 						if(Sex.getActivePartner().isUrethraVirgin() && Sex.getSexPace(Sex.getActivePartner())!=SexPace.SUB_EAGER) {
 							bannedActions.add(action);
 						}
 						break;
-					case VAGINA_PARTNER:
+					case VAGINA:
 						if(Sex.getActivePartner().hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN)
 								|| Sex.getActivePartner().hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN_LUSTY_MAIDEN)
 								|| (Sex.getActivePartner().isVaginaVirgin() && Sex.getSexPace(Sex.getActivePartner())!=SexPace.SUB_EAGER)) {
@@ -421,7 +421,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 			for(SexActionInterface action : availableActions) {
 				if(action.getAssociatedOrificeType()!=null) {
 					if(action.getAssociatedOrificeType() == OrificeType.ANUS) {
-						if(action.getAssociatedOrificeType().isPlayer()) {
+						if(action.getParticipantType().isUsingSelfPenetrationType()) {
 							if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) { // If the player has a vagina, ban the action so vaginal actions are preferred:
 								bannedActions.add(action);
 							}
@@ -511,34 +511,20 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		}
 
 		// --- Fingering the player: ---
+		
 		if(availableActions.contains(PartnerFingerVagina.PARTNER_FINGERING_START)) {
 			return PartnerFingerVagina.PARTNER_FINGERING_START;
 		}
 		
 		// --- Kissing the player: ---
 
-		// Start kissing the player:
 		if(availableActions.contains(PartnerTongueMouth.PARTNER_KISS_START)) {
 			return PartnerTongueMouth.PARTNER_KISS_START;
 		}
 		
-		// --- Block penetrative actions that involve penis or tail in vagina/anus ---
+		// --- Ban stop penetration actions ---
 		
 		for(SexActionInterface action : availableActions) {
-			if(action.getActionType() == SexActionType.PARTNER_PENETRATION) {
-				if((action.getAssociatedPenetrationType()==PenetrationType.PENIS_PLAYER
-						|| action.getAssociatedPenetrationType()==PenetrationType.PENIS_PARTNER
-						|| action.getAssociatedPenetrationType()==PenetrationType.TAIL_PLAYER
-						|| action.getAssociatedPenetrationType()==PenetrationType.TAIL_PARTNER)
-						&&
-						(action.getAssociatedOrificeType()!=OrificeType.MOUTH_PLAYER
-						&& action.getAssociatedOrificeType()!=OrificeType.MOUTH_PARTNER
-						&& action.getAssociatedOrificeType()!=OrificeType.BREAST_PLAYER
-						&& action.getAssociatedOrificeType()!=OrificeType.BREAST_PARTNER)) {
-					bannedActions.add(action);
-				}
-			}
-			// Ban stop penetration actions:
 			if(action.getActionType() == SexActionType.PARTNER_STOP_PENETRATION) {
 				bannedActions.add(action);
 			}
@@ -570,7 +556,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 			for(GameCharacter penetrated : Sex.getAllParticipants()) {
 				if(penetrator.equals(Sex.getActivePartner()) || penetrated.equals(Sex.getActivePartner())) {
 					for(Entry<PenetrationType, Set<OrificeType>> e : Sex.getOngoingPenetrationMap(penetrator).get(penetrated).entrySet()) {
-						if(e.getKey() == PenetrationType.PENIS || e.getKey() == PenetrationType.TAIL || e.getKey().isTentacle()) {
+						if(e.getKey() == PenetrationType.PENIS || e.getKey() == PenetrationType.TAIL || e.getKey() == PenetrationType.TENTACLE) {
 							isSexPenetration = true;
 							break outerloop;
 						}
@@ -584,8 +570,8 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 			if(!removedAllPenetrationAfterForeplay) {
 				for(SexActionInterface action : availableActions) {
 					if(action.getActionType() == SexActionType.PARTNER_STOP_PENETRATION) {
-						if(!(action.getAssociatedPenetrationType()==PenetrationType.TONGUE_PARTNER && action.getAssociatedOrificeType()==OrificeType.MOUTH_PLAYER)
-								&& !(action.getAssociatedPenetrationType()==PenetrationType.TONGUE_PLAYER && action.getAssociatedOrificeType()==OrificeType.MOUTH_PARTNER)) { // Don't stop kissing actions:
+						if(!(action.getAssociatedPenetrationType()==PenetrationType.TONGUE && action.getAssociatedOrificeType()==OrificeType.MOUTH)
+								&& !(action.getAssociatedPenetrationType()==PenetrationType.TONGUE && action.getAssociatedOrificeType()==OrificeType.MOUTH)) { // Don't stop kissing actions:
 							returnableActions.add(action);
 						}
 					}
@@ -621,31 +607,31 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 			
 			// --- Start penetrating: ---
 			for(SexActionInterface action : availableActions) {
-				if(action.getActionType()==SexActionType.PARTNER_PENETRATION) {
-					if(action.getAssociatedPenetrationType() == PenetrationType.PENIS || action.getAssociatedPenetrationType() == PenetrationType.TAIL || action.getAssociatedPenetrationType().isTentacle()) {
+				if(action.getActionType()==SexActionType.PARTNER_PENETRATION && action.getParticipantType().isUsingSelfPenetrationType()) {
+					if(action.getAssociatedPenetrationType() == PenetrationType.PENIS || action.getAssociatedPenetrationType() == PenetrationType.TAIL || action.getAssociatedPenetrationType() == PenetrationType.TAIL) {
 						// Anal penetrations:
-						if((Sex.getActivePartner().hasFetish(Fetish.FETISH_ANAL_GIVING) || Sex.getPlayerPenetrationRequests().contains(OrificeType.ANUS_PLAYER))
+						if((Sex.getActivePartner().hasFetish(Fetish.FETISH_ANAL_GIVING) || Sex.getPlayerPenetrationRequests().contains(OrificeType.ANUS))
 								&& action.getAssociatedOrificeType()!=null && action.getAssociatedOrificeType() == OrificeType.ANUS) {
 							penetrativeActionList.add(action);
 						}
 						// Nipple penetrations:
-						if((Sex.getActivePartner().hasFetish(Fetish.FETISH_BREASTS_OTHERS) || Sex.getPlayerPenetrationRequests().contains(OrificeType.NIPPLE_PLAYER))
+						if((Sex.getActivePartner().hasFetish(Fetish.FETISH_BREASTS_OTHERS) || Sex.getPlayerPenetrationRequests().contains(OrificeType.NIPPLE))
 								&& action.getAssociatedOrificeType()!=null && action.getAssociatedOrificeType() == OrificeType.NIPPLE) {
 							penetrativeActionList.add(action);
 						}
 						// Paizuri:
-						if((Sex.getActivePartner().hasFetish(Fetish.FETISH_BREASTS_OTHERS) || Sex.getPlayerPenetrationRequests().contains(OrificeType.BREAST_PLAYER))
+						if((Sex.getActivePartner().hasFetish(Fetish.FETISH_BREASTS_OTHERS) || Sex.getPlayerPenetrationRequests().contains(OrificeType.BREAST))
 								&& action.getAssociatedOrificeType()!=null && action.getAssociatedOrificeType() == OrificeType.BREAST) {
 								penetrativeActionList.add(action);
 						}
 						// Vaginal penetration on player:
-						if((Sex.getActivePartner().hasFetish(Fetish.FETISH_IMPREGNATION) || Sex.getActivePartner().hasFetish(Fetish.FETISH_SEEDER) || Sex.getPlayerPenetrationRequests().contains(OrificeType.VAGINA_PLAYER))
-								&& action.getAssociatedOrificeType()!=null && action.getAssociatedOrificeType()==OrificeType.VAGINA_PLAYER && action.getAssociatedPenetrationType()!=null && action.getAssociatedPenetrationType() == PenetrationType.PENIS) {
+						if((Sex.getActivePartner().hasFetish(Fetish.FETISH_IMPREGNATION) || Sex.getActivePartner().hasFetish(Fetish.FETISH_SEEDER) || Sex.getPlayerPenetrationRequests().contains(OrificeType.VAGINA))
+								&& action.getAssociatedOrificeType()!=null && action.getAssociatedOrificeType()==OrificeType.VAGINA && action.getAssociatedPenetrationType()!=null && action.getAssociatedPenetrationType() == PenetrationType.PENIS) {
 							penetrativeActionList.add(action);
 						}
 						// Vaginal penetration for self:
 						if((Sex.getActivePartner().hasFetish(Fetish.FETISH_PREGNANCY) || Sex.getActivePartner().hasFetish(Fetish.FETISH_BROODMOTHER))
-								&& action.getAssociatedOrificeType()!=null && action.getAssociatedOrificeType()==OrificeType.VAGINA_PARTNER && action.getAssociatedPenetrationType()!=null && action.getAssociatedPenetrationType() == PenetrationType.PENIS) {
+								&& action.getAssociatedOrificeType()!=null && action.getAssociatedOrificeType()==OrificeType.VAGINA && action.getAssociatedPenetrationType()!=null && action.getAssociatedPenetrationType() == PenetrationType.PENIS) {
 							penetrativeActionList.add(action);
 						}
 					}
@@ -657,7 +643,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 			
 			for(SexActionInterface action : availableActions) {
 				if(action.getActionType()==SexActionType.PARTNER_PENETRATION) {
-					if(action.getAssociatedPenetrationType() == PenetrationType.PENIS || action.getAssociatedPenetrationType() == PenetrationType.TAIL || action.getAssociatedPenetrationType().isTentacle()) {
+					if(action.getAssociatedPenetrationType() == PenetrationType.PENIS || action.getAssociatedPenetrationType() == PenetrationType.TAIL || action.getAssociatedPenetrationType() == PenetrationType.TAIL) {
 						returnableActions.add(action);
 					}
 				}
@@ -672,7 +658,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		// Ban stop penetration actions:
 		for(SexActionInterface action : availableActions) {
 			if(action.getActionType() == SexActionType.PARTNER_STOP_PENETRATION) {
-				if(action.getAssociatedPenetrationType() == PenetrationType.PENIS || action.getAssociatedPenetrationType() == PenetrationType.TAIL || action.getAssociatedPenetrationType().isTentacle()) {
+				if(action.getAssociatedPenetrationType() == PenetrationType.PENIS || action.getAssociatedPenetrationType() == PenetrationType.TAIL || action.getAssociatedPenetrationType() == PenetrationType.TAIL) {
 					bannedActions.add(action);
 				}
 			}

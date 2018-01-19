@@ -10,7 +10,7 @@ public class DomBackToWall {
 	// Position-unique actions to be added here.
 	
 	//TODO
-//	FINGER_PLAYER_INSEMINATION(SexActionType.PLAYER,
+//	FINGER_INSEMINATION(SexActionType.PLAYER,
 //			ArousalIncrease.THREE_NORMAL,
 //			ArousalIncrease.THREE_NORMAL,
 //			AttributeLevelCorruption.ONE_VANILLA,
@@ -28,7 +28,7 @@ public class DomBackToWall {
 //
 //		@Override
 //		public boolean isBaseRequirementsMet() {
-//			return Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER)==(PenetrationType.FINGER_PARTNER) && partnerCumOnLegs;
+//			return Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA)==(PenetrationType.FINGER) && partnerCumOnLegs;
 //		}
 //
 //		@Override

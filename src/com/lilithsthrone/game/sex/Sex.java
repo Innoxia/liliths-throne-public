@@ -1245,7 +1245,8 @@ public enum Sex {
 												ArousalIncrease.ZERO_NONE,
 												CorruptionLevel.ZERO_PURE,
 												null,
-												null) {
+												null,
+												SexParticipantType.MISC) {
 													@Override
 													public String getActionTitle() {
 														return character.getName();
@@ -1282,7 +1283,8 @@ public enum Sex {
 													ArousalIncrease.ZERO_NONE,
 													CorruptionLevel.ZERO_PURE,
 													null,
-													null) {
+													null,
+													SexParticipantType.MISC) {
 														@Override
 														public String getActionTitle() {
 															return character.getName();
@@ -2704,9 +2706,7 @@ public enum Sex {
 			Sex.dominants.put(character, sexManager.getDominants().get(character));
 		}
 		if(!Sex.isDom(Main.game.getPlayer())) {
-			if(tempCharacterList.isEmpty()) {
-				activePartner = null;
-			} else {
+			if(!tempCharacterList.isEmpty()) {
 				activePartner = (NPC) tempCharacterList.get(0);
 			}
 		}
@@ -2719,9 +2719,7 @@ public enum Sex {
 			Sex.submissives.put(character, sexManager.getSubmissives().get(character));
 		}
 		if(Sex.isDom(Main.game.getPlayer())) {
-			if(tempCharacterList.isEmpty()) {
-				activePartner = null;
-			} else {
+			if(!tempCharacterList.isEmpty()) {
 				activePartner = (NPC) tempCharacterList.get(0);
 			}
 		}

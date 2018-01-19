@@ -6,6 +6,7 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
+import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexPositionNew;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
@@ -157,25 +158,25 @@ public class OrgasmPositionBackToWall {
 //			if(Sex.getOngoingPenetrationMap().get(penetrationType)!=null && !Sex.getOngoingPenetrationMap().get(penetrationType).isEmpty()) {
 //				for(OrificeType orifice : Sex.getOngoingPenetrationMap().get(penetrationType)) {
 //					switch(penetrationType) {
-//						case FINGER_PARTNER:
+//						case FINGER:
 //							switch(orifice) {
-//								case ANUS_PARTNER:
+//								case OrificeType.ANUS:
 //									break;
-//								case ANUS_PLAYER:
+//								case OrificeType.ANUS:
 //									break;
-//								case MOUTH_PARTNER:
+//								case MOUTH:
 //									break;
-//								case MOUTH_PLAYER:
+//								case MOUTH:
 //									break;
-//								case NIPPLE_PARTNER:
+//								case NIPPLE:
 //									break;
-//								case NIPPLE_PLAYER:
+//								case NIPPLE:
 //									break;
-//								case VAGINA_PARTNER:
+//								case VAGINA:
 //									break;
-//								case VAGINA_PLAYER:
+//								case VAGINA:
 //									break;
-//								case URETHRA_PARTNER: case URETHRA_PLAYER:
+//								case URETHRA: case URETHRA:
 //									// TODO
 //									break;
 //								case ASS_PARTNER: case ASS_PLAYER: case BREAST_PARTNER: case BREAST_PLAYER: case THIGHS_PARTNER: case THIGHS_PLAYER:
@@ -183,11 +184,11 @@ public class OrgasmPositionBackToWall {
 //									break;
 //							}
 //							break;
-//						case FINGER_PLAYER:
+//						case FINGER:
 //							break;
-//						case PENIS_PARTNER:
+//						case PENIS:
 //							break;
-//						case PENIS_PLAYER:
+//						case PENIS:
 //							break;
 //						case TAIL_PARTNER:
 //							break;
@@ -197,9 +198,9 @@ public class OrgasmPositionBackToWall {
 //							break;
 //						case TENTACLE_PLAYER:
 //							break;
-//						case TONGUE_PARTNER:
+//						case TONGUE:
 //							break;
-//						case TONGUE_PLAYER:
+//						case TONGUE:
 //							break;
 //					}
 //				}
@@ -217,16 +218,17 @@ public class OrgasmPositionBackToWall {
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
 			null,
-			null) {
+			null,
+			SexParticipantType.MISC) {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
 			boolean takingCock = false;
 			
-			if((Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA_PLAYER) == PenetrationType.PENIS_PARTNER)
-					|| (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS_PLAYER) == PenetrationType.PENIS_PARTNER)
-					|| (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE_PLAYER) == PenetrationType.PENIS_PARTNER)
-					|| (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH_PLAYER) == PenetrationType.PENIS_PARTNER)) {
+			if((Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.VAGINA) == PenetrationType.PENIS)
+					|| (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.ANUS) == PenetrationType.PENIS)
+					|| (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.NIPPLE) == PenetrationType.PENIS)
+					|| (Sex.getPenetrationTypeInOrifice(Main.game.getPlayer(), OrificeType.MOUTH) == PenetrationType.PENIS)) {
 				takingCock = true;
 			}
 			

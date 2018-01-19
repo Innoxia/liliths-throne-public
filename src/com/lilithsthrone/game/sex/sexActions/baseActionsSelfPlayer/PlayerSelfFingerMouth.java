@@ -6,6 +6,7 @@ import com.lilithsthrone.game.sex.LubricationType;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
@@ -22,12 +23,13 @@ public class PlayerSelfFingerMouth {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER_PLAYER,
-			OrificeType.MOUTH_PLAYER) {
+			PenetrationType.FINGER,
+			OrificeType.MOUTH,
+			SexParticipantType.SELF) {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.getWetPenetrationTypes(Main.game.getPlayer()).get(PenetrationType.FINGER_PLAYER).contains(LubricationType.PLAYER_SALIVA);
+			return !Sex.getWetPenetrationTypes(Main.game.getPlayer()).get(PenetrationType.FINGER).contains(LubricationType.PLAYER_SALIVA);
 		}
 		
 		@Override
@@ -47,7 +49,7 @@ public class PlayerSelfFingerMouth {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Main.game.getPlayer(), Main.game.getPlayer(), PenetrationType.FINGER_PLAYER, OrificeType.MOUTH_PLAYER);
+			Sex.transferLubrication(Main.game.getPlayer(), Main.game.getPlayer(), PenetrationType.FINGER, OrificeType.MOUTH);
 		}
 	};
 	
@@ -56,8 +58,9 @@ public class PlayerSelfFingerMouth {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ZERO_NONE,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER_PLAYER,
-			OrificeType.MOUTH_PLAYER) {
+			PenetrationType.FINGER,
+			OrificeType.MOUTH,
+			SexParticipantType.SELF) {
 		
 		@Override
 		public String getActionTitle() {
@@ -80,8 +83,9 @@ public class PlayerSelfFingerMouth {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.FINGER_PLAYER,
-			OrificeType.MOUTH_PLAYER) {
+			PenetrationType.FINGER,
+			OrificeType.MOUTH,
+			SexParticipantType.SELF) {
 		
 		@Override
 		public String getActionTitle() {

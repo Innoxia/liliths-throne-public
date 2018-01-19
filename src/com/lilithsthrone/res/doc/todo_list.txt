@@ -20,6 +20,8 @@
 		Updated to Java 9.0.1. If you're using the .jar version of the game, please update your Java to 9.0.1 (.exe versions are unaffected).
 		Finished converting the save system to .xml. All saves now use the new .xml system, so you won't need to export/import between versions anymore.
 		Optimised NPC load method, so loading a game should now be faster.
+		Added support for conditional parsing commands to the parsing engine. I'll add documentation for this soon.
+		Finished refactor of all sex engine code to properly support multiple-partner sex scenes.
 	
 	UI:
 		Updated Save/Load UI, and changed Export/Import to exported character management screen.
@@ -71,20 +73,10 @@
 	
 	
 	
-	Posts
-	
-	For all penetration types and orifices, PENIS_PLAYER PENIS_PARTNER -> PENIS
 	
 	Brax's getPenetrationDescription()
 	
-	All actions need to be:
-		Partner on partner
-		Partner on player
-		Partner on self
-		Player on partner
-		Player on self
-	Which should tell the system the owners of penetration & orifice types.
-	
+	GenericOrgasms
 	
 	
 	Arcane Arousal book says everyone is bi
@@ -94,6 +86,8 @@
 	
 	Because all of a sudden lust gains from penetrating feel smol while the ones from getting vaginal sex  went through the roof
 	
+	
+	Need to define available sex actions as dependent on which SexSlot it's targeting.
 	
 	
 	

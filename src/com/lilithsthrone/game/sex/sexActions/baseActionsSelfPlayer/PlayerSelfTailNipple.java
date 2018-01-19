@@ -7,6 +7,7 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
+import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
@@ -23,8 +24,9 @@ public class PlayerSelfTailNipple {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TAIL_PLAYER,
-			OrificeType.NIPPLE_PLAYER) {
+			PenetrationType.TAIL,
+			OrificeType.NIPPLE,
+			SexParticipantType.SELF) {
 		@Override
 		public String getActionTitle() {
 			return "Tail-fuck nipples (self)";
@@ -85,8 +87,9 @@ public class PlayerSelfTailNipple {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TAIL_PLAYER,
-			OrificeType.NIPPLE_PLAYER,
+			PenetrationType.TAIL,
+			OrificeType.NIPPLE,
+			SexParticipantType.SELF,
 			SexPace.DOM_GENTLE,
 			null) {
 		
@@ -124,8 +127,9 @@ public class PlayerSelfTailNipple {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TAIL_PLAYER,
-			OrificeType.NIPPLE_PLAYER,
+			PenetrationType.TAIL,
+			OrificeType.NIPPLE,
+			SexParticipantType.SELF,
 			SexPace.DOM_NORMAL,
 			null) {
 		
@@ -163,8 +167,9 @@ public class PlayerSelfTailNipple {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TAIL_PLAYER,
-			OrificeType.NIPPLE_PLAYER,
+			PenetrationType.TAIL,
+			OrificeType.NIPPLE,
+			SexParticipantType.SELF,
 			SexPace.DOM_ROUGH,
 			null) {
 		
@@ -202,8 +207,9 @@ public class PlayerSelfTailNipple {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TAIL_PLAYER,
-			OrificeType.NIPPLE_PLAYER,
+			PenetrationType.TAIL,
+			OrificeType.NIPPLE,
+			SexParticipantType.SELF,
 			SexPace.SUB_NORMAL,
 			null) {
 		
@@ -241,8 +247,9 @@ public class PlayerSelfTailNipple {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TAIL_PLAYER,
-			OrificeType.NIPPLE_PLAYER,
+			PenetrationType.TAIL,
+			OrificeType.NIPPLE,
+			SexParticipantType.SELF,
 			SexPace.SUB_EAGER,
 			null) {
 		
@@ -280,8 +287,9 @@ public class PlayerSelfTailNipple {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TAIL_PLAYER,
-			OrificeType.NIPPLE_PLAYER) {
+			PenetrationType.TAIL,
+			OrificeType.NIPPLE,
+			SexParticipantType.SELF) {
 		
 		@Override
 		public String getActionTitle() {

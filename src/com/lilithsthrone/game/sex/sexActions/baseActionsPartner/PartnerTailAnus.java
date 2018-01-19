@@ -11,6 +11,7 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
+import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
@@ -29,8 +30,9 @@ public class PartnerTailAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TAIL_PARTNER,
-			OrificeType.ANUS_PLAYER) {
+			PenetrationType.TAIL,
+			OrificeType.ANUS,
+			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
 			return "Anal tail tease";
@@ -110,7 +112,7 @@ public class PartnerTailAnus {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Sex.getActivePartner(), Main.game.getPlayer(), PenetrationType.TAIL_PARTNER, OrificeType.ANUS_PLAYER);
+			Sex.transferLubrication(Sex.getActivePartner(), Main.game.getPlayer(), PenetrationType.TAIL, OrificeType.ANUS);
 		}
 		
 		@Override
@@ -124,8 +126,9 @@ public class PartnerTailAnus {
 			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TAIL_PARTNER,
-			OrificeType.ANUS_PLAYER) {
+			PenetrationType.TAIL,
+			OrificeType.ANUS,
+			SexParticipantType.CATCHER) {
 		@Override
 		public String getActionTitle() {
 			return "Anal tail tease";
@@ -200,7 +203,7 @@ public class PartnerTailAnus {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.TAIL_PARTNER, OrificeType.ANUS_PLAYER);
+			Sex.transferLubrication(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.TAIL, OrificeType.ANUS);
 		}
 		
 		@Override
@@ -215,8 +218,9 @@ public class PartnerTailAnus {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TAIL_PARTNER,
-			OrificeType.ANUS_PLAYER) {
+			PenetrationType.TAIL,
+			OrificeType.ANUS,
+			SexParticipantType.PITCHER) {
 		
 		@Override
 		public String getActionTitle() {
@@ -309,8 +313,9 @@ public class PartnerTailAnus {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TAIL_PARTNER,
-			OrificeType.ANUS_PLAYER,
+			PenetrationType.TAIL,
+			OrificeType.ANUS,
+			SexParticipantType.PITCHER,
 			null,
 			SexPace.DOM_GENTLE) {
 		
@@ -370,8 +375,9 @@ public class PartnerTailAnus {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TAIL_PARTNER,
-			OrificeType.ANUS_PLAYER,
+			PenetrationType.TAIL,
+			OrificeType.ANUS,
+			SexParticipantType.PITCHER,
 			null,
 			SexPace.DOM_NORMAL) {
 		
@@ -432,8 +438,9 @@ public class PartnerTailAnus {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.TAIL_PARTNER,
-			OrificeType.ANUS_PLAYER,
+			PenetrationType.TAIL,
+			OrificeType.ANUS,
+			SexParticipantType.PITCHER,
 			null,
 			SexPace.DOM_ROUGH) {
 		@Override
@@ -493,8 +500,9 @@ public class PartnerTailAnus {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TAIL_PARTNER,
-			OrificeType.ANUS_PLAYER,
+			PenetrationType.TAIL,
+			OrificeType.ANUS,
+			SexParticipantType.PITCHER,
 			null,
 			SexPace.SUB_NORMAL) {
 		
@@ -554,8 +562,9 @@ public class PartnerTailAnus {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TAIL_PARTNER,
-			OrificeType.ANUS_PLAYER,
+			PenetrationType.TAIL,
+			OrificeType.ANUS,
+			SexParticipantType.PITCHER,
 			null,
 			SexPace.SUB_EAGER) {
 		@Override
@@ -614,8 +623,9 @@ public class PartnerTailAnus {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TAIL_PARTNER,
-			OrificeType.ANUS_PLAYER,
+			PenetrationType.TAIL,
+			OrificeType.ANUS,
+			SexParticipantType.PITCHER,
 			null,
 			SexPace.SUB_RESISTING) {
 		@Override
@@ -674,8 +684,9 @@ public class PartnerTailAnus {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TAIL_PARTNER,
-			OrificeType.ANUS_PLAYER) {
+			PenetrationType.TAIL,
+			OrificeType.ANUS,
+			SexParticipantType.PITCHER) {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -735,8 +746,9 @@ public class PartnerTailAnus {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TAIL_PARTNER,
-			OrificeType.ANUS_PLAYER) {
+			PenetrationType.TAIL,
+			OrificeType.ANUS,
+			SexParticipantType.CATCHER) {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -833,8 +845,9 @@ public class PartnerTailAnus {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TAIL_PARTNER,
-			OrificeType.ANUS_PLAYER,
+			PenetrationType.TAIL,
+			OrificeType.ANUS,
+			SexParticipantType.CATCHER,
 			SexPace.DOM_GENTLE,
 			null) {
 		
@@ -872,8 +885,9 @@ public class PartnerTailAnus {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TAIL_PARTNER,
-			OrificeType.ANUS_PLAYER,
+			PenetrationType.TAIL,
+			OrificeType.ANUS,
+			SexParticipantType.CATCHER,
 			SexPace.DOM_NORMAL,
 			null) {
 		
@@ -911,8 +925,9 @@ public class PartnerTailAnus {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.TAIL_PARTNER,
-			OrificeType.ANUS_PLAYER,
+			PenetrationType.TAIL,
+			OrificeType.ANUS,
+			SexParticipantType.CATCHER,
 			SexPace.DOM_ROUGH,
 			null) {
 		
@@ -950,8 +965,9 @@ public class PartnerTailAnus {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TAIL_PARTNER,
-			OrificeType.ANUS_PLAYER,
+			PenetrationType.TAIL,
+			OrificeType.ANUS,
+			SexParticipantType.CATCHER,
 			SexPace.SUB_NORMAL,
 			null) {
 		
@@ -989,8 +1005,9 @@ public class PartnerTailAnus {
 			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TAIL_PARTNER,
-			OrificeType.ANUS_PLAYER,
+			PenetrationType.TAIL,
+			OrificeType.ANUS,
+			SexParticipantType.CATCHER,
 			SexPace.SUB_EAGER,
 			null) {
 		
@@ -1028,8 +1045,9 @@ public class PartnerTailAnus {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TAIL_PARTNER,
-			OrificeType.ANUS_PLAYER,
+			PenetrationType.TAIL,
+			OrificeType.ANUS,
+			SexParticipantType.CATCHER,
 			SexPace.SUB_RESISTING,
 			null) {
 		@Override
@@ -1091,8 +1109,9 @@ public class PartnerTailAnus {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TAIL_PARTNER,
-			OrificeType.ANUS_PLAYER) {
+			PenetrationType.TAIL,
+			OrificeType.ANUS,
+			SexParticipantType.CATCHER) {
 
 		@Override
 		public boolean isBaseRequirementsMet() {

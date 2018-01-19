@@ -7,6 +7,7 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
+import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
@@ -23,8 +24,9 @@ public class PartnerSelfTailVagina {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TAIL_PARTNER,
-			OrificeType.VAGINA_PARTNER) {
+			PenetrationType.TAIL,
+			OrificeType.VAGINA,
+			SexParticipantType.SELF) {
 		
 		@Override
 		public String getActionTitle() {
@@ -55,8 +57,9 @@ public class PartnerSelfTailVagina {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TAIL_PARTNER,
-			OrificeType.VAGINA_PARTNER,
+			PenetrationType.TAIL,
+			OrificeType.VAGINA,
+			SexParticipantType.SELF,
 			null,
 			SexPace.DOM_GENTLE) {
 		
@@ -94,8 +97,9 @@ public class PartnerSelfTailVagina {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TAIL_PARTNER,
-			OrificeType.VAGINA_PARTNER,
+			PenetrationType.TAIL,
+			OrificeType.VAGINA,
+			SexParticipantType.SELF,
 			null,
 			SexPace.DOM_NORMAL) {
 		
@@ -133,8 +137,9 @@ public class PartnerSelfTailVagina {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
-			PenetrationType.TAIL_PARTNER,
-			OrificeType.VAGINA_PARTNER,
+			PenetrationType.TAIL,
+			OrificeType.VAGINA,
+			SexParticipantType.SELF,
 			null,
 			SexPace.DOM_ROUGH) {
 		
@@ -172,8 +177,9 @@ public class PartnerSelfTailVagina {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TAIL_PARTNER,
-			OrificeType.VAGINA_PARTNER,
+			PenetrationType.TAIL,
+			OrificeType.VAGINA,
+			SexParticipantType.SELF,
 			null,
 			SexPace.SUB_NORMAL) {
 		
@@ -211,8 +217,9 @@ public class PartnerSelfTailVagina {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TAIL_PARTNER,
-			OrificeType.VAGINA_PARTNER,
+			PenetrationType.TAIL,
+			OrificeType.VAGINA,
+			SexParticipantType.SELF,
 			null,
 			SexPace.SUB_EAGER) {
 		
@@ -250,8 +257,9 @@ public class PartnerSelfTailVagina {
 			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TAIL_PARTNER,
-			OrificeType.VAGINA_PARTNER) {
+			PenetrationType.TAIL,
+			OrificeType.VAGINA,
+			SexParticipantType.SELF) {
 		
 		@Override
 		public String getActionTitle() {

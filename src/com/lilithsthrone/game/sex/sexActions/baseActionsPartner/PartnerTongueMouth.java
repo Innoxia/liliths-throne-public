@@ -7,6 +7,7 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
+import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexPositionNew;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
@@ -28,8 +29,9 @@ public class PartnerTongueMouth {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TONGUE_PARTNER,
-			OrificeType.MOUTH_PLAYER) {
+			PenetrationType.TONGUE,
+			OrificeType.MOUTH,
+			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
 			return "Start kissing";
@@ -186,8 +188,9 @@ public class PartnerTongueMouth {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TONGUE_PARTNER,
-			OrificeType.MOUTH_PLAYER,
+			PenetrationType.TONGUE,
+			OrificeType.MOUTH,
+			SexParticipantType.PITCHER,
 			null,
 			SexPace.DOM_GENTLE) {
 		
@@ -257,8 +260,9 @@ public class PartnerTongueMouth {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TONGUE_PARTNER,
-			OrificeType.MOUTH_PLAYER,
+			PenetrationType.TONGUE,
+			OrificeType.MOUTH,
+			SexParticipantType.PITCHER,
 			null,
 			SexPace.DOM_NORMAL) {
 		@Override
@@ -328,8 +332,9 @@ public class PartnerTongueMouth {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.TONGUE_PARTNER,
-			OrificeType.MOUTH_PLAYER,
+			PenetrationType.TONGUE,
+			OrificeType.MOUTH,
+			SexParticipantType.PITCHER,
 			null,
 			SexPace.DOM_ROUGH) {
 		@Override
@@ -401,8 +406,9 @@ public class PartnerTongueMouth {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TONGUE_PARTNER,
-			OrificeType.MOUTH_PLAYER,
+			PenetrationType.TONGUE,
+			OrificeType.MOUTH,
+			SexParticipantType.PITCHER,
 			null,
 			SexPace.SUB_NORMAL) {
 		@Override
@@ -462,8 +468,9 @@ public class PartnerTongueMouth {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TONGUE_PARTNER,
-			OrificeType.MOUTH_PLAYER,
+			PenetrationType.TONGUE,
+			OrificeType.MOUTH,
+			SexParticipantType.PITCHER,
 			null,
 			SexPace.SUB_EAGER) {
 		@Override
@@ -524,8 +531,9 @@ public class PartnerTongueMouth {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TONGUE_PARTNER,
-			OrificeType.MOUTH_PLAYER) {
+			PenetrationType.TONGUE,
+			OrificeType.MOUTH,
+			SexParticipantType.PITCHER) {
 		@Override
 		public String getActionTitle() {
 			return "Stop kissing";
@@ -581,8 +589,9 @@ public class PartnerTongueMouth {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TONGUE_PARTNER,
-			OrificeType.MOUTH_PLAYER,
+			PenetrationType.TONGUE,
+			OrificeType.MOUTH,
+			SexParticipantType.CATCHER,
 			SexPace.DOM_GENTLE,
 			null) {
 		@Override
@@ -640,8 +649,9 @@ public class PartnerTongueMouth {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TONGUE_PARTNER,
-			OrificeType.MOUTH_PLAYER,
+			PenetrationType.TONGUE,
+			OrificeType.MOUTH,
+			SexParticipantType.CATCHER,
 			SexPace.DOM_NORMAL,
 			null) {
 		@Override
@@ -699,8 +709,9 @@ public class PartnerTongueMouth {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.TWO_HORNY,
-			PenetrationType.TONGUE_PARTNER,
-			OrificeType.MOUTH_PLAYER,
+			PenetrationType.TONGUE,
+			OrificeType.MOUTH,
+			SexParticipantType.CATCHER,
 			SexPace.DOM_ROUGH,
 			null) {
 		@Override
@@ -760,8 +771,9 @@ public class PartnerTongueMouth {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TONGUE_PARTNER,
-			OrificeType.MOUTH_PLAYER,
+			PenetrationType.TONGUE,
+			OrificeType.MOUTH,
+			SexParticipantType.CATCHER,
 			SexPace.SUB_RESISTING,
 			null) {
 		@Override
@@ -820,8 +832,9 @@ public class PartnerTongueMouth {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TONGUE_PARTNER,
-			OrificeType.MOUTH_PLAYER,
+			PenetrationType.TONGUE,
+			OrificeType.MOUTH,
+			SexParticipantType.CATCHER,
 			SexPace.SUB_NORMAL,
 			null) {
 		@Override
@@ -892,8 +905,9 @@ public class PartnerTongueMouth {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TONGUE_PARTNER,
-			OrificeType.MOUTH_PLAYER,
+			PenetrationType.TONGUE,
+			OrificeType.MOUTH,
+			SexParticipantType.CATCHER,
 			SexPace.SUB_EAGER,
 			null) {
 		@Override
@@ -964,8 +978,9 @@ public class PartnerTongueMouth {
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
-			PenetrationType.TONGUE_PARTNER,
-			OrificeType.MOUTH_PLAYER) {
+			PenetrationType.TONGUE,
+			OrificeType.MOUTH,
+			SexParticipantType.CATCHER) {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
