@@ -14,7 +14,7 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
@@ -75,84 +75,84 @@ public class PlayerTalk {
 		@Override
 		public String getDescription() {
 			
-			if(Sex.getPosition()==SexPositionNew.DOGGY_STYLE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.DOGGY_ON_ALL_FOURS) {
+			if(Sex.getPosition()==SexPositionType.DOGGY_STYLE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.DOGGY_ON_ALL_FOURS) {
 				
 				switch(Sex.getSexPace(Main.game.getPlayer())) {
 					case SUB_EAGER:
 						return UtilText.returnStringAtRandom(
 								"Turning your head to look back at [npc.name], [pc.a_moan+] escapes from between your [pc.lips+], ",
 								"You turn your head to look back at [npc.name], letting out [pc.a_moan+] before calling out, ")
-								+ Sex.getActivePartner().getDirtyTalk();
+								+ Main.game.getPlayer().getDirtyTalk();
 					case SUB_RESISTING:
 						return UtilText.returnStringAtRandom(
 								"Desperately trying to crawl away from [npc.name], [npc.she] grabs your [pc.hips] and pulls you back as you [pc.sob], ",
 								"Trying to crawl away from [npc.name], [npc.she] holds you firmly in place as you let out [pc.a_sob+], ")
-								+ Sex.getActivePartner().getDirtyTalk();
+								+ Main.game.getPlayer().getDirtyTalk();
 					default: 
 						return UtilText.returnStringAtRandom(
 								"Turning your head to look back at [npc.name], [pc.a_moan] escapes from between your [pc.lips+], ",
 								"You turn your head to look back at [npc.name], letting out [pc.a_moan] before calling out, ")
-								+ Sex.getActivePartner().getDirtyTalk();
+								+ Main.game.getPlayer().getDirtyTalk();
 				}
 				
-			} else if(Sex.getPosition()==SexPositionNew.KNEELING_ORAL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_PERFORMING_ORAL) {
+			} else if(Sex.getPosition()==SexPositionType.KNEELING_ORAL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_PERFORMING_ORAL) {
 				
 				switch(Sex.getSexPace(Main.game.getPlayer())) {
 					case DOM_GENTLE:
 						return UtilText.returnStringAtRandom(
 								"You look down at [npc.name] as [npc.she] kneels beneath you, ",
 								"Looking down at [npc.name], you sigh, ")
-								+ Sex.getActivePartner().getDirtyTalk();
+								+ Main.game.getPlayer().getDirtyTalk();
 					case DOM_ROUGH:
 						return UtilText.returnStringAtRandom(
 								"You grin down at [npc.name] as [npc.she] kneels beneath you, ",
 								"Looking down at [npc.name], you growl, ")
-								+ Sex.getActivePartner().getDirtyTalk();
+								+ Main.game.getPlayer().getDirtyTalk();
 					default: 
 						return UtilText.returnStringAtRandom(
 								"You look down at [npc.name] as [npc.she] kneels beneath you, ",
 								"Looking down at [npc.name], you [pc.moan], ")
-								+ Sex.getActivePartner().getDirtyTalk();
+								+ Main.game.getPlayer().getDirtyTalk();
 				}
 				
-			} else if(Sex.getPosition()==SexPositionNew.KNEELING_ORAL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.KNEELING_PERFORMING_ORAL) {
+			} else if(Sex.getPosition()==SexPositionType.KNEELING_ORAL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.KNEELING_PERFORMING_ORAL) {
 				
 				switch(Sex.getSexPace(Main.game.getPlayer())) {
 					case SUB_EAGER:
 						return UtilText.returnStringAtRandom(
 								"You glance up at [npc.name] as you [pc.moan] up to [npc.herHim], ",
 								"Looking up at [npc.name] standing above you, you [pc.moan] up to [npc.herHim], ")
-								+ Sex.getActivePartner().getDirtyTalk();
+								+ Main.game.getPlayer().getDirtyTalk();
 					case SUB_RESISTING:
 						return UtilText.returnStringAtRandom(
 								"You glance up at [npc.name] before letting out [pc.a_sob+], ",
 								"Looking up at [npc.name] standing above you, you let out [pc.a_sob+], ")
-								+ Sex.getActivePartner().getDirtyTalk();
+								+ Main.game.getPlayer().getDirtyTalk();
 					default: 
 						return UtilText.returnStringAtRandom(
 								"You glance up at [npc.name] as you speak up to [npc.herHim], ",
 								"Looking up at [npc.name] standing above you, you speak up to [npc.herHim], ")
-								+ Sex.getActivePartner().getDirtyTalk();
+								+ Main.game.getPlayer().getDirtyTalk();
 				}
 				
-			} else if(Sex.getPosition()==SexPositionNew.SIXTY_NINE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.SIXTY_NINE_TOP) {
+			} else if(Sex.getPosition()==SexPositionType.SIXTY_NINE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.SIXTY_NINE_TOP) {
 				
 				switch(Sex.getSexPace(Main.game.getPlayer())) {
 					case DOM_GENTLE:
 						return UtilText.returnStringAtRandom(
 								"You look back at [npc.name] as [npc.she] lies beneath you, and speak down to [npc.herHim], ",
 								"Looking back at [npc.name] as [npc.she] lies beneath you, you speak down to [npc.herHim], ")
-								+ Sex.getActivePartner().getDirtyTalk();
+								+ Main.game.getPlayer().getDirtyTalk();
 					case DOM_ROUGH:
 						return UtilText.returnStringAtRandom(
 								"You look back at [npc.name] as [npc.she] lies beneath you, and growl down to [npc.herHim], ",
 								"Looking back at [npc.name] as [npc.she] lies beneath you, you growl down to [npc.herHim], ")
-								+ Sex.getActivePartner().getDirtyTalk();
+								+ Main.game.getPlayer().getDirtyTalk();
 					default: 
 						return UtilText.returnStringAtRandom(
 								"You look back at [npc.name] as [npc.she] lies beneath you, and [pc.moanVerb] down to [npc.herHim], ",
 								"Looking back at [npc.name] as [npc.she] lies beneath you, you [pc.moanVerb] down to [npc.herHim], ")
-								+ Sex.getActivePartner().getDirtyTalk();
+								+ Main.game.getPlayer().getDirtyTalk();
 				}
 				
 			} else {
@@ -162,27 +162,27 @@ public class PlayerTalk {
 						return UtilText.returnStringAtRandom(
 								"You let out a soft [pc.moan], ",
 								"You gently sigh, ")
-								+ Sex.getActivePartner().getDirtyTalk();
+								+ Main.game.getPlayer().getDirtyTalk();
 					case DOM_ROUGH:
 						return UtilText.returnStringAtRandom(
 								"You let out a rough growl before speaking out loud, ",
 								"You make a threatening growling noise before speaking, ")
-								+ Sex.getActivePartner().getDirtyTalk();
+								+ Main.game.getPlayer().getDirtyTalk();
 					case SUB_EAGER:
 						return UtilText.returnStringAtRandom(
 								"A desperate [pc.moan] escapes from between your [pc.lips+], ",
 								"You let out a desperate [pc.moan] before addressing [npc.name], ")
-								+ Sex.getActivePartner().getDirtyTalk();
+								+ Main.game.getPlayer().getDirtyTalk();
 					case SUB_RESISTING:
 						return UtilText.returnStringAtRandom(
 								"A protesting whine escapes from between your [pc.lips+] as you struggle against [npc.name], ",
 								"You let out a distressed whining noise as you try to shuffle away from [npc.name], ")
-								+ Sex.getActivePartner().getDirtyTalk();
+								+ Main.game.getPlayer().getDirtyTalk();
 					default: // DOM_NORMAL, SUB_NORMAL:
 						return UtilText.returnStringAtRandom(
 								"[pc.A_moan] escapes from between your [pc.lips+], ",
 								"You let out [pc.a_moan] before addressing [npc.name], ")
-								+ Sex.getActivePartner().getDirtyTalk();
+								+ Main.game.getPlayer().getDirtyTalk();
 				}
 			
 			}

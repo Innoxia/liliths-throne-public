@@ -69,8 +69,8 @@ public class ConChairBottom {
 	
 	public static final SexAction PARTNER_GRIND_GROIN = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
 			null,
 			null,
@@ -106,8 +106,8 @@ public class ConChairBottom {
 	
 	public static final SexAction PARTNER_FEEL_BREASTS = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
 			null,
 			OrificeType.NIPPLE,
@@ -160,8 +160,8 @@ public class ConChairBottom {
 	
 	public static final SexAction PARTNER_PINCH_NIPPLES = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
 			null,
 			OrificeType.NIPPLE,
@@ -229,8 +229,8 @@ public class ConChairBottom {
 	
 	public static final SexAction FINGER_NIPPLES = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
 			PenetrationType.FINGER,
 			OrificeType.NIPPLE,
@@ -296,8 +296,8 @@ public class ConChairBottom {
 	
 	public static final SexAction PARTNER_KISS_NIPPLES = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.TONGUE,
 			OrificeType.NIPPLE,
@@ -567,8 +567,8 @@ public class ConChairBottom {
 	
 	public static final SexAction PARTNER_ROUGH_FUCK = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.THREE_DIRTY,
 			PenetrationType.PENIS,
 			OrificeType.VAGINA,
@@ -697,8 +697,8 @@ public class ConChairBottom {
 	
 	public static final SexAction PARTNER_ROUGH_ANAL_FUCK = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.THREE_DIRTY,
 			PenetrationType.PENIS,
 			OrificeType.ANUS,
@@ -803,8 +803,8 @@ public class ConChairBottom {
 	
 	public static final SexAction PARTNER_ROUGH_NIPPLE_FUCK = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.THREE_DIRTY,
 			PenetrationType.PENIS,
 			OrificeType.NIPPLE,
@@ -903,8 +903,8 @@ public class ConChairBottom {
 	
 	public static final SexAction PARTNER_ROUGH_RIDE = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
 			PenetrationType.PENIS,
 			OrificeType.VAGINA,
@@ -1012,8 +1012,8 @@ public class ConChairBottom {
 	
 	public static final SexAction PARTNER_ROUGH_ANAL_RIDE = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
 			PenetrationType.PENIS,
 			OrificeType.ANUS,
@@ -1055,8 +1055,8 @@ public class ConChairBottom {
 	
 	public static final SexAction PARTNER_GET_PEGGED = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
-			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.THREE_DIRTY,
 			PenetrationType.TAIL,
 			OrificeType.ANUS,
@@ -1090,8 +1090,8 @@ public class ConChairBottom {
 	
 	public static final SexAction PARTNER_GET_TAIL_FUCKED = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
-			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
+			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.TAIL,
 			OrificeType.VAGINA,

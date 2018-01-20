@@ -9,7 +9,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
-import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.main.Main;
@@ -21,7 +21,7 @@ import com.lilithsthrone.main.Main;
  */
 public interface SexManagerInterface {
 
-	public SexPositionNew getPosition();
+	public SexPositionType getPosition();
 	
 	public Map<GameCharacter, SexPositionSlot> getDominants();
 	public Map<GameCharacter, SexPositionSlot> getSubmissives();

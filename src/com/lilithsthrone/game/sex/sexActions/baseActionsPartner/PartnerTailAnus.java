@@ -620,8 +620,8 @@ public class PartnerTailAnus {
 	
 	public static final SexAction PARTNER_FUCKING_SUB_RESIST = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.TAIL,
 			OrificeType.ANUS,

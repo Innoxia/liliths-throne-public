@@ -1095,13 +1095,13 @@ public class Brax extends NPC {
 		if(Math.random()>0.3) {
 			if(Sex.getSexManager() instanceof SMCowgirl){
 				if(orifice == OrificeType.VAGINA) {
-					if(penetrationType == PenetrationType.PENIS) {
+					if(penetrationType == PenetrationType.PENIS && characterPenetrated.equals(this)) {
 						return UtilText.returnStringAtRandom(
 								"You keep bouncing up and down, slamming [brax.name]'s [npc.penis+] in and out of your [pc.pussy+].",
 								"With lewd little moans, you continue bouncing up and down on [brax.name]'s [npc.penis+].",
 								"You feel [brax.name]'s [npc.penis+] lewdly spreading out your [pc.pussy+] as you ride him.",
 								"You let out a gasp as you carry on spearing your [pc.pussy+] on [brax.name]'s [npc.penis+].");
-					} else if(penetrationType == PenetrationType.TONGUE) {
+					} else if(penetrationType == PenetrationType.TONGUE && characterPenetrated.isPlayer()) {
 						return UtilText.returnStringAtRandom(
 								"You hold the top of [brax.name]'s head, moaning softly as he carries on eating you out.",
 								"With a little giggle, you grind your [pc.pussy+] down on [brax.name]'s wolf-like muzzle.",
@@ -1111,13 +1111,14 @@ public class Brax extends NPC {
 				}
 				
 				if(orifice == OrificeType.ANUS) {
-					if(penetrationType == PenetrationType.PENIS) {
+					if(penetrationType == PenetrationType.PENIS && characterPenetrated.equals(this)) {
 						return UtilText.returnStringAtRandom(
 								"You keep bouncing up and down, slamming [brax.name]'s [npc.penis+] in and out of your [pc.asshole+].",
 								"With lewd little moans, you continue bouncing up and down on [brax.name]'s [npc.penis+].",
 								"You feel [brax.name]'s [npc.penis+] lewdly spreading out your [pc.asshole+] as you ride him.",
 								"You let out a gasp as you carry on spearing your [pc.asshole+] on [brax.name]'s [npc.penis+].");
-					} else {
+						
+					} else if(characterPenetrated.isPlayer()) {
 						return UtilText.returnStringAtRandom(
 								"You hold the top of [brax.name]'s head, moaning softly as he carries on licking your [pc.asshole+].",
 								"With a little giggle, you grind your [pc.asshole+] down on [brax.name]'s wolf-like muzzle.",
@@ -1127,7 +1128,7 @@ public class Brax extends NPC {
 				}
 			}
 			
-			if(penetrationType == PenetrationType.PENIS && orifice == OrificeType.ANUS) {
+			if(penetrationType == PenetrationType.PENIS && orifice == OrificeType.ANUS && characterPenetrated.equals(this)) {
 				return UtilText.returnStringAtRandom(
 						"You carry on slamming your [pc.penis+] into [brax.name]'s [npc.asshole+].",
 						"Holding his hips, you carry on fucking [brax.name]'s [npc.asshole+].",

@@ -7,7 +7,7 @@ import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.dominion.cultist.SMAltarMissionary;
 import com.lilithsthrone.game.sex.managers.dominion.cultist.SMAltarMissionarySealed;
@@ -106,7 +106,7 @@ public class SASpecialCultist {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
-					&& !(Sex.getPosition() == SexPositionNew.MISSIONARY_ALTAR_CULTIST
+					&& !(Sex.getPosition() == SexPositionType.MISSIONARY_ALTAR_CULTIST
 						&& (Sex.getSexPositionSlot(Main.game.getPlayer()) == SexPositionSlot.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS || Sex.getSexPositionSlot(Main.game.getPlayer()) == SexPositionSlot.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS))
 					&& Sex.isDom(Main.game.getPlayer());
 		}
@@ -159,7 +159,7 @@ public class SASpecialCultist {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
-					&& !(Sex.getPosition() == SexPositionNew.MISSIONARY_ALTAR_CULTIST
+					&& !(Sex.getPosition() == SexPositionType.MISSIONARY_ALTAR_CULTIST
 							&& (Sex.getSexPositionSlot(Main.game.getPlayer()) == SexPositionSlot.MISSIONARY_ALTAR_KNEELING_BETWEEN_LEGS || Sex.getSexPositionSlot(Main.game.getPlayer()) == SexPositionSlot.MISSIONARY_ALTAR_SEALED_KNEELING_BETWEEN_LEGS))
 					&& Sex.isDom(Main.game.getPlayer());
 		}
@@ -210,7 +210,7 @@ public class SASpecialCultist {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPartner
-					&& !(Sex.getPosition() == SexPositionNew.MISSIONARY_ALTAR_CULTIST
+					&& !(Sex.getPosition() == SexPositionType.MISSIONARY_ALTAR_CULTIST
 						&& (Sex.getSexPositionSlot(Sex.getActivePartner()) == SexPositionSlot.MISSIONARY_ALTAR_KNEELING_BETWEEN_LEGS
 								|| Sex.getSexPositionSlot(Sex.getActivePartner()) == SexPositionSlot.MISSIONARY_ALTAR_SEALED_KNEELING_BETWEEN_LEGS))
 					&& (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.MISSIONARY_ALTAR_KNEELING_BETWEEN_LEGS)
@@ -264,7 +264,7 @@ public class SASpecialCultist {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPartner
-					&& !(Sex.getPosition() == SexPositionNew.MISSIONARY_ALTAR_CULTIST
+					&& !(Sex.getPosition() == SexPositionType.MISSIONARY_ALTAR_CULTIST
 					&& (Sex.getSexPositionSlot(Sex.getActivePartner()) == SexPositionSlot.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS
 							|| Sex.getSexPositionSlot(Sex.getActivePartner()) == SexPositionSlot.MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS))
 				&& (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS)

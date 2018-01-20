@@ -6,14 +6,19 @@ package com.lilithsthrone.game.sex;
  * @author Innoxia
  */
 public enum OrgasmCumTarget {
-	
+
+	WALL("up the wall"),
 	FLOOR("onto floor"),
+	
 	INSIDE("inside"),
+	
 	ASS("over ass"),
 	GROIN("over groin"),
 	BREASTS("onto breasts"),
 	FACE("over face"),
+	HAIR("into hair"),
 	STOMACH("onto stomach"),
+	LEGS("onto legs"),
 	BACK("over back");
 	
 	private String name;

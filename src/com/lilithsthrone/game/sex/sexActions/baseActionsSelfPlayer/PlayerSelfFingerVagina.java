@@ -8,7 +8,7 @@ import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
@@ -47,8 +47,8 @@ public class PlayerSelfFingerVagina {
 
 		@Override
 		public String getDescription() {
-			if((Sex.getPosition()==SexPositionNew.DOGGY_STYLE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.DOGGY_ON_ALL_FOURS)
-					|| (Sex.getPosition()==SexPositionNew.DOGGY_AMBER && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.DOGGY_ON_ALL_FOURS_AMBER)) {
+			if((Sex.getPosition()==SexPositionType.DOGGY_STYLE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.DOGGY_ON_ALL_FOURS)
+					|| (Sex.getPosition()==SexPositionType.DOGGY_AMBER && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.DOGGY_ON_ALL_FOURS_AMBER)) {
 				return (UtilText.returnStringAtRandom(
 						"Reaching back between your [pc.legs], you tease your fingers over the entrance to your [pc.pussy+], before letting out [pc.a_moan+] as you use your digits to spread out your labia for [npc.name].",
 						"You probe your fingers back between your [pc.legs], moaning softly as you use two of your digits to invitingly spread out your [pc.pussy+] and present yourself to [npc.name].",
@@ -61,6 +61,11 @@ public class PlayerSelfFingerVagina {
 						"Sliding your fingertips over your [pc.pussy+], you let out [pc.a_moan+] as you use your digits to spread out your pussy lips.",
 						"You eagerly slide your fingers over your needy [pc.pussy], [pc.moaning+] as you use your digits to part your soft folds and present yourself for penetration."));
 			}
+		}
+		
+		@Override
+		public void applyEffects() {
+			Sex.transferLubrication(Main.game.getPlayer(), Main.game.getPlayer(), PenetrationType.FINGER, OrificeType.VAGINA);
 		}
 		
 	};

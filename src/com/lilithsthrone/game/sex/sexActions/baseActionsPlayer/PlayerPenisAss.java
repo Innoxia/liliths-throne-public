@@ -116,8 +116,8 @@ public class PlayerPenisAss {
 	
 	public static final SexAction PARTNER_FORCE_COCK_OVER_ASS = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
 			PenetrationType.PENIS,
 			OrificeType.ASS,
@@ -737,8 +737,8 @@ public class PlayerPenisAss {
 	
 	public static final SexAction PARTNER_USING_COCK_ANALLY_START = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
-			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
 			PenetrationType.PENIS,
 			OrificeType.ASS,
@@ -840,8 +840,8 @@ public class PlayerPenisAss {
 	
 	public static final SexAction PARTNER_RIDING_COCK_ANALLY_DOM_GENTLE = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
 			PenetrationType.PENIS,
 			OrificeType.ASS,
@@ -878,8 +878,8 @@ public class PlayerPenisAss {
 	
 	public static final SexAction PARTNER_RIDING_COCK_ANALLY_DOM_NORMAL = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
 			PenetrationType.PENIS,
 			OrificeType.ASS,
@@ -914,8 +914,8 @@ public class PlayerPenisAss {
 	
 	public static final SexAction PARTNER_RIDING_COCK_ANALLY_DOM_ROUGH = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.THREE_DIRTY,
 			PenetrationType.PENIS,
 			OrificeType.ASS,
@@ -951,8 +951,8 @@ public class PlayerPenisAss {
 	
 	public static final SexAction PARTNER_RIDING_COCK_SUB_NORMAL = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
 			PenetrationType.PENIS,
 			OrificeType.ASS,
@@ -987,8 +987,8 @@ public class PlayerPenisAss {
 	
 	public static final SexAction PARTNER_RIDING_COCK_ANALLY_SUB_EAGER = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
 			PenetrationType.PENIS,
 			OrificeType.ASS,
@@ -1024,8 +1024,8 @@ public class PlayerPenisAss {
 	
 	public static final SexAction PARTNER_FUCKED_ANALLY_SUB_RESIST = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.PENIS,
 			OrificeType.ASS,

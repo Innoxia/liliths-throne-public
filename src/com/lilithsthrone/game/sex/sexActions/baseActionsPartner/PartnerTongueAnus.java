@@ -21,8 +21,8 @@ public class PartnerTongueAnus {
 
 	public static final SexAction PARTNER_ANILINGUS_START = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
-			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.THREE_DIRTY,
 			PenetrationType.TONGUE,
 			OrificeType.ANUS,
@@ -115,8 +115,8 @@ public class PartnerTongueAnus {
 	
 	public static final SexAction PARTNER_ANILINGUS_DOM_GENTLE = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.THREE_DIRTY,
 			PenetrationType.TONGUE,
 			OrificeType.ANUS,
@@ -176,8 +176,8 @@ public class PartnerTongueAnus {
 	
 	public static final SexAction PARTNER_ANILINGUS_DOM_NORMAL = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.THREE_DIRTY,
 			PenetrationType.TONGUE,
 			OrificeType.ANUS,
@@ -300,8 +300,8 @@ public class PartnerTongueAnus {
 	
 	public static final SexAction PARTNER_ANILINGUS_SUB_RESISTING = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.THREE_DIRTY,
 			PenetrationType.TONGUE,
 			OrificeType.ANUS,
@@ -363,8 +363,8 @@ public class PartnerTongueAnus {
 	
 	public static final SexAction PARTNER_ANILINGUS_SUB_NORMAL = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.THREE_DIRTY,
 			PenetrationType.TONGUE,
 			OrificeType.ANUS,
@@ -426,8 +426,8 @@ public class PartnerTongueAnus {
 	
 	public static final SexAction PARTNER_ANILINGUS_SUB_EAGER = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.THREE_DIRTY,
 			PenetrationType.TONGUE,
 			OrificeType.ANUS,

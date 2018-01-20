@@ -28,8 +28,8 @@ public class DomKneeling {
 	
 	public static final SexAction PARTNER_MOUND_SNOG = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.TONGUE,
 			OrificeType.VAGINA,
@@ -67,8 +67,8 @@ public class DomKneeling {
 	
 	public static final SexAction PARTNER_MOUND_KISSING = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.TONGUE,
 			OrificeType.VAGINA,

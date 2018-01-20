@@ -21,8 +21,8 @@ public class PartnerSelfTailAnus {
 	
 	public static final SexAction PARTNER_SELF_TAIL_ANUS_PENETRATION = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
-			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.THREE_DIRTY,
 			PenetrationType.TAIL,
 			OrificeType.ANUS,
@@ -54,8 +54,8 @@ public class PartnerSelfTailAnus {
 	
 	public static final SexAction DOM_PARTNER_SELF_TAIL_ANUS_GENTLE = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.TWO_HORNY,
 			PenetrationType.TAIL,
 			OrificeType.ANUS,
@@ -95,8 +95,8 @@ public class PartnerSelfTailAnus {
 	
 	public static final SexAction DOM_PARTNER_SELF_TAIL_ANUS_NORMAL = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.TWO_HORNY,
 			PenetrationType.TAIL,
 			OrificeType.ANUS,
@@ -136,8 +136,8 @@ public class PartnerSelfTailAnus {
 	
 	public static final SexAction DOM_PARTNER_SELF_TAIL_ANUS_ROUGH = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.THREE_DIRTY,
 			PenetrationType.TAIL,
 			OrificeType.ANUS,
@@ -177,8 +177,8 @@ public class PartnerSelfTailAnus {
 	
 	public static final SexAction SUB_PARTNER_SELF_TAIL_ANUS_NORMAL = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.TWO_HORNY,
 			PenetrationType.TAIL,
 			OrificeType.ANUS,
@@ -218,8 +218,8 @@ public class PartnerSelfTailAnus {
 	
 	public static final SexAction SUB_PARTNER_SELF_TAIL_ANUS_EAGER = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.THREE_DIRTY,
 			PenetrationType.TAIL,
 			OrificeType.ANUS,

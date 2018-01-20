@@ -8,7 +8,7 @@ import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
@@ -47,7 +47,7 @@ public class PartnerSelfFingerVagina {
 
 		@Override
 		public String getDescription() {
-			if(Sex.getPosition()==SexPositionNew.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_ON_ALL_FOURS) {
+			if(Sex.getPosition()==SexPositionType.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_ON_ALL_FOURS) {
 				return (UtilText.returnStringAtRandom(
 						"Reaching back between [npc.her] [npc.legs], [npc.name] teases [npc.her] [npc.fingers] over the entrance to [npc.her] [npc.pussy+],"
 								+ " before letting out [npc.a_moan+] as [npc.she] uses [npc.her] digits to spread out [npc.her] labia for you.",
@@ -63,13 +63,18 @@ public class PartnerSelfFingerVagina {
 						"[npc.Name] eagerly slides [npc.her] [npc.fingers] over [npc.her] needy [npc.pussy], [npc.moaning+] as [npc.she] uses [npc.her] digits to part [npc.her] soft folds and present [npc.herself] for penetration."));
 			}
 		}
+
+		@Override
+		public void applyEffects() {
+			Sex.transferLubrication(Sex.getActivePartner(), Sex.getActivePartner(), PenetrationType.FINGER, OrificeType.VAGINA);
+		}
 		
 	};
 	
 	public static final SexAction PARTNER_SELF_FINGER_VAGINA_PENETRATION = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
-			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.FINGER,
 			OrificeType.VAGINA,
@@ -101,8 +106,8 @@ public class PartnerSelfFingerVagina {
 	
 	public static final SexAction DOM_PARTNER_SELF_FINGER_VAGINA_GENTLE = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.FINGER,
 			OrificeType.VAGINA,
@@ -141,8 +146,8 @@ public class PartnerSelfFingerVagina {
 	
 	public static final SexAction DOM_PARTNER_SELF_FINGER_VAGINA_NORMAL = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.FINGER,
 			OrificeType.VAGINA,
@@ -181,8 +186,8 @@ public class PartnerSelfFingerVagina {
 	
 	public static final SexAction DOM_PARTNER_SELF_FINGER_VAGINA_ROUGH = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.FINGER,
 			OrificeType.VAGINA,
@@ -221,8 +226,8 @@ public class PartnerSelfFingerVagina {
 	
 	public static final SexAction SUB_PARTNER_SELF_FINGER_VAGINA_NORMAL = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.FINGER,
 			OrificeType.VAGINA,
@@ -261,8 +266,8 @@ public class PartnerSelfFingerVagina {
 	
 	public static final SexAction SUB_PARTNER_SELF_FINGER_VAGINA_EAGER = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.FINGER,
 			OrificeType.VAGINA,

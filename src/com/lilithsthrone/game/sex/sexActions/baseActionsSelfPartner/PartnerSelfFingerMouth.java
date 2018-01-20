@@ -18,8 +18,8 @@ public class PartnerSelfFingerMouth {
 	
 	public static final SexAction PARTNER_SELF_FINGER_MOUTH_LUBRICATION = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
-			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ZERO_NONE,
+			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.FINGER,
 			OrificeType.MOUTH,
@@ -56,8 +56,8 @@ public class PartnerSelfFingerMouth {
 	
 	public static final SexAction PARTNER_SELF_FINGER_MOUTH_PENETRATION = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
-			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.ZERO_NONE,
+			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.FINGER,
 			OrificeType.MOUTH,

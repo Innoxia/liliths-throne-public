@@ -868,6 +868,12 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		// Other transformations:
 		
+		// Cum production:
+		if(getPreferredBody().getPenis().getType()!=PenisType.NONE && Main.game.getPlayer().getPenisRawCumProductionValue() < getPreferredBody().getPenis().getTesticle().getRawCumProductionValue()) {
+			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CUM, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, 1), "Mmm! You're gonna make lots of cum for me!");
+			
+		}
+		
 		// Femininity:
 		if(Main.game.getPlayer().getFemininityValue() < getPreferredBody().getFemininity() && Femininity.valueOf(Main.game.getPlayer().getFemininityValue()) != Femininity.valueOf(getPreferredBody().getFemininity())) {
 			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), TFModifier.TF_CORE, TFModifier.TF_MOD_FEMININITY, TFPotency.MAJOR_BOOST, 1), "I'm gonna need you to be more feminine!");
@@ -1013,10 +1019,13 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				desiredGenders.put(Gender.M_V_CUNTBOY, 2);
 				break;
 			case GYNEPHILIC:
-				desiredGenders.put(Gender.F_V_B_FEMALE, 14);
-				desiredGenders.put(Gender.F_P_V_B_FUTANARI, 2);
-				desiredGenders.put(Gender.F_P_B_SHEMALE, 2);
-				desiredGenders.put(Gender.F_P_TRAP, 2);
+				if(this.hasVagina() && (this.hasFetish(Fetish.FETISH_PREGNANCY) || this.hasFetish(Fetish.FETISH_BROODMOTHER))) {
+					desiredGenders.put(Gender.F_P_V_B_FUTANARI, 2);
+					desiredGenders.put(Gender.F_P_B_SHEMALE, 2);
+					desiredGenders.put(Gender.F_P_TRAP, 2);
+				} else {
+					desiredGenders.put(Gender.F_V_B_FEMALE, 14);
+				}
 				break;
 		}
 		

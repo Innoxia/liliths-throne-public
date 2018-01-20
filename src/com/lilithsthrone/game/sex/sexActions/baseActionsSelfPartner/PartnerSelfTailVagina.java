@@ -21,8 +21,8 @@ public class PartnerSelfTailVagina {
 	
 	public static final SexAction PARTNER_SELF_TAIL_VAGINA_PENETRATION = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
-			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.TAIL,
 			OrificeType.VAGINA,
@@ -54,8 +54,8 @@ public class PartnerSelfTailVagina {
 	
 	public static final SexAction DOM_PARTNER_SELF_TAIL_VAGINA_GENTLE = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.TAIL,
 			OrificeType.VAGINA,
@@ -94,8 +94,8 @@ public class PartnerSelfTailVagina {
 	
 	public static final SexAction DOM_PARTNER_SELF_TAIL_VAGINA_NORMAL = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.TAIL,
 			OrificeType.VAGINA,
@@ -134,8 +134,8 @@ public class PartnerSelfTailVagina {
 	
 	public static final SexAction DOM_PARTNER_SELF_TAIL_VAGINA_ROUGH = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.TAIL,
 			OrificeType.VAGINA,
@@ -174,8 +174,8 @@ public class PartnerSelfTailVagina {
 	
 	public static final SexAction SUB_PARTNER_SELF_TAIL_VAGINA_NORMAL = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.TAIL,
 			OrificeType.VAGINA,
@@ -214,8 +214,8 @@ public class PartnerSelfTailVagina {
 	
 	public static final SexAction SUB_PARTNER_SELF_TAIL_VAGINA_EAGER = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.TAIL,
 			OrificeType.VAGINA,

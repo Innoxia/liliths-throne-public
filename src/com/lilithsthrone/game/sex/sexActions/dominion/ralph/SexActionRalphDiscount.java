@@ -564,8 +564,8 @@ public class SexActionRalphDiscount {
 
 	public static final SexAction PARTNER_CUSTOMER = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.PENIS,
 			OrificeType.MOUTH,
@@ -820,8 +820,8 @@ public class SexActionRalphDiscount {
 	
 	public static final SexAction PARTNER_START_ORAL = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.PENIS,
 			OrificeType.MOUTH,
@@ -995,8 +995,8 @@ public class SexActionRalphDiscount {
 	
 	public static final SexAction PARTNER_DEEP_THROAT = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.PENIS,
 			OrificeType.MOUTH,
@@ -1085,8 +1085,8 @@ public class SexActionRalphDiscount {
 	
 	public static final SexAction PARTNER_PENETRATES = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.PENIS,
 			OrificeType.VAGINA,
@@ -1179,8 +1179,8 @@ public class SexActionRalphDiscount {
 	
 	public static final SexAction PARTNER_PENETRATES_ANUS = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.PENIS,
 			OrificeType.ANUS,
@@ -1268,8 +1268,8 @@ public class SexActionRalphDiscount {
 	
 	public static final SexAction PARTNER_ROUGH_FUCK = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.PENIS,
 			OrificeType.VAGINA,
@@ -1302,8 +1302,8 @@ public class SexActionRalphDiscount {
 	
 	public static final SexAction PARTNER_ROUGH_FUCK_ANAL = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.PENIS,
 			OrificeType.ANUS,
@@ -1331,8 +1331,8 @@ public class SexActionRalphDiscount {
 	
 	public static final SexAction PARTNER_NORMAL_FUCK = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.PENIS,
 			OrificeType.VAGINA,
@@ -1362,8 +1362,8 @@ public class SexActionRalphDiscount {
 	
 	public static final SexAction PARTNER_NORMAL_FUCK_ANAL = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.FOUR_HIGH,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.PENIS,
 			OrificeType.ANUS,

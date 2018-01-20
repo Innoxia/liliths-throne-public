@@ -923,8 +923,8 @@ public class PlayerFingerVagina {
 	
 	public static final SexAction PARTNER_FINGERING_START = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
-			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.FINGER,
 			OrificeType.VAGINA,
@@ -1022,8 +1022,8 @@ public class PlayerFingerVagina {
 	
 	public static final SexAction PARTNER_FINGERED_DOM_GENTLE = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.FINGER,
 			OrificeType.VAGINA,
@@ -1062,8 +1062,8 @@ public class PlayerFingerVagina {
 	
 	public static final SexAction PARTNER_FINGERED_DOM_NORMAL = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.FINGER,
 			OrificeType.VAGINA,
@@ -1103,8 +1103,8 @@ public class PlayerFingerVagina {
 	
 	public static final SexAction PARTNER_FINGERED_DOM_ROUGH = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.FINGER,
 			OrificeType.VAGINA,
@@ -1143,8 +1143,8 @@ public class PlayerFingerVagina {
 	
 	public static final SexAction PARTNER_FINGERED_SUB_NORMAL = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.FINGER,
 			OrificeType.VAGINA,
@@ -1184,8 +1184,8 @@ public class PlayerFingerVagina {
 	
 	public static final SexAction PARTNER_FINGERED_SUB_EAGER = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.FINGER,
 			OrificeType.VAGINA,
@@ -1225,8 +1225,8 @@ public class PlayerFingerVagina {
 	
 	public static final SexAction PARTNER_FINGERING_SUB_RESIST = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.FINGER,
 			OrificeType.VAGINA,

@@ -14,7 +14,7 @@ import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
@@ -133,8 +133,8 @@ public class PlayerPenisAnus {
 	
 	public static final SexAction PARTNER_FORCE_COCK_OVER_ASS = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
 			PenetrationType.PENIS,
 			OrificeType.ANUS,
@@ -260,7 +260,7 @@ public class PlayerPenisAnus {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPositionNew.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_ON_ALL_FOURS) {// Doggy-style penetration descriptions:
+			if(Sex.getPosition()==SexPositionType.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_ON_ALL_FOURS) {// Doggy-style penetration descriptions:
 				
 				switch(Sex.getSexPace(Main.game.getPlayer())) {
 					case DOM_GENTLE:
@@ -533,7 +533,7 @@ public class PlayerPenisAnus {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPositionNew.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_ON_ALL_FOURS) { // Doggy-style descriptions:
+			if(Sex.getPosition()==SexPositionType.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_ON_ALL_FOURS) { // Doggy-style descriptions:
 				
 				String tailSpecial="",  hairSpecial="";
 				
@@ -874,8 +874,8 @@ public class PlayerPenisAnus {
 	
 	public static final SexAction PARTNER_USING_COCK_ANALLY_START = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
-			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
 			PenetrationType.PENIS,
 			OrificeType.ANUS,
@@ -907,7 +907,7 @@ public class PlayerPenisAnus {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPositionNew.COWGIRL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.COWGIRL_RIDING) {
+			if(Sex.getPosition()==SexPositionType.COWGIRL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.COWGIRL_RIDING) {
 				
 				return SubCowgirl.getPartnerStartingAnalPenetrationDescription();
 				
@@ -997,8 +997,8 @@ public class PlayerPenisAnus {
 	
 	public static final SexAction PARTNER_RIDING_COCK_ANALLY_DOM_GENTLE = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
 			PenetrationType.PENIS,
 			OrificeType.ANUS,
@@ -1023,7 +1023,7 @@ public class PlayerPenisAnus {
 
 		@Override
 		public String getDescription() {
-			if(Sex.getPosition()==SexPositionNew.COWGIRL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.COWGIRL_RIDING) {
+			if(Sex.getPosition()==SexPositionType.COWGIRL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.COWGIRL_RIDING) {
 				
 				return SubCowgirl.getPartnerRidingCockAnallyGentle();
 				
@@ -1040,8 +1040,8 @@ public class PlayerPenisAnus {
 	
 	public static final SexAction PARTNER_RIDING_COCK_ANALLY_DOM_NORMAL = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
 			PenetrationType.PENIS,
 			OrificeType.ANUS,
@@ -1066,7 +1066,7 @@ public class PlayerPenisAnus {
 
 		@Override
 		public String getDescription() {
-			if(Sex.getPosition()==SexPositionNew.COWGIRL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.COWGIRL_RIDING) {
+			if(Sex.getPosition()==SexPositionType.COWGIRL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.COWGIRL_RIDING) {
 				
 				return SubCowgirl.getPartnerRidingCockAnallyNormal();
 				
@@ -1083,8 +1083,8 @@ public class PlayerPenisAnus {
 	
 	public static final SexAction PARTNER_RIDING_COCK_ANALLY_DOM_ROUGH = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.THREE_DIRTY,
 			PenetrationType.PENIS,
 			OrificeType.ANUS,
@@ -1109,7 +1109,7 @@ public class PlayerPenisAnus {
 
 		@Override
 		public String getDescription() {
-			if(Sex.getPosition()==SexPositionNew.COWGIRL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.COWGIRL_RIDING) {
+			if(Sex.getPosition()==SexPositionType.COWGIRL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.COWGIRL_RIDING) {
 				
 				return SubCowgirl.getPartnerRidingCockAnallyRough();
 				
@@ -1126,8 +1126,8 @@ public class PlayerPenisAnus {
 	
 	public static final SexAction PARTNER_RIDING_COCK_SUB_NORMAL = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
 			PenetrationType.PENIS,
 			OrificeType.ANUS,
@@ -1154,7 +1154,7 @@ public class PlayerPenisAnus {
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 
-			if(Sex.getPosition()==SexPositionNew.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_ON_ALL_FOURS) {// Doggy-style penetration descriptions:
+			if(Sex.getPosition()==SexPositionType.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_ON_ALL_FOURS) {// Doggy-style penetration descriptions:
 				
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"Bracing [npc.herself] with both hands flat on the floor, [npc.name] starts to push back against you in time with your thrusts,"
@@ -1179,8 +1179,8 @@ public class PlayerPenisAnus {
 	
 	public static final SexAction PARTNER_RIDING_COCK_ANALLY_SUB_EAGER = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.TWO_HORNY,
 			PenetrationType.PENIS,
 			OrificeType.ANUS,
@@ -1219,8 +1219,8 @@ public class PlayerPenisAnus {
 	
 	public static final SexAction PARTNER_FUCKED_ANALLY_SUB_RESIST = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.PENIS,
 			OrificeType.ANUS,
@@ -1306,7 +1306,7 @@ public class PlayerPenisAnus {
 		@Override
 		public String getDescription() {
 			
-			if(Sex.getPosition()==SexPositionNew.COWGIRL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.COWGIRL_RIDING) {
+			if(Sex.getPosition()==SexPositionType.COWGIRL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.COWGIRL_RIDING) {
 				
 				return SubCowgirl.getPartnerStoppingAnalPenetrationDescription();
 				

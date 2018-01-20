@@ -39,6 +39,7 @@ public enum DialogueFlagValue {
 	readBook1,
 	readBook2,
 	readBook3,
+	readBook4,
 	
 	arthursRoomInstalled,
 	arthursPackageObtained,

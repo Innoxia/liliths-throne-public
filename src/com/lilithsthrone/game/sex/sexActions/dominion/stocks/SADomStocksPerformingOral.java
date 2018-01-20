@@ -5,7 +5,7 @@ import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.dominion.SMStocks;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
@@ -34,7 +34,7 @@ public class SADomStocksPerformingOral {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
-					&& !(Sex.getPosition() == SexPositionNew.STOCKS_SEX && Sex.getSexPositionSlot(Main.game.getPlayer()) == SexPositionSlot.STOCKS_RECEIVING_ORAL)
+					&& !(Sex.getPosition() == SexPositionType.STOCKS_SEX && Sex.getSexPositionSlot(Main.game.getPlayer()) == SexPositionSlot.STOCKS_RECEIVING_ORAL)
 					&& Sex.isDom(Main.game.getPlayer());
 		}
 		
@@ -80,7 +80,7 @@ public class SADomStocksPerformingOral {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !SexFlags.positioningBlockedPlayer
-					&& !(Sex.getPosition() == SexPositionNew.STOCKS_SEX && Sex.getSexPositionSlot(Main.game.getPlayer()) == SexPositionSlot.STOCKS_FUCKING)
+					&& !(Sex.getPosition() == SexPositionType.STOCKS_SEX && Sex.getSexPositionSlot(Main.game.getPlayer()) == SexPositionSlot.STOCKS_FUCKING)
 					&& Sex.isDom(Main.game.getPlayer());
 		}
 		

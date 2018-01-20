@@ -18,7 +18,7 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexFlags;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
@@ -40,12 +40,12 @@ import java.util.Set;
  */
 public abstract class SexManagerDefault implements SexManagerInterface {
 
-	private SexPositionNew position;
+	private SexPositionType position;
 	private Map<GameCharacter, SexPositionSlot> dominants;
 	private Map<GameCharacter, SexPositionSlot> submissives;
 	protected Map<GameCharacter, List<OrificeType>> orificesBannedMap;
 	
-	public SexManagerDefault(SexPositionNew position, Map<GameCharacter, SexPositionSlot> dominants, Map<GameCharacter, SexPositionSlot> submissives) {
+	public SexManagerDefault(SexPositionType position, Map<GameCharacter, SexPositionSlot> dominants, Map<GameCharacter, SexPositionSlot> submissives) {
 		if(dominants.size()+submissives.size()>position.getMaximumSlots()) {
 			throw new IllegalArgumentException("Too many characters for Sex Manager!");
 		}
@@ -74,7 +74,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 	}
 	
 	@Override
-	public SexPositionNew getPosition() {
+	public SexPositionType getPosition() {
 		return position;
 	}
 

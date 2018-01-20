@@ -11,7 +11,7 @@ import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
@@ -67,7 +67,7 @@ public class PlayerPenisMouth {
 		@Override
 		public String getDescription() {
 
-			if(Sex.getPosition()==SexPositionNew.KNEELING_ORAL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_PERFORMING_ORAL) {
+			if(Sex.getPosition()==SexPositionType.KNEELING_ORAL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_PERFORMING_ORAL) {
 				
 				return UtilText.returnStringAtRandom(
 						"Pulling your [pc.hips] back, you slide your [pc.cock+] out of [npc.name]'s mouth."
@@ -215,8 +215,8 @@ public class PlayerPenisMouth {
 	
 	public static final SexAction PARTNER_SUCK_BALLS = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.PENIS,
 			OrificeType.MOUTH,
@@ -288,8 +288,8 @@ public class PlayerPenisMouth {
 	
 	public static final SexAction PARTNER_LICK_HEAD = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.PENIS,
 			OrificeType.MOUTH,
@@ -343,8 +343,8 @@ public class PlayerPenisMouth {
 	
 	public static final SexAction PARTNER_HERM_FUN = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.PENIS,
 			OrificeType.MOUTH,
@@ -488,7 +488,7 @@ public class PlayerPenisMouth {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPositionNew.KNEELING_ORAL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_PERFORMING_ORAL) {
+			if(Sex.getPosition()==SexPositionType.KNEELING_ORAL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_PERFORMING_ORAL) {
 				
 				switch(Sex.getSexPace(Main.game.getPlayer())) {
 					case DOM_GENTLE:
@@ -516,7 +516,7 @@ public class PlayerPenisMouth {
 						break;
 				}
 				
-			} else if(Sex.getPosition()==SexPositionNew.SIXTY_NINE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.SIXTY_NINE_TOP) {
+			} else if(Sex.getPosition()==SexPositionType.SIXTY_NINE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.SIXTY_NINE_TOP) {
 				
 				switch(Sex.getSexPace(Main.game.getPlayer())) {
 					case DOM_GENTLE:
@@ -765,7 +765,7 @@ public class PlayerPenisMouth {
 
 			UtilText.nodeContentSB.setLength(0);
 
-			if(Sex.getPosition()==SexPositionNew.KNEELING_ORAL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_PERFORMING_ORAL) {
+			if(Sex.getPosition()==SexPositionType.KNEELING_ORAL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.KNEELING_PERFORMING_ORAL) {
 				
 				String knottedSpecial = "", barbedSpecial = "", flaredSpecial = "";
 				
@@ -800,7 +800,7 @@ public class PlayerPenisMouth {
 									+ " As a slimy stream of saliva "+(Sex.getWetPenetrationTypes(Main.game.getPlayer()).get(PenetrationType.PENIS).contains(LubricationType.PLAYER_PRECUM)?"and precum ":"")
 									+"drools from the corners of [npc.her] mouth, you buck back, letting [npc.herHim] gasp for air for a brief moment before starting to aggressively fuck [npc.her] [npc.face]."));
 			
-			} else if(Sex.getPosition()==SexPositionNew.SIXTY_NINE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.SIXTY_NINE_TOP) {
+			} else if(Sex.getPosition()==SexPositionType.SIXTY_NINE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.SIXTY_NINE_TOP) {
 				
 				String knottedSpecial = "", barbedSpecial = "", flaredSpecial = "";
 				
@@ -1091,7 +1091,7 @@ public class PlayerPenisMouth {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPositionNew.SIXTY_NINE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.SIXTY_NINE_TOP) {
+			if(Sex.getPosition()==SexPositionType.SIXTY_NINE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.SIXTY_NINE_TOP) {
 				UtilText.nodeContentSB.append("Using your knees to lift yourself up, you allow your [pc.cock+] to slide up and out of [npc.name]'s mouth,"
 							+ " and you feel a slimy strand of saliva linking [npc.her] [npc.lips+] to the [pc.cockHead+] of your [pc.cock] for a brief moment, before breaking to fall down over [npc.her] [npc.face].");
 				
@@ -1132,8 +1132,8 @@ public class PlayerPenisMouth {
 	
 	public static final SexAction PARTNER_BLOWJOB_START = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.PENIS,
 			OrificeType.MOUTH,
@@ -1159,7 +1159,7 @@ public class PlayerPenisMouth {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPositionNew.SIXTY_NINE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.SIXTY_NINE_BOTTOM) {
+			if(Sex.getPosition()==SexPositionType.SIXTY_NINE && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.SIXTY_NINE_BOTTOM) {
 				
 				switch(Sex.getSexPace(Sex.getActivePartner())) {
 					case DOM_GENTLE:
@@ -1259,8 +1259,8 @@ public class PlayerPenisMouth {
 	
 	public static final SexAction PARTNER_GIVING_BLOWJOB_DOM_GENTLE = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.PENIS,
 			OrificeType.MOUTH,
@@ -1315,8 +1315,8 @@ public class PlayerPenisMouth {
 	
 	public static final SexAction PARTNER_GIVING_BLOWJOB_DOM_NORMAL = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.PENIS,
 			OrificeType.MOUTH,
@@ -1372,8 +1372,8 @@ public class PlayerPenisMouth {
 	
 	public static final SexAction PARTNER_GIVING_BLOWJOB_DOM_ROUGH = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.PENIS,
 			OrificeType.MOUTH,
@@ -1431,8 +1431,8 @@ public class PlayerPenisMouth {
 	
 	public static final SexAction PARTNER_BLOWJOB_SUB_RESIST = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.PENIS,
 			OrificeType.MOUTH,
@@ -1488,8 +1488,8 @@ public class PlayerPenisMouth {
 	
 	public static final SexAction PARTNER_GIVING_BLOWJOB_SUB_NORMAL = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.PENIS,
 			OrificeType.MOUTH,
@@ -1544,8 +1544,8 @@ public class PlayerPenisMouth {
 	
 	public static final SexAction PARTNER_GIVING_BLOWJOB_SUB_EAGER = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.PENIS,
 			OrificeType.MOUTH,

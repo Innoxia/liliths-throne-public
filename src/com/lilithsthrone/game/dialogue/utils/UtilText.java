@@ -535,30 +535,43 @@ public class UtilText {
 							arguments = sb.toString().substring(1);
 						}
 						
-					} else if(c=='?') {
+					} else if((c=='N' &&
+							(i-1>1 && input.charAt(i-1)=='E')
+							&& (i-2>=0 && input.charAt(i-2)=='H')
+							&& (i-3>=0 && input.charAt(i-3)=='T')
+							&& (i-4>=0 && input.charAt(i-4)=='#'))) {
 						conditionalThens++;
 						
 						if(conditionalThens==1){
 							if(command==null) {
-								command=sb.toString().substring(1); // Cut off the '.' at the start.
+								command=sb.toString().substring(1, sb.length()-4); // Cut off the '#THEN' at the start.
 							}
 							sb.setLength(0);
 						}
 						
-					} else if(c==':' && openBrackets-1==closeBrackets) {
+					} else if((c=='E' &&
+							(i-1>1 && input.charAt(i-1)=='S')
+							&& (i-2>=0 && input.charAt(i-2)=='L')
+							&& (i-3>=0 && input.charAt(i-3)=='E')
+							&& (i-4>=0 && input.charAt(i-4)=='#')) && openBrackets-1==closeBrackets) {
 						conditionalElseFound = true;
-						conditionalTrue = sb.toString().substring(1);
+						conditionalTrue = sb.toString().substring(1, sb.length()-4); // Cut off the '#ELSE' at the start.
 						sb.setLength(0);
 						
-					} else if(c=='#') {
+					} else if(c=='F' &&
+							(i-1>1 && input.charAt(i-1)=='I')
+							&& (i-2>=0 && input.charAt(i-2)=='D')
+							&& (i-3>=0 && input.charAt(i-3)=='N')
+							&& (i-4>=0 && input.charAt(i-4)=='E')
+							&& (i-5>=0 && input.charAt(i-5)=='#')) {
 						closeBrackets++;
 						
 						if(openBrackets==closeBrackets) {
 							
 							if(conditionalElseFound){
-								conditionalFalse = sb.toString().substring(1);
+								conditionalFalse = sb.toString().substring(1, sb.length()-5); // Cut off the '#ENDIF' at the start.
 							} else {
-								conditionalTrue = sb.toString().substring(1);
+								conditionalTrue = sb.toString().substring(1, sb.length()-5); // Cut off the '#ENDIF' at the start.
 								conditionalFalse = "";
 							}
 		
@@ -616,7 +629,7 @@ public class UtilText {
 			}
 			
 			
-			if(openBrackets>0 && ((target!=null && command!=null) || c!=' ')) {
+			if(openBrackets>0 && ((target!=null && command!=null) || String.valueOf(c).matches(".") || c!=' ')) {
 				sb.append(c);
 			}
 		}

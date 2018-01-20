@@ -460,11 +460,15 @@ public class MainController implements Initializable {
 //							 for(NPC npc : Main.game.getNPCMap().values()) {
 //								 System.out.println(npc.getId());
 //							 }
-							 for(int i=0; i<=1000; i++) {
-								 System.out.println(Util.intToString(i));
-							 }
+//							 for(int i=0; i<=1000; i++) {
+//								 System.out.println(Util.intToString(i));
+//							 }
 							 
-							 System.out.println(Main.isVersionOlderThan("0.1.84", Main.VERSION_NUMBER));
+							 Main.game.getPlayer().addDirtySlot(InventorySlot.GROIN);
+							 Main.game.getPlayer().addDirtySlot(InventorySlot.MOUTH);
+							 Main.game.getPlayer().addDirtySlot(InventorySlot.LEG);
+							 
+//							 System.out.println(Main.isVersionOlderThan("0.1.84", Main.VERSION_NUMBER));
 							 
 //							 for(int i=0;i<10;i++) {
 //								 System.out.println(Name.getRandomTriplet(Race.DEMON));

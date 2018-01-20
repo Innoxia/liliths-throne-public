@@ -4,7 +4,7 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
@@ -18,7 +18,7 @@ import com.lilithsthrone.game.sex.sexActions.dominion.ralph.SexActionRalphDiscou
 public class SexManagerRalphDiscount extends SexManagerDefault {
 	
 	public SexManagerRalphDiscount(Map<GameCharacter, SexPositionSlot> dominants, Map<GameCharacter, SexPositionSlot> submissives) {
-		super(SexPositionNew.UNDER_DESK_RALPH,
+		super(SexPositionType.UNDER_DESK_RALPH,
 				dominants,
 				submissives);
 	}

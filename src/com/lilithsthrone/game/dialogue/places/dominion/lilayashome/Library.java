@@ -221,7 +221,18 @@ public class Library {
 					}
 				};
 
-			} else if (lore == 0) {
+			} else if (lore == 4) {
+				return new Response("Knocked Up", "A small paperback book which contains all the information you'd ever need concerning pregnancies in this world.", PREGNANCY_INFO) {
+					@Override
+					public void effects() {
+						if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.readBook4)) {
+							Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f);
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.readBook4);
+						}
+					}
+				};
+
+			}  else if (lore == 0) {
 				return new Response("Back", "Return to browsing the shelves.", BROWSE_BOOKS);
 
 			} else {
@@ -249,7 +260,7 @@ public class Library {
 					+ "</p>"
 					+ "<p>"
 						+ "For one, it seems as though arcane power is found all throughout this world, and although it's mostly concentrated in people's arcane auras, you discover that there are some places out in the wilderness"
-						+ " where the arcane condenses into little micro-storms of activity."
+							+ " where the arcane condenses into little micro-storms of activity."
 						+ " These places allow even the most novice of arcane users to harness its power, but for the most part, a person can only use arcane spells if they train their aura to become strong enough."
 						+ " This training process appears to take several years, and you realise how fortunate you are to have an aura with demon-like strength."
 					+ "</p>"
@@ -259,10 +270,6 @@ public class Library {
 						+ " It appears as though the arcane is some kind of primal force that feeds on a person's sexual energy."
 						+ " Although a person may normally be able to easily resist their aura's influence, when they get fatigued, their own aura will amplify their sexual desires, causing them to become obsessed with sex."
 						+ " This is the power that's behind the arcane storms that often erupt over Dominion, and you once again reflect on how lucky you are to have an aura powerful enough to cancel out the storm's potent effects."
-					+ "</p>"
-					+ "<p>"
-						+ "The last section of the book covers some of the social impacts of the arcane."
-						+ " The most notable of these is that while under the arcane's influence, a person's sexuality will shift to being bi-sexual."
 					+ "</p>";
 		}
 
@@ -318,8 +325,6 @@ public class Library {
 	};
 	
 	public static final DialogueNodeOld DOMINION_HISTORY = new DialogueNodeOld("", "", false) {
-		/**
-		 */
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -356,6 +361,46 @@ public class Library {
 			return LIBRARY.getResponse(0, lore);
 		}
 	};
+	
+	public static final DialogueNodeOld PREGNANCY_INFO = new DialogueNodeOld("", "", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getLabel() {
+			return "Library";
+		}
+
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "You slide the small paperback book out from the shelf, and, turning it over in your [pc.hands], you take a look at the front cover."
+						+ " On it, the title 'Knocked Up' is displayed in bold pink lettering, and beneath that, there's a picture of a heavily-pregnant rabbit-girl cradling her swollen belly."
+						+ " A little speech-bubble is drawn coming from her mouth, and in it, you read the words 'All you need to know about being a parent!'."
+					+ "</p>"
+					+ "<p>"
+						+ "Opening its pages, you find that the information contained within the book is laid out in a very neat and easy-to-read format, and it only takes you a few minutes to read through the entire thing."
+						+ " One of the most striking facts is that in this world, the full cycle of pregnancy only last for a few weeks."
+						+ " What's more, once the mother is ready to give birth, she's able to stay in that state indefinitely, until such time as she feels comfortable giving birth."
+					+ "<p>"
+					+ "<p>"
+						+ "The second alarming fact contained within these pages is related to the development of children."
+						+ " It only takes a few minutes for new-borns to develop and mature into adults, and will inherit all of the common knowledge held by their parents."
+						+ " This doesn't include specific memories, so, for example, if a child's mother knows how to read and write, they will too, but they won't have the memory of their mother learning this information."
+					+ "</p>"
+					+ "</p>"
+						+ "After reaching full maturity within a matter of hours, the vast majority of children will immediately leave their parents in order to strike out for themselves and become fully independent."
+						+ " Despite this almost-immediate separation, a parent will always share special maternal or paternal bonds with their children, and, whether due to the arcane or some natural intuition,"
+							+ " a parent and child, as well as siblings, will always recognise each other at first sight."
+					+ "</p>";
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int lore) {
+			return LIBRARY.getResponse(0, lore);
+		}
+	};
+	
+	
 	public static final DialogueNodeOld DOMINION_RACES = new DialogueNodeOld("", "", false) {
 		/**
 		 */

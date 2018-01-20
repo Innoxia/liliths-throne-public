@@ -837,8 +837,8 @@ public class PlayerFingerNipple {
 	
 	public static final SexAction PARTNER_FORCE_FEEL_BREASTS = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION,
-			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.FINGER,
 			OrificeType.NIPPLE,

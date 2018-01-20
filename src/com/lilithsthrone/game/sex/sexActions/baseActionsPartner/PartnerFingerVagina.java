@@ -22,8 +22,8 @@ public class PartnerFingerVagina {
 	
 	public static final SexAction PARTNER_STROKE_PUSSY = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.FINGER,
 			OrificeType.VAGINA,
@@ -219,8 +219,8 @@ public class PartnerFingerVagina {
 	
 	public static final SexAction PARTNER_CLIT_PLAY = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
-			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.FINGER,
 			OrificeType.VAGINA,
@@ -326,8 +326,8 @@ public class PartnerFingerVagina {
 	
 	public static final SexAction PARTNER_CLIT_FOCUS = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.FINGER,
 			OrificeType.VAGINA,
@@ -442,8 +442,8 @@ public class PartnerFingerVagina {
 	
 	public static final SexAction PARTNER_FINGERING_START = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.FINGER,
 			OrificeType.VAGINA,
@@ -536,8 +536,8 @@ public class PartnerFingerVagina {
 	
 	public static final SexAction PARTNER_FINGERING_DOM_GENTLE = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
 			PenetrationType.FINGER,
 			OrificeType.VAGINA,
@@ -597,8 +597,8 @@ public class PartnerFingerVagina {
 	
 	public static final SexAction PARTNER_FINGERING_DOM_NORMAL = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.FINGER,
 			OrificeType.VAGINA,
@@ -720,8 +720,8 @@ public class PartnerFingerVagina {
 	
 	public static final SexAction PARTNER_FINGERING_SUB_NORMAL = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.FINGER,
 			OrificeType.VAGINA,
@@ -782,8 +782,8 @@ public class PartnerFingerVagina {
 	
 	public static final SexAction PARTNER_FINGERING_SUB_EAGER = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.FINGER,
 			OrificeType.VAGINA,

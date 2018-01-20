@@ -22,8 +22,8 @@ public class PartnerSelfFingerNipple {
 	
 	public static final SexAction PARTNER_PINCH_NIPPLES = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.FINGER,
 			OrificeType.NIPPLE,
@@ -85,8 +85,8 @@ public class PartnerSelfFingerNipple {
 	
 	public static final SexAction PARTNER_SELF_FINGER_NIPPLE_PENETRATION = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
-			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.FINGER,
 			OrificeType.NIPPLE,
@@ -148,8 +148,8 @@ public class PartnerSelfFingerNipple {
 	
 	public static final SexAction DOM_PARTNER_SELF_FINGER_NIPPLE_GENTLE = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.FINGER,
 			OrificeType.NIPPLE,
@@ -188,8 +188,8 @@ public class PartnerSelfFingerNipple {
 	
 	public static final SexAction DOM_PARTNER_SELF_FINGER_NIPPLE_NORMAL = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.FINGER,
 			OrificeType.NIPPLE,
@@ -228,8 +228,8 @@ public class PartnerSelfFingerNipple {
 	
 	public static final SexAction DOM_PARTNER_SELF_FINGER_NIPPLE_ROUGH = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.FINGER,
 			OrificeType.NIPPLE,
@@ -268,8 +268,8 @@ public class PartnerSelfFingerNipple {
 	
 	public static final SexAction SUB_PARTNER_SELF_FINGER_NIPPLE_NORMAL = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.FINGER,
 			OrificeType.NIPPLE,
@@ -308,8 +308,8 @@ public class PartnerSelfFingerNipple {
 	
 	public static final SexAction SUB_PARTNER_SELF_FINGER_NIPPLE_EAGER = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.FINGER,
 			OrificeType.NIPPLE,

@@ -109,8 +109,8 @@ public class SubKneeling {
 	
 	public static final SexAction PARTNER_ORGASM_THIGH_SQUEEZE = new SexAction(
 			SexActionType.PARTNER_ORGASM,
-			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FIVE_EXTREME,
+			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.TONGUE,
 			OrificeType.VAGINA,
@@ -197,8 +197,8 @@ public class SubKneeling {
 	
 	public static final SexAction PARTNER_ORGASM_CUM_DOWN_THROAT = new SexAction(
 			SexActionType.PARTNER_ORGASM,
-			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FIVE_EXTREME,
+			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.PENIS,
 			OrificeType.MOUTH,
@@ -303,8 +303,8 @@ public class SubKneeling {
 	
 	public static final SexAction PARTNER_ORGASM_FACIAL = new SexAction(
 			SexActionType.PARTNER_ORGASM,
-			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FIVE_EXTREME,
+			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.PENIS,
 			OrificeType.MOUTH,

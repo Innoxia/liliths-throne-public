@@ -26,8 +26,8 @@ public class PartnerSelfNoPen {
 	
 	public static final SexAction PARTNER_STROKE_VAGINA = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION,
-			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.FINGER,
 			OrificeType.VAGINA,
@@ -71,8 +71,8 @@ public class PartnerSelfNoPen {
 	
 	public static final SexAction PARTNER_STROKE_PENIS = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION,
-			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.FINGER,
 			OrificeType.URETHRA,
@@ -116,8 +116,8 @@ public class PartnerSelfNoPen {
 	
 	public static final SexAction PARTNER_STROKE_MOUND = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.FINGER,
 			null,

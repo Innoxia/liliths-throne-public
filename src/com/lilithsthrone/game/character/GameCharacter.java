@@ -8828,14 +8828,32 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return inventory.getClothingAverageFemininity();
 	}
 
-
 	public AbstractClothing getLowestZLayerCoverableArea(CoverableArea area) {
 		return inventory.getLowestZLayerCoverableArea(area);
 	}
 
-
 	public AbstractClothing getHighestZLayerCoverableArea(CoverableArea area) {
 		return inventory.getHighestZLayerCoverableArea(area);
+	}
+	
+	public Set<InventorySlot> getDirtySlots() {
+		return inventory.getDirtySlots();
+	}
+	
+	public boolean isDirtySlot(InventorySlot slot) {
+		return inventory.isDirtySlot(slot);
+	}
+	
+	public boolean addDirtySlot(InventorySlot slot) {
+		return inventory.addDirtySlot(slot);
+	}
+	
+	public boolean removeDirtySlot(InventorySlot slot) {
+		return inventory.removeDirtySlot(slot);
+	}
+
+	public void cleanAllDirtySlots() {
+		inventory.cleanAllDirtySlots();
 	}
 
 	// Body:

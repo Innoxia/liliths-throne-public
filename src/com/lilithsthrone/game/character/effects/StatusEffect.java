@@ -32,6 +32,7 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingSet;
 import com.lilithsthrone.game.sex.LubricationType;
@@ -2593,6 +2594,7 @@ public enum StatusEffect {
 			return false;
 		}
 	},
+	
 	CLOTHING_CUM(
 			80,
 			"dirty clothing",
@@ -2627,13 +2629,208 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			for (AbstractClothing c : target.getClothingCurrentlyEquipped())
-				if (c.isDirty())
-					return true;
-
+			if(!target.hasFetish(Fetish.FETISH_MASOCHIST) && !target.hasFetish(Fetish.FETISH_CUM_ADDICT)) {
+				for (AbstractClothing c : target.getClothingCurrentlyEquipped()) {
+					if (c.isDirty()) {
+						return true;
+					}
+				}
+			}
 			return false;
 		}
 	},
+	
+	CLOTHING_CUM_MASOCHIST(
+			80,
+			"dirty clothing",
+			"clothingCummedInMasochist",
+			Colour.CLOTHING_WHITE,
+			false,
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.FITNESS, 2f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			// NPCs randomly clean themselves:
+			if(!target.isPlayer() && !target.isSlave()) {
+				if(Math.random()<minutesPassed*0.05f) {
+					for (AbstractClothing c : target.getClothingCurrentlyEquipped()) {
+						c.setDirty(false);
+					}
+				}
+			}
+			
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target.isPlayer()) {
+				return "Some of your clothes have been covered in cum, milk or other sexual fluids."
+						+ " You find yourself incredibly turned on to be walking around in such filthy clothing.";
+			} else {
+				return UtilText.parse(target, "Some of [npc.name]'s clothes have been covered in cum, milk or other sexual fluids."
+						+ " [npc.She]'s feeling incredibly turned on to be walking around in such filthy clothing.");
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			if(target.hasFetish(Fetish.FETISH_MASOCHIST) || target.hasFetish(Fetish.FETISH_CUM_ADDICT)) {
+				for (AbstractClothing c : target.getClothingCurrentlyEquipped()) {
+					if (c.isDirty()) {
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+	},
+	
+	BODY_CUM(
+			80,
+			"dirty body",
+			"dirtyBody",
+			Colour.CLOTHING_WHITE,
+			false,
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.INTELLIGENCE, -2f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			// NPCs randomly clean themselves:
+			if(!target.isPlayer() && !target.isSlave()) {
+				if(Math.random()<minutesPassed*0.05f) {
+					target.cleanAllDirtySlots();
+				}
+			}
+			
+			List<InventorySlot> slotsToClean = new ArrayList<>();
+			StringBuilder sb = new StringBuilder();
+			for(AbstractClothing clothing : target.getClothingCurrentlyEquipped()) {
+				if(target.getDirtySlots().contains(clothing.getClothingType().getSlot())) {
+					slotsToClean.add(clothing.getClothingType().getSlot());
+					clothing.setDirty(true);
+					if(sb.length()>0) {
+						sb.append("</br>");
+					}
+					sb.append("You use your <b>"+clothing.getDisplayName(true)+"</b> to clean your "+clothing.getClothingType().getSlot().getName()
+							+", <b style='color:"+Colour.CUMMED.toWebHexString()+";'>dirtying "+(clothing.getClothingType().isPlural()?"them":"it")+" in the process</b>.");
+					
+				} else {
+					for(InventorySlot blockedSlot : clothing.getClothingType().getIncompatibleSlots()) {
+						if(target.getDirtySlots().contains(blockedSlot)) {
+							slotsToClean.add(blockedSlot);
+							clothing.setDirty(true);
+							if(sb.length()>0) {
+								sb.append("</br>");
+							}
+							sb.append("You use your <b>"+clothing.getDisplayName(true)+"</b> to clean your "+clothing.getClothingType().getSlot().getName()
+									+", <b style='color:"+Colour.CUMMED.toWebHexString()+";'>dirtying "+(clothing.getClothingType().isPlural()?"them":"it")+" in the process</b>.");
+						}
+					}
+				}
+			}
+			for(InventorySlot slotToClean : slotsToClean) {
+				target.removeDirtySlot(slotToClean);
+			}
+			
+			if(target.isPlayer()) {
+				return sb.toString();
+			}
+			
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target.isPlayer()) {
+				return "Some parts of your body have been covered in cum, milk or other sexual fluids."
+						+ " You find yourself incredibly embarrassed to be walking around in such a filthy state.";
+			} else {
+				return UtilText.parse(target, "Some parts of [npc.name]'s body have been covered in cum, milk or other sexual fluids."
+						+ " [npc.She]'s feeling incredibly turned on to be walking around in such a filthy state.");
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return (!target.hasFetish(Fetish.FETISH_MASOCHIST) && !target.hasFetish(Fetish.FETISH_CUM_ADDICT)) && !target.getDirtySlots().isEmpty();
+		}
+	},
+	
+	BODY_CUM_MASOCHIST(
+			80,
+			"dirty body",
+			"dirtyBodyMasochist",
+			Colour.CLOTHING_WHITE,
+			false,
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.FITNESS, 2f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			// NPCs randomly clean themselves:
+			if(!target.isPlayer() && !target.isSlave()) {
+				if(Math.random()<minutesPassed*0.05f) {
+					target.cleanAllDirtySlots();
+				}
+			}
+			
+			List<InventorySlot> slotsToClean = new ArrayList<>();
+			StringBuilder sb = new StringBuilder();
+			for(AbstractClothing clothing : target.getClothingCurrentlyEquipped()) {
+				if(target.getDirtySlots().contains(clothing.getClothingType().getSlot())) {
+					slotsToClean.add(clothing.getClothingType().getSlot());
+					clothing.setDirty(true);
+					if(sb.length()>0) {
+						sb.append("</br>");
+					}
+					sb.append("You use your <b>"+clothing.getDisplayName(true)+"</b> to clean your "+clothing.getClothingType().getSlot().getName()
+							+", <b style='color:"+Colour.CUMMED.toWebHexString()+";'>dirtying "+(clothing.getClothingType().isPlural()?"them":"it")+" in the process</b>.");
+					
+				} else {
+					for(InventorySlot blockedSlot : clothing.getClothingType().getIncompatibleSlots()) {
+						if(target.getDirtySlots().contains(blockedSlot)) {
+							slotsToClean.add(blockedSlot);
+							clothing.setDirty(true);
+							if(sb.length()>0) {
+								sb.append("</br>");
+							}
+							sb.append("You use your <b>"+clothing.getDisplayName(true)+"</b> to clean your "+clothing.getClothingType().getSlot().getName()
+									+", <b style='color:"+Colour.CUMMED.toWebHexString()+";'>dirtying "+(clothing.getClothingType().isPlural()?"them":"it")+" in the process</b>.");
+						}
+					}
+				}
+			}
+			for(InventorySlot slotToClean : slotsToClean) {
+				target.removeDirtySlot(slotToClean);
+			}
+			
+			if(target.isPlayer()) {
+				return sb.toString();
+			}
+			
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target.isPlayer()) {
+				return "Some parts of your body have been covered in cum, milk or other sexual fluids."
+						+ " You find yourself feeling incredibly turned on by walking around in such a filthy state.";
+			} else {
+				return UtilText.parse(target, "Some parts of [npc.name]'s body have been covered in cum, milk or other sexual fluids."
+						+ " [npc.She]'s feeling incredibly turned on by walking around in such a filthy state.");
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return (target.hasFetish(Fetish.FETISH_MASOCHIST) || target.hasFetish(Fetish.FETISH_CUM_ADDICT)) && !target.getDirtySlots().isEmpty();
+		}
+	},
+	
 	CLOTHING_JINXED(
 			80,
 			"jinxed clothing",
@@ -5978,9 +6175,10 @@ public enum StatusEffect {
 		public float getArousalPerTurnSelf(GameCharacter target) {
 			return getOrificeArousalPerTurnSelf(target, OrificeType.ANUS);
 		}
-		
-		public float getArousalPerTurnPartner(GameCharacter target) {
-			return getOrificeArousalPerTurnPartner(target, OrificeType.ANUS);
+
+		@Override
+		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
+			return getOrificeArousalPerTurnPartner(self, target, OrificeType.ANUS);
 		}
 		
 		@Override
@@ -6113,9 +6311,10 @@ public enum StatusEffect {
 		public float getArousalPerTurnSelf(GameCharacter target) {
 			return getOrificeArousalPerTurnSelf(target, OrificeType.MOUTH);
 		}
-		
-		public float getArousalPerTurnPartner(GameCharacter target) {
-			return getOrificeArousalPerTurnPartner(target, OrificeType.MOUTH);
+
+		@Override
+		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
+			return getOrificeArousalPerTurnPartner(self, target, OrificeType.MOUTH);
 		}
 		
 		@Override
@@ -6256,9 +6455,10 @@ public enum StatusEffect {
 		public float getArousalPerTurnSelf(GameCharacter target) {
 			return getOrificeArousalPerTurnSelf(target, OrificeType.BREAST);
 		}
-		
-		public float getArousalPerTurnPartner(GameCharacter target) {
-			return getOrificeArousalPerTurnPartner(target, OrificeType.BREAST);
+
+		@Override
+		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
+			return getOrificeArousalPerTurnPartner(self, target, OrificeType.BREAST);
 		}
 		
 		@Override
@@ -6390,9 +6590,10 @@ public enum StatusEffect {
 		public float getArousalPerTurnSelf(GameCharacter target) {
 			return getOrificeArousalPerTurnSelf(target, OrificeType.NIPPLE);
 		}
-		
-		public float getArousalPerTurnPartner(GameCharacter target) {
-			return getOrificeArousalPerTurnPartner(target, OrificeType.NIPPLE);
+
+		@Override
+		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
+			return getOrificeArousalPerTurnPartner(self, target, OrificeType.NIPPLE);
 		}
 		
 		@Override
@@ -6524,9 +6725,10 @@ public enum StatusEffect {
 		public float getArousalPerTurnSelf(GameCharacter target) {
 			return getOrificeArousalPerTurnSelf(target, OrificeType.VAGINA);
 		}
-		
-		public float getArousalPerTurnPartner(GameCharacter target) {
-			return getOrificeArousalPerTurnPartner(target, OrificeType.VAGINA);
+
+		@Override
+		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
+			return getOrificeArousalPerTurnPartner(self, target, OrificeType.VAGINA);
 		}
 		
 		@Override
@@ -6663,9 +6865,10 @@ public enum StatusEffect {
 		public float getArousalPerTurnSelf(GameCharacter target) {
 			return getOrificeArousalPerTurnSelf(target, OrificeType.THIGHS);
 		}
-		
-		public float getArousalPerTurnPartner(GameCharacter target) {
-			return getOrificeArousalPerTurnPartner(target, OrificeType.THIGHS);
+
+		@Override
+		public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
+			return getOrificeArousalPerTurnPartner(self, target, OrificeType.THIGHS);
 		}
 		
 		@Override
@@ -6885,11 +7088,11 @@ public enum StatusEffect {
 		return false;
 	}
 	
-	public float getArousalPerTurnSelf(GameCharacter target) {
+	public float getArousalPerTurnSelf(GameCharacter self) {
 		return 0;
 	}
 	
-	public float getArousalPerTurnPartner(GameCharacter target) {
+	public float getArousalPerTurnPartner(GameCharacter self, GameCharacter target) {
 		return 0;
 	}
 
@@ -6971,19 +7174,19 @@ public enum StatusEffect {
 		return arousal;
 	}
 	
-	public float getOrificeArousalPerTurnPartner(GameCharacter target, OrificeType orifice) {
+	public float getOrificeArousalPerTurnPartner(GameCharacter self, GameCharacter target, OrificeType orifice) {
 		float arousal = 0;
 		
-		if(Sex.getPenetrationTypeInOrifice(target, orifice)!=null) {
-			arousal+=Sex.getPenetrationTypeInOrifice(target, orifice).getBaseArousalWhenPenetrating();
+		if(Sex.getPenetrationTypeInOrifice(self, orifice)!=null && Sex.getPenetratingCharacterUsingOrifice(self, orifice).equals(target)) {
+			arousal+=Sex.getPenetrationTypeInOrifice(self, orifice).getBaseArousalWhenPenetrating();
 			
-			if(Sex.getAreasCurrentlyStretching(target).contains(orifice)) {
+			if(Sex.getAreasCurrentlyStretching(self).contains(orifice)) {
 				arousal += orifice.getArousalChangePenetratingStretching();
 			}
-			if(Sex.getAreasTooLoose(target).contains(orifice)) {
+			if(Sex.getAreasTooLoose(self).contains(orifice)) {
 				arousal += orifice.getArousalChangePenetratingTooLoose();
 			}
-			if(Sex.getWetOrificeTypes(target).get(orifice).isEmpty()) {
+			if(Sex.getWetOrificeTypes(self).get(orifice).isEmpty()) {
 				arousal += orifice.getArousalChangePenetratingDry();
 			}
 		}
@@ -7005,25 +7208,25 @@ public enum StatusEffect {
 			modifiersList.add("+"+orifice.getBaseArousalWhenPenetrated()
 					+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+(target.isPlayer()?targetName:penetratorName)+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
 			modifiersList.add("+"+Sex.getPenetrationTypeInOrifice(target, orifice).getBaseArousalWhenPenetrating()
-					+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+(target.isPlayer()?penetratorName:targetName)+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+(penetrator.isPlayer()?penetratorName:targetName)+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
 			
 			if(Sex.getAreasCurrentlyStretching(target).contains(orifice)) {
 				modifiersList.add((orifice.getArousalChangePenetratedStretching()>0?"+":"")+orifice.getArousalChangePenetratedStretching()
 						+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+(target.isPlayer()?targetName:penetratorName)+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Stretching</b>)");
 				modifiersList.add((orifice.getArousalChangePenetratingStretching()>0?"+":"")+orifice.getArousalChangePenetratingStretching()
-						+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+(target.isPlayer()?penetratorName:targetName)+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Tight</b>)");
+						+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+(penetrator.isPlayer()?penetratorName:targetName)+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Tight</b>)");
 			}
 			if(Sex.getAreasTooLoose(target).contains(orifice)) {
 				modifiersList.add((orifice.getArousalChangePenetratedTooLoose()>0?"+":"")+orifice.getArousalChangePenetratedTooLoose()
 						+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+(target.isPlayer()?targetName:penetratorName)+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Too loose</b>)");
 				modifiersList.add((orifice.getArousalChangePenetratingTooLoose()>0?"+":"")+orifice.getArousalChangePenetratingTooLoose()
-						+ "<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+(target.isPlayer()?penetratorName:targetName)+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Too loose</b>)");
+						+ "<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+(penetrator.isPlayer()?penetratorName:targetName)+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Too loose</b>)");
 			}
 			if(Sex.getWetOrificeTypes(target).get(orifice).isEmpty()) {
 				modifiersList.add((orifice.getArousalChangePenetratedDry()>0?"+":"")+orifice.getArousalChangePenetratedDry()
 						+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+(target.isPlayer()?targetName:penetratorName)+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
 				modifiersList.add((orifice.getArousalChangePenetratingDry()>0?"+":"")+orifice.getArousalChangePenetratingDry()
-						+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+(target.isPlayer()?penetratorName:targetName)+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
+						+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+(penetrator.isPlayer()?penetratorName:targetName)+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
 			}
 		}
 		

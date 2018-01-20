@@ -21,8 +21,8 @@ public class PartnerFingerAnus {
 	
 	public static final SexAction PARTNER_ANAL_FINGERING_START = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
 			PenetrationType.FINGER,
 			OrificeType.ANUS,
@@ -115,8 +115,8 @@ public class PartnerFingerAnus {
 	
 	public static final SexAction PARTNER_ANAL_FINGERING_DOM_GENTLE = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
 			PenetrationType.FINGER,
 			OrificeType.ANUS,
@@ -178,8 +178,8 @@ public class PartnerFingerAnus {
 	
 	public static final SexAction PARTNER_ANAL_FINGERING_DOM_NORMAL = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
 			PenetrationType.FINGER,
 			OrificeType.ANUS,
@@ -306,8 +306,8 @@ public class PartnerFingerAnus {
 	
 	public static final SexAction PARTNER_ANAL_FINGERING_SUB_NORMAL = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
 			PenetrationType.FINGER,
 			OrificeType.ANUS,
@@ -371,8 +371,8 @@ public class PartnerFingerAnus {
 	
 	public static final SexAction PARTNER_ANAL_FINGERING_SUB_EAGER = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
 			PenetrationType.FINGER,
 			OrificeType.ANUS,

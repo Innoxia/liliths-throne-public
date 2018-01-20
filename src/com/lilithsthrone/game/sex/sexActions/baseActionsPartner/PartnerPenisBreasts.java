@@ -8,7 +8,7 @@ import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
@@ -44,7 +44,7 @@ public class PartnerPenisBreasts {
 					&& Sex.getActivePartner().getPenisRawSizeValue()>=6
 					&& Sex.isOrificeFree(Main.game.getPlayer(), OrificeType.MOUTH)
 					&& Main.game.getPlayer().isBreastFuckablePaizuri()
-					&& Sex.getPosition() != SexPositionNew.SIXTY_NINE;
+					&& Sex.getPosition() != SexPositionType.SIXTY_NINE;
 		}
 
 		@Override
@@ -153,7 +153,7 @@ public class PartnerPenisBreasts {
 					&& Sex.getActivePartner().getPenisRawSizeValue()>=6
 					&& Sex.isOrificeFree(Main.game.getPlayer(), OrificeType.MOUTH)
 					&& Main.game.getPlayer().isBreastFuckablePaizuri()
-					&& Sex.getPosition() != SexPositionNew.SIXTY_NINE;
+					&& Sex.getPosition() != SexPositionType.SIXTY_NINE;
 		}
 
 		@Override
@@ -1039,8 +1039,8 @@ public class PartnerPenisBreasts {
 	
 	public static final SexAction PARTNER_FUCKING_SUB_RESIST = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.FOUR_HIGH,
+			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.PENIS,
 			OrificeType.BREAST,

@@ -894,16 +894,6 @@ public class PhoneDialogue {
 					+ "</div>"
 					+"<div class='subTitle'>Total offspring: "+(sonsBirthed+daughtersBirthed+sonsFathered+daughtersFathered)+"</div>"
 					
-					+"<div class='container-full-width'>"
-						+ "<p>"
-							+ "Due to the incredible speed of both pregnancies and the development of children, the attachment between a child and his or her parents is far weaker in this world than what you're used to."
-							+ " After reaching full maturity within a matter of hours, the vast majority of children will immediately leave their parents in order to strike out for themselves in the world."
-							+ "</br></br>"
-							+ "Despite this, however, a parent will always share a special maternal or paternal bond with their children, and, whether due to the arcane or natural intuition,"
-								+ " a parent and child will always recognise each other at first sight."
-						+ "</p>"
-					+ "</div>"
-					
 					+ "<span style='height:16px;width:100%;float:left;'></span>"
 					
 					+ pregnancyDetails()

@@ -92,10 +92,7 @@ public class ReindeerOverseer extends NPC {
 				
 			if(gender.isFeminine()) {
 				switch(Main.getProperties().raceFemininePreferencesMap.get(race)) {
-					case HUMAN:
-						setBody(gender, RacialBody.HUMAN, RaceStage.HUMAN);
-						break;
-					case MINIMUM:
+					case HUMAN: case MINIMUM:
 						setBodyFromPreferences(1, gender, race);
 						break;
 					case REDUCED:
@@ -110,10 +107,7 @@ public class ReindeerOverseer extends NPC {
 				}
 			} else {
 				switch(Main.getProperties().raceMasculinePreferencesMap.get(race)) {
-					case HUMAN:
-						setBody(gender, RacialBody.HUMAN, RaceStage.HUMAN);
-						break;
-					case MINIMUM:
+					case HUMAN: case MINIMUM:
 						setBodyFromPreferences(1, gender, race);
 						break;
 					case REDUCED:

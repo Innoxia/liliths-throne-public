@@ -57,8 +57,8 @@ public class SubDoggy {
 	// Partner's methods:
 	public static final SexAction PARTNER_SLAP_ASS = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
 			null,
 			null,

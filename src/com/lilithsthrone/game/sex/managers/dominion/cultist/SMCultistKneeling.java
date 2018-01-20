@@ -3,7 +3,7 @@ package com.lilithsthrone.game.sex.managers.dominion.cultist;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 
@@ -15,7 +15,7 @@ import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 public class SMCultistKneeling extends SexManagerDefault {
 
 	public SMCultistKneeling(Map<GameCharacter, SexPositionSlot> dominants, Map<GameCharacter, SexPositionSlot> submissives) {
-		super(SexPositionNew.KNEELING_ORAL_CULTIST,
+		super(SexPositionType.KNEELING_ORAL_CULTIST,
 				dominants,
 				submissives);
 	}

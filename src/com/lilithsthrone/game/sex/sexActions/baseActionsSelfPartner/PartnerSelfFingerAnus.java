@@ -8,7 +8,7 @@ import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
@@ -47,7 +47,7 @@ public class PartnerSelfFingerAnus {
 
 		@Override
 		public String getDescription() {
-			if(Sex.getPosition()==SexPositionNew.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_ON_ALL_FOURS) {
+			if(Sex.getPosition()==SexPositionType.DOGGY_STYLE && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_ON_ALL_FOURS) {
 				return (UtilText.returnStringAtRandom(
 						"Reaching back with one [npc.hand], [npc.name] grabs [npc.her] [npc.ass+] and pulls to one side, letting out [npc.a_moan+] as [npc.she] presents [npc.her] [npc.asshole+] to you.",
 						"[npc.Name] reaches back with one [npc.hand], moaning softly as [npc.she] grabs hold of [npc.her] [npc.ass+], before invitingly pulling to one side and presenting [npc.her] [npc.asshole+] to you.",
@@ -68,8 +68,8 @@ public class PartnerSelfFingerAnus {
 	
 	public static final SexAction PARTNER_SELF_FINGER_ANUS_PENETRATION = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
-			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.TWO_HORNY,
 			PenetrationType.FINGER,
 			OrificeType.ANUS,
@@ -101,8 +101,8 @@ public class PartnerSelfFingerAnus {
 	
 	public static final SexAction DOM_PARTNER_SELF_FINGER_ANUS_GENTLE = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.TWO_HORNY,
 			PenetrationType.FINGER,
 			OrificeType.ANUS,
@@ -142,8 +142,8 @@ public class PartnerSelfFingerAnus {
 	
 	public static final SexAction DOM_PARTNER_SELF_FINGER_ANUS_NORMAL = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.TWO_HORNY,
 			PenetrationType.FINGER,
 			OrificeType.ANUS,
@@ -183,8 +183,8 @@ public class PartnerSelfFingerAnus {
 	
 	public static final SexAction DOM_PARTNER_SELF_FINGER_ANUS_ROUGH = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.THREE_DIRTY,
 			PenetrationType.FINGER,
 			OrificeType.ANUS,
@@ -226,8 +226,8 @@ public class PartnerSelfFingerAnus {
 	
 	public static final SexAction SUB_PARTNER_SELF_FINGER_ANUS_NORMAL = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.TWO_HORNY,
 			PenetrationType.FINGER,
 			OrificeType.ANUS,
@@ -267,8 +267,8 @@ public class PartnerSelfFingerAnus {
 	
 	public static final SexAction SUB_PARTNER_SELF_FINGER_ANUS_EAGER = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.THREE_DIRTY,
 			PenetrationType.FINGER,
 			OrificeType.ANUS,

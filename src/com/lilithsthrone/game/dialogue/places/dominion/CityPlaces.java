@@ -255,20 +255,6 @@ public class CityPlaces {
 								}
 							});
 					}
-					
-//					responses.add(new Response(
-//							"Remove character",
-//							"Scare [npc.name] away. <b>This will remove [npc.herHim] from this area, allowing another character to move into this tile.</b>",
-//							STREET){
-//						@Override
-//						public DialogueNodeOld getNextDialogue() {
-//							return DebugDialogue.getDefaultDialogueNoEncounter();
-//						}
-//						@Override
-//						public void effects() {
-//							Main.game.banishNPC(npc);
-//						}
-//					});
 				}
 			}
 			

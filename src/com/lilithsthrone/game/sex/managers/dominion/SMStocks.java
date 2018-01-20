@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 
@@ -17,7 +17,7 @@ import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 public class SMStocks extends SexManagerDefault {
 
 	public SMStocks(boolean vaginalAllowed, boolean analAllowed, boolean oralAllowed, Map<GameCharacter, SexPositionSlot> dominants, Map<GameCharacter, SexPositionSlot> submissives) {
-		super(SexPositionNew.STOCKS_SEX,
+		super(SexPositionType.STOCKS_SEX,
 				dominants,
 				submissives);
 		

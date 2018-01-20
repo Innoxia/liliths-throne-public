@@ -309,8 +309,8 @@ public class PixShowerTime {
 	
 	public static final SexAction PARTNER_KISS = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.TONGUE,
 			OrificeType.MOUTH,
@@ -376,8 +376,8 @@ public class PixShowerTime {
 	
 	public static final SexAction PARTNER_GROPE_BREASTS = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.FINGER,
 			OrificeType.NIPPLE,
@@ -454,8 +454,8 @@ public class PixShowerTime {
 	
 	public static final SexAction PARTNER_MASTURBATE_PLAYER_COCK = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.PENIS,
 			null,
@@ -493,8 +493,8 @@ public class PixShowerTime {
 	
 	public static final SexAction FINGERING_PLAYER_START = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
-			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.FINGER,
 			OrificeType.VAGINA,
@@ -524,8 +524,8 @@ public class PixShowerTime {
 	
 	public static final SexAction FINGERING_PLAYER_GENTLE = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.FINGER,
 			OrificeType.VAGINA,
@@ -561,8 +561,8 @@ public class PixShowerTime {
 	
 	public static final SexAction FINGERING_PLAYER_ROUGH = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.FINGER,
 			OrificeType.VAGINA,
@@ -603,8 +603,8 @@ public class PixShowerTime {
 	
 	public static final SexAction FINGERING_PLAYER_CLIT_PLAY = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.FINGER,
 			OrificeType.VAGINA,

@@ -6,7 +6,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.ArousalLevel;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.sex.Sex;
-import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
@@ -21,7 +21,7 @@ import com.lilithsthrone.main.Main;
 public class SMAltarMissionary extends SexManagerDefault {
 
 	public SMAltarMissionary(Map<GameCharacter, SexPositionSlot> dominants, Map<GameCharacter, SexPositionSlot> submissives) {
-		super(SexPositionNew.MISSIONARY_ALTAR_CULTIST,
+		super(SexPositionType.MISSIONARY_ALTAR_CULTIST,
 				dominants,
 				submissives);
 	}

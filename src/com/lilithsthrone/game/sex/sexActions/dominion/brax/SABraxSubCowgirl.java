@@ -1084,8 +1084,8 @@ public class SABraxSubCowgirl {
 
 	public static final SexAction PARTNER_TALK_DIRTY = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
 			null,
 			null,
@@ -1331,8 +1331,8 @@ public class SABraxSubCowgirl {
 	
 	public static final SexAction PARTNER_COWGIRL_MASTURBATE = new SexAction(
 			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
-			ArousalIncrease.ONE_MINIMUM,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.PENIS,
 			null,

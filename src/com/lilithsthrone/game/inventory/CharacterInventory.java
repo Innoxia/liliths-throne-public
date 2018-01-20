@@ -49,7 +49,7 @@ import java.util.Set;
  * Inventory for a Character. Tracks weapons equipped, clothes worn & inventory space.
  * 
  * @since 0.1.0
- * @version 0.1.89
+ * @version 0.1.98
  * @author Innoxia
  */
 public class CharacterInventory implements Serializable, XMLSaving {
@@ -67,6 +67,8 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	private Map<TFEssence, Integer> essenceMap;
 	
 	protected int money;
+	
+	private Set<InventorySlot> dirtySlots;
 	
 	// Clothing that's currently blocking this inventory from unequipping/displacing something:
 	private AbstractClothing blockingClothing;
@@ -95,6 +97,8 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		weaponDuplicates = new LinkedHashMap<>();
 		clothingDuplicates = new LinkedHashMap<>();
 		itemDuplicates = new LinkedHashMap<>();
+		
+		dirtySlots = new HashSet<>();
 		
 		essenceMap = new EnumMap<>(TFEssence.class);
 		for(TFEssence essence : TFEssence.values()) {
@@ -1632,4 +1636,25 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		}
 		return false;
 	}
+
+	public Set<InventorySlot> getDirtySlots() {
+		return dirtySlots;
+	}
+	
+	public boolean isDirtySlot(InventorySlot slot) {
+		return dirtySlots.contains(slot);
+	}
+	
+	public boolean addDirtySlot(InventorySlot slot) {
+		return dirtySlots.add(slot);
+	}
+	
+	public boolean removeDirtySlot(InventorySlot slot) {
+		return dirtySlots.remove(slot);
+	}
+
+	public void cleanAllDirtySlots() {
+		dirtySlots.clear();
+	}
+	
 }

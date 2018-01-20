@@ -1075,7 +1075,7 @@ public enum Sex {
 		
 		sexActionPlayer.baseEffects();
 		
-		applyGenericDescriptionsAndEffects(sexActionPlayer);
+		applyGenericDescriptionsAndEffects(Main.game.getPlayer(), sexActionPlayer);
 		
 		String s = UtilText.parse(Sex.getActivePartner(), sexSB.toString());
 		sexSB.setLength(0);
@@ -1109,7 +1109,7 @@ public enum Sex {
 						sexActionPartner.baseEffects();
 						lastUsedPartnerAction = sexActionPartner;
 			
-						applyGenericDescriptionsAndEffects(sexActionPartner);
+						applyGenericDescriptionsAndEffects(Sex.getActivePartner(), sexActionPartner);
 						
 						s = UtilText.parse(character, sexSB.toString());
 						sexSB.setLength(0);
@@ -1492,73 +1492,57 @@ public enum Sex {
 	}
 
 	/** Applies extra effects and generates extra description text. */
-	private static void applyGenericDescriptionsAndEffects(SexActionInterface sexAction) {
+	private static void applyGenericDescriptionsAndEffects(GameCharacter activeCharacter, SexActionInterface sexAction) {
 		
 		//TODO Make specific for each character
+		Map<GameCharacter, Float> arousalIncrements = new HashMap<>();
 		
-		// Arousal increases, taking into account fetishes and sex effects:
-		float bonusArousalIncreasePlayer = 0f, bonusArousalIncreasePartner = 0f;
-		for(StatusEffect se : Main.game.getPlayer().getStatusEffects()) {
-			if(se.isSexEffect()) {
-				bonusArousalIncreasePlayer += se.getArousalPerTurnSelf(Main.game.getPlayer());
-				bonusArousalIncreasePartner += se.getArousalPerTurnPartner(activePartner);
-			}
-		}
-		for(StatusEffect se : Sex.getActivePartner().getStatusEffects()) {
-			if(se.isSexEffect()) {
-				bonusArousalIncreasePlayer += se.getArousalPerTurnPartner(Main.game.getPlayer());
-				bonusArousalIncreasePartner += se.getArousalPerTurnSelf(activePartner);
-			}
-		}
+		arousalIncrements.put(activeCharacter, sexAction.getArousalGainSelf().getArousalIncreaseValue());
+		arousalIncrements.put(Sex.getTargetedPartner(activeCharacter), sexAction.getArousalGainTarget().getArousalIncreaseValue());
 		
-		if(sexAction.getFetishes(Main.game.getPlayer())!=null) {
-			for(Fetish f : sexAction.getFetishes(Main.game.getPlayer())) {
-				if(Main.game.getPlayer().hasFetish(f)) {
-					bonusArousalIncreasePlayer += 2f;
+		// Arousal increments for related status effects:
+		for(StatusEffect se : activeCharacter.getStatusEffects()) {
+			if(se.isSexEffect()) {
+				arousalIncrements.put(activeCharacter, arousalIncrements.get(activeCharacter) + se.getArousalPerTurnSelf(activeCharacter));
+				for(GameCharacter penetratingCharacter : Sex.getAllParticipants()) {
+					if(!penetratingCharacter.equals(activeCharacter)) {
+						arousalIncrements.putIfAbsent(penetratingCharacter, 0f);
+						arousalIncrements.put(penetratingCharacter, arousalIncrements.get(penetratingCharacter) + se.getArousalPerTurnPartner(activeCharacter, penetratingCharacter));
+					}
 				}
 			}
 		}
-		if(sexAction.getFetishes(activePartner)!=null) {
-			for(Fetish f : sexAction.getFetishes(activePartner)) {
-				if(activePartner.hasFetish(f)) {
-					bonusArousalIncreasePartner += 2f;
-				}
-			}
-		}
-		
-		if(bonusArousalIncreasePlayer>6) {
-			bonusArousalIncreasePlayer = 6;
-		}
-		if(bonusArousalIncreasePartner>6) {
-			bonusArousalIncreasePartner = 6;
-		}
-		
-		float playerArousalIncrease = (sexAction.getArousalGainPlayer().getArousalIncreaseValue() + bonusArousalIncreasePlayer);
-		if(getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING) {
-			if(Main.game.getPlayer().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
-				playerArousalIncrease*=1.25f;
-			} else {
-				playerArousalIncrease*=0.5f;
-			}
-		}
-		if(getSexPace(activePartner)==SexPace.SUB_RESISTING && Main.game.getPlayer().hasFetish(Fetish.FETISH_NON_CON_DOM)) {
-			playerArousalIncrease*=1.25f;
-		}
-		Main.game.getPlayer().incrementArousal(playerArousalIncrease);
-		
-		float partnerArousalIncrease = (sexAction.getArousalGainPartner().getArousalIncreaseValue() + bonusArousalIncreasePartner);
-		if(getSexPace(activePartner)==SexPace.SUB_RESISTING) {
-			if(activePartner.hasFetish(Fetish.FETISH_NON_CON_SUB)) {
-				partnerArousalIncrease*=1.25f;
-			} else {
-				partnerArousalIncrease*=0.5f;
-			}
-		}
-		if(getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING && activePartner.hasFetish(Fetish.FETISH_NON_CON_DOM)) {
-			partnerArousalIncrease*=1.25f;
-		}
-		activePartner.incrementArousal(partnerArousalIncrease);
 
+		// Arousal increments for related fetishes:
+		if(sexAction.getFetishes(activeCharacter)!=null) {
+			for(Fetish f : sexAction.getFetishes(activeCharacter)) {
+				if(activeCharacter.hasFetish(f)) {
+					arousalIncrements.put(activeCharacter, arousalIncrements.get(activeCharacter) + 2f); //TODO value from fetish
+				}
+			}
+		}
+
+		// Arousal increments for this target's related fetishes:
+		GameCharacter targetCharacter = Sex.getTargetedPartner(activeCharacter);
+		if(sexAction.getFetishes(targetCharacter)!=null) {
+			for(Fetish f : sexAction.getFetishes(targetCharacter)) {
+				if(targetCharacter.hasFetish(f)) {
+					arousalIncrements.putIfAbsent(targetCharacter, 0f);
+					arousalIncrements.put(targetCharacter, arousalIncrements.get(targetCharacter) + 2f); //TODO value from fetish
+				}
+			}
+		}
+
+		// Modify arousal value based on lust:
+		for(Entry<GameCharacter, Float> entry : arousalIncrements.entrySet()) {
+			if(getSexPace(entry.getKey())==SexPace.SUB_RESISTING && entry.getKey().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
+				entry.getKey().incrementArousal(Math.min(8, entry.getValue() * 1.5f));
+			} else {
+				entry.getKey().incrementArousal(Math.min(8, entry.getValue() * (0.5f + (entry.getKey().getLust()/100f))));
+			}
+			
+		}
+		
 		// Cummed in areas:
 
 		// Add any areas that have been cummed in:
@@ -2619,11 +2603,11 @@ public enum Sex {
 	 * @param characterPenetrated The character who is being penetrated.
 	 * @return A set of orifices, belonging to 'characterPenetrated', that are currently being penetrated by 'characterPenetrating', using 'penetration'.
 	 */
-	public static Set<OrificeType> getOrificesBeingPenetratedBy(GameCharacter characterPenetrating, PenetrationType penetration, GameCharacter characterPenetrated) {
+	public static List<OrificeType> getOrificesBeingPenetratedBy(GameCharacter characterPenetrating, PenetrationType penetration, GameCharacter characterPenetrated) {
 		if(ongoingPenetrationMap.get(characterPenetrating).get(characterPenetrated).containsKey(penetration)) {
-			return ongoingPenetrationMap.get(characterPenetrating).get(characterPenetrated).get(penetration);
+			return new ArrayList<>(ongoingPenetrationMap.get(characterPenetrating).get(characterPenetrated).get(penetration));
 		} else {
-			return new HashSet<>();
+			return new ArrayList<>();
 		}
 	}
 	
@@ -2944,7 +2928,7 @@ public enum Sex {
 		orgasmCountMap.put(character, orgasmCountMap.get(character)+increment);
 	}
 	
-	public static SexPositionNew getPosition() {
+	public static SexPositionType getPosition() {
 		return sexManager.getPosition();
 	}
 

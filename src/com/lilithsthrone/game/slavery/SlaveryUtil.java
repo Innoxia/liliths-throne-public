@@ -115,9 +115,10 @@ public class SlaveryUtil implements Serializable {
 			// ***** EVENTS: ***** //
 			
 			// Washing:
-			if(slave.hasStatusEffect(StatusEffect.CLOTHING_CUM)
+			if((slave.hasStatusEffect(StatusEffect.CLOTHING_CUM) || !slave.getDirtySlots().isEmpty())
 					&& !slave.getWorkHours()[hour]
 					&& slave.hasSlavePermissionSetting(SlavePermissionSetting.CLEANLINESS_WASH_CLOTHES)) {
+				slave.cleanAllDirtySlots();
 				slave.cleanAllClothing();
 				for (AbstractClothing c : slave.getClothingCurrentlyEquipped()) {
 					c.setDirty(false);

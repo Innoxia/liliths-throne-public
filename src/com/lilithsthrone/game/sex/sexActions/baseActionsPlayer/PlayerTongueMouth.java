@@ -8,7 +8,7 @@ import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
@@ -47,11 +47,11 @@ public class PlayerTongueMouth {
 			
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPositionNew.COWGIRL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.COWGIRL_RIDING) {
+			if(Sex.getPosition()==SexPositionType.COWGIRL && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.COWGIRL_RIDING) {
 				
 				return DomCowgirl.getPlayerTongueMouthDescription();
 			
-			} else if(Sex.getPosition()==SexPositionNew.FACING_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_TO_WALL_AGAINST_WALL) {// Face-to-wall penetration descriptions:
+			} else if(Sex.getPosition()==SexPositionType.FACING_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_TO_WALL_AGAINST_WALL) {// Face-to-wall penetration descriptions:
 				
 				switch(Sex.getSexPace(Main.game.getPlayer())) {
 					case DOM_GENTLE:
@@ -216,7 +216,7 @@ public class PlayerTongueMouth {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPositionNew.FACING_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_TO_WALL_AGAINST_WALL) {// Face-to-wall penetration descriptions:
+			if(Sex.getPosition()==SexPositionType.FACING_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_TO_WALL_AGAINST_WALL) {// Face-to-wall penetration descriptions:
 				
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"Still leaning into [npc.name]'s back, you gently press your [pc.lips+] against [npc.hers], before planting a series of soft kisses on [npc.her] mouth.",
@@ -288,7 +288,7 @@ public class PlayerTongueMouth {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPositionNew.FACING_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_TO_WALL_AGAINST_WALL) {// Face-to-wall penetration descriptions:
+			if(Sex.getPosition()==SexPositionType.FACING_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_TO_WALL_AGAINST_WALL) {// Face-to-wall penetration descriptions:
 				
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"Still leaning into [npc.name]'s back, you eagerly press your [pc.lips+] against [npc.hers], before planting a series of desperate kisses on [npc.her] mouth.",
@@ -359,7 +359,7 @@ public class PlayerTongueMouth {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPositionNew.FACING_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_TO_WALL_AGAINST_WALL) {// Face-to-wall penetration descriptions:
+			if(Sex.getPosition()==SexPositionType.FACING_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_TO_WALL_AGAINST_WALL) {// Face-to-wall penetration descriptions:
 				
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"Roughly grinding into [npc.name]'s back, you violently press your [pc.lips+] against [npc.her] mouth before greedily thrusting your [pc.tongue] down [npc.her] throat.",
@@ -861,7 +861,7 @@ public class PlayerTongueMouth {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPositionNew.FACING_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_TO_WALL_AGAINST_WALL) {// Face-to-wall penetration descriptions:
+			if(Sex.getPosition()==SexPositionType.FACING_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_TO_WALL_AGAINST_WALL) {// Face-to-wall penetration descriptions:
 
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"With [npc.a_moan+], [npc.name] leans back against your [pc.breasts+], before planting a series of passionate kisses on your [pc.lips+].",
@@ -934,7 +934,7 @@ public class PlayerTongueMouth {
 
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(Sex.getPosition()==SexPositionNew.FACING_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_TO_WALL_AGAINST_WALL) {// Face-to-wall penetration descriptions:
+			if(Sex.getPosition()==SexPositionType.FACING_WALL && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.FACE_TO_WALL_AGAINST_WALL) {// Face-to-wall penetration descriptions:
 
 				UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 						"With [npc.a_moan+], [npc.name] presses [npc.herself] back against your [pc.breasts+], before planting a series of frantic, passionate kisses on your [pc.lips+].",

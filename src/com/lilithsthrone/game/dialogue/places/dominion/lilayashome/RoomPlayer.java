@@ -13,7 +13,6 @@ import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
-import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -22,7 +21,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.75
- * @version 0.1.8
+ * @version 0.1.98
  * @author Innoxia
  */
 public class RoomPlayer {
@@ -72,9 +71,10 @@ public class RoomPlayer {
 					Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));
 					Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
 					Main.game.getPlayer().setStamina(Main.game.getPlayer().getAttributeValue(Attribute.STAMINA_MAXIMUM));
-					for (AbstractClothing c : Main.game.getPlayer().getClothingCurrentlyEquipped())
-						c.setDirty(false);
+
+					Main.game.getPlayer().cleanAllDirtySlots();
 					Main.game.getPlayer().cleanAllClothing();
+					
 					Main.game.getPlayer().removeStatusEffect(StatusEffect.CREAMPIE_ANUS);
 					Main.game.getPlayer().removeStatusEffect(StatusEffect.CREAMPIE_NIPPLES);
 					Main.game.getPlayer().removeStatusEffect(StatusEffect.CREAMPIE_PENIS);

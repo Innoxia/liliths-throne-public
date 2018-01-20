@@ -1043,8 +1043,8 @@ public class PlayerTailVagina {
 	
 	public static final SexAction PARTNER_FUCKED_SUB_RESIST = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.FOUR_HIGH,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.TAIL,
 			OrificeType.VAGINA,
@@ -1164,8 +1164,8 @@ public class PlayerTailVagina {
 	
 	public static final SexAction PARTNER_PUSSY_CONTROL = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.FIVE_EXTREME,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.FIVE_EXTREME,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.TAIL,
 			OrificeType.VAGINA,

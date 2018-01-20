@@ -15,7 +15,6 @@
 	
 	Patch notes:
 	
-	
 	Engine:
 		Updated to Java 9.0.1. If you're using the .jar version of the game, please update your Java to 9.0.1 (.exe versions are unaffected).
 		Finished converting the save system to .xml. All saves now use the new .xml system, so you won't need to export/import between versions anymore.
@@ -27,15 +26,23 @@
 		Updated Save/Load UI, and changed Export/Import to exported character management screen.
 		Updated inventory slot positions. (This should now be the final layout.)
 	
-	Sex AI:
+	Sex:
 		NPCs should no longer switch positions just before they orgasm.
 		NPCs will no longer instantly re-penetrate themselves on the same turn that you forbid or stop all self-penetrative actions.
+		Reworked all back-end code for generic orgasms, ready to write in more detailed content for the full release.
+		Added 'cum on area' orgasm options, to allow you to cum on a specific area of your partner's body. (Not completely finished yet.)
 	
 	Other:
 		Demons now only have 1 pair of breasts by default. (I originally intended this to be the case, but I ended up giving them 3 a long time ago to test multiple-breast rows, and forgot to change it back.)
 		Improved corruption descriptions to reflect the fact that corruption is a measure of perversion.
 		Offspring are now permanently removed from the encounterable NPC list when you tell them to leave. (I'll add a way to manually find them again in the future.)
 		Penis, anus, nipple, and vagina sex actions (such as 'Finger him/her' and 'Stroke his/her cock') are now completely hidden until you discover if the NPC has the correct genitals/nipples/anus to perform those actions on.
+		Removed old lore reference to the arcane making everyone bi-sexual (this was the case before I added sexual orientations to the game).
+		Moved pregnancy lore information out of the phone's 'Pregnancy stats' page and into a book in Lilaya's library.
+		Forced TFs will now increase your cum production, where appropriate.
+		Gynephilic NPCs will now prefer to forcibly TF you into a female, unless they have the 'pregnancy' or 'broodmother' fetishes, in which case they will prefer to TF you into a futanari, shemale, or trap.
+		Added a masochistic/cum addict variation of the 'dirty clothes' status effect.
+		Added a 'dirty body' status effect (with matching masochistic/cum addict variation), which is applied if any of your body parts are covered in cum. (Can be removed by washing in your room.)
 	
 	Contributors:
 		Added Linux font compatibility (added Carlito as an alternative font for Calibri). (by PyrophoricPlumage)
@@ -68,38 +75,174 @@
 		Vicky's post-sex scene will now correctly no longer reference Arthur's package after you've completed that section of the side-quest.
 		Importing a game that was exported while the difficulty was set to anything above 'Human' will no loner lock all NPC's levels to being double that of yours.
 		Slightly improved genetics/inheritance method, so that offspring's ass & hip sizes (and probably a few other things) will now more closely resemble that of their parents.
+		Fixed bugged arousal gain values in sex.
+		Winter event Reindeer-morphs will no longer spawn in as human (if your furry settings are set to 'Human', then they'll spawn in as minor Reindeer-morphs).
+		Reindeer overseers and cultist chapels should now both be able to be accessed if they are on the same tile.
+		'Spread pussy' action will now transfer lubrication between fingers & vagina.
 	
 	
 	
 	
 	
-	
-	Brax's getPenetrationDescription()
-	
-	GenericOrgasms
+	FIX ONGOING ACTIONS - parsing the wrong person
 	
 	
-	Arcane Arousal book says everyone is bi
+	SORT OUT ORGASMS
+	penis, vagina, and cum modifiers
 	
-	Unable to penetrate bug being reported still
+	Penis + vagina/anus/nipple: Creampie | Cum on breasts, Cum on back, Cum on Pussy, Cum on stomach, Cum on legs
+	Penis + mouth: deepthroat | Facial
+	Knotted Penis + vagina/anus/nipple/mouth: Knot her/him
+	
+	Cum inflation status effects
+	Cum on areas
+	
+	Vagina + Penis: Ride (Milk) cock
+	Vagina + Knotted Penis: Grind knot (Get knotted)
+	Mouth + Penis: Deepthroat climax
+		
+	
+	Generate description of focus 
+		[1 sentence] Append position-specific movement.
+		[3 sentences] Append detailed focus.
+		[1 sentence each] Append non-focus events.
+		[1 sentence each] Append outcome (cum inflation, addictions).
 	
 	
-	Because all of a sudden lust gains from penetrating feel smol while the ones from getting vaginal sex  went through the roof
+	
+	
+	add dirty slot tooltips
+	
+	add selfie dirty descriptions
 	
 	
 	Need to define available sex actions as dependent on which SexSlot it's targeting.
 	
+	Sex preferences/Fetish rework
 	
 	
-	: Probably been reported before, but if you have Forced Transformation on, play as a female and then get transformed into having cock and balls the transformer will never do anything about your balls or cum production.
-	 This gets especially curious if your transformer has either the pregnancy or cum addict fetish. Can just imagine them screaming "Why isn't this thing working?!"
-	
-	Having a penis-item equipped should be indication of your character's gender.
-	 Meaning that say, a trap wears a chastity cage, if their groin is exposed, then you shouldn't have to unjinx and take off your chastity belt for NPCs to realize you're a trap.
-	
-	an overseer and a chapel seem to have spawned on the same tile - can't use chapel
+	Set up doggy test sex scene
+		Text for positions
 	
 	
+	Sex action stats (stamina, lust, arousal)
+	
+	improving the fetishes/sex experience
+	Fetish levels and experience
+	Fetishes should boost in power based on experience level
+	
+	Check oral/anal/vaginal allowed for stocks
+	
+	
+	Corruption - fetish bypasses
+	Stamina - drained by actions (minor) and orgasms (major). If falls to 0, can't continue/exhausted.
+	Lust - gained by actions character likes. Drained by actions character doesn't like. Determines pace.
+		Player actions now increase/decrease lust instead of setting pace immediately
+	
+	
+	Lust should not determine pace. Instead, it should lock out the opposite extremes. So at minimum, can't use eager stuff.
+	Actions still determine pace.
+	
+	
+	Sex starts:
+	- Each character has a starting lust, based on other character's attraction
+	- Sex continues as normal, with each action affecting lust, arousal, & stamina
+		- If arousal >= 100 AND PHYSICAL STIMULATION ON EROGONOUS ZONE, orgasm
+		- If stamina drops to 0, that character stops (or if sub, is too exhausted to make a move)
+		- Set pace to corresponding lust pace
+	- Sex stops once doms all run out of stamina, or if NPC dom achieves objectives.
+	
+	
+	
+	Sex experience (determines arousal gain)
+		Fetish boosts xp and lust gains for those actions
+		'Turn-off' makes you lose lust when subjected to those actions
+	
+	
+	Sub doggy-style (player receives oral + double penetration)
+	
+	
+	Resisting -> hesitant -> apathetic -> willing -> eager
+	
+	This dog girl gets the +4 seduction bonus for exposed tiddy
+		and the +12 seduction bonus for exposed tiddy+genitals
+		we can't even see her genitals reeeeee
+	
+	
+me with female partner with me as dominant (I'm not going to try testing with me as the submissive)
+
+	standing position
+	-kissing erases the tail fucking and tail pegging options
+	-fingering erases tail pegging
+	tail pegging seems functional (can't tail fuck, but it makes sense since I'm already using my tail)
+	
+	69 position
+	-eating out partner erases paizuri and get blowjob
+	-Partner doing anilingus allows option for partner to also give a blowjob simultaneously
+	-Eating out partner while they are giving anilingus does not have this issue, but it also erases paizuri, something which plain anilingus allows.  I don't know if it's a bug to get tit fucked while also getting my ass eaten, or if it's a bug to be incapable of fucking my partner's tits when she's tonguing my butt hole.  YMMV
+	
+	Partner facing wall
+	-tail fucking erases anal sex, hotdogging, and thigh sex
+	-tail pegging erases vaginal sex – though it may be argued that tail pegging while vaginally fucking your partner is uncomfortable/unfeasable when your partner is facing the wall
+	-kissing erases fucking, anal, tail fucking, tail pegging, hotdogging, and thigh sex
+	
+	back-to-wall position
+	-fingering partner's vagina erases tail pegging
+	-kissing erases thigh fucking, tail pegging, tail fucking, and traditional fucking
+	-fucking erases tail pegging
+	-tail pegging erases traditional fucking and thigh sex(edited)
+		
+Sex action position bugs continued
+	
+	Partner facing wall
+	-Fingering vagina prevents tail pegging
+	-Fingering ass prevents thigh sex, fucking, and tail fucking
+	
+	Back-to-wall position
+	-thigh sex prevents tail options, though it could be argued that your tail isn't long enough
+	
+	Cowgirl
+	-kissing prevents tail fucking and tail pegging
+	-paizuri prevents tail fucking and tail pegging
+	-fingering prevents tail pegging and paizuri
+	-tail fucking prevents paizuri
+	-tail pegging prevents paizuri
+	
+	Doggy Style (giving oral)
+	-Anilingus should prevent you from eating your partner out
+	-Eating partner out should prevent you from doing anilingus
+	Anal and vaginal fingering seemed fine
+	
+	no issues found in Kneel (receive oral), Kneel (give oral), and Doggy Style (receiving oral) - though the last one might be buggy if you have a vagina(edited)
+	
+	
+	 If your partner's fingering themself, you can't do anything with their dick
+		Even if nothing's going on with their dick
+		
+Checking sex actions for Male/Male activity
+	
+	Standing
+	-kissing prevents you from tail pegging your partner
+	Face to wall
+	-hot dogging should probably prevent you from anal fingering (I think?)
+	Back to wall
+	-kissing prevents you from tail pegging and thigh sex
+	-receiving thigh sex prevents your partner from also tail pegging you (or it should prevent you from tail pegging your partner maybe?)
+	-thigh sex on partner prevents you from tail pegging them (or it should prevent you from getting tail pegged by your partner?)
+	-getting tail pegged and tail pegging prevents thigh sex, also prevents you from stroking your partner's cock and also from stroking your own cock
+	Doggy Style (receiving)
+	-getting hot dogged should prevent you from getting anally fingered (assuming that hot dogging also prevents anal fingering in the face to wall example).  Should also prevent you from tail pegging self and anal fingering self
+	Doggy Style (give oral) and Doggy Style (receive oral) – Seem fine
+	Still have more to do though
+	Other thing I noticed – Submissive partner doesn't have a chest status in the sidebar UI like the dominant does
+		
+	
+	Dunno if this has been said before but you can use "stay in position" in the repeat actions to just force everyone to keep cumming
+It was actually quite amusing, I got to grind out 8 condoms super quick
+[22:59] Cherry Cumslut: Also I hadn't really looked into it but when I was having sex with Lilaya I stopped being able to interact with her dick after a certain point
+	
+	
+	main cause of the save game bloat seems to be the records of every sexual encounter.
 	
 	
 	AI in sex, so I'll make sure to tweak their preferences for performing self-actions
@@ -174,52 +317,11 @@ Some positions should probably have limits on clothing displacement. If I’m pi
 	
 	got a problem, when trying to examine slaves, I get stuck with seeing slaves that aren't the one I am looking at. I can work around to see them, but its annoying none the less.
 	
-	Set up doggy test sex scene
-		Text for positions
 	
 	
-	Sex action stats (stamina, lust, arousal)
-	
-	improving the fetishes/sex experience
-	Fetish levels and experience
-	Fetishes should boost in power based on experience level
-	
-	Check oral/anal/vaginal allowed for stocks
+	demons should be able to control their pubic and body hair colors
 	
 	
-	Corruption - fetish bypasses
-	Stamina - drained by actions (minor) and orgasms (major). If falls to 0, can't continue/exhausted.
-	Lust - gained by actions character likes. Drained by actions character doesn't like. Determines pace.
-		Player actions now increase/decrease lust instead of setting pace immediately
-	
-	
-	Lust should not determine pace. Instead, it should lock out the opposite extremes. So at minimum, can't use eager stuff.
-	Actions still determine pace.
-	
-	
-	Sex starts:
-	- Each character has a starting lust, based on other character's attraction
-	- Sex continues as normal, with each action affecting lust, arousal, & stamina
-		- If arousal >= 100 AND PHYSICAL STIMULATION ON EROGONOUS ZONE, orgasm
-		- If stamina drops to 0, that character stops (or if sub, is too exhausted to make a move)
-		- Set pace to corresponding lust pace
-	- Sex stops once doms all run out of stamina, or if NPC dom achieves objectives.
-	
-	
-	
-	
-	Sex experience (determines arousal gain)
-		Fetish boosts xp and lust gains for those actions
-		'Turn-off' makes you lose lust when subjected to those actions
-	
-	
-	Sub doggy-style (player receives oral + double penetration)
-	
-	
-	Set orgasm behaviour during sex, so can remove reactions/prepare actions
-	
-	
-	Resisting -> hesitant -> apathetic -> willing -> eager
 	
 	
 	
@@ -240,6 +342,13 @@ Suggestion: For the encyclopedia, having items' descriptions somewhere would be 
 	
 	
 	URETHRAL PENETRATION
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	Suggestions:
@@ -277,6 +386,9 @@ Part-way through a scene, fucking a shemale in doggy, the action to stroke her c
 	Clothing removal - Before your chemise is able to be removed, Chemise and Dress coat need to be removed.
 *This will repeat forever, unless I remove the dress coat myself (which is already unbuttoned) I think it only happens when the NPC is targeting your character's breasts, but don't quote me.
 	
+	
+	Having a penis-item equipped should be indication of your character's gender.
+	 Meaning that say, a trap wears a chastity cage, if their groin is exposed, then you shouldn't have to unjinx and take off your chastity belt for NPCs to realize you're a trap.
 	
 	
 	

@@ -3,7 +3,7 @@ package com.lilithsthrone.game.sex.managers.universal;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.sex.SexPositionNew;
+import com.lilithsthrone.game.sex.SexPositionType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 
@@ -15,7 +15,7 @@ import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 public class SMSixtyNine extends SexManagerDefault {
 
 	public SMSixtyNine(Map<GameCharacter, SexPositionSlot> dominants, Map<GameCharacter, SexPositionSlot> submissives) {
-		super(SexPositionNew.SIXTY_NINE,
+		super(SexPositionType.SIXTY_NINE,
 				dominants,
 				submissives);
 	}

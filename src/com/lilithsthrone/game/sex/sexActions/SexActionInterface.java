@@ -51,9 +51,9 @@ public interface SexActionInterface {
 	
 	// Sex-specific:
 	
-	public ArousalIncrease getArousalGainPlayer();
+	public ArousalIncrease getArousalGainSelf();
 
-	public ArousalIncrease getArousalGainPartner();
+	public ArousalIncrease getArousalGainTarget();
 	
 	public default boolean isPartnerSelfAction() {
 		return this.getParticipantType() == SexParticipantType.SELF && !this.getActionType().isPlayerAction();
@@ -218,7 +218,6 @@ public interface SexActionInterface {
 	
 	public default Response toResponse() {
 		if(isBaseRequirementsMet() && isPhysicallyPossible() && !isBannedFromSexManager()) {
-			
 			
 			// Return null if the player doesn't know about the partners penis/breasts/ass/vagina
 			if(this.getActionType().isPlayerAction()) {
@@ -426,7 +425,10 @@ public interface SexActionInterface {
 			// The PenetrationType needs to be penetrating the OrificeType to unlock this action.
 			} else {
 				if(getAssociatedPenetrationType()!=null && getAssociatedOrificeType()!=null) {
-					if(Sex.getPenetrationTypeInOrifice(getOrificeCharacter(), getAssociatedOrificeType()) != getAssociatedPenetrationType()) {
+					if(Sex.getPenetrationTypeInOrifice(getOrificeCharacter(), getAssociatedOrificeType()) != getAssociatedPenetrationType()
+							|| (this.getParticipantType()==SexParticipantType.SELF
+										?!this.getPenetratingCharacter().equals(this.getOrificeCharacter())
+										:this.getPenetratingCharacter().equals(this.getOrificeCharacter()))) {
 						return null;
 					}
 				}

@@ -128,17 +128,23 @@ public enum RenderingEngine {
 			} else {
 				// add to content:
 				if (blockedSlots.contains(invSlot)) {
-					equippedPanelSB.append("<div class='inventory-item-slot disabled'><div class='overlay' id='" + invSlot.toString() + "Slot'></div></div>");
+					equippedPanelSB.append("<div class='inventory-item-slot disabled'>"
+												+ (charactersInventoryToRender.isDirtySlot(invSlot) ? "<div class='cummedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getCummedInIcon() + "</div>" : "")
+												+ "<div class='overlay' id='" + invSlot.toString() + "Slot'></div>"
+											+ "</div>");
 					
 				} else if (invSlot.slotBlockedByRace(charactersInventoryToRender) != null) {
 					equippedPanelSB.append(
 							"<div class='inventory-item-slot disabled'>"
+								+ (charactersInventoryToRender.isDirtySlot(invSlot) ? "<div class='cummedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getCummedInIcon() + "</div>" : "")
 								+ "<div class='overlay' id='" + invSlot.toString() + "Slot'></div>"
 								+ "<div class='raceBlockIcon'>" + invSlot.slotBlockedByRace(charactersInventoryToRender).getStatusEffect().getSVGString(charactersInventoryToRender) + "</div>"
 							+ "</div>");
 					
 				} else {
-					equippedPanelSB.append("<div class='inventory-item-slot' id='" + invSlot.toString() + "Slot'></div>");
+					equippedPanelSB.append("<div class='inventory-item-slot' id='" + invSlot.toString() + "Slot'>"
+							+ (charactersInventoryToRender.isDirtySlot(invSlot) ? "<div class='cummedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getCummedInIcon() + "</div>" : "")
+							+ "</div>");
 				}
 			}
 		}

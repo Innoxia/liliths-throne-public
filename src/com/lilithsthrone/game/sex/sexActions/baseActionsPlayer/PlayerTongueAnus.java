@@ -559,8 +559,8 @@ public class PlayerTongueAnus {
 	
 	public static final SexAction PARTNER_ANILINGUS_START = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
-			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.THREE_DIRTY,
 			PenetrationType.TONGUE,
 			OrificeType.ANUS,
@@ -657,8 +657,8 @@ public class PlayerTongueAnus {
 	
 	public static final SexAction PARTNER_RECEIVING_ANILINGUS_DOM_GENTLE = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.THREE_DIRTY,
 			PenetrationType.TONGUE,
 			OrificeType.ANUS,
@@ -716,8 +716,8 @@ public class PlayerTongueAnus {
 	
 	public static final SexAction PARTNER_RECEIVING_ANILINGUS_DOM_NORMAL = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.THREE_DIRTY,
 			PenetrationType.TONGUE,
 			OrificeType.ANUS,
@@ -775,8 +775,8 @@ public class PlayerTongueAnus {
 	
 	public static final SexAction PARTNER_RECEIVING_ANILINGUS_DOM_ROUGH = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.FOUR_LUSTFUL,
 			PenetrationType.TONGUE,
 			OrificeType.ANUS,
@@ -834,8 +834,8 @@ public class PlayerTongueAnus {
 	
 	public static final SexAction PARTNER_RECEIVING_ANILINGUS_SUB_NORMAL = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.THREE_DIRTY,
 			PenetrationType.TONGUE,
 			OrificeType.ANUS,
@@ -893,8 +893,8 @@ public class PlayerTongueAnus {
 	
 	public static final SexAction PARTNER_RECEIVING_ANILINGUS_SUB_EAGER = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.THREE_DIRTY,
 			PenetrationType.TONGUE,
 			OrificeType.ANUS,
@@ -952,8 +952,8 @@ public class PlayerTongueAnus {
 	
 	public static final SexAction PARTNER_RECEIVING_ANILINGUS_SUB_RESIST = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.TONGUE,
 			OrificeType.ANUS,

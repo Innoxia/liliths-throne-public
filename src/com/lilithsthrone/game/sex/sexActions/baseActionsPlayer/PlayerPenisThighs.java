@@ -555,8 +555,8 @@ public class PlayerPenisThighs {
 	
 	public static final SexAction PARTNER_THIGH_SEX_START = new SexAction(
 			SexActionType.PARTNER_PENETRATION,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.PENIS,
 			OrificeType.THIGHS,
@@ -668,8 +668,8 @@ public class PlayerPenisThighs {
 	
 	public static final SexAction PARTNER_THIGH_SEX_DOM_GENTLE = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.PENIS,
 			OrificeType.THIGHS,
@@ -705,8 +705,8 @@ public class PlayerPenisThighs {
 	
 	public static final SexAction PARTNER_THIGH_SEX_DOM_NORMAL = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.PENIS,
 			OrificeType.THIGHS,
@@ -742,8 +742,8 @@ public class PlayerPenisThighs {
 	
 	public static final SexAction PARTNER_THIGH_SEX_DOM_ROUGH = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.TWO_HORNY,
 			PenetrationType.PENIS,
 			OrificeType.THIGHS,
@@ -780,8 +780,8 @@ public class PlayerPenisThighs {
 	
 	public static final SexAction PARTNER_THIGH_SEX_SUB_NORMAL = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.PENIS,
 			OrificeType.THIGHS,
@@ -817,8 +817,8 @@ public class PlayerPenisThighs {
 	
 	public static final SexAction PARTNER_THIGH_SEX_SUB_EAGER = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.PENIS,
 			OrificeType.THIGHS,
@@ -854,8 +854,8 @@ public class PlayerPenisThighs {
 	
 	public static final SexAction PARTNER_THIGH_SEX_SUB_RESIST = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.THREE_NORMAL,
 			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.PENIS,
 			OrificeType.THIGHS,

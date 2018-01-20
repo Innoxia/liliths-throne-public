@@ -24,7 +24,10 @@ import com.lilithsthrone.main.Main;
 public abstract class SexAction implements SexActionInterface {
 
 	private SexActionType sexActionType;
-	private ArousalIncrease playerArousalGain, partnerArousalGain;
+	
+	private ArousalIncrease selfArousalGain;
+	private ArousalIncrease targetArousalGain;
+	
 	private CorruptionLevel minimumCorruptionNeeded;
 	private PenetrationType penetrationTypeAccessRequired;
 	private OrificeType orificeTypeAccessRequired;
@@ -55,8 +58,8 @@ public abstract class SexAction implements SexActionInterface {
 	
 	public SexAction(
 			SexActionType sexActionType,
-			ArousalIncrease playerArousalGain,
-			ArousalIncrease partnerArousalGain,
+			ArousalIncrease selfArousalGain,
+			ArousalIncrease targetArousalGain,
 			CorruptionLevel minimumCorruptionNeeded,
 			PenetrationType penetrationTypeAccessRequired,
 			OrificeType orificeTypeAccessRequired,
@@ -65,8 +68,8 @@ public abstract class SexAction implements SexActionInterface {
 			SexPace sexPacePartner) {
 		
 		this.sexActionType = sexActionType;
-		this.playerArousalGain = playerArousalGain;
-		this.partnerArousalGain = partnerArousalGain;
+		this.selfArousalGain = selfArousalGain;
+		this.targetArousalGain = targetArousalGain;
 		this.minimumCorruptionNeeded = minimumCorruptionNeeded;
 		this.penetrationTypeAccessRequired = penetrationTypeAccessRequired;
 		this.orificeTypeAccessRequired = orificeTypeAccessRequired;
@@ -77,8 +80,8 @@ public abstract class SexAction implements SexActionInterface {
 	
 	public SexAction(SexActionInterface sexActionToCopy) {
 		this.sexActionType = sexActionToCopy.getActionType();
-		this.playerArousalGain = sexActionToCopy.getArousalGainPlayer();
-		this.partnerArousalGain = sexActionToCopy.getArousalGainPartner();
+		this.selfArousalGain = sexActionToCopy.getArousalGainSelf();
+		this.targetArousalGain = sexActionToCopy.getArousalGainTarget();
 		this.minimumCorruptionNeeded = sexActionToCopy.getCorruptionNeeded();
 		this.penetrationTypeAccessRequired = sexActionToCopy.getAssociatedPenetrationType();
 		this.orificeTypeAccessRequired = sexActionToCopy.getAssociatedOrificeType();
@@ -90,7 +93,7 @@ public abstract class SexAction implements SexActionInterface {
 	
 	@Override
 	public SexPace getSexPace(GameCharacter character){
-		if(character.isPlayer()) {
+		if(character!=null && character.isPlayer()) {
 			return sexPacePlayer;
 		} else {
 			return sexPacePartner;
@@ -118,13 +121,13 @@ public abstract class SexAction implements SexActionInterface {
 	}
 
 	@Override
-	public ArousalIncrease getArousalGainPlayer() {
-		return playerArousalGain;
+	public ArousalIncrease getArousalGainSelf() {
+		return selfArousalGain;
 	}
 
 	@Override
-	public ArousalIncrease getArousalGainPartner() {
-		return partnerArousalGain;
+	public ArousalIncrease getArousalGainTarget() {
+		return targetArousalGain;
 	}
 
 	@Override
