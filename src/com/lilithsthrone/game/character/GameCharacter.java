@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character;
 import java.io.Serializable;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.EnumSet;
@@ -762,8 +763,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return properties;
 	}
 	
-	public static void loadGameCharacterVariablesFromXML(GameCharacter character, StringBuilder log, Element parentElement, Document doc) {
+	public static void loadGameCharacterVariablesFromXML(GameCharacter character, StringBuilder log, Element parentElement, Document doc, CharacterImportSetting... settings) {
 
+		boolean noPregnancy = Arrays.asList(settings).contains(CharacterImportSetting.NO_PREGNANCY);
+		
 		
 		// ************** Core information **************//
 		
@@ -1078,8 +1081,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			
 			try {
 				if(Integer.valueOf(e.getAttribute("value"))!=-1) {
-					character.addStatusEffect(StatusEffect.valueOf(e.getAttribute("type")), Integer.valueOf(e.getAttribute("value")));
-					CharacterUtils.appendToImportLog(log, "</br>Added Status Effect: "+StatusEffect.valueOf(e.getAttribute("type")).getName(character)+" ("+Integer.valueOf(e.getAttribute("value"))+" minutes)");
+					StatusEffect effect = StatusEffect.valueOf(e.getAttribute("type"));
+					if(!noPregnancy || (effect!=StatusEffect.PREGNANT_0 && effect!=StatusEffect.PREGNANT_1 && effect!=StatusEffect.PREGNANT_2 && effect!=StatusEffect.PREGNANT_3)) {
+						character.addStatusEffect(effect, Integer.valueOf(e.getAttribute("value")));
+						CharacterUtils.appendToImportLog(log, "</br>Added Status Effect: "+StatusEffect.valueOf(e.getAttribute("type")).getName(character)+" ("+Integer.valueOf(e.getAttribute("value"))+" minutes)");
+					}
 				}
 			}catch(IllegalArgumentException ex){
 			}
@@ -1104,65 +1110,66 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		// ************** Pregnancy **************//
 		
-		nodes = parentElement.getElementsByTagName("pregnancy");
-		Element pregnancyElement = (Element) nodes.item(0);
-		if(pregnancyElement!=null) {
-			CharacterUtils.appendToImportLog(log, "</br></br>Pregnancies:");
-			
-			character.setTimeProgressedToFinalPregnancyStage(Integer.valueOf(pregnancyElement.getAttribute("timeProgressedToFinalPregnancyStage")));
-			
-			nodes = pregnancyElement.getElementsByTagName("potentialPartnersAsMother");
-			element = (Element) nodes.item(0);
-			if(element!=null) {
-				for(int i=0; i<element.getElementsByTagName("pregnancyPossibility").getLength(); i++){
-					Element e = ((Element)element.getElementsByTagName("pregnancyPossibility").item(i));
-					
-					character.getPotentialPartnersAsMother().add(PregnancyPossibility.loadFromXML(e, doc));
-					CharacterUtils.appendToImportLog(log, "</br>Added Pregnancy Possibility as mother.");
+		if(!noPregnancy) {
+			nodes = parentElement.getElementsByTagName("pregnancy");
+			Element pregnancyElement = (Element) nodes.item(0);
+			if(pregnancyElement!=null) {
+				CharacterUtils.appendToImportLog(log, "</br></br>Pregnancies:");
+				
+				character.setTimeProgressedToFinalPregnancyStage(Integer.valueOf(pregnancyElement.getAttribute("timeProgressedToFinalPregnancyStage")));
+				
+				nodes = pregnancyElement.getElementsByTagName("potentialPartnersAsMother");
+				element = (Element) nodes.item(0);
+				if(element!=null) {
+					for(int i=0; i<element.getElementsByTagName("pregnancyPossibility").getLength(); i++){
+						Element e = ((Element)element.getElementsByTagName("pregnancyPossibility").item(i));
+						
+						character.getPotentialPartnersAsMother().add(PregnancyPossibility.loadFromXML(e, doc));
+						CharacterUtils.appendToImportLog(log, "</br>Added Pregnancy Possibility as mother.");
+					}
 				}
-			}
-			
-			nodes = pregnancyElement.getElementsByTagName("potentialPartnersAsFather");
-			element = (Element) nodes.item(0);
-			if(element!=null) {
-				for(int i=0; i<element.getElementsByTagName("pregnancyPossibility").getLength(); i++){
-					Element e = ((Element)element.getElementsByTagName("pregnancyPossibility").item(i));
-					
-					character.getPotentialPartnersAsFather().add(PregnancyPossibility.loadFromXML(e, doc));
-					CharacterUtils.appendToImportLog(log, "</br>Added Pregnancy Possibility as father.");
+				
+				nodes = pregnancyElement.getElementsByTagName("potentialPartnersAsFather");
+				element = (Element) nodes.item(0);
+				if(element!=null) {
+					for(int i=0; i<element.getElementsByTagName("pregnancyPossibility").getLength(); i++){
+						Element e = ((Element)element.getElementsByTagName("pregnancyPossibility").item(i));
+						
+						character.getPotentialPartnersAsFather().add(PregnancyPossibility.loadFromXML(e, doc));
+						CharacterUtils.appendToImportLog(log, "</br>Added Pregnancy Possibility as father.");
+					}
 				}
-			}
-			
-			nodes = pregnancyElement.getElementsByTagName("pregnantLitter");
-			element = (Element) ((Element) nodes.item(0)).getElementsByTagName("litter").item(0);
-			if(element!=null) {
-				character.setPregnantLitter(Litter.loadFromXML(element, doc));
-				CharacterUtils.appendToImportLog(log, "</br>Added Pregnant litter.");
-			}
-			
-			nodes = pregnancyElement.getElementsByTagName("birthedLitters");
-			element = (Element) nodes.item(0);
-			if(element!=null) {
-				for(int i=0; i<element.getElementsByTagName("litter").getLength(); i++){
-					Element e = ((Element)element.getElementsByTagName("litter").item(i));
-					
-					character.getLittersBirthed().add(Litter.loadFromXML(e, doc));
-					CharacterUtils.appendToImportLog(log, "</br>Added litter birthed.");
+				
+				nodes = pregnancyElement.getElementsByTagName("pregnantLitter");
+				element = (Element) ((Element) nodes.item(0)).getElementsByTagName("litter").item(0);
+				if(element!=null) {
+					character.setPregnantLitter(Litter.loadFromXML(element, doc));
+					CharacterUtils.appendToImportLog(log, "</br>Added Pregnant litter.");
 				}
-			}
-			
-			nodes = pregnancyElement.getElementsByTagName("littersFathered");
-			element = (Element) nodes.item(0);
-			if(element!=null) {
-				for(int i=0; i<element.getElementsByTagName("litter").getLength(); i++){
-					Element e = ((Element)element.getElementsByTagName("litter").item(i));
-					
-					character.getLittersFathered().add(Litter.loadFromXML(e, doc));
-					CharacterUtils.appendToImportLog(log, "</br>Added litter fathered.");
+				
+				nodes = pregnancyElement.getElementsByTagName("birthedLitters");
+				element = (Element) nodes.item(0);
+				if(element!=null) {
+					for(int i=0; i<element.getElementsByTagName("litter").getLength(); i++){
+						Element e = ((Element)element.getElementsByTagName("litter").item(i));
+						
+						character.getLittersBirthed().add(Litter.loadFromXML(e, doc));
+						CharacterUtils.appendToImportLog(log, "</br>Added litter birthed.");
+					}
+				}
+				
+				nodes = pregnancyElement.getElementsByTagName("littersFathered");
+				element = (Element) nodes.item(0);
+				if(element!=null) {
+					for(int i=0; i<element.getElementsByTagName("litter").getLength(); i++){
+						Element e = ((Element)element.getElementsByTagName("litter").item(i));
+						
+						character.getLittersFathered().add(Litter.loadFromXML(e, doc));
+						CharacterUtils.appendToImportLog(log, "</br>Added litter fathered.");
+					}
 				}
 			}
 		}
-		
 		
 		
 		// ************** Family **************//

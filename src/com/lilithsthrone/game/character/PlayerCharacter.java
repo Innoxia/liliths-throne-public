@@ -132,10 +132,10 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		return properties;
 	}
 	
-	public static PlayerCharacter loadFromXML(StringBuilder log, Element parentElement, Document doc) {
+	public static PlayerCharacter loadFromXML(StringBuilder log, Element parentElement, Document doc, CharacterImportSetting... settings) {
 		PlayerCharacter character = new PlayerCharacter(new NameTriplet(""), "", 0, Gender.F_V_B_FEMALE, RacialBody.HUMAN, RaceStage.HUMAN, new CharacterInventory(0), WorldType.DOMINION, PlaceType.DOMINION_AUNTS_HOME);
 		
-		GameCharacter.loadGameCharacterVariablesFromXML(character, log, parentElement, doc);
+		GameCharacter.loadGameCharacterVariablesFromXML(character, log, parentElement, doc, settings);
 		
 		Element playerSpecificElement = (Element) parentElement.getElementsByTagName("playerSpecific").item(0);
 		

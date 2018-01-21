@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character.npc;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.race.RaceStage;
@@ -39,8 +40,8 @@ public class SlaveImport extends NPC {
 	}
 	
 	@Override
-	public void loadFromXML(Element parentElement, Document doc) {
-		loadNPCVariablesFromXML(this, null, parentElement, doc);
+	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc, CharacterImportSetting.NO_PREGNANCY);
 		
 		if(!this.getId().endsWith("SlaveImport")) {
 			this.setId(Main.game.getNextNPCId(SlaveImport.class));

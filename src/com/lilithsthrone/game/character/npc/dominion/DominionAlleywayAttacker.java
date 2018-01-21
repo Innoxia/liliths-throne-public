@@ -7,6 +7,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.Season;
+import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.History;
@@ -204,8 +205,8 @@ public class DominionAlleywayAttacker extends NPC {
 	}
 	
 	@Override
-	public void loadFromXML(Element parentElement, Document doc) {
-		loadNPCVariablesFromXML(this, null, parentElement, doc);
+	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 	}
 	
 	@Override

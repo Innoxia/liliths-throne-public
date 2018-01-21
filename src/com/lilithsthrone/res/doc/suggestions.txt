@@ -879,6 +879,20 @@ While that should probably be gated, and fall under non-con, I don't want to be 
 	
 	
 	
+	Slave UI:
+	1) a overview of the slave screen that clearly shows if they are working (making money) or not. I know there is maid and all that, but it's tedious to read that when it all kind of looks the same
+	2) show how much they are making, or using to keep preferably with green and red text denoting costs and gains. 
+	3) a saveable preset for permissions, something that you could assign slaves too with text or a color denoting what preset you have them on
+	4)either a default (all slaves get this) you setup before buying them so everyone that comes in has the same permissions. 
+	5) a next and previous slave button, holy shit you have no idea how much I want one of these just to quickly check all slaves permissions and jobs. 
+	
+	beyond that, added permissions, like ability to fuck your roomate or something along those lines would be nice. but i'm assuming once base game gets done you will go in and revamp/expand much of the mechanics currently there.
+	
+	
+	
+	
+	
+	
 	
 	NPCs shouldn't be taking virginities when you CHOOSE to submit to them. Especially relevant with pure virgin.
 -(feature request) self-denial stuff please? :smiley: (easiest way I see is an alternative chastity set that prevents orgasms). Appropriate fetish would rock too

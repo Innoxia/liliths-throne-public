@@ -11,6 +11,7 @@ import java.util.Set;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.History;
@@ -194,11 +195,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		return properties;
 	}
 	
-	public abstract void loadFromXML(Element parentElement, Document doc);
+	public abstract void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings);
 	
-	public static void loadNPCVariablesFromXML(NPC npc, StringBuilder log, Element parentElement, Document doc) {
+	public static void loadNPCVariablesFromXML(NPC npc, StringBuilder log, Element parentElement, Document doc, CharacterImportSetting... settings) {
 		
-		GameCharacter.loadGameCharacterVariablesFromXML(npc, log, parentElement, doc);
+		GameCharacter.loadGameCharacterVariablesFromXML(npc, log, parentElement, doc, settings);
 		
 		Element npcSpecificElement = (Element) parentElement.getElementsByTagName("npcSpecific").item(0);
 		

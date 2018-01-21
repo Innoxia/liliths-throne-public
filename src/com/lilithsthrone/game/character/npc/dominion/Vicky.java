@@ -5,6 +5,7 @@ import java.util.Set;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.SexualOrientation;
@@ -119,8 +120,8 @@ public class Vicky extends NPC {
 	}
 	
 	@Override
-	public void loadFromXML(Element parentElement, Document doc) {
-		loadNPCVariablesFromXML(this, null, parentElement, doc);
+	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
+		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 
 		this.addFetish(Fetish.FETISH_DOMINANT);
 		this.addFetish(Fetish.FETISH_ANAL_GIVING);

@@ -2368,8 +2368,8 @@ public class Game implements Serializable, XMLSaving {
 		}
 		if(!NPCMap.containsKey(id)) {
 			System.err.println("!WARNING! getNPC("+id+") is returning null!");
-//			return null;
-			throw new NullPointerException();
+			return null;
+//			throw new NullPointerException();
 		}
 		return NPCMap.get(id);
 	}

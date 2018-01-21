@@ -9,6 +9,7 @@ import java.util.List;
 import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.Properties;
+import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.PlayerCharacter;
@@ -178,7 +179,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-		credits.add(new CreditsSlot("Anonymous", "", 0, 6, 115+61, 37+20));
+		credits.add(new CreditsSlot("Anonymous", "", 0, 6, 111+61, 37+20));
 		
 
 		credits.add(new CreditsSlot("fun_bot", "", 0, 0, 0, 2));
@@ -295,6 +296,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Shas'O Dal'yth Kauyon Kais Taku", "", 0, 0, 6, 0));
 		credits.add(new CreditsSlot("Crow Invictus", "", 0, 0, 5, 0));
 		credits.add(new CreditsSlot("Sheltem", "", 0, 0, 4, 0));
+		credits.add(new CreditsSlot("Sig", "", 0, 0, 4, 0));
 		credits.add(new CreditsSlot("Silentark", "", 0, 0, 3, 0));
 		credits.add(new CreditsSlot("Sorter", "", 0, 0, 0, 6));
 		credits.add(new CreditsSlot("Spookermen", "", 0, 0, 0, 6));
@@ -684,7 +686,7 @@ public class Main extends Application {
 		if (file != null) {
 			try {
 				Main.game.setPlayer(CharacterUtils.startLoadingCharacterFromXML());
-				Main.game.setPlayer(CharacterUtils.loadCharacterFromXML(file, Main.game.getPlayer()));
+				Main.game.setPlayer(CharacterUtils.loadCharacterFromXML(file, Main.game.getPlayer(), CharacterImportSetting.NO_PREGNANCY));
 				
 				Main.game.getPlayer().getSlavesOwned().clear();
 				Main.game.getPlayer().endPregnancy(false);
