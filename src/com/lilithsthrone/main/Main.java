@@ -55,7 +55,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.1.97.1",
+	public static final String VERSION_NUMBER = "0.1.97.5",
 			VERSION_DESCRIPTION = "Early Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
@@ -73,8 +73,7 @@ public class Main extends Application {
 		+ "</p>"
 			
 		+ "<p>"
-			+ "This is the hotfixed version 0.1.97. Everything should be working as it did in 0.1.96.5, but now I have the vast majority of the necessary framework in place to add in the first of the multiple-partner scenes in the next release."
-			+ " The multiple-partner sex scene which is found in slave's rooms at the moment is just for testing, and will still be quite buggy."
+			+ "I'm very close to finishing the new sex & orgasm content now - just another few days and it will be all done! I'll then move on to combat & Nyan work. :3"
 		+ "</p>"
 		
 		+ "<p>"
@@ -85,111 +84,71 @@ public class Main extends Application {
 		+ "</br>"
 
 		+ "<list>"
-			+ "<h6>v0.1.96.5</h6>"
-			+"<li>Engine:</li>"
-			+"<ul>Slightly improved enchanting mechanics to add in a limit to the number of enchantments possible on each item (default 100).</ul>"
-				
-			+"<li>Gameplay:</li>"
-			+"<ul>Added a small section of the main quest (just finishing up Arthur moving into Lilaya's home).</ul>"
-			+"<ul>Added the side-quest 'Arthur's Experiments', available after assigning a room to Arthur, and from which you obtain a way to change both the PC's and NPCs' sexual orientation.</ul>"
-				
-			+"<li>Sex:</li>"
-			+"<ul>Reverted the removal of mutual orgasms.</ul>"
-			+"<ul>Dominant NPCs will no longer respect your requests in non-consensual sex.</ul>"
-			+"<ul>Added 'spread ass' action.</ul>"
-				
-			+"<li>Other:</li>"
-			+"<ul>Legendary items, weapons, and clothing will no longer be removed from tiles.</ul>"
-			+"<ul>Demonic wings now allow flight when grown to be large enough. (Flight only affects a couple of actions so far.)</ul>"
-			+"<ul>Added correct player-partner use descriptions for all items.</ul>"
-			+"<ul>Slightly adjusted item prices.</ul>"
-			+"<ul>Very slightly changed Rose's 'Slavery' dialogue (the one about her and Lilaya's relationship).</ul>"
-			+"<ul>Removed ability to cycle orientation in the phone's fetish screen (as this can now be achieved by using the new item).</ul>"
-			+"<ul>Updated Kate's clothing and appearance.</ul>"
-				
-			+"<li>Contributors:</li>"
-			+"<ul>Fixed alligator-morph eyes from having round to vertical pupils by default. (Rfpnj)</ul>"
-				
-			+"<li>Bugs:</li>"
-			+"<ul>Jolnir's hat is no longer feminine.</ul>"
-			+"<ul>Demon attackers will now correctly prefer to use their penis.</ul>"
-			+"<ul>Nyan should now have correct hair/fur colour (black) when importing older games.</ul>"
-			+"<ul>Fixed some unfinished reindeer overseer dialogue.</ul>"
-			+"<ul>Fixed Lilaya's pregnancy dialogue to correctly reflect how pregnancies work in LT.</ul>"
-			+"<ul>Fixed major bug in AbstractClothing's hashCode method that was causing crashes.</ul>"
-			+"<ul>Fixed bug where physical resistance (and other effects) from clothing would not be removed when inventory was reset (most noticeably in character creation, when pressing start/back repeatedly).</ul>"
-			+"<ul>Fixed old elixir and potion imports showing 'null' as their background icon.</ul>"
-			+"<ul>Minor fix to Lilaya's post-creampie-sex scene.</ul>"
-			+"<ul>Fixed minor inventory text formatting bug.</ul>"
-			+"<ul>Temporarily stopped chemise from blocking groin areas until I can rework the clothing displacement system (there were some major issues with wearing chemise & pantyhose).</ul>"
-		+ "</list>"
+			+ "<h6>v0.1.97.5</h6>"
+			+"<li>Engine:<li>"
+			+"<ul>Updated to Java 9.0.1. If you're using the .jar version of the game, please update your Java to 9.0.1 (.exe versions are unaffected).<ul>"
+			+"<ul>Finished converting the save system to .xml. All saves now use the new .xml system, so you won't need to export/import between versions anymore.<ul>"
+			+"<ul>Optimised NPC load method, so loading a game should now be faster.<ul>"
+			+"<ul>Added support for conditional parsing commands to the parsing engine. I'll add documentation for this soon.<ul>"
+			+"<ul>Finished refactor of all sex engine code to properly support multiple-partner sex scenes.<ul>"
 
-		+ "</br>"
-		
-		+ "<list>"
-			+ "<h6>v0.1.96.9</h6>"
-			+"<li>Engine:</li>"
-			+"<ul>Added: Huge amount of engine support for multiple partners in sex. This required an enormous refactor of how sex is handled in the engine, which took up ~90% of the time this week.</ul>"
-			+"<ul>Final sex mechanics (taking the form of 'lust' and stamina) have been half-added to the engine.</ul>"
-				
-			+"<li>Sex:</li>"
-			+"<ul>You should now be able to use all of your hands/tails during sex.</ul>"
-				
-			+"<li>Gameplay:</li>"
-			+"<ul>Added double room upgrade, so you can now house two slaves in each room.</ul>"
-				
-			+"<li>Clothing:</li>"
-			+"<ul>Added: Women's leather jacket (feminine, over-torso slot). (I added this to complete Kate's new outfit.)</ul>"
-			+"<ul>Added: Striped panties (feminine, groin slot).</ul>"
-			+"<ul>Added: Striped bra (feminine, chest slot).</ul>"
-			+"<ul>Added: Striped thigh-high socks (feminine, sock slot).</ul>"
-				
-			+"<li>UI:</li>"
-			+"<ul>Moved weapons & jewellery into the 'equipped' panel, so all equipped items are now grouped into the same UI element.</ul>"
-			+"<ul>Fixed bugs related to tooltip positioning causing some UI elements to become inaccessible.</ul>"
-				
-			+"<li>Other:</li>"
-			+"<ul>Removed 'Wing' clothing slot. (I might add this again in the future, but I was struggling to think of any 'wing clothing' to add to that slot.)	</ul>"
-			+"<ul>Tweaked drop rate of racial consumables (the ones that are able to be enchanted into transformatives are now a little more common).</ul>"
-			+"<ul>Added more control over selecting font size in the option menu.</ul>"
-				
-			+"<li>Bugs:</li>"
-			+"<ul>Minor formatting error fixes.</ul>"
-			+"<ul>The sex action 'Spread ass' is now correctly available for the player.</ul>"
-			+"<ul>NPCs should no longer get stuck on trying to transform your genitals after beating you in combat.</ul>"
-			+"<ul>Enchanted weapons (those with with stat buffs) now correctly apply their buffs when importing a save/character.</ul>"
-			+"<ul>Minor fix to default gender names (changed an instance of 'doll' to 'neuter').</ul>"
-			+"<ul>Minor typo fixes.</ul>"
-			+"<ul>Fixed hypno-watch and Arthur's package being found in alleyways.</ul>"
-			+"<ul>You can no longer purchase Arthur's Room upgrade before progressing to the correct point in the main quest.</ul>"
-			+"<ul>Fixed encyclopedia preview pictures not working.</ul>"
-			+"<ul>Fixed an error in changing what your slave calls you through the 'Permissions' screen.</ul>"
-			+"<ul>Fixed bug where pressing enter on a blank text field would cause the centre panel of the UI to go blank.</ul>"
-		+ "</list>"
+			+"<li>UI:<li>"
+			+"<ul>Updated Save/Load UI, and changed Export/Import to exported character management screen.<ul>"
+			+"<ul>Updated inventory slot positions. (This should now be the final layout.)<ul>"
 
-		+ "</br>"
-		
-		+ "<list>"
-			+ "<h6>v0.1.97 (hotfix)</h6>"
-			+"<li>UI:</li>"
-			+"<ul>Minor fixes to some of the new elements in sex.</ul>"
-			+"<ul>Fixed minor error in light theme's sex display.</ul>"
-			
-			+"<li>Other:</li>"
-			+"<ul>Slaves with the 'unwilling fuck-toy' fetish will no longer lose affection from being assigned to the public stocks.</ul>"
-			
-			+"<li>Bugs:</li>"
-			+"<ul>Fixed major bug where you couldn't interact with any items an NPC had in their inventory (making all shopkeepers unable to sell you anything).</ul>"
-			+"<ul>Vicky no longer has her penile virginity.</ul>"
-			+"<ul>Vicky will now correctly perform penetrative actions in her sex scene.</ul>"
-			+"<ul>Fixed 'stop sex' being available in all scenes.</ul>"
-			+"<ul>Fixed bug where you couldn't remove your own clothing in some sex scenes.</ul>"
-			+"<ul>'Core lust' changes should no longer show up in the event log.</ul>"
-			+"<ul>'Stop penetration' sex actions should now correctly work again.</ul>"
-			+"<ul>Antler headband is no longer feminine.</ul>"
-			+"<ul>Nyan will no longer stock Christmas-themed clothing.</ul>"
-			+"<ul>Fixed incorrect & buggy orgasm descriptions.</ul>"
-			+"<ul>Fixed 'Locked in stocks' sex's orifices being available when they shouldn't have been.</ul>"
+			+"<li>Sex:<li>"
+			+"<ul>NPCs should no longer switch positions just before they orgasm.<ul>"
+			+"<ul>NPCs will no longer instantly re-penetrate themselves on the same turn that you forbid or stop all self-penetrative actions.<ul>"
+			+"<ul>Reworked all back-end code for generic orgasms, ready to write in more detailed content for the full release.<ul>"
+			+"<ul>Added 'cum on area' orgasm options, to allow you to cum on a specific area of your partner's body. (Not completely finished yet.)<ul>"
+
+			+"<li>Other:<li>"
+			+"<ul>Demons now only have 1 pair of breasts by default. (I originally intended this to be the case, but I ended up giving them 3 a long time ago to test multiple-breast rows, and forgot to change it back.)<ul>"
+			+"<ul>Improved corruption descriptions to reflect the fact that corruption is a measure of perversion.<ul>"
+			+"<ul>Offspring are now permanently removed from the encounterable NPC list when you tell them to leave. (I'll add a way to manually find them again in the future.)<ul>"
+			+"<ul>Penis, anus, nipple, and vagina sex actions (such as 'Finger him/her' and 'Stroke his/her cock') are now completely hidden until you discover if the NPC has the correct genitals/nipples/anus to perform those actions on.<ul>"
+			+"<ul>Removed old lore reference to the arcane making everyone bi-sexual (this was the case before I added sexual orientations to the game).<ul>"
+			+"<ul>Moved pregnancy lore information out of the phone's 'Pregnancy stats' page and into a book in Lilaya's library.<ul>"
+			+"<ul>Forced TFs will now increase your cum production, where appropriate.<ul>"
+			+"<ul>Gynephilic NPCs will now prefer to forcibly TF you into a female, unless they have the 'pregnancy' or 'broodmother' fetishes, in which case they will prefer to TF you into a futanari, shemale, or trap.<ul>"
+			+"<ul>Added a masochistic/cum addict variation of the 'dirty clothes' status effect.<ul>"
+			+"<ul>Added a 'dirty body' status effect (with matching masochistic/cum addict variation), which is applied if any of your body parts are covered in cum. (Can be removed by washing in your room.)<ul>"
+
+			+"<li>Contributors:<li>"
+			+"<ul>Added Linux font compatibility (added Carlito as an alternative font for Calibri). (by PyrophoricPlumage)<ul>"
+			+"<ul>Fixed incorrect colour reference. (by CognitiveMist)<ul>"
+			+"<ul>Numerous performance improvements. (by CognitiveMist)<ul>"
+			+"<ul>Addressed some control flow & code style items. (by CognitiveMist)<ul>"
+			+"<ul>Fixed striped leggings, panties, and bra using incorrect colour variables. (by Tukaima)<ul>"
+
+			+"<li>Bugs:<li>"
+			+"<ul>NPC orgasms should now function correctly (that is, they should now cum inside when they're supposed to).<ul>"
+			+"<ul>Typo fixes (some minor ones in tooltips, changing 'reindeer morph' to be hyphenated like other races, and several other small fixes).<ul>"
+			+"<ul>Imported slaves at the auction block no longer spawn in as being pregnant.<ul>"
+			+"<ul>Fixed bugs related to Finch's ownership of slaves. (He should now correctly lose ownership of slaves you purchase from the auction block.)<ul>"
+			+"<ul>Fixed incorrect penis reveal dialogue (where the NPC would compare your penis size to their own, non-existent penis).<ul>"
+			+"<ul>Fixed enchanting bug where crafting a potion to change a certain body type (primarily horns) would then lock out transformation options for other racial potions.<ul>"
+			+"<ul>Fixed hypno-watch effect description returning 'command_unknown'.<ul>"
+			+"<ul>Slightly changed piercing slot descriptions to reflect whether or not your character knows what the NPC's genitals/nipples look like.<ul>"
+			+"<ul>Nyan's inventory is now correctly saved/loaded.<ul>"
+			+"<ul>Multiple partner sex scenes should no loner suddenly lose one of the NPC partners.<ul>"
+			+"<ul>Fixed major game-freezing bug where if you were on the receiving end of penetrative non-consensual sex, and your partner reached orgasm but you did not, you would get stuck on the 'receive creampie' and 'request pullout' options.<ul>"
+			+"<ul>Fixed duplicate actions showing up in Kate's and Lilaya's sex scenes.<ul>"
+			+"<ul>When starting from a character import, the flag that sets your having met Brax is now correctly reset.<ul>"
+			+"<ul>Fixed minor bug in gender appearance method (masculine characters with no genitals are no assumed to be male if their groin is concealed).<ul>"
+			+"<ul>Added correct description variants for NPCs when consuming the harpy matriarchs' special items.<ul>"
+			+"<ul>Fixed bug where you could perform anilingus and cunnilingus at the same time. (Also fixed a related bug where multiple penis-related sex actions could be performed.)<ul>"
+			+"<ul>Fixed four and five rows of breasts always being described as three.<ul>"
+			+"<ul>Fixed issue where in some screens/dialogue/tooltips, incorrect NPC names or stats would be displayed.<ul>"
+			+"<ul>Can no longer pull up T-shirt from under concealing/blocking clothing.<ul>"
+			+"<ul>NPCs will no longer be stuck at having a fraction of their health, willpower, and stamina.<ul>"
+			+"<ul>Vicky's post-sex scene will now correctly no longer reference Arthur's package after you've completed that section of the side-quest.<ul>"
+			+"<ul>Importing a game that was exported while the difficulty was set to anything above 'Human' will no loner lock all NPC's levels to being double that of yours.<ul>"
+			+"<ul>Slightly improved genetics/inheritance method, so that offspring's ass & hip sizes (and probably a few other things) will now more closely resemble that of their parents.<ul>"
+			+"<ul>Fixed bugged arousal gain values in sex.<ul>"
+			+"<ul>Winter event Reindeer-morphs will no longer spawn in as human (if your furry settings are set to 'Human', then they'll spawn in as minor Reindeer-morphs).<ul>"
+			+"<ul>Reindeer overseers and cultist chapels should now both be able to be accessed if they are on the same tile.<ul>"
+			+"<ul>'Spread pussy' action will now transfer lubrication between fingers & vagina.<ul>"
 		+ "</list>"
 		;
 	
@@ -220,7 +179,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-		credits.add(new CreditsSlot("Anonymous", "", 0, 6, 115+61, 37+21));
+		credits.add(new CreditsSlot("Anonymous", "", 0, 6, 115+61, 37+20));
 		
 
 		credits.add(new CreditsSlot("fun_bot", "", 0, 0, 0, 2));
@@ -242,6 +201,9 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("masterpuppet", "", 0, 0, 2, 0));
 
 		credits.add(new CreditsSlot("Endness", "", 0, 0, 0, 1));
+		credits.add(new CreditsSlot("Aleskah", "", 0, 0, 0, 1));
+		credits.add(new CreditsSlot("The Void Prince", "", 0, 0, 1, 0));
+		
 		
 		
 		
