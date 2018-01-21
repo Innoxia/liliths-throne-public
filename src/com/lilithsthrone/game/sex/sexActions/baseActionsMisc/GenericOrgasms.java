@@ -788,7 +788,7 @@ public class GenericOrgasms {
 						}
 					}
 				case BACK:
-					if (Sex.getTargetedPartner(characterOrgasming).getHighestZLayerCoverableArea(CoverableArea.ASS)!=null) {
+					if (Sex.getTargetedPartner(characterOrgasming).getHighestZLayerCoverableArea(CoverableArea.BACK)!=null) {
 						if(!Sex.getTargetedPartner(characterOrgasming).isPlayer()) {
 							return UtilText.parse(Sex.getTargetedPartner(characterOrgasming), " all over [npc2.name]'s "+Sex.getTargetedPartner(characterOrgasming).getHighestZLayerCoverableArea(CoverableArea.BACK).getName()+".");
 						} else {
@@ -802,7 +802,7 @@ public class GenericOrgasms {
 						}
 					}
 				case BREASTS:
-					if (Sex.getTargetedPartner(characterOrgasming).getHighestZLayerCoverableArea(CoverableArea.ASS)!=null) {
+					if (Sex.getTargetedPartner(characterOrgasming).getHighestZLayerCoverableArea(CoverableArea.BREASTS)!=null) {
 						if(!Sex.getTargetedPartner(characterOrgasming).isPlayer()) {
 							return UtilText.parse(Sex.getTargetedPartner(characterOrgasming), " all over [npc2.name]'s "+Sex.getTargetedPartner(characterOrgasming).getHighestZLayerCoverableArea(CoverableArea.BREASTS).getName()+".");
 						} else {
@@ -816,7 +816,7 @@ public class GenericOrgasms {
 						}
 					}
 				case FACE:
-					if (Sex.getTargetedPartner(characterOrgasming).getHighestZLayerCoverableArea(CoverableArea.ASS)!=null) {
+					if (Sex.getTargetedPartner(characterOrgasming).getHighestZLayerCoverableArea(CoverableArea.MOUTH)!=null) {
 						if(!Sex.getTargetedPartner(characterOrgasming).isPlayer()) {
 							return UtilText.parse(Sex.getTargetedPartner(characterOrgasming), " all over [npc2.name]'s "+Sex.getTargetedPartner(characterOrgasming).getHighestZLayerCoverableArea(CoverableArea.MOUTH).getName()+".");
 						} else {
@@ -832,7 +832,7 @@ public class GenericOrgasms {
 				case FLOOR:
 					return " out all over the floor.";
 				case STOMACH:
-					if (Sex.getTargetedPartner(characterOrgasming).getHighestZLayerCoverableArea(CoverableArea.ASS)!=null) {
+					if (Sex.getTargetedPartner(characterOrgasming).getHighestZLayerCoverableArea(CoverableArea.STOMACH)!=null) {
 						if(!Sex.getTargetedPartner(characterOrgasming).isPlayer()) {
 							return UtilText.parse(Sex.getTargetedPartner(characterOrgasming), " all over [npc2.name]'s "+Sex.getTargetedPartner(characterOrgasming).getHighestZLayerCoverableArea(CoverableArea.STOMACH).getName()+".");
 						} else {
@@ -870,7 +870,7 @@ public class GenericOrgasms {
 					cumInside = true;
 					break;
 				case HAIR:
-					if (Sex.getTargetedPartner(characterOrgasming).getHighestZLayerCoverableArea(CoverableArea.ASS)!=null) {
+					if (Sex.getTargetedPartner(characterOrgasming).getHighestZLayerCoverableArea(CoverableArea.HAIR)!=null) {
 						if(!Sex.getTargetedPartner(characterOrgasming).isPlayer()) {
 							return UtilText.parse(Sex.getTargetedPartner(characterOrgasming), " all over [npc2.name]'s "+Sex.getTargetedPartner(characterOrgasming).getHighestZLayerCoverableArea(CoverableArea.HAIR).getName()+".");
 						} else {
@@ -884,7 +884,7 @@ public class GenericOrgasms {
 						}
 					}
 				case LEGS:
-					if (Sex.getTargetedPartner(characterOrgasming).getHighestZLayerCoverableArea(CoverableArea.ASS)!=null) {
+					if (Sex.getTargetedPartner(characterOrgasming).getHighestZLayerCoverableArea(CoverableArea.LEGS)!=null) {
 						if(!Sex.getTargetedPartner(characterOrgasming).isPlayer()) {
 							return UtilText.parse(Sex.getTargetedPartner(characterOrgasming), " all over [npc2.name]'s "+Sex.getTargetedPartner(characterOrgasming).getHighestZLayerCoverableArea(CoverableArea.LEGS).getName()+".");
 						} else {
