@@ -28,6 +28,7 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.controller.TooltipUpdateThread;
+import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.History;
@@ -501,10 +502,10 @@ public class Game implements Serializable, XMLSaving {
 					if(!addedIds.contains(((Element)e.getElementsByTagName("id").item(0)).getAttribute("value"))) {
 						@SuppressWarnings("unchecked")
 						Class<? extends NPC> npcClass = (Class<? extends NPC>) Class.forName(((Element)e.getElementsByTagName("pathName").item(0)).getAttribute("value"));
-						Method m = npcClass.getMethod("loadFromXML", Element.class, Document.class);
+						Method m = npcClass.getMethod("loadFromXML", Element.class, Document.class, CharacterImportSetting[].class);
 						
 						NPC npc = npcClass.getDeclaredConstructor(boolean.class).newInstance(true);
-						m.invoke(npc, e, doc);
+						m.invoke(npc, e, doc, new CharacterImportSetting[] {});
 						newGame.addNPC(npc, true);
 						addedIds.add(npc.getId());
 						
