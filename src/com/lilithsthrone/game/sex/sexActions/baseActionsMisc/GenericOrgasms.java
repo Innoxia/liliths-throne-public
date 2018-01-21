@@ -840,9 +840,9 @@ public class GenericOrgasms {
 						}
 					} else {
 						if(!Sex.getTargetedPartner(characterOrgasming).isPlayer()) {
-							return UtilText.parse(Sex.getTargetedPartner(characterOrgasming), " all over [npc.name]'s "+(characterOrgasming.isVisiblyPregnant()?"pregnant belly":"stomach")+".");
+							return UtilText.parse(Sex.getTargetedPartner(characterOrgasming), " all over [npc.name]'s "+(Sex.getTargetedPartner(characterOrgasming).isVisiblyPregnant()?"pregnant belly":"stomach")+".");
 						} else {
-							return " all over your "+(characterOrgasming.isVisiblyPregnant()?"pregnant belly":"stomach")+".";
+							return " all over your "+(Sex.getTargetedPartner(characterOrgasming).isVisiblyPregnant()?"pregnant belly":"stomach")+".";
 						}
 					}
 				case GROIN:
