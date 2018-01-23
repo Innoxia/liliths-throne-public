@@ -44,4 +44,13 @@ public class SMStocks extends SexManagerDefault {
 		}
 	}
 
+	@Override
+	public boolean isPartnerCanRemoveOwnClothes(){
+		return false;
+	}
+
+	@Override
+	public boolean isPartnerCanRemovePlayersClothes(){
+		return false;
+	}
 }

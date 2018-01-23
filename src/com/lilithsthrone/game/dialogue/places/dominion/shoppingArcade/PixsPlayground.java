@@ -720,7 +720,7 @@ public class PixsPlayground {
 	
 
 	
-	public static final DialogueNodeOld PIX_POST_SEX = new DialogueNodeOld("Pix dresses you", "You're too tired to complain as Pix starts dressing you.", false) {
+	public static final DialogueNodeOld PIX_POST_SEX = new DialogueNodeOld("Pix dresses you", "You're too tired to complain as Pix starts dressing you.", true) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override

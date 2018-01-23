@@ -619,11 +619,10 @@ public class SlaverAlleyDialogue {
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STOCKS_FUCKING)),
 								Util.newHashMapOfValues(new Value<>(charactersPresent.get(index-1), SexPositionSlot.STOCKS_LOCKED_IN_STOCKS))),
 						AFTER_STOCKS_SEX,
-						UtilText.parse(Main.game.getActiveNPC(),
 						"<p>"
 							+ "Deciding that you'd like to have some fun with the [npc.race] in the stocks nearest to you, you walk up behind [npc.herHim]."
 							+ " [npc.She] lets out a little [npc.moan] as [npc.she] hears you, and shifts [npc.her] [npc.hips+] in anticipation of what's about to happen..."
-						+ "</p>")) {
+						+ "</p>") {
 					@Override
 					public void effects() {
 						Main.game.setActiveNPC(charactersPresent.get(index-1));
@@ -640,11 +639,10 @@ public class SlaverAlleyDialogue {
 
 		@Override
 		public String getContent() {
-			return UtilText.parse(Main.game.getActiveNPC(),
-					"<p>"
+			return "<p>"
 						+ "Having had your fun with [npc.name], you step back, grinning as you hear [npc.herHim] let out [npc.a_moan+]."
 						+ " A few people had stopped to watch you using the helpless [npc.race], and some of them compliment you on your performance before moving forwards to have a turn themselves..."
-					+ "</p>");
+					+ "</p>";
 		}
 
 		@Override

@@ -459,7 +459,7 @@ public class PixShowerTime {
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.PENIS,
 			null,
-			SexParticipantType.PITCHER) {
+			SexParticipantType.CATCHER) {
 		
 		@Override
 		public String getActionTitle() {

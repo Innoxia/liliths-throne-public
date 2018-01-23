@@ -2359,6 +2359,10 @@ public class Game implements Serializable, XMLSaving {
 		return new ArrayList<NPC>(NPCMap.values());
 	}
 	
+	public boolean isCharacterExisting(String id) {
+		return NPCMap.containsKey(id);
+	}
+	
 	public GameCharacter getNPCById(String id) {
 		if(id==null || id.isEmpty()) {
 			return null;

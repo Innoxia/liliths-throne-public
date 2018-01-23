@@ -624,6 +624,9 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		for (AbstractClothing c : clothingInInventory) {
 			c.setDirty(false);
 		}
+		for (AbstractClothing c : clothingCurrentlyEquipped) {
+			c.setDirty(false);
+		}
 	}
 	
 	public List<AbstractClothing> getClothingCurrentlyEquipped() {

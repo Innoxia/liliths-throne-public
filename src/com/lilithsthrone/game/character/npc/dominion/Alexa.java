@@ -114,10 +114,12 @@ public class Alexa extends NPC {
 	@Override
 	public void dailyReset() {
 		if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_G_SLAVERY)) {
-			for(String id : slavesOwned) {
-				Main.game.banishNPC(id);
+			for(String id : this.getSlavesOwned()) {
+				if(Main.game.isCharacterExisting(id)) {
+					Main.game.banishNPC(id);
+				}
 			}
-			this.slavesOwned.clear();
+			this.removeAllSlaves();
 			
 			for(int i=0; i<5; i++) {
 				NPC newSlave = new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences());

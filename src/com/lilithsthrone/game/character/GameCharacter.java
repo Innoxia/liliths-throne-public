@@ -1958,6 +1958,16 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return removed;
 	}
 	
+	public void removeAllSlaves() {
+		for(String id : slavesOwned) {
+			if(Main.game.isCharacterExisting(id)) {
+				Main.game.getNPCById(id).setOwner("");
+			}
+		}
+		
+		slavesOwned.clear();
+	}
+	
 	public String getOwnerId() {
 		return owner;
 	}
@@ -6536,7 +6546,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						"You slide your "+penetrationName+" out of your "+orificeName+".");
 			} else {
 				return UtilText.parse(characterPenetrating, characterPenetrated,
-						"You slide your "+penetrationName+" out of [npc.name]'s "+orificeName+".");
+						"You slide your "+penetrationName+" out of [npc2.name]'s "+orificeName+".");
 			}
 			
 		} else {
@@ -7765,8 +7775,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			
 			if((birthedLitter.getFather()!=null && birthedLitter.getFather().isPlayer()) || (birthedLitter.getMother()!=null && birthedLitter.getMother().isPlayer())) {
 				for(String id: birthedLitter.getOffspring()) {
-					NPC npc = (NPC) Main.game.getNPCById(id);
-					if(npc!=null) {
+					if(Main.game.isCharacterExisting(id)) {
+						NPC npc = (NPC) Main.game.getNPCById(id);
 						birthedLitter.setDayOfBirth(Main.game.getDayNumber());
 						npc.setDayOfConception(birthedLitter.getDayOfConception());
 						npc.setDayOfBirth(Main.game.getDayNumber());

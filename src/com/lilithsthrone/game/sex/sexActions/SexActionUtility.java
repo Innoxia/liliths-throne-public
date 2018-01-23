@@ -155,30 +155,30 @@ public class SexActionUtility {
 		}
 	};
 	
-	public static final SexAction PARTNER_ORGASM_MUTUAL_WAIT = new SexAction(
-			SexActionType.PARTNER,
-			ArousalIncrease.ONE_MINIMUM,
-			ArousalIncrease.ONE_MINIMUM,
-			CorruptionLevel.ZERO_PURE,
-			null,
-			null,
-			SexParticipantType.MISC) {
-		@Override
-		public String getActionTitle() {
-			return "";
-		}
-
-		@Override
-		public String getActionDescription() {
-			return "";
-		}
-
-		@Override
-		public String getDescription() {
-			return "From the [npc.moans+] emanating from [npc.name]'s mouth, it's quite obvious that [npc.she]'s about to reach [npc.her] climax."
-					+ " As you're also close to reaching your orgasm, you will both climax at the same time!";
-		}
-	};
+//	public static final SexAction PARTNER_ORGASM_MUTUAL_WAIT = new SexAction(
+//			SexActionType.PARTNER,
+//			ArousalIncrease.ONE_MINIMUM,
+//			ArousalIncrease.ONE_MINIMUM,
+//			CorruptionLevel.ZERO_PURE,
+//			null,
+//			null,
+//			SexParticipantType.MISC) {
+//		@Override
+//		public String getActionTitle() {
+//			return "";
+//		}
+//
+//		@Override
+//		public String getActionDescription() {
+//			return "";
+//		}
+//
+//		@Override
+//		public String getDescription() {
+//			return "From the [npc.moans+] emanating from [npc.name]'s mouth, it's quite obvious that [npc.she]'s about to reach [npc.her] climax."
+//					+ " As you're also close to reaching your orgasm, you will both climax at the same time!";
+//		}
+//	};
 	
 	public static final SexAction PARTNER_ORGASM_SKIP = new SexAction(
 			SexActionType.PARTNER,

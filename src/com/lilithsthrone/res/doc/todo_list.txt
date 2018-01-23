@@ -16,24 +16,38 @@
 	
 	Patch notes:
 	
+	Other:
+		Removed mutual orgasms (again). They weren't really serving much purpose (the only two instances of mutual orgasms were just appending normal orgasm text together), and were removing your control over your partner's orgasm.
+		Converted 'generic' partner orgasms into the new system. They're still a little bland at the moment, but I'll write in more detail this week. :3
+		Reduced default size of horse-morph breasts (from GG to DD), and increased default size of cow-morph breasts (from E to G).
+	
 	Bugs:
+		<b>Fixed:</b> Game freezes/unresponsive orgasm actions during sex (the 'Stay in position' ones).
+		<b>Fixed:</b> Numerous cases of sex actions becoming unavailable when they shouldn't have been. (You should now be able to perform multiple different 'ongoing' penetrations at once, just like you used to be able to.)
 		Fixed pregnant characters not working in 'New game (import)', as well as pregnant characters not being imported in Slaver Alley's auction block.
+		The 'Wash' action in your room will now correctly clean currently equipped clothing.
+		Fixed quite a few reported typos and instances of incorrect gender/character parsing.
+		The 'Pull out' orgasm actions will now correctly stop penis penetration.
+		NPCs in the stocks can no longer manage your or their own clothes.
+		Fixed bug where your partner's ongoing sex actions would be available to you (such as getting fingering options when your partner would be fingering themselves).
+		Fixed a few more causes of game freezes/background errors.
+		Fixed 'Anal tease' sex action sometimes returning a blank description.
 	
 	
-	Washing clothing not working
 	
-	all 3 options of "pix's reward" are bugged, no matter which option i chose i can only chose either "do nothing" or "calm down" then if i click "do nothing" enough till orgasm to try an progress it, i get no options and i have to restart game. using exe version, and imported character if that helps.
+	 
+	 
+	 
+	so in the first scene with Lilaya, before I've even been outside the house, she uses dialogue and sex action about my tail...that I don't have
 	
-	I can't 'stay in position' with brax during dominant sex. Clicking the button does nothing. and pull out and cum <place> end up with him pulling out too
-		That was during mutual orgasm
-	
-	I'm seeing the new status effect from dirty clothes on slaves but i cant seem to get the dity body part effect to proc
-	
-	 i dont seem to be able to double penetrate NPCs anymore? I remember in previous builds i could analy fuck an NPC while using my tail to fuck thier vagina.
-	
-	 Is it not possible to have a slave cum in the player character
-	
-	preferences are completely broke. been getting squirrel and alligator morphs and other dudes despite having all turned off.
+	"Oh yes, your tail feels so good" (It was her tail)
+	 
+	on further inspection she's saying "yes get your tail in there" but the immediate line before it references HER tail being used
+		she also said the same about my fingers despite HER fingers being use
+	 
+	 
+	cami top off from under my hoodie
+	Lilaya displaced my fishnet top before displacing my zipped-up leather jacket.
 	
 	add dirty slot tooltips
 	
@@ -41,49 +55,15 @@
 	
 	the public stocks don't seem to be great at telling who's in them: it's a wolfgirl, but said alligator
 	
-	The game won't let the NPC cum in me the button "stay in place" is not responding, but "cum on floor" and "pull out" are working
-	
-	unequipping the panties crashed the game
-		Virgin killer + lacy panties
-		
-	Unequipping bike shorts crash
-	
 	Ride her cock: also if i'm facing the wall, my hips should buck backwards not forwards, yes
-	
-	also it seems like the system is confusing everyone's hands right now
-		 every time my character is fingered or fingers someone else it intermittently has "them finger themself" or gives me the option to finger myself
-	
-	and now there are cases where penetrative actions does not show itself, even when the characters have their genitals exposed
-		particularly when they're using themselves
-		like a succubus that was nude was nipplefucking herself with her tail, but it hid the options for me to fuck her in the ass or vagina
-	
-	"Oh yes, your tail feels so good" (IT was her tail)
 	
 	can i please disable rimming
 	
 	i really wish characters would like... actually have sex with you, instead of just fuckign themselves in front of you
+		like i just got the witch's chapel thing for the first time, pulls out her dick like she wantsta rape me and she's just tailfuckign herself for orgasm after orgasm
 	
-	like i just got the witch's chapel thing for the first time, pulls out her dick like she wantsta rape me and she's just tailfuckign herself for orgasm after orgasm
 	
-	During sex with Lexi, she started fingering her own asshole and the command to "continue fingering" showed up in the interface.
-		During submissive sex with a random, they forced me to stop kissing them and it mentioned my own mouth rather than theirs.(edited)
-		For the text about sliding your tongue out of their mouth, specifically.
-	
-	so a bug I found is that when I knot a girl it for some reason halfway through the description it starts using my character as the one getting knotted with the same gender descriptors.
-
-	so in the first scene with Lilaya, before I've even been outside the house, she uses dialogue and sex action about my tail...that I don't have
-	
-	on further inspection she's saying "yes get your tail in there" but the immediate line before it references HER tail being used
-	
-	she also said the same about my fingers despite HER fingers being use
-	
-	Washing dirty clothes also no longer removes the debuff
-	
-	Getting fingered by someone else apparently allows me to finger myself in the "Self" menu.
-	
-	npcs no longer comment on body parts the first time they're revealed in sex, it just hs the clothing removal line
-	
-	Anal tease is broken. When I use it* it just reads ">anal tease" and that's all.
+	npcs no longer comment on body parts the first time they're revealed in sex, it just has the clothing removal line
 	
 	NPCs should only spread pussy/ass if they want it used
 	
@@ -95,17 +75,21 @@
 	So im in sex, them in a fuckable position, got nowhere to stick it, so I go to the clothing, its all displaced, but lets just remove it to be sure, still got no place to stick it, look at them, they have a cock, pussy, and its currently wet, no where to stick it, end all penetrations, still no where to stick it. 
 	an 'investigate' option in sex when you are dominant would be nice, you just stick your hand down and feel around, but observant says in game you will know their sex, so that could be a thing that was just not utilized till now, and if that's not the case, xray glasses would be nice just to make it always show.
 	
-	making equine breasts slightly smaller and bovine ones larger
-	
 	there is a bug when I'm fucking someone in the stocks. there are somehow able to unbutton my shirt when I'm behind them.
 	
-	Lilaya displaced my fishnet top before displacing my zipped-up leather jacket.
 	
 	alcoholic and/or psychoactive effects
 	
 	Lilaya sex takes to inventory screen
 	
+	are you supposed to stop giving your partner oral after they orgasm or is that a bug
+	
+	This looks to be a text only bug - when getting transformed, you are made to swallow the vial/flask/bottle twice...
+		Your enemy pulls it out and forces it into your mouth at the previous screen (when you can choose to spit or swallow....heh) and if you opt to get TF'd, they pull  out the potion again and force it down your throat.
+	
 	option to custom slaves at kate's
+	
+	
 	
 	
 	
@@ -190,81 +174,6 @@
 		and the +12 seduction bonus for exposed tiddy+genitals
 		we can't even see her genitals reeeeee
 	
-	
-me with female partner with me as dominant (I'm not going to try testing with me as the submissive)
-
-	standing position
-	-kissing erases the tail fucking and tail pegging options
-	-fingering erases tail pegging
-	tail pegging seems functional (can't tail fuck, but it makes sense since I'm already using my tail)
-	
-	69 position
-	-eating out partner erases paizuri and get blowjob
-	-Partner doing anilingus allows option for partner to also give a blowjob simultaneously
-	-Eating out partner while they are giving anilingus does not have this issue, but it also erases paizuri, something which plain anilingus allows.  I don't know if it's a bug to get tit fucked while also getting my ass eaten, or if it's a bug to be incapable of fucking my partner's tits when she's tonguing my butt hole.  YMMV
-	
-	Partner facing wall
-	-tail fucking erases anal sex, hotdogging, and thigh sex
-	-tail pegging erases vaginal sex – though it may be argued that tail pegging while vaginally fucking your partner is uncomfortable/unfeasable when your partner is facing the wall
-	-kissing erases fucking, anal, tail fucking, tail pegging, hotdogging, and thigh sex
-	
-	back-to-wall position
-	-fingering partner's vagina erases tail pegging
-	-kissing erases thigh fucking, tail pegging, tail fucking, and traditional fucking
-	-fucking erases tail pegging
-	-tail pegging erases traditional fucking and thigh sex(edited)
-		
-Sex action position bugs continued
-	
-	Partner facing wall
-	-Fingering vagina prevents tail pegging
-	-Fingering ass prevents thigh sex, fucking, and tail fucking
-	
-	Back-to-wall position
-	-thigh sex prevents tail options, though it could be argued that your tail isn't long enough
-	
-	Cowgirl
-	-kissing prevents tail fucking and tail pegging
-	-paizuri prevents tail fucking and tail pegging
-	-fingering prevents tail pegging and paizuri
-	-tail fucking prevents paizuri
-	-tail pegging prevents paizuri
-	
-	Doggy Style (giving oral)
-	-Anilingus should prevent you from eating your partner out
-	-Eating partner out should prevent you from doing anilingus
-	Anal and vaginal fingering seemed fine
-	
-	no issues found in Kneel (receive oral), Kneel (give oral), and Doggy Style (receiving oral) - though the last one might be buggy if you have a vagina(edited)
-	
-	
-	 If your partner's fingering themself, you can't do anything with their dick
-		Even if nothing's going on with their dick
-		
-Checking sex actions for Male/Male activity
-	
-	Standing
-	-kissing prevents you from tail pegging your partner
-	Face to wall
-	-hot dogging should probably prevent you from anal fingering (I think?)
-	Back to wall
-	-kissing prevents you from tail pegging and thigh sex
-	-receiving thigh sex prevents your partner from also tail pegging you (or it should prevent you from tail pegging your partner maybe?)
-	-thigh sex on partner prevents you from tail pegging them (or it should prevent you from getting tail pegged by your partner?)
-	-getting tail pegged and tail pegging prevents thigh sex, also prevents you from stroking your partner's cock and also from stroking your own cock
-	Doggy Style (receiving)
-	-getting hot dogged should prevent you from getting anally fingered (assuming that hot dogging also prevents anal fingering in the face to wall example).  Should also prevent you from tail pegging self and anal fingering self
-	Doggy Style (give oral) and Doggy Style (receive oral) – Seem fine
-	Still have more to do though
-	Other thing I noticed – Submissive partner doesn't have a chest status in the sidebar UI like the dominant does
-		
-		
-- As anon posted above, for any knotting (mouth, pussy, or ass) the text acts as if I were the one being knotted, down to using my pronouns. However, the "creampie" status is properly applied to my partner.
-
-- When in the standing position, the one that starts standard dom sex, *if* I start fingering my sub, *then* I can't start kissing her (the button disappears). However, if I start kissing first, everything works as normal.
-
-In the same vein as the kissing/fingering thing, when my sub is back-to-wall, *if* I start kissing her, the option to fuck her disappears. The option to finger her remains, if that's of any help to you. Stopping kissing re-enables the fuck option, but taking it vanishes the kiss option. I'm going to set up a spreadsheet to try out various combos of position and actions. Results when I finish.
-		
 		
 		
 		

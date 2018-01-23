@@ -23,7 +23,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.90
+ * @version 0.1.98
  * @author Innoxia
  */
 public interface SexActionInterface {
@@ -224,7 +224,7 @@ public interface SexActionInterface {
 				if(this.getParticipantType()==SexParticipantType.CATCHER && getAssociatedPenetrationType()==PenetrationType.PENIS && !Sex.getActivePartner().getPlayerKnowsAreasMap().get(CoverableArea.PENIS)) {
 					return null;
 				}
-				if(this.getParticipantType()==SexParticipantType.PITCHER) {
+				if(!this.getParticipantType().isUsingSelfOrificeType()) {
 					if(getAssociatedOrificeType()!=null) {
 						switch(getAssociatedOrificeType()){
 							case NIPPLE:
@@ -312,9 +312,11 @@ public interface SexActionInterface {
 			// If this is a 'start penetration' action, check to see if all the requirements are met:
 			} else if(getActionType()==SexActionType.PLAYER_PENETRATION || getActionType() == SexActionType.PARTNER_PENETRATION) {
 				
-				if(getActionType() == SexActionType.PARTNER_PENETRATION && this.getParticipantType() == SexParticipantType.SELF
-						&& (getAssociatedOrificeType() == OrificeType.VAGINA && getAssociatedPenetrationType().isTakesVirginity()
-								&& (Sex.getActivePartner().hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN)) || Sex.getActivePartner().hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN_LUSTY_MAIDEN))) {
+				if(getActionType() == SexActionType.PARTNER_PENETRATION
+						&& this.getParticipantType() == SexParticipantType.SELF
+						&& getAssociatedOrificeType() == OrificeType.VAGINA
+						&& getAssociatedPenetrationType().isTakesVirginity()
+						&& (Sex.getActivePartner().hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN) || Sex.getActivePartner().hasStatusEffect(StatusEffect.FETISH_PURE_VIRGIN_LUSTY_MAIDEN))) {
 					return null;
 				}
 				
@@ -327,7 +329,7 @@ public interface SexActionInterface {
 							}
 							
 						} else { // Partner is performing action:
-							if((!Sex.isSubHasEqualControl() && Sex.isDom(Main.game.getPlayer())) || getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING) {
+							if((!Sex.isSubHasEqualControl() && !Sex.isDom(Sex.getActivePartner())) || getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING) {
 								return null;
 							}
 						}
@@ -425,10 +427,18 @@ public interface SexActionInterface {
 			// The PenetrationType needs to be penetrating the OrificeType to unlock this action.
 			} else {
 				if(getAssociatedPenetrationType()!=null && getAssociatedOrificeType()!=null) {
+					GameCharacter currentCharacterPenetrating = Sex.getPenetratingCharacterUsingOrifice(getOrificeCharacter(), getAssociatedOrificeType());
+					if(currentCharacterPenetrating!=null && !currentCharacterPenetrating.equals(getPenetratingCharacter())) {
+						return null;
+					}
+					if(!Sex.getCharactersBeingPenetratedBy(getPenetratingCharacter(), getAssociatedPenetrationType()).contains(getOrificeCharacter())) {
+						return null;
+					}
+					
 					if(Sex.getPenetrationTypeInOrifice(getOrificeCharacter(), getAssociatedOrificeType()) != getAssociatedPenetrationType()
 							|| (this.getParticipantType()==SexParticipantType.SELF
 										?!this.getPenetratingCharacter().equals(this.getOrificeCharacter())
-										:this.getPenetratingCharacter().equals(this.getOrificeCharacter()))) {
+										:this.getPenetratingCharacter().equals(this.getOrificeCharacter()))) { //TODO
 						return null;
 					}
 				}
@@ -746,6 +756,8 @@ public interface SexActionInterface {
 	}
 	
 	public default List<OrificeType> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) { return null; }
+
+	public default List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) { return null; }
 	
 	public default boolean ignoreCondom(GameCharacter condomWearer) {
 		return false;

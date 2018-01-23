@@ -42,7 +42,6 @@ import com.lilithsthrone.utils.Util.Value;
  */
 public enum Encounter {
 
-	
 	LILAYAS_HOME_CORRIDOR(Util.newHashMapOfValues(
 			new Value<EncounterType, Float>(EncounterType.SLAVE_USES_YOU, 5f))) {
 		@Override

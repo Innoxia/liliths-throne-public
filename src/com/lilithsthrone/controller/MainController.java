@@ -464,9 +464,9 @@ public class MainController implements Initializable {
 //								 System.out.println(Util.intToString(i));
 //							 }
 							 
-							 Main.game.getPlayer().addDirtySlot(InventorySlot.GROIN);
-							 Main.game.getPlayer().addDirtySlot(InventorySlot.MOUTH);
-							 Main.game.getPlayer().addDirtySlot(InventorySlot.LEG);
+//							 Main.game.getPlayer().addDirtySlot(InventorySlot.GROIN);
+//							 Main.game.getPlayer().addDirtySlot(InventorySlot.MOUTH);
+//							 Main.game.getPlayer().addDirtySlot(InventorySlot.LEG);
 							 
 //							 System.out.println(Main.isVersionOlderThan("0.1.84", Main.VERSION_NUMBER));
 							 
