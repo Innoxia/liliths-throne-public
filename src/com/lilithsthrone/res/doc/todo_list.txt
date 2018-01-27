@@ -29,6 +29,10 @@
 		Fixed bug where creampie effects could stop being applied.
 		NPCs should no longer switch positions the moment before orgasm. (I thought I'd fixed this before, but there was anotehr cause of it.)
 		Creampie effects should no longer instantly disappear when sex ends.
+		Fixed Ralph's discount incrementing to the point where he pays you to take his items from him.
+		(Hopefully) Fixed the error where Lilaya's sex scene would sometimes freeze.
+	
+	
 	
 	
 	
@@ -39,21 +43,11 @@
 
 	trying to bang lilaya in newest version, the game crashes when I try to pull down her bra or grope her tits, gonna wait for hotfix
 
-	The discount thing is broken, he's paying you for buying his stuff.
-		you can get a 'big discount' from Ralph, and when you select [take it] during the anal scene the percentage discount increases by 15% each time
-	
-	 Dealing with cum inflation, As you inflate the character, it goes through the 'pregnancy' sized phases correctly, untill you reach the max size, then if you go beyond that, (something like 4L) The description goes to 'early pregancy' again.
-		[18:04] Jimmythehand: Looks like roll over or something
-	
-	
 	: My character was on submissive role 69ing, while receiving a blowjob reached orgasm, but for some reason "Pull Out (chest)" didn't work. Then I tried Pull Out (facial) and it worked.
-	
 	
 	When NPC is virgin:
 		I'm still a virgin, ok
 		This is going to be good (while performing paizuri)
-	
-	
 	
 	
 	

@@ -2386,7 +2386,9 @@ public enum Sex {
 		if (playerClothing) {
 			SimpleEntry<AbstractClothing, DisplacementType> clothingRemoval = Main.game.getPlayer().getNextClothingToRemoveForCoverableAreaAccess(coverableArea);
 			if (clothingRemoval.getKey() == null) {
-				throw new NullPointerException("No clothing found to remove!");
+				unequipClothingText = "[npc.Name] can't find a piece of clothing to remove! (Please tell Innoxia. :3)";
+				System.err.println("partnerManageClothingToAccessCoverableArea method can't get clothing! 1");
+				return SexActionUtility.CLOTHING_REMOVAL;
 			}
 			
 			clothingBeingRemoved = clothingRemoval.getKey();
@@ -2402,8 +2404,11 @@ public enum Sex {
 
 		} else {
 			SimpleEntry<AbstractClothing, DisplacementType> clothingRemoval = activePartner.getNextClothingToRemoveForCoverableAreaAccess(coverableArea);
-			if (clothingRemoval.getKey() == null)
-				throw new NullPointerException("No clothing found to remove!");
+			if (clothingRemoval.getKey() == null) {
+				unequipClothingText = "[npc.Name] can't find a piece of clothing to remove! (Please tell Innoxia. :3)";
+				System.err.println("partnerManageClothingToAccessCoverableArea method can't get clothing! 2");
+				return SexActionUtility.CLOTHING_REMOVAL;
+			}
 
 			clothingBeingRemoved = clothingRemoval.getKey();
 
