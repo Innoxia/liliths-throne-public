@@ -1483,50 +1483,54 @@ public class OptionsDialogue {
 					+ "</div>"
 					
 					+"<div class='cosmetics-inner-container'>"
-					+ "<h5 style='text-align:center; color:"+Colour.BASE_GREEN.toWebHexString()+";'>"
+						+ "<h5 style='text-align:center; color:"+Colour.BASE_GREEN.toWebHexString()+";'>"
 						+ "Forced TF Gender Tendency"
-					+"</h5>"
-					+ "<p style='text-align:center;'>"
+						+"</h5>"
+						+ "<p style='text-align:center;'>"
 						+ "This allows you to override NPC tastes when a forced transformation will alter your gender presentation."
-					+ "</p>"
+						+ "</p>"
 					+(Main.getProperties().forcedTFTendency==ForcedTFTendency.NEUTRAL
-					?"<div id='FORCED_TF_TENDENCY_\"+ForcedTFTendency.NEUTRAL+\"' class='cosmetics-button active'>"
-							+ "[style.boldGood("+ForcedTFTendency.NEUTRAL.getName()+")]"
-							+ "</div>"
-					:"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.NEUTRAL+"' class='cosmetics-button'>"
-							+ "<span style='color:"+Colour.GENERIC_BAD.getShades()[0]+";'>"+ForcedTFTendency.NEUTRAL.getName()+"</span>"
-							+ "</div>")	
-							+ ("<br>")	
+						?"<div id='FORCED_TF_TENDENCY_\"+ForcedTFTendency.NEUTRAL+\"' class='cosmetics-button active'>"
+						+ "[style.boldGood("+ForcedTFTendency.NEUTRAL.getName()+")]"
+						+ "</div>"
+						:"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.NEUTRAL+"' class='cosmetics-button'>"
+						+ "<span style='color:"+Colour.GENERIC_BAD.getShades()[0]+";'>"+ForcedTFTendency.NEUTRAL.getName()+"</span>"
+						+ "</div>")	
+						+ ("<br>")	
 					+(Main.getProperties().forcedTFTendency==ForcedTFTendency.FEMININE
 						?"<div id='FORCED_TF_TENDENCY_\"+ForcedTFTendency.FEMININE+\"' class='cosmetics-button active'>"
-								+ "[style.boldGood("+ForcedTFTendency.FEMININE.getName()+")]"
-								+ "</div>"
+						+ "[style.boldGood("+ForcedTFTendency.FEMININE.getName()+")]"
+						+ "</div>"
 						:"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.FEMININE+"' class='cosmetics-button'>"
-								+ "<span style='color:"+Colour.FEMININE.getShades()[0]+";'>"+ForcedTFTendency.FEMININE.getName()+"</span>"
-								+ "</div>")
+						+ "<span style='color:"+Colour.FEMININE.getShades()[0]+";'>"+ForcedTFTendency.FEMININE.getName()+"</span>"
+						+ "</div>")
 					+(Main.getProperties().forcedTFTendency==ForcedTFTendency.FEMININE_HEAVY
-							?"<div id='FORCED_TF_TENDENCY_\"+ForcedTFTendency.FEMININE_HEAVY+\"' class='cosmetics-button active'>"
-									+ "[style.boldGood("+ForcedTFTendency.FEMININE_HEAVY.getName()+")]"
-									+ "</div>"
-							:"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.FEMININE_HEAVY+"' class='cosmetics-button'>"
-									+ "<span style='color:"+Colour.FEMININE.getShades()[0]+";'>"+ForcedTFTendency.FEMININE_HEAVY.getName()+"</span>"
-									+ "</div>")
-					
+						?"<div id='FORCED_TF_TENDENCY_\"+ForcedTFTendency.FEMININE_HEAVY+\"' class='cosmetics-button active'>"
+						+ "[style.boldGood("+ForcedTFTendency.FEMININE_HEAVY.getName()+")]"
+						+ "</div>"
+						:"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.FEMININE_HEAVY+"' class='cosmetics-button'>"
+						+ "<span style='color:"+Colour.FEMININE.getShades()[0]+";'>"+ForcedTFTendency.FEMININE_HEAVY.getName()+"</span>"
+						+ "</div>")
+						
 					+(Main.getProperties().forcedTFTendency==ForcedTFTendency.MASCULINE
-							?"<div id='FORCED_TF_TENDENCY_\"+ForcedTFTendency.MASCULINE+\"' class='cosmetics-button active'>"
-									+ "[style.boldGood("+ForcedTFTendency.MASCULINE.getName()+")]"
-									+ "</div>"
-							:"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.MASCULINE+"' class='cosmetics-button'>"
-									+ "<span style='color:"+Colour.MASCULINE.getShades()[0]+";'>"+ForcedTFTendency.MASCULINE.getName()+"</span>"
-									+ "</div>")
+						?"<div id='FORCED_TF_TENDENCY_\"+ForcedTFTendency.MASCULINE+\"' class='cosmetics-button active'>"
+						+ "[style.boldGood("+ForcedTFTendency.MASCULINE.getName()+")]"
+						+ "</div>"
+						:"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.MASCULINE+"' class='cosmetics-button'>"
+						+ "<span style='color:"+Colour.MASCULINE.getShades()[0]+";'>"+ForcedTFTendency.MASCULINE.getName()+"</span>"
+						+ "</div>")
 					+(Main.getProperties().forcedTFTendency==ForcedTFTendency.MASCULINE_HEAVY
-							?"<div id='FORCED_TF_TENDENCY_\"+ForcedTFTendency.MASCULINE_HEAVY+\"' class='cosmetics-button active'>"
-									+ "[style.boldGood("+ForcedTFTendency.MASCULINE_HEAVY.getName()+")]"
-									+ "</div>"
-							:"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.MASCULINE_HEAVY+"' class='cosmetics-button'>"
-									+ "<span style='color:"+Colour.MASCULINE.getShades()[0]+";'>"+ForcedTFTendency.MASCULINE_HEAVY.getName()+"</span>"
-									+ "</div>")
+						?"<div id='FORCED_TF_TENDENCY_\"+ForcedTFTendency.MASCULINE_HEAVY+\"' class='cosmetics-button active'>"
+						+ "[style.boldGood("+ForcedTFTendency.MASCULINE_HEAVY.getName()+")]"
+						+ "</div>"
+						:"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.MASCULINE_HEAVY+"' class='cosmetics-button'>"
+						+ "<span style='color:"+Colour.MASCULINE.getShades()[0]+";'>"+ForcedTFTendency.MASCULINE_HEAVY.getName()+"</span>"
+						+ "</div>")
+						+ "</div>" 
 					+ "</div>" 
+						
+						
+					
 				
 
 				+ "<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>"
