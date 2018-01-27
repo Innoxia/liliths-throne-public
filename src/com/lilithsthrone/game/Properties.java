@@ -27,6 +27,7 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderNames;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
 import com.lilithsthrone.game.character.race.FurryPreference;
+import com.lilithsthrone.game.ForcedTFTendency;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntryEncyclopediaUnlock;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
@@ -77,7 +78,9 @@ public class Properties implements Serializable {
 
 	public Map<Race, FurryPreference> raceFemininePreferencesMap, raceMasculinePreferencesMap;
 	
+	// Transformation Settings
 	public FurryPreference forcedTFPreference;
+	public ForcedTFTendency forcedTFTendency;
 	
 	// Discoveries:
 	private Set<AbstractItemType> itemsDiscovered;
@@ -118,6 +121,7 @@ public class Properties implements Serializable {
 		}
 		
 		forcedTFPreference = FurryPreference.NORMAL;
+		forcedTFTendency = ForcedTFTendency.NEUTRAL;
 		
 		raceFemininePreferencesMap = new EnumMap<>(Race.class);
 		raceMasculinePreferencesMap = new EnumMap<>(Race.class);
@@ -297,8 +301,9 @@ public class Properties implements Serializable {
 				element.setAttributeNode(value);
 			}
 			
-			// Forced TF preference:
+			// Forced TF settings:
 			createXMLElementWithValue(doc, settings, "forcedTFPreference", String.valueOf(forcedTFPreference));
+			createXMLElementWithValue(doc, settings, "forcedTFTendency", String.valueOf(forcedTFTendency));
 			
 			// Race preferences:
 			Element racePreferences = doc.createElement("furryPreferences");
@@ -492,6 +497,9 @@ public class Properties implements Serializable {
 				// Forced TF preference:
 				if(element.getElementsByTagName("forcedTFPreference").item(0)!=null) {
 					forcedTFPreference = FurryPreference.valueOf(((Element)element.getElementsByTagName("forcedTFPreference").item(0)).getAttribute("value"));
+				}
+				if(element.getElementsByTagName("forcedTFTendency").item(0)!=null) {
+					forcedTFTendency = ForcedTFTendency.valueOf(((Element)element.getElementsByTagName("forcedTFTendency").item(0)).getAttribute("value"));
 				}
 				
 				// Keys:
