@@ -11,6 +11,7 @@ import java.util.Set;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.lilithsthrone.game.ForcedTFTendency;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -1002,30 +1003,85 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		switch(this.getSexualOrientation()) {
 			case AMBIPHILIC:
-				if(this.isFeminine()) {
+				if(this.isFeminine() && 
+						// ambiphilic characters respect forcedTFTendency setting by not entering this case if the
+						// player has requested a feminine tendency; admittedly, this specific logic does slightly skew 
+						// towards pushing the player feminine in neutral scenarios, but only to a small degree, so more
+						// complex but fair logic doesn't feel too required
+						Main.getProperties().forcedTFTendency != ForcedTFTendency.FEMININE &&
+						Main.getProperties().forcedTFTendency != ForcedTFTendency.FEMININE_HEAVY) {
 					desiredGenders.put(Gender.M_P_MALE, 14);
+					// maybe it would be appropriate to raise these chances for impregnators?
 					desiredGenders.put(Gender.M_P_V_HERMAPHRODITE, 2);
 					desiredGenders.put(Gender.M_V_CUNTBOY, 2);
 					desiredGenders.put(Gender.F_P_TRAP, 2);
 				} else {
+					// basic chances of cis-female preference
 					desiredGenders.put(Gender.F_V_B_FEMALE, 14);
-					desiredGenders.put(Gender.F_P_V_B_FUTANARI, 2);
-					desiredGenders.put(Gender.F_P_B_SHEMALE, 2);
-					desiredGenders.put(Gender.F_P_TRAP, 2);
+					
+					// increase chances of growing a penis if fetishes increase desirability 
+					if(this.hasVagina() && (this.hasFetish(Fetish.FETISH_PREGNANCY) || this.hasFetish(Fetish.FETISH_BROODMOTHER))) {
+						desiredGenders.put(Gender.F_P_V_B_FUTANARI, 4);
+						desiredGenders.put(Gender.F_P_B_SHEMALE, 4);
+						desiredGenders.put(Gender.F_P_TRAP, 4);
+					}
+					else
+					{
+						desiredGenders.put(Gender.F_P_V_B_FUTANARI, 2);
+						desiredGenders.put(Gender.F_P_B_SHEMALE, 2);
+						desiredGenders.put(Gender.F_P_TRAP, 2);
+					};
+					
+					// heavy masculine forcedTFTendency option adds a bit of a chance for masculine preferenes here
+					if (Main.getProperties().forcedTFTendency == ForcedTFTendency.MASCULINE_HEAVY) {
+						desiredGenders.put(Gender.M_P_V_HERMAPHRODITE, 4);
+						desiredGenders.put(Gender.M_V_CUNTBOY, 4);
+						desiredGenders.put(Gender.F_P_TRAP, 4);
+						desiredGenders.put(Gender.M_V_B_BUTCH, 4);
+					}
 				}
 				break;
 			case ANDROPHILIC:
-				desiredGenders.put(Gender.M_P_MALE, 16);
+				// Heavy feminine forcedTFTendency causes androphiles to lose the majority of masculine options
+				if (Main.getProperties().forcedTFTendency != ForcedTFTendency.FEMININE_HEAVY) {
+					desiredGenders.put(Gender.M_P_MALE, 14);
+				}
+				
+				// base chance options regardless of forcedTFTendency option
 				desiredGenders.put(Gender.M_P_V_HERMAPHRODITE, 2);
 				desiredGenders.put(Gender.M_V_CUNTBOY, 2);
+				
+				// both feminine forcedTFTendency options add decent chances to get some feminine options despite tastes
+				if(Main.getProperties().forcedTFTendency == ForcedTFTendency.FEMININE || 
+				   Main.getProperties().forcedTFTendency == ForcedTFTendency.FEMININE_HEAVY) {
+					desiredGenders.put(Gender.F_P_V_B_FUTANARI, 2);
+					desiredGenders.put(Gender.F_P_B_SHEMALE, 2);
+					desiredGenders.put(Gender.F_P_TRAP, 2);
+					desiredGenders.put(Gender.M_V_B_BUTCH, 2);
+				}
 				break;
 			case GYNEPHILIC:
+				// increase chances of growing a penis if fetishes increase desirability; also, this is a reasonable
+				// base level of feminine options even if forcedTFTendency is heavy male
 				if(this.hasVagina() && (this.hasFetish(Fetish.FETISH_PREGNANCY) || this.hasFetish(Fetish.FETISH_BROODMOTHER))) {
 					desiredGenders.put(Gender.F_P_V_B_FUTANARI, 2);
 					desiredGenders.put(Gender.F_P_B_SHEMALE, 2);
 					desiredGenders.put(Gender.F_P_TRAP, 2);
-				} else {
+				// much lower base chance of pure female preference for heavy masculine forcedTFTendency
+				} else if (Main.getProperties().forcedTFTendency == ForcedTFTendency.MASCULINE_HEAVY) {
+					desiredGenders.put(Gender.F_V_B_FEMALE, 4);
+				}
+				else {
 					desiredGenders.put(Gender.F_V_B_FEMALE, 14);
+				}
+				
+				// both masculine forcedTFTendency options add decent chances to get some masculine options despite tastes
+				if(Main.getProperties().forcedTFTendency == ForcedTFTendency.MASCULINE || 
+				   Main.getProperties().forcedTFTendency == ForcedTFTendency.MASCULINE_HEAVY) {
+					desiredGenders.put(Gender.M_P_V_HERMAPHRODITE, 2);
+					desiredGenders.put(Gender.M_V_CUNTBOY, 2);
+					desiredGenders.put(Gender.M_V_B_BUTCH, 2);
+					desiredGenders.put(Gender.F_P_TRAP, 2);
 				}
 				break;
 		}
@@ -1044,6 +1100,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			total+=entry.getValue();
 		}
 		
+		// Leaving this hear commented out so it can be easily re-enabled by anyone wanting to tweak or check
+		// the resuluts of gender selection and the forcedTFTendency setting
+//		System.out.println("PREFERRED GENDER");
+//		System.out.println(preferredGender);
+//		System.out.println(desiredGenders);
 		
 		// Preferred race:
 		
