@@ -590,6 +590,51 @@ public enum Colour {
 			new ListValue<Colour>(Colour.EYE_PURPLE),
 			new ListValue<Colour>(Colour.EYE_BLACK));
 	
+
+	public static List<Colour> naturalDemonIrisColours = Util.newArrayListOfValues(
+			new ListValue<Colour>(Colour.EYE_BROWN),
+			new ListValue<Colour>(Colour.EYE_AMBER),
+			new ListValue<Colour>(Colour.EYE_BLUE),
+			new ListValue<Colour>(Colour.EYE_AQUA),
+			new ListValue<Colour>(Colour.EYE_GREEN),
+			new ListValue<Colour>(Colour.EYE_GREY),
+			new ListValue<Colour>(Colour.EYE_RED),
+			new ListValue<Colour>(Colour.EYE_CRIMSON),
+			new ListValue<Colour>(Colour.EYE_ORANGE),
+			new ListValue<Colour>(Colour.EYE_YELLOW),
+			new ListValue<Colour>(Colour.EYE_PINK),
+			new ListValue<Colour>(Colour.EYE_VIOLET),
+			new ListValue<Colour>(Colour.EYE_LILAC),
+			new ListValue<Colour>(Colour.EYE_PURPLE),
+			new ListValue<Colour>(Colour.EYE_BLACK));
+	
+	public static List<Colour> dyeDemonIrisColours = Util.newArrayListOfValues(
+			new ListValue<Colour>(Colour.EYE_SILVER),
+			new ListValue<Colour>(Colour.EYE_GOLD));
+	
+	
+	public static List<Colour> naturalPredatorIrisColours = Util.newArrayListOfValues(
+			new ListValue<Colour>(Colour.EYE_BROWN),
+			new ListValue<Colour>(Colour.EYE_AMBER),
+			new ListValue<Colour>(Colour.EYE_YELLOW),
+			new ListValue<Colour>(Colour.EYE_BLUE),
+			new ListValue<Colour>(Colour.EYE_AQUA),
+			new ListValue<Colour>(Colour.EYE_GREEN),
+			new ListValue<Colour>(Colour.EYE_GREY));
+	
+	public static List<Colour> dyePredatorIrisColours = Util.newArrayListOfValues(
+			new ListValue<Colour>(Colour.EYE_SILVER),
+			new ListValue<Colour>(Colour.EYE_GOLD),
+			new ListValue<Colour>(Colour.EYE_RED),
+			new ListValue<Colour>(Colour.EYE_CRIMSON),
+			new ListValue<Colour>(Colour.EYE_ORANGE),
+			new ListValue<Colour>(Colour.EYE_PINK),
+			new ListValue<Colour>(Colour.EYE_VIOLET),
+			new ListValue<Colour>(Colour.EYE_LILAC),
+			new ListValue<Colour>(Colour.EYE_PURPLE),
+			new ListValue<Colour>(Colour.EYE_BLACK));
+	
+	
 	public static List<Colour> naturalPupilColours = Util.newArrayListOfValues(
 			new ListValue<Colour>(Colour.EYE_BLACK));
 	

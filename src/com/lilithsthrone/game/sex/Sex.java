@@ -159,7 +159,7 @@ public enum Sex {
 	private static Map<GameCharacter, Set<OrificeType>> areasCurrentlyStretching;
 	private static Map<GameCharacter, Set<OrificeType>> areasStretched;
 	private static Map<GameCharacter, Set<OrificeType>> areasTooLoose;
-	private static Map<GameCharacter, Set<OrificeType>> areasCummedIn;
+//	private static Map<GameCharacter, Set<OrificeType>> areasCummedIn;
 	
 	private static Map<GameCharacter, List<CoverableArea>> areasExposed;
 
@@ -171,7 +171,7 @@ public enum Sex {
 	
 	// Clothes:
 
-	private static Map<GameCharacter, List<AbstractClothing>> clothingPreSexMap;
+	private static Map<GameCharacter, Map<AbstractClothing, List<DisplacementType>>> clothingPreSexMap;
 	
 	private static boolean sexFinished, partnerAllowedToUseSelfActions, partnerCanRemoveOwnClothes, partnerCanRemovePlayersClothes;
 	
@@ -276,13 +276,10 @@ public enum Sex {
 			areasTooLoose.put(character, new HashSet<>());
 		}
 		
-		areasCummedIn = new HashMap<>();
-		for(GameCharacter character : Sex.getAllParticipants()) {
-			areasCummedIn.put(character, new HashSet<>());
-		}
-
-
-		
+//		areasCummedIn = new HashMap<>();
+//		for(GameCharacter character : Sex.getAllParticipants()) {
+//			areasCummedIn.put(character, new HashSet<>());
+//		}
 		
 		for(GameCharacter character : Sex.getAllParticipants()) {
 			character.setLust(50);
@@ -296,8 +293,8 @@ public enum Sex {
 				}
 			}
 			
-			if(sexManager.getStartingSexPaceOverride(character)!=null) {
-				switch(sexManager.getStartingSexPaceOverride(character)) {
+			if(sexManager.getStartingSexPaceModifier(character)!=null) {
+				switch(sexManager.getStartingSexPaceModifier(character)) {
 					case DOM_GENTLE:
 						character.setLust(10);
 						break;
@@ -370,9 +367,10 @@ public enum Sex {
 		clothingPreSexMap = new HashMap<>();
 		
 		for(GameCharacter character : Sex.getAllParticipants()) {
-			clothingPreSexMap.put(character, new ArrayList<>());
+			clothingPreSexMap.put(character, new HashMap<>());
 			for (AbstractClothing c : character.getClothingCurrentlyEquipped()) {
-				clothingPreSexMap.get(character).add(c);
+				clothingPreSexMap.get(character).put(c, new ArrayList<>(c.getDisplacedList()));
+//				System.out.println(c.getName()+": "+clothingPreSexMap.get(character).get(c));
 			}
 		}
 
@@ -410,17 +408,21 @@ public enum Sex {
 		Main.game.setInSex(false);
 		
 		// Restore clothes:
-		for(Entry<GameCharacter, List<AbstractClothing>> entry : clothingPreSexMap.entrySet()) {
-			for (AbstractClothing c : entry.getValue()) {
+		for(Entry<GameCharacter, Map<AbstractClothing, List<DisplacementType>>> entry : clothingPreSexMap.entrySet()) {
+			for (AbstractClothing c : entry.getValue().keySet()) {
 				if(!c.getClothingType().isDiscardedOnUnequip()) {
 					if (!entry.getKey().getClothingCurrentlyEquipped().contains(c)) {
-							if(entry.getKey().getAllClothingInInventory().contains(c)) {
-								entry.getKey().equipClothingFromInventory(c, true, entry.getKey(), entry.getKey());
-							} else {
-								entry.getKey().equipClothingFromGround(c, true, entry.getKey());
-							}
-					} else {
-						c.getDisplacedList().clear();
+						if(entry.getKey().getAllClothingInInventory().contains(c)) {
+							entry.getKey().equipClothingFromInventory(c, true, entry.getKey(), entry.getKey());
+						} else {
+							entry.getKey().equipClothingFromGround(c, true, entry.getKey());
+						}
+					}
+					c.getDisplacedList().clear();
+					if(entry.getValue().get(c)!=null) {
+						for(DisplacementType displacement : entry.getValue().get(c)) {
+							entry.getKey().isAbleToBeDisplaced(c, displacement, true, true, entry.getKey());
+						}
 					}
 				}
 			}
@@ -669,16 +671,16 @@ public enum Sex {
 		}
 		
 
-		// Player pregnancy:
-		if (!areasCummedIn.get(Main.game.getPlayer()).isEmpty()) {
-			if (areasCummedIn.get(Main.game.getPlayer()).contains(OrificeType.VAGINA))
-				sexSB.append(Main.game.getPlayer().rollForPregnancy(activePartner));
-		}
-		// Partner pregnancy:
-		if (!areasCummedIn.get(Sex.getActivePartner()).isEmpty() && activePartner.isAbleToBeImpregnated()) {
-			if (areasCummedIn.get(Sex.getActivePartner()).contains(OrificeType.VAGINA))
-				sexSB.append(activePartner.rollForPregnancy(Main.game.getPlayer()));
-		}
+//		// Player pregnancy:
+//		if (!areasCummedIn.get(Main.game.getPlayer()).isEmpty()) {
+//			if (areasCummedIn.get(Main.game.getPlayer()).contains(OrificeType.VAGINA))
+//				sexSB.append(Main.game.getPlayer().rollForPregnancy(activePartner));
+//		}
+//		// Partner pregnancy:
+//		if (!areasCummedIn.get(Sex.getActivePartner()).isEmpty() && activePartner.isAbleToBeImpregnated()) {
+//			if (areasCummedIn.get(Sex.getActivePartner()).contains(OrificeType.VAGINA))
+//				sexSB.append(activePartner.rollForPregnancy(Main.game.getPlayer()));
+//		}
 		
 		if(getNumberOfOrgasms(Main.game.getPlayer())==0) {
 			if(Sex.getSexPace(Main.game.getPlayer())!=SexPace.SUB_RESISTING) {
@@ -1238,6 +1240,7 @@ public enum Sex {
 					break;
 			}
 		}
+		positionActionsPlayer.sort((a1, a2) -> a1.getActionTitle().compareTo(a2.getActionTitle()));
 		
 		if(Sex.getTotalParticipantCount()>2) {
 			for(GameCharacter character : Sex.getDominantParticipants().keySet()) {
@@ -1539,7 +1542,7 @@ public enum Sex {
 		// Modify arousal value based on lust:
 		for(Entry<GameCharacter, Float> entry : arousalIncrements.entrySet()) {
 			if(getSexPace(entry.getKey())==SexPace.SUB_RESISTING && entry.getKey().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
-				entry.getKey().incrementArousal(Math.min(8, entry.getValue() * 1.5f));
+				entry.getKey().incrementArousal(Math.min(8, entry.getValue() * 1.25f));
 			} else {
 				entry.getKey().incrementArousal(Math.min(8, entry.getValue() * (0.5f + (entry.getKey().getLust()/100f))));
 			}
@@ -1557,19 +1560,25 @@ public enum Sex {
 					if (sexAction.getAreasCummedIn(cumProvidor, cumTarget) != null) {
 						if(!cumProvidor.isWearingCondom() || sexAction.ignoreCondom(cumProvidor)){
 							for(OrificeType ot : sexAction.getAreasCummedIn(cumProvidor, cumTarget)) {
-								areasCummedIn.get(cumTarget).add(ot);
+								
+//								areasCummedIn.get(cumTarget).add(ot);
 								cumTarget.incrementCumCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, ot));
 								cumProvidor.incrementCumCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, ot));
 								sexSB.append(cumTarget.ingestFluid(cumProvidor, cumProvidor.getCum().getType(), ot, cumProvidor.getCum().hasFluidModifier(FluidModifier.ADDICTIVE)));
 								
-								if(ot==OrificeType.ANUS) {
-									cumTarget.addStatusEffect(StatusEffect.CREAMPIE_ANUS, 120+postSexDialogue.getMinutesPassed());
-								} else if(ot==OrificeType.NIPPLE) {
-									cumTarget.addStatusEffect(StatusEffect.CREAMPIE_NIPPLES, 120+postSexDialogue.getMinutesPassed());
-								} else if(ot==OrificeType.VAGINA) {
-									cumTarget.addStatusEffect(StatusEffect.CREAMPIE_VAGINA, 120+postSexDialogue.getMinutesPassed());
-								} else if(ot==OrificeType.URETHRA) {
-									cumTarget.addStatusEffect(StatusEffect.CREAMPIE_PENIS, 120+postSexDialogue.getMinutesPassed());
+								cumTarget.incrementCummedInArea(ot, cumProvidor.getPenisRawCumProductionValue());
+								
+//								if(ot==OrificeType.ANUS) {
+//									cumTarget.addStatusEffect(StatusEffect.CREAMPIE_ANUS, 120+postSexDialogue.getMinutesPassed());
+//								} else if(ot==OrificeType.NIPPLE) {
+//									cumTarget.addStatusEffect(StatusEffect.CREAMPIE_NIPPLES, 120+postSexDialogue.getMinutesPassed());
+//								} else if(ot==OrificeType.VAGINA) {
+//									cumTarget.addStatusEffect(StatusEffect.CREAMPIE_VAGINA, 120+postSexDialogue.getMinutesPassed());
+//								} else if(ot==OrificeType.URETHRA) {
+//									cumTarget.addStatusEffect(StatusEffect.CREAMPIE_PENIS, 120+postSexDialogue.getMinutesPassed());
+//								}
+								if(ot == OrificeType.VAGINA) {
+									sexSB.append(cumTarget.rollForPregnancy(cumProvidor));
 								}
 							}
 						}
@@ -1736,7 +1745,7 @@ public enum Sex {
 
 		// Handle if parts have just become exposed:
 		if (sexAction == SexActionUtility.CLOTHING_REMOVAL) {
-			handleExposedDescriptions(Sex.getActivePartner(), false);
+			handleExposedDescriptions(activeCharacter, false);
 		}
 		
 		// Only apply penetration effects if this action isn't an orgasm, and it isn't the end of sex. (Otherwise, ongoing descriptions get appended after the main description, which usually don't make sense.) TODO

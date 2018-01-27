@@ -1432,14 +1432,6 @@ public class OptionsDialogue {
 						"This enables body hair descriptions and content for armpits and assholes.",
 						Main.getProperties().bodyHairContent)
 					
-					+getContentPreferenceDiv(
-							"FURRY_TAIL_PENETRATION",
-							Colour.BASE_MAGENTA,
-							"Furry tail penetrations",
-							"This enables furry tails to engage in penetrative actions in sex.",
-							Main.getProperties().furryTailPenetrationContent)
-					
-					
 				+"</div>"
 					
 					
@@ -1536,9 +1528,21 @@ public class OptionsDialogue {
 									+ "</div>")
 					+ "</div>" 
 				
+
+				+ "<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>"
+					+getContentPreferenceDiv(
+						"FURRY_TAIL_PENETRATION",
+						Colour.BASE_MAGENTA,
+						"Furry tail penetrations",
+						"This enables furry tails to engage in penetrative actions in sex.",
+						Main.getProperties().furryTailPenetrationContent)
 					
-					
-					
+					+getContentPreferenceDiv(
+							"INFLATION_CONTENT",
+							Colour.CUMMED,
+							"Cum Inflation",
+							"This enables cum inflation mechanics.",
+							Main.getProperties().inflationContent)
 				+"</div>");
 			
 			return UtilText.nodeContentSB.toString();

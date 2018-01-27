@@ -76,7 +76,7 @@ public class GenericActions {
 		@Override
 		public void applyEffects() {
 			Sex.getActivePartner().setPenisType(PenisType.DEMON_COMMON);
-			Sex.getActivePartner().setCumProduction(CumProduction.FIVE_HUGE.getMedianValue());
+			Sex.getActivePartner().setCumProduction(CumProduction.SEVEN_MONSTROUS.getMedianValue());
 			Sex.getActivePartner().setTesticleSize(0);
 			Sex.getActivePartner().setPenisSize(PenisSize.FIVE_ENORMOUS.getMedianValue());
 		}

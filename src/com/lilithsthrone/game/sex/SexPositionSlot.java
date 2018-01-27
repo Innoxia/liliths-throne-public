@@ -63,6 +63,7 @@ public enum SexPositionSlot {
 			Util.newArrayListOfValues(
 					new ListValue<>(OrgasmCumTarget.FLOOR),
 					new ListValue<>(OrgasmCumTarget.GROIN),
+					new ListValue<>(OrgasmCumTarget.STOMACH),
 					new ListValue<>(OrgasmCumTarget.LEGS)),
 			SexActionPresets.playerBackToWallAgainstWall,
 			SexActionPresets.partnerBackToWallAgainstWall),
@@ -71,6 +72,7 @@ public enum SexPositionSlot {
 			Util.newArrayListOfValues(
 					new ListValue<>(OrgasmCumTarget.FLOOR),
 					new ListValue<>(OrgasmCumTarget.GROIN),
+					new ListValue<>(OrgasmCumTarget.STOMACH),
 					new ListValue<>(OrgasmCumTarget.LEGS)),
 			SexActionPresets.playerBackToWallFacingTarget,
 			SexActionPresets.partnerBackToWallFacingTarget),
@@ -89,6 +91,7 @@ public enum SexPositionSlot {
 					new ListValue<>(OrgasmCumTarget.ASS),
 					new ListValue<>(OrgasmCumTarget.GROIN),
 					new ListValue<>(OrgasmCumTarget.LEGS),
+					new ListValue<>(OrgasmCumTarget.BACK),
 					new ListValue<>(OrgasmCumTarget.FLOOR)),
 			SexActionPresets.playerFacingWallFacingTarget,
 			SexActionPresets.partnerFacingWallFacingTarget),
@@ -208,7 +211,25 @@ public enum SexPositionSlot {
 					new ListValue<>(OrgasmCumTarget.FLOOR)),
 			SexActionPresets.playerStocksStandingBehind,
 			SexActionPresets.partnerStocksStandingBehind),
+
+	/* Missionary */
 	
+	MISSIONARY_ON_BACK("Lying on back",
+			Util.newArrayListOfValues(
+					new ListValue<>(OrgasmCumTarget.GROIN),
+					new ListValue<>(OrgasmCumTarget.STOMACH),
+					new ListValue<>(OrgasmCumTarget.FLOOR)),
+			SexActionPresets.playerMissionaryOnBack,
+			SexActionPresets.partnerMissionaryOnBack),
+	
+	MISSIONARY_KNEELING_BETWEEN_LEGS("Kneeling between legs",
+			Util.newArrayListOfValues(
+					new ListValue<>(OrgasmCumTarget.STOMACH),
+					new ListValue<>(OrgasmCumTarget.GROIN),
+					new ListValue<>(OrgasmCumTarget.LEGS),
+					new ListValue<>(OrgasmCumTarget.FLOOR)),
+			SexActionPresets.playerMissionaryKneelingBetweenLegs,
+			SexActionPresets.partnerMissionaryKneelingBetweenLegs),
 	
 	/* UNIQUE SEX SCENES */
 	

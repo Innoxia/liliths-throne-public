@@ -171,12 +171,12 @@ public enum Spell {
 			if (caster.isPlayer()) {
 				descriptionSB = new StringBuilder(UtilText.parse(target,
 							"<p>"
-								+ "Summoning a swirling vortex of arcane fire around your [pc.arm], you focus its raw power into a shard of freezing ice before launching it at [npc.name]."
+								+ "Summoning a swirling vortex of arcane ice around your [pc.arm], you focus its raw power into a shard of freezing ice before launching it at [npc.name]."
 							+ "</p>"));
 			} else {
 				descriptionSB = new StringBuilder(UtilText.parse(caster,
 							"<p>"
-								+ "Summoning a swirling vortex of arcane fire around [npc.her] [npc.arm], [npc.she] focuses its raw power into a shard of freezing ice before launching it directly at you!"
+								+ "Summoning a swirling vortex of arcane ice around [npc.her] [npc.arm], [npc.she] focuses its raw power into a shard of freezing ice before launching it directly at you!"
 							+ "</p>"));
 			}
 
@@ -214,12 +214,12 @@ public enum Spell {
 			if (caster.isPlayer()) {
 				descriptionSB = new StringBuilder(UtilText.parse(target,
 							"<p>"
-								+ "Summoning a swirling vortex of arcane fire around your [pc.arm], you focus its raw power into a cloud of toxic miasma before launching it at [npc.name]."
+								+ "Summoning a swirling vortex of arcane poison around your [pc.arm], you focus its raw power into a cloud of toxic miasma before launching it at [npc.name]."
 							+ "</p>"));
 			} else {
 				descriptionSB = new StringBuilder(UtilText.parse(caster,
 							"<p>"
-								+ "Summoning a swirling vortex of arcane fire around [npc.her] [npc.arm], [npc.she] focuses its raw power into a cloud of toxic miasma before launching it directly at you!"
+								+ "Summoning a swirling vortex of arcane poison around [npc.her] [npc.arm], [npc.she] focuses its raw power into a cloud of toxic miasma before launching it directly at you!"
 							+ "</p>"));
 			}
 

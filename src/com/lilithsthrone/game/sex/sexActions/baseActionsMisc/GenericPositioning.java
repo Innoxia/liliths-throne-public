@@ -12,6 +12,7 @@ import com.lilithsthrone.game.sex.managers.universal.SMCowgirl;
 import com.lilithsthrone.game.sex.managers.universal.SMDoggy;
 import com.lilithsthrone.game.sex.managers.universal.SMFaceToWall;
 import com.lilithsthrone.game.sex.managers.universal.SMKneeling;
+import com.lilithsthrone.game.sex.managers.universal.SMMissionary;
 import com.lilithsthrone.game.sex.managers.universal.SMSixtyNine;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
@@ -27,12 +28,182 @@ import com.lilithsthrone.utils.Util.Value;
  * 
  * 
  * @since 0.1.79
- * @version 0.1.97
+ * @version 0.1.98
  * @author Innoxia
  */
 public class GenericPositioning {
 
-	// Dom position changes:
+	public static final SexAction PLAYER_POSITION_MISSIONARY = new SexAction(
+			SexActionType.PLAYER_POSITIONING,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			null,
+			SexParticipantType.MISC) {
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !SexFlags.positioningBlockedPlayer
+					&& !(Sex.getPosition() == SexPositionType.MISSIONARY && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS)
+					&& SexPositionType.MISSIONARY.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& Sex.isDom(Main.game.getPlayer());
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Missionary";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Push [npc.name] down onto [npc.her] back and kneel between [npc.her] [npc.legs], ready to have sex in the missionary position.";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Taking hold of [npc.name]'s shoulders, you push [npc.herHim] down onto [npc.her] back."
+					+ " Kneeling down between [npc.her] [npc.legs], you [pc.moan] as you look down into [npc.her] [npc.eyes+], "
+					+ "[pc.speech(That's right, spread your legs for me...)]";
+		}
+
+		@Override
+		public void applyEffects() {
+			Sex.setSexManager(new SMMissionary(
+					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS)),
+					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.MISSIONARY_ON_BACK))));
+			
+//			SexFlags.positioningBlockedPartner = true;
+			SexFlags.resetRequests();
+		}
+	};
+	
+	
+	public static final SexAction PLAYER_POSITION_MISSIONARY_REQUEST = new SexAction(
+			SexActionType.PLAYER_POSITIONING,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ONE_VANILLA,
+			null,
+			null,
+			SexParticipantType.MISC) {
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !SexFlags.positioningBlockedPlayer
+					&& !SexFlags.requestedMissionary
+					&& !(Sex.getPosition() == SexPositionType.MISSIONARY && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS)
+					&& SexPositionType.MISSIONARY.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& !Sex.isDom(Main.game.getPlayer());
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Missionary";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Try to get [npc.name] to lie down on [npc.her] back and spread [npc.her] [npc.legs] so that you can have sex with [npc.herHim] in the missionary position.";
+		}
+
+		@Override
+		public String getDescription() {
+			return "You reach up to take hold of [npc.name]'s shoulders, and, pushing down, you try to get [npc.herHim] to lie down on [npc.her] back.";
+		}
+
+		@Override
+		public void applyEffects() {
+			SexFlags.requestedMissionary = true;
+		}
+	};
+	
+	public static final SexAction PLAYER_POSITION_MISSIONARY_ON_BACK = new SexAction(
+			SexActionType.PLAYER_POSITIONING,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			null,
+			SexParticipantType.MISC) {
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !SexFlags.positioningBlockedPlayer
+					&& !(Sex.getPosition() == SexPositionType.MISSIONARY && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.MISSIONARY_ON_BACK)
+					&& SexPositionType.MISSIONARY.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& Sex.isDom(Main.game.getPlayer());
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Missionary (on back)";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Lie down on your back and spread your [pc.legs], ready to have sex with [npc.name] in the missionary position.";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Taking hold of [npc.name]'s shoulders, you push [npc.herHim] down onto [npc.her] knees."
+					+ " Kneeling down before [npc.herHim], you then lie down onto your back, spreading your [pc.legs] and looking up into [npc.her] [npc.eyes+] as you [pc.moanVerb], "
+					+ "[pc.speech(Come and take me!)]";
+		}
+
+		@Override
+		public void applyEffects() {
+			Sex.setSexManager(new SMMissionary(
+					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ON_BACK)),
+					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS))));
+			
+//			SexFlags.positioningBlockedPartner = true;
+			SexFlags.resetRequests();
+		}
+	};
+	
+	
+	public static final SexAction PLAYER_POSITION_MISSIONARY_ON_BACK_REQUEST = new SexAction(
+			SexActionType.PLAYER_POSITIONING,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ONE_VANILLA,
+			null,
+			null,
+			SexParticipantType.MISC) {
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !SexFlags.positioningBlockedPlayer
+					&& !SexFlags.requestedMissionaryOnBack
+					&& !(Sex.getPosition() == SexPositionType.MISSIONARY && Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.MISSIONARY_ON_BACK)
+					&& SexPositionType.MISSIONARY.getMaximumSlots()>=Sex.getTotalParticipantCount()
+					&& !Sex.isDom(Main.game.getPlayer());
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Missionary (on back)";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Lie down on your back and spread your [pc.legs] to try and encourage [npc.name] to have sex with you in the missionary position.";
+		}
+
+		@Override
+		public String getDescription() {
+			return "You lie down on your back before [npc.name], letting out a little [pc.moan] as you spread your [pc.legs] to try and encourage [npc.name] to have sex with you in the missionary position.";
+		}
+
+		@Override
+		public void applyEffects() {
+			SexFlags.requestedMissionaryOnBack = true;
+		}
+	};
+	
+	
 	
 	public static final SexAction PLAYER_POSITION_FACE_TO_WALL = new SexAction(
 			SexActionType.PLAYER_POSITIONING,
@@ -917,7 +1088,9 @@ public class GenericPositioning {
 					|| SexFlags.requestedBackToWall
 					|| SexFlags.requestedFaceToWall
 					|| SexFlags.requestedKneeling
-					|| SexFlags.requestedSelfKneeling)
+					|| SexFlags.requestedSelfKneeling
+					|| SexFlags.requestedMissionary
+					|| SexFlags.requestedMissionaryOnBack)
 					&& !Sex.isDom(Main.game.getPlayer());
 		}
 		
@@ -938,7 +1111,38 @@ public class GenericPositioning {
 
 		@Override
 		public String getDescription() {
-			if(SexFlags.requestedFaceToWall) {
+			
+			if(SexFlags.requestedMissionary) {
+				if(Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.MISSIONARY_ON_BACK) || Sex.getActivePartner().getSexPositionPreferences().isEmpty()) {
+					switch(Sex.getSexPace(Sex.getActivePartner())) {
+						case DOM_ROUGH:
+							return "Much to your delight, [npc.name] allows [npc.herself] to be pushed down onto [npc.her] back, but as [npc.she] spreads [npc.her] [npc.legs] for you, [npc.she] growls in a menacing tone, "
+									+ "[npc.speech(Don't get carried away, bitch! I'm still the one in charge here!)]";
+						default:
+							return "Much to your delight, [npc.name] allows [npc.herself] to be pushed down onto [npc.her] back, and as [npc.she] spreads [npc.her] [npc.legs] for you, [npc.she] [npc.moansVerb], "
+									+ "[npc.speech(I like it when my partner shows a bit of initiative! Come take me!)]";
+					}
+				} else {
+					return "Slapping your [pc.hands] away, [npc.name] pushes you back into your old position as [npc.she] angrily scolds you, "
+							+ "[npc.speech(What do you think you're doing?! Don't you <i>dare</i> try that again!)]";
+				}
+				
+			} else if(SexFlags.requestedMissionaryOnBack) {
+				if(Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS) || Sex.getActivePartner().getSexPositionPreferences().isEmpty()) {
+					switch(Sex.getSexPace(Sex.getActivePartner())) {
+						case DOM_ROUGH:
+							return "Much to your delight, [npc.name] kneels down between your [pc.legs], and as [npc.she] grabs your [npc.legs] to push them apart, [npc.she] growls, "
+									+ "[npc.speech(That's right, bitch! Spread your legs like the slut you are!)]";
+						default:
+							return "Much to your delight, [npc.name] kneels down between your [pc.legs], and as [npc.she] takes hold of your [npc.legs] to help push them apart, [npc.she] [npc.moansVerb], "
+									+ "[npc.speech(Good idea! Spread your legs nice and wide, now!)]";
+					}
+				} else {
+					return "Grabbing one of your [pc.arms], [npc.name] pulls you back into your old position as [npc.she] angrily scolds you, "
+							+ "[npc.speech(What do you think you're doing?! Don't you <i>dare</i> try that again!)]";
+				}
+				
+			} else if(SexFlags.requestedFaceToWall) {
 				if(Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.FACE_TO_WALL_FACING_TARGET) || Sex.getActivePartner().getSexPositionPreferences().isEmpty()) {
 					switch(Sex.getSexPace(Sex.getActivePartner())) {
 						case DOM_ROUGH:
@@ -1121,7 +1325,17 @@ public class GenericPositioning {
 
 		@Override
 		public void applyEffects() {
-			if(SexFlags.requestedFaceToWall && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.FACE_TO_WALL_FACING_TARGET) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
+			if(SexFlags.requestedMissionary && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.MISSIONARY_ON_BACK) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
+				Sex.setSexManager(new SMMissionary(
+						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.MISSIONARY_ON_BACK)),
+						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS))));
+				
+			} else if(SexFlags.requestedMissionaryOnBack && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
+				Sex.setSexManager(new SMMissionary(
+						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS)),
+						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ON_BACK))));
+				
+			} else if(SexFlags.requestedFaceToWall && (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.FACE_TO_WALL_FACING_TARGET) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())) {
 				Sex.setSexManager(new SMFaceToWall(
 						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.FACE_TO_WALL_FACING_TARGET)),
 						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL))));
@@ -1666,6 +1880,98 @@ public class GenericPositioning {
 
 //			SexFlags.positioningBlockedPartner = true;
 //			SexFlags.positioningBlockedPlayer = true;
+			SexFlags.resetRequests();
+		}
+	};
+	
+	public static final SexAction PARTNER_FORCE_POSITION_MISSIONARY = new SexAction(
+			SexActionType.PARTNER_POSITIONING,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			null,
+			SexParticipantType.MISC) {
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !SexFlags.positioningBlockedPartner
+					&& !(Sex.getPosition() == SexPositionType.MISSIONARY && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS)
+					&& 2>=Sex.getTotalParticipantCount()
+					&& (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())
+					&& !Sex.isDom(Main.game.getPlayer());
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Missionary";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Push [pc.name] down onto [pc.her] back and kneel between [pc.her] [pc.legs], ready to have sex in the missionary position.";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Taking hold of your shoulders, [npc.name] pushes you down onto your back."
+					+ " Kneeling down between your [pc.legs], [npc.she] [npc.moans] as [npc.she] looks down into your [pc.eyes+], "
+					+ "[npc.speech(That's right, spread your legs for me...)]";
+		}
+
+		@Override
+		public void applyEffects() {
+			Sex.setSexManager(new SMMissionary(
+					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS)),
+					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_ON_BACK))));
+			
+//			SexFlags.positioningBlockedPartner = true;
+			SexFlags.resetRequests();
+		}
+	};
+	
+	public static final SexAction PARTNER_FORCE_POSITION_MISSIONARY_ON_BACK = new SexAction(
+			SexActionType.PARTNER_POSITIONING,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			null,
+			SexParticipantType.MISC) {
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !SexFlags.positioningBlockedPartner
+					&& !(Sex.getPosition() == SexPositionType.MISSIONARY && Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.MISSIONARY_ON_BACK)
+					&& 2>=Sex.getTotalParticipantCount()
+					&& (Sex.getActivePartner().getSexPositionPreferences().contains(SexPositionSlot.MISSIONARY_ON_BACK) || Sex.getActivePartner().getSexPositionPreferences().isEmpty())
+					&& !Sex.isDom(Main.game.getPlayer());
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Missionary (on back)";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Lie down on your back and spread your [npc.legs], ready to have sex with [pc.name] in the missionary position.";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Taking hold of your shoulders, [npc.name] pushes you down onto your knees."
+					+ " Kneeling down before you, [npc.she] then lies down onto [npc.her] back, spreading [npc.her] [npc.legs] and looking up into your [pc.eyes+] as [npc.she] [npc.moanVerb], "
+					+ "[npc.speech(Come and take me!)]";
+		}
+
+		@Override
+		public void applyEffects() {
+			Sex.setSexManager(new SMMissionary(
+					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.MISSIONARY_ON_BACK)),
+					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS))));
+			
+//			SexFlags.positioningBlockedPartner = true;
 			SexFlags.resetRequests();
 		}
 	};

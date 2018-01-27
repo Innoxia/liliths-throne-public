@@ -56,6 +56,7 @@ public class Properties implements Serializable {
 			nonConContent = false,
 			incestContent = false,
 //			forcedTransformationContent = false,
+			inflationContent = true,
 			facialHairContent = false,
 			pubicHairContent = false,
 			bodyHairContent = false,
@@ -175,6 +176,7 @@ public class Properties implements Serializable {
 			createXMLElementWithValue(doc, settings, "furryTailPenetrationContent", String.valueOf(furryTailPenetrationContent));
 			createXMLElementWithValue(doc, settings, "nonConContent", String.valueOf(nonConContent));
 			createXMLElementWithValue(doc, settings, "incestContent", String.valueOf(incestContent));
+			createXMLElementWithValue(doc, settings, "inflationContent", String.valueOf(inflationContent));
 			createXMLElementWithValue(doc, settings, "facialHairContent", String.valueOf(facialHairContent));
 			createXMLElementWithValue(doc, settings, "pubicHairContent", String.valueOf(pubicHairContent));
 			createXMLElementWithValue(doc, settings, "bodyHairContent", String.valueOf(bodyHairContent));
@@ -449,6 +451,9 @@ public class Properties implements Serializable {
 				furryTailPenetrationContent = ((((Element)element.getElementsByTagName("furryTailPenetrationContent").item(0)).getAttribute("value")).equals("true"));
 				nonConContent = ((((Element)element.getElementsByTagName("nonConContent").item(0)).getAttribute("value")).equals("true"));
 				incestContent = ((((Element)element.getElementsByTagName("incestContent").item(0)).getAttribute("value")).equals("true"));
+				if(element.getElementsByTagName("inflationContent").item(0)!=null) {
+					inflationContent = ((((Element)element.getElementsByTagName("inflationContent").item(0)).getAttribute("value")).equals("true"));
+				}
 //				forcedTransformationContent = ((((Element)element.getElementsByTagName("forcedTransformationContent").item(0)).getAttribute("value")).equals("true"));
 				facialHairContent = ((((Element)element.getElementsByTagName("facialHairContent").item(0)).getAttribute("value")).equals("true"));
 				pubicHairContent = ((((Element)element.getElementsByTagName("pubicHairContent").item(0)).getAttribute("value")).equals("true"));

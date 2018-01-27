@@ -879,6 +879,10 @@ While that should probably be gated, and fall under non-con, I don't want to be 
 	
 	
 	
+	urethra penetration sex until we cum in somone's dick (or vice versa) that could cause a status that'll like... cause any children sired to potentially be fathered by someone else
+	
+	
+	
 	Slave UI:
 	1) a overview of the slave screen that clearly shows if they are working (making money) or not. I know there is maid and all that, but it's tedious to read that when it all kind of looks the same
 	2) show how much they are making, or using to keep preferably with green and red text denoting costs and gains. 
@@ -890,6 +894,25 @@ While that should probably be gated, and fall under non-con, I don't want to be 
 	
 	
 	
+	
+	
+Forced fetishes:
+	Either implemented as a separate setting and fetish, or potentially rolled into existing forced TF setting and fetish -- but I expect separate is the better choice for many reasons.
+	This would function identically to existing forced TF system. NPCs would have a configurable chance of being interested in forcing fetishes on the player upon combat defeat -- feeding them a bottle of Mystery Kink, essentially. This would also include the current Mystery Kink chance of removing an existing fetish, making it a potentially dangerous risk even for players who are intentionally collecting fetishes.
+
+Forced fetish NPC tastes tendency:
+	A configurable chance that preference would be given towards adding fetishes that pair with the NPCs own, and removing those that conflict with their own; ie, an NPC with the dominant fetish would have a higher chance of forcing the submissive fetish or removing the dominant fetish. Since this is roughly the equivalent of feeding the player a Fetish Endowment potion, chances of this happening could also potentially be tied to the NPCs power in addition to the configurable chance.
+
+Forced fetish power exchange tendency:
+	A configurable value that affects the chances of forced fetishes being related to topping or bottoming. When neutral, nothing changes with respect to the randomness of fetish application. My feeling is that at the extremes this should override NPC taste tendencies; ie, if the power exchange tendency is 100% bottoming, a submissive NPC will never force the dominant fetish on the player. However, I'm not certain what the correct choice is there; ie, should player preferences ultimately matter vs NPC preferences? Perhaps that should be a configurable toggle.
+
+Forced TF gender tendency:
+	A configurable value that affects the chances of forced TFs towards masculinity or femininity. I see in a recent development update that NPC sexual orientation has just recently become a factor here, and not in a configurable way. The idea here would be to at the very least have a player preference that controls the chances of what gender TFs ambiphilic NPCs would apply. Potentially extreme values of this setting could override the preferences of gynephilic and androphilic NPCs, but as with the forced fetish player vs NPC preference question, I'm not certain what the right choice is.
+
+Make fetishes more impactful:
+	I see in the suggestions spreadsheet that there may already be development plans with regard to making fetishes more impactful. Some ideas that occur to me that perhaps wouldn't be too hard to implement, but they are far more hairbrained and scattered than what is laid out above, and would be things I'm far less likely to find time to tackle for myself.
+	Allow fetishes to be locked in -- possibly only when they are being forced on you? -- by re-selecting the fetish when it is already present. Once locked, it can't be removed by any means, except maybe via the full reset option.
+	When engaged in combat loss sex, make it costly/hard to resist taking a fetish related action when the NPC in control is taking a related action. Perhaps taking a penalty to combat resources, or a stacking status effect to represent the psychological toll of not doing things you are compelled to do even when under the control of another person.
 	
 	
 	

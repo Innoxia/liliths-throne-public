@@ -134,25 +134,19 @@ public class SlaveryUtil implements Serializable {
 			// Washing clothes:
 			if(slave.hasSlavePermissionSetting(SlavePermissionSetting.CLEANLINESS_WASH_BODY)
 					&& !slave.getWorkHours()[hour]
-					&& (slave.hasStatusEffect(StatusEffect.CREAMPIE_ANUS) || slave.hasStatusEffect(StatusEffect.CREAMPIE_VAGINA) || slave.hasStatusEffect(StatusEffect.CREAMPIE_NIPPLES) || slave.hasStatusEffect(StatusEffect.CREAMPIE_PENIS))) {
+					&& (slave.hasStatusEffect(StatusEffect.CREAMPIE_ANUS) || slave.hasStatusEffect(StatusEffect.CREAMPIE_VAGINA) || slave.hasStatusEffect(StatusEffect.CREAMPIE_NIPPLES))) {
 				List<String> cleanedParts = new ArrayList<>();
 				
 				if(slave.hasStatusEffect(StatusEffect.CREAMPIE_ANUS)) {
-					slave.removeStatusEffect(StatusEffect.CREAMPIE_ANUS);
 					cleanedParts.add("<span style='color:"+Colour.BASE_AQUA.toWebHexString()+";'>Cleaned Anal Creampie</span>");
 				}
 				if(slave.hasStatusEffect(StatusEffect.CREAMPIE_VAGINA)) {
-					slave.removeStatusEffect(StatusEffect.CREAMPIE_VAGINA);
 					cleanedParts.add("<span style='color:"+Colour.BASE_AQUA.toWebHexString()+";'>Cleaned Pussy Creampie</span>");
 				}
 				if(slave.hasStatusEffect(StatusEffect.CREAMPIE_NIPPLES)) {
-					slave.removeStatusEffect(StatusEffect.CREAMPIE_NIPPLES);
 					cleanedParts.add("<span style='color:"+Colour.BASE_AQUA.toWebHexString()+";'>Cleaned Nipple Creampie</span>");
 				}
-				if(slave.hasStatusEffect(StatusEffect.CREAMPIE_PENIS)) {
-					slave.removeStatusEffect(StatusEffect.CREAMPIE_PENIS);
-					cleanedParts.add("<span style='color:"+Colour.BASE_AQUA.toWebHexString()+";'>Cleaned Urethra Creampie</span>");
-				}
+				slave.cleanAllOrifices();
 				
 				addSlaveryEvent(day, slave, new SlaveryEventLogEntry(hour,
 						slave,

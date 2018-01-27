@@ -1609,6 +1609,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				sexPositionPreferences.add(SexPositionSlot.KNEELING_RECEIVING_ORAL);
 				sexPositionPreferences.add(SexPositionSlot.SIXTY_NINE_TOP);
 				sexPositionPreferences.add(SexPositionSlot.COWGIRL_RIDING);
+				sexPositionPreferences.add(SexPositionSlot.MISSIONARY_ON_BACK);
+				sexPositionPreferences.add(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS);
 			}
 			
 		} else {
@@ -1627,20 +1629,24 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				} else if(mainSexPreference.equals(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.ANUS))) {
 					sexPositionPreferences.add(SexPositionSlot.FACE_TO_WALL_FACING_TARGET);
 					sexPositionPreferences.add(SexPositionSlot.DOGGY_BEHIND);
+					sexPositionPreferences.add(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS);
 					
 				} else if(mainSexPreference.equals(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.VAGINA))) {
 					sexPositionPreferences.add(SexPositionSlot.FACE_TO_WALL_FACING_TARGET);
 					sexPositionPreferences.add(SexPositionSlot.BACK_TO_WALL_FACING_TARGET);
 					sexPositionPreferences.add(SexPositionSlot.DOGGY_BEHIND);
+					sexPositionPreferences.add(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS);
 					
 				} else if(mainSexPreference.equals(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.ANUS))) {
 					sexPositionPreferences.add(SexPositionSlot.COWGIRL_RIDING);
 					sexPositionPreferences.add(SexPositionSlot.DOGGY_ON_ALL_FOURS);
+					sexPositionPreferences.add(SexPositionSlot.MISSIONARY_ON_BACK);
 					
 				} else if(mainSexPreference.equals(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.VAGINA))) {
 					sexPositionPreferences.add(SexPositionSlot.COWGIRL_RIDING);
 					sexPositionPreferences.add(SexPositionSlot.BACK_TO_WALL_FACING_TARGET);
 					sexPositionPreferences.add(SexPositionSlot.DOGGY_ON_ALL_FOURS);
+					sexPositionPreferences.add(SexPositionSlot.MISSIONARY_ON_BACK);
 					
 				} else if(mainSexPreference.equals(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.BREAST))
 						|| mainSexPreference.equals(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.NIPPLE))) {
@@ -1659,6 +1665,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				sexPositionPreferences.add(SexPositionSlot.KNEELING_RECEIVING_ORAL);
 				sexPositionPreferences.add(SexPositionSlot.SIXTY_NINE_TOP);
 				sexPositionPreferences.add(SexPositionSlot.COWGIRL_RIDING);
+				sexPositionPreferences.add(SexPositionSlot.MISSIONARY_ON_BACK);
+				sexPositionPreferences.add(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS);
 			}
 		}
 		

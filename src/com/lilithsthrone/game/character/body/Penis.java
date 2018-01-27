@@ -563,6 +563,9 @@ public class Penis implements BodyPartInterface, Serializable {
 		this.virgin = virgin;
 	}
 	
+	public Set<PenisModifier> getPenisModifiers() {
+		return penisModifiers;
+	}
 	
 	public boolean hasPenisModifier(PenisModifier modifier) {
 		return penisModifiers.contains(modifier);

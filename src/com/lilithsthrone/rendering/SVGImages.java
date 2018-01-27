@@ -51,9 +51,13 @@ public enum SVGImages {
 			scaleZero, scaleOne, scaleTwo, scaleThree, scaleFour,
 			scaleZeroDisabled, scaleOneDisabled, scaleTwoDisabled, scaleThreeDisabled, scaleFourDisabled,
 
-			slaveBuy, slaveBuyDisabled, slaveSell, slaveSellDisabled, slaveInspect, slaveInspectDisabled, slaveJob, slaveJobDisabled, slavePermissionsDisabled, slavePermissions, slaveTransfer, slaveTransferDisabled,
+			slaveBuy, slaveBuyDisabled, slaveSell, slaveSellDisabled, slaveInspect, slaveInspectDisabled, slaveJob, slaveJobDisabled,
+			slavePermissionsDisabled, slavePermissions, slaveTransfer, slaveTransferDisabled, slaveCosmetics, slaveCosmeticsDisabled,
 			
 			transactionBuy, transactionBuyDisabled, transactionBid, transactionBidDisabled, transactionSell, transactionSellDisabled,
+			
+			// Effects:
+			creampie, creampieMasochist,
 			
 			// Items:
 			
@@ -382,6 +386,13 @@ public enum SVGImages {
 			slaveTransferDisabled = Util.inputStreamToString(is);
 			slaveTransferDisabled = setColour(slaveTransferDisabled, Colour.BASE_GREY);
 			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/slaveCosmetics.svg");
+			slaveCosmetics = Util.inputStreamToString(is);
+			slaveCosmetics = setColour(slaveCosmetics, Colour.BASE_CRIMSON);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/slaveCosmetics.svg");
+			slaveCosmeticsDisabled  = Util.inputStreamToString(is);
+			slaveCosmeticsDisabled = setColour(slaveCosmeticsDisabled, Colour.BASE_GREY);
+			
 			
 			
 			
@@ -409,6 +420,13 @@ public enum SVGImages {
 			transactionSellDisabled = Util.inputStreamToString(is);
 			transactionSellDisabled = setColour(transactionSellDisabled, Colour.BASE_GREY);
 			
+			// Effects:
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/creampie.svg");
+			creampie = Util.inputStreamToString(is);
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/creampieMasochist.svg");
+			creampieMasochist = Util.inputStreamToString(is);
 			
 			// Items:
 			
@@ -971,6 +989,14 @@ public enum SVGImages {
 	public String getSlaveTransferDisabled() {
 		return slaveTransferDisabled;
 	}
+	
+	public String getSlaveCosmetics() {
+		return slaveCosmetics;
+	}
+	
+	public String getSlaveCosmeticsDisabled() {
+		return slaveCosmeticsDisabled;
+	}
 
 	public String getTransactionBuy() {
 		return transactionBuy;
@@ -1004,4 +1030,12 @@ public enum SVGImages {
 		return responseOptionDisabled;
 	}
 
+	public String getCreampie() {
+		return creampie;
+	}
+
+	public String getCreampieMasochist() {
+		return creampieMasochist;
+	}
+	
 }

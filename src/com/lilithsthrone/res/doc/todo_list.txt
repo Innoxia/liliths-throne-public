@@ -16,139 +16,82 @@
 	
 	Patch notes:
 	
-	Other:
-		Removed mutual orgasms (again). They weren't really serving much purpose (the only two instances of mutual orgasms were just appending normal orgasm text together), and were removing your control over your partner's orgasm.
-		Converted 'generic' partner orgasms into the new system. They're still a little bland at the moment, but I'll write in more detail this week. :3
-		Reduced default size of horse-morph breasts (from GG to DD), and increased default size of cow-morph breasts (from E to G).
 	
 	Bugs:
-		<b>Fixed:</b> Game freezes/unresponsive orgasm actions during sex (the 'Stay in position' ones).
-		<b>Fixed:</b> Numerous cases of sex actions becoming unavailable when they shouldn't have been. (You should now be able to perform multiple different 'ongoing' penetrations at once, just like you used to be able to.)
-		Fixed pregnant characters not working in 'New game (import)', as well as pregnant characters not being imported in Slaver Alley's auction block.
-		The 'Wash' action in your room will now correctly clean currently equipped clothing.
-		Fixed quite a few reported typos and instances of incorrect gender/character parsing.
-		The 'Pull out' orgasm actions will now correctly stop penis penetration.
-		NPCs in the stocks can no longer manage your or their own clothes.
-		Fixed bug where your partner's ongoing sex actions would be available to you (such as getting fingering options when your partner would be fingering themselves).
-		Fixed a few more causes of game freezes/background errors.
-		Fixed 'Anal tease' sex action sometimes returning a blank description.
+		Fixed bug where multiple incompatible penetrations could be performed at once.
+		Nipple penetration options should no longer appear as a greyed-out option if the character's nipples are not able to be penetrated.
+		Orgasm descriptions will no longer reference cum if the character that's orgasming doesn't produce any.
+		Fixed bug where orgasm descriptions were referencing the wrong person. 
+		Fixed bug where NPCs would continuously put you into the missionary position every turn.
+		Fixed some incorrect name parsing during orgasm descriptions.
 	
 	
 	
-	 
-	 
-	 
-	so in the first scene with Lilaya, before I've even been outside the house, she uses dialogue and sex action about my tail...that I don't have
 	
-	"Oh yes, your tail feels so good" (It was her tail)
-	 
-	on further inspection she's saying "yes get your tail in there" but the immediate line before it references HER tail being used
-		she also said the same about my fingers despite HER fingers being use
-	 
-	 
-	cami top off from under my hoodie
-	Lilaya displaced my fishnet top before displacing my zipped-up leather jacket.
+	Spitroast
+		Similarly, partner positions don't seem to matter, since someone stated to be in front of you can also fuck your ass and then suck off the person stated to be behind you.
+
+
+
+	trying to bang lilaya in newest version, the game crashes when I try to pull down her bra or grope her tits, gonna wait for hotfix
+
+	The discount thing is broken, he's paying you for buying his stuff.
+you can get a 'big discount' from Ralph, and when you select [take it] during the anal scene the percentage discount increases by 15% each time
 	
-	add dirty slot tooltips
-	
-	add selfie dirty descriptions
-	
-	the public stocks don't seem to be great at telling who's in them: it's a wolfgirl, but said alligator
-	
-	Ride her cock: also if i'm facing the wall, my hips should buck backwards not forwards, yes
-	
-	can i please disable rimming
-	
-	i really wish characters would like... actually have sex with you, instead of just fuckign themselves in front of you
-		like i just got the witch's chapel thing for the first time, pulls out her dick like she wantsta rape me and she's just tailfuckign herself for orgasm after orgasm
+	the greater succubs bugging out?
+[09:44] CaiHuaZei: like it just repeats the same line indefinitely
+[09:52] A Degenerate: after sex before sex or?
+[10:01] CaiHuaZei: during
+[10:01] CaiHuaZei: i got past it by pressing do nothing
 	
 	
-	npcs no longer comment on body parts the first time they're revealed in sex, it just has the clothing removal line
-	
-	NPCs should only spread pussy/ass if they want it used
-	
-	 I was the submissive partner having sex with a hermaphrodite character. I was eating her pussy when she put her cock in my mouth. At this point, I was both eating her pussy and sucking her cosk at the same time... somehow.
-	
-	My character has breast and a penis, but when I drank a potion of girl-cum it said it gave me a slightly moist pussy. I checked my character screen and it seemed to do nothing. The only thing I can assume is that it is altering something in the background so that if the character gains a vagina then it will be slightly moist. I believe modifiers aren't supposed to work on a part you currently don't have.
-	
-	In sex, removed all clothing, they have no penetrations, in a fuckable position, still have no options. In my game just to cut down on finding the right people to be slaves I just set everything to have all sets with anyone without both just not existing unless I make them myself. 
-	So im in sex, them in a fuckable position, got nowhere to stick it, so I go to the clothing, its all displaced, but lets just remove it to be sure, still got no place to stick it, look at them, they have a cock, pussy, and its currently wet, no where to stick it, end all penetrations, still no where to stick it. 
-	an 'investigate' option in sex when you are dominant would be nice, you just stick your hand down and feel around, but observant says in game you will know their sex, so that could be a thing that was just not utilized till now, and if that's not the case, xray glasses would be nice just to make it always show.
-	
-	there is a bug when I'm fucking someone in the stocks. there are somehow able to unbutton my shirt when I'm behind them.
+	 Dealing with cum inflation, As you inflate the character, it goes through the 'pregnancy' sized phases correctly, untill you reach the max size, then if you go beyond that, (something like 4L) The description goes to 'early pregancy' again.
+[18:04] Jimmythehand: Looks like roll over or something
 	
 	
+	: My character was on submissive role 69ing, while receiving a blowjob reached orgasm, but for some reason "Pull Out (chest)" didn't work. Then I tried Pull Out (facial) and it worked.
+	
+	
+	Uh-oh. NPCs can perform multiple incompatible "penetrations" at the same time. I'm kissing a wolf-girl twice (two separate kissing interactions that both have separate buttons and increase arousal separately) and I got a reindeer girl who could both perform oral and titfuck at the same time. (This should be kept for penises that are sufficiently large compared to the partner's breasts, but obviously behaviors like double kissing ought to be fixed.) Haven't gotten an NPC to do anal and vaginal at the same time yet, but I'll edit this post if that happens.
+
+EDIT: Got vaginal and thigh-fucking going at the same time
+	
+	When NPC is virgin:
+		I'm still a virgin, ok
+		This is going to be good (while performing paizuri)
+	
+	
+	
+	
+	
+	
+	Finish fluid modifier descriptions
 	alcoholic and/or psychoactive effects
 	
-	Lilaya sex takes to inventory screen
+	Add trib
+	riding cowgirl just allowed for the dominant partner
 	
-	are you supposed to stop giving your partner oral after they orgasm or is that a bug
-	
-	This looks to be a text only bug - when getting transformed, you are made to swallow the vial/flask/bottle twice...
-		Your enemy pulls it out and forces it into your mouth at the previous screen (when you can choose to spit or swallow....heh) and if you opt to get TF'd, they pull  out the potion again and force it down your throat.
-	
-	option to custom slaves at kate's
+	so if you import a char as a slave they wont be attracted to you no matter what if they dont has the incest fetish
 	
 	
+	Lilaya & Kate: I’m also hoping that soon using any of the “Rough” actions will switch the pace to rough, like they do in most scenes.
 	
+	The action buttons in sex scenes are all jumbled up now.
 	
 	
 	
-	When storing clothing worn before sex, store displacement state also and restore that afterwards along with clothing worn. With the addition of the leather jacket, which is as likely to be worn open as closed, this is more important than ever
 	
-	NPCs with the “TF Test Subject” fetish object to being fed potions (during sex). I’m guessing they’re not supposed to.
-	
-	
-	
-	SORT OUT ORGASMS
-	penis, vagina, and cum modifiers
-	
-	Penis + vagina/anus/nipple: Creampie | Cum on breasts, Cum on back, Cum on Pussy, Cum on stomach, Cum on legs
-	Penis + mouth: deepthroat | Facial
-	Knotted Penis + vagina/anus/nipple/mouth: Knot her/him
-	
-	Cum inflation status effects
-	Cum on areas
-	
-	Vagina + Penis: Ride (Milk) cock
-	Vagina + Knotted Penis: Grind knot (Get knotted)
-	Mouth + Penis: Deepthroat climax
-		
-	
-	Generate description of focus 
-		[1 sentence] Append position-specific movement.
-		[3 sentences] Append detailed focus.
-		[1 sentence each] Append non-focus events.
-		[1 sentence each] Append outcome (cum inflation, addictions).
-	
-	
-	Need to define available sex actions as dependent on which SexSlot it's targeting.
-	
+	finish the lust+stamina mechanics in sex
 	Sex preferences/Fetish rework
-	
-	
-	Set up doggy test sex scene
-		Text for positions
-	
-	
-	Sex action stats (stamina, lust, arousal)
-	
 	improving the fetishes/sex experience
 	Fetish levels and experience
 	Fetishes should boost in power based on experience level
-	
-	Check oral/anal/vaginal allowed for stocks
-	
 	
 	Corruption - fetish bypasses
 	Stamina - drained by actions (minor) and orgasms (major). If falls to 0, can't continue/exhausted.
 	Lust - gained by actions character likes. Drained by actions character doesn't like. Determines pace.
 		Player actions now increase/decrease lust instead of setting pace immediately
-	
-	
 	Lust should not determine pace. Instead, it should lock out the opposite extremes. So at minimum, can't use eager stuff.
-	Actions still determine pace.
-	
 	
 	Sex starts:
 	- Each character has a starting lust, based on other character's attraction
@@ -158,21 +101,75 @@
 		- Set pace to corresponding lust pace
 	- Sex stops once doms all run out of stamina, or if NPC dom achieves objectives.
 	
-	
-	
 	Sex experience (determines arousal gain)
 		Fetish boosts xp and lust gains for those actions
 		'Turn-off' makes you lose lust when subjected to those actions
+		
+		
+	
+	make sex actions specific to slot
+	Need to define available sex actions as dependent on which SexSlot it's targeting.
 	
 	
-	Sub doggy-style (player receives oral + double penetration)
+	
+	Add in orifice modifier descriptions
+	
+	Go through sex managers and convert orgasms
+	Add Brax's insemination orgasm
+	Add in cum-eating sex actions (eating out pussy, ass, or nipples)
+	
+	Add in missing content related to addictive fluids, and start writing in descriptions for different TF types during sex (such as tongue length influencing oral descriptions, grabbing horns, using multiple tails, etc.).
+		Basically, finish addictive fluids, and add hypnotic and alcoholic effects
+	
+	
+	
+	Add forced TF to offer body
+	
+	
+	
+	
+	so in the first scene with Lilaya, before I've even been outside the house, she uses dialogue and sex action about my tail...that I don't have
+		"Oh yes, your tail feels so good" (It was her tail)
+		on further inspection she's saying "yes get your tail in there" but the immediate line before it references HER tail being used
+			she also said the same about my fingers despite HER fingers being use
+	I teased lilaya's tail and it says 'Lilaya's juices quickly lubricate your tail.
+	
+	
+	 Getting your anal virginity taken with lusty maiden triggers the loss of your vaginal virginity text, supposedly giving you the broken maiden status, but it doesn't.
+	 
+	 
+	cami top off from under my hoodie
+	Lilaya displaced my fishnet top before displacing my zipped-up leather jacket.
+	
+	add dirty slot tooltips
+	
+	add selfie dirty descriptions
+	
+	Ride her cock: also if i'm facing the wall, my hips should buck backwards not forwards, yes
+	
+	can i please disable rimming
+	
+	i really wish characters would like... actually have sex with you, instead of just fuckign themselves in front of you
+		like i just got the witch's chapel thing for the first time, pulls out her dick like she wantsta rape me and she's just tailfuckign herself for orgasm after orgasm
+	
+	NPCs should only spread pussy/ass if they want it used
+	
+	 I was the submissive partner having sex with a hermaphrodite character. I was eating her pussy when she put her cock in my mouth. At this point, I was both eating her pussy and sucking her cosk at the same time... somehow.
+	
+	In sex, removed all clothing, they have no penetrations, in a fuckable position, still have no options. In my game just to cut down on finding the right people to be slaves I just set everything to have all sets with anyone without both just not existing unless I make them myself. 
+	So im in sex, them in a fuckable position, got nowhere to stick it, so I go to the clothing, its all displaced, but lets just remove it to be sure, still got no place to stick it, look at them, they have a cock, pussy, and its currently wet, no where to stick it, end all penetrations, still no where to stick it. 
+	an 'investigate' option in sex when you are dominant would be nice, you just stick your hand down and feel around, but observant says in game you will know their sex, so that could be a thing that was just not utilized till now, and if that's not the case, xray glasses would be nice just to make it always show.
+	
+	
+	
+	add the option for a bigger map
+	
+	NPCs with the “TF Test Subject” fetish object to being fed potions (during sex). I’m guessing they’re not supposed to.
+	
 	
 	
 	Resisting -> hesitant -> apathetic -> willing -> eager
 	
-	This dog girl gets the +4 seduction bonus for exposed tiddy
-		and the +12 seduction bonus for exposed tiddy+genitals
-		we can't even see her genitals reeeeee
 	
 		
 		
@@ -217,11 +214,6 @@ It was actually quite amusing, I got to grind out 8 condoms super quick
 	
 	
 	
-	the prepare button seems to have broken mutual orgasms. it resolves the PC first and they pull out before the other person cums. making the followup scene be as if they came without penetrative action.
-	
-	
-	As a side note, the 2 person room doesn't take into account the double bed. Basically, the room has one bed on each side, AND the double bed in the center. Is that on purpose as to imply the double bed is just there to have fun with our character? I was under the impression the double bed was to allow slaves to couple.
-	
 	Found some bugs. So every time I have my character sex with an NPC, random encounter, or a slave. They always do the 'pullout' option, and there was no neither option to request they stay in or pullout. At first I thought is was because I used the cheat code, but I reinstalled the game and did a default play through, and it still happened. Also during sex the NPC's don't talk outside of the default 'dirty talk', or when you tease them (to clarify, when dominated by an NPC and you, or they, remove/displace clothing that reveal breasts or penis they usually comment on the size).
 	
 	Bugs found:
@@ -246,8 +238,6 @@ It was actually quite amusing, I got to grind out 8 condoms super quick
 
 -i just noticed that when you hover over your name in sex, while it gives the proper descriptions, the name in the popup for me is "man". is it supposed to use the gander term rather than the name?
 
--the only orgasm options that show up for mutual orgasms are "pull out" and "stay in position". the others (incl. "creampie", "pussy/ass to mouth", "deepthroat", "facial", etc) only show up when you cum on your own, despite the fact that some of them used to be usable during mutual orgasms.
-
 -i seem to remember some discussion about a "dirty talker" fetish and making the "strengthened aura" buff not renew while it's still active. did you decide against those, or did they just get pushed down the list?
 -similarly, probably been mentioned already, but thigh sex still has no associated fetish.
 
@@ -257,12 +247,7 @@ It was actually quite amusing, I got to grind out 8 condoms super quick
 -maybe also single-turn and ongoing actions for putting your fingers in their mouth? similar to the lubricate and suck fingers self actions?
 -also, making these and the existing lubricate fingers repeatable might be nice(maybe rename it "lick fingers"), some people might like being able to stick their fingers in their parter then licking the fluids on their fingers.
 
--i'm guessing/hoping there will be actions/items added to effect other people's lust?
 	
-	
-	
-	Suggestions:
-
 When neither partner is doing anything, dirty talk is something like “I’ll be gentle” or “I’m going to fuck you senseless”, depending on pace. Maybe if the scene has been going on long enough for one of you to cum, there should be other lines, like “Did you like that, you little slut?” or “Good girl, I enjoyed that!”
 
 While I’m thinking about dirty talk, there’s a noticable difference in tone between the rough talk when you’re doing something to them, and the rough talk when you’re making them do something to you.
@@ -270,18 +255,10 @@ The former are basically all variants on “You’re enjoying that, aren’t you
 
 It might be nice to be able to change the pace of a scene without having to already be doing anything.
 
-Bug Report:
-
-When you feed someone a potion during sex, the narration is based off the after state, not the before. Example: I feed a man a potion with enough femininity+ in it to make him into a woman. The result:
-Taking your Canine elixir of resizing faces out from your inventory, you hold it out to the woman. Seeing what you’re offering her, she shifts about uncomfortably, “Do you really expect me to drink some rando~Mrph!~” (in pink)
-
 Some positions should probably have limits on clothing displacement. If I’m pinning someone face-first against a wall, or face down on the floor, they’re probably going to have a hard time undressing me.
 	
 	
-	
 	Wouldn't "Broken virgin" also give positive points in the stocks since they're desperate for sex?
-	
-	Alligator boys (and probably girls) are being described as having a "bush" of "scale" for both beards and pubic hair.
 	
 	got a problem, when trying to examine slaves, I get stuck with seeing slaves that aren't the one I am looking at. I can work around to see them, but its annoying none the less.
 	
@@ -290,23 +267,11 @@ Some positions should probably have limits on clothing displacement. If I’m pi
 	demons should be able to control their pubic and body hair colors
 	
 	
-	
-	
-	
-	NPCs will use last of stamina on SAs, causing them to lose
-	
-	
-	so a small bug I noticed is that even if you click the button for rough fun it still treats it as if you are going for regular paced sex.
-	
-	Unwilling Fuck-Toy Fetish seems a little *too* effective under the new sex system. I made a character with it who would regularly orgasm before the other character had even began sexual actions (just stripping, etc) and tended to have 3-4 orgasms before the dominant partner had one. It is not *bad* per-se, but seems a little silly.
-	
 	there is still no pussy penetrate option for me sometimes. anal yes,but pussy most often not.
 	
-	Noticed a typo with the 3some option when hovering over the action, (let "insert_name" and spitroast you.) basically missing the 2nd slave's name.
-Also during the 3some, perhaps add an option to hide the fetish icons/remove them from the UI since I've derped around with 28x3 fetishes on all 3 characters and it causes a massive lag spike on the engine. 
-	
-	Bug: You can drop/remove/displace NPC's clothes through the [Phone] > [Contacts] > [NPC Name] tabs and then clicking on the piece of clothing you want to change.
-Suggestion: For the encyclopedia, having items' descriptions somewhere would be nice, maybe when mouse-hovering over the name? Also in the encyclopedia, having consumable items' icons show somewhere on mouse hover, like in the weapons and clothing categories, would also be nice.
+	Also during the 3some, perhaps add an option to hide the fetish icons/remove them from the UI since I've derped around with 28x3 fetishes on all 3 characters and it causes a massive lag spike on the engine. 
+		
+	Suggestion: For the encyclopedia, having items' descriptions somewhere would be nice, maybe when mouse-hovering over the name? Also in the encyclopedia, having consumable items' icons show somewhere on mouse hover, like in the weapons and clothing categories, would also be nice.
 	
 	
 	URETHRAL PENETRATION
@@ -314,18 +279,16 @@ Suggestion: For the encyclopedia, having items' descriptions somewhere would be 
 	
 	
 	
-	
-	
-	
-	
-	
 	Suggestions:
 
-It seems to me that fingering a pussy and eating it out shouldn’t be mutually exclusive (if you’re in a position to do both, of course).
+I’m not so keen on how the equipped icons are now even smaller than they were before.
+ It wouldn’t be so bad if there was a nice big picture of each item in its tooltip.
+  You could also enlarge that panel quite a bit; there’s a lot of empty space around it, after all.
+   The layout also seems poorer than it was previously; before, clothing was largely arranged from head to foot vertically, and from outer to inner horizontally. Now, it just seems more random.
 
-I’m not so keen on how the equipped icons are now even smaller than they were before. It wouldn’t be so bad if there was a nice big picture of each item in its tooltip. You could also enlarge that panel quite a bit; there’s a lot of empty space around it, after all. The layout also seems poorer than it was previously; before, clothing was largely arranged from head to foot vertically, and from outer to inner horizontally. Now, it just seems more random.
-
-The default for dominant scenes used to be that the sub couldn’t touch your clothes unless you told them they could. Now this has changed to being permitted by default. One isn’t inherently better than the other, but having gotten used to the old way, I keep forgetting to do so. Maybe adding something on the UI to indicate these permissions would help remind us that we need to manually forbid each time? Maybe even an option to choose the default, so we don’t have to explicitly say it each time?
+The default for dominant scenes used to be that the sub couldn’t touch your clothes unless you told them they could.
+ Now this has changed to being permitted by default. One isn’t inherently better than the other, but having gotten used to the old way, I keep forgetting to do so.
+  Maybe adding something on the UI to indicate these permissions would help remind us that we need to manually forbid each time? Maybe even an option to choose the default, so we don’t have to explicitly say it each time?
 
 I’m hoping that part of the sex re-work will be changing it so the submissive partner can no longer push the dominant away when they (the submissive) cum.
 
@@ -333,23 +296,8 @@ Allow us to use more than just letters and numbers for save names. I can’t see
 
 Bug Reports:
 
-Kate’s and Lilaya’s chair scene is all fucked up now. Strangely, differently for the two of them.
-With Kate:
-You can’t actually switch into the other position, it always says that Kate is seated, but the actions for when you are seated are available too, and for some reason there are three “Dirty talk” actions!
-With Lilaya:
-I can switch between positions just fine, and when I’m seated I can’t see any actions that shouldn’t be there. When I’m standing, however, the actions for when I’m seated or standing all appear.
-I’m also hoping that soon using any of the “Rough” actions will switch the pace to rough, like they do in most scenes.
-
 There are a bunch of warnings (five) in the log about how “An instance of AbstractItem was unable to be imported”. I’m not noticing anything missing from anyone’s inventory, but five out of hundreds of items in the world would be easy to miss.
 
-The action buttons in sex scenes are all jumbled up now. This will probably be fixed when the sex update gets fixed I think, but it’s a bad idea to not report something just because you assume it’s already known about.
-
-Part-way through a scene, fucking a shemale in doggy, the action to stroke her cock disappeared for some reason. It reappeared when I switched positions.
-	
-	
-	
-	
-	
 	
 	Clothing removal - Before your chemise is able to be removed, Chemise and Dress coat need to be removed.
 *This will repeat forever, unless I remove the dress coat myself (which is already unbuttoned) I think it only happens when the NPC is targeting your character's breasts, but don't quote me.
@@ -359,21 +307,12 @@ Part-way through a scene, fucking a shemale in doggy, the action to stroke her c
 	 Meaning that say, a trap wears a chastity cage, if their groin is exposed, then you shouldn't have to unjinx and take off your chastity belt for NPCs to realize you're a trap.
 	
 	
-	
-	Add forced TF to offer body
-	
-	submissive sex option for offspring
-	
-	
 	you should have two statuses, at least, for pure virgins who lose it
 		One where they see themselves as worthless fuckmeat
 		That would be what happens if they actually start having second thoughts during the sex scene and it isn't somehow negated
 		The other one would be something like 'virgin unleashed' where they revel in it
 		"I kept myself pure when I could have been doing this? I'm going to make up for lost time."
 		Which would have a heavy corruption boost, but they'd gain a significant bonus to seduction, sexuality, stamina, etc.
-	
-	
-	
 	
 	
 	

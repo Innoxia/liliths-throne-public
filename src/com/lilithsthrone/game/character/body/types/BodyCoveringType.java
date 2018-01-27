@@ -1060,28 +1060,10 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 					new ListValue<CoveringPattern>(CoveringPattern.EYE_IRISES)),
 			Util.newArrayListOfValues(
 					new ListValue<CoveringPattern>(CoveringPattern.EYE_IRISES_HETEROCHROMATIC)),
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.EYE_BLUE),
-					new ListValue<Colour>(Colour.EYE_BROWN),
-					new ListValue<Colour>(Colour.EYE_GREEN),
-					new ListValue<Colour>(Colour.EYE_YELLOW),
-					new ListValue<Colour>(Colour.EYE_RED),
-					new ListValue<Colour>(Colour.EYE_ORANGE),
-					new ListValue<Colour>(Colour.EYE_AMBER),
-					new ListValue<Colour>(Colour.EYE_PINK),
-					new ListValue<Colour>(Colour.EYE_BLACK)),
-			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.EYE_BLUE),
-					new ListValue<Colour>(Colour.EYE_BROWN),
-					new ListValue<Colour>(Colour.EYE_GREEN),
-					new ListValue<Colour>(Colour.EYE_YELLOW),
-					new ListValue<Colour>(Colour.EYE_RED),
-					new ListValue<Colour>(Colour.EYE_ORANGE),
-					new ListValue<Colour>(Colour.EYE_AMBER),
-					new ListValue<Colour>(Colour.EYE_PINK),
-					new ListValue<Colour>(Colour.EYE_BLACK)),
-			null),
+			Colour.naturalDemonIrisColours,
+			Colour.dyeDemonIrisColours,
+			Colour.naturalDemonIrisColours,
+			Colour.dyeDemonIrisColours),
 
 	EYE_DOG_MORPH(Race.DOG_MORPH,
 			"a pair of",
@@ -1108,28 +1090,10 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 					new ListValue<CoveringPattern>(CoveringPattern.EYE_IRISES)),
 			Util.newArrayListOfValues(
 					new ListValue<CoveringPattern>(CoveringPattern.EYE_IRISES_HETEROCHROMATIC)),
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.EYE_BLUE),
-					new ListValue<Colour>(Colour.EYE_BROWN),
-					new ListValue<Colour>(Colour.EYE_GREEN),
-					new ListValue<Colour>(Colour.EYE_AMBER),
-					new ListValue<Colour>(Colour.EYE_YELLOW)),
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.EYE_RED),
-					new ListValue<Colour>(Colour.EYE_ORANGE),
-					new ListValue<Colour>(Colour.EYE_PINK),
-					new ListValue<Colour>(Colour.EYE_BLACK)),
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.EYE_BLUE),
-					new ListValue<Colour>(Colour.EYE_BROWN),
-					new ListValue<Colour>(Colour.EYE_GREEN),
-					new ListValue<Colour>(Colour.EYE_AMBER),
-					new ListValue<Colour>(Colour.EYE_YELLOW)),
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.EYE_RED),
-					new ListValue<Colour>(Colour.EYE_ORANGE),
-					new ListValue<Colour>(Colour.EYE_PINK),
-					new ListValue<Colour>(Colour.EYE_BLACK))),
+			Colour.naturalPredatorIrisColours,
+			Colour.dyePredatorIrisColours,
+			Colour.naturalPredatorIrisColours,
+			Colour.dyePredatorIrisColours),
 
 	EYE_FELINE(Race.CAT_MORPH,
 			"a pair of",
@@ -1141,28 +1105,10 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 					new ListValue<CoveringPattern>(CoveringPattern.EYE_IRISES)),
 			Util.newArrayListOfValues(
 					new ListValue<CoveringPattern>(CoveringPattern.EYE_IRISES_HETEROCHROMATIC)),
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.EYE_BLUE),
-					new ListValue<Colour>(Colour.EYE_BROWN),
-					new ListValue<Colour>(Colour.EYE_GREEN),
-					new ListValue<Colour>(Colour.EYE_AMBER),
-					new ListValue<Colour>(Colour.EYE_YELLOW)),
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.EYE_RED),
-					new ListValue<Colour>(Colour.EYE_ORANGE),
-					new ListValue<Colour>(Colour.EYE_PINK),
-					new ListValue<Colour>(Colour.EYE_BLACK)),
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.EYE_BLUE),
-					new ListValue<Colour>(Colour.EYE_BROWN),
-					new ListValue<Colour>(Colour.EYE_GREEN),
-					new ListValue<Colour>(Colour.EYE_AMBER),
-					new ListValue<Colour>(Colour.EYE_YELLOW)),
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.EYE_RED),
-					new ListValue<Colour>(Colour.EYE_ORANGE),
-					new ListValue<Colour>(Colour.EYE_PINK),
-					new ListValue<Colour>(Colour.EYE_BLACK))),
+			Colour.naturalPredatorIrisColours,
+			Colour.dyePredatorIrisColours,
+			Colour.naturalPredatorIrisColours,
+			Colour.dyePredatorIrisColours),
 
 	EYE_SQUIRREL(Race.SQUIRREL_MORPH,
 			"a pair of",

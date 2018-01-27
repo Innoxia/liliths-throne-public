@@ -306,7 +306,15 @@ public class TestNPC extends NPC {
 						false, false,
 						new SMDoggy(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getTestNPC(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getTestNPC(), SexPositionSlot.DOGGY_ON_ALL_FOURS))) {
+							@Override
+							public SexPace getStartingSexPaceModifier(GameCharacter character) {
+								if(character.isPlayer()) {
+									return SexPace.DOM_GENTLE;
+								}
+								return null;
+							}
+						},
 						TEST_DIALOGUE_AFTER_RAPE,
 						"<p>"
 							+ "You quietly close the door and lock it behind you. After all, you wouldn't want anyone interrupting your fun."
@@ -321,15 +329,7 @@ public class TestNPC extends NPC {
 						+ "<p>"
 							+ "You drop down behind [test.herHim], taking hold of [test.her] weak body and preventing [test.her] from escaping as you growl into [test.her] [test.ear+],"
 							+ " [pc.speech(Hush now, there's no point in struggling, you're mine now!)]"
-						+ "</p>") {
-					@Override
-					public SexPace getStartingSexPaceModifier(GameCharacter character) {
-						if(character.isPlayer()) {
-							return SexPace.DOM_GENTLE;
-						}
-						return null;
-					}
-				};
+						+ "</p>");
 				
 			} else if (index == 4 && Main.game.isNonConEnabled()) {
 				return new ResponseSex("Rape [test.herHim] (rough)", "[test.Her] back is turned, and [test.she] hasn't noticed you enter the room... (Start the sex scene in the 'rough' pace.)",
@@ -337,7 +337,15 @@ public class TestNPC extends NPC {
 						false, false,
 						new SMDoggy(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getTestNPC(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getTestNPC(), SexPositionSlot.DOGGY_ON_ALL_FOURS))) {
+							@Override
+							public SexPace getStartingSexPaceModifier(GameCharacter character) {
+								if(character.isPlayer()) {
+									return SexPace.DOM_ROUGH;
+								}
+								return null;
+							}
+						},
 						TEST_DIALOGUE_AFTER_RAPE,
 						"<p>"
 							+ "You quietly close the door and lock it behind you. After all, you wouldn't want anyone interrupting your fun."
@@ -353,15 +361,7 @@ public class TestNPC extends NPC {
 							+ "You drop down behind [test.herHim], looming over [test.her] weak body as you slam [test.her] down into the floor."
 							+ " You grin as [test.she] struggles back up onto all fours, and, roughly grabbing [test.her] frail body, you tightly grip [test.her] waist, preventing [test.her] from escaping as you growl into [test.her] [test.ear+],"
 							+ " [pc.speech(Scream all you want, bitch! You're mine now!)]"
-						+ "</p>") {
-					@Override
-					public SexPace getStartingSexPaceModifier(GameCharacter character) {
-						if(character.isPlayer()) {
-							return SexPace.DOM_ROUGH;
-						}
-						return null;
-					}
-				};
+						+ "</p>");
 				
 			} else if(index==0) {
 				return new Response("Leave", "Step back without alerting the [test.race] to your presence.", TEST_DIALOGUE) {
@@ -430,7 +430,15 @@ public class TestNPC extends NPC {
 						true, true,
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getTestNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getTestNPC(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+							@Override
+							public SexPace getStartingSexPaceModifier(GameCharacter character) {
+								if(character.isPlayer()) {
+									return SexPace.DOM_GENTLE;
+								}
+								return null;
+							}
+						},
 						TEST_DIALOGUE_AFTER_SEX,
 						"<p>"
 							+ "You step forwards, gently wrapping your [pc.arms] around the [test.race] and lovingly pulling [test.herHim] into you."
@@ -438,15 +446,7 @@ public class TestNPC extends NPC {
 						+ "<p>"
 							+ "[test.speech(~Mmmm!~)] [test.she] moans, leaning into you,"
 							+ " [test.speech(Fuck me!)]"
-						+ "</p>") {
-					@Override
-					public SexPace getStartingSexPaceModifier(GameCharacter character) {
-						if(character.isPlayer()) {
-							return SexPace.DOM_GENTLE;
-						}
-						return null;
-					}
-				};
+						+ "</p>");
 				
 			} else if (index == 3) {
 				return new ResponseSex("Sex (rough)",
@@ -454,7 +454,15 @@ public class TestNPC extends NPC {
 						true, true,
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getTestNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getTestNPC(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+							@Override
+							public SexPace getStartingSexPaceModifier(GameCharacter character) {
+								if(character.isPlayer()) {
+									return SexPace.DOM_ROUGH;
+								}
+								return null;
+							}
+						},
 						TEST_DIALOGUE_AFTER_SEX,
 						"<p>"
 								+ "You step forwards, wrapping your [pc.arms] around the [test.race] and roughly pulling [test.herHim] into you."
@@ -462,15 +470,7 @@ public class TestNPC extends NPC {
 							+ "<p>"
 								+ "[test.speech(~Mmmm!~)] [test.she] moans, leaning into you,"
 								+ " [test.speech(Yes! I like it rough!)]"
-							+ "</p>") {
-					@Override
-					public SexPace getStartingSexPaceModifier(GameCharacter character) {
-						if(character.isPlayer()) {
-							return SexPace.DOM_ROUGH;
-						}
-						return null;
-					}
-				};
+							+ "</p>");
 				
 			} else if (index == 6) {
 				return new ResponseEffectsOnly("Inventory", "You're sure that [npc.name] won't mind you managing [npc.her] clothing and items..."){

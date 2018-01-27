@@ -2411,7 +2411,7 @@ public class ItemType {
 						+ " A sweet smell rises from the opening, and, after gulping down the delicious liquid, you feel a strange tingling feeling spreading throughout your body as the potion's effects start to make themselves known...",
 					"First removing the bottle's stopper, you then bring the potion up to [npc.name]'s waiting lips, before forcing [npc.herHim] to drink it all down.",
 					"[npc.Name] pulls out a potion of some sort, and, after quickly removing the bottle's stopper, [npc.she] promptly gulps downs the contents.",
-					"[npc.Name] pulls out a potion of some sort, and, after quickly removing the bottle's stopper, [npc.she] brings it to your lips, before tilting your head back and forcing you to quickly gulp down the contents."
+					"[npc.Name] brings the potion to your lips, before tilting your head back and forcing you to quickly gulp down the contents."
 						+ " You feel a strange tingling feeling spreading throughout your body as the potion's effects start to make themselves known...");
 		}
 
@@ -2462,7 +2462,7 @@ public class ItemType {
 						+ " A sweet smell rises from the opening, and, after gulping down the delicious liquid, you feel a strange tingling feeling spreading throughout your body as the elixir's effects start to make themselves known...",
 					"First removing the bottle's stopper, you then bring the elixir up to [npc.name]'s waiting lips, before forcing [npc.herHim] to drink it all down.",
 					"[npc.Name] pulls out an elixir of some sort, and, after quickly removing the stopper, [npc.she] promptly gulps downs the contents.",
-					"[npc.Name] pulls out an elixir of some sort, and, after quickly removing the bottle's stopper, [npc.she] brings it to your lips, before tilting your head back and forcing you to quickly gulp down the contents."
+					"[npc.Name] brings the elixir to your lips, before tilting your head back and forcing you to quickly gulp down the contents."
 						+ " You feel a strange tingling feeling spreading throughout your body as the elixir's effects start to make themselves known...");
 		}
 

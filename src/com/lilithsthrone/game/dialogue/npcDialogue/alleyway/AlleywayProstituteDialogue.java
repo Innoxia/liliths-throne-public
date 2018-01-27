@@ -403,16 +403,16 @@ public class AlleywayProstituteDialogue {
 						true, false,
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_SEX_VICTORY) {
-					@Override
-					public SexPace getStartingSexPaceModifier(GameCharacter character) {
-						if(character.isPlayer()) {
-							return SexPace.DOM_GENTLE;
-						}
-						return null;
-					}
-				};
+								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+							@Override
+							public SexPace getStartingSexPaceModifier(GameCharacter character) {
+								if(character.isPlayer()) {
+									return SexPace.DOM_GENTLE;
+								}
+								return null;
+							}
+						},
+						AFTER_SEX_VICTORY);
 				
 			} else if (index == 4) {
 				return new ResponseSex("Rough fun",
@@ -420,16 +420,16 @@ public class AlleywayProstituteDialogue {
 						true, false,
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_SEX_VICTORY) {
-					@Override
-					public SexPace getStartingSexPaceModifier(GameCharacter character) {
-						if(character.isPlayer()) {
-							return SexPace.DOM_ROUGH;
-						}
-						return null;
-					}
-				};
+								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+							@Override
+							public SexPace getStartingSexPaceModifier(GameCharacter character) {
+								if(character.isPlayer()) {
+									return SexPace.DOM_ROUGH;
+								}
+								return null;
+							}
+						},
+						AFTER_SEX_VICTORY);
 				
 			} else if (index == 5) {
 				return new ResponseSex("Submit",
@@ -522,19 +522,20 @@ public class AlleywayProstituteDialogue {
 						false, false,
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+							@Override
+							public SexPace getStartingSexPaceModifier(GameCharacter character) {
+								if(character.isPlayer()) {
+									return SexPace.SUB_EAGER;
+								}
+								return null;
+							}
+						},
 						AFTER_SEX_DEFEAT,
 						"<p>"
 							+ "[npc.Name]'s [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
 							+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.she]'s going to want more than just a kiss..."
-						+ "</p>") {
-					public SexPace getStartingSexPaceModifier(GameCharacter character) {
-						if(character.isPlayer()) {
-							return SexPace.SUB_EAGER;
-						}
-						return null;
-					}
-				};
+						+ "</p>");
 				
 			} else if (index == 3 && Main.game.isNonConEnabled()) {
 				return new ResponseSex("Resist Sex",
@@ -542,21 +543,21 @@ public class AlleywayProstituteDialogue {
 						false, false,
 						new SMStanding(
 								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+							@Override
+							public SexPace getStartingSexPaceModifier(GameCharacter character) {
+								if(character.isPlayer()) {
+									return SexPace.SUB_RESISTING;
+								}
+								return null;
+							}
+						},
 						AFTER_SEX_DEFEAT,
 						"<p>"
 							+ "[npc.Name]'s [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
 							+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
 							+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.she]'s not going to let you go..."
-						+ "</p>") {
-					@Override
-					public SexPace getStartingSexPaceModifier(GameCharacter character) {
-						if(character.isPlayer()) {
-							return SexPace.SUB_RESISTING;
-						}
-						return null;
-					}
-				};
+						+ "</p>");
 				
 			} else {
 				return null;

@@ -4,15 +4,27 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
+import com.lilithsthrone.game.character.body.BodyPartInterface;
+import com.lilithsthrone.game.character.body.Eye;
+import com.lilithsthrone.game.character.body.Hair;
+import com.lilithsthrone.game.character.body.Skin;
+import com.lilithsthrone.game.character.body.Vagina;
+import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.types.FaceType;
+import com.lilithsthrone.game.character.body.valueEnums.PiercingType;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.eventLog.SlaveryEventLogEntry;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
+import com.lilithsthrone.game.dialogue.utils.BodyChanging;
+import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.slavery.SlaveJob;
@@ -24,6 +36,7 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.GenericPlace;
@@ -1026,6 +1039,12 @@ public class SlaveryManagementDialogue {
 				miscDialogueSB.append("<div id='"+slave.getId()+"_SELL' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionSell()+"</div></div>");
 			}
 			
+			if(Main.game.getKate().getLastTimeEncountered()!=NPC.DEFAULT_TIME_START_VALUE) {
+				miscDialogueSB.append("<div id='"+slave.getId()+"_COSMETICS' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveCosmetics()+"</div></div>");
+			} else {
+				miscDialogueSB.append("<div id='"+slave.getId()+"_COSMETICS_DISBALED' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveCosmeticsDisabled()+"</div></div>");
+			}
+			
 		} else { // Slave trader's slave:
 			miscDialogueSB.append("<div style='float:left; width:15%; margin:0 auto; padding:0; display:inline-block; text-align:center;'>"
 					+ "<div id='"+slave.getId()+"_TRADER' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveInspect()+"</div></div>"
@@ -1043,6 +1062,8 @@ public class SlaveryManagementDialogue {
 			} else {
 				miscDialogueSB.append("<div id='"+slave.getId()+"_BUY' class='square-button big'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getTransactionBuy()+"</div></div>");
 			}
+			
+			miscDialogueSB.append("<div id='"+slave.getId()+"_TRADER_COSMETICS' class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getSlaveCosmeticsDisabled()+"</div></div>");
 		}
 		
 		miscDialogueSB.append("</div></div>");
@@ -1494,6 +1515,427 @@ public class SlaveryManagementDialogue {
 		@Override
 		public boolean reloadOnRestore() {
 			return true;
+		}
+	};
+	
+
+	private static Map<BodyCoveringType, List<String>> CoveringsNamesMap;
+	
+	private static Response getCosmeticsResponse(int responseTab, int index) {
+		if (index == 1) {
+			return new Response("Makeup",
+					"Kate offers a wide range of different cosmetic services, and several pages of the brochure are devoted to images displaying different styles and colours of lipstick, nail polish, and other forms of makeup.",
+					SLAVE_MANAGEMENT_COSMETICS_MAKEUP);
+
+		} else if (index == 2) {
+			return new Response("Hair",
+					"There's a double-page spread of all the different dyes, styles, and lengths of hair that Kate's able to work with.",
+					SLAVE_MANAGEMENT_COSMETICS_HAIR);
+
+		} else if (index == 3) {
+				return new Response("Piercings",
+						"Kate offers a wide range of different piercings.",
+						SLAVE_MANAGEMENT_COSMETICS_PIERCINGS);
+
+		}  else if (index == 4) {
+				return new Response("Eyes",
+						"There's a special page near the front of the brochure, advertising Kate's ability to recolour a person's eyes."
+						+ " Just like skin recolourings, this is quite demanding on her aura, and is therefore very expensive.", SLAVE_MANAGEMENT_COSMETICS_EYES);
+
+		} else if (index == 5) {
+			return new Response("Coverings",
+					"There's a special page in the middle of the brochure, advertising Kate's special ability to harness the arcane in order to recolour a person's skin or fur."
+					+ " Apparently, this is quite demanding on her aura, and is therefore very expensive.",
+					SLAVE_MANAGEMENT_COSMETICS_COVERINGS){
+				@Override
+				public void effects() {
+					
+					CoveringsNamesMap = new LinkedHashMap<>();
+					
+					for(BodyPartInterface bp : BodyChanging.getTarget().getAllBodyParts()){
+						if(bp.getType().getBodyCoveringType()!=null
+								&& bp.getType().getBodyCoveringType().getRace()!=null
+								&& !(bp instanceof Hair)
+								&& !(bp instanceof Eye)) {
+							
+							String name = bp.getName(BodyChanging.getTarget());
+							if(bp instanceof Skin) {
+								name = "torso";
+							} else if(bp instanceof Vagina) {
+								name = "vagina";
+							}
+							
+							if(CoveringsNamesMap.containsKey(bp.getType().getBodyCoveringType())) {
+								CoveringsNamesMap.get(bp.getType().getBodyCoveringType()).add(name);
+							} else {
+								CoveringsNamesMap.put(bp.getType().getBodyCoveringType(), Util.newArrayListOfValues(new ListValue<>(name)));
+							}
+						}
+					}
+					CoveringsNamesMap.put(BodyCoveringType.ANUS, Util.newArrayListOfValues(new ListValue<>("anus")));
+					CoveringsNamesMap.put(BodyCoveringType.MOUTH, Util.newArrayListOfValues(new ListValue<>("mouth")));
+					CoveringsNamesMap.put(BodyCoveringType.NIPPLES, Util.newArrayListOfValues(new ListValue<>("nipples")));
+					CoveringsNamesMap.put(BodyCoveringType.TONGUE, Util.newArrayListOfValues(new ListValue<>("tongue")));
+				}
+			};
+
+		} else if (index == 6) {
+			return new Response("Other", "Kate can offer other miscellaneous services, such as anal bleaching.", SLAVE_MANAGEMENT_COSMETICS_OTHER);
+
+		} else if (index == 7) {
+			return new Response("Tattoos", "Most of the brochure is taken up with drawings and photographs displaying Kate's considerable artistic talents."
+					+ " She's even able to apply arcane-enchanted tattoos, but they look to be very expensive...</br>"
+					+ "<b>Will be done as soon as possible!</b>", null);
+
+		} else if (index == 0) {
+			return new Response("Back", "Return to the slave management screen.",  SLAVE_MANAGEMENT) {
+				@Override
+				public DialogueNodeOld getNextDialogue() {
+					return SlaveryManagementDialogue.getSlaveryManagementDialogue(Main.game.getDialogueFlags().getSlaveTrader());
+				}
+				@Override
+				public void effects() {
+					Main.game.getDialogueFlags().setSlaveryManagerSlaveSelected(null);
+				}
+			};
+
+		} else {
+			return null;
+		}
+	}
+	
+	public static final DialogueNodeOld SLAVE_MANAGEMENT_COSMETICS_MAKEUP = new DialogueNodeOld("Slave Management", ".", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getLabel() {
+			return UtilText.parse(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected(), "[npc.Name] - Makeup");
+		}
+		
+		@Override
+		public String getHeaderContent() {
+			
+			return UtilText.parse(BodyChanging.getTarget(),
+					"<h6 style='text-align:center;'>"
+						+ "You currently have "+UtilText.formatAsMoney(Main.game.getPlayer().getMoney(), "span")
+					+ "</h6>"
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
+							true, BodyCoveringType.MAKEUP_BLUSHER, "Blusher", "Blusher (also called rouge) is used to colour the cheeks so as to provide a more youthful appearance, and to emphasise the cheekbones.", true, true)
+					
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
+							true, BodyCoveringType.MAKEUP_LIPSTICK, "Lipstick", "Lipstick is used to provide colour, texture, and protection to the wearer's lips.", true, true)
+
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
+							true, BodyCoveringType.MAKEUP_EYE_LINER, "Eyeliner", "Eyeliner is applied around the contours of the eyes to help to define shape or highlight different features.", true, true)
+
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
+							true, BodyCoveringType.MAKEUP_EYE_SHADOW, "Eye shadow", "Eye shadow is used to make the wearer's eyes stand out or look more attractive.", true, true)
+
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
+							true, BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, "Nail polish", "Nail polish is used to colour and protect the nails on [npc.name]'s [npc.hands].", true, true)
+
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
+							true, BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, "Toenail polish", "Toenail polish is used to colour and protect the nails on [npc.name]'s [npc.feet].", true, true)
+					);
+		}
+		
+		@Override
+		public String getContent() {
+			return "";
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Makeup",
+						UtilText.parse(BodyChanging.getTarget(), "You are already changing [npc.name]'s makeup!"),
+						null);
+				
+			} else {
+				return getCosmeticsResponse(responseTab, index);
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld SLAVE_MANAGEMENT_COSMETICS_HAIR = new DialogueNodeOld("Slave Management", ".", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getLabel() {
+			return UtilText.parse(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected(), "[npc.Name] - Hair");
+		}
+		
+		@Override
+		public String getHeaderContent() {
+			
+			return UtilText.parse(BodyChanging.getTarget(),
+					"<h6 style='text-align:center;'>"
+						+ "You currently have "+UtilText.formatAsMoney(Main.game.getPlayer().getMoney(), "span")
+					+ "</h6>"
+					+CharacterModificationUtils.getKatesDivHairLengths(true, "Hair Length", "Hair length determines what hair styles [npc.name]'s able to have. The longer [npc.her] [npc.hair], the more styles are available.")
+
+					+CharacterModificationUtils.getKatesDivHairStyles(true, "Hair Style", "Hair style availability is determined by [npc.name]'s [npc.hair] length.")
+					
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
+							true, BodyChanging.getTarget().getHairCovering().getType(),
+							UtilText.parse(BodyChanging.getTarget(), "[npc.Hair] Colour"),
+							"All hair recolourings are permanent, so if you want to change your colour again at a later time, you'll have to visit Kate again.", true, true)
+					);
+		}
+		
+		@Override
+		public String getContent() {
+			return "";
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 2) {
+				return new Response("Hair",
+						UtilText.parse(BodyChanging.getTarget(), "You are already changing [npc.name]'s hair!"),
+						null);
+				
+			} else {
+				return getCosmeticsResponse(responseTab, index);
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld SLAVE_MANAGEMENT_COSMETICS_PIERCINGS = new DialogueNodeOld("Slave Management", ".", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getLabel() {
+			return UtilText.parse(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected(), "[npc.Name] - Piercings");
+		}
+		
+		@Override
+		public String getHeaderContent() {
+			
+			return UtilText.parse(BodyChanging.getTarget(),
+					"<h6 style='text-align:center;'>"
+						+ "You currently have "+UtilText.formatAsMoney(Main.game.getPlayer().getMoney(), "span")
+					+ "</h6>"
+
+				+CharacterModificationUtils.getKatesDivPiercings(PiercingType.EAR, "Ear Piercing", "Ears are the most common area of the body that are pierced, and enable the equipping of earrings and other ear-related jewellery.")
+
+				+CharacterModificationUtils.getKatesDivPiercings(PiercingType.NOSE, "Nose Piercing", "Having a nose piercing will allow [npc.name] to equip jewellery such as nose rings or studs.")
+				
+				+CharacterModificationUtils.getKatesDivPiercings(PiercingType.LIP, "Lip Piercing", "A lip piercing will allow [npc.name] to wear lip rings.")
+				
+				+CharacterModificationUtils.getKatesDivPiercings(PiercingType.NAVEL, "Navel Piercing", "Getting [npc.her] navel (belly button) pierced will allow [npc.name] to equip navel-related jewellery.")
+				
+				+CharacterModificationUtils.getKatesDivPiercings(PiercingType.TONGUE, "Tongue Piercing", "Getting a tongue piercing will allow [npc.name] to equip tongue bars.")
+				
+				+CharacterModificationUtils.getKatesDivPiercings(PiercingType.NIPPLE, "Nipple Piercing", "Nipple piercings will allow [npc.name] to equip nipple bars.")
+				
+				+CharacterModificationUtils.getKatesDivPiercings(PiercingType.PENIS, "Penis Piercing", "Having a penis piercing will allow [npc.name] to equip penis-related jewellery.")
+				
+				+CharacterModificationUtils.getKatesDivPiercings(PiercingType.VAGINA, "Vagina Piercing", "Having a vagina piercing will allow [npc.name] to equip vagina-related jewellery."));
+		}
+		
+		@Override
+		public String getContent() {
+			return "";
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 3) {
+				return new Response("Piercings",
+						UtilText.parse(BodyChanging.getTarget(), "You are already changing [npc.name]'s piercings!"),
+						null);
+				
+			} else {
+				return getCosmeticsResponse(responseTab, index);
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld SLAVE_MANAGEMENT_COSMETICS_EYES = new DialogueNodeOld("Slave Management", ".", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getLabel() {
+			return UtilText.parse(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected(), "[npc.Name] - Eyes");
+		}
+		
+		@Override
+		public String getHeaderContent() {
+			
+			return UtilText.parse(BodyChanging.getTarget(),
+					"<h6 style='text-align:center;'>"
+						+ "You currently have "+UtilText.formatAsMoney(Main.game.getPlayer().getMoney(), "span")
+					+ "</h6>"
+
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
+							true, BodyChanging.getTarget().getEyeType().getBodyCoveringType(), "Irises", "The iris is the coloured part of the eye that's responsible for controlling the diameter and size of the pupil.", true, true)
+
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
+							true, BodyCoveringType.EYE_PUPILS, "Pupils", "The pupil is a hole located in the centre of the iris that allows light to strike the retina.", true, true));
+		}
+		
+		@Override
+		public String getContent() {
+			return "";
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 4) {
+				return new Response("Eyes",
+						UtilText.parse(BodyChanging.getTarget(), "You are already changing [npc.name]'s eyes!"),
+						null);
+				
+			} else {
+				return getCosmeticsResponse(responseTab, index);
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld SLAVE_MANAGEMENT_COSMETICS_COVERINGS = new DialogueNodeOld("Slave Management", ".", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getLabel() {
+			return UtilText.parse(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected(), "[npc.Name] - Coverings");
+		}
+		
+		@Override
+		public String getHeaderContent() {
+			UtilText.nodeContentSB.setLength(0);
+			UtilText.nodeContentSB.append("<h6 style='text-align:center;'>"
+									+ "You currently have "+UtilText.formatAsMoney(Main.game.getPlayer().getMoney(), "span")
+								+ "</h6>");
+			
+			for(Entry<BodyCoveringType, List<String>> entry : CoveringsNamesMap.entrySet()){
+				BodyCoveringType bct = entry.getKey();
+				
+				String title = Util.capitaliseSentence(bct.getName(BodyChanging.getTarget()));
+				String description = "This is the "+bct.getName(BodyChanging.getTarget())+" that's currently covering [npc.name]'s "+Util.stringsToStringList(entry.getValue(), false)+".";
+				
+				if(bct == BodyCoveringType.ANUS) {
+					title = "Anus";
+					description = "This is the skin that's currently covering [npc.name]'s anal rim. The secondary colour determines what [npc.her] anus's inner-walls look like.";
+					
+				} else if(bct == BodyCoveringType.VAGINA) {
+					title = "Vagina";
+					description = "This is the skin that's currently covering [npc.name]'s labia. The secondary colour determines what [npc.her] vagina's inner-walls look like.";
+					
+				} else if(bct == BodyCoveringType.PENIS) {
+					title = "Penis";
+					description = "This is the skin that's currently covering [npc.name]'s penis. The secondary colour determines what the inside of [npc.her] urethra looks like (if it's fuckable).";
+					
+				} else if(bct == BodyCoveringType.NIPPLES) {
+					title = "Nipples";
+					description = "This is the skin that's currently covering [npc.name]'s nipples and areolae. The secondary colour determines what [npc.her] nipples' inner-walls look like (if they are fuckable).";
+					
+				} else if(bct == BodyCoveringType.MOUTH) {
+					title = "Lips & Throat";
+					if(BodyChanging.getTarget().getFaceType() == FaceType.HARPY) {
+						description = "This is the colour of [npc.name]'s beak. The secondary colour determines what the insides of [npc.her] mouth and throat look like.";
+					} else {
+						description = "This is the skin that's currently covering [npc.name]'s lips. The secondary colour determines what the insides of [npc.her] mouth and throat look like.";
+					}
+					
+				} else if(bct == BodyCoveringType.TONGUE) {
+					title = "Tongue";
+					description = "This is the skin that's currently covering [npc.name]'s tongue.";
+				}
+				
+				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivCoveringsNew(
+						true, 
+						bct,
+						title,
+						description,
+						true,
+						true));
+			}
+			
+			
+			return UtilText.parse(BodyChanging.getTarget(), UtilText.nodeContentSB.toString());
+		}
+		
+		@Override
+		public String getContent() {
+			return "";
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 5) {
+				return new Response("Coverings",
+						UtilText.parse(BodyChanging.getTarget(), "You are already changing [npc.name]'s coverings!"),
+						null);
+				
+			} else {
+				return getCosmeticsResponse(responseTab, index);
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld SLAVE_MANAGEMENT_COSMETICS_OTHER = new DialogueNodeOld("Slave Management", ".", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getLabel() {
+			return UtilText.parse(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected(), "[npc.Name] - Other");
+		}
+		
+		@Override
+		public String getHeaderContent() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append("<h6 style='text-align:center;'>"
+						+ "You currently have "+UtilText.formatAsMoney(Main.game.getPlayer().getMoney(), "span")
+					+ "</h6>"
+					+CharacterModificationUtils.getKatesDivAnalBleaching("Anal bleaching", "Anal bleaching is the process of lightening the colour of the skin around the anus, to make it more uniform with the surrounding area.")
+
+					+(Main.game.isFacialHairEnabled()
+							?CharacterModificationUtils.getKatesDivFacialHair("Facial hair", "The body hair found on [npc.name]'s face. Feminine characters cannot grow facial hair.")
+							:"")
+					
+					+(Main.game.isPubicHairEnabled()
+							?CharacterModificationUtils.getKatesDivPubicHair("Pubic hair", "The body hair found in the genital area; located on and around [npc.name]'s sex organs and crotch.")
+							:"")
+					
+					+(Main.game.isBodyHairEnabled()
+							?CharacterModificationUtils.getKatesDivUnderarmHair("Underarm hair", "The body hair found in [npc.name]'s armpits.")
+							:"")
+					
+					+(Main.game.isBodyHairEnabled()
+							?CharacterModificationUtils.getKatesDivAssHair("Ass hair", "The body hair found around [npc.name]'s asshole.")
+							:"")
+					);
+			
+			for(BodyCoveringType bct : BodyCoveringType.values()) {
+				if((Main.game.isFacialHairEnabled() && BodyChanging.getTarget().getFacialHairType().getType()==bct)
+						|| (Main.game.isBodyHairEnabled() && (BodyChanging.getTarget().getUnderarmHairType().getType()==bct || BodyChanging.getTarget().getAssHairType().getType()==bct))
+						|| (Main.game.isPubicHairEnabled() && BodyChanging.getTarget().getPubicHairType().getType()==bct)) {
+					UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivCoveringsNew(
+							true, bct, "Body hair", "This is your body hair ("+bct.getRace().getName()+").", true, true));
+					
+				}
+			}
+			
+			return UtilText.parse(BodyChanging.getTarget(), UtilText.nodeContentSB.toString());
+		}
+		
+		@Override
+		public String getContent() {
+			return "";
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 6) {
+				return new Response("Other",
+						UtilText.parse(BodyChanging.getTarget(), "You are already changing [npc.name]'s other features!"),
+						null);
+				
+			} else {
+				return getCosmeticsResponse(responseTab, index);
+			}
 		}
 	};
 }

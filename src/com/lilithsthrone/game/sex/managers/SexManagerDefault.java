@@ -492,7 +492,8 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 			List<SexActionInterface> highPriorityList = new ArrayList<>();
 			for(SexActionInterface action : availableActions) {
 				if(action.getAssociatedOrificeType() == Sex.getActivePartner().getForeplayPreference().getOrificeType()
-						&& action.getAssociatedPenetrationType() == Sex.getActivePartner().getForeplayPreference().getPenetrationType()) {
+						&& action.getAssociatedPenetrationType() == Sex.getActivePartner().getForeplayPreference().getPenetrationType()
+						&& action.getActionType() != SexActionType.PARTNER_STOP_PENETRATION) {
 					highPriorityList.add(action);
 					if(action.getActionType() == SexActionType.PARTNER_PENETRATION) { // If a penetrative action is in the list, always return that first.
 						return (SexAction) action;
@@ -533,7 +534,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		return null;
 	}
 
-	private boolean removedAllPenetrationAfterForeplay = false;
+//	private boolean removedAllPenetrationAfterForeplay = false;
 	
 	private SexAction performSexAction(SexActionInterface sexActionPlayer) {
 		List<SexActionInterface> availableActions = Sex.getAvailableSexActionsPartner();
@@ -567,18 +568,17 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		
 		if(!isSexPenetration) {
 			// --- Stop foreplay actions: ---
-			if(!removedAllPenetrationAfterForeplay) {
-				for(SexActionInterface action : availableActions) {
-					if(action.getActionType() == SexActionType.PARTNER_STOP_PENETRATION) {
-						if(!(action.getAssociatedPenetrationType()==PenetrationType.TONGUE && action.getAssociatedOrificeType()==OrificeType.MOUTH)
-								&& !(action.getAssociatedPenetrationType()==PenetrationType.TONGUE && action.getAssociatedOrificeType()==OrificeType.MOUTH)) { // Don't stop kissing actions:
-							returnableActions.add(action);
-						}
-					}
-				}
-			}
+//			if(!removedAllPenetrationAfterForeplay) {
+//				for(SexActionInterface action : availableActions) {
+//					if(action.getActionType() == SexActionType.PARTNER_STOP_PENETRATION) {
+//						if(!(action.getAssociatedPenetrationType()==PenetrationType.TONGUE && action.getAssociatedOrificeType()==OrificeType.MOUTH)) { // Don't stop kissing actions:
+//							returnableActions.add(action);
+//						}
+//					}
+//				}
+//			}
 			if(returnableActions.size()<=1) {
-				removedAllPenetrationAfterForeplay = true;
+//				removedAllPenetrationAfterForeplay = true;
 				SexFlags.positioningBlockedPartner = false;
 			}
 			if(!returnableActions.isEmpty()) {
@@ -591,7 +591,8 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 				List<SexActionInterface> highPriorityList = new ArrayList<>();
 				for(SexActionInterface action : availableActions) {
 					if(action.getAssociatedOrificeType() == Sex.getActivePartner().getMainSexPreference().getOrificeType()
-							&& action.getAssociatedPenetrationType() == Sex.getActivePartner().getMainSexPreference().getPenetrationType()) {
+							&& action.getAssociatedPenetrationType() == Sex.getActivePartner().getMainSexPreference().getPenetrationType()
+							&& action.getActionType() != SexActionType.PARTNER_STOP_PENETRATION) {
 						highPriorityList.add(action);
 						if(action.getActionType() == SexActionType.PARTNER_PENETRATION) { // If a penetrative action is in the list, always return that first.
 							penetrativeActionList.add(action);
@@ -643,7 +644,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 			
 			for(SexActionInterface action : availableActions) {
 				if(action.getActionType()==SexActionType.PARTNER_PENETRATION) {
-					if(action.getAssociatedPenetrationType() == PenetrationType.PENIS || action.getAssociatedPenetrationType() == PenetrationType.TAIL || action.getAssociatedPenetrationType() == PenetrationType.TAIL) {
+					if(action.getAssociatedPenetrationType() == PenetrationType.PENIS || action.getAssociatedPenetrationType() == PenetrationType.TAIL) {
 						returnableActions.add(action);
 					}
 				}
@@ -658,7 +659,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		// Ban stop penetration actions:
 		for(SexActionInterface action : availableActions) {
 			if(action.getActionType() == SexActionType.PARTNER_STOP_PENETRATION) {
-				if(action.getAssociatedPenetrationType() == PenetrationType.PENIS || action.getAssociatedPenetrationType() == PenetrationType.TAIL || action.getAssociatedPenetrationType() == PenetrationType.TAIL) {
+				if(action.getAssociatedPenetrationType() == PenetrationType.PENIS || action.getAssociatedPenetrationType() == PenetrationType.TAIL) {
 					bannedActions.add(action);
 				}
 			}

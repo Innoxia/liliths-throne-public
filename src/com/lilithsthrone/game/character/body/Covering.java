@@ -65,6 +65,15 @@ public class Covering implements BodyPartInterface, Serializable {
 		this.secondaryGlowing = secondaryGlowing;
 	}
 	
+	public Covering(Covering coveringToClone) {
+		this.type = coveringToClone.getType();
+		this.pattern = coveringToClone.getPattern();
+		this.primaryColour = coveringToClone.getPrimaryColour();
+		this.primaryGlowing = coveringToClone.isPrimaryGlowing();
+		this.secondaryColour = coveringToClone.getSecondaryColour();
+		this.secondaryGlowing = coveringToClone.isSecondaryGlowing();
+	}
+	
 	@Override
 	public String getDeterminer(GameCharacter gc) {
 		return type.getDeterminer(gc);
@@ -218,6 +227,9 @@ public class Covering implements BodyPartInterface, Serializable {
 					return (primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColour.getName()+" lips</span>, with a "
 							+(secondaryGlowing?spanStartGlowing(secondaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+secondaryColour.toWebHexString()+";'>")+secondaryColour.getName()+" throat</span>";
 				case NONE: case FLUID:
+					if(primaryColour==Colour.COVERING_NONE) {
+						return (primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColour.getName()+"</span>";
+					}
 					return (primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColour.getName()+"</span> "+type.getName(true, gc);
 				case EYE_IRISES:
 					return (primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColour.getName()+"</span> irises";
@@ -251,6 +263,9 @@ public class Covering implements BodyPartInterface, Serializable {
 				case ORIFICE_MOUTH:
 					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColour.getName()+" lips, with a "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColour.getName()+" throat";
 				case NONE: case FLUID:
+					if(primaryColour==Colour.COVERING_NONE) {
+						return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColour.getName();
+					}
 					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColour.getName()+" "+type.getName(true, gc);
 				case EYE_IRISES:
 					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColour.getName()+" irises";
@@ -275,7 +290,7 @@ public class Covering implements BodyPartInterface, Serializable {
 	
 	@Override
 	public boolean equals (Object o) {
-		if(super.equals(o)){
+//		if(super.equals(o)){
 			if(o instanceof Covering){
 				if(((Covering)o).getType() == type
 						&& ((Covering)o).getPattern() == pattern
@@ -286,7 +301,7 @@ public class Covering implements BodyPartInterface, Serializable {
 					return true;
 				}
 			}
-		}
+//		}
 		return false;
 	}
 	

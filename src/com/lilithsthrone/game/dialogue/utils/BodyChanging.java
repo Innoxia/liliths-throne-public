@@ -127,7 +127,7 @@ public class BodyChanging {
 					+"</div>"
 					
 
-					+ CharacterModificationUtils.getKatesDivCoverings(false, BodyCoveringType.DEMON_COMMON, "Skin Colour",
+					+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.DEMON_COMMON, "Skin Colour",
 							(BodyChanging.getTarget().isPlayer()
 								?"The colour of the demonic skin that's covering your body."
 								:UtilText.parse(BodyChanging.getTarget(), "The colour of the demonic skin that's covering [npc.name]'s body.")),
@@ -174,7 +174,7 @@ public class BodyChanging {
 						+ CharacterModificationUtils.getDemonPupilChoiceDiv()
 					+"</div>"
 					
-					+ CharacterModificationUtils.getKatesDivCoverings(false, BodyCoveringType.EYE_DEMON_COMMON, "Eye colour",
+					+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.EYE_DEMON_COMMON, "Eye colour",
 							(BodyChanging.getTarget().isPlayer()
 									?"The colour and pattern of your eyes."
 									:UtilText.parse(BodyChanging.getTarget(), "The colour and pattern of [npc.name]'s eyes.")),
@@ -191,7 +191,7 @@ public class BodyChanging {
 						+ CharacterModificationUtils.getDemonTongueModifiersDiv()
 					+"</div>"
 					
-					+ CharacterModificationUtils.getKatesDivCoverings(false, BodyCoveringType.MOUTH, "Lip & Throat colour",
+					+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.MOUTH, "Lip & Throat colour",
 							(BodyChanging.getTarget().isPlayer()
 									?"The natural colour of your lips (top options) and your throat (bottom options). Lipstick can be used to conceal your natural lip colour."
 									:UtilText.parse(BodyChanging.getTarget(), "The natural colour of [npc.name]'s lips (top options) and [npc.her] throat (bottom options). Lipstick can be used to conceal [npc.her] natural lip colour.")),
@@ -202,7 +202,7 @@ public class BodyChanging {
 									?"You can harness the power of your demonic form to change the length of your hair."
 									:UtilText.parse(BodyChanging.getTarget(), "[npc.Name] can harness the power of [npc.her] demonic form to change the length of [npc.her] hair.")))
 					
-					+ CharacterModificationUtils.getKatesDivCoverings(false, BodyChanging.getTarget().getHairCovering().getType(), "Hair colour",
+					+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyChanging.getTarget().getHairCovering().getType(), "Hair colour",
 							(BodyChanging.getTarget().isPlayer()
 									?"You can harness the power of your demonic form to change the colour of your hair."
 									:UtilText.parse(BodyChanging.getTarget(), "[npc.Name] can harness the power of [npc.her] demonic form to change the colour of [npc.her] hair.")), true, true)
@@ -263,7 +263,7 @@ public class BodyChanging {
 					
 					+ CharacterModificationUtils.getDemonAnusModifiersDiv()
 						
-					+ CharacterModificationUtils.getKatesDivCoverings(false, BodyCoveringType.ANUS, "Anus Colour", 
+					+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.ANUS, "Anus Colour", 
 							(BodyChanging.getTarget().isPlayer()
 									?"You can harness the power of your demonic form to change the colour of your asshole."
 									:UtilText.parse(BodyChanging.getTarget(), "[npc.Name] can harness the power of [npc.her] demonic form to change the colour of [npc.her] asshole.")), true, true)
@@ -334,7 +334,7 @@ public class BodyChanging {
 					+"</div>"
 					
 					
-					+ CharacterModificationUtils.getKatesDivCoverings(false, BodyCoveringType.NIPPLES, "Nipple Colour", 
+					+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.NIPPLES, "Nipple Colour", 
 							(BodyChanging.getTarget().isPlayer()
 									?"You can harness the power of your demonic form to change the colour of your nipples."
 									:UtilText.parse(BodyChanging.getTarget(), "[npc.Name] can harness the power of [npc.her] demonic form to change the colour of [npc.her] nipples.")),
@@ -394,7 +394,7 @@ public class BodyChanging {
 						+ CharacterModificationUtils.getDemonClitorisSizeDiv()
 					+"</div>"
 					
-					+ CharacterModificationUtils.getKatesDivCoverings(false, BodyCoveringType.VAGINA, "Vagina Colour", 
+					+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.VAGINA, "Vagina Colour", 
 							(BodyChanging.getTarget().isPlayer()
 									?"You can harness the power of your demonic form to change the colour of your vagina."
 									:UtilText.parse(BodyChanging.getTarget(), "[npc.Name] can harness the power of [npc.her] demonic form to change the colour of [npc.her] vagina.")), true, true)
@@ -459,7 +459,7 @@ public class BodyChanging {
 						+ CharacterModificationUtils.getDemonUrethraModifiersDiv()
 					+"</div>"
 					
-					+ CharacterModificationUtils.getKatesDivCoverings(false, BodyCoveringType.PENIS, "Penis Colour", 
+					+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.PENIS, "Penis Colour", 
 							(BodyChanging.getTarget().isPlayer()
 									?"You can harness the power of your demonic form to change the colour of your penis."
 									:UtilText.parse(BodyChanging.getTarget(), "[npc.Name] can harness the power of [npc.her] demonic form to change the colour of [npc.her] penis.")), true, true)

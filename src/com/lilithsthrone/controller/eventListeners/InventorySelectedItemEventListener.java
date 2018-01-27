@@ -30,8 +30,9 @@ public class InventorySelectedItemEventListener implements EventListener {
 	@Override
 	public void handleEvent(Event event) {
 
-		if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.CHARACTERS_PRESENT)
+		if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.CHARACTERS_PRESENT || Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.PHONE) {
 			return;
+		}
 		
 		TooltipUpdateThread.cancelThreads=true;
 		

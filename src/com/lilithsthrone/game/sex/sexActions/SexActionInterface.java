@@ -336,25 +336,6 @@ public interface SexActionInterface {
 					}
 				}
 				
-				// Make sure the PenetrationType is available:
-				if(getAssociatedPenetrationType()!=null) {
-					// Check for access:
-					if(getPenetratingCharacter().isPlayer()) {
-						if(!Main.game.getPlayer().isPenetrationTypeExposed(getAssociatedPenetrationType())) {
-							return convertToNullResponse();
-						}
-					} else {
-						if(!Sex.getActivePartner().isPenetrationTypeExposed(getAssociatedPenetrationType())) {
-							return convertToNullResponse();
-						}
-					}
-					
-					// Check to see if it's already in use:
-					if(!getAssociatedPenetrationType().isFree(getPenetratingCharacter())) {
-						return null;
-					}
-				}
-				
 				// Make sure the OrificeType is available:
 				if(getAssociatedOrificeType() != null) {
 					switch(getAssociatedOrificeType()){
@@ -374,7 +355,26 @@ public interface SexActionInterface {
 					
 					// Check to see if it's already in use:
 					if(!getAssociatedOrificeType().isFree(getOrificeCharacter())) {
-						return null;
+						return convertToNullResponse();
+					}
+				}
+				
+				// Make sure the PenetrationType is available:
+				if(getAssociatedPenetrationType()!=null) {
+					// Check for access:
+					if(getPenetratingCharacter().isPlayer()) {
+						if(!Main.game.getPlayer().isPenetrationTypeExposed(getAssociatedPenetrationType())) {
+							return convertToNullResponse();
+						}
+					} else {
+						if(!Sex.getActivePartner().isPenetrationTypeExposed(getAssociatedPenetrationType())) {
+							return convertToNullResponse();
+						}
+					}
+					
+					// Check to see if it's already in use:
+					if(!getAssociatedPenetrationType().isFree(getPenetratingCharacter())) {
+						return convertToNullResponse();
 					}
 				}
 				
@@ -391,7 +391,7 @@ public interface SexActionInterface {
 					
 					// Check to see if it's already in use:
 					if(!getAssociatedPenetrationType().isFree(getPenetratingCharacter())) {
-						return null;
+						return convertToNullResponse();
 					}
 				}
 				
@@ -403,7 +403,7 @@ public interface SexActionInterface {
 					
 					// Check to see if it's already in use:
 					if(!getAssociatedOrificeType().isFree(getOrificeCharacter())) {
-						return null;
+						return convertToNullResponse();
 					}
 				}
 				

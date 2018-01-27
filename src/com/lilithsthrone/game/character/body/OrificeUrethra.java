@@ -43,8 +43,13 @@ public class OrificeUrethra implements OrificeInterface, Serializable {
 
 	@Override
 	public String setWetness(GameCharacter owner, int wetness) {
-		if(!owner.hasPenis()) {
-			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
+		if (!owner.hasPenis()) {
+			if(owner.isPlayer()) {
+				return "<p style='text-align:center;'>[style.colourDisabled(You lack a penis, so nothing happens...)]</p>";
+				
+			} else {
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] lacks a penis, so nothing happens...)]</p>");
+			}
 		}
 		
 		int oldWetness = this.wetness;

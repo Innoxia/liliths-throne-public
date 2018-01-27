@@ -100,6 +100,20 @@ public enum SexPositionType {
 		}
 	},
 	
+	MISSIONARY("Missionary",
+			Util.newArrayListOfValues(
+					new ListValue<>(Util.newArrayListOfValues(new ListValue<>(SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS))),
+					new ListValue<>(Util.newArrayListOfValues(new ListValue<>(SexPositionSlot.MISSIONARY_ON_BACK))))) {
+		@Override
+		public String getDescription() {
+			if(Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS) {
+				return "You're kneeling between [npc.name]'s [npc.legs], looking down at [npc.herHim] as you prepare to have sex in the missionary position.";
+			} else {
+				return "You're lying down on your back, looking up at [npc.name] as [npc.she] kneels down between your [npc.legs], ready to have sex with you in the missionary position.";
+			}
+		}
+	},
+	
 	STANDING("Standing",
 			Util.newArrayListOfValues(
 					new ListValue<>(Util.newArrayListOfValues(new ListValue<>(SexPositionSlot.STANDING_DOMINANT))),

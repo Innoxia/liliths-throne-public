@@ -300,7 +300,8 @@ public class Response {
 			String freeText = (penetrationFree?"free":"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>free</span>");
 			String targetName = (characterPenetrating.isPlayer()?"Your":UtilText.parse(characterPenetrating, "[npc.Name]'s"));
 			
-			if(getSexActionType()==SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED || getSexActionType()==SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED) {
+			if(getSexActionType()==SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED || getSexActionType()==SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED
+					|| getSexActionType()==SexActionType.PLAYER_PENETRATION || getSexActionType()==SexActionType.PARTNER_PENETRATION) {
 				if(penetrationAccess && penetrationFree) {
 					SB.append("</br><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+accessText+" & "+freeText+"): "+targetName+" "+ penetrationName);
 				} else {
@@ -330,9 +331,10 @@ public class Response {
 			String orificeName = Util.capitaliseSentence(orificeTypeAccessRequired.getName(characterPenetrated));
 			String accessText = (orificeAccess?"access":"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>access</span>");
 			String freeText = (orificeFree?"free":"<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>free</span>");
-			String targetName = (characterPenetrating.isPlayer()?"Your":UtilText.parse(characterPenetrating, "[npc.Name]'s"));
+			String targetName = (characterPenetrated.isPlayer()?"Your":UtilText.parse(characterPenetrated, "[npc.Name]'s"));
 			
-			if(getSexActionType()==SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED || getSexActionType()==SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED) {
+			if(getSexActionType()==SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED || getSexActionType()==SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED
+					|| getSexActionType()==SexActionType.PLAYER_PENETRATION || getSexActionType()==SexActionType.PARTNER_PENETRATION) {
 				if(orificeAccess && orificeFree) {
 					SB.append("</br><b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b> ("+accessText+" & "+freeText+"): "+targetName+" "+ orificeName);
 				} else {
@@ -366,13 +368,13 @@ public class Response {
 				if(Main.game.getPlayer().hasFetish(f)) {
 					SB.append("</br>"
 							+"<span style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Associated Fetish</span>"
-							+ " (<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>owned</span>): "
+							+ " (<span style='color:"+Colour.GENERIC_MINOR_GOOD.toWebHexString()+";'>owned</span>): "
 							+ Util.capitaliseSentence(f.getName(Main.game.getPlayer())));
 					
 				} else {
 					SB.append("</br>"
 							+"<span style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>Associated Fetish</span>"
-							+ " (<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>not owned</span>): "
+							+ " (<span style='color:"+Colour.GENERIC_MINOR_BAD.toWebHexString()+";'>not owned</span>): "
 							+ Util.capitaliseSentence(f.getName(Main.game.getPlayer())));
 				}
 			}
@@ -382,12 +384,12 @@ public class Response {
 			if(isCorruptionWithinRange()) {
 				SB.append("</br>"
 						+"<span style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Associated Corruption</span>"
-						+ " (<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>within range</span>): "
+						+ " (<span style='color:"+Colour.GENERIC_MINOR_GOOD.toWebHexString()+";'>within range</span>): "
 						+ Util.capitaliseSentence(corruptionBypass.getName()));
 			} else {
 				SB.append("</br>"
 						+"<span style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Associated Corruption</span>"
-						+ " (<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>out of range</span>): "
+						+ " (<span style='color:"+Colour.GENERIC_MINOR_BAD.toWebHexString()+";'>out of range</span>): "
 						+ Util.capitaliseSentence(corruptionBypass.getName()));
 			}
 		}
@@ -484,6 +486,10 @@ public class Response {
 					if(penetrationTypeAccessRequired.isFree(characterPenetrating))
 						return true;
 					break;
+				case PARTNER_PENETRATION: case PLAYER_PENETRATION:
+					if(!penetrationTypeAccessRequired.isFree(characterPenetrating))
+						return false;
+					break;
 				default:
 					break;
 			}
@@ -518,6 +524,10 @@ public class Response {
 				case PARTNER_REQUIRES_NO_PENETRATION: case PLAYER_REQUIRES_NO_PENETRATION:
 					if(orificeTypeAccessRequired.isFree(characterPenetrated))
 						return true;
+					break;
+				case PARTNER_PENETRATION: case PLAYER_PENETRATION:
+					if(!orificeTypeAccessRequired.isFree(characterPenetrated))
+						return false;
 					break;
 				default:
 					break;

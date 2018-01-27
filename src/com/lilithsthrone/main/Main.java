@@ -42,7 +42,7 @@ import javafx.stage.Stage;
 
 /**
  * @since 0.1.0
- * @version 0.1.97
+ * @version 0.1.98
  * @author Innoxia
  */
 public class Main extends Application {
@@ -56,7 +56,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.1.97.5",
+	public static final String VERSION_NUMBER = "0.1.98",
 			VERSION_DESCRIPTION = "Early Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
@@ -70,11 +70,13 @@ public class Main extends Application {
 //		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Early Alpha!</b></h6>"
 		
 		"<p>"
-			+ "Hello everyone! ^^"
+			+ "Hello everyone! :3"
 		+ "</p>"
 			
 		+ "<p>"
-			+ "I'm very close to finishing the new sex & orgasm content now - just another few days and it will be all done! I'll then move on to combat & Nyan work. :3"
+			+ "I've got everything but the stamina/lust sex mechanics and the addictive/alcoholic/psychoactive fluids work done now, so once I've finished those (which will take just one day), I'll be ready to move on to the very final stage of engine work,"
+				+ " which will be the combat rework/improvements."
+			+ " I'll also use the multiple-partner sex framework to polish and fully complete the slave's 'Spitroast' test scene for the next version, so you'll be able to really see the new system in action. :3"
 		+ "</p>"
 		
 		+ "<p>"
@@ -149,6 +151,69 @@ public class Main extends Application {
 			+"<ul>Winter event Reindeer-morphs will no longer spawn in as human (if your furry settings are set to 'Human', then they'll spawn in as minor Reindeer-morphs).</ul>"
 			+"<ul>Reindeer overseers and cultist chapels should now both be able to be accessed if they are on the same tile.</ul>"
 			+"<ul>'Spread pussy' action will now transfer lubrication between fingers & vagina.</ul>"
+		+ "</list>"
+
+		+ "</br>"
+
+		+ "<list>"
+			+ "<h6>v0.1.97.6</h6>"
+			+"<li>Other:</li>"
+			+"<ul>Removed mutual orgasms (again). They weren't really serving much purpose (the only two instances of mutual orgasms were just appending normal orgasm text together), and were removing your control over your partner's orgasm.</ul>"
+			+"<ul>Converted 'generic' partner orgasms into the new system. They're still a little bland at the moment, but I'll write in more detail this week. :3</ul>"
+			+"<ul>Reduced default size of horse-morph breasts (from GG to DD), and increased default size of cow-morph breasts (from E to G).</ul>"
+				
+			+"<li>Bugs:</li>"
+			+"<ul><b>Fixed:</b> Game freezes/unresponsive orgasm actions during sex (the 'Stay in position' ones).</ul>"
+			+"<ul><b>Fixed:</b> Numerous cases of sex actions becoming unavailable when they shouldn't have been. (You should now be able to perform multiple different 'ongoing' penetrations at once, just like you used to be able to.)</ul>"
+			+"<ul>Fixed pregnant characters not working in 'New game (import)', as well as pregnant characters not being imported in Slaver Alley's auction block.</ul>"
+			+"<ul>The 'Wash' action in your room will now correctly clean currently equipped clothing.</ul>"
+			+"<ul>Fixed quite a few reported typos and instances of incorrect gender/character parsing.</ul>"
+			+"<ul>The 'Pull out' orgasm actions will now correctly stop penis penetration.</ul>"
+			+"<ul>NPCs in the stocks can no longer manage your or their own clothes.</ul>"
+			+"<ul>Fixed bug where your partner's ongoing sex actions would be available to you (such as getting fingering options when your partner would be fingering themselves).</ul>"
+			+"<ul>Fixed a few more causes of game freezes/background errors.</ul>"
+			+"<ul>Fixed 'Anal tease' sex action sometimes returning a blank description.</ul>"
+		+ "</list>"
+			
+		+ "</br>"
+
+		+ "<list>"
+			+ "<h6>v0.1.98</h6>"
+			+"<li>Gameplay:</li>"
+			+"<ul>Added 'Cum Inflation' option to content preferences screen (on by default).</ul>"
+			+"<ul>Reworked and improved creampie status effects, adding new icons, and keeping track of how much cum is currently inside of your orifices. Having the 'masochist' or 'cum addict' fetishes now makes these status effects apply a positive modifier.</ul>"
+			+"<ul>Added related status effects for cum inflation, and added in more detailed cum inflation descriptions in orgasms (can be disabled in the content preferences screen).</ul>"
+			+"<ul>Further improved orgasm descriptions for all penis modifiers, and added in the start of fluid descriptions. (I ran out of time in which to properly create alcoholic and psychoactive status effects and descriptions.)</ul>"
+			+"<ul>Improved UI for changing colour of a body part (in Kate's shop and character creator).</ul>"
+			+"<ul>Added the (basic) ability to send slaves to Kate's shop, in order to change their appearance. (I'll expand this and tidy up the UI at a later date.)</ul>"
+			+"<ul>Added missionary position (both on back and between legs for both sub and dom) to generic sex scenes. NPCs will now also use this position (if they want to).</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Displacement of clothing is now restored after a sex scene. (So if you start a sex scene with your jacket unbuttoned, it will be re-equipped after sex in its unbuttoned state.)</ul>"
+			+"<ul>Reduced arousal gains from characters with the 'Unwilling Fuck-Toy' fetish resisting in sex from 150% normal value, to 125%.</ul>"
+			+"<ul>Made all penetrative actions visible in sex scenes, although disabled until you meet their requirements.</ul>"
+			+"<ul>Added submissive sex variations for offspring encounters.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed some reported instances of incorrect parsing & typos.</ul>"
+			+"<ul>NPCs should no longer repeatedly start/stop penetrations in sex.</ul>"
+			+"<ul>Fixed black and grey text colours being inverted.</ul>"
+			+"<ul>Fixed unavailable eye colours for demons, wolf-morphs, and cat-morphs.</ul>"
+			+"<ul>NPCs should now comment on body parts the first time they're revealed in sex again.</ul>"
+			+"<ul>Fixed several instances of orgasms removing ongoing penetrations.</ul>"
+			+"<ul>Fixed bug where you could increase the wetness of your vagina even if you didn't have one.</ul>"
+			+"<ul>Fixed inconsistent descriptions in being force-fed TF potions.</ul>"
+			+"<ul>Fixed bug where loading a saved game would not load any of your clothing's displacements. (All clothing would be reset to having not being displaced.)</ul>"
+			+"<ul>Fixed case where multiple types of exposed status effects could be applied at once to one character.</ul>"
+			+"<ul>Corrected description of the double-sized bed upgrade in the two-person slave room.</ul>"
+			+"<ul>Fixed the bug where when feeding a potion to an NPC (or drinking it yourself) which has a large number of effects, all of the TF descriptions were based on the target's end state.</ul>"
+			+"<ul>NPCs will no longer use the last of their stamina on a special attack.</ul>"
+			+"<ul>Fixed parsing errors in hypno-watch effects.</ul>"
+			+"<ul>Added some more reasonable descriptions for alligator 'body hair' (scales).</ul>"
+			+"<ul>Choosing 'Rough'/'Gentle'/'Eager'/'Resisting' options at the start of sex will now correctly start the sex scene with you in that pace.</ul>"
+			+"<ul>Fixed bug where you could drop/remove/displace NPC's clothes through the Phone > Contacts > NPC Name tabs.</ul>"
+			+"<ul>Fixed not being able to switch positions in Kate's sex scene.</ul>"
+			+"<ul>Fixed all offensive spells referencing 'arcane fire'.</ul>"
 		+ "</list>"
 		;
 	
