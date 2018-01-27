@@ -242,7 +242,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	// Sex:
 	protected Map<CoverableArea, Boolean> playerKnowsAreasMap;
-	protected Map<OrificeType, Set<GameCharacter>> cummedInAreaMap;
+	protected Map<OrificeType, Integer> cummedInAreaMap;
 	
 	
 	// Stats:
@@ -351,9 +351,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			playerKnowsAreasMap.put(ca, false);
 		}
 		
-		cummedInAreaMap = new EnumMap<>(OrificeType.class);
+		cummedInAreaMap = new HashMap<>();
 		for(OrificeType ot : OrificeType.values()) {
-			cummedInAreaMap.put(ot, new HashSet<>());
+			cummedInAreaMap.put(ot, 0);
 		}
 		
 		timeProgressedToFinalPregnancyStage = 1;
@@ -654,6 +654,16 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		Element characterSexStats = doc.createElement("sexStats");
 		properties.appendChild(characterSexStats);
+		
+		Element characterCummedInAreas = doc.createElement("cummedInAreas");
+		characterSexStats.appendChild(characterCummedInAreas);
+		for(OrificeType orifice : OrificeType.values()) {
+			Element element = doc.createElement("entry");
+			characterCummedInAreas.appendChild(element);
+
+			CharacterUtils.addAttribute(doc, element, "orifice", orifice.toString());
+			CharacterUtils.addAttribute(doc, element, "cumQuantity", String.valueOf(this.getCummedInAreaMap().get(orifice)));
+		}
 		
 		CharacterUtils.createXMLElementWithValue(doc, characterSexStats, "sexConsensualCount", String.valueOf(this.getSexConsensualCount()));
 		CharacterUtils.createXMLElementWithValue(doc, characterSexStats, "sexAsSubCount", String.valueOf(this.getSexAsSubCount()));
@@ -1260,6 +1270,21 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		if(sexStatsElement.getElementsByTagName("sexAsDomCount").getLength()!=0) {
 			character.setSexAsDomCount(Integer.valueOf(((Element)sexStatsElement.getElementsByTagName("sexAsDomCount").item(0)).getAttribute("value")));
 			CharacterUtils.appendToImportLog(log, "</br>Set dom sex count: "+character.getSexAsDomCount());
+		}
+		
+		
+		// Cummed in areas:
+		element = (Element) ((Element) nodes.item(0)).getElementsByTagName("cummedInAreas").item(0);
+		if(element!=null) {
+			for(int i=0; i<element.getElementsByTagName("entry").getLength(); i++){
+				Element e = ((Element)element.getElementsByTagName("entry").item(i));
+				
+				try {
+					character.setCummedInArea(OrificeType.valueOf(e.getAttribute("orifice")), Integer.valueOf(e.getAttribute("cumQuantity")));
+					CharacterUtils.appendToImportLog(log, "</br>Added cummed in area: "+e.getAttribute("orifice")+", "+Integer.valueOf(e.getAttribute("cumQuantity"))+"ml");
+				}catch(Exception ex){
+				}
+			}
 		}
 		
 		// Cum counts:
@@ -5927,7 +5952,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				break;
 		}
 		
-		// dom and sub are analogous to penetrating and penetrated, respectively.
 		String penetratingQualifier = "";
 		String penetratingAction = "";
 		
@@ -7837,14 +7861,26 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	// Cummed in areas:
 
-	public Map<OrificeType, Set<GameCharacter>> getCummedInAreaMap() {
+	public Map<OrificeType, Integer> getCummedInAreaMap() {
 		return cummedInAreaMap;
 	}
-	public void addCharactersCumToCummedInArea(OrificeType area, GameCharacter character) {
-		cummedInAreaMap.get(area).add(character);
+	
+	public void incrementCummedInArea(OrificeType area, int cumQuantityIncrement) {
+		setCummedInArea(area, cummedInAreaMap.get(area)+cumQuantityIncrement);
 	}
-	public void clearCummedInArea(OrificeType area) {
-		cummedInAreaMap.get(area).clear();
+	
+	public void setCummedInArea(OrificeType area, int cumQuantity) {
+		if((this.isVisiblyPregnant() && cumQuantity >= CumProduction.SEVEN_MONSTROUS.getMinimumValue())) {
+			cummedInAreaMap.put(area, CumProduction.SEVEN_MONSTROUS.getMinimumValue()-1);
+		} else {
+			cummedInAreaMap.put(area, cumQuantity);
+		}
+	}
+	
+	public void cleanAllOrifices() {
+		for(OrificeType orifice : OrificeType.values()) {
+			setCummedInArea(orifice, 0);
+		}
 	}
 
 	// Other:
@@ -11612,6 +11648,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return body.getPenis().setPierced(this, pierced);
 	}
 	// Modifiers:
+	public List<PenisModifier> getPenisModifiers() {
+		List<PenisModifier> list = new ArrayList<>();
+		list.addAll(body.getPenis().getPenisModifiers());
+		return list;
+	}
 	public boolean hasPenisModifier(PenisModifier modifier) {
 		return body.getPenis().hasPenisModifier(modifier);
 	}
@@ -11869,6 +11910,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return body.getPenis().getTesticle().getCum().setFlavour(this, flavour);
 	}
 	// Modifiers:
+	public List<FluidModifier> getCumModifiers() {
+		List<FluidModifier> list = new ArrayList<>();
+		list.addAll(body.getPenis().getTesticle().getCum().getFluidModifiers());
+		return list;
+	}
 	public boolean hasCumModifier(FluidModifier fluidModifier) {
 		return body.getPenis().getTesticle().getCum().hasFluidModifier(fluidModifier);
 	}

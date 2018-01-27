@@ -172,7 +172,15 @@ public class ArcaneArts {
 							false, false,
 							new SMVickyOverDesk(
 									Util.newHashMapOfValues(new Value<>(Main.game.getVicky(), SexPositionSlot.MISSIONARY_DESK_DOM_VICKY)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_DESK_SUB_VICKY))),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_DESK_SUB_VICKY))) {
+								@Override
+								public SexPace getStartingSexPaceModifier(GameCharacter character) {
+									if(character.isPlayer()) {
+										return SexPace.SUB_RESISTING;
+									}
+									return null;
+								}
+							},
 							VICKY_POST_SEX_RAPE,
 							"<p>"
 								+ "Feeling more than a little intimidated by the overbearing wolf-girl's attitude, you try to back away towards the front door, muttering,"
@@ -195,15 +203,7 @@ public class ArcaneArts {
 							+ "<p>"
 								+ "Stepping forwards, she positions herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
 								+ " [vicky.speech(Scream and cry as much as you want! I hope you like it rough, because I don't go easy with pathetic bitches like you!)]"
-							+ "</p>") {
-						@Override
-						public SexPace getStartingSexPaceModifier(GameCharacter character) {
-							if(character.isPlayer()) {
-								return SexPace.SUB_RESISTING;
-							}
-							return null;
-						}
-					};
+							+ "</p>");
 					
 				} else {
 					return new Response("Nervously leave", "Vicky needs to be able to access your anus"+(Main.game.getPlayer().hasVagina()?" or vagina":"")+"!", null);
@@ -318,7 +318,15 @@ public class ArcaneArts {
 							false, false,
 							new SMVickyOverDesk(
 									Util.newHashMapOfValues(new Value<>(Main.game.getVicky(), SexPositionSlot.MISSIONARY_DESK_DOM_VICKY)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_DESK_SUB_VICKY))),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_DESK_SUB_VICKY))) {
+								@Override
+								public SexPace getStartingSexPaceModifier(GameCharacter character) {
+									if(character.isPlayer()) {
+										return SexPace.SUB_RESISTING;
+									}
+									return null;
+								}
+							},
 							VICKY_POST_SEX_RAPE_PACKAGE,
 							"<p>"
 								+ "Feeling more than a little intimidated by the overbearing wolf-girl's advances, you try to slip away, muttering,"
@@ -340,15 +348,7 @@ public class ArcaneArts {
 							+ "<p>"
 								+ "Stepping forwards, she positions herself between your legs, making a point to grind her huge erection up against your crotch as she snarls,"
 								+ " [vicky.speech(Scream and cry as much as you want! I hope you like it rough, because I don't go easy with pathetic bitches like you!)]"
-							+ "</p>") {
-						@Override
-						public SexPace getStartingSexPaceModifier(GameCharacter character) {
-							if(character.isPlayer()) {
-								return SexPace.SUB_RESISTING;
-							}
-							return null;
-						}
-					};
+							+ "</p>");
 					
 				} else {
 					return new Response("Weakly refuse", "Vicky needs to be able to access your anus"+(Main.game.getPlayer().hasVagina()?" or vagina":"")+"!", null);

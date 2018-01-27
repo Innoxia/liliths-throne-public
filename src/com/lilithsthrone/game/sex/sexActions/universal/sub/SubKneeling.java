@@ -188,11 +188,6 @@ public class SubKneeling {
 			
 			return UtilText.nodeContentSB.toString();
 		}
-		
-		@Override
-		public void applyEffects() {
-			Sex.removePenetration(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.TONGUE, OrificeType.VAGINA);
-		}
 	};
 	
 	public static final SexAction PARTNER_ORGASM_CUM_DOWN_THROAT = new SexAction(
@@ -280,15 +275,9 @@ public class SubKneeling {
 			}
 			
 			UtilText.nodeContentSB.append("</br></br>"
-						+ "After a few moments, [npc.her] balls have completely emptied themselves, and [npc.she] steps back,"
-							+ " sliding [npc.her] rapidly-softening [npc.cock] out from your [pc.lips+] as [npc.she] inadvertently covers your [pc.tongue] with the last few drops of [npc.her] salty seed.");
+						+ "After a few moments, [npc.her] balls have completely emptied themselves, and [npc.she] takes a moment to catch [npc.her] breath, grinning down at you as [npc.she] keeps [npc.her] [npc.cock+] hilted down your throat.");
 			
 			return UtilText.parse(Sex.getActivePartner(), UtilText.nodeContentSB.toString());
-		}
-
-		@Override
-		public void applyEffects() {
-			Sex.removePenetration(Sex.getActivePartner(), Main.game.getPlayer(), PenetrationType.PENIS, OrificeType.MOUTH);
 		}
 
 		@Override
@@ -382,7 +371,7 @@ public class SubKneeling {
 			}
 			
 			UtilText.nodeContentSB.append("</br></br>"
-						+ " After a few moments, [npc.she] comes down from [npc.her] climax and steps back, smirking down at you as you wipe [npc.her] [npc.cum+] from your eyes.");
+						+ " After a few moments, [npc.she] comes down from [npc.her] climax and takes hold of your [pc.head], smirking down at you as [npc.she] slides [npc.her] [npc.cock+] back into your mouth.");
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -396,7 +385,16 @@ public class SubKneeling {
 			}
 			Sex.removePenetration(Sex.getActivePartner(), Main.game.getPlayer(), PenetrationType.PENIS, OrificeType.MOUTH);
 		}
-
+		
+		@Override
+		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(cumProvider.isPlayer() && cumTarget.equals(Sex.getTargetedPartner(Main.game.getPlayer()))) {
+				return Util.newArrayListOfValues(
+						new ListValue<>(CoverableArea.MOUTH));
+			}
+			return null; 
+		}
+		
 		@Override
 		public boolean ignoreCondom(GameCharacter condomWearer) {
 			return condomWearer.equals(Sex.getActivePartner());

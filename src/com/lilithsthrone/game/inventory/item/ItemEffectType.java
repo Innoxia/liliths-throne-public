@@ -294,13 +294,13 @@ public enum ItemEffectType {
 					target.setSexualOrientation(SexualOrientation.GYNEPHILIC);
 					if(target.isPlayer()) {//TODO
 						return "<p style='text-align:center;'>"
-									+ (alreadyGynephilic?"[style.disabled(You're already gynephilic, so nothing happens...)]":"You're now [style.colourFemininePlus(gynephilic)]!")
+									+ (alreadyGynephilic?"[style.colourDisabled(You're already gynephilic, so nothing happens...)]":"You're now [style.colourFemininePlus(gynephilic)]!")
 								+ "</p>";
 					
 					} else {
 						return UtilText.parse(target,
 								"<p style='text-align:center;'>"
-										+ (alreadyGynephilic?"[style.disabled([npc.Name] is already gynephilic, so nothing happens...)]":"[npc.Name] is now [style.colourFemininePlus(gynephilic)]!")
+										+ (alreadyGynephilic?"[style.colourDisabled([npc.Name] is already gynephilic, so nothing happens...)]":"[npc.Name] is now [style.colourFemininePlus(gynephilic)]!")
 									+ "</p>");
 					}
 					
@@ -309,13 +309,13 @@ public enum ItemEffectType {
 					target.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 					if(target.isPlayer()) {//TODO
 						return "<p style='text-align:center;'>"
-									+ (alreadyAmbiphilic?"[style.disabled(You're already ambiphilic, so nothing happens...)]":"You're now [style.colourAndrogynous(ambiphilic)]!")
+									+ (alreadyAmbiphilic?"[style.colourDisabled(You're already ambiphilic, so nothing happens...)]":"You're now [style.colourAndrogynous(ambiphilic)]!")
 								+ "</p>";
 					
 					} else {
 						return UtilText.parse(target,
 								"<p style='text-align:center;'>"
-										+ (alreadyAmbiphilic?"[style.disabled([npc.Name] is already ambiphilic, so nothing happens...)]":"[npc.Name] is now [style.colourAndrogynous(ambiphilic)]!")
+										+ (alreadyAmbiphilic?"[style.colourDisabled([npc.Name] is already ambiphilic, so nothing happens...)]":"[npc.Name] is now [style.colourAndrogynous(ambiphilic)]!")
 									+ "</p>");
 					}
 					
@@ -324,13 +324,13 @@ public enum ItemEffectType {
 					target.setSexualOrientation(SexualOrientation.ANDROPHILIC);
 					if(target.isPlayer()) {//TODO
 						return "<p style='text-align:center;'>"
-									+ (alreadyAndrophilic?"[style.disabled(You're already androphilic, so nothing happens...)]":"You're now [style.colourMasculinePlus(androphilic)]!")
+									+ (alreadyAndrophilic?"[style.colourDisabled(You're already androphilic, so nothing happens...)]":"You're now [style.colourMasculinePlus(androphilic)]!")
 								+ "</p>";
 					
 					} else {
 						return UtilText.parse(target,
 								"<p style='text-align:center;'>"
-										+ (alreadyAndrophilic?"[style.disabled([npc.Name] is already androphilic, so nothing happens...)]":"[npc.Name] is now [style.colourMasculinePlus(androphilic)]!")
+										+ (alreadyAndrophilic?"[style.colourDisabled([npc.Name] is already androphilic, so nothing happens...)]":"[npc.Name] is now [style.colourMasculinePlus(androphilic)]!")
 									+ "</p>");
 					}
 				}

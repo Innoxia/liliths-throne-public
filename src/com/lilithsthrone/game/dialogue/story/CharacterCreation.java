@@ -28,6 +28,7 @@ import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
+import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
 import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
@@ -694,6 +695,7 @@ public class CharacterCreation {
 							Main.game.getPlayer().setName(new NameTriplet(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent()));
 							Main.game.getPlayer().setSurname(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent());
 							getDressed();
+							BodyChanging.setTarget(Main.game.getPlayer());
 							Main.game.setContent(new Response("" ,"", CHOOSE_ADVANCED_APPEARANCE));
 						}
 					}
@@ -854,7 +856,7 @@ public class CharacterCreation {
 						
 					+ CharacterModificationUtils.getHeightChoiceDiv()
 					
-					+ CharacterModificationUtils.getKatesDivNaturalCoverings(false, BodyCoveringType.HUMAN, "Skin Colour", "The colour of the skin that's covering your body.", false, false)
+					+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.HUMAN, "Skin Colour", "The colour of the skin that's covering your body.", false, true, false)
 					
 					+ "<div class='cosmetics-container' style='background:transparent;'>"
 					
@@ -899,7 +901,7 @@ public class CharacterCreation {
 					
 					+ CharacterModificationUtils.getLipPuffynessDiv()
 
-					+ CharacterModificationUtils.getKatesDivNaturalCoverings(false, BodyCoveringType.EYE_HUMAN, "Iris Colour", "The colour of your eye's irises.", true, false);
+					+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.EYE_HUMAN, "Iris Colour", "The colour of your eye's irises.", true, false, false);
 		}
 		
 		@Override
@@ -931,7 +933,7 @@ public class CharacterCreation {
 					
 					+ CharacterModificationUtils.getKatesDivHairStyles(false, "Hair Style", "Choose your hair style. Certain hair styles are unavailable at shorter hair lengths.")
 
-					+ CharacterModificationUtils.getKatesDivCoverings(false, BodyCoveringType.HAIR_HUMAN, "Hair Colour", "The colour of your hair.", true, false);
+					+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.HAIR_HUMAN, "Hair Colour", "The colour of your hair.", true, false);
 		}
 		
 		@Override
@@ -1126,23 +1128,23 @@ public class CharacterCreation {
 						+ "<i>All of these options can be influenced later on in the game.</i>"
 					+ "</div>"
 							
-					+CharacterModificationUtils.getKatesDivCoverings(
-							false, BodyCoveringType.MAKEUP_BLUSHER, "Blusher", "Blusher (also called rouge) is used to colour the cheeks so as to provide a more youthful appearance, and to emphasise the cheekbones.", true, false)
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
+							false, BodyCoveringType.MAKEUP_BLUSHER, "Blusher", "Blusher (also called rouge) is used to colour the cheeks so as to provide a more youthful appearance, and to emphasise the cheekbones.", true, true)
 					
-					+CharacterModificationUtils.getKatesDivCoverings(
-							false, BodyCoveringType.MAKEUP_LIPSTICK, "Lipstick", "Lipstick is used to provide colour, texture, and protection to the wearer's lips.", true, false)
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
+							false, BodyCoveringType.MAKEUP_LIPSTICK, "Lipstick", "Lipstick is used to provide colour, texture, and protection to the wearer's lips.", true, true)
 
-					+CharacterModificationUtils.getKatesDivCoverings(
-							false, BodyCoveringType.MAKEUP_EYE_LINER, "Eyeliner", "Eyeliner is applied around the contours of the eyes to help to define shape or highlight different features.", true, false)
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
+							false, BodyCoveringType.MAKEUP_EYE_LINER, "Eyeliner", "Eyeliner is applied around the contours of the eyes to help to define shape or highlight different features.", true, true)
 
-					+CharacterModificationUtils.getKatesDivCoverings(
-							false, BodyCoveringType.MAKEUP_EYE_SHADOW, "Eye shadow", "Eye shadow is used to make the wearer's eyes stand out or look more attractive.", true, false)
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
+							false, BodyCoveringType.MAKEUP_EYE_SHADOW, "Eye shadow", "Eye shadow is used to make the wearer's eyes stand out or look more attractive.", true, true)
 
-					+CharacterModificationUtils.getKatesDivCoverings(
-							false, BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, "Nail polish", "Nail polish is used to colour and protect the nails on your [pc.hands].", true, false)
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
+							false, BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, "Nail polish", "Nail polish is used to colour and protect the nails on your [pc.hands].", true, true)
 
-					+CharacterModificationUtils.getKatesDivCoverings(
-							false, BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, "Toenail polish", "Toenail polish is used to colour and protect the nails on your [pc.feet].", true, false);
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
+							false, BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, "Toenail polish", "Toenail polish is used to colour and protect the nails on your [pc.feet].", true, true);
 		}
 		
 		@Override
@@ -1173,8 +1175,8 @@ public class CharacterCreation {
 											+ "</div>");
 			
 			if(Main.game.isPubicHairEnabled() || Main.game.isFacialHairEnabled() || Main.game.isBodyHairEnabled()) {
-				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivNaturalCoverings(
-						false, Main.game.getPlayer().getBodyHairCoveringType(), "Body hair", "This is the hair that covers all areas other than the head.", false, false));
+				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivCoveringsNew(
+						false, Main.game.getPlayer().getBodyHairCoveringType(), "Body hair", "This is the hair that covers all areas other than the head.", false, false, false));
 			} else {
 				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivGenericBodyHairDisabled(
 						"Body hair", "This is the hair that covers all areas other than the head.", "All extra body hair options are disabled. You will not see any extra hair content."));

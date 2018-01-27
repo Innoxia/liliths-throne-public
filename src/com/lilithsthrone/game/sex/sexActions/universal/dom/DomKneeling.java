@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -189,11 +190,6 @@ public class DomKneeling {
 			return UtilText.nodeContentSB.toString();
 		}
 		
-		@Override
-		public void applyEffects() {
-			Sex.removePenetration(Sex.getActivePartner(), Main.game.getPlayer(), PenetrationType.TONGUE, OrificeType.VAGINA);
-		}
-		
 	};
 
 	public static final SexAction PLAYER_ORGASM_COCK_DEEPTHROAT = new SexAction(
@@ -274,16 +270,10 @@ public class DomKneeling {
 			}
 			
 			UtilText.nodeContentSB.append("</br></br>"
-					+ "After a moment you recover from your climax, and, as [npc.name] wipes tears from [npc.her] [npc.eyes] and gasps for breath, you slide your softening [pc.cock] out from [npc.her] mouth.");
+					+ "After a few moments, your balls have completely emptied themselves, and you take a moment to catch your breath, grinning down at [npc.name] as you keep your [pc.cock+] hilted down [npc.her] throat.");
 			
 			return UtilText.nodeContentSB.toString();
 		}
-
-		@Override
-		public void applyEffects() {
-			Sex.removePenetration(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.PENIS, OrificeType.MOUTH);
-		}
-		
 
 		@Override
 		public List<OrificeType> getAreasCummedIn(GameCharacter cumProvider, GameCharacter cumTarget) {
@@ -373,8 +363,12 @@ public class DomKneeling {
 		}
 
 		@Override
-		public void applyEffects() {
-			Sex.removePenetration(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.PENIS, OrificeType.MOUTH);
+		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(cumProvider.isPlayer() && cumTarget.equals(Sex.getTargetedPartner(Main.game.getPlayer()))) {
+				return Util.newArrayListOfValues(
+						new ListValue<>(CoverableArea.MOUTH));
+			}
+			return null; 
 		}
 		
 		@Override

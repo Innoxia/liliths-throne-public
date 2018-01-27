@@ -212,9 +212,9 @@ public enum PlaceUpgrade {
 		public String getRoomDescription(GenericPlace place) {
 			if(place.getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_UPGRADE_BED)) {
 				return "You've paid to have this room converted so that it's suitable for housing two of your slaves."
-							+ " A pair of comfortable double size beds, covered in warm fully duvets, sit against opposite walls."
-							+ " Beside each one, there's a simple bedside cabinet, complete with arcane-powered lamp."
-							+ " Other than that, the only other pieces of furniture in here are a single wooden wardrobe and solitary chest of drawers.";
+							+ " A single double size bed, covered in a warm fully duvet, sits against one of the room's walls."
+							+ " On either side of it, there's a simple bedside cabinet, each complete with its own arcane-powered lamp."
+							+ " Other than those, the only other pieces of furniture in here are a single wooden wardrobe and a solitary chest of drawers.";
 				
 			} else if(place.getPlaceUpgrades().contains(PlaceUpgrade.LILAYA_SLAVE_ROOM_DOWNGRADE_BED)) {
 				return "You've paid to have this room converted so that it's suitable for housing two of your slaves."
@@ -303,6 +303,17 @@ public enum PlaceUpgrade {
 			0.2f,
 			-0.1f,
 			null) {
+		
+		@Override
+		public String getRoomDescription(GenericPlace place) {
+			if(place.getPlaceUpgrades().contains(LILAYA_SLAVE_ROOM_DOUBLE)) {
+				return "This room's pair of single-sized beds have been replaced with a solitary double-sized one, complete with a comfortable mattress, fluffy pillows, and a warm duvet."
+						+ " The pair of slaves assigned to be this room's occupants will have to learn to live with the fact that they now sleep in the same bed...";
+			} else {
+				return "A double size bed, complete with a comfortable mattress, fluffy pillows, and a warm duvet, sits against one side of the room."
+						+ " Providing this room's occupant with such a delightful place to sleep will definitely get them to like you more, although such luxury might make them forget their place...";
+			}
+		}
 		
 		@Override
 		public boolean isAvailable(Cell cell) {

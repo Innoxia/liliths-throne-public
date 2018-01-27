@@ -74,11 +74,7 @@ public class RoomPlayer {
 
 					Main.game.getPlayer().cleanAllDirtySlots();
 					Main.game.getPlayer().cleanAllClothing();
-					
-					Main.game.getPlayer().removeStatusEffect(StatusEffect.CREAMPIE_ANUS);
-					Main.game.getPlayer().removeStatusEffect(StatusEffect.CREAMPIE_NIPPLES);
-					Main.game.getPlayer().removeStatusEffect(StatusEffect.CREAMPIE_PENIS);
-					Main.game.getPlayer().removeStatusEffect(StatusEffect.CREAMPIE_VAGINA);
+					Main.game.getPlayer().cleanAllOrifices();
 				}
 			};
 

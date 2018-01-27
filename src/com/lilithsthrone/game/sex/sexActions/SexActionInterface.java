@@ -351,7 +351,7 @@ public interface SexActionInterface {
 					
 					// Check to see if it's already in use:
 					if(!getAssociatedPenetrationType().isFree(getPenetratingCharacter())) {
-						return null;
+						return convertToResponse();
 					}
 				}
 				
@@ -374,7 +374,7 @@ public interface SexActionInterface {
 					
 					// Check to see if it's already in use:
 					if(!getAssociatedOrificeType().isFree(getOrificeCharacter())) {
-						return null;
+						return convertToNullResponse();
 					}
 				}
 				
@@ -391,7 +391,7 @@ public interface SexActionInterface {
 					
 					// Check to see if it's already in use:
 					if(!getAssociatedPenetrationType().isFree(getPenetratingCharacter())) {
-						return null;
+						return convertToResponse();
 					}
 				}
 				
@@ -403,7 +403,7 @@ public interface SexActionInterface {
 					
 					// Check to see if it's already in use:
 					if(!getAssociatedOrificeType().isFree(getOrificeCharacter())) {
-						return null;
+						return convertToResponse();
 					}
 				}
 				

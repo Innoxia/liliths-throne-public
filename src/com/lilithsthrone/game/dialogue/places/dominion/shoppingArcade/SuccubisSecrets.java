@@ -692,7 +692,7 @@ public class SuccubisSecrets {
 
 					+CharacterModificationUtils.getKatesDivHairStyles(true, "Hair Style", "Hair style availability is determined by your hair length.")
 					
-					+CharacterModificationUtils.getKatesDivCoverings(
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
 							true, Main.game.getPlayer().getHairCovering().getType(), "[pc.Hair] Colour", "All hair recolourings are permanent, so if you want to change your colour again at a later time, you'll have to visit Kate again.", true, true)
 					;
 		}
@@ -761,7 +761,7 @@ public class SuccubisSecrets {
 					description = "This is the skin that's currently covering your tongue.";
 				}
 				
-				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivCoverings(
+				UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivCoveringsNew(
 						true, 
 						bct,
 						title,
@@ -805,10 +805,10 @@ public class SuccubisSecrets {
 					+ "<h6 style='text-align:center;'>"
 						+ "You currently have "+UtilText.formatAsMoney(Main.game.getPlayer().getMoney(), "span")
 					+ "</h6>"
-					+CharacterModificationUtils.getKatesDivCoverings(
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
 							true, Main.game.getPlayer().getEyeType().getBodyCoveringType(), "Irises", "The iris is the coloured part of the eye that's responsible for controlling the diameter and size of the pupil.", true, true)
 
-					+CharacterModificationUtils.getKatesDivCoverings(
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
 							true, BodyCoveringType.EYE_PUPILS, "Pupils", "The pupil is a hole located in the centre of the iris that allows light to strike the retina.", true, true);
 		}
 		
@@ -920,7 +920,7 @@ public class SuccubisSecrets {
 				if((Main.game.isFacialHairEnabled() && Main.game.getPlayer().getFacialHairType().getType()==bct)
 						|| (Main.game.isBodyHairEnabled() && (Main.game.getPlayer().getUnderarmHairType().getType()==bct || Main.game.getPlayer().getAssHairType().getType()==bct))
 						|| (Main.game.isPubicHairEnabled() && Main.game.getPlayer().getPubicHairType().getType()==bct)) {
-					UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivCoverings(
+					UtilText.nodeContentSB.append(CharacterModificationUtils.getKatesDivCoveringsNew(
 							true, bct, "Body hair", "This is your body hair ("+bct.getRace().getName()+").", true, true));
 					
 				}
@@ -964,22 +964,22 @@ public class SuccubisSecrets {
 					+ "<h6 style='text-align:center;'>"
 						+ "You currently have "+UtilText.formatAsMoney(Main.game.getPlayer().getMoney(), "span")
 					+ "</h6>"
-					+CharacterModificationUtils.getKatesDivCoverings(
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
 							true, BodyCoveringType.MAKEUP_BLUSHER, "Blusher", "Blusher (also called rouge) is used to colour the cheeks so as to provide a more youthful appearance, and to emphasise the cheekbones.", true, true)
 					
-					+CharacterModificationUtils.getKatesDivCoverings(
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
 							true, BodyCoveringType.MAKEUP_LIPSTICK, "Lipstick", "Lipstick is used to provide colour, texture, and protection to the wearer's lips.", true, true)
 
-					+CharacterModificationUtils.getKatesDivCoverings(
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
 							true, BodyCoveringType.MAKEUP_EYE_LINER, "Eyeliner", "Eyeliner is applied around the contours of the eyes to help to define shape or highlight different features.", true, true)
 
-					+CharacterModificationUtils.getKatesDivCoverings(
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
 							true, BodyCoveringType.MAKEUP_EYE_SHADOW, "Eye shadow", "Eye shadow is used to make the wearer's eyes stand out or look more attractive.", true, true)
 
-					+CharacterModificationUtils.getKatesDivCoverings(
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
 							true, BodyCoveringType.MAKEUP_NAIL_POLISH_HANDS, "Nail polish", "Nail polish is used to colour and protect the nails on your [pc.hands].", true, true)
 
-					+CharacterModificationUtils.getKatesDivCoverings(
+					+CharacterModificationUtils.getKatesDivCoveringsNew(
 							true, BodyCoveringType.MAKEUP_NAIL_POLISH_FEET, "Toenail polish", "Toenail polish is used to colour and protect the nails on your [pc.feet].", true, true);
 			
 		}

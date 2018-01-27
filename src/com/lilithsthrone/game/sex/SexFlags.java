@@ -34,6 +34,8 @@ public class SexFlags implements Serializable {
 	requestedFaceToWall,
 	requestedKneeling,
 	requestedSelfKneeling,
+	requestedMissionary,
+	requestedMissionaryOnBack,
 	
 	// Brax: TODO Temporary awaiting Brax rewrite
 	braxCumOnChest,

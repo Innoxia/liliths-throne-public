@@ -197,6 +197,13 @@ public class SexActionPresets {
 	public static List<Class<?>> playerStocksStandingBehind = new ArrayList<>();
 	public static List<Class<?>> partnerStocksStandingBehind = new ArrayList<>();
 
+	/* Missionary */
+
+	public static List<Class<?>> playerMissionaryOnBack = new ArrayList<>();
+	public static List<Class<?>> partnerMissionaryOnBack = new ArrayList<>();
+
+	public static List<Class<?>> playerMissionaryKneelingBetweenLegs = new ArrayList<>();
+	public static List<Class<?>> partnerMissionaryKneelingBetweenLegs = new ArrayList<>();
 	
 
 	/* UNIQUES */
@@ -942,6 +949,78 @@ public class SexActionPresets {
 		partnerStocksStandingBehind.add(GenericActions.class);
 		partnerStocksStandingBehind.add(GenericOrgasms.class);
 		
+		
+
+		/* MISSIONARY */
+		
+		
+		// Back-to-wall player against wall:
+
+		playerMissionaryOnBack.addAll(playerDefaultSelf);
+//		playerMissionaryOnBack.add(MissionaryOnBack.class); TODO
+		playerMissionaryOnBack.addAll(playerGenerics);
+		
+		// Back-to-wall partner against wall:
+
+		partnerMissionaryOnBack.addAll(partnerDefaultSelf);
+//		partnerMissionaryOnBack.add(MissionaryOnBack.class); TODO
+		partnerMissionaryOnBack.addAll(partnerGenerics);
+		
+		
+		// Back to wall player facing target:
+		
+		playerMissionaryKneelingBetweenLegs.addAll(playerDefaultSelf);
+		
+		playerMissionaryKneelingBetweenLegs.add(PlayerTongueMouth.class);
+		playerMissionaryKneelingBetweenLegs.add(PlayerTongueBreasts.class);
+		playerMissionaryKneelingBetweenLegs.add(PlayerTongueNipple.class);
+		playerMissionaryKneelingBetweenLegs.add(PlayerFingerNipple.class);
+		playerMissionaryKneelingBetweenLegs.add(PlayerFingerUrethra.class);
+		playerMissionaryKneelingBetweenLegs.add(PlayerFingerVagina.class);
+		playerMissionaryKneelingBetweenLegs.add(PlayerPenisVagina.class);
+		playerMissionaryKneelingBetweenLegs.add(PlayerPenisAnus.class);
+		playerMissionaryKneelingBetweenLegs.add(PlayerTailVagina.class);
+		playerMissionaryKneelingBetweenLegs.add(PlayerTailAnus.class);
+
+		playerMissionaryKneelingBetweenLegs.add(PartnerTongueMouth.class);
+		playerMissionaryKneelingBetweenLegs.add(PartnerTongueBreasts.class);
+		playerMissionaryKneelingBetweenLegs.add(PartnerTongueNipple.class);
+		playerMissionaryKneelingBetweenLegs.add(PartnerFingerNipple.class);
+		playerMissionaryKneelingBetweenLegs.add(PartnerFingerUrethra.class);
+		playerMissionaryKneelingBetweenLegs.add(PartnerFingerVagina.class);
+		playerMissionaryKneelingBetweenLegs.add(PartnerPenisVagina.class);
+		playerMissionaryKneelingBetweenLegs.add(PartnerTailVagina.class);
+		playerMissionaryKneelingBetweenLegs.add(PartnerTailAnus.class);
+
+		playerMissionaryKneelingBetweenLegs.addAll(playerGenerics);
+		
+		// Back to wall partner facing target:
+
+		partnerMissionaryKneelingBetweenLegs.addAll(partnerDefaultSelf);
+		
+		partnerMissionaryKneelingBetweenLegs.add(PlayerTongueMouth.class);
+		partnerMissionaryKneelingBetweenLegs.add(PlayerTongueBreasts.class);
+		partnerMissionaryKneelingBetweenLegs.add(PlayerTongueNipple.class);
+		partnerMissionaryKneelingBetweenLegs.add(PlayerFingerNipple.class);
+		partnerMissionaryKneelingBetweenLegs.add(PlayerFingerUrethra.class);
+		partnerMissionaryKneelingBetweenLegs.add(PlayerFingerVagina.class);
+		partnerMissionaryKneelingBetweenLegs.add(PlayerPenisVagina.class);
+		partnerMissionaryKneelingBetweenLegs.add(PlayerPenisThighs.class);
+		partnerMissionaryKneelingBetweenLegs.add(PlayerTailVagina.class);
+		partnerMissionaryKneelingBetweenLegs.add(PlayerTailAnus.class);
+
+		partnerMissionaryKneelingBetweenLegs.add(PartnerTongueMouth.class);
+		partnerMissionaryKneelingBetweenLegs.add(PartnerTongueBreasts.class);
+		partnerMissionaryKneelingBetweenLegs.add(PartnerTongueNipple.class);
+		partnerMissionaryKneelingBetweenLegs.add(PartnerFingerNipple.class);
+		partnerMissionaryKneelingBetweenLegs.add(PartnerFingerUrethra.class);
+		partnerMissionaryKneelingBetweenLegs.add(PartnerFingerVagina.class);
+		partnerMissionaryKneelingBetweenLegs.add(PartnerPenisVagina.class);
+		partnerMissionaryKneelingBetweenLegs.add(PartnerTailVagina.class);
+		partnerMissionaryKneelingBetweenLegs.add(PartnerTailAnus.class);
+
+		partnerMissionaryKneelingBetweenLegs.addAll(partnerGenerics);
+
 		
 		
 		/* UNIQUES */

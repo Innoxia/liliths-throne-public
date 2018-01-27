@@ -1484,6 +1484,13 @@ public class OptionsDialogue {
 						"Furry tail penetrations",
 						"This enables furry tails to engage in penetrative actions in sex.",
 						Main.getProperties().furryTailPenetrationContent)
+					
+					+getContentPreferenceDiv(
+							"INFLATION_CONTENT",
+							Colour.CUMMED,
+							"Cum Inflation",
+							"This enables cum inflation mechanics.",
+							Main.getProperties().inflationContent)
 				+"</div>");
 			
 			return UtilText.nodeContentSB.toString();

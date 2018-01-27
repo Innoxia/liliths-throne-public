@@ -162,7 +162,8 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 						&& ((AbstractClothing)o).isEnchantmentKnown()==enchantmentKnown
 						&& ((AbstractClothing)o).isBadEnchantment()==badEnchantment
 						&& ((AbstractClothing)o).getCoreEnchantment()==coreEnchantment
-						&& ((AbstractClothing)o).getDisplacedList().equals(displacedList)){
+//						&& ((AbstractClothing)o).getDisplacedList().equals(displacedList)
+						){
 					return true;
 				}
 			}
@@ -186,7 +187,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		result = 31 * result + (badEnchantment ? 1 : 0);
 		if(coreEnchantment != null)
 			result = 31 * result + coreEnchantment.hashCode();
-		result = 31 * result + displacedList.hashCode();
+//		result = 31 * result + displacedList.hashCode();
 		return result;
 	}
 	
@@ -257,7 +258,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 			
 			clothing.displacedList = new ArrayList<>();
 			element = (Element)parentElement.getElementsByTagName("displacedList").item(0);
-			for(int i=0; i<element.getElementsByTagName("spell").getLength(); i++){
+			for(int i=0; i<element.getElementsByTagName("displacementType").getLength(); i++){
 				Element e = ((Element)element.getElementsByTagName("displacementType").item(i));
 				clothing.displacedList.add(DisplacementType.valueOf(e.getAttribute("value")));
 			}

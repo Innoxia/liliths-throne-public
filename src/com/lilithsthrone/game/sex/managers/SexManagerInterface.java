@@ -26,7 +26,7 @@ public interface SexManagerInterface {
 	public Map<GameCharacter, SexPositionSlot> getDominants();
 	public Map<GameCharacter, SexPositionSlot> getSubmissives();
 	
-	public default SexPace getStartingSexPaceOverride(GameCharacter character) {
+	public default SexPace getStartingSexPaceModifier(GameCharacter character) {
 		return null;
 	}
 	
