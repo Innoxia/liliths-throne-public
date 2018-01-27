@@ -16,44 +16,70 @@
 	
 	Patch notes:
 	
-	Gameplay:
-		Added 'Cum Inflation' option to content preferences screen (on by default).
-		Reworked and improved creampie status effects, adding new icons, and keeping track of how much cum is currently inside of your orifices. Having the 'masochist' or 'cum addict' fetishes now makes these status effects apply a positive modifier.
-		Added related status effects for cum inflation, and added in more detailed cum inflation descriptions in orgasms (can be disabled in the content preferences screen).
-		Further improved orgasm descriptions for all penis modifiers, and added in the start of fluid descriptions. (I ran out of time in which to properly create alcoholic and psychoactive status effects and descriptions.)
-		Improved UI for changing colour of a body part (in Kate's shop and character creator).
-		Added the (basic) ability to send slaves to Kate's shop, in order to change their appearance. (I'll expand this and tidy up the UI at a later date.)
-		Added missionary position (both on back and between legs for both sub and dom) to generic sex scenes. NPCs will now also use this position (if they want to).
-		
-	Other:
-		Displacement of clothing is now restored after a sex scene. (So if you start a sex scene with your jacket unbuttoned, it will be re-equipped after sex in its unbuttoned state.)
-		Reduced arousal gains from characters with the 'Unwilling Fuck-Toy' fetish resisting in sex from 150% normal value, to 125%.
-		Made all penetrative actions visible in sex scenes, although disabled until you meet their requirements.
-		Added submissive sex variations for offspring encounters.
-		
+	
 	Bugs:
-		Fixed some reported instances of incorrect parsing & typos.
-		NPCs should no longer repeatedly start/stop penetrations in sex.
-		Fixed black and grey text colours being inverted.
-		Fixed unavailable eye colours for demons, wolf-morphs, and cat-morphs.
-		NPCs should now comment on body parts the first time they're revealed in sex again.
-		Fixed several instances of orgasms removing ongoing penetrations.
-		Fixed bug where you could increase the wetness of your vagina even if you didn't have one.
-		Fixed inconsistent descriptions in being force-fed TF potions.
-		Fixed bug where loading a saved game would not load any of your clothing's displacements. (All clothing would be reset to having not being displaced.)
-		Fixed case where multiple types of exposed status effects could be applied at once to one character.
-		Corrected description of the double-sized bed upgrade in the two-person slave room.
-		Fixed the bug where when feeding a potion to an NPC (or drinking it yourself) which has a large number of effects, all of the TF descriptions were based on the target's end state.
-		NPCs will no longer use the last of their stamina on a special attack.
-		Fixed parsing errors in hypno-watch effects.
-		Added some more reasonable descriptions for alligator 'body hair' (scales).
-		Choosing 'Rough'/'Gentle'/'Eager'/'Resisting' options at the start of sex will now correctly start the sex scene with you in that pace.
-		Fixed bug where you could drop/remove/displace NPC's clothes through the [Phone] > [Contacts] > [NPC Name] tabs.
-		Fixed not being able to switch positions in Kate's sex scene.
-		Fixed all offensive spells referencing 'arcane fire'.
+		Fixed bug where multiple incompatible penetrations could be performed at once.
+		Nipple penetration options should no longer appear as a greyed-out option if the character's nipples are not able to be penetrated.
 	
 	
 	
+	
+	
+	Spitroast
+		Similarly, partner positions don't seem to matter, since someone stated to be in front of you can also fuck your ass and then suck off the person stated to be behind you.
+
+
+
+	trying to bang lilaya in newest version, the game crashes when I try to pull down her bra or grope her tits, gonna wait for hotfix
+
+	Female gameplay is non-functional, npcs can't penetrate anything except nipples and even then they'll fuck flat breasts. Also orgasm dialogue is broken for them, ie it will always say 'absolutely zero cum; you feel the cum going down your x'
+	
+	: got a bug, when a npc cums it's says that "As his large balls tense up, not even a single drop of cum leaks out" even though my groin gets coverd in cum and in his stats it says he does produce cum, it's the same with kate if she cums on you, not in you
+
+	
+	lost to a Reindeer boy. Displaced all clothing. No penetration actions available, and no matter what I do it goes to Missionary with me kneeling before him and he keeps saying the same thing about liking girls who take initiative
+[18:46] Dimensionsatire: It also won't end the scene. Reindeer won't do anything, I can't end it because he's the dominant one...resetting
+
+
+	the check for whether nipple penetration should be possible seems to be missing, as well. ...and oral sex can occur at the same time
+
+	The discount thing is broken, he's paying you for buying his stuff.
+you can get a 'big discount' from Ralph, and when you select [take it] during the anal scene the percentage discount increases by 15% each time
+	
+	
+	the greater succubs bugging out?
+[09:44] CaiHuaZei: like it just repeats the same line indefinitely
+[09:52] A Degenerate: after sex before sex or?
+[10:01] CaiHuaZei: during
+[10:01] CaiHuaZei: i got past it by pressing do nothing
+	
+	
+	 Dealing with cum inflation, As you inflate the character, it goes through the 'pregnancy' sized phases correctly, untill you reach the max size, then if you go beyond that, (something like 4L) The description goes to 'early pregancy' again.
+[18:04] Jimmythehand: Looks like roll over or something
+	
+	
+	Eagerly pushing your hard cock into Jack's wet cunt, you start thrusting your hips into him, letting out a deep grunt as you fuck him. A deep groan bursts out from between Jack's lips, and, thrusting his hips into you, he begs for you to carry on fucking him.
+You readily push your hard shaft in and out of Jack's somewhat tight twat, causing a low grunt to drift out from between his lips.
+Shifting his hips, Jack lines your hard cock up to his rear end, eagerly pushing your head up and down over his tight back door as he teases you with the promise of penetration at any moment. You groan in delight, "Your ass sure feels good!"
+A desperate grunt drifts out from between Jack's lips as you happily slide your average-sized shaft deep into his hot cunt.
+
+Teasing me with the promise of penetration, huh? :thinking: Missionary position as dom
+	
+	
+	Subbed to an andryogynous cow-doll and they kept changing the scene to Missionary over and over, interrupting penetration every single time.
+	 Also switches to Missionary when I try to get to another position, but it doesn't actually show the dialogue for rejecting a position change, and they are not stopping sex at 1 orgasm.
+	I started sex with another NPC and they're doing the exact same thing, just switching to Missionary ad nauseam
+	
+	: My character was on submissive role 69ing, while receiving a blowjob reached orgasm, but for some reason "Pull Out (chest)" didn't work. Then I tried Pull Out (facial) and it worked.
+	
+	
+	Uh-oh. NPCs can perform multiple incompatible "penetrations" at the same time. I'm kissing a wolf-girl twice (two separate kissing interactions that both have separate buttons and increase arousal separately) and I got a reindeer girl who could both perform oral and titfuck at the same time. (This should be kept for penises that are sufficiently large compared to the partner's breasts, but obviously behaviors like double kissing ought to be fixed.) Haven't gotten an NPC to do anal and vaginal at the same time yet, but I'll edit this post if that happens.
+
+EDIT: Got vaginal and thigh-fucking going at the same time
+	
+	When NPC is virgin:
+		I'm still a virgin, ok
+		This is going to be good (while performing paizuri)
 	
 	
 	
@@ -64,7 +90,7 @@
 	alcoholic and/or psychoactive effects
 	
 	Add trib
-	
+	riding cowgirl just allowed for the dominant partner
 	
 	so if you import a char as a slave they wont be attracted to you no matter what if they dont has the incest fetish
 	
