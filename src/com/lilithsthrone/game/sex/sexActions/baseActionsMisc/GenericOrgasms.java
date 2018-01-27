@@ -664,7 +664,7 @@ public class GenericOrgasms {
 					if(characterOrgasming.hasPenisModifier(PenisModifier.KNOTTED)) {
 						if(characterOrgasming.isPlayer()) {
 							genericOrgasmSB.append(" Keeping your [npc1.hips] pushed tightly against [npc2.name]'s "+orificeName+", you let out [npc1.a_moan+] as you feel your knot swell up to its full size."
-									+ " Bucking back a little, you grin as you feel [npc.name] pulled along with you; evidence that your [npc1.cock] is now firmly locked inside [npc2.her] "+orificeNamePlusDescriptor+".");
+									+ " Bucking back a little, you grin as you feel [npc2.name] pulled along with you; evidence that your [npc1.cock] is now firmly locked inside [npc2.her] "+orificeNamePlusDescriptor+".");
 						} else {
 							if(characterPenetrated.isPlayer()) {
 								genericOrgasmSB.append(" Keeping [npc1.her] [npc1.hips] pushed tightly against your "+orificeName+", [npc1.name] lets out [npc1.a_moan+] as [npc1.her] knot swells up to its full size."
@@ -796,7 +796,7 @@ public class GenericOrgasms {
 					if(characterOrgasming.hasPenisModifier(PenisModifier.KNOTTED)) {
 						if(characterOrgasming.isPlayer()) {
 							genericOrgasmSB.append(" Keeping your [npc1.hips] pushed tightly against [npc2.name]'s [npc2.face], you let out [npc1.a_moan+] as you feel your knot swell up to its full size."
-									+ " Bucking back a little, you grin as [npc.name]'s pulled along with you; evidence that your [npc1.cock] is now firmly locked inside [npc2.her] [npc2.mouth].");
+									+ " Bucking back a little, you grin as [npc2.name]'s pulled along with you; evidence that your [npc1.cock] is now firmly locked inside [npc2.her] [npc2.mouth].");
 						} else {
 							if(characterPenetrated.isPlayer()) {
 								genericOrgasmSB.append(" Keeping [npc1.her] [npc1.hips] pushed tightly against your [npc2.face], [npc1.name] lets out [npc1.a_moan+] as [npc1.her] knot swells up to its full size."
@@ -824,9 +824,10 @@ public class GenericOrgasms {
 			genericOrgasmSB.append(" As [npc1.her] [npc1.balls+] tense up, ");
 		}
 		genericOrgasmSB.append(getCumQuantityDescription(characterOrgasming));
+		if(characterOrgasming.getPenisRawCumProductionValue()>0) {
+			genericOrgasmSB.append(cumTargetDescription(characterOrgasming, characterPenetrated, cumTarget));
+		}
 		
-		genericOrgasmSB.append(cumTargetDescription(characterOrgasming, characterPenetrated, cumTarget));
-
 		if(characterOrgasming.hasPenisModifier(PenisModifier.KNOTTED) && cumTarget==OrgasmCumTarget.INSIDE) {
 			if(characterOrgasming.isPlayer()) {
 				genericOrgasmSB.append("</br>"
@@ -857,9 +858,9 @@ public class GenericOrgasms {
 		String targetName = "#IFnpc1.isPlayer#THENyour#ELSE[npc1.name]'s#ENDIF";
 		String cumQuantityDescription = targetName+" [npc1.cum+] squirts";
 		
-		switch (Main.game.getPlayer().getPenisCumProduction()) {
+		switch (characterOrgasming.getPenisCumProduction()) {
 			case ZERO_NONE:
-				cumQuantityDescription = "not even a single drop of [npc1.cum] leaks out";
+				cumQuantityDescription = "not even a single drop of [npc1.cum] is produced...";
 				break;
 			case ONE_TRICKLE:
 				cumQuantityDescription = "a small trickle of [npc1.cum+] squirts";

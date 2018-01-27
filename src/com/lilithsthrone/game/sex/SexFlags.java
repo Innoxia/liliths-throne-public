@@ -98,6 +98,8 @@ public class SexFlags implements Serializable {
 		requestedFaceToWall = false;
 		requestedKneeling = false;
 		requestedSelfKneeling = false;
+		requestedMissionary = false;
+		requestedMissionaryOnBack = false;
 	}
 
 }

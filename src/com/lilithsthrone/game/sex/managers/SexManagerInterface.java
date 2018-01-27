@@ -5,6 +5,8 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
+import com.lilithsthrone.game.character.npc.dominion.DominionSuccubusAttacker;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.Sex;
@@ -46,7 +48,10 @@ public interface SexManagerInterface {
 	}
 	
 	public default boolean isPlayerAbleToStopSex() {
-		return Sex.isDom(Main.game.getPlayer()) || Sex.isSubHasEqualControl();
+		return Sex.isDom(Main.game.getPlayer())
+				|| (Sex.isSubHasEqualControl()
+					&& !(Sex.getActivePartner() instanceof DominionAlleywayAttacker)
+					&& !(Sex.getActivePartner() instanceof DominionSuccubusAttacker));
 	}
 	
 	public default boolean isPlayerCanRemoveOwnClothes(){
