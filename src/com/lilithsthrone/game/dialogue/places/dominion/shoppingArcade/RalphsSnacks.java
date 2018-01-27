@@ -273,10 +273,10 @@ public class RalphsSnacks {
 					@Override
 					public void effects() {
 						Main.game.getRalph().getPlayerKnowsAreasMap().put(CoverableArea.PENIS, true);
-						Main.game.getRalph().isAbleToBeDisplaced(Main.game.getRalph().getHighestZLayerCoverableArea(CoverableArea.PENIS),
-								DisplacementType.PULLS_DOWN, true, true, Main.game.getRalph());
-						Main.game.getRalph().isAbleToBeDisplaced(Main.game.getRalph().getHighestZLayerCoverableArea(CoverableArea.PENIS),
-								DisplacementType.SHIFTS_ASIDE, true, true, Main.game.getRalph());
+						if(Main.game.getRalph().getHighestZLayerCoverableArea(CoverableArea.PENIS)!=null) {
+							Main.game.getRalph().isAbleToBeDisplaced(Main.game.getRalph().getHighestZLayerCoverableArea(CoverableArea.PENIS), DisplacementType.PULLS_DOWN, true, true, Main.game.getRalph());
+							Main.game.getRalph().isAbleToBeDisplaced(Main.game.getRalph().getHighestZLayerCoverableArea(CoverableArea.PENIS), DisplacementType.SHIFTS_ASIDE, true, true, Main.game.getRalph());
+						}
 					}
 				};
 				

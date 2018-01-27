@@ -7873,7 +7873,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		if((this.isVisiblyPregnant() && cumQuantity >= CumProduction.SEVEN_MONSTROUS.getMinimumValue())) {
 			cummedInAreaMap.put(area, CumProduction.SEVEN_MONSTROUS.getMinimumValue()-1);
 		} else {
-			cummedInAreaMap.put(area, cumQuantity);
+			cummedInAreaMap.put(area, Math.max(0, cumQuantity));
 		}
 	}
 	
@@ -8812,6 +8812,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return wasAbleToReplace;
 	}
 
+	public void replaceAllClothing() {
+		
+	}
+	
 
 	public String getReplaceDescription() {
 		return inventory.getReplaceDescription();

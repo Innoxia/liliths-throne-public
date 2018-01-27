@@ -232,6 +232,11 @@ public class Ralph extends NPC {
 
 	@Override
 	public void endSex(boolean applyEffects) {
+		if(applyEffects) {
+			for(AbstractClothing c : this.getClothingCurrentlyEquipped()) {
+				c.getDisplacedList().clear();
+			}
+		}
 	}
 	
 	public static final DialogueNodeOld AFTER_SEX = new DialogueNodeOld("Shopping", "Return to browsing the wares in Ralph's shop.", true, true) {
