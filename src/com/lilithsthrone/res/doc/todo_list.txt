@@ -4,33 +4,11 @@
 		Update README
 		Create .exe version
 	
-	Update to Java 9.0.1?
+	Update to Java 9.0.1. If you're using the .jar version of the game, please update your Java to 9.0.1 (.exe versions are unaffected).
 	
 	
-	- Improve orgasm dialogue, and add in position-specific orgasm scenes with body-part recognition (such as knotting, orifice modifiers, fluid modifiers, etc.).
-	- Add in missing content related to the new transformations. Addictive fluids, part modifiers referenced during sex, etc.
-	
-	- Work on final improvements to the sex system.
-	
-		Updated to Java 9.0.1. If you're using the .jar version of the game, please update your Java to 9.0.1 (.exe versions are unaffected).
 	
 	Patch notes:
-	
-	
-	Bugs:
-		Fixed bug where multiple incompatible penetrations could be performed at once.
-		Nipple penetration options should no longer appear as a greyed-out option if the character's nipples are not able to be penetrated.
-		Orgasm descriptions will no longer reference cum if the character that's orgasming doesn't produce any.
-		Fixed bug where orgasm descriptions were referencing the wrong person. 
-		Fixed bug where NPCs would continuously put you into the missionary position every turn.
-		Fixed some incorrect name parsing during orgasm descriptions.
-		Fixed bug where repeating Ralph's discount scene would cause the game to freeze.
-		Fixed the 'Grow cock' action for demon NPCs setting cum production value to max.
-		Fixed bug where creampie effects could stop being applied.
-		NPCs should no longer switch positions the moment before orgasm. (I thought I'd fixed this before, but there was anotehr cause of it.)
-		Creampie effects should no longer instantly disappear when sex ends.
-		Fixed Ralph's discount incrementing to the point where he pays you to take his items from him.
-		(Hopefully) Fixed the error where Lilaya's sex scene would sometimes freeze.
 	
 	
 	

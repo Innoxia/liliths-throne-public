@@ -56,7 +56,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.1.98",
+	public static final String VERSION_NUMBER = "0.1.98.1",
 			VERSION_DESCRIPTION = "Early Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
@@ -214,6 +214,24 @@ public class Main extends Application {
 			+"<ul>Fixed bug where you could drop/remove/displace NPC's clothes through the Phone > Contacts > NPC Name tabs.</ul>"
 			+"<ul>Fixed not being able to switch positions in Kate's sex scene.</ul>"
 			+"<ul>Fixed all offensive spells referencing 'arcane fire'.</ul>"
+		+ "</list>"
+			
+		+ "<list>"
+			+ "<h6>v0.1.98.1</h6>"
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed bug where multiple incompatible penetrations could be performed at once.</ul>"
+			+"<ul>Nipple penetration options should no longer appear as a greyed-out option if the character's nipples are not able to be penetrated.</ul>"
+			+"<ul>Orgasm descriptions will no longer reference cum if the character that's orgasming doesn't produce any.</ul>"
+			+"<ul>Fixed bug where orgasm descriptions were referencing the wrong person. </ul>"
+			+"<ul>Fixed bug where NPCs would continuously put you into the missionary position every turn.</ul>"
+			+"<ul>Fixed some incorrect name parsing during orgasm descriptions.</ul>"
+			+"<ul>Fixed bug where repeating Ralph's discount scene would cause the game to freeze.</ul>"
+			+"<ul>Fixed the 'Grow cock' action for demon NPCs setting cum production value to max.</ul>"
+			+"<ul>Fixed bug where creampie effects could stop being applied.</ul>"
+			+"<ul>NPCs should no longer switch positions the moment before orgasm. (I thought I'd fixed this before, but there was another cause of it.)</ul>"
+			+"<ul>Creampie effects should no longer instantly disappear when sex ends.</ul>"
+			+"<ul>Fixed Ralph's discount incrementing to the point where he pays you to take his items from him.</ul>"
+			+"<ul>(Hopefully) Fixed the error where Lilaya's sex scene would sometimes freeze.</ul>"
 		+ "</list>"
 		;
 	

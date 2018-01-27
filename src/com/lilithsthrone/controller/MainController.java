@@ -136,7 +136,6 @@ import com.lilithsthrone.game.inventory.item.ItemEffect;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
-import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.slavery.SlaveJob;
 import com.lilithsthrone.game.slavery.SlaveJobHours;
@@ -458,7 +457,7 @@ public class MainController implements Initializable {
 						
 						 if(event.getCode()==KeyCode.END){
 //							 
-							 Main.game.getPlayer().incrementCummedInArea(OrificeType.VAGINA, 2500);
+//							 Main.game.getPlayer().incrementCummedInArea(OrificeType.VAGINA, 2500);
 							 
 //							 for(NPC npc : Main.game.getNPCMap().values()) {
 //								 System.out.println(npc.getId());
