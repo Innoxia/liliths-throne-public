@@ -458,6 +458,8 @@ public class MainController implements Initializable {
 						
 						 if(event.getCode()==KeyCode.END){
 //							 
+//							 Main.game.getPlayer().incrementCummedInArea(OrificeType.VAGINA, 2500);
+							 
 //							 for(NPC npc : Main.game.getNPCMap().values()) {
 //								 System.out.println(npc.getId());
 //							 }

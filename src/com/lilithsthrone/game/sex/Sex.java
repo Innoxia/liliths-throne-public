@@ -428,6 +428,15 @@ public enum Sex {
 			}
 		}
 		
+		// This is to keep the applied creampies post-sex:
+		for(GameCharacter participant : Sex.getAllParticipants()) {
+			for(OrificeType ot : OrificeType.values()) {
+				if(participant.getCummedInAreaMap().get(ot)>0) {
+					participant.incrementCummedInArea(ot, postSexDialogue.getMinutesPassed() * ot.getCumLossPerMinute());
+				}
+			}
+		}
+		
 		activePartner.setLastTimeHadSex(Main.game.getMinutesPassed(), Sex.getNumberOfOrgasms(activePartner)>0);
 		activePartner.endSex(true);
 	}
@@ -1561,22 +1570,12 @@ public enum Sex {
 						if(!cumProvidor.isWearingCondom() || sexAction.ignoreCondom(cumProvidor)){
 							for(OrificeType ot : sexAction.getAreasCummedIn(cumProvidor, cumTarget)) {
 								
-//								areasCummedIn.get(cumTarget).add(ot);
 								cumTarget.incrementCumCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, ot));
 								cumProvidor.incrementCumCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, ot));
 								sexSB.append(cumTarget.ingestFluid(cumProvidor, cumProvidor.getCum().getType(), ot, cumProvidor.getCum().hasFluidModifier(FluidModifier.ADDICTIVE)));
 								
 								cumTarget.incrementCummedInArea(ot, cumProvidor.getPenisRawCumProductionValue());
 								
-//								if(ot==OrificeType.ANUS) {
-//									cumTarget.addStatusEffect(StatusEffect.CREAMPIE_ANUS, 120+postSexDialogue.getMinutesPassed());
-//								} else if(ot==OrificeType.NIPPLE) {
-//									cumTarget.addStatusEffect(StatusEffect.CREAMPIE_NIPPLES, 120+postSexDialogue.getMinutesPassed());
-//								} else if(ot==OrificeType.VAGINA) {
-//									cumTarget.addStatusEffect(StatusEffect.CREAMPIE_VAGINA, 120+postSexDialogue.getMinutesPassed());
-//								} else if(ot==OrificeType.URETHRA) {
-//									cumTarget.addStatusEffect(StatusEffect.CREAMPIE_PENIS, 120+postSexDialogue.getMinutesPassed());
-//								}
 								if(ot == OrificeType.VAGINA) {
 									sexSB.append(cumTarget.rollForPregnancy(cumProvidor));
 								}
@@ -2387,7 +2386,9 @@ public enum Sex {
 		if (playerClothing) {
 			SimpleEntry<AbstractClothing, DisplacementType> clothingRemoval = Main.game.getPlayer().getNextClothingToRemoveForCoverableAreaAccess(coverableArea);
 			if (clothingRemoval.getKey() == null) {
-				throw new NullPointerException("No clothing found to remove!");
+				unequipClothingText = "[npc.Name] can't find a piece of clothing to remove! (Please tell Innoxia. :3)";
+				System.err.println("partnerManageClothingToAccessCoverableArea method can't get clothing! 1");
+				return SexActionUtility.CLOTHING_REMOVAL;
 			}
 			
 			clothingBeingRemoved = clothingRemoval.getKey();
@@ -2403,8 +2404,11 @@ public enum Sex {
 
 		} else {
 			SimpleEntry<AbstractClothing, DisplacementType> clothingRemoval = activePartner.getNextClothingToRemoveForCoverableAreaAccess(coverableArea);
-			if (clothingRemoval.getKey() == null)
-				throw new NullPointerException("No clothing found to remove!");
+			if (clothingRemoval.getKey() == null) {
+				unequipClothingText = "[npc.Name] can't find a piece of clothing to remove! (Please tell Innoxia. :3)";
+				System.err.println("partnerManageClothingToAccessCoverableArea method can't get clothing! 2");
+				return SexActionUtility.CLOTHING_REMOVAL;
+			}
 
 			clothingBeingRemoved = clothingRemoval.getKey();
 

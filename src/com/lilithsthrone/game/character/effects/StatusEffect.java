@@ -3378,7 +3378,7 @@ public enum StatusEffect {
 						|| target.hasStatusEffect(StatusEffect.CUM_INFLATION_2)
 						|| target.hasStatusEffect(StatusEffect.CUM_INFLATION_3)) {
 					inflationText = "<p>"
-								+ "<i>The swelling of your pregnant bump forces your body to expel most of the cum that's inflating your belly.</i>"
+								+ "[style.italicsSex(The swelling of your pregnant bump forces your body to expel most of the cum that's inflating your belly.)]"
 							+ "</p>";
 				}
 				
@@ -4060,7 +4060,7 @@ public enum StatusEffect {
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
 			// Lose 5ml per minute:
-			int cumLost = 5 * minutesPassed;
+			int cumLost = OrificeType.VAGINA.getCumLossPerMinute() * minutesPassed;
 			
 			StringBuilder sb = new StringBuilder();
 			
@@ -4152,7 +4152,7 @@ public enum StatusEffect {
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
 			// Lose 5ml per minute:
-			int cumLost = 5 * minutesPassed;
+			int cumLost = OrificeType.ANUS.getCumLossPerMinute() * minutesPassed;
 			
 			StringBuilder sb = new StringBuilder();
 			
@@ -4244,7 +4244,7 @@ public enum StatusEffect {
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
 			// Lose 5ml per minute:
-			int cumLost = 5 * minutesPassed;
+			int cumLost = OrificeType.NIPPLE.getCumLossPerMinute() * minutesPassed;
 			
 			StringBuilder sb = new StringBuilder();
 			
@@ -4337,7 +4337,7 @@ public enum StatusEffect {
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
 			// Lose 5ml per minute:
-			int cumLost = 2 * minutesPassed;
+			int cumLost = OrificeType.MOUTH.getCumLossPerMinute() * minutesPassed;
 			
 			if(!target.getDirtySlots().contains(InventorySlot.MOUTH)) {
 				target.addDirtySlot(InventorySlot.MOUTH);

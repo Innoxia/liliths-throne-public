@@ -4,26 +4,14 @@
 		Update README
 		Create .exe version
 	
-	Update to Java 9.0.1?
+	Update to Java 9.0.1. If you're using the .jar version of the game, please update your Java to 9.0.1 (.exe versions are unaffected).
 	
 	
-	- Improve orgasm dialogue, and add in position-specific orgasm scenes with body-part recognition (such as knotting, orifice modifiers, fluid modifiers, etc.).
-	- Add in missing content related to the new transformations. Addictive fluids, part modifiers referenced during sex, etc.
-	
-	- Work on final improvements to the sex system.
-	
-		Updated to Java 9.0.1. If you're using the .jar version of the game, please update your Java to 9.0.1 (.exe versions are unaffected).
 	
 	Patch notes:
 	
 	
-	Bugs:
-		Fixed bug where multiple incompatible penetrations could be performed at once.
-		Nipple penetration options should no longer appear as a greyed-out option if the character's nipples are not able to be penetrated.
-		Orgasm descriptions will no longer reference cum if the character that's orgasming doesn't produce any.
-		Fixed bug where orgasm descriptions were referencing the wrong person. 
-		Fixed bug where NPCs would continuously put you into the missionary position every turn.
-		Fixed some incorrect name parsing during orgasm descriptions.
+	
 	
 	
 	
@@ -31,36 +19,13 @@
 	Spitroast
 		Similarly, partner positions don't seem to matter, since someone stated to be in front of you can also fuck your ass and then suck off the person stated to be behind you.
 
-
-
 	trying to bang lilaya in newest version, the game crashes when I try to pull down her bra or grope her tits, gonna wait for hotfix
 
-	The discount thing is broken, he's paying you for buying his stuff.
-you can get a 'big discount' from Ralph, and when you select [take it] during the anal scene the percentage discount increases by 15% each time
-	
-	the greater succubs bugging out?
-[09:44] CaiHuaZei: like it just repeats the same line indefinitely
-[09:52] A Degenerate: after sex before sex or?
-[10:01] CaiHuaZei: during
-[10:01] CaiHuaZei: i got past it by pressing do nothing
-	
-	
-	 Dealing with cum inflation, As you inflate the character, it goes through the 'pregnancy' sized phases correctly, untill you reach the max size, then if you go beyond that, (something like 4L) The description goes to 'early pregancy' again.
-[18:04] Jimmythehand: Looks like roll over or something
-	
-	
 	: My character was on submissive role 69ing, while receiving a blowjob reached orgasm, but for some reason "Pull Out (chest)" didn't work. Then I tried Pull Out (facial) and it worked.
-	
-	
-	Uh-oh. NPCs can perform multiple incompatible "penetrations" at the same time. I'm kissing a wolf-girl twice (two separate kissing interactions that both have separate buttons and increase arousal separately) and I got a reindeer girl who could both perform oral and titfuck at the same time. (This should be kept for penises that are sufficiently large compared to the partner's breasts, but obviously behaviors like double kissing ought to be fixed.) Haven't gotten an NPC to do anal and vaginal at the same time yet, but I'll edit this post if that happens.
-
-EDIT: Got vaginal and thigh-fucking going at the same time
 	
 	When NPC is virgin:
 		I'm still a virgin, ok
 		This is going to be good (while performing paizuri)
-	
-	
 	
 	
 	
