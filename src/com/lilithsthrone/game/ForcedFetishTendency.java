@@ -9,26 +9,24 @@ import com.lilithsthrone.utils.Colour;
  */
 public enum ForcedFetishTendency {
 	
-	FEMININE_HEAVY("Feminine (Heavy)", "There is a strong chance that forced transformations will make you more feminine regardless of NPC tastes.", Colour.FEMININE),
+	BOTTOM_HEAVY("Bottoming (Heavy)", "Forced fetishes will almost always add bottoming and remove topping activities and behaviors."),
 	
-	FEMININE("Feminine", "While NPC tastes still matter, forced transformations will often make you more feminine.", Colour.FEMININE),
+	BOTTOM("Bottoming", "While NPC tastes still matter, forced fetishes will usually add bottoming and remove topping activities and behaviors."),
 	
-	NEUTRAL("Neutral", "Gender effects of forced trasformations will be determined solely by the tastes and whims of the controlling NPC.", Colour.ANDROGYNOUS),
+	NEUTRAL("Neutral", "Forced fetishes will be determined solely by the tastes and whims of the controlling NPC, and the inherent radomness of the universe."),
 	
-	MASCULINE("Masculine", "While NPC tastes still matter, forced transformations will often make you more masculine.", Colour.MASCULINE),
+	TOP ("Topping", "While NPC tastes still matter, forced fetishes will usually add topping and remove bottoming activities and behaviors."),
 	
-	MASCULINE_HEAVY("Masculine (Heavy)", "There is a strong chance that forced transformations will make you more masculine regardless of NPC tastes.", Colour.MASCULINE);
+	TOP_HEAVY("Topping (Heavy)", "Forced fetishes will almost always add topping and remove bottoming activities and behaviors.");
 
 
 	private String name;
 	private String description;
-	private Colour colour;
 
 	
-	private ForcedFetishTendency(String name, String description, Colour colour) {
+	private ForcedFetishTendency(String name, String description) {
 		this.name = name;
 		this.description = description;
-		this.colour = colour;
 
 	}
 
@@ -40,9 +38,6 @@ public enum ForcedFetishTendency {
 		return description;
 	}
 
-	public Colour getColour() {
-		return colour;
-	}
 
 
 }

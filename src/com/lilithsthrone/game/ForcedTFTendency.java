@@ -9,15 +9,15 @@ import com.lilithsthrone.utils.Colour;
  */
 public enum ForcedTFTendency {
 	
-	FEMININE_HEAVY("Feminine (Heavy)", "There is a strong chance that forced transformations will make you more feminine regardless of NPC tastes.", Colour.FEMININE),
+	FEMININE_HEAVY("Feminine (Heavy)", "There is a strong chance that forced transformations will make you more feminine regardless of NPC tastes."),
 	
-	FEMININE("Feminine", "While NPC tastes still matter, forced transformations will often make you more feminine.", Colour.FEMININE),
+	FEMININE("Feminine", "While NPC tastes still matter, forced transformations will often make you more feminine."),
 	
-	NEUTRAL("Neutral", "Gender effects of forced trasformations will be determined solely by the tastes and whims of the controlling NPC.", Colour.ANDROGYNOUS),
+	NEUTRAL("Neutral", "Gender effects of forced trasformations will be determined solely by the tastes and whims of the controlling NPC, and the inherent radomness of the universe."),
 	
-	MASCULINE("Masculine", "While NPC tastes still matter, forced transformations will often make you more masculine.", Colour.MASCULINE),
+	MASCULINE("Masculine", "While NPC tastes still matter, forced transformations will often make you more masculine."),
 	
-	MASCULINE_HEAVY("Masculine (Heavy)", "There is a strong chance that forced transformations will make you more masculine regardless of NPC tastes.", Colour.MASCULINE);
+	MASCULINE_HEAVY("Masculine (Heavy)", "There is a strong chance that forced transformations will make you more masculine regardless of NPC tastes.");
 
 
 	private String name;
@@ -25,10 +25,9 @@ public enum ForcedTFTendency {
 	private Colour colour;
 
 	
-	private ForcedTFTendency(String name, String description, Colour colour) {
+	private ForcedTFTendency(String name, String description) {
 		this.name = name;
 		this.description = description;
-		this.colour = colour;
 
 	}
 
@@ -40,9 +39,6 @@ public enum ForcedTFTendency {
 		return description;
 	}
 
-	public Colour getColour() {
-		return colour;
-	}
 
 
 }
