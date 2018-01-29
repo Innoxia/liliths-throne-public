@@ -533,7 +533,7 @@ public class AlleywayAttackerDialogue {
 	public static final DialogueNodeOld AFTER_COMBAT_DEFEAT = new DialogueNodeOld("Defeat", "", true) {
 		private static final long serialVersionUID = 1L;
 		
-		Util.Value<String, AbstractItem> potion = null;
+		Value<String, AbstractItem> potion = null;
 		
 		@Override
 		public String getDescription() {
@@ -542,8 +542,12 @@ public class AlleywayAttackerDialogue {
 
 		@Override
 		public String getContent() {
-			if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING)) {
-				potion = Main.game.getActiveNPC().generateTransformativePotion();
+			if(Main.game.getActiveNPC().hasTransformationFetish()) {
+				potion = Main.game.getActiveNPC().getTransfomativePotion(true);
+				
+				System.out.println("Potion Check 1"); 
+				System.out.println(potion); 
+				System.out.println(potion.getValue()); 
 				
 				if(potion == null) {
 					return UtilText.parse(Main.game.getActiveNPC(),
@@ -628,7 +632,12 @@ public class AlleywayAttackerDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) && potion != null) {
+			if(Main.game.getActiveNPC().hasTransformationFetish() && potion != null) {
+				
+				System.out.println("Potion Check 2"); 
+				System.out.println(potion); 
+				System.out.println(potion.getValue()); 
+				
 				if (index == 1) {
 					return new Response("Spit", "Spit out the potion.", AFTER_COMBAT_TRANSFORMATION_REFUSED);
 					
@@ -641,7 +650,12 @@ public class AlleywayAttackerDialogue {
 							null){
 						@Override
 						public void effects(){
-							Util.Value<String, AbstractItem> potion = Main.game.getActiveNPC().generateTransformativePotion();
+							Util.Value<String, AbstractItem> potion = Main.game.getActiveNPC().getTransfomativePotion();
+							
+							System.out.println("Potion Check 3"); 
+							System.out.println(potion); 
+							System.out.println(potion.getValue()); 
+							
 							Main.game.getTextStartStringBuilder().append(
 									"<p>"
 										+ "[npc.Name] steps back, grinning down at you as you obediently swallow the strange liquid,"

@@ -139,6 +139,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	
 	protected Body bodyPreference = null;
 	
+	protected Value<String, AbstractItem> heldTransformativePotion = null;
+	
 	protected NPC(NameTriplet nameTriplet, String description, int level, Gender startingGender, RacialBody startingRace,
 			RaceStage stage, CharacterInventory inventory, WorldType worldLocation, PlaceType startingPlace, boolean addedToContacts) {
 		super(nameTriplet, description, level, startingGender, startingRace, stage, inventory, worldLocation, startingPlace);
@@ -616,6 +618,32 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		bodyPreference = generatePreferredBody();
 	}
 	
+	
+	public Value<String, AbstractItem> getTransfomativePotion( ) {
+		
+		return getTransfomativePotion(false);
+	}
+	
+	public Value<String, AbstractItem> getTransfomativePotion(boolean generateNew ) {
+		
+		if(generateNew) {
+			this.heldTransformativePotion = null;
+			
+			if(hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) && hasFetish(Fetish.FETISH_KINK_GIVING)) {
+				this.heldTransformativePotion = generateTransformativePotion();
+			}
+			else if(hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING)) {
+				this.heldTransformativePotion = generateTransformativePotion();
+			}
+			else if(hasFetish(Fetish.FETISH_KINK_GIVING)) {
+				this.heldTransformativePotion = generateTransformativePotion();
+			}
+		}
+		
+		return this.heldTransformativePotion;
+	}
+	
+
 	/**
 	 * Example return value: ["Let's give you bigger breasts!", AbstractItem]
 	 * @return NPC's speech as a reaction to giving you this potion, along with the potion itself.
@@ -1346,6 +1374,21 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		return body;
 	}
+	
+	
+	
+	/**
+	 * Example return value: ["Let's see if you don't enjoy sucking my dick after this!", AbstractItem]
+	 * @return NPC's speech as a reaction to giving you this potion, along with the potion itself.
+	 */
+	public Value<String, AbstractItem> generateFetishGivingPotion() {
+		
+		
+		return null;
+	}
+	
+	
+	
 	
 	// Sex:
 	
