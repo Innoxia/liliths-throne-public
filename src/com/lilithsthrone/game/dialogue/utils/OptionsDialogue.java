@@ -1387,7 +1387,7 @@ public class OptionsDialogue {
 	};
 	
 	public static int[] forcedTFsettings = new int[] {0, 10, 40, 70, 100};
-	public static int[] forcedFetishsettings = new int[] {0, 11, 41, 71, 100};
+	public static int[] forcedFetishsettings = new int[] {0, 10, 40, 70, 100};
 	
 	public static final DialogueNodeOld CONTENT_PREFERENCE = new DialogueNodeOld("Content Options", "", true) {
 		private static final long serialVersionUID = 1L;

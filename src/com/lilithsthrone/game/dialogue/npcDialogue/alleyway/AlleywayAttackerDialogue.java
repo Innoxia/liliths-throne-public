@@ -547,7 +547,7 @@ public class AlleywayAttackerDialogue {
 				
 				System.out.println("Potion Check 1"); 
 				System.out.println(potion); 
-				System.out.println(potion.getValue()); 
+				System.out.println(potion.getValue().getName()); 
 				
 				if(potion == null) {
 					return UtilText.parse(Main.game.getActiveNPC(),
@@ -634,9 +634,9 @@ public class AlleywayAttackerDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if(Main.game.getActiveNPC().hasTransformationFetish() && potion != null) {
 				
-				System.out.println("Potion Check 2"); 
-				System.out.println(potion); 
-				System.out.println(potion.getValue()); 
+//				System.out.println("Potion Check 2"); 
+//				System.out.println(potion); 
+//				System.out.println(potion.getValue()); 
 				
 				if (index == 1) {
 					return new Response("Spit", "Spit out the potion.", AFTER_COMBAT_TRANSFORMATION_REFUSED);
@@ -654,7 +654,7 @@ public class AlleywayAttackerDialogue {
 							
 							System.out.println("Potion Check 3"); 
 							System.out.println(potion); 
-							System.out.println(potion.getValue()); 
+							System.out.println(potion.getValue().getName()); 
 							
 							Main.game.getTextStartStringBuilder().append(
 									"<p>"
