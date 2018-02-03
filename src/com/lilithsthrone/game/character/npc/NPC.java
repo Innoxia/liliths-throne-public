@@ -631,26 +631,47 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			
 			if(hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) && hasFetish(Fetish.FETISH_KINK_GIVING)) {
 				int randNum = Util.random.nextInt(100);
-				Boolean pairedFetishAvailable = generateFetishPotion(true) == null ? true : false;
+				Boolean pairedFetishAvailable = generateFetishPotion(true) == null ? false : true;
 				
-				System.out.println("Random"); 
+				// Leaving this present but commented out so it can be easily re-enabled by anyone wanting to tweak or check
+				// the results of potion selection
+				System.out.println("Random Both Fetishes"); 
 				System.out.println(randNum); 
 				System.out.println(pairedFetishAvailable); 
 				
 				// if there's a paired fetish to use, bigger chance of fetish adding, otherwise better chance of TF
-				if(pairedFetishAvailable && randNum > 40 || 
-				    randNum > 75) {
+				// since there's far more interesting variation to be had from TFs that forced fetishes
+				if(pairedFetishAvailable && randNum < 60 ) {
+					this.heldTransformativePotion = generateFetishPotion(true);
+				} 
+				else if ( randNum < 25) {
+					this.heldTransformativePotion = generateFetishPotion(false);
+				}
+				else {
 					this.heldTransformativePotion = generateTransformativePotion();
 				}
+			}
+			else if(hasFetish(Fetish.FETISH_KINK_GIVING)) {
+				
+				int randNum = Util.random.nextInt(100);
+				Boolean pairedFetishAvailable = generateFetishPotion(true) == null ? false : true;
+				
+				// Leaving this present but commented out so it can be easily re-enabled by anyone wanting to tweak or check
+				// the results of potion selection
+				System.out.println("Random Fetish Only"); 
+				System.out.println(randNum); 
+				System.out.println(pairedFetishAvailable); 
+				
+				// if there's a paired fetish to use, large chance to just choose from paired pool
+				if(pairedFetishAvailable && randNum < 80 ) {
+					this.heldTransformativePotion = generateFetishPotion(true);
+				} 
 				else {
 					this.heldTransformativePotion = generateFetishPotion(false);
 				}
 			}
 			else if(hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING)) {
 				this.heldTransformativePotion = generateTransformativePotion();
-			}
-			else if(hasFetish(Fetish.FETISH_KINK_GIVING)) {
-				this.heldTransformativePotion = generateFetishPotion(false);
 			}
 		}
 		
@@ -1142,8 +1163,8 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			total+=entry.getValue();
 		}
 		
-		// Leaving this hear commented out so it can be easily re-enabled by anyone wanting to tweak or check
-		// the resuluts of gender selection and the forcedTFTendency setting
+		// Leaving this present but commented out so it can be easily re-enabled by anyone wanting to tweak or check
+		// the results of gender selection and the forcedTFTendency setting
 //		System.out.println("PREFERRED GENDER");
 //		System.out.println(preferredGender);
 //		System.out.println(desiredGenders);
@@ -1397,16 +1418,19 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	 */
 	public Value<String, AbstractItem> generateFetishPotion(Boolean pairedFetishesOnly) {
 		
-		ItemEffect selectedEffect = null;
-		String selectedEffectString = "Why not expand your horizons a bit, eh?";
+		ItemEffect selectedEffect = null; // this will be the ultimately selected effect, or null if none available
+		String selectedEffectString ; // this will be a flavor text string paired with the effect
 		
 		Map<ItemEffect, Integer> possibleEffects = new HashMap<>();
 		
 		AbstractItemType itemType = ItemType.FETISH_UNREFINED;
 		
+		Fetish currentTopFetish = null, currentBottomFetish = null;
+		TFModifier currentTopModifier = null, currentBottomModifier = null;
+		
 		int baseTopChance = 5, baseBottomChance = 5,  baseTopRemoveChance = 0, baseBottomRemoveChance = 0; 
 		int currentTopChance = 0, currentBottomChance = 0, currentTopRemoveChance = 0, currentBottomRemoveChance = 0;
-		int pairedFetishMultiplier = 2;  
+		int pairedFetishMultiplier = 5;  
 		int matchedFetishDecrement = 8;  // heavy tendency can still allow small chance giving a matched fetish, otherwise no chance at all
 		int matchedFetishRemoveIncrement = 1;  // only a modest increase in chances to matched fetish
 		
@@ -1448,122 +1472,198 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		}
 		
-		// FETISH_ANAL_GIVING and FETISH_ANAL_RECEIVING
-		currentTopChance = baseTopChance;
-		currentBottomChance = baseBottomChance;
-		currentTopRemoveChance = baseTopRemoveChance;
-		currentBottomRemoveChance = baseBottomRemoveChance;
 		
-		// set chances if NPC has bottom fetish
-		if(this.hasFetish(Fetish.FETISH_ANAL_RECEIVING)) {
-			currentTopChance *= pairedFetishMultiplier;
-			currentBottomChance -= matchedFetishDecrement;
-			currentTopRemoveChance = 0;
-			currentBottomRemoveChance += matchedFetishRemoveIncrement;
-		}
-		else if(pairedFetishesOnly) {
-			currentTopChance = 0;
-			currentBottomRemoveChance = 0;
-		}
-			
-		// set chances if NPC has top fetish
-		if(this.hasFetish(Fetish.FETISH_ANAL_GIVING)) {
-			currentBottomChance *= pairedFetishMultiplier;
-			currentTopChance -= matchedFetishDecrement;
-			currentBottomRemoveChance = 0;
-			currentTopRemoveChance += matchedFetishRemoveIncrement;
-		}
-		else if(pairedFetishesOnly) {
-			currentBottomChance = 0;
-			currentTopRemoveChance = 0;
-		}
-		
-		// prevent extraneous effects if player has bottom fetish
-		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_ANAL_RECEIVING)) {
-			currentBottomChance = 0;
-		} else {
-			currentBottomRemoveChance = 0;
-		}
-		
-		// prevent extraneous effects if player has top fetish
-		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_ANAL_GIVING)) {
-			currentTopChance = 0;
-		} else {
-			currentTopRemoveChance = 0;
-		}
-		
-		if(currentTopChance < 0) { currentTopChance = 0 ;}
-		if(currentBottomChance < 0) { currentBottomChance = 0 ;}
-		if(currentTopRemoveChance < 0) { currentTopRemoveChance = 0 ;}
-		if(currentBottomRemoveChance < 0) { currentBottomRemoveChance = 0 ;}
-		
-		if(currentTopChance > 0) {
-			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), 
-					TFModifier.NONE, 
-					TFModifier.TF_MOD_FETISH_ANAL_GIVING, 
-					TFPotency.MINOR_BOOST, 
-					1), 
-					currentTopChance);
-		}
-		
-		if(currentTopRemoveChance > 0) {
-			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), 
-					TFModifier.NONE, 
-					TFModifier.TF_MOD_FETISH_ANAL_GIVING, 
-					TFPotency.MINOR_DRAIN, 
-					1), 
-					currentTopRemoveChance);
-		}
-		
-		if(currentBottomChance > 0) {
-			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), 
-					TFModifier.NONE, 
-					TFModifier.TF_MOD_FETISH_ANAL_RECEIVING, 
-					TFPotency.MINOR_BOOST, 
-					1), 
-					currentBottomChance);
-		}
-		
-		if(currentBottomRemoveChance > 0) {
-			possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), 
-					TFModifier.NONE, 
-					TFModifier.TF_MOD_FETISH_ANAL_RECEIVING, 
-					TFPotency.MINOR_DRAIN, 
-					1), 
-					currentBottomRemoveChance);
-		}
+		// map of top -> bottom paired fetishes; NPCs with a paired fetish will greatly favor 
+		// giving the player it's pair, and remove that fetish if there is a match
+		Map<Fetish, Fetish> pairedFetishMap = new HashMap<>();
 
+		pairedFetishMap.put(Fetish.FETISH_ANAL_GIVING, Fetish.FETISH_ANAL_RECEIVING);
+		pairedFetishMap.put(Fetish.FETISH_BREASTS_OTHERS, Fetish.FETISH_BREASTS_SELF);
+		pairedFetishMap.put(Fetish.FETISH_SEEDER, Fetish.FETISH_BROODMOTHER);
+		pairedFetishMap.put(Fetish.FETISH_CUM_STUD, Fetish.FETISH_CUM_ADDICT);
+		pairedFetishMap.put(Fetish.FETISH_DEFLOWERING, Fetish.FETISH_PURE_VIRGIN);
+		pairedFetishMap.put(Fetish.FETISH_DOMINANT, Fetish.FETISH_SUBMISSIVE);
+		pairedFetishMap.put(Fetish.FETISH_IMPREGNATION, Fetish.FETISH_PREGNANCY);
+		pairedFetishMap.put(Fetish.FETISH_SADIST, Fetish.FETISH_MASOCHIST);
+		pairedFetishMap.put(Fetish.FETISH_NON_CON_DOM, Fetish.FETISH_NON_CON_SUB);
+		pairedFetishMap.put(Fetish.FETISH_ORAL_RECEIVING, Fetish.FETISH_ORAL_GIVING);
+		
+		// in a request for paired fetishes only, let's leave these out, otherwise they'll get selected 
+		// way too often, since our NPCs will almost always have them -- possibly, they should be left
+		// out of the list entirely, but for now let's have them in there
+		if(!pairedFetishesOnly) {
+			pairedFetishMap.put(Fetish.FETISH_TRANSFORMATION_GIVING, Fetish.FETISH_TRANSFORMATION_RECEIVING);
+			pairedFetishMap.put(Fetish.FETISH_KINK_GIVING, Fetish.FETISH_KINK_RECEIVING);
+		}
 		
 		
-//		TF_MOD_FETISH_BIMBO(Fetish.FETISH_BIMBO),
-//		TF_MOD_FETISH_BREASTS_OTHERS(Fetish.FETISH_BREASTS_OTHERS),
-//		TF_MOD_FETISH_BREASTS_SELF(Fetish.FETISH_BREASTS_SELF),
-//		TF_MOD_FETISH_BROODMOTHER(Fetish.FETISH_BROODMOTHER),
-//		TF_MOD_FETISH_CROSS_DRESSER(Fetish.FETISH_CROSS_DRESSER),
-//		TF_MOD_FETISH_CUM_ADDICT(Fetish.FETISH_CUM_ADDICT),
-//		TF_MOD_FETISH_CUM_STUD(Fetish.FETISH_CUM_STUD),
-//		TF_MOD_FETISH_DEFLOWERING(Fetish.FETISH_DEFLOWERING),
-//		TF_MOD_FETISH_DENIAL(Fetish.FETISH_DENIAL),
-//		TF_MOD_FETISH_DOMINANT(Fetish.FETISH_DOMINANT),
-//		TF_MOD_FETISH_EXHIBITIONIST(Fetish.FETISH_EXHIBITIONIST),
-//		TF_MOD_FETISH_IMPREGNATION(Fetish.FETISH_IMPREGNATION),
-//		TF_MOD_FETISH_INCEST(Fetish.FETISH_INCEST),
-//		TF_MOD_FETISH_MASOCHIST(Fetish.FETISH_MASOCHIST),
-//		TF_MOD_FETISH_MASTURBATION(Fetish.FETISH_MASTURBATION),
-//		TF_MOD_FETISH_NON_CON_DOM(Fetish.FETISH_NON_CON_DOM),
-//		TF_MOD_FETISH_NON_CON_SUB(Fetish.FETISH_NON_CON_SUB),
-//		TF_MOD_FETISH_ORAL_GIVING(Fetish.FETISH_ORAL_GIVING),
-//		TF_MOD_FETISH_ORAL_RECEIVING(Fetish.FETISH_ORAL_RECEIVING),
-//		TF_MOD_FETISH_PREGNANCY(Fetish.FETISH_PREGNANCY),
-//		TF_MOD_FETISH_PURE_VIRGIN(Fetish.FETISH_PURE_VIRGIN),
-//		TF_MOD_FETISH_SADIST(Fetish.FETISH_SADIST),
-//		TF_MOD_FETISH_SEEDER(Fetish.FETISH_SEEDER),
-//		TF_MOD_FETISH_SUBMISSIVE(Fetish.FETISH_SUBMISSIVE),
-//		TF_MOD_FETISH_TRANSFORMATION_GIVING(Fetish.FETISH_TRANSFORMATION_GIVING),
-//		TF_MOD_FETISH_TRANSFORMATION_RECEIVING(Fetish.FETISH_TRANSFORMATION_RECEIVING),
-//		TF_MOD_FETISH_KINK_GIVING(Fetish.FETISH_KINK_GIVING),
-//		TF_MOD_FETISH_KINK_RECEIVING(Fetish.FETISH_KINK_RECEIVING),
 		
+		for(Entry<Fetish, Fetish> entry : pairedFetishMap.entrySet()) {
+			currentTopFetish = entry.getKey();
+			currentBottomFetish = entry.getValue();
+			
+			currentTopModifier = TFModifier.valueOf( "TF_MOD_" + currentTopFetish);
+			currentBottomModifier = TFModifier.valueOf( "TF_MOD_" + currentBottomFetish);
+			
+			
+			currentTopChance = baseTopChance;
+			currentBottomChance = baseBottomChance;
+			currentTopRemoveChance = baseTopRemoveChance;
+			currentBottomRemoveChance = baseBottomRemoveChance;
+			
+			// set chances if NPC has bottom fetish
+			if(this.hasFetish(currentBottomFetish)) {
+				currentTopChance *= pairedFetishMultiplier;
+				currentBottomChance -= matchedFetishDecrement;
+				currentTopRemoveChance = 0;
+				currentBottomRemoveChance += matchedFetishRemoveIncrement;
+			}
+			else if(pairedFetishesOnly) {
+				currentTopChance = 0;
+				currentBottomRemoveChance = 0;
+			}
+				
+			// set chances if NPC has top fetish
+			if(this.hasFetish(currentTopFetish)) {
+				currentBottomChance *= pairedFetishMultiplier;
+				currentTopChance -= matchedFetishDecrement;
+				currentBottomRemoveChance = 0;
+				currentTopRemoveChance += matchedFetishRemoveIncrement;
+			}
+			else if(pairedFetishesOnly) {
+				currentBottomChance = 0;
+				currentTopRemoveChance = 0;
+			}
+			
+			// prevent extraneous effects if player has bottom fetish
+			if(Main.game.getPlayer().hasFetish(currentBottomFetish)) {
+				currentBottomChance = 0;
+			} else {
+				currentBottomRemoveChance = 0;
+			}
+			
+			// prevent extraneous effects if player has top fetish
+			if(Main.game.getPlayer().hasFetish(currentTopFetish)) {
+				currentTopChance = 0;
+			} else {
+				currentTopRemoveChance = 0;
+			}
+			
+			if(currentTopChance < 0) { currentTopChance = 0 ;}
+			if(currentBottomChance < 0) { currentBottomChance = 0 ;}
+			if(currentTopRemoveChance < 0) { currentTopRemoveChance = 0 ;}
+			if(currentBottomRemoveChance < 0) { currentBottomRemoveChance = 0 ;}
+			
+			if(currentTopChance > 0) {
+				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), 
+						TFModifier.NONE, 
+						currentTopModifier, 
+						TFPotency.MINOR_BOOST, 
+						1), 
+						currentTopChance);
+			}
+			
+			if(currentTopRemoveChance > 0) {
+				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), 
+						TFModifier.NONE, 
+						currentTopModifier, 
+						TFPotency.MINOR_DRAIN, 
+						1), 
+						currentTopRemoveChance);
+			}
+			
+			if(currentBottomChance > 0) {
+				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), 
+						TFModifier.NONE, 
+						currentBottomModifier, 
+						TFPotency.MINOR_BOOST, 
+						1), 
+						currentBottomChance);
+			}
+			
+			if(currentBottomRemoveChance > 0) {
+				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), 
+						TFModifier.NONE, 
+						currentBottomModifier, 
+						TFPotency.MINOR_DRAIN, 
+						1), 
+						currentBottomRemoveChance);
+			}
+		}
+		
+		
+		// map of unpaired fetish -> boolean stating whether it wants to be shared, or hoarded
+		Map<Fetish, Boolean> unpairedFetishMap = new HashMap<>();
+
+		unpairedFetishMap.put(Fetish.FETISH_BIMBO, true);
+		unpairedFetishMap.put(Fetish.FETISH_CROSS_DRESSER, true);
+		unpairedFetishMap.put(Fetish.FETISH_DENIAL, false);
+		unpairedFetishMap.put(Fetish.FETISH_EXHIBITIONIST, true);
+		unpairedFetishMap.put(Fetish.FETISH_INCEST, true);
+		unpairedFetishMap.put(Fetish.FETISH_MASTURBATION, true);
+		
+		
+		for(Entry<Fetish, Boolean> entry : unpairedFetishMap.entrySet()) {
+			currentTopFetish = entry.getKey();
+			Boolean wantsToShare = entry.getValue();
+			
+			currentTopModifier = TFModifier.valueOf( "TF_MOD_" + currentTopFetish);
+			
+			
+			currentTopChance = baseTopChance;
+			currentTopRemoveChance = baseTopRemoveChance;
+			
+				
+			// set chances if NPC has top fetish
+			if(this.hasFetish(currentTopFetish)) {
+				if(wantsToShare) {
+					currentTopChance *= pairedFetishMultiplier;
+					currentTopRemoveChance = 0;
+				}
+				else if(pairedFetishesOnly) {
+					currentTopChance = 0;
+				}
+				else {
+					currentTopChance -= matchedFetishDecrement;
+					currentTopRemoveChance += matchedFetishRemoveIncrement;
+				}
+			}
+			else if(pairedFetishesOnly && wantsToShare) {
+				currentTopRemoveChance = 0;
+			}
+			
+			
+			// prevent extraneous effects if player has top fetish
+			if(Main.game.getPlayer().hasFetish(currentTopFetish)) {
+				currentTopChance = 0;
+			} else {
+				currentTopRemoveChance = 0;
+			}
+			
+			if(currentTopChance < 0) { currentTopChance = 0 ;}
+			if(currentTopRemoveChance < 0) { currentTopRemoveChance = 0 ;}
+			
+			if(currentTopChance > 0) {
+				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), 
+						TFModifier.NONE, 
+						currentTopModifier, 
+						TFPotency.MINOR_BOOST, 
+						1), 
+						currentTopChance);
+			}
+			
+			if(currentTopRemoveChance > 0) {
+				possibleEffects.put(new ItemEffect(itemType.getEnchantmentEffect(), 
+						TFModifier.NONE, 
+						currentTopModifier, 
+						TFPotency.MINOR_DRAIN, 
+						1), 
+						currentTopRemoveChance);
+			}
+			
+		}
+				
+				
 		
 		
 		// randomly select from possible effects 
@@ -1571,6 +1671,12 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		for(Entry<ItemEffect, Integer> entry : possibleEffects.entrySet()) {
 			total+=entry.getValue();
 		}
+		
+		// no valid options found
+		if (total == 0) {
+			return null;
+		}
+		
 		int count = Util.random.nextInt(total)+1;
 		total = 0;
 		for(Entry<ItemEffect, Integer> entry : possibleEffects.entrySet()) {
@@ -1581,9 +1687,10 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			total+=entry.getValue();
 		}
 		
+		// Leaving this present but commented out so it can be easily re-enabled by anyone wanting to tweak or check
+		// the results of fetish selection for potion generation
 		System.out.println(possibleEffects); 
 		System.out.println(selectedEffect.getSecondaryModifier()); 
-		System.out.println(total); 
 		System.out.println(count); 
 		
 		
@@ -1593,266 +1700,125 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		}
 			
 		
+		// let's figure out what flavor text string to pair with our seleted effect
+		Map<TFModifier, String> fetishAddFlavorText = new HashMap<>(), fetishRemoveFlavorText = new HashMap<>();
+		
+		String defaultFetishAddFlavorText = "Why not expand your horizons a bit, eh?";
+		String defaultFetishRemoveFlavorText = "Maybe you should cool down a bit about the more extreme stuff, eh?.";
+		
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_ANAL_GIVING, "You're going to love doing it in the ass after this.");
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_ANAL_GIVING, "Maybe you should cool down a bit about fucking people in the ass.");
+		
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_ANAL_RECEIVING, "You're going to love taking it in the ass after this.");
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_ANAL_RECEIVING, "Maybe you should cool down a bit about getting fucked in the ass.");
+		
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_BIMBO, defaultFetishAddFlavorText);
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_BIMBO, defaultFetishRemoveFlavorText);
+		
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_BREASTS_OTHERS, defaultFetishAddFlavorText);
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_BREASTS_OTHERS, defaultFetishRemoveFlavorText);
+		
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_BREASTS_SELF, defaultFetishAddFlavorText);
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_BREASTS_SELF, defaultFetishRemoveFlavorText);
+		
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_BROODMOTHER, defaultFetishAddFlavorText);
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_BROODMOTHER, defaultFetishRemoveFlavorText);
+		
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_CROSS_DRESSER, defaultFetishAddFlavorText);
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_CROSS_DRESSER, defaultFetishRemoveFlavorText);
+		
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_CUM_ADDICT, defaultFetishAddFlavorText);
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_CUM_ADDICT, defaultFetishRemoveFlavorText);
+		
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_CUM_STUD, defaultFetishAddFlavorText);
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_CUM_STUD, defaultFetishRemoveFlavorText);
+		
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_DEFLOWERING, defaultFetishAddFlavorText);
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_DEFLOWERING, defaultFetishRemoveFlavorText);
+		
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_DENIAL, defaultFetishAddFlavorText);
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_DENIAL, defaultFetishRemoveFlavorText);
+		
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_DOMINANT, defaultFetishAddFlavorText);
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_DOMINANT, defaultFetishRemoveFlavorText);
+		
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_EXHIBITIONIST, defaultFetishAddFlavorText);
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_EXHIBITIONIST, defaultFetishRemoveFlavorText);
+		
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_IMPREGNATION, defaultFetishAddFlavorText);
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_IMPREGNATION, defaultFetishRemoveFlavorText);
+		
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_INCEST, defaultFetishAddFlavorText);
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_INCEST, defaultFetishRemoveFlavorText);
+		
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_MASOCHIST, defaultFetishAddFlavorText);
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_MASOCHIST, defaultFetishRemoveFlavorText);
+		
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_MASTURBATION, defaultFetishAddFlavorText);
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_MASTURBATION, defaultFetishRemoveFlavorText);
+		
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_NON_CON_DOM, defaultFetishAddFlavorText);
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_NON_CON_DOM, defaultFetishRemoveFlavorText);
+		
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_NON_CON_SUB, defaultFetishAddFlavorText);
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_NON_CON_SUB, defaultFetishRemoveFlavorText);
+		
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_ORAL_GIVING, defaultFetishAddFlavorText);
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_ORAL_GIVING, defaultFetishRemoveFlavorText);
+		
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_ORAL_RECEIVING, defaultFetishAddFlavorText);
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_ORAL_RECEIVING, defaultFetishRemoveFlavorText);
+		
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_PREGNANCY, defaultFetishAddFlavorText);
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_PREGNANCY, defaultFetishRemoveFlavorText);
+		
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_PURE_VIRGIN, defaultFetishAddFlavorText);
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_PURE_VIRGIN, defaultFetishRemoveFlavorText);
+		
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_SADIST, defaultFetishAddFlavorText);
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_SADIST, defaultFetishRemoveFlavorText);
+		
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_SEEDER, defaultFetishAddFlavorText);
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_SEEDER, defaultFetishRemoveFlavorText);
+		
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_SUBMISSIVE, defaultFetishAddFlavorText);
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_SUBMISSIVE, defaultFetishRemoveFlavorText);
+		
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_TRANSFORMATION_GIVING, defaultFetishAddFlavorText);
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_TRANSFORMATION_GIVING, defaultFetishRemoveFlavorText);
+		
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_TRANSFORMATION_RECEIVING, defaultFetishAddFlavorText);
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_TRANSFORMATION_RECEIVING, defaultFetishRemoveFlavorText);
+		
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_KINK_GIVING, defaultFetishAddFlavorText);
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_KINK_GIVING, defaultFetishRemoveFlavorText);
+		
+		fetishAddFlavorText.put(TFModifier.TF_MOD_FETISH_KINK_RECEIVING, defaultFetishAddFlavorText);
+		fetishRemoveFlavorText.put(TFModifier.TF_MOD_FETISH_KINK_RECEIVING, defaultFetishRemoveFlavorText);
+		
+		
+		
+		
+		
 		if(selectedEffect.getPotency() == TFPotency.MINOR_BOOST) {
+			// default for adding a fetish, just in case a fetish is somehow selected without a string defined in the lookup
+			selectedEffectString = defaultFetishAddFlavorText;
 			
-			switch(selectedEffect.getSecondaryModifier()) {
-				case TF_MOD_FETISH_ANAL_GIVING:
-					selectedEffectString = "You're going to love doing it in the ass after this.";
-					break;
-					
-				case TF_MOD_FETISH_ANAL_RECEIVING:
-					selectedEffectString = "You're going to love taking it in the ass after this.";
-					break;
-					
-				case TF_MOD_FETISH_BIMBO:
-					selectedEffectString = "Here's something new you're going to just love.";
-					break;
-					
-				case TF_MOD_FETISH_BREASTS_OTHERS:
-					selectedEffectString = "Here's something new you're going to just love.";
-					break;
-					
-				case TF_MOD_FETISH_BREASTS_SELF:
-					selectedEffectString = "Here's something new you're going to just love.";
-					break;
-					
-				case TF_MOD_FETISH_BROODMOTHER:
-					selectedEffectString = "Here's something new you're going to just love.";
-					break;
-					
-				case TF_MOD_FETISH_CROSS_DRESSER:
-					selectedEffectString = "Here's something new you're going to just love.";
-					break;
-					
-				case TF_MOD_FETISH_CUM_ADDICT:
-					selectedEffectString = "Here's something new you're going to just love.";
-					break;
-					
-				case TF_MOD_FETISH_CUM_STUD:
-					selectedEffectString = "Here's something new you're going to just love.";
-					break;
-					
-				case TF_MOD_FETISH_DEFLOWERING:
-					selectedEffectString = "Here's something new you're going to just love.";
-					break;
-					
-				case TF_MOD_FETISH_DENIAL:
-					selectedEffectString = "Here's something new you're going to just love.";
-					break;
-					
-				case TF_MOD_FETISH_DOMINANT:
-					selectedEffectString = "Here's something new you're going to just love.";
-					break;
-					
-				case TF_MOD_FETISH_EXHIBITIONIST:
-					selectedEffectString = "Here's something new you're going to just love.";
-					break;
-					
-				case TF_MOD_FETISH_IMPREGNATION:
-					selectedEffectString = "Here's something new you're going to just love.";
-					break;
-					
-				case TF_MOD_FETISH_INCEST:
-					selectedEffectString = "Here's something new you're going to just love.";
-					break;
-					
-				case TF_MOD_FETISH_MASOCHIST:
-					selectedEffectString = "Here's something new you're going to just love.";
-					break;
-					
-				case TF_MOD_FETISH_MASTURBATION:
-					selectedEffectString = "Here's something new you're going to just love.";
-					break;
-					
-				case TF_MOD_FETISH_NON_CON_DOM:
-					selectedEffectString = "Here's something new you're going to just love.";
-					break;
-					
-				case TF_MOD_FETISH_NON_CON_SUB:
-					selectedEffectString = "Here's something new you're going to just love.";
-					break;
-					
-				case TF_MOD_FETISH_ORAL_GIVING:
-					selectedEffectString = "Here's something new you're going to just love.";
-					break;
-					
-				case TF_MOD_FETISH_ORAL_RECEIVING:
-					selectedEffectString = "Here's something new you're going to just love.";
-					break;
-					
-				case TF_MOD_FETISH_PREGNANCY:
-					selectedEffectString = "Here's something new you're going to just love.";
-					break;
-					
-				case TF_MOD_FETISH_PURE_VIRGIN:
-					selectedEffectString = "Here's something new you're going to just love.";
-					break;
-					
-				case TF_MOD_FETISH_SADIST:
-					selectedEffectString = "Here's something new you're going to just love.";
-					break;
-					
-				case TF_MOD_FETISH_SEEDER:
-					selectedEffectString = "Here's something new you're going to just love.";
-					break;
-					
-				case TF_MOD_FETISH_SUBMISSIVE:
-					selectedEffectString = "Here's something new you're going to just love.";
-					break;
-					
-				case TF_MOD_FETISH_TRANSFORMATION_GIVING:
-					selectedEffectString = "Here's something new you're going to just love.";
-					break;
-					
-				case TF_MOD_FETISH_TRANSFORMATION_RECEIVING:
-					selectedEffectString = "Here's something new you're going to just love.";
-					break;
-					
-				case TF_MOD_FETISH_KINK_GIVING:
-					selectedEffectString = "Here's something new you're going to just love.";
-					break;
-					
-				case TF_MOD_FETISH_KINK_RECEIVING:
-					selectedEffectString = "Here's something new you're going to just love.";
-					break;
-				
+			if(fetishAddFlavorText.get(selectedEffect.getSecondaryModifier()) != null ) {
+				selectedEffectString = fetishAddFlavorText.get(selectedEffect.getSecondaryModifier());
 			}
-		} else {
 			
-			switch(selectedEffect.getSecondaryModifier()) {
-				case TF_MOD_FETISH_ANAL_GIVING:
-					selectedEffectString = "Maybe you should cool down a bit about fucking people in the ass.";
-					break;
-					
-				case TF_MOD_FETISH_ANAL_RECEIVING:
-					selectedEffectString = "Maybe you should cool down a bit about getting fucked in the ass";
-					break;
-					
-				case TF_MOD_FETISH_BIMBO:
-					selectedEffectString = "Maybe you should cool down a bit about the more extreme stuff, eh?.";
-					break;
-					
-				case TF_MOD_FETISH_BREASTS_OTHERS:
-					selectedEffectString = "Maybe you should cool down a bit about the more extreme stuff, eh?";
-					break;
-					
-				case TF_MOD_FETISH_BREASTS_SELF:
-					selectedEffectString = "Maybe you should cool down a bit about the more extreme stuff, eh?";
-					break;
-					
-				case TF_MOD_FETISH_BROODMOTHER:
-					selectedEffectString = "Maybe you should cool down a bit about the more extreme stuff, eh?";
-					break;
-					
-				case TF_MOD_FETISH_CROSS_DRESSER:
-					selectedEffectString = "Maybe you should cool down a bit about the more extreme stuff, eh?";
-					break;
-					
-				case TF_MOD_FETISH_CUM_ADDICT:
-					selectedEffectString = "Maybe you should cool down a bit about the more extreme stuff, eh?";
-					break;
-					
-				case TF_MOD_FETISH_CUM_STUD:
-					selectedEffectString = "Maybe you should cool down a bit about the more extreme stuff, eh?";
-					break;
-					
-				case TF_MOD_FETISH_DEFLOWERING:
-					selectedEffectString = "Maybe you should cool down a bit about the more extreme stuff, eh?";
-					break;
-					
-				case TF_MOD_FETISH_DENIAL:
-					selectedEffectString = "Maybe you should cool down a bit about the more extreme stuff, eh?";
-					break;
-					
-				case TF_MOD_FETISH_DOMINANT:
-					selectedEffectString = "Maybe you should cool down a bit about the more extreme stuff, eh?";
-					break;
-					
-				case TF_MOD_FETISH_EXHIBITIONIST:
-					selectedEffectString = "Maybe you should cool down a bit about the more extreme stuff, eh?";
-					break;
-					
-				case TF_MOD_FETISH_IMPREGNATION:
-					selectedEffectString = "Maybe you should cool down a bit about the more extreme stuff, eh?";
-					break;
-					
-				case TF_MOD_FETISH_INCEST:
-					selectedEffectString = "Maybe you should cool down a bit about the more extreme stuff, eh?";
-					break;
-					
-				case TF_MOD_FETISH_MASOCHIST:
-					selectedEffectString = "Maybe you should cool down a bit about the more extreme stuff, eh?";
-					break;
-					
-				case TF_MOD_FETISH_MASTURBATION:
-					selectedEffectString = "Maybe you should cool down a bit about the more extreme stuff, eh?";
-					break;
-					
-				case TF_MOD_FETISH_NON_CON_DOM:
-					selectedEffectString = "Maybe you should cool down a bit about the more extreme stuff, eh?";
-					break;
-					
-				case TF_MOD_FETISH_NON_CON_SUB:
-					selectedEffectString = "Maybe you should cool down a bit about the more extreme stuff, eh?";
-					break;
-					
-				case TF_MOD_FETISH_ORAL_GIVING:
-					selectedEffectString = "Maybe you should cool down a bit about the more extreme stuff, eh?";
-					break;
-					
-				case TF_MOD_FETISH_ORAL_RECEIVING:
-					selectedEffectString = "Maybe you should cool down a bit about the more extreme stuff, eh?";
-					break;
-					
-				case TF_MOD_FETISH_PREGNANCY:
-					selectedEffectString = "Maybe you should cool down a bit about the more extreme stuff, eh?";
-					break;
-					
-				case TF_MOD_FETISH_PURE_VIRGIN:
-					selectedEffectString = "Maybe you should cool down a bit about the more extreme stuff, eh?";
-					break;
-					
-				case TF_MOD_FETISH_SADIST:
-					selectedEffectString = "Maybe you should cool down a bit about the more extreme stuff, eh?";
-					break;
-					
-				case TF_MOD_FETISH_SEEDER:
-					selectedEffectString = "Maybe you should cool down a bit about the more extreme stuff, eh?";
-					break;
-					
-				case TF_MOD_FETISH_SUBMISSIVE:
-					selectedEffectString = "Maybe you should cool down a bit about the more extreme stuff, eh?";
-					break;
-					
-				case TF_MOD_FETISH_TRANSFORMATION_GIVING:
-					selectedEffectString = "Maybe you should cool down a bit about the more extreme stuff, eh?";
-					break;
-					
-				case TF_MOD_FETISH_TRANSFORMATION_RECEIVING:
-					selectedEffectString = "Maybe you should cool down a bit about the more extreme stuff, eh?";
-					break;
-					
-				case TF_MOD_FETISH_KINK_GIVING:
-					selectedEffectString = "Maybe you should cool down a bit about the more extreme stuff, eh?";
-					break;
-					
-				case TF_MOD_FETISH_KINK_RECEIVING:
-					selectedEffectString = "Maybe you should cool down a bit about the more extreme stuff, eh?";
-					break;
+		} else {
+			// default for removing a fetish, just in case a fetish is somehow selected without a string defined in the lookup
+			selectedEffectString = defaultFetishRemoveFlavorText;
+			
+			if(fetishRemoveFlavorText.get(selectedEffect.getSecondaryModifier()) != null ) {
+				selectedEffectString = fetishRemoveFlavorText.get(selectedEffect.getSecondaryModifier());
 			}
 		}
 		
 		
-//		
-//		List<ItemEffect> keysAsArray = new ArrayList<>(possibleEffects.keySet());
-//		
-//		if(!keysAsArray.isEmpty()) {
-//			ItemEffect e = keysAsArray.get(Util.random.nextInt(keysAsArray.size()));
-//			effects.add(e);
-//			keysAsArray.remove(e);
-//		}
-		
-		
+		// finally, build and return our fetish potion
 		List<ItemEffect> effects = new ArrayList<>();
 		effects.add(selectedEffect);
 		
