@@ -2,7 +2,7 @@ package com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade;
 
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.effects.Fetish;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.Ralph;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
@@ -272,7 +272,7 @@ public class RalphsSnacks {
 						+ "</p>"){
 					@Override
 					public void effects() {
-						Main.game.getRalph().getPlayerKnowsAreasMap().put(CoverableArea.PENIS, true);
+						Main.game.getRalph().getPlayerKnowsAreas().add(CoverableArea.PENIS);
 						if(Main.game.getRalph().getHighestZLayerCoverableArea(CoverableArea.PENIS)!=null) {
 							Main.game.getRalph().isAbleToBeDisplaced(Main.game.getRalph().getHighestZLayerCoverableArea(CoverableArea.PENIS), DisplacementType.PULLS_DOWN, true, true, Main.game.getRalph());
 							Main.game.getRalph().isAbleToBeDisplaced(Main.game.getRalph().getHighestZLayerCoverableArea(CoverableArea.PENIS), DisplacementType.SHIFTS_ASIDE, true, true, Main.game.getRalph());

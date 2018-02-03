@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character;
 import java.io.File;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -69,7 +70,8 @@ import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
-import com.lilithsthrone.game.character.effects.Fetish;
+import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -1154,14 +1156,81 @@ public class CharacterUtils {
 			}
 		}
 		
-		
-		
 		while(fetishesAssigned < numberOfFetishes) {
 			Fetish f = availableFetishes.get(Util.random.nextInt(availableFetishes.size()));
 			character.addFetish(f);
 			availableFetishes.remove(f);
 			fetishesAssigned++;
 		}
+		
+		generateDesires(character);
+	}
+	
+	public static void generateDesires(GameCharacter character) {
+		
+		List<Fetish> availableFetishes = new ArrayList<>();
+		Collections.addAll(availableFetishes, Fetish.values());
+		availableFetishes.removeAll(character.getFetishes());
+		availableFetishes.removeIf((f) -> !f.getFetishesForAutomaticUnlock().isEmpty()); //Do not allow derived fetishes
+		for(Fetish f : character.getFetishes()) {
+			switch(f) {
+				default:
+					break;
+				// Related fetishes cannot be loved and disliked at the same time:
+				case FETISH_PREGNANCY:
+					availableFetishes.remove(Fetish.FETISH_BROODMOTHER);
+					break;
+				case FETISH_BROODMOTHER:
+					availableFetishes.remove(Fetish.FETISH_PREGNANCY);
+					break;
+				case FETISH_IMPREGNATION:
+					availableFetishes.remove(Fetish.FETISH_SEEDER);
+					break;
+				case FETISH_SEEDER:
+					availableFetishes.remove(Fetish.FETISH_IMPREGNATION);
+					break;
+			}
+		}
+		
+		// Desires:
+		int[] posDesireProb = new int[] {1, 1, 2, 2, 2, 3, 3};
+		int[] negDesireProb = new int[] {3, 3, 4, 4, 4, 5, 5};
+		int numberOfPositiveDesires = posDesireProb[Util.random.nextInt(posDesireProb.length)];
+		int numberOfNegativeDesires = negDesireProb[Util.random.nextInt(negDesireProb.length)];
+		
+		int desiresAssigned = 0;
+		while(desiresAssigned < numberOfPositiveDesires) {
+			Fetish f = availableFetishes.get(Util.random.nextInt(availableFetishes.size()));
+			character.setFetishDesire(f, FetishDesire.THREE_LIKE);
+			availableFetishes.remove(f);
+			switch(f) {
+				default:
+					break;
+				// Related fetishes cannot be liked and disliked at the same time:
+				case FETISH_PREGNANCY:
+					availableFetishes.remove(Fetish.FETISH_BROODMOTHER);
+					break;
+				case FETISH_BROODMOTHER:
+					availableFetishes.remove(Fetish.FETISH_PREGNANCY);
+					break;
+				case FETISH_IMPREGNATION:
+					availableFetishes.remove(Fetish.FETISH_SEEDER);
+					break;
+				case FETISH_SEEDER:
+					availableFetishes.remove(Fetish.FETISH_IMPREGNATION);
+					break;
+			}
+			desiresAssigned++;
+		}
+		
+		desiresAssigned = 0;
+		while(desiresAssigned < numberOfNegativeDesires) {
+			Fetish f = availableFetishes.get(Util.random.nextInt(availableFetishes.size()));
+			character.setFetishDesire(f, Math.random()>0.5?FetishDesire.ONE_DISLIKE:FetishDesire.ZERO_HATE);
+			availableFetishes.remove(f);
+			desiresAssigned++;
+		}
+				
 	}
 	
 	public static void equipClothing(GameCharacter character, boolean replaceUnsuitableClothing, boolean onlyAddCoreClothing) {

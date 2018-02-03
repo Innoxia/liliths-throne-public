@@ -57,7 +57,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 		
 		for(CoverableArea ca : CoverableArea.values()) {
-			playerKnowsAreasMap.put(ca, true);
+			playerKnowsAreas.add(ca);
 		}
 		
 		title = "The Human";
@@ -278,6 +278,14 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 	 */
 	public void incrementKarma(int increment) {
 		this.karma += increment;
+	}
+	
+	@Override
+	public boolean isRelatedTo(GameCharacter character) {
+		if(character.equals(Main.game.getLilaya())) {
+			return true;
+		}
+		return super.isRelatedTo(character);
 	}
 	
 	// Quests:

@@ -17,7 +17,7 @@ import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
-import com.lilithsthrone.game.character.effects.Fetish;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RacialBody;
@@ -362,7 +362,7 @@ public class DebugDialogue {
 					public void effects() {
 						activeOffspring = Main.game.getOffspring().get(index-1);
 						for(CoverableArea ca : CoverableArea.values()) {
-							activeOffspring.getPlayerKnowsAreasMap().put(ca, true);
+							activeOffspring.getPlayerKnowsAreas().add(ca);
 						}
 					}
 				};

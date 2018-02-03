@@ -18,8 +18,8 @@ import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.HornLength;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
-import com.lilithsthrone.game.character.effects.Fetish;
-import com.lilithsthrone.game.character.effects.PerkInterface;
+import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
 import com.lilithsthrone.game.character.race.Race;
@@ -240,11 +240,11 @@ public class UtilText {
 	}
 	
 	// "Temporary" methods until I refine the way DialogueNodes work:
-	public static String getRequirementsDescription(PerkInterface perkRequired) {
+	public static String getRequirementsDescription(Perk perkRequired) {
 		return ("You require the perk '<b style='color:"+perkRequired.getPerkCategory().getColour().toWebHexString()+";'>"+perkRequired.getName(Main.game.getPlayer())+"</b>'.");
 	}
 	
-	public static String getRequirementsDescription(PerkInterface perkRequired, Gender... gendersRequired) {
+	public static String getRequirementsDescription(Perk perkRequired, Gender... gendersRequired) {
 		descriptionSB.setLength(0);
 		
 		descriptionSB.append("You require the perk '<b style='color:"+perkRequired.getPerkCategory().getColour().toWebHexString()+";'>"+perkRequired.getName(Main.game.getPlayer())+"</b>'");
@@ -270,7 +270,7 @@ public class UtilText {
 		return descriptionSB.toString();
 	}
 	
-	public static String getRequirementsDescription(CorruptionLevel corruptionNeeded, PerkInterface... perkRequired) {
+	public static String getRequirementsDescription(CorruptionLevel corruptionNeeded, Perk... perkRequired) {
 		descriptionSB.setLength(0);
 		
 		descriptionSB.append("You require a corruption level of <b style='color:"+corruptionNeeded.getColour().toWebHexString()+";'>"+corruptionNeeded.getName()+"</b>");

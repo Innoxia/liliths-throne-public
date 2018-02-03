@@ -11,7 +11,7 @@ import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 
 /**
  * @since 0.1.95
- * @version 0.1.97
+ * @version 0.1.99
  * @author Innoxia
  */
 public class SMStocks extends SexManagerDefault {
@@ -45,12 +45,12 @@ public class SMStocks extends SexManagerDefault {
 	}
 
 	@Override
-	public boolean isPartnerCanRemoveOwnClothes(){
-		return false;
+	public boolean isAbleToRemoveSelfClothing(GameCharacter character){
+		return getDominants().containsKey(character);
 	}
-
+	
 	@Override
-	public boolean isPartnerCanRemovePlayersClothes(){
-		return false;
+	public boolean isAbleToRemoveOthersClothing(GameCharacter character){
+		return getDominants().containsKey(character);
 	}
 }

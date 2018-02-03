@@ -12,7 +12,7 @@ import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
-import com.lilithsthrone.game.character.effects.Fetish;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.RaceStage;
@@ -139,7 +139,7 @@ public class Ralph extends NPC {
 	public void dailyReset() {
 		clearNonEquippedInventory();
 		
-		for(int i=0;i<5;i++) {
+		for(int i=0;i<25;i++) {
 			this.addItem(AbstractItemType.generateItem(ItemType.DYE_BRUSH), false);
 		}
 		

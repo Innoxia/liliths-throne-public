@@ -13,6 +13,7 @@ import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.RaceStage;
@@ -55,6 +56,9 @@ public class Rose extends NPC {
 		
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+			this.addFetish(Fetish.FETISH_SUBMISSIVE);
+			this.addFetish(Fetish.FETISH_DOMINANT);
+			this.addFetish(Fetish.FETISH_SADIST);
 			
 			this.setEyeCovering(new Covering(BodyCoveringType.EYE_FELINE, Colour.EYE_GREEN));
 			this.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, Colour.COVERING_RED), true);
@@ -85,6 +89,10 @@ public class Rose extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		
+		this.addFetish(Fetish.FETISH_SUBMISSIVE);
+		this.addFetish(Fetish.FETISH_DOMINANT);
+		this.addFetish(Fetish.FETISH_SADIST);
 		
 		if(this.getClothingInSlot(InventorySlot.NECK)==null) {
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.NECK_BELL_COLLAR, Colour.CLOTHING_BLACK, false), true, this);

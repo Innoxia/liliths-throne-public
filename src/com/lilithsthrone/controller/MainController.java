@@ -84,10 +84,10 @@ import com.lilithsthrone.game.character.body.valueEnums.PiercingType;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
-import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.effects.Perk;
-import com.lilithsthrone.game.character.effects.PerkInterface;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderNames;
 import com.lilithsthrone.game.character.gender.GenderPreference;
@@ -100,9 +100,9 @@ import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.SpecialAttack;
 import com.lilithsthrone.game.combat.Spell;
-import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
+import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.MapDisplay;
 import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.CityHall;
@@ -457,7 +457,11 @@ public class MainController implements Initializable {
 						
 						 if(event.getCode()==KeyCode.END){
 //							 
-//							 Main.game.getPlayer().incrementCummedInArea(OrificeType.VAGINA, 2500);
+							 for(Fetish f : Fetish.values()) {
+								 Main.game.getPlayer().incrementFetishExperience(f, (int) (Math.random()*20));
+							 }
+							 
+//							 Main.game.getPlayer().incrementCummedInArea(OrificeType.MOUTH, 2500);
 							 
 //							 for(NPC npc : Main.game.getNPCMap().values()) {
 //								 System.out.println(npc.getId());
@@ -3803,11 +3807,45 @@ public class MainController implements Initializable {
 				}
 			}
 			for (Fetish f : Fetish.values()) {
-				if (((EventTarget) document.getElementById("fetishUnlock" + f)) != null) {
-					addEventListener(document, "fetishUnlock" + f, "mousemove", moveTooltipListener, false);
-					addEventListener(document, "fetishUnlock" + f, "mouseleave", hideTooltipListener, false);
-					addEventListener(document, "fetishUnlock" + f, "mouseenter", new TooltipInformationEventListener().setFetish(f, Main.game.getPlayer()), false);
-					addEventListener(document, "fetishUnlock" + f, "click", new LevelUpButtonsEventListener().handleFetishPress(f), false);
+				id = "fetishUnlock" + f;
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE)>=f.getCost()) {
+							if(Main.game.getPlayer().addFetish(f)) {
+								Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -f.getCost());
+								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+							}
+						}
+					}, false);
+					
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+					addEventListener(document, id, "mouseenter", new TooltipInformationEventListener().setFetish(f, Main.game.getPlayer()), false);
+				}
+				
+				id = f+"_EXPERIENCE";
+				if (((EventTarget) document.getElementById(id)) != null) {
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+					addEventListener(document, id, "mouseenter", new TooltipInformationEventListener().setFetishExperience(f, Main.game.getPlayer()), false);
+				}
+				
+				for (FetishDesire desire : FetishDesire.values()) {
+					id = f+"_"+desire;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE)>=FetishDesire.getCostToChange()) {
+								if(Main.game.getPlayer().setFetishDesire(f, desire)) {
+									Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -FetishDesire.getCostToChange());
+									Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+								}
+							}
+						}, false);
+						
+						addEventListener(document, id, "mousemove", moveTooltipListener, false);
+						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+						addEventListener(document, id, "mouseenter", new TooltipInformationEventListener().setFetishDesire(f, desire, Main.game.getPlayer()), false);
+					}
 				}
 			}
 			
@@ -4866,7 +4904,7 @@ public class MainController implements Initializable {
 			}
 			
 			// For perk slots:
-			for (PerkInterface p : character.getPerks()) {
+			for (Perk p : character.getPerks()) {
 				if (((EventTarget) documentAttributes.getElementById("PERK_"+idModifier + p)) != null) {
 					addEventListener(documentAttributes, "PERK_"+idModifier + p, "mousemove", moveTooltipListener, false);
 					addEventListener(documentAttributes, "PERK_"+idModifier + p, "mouseleave", hideTooltipListener, false);
@@ -5023,7 +5061,7 @@ public class MainController implements Initializable {
 //		
 //		// For perk slots:
 //		if(Main.game.getPlayer()!=null) {
-//			for (PerkInterface p : Main.game.getPlayer().getPerks()) {
+//			for (Perk p : Main.game.getPlayer().getPerks()) {
 //				if (((EventTarget) documentAttributes.getElementById("PERK_PLAYER_" + p)) != null) {
 //					addEventListener(documentAttributes, "PERK_PLAYER_" + p, "mousemove", moveTooltipListener, false);
 //					addEventListener(documentAttributes, "PERK_PLAYER_" + p, "mouseleave", hideTooltipListener, false);
@@ -5043,7 +5081,7 @@ public class MainController implements Initializable {
 //			}
 //		}
 //		if(Main.game.isInSex()) {
-//			for (PerkInterface p : Sex.getActivePartner().getPerks()) {
+//			for (Perk p : Sex.getActivePartner().getPerks()) {
 //				if (((EventTarget) documentAttributes.getElementById("PERK_PARTNER_" + p)) != null) {
 //					addEventListener(documentAttributes, "PERK_PARTNER_" + p, "mousemove", moveTooltipListener, false);
 //					addEventListener(documentAttributes, "PERK_PARTNER_" + p, "mouseleave", hideTooltipListener, false);
@@ -5244,7 +5282,7 @@ public class MainController implements Initializable {
 				}
 				
 				// For perk slots:
-				for (PerkInterface p : character.getPerks()) {
+				for (Perk p : character.getPerks()) {
 					if (((EventTarget) documentRight.getElementById("PERK_NPC_"+idModifier + p)) != null) {
 						addEventListener(documentRight, "PERK_NPC_"+idModifier + p, "mousemove", moveTooltipListener, false);
 						addEventListener(documentRight, "PERK_NPC_"+idModifier + p, "mouseleave", hideTooltipListener, false);

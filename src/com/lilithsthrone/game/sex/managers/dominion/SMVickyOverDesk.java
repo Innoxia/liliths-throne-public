@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.sex.SexPositionType;
+import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.SexManagerDefault;
 
@@ -20,29 +21,16 @@ public class SMVickyOverDesk extends SexManagerDefault {
 				submissives);
 	}
 	
-	
 	@Override
 	public boolean isPlayerAbleToStopSex() {
 		return false;
 	}
 	
 	@Override
-	public boolean isPlayerCanRemoveOwnClothes(){
-		return true;
-	}
-	
-	@Override
-	public boolean isPlayerCanRemovePartnersClothes(){
-		return true;
-	}
-	
-	@Override
-	public boolean isPartnerCanRemoveOwnClothes(){
-		return true;
-	}
-	
-	@Override
-	public boolean isPartnerCanRemovePlayersClothes(){
-		return true;
+	public SexPace getForcedSexPace(GameCharacter character) {
+		if(!character.isPlayer()) {
+			return SexPace.DOM_ROUGH;
+		}
+		return null;
 	}
 }

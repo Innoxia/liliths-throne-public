@@ -224,7 +224,6 @@ public class EnchantmentDialogue {
 
 		@Override
 		public String getHeaderContent() {
-
 			return inventoryView();
 		}
 
@@ -394,6 +393,23 @@ public class EnchantmentDialogue {
 		EnchantmentDialogue.secondaryMod = TFModifier.NONE;
 		EnchantmentDialogue.potency = TFPotency.MINOR_BOOST;
 		EnchantmentDialogue.limit = 0;
+	}
+	
+	public static void initModifiers(AbstractCoreItem ingredient) {
+		EnchantmentDialogue.ingredient = ingredient;
+		
+		if(!EnchantmentDialogue.ingredient.getEnchantmentEffect().getPrimaryModifiers().contains(EnchantmentDialogue.primaryMod)) {
+			EnchantmentDialogue.primaryMod = EnchantmentDialogue.ingredient.getEnchantmentEffect().getPrimaryModifiers().get(0);
+		}
+		if(!EnchantmentDialogue.ingredient.getEnchantmentEffect().getSecondaryModifiers(EnchantmentDialogue.primaryMod).contains(EnchantmentDialogue.secondaryMod)) {
+			EnchantmentDialogue.secondaryMod = EnchantmentDialogue.ingredient.getEnchantmentEffect().getSecondaryModifiers(EnchantmentDialogue.primaryMod).get(0);
+		}
+		if(!EnchantmentDialogue.ingredient.getEnchantmentEffect().getPotencyModifiers(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod).contains(EnchantmentDialogue.potency)) {
+			EnchantmentDialogue.potency = TFPotency.MINOR_BOOST;
+		}
+		if(!EnchantmentDialogue.ingredient.getEnchantmentEffect().getLimits(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod).contains(EnchantmentDialogue.limit)) {
+			EnchantmentDialogue.limit = 0;
+		}
 	}
 	
 	private static void incrementPotency() {

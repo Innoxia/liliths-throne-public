@@ -60,12 +60,10 @@ public class InventoryTooltipEventListener implements EventListener {
 	private InventorySlot invSlot;
 	private TFModifier enchantmentModifier;
 	private TFEssence essence;
+	private static StringBuilder tooltipSB = new StringBuilder();
 
-	private static StringBuilder tooltipSB;
-	static {
-		tooltipSB = new StringBuilder();
-	}
-
+	private static final int LINE_HEIGHT= 16;
+	
 	@Override
 	public void handleEvent(Event event) {
 		if (item != null || (coreItem instanceof AbstractItem)) {
@@ -84,7 +82,7 @@ public class InventoryTooltipEventListener implements EventListener {
 				}
 			}
 			
-			Main.mainController.setTooltipSize(360, 290 + (20 * yIncrease));
+			Main.mainController.setTooltipSize(360, 290 + (LINE_HEIGHT * yIncrease));
 
 			tooltipSB.setLength(0);
 			tooltipSB.append("<div class='title'>" + Util.capitaliseSentence(item.getDisplayName(true)) + "</div>");
@@ -273,14 +271,14 @@ public class InventoryTooltipEventListener implements EventListener {
 									if(equippedToCharacter.getVaginaType()==VaginaType.NONE) {
 										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 													"You don't have a vagina.",
-													(equippedToCharacter.getPlayerKnowsAreasMap().get(CoverableArea.VAGINA)
+													(equippedToCharacter.getPlayerKnowsAreas().contains(CoverableArea.VAGINA)
 														?"[npc.Name] doesn't have a vagina."
 														:"You don't know if [npc.name] has a vagina.")));
 										piercingBlocked=true;
 									} else if(!equippedToCharacter.isPiercedVagina()) {
 										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 												"Your vagina has not been pierced.",
-												(equippedToCharacter.getPlayerKnowsAreasMap().get(CoverableArea.VAGINA)
+												(equippedToCharacter.getPlayerKnowsAreas().contains(CoverableArea.VAGINA)
 														?"[npc.Name]'s vagina has not been pierced."
 														:"You don't know if [npc.name] has a vagina.")));
 										piercingBlocked=true;
@@ -306,7 +304,7 @@ public class InventoryTooltipEventListener implements EventListener {
 									if(!equippedToCharacter.isPiercedNipple()) {
 										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 												"Your nipples have not been pierced.",
-												(equippedToCharacter.getPlayerKnowsAreasMap().get(CoverableArea.NIPPLES)
+												(equippedToCharacter.getPlayerKnowsAreas().contains(CoverableArea.NIPPLES)
 														?"[npc.Name]'s nipples have not been pierced."
 														:"You don't know if [npc.name]'s nipples have been pierced.")));
 										piercingBlocked=true;
@@ -324,14 +322,14 @@ public class InventoryTooltipEventListener implements EventListener {
 									if(equippedToCharacter.getPenisType()==PenisType.NONE) {
 										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 												"You don't have a penis.",
-												(equippedToCharacter.getPlayerKnowsAreasMap().get(CoverableArea.PENIS)
+												(equippedToCharacter.getPlayerKnowsAreas().contains(CoverableArea.PENIS)
 														?"[npc.Name] doesn't have a penis."
 														:"You don't know if [npc.name] has a penis.")));
 										piercingBlocked=true;
 									} else if(!equippedToCharacter.isPiercedPenis()) {
 										setBlockedTooltipContent(getTooltipText(equippedToCharacter,
 												"Your penis has not been pierced.",
-												(equippedToCharacter.getPlayerKnowsAreasMap().get(CoverableArea.PENIS)
+												(equippedToCharacter.getPlayerKnowsAreas().contains(CoverableArea.PENIS)
 														?"[npc.Name]'s penis has not been pierced."
 														:"You don't know if [npc.name] has a penis.")));
 										piercingBlocked=true;
@@ -373,7 +371,7 @@ public class InventoryTooltipEventListener implements EventListener {
 			}
 			
 		} else if (enchantmentModifier != null) {
-			Main.mainController.setTooltipSize(360, 174);
+			Main.mainController.setTooltipSize(360, 152);
 			Main.mainController.setTooltipContent(UtilText.parse(
 					"<div class='title' style='color:"+enchantmentModifier.getRarity().getColour().toWebHexString()+";'>"
 							+ Util.capitaliseSentence(enchantmentModifier.getName())
@@ -530,7 +528,7 @@ public class InventoryTooltipEventListener implements EventListener {
 			yIncrease += 2;
 		}
 
-		Main.mainController.setTooltipSize(360, 336 + (yIncrease * 20));
+		Main.mainController.setTooltipSize(360, 336 + (LINE_HEIGHT * yIncrease));
 
 		// Core information:
 		tooltipSB.setLength(0);
@@ -600,20 +598,22 @@ public class InventoryTooltipEventListener implements EventListener {
 		int yIncrease = 0;
 
 		if (!absClothing.getAttributeModifiers().isEmpty() && absClothing.isEnchantmentKnown()) {
-			if (absClothing.getAttributeModifiers().size() >= absClothing.getExtraDescriptions(equippedToCharacter).size())
+			if (absClothing.getAttributeModifiers().size() >= absClothing.getExtraDescriptions(equippedToCharacter).size()) {
 				yIncrease = absClothing.getAttributeModifiers().size();
-			else
+			} else {
 				yIncrease = absClothing.getExtraDescriptions(equippedToCharacter).size() - 1;
+			}
 		} else {
-			if (absClothing.getExtraDescriptions(equippedToCharacter).size() >= 1)
+			if (absClothing.getExtraDescriptions(equippedToCharacter).size() >= 1) {
 				yIncrease = absClothing.getExtraDescriptions(equippedToCharacter).size() - 1;
+			}
 		}
 
 		if (InventoryDialogue.getInventoryNPC() != null && InventoryDialogue.getNPCInventoryInteraction() == InventoryInteraction.TRADING) {
 			yIncrease += 2;
 		}
 		
-		Main.mainController.setTooltipSize(360, 320 + (yIncrease * 20));
+		Main.mainController.setTooltipSize(360, 316 + (LINE_HEIGHT * yIncrease));
 
 		// Core information:
 		tooltipSB.setLength(0);

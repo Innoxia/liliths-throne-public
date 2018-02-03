@@ -505,7 +505,7 @@ public class Body implements Serializable, XMLSaving {
 			CharacterUtils.addAttribute(doc, bodyPenis, "plasticity", String.valueOf(this.penis.orificeUrethra.plasticity));
 			CharacterUtils.addAttribute(doc, bodyPenis, "capacity", String.valueOf(this.penis.orificeUrethra.capacity));
 			CharacterUtils.addAttribute(doc, bodyPenis, "stretchedCapacity", String.valueOf(this.penis.orificeUrethra.stretchedCapacity));
-			CharacterUtils.addAttribute(doc, bodyPenis, "virgin", String.valueOf(this.penis.orificeUrethra.virgin));
+			CharacterUtils.addAttribute(doc, bodyPenis, "urethraVirgin", String.valueOf(this.penis.orificeUrethra.virgin));
 			Element urethraModifiers = doc.createElement("urethraModifiers");
 			bodyPenis.appendChild(urethraModifiers);
 			for(OrificeModifier om : OrificeModifier.values()) {
@@ -1025,8 +1025,12 @@ public class Body implements Serializable, XMLSaving {
 		importedPenis.orificeUrethra.plasticity = (Integer.valueOf(penis.getAttribute("plasticity")));
 		importedPenis.orificeUrethra.capacity = (Float.valueOf(penis.getAttribute("capacity")));
 		importedPenis.orificeUrethra.stretchedCapacity = (Float.valueOf(penis.getAttribute("stretchedCapacity")));
-		importedPenis.orificeUrethra.virgin = (Boolean.valueOf(penis.getAttribute("virgin")));
-
+		if(!penis.getAttribute("urethraVirgin").isEmpty()) {
+			importedPenis.orificeUrethra.virgin = (Boolean.valueOf(penis.getAttribute("urethraVirgin")));
+		} else {
+			importedPenis.orificeUrethra.virgin = true;
+		}
+		
 		CharacterUtils.appendToImportLog(log, 
 				"</br>elasticity: "+importedPenis.orificeUrethra.getElasticity()
 				+ "</br>plasticity: "+importedPenis.orificeUrethra.getPlasticity()
@@ -1277,7 +1281,7 @@ public class Body implements Serializable, XMLSaving {
 						+ owner.getAppearsAsGenderDescription()
 						+" Standing at full height, you measure [pc.heightFeetInches] ([pc.heightCm]cm).");
 		} else {
-			if(owner.getPlayerKnowsAreasMap().get(CoverableArea.PENIS) && owner.getPlayerKnowsAreasMap().get(CoverableArea.VAGINA)) {
+			if(owner.getPlayerKnowsAreas().contains(CoverableArea.PENIS) && owner.getPlayerKnowsAreas().contains(CoverableArea.VAGINA)) {
 				sb.append("<p>"
 						+ "[npc.Name] is <span style='color:"+getGender().getColour().toWebHexString()+";'>[npc.a_gender]</span> [npc.raceStage] [npc.race]. "
 						+ owner.getAppearsAsGenderDescription()
@@ -2027,7 +2031,7 @@ public class Body implements Serializable, XMLSaving {
 			}
 		} else {
 			
-			if (owner.getPlayerKnowsAreasMap().get(CoverableArea.MOUTH)) {
+			if (owner.getPlayerKnowsAreas().contains(CoverableArea.MOUTH)) {
 				if (face.getMouth().getOrificeMouth().isVirgin()) {
 					sb.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>[npc.She]'s never given head before.</span>");
 				} else {
@@ -2865,7 +2869,7 @@ public class Body implements Serializable, XMLSaving {
 			sb.append("[npc.Her] [npc.hips+] and [npc.assSize] [npc.ass] are covered in [npc.assFullDescription(true)].");
 		}
 		
-		if(owner.getPlayerKnowsAreasMap().get(CoverableArea.ANUS)) {
+		if(owner.getPlayerKnowsAreas().contains(CoverableArea.ANUS)) {
 			sb.append(" " + getAssDescription(owner));
 			sb.append("</p>");
 		} else {
@@ -2873,14 +2877,14 @@ public class Body implements Serializable, XMLSaving {
 			sb.append("</p>");
 		}
 		//TODO pubic hair
-		if(owner.getPlayerKnowsAreasMap().get(CoverableArea.VAGINA) && owner.getPlayerKnowsAreasMap().get(CoverableArea.PENIS)) {
+		if(owner.getPlayerKnowsAreas().contains(CoverableArea.VAGINA) && owner.getPlayerKnowsAreas().contains(CoverableArea.PENIS)) {
 			// Vagina, virgin/capacity, wetness:
 			if (vagina.getType() == VaginaType.NONE && penis.getType() == PenisType.NONE) {
 				sb.append("<p>" + getMoundDescription(owner) + "</p>");
 			}
 		} 
 		
-		if(owner.getPlayerKnowsAreasMap().get(CoverableArea.PENIS)) {
+		if(owner.getPlayerKnowsAreas().contains(CoverableArea.PENIS)) {
 			// Penises, cum production, testicle size, capacity:
 			if (penis.getType() != PenisType.NONE) {
 				sb.append("<p>" + getPenisDescription(owner) + "</p>");
@@ -2891,7 +2895,7 @@ public class Body implements Serializable, XMLSaving {
 					+ "</p>");
 		}
 		
-		if(owner.getPlayerKnowsAreasMap().get(CoverableArea.VAGINA)) {
+		if(owner.getPlayerKnowsAreas().contains(CoverableArea.VAGINA)) {
 			// Vagina, virgin/capacity, wetness:
 			if (vagina.getType() != VaginaType.NONE) {
 				sb.append("<p>" + getVaginaDescription(owner) + "</p>");
@@ -3429,7 +3433,7 @@ public class Body implements Serializable, XMLSaving {
 		descriptionSB = new StringBuilder();
 		
 		boolean isPlayer = owner.isPlayer();
-		boolean playerKnowledgeOfBreasts = owner.getPlayerKnowsAreasMap().get(CoverableArea.NIPPLES);
+		boolean playerKnowledgeOfBreasts = owner.getPlayerKnowsAreas().contains(CoverableArea.NIPPLES);
 		
 		if(!isPlayer && !playerKnowledgeOfBreasts) {
 			descriptionSB.append("You've never seen [npc.her] naked chest, so you don't know what [npc.her] nipples look like.");

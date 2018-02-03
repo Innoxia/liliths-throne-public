@@ -4,7 +4,7 @@ import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.Quest;
 import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.effects.Fetish;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;

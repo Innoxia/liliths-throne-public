@@ -1,11 +1,15 @@
 package com.lilithsthrone.game.character.attributes;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 
 /**
@@ -15,35 +19,35 @@ import com.lilithsthrone.utils.Colour;
  */
 public enum LustLevel {
 
-	ZERO_COLD("cold", 0, 20, Colour.LUST_STAGE_ZERO, SexPace.SUB_RESISTING, SexPace.DOM_GENTLE) {
+	ZERO_COLD("cold", 0, 20, 0.5f, Colour.LUST_STAGE_ZERO, SexPace.SUB_RESISTING, SexPace.DOM_GENTLE) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.LUST_PERK_0;
 		}
 	},
 
-	ONE_HORNY("horny", 20, 40, Colour.LUST_STAGE_ONE, SexPace.SUB_NORMAL, SexPace.DOM_NORMAL) {
+	ONE_HORNY("horny", 20, 40, 0.75f, Colour.LUST_STAGE_ONE, SexPace.SUB_NORMAL, SexPace.DOM_NORMAL) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.LUST_PERK_1;
 		}
 	},
 
-	TWO_AMOROUS("amorous", 40, 60, Colour.LUST_STAGE_TWO, SexPace.SUB_NORMAL, SexPace.DOM_NORMAL) {
+	TWO_AMOROUS("amorous", 40, 60, 1f, Colour.LUST_STAGE_TWO, SexPace.SUB_NORMAL, SexPace.DOM_NORMAL) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.LUST_PERK_2;
 		}
 	},
 
-	THREE_IMPASSIONED("impassioned", 60, 80, Colour.LUST_STAGE_THREE, SexPace.SUB_NORMAL, SexPace.DOM_NORMAL) {
+	THREE_IMPASSIONED("impassioned", 60, 80, 1.25f, Colour.LUST_STAGE_THREE, SexPace.SUB_NORMAL, SexPace.DOM_NORMAL) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.LUST_PERK_3;
 		}
 	},
 
-	FOUR_BURNING("burning", 80, 100, Colour.LUST_STAGE_FOUR, SexPace.SUB_EAGER, SexPace.DOM_ROUGH) {
+	FOUR_BURNING("burning", 80, 100, 1.5f, Colour.LUST_STAGE_FOUR, SexPace.SUB_EAGER, SexPace.DOM_ROUGH) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.LUST_PERK_4;
@@ -53,14 +57,16 @@ public enum LustLevel {
 	
 	private String name;
 	private int minimumValue, maximumValue;
+	private float arousalModifier;
 	private Colour colour;
 	private SexPace sexPaceSubmissive;
 	private SexPace sexPaceDominant;
 
-	private LustLevel(String name, int minimumValue, int maximumValue, Colour colour, SexPace sexPaceSubmissive, SexPace sexPaceDominant) {
+	private LustLevel(String name, int minimumValue, int maximumValue, float arousalModifier, Colour colour, SexPace sexPaceSubmissive, SexPace sexPaceDominant) {
 		this.name = name;
 		this.minimumValue = minimumValue;
 		this.maximumValue = maximumValue;
+		this.arousalModifier = arousalModifier;
 		this.colour = colour;
 		this.sexPaceSubmissive = sexPaceSubmissive;
 		this.sexPaceDominant = sexPaceDominant;
@@ -82,6 +88,10 @@ public enum LustLevel {
 	
 	public int getMedianValue() {
 		return (minimumValue + maximumValue) / 2;
+	}
+	
+	public float getArousalModifier() {
+		return arousalModifier;
 	}
 
 	public Colour getColour() {
@@ -112,66 +122,71 @@ public enum LustLevel {
 			pace = getSexPaceDominant();
 		} else {
 			pace = getSexPaceSubmissive();
+			if(character.hasFetish(Fetish.FETISH_NON_CON_SUB)) {
+				pace = SexPace.SUB_RESISTING;
+			}
 		}
 		
-		if(consensual && pace==SexPace.SUB_RESISTING && !character.hasFetish(Fetish.FETISH_NON_CON_SUB)) {
+		if(pace==SexPace.SUB_RESISTING && !Main.getProperties().nonConContent) {
 			pace = SexPace.SUB_NORMAL;
+		}
+		
+		if(pace==SexPace.DOM_ROUGH && !character.hasFetish(Fetish.FETISH_DOMINANT) && !character.hasFetish(Fetish.FETISH_SADIST) && !character.hasFetish(Fetish.FETISH_NON_CON_DOM)) {
+			pace = SexPace.DOM_NORMAL;
 		}
 		
 		return pace;
 	}
 	
-//	public String getSVGImage(GameCharacter character) {
-//		if(Sex.isDom(character)) {
-//			switch(this.getSexPaceDominant()) {
-//				case DOM_GENTLE:
-//					return SVGImages.SVG_IMAGE_PROVIDER.getResponseDomGentle();
-//				case DOM_NORMAL:
-//					return SVGImages.SVG_IMAGE_PROVIDER.getResponseDomNormal();
-//				case DOM_ROUGH:
-//					return SVGImages.SVG_IMAGE_PROVIDER.getResponseDomRough();
-//				case SUB_EAGER:
-//					return SVGImages.SVG_IMAGE_PROVIDER.getResponseSubEager();
-//				case SUB_NORMAL:
-//					return SVGImages.SVG_IMAGE_PROVIDER.getResponseSubNormal();
-//				case SUB_RESISTING:
-//					return SVGImages.SVG_IMAGE_PROVIDER.getResponseSubResist();
-//			}
-//		} else {
-//			switch(this.getSexPaceSubmissive()) {
-//				case DOM_GENTLE:
-//					return SVGImages.SVG_IMAGE_PROVIDER.getResponseDomGentle();
-//				case DOM_NORMAL:
-//					return SVGImages.SVG_IMAGE_PROVIDER.getResponseDomNormal();
-//				case DOM_ROUGH:
-//					return SVGImages.SVG_IMAGE_PROVIDER.getResponseDomRough();
-//				case SUB_EAGER:
-//					return SVGImages.SVG_IMAGE_PROVIDER.getResponseSubEager();
-//				case SUB_NORMAL:
-//					return SVGImages.SVG_IMAGE_PROVIDER.getResponseSubNormal();
-//				case SUB_RESISTING:
-//					return SVGImages.SVG_IMAGE_PROVIDER.getResponseSubResist();
-//			}
-//		}
-//		return "";	
-//	}
-	
-	public String getStatusEffectModifierDescription(boolean consensual, GameCharacter character) {
+	public List<String> getStatusEffectModifierDescription(boolean consensual, GameCharacter character) {
+		List<String> modifiersList = new ArrayList<>();
+		
 		switch(this.getSexPace(consensual, character)) {
 			case DOM_GENTLE:
-				return "<b style='color: " + SexPace.DOM_GENTLE.getColour().toWebHexString() + "'>Gentle</b> pace";
+				if(!character.isPlayer()) {
+					modifiersList.add("Prefers <b style='color: " + SexPace.DOM_GENTLE.getColour().toWebHexString() + "'>gentle</b> pace");
+				}
+				break;
 			case DOM_NORMAL:
-				return "<b style='color: " + SexPace.DOM_NORMAL.getColour().toWebHexString() + "'>Normal</b> pace";
+				if(!character.isPlayer()) {
+					modifiersList.add("Prefers <b style='color: " + SexPace.DOM_NORMAL.getColour().toWebHexString() + "'>normal</b> pace");
+				}
+				break;
 			case DOM_ROUGH:
-				return "<b style='color: " + SexPace.DOM_ROUGH.getColour().toWebHexString() + "'>Rough</b> pace";
+				if(!character.isPlayer()) {
+					if(!character.hasFetish(Fetish.FETISH_DOMINANT) && !character.hasFetish(Fetish.FETISH_SADIST)) {
+						modifiersList.add("Prefers <b style='color: " + SexPace.DOM_NORMAL.getColour().toWebHexString() + "'>normal</b> pace");
+						modifiersList.add("(<b style='color: " + SexPace.DOM_ROUGH.getColour().toWebHexString() + "'>Rough</b> pace requires "+Fetish.FETISH_DOMINANT.getName(character)
+												+", "+Fetish.FETISH_NON_CON_DOM.getName(character)+", or "+Fetish.FETISH_SADIST.getName(character)+" fetish)");
+					} else {
+						modifiersList.add("Prefers <b style='color: " + SexPace.DOM_ROUGH.getColour().toWebHexString() + "'>rough</b> pace");
+					}
+				}
+				break;
 			case SUB_EAGER:
-				return "<b style='color: " + SexPace.SUB_EAGER.getColour().toWebHexString() + "'>Eager</b> pace";
+				if(!character.isPlayer()) {
+					modifiersList.add("Prefers <b style='color: " + SexPace.SUB_EAGER.getColour().toWebHexString() + "'>eager</b> pace");
+				}
+				break;
 			case SUB_NORMAL:
-				return "<b style='color: " + SexPace.SUB_NORMAL.getColour().toWebHexString() + "'>Normal</b> pace";
+				if(!character.isPlayer()) {
+					modifiersList.add("Prefers <b style='color: " + SexPace.SUB_NORMAL.getColour().toWebHexString() + "'>normal</b> pace");
+				}
+				break;
 			case SUB_RESISTING:
-				return "<b style='color: " + SexPace.SUB_RESISTING.getColour().toWebHexString() + "'>Resisting</b> pace";
+				if(!character.isPlayer()) {
+					if(character.hasFetish(Fetish.FETISH_NON_CON_SUB)) {
+						modifiersList.add("Always prefers <b style='color: " + SexPace.SUB_RESISTING.getColour().toWebHexString() + "'>resisting</b> pace due to "+Fetish.FETISH_NON_CON_SUB.getName(character)+" fetish");
+					} else {
+						modifiersList.add("Prefers <b style='color: " + SexPace.SUB_RESISTING.getColour().toWebHexString() + "'>resisting</b> pace");
+					}
+				}
+				break;
 		}
-		return "";
+		int gains = (int)(this.getArousalModifier()*100);
+		modifiersList.add((gains>=100?"[style.boldArousal("+gains+"%)]":"[style.boldBad("+gains+"%)]")+" arousal gains");
+		
+		return modifiersList;
 	}
 	
 	public String getStatusEffectDescription(boolean consensual, GameCharacter character) {

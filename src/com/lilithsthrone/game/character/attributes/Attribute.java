@@ -246,7 +246,7 @@ public enum Attribute {
 		}
 	},
 	
-	SPELL_COST_MODIFIER(0, "spell cost reduction", "Spell cost reduction", "staminaIcon", Colour.ATTRIBUTE_MANA, "proficiency", "incompetence", null, null, null, null) {
+	SPELL_COST_MODIFIER(0, "spell cost reduction", "Spell efficiency", "staminaIcon", Colour.ATTRIBUTE_MANA, "proficiency", "incompetence", null, null, null, null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point reduces spell costs by 1%.";

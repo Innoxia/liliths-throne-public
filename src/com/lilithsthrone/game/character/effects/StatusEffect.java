@@ -25,6 +25,8 @@ import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.AddictionLevel;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
+import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
@@ -1292,7 +1294,7 @@ public enum StatusEffect {
 	},
 	
 	
-	// Arousal:
+	// Lust:
 	LUST_PERK_0(
 			100,
 			"none",
@@ -1307,16 +1309,9 @@ public enum StatusEffect {
 			return Util.capitaliseSentence(LustLevel.ZERO_COLD.getName());
 		}
 		
-//		@Override
-//		public String getSVGString(GameCharacter character) {
-//			return LustLevel.ZERO_COLD.getSVGImage(character);
-//		}
-		
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
-			modifiersList.clear();
-			modifiersList.add(LustLevel.ZERO_COLD.getStatusEffectModifierDescription(Sex.isConsensual(), target));
-			return modifiersList;
+			return LustLevel.ZERO_COLD.getStatusEffectModifierDescription(Sex.isConsensual(), target);
 		}
 		
 		@Override
@@ -1339,6 +1334,7 @@ public enum StatusEffect {
 			return false;
 		}
 	},
+	
 	LUST_PERK_1(
 			100,
 			"turned on",
@@ -1353,16 +1349,9 @@ public enum StatusEffect {
 			return Util.capitaliseSentence(LustLevel.ONE_HORNY.getName());
 		}
 		
-//		@Override
-//		public String getSVGString(GameCharacter character) {
-//			return LustLevel.ONE_HORNY.getSVGImage(character);
-//		}
-		
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
-			modifiersList.clear();
-			modifiersList.add(LustLevel.ONE_HORNY.getStatusEffectModifierDescription(Sex.isConsensual(), target));
-			return modifiersList;
+			return (LustLevel.ONE_HORNY.getStatusEffectModifierDescription(Sex.isConsensual(), target));
 		}
 		
 		@Override
@@ -1385,6 +1374,7 @@ public enum StatusEffect {
 			return false;
 		}
 	},
+	
 	LUST_PERK_2(
 			100,
 			"excited",
@@ -1399,16 +1389,9 @@ public enum StatusEffect {
 			return Util.capitaliseSentence(LustLevel.TWO_AMOROUS.getName());
 		}
 		
-//		@Override
-//		public String getSVGString(GameCharacter character) {
-//			return LustLevel.TWO_AMOROUS.getSVGImage(character);
-//		}
-		
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
-			modifiersList.clear();
-			modifiersList.add(LustLevel.TWO_AMOROUS.getStatusEffectModifierDescription(Sex.isConsensual(), target));
-			return modifiersList;
+			return (LustLevel.TWO_AMOROUS.getStatusEffectModifierDescription(Sex.isConsensual(), target));
 		}
 		
 		@Override
@@ -1431,6 +1414,7 @@ public enum StatusEffect {
 			return false;
 		}
 	},
+	
 	LUST_PERK_3(
 			100,
 			"heated",
@@ -1445,16 +1429,9 @@ public enum StatusEffect {
 			return Util.capitaliseSentence(LustLevel.THREE_IMPASSIONED.getName());
 		}
 		
-//		@Override
-//		public String getSVGString(GameCharacter character) {
-//			return LustLevel.THREE_IMPASSIONED.getSVGImage(character);
-//		}
-		
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
-			modifiersList.clear();
-			modifiersList.add(LustLevel.THREE_IMPASSIONED.getStatusEffectModifierDescription(Sex.isConsensual(), target));
-			return modifiersList;
+			return (LustLevel.THREE_IMPASSIONED.getStatusEffectModifierDescription(Sex.isConsensual(), target));
 		}
 		
 		@Override
@@ -1477,6 +1454,7 @@ public enum StatusEffect {
 			return false;
 		}
 	},
+	
 	LUST_PERK_4(
 			100,
 			"passionate",
@@ -1491,16 +1469,9 @@ public enum StatusEffect {
 			return Util.capitaliseSentence(LustLevel.FOUR_BURNING.getName());
 		}
 		
-//		@Override
-//		public String getSVGString(GameCharacter character) {
-//			return LustLevel.FOUR_BURNING.getSVGImage(character);
-//		}
-		
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
-			modifiersList.clear();
-			modifiersList.add(LustLevel.FOUR_BURNING.getStatusEffectModifierDescription(Sex.isConsensual(), target));
-			return modifiersList;
+			return (LustLevel.FOUR_BURNING.getStatusEffectModifierDescription(Sex.isConsensual(), target));
 		}
 		
 		@Override
@@ -2711,23 +2682,27 @@ public enum StatusEffect {
 			for(AbstractClothing clothing : target.getClothingCurrentlyEquipped()) {
 				if(target.getDirtySlots().contains(clothing.getClothingType().getSlot())) {
 					slotsToClean.add(clothing.getClothingType().getSlot());
-					clothing.setDirty(true);
-					if(sb.length()>0) {
-						sb.append("</br>");
+					if(!clothing.isDirty()) {
+						clothing.setDirty(true);
+						if(sb.length()>0) {
+							sb.append("</br>");
+						}
+						sb.append("You use your <b>"+clothing.getDisplayName(true)+"</b> to clean your "+clothing.getClothingType().getSlot().getName()
+								+", <b style='color:"+Colour.CUMMED.toWebHexString()+";'>dirtying "+(clothing.getClothingType().isPlural()?"them":"it")+" in the process</b>.");
 					}
-					sb.append("You use your <b>"+clothing.getDisplayName(true)+"</b> to clean your "+clothing.getClothingType().getSlot().getName()
-							+", <b style='color:"+Colour.CUMMED.toWebHexString()+";'>dirtying "+(clothing.getClothingType().isPlural()?"them":"it")+" in the process</b>.");
 					
 				} else {
 					for(InventorySlot blockedSlot : clothing.getClothingType().getIncompatibleSlots()) {
 						if(target.getDirtySlots().contains(blockedSlot)) {
 							slotsToClean.add(blockedSlot);
-							clothing.setDirty(true);
-							if(sb.length()>0) {
-								sb.append("</br>");
+							if(!clothing.isDirty()) {
+								clothing.setDirty(true);
+								if(sb.length()>0) {
+									sb.append("</br>");
+								}
+								sb.append("You use your <b>"+clothing.getDisplayName(true)+"</b> to clean your "+clothing.getClothingType().getSlot().getName()
+										+", <b style='color:"+Colour.CUMMED.toWebHexString()+";'>dirtying "+(clothing.getClothingType().isPlural()?"them":"it")+" in the process</b>.");
 							}
-							sb.append("You use your <b>"+clothing.getDisplayName(true)+"</b> to clean your "+clothing.getClothingType().getSlot().getName()
-									+", <b style='color:"+Colour.CUMMED.toWebHexString()+";'>dirtying "+(clothing.getClothingType().isPlural()?"them":"it")+" in the process</b>.");
 						}
 					}
 				}
@@ -2771,48 +2746,7 @@ public enum StatusEffect {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			// NPCs randomly clean themselves:
-			if(!target.isPlayer() && !target.isSlave()) {
-				if(Math.random()<minutesPassed*0.05f) {
-					target.cleanAllDirtySlots();
-				}
-			}
-			
-			List<InventorySlot> slotsToClean = new ArrayList<>();
-			StringBuilder sb = new StringBuilder();
-			for(AbstractClothing clothing : target.getClothingCurrentlyEquipped()) {
-				if(target.getDirtySlots().contains(clothing.getClothingType().getSlot())) {
-					slotsToClean.add(clothing.getClothingType().getSlot());
-					clothing.setDirty(true);
-					if(sb.length()>0) {
-						sb.append("</br>");
-					}
-					sb.append("You use your <b>"+clothing.getDisplayName(true)+"</b> to clean your "+clothing.getClothingType().getSlot().getName()
-							+", <b style='color:"+Colour.CUMMED.toWebHexString()+";'>dirtying "+(clothing.getClothingType().isPlural()?"them":"it")+" in the process</b>.");
-					
-				} else {
-					for(InventorySlot blockedSlot : clothing.getClothingType().getIncompatibleSlots()) {
-						if(target.getDirtySlots().contains(blockedSlot)) {
-							slotsToClean.add(blockedSlot);
-							clothing.setDirty(true);
-							if(sb.length()>0) {
-								sb.append("</br>");
-							}
-							sb.append("You use your <b>"+clothing.getDisplayName(true)+"</b> to clean your "+clothing.getClothingType().getSlot().getName()
-									+", <b style='color:"+Colour.CUMMED.toWebHexString()+";'>dirtying "+(clothing.getClothingType().isPlural()?"them":"it")+" in the process</b>.");
-						}
-					}
-				}
-			}
-			for(InventorySlot slotToClean : slotsToClean) {
-				target.removeDirtySlot(slotToClean);
-			}
-			
-			if(target.isPlayer()) {
-				return sb.toString();
-			}
-			
-			return "";
+			return StatusEffect.BODY_CUM.applyEffect(target, minutesPassed);
 		}
 
 		@Override
@@ -2995,6 +2929,210 @@ public enum StatusEffect {
 		}
 	},
 	
+	DRUNK_1(
+			80,
+			"Intoxicated I - Tipsy",
+			"drunk1",
+			Colour.BASE_YELLOW,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.FITNESS, 2f),
+					new Value<Attribute, Float>(Attribute.INTELLIGENCE, -2f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_MANA, 10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_MANA, -5f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			target.incrementAlcoholLevel(-(minutesPassed*(1f/(60f*6)))); // alcohol level will completely go after 6 hours
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target.isPlayer()) {
+				return ("After recently drinking an alcoholic liquid, you're feeling a little tipsy...</br>"
+						+ "Blood alcohol content: "+Math.round(target.getAlcoholLevel()*0.2f*100)/100f+"%");
+			} else {
+				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling a little tipsy...</br>"
+						+ "Blood alcohol content: "+Math.round(target.getAlcoholLevel()*0.2f*100)/100f+"%"));
+			}
+		}
+		
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getAlcoholLevel()>0 && target.getAlcoholLevel()<0.2f;
+		}
+	},
+	
+	DRUNK_2(
+			80,
+			"Intoxicated II - Merry",
+			"drunk2",
+			Colour.BASE_YELLOW,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.FITNESS, 5f),
+					new Value<Attribute, Float>(Attribute.INTELLIGENCE, -5f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_MANA, 20f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_MANA, -10f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			target.incrementAlcoholLevel(-(minutesPassed*(1f/(60*6)))); // alcohol level will completely go after 6 hours
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target.isPlayer()) {
+				return ("After recently drinking an alcoholic liquid, you're feeling quite merry...</br>"
+						+ "Blood alcohol content: "+Math.round(target.getAlcoholLevel()*0.2f*100)/100f+"%");
+			} else {
+				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling quite merry...</br>"
+						+ "Blood alcohol content: "+Math.round(target.getAlcoholLevel()*0.2f*100)/100f+"%"));
+			}
+		}
+
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getAlcoholLevel()>=0.2f && target.getAlcoholLevel()<0.4f;
+		}
+	},
+	
+	DRUNK_3(
+			80,
+			"Intoxicated III - Drunk",
+			"drunk3",
+			Colour.BASE_YELLOW,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.INTELLIGENCE, -5f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_MANA, 5f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_MANA, -20f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			target.incrementAlcoholLevel(-(minutesPassed*(1f/(60*6)))); // alcohol level will completely go after 6 hours
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target.isPlayer()) {
+				return ("After recently drinking an alcoholic liquid, you're feeling quite drunk...</br>"
+						+ "Blood alcohol content: "+Math.round(target.getAlcoholLevel()*0.2f*100)/100f+"%");
+			} else {
+				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling quite drunk...</br>"
+						+ "Blood alcohol content: "+Math.round(target.getAlcoholLevel()*0.2f*100)/100f+"%"));
+			}
+		}
+
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getAlcoholLevel()>=0.4f && target.getAlcoholLevel()<0.6f;
+		}
+	},
+	
+	DRUNK_4(
+			80,
+			"Intoxicated IV - Hammered",
+			"drunk4",
+			Colour.BASE_YELLOW,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.FITNESS, -5f),
+					new Value<Attribute, Float>(Attribute.INTELLIGENCE, -10f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_MANA, -5f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_MANA, -20f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			target.incrementAlcoholLevel(-(minutesPassed*(1f/(60*6)))); // alcohol level will completely go after 6 hours
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target.isPlayer()) {
+				return ("After recently drinking an alcoholic liquid, you're feeling pretty hammered...</br>"
+						+ "Blood alcohol content: "+Math.round(target.getAlcoholLevel()*0.2f*100)/100f+"%");
+			} else {
+				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling pretty hammered...</br>"
+						+ "Blood alcohol content: "+Math.round(target.getAlcoholLevel()*0.2f*100)/100f+"%"));
+			}
+		}
+
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getAlcoholLevel()>=0.6f && target.getAlcoholLevel()<0.8f;
+		}
+	},
+	
+	DRUNK_5(
+			80,
+			"Intoxicated V - Wasted",
+			"drunk5",
+			Colour.BASE_YELLOW,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.FITNESS, -10f),
+					new Value<Attribute, Float>(Attribute.INTELLIGENCE, -15f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_MANA, -10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_MANA, -25f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			target.incrementAlcoholLevel(-(minutesPassed*(1f/(60*6)))); // alcohol level will completely go after 6 hours
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target.isPlayer()) {
+				return ("After recently drinking an alcoholic liquid, you're feeling completely wasted...</br>"
+						+ "Blood alcohol content: "+Math.round(target.getAlcoholLevel()*0.2f*100)/100f+"%");
+			} else {
+				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling completely wasted...</br>"
+						+ "Blood alcohol content: "+Math.round(target.getAlcoholLevel()*0.2f*100)/100f+"%"));
+			}
+		}
+
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getAlcoholLevel()>=0.8f;
+		}
+	},
+	
 	ADDICTIONS(
 			80,
 			"addictions",
@@ -3038,6 +3176,11 @@ public enum StatusEffect {
 			}
 		}
 
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return !target.getAddictionsMap().isEmpty();
@@ -3090,6 +3233,11 @@ public enum StatusEffect {
 			}
 		}
 
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			// Time without getting fluid:
@@ -3150,6 +3298,11 @@ public enum StatusEffect {
 		}
 
 		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		
+		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			// Time without getting fluid:
 			for(long value : target.getLastTimeSatisfiedAddictionMap().values()) {
@@ -3208,6 +3361,11 @@ public enum StatusEffect {
 			}
 		}
 
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			// Time without getting fluid:
@@ -3268,6 +3426,11 @@ public enum StatusEffect {
 		}
 
 		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		
+		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			// Time without getting fluid:
 			for(long value : target.getLastTimeSatisfiedAddictionMap().values()) {
@@ -3326,6 +3489,11 @@ public enum StatusEffect {
 			}
 		}
 
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			// Time without getting fluid:
@@ -6598,6 +6766,66 @@ public enum StatusEffect {
 		}
 	},
 	
+	DESIRES(
+			80,
+			"Desires",
+			"desires",
+			Colour.GENERIC_ARCANE,
+			false,
+			null,
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target.isPlayer()) {
+				return "";
+			} else {
+				return UtilText.parse(target, "Due to the underlying power of your arcane aura, you can sense [npc.name]'s non-neutral preferences towards sexual actions.");
+			}
+		}
+		
+		@Override
+		public List<String> getModifiersAsStringList(GameCharacter target) {
+			List<String> modList = new ArrayList<>();
+			List<Fetish> orderedFetishList = new ArrayList<>();
+			
+			for(Fetish f : Fetish.values()) {
+				FetishDesire desire = target.getFetishDesire(f);
+				if(desire!=FetishDesire.TWO_NEUTRAL) {
+					orderedFetishList.add(f);
+				}
+			}
+			orderedFetishList.sort((e1, e2) -> target.getFetishDesire(e2).compareTo(target.getFetishDesire(e1)));
+
+			for(Fetish f : orderedFetishList) {
+				FetishDesire desire = target.getFetishDesire(f);
+				modList.add("<b style='color:"+desire.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(desire.getNameAsVerb())+"</b>: "+Util.capitaliseSentence(f.getShortDescriptor()));
+			}
+			
+			return modList;
+		}
+		
+		@Override
+		public String extraRemovalEffects(GameCharacter target) {
+			return "";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return !target.isPlayer();
+		}
+		
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+	},
+	
 	ANUS_STATUS(
 			96,
 			"Ass status",
@@ -7650,27 +7878,27 @@ public enum StatusEffect {
 		
 		if(Sex.getPenetrationTypeInOrifice(target, orifice) != null) {
 			modifiersList.add("+"+orifice.getBaseArousalWhenPenetrated()
-					+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+(target.isPlayer()?targetName:penetratorName)+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+targetName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
 			modifiersList.add("+"+Sex.getPenetrationTypeInOrifice(target, orifice).getBaseArousalWhenPenetrating()
-					+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+(penetrator.isPlayer()?penetratorName:targetName)+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
+					+" <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+penetratorName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Sex</b>)");
 			
 			if(Sex.getAreasCurrentlyStretching(target).contains(orifice)) {
 				modifiersList.add((orifice.getArousalChangePenetratedStretching()>0?"+":"")+orifice.getArousalChangePenetratedStretching()
-						+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+(target.isPlayer()?targetName:penetratorName)+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Stretching</b>)");
+						+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+targetName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Stretching</b>)");
 				modifiersList.add((orifice.getArousalChangePenetratingStretching()>0?"+":"")+orifice.getArousalChangePenetratingStretching()
-						+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+(penetrator.isPlayer()?penetratorName:targetName)+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Tight</b>)");
+						+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+penetratorName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Tight</b>)");
 			}
 			if(Sex.getAreasTooLoose(target).contains(orifice)) {
 				modifiersList.add((orifice.getArousalChangePenetratedTooLoose()>0?"+":"")+orifice.getArousalChangePenetratedTooLoose()
-						+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+(target.isPlayer()?targetName:penetratorName)+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Too loose</b>)");
+						+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+targetName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Too loose</b>)");
 				modifiersList.add((orifice.getArousalChangePenetratingTooLoose()>0?"+":"")+orifice.getArousalChangePenetratingTooLoose()
-						+ "<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+(penetrator.isPlayer()?penetratorName:targetName)+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Too loose</b>)");
+						+ "<b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+penetratorName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Too loose</b>)");
 			}
 			if(Sex.getWetOrificeTypes(target).get(orifice).isEmpty()) {
 				modifiersList.add((orifice.getArousalChangePenetratedDry()>0?"+":"")+orifice.getArousalChangePenetratedDry()
-						+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+(target.isPlayer()?targetName:penetratorName)+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
+						+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+targetName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
 				modifiersList.add((orifice.getArousalChangePenetratingDry()>0?"+":"")+orifice.getArousalChangePenetratingDry()
-						+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+(penetrator.isPlayer()?penetratorName:targetName)+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
+						+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>"+penetratorName+" arousal/turn</b> (<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + "'>Dry</b>)");
 			}
 		}
 		

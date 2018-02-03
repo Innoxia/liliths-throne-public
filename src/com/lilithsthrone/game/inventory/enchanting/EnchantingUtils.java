@@ -3,7 +3,7 @@ package com.lilithsthrone.game.inventory.enchanting;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lilithsthrone.game.character.effects.Fetish;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;

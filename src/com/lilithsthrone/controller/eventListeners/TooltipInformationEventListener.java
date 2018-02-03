@@ -7,7 +7,6 @@ import org.w3c.dom.events.EventListener;
 
 import com.lilithsthrone.controller.TooltipUpdateThread;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.PlayerCharacter;
 import com.lilithsthrone.game.character.attributes.ArousalLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -24,10 +23,11 @@ import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
-import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.effects.Perk;
-import com.lilithsthrone.game.character.effects.PerkInterface;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.fetishes.FetishDesire;
+import com.lilithsthrone.game.character.fetishes.FetishLevel;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.SpecialAttack;
@@ -41,7 +41,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.1.99
  * @author Innoxia
  */
 public class TooltipInformationEventListener implements EventListener {
@@ -49,21 +49,18 @@ public class TooltipInformationEventListener implements EventListener {
 	private boolean extraAttributes = false, opponentExtraAttributes = false, weather = false, protection = false, tattoo = false, copyInformation=false;
 	private GameCharacter owner;
 	private StatusEffect statusEffect;
-	private PerkInterface perk, levelUpPerk;
+	private Perk perk, levelUpPerk;
 	private Fetish fetish;
+	private boolean fetishExperience = false;
+	private FetishDesire desire;
 	private SpecialAttack specialAttack;
 	private Spell spell;
 	private int spellLevel;
 	private Attribute attribute;
+	private static StringBuilder tooltipSB  = new StringBuilder();
 	
-	private static StringBuilder tooltipSB;
-	static {
-		tooltipSB = new StringBuilder();
-	}
+	private static final int LINE_HEIGHT= 16;
 
-	/*
-	 * I have to manually set tooltip height, as all the JavaFX methods for getting document height are completely broken. (Don't bother wasting any more time with JavaFX crap.) R-Rude...
-	 */
 	
 	@Override
 	public void handleEvent(Event event) {
@@ -75,7 +72,7 @@ public class TooltipInformationEventListener implements EventListener {
 			int yIncrease = (statusEffect.getModifiersAsStringList(owner).size() > 4 ? statusEffect.getModifiersAsStringList(owner).size() - 4 : 0)
 								+ (owner.hasStatusEffect(statusEffect)?(owner.getStatusEffectDuration(statusEffect) == -1 ? 0 : 2):0);
 
-			Main.mainController.setTooltipSize(360, 284 + (yIncrease * 20));
+			Main.mainController.setTooltipSize(360, 284 + (yIncrease * LINE_HEIGHT));
 
 			// Title:
 			tooltipSB.setLength(0);
@@ -85,9 +82,12 @@ public class TooltipInformationEventListener implements EventListener {
 			// Attribute modifiers:
 			tooltipSB.append("<div class='subTitle-picture'>");
 				if (statusEffect.getModifiersAsStringList(owner).size() != 0) {
-					tooltipSB.append("<b style='color:" + Colour.STATUS_EFFECT.toWebHexString() + ";'>Status Effect</b>");
-					for (String s : statusEffect.getModifiersAsStringList(owner))
-						tooltipSB.append("</br>" + s);
+					int i=0;
+					for (String s : statusEffect.getModifiersAsStringList(owner)) {
+						tooltipSB.append((i!=0?"</br>":"") + s);
+						i++;
+					}
+					
 				} else {
 					tooltipSB.append("<b style='color:" + Colour.STATUS_EFFECT.toWebHexString() + ";'>Status Effect</b>" + "</br><span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>No bonuses</span>");
 				}
@@ -132,67 +132,40 @@ public class TooltipInformationEventListener implements EventListener {
 
 		} else if (perk != null) { // Perks:
 			
-			if(perk instanceof Perk) {
-			
-				int yIncrease = (perk.getModifiersAsStringList().size() > 4 ? perk.getModifiersAsStringList().size() - 4 : 0);
-	
-				Main.mainController.setTooltipSize(360, 288 + (yIncrease * 20));
-	
-				// Title:
-				tooltipSB.setLength(0);
-				tooltipSB.append("<div class='title'>" + Util.capitaliseSentence(perk.getName(owner)) + "</div>");
-				
-				// Attribute modifiers:
-				tooltipSB.append("<div class='subTitle-picture'>");
-				if (perk.getModifiersAsStringList().size() != 0) {
-					tooltipSB.append("<b style='color:" + Colour.PERK.toWebHexString() + ";'>Perk</b>");
-					for (String s : perk.getModifiersAsStringList())
-						tooltipSB.append("</br>" + s);
-				} else
-					tooltipSB.append("<b style='color:" + Colour.PERK.toWebHexString() + ";'>Perk</b>" + "</br><span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>");
-				tooltipSB.append("</div>");
-	
-				// Picture:
-				tooltipSB.append("<div class='picture'>" + perk.getSVGString() + "</div>");
-	
-				// Description:
-				tooltipSB.append("<div class='description'>" + perk.getDescription(owner) + "</div>");
-	
-				Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
-				
-			} else if(perk instanceof Fetish) {
-				int yIncrease = (perk.getModifiersAsStringList().size() > 4 ? perk.getModifiersAsStringList().size() - 4 : 0);
-				
-				Main.mainController.setTooltipSize(360, 288 + (yIncrease * 20));
-	
-				// Title:
-				tooltipSB.setLength(0);
-				tooltipSB.append("<div class='title'>" + Util.capitaliseSentence(perk.getName(owner)) + " fetish</div>");
-				
-				// Attribute modifiers:
-				tooltipSB.append("<div class='subTitle-picture'>");
-				if (perk.getModifiersAsStringList().size() != 0) {
-					tooltipSB.append("<b style='color:" + Colour.FETISH.toWebHexString() + ";'>Fetish</b>");
-					for (String s : perk.getModifiersAsStringList())
-						tooltipSB.append("</br>" + s);
-				} else
-					tooltipSB.append("<b style='color:" + Colour.FETISH.toWebHexString() + ";'>Fetish</b>" + "</br><span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>");
-				tooltipSB.append("</div>");
-	
-				// Picture:
-				tooltipSB.append("<div class='picture'>" + perk.getSVGString() + "</div>");
-	
-				// Description:
-				tooltipSB.append("<div class='description'>" + perk.getDescription(owner) + "</div>");
-	
-				Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
-			}
+			int yIncrease = (perk.getModifiersAsStringList().size() > 4 ? perk.getModifiersAsStringList().size() - 4 : 0);
 
+			Main.mainController.setTooltipSize(360, 288 + (yIncrease * LINE_HEIGHT));
+
+			// Title:
+			tooltipSB.setLength(0);
+			tooltipSB.append("<div class='title'>" + Util.capitaliseSentence(perk.getName(owner)) + "</div>");
+			
+			// Attribute modifiers:
+			tooltipSB.append("<div class='subTitle-picture'>");
+			if (perk.getModifiersAsStringList().size() != 0) {
+				int i=0;
+				for (String s : perk.getModifiersAsStringList()) {
+					tooltipSB.append((i!=0?"</br>":"") + s);
+					i++;
+				}
+			} else
+				tooltipSB.append("<b style='color:" + Colour.PERK.toWebHexString() + ";'>Perk</b>" + "</br><span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>");
+			tooltipSB.append("</div>");
+
+			// Picture:
+			tooltipSB.append("<div class='picture'>" + perk.getSVGString() + "</div>");
+
+			// Description:
+			tooltipSB.append("<div class='description'>" + perk.getDescription(owner) + "</div>");
+
+			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
+				
+			
 		} else if (levelUpPerk != null) { // Level Up Perk (same as Perk, but with requirements at top):
 
 			int yIncrease = (levelUpPerk.getModifiersAsStringList().size() > 4 ? levelUpPerk.getModifiersAsStringList().size() - 4 : 0) + levelUpPerk.getPerkRequirements(Main.game.getPlayer(), PhoneDialogue.levelUpPerks).size();
 
-			Main.mainController.setTooltipSize(360, 324 + (yIncrease * 20));
+			Main.mainController.setTooltipSize(360, 324 + (yIncrease * LINE_HEIGHT));
 
 			// Title:
 			tooltipSB.setLength(0);
@@ -207,11 +180,14 @@ public class TooltipInformationEventListener implements EventListener {
 			// Attribute modifiers:
 			tooltipSB.append("<div class='subTitle-picture'>");
 			if (levelUpPerk.getModifiersAsStringList().size() != 0) {
-				tooltipSB.append("<b style='color:" + Colour.PERK.toWebHexString() + ";'>Perk</b>");
-				for (String s : levelUpPerk.getModifiersAsStringList())
-					tooltipSB.append("</br>" + s);
-			} else
+				int i=0;
+				for (String s : levelUpPerk.getModifiersAsStringList()) {
+					tooltipSB.append((i!=0?"</br>":"") + s);
+					i++;
+				}
+			} else {
 				tooltipSB.append("<b style='color:" + Colour.PERK.toWebHexString() + ";'>Perk</b>" + "</br><span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>");
+			}
 			tooltipSB.append("</div>");
 
 			// Picture:
@@ -222,47 +198,113 @@ public class TooltipInformationEventListener implements EventListener {
 
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
-		} else if (fetish != null) { // Fetishes:
+		} else if (desire != null) { // Desire:
 
-			int yIncrease = (fetish.getModifiersAsStringList().size() > 4 ? fetish.getModifiersAsStringList().size() - 4 : 0) + fetish.getFetishesForAutomaticUnlock().size();
-
-			Main.mainController.setTooltipSize(360, (fetish.getFetishesForAutomaticUnlock().size()==0?288:324) + (yIncrease * 20));
+			Main.mainController.setTooltipSize(360, 264);
 
 			// Title:
 			tooltipSB.setLength(0);
-			tooltipSB.append("<div class='title'>" + Util.capitaliseSentence(fetish.getName(owner)) + " fetish</div>");
-			
-			// Requirements:
-			if(fetish.getFetishesForAutomaticUnlock().size()>=1) {
-				tooltipSB.append("<div class='subTitle'>Requirements");
-				for (Fetish f : fetish.getFetishesForAutomaticUnlock())
-					tooltipSB.append("</br>[style.boldArcane(" + Util.capitaliseSentence(f.getName(Main.game.getPlayer()))+")]");
-				tooltipSB.append("</div>");
-			}
+			tooltipSB.append("<div class='title'>Set Desire: <b style='color:" + desire.getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(desire.getName())+"</b></div>");
 			
 			// Attribute modifiers:
 			tooltipSB.append("<div class='subTitle-picture'>");
-			if (fetish.getModifiersAsStringList().size() != 0) {
-				tooltipSB.append("<b style='color:" + Colour.FETISH.toWebHexString() + ";'>Fetish</b>");
-				for (String s : fetish.getModifiersAsStringList())
-					tooltipSB.append("</br>" + s);
-			} else
-				tooltipSB.append("<b style='color:" + Colour.FETISH.toWebHexString() + ";'>Fetish</b>" + "</br><span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>");
+			int i=0;
+			for (String s : desire.getModifiersAsStringList()) {
+				tooltipSB.append((i!=0?"</br>":"") + s);
+				i++;
+			}
 			tooltipSB.append("</div>");
 
 			// Picture:
-			tooltipSB.append("<div class='picture'>" + fetish.getSVGString() + "</div>");
+			tooltipSB.append("<div class='picture'>" + desire.getSVGImage() + "</div>");
 
 			// Description:
-			tooltipSB.append("<div class='description'>" + fetish.getDescription(owner) + "</div>");
+			if(owner.hasFetish(fetish) && desire!=FetishDesire.FOUR_LOVE) {
+				tooltipSB.append("<div class='description' style='height:53px'>Your desire is [style.boldBad(locked)] to <b style='color:"+FetishDesire.FOUR_LOVE.getColour().toWebHexString()+";'>"+FetishDesire.FOUR_LOVE.getName()+"</b>,"
+						+ " due to owning the related fetish ("+fetish.getName(owner)+").</div>");
+				tooltipSB.append("<div class='subTitle' style='text-align:center;'>Cost: [style.boldDisabled(N/A)]</div>");
+			} else {
+				tooltipSB.append("<div class='description' style='height:53px'>" + fetish.getFetishDesireDescription(owner, desire) + "</div>");
+				if(owner.getFetishDesire(fetish)==desire) {
+					tooltipSB.append("<div class='subTitle' style='text-align:center;'>Cost: [style.boldDisabled(N/A)]</div>");
+				} else {
+					tooltipSB.append("<div class='subTitle' style='text-align:center;'>Cost: [style.boldArcane("+FetishDesire.getCostToChange()+" Arcane Essence"+(FetishDesire.getCostToChange()>1?"s":"")+")]</div>");
+				}
+			}
 
+			
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
+
+		} else if (fetish != null) { // Fetishes:
+			
+			if(fetishExperience) {
+				
+				Main.mainController.setTooltipSize(420, 156);
+				
+				tooltipSB.setLength(0);
+				tooltipSB.append("<div class='title'>" + Util.capitaliseSentence(fetish.getName(owner)) + " fetish</div>");
+				FetishLevel level = FetishLevel.getFetishLevelFromValue(owner.getFetishExperience(fetish));
+				tooltipSB.append("<div class='subTitle'>Level "+level.getNumeral()+": <span style='color:"+level.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(level.getName())+"</span>"
+									+ " <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>|</span> " + owner.getFetishExperience(fetish) +" / "+ level.getMaximumExperience() + " xp" + "</div>");
+				tooltipSB.append("<div class='description' style='height:53px'>You earn fetish experience by performing related actions in sex. Each level increases the fetish's bonuses (max level is 5).</div>");
+
+				Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
+				
+			} else {
+				int yIncrease = (fetish.getModifiersAsStringList(owner).size() > 4 ? fetish.getModifiersAsStringList(owner).size() - 4 : 0) + fetish.getFetishesForAutomaticUnlock().size();
+				
+				Main.mainController.setTooltipSize(360, (fetish.getFetishesForAutomaticUnlock().isEmpty()?350:360) + (yIncrease * LINE_HEIGHT));
+				
+				// Title:
+				tooltipSB.setLength(0);
+				tooltipSB.append("<div class='title'>" + Util.capitaliseSentence(fetish.getName(owner)) + " fetish</div>");
+				FetishLevel level = FetishLevel.getFetishLevelFromValue(owner.getFetishExperience(fetish));
+				tooltipSB.append("<div class='subTitle'>Level "+level.getNumeral()+": <span style='color:"+level.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(level.getName())+"</span>"
+						+ " <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>|</span> " + owner.getFetishExperience(fetish) +" / "+ level.getMaximumExperience() + " xp" + "</div>");
+				
+				// Requirements:
+				if(fetish.getFetishesForAutomaticUnlock().size()>=1) {
+					tooltipSB.append("<div class='subTitle'>Requirements");
+					for (Fetish f : fetish.getFetishesForAutomaticUnlock())
+						tooltipSB.append("</br>[style.boldArcane(" + Util.capitaliseSentence(f.getName(Main.game.getPlayer()))+")]");
+					tooltipSB.append("</div>");
+				}
+				
+				// Attribute modifiers:
+				tooltipSB.append("<div class='subTitle-picture'>");
+				if (fetish.getModifiersAsStringList(owner).size() != 0) {
+					int i=0;
+					for (String s : fetish.getModifiersAsStringList(owner)) {
+						tooltipSB.append((i!=0?"</br>":"") + s);
+						i++;
+					}
+				} else {
+					tooltipSB.append("<b style='color:" + Colour.FETISH.toWebHexString() + ";'>Fetish</b>" + "</br><span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>");
+				}
+				tooltipSB.append("</div>");
+	
+				// Picture:
+				tooltipSB.append("<div class='picture'>" + fetish.getSVGString() + "</div>");
+	
+				// Description:
+				tooltipSB.append("<div class='description'>" + fetish.getDescription(owner) + "</div>");
+				
+				if(fetish.getFetishesForAutomaticUnlock().isEmpty()) {
+					if(owner.hasFetish(fetish)) {
+						tooltipSB.append("<div class='subTitle' style='text-align:center;'>Cost: [style.boldDisabled(N/A)]</div>");
+					} else {
+						tooltipSB.append("<div class='subTitle' style='text-align:center;'>Cost: [style.boldArcane("+fetish.getCost()+" Arcane Essences)]</div>");
+					}
+				}
+				
+				Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
+			}
 
 		} else if (specialAttack != null) { // Special attacks:
 
 			int yIncrease = (specialAttack.getStatusEffects().size() > 2 ? specialAttack.getStatusEffects().size() - 2 : 0);
 
-			Main.mainController.setTooltipSize(360, 324 + (yIncrease * 20));
+			Main.mainController.setTooltipSize(360, 324 + (yIncrease * LINE_HEIGHT));
 
 			// Title:
 			tooltipSB.setLength(0);
@@ -297,7 +339,7 @@ public class TooltipInformationEventListener implements EventListener {
 
 			int yIncrease = (spell.getStatusEffects().size() > 2 ? spell.getStatusEffects().size() - 2 : 0);
 
-			Main.mainController.setTooltipSize(360, 324 + (yIncrease * 20));
+			Main.mainController.setTooltipSize(360, 324 + (yIncrease * LINE_HEIGHT));
 
 			// Title:
 			tooltipSB.setLength(0);
@@ -380,7 +422,7 @@ public class TooltipInformationEventListener implements EventListener {
 				int yIncrease = (currentAttributeStatusEffect.getModifiersAsStringList(owner).size() > 4 ? currentAttributeStatusEffect.getModifiersAsStringList(owner).size() - 4 : 0)
 						+ (owner.hasStatusEffect(currentAttributeStatusEffect)?(owner.getStatusEffectDuration(currentAttributeStatusEffect) == -1 ? 0 : 2):0);
 
-				Main.mainController.setTooltipSize(360, 460 + (yIncrease * 20));
+				Main.mainController.setTooltipSize(360, 460 + (yIncrease * LINE_HEIGHT));
 				
 				tooltipSB.setLength(0);
 				tooltipSB.append("<div class='title' style='color:" + attribute.getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(attribute.getName()) + "</div>"
@@ -429,7 +471,7 @@ public class TooltipInformationEventListener implements EventListener {
 			} else if (attribute == Attribute.EXPERIENCE) {
 				// Special tooltip for experience/transformation combo:
 
-				Main.mainController.setTooltipSize(420, 560);
+				Main.mainController.setTooltipSize(420, 544);
 
 				tooltipSB.setLength(0);
 				tooltipSB.append("<div class='title' style='color:" + owner.getRace().getColour().toWebHexString() + ";'>"
@@ -439,12 +481,8 @@ public class TooltipInformationEventListener implements EventListener {
 						+ "</b>"
 						+ "</div>");
 				
-				if(owner.isPlayer()) {
-					tooltipSB.append("<div class='subTitle'>" + "Level " + owner.getLevel() + " <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>|</span> " + ((PlayerCharacter)owner).getExperience() + " / "
-							+ (10 * owner.getLevel()) + " xp" + "</div>");
-				} else {
-					tooltipSB.append("<div class='subTitle'>" + "Level " + owner.getLevel() + "</div>");
-				}
+				tooltipSB.append("<div class='subTitle' style='margin-bottom:4px;'>Level " + owner.getLevel() + " <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>|</span> " + owner.getExperience() + " / "
+						+ (10 * owner.getLevel()) + " xp</div>");
 
 				// GREATER:
 				tooltipSB.append(getBodyPartDiv("Face", owner.getFaceRace(), owner.getFaceType().getBodyCoveringType()));
@@ -463,42 +501,42 @@ public class TooltipInformationEventListener implements EventListener {
 				if (owner.getHornType() != HornType.NONE) {
 					tooltipSB.append(getBodyPartDiv((owner.hasHorns()?Util.capitaliseSentence(owner.getHornName()):"Horns"), owner.getHornRace(), owner.getHornType().getBodyCoveringType()));
 				} else {
-					tooltipSB.append("<div class='subTitle-half body'>" + "Horns - <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>" + "</div>");
+					tooltipSB.append(getEmptyBodyPartDiv("Horns", "None"));
 				}
 				if (owner.getAntennaType() != AntennaType.NONE) {
 					tooltipSB.append(getBodyPartDiv("Antennae", owner.getAntennaRace(), owner.getAntennaType().getBodyCoveringType()));
 				} else {
-					tooltipSB.append("<div class='subTitle-half body'>" + "Antenna - <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>" + "</div>");
+					tooltipSB.append(getEmptyBodyPartDiv("Antennae", "None"));
 				}
 				if (owner.getWingType() != WingType.NONE) {
 					tooltipSB.append(getBodyPartDiv("Wings", owner.getWingRace(), owner.getWingType().getBodyCoveringType()));
 				} else {
-					tooltipSB.append("<div class='subTitle-half body'>" + "Wings - <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>" + "</div>");
+					tooltipSB.append(getEmptyBodyPartDiv("Wings", "None"));
 				}
 				if (owner.getTailType() != TailType.NONE) {
 					tooltipSB.append(getBodyPartDiv("Tail", owner.getTailRace(), owner.getTailType().getBodyCoveringType()));
 				} else {
-					tooltipSB.append("<div class='subTitle-half body'>" + "Tail - <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>" + "</div>");
+					tooltipSB.append(getEmptyBodyPartDiv("Tail", "None"));
 				}
 				
 				// SEXUAL:
-				if(!owner.isPlayer() && !owner.getPlayerKnowsAreasMap().get(CoverableArea.VAGINA)) {
-					tooltipSB.append("<div class='subTitle-half body'>Vagina - <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Unknown!</span></div>");
+				if(!owner.isPlayer() && !owner.getPlayerKnowsAreas().contains(CoverableArea.VAGINA)) {
+					tooltipSB.append(getEmptyBodyPartDiv("Vagina", "Unknown!"));
 				} else {
 					if (owner.getVaginaType() != VaginaType.NONE) {
 						tooltipSB.append(getBodyPartDiv("Vagina", owner.getVaginaRace(), owner.getVaginaType().getBodyCoveringType()));
 					} else {
-						tooltipSB.append("<div class='subTitle-half body'>" + "Vagina - <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>" + "</div>");
+						tooltipSB.append(getEmptyBodyPartDiv("Vagina", "None"));
 					}
 				}
 				
-				if(!owner.isPlayer() && !owner.getPlayerKnowsAreasMap().get(CoverableArea.PENIS)) {
-					tooltipSB.append("<div class='subTitle-half body'>Penis - <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Unknown!</span></div>");
+				if(!owner.isPlayer() && !owner.getPlayerKnowsAreas().contains(CoverableArea.PENIS)) {
+					tooltipSB.append(getEmptyBodyPartDiv("Penis", "Unknown!"));
 				} else {
 					if (owner.getPenisType() != PenisType.NONE) {
 						tooltipSB.append(getBodyPartDiv("Penis", owner.getPenisRace(), owner.getPenisType().getBodyCoveringType()));
 					} else {
-						tooltipSB.append("<div class='subTitle-half body'>" + "Penis - <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>None</span>" + "</div>");
+						tooltipSB.append(getEmptyBodyPartDiv("Penis", "None"));
 					}
 				}
 				tooltipSB.append(getBodyPartDiv("Ass", owner.getAssRace(), owner.getAssType().getBodyCoveringType()));
@@ -689,9 +727,12 @@ public class TooltipInformationEventListener implements EventListener {
 	}
 	
 	private String getBodyPartDiv(String name, Race race, BodyCoveringType covering) {
-		return "<div class='subTitle-half body'>"+ name + " - <span style='color:" + race.getColour().toWebHexString() + ";'>"+ Util.capitaliseSentence(race.getName()) + "</span></br>"
-					+ owner.getCovering(covering).getColourDescriptor(true, true)+ " "+ owner.getCovering(covering).getName(owner)
-				+ "</div>";
+		return "<div class='subTitle' style='font-weight:normal; text-align:left; margin-top:2px; white-space: nowrap;'>"+ name + ": <span style='color:" + race.getColour().toWebHexString() + ";'>"+ Util.capitaliseSentence(race.getName()) + "</span> - "
+					+ owner.getCovering(covering).getColourDescriptor(true, true) + " " + owner.getCovering(covering).getName(owner)+"</div>";
+	}
+	
+	private String getEmptyBodyPartDiv(String name, String description) {
+		return "<div class='subTitle' style='font-weight:normal; text-align:left; margin-top:2px; white-space: nowrap;'>"+ name + ": <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>"+description+"</span></div>";
 	}
 	
 
@@ -755,7 +796,7 @@ public class TooltipInformationEventListener implements EventListener {
 		return this;
 	}
 
-	public TooltipInformationEventListener setPerk(PerkInterface perk, GameCharacter owner) {
+	public TooltipInformationEventListener setPerk(Perk perk, GameCharacter owner) {
 		resetFields();
 		this.perk = perk;
 		this.owner = owner;
@@ -771,7 +812,25 @@ public class TooltipInformationEventListener implements EventListener {
 		return this;
 	}
 
-	public TooltipInformationEventListener setLevelUpPerk(PerkInterface levelUpPerk, GameCharacter owner) {
+	public TooltipInformationEventListener setFetishExperience(Fetish fetish, GameCharacter owner) {
+		resetFields();
+		fetishExperience = true;
+		this.fetish = fetish;
+		this.owner = owner;
+
+		return this;
+	}
+	
+	public TooltipInformationEventListener setFetishDesire(Fetish fetish, FetishDesire desire, GameCharacter owner) {
+		resetFields();
+		this.desire = desire;
+		this.fetish = fetish;
+		this.owner = owner;
+
+		return this;
+	}
+
+	public TooltipInformationEventListener setLevelUpPerk(Perk levelUpPerk, GameCharacter owner) {
 		resetFields();
 		this.levelUpPerk = levelUpPerk;
 		this.owner = owner;
@@ -836,6 +895,8 @@ public class TooltipInformationEventListener implements EventListener {
 		statusEffect = null;
 		perk = null;
 		fetish = null;
+		fetishExperience = false;
+		desire = null;
 		levelUpPerk = null;
 		specialAttack = null;
 		spell = null;

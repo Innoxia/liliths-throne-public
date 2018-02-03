@@ -9,7 +9,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
-import com.lilithsthrone.game.character.effects.Fetish;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
@@ -443,7 +443,7 @@ public class DominionSuccubusDialogue {
 					}
 					@Override
 					public void effects() {
-						Main.game.getActiveNPC().getPlayerKnowsAreasMap().put(CoverableArea.PENIS, true);
+						Main.game.getActiveNPC().getPlayerKnowsAreas().add(CoverableArea.PENIS);
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
 								+ "Not really liking the idea of [npc.name] having a cock, you tell [npc.herHim] as much, "
@@ -466,7 +466,7 @@ public class DominionSuccubusDialogue {
 					}
 					@Override
 					public void effects() {
-						Main.game.getActiveNPC().getPlayerKnowsAreasMap().put(CoverableArea.PENIS, true);
+						Main.game.getActiveNPC().getPlayerKnowsAreas().add(CoverableArea.PENIS);
 						Main.game.getActiveNPC().setPenisType(PenisType.DEMON_COMMON);
 						Main.game.getActiveNPC().setPenisSize(1);
 						Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
@@ -496,7 +496,7 @@ public class DominionSuccubusDialogue {
 					}
 					@Override
 					public void effects() {
-						Main.game.getActiveNPC().getPlayerKnowsAreasMap().put(CoverableArea.PENIS, true);
+						Main.game.getActiveNPC().getPlayerKnowsAreas().add(CoverableArea.PENIS);
 						Main.game.getActiveNPC().setPenisType(PenisType.DEMON_COMMON);
 						Main.game.getActiveNPC().setPenisSize(6);
 						Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
@@ -526,7 +526,7 @@ public class DominionSuccubusDialogue {
 					}
 					@Override
 					public void effects() {
-						Main.game.getActiveNPC().getPlayerKnowsAreasMap().put(CoverableArea.PENIS, true);
+						Main.game.getActiveNPC().getPlayerKnowsAreas().add(CoverableArea.PENIS);
 						Main.game.getActiveNPC().setPenisType(PenisType.DEMON_COMMON);
 						Main.game.getActiveNPC().setPenisSize(11);
 						Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
@@ -556,7 +556,7 @@ public class DominionSuccubusDialogue {
 					}
 					@Override
 					public void effects() {
-						Main.game.getActiveNPC().getPlayerKnowsAreasMap().put(CoverableArea.PENIS, true);
+						Main.game.getActiveNPC().getPlayerKnowsAreas().add(CoverableArea.PENIS);
 						Main.game.getActiveNPC().setPenisType(PenisType.DEMON_COMMON);
 						Main.game.getActiveNPC().setPenisSize(PenisSize.FIVE_ENORMOUS.getMaximumValue());
 						Main.game.getActiveNPC().setTesticleSize(TesticleSize.ZERO_VESTIGIAL.getValue());
@@ -606,7 +606,7 @@ public class DominionSuccubusDialogue {
 					}
 					@Override
 					public void effects() {
-						Main.game.getActiveNPC().getPlayerKnowsAreasMap().put(CoverableArea.VAGINA, true);
+						Main.game.getActiveNPC().getPlayerKnowsAreas().add(CoverableArea.VAGINA);
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
 								+ "Wanting to make sure that [npc.she]'s got a nice demonic pussy, you order [npc.herHim], "
@@ -629,7 +629,7 @@ public class DominionSuccubusDialogue {
 					}
 					@Override
 					public void effects() {
-						Main.game.getActiveNPC().getPlayerKnowsAreasMap().put(CoverableArea.VAGINA, true);
+						Main.game.getActiveNPC().getPlayerKnowsAreas().add(CoverableArea.VAGINA);
 						Main.game.getActiveNPC().setVaginaType(VaginaType.NONE);
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"

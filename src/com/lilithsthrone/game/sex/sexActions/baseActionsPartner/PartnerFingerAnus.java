@@ -193,7 +193,7 @@ public class PartnerFingerAnus {
 
 		@Override
 		public String getActionDescription() {
-			return "Continue fingering [pc.name]'s [pc.pussy+].";
+			return "Continue fingering [pc.name]'s [pc.asshole+].";
 		}
 
 		@Override

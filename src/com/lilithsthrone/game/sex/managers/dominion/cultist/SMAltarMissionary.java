@@ -42,22 +42,20 @@ public class SMAltarMissionary extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isPlayerCanRemoveOwnClothes(){
-		return !((Cultist)Sex.getActivePartner()).isSealedSex() || Sex.isDom(Main.game.getPlayer());
+	public boolean isAbleToRemoveSelfClothing(GameCharacter character){
+		if(character.isPlayer()) {
+			return !((Cultist)Sex.getActivePartner()).isSealedSex() || Sex.isDom(Main.game.getPlayer());
+		} else {
+			return !((Cultist)Sex.getActivePartner()).isSealedSex() || Sex.isDom(Sex.getActivePartner());
+		}
 	}
-	
+
 	@Override
-	public boolean isPlayerCanRemovePartnersClothes(){
-		return !((Cultist)Sex.getActivePartner()).isSealedSex() || Sex.isDom(Main.game.getPlayer());
-	}
-	
-	@Override
-	public boolean isPartnerCanRemoveOwnClothes(){
-		return !((Cultist)Sex.getActivePartner()).isSealedSex() || Sex.isDom(Sex.getActivePartner());
-	}
-	
-	@Override
-	public boolean isPartnerCanRemovePlayersClothes(){
-		return !((Cultist)Sex.getActivePartner()).isSealedSex() || Sex.isDom(Sex.getActivePartner());
+	public boolean isAbleToRemoveOthersClothing(GameCharacter character){
+		if(character.isPlayer()) {
+			return !((Cultist)Sex.getActivePartner()).isSealedSex() || Sex.isDom(Main.game.getPlayer());
+		} else {
+			return !((Cultist)Sex.getActivePartner()).isSealedSex() || Sex.isDom(Sex.getActivePartner());
+		}
 	}
 }

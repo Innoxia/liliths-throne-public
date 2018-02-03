@@ -12,8 +12,8 @@ import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.TailType;
-import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -159,6 +159,124 @@ public enum SpecialAttack {
 		@Override
 		public boolean isConditionsMet(GameCharacter owner) {
 			return owner.hasFetish(Fetish.FETISH_ANAL_GIVING);
+		}
+	},
+	
+	TEASE_VAGINAL_RECEIVING(50,
+			"pussy slut tease",
+			"fetish_generic",
+			Colour.GENERIC_ARCANE,
+			DamageType.MANA,
+			DamageLevel.NORMAL,
+			DamageVariance.LOW,
+			SpecialAttackSpellCosts.MEDIUM,
+			null) {
+		@Override
+		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+			
+			String attackText = "";
+			
+			if(caster.isPlayer()) {
+				attackText = (UtilText.returnStringAtRandom(
+						"You slide your [pc.hands] down between your [pc.legs] and [pc.moanVerb], "
+								+ "[pc.speech(My pussy's aching for your touch!)]",
+								
+						"You slip one [pc.hand] down between your [pc.legs] and [pc.moanVerb], "
+								+ "[pc.speech(Come fuck my pussy!)]",
+								
+						"You thrust your [pc.hips+] out a little and [pc.moanVerb], "
+								+ "[pc.speech(I'm getting wet already! Come fuck my little pussy!)]",
+										
+						"You wink at [npc.name] and [pc.moanVerb], "
+								+ "[pc.speech(My slutty pussy <i>needs</i> some attention!)]"));
+				
+			} else {
+				attackText = (UtilText.returnStringAtRandom(
+						"[npc.Name] slides [npc.her] [npc.hands] down between [npc.her] [npc.legs] and [npc.moansVerb], "
+								+ "[npc.speech(My pussy's aching for your touch!)]",
+								
+						"[npc.Name] slips one [npc.hand] down between [npc.her] [npc.legs] and [npc.moansVerb], "
+								+ "[npc.speech(Come fuck my pussy!)]",
+								
+						"[npc.Name] thrusts [npc.her] [npc.hips+] out a little and [npc.moansVerb], "
+								+ "[npc.speech(I'm getting wet already! Come fuck my little pussy!)]",
+										
+						"[npc.Name] winks at you and [npc.moansVerb], "
+								+ "[npc.speech(My slutty pussy <i>needs</i> some attention!)]"));
+			}
+			
+			return applySpecialSeduction(caster, target, Fetish.FETISH_VAGINAL_GIVING, attackText);
+
+		}
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "Due to your "+Fetish.FETISH_VAGINAL_RECEIVING.getName(owner)+" fetish, you're able to use your pussy as a tool to seduce your opponents.";
+			} else {
+				return UtilText.parse(owner, "[npc.Name] is able to use [npc.her] pussy in an attempt to seduce you!");
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter owner) {
+			return owner.hasFetish(Fetish.FETISH_VAGINAL_RECEIVING) && owner.hasVagina();
+		}
+	},
+	
+	TEASE_VAGINAL_GIVING(50,
+			"vaginal tease",
+			"fetish_generic",
+			Colour.GENERIC_ARCANE,
+			DamageType.MANA,
+			DamageLevel.NORMAL,
+			DamageVariance.LOW,
+			SpecialAttackSpellCosts.MEDIUM,
+			null) {
+		@Override
+		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+			
+			String attackText = "";
+			
+			if(caster.isPlayer()) {
+				attackText = (UtilText.returnStringAtRandom(
+						"You grin at [npc.name], before moving your gaze down between [npc.her] [npc.legs] and [pc.moaning],"
+							+" [pc.speech(Your pussy looks like it needs a good fuck!)]",
+
+						"You hungrily stare between [npc.name]'s [npc.legs], [pc.moaning],"
+							+" [pc.speech(I'm going to fuck that pussy so hard!)]",
+
+						"Gazing lustfully between [npc.name]'s [npc.legs], you let out [pc.a_moan+],"
+							+" [pc.speech(I'm going to pound that sweet pussy into the ground!)]"));
+				
+			} else {
+				attackText = (UtilText.returnStringAtRandom(
+						"[npc.Name] grins at you, before moving [npc.her] gaze down to between your [pc.legs] and [npc.moaning],"
+							+" [npc.speech(Your pussy looks like it needs a good fuck!)]",
+
+						"[npc.Name] hungrily stares between your [pc.legs], [npc.moaning],"
+							+" [npc.speech(I'm going to fuck that pussy so hard!)]",
+
+						"Gazing lustfully between your [pc.legs], [npc.name] lets out [npc.a_moan+],"
+							+" [npc.speech(I'm going to pound that sweet pussy into the ground!)]"));
+			}
+			
+			return applySpecialSeduction(caster, target, Fetish.FETISH_VAGINAL_RECEIVING, attackText);
+
+		}
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "Due to your "+Fetish.FETISH_VAGINAL_GIVING.getName(owner)+" fetish, you're able to seduce your opponents by telling them how you're going to use their pussy.";
+			} else {
+				return UtilText.parse(owner, "[npc.Name] is able to tell you how [npc.she]'s going to use your pussy in an attempt to seduce you!");
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter owner) {
+			return owner.hasFetish(Fetish.FETISH_VAGINAL_GIVING);
 		}
 	},
 	

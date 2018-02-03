@@ -47,6 +47,89 @@
 	
 	
 	
+	
+	
+	
+	***BDSM-set***
+
+Theres a lot of detail to this one and thats great. Lots of different pieces for different slots, negative status effects, you even went through the trouble of inventing the jinxed equipment mechanic for it, truly a lot of attention to detail. Some of it seems unnecessarily tedious though.
+
+-The "enchanted Karada" blocks your underwear slots (even nipple tape? Oo) Is that intended? Im not knowledgeable on BDSM at all but is there no way for a person to wear that kind of rope underneath underwear?
+
+-"wrist restraints" and "spreader bar" blocking you from equipping pieces onto your arms and legs is...logical but also annoying in a way...may I suggest that for reconsideration? As for how its possible to, for example, equip something to your "hand slot" even though the PC is wearing wrist restraints, it could just be handwaved as a magic attribute of the BDSM-set for practicality. (Just like how the PC can still walk, even though she/he is waring a spreader bar. Im handwaving that already in my mind.)
+
+-Commitment to the BDSM-set is definitely something that should be a thing, but maybe in a different way than blocking so many slots? "Unjinxing" could surely stand to cost way more and maybe costs could scale with the level of the PC.
+
+-I for one, think that the effects of the BDSM-set could be WAY more significant. Like, multiple of what its negative status effect is causing right now to fitness, maybe even give it a chance to lose outright to a sadist/dom fetishist, or make it easier to assume a submissive role in sex. On the other hand, owners of "submissive", "masochist" and "unwilling fucktoy" could get bonus status effects for equipping it. Maybe to resistances?
+
+-Other ideas for significantly changing gameplay with _FULL_ BDSM-set would be:
+fully removing the option to attack (leaving spells and tease)
+removing the option to escape
+losing all encounters outright but gain the possibility to skip the non-unique sex scenes following that
+super-jinxed (can only remove BDSM-piece after covering it in sexual fluids after being used)
+
+Last but not least, some obligatory suggestions for additional BDSM-set pieces:
+nipple chains (nipple slot)
+vibrator/plugs (vagina/anus slot)
+blindfold (eye slot)
+metal chains (over torso slot)
+leather straps (torso/legs/hand/hip slot)
+restraining ropes (tail slot)
+	
+	
+	I was wondering if you could consider using the banner at the top of the game screen to display a basic backdrop of whatever area you character is in, as well as the current weather or time of day. 
+		As of now, it seems the current daytime and weather system is pushed off to the side for more important information to take up the screen.
+	
+	
+	
+	
+	
+	
+	- I only recently understood the system of subdued background colors and species symbols unifying the icons of transformation/buff/essences, etc. The foreground colors of the circular backgrounds are much more obvious, but don't have quite as obvious meanings (for instance, Canine Crush and Squirrel Java are the same blue). Perhaps using bolder or full-saturated border colors to distinguish items (green=buff, blue=tf, red=arcane, gray=armor, etc) or using the more distinct foreground color for discerning items would strengthen the visual cluing. I suggest this could also be reinforced in the tool tip (in the same spot as "Consumed on Use"/"Combat & Sex Use" it should say "Used for Human Transform Enchantments" or similar), have a color key to distinguish items in the inventory screen, and/or have a description under the "Effects:" heading in the inventory. The species symbols could probably use more prominent placement and be visible in the tool tips as well, as they are only easy to distinguish in their full-sized versions. Species symbols are sometimes really hard to identify in the mini map or other small placements.
+
+- The Slavery Overview, Slave List, and Room List menus are all very useful, but can require substantial scrolling to use once for common tasks they're populated. Some of the more basic functions in these menus would be better if they could also be accessed straight from the menu at the bottom of the screen. For instance, if the PC is in an empty room, the Manage Room menu for that room should be available right from the bottom menu instead of having to click Room List and then the magnifying glass first. The PC should be able to make a slave room or double slave room straight from the bottom menu in one click also, or change an unoccupied room back to empty.
+
+- Access to the slave's inventory, work shift and permissions from the main menu at bottom during slave interaction would be great. It would also be useful to be able to see the slave's affection/obedience without having to back out to the Slave List. Also, the tool tips for the interaction choices could be more informative about the likely impact of slave interaction choices. There should also be an option to summon a slave to their own room at any time, to avoid having to run around the whole house to track their random location down or wait for their shift to end.
+
+- It was not initially straightforward to discover how the various factors of affection, obedience, work shift, room options and overwork status were affecting my slaves' attitudes and earnings, or changed their behaviors. Confusingly, the tallies showing upkeep and income do not account for slaves' status effects, sometimes leading to affection or obedience decay at the same time the Slave List shows daily increases, or income tallies that don't match amounts collected.
+
+- The slave rules are straightforward and easy to set, but the impact of many of them is a mystery. For instance, permissions toggling silence, crawling, house freedom and outside freedoms don't seem to do much to influence slave behavior, affection or obedience. I suspect these are in an early implementation stage, but the impact of these choices could be clearer. Additionally, some of the ones that seem to be fully implemented have AI oddities - for instance, pairs of slaves with both the "Initiate Sex" and "Sex Toy" traits still seldom find each other, even with a "Pent Up" status. Perhaps there is a more useful way to organize what is seen in the Slavery Overview, to enable better understanding of the relationship between slave permissions and their actions (including +/- to obedience/affection).
+
+- Enchanting needs some basic instructions - Lilaya's dialogue was an ok clue, but it was still a bit of a stumbling block for awhile to discover the menu location for the enchanting feature or how it worked, especially since it's not accessible if you first try it with non-enchantable items (like weapons or clothing, which seemed the most likely to be enchantable items even though they are currently not). A direct discussion or intro-based tutorial of how to clearly identify enchantable items and how to use them would help. There should also be a reference tutorial in the encyclopedia. I cannot understate how much better a game this was for me once I figured out how to deliberately enchant TF items - this one is a core mechanic that shouldn't be hard to find in the least!
+
+- A tool tip-based character summary accessed from the "Characters Present" menu would be helpful, to avoid the menu detour required for a full description. Ideally, it would include most of the info shown in the right column in the full character page (name, level, species, core stats, combat levels and effects, plus a compact version of the body part descriptions and inventory). This tool tip would be especially helpful while working on enchantments and/or planning TFs, since clicking any character description means you have to start your enchanting over from scratch, and when trying to distinguish between similarly-named characters.
+
+- Though the inventory's recently-added "overview" tab during sex was a great improvement, quicker options for shifting/stripping the player's/sex partner's clothes are still needed. Getting to "overview" still requires the player to click through the inventory, click a tab and then click the option to do it, with a second pass for the sex partner. These six steps would be much better as single click options from the main menu. I do like the option to undress slowly, but I'd also like to be able to not (like when I have to grind for arcane essence).
+
+- While functionality-packed, the enchantment UI is probably the least straightforward menu in the game. It is especially confusing when the player's intent is to add or subtract effects completely, given the "X" icon is used to remove some effects or bodily organs, negative potency must be used for others, and the "Transformative" button appears in different places to sometimes add and sometimes transform a part. The distribution of controls between the top menu and lower menu adds to the confusion, especially since arrangement splits the controls with the effects summary. To correct these issues, perhaps the potion effects summary could be moved up top, allowing the controls to be kept together. Rather than having increase or decrease buttons to change potency, instead use a row of "+" and "-" buttons (with small, medium and large icons to represent minor, normal, or major settings) to enable selection with one click, with the small and medium choices graying out when unavailable. The "Transformative" icon should become the visual parallel of the "X"/remove icon, and those two options should always show first (upper left position) in any list they appear in. The icon color choices should also be reviewed for clarity and explained in game, as their unifying logic is unclear.
+2) Though you have expressed your plans for re-balance in v0.2.0, it's worth mentioning that combat and enchanting balance issues exist that limit replay potential.
+Spoiler: Hide
+- Combat overwhelmingly favors willpower attacks and seduction-balanced characters. Appropriate for a sexy game, I suppose, but since combat should be part of the "good stuff" also, there should be ways to rock-paper-scissor this somewhat.
+
+- The arcane weapons are interesting as a concept, but in practice hard to easily to tell apart in purpose or effect, and their stats seem so downplayed by PC/NPC level changes as to be almost meaningless in use. Their relative impact on opponents is also not too clear in the flavor text. The potential for crafting, enchanting, and discovering new combat items (and making their relative effects more interesting) is at present mostly untapped.
+
+- Arcane essence costs seem unbalanced, especially comparing one-shot transformations to stepped ones - the latter are extremely expensive by comparison. The relative effect caused by "minor/normal/major" boosts or drains are often disproportionate between primary, secondary and tertiary items (ie, breast cup size transformation is slow vs rapid nipple/areolae changes). Gathering arcane essence now requires enormous amounts of grinding for certain cosmetic changes due to the expense of stepped changes (the masculinity-femininity scale is a notable example).
+3) Travel and exploration is getting to be very well managed, especially by comparison to earlier builds, but could still be slightly improved.
+Spoiler: Hide
+- Major locations the player has already found should be fast-travel-able with a main menu choice from any city street. I'd even include slaver's alley, even though it is surrounded by hostile locations, simply to avoid the player having to retrace steps across the rest of the map.
+
+- The player's room, the Entrance Hall in Lilaya's home and her lab should be a single menu click away from any location in the house.
+
+- Recently defeated NPCs are able to regenerate their stats instantly, while the player's stats recover extremely slowly, which is immersion breaking and can impede exploration and travel in the early game (when it is most frustrating due to the random city layout). The option to deliberately rest and recover stats more quickly should be available without having to return to Lilaya's residence, though rest should logically be interrupted by arcane storms or NPC encounters. This is especially needed when using the new difficulty settings.
+	
+	It seems weird that slaves react strongly to being given a hug or the PC making small talk with them, but transforming their whole bodies or having sex with them has no impact on affection/obedience. Similarly, transforming one's children has no major impact on those relationships.
+
+Ideally, NPCs would have some kind of desired state of being that would reflect their gender, species, body part configuration, and fetish and transformation preferences. PCs transforming them towards it could improve the relationship, while transforming them away from it would degrade the relationship (most of the time, it would probably be the NPC's original form but maybe some NPCs want to be transformed trans-species or transgender, or maybe have things enhanced, enlarged or even reduced...). Grooming choices should also be a part of this, maybe with a lesser degree of influence (how mad would your daughter be if you shaved her bald by surprise... unless she was into that...).
+
+Similarly, sex interactions -- choice of pace, act preferences and fetish alignment -- should cause relationship changes resulting from sex interactions. Being overly rough or doing unwanted things (especially rape and unwanted impregnation) should worsen or even permanently scar relationships (maybe even "breaking" NPCs), while having great sex with a willing NPC (or fetish-aligned NPC) might quickly increase the affection score. This dynamic could also replace the current odd situation where NPCs hate the player, but strangely still want to have sex because they are overwhelmingly attracted.
+
+Perhaps there could be options to look for trouble/attack hostile NPCs in alleys, or to just skip the fight entirely to have sex with willing sex partner NPCs, with PC initiating it. Since you mentioned plans for PC enslavement down the road, being the aggressor could open the PC to that risk. Also, if the relationship changes from sex above are implemented, maybe random NPCs can actually begin to like or hate the PC after being together a few times, and more consensual or vindictive interactions would result.
+	
+	
+	
+	
+	
+	
 	missionary, leg lift, anvil positions
 	
 	a prostitute who specialises in losing her virginity (through regrowing her hymen)
@@ -261,6 +344,11 @@ Miscellaneous things I've noted:
 	
 	
 	
+	Looking at the current mechanics for lubrication, it seems like that system could be expanded upon a bit more to make it more complicated so you can add in more scene variations based on it in the future.
+		You could then create variations for scenes that fall into three separate categories, insufficiently lubricated, sufficiently lubricated, and then overly lubricated, along with hopefully also changing how much/what quality of lube you'd need to get to those three levels depending on the action selected.
+	
+	
+	
 	Encyclopedia for mechanics:
 		plasticity
 		barbs
@@ -460,6 +548,9 @@ When farming for essence, it would be nice to have some form of indicator on the
 	c) "Enchanting" as a button kind of confused me in the beginning; Brewing, Alchemy or something I think would have been clearer for me. Enchanting is rather something I associate with items (or people maybe).
 	
 	Produce milk -> make nipples wet!!!
+	
+	
+	is there maybe any chance you might consider like a "fade to black" skip sex button or something?  Hell I'd even settle for a lay back and take it option or whatever. I like losing and such cause I like forced TFs but at the same time its alot to click through for the payoff. I'll keep playing either way, just a thought though
 	
 	
 	I'd like to throw in a suggestion with the Brax encounter. If you happen to already be a wolf-morph when you first encounter him, you can seduce him for information. Alternatively, if you are not, you could end up fighting him, losing, then being forcibly transformed into his dream wolf-morph (all optional). If you return after this, despite being his dream fuck, you only have the option to fight him.
