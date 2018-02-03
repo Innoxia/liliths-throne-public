@@ -48,7 +48,7 @@ public class Properties implements Serializable {
 	
 	public String lastSaveLocation = "", lastQuickSaveName = "", nameColour = "", name = "", race = "", quest = "", versionNumber="";
 	
-	public int fontSize = 18, level = 1, money = 0, arcaneEssences = 0, humanEncountersLevel = 1, multiBreasts = 1, forcedTFPercentage = 40;
+	public int fontSize = 18, level = 1, money = 0, arcaneEssences = 0, humanEncountersLevel = 1, multiBreasts = 1, forcedTFPercentage = 40, forcedFetishPercentage = 0;
 	
 	public boolean lightTheme = false, overwriteWarning = true, fadeInText=false, calendarDisplay = true, twentyFourHourTime = true,
 			
@@ -82,6 +82,7 @@ public class Properties implements Serializable {
 	// Transformation Settings
 	public FurryPreference forcedTFPreference;
 	public ForcedTFTendency forcedTFTendency;
+	public ForcedFetishTendency forcedFetishTendency;
 	
 	// Discoveries:
 	private Set<AbstractItemType> itemsDiscovered;
@@ -123,6 +124,7 @@ public class Properties implements Serializable {
 		
 		forcedTFPreference = FurryPreference.NORMAL;
 		forcedTFTendency = ForcedTFTendency.NEUTRAL;
+		forcedFetishTendency = ForcedFetishTendency.NEUTRAL;
 		
 		raceFemininePreferencesMap = new EnumMap<>(Race.class);
 		raceMasculinePreferencesMap = new EnumMap<>(Race.class);
@@ -188,6 +190,7 @@ public class Properties implements Serializable {
 			createXMLElementWithValue(doc, settings, "humanEncountersLevel", String.valueOf(humanEncountersLevel));
 			createXMLElementWithValue(doc, settings, "multiBreasts", String.valueOf(multiBreasts));
 			createXMLElementWithValue(doc, settings, "forcedTFPercentage", String.valueOf(forcedTFPercentage));
+			createXMLElementWithValue(doc, settings, "forcedFetishPercentage", String.valueOf(forcedFetishPercentage));
 
 			createXMLElementWithValue(doc, settings, "newWeaponDiscovered", String.valueOf(newWeaponDiscovered));
 			createXMLElementWithValue(doc, settings, "newClothingDiscovered", String.valueOf(newClothingDiscovered));
@@ -306,6 +309,7 @@ public class Properties implements Serializable {
 			// Forced TF settings:
 			createXMLElementWithValue(doc, settings, "forcedTFPreference", String.valueOf(forcedTFPreference));
 			createXMLElementWithValue(doc, settings, "forcedTFTendency", String.valueOf(forcedTFTendency));
+			createXMLElementWithValue(doc, settings, "forcedFetishTendency", String.valueOf(forcedFetishTendency));
 			
 			// Race preferences:
 			Element racePreferences = doc.createElement("furryPreferences");
@@ -498,6 +502,9 @@ public class Properties implements Serializable {
 				if(element.getElementsByTagName("forcedTFPercentage").item(0)!=null) {
 					forcedTFPercentage = Integer.valueOf(((Element)element.getElementsByTagName("forcedTFPercentage").item(0)).getAttribute("value"));
 				}
+				if(element.getElementsByTagName("forcedFetishPercentage").item(0)!=null) {
+					forcedFetishPercentage = Integer.valueOf(((Element)element.getElementsByTagName("forcedFetishPercentage").item(0)).getAttribute("value"));
+				}
 
 				// Forced TF preference:
 				if(element.getElementsByTagName("forcedTFPreference").item(0)!=null) {
@@ -505,6 +512,9 @@ public class Properties implements Serializable {
 				}
 				if(element.getElementsByTagName("forcedTFTendency").item(0)!=null) {
 					forcedTFTendency = ForcedTFTendency.valueOf(((Element)element.getElementsByTagName("forcedTFTendency").item(0)).getAttribute("value"));
+				}
+				if(element.getElementsByTagName("forcedFetishTendency").item(0)!=null) {
+					forcedFetishTendency = ForcedFetishTendency.valueOf(((Element)element.getElementsByTagName("forcedFetishTendency").item(0)).getAttribute("value"));
 				}
 				
 				// Keys:
