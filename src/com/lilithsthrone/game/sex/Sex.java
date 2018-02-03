@@ -1565,7 +1565,7 @@ public enum Sex {
 		
 		Map<GameCharacter, SexPace> initialPaces = new HashMap<>();
 		for(GameCharacter participant : Sex.getAllParticipants()) {
-			initialPaces.put(participant, Sex.getSexPace(activeCharacter));
+			initialPaces.put(participant, Sex.getSexPace(participant));
 		}
 		
 		
