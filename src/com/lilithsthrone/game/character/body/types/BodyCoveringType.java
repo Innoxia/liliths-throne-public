@@ -499,9 +499,9 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 			"hard",
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.HORN_WHITE)),
-			null,
 			Colour.hornColours,
+			null,
+			Colour.dyeHornColours,
 			null),
 
 	ANTLER_REINDEER(Race.REINDEER_MORPH,
@@ -512,9 +512,9 @@ public enum BodyCoveringType implements BodyPartTypeInterface {
 			"hard",
 			null,
 			null,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.ANTLER_TAN)),
+			Colour.antlerColours,
 			null,
-			Colour.hornColours,
+			Colour.dyeAntlerColours,
 			null),
 
 	TONGUE(Race.HUMAN,

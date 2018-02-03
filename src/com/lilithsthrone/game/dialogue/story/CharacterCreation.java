@@ -787,7 +787,7 @@ public class CharacterCreation {
 					+ "</div>"
 					+ "</br>"
 					+ "<div class='container-full-width' style='text-align:center;'>"
-						+ "<i>You can modify your appearance by entering each of the sub-menus below. Once you're happy with how you look, press the 'Check clothes' option.</i>"
+						+ "<i>You can modify your appearance by entering each of the sub-menus below.</i>"
 					+ "</div>";
 		}
 		
@@ -799,7 +799,7 @@ public class CharacterCreation {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Check clothes", "Your clothes are a little messy after rushing here. Tidy yourself up before proceeding to the main stage.", InventoryDialogue.INVENTORY_MENU) {
+				return new Response("Continue", "Your clothes are a little messy after rushing here. Tidy yourself up before proceeding to the main stage.", InventoryDialogue.INVENTORY_MENU) {
 					@Override
 					public void effects() {
 						equipPiercings();

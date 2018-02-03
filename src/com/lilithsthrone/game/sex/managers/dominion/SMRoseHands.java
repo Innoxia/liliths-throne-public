@@ -31,22 +31,12 @@ public class SMRoseHands extends SexManagerDefault {
 	}
 	
 	@Override
-	public boolean isPlayerCanRemoveOwnClothes(){
+	public boolean isAbleToRemoveSelfClothing(GameCharacter character){
 		return false;
 	}
 	
 	@Override
-	public boolean isPlayerCanRemovePartnersClothes(){
-		return false;
-	}
-	
-	@Override
-	public boolean isPartnerCanRemoveOwnClothes(){
-		return false;
-	}
-	
-	@Override
-	public boolean isPartnerCanRemovePlayersClothes(){
+	public boolean isAbleToRemoveOthersClothing(GameCharacter character){
 		return false;
 	}
 

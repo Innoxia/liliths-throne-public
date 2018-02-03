@@ -4,7 +4,7 @@ import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.body.types.ArmType;
-import com.lilithsthrone.game.character.effects.Fetish;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;

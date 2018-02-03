@@ -262,6 +262,10 @@ input:focus {
 	width:8%;
 	margin:1%;
 }
+.square-button.saveIcon {
+	width:20%;
+	margin:1% 6.5% 1% 6.5%;
+}
 .square-button.big {
 	width:25%;
 	margin:1% 4% 1% 4%;
@@ -679,6 +683,10 @@ position:relative;
 }
 .fetish-icon.double{
 	width:16%;
+	margin:2%;
+}
+.fetish-icon.full{
+	width:96%;
 	margin:2%;
 }
 .fetish-icon:after {

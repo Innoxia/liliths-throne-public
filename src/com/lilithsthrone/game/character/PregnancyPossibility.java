@@ -10,7 +10,7 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.66
- * @version 0.1.89
+ * @version 0.1.99
  * @author Innoxia
  */
 public class PregnancyPossibility implements Serializable, XMLSaving {
@@ -79,6 +79,10 @@ public class PregnancyPossibility implements Serializable, XMLSaving {
 
 	public float getProbability() {
 		return probability;
+	}
+
+	public void setProbability(float probability) {
+		this.probability = probability;
 	}
 	
 }

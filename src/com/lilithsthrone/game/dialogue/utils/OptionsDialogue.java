@@ -15,7 +15,7 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.KeyboardAction;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.effects.Fetish;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.AndrogynousIdentification;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderNames;
@@ -292,14 +292,14 @@ public class OptionsDialogue {
 					+ "<b>You cannot save during combat or sex due to some bugs that I need to fix!</b>"
 					+ "</p>"
 					+ "<div class='container-full-width' style='padding:0; margin:0;'>"
-						+ "<div class='container-quarter-width' style='text-align:center;'>"
+						+ "<div class='container-full-width' style='width:calc(25% - 16px); background:transparent;'>"
 							+ "Time"
 						+ "</div>"
-						+ "<div class='container-half-width' style='width:calc(55% - 16px); text-align:center; background:transparent;'>"
+						+ "<div class='container-full-width' style='width:calc(50% - 16px); text-align:center; background:transparent;'>"
 							+ "Name"
 						+ "</div>"
-						+ "<div class='container-quarter-width' style='width:calc(20% - 16px); text-align:center; background:transparent;'>"
-							+ "Functions"
+						+ "<div class='container-full-width' style='width:calc(25% - 16px); text-align:center; background:transparent;'>"
+							+ "Save | Load | Delete"
 						+ "</div>"
 					+ "</div>");
 
@@ -474,43 +474,42 @@ public class OptionsDialogue {
 			String baseName = name.substring(0, name.lastIndexOf('.'));
 			
 			return "<div class='container-full-width' style='padding:0; margin:0 0 4px 0;"+(altColour?"background:#222;":"")+"'>"
-						+ "<div class='container-quarter-width' style='background:transparent;'>"
+						+ "<div class='container-full-width' style='width:calc(25% - 16px); background:transparent;'>"
 							+ date
 						+ "</div>"
-						+ "<div class='container-half-width' style='width: calc(55% - 16px); background:transparent;'>"
+						+ "<div class='container-full-width' style='width:calc(50% - 16px); background:transparent;'>"
 							+ baseName
 						+ "</div>"
-						+ "<div class='container-quarter-width' style='padding:auto 0; margin:auto 0; width:20%; text-align:center; background:transparent;'>"
-
+						+ "<div class='container-full-width' style='width:calc(25% - 16px);text-align:center; background:transparent;'>"
 							+ (Main.game.isStarted()
 									?(name.equals(overwriteConfirmationName)
-										?"<div class='square-button big' id='overwrite_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveConfirm()+"</div></div>"
-										:"<div class='square-button big' id='overwrite_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskOverwrite()+"</div></div>")
-											:"<div class='square-button big disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveDisabled()+"</div></div>")
+										?"<div class='square-button saveIcon' id='overwrite_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveConfirm()+"</div></div>"
+										:"<div class='square-button saveIcon' id='overwrite_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskOverwrite()+"</div></div>")
+											:"<div class='square-button saveIcon disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveDisabled()+"</div></div>")
 							
 							+ (name.equals(loadConfirmationName)
-									?"<div class='square-button big' id='load_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskLoadConfirm()+"</div></div>"
-									:"<div class='square-button big' id='load_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskLoad()+"</div></div>")
+									?"<div class='square-button saveIcon' id='load_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskLoadConfirm()+"</div></div>"
+									:"<div class='square-button saveIcon' id='load_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskLoad()+"</div></div>")
 	
 	
 							+ (name.equals(deleteConfirmationName)
-								?"<div class='square-button big' id='delete_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDeleteConfirm()+"</div></div>"
-								:"<div class='square-button big' id='delete_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDelete()+"</div></div>")
+								?"<div class='square-button saveIcon' id='delete_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDeleteConfirm()+"</div></div>"
+								:"<div class='square-button saveIcon' id='delete_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskDelete()+"</div></div>")
 						+ "</div>"
 					+ "</div>";
 			
 		} else {
 			return "<div class='container-full-width' style='padding:0; margin:0 0 4px 0;"+(altColour?"background:#222;":"")+"'>"
-						+ "<div class='container-quarter-width' style='background:transparent;'>"
+						+ "<div class='container-full-width' style='width:calc(25% - 16px); background:transparent;'>"
 							+ "-"
 						+ "</div>"
-						+ "<div class='container-half-width' style='width: calc(55% - 16px); background:transparent;'>"
-							+"<form style='padding:0;margin:0;text-align:center;'><input type='text' id='new_save_name' value='New Save' style='width:100%;'></form>"
+						+ "<div class='container-full-width' style='width:calc(50% - 16px); background:transparent;'>"
+							+"<form style='padding:0;margin:0;text-align:center;'><input type='text' id='new_save_name' value='New Save' style='padding:0;margin:0;width:100%;'></form>"
 						+ "</div>"
-						+ "<div class='container-quarter-width' style='padding:auto 0; margin:auto 0; width:20%; text-align:center; background:transparent;'>"
+						+ "<div class='container-full-width' style='width:calc(25% - 16px); text-align:center; background:transparent;'>"
 							+ (Main.isSaveGameAvailable()
-								?"<div class='square-button big' id='new_saved' style='margin:0 auto;'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSave()+"</div></div>"
-								:"<div class='square-button big disabled' id='new_saved_disabled' style='margin:0 auto;'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveDisabled()+"</div></div>")
+								?"<div class='square-button saveIcon' id='new_saved'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSave()+"</div></div>"
+								:"<div class='square-button saveIcon disabled' id='new_saved_disabled'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveDisabled()+"</div></div>")
 						+ "</div>"
 					+ "</div>";
 				

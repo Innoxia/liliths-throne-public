@@ -10,8 +10,8 @@ import java.util.Map.Entry;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.ArousalLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
@@ -357,7 +357,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 //				}
 			}
 			
-			if(!partnerAreasToBeExposed.isEmpty() && Sex.isPartnerCanRemoveOwnClothes()) {
+			if(!partnerAreasToBeExposed.isEmpty() && Sex.isCanRemoveSelfClothing(Sex.getActivePartner())) {
 				Collections.shuffle(partnerAreasToBeExposed);
 				if(partnerAreasToBeExposed.get(0) == CoverableArea.MOUND) {
 					return Sex.partnerManageClothingToAccessCoverableArea(false, CoverableArea.VAGINA);
@@ -365,7 +365,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 					return Sex.partnerManageClothingToAccessCoverableArea(false, partnerAreasToBeExposed.get(0));
 				}
 			}
-			if(!playerAreasToBeExposed.isEmpty() && Sex.isPartnerCanRemovePlayersClothes()) {
+			if(!playerAreasToBeExposed.isEmpty() && Sex.isCanRemoveOthersClothing(Sex.getActivePartner())) {
 				Collections.shuffle(playerAreasToBeExposed);
 				if(playerAreasToBeExposed.get(0) == CoverableArea.MOUND) {
 					return Sex.partnerManageClothingToAccessCoverableArea(true, CoverableArea.VAGINA);

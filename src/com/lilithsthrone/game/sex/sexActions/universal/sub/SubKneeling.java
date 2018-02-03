@@ -371,7 +371,7 @@ public class SubKneeling {
 			}
 			
 			UtilText.nodeContentSB.append("</br></br>"
-						+ " After a few moments, [npc.she] comes down from [npc.her] climax and takes hold of your [pc.head], smirking down at you as [npc.she] slides [npc.her] [npc.cock+] back into your mouth.");
+						+ " After a few moments, [npc.she] comes down from [npc.her] climax and takes hold of your head, smirking down at you as [npc.she] slides [npc.her] [npc.cock+] back into your mouth.");
 			
 			return UtilText.nodeContentSB.toString();
 		}

@@ -10,7 +10,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.LegType;
-import com.lilithsthrone.game.character.effects.Fetish;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.Combat;
@@ -743,7 +743,7 @@ public class InventoryDialogue {
 						return new Response("Equip all", "You can't equip clothing in sex!", null);
 							
 					} else if (index == 6 && inventoryNPC != null) {
-						if(!Sex.getSexManager().isPlayerCanRemovePartnersClothes()) {
+						if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer())) {
 							return new Response("Displace all (them)", UtilText.parse(inventoryNPC, "You can't displace [npc.name]'s clothing in this sex scene!"), null);
 							
 						} else if(inventoryNPC.getClothingCurrentlyEquipped().isEmpty()) {
@@ -776,7 +776,7 @@ public class InventoryDialogue {
 						return new Response("Replace all (them)", "You can't replace clothing in sex!", null);
 						
 					} else if (index == 8) {
-						if(!Sex.getSexManager().isPlayerCanRemovePartnersClothes()) {
+						if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer())) {
 							return new Response("Unequip all (them)", UtilText.parse(inventoryNPC, "You can't unequip [npc.name]'s clothing in this sex scene!"), null);
 							
 						} else if(inventoryNPC.getClothingCurrentlyEquipped().isEmpty()) {
@@ -970,7 +970,7 @@ public class InventoryDialogue {
 								public void effects() {
 									EnchantmentDialogue.effects.clear();
 									EnchantmentDialogue.resetEnchantmentVariables();
-									EnchantmentDialogue.ingredient = item;
+									EnchantmentDialogue.initModifiers(item);
 								}
 							};
 							
@@ -981,7 +981,7 @@ public class InventoryDialogue {
 									public void effects() {
 										EnchantmentDialogue.effects.clear();
 										EnchantmentDialogue.resetEnchantmentVariables();
-										EnchantmentDialogue.ingredient = item;
+										EnchantmentDialogue.initModifiers(item);
 									}
 								};
 							}
@@ -1185,7 +1185,7 @@ public class InventoryDialogue {
 										public void effects() {
 											EnchantmentDialogue.effects.clear();
 											EnchantmentDialogue.resetEnchantmentVariables();
-											EnchantmentDialogue.ingredient = item;
+											EnchantmentDialogue.initModifiers(item);
 										}
 									};
 									
@@ -1196,7 +1196,7 @@ public class InventoryDialogue {
 											public void effects() {
 												EnchantmentDialogue.effects.clear();
 												EnchantmentDialogue.resetEnchantmentVariables();
-												EnchantmentDialogue.ingredient = item;
+												EnchantmentDialogue.initModifiers(item);
 											}
 										};
 									}
@@ -1472,7 +1472,7 @@ public class InventoryDialogue {
 										public void effects() {
 											EnchantmentDialogue.effects.clear();
 											EnchantmentDialogue.resetEnchantmentVariables();
-											EnchantmentDialogue.ingredient = item;
+											EnchantmentDialogue.initModifiers(item);
 										}
 									};
 									
@@ -1483,7 +1483,7 @@ public class InventoryDialogue {
 											public void effects() {
 												EnchantmentDialogue.effects.clear();
 												EnchantmentDialogue.resetEnchantmentVariables();
-												EnchantmentDialogue.ingredient = item;
+												EnchantmentDialogue.initModifiers(item);
 											}
 										};
 									}
@@ -2188,7 +2188,7 @@ public class InventoryDialogue {
 								public void effects() {
 									EnchantmentDialogue.effects.clear();
 									EnchantmentDialogue.resetEnchantmentVariables();
-									EnchantmentDialogue.ingredient = weapon;
+									EnchantmentDialogue.initModifiers(weapon);
 								}
 							};
 							
@@ -2199,7 +2199,7 @@ public class InventoryDialogue {
 									public void effects() {
 										EnchantmentDialogue.effects.clear();
 										EnchantmentDialogue.resetEnchantmentVariables();
-										EnchantmentDialogue.ingredient = weapon;
+										EnchantmentDialogue.initModifiers(weapon);
 									}
 								};
 							}
@@ -2323,7 +2323,7 @@ public class InventoryDialogue {
 										public void effects() {
 											EnchantmentDialogue.effects.clear();
 											EnchantmentDialogue.resetEnchantmentVariables();
-											EnchantmentDialogue.ingredient = weapon;
+											EnchantmentDialogue.initModifiers(weapon);
 										}
 									};
 									
@@ -2334,7 +2334,7 @@ public class InventoryDialogue {
 											public void effects() {
 												EnchantmentDialogue.effects.clear();
 												EnchantmentDialogue.resetEnchantmentVariables();
-												EnchantmentDialogue.ingredient = weapon;
+												EnchantmentDialogue.initModifiers(weapon);
 											}
 										};
 									}
@@ -2457,7 +2457,7 @@ public class InventoryDialogue {
 										public void effects() {
 											EnchantmentDialogue.effects.clear();
 											EnchantmentDialogue.resetEnchantmentVariables();
-											EnchantmentDialogue.ingredient = weapon;
+											EnchantmentDialogue.initModifiers(weapon);
 										}
 									};
 									
@@ -2468,7 +2468,7 @@ public class InventoryDialogue {
 											public void effects() {
 												EnchantmentDialogue.effects.clear();
 												EnchantmentDialogue.resetEnchantmentVariables();
-												EnchantmentDialogue.ingredient = weapon;
+												EnchantmentDialogue.initModifiers(weapon);
 											}
 										};
 									}
@@ -2969,7 +2969,7 @@ public class InventoryDialogue {
 								public void effects() {
 									EnchantmentDialogue.effects.clear();
 									EnchantmentDialogue.resetEnchantmentVariables();
-									EnchantmentDialogue.ingredient = clothing;
+									EnchantmentDialogue.initModifiers(clothing);
 								}
 							};
 							
@@ -2980,7 +2980,7 @@ public class InventoryDialogue {
 									public void effects() {
 										EnchantmentDialogue.effects.clear();
 										EnchantmentDialogue.resetEnchantmentVariables();
-										EnchantmentDialogue.ingredient = clothing;
+										EnchantmentDialogue.initModifiers(clothing);
 									}
 								};
 							}
@@ -3119,7 +3119,7 @@ public class InventoryDialogue {
 										public void effects() {
 											EnchantmentDialogue.effects.clear();
 											EnchantmentDialogue.resetEnchantmentVariables();
-											EnchantmentDialogue.ingredient = clothing;
+											EnchantmentDialogue.initModifiers(clothing);
 										}
 									};
 									
@@ -3130,7 +3130,7 @@ public class InventoryDialogue {
 											public void effects() {
 												EnchantmentDialogue.effects.clear();
 												EnchantmentDialogue.resetEnchantmentVariables();
-												EnchantmentDialogue.ingredient = clothing;
+												EnchantmentDialogue.initModifiers(clothing);
 											}
 										};
 									}
@@ -3316,7 +3316,7 @@ public class InventoryDialogue {
 										public void effects() {
 											EnchantmentDialogue.effects.clear();
 											EnchantmentDialogue.resetEnchantmentVariables();
-											EnchantmentDialogue.ingredient = clothing;
+											EnchantmentDialogue.initModifiers(clothing);
 										}
 									};
 									
@@ -3327,7 +3327,7 @@ public class InventoryDialogue {
 											public void effects() {
 												EnchantmentDialogue.effects.clear();
 												EnchantmentDialogue.resetEnchantmentVariables();
-												EnchantmentDialogue.ingredient = clothing;
+												EnchantmentDialogue.initModifiers(clothing);
 											}
 										};
 									}
@@ -4586,7 +4586,7 @@ public class InventoryDialogue {
 							}
 							
 						} else if(index == 6 && !clothing.getClothingType().isDiscardedOnUnequip()) {
-							if(!Sex.getSexManager().isPlayerCanRemoveOwnClothes()) {
+							if(!Sex.getSexManager().isAbleToRemoveSelfClothing(Main.game.getPlayer())) {
 								return new Response("Unequip", "You can't unequip the " + clothing.getName() + " in this sex scene!", null);
 							}
 							
@@ -4616,7 +4616,7 @@ public class InventoryDialogue {
 								
 							} else {
 								
-								if(!Sex.getSexManager().isPlayerCanRemoveOwnClothes()) {
+								if(!Sex.getSexManager().isAbleToRemoveSelfClothing(Main.game.getPlayer())) {
 									return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11).getDescription()),
 											"You can't can't "+clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index -11).getDescription() + " your " + clothing.getName() + " in this sex scene!", null);
 								}
@@ -4814,7 +4814,7 @@ public class InventoryDialogue {
 						if (index == 1) {
 							boolean areaFull = Main.game.isPlayerTileFull() && !Main.game.getPlayerCell().getInventory().hasClothing(clothing);
 							if(Main.game.getPlayer().getLocationPlace().isItemsDisappear()) {
-								if(!Sex.getSexManager().isPlayerCanRemovePartnersClothes()) {
+								if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer())) {
 									return new Response("Drop", UtilText.parse(inventoryNPC, "You can't unequip the " + clothing.getName() + " in this sex scene!"), null);
 									
 								} else if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
@@ -4842,7 +4842,7 @@ public class InventoryDialogue {
 								}
 								
 							} else {
-								if(!Sex.getSexManager().isPlayerCanRemovePartnersClothes()) {
+								if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer())) {
 									return new Response("Store", UtilText.parse(inventoryNPC, "You can't unequip the " + clothing.getName() + " in this sex scene!"), null);
 									
 								} else if(areaFull && !clothing.getClothingType().isDiscardedOnUnequip()) {
@@ -4904,7 +4904,7 @@ public class InventoryDialogue {
 							}
 							
 						} else if(index == 6 && !clothing.getClothingType().isDiscardedOnUnequip()) {
-							if(!Sex.getSexManager().isPlayerCanRemovePartnersClothes()) {
+							if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer())) {
 								return new Response("Unequip", "You can't unequip the " + clothing.getName() + " in this sex scene!", null);
 							}
 							
@@ -4937,7 +4937,7 @@ public class InventoryDialogue {
 
 								if(owner.isAbleToBeDisplaced(clothing, clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index -11), false, false, Main.game.getPlayer())){
 									
-									if(!Sex.getSexManager().isPlayerCanRemovePartnersClothes()) {
+									if(!Sex.getSexManager().isAbleToRemoveOthersClothing(Main.game.getPlayer())) {
 										return new Response(Util.capitaliseSentence(clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11).getDescription()),
 												"You "+clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index -11).getDescription() + " the " + clothing.getName() + " in this sex scene!", null);
 									}

@@ -7,6 +7,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.body.Covering;
@@ -19,6 +20,8 @@ import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.RaceStage;
@@ -64,6 +67,10 @@ public class Lilaya extends NPC {
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
+			this.addFetish(Fetish.FETISH_MASOCHIST);
+			this.setFetishDesire(Fetish.FETISH_PREGNANCY, FetishDesire.ZERO_HATE);
+			this.setFetishDesire(Fetish.FETISH_BROODMOTHER, FetishDesire.ZERO_HATE);
+			
 			this.setEyeCovering(new Covering(BodyCoveringType.EYE_DEMON_COMMON, Colour.EYE_YELLOW));
 			this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_BLACK), true);
 			this.setHairStyle(HairStyle.STRAIGHT);
@@ -98,14 +105,16 @@ public class Lilaya extends NPC {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 		
 		this.setWingSize(WingSize.ZERO_TINY.getValue());
+		
+		this.addFetish(Fetish.FETISH_MASOCHIST);
+		this.setFetishDesire(Fetish.FETISH_PREGNANCY, FetishDesire.ZERO_HATE);
+		this.setFetishDesire(Fetish.FETISH_BROODMOTHER, FetishDesire.ZERO_HATE);
 	}
 
 	@Override
 	public boolean isUnique() {
 		return true;
 	}
-	
-	
 	
 	@Override
 	public String getSpeechColour() {
@@ -114,6 +123,14 @@ public class Lilaya extends NPC {
 	
 	@Override
 	public void changeFurryLevel(){
+	}
+	
+	@Override
+	public boolean isRelatedTo(GameCharacter character) {
+		if(character.isPlayer()) {
+			return true;
+		}
+		return super.isRelatedTo(character);
 	}
 	
 	@Override

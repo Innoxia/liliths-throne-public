@@ -21,8 +21,8 @@ import com.lilithsthrone.game.character.attributes.StrengthLevel;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
-import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.MapDisplay;
@@ -831,7 +831,7 @@ public enum RenderingEngine {
 									+ "</p>"
 									+ "<div class='overlay' id='NPC_"+idModifier+"ATTRIBUTES'></div>"
 								+ "</div>"
-									+ "<div class='full-width-container' style='margin:0;padding:0;'>"
+								+ "<div class='full-width-container' style='margin:0;padding:0;'>"
 									+ "<p style='text-align:center;'>"
 										+ "<b>Level " + getCharacterToRender().getLevel()+ "</b> "
 											+ (getCharacterToRender().getRaceStage().getName()!=""

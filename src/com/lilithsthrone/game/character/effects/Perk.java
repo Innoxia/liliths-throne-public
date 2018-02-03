@@ -21,7 +21,7 @@ import com.lilithsthrone.utils.Util.Value;
  * @version 0.1.83
  * @author Innoxia
  */
-public enum Perk implements PerkInterface {
+public enum Perk {
 	
 	// Physical:
 	BRAWLER(20,
@@ -633,7 +633,7 @@ public enum Perk implements PerkInterface {
 		}
 
 		@Override
-		public boolean isAvailable(GameCharacter character, List<PerkInterface> additionalPerks) {
+		public boolean isAvailable(GameCharacter character, List<Perk> additionalPerks) {
 			if (additionalPerks != null) {
 				if (character.hasPerk(Perk.MALE_ATTRACTION)
 						|| additionalPerks.contains(Perk.MALE_ATTRACTION))
@@ -659,7 +659,7 @@ public enum Perk implements PerkInterface {
 		}
 
 		@Override
-		public List<String> getPerkRequirements(GameCharacter character, List<PerkInterface> additionalPerks) {
+		public List<String> getPerkRequirements(GameCharacter character, List<Perk> additionalPerks) {
 			perkRequirementsList.clear();
 
 			if (character.getLevel() < this.requiredLevel.getLevel())
@@ -731,7 +731,7 @@ public enum Perk implements PerkInterface {
 		}
 
 		@Override
-		public boolean isAvailable(GameCharacter character, List<PerkInterface> additionalPerks) {
+		public boolean isAvailable(GameCharacter character, List<Perk> additionalPerks) {
 			if (additionalPerks != null) {
 				if (character.hasPerk(Perk.FEMALE_ATTRACTION)
 						|| additionalPerks.contains(Perk.FEMALE_ATTRACTION))
@@ -757,7 +757,7 @@ public enum Perk implements PerkInterface {
 		}
 
 		@Override
-		public List<String> getPerkRequirements(GameCharacter character, List<PerkInterface> additionalPerks) {
+		public List<String> getPerkRequirements(GameCharacter character, List<Perk> additionalPerks) {
 			perkRequirementsList.clear();
 
 			if (character.getLevel() < this.requiredLevel.getLevel())
@@ -1044,13 +1044,11 @@ public enum Perk implements PerkInterface {
 			modifiersList.addAll(extraEffects);
 	}
 
-	@Override
 	public boolean isAvailable(GameCharacter character) {
 		return isAvailable(character, null);
 	}
 
-	@Override
-	public boolean isAvailable(GameCharacter character, List<PerkInterface> additionalPerks) {
+	public boolean isAvailable(GameCharacter character, List<Perk> additionalPerks) {
 		if (character.getLevel() < this.requiredLevel.getLevel())
 			return false;
 
@@ -1070,8 +1068,7 @@ public enum Perk implements PerkInterface {
 
 	private static List<String> perkRequirementsList = new ArrayList<>();
 
-	@Override
-	public List<String> getPerkRequirements(GameCharacter character, List<PerkInterface> additionalPerks) {
+	public List<String> getPerkRequirements(GameCharacter character, List<Perk> additionalPerks) {
 		perkRequirementsList.clear();
 
 		if (character.getLevel() < this.requiredLevel.getLevel())
@@ -1106,66 +1103,52 @@ public enum Perk implements PerkInterface {
 		return perkRequirementsList;
 	}
 
-	@Override
 	public String getName(GameCharacter owner) {
 		return name;
 	}
 
-	@Override
 	public abstract String getDescription(GameCharacter target);
 
-	@Override
 	public List<String> getModifiersAsStringList() {
 		return modifiersList;
 	}
 
-	@Override
 	public HashMap<Attribute, Integer> getAttributeModifiers() {
 		return attributeModifiers;
 	}
 
-	@Override
 	public abstract String applyPerkGained(GameCharacter character);
 
-	@Override
 	public abstract String applyPerkLost(GameCharacter character);
 
-	@Override
 	public Perk getPreviousLevelPerk() {
 		return null;
 	}
 
-	@Override
 	public Perk getNextLevelPerk() {
 		return null;
 	}
 	
-	@Override
 	public CorruptionLevel getAssociatedCorruptionLevel() {
 		return CorruptionLevel.ZERO_PURE;
 	}
 
-	@Override
 	public int getRenderingPriority() {
 		return renderingPriority;
 	}
 
-	@Override
 	public List<String> getExtraEffects() {
 		return extraEffects;
 	}
 
-	@Override
 	public String getSVGString() {
 		return SVGString;
 	}
 
-	@Override
 	public PerkLevel getRequiredLevel() {
 		return requiredLevel;
 	}
 
-	@Override
 	public PerkCategory getPerkCategory() {
 		return perkCategory;
 	}

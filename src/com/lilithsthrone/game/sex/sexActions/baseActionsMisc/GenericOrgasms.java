@@ -8,7 +8,7 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
-import com.lilithsthrone.game.character.effects.Fetish;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.OrgasmCumTarget;
@@ -564,7 +564,7 @@ public class GenericOrgasms {
 						if(characterOrgasming.isPlayer()) {
 							genericOrgasmSB.append(" Pushing forwards, you ram the knot at the base of your [npc1.cock+] against [npc2.name]'s "+orificeNamePlusDescriptor+"."
 									+ " It's already started to swell up so much that you don't manage to get it inside on the first thrust,"
-										+ " but, after pulling back and slamming your [pc.hips] forwards, you manage to push the thick knot into [npc.her] "+orificeNamePlusDescriptor+".");
+										+ " but, after pulling back and slamming your [pc.hips] forwards, you manage to push the thick knot into [npc2.her] "+orificeNamePlusDescriptor+".");
 						} else {
 							if(characterPenetrated.isPlayer()) {
 								genericOrgasmSB.append(" [npc1.Name] pushes forwards, and you feel [npc1.herHim] ramming the knot at the base of [npc1.her] [npc1.cock+] against your "+orificeNamePlusDescriptor+"."
@@ -1278,10 +1278,10 @@ public class GenericOrgasms {
 							if(characterOrgasming.isPlayer()) {
 								cumTargetSB.append(" After a few seconds, [npc2.name] realises that you're not even close to stopping, and as your [pc.cum+] backs up and starts drooling out of [npc2.her] [npc2.pussy],"
 											+ " [npc2.she] squirms about and lets out a series of [npc2.moans+]."
-											+ " You keep your [npc1.cock] hilted deep down [npc2.her] throat, [npc1.moaning+] as you wait for your [npc1.balls] to run dry.");
+											+ " You keep your [npc1.cock] hilted deep in [npc2.her] [npc2.pussy], [npc1.moaning+] as you wait for your [npc1.balls] to run dry.");
 							} else {
 								cumTargetSB.append(" After a few seconds, you realise that [npc1.name]'s not even close to stopping, and as you feel [npc1.her] "
-										+"[npc1.cum+] backing up and drooling out of your [npc1.pussy], you let out [pc.a_moan+]."
+										+"[npc1.cum+] backing up and drooling out of your [npc2.pussy], you let out [pc.a_moan+]."
 										+ " [npc1.Name] keeps [npc1.her] [npc1.cock] hilted deep in your [npc2.pussy], [npc1.moaning+] as [npc.she] waits for [npc1.her] [npc1.balls] to run dry.");
 							}
 							break;
@@ -1308,7 +1308,7 @@ public class GenericOrgasms {
 			if(characterOrgasming.isPlayer()) {
 				return UtilText.parse(target,
 						" all over [npc.name]'s "+target.getHighestZLayerCoverableArea(area).getName()+"."
-								+ " You grin as your [pc.cum+] splatters onto [npc2.her] clothing, making a mess of [npc2.her] outfit.");
+								+ " You grin as your [pc.cum+] splatters onto [npc.her] clothing, making a mess of [npc.her] outfit.");
 			} else {
 				return UtilText.parse(characterOrgasming, target,
 						" all over [npc2.name]'s "+target.getHighestZLayerCoverableArea(area).getName()+"."
@@ -1681,6 +1681,14 @@ public class GenericOrgasms {
 				return null;
 			}
 		}
+		
+//		@Override
+//		public List<Fetish> getFetishes(GameCharacter character) {
+//			GameCharacter characterPenetrated = Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), PenetrationType.PENIS).get(0);
+//			OrificeType orificePenetrated = Sex.getOrificesBeingPenetratedBy(Main.game.getPlayer(), PenetrationType.PENIS, characterPenetrated).get(0);
+//			
+//			return this.getFetishesFromPenetrationAndOrificeTypes(character, PenetrationType.PENIS, orificePenetrated);
+//		}
 	};
 	
 	public static final SexAction PLAYER_GENERIC_ORGASM_FLOOR = new SexAction(
@@ -2612,7 +2620,7 @@ public class GenericOrgasms {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			
-			boolean partnerListensToRequest = Sex.isDom(Sex.getActivePartner()) || Sex.isSubHasEqualControl();
+			boolean partnerListensToRequest = Sex.isDom(Main.game.getPlayer()) || Sex.isSubHasEqualControl();
 			if(partnerListensToRequest && SexFlags.playerRequestedPullOut) {
 				return false;
 			}
@@ -2663,6 +2671,14 @@ public class GenericOrgasms {
 				return null;
 			}
 		}
+		
+//		@Override
+//		public List<Fetish> getFetishes(GameCharacter character) {
+//			GameCharacter characterPenetrated = Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), PenetrationType.PENIS).get(0);
+//			OrificeType orificePenetrated = Sex.getOrificesBeingPenetratedBy(Sex.getActivePartner(), PenetrationType.PENIS, characterPenetrated).get(0);
+//			
+//			return this.getFetishesFromPenetrationAndOrificeTypes(character, PenetrationType.PENIS, orificePenetrated);
+//		}
 	};
 	
 	public static final SexAction PARTNER_GENERIC_ORGASM_FLOOR = new SexAction(
@@ -2719,7 +2735,7 @@ public class GenericOrgasms {
 		public boolean isBaseRequirementsMet() {
 
 			if(!Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), PenetrationType.PENIS).isEmpty()) {
-				boolean partnerListensToRequest = Sex.isDom(Sex.getActivePartner()) || Sex.isSubHasEqualControl();
+				boolean partnerListensToRequest = Sex.isDom(Main.game.getPlayer()) || Sex.isSubHasEqualControl();
 				if(partnerListensToRequest && SexFlags.playerRequestedCreampie) {
 					return false;
 				}

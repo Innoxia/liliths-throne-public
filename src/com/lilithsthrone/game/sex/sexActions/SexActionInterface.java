@@ -6,8 +6,8 @@ import java.util.Set;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.sex.ArousalIncrease;
@@ -219,31 +219,21 @@ public interface SexActionInterface {
 	public default Response toResponse() {
 		if(isBaseRequirementsMet() && isPhysicallyPossible() && !isBannedFromSexManager()) {
 			
-			// Return null if the player doesn't know about the partners penis/breasts/ass/vagina
+			// Return null if the player doesn't know about the partners penis/vagina
 			if(this.getActionType().isPlayerAction()) {
-				if(this.getParticipantType()==SexParticipantType.CATCHER && getAssociatedPenetrationType()==PenetrationType.PENIS && !Sex.getActivePartner().getPlayerKnowsAreasMap().get(CoverableArea.PENIS)) {
+				if(this.getParticipantType()==SexParticipantType.CATCHER && getAssociatedPenetrationType()==PenetrationType.PENIS && !Sex.getActivePartner().getPlayerKnowsAreas().contains(CoverableArea.PENIS)) {
 					return null;
 				}
 				if(!this.getParticipantType().isUsingSelfOrificeType()) {
 					if(getAssociatedOrificeType()!=null) {
 						switch(getAssociatedOrificeType()){
-							case NIPPLE:
-								if(!Sex.getActivePartner().getPlayerKnowsAreasMap().get(CoverableArea.NIPPLES)) {
-									return null;
-								}
-								break;
-							case ANUS:
-								if(!Sex.getActivePartner().getPlayerKnowsAreasMap().get(CoverableArea.ANUS)) {
-									return null;
-								}
-								break;
 							case URETHRA:
-								if(!Sex.getActivePartner().getPlayerKnowsAreasMap().get(CoverableArea.PENIS)) {
+								if(!Sex.getActivePartner().getPlayerKnowsAreas().contains(CoverableArea.PENIS)) {
 									return null;
 								}
 								break;
 							case VAGINA:
-								if(!Sex.getActivePartner().getPlayerKnowsAreasMap().get(CoverableArea.VAGINA)) {
+								if(!Sex.getActivePartner().getPlayerKnowsAreas().contains(CoverableArea.VAGINA)) {
 									return null;
 								}
 								break;
@@ -287,6 +277,14 @@ public interface SexActionInterface {
 				// The sub stopping penetration actions (not including self-penetration actions) is only available if the sub has equal control:
 				if(getAssociatedPenetrationType()!=null && getAssociatedOrificeType()!=null) {
 					
+					GameCharacter currentCharacterPenetrating = Sex.getPenetratingCharacterUsingOrifice(getOrificeCharacter(), getAssociatedOrificeType());
+					if(currentCharacterPenetrating!=null && !currentCharacterPenetrating.equals(getPenetratingCharacter())) {
+						return null;
+					}
+					if(!Sex.getCharactersBeingPenetratedBy(getPenetratingCharacter(), getAssociatedPenetrationType()).contains(getOrificeCharacter())) {
+						return null;
+					}
+					
 					 // This is a penetrative action between both partners:
 					if(this.getParticipantType()!=SexParticipantType.SELF) {
 						if(getActionType().isPlayerAction()) { // Player is performing action:
@@ -299,6 +297,7 @@ public interface SexActionInterface {
 								return null;
 							}
 						}
+						
 					}
 				}
 				// Check to see if the penetrationType is actually in the orifice:
@@ -483,53 +482,7 @@ public interface SexActionInterface {
 					}
 					
 					if(SexActionInterface.this.getSexPace(Main.game.getPlayer())!=null) {
-						switch(SexActionInterface.this.getSexPace(Main.game.getPlayer())) {
-							case DOM_GENTLE:
-								Main.game.getPlayer().setLust(10);
-								break;
-							case DOM_NORMAL:
-								Main.game.getPlayer().setLust(50);
-								break;
-							case DOM_ROUGH:
-								Main.game.getPlayer().setLust(85);
-								break;
-							case SUB_EAGER:
-								Main.game.getPlayer().setLust(85);
-								break;
-							case SUB_NORMAL:
-								Main.game.getPlayer().setLust(50);
-								break;
-							case SUB_RESISTING:
-								Main.game.getPlayer().setLust(0);
-								break;
-							default:
-								break;
-						}
-					}
-					
-					if(SexActionInterface.this.getSexPace(Sex.getActivePartner())!=null) {
-						switch(SexActionInterface.this.getSexPace(Sex.getActivePartner())) {
-							case DOM_GENTLE:
-								Sex.getActivePartner().setLust(10);
-								break;
-							case DOM_NORMAL:
-								Sex.getActivePartner().setLust(50);
-								break;
-							case DOM_ROUGH:
-								Sex.getActivePartner().setLust(85);
-								break;
-							case SUB_EAGER:
-								Sex.getActivePartner().setLust(85);
-								break;
-							case SUB_NORMAL:
-								Sex.getActivePartner().setLust(50);
-								break;
-							case SUB_RESISTING:
-								Sex.getActivePartner().setLust(0);
-								break;
-							default:
-								break;
-						}
+						Sex.setSexPace(Main.game.getPlayer(), (SexActionInterface.this.getSexPace(Main.game.getPlayer())));
 					}
 					
 					Sex.setSexStarted(true);

@@ -16,47 +16,47 @@ public enum Colour {
 	
 	// This class and BaseColour are beyond saving x_x
 	
-	BASE_WHITE(BaseColour.WHITE, "white"),
-	BASE_GREY(BaseColour.GREY, "grey"),
+	BASE_WHITE(BaseColour.WHITE, "white", Util.newArrayListOfValues(new ListValue<>("white"))),
+	BASE_GREY(BaseColour.GREY, "grey", Util.newArrayListOfValues(new ListValue<>("grey"))),
 	
-	BASE_ROSE(BaseColour.ROSE, "rose"),
-	BASE_LILAC(BaseColour.LILAC, "lilac"),
-	BASE_LILAC_LIGHT(BaseColour.LILAC_LIGHT, "light lilac"),
-	BASE_PURPLE_DARK(BaseColour.PURPLE_DARK, "dark purple"),
-	BASE_PURPLE(BaseColour.PURPLE, "purple"),
-	BASE_PURPLE_LIGHT(BaseColour.PURPLE_LIGHT, "light purple"),
+	BASE_ROSE(BaseColour.ROSE, "rose", Util.newArrayListOfValues(new ListValue<>("rose"))),
+	BASE_LILAC(BaseColour.LILAC, "lilac", Util.newArrayListOfValues(new ListValue<>("lilac"))),
+	BASE_LILAC_LIGHT(BaseColour.LILAC_LIGHT, "light lilac", Util.newArrayListOfValues(new ListValue<>("lightLilac"))),
+	BASE_PURPLE_DARK(BaseColour.PURPLE_DARK, "dark purple", Util.newArrayListOfValues(new ListValue<>("darkPurple"))),
+	BASE_PURPLE(BaseColour.PURPLE, "purple", Util.newArrayListOfValues(new ListValue<>("purple"))),
+	BASE_PURPLE_LIGHT(BaseColour.PURPLE_LIGHT, "light purple", Util.newArrayListOfValues(new ListValue<>("lightPurple"))),
 	
-	BASE_VIOLET(BaseColour.VIOLET, "violet"),
-	BASE_PINK(BaseColour.PINK, "pink"),
-	BASE_PINK_LIGHT(BaseColour.PINK_LIGHT, "light pink"),
-	BASE_PINK_DEEP(BaseColour.PINK_DEEP, "deep pink"),
+	BASE_VIOLET(BaseColour.VIOLET, "violet", Util.newArrayListOfValues(new ListValue<>("violet"))),
+	BASE_PINK(BaseColour.PINK, "pink", Util.newArrayListOfValues(new ListValue<>("pink"))),
+	BASE_PINK_LIGHT(BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues(new ListValue<>("lightPink"))),
+	BASE_PINK_DEEP(BaseColour.PINK_DEEP, "deep pink", Util.newArrayListOfValues(new ListValue<>("deepPink"))),
 		
-	BASE_MAGENTA(BaseColour.MAGENTA, "magenta"),
-	BASE_CRIMSON(BaseColour.CRIMSON, "crimson"),
-	BASE_RED(BaseColour.RED, "red"),
-	BASE_RED_LIGHT(BaseColour.RED_LIGHT, "light red"),
+	BASE_MAGENTA(BaseColour.MAGENTA, "magenta", Util.newArrayListOfValues(new ListValue<>("magenta"))),
+	BASE_CRIMSON(BaseColour.CRIMSON, "crimson", Util.newArrayListOfValues(new ListValue<>("crimson"))),
+	BASE_RED(BaseColour.RED, "red", Util.newArrayListOfValues(new ListValue<>("red"))),
+	BASE_RED_LIGHT(BaseColour.RED_LIGHT, "light red", Util.newArrayListOfValues(new ListValue<>("lightRed"))),
 	
-	BASE_TAN(BaseColour.TAN, "tan"),
-	BASE_BROWN(BaseColour.BROWN, "brown"),
-	BASE_BROWN_DARK(BaseColour.BROWN_DARK, "dark brown"),
-	BASE_ORANGE(BaseColour.ORANGE, "orange"),
-	BASE_GINGER(BaseColour.GINGER, "ginger"),
+	BASE_TAN(BaseColour.TAN, "tan", Util.newArrayListOfValues(new ListValue<>("tan"))),
+	BASE_BROWN(BaseColour.BROWN, "brown", Util.newArrayListOfValues(new ListValue<>("brown"))),
+	BASE_BROWN_DARK(BaseColour.BROWN_DARK, "dark brown", Util.newArrayListOfValues(new ListValue<>("darkBrown"))),
+	BASE_ORANGE(BaseColour.ORANGE, "orange", Util.newArrayListOfValues(new ListValue<>("orange"))),
+	BASE_GINGER(BaseColour.GINGER, "ginger", Util.newArrayListOfValues(new ListValue<>("ginger"))),
 	
-	BASE_GOLD(BaseColour.GOLD, "gold"),
-	BASE_YELLOW(BaseColour.YELLOW, "yellow"),
-	BASE_YELLOW_LIGHT(BaseColour.YELLOW_LIGHT, "light yellow"),
+	BASE_GOLD(BaseColour.GOLD, "gold", Util.newArrayListOfValues(new ListValue<>("gold"))),
+	BASE_YELLOW(BaseColour.YELLOW, "yellow", Util.newArrayListOfValues(new ListValue<>("yellow"))),
+	BASE_YELLOW_LIGHT(BaseColour.YELLOW_LIGHT, "light yellow", Util.newArrayListOfValues(new ListValue<>("lightYellow"))),
 	
-	BASE_GREEN_LIME(BaseColour.GREEN_LIME, "lime green"),
-	BASE_GREEN_LIGHT(BaseColour.GREEN_LIGHT, "light green"),
-	BASE_GREEN(BaseColour.GREEN, "green"),
+	BASE_GREEN_LIME(BaseColour.GREEN_LIME, "lime green", Util.newArrayListOfValues(new ListValue<>("limeGreen"))),
+	BASE_GREEN_LIGHT(BaseColour.GREEN_LIGHT, "light green", Util.newArrayListOfValues(new ListValue<>("lightGreen"))),
+	BASE_GREEN(BaseColour.GREEN, "green", Util.newArrayListOfValues(new ListValue<>("green"))),
 	
-	BASE_AQUA(BaseColour.AQUA, "aqua"),
-	BASE_TEAL(BaseColour.TEAL, "teal"),
-	BASE_BLUE_LIGHT(BaseColour.BLUE_LIGHT, "light blue"),
-	BASE_BLUE(BaseColour.BLUE, "blue"),
-	BASE_BLUE_STEEL(BaseColour.BLUE_STEEL, "steely blue"),
+	BASE_AQUA(BaseColour.AQUA, "aqua", Util.newArrayListOfValues(new ListValue<>("aqua"))),
+	BASE_TEAL(BaseColour.TEAL, "teal", Util.newArrayListOfValues(new ListValue<>("teal"))),
+	BASE_BLUE_LIGHT(BaseColour.BLUE_LIGHT, "light blue", Util.newArrayListOfValues(new ListValue<>("lightBlue"))),
+	BASE_BLUE(BaseColour.BLUE, "blue", Util.newArrayListOfValues(new ListValue<>("blue"))),
+	BASE_BLUE_STEEL(BaseColour.BLUE_STEEL, "steely blue", Util.newArrayListOfValues(new ListValue<>("steelyBlue"))),
 	
-	BASE_BLACK(BaseColour.BLACK, "black"),
+	BASE_BLACK(BaseColour.BLACK, "black", Util.newArrayListOfValues(new ListValue<>("black"))),
 	
 	
 	
@@ -157,6 +157,12 @@ public enum Colour {
 	LUST_STAGE_TWO(Util.newColour(0xFF99D1), Util.newColour(0xfb80ff), "pink"),
 	LUST_STAGE_THREE(Util.newColour(0xFF61AB), Util.newColour(0xf94dff), "pink"),
 	LUST_STAGE_FOUR(Util.newColour(0xFF3377), Util.newColour(0xf824ff), "dark pink"),
+
+	DESIRE_STAGE_ZERO(Util.newColour(0xB699FF), Util.newColour(0xfcb3ff), "purple"),
+	DESIRE_STAGE_ONE(Util.newColour(0xFF99D1), Util.newColour(0xfb80ff), "pink"),
+	DESIRE_STAGE_TWO(Util.newColour(0xFF61AB), Util.newColour(0xf94dff), "pink"),
+	DESIRE_STAGE_THREE(Util.newColour(0xFF3377), Util.newColour(0xf824ff), "dark pink"),
+	DESIRE_STAGE_FOUR(Util.newColour(0xffdf80), Util.newColour(0xffdf80), "gold"),
 
 	AFFECTION(BaseColour.PINK_LIGHT, "light pink",  Util.newArrayListOfValues(new ListValue<>("affection"))),
 	OBEDIENCE(BaseColour.PURPLE_LIGHT, "light purple",  Util.newArrayListOfValues(new ListValue<>("obedience"))),
@@ -322,17 +328,39 @@ public enum Colour {
 
 	// Horns:
 	HORN_WHITE(BaseColour.WHITE, "ivory"),
-	HORN_RED(BaseColour.RED, "red"),
-	HORN_GREY(BaseColour.RED, "grey"),
-	HORN_DARK_GREY(BaseColour.RED, "dark-grey"),
+	HORN_GREY(BaseColour.GREY, "grey"),
+	HORN_DARK_GREY(BaseColour.GREY, "dark-grey"),
 	HORN_BLACK(BaseColour.BLACK, "black"),
+	
+	HORN_RED(BaseColour.RED, "red"),
+	HORN_SCARLET(BaseColour.CRIMSON, "scarlet"),
+	HORN_BROWN(BaseColour.BROWN, "brown"),
+	HORN_DARK_BROWN(BaseColour.BROWN_DARK, "dark brown"),
+	HORN_AMBER(BaseColour.AMBER, "amber"),
+	HORN_PINK(BaseColour.PINK_LIGHT, "light pink"),
+	HORN_GREEN(BaseColour.GREEN, "green"),
+	HORN_BLUE(BaseColour.BLUE_LIGHT, "light blue"),
+	HORN_LILAC(BaseColour.LILAC, "lilac"),
+	HORN_PURPLE(BaseColour.PURPLE, "purple"),
 
+	
 	// Antlers:
 	ANTLER_WHITE(BaseColour.WHITE, "ivory"),
 	ANTLER_TAN(BaseColour.TAN, "tan"),
-	ANTLER_GREY(BaseColour.RED, "grey"),
-	ANTLER_DARK_GREY(BaseColour.RED, "dark-grey"),
+	ANTLER_BROWN(BaseColour.BROWN, "brown"),
+	ANTLER_DARK_BROWN(BaseColour.BROWN_DARK, "dark brown"),
+	ANTLER_GREY(BaseColour.GREY, "grey"),
+	ANTLER_DARK_GREY(BaseColour.GREY, "dark-grey"),
 	ANTLER_BLACK(BaseColour.BLACK, "black"),
+	
+	ANTLER_RED(BaseColour.RED, "red"),
+	ANTLER_SCARLET(BaseColour.CRIMSON, "scarlet"),
+	ANTLER_AMBER(BaseColour.AMBER, "amber"),
+	ANTLER_PINK(BaseColour.PINK_LIGHT, "light pink"),
+	ANTLER_GREEN(BaseColour.GREEN, "green"),
+	ANTLER_BLUE(BaseColour.BLUE_LIGHT, "light blue"),
+	ANTLER_LILAC(BaseColour.LILAC, "lilac"),
+	ANTLER_PURPLE(BaseColour.PURPLE, "purple"),
 
 	// Orifices:
 	ORIFICE_INTERIOR(BaseColour.ROSE, "fleshy-pink"),
@@ -515,17 +543,43 @@ public enum Colour {
 
 	public static List<Colour> hornColours = Util.newArrayListOfValues(
 			new ListValue<Colour>(Colour.HORN_WHITE),
-			new ListValue<Colour>(Colour.HORN_RED),
 			new ListValue<Colour>(Colour.HORN_GREY),
 			new ListValue<Colour>(Colour.HORN_DARK_GREY),
 			new ListValue<Colour>(Colour.HORN_BLACK));
 	
+	public static List<Colour> dyeHornColours = Util.newArrayListOfValues(
+			new ListValue<Colour>(Colour.HORN_RED),
+			new ListValue<Colour>(Colour.HORN_SCARLET),
+			new ListValue<Colour>(Colour.HORN_BROWN),
+			new ListValue<Colour>(Colour.HORN_DARK_BROWN),
+			new ListValue<Colour>(Colour.HORN_AMBER),
+			new ListValue<Colour>(Colour.HORN_PINK),
+			new ListValue<Colour>(Colour.HORN_GREEN),
+			new ListValue<Colour>(Colour.HORN_BLUE),
+			new ListValue<Colour>(Colour.HORN_LILAC),
+			new ListValue<Colour>(Colour.HORN_PURPLE));
+
+	
+	// Antlers:
 	public static List<Colour> antlerColours = Util.newArrayListOfValues(
 			new ListValue<Colour>(Colour.ANTLER_WHITE),
 			new ListValue<Colour>(Colour.ANTLER_TAN),
+			new ListValue<Colour>(Colour.ANTLER_BROWN),
+			new ListValue<Colour>(Colour.ANTLER_DARK_BROWN),
 			new ListValue<Colour>(Colour.ANTLER_GREY),
 			new ListValue<Colour>(Colour.ANTLER_DARK_GREY),
 			new ListValue<Colour>(Colour.ANTLER_BLACK));
+	
+
+	public static List<Colour> dyeAntlerColours = Util.newArrayListOfValues(
+			new ListValue<Colour>(Colour.ANTLER_RED),
+			new ListValue<Colour>(Colour.ANTLER_SCARLET),
+			new ListValue<Colour>(Colour.ANTLER_AMBER),
+			new ListValue<Colour>(Colour.ANTLER_PINK),
+			new ListValue<Colour>(Colour.ANTLER_GREEN),
+			new ListValue<Colour>(Colour.ANTLER_BLUE),
+			new ListValue<Colour>(Colour.ANTLER_LILAC),
+			new ListValue<Colour>(Colour.ANTLER_PURPLE));
 	
 
 	// Orifices:

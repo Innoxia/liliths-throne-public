@@ -12,7 +12,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.FluidCum;
 import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
-import com.lilithsthrone.game.character.effects.Fetish;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -30,8 +30,9 @@ public class AbstractFilledCondom extends AbstractItem implements Serializable, 
 	
 	private String cumProvidor;
 	private FluidCum cum;
+	private int millilitresStored;
 	
-	public AbstractFilledCondom(AbstractItemType itemType, Colour colour, GameCharacter cumProvidor, FluidCum cum) {
+	public AbstractFilledCondom(AbstractItemType itemType, Colour colour, GameCharacter cumProvidor, FluidCum cum, int millilitresStored) {
 		super(itemType);
 		
 		this.cumProvidor = cumProvidor.getId();
@@ -42,9 +43,10 @@ public class AbstractFilledCondom extends AbstractItem implements Serializable, 
 		}
 		this.colourShade = colour;
 		SVGString = getSVGString(itemType.getPathName(), colour);
+		this.millilitresStored = millilitresStored;
 	}
 	
-	public AbstractFilledCondom(AbstractItemType itemType, Colour colour, String cumProvidorId, FluidCum cum) {
+	public AbstractFilledCondom(AbstractItemType itemType, Colour colour, String cumProvidorId, FluidCum cum, int millilitresStored) {
 		super(itemType);
 		
 		this.cumProvidor = cumProvidorId;
@@ -55,6 +57,7 @@ public class AbstractFilledCondom extends AbstractItem implements Serializable, 
 		}
 		this.colourShade = colour;
 		SVGString = getSVGString(itemType.getPathName(), colour);
+		this.millilitresStored = millilitresStored;
 	}
 	
 	@Override
@@ -84,6 +87,7 @@ public class AbstractFilledCondom extends AbstractItem implements Serializable, 
 		CharacterUtils.addAttribute(doc, element, "id", this.getItemType().getId());
 		CharacterUtils.addAttribute(doc, element, "colour", String.valueOf(this.getColour()));
 		CharacterUtils.addAttribute(doc, element, "cumProvidor", this.getCumProvidorId());
+		CharacterUtils.addAttribute(doc, element, "millilitresStored", String.valueOf(this.getMillilitresStored()));
 		
 		Element innerElement = doc.createElement("itemEffects");
 		element.appendChild(innerElement);
@@ -105,7 +109,10 @@ public class AbstractFilledCondom extends AbstractItem implements Serializable, 
 				parentElement.getAttribute("cumProvidor"),
 				((Element) parentElement.getElementsByTagName("cum").item(0)==null
 					?new FluidCum(FluidType.CUM_HUMAN)
-					:FluidCum.loadFromXML((Element) parentElement.getElementsByTagName("cum").item(0), doc)));
+					:FluidCum.loadFromXML((Element) parentElement.getElementsByTagName("cum").item(0), doc)),
+				(parentElement.getAttribute("millilitresStored").isEmpty()
+					?25
+					:Integer.valueOf(parentElement.getAttribute("millilitresStored"))));
 	}
 	
 	private String getSVGString(String pathName, Colour colour) {
@@ -140,12 +147,12 @@ public class AbstractFilledCondom extends AbstractItem implements Serializable, 
 							+ "You can't help but let out a delighted [pc.moan] as you greedily gulp down the slimy fluid."
 							+ " Darting your [pc.tongue] out, you desperately lick up every last drop of cum; only discarding the condom once you're sure that's it's completely empty."
 						+ "</p>"
-						+ target.ingestFluid(getCumProvidor(), cum.getType(), OrificeType.MOUTH, cum.hasFluidModifier(FluidModifier.ADDICTIVE));
+						+ target.ingestFluid(getCumProvidor(), cum.getType(), OrificeType.MOUTH, millilitresStored, cum.getFluidModifiers());
 			} else {
 				return "<p>"
 							+ "You scrunch your [pc.eyes] shut as you gulp down the slimy fluid, trying your best not to think about what you've just done as you throw the now-empty condom to the floor..."
 						+ "</p>"
-						+ target.ingestFluid(getCumProvidor(), cum.getType(), OrificeType.MOUTH, cum.hasFluidModifier(FluidModifier.ADDICTIVE));
+						+ target.ingestFluid(getCumProvidor(), cum.getType(), OrificeType.MOUTH, millilitresStored, cum.getFluidModifiers());
 			}
 			
 		} else {
@@ -154,12 +161,12 @@ public class AbstractFilledCondom extends AbstractItem implements Serializable, 
 							+ "[npc.Name] can't help but let out a delighted [npc.moan] as [npc.she] greedily gulps down the slimy fluid."
 							+ " Darting [npc.her] [npc.tongue] out, [npc.she] desperately licks up every last drop of cum; only discarding the condom once [npc.she]'s sure that's it's completely empty."
 						+ "</p>"
-						+ target.ingestFluid(getCumProvidor(), cum.getType(), OrificeType.MOUTH, cum.hasFluidModifier(FluidModifier.ADDICTIVE));
+						+ target.ingestFluid(getCumProvidor(), cum.getType(), OrificeType.MOUTH, millilitresStored, cum.getFluidModifiers());
 			} else {
 				return "<p>"
 							+ "[npc.Name] scrunches [npc.her] [npc.eyes] shut as [npc.she] gulps down the slimy fluid, trying [npc.her] best not to think about what [npc.she]'s just done as [npc.she] throws the now-empty condom to the floor..."
 						+ "</p>"
-						+ target.ingestFluid(getCumProvidor(), cum.getType(), OrificeType.MOUTH, cum.hasFluidModifier(FluidModifier.ADDICTIVE));
+						+ target.ingestFluid(getCumProvidor(), cum.getType(), OrificeType.MOUTH, millilitresStored, cum.getFluidModifiers());
 			}
 		}
 	}
@@ -174,6 +181,18 @@ public class AbstractFilledCondom extends AbstractItem implements Serializable, 
 
 	public FluidCum getCum() {
 		return cum;
+	}
+
+	public int getMillilitresStored() {
+		return millilitresStored;
+	}
+
+	public void setMillilitresStored(int millilitresStored) {
+		this.millilitresStored = millilitresStored;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 	
 }

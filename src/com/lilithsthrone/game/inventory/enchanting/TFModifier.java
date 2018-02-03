@@ -6,14 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.effects.Fetish;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.7
- * @version 0.1.97
+ * @version 0.1.99
  * @author Innoxia
  */
 public enum TFModifier {
@@ -598,42 +598,42 @@ public enum TFModifier {
 	
 	TF_MOD_BREAST_SHAPE_ROUND("round breasts",
 			"Applies an effect related to making breasts take on a round shape.",
-			"round breasts",
+			"round",
 			"modifier_circle_breastShape_round",
 			Colour.BASE_PURPLE_LIGHT,
 			Rarity.COMMON),
 	
 	TF_MOD_BREAST_SHAPE_NARROW("narrow breasts",
 			"Applies an effect related to making breasts take on a narrow shape.",
-			"narrow breasts",
+			"narrow",
 			"modifier_circle_breastShape_narrow",
 			Colour.BASE_PURPLE_LIGHT,
 			Rarity.COMMON),
 	
 	TF_MOD_BREAST_SHAPE_WIDE("wide breasts",
 			"Applies an effect related to making breasts take on a wide shape.",
-			"wide breasts",
+			"wide",
 			"modifier_circle_breastShape_wide",
 			Colour.BASE_PURPLE_LIGHT,
 			Rarity.COMMON),
 	
 	TF_MOD_BREAST_SHAPE_POINTY("pointy breasts",
 			"Applies an effect related to making breasts take on a pointy shape.",
-			"pointy breasts",
+			"pointy",
 			"modifier_circle_breastShape_pointy",
 			Colour.BASE_PURPLE_LIGHT,
 			Rarity.COMMON),
 	
 	TF_MOD_BREAST_SHAPE_PERKY("perky breasts",
 			"Applies an effect related to making breasts take on a perky shape.",
-			"perky breasts",
+			"perky",
 			"modifier_circle_breastShape_perky",
 			Colour.BASE_PURPLE_LIGHT,
 			Rarity.COMMON),
 	
 	TF_MOD_BREAST_SHAPE_SIDESET("side-set breasts",
 			"Applies an effect related to making breasts take on a side-set shape.",
-			"side-set breasts",
+			"side-set",
 			"modifier_circle_breastShape_sideset",
 			Colour.BASE_PURPLE_LIGHT,
 			Rarity.COMMON),
@@ -912,34 +912,57 @@ public enum TFModifier {
 	
 	// Fetishes:
 	
+	TF_MOD_FETISH_BODY_PART("body part fetishes",
+			"Applies an effect related to a body part fetish.",
+			"fetish",
+			"modifier_circle_desires",
+			Colour.BASE_PINK,
+			Rarity.COMMON),
+
+	TF_MOD_FETISH_BEHAVIOUR("behavioural fetishes",
+			"Applies an effect related to a behavioural fetish.",
+			"fetish",
+			"modifier_circle_desires",
+			Colour.BASE_PURPLE,
+			Rarity.COMMON),
+	
+	
 	TF_MOD_FETISH_ANAL_GIVING(Fetish.FETISH_ANAL_GIVING),
 	TF_MOD_FETISH_ANAL_RECEIVING(Fetish.FETISH_ANAL_RECEIVING),
-	TF_MOD_FETISH_BIMBO(Fetish.FETISH_BIMBO),
+	TF_MOD_FETISH_VAGINAL_GIVING(Fetish.FETISH_VAGINAL_GIVING),
+	TF_MOD_FETISH_VAGINAL_RECEIVING(Fetish.FETISH_VAGINAL_RECEIVING),
 	TF_MOD_FETISH_BREASTS_OTHERS(Fetish.FETISH_BREASTS_OTHERS),
 	TF_MOD_FETISH_BREASTS_SELF(Fetish.FETISH_BREASTS_SELF),
+	TF_MOD_FETISH_ORAL_GIVING(Fetish.FETISH_ORAL_GIVING),
+	TF_MOD_FETISH_ORAL_RECEIVING(Fetish.FETISH_ORAL_RECEIVING),
+	TF_MOD_FETISH_LEG_LOVER(Fetish.FETISH_LEG_LOVER),
+	TF_MOD_FETISH_STRUTTER(Fetish.FETISH_STRUTTER),
+	
+	
+	TF_MOD_FETISH_DOMINANT(Fetish.FETISH_DOMINANT),
+	TF_MOD_FETISH_SUBMISSIVE(Fetish.FETISH_SUBMISSIVE),
 	TF_MOD_FETISH_BROODMOTHER(Fetish.FETISH_BROODMOTHER),
 	TF_MOD_FETISH_CROSS_DRESSER(Fetish.FETISH_CROSS_DRESSER),
 	TF_MOD_FETISH_CUM_ADDICT(Fetish.FETISH_CUM_ADDICT),
 	TF_MOD_FETISH_CUM_STUD(Fetish.FETISH_CUM_STUD),
 	TF_MOD_FETISH_DEFLOWERING(Fetish.FETISH_DEFLOWERING),
 	TF_MOD_FETISH_DENIAL(Fetish.FETISH_DENIAL),
-	TF_MOD_FETISH_DOMINANT(Fetish.FETISH_DOMINANT),
+	TF_MOD_FETISH_DENIAL_SELF(Fetish.FETISH_DENIAL_SELF),
 	TF_MOD_FETISH_EXHIBITIONIST(Fetish.FETISH_EXHIBITIONIST),
+	TF_MOD_FETISH_VOYEURIST(Fetish.FETISH_VOYEURIST),
 	TF_MOD_FETISH_IMPREGNATION(Fetish.FETISH_IMPREGNATION),
 	TF_MOD_FETISH_INCEST(Fetish.FETISH_INCEST),
 	TF_MOD_FETISH_MASOCHIST(Fetish.FETISH_MASOCHIST),
 	TF_MOD_FETISH_MASTURBATION(Fetish.FETISH_MASTURBATION),
 	TF_MOD_FETISH_NON_CON_DOM(Fetish.FETISH_NON_CON_DOM),
 	TF_MOD_FETISH_NON_CON_SUB(Fetish.FETISH_NON_CON_SUB),
-	TF_MOD_FETISH_ORAL_GIVING(Fetish.FETISH_ORAL_GIVING),
-	TF_MOD_FETISH_ORAL_RECEIVING(Fetish.FETISH_ORAL_RECEIVING),
 	TF_MOD_FETISH_PREGNANCY(Fetish.FETISH_PREGNANCY),
 	TF_MOD_FETISH_PURE_VIRGIN(Fetish.FETISH_PURE_VIRGIN),
 	TF_MOD_FETISH_SADIST(Fetish.FETISH_SADIST),
 	TF_MOD_FETISH_SEEDER(Fetish.FETISH_SEEDER),
-	TF_MOD_FETISH_SUBMISSIVE(Fetish.FETISH_SUBMISSIVE),
 	TF_MOD_FETISH_TRANSFORMATION_GIVING(Fetish.FETISH_TRANSFORMATION_GIVING),
 	TF_MOD_FETISH_TRANSFORMATION_RECEIVING(Fetish.FETISH_TRANSFORMATION_RECEIVING),
+	TF_MOD_FETISH_BIMBO(Fetish.FETISH_BIMBO),
 	;
 
 	
@@ -951,7 +974,8 @@ public enum TFModifier {
 		TFModSexualList = new ArrayList<>(),
 		TFAttributeList = new ArrayList<>(),
 		TFRacialBodyPartsList = new ArrayList<>(),
-		TFFetishList = new ArrayList<>();
+		TFBodyPartFetishList = new ArrayList<>(),
+		TFBehaviouralFetishList = new ArrayList<>();
 	
 	static {
 
@@ -1016,35 +1040,44 @@ public enum TFModifier {
 		TFAttributeList.add(NONE);
 		TFAttributeList.add(ARCANE_BOOST);
 		
-		
-		TFFetishList.add(TF_MOD_FETISH_ANAL_GIVING);
-		TFFetishList.add(TF_MOD_FETISH_ANAL_RECEIVING);
-		TFFetishList.add(TF_MOD_FETISH_BIMBO);
-		TFFetishList.add(TF_MOD_FETISH_BREASTS_OTHERS);
-		TFFetishList.add(TF_MOD_FETISH_BREASTS_SELF);
-		TFFetishList.add(TF_MOD_FETISH_BROODMOTHER);
-		TFFetishList.add(TF_MOD_FETISH_CROSS_DRESSER);
-		TFFetishList.add(TF_MOD_FETISH_CUM_ADDICT);
-		TFFetishList.add(TF_MOD_FETISH_CUM_STUD);
-		TFFetishList.add(TF_MOD_FETISH_DEFLOWERING);
-		TFFetishList.add(TF_MOD_FETISH_DENIAL);
-		TFFetishList.add(TF_MOD_FETISH_DOMINANT);
-		TFFetishList.add(TF_MOD_FETISH_EXHIBITIONIST);
-		TFFetishList.add(TF_MOD_FETISH_IMPREGNATION);
-		TFFetishList.add(TF_MOD_FETISH_INCEST);
-		TFFetishList.add(TF_MOD_FETISH_MASOCHIST);
-		TFFetishList.add(TF_MOD_FETISH_MASTURBATION);
-		TFFetishList.add(TF_MOD_FETISH_NON_CON_DOM);
-		TFFetishList.add(TF_MOD_FETISH_NON_CON_SUB);
-		TFFetishList.add(TF_MOD_FETISH_ORAL_GIVING);
-		TFFetishList.add(TF_MOD_FETISH_ORAL_RECEIVING);
-		TFFetishList.add(TF_MOD_FETISH_PREGNANCY);
-		TFFetishList.add(TF_MOD_FETISH_PURE_VIRGIN);
-		TFFetishList.add(TF_MOD_FETISH_SADIST);
-		TFFetishList.add(TF_MOD_FETISH_SEEDER);
-		TFFetishList.add(TF_MOD_FETISH_SUBMISSIVE);
-		TFFetishList.add(TF_MOD_FETISH_TRANSFORMATION_GIVING);
-		TFFetishList.add(TF_MOD_FETISH_TRANSFORMATION_RECEIVING);
+
+		TFBodyPartFetishList.add(NONE);
+		TFBodyPartFetishList.add(TF_MOD_FETISH_ANAL_GIVING);
+		TFBodyPartFetishList.add(TF_MOD_FETISH_ANAL_RECEIVING);
+		TFBodyPartFetishList.add(TF_MOD_FETISH_BREASTS_OTHERS);
+		TFBodyPartFetishList.add(TF_MOD_FETISH_BREASTS_SELF);
+		TFBodyPartFetishList.add(TF_MOD_FETISH_ORAL_GIVING);
+		TFBodyPartFetishList.add(TF_MOD_FETISH_ORAL_RECEIVING);
+		TFBodyPartFetishList.add(TF_MOD_FETISH_VAGINAL_GIVING);
+		TFBodyPartFetishList.add(TF_MOD_FETISH_VAGINAL_RECEIVING);
+		TFBodyPartFetishList.add(TF_MOD_FETISH_LEG_LOVER);
+		TFBodyPartFetishList.add(TF_MOD_FETISH_STRUTTER);
+
+		TFBehaviouralFetishList.add(NONE);
+		TFBehaviouralFetishList.add(TF_MOD_FETISH_DOMINANT);
+		TFBehaviouralFetishList.add(TF_MOD_FETISH_SUBMISSIVE);
+		TFBehaviouralFetishList.add(TF_MOD_FETISH_CUM_STUD);
+		TFBehaviouralFetishList.add(TF_MOD_FETISH_CUM_ADDICT);
+		TFBehaviouralFetishList.add(TF_MOD_FETISH_DEFLOWERING);
+		TFBehaviouralFetishList.add(TF_MOD_FETISH_PURE_VIRGIN);
+		TFBehaviouralFetishList.add(TF_MOD_FETISH_IMPREGNATION);
+		TFBehaviouralFetishList.add(TF_MOD_FETISH_PREGNANCY);
+		TFBehaviouralFetishList.add(TF_MOD_FETISH_SEEDER);
+		TFBehaviouralFetishList.add(TF_MOD_FETISH_BROODMOTHER);
+		TFBehaviouralFetishList.add(TF_MOD_FETISH_TRANSFORMATION_GIVING);
+		TFBehaviouralFetishList.add(TF_MOD_FETISH_TRANSFORMATION_RECEIVING);
+		TFBehaviouralFetishList.add(TF_MOD_FETISH_SADIST);
+		TFBehaviouralFetishList.add(TF_MOD_FETISH_MASOCHIST);
+		TFBehaviouralFetishList.add(TF_MOD_FETISH_NON_CON_DOM);
+		TFBehaviouralFetishList.add(TF_MOD_FETISH_NON_CON_SUB);
+		TFBehaviouralFetishList.add(TF_MOD_FETISH_DENIAL);
+		TFBehaviouralFetishList.add(TF_MOD_FETISH_DENIAL_SELF);
+		TFBehaviouralFetishList.add(TF_MOD_FETISH_VOYEURIST);
+		TFBehaviouralFetishList.add(TF_MOD_FETISH_EXHIBITIONIST);
+		TFBehaviouralFetishList.add(TF_MOD_FETISH_BIMBO);
+		TFBehaviouralFetishList.add(TF_MOD_FETISH_CROSS_DRESSER);
+		TFBehaviouralFetishList.add(TF_MOD_FETISH_MASTURBATION);
+		TFBehaviouralFetishList.add(TF_MOD_FETISH_INCEST);
 	}
 	
 	
@@ -1214,8 +1247,12 @@ public enum TFModifier {
 		return TFAttributeList;
 	}
 
-	public static List<TFModifier> getTFFetishList() {
-		return TFFetishList;
+	public static List<TFModifier> getTFBodyPartFetishList() {
+		return TFBodyPartFetishList;
+	}
+	
+	public static List<TFModifier> getTFBehaviouralFetishList() {
+		return TFBehaviouralFetishList;
 	}
 
 	public Fetish getFetish() {

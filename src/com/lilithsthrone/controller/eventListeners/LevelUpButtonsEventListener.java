@@ -4,8 +4,8 @@ import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.effects.Fetish;
 import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.PhoneDialogue;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;

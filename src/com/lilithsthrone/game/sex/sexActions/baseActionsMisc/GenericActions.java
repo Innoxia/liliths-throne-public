@@ -8,7 +8,7 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
-import com.lilithsthrone.game.character.effects.Fetish;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
@@ -419,7 +419,7 @@ public class GenericActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Sex.isDom(Main.game.getPlayer()) && !Sex.isSubHasEqualControl()) && (Sex.isPartnerCanRemovePlayersClothes());
+			return (Sex.isDom(Main.game.getPlayer()) && !Sex.isSubHasEqualControl()) && Sex.isCanRemoveOthersClothing(Sex.getActivePartner());
 		}
 
 		@Override
@@ -430,7 +430,7 @@ public class GenericActions {
 
 		@Override
 		public void applyEffects() {
-			Sex.setPartnerCanRemovePlayersClothes(false);
+			Sex.setCanRemoveOthersClothing(Sex.getActivePartner(), false);
 		}
 	};
 	
@@ -454,7 +454,7 @@ public class GenericActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Sex.isDom(Main.game.getPlayer()) && !Sex.isSubHasEqualControl()) && (!Sex.isPartnerCanRemovePlayersClothes());
+			return (Sex.isDom(Main.game.getPlayer()) && !Sex.isSubHasEqualControl()) && !Sex.isCanRemoveOthersClothing(Sex.getActivePartner());
 		}
 
 		@Override
@@ -465,7 +465,7 @@ public class GenericActions {
 
 		@Override
 		public void applyEffects() {
-			Sex.setPartnerCanRemovePlayersClothes(true);
+			Sex.setCanRemoveOthersClothing(Sex.getActivePartner(), true);
 		}
 	};
 	
@@ -489,7 +489,7 @@ public class GenericActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Sex.isDom(Main.game.getPlayer()) && !Sex.isSubHasEqualControl()) && (Sex.isPartnerCanRemoveOwnClothes());
+			return (Sex.isDom(Main.game.getPlayer()) && !Sex.isSubHasEqualControl()) && Sex.isCanRemoveSelfClothing(Sex.getActivePartner());
 		}
 
 		@Override
@@ -500,7 +500,7 @@ public class GenericActions {
 
 		@Override
 		public void applyEffects() {
-			Sex.setPartnerCanRemoveOwnClothes(false);
+			Sex.setCanRemoveSelfClothing(Sex.getActivePartner(), false);
 		}
 	};
 	
@@ -524,7 +524,7 @@ public class GenericActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (Sex.isDom(Main.game.getPlayer()) && !Sex.isSubHasEqualControl()) && (!Sex.isPartnerCanRemoveOwnClothes());
+			return (Sex.isDom(Main.game.getPlayer()) && !Sex.isSubHasEqualControl()) && !Sex.isCanRemoveSelfClothing(Sex.getActivePartner());
 		}
 
 		@Override
@@ -535,7 +535,7 @@ public class GenericActions {
 
 		@Override
 		public void applyEffects() {
-			Sex.setPartnerCanRemoveOwnClothes(true);
+			Sex.setCanRemoveSelfClothing(Sex.getActivePartner(), true);
 		}
 	};
 	
@@ -810,6 +810,50 @@ public class GenericActions {
 			} else {
 				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT));
 			}
+		}
+	};
+	
+	public static final SexAction PARTNER_STOP_SEX_NOT_HAVING_FUN = new SexAction(
+			SexActionType.PARTNER_SPECIAL,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ONE_MINIMUM,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			null,
+			SexParticipantType.MISC) {
+		@Override
+		public String getActionTitle() {
+			return "";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "";
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			if(!Sex.isDom(Sex.getActivePartner())) {
+				return Sex.getSexPace(Sex.getActivePartner()) == SexPace.SUB_RESISTING && !Sex.getActivePartner().hasFetish(Fetish.FETISH_NON_CON_SUB) && Sex.isSubHasEqualControl();
+			} else {
+				return Sex.getActivePartner().getLust()==0;
+			}
+		}
+		
+		@Override
+		public SexActionPriority getPriority() {
+			return SexActionPriority.HIGH;
+		}
+		
+		@Override
+		public String getDescription() {
+			return "With an annoyed sigh, [npc.name] disentangles [npc.herself] from your clutches,"
+					+ " [npc.speechNoEffects(Eugh... I'm not really feeling this right now, ok?)]";
+		}
+		
+		@Override
+		public boolean endsSex() {
+			return true;
 		}
 	};
 	

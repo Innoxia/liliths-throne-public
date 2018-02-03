@@ -6,7 +6,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.AffectionLevelBasic;
 import com.lilithsthrone.game.character.attributes.ObedienceLevelBasic;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.effects.Fetish;
+import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.race.Race;
@@ -444,15 +444,15 @@ public class SlaveDialogue {
 							public void effects() {
 								slave().NPCFlagValues.add(NPCFlagValue.flagSlaveInspect);
 	
-								Main.game.getActiveNPC().getPlayerKnowsAreasMap().put(CoverableArea.ANUS, true);
-								Main.game.getActiveNPC().getPlayerKnowsAreasMap().put(CoverableArea.ASS, true);
-								Main.game.getActiveNPC().getPlayerKnowsAreasMap().put(CoverableArea.BREASTS, true);
-								Main.game.getActiveNPC().getPlayerKnowsAreasMap().put(CoverableArea.MOUND, true);
-								Main.game.getActiveNPC().getPlayerKnowsAreasMap().put(CoverableArea.MOUTH, true);
-								Main.game.getActiveNPC().getPlayerKnowsAreasMap().put(CoverableArea.NIPPLES, true);
-								Main.game.getActiveNPC().getPlayerKnowsAreasMap().put(CoverableArea.PENIS, true);
-								Main.game.getActiveNPC().getPlayerKnowsAreasMap().put(CoverableArea.TESTICLES, true);
-								Main.game.getActiveNPC().getPlayerKnowsAreasMap().put(CoverableArea.VAGINA, true);
+								Main.game.getActiveNPC().getPlayerKnowsAreas().add(CoverableArea.ANUS);
+								Main.game.getActiveNPC().getPlayerKnowsAreas().add(CoverableArea.ASS);
+								Main.game.getActiveNPC().getPlayerKnowsAreas().add(CoverableArea.BREASTS);
+								Main.game.getActiveNPC().getPlayerKnowsAreas().add(CoverableArea.MOUND);
+								Main.game.getActiveNPC().getPlayerKnowsAreas().add(CoverableArea.MOUTH);
+								Main.game.getActiveNPC().getPlayerKnowsAreas().add(CoverableArea.NIPPLES);
+								Main.game.getActiveNPC().getPlayerKnowsAreas().add(CoverableArea.PENIS);
+								Main.game.getActiveNPC().getPlayerKnowsAreas().add(CoverableArea.TESTICLES);
+								Main.game.getActiveNPC().getPlayerKnowsAreas().add(CoverableArea.VAGINA);
 								
 								Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -5));
 								Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementObedience(5));
