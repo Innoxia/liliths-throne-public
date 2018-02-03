@@ -16,7 +16,7 @@ http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.h
 5. Put github.com into the second box in Location, this may be done automatically.
 6. Put /Innoxia/liliths-throne-public in the third box in Location, this may be done automatically. Then click Next
 7. The wizard will now ask which branch you want, this will be "master", select this and then click next.
-8. Unless you want to change the directory, click Next, It will now download the repository.
+8. Unless you want to change the directory, click Next.
 9. It will now download the repository.
 10. Make sure "Import existing Eclipse projects" is selected, then click Next.
 11. Make sure the Lilith's Throne project is selected, then click Finish.
@@ -27,9 +27,15 @@ http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.h
 16. Click Finish, A warning may pop up saying "JAR export finished with warnings" This is fine.
 17. You should now be able to run the exported .jar file!
 
+If the jar does not run:
+1. Check menu:File->Properties->left pane:Java Build Path->tab:Libraries
+2. If this does not list a jdk 1.8 system library, download the jdk from the above oracle link
+3. Extract it and follow instructions in eclipse menu:help->Search->type:'Adding a new JRE definition'
+4. Possibly you may have to menu:Source->Clean Up, then try again steps 12-17.
+
 ## Help
 #### No Launch Configuration OR "Could not find main method from given launch configuration."
-1. First close the Export wizard
+1. First close the Export wizard, and click on the icon in the top of the left pane.
 2. Select the Project in the Package Explorer
 3. In the top bar, click Project, and then Properties
 4. In the left column, select Run/Debug Settings
