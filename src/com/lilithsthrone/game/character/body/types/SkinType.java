@@ -32,9 +32,7 @@ public enum SkinType implements BodyPartTypeInterface {
 
 	REINDEER_MORPH(BodyCoveringType.REINDEER_FUR, Race.REINDEER_MORPH),
 
-	HARPY(BodyCoveringType.FEATHERS, Race.HARPY),
-
-	SLIME(BodyCoveringType.SLIME, Race.SLIME);
+	HARPY(BodyCoveringType.FEATHERS, Race.HARPY);
 
 	
 	private BodyCoveringType coveringType;
@@ -65,15 +63,15 @@ public enum SkinType implements BodyPartTypeInterface {
 	@Override
 	public String getNameSingular(GameCharacter gc) {
 		switch(coveringType) {
-		case HAIR_HARPY:
-			return "feather";
-		case ALLIGATOR_SCALES:
-			return "scale";
-		case HAIR_SLIME:
-			return "slime";
-		default:
-			return coveringType.getName(gc);
-	}
+			case HAIR_HARPY:
+				return "feather";
+			case ALLIGATOR_SCALES:
+				return "scale";
+			case SLIME:
+				return "slime";
+			default:
+				return coveringType.getName(gc);
+		}
 	}
 	
 	@Override
@@ -83,7 +81,7 @@ public enum SkinType implements BodyPartTypeInterface {
 				return "feathers";
 			case ALLIGATOR_SCALES:
 				return "scales";
-			case HAIR_SLIME:
+			case SLIME:
 				return "slime";
 			default:
 				return coveringType.getNamePlural(gc);
@@ -117,8 +115,6 @@ public enum SkinType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("");
 			case LYCAN:
 				return UtilText.returnStringAtRandom("wolf-like");
-			case SLIME:
-				return UtilText.returnStringAtRandom("slimy", "gooey");
 			default:
 				return UtilText.returnStringAtRandom("");
 		}

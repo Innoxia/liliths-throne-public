@@ -296,8 +296,23 @@ public enum Sex {
 		forceSexPaceMap = new HashMap<>();
 		
 		for(GameCharacter character : Sex.getAllParticipants()) {
+			// Default starting lust and arousal:
 			character.setLust(50);
 			character.setArousal(0);
+			if(Sex.isDom(character)) {
+				if(character.hasFetish(Fetish.FETISH_DOMINANT)) {
+					character.setLust(85);
+					character.setArousal(10);
+				} else if(character.hasFetish(Fetish.FETISH_SUBMISSIVE)) {
+					character.setLust(10);
+				}
+			} else {
+				if(character.hasFetish(Fetish.FETISH_SUBMISSIVE)) {
+					character.setLust(85);
+					character.setArousal(10);
+				}
+			}
+			
 			
 			if(Main.getProperties().nonConContent) {
 				if(!character.isPlayer()) {

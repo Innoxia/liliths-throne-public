@@ -699,22 +699,6 @@ public class Vagina implements BodyPartInterface, Serializable {
 						+ "</p>"));
 				}
 				break;
-			case SLIME://TODO
-				if(owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-							" You let out a squeal of excitement as a wave of pleasure runs up from your groin, and you feel your slit shifting and contracting with a mind of its own."
-							+ "</br>"
-							+ "You now have an [style.boldSlime(slime vagina)], with [pc.pussyColourPrimary(true)] labia and [pc.pussyColourSecondary(true)] internal walls."
-						+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(UtilText.parse(owner, 
-							" [npc.She] lets out a squeal of excitement as a wave of pleasure runs up through [npc.her] groin, and as [npc.she] feels [npc.her] slit shifting and contracting with a mind of its own,"
-									+ " [npc.she] desperately clamps [npc.her] [npc.legs] shut."
-							+ "</br>"
-							+ "[npc.Name] now has an [style.boldSlime(slime vagina)], with [npc.pussyColourPrimary(true)] labia and [npc.pussyColourSecondary(true)] internal walls."
-						+ "</p>"));
-				}
-				break;
 			case ANGEL://TODO
 				break;
 		}

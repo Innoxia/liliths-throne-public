@@ -1816,8 +1816,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			case HUMAN:
 				value = 400;
 				break;
-			case SLIME:
-				break;
 			case SQUIRREL_MORPH:
 				value = 600;
 				break;
@@ -6373,8 +6371,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 										break;
 									case NONE:
 										break;
-									case SLIME:
-										break;
 								}
 							}
 							break;
@@ -6445,8 +6441,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 									case HUMAN:
 										break;
 									case NONE:
-										break;
-									case SLIME:
 										break;
 								}
 							}
@@ -6519,8 +6513,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 										break;
 									case NONE:
 										break;
-									case SLIME:
-										break;
 								}
 							}
 							break;
@@ -6591,8 +6583,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 										break;
 									case NONE:
 										break;
-									case SLIME:
-										break;
 								}
 							}
 							break;
@@ -6640,8 +6630,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 									case HUMAN:
 										break;
 									case NONE:
-										break;
-									case SLIME:
 										break;
 								}
 							}
@@ -10166,8 +10154,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				return BodyCoveringType.BODY_HAIR_REINDEER_HAIR;
 			case HUMAN:
 				return BodyCoveringType.BODY_HAIR_HUMAN;
-			case SLIME:
-				return BodyCoveringType.BODY_HAIR_SLIME;
 			case SQUIRREL_MORPH:
 				return BodyCoveringType.BODY_HAIR_SQUIRREL_FUR;
 			case WOLF_MORPH:

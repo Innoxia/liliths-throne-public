@@ -235,8 +235,6 @@ public class Eye implements BodyPartInterface, Serializable {
 				break;
 			case ANGEL://TODO
 				break;
-			case SLIME://TODO
-				break;
 		}
 		
 		if(owner.isPlayer()) {

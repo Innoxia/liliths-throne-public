@@ -32,8 +32,6 @@ public enum FaceType implements BodyPartTypeInterface {
 
 	REINDEER_MORPH(BodyCoveringType.REINDEER_FUR, MouthType.REINDEER_MORPH, TongueType.REINDEER_MORPH, Race.REINDEER_MORPH),
 
-	SLIME(BodyCoveringType.SLIME, MouthType.SLIME, TongueType.SLIME, Race.SLIME),
-
 	HARPY(BodyCoveringType.FEATHERS, MouthType.HARPY, TongueType.TENGU, Race.HARPY);
 
 	private BodyCoveringType skinType;
@@ -117,8 +115,6 @@ public enum FaceType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("");
 			case LYCAN:
 				return UtilText.returnStringAtRandom("anthropomorphic wolf-like", "wolf-like");
-			case SLIME:
-				return UtilText.returnStringAtRandom("slimy");
 			default:
 				return UtilText.returnStringAtRandom("");
 		}
@@ -150,8 +146,6 @@ public enum FaceType implements BodyPartTypeInterface {
 				return "human";
 			case LYCAN:
 				return "lupine";
-			case SLIME:
-				return "slimy";
 		}
 		return "";
 	}

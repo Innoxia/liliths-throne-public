@@ -38,9 +38,7 @@ public enum NippleType implements BodyPartTypeInterface {
 	
 	REINDEER_MORPH(BodyCoveringType.NIPPLES, Race.REINDEER_MORPH),
 	
-	HARPY(BodyCoveringType.NIPPLES, Race.HARPY),
-
-	SLIME(BodyCoveringType.NIPPLES_SLIME, Race.SLIME);
+	HARPY(BodyCoveringType.NIPPLES, Race.HARPY);
 
 	
 	private BodyCoveringType skinType;
@@ -105,9 +103,6 @@ public enum NippleType implements BodyPartTypeInterface {
 				break;
 			case HUMAN:
 				descriptor = new String[] { "" };
-				break;
-			case SLIME:
-				descriptor = new String[] { "gooey" };
 				break;
 			default:
 				descriptor = new String[] { "" };

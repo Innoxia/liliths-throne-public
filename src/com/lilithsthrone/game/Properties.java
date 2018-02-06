@@ -592,16 +592,24 @@ public class Properties implements Serializable {
 					for(int i=0; i<element.getElementsByTagName("preferenceFeminine").getLength(); i++){
 						Element e = ((Element)element.getElementsByTagName("preferenceFeminine").item(i));
 						
-						if(!e.getAttribute("race").isEmpty())
-							raceFemininePreferencesMap.put(Race.valueOf(e.getAttribute("race")), FurryPreference.valueOf(e.getAttribute("preference")));
+						if(!e.getAttribute("race").isEmpty()) {
+							try {
+								raceFemininePreferencesMap.put(Race.valueOf(e.getAttribute("race")), FurryPreference.valueOf(e.getAttribute("preference")));
+							} catch(Exception ex) {
+							}
+						}
 					}
 				}
 				if(element!=null && element.getElementsByTagName("preferenceMasculine")!=null) {
 					for(int i=0; i<element.getElementsByTagName("preferenceMasculine").getLength(); i++){
 						Element e = ((Element)element.getElementsByTagName("preferenceMasculine").item(i));
 						
-						if(!e.getAttribute("race").isEmpty())
-							raceMasculinePreferencesMap.put(Race.valueOf(e.getAttribute("race")), FurryPreference.valueOf(e.getAttribute("preference")));
+						if(!e.getAttribute("race").isEmpty()) {
+							try {
+								raceMasculinePreferencesMap.put(Race.valueOf(e.getAttribute("race")), FurryPreference.valueOf(e.getAttribute("preference")));
+							} catch(Exception ex) {
+							}
+						}
 					}
 				}
 				
@@ -651,12 +659,18 @@ public class Properties implements Serializable {
 						
 						if(!e.getAttribute("discovered").isEmpty()) {
 							if(Boolean.valueOf(e.getAttribute("discovered"))) {
-								this.racesDiscovered.add(Race.valueOf(e.getAttribute("race")));
+								try {
+									this.racesDiscovered.add(Race.valueOf(e.getAttribute("race")));
+								} catch(Exception ex) {
+								}
 							}
 						}
 						if(!e.getAttribute("advancedKnowledge").isEmpty()) {
 							if(Boolean.valueOf(e.getAttribute("advancedKnowledge"))) {
-								this.racesAdvancedKnowledge.add(Race.valueOf(e.getAttribute("race")));
+								try {
+									this.racesAdvancedKnowledge.add(Race.valueOf(e.getAttribute("race")));
+								} catch(Exception ex) {
+								}
 							}
 						}
 					}

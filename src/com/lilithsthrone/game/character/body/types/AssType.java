@@ -33,9 +33,7 @@ public enum AssType implements BodyPartTypeInterface {
 	
 	REINDEER_MORPH(BodyCoveringType.REINDEER_FUR, AnusType.REINDEER_MORPH, Race.REINDEER_MORPH),
 	
-	HARPY(BodyCoveringType.FEATHERS, AnusType.HARPY, Race.HARPY),
-	
-	SLIME(BodyCoveringType.SLIME, AnusType.SLIME, Race.SLIME);
+	HARPY(BodyCoveringType.FEATHERS, AnusType.HARPY, Race.HARPY);
 
 	private BodyCoveringType skinType;
 	private AnusType anusType;

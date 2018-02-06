@@ -120,6 +120,13 @@ public class Litter implements Serializable, XMLSaving {
 			offspring.add(e.getAttribute("id"));
 		}
 		
+		Race motherRace = Race.HUMAN;
+		Race fatherRace = Race.HUMAN;
+		try {
+			motherRace = Race.valueOf(parentElement.getAttribute("motherRace"));
+			fatherRace = Race.valueOf(parentElement.getAttribute("fatherRace"));
+		} catch(Exception ex) {
+		}
 		return new Litter(
 				Integer.valueOf(parentElement.getAttribute("dayOfConception")),
 				Integer.valueOf(parentElement.getAttribute("dayOfBirth")),
@@ -130,8 +137,8 @@ public class Litter implements Serializable, XMLSaving {
 				Integer.valueOf(parentElement.getAttribute("sonsFather")),
 				Integer.valueOf(parentElement.getAttribute("daughtersFather")),
 				offspring,
-				Race.valueOf(parentElement.getAttribute("motherRace")),
-				Race.valueOf(parentElement.getAttribute("fatherRace")));
+				motherRace,
+				fatherRace);
 	}
 
 	public int getDayOfConception() {

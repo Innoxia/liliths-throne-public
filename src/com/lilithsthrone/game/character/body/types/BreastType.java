@@ -37,9 +37,7 @@ public enum BreastType implements BodyPartTypeInterface {
 	
 	REINDEER_MORPH(NippleType.REINDEER_MORPH, FluidType.MILK_REINDEER_MORPH, BodyCoveringType.REINDEER_FUR, Race.REINDEER_MORPH),
 	
-	HARPY(NippleType.HARPY, FluidType.MILK_HARPY, BodyCoveringType.FEATHERS, Race.HARPY),
-
-	SLIME(NippleType.SLIME, FluidType.MILK_SLIME, BodyCoveringType.SLIME, Race.SLIME);
+	HARPY(NippleType.HARPY, FluidType.MILK_HARPY, BodyCoveringType.FEATHERS, Race.HARPY);
 
 	private NippleType nippleType;
 	private FluidType fluidType;

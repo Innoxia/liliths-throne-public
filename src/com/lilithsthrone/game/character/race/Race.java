@@ -491,58 +491,58 @@ public enum Race {
 			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SPECIAL_ATTACK), new ListValue<Attack>(Attack.MAIN)),
 			true,
 			0.5f,
-			3,
+			1,
 			4,
 			Attribute.DAMAGE_ALLIGATOR_MORPH,
 			Attribute.RESISTANCE_ALLIGATOR_MORPH,
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL),
 
-	// SLIME:
-	SLIME("slime", "slimes",
-			
-			"slime",
-			"slime",
-			
-			"slimes",
-			"slimes",
-			
-			// TODO Not accurate!
-			"<p>"
-				+ "Slimes are a humanoid race, able to morph their bodies into different shapes and sizes."
-				+ " Slimes are tolerated in Dominion, as they aren't aggressive and don't cause too many problems."
-				+ " They are typically found near bodies of water, as they require a steady source of liquid to stay healthy."
-				+ " Slimes can change their gender at will, though the vast majority choose to take on a female form, and seeing a male slime is a very rare occurrence."
-			+ "</p>",
-
-			"<p>"
-				+ "Slimes are quite stupid, and usually only care about obtaining other species' cum and milk."
-				+ " They will change their bodies to become as attractive as possible in order to attract a mate."
-				+ " Once a suitable mate has been found, slimes will be extremely eager to please them in any way they can, so they can feast on their sexual fluids."
-				+ " If they attract a female partner, they will encourage them to drink lactation-inducing liquids in order to get a full meal."
-			+ "</p>"
-
-			+ "<p>"
-				+ "Slimes can come in all shapes and sizes, as they are capable of morphing their bodies."
-				+ " Doing so requires some time and effort, so slimes usually stick to one appearance."
-				+ " Most slimes, however, will take on the form of a beautiful woman with massive breasts, as they prefer attracting male partners."
-				+ " If they attract an unwilling partner, slimes have no qualms about fighting, as they can't be hurt by any physical attacks."
-				+ " Their soft bodies are unable to inflict much damage on others though, so they will often resort to seducing their opponents into submission."
-			+ "</p>",
-
-			Colour.CLOTHING_WHITE,
-			Genus.SLIME,
-			Disposition.NEUTRAL,
-			StatusEffect.SLIME,
-			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SEDUCTION)),
-			true,
-			0.5f,
-			1,
-			1,
-			Attribute.DAMAGE_HUMAN,
-			Attribute.RESISTANCE_HUMAN,
-			null,
-			null),
+//	// SLIME:
+//	SLIME("slime", "slimes",
+//			
+//			"slime",
+//			"slime",
+//			
+//			"slimes",
+//			"slimes",
+//			
+//			// TODO Not accurate!
+//			"<p>"
+//				+ "Slimes are a humanoid race, able to morph their bodies into different shapes and sizes."
+//				+ " Slimes are tolerated in Dominion, as they aren't aggressive and don't cause too many problems."
+//				+ " They are typically found near bodies of water, as they require a steady source of liquid to stay healthy."
+//				+ " Slimes can change their gender at will, though the vast majority choose to take on a female form, and seeing a male slime is a very rare occurrence."
+//			+ "</p>",
+//
+//			"<p>"
+//				+ "Slimes are quite stupid, and usually only care about obtaining other species' cum and milk."
+//				+ " They will change their bodies to become as attractive as possible in order to attract a mate."
+//				+ " Once a suitable mate has been found, slimes will be extremely eager to please them in any way they can, so they can feast on their sexual fluids."
+//				+ " If they attract a female partner, they will encourage them to drink lactation-inducing liquids in order to get a full meal."
+//			+ "</p>"
+//
+//			+ "<p>"
+//				+ "Slimes can come in all shapes and sizes, as they are capable of morphing their bodies."
+//				+ " Doing so requires some time and effort, so slimes usually stick to one appearance."
+//				+ " Most slimes, however, will take on the form of a beautiful woman with massive breasts, as they prefer attracting male partners."
+//				+ " If they attract an unwilling partner, slimes have no qualms about fighting, as they can't be hurt by any physical attacks."
+//				+ " Their soft bodies are unable to inflict much damage on others though, so they will often resort to seducing their opponents into submission."
+//			+ "</p>",
+//
+//			Colour.CLOTHING_WHITE,
+//			Genus.SLIME,
+//			Disposition.NEUTRAL,
+//			StatusEffect.SLIME,
+//			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SEDUCTION)),
+//			true,
+//			0.5f,
+//			1,
+//			1,
+//			Attribute.DAMAGE_HUMAN,
+//			Attribute.RESISTANCE_HUMAN,
+//			null,
+//			null),
 
 	// AVIAN:
 	HARPY("harpy", "harpies",
