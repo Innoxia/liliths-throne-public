@@ -550,9 +550,9 @@ public class AlleywayAttackerDialogue {
 			if(Main.game.getActiveNPC().hasTransformationFetish()) {
 				potion = Main.game.getActiveNPC().getTransfomativePotion(true);
 				
-				System.out.println("Potion Check 1"); 
-				System.out.println(potion); 
-				System.out.println(potion.getValue().getName()); 
+//				System.out.println("Potion Check 1"); 
+//				System.out.println(potion); 
+//				System.out.println(potion.getValue().getName()); 
 				
 				if(potion == null) {
 					return UtilText.parse(Main.game.getActiveNPC(),
@@ -665,10 +665,9 @@ public class AlleywayAttackerDialogue {
 						public void effects(){
 							Util.Value<String, AbstractItem> potion = Main.game.getActiveNPC().getTransfomativePotion();
 							
-							System.out.println("Potion Check 3"); 
-							System.out.println(potion.getValue().getName()); 
-							System.out.println(potion); 
-							System.out.println(potion); 
+//							System.out.println("Potion Check 3"); 
+//							System.out.println(potion.getValue().getName()); 
+//							System.out.println(potion); 
 							
 							Main.game.getTextStartStringBuilder().append(
 									"<p>"
