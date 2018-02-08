@@ -1,8 +1,11 @@
 package com.lilithsthrone.game.dialogue.npcDialogue;
 
+import java.util.ArrayList;
+
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.QuestLine;
+import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.race.Race;
@@ -15,6 +18,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexPositionSlot;
@@ -503,8 +507,8 @@ public class HarpyNestsAttackerDialogue {
 		@Override
 		public String getContent() {
 			
-			if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING)) {
-				potion = Main.game.getActiveNPC().generateTransformativePotion();
+			if(Main.game.getActiveNPC().hasTransformationFetish()) {
+				potion = Main.game.getActiveNPC().getTransfomativePotion(true);
 				
 				if(potion == null) {
 					return UtilText.parse(Main.game.getActiveNPC(),
@@ -590,20 +594,28 @@ public class HarpyNestsAttackerDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) && potion != null) {
+			if(Main.game.getActiveNPC().hasTransformationFetish() && potion != null) {
 				if (index == 1) {
 					return new Response("Spit", "Spit out the potion.", AFTER_COMBAT_TRANSFORMATION_REFUSED);
 					
 				} else if (index == 2) {
+					ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_RECEIVING));
+					CorruptionLevel applicableCorrutionLevel = Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel();
+					
+					if(potion.getValue().getItemType() == ItemType.FETISH_REFINED) {
+						applicableFetishes = Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_KINK_RECEIVING));
+						applicableCorrutionLevel = Fetish.FETISH_KINK_RECEIVING.getAssociatedCorruptionLevel();
+					}
+					
 					return new Response("Swallow", "Do as you're told and swallow the strange potion.", AFTER_COMBAT_TRANSFORMATION,
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_RECEIVING)),
-							Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel(),
+							applicableFetishes,
+							applicableCorrutionLevel,
 							null,
 							null,
 							null){
 						@Override
 						public void effects(){
-							Util.Value<String, AbstractItem> potion = Main.game.getActiveNPC().generateTransformativePotion();
+							Util.Value<String, AbstractItem> potion = Main.game.getActiveNPC().getTransfomativePotion();
 							Main.game.getTextStartStringBuilder().append(
 									"<p>"
 										+ "[npc.Name] steps back, grinning down at you as you obediently swallow the strange liquid,"

@@ -253,6 +253,10 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 		return false;
 	}
 	
+	public boolean isFetishGiving() {
+		return false;
+	}
+	
 	public String getUnableToBeUsedFromInventoryDescription() {
 		return "This item cannot be used in this way!";
 	}
