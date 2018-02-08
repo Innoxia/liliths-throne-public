@@ -9,52 +9,36 @@
 	
 	Patch notes:
 	
-	Engine:
-		Updated to Java 9.0.4. If you're using the .jar version of the game, and are encountering UI bugs, please update your Java to 9.0.4 (.exe versions are unaffected, as they are packaged with 9.0.4).
-		Save files now only keep track of the last 50 events in the event log. (As only the last 50 are ever displayed within the game, it was pointless to be saving more than this.)
-	
-	Gameplay:
-		Expanded fetish mechanics to tie-in with the lust mechanic in sex. You can now select your 'desire' for each fetish, which affects your lust gains in sex. (Lust affects NPC pace, and when in consensual sex, dominant NPCs stop sex if their lust gets to 0, and submissive NPCs stop it when they drop below 20.)
-		All NPCs now have their own desires. You can see these by hovering over their 'desires' status effect. (I chose to display these in a easy manner, rather than having you find them out 1-by-1, as I thought 'desire discovery' mechanics would get very tedious.)
-		Added voyeurist, vaginal, pussy slut, leg lover, and strutter fetishes.
-		Added new fetishes and desire increases/decreases to the 'mystery kink' item's enchantments. Also organised the fetish order in that menu.
-		You now earn experience for each fetish-related action both in and out of sex. Higher fetish levels increase arousal gains from those actions in sex, and for the next version I'll make them level the fetish up to provide larger bonuses.
-		Added the start of stamina drains in sex (although I haven't added exhaustion for when the character reaches 0 yet).
-		Added the start of alcoholic effects (the rest & psychoactive effects will be finished for the full version).
-	
-	Other:
-		Improved the save/load icons. (I'm sorry they were so poorly thought-out before!)
-		Added more antler and horn colours.
-		If you are the dom in a sex scene in which your partner does not have equal control (i.e. a non-con scene), then your partner will not be allowed to remove your clothing by default. (You can still permit them to.)
-		Taking a shower now cleans 500ml of cum from all orifices, except your mouth (representing cum in stomach), which isn't affected.
-		Sightly improved formatting of all tooltips.
-		Added associated fetishes to orgasms.
-		Added save/load entries to event log.
-		Added correct fetishes to Lilaya & Rose (I still need to go through all unique NPCs and give them proper likes/dislikes).
-		Ralph now stocks 25 dye brushes instead of 5. (Wait for his shop to refresh at midnight for him to start stocking 25.)
-	
 	Bugs:
-		Fixed ongoing penetration status effect's incorrect tooltip descriptions.
-		Typos and parsing fixes (including fixing knotting descriptions).
-		Fixed incorrect naming for breast shape and horn TF potions.
-		Loading a game no longer overwrites the activity log.
-		Your discoveries of NPC genitals are now correctly saved/loaded.
-		Cumming inside a partner multiple times should no longer result in multiple pregnancy possibilities in the pregnancy stats screen.	
-		The description of losing your penile virginity should now always be appended correctly in sex.
-		Body parts being exposed in sex should now have the correct descriptions appended.
-		Fixed bug where the action 'Pull out (chest)' sometimes wouldn't work.
-		Fixed grey horns and antlers text colour being red.
-		Fixed Kate's intro referencing three pairs of breasts (she now just has a single pair of breasts).
-		Fixed clothing remaining dirty after taking a shower.
-		Fixed some sex actions randomly not being available.
-		Fixed bug where 'stop X' actions would show up in sex actions for when your partner was using themselves. (e.g. 'Stop fingering' would show up when your partner was fingering themselves.)
-		Fixed bug where the status message informing you that your clothing was getting dirty would lock up sex scenes.
-		Fixed penile virginity being reset on every game load (old characters will still incorrectly be penile virgins, but after losing it their non-virgin state will be saved).
-		NPCs will no longer listen to your pullout/creampie requests if they're the dom in non-con sex.
+		Fixed Vicky's sex scene causing a game-breaking bug to occur.
 	
 	
 	
 	
+	
+	
+	
+	images
+	
+	It seems you can only get your mouth clean if your stomach is empty
+	
+	weapon damage in tooltip trader inv, tooltip player inv, and when clicked on are all different
+	
+	Ended up with a -10 to fitness after a significant belly full of cum, reason I'm posting here is because it remained even after it had drained.
+Reloading seems to have fixed it and I dunno what I did to get that to happen. Figured I'd let you know I ran into some weirdness.
+	
+	When I lubricate my fingers, it makes anal impossible.
+	
+	Npcs who have control sometimes don't seem to do things they like, in this case I submitted to an alleyway attacker and in the middle of raping me they gave up, she also somehow managed to give up sex DURING an arcane storm
+	
+	
+	
+	
+	Breeder collar:
+		it would be literally purrfect as a slave collar instead of just a normal clothing item.
+		which would be super amusing because instead of someone only being shocked that something is a slave collar, their words would be cut off near the end with said needy moan as they teleported. 
+		and of course when possible it adds the breeder fetish, and if possibly leaves their pussy permanently dripping wet~
+		
 	
 	psychoactive/alcoholic fluids
 	Also flavours
@@ -87,6 +71,8 @@
 	Bugs
 	
 	UNIQUE NPC DESIRES
+	
+	Typo: For incest in the "Desires & Fetishes" menu, it says something about liking/not liking "having sex with relations". Perhaps the word "relatives" would be the right word to replace "relations"?
 	
 	----------------------------
 	
@@ -2461,11 +2447,6 @@ So basically, the transformer fetish actually reduces the cost of enchantments b
 	
 	
 	
-	Breeder collar:
-		it would be literally purrfect as a slave collar instead of just a normal clothing item.
-		which would be super amusing because instead of someone only being shocked that something is a slave collar, their words would be cut off near the end with said needy moan as they teleported. 
-		and of course when possible it adds the breeder fetish, and if possibly leaves their pussy permanently dripping wet~
-		
 	Additions:
 		Also, any follow ups on already exposed states pre combat/sex? Being an exhibitionist virtually removes all npc reactions from the game, which is wierd!
 

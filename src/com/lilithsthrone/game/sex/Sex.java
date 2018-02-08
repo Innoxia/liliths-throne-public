@@ -340,7 +340,7 @@ public enum Sex {
 			}
 
 			if(sexManager.getForcedSexPace(character)!=null) {
-				forceSexPaceMap.put(character, sexManager.getStartingSexPaceModifier(character));
+				forceSexPaceMap.put(character, sexManager.getForcedSexPace(character));
 				switch(sexManager.getForcedSexPace(character)) {
 					case DOM_GENTLE:
 						character.setLust(10);
@@ -405,8 +405,9 @@ public enum Sex {
 		sexDescription = sexSB.toString();
 
 		Main.game.setInSex(true);
-
-		Main.mainController.openInventory();
+		
+		//TODO why was this here?
+//		Main.mainController.openInventory();
 
 		// Main.mainController.updateUI();
 
