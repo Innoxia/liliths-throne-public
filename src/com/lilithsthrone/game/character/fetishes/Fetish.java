@@ -796,7 +796,7 @@ public enum Fetish {
 		
 		@Override
 		public CorruptionLevel getAssociatedCorruptionLevel() {
-			return CorruptionLevel.TWO_HORNY;
+			return CorruptionLevel.THREE_DIRTY;
 		}
 	},
 	

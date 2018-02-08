@@ -1,6 +1,9 @@
 package com.lilithsthrone.game.dialogue.npcDialogue.alleyway;
 
+import java.util.ArrayList;
+
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
@@ -12,6 +15,8 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
+import com.lilithsthrone.game.inventory.item.ItemEffectType;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexPositionSlot;
@@ -642,9 +647,17 @@ public class AlleywayAttackerDialogue {
 					return new Response("Spit", "Spit out the potion.", AFTER_COMBAT_TRANSFORMATION_REFUSED);
 					
 				} else if (index == 2) {
+					ArrayList<Fetish> applicableFetishes = Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_RECEIVING));
+					CorruptionLevel applicableCorrutionLevel = Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel();
+					
+					if(potion.getValue().getItemType() == ItemType.FETISH_REFINED) {
+						applicableFetishes = Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_KINK_RECEIVING));
+						applicableCorrutionLevel = Fetish.FETISH_KINK_RECEIVING.getAssociatedCorruptionLevel();
+					}
+					
 					return new Response("Swallow", "Do as you're told and swallow the strange potion.", AFTER_COMBAT_TRANSFORMATION,
-							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_TRANSFORMATION_RECEIVING)),
-							Fetish.FETISH_TRANSFORMATION_RECEIVING.getAssociatedCorruptionLevel(),
+							applicableFetishes,
+							applicableCorrutionLevel,
 							null,
 							null,
 							null){
@@ -653,8 +666,9 @@ public class AlleywayAttackerDialogue {
 							Util.Value<String, AbstractItem> potion = Main.game.getActiveNPC().getTransfomativePotion();
 							
 							System.out.println("Potion Check 3"); 
-							System.out.println(potion); 
 							System.out.println(potion.getValue().getName()); 
+							System.out.println(potion); 
+							System.out.println(potion); 
 							
 							Main.game.getTextStartStringBuilder().append(
 									"<p>"
@@ -662,7 +676,7 @@ public class AlleywayAttackerDialogue {
 										+ " [npc.speech(Good [pc.girl]! "+potion.getKey()+")]"
 									+ "</p>"
 									+ "<p>"
-										+Main.game.getActiveNPC().useItem(potion.getValue(), Main.game.getPlayer(), false)
+										+Main.game.getActiveNPC().useItem(potion.getValue(), Main.game.getPlayer(), false, true)
 									+"</p>");
 						}
 					};

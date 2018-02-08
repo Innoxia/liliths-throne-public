@@ -979,7 +979,7 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public boolean isTransformative() {
+		public boolean isFetishGiving() {
 			return true;
 		}
 		
