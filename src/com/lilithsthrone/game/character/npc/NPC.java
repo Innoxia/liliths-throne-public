@@ -636,9 +636,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				
 				// Leaving this present but commented out so it can be easily re-enabled by anyone wanting to tweak or check
 				// the results of potion selection
-				System.out.println("Random Both Fetishes"); 
-				System.out.println(randNum); 
-				System.out.println(pairedFetishAvailable); 
+//				System.out.println("Random Both Fetishes"); 
+//				System.out.println(randNum); 
+//				System.out.println(pairedFetishAvailable); 
 				
 				// if there's a paired fetish to use, bigger chance of fetish adding, otherwise better chance of TF
 				// since there's far more interesting variation to be had from TFs that forced fetishes
@@ -659,9 +659,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				
 				// Leaving this present but commented out so it can be easily re-enabled by anyone wanting to tweak or check
 				// the results of potion selection
-				System.out.println("Random Fetish Only"); 
-				System.out.println(randNum); 
-				System.out.println(pairedFetishAvailable); 
+//				System.out.println("Random Fetish Only"); 
+//				System.out.println(randNum); 
+//				System.out.println(pairedFetishAvailable); 
 				
 				// if there's a paired fetish to use, large chance to just choose from paired pool
 				if(pairedFetishAvailable && randNum < 80 ) {
@@ -1693,7 +1693,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			} 
 			
 			
-			
+			// some settings and status combinations can create negative values, so let's zero those out
 			if(currentTopChance < 0) { currentTopChance = 0 ;}
 			if(currentBottomChance < 0) { currentBottomChance = 0 ;}
 			if(currentTopRemoveChance < 0) { currentTopRemoveChance = 0 ;}
@@ -1738,6 +1738,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		
 		// map of unpaired fetish -> boolean stating whether it wants to be shared, or hoarded
+		// currently, all unpaired fetishes seem like they are something the owner would want to share,
+		// but setting the second argument to false will cause the NPC to instead have an aversion to 
+		// giving the player the same fetish
 		Map<Fetish, Boolean> unpairedFetishMap = new HashMap<>();
 
 		unpairedFetishMap.put(Fetish.FETISH_BIMBO, true);
@@ -1850,7 +1853,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			} 
 			
 		
-			
+			// some setting and status combos can result in negative values, so let's zero those out
 			if(currentTopChance < 0) { currentTopChance = 0 ;}
 			if(currentTopRemoveChance < 0) { currentTopRemoveChance = 0 ;}
 			
@@ -1900,13 +1903,13 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		// Leaving this present but commented out so it can be easily re-enabled by anyone wanting to tweak or check
 		// the results of fetish selection for potion generation
-		System.out.println("POSSIBLE"); 
-		for(Entry<ItemEffect, Integer> entry : possibleEffects.entrySet()) {
-			System.out.println(entry.getValue()+ " " + entry.getKey().getSecondaryModifier()+ " " + entry.getKey().getPotency()); 
-		}
-		System.out.println("SELECTED"); 
-		System.out.println(selectedEffect.getSecondaryModifier() + " " + selectedEffect.getPotency()); 
-		System.out.println(count); 
+//		System.out.println("POSSIBLE"); 
+//		for(Entry<ItemEffect, Integer> entry : possibleEffects.entrySet()) {
+//			System.out.println(entry.getValue()+ " " + entry.getKey().getSecondaryModifier()+ " " + entry.getKey().getPotency()); 
+//		}
+//		System.out.println("SELECTED"); 
+//		System.out.println(selectedEffect.getSecondaryModifier() + " " + selectedEffect.getPotency()); 
+//		System.out.println(count); 
 		
 		
 		// no fetish to add, so we have nothing to return
@@ -1915,7 +1918,13 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		}
 			
 		
-		// let's figure out what flavor text string to pair with our seleted effect
+		// Let's figure out what flavor text string to pair with our selected effect
+
+		// I'm VERY uncertain that you'll like any of this flavor text at all, so please feel free to modify as you see fit
+		// Some of it I do like, but mostly I just wanted to be sure there were unique placeholder values for every current fetish
+		
+		// Also, simply removing/commenting out an entry will cause the fetish in question to go to the default, if you'd like 
+		// to get rid of one of my placeholders without having to write your own replacement
 		Map<TFModifier, String> fetishAddFlavorText = new HashMap<>(), fetishRemoveFlavorText = new HashMap<>();
 		
 		String defaultFetishAddFlavorText = "Why not expand your horizons a bit, eh?";
