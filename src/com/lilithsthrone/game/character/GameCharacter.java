@@ -6346,7 +6346,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					switch(penetrationType) {
 						case PENIS:
 							if(!characterPenetrating.isPlayer()) {
-								switch(getPenisType()){
+								switch(characterPenetrating.getPenisType()){
 									case ANGEL:
 										break;
 									case AVIAN:
@@ -6392,7 +6392,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					switch(penetrationType) {
 						case PENIS:
 							if(characterPenetrating.isPlayer()) {
-								switch(getAssType()){
+								switch(characterPenetrated.getAssType()){
 									case DEMON_COMMON:
 										return "As the [pc.cockHead+] of your [pc.cock+] pushes its way into [npc.name]'s demonic, pussy-like [npc.asshole],"
 												+ " you feel a series of little writhing tentacles start to massage and stroke your throbbing length.";
@@ -6419,7 +6419,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					switch(penetrationType) {
 						case PENIS:
 							if(!characterPenetrating.isPlayer()) {
-								switch(getPenisType()){
+								switch(characterPenetrating.getPenisType()){
 									case ANGEL:
 										break;
 									case AVIAN:
@@ -6466,7 +6466,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					switch(penetrationType) {
 						case PENIS:
 							if(characterPenetrating.isPlayer()) {
-								switch(getVaginaType()){
+								switch(characterPenetrated.getVaginaType()){
 									case DEMON_COMMON:
 										return "As the [pc.cockHead+] of your [pc.cock+] pushes its way into [npc.name]'s demonic [npc.pussy], you feel a series of little writhing tentacles start to massage and stroke your throbbing length.";
 									default:
@@ -6492,7 +6492,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					switch(penetrationType) {
 						case PENIS:
 							if(!characterPenetrating.isPlayer()) {
-								switch(getPenisType()){
+								switch(characterPenetrating.getPenisType()){
 									case ANGEL:
 										break;
 									case AVIAN:
@@ -6539,7 +6539,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					switch(penetrationType) {
 						case PENIS:
 							if(characterPenetrating.isPlayer()) {
-								switch(getBreastType()){
+								switch(characterPenetrated.getBreastType()){
 									case DEMON_COMMON:
 										return "As the [pc.cockHead+] of your [pc.cock+] pushes its way into [npc.name]'s [npc.nipples+], you feel a series of little writhing tentacles start to massage and stroke your throbbing length.";
 									default:
@@ -6564,7 +6564,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					switch(penetrationType) {
 						case PENIS:
 							if(!characterPenetrating.isPlayer()) {
-								switch(getPenisType()){
+								switch(characterPenetrating.getPenisType()){
 									case ANGEL:
 										break;
 									case AVIAN:
@@ -6614,7 +6614,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					switch(penetrationType) {
 						case PENIS:
 							if(characterPenetrating.isPlayer()) {
-								switch(Main.game.getPlayer().getPenisType()){
+								switch(characterPenetrating.getPenisType()){
 									case ANGEL:
 										break;
 									case AVIAN:
