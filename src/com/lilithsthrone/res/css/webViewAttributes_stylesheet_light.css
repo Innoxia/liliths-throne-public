@@ -226,6 +226,7 @@ h6{
 /*EVENT LOG*/
 
 .event-log {
+	word-wrap: break-word;
 	box-sizing:border-box;
 	display: flex;
 	flex-flow: column;

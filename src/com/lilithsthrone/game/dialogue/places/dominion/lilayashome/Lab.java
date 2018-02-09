@@ -2637,7 +2637,6 @@ public class Lab {
 						Main.game.getDialogueFlags().values.remove(DialogueFlagValue.reactedToPregnancyLilaya);
 						Main.game.getPlayer().endPregnancy(true);
 						Main.game.getPlayer().setMana(0);
-						Main.game.getPlayer().setStamina(0);
 
 						Main.game.getPlayer().incrementVaginaStretchedCapacity(15);
 						Main.game.getPlayer().incrementVaginaCapacity(
@@ -2653,7 +2652,6 @@ public class Lab {
 						Main.game.getDialogueFlags().values.remove(DialogueFlagValue.reactedToPregnancyLilaya);
 						Main.game.getPlayer().endPregnancy(true);
 						Main.game.getPlayer().setMana(0);
-						Main.game.getPlayer().setStamina(0);
 
 						Main.game.getPlayer().incrementVaginaStretchedCapacity(15);
 						Main.game.getPlayer().incrementVaginaCapacity(
@@ -2865,7 +2863,6 @@ public class Lab {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
-						Main.game.getPlayer().setStamina(Main.game.getPlayer().getAttributeValue(Attribute.STAMINA_MAXIMUM));
 
 						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
 						Main.game.setActiveWorld(
@@ -2920,7 +2917,6 @@ public class Lab {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
-						Main.game.getPlayer().setStamina(Main.game.getPlayer().getAttributeValue(Attribute.STAMINA_MAXIMUM));
 
 						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
 						Main.game.setActiveWorld(
@@ -3006,7 +3002,6 @@ public class Lab {
 						Main.game.getDialogueFlags().values.remove(DialogueFlagValue.reactedToPregnancyLilaya);
 						Main.game.getPlayer().endPregnancy(true);
 						Main.game.getPlayer().setMana(0);
-						Main.game.getPlayer().setStamina(0);
 
 						Main.game.getPlayer().incrementVaginaStretchedCapacity(15);
 						Main.game.getPlayer().incrementVaginaCapacity(
@@ -3182,7 +3177,6 @@ public class Lab {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
-						Main.game.getPlayer().setStamina(Main.game.getPlayer().getAttributeValue(Attribute.STAMINA_MAXIMUM));
 					}
 				};
 

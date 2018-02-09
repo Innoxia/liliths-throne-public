@@ -13,6 +13,7 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
@@ -76,7 +77,10 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 
 		charactersEncountered = new ArrayList<>();
 		
-		attributes.put(Attribute.CORRUPTION, 0f);
+		this.setAttribute(Attribute.INTELLIGENCE, 0);
+		
+		this.addPerk(Perk.PHYSICAL_BASE);
+		this.addPerk(Perk.ARCANE_BASE);
 	}
 	
 	@Override

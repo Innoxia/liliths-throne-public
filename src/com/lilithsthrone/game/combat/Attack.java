@@ -161,7 +161,7 @@ public enum Attack {
 					getMeleeDamage(attacker, weapon) * (weapon == null ? 1 - DamageVariance.MEDIUM.getPercentage() : 1f - weapon.getWeaponType().getDamageVariance().getPercentage()));
 	
 		} else {
-			damage =  (getModifiedDamage(attacker, defender, attackType, DamageType.MANA, getSeductionDamage(attacker) * 0.8f));
+			damage =  (getModifiedDamage(attacker, defender, attackType, DamageType.LUST, getSeductionDamage(attacker) * 0.8f));
 		}
 		
 		// Round float value to nearest 1 decimal place:
@@ -199,7 +199,7 @@ public enum Attack {
 					getMeleeDamage(attacker, weapon) * (weapon == null ? 1 + DamageVariance.MEDIUM.getPercentage() : 1f + weapon.getWeaponType().getDamageVariance().getPercentage()));
 	
 		} else {
-			damage = (getModifiedDamage(attacker, defender, attackType, DamageType.MANA, getSeductionDamage(attacker) * 1.2f));
+			damage = (getModifiedDamage(attacker, defender, attackType, DamageType.LUST, getSeductionDamage(attacker) * 1.2f));
 		}
 
 		// Round float value to nearest 1 decimal place:
@@ -233,8 +233,6 @@ public enum Attack {
 
 			if (attacker != null) {
 				// Attacker modifiers:
-				// Melee modifier:
-				damage *= (attacker.getAttributeValue(Attribute.DAMAGE_ATTACK) / 100f);
 				// Damage Type modifier:
 				damage *= (attacker.getAttributeValue(damageType.getMultiplierAttribute()) / 100f);
 				// Pure damage modifier:
@@ -246,8 +244,6 @@ public enum Attack {
 
 			if (defender != null) {
 				// Defender modifiers:
-				// Melee modifier:
-				damage *= ((100 - defender.getAttributeValue(Attribute.RESISTANCE_ATTACK)) / 100f);
 				// Damage Type modifier:
 				damage *= ((100 - defender.getAttributeValue(damageType.getResistAttribute())) / 100f);
 				// Pure damage modifier:
@@ -262,7 +258,7 @@ public enum Attack {
 
 			if (attacker != null) {
 				// Attacker modifiers:
-				damage *= (attacker.getAttributeValue(Attribute.DAMAGE_MANA) / 100f);
+				damage *= (attacker.getAttributeValue(Attribute.DAMAGE_LUST) / 100f);
 				
 				if(attacker.hasPerk(Perk.FEMALE_ATTRACTION) && defender.isFeminine()) {
 					damage *=1.1f;
@@ -277,7 +273,7 @@ public enum Attack {
 
 			if (defender != null) {
 				// Defender modifiers:
-				damage *= ((100 - defender.getAttributeValue(Attribute.RESISTANCE_MANA)) / 100f);
+				damage *= ((100 - defender.getAttributeValue(Attribute.RESISTANCE_LUST)) / 100f);
 				
 				if(attacker.getSexualOrientation()==SexualOrientation.ANDROPHILIC && defender.isFeminine()) {
 					damage*=0.5f;

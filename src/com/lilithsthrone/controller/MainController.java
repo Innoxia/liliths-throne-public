@@ -17,7 +17,6 @@ import org.w3c.dom.events.EventTarget;
 import com.lilithsthrone.controller.eventListeners.EnchantmentEventListener;
 import com.lilithsthrone.controller.eventListeners.InventorySelectedItemEventListener;
 import com.lilithsthrone.controller.eventListeners.InventoryTooltipEventListener;
-import com.lilithsthrone.controller.eventListeners.LevelUpButtonsEventListener;
 import com.lilithsthrone.controller.eventListeners.SetContentEventListener;
 import com.lilithsthrone.controller.eventListeners.TooltipHideEventListener;
 import com.lilithsthrone.controller.eventListeners.TooltipInformationEventListener;
@@ -85,6 +84,9 @@ import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.effects.PerkCategory;
+import com.lilithsthrone.game.character.effects.PerkEntry;
+import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
@@ -170,7 +172,7 @@ import javafx.scene.web.WebView;
 
 /**
  * @since 0.1.0
- * @version 0.1.97
+ * @version 0.1.99
  * @author Innoxia
  */
 public class MainController implements Initializable {
@@ -1165,7 +1167,7 @@ public class MainController implements Initializable {
 				TooltipInformationEventListener el = new TooltipInformationEventListener().setStatusEffect(StatusEffect.COMBAT_HIDDEN, Combat.getOpponent());
 				addEventListener(document, "SE_COMBAT_" + StatusEffect.COMBAT_HIDDEN, "mouseenter", el, false);
 			}
-			for (Perk p : Combat.getOpponent().getPerks()) {
+			for (Perk p : Combat.getOpponent().getMajorPerks()) {
 				if (((EventTarget) document.getElementById("PERK_COMBAT_" + p)) != null) {
 					addEventListener(document, "PERK_COMBAT_" + p, "mousemove", moveTooltipListener, false);
 					addEventListener(document, "PERK_COMBAT_" + p, "mouseleave", hideTooltipListener, false);
@@ -1213,7 +1215,7 @@ public class MainController implements Initializable {
 					}
 				}
 
-			Attribute[] attributes = { Attribute.STRENGTH, Attribute.INTELLIGENCE, Attribute.FITNESS, Attribute.CORRUPTION, Attribute.HEALTH_MAXIMUM, Attribute.MANA_MAXIMUM, Attribute.STAMINA_MAXIMUM };
+			Attribute[] attributes = { Attribute.STRENGTH, Attribute.INTELLIGENCE, Attribute.CORRUPTION, Attribute.HEALTH_MAXIMUM, Attribute.MANA_MAXIMUM };
 			for (Attribute a : attributes) {
 				if (((EventTarget) document.getElementById("COMBAT_PLAYER_" + a)) != null) {
 					addEventListener(document, "COMBAT_PLAYER_" + a, "mousemove", moveTooltipListener, false);
@@ -1259,7 +1261,7 @@ public class MainController implements Initializable {
 				TooltipInformationEventListener el = new TooltipInformationEventListener().setStatusEffect(StatusEffect.COMBAT_HIDDEN, CharactersPresentDialogue.characterViewed);
 				addEventListener(document, "SE_COMBAT_" + StatusEffect.COMBAT_HIDDEN, "mouseenter", el, false);
 			}
-			for (Perk p : CharactersPresentDialogue.characterViewed.getPerks()) {
+			for (Perk p : CharactersPresentDialogue.characterViewed.getMajorPerks()) {
 				if (((EventTarget) document.getElementById("PERK_COMBAT_" + p)) != null) {
 					addEventListener(document, "PERK_COMBAT_" + p, "mousemove", moveTooltipListener, false);
 					addEventListener(document, "PERK_COMBAT_" + p, "mouseleave", hideTooltipListener, false);
@@ -1307,7 +1309,7 @@ public class MainController implements Initializable {
 					}
 				}
 
-			Attribute[] attributes = { Attribute.STRENGTH, Attribute.INTELLIGENCE, Attribute.FITNESS, Attribute.CORRUPTION, Attribute.HEALTH_MAXIMUM, Attribute.MANA_MAXIMUM, Attribute.STAMINA_MAXIMUM };
+			Attribute[] attributes = { Attribute.STRENGTH, Attribute.INTELLIGENCE, Attribute.CORRUPTION, Attribute.HEALTH_MAXIMUM, Attribute.MANA_MAXIMUM };
 			for (Attribute a : attributes) {
 				if (((EventTarget) document.getElementById("COMBAT_PLAYER_" + a)) != null) {
 					addEventListener(document, "COMBAT_PLAYER_" + a, "mousemove", moveTooltipListener, false);
@@ -3781,62 +3783,60 @@ public class MainController implements Initializable {
 					}
 				}
 			}
-			
-			// Level up dialogue:
-			if (((EventTarget) document.getElementById("strength-increase")) != null)
-				addEventListener(document, "strength-increase", "click", new LevelUpButtonsEventListener().increaseStrength(), false);
-			if (((EventTarget) document.getElementById("strength-decrease")) != null)
-				addEventListener(document, "strength-decrease", "click", new LevelUpButtonsEventListener().decreaseStrength(), false);
-	
-			if (((EventTarget) document.getElementById("intelligence-increase")) != null)
-				addEventListener(document, "intelligence-increase", "click", new LevelUpButtonsEventListener().increaseIntelligence(), false);
-			if (((EventTarget) document.getElementById("intelligence-decrease")) != null)
-				addEventListener(document, "intelligence-decrease", "click", new LevelUpButtonsEventListener().decreaseIntelligence(), false);
-	
-			if (((EventTarget) document.getElementById("fitness-increase")) != null)
-				addEventListener(document, "fitness-increase", "click", new LevelUpButtonsEventListener().increaseFitness(), false);
-			if (((EventTarget) document.getElementById("fitness-decrease")) != null)
-				addEventListener(document, "fitness-decrease", "click", new LevelUpButtonsEventListener().decreaseFitness(), false);
-	
-			for (Perk p : Perk.values()) {
-				if (((EventTarget) document.getElementById("perkUnlock" + p)) != null) {
-					addEventListener(document, "perkUnlock" + p, "mousemove", moveTooltipListener, false);
-					addEventListener(document, "perkUnlock" + p, "mouseleave", hideTooltipListener, false);
-					addEventListener(document, "perkUnlock" + p, "mouseenter", new TooltipInformationEventListener().setLevelUpPerk(p, Main.game.getPlayer()), false);
-					addEventListener(document, "perkUnlock" + p, "click", new LevelUpButtonsEventListener().handlePerkPress(p), false);
+
+			for(Perk perk : Perk.values()) { //TODO
+				id = "TRAIT_"+perk;
+				if (((EventTarget) document.getElementById(id)) != null) {
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+					addEventListener(document, id, "mouseenter", new TooltipInformationEventListener().setLevelUpPerk(PerkManager.MANAGER.getPerkRow(perk), perk, Main.game.getPlayer()), false);
+					
+					((EventTarget) document.getElementById(id)).addEventListener("click", event -> {
+						Main.game.getPlayer().removeTrait(perk);
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
 				}
 			}
-			for (Fetish f : Fetish.values()) {
-				id = "fetishUnlock" + f;
-				if (((EventTarget) document.getElementById(id)) != null) {
-					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE)>=f.getCost()) {
-							if(Main.game.getPlayer().addFetish(f)) {
-								Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -f.getCost());
-								Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+			
+			// Level up dialogue:
+			if (Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_LEVEL_UP) {
+				for(int i = 0; i<PerkManager.ROWS; i++) {
+					for(Entry<PerkCategory, List<PerkEntry>> entry : PerkManager.MANAGER.getPerkTree().get(i).entrySet()) {
+						for(PerkEntry e : entry.getValue()) {
+							id = i+"_"+e.getPerk();
+	
+							if (((EventTarget) document.getElementById(id)) != null) {
+								addEventListener(document, id, "mousemove", moveTooltipListener, false);
+								addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+								addEventListener(document, id, "mouseenter", new TooltipInformationEventListener().setLevelUpPerk(i, e.getPerk(), Main.game.getPlayer()), false);
+								((EventTarget) document.getElementById(id)).addEventListener("click", event -> {
+									if(e.getPerk().isMajor() && PerkManager.MANAGER.isPerkOwned(e) && !Main.game.getPlayer().hasTraitActivated(e.getPerk())) {
+										Main.game.getPlayer().addTrait(e.getPerk());
+										Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+										
+									} else if(Main.game.getPlayer().getPerkPoints()>=1 && PerkManager.MANAGER.isPerkAvailable(e)) {
+										if(Main.game.getPlayer().addPerk(e.getRow(), e.getPerk())) {
+											Main.game.getPlayer().incrementPerkPoints(-1);
+											if(e.getPerk().isMajor() && Main.game.getPlayer().getTraits().size()<GameCharacter.MAX_TRAITS) {
+												Main.game.getPlayer().addTrait(e.getPerk());
+											}
+											Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+										}
+									}
+								}, false);
 							}
 						}
-					}, false);
-					
-					addEventListener(document, id, "mousemove", moveTooltipListener, false);
-					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
-					addEventListener(document, id, "mouseenter", new TooltipInformationEventListener().setFetish(f, Main.game.getPlayer()), false);
+					}
 				}
-				
-				id = f+"_EXPERIENCE";
-				if (((EventTarget) document.getElementById(id)) != null) {
-					addEventListener(document, id, "mousemove", moveTooltipListener, false);
-					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
-					addEventListener(document, id, "mouseenter", new TooltipInformationEventListener().setFetishExperience(f, Main.game.getPlayer()), false);
-				}
-				
-				for (FetishDesire desire : FetishDesire.values()) {
-					id = f+"_"+desire;
+			}
+			if (Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_FETISHES) {
+				for (Fetish f : Fetish.values()) {
+					id = "fetishUnlock" + f;
 					if (((EventTarget) document.getElementById(id)) != null) {
 						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-							if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE)>=FetishDesire.getCostToChange()) {
-								if(Main.game.getPlayer().setFetishDesire(f, desire)) {
-									Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -FetishDesire.getCostToChange());
+							if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE)>=f.getCost()) {
+								if(Main.game.getPlayer().addFetish(f)) {
+									Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -f.getCost());
 									Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 								}
 							}
@@ -3844,11 +3844,35 @@ public class MainController implements Initializable {
 						
 						addEventListener(document, id, "mousemove", moveTooltipListener, false);
 						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
-						addEventListener(document, id, "mouseenter", new TooltipInformationEventListener().setFetishDesire(f, desire, Main.game.getPlayer()), false);
+						addEventListener(document, id, "mouseenter", new TooltipInformationEventListener().setFetish(f, Main.game.getPlayer()), false);
+					}
+					
+					id = f+"_EXPERIENCE";
+					if (((EventTarget) document.getElementById(id)) != null) {
+						addEventListener(document, id, "mousemove", moveTooltipListener, false);
+						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+						addEventListener(document, id, "mouseenter", new TooltipInformationEventListener().setFetishExperience(f, Main.game.getPlayer()), false);
+					}
+					
+					for (FetishDesire desire : FetishDesire.values()) {
+						id = f+"_"+desire;
+						if (((EventTarget) document.getElementById(id)) != null) {
+							((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+								if(Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE)>=FetishDesire.getCostToChange()) {
+									if(Main.game.getPlayer().setFetishDesire(f, desire)) {
+										Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -FetishDesire.getCostToChange());
+										Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+									}
+								}
+							}, false);
+							
+							addEventListener(document, id, "mousemove", moveTooltipListener, false);
+							addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+							addEventListener(document, id, "mouseenter", new TooltipInformationEventListener().setFetishDesire(f, desire, Main.game.getPlayer()), false);
+						}
 					}
 				}
 			}
-			
 		}
 
 		// Hotkey bindings:
@@ -4805,12 +4829,10 @@ public class MainController implements Initializable {
 		Attribute[] attributes = {
 				Attribute.HEALTH_MAXIMUM,
 				Attribute.MANA_MAXIMUM,
-				Attribute.STAMINA_MAXIMUM,
 				Attribute.EXPERIENCE,
 				Attribute.STRENGTH,
 				Attribute.INTELLIGENCE,
 				Attribute.CORRUPTION,
-				Attribute.FITNESS,
 				Attribute.AROUSAL,
 				Attribute.LUST };
 		
@@ -4833,38 +4855,22 @@ public class MainController implements Initializable {
 						((EventTarget) documentAttributes.getElementById(idModifier+a.getName())).addEventListener("click", e -> {
 							
 							if(character.isPlayer()) {
-								//TODO block when in character creation
-								
-								if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.PHONE) {
-									if(Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_LEVEL_UP) {
-										openPhone();
-									} else {
-										Main.game.setContent(new Response("", "", PhoneDialogue.CHARACTER_LEVEL_UP){
-											@Override
-											public void effects() {
-												PhoneDialogue.strengthPoints = 0;
-												PhoneDialogue.intelligencePoints = 0;
-												PhoneDialogue.fitnessPoints = 0;
-												PhoneDialogue.spendingPoints = Main.game.getPlayer().getPerkPoints();
-												PhoneDialogue.levelUpPerks.clear();
-											}
-										});
-									}
-									
-								} else if (!Main.game.getCurrentDialogueNode().isOptionsDisabled()) {
-									if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.NORMAL)
-										Main.game.saveDialogueNode();
-	
-									Main.game.setContent(new Response("", "", PhoneDialogue.CHARACTER_LEVEL_UP){
-										@Override
-										public void effects() {
-											PhoneDialogue.strengthPoints = 0;
-											PhoneDialogue.intelligencePoints = 0;
-											PhoneDialogue.fitnessPoints = 0;
-											PhoneDialogue.spendingPoints = Main.game.getPlayer().getPerkPoints();
-											PhoneDialogue.levelUpPerks.clear();
+								// block when in character creation
+								if(Main.game.isInNewWorld()) {
+									if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.PHONE) {
+										if(Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_APPEARANCE) {
+											openPhone();
+										} else {
+											Main.game.setContent(new Response("", "", PhoneDialogue.CHARACTER_APPEARANCE));
 										}
-									});
+										
+									} else if (!Main.game.getCurrentDialogueNode().isOptionsDisabled()) {
+										if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.NORMAL) {
+											Main.game.saveDialogueNode();
+										}
+										
+										Main.game.setContent(new Response("", "", PhoneDialogue.CHARACTER_APPEARANCE));
+									}
 								}
 								
 							} else {
@@ -4903,14 +4909,16 @@ public class MainController implements Initializable {
 				}
 			}
 			
-			// For perk slots:
-			for (Perk p : character.getPerks()) {
-				if (((EventTarget) documentAttributes.getElementById("PERK_"+idModifier + p)) != null) {
-					addEventListener(documentAttributes, "PERK_"+idModifier + p, "mousemove", moveTooltipListener, false);
-					addEventListener(documentAttributes, "PERK_"+idModifier + p, "mouseleave", hideTooltipListener, false);
-	
-					TooltipInformationEventListener el = new TooltipInformationEventListener().setPerk(p, character);
-					addEventListener(documentAttributes, "PERK_"+idModifier + p, "mouseenter", el, false);
+			
+			for (int i=0; i<GameCharacter.MAX_TRAITS;i++) {
+				id = idModifier+"_TRAIT_"+i;
+				if (((EventTarget) documentAttributes.getElementById(id)) != null) {
+					addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
+					addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
+					if(i<character.getTraits().size()) {
+						TooltipInformationEventListener el = new TooltipInformationEventListener().setPerk(character.getTraits().get(i), character);
+						addEventListener(documentAttributes, id, "mouseenter", el, false);
+					}
 				}
 			}
 			for (Fetish f : character.getFetishes()) {
@@ -5222,12 +5230,10 @@ public class MainController implements Initializable {
 			Attribute[] attributes = {
 					Attribute.HEALTH_MAXIMUM,
 					Attribute.MANA_MAXIMUM,
-					Attribute.STAMINA_MAXIMUM,
 					Attribute.EXPERIENCE,
 					Attribute.STRENGTH,
 					Attribute.INTELLIGENCE,
 					Attribute.CORRUPTION,
-					Attribute.FITNESS,
 					Attribute.AROUSAL,
 					Attribute.LUST };
 			
@@ -5282,7 +5288,7 @@ public class MainController implements Initializable {
 				}
 				
 				// For perk slots:
-				for (Perk p : character.getPerks()) {
+				for (Perk p : character.getMajorPerks()) {
 					if (((EventTarget) documentRight.getElementById("PERK_NPC_"+idModifier + p)) != null) {
 						addEventListener(documentRight, "PERK_NPC_"+idModifier + p, "mousemove", moveTooltipListener, false);
 						addEventListener(documentRight, "PERK_NPC_"+idModifier + p, "mouseleave", hideTooltipListener, false);
@@ -5432,14 +5438,14 @@ public class MainController implements Initializable {
 	 */
 	public void updateUI() {
 		if (Main.game.isRenderAttributesSection()) {
-			RenderingEngine.ENGINE.renderAttributesPanel();
+			RenderingEngine.ENGINE.renderAttributesPanelLeft();
 			RenderingEngine.ENGINE.renderAttributesPanelRight();
 		}
 		RenderingEngine.ENGINE.renderButtons();
 	}
 	
 	public void updateUILeftPanel() {
-		RenderingEngine.ENGINE.renderAttributesPanel();
+		RenderingEngine.ENGINE.renderAttributesPanelLeft();
 	}
 	
 	public void updateUIRightPanel() {

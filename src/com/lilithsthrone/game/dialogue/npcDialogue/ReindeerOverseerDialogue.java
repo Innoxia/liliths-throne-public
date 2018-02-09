@@ -1,7 +1,6 @@
 package com.lilithsthrone.game.dialogue.npcDialogue;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.attributes.FitnessLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.StrengthLevel;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -392,7 +391,7 @@ public class ReindeerOverseerDialogue {
 				return new Response("Encouragement", "Tell [npc.name] that you'd be best suited for delivering drinks and encouraging the workers.", ENCOUNTER_WORK_FINISHED) {
 					@Override
 					public void effects() {
-						int money = (int)(Main.game.getPlayer().getAttributeValue(Attribute.FITNESS)*1.5f);
+						int money = (int)(Main.game.getPlayer().getAttributeValue(Attribute.STRENGTH)*1.5f);
 						Main.game.getPlayer().incrementMoney(money);
 
 						Main.game.getTextStartStringBuilder().append(
@@ -405,8 +404,8 @@ public class ReindeerOverseerDialogue {
 								+ "<p>"
 									+ "Setting off to the area where the reindeer-morphs are working, you do as [npc.name] instructed, and start asking each one if they'd like a drink.");
 						
-						switch(FitnessLevel.getFitnessLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.FITNESS))) {
-							case ZERO_KLUTZ: case ONE_AVERAGE:
+						switch(StrengthLevel.getStrengthLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.STRENGTH))) {
+							case ZERO_WEAK: case ONE_AVERAGE:
 								Main.game.getTextStartStringBuilder().append(
 										" The workers are far more demanding than you'd expected, and before long you find yourself struggling to keep up with their requests."
 									+ "<p>"
@@ -424,7 +423,7 @@ public class ReindeerOverseerDialogue {
 										+ " [npc.speech(Here's the "+Util.intToString(money)+" flames you've earned!)]"
 									+ "</p>");
 								break;
-							case THREE_LIMBER: case TWO_FLEXIBLE:
+							case THREE_POWERFUL: case TWO_STRONG:
 								Main.game.getTextStartStringBuilder().append(
 										" The workers are far more demanding than you'd expected, but despite this, you're still able to keep up with their requests."
 									+ "<p>"
@@ -442,7 +441,7 @@ public class ReindeerOverseerDialogue {
 										+ " [npc.speech(Here's the "+Util.intToString(money)+" flames you've earned!)]"
 									+ "</p>");
 								break;
-							case FOUR_ATHLETIC: case FIVE_ACROBAT:
+							case FOUR_MIGHTY: case FIVE_HERCULEAN:
 								Main.game.getTextStartStringBuilder().append(
 										" The workers are far more demanding than you'd expected, but despite this, you're easily able to keep up their requests, and even find time to stop and chat with several of them."
 									+ "<p>"

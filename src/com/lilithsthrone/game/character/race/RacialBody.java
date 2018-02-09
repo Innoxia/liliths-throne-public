@@ -63,7 +63,6 @@ public enum RacialBody {
 	HUMAN(Util.newHashMapOfValues(
 				new Value<Attribute, Float>(Attribute.STRENGTH, 10f),
 				new Value<Attribute, Float>(Attribute.INTELLIGENCE, 10f),
-				new Value<Attribute, Float>(Attribute.FITNESS, 10f),
 				new Value<Attribute, Float>(Attribute.CORRUPTION, 5f)),
 			AntennaType.NONE,
 			ArmType.HUMAN, 1,
@@ -90,9 +89,8 @@ public enum RacialBody {
 
 	// ANGEL:
 	ANGEL(Util.newHashMapOfValues(
-				new Value<Attribute, Float>(Attribute.STRENGTH, 10f),
+				new Value<Attribute, Float>(Attribute.STRENGTH, 30f),
 				new Value<Attribute, Float>(Attribute.INTELLIGENCE, 80f),
-				new Value<Attribute, Float>(Attribute.FITNESS, 80f),
 				new Value<Attribute, Float>(Attribute.CORRUPTION, 0f)),
 			AntennaType.NONE,
 			ArmType.ANGEL, 1,
@@ -130,9 +128,8 @@ public enum RacialBody {
 
 	// DEMON:
 	DEMON(Util.newHashMapOfValues(
-				new Value<Attribute, Float>(Attribute.STRENGTH, 60f),
+				new Value<Attribute, Float>(Attribute.STRENGTH, 30f),
 				new Value<Attribute, Float>(Attribute.INTELLIGENCE, 80f),
-				new Value<Attribute, Float>(Attribute.FITNESS, 80f),
 				new Value<Attribute, Float>(Attribute.CORRUPTION, 100f)),
 			AntennaType.NONE,
 			ArmType.DEMON_COMMON, 1,
@@ -174,7 +171,6 @@ public enum RacialBody {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.STRENGTH, 40f),
 					new Value<Attribute, Float>(Attribute.INTELLIGENCE, 10f),
-					new Value<Attribute, Float>(Attribute.FITNESS, 25f),
 					new Value<Attribute, Float>(Attribute.CORRUPTION, 15f)),
 			AntennaType.NONE,
 			ArmType.COW_MORPH, 1,
@@ -210,7 +206,6 @@ public enum RacialBody {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.STRENGTH, 25f),
 					new Value<Attribute, Float>(Attribute.INTELLIGENCE, 20f),
-					new Value<Attribute, Float>(Attribute.FITNESS, 20f),
 					new Value<Attribute, Float>(Attribute.CORRUPTION, 20f)),
 			AntennaType.NONE,
 			ArmType.DOG_MORPH, 1,
@@ -245,7 +240,6 @@ public enum RacialBody {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.STRENGTH, 30f),
 					new Value<Attribute, Float>(Attribute.INTELLIGENCE, 20f),
-					new Value<Attribute, Float>(Attribute.FITNESS, 20f),
 					new Value<Attribute, Float>(Attribute.CORRUPTION, 30f)),
 			AntennaType.NONE,
 			ArmType.LYCAN, 1,
@@ -281,7 +275,6 @@ public enum RacialBody {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.STRENGTH, 20f),
 					new Value<Attribute, Float>(Attribute.INTELLIGENCE, 20f),
-					new Value<Attribute, Float>(Attribute.FITNESS, 30f),
 					new Value<Attribute, Float>(Attribute.CORRUPTION, 20f)),
 			AntennaType.NONE,
 			ArmType.CAT_MORPH, 1,
@@ -317,7 +310,6 @@ public enum RacialBody {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.STRENGTH, 30f),
 					new Value<Attribute, Float>(Attribute.INTELLIGENCE, 15f),
-					new Value<Attribute, Float>(Attribute.FITNESS, 20f),
 					new Value<Attribute, Float>(Attribute.CORRUPTION, 20f)),
 			AntennaType.NONE,
 			ArmType.HORSE_MORPH, 1,
@@ -351,7 +343,6 @@ public enum RacialBody {
 	REINDEER_MORPH(Util.newHashMapOfValues(
 				new Value<Attribute, Float>(Attribute.STRENGTH, 30f),
 				new Value<Attribute, Float>(Attribute.INTELLIGENCE, 10f),
-				new Value<Attribute, Float>(Attribute.FITNESS, 40f),
 				new Value<Attribute, Float>(Attribute.CORRUPTION, 20f)),
 			AntennaType.NONE,
 			ArmType.REINDEER_MORPH, 1,
@@ -386,7 +377,6 @@ public enum RacialBody {
 	ALLIGATOR_MORPH(Util.newHashMapOfValues(
 	            new Value<Attribute, Float>(Attribute.STRENGTH, 60f),
 	            new Value<Attribute, Float>(Attribute.INTELLIGENCE, 20f),
-	            new Value<Attribute, Float>(Attribute.FITNESS, 60f),
 	            new Value<Attribute, Float>(Attribute.CORRUPTION, 20f)),
 		    AntennaType.NONE,
 		    ArmType.ALLIGATOR_MORPH, 1,
@@ -426,7 +416,6 @@ public enum RacialBody {
 	SQUIRREL_MORPH(Util.newHashMapOfValues(
 				new Value<Attribute, Float>(Attribute.STRENGTH, 10f),
 				new Value<Attribute, Float>(Attribute.INTELLIGENCE, 30f),
-				new Value<Attribute, Float>(Attribute.FITNESS, 50f),
 				new Value<Attribute, Float>(Attribute.CORRUPTION, 15f)),
 			AntennaType.NONE,
 			ArmType.SQUIRREL_MORPH, 1,
@@ -461,7 +450,6 @@ public enum RacialBody {
 	HARPY(Util.newHashMapOfValues(
 				new Value<Attribute, Float>(Attribute.STRENGTH, 5f),
 				new Value<Attribute, Float>(Attribute.INTELLIGENCE, 10f),
-				new Value<Attribute, Float>(Attribute.FITNESS, 50f),
 				new Value<Attribute, Float>(Attribute.CORRUPTION, 20f)),
 			AntennaType.NONE,
 			ArmType.HARPY, 1,

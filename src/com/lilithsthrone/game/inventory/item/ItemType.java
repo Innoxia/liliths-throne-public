@@ -629,7 +629,7 @@ public class ItemType {
 			"A glass bottle of what looks to be some kind of beer."
 				+ " A label on the front shows a dog-boy lining himself up behind a beautiful girl, who's down on all fours, presenting her naked, dripping pussy to the throbbing dog-cock behind her.",
 			"attributeDogMorphDrink",
-			Colour.ATTRIBUTE_FITNESS,
+			Colour.ATTRIBUTE_STRENGTH,
 			30,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
@@ -639,7 +639,7 @@ public class ItemType {
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
-			return ItemEffectType.ATTRIBUTE_FITNESS;
+			return ItemEffectType.ATTRIBUTE_STRENGTH;
 		}
 
 		@Override
@@ -679,7 +679,7 @@ public class ItemType {
 			"A glass bottle of what looks to be some kind of coffee."
 				+ " A label on the front shows a squirrel-girl fingering herself over the top of a bottle just like this one; her juices dripping down into the coffee to provide some extra cream.",
 			"attributeSquirrelMorphDrink",
-			Colour.ATTRIBUTE_FITNESS,
+			Colour.ATTRIBUTE_STRENGTH,
 			30,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
@@ -689,7 +689,7 @@ public class ItemType {
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
-			return ItemEffectType.ATTRIBUTE_FITNESS;
+			return ItemEffectType.ATTRIBUTE_STRENGTH;
 		}
 
 		@Override
@@ -729,7 +729,7 @@ public class ItemType {
 			"A carton of 'Rudolph's Egg Nog'."
 				+ " A label on the front shows the drink's namesake, a buff, stark-naked reindeer-boy, drinking a glass of this carton's contents while receiving oral sex from three enraptured reindeer-girls.",
 			"attributeReindeerMorphDrink",
-			Colour.ATTRIBUTE_FITNESS,
+			Colour.ATTRIBUTE_STRENGTH,
 			30,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
@@ -739,7 +739,7 @@ public class ItemType {
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
-			return ItemEffectType.ATTRIBUTE_FITNESS;
+			return ItemEffectType.ATTRIBUTE_STRENGTH;
 		}
 
 		@Override

@@ -309,7 +309,7 @@ public class WeaponType {
 			Util.newArrayListOfValues(new ListValue<DamageType>(DamageType.PHYSICAL)),
 			DamageLevel.AWFUL,
 			DamageVariance.LOW,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FITNESS, 5)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STRENGTH, 5)),
 			Util.newArrayListOfValues(
 					new ListValue<Spell>(Spell.ARCANE_SHIELD))) {
 		

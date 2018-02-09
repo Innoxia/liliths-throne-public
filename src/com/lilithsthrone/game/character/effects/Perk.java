@@ -18,29 +18,151 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.1.99
  * @author Innoxia
  */
 public enum Perk {
 	
 	// Physical:
-	BRAWLER(20,
-			"brawler",
-			PerkLevel.LEVEL_ONE,
+	PHYSICAL_BASE(20,
+			false,
+			"natural fitness",
 			PerkCategory.PHYSICAL,
-			"physical_brawler",
+			"perks/attStrength5",
 			Colour.ATTRIBUTE_STRENGTH,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 15), new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 15)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STRENGTH, 5)),
 			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return "";
-		}
 
 		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return "";
+		public String getDescription(GameCharacter owner) {
+			return "You have a natural amount of physical strength.";
 		}
+	},
+	
+	STRENGTH_1(20,
+			false,
+			"physically fit I",
+			PerkCategory.PHYSICAL,
+			"perks/attStrength1",
+			Colour.ATTRIBUTE_STRENGTH,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STRENGTH, 1)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "You feel as though your physical fitness is improving!";
+		}
+	},
+	
+	STRENGTH_3(20,
+			false,
+			"physically fit III",
+			PerkCategory.PHYSICAL,
+			"perks/attStrength3",
+			Colour.ATTRIBUTE_STRENGTH,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STRENGTH, 3)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Your physical fitness is definitely improving!";
+		}
+	},
+
+	STRENGTH_5(20,
+			false,
+			"physically fit V",
+			PerkCategory.PHYSICAL,
+			"perks/attStrength5",
+			Colour.ATTRIBUTE_STRENGTH,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STRENGTH, 5)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Your physical fitness is improving massively!";
+		}
+	},
+	
+	
+	ARCANE_BASE(20,
+			false,
+			"natural arcane power",
+			PerkCategory.ARCANE,
+			"perks/attIntelligence5",
+			Colour.ATTRIBUTE_INTELLIGENCE,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.INTELLIGENCE, 15)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "You have a surprisingly large amount of natural arcane power.";
+		}
+	},
+	
+	
+	SEDUCTION_1(20,
+			false,
+			"seductive I",
+			PerkCategory.ARCANE,
+			"perks/attSeduction1",
+			Colour.BASE_PINK_LIGHT,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 1)), null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer())
+				return "You love flirting, and, from your experience, your partners love it too!";
+			else
+				return UtilText.parse(owner, "[npc.Name] is extremely flirty.");
+		}
+	},
+	
+	SEDUCTION_3(20,
+			false,
+			"seductive III",
+			PerkCategory.ARCANE,
+			"perks/attSeduction3",
+			Colour.BASE_PINK,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 3)), null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer())
+				return "You're somewhat more than the typical flirt. You know just how to move your body in order to seduce even the most frigid of potential partners.";
+			else
+				return UtilText.parse(owner, "[npc.Name] moves in a highly seductive manner.");
+		}
+	},
+	
+	SEDUCTION_5(20,
+			false,
+			"seductive V",
+			PerkCategory.ARCANE,
+			"perks/attSeduction5",
+			Colour.BASE_PINK_DEEP,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 5)), null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer())
+				return "Your every move drips with sexually suggestive body language. You're a walking sex bomb, and from the reactions of those around you, everyone can see it.";
+			else
+				return UtilText.parse(owner, "[npc.Name] is a walking sex bomb. [npc.Her] every movement drips with suggestive body language, and you can't help but feel extremely aroused just by looking at [npc.herHim].");
+		}
+	},
+	
+	
+	
+	
+	
+	BRAWLER(20,
+			true,
+			"brawler",
+			PerkCategory.PHYSICAL,
+			"perks/physical_brawler",
+			Colour.ATTRIBUTE_STRENGTH,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 15), new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 15)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -51,22 +173,12 @@ public enum Perk {
 		}
 	},
 	ACCURATE(20,
+			true,
 			"deadeye",
-			PerkLevel.LEVEL_FIVE,
 			PerkCategory.PHYSICAL,
-			"physical_accurate",
+			"perks/physical_accurate",
 			Colour.ATTRIBUTE_STRENGTH,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.CRITICAL_CHANCE, 10)),
-			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return "";
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return "";
-		}
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.CRITICAL_CHANCE, 10)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -77,32 +189,12 @@ public enum Perk {
 		}
 	},
 	TANK(20,
+			true,
 			"tank",
-			PerkLevel.LEVEL_FIVE,
 			PerkCategory.PHYSICAL,
-			"physical_tank",
+			"perks/physical_tank",
 			Colour.ATTRIBUTE_STRENGTH,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 25)),
-			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return "";
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return "";
-		}
-
-		@Override
-		public Perk getPreviousLevelPerk() {
-			return null;
-		}
-
-		@Override
-		public Perk getNextLevelPerk() {
-			return TANK_2;
-		}
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 25)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -113,34 +205,13 @@ public enum Perk {
 		}
 	},
 	TANK_2(20,
+			true,
 			"indomitable",
-			PerkLevel.LEVEL_TEN,
 			PerkCategory.PHYSICAL,
-			"physical_tank_2",
+			"perks/physical_tank_2",
 			Colour.ATTRIBUTE_STRENGTH,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 60)),
-			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			character.removePerk(TANK);
-			return "";
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return "";
-		}
-
-		@Override
-		public Perk getPreviousLevelPerk() {
-			return TANK;
-		}
-
-		@Override
-		public Perk getNextLevelPerk() {
-			return null;
-		}
-
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 60)), null) {
+		
 		@Override
 		public String getDescription(GameCharacter owner) {
 			if (owner.isPlayer())
@@ -150,24 +221,14 @@ public enum Perk {
 		}
 	},
 	INDEFATIGABLE(20,
+			true,
 			"indefatigable",
-			PerkLevel.LEVEL_FIFTEEN,
 			PerkCategory.PHYSICAL,
-			"physical_indefatigable",
+			"perks/physical_indefatigable",
 			Colour.ATTRIBUTE_STRENGTH,
-			null,
-			Util.newArrayListOfValues(new ListValue<>("<span style='color:"
+			null, Util.newArrayListOfValues(new ListValue<>("<span style='color:"
 					+ Colour.ATTRIBUTE_STRENGTH.toWebHexString()
 					+ ";'>Improved Combat</span>"))) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return "";
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return "";
-		}
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -179,13 +240,12 @@ public enum Perk {
 	},
 
 	OBSERVANT(60,
+			true,
 			"observant",
-			PerkLevel.LEVEL_ONE,
 			PerkCategory.PHYSICAL,
-			"misc_observant",
+			"perks/misc_observant",
 			Colour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.CRITICAL_CHANCE, 5)),
-			Util.newArrayListOfValues(new ListValue<>("<span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Gender detection</span>"))) {
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.CRITICAL_CHANCE, 5)), Util.newArrayListOfValues(new ListValue<>("<span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Gender detection</span>"))) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
 			return UtilText.parsePlayerThought("");
@@ -209,27 +269,12 @@ public enum Perk {
 
 	// Arcane:
 	SPELL_POWER_1(20,
+			true,
 			"arcane power",
-			PerkLevel.LEVEL_ONE,
 			PerkCategory.ARCANE,
-			"arcane_power_1",
+			"perks/arcane_power_1",
 			Colour.ATTRIBUTE_INTELLIGENCE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 5)),
-			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return "";
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return "";
-		}
-
-		@Override
-		public Perk getNextLevelPerk() {
-			return SPELL_POWER_2;
-		}
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 5)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -240,33 +285,12 @@ public enum Perk {
 		}
 	},
 	SPELL_POWER_2(20,
+			true,
 			"arcane conduit",
-			PerkLevel.LEVEL_FIVE,
 			PerkCategory.ARCANE,
-			"arcane_power_2",
+			"perks/arcane_power_2",
 			Colour.ATTRIBUTE_INTELLIGENCE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 10)),
-			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			character.removePerk(SPELL_POWER_1);
-			return "";
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return "";
-		}
-
-		@Override
-		public Perk getPreviousLevelPerk() {
-			return SPELL_POWER_1;
-		}
-
-		@Override
-		public Perk getNextLevelPerk() {
-			return SPELL_POWER_3;
-		}
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 10)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -277,33 +301,12 @@ public enum Perk {
 		}
 	},
 	SPELL_POWER_3(20,
+			true,
 			"arcane mastery",
-			PerkLevel.LEVEL_TEN,
 			PerkCategory.ARCANE,
-			"arcane_power_3",
+			"perks/arcane_power_3",
 			Colour.ATTRIBUTE_INTELLIGENCE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 15)),
-			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			character.removePerk(SPELL_POWER_2);
-			return "";
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return "";
-		}
-
-		@Override
-		public Perk getPreviousLevelPerk() {
-			return SPELL_POWER_2;
-		}
-
-		@Override
-		public Perk getNextLevelPerk() {
-			return null;
-		}
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 15)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -315,27 +318,12 @@ public enum Perk {
 	},
 
 	FIRE_ENHANCEMENT(20,
+			true,
 			"firebrand",
-			PerkLevel.LEVEL_TEN,
 			PerkCategory.ARCANE,
-			"arcane_fire_1",
+			"perks/arcane_fire_1",
 			Colour.DAMAGE_TYPE_FIRE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 10)),
-			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return "";
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return "";
-		}
-
-		@Override
-		public Perk getNextLevelPerk() {
-			return FIRE_ENHANCEMENT_2;
-		}
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 10)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -346,33 +334,12 @@ public enum Perk {
 		}
 	},
 	FIRE_ENHANCEMENT_2(20,
+			true,
 			"incendiary",
-			PerkLevel.LEVEL_FIFTEEN,
 			PerkCategory.ARCANE,
-			"arcane_fire_2",
+			"perks/arcane_fire_2",
 			Colour.DAMAGE_TYPE_FIRE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 10), new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 10)),
-			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			character.removePerk(FIRE_ENHANCEMENT);
-			return "";
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return "";
-		}
-
-		@Override
-		public Perk getPreviousLevelPerk() {
-			return FIRE_ENHANCEMENT;
-		}
-
-		@Override
-		public Perk getNextLevelPerk() {
-			return null;
-		}
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 10), new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 10)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -383,27 +350,12 @@ public enum Perk {
 		}
 	},
 	COLD_ENHANCEMENT(20,
+			true,
 			"frosty",
-			PerkLevel.LEVEL_TEN,
 			PerkCategory.ARCANE,
-			"arcane_ice_1",
+			"perks/arcane_ice_1",
 			Colour.DAMAGE_TYPE_COLD,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 10)),
-			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return "";
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return "";
-		}
-
-		@Override
-		public Perk getNextLevelPerk() {
-			return COLD_ENHANCEMENT_2;
-		}
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 10)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -414,33 +366,12 @@ public enum Perk {
 		}
 	},
 	COLD_ENHANCEMENT_2(20,
+			true,
 			"ice cold",
-			PerkLevel.LEVEL_FIFTEEN,
 			PerkCategory.ARCANE,
-			"arcane_ice_2",
+			"perks/arcane_ice_2",
 			Colour.DAMAGE_TYPE_COLD,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 10), new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 10)),
-			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			character.removePerk(COLD_ENHANCEMENT);
-			return "";
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return "";
-		}
-
-		@Override
-		public Perk getPreviousLevelPerk() {
-			return COLD_ENHANCEMENT;
-		}
-
-		@Override
-		public Perk getNextLevelPerk() {
-			return null;
-		}
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 10), new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 10)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -451,27 +382,12 @@ public enum Perk {
 		}
 	},
 	POISON_ENHANCEMENT(20,
+			true,
 			"venomous",
-			PerkLevel.LEVEL_TEN,
 			PerkCategory.ARCANE,
-			"arcane_poison_1",
+			"perks/arcane_poison_1",
 			Colour.DAMAGE_TYPE_POISON,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 10)),
-			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return "";
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return "";
-		}
-
-		@Override
-		public Perk getNextLevelPerk() {
-			return POISON_ENHANCEMENT_2;
-		}
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 10)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -482,33 +398,12 @@ public enum Perk {
 		}
 	},
 	POISON_ENHANCEMENT_2(20,
+			true,
 			"toxic",
-			PerkLevel.LEVEL_FIFTEEN,
 			PerkCategory.ARCANE,
-			"arcane_poison_2",
+			"perks/arcane_poison_2",
 			Colour.DAMAGE_TYPE_POISON,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 10), new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 10)),
-			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			character.removePerk(POISON_ENHANCEMENT);
-			return "";
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return "";
-		}
-
-		@Override
-		public Perk getPreviousLevelPerk() {
-			return POISON_ENHANCEMENT;
-		}
-
-		@Override
-		public Perk getNextLevelPerk() {
-			return null;
-		}
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 10), new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 10)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -521,34 +416,14 @@ public enum Perk {
 
 	// Fitness:
 	RUNNER(20,
+			true,
 			"runner",
-			PerkLevel.LEVEL_FIVE,
-			PerkCategory.FITNESS,
-			"fitness_runner",
-			Colour.ATTRIBUTE_FITNESS,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STAMINA_MAXIMUM, 25)),
-			Util.newArrayListOfValues(new ListValue<>("<b>*</b> <span style='color:"
-					+ Colour.ATTRIBUTE_FITNESS.toWebHexString()
+			PerkCategory.PHYSICAL,
+			"perks/fitness_runner",
+			Colour.ATTRIBUTE_STRENGTH,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STRENGTH, 5)), Util.newArrayListOfValues(new ListValue<>("<b>*</b> <span style='color:"
+					+ Colour.ATTRIBUTE_STRENGTH.toWebHexString()
 					+ ";'>Improved escape chance</span>"))) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return "";
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return "";
-		}
-
-		@Override
-		public Perk getPreviousLevelPerk() {
-			return null;
-		}
-
-		@Override
-		public Perk getNextLevelPerk() {
-			return RUNNER_2;
-		}
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -559,14 +434,13 @@ public enum Perk {
 		}
 	},
 	RUNNER_2(20,
+			true,
 			"cardio champion",
-			PerkLevel.LEVEL_TEN,
-			PerkCategory.FITNESS,
-			"fitness_runner_2",
-			Colour.ATTRIBUTE_FITNESS,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STAMINA_MAXIMUM, 60)),
-			Util.newArrayListOfValues(new ListValue<>("<b>*</b> <span style='color:"
-					+ Colour.ATTRIBUTE_FITNESS.toWebHexString()
+			PerkCategory.PHYSICAL,
+			"perks/fitness_runner_2",
+			Colour.ATTRIBUTE_STRENGTH,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STRENGTH, 10)), Util.newArrayListOfValues(new ListValue<>("<b>*</b> <span style='color:"
+					+ Colour.ATTRIBUTE_STRENGTH.toWebHexString()
 					+ ";'>Improved escape chance</span>"))) {
 		@Override
 		public String getName(GameCharacter character) {
@@ -574,27 +448,6 @@ public enum Perk {
 				return "Cardio Queen";
 			else
 				return "Cardio King";
-		}
-
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			character.removePerk(RUNNER);
-			return "";
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return "";
-		}
-
-		@Override
-		public Perk getPreviousLevelPerk() {
-			return RUNNER;
-		}
-
-		@Override
-		public Perk getNextLevelPerk() {
-			return null;
 		}
 
 		@Override
@@ -606,13 +459,12 @@ public enum Perk {
 		}
 	},
 	FEMALE_ATTRACTION(60,
+			true,
 			"ladykiller",
-			PerkLevel.LEVEL_ONE,
-			PerkCategory.FITNESS,
-			"fitness_female_attraction",
+			PerkCategory.ARCANE,
+			"perks/fitness_female_attraction",
 			Colour.FEMININE,
-			null,
-			Util.newArrayListOfValues(new ListValue<>("+10% <span style='color:" + Colour.DAMAGE_TYPE_MANA.toWebHexString() + ";'>willpower damage</span>"
+			null, Util.newArrayListOfValues(new ListValue<>("+10% <span style='color:" + Colour.DAMAGE_TYPE_MANA.toWebHexString() + ";'>willpower damage</span>"
 					+ " vs <span style='color:" + Colour.FEMININE.toWebHexString()+ ";'>feminine opponents</span>"))) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
@@ -632,85 +484,14 @@ public enum Perk {
 				return UtilText.parse(owner, "[npc.Name] is very popular with the ladies.");
 		}
 
-		@Override
-		public boolean isAvailable(GameCharacter character, List<Perk> additionalPerks) {
-			if (additionalPerks != null) {
-				if (character.hasPerk(Perk.MALE_ATTRACTION)
-						|| additionalPerks.contains(Perk.MALE_ATTRACTION))
-					return false;
-			} else if (character.hasPerk(Perk.MALE_ATTRACTION))
-				return false;
-
-			if (character.getLevel() < this.requiredLevel.getLevel())
-				return false;
-
-			if (this.getPreviousLevelPerk() != null) {
-				if (additionalPerks == null) {
-					if (character.hasPerk(this.getPreviousLevelPerk()))
-						return true;
-				} else {
-					if (character.hasPerk(this.getPreviousLevelPerk())
-							|| additionalPerks.contains(this.getPreviousLevelPerk()))
-						return true;
-				}
-				return false;
-			} else
-				return true;
-		}
-
-		@Override
-		public List<String> getPerkRequirements(GameCharacter character, List<Perk> additionalPerks) {
-			perkRequirementsList.clear();
-
-			if (character.getLevel() < this.requiredLevel.getLevel())
-				perkRequirementsList.add("<span style='color:"
-						+ Colour.GENERIC_BAD.toWebHexString()
-						+ ";'>Level "
-						+ requiredLevel.getLevel()
-						+ "</span>");
-			else
-				perkRequirementsList.add("<span style='color:"
-						+ Colour.GENERIC_GOOD.toWebHexString()
-						+ ";'>Level "
-						+ requiredLevel.getLevel()
-						+ "</span>");
-
-			if (this.getPreviousLevelPerk() != null) {
-				if (character.hasPerk(this.getPreviousLevelPerk())
-						|| additionalPerks.contains(this.getPreviousLevelPerk()))
-					perkRequirementsList.add("<span style='color:"
-							+ Colour.GENERIC_GOOD.toWebHexString()
-							+ ";'>Unlocked '"
-							+ this.getPreviousLevelPerk().getName(character)
-							+ "'</span>");
-				else
-					perkRequirementsList.add("<span style='color:"
-							+ Colour.GENERIC_BAD.toWebHexString()
-							+ ";'>Unlocked '"
-							+ this.getPreviousLevelPerk().getName(character)
-							+ "'</span>");
-			}
-			if (character.hasPerk(Perk.MALE_ATTRACTION)
-					|| additionalPerks.contains(Perk.MALE_ATTRACTION))
-				perkRequirementsList.add("<span style='color:"
-						+ Colour.GENERIC_BAD.toWebHexString()
-						+ ";'>Incompatible with 'Minx'</span>");
-			else
-				perkRequirementsList.add("<span style='color:"
-						+ Colour.GENERIC_GOOD.toWebHexString()
-						+ ";'>Incompatible with 'Minx'</span>");
-
-			return perkRequirementsList;
-		}
 	},
 	MALE_ATTRACTION(60,
+			true,
 			"minx",
-			PerkLevel.LEVEL_ONE,
-			PerkCategory.FITNESS,
-			"fitness_male_attraction",
+			PerkCategory.ARCANE,
+			"perks/fitness_male_attraction",
 			Colour.MASCULINE,
-			null,
-			Util.newArrayListOfValues(new ListValue<>("+10% <span style='color:" + Colour.DAMAGE_TYPE_MANA.toWebHexString() + ";'>willpower damage</span>"
+			null, Util.newArrayListOfValues(new ListValue<>("+10% <span style='color:" + Colour.DAMAGE_TYPE_MANA.toWebHexString() + ";'>willpower damage</span>"
 					+ " vs <span style='color:" + Colour.MASCULINE.toWebHexString()+ ";'>masculine opponents</span>"))) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
@@ -730,107 +511,16 @@ public enum Perk {
 				return UtilText.parse(owner, "[npc.Name] is very popular with men.");
 		}
 
-		@Override
-		public boolean isAvailable(GameCharacter character, List<Perk> additionalPerks) {
-			if (additionalPerks != null) {
-				if (character.hasPerk(Perk.FEMALE_ATTRACTION)
-						|| additionalPerks.contains(Perk.FEMALE_ATTRACTION))
-					return false;
-			} else if (character.hasPerk(Perk.FEMALE_ATTRACTION))
-				return false;
-
-			if (character.getLevel() < this.requiredLevel.getLevel())
-				return false;
-
-			if (this.getPreviousLevelPerk() != null) {
-				if (additionalPerks == null) {
-					if (character.hasPerk(this.getPreviousLevelPerk()))
-						return true;
-				} else {
-					if (character.hasPerk(this.getPreviousLevelPerk())
-							|| additionalPerks.contains(this.getPreviousLevelPerk()))
-						return true;
-				}
-				return false;
-			} else
-				return true;
-		}
-
-		@Override
-		public List<String> getPerkRequirements(GameCharacter character, List<Perk> additionalPerks) {
-			perkRequirementsList.clear();
-
-			if (character.getLevel() < this.requiredLevel.getLevel())
-				perkRequirementsList.add("<span style='color:"
-						+ Colour.GENERIC_BAD.toWebHexString()
-						+ ";'>Level "
-						+ requiredLevel.getLevel()
-						+ "</span>");
-			else
-				perkRequirementsList.add("<span style='color:"
-						+ Colour.GENERIC_GOOD.toWebHexString()
-						+ ";'>Level "
-						+ requiredLevel.getLevel()
-						+ "</span>");
-
-			if (this.getPreviousLevelPerk() != null) {
-				if (character.hasPerk(this.getPreviousLevelPerk())
-						|| additionalPerks.contains(this.getPreviousLevelPerk()))
-					perkRequirementsList.add("<span style='color:"
-							+ Colour.GENERIC_GOOD.toWebHexString()
-							+ ";'>Unlocked '"
-							+ this.getPreviousLevelPerk().getName(character)
-							+ "'</span>");
-				else
-					perkRequirementsList.add("<span style='color:"
-							+ Colour.GENERIC_BAD.toWebHexString()
-							+ ";'>Unlocked '"
-							+ this.getPreviousLevelPerk().getName(character)
-							+ "'</span>");
-			}
-			if (character.hasPerk(Perk.FEMALE_ATTRACTION)
-					|| additionalPerks.contains(Perk.FEMALE_ATTRACTION))
-				perkRequirementsList.add("<span style='color:"
-						+ Colour.GENERIC_BAD.toWebHexString()
-						+ ";'>Incompatible with 'Ladykiller'</span>");
-			else
-				perkRequirementsList.add("<span style='color:"
-						+ Colour.GENERIC_GOOD.toWebHexString()
-						+ ";'>Incompatible with 'Ladykiller'</span>");
-
-			return perkRequirementsList;
-		}
-
 	},
 	
 	NYMPHOMANIAC(20,
+			true,
 			"nymphomaniac",
-			PerkLevel.LEVEL_ONE,
-			PerkCategory.FITNESS,
-			"fitness_nymphomaniac",
+			PerkCategory.ARCANE,
+			"perks/fitness_nymphomaniac",
 			Colour.GENERIC_SEX,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_MANA, -25)),
-			Util.newArrayListOfValues(new ListValue<>("Doubles <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString()+ ";'>arcane essence gain</span> from each orgasm"))) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return "";
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return "";
-		}
-
-		@Override
-		public Perk getPreviousLevelPerk() {
-			return null;
-		}
-
-		@Override
-		public Perk getNextLevelPerk() {
-			return null;
-		}
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, -25)), Util.newArrayListOfValues(new ListValue<>("Doubles <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString()+ ";'>arcane essence gain</span> from each orgasm"))) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -841,134 +531,14 @@ public enum Perk {
 		}
 	},
 	
-	SEDUCTION(20,
-			"flirty",
-			PerkLevel.LEVEL_ONE,
-			PerkCategory.FITNESS,
-			"fitness_seduction_1",
-			Colour.GENERIC_SEX,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_MANA, 5)),
-			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return "";
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return "";
-		}
-
-		@Override
-		public Perk getPreviousLevelPerk() {
-			return null;
-		}
-
-		@Override
-		public Perk getNextLevelPerk() {
-			return SEDUCTION_2;
-		}
-
-		@Override
-		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer())
-				return "You love flirting, and, from your experience, your partners love it too!";
-			else
-				return UtilText.parse(owner, "[npc.Name] is extremely flirty.");
-		}
-	},
-	SEDUCTION_2(20,
-			"seductive",
-			PerkLevel.LEVEL_FIVE,
-			PerkCategory.FITNESS,
-			"fitness_seduction_2",
-			Colour.GENERIC_SEX,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_MANA, 10)),
-			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			character.removePerk(SEDUCTION);
-			return "";
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return "";
-		}
-
-		@Override
-		public Perk getPreviousLevelPerk() {
-			return SEDUCTION;
-		}
-
-		@Override
-		public Perk getNextLevelPerk() {
-			return SEDUCTION_3;
-		}
-
-		@Override
-		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer())
-				return "You're somewhat more than the typical flirt. You know just how to move your body in order to seduce even the most frigid of potential partners.";
-			else
-				return UtilText.parse(owner, "[npc.Name] moves in a highly seductive manner.");
-		}
-	},
-	SEDUCTION_3(20,
-			"sex bomb",
-			PerkLevel.LEVEL_TEN,
-			PerkCategory.FITNESS,
-			"fitness_seduction_3",
-			Colour.GENERIC_SEX,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_MANA, 15)),
-			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			character.removePerk(SEDUCTION_2);
-			return "";
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return "";
-		}
-
-		@Override
-		public Perk getPreviousLevelPerk() {
-			return SEDUCTION_2;
-		}
-
-		@Override
-		public Perk getNextLevelPerk() {
-			return null;
-		}
-
-		@Override
-		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer())
-				return "Your every move drips with sexually suggestive body language. You're a walking sex bomb, and from the reactions of those around you, everyone can see it.";
-			else
-				return UtilText.parse(owner, "[npc.Name] is a walking sex bomb. [npc.Her] every movement drips with suggestive body language, and you can't help but feel extremely aroused just by looking at [npc.herHim].");
-		}
-	},
 	
 	BARREN(20,
+			true,
 			"barren",
-			PerkLevel.LEVEL_ONE,
-			PerkCategory.FITNESS,
-			"fitness_barren",
+			PerkCategory.PHYSICAL,
+			"perks/fitness_barren",
 			Colour.GENERIC_SEX,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FERTILITY, -100)),
-			null) {
-		@Override
-		public String applyPerkGained(GameCharacter character) {
-			return "";
-		}
-
-		@Override
-		public String applyPerkLost(GameCharacter character) {
-			return "";
-		}
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FERTILITY, -100)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -982,13 +552,12 @@ public enum Perk {
 
 	private int renderingPriority;
 	protected String name;
+	private boolean major;
 
 	// Attributes modified by this Virtue:
 	private HashMap<Attribute, Integer> attributeModifiers;
 
 	private PerkCategory perkCategory;
-
-	protected PerkLevel requiredLevel;
 
 	private String SVGString;
 
@@ -996,12 +565,12 @@ public enum Perk {
 
 	private List<String> modifiersList;
 
-	private Perk(int renderingPriority, String name, PerkLevel requiredLevel, PerkCategory perkCategory, String pathName, Colour colourShade, HashMap<Attribute, Integer> attributeModifiers, List<String> extraEffects) {
+	private Perk(int renderingPriority, boolean major, String name, PerkCategory perkCategory, String pathName, Colour colourShade, HashMap<Attribute, Integer> attributeModifiers, List<String> extraEffects) {
 
 		this.renderingPriority = renderingPriority;
 		this.name = name;
-
-		this.requiredLevel = requiredLevel;
+		this.major = major;
+		
 		this.perkCategory = perkCategory;
 
 		this.attributeModifiers = attributeModifiers;
@@ -1009,7 +578,7 @@ public enum Perk {
 		this.extraEffects = extraEffects;
 
 		try {
-			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/perks/"
+			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/"
 					+ pathName
 					+ ".svg");
 			SVGString = Util.inputStreamToString(is);
@@ -1044,67 +613,12 @@ public enum Perk {
 			modifiersList.addAll(extraEffects);
 	}
 
-	public boolean isAvailable(GameCharacter character) {
-		return isAvailable(character, null);
-	}
-
-	public boolean isAvailable(GameCharacter character, List<Perk> additionalPerks) {
-		if (character.getLevel() < this.requiredLevel.getLevel())
-			return false;
-
-		if (this.getPreviousLevelPerk() != null) {
-			if (additionalPerks == null) {
-				if (character.hasPerk(this.getPreviousLevelPerk()))
-					return true;
-			} else {
-				if (character.hasPerk(this.getPreviousLevelPerk())
-						|| additionalPerks.contains(this.getPreviousLevelPerk()))
-					return true;
-			}
-			return false;
-		} else
-			return true;
-	}
-
-	private static List<String> perkRequirementsList = new ArrayList<>();
-
-	public List<String> getPerkRequirements(GameCharacter character, List<Perk> additionalPerks) {
-		perkRequirementsList.clear();
-
-		if (character.getLevel() < this.requiredLevel.getLevel())
-			perkRequirementsList.add("<span style='color:"
-					+ Colour.GENERIC_BAD.toWebHexString()
-					+ ";'>Level "
-					+ requiredLevel.getLevel()
-					+ "</span>");
-		else
-			perkRequirementsList.add("<span style='color:"
-					+ Colour.GENERIC_GOOD.toWebHexString()
-					+ ";'>Level "
-					+ requiredLevel.getLevel()
-					+ "</span>");
-
-		if (this.getPreviousLevelPerk() != null) {
-			if (character.hasPerk(this.getPreviousLevelPerk())
-					|| additionalPerks.contains(this.getPreviousLevelPerk()))
-				perkRequirementsList.add("<span style='color:"
-						+ Colour.GENERIC_GOOD.toWebHexString()
-						+ ";'>Unlocked '"
-						+ this.getPreviousLevelPerk().getName(character)
-						+ "'</span>");
-			else
-				perkRequirementsList.add("<span style='color:"
-						+ Colour.GENERIC_BAD.toWebHexString()
-						+ ";'>Unlocked '"
-						+ this.getPreviousLevelPerk().getName(character)
-						+ "'</span>");
-		}
-
-		return perkRequirementsList;
-	}
-
 	public String getName(GameCharacter owner) {
 		return name;
+	}
+
+	public boolean isMajor() {
+		return major;
 	}
 
 	public abstract String getDescription(GameCharacter target);
@@ -1117,18 +631,14 @@ public enum Perk {
 		return attributeModifiers;
 	}
 
-	public abstract String applyPerkGained(GameCharacter character);
+	public String applyPerkGained(GameCharacter character) {
+		return "";
+	};
 
-	public abstract String applyPerkLost(GameCharacter character);
+	public String applyPerkLost(GameCharacter character) {
+		return "";
+	};
 
-	public Perk getPreviousLevelPerk() {
-		return null;
-	}
-
-	public Perk getNextLevelPerk() {
-		return null;
-	}
-	
 	public CorruptionLevel getAssociatedCorruptionLevel() {
 		return CorruptionLevel.ZERO_PURE;
 	}
@@ -1143,10 +653,6 @@ public enum Perk {
 
 	public String getSVGString() {
 		return SVGString;
-	}
-
-	public PerkLevel getRequiredLevel() {
-		return requiredLevel;
 	}
 
 	public PerkCategory getPerkCategory() {

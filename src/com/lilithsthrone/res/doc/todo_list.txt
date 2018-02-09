@@ -9,6 +9,14 @@
 	
 	Patch notes:
 	
+	Engine:
+		Fixed a cause of some UI lag (caused by some poor flexbox performance).
+	
+	Gameplay:
+		Increased level cap to 50.
+		Removed fitness and stamina stats.
+		Removed level-up points (the points that you'd spend on strength, intelligence, and fitness).
+	
 	Sex AI:
 		NPCs that either love or like the Submissive or Dominant fetishes will now start sex in Eager or Rough paces.
 	
@@ -27,17 +35,39 @@
 	Bugs:
 		Fixed Vicky's sex scene causing a game-breaking bug to occur.
 		Minor fix to Brax's TF description.
+		Minor formatting fix to event log to prevent horizontal overflow.
+	
+	
+	
+	
+	
+	- Implement combat & stats improvements.
+	- Add quest & content for Nyan (which was the winner of a poll I did on Patreon).
+	- Fix as many bugs as possible.
 	
 	
 	
 	
 	
 	
+	- Fix the multiple-partner sex scene bugs and improve the AI.
+	- Add in missing content related to addictive/psychoactive/alcoholic fluids.
+	
+	
+	
+	UI in sex and for right panel
+	hasPerk() needs updating
+	fix status effects
+	add little help icon
+	finish tree
 	
 	I will change the stats and perks into that system
-		Physical Ability | Arcane ability | Corruption
-		Physical Energy (PA*2) | Arcane Energy (AA*2) | Lust (when lust gets over level 4, -arcane energy per turn)
-		Minor and Major perks. Minor are permanent boring buffs, Major are slottable, unique buffs. Perk respec costs 5 essences per perk undone
+		Lust (mitigates % of seduction attack drain of arcane energy: 100% at 0, 0% at 100)
+		Minor and Major perks. Minor are permanent boring buffs, Major are slottable, unique buffs. Perk respec costs 5 essences per perk undone. Negative perks (clutz) can be forced on you and others
+		
+		Fire - build stacks and detonate
+		Ice - build stacks which freezes
+		Poison - build stacks which increase lust per turn
 		
 	And add multiple combatants
 	
@@ -46,17 +76,27 @@
 		
 	And add more weapons
 		Crystals function roughly the same
+		Energy swords
 		
 	And greatly reduce the impact level has on combat, so that the stats are more important
 		Level difference does +2% damage per level
 	
 	
 	
+	Pix exercise to affect muscle and body size
+	
+	no anal in missionary?
+	
+	fluids:
+		Make alcohol timed
 	
 	
 	
 	
 	
+	
+	
+	I'll see about adding a special tease in sex for if you have the anal/vaginal/oral/etc. fetish at maximum level. :3
 	
 	Can't get raped???
 	

@@ -666,7 +666,6 @@ public class OptionsDialogue {
 							} else {
 								npc.setMana(npc.getAttributeValue(Attribute.MANA_MAXIMUM));
 								npc.setHealth(npc.getAttributeValue(Attribute.HEALTH_MAXIMUM));
-								npc.setStamina(npc.getAttributeValue(Attribute.STAMINA_MAXIMUM));
 							}
 						}
 					}
@@ -1587,17 +1586,24 @@ public class OptionsDialogue {
 				if(cs.getLegendaryCount()>0) {
 					UtilText.nodeContentSB.append("</br>");
 					UtilText.nodeContentSB.append("<div style='width:50%; display:inline-block; text-align:right;'>");
-					for(int i=0; i<cs.getUncommonCount(); i++) {
-						UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_UNCOMMON.toWebHexString()+";'>&#9679</b> ");
-					}
-					for(int i=0; i<cs.getRareCount(); i++) {
-						UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_RARE.toWebHexString()+";'>&#9679</b> ");
-					}
-					for(int i=0; i<cs.getEpicCount(); i++) {
-						UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_EPIC.toWebHexString()+";'>&#9679</b> ");
-					}
-					for(int i=0; i<cs.getLegendaryCount(); i++) {
-						UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_LEGENDARY.toWebHexString()+";'>&#9679</b> ");
+					if(cs.getName().equals("Anonymous")) {
+						UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_UNCOMMON.toWebHexString()+";'>?</b> ");
+						UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_RARE.toWebHexString()+";'>?</b> ");
+						UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_EPIC.toWebHexString()+";'>?</b> ");
+						UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_LEGENDARY.toWebHexString()+";'>?</b> ");
+					} else {
+						for(int i=0; i<cs.getUncommonCount(); i++) {
+							UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_UNCOMMON.toWebHexString()+";'>&#9679</b> ");
+						}
+						for(int i=0; i<cs.getRareCount(); i++) {
+							UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_RARE.toWebHexString()+";'>&#9679</b> ");
+						}
+						for(int i=0; i<cs.getEpicCount(); i++) {
+							UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_EPIC.toWebHexString()+";'>&#9679</b> ");
+						}
+						for(int i=0; i<cs.getLegendaryCount(); i++) {
+							UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_LEGENDARY.toWebHexString()+";'>&#9679</b> ");
+						}
 					}
 					UtilText.nodeContentSB.append("</div>");
 					UtilText.nodeContentSB.append("<div style='width:50%; display:inline-block; text-align:left;'>");

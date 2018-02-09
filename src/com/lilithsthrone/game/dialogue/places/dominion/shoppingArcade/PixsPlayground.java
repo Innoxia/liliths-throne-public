@@ -25,28 +25,28 @@ public class PixsPlayground {
 	
 	private static Response getResponseGym(int index) {
 		if (index == 1) {
-			if (Main.game.getPlayer().getStaminaPercentage() < 0.4f) {
+			if (Main.game.getPlayer().getHealthPercentage() < 0.4f) {
 				return new Response("Cardio", "You are too tired to do any more exercise!", null);
 				
 			} else {
 				return new Response("Cardio", "Use the running and cycling machines to build up your fitness.", GYM_CARDIO){
 					@Override
 					public void effects(){
-						Main.game.getPlayer().incrementStamina(-Main.game.getPlayer().getAttributeValue(Attribute.STAMINA_MAXIMUM) * 0.4f);
-						Main.game.getPlayer().incrementAttribute(Attribute.FITNESS, 0.5f);
+						Main.game.getPlayer().incrementHealth(-Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM) * 0.4f);
+						Main.game.getPlayer().incrementAttribute(Attribute.STRENGTH, 0.5f);
 					}
 				};
 			}
 
 		} else if (index == 2) {
-			if (Main.game.getPlayer().getStaminaPercentage() < 0.4f) {
+			if (Main.game.getPlayer().getHealthPercentage() < 0.4f) {
 				return new Response("Weights", "You are too tired to do any more exercise!", null);
 				
 			} else {
 				return new Response("Weights", "Use the free weights and exercise machines to build up your strength.", GYM_WEIGHTS){
 					@Override
 					public void effects(){
-						Main.game.getPlayer().incrementStamina(-Main.game.getPlayer().getAttributeValue(Attribute.STAMINA_MAXIMUM) * 0.4f);
+						Main.game.getPlayer().incrementHealth(-Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM) * 0.4f);
 						Main.game.getPlayer().incrementAttribute(Attribute.STRENGTH, 0.5f);
 					}
 				};
@@ -56,7 +56,7 @@ public class PixsPlayground {
 				if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.gymIsMember)) {
 					return new Response("Pix", "Only lifetime members can get personal training from Pix.", null);
 					
-				} else if (Main.game.getPlayer().getStaminaPercentage() < 0.8f) {
+				} else if (Main.game.getPlayer().getHealthPercentage() < 0.8f) {
 					return new Response("Pix", "You are too tired to do Pix's exhausting workout routine!", null);
 					
 				} else {
@@ -65,9 +65,8 @@ public class PixsPlayground {
 						@Override
 						public void effects(){
 
-							Main.game.getPlayer().incrementStamina(-Main.game.getPlayer().getAttributeValue(Attribute.STAMINA_MAXIMUM) * 0.8f);
-							Main.game.getPlayer().incrementAttribute(Attribute.FITNESS, 0.75f);
-							Main.game.getPlayer().incrementAttribute(Attribute.STRENGTH, 0.75f);
+							Main.game.getPlayer().incrementHealth(-Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM) * 0.8f);
+							Main.game.getPlayer().incrementAttribute(Attribute.STRENGTH, 1f);
 						}
 					};
 				}
@@ -460,7 +459,7 @@ public class PixsPlayground {
 		public String getContent() {
 			return "<p>" + "You head over to the cardio section of the gym and spend some time warming up before using the running and cycling machines." + " After an hour of intense workout, you're left panting and covered in sweat."
 					+ " You feel like you've definitely improved your level of fitness, even if only by a tiny amount." + "</p>" + "<p>"
-					+ (Main.game.getPlayer().getStaminaPercentage() < 0.4f ? "You feel completely exhausted, and are far too tired to do any more exercise."
+					+ (Main.game.getPlayer().getHealthPercentage() < 0.4f ? "You feel completely exhausted, and are far too tired to do any more exercise."
 							: (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.gymIsMember)
 									? "You feel as though you have enough energy left to do another workout if you wanted to, but you're too tired to do Pix's intense routine."
 									: "You feel as though you have enough energy left to do another workout if you wanted to."))
@@ -489,7 +488,7 @@ public class PixsPlayground {
 		public String getContent() {
 			return "<p>" + "You head over to the free weights section of the gym and spend some time warming up before using the equipment." + " After an hour of intense workout, you're left feeling very pleased with yourself."
 					+ " You feel like you've definitely improved your strength, even if only by a tiny amount." + "</p>" + "<p>"
-					+ (Main.game.getPlayer().getStaminaPercentage() < 0.4f ? "You feel completely exhausted, and are far too tired to do any more exercise."
+					+ (Main.game.getPlayer().getHealthPercentage() < 0.4f ? "You feel completely exhausted, and are far too tired to do any more exercise."
 							: (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.gymIsMember)
 									? "You feel as though you have enough energy left to do another workout if you wanted to, but you're too tired to do Pix's intense workout routine."
 									: "You feel as though you have enough energy left to do another workout if you wanted to."))

@@ -228,9 +228,22 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	}
 	
 	public static AbstractClothing loadFromXML(Element parentElement, Document doc) {
+		AbstractClothing clothing = null;
+		
 		try {
-			AbstractClothing clothing = AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId(parentElement.getAttribute("id")), false);
-			
+			clothing = AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId(parentElement.getAttribute("id")), false);
+		} catch(Exception ex) {
+			System.err.println("Warning: An instance of AbstractClothing was unable to be imported.");
+			return null;
+		}
+		
+		if(clothing==null) {
+			System.err.println("Warning: An instance of AbstractClothing was unable to be imported.");
+			return null;
+		}
+		
+		// Try to load colour:
+		try {
 			clothing.setColour(Colour.valueOf(parentElement.getAttribute("colour")));
 			if(!parentElement.getAttribute("colourSecondary").isEmpty()) {
 				clothing.setSecondaryColour(Colour.valueOf(parentElement.getAttribute("colourSecondary")));
@@ -238,37 +251,51 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 			if(!parentElement.getAttribute("colourTertiary").isEmpty()) {
 				clothing.setTertiaryColour(Colour.valueOf(parentElement.getAttribute("colourTertiary")));
 			}
-			
+		} catch(Exception ex) {
+		}
+
+		// Try to load core features:
+		try {
 			clothing.rarity = (Rarity.valueOf(parentElement.getAttribute("rarity")));
 			clothing.setSealed(Boolean.valueOf(parentElement.getAttribute("sealed")));
 			clothing.setDirty(Boolean.valueOf(parentElement.getAttribute("isDirty")));
 			clothing.setEnchantmentKnown(Boolean.valueOf(parentElement.getAttribute("enchantmentKnown")));
 			clothing.badEnchantment = (Boolean.valueOf(parentElement.getAttribute("badEnchantment")));
-			
-			if(!parentElement.getAttribute("coreEnchantment").equals("null")) {
+		} catch(Exception ex) {
+		}
+		
+		// Try to load attributes:
+		
+		if(!parentElement.getAttribute("coreEnchantment").equals("null")) {
+			try {
 				clothing.coreEnchantment = Attribute.valueOf(parentElement.getAttribute("coreEnchantment"));
+			} catch(Exception ex) {
 			}
-			
-			clothing.setAttributeModifiers(new HashMap<Attribute, Integer>());
-			Element element = (Element)parentElement.getElementsByTagName("attributeModifiers").item(0);
-			for(int i=0; i<element.getElementsByTagName("modifier").getLength(); i++){
-				Element e = ((Element)element.getElementsByTagName("modifier").item(i));
+		}
+		
+		clothing.setAttributeModifiers(new HashMap<Attribute, Integer>());
+		Element element = (Element)parentElement.getElementsByTagName("attributeModifiers").item(0);
+		for(int i=0; i<element.getElementsByTagName("modifier").getLength(); i++){
+			Element e = ((Element)element.getElementsByTagName("modifier").item(i));
+			try {
 				clothing.getAttributeModifiers().put(Attribute.valueOf(e.getAttribute("attribute")), Integer.valueOf(e.getAttribute("value")));
+			} catch(Exception ex) {
 			}
-			
+		}
+		
+
+		// Try to load displacements:
+		try {
 			clothing.displacedList = new ArrayList<>();
 			element = (Element)parentElement.getElementsByTagName("displacedList").item(0);
 			for(int i=0; i<element.getElementsByTagName("displacementType").getLength(); i++){
 				Element e = ((Element)element.getElementsByTagName("displacementType").item(i));
 				clothing.displacedList.add(DisplacementType.valueOf(e.getAttribute("value")));
 			}
-			
-			return clothing;
-			
 		} catch(Exception ex) {
-			System.err.println("Warning: An instance of AbstractClothing was unable to be imported.");
-			return null;
 		}
+		
+		return clothing;
 	}
 	
 	public Colour getSecondaryColour() {

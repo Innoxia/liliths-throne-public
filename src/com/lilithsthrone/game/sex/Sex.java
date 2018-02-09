@@ -1575,10 +1575,6 @@ public enum Sex {
 		// TODO for each character?
 		GameCharacter targetCharacter = Sex.getTargetedPartner(activeCharacter);
 		
-		// Stamina
-		activeCharacter.incrementStamina(-Sex.getSexPace(activeCharacter).getActionStaminaCostSelf());
-		targetCharacter.incrementStamina(-Sex.getSexPace(activeCharacter).getActionStaminaCostPartner());
-		
 		Map<GameCharacter, SexPace> initialPaces = new HashMap<>();
 		for(GameCharacter participant : Sex.getAllParticipants()) {
 			initialPaces.put(participant, Sex.getSexPace(participant));

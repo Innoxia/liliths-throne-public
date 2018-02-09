@@ -79,7 +79,6 @@ public class Cultist extends NPC {
 		if(!isImported) {
 			setAttribute(Attribute.STRENGTH, (int)(this.getAttributeValue(Attribute.STRENGTH) * (0.75f + (Math.random()/2))));
 			setAttribute(Attribute.INTELLIGENCE, (int)(this.getAttributeValue(Attribute.INTELLIGENCE) * (0.75f + (Math.random()/2))));
-			setAttribute(Attribute.FITNESS, (int)(this.getAttributeValue(Attribute.FITNESS) * (0.75f + (Math.random()/2))));
 			setAttribute(Attribute.CORRUPTION, 100);
 	
 			this.setWorldLocation(Main.game.getPlayer().getWorldLocation());
@@ -173,7 +172,6 @@ public class Cultist extends NPC {
 			
 			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
-			setStamina(getAttributeValue(Attribute.STAMINA_MAXIMUM));
 		}
 	}
 	

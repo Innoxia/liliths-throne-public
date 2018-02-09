@@ -17,8 +17,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.Perk;
-import com.lilithsthrone.game.character.effects.PerkCategory;
-import com.lilithsthrone.game.character.effects.PerkTree;
+import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
@@ -43,7 +42,6 @@ import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.ClothingRarityComparator;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.ItemRarityComparator;
@@ -52,7 +50,7 @@ import com.lilithsthrone.utils.WeaponRarityComparator;
 
 /**
  * @since 0.1.0
- * @version 0.1.97
+ * @version 0.1.99
  * @author Innoxia
  */
 public class PhoneDialogue {
@@ -120,30 +118,13 @@ public class PhoneDialogue {
 				
 			} else if (index == 6) {
 				return new Response(
-						((Main.game.getPlayer().getLevelUpPoints() > 0 
-								&& (Main.game.getPlayer().getBaseAttributeValue(Attribute.STRENGTH) + Main.game.getPlayer().getBaseAttributeValue(Attribute.INTELLIGENCE) + Main.game.getPlayer().getBaseAttributeValue(Attribute.FITNESS))<300)
-								|| Main.game.getPlayer().getPerkPoints() > 0)
+						Main.game.getPlayer().getPerkPoints() > 0
 							? "<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Character</span>"
 							:"Character",
-						"View your character page.", CHARACTER_LEVEL_UP){
-					@Override
-					public void effects() {
-						strengthPoints = 0;
-						intelligencePoints = 0;
-						fitnessPoints = 0;
-						spendingPoints = Main.game.getPlayer().getPerkPoints();
-						levelUpPerks.clear();
-					}
-				};
+						"View your character page.", CHARACTER_LEVEL_UP);
 				
 			} else if (index == 7) {
-				return new Response("Fetishes", "View your fetishes page.", CHARACTER_FETISHES){
-					@Override
-					public void effects() {
-//						confirmReset = false;
-						levelUpFetishes.clear();
-					}
-				};
+				return new Response("Fetishes", "View your fetishes page.", CHARACTER_FETISHES);
 				
 			} else if (index == 8) {
 				if(Main.game.getPlayer().getRace()==Race.DEMON) {
@@ -515,8 +496,7 @@ public class PhoneDialogue {
 					+ attributeHeader()
 					+ attributeValue(Main.game.getPlayer(), Attribute.STRENGTH, true)
 					+ attributeValue(Main.game.getPlayer(), Attribute.INTELLIGENCE, false)
-					+ attributeValue(Main.game.getPlayer(), Attribute.FITNESS, true)
-					+ attributeValue(Main.game.getPlayer(), Attribute.CORRUPTION, false)
+					+ attributeValue(Main.game.getPlayer(), Attribute.CORRUPTION, true)
 
 					+ "<span style='height:16px;width:100%;float:left;'></span>"
 					+ "<h4 style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+"; text-align:center;'>Misc. Attributes</h4>"
@@ -533,27 +513,23 @@ public class PhoneDialogue {
 
 					+ "<span style='height:16px;width:100%;float:left;'></span>"
 					+ "<h6 style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+"; text-align:center;'>Attack values</h6>"
-					+ attributeValue(Main.game.getPlayer(), Attribute.DAMAGE_PURE, true)
-					+ attributeValue(Main.game.getPlayer(), Attribute.DAMAGE_ATTACK, true)
+					+ attributeValue(Main.game.getPlayer(), Attribute.DAMAGE_PHYSICAL, false)
+					+ attributeValue(Main.game.getPlayer(), Attribute.DAMAGE_FIRE, true)
+					+ attributeValue(Main.game.getPlayer(), Attribute.DAMAGE_ICE, false)
+					+ attributeValue(Main.game.getPlayer(), Attribute.DAMAGE_POISON, true)
+					+ attributeValue(Main.game.getPlayer(), Attribute.DAMAGE_LUST, true)
 					+ attributeValue(Main.game.getPlayer(), Attribute.DAMAGE_SPELLS, false)
-					+ attributeValue(Main.game.getPlayer(), Attribute.DAMAGE_MANA, true)
-					+ attributeValue(Main.game.getPlayer(), Attribute.DAMAGE_STAMINA, false)
-					+ attributeValue(Main.game.getPlayer(), Attribute.DAMAGE_PHYSICAL, true)
-					+ attributeValue(Main.game.getPlayer(), Attribute.DAMAGE_FIRE, false)
-					+ attributeValue(Main.game.getPlayer(), Attribute.DAMAGE_ICE, true)
-					+ attributeValue(Main.game.getPlayer(), Attribute.DAMAGE_POISON, false)
+					+ attributeValue(Main.game.getPlayer(), Attribute.DAMAGE_PURE, true)
 
 					+ "<span style='height:16px;width:100%;float:left;'></span>"
 					+ "<h6 style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+"; text-align:center;'>Resistance values</h6>"
-					+ attributeValue(Main.game.getPlayer(), Attribute.RESISTANCE_PURE, false)
-					+ attributeValue(Main.game.getPlayer(), Attribute.RESISTANCE_ATTACK, true)
-					+ attributeValue(Main.game.getPlayer(), Attribute.RESISTANCE_SPELLS, false)
-					+ attributeValue(Main.game.getPlayer(), Attribute.RESISTANCE_MANA, true)
-					+ attributeValue(Main.game.getPlayer(), Attribute.RESISTANCE_STAMINA, false)
 					+ attributeValue(Main.game.getPlayer(), Attribute.RESISTANCE_PHYSICAL, true)
 					+ attributeValue(Main.game.getPlayer(), Attribute.RESISTANCE_FIRE, false)
 					+ attributeValue(Main.game.getPlayer(), Attribute.RESISTANCE_ICE, true)
 					+ attributeValue(Main.game.getPlayer(), Attribute.RESISTANCE_POISON, false)
+					+ attributeValue(Main.game.getPlayer(), Attribute.RESISTANCE_LUST, true)
+					+ attributeValue(Main.game.getPlayer(), Attribute.RESISTANCE_SPELLS, false)
+					+ attributeValue(Main.game.getPlayer(), Attribute.RESISTANCE_PURE, true)
 					
 					+ "<span style='height:16px;width:100%;float:left;'></span>"
 					+ "<h6 style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+"; text-align:center;'>Racial values</h6>");
@@ -1698,165 +1674,46 @@ public class PhoneDialogue {
 		}
 	};
 
-	public static int strengthPoints = 0, intelligencePoints = 0, fitnessPoints = 0, spendingPoints=0;
-	public static List<Perk> levelUpPerks = new ArrayList<>();
-	public static List<Fetish> levelUpFetishes = new ArrayList<>();
+	public static final DialogueNodeOld CHARACTER_LEVEL_UP = new DialogueNodeOld("Perks", "", true) {
 
-	public static boolean isAttributePointsAvailableToSpend() {
-		return (Main.game.getPlayer().getLevelUpPoints() - (strengthPoints + intelligencePoints + fitnessPoints)) > 0;
-	}
-	public static final DialogueNodeOld CHARACTER_LEVEL_UP = new DialogueNodeOld("", "Level up.", true) {
-		/**
-		 */
 		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String getHeaderContent() {
-			journalSB = new StringBuilder(
-					"<div class='lvlup-container'>"
-
-						+ "<div class='lvlup-title'>"
-							+ "Core Attributes (<b " + (isAttributePointsAvailableToSpend() ? "style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'" : "") + ">"
-							+ (Main.game.getPlayer().getLevelUpPoints() - (strengthPoints + intelligencePoints + fitnessPoints)) + "</b> point"
-							+ ((Main.game.getPlayer().getLevelUpPoints() - (strengthPoints + intelligencePoints + fitnessPoints)) != 1 ? "s" : "") + " to spend)"
-						+ "</div>"
-	
-						+ "<div class='lvlup-box'>"
-	
-							+ "<div class='lvlup-attribute'>"
-		
-								+ "<div class='lvlup-attribute-innerContainer'>"
-									+ "<h6>" + Util.capitaliseSentence(Attribute.STRENGTH.getName()) + "</h6>"
-									+ "<div style='width:180px; height:8px; background:#222222; float:left; border-radius: 2;'>"
-										+ "<div style='width:" + Main.game.getPlayer().getBaseAttributeValue(Attribute.STRENGTH) * 1.8 + "px; height:8px; background:" + Colour.ATTRIBUTE_STRENGTH.toWebHexString() + "; float:left; border-radius: 2;'></div>"
-										+ "<div style='width:" + strengthPoints * 1.8 + "px; height:8px; background:" + Colour.GENERIC_EXCELLENT.toWebHexString() + "; float:left; border-radius: 2;'></div>"
-									+ "</div>"
-									+ "<p style='padding:0;margin:0;line-height:16px;" + (strengthPoints > 0 ? "color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";" : "") + "'>"
-										+ ((int) Math.ceil(Main.game.getPlayer().getBaseAttributeValue(Attribute.STRENGTH)) + strengthPoints)
-									+ "</p>"
-								+ "</div>"
+			UtilText.nodeContentSB.setLength(0);
 			
-								+ "<div class='lvlup-attribute-innerContainer'>"
-									+ "<div class='lvlup-button" + (strengthPoints == 0 ? " disabled" : "") + "' id='strength-decrease' style='float:left;'><b>-</b></div>"
-									+ "<span style='float:left; padding:0; margin:0; width:174px; text-align:center; height:24px;'>"
-									+ "<b" + (strengthPoints > 0 ? " style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'" : "") + ">+" + strengthPoints + "</b>"
-									+ "</span>"
-									+ "<div class='lvlup-button" + (isAttributePointsAvailableToSpend() && (Main.game.getPlayer().getBaseAttributeValue(Attribute.STRENGTH) + strengthPoints < 100) ? "" : " disabled")
-										+ "' id='strength-increase' style='float:left;'><b>+</b></div>"
-								+ "</div>"
-		
-							+ "</div>"
-		
-							
-							+ "<div class='lvlup-attribute'>"
-
-								+ "<div class='lvlup-attribute-innerContainer'>"
-									+ "<h6>" + Util.capitaliseSentence(Attribute.INTELLIGENCE.getName()) + "</h6>"
-									+ "<div style='width:180px; height:8px; background:#222222; float:left; border-radius: 2;'>"
-										+ "<div style='width:" + Main.game.getPlayer().getBaseAttributeValue(Attribute.INTELLIGENCE) * 1.8 + "px; height:8px; background:" + Colour.ATTRIBUTE_INTELLIGENCE.toWebHexString() + "; float:left; border-radius: 2;'></div>"
-										+ "<div style='width:" + intelligencePoints * 1.8 + "px; height:8px; background:" + Colour.GENERIC_EXCELLENT.toWebHexString() + "; float:left; border-radius: 2;'></div>"
-									+ "</div>"
-									+ "<p style='padding:0;margin:0;line-height:16px;" + (intelligencePoints > 0 ? "color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";" : "") + "'>"
-										+ ((int) Math.ceil(Main.game.getPlayer().getBaseAttributeValue(Attribute.INTELLIGENCE)) + intelligencePoints)
-									+ "</p>"
-								+ "</div>"
-			
-								+ "<div class='lvlup-attribute-innerContainer'>"
-									+ "<div class='lvlup-button" + (intelligencePoints == 0 ? " disabled" : "") + "' id='intelligence-decrease' style='float:left;'><b>-</b></div>"
-									+ "<span style='float:left; padding:0; margin:0; width:174px; text-align:center; height:24px;'>"
-									+ "<b" + (intelligencePoints > 0 ? " style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'" : "") + ">+" + intelligencePoints + "</b>"
-									+ "</span>"
-									+ "<div class='lvlup-button" + (isAttributePointsAvailableToSpend() && (Main.game.getPlayer().getBaseAttributeValue(Attribute.INTELLIGENCE) + intelligencePoints < 100) ? "" : " disabled")
-										+ "' id='intelligence-increase' style='float:left;'><b>+</b></div>"
-								+ "</div>"
-		
-							+ "</div>"
-							
-							
-							+ "<div class='lvlup-attribute'>"
-
-								+ "<div class='lvlup-attribute-innerContainer'>"
-									+ "<h6>" + Util.capitaliseSentence(Attribute.FITNESS.getName()) + "</h6>"
-									+ "<div style='width:180px; height:8px; background:#222222; float:left; border-radius: 2;'>"
-										+ "<div style='width:" + Main.game.getPlayer().getBaseAttributeValue(Attribute.FITNESS) * 1.8 + "px; height:8px; background:" + Colour.ATTRIBUTE_FITNESS.toWebHexString() + "; float:left; border-radius: 2;'></div>"
-										+ "<div style='width:" + fitnessPoints * 1.8 + "px; height:8px; background:" + Colour.GENERIC_EXCELLENT.toWebHexString() + "; float:left; border-radius: 2;'></div>"
-									+ "</div>"
-									+ "<p style='padding:0;margin:0;line-height:16px;" + (fitnessPoints > 0 ? "color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";" : "") + "'>"
-										+ ((int) Math.ceil(Main.game.getPlayer().getBaseAttributeValue(Attribute.FITNESS)) + fitnessPoints)
-									+ "</p>"
-								+ "</div>"
-			
-								+ "<div class='lvlup-attribute-innerContainer'>"
-									+ "<div class='lvlup-button" + (fitnessPoints == 0 ? " disabled" : "") + "' id='fitness-decrease' style='float:left;'><b>-</b></div>"
-									+ "<span style='float:left; padding:0; margin:0; width:174px; text-align:center; height:24px;'>"
-									+ "<b" + (fitnessPoints > 0 ? " style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'" : "") + ">+" + fitnessPoints + "</b>"
-									+ "</span>"
-									+ "<div class='lvlup-button" + (isAttributePointsAvailableToSpend() && (Main.game.getPlayer().getBaseAttributeValue(Attribute.FITNESS) + fitnessPoints < 100) ? "" : " disabled")
-										+ "' id='fitness-increase' style='float:left;'><b>+</b></div>"
-								+ "</div>"
-		
-							+ "</div>"
-							
-							
-						+ "</div>"
-
+			UtilText.nodeContentSB.append(
+					"<div class='container-full-width' style='padding:8px;'>"
+						+ "<span style='color:"+Colour.PERK.toWebHexString()+";'>Perks</span> (circular icons) apply permanent boosts to your attributes.</br>"
+						+ "<span style='color:"+Colour.TRAIT.toWebHexString()+";'>Traits</span> (square icons) provide unique effects for your character."
+							+ " Unlike perks, <b>traits will have no effect on your character until they're slotted into your 'Active Traits' bar</b>.</br>"
+						+ "Perks require perk points to unlock. You earn one perk point each time you level up, and earn an extra two perk points every five levels."
 					+ "</div>"
-
-					+ "<div class='lvlup-container'>"
-
-					+ "<div class='lvlup-title'>" + "Perks (" + (spendingPoints > 0 ? "<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>" : "<span>")
-					+ (spendingPoints)
-					+ "</span> point" + (spendingPoints != 1 ? "s" : "") + " to spend)" + "</div>"
-
-					+ "<table class='perkTable' style='margin:0 auto 0 auto;'>");
-
-			for (int i = 0; i < 7; i++) {
-				journalSB.append("<tr class='perkRow'>");
-				for (int j = 0; j < 17; j++) {
-
-					if (j == 0) {
-						if (i % 2 == 0)
-							journalSB.append("<td class='perkCell' " + (Main.game.getPlayer().getLevel() >= (i == 0 ? 1 : (i / 2) * 5) ? "" : "style='color:#666;'") + ">"
-							// +"<h6
-							// style='text-align:center;margin:0;padding:0'>Lvl</h6>"
-									+ "<h6 style='text-align:center;margin:0;padding:0'>" + (i == 0 ? "1" : (i / 2) * 5) + "</h6>" + "</td>");
-						else
-							journalSB.append("<td class='arrowCell'></td>");
-					} else {
-						if (i % 2 == 0) { // Perk icon
-							if (PerkTree.getPerkGrid()[i / 2][j - 1] != null) {
-								journalSB.append("<td id='perkUnlock" + PerkTree.getPerkGrid()[i / 2][j - 1] + "' class='perkCell" + (Main.game.getPlayer().hasPerk(PerkTree.getPerkGrid()[i / 2][j - 1])
-										? " owned' style='border:4px solid " + PerkTree.getPerkGrid()[i / 2][j - 1].getPerkCategory().getColour().toWebHexString() + ";'>"
-										: (PerkTree.getPerkGrid()[i / 2][j - 1].isAvailable(Main.game.getPlayer(), levelUpPerks)
-												? " unlocked' style='border:4px solid " + (levelUpPerks.contains(PerkTree.getPerkGrid()[i / 2][j - 1]) ? Colour.GENERIC_EXCELLENT.toWebHexString() + ";"
-														: PerkTree.getPerkGrid()[i / 2][j - 1].getPerkCategory().getColour().getShades()[0] + ";") + "'>"
-												: " locked' style='border:4px solid " + Colour.TEXT_GREY.toWebHexString() + ";'>"))
-										+ PerkTree.getPerkGrid()[i / 2][j - 1].getSVGString()
-										+ (Main.game.getPlayer().hasPerk(PerkTree.getPerkGrid()[i / 2][j - 1]) || levelUpPerks.contains(PerkTree.getPerkGrid()[i / 2][j - 1]) // Overlay to create disabled effect:
-												? ""
-												: (PerkTree.getPerkGrid()[i / 2][j - 1].isAvailable(Main.game.getPlayer(), levelUpPerks)
-														? "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.5; border-radius:5px;'></div>"
-														: "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.7; border-radius:5px;'></div>"))
-										+ "</td>");
-							} else
-								journalSB.append("<td class='perkCell'></td>");
-
-						} else { // Arrow icon
-							if (PerkTree.getArrowGrid()[i / 2][j - 1]) {
-								journalSB.append("<td class='arrowCell'>" + SVGImages.SVG_IMAGE_PROVIDER.getPerkTreeArrow() + "</td>");
-							} else {
-								journalSB.append("<td class='arrowCell'></td>");
-							}
-						}
-					}
+					+ "<div class='container-full-width' style='padding:8px; text-align:center;'>"
+					+ "<h6 style='text-align:center;'>Active Traits</h6>");
+			
+			for(int i=0;i<GameCharacter.MAX_TRAITS;i++) {
+				Perk p = null;
+				if(i<Main.game.getPlayer().getTraits().size()) {
+					p = Main.game.getPlayer().getTraits().get(i);
 				}
-				journalSB.append("</tr>");
+				if(p!=null) {
+					UtilText.nodeContentSB.append("<div id='TRAIT_" + p + "' class='square-button small' style='width:8%; display:inline-block; float:none; border:2px solid " + Colour.TRAIT.toWebHexString() + ";'>"
+							+ "<div class='square-button-content'>"+p.getSVGString()+"</div>"
+							+ "</div>");
+					
+				} else {
+					UtilText.nodeContentSB.append("<div id='TRAIT_" + i + "' class='square-button small' style='display:inline-block; float:none;'></div>");
+					
+				}
 			}
-			journalSB.append("</table></div>");
+			UtilText.nodeContentSB.append("</div>");
 			
+			UtilText.nodeContentSB.append(PerkManager.MANAGER.getPerkTreeDisplay());
 			
-			return journalSB.toString();
+			return UtilText.nodeContentSB.toString();
 		}
+		
 		@Override
 		public String getContent(){
 			return "";
@@ -1866,44 +1723,6 @@ public class PhoneDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
 				return new Response("Back", "Return to your phone's main menu.", MENU);
-			
-			} else if (index == 1) {
-				if (strengthPoints == 0 && intelligencePoints == 0 && fitnessPoints == 0 && levelUpPerks.isEmpty())
-					return new Response("Apply", "You haven't spent any points, so there isn't anything to apply.", null);
-				else
-					return new Response("Apply", "Apply the changes that you've chosen. <b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Once applied, this cannot be undone!</b>", CHARACTER_LEVEL_UP){
-						@Override
-						public void effects() {
-							if (strengthPoints != 0)
-								Main.game.getPlayer().incrementAttribute(Attribute.STRENGTH, strengthPoints);
-							if (intelligencePoints != 0)
-								Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, intelligencePoints);
-							if (fitnessPoints != 0)
-								Main.game.getPlayer().incrementAttribute(Attribute.FITNESS, fitnessPoints);
-
-							Main.game.getPlayer().setLevelUpPoints(Main.game.getPlayer().getLevelUpPoints() - (strengthPoints + intelligencePoints + fitnessPoints));
-
-							strengthPoints = 0;
-							intelligencePoints = 0;
-							fitnessPoints = 0;
-
-							// Add perks in level order:
-							levelUpPerks.sort(Comparator.comparing(a -> a.getRequiredLevel().getLevel()));
-
-							for (Perk p : levelUpPerks) {
-								Main.game.getPlayer().addPerk((Perk)p);
-								p.applyPerkGained(Main.game.getPlayer());
-								Main.game.getPlayer().setPerkPoints(Main.game.getPlayer().getPerkPoints()-1);
-							}
-							
-							if(Main.game.getPlayer().getPerkPoints()<0)
-								Main.game.getPlayer().setPerkPoints(0);
-							
-							spendingPoints = Main.game.getPlayer().getPerkPoints();
-
-							levelUpPerks.clear();
-						}
-				};
 			
 			} else {
 				return null;
@@ -1915,14 +1734,6 @@ public class PhoneDialogue {
 			return MapDisplay.PHONE;
 		}
 	};
-	
-	public static int getFetishCost() {
-		int cost = 0;
-		for(Fetish f : levelUpFetishes) {
-			cost+=f.getCost();
-		}
-		return cost;
-	}
 
 //	private static boolean confirmReset = false;
 	public static final DialogueNodeOld CHARACTER_FETISHES = new DialogueNodeOld("Desires & Fetishes", "", true) {
@@ -1974,14 +1785,12 @@ public class PhoneDialogue {
 				if(!fetish.getFetishesForAutomaticUnlock().isEmpty()) {
 					journalSB.append(
 							"<div id='fetishUnlock" + fetish + "' class='fetish-icon" + (Main.game.getPlayer().hasFetish(fetish)
-							? " owned' style='border:2px solid " + PerkCategory.FETISH.getColour().getShades()[1] + ";'>"
+							? " owned' style='border:2px solid " + Colour.FETISH.getShades()[1] + ";'>"
 							: (fetish.isAvailable(Main.game.getPlayer())
-									? " unlocked' style='border:2px solid " + (levelUpFetishes.contains(fetish)
-											? Colour.GENERIC_EXCELLENT.toWebHexString() + ";"
-											: Colour.TEXT_GREY.toWebHexString() + ";") + "'>"
+									? " unlocked' style='border:2px solid " +  Colour.TEXT_GREY.toWebHexString() + ";" + "'>"
 									: " locked' style='border:2px solid " + Colour.TEXT_GREY.toWebHexString() + ";'>"))
 							+ "<div class='fetish-icon-content'>"+fetish.getSVGString()+"</div>"
-							+ (Main.game.getPlayer().hasFetish(fetish) || levelUpFetishes.contains(fetish) // Overlay to create disabled effect:
+							+ (Main.game.getPlayer().hasFetish(fetish) // Overlay to create disabled effect:
 									? ""
 									: (fetish.isAvailable(Main.game.getPlayer())
 											? "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.5; border-radius:5px;'></div>"
@@ -2001,96 +1810,9 @@ public class PhoneDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 0) {
-				return new Response("Back", "Return to your phone's main menu.", MENU) {
-					@Override
-					public void effects() {
-						levelUpFetishes.clear();
-					}
-				};
+				return new Response("Back", "Return to your phone's main menu.", MENU);
 			
-			}
-//			else if (index == 1) {
-//				if (levelUpFetishes.isEmpty()) {
-//					return new Response("Apply", "You haven't spent any points, so there isn't anything to apply.", null);
-//				} else {
-//					return new Response("Apply", "Apply the changes that you've chosen. <b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Once applied, this cannot be undone!</b>", CHARACTER_FETISHES){
-//						@Override
-//						public void effects() {
-//							for (Fetish f : levelUpFetishes) {
-//								Main.game.getPlayer().addFetish(f);
-//								f.applyPerkGained(Main.game.getPlayer());
-//							}
-//							
-//							Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, -getFetishCost());
-//
-//							levelUpFetishes.clear();
-//
-//							PhoneDialogue.confirmReset = false;
-//						}
-//					};
-//				}
-//			
-//			}
-//			else if (index == 2) {
-//				return new Response("Orientation", "Cycle your sexual orientation. (Hover over the status effect on the left of the screen to see what each orientation means.)", CHARACTER_FETISHES){
-//					@Override
-//					public void effects() {
-//						if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.GYNEPHILIC) {
-//							Main.game.getPlayer().setSexualOrientation(SexualOrientation.ANDROPHILIC);
-//							
-//						} else if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
-//							Main.game.getPlayer().setSexualOrientation(SexualOrientation.AMBIPHILIC);
-//							
-//						} else {
-//							Main.game.getPlayer().setSexualOrientation(SexualOrientation.GYNEPHILIC);
-//							
-//						}
-//
-//						PhoneDialogue.confirmReset = false;
-//					}
-//				};
-//				
-//			}
-//			else if (index == 5) {
-//				if (!confirmReset) {
-//					return new Response("Reset", "This will remove all of your fetishes, and you will be refunded half of their <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'> arcane essence</b> cost!", CHARACTER_FETISHES) {
-//						@Override
-//						public void effects() {
-//							PhoneDialogue.confirmReset = true;
-//						}
-//					};
-//					
-//				} else {
-//					return new Response("<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Confirm</b>",
-//							"This will remove all of your fetishes, and you will be refunded half of their <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'> arcane essence</b> cost!", CHARACTER_FETISHES) {
-//						@Override
-//						public void effects() {
-//							Iterator<Fetish> it = Main.game.getPlayer().getFetishes().iterator();
-//							int refund = 0;
-//							while(it.hasNext()) {
-//								Fetish f = it.next();
-//								if(f.getFetishesForAutomaticUnlock().isEmpty()) {
-//									refund += f.getCost();
-//									Main.game.getPlayer().removeFetish(f);
-//								}
-//							}
-//							
-//							it = Main.game.getPlayer().getFetishes().iterator();
-//							while(it.hasNext()) {
-//								Fetish f = it.next();
-//								refund += f.getCost();
-//								Main.game.getPlayer().removeFetish(f);
-//							}
-//							
-//							Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, refund/2);
-//							levelUpFetishes.clear();
-//							PhoneDialogue.confirmReset = false;
-//						}
-//					};
-//				}
-//			
-//			}
-			else {
+			} else {
 				return null;
 			}
 		}
@@ -2127,15 +1849,13 @@ public class PhoneDialogue {
 					+ "</div>"
 					+"<div class='container-full-width' style='margin:0 8px; width: calc(22% - 16px);'>"
 						+ "<div id='fetishUnlock" + fetish + "' class='fetish-icon full" + (Main.game.getPlayer().hasFetish(fetish)
-							? " owned' style='border:2px solid " + PerkCategory.FETISH.getColour().getShades()[1] + ";'>"
+							? " owned' style='border:2px solid " + Colour.FETISH.getShades()[1] + ";'>"
 							: (fetish.isAvailable(Main.game.getPlayer())
-									? " unlocked' style='border:2px solid " + (levelUpFetishes.contains(fetish)
-										? Colour.GENERIC_EXCELLENT.toWebHexString() + ";"
-										: Colour.TEXT_GREY.toWebHexString() + ";") + "'>"
+									? " unlocked' style='border:2px solid " + Colour.TEXT_GREY.toWebHexString() + ";" + "'>"
 									: " locked' style='border:2px solid " + Colour.TEXT_GREY.toWebHexString() + ";'>"))
 										+ "<div class='fetish-icon-content'>"+fetish.getSVGString()+"</div>"
 										+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+level.getSVGImageOverlay()+"</div>"
-										+ (Main.game.getPlayer().hasFetish(fetish) || levelUpFetishes.contains(fetish) // Overlay to create disabled effect:
+										+ (Main.game.getPlayer().hasFetish(fetish) // Overlay to create disabled effect:
 											? ""
 											: (fetish.isAvailable(Main.game.getPlayer())
 													? "<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.5; border-radius:5px;'></div>"

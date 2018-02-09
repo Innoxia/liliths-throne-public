@@ -4,7 +4,7 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 
 /**
  * @since 0.1.0
- * @version 0.1.4
+ * @version 0.1.99
  * @author Innoxia
  */
 public enum DamageType {
@@ -29,20 +29,15 @@ public enum DamageType {
 			Attribute.RESISTANCE_POISON,
 			Attribute.DAMAGE_POISON),
 
-	MANA("willpower",
+	LUST("lust",
 			"arousing",
-			Attribute.RESISTANCE_MANA,
-			Attribute.DAMAGE_MANA),
+			Attribute.RESISTANCE_LUST,
+			Attribute.DAMAGE_LUST),
 	
-	STAMINA("stamina",
-			"draining",
-			Attribute.RESISTANCE_STAMINA,
-			Attribute.DAMAGE_STAMINA),
-
 	MISC("generic",
 			"standard",
-			Attribute.RESISTANCE_MANA,
-			Attribute.DAMAGE_MANA);
+			Attribute.RESISTANCE_PHYSICAL,
+			Attribute.DAMAGE_PHYSICAL);
 
 	private String name, weaponDescriptor;
 	private Attribute resistAttribute, multiplierAttribute;

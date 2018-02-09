@@ -57,7 +57,6 @@ public class HarpyNestsAttacker extends NPC {
 		if(!isImported) {
 			setAttribute(Attribute.STRENGTH, (int)(this.getAttributeValue(Attribute.STRENGTH) * (0.5f+Math.random())));
 			setAttribute(Attribute.INTELLIGENCE, (int)(this.getAttributeValue(Attribute.INTELLIGENCE) * (0.5f+Math.random())));
-			setAttribute(Attribute.FITNESS, (int)(this.getAttributeValue(Attribute.FITNESS) * (0.5f+Math.random())));
 			setAttribute(Attribute.CORRUPTION, (int)(20 * (0.5f+Math.random())));
 	
 			this.setWorldLocation(Main.game.getPlayer().getWorldLocation());
@@ -94,7 +93,6 @@ public class HarpyNestsAttacker extends NPC {
 	
 			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
-			setStamina(getAttributeValue(Attribute.STAMINA_MAXIMUM));
 		}
 
 		this.setEnslavementDialogue(HarpyNestsAttackerDialogue.ENSLAVEMENT_DIALOGUE);

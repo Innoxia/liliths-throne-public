@@ -773,7 +773,7 @@ public enum Fetish {
 			"fetish_denial_self",
 			Fetish.BASE_RARE_EXPERIENCE_GAIN,
 			Colour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STAMINA_MAXIMUM, 25)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STRENGTH, 2)),
 			null,
 			null) {
 
@@ -832,7 +832,7 @@ public enum Fetish {
 			"fetish_submissive",
 			Fetish.BASE_EXPERIENCE_GAIN,
 			Colour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STAMINA_MAXIMUM, 5)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STRENGTH, 2)),
 			Util.newArrayListOfValues(
 					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>submissive tease</span>"),
 					new ListValue<>("<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Weak to</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>dominant tease</span>"),
@@ -1080,7 +1080,7 @@ public enum Fetish {
 			"fetish_bimbo",
 			Fetish.BASE_EXPERIENCE_GAIN,
 			Colour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_MANA, 10)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 10)),
 			Util.newArrayListOfValues(new ListValue<>("<span style='color:"
 					+ Colour.GENERIC_SEX.toWebHexString()
 					+ ";'>Talk like a bimbo</span>")),
@@ -1144,8 +1144,7 @@ public enum Fetish {
 			Fetish.BASE_EXPERIENCE_GAIN,
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 10),
-					new Value<Attribute, Integer>(Attribute.STAMINA_MAXIMUM, 10)),
+					new Value<Attribute, Integer>(Attribute.STRENGTH, 5)),
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<>(Fetish.FETISH_DOMINANT),

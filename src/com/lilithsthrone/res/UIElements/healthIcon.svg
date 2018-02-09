@@ -17,7 +17,21 @@
    inkscape:version="0.91 r13725"
    sodipodi:docname="healthIcon.svg">
   <defs
-     id="defs4313" />
+     id="defs4313">
+    <inkscape:path-effect
+       effect="powerstroke"
+       id="path-effect4154"
+       is_visible="true"
+       offset_points="0.54375131,-0.89337372"
+       sort_points="true"
+       interpolator_type="Linear"
+       interpolator_beta="0.2"
+       start_linecap_type="zerowidth"
+       linejoin_type="round"
+       miter_limit="4"
+       end_linecap_type="zerowidth"
+       cusp_linecap_type="round" />
+  </defs>
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -25,9 +39,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="15.999999"
-     inkscape:cx="32.703887"
-     inkscape:cy="35.959507"
+     inkscape:zoom="7.9999996"
+     inkscape:cx="31.694832"
+     inkscape:cy="17.35061"
      inkscape:document-units="px"
      inkscape:current-layer="layer3"
      showgrid="false"
@@ -55,9 +69,16 @@
      inkscape:label="Stage3"
      style="display:inline">
     <path
-       style="fill:#ff8080;fill-opacity:1;stroke:#000000;stroke-width:0.97828817;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       d="M 32.0625,5.1925269 A 26.695104,26.775485 0 0 0 5.3666557,31.96875 26.695104,26.775485 0 0 0 32.0625,58.744974 26.695104,26.775485 0 0 0 58.758345,31.96875 26.695104,26.775485 0 0 0 32.0625,5.1925269 Z m 0.0268,6.4102181 c 2.206912,-0.0074 4.456069,0.310689 6.353281,1.026504 l 0.160758,13.870386 12.984543,-0.160758 c 0.94159,3.115205 1.089494,7.636361 0.05861,11.035355 l -12.458731,0.04856 0.204297,13.56394 c -2.98802,1.219816 -8.350559,2.158484 -13.8168,0.299747 l -0.0067,-13.565616 -12.979518,0.04522 c -1.093288,-3.852435 -1.09599,-7.681956 -0.0888,-11.266452 l 13.476865,0 0.01004,-13.974208 c 1.72929,-0.582559 3.895185,-0.915243 6.1021,-0.922682 z"
+       style="fill:#ff2a2a;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 32.0625,2.5149046 C 15.844238,2.5144535 2.6966242,15.701653 2.6970713,31.96875 2.6966237,48.235848 15.844236,61.423047 32.0625,61.422596 48.280764,61.423047 61.428377,48.235848 61.42793,31.96875 61.428376,15.701652 48.280764,2.514453 32.0625,2.5149046 Z"
        id="path4136"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       style="fill:#ffd5d5;fill-rule:evenodd;stroke:#000000;stroke-width:0.52020001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 32.354898,9.2350754 46.938709,9.226028 38.616807,22.920293 46.938709,23.130974 17.548706,55.049148 27.977415,32.927642 21.235623,32.822301 Z"
+       id="path4147"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccccc" />
   </g>
 </svg>

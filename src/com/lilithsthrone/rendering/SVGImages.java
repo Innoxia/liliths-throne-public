@@ -358,7 +358,7 @@ public enum SVGImages {
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/slaveInspect.svg");
 			slaveInspect = Util.inputStreamToString(is);
-			slaveInspect = setColour(slaveInspect, Colour.BASE_BROWN);
+			slaveInspect = setColour(slaveInspect, Colour.BASE_BLUE_STEEL);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/slaveInspect.svg");
 			slaveInspectDisabled = Util.inputStreamToString(is);
 			slaveInspectDisabled = setColour(slaveInspectDisabled, Colour.BASE_GREY);

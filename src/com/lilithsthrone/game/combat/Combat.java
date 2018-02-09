@@ -7,11 +7,6 @@ import java.util.Map.Entry;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.attributes.FitnessLevel;
-import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
-import com.lilithsthrone.game.character.attributes.StrengthLevel;
-import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.npc.NPC;
@@ -39,7 +34,7 @@ import com.lilithsthrone.utils.Util;
  * Call initialiseCombat() before using.
  *
  * @since 0.1.0
- * @version 0.1.87
+ * @version 0.1.99
  * @author Innoxia
  */
 public enum Combat {
@@ -48,13 +43,11 @@ public enum Combat {
 	// TODO Make sure your status effects end before you take your turn, enemy's status effects end at the start of their turn
 	// Also, end combat it enemy drops to 0 health/mana/stamina on their turn from combat effects
 
-	private static NPC opponent;
+	private static NPC targetedCombatant, opponent;
 	private static String combatText = "", playerActionText = "", opponentActionText = "", playerTurnText = "", opponentTurnText = "";
 	private static int escapeChance = 0, turn = 0;
-	private static float renderedOpponentHealthValue, renderedOpponentManaValue, renderedOpponentStaminaValue, renderedPlayerHealthValue, renderedPlayerManaValue, renderedPlayerStaminaValue;
 	private static boolean escaped = false;
 	private static StringBuilder combatStringBuilder = new StringBuilder("");
-	private static StringBuilder descriptionStringBuilder = new StringBuilder("");
 
 	// For internal calculations
 	private static boolean critical = false;
@@ -85,6 +78,7 @@ public enum Combat {
 		
 		escaped = false;
 		opponent = npc;
+		targetedCombatant = npc;
 		critical = false;
 		
 		opponent.setFoughtPlayerCount(opponent.getFoughtPlayerCount()+1);
@@ -106,14 +100,6 @@ public enum Combat {
 		
 		opponentActionText = opponentStartingTitle;
 		opponentTurnText = opponentStartingDescription;
-
-		renderedOpponentHealthValue = npc.getHealth();
-		renderedOpponentManaValue = npc.getMana();
-		renderedOpponentStaminaValue = npc.getStamina();
-
-		renderedPlayerHealthValue = Main.game.getPlayer().getHealth();
-		renderedPlayerManaValue = Main.game.getPlayer().getMana();
-		renderedPlayerStaminaValue = Main.game.getPlayer().getStamina();
 
 		Main.game.setInCombat(true);
 		
@@ -259,13 +245,11 @@ public enum Combat {
 			Main.game.getPlayer().setHealth(5);
 		if (Main.game.getPlayer().getMana() == 0)
 			Main.game.getPlayer().setMana(5);
-		if (Main.game.getPlayer().getStamina() == 0)
-			Main.game.getPlayer().setStamina(5);
 		
-		// Reset opponent resources to max:
+		// Reset opponent resources to starting values:
 		opponent.setMana(opponent.getAttributeValue(Attribute.MANA_MAXIMUM));
 		opponent.setHealth(opponent.getAttributeValue(Attribute.HEALTH_MAXIMUM));
-		opponent.setStamina(opponent.getAttributeValue(Attribute.STAMINA_MAXIMUM));
+		opponent.setLust(opponent.getAttributeValue(Attribute.CORRUPTION)*0.1f);
 
 		postCombatString = postCombatStringBuilder.toString();
 		
@@ -273,297 +257,298 @@ public enum Combat {
 	}
 
 	private static String npcStatus() {
-		descriptionStringBuilder = new StringBuilder("<div class='combat-header-info'>");
-
-		// PLAYER INFO:
-		descriptionStringBuilder.append("<div class='combat-display left'>");
-		// +(Main.game.getCurrentDialogueNode()==ENEMY_ATTACK?"
-		// style='background-color:#555;'":"")
-		// + ">");
-
-		// Display Name and level:
-		descriptionStringBuilder.append("<div class='combat-inner-container'>"
-					+ "<div class='combat-container name'>"
-						+ "<div class='combat-container'>"
-							+ "<p class='combatant-title name' style='color:" + Femininity.valueOf(Main.game.getPlayer().getFemininityValue()).getColour().toWebHexString() + ";'>" 
-								+ "<b>" + Util.capitaliseSentence(Main.game.getPlayer().getName()) + "</b>"
-							+ "</p>"
-						+ "</div>"
-						+ "<div class='combat-container'>"
-							+ "<p class='combatant-title level'>"
-								+ "<b>Level " + Main.game.getPlayer().getLevel() + "</b></br>"
-								+(Main.game.getPlayer().getRaceStage().getName()!=""
-									?"<b style='color:"+Main.game.getPlayer().getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(Main.game.getPlayer().getRaceStage().getName())+"</b> ":"")
-								+ "<b style='color:"+Main.game.getPlayer().getRace().getColour().toWebHexString()+";'>"
-								+ (Main.game.getPlayer().isFeminine()?Util.capitaliseSentence(Main.game.getPlayer().getRace().getSingularFemaleName()):Util.capitaliseSentence(Main.game.getPlayer().getRace().getSingularMaleName()))
-								+ "</b>"
-							+ "</p>"
-						+ "</div>"
-						+ "<div class='overlay no-pointer' id='COMBAT_PLAYER_ATTRIBUTES'></div>"
-					+ "</div>"
-				+ "</div>");
-
-		// Attributes:
-		descriptionStringBuilder.append(
-				"<div class='combat-inner-container'>"
-					+ "<div class='combat-container attribute'>"
-						+ "<div class='combat-resource-icon'>"
-							+ StrengthLevel.getStrengthLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.STRENGTH)).getRelatedStatusEffect().getSVGString(Main.game.getPlayer()) + "</div>"
-						+ "<div class='combat-resource-number'>"
-							+ "<b style='color:" + Attribute.STRENGTH.getColour().toWebHexString() + ";'>" + (int) Main.game.getPlayer().getAttributeValue(Attribute.STRENGTH) + "</b>"
-						+ "</div>"
-						+ "<div class='overlay no-pointer' id='COMBAT_PLAYER_" + Attribute.STRENGTH + "'></div>"
-					+ "</div>"
-	
-					+ "<div class='combat-container attribute'>"
-						+ "<div class='combat-resource-icon'>"
-							+ IntelligenceLevel.getIntelligenceLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.INTELLIGENCE)).getRelatedStatusEffect().getSVGString(Main.game.getPlayer()) + "</div>"
-						+ "<div class='combat-resource-number'>"
-						+ "<b style='color:" + Attribute.INTELLIGENCE.getColour().toWebHexString() + ";'>" + (int) Main.game.getPlayer().getAttributeValue(Attribute.INTELLIGENCE) + "</b>"
-						+ "</div>"
-						+ "<div class='overlay no-pointer' id='COMBAT_PLAYER_" + Attribute.INTELLIGENCE + "'></div>"
-					+ "</div>"
-	
-					+ "<div class='combat-container attribute'>"
-						+ "<div class='combat-resource-icon'>"
-							+ FitnessLevel.getFitnessLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.FITNESS)).getRelatedStatusEffect().getSVGString(Main.game.getPlayer()) + "</div>"
-						+ "<div class='combat-resource-number'>"
-						+ "<b style='color:" + Attribute.FITNESS.getColour().toWebHexString() + ";'>" + (int) Main.game.getPlayer().getAttributeValue(Attribute.FITNESS) + "</b>"
-						+ "</div>"
-						+ "<div class='overlay no-pointer' id='COMBAT_PLAYER_" + Attribute.FITNESS + "'></div>"
-					+ "</div>"
-	
-					+ "<div class='combat-container attribute'>"
-						+ "<div class='combat-resource-icon'>"
-							+ CorruptionLevel.getCorruptionLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION)).getRelatedStatusEffect().getSVGString(Main.game.getPlayer()) + "</div>"
-						+ "<div class='combat-resource-number'>"
-						+ "<b style='color:" + Attribute.CORRUPTION.getColour().toWebHexString() + ";'>" + (int) Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION) + "</b>"
-						+ "</div>"
-						+ "<div class='overlay no-pointer' id='COMBAT_PLAYER_" + Attribute.CORRUPTION + "'></div>"
-					+ "</div>"
-				+ "</div>");
-
-		// Display health, willpower and stamina:
-		descriptionStringBuilder.append("<div class='combat-inner-container'>"
-
-				+ "<div class='combat-resource'>" + "<div class='combat-resource-icon'>" + Attribute.HEALTH_MAXIMUM.getSVGString() + "</div>" + "<div class='combat-resource-bar'>" + "<div style='height:10px; width:"
-				+ (int) ((Main.game.getPlayer().getHealth() / Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM)) * 100f) + "%;" + "background:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + "; border-radius: 2px;'></div>"
-				+ "</div>" + "<div class='combat-resource-number' style='color:"
-				+ (renderedPlayerHealthValue < Main.game.getPlayer().getHealth() ? (Colour.CLOTHING_GREEN.toWebHexString()) : (renderedPlayerHealthValue > Main.game.getPlayer().getHealth() ? (Colour.CLOTHING_RED.toWebHexString()) : "default")) + ";'>"
-				+ (int) Math.ceil(Main.game.getPlayer().getHealth()) + "</div>" + "<div class='overlay no-pointer' id='COMBAT_PLAYER_" + Attribute.HEALTH_MAXIMUM + "'></div>" + "</div>"
-
-				+ "<div class='combat-resource'>" + "<div class='combat-resource-icon'>" + Attribute.MANA_MAXIMUM.getSVGString() + "</div>" + "<div class='combat-resource-bar'>" + "<div style='height:10px; width:"
-				+ (int) ((Main.game.getPlayer().getMana() / Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM)) * 100f) + "%;" + "background:" + Colour.ATTRIBUTE_MANA.toWebHexString() + "; border-radius: 2px;'></div>"
-				+ "</div>" + "<div class='combat-resource-number' style='color:"
-				+ (renderedPlayerManaValue < Main.game.getPlayer().getMana() ? (Colour.CLOTHING_GREEN.toWebHexString()) : (renderedPlayerManaValue > Main.game.getPlayer().getMana() ? (Colour.CLOTHING_RED.toWebHexString()) : "default")) + ";'>"
-				+ (int) Math.ceil(Main.game.getPlayer().getMana()) + "</div>" + "<div class='overlay no-pointer' id='COMBAT_PLAYER_" + Attribute.MANA_MAXIMUM + "'></div>" + "</div>"
-
-				+ "<div class='combat-resource'>" + "<div class='combat-resource-icon'>" + Attribute.STAMINA_MAXIMUM.getSVGString() + "</div>" + "<div class='combat-resource-bar'>" + "<div style='height:10px; width:"
-				+ (int) ((Main.game.getPlayer().getStamina() / Main.game.getPlayer().getAttributeValue(Attribute.STAMINA_MAXIMUM)) * 100f) + "%;" + "background:" + Colour.ATTRIBUTE_FITNESS.toWebHexString()
-				+ "; border-radius: 2px;'></div>" + "</div>" + "<div class='combat-resource-number' style='color:"
-				+ (renderedPlayerStaminaValue < Main.game.getPlayer().getStamina() ? (Colour.CLOTHING_GREEN.toWebHexString()) : (renderedPlayerStaminaValue > Main.game.getPlayer().getStamina() ? (Colour.CLOTHING_RED.toWebHexString()) : "default")) + ";'>"
-				+ (int) Math.ceil(Main.game.getPlayer().getStamina()) + "</div>" + "<div class='overlay no-pointer' id='COMBAT_PLAYER_" + Attribute.STAMINA_MAXIMUM + "'></div>" + "</div>"
-
-				+ "</div>");
-
-		// Display status effects:
-		descriptionStringBuilder.append("<div class='combat-inner-container status-effects'>");
-		boolean statusEffectFound=false;
-		for (StatusEffect se : Main.game.getPlayer().getStatusEffects()) {
-			if (se.isCombatEffect() && se.renderInEffectsPanel()){
-				descriptionStringBuilder.append("<div class='combat-status-effect" + (!se.isBeneficial() ? " negativeCombat" : " positiveCombat") + "'>"
-													+ se.getSVGString(Main.game.getPlayer()) + "<div class='overlay no-pointer' id='COMBAT_PLAYER_SE_" + se + "'></div>" + "</div>");
-				statusEffectFound = true;
-			}
-		}
-		for (SpecialAttack sa : Main.game.getPlayer().getSpecialAttacks()) {
-			descriptionStringBuilder.append(
-					"<div class='combat-status-effect'>"
-							+ sa.getSVGString()
-							+ "<div class='overlay' id='COMBAT_PLAYER_SA_" + sa + "'></div>"
-					+ "</div>");
-			statusEffectFound = true;
-		}
-		
-		if (Main.game.getPlayer().getMainWeapon() != null) {
-			for (Spell s : Main.game.getPlayer().getMainWeapon().getSpells()) {
-				descriptionStringBuilder.append(
-						"<div class='combat-status-effect'>" 
-								+ s.getSVGString() 
-								+ "<div class='overlay' id='COMBAT_PLAYER_SPELL_MAIN_" + s + "'></div>"
-						+ "</div>");
-				statusEffectFound = true;
-			}
-		}
-		
-		if (Main.game.getPlayer().getOffhandWeapon() != null) {
-			for (Spell s : Main.game.getPlayer().getOffhandWeapon().getSpells()) {
-				descriptionStringBuilder.append(
-						"<div class='combat-status-effect'>"
-								+ s.getSVGString() 
-								+ "<div class='overlay' id='COMBAT_PLAYER_SPELL_OFFHAND_" + s + "'></div>" 
-						+ "</div>");
-				statusEffectFound = true;
-			}
-		}
-		if(!statusEffectFound)
-			descriptionStringBuilder.append("<p style='text-align:center; color:"+Colour.TEXT_GREY.toWebHexString()+";'><b>No combat effects</b></p>");
-			
-		descriptionStringBuilder.append("</div>");
-
-		descriptionStringBuilder.append("</div>");
-
-		// Display description:
-		descriptionStringBuilder.append("<div class='combat-description'>" + "<p>" + opponent.getCombatDescription() + "</p>" + "</div>");
-
-		// OPPONENT INFO:
-		descriptionStringBuilder.append("<div class='combat-display left'>");
-
-		// Display Name and level:
-		descriptionStringBuilder.append("<div class='combat-inner-container'>"
-				+ "<div class='combat-container name'>"
-					+ "<div class='combat-container'>"
-						+ "<p class='combatant-title name' style='color:" + Femininity.valueOf(opponent.getFemininityValue()).getColour().toWebHexString() + ";'>" 
-							+ "<b>" + Util.capitaliseSentence(opponent.getName()) + "</b>"
-						+ "</p>"
-					+ "</div>"
-					+ "<div class='combat-container'>"
-						+ "<p class='combatant-title level'>"
-							+ (opponent.getLevel() - Main.game.getPlayer().getLevel() <= -3 ? "<b style='color: " + Colour.GENERIC_GOOD.toWebHexString() + ";'>"
-									: (opponent.getLevel() - Main.game.getPlayer().getLevel() >= 3 ? "<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + ";'>" : "<b>"))
-							+ "Level " + opponent.getLevel() +"</b>"
-							+ "</br>"
-							+(opponent.getRaceStage().getName()!=""
-								?"<b style='color:"+opponent.getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(opponent.getRaceStage().getName())+"</b> ":"")
-							+ "<b style='color:"+opponent.getRace().getColour().toWebHexString()+";'>"
-							+ (opponent.isFeminine()?Util.capitaliseSentence(opponent.getRace().getSingularFemaleName()):Util.capitaliseSentence(opponent.getRace().getSingularMaleName()))
-							+ "</b>"
-						+ "</p>"
-					+ "</div>"
-					+ "<div class='overlay no-pointer' id='COMBAT_OPPONENT_ATTRIBUTES'></div>" 
-				+ "</div>"
-				+ "</div>");
-
-		// Attributes:
-		descriptionStringBuilder.append(
-				"<div class='combat-inner-container'>"
-						+ "<div class='combat-container attribute'>"
-							+ "<div class='combat-resource-icon'>" + StrengthLevel.getStrengthLevelFromValue(opponent.getAttributeValue(Attribute.STRENGTH)).getRelatedStatusEffect().getSVGString(opponent) + "</div>"
-							+ "<div class='combat-resource-number'>"
-								+ "<b style='color:" + Attribute.STRENGTH.getColour().toWebHexString() + ";'>" + (int) opponent.getAttributeValue(Attribute.STRENGTH) + "</b>"
-							+ "</div>"
-							+ "<div class='overlay no-pointer' id='COMBAT_OPPONENT_" + Attribute.STRENGTH + "'></div>"
-						+ "</div>"
-		
-						+ "<div class='combat-container attribute'>"
-							+ "<div class='combat-resource-icon'>" + IntelligenceLevel.getIntelligenceLevelFromValue(opponent.getAttributeValue(Attribute.INTELLIGENCE)).getRelatedStatusEffect().getSVGString(opponent) + "</div>"
-							+ "<div class='combat-resource-number'>"
-							+ "<b style='color:" + Attribute.INTELLIGENCE.getColour().toWebHexString() + ";'>" + (int) opponent.getAttributeValue(Attribute.INTELLIGENCE) + "</b>"
-							+ "</div>"
-							+ "<div class='overlay no-pointer' id='COMBAT_OPPONENT_" + Attribute.INTELLIGENCE + "'></div>"
-						+ "</div>"
-		
-						+ "<div class='combat-container attribute'>"
-							+ "<div class='combat-resource-icon'>" + FitnessLevel.getFitnessLevelFromValue(opponent.getAttributeValue(Attribute.FITNESS)).getRelatedStatusEffect().getSVGString(opponent) + "</div>"
-							+ "<div class='combat-resource-number'>"
-							+ "<b style='color:" + Attribute.FITNESS.getColour().toWebHexString() + ";'>" + (int) opponent.getAttributeValue(Attribute.FITNESS) + "</b>"
-							+ "</div>"
-							+ "<div class='overlay no-pointer' id='COMBAT_OPPONENT_" + Attribute.FITNESS + "'></div>"
-						+ "</div>"
-		
-						+ "<div class='combat-container attribute'>"
-							+ "<div class='combat-resource-icon'>" + CorruptionLevel.getCorruptionLevelFromValue(opponent.getAttributeValue(Attribute.CORRUPTION)).getRelatedStatusEffect().getSVGString(opponent) + "</div>"
-							+ "<div class='combat-resource-number'>"
-							+ "<b style='color:" + Attribute.CORRUPTION.getColour().toWebHexString() + ";'>" + (int) opponent.getAttributeValue(Attribute.CORRUPTION) + "</b>"
-							+ "</div>"
-							+ "<div class='overlay no-pointer' id='COMBAT_OPPONENT_" + Attribute.CORRUPTION + "'></div>"
-						+ "</div>"
-					+ "</div>");
-
-		// Display health, willpower and stamina:
-		descriptionStringBuilder.append("<div class='combat-inner-container'>"
-
-				+ "<div class='combat-resource'>" + "<div class='combat-resource-icon'>" + Attribute.HEALTH_MAXIMUM.getSVGString() + "</div>" + "<div class='combat-resource-bar'>" + "<div style='height:10px; width:"
-				+ (int) ((opponent.getHealth() / opponent.getAttributeValue(Attribute.HEALTH_MAXIMUM)) * 100f) + "%;" + "background:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + "; border-radius: 2px;'></div>" + "</div>"
-				+ "<div class='combat-resource-number' style='color:"
-				+ (renderedOpponentHealthValue < opponent.getHealth() ? (Colour.CLOTHING_GREEN.toWebHexString()) : (renderedOpponentHealthValue > opponent.getHealth() ? (Colour.CLOTHING_RED.toWebHexString()) : "default")) + ";'>"
-				+ (int) Math.ceil(opponent.getHealth()) + "</div>" + "<div class='overlay no-pointer' id='COMBAT_OPPONENT_" + Attribute.HEALTH_MAXIMUM + "'></div>" + "</div>"
-
-				+ "<div class='combat-resource'>" + "<div class='combat-resource-icon'>" + Attribute.MANA_MAXIMUM.getSVGString() + "</div>" + "<div class='combat-resource-bar'>" + "<div style='height:10px; width:"
-				+ (int) ((opponent.getMana() / opponent.getAttributeValue(Attribute.MANA_MAXIMUM)) * 100f) + "%;" + "background:" + Colour.ATTRIBUTE_MANA.toWebHexString() + "; border-radius: 2px;'></div>" + "</div>"
-				+ "<div class='combat-resource-number' style='color:" + (renderedOpponentManaValue < opponent.getMana() ? (Colour.CLOTHING_GREEN.toWebHexString()) : (renderedOpponentManaValue > opponent.getMana() ? (Colour.CLOTHING_RED.toWebHexString()) : "default"))
-				+ ";'>" + (int) Math.ceil(opponent.getMana()) + "</div>" + "<div class='overlay no-pointer' id='COMBAT_OPPONENT_" + Attribute.MANA_MAXIMUM + "'></div>" + "</div>"
-
-				+ "<div class='combat-resource'>" + "<div class='combat-resource-icon'>" + Attribute.STAMINA_MAXIMUM.getSVGString() + "</div>" + "<div class='combat-resource-bar'>" + "<div style='height:10px; width:"
-				+ (int) ((opponent.getStamina() / opponent.getAttributeValue(Attribute.STAMINA_MAXIMUM)) * 100f) + "%;" + "background:" + Colour.ATTRIBUTE_FITNESS.toWebHexString() + "; border-radius: 2px;'></div>" + "</div>"
-				+ "<div class='combat-resource-number' style='color:"
-				+ (renderedOpponentStaminaValue < opponent.getStamina() ? (Colour.CLOTHING_GREEN.toWebHexString()) : (renderedOpponentStaminaValue > opponent.getStamina() ? (Colour.CLOTHING_RED.toWebHexString()) : "default")) + ";'>"
-				+ (int) Math.ceil(opponent.getStamina()) + "</div>" + "<div class='overlay no-pointer' id='COMBAT_OPPONENT_" + Attribute.STAMINA_MAXIMUM + "'></div>" + "</div>"
-
-				+ "</div>");
-
-		// Display status effects:
-		descriptionStringBuilder.append("<div class='combat-inner-container status-effects'>");
-//		if (Main.game.getPlayer().hasPerk(Perk.OBSERVANT)) {
-//			for (Perk p : opponent.getPerks()) {
-//				descriptionStringBuilder.append("<div class='combat-status-effect'>" + p.getSVGString() + "<div class='overlay no-pointer' id='PERK_COMBAT_" + p + "'></div>" + "</div>");
-//			}
-//			for (Fetish f : opponent.getFetishes()) {
-//				descriptionStringBuilder.append("<div class='combat-status-effect'>" + f.getSVGString() + "<div class='overlay no-pointer' id='FETISH_COMBAT_" + f + "'></div>" + "</div>");
-//			}
-			for (StatusEffect se : opponent.getStatusEffects()) {
-				if (se.renderInEffectsPanel()) {
-					if (se.isCombatEffect()) {
-						descriptionStringBuilder.append("<div class='combat-status-effect" + (!se.isBeneficial() ? " negativeCombat" : " positiveCombat") + "'>"
-									+ se.getSVGString(opponent) + "<div class='overlay no-pointer' id='SE_COMBAT_" + se + "'></div>" + "</div>");
-					}
-//					else {
-//						descriptionStringBuilder.append(
-//								"<div class='combat-status-effect'>" + se.getSVGString(opponent) + "<div class='overlay no-pointer' id='SE_COMBAT_" + se + "'></div>" + "</div>");
-//					}
-				}
-			}
-			for (SpecialAttack sa : opponent.getSpecialAttacks()) {
-				descriptionStringBuilder.append(
-						"<div class='combat-status-effect'>" + sa.getSVGString() + "<div class='overlay no-pointer' id='SA_COMBAT_" + sa + "'></div>" + "</div>");
-			}
-			if (opponent.getMainWeapon() != null) {
-				for (Spell s : opponent.getMainWeapon().getSpells()) {
-					descriptionStringBuilder
-							.append("<div class='combat-status-effect'>" + s.getSVGString() + "<div class='overlay' id='SPELL_MAIN_COMBAT_" + s + "'></div>" + "</div>");
-				}
-			}
-			if (opponent.getOffhandWeapon() != null) {
-				for (Spell s : opponent.getOffhandWeapon().getSpells()) {
-					descriptionStringBuilder
-							.append("<div class='combat-status-effect'>" + s.getSVGString() + "<div class='overlay' id='SPELL_OFFHAND_COMBAT_" + s + "'></div>" + "</div>");
-				}
-			}
-//		} else {
-//			descriptionStringBuilder.append("<div class='combat-status-effect'>"
-//												+ StatusEffect.COMBAT_HIDDEN.getSVGString(opponent) + "<div class='overlay no-pointer' id='SE_COMBAT_"+StatusEffect.COMBAT_HIDDEN+"'></div>" + "</div>");
-//			for (StatusEffect se : opponent.getStatusEffects()) {
-//				if (se.isCombatEffect())
-//					descriptionStringBuilder
-//							.append("<div class='combat-status-effect" + (!se.isBeneficial() ? " negativeCombat" : " positiveCombat") + "'>" + se.getSVGString(opponent) + "<div class='overlay no-pointer' id='SE_COMBAT_" + se + "'></div>" + "</div>");
+		return "";//TODO
+//		descriptionStringBuilder = new StringBuilder("<div class='combat-header-info'>");
+//
+//		// PLAYER INFO:
+//		descriptionStringBuilder.append("<div class='combat-display left'>");
+//		// +(Main.game.getCurrentDialogueNode()==ENEMY_ATTACK?"
+//		// style='background-color:#555;'":"")
+//		// + ">");
+//
+//		// Display Name and level:
+//		descriptionStringBuilder.append("<div class='combat-inner-container'>"
+//					+ "<div class='combat-container name'>"
+//						+ "<div class='combat-container'>"
+//							+ "<p class='combatant-title name' style='color:" + Femininity.valueOf(Main.game.getPlayer().getFemininityValue()).getColour().toWebHexString() + ";'>" 
+//								+ "<b>" + Util.capitaliseSentence(Main.game.getPlayer().getName()) + "</b>"
+//							+ "</p>"
+//						+ "</div>"
+//						+ "<div class='combat-container'>"
+//							+ "<p class='combatant-title level'>"
+//								+ "<b>Level " + Main.game.getPlayer().getLevel() + "</b></br>"
+//								+(Main.game.getPlayer().getRaceStage().getName()!=""
+//									?"<b style='color:"+Main.game.getPlayer().getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(Main.game.getPlayer().getRaceStage().getName())+"</b> ":"")
+//								+ "<b style='color:"+Main.game.getPlayer().getRace().getColour().toWebHexString()+";'>"
+//								+ (Main.game.getPlayer().isFeminine()?Util.capitaliseSentence(Main.game.getPlayer().getRace().getSingularFemaleName()):Util.capitaliseSentence(Main.game.getPlayer().getRace().getSingularMaleName()))
+//								+ "</b>"
+//							+ "</p>"
+//						+ "</div>"
+//						+ "<div class='overlay no-pointer' id='COMBAT_PLAYER_ATTRIBUTES'></div>"
+//					+ "</div>"
+//				+ "</div>");
+//
+//		// Attributes:
+//		descriptionStringBuilder.append(
+//				"<div class='combat-inner-container'>"
+//					+ "<div class='combat-container attribute'>"
+//						+ "<div class='combat-resource-icon'>"
+//							+ StrengthLevel.getStrengthLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.STRENGTH)).getRelatedStatusEffect().getSVGString(Main.game.getPlayer()) + "</div>"
+//						+ "<div class='combat-resource-number'>"
+//							+ "<b style='color:" + Attribute.STRENGTH.getColour().toWebHexString() + ";'>" + (int) Main.game.getPlayer().getAttributeValue(Attribute.STRENGTH) + "</b>"
+//						+ "</div>"
+//						+ "<div class='overlay no-pointer' id='COMBAT_PLAYER_" + Attribute.STRENGTH + "'></div>"
+//					+ "</div>"
+//	
+//					+ "<div class='combat-container attribute'>"
+//						+ "<div class='combat-resource-icon'>"
+//							+ IntelligenceLevel.getIntelligenceLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.INTELLIGENCE)).getRelatedStatusEffect().getSVGString(Main.game.getPlayer()) + "</div>"
+//						+ "<div class='combat-resource-number'>"
+//						+ "<b style='color:" + Attribute.INTELLIGENCE.getColour().toWebHexString() + ";'>" + (int) Main.game.getPlayer().getAttributeValue(Attribute.INTELLIGENCE) + "</b>"
+//						+ "</div>"
+//						+ "<div class='overlay no-pointer' id='COMBAT_PLAYER_" + Attribute.INTELLIGENCE + "'></div>"
+//					+ "</div>"
+//	
+//					+ "<div class='combat-container attribute'>"
+//						+ "<div class='combat-resource-icon'>"
+//							+ FitnessLevel.getFitnessLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.FITNESS)).getRelatedStatusEffect().getSVGString(Main.game.getPlayer()) + "</div>"
+//						+ "<div class='combat-resource-number'>"
+//						+ "<b style='color:" + Attribute.FITNESS.getColour().toWebHexString() + ";'>" + (int) Main.game.getPlayer().getAttributeValue(Attribute.FITNESS) + "</b>"
+//						+ "</div>"
+//						+ "<div class='overlay no-pointer' id='COMBAT_PLAYER_" + Attribute.FITNESS + "'></div>"
+//					+ "</div>"
+//	
+//					+ "<div class='combat-container attribute'>"
+//						+ "<div class='combat-resource-icon'>"
+//							+ CorruptionLevel.getCorruptionLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION)).getRelatedStatusEffect().getSVGString(Main.game.getPlayer()) + "</div>"
+//						+ "<div class='combat-resource-number'>"
+//						+ "<b style='color:" + Attribute.CORRUPTION.getColour().toWebHexString() + ";'>" + (int) Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION) + "</b>"
+//						+ "</div>"
+//						+ "<div class='overlay no-pointer' id='COMBAT_PLAYER_" + Attribute.CORRUPTION + "'></div>"
+//					+ "</div>"
+//				+ "</div>");
+//
+//		// Display health, willpower and stamina:
+//		descriptionStringBuilder.append("<div class='combat-inner-container'>"
+//
+//				+ "<div class='combat-resource'>" + "<div class='combat-resource-icon'>" + Attribute.HEALTH_MAXIMUM.getSVGString() + "</div>" + "<div class='combat-resource-bar'>" + "<div style='height:10px; width:"
+//				+ (int) ((Main.game.getPlayer().getHealth() / Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM)) * 100f) + "%;" + "background:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + "; border-radius: 2px;'></div>"
+//				+ "</div>" + "<div class='combat-resource-number' style='color:"
+//				+ (renderedPlayerHealthValue < Main.game.getPlayer().getHealth() ? (Colour.CLOTHING_GREEN.toWebHexString()) : (renderedPlayerHealthValue > Main.game.getPlayer().getHealth() ? (Colour.CLOTHING_RED.toWebHexString()) : "default")) + ";'>"
+//				+ (int) Math.ceil(Main.game.getPlayer().getHealth()) + "</div>" + "<div class='overlay no-pointer' id='COMBAT_PLAYER_" + Attribute.HEALTH_MAXIMUM + "'></div>" + "</div>"
+//
+//				+ "<div class='combat-resource'>" + "<div class='combat-resource-icon'>" + Attribute.MANA_MAXIMUM.getSVGString() + "</div>" + "<div class='combat-resource-bar'>" + "<div style='height:10px; width:"
+//				+ (int) ((Main.game.getPlayer().getMana() / Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM)) * 100f) + "%;" + "background:" + Colour.ATTRIBUTE_MANA.toWebHexString() + "; border-radius: 2px;'></div>"
+//				+ "</div>" + "<div class='combat-resource-number' style='color:"
+//				+ (renderedPlayerManaValue < Main.game.getPlayer().getMana() ? (Colour.CLOTHING_GREEN.toWebHexString()) : (renderedPlayerManaValue > Main.game.getPlayer().getMana() ? (Colour.CLOTHING_RED.toWebHexString()) : "default")) + ";'>"
+//				+ (int) Math.ceil(Main.game.getPlayer().getMana()) + "</div>" + "<div class='overlay no-pointer' id='COMBAT_PLAYER_" + Attribute.MANA_MAXIMUM + "'></div>" + "</div>"
+//
+//				+ "<div class='combat-resource'>" + "<div class='combat-resource-icon'>" + Attribute.STAMINA_MAXIMUM.getSVGString() + "</div>" + "<div class='combat-resource-bar'>" + "<div style='height:10px; width:"
+//				+ (int) ((Main.game.getPlayer().getStamina() / Main.game.getPlayer().getAttributeValue(Attribute.STAMINA_MAXIMUM)) * 100f) + "%;" + "background:" + Colour.ATTRIBUTE_FITNESS.toWebHexString()
+//				+ "; border-radius: 2px;'></div>" + "</div>" + "<div class='combat-resource-number' style='color:"
+//				+ (renderedPlayerStaminaValue < Main.game.getPlayer().getStamina() ? (Colour.CLOTHING_GREEN.toWebHexString()) : (renderedPlayerStaminaValue > Main.game.getPlayer().getStamina() ? (Colour.CLOTHING_RED.toWebHexString()) : "default")) + ";'>"
+//				+ (int) Math.ceil(Main.game.getPlayer().getStamina()) + "</div>" + "<div class='overlay no-pointer' id='COMBAT_PLAYER_" + Attribute.STAMINA_MAXIMUM + "'></div>" + "</div>"
+//
+//				+ "</div>");
+//
+//		// Display status effects:
+//		descriptionStringBuilder.append("<div class='combat-inner-container status-effects'>");
+//		boolean statusEffectFound=false;
+//		for (StatusEffect se : Main.game.getPlayer().getStatusEffects()) {
+//			if (se.isCombatEffect() && se.renderInEffectsPanel()){
+//				descriptionStringBuilder.append("<div class='combat-status-effect" + (!se.isBeneficial() ? " negativeCombat" : " positiveCombat") + "'>"
+//													+ se.getSVGString(Main.game.getPlayer()) + "<div class='overlay no-pointer' id='COMBAT_PLAYER_SE_" + se + "'></div>" + "</div>");
+//				statusEffectFound = true;
 //			}
 //		}
-		descriptionStringBuilder.append("</div>");
-
-		descriptionStringBuilder.append("</div>");
-
-		// Close containing div:
-		descriptionStringBuilder.append("</div>");
-
-		renderedOpponentHealthValue = opponent.getHealth();
-		renderedOpponentManaValue = opponent.getMana();
-		renderedOpponentStaminaValue = opponent.getStamina();
-
-		renderedPlayerHealthValue = Main.game.getPlayer().getHealth();
-		renderedPlayerManaValue = Main.game.getPlayer().getMana();
-		renderedPlayerStaminaValue = Main.game.getPlayer().getStamina();
-
-		return descriptionStringBuilder.toString();
+//		for (SpecialAttack sa : Main.game.getPlayer().getSpecialAttacks()) {
+//			descriptionStringBuilder.append(
+//					"<div class='combat-status-effect'>"
+//							+ sa.getSVGString()
+//							+ "<div class='overlay' id='COMBAT_PLAYER_SA_" + sa + "'></div>"
+//					+ "</div>");
+//			statusEffectFound = true;
+//		}
+//		
+//		if (Main.game.getPlayer().getMainWeapon() != null) {
+//			for (Spell s : Main.game.getPlayer().getMainWeapon().getSpells()) {
+//				descriptionStringBuilder.append(
+//						"<div class='combat-status-effect'>" 
+//								+ s.getSVGString() 
+//								+ "<div class='overlay' id='COMBAT_PLAYER_SPELL_MAIN_" + s + "'></div>"
+//						+ "</div>");
+//				statusEffectFound = true;
+//			}
+//		}
+//		
+//		if (Main.game.getPlayer().getOffhandWeapon() != null) {
+//			for (Spell s : Main.game.getPlayer().getOffhandWeapon().getSpells()) {
+//				descriptionStringBuilder.append(
+//						"<div class='combat-status-effect'>"
+//								+ s.getSVGString() 
+//								+ "<div class='overlay' id='COMBAT_PLAYER_SPELL_OFFHAND_" + s + "'></div>" 
+//						+ "</div>");
+//				statusEffectFound = true;
+//			}
+//		}
+//		if(!statusEffectFound)
+//			descriptionStringBuilder.append("<p style='text-align:center; color:"+Colour.TEXT_GREY.toWebHexString()+";'><b>No combat effects</b></p>");
+//			
+//		descriptionStringBuilder.append("</div>");
+//
+//		descriptionStringBuilder.append("</div>");
+//
+//		// Display description:
+//		descriptionStringBuilder.append("<div class='combat-description'>" + "<p>" + opponent.getCombatDescription() + "</p>" + "</div>");
+//
+//		// OPPONENT INFO:
+//		descriptionStringBuilder.append("<div class='combat-display left'>");
+//
+//		// Display Name and level:
+//		descriptionStringBuilder.append("<div class='combat-inner-container'>"
+//				+ "<div class='combat-container name'>"
+//					+ "<div class='combat-container'>"
+//						+ "<p class='combatant-title name' style='color:" + Femininity.valueOf(opponent.getFemininityValue()).getColour().toWebHexString() + ";'>" 
+//							+ "<b>" + Util.capitaliseSentence(opponent.getName()) + "</b>"
+//						+ "</p>"
+//					+ "</div>"
+//					+ "<div class='combat-container'>"
+//						+ "<p class='combatant-title level'>"
+//							+ (opponent.getLevel() - Main.game.getPlayer().getLevel() <= -3 ? "<b style='color: " + Colour.GENERIC_GOOD.toWebHexString() + ";'>"
+//									: (opponent.getLevel() - Main.game.getPlayer().getLevel() >= 3 ? "<b style='color: " + Colour.GENERIC_BAD.toWebHexString() + ";'>" : "<b>"))
+//							+ "Level " + opponent.getLevel() +"</b>"
+//							+ "</br>"
+//							+(opponent.getRaceStage().getName()!=""
+//								?"<b style='color:"+opponent.getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(opponent.getRaceStage().getName())+"</b> ":"")
+//							+ "<b style='color:"+opponent.getRace().getColour().toWebHexString()+";'>"
+//							+ (opponent.isFeminine()?Util.capitaliseSentence(opponent.getRace().getSingularFemaleName()):Util.capitaliseSentence(opponent.getRace().getSingularMaleName()))
+//							+ "</b>"
+//						+ "</p>"
+//					+ "</div>"
+//					+ "<div class='overlay no-pointer' id='COMBAT_OPPONENT_ATTRIBUTES'></div>" 
+//				+ "</div>"
+//				+ "</div>");
+//
+//		// Attributes:
+//		descriptionStringBuilder.append(
+//				"<div class='combat-inner-container'>"
+//						+ "<div class='combat-container attribute'>"
+//							+ "<div class='combat-resource-icon'>" + StrengthLevel.getStrengthLevelFromValue(opponent.getAttributeValue(Attribute.STRENGTH)).getRelatedStatusEffect().getSVGString(opponent) + "</div>"
+//							+ "<div class='combat-resource-number'>"
+//								+ "<b style='color:" + Attribute.STRENGTH.getColour().toWebHexString() + ";'>" + (int) opponent.getAttributeValue(Attribute.STRENGTH) + "</b>"
+//							+ "</div>"
+//							+ "<div class='overlay no-pointer' id='COMBAT_OPPONENT_" + Attribute.STRENGTH + "'></div>"
+//						+ "</div>"
+//		
+//						+ "<div class='combat-container attribute'>"
+//							+ "<div class='combat-resource-icon'>" + IntelligenceLevel.getIntelligenceLevelFromValue(opponent.getAttributeValue(Attribute.INTELLIGENCE)).getRelatedStatusEffect().getSVGString(opponent) + "</div>"
+//							+ "<div class='combat-resource-number'>"
+//							+ "<b style='color:" + Attribute.INTELLIGENCE.getColour().toWebHexString() + ";'>" + (int) opponent.getAttributeValue(Attribute.INTELLIGENCE) + "</b>"
+//							+ "</div>"
+//							+ "<div class='overlay no-pointer' id='COMBAT_OPPONENT_" + Attribute.INTELLIGENCE + "'></div>"
+//						+ "</div>"
+//		
+//						+ "<div class='combat-container attribute'>"
+//							+ "<div class='combat-resource-icon'>" + FitnessLevel.getFitnessLevelFromValue(opponent.getAttributeValue(Attribute.FITNESS)).getRelatedStatusEffect().getSVGString(opponent) + "</div>"
+//							+ "<div class='combat-resource-number'>"
+//							+ "<b style='color:" + Attribute.FITNESS.getColour().toWebHexString() + ";'>" + (int) opponent.getAttributeValue(Attribute.FITNESS) + "</b>"
+//							+ "</div>"
+//							+ "<div class='overlay no-pointer' id='COMBAT_OPPONENT_" + Attribute.FITNESS + "'></div>"
+//						+ "</div>"
+//		
+//						+ "<div class='combat-container attribute'>"
+//							+ "<div class='combat-resource-icon'>" + CorruptionLevel.getCorruptionLevelFromValue(opponent.getAttributeValue(Attribute.CORRUPTION)).getRelatedStatusEffect().getSVGString(opponent) + "</div>"
+//							+ "<div class='combat-resource-number'>"
+//							+ "<b style='color:" + Attribute.CORRUPTION.getColour().toWebHexString() + ";'>" + (int) opponent.getAttributeValue(Attribute.CORRUPTION) + "</b>"
+//							+ "</div>"
+//							+ "<div class='overlay no-pointer' id='COMBAT_OPPONENT_" + Attribute.CORRUPTION + "'></div>"
+//						+ "</div>"
+//					+ "</div>");
+//
+//		// Display health, willpower and stamina:
+//		descriptionStringBuilder.append("<div class='combat-inner-container'>"
+//
+//				+ "<div class='combat-resource'>" + "<div class='combat-resource-icon'>" + Attribute.HEALTH_MAXIMUM.getSVGString() + "</div>" + "<div class='combat-resource-bar'>" + "<div style='height:10px; width:"
+//				+ (int) ((opponent.getHealth() / opponent.getAttributeValue(Attribute.HEALTH_MAXIMUM)) * 100f) + "%;" + "background:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + "; border-radius: 2px;'></div>" + "</div>"
+//				+ "<div class='combat-resource-number' style='color:"
+//				+ (renderedOpponentHealthValue < opponent.getHealth() ? (Colour.CLOTHING_GREEN.toWebHexString()) : (renderedOpponentHealthValue > opponent.getHealth() ? (Colour.CLOTHING_RED.toWebHexString()) : "default")) + ";'>"
+//				+ (int) Math.ceil(opponent.getHealth()) + "</div>" + "<div class='overlay no-pointer' id='COMBAT_OPPONENT_" + Attribute.HEALTH_MAXIMUM + "'></div>" + "</div>"
+//
+//				+ "<div class='combat-resource'>" + "<div class='combat-resource-icon'>" + Attribute.MANA_MAXIMUM.getSVGString() + "</div>" + "<div class='combat-resource-bar'>" + "<div style='height:10px; width:"
+//				+ (int) ((opponent.getMana() / opponent.getAttributeValue(Attribute.MANA_MAXIMUM)) * 100f) + "%;" + "background:" + Colour.ATTRIBUTE_MANA.toWebHexString() + "; border-radius: 2px;'></div>" + "</div>"
+//				+ "<div class='combat-resource-number' style='color:" + (renderedOpponentManaValue < opponent.getMana() ? (Colour.CLOTHING_GREEN.toWebHexString()) : (renderedOpponentManaValue > opponent.getMana() ? (Colour.CLOTHING_RED.toWebHexString()) : "default"))
+//				+ ";'>" + (int) Math.ceil(opponent.getMana()) + "</div>" + "<div class='overlay no-pointer' id='COMBAT_OPPONENT_" + Attribute.MANA_MAXIMUM + "'></div>" + "</div>"
+//
+//				+ "<div class='combat-resource'>" + "<div class='combat-resource-icon'>" + Attribute.STAMINA_MAXIMUM.getSVGString() + "</div>" + "<div class='combat-resource-bar'>" + "<div style='height:10px; width:"
+//				+ (int) ((opponent.getStamina() / opponent.getAttributeValue(Attribute.STAMINA_MAXIMUM)) * 100f) + "%;" + "background:" + Colour.ATTRIBUTE_FITNESS.toWebHexString() + "; border-radius: 2px;'></div>" + "</div>"
+//				+ "<div class='combat-resource-number' style='color:"
+//				+ (renderedOpponentStaminaValue < opponent.getStamina() ? (Colour.CLOTHING_GREEN.toWebHexString()) : (renderedOpponentStaminaValue > opponent.getStamina() ? (Colour.CLOTHING_RED.toWebHexString()) : "default")) + ";'>"
+//				+ (int) Math.ceil(opponent.getStamina()) + "</div>" + "<div class='overlay no-pointer' id='COMBAT_OPPONENT_" + Attribute.STAMINA_MAXIMUM + "'></div>" + "</div>"
+//
+//				+ "</div>");
+//
+//		// Display status effects:
+//		descriptionStringBuilder.append("<div class='combat-inner-container status-effects'>");
+////		if (Main.game.getPlayer().hasPerk(Perk.OBSERVANT)) {
+////			for (Perk p : opponent.getPerks()) {
+////				descriptionStringBuilder.append("<div class='combat-status-effect'>" + p.getSVGString() + "<div class='overlay no-pointer' id='PERK_COMBAT_" + p + "'></div>" + "</div>");
+////			}
+////			for (Fetish f : opponent.getFetishes()) {
+////				descriptionStringBuilder.append("<div class='combat-status-effect'>" + f.getSVGString() + "<div class='overlay no-pointer' id='FETISH_COMBAT_" + f + "'></div>" + "</div>");
+////			}
+//			for (StatusEffect se : opponent.getStatusEffects()) {
+//				if (se.renderInEffectsPanel()) {
+//					if (se.isCombatEffect()) {
+//						descriptionStringBuilder.append("<div class='combat-status-effect" + (!se.isBeneficial() ? " negativeCombat" : " positiveCombat") + "'>"
+//									+ se.getSVGString(opponent) + "<div class='overlay no-pointer' id='SE_COMBAT_" + se + "'></div>" + "</div>");
+//					}
+////					else {
+////						descriptionStringBuilder.append(
+////								"<div class='combat-status-effect'>" + se.getSVGString(opponent) + "<div class='overlay no-pointer' id='SE_COMBAT_" + se + "'></div>" + "</div>");
+////					}
+//				}
+//			}
+//			for (SpecialAttack sa : opponent.getSpecialAttacks()) {
+//				descriptionStringBuilder.append(
+//						"<div class='combat-status-effect'>" + sa.getSVGString() + "<div class='overlay no-pointer' id='SA_COMBAT_" + sa + "'></div>" + "</div>");
+//			}
+//			if (opponent.getMainWeapon() != null) {
+//				for (Spell s : opponent.getMainWeapon().getSpells()) {
+//					descriptionStringBuilder
+//							.append("<div class='combat-status-effect'>" + s.getSVGString() + "<div class='overlay' id='SPELL_MAIN_COMBAT_" + s + "'></div>" + "</div>");
+//				}
+//			}
+//			if (opponent.getOffhandWeapon() != null) {
+//				for (Spell s : opponent.getOffhandWeapon().getSpells()) {
+//					descriptionStringBuilder
+//							.append("<div class='combat-status-effect'>" + s.getSVGString() + "<div class='overlay' id='SPELL_OFFHAND_COMBAT_" + s + "'></div>" + "</div>");
+//				}
+//			}
+////		} else {
+////			descriptionStringBuilder.append("<div class='combat-status-effect'>"
+////												+ StatusEffect.COMBAT_HIDDEN.getSVGString(opponent) + "<div class='overlay no-pointer' id='SE_COMBAT_"+StatusEffect.COMBAT_HIDDEN+"'></div>" + "</div>");
+////			for (StatusEffect se : opponent.getStatusEffects()) {
+////				if (se.isCombatEffect())
+////					descriptionStringBuilder
+////							.append("<div class='combat-status-effect" + (!se.isBeneficial() ? " negativeCombat" : " positiveCombat") + "'>" + se.getSVGString(opponent) + "<div class='overlay no-pointer' id='SE_COMBAT_" + se + "'></div>" + "</div>");
+////			}
+////		}
+//		descriptionStringBuilder.append("</div>");
+//
+//		descriptionStringBuilder.append("</div>");
+//
+//		// Close containing div:
+//		descriptionStringBuilder.append("</div>");
+//
+//		renderedOpponentHealthValue = opponent.getHealth();
+//		renderedOpponentManaValue = opponent.getMana();
+//		renderedOpponentStaminaValue = opponent.getStamina();
+//
+//		renderedPlayerHealthValue = Main.game.getPlayer().getHealth();
+//		renderedPlayerManaValue = Main.game.getPlayer().getMana();
+//		renderedPlayerStaminaValue = Main.game.getPlayer().getStamina();
+//
+//		return descriptionStringBuilder.toString();
 	}
 
 	// DIALOGUES:
@@ -667,7 +652,7 @@ public enum Combat {
 						+ "<td style='min-width:200px;'><b>"+sa.getMinimumDamage(Main.game.getPlayer(), opponent)+" - "+sa.getMaximumDamage(Main.game.getPlayer(), opponent)+"</b>"
 								+ " <b style='color:"+sa.getDamageType().getMultiplierAttribute().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(sa.getDamageType().getName())+"</b></td>"
 						+ "<td style='min-width:200px;'><b>"+sa.getMinimumCost(Main.game.getPlayer())+" - "+sa.getMaximumCost(Main.game.getPlayer())+"</b>"
-							+ " <b style='color:"+Colour.ATTRIBUTE_STAMINA.toWebHexString()+";'>Stamina</b></td>"
+							+ " <b style='color:"+Colour.ATTRIBUTE_HEALTH.toWebHexString()+";'>Health</b></td>"
 						+ "</tr>");
 			
 			tempSB.append("</table></div>");
@@ -725,7 +710,7 @@ public enum Combat {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				if (opponent.getHealth() <= 0 || (opponent.getMana() <= 0 && !opponent.hasPerk(Perk.INDEFATIGABLE)) || (opponent.getStamina() <= 0 && !opponent.hasPerk(Perk.INDEFATIGABLE))) {
+				if (opponent.getHealth() <= 0 || (opponent.getMana() <= 0 && !opponent.hasPerk(Perk.INDEFATIGABLE))) {
 					return new ResponseEffectsOnly("Victory", "<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>You have defeated " + opponent.getName("the") + "!</span>"){
 						@Override
 						public void effects() {
@@ -942,8 +927,7 @@ public enum Combat {
 				}
 				
 			} else if (opponent.getHealth() <= 0
-					|| (opponent.getMana() <= 0 && !opponent.hasPerk(Perk.INDEFATIGABLE))
-					|| (opponent.getStamina() <= 0 && !opponent.hasPerk(Perk.INDEFATIGABLE))) {
+					|| (opponent.getMana() <= 0 && !opponent.hasPerk(Perk.INDEFATIGABLE))) {
 				if (index == 1) {
 					return new ResponseEffectsOnly("Victory", "<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>You have defeated " + opponent.getName("the") + "!</span>"){
 						@Override
@@ -956,8 +940,7 @@ public enum Combat {
 					return null;
 				
 			}  else if (Main.game.getPlayer().getHealth() <= 0 
-					|| (Main.game.getPlayer().getMana() <= 0 && !Main.game.getPlayer().hasPerk(Perk.INDEFATIGABLE))
-					|| (Main.game.getPlayer().getStamina() <= 0 && !Main.game.getPlayer().hasPerk(Perk.INDEFATIGABLE))) {
+					|| (Main.game.getPlayer().getMana() <= 0 && !Main.game.getPlayer().hasPerk(Perk.INDEFATIGABLE))) {
 				if (index == 1) {
 					return new ResponseEffectsOnly("Defeat", "You have been defeated!"){
 						@Override
@@ -1262,10 +1245,10 @@ public enum Combat {
 	
 		damage = Attack.calculateDamage(Main.game.getPlayer(), opponent, Attack.SEDUCTION, critical);
 	
-		combatStringBuilder.append(UtilText.parse(opponent,
+		combatStringBuilder.append(UtilText.parse(opponent,//TODO
 				"<p>"
 					+ (critical ? "Your seductive display was <b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>extremely effective</b>!</br>" : "")
-					+ "<b>[npc.Name] loses " + damage + " <b style='color:" + DamageType.MANA.getMultiplierAttribute().getColour().toWebHexString() + ";'>willpower</b> as [npc.she] tries to resist your seductive display!</b>"
+					+ "<b>[npc.Name] loses " + damage + " <b style='color:" + DamageType.LUST.getMultiplierAttribute().getColour().toWebHexString() + ";'>willpower</b> as [npc.she] tries to resist your seductive display!</b>"
 				+ "</p>"));
 
 
@@ -1379,8 +1362,7 @@ public enum Combat {
 	// Calculations for enemy attack:
 	public static void attackEnemy() {
 		if(opponent.getHealth() <= 0
-				|| (opponent.getMana() <= 0 && !opponent.hasPerk(Perk.INDEFATIGABLE))
-				|| (opponent.getStamina() <= 0 && !opponent.hasPerk(Perk.INDEFATIGABLE))) {
+				|| (opponent.getMana() <= 0 && !opponent.hasPerk(Perk.INDEFATIGABLE))) {
 			opponentActionText = "<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Defeated!</span>";
 			opponentTurnText = "<p>"
 								+opponent.getName("The")+" doesn't have the strength to continue fighting...</br>"
@@ -1388,8 +1370,7 @@ public enum Combat {
 								+ "</p>";
 			
 		} else if (Main.game.getPlayer().getHealth() <= 0 
-				|| (Main.game.getPlayer().getMana() <= 0 && !Main.game.getPlayer().hasPerk(Perk.INDEFATIGABLE))
-				|| (Main.game.getPlayer().getStamina() <= 0 && !Main.game.getPlayer().hasPerk(Perk.INDEFATIGABLE))) {
+				|| (Main.game.getPlayer().getMana() <= 0 && !Main.game.getPlayer().hasPerk(Perk.INDEFATIGABLE))) {
 			
 			playerActionText = "<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Defeated!</span>";
 			playerTurnText += "<p>"
@@ -1476,8 +1457,8 @@ public enum Combat {
 					damage = Attack.calculateDamage(opponent, Main.game.getPlayer(), opponentAttack, critical);
 					combatStringBuilder.append(UtilText.parse(opponent,
 							"<p>"
-							+ (critical ? "[npc.Her] seductive display was <b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>extremely effective</b>!</br>" : "")
-							+ "<b>You lose " + damage + " <b style='color:" + DamageType.MANA.getMultiplierAttribute().getColour().toWebHexString() + ";'>willpower</b> as you try to resist the seductive display!</b>"
+							+ (critical ? "[npc.Her] seductive display was <b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>extremely effective</b>!</br>" : "")//TODO
+							+ "<b>You lose " + damage + " <b style='color:" + DamageType.LUST.getMultiplierAttribute().getColour().toWebHexString() + ";'>willpower</b> as you try to resist the seductive display!</b>"
 							+ "</p>"));
 					Main.game.getPlayer().incrementMana(-damage);
 					
@@ -1511,8 +1492,7 @@ public enum Combat {
 			combatStringBuilder.append(endCombatTurn(false));
 			
 			if(opponent.getHealth() <= 0
-					|| (opponent.getMana() <= 0 && !opponent.hasPerk(Perk.INDEFATIGABLE))
-					|| (opponent.getStamina() <= 0 && !opponent.hasPerk(Perk.INDEFATIGABLE))) {
+					|| (opponent.getMana() <= 0 && !opponent.hasPerk(Perk.INDEFATIGABLE))) {
 
 				opponentActionText = "<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Defeated!</span>";
 				opponentTurnText = combatStringBuilder.toString()
@@ -1675,7 +1655,7 @@ public enum Combat {
 
 				+ "<b>"
 				+ Attack.getMinimumDamage(Main.game.getPlayer(), opponent, Attack.SEDUCTION) + " - " + Attack.getMaximumDamage(Main.game.getPlayer(), opponent, Attack.SEDUCTION) + "</b>"
-				+ " <b style='color:"+ Attribute.DAMAGE_MANA.getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(DamageType.MANA.getName()) + "</b> <b>damage</b></br></br>"
+				+ " <b style='color:"+ Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(DamageType.LUST.getName()) + "</b> <b>damage</b></br></br>"
 
 				+ "Seduction attacks <b style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>always hit</b>.";
 	}
@@ -1699,11 +1679,19 @@ public enum Combat {
 
 
 				+ "<b>" + specialAttack.getMinimumCost(Main.game.getPlayer()) + " - " + specialAttack.getMaximumCost(Main.game.getPlayer()) + "</b>" + " <b style='color:"
-				+ Colour.ATTRIBUTE_STAMINA.toWebHexString() + ";'>stamina</b> <b>cost</b></br></br>";
+				+ Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>health</b> <b>cost</b></br></br>";
 	}
 
 	public static GameCharacter getOpponent() {
 		return opponent;
+	}
+
+	public static NPC getTargetedCombatant() {
+		return targetedCombatant;
+	}
+
+	public static void setTargetedCombatant(NPC targetedCombatant) {
+		Combat.targetedCombatant = targetedCombatant;
 	}
 
 	public static AbstractItem getItem() {

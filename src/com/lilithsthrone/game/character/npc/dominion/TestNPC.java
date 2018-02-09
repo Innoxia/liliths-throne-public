@@ -82,7 +82,6 @@ public class TestNPC extends NPC {
 	
 			this.setAttribute(Attribute.STRENGTH, 5);
 			this.setAttribute(Attribute.INTELLIGENCE, 25);
-			this.setAttribute(Attribute.FITNESS, 20);
 			this.setAttribute(Attribute.CORRUPTION, 0);
 			
 			this.setFemininity(75);

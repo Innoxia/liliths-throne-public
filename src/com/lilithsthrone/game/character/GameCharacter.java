@@ -89,6 +89,7 @@ import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishLevel;
@@ -157,12 +158,13 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	private static final long serialVersionUID = 1L;
 	
 	/** Calculation description as used in getAttributeValue() */
-	public static final String HEALTH_CALCULATION = "Level*10 + STR + Bonus HP";
+	public static final String HEALTH_CALCULATION = "10 + Strength*2 + Bonus Stamina";
 	/** Calculation description as used in getAttributeValue() */
-	public static final String MANA_CALCULATION = "Level*10 + INT + Bonus WP";
-	/** Calculation description as used in getAttributeValue() */
-	public static final String STAMINA_CALCULATION = "Level*10 + FIT + Bonus ST";
+	public static final String MANA_CALCULATION = "10 + Arcane*2 + Bonus Aura";
 
+	public static final int LEVEL_CAP = 50;
+	public static final int MAX_TRAITS = 6;
+	
 	
 	// Core variables:
 	protected String id;
@@ -178,7 +180,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	protected SexualOrientation sexualOrientation;
 	private float obedience;
 
-	private int experience, levelUpPoints, perkPoints;
+	private int experience, perkPoints;
 	
 	
 	// Location:
@@ -201,7 +203,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	protected Map<Attribute, Float> attributes;
 	protected Map<Attribute, Float> bonusAttributes;
 	protected Map<Attribute, Float> potionAttributes;
-	protected Set<Perk> perks;
+	protected List<Perk> traits;
+	protected Map<Integer, Set<Perk>> perks;
 	protected Set<Fetish> fetishes;
 	protected Map<Fetish, FetishDesire> fetishDesireMap;
 	protected Map<Fetish, Integer> fetishExperienceMap;
@@ -241,7 +244,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	// Combat:
 	protected Set<Spell> spells;
 	protected Set<SpecialAttack> specialAttacks;
-	protected float health, mana, stamina;
+	protected float health, mana;
 
 	
 	// Sex:
@@ -328,7 +331,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		dayOfConception = 0;
 		dayOfBirth = 0;
 		
-		levelUpPoints = 0;
 		perkPoints = 0;
 		experience = 0;
 
@@ -340,7 +342,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		attributes = new EnumMap<>(Attribute.class);
 		bonusAttributes = new EnumMap<>(Attribute.class);
-		perks = new HashSet<>();
+		traits = new ArrayList<>();
+		perks = new HashMap<>();
 		fetishes = new HashSet<>();
 		fetishDesireMap = new HashMap<>();
 		fetishExperienceMap = new HashMap<>();
@@ -392,13 +395,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			bonusAttributes.put(a, 0f);
 		}
 		// Set starting attributes based on the character's race
-		for (Attribute a : startingRace.getAttributeModifiers().keySet()) {
-			attributes.put(a, startingRace.getAttributeModifiers().get(a));
-		}
+//		if(!this.isPlayer()) {
+			for (Attribute a : startingRace.getAttributeModifiers().keySet()) {
+				attributes.put(a, startingRace.getAttributeModifiers().get(a));
+			}
+//		}
 		
 		health = getAttributeValue(Attribute.HEALTH_MAXIMUM);
 		mana = getAttributeValue(Attribute.MANA_MAXIMUM);
-		stamina = getAttributeValue(Attribute.STAMINA_MAXIMUM);
 
 		// Set the character's starting body based on their gender and race:
 		setBody(startingGender, startingRace, stage);
@@ -442,12 +446,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "experience", String.valueOf(this.getExperience()));
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "levelUpPoints", String.valueOf(this.getLevelUpPoints()));
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "perkPoints", String.valueOf(this.getPerkPoints()));
 
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "health", String.valueOf(this.getHealth()));
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "mana", String.valueOf(this.getMana()));
-		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "stamina", String.valueOf(this.getStamina()));
 		
 		// Knows area map: TODO
 		Element characterPlayerKnowsAreas = doc.createElement("playerKnowsAreas");
@@ -518,13 +520,25 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		}
 		
 		// Perks:
+		
+		Element characterEquippedPerks = doc.createElement("equippedPerks");
+		properties.appendChild(characterEquippedPerks);
+		for(Perk p : this.getTraits()){
+			Element element = doc.createElement("perk");
+			characterEquippedPerks.appendChild(element);
+			CharacterUtils.addAttribute(doc, element, "type", p.toString());
+		}
+		
 		Element characterPerks = doc.createElement("perks");
 		properties.appendChild(characterPerks);
-		for(Perk p : this.getPerks()){
-			Element element = doc.createElement("perk");
-			characterPerks.appendChild(element);
-			
-			CharacterUtils.addAttribute(doc, element, "type", p.toString());
+		for(Entry<Integer, Set<Perk>> p : this.getPerksMap().entrySet()){
+			for(Perk perk : p.getValue()) {
+				Element element = doc.createElement("perk");
+				characterPerks.appendChild(element);
+	
+				CharacterUtils.addAttribute(doc, element, "row", p.getKey().toString());
+				CharacterUtils.addAttribute(doc, element, "type", perk.toString());
+			}
 		}
 		
 		// Fetishes:
@@ -820,6 +834,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		NodeList nodes = parentElement.getElementsByTagName("core");
 		Element element = (Element) nodes.item(0);
 
+		String version = "";
+		if(element.getElementsByTagName("version").item(0)!=null) {
+			version = ((Element) element.getElementsByTagName("version").item(0)).getAttribute("value");
+		}
+		
 		if(((Element)element.getElementsByTagName("id").item(0))!=null) {
 			character.setId(((Element)element.getElementsByTagName("id").item(0)).getAttribute("value"));
 			CharacterUtils.appendToImportLog(log, "</br>Set id: " + character.getId());
@@ -930,10 +949,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			character.setMana(Float.valueOf(((Element)element.getElementsByTagName("mana").item(0)).getAttribute("value")));
 			CharacterUtils.appendToImportLog(log, "</br>Set mana: "+character.getMana());
 		}
-		if(element.getElementsByTagName("stamina").getLength()!=0) {
-			character.setStamina(Float.valueOf(((Element)element.getElementsByTagName("stamina").item(0)).getAttribute("value")));
-			CharacterUtils.appendToImportLog(log, "</br>Set stamina: "+character.getStamina());
-		}
 
 		nodes = parentElement.getElementsByTagName("playerKnowsAreas");
 		Element knowsElement = (Element) nodes.item(0);
@@ -961,16 +976,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			character.incrementExperience(Integer.valueOf(((Element)element.getElementsByTagName("experience").item(0)).getAttribute("value")));
 			CharacterUtils.appendToImportLog(log, "</br>Set experience: " + Integer.valueOf(((Element)element.getElementsByTagName("experience").item(0)).getAttribute("value")));
 			
-			character.setLevelUpPoints(Integer.valueOf(((Element)element.getElementsByTagName("levelUpPoints").item(0)).getAttribute("value")) + extraLevelUpPoints);
-			CharacterUtils.appendToImportLog(log, "</br>Set levelUpPoints: " + (Integer.valueOf(((Element)element.getElementsByTagName("levelUpPoints").item(0)).getAttribute("value")) + extraLevelUpPoints));
-			
-			
 		} else {
 			character.incrementExperience(Integer.valueOf(((Element)element.getElementsByTagName("experience").item(0)).getAttribute("value")));
 			CharacterUtils.appendToImportLog(log, "</br>Set experience: " + Integer.valueOf(((Element)element.getElementsByTagName("experience").item(0)).getAttribute("value")));
-			
-			character.setLevelUpPoints(Integer.valueOf(((Element)element.getElementsByTagName("levelUpPoints").item(0)).getAttribute("value")) + extraLevelUpPoints);
-			CharacterUtils.appendToImportLog(log, "</br>Set levelUpPoints: " + (Integer.valueOf(((Element)element.getElementsByTagName("levelUpPoints").item(0)).getAttribute("value")) + extraLevelUpPoints));
 			
 			try {
 				character.setPerkPoints(Integer.valueOf(((Element)element.getElementsByTagName("perkPoints").item(0)).getAttribute("value")));
@@ -1068,27 +1076,30 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		}
 		
 		// Perks:
-		nodes = parentElement.getElementsByTagName("perks");
+		nodes = parentElement.getElementsByTagName("equippablePerks");
 		element = (Element) nodes.item(0);
 		if(element!=null) {
 			for(int i=0; i<element.getElementsByTagName("perk").getLength(); i++){
 				Element e = ((Element)element.getElementsByTagName("perk").item(i));
 				
-				try {
-					if(!e.getAttribute("value").isEmpty()) {
-						if(Boolean.valueOf(e.getAttribute("value"))) {
-							if(Perk.valueOf(e.getAttribute("type")) != null) {
-								character.addPerk(Perk.valueOf(e.getAttribute("type")));
-								CharacterUtils.appendToImportLog(log, "</br>Added Perk: "+Perk.valueOf(e.getAttribute("type")).getName(character));
-							}
-						}
-					} else {
-						if(Perk.valueOf(e.getAttribute("type")) != null) {
-							character.addPerk(Perk.valueOf(e.getAttribute("type")));
-							CharacterUtils.appendToImportLog(log, "</br>Added Perk: "+Perk.valueOf(e.getAttribute("type")).getName(character));
-						}
-					}
-				}catch(IllegalArgumentException ex){
+				character.addTrait(Perk.valueOf(e.getAttribute("type")));
+				CharacterUtils.appendToImportLog(log, "</br>Added Equipped Perk: "+Perk.valueOf(e.getAttribute("type")).getName(character));
+			}
+		}
+		
+		nodes = parentElement.getElementsByTagName("perks");
+		element = (Element) nodes.item(0);
+		if(element!=null) {
+			if(!version.isEmpty() && Main.isVersionOlderThan(version, "0.1.99.5")) {
+				int points = character.getPerkPointsAtLevel(character.getLevel());
+				character.setPerkPoints(points); //TODO
+				CharacterUtils.appendToImportLog(log, "</br>Added Perk Points: "+points);
+			} else {
+				for(int i=0; i<element.getElementsByTagName("perk").getLength(); i++){
+					Element e = ((Element)element.getElementsByTagName("perk").item(i));
+					
+					character.addPerk(Integer.valueOf(e.getAttribute("row")), Perk.valueOf(e.getAttribute("type")));
+					CharacterUtils.appendToImportLog(log, "</br>Added Perk: "+Perk.valueOf(e.getAttribute("type")).getName(character));
 				}
 			}
 		}
@@ -2181,80 +2192,60 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return getLevel() * 10;
 	}
 	
-	/**
-	 * Increments experience. 100 experience per current level needed to level
-	 * up.
-	 * 
-	 * @param increment
-	 *            Only applied if it is a positive value.
-	 */
 	public void incrementExperience(int increment) {
-		if (increment < 0)
-			throw new IllegalArgumentException("Cannot increment experience by a negative value!");
-
-		if (getLevel() == 20) {
+		if (getLevel() == LEVEL_CAP) {
 			experience = 0;
 			return;
 		}
 
-		experience += increment;
+		experience += Math.max(0, increment);
 
-		if (experience >= getExperienceNeededForNextLevel())
+		if (experience >= getExperienceNeededForNextLevel()) {
 			levelUp();
+		}
 	}
 
 	private void levelUp() {
 		// For handling health, mana and stamina changes as a result of an attribute being changed:
 		float healthPercentage = getHealthPercentage();
 		float manaPercentage = getManaPercentage();
-		float staminaPercentage = getStaminaPercentage();
 		
-		while (experience >= getExperienceNeededForNextLevel() && getLevel() < 20) {
+		while (experience >= getExperienceNeededForNextLevel() && getLevel() < LEVEL_CAP) {
 			experience -= getExperienceNeededForNextLevel();
 
 			level++;
 
-			levelUpPoints += 5;
 			perkPoints++;
+			if(level%5==0) {
+				perkPoints+=2;
+			}
 		}
-		if (getLevel() == 20) {
+		if (getLevel() == LEVEL_CAP) {
 			experience = 0;
 		}
 		
 		// Increment health, mana and stamina based on the change:
 		setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM) * healthPercentage);
 		setMana(getAttributeValue(Attribute.MANA_MAXIMUM) * manaPercentage);
-		setStamina(getAttributeValue(Attribute.STAMINA_MAXIMUM) * staminaPercentage);
 		
+		//TODO NPC level up
 		if(!isPlayer()) {
-			for(int i=0; i<levelUpPoints; i++) {
-				switch(Util.random.nextInt(2)) {
-					case 0:
-						incrementAttribute(Attribute.STRENGTH, 1);
-						break;
-					case 1:
-						incrementAttribute(Attribute.INTELLIGENCE, 1);
-						break;
-					default:
-						incrementAttribute(Attribute.FITNESS, 1);
-						break;
-				}
-			}
+			//Perks
 		}
 	}
 	
-	public int getLevelUpPoints() {
-		return levelUpPoints;
+	public int getPerkPointsAtLevel(int level) {
+		return level-1 + (level/5)*2;
 	}
-
-	public void setLevelUpPoints(int levelUpPoints) {
-		this.levelUpPoints = levelUpPoints;
-	}
-
+	
 	public int getPerkPoints() {
 		return perkPoints;
 	}
 
+	public void incrementPerkPoints(int increment) {
+		setPerkPoints(perkPoints+increment);
+	}
+	
 	public void setPerkPoints(int perkPoints) {
 		this.perkPoints = perkPoints;
 	}
@@ -2268,59 +2259,30 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public float getBaseAttributeValue(Attribute attribute) {
 		// Special case for health:
 		if (attribute == Attribute.HEALTH_MAXIMUM) {
-			return (getLevel() * 10) + getAttributeValue(Attribute.STRENGTH);
+			return 10 + getAttributeValue(Attribute.STRENGTH)*2;
 		}
 
 		// Special case for mana:
 		if (attribute == Attribute.MANA_MAXIMUM) {
-			return (getLevel() * 10) + getAttributeValue(Attribute.INTELLIGENCE);
-		}
-
-		// Special case for stamina:
-		if (attribute == Attribute.STAMINA_MAXIMUM) {
-			return (getLevel() * 10) + getAttributeValue(Attribute.FITNESS);
+			return 10 + getAttributeValue(Attribute.INTELLIGENCE)*2;
 		}
 		
 		return attributes.get(attribute);
 	}
 
 	public float getBonusAttributeValue(Attribute att) {
-		float value = bonusAttributes.get(att);
-
-		// special cases for the attributes that the core attributes influence:
-		if (att == Attribute.DAMAGE_ATTACK)
-			value += ((attributes.get(Attribute.STRENGTH) + bonusAttributes.get(Attribute.STRENGTH)) < 0 ? 0 : (attributes.get(Attribute.STRENGTH) + bonusAttributes.get(Attribute.STRENGTH)) / 2);
-		else if (att == Attribute.DAMAGE_SPELLS)
-			value += ((attributes.get(Attribute.INTELLIGENCE) + bonusAttributes.get(Attribute.INTELLIGENCE)) < 0 ? 0 : (attributes.get(Attribute.INTELLIGENCE) + bonusAttributes.get(Attribute.INTELLIGENCE)) / 2);
-		else if (att == Attribute.DAMAGE_MANA)
-			value += ((attributes.get(Attribute.FITNESS) + bonusAttributes.get(Attribute.FITNESS)) < 0 ? 0 : (attributes.get(Attribute.FITNESS) + bonusAttributes.get(Attribute.FITNESS)) / 2);
-		
-		return value;
+		return bonusAttributes.get(att);
 	}
 
 	public float getAttributeValue(Attribute att) {
-		// Special case for health:
-		if (att == Attribute.HEALTH_MAXIMUM) {
-			float healthMax = (getLevel() * 10) + getAttributeValue(Attribute.STRENGTH) + bonusAttributes.get(Attribute.HEALTH_MAXIMUM);
-			return (healthMax < 1 ? 1 : healthMax);
+		float value = getBaseAttributeValue(att) + getBonusAttributeValue(att);
+		
+		if (att == Attribute.HEALTH_MAXIMUM || att == Attribute.MANA_MAXIMUM) {
+			return Math.max(1, value);
 		}
-
-		// Special case for mana:
-		else if (att == Attribute.MANA_MAXIMUM) {
-			float manaMax = (getLevel() * 10) + getAttributeValue(Attribute.INTELLIGENCE) + bonusAttributes.get(Attribute.MANA_MAXIMUM);
-			return (manaMax < 1 ? 1 : manaMax);
-		}
-
-		// Special case for stamina:
-		else if (att == Attribute.STAMINA_MAXIMUM) {
-			float maxStamina = (getLevel() * 10) + getAttributeValue(Attribute.FITNESS) + bonusAttributes.get(Attribute.STAMINA_MAXIMUM);
-			return (maxStamina < 1 ? 1 : maxStamina);
-		}
-
-		float value = attributes.get(att) + getBonusAttributeValue(att);
 
 		// Core attribute values are bound between 0 and 100
-		if (att == Attribute.STRENGTH || att == Attribute.INTELLIGENCE || att == Attribute.FITNESS || att == Attribute.CORRUPTION) {
+		if (att == Attribute.STRENGTH || att == Attribute.INTELLIGENCE || att == Attribute.CORRUPTION) {
 			if (value < 0)
 				value = 0;
 			if (value > 100)
@@ -2351,10 +2313,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		// attribute being changed:
 		float healthPercentage = getHealthPercentage();
 		float manaPercentage = getManaPercentage();
-		float staminaPercentage = getStaminaPercentage();
 
 		// Core attribute values are bound between 0 and 100
-		if (att == Attribute.STRENGTH || att == Attribute.INTELLIGENCE || att == Attribute.FITNESS || att == Attribute.CORRUPTION) {
+		if (att == Attribute.STRENGTH || att == Attribute.INTELLIGENCE || att == Attribute.CORRUPTION) {
 			if (value < 0)
 				value = 0;
 			if (value > 100)
@@ -2369,7 +2330,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		// Increment health, mana and stamina based on the change:
 		setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM) * healthPercentage);
 		setMana(getAttributeValue(Attribute.MANA_MAXIMUM) * manaPercentage);
-		setStamina(getAttributeValue(Attribute.STAMINA_MAXIMUM) * staminaPercentage);
 
 		updateAttributeListeners();
 		
@@ -2382,7 +2342,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 		float healthPercentage = getHealthPercentage();
 		float manaPercentage = getManaPercentage();
-		float staminaPercentage = getStaminaPercentage();
 
 		// Bonus attributes can be literally anything (well, maybe not past
 		// Integer.MAX_VALUE or Integer.MIN_VALUE, but that'll never happen,
@@ -2391,7 +2350,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 		setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM) * healthPercentage);
 		setMana(getAttributeValue(Attribute.MANA_MAXIMUM) * manaPercentage);
-		setStamina(getAttributeValue(Attribute.STAMINA_MAXIMUM) * staminaPercentage);
 
 		updateAttributeListeners();
 	}
@@ -2466,9 +2424,39 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 	// Perks:
 
-	/**The returned list is ordered by rendering priority.*/
-	public List<Perk> getPerks() {
-		List<Perk> tempPerkList = new ArrayList<>(perks);
+	public List<Perk> getTraits() {
+		return traits;
+	}
+	
+	public boolean hasTraitActivated(Perk perk) {
+		return traits.contains(perk);
+	}
+
+	public boolean removeTrait(Perk perk) {
+		return traits.remove(perk);
+	}
+	
+	public boolean addTrait(Perk perk) {
+		if(traits.contains(perk) || traits.size()>=MAX_TRAITS) {
+			return false;
+		}
+		traits.add(perk);
+		return true;
+	}
+	
+	public Map<Integer, Set<Perk>> getPerksMap() {
+		return perks;
+	}
+	
+	public List<Perk> getMajorPerks() {
+		List<Perk> tempPerkList = new ArrayList<>();
+		for(Entry<Integer, Set<Perk>> entry : perks.entrySet()) {
+			for(Perk p : entry.getValue()) {
+				if(p.isMajor()) {
+					tempPerkList.add(p);
+				}
+			}
+		}
 		tempPerkList.sort(Comparator.comparingInt(Perk::getRenderingPriority));
 		return tempPerkList;
 	}
@@ -2602,23 +2590,36 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return FetishLevel.getFetishLevelFromValue(getFetishExperience(fetish));
 	}
 	
-	
 	public boolean hasPerk(Perk p) {
-		return perks.contains(p);
+		return hasPerk(0, p);
+	}
+	
+	public boolean hasPerk(int row, Perk p) {
+		if(!perks.containsKey(row)) {
+			return false;
+		}
+		return perks.get(row).contains(p);
 	}
 
 	public boolean addPerk(Perk perk) {
-		if (perks.contains(perk)) {
+		return addPerk(PerkManager.MANAGER.getPerkRow(perk), perk);
+	}
+	
+	public boolean addPerk(int row, Perk perk) {
+		perks.putIfAbsent(row, new HashSet<>());
+		
+		if (perks.get(row).contains(perk)) {
 			return false;
 		}
 		
-		perks.add(perk);
+		perks.get(row).add(perk);
 
 		// Increment bonus attributes from this perk:
-		if (perk.getAttributeModifiers() != null)
-			for (Entry<Attribute, Integer> e : perk.getAttributeModifiers().entrySet())
+		if (perk.getAttributeModifiers() != null) {
+			for (Entry<Attribute, Integer> e : perk.getAttributeModifiers().entrySet()) {
 				incrementBonusAttribute(e.getKey(), e.getValue());
-
+			}
+		}
 		calculateSpecialAttacks();
 		
 		updateAttributeListeners();
@@ -2626,17 +2627,23 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return true;
 	}
 
-	public boolean removePerk(Perk perk) {
-		if (!perks.contains(perk))
+	public boolean removePerk(int row, Perk perk) {
+		if (!perks.containsKey(row)) {
 			return false;
-
-		perks.remove(perk);
+		}
+		
+		if (!perks.get(row).contains(perk)) {
+			return false;
+		}
+		
+		perks.get(row).remove(perk);
 
 		// Reverse bonus attributes from this perk:
-		if (perk.getAttributeModifiers() != null)
-			for (Entry<Attribute, Integer> e : perk.getAttributeModifiers().entrySet())
+		if (perk.getAttributeModifiers() != null) {
+			for (Entry<Attribute, Integer> e : perk.getAttributeModifiers().entrySet()) {
 				incrementBonusAttribute(e.getKey(), -e.getValue());
-
+			}
+		}
 		calculateSpecialAttacks();
 		
 		updateAttributeListeners();
@@ -7738,40 +7745,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public void incrementMana(float increment) {
 		setMana(getMana() + increment);
 	}
-
-
-	public float getStamina() {
-		return stamina;
-	}
-
-
-	public float getStaminaPercentage() {
-		return stamina / getAttributeValue(Attribute.STAMINA_MAXIMUM);
-	}
-
-
-	public void setStamina(float stamina) {
-		if (stamina < 0)
-			this.stamina = 0;
-		else if (stamina > getAttributeValue(Attribute.STAMINA_MAXIMUM))
-			this.stamina = getAttributeValue(Attribute.STAMINA_MAXIMUM);
-		else
-			this.stamina = stamina;
-
-		updateAttributeListeners();
-	}
-
-	/**
-	 * @param percentage Use value of 0 -> 1
-	 */
-	public void setStaminaPercentage(float percentage) {
-		setStamina(getAttributeValue(Attribute.STAMINA_MAXIMUM) * percentage);
-	}
-	
-	public void incrementStamina(float increment) {
-		setStamina(getStamina() + increment);
-	}
-
 
 	public float getArousal() {
 		return getAttributeValue(Attribute.AROUSAL);

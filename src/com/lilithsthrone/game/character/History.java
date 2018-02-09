@@ -126,23 +126,22 @@ Calm:
 			"You work in a local office, handling paperwork, answering phonecalls and emails, and generally doing a little bit of everything.",
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.STRENGTH, 2),
-					new Value<Attribute, Integer>(Attribute.INTELLIGENCE, 2),
-					new Value<Attribute, Integer>(Attribute.FITNESS, 2))),
+					new Value<Attribute, Integer>(Attribute.INTELLIGENCE, 2))),
 	
 	STUDENT(true,
 			false,
 			"student",
 			"You're a student at the city's university as well, although you're in your first year, and haven't quite decided what to take as your major yet.",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.INTELLIGENCE, 5))),
+					new Value<Attribute, Integer>(Attribute.INTELLIGENCE, 3))),
 
 	MUSICIAN(true,
 			false,
 			"musician",
 			"You're a musician, and as well as being able to play a wide variety of instruments, you are also a very good singer.",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.INTELLIGENCE, 3),
-					new Value<Attribute, Integer>(Attribute.FITNESS, 3))),
+					new Value<Attribute, Integer>(Attribute.INTELLIGENCE, 2),
+					new Value<Attribute, Integer>(Attribute.STRENGTH, 1))),
 	
 	TEACHER(true,
 			false,
@@ -157,16 +156,14 @@ Calm:
 			"writer",
 			"You're a writer, and have been working on your latest novel for the last few months.",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.INTELLIGENCE, 5),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_MANA, 10))),
+					new Value<Attribute, Integer>(Attribute.INTELLIGENCE, 5))),
 	
 	CHEF(true,
 			false,
 			"chef",
 			"You're the head chef at a local restaurant.",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.FITNESS, 2),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_STAMINA, 10),
+					new Value<Attribute, Integer>(Attribute.STRENGTH, 2),
 					new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 10),
 					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 10))),
 	
@@ -176,10 +173,7 @@ Calm:
 			"You're a soldier, and are currently making the most of your leave.",
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.STRENGTH, 5),
-					new Value<Attribute, Integer>(Attribute.FITNESS, 5),
 					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 10),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_MANA, 10),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_STAMINA, 10),
 					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 20))),
 
 	ATHLETE(true,
@@ -187,17 +181,14 @@ Calm:
 			"athlete",
 			"You're an athlete, and are currently training for your next big event.",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.STRENGTH, 5),
-					new Value<Attribute, Integer>(Attribute.FITNESS, 10),
-					new Value<Attribute, Integer>(Attribute.STAMINA_MAXIMUM, 30))),
+					new Value<Attribute, Integer>(Attribute.STRENGTH, 15))),
 	
 	MAID(true,
 			false,
 			"maid",
 			"You're a maid, hired by a wealthy family to keep their mansion clean.",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.FITNESS, 3),
-					new Value<Attribute, Integer>(Attribute.STAMINA_MAXIMUM, 10))) {
+					new Value<Attribute, Integer>(Attribute.STRENGTH, 3))) {
 		@Override
 		public boolean isAvailable(GameCharacter character) {
 			return character.isFeminine();
@@ -209,8 +200,7 @@ Calm:
 			"butler",
 			"You're a butler, hired by a wealthy family to oversee the maids and deal with any visitors.",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.FITNESS, 3),
-					new Value<Attribute, Integer>(Attribute.STAMINA_MAXIMUM, 10))) {
+					new Value<Attribute, Integer>(Attribute.STRENGTH, 3))) {
 		@Override
 		public boolean isAvailable(GameCharacter character) {
 			return !character.isFeminine();
@@ -238,7 +228,7 @@ Calm:
 //
 //	// Other:
 //	TOWN_BIKE(true, false, "Slut", "You've lost count of the amount of guys (and sometimes girls) that you've slept with. You have a lot of experience with flirting and seducing people." + " <span style='color:" + Colour.GENERIC_SEX.toWebHexString()
-//			+ ";'>You start the game having already lost your virginity.</span>", Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_MANA, 5))) {
+//			+ ";'>You start the game having already lost your virginity.</span>", Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 5))) {
 //		@Override
 //		public void applyExtraEffects(GameCharacter character) {
 //			character.setVaginaVirgin(false);

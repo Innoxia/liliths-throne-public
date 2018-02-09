@@ -32,7 +32,7 @@ public enum SpecialAttack {
 			"buttslut tease",
 			"fetish_generic",
 			Colour.GENERIC_ARCANE,
-			DamageType.MANA,
+			DamageType.LUST,
 			DamageLevel.NORMAL,
 			DamageVariance.LOW,
 			SpecialAttackSpellCosts.MEDIUM,
@@ -110,7 +110,7 @@ public enum SpecialAttack {
 			"anal tease",
 			"fetish_generic",
 			Colour.GENERIC_ARCANE,
-			DamageType.MANA,
+			DamageType.LUST,
 			DamageLevel.NORMAL,
 			DamageVariance.LOW,
 			SpecialAttackSpellCosts.MEDIUM,
@@ -166,7 +166,7 @@ public enum SpecialAttack {
 			"pussy slut tease",
 			"fetish_generic",
 			Colour.GENERIC_ARCANE,
-			DamageType.MANA,
+			DamageType.LUST,
 			DamageLevel.NORMAL,
 			DamageVariance.LOW,
 			SpecialAttackSpellCosts.MEDIUM,
@@ -228,7 +228,7 @@ public enum SpecialAttack {
 			"vaginal tease",
 			"fetish_generic",
 			Colour.GENERIC_ARCANE,
-			DamageType.MANA,
+			DamageType.LUST,
 			DamageLevel.NORMAL,
 			DamageVariance.LOW,
 			SpecialAttackSpellCosts.MEDIUM,
@@ -284,7 +284,7 @@ public enum SpecialAttack {
 			"cum stud tease",
 			"fetish_generic",
 			Colour.GENERIC_ARCANE,
-			DamageType.MANA,
+			DamageType.LUST,
 			DamageLevel.NORMAL,
 			DamageVariance.LOW,
 			SpecialAttackSpellCosts.MEDIUM,
@@ -340,7 +340,7 @@ public enum SpecialAttack {
 			"cum tease",
 			"fetish_generic",
 			Colour.GENERIC_ARCANE,
-			DamageType.MANA,
+			DamageType.LUST,
 			DamageLevel.NORMAL,
 			DamageVariance.LOW,
 			SpecialAttackSpellCosts.MEDIUM,
@@ -402,7 +402,7 @@ public enum SpecialAttack {
 			"oral tease",
 			"fetish_generic",
 			Colour.GENERIC_ARCANE,
-			DamageType.MANA,
+			DamageType.LUST,
 			DamageLevel.NORMAL,
 			DamageVariance.LOW,
 			SpecialAttackSpellCosts.MEDIUM,
@@ -455,7 +455,7 @@ public enum SpecialAttack {
 	},
 	
 	TEASE_ORAL_GIVING(50, "oral performer tease", "fetish_generic", Colour.GENERIC_ARCANE,
-			DamageType.MANA, DamageLevel.NORMAL, DamageVariance.LOW, SpecialAttackSpellCosts.MEDIUM,
+			DamageType.LUST, DamageLevel.NORMAL, DamageVariance.LOW, SpecialAttackSpellCosts.MEDIUM,
 			null) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -530,7 +530,7 @@ public enum SpecialAttack {
 			"breasts lover tease",
 			"fetish_generic",
 			Colour.GENERIC_ARCANE,
-			DamageType.MANA,
+			DamageType.LUST,
 			DamageLevel.NORMAL,
 			DamageVariance.LOW,
 			SpecialAttackSpellCosts.MEDIUM,
@@ -599,7 +599,7 @@ public enum SpecialAttack {
 	},
 	
 	TEASE_BREASTS(50, "breasts tease", "fetish_generic", Colour.GENERIC_ARCANE,
-			DamageType.MANA, DamageLevel.NORMAL, DamageVariance.LOW, SpecialAttackSpellCosts.MEDIUM,
+			DamageType.LUST, DamageLevel.NORMAL, DamageVariance.LOW, SpecialAttackSpellCosts.MEDIUM,
 			null) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -671,7 +671,7 @@ public enum SpecialAttack {
 	},
 	
 	TEASE_FERTILITY(50, "fertility tease", "fetish_generic", Colour.GENERIC_ARCANE,
-			DamageType.MANA, DamageLevel.NORMAL, DamageVariance.LOW, SpecialAttackSpellCosts.MEDIUM,
+			DamageType.LUST, DamageLevel.NORMAL, DamageVariance.LOW, SpecialAttackSpellCosts.MEDIUM,
 			null) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -791,7 +791,7 @@ public enum SpecialAttack {
 	},
 	
 	TEASE_VIRILITY(50, "virility tease", "fetish_generic", Colour.GENERIC_ARCANE,
-			DamageType.MANA, DamageLevel.NORMAL, DamageVariance.LOW, SpecialAttackSpellCosts.MEDIUM,
+			DamageType.LUST, DamageLevel.NORMAL, DamageVariance.LOW, SpecialAttackSpellCosts.MEDIUM,
 			null) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -912,7 +912,7 @@ public enum SpecialAttack {
 	
 	
 	TEASE_DOMINANT(50, "dominant tease", "fetish_generic", Colour.GENERIC_ARCANE,
-			DamageType.MANA, DamageLevel.NORMAL, DamageVariance.LOW, SpecialAttackSpellCosts.MEDIUM,
+			DamageType.LUST, DamageLevel.NORMAL, DamageVariance.LOW, SpecialAttackSpellCosts.MEDIUM,
 			null) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -983,7 +983,7 @@ public enum SpecialAttack {
 		}
 	},
 	TEASE_SUBMISSIVE(50, "submissive tease", "fetish_generic", Colour.GENERIC_ARCANE,
-			DamageType.MANA, DamageLevel.NORMAL, DamageVariance.LOW, SpecialAttackSpellCosts.MEDIUM,
+			DamageType.LUST, DamageLevel.NORMAL, DamageVariance.LOW, SpecialAttackSpellCosts.MEDIUM,
 			null) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -1101,7 +1101,7 @@ public enum SpecialAttack {
 					target.addStatusEffect(se.getKey(), se.getValue());
 			}
 
-			caster.incrementStamina(-cost);
+			caster.incrementHealth(-cost);
 			
 			return descriptionSB.toString();
 		}
@@ -1165,7 +1165,7 @@ public enum SpecialAttack {
 					target.addStatusEffect(se.getKey(), se.getValue());
 			}
 
-			caster.incrementStamina(-cost);
+			caster.incrementHealth(-cost);
 			
 			return descriptionSB.toString();
 		}
@@ -1230,7 +1230,7 @@ public enum SpecialAttack {
 					target.addStatusEffect(se.getKey(), se.getValue());
 			}
 
-			caster.incrementStamina(-cost);
+			caster.incrementHealth(-cost);
 			
 			return descriptionSB.toString();
 		}
@@ -1287,7 +1287,7 @@ public enum SpecialAttack {
 					target.addStatusEffect(se.getKey(), se.getValue());
 			}
 
-			caster.incrementStamina(-cost);
+			caster.incrementHealth(-cost);
 			
 			return descriptionSB.toString();
 
@@ -1340,7 +1340,7 @@ public enum SpecialAttack {
 					target.addStatusEffect(se.getKey(), se.getValue());
 			}
 
-			caster.incrementStamina(-cost);
+			caster.incrementHealth(-cost);
 			
 			return descriptionSB.toString();
 			
@@ -1397,7 +1397,7 @@ public enum SpecialAttack {
 					target.addStatusEffect(se.getKey(), se.getValue());
 			}
 
-			caster.incrementStamina(-cost);
+			caster.incrementHealth(-cost);
 			
 			return descriptionSB.toString();
 			
@@ -1450,7 +1450,7 @@ public enum SpecialAttack {
 					target.addStatusEffect(se.getKey(), se.getValue());
 			}
 
-			caster.incrementStamina(-cost);
+			caster.incrementHealth(-cost);
 			
 			return descriptionSB.toString();
 			
@@ -1500,7 +1500,7 @@ public enum SpecialAttack {
 					target.addStatusEffect(se.getKey(), se.getValue());
 			}
 
-			caster.incrementStamina(-cost);
+			caster.incrementHealth(-cost);
 			
 			return descriptionSB.toString();
 
@@ -1681,7 +1681,7 @@ public enum SpecialAttack {
 	}
 	
 	private float getModifiedCost(GameCharacter caster) {
-		float calculatedCost = caster.getLevel() + (caster.getAttributeValue(Attribute.STAMINA_MAXIMUM) * (specialAttackCost.getPercentage())/100f);
+		float calculatedCost = caster.getLevel() + (caster.getAttributeValue(Attribute.HEALTH_MAXIMUM) * (specialAttackCost.getPercentage())/100f);
 		
 		// Round float value to nearest 1 decimal place:
 		calculatedCost = (Math.round(calculatedCost*10))/10f;
@@ -1715,7 +1715,7 @@ public enum SpecialAttack {
 				descriptionSB.append(".</p>");
 			}
 
-			descriptionSB.append("<p>" + "Using your non-human body parts in such a manner is quite tiring, and you lose <b>" + cost + "</b> <b style='color:" + Attribute.DAMAGE_STAMINA.getColour().toWebHexString() + ";'>stamina</b>!</b>" + "</p>");
+			descriptionSB.append("<p>" + "Using your non-human body parts in such a manner is quite tiring, and you lose <b>" + cost + "</b> <b style='color:" + Attribute.HEALTH_MAXIMUM.getColour().toWebHexString() + ";'>health</b>!</b>" + "</p>");
 
 		} else {
 			if (isCritical)
@@ -1741,7 +1741,7 @@ public enum SpecialAttack {
 			}
 
 			descriptionSB.append(UtilText.parse(caster,
-					"<p>" + "Using [npc.her] non-human body parts in such a manner is quite tiring, and [npc.she] loses <b>" + cost + "</b> <b style='color:" + Attribute.DAMAGE_STAMINA.getColour().toWebHexString() + ";'>stamina</b>!</b>" + "</p>"));
+					"<p>" + "Using [npc.her] non-human body parts in such a manner is quite tiring, and [npc.she] loses <b>" + cost + "</b> <b style='color:" + Attribute.HEALTH_MAXIMUM.getColour().toWebHexString() + ";'>health</b>!</b>" + "</p>"));
 		}
 
 		return descriptionSB.toString();
@@ -1767,13 +1767,13 @@ public enum SpecialAttack {
 							+ "[npc.Name] can't bring [npc.herself] to look away, and as [npc.she] lets out a desperate whine, you realise that [npc.she] has "
 							+ UtilText.generateSingularDeterminer(fetishWeakness.getName(target))+" <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"+fetishWeakness.getName(target)+" fetish</b>, and your display is"
 							+ " <b style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>massively turning [npc.herHim] on</b>!</br></br>"
-							+ "<b>[npc.She] loses " + damage + " <b style='color:" + DamageType.MANA.getMultiplierAttribute().getColour().toWebHexString() + ";'>willpower</b>!"
+							+ "<b>[npc.She] loses " + damage + " <b style='color:" + DamageType.LUST.getMultiplierAttribute().getColour().toWebHexString() + ";'>willpower</b>!"
 						+ "</p>");
 			} else {
 				descriptionSB.append(
 						"<p>"
 							+ "[npc.Name] seems to be enjoying the show you're putting on, but it doesn't seem to be any more effective than a normal tease attack...</br></br>"
-							+ "<b>[npc.She] loses " + damage + " <b style='color:" + DamageType.MANA.getMultiplierAttribute().getColour().toWebHexString() + ";'>willpower</b>."
+							+ "<b>[npc.She] loses " + damage + " <b style='color:" + DamageType.LUST.getMultiplierAttribute().getColour().toWebHexString() + ";'>willpower</b>."
 						+ "</p>");
 			}
 		} else {
@@ -1783,27 +1783,27 @@ public enum SpecialAttack {
 							+ "Because you have "
 							+UtilText.generateSingularDeterminer(fetishWeakness.getName(target))+" <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"+fetishWeakness.getName(target)+" fetish</b>,"
 							+ " you find yourself unable to look away from [npc.name]'s enticing display, which is <b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>massively turning you on</b>!</br></br>"
-							+ "<b>You lose " + damage + " <b style='color:" + DamageType.MANA.getMultiplierAttribute().getColour().toWebHexString() + ";'>willpower</b>!"
+							+ "<b>You lose " + damage + " <b style='color:" + DamageType.LUST.getMultiplierAttribute().getColour().toWebHexString() + ";'>willpower</b>!"
 						+ "</p>");
 			} else {
 				descriptionSB.append(
 						"<p>"
 							+ "[npc.Name]'s display is quite arousing...</br></br>"
-							+ "<b>You lose " + damage + " <b style='color:" + DamageType.MANA.getMultiplierAttribute().getColour().toWebHexString() + ";'>willpower</b>."
+							+ "<b>You lose " + damage + " <b style='color:" + DamageType.LUST.getMultiplierAttribute().getColour().toWebHexString() + ";'>willpower</b>."
 						+ "</p>");
 			}	
 		}
 		
 
 		float cost = calculateCost(caster);
-		caster.incrementStamina(-cost);
+		caster.incrementHealth(-cost);
 		if(caster.isPlayer()) {
 			descriptionSB.append("<p>"
-						+ "Putting on such a display is quite tiring, and you lose <b>" + cost + "</b>  <b style='color:" + Attribute.DAMAGE_STAMINA.getColour().toWebHexString() + ";'>stamina</b>.</b>"
+						+ "Putting on such a display is quite tiring, and you lose <b>" + cost + "</b>  <b style='color:" + Attribute.HEALTH_MAXIMUM.getColour().toWebHexString() + ";'>health</b>.</b>"
 					+ "</p>");
 		} else {
 			descriptionSB.append("<p>"
-						+ "Putting on such a display is quite tiring, and as a result [npc.name] loses <b>" + cost + "</b>  <b style='color:" + Attribute.DAMAGE_STAMINA.getColour().toWebHexString() + ";'>stamina</b>.</b>"
+						+ "Putting on such a display is quite tiring, and as a result [npc.name] loses <b>" + cost + "</b>  <b style='color:" + Attribute.HEALTH_MAXIMUM.getColour().toWebHexString() + ";'>health</b>.</b>"
 					+ "</p>");
 		}
 		

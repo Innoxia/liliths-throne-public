@@ -15,7 +15,7 @@
    id="svg4311"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="staminaIcon.svg">
+   sodipodi:docname="attIntelligence2.svg">
   <defs
      id="defs4313" />
   <sodipodi:namedview
@@ -25,11 +25,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4142135"
-     inkscape:cx="299.72166"
-     inkscape:cy="-40.090366"
+     inkscape:zoom="8.0000004"
+     inkscape:cx="20.386847"
+     inkscape:cy="35.748904"
      inkscape:document-units="px"
-     inkscape:current-layer="layer3"
+     inkscape:current-layer="layer1"
      showgrid="false"
      units="px"
      inkscape:window-width="2560"
@@ -45,18 +45,27 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
   <g
+     inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     id="layer3"
-     inkscape:label="Stage3"
+     id="layer1"
+     transform="translate(0,-988.36216)"
      style="display:inline">
     <path
-       style="fill:#ff8080;fill-opacity:1;stroke:#000000;stroke-width:0.97828817;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       d="M 32.0625 5.1933594 C 17.318625 5.1929493 5.3667811 17.18048 5.3671875 31.96875 C 5.3667806 46.757021 17.318624 58.744551 32.0625 58.744141 C 46.806376 58.744551 58.758219 46.757021 58.757812 31.96875 C 58.758218 17.180479 46.806376 5.1929489 32.0625 5.1933594 z M 33.5 13.337891 L 53.013672 31.669922 L 33.685547 50.138672 C 31.917936 48.274839 30.594609 46.56701 29.447266 44.513672 L 43.638672 32.066406 L 29.447266 18.753906 C 30.317702 17.102415 31.779771 15.178307 33.5 13.337891 z M 18.054688 13.625 L 37.568359 31.957031 L 18.240234 50.427734 C 16.472623 48.563901 15.149296 46.856072 14.001953 44.802734 L 28.193359 32.355469 L 14.001953 19.041016 C 14.872389 17.389525 16.334459 15.465416 18.054688 13.625 z "
-       id="path4136" />
+       inkscape:connector-curvature="0"
+       id="path4155"
+       d="m 21.922304,1037.1573 9.833302,-32.1818 10.158622,32.0531 -26.249473,-19.657 32.479689,0.061 z"
+       style="display:inline;opacity:1;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:4.61372328;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       sodipodi:nodetypes="cccccc" />
+    <path
+       style="display:inline;opacity:1;fill:none;fill-rule:evenodd;stroke:#ff8080;stroke-width:3.33736324;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 21.922304,1037.1573 9.833302,-32.1818 10.197605,32.0142 -26.288456,-19.6181 32.479689,0.061 z"
+       id="path4279"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccc" />
   </g>
 </svg>
