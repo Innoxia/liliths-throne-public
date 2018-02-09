@@ -1189,6 +1189,37 @@ public class ConChairTop {
 		}
 		
 	};
+		
+	public static final SexAction PLAYER_STOP_GETTING_PEGGED = new SexAction(
+		        SexActionType.PLAYER_STOP_PENETRATION,
+		        ArousalIncrease.TWO_LOW,
+		        ArousalIncrease.TWO_LOW,
+		        CorruptionLevel.ZERO_PURE,
+		        PenetrationType.TAIL,
+		        OrificeType.ANUS,
+		        SexParticipantType.CATCHER) {
+	    @Override
+	    public String getActionTitle() {
+		    return "Stop getting tail-pegged";
+	    }
+            @Override
+	    public String getActionDescription() {
+		    return "Get [npc.name] to pull [npc.her] [npc.tail] out of your [pc.asshole+].";
+	    }
+		
+	    @Override
+	    public String getDescription() {
+		    UtilText.nodeContentSB.setLength(0);
+		    
+		    UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+				"Sliding [npc.name]'s [npc.tail] out of your [pc.asshole+], you let out [pc.a_moan+] as you tell [npc.herHim] to stop fucking you.",
+				"You lean into [npc.name], inhaling [npc.her] [npc.scent] before sliding [npc.her] [npc.tail] out of your [pc.asshole+]."));
+		    UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+				" [npc.Name] lets out [npc.a_moan+] as you stop [npc.herHim] from fucking your [pc.asshole+].",
+				" [npc.A_moan+] escapes from between [npc.her] [npc.lips+], betraying [npc.her] desire to continue fucking your [pc.asshole+]."));
+		    return UtilText.nodeContentSB.toString();
+	    }
+	};
 	
 	public static final SexAction PLAYER_GET_TAIL_FUCKED = new SexAction(
 			SexActionType.PLAYER,
