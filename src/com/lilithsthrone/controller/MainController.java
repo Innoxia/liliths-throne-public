@@ -34,6 +34,7 @@ import com.lilithsthrone.controller.eventListeners.buttons.ButtonMoveSouthEventL
 import com.lilithsthrone.controller.eventListeners.buttons.ButtonMoveWestEventListener;
 import com.lilithsthrone.controller.eventListeners.buttons.ButtonZoomEventListener;
 import com.lilithsthrone.controller.eventListeners.information.CopyInfoEventListener;
+import com.lilithsthrone.game.ForcedTFTendency;
 import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.KeyCodeWithModifiers;
 import com.lilithsthrone.game.KeyboardAction;
@@ -4454,6 +4455,83 @@ public class MainController implements Initializable {
 						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 					}, false);
 				}
+			}
+			
+			id = "FORCED_TF_TENDENCY_"+ForcedTFTendency.NEUTRAL;
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().forcedTFTendency = ForcedTFTendency.NEUTRAL;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+				
+				addEventListener(document, id, "mousemove", moveTooltipListener, false);
+				addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+				TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(ForcedTFTendency.NEUTRAL.getName(),
+						ForcedTFTendency.NEUTRAL.getDescription());
+				addEventListener(document, id, "mouseenter", el, false);
+			}
+			
+			
+			
+			id = "FORCED_TF_TENDENCY_"+ForcedTFTendency.FEMININE;
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().forcedTFTendency = ForcedTFTendency.FEMININE;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+				
+				addEventListener(document, id, "mousemove", moveTooltipListener, false);
+				addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+				TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(ForcedTFTendency.FEMININE.getName(),
+						ForcedTFTendency.FEMININE.getDescription());
+				addEventListener(document, id, "mouseenter", el, false);
+			}
+			
+			id = "FORCED_TF_TENDENCY_"+ForcedTFTendency.FEMININE_HEAVY;
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().forcedTFTendency = ForcedTFTendency.FEMININE_HEAVY;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+				
+				addEventListener(document, id, "mousemove", moveTooltipListener, false);
+				addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+				TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(ForcedTFTendency.FEMININE_HEAVY.getName(),
+						ForcedTFTendency.FEMININE_HEAVY.getDescription());
+				addEventListener(document, id, "mouseenter", el, false);
+			}
+			
+			id = "FORCED_TF_TENDENCY_"+ForcedTFTendency.MASCULINE;
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().forcedTFTendency = ForcedTFTendency.MASCULINE;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+				
+				addEventListener(document, id, "mousemove", moveTooltipListener, false);
+				addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+				TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(ForcedTFTendency.MASCULINE.getName(),
+						ForcedTFTendency.MASCULINE.getDescription());
+				addEventListener(document, id, "mouseenter", el, false);
+			}
+			
+			id = "FORCED_TF_TENDENCY_"+ForcedTFTendency.MASCULINE_HEAVY;
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().forcedTFTendency = ForcedTFTendency.MASCULINE_HEAVY;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+				
+				addEventListener(document, id, "mousemove", moveTooltipListener, false);
+				addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+				TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(ForcedTFTendency.MASCULINE_HEAVY.getName(),
+						ForcedTFTendency.MASCULINE_HEAVY.getDescription());
+				addEventListener(document, id, "mouseenter", el, false);
 			}
 		}
 		
