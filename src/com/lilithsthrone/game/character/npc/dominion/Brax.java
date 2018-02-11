@@ -784,8 +784,8 @@ public class Brax extends NPC {
 						Main.game.getPlayer().setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
 						
 						
-						if(Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION)<CorruptionLevel.TWO_HORNY.getMinimumValue()) {
-							Main.game.getPlayer().setAttribute(Attribute.CORRUPTION, CorruptionLevel.TWO_HORNY.getMinimumValue());
+						if(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_CORRUPTION)<CorruptionLevel.TWO_HORNY.getMinimumValue()) {
+							Main.game.getPlayer().setAttribute(Attribute.MAJOR_CORRUPTION, CorruptionLevel.TWO_HORNY.getMinimumValue());
 						}
 					}
 				};

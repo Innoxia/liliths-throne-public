@@ -58,9 +58,9 @@ public class NPCOffspring extends NPC {
 		super(null, "", 3, Gender.F_V_B_FEMALE, RacialBody.DOG_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
 
-		setAttribute(Attribute.STRENGTH, (int)(this.getAttributeValue(Attribute.STRENGTH) * (0.5f+Math.random())));
-		setAttribute(Attribute.INTELLIGENCE, (int)(this.getAttributeValue(Attribute.INTELLIGENCE) * (0.5f+Math.random())));
-		setAttribute(Attribute.CORRUPTION, (int)(20 * (0.5f+Math.random())));
+		setAttribute(Attribute.MAJOR_STRENGTH, (int)(this.getAttributeValue(Attribute.MAJOR_STRENGTH) * (0.5f+Math.random())));
+		setAttribute(Attribute.MAJOR_ARCANE, (int)(this.getAttributeValue(Attribute.MAJOR_ARCANE) * (0.5f+Math.random())));
+		setAttribute(Attribute.MAJOR_CORRUPTION, (int)(20 * (0.5f+Math.random())));
 		
 		this.setMother(mother);
 		this.setFather(father);

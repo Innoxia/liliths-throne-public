@@ -56,7 +56,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.1.98.5",
+	public static final String VERSION_NUMBER = "0.1.99",
 			VERSION_DESCRIPTION = "Early Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
@@ -70,12 +70,18 @@ public class Main extends Application {
 //		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Early Alpha!</b></h6>"
 		
 		"<p>"
-			+ "Hello everyone! :3"
+			+ "Hello everyone!"
 		+ "</p>"
 			
 		+ "<p>"
-			+ "This is the preview version for 0.1.99, so it still contains some bugs and other half-finished content, but I have managed to update the fetishes and implement the majority of the lust mechanics in sex."
-			+ " I've also spent some time this week planning Nyan's quest content and the combat update, so I'll be able to get started on those on Monday (after finishing the lust & stamina mechanics and the fluids work)."
+			+ "I ran into some major unexpected problems (involving the UI and code refactoring) when reworking the stats and perk systems this week (as a precursor to the combat rework), so I lost a lot of time getting all of that sorted."
+			+ " As a result, Nyan's content and the fluid mechanics are not done yet, and the combat rework is only half-way done."
+			+ " I really am very sorry that I didn't manage to get all of that done on time. :("
+		+ "</p>"
+			
+		+ "<p>"
+			+ "I will get all of that finished off for 0.2.0, which will be the last update in which I'm working mainly on engine-side stuff."
+			+ " Once this combat and stats work is finished, all of the core engine mechanics will be finished, and I'll move on to mainly writing content."
 		+ "</p>"
 		
 		+ "<p>"
@@ -129,6 +135,59 @@ public class Main extends Application {
 			+"<ul>Fixed bug where the status message informing you that your clothing was getting dirty would lock up sex scenes.</ul>"
 			+"<ul>Fixed penile virginity being reset on every game load (old characters will still incorrectly be penile virgins, but after losing it their non-virgin state will be saved).</ul>"
 			+"<ul>NPCs will no longer listen to your pullout/creampie requests if they're the dom in non-con sex.</ul>"
+		+ "</list>"
+
+		+ "</br>"
+
+		+ "<list>"
+			+ "<h6>v0.1.99</h6>"
+			+"<li>Gameplay:</li>"
+			+"<ul>Increased level cap to 50.</ul>"
+			+"<ul>Changed core stats from Strength, Intelligence, Fitness, Corruption + Health, Willpower, Stamina to Strength, Arcane, Lust, Corruption + Energy, Aura. (Removed fitness and stamina stats.) This is still a work-in-progress.</ul>"
+			+"<ul>Reworked all attribute-related status effects. (The bonuses you get from raising strength/arcane/corruption.)</ul>"
+			+"<ul>Removed level-up points (the points that you'd spend on strength, intelligence, and fitness).</ul>"
+			+"<ul><b>Updated:</b> Perk tree mechanics. (I didn't intend for this to be part of the combat update just yet, but it turned out to be necessary in order for other parts of the game to continue to function properly.)</ul>"
+			
+			+"<li>Sex AI:</li>"
+			+"<ul>NPCs that either love or like the Submissive or Dominant fetishes will now start sex in Eager or Rough paces.</ul>"
+			+"<ul>NPCs will no longer perform actions that they dislike or hate.</ul>"
+			+"<ul>Dominant NPCs will no longer end sex due to having 0 lust. Only submissive NPCs who have equal control (such as in consensual scenes, like Lilaya's), will end sex when they fall into the resisting pace.</ul>"
+			+"<ul>NPCs should no longer refrain from performing penetration actions (this was a bug where all NPC preferences were accidentally being removed, leaving them only wanting to perform self-actions).</ul>"
+			+"<ul>Fixed a cause of incorrect fetish associations for sex actions (such as your partner being affected by your masturbation actions as though they were the one masturbating), which should help the AI's decision-making process a little.</ul>"
+			+"<ul>NPC's anal action preference is now treated the same as all the others. (The fetish desire system has replaced the old method I was using to weigh NPC action preferences.)</ul>"
+			+"<ul>NPCs have been told to reign in their obsession with self-actions.</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul><b>Removed:</b> All references to slimes in the code (as they will be implemented a little differently to how I originally planned). If you've become a slime through the debug menu, you should switch back before loading your character into this version.</ul>"
+			+"<ul>Tweaked base height and breast sizes for several races.</ul>"
+			+"<ul>Halved the lust drop from performing hated sex actions from -50 to -25.</ul>"
+			+"<ul>Succubus attackers and Cultists now have fetishes & desires generated like other NPCs (although they will never dislike or hate performing non-con).</ul>"
+			+"<ul>You are now always able to remove NPCs' clothing during sex (although they will still default to not being able to remove yours if they are the sub in non-equal-control sex).</ul>"
+			
+			+"<li>Contributors:</li>"
+			+"<ul>Use correct character for special penetration descriptions. (MissyDirection)</ul>"
+			+"<ul>Allow player to stop getting tail-pegged during chair sex. (MissyDirection)</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed a cause of some UI lag (caused by some poor flexbox performance).</ul>"
+			+"<ul>Fixed Vicky's sex scene causing a game-breaking bug to occur.</ul>"
+			+"<ul>Minor fix to Brax's TF description.</ul>"
+			+"<ul>Minor formatting fix to event log to prevent horizontal overflow.</ul>"
+			+"<ul>Several typo fixes.</ul>"
+			+"<ul>Fixed displacement text for an NPC's nursing bra being pulled down.</ul>"
+			+"<ul>Fixed bug with t-shirt displacement causing a major crash to occur.</ul>"
+			+"<ul>'Cummy meal' status effect no longer continuously makes your mouth dirty.</ul>"
+			+"<ul>Fixed resisting NPCs casually commenting on your cock size.</ul>"
+			+"<ul>Fixed 'Anal tease' sex action applying incorrect lubrication transfers.</ul>"
+			+"<ul>NPCs who hate/dislike non-con should now never use you after combat.</ul>"
+			+"<ul>Fixed incorrect inflation descriptions.</ul>"
+			+"<ul>You can no longer set your skin to be glowing in the character creation.</ul>"
+			+"<ul>Fixed incorrect virginity loss descriptions for succubus attacker.</ul>"
+			+"<ul>Fixed incorrect breast-related dirty talk.</ul>"
+			+"<ul>Fixed self-penetrative dirty talk referencing your partner.</ul>"
+			+"<ul>You can no longer help yourself to Ralph's condoms in his sex scene.</ul>"
+			+"<ul>Extra piercings will no longer spawn in the character creation's inventory when repeatedly going to check clothing and back.</ul>"
+			+"<ul>Fixed potions displaying '+X Attribute' twice when drunk.</ul>"
 		+ "</list>"
 		;
 	

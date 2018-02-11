@@ -13,6 +13,7 @@ import com.lilithsthrone.main.Main;
  * @author Innoxia
  */
 public enum Attack {
+	
 	NONE("none"),
 	MAIN("main"),
 	OFFHAND("offhand"),
@@ -260,10 +261,10 @@ public enum Attack {
 				// Attacker modifiers:
 				damage *= (attacker.getAttributeValue(Attribute.DAMAGE_LUST) / 100f);
 				
-				if(attacker.hasPerk(Perk.FEMALE_ATTRACTION) && defender.isFeminine()) {
+				if(attacker.hasTrait(Perk.FEMALE_ATTRACTION, true) && defender.isFeminine()) {
 					damage *=1.1f;
 				}
-				if(attacker.hasPerk(Perk.MALE_ATTRACTION) && !defender.isFeminine()) {
+				if(attacker.hasTrait(Perk.MALE_ATTRACTION, true) && !defender.isFeminine()) {
 					damage *=1.1f;
 				}
 

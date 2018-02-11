@@ -425,7 +425,7 @@ public enum SpecialAttack {
 				
 			} else {
 				attackText = (UtilText.returnStringAtRandom(
-						"[npc.Name] grins at you, gazing at your [pc.lips+] as [npc.she] [npc.moanVerb],"
+						"[npc.Name] grins at you, gazing at your [pc.lips+] as [npc.she] [npc.moansVerb],"
 							+" [npc.speech(I can't wait to put your [pc.lips] to use!)]",
 
 						"[npc.Name] hungrily stares at your [pc.lips+], [npc.moaning],"
@@ -560,7 +560,7 @@ public enum SpecialAttack {
 			} else {
 				if(target.hasBreasts()) {
 					attackText = (UtilText.returnStringAtRandom(
-							"[npc.Name] grins at you, gazing at your [pc.breasts+] as [npc.she] [npc.moanVerb],"
+							"[npc.Name] grins at you, gazing at your [pc.breasts+] as [npc.she] [npc.moansVerb],"
 								+" [npc.speech(I can't wait to put your [pc.lips] to use!)]",
 	
 							"[npc.Name] hungrily stares at your [pc.breasts+], [npc.moaning],"
@@ -1715,7 +1715,7 @@ public enum SpecialAttack {
 				descriptionSB.append(".</p>");
 			}
 
-			descriptionSB.append("<p>" + "Using your non-human body parts in such a manner is quite tiring, and you lose <b>" + cost + "</b> <b style='color:" + Attribute.HEALTH_MAXIMUM.getColour().toWebHexString() + ";'>health</b>!</b>" + "</p>");
+			descriptionSB.append("<p>" + "Using your non-human body parts in such a manner is quite tiring, and you lose <b>" + cost + "</b> <b style='color:" + Attribute.HEALTH_MAXIMUM.getColour().toWebHexString() + ";'>energy</b>!</b>" + "</p>");
 
 		} else {
 			if (isCritical)
@@ -1741,7 +1741,7 @@ public enum SpecialAttack {
 			}
 
 			descriptionSB.append(UtilText.parse(caster,
-					"<p>" + "Using [npc.her] non-human body parts in such a manner is quite tiring, and [npc.she] loses <b>" + cost + "</b> <b style='color:" + Attribute.HEALTH_MAXIMUM.getColour().toWebHexString() + ";'>health</b>!</b>" + "</p>"));
+					"<p>" + "Using [npc.her] non-human body parts in such a manner is quite tiring, and [npc.she] loses <b>" + cost + "</b> <b style='color:" + Attribute.HEALTH_MAXIMUM.getColour().toWebHexString() + ";'>energy</b>!</b>" + "</p>"));
 		}
 
 		return descriptionSB.toString();
@@ -1767,13 +1767,13 @@ public enum SpecialAttack {
 							+ "[npc.Name] can't bring [npc.herself] to look away, and as [npc.she] lets out a desperate whine, you realise that [npc.she] has "
 							+ UtilText.generateSingularDeterminer(fetishWeakness.getName(target))+" <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"+fetishWeakness.getName(target)+" fetish</b>, and your display is"
 							+ " <b style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>massively turning [npc.herHim] on</b>!</br></br>"
-							+ "<b>[npc.She] loses " + damage + " <b style='color:" + DamageType.LUST.getMultiplierAttribute().getColour().toWebHexString() + ";'>willpower</b>!"
+							+ "<b>[npc.She] loses " + damage + " <b style='color:" + DamageType.LUST.getMultiplierAttribute().getColour().toWebHexString() + ";'>aura</b>!"
 						+ "</p>");
 			} else {
 				descriptionSB.append(
 						"<p>"
 							+ "[npc.Name] seems to be enjoying the show you're putting on, but it doesn't seem to be any more effective than a normal tease attack...</br></br>"
-							+ "<b>[npc.She] loses " + damage + " <b style='color:" + DamageType.LUST.getMultiplierAttribute().getColour().toWebHexString() + ";'>willpower</b>."
+							+ "<b>[npc.She] loses " + damage + " <b style='color:" + DamageType.LUST.getMultiplierAttribute().getColour().toWebHexString() + ";'>aura</b>."
 						+ "</p>");
 			}
 		} else {
@@ -1783,13 +1783,13 @@ public enum SpecialAttack {
 							+ "Because you have "
 							+UtilText.generateSingularDeterminer(fetishWeakness.getName(target))+" <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"+fetishWeakness.getName(target)+" fetish</b>,"
 							+ " you find yourself unable to look away from [npc.name]'s enticing display, which is <b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>massively turning you on</b>!</br></br>"
-							+ "<b>You lose " + damage + " <b style='color:" + DamageType.LUST.getMultiplierAttribute().getColour().toWebHexString() + ";'>willpower</b>!"
+							+ "<b>You lose " + damage + " <b style='color:" + DamageType.LUST.getMultiplierAttribute().getColour().toWebHexString() + ";'>aura</b>!"
 						+ "</p>");
 			} else {
 				descriptionSB.append(
 						"<p>"
 							+ "[npc.Name]'s display is quite arousing...</br></br>"
-							+ "<b>You lose " + damage + " <b style='color:" + DamageType.LUST.getMultiplierAttribute().getColour().toWebHexString() + ";'>willpower</b>."
+							+ "<b>You lose " + damage + " <b style='color:" + DamageType.LUST.getMultiplierAttribute().getColour().toWebHexString() + ";'>aura</b>."
 						+ "</p>");
 			}	
 		}
@@ -1799,11 +1799,11 @@ public enum SpecialAttack {
 		caster.incrementHealth(-cost);
 		if(caster.isPlayer()) {
 			descriptionSB.append("<p>"
-						+ "Putting on such a display is quite tiring, and you lose <b>" + cost + "</b>  <b style='color:" + Attribute.HEALTH_MAXIMUM.getColour().toWebHexString() + ";'>health</b>.</b>"
+						+ "Putting on such a display is quite tiring, and you lose <b>" + cost + "</b>  <b style='color:" + Attribute.HEALTH_MAXIMUM.getColour().toWebHexString() + ";'>energy</b>.</b>"
 					+ "</p>");
 		} else {
 			descriptionSB.append("<p>"
-						+ "Putting on such a display is quite tiring, and as a result [npc.name] loses <b>" + cost + "</b>  <b style='color:" + Attribute.HEALTH_MAXIMUM.getColour().toWebHexString() + ";'>health</b>.</b>"
+						+ "Putting on such a display is quite tiring, and as a result [npc.name] loses <b>" + cost + "</b>  <b style='color:" + Attribute.HEALTH_MAXIMUM.getColour().toWebHexString() + ";'>energy</b>.</b>"
 					+ "</p>");
 		}
 		

@@ -26,7 +26,6 @@ public enum PerkManager {
 	private Map<Integer, Map<PerkCategory, List<PerkEntry>>> perkTree;
 	public static final int ROWS = 20;
 	
-	@SuppressWarnings("unused")
 	private PerkManager() {
 		perkTree = new HashMap<>();
 		
@@ -38,16 +37,28 @@ public enum PerkManager {
 			}
 		}
 		
-		PerkEntry arcane1, arcane2, arcane3;
-		PerkEntry physical1, physical2, physical3, physical4;
-		PerkEntry both1, both2, both3;
+		PerkEntry arcane1, arcane2, arcane3, arcane4, arcane5, arcane6;
+		PerkEntry physical1, physical2, physical3, physical4, physical5, physical6;
+		PerkEntry both1, both2, both3, both4, both5, both6;
 		
 		physical1 = addPerkEntry(PerkCategory.PHYSICAL, 0, Perk.PHYSICAL_BASE);
 		arcane1 = addPerkEntry(PerkCategory.ARCANE, 0, Perk.ARCANE_BASE);
+		
 		both1 = addPerkEntry(PerkCategory.BOTH, 0, Perk.SEDUCTION_1, physical1, arcane1);
+
+		both2 = addPerkEntry(PerkCategory.BOTH, 1, Perk.FEMALE_ATTRACTION);
+		both3 = addPerkEntry(PerkCategory.BOTH, 1, Perk.SEDUCTION_3, both1, both2);
+		both1 = addPerkEntry(PerkCategory.BOTH, 1, Perk.MALE_ATTRACTION, both3);
+
+		both4 = addPerkEntry(PerkCategory.BOTH, 2, Perk.SEDUCTION_5, both2);
+		both5 = addPerkEntry(PerkCategory.BOTH, 2, Perk.NYMPHOMANIAC, both4);
+		both6 = addPerkEntry(PerkCategory.BOTH, 2, Perk.SEDUCTION_5_B, both5, both1);
+
+		addPerkEntry(PerkCategory.BOTH, 3, Perk.BARREN);
+		addPerkEntry(PerkCategory.BOTH, 3, Perk.FIRING_BLANKS);
 		
 		//Physical:
-		physical2 = addPerkEntry(PerkCategory.PHYSICAL, 1, Perk.STRENGTH_1, physical1);
+		physical2 = addPerkEntry(PerkCategory.PHYSICAL, 1, Perk.STRENGTH_5, physical1);
 		addPerkEntry(PerkCategory.PHYSICAL, 1, Perk.OBSERVANT, physical1);
 		
 		physical1 = addPerkEntry(PerkCategory.PHYSICAL, 2, Perk.BRAWLER, physical2);
@@ -55,22 +66,71 @@ public enum PerkManager {
 		physical4 = addPerkEntry(PerkCategory.PHYSICAL, 2, Perk.STRENGTH_1, physical3);
 		addPerkEntry(PerkCategory.PHYSICAL, 2, Perk.RUNNER_2, physical4);
 
-		physical2 = addPerkEntry(PerkCategory.PHYSICAL, 3, Perk.STRENGTH_1, physical1, physical3);
+		physical2 = addPerkEntry(PerkCategory.PHYSICAL, 3, Perk.PHYSICAL_DAMAGE_5, physical1);
+		physical5 = addPerkEntry(PerkCategory.PHYSICAL, 3, Perk.PHYSICAL_RESISTANCE_5, physical3);
+		physical6 = addPerkEntry(PerkCategory.PHYSICAL, 3, Perk.STRENGTH_3, physical4);
+		addPerkEntry(PerkCategory.PHYSICAL, 3, Perk.STRENGTH_5, physical6);
+		
+		physical1 = addPerkEntry(PerkCategory.PHYSICAL, 4, Perk.STRENGTH_5, physical2, physical5);
 
 		// Arcane:
-		
-		
-		// Both:
+		addPerkEntry(PerkCategory.ARCANE, 1, Perk.ARCANE_CRITICALS, arcane1);
+		arcane2 = addPerkEntry(PerkCategory.ARCANE, 1, Perk.ARCANE_5, arcane1);
 
-		both2 = addPerkEntry(PerkCategory.BOTH, 1, Perk.SEDUCTION_3, both1);
-		both3 = addPerkEntry(PerkCategory.BOTH, 2, Perk.SEDUCTION_5, both2);
+		arcane3 = addPerkEntry(PerkCategory.ARCANE, 2, Perk.AURA_RESILIENCE_2);
+		arcane4 = addPerkEntry(PerkCategory.ARCANE, 2, Perk.ARCANE_1, arcane3);
+		arcane5 = addPerkEntry(PerkCategory.ARCANE, 2, Perk.AURA_RESILIENCE, arcane2, arcane4);
+		arcane6 = addPerkEntry(PerkCategory.ARCANE, 2, Perk.ARCANE_COMBATANT, arcane2);
 
-		addPerkEntry(PerkCategory.BOTH, 3, Perk.NYMPHOMANIAC, both3);
+		arcane1 = addPerkEntry(PerkCategory.ARCANE, 3, Perk.ARCANE_5);
+		arcane2 = addPerkEntry(PerkCategory.ARCANE, 3, Perk.ARCANE_3, arcane1, arcane4);
+		arcane3 = addPerkEntry(PerkCategory.ARCANE, 3, Perk.SPELL_EFFICIENCY_5, arcane5);
+		arcane2 = addPerkEntry(PerkCategory.ARCANE, 3, Perk.SPELL_DAMAGE_5, arcane6);
 		
+		arcane1 = addPerkEntry(PerkCategory.ARCANE, 4, Perk.ARCANE_5, arcane3, arcane2);
 		
+		// Elementalist tree:
 		
+		both1 = addPerkEntry(PerkCategory.BOTH, 4, Perk.ELEMENTALIST_5, physical1, arcane1);
+		both2 = addPerkEntry(PerkCategory.BOTH, 5, Perk.FIRE_ENHANCEMENT, both1);
+		both3 = addPerkEntry(PerkCategory.BOTH, 5, Perk.COLD_ENHANCEMENT, both1);
+		both4 = addPerkEntry(PerkCategory.BOTH, 5, Perk.POISON_ENHANCEMENT, both1);
+		both5 = addPerkEntry(PerkCategory.BOTH, 6, Perk.FIRE_ENHANCEMENT_2, both2);
+		both6 = addPerkEntry(PerkCategory.BOTH, 6, Perk.COLD_ENHANCEMENT_2, both3);
+		both1 = addPerkEntry(PerkCategory.BOTH, 6, Perk.POISON_ENHANCEMENT_2, both4);
+		both2 = addPerkEntry(PerkCategory.BOTH, 7, Perk.ELEMENTALIST_5, both5, both6, both1);
+		addPerkEntry(PerkCategory.BOTH, 8, Perk.ELEMENTALIST_5, both2);
 		
+
+		physical2 = addPerkEntry(PerkCategory.PHYSICAL, 5, Perk.STRENGTH_5, physical1);
+		physical3 = addPerkEntry(PerkCategory.PHYSICAL, 6, Perk.STRENGTH_5, physical2);
+		physical2 = addPerkEntry(PerkCategory.PHYSICAL, 7, Perk.STRENGTH_5, physical3);
+		physical3 = addPerkEntry(PerkCategory.PHYSICAL, 8, Perk.STRENGTH_5, physical2);
+		physical2 = addPerkEntry(PerkCategory.PHYSICAL, 9, Perk.STRENGTH_5, physical3);
+		physical3 = addPerkEntry(PerkCategory.PHYSICAL, 10, Perk.STRENGTH_5, physical2);
+
+		physical2 = addPerkEntry(PerkCategory.PHYSICAL, 5, Perk.ENERGY_BOOST_10, physical1);
+		physical3 = addPerkEntry(PerkCategory.PHYSICAL, 6, Perk.ENERGY_BOOST_10, physical2);
+		physical2 = addPerkEntry(PerkCategory.PHYSICAL, 7, Perk.ENERGY_BOOST_10, physical3);
+		physical3 = addPerkEntry(PerkCategory.PHYSICAL, 8, Perk.ENERGY_BOOST_10, physical2);
+		physical2 = addPerkEntry(PerkCategory.PHYSICAL, 9, Perk.ENERGY_BOOST_10, physical3);
+		physical3 = addPerkEntry(PerkCategory.PHYSICAL, 10, Perk.ENERGY_BOOST_10, physical2);
 		
+
+		arcane2 = addPerkEntry(PerkCategory.ARCANE, 5, Perk.AURA_BOOST_10, arcane1);
+		arcane3 = addPerkEntry(PerkCategory.ARCANE, 6, Perk.AURA_BOOST_10, arcane2);
+		arcane2 = addPerkEntry(PerkCategory.ARCANE, 7, Perk.AURA_BOOST_10, arcane3);
+		arcane3 = addPerkEntry(PerkCategory.ARCANE, 8, Perk.AURA_BOOST_10, arcane2);
+		arcane2 = addPerkEntry(PerkCategory.ARCANE, 9, Perk.AURA_BOOST_10, arcane3);
+		arcane3 = addPerkEntry(PerkCategory.ARCANE, 10, Perk.AURA_BOOST_10, arcane2);
+		
+		arcane2 = addPerkEntry(PerkCategory.ARCANE, 5, Perk.ARCANE_5, arcane1);
+		arcane3 = addPerkEntry(PerkCategory.ARCANE, 6, Perk.ARCANE_5, arcane2);
+		arcane2 = addPerkEntry(PerkCategory.ARCANE, 7, Perk.ARCANE_5, arcane3);
+		arcane3 = addPerkEntry(PerkCategory.ARCANE, 8, Perk.ARCANE_5, arcane2);
+		arcane2 = addPerkEntry(PerkCategory.ARCANE, 9, Perk.ARCANE_5, arcane3);
+		arcane3 = addPerkEntry(PerkCategory.ARCANE, 10, Perk.ARCANE_5, arcane2);
+
 		
 		
 //		b1 = addPerkEntry(PerkCategory.PHYSICAL, 1, Perk.BARREN, a1);
@@ -225,7 +285,11 @@ public enum PerkManager {
 		}
 		
 		entrySB.append("<div class='square-button"+(perkEntry.getPerk().isMajor()?"":" round")+(disabled?" disabled":"")+"' style='width:16%; margin:16px "+getMargin(size)+"%; "+
-							(isPerkOwned(perkEntry)?"border-color:"+perkEntry.getCategory().getColour().toWebHexString()+";":"")+"' id='"+perkEntry.getRow()+"_"+perkEntry.getPerk()+"'>"
+							(isPerkOwned(perkEntry)
+									?Main.game.getPlayer().hasTraitActivated(perkEntry.getPerk())
+										?"border-color:"+Colour.TRAIT.toWebHexString()+";"
+										:"border-color:"+perkEntry.getCategory().getColour().toWebHexString()+";"
+									:"")+"' id='"+perkEntry.getRow()+"_"+perkEntry.getPerk()+"'>"
 				+ "<div class='square-button-content'>"+perkEntry.getPerk().getSVGString()+"</div>"
 				+ (disabled
 					?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.8; "+(perkEntry.getPerk().isMajor()?"border-radius:5px;":" border-radius:50%;")+"'></div>"
@@ -238,17 +302,20 @@ public enum PerkManager {
 	}
 	
 	public boolean isPerkOwned(PerkEntry perkEntry) {
-		return Main.game.getPlayer().hasPerk(perkEntry.getRow(), perkEntry.getPerk());
+		return Main.game.getPlayer().hasPerkInTree(perkEntry.getRow(), perkEntry.getPerk());
 	}
 	
 	public boolean isPerkOwned(int row, Perk perk) {
-		return Main.game.getPlayer().hasPerk(row, perk);
+		return Main.game.getPlayer().hasPerkInTree(row, perk);
 	}
 	
 	public boolean isPerkAvailable(PerkEntry perkEntry) {
+		if(perkEntry.getPerk().isAlwaysAvailable()) {
+			return true;
+		}
 		if(!isPerkOwned(perkEntry)) {
 			for(PerkEntry linkedEntry : perkEntry.getLinks()) {
-				if(Main.game.getPlayer().hasPerk(linkedEntry.getRow(), linkedEntry.getPerk())) {
+				if(Main.game.getPlayer().hasPerkInTree(linkedEntry.getRow(), linkedEntry.getPerk())) {
 					return true;
 				}
 			}
@@ -257,6 +324,9 @@ public enum PerkManager {
 	}
 	
 	public boolean isPerkAvailable(int row, Perk perk) {
+		if(perk.isAlwaysAvailable()) {
+			return true;
+		}
 		if(!isPerkOwned(row, perk)) {
 			PerkEntry perkEntry = null;
 			loopy:
@@ -272,7 +342,7 @@ public enum PerkManager {
 				return false;
 			}
 			for(PerkEntry linkedEntry : perkEntry.getLinks()) {
-				if(Main.game.getPlayer().hasPerk(linkedEntry.getRow(), linkedEntry.getPerk())) {
+				if(Main.game.getPlayer().hasPerkInTree(linkedEntry.getRow(), linkedEntry.getPerk())) {
 					return true;
 				}
 			}
@@ -283,7 +353,7 @@ public enum PerkManager {
 	private Colour getPerkLineParentColour(PerkEntry entry) {
 		boolean parentOwned = false;
 		for(PerkEntry parent : entry.getParentLinks()) {
-			if(Main.game.getPlayer().hasPerk(parent.getRow(), parent.getPerk())) {
+			if(Main.game.getPlayer().hasPerkInTree(parent.getRow(), parent.getPerk())) {
 				parentOwned = true;
 				break;
 			}
@@ -300,7 +370,7 @@ public enum PerkManager {
 		boolean childOwned = false;
 		boolean childAvailable = false;
 		for(PerkEntry child : entry.getChildLinks()) {
-			if(Main.game.getPlayer().hasPerk(child.getRow(), child.getPerk())) {
+			if(Main.game.getPlayer().hasPerkInTree(child.getRow(), child.getPerk())) {
 				childOwned = true;
 			}
 			if(isPerkAvailable(child)) {
@@ -319,7 +389,7 @@ public enum PerkManager {
 		boolean siblingOwned = false;
 		boolean siblingAvailable = false;
 		for(PerkEntry sibling : entry.getSiblingLinks()) {
-			if(Main.game.getPlayer().hasPerk(sibling.getRow(), sibling.getPerk())) {
+			if(Main.game.getPlayer().hasPerkInTree(sibling.getRow(), sibling.getPerk())) {
 				siblingOwned = true;
 			}
 			if((isPerkAvailable(sibling) && isPerkOwned(entry)) || (isPerkAvailable(entry) && isPerkOwned(sibling))) {

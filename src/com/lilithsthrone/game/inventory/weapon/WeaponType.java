@@ -104,7 +104,7 @@ public class WeaponType {
 			Util.newArrayListOfValues(new ListValue<DamageType>(DamageType.FIRE)),
 			DamageLevel.HIGH,
 			DamageVariance.LOW,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STRENGTH, 5)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 5)),
 			Util.newArrayListOfValues(
 					new ListValue<Spell>(Spell.FIREBALL_1),
 					new ListValue<Spell>(Spell.FIRE_SHIELD),
@@ -244,7 +244,7 @@ public class WeaponType {
 					new ListValue<DamageType>(DamageType.POISON)),
 			DamageLevel.AWFUL,
 			DamageVariance.LOW,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.INTELLIGENCE, 5)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 5)),
 			Util.newArrayListOfValues(
 					new ListValue<Spell>(Spell.WITCH_SEAL),
 					new ListValue<Spell>(Spell.WITCH_CHARM))) {
@@ -309,7 +309,7 @@ public class WeaponType {
 			Util.newArrayListOfValues(new ListValue<DamageType>(DamageType.PHYSICAL)),
 			DamageLevel.AWFUL,
 			DamageVariance.LOW,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STRENGTH, 5)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 5)),
 			Util.newArrayListOfValues(
 					new ListValue<Spell>(Spell.ARCANE_SHIELD))) {
 		

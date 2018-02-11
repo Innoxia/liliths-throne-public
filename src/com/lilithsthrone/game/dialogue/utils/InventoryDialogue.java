@@ -1559,7 +1559,7 @@ public class InventoryDialogue {
 						if(inventoryFull) {
 							return new Response("Take (1)", "Your inventory is already full!", null);
 						}
-						return new Response("Take (1)", "Take one " + item.getItemType().getDeterminer() + " " + item.getName() + " from the ground.", INVENTORY_MENU){
+						return new Response("Take (1)", "Take one " + item.getName() + " from the ground.", INVENTORY_MENU){
 							@Override
 							public void effects(){
 								pickUpItems(Main.game.getPlayer(), item, 1);
@@ -3658,7 +3658,7 @@ public class InventoryDialogue {
 								return new Response("Enchant", "You can't enchant someone else's clothing, especially not while having sex with them!", null);
 								
 							} else if(index == 6) {
-								if(clothing.getClothingType().isAbleToBeEquippedDuringSex()) {
+								if(clothing.getClothingType().isAbleToBeEquippedDuringSex() && !inventoryNPC.isTrader()) {
 									if (Main.game.getPlayer().isAbleToEquip(clothing, false, Main.game.getPlayer())) {
 										return new Response("Equip (self)", "Equip the " + clothing.getName() + ".", Sex.SEX_DIALOGUE){
 											@Override
@@ -3681,7 +3681,7 @@ public class InventoryDialogue {
 								return getQuickTradeResponse();
 								
 							} else if(index == 11) {
-								if(clothing.getClothingType().isAbleToBeEquippedDuringSex()) {
+								if(clothing.getClothingType().isAbleToBeEquippedDuringSex() && !inventoryNPC.isTrader()) {
 									if (inventoryNPC.isAbleToEquip(clothing, false, Main.game.getPlayer())) {
 										return new Response("Equip ([npc.Name])", UtilText.parse(inventoryNPC, "Get [npc.Name] to equip the " + clothing.getName() + "."), Sex.SEX_DIALOGUE){
 											@Override

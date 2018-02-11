@@ -111,7 +111,7 @@ public enum Attribute {
 				}
 			},
 
-	STRENGTH(0,
+	MAJOR_STRENGTH(0,
 			"strength",
 			"Strength",
 			"strengthIcon",
@@ -130,11 +130,11 @@ public enum Attribute {
 						}
 					},
 
-	INTELLIGENCE(0,
+	MAJOR_ARCANE(0,
 			"arcane",
 			"Arcane",
 			"intelligenceIcon",
-			Colour.ATTRIBUTE_INTELLIGENCE,
+			Colour.ATTRIBUTE_ARCANE,
 			"arcane-boost",
 			"arcane-drain",
 			Util.newArrayListOfValues(new ListValue<String>("<b>+2</b> <b style='color: " + Colour.ATTRIBUTE_MANA.toWebHexString() + "'>Aura</b> per 1 mental strength"))) {
@@ -149,7 +149,7 @@ public enum Attribute {
 						}
 					},
 
-	CORRUPTION(0,
+	MAJOR_CORRUPTION(0,
 			"corruption",
 			"Corruption",
 			"corruptionIcon",
@@ -226,7 +226,7 @@ public enum Attribute {
 	RESISTANCE_LUST(0, "seduction resistance", "Seduction resist", "shieldIcon", Colour.GENERIC_SEX, "chastity", "temptation", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "Each point reduces willpower damage taken by 1%.";
+			return "Each point reduces aura and lust damage taken by 1%.";
 		}
 	},
 	
@@ -277,7 +277,7 @@ public enum Attribute {
 	DAMAGE_LUST(100, "seduction damage", "Seduction damage", "swordIcon", Colour.GENERIC_SEX, "seduction", "repulsion", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "Each point increases willpower damage done by 1%.";
+			return "Each point increases aura and lust damage done by 1%.";
 		}
 	},
 	
@@ -482,8 +482,8 @@ public enum Attribute {
 		attributeBonusesForEnchanting.add(Attribute.DAMAGE_ICE);
 		attributeBonusesForEnchanting.add(Attribute.DAMAGE_POISON);
 
-		baseAttributesGood.add(Attribute.STRENGTH);
-		baseAttributesGood.add(Attribute.INTELLIGENCE);
+		baseAttributesGood.add(Attribute.MAJOR_STRENGTH);
+		baseAttributesGood.add(Attribute.MAJOR_ARCANE);
 	}
 
 	private Attribute(int baseValue, String name, String nameAbbreviation, String pathName, Colour colour, String positiveEnchantment, String negativeEnchantment,
@@ -517,7 +517,7 @@ public enum Attribute {
 	}
 
 	public static Attribute[] getCoreAttributes() {
-		return new Attribute[] { STRENGTH, INTELLIGENCE, CORRUPTION };
+		return new Attribute[] { MAJOR_STRENGTH, MAJOR_ARCANE, MAJOR_CORRUPTION };
 	}
 
 	public int getBaseValue() {

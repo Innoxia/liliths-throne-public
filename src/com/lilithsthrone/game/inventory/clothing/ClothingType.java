@@ -42,8 +42,8 @@ public class ClothingType {
 			null,
 			"head_circlet",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.STRENGTH, -50),
-					new Value<Attribute, Integer>(Attribute.INTELLIGENCE, -50)),
+					new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, -50),
+					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, -50)),
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
@@ -1237,7 +1237,7 @@ public class ClothingType {
 			null,
 			"neck_breeder_collar",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.STRENGTH, 5),
+					new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 5),
 					new Value<Attribute, Integer>(Attribute.FERTILITY, 50)),
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
 			null,
@@ -2135,8 +2135,7 @@ public class ClothingType {
 							)),
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.PULLS_UP,
-							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
+							null,
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.BREASTS),
 									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
@@ -4099,7 +4098,7 @@ public class ClothingType {
 				if (clothingOwner.isPlayer()) {
 					return UtilText.parse(clothingRemover, "[npc.Name] unclips your nursing bra's cups and pull them down, exposing your [pc.nipples+].");
 				} else {
-					return UtilText.parse(clothingRemover, "You unclip the cups on [npc.name]'s nursing bra and pull them down, exposing [npc.her] [npc.nipples+].");
+					return UtilText.parse(clothingOwner, "You unclip the cups on [npc.name]'s nursing bra and pull them down, exposing [npc.her] [npc.nipples+].");
 				}
 			}
 		}
@@ -7483,7 +7482,7 @@ public class ClothingType {
 	};
 
 	public static AbstractClothingType ANKLE_SHIN_GUARDS = new AbstractClothingType(
-			"a par of",
+			"a pair of",
 			true,
 			"shin guards",
 			"shin guards",
@@ -8362,7 +8361,7 @@ public class ClothingType {
 			ClothingSet.BDSM,
 			"mouth_ballgag",
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(
-					Attribute.STRENGTH,
+					Attribute.MAJOR_STRENGTH,
 					-5)),
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(
@@ -8424,7 +8423,7 @@ public class ClothingType {
 			Rarity.EPIC,
 			ClothingSet.BDSM,
 			"mouth_ringgag",
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STRENGTH, -5)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, -5)),
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
@@ -8476,7 +8475,7 @@ public class ClothingType {
 			Rarity.EPIC,
 			ClothingSet.BDSM,
 			"neck_choker",
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STRENGTH, -5)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, -5)),
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
@@ -8528,7 +8527,7 @@ public class ClothingType {
 			Rarity.EPIC,
 			ClothingSet.BDSM,
 			"wrist_restraints",
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STRENGTH, -5)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, -5)),
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(
 					DisplacementType.REMOVE_OR_EQUIP,
 					Util.newArrayListOfValues(
@@ -8581,7 +8580,7 @@ public class ClothingType {
 			Rarity.EPIC,
 			ClothingSet.BDSM,
 			"ankle_spreaderbar",
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STRENGTH, -5)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, -5)),
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(
 					DisplacementType.REMOVE_OR_EQUIP,
 					Util.newArrayListOfValues(
@@ -8636,7 +8635,7 @@ public class ClothingType {
 			Rarity.EPIC,
 			ClothingSet.BDSM,
 			"groin_chastity_belt",
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STRENGTH, -5)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, -5)),
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
@@ -8693,7 +8692,7 @@ public class ClothingType {
 			Rarity.EPIC,
 			ClothingSet.BDSM,
 			"groin_chastityCage",
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STRENGTH, -5)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, -5)),
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
@@ -8764,7 +8763,7 @@ public class ClothingType {
 			Rarity.EPIC,
 			ClothingSet.BDSM,
 			"stomach_karada",
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STRENGTH, -5)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, -5)),
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
@@ -8825,7 +8824,7 @@ public class ClothingType {
 			"enforcerShirt",
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 5),
-					new Value<Attribute, Integer>(Attribute.STRENGTH, 5)),
+					new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 5)),
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
@@ -8886,7 +8885,7 @@ public class ClothingType {
 			"enforcerShorts",
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 5),
-					new Value<Attribute, Integer>(Attribute.STRENGTH, 5)),
+					new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 5)),
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
@@ -8955,7 +8954,7 @@ public class ClothingType {
 			ClothingSet.CATTLE,
 			"piercing_livestock_tags",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.STRENGTH, 2)),
+					new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 2)),
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
 			null,
 			Util.newArrayListOfValues(new ListValue<>(Colour.CLOTHING_YELLOW)), null, null, null, null, null){
@@ -8997,7 +8996,7 @@ public class ClothingType {
 			ClothingSet.CATTLE,
 			"piercing_nose_cow_ring",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.STRENGTH, 3)),
+					new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 3)),
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
 			null,
 			Colour.allMetalColours, null, null, null, null, null){
@@ -9039,7 +9038,7 @@ public class ClothingType {
 			ClothingSet.CATTLE,
 			"neck_cowbell_collar",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.STRENGTH, 3)),
+					new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 3)),
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
 			null,
 			Colour.allMetalColours, null, null, null, null, null){
@@ -9091,7 +9090,7 @@ public class ClothingType {
 			ClothingSet.MILK_MAID,
 			"milk_maid_dress",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.STRENGTH, 5)),
+					new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 5)),
 			
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(
@@ -9151,7 +9150,7 @@ public class ClothingType {
 			ClothingSet.MILK_MAID,
 			"milk_maid_headband",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.STRENGTH, 2)),
+					new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 2)),
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null))),
 			null,
 			Util.newArrayListOfValues(
@@ -9200,7 +9199,7 @@ public class ClothingType {
 			ClothingSet.MILK_MAID,
 			"milk_maid_kerchief",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.STRENGTH, 2)),
+					new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 2)),
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null))),
 			null,
 			Colour.allClothingColours, null, null, null, null, null){
@@ -9243,7 +9242,7 @@ public class ClothingType {
 			ClothingSet.RAINBOW,
 			"sock_rainbow_stockings",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.STRENGTH, 3)),
+					new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 3)),
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET), new ListValue<ClothingAccess>(ClothingAccess.CALVES)), null, null))),
 			null,
@@ -9288,7 +9287,7 @@ public class ClothingType {
 			ClothingSet.RAINBOW,
 			"hand_rainbow_fingerless_gloves",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.STRENGTH, 3)),
+					new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 3)),
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
@@ -9340,7 +9339,7 @@ public class ClothingType {
 			null,
 			"torso_tshirt_megamilk",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.STRENGTH, 5)),
+					new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 5)),
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
@@ -9695,7 +9694,7 @@ public class ClothingType {
 			ClothingSet.GEISHA,
 			"kimono_torso_kimono",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.STRENGTH, 5),
+					new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 5),
 					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 10)),
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(
@@ -9856,7 +9855,7 @@ public class ClothingType {
 			ClothingSet.RONIN,
 			"kimono_torso_mens_kimono",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.STRENGTH, 5),
+					new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 5),
 					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 10)),
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(

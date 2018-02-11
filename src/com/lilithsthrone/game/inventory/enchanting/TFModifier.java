@@ -67,19 +67,19 @@ public enum TFModifier {
 	// Attributes:
 	
 	STRENGTH(AttributeCategory.STRENGTH,
-			Attribute.STRENGTH,
+			Attribute.MAJOR_STRENGTH,
 			"Applies an effect related to the primary attribute 'Strength'.",
 			"modifier_circle_strength",
 			Rarity.EPIC),
 	
 	INTELLIGENCE(AttributeCategory.INTELLIGENCE,
-			Attribute.INTELLIGENCE,
+			Attribute.MAJOR_ARCANE,
 			"Applies an effect related to the primary attribute 'Intelligence'.",
 			"modifier_circle_intelligence",
 			Rarity.EPIC),
 	
 	CORRUPTION(AttributeCategory.CORRUPTION,
-			Attribute.CORRUPTION,
+			Attribute.MAJOR_CORRUPTION,
 			"Applies an effect related to the primary attribute 'Corruption'.",
 			"modifier_circle_corruption",
 			Rarity.EPIC),

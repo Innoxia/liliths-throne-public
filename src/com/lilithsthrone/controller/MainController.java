@@ -459,9 +459,11 @@ public class MainController implements Initializable {
 						
 						 if(event.getCode()==KeyCode.END){
 //							 
-							 for(Fetish f : Fetish.values()) {
-								 Main.game.getPlayer().incrementFetishExperience(f, (int) (Math.random()*20));
-							 }
+							 Main.game.getPlayer().incrementAlcoholLevel(0.2f);
+							 
+//							 for(Fetish f : Fetish.values()) {
+//								 Main.game.getPlayer().incrementFetishExperience(f, (int) (Math.random()*20));
+//							 }
 							 
 //							 Main.game.getPlayer().incrementCummedInArea(OrificeType.MOUTH, 2500);
 							 
@@ -1215,7 +1217,7 @@ public class MainController implements Initializable {
 					}
 				}
 
-			Attribute[] attributes = { Attribute.STRENGTH, Attribute.INTELLIGENCE, Attribute.CORRUPTION, Attribute.HEALTH_MAXIMUM, Attribute.MANA_MAXIMUM };
+			Attribute[] attributes = { Attribute.MAJOR_STRENGTH, Attribute.MAJOR_ARCANE, Attribute.MAJOR_CORRUPTION, Attribute.HEALTH_MAXIMUM, Attribute.MANA_MAXIMUM };
 			for (Attribute a : attributes) {
 				if (((EventTarget) document.getElementById("COMBAT_PLAYER_" + a)) != null) {
 					addEventListener(document, "COMBAT_PLAYER_" + a, "mousemove", moveTooltipListener, false);
@@ -1309,7 +1311,7 @@ public class MainController implements Initializable {
 					}
 				}
 
-			Attribute[] attributes = { Attribute.STRENGTH, Attribute.INTELLIGENCE, Attribute.CORRUPTION, Attribute.HEALTH_MAXIMUM, Attribute.MANA_MAXIMUM };
+			Attribute[] attributes = { Attribute.MAJOR_STRENGTH, Attribute.MAJOR_ARCANE, Attribute.MAJOR_CORRUPTION, Attribute.HEALTH_MAXIMUM, Attribute.MANA_MAXIMUM };
 			for (Attribute a : attributes) {
 				if (((EventTarget) document.getElementById("COMBAT_PLAYER_" + a)) != null) {
 					addEventListener(document, "COMBAT_PLAYER_" + a, "mousemove", moveTooltipListener, false);
@@ -3810,8 +3812,12 @@ public class MainController implements Initializable {
 								addEventListener(document, id, "mouseleave", hideTooltipListener, false);
 								addEventListener(document, id, "mouseenter", new TooltipInformationEventListener().setLevelUpPerk(i, e.getPerk(), Main.game.getPlayer()), false);
 								((EventTarget) document.getElementById(id)).addEventListener("click", event -> {
-									if(e.getPerk().isMajor() && PerkManager.MANAGER.isPerkOwned(e) && !Main.game.getPlayer().hasTraitActivated(e.getPerk())) {
-										Main.game.getPlayer().addTrait(e.getPerk());
+									if(e.getPerk().isMajor() && PerkManager.MANAGER.isPerkOwned(e)) {
+										if(!Main.game.getPlayer().hasTraitActivated(e.getPerk())) {
+											Main.game.getPlayer().addTrait(e.getPerk());
+										} else {
+											Main.game.getPlayer().removeTrait(e.getPerk());
+										}
 										Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 										
 									} else if(Main.game.getPlayer().getPerkPoints()>=1 && PerkManager.MANAGER.isPerkAvailable(e)) {
@@ -4830,9 +4836,9 @@ public class MainController implements Initializable {
 				Attribute.HEALTH_MAXIMUM,
 				Attribute.MANA_MAXIMUM,
 				Attribute.EXPERIENCE,
-				Attribute.STRENGTH,
-				Attribute.INTELLIGENCE,
-				Attribute.CORRUPTION,
+				Attribute.MAJOR_STRENGTH,
+				Attribute.MAJOR_ARCANE,
+				Attribute.MAJOR_CORRUPTION,
 				Attribute.AROUSAL,
 				Attribute.LUST };
 		
@@ -4888,9 +4894,31 @@ public class MainController implements Initializable {
 			
 			
 			if(((EventTarget) documentAttributes.getElementById(idModifier+"ATTRIBUTES"))!=null){
-//				((EventTarget) documentAttributes.getElementById(idModifier+"ATTRIBUTES")).addEventListener("click", e -> {
-//					openCharactersPresent(Main.game.getNPCById(Main.game.getActiveNPC().getId()));
-//				}, false);
+				((EventTarget) documentAttributes.getElementById(idModifier+"ATTRIBUTES")).addEventListener("click", e -> {
+					
+					if(character.isPlayer()) {
+						// block when in character creation
+						if(Main.game.isInNewWorld()) {
+							if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.PHONE) {
+								if(Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_LEVEL_UP) {
+									openPhone();
+								} else {
+									Main.game.setContent(new Response("", "", PhoneDialogue.CHARACTER_LEVEL_UP));
+								}
+								
+							} else if (!Main.game.getCurrentDialogueNode().isOptionsDisabled()) {
+								if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.NORMAL) {
+									Main.game.saveDialogueNode();
+								}
+								
+								Main.game.setContent(new Response("", "", PhoneDialogue.CHARACTER_LEVEL_UP));
+							}
+						}
+						
+					} else { //TODO display NPC perk tree
+						openCharactersPresent(Main.game.getNPCById(Main.game.getActiveNPC().getId()));
+					}
+				}, false);
 				addEventListener(documentAttributes, idModifier+"ATTRIBUTES", "mousemove", moveTooltipListener, false);
 				addEventListener(documentAttributes, idModifier+"ATTRIBUTES", "mouseleave", hideTooltipListener, false);
 	
@@ -4910,15 +4938,13 @@ public class MainController implements Initializable {
 			}
 			
 			
-			for (int i=0; i<GameCharacter.MAX_TRAITS;i++) {
-				id = idModifier+"_TRAIT_"+i;
+			for (Perk trait : character.getTraits()) {
+				id = "TRAIT_" + idModifier + trait;
 				if (((EventTarget) documentAttributes.getElementById(id)) != null) {
 					addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
 					addEventListener(documentAttributes, id, "mouseleave", hideTooltipListener, false);
-					if(i<character.getTraits().size()) {
-						TooltipInformationEventListener el = new TooltipInformationEventListener().setPerk(character.getTraits().get(i), character);
-						addEventListener(documentAttributes, id, "mouseenter", el, false);
-					}
+					TooltipInformationEventListener el = new TooltipInformationEventListener().setPerk(trait, character);
+					addEventListener(documentAttributes, id, "mouseenter", el, false);
 				}
 			}
 			for (Fetish f : character.getFetishes()) {
@@ -5231,9 +5257,9 @@ public class MainController implements Initializable {
 					Attribute.HEALTH_MAXIMUM,
 					Attribute.MANA_MAXIMUM,
 					Attribute.EXPERIENCE,
-					Attribute.STRENGTH,
-					Attribute.INTELLIGENCE,
-					Attribute.CORRUPTION,
+					Attribute.MAJOR_STRENGTH,
+					Attribute.MAJOR_ARCANE,
+					Attribute.MAJOR_CORRUPTION,
 					Attribute.AROUSAL,
 					Attribute.LUST };
 			

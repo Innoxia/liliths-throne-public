@@ -29,6 +29,7 @@ import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
@@ -811,7 +812,7 @@ public enum Sex {
 							+ TFEssence.ARCANE.getSVGString()
 						+ "</div>"
 						+ " <div style='display:inline-block; height:20px; vertical-align: middle;'>"
-							+ "<b>[style.boldArcane(You have earned "+(Main.game.getPlayer().hasPerk(Perk.NYMPHOMANIAC)?"four arcane essences":"two arcane essence")+"!)]</b>"
+							+ "<b>[style.boldArcane(You have earned "+(Main.game.getPlayer().hasTrait(Perk.NYMPHOMANIAC, true)?"four arcane essences":"two arcane essence")+"!)]</b>"
 						+ "</div> "
 						+ "<div class='item-inline"
 							+ (TFEssence.ARCANE.getRarity() == Rarity.COMMON ? " common" : "")
@@ -824,7 +825,7 @@ public enum Sex {
 						+ "</div>"
 						+ "</div>");
 				
-				if(Main.game.getPlayer().hasPerk(Perk.NYMPHOMANIAC)) {
+				if(Main.game.getPlayer().hasTrait(Perk.NYMPHOMANIAC, true)) {
 					Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 4);
 				} else {
 					Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 2);
@@ -893,7 +894,7 @@ public enum Sex {
 							+ TFEssence.ARCANE.getSVGString()
 						+ "</div>"
 						+ " <div style='display:inline-block; height:20px; vertical-align: middle;'>"
-						+ "<b>[style.boldArcane(You have earned "+(Main.game.getPlayer().hasPerk(Perk.NYMPHOMANIAC)?"four arcane essences":"two arcane essence")+"!)]</b>"
+						+ "<b>[style.boldArcane(You have earned "+(Main.game.getPlayer().hasTrait(Perk.NYMPHOMANIAC, true)?"four arcane essences":"two arcane essence")+"!)]</b>"
 						+ "</div> "
 						+ "<div class='item-inline"
 							+ (TFEssence.ARCANE.getRarity() == Rarity.COMMON ? " common" : "")
@@ -905,7 +906,7 @@ public enum Sex {
 							+ TFEssence.ARCANE.getSVGString()
 						+ "</div>"
 						+ "</div>");
-				if(Main.game.getPlayer().hasPerk(Perk.NYMPHOMANIAC))
+				if(Main.game.getPlayer().hasTrait(Perk.NYMPHOMANIAC, true))
 					Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 4);
 				else
 					Main.game.getPlayer().incrementEssenceCount(TFEssence.ARCANE, 2);
@@ -1427,19 +1428,31 @@ public enum Sex {
 				if(SexFlags.playerPreparedForOrgasm) {
 					for (SexActionInterface sexAction : Sex.getOrgasmActionsPartner()) {
 						if (sexAction.isAddedToAvailableSexActions()) {
-							switch(sexAction.getPriority()){
-								case LOW:
-									lowPriority.add(sexAction);
-									break;
-								case NORMAL:
-									normalPriority.add(sexAction);
-									break;
-								case HIGH:
-									highPriority.add(sexAction);
-									break;
-								case UNIQUE_MAX:
-									uniqueMax.add(sexAction);
-									break;
+							boolean dislikedAction = false;
+							if(sexAction.getFetishes(activePartner)!=null) {
+								for(Fetish f : sexAction.getFetishes(activePartner)) {
+									if(activePartner.getFetishDesire(f)==FetishDesire.ONE_DISLIKE || activePartner.getFetishDesire(f)==FetishDesire.ZERO_HATE) {
+										lowPriority.add(sexAction);
+										dislikedAction = true;
+										break;
+									}
+								}
+							}
+							if(!dislikedAction) {
+								switch(sexAction.getPriority()){
+									case LOW:
+										lowPriority.add(sexAction);
+										break;
+									case NORMAL:
+										normalPriority.add(sexAction);
+										break;
+									case HIGH:
+										highPriority.add(sexAction);
+										break;
+									case UNIQUE_MAX:
+										uniqueMax.add(sexAction);
+										break;
+								}
 							}
 						}
 					}
@@ -1473,19 +1486,31 @@ public enum Sex {
 			for (SexActionInterface sexAction : Sex.getActionsAvailablePartner()) {
 				if (sexAction.getActionType()==SexActionType.PARTNER_PREPARE_PLAYER_ORGASM) {
 					if (sexAction.isAddedToAvailableSexActions()) {
-						switch(sexAction.getPriority()){
-							case LOW:
-								lowPriority.add(sexAction);
-								break;
-							case NORMAL:
-								normalPriority.add(sexAction);
-								break;
-							case HIGH:
-								highPriority.add(sexAction);
-								break;
-							case UNIQUE_MAX:
-								uniqueMax.add(sexAction);
-								break;
+						boolean dislikedAction = false;
+						if(sexAction.getFetishes(activePartner)!=null) {
+							for(Fetish f : sexAction.getFetishes(activePartner)) {
+								if(activePartner.getFetishDesire(f)==FetishDesire.ONE_DISLIKE || activePartner.getFetishDesire(f)==FetishDesire.ZERO_HATE) {
+									lowPriority.add(sexAction);
+									dislikedAction = true;
+									break;
+								}
+							}
+						}
+						if(!dislikedAction) {
+							switch(sexAction.getPriority()){
+								case LOW:
+									lowPriority.add(sexAction);
+									break;
+								case NORMAL:
+									normalPriority.add(sexAction);
+									break;
+								case HIGH:
+									highPriority.add(sexAction);
+									break;
+								case UNIQUE_MAX:
+									uniqueMax.add(sexAction);
+									break;
+							}
 						}
 					}
 				}
@@ -1516,29 +1541,40 @@ public enum Sex {
 			for (SexActionInterface sexAction : Sex.getActionsAvailablePartner()) {
 				if (sexAction.isAddedToAvailableSexActions() && (partnerAllowedToUseSelfActions || (!sexAction.isPartnerSelfPenetration()))) {
 					
-					if(Main.game.isNonConEnabled()
+					if(// Do not add action if the partner is resisting and this action is SUB_EAGER or SUB_NORMAL or is a self action
+						(Main.game.isNonConEnabled()
 							&& getSexPace(activePartner)==SexPace.SUB_RESISTING
-							&& ((sexAction.getSexPace(Sex.getActivePartner())!=null && sexAction.getSexPace(Sex.getActivePartner())!=SexPace.SUB_RESISTING) || sexAction.isPartnerSelfAction())) {
-						// Do not add action if the partner is resisting and this action is SUB_EAGER or SUB_NORMAL or is a self action
-						
-					} else if(sexAction.getSexPace(Sex.getActivePartner())!=null && getSexPace(activePartner)!=sexAction.getSexPace(Sex.getActivePartner())) {
+							&& ((sexAction.getSexPace(Sex.getActivePartner())!=null && sexAction.getSexPace(Sex.getActivePartner())!=SexPace.SUB_RESISTING) || sexAction.isPartnerSelfAction()))
 						// Do not add action if action does not correspond to the partner's preferred action pace
+						|| (sexAction.getSexPace(Sex.getActivePartner())!=null && getSexPace(activePartner)!=sexAction.getSexPace(Sex.getActivePartner()))) {
+						
 						
 					} else {
 						// Add action as normal:
-						switch(sexAction.getPriority()){
-							case LOW:
-								lowPriority.add(sexAction);
-								break;
-							case NORMAL:
-								normalPriority.add(sexAction);
-								break;
-							case HIGH:
-								highPriority.add(sexAction);
-								break;
-							case UNIQUE_MAX:
-								uniqueMax.add(sexAction);
-								break;
+						boolean dislikedAction = false;
+						if(sexAction.getFetishes(activePartner)!=null) {
+							for(Fetish f : sexAction.getFetishes(activePartner)) {
+								if(activePartner.getFetishDesire(f)==FetishDesire.ONE_DISLIKE || activePartner.getFetishDesire(f)==FetishDesire.ZERO_HATE) {
+									dislikedAction = true;
+									break;
+								}
+							}
+						}
+						if(!dislikedAction) {
+							switch(sexAction.getPriority()){
+								case LOW:
+									lowPriority.add(sexAction);
+									break;
+								case NORMAL:
+									normalPriority.add(sexAction);
+									break;
+								case HIGH:
+									highPriority.add(sexAction);
+									break;
+								case UNIQUE_MAX:
+									uniqueMax.add(sexAction);
+									break;
+							}
 						}
 					}
 				}
@@ -1626,8 +1662,8 @@ public enum Sex {
 		}
 
 		// Arousal increments for this target's related fetishes:
-		if(sexAction.getFetishes(targetCharacter)!=null && sexAction.getSexPace(targetCharacter)!=SexPace.SUB_RESISTING) {
-			for(Fetish f : sexAction.getFetishes(targetCharacter)) {
+		if(sexAction.getFetishesForTargetedPartner(activeCharacter)!=null && sexAction.getSexPace(targetCharacter)!=SexPace.SUB_RESISTING) {
+			for(Fetish f : sexAction.getFetishesForTargetedPartner(activeCharacter)) {
 				if(targetCharacter.hasFetish(f)) {
 					arousalIncrements.put(targetCharacter, arousalIncrements.get(targetCharacter) + targetCharacter.getFetishLevel(f).getBonusArousalIncrease());
 					arousalIncrements.put(activeCharacter, arousalIncrements.get(activeCharacter) + targetCharacter.getFetishLevel(f).getBonusArousalIncreasePartner());
@@ -1807,38 +1843,6 @@ public enum Sex {
 			SexFlags.playerRequestedPullOut = false;
 			SexFlags.playerPreparedForOrgasm = false;
 		}
-//		// Handle mutual orgasms:
-//		if(sexAction.getActionType()==SexActionType.MUTUAL_ORGASM) {
-//			// Condom removal:
-//			if(Main.game.getPlayer().isWearingCondom()){
-//				Main.game.getPlayer().getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()).setSealed(false);
-//				if(Main.game.getPlayer().getPenisRawCumProductionValue()>0) {
-//					sexSB.append(Main.game.getPlayer().addItem(AbstractItemType.generateFilledCondom(Main.game.getPlayer().getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()).getColour(), Main.game.getPlayer(), Main.game.getPlayer().getCum()), false));
-//				}
-//				Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()), true, Main.game.getPlayer());
-//				
-//			}
-//			if(activePartner.isWearingCondom()){
-//				activePartner.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()).setSealed(false);
-//				if(activePartner.getPenisRawCumProductionValue()>0) {
-//					sexSB.append(Main.game.getPlayer().addItem(AbstractItemType.generateFilledCondom(activePartner.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()).getColour(), activePartner, activePartner.getCum()), false));
-//				}
-//				activePartner.unequipClothingIntoVoid(activePartner.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()), true, activePartner);
-//				
-//			}
-//			// Apply orgasm arousal resets:
-//			incrementNumberOfOrgasms(Main.game.getPlayer(), 1);
-//			player().setArousal(0);
-//			// Apply orgasm arousal resets:
-//			incrementNumberOfOrgasms(activePartner, 1);
-//			activePartner.setArousal(0);
-//
-//			// Reset appropriate flags:
-//			SexFlags.partnerRequestedCreampie = false;
-//			SexFlags.partnerRequestedPullOut = false;
-//			SexFlags.playerRequestedCreampie = false;
-//			SexFlags.playerRequestedPullOut = false;
-//		}
 
 		// Handle if parts have just become exposed:
 		if (sexAction == SexActionUtility.CLOTHING_REMOVAL) {
@@ -1846,6 +1850,7 @@ public enum Sex {
 				handleExposedDescriptions(character, false);
 			}
 		}
+		
 		// Only apply penetration effects if this action isn't an orgasm, and it isn't the end of sex. (Otherwise, ongoing descriptions get appended after the main description, which usually don't make sense.) TODO
 		if (!Sex.getOrgasmActionsPlayer().contains(sexAction)
 				&& !Sex.getOrgasmActionsPartner().contains(sexAction)
@@ -1974,7 +1979,7 @@ public enum Sex {
 		} else {
 			// Partner:
 			if (!areasExposed.get(characterBeingExposed).contains(CoverableArea.ANUS)) {
-				if (activePartner.isAbleToAccessCoverableArea(CoverableArea.ANUS, false)) {
+				if (characterBeingExposed.isAbleToAccessCoverableArea(CoverableArea.ANUS, false)) {
 					sexSB.append(
 							formatCoverableAreaBecomingExposed(
 									(atStartOfSex
@@ -1986,8 +1991,8 @@ public enum Sex {
 				}
 			}
 			if (!areasExposed.get(characterBeingExposed).contains(CoverableArea.PENIS)) {
-				if (activePartner.isAbleToAccessCoverableArea(CoverableArea.PENIS, false)) {
-					if (activePartner.hasPenis()) {
+				if (characterBeingExposed.isAbleToAccessCoverableArea(CoverableArea.PENIS, false)) {
+					if (characterBeingExposed.hasPenis()) {
 						sexSB.append(
 								formatCoverableAreaBecomingExposed(
 										(atStartOfSex
@@ -2000,8 +2005,8 @@ public enum Sex {
 				}
 			}
 			if (!areasExposed.get(characterBeingExposed).contains(CoverableArea.VAGINA)) {
-				if (activePartner.isAbleToAccessCoverableArea(CoverableArea.VAGINA, false)) {
-					if (activePartner.hasVagina()) {
+				if (characterBeingExposed.isAbleToAccessCoverableArea(CoverableArea.VAGINA, false)) {
+					if (characterBeingExposed.hasVagina()) {
 						sexSB.append(
 								formatCoverableAreaBecomingExposed(
 										(atStartOfSex
@@ -2010,7 +2015,7 @@ public enum Sex {
 								+ sexManager.getPartnerVaginaRevealReaction()
 								+ formatCoverableAreaGettingWet(getLubricationDescription(characterBeingExposed, OrificeType.VAGINA)));
 	
-					} else if (activePartner.getVaginaType() == VaginaType.NONE && activePartner.getPenisType() == PenisType.NONE) {
+					} else if (characterBeingExposed.getVaginaType() == VaginaType.NONE && characterBeingExposed.getPenisType() == PenisType.NONE) {
 						sexSB.append(
 								formatCoverableAreaBecomingExposed(
 										(atStartOfSex
@@ -2022,7 +2027,7 @@ public enum Sex {
 				}
 			}
 			if (!areasExposed.get(characterBeingExposed).contains(CoverableArea.NIPPLES)) {
-				if (activePartner.isAbleToAccessCoverableArea(CoverableArea.NIPPLES, false)) {
+				if (characterBeingExposed.isAbleToAccessCoverableArea(CoverableArea.NIPPLES, false)) {
 					sexSB.append(
 							formatCoverableAreaBecomingExposed(
 									(atStartOfSex
@@ -2527,6 +2532,7 @@ public enum Sex {
 	 * @return SexActionUtility.CLOTHING_REMOVAL
 	 */
 	public static SexActionInterface partnerManageClothingToAccessCoverableArea(boolean playerClothing, CoverableArea coverableArea) {
+		
 		if (playerClothing) {
 			SimpleEntry<AbstractClothing, DisplacementType> clothingRemoval = Main.game.getPlayer().getNextClothingToRemoveForCoverableAreaAccess(coverableArea);
 			if (clothingRemoval.getKey() == null) {

@@ -40,11 +40,12 @@ public class RoomPlayer {
 				: (int) ((60 * (minutesPassed<(60*7)?7:31)) - minutesPassed));
 
 		if (index == 1) {
-			return new Response("Rest", "Rest for four hours. As well as replenishing your health, willpower and stamina, you will also get the 'Well Rested' status effect.", AUNT_HOME_PLAYERS_ROOM_SLEEP){
+			return new Response("Rest", "Rest for four hours. As well as replenishing your energy and aura, you will also get the 'Well Rested' status effect.", AUNT_HOME_PLAYERS_ROOM_SLEEP){
 				@Override
 				public void effects() {
 					Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));
 					Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
+					Main.game.getPlayer().setLust(0);
 					Main.game.getPlayer().addStatusEffect(StatusEffect.WELL_RESTED, (6 * 60) + 240);
 				}
 			};
@@ -54,12 +55,12 @@ public class RoomPlayer {
 					"Rest for " + (sleepTimer >= 60 ? sleepTimer / 60 + " hours " : " ")
 					+ (sleepTimer % 60 != 0 ? sleepTimer % 60 + " minutes" : "")
 					+ " until " + (Main.game.isDayTime() ? "evening (21:00)." : "morning (07:00).")
-					+ " As well as replenishing your health, willpower and stamina, you will also get the 'Well Rested' status effect.", AUNT_HOME_PLAYERS_ROOM_SLEEP_LONG){
+					+ " As well as replenishing your energy and aura, you will also get the 'Well Rested' status effect.", AUNT_HOME_PLAYERS_ROOM_SLEEP_LONG){
 				@Override
 				public void effects() {
 					Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));
 					Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
-
+					Main.game.getPlayer().setLust(0);
 					Main.game.getPlayer().addStatusEffect(StatusEffect.WELL_RESTED, (6
 							* 60)
 							+ sleepTimer);
@@ -72,6 +73,7 @@ public class RoomPlayer {
 				public void effects() {
 					Main.game.getPlayer().setHealth(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM));
 					Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
+					Main.game.getPlayer().setLust(0);
 					
 					Set<OrificeType> dirtyOrifices = new HashSet<>();
 					for(Entry<OrificeType, Integer> entry : Main.game.getPlayer().getCummedInAreaMap().entrySet()) {
@@ -357,7 +359,7 @@ public class RoomPlayer {
 						+ Main.game.getDateNow().format(DateTimeFormatter.ofPattern("MMMM", Locale.ENGLISH))
 						+ ", "
 						+ Main.game.getDateNow().format(DateTimeFormatter.ofPattern("yyyy", Locale.ENGLISH))
-					+"</b>. From a quick calculation "+(Main.game.getPlayer().getAttributeValue(Attribute.INTELLIGENCE)<IntelligenceLevel.ONE_AVERAGE.getMaximumValue()?"(with some help from your phone's calculator)":"")
+					+"</b>. From a quick calculation "+(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_ARCANE)<IntelligenceLevel.ONE_AVERAGE.getMaximumValue()?"(with some help from your phone's calculator)":"")
 					+ ", you figure out that it's been <b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>"+Main.game.getDayNumber()+" day"+(Main.game.getDayNumber()>1?"s":"")+"</b> since you appeared in this world."
 					+ "</p>");
 			

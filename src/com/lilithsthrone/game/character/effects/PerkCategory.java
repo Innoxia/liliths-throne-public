@@ -13,7 +13,7 @@ public enum PerkCategory {
 	
 	BOTH(Colour.ATTRIBUTE_CORRUPTION),
 	
-	ARCANE(Colour.ATTRIBUTE_INTELLIGENCE);
+	ARCANE(Colour.ATTRIBUTE_ARCANE);
 
 	private Colour colour;
 

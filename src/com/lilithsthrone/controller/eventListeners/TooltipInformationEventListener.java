@@ -203,7 +203,7 @@ public class TooltipInformationEventListener implements EventListener {
 			tooltipSB.append("<div class='description'>" + levelUpPerk.getDescription(Main.game.getPlayer()) + "</div>");
 
 			if(levelUpPerk.isMajor()) {
-				if(!owner.hasPerk(perkRow, levelUpPerk)) {
+				if(!owner.hasPerkInTree(perkRow, levelUpPerk)) {
 					if(!PerkManager.MANAGER.isPerkAvailable(perkRow, levelUpPerk)) {
 						tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Purchasing requires a connecting perk or trait.</div>");
 					} else {
@@ -221,7 +221,7 @@ public class TooltipInformationEventListener implements EventListener {
 					}
 				}
 			} else {
-				if(!owner.hasPerk(perkRow, levelUpPerk)) {
+				if(!owner.hasPerkInTree(perkRow, levelUpPerk)) {
 					if(!PerkManager.MANAGER.isPerkAvailable(perkRow, levelUpPerk)) {
 						tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Purchasing requires a connecting perk or trait.</div>");
 					} else {
@@ -367,7 +367,7 @@ public class TooltipInformationEventListener implements EventListener {
 
 			tooltipSB.append("<div class='subTitle'>"
 					+ "<b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Costs</b> <b>" + (specialAttack.getMinimumCost(owner)) + " - " + (specialAttack.getMaximumCost(owner)) + "</b>"
-							+ " <b style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>health</b>" + "</div>");
+							+ " <b style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>energy</b>" + "</div>");
 
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
@@ -408,34 +408,34 @@ public class TooltipInformationEventListener implements EventListener {
 
 			tooltipSB.append("<div class='subTitle'>"
 					+ "<b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Costs</b> <b>" + (spell.getMinimumCost(owner, spellLevel)) + " - " + (spell.getMaximumCost(owner, spellLevel)) + "</b>"
-							+ " <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>willpower</b>" + "</div>");
+							+ " <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura</b>" + "</div>");
 
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
 		} else if (attribute != null) {
 			
-			if (attribute == Attribute.STRENGTH
-					|| attribute == Attribute.INTELLIGENCE
-					|| attribute == Attribute.CORRUPTION
+			if (attribute == Attribute.MAJOR_STRENGTH
+					|| attribute == Attribute.MAJOR_ARCANE
+					|| attribute == Attribute.MAJOR_CORRUPTION
 					|| attribute == Attribute.AROUSAL
 					|| attribute == Attribute.LUST) {
 				StatusEffect currentAttributeStatusEffect=null;
 				int minimumLevelValue=0, maximumLevelValue=0;
 				
-				if(attribute == Attribute.STRENGTH) {
-					currentAttributeStatusEffect = StrengthLevel.getStrengthLevelFromValue(owner.getAttributeValue(Attribute.STRENGTH)).getRelatedStatusEffect();
-					minimumLevelValue = StrengthLevel.getStrengthLevelFromValue(owner.getAttributeValue(Attribute.STRENGTH)).getMinimumValue();
-					maximumLevelValue = StrengthLevel.getStrengthLevelFromValue(owner.getAttributeValue(Attribute.STRENGTH)).getMaximumValue();
+				if(attribute == Attribute.MAJOR_STRENGTH) {
+					currentAttributeStatusEffect = StrengthLevel.getStrengthLevelFromValue(owner.getAttributeValue(Attribute.MAJOR_STRENGTH)).getRelatedStatusEffect();
+					minimumLevelValue = StrengthLevel.getStrengthLevelFromValue(owner.getAttributeValue(Attribute.MAJOR_STRENGTH)).getMinimumValue();
+					maximumLevelValue = StrengthLevel.getStrengthLevelFromValue(owner.getAttributeValue(Attribute.MAJOR_STRENGTH)).getMaximumValue();
 					
-				} else if(attribute == Attribute.INTELLIGENCE) {
-					currentAttributeStatusEffect = IntelligenceLevel.getIntelligenceLevelFromValue(owner.getAttributeValue(Attribute.INTELLIGENCE)).getRelatedStatusEffect();
-					minimumLevelValue = IntelligenceLevel.getIntelligenceLevelFromValue(owner.getAttributeValue(Attribute.INTELLIGENCE)).getMinimumValue();
-					maximumLevelValue = IntelligenceLevel.getIntelligenceLevelFromValue(owner.getAttributeValue(Attribute.INTELLIGENCE)).getMaximumValue();
+				} else if(attribute == Attribute.MAJOR_ARCANE) {
+					currentAttributeStatusEffect = IntelligenceLevel.getIntelligenceLevelFromValue(owner.getAttributeValue(Attribute.MAJOR_ARCANE)).getRelatedStatusEffect();
+					minimumLevelValue = IntelligenceLevel.getIntelligenceLevelFromValue(owner.getAttributeValue(Attribute.MAJOR_ARCANE)).getMinimumValue();
+					maximumLevelValue = IntelligenceLevel.getIntelligenceLevelFromValue(owner.getAttributeValue(Attribute.MAJOR_ARCANE)).getMaximumValue();
 					
-				} else if(attribute == Attribute.CORRUPTION) {
-					currentAttributeStatusEffect = CorruptionLevel.getCorruptionLevelFromValue(owner.getAttributeValue(Attribute.CORRUPTION)).getRelatedStatusEffect();
-					minimumLevelValue = CorruptionLevel.getCorruptionLevelFromValue(owner.getAttributeValue(Attribute.CORRUPTION)).getMinimumValue();
-					maximumLevelValue = CorruptionLevel.getCorruptionLevelFromValue(owner.getAttributeValue(Attribute.CORRUPTION)).getMaximumValue();
+				} else if(attribute == Attribute.MAJOR_CORRUPTION) {
+					currentAttributeStatusEffect = CorruptionLevel.getCorruptionLevelFromValue(owner.getAttributeValue(Attribute.MAJOR_CORRUPTION)).getRelatedStatusEffect();
+					minimumLevelValue = CorruptionLevel.getCorruptionLevelFromValue(owner.getAttributeValue(Attribute.MAJOR_CORRUPTION)).getMinimumValue();
+					maximumLevelValue = CorruptionLevel.getCorruptionLevelFromValue(owner.getAttributeValue(Attribute.MAJOR_CORRUPTION)).getMaximumValue();
 					
 				} else if(attribute == Attribute.AROUSAL) {
 					currentAttributeStatusEffect = ArousalLevel.getArousalLevelFromValue(owner.getAttributeValue(Attribute.AROUSAL)).getRelatedStatusEffect();
@@ -626,7 +626,8 @@ public class TooltipInformationEventListener implements EventListener {
 			Main.mainController.setTooltipSize(360, 600);
 
 			tooltipSB.setLength(0);
-			tooltipSB.append("<div class='title' style='color:" + Femininity.valueOf(Main.game.getPlayer().getFemininityValue()).getColour().toWebHexString() + ";'>"+ (owner.getName().length() == 0 ? (owner.getRace().getName()) : owner.getName()) + "</div>"
+			tooltipSB.append(UtilText.parse(owner,
+					"<div class='title' style='color:" + Femininity.valueOf(owner.getFemininityValue()).getColour().toWebHexString() + ";'>"+ (owner.getName().length() == 0 ? "[npc.Race]" : "[npc.Name]") + "</div>"
 					
 					+"<div class='subTitle' style='margin-bottom:4px;'>Level " + owner.getLevel() + " <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>|</span> " + owner.getExperience() + " / "
 							+ (10 * owner.getLevel()) + " xp</div>"
@@ -649,7 +650,7 @@ public class TooltipInformationEventListener implements EventListener {
 					+ extraAttributeBonus(owner, Attribute.FERTILITY)
 					+ extraAttributeBonus(owner, Attribute.VIRILITY)
 					
-					+ extraAttributeBonus(owner, Attribute.SPELL_COST_MODIFIER));
+					+ extraAttributeBonus(owner, Attribute.SPELL_COST_MODIFIER)));
 
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 

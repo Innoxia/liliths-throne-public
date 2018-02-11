@@ -30,7 +30,7 @@ public enum Perk {
 			PerkCategory.PHYSICAL,
 			"perks/attStrength5",
 			Colour.ATTRIBUTE_STRENGTH,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STRENGTH, 5)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 5)),
 			null) {
 
 		@Override
@@ -45,7 +45,7 @@ public enum Perk {
 			PerkCategory.PHYSICAL,
 			"perks/attStrength1",
 			Colour.ATTRIBUTE_STRENGTH,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STRENGTH, 1)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 1)),
 			null) {
 
 		@Override
@@ -60,7 +60,7 @@ public enum Perk {
 			PerkCategory.PHYSICAL,
 			"perks/attStrength3",
 			Colour.ATTRIBUTE_STRENGTH,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STRENGTH, 3)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 3)),
 			null) {
 
 		@Override
@@ -75,12 +75,118 @@ public enum Perk {
 			PerkCategory.PHYSICAL,
 			"perks/attStrength5",
 			Colour.ATTRIBUTE_STRENGTH,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STRENGTH, 5)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 5)),
 			null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Your physical fitness is improving massively!";
+		}
+	},
+	
+	PHYSICAL_DAMAGE_5(20,
+			false,
+			"striker V",
+			PerkCategory.PHYSICAL,
+			"UIElements/swordIcon",
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 5)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Your physical damage is improving massively!";
+		}
+	},
+	
+	PHYSICAL_RESISTANCE_5(20,
+			false,
+			"defender V",
+			PerkCategory.PHYSICAL,
+			"UIElements/shieldIcon",
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 5)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Your physical resistance is improving massively!";
+		}
+	},
+	
+	SPELL_DAMAGE_5(20,
+			false,
+			"spell power V",
+			PerkCategory.ARCANE,
+			"perks/arcane_power_3",
+			Colour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 5)), null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Your spell damage is improving massively!";
+		}
+	},
+	
+	SPELL_EFFICIENCY_5(20,
+			false,
+			"spell efficiency V",
+			PerkCategory.ARCANE,
+			"perks/arcane_power_3",
+			Colour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 5)), null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Your spell efficiency is improving massively!";
+		}
+	},
+	
+	AURA_BOOST_10(20,
+			false,
+			"aura reserves X",
+			PerkCategory.ARCANE,
+			"UIElements/shieldIcon",
+			Colour.ATTRIBUTE_MANA,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 10)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "The capacity of your aura is growing!";
+		}
+	},
+	
+	ENERGY_BOOST_10(20,
+			false,
+			"energy reserves X",
+			PerkCategory.ARCANE,
+			"UIElements/shieldIcon",
+			Colour.ATTRIBUTE_HEALTH,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 10)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Your energy reserves are growing!";
+		}
+	},
+	
+	ELEMENTALIST_5(20,
+			false,
+			"elementalist V",
+			PerkCategory.BOTH,
+			"perks/elementalist5",
+			Colour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 5),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 5),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 5)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "You are learning how to harness arcane elements more effectively.";
 		}
 	},
 	
@@ -90,13 +196,58 @@ public enum Perk {
 			"natural arcane power",
 			PerkCategory.ARCANE,
 			"perks/attIntelligence5",
-			Colour.ATTRIBUTE_INTELLIGENCE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.INTELLIGENCE, 15)),
+			Colour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 40)),
 			null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "You have a surprisingly large amount of natural arcane power.";
+		}
+	},
+	
+	ARCANE_1(20,
+			false,
+			"arcane affinity I",
+			PerkCategory.ARCANE,
+			"perks/attIntelligence1",
+			Colour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 1)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "You feel as though your ability to harness the arcane is improving!";
+		}
+	},
+	
+	ARCANE_3(20,
+			false,
+			"arcane affinity III",
+			PerkCategory.ARCANE,
+			"perks/attIntelligence3",
+			Colour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 3)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Your ability to harness the arcane is definitely improving!";
+		}
+	},
+
+	ARCANE_5(20,
+			false,
+			"arcane affinity V",
+			PerkCategory.ARCANE,
+			"perks/attIntelligence5",
+			Colour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 5)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Your ability to harness the arcane is improving massively!";
 		}
 	},
 	
@@ -152,8 +303,69 @@ public enum Perk {
 		}
 	},
 	
+	SEDUCTION_5_B(20,
+			false,
+			"seductive V",
+			PerkCategory.ARCANE,
+			"perks/attSeduction5",
+			Colour.BASE_PINK_DEEP,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 5)), null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer())
+				return "Your every move drips with sexually suggestive body language. You're a walking sex bomb, and from the reactions of those around you, everyone can see it.";
+			else
+				return UtilText.parse(owner, "[npc.Name] is a walking sex bomb. [npc.Her] every movement drips with suggestive body language, and you can't help but feel extremely aroused just by looking at [npc.herHim].");
+		}
+	},
 	
 	
+	
+	ARCANE_COMBATANT(20,
+			true,
+			"arcane combatant",
+			PerkCategory.ARCANE,
+			"perks/physical_brawler",
+			Colour.ATTRIBUTE_ARCANE,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 15),
+					new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 15)), null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "You're quite competent at fighting using the arcane. You gain a bonus to your spell damage and effeciency.";
+		}
+	},
+	
+	AURA_RESILIENCE(20,
+			true,
+			"resilient aura",
+			PerkCategory.ARCANE,
+			"perks/fitness_runner",
+			Colour.ATTRIBUTE_MANA,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 25)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "You have a considerable pool of arcane energy stored in your aura.";
+		}
+	},
+	
+	AURA_RESILIENCE_2(20,
+			true,
+			"indomitable aura",
+			PerkCategory.ARCANE,
+			"perks/fitness_runner_2",
+			Colour.ATTRIBUTE_MANA,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 50)),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Your aura reserves are seemingly endless.";
+		}
+	},
 	
 	
 	BRAWLER(20,
@@ -162,7 +374,8 @@ public enum Perk {
 			PerkCategory.PHYSICAL,
 			"perks/physical_brawler",
 			Colour.ATTRIBUTE_STRENGTH,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 15), new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 15)), null) {
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 15),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 15)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -172,72 +385,76 @@ public enum Perk {
 				return UtilText.parse(owner, "[npc.Name] is a competent fighter. [npc.She] gains a bonus to [npc.her] physical damage and resistance.");
 		}
 	},
-	ACCURATE(20,
-			true,
-			"deadeye",
-			PerkCategory.PHYSICAL,
-			"perks/physical_accurate",
-			Colour.ATTRIBUTE_STRENGTH,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.CRITICAL_CHANCE, 10)), null) {
-
-		@Override
-		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer())
-				return "You almost never miss your target.";
-			else
-				return UtilText.parse(owner, "[npc.Name] almost never misses [npc.her] target.");
-		}
-	},
-	TANK(20,
-			true,
-			"tank",
-			PerkCategory.PHYSICAL,
-			"perks/physical_tank",
-			Colour.ATTRIBUTE_STRENGTH,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 25)), null) {
-
-		@Override
-		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer())
-				return "You can shrug off attacks that would floor most people.";
-			else
-				return UtilText.parse(owner, "[npc.Name] can shrug off attacks that would floor most people.");
-		}
-	},
-	TANK_2(20,
-			true,
-			"indomitable",
-			PerkCategory.PHYSICAL,
-			"perks/physical_tank_2",
-			Colour.ATTRIBUTE_STRENGTH,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 60)), null) {
-		
-		@Override
-		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer())
-				return "The mightiest of blows from the greatest of warriors would do little to impede you.";
-			else
-				return UtilText.parse(owner, "The mightiest of blows from the greatest of warriors would do little to impede [npc.name].");
-		}
-	},
-	INDEFATIGABLE(20,
-			true,
-			"indefatigable",
-			PerkCategory.PHYSICAL,
-			"perks/physical_indefatigable",
-			Colour.ATTRIBUTE_STRENGTH,
-			null, Util.newArrayListOfValues(new ListValue<>("<span style='color:"
-					+ Colour.ATTRIBUTE_STRENGTH.toWebHexString()
-					+ ";'>Improved Combat</span>"))) {
-
-		@Override
-		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer())
-				return "You can continue fighting through almost anything. You will no longer lose combat if your willpower or stamina drop to 0.";
-			else
-				return UtilText.parse(owner, "[npc.Name] is relentless. Even if [npc.her] willpower or stamina drop to 0, [npc.she] will continue fighting.");
-		}
-	},
+	
+//	ACCURATE(20,
+//			true,
+//			"deadeye",
+//			PerkCategory.PHYSICAL,
+//			"perks/physical_accurate",
+//			Colour.ATTRIBUTE_STRENGTH,
+//			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.CRITICAL_CHANCE, 10)), null) {
+//
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			if (owner.isPlayer())
+//				return "You almost never miss your target.";
+//			else
+//				return UtilText.parse(owner, "[npc.Name] almost never misses [npc.her] target.");
+//		}
+//	},
+//	
+//	TANK(20,
+//			true,
+//			"tank",
+//			PerkCategory.PHYSICAL,
+//			"perks/physical_tank",
+//			Colour.ATTRIBUTE_STRENGTH,
+//			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 25)), null) {
+//
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			if (owner.isPlayer())
+//				return "You can shrug off attacks that would floor most people.";
+//			else
+//				return UtilText.parse(owner, "[npc.Name] can shrug off attacks that would floor most people.");
+//		}
+//	},
+//	
+//	TANK_2(20,
+//			true,
+//			"indomitable",
+//			PerkCategory.PHYSICAL,
+//			"perks/physical_tank_2",
+//			Colour.ATTRIBUTE_STRENGTH,
+//			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 60)), null) {
+//		
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			if (owner.isPlayer())
+//				return "The mightiest of blows from the greatest of warriors would do little to impede you.";
+//			else
+//				return UtilText.parse(owner, "The mightiest of blows from the greatest of warriors would do little to impede [npc.name].");
+//		}
+//	},
+	
+//	INDEFATIGABLE(20,
+//			true,
+//			"indefatigable",
+//			PerkCategory.PHYSICAL,
+//			"perks/physical_indefatigable",
+//			Colour.ATTRIBUTE_STRENGTH,
+//			null, Util.newArrayListOfValues(new ListValue<>("<span style='color:"
+//					+ Colour.ATTRIBUTE_STRENGTH.toWebHexString()
+//					+ ";'>Improved Combat</span>"))) {
+//
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			if (owner.isPlayer())
+//				return "You can continue fighting through almost anything. You will no longer lose combat if your willpower or stamina drop to 0.";
+//			else
+//				return UtilText.parse(owner, "[npc.Name] is relentless. Even if [npc.her] willpower or stamina drop to 0, [npc.she] will continue fighting.");
+//		}
+//	},
 
 	OBSERVANT(60,
 			true,
@@ -268,62 +485,117 @@ public enum Perk {
 	},
 
 	// Arcane:
-	SPELL_POWER_1(20,
+	
+	ARCANE_CRITICALS(60,
 			true,
-			"arcane power",
-			PerkCategory.ARCANE,
-			"perks/arcane_power_1",
-			Colour.ATTRIBUTE_INTELLIGENCE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 5)), null) {
+			"arcane precision",
+			PerkCategory.PHYSICAL,
+			"perks/physical_accurate",
+			Colour.GENERIC_ARCANE,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.CRITICAL_CHANCE, 5)),
+			Util.newArrayListOfValues(new ListValue<>("<span style='color:"+ Colour.GENERIC_COMBAT.toWebHexString()+ ";'>Critical</span> spells apply <b style='color:"+Colour.ATTRIBUTE_LUST.toWebHexString()+";'>Arcane weakness</b>"))) {
+		@Override
+		public String applyPerkGained(GameCharacter character) {
+			return UtilText.parsePlayerThought("");
+		}
+
+		@Override
+		public String applyPerkLost(GameCharacter character) {
+			return UtilText.parsePlayerThought("");
+		}
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer())
-				return "You have focused on improving your ability to harness the arcane and cast spells.";
-			else
-				return UtilText.parse(owner, "[npc.Name] seems reasonably competent at casting spells.");
+			return "Your spells are particularly effective when striking a target's weak spots."
+					+ " Any critical hits from your spells apply 'Arcane weakness' for one turn (-10 to all resistances).";
 		}
 	},
-	SPELL_POWER_2(20,
-			true,
-			"arcane conduit",
-			PerkCategory.ARCANE,
-			"perks/arcane_power_2",
-			Colour.ATTRIBUTE_INTELLIGENCE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 10)), null) {
-
-		@Override
-		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer())
-				return "You have focused your ability to harness the arcane to the point where you can greatly enhance the effects of any spell.";
-			else
-				return UtilText.parse(owner, "[npc.Name] is highly competent at harnessing the arcane and improving [npc.her] spells.");
-		}
-	},
-	SPELL_POWER_3(20,
-			true,
-			"arcane mastery",
-			PerkCategory.ARCANE,
-			"perks/arcane_power_3",
-			Colour.ATTRIBUTE_INTELLIGENCE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 15)), null) {
-
-		@Override
-		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer()) {
-				return "You are a master at harnessing the arcane. Even if you didn't have an aura as strong as a demon's, you'd still be one of the greatest arcane users in Dominion.";
-			} else
-				return UtilText.parse(owner, "[npc.Name] is a master of harnessing the arcane and improving [npc.her] spells.");
-		}
-	},
+	
+//	
+//	TELEPATHY(60,
+//			true,
+//			"arcane telepathy",
+//			PerkCategory.ARCANE,
+//			"perks/misc_observant",
+//			Colour.GENERIC_ARCANE,
+//			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 5)),
+//			Util.newArrayListOfValues(new ListValue<>("<span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Telepathic seduction</span>"))) {
+//		@Override
+//		public String applyPerkGained(GameCharacter character) {
+//			return UtilText.parsePlayerThought("");
+//		}
+//
+//		@Override
+//		public String applyPerkLost(GameCharacter character) {
+//			return UtilText.parsePlayerThought("");
+//		}
+//
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			if (owner.isPlayer()) {
+//				return "By concentrating your arcane power into the mind of others, you're able to deliver a .";
+//			} else {
+//				return UtilText.parse(owner, "[npc.Name] is very perceptive, and [npc.she] continuously scans [npc.her] surroundings for signs of danger.");
+//			}
+//		}
+//	},
+	
+//	SPELL_POWER_1(20,
+//			true,
+//			"arcane power",
+//			PerkCategory.ARCANE,
+//			"perks/arcane_power_1",
+//			Colour.ATTRIBUTE_ARCANE,
+//			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 5)), null) {
+//
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			if (owner.isPlayer())
+//				return "You have focused on improving your ability to harness the arcane and cast spells.";
+//			else
+//				return UtilText.parse(owner, "[npc.Name] seems reasonably competent at casting spells.");
+//		}
+//	},
+//	SPELL_POWER_2(20,
+//			true,
+//			"arcane conduit",
+//			PerkCategory.ARCANE,
+//			"perks/arcane_power_2",
+//			Colour.ATTRIBUTE_ARCANE,
+//			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 10)), null) {
+//
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			if (owner.isPlayer())
+//				return "You have focused your ability to harness the arcane to the point where you can greatly enhance the effects of any spell.";
+//			else
+//				return UtilText.parse(owner, "[npc.Name] is highly competent at harnessing the arcane and improving [npc.her] spells.");
+//		}
+//	},
+//	SPELL_POWER_3(20,
+//			true,
+//			"arcane mastery",
+//			PerkCategory.ARCANE,
+//			"perks/arcane_power_3",
+//			Colour.ATTRIBUTE_ARCANE,
+//			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 15)), null) {
+//
+//		@Override
+//		public String getDescription(GameCharacter owner) {
+//			if (owner.isPlayer()) {
+//				return "You are a master at harnessing the arcane. Even if you didn't have an aura as strong as a demon's, you'd still be one of the greatest arcane users in Dominion.";
+//			} else
+//				return UtilText.parse(owner, "[npc.Name] is a master of harnessing the arcane and improving [npc.her] spells.");
+//		}
+//	},
 
 	FIRE_ENHANCEMENT(20,
-			true,
+			false,
 			"firebrand",
 			PerkCategory.ARCANE,
-			"perks/arcane_fire_1",
+			"perks/attIntelligence3",
 			Colour.DAMAGE_TYPE_FIRE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 10)), null) {
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 5)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -334,10 +606,10 @@ public enum Perk {
 		}
 	},
 	FIRE_ENHANCEMENT_2(20,
-			true,
+			false,
 			"incendiary",
 			PerkCategory.ARCANE,
-			"perks/arcane_fire_2",
+			"perks/arcane_fire_1",
 			Colour.DAMAGE_TYPE_FIRE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_FIRE, 10), new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 10)), null) {
 
@@ -350,12 +622,12 @@ public enum Perk {
 		}
 	},
 	COLD_ENHANCEMENT(20,
-			true,
+			false,
 			"frosty",
 			PerkCategory.ARCANE,
-			"perks/arcane_ice_1",
+			"perks/attIntelligence3",
 			Colour.DAMAGE_TYPE_COLD,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 10)), null) {
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 5)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -366,10 +638,10 @@ public enum Perk {
 		}
 	},
 	COLD_ENHANCEMENT_2(20,
-			true,
+			false,
 			"ice cold",
 			PerkCategory.ARCANE,
-			"perks/arcane_ice_2",
+			"perks/arcane_ice_1",
 			Colour.DAMAGE_TYPE_COLD,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_ICE, 10), new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 10)), null) {
 
@@ -382,12 +654,12 @@ public enum Perk {
 		}
 	},
 	POISON_ENHANCEMENT(20,
-			true,
+			false,
 			"venomous",
 			PerkCategory.ARCANE,
-			"perks/arcane_poison_1",
+			"perks/attIntelligence3",
 			Colour.DAMAGE_TYPE_POISON,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 10)), null) {
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 5)), null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -398,10 +670,10 @@ public enum Perk {
 		}
 	},
 	POISON_ENHANCEMENT_2(20,
-			true,
+			false,
 			"toxic",
 			PerkCategory.ARCANE,
-			"perks/arcane_poison_2",
+			"perks/arcane_poison_1",
 			Colour.DAMAGE_TYPE_POISON,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_POISON, 10), new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 10)), null) {
 
@@ -421,7 +693,7 @@ public enum Perk {
 			PerkCategory.PHYSICAL,
 			"perks/fitness_runner",
 			Colour.ATTRIBUTE_STRENGTH,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STRENGTH, 5)), Util.newArrayListOfValues(new ListValue<>("<b>*</b> <span style='color:"
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 3)), Util.newArrayListOfValues(new ListValue<>("<b>*</b> <span style='color:"
 					+ Colour.ATTRIBUTE_STRENGTH.toWebHexString()
 					+ ";'>Improved escape chance</span>"))) {
 
@@ -439,7 +711,7 @@ public enum Perk {
 			PerkCategory.PHYSICAL,
 			"perks/fitness_runner_2",
 			Colour.ATTRIBUTE_STRENGTH,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STRENGTH, 10)), Util.newArrayListOfValues(new ListValue<>("<b>*</b> <span style='color:"
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 5)), Util.newArrayListOfValues(new ListValue<>("<b>*</b> <span style='color:"
 					+ Colour.ATTRIBUTE_STRENGTH.toWebHexString()
 					+ ";'>Improved escape chance</span>"))) {
 		@Override
@@ -464,7 +736,7 @@ public enum Perk {
 			PerkCategory.ARCANE,
 			"perks/fitness_female_attraction",
 			Colour.FEMININE,
-			null, Util.newArrayListOfValues(new ListValue<>("+10% <span style='color:" + Colour.DAMAGE_TYPE_MANA.toWebHexString() + ";'>willpower damage</span>"
+			null, Util.newArrayListOfValues(new ListValue<>("+10% <span style='color:" + Colour.DAMAGE_TYPE_MANA.toWebHexString() + ";'>aura damage</span>"
 					+ " vs <span style='color:" + Colour.FEMININE.toWebHexString()+ ";'>feminine opponents</span>"))) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
@@ -491,7 +763,7 @@ public enum Perk {
 			PerkCategory.ARCANE,
 			"perks/fitness_male_attraction",
 			Colour.MASCULINE,
-			null, Util.newArrayListOfValues(new ListValue<>("+10% <span style='color:" + Colour.DAMAGE_TYPE_MANA.toWebHexString() + ";'>willpower damage</span>"
+			null, Util.newArrayListOfValues(new ListValue<>("+10% <span style='color:" + Colour.DAMAGE_TYPE_MANA.toWebHexString() + ";'>aura damage</span>"
 					+ " vs <span style='color:" + Colour.MASCULINE.toWebHexString()+ ";'>masculine opponents</span>"))) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
@@ -533,7 +805,7 @@ public enum Perk {
 	
 	
 	BARREN(20,
-			true,
+			false,
 			"barren",
 			PerkCategory.PHYSICAL,
 			"perks/fitness_barren",
@@ -541,11 +813,39 @@ public enum Perk {
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FERTILITY, -100)), null) {
 
 		@Override
+		public boolean isAlwaysAvailable() {
+			return true;
+		}
+		
+		@Override
 		public String getDescription(GameCharacter owner) {
 			if (owner.isPlayer()) {
 				return "You are very infertile, and are highly unlikely to ever get pregnant.";
 			} else {
 				return UtilText.parse(owner, "[npc.Name] is highly unlikely to get pregnant.");
+			}
+		}
+	},
+	
+	FIRING_BLANKS(20,
+			false,
+			"firing blanks",
+			PerkCategory.PHYSICAL,
+			"perks/fitness_barren",
+			Colour.GENERIC_SEX,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.VIRILITY, -100)), null) {
+
+		@Override
+		public boolean isAlwaysAvailable() {
+			return true;
+		}
+		
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "Your seed is incredibly weak, and you are highly unlikely to ever get anyone pregnant.";
+			} else {
+				return UtilText.parse(owner, "[npc.Name]'s seed is incredibly weak, and [npc.she]'s highly unlikely to ever get anyone pregnant.");
 			}
 		}
 	};
@@ -613,6 +913,10 @@ public enum Perk {
 			modifiersList.addAll(extraEffects);
 	}
 
+	public boolean isAlwaysAvailable() {
+		return false;
+	}
+	
 	public String getName(GameCharacter owner) {
 		return name;
 	}

@@ -1073,9 +1073,9 @@ public class Game implements Serializable, XMLSaving {
 				if(!response.isAbleToBypass()) {
 					return;
 				} else {
-					Main.game.getPlayer().incrementAttribute(Attribute.CORRUPTION, response.getCorruptionNeeded().getCorruptionBypass());
+					Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_CORRUPTION, response.getCorruptionNeeded().getCorruptionBypass());
 					corruptionGains = ("<p style='text-align:center;'>"
-							+ "<b>You have gained +"+response.getCorruptionNeeded().getCorruptionBypass()+"</b> <b style='color:"+Attribute.CORRUPTION.getColour().toWebHexString()+";'>corruption</b><b>!</b>"
+							+ "<b>You have gained +"+response.getCorruptionNeeded().getCorruptionBypass()+"</b> <b style='color:"+Attribute.MAJOR_CORRUPTION.getColour().toWebHexString()+";'>corruption</b><b>!</b>"
 							+ "</p>");
 				}
 			}

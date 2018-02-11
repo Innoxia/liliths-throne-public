@@ -485,82 +485,118 @@ public class AlleywayProstituteDialogue {
 
 		@Override
 		public String getContent() {
-			return UtilText.parse(Main.game.getActiveNPC(),
-					"<p>"
-						+ "You can't carry on fighting any more, and you feel your [pc.legs] giving out beneath you as you collapse to the ground, defeated."
-						+ " A mocking laugh causes you to look up, and you see [npc.name] grinning down at you."
-					+ "</p>"
-					+ "<p>"
-						+ "[npc.speech(Hah! That was too easy!)] [npc.she] says, before leaning down to grab one of your [pc.arms]."
-						+ " Pulling you to your feet, [npc.name] pushes you against a nearby wall, before growling,"
-						+ " [npc.speech(Looks like I'll be having to move on again now. I'm not sticking around for your little enforcer friends to show up and arrest me!"
-						+ " But before I go, I think I'll teach you a lesson not to fuck around with strangers!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "<i>Now that you've revealed [npc.name]'s status as a fugitive from the law, you realise that this will be the last time you ever see [npc.herHim], as [npc.she]'s sure to move on once [npc.she]'s had [npc.her] fun with you.</i>"
-					+ "</p>");
+			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer()) && Main.game.getActiveNPC().isWillingToRape(Main.game.getPlayer())) {
+				return UtilText.parse(Main.game.getActiveNPC(),
+						"<p>"
+							+ "You can't carry on fighting any more, and you feel your [pc.legs] giving out beneath you as you collapse to the ground, defeated."
+							+ " A mocking laugh causes you to look up, and you see [npc.name] grinning down at you."
+						+ "</p>"
+						+ "<p>"
+							+ "[npc.speech(Hah! That was too easy!)] [npc.she] says, before leaning down to grab one of your [pc.arms]."
+							+ " Pulling you to your feet, [npc.name] pushes you against a nearby wall, before growling,"
+							+ " [npc.speech(Looks like I'll be having to move on again now. I'm not sticking around for your little enforcer friends to show up and arrest me!"
+							+ " But before I go, I think I'll teach you a lesson not to fuck around with strangers!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "<i>Now that you've revealed [npc.name]'s status as a fugitive from the law, you realise that this will be the last time you ever see [npc.herHim], as [npc.she]'s sure to move on once [npc.she]'s had [npc.her] fun with you.</i>"
+						+ "</p>");
+			} else {
+				return UtilText.parse(Main.game.getActiveNPC(),
+						"<p>"
+							+ "You can't carry on fighting any more, and you feel your [pc.legs] giving out beneath you as you collapse to the ground, defeated."
+							+ " A mocking laugh causes you to look up, and you see [npc.name] grinning down at you."
+						+ "</p>"
+						+ "<p>"
+							+ "[npc.speech(Hah! That was too easy!)] [npc.she] says, before leaning down to grab one of your [pc.arms]."
+						+ "</p>"
+						+ "<p>"
+							+ "Pulling you to your feet, [npc.name] pushes you against a nearby wall, before demanding that you hand over your money."
+							+ " Reluctantly, you do as [npc.she] says, and, after giving [npc.herHim] some of your cash, [npc.she] roughly pushes you to the floor once more."
+						+ "</p>"
+						+ "<p>"
+							+ "[npc.speech(Looks like I'll be having to move on again now. I'm not sticking around for your little enforcer friends to show up and arrest me!)] [npc.she] growls down at you, before turning around and running off."
+						+ "</p>"
+						+ "<p>"
+							+ "<i>Now that you've revealed [npc.name]'s status as a fugitive from the law, you realise that this was the last time you'll ever see [npc.herHim].</i>"
+						+ "</p>");
+			}
 		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new ResponseSex("Sex",
-						"[npc.Name] forces [npc.herself] on you...",
-						false, false,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
-						AFTER_SEX_DEFEAT,
-						"<p>"
-							+ "[npc.Name]'s [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally pulling away."
-							+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
-						+ "</p>");
-				
-			} else if (index == 2) {
-				return new ResponseSex("Eager Sex",
-						"[npc.Name] forces [npc.herself] on you...",
-						false, false,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
-							@Override
-							public SexPace getStartingSexPaceModifier(GameCharacter character) {
-								if(character.isPlayer()) {
-									return SexPace.SUB_EAGER;
+			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer()) && Main.game.getActiveNPC().isWillingToRape(Main.game.getPlayer())) {
+				if (index == 1) {
+					return new ResponseSex("Sex",
+							"[npc.Name] forces [npc.herself] on you...",
+							false, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+							AFTER_SEX_DEFEAT,
+							"<p>"
+								+ "[npc.Name]'s [npc.arms] wrap around your back, and [npc.she] continues passionately making out with you for a few moments, before finally pulling away."
+								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you realise that [npc.she]'s probably not going to be content with just a kiss..."
+							+ "</p>");
+					
+				} else if (index == 2) {
+					return new ResponseSex("Eager Sex",
+							"[npc.Name] forces [npc.herself] on you...",
+							false, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+								@Override
+								public SexPace getStartingSexPaceModifier(GameCharacter character) {
+									if(character.isPlayer()) {
+										return SexPace.SUB_EAGER;
+									}
+									return null;
 								}
-								return null;
-							}
-						},
-						AFTER_SEX_DEFEAT,
-						"<p>"
-							+ "[npc.Name]'s [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
-							+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.she]'s going to want more than just a kiss..."
-						+ "</p>");
-				
-			} else if (index == 3 && Main.game.isNonConEnabled()) {
-				return new ResponseSex("Resist Sex",
-						"[npc.Name] forces [npc.herself] on you...",
-						false, false,
-						new SMStanding(
-								Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
-								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
-							@Override
-							public SexPace getStartingSexPaceModifier(GameCharacter character) {
-								if(character.isPlayer()) {
-									return SexPace.SUB_RESISTING;
+							},
+							AFTER_SEX_DEFEAT,
+							"<p>"
+								+ "[npc.Name]'s [npc.arms] wrap around your back, and you eagerly lean into [npc.herHim], passionately returning [npc.her] kiss for a few moments, before [npc.she] breaks away from you."
+								+ " Giving you an evil grin, [npc.she] hungrily licks [npc.her] [npc.lips], and you feel a rush of excitement as you realise that [npc.she]'s going to want more than just a kiss..."
+							+ "</p>");
+					
+				} else if (index == 3 && Main.game.isNonConEnabled()) {
+					return new ResponseSex("Resist Sex",
+							"[npc.Name] forces [npc.herself] on you...",
+							false, false,
+							new SMStanding(
+									Util.newHashMapOfValues(new Value<>(Main.game.getActiveNPC(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))) {
+								@Override
+								public SexPace getStartingSexPaceModifier(GameCharacter character) {
+									if(character.isPlayer()) {
+										return SexPace.SUB_RESISTING;
+									}
+									return null;
 								}
-								return null;
-							}
-						},
-						AFTER_SEX_DEFEAT,
-						"<p>"
-							+ "[npc.Name]'s [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
-							+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
-							+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.she]'s not going to let you go..."
-						+ "</p>");
+							},
+							AFTER_SEX_DEFEAT,
+							"<p>"
+								+ "[npc.Name]'s [npc.arms] wrap around your back, and you let out a distressed cry as [npc.she] pulls you into a forceful kiss."
+								+ " Summoning the last of your strength, you desperately try to push [npc.herHim] away, pleading for [npc.herHim] to stop."
+								+ " Giving you an evil grin, [npc.she] ignores your protests, and as you see [npc.herHim] hungrily licking [npc.her] [npc.lips], you realise that [npc.she]'s not going to let you go..."
+							+ "</p>");
+					
+				} else {
+					return null;
+				}
 				
 			} else {
-				return null;
+				if (index == 1) {
+					return new Response("Continue", "Carry on your way.", AFTER_COMBAT_DEFEAT){
+						@Override
+						public DialogueNodeOld getNextDialogue() {
+							return DebugDialogue.getDefaultDialogueNoEncounter();
+						}
+					};
+					
+				} else {
+					return null;
+				}
 			}
 		}
 	};

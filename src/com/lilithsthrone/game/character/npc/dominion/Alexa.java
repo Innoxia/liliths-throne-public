@@ -8,6 +8,7 @@ import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.Quest;
 import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.SexualOrientation;
+import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
@@ -52,6 +53,10 @@ public class Alexa extends NPC {
 						+ " Her beauty rivals that of even the most gorgeous of succubi, which, combined with her sharp mind and regal personality, makes her somewhat of an idol in harpy society.",
 				8, Gender.F_V_B_FEMALE, RacialBody.HARPY, RaceStage.LESSER,
 				new CharacterInventory(30), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_ALEXAS_NEST, true);
+
+		this.setAttribute(Attribute.MAJOR_STRENGTH, 10f);
+		this.setAttribute(Attribute.MAJOR_ARCANE, 0f);
+		this.setAttribute(Attribute.MAJOR_CORRUPTION, 30f);
 		
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);

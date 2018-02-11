@@ -451,6 +451,16 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	public String getName(boolean withDeterminer) {
 		return (withDeterminer ? (getClothingType().isPlural() ? getClothingType().getDeterminer() + " " : (Util.isVowel(getColour().getName().charAt(0)) ? "an " : "a ")) : "") + getColour().getName() + " " + name;
 	}
+	
+	public String getName(boolean withDeterminer, boolean withRarityColour) {
+		if (!enchantmentKnown) {
+			return (withDeterminer ? (getClothingType().isPlural() ? getClothingType().getDeterminer() + " " : (Util.isVowel(getColour().getName().charAt(0)) ? "an " : "a ")) : " ")
+					+ getColour().getName() + (withRarityColour ? (" <span style='color: " + Colour.RARITY_UNKNOWN.toWebHexString() + ";'>" + name + "</span>") : " "+name);
+		} else {
+			return (withDeterminer ? (getClothingType().isPlural() ? getClothingType().getDeterminer() + " " : (Util.isVowel(getColour().getName().charAt(0)) ? "an " : "a ")) : " ")
+					+ getColour().getName() + (withRarityColour ? (" <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : " "+name);
+		}
+	}
 
 	/**
 	 * @param withRarityColour
@@ -485,7 +495,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 			
 			pointlessSB.setLength(0);
 				if (badEnchantment) {
-					clothingOwner.incrementAttribute(Attribute.CORRUPTION, 1);
+					clothingOwner.incrementAttribute(Attribute.MAJOR_CORRUPTION, 1);
 					pointlessSB.append(
 							getClothingType().equipText(clothingOwner, clothingEquipper, rough, this, true)
 							+ "<p style='text-align:center;'>"

@@ -1287,7 +1287,7 @@ public class Body implements Serializable, XMLSaving {
 						+ owner.getAppearsAsGenderDescription()
 						+ " Standing at full height, [npc.she] measures [npc.heightFeetInches] ([npc.heightCm]cm).");
 			} else {
-				if(Main.game.getPlayer().hasPerk(Perk.OBSERVANT)) {
+				if(Main.game.getPlayer().hasTrait(Perk.OBSERVANT, true)) {
 					sb.append("<p>"
 							+ "Thanks to your observant perk, you can detect that [npc.name] is <span style='color:"+getGender().getColour().toWebHexString()+";'>[npc.a_gender]</span> [npc.raceStage] [npc.race]. "
 							+ owner.getAppearsAsGenderDescription()

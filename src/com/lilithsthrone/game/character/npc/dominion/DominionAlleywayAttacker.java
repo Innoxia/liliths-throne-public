@@ -63,9 +63,9 @@ public class DominionAlleywayAttacker extends NPC {
 				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false);
 
 		if(!isImported) {
-			setAttribute(Attribute.STRENGTH, (int)(this.getAttributeValue(Attribute.STRENGTH) * (0.5f+Math.random())));
-			setAttribute(Attribute.INTELLIGENCE, (int)(this.getAttributeValue(Attribute.INTELLIGENCE) * (0.5f+Math.random())));
-			setAttribute(Attribute.CORRUPTION, (int)(20 * (0.5f+Math.random())));
+			setAttribute(Attribute.MAJOR_STRENGTH, (int)(this.getAttributeValue(Attribute.MAJOR_STRENGTH) * (0.5f+Math.random())));
+			setAttribute(Attribute.MAJOR_ARCANE, (int)(this.getAttributeValue(Attribute.MAJOR_ARCANE) * (0.5f+Math.random())));
+			setAttribute(Attribute.MAJOR_CORRUPTION, (int)(20 * (0.5f+Math.random())));
 	
 			this.setWorldLocation(Main.game.getPlayer().getWorldLocation());
 			this.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));

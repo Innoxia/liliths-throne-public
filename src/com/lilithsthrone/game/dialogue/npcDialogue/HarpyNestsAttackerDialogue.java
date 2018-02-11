@@ -503,7 +503,7 @@ public class HarpyNestsAttackerDialogue {
 		@Override
 		public String getContent() {
 			
-			if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING)) {
+			if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) && Main.game.getActiveNPC().isWillingToRape(Main.game.getPlayer())) {
 				potion = Main.game.getActiveNPC().generateTransformativePotion();
 				
 				if(potion == null) {
@@ -552,7 +552,7 @@ public class HarpyNestsAttackerDialogue {
 				}
 			}
 				
-			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
+			if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer()) && Main.game.getActiveNPC().isWillingToRape(Main.game.getPlayer())) {
 					return UtilText.parse(Main.game.getActiveNPC(),
 							"<p>"
 								+ "You can't carry on fighting any more, and you feel your [pc.legs] giving out beneath you as you collapse to the ground, defeated."
@@ -590,7 +590,7 @@ public class HarpyNestsAttackerDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) && potion != null) {
+			if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) && potion != null && Main.game.getActiveNPC().isWillingToRape(Main.game.getPlayer())) {
 				if (index == 1) {
 					return new Response("Spit", "Spit out the potion.", AFTER_COMBAT_TRANSFORMATION_REFUSED);
 					
@@ -620,7 +620,7 @@ public class HarpyNestsAttackerDialogue {
 				}
 				
 			} else {
-				if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer())) {
+				if(Main.game.getActiveNPC().isAttractedTo(Main.game.getPlayer()) && Main.game.getActiveNPC().isWillingToRape(Main.game.getPlayer())) {
 					if (index == 1) {
 						return new ResponseSex("Sex",
 								"[npc.Name] forces [npc.herself] on you...",

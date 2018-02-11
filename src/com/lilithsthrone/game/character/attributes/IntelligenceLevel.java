@@ -10,42 +10,42 @@ import com.lilithsthrone.utils.Colour;
  */
 public enum IntelligenceLevel {
 	
-	ZERO_AIRHEAD("airhead", 0, 5, Colour.INTELLIGENCE_STAGE_ZERO) {
+	ZERO_AIRHEAD("arcane impotence", 0, 5, Colour.INTELLIGENCE_STAGE_ZERO) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.INTELLIGENCE_PERK_0;
 		}
 	},
 	
-	ONE_AVERAGE("average", 5, 15, Colour.INTELLIGENCE_STAGE_ONE) {
+	ONE_AVERAGE("arcane potential", 5, 15, Colour.INTELLIGENCE_STAGE_ONE) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.INTELLIGENCE_PERK_1;
 		}
 	},
 	
-	TWO_SMART("smart", 15, 35, Colour.INTELLIGENCE_STAGE_TWO) {
+	TWO_SMART("arcane proficiency", 15, 35, Colour.INTELLIGENCE_STAGE_TWO) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.INTELLIGENCE_PERK_2;
 		}
 	},
 	
-	THREE_BRAINY("brainy", 35, 65, Colour.INTELLIGENCE_STAGE_THREE) {
+	THREE_BRAINY("arcane prowess", 35, 65, Colour.INTELLIGENCE_STAGE_THREE) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.INTELLIGENCE_PERK_3;
 		}
 	},
 	
-	FOUR_GENIUS("genius", 65, 95, Colour.INTELLIGENCE_STAGE_FOUR) {
+	FOUR_GENIUS("arcane mastery", 65, 95, Colour.INTELLIGENCE_STAGE_FOUR) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.INTELLIGENCE_PERK_4;
 		}
 	},
 	
-	FIVE_POLYMATH("polymath", 95, 100, Colour.INTELLIGENCE_STAGE_FIVE) {
+	FIVE_POLYMATH("arcane brilliance", 95, 100, Colour.INTELLIGENCE_STAGE_FIVE) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.INTELLIGENCE_PERK_5;

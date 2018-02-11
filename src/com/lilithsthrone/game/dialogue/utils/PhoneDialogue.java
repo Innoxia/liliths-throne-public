@@ -494,9 +494,9 @@ public class PhoneDialogue {
 				"<div class='container-full-width'>"
 					+ "<h4 style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+"; text-align:center;'>Core Attributes</h4>"
 					+ attributeHeader()
-					+ attributeValue(Main.game.getPlayer(), Attribute.STRENGTH, true)
-					+ attributeValue(Main.game.getPlayer(), Attribute.INTELLIGENCE, false)
-					+ attributeValue(Main.game.getPlayer(), Attribute.CORRUPTION, true)
+					+ attributeValue(Main.game.getPlayer(), Attribute.MAJOR_STRENGTH, true)
+					+ attributeValue(Main.game.getPlayer(), Attribute.MAJOR_ARCANE, false)
+					+ attributeValue(Main.game.getPlayer(), Attribute.MAJOR_CORRUPTION, true)
 
 					+ "<span style='height:16px;width:100%;float:left;'></span>"
 					+ "<h4 style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+"; text-align:center;'>Misc. Attributes</h4>"
@@ -1707,7 +1707,10 @@ public class PhoneDialogue {
 					
 				}
 			}
-			UtilText.nodeContentSB.append("</div>");
+			UtilText.nodeContentSB.append("</div>"
+					+ "<div class='container-full-width' style='padding:8px; text-align:center;'>"
+						+ "<i>Please note that this perk tree is a work-in-progress. This is not the final version, and is just a proof of concept!</i>"
+					+ "</div>");
 			
 			UtilText.nodeContentSB.append(PerkManager.MANAGER.getPerkTreeDisplay());
 			

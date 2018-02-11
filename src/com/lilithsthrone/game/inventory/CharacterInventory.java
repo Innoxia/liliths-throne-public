@@ -1525,7 +1525,8 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		
 		while (!finished) {
 			finished = true;
-			outerloop2: for (BlockedParts bp : clothingToRemove.getClothingType().getBlockedPartsList()) {
+			outerloop2: 
+			for (BlockedParts bp : clothingToRemove.getClothingType().getBlockedPartsList()) {
 				if (bp.displacementType == displacement) {
 					for (ClothingAccess ca : bp.clothingAccessRequired) {
 						for (AbstractClothing clothing : zLayerSortedList) {

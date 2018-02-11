@@ -1324,43 +1324,43 @@ public class GenericOrgasms {
 	private static String getInflationText(GameCharacter characterOrgasming, GameCharacter target, int cumAmount) {
 		if(characterOrgasming.isPlayer()) {
 			if(cumAmount >= CumProduction.SEVEN_MONSTROUS.getMaximumValue()) {
-				return ("<br/>You see [npc2.name]'s stomach swell out a little as it distends from the sheer amount of cum that you've pumped inside of [npc2.herHim]."
-						+ " Placing a [npc1.hand] on [npc2.her] belly, you grin as you think to yourself that [npc2.she] now looks as though [npc2.she]'s in the early stages of pregnancy.");
+				return ("<br/>You see [npc2.name]'s stomach swell out to a massive, over-inflated size as it distends from the colossal amount of cum that you've pumped inside of [npc2.herHim]."
+						+ " Placing a [npc1.hand] on [npc2.her] huge belly, you grin as you think to yourself that [npc2.she] now looks as though [npc2.she]'s heavily pregnant.");
 				
 			} else if(cumAmount >= CumProduction.SEVEN_MONSTROUS.getMedianValue()) {
 				return ("<br/>You see [npc2.name]'s stomach swell out as it distends from the huge amount of cum that you've pumped inside of [npc2.herHim]."
 						+ " Placing a [npc1.hand] on [npc2.her] belly, you grin as you think to yourself that [npc2.she] now looks as though [npc2.she]'s pregnant.");
 				
 			} else if(cumAmount >= CumProduction.SEVEN_MONSTROUS.getMinimumValue()) {
-				return ("<br/>You see [npc2.name]'s stomach swell out to a massive, over-inflated size as it distends from the colossal amount of cum that you've pumped inside of [npc2.herHim]."
-						+ " Placing a [npc1.hand] on [npc2.her] huge belly, you grin as you think to yourself that [npc2.she] now looks as though [npc2.she]'s heavily pregnant.");
+				return ("<br/>You see [npc2.name]'s stomach swell out a little as it distends from the sheer amount of cum that you've pumped inside of [npc2.herHim]."
+						+ " Placing a [npc1.hand] on [npc2.her] belly, you grin as you think to yourself that [npc2.she] now looks as though [npc2.she]'s in the early stages of pregnancy.");
 			}
 		} else {
 			if(target.isPlayer()) {
 				if(cumAmount >= CumProduction.SEVEN_MONSTROUS.getMaximumValue()) {
-					return ("<br/>You feel your stomach swell out a little as it distends from the sheer amount of cum that's been pumped inside of you."
-							+ " Placing a [npc1.hand] on your belly, [npc1.name] grins as [npc1.she] remarks on the fact that you now look as though you're in the early stages of pregnancy.");
+					return ("<br/>You feel your stomach swell out to a massive, over-inflated size as it distends from the colossal amount of cum that's been pumped inside of you."
+							+ " Placing a [npc1.hand] on your belly, [npc1.name] grins as [npc1.she] remarks on the fact that you now look as though you're heavily pregnant.");
 					
 				} else if(cumAmount >= CumProduction.SEVEN_MONSTROUS.getMedianValue()) {
 					return ("<br/>You feel your stomach swell out a little as it distends from the huge amount of cum that's been pumped inside of you."
 							+ " Placing a [npc1.hand] on your belly, [npc1.name] grins as [npc1.she] remarks on the fact that you now look as though you're pregnant.");
 					
 				} else if(cumAmount >= CumProduction.SEVEN_MONSTROUS.getMinimumValue()) {
-					return ("<br/>You feel your stomach swell out to a massive, over-inflated size as it distends from the colossal amount of cum that's been pumped inside of you."
-							+ " Placing a [npc1.hand] on your belly, [npc1.name] grins as [npc1.she] remarks on the fact that you now look as though you're heavily pregnant.");
+					return ("<br/>You feel your stomach swell out a little as it distends from the sheer amount of cum that's been pumped inside of you."
+							+ " Placing a [npc1.hand] on your belly, [npc1.name] grins as [npc1.she] remarks on the fact that you now look as though you're in the early stages of pregnancy.");
 				}
 			} else {
 				if(cumAmount >= CumProduction.SEVEN_MONSTROUS.getMaximumValue()) {
-					return ("<br/>[npc2.Name]'s stomach swells out a little as it distends from the sheer amount of cum that [npc1.name]'s pumped inside of [npc2.herHim]."
-							+ " Placing a [npc1.hand] on [npc2.her] belly, the [npc1.race] grins as [npc1.she] remarks on the fact that [npc2.name] now looks as though [npc2.she]'s in the early stages of pregnancy.");
+					return ("<br/>[npc2.Name]'s stomach swells out to a massive, over-inflated size as it distends from the sheer amount of cum that [npc1.name]'s pumped inside of [npc2.herHim]."
+							+ " Placing a [npc1.hand] on [npc2.her] belly, the [npc1.race] grins as [npc1.she] remarks on the fact that [npc2.name] now looks as though [npc2.she]'s heavily pregnant.");
 					
 				} else if(cumAmount >= CumProduction.SEVEN_MONSTROUS.getMedianValue()) {
 					return ("<br/>[npc2.Name]'s stomach swells out as it distends from the huge amount of cum that [npc1.name]'s pumped inside of [npc2.herHim]."
 							+ " Placing a [npc1.hand] on [npc2.her] belly, the [npc1.race] grins as [npc1.she] remarks on the fact that [npc2.name] now looks as though [npc2.she]'s pregnant.");
 					
 				} else if(cumAmount >= CumProduction.SEVEN_MONSTROUS.getMinimumValue()) {
-					return ("<br/>[npc2.Name]'s stomach swells out to a massive, over-inflated size as it distends from the sheer amount of cum that [npc1.name]'s pumped inside of [npc2.herHim]."
-							+ " Placing a [npc1.hand] on [npc2.her] belly, the [npc1.race] grins as [npc1.she] remarks on the fact that [npc2.name] now looks as though [npc2.she]'s heavily pregnant.");
+					return ("<br/>[npc2.Name]'s stomach swells out a little as it distends from the sheer amount of cum that [npc1.name]'s pumped inside of [npc2.herHim]."
+							+ " Placing a [npc1.hand] on [npc2.her] belly, the [npc1.race] grins as [npc1.she] remarks on the fact that [npc2.name] now looks as though [npc2.she]'s in the early stages of pregnancy.");
 				}
 			}
 		}
@@ -1370,34 +1370,34 @@ public class GenericOrgasms {
 	private static String getBreastInflationText(GameCharacter characterOrgasming, GameCharacter target, int cumAmount) {
 		if(characterOrgasming.isPlayer()) {
 			if(cumAmount >= CumProduction.SEVEN_MONSTROUS.getMaximumValue()) {
-				return ("<br/>You see [npc2.name]'s [npc2.breasts] swell out a little as they distend from the sheer amount of cum that you've pumped inside of them.");
+				return ("<br/>You see [npc2.name]'s [npc2.breasts] swell out to a massive, over-inflated size as they distends from the colossal amount of cum that you've pumped inside of them.");
 				
 			} else if(cumAmount >= CumProduction.SEVEN_MONSTROUS.getMedianValue()) {
 				return ("<br/>You see [npc2.name]'s [npc2.breasts] swell out a little as they distend from the huge amount of cum that you've pumped inside of them.");
 				
 			} else if(cumAmount >= CumProduction.SEVEN_MONSTROUS.getMinimumValue()) {
-				return ("<br/>You see [npc2.name]'s [npc2.breasts] swell out to a massive, over-inflated size as they distends from the colossal amount of cum that you've pumped inside of them.");
+				return ("<br/>You see [npc2.name]'s [npc2.breasts] swell out a little as they distend from the sheer amount of cum that you've pumped inside of them.");
 			}
 		} else {
 			if(target.isPlayer()) {
 				if(cumAmount >= CumProduction.SEVEN_MONSTROUS.getMaximumValue()) {
-					return ("<br/>You feel your [npc2.breasts] swell out a little as they distend from the sheer amount of cum that's been pumped inside of them.");
+					return ("<br/>You feel your [npc2.breasts] swell out to a massive, over-inflated size as they distend from the colossal amount of cum that's been pumped inside of them.");
 					
 				} else if(cumAmount >= CumProduction.SEVEN_MONSTROUS.getMedianValue()) {
 					return ("<br/>You feel your [npc2.breasts] swell out a little as they distend from the huge amount of cum that's been pumped inside of them.");
 					
 				} else if(cumAmount >= CumProduction.SEVEN_MONSTROUS.getMinimumValue()) {
-					return ("<br/>You feel your [npc2.breasts] swell out to a massive, over-inflated size as they distend from the colossal amount of cum that's been pumped inside of them.");
+					return ("<br/>You feel your [npc2.breasts] swell out a little as they distend from the sheer amount of cum that's been pumped inside of them.");
 				}
 			} else {
 				if(cumAmount >= CumProduction.SEVEN_MONSTROUS.getMaximumValue()) {
-					return ("<br/>[npc2.Name]'s [npc2.breasts] swell out a little as they distend from the sheer amount of cum that [npc1.name]'s pumped inside of them.");
+					return ("<br/>[npc2.Name]'s [npc2.breasts] swell out to a massive, over-inflated size as they distend from the sheer amount of cum that [npc1.name]'s pumped inside of them.");
 					
 				} else if(cumAmount >= CumProduction.SEVEN_MONSTROUS.getMedianValue()) {
 					return ("<br/>[npc2.Name]'s [npc2.breasts] swell out as they distend from the huge amount of cum that [npc1.name]'s pumped inside of them.");
 					
 				} else if(cumAmount >= CumProduction.SEVEN_MONSTROUS.getMinimumValue()) {
-					return ("<br/>[npc2.Name]'s [npc2.breasts] swell out to a massive, over-inflated size as they distend from the sheer amount of cum that [npc1.name]'s pumped inside of them.");
+					return ("<br/>[npc2.Name]'s [npc2.breasts] swell out a little as they distend from the sheer amount of cum that [npc1.name]'s pumped inside of them.");
 				}
 			}
 		}

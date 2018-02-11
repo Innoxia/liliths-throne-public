@@ -80,9 +80,9 @@ public class TestNPC extends NPC {
 			this.setSkinCovering(new Covering(BodyCoveringType.FELINE_FUR, Colour.COVERING_BROWN), true);
 			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
 	
-			this.setAttribute(Attribute.STRENGTH, 5);
-			this.setAttribute(Attribute.INTELLIGENCE, 25);
-			this.setAttribute(Attribute.CORRUPTION, 0);
+			this.setAttribute(Attribute.MAJOR_STRENGTH, 5);
+			this.setAttribute(Attribute.MAJOR_ARCANE, 25);
+			this.setAttribute(Attribute.MAJOR_CORRUPTION, 0);
 			
 			this.setFemininity(75);
 			

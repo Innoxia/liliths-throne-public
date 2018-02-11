@@ -33,7 +33,7 @@ public class PixsPlayground {
 					@Override
 					public void effects(){
 						Main.game.getPlayer().incrementHealth(-Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM) * 0.4f);
-						Main.game.getPlayer().incrementAttribute(Attribute.STRENGTH, 0.5f);
+						Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_STRENGTH, 0.5f);
 					}
 				};
 			}
@@ -47,7 +47,7 @@ public class PixsPlayground {
 					@Override
 					public void effects(){
 						Main.game.getPlayer().incrementHealth(-Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM) * 0.4f);
-						Main.game.getPlayer().incrementAttribute(Attribute.STRENGTH, 0.5f);
+						Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_STRENGTH, 0.5f);
 					}
 				};
 			}
@@ -66,7 +66,7 @@ public class PixsPlayground {
 						public void effects(){
 
 							Main.game.getPlayer().incrementHealth(-Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM) * 0.8f);
-							Main.game.getPlayer().incrementAttribute(Attribute.STRENGTH, 1f);
+							Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_STRENGTH, 1f);
 						}
 					};
 				}

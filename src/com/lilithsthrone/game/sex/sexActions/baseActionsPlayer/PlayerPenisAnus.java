@@ -232,7 +232,7 @@ public class PlayerPenisAnus {
 		
 		@Override
 		public void applyEffects() {
-			Sex.transferLubrication(Sex.getActivePartner(), Main.game.getPlayer(), PenetrationType.PENIS, OrificeType.ANUS);
+			Sex.transferLubrication(Main.game.getPlayer(), Sex.getActivePartner(), PenetrationType.PENIS, OrificeType.ANUS);
 		}
 		
 		@Override
