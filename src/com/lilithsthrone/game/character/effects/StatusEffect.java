@@ -14,7 +14,6 @@ import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.ArousalLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.attributes.FitnessLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.LustLevel;
 import com.lilithsthrone.game.character.attributes.StrengthLevel;
@@ -23,6 +22,7 @@ import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.AddictionLevel;
+import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -43,6 +43,7 @@ import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.slavery.SlaveJob;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -67,8 +68,8 @@ public enum StatusEffect {
 			Colour.STRENGTH_STAGE_ZERO,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DAMAGE_PURE, -15f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_PURE, -15f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, -15f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -15f)),
 			null) {
 		
 		@Override
@@ -91,7 +92,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return StrengthLevel.getStrengthLevelFromValue(target.getAttributeValue(Attribute.STRENGTH)) == StrengthLevel.ZERO_WEAK;
+			return StrengthLevel.getStrengthLevelFromValue(target.getAttributeValue(Attribute.MAJOR_STRENGTH)) == StrengthLevel.ZERO_WEAK;
 		}
 		
 		@Override
@@ -105,9 +106,7 @@ public enum StatusEffect {
 			"attStrength1",
 			Colour.STRENGTH_STAGE_ONE,
 			true,
-			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 5f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 5f)),
+			null,
 			null) {
 		
 		@Override
@@ -130,7 +129,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return StrengthLevel.getStrengthLevelFromValue(target.getAttributeValue(Attribute.STRENGTH)) == StrengthLevel.ONE_AVERAGE;
+			return StrengthLevel.getStrengthLevelFromValue(target.getAttributeValue(Attribute.MAJOR_STRENGTH)) == StrengthLevel.ONE_AVERAGE;
 		}
 		
 		@Override
@@ -145,7 +144,7 @@ public enum StatusEffect {
 			Colour.STRENGTH_STAGE_TWO,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 10f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 5f),
 					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 10f)),
 			null) {
 		
@@ -169,7 +168,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return StrengthLevel.getStrengthLevelFromValue(target.getAttributeValue(Attribute.STRENGTH)) == StrengthLevel.TWO_STRONG;
+			return StrengthLevel.getStrengthLevelFromValue(target.getAttributeValue(Attribute.MAJOR_STRENGTH)) == StrengthLevel.TWO_STRONG;
 		}
 		
 		@Override
@@ -184,8 +183,8 @@ public enum StatusEffect {
 			Colour.STRENGTH_STAGE_THREE,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 15f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 15f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 10f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 20f)),
 			null) {
 		
 		@Override
@@ -208,7 +207,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return StrengthLevel.getStrengthLevelFromValue(target.getAttributeValue(Attribute.STRENGTH)) == StrengthLevel.THREE_POWERFUL;
+			return StrengthLevel.getStrengthLevelFromValue(target.getAttributeValue(Attribute.MAJOR_STRENGTH)) == StrengthLevel.THREE_POWERFUL;
 		}
 		
 		@Override
@@ -223,8 +222,8 @@ public enum StatusEffect {
 			Colour.STRENGTH_STAGE_FOUR,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 20f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 20f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 15f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 30f)),
 			null) {
 		
 		@Override
@@ -247,7 +246,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return StrengthLevel.getStrengthLevelFromValue(target.getAttributeValue(Attribute.STRENGTH)) == StrengthLevel.FOUR_MIGHTY;
+			return StrengthLevel.getStrengthLevelFromValue(target.getAttributeValue(Attribute.MAJOR_STRENGTH)) == StrengthLevel.FOUR_MIGHTY;
 		}
 		
 		@Override
@@ -263,8 +262,7 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 25f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 25f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_PURE, 10f),
+					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, 50f),
 					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 50f)),
 			null) {
 		
@@ -288,7 +286,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return StrengthLevel.getStrengthLevelFromValue(target.getAttributeValue(Attribute.STRENGTH)) == StrengthLevel.FIVE_HERCULEAN;
+			return StrengthLevel.getStrengthLevelFromValue(target.getAttributeValue(Attribute.MAJOR_STRENGTH)) == StrengthLevel.FIVE_HERCULEAN;
 		}
 		
 		@Override
@@ -300,13 +298,13 @@ public enum StatusEffect {
 	// Intelligence:
 	INTELLIGENCE_PERK_0(
 			80,
-			"airhead",
+			"arcane impotence",
 			"attIntelligence0",
 			Colour.INTELLIGENCE_STAGE_ZERO,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, -25f),
-					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -25f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, -75f),
+					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -75f)),
 			null) {
 		
 		@Override
@@ -316,10 +314,11 @@ public enum StatusEffect {
 		
 		@Override
 		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer())
-				return "You are a complete airhead. You struggle to perform even the most basic of arithmetic, and would likely lose a battle of wits against a brick wall.";
-			else
-				return UtilText.parse(owner, "[npc.Name] has a blank look on [npc.her] face, and every now and then, [npc.she] lets out a little giggle at nothing.");
+			if (owner.isPlayer()) {
+				return "Despite your natural affinity with the arcane, you've somehow managed to end up losing most of your power...";
+			} else {
+				return UtilText.parse(owner, "[npc.Name] is unable to harness the arcane in any significant manner. This is a typical level of arcane affinity in all the common races of this world.");
+			}
 		}
 
 		@Override
@@ -329,7 +328,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return IntelligenceLevel.getIntelligenceLevelFromValue(target.getAttributeValue(Attribute.INTELLIGENCE)) == IntelligenceLevel.ZERO_AIRHEAD;
+			return IntelligenceLevel.getIntelligenceLevelFromValue(target.getAttributeValue(Attribute.MAJOR_ARCANE)) == IntelligenceLevel.ZERO_AIRHEAD;
 		}
 		
 		@Override
@@ -339,13 +338,11 @@ public enum StatusEffect {
 	},
 	INTELLIGENCE_PERK_1(
 			100,
-			"average",
+			"arcane potential",
 			"attIntelligence1",
 			Colour.INTELLIGENCE_STAGE_ONE,
 			true,
-			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 5f),
-					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 5f)),
+			null,
 			null) {
 		
 		@Override
@@ -355,10 +352,11 @@ public enum StatusEffect {
 		
 		@Override
 		public String getDescription(GameCharacter target) {
-			if (target.isPlayer())
-				return "You have an average level of intelligence for a human.";
-			else
-				return UtilText.parse(target, "[npc.Name] is about as intelligent as an average human.");
+			if (target.isPlayer()) {
+				return "You are a less adept at harnessing the arcane than you were when first entering this world, but are nevertheless still far more adept than the vast majority of the population.";
+			} else {
+				return UtilText.parse(target, "[npc.Name] has a small amount of ability with the arcane; equal to that of a common race who's undergone extensive training.");
+			}
 		}
 
 		@Override
@@ -368,7 +366,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return IntelligenceLevel.getIntelligenceLevelFromValue(target.getAttributeValue(Attribute.INTELLIGENCE)) == IntelligenceLevel.ONE_AVERAGE;
+			return IntelligenceLevel.getIntelligenceLevelFromValue(target.getAttributeValue(Attribute.MAJOR_ARCANE)) == IntelligenceLevel.ONE_AVERAGE;
 		}
 		
 		@Override
@@ -378,12 +376,12 @@ public enum StatusEffect {
 	},
 	INTELLIGENCE_PERK_2(
 			100,
-			"smart",
+			"arcane proficiency",
 			"attIntelligence2",
 			Colour.INTELLIGENCE_STAGE_TWO,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 10f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 10f),
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 10f)),
 			null) {
 		
@@ -394,10 +392,11 @@ public enum StatusEffect {
 		
 		@Override
 		public String getDescription(GameCharacter target) {
-			if (target.isPlayer())
-				return "You're pretty smart. Your intelligence is significantly higher than that of an average human's.";
-			else
-				return UtilText.parse(target, "[npc.Name] is significantly more intelligent than an average human.");
+			if (target.isPlayer()) {
+				return "Your natural arcane ability is little weaker than it was when first entering this world, being equivalent to that of a demon.";
+			} else {
+				return UtilText.parse(target, "[npc.Name] has a level of arcane power that's equivalent to that of a demon, and [npc.her] spells are not only easier to cast, but also do more damage.");
+			}
 		}
 
 		@Override
@@ -407,7 +406,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return IntelligenceLevel.getIntelligenceLevelFromValue(target.getAttributeValue(Attribute.INTELLIGENCE)) == IntelligenceLevel.TWO_SMART;
+			return IntelligenceLevel.getIntelligenceLevelFromValue(target.getAttributeValue(Attribute.MAJOR_ARCANE)) == IntelligenceLevel.TWO_SMART;
 		}
 		
 		@Override
@@ -417,13 +416,16 @@ public enum StatusEffect {
 	},
 	INTELLIGENCE_PERK_3(
 			100,
-			"brainy",
+			"arcane prowess",
 			"attIntelligence3",
 			Colour.INTELLIGENCE_STAGE_THREE,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 15f),
-					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 15f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 20f),
+					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 20f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 5f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 5f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 5f)),
 			null) {
 		
 		@Override
@@ -433,10 +435,11 @@ public enum StatusEffect {
 		
 		@Override
 		public String getDescription(GameCharacter target) {
-			if (target.isPlayer())
-				return "You are exceptionally clever. A demon or angel has an average intelligence of this sort of level.";
-			else
-				return UtilText.parse(target, "[npc.Name] is as intelligent as a regular demon or angel.");
+			if (target.isPlayer()) {
+				return "Your natural arcane ability is equivalent to that of a Lilin's. Your spells are easier to cast and do more damage, and you also have a small amount of elemental damage affinity.";
+			} else {
+				return UtilText.parse(target, "[npc.Name] has a level of arcane power that's equivalent to that of a Lilin's. [npc.Her] spells are easier to cast and do more damage, and [npc.she] also has a small amount of elemental damage affinity.");
+			}
 		}
 
 		@Override
@@ -446,7 +449,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return IntelligenceLevel.getIntelligenceLevelFromValue(target.getAttributeValue(Attribute.INTELLIGENCE)) == IntelligenceLevel.THREE_BRAINY;
+			return IntelligenceLevel.getIntelligenceLevelFromValue(target.getAttributeValue(Attribute.MAJOR_ARCANE)) == IntelligenceLevel.THREE_BRAINY;
 		}
 		
 		@Override
@@ -456,13 +459,16 @@ public enum StatusEffect {
 	},
 	INTELLIGENCE_PERK_4(
 			100,
-			"genius",
+			"arcane mastery",
 			"attIntelligence4",
 			Colour.INTELLIGENCE_STAGE_FOUR,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 20f),
-					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 20f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 30f),
+					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 30f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 15f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 15f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 15f)),
 			null) {
 		
 		@Override
@@ -472,10 +478,12 @@ public enum StatusEffect {
 		
 		@Override
 		public String getDescription(GameCharacter target) {
-			if (target.isPlayer())
-				return "Your intelligence is comparable to a Lilin's, or, perhaps more relatably, to the greatest minds in human history.";
-			else
-				return UtilText.parse(target, "[npc.Name] is as intelligent as a Lilin.");
+			if (target.isPlayer()) {
+				return "Your natural arcane ability is equivalent to that of an elder Lilin. Your spells are easier to cast and do more damage, and you also have a considerable amount of elemental damage affinity.";
+			} else {
+				return UtilText.parse(target, "[npc.Name] has a level of arcane power that's equivalent to that of an elder Lilin's."
+						+ " [npc.Her] spells are easier to cast and do more damage, and [npc.she] also has a considerable amount of elemental damage affinity.");
+			}
 		}
 
 		@Override
@@ -485,7 +493,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return IntelligenceLevel.getIntelligenceLevelFromValue(target.getAttributeValue(Attribute.INTELLIGENCE)) == IntelligenceLevel.FOUR_GENIUS;
+			return IntelligenceLevel.getIntelligenceLevelFromValue(target.getAttributeValue(Attribute.MAJOR_ARCANE)) == IntelligenceLevel.FOUR_GENIUS;
 		}
 		
 		@Override
@@ -495,15 +503,16 @@ public enum StatusEffect {
 	},
 	INTELLIGENCE_PERK_5(
 			100,
-			"polymath",
+			"arcane brilliance",
 			"attIntelligence5",
 			Colour.INTELLIGENCE_STAGE_FIVE,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 25f),
-					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 25f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_PURE, 5f),
-					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 50f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 100f),
+					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 100f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 75f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_ICE, 75f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 75f)),
 			null) {
 		
 		@Override
@@ -513,10 +522,11 @@ public enum StatusEffect {
 		
 		@Override
 		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer())
-				return "The greatest scientists and philosophers in human history pale in comparison to your mighty intellect.";
-			else
-				return UtilText.parse(owner, "[npc.Name] is one of the most intelligent beings to ever have existed.");
+			if (owner.isPlayer()) {
+				return "Your arcane ability is equal to that of Lilith herself. Casting spells comes as naturally to you as does breathing.";
+			} else {
+				return "Liltih's arcane ability is uniquely powerful, able to !SPOILERS!";
+			}
 		}
 
 		@Override
@@ -526,246 +536,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return IntelligenceLevel.getIntelligenceLevelFromValue(target.getAttributeValue(Attribute.INTELLIGENCE)) == IntelligenceLevel.FIVE_POLYMATH;
-		}
-		
-		@Override
-		public boolean renderInEffectsPanel() {
-			return false;
-		}
-	},
-
-	// Agility:
-	FITNESS_PERK_0(
-			80,
-			"klutz",
-			"attFitness0",
-			Colour.FITNESS_STAGE_ZERO,
-			false,
-			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, -25f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_DAMAGE, -25f)),
-			null) {
-		
-		@Override
-		public String getName(GameCharacter target) {
-			return Util.capitaliseSentence(FitnessLevel.ZERO_KLUTZ.getName());
-		}
-		
-		@Override
-		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer())
-				return "You are incredibly clumsy, and sometimes even struggle to place one foot in front of the other.";
-			else
-				return UtilText.parse(owner, owner.getName("The")
-						+ " is extremely clumsy, and constantly trips over [npc.her] own feet.");
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return FitnessLevel.getFitnessLevelFromValue(target.getAttributeValue(Attribute.FITNESS)) == FitnessLevel.ZERO_KLUTZ;
-		}
-		
-		@Override
-		public boolean renderInEffectsPanel() {
-			return false;
-		}
-	},
-	FITNESS_PERK_1(
-			100,
-			"average",
-			"attFitness1",
-			Colour.FITNESS_STAGE_ONE,
-			true,
-			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 5f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 4f)),
-			null) {
-		
-		@Override
-		public String getName(GameCharacter target) {
-			return Util.capitaliseSentence(FitnessLevel.ONE_AVERAGE.getName());
-		}
-		
-		@Override
-		public String getDescription(GameCharacter target) {
-			if (target.isPlayer())
-				return "You have an average level of fitness for a human.";
-			else
-				return UtilText.parse(target, "[npc.Name] is about as fit as an average human.");
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return FitnessLevel.getFitnessLevelFromValue(target.getAttributeValue(Attribute.FITNESS)) == FitnessLevel.ONE_AVERAGE;
-		}
-		
-		@Override
-		public boolean renderInEffectsPanel() {
-			return false;
-		}
-	},
-	FITNESS_PERK_2(
-			100,
-			"flexible",
-			"attFitness2",
-			Colour.FITNESS_STAGE_TWO,
-			true,
-			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 10f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 8f)),
-			null) {
-		
-		@Override
-		public String getName(GameCharacter target) {
-			return Util.capitaliseSentence(FitnessLevel.TWO_FLEXIBLE.getName());
-		}
-		
-		@Override
-		public String getDescription(GameCharacter target) {
-			if (target.isPlayer())
-				return "You are very flexible, and can easily do the splits and cartwheels on demand.";
-			else
-				return UtilText.parse(target, "[npc.Name] is very flexible.");
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return FitnessLevel.getFitnessLevelFromValue(target.getAttributeValue(Attribute.FITNESS)) == FitnessLevel.TWO_FLEXIBLE;
-		}
-		
-		@Override
-		public boolean renderInEffectsPanel() {
-			return false;
-		}
-	},
-	FITNESS_PERK_3(
-			100,
-			"limber",
-			"attFitness3",
-			Colour.FITNESS_STAGE_THREE,
-			true,
-			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 15f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 12f)),
-			null) {
-		
-		@Override
-		public String getName(GameCharacter target) {
-			return Util.capitaliseSentence(FitnessLevel.THREE_LIMBER.getName());
-		}
-		
-		@Override
-		public String getDescription(GameCharacter target) {
-			if (target.isPlayer())
-				return "You are extremely fit, and can easily contort your body into all sorts of uncomfortable-looking shapes.";
-			else
-				return UtilText.parse(target, "[npc.Name] is incredibly fit.");
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return FitnessLevel.getFitnessLevelFromValue(target.getAttributeValue(Attribute.FITNESS)) == FitnessLevel.THREE_LIMBER;
-		}
-		
-		@Override
-		public boolean renderInEffectsPanel() {
-			return false;
-		}
-	},
-	FITNESS_PERK_4(
-			100,
-			"athletic",
-			"attFitness4",
-			Colour.FITNESS_STAGE_FOUR,
-			true,
-			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 20f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 16f)),
-			null) {
-		
-		@Override
-		public String getName(GameCharacter target) {
-			return Util.capitaliseSentence(FitnessLevel.FOUR_ATHLETIC.getName());
-		}
-		
-		@Override
-		public String getDescription(GameCharacter target) {
-			if (target.isPlayer())
-				return "You have the same level of fitness as a top-class athlete, and could easily run a full marathon with enough energy left over to do it all over again.";
-			else
-				return UtilText.parse(target, "[npc.Name] is exceedingly fit and healthy.");
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return FitnessLevel.getFitnessLevelFromValue(target.getAttributeValue(Attribute.FITNESS)) == FitnessLevel.FOUR_ATHLETIC;
-		}
-		
-		@Override
-		public boolean renderInEffectsPanel() {
-			return false;
-		}
-	},
-	FITNESS_PERK_5(
-			100,
-			"acrobat",
-			"attFitness5",
-			Colour.FITNESS_STAGE_FIVE,
-			true,
-			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 25f),
-					new Value<Attribute, Float>(Attribute.STAMINA_MAXIMUM, 50f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_PURE, 5f),
-					new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, 20f)),
-			null) {
-		
-		@Override
-		public String getName(GameCharacter target) {
-			return Util.capitaliseSentence(FitnessLevel.FIVE_ACROBAT.getName());
-		}
-		
-		@Override
-		public String getDescription(GameCharacter owner) {
-			if (owner.isPlayer())
-				return "You have super-human reflexes and agility, and each of your steps radiate an ethereal grace.";
-			else
-				return UtilText.parse(owner, "[npc.Name] moves with an ethereal grace, making [npc.her] supreme agility apparent in each of [npc.her] delicate steps.");
-		}
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return FitnessLevel.getFitnessLevelFromValue(target.getAttributeValue(Attribute.FITNESS)) == FitnessLevel.FIVE_ACROBAT;
+			return IntelligenceLevel.getIntelligenceLevelFromValue(target.getAttributeValue(Attribute.MAJOR_ARCANE)) == IntelligenceLevel.FIVE_POLYMATH;
 		}
 		
 		@Override
@@ -781,7 +552,7 @@ public enum StatusEffect {
 			Colour.CORRUPTION_STAGE_ZERO,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.RESISTANCE_MANA, 25f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 25f)),
 			null) {
 
 		@Override
@@ -805,7 +576,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return CorruptionLevel.getCorruptionLevelFromValue(target.getAttributeValue(Attribute.CORRUPTION)) == CorruptionLevel.ZERO_PURE;
+			return CorruptionLevel.getCorruptionLevelFromValue(target.getAttributeValue(Attribute.MAJOR_CORRUPTION)) == CorruptionLevel.ZERO_PURE;
 		}
 		
 		@Override
@@ -821,9 +592,8 @@ public enum StatusEffect {
 			Colour.CORRUPTION_STAGE_ONE,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.RESISTANCE_MANA, -10f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_MANA, 5f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 5f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 15f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f)),
 			null) {
 
 		@Override
@@ -847,7 +617,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return CorruptionLevel.getCorruptionLevelFromValue(target.getAttributeValue(Attribute.CORRUPTION)) == CorruptionLevel.ONE_VANILLA;
+			return CorruptionLevel.getCorruptionLevelFromValue(target.getAttributeValue(Attribute.MAJOR_CORRUPTION)) == CorruptionLevel.ONE_VANILLA;
 		}
 		
 		@Override
@@ -862,9 +632,8 @@ public enum StatusEffect {
 			"attCorruption2",
 			Colour.CORRUPTION_STAGE_TWO,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_MANA, -20f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_MANA, 10f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 10f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 5f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 20f)),
 			null) {
 
 		@Override
@@ -888,7 +657,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return CorruptionLevel.getCorruptionLevelFromValue(target.getAttributeValue(Attribute.CORRUPTION)) == CorruptionLevel.TWO_HORNY;
+			return CorruptionLevel.getCorruptionLevelFromValue(target.getAttributeValue(Attribute.MAJOR_CORRUPTION)) == CorruptionLevel.TWO_HORNY;
 		}
 		
 		@Override
@@ -903,11 +672,10 @@ public enum StatusEffect {
 			"attCorruption3",
 			Colour.CORRUPTION_STAGE_THREE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_MANA, -30f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_MANA, 10f),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -5f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 30f),
 					new Value<Attribute, Float>(Attribute.FERTILITY, 25f),
-					new Value<Attribute, Float>(Attribute.VIRILITY, 25f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 15f)),
+					new Value<Attribute, Float>(Attribute.VIRILITY, 25f)),
 			null) {
 
 		@Override
@@ -949,7 +717,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return CorruptionLevel.getCorruptionLevelFromValue(target.getAttributeValue(Attribute.CORRUPTION)) == CorruptionLevel.THREE_DIRTY;
+			return CorruptionLevel.getCorruptionLevelFromValue(target.getAttributeValue(Attribute.MAJOR_CORRUPTION)) == CorruptionLevel.THREE_DIRTY;
 		}
 		
 		@Override
@@ -964,11 +732,10 @@ public enum StatusEffect {
 			"attCorruption4",
 			Colour.CORRUPTION_STAGE_FOUR,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_MANA, -40f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_MANA, 10f),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -15f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 40f),
 					new Value<Attribute, Float>(Attribute.FERTILITY, 50f),
-					new Value<Attribute, Float>(Attribute.VIRILITY, 50f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 20f)),
+					new Value<Attribute, Float>(Attribute.VIRILITY, 50f)),
 			null) {
 
 		@Override
@@ -1014,7 +781,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return CorruptionLevel.getCorruptionLevelFromValue(target.getAttributeValue(Attribute.CORRUPTION)) == CorruptionLevel.FOUR_LUSTFUL;
+			return CorruptionLevel.getCorruptionLevelFromValue(target.getAttributeValue(Attribute.MAJOR_CORRUPTION)) == CorruptionLevel.FOUR_LUSTFUL;
 		}
 		
 		@Override
@@ -1028,11 +795,10 @@ public enum StatusEffect {
 			"attCorruption5",
 			Colour.CORRUPTION_STAGE_FIVE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_MANA, -50f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_MANA, 25f),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 50f),
 					new Value<Attribute, Float>(Attribute.FERTILITY, 75f),
-					new Value<Attribute, Float>(Attribute.VIRILITY, 75f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_POISON, 25f)),
+					new Value<Attribute, Float>(Attribute.VIRILITY, 75f)),
 			Util.newArrayListOfValues(new ListValue<String>("<b style='color: "+ Colour.ATTRIBUTE_CORRUPTION.toWebHexString()+ "'>Obeys Lilin</b>"))) {
 
 		@Override
@@ -1058,7 +824,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return CorruptionLevel.getCorruptionLevelFromValue(target.getAttributeValue(Attribute.CORRUPTION)) == CorruptionLevel.FIVE_CORRUPT;
+			return CorruptionLevel.getCorruptionLevelFromValue(target.getAttributeValue(Attribute.MAJOR_CORRUPTION)) == CorruptionLevel.FIVE_CORRUPT;
 		}
 		
 		@Override
@@ -1302,7 +1068,10 @@ public enum StatusEffect {
 			Colour.LUST_STAGE_ZERO,
 			false,
 			null,
-			null) {
+			Util.newArrayListOfValues(
+					new ListValue<String>("<b style='color: " + Colour.GENERIC_COMBAT.toWebHexString() + "'>Take "+(int)(LustLevel.ZERO_COLD.getAuraDamagePercentage()*100)+"%</b>"
+							+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Seduction Damage</b>"
+							+ " <b>as</b> <b style='color:"+Colour.ATTRIBUTE_ARCANE.toWebHexString()+";'>Aura Damage</b>"))) {
 		
 		@Override
 		public String getName(GameCharacter target) {
@@ -1311,7 +1080,9 @@ public enum StatusEffect {
 		
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
-			return LustLevel.ZERO_COLD.getStatusEffectModifierDescription(Sex.isConsensual(), target);
+			List<String> modList = new ArrayList<>(modifiersList);
+			modList.addAll(LustLevel.ZERO_COLD.getStatusEffectModifierDescription(Sex.isConsensual(), target));
+			return modList;
 		}
 		
 		@Override
@@ -1342,7 +1113,10 @@ public enum StatusEffect {
 			Colour.LUST_STAGE_ONE,
 			false,
 			null,
-			null) {
+			Util.newArrayListOfValues(
+					new ListValue<String>("<b style='color: " + Colour.GENERIC_COMBAT.toWebHexString() + "'>"+(int)(LustLevel.ONE_HORNY.getAuraDamagePercentage()*100)+"% Incoming</b>"
+							+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Seduction Damage</b>"
+							+ " <b>converted to</b> <b style='color:"+Colour.ATTRIBUTE_ARCANE.toWebHexString()+";'>Aura Damage</b>"))) {
 		
 		@Override
 		public String getName(GameCharacter target) {
@@ -1351,7 +1125,9 @@ public enum StatusEffect {
 		
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
-			return (LustLevel.ONE_HORNY.getStatusEffectModifierDescription(Sex.isConsensual(), target));
+			List<String> modList = new ArrayList<>(modifiersList);
+			modList.addAll(LustLevel.ONE_HORNY.getStatusEffectModifierDescription(Sex.isConsensual(), target));
+			return modList;
 		}
 		
 		@Override
@@ -1382,7 +1158,10 @@ public enum StatusEffect {
 			Colour.LUST_STAGE_TWO,
 			false,
 			null,
-			null) {
+			Util.newArrayListOfValues(
+					new ListValue<String>("<b style='color: " + Colour.GENERIC_COMBAT.toWebHexString() + "'>"+(int)(LustLevel.TWO_AMOROUS.getAuraDamagePercentage()*100)+"% Incoming</b>"
+							+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Seduction Damage</b>"
+							+ " <b>converted to</b> <b style='color:"+Colour.ATTRIBUTE_ARCANE.toWebHexString()+";'>Aura Damage</b>"))) {
 		
 		@Override
 		public String getName(GameCharacter target) {
@@ -1391,7 +1170,9 @@ public enum StatusEffect {
 		
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
-			return (LustLevel.TWO_AMOROUS.getStatusEffectModifierDescription(Sex.isConsensual(), target));
+			List<String> modList = new ArrayList<>(modifiersList);
+			modList.addAll(LustLevel.TWO_AMOROUS.getStatusEffectModifierDescription(Sex.isConsensual(), target));
+			return modList;
 		}
 		
 		@Override
@@ -1422,21 +1203,26 @@ public enum StatusEffect {
 			Colour.LUST_STAGE_THREE,
 			false,
 			null,
-			null) {
+			Util.newArrayListOfValues(
+					new ListValue<String>("<b style='color: " + Colour.GENERIC_COMBAT.toWebHexString() + "'>"+(int)(LustLevel.THREE_LUSTFUL.getAuraDamagePercentage()*100)+"% Incoming</b>"
+							+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Seduction Damage</b>"
+							+ " <b>converted to</b> <b style='color:"+Colour.ATTRIBUTE_ARCANE.toWebHexString()+";'>Aura Damage</b>"))) {
 		
 		@Override
 		public String getName(GameCharacter target) {
-			return Util.capitaliseSentence(LustLevel.THREE_IMPASSIONED.getName());
+			return Util.capitaliseSentence(LustLevel.THREE_LUSTFUL.getName());
 		}
 		
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
-			return (LustLevel.THREE_IMPASSIONED.getStatusEffectModifierDescription(Sex.isConsensual(), target));
+			List<String> modList = new ArrayList<>(modifiersList);
+			modList.addAll(LustLevel.THREE_LUSTFUL.getStatusEffectModifierDescription(Sex.isConsensual(), target));
+			return modList;
 		}
 		
 		@Override
 		public String getDescription(GameCharacter target) {
-			return LustLevel.THREE_IMPASSIONED.getStatusEffectDescription(Sex.isConsensual(), target);
+			return LustLevel.THREE_LUSTFUL.getStatusEffectDescription(Sex.isConsensual(), target);
 		}
 
 		@Override
@@ -1446,7 +1232,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return LustLevel.getLustLevelFromValue(target.getAttributeValue(Attribute.LUST)) == LustLevel.THREE_IMPASSIONED;
+			return LustLevel.getLustLevelFromValue(target.getAttributeValue(Attribute.LUST)) == LustLevel.THREE_LUSTFUL;
 		}
 		
 		@Override
@@ -1462,21 +1248,26 @@ public enum StatusEffect {
 			Colour.LUST_STAGE_FOUR,
 			false,
 			null,
-			null) {
+			Util.newArrayListOfValues(
+					new ListValue<String>("<b style='color: " + Colour.GENERIC_COMBAT.toWebHexString() + "'>"+(int)(LustLevel.FOUR_IMPASSIONED.getAuraDamagePercentage()*100)+"% Incoming</b>"
+							+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Seduction Damage</b>"
+							+ " <b>converted to</b> <b style='color:"+Colour.ATTRIBUTE_ARCANE.toWebHexString()+";'>Aura Damage</b>"))) {
 		
 		@Override
 		public String getName(GameCharacter target) {
-			return Util.capitaliseSentence(LustLevel.FOUR_BURNING.getName());
+			return Util.capitaliseSentence(LustLevel.FOUR_IMPASSIONED.getName());
 		}
 		
 		@Override
 		public List<String> getModifiersAsStringList(GameCharacter target) {
-			return (LustLevel.FOUR_BURNING.getStatusEffectModifierDescription(Sex.isConsensual(), target));
+			List<String> modList = new ArrayList<>(modifiersList);
+			modList.addAll(LustLevel.FOUR_IMPASSIONED.getStatusEffectModifierDescription(Sex.isConsensual(), target));
+			return modList;
 		}
 		
 		@Override
 		public String getDescription(GameCharacter target) {
-			return LustLevel.FOUR_BURNING.getStatusEffectDescription(Sex.isConsensual(), target);
+			return LustLevel.FOUR_IMPASSIONED.getStatusEffectDescription(Sex.isConsensual(), target);
 		}
 
 		@Override
@@ -1486,7 +1277,52 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return LustLevel.getLustLevelFromValue(target.getAttributeValue(Attribute.LUST)) == LustLevel.FOUR_BURNING;
+			return LustLevel.getLustLevelFromValue(target.getAttributeValue(Attribute.LUST)) == LustLevel.FOUR_IMPASSIONED;
+		}
+		
+		@Override
+		public boolean renderInEffectsPanel() {
+			return false;
+		}
+	},
+	
+	LUST_PERK_5(
+			100,
+			"passionate",
+			"attLust5",
+			Colour.LUST_STAGE_FOUR,
+			false,
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<String>("<b style='color: " + Colour.GENERIC_COMBAT.toWebHexString() + "'>"+(int)(LustLevel.FIVE_BURNING.getAuraDamagePercentage()*100)+"% Incoming</b>"
+							+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Seduction Damage</b>"
+							+ " <b>converted to</b> <b style='color:"+Colour.ATTRIBUTE_ARCANE.toWebHexString()+";'>Aura Damage</b>"))) {
+		
+		@Override
+		public String getName(GameCharacter target) {
+			return Util.capitaliseSentence(LustLevel.FIVE_BURNING.getName());
+		}
+		
+		@Override
+		public List<String> getModifiersAsStringList(GameCharacter target) {
+			List<String> modList = new ArrayList<>(modifiersList);
+			modList.addAll(LustLevel.FIVE_BURNING.getStatusEffectModifierDescription(Sex.isConsensual(), target));
+			return modList;
+		}
+		
+		@Override
+		public String getDescription(GameCharacter target) {
+			return LustLevel.FIVE_BURNING.getStatusEffectDescription(Sex.isConsensual(), target);
+		}
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return LustLevel.getLustLevelFromValue(target.getAttributeValue(Attribute.LUST)) == LustLevel.FIVE_BURNING;
 		}
 		
 		@Override
@@ -1741,7 +1577,7 @@ public enum StatusEffect {
 			"weatherDayStorm",
 			Colour.CLOTHING_WHITE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_MANA, -15f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -15f)),
 			Util.newArrayListOfValues(new ListValue<String>("<b style='color: "
 					+ Colour.GENERIC_ARCANE.toWebHexString()
 					+ ";'>Enhanced libido</b>"))) {
@@ -1798,7 +1634,7 @@ public enum StatusEffect {
 			"weatherDayStorm",
 			Colour.CLOTHING_WHITE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_MANA, -75f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -75f)),
 			Util.newArrayListOfValues(new ListValue<String>("<b style='color: "
 					+ Colour.GENERIC_ARCANE.toWebHexString()
 					+ ";'>Enhanced libido</b>"),
@@ -1926,7 +1762,7 @@ public enum StatusEffect {
 			"raceHuman",
 			Colour.CLOTHING_WHITE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_MANA, 20f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 20f)),
 			null) {
 
 		@Override
@@ -1959,7 +1795,7 @@ public enum StatusEffect {
 			"raceHuman",
 			Colour.CLOTHING_WHITE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_MANA, 100f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 100f)),
 			null) {
 
 		@Override
@@ -1992,10 +1828,10 @@ public enum StatusEffect {
 			Colour.GENERIC_ARCANE,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.CORRUPTION, 25f),
-					new Value<Attribute, Float>(Attribute.FITNESS, 10f),
-					new Value<Attribute, Float>(Attribute.INTELLIGENCE, 10f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_MANA, 10f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 25f),
+					new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, 10f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 10f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 75f)),
 			null) {
 
@@ -2033,7 +1869,7 @@ public enum StatusEffect {
 			"raceDogMorph",
 			Colour.RACE_DOG_MORPH,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.FITNESS, 5f), new Value<Attribute, Float>(Attribute.STRENGTH, 5f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, 5f)),
 			null) {
 
 		@Override
@@ -2068,7 +1904,7 @@ public enum StatusEffect {
 			"raceDogMorph",
 			Colour.RACE_WOLF_MORPH,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.CORRUPTION, 5f), new Value<Attribute, Float>(Attribute.FITNESS, 5f), new Value<Attribute, Float>(Attribute.STRENGTH, 10f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, 10f)),
 			null) {
 
 		@Override
@@ -2104,7 +1940,7 @@ public enum StatusEffect {
 			"raceCatMorph",
 			Colour.RACE_CAT_MORPH,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.FITNESS, 5f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f)),
 			null) {
 
 		@Override
@@ -2140,7 +1976,7 @@ public enum StatusEffect {
 			"raceSquirrelMorph",
 			Colour.RACE_SQUIRREL_MORPH,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.FITNESS, 5f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, 5f)),
 			null) {
 
 		@Override
@@ -2175,7 +2011,7 @@ public enum StatusEffect {
 			"raceHorseMorph",
 			Colour.RACE_HORSE_MORPH,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.INTELLIGENCE, -5f), new Value<Attribute, Float>(Attribute.STRENGTH, 15f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -5f), new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, 15f)),
 			null) {
 
 		@Override
@@ -2211,8 +2047,7 @@ public enum StatusEffect {
 			Colour.RACE_REINDEER_MORPH,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.FITNESS, 5f),
-					new Value<Attribute, Float>(Attribute.STRENGTH, 5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, 5f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 10f)),
 			null) {
 
@@ -2249,7 +2084,7 @@ public enum StatusEffect {
 			"raceCowMorph",
 			Colour.RACE_COW_MORPH,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.INTELLIGENCE, -5f), new Value<Attribute, Float>(Attribute.STRENGTH, 15f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -5f), new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, 15f)),
 			null) {
 
 		@Override
@@ -2287,8 +2122,7 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 15f),
 			new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 5f),
-			new Value<Attribute, Float>(Attribute.STRENGTH, 5f),
-			new Value<Attribute, Float>(Attribute.FITNESS, 5f)),
+			new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, 10f)),
 			null) {
 
 		@Override
@@ -2325,8 +2159,8 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 100f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, -100f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_MANA, 15f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_MANA, -15f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -15f)),
 			Util.newArrayListOfValues(new ListValue<String>("<b>*</b> <b style='color: "
 					+ Colour.CLOTHING_PINK.toWebHexString()
 					+ ";'>You can morph your body at will.<b>"))) {
@@ -2344,8 +2178,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getRace() == Race.SLIME
-					&& target.getRaceStage() == RaceStage.GREATER;
+			return target.getBodyMaterial()==BodyMaterial.SLIME;
 		}
 		
 		@Override
@@ -2355,13 +2188,12 @@ public enum StatusEffect {
 	},
 
 	// AVIAN:
-	HARPY(
-			90,
+	HARPY(90,
 			"harpy",
 			"raceHarpy",
 			Colour.CLOTHING_PINK_LIGHT,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_MANA, 10f), new Value<Attribute, Float>(Attribute.STRENGTH, -10f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 25f)),
 			null) {
 
 		@Override
@@ -2371,7 +2203,7 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			return "You are a harpy, and are extremely proficient at seduction, although you are quite physically weak.";
+			return "You are a harpy, and are extremely proficient at seduction.";
 		}
 
 		@Override
@@ -2398,7 +2230,7 @@ public enum StatusEffect {
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<String>(
-							"<b>-50%</b> <b style='color:"+ Colour.DAMAGE_TYPE_MANA.toWebHexString()+ ";'>Willpower damage</b> from <b style='color:"+ Colour.FEMININE.toWebHexString()+ ";'>feminine opponents</b>"))) {
+							"<b>-50%</b> <b style='color:"+ Colour.DAMAGE_TYPE_MANA.toWebHexString()+ ";'>Aura damage</b> from <b style='color:"+ Colour.FEMININE.toWebHexString()+ ";'>feminine opponents</b>"))) {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
@@ -2433,7 +2265,7 @@ public enum StatusEffect {
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<String>(
-							"<b>-50%</b> <b style='color:"+ Colour.DAMAGE_TYPE_MANA.toWebHexString()+ ";'>Willpower damage</b> from <b style='color:"+ Colour.MASCULINE.toWebHexString()+ ";'>masculine opponents</b>"))) {
+							"<b>-50%</b> <b style='color:"+ Colour.DAMAGE_TYPE_MANA.toWebHexString()+ ";'>Aura damage</b> from <b style='color:"+ Colour.MASCULINE.toWebHexString()+ ";'>masculine opponents</b>"))) {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
@@ -2502,7 +2334,7 @@ public enum StatusEffect {
 			"clothingFemininity",
 			Colour.CLOTHING_PINK_LIGHT,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.INTELLIGENCE, -5f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -5f)),
 			null) {
 
 		@Override
@@ -2537,7 +2369,7 @@ public enum StatusEffect {
 			"clothingMasculinity",
 			Colour.CLOTHING_BLUE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.INTELLIGENCE, -5f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -5f)),
 			null) {
 
 		@Override
@@ -2573,7 +2405,7 @@ public enum StatusEffect {
 			"clothingCummedIn",
 			Colour.CLOTHING_WHITE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.INTELLIGENCE, -2f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -2f)),
 			null) {
 
 		@Override
@@ -2618,7 +2450,7 @@ public enum StatusEffect {
 			"clothingCummedInMasochist",
 			Colour.CLOTHING_WHITE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.FITNESS, 2f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, 2f)),
 			null) {
 
 		@Override
@@ -2665,7 +2497,7 @@ public enum StatusEffect {
 			"dirtyBody",
 			Colour.CLOTHING_WHITE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.INTELLIGENCE, -2f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -2f)),
 			null) {
 
 		@Override
@@ -2741,7 +2573,7 @@ public enum StatusEffect {
 			"dirtyBodyMasochist",
 			Colour.CLOTHING_WHITE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.FITNESS, 2f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, 2f)),
 			null) {
 
 		@Override
@@ -2773,9 +2605,8 @@ public enum StatusEffect {
 			Colour.ATTRIBUTE_CORRUPTION,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.STRENGTH, -2f),
-					new Value<Attribute, Float>(Attribute.INTELLIGENCE, -2f),
-					new Value<Attribute, Float>(Attribute.FITNESS, -2f)),
+					new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, -2f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -2f)),
 			null) {
 
 		@Override
@@ -2866,7 +2697,7 @@ public enum StatusEffect {
 			"wellRested",
 			Colour.CLOTHING_BLUE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.STAMINA_MAXIMUM, 20f), new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 20f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 20f), new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 20f)),
 			null) {
 
 		@Override
@@ -2900,8 +2731,7 @@ public enum StatusEffect {
 			Colour.BASE_MAGENTA,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.FITNESS, -5f),
-					new Value<Attribute, Float>(Attribute.STAMINA_MAXIMUM, -50f),
+					new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, -15f),
 					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, -50f)),
 			Util.newArrayListOfValues(new ListValue<String>("[style.boldBad(-0.1)] <b style='color: " + Colour.AFFECTION.toWebHexString() + ";'>Affection per hour while at work</b>"))) {
 
@@ -2936,10 +2766,10 @@ public enum StatusEffect {
 			Colour.BASE_YELLOW,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.FITNESS, 2f),
-					new Value<Attribute, Float>(Attribute.INTELLIGENCE, -2f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_MANA, 10f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_MANA, -5f)),
+					new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, 2f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -2f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -5f)),
 			null) {
 
 		@Override
@@ -2977,10 +2807,10 @@ public enum StatusEffect {
 			Colour.BASE_YELLOW,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.FITNESS, 5f),
-					new Value<Attribute, Float>(Attribute.INTELLIGENCE, -5f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_MANA, 20f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_MANA, -10f)),
+					new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, 5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -5f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 20f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -10f)),
 			null) {
 
 		@Override
@@ -3018,9 +2848,9 @@ public enum StatusEffect {
 			Colour.BASE_YELLOW,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.INTELLIGENCE, -5f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_MANA, 5f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_MANA, -20f)),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -5f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 5f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -20f)),
 			null) {
 
 		@Override
@@ -3058,10 +2888,10 @@ public enum StatusEffect {
 			Colour.BASE_YELLOW,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.FITNESS, -5f),
-					new Value<Attribute, Float>(Attribute.INTELLIGENCE, -10f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_MANA, -5f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_MANA, -20f)),
+					new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, -5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -10f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, -5f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -20f)),
 			null) {
 
 		@Override
@@ -3099,10 +2929,10 @@ public enum StatusEffect {
 			Colour.BASE_YELLOW,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.FITNESS, -10f),
-					new Value<Attribute, Float>(Attribute.INTELLIGENCE, -15f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_MANA, -10f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_MANA, -25f)),
+					new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, -10f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -15f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, -10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f)),
 			null) {
 
 		@Override
@@ -3194,9 +3024,8 @@ public enum StatusEffect {
 			Colour.CORRUPTION_STAGE_ONE,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.INTELLIGENCE, -2f),
-					new Value<Attribute, Float>(Attribute.STRENGTH, -2f),
-					new Value<Attribute, Float>(Attribute.FITNESS, -2f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -2f),
+					new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, -2f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_PURE, -2f)),
 			null) {
 
@@ -3258,9 +3087,8 @@ public enum StatusEffect {
 			Colour.CORRUPTION_STAGE_TWO,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.INTELLIGENCE, -5f),
-					new Value<Attribute, Float>(Attribute.STRENGTH, -5f),
-					new Value<Attribute, Float>(Attribute.FITNESS, -5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, -5f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_PURE, -5f)),
 			null) {
 
@@ -3322,9 +3150,8 @@ public enum StatusEffect {
 			Colour.CORRUPTION_STAGE_THREE,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.INTELLIGENCE, -10f),
-					new Value<Attribute, Float>(Attribute.STRENGTH, -10f),
-					new Value<Attribute, Float>(Attribute.FITNESS, -10f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -10f),
+					new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, -10f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_PURE, -10f)),
 			null) {
 
@@ -3386,9 +3213,8 @@ public enum StatusEffect {
 			Colour.CORRUPTION_STAGE_FOUR,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.INTELLIGENCE, -25f),
-					new Value<Attribute, Float>(Attribute.STRENGTH, -25f),
-					new Value<Attribute, Float>(Attribute.FITNESS, -25f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -25f),
+					new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, -25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_PURE, -25f)),
 			null) {
 
@@ -3450,9 +3276,8 @@ public enum StatusEffect {
 			Colour.CORRUPTION_STAGE_FIVE,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.INTELLIGENCE, -50f),
-					new Value<Attribute, Float>(Attribute.STRENGTH, -50f),
-					new Value<Attribute, Float>(Attribute.FITNESS, -50f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -50f),
+					new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, -50f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_PURE, -50f)),
 			null) {
 
@@ -3936,7 +3761,7 @@ public enum StatusEffect {
 			"recoveringOrifice",
 			Colour.GENERIC_SEX,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.FITNESS, -2f), new Value<Attribute, Float>(Attribute.STRENGTH, -2f), new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, -5f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, -2f), new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, -5f)),
 			null) {
 
 		@Override
@@ -4200,7 +4025,7 @@ public enum StatusEffect {
 			Colour.CUMMED,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.FITNESS, -5f)),
+					new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, -1f)),
 			Util.newArrayListOfValues(
 					new ListValue<String>("<b style='color: " + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + "'>Dirties clothing</b>"))) {
 		
@@ -4208,11 +4033,11 @@ public enum StatusEffect {
 		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
 			if(isCumEffectPositive(target)) {
 				return Util.newHashMapOfValues(
-						new Value<Attribute, Float>(Attribute.FITNESS, 5f));
+						new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, 1f));
 				
 			} else {
 				return Util.newHashMapOfValues(
-						new Value<Attribute, Float>(Attribute.FITNESS, -5f));
+						new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, -1f));
 			}
 		}
 		
@@ -4292,7 +4117,7 @@ public enum StatusEffect {
 			Colour.CUMMED,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.FITNESS, -5f)),
+					new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, -1f)),
 			Util.newArrayListOfValues(
 					new ListValue<String>("<b style='color: " + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + "'>Dirties clothing</b>"))) {
 		
@@ -4300,11 +4125,11 @@ public enum StatusEffect {
 		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
 			if(isCumEffectPositive(target)) {
 				return Util.newHashMapOfValues(
-						new Value<Attribute, Float>(Attribute.FITNESS, 5f));
+						new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, 1f));
 				
 			} else {
 				return Util.newHashMapOfValues(
-						new Value<Attribute, Float>(Attribute.FITNESS, -5f));
+						new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, -1f));
 			}
 		}
 		
@@ -4384,7 +4209,7 @@ public enum StatusEffect {
 			Colour.CUMMED,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.FITNESS, -5f)),
+					new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, -1f)),
 			Util.newArrayListOfValues(
 					new ListValue<String>("<b style='color: " + Colour.ATTRIBUTE_CORRUPTION.toWebHexString() + "'>Dirties clothing</b>"))) {
 		
@@ -4392,11 +4217,11 @@ public enum StatusEffect {
 		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
 			if(isCumEffectPositive(target)) {
 				return Util.newHashMapOfValues(
-						new Value<Attribute, Float>(Attribute.FITNESS, 5f));
+						new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, 1f));
 				
 			} else {
 				return Util.newHashMapOfValues(
-						new Value<Attribute, Float>(Attribute.FITNESS, -5f));
+						new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, -1f));
 			}
 		}
 		
@@ -4420,7 +4245,7 @@ public enum StatusEffect {
 				if(!target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES).isDirty()) {
 					target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES).setDirty(true);
 					sb.append("<p>"
-								+ "Cum leaks out of your creampied asshole, quickly </b><b style='color:"+Colour.CUMMED.toWebHexString()+";'>dirtying</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES).getName()+"!"
+								+ "Cum leaks out of your creampied nipples, quickly </b><b style='color:"+Colour.CUMMED.toWebHexString()+";'>dirtying</b> your "+target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES).getName()+"!"
 							+ "</p>");
 				}
 			}
@@ -4437,12 +4262,12 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
-				return "As you walk, you can feel slimy cum drooling out of your recently-used asshole.</br>"
+				return "As you walk, you can feel slimy cum drooling out of your recently-used nipples.</br>"
 						+ "Current creampie: [style.colourSex("+target.getCummedInAreaMap().get(OrificeType.NIPPLE)+"ml)]</br>"
 						+ "(-5ml/minute)";
 			} else {
 				return UtilText.parse(target, 
-						"[npc.Name]'s [npc.asshole] has recently been filled with cum.</br>"
+						"[npc.Name]'s [npc.nipples] have recently been filled with cum.</br>"
 						+ "Current creampie: [style.colourSex("+target.getCummedInAreaMap().get(OrificeType.NIPPLE)+"ml)]</br>"
 						+ "(-5ml/minute)");
 			}
@@ -4476,18 +4301,18 @@ public enum StatusEffect {
 			Colour.CUMMED,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.FITNESS, -5f)),
+					new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, -1f)),
 			null) {
 		
 		@Override
 		public Map<Attribute, Float> getAttributeModifiers(GameCharacter target) {
 			if(isCumEffectPositive(target)) {
 				return Util.newHashMapOfValues(
-						new Value<Attribute, Float>(Attribute.FITNESS, 5f));
+						new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, 1f));
 				
 			} else {
 				return Util.newHashMapOfValues(
-						new Value<Attribute, Float>(Attribute.FITNESS, -5f));
+						new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, -1f));
 			}
 		}
 		
@@ -4507,9 +4332,9 @@ public enum StatusEffect {
 			// Lose 5ml per minute:
 			int cumLost = OrificeType.MOUTH.getCumLossPerMinute() * minutesPassed;
 			
-			if(!target.getDirtySlots().contains(InventorySlot.MOUTH)) {
-				target.addDirtySlot(InventorySlot.MOUTH);
-			}
+//			if(!target.getDirtySlots().contains(InventorySlot.MOUTH)) {
+//				target.addDirtySlot(InventorySlot.MOUTH);
+//			}
 			
 			target.incrementCummedInArea(OrificeType.MOUTH, -cumLost);
 			
@@ -4558,7 +4383,7 @@ public enum StatusEffect {
 			"cumInflation1",
 			Colour.GENERIC_ARCANE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.FITNESS, -2f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, -2f)),
 			null) {
 
 		@Override
@@ -4602,7 +4427,7 @@ public enum StatusEffect {
 			"cumInflation2",
 			Colour.GENERIC_ARCANE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.FITNESS, -5f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, -5f)),
 			null) {
 
 		@Override
@@ -4647,7 +4472,7 @@ public enum StatusEffect {
 			"cumInflation3",
 			Colour.GENERIC_ARCANE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.FITNESS, -10f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, -10f)),
 			null) {
 
 		@Override
@@ -4692,7 +4517,7 @@ public enum StatusEffect {
 			"cumInflationBreasts1",
 			Colour.GENERIC_ARCANE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.FITNESS, -2f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, -2f)),
 			null) {
 
 		@Override
@@ -4736,7 +4561,7 @@ public enum StatusEffect {
 			"cumInflationBreasts2",
 			Colour.GENERIC_ARCANE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.FITNESS, -5f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, -5f)),
 			null) {
 
 		@Override
@@ -4781,7 +4606,7 @@ public enum StatusEffect {
 			"cumInflationBreasts3",
 			Colour.GENERIC_ARCANE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.FITNESS, -10f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, -10f)),
 			null) {
 
 		@Override
@@ -4827,7 +4652,7 @@ public enum StatusEffect {
 			Colour.GENERIC_BAD,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.RESISTANCE_MANA, -50f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -50f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, -10f)),
 			null) {
 
@@ -4869,7 +4694,7 @@ public enum StatusEffect {
 			"frustrated",
 			Colour.GENERIC_ARCANE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_MANA, -50f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -50f)),
 			null) {
 
 		@Override
@@ -4900,7 +4725,7 @@ public enum StatusEffect {
 			Colour.GENERIC_ARCANE,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.RESISTANCE_MANA, 25f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 25f)),
 			null) {
 
 		@Override
@@ -4941,7 +4766,7 @@ public enum StatusEffect {
 			"clothingExposed",
 			Colour.GENERIC_BAD,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.INTELLIGENCE, -4f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -4f)),
 			null) {
 
 		@Override
@@ -4974,7 +4799,7 @@ public enum StatusEffect {
 			"clothingExposed",
 			Colour.GENERIC_BAD,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.INTELLIGENCE, -2f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -2f)),
 			null) {
 
 		@Override
@@ -5007,7 +4832,7 @@ public enum StatusEffect {
 			"clothingExposed",
 			Colour.GENERIC_BAD,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.INTELLIGENCE, -6f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -6f)),
 			null) {
 
 		@Override
@@ -5040,7 +4865,7 @@ public enum StatusEffect {
 			"clothingExposed",
 			Colour.GENERIC_SEX,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_MANA, 8f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 8f)),
 			null) {
 
 		@Override
@@ -5072,7 +4897,7 @@ public enum StatusEffect {
 			"clothingExposed",
 			Colour.GENERIC_SEX,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_MANA, 4f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 4f)),
 			null) {
 
 		@Override
@@ -5104,7 +4929,7 @@ public enum StatusEffect {
 			"clothingExposed",
 			Colour.GENERIC_SEX,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_MANA, 12f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 12f)),
 			null) {
 
 		@Override
@@ -5137,7 +4962,7 @@ public enum StatusEffect {
 			"virginPure",
 			Colour.GENERIC_EXCELLENT,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_MANA, 50f), new Value<Attribute, Float>(Attribute.RESISTANCE_PURE, 25f), new Value<Attribute, Float>(Attribute.DAMAGE_PURE, 25f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 50f), new Value<Attribute, Float>(Attribute.RESISTANCE_PURE, 25f), new Value<Attribute, Float>(Attribute.DAMAGE_PURE, 25f)),
 			null) {
 
 		@Override
@@ -5172,8 +4997,8 @@ public enum StatusEffect {
 			Colour.GENERIC_EXCELLENT,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DAMAGE_MANA, 50f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_MANA, 50f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 50f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 50f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_PURE, 25f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PURE, 25f)),
 			null) {
@@ -5211,8 +5036,8 @@ public enum StatusEffect {
 			"virginBroken",
 			Colour.GENERIC_TERRIBLE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_MANA, -50f),
-					new Value<Attribute, Float>(Attribute.CORRUPTION, 50f), new Value<Attribute, Float>(Attribute.RESISTANCE_PURE, -25f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -50f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 50f), new Value<Attribute, Float>(Attribute.RESISTANCE_PURE, -25f)),
 			null) {
 
 		@Override
@@ -5249,9 +5074,9 @@ public enum StatusEffect {
 			Colour.GENERIC_TERRIBLE,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.DAMAGE_MANA, -50f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_MANA, -50f),
-					new Value<Attribute, Float>(Attribute.CORRUPTION, 50f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, -50f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -50f),
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 50f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_PURE, -25f)),
 			null) {
 
@@ -5291,7 +5116,7 @@ public enum StatusEffect {
 			"set_maid",
 			Colour.CLOTHING_BLACK,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.FITNESS, 10f), new Value<Attribute, Float>(Attribute.DAMAGE_MANA, 10f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, 10f), new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f)),
 			null) {
 
 		@Override
@@ -5327,7 +5152,7 @@ public enum StatusEffect {
 			Colour.CLOTHING_BLACK,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.INTELLIGENCE, 5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 10f),
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 10f)),
 			null) {
@@ -5365,7 +5190,7 @@ public enum StatusEffect {
 			Colour.CLOTHING_BLACK,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.INTELLIGENCE, 5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, 5f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 5f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 5f)),
@@ -5403,7 +5228,7 @@ public enum StatusEffect {
 			"set_milk_maid",
 			Colour.BASE_WHITE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.FITNESS, 10f), new Value<Attribute, Float>(Attribute.DAMAGE_MANA, 10f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, 10f), new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f)),
 			null) {
 
 		@Override
@@ -5437,7 +5262,7 @@ public enum StatusEffect {
 			"set_enforcer",
 			Colour.CLOTHING_WHITE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.STRENGTH, 10f), new Value<Attribute, Float>(Attribute.FITNESS, 5f), new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 15f)), null) {
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, 10f), new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 15f)), null) {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
@@ -5471,7 +5296,7 @@ public enum StatusEffect {
 			"set_rainbow",
 			Colour.CLOTHING_WHITE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_MANA, 10f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f)),
 			null) {
 
 		@Override
@@ -5496,7 +5321,7 @@ public enum StatusEffect {
 			"set_bdsm",
 			Colour.CLOTHING_WHITE,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.FITNESS, -15f), new Value<Attribute, Float>(Attribute.STRENGTH, -15f)),
+			Util.newHashMapOfValues( new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, -15f)),
 			null) {
 
 		@Override
@@ -5532,8 +5357,7 @@ public enum StatusEffect {
 			Colour.BASE_TAN,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.FITNESS, 5f),
-					new Value<Attribute, Float>(Attribute.STRENGTH, 5f)),
+					new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, 5f)),
 			null) {
 
 		@Override
@@ -5569,8 +5393,7 @@ public enum StatusEffect {
 			Colour.BASE_ROSE,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.FITNESS, 15f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_MANA, 10f)),
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f)),
 			null) {
 
 		@Override
@@ -5606,8 +5429,7 @@ public enum StatusEffect {
 			Colour.BASE_ROSE,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.STRENGTH, 5f),
-					new Value<Attribute, Float>(Attribute.FITNESS, 5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, 5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, 15f)),
 			null) {
 
@@ -5645,7 +5467,7 @@ public enum StatusEffect {
 			Colour.BASE_BLACK,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.INTELLIGENCE, 25f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 25f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PURE, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 10f)),
 			null) {
@@ -5738,7 +5560,7 @@ public enum StatusEffect {
 			Colour.RACE_ANGEL,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.INTELLIGENCE, 2f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_ANGEL, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_ANGEL, 25f)),
 			null) {
@@ -5770,7 +5592,7 @@ public enum StatusEffect {
 			Colour.RACE_CAT_MORPH,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.FITNESS, 2f),
+					new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_CAT_MORPH, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_CAT_MORPH, 25f)),
 			null) {
@@ -5802,7 +5624,7 @@ public enum StatusEffect {
 			Colour.RACE_COW_MORPH,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.STRENGTH, 2f),
+					new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_COW_MORPH, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_COW_MORPH, 25f)),
 			null) {
@@ -5834,7 +5656,7 @@ public enum StatusEffect {
 			Colour.RACE_DEMON,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.STRENGTH, 2f),
+					new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_DEMON, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_DEMON, 25f)),
 			null) {
@@ -5866,7 +5688,7 @@ public enum StatusEffect {
 			Colour.RACE_DOG_MORPH,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.STRENGTH, 2f),
+					new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_DOG_MORPH, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_DOG_MORPH, 25f)),
 			null) {
@@ -5898,7 +5720,7 @@ public enum StatusEffect {
 			Colour.RACE_HARPY,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.STRENGTH, 2f),
+					new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_HARPY, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_HARPY, 25f)),
 			null) {
@@ -5930,7 +5752,7 @@ public enum StatusEffect {
 			Colour.RACE_HORSE_MORPH,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.STRENGTH, 2f),
+					new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_HORSE_MORPH, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_HORSE_MORPH, 25f)),
 			null) {
@@ -5962,7 +5784,7 @@ public enum StatusEffect {
 			Colour.RACE_REINDEER_MORPH,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.STRENGTH, 2f),
+					new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_REINDEER_MORPH, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_REINDEER_MORPH, 25f)),
 			null) {
@@ -5994,7 +5816,7 @@ public enum StatusEffect {
 			Colour.RACE_HUMAN,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.INTELLIGENCE, 2f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_HUMAN, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_HUMAN, 25f)),
 			null) {
@@ -6026,7 +5848,7 @@ public enum StatusEffect {
 			Colour.RACE_SQUIRREL_MORPH,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.FITNESS, 2f),
+					new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_SQUIRREL_MORPH, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_SQUIRREL_MORPH, 25f)),
 			null) {
@@ -6058,7 +5880,7 @@ public enum StatusEffect {
 			Colour.RACE_ALLIGATOR_MORPH,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.STRENGTH, 2f),
+					new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_ALLIGATOR_MORPH, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_ALLIGATOR_MORPH, 25f)),
 			null) {
@@ -6090,7 +5912,7 @@ public enum StatusEffect {
 			Colour.RACE_WOLF_MORPH,
 			true,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.STRENGTH, 2f),
+					new Value<Attribute, Float>(Attribute.MAJOR_STRENGTH, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_WOLF_MORPH, 25f),
 					new Value<Attribute, Float>(Attribute.RESISTANCE_WOLF_MORPH, 25f)),
 			null) {
@@ -6150,66 +5972,76 @@ public enum StatusEffect {
 		}
 	},
 	
-	ZERO_MANA(
-			70,
-			"mentally fatigued",
-			"outOfMana",
-			Colour.ATTRIBUTE_INTELLIGENCE,
-			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, -100f)),
-			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
-		public String getDescription(GameCharacter target) {
-			return "You feel completely drained, but due to your indefatigable perk, you aren't ready to give up just yet!";
-		}
-
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return target.getMana() == 0 && target.hasPerk(Perk.INDEFATIGABLE);
-		}
-		
-		@Override
-		public boolean isCombatEffect() {
-			return true;
-		}
-	},
-	ZERO_STAMINA(
-			70,
-			"fatigued",
-			"outOfStamina",
-			Colour.ATTRIBUTE_FITNESS,
-			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_ATTACK, -50f)),
-			null) {
-
-		@Override
-		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
-		}
-
-		@Override
-		public String getDescription(GameCharacter target) {
-			return "You are extremely tired, but due to your indefatigable perk, you aren't ready to give up just yet!";
-		}
-
-		@Override
-		public boolean isConditionsMet(GameCharacter target) {
-			return target.getStamina() == 0 && target.hasPerk(Perk.INDEFATIGABLE);
-		}
-		
-		@Override
-		public boolean isCombatEffect() {
-			return true;
-		}
-	},
+//	ZERO_MANA(
+//			70,
+//			"mentally fatigued",
+//			"outOfMana",
+//			Colour.ATTRIBUTE_ARCANE,
+//			false,
+//			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, -100f)),
+//			null) {
+//
+//		@Override
+//		public String applyEffect(GameCharacter target, int minutesPassed) {
+//			return "";
+//		}
+//
+//		@Override
+//		public String getDescription(GameCharacter target) {
+//			return "You feel completely drained, but due to your indefatigable perk, you aren't ready to give up just yet!";
+//		}
+//
+//		@Override
+//		public boolean isConditionsMet(GameCharacter target) {
+//			return target.getMana() == 0 && target.hasTrait(Perk.INDEFATIGABLE, true);
+//		}
+//		
+//		@Override
+//		public boolean isCombatEffect() {
+//			return true;
+//		}
+//	},
 
 	// From spells (still in combat):
+	
+	ARCANE_WEAKNESS(//TODO
+			10,
+			"arcane weakness",
+			"negativeCombatEffect",
+			Colour.GENERIC_ARCANE,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_FIRE, -10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, -10f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, -10f)),
+			null) {
+		
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer())
+				return "Your head is spinning and you're struggling to stay upright.";
+			else
+				return UtilText.parse(target,
+						target.getName("The") + "'s head is spinning and [npc.she]'s struggling to stay upright..");
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return false;
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
 	
 	DAZED(
 			10,
@@ -6217,7 +6049,7 @@ public enum StatusEffect {
 			"negativeCombatEffect",
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_ATTACK, -25f), new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, -25f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, -25f), new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, -25f)),
 			null) {
 		
 		@Override
@@ -6231,7 +6063,7 @@ public enum StatusEffect {
 				return "Your head is spinning and you're struggling to stay upright. You're finding it incredibly difficult to land a hit on your opponent or dodge one of their attacks.";
 			else
 				return UtilText.parse(target,
-						target.getName("The") + "'s head is spinning and [npc.she]'s struggling to stay upright. <She>'s finding it incredibly difficult to land a hit on you or dodge one of your attacks.");
+						target.getName("The") + "'s head is spinning and [npc.she]'s struggling to stay upright. [npc.She]'s finding it incredibly difficult to land a hit on you or dodge one of your attacks.");
 		}
 
 		@Override
@@ -6251,7 +6083,7 @@ public enum StatusEffect {
 			"negativeCombatEffect",
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			false,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_ATTACK, -15f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, -15f)),
 			null) {
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
@@ -6354,7 +6186,7 @@ public enum StatusEffect {
 			"combat_witch_charm",
 			Colour.GENERIC_SEX,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_MANA, 25f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 25f)),
 			null) {
 			@Override
 			public String applyEffect(GameCharacter target, int minutesPassed) {
@@ -6492,21 +6324,17 @@ public enum StatusEffect {
 			null,
 			Util.newArrayListOfValues(new ListValue<String>("<b>2</b> <b style='color: "
 					+ Colour.DAMAGE_TYPE_MANA.toWebHexString()
-					+ ";'>Willpower damage</b>"),
-					new ListValue<String>("<b>2</b> <b style='color: " + Colour.DAMAGE_TYPE_STAMINA.toWebHexString() + ";'>Stamina damage</b>"))) {
+					+ ";'>Aura damage</b>"))) {
 		
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
 			target.incrementMana(-2f);
-			target.incrementStamina(-2f);
 
 			if (target.isPlayer()) {
-				return "You take <b>2</b> <b style='color:" + Attribute.DAMAGE_STAMINA.getColour().toWebHexString() + ";'>" + DamageType.STAMINA.getName() + "</b> damage and <b>2</b>"
-							+ " <b style='color:" + Attribute.DAMAGE_MANA.getColour().toWebHexString() + ";'>" + DamageType.MANA.getName() + "</b> damage!";
+				return "You take <b>2</b> <b style='color:" + Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>" + DamageType.LUST.getName() + "</b> damage!";
 				
 			} else {
-				return "[npc.Name] takes <b>2</b> <b style='color:" + Attribute.DAMAGE_STAMINA.getColour().toWebHexString() + ";'>" + DamageType.STAMINA.getName() + "</b> damage and <b>2</b>"
-						+ " <b style='color:" + Attribute.DAMAGE_MANA.getColour().toWebHexString() + ";'>" + DamageType.MANA.getName() + "</b> damage!";
+				return "[npc.Name] takes <b>2</b> <b style='color:" + Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>" + DamageType.LUST.getName() + "</b> damage!";
 			}
 		}
 
@@ -6652,7 +6480,7 @@ public enum StatusEffect {
 			"positiveCombatEffect",
 			Colour.DAMAGE_TYPE_COLD,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 50f), new Value<Attribute, Float>(Attribute.RESISTANCE_MANA, 15f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_ICE, 50f), new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 15f)),
 			null) {
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
@@ -6663,10 +6491,10 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			if (target.isPlayer())
 				return "A swirling vortex of arcane ice has surrounded you, granting you a considerable boost to your cold resistance."
-						+ " The arcane ice shards radiate a soothing energy, helping to mitigate any willpower-draining attacks directed your way.";
+						+ " The arcane ice shards radiate a soothing energy, helping to mitigate any aura-draining attacks directed your way.";
 			else
 				return UtilText.parse(target, "A swirling vortex of arcane ice has surrounded " + target.getName("the") + ", granting [npc.herHim] a considerable boost to [npc.her] cold resistance."
-						+ " The arcane ice shards radiate a soothing energy, helping to mitigate any willpower-draining attacks directed [npc.her] way.");
+						+ " The arcane ice shards radiate a soothing energy, helping to mitigate any aura-draining attacks directed [npc.her] way.");
 		}
 
 		@Override
@@ -6685,7 +6513,7 @@ public enum StatusEffect {
 			"positiveCombatEffect",
 			Colour.DAMAGE_TYPE_POISON,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 50f), new Value<Attribute, Float>(Attribute.RESISTANCE_STAMINA, 15f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_POISON, 50f)),
 			null) {
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
@@ -6818,6 +6646,59 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return !target.isPlayer();
+		}
+		
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+	},
+	
+	ORGASM_COUNTER(
+			80,
+			"Orgasms",
+			"sexEffects/orgasms",
+			Colour.GENERIC_ARCANE,
+			false,
+			null,
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target.isPlayer()) {
+				return "Anyone with a strong arcane aura, such as yours, doesn't suffer from any sort of refractory period after orgasming...";
+			} else {
+				return UtilText.parse(target, "Anyone in the presence of a strong arcane aura, such as yours, doesn't suffer from any sort of refractory period after orgasming...");
+			}
+		}
+		
+		@Override
+		public List<String> getModifiersAsStringList(GameCharacter target) {
+			List<String> modList = new ArrayList<>();
+
+			Colour orgasmColour = Colour.GENERIC_ARCANE;
+			if(Sex.getNumberOfOrgasms(target)<RenderingEngine.orgasmColours.length) {
+				orgasmColour = RenderingEngine.orgasmColours[Sex.getNumberOfOrgasms(target)];
+			}
+			
+			modList.add("<b style='color:"+orgasmColour.toWebHexString()+";'>"+Sex.getNumberOfOrgasms(target)+"</b> Orgasms");
+			
+			return modList;
+		}
+		
+		@Override
+		public String extraRemovalEffects(GameCharacter target) {
+			return "";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return Main.game.isInSex();
 		}
 		
 		@Override

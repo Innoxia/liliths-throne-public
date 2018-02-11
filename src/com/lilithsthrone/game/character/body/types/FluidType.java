@@ -117,13 +117,6 @@ public enum FluidType implements BodyPartTypeInterface {
 					new ListValue<>(FluidModifier.STICKY),
 					new ListValue<>(FluidModifier.SLIMY)),
 			Race.HARPY),
-
-	CUM_SLIME(BodyCoveringType.CUM,
-			FluidFlavour.SLIME,
-			Util.newArrayListOfValues(new ListValue<>("slime")),
-			Util.newArrayListOfValues(
-					new ListValue<>(FluidModifier.SLIMY)),
-			Race.SLIME),
 	
 	// Girl cum:
 	
@@ -210,13 +203,6 @@ public enum FluidType implements BodyPartTypeInterface {
 			Util.newArrayListOfValues(
 					new ListValue<>(FluidModifier.SLIMY)),
 			Race.HARPY),
-
-	GIRL_CUM_SLIME(BodyCoveringType.GIRL_CUM,
-			FluidFlavour.SLIME,
-			Util.newArrayListOfValues(new ListValue<>("slime")),
-			Util.newArrayListOfValues(
-					new ListValue<>(FluidModifier.SLIMY)),
-			Race.SLIME),
 	
 	// Milks:
 	
@@ -290,13 +276,7 @@ public enum FluidType implements BodyPartTypeInterface {
 			FluidFlavour.MILK,
 			Util.newArrayListOfValues(new ListValue<>("avian")),
 			Util.newArrayListOfValues(),
-			Race.HARPY),
-
-	MILK_SLIME(BodyCoveringType.MILK,
-			FluidFlavour.MILK,
-			Util.newArrayListOfValues(new ListValue<>("slime")),
-			Util.newArrayListOfValues(),
-			Race.SLIME);
+			Race.HARPY);
 
 	
 	private BodyCoveringType bodyCoveringType;

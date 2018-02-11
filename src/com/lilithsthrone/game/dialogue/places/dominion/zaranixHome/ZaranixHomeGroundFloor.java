@@ -145,7 +145,7 @@ public class ZaranixHomeGroundFloor {
 				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.zaranixKickedDownDoor)) {
 					return new Response("Kick down door", "After your last entrance, the front door has been reinforced. You're unable to enter like this again.", null);
 					
-				} else if(Main.game.getPlayer().getAttributeValue(Attribute.STRENGTH) >= StrengthLevel.THREE_POWERFUL.getMinimumValue()) {
+				} else if(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_STRENGTH) >= StrengthLevel.THREE_POWERFUL.getMinimumValue()) {
 					return new Response("Kick down door", "Kick down the front door.", ENTRANCE_KICK_DOWN_DOOR) {
 						@Override
 						public boolean isCombatHighlight() {

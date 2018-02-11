@@ -8,10 +8,12 @@ import com.lilithsthrone.utils.Colour;
  * @author Innoxia
  */
 public enum PerkCategory {
+	
 	PHYSICAL(Colour.ATTRIBUTE_STRENGTH),
-	ARCANE(Colour.ATTRIBUTE_INTELLIGENCE),
-	FITNESS(Colour.ATTRIBUTE_FITNESS),
-	FETISH(Colour.ATTRIBUTE_CORRUPTION);
+	
+	BOTH(Colour.ATTRIBUTE_CORRUPTION),
+	
+	ARCANE(Colour.ATTRIBUTE_ARCANE);
 
 	private Colour colour;
 

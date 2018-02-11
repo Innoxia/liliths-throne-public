@@ -2637,7 +2637,6 @@ public class Lab {
 						Main.game.getDialogueFlags().values.remove(DialogueFlagValue.reactedToPregnancyLilaya);
 						Main.game.getPlayer().endPregnancy(true);
 						Main.game.getPlayer().setMana(0);
-						Main.game.getPlayer().setStamina(0);
 
 						Main.game.getPlayer().incrementVaginaStretchedCapacity(15);
 						Main.game.getPlayer().incrementVaginaCapacity(
@@ -2653,7 +2652,6 @@ public class Lab {
 						Main.game.getDialogueFlags().values.remove(DialogueFlagValue.reactedToPregnancyLilaya);
 						Main.game.getPlayer().endPregnancy(true);
 						Main.game.getPlayer().setMana(0);
-						Main.game.getPlayer().setStamina(0);
 
 						Main.game.getPlayer().incrementVaginaStretchedCapacity(15);
 						Main.game.getPlayer().incrementVaginaCapacity(
@@ -2727,9 +2725,6 @@ public class Lab {
 					case HUMAN:
 						UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a young man bending down over you, planting a kiss on your cheek and muttering something in your ear before walking out the door...");
 						break;
-					case SLIME:
-						UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a slime-boy bending down over you, who plants a wet kiss on your cheek and mutters something in your ear before walking out the door...");
-						break;
 					case WOLF_MORPH:
 						UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a very masculine wolf-boy bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
 						break;
@@ -2764,9 +2759,6 @@ public class Lab {
 							break;
 						case HUMAN:
 							UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a young man bending down over you, planting a kiss on your cheek and muttering something in your ear before walking out the door...");
-							break;
-						case SLIME:
-							UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a slime-boy bending down over you, who plants a wet kiss on your cheek and mutters something in your ear before walking out the door...");
 							break;
 						case SQUIRREL_MORPH:
 							UtilText.nodeContentSB.append("</br></br>Some time later, you imagine seeing a very handsome squirrel-boy bending down over you, who plants a kiss on your cheek and mutters something in your ear before walking out the door...");
@@ -2803,9 +2795,6 @@ public class Lab {
 					case HUMAN:
 						UtilText.nodeContentSB.append("</br></br>A young woman, who roughly looks to be about your age, sits down next to you on the bed, and gives you a loving hug and a stroke of your head before departing...");
 						break;
-					case SLIME:
-						UtilText.nodeContentSB.append("</br></br>A gooey slime-girl slides down next to you on the bed, and gives you a loving hug and a stroke of your head before departing...");
-						break;
 					case SQUIRREL_MORPH:
 						UtilText.nodeContentSB.append("</br></br>A charming squirrel-girl sits down next to you on the bed, and gives you a loving hug and a stroke of your head before departing...");
 						break;
@@ -2839,9 +2828,6 @@ public class Lab {
 							break;
 						case HUMAN:
 							UtilText.nodeContentSB.append("</br></br>A young woman, who roughly looks to be about your age, sits down next to you on the bed, and gives you a loving hug and a stroke of your head before departing...");
-							break;
-						case SLIME:
-							UtilText.nodeContentSB.append("</br></br>A gooey slime-girl slides down next to you on the bed, and gives you a loving hug and a stroke of your head before departing...");
 							break;
 						case SQUIRREL_MORPH:
 							UtilText.nodeContentSB.append("</br></br>A charming squirrel-girl sits down next to you on the bed, and gives you a loving hug and a stroke of your head before departing...");
@@ -2877,7 +2863,6 @@ public class Lab {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
-						Main.game.getPlayer().setStamina(Main.game.getPlayer().getAttributeValue(Attribute.STAMINA_MAXIMUM));
 
 						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
 						Main.game.setActiveWorld(
@@ -2932,7 +2917,6 @@ public class Lab {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
-						Main.game.getPlayer().setStamina(Main.game.getPlayer().getAttributeValue(Attribute.STAMINA_MAXIMUM));
 
 						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
 						Main.game.setActiveWorld(
@@ -3018,7 +3002,6 @@ public class Lab {
 						Main.game.getDialogueFlags().values.remove(DialogueFlagValue.reactedToPregnancyLilaya);
 						Main.game.getPlayer().endPregnancy(true);
 						Main.game.getPlayer().setMana(0);
-						Main.game.getPlayer().setStamina(0);
 
 						Main.game.getPlayer().incrementVaginaStretchedCapacity(15);
 						Main.game.getPlayer().incrementVaginaCapacity(
@@ -3194,7 +3177,6 @@ public class Lab {
 					@Override
 					public void effects() {
 						Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
-						Main.game.getPlayer().setStamina(Main.game.getPlayer().getAttributeValue(Attribute.STAMINA_MAXIMUM));
 					}
 				};
 
@@ -3289,9 +3271,6 @@ public class Lab {
 					case HUMAN:
 						litterSB.append(" smiling");
 						break;
-					case SLIME:
-						litterSB.append(" bubbly");
-						break;
 					case SQUIRREL_MORPH:
 						litterSB.append(" playful");
 						break;
@@ -3339,9 +3318,6 @@ public class Lab {
 						break;
 					case HUMAN:
 						litterSB.append(" smiling");
-						break;
-					case SLIME:
-						litterSB.append(" bubbly");
 						break;
 					case SQUIRREL_MORPH:
 						litterSB.append(" playful");
@@ -3391,9 +3367,6 @@ public class Lab {
 					case HUMAN:
 						litterSB.append(" smiling");
 						break;
-					case SLIME:
-						litterSB.append(" bubbly");
-						break;
 					case SQUIRREL_MORPH:
 						litterSB.append(" wily");
 						break;
@@ -3441,9 +3414,6 @@ public class Lab {
 						break;
 					case HUMAN:
 						litterSB.append(" smiling");
-						break;
-					case SLIME:
-						litterSB.append(" bubbly");
 						break;
 					case SQUIRREL_MORPH:
 						litterSB.append(" wily");

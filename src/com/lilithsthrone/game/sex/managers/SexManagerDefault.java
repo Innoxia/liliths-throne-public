@@ -26,8 +26,6 @@ import com.lilithsthrone.game.sex.sexActions.SexActionPriority;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.game.sex.sexActions.SexActionUtility;
 import com.lilithsthrone.game.sex.sexActions.baseActionsMisc.GenericActions;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerFingerVagina;
-import com.lilithsthrone.game.sex.sexActions.baseActionsPartner.PartnerTongueMouth;
 import com.lilithsthrone.game.sex.sexActions.baseActionsSelfPartner.PartnerSelfFingerMouth;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -373,7 +371,6 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 					return Sex.partnerManageClothingToAccessCoverableArea(true, playerAreasToBeExposed.get(0));
 				}
 			}
-			
 		}
 
 		
@@ -416,22 +413,22 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 			}
 		}
 		
-		// Ban all anal actions unless the partner has an anal fetish, or if there is no vagina available to use.
-		if(!Sex.getActivePartner().hasFetish(Fetish.FETISH_ANAL_GIVING)) {
-			for(SexActionInterface action : availableActions) {
-				if(action.getAssociatedOrificeType()!=null) {
-					if(action.getAssociatedOrificeType() == OrificeType.ANUS) {
-						if(action.getParticipantType().isUsingSelfPenetrationType()) {
-							if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) { // If the player has a vagina, ban the action so vaginal actions are preferred:
-								bannedActions.add(action);
-							}
-						} else {
-							bannedActions.add(action);
-						}
-					}
-				}
-			}
-		}
+//		// Ban all anal actions unless the partner has an anal fetish, or if there is no vagina available to use.
+//		if(!Sex.getActivePartner().hasFetish(Fetish.FETISH_ANAL_GIVING)) {
+//			for(SexActionInterface action : availableActions) {
+//				if(action.getAssociatedOrificeType()!=null) {
+//					if(action.getAssociatedOrificeType() == OrificeType.ANUS) {
+//						if(action.getParticipantType().isUsingSelfPenetrationType()) {
+//							if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) { // If the player has a vagina, ban the action so vaginal actions are preferred:
+//								bannedActions.add(action);
+//							}
+//						} else {
+//							bannedActions.add(action);
+//						}
+//					}
+//				}
+//			}
+//		}
 
 		
 		// --- Priority 6 | Perform actions based on foreplay or sex ---
@@ -487,13 +484,15 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		
 		availableActions.removeAll(bannedActions);
 
+		List<SexActionInterface> highPriorityList = new ArrayList<>();
+		
 		// If the NPC has a preference, they are more likely to choose actions related to that:
 		if(Sex.getActivePartner().getForeplayPreference()!=null) {
-			List<SexActionInterface> highPriorityList = new ArrayList<>();
 			for(SexActionInterface action : availableActions) {
 				if(action.getAssociatedOrificeType() == Sex.getActivePartner().getForeplayPreference().getOrificeType()
 						&& action.getAssociatedPenetrationType() == Sex.getActivePartner().getForeplayPreference().getPenetrationType()
-						&& action.getActionType() != SexActionType.PARTNER_STOP_PENETRATION) {
+						&& action.getActionType() != SexActionType.PARTNER_STOP_PENETRATION
+						&& action.getParticipantType()!=SexParticipantType.SELF) {
 					highPriorityList.add(action);
 					if(action.getActionType() == SexActionType.PARTNER_PENETRATION) { // If a penetrative action is in the list, always return that first.
 						return (SexAction) action;
@@ -501,26 +500,23 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 				}
 			}
 			
-			if(!highPriorityList.isEmpty() && Math.random()<0.7f) { // 70% chance, so that there is some chance of using other actions as well:
-				// Kissing is a fundamental part of foreplay!
-				if(availableActions.contains(PartnerTongueMouth.PARTNER_KISS_START)) {
-					highPriorityList.add(PartnerTongueMouth.PARTNER_KISS_START);
-				}
-				
+			if(!highPriorityList.isEmpty() && Math.random()<0.7f) {
 				return (SexAction) highPriorityList.get(Util.random.nextInt(highPriorityList.size()));
 			}
 		}
-
-		// --- Fingering the player: ---
 		
-		if(availableActions.contains(PartnerFingerVagina.PARTNER_FINGERING_START)) {
-			return PartnerFingerVagina.PARTNER_FINGERING_START;
+		highPriorityList.clear();
+		for (SexActionInterface action : availableActions) {
+			if((action.getActionType() == SexActionType.PARTNER_PENETRATION || Sex.isAnyNonSelfPenetrationHappening())
+					&& action.getActionType() != SexActionType.PARTNER_STOP_PENETRATION
+					&& action.getParticipantType()!=SexParticipantType.SELF
+					&& (action.getAssociatedPenetrationType()!=null && !action.getAssociatedPenetrationType().isTakesVirginity())) {
+				highPriorityList.add(action);
+			}
 		}
 		
-		// --- Kissing the player: ---
-
-		if(availableActions.contains(PartnerTongueMouth.PARTNER_KISS_START)) {
-			return PartnerTongueMouth.PARTNER_KISS_START;
+		if(!highPriorityList.isEmpty()) {
+			return (SexAction) highPriorityList.get(Util.random.nextInt(highPriorityList.size()));
 		}
 		
 		// --- Ban stop penetration actions ---

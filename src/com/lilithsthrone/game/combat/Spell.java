@@ -820,7 +820,7 @@ public enum Spell {
 			}
 
 			damageCostDescriptionSB
-					.append("<p>" + "Harnessing the arcane to cast spells is incredibly draining, and you lose <b>" + cost + "</b> <b style='color:" + Attribute.DAMAGE_MANA.getColour().toWebHexString() + ";'>willpower</b>!</b>" + "</p>");
+					.append("<p>" + "Harnessing the arcane to cast spells is incredibly draining, and you lose <b>" + cost + "</b> <b style='color:" + Attribute.MANA_MAXIMUM.getColour().toWebHexString() + ";'>aura</b>!</b>" + "</p>");
 		} else {
 
 			if (isCritical)
@@ -850,7 +850,7 @@ public enum Spell {
 			}
 
 			damageCostDescriptionSB.append(UtilText.parse(caster,
-					"<p>" + "Harnessing the arcane to cast spells is incredibly draining, and [npc.she] loses <b>" + cost + "</b> <b style='color:" + Attribute.DAMAGE_MANA.getColour().toWebHexString() + ";'>willpower</b>!</b>" + "</p>"));
+					"<p>" + "Harnessing the arcane to cast spells is incredibly draining, and [npc.she] loses <b>" + cost + "</b> <b style='color:" + Attribute.MANA_MAXIMUM.getColour().toWebHexString() + ";'>aura</b>!</b>" + "</p>"));
 		}
 
 		return damageCostDescriptionSB.toString();

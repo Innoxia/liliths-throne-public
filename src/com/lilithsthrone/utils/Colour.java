@@ -74,6 +74,7 @@ public enum Colour {
 	GENERIC_EXPERIENCE(BaseColour.BLUE_LIGHT, "light blue"),
 
 	PERK(BaseColour.AQUA, "aqua"),
+	TRAIT(BaseColour.GREEN_LIGHT, "green"),
 	FETISH(BaseColour.ROSE, "rose", Util.newArrayListOfValues(new ListValue<>("fetish"))),
 	STATUS_EFFECT(BaseColour.YELLOW, "yellow"),
 	SPECIAL_ATTACK(BaseColour.ORANGE, "orange"),
@@ -102,13 +103,13 @@ public enum Colour {
 
 	MAP_MARKER(Util.newColour(0x6163DB), Util.newColour(0x6163DB), "blue"),
 
-	ATTRIBUTE_HEALTH(BaseColour.MAGENTA, "red", Util.newArrayListOfValues(new ListValue<>("health"), new ListValue<>("hp"))),
-	ATTRIBUTE_MANA(BaseColour.BLUE, "blue", Util.newArrayListOfValues(new ListValue<>("willpower"), new ListValue<>("wp"), new ListValue<>("mana"))),
-	ATTRIBUTE_STAMINA(BaseColour.LILAC, "lilac", Util.newArrayListOfValues(new ListValue<>("stamina"), new ListValue<>("sp"), new ListValue<>("energy"))),
+	ATTRIBUTE_HEALTH(BaseColour.CRIMSON, "crimson", Util.newArrayListOfValues(new ListValue<>("health"), new ListValue<>("hp"), new ListValue<>("energy"))),
+	ATTRIBUTE_MANA(BaseColour.PURPLE_LIGHT, "light purple", Util.newArrayListOfValues(new ListValue<>("willpower"), new ListValue<>("wp"), new ListValue<>("mana"), new ListValue<>("aura"))),
+//	ATTRIBUTE_STAMINA(BaseColour.LILAC, "lilac", Util.newArrayListOfValues(new ListValue<>("stamina"), new ListValue<>("sp"), new ListValue<>("energy"))),
 
 	ATTRIBUTE_STRENGTH(BaseColour.MAGENTA, "magenta", Util.newArrayListOfValues(new ListValue<>("strength"), new ListValue<>("str"))),
-	ATTRIBUTE_INTELLIGENCE(BaseColour.BLUE, "blue", Util.newArrayListOfValues(new ListValue<>("intelligence"), new ListValue<>("int"))),
-	ATTRIBUTE_FITNESS(BaseColour.LILAC, "light purple", Util.newArrayListOfValues(new ListValue<>("fitness"), new ListValue<>("fit"))),
+	ATTRIBUTE_ARCANE(BaseColour.PURPLE, "purple", Util.newArrayListOfValues(new ListValue<>("intelligence"), new ListValue<>("int"))),
+//	ATTRIBUTE_FITNESS(BaseColour.LILAC, "light purple", Util.newArrayListOfValues(new ListValue<>("fitness"), new ListValue<>("fit"))),
 	ATTRIBUTE_CORRUPTION(BaseColour.PINK_DEEP, "pink", Util.newArrayListOfValues(new ListValue<>("corruption"), new ListValue<>("cor"), new ListValue<>("corr"))),
 
 	ATTRIBUTE_AROUSAL(BaseColour.PINK_DEEP, "pink", Util.newArrayListOfValues(new ListValue<>("arousal"), new ListValue<>("ars"))),
@@ -123,11 +124,11 @@ public enum Colour {
 	STRENGTH_STAGE_FIVE(BaseColour.GOLD, "gold"),
 	
 	//TODO
-	INTELLIGENCE_STAGE_ZERO(BaseColour.BLUE, "blue"),
-	INTELLIGENCE_STAGE_ONE(BaseColour.BLUE, "blue"),
-	INTELLIGENCE_STAGE_TWO(BaseColour.BLUE, "blue"),
-	INTELLIGENCE_STAGE_THREE(BaseColour.BLUE, "blue"),
-	INTELLIGENCE_STAGE_FOUR(BaseColour.BLUE, "blue"),
+	INTELLIGENCE_STAGE_ZERO(BaseColour.PURPLE, "purple"),
+	INTELLIGENCE_STAGE_ONE(BaseColour.PURPLE, "purple"),
+	INTELLIGENCE_STAGE_TWO(BaseColour.PURPLE, "purple"),
+	INTELLIGENCE_STAGE_THREE(BaseColour.PURPLE, "purple"),
+	INTELLIGENCE_STAGE_FOUR(BaseColour.PURPLE, "purple"),
 	INTELLIGENCE_STAGE_FIVE(BaseColour.GOLD, "gold"),
 	
 	//TODO
@@ -157,6 +158,7 @@ public enum Colour {
 	LUST_STAGE_TWO(Util.newColour(0xFF99D1), Util.newColour(0xfb80ff), "pink"),
 	LUST_STAGE_THREE(Util.newColour(0xFF61AB), Util.newColour(0xf94dff), "pink"),
 	LUST_STAGE_FOUR(Util.newColour(0xFF3377), Util.newColour(0xf824ff), "dark pink"),
+	LUST_STAGE_FIVE(Util.newColour(0xFF1A66), Util.newColour(0xf824ff), "dark pink"),
 
 	DESIRE_STAGE_ZERO(Util.newColour(0xB699FF), Util.newColour(0xfcb3ff), "purple"),
 	DESIRE_STAGE_ONE(Util.newColour(0xFF99D1), Util.newColour(0xfb80ff), "pink"),
@@ -225,7 +227,7 @@ public enum Colour {
 
 	// Combat colours:
 	DAMAGE_TYPE_PHYSICAL(Util.newColour(0xFF428E), Util.newColour(0xFF428E), "red", Util.newArrayListOfValues(new ListValue<>("dmgPhysical"), new ListValue<>("resPhysical"))),
-	DAMAGE_TYPE_MANA(Util.newColour(0x1DBAE2), Util.newColour(0x1DBAE2), "blue", Util.newArrayListOfValues(new ListValue<>("dmgMana"), new ListValue<>("resMana"))),
+	DAMAGE_TYPE_MANA(BaseColour.PURPLE_LIGHT, "purple", Util.newArrayListOfValues(new ListValue<>("dmgMana"), new ListValue<>("resMana"))),
 	DAMAGE_TYPE_STAMINA(Util.newColour(0x9999ff), Util.newColour(0x9999ff), "light purple", Util.newArrayListOfValues(new ListValue<>("dmgStamina"), new ListValue<>("resStamina"))),
 	DAMAGE_TYPE_SPELL(Util.newColour(0xFF6BDA), Util.newColour(0xFF6BDA), "pink", Util.newArrayListOfValues(new ListValue<>("dmgSpell"), new ListValue<>("resSpell"))),
 	DAMAGE_TYPE_FIRE(Util.newColour(0xff9955), Util.newColour(0xff9955), "orange", Util.newArrayListOfValues(new ListValue<>("dmgFire"), new ListValue<>("resFire"))),

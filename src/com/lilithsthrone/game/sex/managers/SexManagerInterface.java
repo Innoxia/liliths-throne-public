@@ -67,6 +67,9 @@ public interface SexManagerInterface {
 	}
 	
 	public default boolean isAbleToRemoveOthersClothing(GameCharacter character){
+		if(character.isPlayer()) {
+			return true;
+		}
 		return getDominants().containsKey(character) || Sex.isSubHasEqualControl();
 	}
 	

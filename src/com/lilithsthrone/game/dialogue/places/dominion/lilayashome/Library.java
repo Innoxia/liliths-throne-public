@@ -194,7 +194,7 @@ public class Library {
 					@Override
 					public void effects() {
 						if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.readBook1)) {
-							Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f);
+							Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_ARCANE, 0.5f);
 							Main.game.getDialogueFlags().values.add(DialogueFlagValue.readBook1);
 						}
 					}
@@ -205,7 +205,7 @@ public class Library {
 					@Override
 					public void effects() {
 						if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.readBook2)) {
-							Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f);
+							Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_ARCANE, 0.5f);
 							Main.game.getDialogueFlags().values.add(DialogueFlagValue.readBook2);
 						}
 					}
@@ -226,7 +226,7 @@ public class Library {
 					@Override
 					public void effects() {
 						if(!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.readBook4)) {
-							Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f);
+							Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_ARCANE, 0.5f);
 							Main.game.getDialogueFlags().values.add(DialogueFlagValue.readBook4);
 						}
 					}

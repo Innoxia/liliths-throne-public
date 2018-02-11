@@ -836,7 +836,7 @@ public class GenericActions {
 			if(!Sex.isDom(Sex.getActivePartner())) {
 				return Sex.getSexPace(Sex.getActivePartner()) == SexPace.SUB_RESISTING && !Sex.getActivePartner().hasFetish(Fetish.FETISH_NON_CON_SUB) && Sex.isSubHasEqualControl();
 			} else {
-				return Sex.getActivePartner().getLust()==0;
+				return false;// doms will never end it
 			}
 		}
 		

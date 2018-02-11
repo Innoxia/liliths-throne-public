@@ -63,10 +63,9 @@ public class DominionAlleywayAttacker extends NPC {
 				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false);
 
 		if(!isImported) {
-			setAttribute(Attribute.STRENGTH, (int)(this.getAttributeValue(Attribute.STRENGTH) * (0.5f+Math.random())));
-			setAttribute(Attribute.INTELLIGENCE, (int)(this.getAttributeValue(Attribute.INTELLIGENCE) * (0.5f+Math.random())));
-			setAttribute(Attribute.FITNESS, (int)(this.getAttributeValue(Attribute.FITNESS) * (0.5f+Math.random())));
-			setAttribute(Attribute.CORRUPTION, (int)(20 * (0.5f+Math.random())));
+			setAttribute(Attribute.MAJOR_STRENGTH, (int)(this.getAttributeValue(Attribute.MAJOR_STRENGTH) * (0.5f+Math.random())));
+			setAttribute(Attribute.MAJOR_ARCANE, (int)(this.getAttributeValue(Attribute.MAJOR_ARCANE) * (0.5f+Math.random())));
+			setAttribute(Attribute.MAJOR_CORRUPTION, (int)(20 * (0.5f+Math.random())));
 	
 			this.setWorldLocation(Main.game.getPlayer().getWorldLocation());
 			this.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
@@ -194,7 +193,6 @@ public class DominionAlleywayAttacker extends NPC {
 			
 			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
-			setStamina(getAttributeValue(Attribute.STAMINA_MAXIMUM));
 		}
 		
 		if(this.getHistory()==History.PROSTITUTE) {
@@ -292,7 +290,7 @@ public class DominionAlleywayAttacker extends NPC {
 
 	@Override
 	public Attack attackType() {
-		if(!getSpecialAttacks().isEmpty() && this.getStaminaPercentage()>0.25f) {
+		if(!getSpecialAttacks().isEmpty()) {
 			if (Math.random() < 0.6) {
 				return Attack.MAIN;
 			} else if (Math.random() < 0.8) {

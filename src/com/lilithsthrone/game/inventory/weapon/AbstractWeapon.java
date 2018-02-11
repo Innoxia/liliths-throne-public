@@ -162,14 +162,20 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 		AbstractWeapon weapon = AbstractWeaponType.generateWeapon(WeaponType.idToWeaponMap.get(parentElement.getAttribute("id")), DamageType.valueOf(parentElement.getAttribute("damageType")));
 		
 		if(!parentElement.getAttribute("coreEnchantment").equals("null")) {
-			weapon.coreEnchantment = Attribute.valueOf(parentElement.getAttribute("coreEnchantment"));
+			try {
+				weapon.coreEnchantment = Attribute.valueOf(parentElement.getAttribute("coreEnchantment"));
+			} catch(Exception ex) {
+			}
 		}
 		
 		weapon.setAttributeModifiers(new HashMap<Attribute, Integer>());
 		Element element = (Element)parentElement.getElementsByTagName("attributeModifiers").item(0);
 		for(int i=0; i<element.getElementsByTagName("modifier").getLength(); i++){
 			Element e = ((Element)element.getElementsByTagName("modifier").item(i));
-			weapon.getAttributeModifiers().put(Attribute.valueOf(e.getAttribute("attribute")), Integer.valueOf(e.getAttribute("value")));
+			try {
+				weapon.getAttributeModifiers().put(Attribute.valueOf(e.getAttribute("attribute")), Integer.valueOf(e.getAttribute("value")));
+			} catch(Exception ex) {
+			}
 		}
 		
 		weapon.spells = new ArrayList<>();
@@ -276,6 +282,15 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 		return weaponType;
 	}
 
+	public String getName(boolean withDeterminer, boolean withRarityColour) {
+		return (withDeterminer
+				? (!weaponType.getDeterminer().equalsIgnoreCase("a") && !weaponType.getDeterminer().equalsIgnoreCase("an")
+					? weaponType.getDeterminer() + " "
+					: (Util.isVowel(damageType.getWeaponDescriptor().charAt(0)) ? "an " : "a "))
+				: " ")
+				+ damageType.getWeaponDescriptor() + (withRarityColour ? (" <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : " "+name);
+	}
+	
 	public String getDisplayName(boolean withRarityColour) {
 		return "<span style='color:" + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(damageType.getWeaponDescriptor()) + "</span> "
 				+ (withRarityColour ? (" <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : name);

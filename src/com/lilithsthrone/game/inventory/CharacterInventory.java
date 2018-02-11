@@ -192,7 +192,10 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		for(int i=0; i<clothingEquipped.getElementsByTagName("clothing").getLength(); i++){
 			Element e = ((Element)clothingEquipped.getElementsByTagName("clothing").item(i));
 			
-			inventory.getClothingCurrentlyEquipped().add(AbstractClothing.loadFromXML(e, doc));
+			AbstractClothing clothing = AbstractClothing.loadFromXML(e, doc);
+			if(clothing!=null) {
+				inventory.getClothingCurrentlyEquipped().add(clothing);
+			}
 		}
 		
 		Element itemsInInventory = (Element) parentElement.getElementsByTagName("itemsInInventory").item(0);
@@ -213,7 +216,10 @@ public class CharacterInventory implements Serializable, XMLSaving {
 			Element e = ((Element)clothingInInventory.getElementsByTagName("clothing").item(i));
 
 			for(int clothingCount = 0 ; clothingCount < Integer.valueOf(e.getAttribute("count")); clothingCount++) {
-				inventory.addClothing(AbstractClothing.loadFromXML(e, doc));
+				AbstractClothing clothing = AbstractClothing.loadFromXML(e, doc);
+				if(clothing!=null) {
+					inventory.addClothing(clothing);
+				}
 			}
 		}
 		
@@ -1519,7 +1525,8 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		
 		while (!finished) {
 			finished = true;
-			outerloop2: for (BlockedParts bp : clothingToRemove.getClothingType().getBlockedPartsList()) {
+			outerloop2: 
+			for (BlockedParts bp : clothingToRemove.getClothingType().getBlockedPartsList()) {
 				if (bp.displacementType == displacement) {
 					for (ClothingAccess ca : bp.clothingAccessRequired) {
 						for (AbstractClothing clothing : zLayerSortedList) {

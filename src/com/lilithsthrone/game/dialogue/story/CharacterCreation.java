@@ -243,6 +243,12 @@ public class CharacterCreation {
 		Colour colour1 = Main.game.getPlayer().isFeminine()?Colour.CLOTHING_GOLD:Colour.CLOTHING_BLACK_STEEL;
 		Colour colour2 = Main.game.getPlayer().isFeminine()?Colour.CLOTHING_ROSE_GOLD:Colour.CLOTHING_SILVER;
 		
+		for(InventorySlot slot : InventorySlot.getPiercingSlots()) {
+			if(Main.game.getPlayer().getClothingInSlot(slot)!=null){
+				Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(slot), true, Main.game.getPlayer());
+			}
+		}
+		
 		// Ear piercings:
 		if(Main.game.getPlayer().isPiercedEar()) {
 			Main.game.getPlayer().equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, colour1, false), true, Main.game.getPlayer());
@@ -856,7 +862,7 @@ public class CharacterCreation {
 						
 					+ CharacterModificationUtils.getHeightChoiceDiv()
 					
-					+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.HUMAN, "Skin Colour", "The colour of the skin that's covering your body.", false, true, false)
+					+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.HUMAN, "Skin Colour", "The colour of the skin that's covering your body.", false, false, false)
 					
 					+ "<div class='cosmetics-container' style='background:transparent;'>"
 					
@@ -1403,8 +1409,8 @@ public class CharacterCreation {
 	//TODO
 	
 	private static void resetVirginity() {
-		if(Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION)>0) {
-			Main.game.getPlayer().setAttribute(Attribute.CORRUPTION, 0);
+		if(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_CORRUPTION)>0) {
+			Main.game.getPlayer().setAttribute(Attribute.MAJOR_CORRUPTION, 0);
 		}
 		
 		Main.game.getPlayer().setSexCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.VAGINA), 0);
@@ -1545,7 +1551,7 @@ public class CharacterCreation {
 								
 							}
 						}
-						Main.game.getPlayer().setAttribute(Attribute.CORRUPTION, 5);
+						Main.game.getPlayer().setAttribute(Attribute.MAJOR_CORRUPTION, 5);
 
 					}
 				};
@@ -1608,7 +1614,7 @@ public class CharacterCreation {
 								
 							}
 						}
-						Main.game.getPlayer().setAttribute(Attribute.CORRUPTION, 10);
+						Main.game.getPlayer().setAttribute(Attribute.MAJOR_CORRUPTION, 10);
 
 					}
 				};
@@ -1683,7 +1689,7 @@ public class CharacterCreation {
 								
 							}
 						}
-						Main.game.getPlayer().setAttribute(Attribute.CORRUPTION, 15);
+						Main.game.getPlayer().setAttribute(Attribute.MAJOR_CORRUPTION, 15);
 
 					}
 				};

@@ -1961,7 +1961,7 @@ public class GenericPositioning {
 		@Override
 		public String getDescription() {
 			return "Taking hold of your shoulders, [npc.name] pushes you down onto your knees."
-					+ " Kneeling down before you, [npc.she] then lies down onto [npc.her] back, spreading [npc.her] [npc.legs] and looking up into your [pc.eyes+] as [npc.she] [npc.moanVerb], "
+					+ " Kneeling down before you, [npc.she] then lies down onto [npc.her] back, spreading [npc.her] [npc.legs] and looking up into your [pc.eyes+] as [npc.she] [npc.moansVerb], "
 					+ "[npc.speech(Come and take me!)]";
 		}
 

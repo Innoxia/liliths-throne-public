@@ -55,10 +55,9 @@ public class HarpyNestsAttacker extends NPC {
 				new CharacterInventory(10), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_WALKWAYS, false);
 
 		if(!isImported) {
-			setAttribute(Attribute.STRENGTH, (int)(this.getAttributeValue(Attribute.STRENGTH) * (0.5f+Math.random())));
-			setAttribute(Attribute.INTELLIGENCE, (int)(this.getAttributeValue(Attribute.INTELLIGENCE) * (0.5f+Math.random())));
-			setAttribute(Attribute.FITNESS, (int)(this.getAttributeValue(Attribute.FITNESS) * (0.5f+Math.random())));
-			setAttribute(Attribute.CORRUPTION, (int)(20 * (0.5f+Math.random())));
+			setAttribute(Attribute.MAJOR_STRENGTH, (int)(this.getAttributeValue(Attribute.MAJOR_STRENGTH) * (0.5f+Math.random())));
+			setAttribute(Attribute.MAJOR_ARCANE, (int)(this.getAttributeValue(Attribute.MAJOR_ARCANE) * (0.5f+Math.random())));
+			setAttribute(Attribute.MAJOR_CORRUPTION, (int)(20 * (0.5f+Math.random())));
 	
 			this.setWorldLocation(Main.game.getPlayer().getWorldLocation());
 			this.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
@@ -94,7 +93,6 @@ public class HarpyNestsAttacker extends NPC {
 	
 			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
-			setStamina(getAttributeValue(Attribute.STAMINA_MAXIMUM));
 		}
 
 		this.setEnslavementDialogue(HarpyNestsAttackerDialogue.ENSLAVEMENT_DIALOGUE);

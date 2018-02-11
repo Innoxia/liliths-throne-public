@@ -44,8 +44,6 @@ public enum VaginaType implements BodyPartTypeInterface {
 
 	REINDEER_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_REINDEER_MORPH, Race.REINDEER_MORPH, OrificeModifier.PUFFY),
 
-	SLIME(BodyCoveringType.VAGINA_SLIME, FluidType.GIRL_CUM_SLIME, Race.SLIME),
-
 	HARPY(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_HARPY, Race.HARPY);
 
 	private BodyCoveringType skinType;
@@ -148,8 +146,6 @@ public enum VaginaType implements BodyPartTypeInterface {
 						return UtilText.returnStringAtRandom("hot");
 					case NONE:
 						return UtilText.returnStringAtRandom("");
-					case SLIME:
-						return UtilText.returnStringAtRandom("gooey");
 					case HARPY:
 						return UtilText.returnStringAtRandom("hot", "bird-like", "avian");
 					default:
@@ -193,8 +189,6 @@ public enum VaginaType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("human");
 			case NONE:
 				return UtilText.returnStringAtRandom("none");
-			case SLIME:
-				return UtilText.returnStringAtRandom("slime");
 			case SQUIRREL_MORPH:
 				return UtilText.returnStringAtRandom("squirrel");
 			case ALLIGATOR_MORPH:

@@ -47,7 +47,12 @@ public interface SexActionInterface {
 	/**
 	 * @return A list of fetishes that affect the character in this sex action.
 	 */
-	public List<Fetish> getFetishes(GameCharacter character);
+	public List<Fetish> getFetishes(GameCharacter characterPerformingAction);
+
+	/**
+	 * @return A list of fetishes that affect the target of 'characterPerformingAction' in this sex action.
+	 */
+	public List<Fetish> getFetishesForTargetedPartner(GameCharacter characterPerformingAction);
 	
 	// Sex-specific:
 	

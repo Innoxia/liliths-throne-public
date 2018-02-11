@@ -37,9 +37,7 @@ public enum AnusType implements BodyPartTypeInterface {
 	
 	ALLIGATOR_MORPH(BodyCoveringType.ANUS, Race.ALLIGATOR_MORPH),
 	
-	HARPY(BodyCoveringType.ANUS, Race.HARPY),
-	
-	SLIME(BodyCoveringType.ANUS_SLIME, Race.SLIME, OrificeModifier.RIBBED, OrificeModifier.TENTACLED, OrificeModifier.MUSCLE_CONTROL);
+	HARPY(BodyCoveringType.ANUS, Race.HARPY);
 
 	private BodyCoveringType skinType;
 	private Race race;
@@ -94,8 +92,6 @@ public enum AnusType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("horse-like", "equine");
 			case COW_MORPH:
 				return UtilText.returnStringAtRandom("cow-like", "bovine");
-			case SLIME:
-				return UtilText.returnStringAtRandom("gooey", "slimy");
 			default:
 				return UtilText.returnStringAtRandom("");
 		}

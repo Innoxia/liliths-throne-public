@@ -170,88 +170,69 @@ public class DebugDialogue {
 				return new Response("<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>+5</span> <span style='color:"+Colour.ATTRIBUTE_STRENGTH.toWebHexString()+";'>Strength</span>", "", DEBUG_MENU){
 					@Override
 					public void effects() {
-						Main.game.getPlayer().incrementAttribute(Attribute.STRENGTH, 5);
+						Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_STRENGTH, 5);
 						
 					}
 				};
 			}
 			else if(index==11){
-				return new Response("<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>+5</span> <span style='color:"+Colour.ATTRIBUTE_INTELLIGENCE.toWebHexString()+";'>Intelligence</span>", "", DEBUG_MENU){
+				return new Response("<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>+5</span> <span style='color:"+Colour.ATTRIBUTE_ARCANE.toWebHexString()+";'>Intelligence</span>", "", DEBUG_MENU){
 					@Override
 					public void effects() {
-						Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 5);
+						Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_ARCANE, 5);
 						
 					}
 				};
 			}
 			else if(index==12){
-				return new Response("<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>+5</span> <span style='color:"+Colour.ATTRIBUTE_FITNESS.toWebHexString()+";'>Fitness</span>", "", DEBUG_MENU){
+				return new Response("<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>+5</span> <span style='color:"+Colour.ATTRIBUTE_CORRUPTION.toWebHexString()+";'>Corruption</span>", "", DEBUG_MENU){
 					@Override
 					public void effects() {
-						Main.game.getPlayer().incrementAttribute(Attribute.FITNESS, 5);
+						Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_CORRUPTION, 5);
 						
 					}
 				};
 			}
 			else if(index==13){
-				return new Response("<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>+5</span> <span style='color:"+Colour.ATTRIBUTE_CORRUPTION.toWebHexString()+";'>Corruption</span>", "", DEBUG_MENU){
+				return new Response("<span style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Max all attributes</span>", "", DEBUG_MENU){
 					@Override
 					public void effects() {
-						Main.game.getPlayer().incrementAttribute(Attribute.CORRUPTION, 5);
+						Main.game.getPlayer().setAttribute(Attribute.MAJOR_STRENGTH, 100);
+						Main.game.getPlayer().setAttribute(Attribute.MAJOR_ARCANE, 100);
+						Main.game.getPlayer().setAttribute(Attribute.MAJOR_CORRUPTION, 100);
 						
 					}
 				};
 			}
 			else if(index==14){
-				return new Response("<span style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Max all attributes</span>", "", DEBUG_MENU){
+				return new Response("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>-5</span> <span style='color:"+Colour.ATTRIBUTE_STRENGTH.toWebHexString()+";'>Strength</span>", "", DEBUG_MENU){
 					@Override
 					public void effects() {
-						Main.game.getPlayer().setAttribute(Attribute.STRENGTH, 100);
-						Main.game.getPlayer().setAttribute(Attribute.INTELLIGENCE, 100);
-						Main.game.getPlayer().setAttribute(Attribute.FITNESS, 100);
-						Main.game.getPlayer().setAttribute(Attribute.CORRUPTION, 100);
+						Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_STRENGTH, -5);
 						
 					}
 				};
 			}
 			else if(index==15){
-				return new Response("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>-5</span> <span style='color:"+Colour.ATTRIBUTE_STRENGTH.toWebHexString()+";'>Strength</span>", "", DEBUG_MENU){
+				return new Response("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>-5</span> <span style='color:"+Colour.ATTRIBUTE_ARCANE.toWebHexString()+";'>Intelligence</span>", "", DEBUG_MENU){
 					@Override
 					public void effects() {
-						Main.game.getPlayer().incrementAttribute(Attribute.STRENGTH, -5);
+						Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_ARCANE, -5);
 						
 					}
 				};
 			}
 			else if(index==16){
-				return new Response("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>-5</span> <span style='color:"+Colour.ATTRIBUTE_INTELLIGENCE.toWebHexString()+";'>Intelligence</span>", "", DEBUG_MENU){
-					@Override
-					public void effects() {
-						Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, -5);
-						
-					}
-				};
-			}
-			else if(index==17){
-				return new Response("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>-5</span> <span style='color:"+Colour.ATTRIBUTE_FITNESS.toWebHexString()+";'>Fitness</span>", "", DEBUG_MENU){
-					@Override
-					public void effects() {
-						Main.game.getPlayer().incrementAttribute(Attribute.FITNESS, -5);
-						
-					}
-				};
-			}
-			else if(index==18){
 				return new Response("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>-5</span> <span style='color:"+Colour.ATTRIBUTE_CORRUPTION.toWebHexString()+";'>Corruption</span>", "", DEBUG_MENU){
 					@Override
 					public void effects() {
-						Main.game.getPlayer().incrementAttribute(Attribute.CORRUPTION, -5);
+						Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_CORRUPTION, -5);
 						
 					}
 				};
 				
 			}
-			else if(index==19){
+			else if(index==17){
 				return new Response("<span style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>+1</span> <span style='color:"+Colour.PERK.toWebHexString()+";'>Perk point</span>", "", DEBUG_MENU){
 					@Override
 					public void effects() {
@@ -260,10 +241,10 @@ public class DebugDialogue {
 					}
 				};
 				
-			} else if (index == 20) {
+			} else if (index == 18) {
 					return new Response("Offspring", "View available offspring", OFFSPRING);
 					
-			} else if (index == 21) {
+			} else if (index == 19) {
 				return new Response("[style.boldBad(Month -)]", "Reduce current month by 1.", DEBUG_MENU){
 					@Override
 					public void effects() {
@@ -272,7 +253,7 @@ public class DebugDialogue {
 					}
 				};
 				
-			} else if (index == 22) {
+			} else if (index == 20) {
 					return new Response("[style.boldGood(Month +)]", "Increase current month by 1.", DEBUG_MENU){
 						@Override
 						public void effects() {
@@ -282,22 +263,6 @@ public class DebugDialogue {
 					};
 					
 			}
-//			else if (index == 23) {
-//				return new ResponseSex("Special \"Tests\"",
-//						"Let Lilaya and Rose run some \"tests\" on you.",
-//						null, null, null, null, null, null,
-//						true, true,
-//						new SMDoggy(
-//								Util.newHashMapOfValues(
-//										new Value<>(Main.game.getRose(), SexPositionSlot.DOGGY_INFRONT),
-//										new Value<>(Main.game.getLilaya(), SexPositionSlot.DOGGY_BEHIND)),
-//								Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))),
-//						Lilaya.AUNT_END_SEX,
-//						"<p>"
-//							+ "With a maniacal laugh, Rose throws you and Lilaya to the floor, ready for her special \"tests\"."
-//						+ "</p>");
-//				
-//			}
 			else {
 				return null;
 			}

@@ -19,53 +19,62 @@ import com.lilithsthrone.utils.Colour;
  */
 public enum LustLevel {
 
-	ZERO_COLD("cold", 0, 20, 0.5f, Colour.LUST_STAGE_ZERO, SexPace.SUB_RESISTING, SexPace.DOM_GENTLE) {
+	ZERO_COLD("cold", 0, 5, 0f, 0.5f, Colour.LUST_STAGE_ZERO, SexPace.SUB_RESISTING, SexPace.DOM_GENTLE) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.LUST_PERK_0;
 		}
 	},
 
-	ONE_HORNY("horny", 20, 40, 0.75f, Colour.LUST_STAGE_ONE, SexPace.SUB_NORMAL, SexPace.DOM_NORMAL) {
+	ONE_HORNY("horny", 5, 20, 0.1f, 0.75f, Colour.LUST_STAGE_ONE, SexPace.SUB_NORMAL, SexPace.DOM_NORMAL) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.LUST_PERK_1;
 		}
 	},
 
-	TWO_AMOROUS("amorous", 40, 60, 1f, Colour.LUST_STAGE_TWO, SexPace.SUB_NORMAL, SexPace.DOM_NORMAL) {
+	TWO_AMOROUS("amorous", 20, 50, 0.25f, 1f, Colour.LUST_STAGE_TWO, SexPace.SUB_NORMAL, SexPace.DOM_NORMAL) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.LUST_PERK_2;
 		}
 	},
 
-	THREE_IMPASSIONED("impassioned", 60, 80, 1.25f, Colour.LUST_STAGE_THREE, SexPace.SUB_NORMAL, SexPace.DOM_NORMAL) {
+	THREE_LUSTFUL("lustful", 50, 80, 0.5f, 1.25f, Colour.LUST_STAGE_THREE, SexPace.SUB_NORMAL, SexPace.DOM_NORMAL) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.LUST_PERK_3;
 		}
 	},
 
-	FOUR_BURNING("burning", 80, 100, 1.5f, Colour.LUST_STAGE_FOUR, SexPace.SUB_EAGER, SexPace.DOM_ROUGH) {
+	FOUR_IMPASSIONED("impassioned", 80, 95, 0.8f, 1.5f, Colour.LUST_STAGE_FOUR, SexPace.SUB_EAGER, SexPace.DOM_ROUGH) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.LUST_PERK_4;
+		}
+	},
+	
+	FIVE_BURNING("burning", 95, 100, 1f, 1.5f, Colour.LUST_STAGE_FIVE, SexPace.SUB_EAGER, SexPace.DOM_ROUGH) {
+		@Override
+		public StatusEffect getRelatedStatusEffect() {
+			return StatusEffect.LUST_PERK_5;
 		}
 	};
 	
 	
 	private String name;
 	private int minimumValue, maximumValue;
+	private float auraDamagePercentage;
 	private float arousalModifier;
 	private Colour colour;
 	private SexPace sexPaceSubmissive;
 	private SexPace sexPaceDominant;
 
-	private LustLevel(String name, int minimumValue, int maximumValue, float arousalModifier, Colour colour, SexPace sexPaceSubmissive, SexPace sexPaceDominant) {
+	private LustLevel(String name, int minimumValue, int maximumValue, float auraDamagePercentage, float arousalModifier, Colour colour, SexPace sexPaceSubmissive, SexPace sexPaceDominant) {
 		this.name = name;
 		this.minimumValue = minimumValue;
 		this.maximumValue = maximumValue;
+		this.auraDamagePercentage = auraDamagePercentage;
 		this.arousalModifier = arousalModifier;
 		this.colour = colour;
 		this.sexPaceSubmissive = sexPaceSubmissive;
@@ -89,6 +98,10 @@ public enum LustLevel {
 	public int getMedianValue() {
 		return (minimumValue + maximumValue) / 2;
 	}
+
+	public float getAuraDamagePercentage() {
+		return auraDamagePercentage;
+	}
 	
 	public float getArousalModifier() {
 		return arousalModifier;
@@ -104,7 +117,7 @@ public enum LustLevel {
 				return al;
 			}
 		}
-		return FOUR_BURNING;
+		return FIVE_BURNING;
 	}
 
 
@@ -141,92 +154,137 @@ public enum LustLevel {
 	public List<String> getStatusEffectModifierDescription(boolean consensual, GameCharacter character) {
 		List<String> modifiersList = new ArrayList<>();
 		
-		switch(this.getSexPace(consensual, character)) {
-			case DOM_GENTLE:
-				if(!character.isPlayer()) {
-					modifiersList.add("Prefers <b style='color: " + SexPace.DOM_GENTLE.getColour().toWebHexString() + "'>gentle</b> pace");
-				}
-				break;
-			case DOM_NORMAL:
-				if(!character.isPlayer()) {
-					modifiersList.add("Prefers <b style='color: " + SexPace.DOM_NORMAL.getColour().toWebHexString() + "'>normal</b> pace");
-				}
-				break;
-			case DOM_ROUGH:
-				if(!character.isPlayer()) {
-					if(!character.hasFetish(Fetish.FETISH_DOMINANT) && !character.hasFetish(Fetish.FETISH_SADIST)) {
+		if(Main.game.isInSex()) {
+			switch(this.getSexPace(consensual, character)) {
+				case DOM_GENTLE:
+					if(!character.isPlayer()) {
+						modifiersList.add("Prefers <b style='color: " + SexPace.DOM_GENTLE.getColour().toWebHexString() + "'>gentle</b> pace");
+					}
+					break;
+				case DOM_NORMAL:
+					if(!character.isPlayer()) {
 						modifiersList.add("Prefers <b style='color: " + SexPace.DOM_NORMAL.getColour().toWebHexString() + "'>normal</b> pace");
-						modifiersList.add("(<b style='color: " + SexPace.DOM_ROUGH.getColour().toWebHexString() + "'>Rough</b> pace requires "+Fetish.FETISH_DOMINANT.getName(character)
-												+", "+Fetish.FETISH_NON_CON_DOM.getName(character)+", or "+Fetish.FETISH_SADIST.getName(character)+" fetish)");
-					} else {
-						modifiersList.add("Prefers <b style='color: " + SexPace.DOM_ROUGH.getColour().toWebHexString() + "'>rough</b> pace");
 					}
-				}
-				break;
-			case SUB_EAGER:
-				if(!character.isPlayer()) {
-					modifiersList.add("Prefers <b style='color: " + SexPace.SUB_EAGER.getColour().toWebHexString() + "'>eager</b> pace");
-				}
-				break;
-			case SUB_NORMAL:
-				if(!character.isPlayer()) {
-					modifiersList.add("Prefers <b style='color: " + SexPace.SUB_NORMAL.getColour().toWebHexString() + "'>normal</b> pace");
-				}
-				break;
-			case SUB_RESISTING:
-				if(!character.isPlayer()) {
-					if(character.hasFetish(Fetish.FETISH_NON_CON_SUB)) {
-						modifiersList.add("Always prefers <b style='color: " + SexPace.SUB_RESISTING.getColour().toWebHexString() + "'>resisting</b> pace due to "+Fetish.FETISH_NON_CON_SUB.getName(character)+" fetish");
-					} else {
-						modifiersList.add("Prefers <b style='color: " + SexPace.SUB_RESISTING.getColour().toWebHexString() + "'>resisting</b> pace");
+					break;
+				case DOM_ROUGH:
+					if(!character.isPlayer()) {
+						if(!character.hasFetish(Fetish.FETISH_DOMINANT) && !character.hasFetish(Fetish.FETISH_SADIST)) {
+							modifiersList.add("Prefers <b style='color: " + SexPace.DOM_NORMAL.getColour().toWebHexString() + "'>normal</b> pace");
+							modifiersList.add("(<b style='color: " + SexPace.DOM_ROUGH.getColour().toWebHexString() + "'>Rough</b> pace requires "+Fetish.FETISH_DOMINANT.getName(character)
+													+", "+Fetish.FETISH_NON_CON_DOM.getName(character)+", or "+Fetish.FETISH_SADIST.getName(character)+" fetish)");
+						} else {
+							modifiersList.add("Prefers <b style='color: " + SexPace.DOM_ROUGH.getColour().toWebHexString() + "'>rough</b> pace");
+						}
 					}
-				}
-				break;
+					break;
+				case SUB_EAGER:
+					if(!character.isPlayer()) {
+						modifiersList.add("Prefers <b style='color: " + SexPace.SUB_EAGER.getColour().toWebHexString() + "'>eager</b> pace");
+					}
+					break;
+				case SUB_NORMAL:
+					if(!character.isPlayer()) {
+						modifiersList.add("Prefers <b style='color: " + SexPace.SUB_NORMAL.getColour().toWebHexString() + "'>normal</b> pace");
+					}
+					break;
+				case SUB_RESISTING:
+					if(!character.isPlayer()) {
+						if(character.hasFetish(Fetish.FETISH_NON_CON_SUB)) {
+							modifiersList.add("Always prefers <b style='color: " + SexPace.SUB_RESISTING.getColour().toWebHexString() + "'>resisting</b> pace due to "+Fetish.FETISH_NON_CON_SUB.getName(character)+" fetish");
+						} else {
+							modifiersList.add("Prefers <b style='color: " + SexPace.SUB_RESISTING.getColour().toWebHexString() + "'>resisting</b> pace");
+						}
+					}
+					break;
+			}
+		
+			int gains = (int)(this.getArousalModifier()*100);
+			modifiersList.add((gains>=100?"[style.boldArousal("+gains+"%)]":"[style.boldBad("+gains+"%)]")+" arousal gains");
+			
 		}
-		int gains = (int)(this.getArousalModifier()*100);
-		modifiersList.add((gains>=100?"[style.boldArousal("+gains+"%)]":"[style.boldBad("+gains+"%)]")+" arousal gains");
 		
 		return modifiersList;
 	}
 	
 	public String getStatusEffectDescription(boolean consensual, GameCharacter character) {
-		switch(this.getSexPace(consensual, character)) {
-			case DOM_GENTLE:
-				if (character.isPlayer()) {
-					return "You feel like taking things slow and gentle.";
-				} else {
-					return UtilText.parse(character, "[npc.Name] is feeling like taking things slow and gentle.");
-				}
-			case DOM_NORMAL:
-				if (character.isPlayer()) {
-					return "Filled with passion, you're eager to have sex at the moment.";
-				} else {
-					return UtilText.parse(character, "Filled with passion, [npc.name] is eager to have sex at the moment.");
-				}
-			case DOM_ROUGH:
-				if (character.isPlayer()) {
-					return "You're burning with passion, and will do anything to sate your lust.";
-				} else {
-					return UtilText.parse(character, "[npc.Name] is burning with passion, and will do anything to sate [npc.her] lust.");
-				}
-			case SUB_EAGER:
-				if (character.isPlayer()) {
-					return "You're burning with passion, and will do anything to sate your lust.";
-				} else {
-					return UtilText.parse(character, "[npc.Name] is burning with passion, and will do anything to sate [npc.her] lust.");
-				}
-			case SUB_NORMAL:
-				if (character.isPlayer()) {
-					return "Filled with passion, you're eager to have sex at the moment.";
-				} else {
-					return UtilText.parse(character, "Filled with passion, [npc.name] is eager to have sex at the moment.");
-				}
-			case SUB_RESISTING:
-				if (character.isPlayer()) {
-					return "You aren't interested in having sex at all right now.";
-				} else {
-					return UtilText.parse(character, "[npc.Name] isn't interested in having sex at all right now.");
-				}
+		if(Main.game.isInSex()) {
+			switch(this.getSexPace(consensual, character)) {
+				case DOM_GENTLE:
+					if (character.isPlayer()) {
+						return "You feel like taking things slow and gentle.";
+					} else {
+						return UtilText.parse(character, "[npc.Name] is feeling like taking things slow and gentle.");
+					}
+				case DOM_NORMAL:
+					if (character.isPlayer()) {
+						return "Filled with passion, you're eager to have sex at the moment.";
+					} else {
+						return UtilText.parse(character, "Filled with passion, [npc.name] is eager to have sex at the moment.");
+					}
+				case DOM_ROUGH:
+					if (character.isPlayer()) {
+						return "You're burning with passion, and will do anything to sate your lust.";
+					} else {
+						return UtilText.parse(character, "[npc.Name] is burning with passion, and will do anything to sate [npc.her] lust.");
+					}
+				case SUB_EAGER:
+					if (character.isPlayer()) {
+						return "You're burning with passion, and will do anything to sate your lust.";
+					} else {
+						return UtilText.parse(character, "[npc.Name] is burning with passion, and will do anything to sate [npc.her] lust.");
+					}
+				case SUB_NORMAL:
+					if (character.isPlayer()) {
+						return "Filled with passion, you're eager to have sex at the moment.";
+					} else {
+						return UtilText.parse(character, "Filled with passion, [npc.name] is eager to have sex at the moment.");
+					}
+				case SUB_RESISTING:
+					if (character.isPlayer()) {
+						return "You aren't interested in having sex at all right now.";
+					} else {
+						return UtilText.parse(character, "[npc.Name] isn't interested in having sex at all right now.");
+					}
+			}
+		} else {
+			switch(this) {
+				case ZERO_COLD:
+					if (character.isPlayer()) {
+						return "You are currently completely disinterested in having sex.";
+					} else {
+						return UtilText.parse(character, "[npc.Name] is currently completely disinterested in having sex.");
+					}
+				case ONE_HORNY:
+					if (character.isPlayer()) {
+						return "You are currently feeling quite horny, but are still in control of your lust.";
+					} else {
+						return UtilText.parse(character, "[npc.Name] is currently quite horny, but is still in control of [npc.her] lust.");
+					}
+				case TWO_AMOROUS:
+					if (character.isPlayer()) {
+						return "You are currently feeling more than a little lustful, and are thinking about sex quite a lot...";
+					} else {
+						return UtilText.parse(character, "[npc.Name] is currently feeling more than a little lustful, and is thinking about sex quite a lot...");
+					}
+				case THREE_LUSTFUL:
+					if (character.isPlayer()) {
+						return "You are currently filled with lust, and are struggling to think of anything other than sex.";
+					} else {
+						return UtilText.parse(character, "[npc.Name] is currently filled with lust, and is struggling to think of anything other than sex.");
+					}
+				case FOUR_IMPASSIONED:
+					if (character.isPlayer()) {
+						return "You are completely filled with lust, and are struggling to think of anything other than sex.";
+					} else {
+						return UtilText.parse(character, "[npc.Name] is completely filled with lust, and is struggling to think of anything other than sex.");
+					}
+				case FIVE_BURNING:
+					if (character.isPlayer()) {
+						return "You're completely overwhelmed with lust, and are incapable of thinking of anything but sex.";
+					} else {
+						return UtilText.parse(character, "[npc.Name] is completely overwhelmed with lust, and is incapable of thinking of anything but sex.");
+					}
+			}
 		}
 		return "";
 	

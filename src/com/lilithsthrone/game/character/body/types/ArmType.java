@@ -31,8 +31,6 @@ public enum ArmType implements BodyPartTypeInterface {
 
 	ALLIGATOR_MORPH(BodyCoveringType.ALLIGATOR_SCALES, Race.ALLIGATOR_MORPH),
 
-	SLIME(BodyCoveringType.SLIME, Race.SLIME),
-
 	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH),
 
 	HARPY(BodyCoveringType.FEATHERS, Race.HARPY) {
@@ -117,8 +115,6 @@ public enum ArmType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("");
 			case LYCAN:
 				return UtilText.returnStringAtRandom("furry", "fur-coated");
-			case SLIME:
-				return UtilText.returnStringAtRandom("slimy", "gooey");
 			default:
 				return UtilText.returnStringAtRandom("");
 		}
@@ -150,8 +146,6 @@ public enum ArmType implements BodyPartTypeInterface {
 				return "human";
 			case LYCAN:
 				return "lupine";
-			case SLIME:
-				return "slimy";
 		}
 		return "";
 	}
@@ -205,8 +199,6 @@ public enum ArmType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("soft", "feminine");
 				case LYCAN:
 					return UtilText.returnStringAtRandom("soft", "feminine", "wolf-like", "furry", "paw-like");
-				case SLIME:
-					return UtilText.returnStringAtRandom("slimy", "feminine");
 				case SQUIRREL_MORPH:
 					return UtilText.returnStringAtRandom("soft", "feminine", "squirrel-like", "claw-like", "furry", "rodent");
 				default:
@@ -236,8 +228,6 @@ public enum ArmType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("");
 				case LYCAN:
 					return UtilText.returnStringAtRandom("wolf-like", "furry", "paw-like");
-				case SLIME:
-					return UtilText.returnStringAtRandom("slimy");
 				case SQUIRREL_MORPH:
 					return UtilText.returnStringAtRandom("soft", "squirrel-like", "claw-like", "furry", "rodent");
 				default:
@@ -285,8 +275,6 @@ public enum ArmType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("soft", "feminine");
 				case LYCAN:
 					return UtilText.returnStringAtRandom("soft", "feminine", "padded", "wolf-like");
-				case SLIME:
-					return UtilText.returnStringAtRandom("slimy", "feminine");
 				case SQUIRREL_MORPH:
 					return UtilText.returnStringAtRandom("soft", "feminine", "clawed", "rodent");
 				default:
@@ -316,8 +304,6 @@ public enum ArmType implements BodyPartTypeInterface {
 					return UtilText.returnStringAtRandom("");
 				case LYCAN:
 					return UtilText.returnStringAtRandom("wolf-like", "padded");
-				case SLIME:
-					return UtilText.returnStringAtRandom("slimy");
 				case SQUIRREL_MORPH:
 					return UtilText.returnStringAtRandom("soft", "clawed", "rodent");
 				default:

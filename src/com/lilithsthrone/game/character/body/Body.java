@@ -914,7 +914,7 @@ public class Body implements Serializable, XMLSaving {
 		hairTypeConverterMap.put("HAIR_FELINE_FUR", "CAT_MORPH");
 		hairTypeConverterMap.put("HAIR_HORSE_HAIR", "HORSE_MORPH");
 		hairTypeConverterMap.put("HAIR_SQUIRREL_FUR", "SQUIRREL_MORPH");
-		hairTypeConverterMap.put("HAIR_SLIME", "SLIME");
+		hairTypeConverterMap.put("SLIME", "SLIME");
 		hairTypeConverterMap.put("HAIR_HARPY", "HARPY");
 		if(hairTypeConverterMap.containsKey(hairTypeFromSave)) {
 			hairTypeFromSave = hairTypeConverterMap.get(hairTypeFromSave);
@@ -1287,7 +1287,7 @@ public class Body implements Serializable, XMLSaving {
 						+ owner.getAppearsAsGenderDescription()
 						+ " Standing at full height, [npc.she] measures [npc.heightFeetInches] ([npc.heightCm]cm).");
 			} else {
-				if(Main.game.getPlayer().hasPerk(Perk.OBSERVANT)) {
+				if(Main.game.getPlayer().hasTrait(Perk.OBSERVANT, true)) {
 					sb.append("<p>"
 							+ "Thanks to your observant perk, you can detect that [npc.name] is <span style='color:"+getGender().getColour().toWebHexString()+";'>[npc.a_gender]</span> [npc.raceStage] [npc.race]. "
 							+ owner.getAppearsAsGenderDescription()
@@ -1377,13 +1377,6 @@ public class Body implements Serializable, XMLSaving {
 			case REINDEER_MORPH:
 				sb.append(", anthropomorphic reindeer-like face, with a long, reindeer-like muzzle.");
 				break;
-			case SLIME:
-				if (owner.isPlayer()) {
-					sb.append(" face, which is completely made out of [pc.faceColour] slime.");
-				} else {
-					sb.append(" face, which is completely made out of [npc.faceColour] slime.");
-				}
-				break;
 			case HARPY:
 				sb.append(", anthropomorphic bird-like face, complete with beak.");
 				break;
@@ -1446,9 +1439,6 @@ public class Body implements Serializable, XMLSaving {
 					break;
 				case REINDEER_MORPH:
 					sb.append(", reindeer-like hair");
-					break;
-				case SLIME:
-					sb.append(" slime-hair");
 					break;
 				case HARPY:
 					sb.append(" feathers in place of hair");
@@ -1619,9 +1609,6 @@ public class Body implements Serializable, XMLSaving {
 			case LYCAN:
 				sb.append(" wolf-like eyes");
 				break;
-			case SLIME:
-				sb.append(" slime eyes");
-				break;
 			case SQUIRREL_MORPH:
 				sb.append(" squirrel-like eyes");
 				break;
@@ -1732,12 +1719,6 @@ public class Body implements Serializable, XMLSaving {
 					sb.append(" You have a pair of oval-shaped, reindeer-like ears, which are covered in [pc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
 				else
 					sb.append(" [npc.She] has a pair of oval-shaped, reindeer-like ears, which are covered in [npc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
-				break;
-			case SLIME:
-				if (owner.isPlayer())
-					sb.append(" You have a pair of humanoid" + (ear.isPierced() ? ", pierced" : "") + " ears, made out of [pc.earColour] slime.");
-				else
-					sb.append(" [npc.She] has a pair of humanoid" + (ear.isPierced() ? ", pierced" : "") + " ears, made out of [npc.earColour] slime");
 				break;
 			case HARPY:
 				if (owner.isPlayer())
@@ -2328,12 +2309,6 @@ public class Body implements Serializable, XMLSaving {
 					sb.append("[npc.She] has "+armDeterminer+" arms, which are covered in [npc.armFullDescription(true)]."
 							+ " [npc.Her] hands, while human in shape, have tough little hoof-like nails.");
 				break;
-			case SLIME:
-				if (owner.isPlayer())
-					sb.append("Your arms, although human-shaped, are formed out of [pc.armFullDescription(true)].");
-				else
-					sb.append("[npc.Her] arms, although human-shaped, are formed out of [npc.armFullDescription(true)].");
-				break;
 			case HARPY:
 				if (owner.isPlayer())
 					sb.append("Your arms have transformed into "+armDeterminer+" huge wings, and are covered in beautiful [pc.armFullDescription(true)]."
@@ -2568,12 +2543,6 @@ public class Body implements Serializable, XMLSaving {
 				else
 					sb.append("[npc.Her] legs are covered in [npc.legFullDescription(true)],"
 							+ " and [npc.her] feet are formed into anthropomorphic cow-like hooves.");
-				break;
-			case SLIME:
-				if (owner.isPlayer())
-					sb.append("Your legs, although human-shaped, are made out of [pc.legFullDescription(true)].");
-				else
-					sb.append("[npc.Her] legs, although human-shaped, are made out of [npc.legFullDescription(true)].");
 				break;
 			case HARPY:
 				if (owner.isPlayer())
@@ -3199,14 +3168,6 @@ public class Body implements Serializable, XMLSaving {
 					descriptionSB.append("You have an avian, [pc.anusFullDescription(true)]");
 				} else {
 					descriptionSB.append("[npc.She] has an avian, [npc.anusFullDescription(true)]");
-				}
-				break;
-				
-			case SLIME:
-				if (isPlayer) {
-					descriptionSB.append("You have a slime's, [pc.anusFullDescription(true)]");
-				} else {
-					descriptionSB.append("[npc.She] has a slime's, [npc.anusFullDescription(true)]");
 				}
 				break;
 		}
@@ -3909,9 +3870,6 @@ public class Body implements Serializable, XMLSaving {
 			case REINDEER_MORPH:
 				descriptionSB.append(" rangiferine cock");
 				break;
-			case SLIME:
-				descriptionSB.append(" slime cock");
-				break;
 			case AVIAN:
 				descriptionSB.append(" avian cock");
 				break;
@@ -4541,13 +4499,6 @@ public class Body implements Serializable, XMLSaving {
 					descriptionSB.append((vagina.isPierced()?" a pierced,":" an")+" avian pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
 				} else {
 					descriptionSB.append((vagina.isPierced()?" a pierced,":" an")+" avian pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
-				}
-				break;
-			case SLIME:
-				if (isPlayer) {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" slime pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
-				} else {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" slime pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
 				}
 				break;
 			default:
@@ -5325,9 +5276,6 @@ public class Body implements Serializable, XMLSaving {
 				case HUMAN:
 					coverings.put(BodyCoveringType.BODY_HAIR_HUMAN, new Covering(BodyCoveringType.BODY_HAIR_HUMAN, coverings.get(BodyCoveringType.HAIR_HUMAN).getPrimaryColour()));
 					break;
-				case SLIME:
-					coverings.put(BodyCoveringType.BODY_HAIR_SLIME, new Covering(BodyCoveringType.BODY_HAIR_SLIME, coverings.get(BodyCoveringType.HAIR_SLIME).getPrimaryColour()));
-					break;
 				case SQUIRREL_MORPH:
 					coverings.put(BodyCoveringType.BODY_HAIR_SQUIRREL_FUR, new Covering(BodyCoveringType.BODY_HAIR_SQUIRREL_FUR, coverings.get(BodyCoveringType.HAIR_SQUIRREL_FUR).getPrimaryColour()));
 					break;
@@ -5396,9 +5344,6 @@ public class Body implements Serializable, XMLSaving {
 					case HUMAN:
 						coverings.put(BodyCoveringType.BODY_HAIR_HUMAN, new Covering(BodyCoveringType.BODY_HAIR_HUMAN, coverings.get(BodyCoveringType.HAIR_HUMAN).getPrimaryColour()));
 						break;
-					case SLIME:
-						coverings.put(BodyCoveringType.BODY_HAIR_SLIME, new Covering(BodyCoveringType.BODY_HAIR_SLIME, coverings.get(BodyCoveringType.HAIR_SLIME).getPrimaryColour()));
-						break;
 					case SQUIRREL_MORPH:
 						coverings.put(BodyCoveringType.BODY_HAIR_SQUIRREL_FUR, new Covering(BodyCoveringType.BODY_HAIR_SQUIRREL_FUR, coverings.get(BodyCoveringType.HAIR_SQUIRREL_FUR).getPrimaryColour()));
 						break;
@@ -5418,10 +5363,6 @@ public class Body implements Serializable, XMLSaving {
 				case DEMON:
 					coverings.put(BodyCoveringType.ANUS, new Covering(BodyCoveringType.ANUS, CoveringPattern.ORIFICE_ANUS, coverings.get(BodyCoveringType.DEMON_COMMON).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
 					break;
-				case SLIME:
-					coverings.put(BodyCoveringType.ANUS, new Covering(BodyCoveringType.ANUS, CoveringPattern.ORIFICE_ANUS, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(),
-							false, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false));
-					break;
 				default:
 					coverings.put(BodyCoveringType.ANUS, new Covering(BodyCoveringType.ANUS, CoveringPattern.ORIFICE_ANUS, coverings.get(BodyCoveringType.HUMAN).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
 					break;
@@ -5434,10 +5375,6 @@ public class Body implements Serializable, XMLSaving {
 				case DEMON:
 					coverings.put(BodyCoveringType.NIPPLES, new Covering(BodyCoveringType.NIPPLES, CoveringPattern.ORIFICE_NIPPLE, coverings.get(BodyCoveringType.DEMON_COMMON).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
 					break;
-				case SLIME:
-					coverings.put(BodyCoveringType.NIPPLES_SLIME, new Covering(BodyCoveringType.NIPPLES_SLIME, CoveringPattern.ORIFICE_NIPPLE, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(),
-							false, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false));
-					break;
 				default:
 					coverings.put(BodyCoveringType.NIPPLES, new Covering(BodyCoveringType.NIPPLES, CoveringPattern.ORIFICE_NIPPLE, coverings.get(BodyCoveringType.HUMAN).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
 					break;
@@ -5449,10 +5386,6 @@ public class Body implements Serializable, XMLSaving {
 					break;
 				case DEMON:
 					coverings.put(BodyCoveringType.MOUTH, new Covering(BodyCoveringType.MOUTH, CoveringPattern.ORIFICE_MOUTH, coverings.get(BodyCoveringType.DEMON_COMMON).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
-					break;
-				case SLIME:
-					coverings.put(BodyCoveringType.MOUTH_SLIME, new Covering(BodyCoveringType.MOUTH_SLIME, CoveringPattern.ORIFICE_MOUTH, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(),
-							false, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false));
 					break;
 				default:
 					coverings.put(BodyCoveringType.MOUTH, new Covering(BodyCoveringType.MOUTH, CoveringPattern.ORIFICE_MOUTH, coverings.get(BodyCoveringType.HUMAN).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
@@ -5467,10 +5400,6 @@ public class Body implements Serializable, XMLSaving {
 					case DEMON:
 						coverings.put(BodyCoveringType.VAGINA, new Covering(BodyCoveringType.VAGINA, CoveringPattern.ORIFICE_VAGINA, coverings.get(BodyCoveringType.DEMON_COMMON).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
 						break;
-					case SLIME:
-						coverings.put(BodyCoveringType.VAGINA_SLIME, new Covering(BodyCoveringType.VAGINA_SLIME, CoveringPattern.ORIFICE_VAGINA, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(),
-								false, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false));
-						break;
 					default:
 						coverings.put(BodyCoveringType.VAGINA, new Covering(BodyCoveringType.VAGINA, CoveringPattern.ORIFICE_VAGINA, coverings.get(BodyCoveringType.HUMAN).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
 						break;
@@ -5482,10 +5411,6 @@ public class Body implements Serializable, XMLSaving {
 						break;
 					case DEMON:
 						coverings.put(BodyCoveringType.VAGINA, new Covering(BodyCoveringType.VAGINA, CoveringPattern.ORIFICE_VAGINA, coverings.get(BodyCoveringType.DEMON_COMMON).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
-						break;
-					case SLIME:
-						coverings.put(BodyCoveringType.VAGINA_SLIME, new Covering(BodyCoveringType.VAGINA_SLIME, CoveringPattern.ORIFICE_VAGINA, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(),
-								false, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false));
 						break;
 					default:
 						coverings.put(BodyCoveringType.VAGINA, new Covering(BodyCoveringType.VAGINA, CoveringPattern.ORIFICE_VAGINA, coverings.get(BodyCoveringType.HUMAN).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
@@ -5501,9 +5426,6 @@ public class Body implements Serializable, XMLSaving {
 					case DEMON:
 						coverings.put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, coverings.get(BodyCoveringType.DEMON_COMMON).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
 						break;
-					case SLIME:
-						coverings.put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false));
-						break;
 					default:
 						coverings.put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, coverings.get(BodyCoveringType.HUMAN).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
 						break;
@@ -5515,9 +5437,6 @@ public class Body implements Serializable, XMLSaving {
 						break;
 					case DEMON:
 						coverings.put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, coverings.get(BodyCoveringType.DEMON_COMMON).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
-						break;
-					case SLIME:
-						coverings.put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false, coverings.get(BodyCoveringType.SLIME).getPrimaryColour(), false));
 						break;
 					default:
 						coverings.put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, coverings.get(BodyCoveringType.HUMAN).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));

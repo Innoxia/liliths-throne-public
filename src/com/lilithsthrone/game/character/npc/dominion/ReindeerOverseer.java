@@ -78,10 +78,9 @@ public class ReindeerOverseer extends NPC {
 				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_STREET, false);
 
 		if(!isImported) {
-			setAttribute(Attribute.STRENGTH, (int)(this.getAttributeValue(Attribute.STRENGTH) * (0.5f+Math.random())));
-			setAttribute(Attribute.INTELLIGENCE, (int)(this.getAttributeValue(Attribute.INTELLIGENCE) * (0.5f+Math.random())));
-			setAttribute(Attribute.FITNESS, (int)(this.getAttributeValue(Attribute.FITNESS) * (0.5f+Math.random())));
-			setAttribute(Attribute.CORRUPTION, (int)(20 * (0.5f+Math.random())));
+			setAttribute(Attribute.MAJOR_STRENGTH, (int)(this.getAttributeValue(Attribute.MAJOR_STRENGTH) * (0.5f+Math.random())));
+			setAttribute(Attribute.MAJOR_ARCANE, (int)(this.getAttributeValue(Attribute.MAJOR_ARCANE) * (0.5f+Math.random())));
+			setAttribute(Attribute.MAJOR_CORRUPTION, (int)(20 * (0.5f+Math.random())));
 			
 			this.setRandomLocation(WorldType.DOMINION, PlaceType.DOMINION_STREET, true);
 			
@@ -150,7 +149,6 @@ public class ReindeerOverseer extends NPC {
 			
 			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
-			setStamina(getAttributeValue(Attribute.STAMINA_MAXIMUM));
 		}
 	}
 	

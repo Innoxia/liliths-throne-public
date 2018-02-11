@@ -36,6 +36,7 @@ public abstract class SexAction implements SexActionInterface {
 	private SexParticipantType participantType;
 	private SexPace sexPacePlayer, sexPacePartner;
 	private Map<GameCharacter, List<Fetish>> characterFetishes;
+	private Map<GameCharacter, List<Fetish>> characterFetishesForPartner;
 	
 	public SexAction(
 			SexActionType sexActionType,
@@ -143,124 +144,144 @@ public abstract class SexAction implements SexActionInterface {
 	public abstract String getDescription();
 	
 	@Override
-	public List<Fetish> getFetishes(GameCharacter character) {
+	public List<Fetish> getFetishesForTargetedPartner(GameCharacter characterPerformingAction) {
+		return getFetishesForEitherPartner(characterPerformingAction, false);
+	}
+
+	@Override
+	public List<Fetish> getFetishes(GameCharacter characterPerformingAction) {
+		return getFetishesForEitherPartner(characterPerformingAction, true);
+	}
+	
+	public List<Fetish> getFetishesForEitherPartner(GameCharacter characterPerformingAction, boolean characterPerformingActionFetishes) {
 		
-		if(characterFetishes==null || characterFetishes.get(character)==null) {
+		if(characterFetishes==null || characterFetishes.get(characterPerformingAction)==null) {
+			GameCharacter characterTarget = Sex.getTargetedPartner(characterPerformingAction);
 			
 			characterFetishes = new HashMap<>();
-			characterFetishes.putIfAbsent(character, new ArrayList<>());
+			characterFetishesForPartner = new HashMap<>();
 			
-			if(this.getParticipantType()!=SexParticipantType.SELF && character.isRelatedTo(Sex.getTargetedPartner(character))) {
-				characterFetishes.get(character).add(Fetish.FETISH_INCEST);
+			characterFetishes.putIfAbsent(characterPerformingAction, new ArrayList<>());
+			characterFetishesForPartner.putIfAbsent(characterPerformingAction, new ArrayList<>());
+			
+			if(this.getParticipantType()==SexParticipantType.SELF && !characterPerformingActionFetishes) { // If this is a self action, do not apply fetishes to other partner.
+				return characterFetishesForPartner.get(characterPerformingAction);
 			}
 			
-			if(this.getSexPace(character)!=null) {
-				switch(this.getSexPace(character)) {
+			if(this.getParticipantType()!=SexParticipantType.SELF && characterPerformingAction.isRelatedTo(characterTarget)) {
+				characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_INCEST);
+				characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_INCEST);
+			}
+			
+			if(this.getSexPace(characterPerformingAction)!=null) {
+				switch(this.getSexPace(characterPerformingAction)) {
 					case DOM_GENTLE:
-						characterFetishes.get(character).add(Fetish.FETISH_DOMINANT);
+						characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_DOMINANT);
+						characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_SUBMISSIVE);
 						break;
 					case DOM_NORMAL:
-						characterFetishes.get(character).add(Fetish.FETISH_DOMINANT);
+						characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_DOMINANT);
+						characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_SUBMISSIVE);
 						break;
 					case DOM_ROUGH:
-						characterFetishes.get(character).add(Fetish.FETISH_DOMINANT);
-						characterFetishes.get(character).add(Fetish.FETISH_SADIST);
+						characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_DOMINANT);
+						characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_SUBMISSIVE);
+						characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_SADIST);
+						characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_MASOCHIST);
 						break;
 					case SUB_EAGER:
-						characterFetishes.get(character).add(Fetish.FETISH_SUBMISSIVE);
+						characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_SUBMISSIVE);
+						characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_DOMINANT);
 						break;
 					case SUB_NORMAL:
-						characterFetishes.get(character).add(Fetish.FETISH_SUBMISSIVE);
+						characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_SUBMISSIVE);
+						characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_DOMINANT);
 						break;
 					case SUB_RESISTING:
-						characterFetishes.get(character).add(Fetish.FETISH_SUBMISSIVE);
-						characterFetishes.get(character).add(Fetish.FETISH_NON_CON_SUB);
+						characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_SUBMISSIVE);
+						characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_DOMINANT);
+						characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_NON_CON_SUB);
+						characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_NON_CON_DOM);
 						break;
 				}
 			}
-			if(this.getSexPace(Sex.getTargetedPartner(character))!=null) {
-				switch(this.getSexPace(Sex.getTargetedPartner(character))) {
-					case DOM_GENTLE:
-						break;
-					case DOM_NORMAL:
-						break;
-					case DOM_ROUGH:
-						characterFetishes.get(character).add(Fetish.FETISH_MASOCHIST);
-						break;
-					case SUB_EAGER:
-						break;
-					case SUB_NORMAL:
-						break;
-					case SUB_RESISTING:
-						characterFetishes.get(character).add(Fetish.FETISH_NON_CON_DOM);
-						break;
-				}
-			}
 			
-			List<CoverableArea> cummedOnList = this.getAreasCummedOn(character, Sex.getTargetedPartner(character));
+			List<CoverableArea> cummedOnList = this.getAreasCummedOn(characterPerformingAction, characterTarget);
 			if(cummedOnList != null) {
-				characterFetishes.get(character).add(Fetish.FETISH_CUM_STUD);
+				characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_CUM_STUD);
+				characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_CUM_ADDICT);
 				for(CoverableArea area : cummedOnList) {
 					switch(area) {
 						case ANUS: case ASS:
-							characterFetishes.get(character).add(Fetish.FETISH_ANAL_GIVING);
+							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_ANAL_GIVING);
+							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_ANAL_RECEIVING);
 							break;
 						case BACK:
 							break;
 						case BREASTS: case NIPPLES:
-							characterFetishes.get(character).add(Fetish.FETISH_BREASTS_OTHERS);
+							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_BREASTS_OTHERS);
+							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_BREASTS_SELF);
 							break;
 						case HAIR:
 							break;
 						case LEGS: case THIGHS:
-							characterFetishes.get(character).add(Fetish.FETISH_LEG_LOVER);
+							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_LEG_LOVER);
+							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_STRUTTER);
 							break;
 						case MOUND:
 							break;
 						case MOUTH:
-							characterFetishes.get(character).add(Fetish.FETISH_ORAL_GIVING);
+							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_ORAL_GIVING);
+							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_ORAL_RECEIVING);
 							break;
 						case PENIS: case TESTICLES:
 							break;
 						case STOMACH:
 							break;
 						case VAGINA:
-							characterFetishes.get(character).add(Fetish.FETISH_VAGINAL_GIVING);
+							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_VAGINAL_GIVING);
+							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_VAGINAL_RECEIVING);
 							break;
 					}
 				}
 			}
 			
-			cummedOnList = this.getAreasCummedOn(Sex.getTargetedPartner(character), character);
+			cummedOnList = this.getAreasCummedOn(characterTarget, characterPerformingAction);
 			if(cummedOnList != null) {
-				characterFetishes.get(character).add(Fetish.FETISH_CUM_ADDICT);
+				characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_CUM_ADDICT);
+				characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_CUM_STUD);
 				
 				for(CoverableArea area : cummedOnList) {
 					switch(area) {
 						case ANUS: case ASS:
-							characterFetishes.get(character).add(Fetish.FETISH_ANAL_RECEIVING);
+							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_ANAL_RECEIVING);
+							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_ANAL_GIVING);
 							break;
 						case BACK:
 							break;
 						case BREASTS: case NIPPLES:
-							characterFetishes.get(character).add(Fetish.FETISH_BREASTS_SELF);
+							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_BREASTS_SELF);
+							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_BREASTS_OTHERS);
 							break;
 						case HAIR:
 							break;
 						case LEGS: case THIGHS:
-							characterFetishes.get(character).add(Fetish.FETISH_STRUTTER);
+							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_STRUTTER);
+							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_LEG_LOVER);
 							break;
 						case MOUND:
 							break;
 						case MOUTH:
-							characterFetishes.get(character).add(Fetish.FETISH_ORAL_RECEIVING);
+							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_ORAL_RECEIVING);
+							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_ORAL_GIVING);
 							break;
 						case PENIS: case TESTICLES:
 							break;
 						case STOMACH:
 							break;
 						case VAGINA:
-							characterFetishes.get(character).add(Fetish.FETISH_VAGINAL_RECEIVING);
+							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_VAGINAL_RECEIVING);
+							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_VAGINAL_GIVING);
 							break;
 					}
 				}
@@ -268,32 +289,40 @@ public abstract class SexAction implements SexActionInterface {
 			
 			
 			
-			List<OrificeType> cummedInList = this.getAreasCummedIn(character, Sex.getTargetedPartner(character));
+			List<OrificeType> cummedInList = this.getAreasCummedIn(characterPerformingAction, characterTarget);
 			if(cummedInList != null) {
-				characterFetishes.get(character).add(Fetish.FETISH_CUM_STUD);
+				characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_CUM_STUD);
+				characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_CUM_ADDICT);
 				
 				for(OrificeType orifice : cummedInList) {
 					switch(orifice) {
 						case ANUS: case ASS:
-							characterFetishes.get(character).add(Fetish.FETISH_ANAL_GIVING);
+							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_ANAL_GIVING);
+							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_ANAL_RECEIVING);
 							break;
 						case BREAST: case NIPPLE:
-							characterFetishes.get(character).add(Fetish.FETISH_BREASTS_OTHERS);
+							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_BREASTS_OTHERS);
+							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_BREASTS_SELF);
 							break;
 						case THIGHS:
-							characterFetishes.get(character).add(Fetish.FETISH_LEG_LOVER);
+							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_LEG_LOVER);
+							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_STRUTTER);
 							break;
 						case MOUTH:
-							characterFetishes.get(character).add(Fetish.FETISH_ORAL_GIVING);
+							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_ORAL_GIVING);
+							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_ORAL_RECEIVING);
 							break;
 						case VAGINA:
-							characterFetishes.get(character).add(Fetish.FETISH_VAGINAL_GIVING);
-							characterFetishes.get(character).add(Fetish.FETISH_IMPREGNATION);
-							characterFetishes.get(character).add(Fetish.FETISH_SEEDER);
+							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_VAGINAL_GIVING);
+							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_IMPREGNATION);
+							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_SEEDER);
 							if(this.getParticipantType()==SexParticipantType.SELF) {
-								characterFetishes.get(character).add(Fetish.FETISH_PREGNANCY);
-								characterFetishes.get(character).add(Fetish.FETISH_BROODMOTHER);
+								characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_PREGNANCY);
+								characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_BROODMOTHER);
 							}
+							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_VAGINAL_RECEIVING);
+							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_PREGNANCY);
+							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_BROODMOTHER);
 							break;
 						case URETHRA:
 							break;
@@ -301,32 +330,40 @@ public abstract class SexAction implements SexActionInterface {
 				}
 			}
 			
-			cummedInList = this.getAreasCummedIn(Sex.getTargetedPartner(character), character);
+			cummedInList = this.getAreasCummedIn(characterTarget, characterPerformingAction);
 			if(cummedInList != null) {
-				characterFetishes.get(character).add(Fetish.FETISH_CUM_ADDICT);
+				characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_CUM_ADDICT);
+				characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_CUM_STUD);
 				
 				for(OrificeType orifice : cummedInList) {
 					switch(orifice) {
 						case ANUS: case ASS:
-							characterFetishes.get(character).add(Fetish.FETISH_ANAL_RECEIVING);
+							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_ANAL_RECEIVING);
+							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_ANAL_GIVING);
 							break;
 						case BREAST: case NIPPLE:
-							characterFetishes.get(character).add(Fetish.FETISH_BREASTS_SELF);
+							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_BREASTS_SELF);
+							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_BREASTS_OTHERS);
 							break;
 						case THIGHS:
-							characterFetishes.get(character).add(Fetish.FETISH_STRUTTER);
+							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_STRUTTER);
+							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_LEG_LOVER);
 							break;
 						case MOUTH:
-							characterFetishes.get(character).add(Fetish.FETISH_ORAL_RECEIVING);
+							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_ORAL_RECEIVING);
+							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_ORAL_GIVING);
 							break;
 						case VAGINA:
-							characterFetishes.get(character).add(Fetish.FETISH_VAGINAL_RECEIVING);
-							characterFetishes.get(character).add(Fetish.FETISH_PREGNANCY);
-							characterFetishes.get(character).add(Fetish.FETISH_BROODMOTHER);
+							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_VAGINAL_RECEIVING);
+							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_PREGNANCY);
+							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_BROODMOTHER);
 							if(this.getParticipantType()==SexParticipantType.SELF) {
-								characterFetishes.get(character).add(Fetish.FETISH_IMPREGNATION);
-								characterFetishes.get(character).add(Fetish.FETISH_SEEDER);
+								characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_IMPREGNATION);
+								characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_SEEDER);
 							}
+							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_VAGINAL_GIVING);
+							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_IMPREGNATION);
+							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_SEEDER);
 							break;
 						case URETHRA:
 							break;
@@ -338,25 +375,30 @@ public abstract class SexAction implements SexActionInterface {
 					&& this.getActionType()!=SexActionType.PLAYER_STOP_PENETRATION
 					&& this.getActionType()!=SexActionType.PARTNER_STOP_PENETRATION
 					&& this.getParticipantType()!=SexParticipantType.MISC) {
-				characterFetishes.get(character).addAll(getFetishesFromPenetrationAndOrificeTypes(character, this.getAssociatedPenetrationType(), this.getAssociatedOrificeType()));
+				if(characterPerformingActionFetishes) {
+					characterFetishes.get(characterPerformingAction).addAll(getFetishesFromPenetrationAndOrificeTypes(characterPerformingAction, this.getAssociatedPenetrationType(), this.getAssociatedOrificeType(), characterPerformingActionFetishes));
+				} else {
+					characterFetishesForPartner.get(characterPerformingAction).addAll(getFetishesFromPenetrationAndOrificeTypes(characterPerformingAction, this.getAssociatedPenetrationType(), this.getAssociatedOrificeType(), characterPerformingActionFetishes));
+				}
 			}
 		}
-		
-		return characterFetishes.get(character);
+		if(characterPerformingActionFetishes) {
+			return characterFetishes.get(characterPerformingAction);
+		} else {
+			return characterFetishesForPartner.get(characterPerformingAction);
+		}
 	}
 	
-	protected List<Fetish> getFetishesFromPenetrationAndOrificeTypes(GameCharacter character, PenetrationType penetrationBeingUsed, OrificeType orificeBeingUsed) {
+	protected List<Fetish> getFetishesFromPenetrationAndOrificeTypes(GameCharacter characterPerformingAction, PenetrationType penetrationBeingUsed, OrificeType orificeBeingUsed, boolean characterPerformingActionFetishes) {
 		List<Fetish> associatedFetishes = new ArrayList<>();
+		List<Fetish> associatedFetishesPartner = new ArrayList<>();
 
-		boolean isCharacterPerformingAction = this.getActionType().isPlayerAction()
-												?character.isPlayer()
-												:Sex.getActivePartner().equals(character);
+		boolean isCharacterPerformingActionUsingOrificeType = this.getParticipantType().isUsingSelfOrificeType();
+		boolean isCharacterPerformingActionUsingPenetrationType = this.getParticipantType().isUsingSelfPenetrationType();
 												
 		switch(penetrationBeingUsed) {
 			case FINGER:
-				if(isCharacterPerformingAction
-						?this.getParticipantType().isUsingSelfOrificeType()
-						:!this.getParticipantType().isUsingSelfOrificeType()) {
+				if(isCharacterPerformingActionUsingOrificeType) {
 					switch(orificeBeingUsed) {
 						case ANUS: case ASS:
 							associatedFetishes.add(Fetish.FETISH_ANAL_RECEIVING);
@@ -381,18 +423,23 @@ public abstract class SexAction implements SexActionInterface {
 							associatedFetishes.add(Fetish.FETISH_STRUTTER);
 							break;
 					}
-				} else {
+				}
+				if(isCharacterPerformingActionUsingPenetrationType) {
 					switch(orificeBeingUsed) {
 						case ANUS: case ASS:
 							associatedFetishes.add(Fetish.FETISH_ANAL_GIVING);
 							break;
 						case BREAST:
-							associatedFetishes.add(Fetish.FETISH_BREASTS_OTHERS);
+							if(!isCharacterPerformingActionUsingOrificeType) {
+								associatedFetishes.add(Fetish.FETISH_BREASTS_OTHERS);
+							}
 							break;
 						case MOUTH:
 							break;
 						case NIPPLE:
-							associatedFetishes.add(Fetish.FETISH_BREASTS_OTHERS);
+							if(!isCharacterPerformingActionUsingOrificeType) {
+								associatedFetishes.add(Fetish.FETISH_BREASTS_OTHERS);
+							}
 							break;
 						case URETHRA:
 							associatedFetishes.add(Fetish.FETISH_MASTURBATION);
@@ -408,9 +455,7 @@ public abstract class SexAction implements SexActionInterface {
 				}
 				break;
 			case PENIS:
-				if(isCharacterPerformingAction
-						?this.getParticipantType().isUsingSelfOrificeType()
-						:!this.getParticipantType().isUsingSelfOrificeType()) {
+				if(isCharacterPerformingActionUsingOrificeType) {
 					switch(orificeBeingUsed) {
 						case ANUS: case ASS:
 							associatedFetishes.add(Fetish.FETISH_ANAL_RECEIVING);
@@ -436,19 +481,24 @@ public abstract class SexAction implements SexActionInterface {
 							associatedFetishes.add(Fetish.FETISH_STRUTTER);
 							break;
 					}
-				} else {
+				}
+				if(isCharacterPerformingActionUsingPenetrationType) {
 					switch(orificeBeingUsed) {
 						case ANUS: case ASS:
 							associatedFetishes.add(Fetish.FETISH_ANAL_GIVING);
 							break;
 						case BREAST:
-							associatedFetishes.add(Fetish.FETISH_BREASTS_OTHERS);
+							if(!isCharacterPerformingActionUsingOrificeType) {
+								associatedFetishes.add(Fetish.FETISH_BREASTS_OTHERS);
+							}
 							break;
 						case MOUTH:
 							associatedFetishes.add(Fetish.FETISH_ORAL_RECEIVING);
 							break;
 						case NIPPLE:
-							associatedFetishes.add(Fetish.FETISH_BREASTS_OTHERS);
+							if(!isCharacterPerformingActionUsingOrificeType) {
+								associatedFetishes.add(Fetish.FETISH_BREASTS_OTHERS);
+							}
 							break;
 						case URETHRA:
 							break;
@@ -462,9 +512,7 @@ public abstract class SexAction implements SexActionInterface {
 				}
 				break;
 			case TAIL:
-				if(isCharacterPerformingAction
-						?this.getParticipantType().isUsingSelfOrificeType()
-						:!this.getParticipantType().isUsingSelfOrificeType()) {
+				if(isCharacterPerformingActionUsingOrificeType) {
 					switch(orificeBeingUsed) {
 						case ANUS: case ASS:
 							associatedFetishes.add(Fetish.FETISH_ANAL_RECEIVING);
@@ -490,19 +538,24 @@ public abstract class SexAction implements SexActionInterface {
 							associatedFetishes.add(Fetish.FETISH_STRUTTER);
 							break;
 					}
-				} else {
+				}
+				if(isCharacterPerformingActionUsingPenetrationType) {
 					switch(orificeBeingUsed) {
 						case ANUS: case ASS:
 							associatedFetishes.add(Fetish.FETISH_ANAL_GIVING);
 							break;
 						case BREAST:
-							associatedFetishes.add(Fetish.FETISH_BREASTS_OTHERS);
+							if(!isCharacterPerformingActionUsingOrificeType) {
+								associatedFetishes.add(Fetish.FETISH_BREASTS_OTHERS);
+							}
 							break;
 						case MOUTH:
 							associatedFetishes.add(Fetish.FETISH_ORAL_RECEIVING);
 							break;
 						case NIPPLE:
-							associatedFetishes.add(Fetish.FETISH_BREASTS_OTHERS);
+							if(!isCharacterPerformingActionUsingOrificeType) {
+								associatedFetishes.add(Fetish.FETISH_BREASTS_OTHERS);
+							}
 							break;
 						case URETHRA:
 							break;
@@ -516,9 +569,7 @@ public abstract class SexAction implements SexActionInterface {
 				}
 				break;
 			case TENTACLE:
-				if(isCharacterPerformingAction
-						?this.getParticipantType().isUsingSelfOrificeType()
-						:!this.getParticipantType().isUsingSelfOrificeType()) {
+				if(isCharacterPerformingActionUsingOrificeType) {
 					switch(orificeBeingUsed) {
 						case ANUS: case ASS:
 							associatedFetishes.add(Fetish.FETISH_ANAL_RECEIVING);
@@ -544,19 +595,24 @@ public abstract class SexAction implements SexActionInterface {
 							associatedFetishes.add(Fetish.FETISH_STRUTTER);
 							break;
 					}
-				} else {
+				}
+				if(isCharacterPerformingActionUsingPenetrationType) {
 					switch(orificeBeingUsed) {
 						case ANUS: case ASS:
 							associatedFetishes.add(Fetish.FETISH_ANAL_GIVING);
 							break;
 						case BREAST:
-							associatedFetishes.add(Fetish.FETISH_BREASTS_OTHERS);
+							if(!isCharacterPerformingActionUsingOrificeType) {
+								associatedFetishes.add(Fetish.FETISH_BREASTS_OTHERS);
+							}
 							break;
 						case MOUTH:
 							associatedFetishes.add(Fetish.FETISH_ORAL_RECEIVING);
 							break;
 						case NIPPLE:
-							associatedFetishes.add(Fetish.FETISH_BREASTS_OTHERS);
+							if(!isCharacterPerformingActionUsingOrificeType) {
+								associatedFetishes.add(Fetish.FETISH_BREASTS_OTHERS);
+							}
 							break;
 						case URETHRA:
 							break;
@@ -570,9 +626,7 @@ public abstract class SexAction implements SexActionInterface {
 				}
 				break;
 			case TONGUE:
-				if(isCharacterPerformingAction
-						?this.getParticipantType().isUsingSelfOrificeType()
-						:!this.getParticipantType().isUsingSelfOrificeType()) {
+				if(isCharacterPerformingActionUsingOrificeType) {
 					switch(orificeBeingUsed) {
 						case ANUS: case ASS:
 							associatedFetishes.add(Fetish.FETISH_ANAL_RECEIVING);
@@ -614,14 +668,17 @@ public abstract class SexAction implements SexActionInterface {
 							associatedFetishes.add(Fetish.FETISH_STRUTTER);
 							break;
 					}
-				} else {
+				}
+				if(isCharacterPerformingActionUsingPenetrationType) {
 					switch(orificeBeingUsed) {
 						case ANUS: case ASS:
 							associatedFetishes.add(Fetish.FETISH_ANAL_GIVING);
 							associatedFetishes.add(Fetish.FETISH_ORAL_GIVING);
 							break;
 						case BREAST:
-							associatedFetishes.add(Fetish.FETISH_BREASTS_OTHERS);
+							if(!isCharacterPerformingActionUsingOrificeType) {
+								associatedFetishes.add(Fetish.FETISH_BREASTS_OTHERS);
+							}
 							associatedFetishes.add(Fetish.FETISH_ORAL_GIVING);
 							break;
 						case MOUTH:
@@ -629,7 +686,9 @@ public abstract class SexAction implements SexActionInterface {
 							associatedFetishes.add(Fetish.FETISH_ORAL_GIVING);
 							break;
 						case NIPPLE:
-							associatedFetishes.add(Fetish.FETISH_BREASTS_OTHERS);
+							if(!isCharacterPerformingActionUsingOrificeType) {
+								associatedFetishes.add(Fetish.FETISH_BREASTS_OTHERS);
+							}
 							associatedFetishes.add(Fetish.FETISH_ORAL_GIVING);
 							break;
 						case URETHRA:
@@ -650,6 +709,119 @@ public abstract class SexAction implements SexActionInterface {
 			associatedFetishes.add(Fetish.FETISH_MASTURBATION);
 		}
 		
-		return associatedFetishes;
+		// Add opposite fetishes for partner:
+		for(Fetish f : associatedFetishes) {
+			switch(f) {
+				case FETISH_ANAL_GIVING:
+					associatedFetishesPartner.add(Fetish.FETISH_ANAL_RECEIVING);
+					break;
+				case FETISH_ANAL_RECEIVING:
+					associatedFetishesPartner.add(Fetish.FETISH_ANAL_GIVING);
+					break;
+				case FETISH_BIMBO:
+					break;
+				case FETISH_BREASTS_OTHERS:
+					associatedFetishesPartner.add(Fetish.FETISH_BREASTS_SELF);
+					break;
+				case FETISH_BREASTS_SELF:
+					associatedFetishesPartner.add(Fetish.FETISH_BREASTS_OTHERS);
+					break;
+				case FETISH_BREEDER:
+					break;
+				case FETISH_BROODMOTHER:
+					associatedFetishesPartner.add(Fetish.FETISH_SEEDER);
+					break;
+				case FETISH_CROSS_DRESSER:
+					break;
+				case FETISH_CUM_ADDICT:
+					associatedFetishesPartner.add(Fetish.FETISH_CUM_STUD);
+					break;
+				case FETISH_CUM_STUD:
+					associatedFetishesPartner.add(Fetish.FETISH_CUM_ADDICT);
+					break;
+				case FETISH_DEFLOWERING:
+					break;
+				case FETISH_DENIAL:
+					associatedFetishesPartner.add(Fetish.FETISH_DENIAL_SELF);
+					break;
+				case FETISH_DENIAL_SELF:
+					associatedFetishesPartner.add(Fetish.FETISH_DENIAL);
+					break;
+				case FETISH_DOMINANT:
+					associatedFetishesPartner.add(Fetish.FETISH_SUBMISSIVE);
+					break;
+				case FETISH_EXHIBITIONIST:
+					break;
+				case FETISH_IMPREGNATION:
+					associatedFetishesPartner.add(Fetish.FETISH_PREGNANCY);
+					break;
+				case FETISH_INCEST:
+					associatedFetishesPartner.add(Fetish.FETISH_INCEST);
+					break;
+				case FETISH_LEG_LOVER:
+					associatedFetishesPartner.add(Fetish.FETISH_STRUTTER);
+					break;
+				case FETISH_LUSTY_MAIDEN:
+					break;
+				case FETISH_MASOCHIST:
+					associatedFetishesPartner.add(Fetish.FETISH_SADIST);
+					break;
+				case FETISH_MASTURBATION:
+					associatedFetishesPartner.add(Fetish.FETISH_MASTURBATION);
+					break;
+				case FETISH_NON_CON_DOM:
+					associatedFetishesPartner.add(Fetish.FETISH_NON_CON_SUB);
+					break;
+				case FETISH_NON_CON_SUB:
+					associatedFetishesPartner.add(Fetish.FETISH_NON_CON_DOM);
+					break;
+				case FETISH_ORAL_GIVING:
+					associatedFetishesPartner.add(Fetish.FETISH_ORAL_RECEIVING);
+					break;
+				case FETISH_ORAL_RECEIVING:
+					associatedFetishesPartner.add(Fetish.FETISH_ORAL_GIVING);
+					break;
+				case FETISH_PREGNANCY:
+					associatedFetishesPartner.add(Fetish.FETISH_IMPREGNATION);
+					break;
+				case FETISH_PURE_VIRGIN:
+					break;
+				case FETISH_SADIST:
+					associatedFetishesPartner.add(Fetish.FETISH_MASOCHIST);
+					break;
+				case FETISH_SADOMASOCHIST:
+					break;
+				case FETISH_SEEDER:
+					break;
+				case FETISH_STRUTTER:
+					associatedFetishesPartner.add(Fetish.FETISH_LEG_LOVER);
+					break;
+				case FETISH_SUBMISSIVE:
+					associatedFetishesPartner.add(Fetish.FETISH_DOMINANT);
+					break;
+				case FETISH_SWITCH:
+					break;
+				case FETISH_TRANSFORMATION_GIVING:
+					associatedFetishesPartner.add(Fetish.FETISH_TRANSFORMATION_RECEIVING);
+					break;
+				case FETISH_TRANSFORMATION_RECEIVING:
+					associatedFetishesPartner.add(Fetish.FETISH_TRANSFORMATION_GIVING);
+					break;
+				case FETISH_VAGINAL_GIVING:
+					associatedFetishesPartner.add(Fetish.FETISH_VAGINAL_RECEIVING);
+					break;
+				case FETISH_VAGINAL_RECEIVING:
+					associatedFetishesPartner.add(Fetish.FETISH_VAGINAL_GIVING);
+					break;
+				case FETISH_VOYEURIST:
+					break;
+			}
+		}
+		
+		if(characterPerformingActionFetishes) {
+			return associatedFetishes;
+		} else {
+			return associatedFetishesPartner;
+		}
 	}
 }

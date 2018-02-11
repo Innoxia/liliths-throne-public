@@ -39,8 +39,6 @@ public enum PenisType implements BodyPartTypeInterface {
 
 	REINDEER_MORPH(BodyCoveringType.PENIS, TesticleType.REINDEER_MORPH, Race.REINDEER_MORPH, PenisModifier.FLARED, PenisModifier.SHEATHED),
 
-	SLIME(BodyCoveringType.PENIS, TesticleType.SLIME, Race.SLIME),
-
 	AVIAN(BodyCoveringType.PENIS, TesticleType.AVIAN, Race.HARPY, PenisModifier.SHEATHED),
 	
 	SQUIRREL(BodyCoveringType.PENIS, TesticleType.SQUIRREL, Race.SQUIRREL_MORPH, PenisModifier.SHEATHED);
@@ -95,8 +93,6 @@ public enum PenisType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("cock", "shaft");
 			case NONE:
 				return UtilText.returnStringAtRandom("");
-			case SLIME:
-				return UtilText.returnStringAtRandom("slime-cock", "slimy cock", "slime-dick");
 			case SQUIRREL:
 				return UtilText.returnStringAtRandom("squirrel-cock", "rodent cock", "squirrel-like cock", "squirrel-dick");
 			default:
@@ -129,8 +125,6 @@ public enum PenisType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("cocks", "shafts");
 			case NONE:
 				return UtilText.returnStringAtRandom("");
-			case SLIME:
-				return UtilText.returnStringAtRandom("slime-cocks", "slimy cocks", "slime-dicks");
 			case SQUIRREL:
 				return UtilText.returnStringAtRandom("squirrel-cocks", "rodent cocks", "squirrel-like cocks", "squirrel-dicks");
 			default:
@@ -166,8 +160,6 @@ public enum PenisType implements BodyPartTypeInterface {
 						return UtilText.returnStringAtRandom("");
 					case NONE:
 						return UtilText.returnStringAtRandom("");
-					case SLIME:
-						return UtilText.returnStringAtRandom("gooey");
 					case SQUIRREL:
 						return UtilText.returnStringAtRandom("");
 					default:
@@ -207,8 +199,6 @@ public enum PenisType implements BodyPartTypeInterface {
 				return "human";
 			case NONE:
 				return "none";
-			case SLIME:
-				return "slime";
 			case SQUIRREL:
 				return "squirrel";
 			case ALLIGATOR_MORPH:

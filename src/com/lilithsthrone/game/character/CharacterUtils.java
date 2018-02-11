@@ -75,6 +75,8 @@ import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.npc.dominion.Cultist;
+import com.lilithsthrone.game.character.npc.dominion.DominionSuccubusAttacker;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
@@ -1137,8 +1139,11 @@ public class CharacterUtils {
 			}
 		}
 		
+		// Remove existing fetishes:
+		availableFetishes.removeAll(character.getFetishes());
+		
 		int[] numberProb = new int[] {1, 1, 2, 2, 2, 2, 3, 3, 3, 4, 4, 5};
-		int numberOfFetishes = numberProb[Util.random.nextInt(numberProb.length)];
+		int numberOfFetishes = numberProb[Util.random.nextInt(numberProb.length)] - character.getFetishes().size();
 		
 		int fetishesAssigned = 0;
 		
@@ -1205,7 +1210,7 @@ public class CharacterUtils {
 		int numberOfNegativeDesires = negDesireProb[Util.random.nextInt(negDesireProb.length)];
 		
 		int desiresAssigned = 0;
-		while(desiresAssigned < numberOfPositiveDesires) {
+		while(desiresAssigned < numberOfPositiveDesires && !availableFetishes.isEmpty()) {
 			Fetish f = availableFetishes.get(Util.random.nextInt(availableFetishes.size()));
 			character.setFetishDesire(f, FetishDesire.THREE_LIKE);
 			availableFetishes.remove(f);
@@ -1230,7 +1235,10 @@ public class CharacterUtils {
 		}
 		
 		desiresAssigned = 0;
-		while(desiresAssigned < numberOfNegativeDesires) {
+		if(character instanceof Cultist || character instanceof DominionSuccubusAttacker) { // Cultists and succubus attackers never mind rape
+			availableFetishes.remove(Fetish.FETISH_NON_CON_DOM);
+		}
+		while(desiresAssigned < numberOfNegativeDesires && !availableFetishes.isEmpty()) {
 			Fetish f = availableFetishes.get(Util.random.nextInt(availableFetishes.size()));
 			character.setFetishDesire(f, Math.random()>0.5?FetishDesire.ONE_DISLIKE:FetishDesire.ZERO_HATE);
 			availableFetishes.remove(f);

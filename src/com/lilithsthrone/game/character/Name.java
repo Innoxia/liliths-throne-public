@@ -275,8 +275,6 @@ public enum Name {
 				break;
 			case HUMAN:
 				break;
-			case SLIME:
-				break;
 			case WOLF_MORPH:
 				break;
 			case SQUIRREL_MORPH:
@@ -323,8 +321,6 @@ public enum Name {
 				name = Name.EQUINE;
 				break;
 			case HUMAN:
-				break;
-			case SLIME:
 				break;
 			case WOLF_MORPH:
 				break;

@@ -147,6 +147,7 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 	
 	// Getters & setters:
 	
+	
 	public String getDisplayName(boolean withRarityColour) {
 		return Util.capitaliseSentence((itemType.getDeterminer()==""?"":itemType.getDeterminer()+" ") + (withRarityColour ? ("<span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : name));
 	}

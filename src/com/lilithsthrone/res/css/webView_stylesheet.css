@@ -258,6 +258,9 @@ input:focus {
 	border:solid 2px #BD0061;
 	cursor:default;
 }
+.square-button.round {
+	border-radius: 50%;
+}
 .square-button.small {
 	width:8%;
 	margin:1%;

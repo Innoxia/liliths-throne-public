@@ -784,8 +784,8 @@ public class Brax extends NPC {
 						Main.game.getPlayer().setMuscle(Muscle.THREE_MUSCULAR.getMedianValue());
 						
 						
-						if(Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION)<CorruptionLevel.TWO_HORNY.getMinimumValue()) {
-							Main.game.getPlayer().setAttribute(Attribute.CORRUPTION, CorruptionLevel.TWO_HORNY.getMinimumValue());
+						if(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_CORRUPTION)<CorruptionLevel.TWO_HORNY.getMinimumValue()) {
+							Main.game.getPlayer().setAttribute(Attribute.MAJOR_CORRUPTION, CorruptionLevel.TWO_HORNY.getMinimumValue());
 						}
 					}
 				};
@@ -864,7 +864,7 @@ public class Brax extends NPC {
 					+ "</p>"
 					+ "<p>"
 						+ "As that thought crosses your mind, your eyes open wide, and you get your lust under control for a moment as you step back, looking down at your body to see what's changed."
-						+ " You hear Brax let out a laugh as he notices that you're trying to find out what he's done to you, and, with a powerful grip, he grabs your wolf-like muzzle and turns your head to face a mirror hanging on one wall."
+						+ " You hear Brax let out a laugh as he notices that you're trying to find out what he's done to you, and, with a powerful grip, he grabs your shoulders and spins you around to face a mirror hanging on one wall."
 					+ "</p>");
 
 			switch(Main.getProperties().forcedTFPreference) {

@@ -381,17 +381,6 @@ public class Penis implements BodyPartInterface, Serializable {
 									+ " covered in [npc.ballsFullDescription(true)], which produce [npc.cumColour(true)] [style.boldGatorMorph(alligator-morph cum)].");
 				}
 				break;
-			case SLIME:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-							"You now have a [style.boldSlime(slime penis)], covered in [pc.penisFullDescription(true)].</br>"
-							+ "You have [style.boldSlime([pc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" slime balls)], covered in [pc.ballsFullDescription(true)], which produce [pc.cumColour(true)] [style.boldSlime(slime cum)].");
-				} else {
-					UtilText.transformationContentSB.append(
-							"[npc.She] now has a [style.boldSlime(slime penis)], covered in [npc.penisFullDescription(true)].</br>"
-							+ "[npc.She] has [style.boldSlime([npc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" slime balls)], covered in [npc.ballsFullDescription(true)], which produce [npc.cumColour(true)] [style.boldSlime(slime cum)].");
-				}
-				break;
 			case SQUIRREL:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(

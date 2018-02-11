@@ -38,9 +38,7 @@ public enum MouthType implements BodyPartTypeInterface {
 	
 	REINDEER_MORPH(BodyCoveringType.MOUTH, Race.REINDEER_MORPH),
 	
-	HARPY(BodyCoveringType.MOUTH, Race.HARPY),
-
-	SLIME(BodyCoveringType.MOUTH_SLIME, Race.SLIME);
+	HARPY(BodyCoveringType.MOUTH, Race.HARPY);
 
 	
 	private BodyCoveringType skinType;

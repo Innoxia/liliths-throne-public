@@ -839,7 +839,7 @@ public enum Fetish {
 			"fetish_denial_self",
 			Fetish.BASE_RARE_EXPERIENCE_GAIN,
 			Colour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STAMINA_MAXIMUM, 25)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 2)),
 			null,
 			null) {
 
@@ -898,7 +898,7 @@ public enum Fetish {
 			"fetish_submissive",
 			Fetish.BASE_EXPERIENCE_GAIN,
 			Colour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.STAMINA_MAXIMUM, 5)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 2)),
 			Util.newArrayListOfValues(
 					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>submissive tease</span>"),
 					new ListValue<>("<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Weak to</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>dominant tease</span>"),
@@ -961,7 +961,7 @@ public enum Fetish {
 			Colour.GENERIC_ARCANE,
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<>("40% of incoming <span style='color:"+ Colour.ATTRIBUTE_HEALTH.toWebHexString()+ ";'>health damage</span> is converted to <span style='color:"+ Colour.DAMAGE_TYPE_MANA.toWebHexString()+ ";'>willpower damage</span>")),
+					new ListValue<>("40% of incoming <span style='color:"+ Colour.ATTRIBUTE_HEALTH.toWebHexString()+ ";'>energy damage</span> is converted to <span style='color:"+ Colour.DAMAGE_TYPE_MANA.toWebHexString()+ ";'>aura damage</span>")),
 			null) {
 
 		@Override
@@ -991,8 +991,8 @@ public enum Fetish {
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_PURE, 5)),
 			Util.newArrayListOfValues(
-					new ListValue<>("You take 10% of dealt <span style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>health damage</span> as "
-										+ "<span style='color:"+ Colour.DAMAGE_TYPE_MANA.toWebHexString()+ ";'>willpower damage</span>")),
+					new ListValue<>("You take 10% of dealt <span style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>energy damage</span> as "
+										+ "<span style='color:"+ Colour.DAMAGE_TYPE_MANA.toWebHexString()+ ";'>aura damage</span>")),
 			null) {
 
 		@Override
@@ -1146,7 +1146,7 @@ public enum Fetish {
 			"fetish_bimbo",
 			Fetish.BASE_EXPERIENCE_GAIN,
 			Colour.GENERIC_ARCANE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_MANA, 10)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 10)),
 			Util.newArrayListOfValues(new ListValue<>("<span style='color:"
 					+ Colour.GENERIC_SEX.toWebHexString()
 					+ ";'>Talk like a bimbo</span>")),
@@ -1210,8 +1210,7 @@ public enum Fetish {
 			Fetish.BASE_EXPERIENCE_GAIN,
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 10),
-					new Value<Attribute, Integer>(Attribute.STAMINA_MAXIMUM, 10)),
+					new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 5)),
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<>(Fetish.FETISH_DOMINANT),

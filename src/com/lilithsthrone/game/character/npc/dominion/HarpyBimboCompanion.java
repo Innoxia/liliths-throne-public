@@ -131,7 +131,7 @@ public class HarpyBimboCompanion extends NPC {
 	
 	@Override
 	public Attack attackType() {
-		if(!getSpecialAttacks().isEmpty() && this.getStaminaPercentage()>0.25f) {
+		if(!getSpecialAttacks().isEmpty()) {
 			if (Math.random() < 0.4) {
 				return Attack.MAIN;
 			} else if (Math.random() < 0.8) {

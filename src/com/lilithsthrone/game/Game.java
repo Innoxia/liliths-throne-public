@@ -778,6 +778,8 @@ public class Game implements Serializable, XMLSaving {
 	
 	public void endTurn(int turnTime, boolean advanceTime) {
 		
+//		long tStart = System.nanoTime();
+		
 		long startHour = getHour();
 		
 		if(advanceTime) {
@@ -862,7 +864,6 @@ public class Game implements Serializable, XMLSaving {
 			if(!Main.game.getPlayer().getLocation().equals(npc.getLocation())) {
 				npc.setHealthPercentage(1);
 				npc.setManaPercentage(1);
-				npc.setStaminaPercentage(1);
 			}
 		}
 		
@@ -941,8 +942,6 @@ public class Game implements Serializable, XMLSaving {
 			
 			// Regenerate health and stamina over time:
 			if (!inSex && !currentDialogueNode.isRegenerationDisabled()) {
-				if (Main.game.getPlayer().getStaminaPercentage() < 1)
-					Main.game.getPlayer().incrementStamina(turnTime * 0.1f);
 				if (Main.game.getPlayer().getHealthPercentage() < 1)
 					Main.game.getPlayer().incrementHealth(turnTime * 0.1f);
 				if (Main.game.getPlayer().getManaPercentage() < 1)
@@ -974,6 +973,8 @@ public class Game implements Serializable, XMLSaving {
 			});
 			Main.game.getPlayer().getStatusEffectDescriptions().clear();
 		}
+		
+//		System.out.println((System.nanoTime()-tStart)/1000000000d+"s");
 	}
 	
 	public Season getSeason() {
@@ -1072,9 +1073,9 @@ public class Game implements Serializable, XMLSaving {
 				if(!response.isAbleToBypass()) {
 					return;
 				} else {
-					Main.game.getPlayer().incrementAttribute(Attribute.CORRUPTION, response.getCorruptionNeeded().getCorruptionBypass());
+					Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_CORRUPTION, response.getCorruptionNeeded().getCorruptionBypass());
 					corruptionGains = ("<p style='text-align:center;'>"
-							+ "<b>You have gained +"+response.getCorruptionNeeded().getCorruptionBypass()+"</b> <b style='color:"+Attribute.CORRUPTION.getColour().toWebHexString()+";'>corruption</b><b>!</b>"
+							+ "<b>You have gained +"+response.getCorruptionNeeded().getCorruptionBypass()+"</b> <b style='color:"+Attribute.MAJOR_CORRUPTION.getColour().toWebHexString()+";'>corruption</b><b>!</b>"
 							+ "</p>");
 				}
 			}

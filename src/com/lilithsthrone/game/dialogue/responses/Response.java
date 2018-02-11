@@ -249,7 +249,7 @@ public class Response {
 		
 		if(perksRequired!=null) {
 			for(Perk p : perksRequired){
-				if(Main.game.getPlayer().hasPerk(p)) {
+				if(Main.game.getPlayer().hasTrait(p, true)) {
 					SB.append("</br>"
 							+"<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Requirement</b>"
 							+ " (<span style='color:"+Colour.PERK.toWebHexString()+";'>Perk</span>): "
@@ -420,7 +420,7 @@ public class Response {
 	}
 
 	public boolean isCorruptionWithinRange() {
-		return corruptionBypass != null && corruptionBypass.getMinimumValue() <= Main.game.getPlayer().getAttributeValue(Attribute.CORRUPTION);
+		return corruptionBypass != null && corruptionBypass.getMinimumValue() <= Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_CORRUPTION);
 	}
 	
 	public boolean isAvailableFromFetishes() {
@@ -444,7 +444,7 @@ public class Response {
 			return false;
 		
 		for (Perk p : perksRequired) {
-			if(!Main.game.getPlayer().hasPerk(p)) {
+			if(!Main.game.getPlayer().hasTrait(p, true)) {
 				return true;
 			}
 		}

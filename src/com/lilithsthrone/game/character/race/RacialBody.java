@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 import com.lilithsthrone.game.character.Personality;
 import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.attributes.AttributeRange;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.AssType;
@@ -61,10 +62,9 @@ public enum RacialBody {
 
 	// HUMAN:
 	HUMAN(Util.newHashMapOfValues(
-				new Value<Attribute, Float>(Attribute.STRENGTH, 10f),
-				new Value<Attribute, Float>(Attribute.INTELLIGENCE, 10f),
-				new Value<Attribute, Float>(Attribute.FITNESS, 10f),
-				new Value<Attribute, Float>(Attribute.CORRUPTION, 5f)),
+				new Value<Attribute, AttributeRange>(Attribute.MAJOR_STRENGTH, new AttributeRange(5f, 15f)),
+				new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(0f, 0f)),
+				new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(5f, 25f))),
 			AntennaType.NONE,
 			ArmType.HUMAN, 1,
 			AssType.HUMAN, AssSize.TWO_SMALL, AssSize.FOUR_LARGE, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
@@ -90,10 +90,9 @@ public enum RacialBody {
 
 	// ANGEL:
 	ANGEL(Util.newHashMapOfValues(
-				new Value<Attribute, Float>(Attribute.STRENGTH, 10f),
-				new Value<Attribute, Float>(Attribute.INTELLIGENCE, 80f),
-				new Value<Attribute, Float>(Attribute.FITNESS, 80f),
-				new Value<Attribute, Float>(Attribute.CORRUPTION, 0f)),
+				new Value<Attribute, AttributeRange>(Attribute.MAJOR_STRENGTH, new AttributeRange(20f, 40f)),
+				new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(20f, 30f)),
+				new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(0f, 0f))),
 			AntennaType.NONE,
 			ArmType.ANGEL, 1,
 			AssType.ANGEL, AssSize.TWO_SMALL, AssSize.TWO_SMALL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
@@ -130,10 +129,9 @@ public enum RacialBody {
 
 	// DEMON:
 	DEMON(Util.newHashMapOfValues(
-				new Value<Attribute, Float>(Attribute.STRENGTH, 60f),
-				new Value<Attribute, Float>(Attribute.INTELLIGENCE, 80f),
-				new Value<Attribute, Float>(Attribute.FITNESS, 80f),
-				new Value<Attribute, Float>(Attribute.CORRUPTION, 100f)),
+				new Value<Attribute, AttributeRange>(Attribute.MAJOR_STRENGTH, new AttributeRange(20f, 40f)),
+				new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(20f, 30f)),
+				new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(80f, 100f))),
 			AntennaType.NONE,
 			ArmType.DEMON_COMMON, 1,
 			AssType.DEMON_COMMON, AssSize.TWO_SMALL, AssSize.FOUR_LARGE, Wetness.FOUR_SLIMY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY,
@@ -172,18 +170,17 @@ public enum RacialBody {
 	// BOVINES:
 	COW_MORPH(
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.STRENGTH, 40f),
-					new Value<Attribute, Float>(Attribute.INTELLIGENCE, 10f),
-					new Value<Attribute, Float>(Attribute.FITNESS, 25f),
-					new Value<Attribute, Float>(Attribute.CORRUPTION, 15f)),
+					new Value<Attribute, AttributeRange>(Attribute.MAJOR_STRENGTH, new AttributeRange(20f, 50f)),
+					new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(0f, 0f)),
+					new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(20f, 30f))),
 			AntennaType.NONE,
 			ArmType.COW_MORPH, 1,
 			AssType.COW_MORPH, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE,  OrificePlasticity.THREE_RESILIENT,
 			BreastType.COW_MORPH,
 			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE,  OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
-			CupSize.G, 3, Lactation.THREE_DECENT_AMOUNT, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE,  OrificePlasticity.THREE_RESILIENT, NippleSize.THREE_LARGE, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 4,
-			180, 30, BodySize.THREE_LARGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
-			170, 70, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.TWO_TONED.getMedianValue(),
+			CupSize.H, 3, Lactation.THREE_DECENT_AMOUNT, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE,  OrificePlasticity.THREE_RESILIENT, NippleSize.THREE_LARGE, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 4,
+			195, 30, BodySize.FOUR_HUGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
+			185, 70, BodySize.THREE_LARGE.getMedianValue(), Muscle.TWO_TONED.getMedianValue(),
 			EarType.COW_MORPH, 
 			EyeType.COW_MORPH,
 			FaceType.COW_MORPH, LipSize.ONE_AVERAGE, LipSize.TWO_FULL,
@@ -208,18 +205,17 @@ public enum RacialBody {
 	// CANINES:
 	DOG_MORPH(
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.STRENGTH, 25f),
-					new Value<Attribute, Float>(Attribute.INTELLIGENCE, 20f),
-					new Value<Attribute, Float>(Attribute.FITNESS, 20f),
-					new Value<Attribute, Float>(Attribute.CORRUPTION, 20f)),
+					new Value<Attribute, AttributeRange>(Attribute.MAJOR_STRENGTH, new AttributeRange(20f, 30f)),
+					new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(0f, 0f)),
+					new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(20f, 30f))),
 			AntennaType.NONE,
 			ArmType.DOG_MORPH, 1,
 			AssType.DOG_MORPH, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
 			BreastType.DOG_MORPH,
 			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
 			CupSize.C, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
-			180, 30, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
-			170, 70, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.TWO_TONED.getMedianValue(),
+			185, 30, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
+			175, 70, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.TWO_TONED.getMedianValue(),
 			EarType.DOG_MORPH,
 			EyeType.DOG_MORPH,
 			FaceType.DOG_MORPH, LipSize.ONE_AVERAGE, LipSize.TWO_FULL,
@@ -243,10 +239,9 @@ public enum RacialBody {
 	
 	WOLF_MORPH(
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.STRENGTH, 30f),
-					new Value<Attribute, Float>(Attribute.INTELLIGENCE, 20f),
-					new Value<Attribute, Float>(Attribute.FITNESS, 20f),
-					new Value<Attribute, Float>(Attribute.CORRUPTION, 30f)),
+					new Value<Attribute, AttributeRange>(Attribute.MAJOR_STRENGTH, new AttributeRange(20f, 40f)),
+					new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(0f, 0f)),
+					new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(30f, 50f))),
 			AntennaType.NONE,
 			ArmType.LYCAN, 1,
 			AssType.WOLF_MORPH, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
@@ -279,18 +274,17 @@ public enum RacialBody {
 	// FELINES:
 	CAT_MORPH(
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.STRENGTH, 20f),
-					new Value<Attribute, Float>(Attribute.INTELLIGENCE, 20f),
-					new Value<Attribute, Float>(Attribute.FITNESS, 30f),
-					new Value<Attribute, Float>(Attribute.CORRUPTION, 20f)),
+					new Value<Attribute, AttributeRange>(Attribute.MAJOR_STRENGTH, new AttributeRange(10f, 30f)),
+					new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(0f, 0f)),
+					new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(20f, 30f))),
 			AntennaType.NONE,
 			ArmType.CAT_MORPH, 1,
 			AssType.CAT_MORPH, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
 			BreastType.CAT_MORPH,
 			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
 			CupSize.C, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
-			170, 35, BodySize.ONE_SLENDER.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
-			160, 85, BodySize.ONE_SLENDER.getMedianValue(), Muscle.TWO_TONED.getMedianValue(),
+			175, 35, BodySize.ONE_SLENDER.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
+			165, 85, BodySize.ONE_SLENDER.getMedianValue(), Muscle.TWO_TONED.getMedianValue(),
 			EarType.CAT_MORPH,
 			EyeType.CAT_MORPH,
 			FaceType.CAT_MORPH, LipSize.ONE_AVERAGE, LipSize.TWO_FULL,
@@ -315,18 +309,17 @@ public enum RacialBody {
 	// EQUINES:
 	HORSE_MORPH(
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.STRENGTH, 30f),
-					new Value<Attribute, Float>(Attribute.INTELLIGENCE, 15f),
-					new Value<Attribute, Float>(Attribute.FITNESS, 20f),
-					new Value<Attribute, Float>(Attribute.CORRUPTION, 20f)),
+					new Value<Attribute, AttributeRange>(Attribute.MAJOR_STRENGTH, new AttributeRange(20f, 40f)),
+					new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(0f, 0f)),
+					new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(20f, 30f))),
 			AntennaType.NONE,
 			ArmType.HORSE_MORPH, 1,
 			AssType.HORSE_MORPH, AssSize.TWO_SMALL, AssSize.FIVE_HUGE, Wetness.ZERO_DRY, Capacity.THREE_SLIGHTLY_LOOSE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
 			BreastType.HORSE_MORPH,
 			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
 			CupSize.DD, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
-			180, 10, BodySize.FOUR_HUGE.getMedianValue(), Muscle.FOUR_RIPPED.getMedianValue(),
-			170, 70, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.FOUR_RIPPED.getMedianValue(),
+			195, 10, BodySize.THREE_LARGE.getMedianValue(), Muscle.FOUR_RIPPED.getMedianValue(),
+			180, 70, BodySize.THREE_LARGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
 			EarType.HORSE_MORPH,
 			EyeType.HORSE_MORPH,
 			FaceType.HORSE_MORPH, LipSize.ONE_AVERAGE, LipSize.TWO_FULL,
@@ -349,18 +342,17 @@ public enum RacialBody {
 	},
 
 	REINDEER_MORPH(Util.newHashMapOfValues(
-				new Value<Attribute, Float>(Attribute.STRENGTH, 30f),
-				new Value<Attribute, Float>(Attribute.INTELLIGENCE, 10f),
-				new Value<Attribute, Float>(Attribute.FITNESS, 40f),
-				new Value<Attribute, Float>(Attribute.CORRUPTION, 20f)),
+				new Value<Attribute, AttributeRange>(Attribute.MAJOR_STRENGTH, new AttributeRange(20f, 50f)),
+				new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(0f, 0f)),
+				new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(20f, 30f))),
 			AntennaType.NONE,
 			ArmType.REINDEER_MORPH, 1,
 			AssType.REINDEER_MORPH, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
 			BreastType.REINDEER_MORPH,
 			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
 			CupSize.D, 3, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ONE_SMALL, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
-			185, 10, BodySize.FOUR_HUGE.getMedianValue(), Muscle.FOUR_RIPPED.getMedianValue(),
-			175, 70, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.FOUR_RIPPED.getMedianValue(),
+			190, 10, BodySize.THREE_LARGE.getMedianValue(), Muscle.FOUR_RIPPED.getMedianValue(),
+			180, 70, BodySize.THREE_LARGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
 			EarType.REINDEER_MORPH,
 			EyeType.REINDEER_MORPH,
 			FaceType.REINDEER_MORPH, LipSize.ONE_AVERAGE, LipSize.TWO_FULL,
@@ -384,18 +376,17 @@ public enum RacialBody {
 
 	// REPTILE:
 	ALLIGATOR_MORPH(Util.newHashMapOfValues(
-	            new Value<Attribute, Float>(Attribute.STRENGTH, 60f),
-	            new Value<Attribute, Float>(Attribute.INTELLIGENCE, 20f),
-	            new Value<Attribute, Float>(Attribute.FITNESS, 60f),
-	            new Value<Attribute, Float>(Attribute.CORRUPTION, 20f)),
+	            new Value<Attribute, AttributeRange>(Attribute.MAJOR_STRENGTH, new AttributeRange(20f, 40f)),
+	            new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(0f, 0f)),
+	            new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(20f, 30f))),
 		    AntennaType.NONE,
 		    ArmType.ALLIGATOR_MORPH, 1,
 		    AssType.ALLIGATOR_MORPH, AssSize.TWO_SMALL, AssSize.TWO_SMALL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
 		    BreastType.ALLIGATOR_MORPH,
 		    CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
-		    CupSize.A, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
-		    170, 25, BodySize.THREE_LARGE.getMedianValue(), Muscle.FOUR_RIPPED.getMedianValue(),
-		    170, 95, BodySize.ONE_SLENDER.getMedianValue(), Muscle.FOUR_RIPPED.getMedianValue(),
+		    CupSize.AA, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
+		    185, 25, BodySize.THREE_LARGE.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
+		    178, 95, BodySize.TWO_AVERAGE.getMedianValue(), Muscle.TWO_TONED.getMedianValue(),
 		    EarType.ALLIGATOR_MORPH,
 		    EyeType.ALLIGATOR_MORPH,
 		    FaceType.ALLIGATOR_MORPH, LipSize.ONE_AVERAGE, LipSize.ONE_AVERAGE,
@@ -421,48 +412,18 @@ public enum RacialBody {
 			return true;
 		}
 	},
-			
-	// SLIMES:
-	SLIME(Util.newHashMapOfValues(
-				new Value<Attribute, Float>(Attribute.STRENGTH, 5f),
-				new Value<Attribute, Float>(Attribute.INTELLIGENCE, 5f),
-				new Value<Attribute, Float>(Attribute.FITNESS, 5f),
-				new Value<Attribute, Float>(Attribute.CORRUPTION, 50f)),
-			AntennaType.NONE,
-			ArmType.SLIME, 1,
-			AssType.SLIME, AssSize.FIVE_HUGE, AssSize.FIVE_HUGE, Wetness.SEVEN_DROOLING, Capacity.SEVEN_GAPING, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY,
-			BreastType.SLIME,
-			CupSize.JJ, 1, Lactation.SEVEN_MONSTROUS_AMOUNT_POURING, Capacity.SEVEN_GAPING, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
-			CupSize.JJ, 1, Lactation.SEVEN_MONSTROUS_AMOUNT_POURING, Capacity.SEVEN_GAPING, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
-			170, 75, BodySize.THREE_LARGE.getMedianValue(), Muscle.ONE_LIGHTLY_MUSCLED.getMedianValue(),
-			160, 95, BodySize.THREE_LARGE.getMedianValue(), Muscle.ONE_LIGHTLY_MUSCLED.getMedianValue(),
-			EarType.SLIME,
-			EyeType.SLIME,
-			FaceType.SLIME, LipSize.ONE_AVERAGE, LipSize.TWO_FULL,
-			HairType.SLIME, HairLength.SEVEN_TO_FLOOR, HairLength.SEVEN_TO_FLOOR,
-			LegType.SLIME,
-			SkinType.SLIME, BodyMaterial.SLIME,
-			HornLength.ZERO_TINY, HornLength.ZERO_TINY, Util.newArrayListOfValues(new ListValue<>(HornType.NONE)),
-			PenisType.SLIME, PenisSize.SEVEN_STALLION,
-			PenisType.NONE, PenisSize.TWO_AVERAGE,
-			TesticleSize.ZERO_VESTIGIAL, 2, CumProduction.SEVEN_MONSTROUS,
-			TailType.NONE,
-			VaginaType.SLIME, Wetness.SEVEN_DROOLING, Capacity.SEVEN_GAPING, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.SEVEN_ELASTIC, OrificePlasticity.ZERO_RUBBERY,
-			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
-			GenitalArrangement.NORMAL),
-
+	
 	// RODENTS:
 	SQUIRREL_MORPH(Util.newHashMapOfValues(
-				new Value<Attribute, Float>(Attribute.STRENGTH, 10f),
-				new Value<Attribute, Float>(Attribute.INTELLIGENCE, 30f),
-				new Value<Attribute, Float>(Attribute.FITNESS, 50f),
-				new Value<Attribute, Float>(Attribute.CORRUPTION, 15f)),
+				new Value<Attribute, AttributeRange>(Attribute.MAJOR_STRENGTH, new AttributeRange(5f, 15f)),
+				new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(0f, 0f)),
+				new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(20f, 30f))),
 			AntennaType.NONE,
 			ArmType.SQUIRREL_MORPH, 1,
 			AssType.SQUIRREL_MORPH, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
 			BreastType.SQUIRREL_MORPH,
 			CupSize.FLAT, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
-			CupSize.D, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
+			CupSize.C, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
 			170, 35, BodySize.ONE_SLENDER.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
 			160, 85, BodySize.ONE_SLENDER.getMedianValue(), Muscle.TWO_TONED.getMedianValue(),
 			EarType.SQUIRREL_MORPH,
@@ -488,18 +449,17 @@ public enum RacialBody {
 
 	// AVIAN:
 	HARPY(Util.newHashMapOfValues(
-				new Value<Attribute, Float>(Attribute.STRENGTH, 5f),
-				new Value<Attribute, Float>(Attribute.INTELLIGENCE, 10f),
-				new Value<Attribute, Float>(Attribute.FITNESS, 50f),
-				new Value<Attribute, Float>(Attribute.CORRUPTION, 20f)),
+				new Value<Attribute, AttributeRange>(Attribute.MAJOR_STRENGTH, new AttributeRange(0f, 15f)),
+				new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(0f, 0f)),
+				new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(20f, 50f))),
 			AntennaType.NONE,
 			ArmType.HARPY, 1,
 			AssType.HARPY, AssSize.TWO_SMALL, AssSize.THREE_NORMAL, Wetness.ZERO_DRY, Capacity.ONE_EXTREMELY_TIGHT, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT,
 			BreastType.HARPY,
 			CupSize.TRAINING, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.ZERO_TINY, 1,
 			CupSize.B, 1, Lactation.ZERO_NONE, Capacity.ZERO_IMPENETRABLE, OrificeElasticity.THREE_FLEXIBLE, OrificePlasticity.THREE_RESILIENT, NippleSize.ZERO_TINY, NippleShape.NORMAL, AreolaeSize.TWO_BIG, 1,
-			154, 75, BodySize.ZERO_SKINNY.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
-			154, 95, BodySize.ZERO_SKINNY.getMedianValue(), Muscle.ONE_LIGHTLY_MUSCLED.getMedianValue(),
+			150, 75, BodySize.ZERO_SKINNY.getMedianValue(), Muscle.THREE_MUSCULAR.getMedianValue(),
+			150, 95, BodySize.ZERO_SKINNY.getMedianValue(), Muscle.ONE_LIGHTLY_MUSCLED.getMedianValue(),
 			EarType.HARPY,
 			EyeType.HARPY,
 			FaceType.HARPY, LipSize.ONE_AVERAGE, LipSize.TWO_FULL,
@@ -533,7 +493,7 @@ public enum RacialBody {
 	};
 
 	// Attributes modified by this Trait:
-	private HashMap<Attribute, Float> attributeModifiers;
+	private HashMap<Attribute, AttributeRange> attributeModifiers;
 
 	private AntennaType antennaType;
 	private ArmType armType;
@@ -571,7 +531,7 @@ public enum RacialBody {
 			breastCountFemale, testicleQuantity,
 			maleWingSize, femaleWingSize;
 
-	private RacialBody(HashMap<Attribute, Float> attributeModifiers,
+	private RacialBody(HashMap<Attribute, AttributeRange> attributeModifiers,
 			AntennaType antennaType,
 			ArmType armType, int armRows,
 			AssType assType, AssSize maleAssSize, AssSize femaleAssSize, Wetness anusWetness, Capacity anusCapacity, OrificeElasticity anusElasticity, OrificePlasticity anusPlasticity,
@@ -596,7 +556,7 @@ public enum RacialBody {
 			VaginaType vaginaType, Wetness vaginaWetness, Capacity vaginaCapacity, ClitorisSize clitSize, OrificeElasticity vaginaElasticity, OrificePlasticity vaginaPlasticity,
 			WingType wingType, WingSize maleWingSize, WingSize femaleWingSize,
 			GenitalArrangement genitalArrangement) {
-
+		
 		this.attributeModifiers = attributeModifiers;
 		
 		this.antennaType = antennaType;
@@ -712,8 +672,6 @@ public enum RacialBody {
 				return RacialBody.HUMAN;
 			case WOLF_MORPH:
 				return RacialBody.WOLF_MORPH;
-			case SLIME:
-				return RacialBody.SLIME;
 			case SQUIRREL_MORPH:
 				return RacialBody.SQUIRREL_MORPH;
 		}
@@ -729,7 +687,7 @@ public enum RacialBody {
 		
 		List<Race> availableRaces = new ArrayList<>();
 		for(Race r : Race.values()) {
-			if(r != Race.ANGEL && r != Race.SLIME) {
+			if(r != Race.ANGEL) {
 				availableRaces.add(r);
 			}
 		}
@@ -811,8 +769,8 @@ public enum RacialBody {
 			}
 		}
 	}
-
-	public HashMap<Attribute, Float> getAttributeModifiers() {
+	
+	public HashMap<Attribute, AttributeRange> getAttributeModifiers() {
 		return attributeModifiers;
 	}
 

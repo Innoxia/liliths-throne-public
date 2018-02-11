@@ -32,9 +32,7 @@ public enum HairType implements BodyPartTypeInterface {
 
 	REINDEER_MORPH(BodyCoveringType.HAIR_REINDEER_FUR, Race.REINDEER_MORPH),
 
-	HARPY(BodyCoveringType.HAIR_HARPY, Race.HARPY),
-
-	SLIME(BodyCoveringType.HAIR_SLIME, Race.SLIME);
+	HARPY(BodyCoveringType.HAIR_HARPY, Race.HARPY);
 
 	
 	private BodyCoveringType coveringType;
@@ -69,7 +67,7 @@ public enum HairType implements BodyPartTypeInterface {
 			return "feather";
 		case ALLIGATOR_SCALES:
 			return "scale";
-		case HAIR_SLIME:
+		case SLIME:
 			return "slime";
 		default:
 			return "hair";
@@ -83,7 +81,7 @@ public enum HairType implements BodyPartTypeInterface {
 				return "feathers";
 			case ALLIGATOR_SCALES:
 				return "scales";
-			case HAIR_SLIME:
+			case SLIME:
 				return "slime";
 			default:
 				return "hair";
@@ -117,8 +115,6 @@ public enum HairType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("");
 			case LYCAN:
 				return UtilText.returnStringAtRandom("wolf-like");
-			case SLIME:
-				return UtilText.returnStringAtRandom("slimy", "gooey");
 			default:
 				return UtilText.returnStringAtRandom("");
 		}

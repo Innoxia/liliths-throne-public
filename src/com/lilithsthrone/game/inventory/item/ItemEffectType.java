@@ -105,7 +105,7 @@ public enum ItemEffectType {
 	
 	BOOK_READ_CAT_MORPH(Util.newArrayListOfValues(
 			new ListValue<>("Adds cat-morph encyclopedia entry."),
-			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
+			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(arcane)]")),
 			Colour.RACE_CAT_MORPH) {
 		
 		@Override
@@ -116,7 +116,7 @@ public enum ItemEffectType {
 	
 	BOOK_READ_COW_MORPH(Util.newArrayListOfValues(
 			new ListValue<>("Adds cow-morph encyclopedia entry."),
-			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
+			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(arcane)]")),
 			Colour.RACE_COW_MORPH) {
 
 		@Override
@@ -137,7 +137,7 @@ public enum ItemEffectType {
 	
 	BOOK_READ_DEMON(Util.newArrayListOfValues(
 			new ListValue<>("Adds demon encyclopedia entry."),
-			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
+			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(arcane)]")),
 			Colour.RACE_DEMON) {
 		
 		@Override
@@ -148,7 +148,7 @@ public enum ItemEffectType {
 	
 	BOOK_READ_DOG_MORPH(Util.newArrayListOfValues(
 			new ListValue<>("Adds dog-morph encyclopedia entry."),
-			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
+			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(arcane)]")),
 			Colour.RACE_DOG_MORPH) {
 		
 		@Override
@@ -159,7 +159,7 @@ public enum ItemEffectType {
 	
 	BOOK_READ_ALLIGATOR_MORPH(Util.newArrayListOfValues(
 			new ListValue<>("Adds alligator-morph encyclopedia entry."),
-			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
+			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(arcane)]")),
 			Colour.RACE_ALLIGATOR_MORPH) {
 		
 		@Override
@@ -170,7 +170,7 @@ public enum ItemEffectType {
 	
 	BOOK_READ_HARPY(Util.newArrayListOfValues(
 			new ListValue<>("Adds harpy encyclopedia entry."),
-			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
+			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(arcane)]")),
 			Colour.RACE_HARPY) {
 		
 		@Override
@@ -181,7 +181,7 @@ public enum ItemEffectType {
 	
 	BOOK_READ_HORSE_MORPH(Util.newArrayListOfValues(
 			new ListValue<>("Adds horse-morph encyclopedia entry."),
-			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
+			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(arcane)]")),
 			Colour.RACE_HORSE_MORPH) {
 		
 		@Override
@@ -192,7 +192,7 @@ public enum ItemEffectType {
 	
 	BOOK_READ_REINDEER_MORPH(Util.newArrayListOfValues(
 			new ListValue<>("Adds reindeer-morph encyclopedia entry."),
-			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
+			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(arcane)]")),
 			Colour.RACE_REINDEER_MORPH) {
 		
 		@Override
@@ -203,7 +203,7 @@ public enum ItemEffectType {
 	
 	BOOK_READ_HUMAN(Util.newArrayListOfValues(
 			new ListValue<>("Adds human encyclopedia entry."),
-			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
+			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(arcane)]")),
 			Colour.RACE_HUMAN) {
 		
 		@Override
@@ -214,7 +214,7 @@ public enum ItemEffectType {
 	
 	BOOK_READ_SQUIRREL_MORPH(Util.newArrayListOfValues(
 			new ListValue<>("Adds squirrel-morph encyclopedia entry."),
-			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
+			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(arcane)]")),
 			Colour.RACE_SQUIRREL_MORPH) {
 		
 		@Override
@@ -225,7 +225,7 @@ public enum ItemEffectType {
 	
 	BOOK_READ_WOLF_MORPH(Util.newArrayListOfValues(
 			new ListValue<>("Adds wolf-morph encyclopedia entry."),
-			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(intelligence)]")),
+			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(arcane)]")),
 			Colour.RACE_WOLF_MORPH) {
 		
 		@Override
@@ -288,7 +288,7 @@ public enum ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			
 			if(primaryModifier!=null && primaryModifier!=TFModifier.NONE && primaryModifier!=TFModifier.REMOVAL) {
-				target.incrementAttribute(Attribute.CORRUPTION, 5);
+				target.incrementAttribute(Attribute.MAJOR_CORRUPTION, 5);
 				
 				if(primaryModifier==TFModifier.ORIENTATION_GYNEPHILIC) {
 					boolean alreadyGynephilic = target.getSexualOrientation()==SexualOrientation.GYNEPHILIC;
@@ -509,7 +509,7 @@ public enum ItemEffectType {
 	// Strength:
 	
 	STR_EQUINE_CIDER(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldHealth(health)]"),
+			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldHealth(energy)]"),
 			new ListValue<>("[style.boldGood(+1)] [style.boldStrength(strength)] to 'potion effects'")),
 			Colour.ATTRIBUTE_STRENGTH) {
 		
@@ -521,12 +521,12 @@ public enum ItemEffectType {
 						?"A powerful wave of arcane energy washes over you......"
 						:UtilText.parse(target, "A powerful wave of arcane energy washes over [npc.name]..."))
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.STRENGTH, 1);
+					+ target.addPotionEffect(Attribute.MAJOR_STRENGTH, 1);
 		}
 	},
 
 	STR_BUBBLE_MILK(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldHealth(health)]"),
+			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldHealth(energy)]"),
 			new ListValue<>("[style.boldGood(+1)] [style.boldStrength(strength)] to 'potion effects'")),
 			Colour.ATTRIBUTE_STRENGTH) {
 		
@@ -548,12 +548,12 @@ public enum ItemEffectType {
 						?"A powerful wave of arcane energy washes over you......"
 						:UtilText.parse(target, "A powerful wave of arcane energy washes over [npc.name]..."))
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.STRENGTH, 1);
+					+ target.addPotionEffect(Attribute.MAJOR_STRENGTH, 1);
 		}
 	},
 
 	STR_WOLF_WHISKEY(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldHealth(health)]"),
+			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldHealth(energy)]"),
 			new ListValue<>("[style.boldGood(+1)] [style.boldStrength(strength)] to 'potion effects'")),
 			Colour.ATTRIBUTE_STRENGTH) {
 		
@@ -565,12 +565,12 @@ public enum ItemEffectType {
 						?"A powerful wave of arcane energy washes over you......"
 						:UtilText.parse(target, "A powerful wave of arcane energy washes over [npc.name]..."))
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.STRENGTH, 1);
+					+ target.addPotionEffect(Attribute.MAJOR_STRENGTH, 1);
 		}
 	},
 	
 	STR_SWAMP_WATER(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldHealth(health)]"),
+			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldHealth(energy)]"),
 			new ListValue<>("[style.boldGood(+1)] [style.boldStrength(strength)] to 'potion effects'")),
 			Colour.ATTRIBUTE_STRENGTH) {
 		
@@ -580,16 +580,16 @@ public enum ItemEffectType {
 
 			return "A powerful wave of arcane energy washes over you..."
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.STRENGTH, 1);
+					+ target.addPotionEffect(Attribute.MAJOR_STRENGTH, 1);
 		}
 	},
 	
 	// Intelligence:
 	
 	INT_FELINE_FANCY(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldWillpower(willpower)]"),
-			new ListValue<>("[style.boldGood(+1)] [style.boldIntelligence(intelligence)] to 'potion effects'")),
-			Colour.ATTRIBUTE_INTELLIGENCE) {
+			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldAura(aura)]"),
+			new ListValue<>("[style.boldGood(+1)] [style.boldIntelligence(arcane)] to 'potion effects'")),
+			Colour.ATTRIBUTE_ARCANE) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
@@ -599,14 +599,14 @@ public enum ItemEffectType {
 						?"A cool wave of arcane energy washes over you......"
 						:UtilText.parse(target, "A cool wave of arcane energy washes over [npc.name]..."))
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.INTELLIGENCE, 1);
+					+ target.addPotionEffect(Attribute.MAJOR_ARCANE, 1);
 		}
 	},
 	
 	INT_VANILLA_WATER(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldWillpower(willpower)]"),
-			new ListValue<>("[style.boldGood(+1)] [style.boldIntelligence(intelligence)] to 'potion effects'")),
-			Colour.ATTRIBUTE_INTELLIGENCE) {
+			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldAura(aura)]"),
+			new ListValue<>("[style.boldGood(+1)] [style.boldIntelligence(arcane)] to 'potion effects'")),
+			Colour.ATTRIBUTE_ARCANE) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
@@ -616,66 +616,66 @@ public enum ItemEffectType {
 							?"A cool wave of arcane energy washes over you......"
 							:UtilText.parse(target, "A cool wave of arcane energy washes over [npc.name]..."))
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.INTELLIGENCE, 1);
+					+ target.addPotionEffect(Attribute.MAJOR_ARCANE, 1);
 		}
 	},
 	
 	// Fitness:
 	
 	FIT_CANINE_CRUSH(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldStamina(stamina)]"),
-			new ListValue<>("[style.boldGood(+1)] [style.boldFitness(fitness)] to 'potion effects'")),
-			Colour.ATTRIBUTE_FITNESS) {
+			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldHealth(energy)]"),
+			new ListValue<>("[style.boldGood(+1)] [style.boldStrength(strength)] to 'potion effects'")),
+			Colour.ATTRIBUTE_STRENGTH) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			target.incrementStamina(target.getAttributeValue(Attribute.STAMINA_MAXIMUM)/20);
+			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
 
 			return (target.isPlayer()
 						?"A soothing wave of arcane energy washes over you......"
 						:UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]..."))
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.FITNESS, 1);
+					+ target.addPotionEffect(Attribute.MAJOR_STRENGTH, 1);
 		}
 	},
 	
 	FIT_SQUIRREL_JAVA(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldStamina(stamina)]"),
-			new ListValue<>("[style.boldGood(+1)] [style.boldFitness(fitness)] to 'potion effects'")),
-			Colour.ATTRIBUTE_FITNESS) {
+			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldHealth(energy)]"),
+			new ListValue<>("[style.boldGood(+1)] [style.boldStrength(strength)] to 'potion effects'")),
+			Colour.ATTRIBUTE_STRENGTH) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			target.incrementStamina(target.getAttributeValue(Attribute.STAMINA_MAXIMUM)/20);
+			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
 
 			return (target.isPlayer()
 						?"A soothing wave of arcane energy washes over you......"
 						:UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]..."))
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.FITNESS, 1);
+					+ target.addPotionEffect(Attribute.MAJOR_STRENGTH, 1);
 		}
 	},
 	
 	FIT_EGG_NOG(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldStamina(stamina)]"),
-			new ListValue<>("[style.boldGood(+1)] [style.boldFitness(fitness)] to 'potion effects'")),
-			Colour.ATTRIBUTE_FITNESS) {
+			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldHealth(energy)]"),
+			new ListValue<>("[style.boldGood(+1)] [style.boldStrength(strength)] to 'potion effects'")),
+			Colour.ATTRIBUTE_STRENGTH) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			target.incrementStamina(target.getAttributeValue(Attribute.STAMINA_MAXIMUM)/20);
+			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
 
 			return (target.isPlayer()
 						?"A soothing wave of arcane energy washes over you......"
 						:UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]..."))
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.FITNESS, 1);
+					+ target.addPotionEffect(Attribute.MAJOR_STRENGTH, 1);
 		}
 	},
 	
 	SEX_HARPY_PERFUME(Util.newArrayListOfValues(
 			new ListValue<>("[style.boldSex(+1)] [style.boldFeminine(femininity)]"),
-			new ListValue<>("[style.boldGood(+1)] [style.boldFitness(fitness)] to 'potion effects'")),
+			new ListValue<>("[style.boldGood(+5)] [style.boldMana(strength)] to 'potion effects'")),
 			Colour.GENERIC_SEX) {
 		
 		@Override
@@ -686,12 +686,12 @@ public enum ItemEffectType {
 					+ "</br>"
 					+ target.incrementFemininity(1)
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.FITNESS, 1);
+					+ target.addPotionEffect(Attribute.DAMAGE_LUST, 5);
 		}
 	},
 	
 	SEX_MINCE_PIE(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+1)] [style.boldDmgMana(willpower damage)] to 'potion effects'"),
+			new ListValue<>("[style.boldGood(+1)] [style.boldDmgMana(aura damage)] to 'potion effects'"),
 			new ListValue<>("[style.boldGood(+1)] [style.boldDmgFire(fire damage)] to 'potion effects'")),
 			Colour.GENERIC_SEX) {
 		
@@ -701,7 +701,7 @@ public enum ItemEffectType {
 						?"A warm wave of arcane energy washes over you......"
 						:UtilText.parse(target, "A warm wave of arcane energy washes over [npc.name]..."))
 					+ "</br>"
-							+ target.addPotionEffect(Attribute.DAMAGE_MANA, 1)
+							+ target.addPotionEffect(Attribute.DAMAGE_LUST, 1)
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.DAMAGE_FIRE, 1);
 		}
@@ -710,9 +710,8 @@ public enum ItemEffectType {
 	// Corruption:
 	
 	COR_LILITHS_GIFT(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldHealth(health)]"),
-			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldWillpower(willpower)]"),
-			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldStamina(stamina)]"),
+			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldHealth(energy)]"),
+			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldAura(aura)]"),
 			new ListValue<>("[style.boldGood(+1)] [style.boldCorruption(corruption)] to 'potion effects'")),
 			Colour.ATTRIBUTE_CORRUPTION) {
 		
@@ -720,13 +719,12 @@ public enum ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
 			target.incrementMana(target.getAttributeValue(Attribute.MANA_MAXIMUM)/20);
-			target.incrementStamina(target.getAttributeValue(Attribute.STAMINA_MAXIMUM)/20);
 
 			return (target.isPlayer()
 						?"A sickly wave of corruptive arcane energy washes over you......"
 						:UtilText.parse(target, "A sickly wave of corruptive arcane energy washes over [npc.name]..."))
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.CORRUPTION, 1);
+					+ target.addPotionEffect(Attribute.MAJOR_CORRUPTION, 1);
 		}
 	},
 	
@@ -799,16 +797,14 @@ public enum ItemEffectType {
 	},
 	
 	EGGPLANT(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldHealth(health)]"),
-			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldWillpower(willpower)]"),
-			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldStamina(stamina)]")),
+			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldHealth(energy)]"),
+			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldAura(aura)]")),
 			Colour.ATTRIBUTE_CORRUPTION) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/20);
 			target.incrementMana(target.getAttributeValue(Attribute.MANA_MAXIMUM)/20);
-			target.incrementStamina(target.getAttributeValue(Attribute.STAMINA_MAXIMUM)/20);
 			
 			if(target.isPlayer()) {
 				return "It's kind of tasty.";
@@ -886,8 +882,7 @@ public enum ItemEffectType {
 	
 	RACE_INNOXIAS_GIFT(Util.newArrayListOfValues(
 			new ListValue<>("[style.boldGood(+2)] [style.boldStrength(strength)] to 'potion effects'"),
-			new ListValue<>("[style.boldGood(+2)] [style.boldIntelligence(intelligence)] to 'potion effects'"),
-			new ListValue<>("[style.boldGood(+2)] [style.boldFitness(fitness)] to 'potion effects'"),
+			new ListValue<>("[style.boldGood(+2)] [style.boldIntelligence(arcane)] to 'potion effects'"),
 			new ListValue<>("[style.boldGood(+5)] [style.boldCorruption(corruption)] to 'potion effects'")),
 			Colour.RACE_HUMAN) {
 		
@@ -895,20 +890,17 @@ public enum ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			return "You start to feel like this item is just for testing purposes..."
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.STRENGTH, 2)
+					+ target.addPotionEffect(Attribute.MAJOR_STRENGTH, 2)
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.INTELLIGENCE, 2)
+					+ target.addPotionEffect(Attribute.MAJOR_ARCANE, 2)
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.FITNESS, 2)
-					+ "</br>"
-					+ target.addPotionEffect(Attribute.CORRUPTION, 5);
+					+ target.addPotionEffect(Attribute.MAJOR_CORRUPTION, 5);
 		}
 	},
 	
 	RACE_ANGELS_TEARS(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+1)] [style.boldStrength(strength)] to 'potion effects'"),
-			new ListValue<>("[style.boldGood(+1)] [style.boldIntelligence(intelligence)] to 'potion effects'"),
-			new ListValue<>("[style.boldGood(+1)] [style.boldFitness(fitness)] to 'potion effects'")),
+			new ListValue<>("[style.boldGood(+1)] [style.boldIntelligence(arcane)] to 'potion effects'"),
+			new ListValue<>("[style.boldGood(+1)] [style.boldStrength(strength)] to 'potion effects'")),
 			Colour.RACE_HUMAN) {
 		
 		@Override
@@ -917,16 +909,13 @@ public enum ItemEffectType {
 						?"You start to feel a lot healthier..."
 						:UtilText.parse(target, "[npc.Name] starts to feel a lot healthier..."))
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.STRENGTH, 1)
+					+ target.addPotionEffect(Attribute.MAJOR_STRENGTH, 1)
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.INTELLIGENCE, 1)
-					+ "</br>"
-					+ target.addPotionEffect(Attribute.FITNESS, 1);
+					+ target.addPotionEffect(Attribute.MAJOR_ARCANE, 1);
 		}
 	},
 	
 	RACE_CANINE_CRUNCH(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+3)] [style.boldFitness(fitness)] to 'potion effects'"),
 			new ListValue<>("[style.boldGood(+2)] [style.boldStrength(strength)] to 'potion effects'")),
 			Colour.RACE_DOG_MORPH) {
 		
@@ -936,49 +925,40 @@ public enum ItemEffectType {
 						?"You start to feel a lot more energetic..."
 						:UtilText.parse(target, "[npc.Name] starts to feel a lot more energetic..."))
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.FITNESS, 3)
-					+ "</br>"
-					+ target.addPotionEffect(Attribute.STRENGTH, 2);
+					+ target.addPotionEffect(Attribute.MAJOR_STRENGTH, 2);
 		}
 	},
 	
 	RACE_KITTYS_REWARD(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+3)] [style.boldIntelligence(intelligence)] to 'potion effects'"),
-			new ListValue<>("[style.boldGood(+2)] [style.boldFitness(fitness)] to 'potion effects'")),
+			new ListValue<>("[style.boldGood(+3)] [style.boldIntelligence(arcane)] to 'potion effects'")),
 			Colour.RACE_CAT_MORPH) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			return (target.isPlayer()
-							?"You start to feel a lot more intelligent..."
-							:UtilText.parse(target, "[npc.Name] starts to feel a lot more intelligent..."))
+							?"You feel your arcane power increasing..."
+							:UtilText.parse(target, "[npc.Name] starts to feel [npc.her] arcane power increasing..."))
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.INTELLIGENCE, 3)
-					+ "</br>"
-					+ target.addPotionEffect(Attribute.FITNESS, 2);
+					+ target.addPotionEffect(Attribute.MAJOR_ARCANE, 3);
 		}
 	},
 	
 	RACE_ROUND_NUTS(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+3)] [style.boldFitness(fitness)] to 'potion effects'"),
-			new ListValue<>("[style.boldGood(+2)] [style.boldIntelligence(intelligence)] to 'potion effects'")),
+			new ListValue<>("[style.boldGood(+2)] [style.boldIntelligence(arcane)] to 'potion effects'")),
 			Colour.RACE_SQUIRREL_MORPH) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			return (target.isPlayer()
-							?"You start to feel a lot fitter..."
-							:UtilText.parse(target, "[npc.Name] starts to feel a lot fitter..."))
+							?"You feel your arcane power increasing..."
+							:UtilText.parse(target, "[npc.Name] starts to feel [npc.her] arcane power increasing..."))
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.FITNESS, 3)
-					+ "</br>"
-					+ target.addPotionEffect(Attribute.INTELLIGENCE, 2);
+					+ target.addPotionEffect(Attribute.MAJOR_ARCANE, 2);
 		}
 	},
 	
 	RACE_SUGAR_CARROT_CUBE(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+3)] [style.boldStrength(strength)] to 'potion effects'"),
-			new ListValue<>("[style.boldGood(+2)] [style.boldFitness(fitness)] to 'potion effects'")),
+			new ListValue<>("[style.boldGood(+3)] [style.boldStrength(strength)] to 'potion effects'")),
 			Colour.RACE_HORSE_MORPH) {
 		
 		@Override
@@ -987,15 +967,12 @@ public enum ItemEffectType {
 						?"You start to feel a lot stronger..."
 						:UtilText.parse(target, "[npc.Name] starts to feel a lot stronger..."))
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.STRENGTH, 3)
-					+ "</br>"
-					+ target.addPotionEffect(Attribute.FITNESS, 2);
+					+ target.addPotionEffect(Attribute.MAJOR_STRENGTH, 3);
 		}
 	},
 	
 	RACE_SUGAR_COOKIE(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+3)] [style.boldStrength(strength)] to 'potion effects'"),
-			new ListValue<>("[style.boldGood(+2)] [style.boldFitness(fitness)] to 'potion effects'")),
+			new ListValue<>("[style.boldGood(+3)] [style.boldStrength(strength)] to 'potion effects'")),
 			Colour.RACE_REINDEER_MORPH) {
 		
 		@Override
@@ -1004,15 +981,12 @@ public enum ItemEffectType {
 						?"You start to feel a lot stronger..."
 						:UtilText.parse(target, "[npc.Name] starts to feel a lot stronger..."))
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.STRENGTH, 3)
-					+ "</br>"
-					+ target.addPotionEffect(Attribute.FITNESS, 2);
+					+ target.addPotionEffect(Attribute.MAJOR_STRENGTH, 3);
 		}
 	},
 	
 	RACE_ALLIGATORS_GUMBO(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+3)] [style.boldStrength(strength)] to 'potion effects'"),
-			new ListValue<>("[style.boldGood(+2)] [style.boldFitness(fitness)] to 'potion effects'")),
+			new ListValue<>("[style.boldGood(+3)] [style.boldStrength(strength)] to 'potion effects'")),
 			Colour.RACE_ALLIGATOR_MORPH) {
 		
 		@Override
@@ -1021,15 +995,12 @@ public enum ItemEffectType {
 						?"You start to feel a lot stronger..."
 						:UtilText.parse(target, "[npc.Name] starts to feel a lot stronger..."))
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.STRENGTH, 3)
-					+ "</br>"
-					+ target.addPotionEffect(Attribute.FITNESS, 2);
+					+ target.addPotionEffect(Attribute.MAJOR_STRENGTH, 3);
 		}
 	},
 	
 	RACE_BUBBLE_CREAM(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+3)] [style.boldStrength(strength)] to 'potion effects'"),
-			new ListValue<>("[style.boldGood(+2)] [style.boldFitness(fitness)] to 'potion effects'")),
+			new ListValue<>("[style.boldGood(+3)] [style.boldStrength(strength)] to 'potion effects'")),
 			Colour.RACE_COW_MORPH) {
 		
 		@Override
@@ -1038,9 +1009,7 @@ public enum ItemEffectType {
 						?"You start to feel a lot stronger..."
 						:UtilText.parse(target, "[npc.Name] starts to feel a lot stronger..."))
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.STRENGTH, 3)
-					+ "</br>"
-					+ target.addPotionEffect(Attribute.FITNESS, 2);
+					+ target.addPotionEffect(Attribute.MAJOR_STRENGTH, 3);
 		}
 	},
 	
@@ -1055,14 +1024,14 @@ public enum ItemEffectType {
 						?"You start to feel a lot stronger..."
 						:UtilText.parse(target, "[npc.Name] starts to feel a lot stronger..."))
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.STRENGTH, 5)
+					+ target.addPotionEffect(Attribute.MAJOR_STRENGTH, 5)
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.CORRUPTION, 3);
+					+ target.addPotionEffect(Attribute.MAJOR_CORRUPTION, 3);
 		}
 	},
 	
 	RACE_LOLLIPOP(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+5)] [style.boldFitness(fitness)] to 'potion effects'"),
+			new ListValue<>("[style.boldGood(+5)] [style.boldStrength(strength)] to 'potion effects'"),
 			new ListValue<>("[style.boldSex(+3)] [style.boldFeminine(femininity)]")),
 			Colour.RACE_WOLF_MORPH) {
 		
@@ -1074,7 +1043,7 @@ public enum ItemEffectType {
 					+ "</br>"
 					+ target.incrementFemininity(3)
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.FITNESS, 5);
+					+ target.addPotionEffect(Attribute.MAJOR_STRENGTH, 5);
 		}
 	},
 	
@@ -1366,7 +1335,7 @@ public enum ItemEffectType {
 			
 			sb.append("As the lollipop's transformative effects start to make themselves known, you start to feel very light-headed...");
 			
-			if(!target.hasPerk(Perk.NYMPHOMANIAC)) {
+			if(!target.hasTrait(Perk.NYMPHOMANIAC, false)) {
 				target.addPerk(Perk.NYMPHOMANIAC);
 				if(target.isPlayer()) {
 					sb.append("</br>"
@@ -1576,7 +1545,7 @@ public enum ItemEffectType {
 	},
 	
 	ATTRIBUTE_INTELLIGENCE(null,
-			Colour.ATTRIBUTE_INTELLIGENCE) {
+			Colour.ATTRIBUTE_ARCANE) {
 
 		@Override
 		public List<TFModifier> getPrimaryModifiers() {
@@ -1599,45 +1568,12 @@ public enum ItemEffectType {
 		
 		@Override
 		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return genericAttributeEffectDescription(resourceRestoration.WILLPOWER, primaryModifier, secondaryModifier, potency, limit);
+			return genericAttributeEffectDescription(resourceRestoration.MANA, primaryModifier, secondaryModifier, potency, limit);
 		}
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return genericAttributeEffect(resourceRestoration.WILLPOWER, primaryModifier, secondaryModifier, potency, limit, user, target);
-		}
-	},
-	
-	ATTRIBUTE_FITNESS(null,
-			Colour.ATTRIBUTE_FITNESS) {
-
-		@Override
-		public List<TFModifier> getPrimaryModifiers() {
-			return TFModifier.getTFModFitnessList();
-		}
-
-		@Override
-		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
-			return TFModifier.getTFAttributeList();
-		}
-		
-		@Override
-		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
-			if(secondaryModifier != TFModifier.NONE) {
-				return TFPotency.getAllPotencies();
-			} else {
-				return new ArrayList<>();
-			}
-		}
-		
-		@Override
-		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return genericAttributeEffectDescription(resourceRestoration.STAMINA, primaryModifier, secondaryModifier, potency, limit);
-		}
-		
-		@Override
-		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return genericAttributeEffect(resourceRestoration.STAMINA, primaryModifier, secondaryModifier, potency, limit, user, target);
+			return genericAttributeEffect(resourceRestoration.MANA, primaryModifier, secondaryModifier, potency, limit, user, target);
 		}
 	},
 	
@@ -1665,12 +1601,12 @@ public enum ItemEffectType {
 		
 		@Override
 		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return genericAttributeEffectDescription(resourceRestoration.STAMINA, primaryModifier, secondaryModifier, potency, limit);
+			return genericAttributeEffectDescription(resourceRestoration.MANA, primaryModifier, secondaryModifier, potency, limit);
 		}
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-			return genericAttributeEffect(resourceRestoration.STAMINA, primaryModifier, secondaryModifier, potency, limit, user, target);
+			return genericAttributeEffect(resourceRestoration.MANA, primaryModifier, secondaryModifier, potency, limit, user, target);
 		}
 	},
 	
@@ -2363,8 +2299,7 @@ public enum ItemEffectType {
 	
 	private enum resourceRestoration {
 		HEALTH,
-		WILLPOWER,
-		STAMINA,
+		MANA,
 		ALL;
 	}
 	
@@ -2374,7 +2309,7 @@ public enum ItemEffectType {
 			Main.game.addEvent(new EventLogEntryBookAddedToLibrary(book), true);
 		}
 		if(Main.game.getPlayer().addBooksRead(book)) {
-			Main.game.getPlayer().incrementAttribute(Attribute.INTELLIGENCE, 0.5f);
+			Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_ARCANE, 0.5f);
 		}
 		
 		return race.getBasicDescription()
@@ -2462,36 +2397,28 @@ public enum ItemEffectType {
 	private static void addResourceDescriptionsRestore(int value, resourceRestoration restorationType) {
 		switch(restorationType){
 			case HEALTH:
-					descriptions.add("[style.boldGood(Restores)] "+value+"% [style.boldHealth(health)]");
+					descriptions.add("[style.boldGood(Restores)] "+value+"% [style.boldHealth(energy)]");
 				break;
-			case STAMINA:
-					descriptions.add("[style.boldGood(Restores)] "+value+"% [style.boldStamina(stamina)]");
-				break;
-			case WILLPOWER:
-					descriptions.add("[style.boldGood(Restores)] "+value+"% [style.boldWillpower(willpower)]");
+			case MANA:
+					descriptions.add("[style.boldGood(Restores)] "+value+"% [style.boldAura(aura)]");
 				break;
 			case ALL:
-					descriptions.add("[style.boldGood(Restores)] "+value+"% [style.boldHealth(health)]");
-					descriptions.add("[style.boldGood(Restores)] "+value+"% [style.boldStamina(stamina)]");
-					descriptions.add("[style.boldGood(Restores)] "+value+"% [style.boldWillpower(willpower)]");
+					descriptions.add("[style.boldGood(Restores)] "+value+"% [style.boldHealth(energy)]");
+					descriptions.add("[style.boldGood(Restores)] "+value+"% [style.boldAura(aura)]");
 				break;
 		}
 	}
 	private static void addResourceDescriptionsDrain(int value, resourceRestoration restorationType) {
 		switch(restorationType){
 			case HEALTH:
-					descriptions.add("[style.boldBad(Drains)] "+value+"% [style.boldHealth(health)]");
+					descriptions.add("[style.boldBad(Drains)] "+value+"% [style.boldHealth(energy)]");
 				break;
-			case STAMINA:
-					descriptions.add("[style.boldBad(Drains)] "+value+"% [style.boldStamina(stamina)]");
-				break;
-			case WILLPOWER:
-					descriptions.add("[style.boldBad(Drains)] "+value+"% [style.boldWillpower(willpower)]");
+			case MANA:
+					descriptions.add("[style.boldBad(Drains)] "+value+"% [style.boldAura(aura)]");
 				break;
 			case ALL:
-					descriptions.add("[style.boldBad(Drains)] "+value+"% [style.boldHealth(health)]");
-					descriptions.add("[style.boldBad(Drains)] "+value+"% [style.boldStamina(stamina)]");
-					descriptions.add("[style.boldBad(Drains)] "+value+"% [style.boldWillpower(willpower)]");
+					descriptions.add("[style.boldBad(Drains)] "+value+"% [style.boldHealth(energy)]");
+					descriptions.add("[style.boldBad(Drains)] "+value+"% [style.boldAura(aura)]");
 				break;
 		}
 	}
@@ -2500,16 +2427,12 @@ public enum ItemEffectType {
 		switch(restorationType) {
 			case ALL:
 				target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)*percentage);
-				target.incrementStamina(target.getAttributeValue(Attribute.STAMINA_MAXIMUM)*percentage);
 				target.incrementMana(target.getAttributeValue(Attribute.MANA_MAXIMUM)*percentage);
 				break;
 			case HEALTH:
 				target.incrementHealth(target.getAttributeValue(Attribute.HEALTH_MAXIMUM)*percentage);
 				break;
-			case STAMINA:
-				target.incrementStamina(target.getAttributeValue(Attribute.STAMINA_MAXIMUM)*percentage);
-				break;
-			case WILLPOWER:
+			case MANA:
 				target.incrementMana(target.getAttributeValue(Attribute.MANA_MAXIMUM)*percentage);
 				break;
 		}

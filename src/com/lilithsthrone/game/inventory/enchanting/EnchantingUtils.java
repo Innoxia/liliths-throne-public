@@ -64,9 +64,6 @@ public class EnchantingUtils {
 				case ATTRIBUTE_CORRUPTION:
 					potionDescriptor = "viscous ";
 					break;
-				case ATTRIBUTE_FITNESS:
-					potionDescriptor = "bubbling ";
-					break;
 				case ATTRIBUTE_INTELLIGENCE:
 					potionDescriptor = "soothing ";
 					break;

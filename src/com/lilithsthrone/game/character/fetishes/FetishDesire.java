@@ -16,7 +16,7 @@ import com.lilithsthrone.utils.Util;
  */
 public enum FetishDesire {
 	
-	ZERO_HATE("hate", "hate", "hates", "fondness1", -50f, Colour.BASE_CRIMSON),
+	ZERO_HATE("hate", "hate", "hates", "fondness1", -25f, Colour.BASE_CRIMSON),
 	
 	ONE_DISLIKE("dislike", "dislike", "dislikes", "fondness2", -10f, Colour.BASE_RED),
 	

@@ -67,25 +67,19 @@ public enum TFModifier {
 	// Attributes:
 	
 	STRENGTH(AttributeCategory.STRENGTH,
-			Attribute.STRENGTH,
+			Attribute.MAJOR_STRENGTH,
 			"Applies an effect related to the primary attribute 'Strength'.",
 			"modifier_circle_strength",
 			Rarity.EPIC),
 	
 	INTELLIGENCE(AttributeCategory.INTELLIGENCE,
-			Attribute.INTELLIGENCE,
+			Attribute.MAJOR_ARCANE,
 			"Applies an effect related to the primary attribute 'Intelligence'.",
 			"modifier_circle_intelligence",
 			Rarity.EPIC),
 	
-	FITNESS(AttributeCategory.FITNESS,
-			Attribute.FITNESS,
-			"Applies an effect related to the primary attribute 'Fitness'.",
-			"modifier_circle_fitness",
-			Rarity.EPIC),
-	
 	CORRUPTION(AttributeCategory.CORRUPTION,
-			Attribute.CORRUPTION,
+			Attribute.MAJOR_CORRUPTION,
 			"Applies an effect related to the primary attribute 'Corruption'.",
 			"modifier_circle_corruption",
 			Rarity.EPIC),
@@ -110,7 +104,7 @@ public enum TFModifier {
 			Rarity.RARE),
 	
 	
-	CRITICAL_CHANCE(AttributeCategory.FITNESS,
+	CRITICAL_CHANCE(AttributeCategory.STRENGTH,
 			Attribute.CRITICAL_CHANCE,
 			"Applies an effect related to the secondary attribute 'Critical chance'.",
 			"modifier_circle",
@@ -123,27 +117,15 @@ public enum TFModifier {
 			Rarity.RARE),
 	
 	
-	DAMAGE_ATTACK(AttributeCategory.STRENGTH,
-			Attribute.DAMAGE_ATTACK,
-			"Applies an effect related to the secondary attribute 'Attack damage'.",
+	DAMAGE_LUST(AttributeCategory.FITNESS,
+			Attribute.DAMAGE_LUST,
+			"Applies an effect related to the secondary attribute 'Seduction damage'.",
 			"modifier_circle_damage",
 			Rarity.RARE),
 	
 	DAMAGE_SPELLS(AttributeCategory.INTELLIGENCE,
 			Attribute.DAMAGE_SPELLS,
 			"Applies an effect related to the secondary attribute 'Spell damage'.",
-			"modifier_circle_damage",
-			Rarity.RARE),
-	
-	DAMAGE_MANA(AttributeCategory.CORRUPTION,
-			Attribute.DAMAGE_MANA,
-			"Applies an effect related to the secondary attribute 'Willpower damage'.",
-			"modifier_circle_damage",
-			Rarity.RARE),
-	
-	DAMAGE_STAMINA(AttributeCategory.FITNESS,
-			Attribute.DAMAGE_STAMINA,
-			"Applies an effect related to the secondary attribute 'Stamina damage'.",
 			"modifier_circle_damage",
 			Rarity.RARE),
 	
@@ -178,27 +160,15 @@ public enum TFModifier {
 			Rarity.LEGENDARY),
 	
 	
-	RESISTANCE_ATTACK(AttributeCategory.STRENGTH,
-			Attribute.RESISTANCE_ATTACK,
-			"Applies an effect related to the secondary attribute 'Attack resistance'.",
+	RESISTANCE_LUST(AttributeCategory.FITNESS,
+			Attribute.RESISTANCE_LUST,
+			"Applies an effect related to the secondary attribute 'Seduction resistance'.",
 			"modifier_circle_resistance",
 			Rarity.RARE),
 	
 	RESISTANCE_SPELLS(AttributeCategory.INTELLIGENCE,
 			Attribute.RESISTANCE_SPELLS,
 			"Applies an effect related to the secondary attribute 'Spell resistance'.",
-			"modifier_circle_resistance",
-			Rarity.RARE),
-	
-	RESISTANCE_MANA(AttributeCategory.CORRUPTION,
-			Attribute.RESISTANCE_MANA,
-			"Applies an effect related to the secondary attribute 'Willpower resistance'.",
-			"modifier_circle_resistance",
-			Rarity.RARE),
-	
-	RESISTANCE_STAMINA(AttributeCategory.FITNESS,
-			Attribute.RESISTANCE_STAMINA,
-			"Applies an effect related to the secondary attribute 'Stamina resistance'.",
 			"modifier_circle_resistance",
 			Rarity.RARE),
 	
@@ -1006,11 +976,10 @@ public enum TFModifier {
 			}
 		}
 		
-		TFModSexualList.add(FITNESS);
 		TFModSexualList.add(FERTILITY);
 		TFModSexualList.add(VIRILITY);
-		TFModSexualList.add(DAMAGE_MANA);
-		TFModSexualList.add(RESISTANCE_MANA);
+		TFModSexualList.add(DAMAGE_LUST);
+		TFModSexualList.add(RESISTANCE_LUST);
 		
 		// Body parts:
 		
