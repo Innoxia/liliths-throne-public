@@ -134,7 +134,7 @@ public class ClothingEmporium {
 							return new Response("Small Talk", "Talk with Nyan about her store, the weather, and other such topics.", ROMANCE_TALK) {
 								@Override
 								public void effects() {
-									Main.game.getTextEndStringBuilder().append(Main.game.getNyan().incrementAffection(Main.game.getPlayer(), 100f));
+									Main.game.getTextEndStringBuilder().append(Main.game.getNyan().incrementAffection(Main.game.getPlayer(), 1f));
 									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanTalkedTo, true);
 								}
 							};

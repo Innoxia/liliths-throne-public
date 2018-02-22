@@ -9,61 +9,16 @@
 	
 	Patch notes:
 	
-	Engine:
-		Added support to read .xml files for parsing game content.
-		Added 'subspecies' as a more refined way to track a character's race.
-		Added support for clothing to conceal slots (I'll fill in the data for all clothing items as soon as I can).
-		Reworked the way Quest data is handled in the engine (to allow branching quests).
-	
-	Gameplay:
-		Maximum Energy and Aura now take level into account (+2 per level).
-		Added: Ashley's shop ('Dream Lover'). This is a gift shop, and the items bought from here can be used as a way to boost affection with NPCs (only Nyan for now). (This shop, and the character 'Ashley', were both written by Kumiko.)
-		Added: Gifts for Ashley to sell; Chocolates, Rose Bouquet, Rose Perfume, and Teddy Bear. Also moved feather duster from Vicky's shop to Ashley's.
-		Nyan no longer stocks enchanted or 'special' clothing by default (her shop's contents will refresh to the correct stock at midnight).
-		Nyan now has a quest 'Supplier Issues', through which you can unlock enchanted clothing (she now also stocks one +5/+5 rare piece of clothing in each category after completing this quest).
-		Nyan now has several romance actions. (Unlocked after completing 'Supplier Issues'.)
-	
-	Transformations/Body Parts:
-		Improved race detection for the 'greater/lesser/minor/partial' system (it now uses weighting of all body parts).
-		Added 'dobermann-morph' as a dog-morph subspecies (for use in Nyan's quest).
-		The transformation to 'increase antenna/tail/horn count' will now grow a new pair of antennae/tail/pair of horns if you have none.
-		Added 'marked' to possible covering patterns (naturally occurs on dog, wolf, cat, horse, and cow morphs, as well as harpies).
-		Standardised the availability of covering patterns for all skin/fur/hair coverings.
-		Added 'pointed' dog-morph ear variation TF. (Standard dog-morph ears are now described as 'floppy'.)
-		Added 'stubby' dog-morph tail variation TF.
-		Dog-morph penis transformation now sets penis colour to red, and dog-morph penises will now spawn with red skin.
-		Penis transformation when growing a new penis now sets size to 1 inch (if the underlying size was 0).
-		Added 'modifier' for coverings (such as 'smooth' and 'fluffy' for cat fur), which can be changed in Kate's shop. (I needed this for the Dobermann addition.)
-		Added 'tan' as a covering colour for fur.
-	
-	Clothing:
-		Added: Cloak (Gender neutral, over-torso slot).
-		Remade the 'ankle boots' and 'platform boots' icons.
-		Added: Chelsea boots (feminine, foot slot).
-	
-	Combat:
-		Added support for multiple combatants, both as allies and enemies.
-	
-	Other:
-		Improved price calculations for all clothing, weapons, and items. Also increased loot drop money, Pix's gym costs to match new amounts.
-		Removed 'pure' damage and resistance as attributes. (Pure damage will be a damage type for certain spells and attacks later on, but will function as expected - to bypass all resistances.)
-		Renamed 'strength' attribute to 'physique'.
-		Added 'Muscle Definition', 'Body Size', and 'Body Shape' to the 'Body Stats' page in your phone.
-		The 'Cardio' and 'Weights' options in Pix's Playground now reduce your Body Size and increase your Muscle, respectively, while Pix's special workout will apply both effects.
-		Added physical resist to 'Masochist' fetish. (Also tweaked Sadist and Sadomasochist fetish attribute buffs.)
-		Added money and essences back to the main UI.
-		Added unique icons for wolf-morph status effect and items.
-		Doubled the quantity of items that Ralph stocks.
 	
 	Bugs:
-		Fixed poor formatting for covering colours (such as 'brown, hair,').
-		Active traits should now be correctly restored when loading a game.
-		Fixed bug where tiles in the bottom-left of maps would be hidden on loading a game.
-		Fixed some instances of incorrect dirty talk lines.
-		Fixed issue where NPCs would generate a huge amount of fetish desires, as well as the bug where NPCs would re-generate desires on a game load. (I think - please let me know if this is still happening!)
-		Fixed UI bug where horizontal scroll bar would sometimes appear in the left panel.
-		Added ability to get anally penetrated while lying down in the missionary position.
+		Fixed bug where Nyan's 'Small Talk' action would increment arousal by 100 instead of 1...
+		Fixed bug where character imports wouldn't work.
 	
+	
+	
+	
+	when creating a new character i can't change his/her face
+	can't apply hair color either and when i tried to go back and reenter i couldn't do that either...
 	
 	
 	

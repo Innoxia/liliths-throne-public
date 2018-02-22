@@ -1103,8 +1103,13 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				for(int i=0; i<element.getElementsByTagName("perk").getLength(); i++){
 					Element e = ((Element)element.getElementsByTagName("perk").item(i));
 					
-					character.addPerk(Integer.valueOf(e.getAttribute("row")), Perk.valueOf(e.getAttribute("type")));
-					CharacterUtils.appendToImportLog(log, "</br>Added Perk: "+Perk.valueOf(e.getAttribute("type")).getName(character));
+					String type = e.getAttribute("type");
+					type = type.replaceAll("STRENGTH_", "PHYSIQUE_");
+					try {
+						character.addPerk(Integer.valueOf(e.getAttribute("row")), Perk.valueOf(e.getAttribute("type")));
+						CharacterUtils.appendToImportLog(log, "</br>Added Perk: "+Perk.valueOf(e.getAttribute("type")).getName(character));
+					} catch(Exception ex) {
+					}
 				}
 			}
 		}
