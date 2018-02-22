@@ -111,8 +111,8 @@ public class DialogueFlags implements Serializable, XMLSaving {
 				
 				newFlags.supplierStorageRoomsChecked.add(
 						new Vector2i(
-								Integer.valueOf(((Element)e.getElementsByTagName("location").item(0)).getAttribute("x")),
-								Integer.valueOf(((Element)e.getElementsByTagName("location").item(0)).getAttribute("y"))));
+								Integer.valueOf(e.getAttribute("x")),
+								Integer.valueOf(e.getAttribute("y"))));
 			}
 		}
 		return newFlags;

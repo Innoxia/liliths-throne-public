@@ -17,13 +17,13 @@
 		Fixed game-breaking bug where if you clicked on an item in the right-panel during the prologue, it would freeze the game.
 	
 	
-	
+	comments
 	
 	can't apply hair color either and when i tried to go back and reenter i couldn't do that either...
 	
 	* When entring Dream Lover, Ashley's race is hidden, but encyclopedy entry is added... Spoilers!
 	
-	
+	 Says "Name already exists!" and then saves properly.
 	
 	Nyan gifts
 	
@@ -31,6 +31,7 @@
 	
 	Then sort out fluids
 	
+	gave birth to four cat-boys and three null
 	
 	Nyan pregnancy reactions
 	
