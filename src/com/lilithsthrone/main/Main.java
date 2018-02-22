@@ -56,7 +56,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.1.99.5",
+	public static final String VERSION_NUMBER = "0.1.99.6",
 			VERSION_DESCRIPTION = "Early Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
@@ -141,6 +141,17 @@ public class Main extends Application {
 			+"<ul>Fixed issue where NPCs would generate a huge amount of fetish desires, as well as the bug where NPCs would re-generate desires on a game load. (I think - please let me know if this is still happening!)</ul>"
 			+"<ul>Fixed UI bug where horizontal scroll bar would sometimes appear in the left panel.</ul>"
 			+"<ul>Added ability to get anally penetrated while lying down in the missionary position.</ul>"
+		+ "</list>"
+
+		+ "</br>"
+
+		+ "<list>"
+			+ "<h6>v0.1.99.6</h6>"
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed Nyan's 'Small Talk' action incrementing arousal by 100 instead of 1...</ul>"
+			+"<ul>Fixed bug where character imports wouldn't work.</ul>"
+			+"<ul>Fixed bug where the 'Face' modification screen in character creation would cause a major background bug to occur.</ul>"
+			+"<ul>Fixed game-breaking bug where if you clicked on an item in the right-panel during the prologue, it would freeze the game.</ul>"
 		+ "</list>"
 		;
 	
