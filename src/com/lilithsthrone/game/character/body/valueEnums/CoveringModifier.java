@@ -7,9 +7,9 @@ package com.lilithsthrone.game.character.body.valueEnums;
  */
 public enum CoveringModifier {
 
-	EYE(""),
-	FLUID(""),
-	MAKEUP(""),
+	EYE("eye"),
+	FLUID("fluid"),
+	MAKEUP("makeup"),
 	
 	SHORT("short"),
 	SILKEN("silken"),
