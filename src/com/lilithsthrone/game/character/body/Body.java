@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Map.Entry;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import com.lilithsthrone.game.character.CharacterUtils;
@@ -37,6 +39,7 @@ import com.lilithsthrone.game.character.body.valueEnums.BodyShape;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
+import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
@@ -60,7 +63,7 @@ import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
-import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
@@ -104,7 +107,8 @@ public class Body implements Serializable, XMLSaving {
 	
 	private GenitalArrangement genitalArrangement;
 
-	private Race race;
+	private Map<Race, Integer> raceWeightMap = new HashMap<>();
+	private Subspecies subspecies;
 	private RaceStage raceStage;
 	private boolean piercedStomach = false;
 	private int height, femininity, bodySize, muscle;
@@ -129,7 +133,6 @@ public class Body implements Serializable, XMLSaving {
 		private final Skin skin;
 		private final BodyMaterial bodyMaterial;
 		private GenitalArrangement genitalArrangement;
-		private final Race race = null;
 		private final int height;
 		private final int femininity, bodySize, muscle;
 		
@@ -218,9 +221,6 @@ public class Body implements Serializable, XMLSaving {
 		tail = builder.tail;
 		vagina = builder.vagina;
 		wing = builder.wing;
-		race = builder.race;
-
-		calculateRace(); // For determining RaceStage.
 		
 		bodyMaterial = builder.bodyMaterial;
 		genitalArrangement = builder.genitalArrangement;
@@ -251,7 +251,7 @@ public class Body implements Serializable, XMLSaving {
 		allBodyParts.add(wing);
 		
 		coverings = new EnumMap<>(BodyCoveringType.class);
-		
+
 		applyStartingCoveringValues();
 		
 		coveringsDiscovered = EnumSet.noneOf(BodyCoveringType.class);
@@ -260,6 +260,8 @@ public class Body implements Serializable, XMLSaving {
 				coveringsDiscovered.add(bp.getType().getBodyCoveringType());
 			}
 		}
+		
+		calculateRace();
 	}
 	
 	
@@ -340,6 +342,7 @@ public class Body implements Serializable, XMLSaving {
 			
 			CharacterUtils.addAttribute(doc, element, "type", bct.toString());
 			CharacterUtils.addAttribute(doc, element, "pattern", this.coverings.get(bct).getPattern().toString());
+			CharacterUtils.addAttribute(doc, element, "modifier", this.coverings.get(bct).getModifier().toString());
 			CharacterUtils.addAttribute(doc, element, "colourPrimary", this.coverings.get(bct).getPrimaryColour().toString());
 			CharacterUtils.addAttribute(doc, element, "glowPrimary", String.valueOf(this.coverings.get(bct).isPrimaryGlowing()));
 			CharacterUtils.addAttribute(doc, element, "colourSecondary", this.coverings.get(bct).getSecondaryColour().toString());
@@ -584,6 +587,9 @@ public class Body implements Serializable, XMLSaving {
 	}
 
 	
+	private void setBodyCoveringForXMLImport(BodyCoveringType bct, CoveringPattern pattern, CoveringModifier modifier, Colour primary, boolean primaryGlow, Colour secondary, boolean secondaryGlow) {
+		this.getCoverings().put(bct, new Covering(bct, pattern, modifier, primary, primaryGlow, secondary, secondaryGlow));
+	}
 	private void setBodyCoveringForXMLImport(BodyCoveringType bct, CoveringPattern pattern, Colour primary, boolean primaryGlow, Colour secondary, boolean secondaryGlow) {
 		this.getCoverings().put(bct, new Covering(bct, pattern, primary, primaryGlow, secondary, secondaryGlow));
 	}
@@ -783,13 +789,14 @@ public class Body implements Serializable, XMLSaving {
 		// **************** Ear **************** //
 		
 		Element ear = (Element)parentElement.getElementsByTagName("ear").item(0);
-		
+
 		Ear importedEar = new Ear(EarType.valueOf(ear.getAttribute("type")));
 		
 		importedEar.pierced = (Boolean.valueOf(ear.getAttribute("pierced")));
 		CharacterUtils.appendToImportLog(log, "</br></br>Body: Ear:"
 				+ "</br>type: "+importedEar.getType()
 				+ "</br>pierced: "+importedEar.isPierced());
+
 		
 		
 		// **************** Eye **************** //
@@ -1240,9 +1247,18 @@ public class Body implements Serializable, XMLSaving {
 				type = "HORN";
 			}
 			try {
-				body.setBodyCoveringForXMLImport(BodyCoveringType.valueOf(type), CoveringPattern.valueOf(e.getAttribute("pattern")),
-						Colour.valueOf(e.getAttribute("colourPrimary")), Boolean.valueOf(e.getAttribute("glowPrimary")),
-						Colour.valueOf(e.getAttribute("colourSecondary")), Boolean.valueOf(e.getAttribute("glowSecondary")));
+				if(e.getAttribute("modifier").isEmpty()) {
+					body.setBodyCoveringForXMLImport(BodyCoveringType.valueOf(type),
+							CoveringPattern.valueOf(e.getAttribute("pattern")),
+							Colour.valueOf(e.getAttribute("colourPrimary")), Boolean.valueOf(e.getAttribute("glowPrimary")),
+							Colour.valueOf(e.getAttribute("colourSecondary")), Boolean.valueOf(e.getAttribute("glowSecondary")));
+				} else {
+					body.setBodyCoveringForXMLImport(BodyCoveringType.valueOf(type),
+							CoveringPattern.valueOf(e.getAttribute("pattern")),
+							CoveringModifier.valueOf(e.getAttribute("modifier")),
+							Colour.valueOf(e.getAttribute("colourPrimary")), Boolean.valueOf(e.getAttribute("glowPrimary")),
+							Colour.valueOf(e.getAttribute("colourSecondary")), Boolean.valueOf(e.getAttribute("glowSecondary")));
+				}
 			} catch(Exception ex) {
 			}
 			
@@ -1255,6 +1271,8 @@ public class Body implements Serializable, XMLSaving {
 				+" | "+Colour.valueOf(e.getAttribute("colourSecondary")) +" glow:"+Boolean.valueOf(e.getAttribute("glowSecondary"))
 				+" (discovered: "+e.getAttribute("discovered")+")");
 		}
+		
+		body.calculateRace();
 		
 		return body;
 	}
@@ -1658,6 +1676,12 @@ public class Body implements Serializable, XMLSaving {
 		
 		// Ear:
 		switch (ear.getType()) {
+			case ANGEL:
+				if (owner.isPlayer())
+					sb.append(" You have a pair of perfectly-formed angelic ears, which are covered in [pc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
+				else
+					sb.append(" [npc.She] has a pair of perfectly-formed angelic ears, which are covered in [npc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
+				break;
 			case HUMAN:
 				if (owner.isPlayer())
 					sb.append(" You have a pair of normal, human ears, which are covered in [pc.earFullDescription(true)]" + (ear.isPierced() ? ", and which have been pierced" : "") + ".");
@@ -1672,9 +1696,15 @@ public class Body implements Serializable, XMLSaving {
 				break;
 			case DOG_MORPH:
 				if (owner.isPlayer())
-					sb.append(" You have a pair of "+(ear.isPierced() ? "pierced, " : "")+"dog-like ears, which are positioned high up on your head and are are covered in [pc.earFullDescription(true)].");
+					sb.append(" You have a pair of floppy, "+(ear.isPierced() ? "pierced, " : "")+"dog-like ears, which are positioned high up on your head and are are covered in [pc.earFullDescription(true)].");
 				else
-					sb.append(" [npc.She] has a pair of "+(ear.isPierced() ? "pierced, " : "")+"dog-like ears, which are positioned high up on [npc.her] head and are covered in [npc.earFullDescription(true)].");
+					sb.append(" [npc.She] has a pair of floppy, "+(ear.isPierced() ? "pierced, " : "")+"dog-like ears, which are positioned high up on [npc.her] head and are covered in [npc.earFullDescription(true)].");
+				break;
+			case DOG_MORPH_POINTED:
+				if (owner.isPlayer())
+					sb.append(" You have a pair of pointed, "+(ear.isPierced() ? "pierced, " : "")+"dog-like ears, which are positioned high up on your head and are are covered in [pc.earFullDescription(true)].");
+				else
+					sb.append(" [npc.She] has a pair of pointed, "+(ear.isPierced() ? "pierced, " : "")+"dog-like ears, which are positioned high up on [npc.her] head and are covered in [npc.earFullDescription(true)].");
 				break;
 			case LYCAN:
 				if (owner.isPlayer())
@@ -1728,12 +1758,6 @@ public class Body implements Serializable, XMLSaving {
 					sb.append(" [npc.Her] ears are an internal part of [npc.her] head, and are covered by a fan of <span style='color:[npc.earColourHex];'>[npc.earColour] feathers</span>."
 							+ (ear.isPierced()?" They have been cleverly pierced so as to allow [npc.herHim] to wear ear-specific jewellery.":""));
 				break;
-			default:
-				if (owner.isPlayer()) {
-					sb.append(" You have [pc.a_ears+]" + (ear.isPierced() ? ", which have been pierced." : "."));
-				} else {
-					sb.append(" [npc.She] has [npc.a_ears+]" + (ear.isPierced() ? ", which have been pierced." : "."));
-				}
 		}
 		
 		sb.append("</p>"
@@ -1745,7 +1769,7 @@ public class Body implements Serializable, XMLSaving {
 					switch(owner.getFacialHair()) {
 						case ZERO_NONE:
 							if(!owner.isFeminine()) {
-								sb.append(" You don't have any trace of rough, stubbly "+owner.getFacialHairType().getName(owner, true)+" growing on your [pc.face].");
+								sb.append(" You don't have any trace of rough, stubbly "+owner.getFacialHairType().getName(owner)+" growing on your [pc.face].");
 							}
 							break;
 						case ONE_STUBBLE:
@@ -1774,7 +1798,7 @@ public class Body implements Serializable, XMLSaving {
 					switch(owner.getFacialHair()) {
 						case ZERO_NONE:
 							if(!owner.isFeminine()) {
-								sb.append(" You don't have any trace of facial "+owner.getFacialHairType().getName(owner, true)+".");
+								sb.append(" You don't have any trace of facial "+owner.getFacialHairType().getName(owner)+".");
 							}
 							break;
 						case ONE_STUBBLE:
@@ -1806,7 +1830,7 @@ public class Body implements Serializable, XMLSaving {
 					switch(owner.getFacialHair()) {
 						case ZERO_NONE:
 							if(!owner.isFeminine()) {
-								sb.append(" [npc.She] doesn't have any trace of rough, stubbly "+owner.getFacialHairType().getName(owner, true)+".");
+								sb.append(" [npc.She] doesn't have any trace of rough, stubbly "+owner.getFacialHairType().getName(owner)+".");
 							}
 							break;
 						case ONE_STUBBLE:
@@ -1835,7 +1859,7 @@ public class Body implements Serializable, XMLSaving {
 					switch(owner.getFacialHair()) {
 						case ZERO_NONE:
 							if(!owner.isFeminine()) {
-								sb.append(" [npc.She] doesn't have any trace of facial "+owner.getFacialHairType().getName(owner, true)+".");
+								sb.append(" [npc.She] doesn't have any trace of facial "+owner.getFacialHairType().getName(owner)+".");
 							}
 							break;
 						case ONE_STUBBLE:
@@ -2403,7 +2427,7 @@ public class Body implements Serializable, XMLSaving {
 				if(owner.getUnderarmHairType().getType()==BodyCoveringType.BODY_HAIR_SCALES_ALLIGATOR) {
 					switch(owner.getUnderarmHair()) {
 						case ZERO_NONE:
-							sb.append(" There is no trace of any rough "+owner.getUnderarmHairType().getName(owner, true)+" in [npc.her] armpits.");
+							sb.append(" There is no trace of any rough "+owner.getUnderarmHairType().getName(owner)+" in [npc.her] armpits.");
 							break;
 						case ONE_STUBBLE:
 							sb.append(" [npc.She] has a rough patch of "+owner.getUnderarmHairType().getFullDescription(owner, true)+" in each of [npc.her] armpits.");
@@ -2430,7 +2454,7 @@ public class Body implements Serializable, XMLSaving {
 				} else {
 					switch(owner.getUnderarmHair()) {
 						case ZERO_NONE:
-							sb.append(" There is no trace of any "+owner.getUnderarmHairType().getName(owner, true)+" in [npc.her] armpits.");
+							sb.append(" There is no trace of any "+owner.getUnderarmHairType().getName(owner)+" in [npc.her] armpits.");
 							break;
 						case ONE_STUBBLE:
 							sb.append(" [npc.She] has a stubbly patch of "+owner.getUnderarmHairType().getFullDescription(owner, true)+" in each of [npc.her] armpits.");
@@ -2696,6 +2720,13 @@ public class Body implements Serializable, XMLSaving {
 							sb.append("a furry, [npc.tailColour(true)] dog-like tail, which wags uncontrollably when [npc.she] gets excited.");
 						}
 						break;
+					case DOG_MORPH_STUBBY:
+						if (owner.isPlayer()) {
+							sb.append("a stubby, [pc.tailColour(true)] dog-like tail, which wags uncontrollably when you get excited.");
+						} else {
+							sb.append("a stubby, [npc.tailColour(true)] dog-like tail, which wags uncontrollably when [npc.she] gets excited.");
+						}
+						break;
 					case ALLIGATOR_MORPH:
 						if (owner.isPlayer()) {
 							sb.append("a long, [pc.tailColour(true)] alligator-like tail, which you can swipe from side to side with considerable force.");
@@ -2770,6 +2801,13 @@ public class Body implements Serializable, XMLSaving {
 							sb.append("furry, [pc.tailColour(true)] dog-like tails, which wag uncontrollably when you get excited.");
 						} else {
 							sb.append("furry, [npc.tailColour(true)] dog-like tails, which wag uncontrollably when [npc.she] gets excited.");
+						}
+						break;
+					case DOG_MORPH_STUBBY:
+						if (owner.isPlayer()) {
+							sb.append("stubby, [pc.tailColour(true)] dog-like tails, which wag uncontrollably when you get excited.");
+						} else {
+							sb.append("stubby, [npc.tailColour(true)] dog-like tails, which wag uncontrollably when [npc.she] gets excited.");
 						}
 						break;
 					case ALLIGATOR_MORPH:
@@ -2885,119 +2923,71 @@ public class Body implements Serializable, XMLSaving {
 		return UtilText.parse(owner, sb.toString());
 	}
 
-	/** To be called after every transformation. Returns the body's race. */
-	public void calculateRace() {
-
-		if (skin.getType().getRace() != Race.HUMAN) {
-			this.race = skin.getType().getRace();
-			raceStage = RaceStage.GREATER;
-
-		} else if (face.getType().getRace() != Race.HUMAN) {
-			this.race = face.getType().getRace();
-			raceStage = RaceStage.GREATER;
-
-		} else if (arm.getType().getRace() != Race.HUMAN) {
-			this.race = arm.getType().getRace();
-			raceStage = RaceStage.LESSER;
-
-		}  else if (leg.getType().getRace() != Race.HUMAN) {
-			this.race = leg.getType().getRace();
-			raceStage = RaceStage.LESSER;
-
-		} else {
-			
-			int leaderNonHumanParts = 0;
-			this.race = Race.HUMAN;
-			raceStage = RaceStage.HUMAN;
-			// Check to see if the body is a partial morph:
-			for (Race r : Race.values()) {
-				if (r == Race.HUMAN) {
-					continue;
-				}
-				int currentParts = 0;
-				int nonHumanParts = 0;
-				
-				if (antenna.getType() == RacialBody.valueOfRace(r).getAntennaType()) {
-					currentParts++;
-					if (antenna.getType() != RacialBody.valueOfRace(Race.HUMAN).getAntennaType())
-						nonHumanParts++;
-				}
-				
-				if (ass.getType() == RacialBody.valueOfRace(r).getAssType()) {
-					currentParts++;
-					if (ass.getType() != RacialBody.valueOfRace(Race.HUMAN).getAssType())
-						nonHumanParts++;
-				}
-
-				if (breast.getType() == RacialBody.valueOfRace(r).getBreastType()) {
-					currentParts++;
-					if (breast.getType() != RacialBody.valueOfRace(Race.HUMAN).getBreastType())
-						nonHumanParts++;
-				}
-
-				if (eye.getType() == RacialBody.valueOfRace(r).getEyeType()) {
-					currentParts++;
-					if (eye.getType() != RacialBody.valueOfRace(Race.HUMAN).getEyeType())
-						nonHumanParts++;
-				}
-
-				if (ear.getType() == RacialBody.valueOfRace(r).getEarType()) {
-					currentParts++;
-					if (ear.getType() != RacialBody.valueOfRace(Race.HUMAN).getEarType())
-						nonHumanParts++;
-				}
-
-				if (hair.getType() == RacialBody.valueOfRace(r).getHairType()) {
-					currentParts++;
-					if (hair.getType() != RacialBody.valueOfRace(Race.HUMAN).getHairType())
-						nonHumanParts++;
-				}
-
-				if (RacialBody.valueOfRace(r).getHornType().contains(horn.getType())) {
-					currentParts++;
-					if (horn.getType() != HornType.NONE) {
-						nonHumanParts++;
-					}
-				}
-
-				if (tail.getType() == RacialBody.valueOfRace(r).getTailType()) {
-					currentParts++;
-					if (tail.getType() != RacialBody.valueOfRace(Race.HUMAN).getTailType())
-						nonHumanParts++;
-				}
-
-				if (wing.getType() == RacialBody.valueOfRace(r).getWingType()) {
-					currentParts++;
-					if (wing.getType() != RacialBody.valueOfRace(Race.HUMAN).getWingType())
-						nonHumanParts++;
-				}
-
-				if (penis.getType() == RacialBody.valueOfRace(r).getPenisType()
-						&& penis.getType() != RacialBody.valueOfRace(Race.HUMAN).getPenisType()
-						&& penis.getType() != PenisType.NONE)
-					nonHumanParts++;
-
-				if (vagina.getType() == RacialBody.valueOfRace(r).getVaginaType()
-						&& vagina.getType() != RacialBody.valueOfRace(Race.HUMAN).getVaginaType()
-						&& vagina.getType() != VaginaType.NONE)
-					nonHumanParts++;
-
-				if (nonHumanParts > leaderNonHumanParts) {
-					this.race = r;
-					if (currentParts == 9) {
-						raceStage = RaceStage.PARTIAL_FULL;
-					} else {
-						raceStage = RaceStage.PARTIAL;
-					}
-					leaderNonHumanParts = nonHumanParts;
-				}
-			}
-
+	private void addRaceWeight(Map<Race, Integer> raceWeightMap, Race race, int weight) {
+		if(race!=null) {
+			raceWeightMap.putIfAbsent(race, 0);
+			raceWeightMap.put(race, raceWeightMap.get(race)+weight);
 		}
 	}
 
+	
+	/** To be called after every transformation. Returns the body's race. */
+	public void calculateRace() {
+		raceWeightMap.clear();
+		
+		addRaceWeight(raceWeightMap, skin.getType().getRace(), 3);
+		addRaceWeight(raceWeightMap, face.getType().getRace(), 3);
+		
+		addRaceWeight(raceWeightMap, arm.getType().getRace(), 2);
+		addRaceWeight(raceWeightMap, leg.getType().getRace(), 2);
+
+		addRaceWeight(raceWeightMap, antenna.getType().getRace(), 1);
+		addRaceWeight(raceWeightMap, eye.getType().getRace(), 1);
+		addRaceWeight(raceWeightMap, ear.getType().getRace(), 1);
+		addRaceWeight(raceWeightMap, hair.getType().getRace(), 1);
+		addRaceWeight(raceWeightMap, horn.getType().getRace(), 1);
+		addRaceWeight(raceWeightMap, tail.getType().getRace(), 1);
+		addRaceWeight(raceWeightMap, wing.getType().getRace(), 1);
+		
+		// Not using breast, ass, penis, or vagina
+		
+		int max = 0;
+		Race race = Race.HUMAN;
+		for(Entry<Race, Integer> e : raceWeightMap.entrySet()) {
+			if(e.getKey()!=null && e.getKey()!=Race.HUMAN && e.getValue()>max) {
+				race = e.getKey();
+				max = e.getValue();
+			}
+		}
+		
+		if(raceWeightMap.size()==1) {
+			if(raceWeightMap.containsKey(Race.HUMAN)) {
+				this.raceStage = RaceStage.HUMAN;
+			} else {
+				this.raceStage = RaceStage.GREATER;
+			}
+		} else {
+			this.raceStage = RaceStage.LESSER;
+		}
+		
+		subspecies = Subspecies.getSubspeciesFromBody(this, race);
+		
+		
+	}
+
+	public Map<Race, Integer> getRaceWeightMap() {
+		return raceWeightMap;
+	}
+	
 	public Race getRace() {
-		return race;
+		if(subspecies == null) {
+			calculateRace();
+		}
+		return subspecies.getRace();
+	}
+	
+	public Subspecies getSubspecies() {
+		return subspecies;
 	}
 
 	public RaceStage getRaceStage() {
@@ -3296,7 +3286,7 @@ public class Body implements Serializable, XMLSaving {
 			if(owner.isPlayer()) {
 				switch(ass.getAnus().getAssHair()) {
 					case ZERO_NONE:
-						descriptionSB.append(" There is no trace of any "+owner.getAssHairType().getName(owner, true)+" around your asshole.");
+						descriptionSB.append(" There is no trace of any "+owner.getAssHairType().getName(owner)+" around your asshole.");
 						break;
 					case ONE_STUBBLE:
 						descriptionSB.append(" You have a few strands of "+owner.getAssHairType().getFullDescription(owner, true)+" around your asshole.");
@@ -3324,7 +3314,7 @@ public class Body implements Serializable, XMLSaving {
 			} else {
 				switch(ass.getAnus().getAssHair()) {
 					case ZERO_NONE:
-						descriptionSB.append(" There is no trace of any "+owner.getAssHairType().getName(owner, true)+" around [npc.her] asshole.");
+						descriptionSB.append(" There is no trace of any "+owner.getAssHairType().getName(owner)+" around [npc.her] asshole.");
 						break;
 					case ONE_STUBBLE:
 						descriptionSB.append(" [npc.She] has a few strands of "+owner.getAssHairType().getFullDescription(owner, true)+" around [npc.her] asshole.");
@@ -3834,9 +3824,9 @@ public class Body implements Serializable, XMLSaving {
 		descriptionSB = new StringBuilder();
 		
 		if (isPlayer) {
-			descriptionSB.append("You have [pc.a_penisSize], "+owner.getPenisRawSizeValue()+"-inch");
+			descriptionSB.append("You have [pc.a_penisSize], "+(owner.getPenisRawSizeValue()>=1?owner.getPenisRawSizeValue()+"-inch":"sub-1-inch"));
 		} else {
-			descriptionSB.append("[npc.She] has [npc.a_penisSize], "+owner.getPenisRawSizeValue()+"-inch");
+			descriptionSB.append("[npc.She] has [npc.a_penisSize], "+(owner.getPenisRawSizeValue()>=1?owner.getPenisRawSizeValue()+"-inch":"sub-1-inch"));
 		}
 		
 		switch (penis.getType()) {
@@ -4070,9 +4060,9 @@ public class Body implements Serializable, XMLSaving {
 				switch(owner.getPubicHair()) {
 					case ZERO_NONE:
 						if (isPlayer) {
-							descriptionSB.append(" There's no trace of any rough "+owner.getPubicHairType().getName(owner, true)+" around the base of your cock.");
+							descriptionSB.append(" There's no trace of any rough "+owner.getPubicHairType().getName(owner)+" around the base of your cock.");
 						} else {
-							descriptionSB.append(" There's no trace of any rough  "+owner.getPubicHairType().getName(owner, true)+" around the base of [npc.her] cock.");
+							descriptionSB.append(" There's no trace of any rough  "+owner.getPubicHairType().getName(owner)+" around the base of [npc.her] cock.");
 						}
 						break;
 					case ONE_STUBBLE:
@@ -4129,9 +4119,9 @@ public class Body implements Serializable, XMLSaving {
 				switch(owner.getPubicHair()) {
 					case ZERO_NONE:
 						if (isPlayer) {
-							descriptionSB.append(" There is no trace of any "+owner.getPubicHairType().getName(owner, true)+" around the base of your cock.");
+							descriptionSB.append(" There is no trace of any "+owner.getPubicHairType().getName(owner)+" around the base of your cock.");
 						} else {
-							descriptionSB.append(" There is no trace of any "+owner.getPubicHairType().getName(owner, true)+" around the base of [npc.her] cock.");
+							descriptionSB.append(" There is no trace of any "+owner.getPubicHairType().getName(owner)+" around the base of [npc.her] cock.");
 						}
 						break;
 					case ONE_STUBBLE:
@@ -4510,9 +4500,9 @@ public class Body implements Serializable, XMLSaving {
 			switch(owner.getPubicHair()) {
 				case ZERO_NONE:
 					if (isPlayer) {
-						descriptionSB.append(" There is no trace of any "+owner.getPubicHairType().getName(owner, true)+" around your pussy.");
+						descriptionSB.append(" There is no trace of any "+owner.getPubicHairType().getName(owner)+" around your pussy.");
 					} else {
-						descriptionSB.append(" There is no trace of any "+owner.getPubicHairType().getName(owner, true)+" around [npc.her] pussy.");
+						descriptionSB.append(" There is no trace of any "+owner.getPubicHairType().getName(owner)+" around [npc.her] pussy.");
 					}
 					break;
 				case ONE_STUBBLE:
@@ -5276,6 +5266,8 @@ public class Body implements Serializable, XMLSaving {
 				case HUMAN:
 					coverings.put(BodyCoveringType.BODY_HAIR_HUMAN, new Covering(BodyCoveringType.BODY_HAIR_HUMAN, coverings.get(BodyCoveringType.HAIR_HUMAN).getPrimaryColour()));
 					break;
+				case SLIME:
+					break;
 				case SQUIRREL_MORPH:
 					coverings.put(BodyCoveringType.BODY_HAIR_SQUIRREL_FUR, new Covering(BodyCoveringType.BODY_HAIR_SQUIRREL_FUR, coverings.get(BodyCoveringType.HAIR_SQUIRREL_FUR).getPrimaryColour()));
 					break;
@@ -5343,6 +5335,8 @@ public class Body implements Serializable, XMLSaving {
 						break;
 					case HUMAN:
 						coverings.put(BodyCoveringType.BODY_HAIR_HUMAN, new Covering(BodyCoveringType.BODY_HAIR_HUMAN, coverings.get(BodyCoveringType.HAIR_HUMAN).getPrimaryColour()));
+						break;
+					case SLIME:
 						break;
 					case SQUIRREL_MORPH:
 						coverings.put(BodyCoveringType.BODY_HAIR_SQUIRREL_FUR, new Covering(BodyCoveringType.BODY_HAIR_SQUIRREL_FUR, coverings.get(BodyCoveringType.HAIR_SQUIRREL_FUR).getPrimaryColour()));
@@ -5426,6 +5420,9 @@ public class Body implements Serializable, XMLSaving {
 					case DEMON:
 						coverings.put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, coverings.get(BodyCoveringType.DEMON_COMMON).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
 						break;
+					case DOG_MORPH:
+						coverings.put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, Colour.SKIN_RED, false, Colour.ORIFICE_INTERIOR, false));
+						break;
 					default:
 						coverings.put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, coverings.get(BodyCoveringType.HUMAN).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
 						break;
@@ -5437,6 +5434,9 @@ public class Body implements Serializable, XMLSaving {
 						break;
 					case DEMON:
 						coverings.put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, coverings.get(BodyCoveringType.DEMON_COMMON).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));
+						break;
+					case DOG_MORPH:
+						coverings.put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, Colour.SKIN_RED, false, Colour.ORIFICE_INTERIOR, false));
 						break;
 					default:
 						coverings.put(BodyCoveringType.PENIS, new Covering(BodyCoveringType.PENIS, CoveringPattern.NONE, coverings.get(BodyCoveringType.HUMAN).getPrimaryColour(), false, Colour.ORIFICE_INTERIOR, false));

@@ -3,7 +3,6 @@ package com.lilithsthrone.game.dialogue.utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.MapDisplay;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -24,7 +23,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.7
- * @version 0.1.97
+ * @version 0.1.99
  * @author Innoxia
  */
 public class EnchantmentDialogue {
@@ -285,10 +284,6 @@ public class EnchantmentDialogue {
 						@Override
 						public void effects() {
 							craftItem(ingredient, effects);
-							
-							if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY));
-							}
 							
 							if(Main.game.getPlayer().hasItem((AbstractItem) previousIngredient)) {
 								ingredient = previousIngredient;

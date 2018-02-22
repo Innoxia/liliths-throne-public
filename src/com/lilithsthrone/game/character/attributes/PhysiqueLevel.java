@@ -8,47 +8,47 @@ import com.lilithsthrone.utils.Colour;
  * @version 0.1.79
  * @author Innoxia
  */
-public enum StrengthLevel {
+public enum PhysiqueLevel {
 	
-	ZERO_WEAK("weak", 0, 5, Colour.STRENGTH_STAGE_ZERO) {
+	ZERO_WEAK("frail", 0, 5, Colour.PHYSIQUE_STAGE_ZERO) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
-			return StatusEffect.STRENGTH_PERK_0;
+			return StatusEffect.PHYSIQUE_PERK_0;
 		}
 	},
 	
-	ONE_AVERAGE("average", 5, 15, Colour.STRENGTH_STAGE_ONE) {
+	ONE_AVERAGE("average", 5, 15, Colour.PHYSIQUE_STAGE_ONE) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
-			return StatusEffect.STRENGTH_PERK_1;
+			return StatusEffect.PHYSIQUE_PERK_1;
 		}
 	},
 	
-	TWO_STRONG("strong", 15, 35, Colour.STRENGTH_STAGE_TWO) {
+	TWO_STRONG("fit", 15, 35, Colour.PHYSIQUE_STAGE_TWO) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
-			return StatusEffect.STRENGTH_PERK_2;
+			return StatusEffect.PHYSIQUE_PERK_2;
 		}
 	},
 	
-	THREE_POWERFUL("powerful", 35, 65, Colour.STRENGTH_STAGE_THREE) {
+	THREE_POWERFUL("powerful", 35, 65, Colour.PHYSIQUE_STAGE_THREE) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
-			return StatusEffect.STRENGTH_PERK_3;
+			return StatusEffect.PHYSIQUE_PERK_3;
 		}
 	},
 	
-	FOUR_MIGHTY("mighty", 65, 95, Colour.STRENGTH_STAGE_FOUR) {
+	FOUR_MIGHTY("mighty", 65, 95, Colour.PHYSIQUE_STAGE_FOUR) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
-			return StatusEffect.STRENGTH_PERK_4;
+			return StatusEffect.PHYSIQUE_PERK_4;
 		}
 	},
 	
-	FIVE_HERCULEAN("herculean", 95, 100, Colour.STRENGTH_STAGE_FIVE) {
+	FIVE_HERCULEAN("herculean", 95, 100, Colour.PHYSIQUE_STAGE_FIVE) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
-			return StatusEffect.STRENGTH_PERK_5;
+			return StatusEffect.PHYSIQUE_PERK_5;
 		}
 	};
 	
@@ -56,7 +56,7 @@ public enum StrengthLevel {
 	private int minimumValue, maximumValue;
 	private Colour colour;
 
-	private StrengthLevel(String name, int minimumValue, int maximumValue, Colour colour) {
+	private PhysiqueLevel(String name, int minimumValue, int maximumValue, Colour colour) {
 		this.name = name;
 		this.minimumValue = minimumValue;
 		this.maximumValue = maximumValue;
@@ -81,8 +81,8 @@ public enum StrengthLevel {
 		return colour;
 	}
 	
-	public static StrengthLevel getStrengthLevelFromValue(float value){
-		for(StrengthLevel al : StrengthLevel.values()) {
+	public static PhysiqueLevel getPhysiqueLevelFromValue(float value){
+		for(PhysiqueLevel al : PhysiqueLevel.values()) {
 			if(value>=al.getMinimumValue() && value<al.getMaximumValue())
 				return al;
 		}

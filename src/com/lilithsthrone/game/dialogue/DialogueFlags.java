@@ -11,11 +11,12 @@ import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
- * @version 0.1.96
+ * @version 0.1.99
  * @author Innoxia
  */
 public class DialogueFlags implements Serializable, XMLSaving {
@@ -37,6 +38,8 @@ public class DialogueFlags implements Serializable, XMLSaving {
 	private Set<String> reindeerWorkedForIDs = new HashSet<>();
 	private Set<String> reindeerFuckedIDs = new HashSet<>();
 	
+	// Supplier storage rooms checked:
+	public Set<Vector2i> supplierStorageRoomsChecked = new HashSet<>();
 	
 	private String slaveTrader;
 	private String slaveryManagerSlaveSelected;
@@ -70,6 +73,16 @@ public class DialogueFlags implements Serializable, XMLSaving {
 			CharacterUtils.createXMLElementWithValue(doc, valuesElement, "dialogueValue", value.toString());
 		}
 		
+		Element supplierStorageRoomsCheckedElement = doc.createElement("supplierStorageRoomsChecked");
+		element.appendChild(supplierStorageRoomsCheckedElement);
+		for(Vector2i value : supplierStorageRoomsChecked) {
+			Element location = doc.createElement("location");
+			supplierStorageRoomsCheckedElement.appendChild(location);
+			CharacterUtils.addAttribute(doc, location, "x", String.valueOf(value.getX()));
+			CharacterUtils.addAttribute(doc, location, "y", String.valueOf(value.getY()));
+		}
+		
+		
 		return element;
 	}
 	
@@ -86,9 +99,22 @@ public class DialogueFlags implements Serializable, XMLSaving {
 		for(int i=0; i<((Element) parentElement.getElementsByTagName("dialogueValues").item(0)).getElementsByTagName("dialogueValue").getLength(); i++){
 			Element e = (Element) ((Element) parentElement.getElementsByTagName("dialogueValues").item(0)).getElementsByTagName("dialogueValue").item(i);
 			
-			newFlags.values.add(DialogueFlagValue.valueOf(e.getAttribute("value")));
+			try {
+				newFlags.values.add(DialogueFlagValue.valueOf(e.getAttribute("value")));
+			} catch(Exception ex) {
+			}
 		}
 		
+		if(parentElement.getElementsByTagName("supplierStorageRoomsChecked").item(0)!=null) {
+			for(int i=0; i<((Element) parentElement.getElementsByTagName("supplierStorageRoomsChecked").item(0)).getElementsByTagName("location").getLength(); i++){
+				Element e = (Element) ((Element) parentElement.getElementsByTagName("supplierStorageRoomsChecked").item(0)).getElementsByTagName("location").item(i);
+				
+				newFlags.supplierStorageRoomsChecked.add(
+						new Vector2i(
+								Integer.valueOf(((Element)e.getElementsByTagName("location").item(0)).getAttribute("x")),
+								Integer.valueOf(((Element)e.getElementsByTagName("location").item(0)).getAttribute("y"))));
+			}
+		}
 		return newFlags;
 	}
 
@@ -184,4 +210,13 @@ public class DialogueFlags implements Serializable, XMLSaving {
 		reindeerWorkedForIDs.remove(reindeerID);
 	}
 	
+	public void resetNyanActions() {
+		this.setFlag(DialogueFlagValue.nyanTalkedTo, false);
+		this.setFlag(DialogueFlagValue.nyanComplimented, false);
+		this.setFlag(DialogueFlagValue.nyanFlirtedWith, false);
+		this.setFlag(DialogueFlagValue.nyanKissed, false);
+		this.setFlag(DialogueFlagValue.nyanMakeOut, false);
+		this.setFlag(DialogueFlagValue.nyanSex, false);
+		this.setFlag(DialogueFlagValue.nyanGift, false);
+	}
 }

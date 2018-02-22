@@ -1,78 +1,55 @@
 package com.lilithsthrone.game.dialogue.responses;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.body.valueEnums.Femininity;
-import com.lilithsthrone.game.character.effects.Perk;
-import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
-import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.69
- * @version 0.1.98
+ * @version 0.1.99
  * @author Innoxia
  */
 public class ResponseCombat extends Response {
 
-	private NPC opponent;
+	private List<NPC> allies;
+	private List<NPC> enemies;
 	
-	private String playerStartingTitle;
-	private String playerStartingDescription;
-	private String opponentStartingTitle;
-	private String opponentStartingDescription;
+	private Map<GameCharacter, String> openingDescriptions;
 	
-	public ResponseCombat(String title, String tooltipText, DialogueNodeOld nextDialogue, NPC opponent) {
-		super(title, tooltipText, nextDialogue);
-		this.opponent = opponent;
+	public ResponseCombat(String title, String tooltipText, NPC opponent) {
+		super(title, tooltipText, null);
+		this.allies = new ArrayList<>();
+		this.enemies = new ArrayList<>();
+		this.enemies.add(opponent);
 		
-		playerStartingTitle = "Prepare";
-		playerStartingDescription = "You prepare to make a move.";
-		opponentStartingTitle = "Prepare";
-		opponentStartingDescription = UtilText.parse(opponent, "[npc.Name] prepares to make a move.");
+		this.openingDescriptions = new HashMap<>();
 	}
 	
-	public ResponseCombat(String title, String tooltipText, DialogueNodeOld nextDialogue, NPC opponent,
-			String playerStartingTitle,
-			String playerStartingDescription,
-			String opponentStartingTitle,
-			String opponentStartingDescription) {
-		super(title, tooltipText, nextDialogue);
-		this.opponent = opponent;
+	public ResponseCombat(String title, String tooltipText, NPC opponent, Map<GameCharacter, String> openingDescriptions) {
+		super(title, tooltipText, null);
+		this.allies = new ArrayList<>();
+		this.enemies = new ArrayList<>();
+		this.enemies.add(opponent);
 		
-		this.playerStartingTitle = playerStartingTitle;
-		this.playerStartingDescription = playerStartingDescription;
-		this.opponentStartingTitle = opponentStartingTitle;
-		this.opponentStartingDescription = opponentStartingDescription;
+		if(openingDescriptions!=null) {
+			this.openingDescriptions = openingDescriptions;
+		}
 	}
 	
-	public ResponseCombat(String title,
-			String tooltipText,
-			DialogueNodeOld nextDialogue,
-			NPC opponent,
-			String playerStartingTitle,
-			String playerStartingDescription,
-			String opponentStartingTitle,
-			String opponentStartingDescription,
-			List<Fetish> fetishesForUnlock,
-			CorruptionLevel corruptionBypass,
-			List<Perk> perksRequired,
-			Femininity femininityRequired,
-			Race raceRequired) {
-		super(title, tooltipText, nextDialogue,
-				fetishesForUnlock, corruptionBypass,
-				perksRequired, femininityRequired, raceRequired,
-				null, null, null, null);
-		this.opponent = opponent;
-
-		this.playerStartingTitle = playerStartingTitle;
-		this.playerStartingDescription = playerStartingDescription;
-		this.opponentStartingTitle = opponentStartingTitle;
-		this.opponentStartingDescription = opponentStartingDescription;
+	public ResponseCombat(String title, String tooltipText, List<NPC> allies, List<NPC> enemies, Map<GameCharacter, String> openingDescriptions) {
+		super(title, tooltipText, null);
+		this.allies = allies;
+		this.enemies = enemies;
+		
+		if(openingDescriptions!=null) {
+			this.openingDescriptions = openingDescriptions;
+		}
 	}
 
 	@Override
@@ -81,7 +58,7 @@ public class ResponseCombat extends Response {
 	}
 
 	public DialogueNodeOld initCombat() {
-		Combat.COMBAT.initialiseCombat(opponent, 0, playerStartingTitle, playerStartingDescription, opponentStartingTitle, opponentStartingDescription);
+		Combat.COMBAT.initialiseCombat(allies, enemies, openingDescriptions);
 		return Combat.COMBAT.startCombat();
 	}
 	

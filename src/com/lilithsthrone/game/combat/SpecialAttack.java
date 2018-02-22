@@ -591,10 +591,7 @@ public enum SpecialAttack {
 		@Override
 		public boolean isConditionsMet(GameCharacter owner) {
 			return owner.hasFetish(Fetish.FETISH_BREASTS_OTHERS)
-					&& (!Main.game.isInCombat()
-						|| (owner.isPlayer()
-							? Combat.getOpponent().hasBreasts()
-							: Main.game.getPlayer().hasBreasts()));
+					&& (!Main.game.isInCombat() || Combat.getTargetedCombatant(owner).hasBreasts());
 		}
 	},
 	
@@ -1609,8 +1606,6 @@ public enum SpecialAttack {
 		// Attacker modifiers:
 		// Damage Type modifier:
 		damage *= (caster.getAttributeValue(damageType.getMultiplierAttribute()) / 100f);
-		// Pure damage modifier:
-		damage *= ((100 + caster.getAttributeValue(Attribute.DAMAGE_PURE)) / 100f);
 
 		if (damage < 1)
 			damage = 1;
@@ -1619,8 +1614,6 @@ public enum SpecialAttack {
 			// Defender modifiers:
 			// Damage Type modifier:
 			damage *= ((100 - target.getAttributeValue(damageType.getResistAttribute())) / 100f);
-			// Pure damage modifier:
-			damage *= ((100 - target.getAttributeValue(Attribute.RESISTANCE_PURE)) / 100f);
 
 			if (damage < 1)
 				damage = 1;

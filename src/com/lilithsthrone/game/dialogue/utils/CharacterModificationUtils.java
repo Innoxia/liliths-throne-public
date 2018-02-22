@@ -30,6 +30,7 @@ import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
+import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
@@ -1798,7 +1799,7 @@ public class CharacterModificationUtils {
 
 		return applyHalfWrapper("Muscle Definition",
 				(BodyChanging.getTarget().isPlayer()
-					?"Change your muscle definition."+(!Main.game.isInNewWorld()?" This does not affect the strength of your character.":"")
+					?"Change your muscle definition."+(!Main.game.isInNewWorld()?" This does not affect the physique attribute of your character.":"")
 					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s muscle definition.")),
 				contentSB.toString());
 	}
@@ -3003,115 +3004,133 @@ public class CharacterModificationUtils {
 						+ "</div>");
 			}
 		}
-		
-		contentSB.append("</div>"
-				+ "<div class='container-quarter-width'>"
-				+ "Primary Colour:</br>");
-
-
-		List<Colour> availablePrimaryColours = withDyeAndExtraPatterns
-														?coveringType.getAllPrimaryColours()
-														:coveringType.getNaturalColoursPrimary();
-		for (Colour c : availablePrimaryColours) {
-			contentSB.append("<div class='normal-button"+(activeCovering.getPrimaryColour()==c?" selected":"")+"' id='"+coveringType+"_PRIMARY_"+c+"'"
-									+ " style='width:auto; margin-right:4px;"+(activeCovering.getPrimaryColour()==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-								+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
-							+ "</div>");
-		}
-		contentSB.append("</br>");
-		if(activeCovering.getPrimaryColour() == Colour.COVERING_NONE || !withGlow) { // Disable glow:
-				contentSB.append(
-						"<div class='normal-button disabled' style='width:50%; margin:2% auto; padding:0; text-align:center;'>"
-							+ "[style.colourDisabled(Glow)]"
-						+ "</div>");
-			
-		} else {
-			if(activeCovering.isPrimaryGlowing()) {
-				contentSB.append(
-						"<div class='normal-button active' id='"+coveringType+"_PRIMARY_GLOW_OFF' style='width:50%; margin:2% auto; padding:0; text-align:center;'>"
-							+ "[style.boldArcane(Glow)]"
-						+ "</div>");
-			} else {
-				contentSB.append(
-						"<div id='"+coveringType+"_PRIMARY_GLOW_ON' class='normal-button' style='width:50%; margin:2% auto; padding:0; text-align:center;'>"
-							+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(coveringType) || !withCost
-								?"<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Glow</span>"
-								:"[style.colourDisabled(Glowing)]")
-						+ "</div>");
+		contentSB.append("</div>");
+		contentSB.append("<div class='container-half-width''>");
+		contentSB.append( "<div class='container-half-width'>"
+					+ "Primary Colour:</br>");
+	
+	
+			List<Colour> availablePrimaryColours = withDyeAndExtraPatterns
+															?coveringType.getAllPrimaryColours()
+															:coveringType.getNaturalColoursPrimary();
+			for (Colour c : availablePrimaryColours) {
+				contentSB.append("<div class='normal-button"+(activeCovering.getPrimaryColour()==c?" selected":"")+"' id='"+coveringType+"_PRIMARY_"+c+"'"
+										+ " style='width:auto; margin-right:4px;"+(activeCovering.getPrimaryColour()==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+									+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
+								+ "</div>");
 			}
-		}
-		contentSB.append("<p>"
-					+ "<b style='color:"+activeCovering.getPrimaryColour().toWebHexString()+";"
-							+(activeCovering.isPrimaryGlowing()?"text-shadow: 0px 0px 4px "+activeCovering.getPrimaryColour().getShades()[4]+";":"")+"'>"
-						+Util.capitaliseSentence(activeCovering.getPrimaryColour().getName())
-					+"</b>"
-				+ "</p>");
-		
-		contentSB.append("</div>"
-				+ "<div class='container-quarter-width'>"
-				+ "Secondary Colour:</br>");
-
-		List<Colour> availableSecondaryColours = withDyeAndExtraPatterns
-													?coveringType.getAllSecondaryColours()
-													:coveringType.getNaturalColoursSecondary();
-		for (Colour c : availableSecondaryColours) {
+			contentSB.append("</br>");
+			if(activeCovering.getPrimaryColour() == Colour.COVERING_NONE || !withGlow) { // Disable glow:
+					contentSB.append(
+							"<div class='normal-button disabled' style='width:50%; margin:2% auto; padding:0; text-align:center;'>"
+								+ "[style.colourDisabled(Glow)]"
+							+ "</div>");
+				
+			} else {
+				if(activeCovering.isPrimaryGlowing()) {
+					contentSB.append(
+							"<div class='normal-button active' id='"+coveringType+"_PRIMARY_GLOW_OFF' style='width:50%; margin:2% auto; padding:0; text-align:center;'>"
+								+ "[style.boldArcane(Glow)]"
+							+ "</div>");
+				} else {
+					contentSB.append(
+							"<div id='"+coveringType+"_PRIMARY_GLOW_ON' class='normal-button' style='width:50%; margin:2% auto; padding:0; text-align:center;'>"
+								+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(coveringType) || !withCost
+									?"<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Glow</span>"
+									:"[style.colourDisabled(Glowing)]")
+							+ "</div>");
+				}
+			}
+			contentSB.append("<p>"
+						+ "<b style='color:"+activeCovering.getPrimaryColour().toWebHexString()+";"
+								+(activeCovering.isPrimaryGlowing()?"text-shadow: 0px 0px 4px "+activeCovering.getPrimaryColour().getShades()[4]+";":"")+"'>"
+							+Util.capitaliseSentence(activeCovering.getPrimaryColour().getName())
+						+"</b>"
+					+ "</p>");
+			
+			contentSB.append("</div>"
+					+ "<div class='container-half-width'>"
+					+ "Secondary Colour:</br>");
+	
+			List<Colour> availableSecondaryColours = withDyeAndExtraPatterns
+														?coveringType.getAllSecondaryColours()
+														:coveringType.getNaturalColoursSecondary();
+			for (Colour c : availableSecondaryColours) {
+				if(activeCovering.getPattern()==CoveringPattern.NONE
+						|| activeCovering.getPattern()==CoveringPattern.EYE_IRISES
+						|| activeCovering.getPattern()==CoveringPattern.EYE_PUPILS
+						|| !withSecondary) {
+					contentSB.append("<div class='normal-button disabled' style='width:auto; margin-right:4px;'>"
+						+ "<div class='phone-item-colour' style='background-color:" + c.getShades()[0] + ";'></div>"
+					+ "</div>");
+					
+				} else {
+					contentSB.append("<div class='normal-button"+(activeCovering.getSecondaryColour()==c?" selected":"")+"' id='"+coveringType+"_SECONDARY_"+c+"'"
+											+ " style='width:auto; margin-right:4px;"+(activeCovering.getSecondaryColour()==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+										+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
+									+ "</div>");
+				}
+			}
+			contentSB.append("</br>");
+			if(activeCovering.getSecondaryColour() == Colour.COVERING_NONE || !withGlow || activeCovering.getPattern()==CoveringPattern.NONE || !withSecondary) { // Disable glow:
+					contentSB.append(
+							"<div class='normal-button disabled' style='width:50%; margin:2% auto; padding:0; text-align:center;'>"
+								+ "[style.colourDisabled(Glow)]"
+							+ "</div>");
+				
+			} else {
+				if(activeCovering.isSecondaryGlowing()) {
+					contentSB.append(
+							"<div class='normal-button active' id='"+coveringType+"_SECONDARY_GLOW_OFF' style='width:50%; margin:2% auto; padding:0; text-align:center;'>"
+								+ "[style.boldArcane(Glow)]"
+							+ "</div>");
+				} else {
+					contentSB.append(
+							"<div id='"+coveringType+"_SECONDARY_GLOW_ON' class='normal-button' style='width:50%; margin:2% auto; padding:0; text-align:center;'>"
+								+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(coveringType) || !withCost
+									?"<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Glow</span>"
+									:"[style.colourDisabled(Glowing)]")
+							+ "</div>");
+				}
+			}
 			if(activeCovering.getPattern()==CoveringPattern.NONE
 					|| activeCovering.getPattern()==CoveringPattern.EYE_IRISES
 					|| activeCovering.getPattern()==CoveringPattern.EYE_PUPILS
 					|| !withSecondary) {
-				contentSB.append("<div class='normal-button disabled' style='width:auto; margin-right:4px;'>"
-					+ "<div class='phone-item-colour' style='background-color:" + c.getShades()[0] + ";'></div>"
-				+ "</div>");
+				contentSB.append("<p>"
+						+ "[style.boldDisabled(Disabled)]"
+					+ "</p>");
 				
 			} else {
-				contentSB.append("<div class='normal-button"+(activeCovering.getSecondaryColour()==c?" selected":"")+"' id='"+coveringType+"_SECONDARY_"+c+"'"
-										+ " style='width:auto; margin-right:4px;"+(activeCovering.getSecondaryColour()==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
-									+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
-								+ "</div>");
+				contentSB.append("<p>"
+						+ "<b style='color:"+activeCovering.getSecondaryColour().toWebHexString()+";"
+								+(activeCovering.isSecondaryGlowing()?"text-shadow: 0px 0px 4px "+activeCovering.getSecondaryColour().getShades()[4]+";":"")+"'>"
+							+Util.capitaliseSentence(activeCovering.getSecondaryColour().getName())
+						+"</b>"
+					+ "</p>");
 			}
-		}
-		contentSB.append("</br>");
-		if(activeCovering.getSecondaryColour() == Colour.COVERING_NONE || !withGlow || activeCovering.getPattern()==CoveringPattern.NONE || !withSecondary) { // Disable glow:
-				contentSB.append(
-						"<div class='normal-button disabled' style='width:50%; margin:2% auto; padding:0; text-align:center;'>"
-							+ "[style.colourDisabled(Glow)]"
-						+ "</div>");
+			contentSB.append("</div>");
 			
-		} else {
-			if(activeCovering.isSecondaryGlowing()) {
-				contentSB.append(
-						"<div class='normal-button active' id='"+coveringType+"_SECONDARY_GLOW_OFF' style='width:50%; margin:2% auto; padding:0; text-align:center;'>"
-							+ "[style.boldArcane(Glow)]"
-						+ "</div>");
-			} else {
-				contentSB.append(
-						"<div id='"+coveringType+"_SECONDARY_GLOW_ON' class='normal-button' style='width:50%; margin:2% auto; padding:0; text-align:center;'>"
-							+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(coveringType) || !withCost
-								?"<span style='color:"+Colour.GENERIC_ARCANE.getShades()[0]+";'>Glow</span>"
-								:"[style.colourDisabled(Glowing)]")
-						+ "</div>");
+			contentSB.append("<div class='container-full-width'>");
+			for(CoveringModifier mod : activeCovering.getType().getNaturalModifiers()) {
+				if (activeCovering.getModifier() == mod) {
+					contentSB.append(
+							"<div class='cosmetics-button active'>"
+								+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>" + Util.capitaliseSentence(mod.getName()) + "</b>"
+							+ "</div>");
+				} else {
+					contentSB.append(
+							"<div id='"+coveringType+"_MODIFIER_"+mod+"' class='cosmetics-button'>"
+									+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(coveringType) || !withCost
+										? "<span style='color:"+Colour.TRANSFORMATION_GENERIC.getShades()[0]+";'>" + Util.capitaliseSentence(mod.getName()) + "</span>"
+										: "[style.colourDisabled(" + Util.capitaliseSentence(mod.getName()) + ")]")
+							+ "</div>");
+				}
 			}
-		}
-		if(activeCovering.getPattern()==CoveringPattern.NONE
-				|| activeCovering.getPattern()==CoveringPattern.EYE_IRISES
-				|| activeCovering.getPattern()==CoveringPattern.EYE_PUPILS
-				|| !withSecondary) {
-			contentSB.append("<p>"
-					+ "[style.boldDisabled(Disabled)]"
-				+ "</p>");
-			
-		} else {
-			contentSB.append("<p>"
-					+ "<b style='color:"+activeCovering.getSecondaryColour().toWebHexString()+";"
-							+(activeCovering.isSecondaryGlowing()?"text-shadow: 0px 0px 4px "+activeCovering.getSecondaryColour().getShades()[4]+";":"")+"'>"
-						+Util.capitaliseSentence(activeCovering.getSecondaryColour().getName())
-					+"</b>"
-				+ "</p>");
-		}
-		
-//		contentSB.append("<p></p>");
-		
+			contentSB.append("</div>");
 		contentSB.append("</div>");
+		
+		
 		contentSB.append("</div>");
 		
 		return contentSB.toString();

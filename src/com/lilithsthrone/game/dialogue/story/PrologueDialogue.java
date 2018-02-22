@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.Weather;
-import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.FurryPreference;
-import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
@@ -25,7 +26,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.1.86
+ * @version 0.1.99
  * @author Innoxia
  */
 public class PrologueDialogue {
@@ -380,11 +381,9 @@ public class PrologueDialogue {
 						INTRO_NEW_WORLD_1_BY_THE_POWER_OF_LOVING_FURRIES){
 					@Override
 					public void effects(){
-						for(Race r : Race.values()) {
-							if(r.isAffectedByFurryPreference()) {
-								Main.getProperties().raceFemininePreferencesMap.put(r, FurryPreference.MAXIMUM);
-								Main.getProperties().raceMasculinePreferencesMap.put(r, FurryPreference.MAXIMUM);
-							}
+						for(Subspecies r : Subspecies.values()) {
+							Main.getProperties().subspeciesFeminineFurryPreferencesMap.put(r, FurryPreference.MAXIMUM);
+							Main.getProperties().subspeciesMasculineFurryPreferencesMap.put(r, FurryPreference.MAXIMUM);
 						}
 						Main.saveProperties();
 					}
@@ -398,11 +397,9 @@ public class PrologueDialogue {
 						INTRO_NEW_WORLD_1_BY_THE_POWER_OF_HATING_FURRIES){
 					@Override
 					public void effects(){
-						for(Race r : Race.values()) {
-							if(r.isAffectedByFurryPreference()) {
-								Main.getProperties().raceFemininePreferencesMap.put(r, FurryPreference.HUMAN);
-								Main.getProperties().raceMasculinePreferencesMap.put(r, FurryPreference.HUMAN);
-							}
+						for(Subspecies r : Subspecies.values()) {
+							Main.getProperties().subspeciesFeminineFurryPreferencesMap.put(r, FurryPreference.HUMAN);
+							Main.getProperties().subspeciesMasculineFurryPreferencesMap.put(r, FurryPreference.HUMAN);
 						}
 						Main.saveProperties();
 					}
@@ -1402,8 +1399,8 @@ public class PrologueDialogue {
 				return new Response("Knocking", "Rose said she'd be back in about half an hour, so that must be her knocking at your door.", INTRO_NEW_WORLD_9){
 					@Override
 					public void effects() {
-						Main.game.getPlayer().incrementMoney(40);
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
+						Main.game.getPlayer().incrementMoney(500);
+						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS));
 					}
 				};
 				
@@ -1451,7 +1448,7 @@ public class PrologueDialogue {
 					+ "</p>"
 
 					+ "<p>"
-					+ UtilText.parseSpeech("There are forty flames in there, which should be more than enough to get some new clothes. Mistress advises that you rest through this storm and go out shopping tomorrow."
+					+ UtilText.parseSpeech("There are five-hundred flames in there, which should be more than enough to get some new clothes. Mistress advises that you rest through this storm and go out shopping tomorrow."
 							+ " Oh, and please remember what I said about the alleyways being dangerous."
 							, Main.game.getRose())
 					+ " Rose smiles and makes her exit once again, leaving you to decide for yourself what you want to do next."

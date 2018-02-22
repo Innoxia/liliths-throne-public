@@ -1186,7 +1186,7 @@ public class DominionOffspringDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "You find yourself fighting your [npc.daughter]!", OFFSPRING_ENCOUNTER, offspring()) {
+				return new ResponseCombat("Fight", "You find yourself fighting your [npc.daughter]!", offspring()) {
 						@Override
 						public void effects() {
 							offspring().fightInApartment = false;
@@ -2158,7 +2158,7 @@ public class DominionOffspringDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "You find yourself fighting your [npc.daughter]!", OFFSPRING_ENCOUNTER, offspring()) {
+				return new ResponseCombat("Fight", "You find yourself fighting your [npc.daughter]!", offspring()) {
 					@Override
 					public void effects() {
 						offspring().fightInApartment = true;

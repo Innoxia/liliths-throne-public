@@ -5,8 +5,6 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.NameTriplet;
-import com.lilithsthrone.game.character.Quest;
-import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
@@ -18,6 +16,8 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderPreference;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.Attack;
@@ -54,7 +54,7 @@ public class Alexa extends NPC {
 				8, Gender.F_V_B_FEMALE, RacialBody.HARPY, RaceStage.LESSER,
 				new CharacterInventory(30), WorldType.HARPY_NEST, PlaceType.HARPY_NESTS_ALEXAS_NEST, true);
 
-		this.setAttribute(Attribute.MAJOR_STRENGTH, 10f);
+		this.setAttribute(Attribute.MAJOR_PHYSIQUE, 10f);
 		this.setAttribute(Attribute.MAJOR_ARCANE, 0f);
 		this.setAttribute(Attribute.MAJOR_CORRUPTION, 30f);
 		
@@ -157,13 +157,8 @@ public class Alexa extends NPC {
 	public void endSex(boolean applyEffects) {
 	}
 
-	// Combat (you never fight Rose):
 	@Override
 	public String getCombatDescription() {
-		return null;
-	}
-	@Override
-	public String getAttackDescription(Attack attackType, boolean isHit) {
 		return null;
 	}
 	@Override

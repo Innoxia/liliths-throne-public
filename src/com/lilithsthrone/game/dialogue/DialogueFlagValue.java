@@ -2,7 +2,7 @@ package com.lilithsthrone.game.dialogue;
 
 /**
  * @since 0.1.89
- * @version 0.1.97
+ * @version 0.1.99
  * @author Innoxia
  */
 public enum DialogueFlagValue {
@@ -23,8 +23,27 @@ public enum DialogueFlagValue {
 	
 	// Shopping arcade:
 	ralphIntroduced,
+	
 	nyanIntroduced,
+
+	nyanTalkedTo,
+	nyanComplimented,
+	nyanFlirtedWith,
+	nyanKissed,
+	nyanMakeOut,
+	nyanSex,
+	nyanGift,
+	
+	supplierDepotDoorUnlocked,
+	suppliersEncountered,
+	suppliersTriedConvincing,
+	
 	kateIntroduced,
+	
+	ashleyIntroduced,
+	ashleySexToysDiscovered,
+	ashleyAttitude,
+	
 	vickyIntroduced,
 	reactedToKatePregnancy,
 	

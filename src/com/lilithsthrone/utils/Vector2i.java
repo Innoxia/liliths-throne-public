@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * @since 0.1.0
- * @version 0.1.69.9
+ * @version 0.1.99
  * @author Innoxia
  */
 public class Vector2i implements Serializable {
@@ -33,14 +33,22 @@ public class Vector2i implements Serializable {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (!(obj instanceof Vector2i))
-			return false;
-		if (obj == this)
-			return true;
-
-		Vector2i comparisonObject = (Vector2i) obj;
-		return this.x == comparisonObject.x && this.y == comparisonObject.y;
+	public boolean equals (Object o) {
+		if(o instanceof Vector2i){
+			if(((Vector2i)o).getX() == x
+				&& ((Vector2i)o).getY() == y){
+					return true;
+			}
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		int result = 17;
+		result = 31 * result + x;
+		result = 31 * result + y;
+		return result;
 	}
 	
 	public boolean equals (int x, int y) {

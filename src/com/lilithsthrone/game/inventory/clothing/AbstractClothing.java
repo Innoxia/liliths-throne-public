@@ -233,12 +233,12 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		try {
 			clothing = AbstractClothingType.generateClothing(ClothingType.getClothingTypeFromId(parentElement.getAttribute("id")), false);
 		} catch(Exception ex) {
-			System.err.println("Warning: An instance of AbstractClothing was unable to be imported.");
+			System.err.println("Warning: An instance of AbstractClothing was unable to be imported. ("+parentElement.getAttribute("id")+")");
 			return null;
 		}
 		
 		if(clothing==null) {
-			System.err.println("Warning: An instance of AbstractClothing was unable to be imported.");
+			System.err.println("Warning: An instance of AbstractClothing was unable to be imported. ("+parentElement.getAttribute("id")+")");
 			return null;
 		}
 		
@@ -371,68 +371,51 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		return clothingType;
 	}
 
-	// For figuring out value, use 5*physical resistance +
-	// Common: -
-	// Rare: 20 + 5*attribute
-	// Epic: 60 + 5*attribute + 5*set bonus attribute
-	// Legendary: 100 + 5*attribute + 5*secondAttribute + 5*set bonus attribute
 	@Override
 	public int getValue() {
-		int runningTotal = 1;
-
-		switch (rarity) {
-			case JINXED:
-				return 1;
-			case COMMON:
-				runningTotal = 10;
-				break;
-			case UNCOMMON:
-				runningTotal = 20;
-				break;
-			case RARE:
-				runningTotal = 30;
-				break;
-			case EPIC:
-				runningTotal = 60;
-				break;
-			case LEGENDARY:
-				runningTotal = 100;
-				break;
-		}
+		float runningTotal = this.getClothingType().getBaseValue();
 
 		if (colourShade == Colour.CLOTHING_PLATINUM) {
-			runningTotal *= 4;
+			runningTotal *= 2f;
 			
 		} else if (colourShade == Colour.CLOTHING_GOLD) {
-			runningTotal *= 3;
+			runningTotal *= 1.75f;
 			
 		} else if (colourShade == Colour.CLOTHING_ROSE_GOLD) {
-			runningTotal *= 2.5;
+			runningTotal *= 1.5f;
 			
 		} else if (colourShade == Colour.CLOTHING_SILVER) {
-			runningTotal *= 2;
+			runningTotal *= 1.25f;
 		}
 		
-		if(rarity!=Rarity.EPIC && rarity!=Rarity.LEGENDARY) {
-			if (attributeModifiers != null) {
-				for (Integer i : attributeModifiers.values()) {
-					runningTotal += i * 5;
-				}
-			}
-			
-			if (getClothingType().getClothingSet() != null) {
-				if (getClothingType().getClothingSet().getAssociatedStatusEffect().getAttributeModifiers(Main.game.getPlayer()) != null) {
-					for (Float f : getClothingType().getClothingSet().getAssociatedStatusEffect().getAttributeModifiers(Main.game.getPlayer()).values()) {
-						runningTotal += f * 5;
-					}
-				}
+		if(rarity==Rarity.JINXED) {
+			runningTotal *= 0.5;
+		}
+		
+		float attributeBonuses = 0;//getModifiedDropoffValue
+		if (attributeModifiers != null) {
+			for (Integer i : attributeModifiers.values()) {
+				attributeBonuses += i * 25;
 			}
 		}
 		
-		if (runningTotal <= 0)
-			runningTotal = 1;
+		if (getClothingType().getClothingSet() != null) {
+			if (getClothingType().getClothingSet().getAssociatedStatusEffect().getAttributeModifiers(Main.game.getPlayer()) != null) {
+				for (Float f : getClothingType().getClothingSet().getAssociatedStatusEffect().getAttributeModifiers(Main.game.getPlayer()).values()) {
+					attributeBonuses += f * 25;
+				}
+			}
+		}
 
-		return runningTotal;
+		attributeBonuses = Util.getModifiedDropoffValue(attributeBonuses, 500);
+		
+		runningTotal += attributeBonuses;
+		
+		if (runningTotal < 1) {
+			runningTotal = 1;
+		}
+		
+		return (int) runningTotal;
 	}
 	
 	@Override

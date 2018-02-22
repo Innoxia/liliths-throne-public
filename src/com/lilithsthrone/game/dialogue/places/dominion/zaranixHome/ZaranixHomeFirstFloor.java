@@ -1,9 +1,10 @@
 package com.lilithsthrone.game.dialogue.places.dominion.zaranixHome;
 
-import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKelly;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -231,7 +232,7 @@ public class ZaranixHomeFirstFloor {
 				}
 			} else {
 				if(index==1) {
-					return new ResponseCombat("Fight", "Defend yourself against the furious maid!", CORRIDOR_MAID, Main.game.getKelly()) {
+					return new ResponseCombat("Fight", "Defend yourself against the furious maid!", Main.game.getKelly()) {
 						@Override
 						public void effects() {
 							Main.game.getKelly().setPlayerKnowsName(true);
@@ -403,7 +404,7 @@ public class ZaranixHomeFirstFloor {
 					return new Response("Explain everything", "Tell Zaranix that Lilaya needs Arthur in order to help her unravel the mystery of inter-dimensional travel.", ZARANIX_ROOM_EXPLANATION) {
 						@Override
 						public void effects() {
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_I_ARTHURS_TALE));
 							Main.game.getArthur().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
 						}
 					};
@@ -413,7 +414,7 @@ public class ZaranixHomeFirstFloor {
 				}
 			} else {
 				if(index==1) {
-					return new ResponseCombat("Fight", "Defend yourself against Zaranix's attack!", ZARANIX_ROOM_NO_EXPLANATION, Main.game.getZaranix());
+					return new ResponseCombat("Fight", "Defend yourself against Zaranix's attack!", Main.game.getZaranix());
 				} else {
 					return null;
 				}
@@ -451,7 +452,7 @@ public class ZaranixHomeFirstFloor {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new ResponseCombat("Fight", "Defend yourself against Zaranix's attack!", ZARANIX_ROOM_NO_EXPLANATION, Main.game.getZaranix());
+				return new ResponseCombat("Fight", "Defend yourself against Zaranix's attack!", Main.game.getZaranix());
 			} else {
 				return null;
 			}

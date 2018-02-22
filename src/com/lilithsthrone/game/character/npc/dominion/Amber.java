@@ -189,23 +189,24 @@ public class Amber extends NPC {
 	}
 
 	@Override
-	public String getAttackDescription(Attack attackType, boolean isHit) {
-		if (attackType == Attack.MAIN) {
-			return "<p>"
-						+ UtilText.returnStringAtRandom(
-								"Amber's eyes burn with an incandescent fury as she delivers a kick straight into your side!",
-								"With a furious cry, Amber punches you square in the chest!",
-								"Spitting curses, Amber furiously kicks at your shins!",
-								"Amber's hair, burning with the same fiery fury as her eyes, swishes through the air as she spins to one side and delivers a solid punch to your [pc.arm]!") 
-					+ "</p>";
-		} else {
-			return "<p>"
+	public String getMainAttackDescription(boolean isHit) {
+		return "<p>"
 					+ UtilText.returnStringAtRandom(
-							"Letting out a wild scream, Amber thrusts her arm into mid air as she casts a spell!",
-							"Spitting curses, Amber locks her blazing eyes onto yours, before casting a spell!",
-							"With an angry curse, Amber steps forwards and casts a spell!") 
+							"Amber's eyes burn with an incandescent fury as she delivers a kick straight into your side!",
+							"With a furious cry, Amber punches you square in the chest!",
+							"Spitting curses, Amber furiously kicks at your shins!",
+							"Amber's hair, burning with the same fiery fury as her eyes, swishes through the air as she spins to one side and delivers a solid punch to your [pc.arm]!") 
 				+ "</p>";
-		}
+	}
+			
+	@Override
+	public String getSpellDescription() {
+		return "<p>"
+				+ UtilText.returnStringAtRandom(
+						"Letting out a wild scream, Amber thrusts her arm into mid air as she casts a spell!",
+						"Spitting curses, Amber locks her blazing eyes onto yours, before casting a spell!",
+						"With an angry curse, Amber steps forwards and casts a spell!") 
+			+ "</p>";
 	}
 	
 	@Override
@@ -465,7 +466,7 @@ public class Amber extends NPC {
 	}
 	
 	public int getLootMoney() {
-		return 100;
+		return 5000;
 	}
 
 	// Sex:

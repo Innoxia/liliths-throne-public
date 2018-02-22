@@ -12,7 +12,7 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.LustLevel;
-import com.lilithsthrone.game.character.attributes.StrengthLevel;
+import com.lilithsthrone.game.character.attributes.PhysiqueLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
@@ -29,10 +29,8 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.fetishes.FetishLevel;
 import com.lilithsthrone.game.character.race.Race;
-import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.SpecialAttack;
 import com.lilithsthrone.game.combat.Spell;
-import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -45,7 +43,7 @@ import com.lilithsthrone.utils.Util;
  */
 public class TooltipInformationEventListener implements EventListener {
 	private String title, description;
-	private boolean extraAttributes = false, opponentExtraAttributes = false, weather = false, protection = false, tattoo = false, copyInformation=false;
+	private boolean extraAttributes = false, weather = false, protection = false, tattoo = false, copyInformation=false;
 	private GameCharacter owner;
 	private StatusEffect statusEffect;
 	private Perk perk, levelUpPerk;
@@ -414,7 +412,7 @@ public class TooltipInformationEventListener implements EventListener {
 
 		} else if (attribute != null) {
 			
-			if (attribute == Attribute.MAJOR_STRENGTH
+			if (attribute == Attribute.MAJOR_PHYSIQUE
 					|| attribute == Attribute.MAJOR_ARCANE
 					|| attribute == Attribute.MAJOR_CORRUPTION
 					|| attribute == Attribute.AROUSAL
@@ -422,10 +420,10 @@ public class TooltipInformationEventListener implements EventListener {
 				StatusEffect currentAttributeStatusEffect=null;
 				int minimumLevelValue=0, maximumLevelValue=0;
 				
-				if(attribute == Attribute.MAJOR_STRENGTH) {
-					currentAttributeStatusEffect = StrengthLevel.getStrengthLevelFromValue(owner.getAttributeValue(Attribute.MAJOR_STRENGTH)).getRelatedStatusEffect();
-					minimumLevelValue = StrengthLevel.getStrengthLevelFromValue(owner.getAttributeValue(Attribute.MAJOR_STRENGTH)).getMinimumValue();
-					maximumLevelValue = StrengthLevel.getStrengthLevelFromValue(owner.getAttributeValue(Attribute.MAJOR_STRENGTH)).getMaximumValue();
+				if(attribute == Attribute.MAJOR_PHYSIQUE) {
+					currentAttributeStatusEffect = PhysiqueLevel.getPhysiqueLevelFromValue(owner.getAttributeValue(Attribute.MAJOR_PHYSIQUE)).getRelatedStatusEffect();
+					minimumLevelValue = PhysiqueLevel.getPhysiqueLevelFromValue(owner.getAttributeValue(Attribute.MAJOR_PHYSIQUE)).getMinimumValue();
+					maximumLevelValue = PhysiqueLevel.getPhysiqueLevelFromValue(owner.getAttributeValue(Attribute.MAJOR_PHYSIQUE)).getMaximumValue();
 					
 				} else if(attribute == Attribute.MAJOR_ARCANE) {
 					currentAttributeStatusEffect = IntelligenceLevel.getIntelligenceLevelFromValue(owner.getAttributeValue(Attribute.MAJOR_ARCANE)).getRelatedStatusEffect();
@@ -507,73 +505,83 @@ public class TooltipInformationEventListener implements EventListener {
 			} else if (attribute == Attribute.EXPERIENCE) {
 				// Special tooltip for experience/transformation combo:
 
-				Main.mainController.setTooltipSize(420, 508);
-
-				tooltipSB.setLength(0);
-				tooltipSB.append("<div class='title' style='color:" + owner.getRace().getColour().toWebHexString() + ";'>"
-						+(owner.getRaceStage().getName()!=""?"<b style='color:"+owner.getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(owner.getRaceStage().getName())+"</b> ":"")
-						+ "<b style='color:"+owner.getRace().getColour().toWebHexString()+";'>"
-						+ (owner.isFeminine()?Util.capitaliseSentence(owner.getRace().getSingularFemaleName()):Util.capitaliseSentence(owner.getRace().getSingularMaleName()))
-						+ "</b>"
-						+ "</div>");
-
-				// GREATER:
-				tooltipSB.append(getBodyPartDiv("Face", owner.getFaceRace(), owner.getFaceType().getBodyCoveringType()));
-				tooltipSB.append(getBodyPartDiv("Body", owner.getSkinRace(), owner.getSkinType().getBodyCoveringType()));
-				
-
-				// LESSER:
-				tooltipSB.append(getBodyPartDiv("Arms", owner.getArmRace(), owner.getArmType().getBodyCoveringType()));
-				tooltipSB.append(getBodyPartDiv("Legs", owner.getLegRace(), owner.getLegType().getBodyCoveringType()));
-				
-				// PARTIAL:
-				tooltipSB.append(getBodyPartDiv("Hair", owner.getHairRace(), owner.getHairType().getBodyCoveringType()));
-				tooltipSB.append(getBodyPartDiv("Eyes", owner.getEyeRace(), owner.getEyeType().getBodyCoveringType()));
-				tooltipSB.append(getBodyPartDiv("Ears", owner.getEarRace(), owner.getEarType().getBodyCoveringType()));
-				tooltipSB.append(getBodyPartDiv("Tongue", owner.getTongueRace(), owner.getTongueType().getBodyCoveringType()));
-				if (owner.getHornType() != HornType.NONE) {
-					tooltipSB.append(getBodyPartDiv((owner.hasHorns()?Util.capitaliseSentence(owner.getHornName()):"Horns"), owner.getHornRace(), owner.getHornType().getBodyCoveringType()));
+				if(owner.isRaceConcealed()) {
+					Main.mainController.setTooltipSize(420, 64);
+					
+					tooltipSB.setLength(0);
+					tooltipSB.append("<div class='title' style='color:" + Colour.RACE_UNKNOWN.toWebHexString() + ";'>"
+							+ "Unknown Race!"
+							+ "</div>");
+					
 				} else {
-					tooltipSB.append(getEmptyBodyPartDiv("Horns", "None"));
-				}
-				if (owner.getAntennaType() != AntennaType.NONE) {
-					tooltipSB.append(getBodyPartDiv("Antennae", owner.getAntennaRace(), owner.getAntennaType().getBodyCoveringType()));
-				} else {
-					tooltipSB.append(getEmptyBodyPartDiv("Antennae", "None"));
-				}
-				if (owner.getWingType() != WingType.NONE) {
-					tooltipSB.append(getBodyPartDiv("Wings", owner.getWingRace(), owner.getWingType().getBodyCoveringType()));
-				} else {
-					tooltipSB.append(getEmptyBodyPartDiv("Wings", "None"));
-				}
-				if (owner.getTailType() != TailType.NONE) {
-					tooltipSB.append(getBodyPartDiv("Tail", owner.getTailRace(), owner.getTailType().getBodyCoveringType()));
-				} else {
-					tooltipSB.append(getEmptyBodyPartDiv("Tail", "None"));
-				}
-				
-				// SEXUAL:
-				if(!owner.isPlayer() && !owner.getPlayerKnowsAreas().contains(CoverableArea.VAGINA)) {
-					tooltipSB.append(getEmptyBodyPartDiv("Vagina", "Unknown!"));
-				} else {
-					if (owner.getVaginaType() != VaginaType.NONE) {
-						tooltipSB.append(getBodyPartDiv("Vagina", owner.getVaginaRace(), owner.getVaginaType().getBodyCoveringType()));
+					Main.mainController.setTooltipSize(420, 508);
+					
+					tooltipSB.setLength(0);
+					tooltipSB.append("<div class='title' style='color:" + owner.getRace().getColour().toWebHexString() + ";'>"
+							+(owner.getRaceStage().getName()!=""?"<b style='color:"+owner.getRaceStage().getColour().toWebHexString()+";'>" + Util.capitaliseSentence(owner.getRaceStage().getName())+"</b> ":"")
+							+ "<b style='color:"+owner.getRace().getColour().toWebHexString()+";'>"
+							+ (owner.isFeminine()?Util.capitaliseSentence(owner.getSubspecies().getSingularFemaleName()):Util.capitaliseSentence(owner.getSubspecies().getSingularMaleName()))
+							+ "</b>"
+							+ "</div>");
+	
+					// GREATER:
+					tooltipSB.append(getBodyPartDiv("Face", owner.getFaceRace(), owner.getFaceType().getBodyCoveringType()));
+					tooltipSB.append(getBodyPartDiv("Body", owner.getSkinRace(), owner.getSkinType().getBodyCoveringType()));
+					
+	
+					// LESSER:
+					tooltipSB.append(getBodyPartDiv("Arms", owner.getArmRace(), owner.getArmType().getBodyCoveringType()));
+					tooltipSB.append(getBodyPartDiv("Legs", owner.getLegRace(), owner.getLegType().getBodyCoveringType()));
+					
+					// PARTIAL:
+					tooltipSB.append(getBodyPartDiv("Hair", owner.getHairRace(), owner.getHairType().getBodyCoveringType()));
+					tooltipSB.append(getBodyPartDiv("Eyes", owner.getEyeRace(), owner.getEyeType().getBodyCoveringType()));
+					tooltipSB.append(getBodyPartDiv("Ears", owner.getEarRace(), owner.getEarType().getBodyCoveringType()));
+					tooltipSB.append(getBodyPartDiv("Tongue", owner.getTongueRace(), owner.getTongueType().getBodyCoveringType()));
+					if (owner.getHornType() != HornType.NONE) {
+						tooltipSB.append(getBodyPartDiv((owner.hasHorns()?Util.capitaliseSentence(owner.getHornName()):"Horns"), owner.getHornRace(), owner.getHornType().getBodyCoveringType()));
 					} else {
-						tooltipSB.append(getEmptyBodyPartDiv("Vagina", "None"));
+						tooltipSB.append(getEmptyBodyPartDiv("Horns", "None"));
 					}
-				}
-				
-				if(!owner.isPlayer() && !owner.getPlayerKnowsAreas().contains(CoverableArea.PENIS)) {
-					tooltipSB.append(getEmptyBodyPartDiv("Penis", "Unknown!"));
-				} else {
-					if (owner.getPenisType() != PenisType.NONE) {
-						tooltipSB.append(getBodyPartDiv("Penis", owner.getPenisRace(), owner.getPenisType().getBodyCoveringType()));
+					if (owner.getAntennaType() != AntennaType.NONE) {
+						tooltipSB.append(getBodyPartDiv("Antennae", owner.getAntennaRace(), owner.getAntennaType().getBodyCoveringType()));
 					} else {
-						tooltipSB.append(getEmptyBodyPartDiv("Penis", "None"));
+						tooltipSB.append(getEmptyBodyPartDiv("Antennae", "None"));
 					}
+					if (owner.getWingType() != WingType.NONE) {
+						tooltipSB.append(getBodyPartDiv("Wings", owner.getWingRace(), owner.getWingType().getBodyCoveringType()));
+					} else {
+						tooltipSB.append(getEmptyBodyPartDiv("Wings", "None"));
+					}
+					if (owner.getTailType() != TailType.NONE) {
+						tooltipSB.append(getBodyPartDiv("Tail", owner.getTailRace(), owner.getTailType().getBodyCoveringType()));
+					} else {
+						tooltipSB.append(getEmptyBodyPartDiv("Tail", "None"));
+					}
+					
+					// SEXUAL:
+					if(!owner.isPlayer() && !owner.getPlayerKnowsAreas().contains(CoverableArea.VAGINA)) {
+						tooltipSB.append(getEmptyBodyPartDiv("Vagina", "Unknown!"));
+					} else {
+						if (owner.getVaginaType() != VaginaType.NONE) {
+							tooltipSB.append(getBodyPartDiv("Vagina", owner.getVaginaRace(), owner.getVaginaType().getBodyCoveringType()));
+						} else {
+							tooltipSB.append(getEmptyBodyPartDiv("Vagina", "None"));
+						}
+					}
+					
+					if(!owner.isPlayer() && !owner.getPlayerKnowsAreas().contains(CoverableArea.PENIS)) {
+						tooltipSB.append(getEmptyBodyPartDiv("Penis", "Unknown!"));
+					} else {
+						if (owner.getPenisType() != PenisType.NONE) {
+							tooltipSB.append(getBodyPartDiv("Penis", owner.getPenisRace(), owner.getPenisType().getBodyCoveringType()));
+						} else {
+							tooltipSB.append(getEmptyBodyPartDiv("Penis", "None"));
+						}
+					}
+					tooltipSB.append(getBodyPartDiv("Ass", owner.getAssRace(), owner.getAssType().getBodyCoveringType()));
+					tooltipSB.append(getBodyPartDiv(owner.hasBreasts()?"Breasts":"Chest", owner.getBreastRace(), owner.getBreastType().getBodyCoveringType()));
 				}
-				tooltipSB.append(getBodyPartDiv("Ass", owner.getAssRace(), owner.getAssType().getBodyCoveringType()));
-				tooltipSB.append(getBodyPartDiv("Breasts", owner.getBreastRace(), owner.getBreastType().getBodyCoveringType()));
 				
 				Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
@@ -623,7 +631,7 @@ public class TooltipInformationEventListener implements EventListener {
 
 		} else if (extraAttributes) {
 
-			Main.mainController.setTooltipSize(360, 600);
+			Main.mainController.setTooltipSize(360, 520);
 
 			tooltipSB.setLength(0);
 			tooltipSB.append(UtilText.parse(owner,
@@ -645,43 +653,11 @@ public class TooltipInformationEventListener implements EventListener {
 					+ extraAttributeTableRow(owner, "Poison", Attribute.DAMAGE_POISON, Attribute.RESISTANCE_POISON)
 					+ extraAttributeTableRow(owner, "Seduction", Attribute.DAMAGE_LUST, Attribute.RESISTANCE_LUST)
 					+ extraAttributeTableRow(owner, "Spell", Attribute.DAMAGE_SPELLS, Attribute.RESISTANCE_SPELLS)
-					+ extraAttributeTableRow(owner, "Pure", Attribute.DAMAGE_PURE, Attribute.RESISTANCE_PURE)
 					
 					+ extraAttributeBonus(owner, Attribute.FERTILITY)
 					+ extraAttributeBonus(owner, Attribute.VIRILITY)
 					
 					+ extraAttributeBonus(owner, Attribute.SPELL_COST_MODIFIER)));
-
-			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
-
-		} else if (opponentExtraAttributes) {
-
-			Main.mainController.setTooltipSize(360, 480);
-
-			tooltipSB.setLength(0);
-			GameCharacter target = null;
-			if(Main.game.isInCombat()) {
-				target = Combat.getOpponent();
-			} else {
-				target = CharactersPresentDialogue.characterViewed;
-			}
-			tooltipSB.append("<div class='title' style='color:" + Femininity.valueOf(target.getFemininityValue()).getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(target.getName()) + "</div>");
-
-			tooltipSB.append(
-					extraAttributeBonus(target, Attribute.CRITICAL_CHANCE)
-					+ extraAttributeBonus(target, Attribute.CRITICAL_DAMAGE)
-
-					// Header:
-					+ "<div class='subTitle-third combatValue'>" + "Type" + "</div>" + "<div class='subTitle-third combatValue'>" + "&#8224 Damage &#8224" + "</div>" + "<div class='subTitle-third combatValue'>" + "&#8225 Resist &#8225" + "</div>"
-
-					// Values:
-					+ extraAttributeTableRow(target, "Physical", Attribute.DAMAGE_PHYSICAL, Attribute.RESISTANCE_PHYSICAL)
-					+ extraAttributeTableRow(target, "Fire", Attribute.DAMAGE_FIRE, Attribute.RESISTANCE_FIRE)
-					+ extraAttributeTableRow(target, "Cold", Attribute.DAMAGE_ICE, Attribute.RESISTANCE_ICE)
-					+ extraAttributeTableRow(target, "Poison", Attribute.DAMAGE_POISON, Attribute.RESISTANCE_POISON)
-					+ extraAttributeTableRow(target, "Seduction", Attribute.DAMAGE_LUST, Attribute.RESISTANCE_LUST)
-					+ extraAttributeTableRow(target, "Spell", Attribute.DAMAGE_SPELLS, Attribute.RESISTANCE_SPELLS)
-					+ extraAttributeTableRow(target, "Pure", Attribute.DAMAGE_PURE, Attribute.RESISTANCE_PURE));
 
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
@@ -809,14 +785,6 @@ public class TooltipInformationEventListener implements EventListener {
 
 		return this;
 	}
-
-	public TooltipInformationEventListener setOpponentExtraAttributes() {
-		resetFields();
-		opponentExtraAttributes = true;
-
-		return this;
-	}
-
 	public TooltipInformationEventListener setStatusEffect(StatusEffect statusEffect, GameCharacter owner) {
 		resetFields();
 		this.statusEffect = statusEffect;
@@ -919,7 +887,6 @@ public class TooltipInformationEventListener implements EventListener {
 
 	private void resetFields() {
 		extraAttributes = false;
-		opponentExtraAttributes = false;
 		weather = false;
 		owner = null;
 		statusEffect = null;

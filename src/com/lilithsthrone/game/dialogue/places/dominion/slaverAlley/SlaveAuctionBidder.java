@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
@@ -17,13 +17,13 @@ import com.lilithsthrone.utils.Util.ListValue;
 public class SlaveAuctionBidder {
 
 	private String name;
-	private Race race;
+	private Subspecies race;
 	private Gender gender;
 	private List<String> biddingComments;
 	private List<String> failedBidComments;
 	private List<String> successfulBidComments;
 	
-	public SlaveAuctionBidder(Race race, Gender gender, List<String> biddingComments, List<String> failedBidComments, List<String> successfulBidComments) {
+	public SlaveAuctionBidder(Subspecies race, Gender gender, List<String> biddingComments, List<String> failedBidComments, List<String> successfulBidComments) {
 		super();
 		this.race = race;
 		this.gender = gender;
@@ -45,7 +45,7 @@ public class SlaveAuctionBidder {
 		return name;
 	}
 	
-	public Race getRace() {
+	public Subspecies getRace() {
 		return race;
 	}
 
@@ -79,12 +79,12 @@ public class SlaveAuctionBidder {
 	
 	public static SlaveAuctionBidder generateNewSlaveAuctionBidder(NPC slave) {
 		
-		Race[] races = new Race[] {Race.CAT_MORPH, Race.COW_MORPH, Race.DEMON, Race.DOG_MORPH, Race.HARPY, Race.HORSE_MORPH, Race.HUMAN, Race.SQUIRREL_MORPH, Race.WOLF_MORPH};
+		Subspecies[] races = new Subspecies[] {Subspecies.CAT_MORPH, Subspecies.COW_MORPH, Subspecies.DEMON, Subspecies.DOG_MORPH, Subspecies.HARPY, Subspecies.HORSE_MORPH, Subspecies.HUMAN, Subspecies.SQUIRREL_MORPH, Subspecies.WOLF_MORPH};
 		
 		// I did consider basing gender on slave's preferences, so that players who export their own character aren't turned-off by the fact their character is being sold to a gender they don't like, but I figured that maybe some people are into that too...
 		Gender[] genders = new Gender[] {Gender.F_V_B_FEMALE, Gender.F_P_V_B_FUTANARI, Gender.M_P_MALE};
 		
-		Race race = races[Util.random.nextInt(races.length)];
+		Subspecies race = races[Util.random.nextInt(races.length)];
 		Gender gender = genders[Util.random.nextInt(genders.length)];
 		
 		List<String> biddingComments = Util.newArrayListOfValues(

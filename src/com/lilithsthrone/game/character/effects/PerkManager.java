@@ -58,20 +58,20 @@ public enum PerkManager {
 		addPerkEntry(PerkCategory.BOTH, 3, Perk.FIRING_BLANKS);
 		
 		//Physical:
-		physical2 = addPerkEntry(PerkCategory.PHYSICAL, 1, Perk.STRENGTH_5, physical1);
+		physical2 = addPerkEntry(PerkCategory.PHYSICAL, 1, Perk.PHYSIQUE_5, physical1);
 		addPerkEntry(PerkCategory.PHYSICAL, 1, Perk.OBSERVANT, physical1);
 		
 		physical1 = addPerkEntry(PerkCategory.PHYSICAL, 2, Perk.BRAWLER, physical2);
 		physical3 = addPerkEntry(PerkCategory.PHYSICAL, 2, Perk.RUNNER, physical2);
-		physical4 = addPerkEntry(PerkCategory.PHYSICAL, 2, Perk.STRENGTH_1, physical3);
+		physical4 = addPerkEntry(PerkCategory.PHYSICAL, 2, Perk.PHYSIQUE_1, physical3);
 		addPerkEntry(PerkCategory.PHYSICAL, 2, Perk.RUNNER_2, physical4);
 
 		physical2 = addPerkEntry(PerkCategory.PHYSICAL, 3, Perk.PHYSICAL_DAMAGE_5, physical1);
 		physical5 = addPerkEntry(PerkCategory.PHYSICAL, 3, Perk.PHYSICAL_RESISTANCE_5, physical3);
-		physical6 = addPerkEntry(PerkCategory.PHYSICAL, 3, Perk.STRENGTH_3, physical4);
-		addPerkEntry(PerkCategory.PHYSICAL, 3, Perk.STRENGTH_5, physical6);
+		physical6 = addPerkEntry(PerkCategory.PHYSICAL, 3, Perk.PHYSIQUE_3, physical4);
+		addPerkEntry(PerkCategory.PHYSICAL, 3, Perk.PHYSIQUE_5, physical6);
 		
-		physical1 = addPerkEntry(PerkCategory.PHYSICAL, 4, Perk.STRENGTH_5, physical2, physical5);
+		physical1 = addPerkEntry(PerkCategory.PHYSICAL, 4, Perk.PHYSIQUE_5, physical2, physical5);
 
 		// Arcane:
 		addPerkEntry(PerkCategory.ARCANE, 1, Perk.ARCANE_CRITICALS, arcane1);
@@ -102,12 +102,12 @@ public enum PerkManager {
 		addPerkEntry(PerkCategory.BOTH, 8, Perk.ELEMENTALIST_5, both2);
 		
 
-		physical2 = addPerkEntry(PerkCategory.PHYSICAL, 5, Perk.STRENGTH_5, physical1);
-		physical3 = addPerkEntry(PerkCategory.PHYSICAL, 6, Perk.STRENGTH_5, physical2);
-		physical2 = addPerkEntry(PerkCategory.PHYSICAL, 7, Perk.STRENGTH_5, physical3);
-		physical3 = addPerkEntry(PerkCategory.PHYSICAL, 8, Perk.STRENGTH_5, physical2);
-		physical2 = addPerkEntry(PerkCategory.PHYSICAL, 9, Perk.STRENGTH_5, physical3);
-		physical3 = addPerkEntry(PerkCategory.PHYSICAL, 10, Perk.STRENGTH_5, physical2);
+		physical2 = addPerkEntry(PerkCategory.PHYSICAL, 5, Perk.PHYSIQUE_5, physical1);
+		physical3 = addPerkEntry(PerkCategory.PHYSICAL, 6, Perk.PHYSIQUE_5, physical2);
+		physical2 = addPerkEntry(PerkCategory.PHYSICAL, 7, Perk.PHYSIQUE_5, physical3);
+		physical3 = addPerkEntry(PerkCategory.PHYSICAL, 8, Perk.PHYSIQUE_5, physical2);
+		physical2 = addPerkEntry(PerkCategory.PHYSICAL, 9, Perk.PHYSIQUE_5, physical3);
+		physical3 = addPerkEntry(PerkCategory.PHYSICAL, 10, Perk.PHYSIQUE_5, physical2);
 
 		physical2 = addPerkEntry(PerkCategory.PHYSICAL, 5, Perk.ENERGY_BOOST_10, physical1);
 		physical3 = addPerkEntry(PerkCategory.PHYSICAL, 6, Perk.ENERGY_BOOST_10, physical2);

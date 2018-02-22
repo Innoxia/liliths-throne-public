@@ -1,10 +1,17 @@
 package com.lilithsthrone.game.dialogue.utils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -22,7 +29,7 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
-import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.sex.OrificeType;
@@ -449,22 +456,57 @@ public class UtilText {
 		else
 			return "";
 	}
-	
-	
 
-//	public static String parse(String t, VelocityContext c) {
-//        Velocity.init();
-//        Template template = Velocity.getTemplate(t);
-//		StringWriter w = new StringWriter();
-//        template.merge(c, w);
-//		return w.toString();
-//	}
+	/**
+	 * Parses the tagged htmlContent from an xml file. If there is more than one htmlContent entry, it returns a random one.
+	 */
+	public static String parseFromXMLFile(String pathName, String tag) {
+		return parseFromXMLFile(pathName, tag, new ArrayList<>());
+	}
+	
+	/**
+	 * Parses the tagged htmlContent from an xml file. If there is more than one htmlContent entry, it returns a random one.
+	 */
+	public static String parseFromXMLFile(String pathName, String tag, List<GameCharacter> specialNPC) {
+		File file = new File("res/txt/"+pathName+".xml");
+
+		List<String> strings = new ArrayList<>();
+		
+		if (file.exists()) {
+			try {
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+				Document doc = dBuilder.parse(file);
+				
+				// Cast magic:
+				doc.getDocumentElement().normalize();
+				
+				
+				for(int i=0; i<((Element) doc.getElementsByTagName("dialogue").item(0)).getElementsByTagName("htmlContent").getLength(); i++){
+					Element e = (Element) ((Element) doc.getElementsByTagName("dialogue").item(0)).getElementsByTagName("htmlContent").item(i);
+					
+					if(e.getAttribute("tag").equals(tag)) {
+						strings.add(e.getTextContent().replaceFirst("<!\\[CDATA\\[", "").replaceAll("\\]\\]>", ""));
+					}
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		if(strings.isEmpty()) {
+			return "<p style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Dialogue for '"+tag+"' not found!</p>";
+
+		} else {
+			return parse(specialNPC, strings.get(Util.random.nextInt(strings.size())));
+		}
+	}
 	
 	public static String parse(String input) {
 		return parse(new ArrayList<>(), input);
 	}
 	
-
 	public static String parse(GameCharacter specialNPC, String input) {
 		return parse(Util.newArrayListOfValues(new ListValue<>(specialNPC)), input);
 	}
@@ -849,6 +891,24 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
+						new ListValue<>("boyfriend"),
+						new ListValue<>("girlfriend")),
+				true,
+				true,
+				"",//TODO
+				"Description of method"){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(character.isFeminine()) {
+					return "girlfriend";
+				} else {
+					return "boyfriend";
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
 						new ListValue<>("bitch"),
 						new ListValue<>("slut")),
 				true,
@@ -874,7 +934,7 @@ public class UtilText {
 				"Description of method"){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				return getRaceName(character.getRace());
+				return getSubspeciesName(character.getSubspecies());
 			}
 		});
 		
@@ -887,7 +947,7 @@ public class UtilText {
 				"Description of method"){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				return getRaceNamePlural(character.getRace());
+				return getSubspeciesNamePlural(character.getSubspecies());
 			}
 		});
 		
@@ -3658,26 +3718,26 @@ public class UtilText {
 				true,
 				true,
 				"",
-				"Returns the name of the race that's associated with this body part. Race is gender-specific (e.g. will return either 'wolf-boy' or 'wolf-girl').",
+				"Returns the name of the race that's associated with this body part. Race is *not* gender-specific (i.e. will return 'wolf-morph', not 'wolf-girl').",
 				bodyPart){
 			@Override
 			public String parse(String command, String arguments, String target) {
-				return getRaceName(getBodyPartFromType(bodyPart).getType().getRace());
+				return getBodyPartFromType(bodyPart).getType().getRace().getName();
 			}
 		});
 		
-		commandsList.add(new ParserCommand(
-				getModifiedTags(tags, tagsPlural, "Races"),
-				true,
-				true,
-				"",
-				"Returns the plural name of the race that's associated with this body part. Race is gender-specific (e.g. will return either 'wolf-boys' or 'wolf-girls').",
-				bodyPart){
-			@Override
-			public String parse(String command, String arguments, String target) {
-				return getRaceName(getBodyPartFromType(bodyPart).getType().getRace());
-			}
-		});
+//		commandsList.add(new ParserCommand(
+//				getModifiedTags(tags, tagsPlural, "Races"),
+//				true,
+//				true,
+//				"",
+//				"Returns the plural name of the race that's associated with this body part. Race is *not* gender-specific (i.e. will return 'wolf-morph', not 'wolf-girl').",
+//				bodyPart){
+//			@Override
+//			public String parse(String command, String arguments, String target) {
+//				return getBodyPartFromType(bodyPart).getType().getRace().getName();
+//			}
+//		});
 
 		commandsList.add(new ParserCommand(
 				getModifiedTags(tags, tagsPlural, "Skin"),
@@ -3985,7 +4045,7 @@ public class UtilText {
 		return (descriptor.length() > 0 ? descriptor + " " : (UtilText.isVowel(input.charAt(0))?"an ":"a ")) + input;
 	}
 	
-	private static String getRaceName(Race race) {
+	private static String getSubspeciesName(Subspecies race) {
 		if(race==null)
 			return "";
 		if (character.isFeminine()) {
@@ -3995,7 +4055,7 @@ public class UtilText {
 		}
 	}
 	
-	private static String getRaceNamePlural(Race race) {
+	private static String getSubspeciesNamePlural(Subspecies race) {
 		if(race==null)
 			return "";
 		if (character.isFeminine()) {
@@ -4023,9 +4083,9 @@ public class UtilText {
 		
 		if(parseAddPronoun) {
 			parseAddPronoun = false;
-			return applyDeterminer(bodyPart.getBodyCoveringType().getDeterminer(character), applyDescriptor(bodyPart.getBodyCoveringType().getDescriptor(character), bodyPart.getBodyCoveringType().getName(character)));
+			return applyDeterminer(bodyPart.getBodyCoveringType().getDeterminer(character), applyDescriptor(character.getCovering(bodyPart.getBodyCoveringType()).getModifier().getName(), bodyPart.getBodyCoveringType().getName(character)));
 		} else {
-			return applyDescriptor(bodyPart.getBodyCoveringType().getDescriptor(character), bodyPart.getBodyCoveringType().getName(character));
+			return applyDescriptor(character.getCovering(bodyPart.getBodyCoveringType()).getModifier().getName(), bodyPart.getBodyCoveringType().getName(character));
 		}
 	}
 	

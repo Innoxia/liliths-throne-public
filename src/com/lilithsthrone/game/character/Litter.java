@@ -8,7 +8,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -16,7 +16,7 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.62
- * @version 0.1.89
+ * @version 0.1.99
  * @author Innoxia
  */
 public class Litter implements Serializable, XMLSaving {
@@ -27,7 +27,7 @@ public class Litter implements Serializable, XMLSaving {
 	private String motherId, fatherId;
 	private int sonsMother, daughtersMother, sonsFather, daughtersFather;
 	private List<String> offspring;
-	private Race motherRace, fatherRace;
+	private Subspecies motherRace, fatherRace;
 
 	public Litter(int dayOfConception, int dayOfBirth, GameCharacter mother, GameCharacter father, List<NPC> offspring) {
 		this.dayOfConception = dayOfConception;
@@ -35,8 +35,8 @@ public class Litter implements Serializable, XMLSaving {
 		
 		motherId = mother.getId();
 		fatherId = father.getId();
-		motherRace = mother.getRace();
-		fatherRace = father.getRace();
+		motherRace = mother.getSubspecies();
+		fatherRace = father.getSubspecies();
 		
 		this.offspring = new ArrayList<>();
 		for(NPC npc : offspring) {
@@ -65,7 +65,7 @@ public class Litter implements Serializable, XMLSaving {
 		}
 	}
 	
-	public Litter(int dayOfConception, int dayOfBirth, String motherId, String fatherId, int sonsMother, int daughtersMother, int sonsFather, int daughtersFather, List<String> offspring, Race motherRace, Race fatherRace) {
+	public Litter(int dayOfConception, int dayOfBirth, String motherId, String fatherId, int sonsMother, int daughtersMother, int sonsFather, int daughtersFather, List<String> offspring, Subspecies motherRace, Subspecies fatherRace) {
 		this.dayOfConception = dayOfConception;
 		this.dayOfBirth = dayOfBirth;
 		this.motherId = motherId;
@@ -120,11 +120,11 @@ public class Litter implements Serializable, XMLSaving {
 			offspring.add(e.getAttribute("id"));
 		}
 		
-		Race motherRace = Race.HUMAN;
-		Race fatherRace = Race.HUMAN;
+		Subspecies motherRace = Subspecies.HUMAN;
+		Subspecies fatherRace = Subspecies.HUMAN;
 		try {
-			motherRace = Race.valueOf(parentElement.getAttribute("motherRace"));
-			fatherRace = Race.valueOf(parentElement.getAttribute("fatherRace"));
+			motherRace = Subspecies.valueOf(parentElement.getAttribute("motherRace"));
+			fatherRace = Subspecies.valueOf(parentElement.getAttribute("fatherRace"));
 		} catch(Exception ex) {
 		}
 		return new Litter(
@@ -193,11 +193,11 @@ public class Litter implements Serializable, XMLSaving {
 		return sonsMother + daughtersMother + sonsFather + daughtersFather;
 	}
 
-	public Race getMotherRace() {
+	public Subspecies getMotherRace() {
 		return motherRace;
 	}
 
-	public Race getFatherRace() {
+	public Subspecies getFatherRace() {
 		return fatherRace;
 	}
 	

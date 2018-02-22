@@ -41,7 +41,7 @@ public interface BodyPartTypeInterface {
 	/** @return The plural name of this body part. */
 	public String getNamePlural(GameCharacter gc);
 
-	/** @return The name of this body part with it's descriptor. */
+	/** @return The name of this body part with its descriptor. */
 	public default String getName(boolean withDescriptor, GameCharacter gc) {
 		return (getDescriptor(gc).length() > 0 ? getDescriptor(gc) + " " : "") + getName(gc);
 	}

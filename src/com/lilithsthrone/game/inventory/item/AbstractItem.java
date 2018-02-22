@@ -31,7 +31,7 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 	protected List<ItemEffect> itemEffects;
 
 	public AbstractItem(AbstractItemType itemType) {
-		super(itemType.getName(false), itemType.getNamePlural(false), itemType.getSVGString(), itemType.getColour(), itemType.getRarity(), null);
+		super(itemType.getName(false), itemType.getNamePlural(false), itemType.getSVGString(), itemType.getColourPrimary(), itemType.getRarity(), null);
 
 		this.itemType = itemType;
 		this.itemEffects = itemType.getEffects();
@@ -96,7 +96,7 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 			
 			return item;
 		} catch(Exception ex) {
-			System.err.println("Warning: An instance of AbstractItem was unable to be imported.");
+			System.err.println("Warning: An instance of AbstractItem was unable to be imported. ("+parentElement.getAttribute("id")+")");
 			return null;
 		}
 	}
@@ -218,5 +218,8 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 		return itemType.isAbleToBeUsedInSex();
 	}
 	
+	public boolean isGift() {
+		return itemType.isGift();
+	}
 	
 }

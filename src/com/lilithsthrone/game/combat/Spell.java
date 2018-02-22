@@ -702,8 +702,6 @@ public enum Spell {
 		damage *= (caster.getAttributeValue(Attribute.DAMAGE_SPELLS) / 100f);
 		// Damage Type modifier:
 		damage *= (caster.getAttributeValue(damageType.getMultiplierAttribute()) / 100f);
-		// Pure damage modifier:
-		damage *= ((100 + caster.getAttributeValue(Attribute.DAMAGE_PURE)) / 100f);
 
 		if (damage < 0)
 			damage = 0;
@@ -714,8 +712,6 @@ public enum Spell {
 			damage *= ((100 - target.getAttributeValue(Attribute.RESISTANCE_SPELLS)) / 100f);
 			// Damage Type modifier:
 			damage *= ((100 - target.getAttributeValue(damageType.getResistAttribute())) / 100f);
-			// Pure damage modifier:
-			damage *= ((100 - target.getAttributeValue(Attribute.RESISTANCE_PURE)) / 100f);
 
 			if (damage < 0)
 				damage = 0;

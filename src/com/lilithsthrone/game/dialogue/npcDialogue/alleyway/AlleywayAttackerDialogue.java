@@ -160,7 +160,7 @@ public class AlleywayAttackerDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "Stand up for yourself and fight [npc.name]!", ALLEY_ATTACK, Main.game.getActiveNPC());
+				return new ResponseCombat("Fight", "Stand up for yourself and fight [npc.name]!", Main.game.getActiveNPC());
 				
 			} else if (index == 2) {
 				if(Main.game.getPlayer().getMoney()<25) {
@@ -267,7 +267,7 @@ public class AlleywayAttackerDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "You find yourself fighting [npc.name]!", STORM_ATTACK, Main.game.getActiveNPC());
+				return new ResponseCombat("Fight", "You find yourself fighting [npc.name]!", Main.game.getActiveNPC());
 				
 			} else {
 				return null;

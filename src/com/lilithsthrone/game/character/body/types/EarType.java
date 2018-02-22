@@ -1,5 +1,10 @@
 package com.lilithsthrone.game.character.body.types;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -17,6 +22,8 @@ public enum EarType implements BodyPartTypeInterface {
 	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON),
 
 	DOG_MORPH(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH),
+	
+	DOG_MORPH_POINTED(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH),
 
 	LYCAN(BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH),
 
@@ -74,7 +81,9 @@ public enum EarType implements BodyPartTypeInterface {
 			case DEMON_COMMON:
 				return UtilText.returnStringAtRandom("pointed", "demonic");
 			case DOG_MORPH:
-				return UtilText.returnStringAtRandom("furry", "fur-coated", "dog-like");
+				return UtilText.returnStringAtRandom("floppy", "furry", "fur-coated", "dog-like");
+			case DOG_MORPH_POINTED:
+				return UtilText.returnStringAtRandom("pointed", "furry", "fur-coated", "dog-like");
 			case SQUIRREL_MORPH:
 				return UtilText.returnStringAtRandom("furry", "fur-coated", "squirrel-like");
 			case ALLIGATOR_MORPH:
@@ -89,9 +98,8 @@ public enum EarType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("");
 			case LYCAN:
 				return UtilText.returnStringAtRandom("furry", "fur-coated", "wolf-like");
-			default:
-				return UtilText.returnStringAtRandom("");
 		}
+		return "";
 	}
 	
 	public String getTransformName() {
@@ -104,6 +112,8 @@ public enum EarType implements BodyPartTypeInterface {
 				return "demonic";
 			case DOG_MORPH:
 				return "canine";
+			case DOG_MORPH_POINTED:
+				return "pointed canine";
 			case COW_MORPH:
 				return "bovine";
 			case SQUIRREL_MORPH:
@@ -132,5 +142,21 @@ public enum EarType implements BodyPartTypeInterface {
 	@Override
 	public Race getRace() {
 		return race;
+	}
+	
+	private static Map<Race, List<EarType>> typesMap = new HashMap<>();
+	public static List<EarType> getEarTypes(Race r) {
+		if(typesMap.containsKey(r)) {
+			return typesMap.get(r);
+		}
+		
+		List<EarType> types = new ArrayList<>();
+		for(EarType type : EarType.values()) {
+			if(type.getRace()==r) {
+				types.add(type);
+			}
+		}
+		typesMap.put(r, types);
+		return types;
 	}
 }

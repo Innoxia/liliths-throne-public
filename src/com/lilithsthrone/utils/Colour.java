@@ -77,12 +77,13 @@ public enum Colour {
 	TRAIT(BaseColour.GREEN_LIGHT, "green"),
 	FETISH(BaseColour.ROSE, "rose", Util.newArrayListOfValues(new ListValue<>("fetish"))),
 	STATUS_EFFECT(BaseColour.YELLOW, "yellow"),
-	SPECIAL_ATTACK(BaseColour.ORANGE, "orange"),
+	SPECIAL_ATTACK(BaseColour.CRIMSON, "crimson"),
 	STATUS_EFFECT_TIME_OVERFLOW(BaseColour.BLUE, "aqua"),
 	STATUS_EFFECT_TIME_HIGH(BaseColour.GREEN_LIGHT, "green"),
 	STATUS_EFFECT_TIME_MEDIUM(BaseColour.ORANGE, "orange"),
 	STATUS_EFFECT_TIME_LOW(BaseColour.RED, "red"),
 
+	RACE_UNKNOWN(BaseColour.BLACK, "black", Util.newArrayListOfValues(new ListValue<>("unknown"))),
 	RACE_HUMAN(BaseColour.BLUE_STEEL, "pale blue", Util.newArrayListOfValues(new ListValue<>("human"))),
 	RACE_DEMON(BaseColour.PURPLE_LIGHT, "light purple", Util.newArrayListOfValues(new ListValue<>("demon"))),
 	RACE_ANGEL(BaseColour.AQUA, "aqua", Util.newArrayListOfValues(new ListValue<>("angel"))),
@@ -107,21 +108,21 @@ public enum Colour {
 	ATTRIBUTE_MANA(BaseColour.PURPLE_LIGHT, "light purple", Util.newArrayListOfValues(new ListValue<>("willpower"), new ListValue<>("wp"), new ListValue<>("mana"), new ListValue<>("aura"))),
 //	ATTRIBUTE_STAMINA(BaseColour.LILAC, "lilac", Util.newArrayListOfValues(new ListValue<>("stamina"), new ListValue<>("sp"), new ListValue<>("energy"))),
 
-	ATTRIBUTE_STRENGTH(BaseColour.MAGENTA, "magenta", Util.newArrayListOfValues(new ListValue<>("strength"), new ListValue<>("str"))),
+	ATTRIBUTE_PHYSIQUE(BaseColour.MAGENTA, "magenta", Util.newArrayListOfValues(new ListValue<>("physique"), new ListValue<>("phys"), new ListValue<>("strength"), new ListValue<>("str"))),
 	ATTRIBUTE_ARCANE(BaseColour.PURPLE, "purple", Util.newArrayListOfValues(new ListValue<>("intelligence"), new ListValue<>("int"))),
 //	ATTRIBUTE_FITNESS(BaseColour.LILAC, "light purple", Util.newArrayListOfValues(new ListValue<>("fitness"), new ListValue<>("fit"))),
 	ATTRIBUTE_CORRUPTION(BaseColour.PINK_DEEP, "pink", Util.newArrayListOfValues(new ListValue<>("corruption"), new ListValue<>("cor"), new ListValue<>("corr"))),
 
 	ATTRIBUTE_AROUSAL(BaseColour.PINK_DEEP, "pink", Util.newArrayListOfValues(new ListValue<>("arousal"), new ListValue<>("ars"))),
-	ATTRIBUTE_LUST(BaseColour.MAGENTA, "magenta", Util.newArrayListOfValues(new ListValue<>("lust"), new ListValue<>("lst"))),
+	ATTRIBUTE_LUST(BaseColour.MAGENTA, "magenta", Util.newArrayListOfValues(new ListValue<>("lust"), new ListValue<>("lst"), new ListValue<>("seduction"))),
 
 	//TODO
-	STRENGTH_STAGE_ZERO(BaseColour.MAGENTA, "magenta"),
-	STRENGTH_STAGE_ONE(BaseColour.MAGENTA, "magenta"),
-	STRENGTH_STAGE_TWO(BaseColour.MAGENTA, "magenta"),
-	STRENGTH_STAGE_THREE(BaseColour.MAGENTA, "magenta"),
-	STRENGTH_STAGE_FOUR(BaseColour.MAGENTA, "magenta"),
-	STRENGTH_STAGE_FIVE(BaseColour.GOLD, "gold"),
+	PHYSIQUE_STAGE_ZERO(BaseColour.MAGENTA, "magenta"),
+	PHYSIQUE_STAGE_ONE(BaseColour.MAGENTA, "magenta"),
+	PHYSIQUE_STAGE_TWO(BaseColour.MAGENTA, "magenta"),
+	PHYSIQUE_STAGE_THREE(BaseColour.MAGENTA, "magenta"),
+	PHYSIQUE_STAGE_FOUR(BaseColour.MAGENTA, "magenta"),
+	PHYSIQUE_STAGE_FIVE(BaseColour.GOLD, "gold"),
 	
 	//TODO
 	INTELLIGENCE_STAGE_ZERO(BaseColour.PURPLE, "purple"),
@@ -221,9 +222,11 @@ public enum Colour {
 	TRANSFORMATION_GREATER(Util.newColour(0xd411d4), Util.newColour(0xd411d4), "purple-pink", Util.newArrayListOfValues(new ListValue<>("tfGreater"))),
 
 	// Speech colours:
+	MASCULINE_PLUS_NPC(BaseColour.BLUE, "blue"),
 	MASCULINE_NPC(BaseColour.BLUE_LIGHT, "blue"),
 	ANDROGYNOUS_NPC(BaseColour.LILAC_LIGHT, "purple"),
 	FEMININE_NPC(BaseColour.ROSE, "pink"),
+	FEMININE_PLUS_NPC(BaseColour.PINK, "pink"),
 
 	// Combat colours:
 	DAMAGE_TYPE_PHYSICAL(Util.newColour(0xFF428E), Util.newColour(0xFF428E), "red", Util.newArrayListOfValues(new ListValue<>("dmgPhysical"), new ListValue<>("resPhysical"))),
@@ -371,6 +374,7 @@ public enum Colour {
 	TONGUE(BaseColour.ROSE, "pink"),
 
 	// Generic colours:
+	COVERING_TAN(BaseColour.TAN, "tan"),
 	COVERING_BROWN(BaseColour.BROWN, "brown"),
 	COVERING_BROWN_DARK(BaseColour.BROWN_DARK, "dark brown"),
 	COVERING_BLACK(BaseColour.BLACK, "black"),
@@ -515,6 +519,7 @@ public enum Colour {
 			new ListValue<Colour>(Colour.COVERING_BLONDE),
 			new ListValue<Colour>(Colour.COVERING_GINGER),
 			new ListValue<Colour>(Colour.COVERING_BROWN),
+			new ListValue<Colour>(Colour.COVERING_TAN),
 			new ListValue<Colour>(Colour.COVERING_BROWN_DARK),
 			new ListValue<Colour>(Colour.COVERING_GREY),
 			new ListValue<Colour>(Colour.COVERING_BLACK));
@@ -530,6 +535,7 @@ public enum Colour {
 	public static List<Colour> naturalScaleColours = Util.newArrayListOfValues(
 			new ListValue<Colour>(Colour.COVERING_WHITE),
 			new ListValue<Colour>(Colour.COVERING_BROWN),
+			new ListValue<Colour>(Colour.COVERING_TAN),
 			new ListValue<Colour>(Colour.COVERING_BROWN_DARK),
 			new ListValue<Colour>(Colour.COVERING_BLACK));
 
@@ -609,6 +615,7 @@ public enum Colour {
 			new ListValue<Colour>(Colour.COVERING_BLONDE),
 			new ListValue<Colour>(Colour.COVERING_GINGER),
 			new ListValue<Colour>(Colour.COVERING_BROWN),
+			new ListValue<Colour>(Colour.COVERING_TAN),
 			new ListValue<Colour>(Colour.COVERING_BROWN_DARK),
 			new ListValue<Colour>(Colour.COVERING_GREY),
 			new ListValue<Colour>(Colour.COVERING_BLACK));

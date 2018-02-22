@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -18,6 +18,7 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.84
@@ -262,42 +263,6 @@ public class ItemType {
 	// }
 	// },
 	
-//	public static AbstractItemType TEST_ITEM = new AbstractItemType(
-//			"a bottle of",
-//			false,
-//			"testing fluids",
-//			"You shouldn't be able to find this. x_x",
-//			"attributeHorseMorphDrink",
-//			Colour.ATTRIBUTE_STRENGTH,
-//			25,
-//			Rarity.UNCOMMON,
-//			TFEssence.HORSE_MORPH,
-//			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.TESTING, null, null, null, 0)))) {
-//
-//		/**
-//				 * 
-//				 */
-//				private static final long serialVersionUID = 1L;
-//
-//		@Override
-//		public String getUseName() {
-//			return "drink";
-//		}
-//
-//		@Override
-//		public String getUseDescription(GameCharacter user, GameCharacter target) {
-//			if (user!=null && user.isPlayer())
-//				return "<p>"
-//							+ "You drink the testing fluid."
-//						+ "</p>";
-//			else
-//				return UtilText.parse(user,
-//						"<p>"
-//								+ "[npc.Name] drinks the testing fluid."
-//						+ "</p>");
-//		}
-//	};
-	
 	private static String getGenericUseDescription(GameCharacter user, GameCharacter target, String playerUseSelf, String playerUsePartner, String partnerUseSelf, String partnerUsePlayer) {
 		if (user!=null && user.isPlayer()) {
 			if(target!=null) {
@@ -329,7 +294,7 @@ public class ItemType {
 	
 	// Strength ingredients are beer-type alcohol:
 	
-	public static AbstractItemType STR_INGREDIENT_EQUINE_CIDER = new AbstractItemType(
+	public static AbstractItemType STR_INGREDIENT_EQUINE_CIDER = new AbstractItemType(60,
 			"a bottle of",
 			false,
 			"Equine Cider",
@@ -337,8 +302,9 @@ public class ItemType {
 			"The thick glass bottle of 'Equine Cider' appears to contain, much as its name would suggest, a generous helping of some sort of alcoholic cider."
 				+ " On the label, there's an incredibly lewd illustration of a horse-boy slamming his massive cock deep into a girl's eager pussy.",
 			"attributeHorseMorphDrink",
-			Colour.ATTRIBUTE_STRENGTH,
-			30,
+			Colour.ATTRIBUTE_PHYSIQUE,
+			null,
+			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.STR_EQUINE_CIDER, null, null, null, 0)))) {
@@ -347,7 +313,7 @@ public class ItemType {
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
-			return ItemEffectType.ATTRIBUTE_STRENGTH;
+			return ItemEffectType.ATTRIBUTE_PHYSIQUE;
 		}
 
 		@Override
@@ -377,15 +343,17 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType STR_INGREDIENT_BUBBLE_MILK = new AbstractItemType("a bottle of",
+	public static AbstractItemType STR_INGREDIENT_BUBBLE_MILK = new AbstractItemType(20,
+			"a bottle of",
 			false,
 			"Bubble Milk",
 			"Bubble Milks",
 			"The thick glass bottle of 'Bubble Milk' appears to contain, much as its name would suggest, a generous helping of milk."
 				+ " Looking through the glass, you see that there are little bubbles fizzing up in the liquid within, making this milk appear to be carbonated.",
 			"attributeCowMorphDrink",
-			Colour.ATTRIBUTE_STRENGTH,
-			30,
+			Colour.ATTRIBUTE_PHYSIQUE,
+			null,
+			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.STR_BUBBLE_MILK, null, null, null, 0)))) {
@@ -394,7 +362,7 @@ public class ItemType {
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
-			return ItemEffectType.ATTRIBUTE_STRENGTH;
+			return ItemEffectType.ATTRIBUTE_PHYSIQUE;
 		}
 
 		@Override
@@ -424,15 +392,17 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType STR_INGREDIENT_WOLF_WHISKEY = new AbstractItemType("a bottle of",
+	public static AbstractItemType STR_INGREDIENT_WOLF_WHISKEY = new AbstractItemType(120,
+			"a bottle of",
 			false,
 			"Wolf Whiskey",
 			"Wolf Whiskeys",
 			"Although labelled as a whiskey, the liquid inside the glass bottle looks more like a thick cream."
 					+ " The label on the front shows a greater wolf-boy ejaculating into a bottle just like this one, making it quite clear what this 'whiskey' really is.",
 			"attributeWolfMorphDrink",
-			Colour.ATTRIBUTE_STRENGTH,
-			30,
+			Colour.ATTRIBUTE_PHYSIQUE,
+			null,
+			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.STR_WOLF_WHISKEY, null, null, null, 0)))) {
@@ -441,7 +411,7 @@ public class ItemType {
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
-			return ItemEffectType.ATTRIBUTE_STRENGTH;
+			return ItemEffectType.ATTRIBUTE_PHYSIQUE;
 		}
 
 		@Override
@@ -471,7 +441,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType STR_INGREDIENT_SWAMP_WATER = new AbstractItemType(
+	public static AbstractItemType STR_INGREDIENT_SWAMP_WATER = new AbstractItemType(40,
 			"a bottle of",
 			false,
 			"Swamp Water",
@@ -479,8 +449,9 @@ public class ItemType {
 			"A glass bottle of what appears to be some kind of moonshine."
 				+ " A label on the front shows an alligator-boy biting the top off a bottle just like this one.",
 			"attributeGatorMorphDrink",
-			Colour.ATTRIBUTE_STRENGTH,
-			30,
+			Colour.ATTRIBUTE_PHYSIQUE,
+			null,
+			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.STR_SWAMP_WATER, null, null, null, 0)))) {
@@ -489,7 +460,7 @@ public class ItemType {
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
-			return ItemEffectType.ATTRIBUTE_STRENGTH;
+			return ItemEffectType.ATTRIBUTE_PHYSIQUE;
 		}
 
 		@Override
@@ -523,7 +494,7 @@ public class ItemType {
 	
 	// Intelligence ingredients are cold non-alcoholic drinks:
 	
-	public static AbstractItemType INT_INGREDIENT_FELINE_FANCY = new AbstractItemType(
+	public static AbstractItemType INT_INGREDIENT_FELINE_FANCY = new AbstractItemType(150,
 			"a bottle of",
 			false,
 			"Feline's Fancy",
@@ -532,7 +503,8 @@ public class ItemType {
 				+ " A label on the front shows a pair of cat-girls lovingly kissing one another, with the dominant partner slipping a hand down between her partner's thighs.",
 			"attributeCatMorphDrink",
 			Colour.ATTRIBUTE_ARCANE,
-			30,
+			null,
+			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.INT_FELINE_FANCY, null, null, null, 0)))) {
@@ -541,7 +513,7 @@ public class ItemType {
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
-			return ItemEffectType.ATTRIBUTE_INTELLIGENCE;
+			return ItemEffectType.ATTRIBUTE_ARCANE;
 		}
 
 		@Override
@@ -571,7 +543,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType INT_INGREDIENT_VANILLA_WATER = new AbstractItemType(
+	public static AbstractItemType INT_INGREDIENT_VANILLA_WATER = new AbstractItemType(10,
 			"a bottle of",
 			false,
 			"Vanilla Water",
@@ -580,7 +552,8 @@ public class ItemType {
 				+ " While there's no label on the bottle, there is a slight indentation in its surface, and, holding it up to the light to get a better look, you see that the impression spells the words 'Vanilla Water'.",
 			"attributeHumanDrink",
 			Colour.ATTRIBUTE_ARCANE,
-			30,
+			null,
+			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.INT_VANILLA_WATER, null, null, null, 0)))) {
@@ -589,7 +562,7 @@ public class ItemType {
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
-			return ItemEffectType.ATTRIBUTE_INTELLIGENCE;
+			return ItemEffectType.ATTRIBUTE_ARCANE;
 		}
 
 		@Override
@@ -621,7 +594,7 @@ public class ItemType {
 	
 	// Fitness ingredients are energy drinks and coffee:
 	
-	public static AbstractItemType FIT_INGREDIENT_CANINE_CRUSH = new AbstractItemType(
+	public static AbstractItemType FIT_INGREDIENT_CANINE_CRUSH = new AbstractItemType(20,
 			"a bottle of",
 			false,
 			"Canine Crush",
@@ -629,8 +602,9 @@ public class ItemType {
 			"A glass bottle of what looks to be some kind of beer."
 				+ " A label on the front shows a dog-boy lining himself up behind a beautiful girl, who's down on all fours, presenting her naked, dripping pussy to the throbbing dog-cock behind her.",
 			"attributeDogMorphDrink",
-			Colour.ATTRIBUTE_STRENGTH,
-			30,
+			Colour.ATTRIBUTE_PHYSIQUE,
+			null,
+			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.FIT_CANINE_CRUSH, null, null, null, 0)))) {
@@ -639,7 +613,7 @@ public class ItemType {
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
-			return ItemEffectType.ATTRIBUTE_STRENGTH;
+			return ItemEffectType.ATTRIBUTE_PHYSIQUE;
 		}
 
 		@Override
@@ -671,7 +645,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType FIT_INGREDIENT_SQUIRREL_JAVA = new AbstractItemType(
+	public static AbstractItemType FIT_INGREDIENT_SQUIRREL_JAVA = new AbstractItemType(20,
 			"a bottle of",
 			false,
 			"Squirrel Java",
@@ -679,8 +653,9 @@ public class ItemType {
 			"A glass bottle of what looks to be some kind of coffee."
 				+ " A label on the front shows a squirrel-girl fingering herself over the top of a bottle just like this one; her juices dripping down into the coffee to provide some extra cream.",
 			"attributeSquirrelMorphDrink",
-			Colour.ATTRIBUTE_STRENGTH,
-			30,
+			Colour.ATTRIBUTE_PHYSIQUE,
+			null,
+			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.FIT_SQUIRREL_JAVA, null, null, null, 0)))) {
@@ -689,7 +664,7 @@ public class ItemType {
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
-			return ItemEffectType.ATTRIBUTE_STRENGTH;
+			return ItemEffectType.ATTRIBUTE_PHYSIQUE;
 		}
 
 		@Override
@@ -721,7 +696,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType FIT_INGREDIENT_EGG_NOG = new AbstractItemType(
+	public static AbstractItemType FIT_INGREDIENT_EGG_NOG = new AbstractItemType(30,
 			"a bottle of",
 			false,
 			"Rudolph's Egg nog",
@@ -729,8 +704,9 @@ public class ItemType {
 			"A carton of 'Rudolph's Egg Nog'."
 				+ " A label on the front shows the drink's namesake, a buff, stark-naked reindeer-boy, drinking a glass of this carton's contents while receiving oral sex from three enraptured reindeer-girls.",
 			"attributeReindeerMorphDrink",
-			Colour.ATTRIBUTE_STRENGTH,
-			30,
+			Colour.ATTRIBUTE_PHYSIQUE,
+			null,
+			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.FIT_EGG_NOG, null, null, null, 0)))) {
@@ -739,7 +715,7 @@ public class ItemType {
 
 		@Override
 		public ItemEffectType getEnchantmentEffect() {
-			return ItemEffectType.ATTRIBUTE_STRENGTH;
+			return ItemEffectType.ATTRIBUTE_PHYSIQUE;
 		}
 
 		@Override
@@ -771,7 +747,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType SEX_INGREDIENT_HARPY_PERFUME = new AbstractItemType(
+	public static AbstractItemType SEX_INGREDIENT_HARPY_PERFUME = new AbstractItemType(250,
 			"a bottle of",
 			false,
 			"Harpy Perfume",
@@ -780,7 +756,8 @@ public class ItemType {
 				+ " There's a stylised image of a harpy's wings on the front of the bottle.",
 			"attributeHarpyPerfume",
 			Colour.GENERIC_SEX,
-			30,
+			null,
+			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.SEX_HARPY_PERFUME, null, null, null, 0)))) {
@@ -819,7 +796,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType SEX_INGREDIENT_MINCE_PIE = new AbstractItemType(
+	public static AbstractItemType SEX_INGREDIENT_MINCE_PIE = new AbstractItemType(10,
 			"a",
 			false,
 			"mince pie",
@@ -828,7 +805,8 @@ public class ItemType {
 					+ " Curiously, the pie seems to remain permanently warm to the touch, revealing that an enchantment of some sort must have been placed on it...",
 			"attributeNoRaceMincePie",
 			Colour.GENERIC_SEX,
-			30,
+			null,
+			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.SEX_MINCE_PIE, null, null, null, 0)))) {
@@ -869,7 +847,8 @@ public class ItemType {
 	
 	// Corruption ingredients are "mysterious liquids" (cum and milk...):
 	
-	public static AbstractItemType COR_INGREDIENT_LILITHS_GIFT = new AbstractItemType("a bottle of",
+	public static AbstractItemType COR_INGREDIENT_LILITHS_GIFT = new AbstractItemType(1500,
+			"a bottle of",
 			false,
 			"Lilith's Gift",
 			"Lilith's Gifts",
@@ -878,7 +857,8 @@ public class ItemType {
 					+ " Her delicate hands are reaching down to pull apart her soft ass cheeks, fully exposing her asshole and pussy, both of which are dripping wet from excitement.",
 			"attributeDemonDrink",
 			Colour.ATTRIBUTE_CORRUPTION,
-			50,
+			null,
+			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.COR_LILITHS_GIFT, null, null, null, 0)))) {
@@ -917,7 +897,8 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType FETISH_UNREFINED = new AbstractItemType("a vial of",
+	public static AbstractItemType FETISH_UNREFINED = new AbstractItemType(500,
+			"a vial of",
 			false,
 			"Mystery Kink",
 			"Mystery Kinks",
@@ -925,7 +906,8 @@ public class ItemType {
 					+ " It's quite clear just from its appearance that it carries a potent enchantment, and from the label on one side reading 'Mystery Kink', it's quite safe to assume that it somehow influences the drinker's fetishes.",
 			"fetishDrink",
 			Colour.GENERIC_SEX,
-			500,
+			null,
+			null,
 			Rarity.EPIC,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.MYSTERY_KINK, null, null, null, 0)))) {
@@ -963,7 +945,8 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType FETISH_REFINED = new AbstractItemType("a vial of",
+	public static AbstractItemType FETISH_REFINED = new AbstractItemType(750,
+			"a vial of",
 			false,
 			"Fetish Endowment",
 			"Fetish Endowments",
@@ -971,7 +954,8 @@ public class ItemType {
 					+ " Its potent enchantment is far more refined than that of the liquid it was distilled from, and is able to add or remove specific fetishes.",
 			"fetishDrinkRefined",
 			Colour.FETISH,
-			750,
+			null,
+			null,
 			Rarity.LEGENDARY,
 			null,
 			null) {
@@ -1014,7 +998,8 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType ADDICTION_REMOVAL = new AbstractItemType("a bottle of",
+	public static AbstractItemType ADDICTION_REMOVAL = new AbstractItemType(750,
+			"a bottle of",
 			false,
 			"Angel's Nectar",
 			"Angel's Nectars",
@@ -1022,7 +1007,8 @@ public class ItemType {
 					+ " Engraved into one side are the words 'Angel's Nectar', although you're unsure if this fluid really does have anything to do with them...",
 			"addictionRemoval",
 			Colour.BASE_BLUE_LIGHT,
-			750,
+			null,
+			null,
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.ADDICTION_REMOVAL, null, null, null, 0)))) {
@@ -1062,7 +1048,7 @@ public class ItemType {
 	
 	// Racial ingredients:
 	
-	public static AbstractItemType RACE_INGREDIENT_DEMON = new AbstractItemType(
+	public static AbstractItemType RACE_INGREDIENT_DEMON = new AbstractItemType(2500,
 			"a bottle of",
 			false,
 			"Innoxia's Gift",
@@ -1071,7 +1057,8 @@ public class ItemType {
 					+ " Someone's stuck a crude little sticker to one side of the bottle, and as you look closer, you see that it reads: 'Temporary item! Demon TFs don't work like this!'",
 			"raceDemonInnoxiasGift",
 			Colour.ATTRIBUTE_CORRUPTION,
-			500,
+			null,
+			null,
 			Rarity.LEGENDARY,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_INNOXIAS_GIFT, null, null, null, 0)))) {
@@ -1110,7 +1097,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType RACE_INGREDIENT_HUMAN = new AbstractItemType(
+	public static AbstractItemType RACE_INGREDIENT_HUMAN = new AbstractItemType(1000,
 			"a vial of",
 			false,
 			"Angel's Tears",
@@ -1119,7 +1106,8 @@ public class ItemType {
 					+ " There's an image of a weeping angel engraved into the glass, and you see that her tears are falling into a vial just like this one.",
 			"raceHumanAngelsTears",
 			Colour.RACE_HUMAN,
-			75,
+			null,
+			null,
 			Rarity.RARE,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_ANGELS_TEARS, null, null, null, 0)))) {
@@ -1158,7 +1146,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType RACE_INGREDIENT_CAT_MORPH = new AbstractItemType(
+	public static AbstractItemType RACE_INGREDIENT_CAT_MORPH = new AbstractItemType(250,
 			"a",
 			false,
 			"Kitty's Reward",
@@ -1167,7 +1155,8 @@ public class ItemType {
 					+ " A label on the side shows a greater cat-girl devouring a plate of what looks to be this can's contents; some sort of tinned salmon.",
 			"raceCatMorphKittysReward",
 			Colour.RACE_CAT_MORPH,
-			60,
+			null,
+			null,
 			Rarity.RARE,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_KITTYS_REWARD, null, null, null, 0)))) {
@@ -1208,7 +1197,7 @@ public class ItemType {
 	};
 	
 
-	public static AbstractItemType RACE_INGREDIENT_COW_MORPH  = new AbstractItemType(
+	public static AbstractItemType RACE_INGREDIENT_COW_MORPH  = new AbstractItemType(250,
 			"a pot of",
 			false,
 			"Bubble Cream",
@@ -1217,7 +1206,8 @@ public class ItemType {
 					+ " A label on the side declares it to be 'Bubble Cream', which seems to be a little misleading, as there isn't any sort of bubbling going on in the creamy mixture contained within.",
 			"raceCowMorphBubbleCream",
 			Colour.RACE_COW_MORPH,
-			60,
+			null,
+			null,
 			Rarity.RARE,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_BUBBLE_CREAM, null, null, null, 0)))) {
@@ -1261,7 +1251,7 @@ public class ItemType {
 	};
 	
 
-	public static AbstractItemType RACE_INGREDIENT_SQUIRREL_MORPH = new AbstractItemType(
+	public static AbstractItemType RACE_INGREDIENT_SQUIRREL_MORPH = new AbstractItemType(250,
 			"a bag of",
 			false,
 			"Round Nuts",
@@ -1269,7 +1259,8 @@ public class ItemType {
 			"A small bag of round nuts. A label on one side shows a greater squirrel-girl stuffing a handful of nuts into her mouth.",
 			"raceSquirrelMorphRoundNuts",
 			Colour.RACE_SQUIRREL_MORPH,
-			60,
+			null,
+			null,
 			Rarity.RARE,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_ROUND_NUTS, null, null, null, 0)))) {
@@ -1310,7 +1301,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType RACE_INGREDIENT_DOG_MORPH = new AbstractItemType(
+	public static AbstractItemType RACE_INGREDIENT_DOG_MORPH = new AbstractItemType(250,
 			"a",
 			false,
 			"Canine Crunch",
@@ -1318,7 +1309,8 @@ public class ItemType {
 			"An individually-wrapped biscuit in the shape of a bone.",
 			"raceDogMorphCanineCrunch",
 			Colour.RACE_DOG_MORPH,
-			60,
+			null,
+			null,
 			Rarity.RARE,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_CANINE_CRUNCH, null, null, null, 0)))) {
@@ -1357,7 +1349,7 @@ public class ItemType {
 		}
 	};
 
-	public static AbstractItemType RACE_INGREDIENT_HORSE_MORPH = new AbstractItemType(
+	public static AbstractItemType RACE_INGREDIENT_HORSE_MORPH = new AbstractItemType(250,
 			"a",
 			false,
 			"Sugar Carrot Cube",
@@ -1365,7 +1357,8 @@ public class ItemType {
 			"An individually-wrapped sugar cube, which, except for the fact that it's bright orange and smells of carrots, appears to be identical to every other sugar cube you've seen.",
 			"raceHorseMorphSugarCarrotCube",
 			Colour.RACE_HORSE_MORPH,
-			60,
+			null,
+			null,
 			Rarity.RARE,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_SUGAR_CARROT_CUBE, null, null, null, 0)))) {
@@ -1404,7 +1397,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType RACE_INGREDIENT_REINDEER_MORPH = new AbstractItemType(
+	public static AbstractItemType RACE_INGREDIENT_REINDEER_MORPH = new AbstractItemType(250,
 			"a",
 			false,
 			"Sugar Cookie",
@@ -1412,7 +1405,8 @@ public class ItemType {
 			"An individually-wrapped, icing-and-sprinkles-topped sugar cookie, which looks, rather surprisingly, extremely normal.",
 			"raceReindeerMorphSugarCookie",
 			Colour.RACE_REINDEER_MORPH,
-			60,
+			null,
+			null,
 			Rarity.RARE,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_SUGAR_COOKIE, null, null, null, 0)))) {
@@ -1453,7 +1447,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType RACE_INGREDIENT_ALLIGATOR_MORPH = new AbstractItemType(
+	public static AbstractItemType RACE_INGREDIENT_ALLIGATOR_MORPH = new AbstractItemType(250,
 			"a",
 			false,
 			"Gator's Gumbo",
@@ -1462,7 +1456,8 @@ public class ItemType {
 				+ " The contents take the form of a delicious-smelling variety of gumbo, containing meat, okra, and a variety of other mysterious vegetables.",
 			"raceGatorMorphGatorsGumbo",
 			Colour.RACE_ALLIGATOR_MORPH,
-			60,
+			null,
+			null,
 			Rarity.RARE,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_ALLIGATORS_GUMBO, null, null, null, 0)))) {
@@ -1503,7 +1498,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType RACE_INGREDIENT_WOLF_MORPH = new AbstractItemType(
+	public static AbstractItemType RACE_INGREDIENT_WOLF_MORPH = new AbstractItemType(250,
 			"a package of",
 			false,
 			"Meat and Marrow",
@@ -1511,7 +1506,8 @@ public class ItemType {
 			"A package of 'Meat and Marrow', which consists of a slab of some sort of raw meat, wrapped in grease-proof paper and tied up with brown string.",
 			"raceWolfMorphMeatAndMarrow",
 			Colour.RACE_WOLF_MORPH,
-			60,
+			null,
+			null,
 			Rarity.RARE,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_MEAT_AND_MARROW, null, null, null, 0)))) {
@@ -1552,7 +1548,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType RACE_INGREDIENT_HARPY = new AbstractItemType(
+	public static AbstractItemType RACE_INGREDIENT_HARPY = new AbstractItemType(250,
 			"a",
 			false,
 			"Bubblegum Lollipop",
@@ -1561,7 +1557,8 @@ public class ItemType {
 				+ " Although it doesn't look out of the ordinary, it's somewhat unusual in the fact that it has an incredibly strong smell of bubblegum.",
 			"raceHarpyLollipop",
 			Colour.RACE_HARPY,
-			60,
+			null,
+			null,
 			Rarity.RARE,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_LOLLIPOP, null, null, null, 0)))) {
@@ -1650,7 +1647,7 @@ public class ItemType {
 											+ " Giving you no time to react, the essence immediately shoots straight towards you, and with a little "+essenceColour.getName()+" flash, it hits your chest and disappears from sight."
 											+ " You think that it would probably be best to go and ask Lilaya about what just happened..."
 										+ "</p>"
-										+(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)?Main.game.getPlayer().incrementQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY):"");
+										+(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)?Main.game.getPlayer().startQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY):"");
 							} else {
 								return "<p>"
 										+ "Pulling the cork stopper out from the top of the little bottle, you let out a gasp as the swirling light instantly darts out of its glass prison."
@@ -1699,7 +1696,7 @@ public class ItemType {
 											+ " Giving you no time to react, the essence immediately shoots straight towards you, and with a little "+essenceColour.getName()+" flash, it hits your chest and disappears from sight."
 											+ " You think that it would probably be best to go and ask Lilaya about what just happened..."
 										+ "</p>"
-										+(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)?Main.game.getPlayer().incrementQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY):""));
+										+(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)?Main.game.getPlayer().startQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY):""));
 							} else {
 								return UtilText.parse(user,
 										"<p>"
@@ -1742,7 +1739,7 @@ public class ItemType {
 		
 	}
 	
-	public static AbstractItemType BOTTLED_ESSENCE_ARCANE = new AbstractItemType(
+	public static AbstractItemType BOTTLED_ESSENCE_ARCANE = new AbstractItemType(50,
 			null,
 			false,
 			"Bottled Arcane Essence",
@@ -1751,7 +1748,8 @@ public class ItemType {
 					+ " Inside, the swirling "+Colour.GENERIC_ARCANE.getName()+" glow of an arcane essence flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceArcane",
 			Colour.GENERIC_ARCANE,
-			25,
+			null,
+			null,
 			Rarity.EPIC,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_ARCANE, null, null, null, 0)))) {
@@ -1783,6 +1781,7 @@ public class ItemType {
 	};
 	
 	public static AbstractItemType BOTTLED_ESSENCE_CAT_MORPH = new AbstractItemType(
+			50,
 			null,
 			false,
 			"Bottled Cat-morph Essence",
@@ -1791,7 +1790,8 @@ public class ItemType {
 					+ " Inside, the swirling "+Colour.RACE_CAT_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a cat-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceCatMorph",
 			Colour.RACE_CAT_MORPH,
-			50,
+			null,
+			null,
 			Rarity.EPIC,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_CAT_MORPH, null, null, null, 0)))) {
@@ -1824,6 +1824,7 @@ public class ItemType {
 	
 
 	public static AbstractItemType BOTTLED_ESSENCE_COW_MORPH = new AbstractItemType(
+			50,
 			null,
 			false,
 			"Bottled Cow-morph Essence",
@@ -1832,7 +1833,8 @@ public class ItemType {
 					+ " Inside, the swirling "+Colour.RACE_COW_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a cow-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceCowMorph",
 			Colour.RACE_COW_MORPH,
-			50,
+			null,
+			null,
 			Rarity.EPIC,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_COW_MORPH, null, null, null, 0)))) {
@@ -1865,6 +1867,7 @@ public class ItemType {
 	
 	public static AbstractItemType BOTTLED_ESSENCE_DEMON = new AbstractItemType(
 
+			40,
 			null,
 			false,
 			"Bottled Demon Essence",
@@ -1873,7 +1876,8 @@ public class ItemType {
 					+ " Inside, the swirling "+Colour.RACE_DEMON.getName()+" glow of an arcane essence, imbued with the energy of a demon, flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceDemon",
 			Colour.RACE_DEMON,
-			40,
+			null,
+			null,
 			Rarity.EPIC,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_DEMON, null, null, null, 0)))) {
@@ -1905,6 +1909,7 @@ public class ItemType {
 	};
 	
 	public static AbstractItemType BOTTLED_ESSENCE_ALLIGATOR_MORPH = new AbstractItemType(
+			50,
 			null,
 			false,
 			"Bottled Alligator-morph Essence",
@@ -1913,7 +1918,8 @@ public class ItemType {
 					+ " Inside, the swirling "+Colour.RACE_ALLIGATOR_MORPH.getName()+" glow of an alligator-morph essence flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceGatorMorph",
 			Colour.RACE_ALLIGATOR_MORPH,
-			50,
+			null,
+			null,
 			Rarity.EPIC,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_ALLIGATOR_MORPH, null, null, null, 0)))) {
@@ -1938,6 +1944,7 @@ public class ItemType {
 	
 
 	public static AbstractItemType BOTTLED_ESSENCE_SQUIRREL_MORPH = new AbstractItemType(
+			50,
 			null,
 			false,
 			"Bottled Squirrel-morph Essence",
@@ -1946,7 +1953,8 @@ public class ItemType {
 					+ " Inside, the swirling "+Colour.RACE_SQUIRREL_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a squirrel-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceSquirrelMorph",
 			Colour.RACE_SQUIRREL_MORPH,
-			50,
+			null,
+			null,
 			Rarity.EPIC,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_SQUIRREL_MORPH, null, null, null, 0)))) {
@@ -1978,6 +1986,7 @@ public class ItemType {
 	};
 	
 	public static AbstractItemType BOTTLED_ESSENCE_DOG_MORPH = new AbstractItemType(
+			50,
 			null,
 			false,
 			"Bottled Dog-morph Essence",
@@ -1986,7 +1995,8 @@ public class ItemType {
 					+ " Inside, the swirling "+Colour.RACE_DOG_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a dog-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceDogMorph",
 			Colour.RACE_DOG_MORPH,
-			50,
+			null,
+			null,
 			Rarity.EPIC,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_DOG_MORPH, null, null, null, 0)))) {
@@ -2018,6 +2028,7 @@ public class ItemType {
 	};
 	
 	public static AbstractItemType BOTTLED_ESSENCE_HARPY = new AbstractItemType(
+			20,
 			null,
 			false,
 			"Bottled Harpy Essence",
@@ -2026,7 +2037,8 @@ public class ItemType {
 					+ " Inside, the swirling "+Colour.RACE_HARPY.getName()+" glow of an arcane essence, imbued with the energy of a harpy, flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceHarpy",
 			Colour.RACE_HARPY,
-			20,
+			null,
+			null,
 			Rarity.EPIC,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_HARPY, null, null, null, 0)))) {
@@ -2058,6 +2070,7 @@ public class ItemType {
 	};
 	
 	public static AbstractItemType BOTTLED_ESSENCE_HORSE_MORPH = new AbstractItemType(
+			50,
 			null,
 			false,
 			"Bottled Horse-morph Essence",
@@ -2066,7 +2079,8 @@ public class ItemType {
 					+ " Inside, the swirling "+Colour.RACE_HORSE_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a horse-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceHorseMorph",
 			Colour.RACE_HORSE_MORPH,
-			50,
+			null,
+			null,
 			Rarity.EPIC,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_HORSE_MORPH, null, null, null, 0)))) {
@@ -2098,6 +2112,7 @@ public class ItemType {
 	};
 	
 	public static AbstractItemType BOTTLED_ESSENCE_REINDEER_MORPH = new AbstractItemType(
+			50,
 			null,
 			false,
 			"Bottled Reindeer-morph Essence",
@@ -2106,7 +2121,8 @@ public class ItemType {
 					+ " Inside, the swirling "+Colour.RACE_REINDEER_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a reindeer-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceReindeerMorph",
 			Colour.RACE_REINDEER_MORPH,
-			50,
+			null,
+			null,
 			Rarity.EPIC,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_REINDEER_MORPH, null, null, null, 0)))) {
@@ -2138,6 +2154,7 @@ public class ItemType {
 	};
 	
 	public static AbstractItemType BOTTLED_ESSENCE_HUMAN = new AbstractItemType(
+			50,
 			null,
 			false,
 			"Bottled Human Essence",
@@ -2146,7 +2163,8 @@ public class ItemType {
 					+ " Inside, the swirling "+Colour.RACE_HUMAN.getName()+" glow of an arcane essence, imbued with the energy of a human, flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceHuman",
 			Colour.RACE_HUMAN,
-			50,
+			null,
+			null,
 			Rarity.EPIC,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_HUMAN, null, null, null, 0)))) {
@@ -2178,6 +2196,7 @@ public class ItemType {
 	};
 	
 	public static AbstractItemType BOTTLED_ESSENCE_WOLF_MORPH = new AbstractItemType(
+			50,
 			null,
 			false,
 			"Bottled Wolf-morph Essence",
@@ -2186,7 +2205,8 @@ public class ItemType {
 					+ " Inside, the swirling "+Colour.RACE_WOLF_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a wolf-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
 			"bottledEssenceWolfMorph",
 			Colour.RACE_WOLF_MORPH,
-			50,
+			null,
+			null,
 			Rarity.EPIC,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_WOLF_MORPH, null, null, null, 0)))) {
@@ -2221,7 +2241,7 @@ public class ItemType {
 	
 	// Specials:
 	
-	public static AbstractItemType HARPY_MATRIARCH_BIMBO_LOLLIPOP = new AbstractItemType(
+	public static AbstractItemType HARPY_MATRIARCH_BIMBO_LOLLIPOP = new AbstractItemType(1250,
 			null,
 			false,
 			"[bimboHarpy.name]'s lollipop",
@@ -2230,7 +2250,8 @@ public class ItemType {
 				+ " Although it doesn't look out of the ordinary, you're pretty sure that eating it would result in a potent transformation...",
 			"bimboLollipop",
 			Colour.RARITY_LEGENDARY,
-			500,
+			null,
+			null,
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BIMBO_LOLLIPOP, null, null, null, 0)))) {
@@ -2269,7 +2290,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType HARPY_MATRIARCH_NYMPHO_LOLLIPOP = new AbstractItemType(
+	public static AbstractItemType HARPY_MATRIARCH_NYMPHO_LOLLIPOP = new AbstractItemType(1250,
 			null,
 			false,
 			"[nymphoHarpy.name]'s lollipop",
@@ -2278,7 +2299,8 @@ public class ItemType {
 				+ " Although it looks to be made from regular candy, you're pretty sure that eating it would result in a potent transformation...",
 			"nymphoLollipop",
 			Colour.RARITY_LEGENDARY,
-			500,
+			null,
+			null,
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.NYMPHO_LOLLIPOP, null, null, null, 0)))) {
@@ -2316,7 +2338,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType HARPY_MATRIARCH_DOMINANT_PERFUME = new AbstractItemType(
+	public static AbstractItemType HARPY_MATRIARCH_DOMINANT_PERFUME = new AbstractItemType(1250,
 			null,
 			false,
 			"[dominantHarpy.name]'s perfume",
@@ -2325,7 +2347,8 @@ public class ItemType {
 				+ " Although it looks to contain normal perfume, you're pretty sure that using it would result in a potent transformation...",
 			"dominantPerfume",
 			Colour.RARITY_LEGENDARY,
-			500,
+			null,
+			null,
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.DOMINANT_PERFUME, null, null, null, 0)))) {
@@ -2370,14 +2393,16 @@ public class ItemType {
 	
 	// Crafting outputs:
 	
-	public static AbstractItemType POTION = new AbstractItemType("",
+	public static AbstractItemType POTION = new AbstractItemType(500,
+			"",
 			false,
 			"potion",
 			"potions",
 			"Refined potion.",
 			"refined_potion_container",
 			Colour.CLOTHING_PINK,
-			25,
+			null,
+			null,
 			Rarity.RARE,
 			null,
 			null) {
@@ -2421,14 +2446,16 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType ELIXIR = new AbstractItemType("",
+	public static AbstractItemType ELIXIR = new AbstractItemType(1000,
+			"",
 			false,
 			"elixir",
 			"elixirs",
 			"Refined elixir.",
 			"refined_elixir_container",
 			Colour.CLOTHING_PINK,
-			25,
+			null,
+			null,
 			Rarity.EPIC,
 			null,
 			null) {
@@ -2475,7 +2502,8 @@ public class ItemType {
 	
 	// Non-TF:
 
-	public static AbstractItemType DYE_BRUSH = new AbstractItemType("a",
+	public static AbstractItemType DYE_BRUSH = new AbstractItemType(150,
+			"a",
 			false,
 			"dye-brush",
 			"dye-brushes",
@@ -2483,7 +2511,8 @@ public class ItemType {
 					+ " On closer inspection, you notice a very faint purple glow emanating from the brush's tip, revealing its true nature as an arcane-enchanted dye-brush.",
 			"dyeBrush",
 			Colour.CLOTHING_WHITE,
-			50,
+			null,
+			null,
 			Rarity.EPIC,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.DYE_BRUSH, null, null, null, 0)))) {
@@ -2526,14 +2555,16 @@ public class ItemType {
 		}
 	};
 
-	public static AbstractItemType CONDOM_USED = new AbstractItemType("a",
+	public static AbstractItemType CONDOM_USED = new AbstractItemType(1,
+			"a",
 			false,
 			"used condom",
 			"used condoms",
 			"A used condom, tied at the top and filled with someone's cum. You'd have to be pretty dirty-minded to think of a use for this... <b>(Currently not implemented...)</b>",
 			"condomUsed",
 			Colour.CLOTHING_WHITE,
-			0,
+			null,
+			null,
 			Rarity.COMMON,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.USED_CONDOM_DRINK, null, null, null, 0)))) {
@@ -2581,14 +2612,16 @@ public class ItemType {
 		}
 	};
 
-	public static AbstractItemType ARTHURS_PACKAGE = new AbstractItemType("",
+	public static AbstractItemType ARTHURS_PACKAGE = new AbstractItemType(0,
+			"",
 			false,
 			"Arthur's Package",
 			"Arthur's Packages",
 			"A package that you collected from Arcane Arts. You need to deliver this to Arthur.",
 			"arthursPackage",
 			Colour.ANDROGYNOUS,
-			0,
+			null,
+			null,
 			Rarity.LEGENDARY,
 			null,
 			null) {
@@ -2626,14 +2659,16 @@ public class ItemType {
 
 	};
 	
-	public static AbstractItemType ORIENTATION_HYPNO_WATCH = new AbstractItemType("a",
+	public static AbstractItemType ORIENTATION_HYPNO_WATCH = new AbstractItemType(50000,
+			"a",
 			false,
 			"Hypno-Watch",
 			"Hypno-Watches",
 			"A unique, incredibly-powerful arcane instrument. When enchanted, this Hypno-Watch has the ability to change a person's sexual orientation, at the cost of giving them a huge increase in corruption.",
 			"hypnoClockBase",
 			Colour.ANDROGYNOUS,
-			50000,
+			null,
+			null,
 			Rarity.LEGENDARY,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.ORIENTATION_CHANGE, null, null, null, 0)))) {
@@ -2688,14 +2723,16 @@ public class ItemType {
 
 	};
 	
-	public static AbstractItemType VIXENS_VIRILITY = new AbstractItemType("a",
+	public static AbstractItemType VIXENS_VIRILITY = new AbstractItemType(20,
+			"a",
 			false,
 			"Vixen's Virility",
 			"Vixen's Virilities",
 			"A small pill, packaged in a little foil and plastic wrapper. On the front of the foil, there's a small stylised picture of a heavily pregnant girl, lying back and smiling as she strokes her swollen belly.",
 			"vixensVirility",
 			Colour.CLOTHING_PINK,
-			5,
+			null,
+			null,
 			Rarity.COMMON,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.VIXENS_VIRILITY, null, null, null, 0)))) {
@@ -2723,7 +2760,8 @@ public class ItemType {
 
 	};
 	
-	public static AbstractItemType PROMISCUITY_PILL = new AbstractItemType("a",
+	public static AbstractItemType PROMISCUITY_PILL = new AbstractItemType(20,
+			"a",
 			false,
 			"Promiscuity Pill",
 			"Promiscuity Pills",
@@ -2732,7 +2770,8 @@ public class ItemType {
 					+ " The after image is of the girl showing off her flat stomach as she gives a thumbs up.",
 			"vixensVirility",
 			Colour.CLOTHING_BLUE,
-			5,
+			null,
+			null,
 			Rarity.COMMON,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.PROMISCUITY_PILL, null, null, null, 0)))) {
@@ -2759,7 +2798,8 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType MOTHERS_MILK = new AbstractItemType("a bottle of",
+	public static AbstractItemType MOTHERS_MILK = new AbstractItemType(100,
+			"a bottle of",
 			false,
 			"Mother's Milk",
 			"Mother's Milks",
@@ -2767,7 +2807,8 @@ public class ItemType {
 			+ " On the side, a little sticker declares that this drink is able to speed up your pregnancy.",
 			"mothers_milk",
 			Colour.CLOTHING_WHITE,
-			5,
+			null,
+			null,
 			Rarity.COMMON,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.MOTHERS_MILK, null, null, null, 0)))) {
@@ -2794,7 +2835,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType BOOK_CAT_MORPH = new AbstractItemType(
+	public static AbstractItemType BOOK_CAT_MORPH = new AbstractItemType(250,
 			null,
 			false,
 			"Curious Kitties",
@@ -2802,7 +2843,8 @@ public class ItemType {
 			"A book that details cat-morph society.",
 			"book_race_cat_morph",
 			Colour.RACE_CAT_MORPH,
-			10,
+			null,
+			null,
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_CAT_MORPH, null, null, null, 0)))) {
@@ -2840,7 +2882,7 @@ public class ItemType {
 	};
 	
 
-	public static AbstractItemType BOOK_COW_MORPH = new AbstractItemType(
+	public static AbstractItemType BOOK_COW_MORPH = new AbstractItemType(250,
 			null,
 			false,
 			"Milking Cows",
@@ -2848,7 +2890,8 @@ public class ItemType {
 			"A book that details cow-morph society.",
 			"book_race_cow_morph",
 			Colour.RACE_COW_MORPH,
-			10,
+			null,
+			null,
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_COW_MORPH, null, null, null, 0)))) {
@@ -2886,7 +2929,7 @@ public class ItemType {
 	};
 	
 
-	public static AbstractItemType BOOK_DEMON = new AbstractItemType(
+	public static AbstractItemType BOOK_DEMON = new AbstractItemType(250,
 			null,
 			false,
 			"Demonic Origins",
@@ -2894,7 +2937,8 @@ public class ItemType {
 			"A book about demons and where they come from.",
 			"book_race_demon",
 			Colour.RACE_DEMON,
-			10,
+			null,
+			null,
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_DEMON, null, null, null, 0)))) {
@@ -2931,7 +2975,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType BOOK_DOG_MORPH = new AbstractItemType(
+	public static AbstractItemType BOOK_DOG_MORPH = new AbstractItemType(250,
 			null,
 			false,
 			"Canine Culture",
@@ -2939,7 +2983,8 @@ public class ItemType {
 			"A book about dog-morphs and their culture.",
 			"book_race_dog_morph",
 			Colour.RACE_DOG_MORPH,
-			10,
+			null,
+			null,
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_DOG_MORPH, null, null, null, 0)))) {
@@ -2976,7 +3021,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType BOOK_ALLIGATOR_MORPH = new AbstractItemType(
+	public static AbstractItemType BOOK_ALLIGATOR_MORPH = new AbstractItemType(250,
 			null,
 			false,
 			"Rasselin' Gators",
@@ -2984,7 +3029,8 @@ public class ItemType {
 			"A book all about alligator-morphs, detailing their society and place within Dominion.",
 			"book_race_gator_morph",
 			Colour.RACE_ALLIGATOR_MORPH,
-			10,
+			null,
+			null,
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_ALLIGATOR_MORPH, null, null, null, 0)))) {
@@ -3021,7 +3067,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType BOOK_HARPY = new AbstractItemType(
+	public static AbstractItemType BOOK_HARPY = new AbstractItemType(250,
 			null,
 			false,
 			"All About Harpies",
@@ -3029,7 +3075,8 @@ public class ItemType {
 			"A book all about harpies, detailing their society and place within Dominion.",
 			"book_race_harpy",
 			Colour.RACE_HARPY,
-			10,
+			null,
+			null,
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_HARPY, null, null, null, 0)))) {
@@ -3066,7 +3113,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType BOOK_HORSE_MORPH = new AbstractItemType(
+	public static AbstractItemType BOOK_HORSE_MORPH = new AbstractItemType(250,
 			null,
 			false,
 			"Equine Encyclopedia",
@@ -3074,7 +3121,8 @@ public class ItemType {
 			"A book all about horse-morphs.",
 			"book_race_horse_morph",
 			Colour.RACE_HORSE_MORPH,
-			10,
+			null,
+			null,
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_HORSE_MORPH, null, null, null, 0)))) {
@@ -3111,7 +3159,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType BOOK_REINDEER_MORPH = new AbstractItemType(
+	public static AbstractItemType BOOK_REINDEER_MORPH = new AbstractItemType(250,
 			null,
 			false,
 			"The Eight",
@@ -3119,7 +3167,8 @@ public class ItemType {
 			"A book all about reindeer-morphs.",
 			"book_race_reindeer_morph",
 			Colour.RACE_REINDEER_MORPH,
-			10,
+			null,
+			null,
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_REINDEER_MORPH, null, null, null, 0)))) {
@@ -3156,7 +3205,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType BOOK_HUMAN = new AbstractItemType(
+	public static AbstractItemType BOOK_HUMAN = new AbstractItemType(250,
 			null,
 			false,
 			"Concerning Humans",
@@ -3164,7 +3213,8 @@ public class ItemType {
 			"A book about humans and their place within Dominion society.",
 			"book_race_human",
 			Colour.RACE_HUMAN,
-			10,
+			null,
+			null,
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_HUMAN, null, null, null, 0)))) {
@@ -3201,7 +3251,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType BOOK_SQUIRREL_MORPH = new AbstractItemType(
+	public static AbstractItemType BOOK_SQUIRREL_MORPH = new AbstractItemType(250,
 			null,
 			false,
 			"Chasing Squirrels",
@@ -3209,7 +3259,8 @@ public class ItemType {
 			"A book that details squirrel-morph society.",
 			"book_race_squirrel_morph",
 			Colour.RACE_SQUIRREL_MORPH,
-			10,
+			null,
+			null,
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_SQUIRREL_MORPH, null, null, null, 0)))) {
@@ -3246,7 +3297,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType BOOK_WOLF_MORPH = new AbstractItemType(
+	public static AbstractItemType BOOK_WOLF_MORPH = new AbstractItemType(250,
 			null,
 			false,
 			"Prowling Lupines",
@@ -3254,7 +3305,8 @@ public class ItemType {
 			"A book all about wolf-morphs.",
 			"book_race_wolf_morph",
 			Colour.RACE_WOLF_MORPH,
-			10,
+			null,
+			null,
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_WOLF_MORPH, null, null, null, 0)))) {
@@ -3291,7 +3343,7 @@ public class ItemType {
 		}
 	};
 	
-	public static AbstractItemType PRESENT = new AbstractItemType(
+	public static AbstractItemType PRESENT = new AbstractItemType(250,
 			"a",
 			false,
 			"Yuletide Gift",
@@ -3299,7 +3351,8 @@ public class ItemType {
 			"A wrapped present, sold by one of the reindeer-morph overseers in Dominion. It contains a random item from their store, and can also be given as a gift to your offspring, slaves, or Lilaya.",
 			"present",
 			Colour.GENERIC_ARCANE,
-			10,
+			null,
+			null,
 			Rarity.RARE,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.PRESENT, null, null, null, 0)))) {
@@ -3336,8 +3389,210 @@ public class ItemType {
 		}
 	};
 	
+	public static AbstractItemType GIFT_ROSE_BOUQUET = new AbstractItemType(
+			500,
+			null,
+			false,
+			"Rose Bouquet",
+			"Rose Bouquets",
+			"A bouquet filled with roses of many colours, it smells pleasant even from a distance."
+				+ " [Ashley.speech(Just in case you're clueless to the point that you don’t even know the favourite colour of your intended recipient, every natural colour is included here.)]",
+			//				+ " If their favourite happens to be blue, tough luck; maybe you should try getting acquainted with another species of flower instead of going with what’s safe.)] ",
+			"giftRoseBouquet",
+			Colour.BASE_RED,
+			Colour.BASE_ORANGE,
+			Colour.BASE_YELLOW,
+			Rarity.UNCOMMON,
+			null,
+			null) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getDescription() {
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SHOPPING_ARCADE_ASHLEYS_SHOP) {
+				return "A bouquet filled with roses of many colours, it smells pleasant even from a distance."
+						+ " [Ashley.speech(Just in case you're clueless to the point that you don’t even know the favourite colour of your intended recipient, every natural colour is included here.)]";
+			} else {
+				return "A bouquet filled with roses of many colours, it smells pleasant even from a distance.";
+			}
+		}
+		
+		@Override
+		public String getUseName() {
+			return "smell";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"You take a smell of the delicate perfume given off by the Rose bouquet.",
+					"You take a smell of the delicate perfume given off by the Rose bouquet.",
+					"You take a smell of the delicate perfume given off by the Rose bouquet.",
+					"You take a smell of the delicate perfume given off by the Rose bouquet.");
+		}
+		
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+
+		@Override
+		public boolean isCommonItem() {
+			return false;
+		}
+	};
+	
+	public static AbstractItemType GIFT_CHOCOLATES = new AbstractItemType(
+			300,
+			"a box of",
+			true,
+			"Chocolates",
+			"Chocolates",
+			"A box filled with various chocolates. [Ashley.speech(Generic, but tasty. Yeah, go ahead and pretend that you're buying this for someone other than yourself.)]",
+			"giftChocolates",
+			Colour.BASE_TAN,
+			Colour.BASE_BROWN_DARK,
+			Colour.BASE_YELLOW,
+			Rarity.UNCOMMON,
+			null,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.GIFT_CHOCOLATES, null, null, null, 0)))) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getDescription() {
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SHOPPING_ARCADE_ASHLEYS_SHOP) {
+				return "A box filled with various chocolates. [Ashley.speech(Generic, but tasty. Yeah, go ahead and pretend that you're buying this for someone other than yourself.)]";
+			} else {
+				return "A box filled with various chocolates.";
+			}
+		}
+		
+		@Override
+		public String getUseName() {
+			return "eat";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"You remove the lid from the box of chocolates, and help yourself to the contents.",
+					"You remove the lid from the box of chocolates, and start feeding the contents to [npc.name].",
+					"[npc.Name] removes the lid from the box of chocolates, and starts eating the contents.",
+					"[npc.Name] removes the lid from the box of chocolates, and starts feeding the contents to you.");
+		}
+		
+		@Override
+		public boolean isCommonItem() {
+			return false;
+		}
+	};
+	
+	public static AbstractItemType GIFT_PERFUME = new AbstractItemType(
+			300,
+			"a bottle of",
+			false,
+			"Rose Perfume",
+			"Rose Perfumes",
+			"A small bottle of perfume."
+					+ " [Ashley.speech(A generic scent that most people enjoy. Makes you more attractive to everyone, since nobody likes a stinker!)]",
+			"giftPerfume",
+			Colour.BASE_ROSE,
+			Colour.BASE_PURPLE_LIGHT,
+			null,
+			Rarity.UNCOMMON,
+			TFEssence.ARCANE,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.GIFT_PERFUME, null, null, null, 0)))) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getDescription() {
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SHOPPING_ARCADE_ASHLEYS_SHOP) {
+				return "A small bottle of perfume."
+						+ " [Ashley.speech(A generic scent that most people enjoy. Makes you more attractive to everyone, since nobody likes a stinker!)]";
+			} else {
+				return "A small bottle of perfume.";
+			}
+		}
+		
+		@Override
+		public String getUseName() {
+			return "spray";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"You take in a deep breath of the rose-scented fragrance as you spray a little squirt of the 'Rose Perfume' onto your neck.",
+					"You spray a little squirt of the 'Rose Perfume' onto [npc.name]'s neck.",
+					"[npc.Name] pulls out a bottle of 'Rose Perfume', and, after lifting it to [npc.her] neck, [npc.she] promptly sprays a little squirt onto [npc.her] [npc.skin].",
+					"[npc.Name] pulls out a bottle of 'Rose Perfume', and, after lifting it to your neck, [npc.she] sprays a little squirt onto your [pc.skin].");
+		}
+
+		@Override
+		public boolean isCommonItem() {
+			return false;
+		}
+	};
+	
+	public static AbstractItemType GIFT_TEDDY_BEAR = new AbstractItemType(
+			600,
+			null,
+			false,
+			"Teddy Bear",
+			"Teddy Bears",
+			"A cute brown teddy bear, with the words 'Hug me!' sewed onto a little heart that it's holding."
+				+ " [Ashley.speech(Warning, this is an inanimate object; it does not actually yearn for your affection and cannot protect you from monsters hiding under the bed!)]",
+			"giftTeddyBear",
+			Colour.BASE_TAN,
+			null,
+			null,
+			Rarity.UNCOMMON,
+			TFEssence.ARCANE,
+			null) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getDescription() {
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SHOPPING_ARCADE_ASHLEYS_SHOP) {
+				return "A cute brown teddy bear, with the words 'Hug me!' sewed onto a little heart that it's holding."
+						+ " [Ashley.speech(Warning, this is an inanimate object; it does not actually yearn for your affection and cannot protect you from monsters hiding under the bed!)]";
+			} else {
+				return "A cute brown teddy bear, with the words 'Hug me!' sewed onto a little heart that it's holding.";
+			}
+		}
+		
+		@Override
+		public String getUseName() {
+			return "hug";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"You hug the teddy bear. It's soft and fluffy...",
+					"You get [npc.name] to hug the teddy bear. [npc.She] remarks on how soft and fluffy it is...",
+					"[npc.Name] hugs the teddy bear. [npc.She] remarks on how soft and fluffy...",
+					"[npc.Name] gets you to hug the teddy bear. It's soft and fluffy...");
+		}
+		
+		@Override
+		public boolean isConsumedOnUse() {
+			return false;
+		}
+
+		@Override
+		public boolean isCommonItem() {
+			return false;
+		}
+	};
+	
 	// Why did I make this?
 	public static AbstractItemType EGGPLANT = new AbstractItemType(
+			25,
 			null,
 			false,
 			"Eggplant",
@@ -3345,7 +3600,8 @@ public class ItemType {
 			"A delicate, tropical perennial often cultivated as a tender or half-hardy annual in temperate climates. Also it kind of looks like a penis if you squint.",
 			"eggplant",
 			Colour.GENERIC_ARCANE,
-			10,
+			null,
+			null,
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.EGGPLANT, null, null, null, 0)))) {

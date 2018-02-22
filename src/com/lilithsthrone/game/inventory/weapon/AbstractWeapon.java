@@ -19,6 +19,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.XMLSaving;
 
@@ -243,35 +244,41 @@ public abstract class AbstractWeapon extends AbstractCoreItem implements Seriali
 
 	@Override
 	public int getValue() {
-		int runningTotal = 0;
+		float runningTotal = this.getWeaponType().getBaseValue();
 
-		switch (rarity) {
-			case COMMON:
-				break;
-			case UNCOMMON:
-				runningTotal += 10;
-				break;
-			case RARE:
-				runningTotal += 20;
-				break;
-			case EPIC:
-				runningTotal += 60;
-				break;
-			case LEGENDARY:
-				runningTotal += 100;
-				break;
-			case JINXED:
-				break;
+		if (colourShade == Colour.CLOTHING_PLATINUM) {
+			runningTotal *= 2f;
+			
+		} else if (colourShade == Colour.CLOTHING_GOLD) {
+			runningTotal *= 1.75f;
+			
+		} else if (colourShade == Colour.CLOTHING_ROSE_GOLD) {
+			runningTotal *= 1.5f;
+			
+		} else if (colourShade == Colour.CLOTHING_SILVER) {
+			runningTotal *= 1.25f;
 		}
-
-		if (attributeModifiers != null)
-			for (Integer i : attributeModifiers.values())
-				runningTotal += i * 25;
-
-		if (runningTotal <= 0)
+		
+		if(rarity==Rarity.JINXED) {
+			runningTotal *= 0.5;
+		}
+		
+		float attributeBonuses = 0;//getModifiedDropoffValue
+		if (attributeModifiers != null) {
+			for (Integer i : attributeModifiers.values()) {
+				attributeBonuses += i * 5;
+			}
+		}
+		
+		attributeBonuses = Util.getModifiedDropoffValue(attributeBonuses * 25, 500);
+		
+		runningTotal += attributeBonuses;
+		
+		if (runningTotal < 1) {
 			runningTotal = 1;
-
-		return runningTotal;
+		}
+		
+		return (int) runningTotal;
 	}
 
 	public DamageType getDamageType() {

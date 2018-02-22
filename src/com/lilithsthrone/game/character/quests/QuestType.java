@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.character;
+package com.lilithsthrone.game.character.quests;
 
 import com.lilithsthrone.utils.Colour;
 

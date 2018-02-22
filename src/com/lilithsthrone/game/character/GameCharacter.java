@@ -100,6 +100,7 @@ import com.lilithsthrone.game.character.npc.NPCOffspring;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.SpecialAttack;
 import com.lilithsthrone.game.combat.Spell;
@@ -123,6 +124,7 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemEffect;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
+import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.sex.LubricationType;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
@@ -136,6 +138,7 @@ import com.lilithsthrone.game.slavery.SlaveJobSetting;
 import com.lilithsthrone.game.slavery.SlavePermission;
 import com.lilithsthrone.game.slavery.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
@@ -158,9 +161,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	private static final long serialVersionUID = 1L;
 	
 	/** Calculation description as used in getAttributeValue() */
-	public static final String HEALTH_CALCULATION = "10 + Strength*2 + Bonus Stamina";
+	public static final String HEALTH_CALCULATION = "10 + 2*level + Physique*2 + Bonus Energy";
 	/** Calculation description as used in getAttributeValue() */
-	public static final String MANA_CALCULATION = "10 + Arcane*2 + Bonus Aura";
+	public static final String MANA_CALCULATION = "10 + 2*level + Arcane*2 + Bonus Aura";
 
 	public static final int LEVEL_CAP = 50;
 	public static final int MAX_TRAITS = 6;
@@ -301,7 +304,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		homeLocation = location;
 		
 		history = History.UNEMPLOYED;
-		personality = startingRace.getPersionality();
+		personality = startingRace.getPersonality();
 		sexualOrientation = startingRace.getSexualOrientation(startingGender);
 
 		affectionMap = new HashMap<>();
@@ -519,7 +522,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		// Perks:
 		
-		Element characterEquippedPerks = doc.createElement("equippedPerks");
+		Element characterEquippedPerks = doc.createElement("traits");
 		properties.appendChild(characterEquippedPerks);
 		for(Perk p : this.getTraits()){
 			Element element = doc.createElement("perk");
@@ -928,7 +931,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				Element e = ((Element)attElement.getElementsByTagName("attribute").item(i));
 				
 				try {
-					character.setAttribute(Attribute.valueOf(e.getAttribute("type")), Float.valueOf(e.getAttribute("value")), false);
+					if(e.getAttribute("type").equals("MAJOR_STRENGTH")) {
+						character.setAttribute(Attribute.MAJOR_PHYSIQUE, Float.valueOf(e.getAttribute("value")), false);
+					} else {
+						character.setAttribute(Attribute.valueOf(e.getAttribute("type")), Float.valueOf(e.getAttribute("value")), false);
+					}
 					CharacterUtils.appendToImportLog(log, "</br>Set Attribute: "+Attribute.valueOf(e.getAttribute("type")).getName() +" to "+ Float.valueOf(e.getAttribute("value")));
 				}catch(IllegalArgumentException ex){
 				}
@@ -1074,7 +1081,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		}
 		
 		// Perks:
-		nodes = parentElement.getElementsByTagName("equippablePerks");
+		nodes = parentElement.getElementsByTagName("traits");
 		element = (Element) nodes.item(0);
 		if(element!=null) {
 			for(int i=0; i<element.getElementsByTagName("perk").getLength(); i++){
@@ -1476,6 +1483,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	public abstract boolean isUnique();
 	
+	public boolean isRaceConcealed() {
+		return false;
+	}
+	
 	public String getId() {
 		return id;
 	}
@@ -1485,10 +1496,18 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	public String getMapIcon() {
-		return getRace().getStatusEffect().getSVGString(this);
+		if(isRaceConcealed()) {
+			return SVGImages.SVG_IMAGE_PROVIDER.getRaceUnknown();
+		} else {
+			return getSubspecies().getMapIcon(this);
+		}
 	}
 	public String getHomeMapIcon() {
-		return getRace().getStatusEffect().getSVGStringDesaturated(this);
+		if(isRaceConcealed()) {
+			return SVGImages.SVG_IMAGE_PROVIDER.getRaceUnknown();
+		} else {
+			return getSubspecies().getHomeMapIcon(this);
+		}
 	}
 
 	public String speech(String text) {
@@ -1524,24 +1543,34 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 
 	public String getSpeechColour() {
-		if (Femininity.valueOf(getFemininityValue()) == Femininity.MASCULINE || Femininity.valueOf(getFemininityValue()) == Femininity.MASCULINE_STRONG) {
-			if(isPlayer())
-				return Colour.MASCULINE.toWebHexString();
-			else
-				return Colour.MASCULINE_NPC.toWebHexString();
-
-		} else if (Femininity.valueOf(getFemininityValue()) == Femininity.ANDROGYNOUS){
-			if(isPlayer())
-				return Colour.ANDROGYNOUS.toWebHexString();
-			else
-				return Colour.ANDROGYNOUS_NPC.toWebHexString();
-
+		if(this.isPlayer()) {
+			switch(Femininity.valueOf(getFemininityValue())) {
+				case ANDROGYNOUS:
+					return Colour.ANDROGYNOUS.toWebHexString();
+				case FEMININE:
+					return Colour.FEMININE.toWebHexString();
+				case FEMININE_STRONG:
+					return Colour.FEMININE_PLUS.toWebHexString();
+				case MASCULINE:
+					return Colour.MASCULINE.toWebHexString();
+				case MASCULINE_STRONG:
+					return Colour.MASCULINE_PLUS.toWebHexString();
+			}
 		} else {
-			if(isPlayer())
-				return Colour.FEMININE.toWebHexString();
-			else
-				return Colour.FEMININE_NPC.toWebHexString();
+			switch(Femininity.valueOf(getFemininityValue())) {
+				case ANDROGYNOUS:
+					return Colour.ANDROGYNOUS_NPC.toWebHexString();
+				case FEMININE:
+					return Colour.FEMININE_NPC.toWebHexString();
+				case FEMININE_STRONG:
+					return Colour.FEMININE_PLUS_NPC.toWebHexString();
+				case MASCULINE:
+					return Colour.MASCULINE_NPC.toWebHexString();
+				case MASCULINE_STRONG:
+					return Colour.MASCULINE_PLUS_NPC.toWebHexString();
+			}
 		}
+		return null;
 	}
 
 	protected void updateAttributeListeners() {
@@ -1602,6 +1631,12 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 		postTransformationCalculation();
 	}
+	
+	public void setBody(Gender startingGender, Subspecies startingSpeciesType, RaceStage stage) {
+		body = CharacterUtils.generateBody(startingGender, startingSpeciesType, stage);
+
+		postTransformationCalculation();
+	}
 
 	public Gender getGenderIdentity() {
 		return genderIdentity;
@@ -1619,16 +1654,16 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		}
 		if((nameTriplet==null || !playerKnowsName) && !isPlayer()) {
 			if(isFeminine()) {
-				if(getRace()==Race.HUMAN)
+				if(getSubspecies()==Subspecies.HUMAN)
 					return "woman";
 				else
-					return getRace().getSingularFemaleName();
+					return getSubspecies().getSingularFemaleName();
 				
 			} else {
-				if(getRace()==Race.HUMAN)
+				if(getSubspecies()==Subspecies.HUMAN)
 					return "man";
 				else
-					return getRace().getSingularMaleName();
+					return getSubspecies().getSingularMaleName();
 			}
 			
 		} else {
@@ -1833,6 +1868,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			case WOLF_MORPH:
 				value = 1000;
 				break;
+			case SLIME:
+				value = 1000;
+				break;
 		}
 		
 		value += (getFetishes().size()*50);
@@ -1994,6 +2032,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					+ "</p>");
 	}
 	
+	public String getGiftReaction(AbstractCoreItem gift, boolean applyEffects) {
+		return null;
+	}
 	
 	// Slavery:
 	
@@ -2256,12 +2297,12 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public float getBaseAttributeValue(Attribute attribute) {
 		// Special case for health:
 		if (attribute == Attribute.HEALTH_MAXIMUM) {
-			return 10 + getAttributeValue(Attribute.MAJOR_STRENGTH)*2;
+			return 10 + 2*getLevel() + getAttributeValue(Attribute.MAJOR_PHYSIQUE)*2;
 		}
 
 		// Special case for mana:
 		if (attribute == Attribute.MANA_MAXIMUM) {
-			return 10 + getAttributeValue(Attribute.MAJOR_ARCANE)*2;
+			return 10 + 2*getLevel() + getAttributeValue(Attribute.MAJOR_ARCANE)*2;
 		}
 		
 		return attributes.get(attribute);
@@ -2279,7 +2320,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		}
 
 		// Core attribute values are bound between 0 and 100
-		if (att == Attribute.MAJOR_STRENGTH || att == Attribute.MAJOR_ARCANE || att == Attribute.MAJOR_CORRUPTION) {
+		if (att == Attribute.MAJOR_PHYSIQUE || att == Attribute.MAJOR_ARCANE || att == Attribute.MAJOR_CORRUPTION) {
 			if (value < 0)
 				value = 0;
 			if (value > 100)
@@ -2312,7 +2353,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		float manaPercentage = getManaPercentage();
 
 		// Core attribute values are bound between 0 and 100
-		if (att == Attribute.MAJOR_STRENGTH || att == Attribute.MAJOR_ARCANE || att == Attribute.MAJOR_CORRUPTION) {
+		if (att == Attribute.MAJOR_PHYSIQUE || att == Attribute.MAJOR_ARCANE || att == Attribute.MAJOR_CORRUPTION) {
 			if (value < 0)
 				value = 0;
 			if (value > 100)
@@ -2534,8 +2575,12 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		}
 	}
 	
-	private Map<Fetish, FetishDesire> getFetishDesireMap() {
+	public Map<Fetish, FetishDesire> getFetishDesireMap() {
 		return fetishDesireMap;
+	}
+	
+	public void clearFetishDesires() {
+		fetishDesireMap.clear();
 	}
 	
 	public boolean setFetishDesire(Fetish fetish, FetishDesire desire) {
@@ -2839,7 +2884,94 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public void setWonCombatCount(int count) {
 		wonCombatCount = count;
 	}
-
+	
+	public String getMainAttackDescription(boolean isHit) {
+		if(this.getMainWeapon()!=null) {
+			return this.getMainWeapon().getWeaponType().getAttackDescription(this, Combat.getTargetedCombatant(this), isHit);
+		} else {
+			return AbstractWeaponType.genericMeleeAttackDescription(this, Combat.getTargetedCombatant(this), isHit);
+		}
+	}
+	
+	public String getOffhandAttackDescription(boolean isHit) {
+		if(this.getOffhandWeapon()!=null) {
+			return this.getOffhandWeapon().getWeaponType().getAttackDescription(this, Combat.getTargetedCombatant(this), isHit);
+		} else {
+			return AbstractWeaponType.genericMeleeAttackDescription(this, Combat.getTargetedCombatant(this), isHit);
+		}
+	}
+	
+	public String getSpellDescription() {
+		return "<p>"
+				+ UtilText.parse(this,
+						UtilText.returnStringAtRandom(
+						"Letting out a wild scream, [npc.name] thrusts [npc.her] arm into mid air as [npc.she] casts a spell!",
+						"Spitting curses, [npc.name] locks [npc.her] eyes onto yours, before casting a spell!",
+						"With an angry curse, [npc.name] steps forwards and casts a spell!"))
+			+ "</p>";
+	}
+	
+	public String getSeductionDescription() {
+		String description = "";
+		
+		if(this.isFeminine()) {
+			if(Combat.getTargetedCombatant(this).isPlayer()) {
+				description = UtilText.parse(this,
+						UtilText.returnStringAtRandom(
+						"[npc.Name] erotically runs [npc.her] hands down [npc.her] legs and bends forwards as [npc.she] teases you, "
+								+ "[npc.speech(Come on baby, I can show you a good time!)]",
+						"[npc.Name] pushes out [npc.her] chest and lets out an erotic moan, "
+								+ "[npc.speech(Come play with me!)]",
+						"[npc.Name] slowly runs [npc.her] hands down between [npc.her] thighs, "
+								+ "[npc.speech(You know you want it!)]",
+						"[npc.Name] blows a kiss at you, before winking suggestively in your direction.",
+						"Biting [npc.her] lip and putting on [npc.her] most smouldering look, [npc.name] runs [npc.her] hands slowly up [npc.her] inner thighs.",
+						"As [npc.name] gives you [npc.her] most innocent look, [npc.she] blows you a little kiss.",
+						"Turning around, [npc.name] lets out a playful giggle as [npc.she] gives [npc.her] [npc.ass+] a slap.",
+						"[npc.Name] slowly runs [npc.her] [npc.hands] up the length of [npc.her] body, before pouting at you."));
+				
+			} else {
+				description = UtilText.parse(this, Combat.getTargetedCombatant(this),
+						UtilText.returnStringAtRandom(
+						"[npc.Name] blows a kiss at [npc2.name], before winking suggestively in [npc2.her] direction.",
+						"Biting [npc.her] lip and putting on [npc.her] most smouldering look, [npc.name] runs [npc.her] hands slowly up [npc.her] inner thighs.",
+						"As [npc.name] gives [npc2.name] [npc.her] most innocent look, [npc.she] blows [npc2.herHim] a little kiss.",
+						"Turning around, [npc.name] lets out a playful giggle as [npc.she] gives [npc.her] [npc.ass+] a slap.",
+						"[npc.Name] slowly runs [npc.her] [npc.hands] up the length of [npc.her] body, before pouting at [npc2.name]."));
+			}
+			
+		} else {
+			if(Combat.getTargetedCombatant(this).isPlayer()) {
+				description = UtilText.parse(this,
+						UtilText.returnStringAtRandom(
+						"[npc.Name] winks at you and flexes [npc.his] muscles, "
+								+ "[npc.speech(My body's aching for your touch!)]",
+						"[npc.Name] strikes a heroic pose before blowing a kiss your way, "
+								+ "[npc.speech(Come on, I can show you a good time!)]",
+						"[npc.Name] grins at you as [npc.he] reaches down and grabs [npc.his] crotch, "
+								+ "[npc.speech(You know you want a taste of this!)]",
+						"[npc.Name] blows a kiss at you, before winking suggestively in your direction.",
+						"Smiling confidently at you, [npc.name] slowly runs [npc.her] hands up [npc.her] inner thighs.",
+						"As [npc.name] gives you [npc.her] most seductive look, [npc.she] blows you a kiss.",
+						"Turning around, [npc.name] lets out a playful laugh as [npc.she] gives [npc.her] [npc.ass+] a slap.",
+						"[npc.Name] tries to look as commanding as possible as [npc.she] smirks playfully at you."));
+				
+			} else {
+				description = UtilText.parse(this, Combat.getTargetedCombatant(this),
+						UtilText.returnStringAtRandom(
+						"[npc.Name] blows a kiss at [npc2.name], before winking suggestively in [npc2.her] direction.",
+						"Smiling confidently at [npc2.name], [npc.name] slowly runs [npc.her] hands up [npc.her] inner thighs.",
+						"As [npc.name] gives [npc2.name] [npc.her] most seductive look, [npc.she] blows [npc2.herHim] a kiss.",
+						"Turning around, [npc.name] lets out a playful laugh as [npc.she] gives [npc.her] [npc.ass+] a slap.",
+						"[npc.Name] tries to look as commanding as possible as [npc.she] smirks playfully at [npc2.name]."));
+			}
+		}
+		
+		return "<p>"
+				+ description
+				+ "</p>";
+	}
+	
 	
 	// Sex stats:
 	public int getSexConsensualCount() {
@@ -7784,21 +7916,21 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				} else {
 					return (UtilText.parse(this,
 							"<p>"
-								+ "Due to [npc.her] <b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>masochist fetish</b>, incoming damage is reduced by 40%, but in turn, [npc.she] takes"
+								+ "Due to [npc.name]'s <b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>masochist fetish</b>, incoming damage is reduced by 40%, but in turn, [npc.she] takes"
 								+ " <b>"+-(manaLoss)+"</b> <b style='color:" + Colour.DAMAGE_TYPE_MANA.toWebHexString() + ";'>aura damage</b> as [npc.she] struggles to control [npc.her] arousal!"
 							+ "</p>"));
 				}
 			// Sadist:
-			} else if ((isPlayer()?Combat.getOpponent().hasFetish(Fetish.FETISH_SADIST):Main.game.getPlayer().hasFetish(Fetish.FETISH_SADIST)) && increment < 0) {
+			} else if (Combat.getTargetedCombatant(this).hasFetish(Fetish.FETISH_SADIST) && increment < 0) {
 				float manaLoss = (Math.round((increment*0.1f)*10))/10f;
 				
 				if (isPlayer()) {
-					Combat.getOpponent().incrementMana(manaLoss);
+					Combat.getTargetedCombatant(this).incrementMana(manaLoss);
 					setHealth(getHealth() + increment);
 					
-					return (UtilText.parse(Combat.getOpponent(),
+					return (UtilText.parse(Combat.getTargetedCombatant(this),
 							"<p>"
-								+ "Due to [npc.her] <b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>sadist fetish</b>, [npc.she] suffers 10% of dealt damage as aura damage, causing [npc.herHim] to take"
+								+ "Due to [npc.her] <b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>sadist fetish</b>, [npc.name] suffers 10% of dealt damage as aura damage, causing [npc.herHim] to take"
 								+ " <b>"+-(manaLoss)+"</b> <b style='color:" + Colour.DAMAGE_TYPE_MANA.toWebHexString() + ";'>aura damage</b> as [npc.she] struggles to control [npc.her] arousal!"
 							+ "</p>"));
 					
@@ -8535,7 +8667,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			if (inventory.addItem(item)) {
 				updateInventoryListeners();
 				Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().removeItem(item);
-				return addedItemToInventoryText(item);
+				return "<p style='text-align:center;'>"+ addedItemToInventoryText(item)+"</p>";
 			} else {
 				return inventoryFullText() + droppedItemText(item);
 			}
@@ -8543,7 +8675,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		} else {
 			if (inventory.addItem(item)) {
 				updateInventoryListeners();
-				return addedItemToInventoryText(item);
+				return "<p style='text-align:center;'>"+ addedItemToInventoryText(item)+"</p>";
 			} else {
 				Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().addItem(item);
 				return inventoryFullText() + droppedItemText(item);
@@ -8866,6 +8998,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 	public List<AbstractClothing> getClothingCurrentlyEquipped() {
 		return inventory.getClothingCurrentlyEquipped();
+	}
+	
+	public List<InventorySlot> getInventorySlotsConcealed() {
+		return inventory.getInventorySlotsConcealed();
 	}
 
 
@@ -10111,7 +10247,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 
 	public Race getRace() {
-		return body.getRace();
+		return getSubspecies().getRace();
+	}
+	
+	public Subspecies getSubspecies() {
+		return body.getSubspecies();
 	}
 	
 	public Race getAntennaRace() {
@@ -10260,6 +10400,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				return BodyCoveringType.BODY_HAIR_SQUIRREL_FUR;
 			case WOLF_MORPH:
 				return BodyCoveringType.BODY_HAIR_LYCAN_FUR;
+			case SLIME:
+				return BodyCoveringType.SLIME;
 		}
 		return BodyCoveringType.BODY_HAIR_HUMAN;
 	}
@@ -10363,14 +10505,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		if (body.getBodySize() < bodySize) {
 			if (body.setBodySize(bodySize)) {
 				if(isPlayer()) {
-					return "<p>"
+					return "<p class='center'>"
 								+ "You feel your body shifting and expanding as <b style='color:" + Colour.BODY_SIZE_THREE.toWebHexString() + ";'>you grow larger</b>.</br>"
 								+ "You now have <b style='color:"+ BodySize.valueOf(getBodySizeValue()).getColour().toWebHexString() + ";'>" + BodySize.valueOf(getBodySizeValue()).getName(true)+ "</b>, "
 									+ Muscle.valueOf(getMuscleValue()).getName(false) + " body, giving you "+BodyShape.valueOf(Muscle.valueOf(getMuscleValue()), BodySize.valueOf(getBodySizeValue())).getName(true)+" appearance."
 							+ "</p>";
 				} else {
 					return UtilText.parse(this,
-							"<p>"
+							"<p class='center'>"
 								+ "[npc.Name]'s body shifts and expands as <b style='color:" + Colour.BODY_SIZE_THREE.toWebHexString() + ";'>[npc.she] grows larger</b>.</br>"
 								+ "[npc.She] now has <b style='color:"+ BodySize.valueOf(getBodySizeValue()).getColour().toWebHexString() + ";'>" + BodySize.valueOf(getBodySizeValue()).getName(true) + "</b>, "
 										+ Muscle.valueOf(getMuscleValue()).getName(false) + " body, giving [npc.herHim] "+BodyShape.valueOf(Muscle.valueOf(getMuscleValue()), BodySize.valueOf(getBodySizeValue())).getName(true)+" appearance."
@@ -10380,14 +10522,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		} else {
 			if (body.setBodySize(bodySize)) {
 				if(isPlayer()) {
-					return "<p>"
+					return "<p class='center'>"
 							+ "You feel your body shifting and narrowing down as <b style='color:" + Colour.BODY_SIZE_ONE.toWebHexString() + ";'>you get slimmer</b>.</br>"
 							+ "You now have <b style='color:"+ BodySize.valueOf(getBodySizeValue()).getColour().toWebHexString() + ";'>" + BodySize.valueOf(getBodySizeValue()).getName(true) + "</b>, "
 									+ Muscle.valueOf(getMuscleValue()).getName(false) + " body, giving you "+BodyShape.valueOf(Muscle.valueOf(getMuscleValue()), BodySize.valueOf(getBodySizeValue())).getName(true)+" appearance."
 						+ "</p>";
 				} else {
 					return UtilText.parse(this,
-							"<p>"
+							"<p class='center'>"
 								+ "[npc.Name]'s body shifts and narrows down as <b style='color:" + Colour.BODY_SIZE_ONE.toWebHexString() + ";'>[npc.she] gets slimmer</b>.</br>"
 								+ "[npc.She] now has <b style='color:"+ BodySize.valueOf(getBodySizeValue()).getColour().toWebHexString() + ";'>" + BodySize.valueOf(getBodySizeValue()).getName(true) + "</b>, "
 										+ Muscle.valueOf(getMuscleValue()).getName(false) + " body, giving [npc.herHim] "+BodyShape.valueOf(Muscle.valueOf(getMuscleValue()), BodySize.valueOf(getBodySizeValue())).getName(true)+" appearance."
@@ -10425,14 +10567,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		if (body.getMuscle() < muscle) {
 			if (body.setMuscle(muscle)) {
 				if(isPlayer()) {
-					return "<p>"
+					return "<p class='center'>"
 								+ "You feel your body shifting as <b style='color:" + Colour.MUSCLE_THREE.toWebHexString() + ";'>you get more muscular</b>.</br>"
 								+ "You now have <b style='color:"+ Muscle.valueOf(getMuscleValue()).getColour().toWebHexString() + ";'>" + Muscle.valueOf(getMuscleValue()).getName(true) + "</b>, "
 										+ BodySize.valueOf(getBodySizeValue()).getName(false) + " body, giving you "+BodyShape.valueOf(Muscle.valueOf(getMuscleValue()), BodySize.valueOf(getBodySizeValue())).getName(true)+" appearance."
 							+ "</p>";
 				} else {
 					return UtilText.parse(this,
-							"<p>"
+							"<p class='center'>"
 								+ "[npc.Name]'s body shifts as <b style='color:" + Colour.MUSCLE_THREE.toWebHexString() + ";'>[npc.she] gets more muscular</b>.</br>"
 								+ "[npc.She] now has <b style='color:"+ Muscle.valueOf(getMuscleValue()).getColour().toWebHexString() + ";'>" + Muscle.valueOf(getMuscleValue()).getName(true) + "</b>, "
 										+ BodySize.valueOf(getBodySizeValue()).getName(false) + " body, giving [npc.her] "+BodyShape.valueOf(Muscle.valueOf(getMuscleValue()), BodySize.valueOf(getBodySizeValue())).getName(true)+" appearance."
@@ -10442,14 +10584,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		} else {
 			if (body.setMuscle(muscle)) {
 				if(isPlayer()) {
-					return "<p>"
+					return "<p class='center'>"
 							+ "You feel your body shifting as <b style='color:" + Colour.MUSCLE_ONE.toWebHexString() + ";'>you lose some of your muscle</b>.</br>"
 							+ "You now have <b style='color:"+ Muscle.valueOf(getMuscleValue()).getColour().toWebHexString() + ";'>" + Muscle.valueOf(getMuscleValue()).getName(true) + "</b>, "
 									+ BodySize.valueOf(getBodySizeValue()).getName(false) + " body, giving you "+BodyShape.valueOf(Muscle.valueOf(getMuscleValue()), BodySize.valueOf(getBodySizeValue())).getName(true)+" appearance."
 						+ "</p>";
 				} else {
 					return UtilText.parse(this,
-							"<p>"
+							"<p class='center'>"
 								+ "[npc.Name]'s body shifts as <b style='color:" + Colour.MUSCLE_ONE.toWebHexString() + ";'>[npc.she] loses some of [npc.her] muscle</b>.</br>"
 								+ "[npc.She] now has <b style='color:"+ Muscle.valueOf(getMuscleValue()).getColour().toWebHexString() + ";'>" + Muscle.valueOf(getMuscleValue()).getName(true) + "</b>, "
 										+ BodySize.valueOf(getBodySizeValue()).getName(false) + " body, giving [npc.her] "+BodyShape.valueOf(Muscle.valueOf(getMuscleValue()), BodySize.valueOf(getBodySizeValue())).getName(true)+" appearance."
@@ -10496,25 +10638,25 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		if (body.getHeightValue() < height) {
 			if (body.setHeight(height))
 				return isPlayer()
-						? "<p>"
+						? "<p class='center'>"
 							+ "The world around you seems slightly further away than it used to be, but after a moment you realise that you've just <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>grown taller</b>."
 							+ "</br>"
 							+ "You are now <b>" + getHeightValue() + "cm</b> tall."
 						+ "</p>"
 						: UtilText.parse(this,
-							"<p>"
+							"<p class='center'>"
 								+ "[npc.She] sways from side to side a little, [npc.her] balance suddenly thrown off by the fact that [npc.she]'s just <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>grown taller</b>."
 							+ "</p>");
 		} else {
 			if (body.setHeight(height))
 				return isPlayer()
-						? "<p>"
+						? "<p class='center'>"
 							+ "The world around you suddenly seems slightly closer than it used to be, but after a moment you realise that you've just <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>become shorter</b>."
 							+ "</br>"
 							+ "You are now <b>" + getHeightValue() + "cm</b> tall."
 						+ "</p>"
 						: UtilText.parse(this,
-							"<p>"
+							"<p class='center'>"
 								+ "[npc.She] shrinks down, <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>becoming noticeably shorter</b>."
 							+ "</p>");
 		}

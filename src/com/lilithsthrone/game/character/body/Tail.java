@@ -54,6 +54,11 @@ public class Tail implements BodyPartInterface, Serializable {
 	}
 
 	public String setType(GameCharacter owner, TailType type) {
+		if(owner==null) {
+			this.type = type;
+			return "";
+		}
+		
 		if (type == getType()) {
 			if(type == TailType.NONE) {
 				if(owner.isPlayer()) {
@@ -171,18 +176,18 @@ public class Tail implements BodyPartInterface, Serializable {
 							);
 				}
 				break;
-			case DOG_MORPH:
+			case DOG_MORPH: case DOG_MORPH_STUBBY:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 							(owner.getTailCount()==1
 								?" A furry, dog-like tail sprouts from just above your ass, rapidly growing in size until it's about half the length of one of your legs."
 									+ " You quickly realise that you have little control over it, and it wags with a mind of its own whenever you get excited."
 									+ "</br>"
-									+ "You now have a [style.boldDogMorph(dog-like tail)]"
+									+ "You now have a [style.boldDogMorph("+(type==TailType.DOG_MORPH_STUBBY?"stubby, ":"")+"dog-like tail)]"
 								:" [pc.TailCount] furry, dog-like tails sprout from just above your ass, rapidly growing in size until they're each about half the length of one of your legs."
 									+ " You quickly realise that you have little control over them, and they wag with a mind of their own whenever you get excited."
 									+ "</br>"
-									+ "You now have [pc.tailCount] [style.boldDogMorph(dog-like tails)]")
+									+ "You now have [pc.tailCount] [style.boldDogMorph("+(type==TailType.DOG_MORPH_STUBBY?"stubby, ":"")+"dog-like tails)]")
 							);
 				} else {
 					UtilText.transformationContentSB.append(
@@ -190,11 +195,11 @@ public class Tail implements BodyPartInterface, Serializable {
 								?" A furry, dog-like tail sprouts from just above [npc.her] ass, rapidly growing in size until it's about half the length of one of [npc.her] legs."
 									+ " [npc.She] quickly realises that [npc.she] has little control over it, and it wags with a mind of its own whenever [npc.she] gets excited."
 									+ "</br>"
-									+ "[npc.Name] now has a [style.boldDogMorph(dog-like tail)]"
+									+ "[npc.Name] now has a [style.boldDogMorph("+(type==TailType.DOG_MORPH_STUBBY?"stubby, ":"")+"dog-like tail)]"
 								:" [npc.TailCount] furry, dog-like tails sprout from just above [npc.her] ass, rapidly growing in size until they're each about half the length of one of [npc.her] legs."
 									+ " [npc.She] quickly realises that [npc.she] has little control over them, and they wag with a mind of their own whenever [npc.she] gets excited."
 									+ "</br>"
-									+ "[npc.Name] now has [npc.tailCount] [style.boldDogMorph(dog-like tails)]")
+									+ "[npc.Name] now has [npc.tailCount] [style.boldDogMorph("+(type==TailType.DOG_MORPH_STUBBY?"stubby, ":"")+"dog-like tails)]")
 							);
 				}
 				break;

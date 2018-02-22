@@ -1,8 +1,11 @@
 package com.lilithsthrone.game.character.body.valueEnums;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @since 0.1.83
- * @version 0.1.83
+ * @version 0.1.99
  * @author Innoxia
  */
 public enum CoveringPattern {
@@ -23,10 +26,24 @@ public enum CoveringPattern {
 	HIGHLIGHTS("highlighted"),
 	STRIPED("striped"),
 	SPOTTED("spotted"),
-	MOTTLED("mottled");
+	MOTTLED("mottled"),
+	MARKED("marked");
+	
+	
+	public static List<CoveringPattern> allStandardCoveringPatterns = new ArrayList<>();
+	
+	static {
+		allStandardCoveringPatterns.add(NONE);
+		allStandardCoveringPatterns.add(HIGHLIGHTS);
+		allStandardCoveringPatterns.add(STRIPED);
+		allStandardCoveringPatterns.add(SPOTTED);
+		allStandardCoveringPatterns.add(MOTTLED);
+		allStandardCoveringPatterns.add(MARKED);
+	}
+	
 	
 	private String name;
-
+	
 	private CoveringPattern(String name) {
 		this.name = name;
 	}

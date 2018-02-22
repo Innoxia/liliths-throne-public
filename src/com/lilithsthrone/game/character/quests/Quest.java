@@ -1,18 +1,18 @@
-package com.lilithsthrone.game.character;
+package com.lilithsthrone.game.character.quests;
 
 import com.lilithsthrone.main.Main;
-import com.lilithsthrone.utils.Colour;
 
 /**
  * @since 0.1.0
- * @version 0.1.97
+ * @version 0.1.99
  * @author Innoxia
  */
 public enum Quest {
-
+	
+	
 	// Main quests:
 
-	MAIN_PROLOGUE(0, QuestType.MAIN, 1, 5) {
+	MAIN_PROLOGUE(QuestType.MAIN, 1, 5) {
 		@Override
 		public String getName() {
 			return "Survive the evening";
@@ -31,7 +31,7 @@ public enum Quest {
 		}
 	},
 
-	MAIN_1_A_LILAYAS_TESTS(1, QuestType.MAIN, 1, 10) {
+	MAIN_1_A_LILAYAS_TESTS(QuestType.MAIN, 1, 10) {
 		@Override
 		public String getName() {
 			return "Lilaya's tests";
@@ -48,7 +48,7 @@ public enum Quest {
 		}
 	},
 
-	MAIN_1_B_DEMON_HOME(2, QuestType.MAIN, 1, 10) {
+	MAIN_1_B_DEMON_HOME(QuestType.MAIN, 1, 10) {
 		@Override
 		public String getName() {
 			return "The search for Arthur; Demon Home";
@@ -67,7 +67,7 @@ public enum Quest {
 		}
 	},
 
-	MAIN_1_C_WOLFS_DEN(3, QuestType.MAIN, 3, 20) {
+	MAIN_1_C_WOLFS_DEN(QuestType.MAIN, 3, 20) {
 		@Override
 		public String getName() {
 			return "The search for Arthur; The Wolf's Den";
@@ -84,7 +84,7 @@ public enum Quest {
 		}
 	},
 
-	MAIN_1_D_SLAVERY(4, QuestType.MAIN, 3, 10) {
+	MAIN_1_D_SLAVERY(QuestType.MAIN, 3, 10) {
 		@Override
 		public String getName() {
 			return "The search for Arthur; Sold into Slavery";
@@ -102,7 +102,7 @@ public enum Quest {
 		}
 	},
 	
-	MAIN_1_E_REPORT_TO_ALEXA(5, QuestType.MAIN, 3, 30) {
+	MAIN_1_E_REPORT_TO_ALEXA(QuestType.MAIN, 3, 30) {
 		@Override
 		public String getName() {
 			return "The search for Arthur; Find Alexa";
@@ -121,7 +121,7 @@ public enum Quest {
 		}
 	},
 	
-	MAIN_1_F_SCARLETTS_FATE(6, QuestType.MAIN, 3, 30) {
+	MAIN_1_F_SCARLETTS_FATE(QuestType.MAIN, 3, 30) {
 		@Override
 		public String getName() {
 			return "The search for Arthur; Scarlett's fate";
@@ -138,7 +138,7 @@ public enum Quest {
 		}
 	},
 	
-	MAIN_1_G_SLAVERY(7, QuestType.MAIN, 3, 30) {
+	MAIN_1_G_SLAVERY(QuestType.MAIN, 3, 30) {
 		@Override
 		public String getName() {
 			return "The search for Arthur; Slavery";
@@ -156,7 +156,7 @@ public enum Quest {
 		}
 	},
 	
-	MAIN_1_H_THE_GREAT_ESCAPE(8, QuestType.MAIN, 10, 200) {
+	MAIN_1_H_THE_GREAT_ESCAPE(QuestType.MAIN, 10, 200) {
 		@Override
 		public String getName() {
 			return "The search for Arthur; The Great Escape";
@@ -174,7 +174,7 @@ public enum Quest {
 		}
 	},
 	
-	MAIN_1_I_ARTHURS_TALE(9, QuestType.MAIN, 10, 30) {
+	MAIN_1_I_ARTHURS_TALE(QuestType.MAIN, 10, 30) {
 		@Override
 		public String getName() {
 			return "The search for Arthur; Conclusion";
@@ -193,7 +193,7 @@ public enum Quest {
 		}
 	},
 	
-	MAIN_1_J_ARTHURS_ROOM(10, QuestType.MAIN, 10, 30) {
+	MAIN_1_J_ARTHURS_ROOM(QuestType.MAIN, 10, 30) {
 		@Override
 		public String getName() {
 			return "The search for Arthur; A room of his own";
@@ -212,7 +212,7 @@ public enum Quest {
 	},
 	
 	
-	MAIN_2_A_INTO_THE_DEPTHS(11, QuestType.MAIN, 12, 30) {
+	MAIN_2_A_INTO_THE_DEPTHS(QuestType.MAIN, 12, 30) {
 		@Override
 		public String getName() {
 			return "Into the depths; The world of Submission";
@@ -228,13 +228,30 @@ public enum Quest {
 
 		@Override
 		public String getCompletedDescription() {
-			return "Spoilers! :3"; //TODO
+			return "This is as far as the main quest goes for now! :3"; //TODO
 		}
 	},
 
 	// Side Quests:
 
-	SIDE_DISCOVER_ALL_ITEMS(0, QuestType.SIDE, 1, 100) {
+	SIDE_UTIL_COMPLETE(QuestType.SIDE, 1, 0) {
+		@Override
+		public String getName() {
+			return "Quest Complete!";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Quest complete!";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "Quest complete!";
+		}
+	},
+	
+	SIDE_DISCOVER_ALL_ITEMS(QuestType.SIDE, 1, 100) {
 		@Override
 		public String getName() {
 			return "Completionist";
@@ -251,7 +268,7 @@ public enum Quest {
 		}
 	},
 
-	SIDE_DISCOVER_ALL_RACES(1, QuestType.SIDE, 1, 100) {
+	SIDE_DISCOVER_ALL_RACES(QuestType.SIDE, 1, 100) {
 		@Override
 		public String getName() {
 			return "Completionist";
@@ -268,45 +285,10 @@ public enum Quest {
 		}
 	},
 	
-	// For when you discover a jinxed item:
-	
-	SIDE_JINXED_LILAYA_HELP(0, QuestType.SIDE, 1, 10) {
-		@Override
-		public String getName() {
-			return "Lilaya knows everything!";
-		}
-
-		@Override
-		public String getDescription() {
-			return "After equipping a mysterious item of clothing, you discovered that not all arcane enchantments are beneficial."
-					+ " You're sure that Lilaya will know how to remove your jinxed clothing, so perhaps you should go and ask her about it.";
-		}
-
-		@Override
-		public String getCompletedDescription() {
-			return "After scolding you for a little while, Lilaya informed you that you'll need use an enchanted weapon as a sacrifice in order to remove your jinxed clothing.";
-		}
-	},
-	SIDE_JINX_REMOVE_JINX(1, QuestType.SIDE, 1, 10) {
-		@Override
-		public String getName() {
-			return "Remove the jinxed clothing";
-		}
-
-		@Override
-		public String getDescription() {
-			return "You should try out your newfound knowledge of how to remove jinxed clothing.";
-		}
-
-		@Override
-		public String getCompletedDescription() {
-			return "You've managed to remove a jinx from an item of clothing! Maybe you shouldn't equip unidentified clothing in the future...";
-		}
-	},
 	
 	// For when you discover your first essence:
 	
-	SIDE_ENCHANTMENTS_LILAYA_HELP(0, QuestType.SIDE, 1, 10) {
+	SIDE_ENCHANTMENTS_LILAYA_HELP(QuestType.SIDE, 1, 10) {
 		@Override
 		public String getName() {
 			return "Ask Lilaya for help";
@@ -324,27 +306,10 @@ public enum Quest {
 					+ " She seemed a little worried that you're able to do this, as apparently it's normally only Lilin who are able to gather essences in this fashion...";
 		}
 	},
-//	SIDE_ENCHANTMENTS_ENCHANT_SOMETHING(1, QuestType.SIDE, 1, 10) {
-//		@Override
-//		public String getName() {
-//			return "Enchant something";
-//		}
-//
-//		@Override
-//		public String getDescription() {
-//			return "Lilaya informed you that essences are the vital component in infusing the arcane into objects in order to create enchanted items."
-//					+ " You should try enchanting something! (Select an enchantable item in your inventory, then choose 'enchant'!)";
-//		}
-//
-//		@Override
-//		public String getCompletedDescription() {
-//			return "You've managed to enchant an item!";
-//		}
-//	},
 
 	// For the first time you get pregnant:
 	
-	SIDE_PREGNANCY_CONSULT_LILAYA(0, QuestType.SIDE, 1, 10) {
+	SIDE_PREGNANCY_CONSULT_LILAYA(QuestType.SIDE, 1, 10) {
 		@Override
 		public String getName() {
 			return "Lilaya knows best";
@@ -360,7 +325,7 @@ public enum Quest {
 			return "Lilaya managed to calm you down, and reassured you that pregnancy in this world isn't as big a deal as it was back home.";
 		}
 	},
-	SIDE_PREGNANCY_LILAYA_THE_MIDWIFE(1, QuestType.SIDE, 1, 20) {
+	SIDE_PREGNANCY_LILAYA_THE_MIDWIFE(QuestType.SIDE, 1, 20) {
 		@Override
 		public String getName() {
 			return "Lilaya the midwife";
@@ -379,7 +344,7 @@ public enum Quest {
 	
 	// Getting a Slaver License:
 	
-	SIDE_SLAVER_NEED_RECOMMENDATION(0, QuestType.SIDE, 1, 10) {
+	SIDE_SLAVER_NEED_RECOMMENDATION(QuestType.SIDE, 1, 10) {
 		@Override
 		public String getName() {
 			return "Letter of recommendation";
@@ -395,8 +360,7 @@ public enum Quest {
 			return "Lilaya gave you a letter of recommendation, and what's more, she also offered to let you house your slaves in her mansion.";
 		}
 	},
-	
-	SIDE_SLAVER_RECOMMENDATION_OBTAINED(1, QuestType.SIDE, 1, 10) {
+	SIDE_SLAVER_RECOMMENDATION_OBTAINED(QuestType.SIDE, 1, 10) {
 		@Override
 		public String getName() {
 			return "Present letter";
@@ -413,7 +377,7 @@ public enum Quest {
 		}
 	},
 	
-	SIDE_HYPNO_WATCH_VICKY(0, QuestType.SIDE, 1, 10) {
+	SIDE_HYPNO_WATCH_VICKY(QuestType.SIDE, 1, 10) {
 		@Override
 		public String getName() {
 			return "Order at Arcane Arts";
@@ -432,7 +396,7 @@ public enum Quest {
 		}
 	},
 	
-	SIDE_HYPNO_WATCH_TEST_SUBJECT(1, QuestType.SIDE, 1, 10) {
+	SIDE_HYPNO_WATCH_TEST_SUBJECT(QuestType.SIDE, 1, 10) {
 		@Override
 		public String getName() {
 			return "Test subject";
@@ -452,9 +416,65 @@ public enum Quest {
 	},
 	
 	
+	SIDE_NYAN_STOCK_ISSUES(QuestType.SIDE, 1, 0) {
+		@Override
+		public String getName() {
+			return "Offer Nyan your help";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Nyan explained that she's unable to sell any enchanted clothing due to the fact that her suppliers don't offer any."
+					+ " Apparently, these suppliers have used force to drive all of their rivals out of the area, so she has no alternative but to use them...</br>"
+					+ "Perhaps you could offer to convince these new suppliers to let the old ones back?";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You offered Nyan your help in convincing the new suppliers to let the old ones back.";
+		}
+	},
+	
+	SIDE_NYAN_STOCK_ISSUES_AGREED_TO_HELP(QuestType.SIDE, 10, 0) {
+		@Override
+		public String getName() {
+			return "Confront the suppliers";
+		}
+
+		@Override
+		public String getDescription() {
+			return "Nyan explained that the suppliers still work out of the supply depot here in the Shopping Arcane."
+					+ " From all that Nyan's told you about these new suppliers, you should be prepared for a tough fight if you decide to go and talk to them...";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "You put an end to the dobermanns' monopoly, and although they'll continue to work as clothing suppliers, they'll stop intimidating the others.";
+		}
+	},
+	
+	SIDE_NYAN_STOCK_ISSUES_SUPPLIERS_BEATEN(QuestType.SIDE, 10, 100) {
+		@Override
+		public String getName() {
+			return "Reward";
+		}
+
+		@Override
+		public String getDescription() {
+			return "You should return to Nyan and get the reward she promised you.";
+		}
+
+		@Override
+		public String getCompletedDescription() {
+			return "Nyan paid you the reward she promised, and also offered to give you a 25% discount in her store. She also let slip that she's single, in a clumsy attempt to hit on you...";
+		}
+	},
+	
+	
+	
 	// Angry Harpies:
 	
-	HARPY_PACIFICATION_ONE(0, QuestType.SIDE, 6, 25) {
+	HARPY_PACIFICATION_ONE(QuestType.SIDE, 6, 25) {
 		@Override
 		public String getName() {
 			return "Nests in chaos";
@@ -471,7 +491,7 @@ public enum Quest {
 			return "You've managed to assume control of one of the harpy nests!";
 		}
 	},
-	HARPY_PACIFICATION_TWO(1, QuestType.SIDE, 6, 25) {
+	HARPY_PACIFICATION_TWO(QuestType.SIDE, 6, 25) {
 		@Override
 		public String getName() {
 			return "One down, two to go";
@@ -487,7 +507,7 @@ public enum Quest {
 			return "You've managed to assume control of two of the harpy nests!";
 		}
 	},
-	HARPY_PACIFICATION_THREE(2, QuestType.SIDE, 6, 25) {
+	HARPY_PACIFICATION_THREE(QuestType.SIDE, 6, 25) {
 		@Override
 		public String getName() {
 			return "One matriarch left";
@@ -503,7 +523,7 @@ public enum Quest {
 			return "You've managed to assume control of all three of the major harpy nests!";
 		}
 	},
-	HARPY_PACIFICATION_REWARD(3, QuestType.SIDE, 6, 50) {
+	HARPY_PACIFICATION_REWARD(QuestType.SIDE, 6, 50) {
 		@Override
 		public String getName() {
 			return "Harpy "+(Main.game.getPlayer().isFeminine()?"queen":"king");
@@ -520,37 +540,14 @@ public enum Quest {
 		}
 	};
 
-	private int sortingOrder, level, experienceReward;
+	private int level, experienceReward;
 	private QuestType questType;
 
-	private Quest(int sortingOrder, QuestType questType, int level, int experienceReward) {
-		this.sortingOrder = sortingOrder;
-
+	private Quest(QuestType questType, int level, int experienceReward) {
 		this.questType = questType;
 
 		this.level = level;
 		this.experienceReward = experienceReward;
-	}
-
-	public static String getLevelAndExperienceHTML(Quest q, boolean active) {
-		if (active) {
-			if(q.getLevel() <= Main.game.getPlayer().getLevel() - 3) {
-				return "<b class='quest-extra level' style='color:"+  Colour.GENERIC_GOOD + ";'>Level " + q.getLevel()+ "</b>"
-						+ "<b class='quest-extra experience' style='color:" + Colour.GENERIC_EXPERIENCE.toWebHexString() + ";'>" + q.getExperienceReward() + " xp</b>";
-				
-			} else if (q.getLevel() >= Main.game.getPlayer().getLevel() + 3) {
-				return "<b class='quest-extra level' style='color:"+  Colour.GENERIC_BAD + ";'>Level " + q.getLevel()+ "</b>"
-						+ "<b class='quest-extra experience' style='color:" + Colour.GENERIC_EXPERIENCE.toWebHexString() + ";'>" + q.getExperienceReward() + " xp</b>";
-				
-			} else {
-				return "<b class='quest-extra level'>Level " + q.getLevel()+ "</b>"
-						+ "<b class='quest-extra experience' style='color:" + Colour.GENERIC_EXPERIENCE.toWebHexString() + ";'>" + q.getExperienceReward() + " xp</b>";
-			}
-			
-		} else {
-			return "<b class='quest-extra level' style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Level " + q.getLevel() + "</b>"
-					+ "<b class='quest-extra experience' style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>" + q.getExperienceReward() + " xp</b>";
-		}
 	}
 
 	public abstract String getName();
@@ -558,10 +555,6 @@ public enum Quest {
 	public abstract String getDescription();
 
 	public abstract String getCompletedDescription();
-
-	public int getSortingOrder() {
-		return sortingOrder;
-	}
 
 	public int getLevel() {
 		return level;

@@ -77,9 +77,9 @@ import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.character.npc.dominion.DominionSuccubusAttacker;
-import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.BlockedParts;
@@ -225,7 +225,7 @@ public class CharacterUtils {
 		RacialBody startingBodyType = RacialBody.HUMAN;
 		RacialBody motherBody = RacialBody.valueOfRace(mother.getRace());
 		RacialBody fatherBody = RacialBody.valueOfRace(father.getRace());
-		Race raceTakesAfter = mother.getRace();
+		Subspecies raceTakesAfter = mother.getSubspecies();
 		RaceStage stage = RaceStage.HUMAN;
 		boolean takesAfterMother = true;
 		boolean raceFromMother = true;
@@ -240,11 +240,13 @@ public class CharacterUtils {
 		} else {
 			startingBodyType = fatherBody;
 			stage = father.getRaceStage();
-			raceTakesAfter = father.getRace();
+			raceTakesAfter = father.getSubspecies();
 			raceFromMother = false;
 		}
 		
-		switch(startingGender.isFeminine()?Main.getProperties().raceFemininePreferencesMap.get(raceTakesAfter):Main.getProperties().raceMasculinePreferencesMap.get(raceTakesAfter)) {
+		switch(startingGender.isFeminine()
+				?Main.getProperties().subspeciesFeminineFurryPreferencesMap.get(raceTakesAfter)
+				:Main.getProperties().subspeciesMasculineFurryPreferencesMap.get(raceTakesAfter)) {
 			case HUMAN:
 				stage = RaceStage.HUMAN;
 				break;
@@ -820,9 +822,16 @@ public class CharacterUtils {
 		
 //		return (int) ((baseSize + (Math.signum(difference)*Util.random.nextInt(Math.abs(difference) +1)))*(0.9f+(Math.random()*0.2f)));
 	}
-	
+
+	public static Body generateBody(Gender startingGender, Subspecies species, RaceStage stage) {
+		return generateBody(startingGender, RacialBody.valueOfRace(species.getRace()), species, stage);
+	}
 	
 	public static Body generateBody(Gender startingGender, RacialBody startingBodyType, RaceStage stage) {
+		return generateBody(startingGender, startingBodyType, null, stage);
+	}
+	
+	public static Body generateBody(Gender startingGender, RacialBody startingBodyType, Subspecies species, RaceStage stage) {
 		
 		boolean hasVagina = startingGender.getGenderName().isHasVagina();
 		boolean hasPenis = startingGender.getGenderName().isHasPenis();
@@ -900,6 +909,11 @@ public class CharacterUtils {
 		body.getFace().setFacialHair(null, hair);
 		body.getArm().setUnderarmHair(null, hair);
 		body.getAss().getAnus().setAssHair(null, hair);
+		
+		if(species!=null) {
+			species.applySpeciesChanges(body);
+			body.calculateRace();
+		}
 		
 		return body;
 	}
@@ -1283,10 +1297,10 @@ public class CharacterUtils {
 								character.equipClothingFromNowhere(AbstractClothingType.generateClothing(
 										ct,
 										(slot == InventorySlot.GROIN || slot==InventorySlot.CHEST || slot==InventorySlot.SOCK
-												? lingerieColour
+												? ct.getAvailablePrimaryColours().contains(lingerieColour)?lingerieColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
 												: (slot.isCoreClothing()
-														?primaryColour
-														:secondaryColour)),
+														?ct.getAvailablePrimaryColours().contains(primaryColour)?primaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
+														:ct.getAvailablePrimaryColours().contains(secondaryColour)?secondaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size())))),
 										false), true, character);
 							}
 						}
@@ -1319,10 +1333,10 @@ public class CharacterUtils {
 							character.equipClothingFromNowhere(AbstractClothingType.generateClothing(
 									ct,
 									(slot == InventorySlot.GROIN || slot==InventorySlot.CHEST || slot==InventorySlot.SOCK
-											? lingerieColour
-											: (slot.isCoreClothing()
-													?primaryColour
-													:secondaryColour)),
+											?  ct.getAvailablePrimaryColours().contains(lingerieColour)?lingerieColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
+													: (slot.isCoreClothing()
+															?ct.getAvailablePrimaryColours().contains(primaryColour)?primaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
+															:ct.getAvailablePrimaryColours().contains(secondaryColour)?secondaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size())))),
 									false), true, character);
 							}
 								

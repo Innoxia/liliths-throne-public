@@ -20,7 +20,7 @@ public enum SVGImages {
 
 	private String
 
-	displacedIcon, cummedInIcon, feminineWarningIcon, masculineWarningIcon, jinxedIcon,
+	displacedIcon, concealedIcon, cummedInIcon, feminineWarningIcon, masculineWarningIcon, jinxedIcon,
 
 			menuIcon, inventoryIcon, inventoryIconDisabled, inventorySwitchIcon, inventorySwitchOppositeIcon, journalIcon, peopleIcon, zoomInIcon, zoomOutIcon, copyIcon, exportIcon, calendarIcon,
 
@@ -33,6 +33,8 @@ public enum SVGImages {
 			playerMapIconFeminine, playerPlaceMapIconFeminine,
 			playerMapDangerousIcon, playerPlaceMapDangerousIcon,
 
+			raceUnknown, raceDobermann, raceDobermannDesaturated,
+			
 			perkTreeArrow, spellOverlay,
 
 			weatherDayClear, weatherDayCloud, weatherDayRain, weatherDaySnow, weatherDayStormIncoming, weatherDayStorm, weatherDayStormProtected,
@@ -80,6 +82,10 @@ public enum SVGImages {
 			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/InventoryIcons/displacedWarningIcon.svg");
 			displacedIcon = Util.inputStreamToString(is);
 
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/InventoryIcons/concealed.svg");
+			concealedIcon = Util.inputStreamToString(is);
+			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/InventoryIcons/cummedInWarningIcon.svg");
 			cummedInIcon = Util.inputStreamToString(is);
 
@@ -192,6 +198,19 @@ public enum SVGImages {
 			playerPlaceMapDangerousIcon = Util.inputStreamToString(is);
 			playerPlaceMapDangerousIcon = setColour(playerPlaceMapDangerousIcon, Colour.GENERIC_BAD);
 
+			
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/raceUnknown.svg");
+			raceUnknown = Util.inputStreamToString(is);
+			raceUnknown = setColour(raceUnknown, Colour.RACE_UNKNOWN);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/raceDogMorphDobermann.svg");
+			raceDobermann = Util.inputStreamToString(is);
+			raceDobermann = setColour(raceDobermann, Colour.RACE_DOG_MORPH);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/raceDogMorphDobermann.svg");
+			raceDobermannDesaturated = Util.inputStreamToString(is);
+			raceDobermannDesaturated = setColour(raceDobermannDesaturated, Colour.BASE_GREY);
+			
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/perkTreeArrow.svg");
 			perkTreeArrow = Util.inputStreamToString(is);
@@ -527,6 +546,10 @@ public enum SVGImages {
 		return displacedIcon;
 	}
 
+	public String getConcealedIcon() {
+		return concealedIcon;
+	}
+	
 	public String getCummedInIcon() {
 		return cummedInIcon;
 	}
@@ -1037,5 +1060,18 @@ public enum SVGImages {
 	public String getCreampieMasochist() {
 		return creampieMasochist;
 	}
+
+	public String getRaceUnknown() {
+		return raceUnknown;
+	}
+
+	public String getRaceDobermann() {
+		return raceDobermann;
+	}
+	
+	public String getRaceDobermannDesaturated() {
+		return raceDobermannDesaturated;
+	}
+	
 	
 }

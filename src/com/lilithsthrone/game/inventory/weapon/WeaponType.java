@@ -15,9 +15,11 @@ import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.Rarity;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.84
@@ -26,7 +28,8 @@ import com.lilithsthrone.utils.Util.Value;
  */
 public class WeaponType {
 	
-	public static AbstractWeaponType MELEE_CHAOS_RARE = new AbstractWeaponType("an",
+	public static AbstractWeaponType MELEE_CHAOS_RARE = new AbstractWeaponType(1000,
+			"an",
 			"it",
 			"opaque demonstone",
 			"opaque demonstones",
@@ -59,7 +62,8 @@ public class WeaponType {
 		}
 	};
 	
-	public static AbstractWeaponType MELEE_CHAOS_EPIC = new AbstractWeaponType("a",
+	public static AbstractWeaponType MELEE_CHAOS_EPIC = new AbstractWeaponType(1500,
+			"a",
 			"it",
 			"misty demonstone",
 			"misty demonstones",
@@ -92,7 +96,8 @@ public class WeaponType {
 		}
 	};
 	
-	public static AbstractWeaponType MELEE_CHAOS_LEGENDARY = new AbstractWeaponType("a",
+	public static AbstractWeaponType MELEE_CHAOS_LEGENDARY = new AbstractWeaponType(2500,
+			"a",
 			"it",
 			"clear demonstone",
 			"clear demonstones",
@@ -104,7 +109,7 @@ public class WeaponType {
 			Util.newArrayListOfValues(new ListValue<DamageType>(DamageType.FIRE)),
 			DamageLevel.HIGH,
 			DamageVariance.LOW,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 5)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5)),
 			Util.newArrayListOfValues(
 					new ListValue<Spell>(Spell.FIREBALL_1),
 					new ListValue<Spell>(Spell.FIRE_SHIELD),
@@ -129,7 +134,8 @@ public class WeaponType {
 	};
 
 	// OFFHAND
-	public static AbstractWeaponType OFFHAND_CHAOS_RARE = new AbstractWeaponType("a",
+	public static AbstractWeaponType OFFHAND_CHAOS_RARE = new AbstractWeaponType(1000,
+			"a",
 			"it",
 			"chaos feather",
 			"chaos feathers",
@@ -162,7 +168,8 @@ public class WeaponType {
 		}
 	};
 	
-	public static AbstractWeaponType OFFHAND_CHAOS_EPIC = new AbstractWeaponType("a",
+	public static AbstractWeaponType OFFHAND_CHAOS_EPIC = new AbstractWeaponType(1500,
+			"a",
 			"it",
 			"chaos feather",
 			"chaos feathers",
@@ -196,7 +203,8 @@ public class WeaponType {
 	};
 	
 	// I made this in one of my lunch breaks x_x
-	public static AbstractWeaponType MAIN_WESTERN_KKP = new AbstractWeaponType("a",
+	public static AbstractWeaponType MAIN_WESTERN_KKP = new AbstractWeaponType(25000,
+			"a",
 			"it",
 			"Western KKP",
 			"Western KKPs",
@@ -228,7 +236,8 @@ public class WeaponType {
 		}
 	};
 	
-	public static AbstractWeaponType MAIN_WITCH_BROOM = new AbstractWeaponType("a",
+	public static AbstractWeaponType MAIN_WITCH_BROOM = new AbstractWeaponType(5000,
+			"a",
 			"it",
 			"Witch's Broom",
 			"Witch's Brooms",
@@ -298,7 +307,8 @@ public class WeaponType {
 		}
 	};
 	
-	public static AbstractWeaponType MAIN_FEATHER_DUSTER = new AbstractWeaponType("a",
+	public static AbstractWeaponType MAIN_FEATHER_DUSTER = new AbstractWeaponType(250,
+			"a",
 			"it",
 			"feather duster",
 			"feather dusters",
@@ -309,12 +319,25 @@ public class WeaponType {
 			Util.newArrayListOfValues(new ListValue<DamageType>(DamageType.PHYSICAL)),
 			DamageLevel.AWFUL,
 			DamageVariance.LOW,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 5)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5)),
 			Util.newArrayListOfValues(
 					new ListValue<Spell>(Spell.ARCANE_SHIELD))) {
 		
 		private static final long serialVersionUID = 1L;
-				
+		
+		
+		@Override
+
+		public String getDescription() {
+			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SHOPPING_ARCADE_ASHLEYS_SHOP) {
+				return "A short-handled feather duster, ideal for keeping a house clean, but not much use in combat..."
+						+ " [Ashley.speech(A feather duster: the epitome of romance, at least for those who don’t know anything about their lover, other than that they're the person who keeps the house clean.)]";
+//						+ " Surely, that’s all that’s going on with their lives, right?)]";
+			} else {
+				return "A short-handled feather duster, ideal for keeping a house clean, but not much use in combat...";
+			}
+		}
+		
 		@Override
 		public String equipText(GameCharacter character) {
 			return "You ready your feather duster.";

@@ -236,8 +236,6 @@ public enum Attack {
 				// Attacker modifiers:
 				// Damage Type modifier:
 				damage *= (attacker.getAttributeValue(damageType.getMultiplierAttribute()) / 100f);
-				// Pure damage modifier:
-				damage *= ((100 + attacker.getAttributeValue(Attribute.DAMAGE_PURE)) / 100f);
 
 				if (damage < 1)
 					damage = 1;
@@ -247,8 +245,6 @@ public enum Attack {
 				// Defender modifiers:
 				// Damage Type modifier:
 				damage *= ((100 - defender.getAttributeValue(damageType.getResistAttribute())) / 100f);
-				// Pure damage modifier:
-				damage *= ((100 - defender.getAttributeValue(Attribute.RESISTANCE_PURE)) / 100f);
 
 				if (damage < 1)
 					damage = 1;

@@ -354,7 +354,7 @@ input:focus {
 	
 	margin:8px auto 8px auto;
 	padding:8px;
-	max-width:768px;
+	width: calc(100% - 16px);
 	
 	background:#ccc;
 	border-radius:5px;
@@ -368,20 +368,21 @@ input:focus {
 	background:#bbb;
 }
 .quest-box{
-	position:relative;
+position:relative;
 	text-align:center;
 
-	width:88vw;
-	
-	margin:1vw auto 2vw auto;
-	padding:8px 8px 24px 8px;
-	max-width:768px;
+	padding:4px;
+	margin:8px;
+	width: calc(100% - 16px);
+	-webkit-user-select: none;
+	box-sizing: border-box;
 	
 	background-color:#dddddd;
 	border-radius:5px;
 }
 
 .quest-extra{
+	top:8px;
 	position:absolute;
 	width:40%;
 	height:18px;
@@ -391,13 +392,11 @@ input:focus {
 
 .quest-extra.level{
 	left:8px;
-	bottom:8px;
 	text-align: left;
 }
 
 .quest-extra.experience{
 	right:8px;
-	bottom:8px;
 	text-align: right;
 }
 
@@ -890,6 +889,10 @@ position:relative;
 }
 .inventory-container.right{
 	margin-left:0.5%;
+}
+.inventory-container.full{
+	width:98%;
+	margin:0 1%;
 }
 /*This is for aspect ratio*/
 .inventory-container:after {

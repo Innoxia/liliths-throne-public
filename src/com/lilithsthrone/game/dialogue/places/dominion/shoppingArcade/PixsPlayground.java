@@ -23,17 +23,23 @@ import com.lilithsthrone.world.places.PlaceType;
  */
 public class PixsPlayground {
 	
+	private static final int SINGLE_PAYMENT_VALUE = 100;
+	private static final int MEMBERSHIP_VALUE = 8000;
+	
 	private static Response getResponseGym(int index) {
 		if (index == 1) {
 			if (Main.game.getPlayer().getHealthPercentage() < 0.4f) {
 				return new Response("Cardio", "You are too tired to do any more exercise!", null);
 				
 			} else {
-				return new Response("Cardio", "Use the running and cycling machines to build up your fitness.", GYM_CARDIO){
+				return new Response("Cardio", "Use the running and cycling machines to burn off some of your body size.", GYM_CARDIO){
 					@Override
 					public void effects(){
 						Main.game.getPlayer().incrementHealth(-Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM) * 0.4f);
-						Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_STRENGTH, 0.5f);
+						Main.game.getTextEndStringBuilder().append(
+//								Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_PHYSIQUE, 0.25f)+ 
+								"<p style='text-align:center'>[style.boldBad(-5)] <b style='color:"+Colour.BODY_SIZE_THREE.toWebHexString()+";'>Body Size</b></p>"
+								+Main.game.getPlayer().incrementBodySize(-5));
 					}
 				};
 			}
@@ -47,7 +53,10 @@ public class PixsPlayground {
 					@Override
 					public void effects(){
 						Main.game.getPlayer().incrementHealth(-Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM) * 0.4f);
-						Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_STRENGTH, 0.5f);
+						Main.game.getTextEndStringBuilder().append(
+//								Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_PHYSIQUE, 0.5f)+
+								"<p style='text-align:center'>[style.boldGood(+5)] <b style='color:"+Colour.MUSCLE_THREE.toWebHexString()+";'>Muscle Definition</b></p>"
+								+Main.game.getPlayer().incrementMuscle(5));
 					}
 				};
 			}
@@ -66,7 +75,12 @@ public class PixsPlayground {
 						public void effects(){
 
 							Main.game.getPlayer().incrementHealth(-Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM) * 0.8f);
-							Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_STRENGTH, 1f);
+							Main.game.getTextEndStringBuilder().append(
+//									Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_PHYSIQUE, 1f)+
+									"<p style='text-align:center'>[style.boldBad(-10)] <b style='color:"+Colour.BODY_SIZE_THREE.toWebHexString()+";'>Body Size</b></p>"
+									+Main.game.getPlayer().incrementBodySize(-10)
+									+ "<p style='text-align:center'>[style.boldGood(+10)] <b style='color:"+Colour.MUSCLE_THREE.toWebHexString()+";'>Muscle Definition</b></p>"
+									+Main.game.getPlayer().incrementMuscle(10));
 						}
 					};
 				}
@@ -245,53 +259,66 @@ public class PixsPlayground {
 					+ "</p>"
 					+ "<p>"
 						+ "Pix continues to show you around the gym, and you're surprised to find that there's an indoor olympic-sized swimming pool in the back."
-						+ " Outside, situated behind the shopping promenade, there's a large running track and football field, which Pix happily states are exclusively for use by the gym's members."
+						+ " Outside, situated behind the Shopping Arcade, there's a large running track and football field, which Pix happily states are exclusively for use by the gym's members."
 						+ " She then shows you some other miscellaneous facilities, such as the changing rooms, showers and lockers."
 						+ " Before long, you find yourself stepping back into the gym's lobby, and Pix turns around and beams at you as she finishes her tour."
 					+ "</p>"
 					+ "<p>"
 						+ "[pix.speech(So, what'ya think?! Pretty awesome, huh?!)]"
 						+ " she shouts, before moving onto the business-side of things,"
-						+ " [pix.speech(Now, life-time membership is one thousand flames, or you can just pay each time you come here, which is ten flames per entry!"
+						+ " [pix.speech(Now, life-time membership is ten-thousand flames, or you can just pay each time you come here, which is one-hundred flames per entry!"
 								+ " So, what'll be?! If you get the life-time membership, that includes personal workout sessions with none other than your new friend, Pix!"
 								+ " You know, I don't do this often, but I can see that you're kinda special and I'd really like to get the chance to work with that body of yours, so just for you,"
-								+ " I'll say life-time membership is only eight hundred flames! Pretty good, huh? So, what'ya want?!)]"
+								+ " I'll say life-time membership is only eight-thousand flames! Pretty good, huh? So, what'ya want?!)]"
 					+ "</p>";
 		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				if (Main.game.getPlayer().getMoney() < 10)
-					return new Response("Single (" + UtilText.getCurrencySymbol() + " 10)", "You don't have enough money!", null);
-				else
-					return new Response("Single Payment (<span style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + ";'>" + UtilText.getCurrencySymbol() + "</span> 10)",
-							"Tell Pix that you'd like to pay for a single entry to the gym. <b>This will cost </b><b style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + ";'>" + UtilText.getCurrencySymbol() + "</b> <b>10</b>", GYM_SINGLE_PAYMENT){
-					@Override
-					public void effects(){
-						Main.game.getPlayer().incrementMoney(-10);
-					}
-				};
+			if (!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.gymIsMember)) {
+				if (index == 1) {
+					if (Main.game.getPlayer().getMoney() < SINGLE_PAYMENT_VALUE)
+						return new Response("Single (" + UtilText.formatAsMoneyUncoloured(SINGLE_PAYMENT_VALUE, "span") + ")", "You don't have enough money!", null);
+					else
+						return new Response("Single (" + UtilText.formatAsMoney(SINGLE_PAYMENT_VALUE, "span") + ")",
+								"Tell Pix that you'd like to pay for a single entry to the gym. <b>This will cost</b> "+UtilText.formatAsMoney(SINGLE_PAYMENT_VALUE, "b")+".", GYM_SINGLE_PAYMENT){
+						@Override
+						public void effects(){
+							Main.game.getPlayer().incrementMoney(-SINGLE_PAYMENT_VALUE);
+						}
+					};
+					
+				} else if (index == 2) {
+					if (Main.game.getPlayer().getMoney() < MEMBERSHIP_VALUE)
+						return new Response("Membership (" + UtilText.formatAsMoneyUncoloured(MEMBERSHIP_VALUE, "span") + ")", "You don't have enough money!", null);
+					else
+						return new Response("Membership ("+ UtilText.formatAsMoney(MEMBERSHIP_VALUE, "span") +")",
+								"Tell Pix that you'd like to sign up for the lifetime membership option. <b>This will cost</b> "+UtilText.formatAsMoney(MEMBERSHIP_VALUE, "b")+".",
+								GYM_LIFETIME_PAYMENT){
+						@Override
+						public void effects(){
+							Main.game.getPlayer().incrementMoney(-MEMBERSHIP_VALUE);
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.gymIsMember);
+						}
+					};
+					
+				} else if (index == 0) {
+					return new Response("Leave", "Tell Pix that you'll think about it and be back later.", GYM_EXTERIOR);
+	
+				} else {
+					return null;
+				}
 				
-			} else if (index == 2) {
-				if (Main.game.getPlayer().getMoney() < 800)
-					return new Response("Membership (" + UtilText.getCurrencySymbol() + " 800)", "You don't have enough money!", null);
-				else
-					return new Response("Membership (<span style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + ";'>" + UtilText.getCurrencySymbol() + "</span> 800)",
-							"Tell Pix that you'd like to sign up for the lifetime membership option. <b>This will cost </b><b style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + ";'>" + UtilText.getCurrencySymbol() + "</b> <b>800</b>",
-							GYM_LIFETIME_PAYMENT){
-					@Override
-					public void effects(){
-						Main.game.getPlayer().incrementMoney(-800);
-						Main.game.getDialogueFlags().values.add(DialogueFlagValue.gymIsMember);
-					}
-				};
-				
-			} else if (index == 0) {
-				return new Response("Leave", "Tell Pix that you'll think about it and be back later.", GYM_EXTERIOR);
-
 			} else {
-				return null;
+				if (index == 1) {
+					return new Response("Enter", "Enter the gym and get changed.", GYM_MEMBER_ENTER);
+					
+				} else if (index == 0) {
+					return new Response("Leave", "Tell Pix that you've changed your mind, and that you'll be back another time.", GYM_EXTERIOR);
+					
+				} else {
+					return null;
+				}
 			}
 		}
 
@@ -319,58 +346,14 @@ public class PixsPlayground {
 					+ "You start to greet the energetic dog-girl, but, once again, she immediately cuts you off, "
 					+ (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.gymIsMember)
 							? UtilText.parseSpeech("You gonna want some personal training today?! I'm ready for it whenever you are! You go ahead and get changed, I'll see you in there!", Main.game.getPix())
-							: UtilText.parseSpeech("The eight hundred flames deal is still on y'know! Only for you!"
+							: UtilText.parseSpeech("The eight-thousand flames deal is still on y'know! Only for you!"
 									+ " So, you ready to sign up?!", Main.game.getPix()))
 					+ "</p>";
 		}
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (!Main.game.getDialogueFlags().values.contains(DialogueFlagValue.gymIsMember)) {
-				if (index == 1) {
-					if (Main.game.getPlayer().getMoney() < 10)
-						return new Response("Single Payment (" + UtilText.getCurrencySymbol() + " 10)", "You don't have enough money!", null);
-					else
-						return new Response("Single Payment (<span style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + ";'>" + UtilText.getCurrencySymbol() + "</span> 10)",
-								"Tell Pix that you'd like to pay for a single entry to the gym. <b>This will cost </b><b style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + ";'>" + UtilText.getCurrencySymbol() + "</b> <b>10</b>", GYM_SINGLE_PAYMENT){
-						@Override
-						public void effects(){
-							Main.game.getPlayer().incrementMoney(-10);
-						}
-					};
-					
-				} else if (index == 2) {
-					if (Main.game.getPlayer().getMoney() < 800)
-						return new Response("Membership (" + UtilText.getCurrencySymbol() + " 800)", "You don't have enough money!", null);
-					else
-						return new Response("Membership (<span style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + ";'>" + UtilText.getCurrencySymbol() + "</span> 800)",
-								"Tell Pix that you'd like to sign up for the lifetime membership option. <b>This will cost </b><b style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + ";'>" + UtilText.getCurrencySymbol() + "</b> <b>800</b>",
-								GYM_LIFETIME_PAYMENT){
-						@Override
-						public void effects(){
-							Main.game.getPlayer().incrementMoney(-800);
-							Main.game.getDialogueFlags().values.add(DialogueFlagValue.gymIsMember);
-						}
-					};
-					
-				} else if (index == 0) {
-					return new Response("Leave", "Tell Pix that you'll think about it and be back later.", GYM_EXTERIOR);
-
-				} else {
-					return null;
-				}
-
-			} else {
-				if (index == 1) {
-					return new Response("Enter", "Enter the gym and get changed.", GYM_MEMBER_ENTER);
-					
-				} else if (index == 0) {
-					return new Response("Leave", "Tell Pix that you've changed your mind, and that you'll be back another time.", GYM_EXTERIOR);
-					
-				} else {
-					return null;
-				}
-			}
+			return GYM_FOLLOW.getResponse(responseTab, index);
 		}
 
 		@Override
@@ -383,7 +366,7 @@ public class PixsPlayground {
 
 		@Override
 		public String getContent() {
-			return "<p>" + "You tell Pix that you just want to pay for a single entry today, and, handing over ten flames, she smiles at you and lets you enter." + "</p>" + "<p>"
+			return "<p>" + "You tell Pix that you just want to pay for a single entry today, and, handing over one-hundred flames, she smiles at you and lets you enter." + "</p>" + "<p>"
 					+ UtilText.parseSpeech("Remember, if you get a life-time membership, I can help you train!", Main.game.getPix()) + " she shouts after you while bouncing up and down on the spot." + "</p>" + "<p>"
 					+ "You head over to the changing rooms, where you discover that the gym provides clean exercise clothes for people who haven't brought any." + " Quickly getting changed, you head out into the gym and decide what to do." + "</p>";
 		}
@@ -409,7 +392,7 @@ public class PixsPlayground {
 					+ "You're somewhat taken aback by her sudden move, but before you can react, she releases you and runs off to fetch a contract from behind the front desk."
 					+ " After grabbing the piece of paper and a pen, she practically sprints back over to you and thrusts them into your hands." + "</p>" + "<p>"
 					+ UtilText.parseSpeech("Ok! So, like, sign here, here, and here!", Main.game.getPix())
-					+ " she points to different places on the page, and you do as she says before handing over eight hundred flames, completing the contract." + "</p>" + "<p>"
+					+ " she points to different places on the page, and you do as she says before handing over eight-thousand flames, completing the contract." + "</p>" + "<p>"
 					+ UtilText.parseSpeech("Awesome! So, that's all done! Congratulations! You can go ahead and get changed and stuff, just call me over whenever you're ready for some personal training!", Main.game.getPix())
 					+ " she exclaims, before running off to fill in her side of the paperwork." + "</p>" + "<p>" + "You head over to the changing rooms, where you see that the gym provides clean exercise clothes for people who haven't brought any."
 					+ " Quickly getting changed, you head out into the gym and decide what to do." + "</p>";

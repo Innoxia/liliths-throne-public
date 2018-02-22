@@ -26,6 +26,13 @@ public enum SexPositionSlot {
 			SexActionPresets.playerDoggyOnAllFours,
 			SexActionPresets.partnerDoggyOnAllFours),
 	
+	/**The partner who's on all fours, being fucked doggy-style.*/
+	DOGGY_ON_ALL_FOURS_SECOND("On all fours",
+			Util.newArrayListOfValues(
+					new ListValue<>(OrgasmCumTarget.FLOOR)),
+			SexActionPresets.playerDoggyOnAllFours,
+			SexActionPresets.partnerDoggyOnAllFours),
+	
 	/**The partner who's behind the doggy-style target. They are kneeling, and can perform vaginal or anal penetration.*/
 	DOGGY_BEHIND("Kneeling behind",
 			Util.newArrayListOfValues(

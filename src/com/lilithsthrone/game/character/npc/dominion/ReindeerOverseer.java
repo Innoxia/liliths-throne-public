@@ -11,9 +11,9 @@ import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
-import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.ReindeerOverseerDialogue;
@@ -32,7 +32,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.95
- * @version 0.1.95
+ * @version 0.1.99
  * @author Innoxia
  */
 public class ReindeerOverseer extends NPC {
@@ -78,9 +78,6 @@ public class ReindeerOverseer extends NPC {
 				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_STREET, false);
 
 		if(!isImported) {
-			setAttribute(Attribute.MAJOR_STRENGTH, (int)(this.getAttributeValue(Attribute.MAJOR_STRENGTH) * (0.5f+Math.random())));
-			setAttribute(Attribute.MAJOR_ARCANE, (int)(this.getAttributeValue(Attribute.MAJOR_ARCANE) * (0.5f+Math.random())));
-			setAttribute(Attribute.MAJOR_CORRUPTION, (int)(20 * (0.5f+Math.random())));
 			
 			this.setRandomLocation(WorldType.DOMINION, PlaceType.DOMINION_STREET, true);
 			
@@ -88,41 +85,41 @@ public class ReindeerOverseer extends NPC {
 			
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
-			Race race = Race.REINDEER_MORPH;
+			Subspecies species = Subspecies.REINDEER_MORPH;
 				
 			if(gender.isFeminine()) {
-				switch(Main.getProperties().raceFemininePreferencesMap.get(race)) {
+				switch(Main.getProperties().subspeciesFeminineFurryPreferencesMap.get(species)) {
 					case HUMAN: case MINIMUM:
-						setBodyFromPreferences(1, gender, race);
+						setBodyFromPreferences(1, gender, species);
 						break;
 					case REDUCED:
-						setBodyFromPreferences(2, gender, race);
+						setBodyFromPreferences(2, gender, species);
 						break;
 					case NORMAL:
-						setBodyFromPreferences(3, gender, race);
+						setBodyFromPreferences(3, gender, species);
 						break;
 					case MAXIMUM:
-						setBody(gender, RacialBody.valueOfRace(race), RaceStage.GREATER);
+						setBody(gender, species, RaceStage.GREATER);
 						break;
 				}
 			} else {
-				switch(Main.getProperties().raceMasculinePreferencesMap.get(race)) {
+				switch(Main.getProperties().subspeciesMasculineFurryPreferencesMap.get(species)) {
 					case HUMAN: case MINIMUM:
-						setBodyFromPreferences(1, gender, race);
+						setBodyFromPreferences(1, gender, species);
 						break;
 					case REDUCED:
-						setBodyFromPreferences(2, gender, race);
+						setBodyFromPreferences(2, gender, species);
 						break;
 					case NORMAL:
-						setBodyFromPreferences(3, gender, race);
+						setBodyFromPreferences(3, gender, species);
 						break;
 					case MAXIMUM:
-						setBody(gender, RacialBody.valueOfRace(race), RaceStage.GREATER);
+						setBody(gender, species, RaceStage.GREATER);
 						break;
 				}
 			}
 
-			setName(Name.getRandomTriplet(race));
+			setName(Name.getRandomTriplet(species.getRace()));
 			this.setPlayerKnowsName(false);
 			
 			// PERSONALITY & BACKGROUND:
@@ -162,7 +159,7 @@ public class ReindeerOverseer extends NPC {
 		return false;
 	}
 	
-	private void setBodyFromPreferences(int i, Gender gender, Race race) {
+	private void setBodyFromPreferences(int i, Gender gender, Subspecies race) {
 		int choice = Util.random.nextInt(i)+1;
 		RaceStage raceStage = RaceStage.PARTIAL;
 		
@@ -174,7 +171,7 @@ public class ReindeerOverseer extends NPC {
 			raceStage = RaceStage.GREATER;
 		}
 		
-		setBody(gender, RacialBody.valueOfRace(race), raceStage);
+		setBody(gender, race, raceStage);
 	}
 	
 	@Override
@@ -252,10 +249,6 @@ public class ReindeerOverseer extends NPC {
 	// Combat (you never fight):
 	@Override
 	public String getCombatDescription() {
-		return null;
-	}
-	@Override
-	public String getAttackDescription(Attack attackType, boolean isHit) {
 		return null;
 	}
 	@Override

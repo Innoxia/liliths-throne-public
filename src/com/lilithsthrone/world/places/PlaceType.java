@@ -8,8 +8,8 @@ import java.util.Map;
 import java.util.Set;
 
 import com.lilithsthrone.game.Weather;
-import com.lilithsthrone.game.character.Quest;
-import com.lilithsthrone.game.character.QuestLine;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
@@ -32,10 +32,12 @@ import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.LilayaHomeGen
 import com.lilithsthrone.game.dialogue.places.dominion.lilayashome.RoomPlayer;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.ArcaneArts;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.ClothingEmporium;
+import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.DreamLover;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.PixsPlayground;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.RalphsSnacks;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.ShoppingArcadeDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SuccubisSecrets;
+import com.lilithsthrone.game.dialogue.places.dominion.shoppingArcade.SupplierDepot;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.ScarlettsShop;
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaverAlleyDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeFirstFloor;
@@ -51,7 +53,7 @@ import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.0
- * @version 0.1.90
+ * @version 0.1.99
  * @author Innoxia
  */
 public enum PlaceType {
@@ -487,7 +489,7 @@ public enum PlaceType {
 	
 	
 
-	// Zaranix: TODO
+	// Zaranix:
 
 	ZARANIX_GF_CORRIDOR("Corridor", null, BaseColour.GREY, ZaranixHomeGroundFloor.CORRIDOR, null, false, false, true, false, "in Zaranix's home"),
 	ZARANIX_GF_STAIRS("Staircase", "dominion/zaranixHome/stairsDown", BaseColour.GREEN_LIGHT, ZaranixHomeGroundFloor.STAIRS, null, false, false, true, false, "in Zaranix's home"),
@@ -506,6 +508,7 @@ public enum PlaceType {
 	ZARANIX_FF_MAID("Corridor", null, BaseColour.RED, ZaranixHomeFirstFloor.CORRIDOR_MAID, null, true, true, true, false, "in Zaranix's Home"),
 	
 	
+	
 	// Standard tiles:
 	SHOPPING_ARCADE_PATH("Arcade", null, BaseColour.BLACK, ShoppingArcadeDialogue.ARCADE, null, true, false, true, true, "in the Shopping Arcade"),
 
@@ -520,13 +523,64 @@ public enum PlaceType {
 
 	SHOPPING_ARCADE_KATES_SHOP("Succubi's Secrets", "dominion/shoppingArcade/kateShop", BaseColour.PINK, SuccubisSecrets.EXTERIOR, null, true, false, true, true, "in her beauty salon"),
 
+	SHOPPING_ARCADE_ASHLEYS_SHOP("Dream Lover", "dominion/shoppingArcade/ashleyShop", BaseColour.LILAC_LIGHT, DreamLover.EXTERIOR, null, true, false, true, true, "in their store"),
+	
+	SHOPPING_ARCADE_SUPPLIER_DEPOT("Supplier Depot", "dominion/shoppingArcade/supplierDepot", BaseColour.CRIMSON, SupplierDepot.EXTERIOR, null, true, false, true, true, "in the supplier depot") {
+		@Override
+		public String getSVGString(Set<PlaceUpgrade> upgrades) {
+			if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP)) {
+				return PlaceType.getSVGOverride("dominion/shoppingArcade/supplierDepot", Colour.BASE_GREEN);
+			} else {
+				return SVGString;
+			}
+		}
+	},
+	
 	SHOPPING_ARCADE_PIXS_GYM("City Gym", "dominion/shoppingArcade/gym", BaseColour.GOLD, PixsPlayground.GYM_EXTERIOR, null, true, false, true, true, "in her gym"),
 
 	// Exits & entrances:
 	SHOPPING_ARCADE_ENTRANCE("Exit", "dominion/shoppingArcade/exit", BaseColour.RED, ShoppingArcadeDialogue.ENTRY, null, true, false, true, true, "in the Shopping Arcade"),
 	
 	
+	// Supplier Depot:
 	
+	SUPPLIER_DEPOT_CORRIDOR("Corridor", null, BaseColour.BLACK, SupplierDepot.SUPPLIER_DEPOT_CORRIDOR, null, false, false, true, false, "in the supplier depot"),
+	
+	SUPPLIER_DEPOT_ENTRANCE("Reception Area", "dominion/shoppingArcade/exit", BaseColour.GREY, SupplierDepot.SUPPLIER_DEPOT_RECEPTION, null, false, false, true, false, "in the supplier depot") {
+		@Override
+		public boolean isPopulated() {
+			return Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP);
+		}
+		@Override
+		public String getSVGString(Set<PlaceUpgrade> upgrades) {
+			if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP)) {
+				return PlaceType.getSVGOverride("dominion/shoppingArcade/exit", Colour.BASE_GREEN);
+			} else {
+				return SVGString;
+			}
+		}
+	},
+	
+	SUPPLIER_DEPOT_STORAGE_ROOM("Storage Room", "dominion/shoppingArcade/supplierStorageRoom", BaseColour.ORANGE, SupplierDepot.SUPPLIER_DEPOT_STORAGE_ROOM, null, false, false, true, false, "in the supplier depot"),
+	
+	SUPPLIER_DEPOT_OFFICE("Office", "dominion/shoppingArcade/supplierOffice", BaseColour.CRIMSON, SupplierDepot.SUPPLIER_DEPOT_OFFICE, null, true, true, true, false, "in the supplier depot") {
+		@Override
+		public boolean isDangerous() {
+			return !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_NYAN_HELP);
+		}
+		@Override
+		public DialogueNodeOld getDialogue(boolean withRandomEncounter) {
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.suppliersEncountered)) {
+				return SupplierDepot.SUPPLIER_DEPOT_OFFICE_REPEAT;
+				
+			} else {
+				return SupplierDepot.SUPPLIER_DEPOT_OFFICE;
+			}
+		}
+	},
+	
+	
+	// Slaver Alley:
 	
 	SLAVER_ALLEY_PATH("Alleyway", null, BaseColour.BLACK, SlaverAlleyDialogue.ALLEYWAY, null, true, false, true, true, "in Slaver's Alley"),
 
@@ -589,7 +643,7 @@ public enum PlaceType {
 	private String name;
 	protected String SVGString;
 	private BaseColour colour;
-	private DialogueNodeOld dialogue;
+	protected DialogueNodeOld dialogue;
 	private Encounter encounterType;
 	private boolean populated, dangerous, stormImmune, itemsDisappear;
 	private String virgintyLossDescription;

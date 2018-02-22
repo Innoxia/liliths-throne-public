@@ -64,10 +64,6 @@ public class GenericMaleNPC extends NPC {
 		return null;
 	}
 	@Override
-	public String getAttackDescription(Attack attackType, boolean isHit) {
-		return null;
-	}
-	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
 		return null;
 	}

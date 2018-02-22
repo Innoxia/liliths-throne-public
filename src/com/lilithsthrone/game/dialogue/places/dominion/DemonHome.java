@@ -1,9 +1,9 @@
 package com.lilithsthrone.game.dialogue.places.dominion;
 
 import com.lilithsthrone.game.Weather;
-import com.lilithsthrone.game.character.Quest;
-import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloor;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -42,13 +42,14 @@ public class DemonHome {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				if (Main.game.getPlayer().isQuestProgressLessThan(QuestLine.MAIN, Quest.MAIN_1_B_DEMON_HOME)) {
-					return null;
+				if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_B_DEMON_HOME) {
+					return new Response("Arthur's Apartment", "Find Arthur's apartment using the instructions Lilaya gave to you.", DEMON_HOME_ARTHURS_APARTMENT);
+					
+				} else if (Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_B_DEMON_HOME)) {
+					return new Response("Arthur's Apartment", "Head over to Arthur's apartment building.", DEMON_HOME_ARTHURS_APARTMENT);
+					
 				} else {
-					if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_B_DEMON_HOME)
-						return new Response("Arthur's Apartment", "Find Arthur's apartment using the instructions Lilaya gave to you.", DEMON_HOME_ARTHURS_APARTMENT);
-					else
-						return new Response("Arthur's Apartment", "Head over to Arthur's apartment building.", DEMON_HOME_ARTHURS_APARTMENT);
+					return null;
 				}
 
 			} else if (index == 2) {
@@ -99,11 +100,10 @@ public class DemonHome {
 				if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_B_DEMON_HOME) {
 					return new Response("Arthur's Room", "Head up to Arthur's room.", DEMON_HOME_ARTHURS_APARTMENT_ARTHURS_ROOM){
 						@Override
-						public QuestLine getQuestLine() {
-							if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_B_DEMON_HOME)
-								return QuestLine.MAIN;
-							else
-								return null;
+						public void effects() {
+							if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_B_DEMON_HOME) {
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_C_WOLFS_DEN));
+							}
 						}
 					};
 					

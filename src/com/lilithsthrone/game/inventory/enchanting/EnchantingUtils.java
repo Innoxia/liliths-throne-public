@@ -64,10 +64,10 @@ public class EnchantingUtils {
 				case ATTRIBUTE_CORRUPTION:
 					potionDescriptor = "viscous ";
 					break;
-				case ATTRIBUTE_INTELLIGENCE:
+				case ATTRIBUTE_ARCANE:
 					potionDescriptor = "soothing ";
 					break;
-				case ATTRIBUTE_STRENGTH:
+				case ATTRIBUTE_PHYSIQUE:
 					potionDescriptor = "vivid ";
 					break;
 				case ATTRIBUTE_SEXUAL:

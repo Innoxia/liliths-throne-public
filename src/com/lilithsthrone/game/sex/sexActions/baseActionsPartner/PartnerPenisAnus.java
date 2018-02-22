@@ -1220,7 +1220,7 @@ public class PartnerPenisAnus {
 
 		@Override
 		public String getActionDescription() {
-			return "Eagerly your [pc.ass+] out against [npc.name] as [npc.her] [npc.cock] thrusts into your [pc.asshole+].";
+			return "Eagerly push your [pc.ass+] out against [npc.name] as [npc.her] [npc.cock] thrusts into your [pc.asshole+].";
 		}
 
 		@Override

@@ -21,47 +21,17 @@ import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
-import com.lilithsthrone.game.character.body.Antenna;
-import com.lilithsthrone.game.character.body.Arm;
-import com.lilithsthrone.game.character.body.Ass;
 import com.lilithsthrone.game.character.body.Body;
-import com.lilithsthrone.game.character.body.Breast;
 import com.lilithsthrone.game.character.body.CoverableArea;
-import com.lilithsthrone.game.character.body.Ear;
-import com.lilithsthrone.game.character.body.Eye;
-import com.lilithsthrone.game.character.body.Face;
-import com.lilithsthrone.game.character.body.Hair;
-import com.lilithsthrone.game.character.body.Horn;
-import com.lilithsthrone.game.character.body.Leg;
-import com.lilithsthrone.game.character.body.Penis;
-import com.lilithsthrone.game.character.body.Skin;
-import com.lilithsthrone.game.character.body.Tail;
-import com.lilithsthrone.game.character.body.Vagina;
-import com.lilithsthrone.game.character.body.Wing;
-import com.lilithsthrone.game.character.body.types.AntennaType;
-import com.lilithsthrone.game.character.body.types.ArmType;
-import com.lilithsthrone.game.character.body.types.AssType;
-import com.lilithsthrone.game.character.body.types.BreastType;
-import com.lilithsthrone.game.character.body.types.EarType;
-import com.lilithsthrone.game.character.body.types.EyeType;
-import com.lilithsthrone.game.character.body.types.FaceType;
-import com.lilithsthrone.game.character.body.types.HairType;
-import com.lilithsthrone.game.character.body.types.HornType;
-import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
-import com.lilithsthrone.game.character.body.types.SkinType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
-import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
-import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
-import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
-import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
@@ -75,6 +45,7 @@ import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
@@ -137,7 +108,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	protected NPC(NameTriplet nameTriplet, String description, int level, Gender startingGender, RacialBody startingRace,
 			RaceStage stage, CharacterInventory inventory, WorldType worldLocation, PlaceType startingPlace, boolean addedToContacts) {
 		super(nameTriplet, description, level, startingGender, startingRace, stage, inventory, worldLocation, startingPlace);
-
+		
 		this.addedToContacts = addedToContacts;
 		
 		sexPositionPreferences = new HashSet<>();
@@ -306,7 +277,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	
 	public abstract String getCombatDescription();
 
-	public abstract String getAttackDescription(Attack attackType, boolean isHit);
+	
 
 	public abstract Response endCombat(boolean applyEffects, boolean playerVictory);
 
@@ -335,7 +306,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	}
 
 	public int getLootMoney() {
-		return (int) ((getLevel() * 20) * (1 + Math.random() - 0.5f));
+		return (int) ((getLevel() * 100) * (1 + Math.random() - 0.5f));
 	}
 	
 	public List<AbstractCoreItem> getLootItems() {
@@ -362,6 +333,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				case WOLF_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_WOLF_WHISKEY)));
 				case HUMAN:
+				case SLIME:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.INT_INGREDIENT_VANILLA_WATER)));
 				case ANGEL:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.DYE_BRUSH)));
@@ -390,6 +362,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				case WOLF_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_WOLF_MORPH)));
 				case HUMAN:
+				case SLIME:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_HUMAN)));
 				case ANGEL:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.DYE_BRUSH)));
@@ -418,6 +391,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				case WOLF_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_WOLF_MORPH)));
 				case HUMAN:
+				case SLIME:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HUMAN)));
 				case ANGEL:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HUMAN)));
@@ -628,9 +602,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		if(Main.getProperties().forcedTFPreference != FurryPreference.HUMAN) {
 			if (getPreferredBody().getGender().isFeminine()) {
-				raceName = getPreferredBody().getGender().getName() + " " + getPreferredBody().getRace().getSingularFemaleName();
+				raceName = getPreferredBody().getGender().getName() + " " + getPreferredBody().getSubspecies().getSingularFemaleName();
 			} else {
-				raceName = getPreferredBody().getGender().getName() + " " + getPreferredBody().getRace().getSingularMaleName();
+				raceName = getPreferredBody().getGender().getName() + " " + getPreferredBody().getSubspecies().getSingularMaleName();
 			}
 		
 			switch(getPreferredBody().getRace()) {
@@ -680,6 +654,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				case ANGEL:
 				case DEMON:
 				case HUMAN:
+				case SLIME:
 					itemType = ItemType.RACE_INGREDIENT_HUMAN;
 					break;
 			}
@@ -1036,50 +1011,46 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		
 		// Preferred race:
 		
-		Race race = getRace();
+		Subspecies species = getSubspecies();
 		RaceStage stage = getRaceStage();
-		RacialBody startingBodyType = RacialBody.valueOfRace(race);
 		
 		if(Main.getProperties().forcedTFPreference==FurryPreference.HUMAN) {
-			race = Race.HUMAN;
+			species = Subspecies.HUMAN;
 			stage = RaceStage.HUMAN;
-			startingBodyType = RacialBody.valueOfRace(race);
 			
 		} else {
 		
 			// Chance for predator races to prefer prey races:
 			if(getRace()==Race.CAT_MORPH && Math.random()>0.8f) {
-				race = Race.HARPY;
+				species = Subspecies.HARPY;
 			}
 			if((getRace()==Race.WOLF_MORPH || getRace()==Race.DOG_MORPH) && Math.random()>0.8f) {
-				List<Race> availableRaces = new ArrayList<>();
-				availableRaces.add(Race.CAT_MORPH);
-				availableRaces.add(Race.HARPY);
-				availableRaces.add(Race.COW_MORPH);
-				availableRaces.add(Race.SQUIRREL_MORPH);
-				race = availableRaces.get(Util.random.nextInt(availableRaces.size()));
+				List<Subspecies> availableRaces = new ArrayList<>();
+				availableRaces.add(Subspecies.CAT_MORPH);
+				availableRaces.add(Subspecies.HARPY);
+				availableRaces.add(Subspecies.COW_MORPH);
+				availableRaces.add(Subspecies.SQUIRREL_MORPH);
+				species = availableRaces.get(Util.random.nextInt(availableRaces.size()));
 			}
 			
 			// Chance for race to be random:
 			if(Math.random()>0.85f) {
-				List<Race> availableRaces = new ArrayList<>();
-				availableRaces.add(Race.CAT_MORPH);
-				availableRaces.add(Race.DOG_MORPH);
-				availableRaces.add(Race.HARPY);
-				availableRaces.add(Race.HORSE_MORPH);
-				availableRaces.add(Race.HUMAN);
-				availableRaces.add(Race.SQUIRREL_MORPH);
-				availableRaces.add(Race.COW_MORPH);
-				availableRaces.add(Race.WOLF_MORPH);
-				race = availableRaces.get(Util.random.nextInt(availableRaces.size()));
+				List<Subspecies> availableRaces = new ArrayList<>();
+				availableRaces.add(Subspecies.CAT_MORPH);
+				availableRaces.add(Subspecies.DOG_MORPH);
+				availableRaces.add(Subspecies.HARPY);
+				availableRaces.add(Subspecies.HORSE_MORPH);
+				availableRaces.add(Subspecies.HUMAN);
+				availableRaces.add(Subspecies.SQUIRREL_MORPH);
+				availableRaces.add(Subspecies.COW_MORPH);
+				availableRaces.add(Subspecies.WOLF_MORPH);
+				species = availableRaces.get(Util.random.nextInt(availableRaces.size()));
 			}
-			
-			startingBodyType = RacialBody.valueOfRace(race);
 			
 			// Preferred race stage:
 			
 			if(preferredGender.isFeminine()) {
-				switch(Main.getProperties().raceFemininePreferencesMap.get(race)) {
+				switch(Main.getProperties().subspeciesFeminineFurryPreferencesMap.get(species)) {
 					case HUMAN:
 						stage = RaceStage.HUMAN;
 						break;
@@ -1097,7 +1068,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 						break;
 				}
 			} else {
-				switch(Main.getProperties().raceMasculinePreferencesMap.get(race)) {
+				switch(Main.getProperties().subspeciesMasculineFurryPreferencesMap.get(species)) {
 					case HUMAN:
 						stage = RaceStage.HUMAN;
 						break;
@@ -1117,71 +1088,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			}
 		}
 		
-		Body body = new Body.BodyBuilder(
-				new Arm((stage.isArmFurry()?startingBodyType.getArmType():ArmType.HUMAN), startingBodyType.getArmRows()),
-				new Ass(stage.isAssFurry()?startingBodyType.getAssType():AssType.HUMAN,
-						(preferredGender.isFeminine() ? startingBodyType.getFemaleAssSize() : startingBodyType.getMaleAssSize()),
-						startingBodyType.getAnusWetness(),
-						startingBodyType.getAnusCapacity(),
-						startingBodyType.getAnusElasticity(),
-						startingBodyType.getAnusPlasticity(),
-						true),
-				new Breast(stage.isBreastFurry()?startingBodyType.getBreastType():BreastType.HUMAN,
-						BreastShape.getRandomBreastShape(),
-						(preferredGender.isFeminine() ? startingBodyType.getBreastSize() : startingBodyType.getNoBreastSize()),
-						(preferredGender.isFeminine() ? startingBodyType.getFemaleLactationRate() : startingBodyType.getMaleLactationRate()),
-						((stage.isSkinFurry() && Main.getProperties().multiBreasts==1) || (stage.isBreastFurry() && Main.getProperties().multiBreasts==2)
-								?(preferredGender.isFeminine() ? startingBodyType.getBreastCountFemale() : startingBodyType.getBreastCountMale())
-								:1),
-						(preferredGender.isFeminine() ? startingBodyType.getFemaleNippleSize() : startingBodyType.getMaleNippleSize()),
-						(preferredGender.isFeminine() ? startingBodyType.getFemaleNippleShape() : startingBodyType.getMaleNippleShape()),
-						(preferredGender.isFeminine() ? startingBodyType.getFemaleAreolaeSize() : startingBodyType.getMaleAreolaeSize()),
-						(preferredGender.isFeminine() ? startingBodyType.getFemaleNippleCountPerBreast() : startingBodyType.getMaleNippleCountPerBreast()),
-						(preferredGender.isFeminine() ? startingBodyType.getFemaleBreastCapacity() : startingBodyType.getMaleBreastCapacity()),
-						(preferredGender.isFeminine() ? startingBodyType.getFemaleBreastElasticity() : startingBodyType.getMaleBreastElasticity()),
-						(preferredGender.isFeminine() ? startingBodyType.getFemaleBreastPlasticity() : startingBodyType.getMaleBreastPlasticity()), 
-						true),
-				new Face((stage.isFaceFurry()?startingBodyType.getFaceType():FaceType.HUMAN),
-						(preferredGender.isFeminine() ? startingBodyType.getFemaleLipSize() : startingBodyType.getMaleLipSize())),
-				new Eye(stage.isEyeFurry()?startingBodyType.getEyeType():EyeType.HUMAN),
-				new Ear(stage.isEarFurry()?startingBodyType.getEarType():EarType.HUMAN),
-				new Hair(stage.isHairFurry()?startingBodyType.getHairType():HairType.HUMAN,
-						(startingBodyType.isHairTypeLinkedToFaceType()
-								?(stage.isFaceFurry()
-										?(preferredGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength())
-										:(preferredGender.isFeminine() ? RacialBody.HUMAN.getFemaleHairLength() : RacialBody.HUMAN.getMaleHairLength()))
-								:(preferredGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength())),
-						HairStyle.getRandomHairStyle((preferredGender.isFeminine() ? startingBodyType.getFemaleHairLength() : startingBodyType.getMaleHairLength()))),
-				new Leg(stage.isLegFurry()?startingBodyType.getLegType():LegType.HUMAN),
-				new Skin(stage.isSkinFurry()?startingBodyType.getSkinType():SkinType.HUMAN),
-				startingBodyType.getBodyMaterial(),
-				startingBodyType.getGenitalArrangement(),
-				(preferredGender.isFeminine() ? startingBodyType.getFemaleHeight() : startingBodyType.getMaleHeight()),
-				(preferredGender.isFeminine() ? startingBodyType.getFemaleFemininity() : startingBodyType.getMaleFemininity()),
-				(preferredGender.isFeminine() ? startingBodyType.getFemaleBodySize() : startingBodyType.getMaleBodySize()),
-				(preferredGender.isFeminine() ? startingBodyType.getFemaleMuscle() : startingBodyType.getMaleMuscle()))
-						.vagina((preferredGender.getGenderName().isHasVagina())
-								? new Vagina(stage.isVaginaFurry()?startingBodyType.getVaginaType():VaginaType.HUMAN,
-										LabiaSize.getRandomLabiaSize().getValue(),
-										startingBodyType.getClitSize(),
-										startingBodyType.getVaginaWetness(),
-										startingBodyType.getVaginaCapacity(),
-										startingBodyType.getVaginaElasticity(),
-										startingBodyType.getVaginaPlasticity(),
-										true)
-								: new Vagina(VaginaType.NONE, 0, 0, 0, 0, 3, 3, true))
-						.penis((preferredGender.getGenderName().isHasPenis())
-								? new Penis(stage.isPenisFurry()?startingBodyType.getPenisType():PenisType.HUMAN,
-									startingBodyType.getPenisSize(),
-									startingBodyType.getTesticleSize(),
-									startingBodyType.getCumProduction(),
-									startingBodyType.getTesticleQuantity())
-								: new Penis(PenisType.NONE, 0, 0, 0, 2))
-						.horn(new Horn((stage.isHornFurry()?startingBodyType.getRandomHornType(false):HornType.NONE), (preferredGender.isFeminine() ? startingBodyType.getFemaleHornLength() : startingBodyType.getMaleHornLength())))
-						.antenna(new Antenna(stage.isAntennaFurry()?startingBodyType.getAntennaType():AntennaType.NONE))
-						.tail(new Tail(stage.isTailFurry()?startingBodyType.getTailType():TailType.NONE))
-						.wing(new Wing((stage.isWingFurry()?startingBodyType.getWingType():WingType.NONE), (preferredGender.isFeminine() ? startingBodyType.getFemaleWingSize() : startingBodyType.getMaleWingSize())))
-						.build();
+		Body body = CharacterUtils.generateBody(preferredGender, species, stage);
 		
 		// Apply fetish modifiers:
 		
@@ -1739,44 +1646,42 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		}
 	}
 	
-	private static StringBuilder infoScreenSB = new StringBuilder();
+	protected StringBuilder infoScreenSB = new StringBuilder();
 	
-	public static String getCharacterInformationScreen(NPC character) {
+	public String getCharacterInformationScreen() {
 		infoScreenSB.setLength(0);
 		
 		infoScreenSB.append(
 				"<h4>Background</h4>"
 				+ "<p>"
-					+ character.getDescription()
+					+ this.getDescription()
 				+ "</p>"
 				+ "</br>"
 				+ "<h4>Relationships</h4>"
 				+ "<p>"
 					+ "[style.boldAffection(Affection:)]</br>"
-					+ AffectionLevel.getDescription(character, Main.game.getPlayer(),
-							AffectionLevel.getAffectionLevelFromValue(character.getAffection(Main.game.getPlayer())), true));
+					+ AffectionLevel.getDescription(this, Main.game.getPlayer(),
+							AffectionLevel.getAffectionLevelFromValue(this.getAffection(Main.game.getPlayer())), true));
 		
-		for(Entry<String, Float> entry : character.getAffectionMap().entrySet()) {
+		for(Entry<String, Float> entry : this.getAffectionMap().entrySet()) {
 			GameCharacter target = Main.game.getNPCById(entry.getKey());
 			if(!target.isPlayer()) {
-				infoScreenSB.append("</br>" + AffectionLevel.getDescription(character, target, AffectionLevel.getAffectionLevelFromValue(character.getAffection(target)), true));
+				infoScreenSB.append("</br>" + AffectionLevel.getDescription(this, target, AffectionLevel.getAffectionLevelFromValue(this.getAffection(target)), true));
 			}
 		}
 		
 		infoScreenSB.append("</br></br>"
 					+ "[style.boldObedience(Obedience:)]</br>"
-					+ UtilText.parse(character,
-							(character.isSlave()
-								?"[npc.Name] [style.boldArcane(is a slave)], owned by "+(character.getOwner().isPlayer()?"you!":character.getOwner().getName("a")+".")
+					+ UtilText.parse(this,
+							(this.isSlave()
+								?"[npc.Name] [style.boldArcane(is a slave)], owned by "+(this.getOwner().isPlayer()?"you!":this.getOwner().getName("a")+".")
 								:"[npc.Name] [style.boldGood(is not a slave)]."))
-					+ "</br>"+ObedienceLevel.getDescription(character, ObedienceLevel.getObedienceLevelFromValue(character.getObedienceValue()), true, true)
-					+"</br></br>"
-					+ "[style.boldArcane(Slaves owned:)]");
+					+ "</br>"+ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(this.getObedienceValue()), true, true));
 		
-		if(character.getSlavesOwned().isEmpty()) {
-			infoScreenSB.append("</br>[style.colourDisabled(None)]");
-		} else {
-			for(String id : character.getSlavesOwned()) {
+		if(!this.getSlavesOwned().isEmpty()) {
+			infoScreenSB.append("</br></br>"
+					+ "[style.boldArcane(Slaves owned:)]");
+			for(String id : this.getSlavesOwned()) {
 				infoScreenSB.append(UtilText.parse(Main.game.getNPCById(id), "</br>[npc.Name]"));
 			}
 		}
@@ -1785,9 +1690,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				+ "</br>"
 					+ "<h4>Appearance</h4>"
 				+ "<p>"
-					+ character.getBodyDescription()
+					+ this.getBodyDescription()
 				+ "</p>"
-				+ getStats(character));
+				+ getStats(this));
 		
 		return infoScreenSB.toString();
 	}

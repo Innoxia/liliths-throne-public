@@ -967,7 +967,7 @@ public class SexActionPresets {
 		partnerMissionaryOnBack.addAll(partnerGenerics);
 		
 		
-		// Back to wall player facing target:
+		// Missionary:
 		
 		playerMissionaryKneelingBetweenLegs.addAll(playerDefaultSelf);
 		
@@ -994,7 +994,7 @@ public class SexActionPresets {
 
 		playerMissionaryKneelingBetweenLegs.addAll(playerGenerics);
 		
-		// Back to wall partner facing target:
+		// Missionary:
 
 		partnerMissionaryKneelingBetweenLegs.addAll(partnerDefaultSelf);
 		
@@ -1005,7 +1005,6 @@ public class SexActionPresets {
 		partnerMissionaryKneelingBetweenLegs.add(PlayerFingerUrethra.class);
 		partnerMissionaryKneelingBetweenLegs.add(PlayerFingerVagina.class);
 		partnerMissionaryKneelingBetweenLegs.add(PlayerPenisVagina.class);
-		partnerMissionaryKneelingBetweenLegs.add(PlayerPenisThighs.class);
 		partnerMissionaryKneelingBetweenLegs.add(PlayerTailVagina.class);
 		partnerMissionaryKneelingBetweenLegs.add(PlayerTailAnus.class);
 
@@ -1016,6 +1015,7 @@ public class SexActionPresets {
 		partnerMissionaryKneelingBetweenLegs.add(PartnerFingerUrethra.class);
 		partnerMissionaryKneelingBetweenLegs.add(PartnerFingerVagina.class);
 		partnerMissionaryKneelingBetweenLegs.add(PartnerPenisVagina.class);
+		partnerMissionaryKneelingBetweenLegs.add(PartnerPenisAnus.class);
 		partnerMissionaryKneelingBetweenLegs.add(PartnerTailVagina.class);
 		partnerMissionaryKneelingBetweenLegs.add(PartnerTailAnus.class);
 

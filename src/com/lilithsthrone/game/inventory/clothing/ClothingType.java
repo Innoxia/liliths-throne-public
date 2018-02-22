@@ -30,7 +30,8 @@ public class ClothingType {
 	
 	// Special:
 	
-	public static AbstractClothingType HEAD_CHEATERS_CIRCLET = new AbstractClothingType("a",
+	public static AbstractClothingType HEAD_CHEATERS_CIRCLET = new AbstractClothingType(1000,
+			"a",
 			false,
 			"cheater's circlet",
 			"cheater's circlets",
@@ -42,7 +43,7 @@ public class ClothingType {
 			null,
 			"head_circlet",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, -50),
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, -50),
 					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, -50)),
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(
@@ -50,9 +51,8 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
 							null,
-							null))),
-			null,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_GOLD)), null, null, null, null, null){
+							null, null))),
+			null, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_GOLD)), null, null, null, null, null){
 		
 			private static final long serialVersionUID = 1L;
 
@@ -80,7 +80,8 @@ public class ClothingType {
 	};
 	
 	// PIERCINGS:
-	public static AbstractClothingType PIERCING_EAR_BASIC_RING = new AbstractClothingType("a pair of",
+	public static AbstractClothingType PIERCING_EAR_BASIC_RING = new AbstractClothingType(80,
+			"a pair of",
 			true,
 			"earring",
 			"earrings",
@@ -92,9 +93,8 @@ public class ClothingType {
 			null,
 			"piercing_ear_ring",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
-			null,
-			Colour.allMetalColours, null, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			null, Colour.allMetalColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -121,7 +121,8 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType PIERCING_EAR_SNOW_FLAKES = new AbstractClothingType("a pair of",
+	public static AbstractClothingType PIERCING_EAR_SNOW_FLAKES = new AbstractClothingType(150,
+			"a pair of",
 			true,
 			"snowflake earring",
 			"snowflake earrings",
@@ -133,9 +134,8 @@ public class ClothingType {
 			null,
 			"piercing_ear_snowflakes",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
-			null,
-			Colour.allMetalColours, null, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			null, Colour.allMetalColours, null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -162,8 +162,9 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType PIERCING_NOSE_BASIC_RING = new AbstractClothingType("a",
+	public static AbstractClothingType PIERCING_NOSE_BASIC_RING = new AbstractClothingType(50,
 
+			"a",
 			false,
 			"nose ring",
 			"nose rings",
@@ -175,9 +176,8 @@ public class ClothingType {
 			null,
 			"piercing_nose_ring",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
-			null,
-			Colour.allMetalColours, null, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			null, Colour.allMetalColours, null, null, null, null, null){
 		
 		
 				private static final long serialVersionUID = 1L;
@@ -205,7 +205,8 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType PIERCING_NOSE_SNOWFLAKE_STUD = new AbstractClothingType("a",
+	public static AbstractClothingType PIERCING_NOSE_SNOWFLAKE_STUD = new AbstractClothingType(50,
+			"a",
 			false,
 			"snowflake nose stud",
 			"snowflake nose studs",
@@ -217,9 +218,8 @@ public class ClothingType {
 			null,
 			"piercing_nose_snowflake",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
-			null,
-			Colour.allMetalColours, null, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			null, Colour.allMetalColours, null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -247,7 +247,8 @@ public class ClothingType {
 	};
 	
 
-	public static AbstractClothingType PIERCING_LIP_RINGS = new AbstractClothingType("a pair of",
+	public static AbstractClothingType PIERCING_LIP_RINGS = new AbstractClothingType(80,
+			"a pair of",
 			true,
 			"lip ring",
 			"lip rings",
@@ -259,9 +260,8 @@ public class ClothingType {
 			null,
 			"piercing_lip_double_ring",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
-			null,
-			Colour.allMetalColours, null, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			null, Colour.allMetalColours, null, null, null, null, null){
 		
 		
 				private static final long serialVersionUID = 1L;
@@ -289,7 +289,8 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType PIERCING_TONGUE_BAR = new AbstractClothingType("a",
+	public static AbstractClothingType PIERCING_TONGUE_BAR = new AbstractClothingType(60,
+			"a",
 			false,
 			"tongue bar",
 			"tongue bars",
@@ -301,9 +302,8 @@ public class ClothingType {
 			null,
 			"piercing_tongue_bar",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
-			null,
-			Colour.allMetalColours, null, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			null, Colour.allMetalColours, null, null, null, null, null){
 		
 		
 				private static final long serialVersionUID = 1L;
@@ -331,7 +331,8 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType PIERCING_NAVEL_GEM = new AbstractClothingType("a",
+	public static AbstractClothingType PIERCING_NAVEL_GEM = new AbstractClothingType(400,
+			"a",
 			false,
 			"navel gem barbell",
 			"navel gem barbells",
@@ -343,9 +344,8 @@ public class ClothingType {
 			null,
 			"piercing_navel_basic",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
-			null,
-			Colour.allMetalColours, null, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			null, Colour.allMetalColours, null, null, null, null, null){
 		
 		
 				private static final long serialVersionUID = 1L;
@@ -373,7 +373,8 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType PIERCING_NIPPLE_BARS = new AbstractClothingType("a pair of",
+	public static AbstractClothingType PIERCING_NIPPLE_BARS = new AbstractClothingType(100,
+			"a pair of",
 			true,
 			"nipple bar",
 			"nipple bars",
@@ -385,9 +386,8 @@ public class ClothingType {
 			null,
 			"piercing_nipple_bars",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
-			null,
-			Colour.allMetalColours, null, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			null, Colour.allMetalColours, null, null, null, null, null){
 		
 		
 				private static final long serialVersionUID = 1L;
@@ -415,7 +415,8 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType PIERCING_VAGINA_BARBELL_RING = new AbstractClothingType("a",
+	public static AbstractClothingType PIERCING_VAGINA_BARBELL_RING = new AbstractClothingType(60,
+			"a",
 			false,
 			"ringed barbell",
 			"ringed barbells",
@@ -432,9 +433,8 @@ public class ClothingType {
 							DisplacementType.REMOVE_OR_EQUIP,
 							null,
 							null,
-							null))),
-			null,
-			Colour.allMetalColours, null, null, null, null, null){
+							null, null))),
+			null, Colour.allMetalColours, null, null, null, null, null){
 		
 		
 				private static final long serialVersionUID = 1L;
@@ -462,7 +462,8 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType PIERCING_PENIS_RING = new AbstractClothingType("a",
+	public static AbstractClothingType PIERCING_PENIS_RING = new AbstractClothingType(120,
+			"a",
 			false,
 			"piercing ring",
 			"piercing rings",
@@ -474,9 +475,8 @@ public class ClothingType {
 			null,
 			"piercing_penis_ring",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
-			null,
-			Colour.allMetalColours, null, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			null, Colour.allMetalColours, null, null, null, null, null){
 		
 		
 				private static final long serialVersionUID = 1L;
@@ -505,7 +505,8 @@ public class ClothingType {
 	};
 	
 	// HEAD
-	public static AbstractClothingType HEAD_CIRCLET = new AbstractClothingType("a",
+	public static AbstractClothingType HEAD_CIRCLET = new AbstractClothingType(300,
+			"a",
 			false,
 			"circlet",
 			"circlets",
@@ -517,9 +518,8 @@ public class ClothingType {
 			null,
 			"head_circlet",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null))),
-			null,
-			Colour.allMetalColours, null, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null, null))),
+			null, Colour.allMetalColours, null, null, null, null, null){
 		
 		
 				private static final long serialVersionUID = 1L;
@@ -547,7 +547,8 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType HEAD_TIARA = new AbstractClothingType("a",
+	public static AbstractClothingType HEAD_TIARA = new AbstractClothingType(800,
+			"a",
 			false,
 			"tiara",
 			"tiaras",
@@ -559,9 +560,8 @@ public class ClothingType {
 			null,
 			"head_tiara",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null))),
-			null,
-			Colour.allMetalColours, null, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null, null))),
+			null, Colour.allMetalColours, null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -588,7 +588,8 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType HEAD_HEADBAND = new AbstractClothingType("a",
+	public static AbstractClothingType HEAD_HEADBAND = new AbstractClothingType(50,
+			"a",
 			false,
 			"headband",
 			"headbands",
@@ -600,9 +601,8 @@ public class ClothingType {
 			null,
 			"head_headband",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null))),
-			null,
-			Colour.allClothingColours, null, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null, null))),
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -629,7 +629,8 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType HEAD_HEADBAND_BOW = new AbstractClothingType("a",
+	public static AbstractClothingType HEAD_HEADBAND_BOW = new AbstractClothingType(60,
+			"a",
 			false,
 			"bow headband",
 			"bow headbands",
@@ -641,11 +642,10 @@ public class ClothingType {
 			null,
 			"head_headband_bow",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null))),
-			null,
-			Colour.allClothingColours, null,
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null, null))),
+			null, Colour.allClothingColours,
 			null, null,
-			null, null){
+			null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -672,7 +672,8 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType HEAD_CAP = new AbstractClothingType("a",
+	public static AbstractClothingType HEAD_CAP = new AbstractClothingType(60,
+			"a",
 			false,
 			"cap",
 			"caps",
@@ -684,9 +685,8 @@ public class ClothingType {
 			null,
 			"head_cap",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null))),
-			null,
-			Colour.allClothingColours, null, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null, null))),
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -713,7 +713,8 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType HEAD_COWBOY_HAT = new AbstractClothingType("a",
+	public static AbstractClothingType HEAD_COWBOY_HAT = new AbstractClothingType(750,
+			"a",
 			false,
 			"cowboy hat",
 			"cowboy hats",
@@ -725,13 +726,12 @@ public class ClothingType {
 			null,
 			"head_cowboy_hat",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null))),
-			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLACK),
-					new ListValue<Colour>(Colour.CLOTHING_WHITE),
-					new ListValue<Colour>(Colour.CLOTHING_BROWN),
-					new ListValue<Colour>(Colour.CLOTHING_TAN)), Colour.allClothingColours, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null, null))),
+			null, Util.newArrayListOfValues(
+							new ListValue<Colour>(Colour.CLOTHING_BLACK),
+							new ListValue<Colour>(Colour.CLOTHING_WHITE),
+							new ListValue<Colour>(Colour.CLOTHING_BROWN),
+							new ListValue<Colour>(Colour.CLOTHING_TAN)), Colour.allClothingColours, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -758,7 +758,8 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType HEAD_ANTLER_HEADBAND = new AbstractClothingType("an",
+	public static AbstractClothingType HEAD_ANTLER_HEADBAND = new AbstractClothingType(60,
+			"an",
 			false,
 			"antler headband",
 			"antler headbands",
@@ -770,9 +771,8 @@ public class ClothingType {
 			null,
 			"head_antler_headband",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null))),
-			null,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BROWN)), null, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null, null))),
+			null, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BROWN)), null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -800,7 +800,7 @@ public class ClothingType {
 	};
 
 	// EYES
-	public static AbstractClothingType EYES_GLASSES = new AbstractClothingType(
+	public static AbstractClothingType EYES_GLASSES = new AbstractClothingType(800,
 			"a pair of",
 			true,
 			"glasses",
@@ -813,9 +813,8 @@ public class ClothingType {
 			null,
 			"eye_glasses",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.EYES)), null, null))),
-			null,
-			Colour.allMetalColours, null, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.EYES)), null, null, null))),
+			null, Colour.allMetalColours, null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 		
@@ -841,7 +840,7 @@ public class ClothingType {
 					"[npc.Name] grabs your glasses and roughly pulls them off.");
 		}
 	};
-	public static AbstractClothingType EYES_AVIATORS = new AbstractClothingType(
+	public static AbstractClothingType EYES_AVIATORS = new AbstractClothingType(1200,
 			"a pair of",
 			true,
 			"aviators",
@@ -854,11 +853,10 @@ public class ClothingType {
 			null,
 			"eye_aviators",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.EYES)), null, null))),
-			null,
-			Colour.allMetalColours, null,
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.EYES)), null, null, null))),
+			null, Colour.allMetalColours,
 			null, null,
-			null, null){
+			null, null, null){
 		
 			private static final long serialVersionUID = 1L;
 			
@@ -887,7 +885,7 @@ public class ClothingType {
 	
 
 	// MOUTH
-	public static AbstractClothingType MOUTH_BANDANA = new AbstractClothingType(
+	public static AbstractClothingType MOUTH_BANDANA = new AbstractClothingType(80,
 			"a",
 			false,
 			"bandana",
@@ -899,6 +897,7 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"mouth_bandana",
+
 			null,
 
 			Util.newArrayListOfValues(
@@ -906,17 +905,15 @@ public class ClothingType {
 							DisplacementType.REMOVE_OR_EQUIP,
 							null,
 							null,
-							null)),
+							null, null)),
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.PULLS_UP,
 							null,
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.MOUTH)),
-							null))),
+							null, null))), // List<InventorySlot> incompatibleSlots
 
-			null, // List<InventorySlot> incompatibleSlots
-
-			Colour.allClothingColours, null, null, null, null, null){
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 		
 		private static final long serialVersionUID = 1L;
@@ -969,7 +966,7 @@ public class ClothingType {
 	// NECK
 	// Choker, Collar
 
-	public static AbstractClothingType NECK_HEART_NECKLACE = new AbstractClothingType(
+	public static AbstractClothingType NECK_HEART_NECKLACE = new AbstractClothingType(350,
 			"a",
 			false,
 			"heart necklace",
@@ -982,9 +979,8 @@ public class ClothingType {
 			null,
 			"neck_heartNecklace",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
-			null,
-			Colour.allMetalColours, null, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			null, Colour.allMetalColours, null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -1011,7 +1007,7 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType NECK_SNOWFLAKE_NECKLACE = new AbstractClothingType(
+	public static AbstractClothingType NECK_SNOWFLAKE_NECKLACE = new AbstractClothingType(250,
 			"a",
 			false,
 			"snowflake necklace",
@@ -1024,9 +1020,8 @@ public class ClothingType {
 			null,
 			"neck_snowflake_necklace",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
-			null,
-			Colour.allMetalColours, null, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			null, Colour.allMetalColours, null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -1053,7 +1048,7 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType NECK_ANKH_NECKLACE = new AbstractClothingType(
+	public static AbstractClothingType NECK_ANKH_NECKLACE = new AbstractClothingType(250,
 			"an",
 			false,
 			"ankh necklace",
@@ -1066,11 +1061,10 @@ public class ClothingType {
 			null,
 			"neck_ankhNecklace",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
-			null,
-			Colour.allMetalColours, null,
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			null, Colour.allMetalColours,
 			null, null,
-			null, null){
+			null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -1097,7 +1091,8 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType NECK_BELL_COLLAR  = new AbstractClothingType("a",
+	public static AbstractClothingType NECK_BELL_COLLAR  = new AbstractClothingType(450,
+			"a",
 			false,
 			"bell collar",
 			"bell collars",
@@ -1109,11 +1104,10 @@ public class ClothingType {
 			null,
 			"neck_bell_collar",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
-			null,
-			Colour.allClothingColours, null,
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			null, Colour.allClothingColours,
 			null, null,
-			null, null){
+			null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 		
@@ -1140,7 +1134,8 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType NECK_SCARF = new AbstractClothingType("a",
+	public static AbstractClothingType NECK_SCARF = new AbstractClothingType(150,
+			"a",
 			false,
 			"scarf",
 			"scarfs",
@@ -1152,11 +1147,10 @@ public class ClothingType {
 			null,
 			"neck_scarf",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
-			null,
-			Colour.allClothingColours, null,
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			null, Colour.allClothingColours,
 			null, null,
-			null, null){
+			null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -1183,7 +1177,8 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType NECK_TIE = new AbstractClothingType("a",
+	public static AbstractClothingType NECK_TIE = new AbstractClothingType(100,
+			"a",
 			false,
 			"tie",
 			"tie",
@@ -1195,9 +1190,8 @@ public class ClothingType {
 			null,
 			"neck_tie",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
-			null,
-			Colour.allClothingColours, null, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -1224,7 +1218,8 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType NECK_BREEDER_COLLAR = new AbstractClothingType("a",
+	public static AbstractClothingType NECK_BREEDER_COLLAR = new AbstractClothingType(500,
+			"a",
 			false,
 			"breeder collar",
 			"breeder collars",
@@ -1237,12 +1232,11 @@ public class ClothingType {
 			null,
 			"neck_breeder_collar",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 5),
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
 					new Value<Attribute, Integer>(Attribute.FERTILITY, 50)),
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
-			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_PINK)), null, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			null, Util.newArrayListOfValues(
+							new ListValue<Colour>(Colour.CLOTHING_PINK)), null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -1269,7 +1263,8 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType NECK_SLAVE_COLLAR = new AbstractClothingType("a",
+	public static AbstractClothingType NECK_SLAVE_COLLAR = new AbstractClothingType(2500,
+			"a",
 			false,
 			"slave collar",
 			"slave collars",
@@ -1281,9 +1276,8 @@ public class ClothingType {
 			null,
 			"neck_slave_collar",
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, -100), new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, -100), new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, -100)),
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
-			null,
-			Colour.allMetalColours, null, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			null, Colour.allMetalColours, null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -1319,7 +1313,8 @@ public class ClothingType {
 
 	// TORSO
 
-	public static AbstractClothingType TORSO_OXFORD_SHIRT = new AbstractClothingType("a",
+	public static AbstractClothingType TORSO_OXFORD_SHIRT = new AbstractClothingType(150,
+			"a",
 			false,
 			"long-sleeved shirt",
 			"long-sleeved shirts",
@@ -1337,7 +1332,7 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
 							null,
-							null)),
+							null, null)),
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.UNBUTTONS,
 							null,
@@ -1346,9 +1341,8 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
-			null,
-			Colour.allClothingColours, null, null, null, null, null){
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 			private static final long serialVersionUID = 1L;
 
@@ -1451,7 +1445,8 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType TORSO_SHORT_SLEEVE_SHIRT = new AbstractClothingType("a",
+	public static AbstractClothingType TORSO_SHORT_SLEEVE_SHIRT = new AbstractClothingType(150,
+			"a",
 			false,
 			"short-sleeved shirt",
 			"short-sleeved shirts",
@@ -1469,7 +1464,7 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
 							null,
-							null)),
+							null, null)),
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.UNBUTTONS,
 							null,
@@ -1478,9 +1473,8 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
-			null,
-			Colour.allClothingColours, null, null, null, null, null){
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -1583,7 +1577,8 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType TORSO_OVER_HOODIE = new AbstractClothingType("a",
+	public static AbstractClothingType TORSO_OVER_HOODIE = new AbstractClothingType(300,
+			"a",
 			false,
 			"hoodie",
 			"hoodies",
@@ -1603,7 +1598,7 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER))
+									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null
 							)),
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.PULLS_UP,
@@ -1613,9 +1608,8 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
-			null,
-			Colour.allClothingColours, null, null, null, null, null){
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -1685,7 +1679,8 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType TORSO_OVER_OPEN_CARDIGAN = new AbstractClothingType("an",
+	public static AbstractClothingType TORSO_OVER_OPEN_CARDIGAN = new AbstractClothingType(350,
+			"an",
 			false,
 			"open-front cardigan",
 			"open-front cardigans",
@@ -1705,10 +1700,14 @@ public class ClothingType {
 											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
 									null,
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER))
+											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null
 									))),
 			null,
-			Colour.allClothingColours, null, null, null, null, null){
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.CLOTHING_BLACK),
+					new ListValue<Colour>(Colour.CLOTHING_GREY),
+					new ListValue<Colour>(Colour.CLOTHING_WHITE)),
+			Colour.allClothingColours, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 		
@@ -1735,7 +1734,8 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType TORSO_OVER_BLAZER = new AbstractClothingType("a",
+	public static AbstractClothingType TORSO_OVER_BLAZER = new AbstractClothingType(300,
+			"a",
 			false,
 			"blazer",
 			"blazers",
@@ -1746,8 +1746,8 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"torso_over_blazer",
-			null,
 
+			null,
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
@@ -1755,7 +1755,7 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
 							null,
 							Util.newArrayListOfValues(
-							new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)))),
+							new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null)),
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.UNBUTTONS,
 							null,
@@ -1764,8 +1764,8 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
-//			Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
+			//			Util.newArrayListOfValues(
 //					new ListValue<BlockedParts>(
 //							new BlockedParts(
 //									DisplacementType.REMOVE_OR_EQUIP,
@@ -1776,7 +1776,10 @@ public class ClothingType {
 //											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER))
 //									))),
 			null,
-			Colour.allClothingColours, null, null, null, null, null){
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.CLOTHING_BLACK),
+					new ListValue<Colour>(Colour.CLOTHING_GREY)),
+			Colour.allClothingColours, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 		
@@ -1803,7 +1806,8 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType TORSO_OVER_WOMENS_LEATHER_JACKET = new AbstractClothingType("a",
+	public static AbstractClothingType TORSO_OVER_WOMENS_LEATHER_JACKET = new AbstractClothingType(600,
+			"a",
 			false,
 			"women's leather jacket",
 			"women's leather jackets",
@@ -1814,8 +1818,8 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"torso_over_womens_leather_jacket",
-			null,
 
+			null,
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
@@ -1823,7 +1827,7 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
 							null,
 							Util.newArrayListOfValues(
-							new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)))),
+							new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null)),
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.UNZIPS,
 							null,
@@ -1832,11 +1836,10 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
-			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)), Colour.allClothingColours,
-			null, null, null, null){
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
+			null, Util.newArrayListOfValues(
+							new ListValue<Colour>(Colour.CLOTHING_BLACK)),
+			Colour.allClothingColours, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 		
@@ -1863,7 +1866,8 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType TORSO_OVER_SUIT_JACKET = new AbstractClothingType("a",
+	public static AbstractClothingType TORSO_OVER_SUIT_JACKET = new AbstractClothingType(800,
+			"a",
 			false,
 			"suit jacket",
 			"suit jackets",
@@ -1883,7 +1887,7 @@ public class ClothingType {
 											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
 									null,
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER))
+											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null
 									)),
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.UNBUTTONS,
@@ -1893,13 +1897,12 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
-			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_WHITE),
-					new ListValue<Colour>(Colour.CLOTHING_GREY),
-					new ListValue<Colour>(Colour.CLOTHING_BLACK),
-					new ListValue<Colour>(Colour.CLOTHING_TAN)), null, null, null, null, null){
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
+			null, Util.newArrayListOfValues(
+							new ListValue<Colour>(Colour.CLOTHING_WHITE),
+							new ListValue<Colour>(Colour.CLOTHING_GREY),
+							new ListValue<Colour>(Colour.CLOTHING_BLACK),
+							new ListValue<Colour>(Colour.CLOTHING_TAN)), null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 		
@@ -1926,7 +1929,8 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType TORSO_OVER_COAT_DRESS = new AbstractClothingType("a",
+	public static AbstractClothingType TORSO_OVER_COAT_DRESS = new AbstractClothingType(2500,
+			"a",
 			false,
 			"dress coat",
 			"dress coats",
@@ -1946,7 +1950,7 @@ public class ClothingType {
 											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
 									null,
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER))
+											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null
 									)),
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.UNBUTTONS,
@@ -1956,15 +1960,14 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
-			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_PURPLE),
-					new ListValue<Colour>(Colour.CLOTHING_TAN),
-					new ListValue<Colour>(Colour.CLOTHING_RED),
-					new ListValue<Colour>(Colour.CLOTHING_GREY)), Colour.allClothingColours,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BLACK)), Colour.allClothingColours,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_WHITE)), Colour.allClothingColours){
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
+			null, Util.newArrayListOfValues(
+							new ListValue<Colour>(Colour.CLOTHING_PURPLE),
+							new ListValue<Colour>(Colour.CLOTHING_TAN),
+							new ListValue<Colour>(Colour.CLOTHING_RED),
+							new ListValue<Colour>(Colour.CLOTHING_GREY)),
+			Colour.allClothingColours, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BLACK)),
+			Colour.allClothingColours, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_WHITE)), Colour.allClothingColours){
 		
 		private static final long serialVersionUID = 1L;
 		
@@ -1991,7 +1994,120 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType TORSO_RIBBED_SWEATER = new AbstractClothingType("a",
+	public static AbstractClothingType TORSO_OVER_CLOAK = new AbstractClothingType(500,
+			"a",
+			false,
+			"hooded cloak",
+			"hooded cloaks",
+			"A floor-length cloak, complete with hood.",
+			1,
+			null,
+			InventorySlot.TORSO_OVER,
+			Rarity.COMMON,
+			null,
+			"torso_over_cloak",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.REMOVE_OR_EQUIP,
+									null,
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null
+									)),
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.PULLS_UP,
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.ANUS),
+											new ListValue<CoverableArea>(CoverableArea.PENIS),
+											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null)),
+					new ListValue<BlockedParts>(
+							new BlockedParts(
+									DisplacementType.SHIFTS_ASIDE,
+									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.BREASTS),
+											new ListValue<CoverableArea>(CoverableArea.NIPPLES),
+											new ListValue<CoverableArea>(CoverableArea.PENIS),
+											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+									Util.newArrayListOfValues(
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN),
+											new ListValue<ClothingAccess>(ClothingAccess.CHEST),
+											new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
+									Util.newArrayListOfValues(
+											new ListValue<InventorySlot>(InventorySlot.ANKLE),
+											new ListValue<InventorySlot>(InventorySlot.ANUS),
+											new ListValue<InventorySlot>(InventorySlot.CHEST),
+											new ListValue<InventorySlot>(InventorySlot.FINGER),
+											new ListValue<InventorySlot>(InventorySlot.FOOT),
+											new ListValue<InventorySlot>(InventorySlot.GROIN),
+											new ListValue<InventorySlot>(InventorySlot.HAIR),
+											new ListValue<InventorySlot>(InventorySlot.HAND),
+											new ListValue<InventorySlot>(InventorySlot.HEAD),
+											new ListValue<InventorySlot>(InventorySlot.HIPS),
+											new ListValue<InventorySlot>(InventorySlot.HORNS),
+											new ListValue<InventorySlot>(InventorySlot.LEG),
+											new ListValue<InventorySlot>(InventorySlot.MOUTH),
+											new ListValue<InventorySlot>(InventorySlot.NECK),
+											new ListValue<InventorySlot>(InventorySlot.NIPPLE),
+											new ListValue<InventorySlot>(InventorySlot.PENIS),
+											new ListValue<InventorySlot>(InventorySlot.PIERCING_EAR),
+											new ListValue<InventorySlot>(InventorySlot.PIERCING_LIP),
+											new ListValue<InventorySlot>(InventorySlot.PIERCING_NIPPLE),
+											new ListValue<InventorySlot>(InventorySlot.PIERCING_NOSE),
+											new ListValue<InventorySlot>(InventorySlot.PIERCING_PENIS),
+											new ListValue<InventorySlot>(InventorySlot.PIERCING_STOMACH),
+											new ListValue<InventorySlot>(InventorySlot.PIERCING_TONGUE),
+											new ListValue<InventorySlot>(InventorySlot.PIERCING_VAGINA),
+											new ListValue<InventorySlot>(InventorySlot.SOCK),
+											new ListValue<InventorySlot>(InventorySlot.STOMACH),
+											new ListValue<InventorySlot>(InventorySlot.TAIL),
+											new ListValue<InventorySlot>(InventorySlot.TORSO_UNDER),
+											new ListValue<InventorySlot>(InventorySlot.VAGINA),
+											new ListValue<InventorySlot>(InventorySlot.WEAPON_MAIN),
+											new ListValue<InventorySlot>(InventorySlot.WEAPON_OFFHAND),
+											new ListValue<InventorySlot>(InventorySlot.WRIST))))),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.CLOTHING_BLACK),
+					new ListValue<Colour>(Colour.CLOTHING_WHITE),
+					new ListValue<Colour>(Colour.CLOTHING_TAN),
+					new ListValue<Colour>(Colour.CLOTHING_BROWN)),
+			Colour.allClothingColours, Colour.allMetalColours, null, null, null){
+		
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You pull on the cloak.",
+					"You pull the cloak onto [npc.name].",
+					null,
+					"[npc.Name] pulls on the cloak.",
+					"[npc.Name] pulls the cloak onto you.",
+					null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You take off your cloak.",
+					"You pull off [npc.name]'s cloak.",
+					null,
+					"[npc.Name] takes [npc.her] cloak off.",
+					"[npc.Name] pulls your cloak off.",
+					null);
+		}
+	};
+	
+	
+	public static AbstractClothingType TORSO_RIBBED_SWEATER = new AbstractClothingType(250,
+			"a",
 			false,
 			"ribbed sweater",
 			"ribbed sweaters",
@@ -2011,7 +2127,7 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)))),
+									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.PULLS_UP,
 							null,
@@ -2020,14 +2136,14 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
-			null,
-			Colour.allClothingColours, null, null, null, null, null){
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 	};
 
-	public static AbstractClothingType TORSO_OVER_CHRISTMAS_SWEATER = new AbstractClothingType("a",
+	public static AbstractClothingType TORSO_OVER_CHRISTMAS_SWEATER = new AbstractClothingType(100,
+			"a",
 			false,
 			"festive sweater",
 			"festive sweaters",
@@ -2047,7 +2163,7 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)))),
+									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.PULLS_UP,
 							null,
@@ -2056,20 +2172,20 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
-			null,
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
 
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_RED)), Colour.allClothingColours,
+			null, Util.newArrayListOfValues(
+							new ListValue<Colour>(Colour.CLOTHING_RED)),
 
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_WHITE)), Colour.allClothingColours,
-			null, null){
+			Colour.allClothingColours, Util.newArrayListOfValues(
+							new ListValue<Colour>(Colour.CLOTHING_WHITE)),
+			Colour.allClothingColours, null, null){
 		
 		private static final long serialVersionUID = 1L;
 	};
 	
-	public static AbstractClothingType TORSO_KEYHOLE_SWEATER = new AbstractClothingType("a",
+	public static AbstractClothingType TORSO_KEYHOLE_SWEATER = new AbstractClothingType(350,
+			"a",
 			false,
 			"keyhole sweater",
 			"keyhole sweaters",
@@ -2081,6 +2197,7 @@ public class ClothingType {
 			null,
 			"torso_keyhole_sweater",
 			null,
+
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
@@ -2089,14 +2206,14 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)))),
+									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.PULLS_DOWN,
 							null,
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.CHEST)))),
+									new ListValue<ClothingAccess>(ClothingAccess.CHEST)), null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.PULLS_UP,
 							null,
@@ -2104,15 +2221,14 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
-
-			null,
-			Colour.allClothingColours, null, null, null, null, null){
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 			private static final long serialVersionUID = 1L;
 	};
 	
-	public static AbstractClothingType TORSO_TSHIRT = new AbstractClothingType("a",
+	public static AbstractClothingType TORSO_TSHIRT = new AbstractClothingType(80,
+			"a",
 			false,
 			"T-shirt",
 			"T-shirts",
@@ -2131,7 +2247,7 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
 									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
 							null,
-							null
+							null, null
 							)),
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.PULLS_UP,
@@ -2141,9 +2257,8 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
-			null,
-			Colour.allClothingColours, null, null, null, null, null){
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -2198,7 +2313,7 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType TORSO_KEYHOLE_CROPTOP = new AbstractClothingType(
+	public static AbstractClothingType TORSO_KEYHOLE_CROPTOP = new AbstractClothingType(120,
 			"a",
 			false,
 			"keyhole crop top",
@@ -2218,7 +2333,7 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
 									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
 							null,
-							null)),
+							null, null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
 									DisplacementType.PULLS_UP,
@@ -2227,9 +2342,8 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-											new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
-			null, // List<InventorySlot> incompatibleSlots
-			Colour.allClothingColours, null, null, null, null, null){
+											new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))), // List<InventorySlot> incompatibleSlots
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 			private static final long serialVersionUID = 1L;
 
@@ -2293,7 +2407,7 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType TORSO_SHORT_CROPTOP = new AbstractClothingType(
+	public static AbstractClothingType TORSO_SHORT_CROPTOP = new AbstractClothingType(100,
 			"a",
 			false,
 			"short croptop",
@@ -2305,8 +2419,8 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"torso_short_croptop",
-			null,
 
+			null,
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
@@ -2314,7 +2428,7 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
 									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
 							null,
-							null)),
+							null, null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
 									DisplacementType.PULLS_UP,
@@ -2323,9 +2437,8 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.BREASTS),
 											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST))))),
-			null,
-			Colour.allClothingColours, null, null, null, null, null){
+											new ListValue<ClothingAccess>(ClothingAccess.CHEST)), null))),
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 			private static final long serialVersionUID = 1L;
 
@@ -2388,7 +2501,7 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType TORSO_FISHNET_TOP = new AbstractClothingType(
+	public static AbstractClothingType TORSO_FISHNET_TOP = new AbstractClothingType(100,
 			"a",
 			false,
 			"fishnet top",
@@ -2400,6 +2513,7 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"torso_fishnet_top",
+
 			null,
 
 			Util.newArrayListOfValues(
@@ -2410,17 +2524,15 @@ public class ClothingType {
 											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
 											new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
 									null,
-									null)),
+									null, null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
 									DisplacementType.PULLS_UP,
 									null,
 									null,
-									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.CHEST))))),
+									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.CHEST)), null))), // List<InventorySlot> incompatibleSlots
 
-			null, // List<InventorySlot> incompatibleSlots
-
-			Colour.allClothingColours, null, null, null, null, null){
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -2484,7 +2596,7 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType TORSO_BLOUSE = new AbstractClothingType(
+	public static AbstractClothingType TORSO_BLOUSE = new AbstractClothingType(400,
 			"a",
 			false,
 			"blouse",
@@ -2497,6 +2609,7 @@ public class ClothingType {
 			null,
 			"torso_blouse",
 			null,
+
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
@@ -2504,7 +2617,7 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
 									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
 							null,
-							null)),
+							null, null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
 									DisplacementType.PULLS_UP,
@@ -2514,11 +2627,9 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-											new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
+											new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))), // List<InventorySlot> incompatibleSlots
 
-			null, // List<InventorySlot> incompatibleSlots
-
-			Colour.allClothingColours, null, null, null, null, null){
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -2582,7 +2693,7 @@ public class ClothingType {
 	};
 	
 
-	public static AbstractClothingType TORSO_CAMITOP_STRAPS = new AbstractClothingType(
+	public static AbstractClothingType TORSO_CAMITOP_STRAPS = new AbstractClothingType(200,
 			"a",
 			false,
 			"cami top",
@@ -2594,6 +2705,7 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"torso_cami_straps",
+
 			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
@@ -2603,7 +2715,7 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
 									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
 							null,
-							null)),
+							null, null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
 									DisplacementType.PULLS_UP,
@@ -2612,11 +2724,9 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.BREASTS),
 											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST))))),
+											new ListValue<ClothingAccess>(ClothingAccess.CHEST)), null))), // List<InventorySlot> incompatibleSlots
 
-			null, // List<InventorySlot> incompatibleSlots
-
-			Colour.allClothingColours, null, null, null, null, null){
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -2680,7 +2790,7 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType TORSO_SKATER_DRESS = new AbstractClothingType(
+	public static AbstractClothingType TORSO_SKATER_DRESS = new AbstractClothingType(250,
 			"a",
 			false,
 			"skater dress",
@@ -2693,6 +2803,7 @@ public class ClothingType {
 			null,
 			"torso_skater_dress",
 			null,
+
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
@@ -2704,7 +2815,7 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)))),
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
 									DisplacementType.PULLS_UP,
@@ -2714,11 +2825,9 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.PENIS),
 											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null))),
 
-			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)),
-
-			Colour.allClothingColours, null, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)), Colour.allClothingColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -2796,7 +2905,8 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType TORSO_VIRGIN_KILLER_SWEATER = new AbstractClothingType("a",
+	public static AbstractClothingType TORSO_VIRGIN_KILLER_SWEATER = new AbstractClothingType(100,
+			"a",
 			false,
 			"'Virgin-killer' sweater",
 			"'Virgin-killer' sweaters",
@@ -2807,8 +2917,8 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"torso_virgin_killer_sweater",
-			null,
 
+			null,
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
@@ -2820,7 +2930,7 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)))),
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null)),
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.PULLS_UP,
 							null,
@@ -2829,15 +2939,14 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.PENIS),
 									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
-			null,
-			Colour.allClothingColours, null, null, null, null, null){
+									new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null))),
+			null, Colour.allClothingColours, null, null, null, null, null){
 
 				
 				private static final long serialVersionUID = 1L;
 	};
 
-	public static AbstractClothingType TORSO_SLIP_DRESS = new AbstractClothingType(
+	public static AbstractClothingType TORSO_SLIP_DRESS = new AbstractClothingType(800,
 			"a",
 			false,
 			"slip dress",
@@ -2850,6 +2959,7 @@ public class ClothingType {
 			null,
 			"torso_slip_dress",
 			null,
+
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
@@ -2861,7 +2971,7 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)))),
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
 									DisplacementType.PULLS_UP,
@@ -2871,11 +2981,9 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.PENIS),
 											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null))),
 
-			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)),
-
-			Colour.allClothingColours, null, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)), Colour.allClothingColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -2939,7 +3047,7 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType TORSO_PLUNGE_DRESS = new AbstractClothingType(
+	public static AbstractClothingType TORSO_PLUNGE_DRESS = new AbstractClothingType(600,
 			"a",
 			false,
 			"plunge dress",
@@ -2951,6 +3059,7 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"torso_plunge_dress",
+
 			null,
 
 			Util.newArrayListOfValues(
@@ -2963,7 +3072,7 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-											new ListValue<ClothingAccess>(ClothingAccess.WAIST)))),
+											new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.PULLS_UP,
 									null,
@@ -2972,11 +3081,9 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.PENIS),
 											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null))),
 
-			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)),
-
-			Colour.allClothingColours, null, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)), Colour.allClothingColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -3041,7 +3148,7 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType TORSO_LONG_SLEEVE_DRESS = new AbstractClothingType(
+	public static AbstractClothingType TORSO_LONG_SLEEVE_DRESS = new AbstractClothingType(400,
 			"a",
 			false,
 			"long-sleeved dress",
@@ -3054,6 +3161,7 @@ public class ClothingType {
 			null,
 			"torso_long_sleeve_dress",
 			null,
+
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
@@ -3065,7 +3173,7 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)))),
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
 									DisplacementType.PULLS_UP,
@@ -3075,11 +3183,9 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.PENIS),
 											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null))),
 
-			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)),
-
-			Colour.allClothingColours, null, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)), Colour.allClothingColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -3144,7 +3250,7 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType TORSO_BODYCONZIP_DRESS = new AbstractClothingType(
+	public static AbstractClothingType TORSO_BODYCONZIP_DRESS = new AbstractClothingType(350,
 			"a",
 			false,
 			"frontal-zip dress",
@@ -3156,6 +3262,7 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"torso_bodyconzip_dress",
+
 			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
@@ -3164,7 +3271,7 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
 							null,
-							null)),
+							null, null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
 									DisplacementType.PULLS_UP,
@@ -3174,7 +3281,7 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.PENIS),
 											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)))),
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
 									DisplacementType.UNZIPS,
@@ -3184,11 +3291,9 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-											new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
+											new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
 
-			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)),
-
-			Colour.allClothingColours, null, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)), Colour.allClothingColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -3259,7 +3364,7 @@ public class ClothingType {
 
 	// CHEST
 
-	public static AbstractClothingType CHEST_SWIMSUIT = new AbstractClothingType(
+	public static AbstractClothingType CHEST_SWIMSUIT = new AbstractClothingType(250,
 			"a",
 			false,
 			"one-piece swimsuit",
@@ -3271,6 +3376,7 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"chest_swimsuit",
+
 			null,
 
 			Util.newArrayListOfValues(
@@ -3283,7 +3389,7 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST),
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
 							null,
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WAIST)))),
+							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null)),
 					
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.SHIFTS_ASIDE,
@@ -3292,7 +3398,7 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.ANUS),
 									new ListValue<CoverableArea>(CoverableArea.PENIS),
 									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN)))),
+							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null)),
 					
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.PULLS_DOWN,
@@ -3302,11 +3408,9 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.BREASTS),
 									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.CHEST))))),
+									new ListValue<ClothingAccess>(ClothingAccess.CHEST)), null))),
 
-			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.GROIN), new ListValue<InventorySlot>(InventorySlot.STOMACH)),
-
-			Colour.allClothingColours, null, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.GROIN), new ListValue<InventorySlot>(InventorySlot.STOMACH)), Colour.allClothingColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -3377,7 +3481,8 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType CHEST_CHEMISE = new AbstractClothingType("a",
+	public static AbstractClothingType CHEST_CHEMISE = new AbstractClothingType(250,
+			"a",
 			false,
 			"chemise",
 			"chemises",
@@ -3398,7 +3503,7 @@ public class ClothingType {
 									Util.newArrayListOfValues(
 											new ListValue<CoverableArea>(CoverableArea.BREASTS),
 											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
-									null))
+									null, null))
 //					,
 //					new ListValue<BlockedParts>(
 //							new BlockedParts(DisplacementType.PULLS_UP,
@@ -3409,8 +3514,7 @@ public class ClothingType {
 //											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
 //									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN))))
 					),
-			null,
-			Colour.lingerieColours, null, null, null, null, null){
+			null, Colour.lingerieColours, null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 		
@@ -3558,7 +3662,8 @@ public class ClothingType {
 //		}
 //	};
 	
-	public static AbstractClothingType CHEST_PLUNGE_BRA = new AbstractClothingType("a",
+	public static AbstractClothingType CHEST_PLUNGE_BRA = new AbstractClothingType(150,
+			"a",
 			false,
 			"plunge bra",
 			"plunge bras",
@@ -3570,13 +3675,14 @@ public class ClothingType {
 			null,
 			"chest_plunge_bra",
 			null,
+
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
 									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
 											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
 									null,
-									null)),
+									null, null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.PULLS_DOWN,
 									Util.newArrayListOfValues(
@@ -3584,12 +3690,10 @@ public class ClothingType {
 									Util.newArrayListOfValues(
 											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST))
+											new ListValue<ClothingAccess>(ClothingAccess.CHEST)), null
 									))
 					),
-
-			null,
-			Colour.lingerieColours, null, null, null, null, null){
+			null, Colour.lingerieColours, null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 		
@@ -3642,7 +3746,8 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType CHEST_LACY_PLUNGE_BRA = new AbstractClothingType("a",
+	public static AbstractClothingType CHEST_LACY_PLUNGE_BRA = new AbstractClothingType(200,
+			"a",
 			false,
 			"lacy plunge bra",
 			"lacy plunge bras",
@@ -3654,13 +3759,14 @@ public class ClothingType {
 			null,
 			"chest_lacy_plunge_bra",
 			null,
+
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
 									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
 											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
 									null,
-									null)),
+									null, null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.PULLS_DOWN,
 									Util.newArrayListOfValues(
@@ -3668,12 +3774,10 @@ public class ClothingType {
 									Util.newArrayListOfValues(
 											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST))
+											new ListValue<ClothingAccess>(ClothingAccess.CHEST)), null
 									))
 					),
-
-			null,
-			Colour.lingerieColours, null, null, null, null, null){
+			null, Colour.lingerieColours, null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 		
@@ -3726,7 +3830,8 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType CHEST_OPEN_CUP_BRA = new AbstractClothingType("an",
+	public static AbstractClothingType CHEST_OPEN_CUP_BRA = new AbstractClothingType(120,
+			"an",
 			false,
 			"open cup bra",
 			"open cup bras",
@@ -3737,6 +3842,7 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"chest_open_cup_bra",
+
 			null,
 
 			Util.newArrayListOfValues(
@@ -3745,12 +3851,10 @@ public class ClothingType {
 									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
 											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
 									null,
-									null))
+									null, null))
 					),
 
-			null,
-
-			Colour.lingerieColours, null, null, null, null, null){
+			null, Colour.lingerieColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -3777,7 +3881,7 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType CHEST_SPORTS_BRA = new AbstractClothingType(
+	public static AbstractClothingType CHEST_SPORTS_BRA = new AbstractClothingType(150,
 			"a",
 			false,
 			"sports bra",
@@ -3789,6 +3893,7 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"chest_sports_bra",
+
 			null,
 
 			Util.newArrayListOfValues(
@@ -3797,7 +3902,7 @@ public class ClothingType {
 									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
 											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
 									null,
-									null)),
+									null, null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.PULLS_UP,
 									Util.newArrayListOfValues(
@@ -3806,13 +3911,11 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.BREASTS),
 											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST))
+											new ListValue<ClothingAccess>(ClothingAccess.CHEST)), null
 									))
 					),
 
-			null,
-
-			Colour.lingerieColours, null, null, null, null, null){
+			null, Colour.lingerieColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -3861,7 +3964,7 @@ public class ClothingType {
 				return UtilText.parse(clothingOwner, "[npc.Name] pulls [npc.her] sports bra back down.");
 		}
 	};
-	public static AbstractClothingType CHEST_CROPTOP_BRA = new AbstractClothingType(
+	public static AbstractClothingType CHEST_CROPTOP_BRA = new AbstractClothingType(100,
 			"a",
 			false,
 			"croptop bra",
@@ -3873,6 +3976,7 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"chest_croptop_bra",
+
 			null,
 
 			Util.newArrayListOfValues(
@@ -3881,7 +3985,7 @@ public class ClothingType {
 									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
 											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
 									null,
-									null)),
+									null, null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.PULLS_UP,
 									Util.newArrayListOfValues(
@@ -3890,13 +3994,11 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.BREASTS),
 											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST))
+											new ListValue<ClothingAccess>(ClothingAccess.CHEST)), null
 									))
 					),
 
-			null,
-
-			Colour.lingerieColours, null, null, null, null, null){
+			null, Colour.lingerieColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -3945,7 +4047,8 @@ public class ClothingType {
 				return UtilText.parse(clothingOwner, "[npc.Name] pulls [npc.her] croptop bra back down.");
 		}
 	};
-	public static AbstractClothingType CHEST_FULLCUP_BRA = new AbstractClothingType(
+	
+	public static AbstractClothingType CHEST_FULLCUP_BRA = new AbstractClothingType(150,
 			"a",
 			false,
 			"fullcup bra",
@@ -3957,6 +4060,7 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"chest_fullcup_bra",
+
 			null,
 
 			Util.newArrayListOfValues(
@@ -3965,7 +4069,7 @@ public class ClothingType {
 									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
 											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
 									null,
-									null)),
+									null, null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.PULLS_DOWN,
 									Util.newArrayListOfValues(
@@ -3973,13 +4077,11 @@ public class ClothingType {
 									Util.newArrayListOfValues(
 											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST))
+											new ListValue<ClothingAccess>(ClothingAccess.CHEST)), null
 									))
 					),
 
-			null,
-
-			Colour.lingerieColours, null, null, null, null, null){
+			null, Colour.lingerieColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -4030,7 +4132,8 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType CHEST_NURSING_BRA = new AbstractClothingType("a",
+	public static AbstractClothingType CHEST_NURSING_BRA = new AbstractClothingType(250,
+			"a",
 			false,
 			"nursing bra",
 			"nursing bras",
@@ -4048,7 +4151,7 @@ public class ClothingType {
 									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
 											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
 									null,
-									null)),
+									null, null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.PULLS_DOWN,
 									Util.newArrayListOfValues(
@@ -4056,11 +4159,10 @@ public class ClothingType {
 									Util.newArrayListOfValues(
 											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST))
+											new ListValue<ClothingAccess>(ClothingAccess.CHEST)), null
 									))
 					),
-			null,
-			Colour.lingerieColours, null, null, null, null, null){
+			null, Colour.lingerieColours, null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -4113,7 +4215,8 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType CHEST_STRIPED_BRA = new AbstractClothingType("a",
+	public static AbstractClothingType CHEST_STRIPED_BRA = new AbstractClothingType(150,
+			"a",
 			false,
 			"striped bra",
 			"striped bras",
@@ -4131,7 +4234,7 @@ public class ClothingType {
 									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
 											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
 									null,
-									null)),
+									null, null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.PULLS_DOWN,
 									Util.newArrayListOfValues(
@@ -4139,13 +4242,12 @@ public class ClothingType {
 									Util.newArrayListOfValues(
 											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST))
+											new ListValue<ClothingAccess>(ClothingAccess.CHEST)), null
 									))
 					),
-			null,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT), new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT)), Colour.allClothingColours,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_WHITE)), Colour.allClothingColours,
-			null, null){
+			null, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT), new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT)),
+			Colour.allClothingColours, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_WHITE)),
+			Colour.allClothingColours, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -4173,8 +4275,7 @@ public class ClothingType {
 	};
 
 	
-	
-	public static AbstractClothingType CHEST_BIKINI = new AbstractClothingType(
+	public static AbstractClothingType CHEST_BIKINI = new AbstractClothingType(120,
 			"a",
 			false,
 			"bikini top",
@@ -4186,15 +4287,16 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"chest_bikini",
-			null,
 
+			null,
+			
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
 									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
 											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
 									null,
-									null)),
+									null, null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.PULLS_UP,
 									Util.newArrayListOfValues(
@@ -4202,13 +4304,11 @@ public class ClothingType {
 									Util.newArrayListOfValues(
 											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST))
+											new ListValue<ClothingAccess>(ClothingAccess.CHEST)), null
 									))
 					),
-			
-			null,
 
-			Colour.allClothingColours, null, null, null, null, null){
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -4260,7 +4360,7 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType NIPPLE_TAPE_CROSSES = new AbstractClothingType(
+	public static AbstractClothingType NIPPLE_TAPE_CROSSES = new AbstractClothingType(10,
 			"a pair of",
 			true,
 			"tape cross",
@@ -4280,9 +4380,8 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
-							null))),
-			null,
-			Colour.allClothingColours, null, null, null, null, null){
+							null, null))),
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 		
@@ -4314,7 +4413,7 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType CHEST_SARASHI = new AbstractClothingType(
+	public static AbstractClothingType CHEST_SARASHI = new AbstractClothingType(200,
 			"a",
 			false,
 			"chest sarashi",
@@ -4326,6 +4425,7 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"chest_sarashi",
+
 			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
@@ -4335,11 +4435,9 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 								new ListValue<CoverableArea>(CoverableArea.BREASTS),
 								new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
-							null))),
+							null, null))),
 
-			null,
-
-			Colour.allClothingColours, null, null, null, null, null){
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -4375,7 +4473,7 @@ public class ClothingType {
 
 	// STOMACH
 
-	public static AbstractClothingType STOMACH_LOWBACK_BODY = new AbstractClothingType(
+	public static AbstractClothingType STOMACH_LOWBACK_BODY = new AbstractClothingType(450,
 			"a",
 			false,
 			"lowback bodysuit",
@@ -4387,6 +4485,7 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"stomach_lowback_body",
+
 			null,
 
 			Util.newArrayListOfValues(
@@ -4399,7 +4498,7 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)))),
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.SHIFTS_ASIDE, null,
 							Util.newArrayListOfValues(
@@ -4407,18 +4506,16 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.PENIS),
 									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN)))),
+									new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.PULLS_DOWN,
 							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.CHEST))))),
+									new ListValue<ClothingAccess>(ClothingAccess.CHEST)), null))),
 
-			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.GROIN), new ListValue<InventorySlot>(InventorySlot.CHEST)),
-
-			Colour.lingerieColours, null, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.GROIN), new ListValue<InventorySlot>(InventorySlot.CHEST)), Colour.lingerieColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -4488,7 +4585,7 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType STOMACH_UNDERBUST_CORSET = new AbstractClothingType(
+	public static AbstractClothingType STOMACH_UNDERBUST_CORSET = new AbstractClothingType(200,
 			"an",
 			false,
 			"underbust corset",
@@ -4500,6 +4597,7 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"stomach_underbust_corset",
+
 			null,
 
 			Util.newArrayListOfValues(
@@ -4508,11 +4606,9 @@ public class ClothingType {
 								DisplacementType.REMOVE_OR_EQUIP,
 								Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
 								null,
-								Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
+								Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
 
-			null,
-
-			Colour.lingerieColours, null, null, null, null, null){
+			null, Colour.lingerieColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -4539,7 +4635,7 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType STOMACH_OVERBUST_CORSET = new AbstractClothingType(
+	public static AbstractClothingType STOMACH_OVERBUST_CORSET = new AbstractClothingType(500,
 			"an",
 			false,
 			"overbust corset",
@@ -4549,8 +4645,9 @@ public class ClothingType {
 			Femininity.FEMININE,
 			InventorySlot.STOMACH,
 			Rarity.COMMON,
+			null, "stomach_overbust_corset",
+
 			null,
-			"stomach_overbust_corset", null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(
@@ -4563,11 +4660,9 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.WAIST),
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST))))),
+											new ListValue<ClothingAccess>(ClothingAccess.CHEST)), null))),
 
-			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.CHEST)),
-
-			Colour.lingerieColours, null, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.CHEST)), Colour.lingerieColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -4595,7 +4690,7 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType STOMACH_SARASHI = new AbstractClothingType(
+	public static AbstractClothingType STOMACH_SARASHI = new AbstractClothingType(200,
 			"a",
 			false,
 			"stomach sarashi",
@@ -4607,6 +4702,7 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"stomach_sarashi",
+
 			null,
 
 			Util.newArrayListOfValues(
@@ -4615,11 +4711,9 @@ public class ClothingType {
 								DisplacementType.REMOVE_OR_EQUIP,
 								Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
 								null,
-								Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
+								Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
 
-			null,
-
-			Colour.lingerieColours, null, null, null, null, null){
+			null, Colour.lingerieColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -4649,7 +4743,7 @@ public class ClothingType {
 	};
 
 	// HAND
-	public static AbstractClothingType HAND_GLOVES = new AbstractClothingType(
+	public static AbstractClothingType HAND_GLOVES = new AbstractClothingType(100,
 			"a pair of",
 			true,
 			"glove",
@@ -4661,14 +4755,13 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"hand_gloves",
+
 			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FINGERS)), null,
-					Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FINGERS))))),
+					Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FINGERS)), null))),
 
-			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.FINGER)),
-
-			Colour.allClothingColours, null, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.FINGER)), Colour.allClothingColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -4695,7 +4788,8 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType HAND_FINGERLESS_GLOVES = new AbstractClothingType(
+	
+	public static AbstractClothingType HAND_FINGERLESS_GLOVES = new AbstractClothingType(100,
 			"a pair of",
 			true,
 			"fingerless glove",
@@ -4707,6 +4801,7 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"hand_fingerless_gloves",
+
 			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
@@ -4715,11 +4810,9 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.FINGERS)),
 							null,
-							null))),
+							null, null))),
 
-			null,
-
-			Colour.allClothingColours, null, null, null, null, null){
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -4746,7 +4839,7 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType HAND_ELBOWLENGTH_GLOVES = new AbstractClothingType(
+	public static AbstractClothingType HAND_ELBOWLENGTH_GLOVES = new AbstractClothingType(200,
 			"a pair of",
 			true,
 			"elbow-length glove",
@@ -4758,6 +4851,7 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"hand_elbowlength_gloves",
+
 			null,
 
 			Util.newArrayListOfValues(
@@ -4766,11 +4860,9 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.FINGERS),
 									new ListValue<ClothingAccess>(ClothingAccess.WRISTS)),
 							null,
-							null))),
+							null, null))),
 
-			null,
-
-			Colour.allClothingColours, null, null, null, null, null){
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -4798,7 +4890,8 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType HAND_WRAPS = new AbstractClothingType("a pair of",
+	public static AbstractClothingType HAND_WRAPS = new AbstractClothingType(200,
+			"a pair of",
 			true,
 			"arm wrap",
 			"arm wraps",
@@ -4818,9 +4911,8 @@ public class ClothingType {
 											new ListValue<ClothingAccess>(ClothingAccess.FINGERS),
 											new ListValue<ClothingAccess>(ClothingAccess.WRISTS)),
 									null,
-									null))),
-			null,
-			Colour.allClothingColours, null, null, null, null, null){
+									null, null))),
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -4847,7 +4939,7 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType HAND_FISHNET_GLOVES = new AbstractClothingType(
+	public static AbstractClothingType HAND_FISHNET_GLOVES = new AbstractClothingType(100,
 			"a pair of",
 			true,
 			"fishnet glove",
@@ -4859,6 +4951,7 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"hand_fishnet_gloves",
+
 			null,
 
 			Util.newArrayListOfValues(
@@ -4869,11 +4962,9 @@ public class ClothingType {
 											new ListValue<ClothingAccess>(ClothingAccess.FINGERS),
 											new ListValue<ClothingAccess>(ClothingAccess.WRISTS)),
 									null,
-									null))),
+									null, null))),
 
-			null,
-
-			Colour.allClothingColours, null, null, null, null, null){
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -4907,7 +4998,7 @@ public class ClothingType {
 
 	// WRIST
 
-	public static AbstractClothingType WRIST_WOMENS_WATCH = new AbstractClothingType(
+	public static AbstractClothingType WRIST_WOMENS_WATCH = new AbstractClothingType(1000,
 			"a",
 			false,
 			"feminine watch",
@@ -4919,15 +5010,14 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"wrist_womens_watch",
+
 			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WRISTS)), null,
-					Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WRISTS))))),
+					Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WRISTS)), null))),
 
-			null,
-
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT), new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_WHITE), new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
+			null, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT), new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
+							new ListValue<Colour>(Colour.CLOTHING_WHITE), new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -4954,7 +5044,7 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType WRIST_MENS_WATCH = new AbstractClothingType(
+	public static AbstractClothingType WRIST_MENS_WATCH = new AbstractClothingType(1200,
 			"a",
 			false,
 			"masculine watch",
@@ -4966,14 +5056,13 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"wrist_mens_watch",
+
 			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WRISTS)), null,
-					Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WRISTS))))),
+					Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WRISTS)), null))),
 
-			null,
-
-			Colour.allMetalColours, null, null, null, null, null){
+			null, Colour.allMetalColours, null, null, null, null, null){
 		
 		
 				private static final long serialVersionUID = 1L;
@@ -5001,7 +5090,7 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType WRIST_BANGLE = new AbstractClothingType(
+	public static AbstractClothingType WRIST_BANGLE = new AbstractClothingType(600,
 			"a",
 			false,
 			"bangle",
@@ -5013,14 +5102,13 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"wrist_bangle",
+
 			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WRISTS)), null,
-					Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WRISTS))))),
+					Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WRISTS)), null))),
 
-			null,
-
-			Colour.allMetalColours, null, null, null, null, null){
+			null, Colour.allMetalColours, null, null, null, null, null){
 		
 		
 				private static final long serialVersionUID = 1L;
@@ -5050,7 +5138,7 @@ public class ClothingType {
 
 	// FINGER
 
-	public static AbstractClothingType FINGER_RING = new AbstractClothingType(
+	public static AbstractClothingType FINGER_RING = new AbstractClothingType(250,
 			"a",
 			false,
 			"ring",
@@ -5062,6 +5150,7 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"finger_ring",
+
 			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
@@ -5069,11 +5158,9 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.FINGERS)),
 							null,
-							null))),
+							null, null))),
 
-			null,
-
-			Colour.allMetalColours, null, null, null, null, null){
+			null, Colour.allMetalColours, null, null, null, null, null){
 		
 		
 				private static final long serialVersionUID = 1L;
@@ -5103,7 +5190,7 @@ public class ClothingType {
 
 	// BELT
 	
-	public static AbstractClothingType HIPS_CONDOMS = new AbstractClothingType(
+	public static AbstractClothingType HIPS_CONDOMS = new AbstractClothingType(20,
 			"a",
 			false,
 			"condom belt",
@@ -5116,9 +5203,8 @@ public class ClothingType {
 			null,
 			"belt_used_condoms",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
-			null,
-			Colour.allClothingColours, null, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -5151,7 +5237,7 @@ public class ClothingType {
 	
 	// LEG
 
-	public static AbstractClothingType LEG_SKIRT = new AbstractClothingType(
+	public static AbstractClothingType LEG_SKIRT = new AbstractClothingType(150,
 			"a",
 			false,
 			"skirt",
@@ -5163,15 +5249,14 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"leg_skirt",
+
 			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.PULLS_UP, null,
 					Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.ANUS), new ListValue<CoverableArea>(CoverableArea.PENIS), new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-					Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
+					Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null))),
 
-			null,
-
-			Colour.allClothingColours, null, null, null, null, null){
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -5220,7 +5305,7 @@ public class ClothingType {
 				return UtilText.parse(clothingOwner, "[npc.Name] pulls [npc.her] skirt back down.");
 		}
 	};
-	public static AbstractClothingType LEG_PENCIL_SKIRT = new AbstractClothingType(
+	public static AbstractClothingType LEG_PENCIL_SKIRT = new AbstractClothingType(250,
 			"a",
 			false,
 			"pencil skirt",
@@ -5232,6 +5317,7 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"leg_pencil_skirt",
+
 			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
@@ -5245,11 +5331,9 @@ public class ClothingType {
 									new ListValue<CoverableArea>(
 											CoverableArea.VAGINA)),
 							Util.newArrayListOfValues(new ListValue<ClothingAccess>(
-									ClothingAccess.GROIN))))),
+									ClothingAccess.GROIN)), null))),
 
-			null,
-
-			Colour.allClothingColours, null, null, null, null, null){
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -5298,7 +5382,7 @@ public class ClothingType {
 				return UtilText.parse(clothingOwner, "[npc.Name] pulls [npc.her] skirt back down.");
 		}
 	};
-	public static AbstractClothingType LEG_MINI_SKIRT = new AbstractClothingType(
+	public static AbstractClothingType LEG_MINI_SKIRT = new AbstractClothingType(150,
 			"a",
 			false,
 			"miniskirt",
@@ -5310,15 +5394,14 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"leg_mini_skirt",
+
 			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.PULLS_UP, null,
 					Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.ANUS), new ListValue<CoverableArea>(CoverableArea.PENIS), new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-					Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
+					Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null))),
 
-			null,
-
-			Colour.allClothingColours, null, null, null, null, null){
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 		
 				private static final long serialVersionUID = 1L;
@@ -5375,7 +5458,7 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType LEG_MICRO_SKIRT_PLEATED = new AbstractClothingType(
+	public static AbstractClothingType LEG_MICRO_SKIRT_PLEATED = new AbstractClothingType(250,
 			"a",
 			false,
 			"pleated microskirt",
@@ -5387,13 +5470,12 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"leg_micro_skirt_pleated",
-			null,
-
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
 
 			null,
 
-			Colour.allClothingColours, null, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -5424,7 +5506,7 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType LEG_MICRO_SKIRT_BELTED = new AbstractClothingType(
+	public static AbstractClothingType LEG_MICRO_SKIRT_BELTED = new AbstractClothingType(100,
 			"a",
 			false,
 			"belted microskirt",
@@ -5436,13 +5518,12 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"leg_micro_skirt_belted",
-			null,
-
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
 
 			null,
 
-			Colour.allClothingColours, null, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -5473,7 +5554,7 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType LEG_SHORTS = new AbstractClothingType(
+	public static AbstractClothingType LEG_SHORTS = new AbstractClothingType(150,
 			"a pair of",
 			true,
 			"shorts",
@@ -5493,7 +5574,7 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)))),
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)), null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
 									DisplacementType.PULLS_DOWN,
@@ -5503,7 +5584,7 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.PENIS),
 											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)))),
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
 									DisplacementType.UNZIPS,
@@ -5511,9 +5592,8 @@ public class ClothingType {
 									Util.newArrayListOfValues(
 											new ListValue<CoverableArea>(CoverableArea.PENIS)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
-			null,
-			Colour.allClothingColours, null, null, null, null, null){
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null))),
+			null, Colour.allClothingColours, null, null, null, null, null){
 			
 		private static final long serialVersionUID = 1L;
 
@@ -5540,7 +5620,7 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType LEG_BIKE_SHORTS = new AbstractClothingType(
+	public static AbstractClothingType LEG_BIKE_SHORTS = new AbstractClothingType(350,
 			"a pair of",
 			true,
 			"bike shorts",
@@ -5560,7 +5640,7 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)))),
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)), null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
 									DisplacementType.PULLS_DOWN,
@@ -5570,9 +5650,8 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.PENIS),
 											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
-			null,
-			Colour.allClothingColours, null, null, null, null, null){
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null))),
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -5599,7 +5678,7 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType LEG_HOTPANTS = new AbstractClothingType(
+	public static AbstractClothingType LEG_HOTPANTS = new AbstractClothingType(150,
 			"a pair of",
 			true,
 			"hotpants",
@@ -5619,7 +5698,7 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)))),
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)), null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
 									DisplacementType.PULLS_DOWN,
@@ -5629,9 +5708,8 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.PENIS),
 											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
-			null,
-			Colour.allClothingColours, null, null, null, null, null){
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null))),
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -5658,7 +5736,8 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType LEG_TIGHT_TROUSERS = new AbstractClothingType("a pair of",
+	public static AbstractClothingType LEG_TIGHT_TROUSERS = new AbstractClothingType(400,
+			"a pair of",
 			true,
 			"tight jeans",
 			"tight jeans",
@@ -5678,7 +5757,7 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)))),
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)), null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
 									DisplacementType.PULLS_DOWN,
@@ -5688,7 +5767,7 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.PENIS),
 											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)))),
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
 									DisplacementType.UNZIPS,
@@ -5696,14 +5775,13 @@ public class ClothingType {
 									Util.newArrayListOfValues(
 											new ListValue<CoverableArea>(CoverableArea.PENIS)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
-			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLUE),
-					new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_WHITE),
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null))),
+			null, Util.newArrayListOfValues(
+							new ListValue<Colour>(Colour.CLOTHING_BLUE),
+							new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
+							new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
+							new ListValue<Colour>(Colour.CLOTHING_WHITE),
+							new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -5730,7 +5808,8 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType LEG_JEANS = new AbstractClothingType("a pair of",
+	public static AbstractClothingType LEG_JEANS = new AbstractClothingType(250,
+			"a pair of",
 			true,
 			"jeans",
 			"jeans",
@@ -5750,7 +5829,7 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)))),
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)), null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
 									DisplacementType.PULLS_DOWN,
@@ -5760,7 +5839,7 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.PENIS),
 											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)))),
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
 									DisplacementType.UNZIPS,
@@ -5768,14 +5847,13 @@ public class ClothingType {
 									Util.newArrayListOfValues(
 											new ListValue<CoverableArea>(CoverableArea.PENIS)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
-			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLUE),
-					new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_WHITE),
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null))),
+			null, Util.newArrayListOfValues(
+							new ListValue<Colour>(Colour.CLOTHING_BLUE),
+							new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
+							new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
+							new ListValue<Colour>(Colour.CLOTHING_WHITE),
+							new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -5802,7 +5880,7 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType LEG_TROUSERS = new AbstractClothingType(
+	public static AbstractClothingType LEG_TROUSERS = new AbstractClothingType(350,
 			"a pair of",
 			true,
 			"trousers",
@@ -5823,7 +5901,7 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)))),
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)), null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
 									DisplacementType.PULLS_DOWN,
@@ -5833,7 +5911,7 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.PENIS),
 											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)))),
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
 									DisplacementType.UNZIPS,
@@ -5841,11 +5919,10 @@ public class ClothingType {
 									Util.newArrayListOfValues(
 											new ListValue<CoverableArea>(CoverableArea.PENIS)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
-			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_WHITE),
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null))),
+			null, Util.newArrayListOfValues(
+							new ListValue<Colour>(Colour.CLOTHING_WHITE),
+							new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -5872,7 +5949,7 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType LEG_CARGO_TROUSERS = new AbstractClothingType(
+	public static AbstractClothingType LEG_CARGO_TROUSERS = new AbstractClothingType(250,
 			"a pair of",
 			true,
 			"cargo trousers",
@@ -5893,7 +5970,7 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)))),
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)), null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
 									DisplacementType.PULLS_DOWN,
@@ -5903,7 +5980,7 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.PENIS),
 											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)))),
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
 									DisplacementType.UNZIPS,
@@ -5911,12 +5988,11 @@ public class ClothingType {
 									Util.newArrayListOfValues(
 											new ListValue<CoverableArea>(CoverableArea.PENIS)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
-			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLACK),
-					new ListValue<Colour>(Colour.CLOTHING_BROWN),
-					new ListValue<Colour>(Colour.CLOTHING_TAN)), null, null, null, null, null){
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null))),
+			null, Util.newArrayListOfValues(
+							new ListValue<Colour>(Colour.CLOTHING_BLACK),
+							new ListValue<Colour>(Colour.CLOTHING_BROWN),
+							new ListValue<Colour>(Colour.CLOTHING_TAN)), null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -5943,7 +6019,7 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType LEG_YOGA_PANTS = new AbstractClothingType(
+	public static AbstractClothingType LEG_YOGA_PANTS = new AbstractClothingType(150,
 			"a pair of",
 			true,
 			"yoga pants",
@@ -5964,18 +6040,17 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)))),
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)), null)),
 					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.PULLS_DOWN,
 							null,
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.ANUS),
 									new ListValue<CoverableArea>(CoverableArea.PENIS),
 									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
-			null,
-			Colour.allClothingColours, null,
+							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null))),
+			null, Colour.allClothingColours,
 			null, null,
-			null, null){
+			null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 		
@@ -6002,7 +6077,7 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType LEG_ASSLESS_CHAPS = new AbstractClothingType(
+	public static AbstractClothingType LEG_ASSLESS_CHAPS = new AbstractClothingType(750,
 			"a pair of",
 			true,
 			"assless chaps",
@@ -6014,6 +6089,7 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"leg_assless_chaps",
+
 			null,
 
 			Util.newArrayListOfValues(
@@ -6026,7 +6102,7 @@ public class ClothingType {
 											new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
 									null,
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)))),
+											new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)), null)),
 					
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.PULLS_DOWN,
@@ -6034,11 +6110,9 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.PENIS),
 									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-							null))),
+							null, null))),
 
-			null,
-
-			Colour.allClothingColours, null, null, null, null, null){
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -6088,7 +6162,7 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType LEG_CROTCHLESS_CHAPS = new AbstractClothingType(
+	public static AbstractClothingType LEG_CROTCHLESS_CHAPS = new AbstractClothingType(750,
 			"a pair of",
 			true,
 			"crotchless chaps",
@@ -6100,6 +6174,7 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"leg_crotchless_chaps",
+
 			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
@@ -6109,11 +6184,9 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN))))),
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)), null))), // List<InventorySlot> incompatibleSlots
 
-			null, // List<InventorySlot> incompatibleSlots
-
-			Colour.allClothingColours, null, null, null, null, null){
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -6143,7 +6216,8 @@ public class ClothingType {
 
 	// GROIN
 
-	public static AbstractClothingType GROIN_PANTIES = new AbstractClothingType("a pair of",
+	public static AbstractClothingType GROIN_PANTIES = new AbstractClothingType(100,
+			"a pair of",
 			true,
 			"panties",
 			"panties",
@@ -6155,6 +6229,7 @@ public class ClothingType {
 			null,
 			"groin_panties",
 			null,
+
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
@@ -6163,7 +6238,7 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN),
 									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
 							null,
-							null)),
+							null, null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.SHIFTS_ASIDE,
 							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
@@ -6171,10 +6246,8 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.ANUS),
 									new ListValue<CoverableArea>(CoverableArea.PENIS),
 									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-							null))),
-
-			null,
-			Colour.lingerieColours, null, null, null, null, null){
+							null, null))),
+			null, Colour.lingerieColours, null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 		
@@ -6201,11 +6274,12 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType GROIN_SHIMAPAN = new AbstractClothingType("a pair of",
+	public static AbstractClothingType GROIN_SHIMAPAN = new AbstractClothingType(100,
+			"a pair of",
 			true,
 			"striped panties",
 			"striped panties",
-			"A pair of distinctly feminine, striped panties, made from soft cotton. They are sometimes referred to as 'shima-pantsu' (striped panties).",
+			"A pair of distinctly feminine, striped panties, made from soft cotton. They are sometimes referred to as 'shima-pantsu', or 'shimapan' (striped panties).",
 			1,
 			Femininity.FEMININE,
 			InventorySlot.GROIN,
@@ -6213,6 +6287,7 @@ public class ClothingType {
 			null,
 			"groin_shimapan",
 			null,
+
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
@@ -6221,7 +6296,7 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN),
 									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
 							null,
-							null)),
+							null, null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.SHIFTS_ASIDE,
 							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
@@ -6229,11 +6304,9 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.ANUS),
 									new ListValue<CoverableArea>(CoverableArea.PENIS),
 									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-							null))),
-
-			null,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT), new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT)), Colour.allClothingColours,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_WHITE)), Colour.allClothingColours, null, null){
+							null, null))),
+			null, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT), new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT)),
+			Colour.allClothingColours, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_WHITE)), Colour.allClothingColours, null, null){
 		
 		private static final long serialVersionUID = 1L;
 		
@@ -6260,7 +6333,8 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType GROIN_LACY_PANTIES = new AbstractClothingType("a pair of",
+	public static AbstractClothingType GROIN_LACY_PANTIES = new AbstractClothingType(150,
+			"a pair of",
 			true,
 			"lacy panties",
 			"lacy panties",
@@ -6272,6 +6346,7 @@ public class ClothingType {
 			null,
 			"groin_lacy_panties",
 			null,
+
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
@@ -6280,7 +6355,7 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN),
 									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
 							null,
-							null)),
+							null, null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.SHIFTS_ASIDE,
 							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
@@ -6288,10 +6363,8 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.ANUS),
 									new ListValue<CoverableArea>(CoverableArea.PENIS),
 									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-							null))),
-
-			null,
-			Colour.lingerieColours, null, null, null, null, null){
+							null, null))),
+			null, Colour.lingerieColours, null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 		
@@ -6318,7 +6391,8 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType GROIN_BACKLESS_PANTIES = new AbstractClothingType("a pair of",
+	public static AbstractClothingType GROIN_BACKLESS_PANTIES = new AbstractClothingType(150,
+			"a pair of",
 			true,
 			"backless panties",
 			"backless panties",
@@ -6329,6 +6403,7 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"groin_backless_panties",
+
 			null,
 
 			Util.newArrayListOfValues(
@@ -6339,18 +6414,16 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN),
 									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
 							null,
-							null)),
+							null, null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.SHIFTS_ASIDE,
 							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.PENIS),
 									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-							null))),
+							null, null))),
 
-			null,
-
-			Colour.lingerieColours, null, null, null, null, null){
+			null, Colour.lingerieColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -6400,7 +6473,8 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType GROIN_CROTCHLESS_PANTIES = new AbstractClothingType("a pair of",
+	public static AbstractClothingType GROIN_CROTCHLESS_PANTIES = new AbstractClothingType(250,
+			"a pair of",
 			true,
 			"crotchless panties",
 			"crotchless panties",
@@ -6411,6 +6485,7 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"groin_crotchless_panties",
+
 			null,
 
 			Util.newArrayListOfValues(
@@ -6420,11 +6495,9 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL),
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN),
 									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-							null, null))),
+							null, null, null))),
 
-			null,
-
-			Colour.lingerieColours, null, null, null, null, null){
+			null, Colour.lingerieColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -6452,7 +6525,8 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType GROIN_CROTCHLESS_THONG = new AbstractClothingType("a",
+	public static AbstractClothingType GROIN_CROTCHLESS_THONG = new AbstractClothingType(250,
+			"a",
 			false,
 			"crotchless thong",
 			"crotchless thongs",
@@ -6465,6 +6539,7 @@ public class ClothingType {
 			null,
 			"groin_crotchless_thong",
 			null,
+
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
@@ -6472,11 +6547,9 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL),
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN),
 									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-							null, null))),
+							null, null, null))),
 
-			null,
-
-			Colour.lingerieColours, null, null, null, null, null){
+			null, Colour.lingerieColours, null, null, null, null, null){
 		
 		
 				private static final long serialVersionUID = 1L;
@@ -6504,7 +6577,7 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType GROIN_VSTRING = new AbstractClothingType(
+	public static AbstractClothingType GROIN_VSTRING = new AbstractClothingType(200,
 			"a pair of",
 			true,
 			"v-string panties",
@@ -6516,6 +6589,7 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"groin_vstring",
+
 			null,
 
 			Util.newArrayListOfValues(
@@ -6524,13 +6598,11 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL),
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN),
 									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-							null, null)),
+							null, null, null)),
 					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.SHIFTS_ASIDE, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-							Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.ANUS), new ListValue<CoverableArea>(CoverableArea.PENIS), new ListValue<CoverableArea>(CoverableArea.VAGINA)), null))),
+							Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.ANUS), new ListValue<CoverableArea>(CoverableArea.PENIS), new ListValue<CoverableArea>(CoverableArea.VAGINA)), null, null))),
 
-			null,
-
-			Colour.lingerieColours, null, null, null, null, null){
+			null, Colour.lingerieColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -6579,7 +6651,7 @@ public class ClothingType {
 				return UtilText.parse(clothingOwner, "[npc.Name] moves [npc.her] v-string panties back into their proper place.");
 		}
 	};
-	public static AbstractClothingType GROIN_THONG = new AbstractClothingType(
+	public static AbstractClothingType GROIN_THONG = new AbstractClothingType(200,
 			"a",
 			false,
 			"thong",
@@ -6591,6 +6663,7 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"groin_thong",
+
 			null,
 
 			Util.newArrayListOfValues(
@@ -6601,7 +6674,7 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN),
 									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
 							null,
-							null)),
+							null, null)),
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.SHIFTS_ASIDE,
 							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
@@ -6609,11 +6682,9 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.ANUS),
 									new ListValue<CoverableArea>(CoverableArea.PENIS),
 									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-							null))),
+							null, null))),
 
-			null,
-
-			Colour.lingerieColours, null, null, null, null, null){
+			null, Colour.lingerieColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -6662,7 +6733,7 @@ public class ClothingType {
 				return UtilText.parse(clothingOwner, "[npc.Name] moves [npc.her] thong back into its proper place.");
 		}
 	};
-	public static AbstractClothingType GROIN_BIKINI = new AbstractClothingType(
+	public static AbstractClothingType GROIN_BIKINI = new AbstractClothingType(150,
 			"a pair of",
 			true,
 			"bikini bottoms",
@@ -6674,6 +6745,7 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"groin_bikini",
+
 			null,
 
 			Util.newArrayListOfValues(
@@ -6682,13 +6754,11 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL),
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN),
 									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-							null, null)),
+							null, null, null)),
 					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.SHIFTS_ASIDE, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-							Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.ANUS), new ListValue<CoverableArea>(CoverableArea.PENIS), new ListValue<CoverableArea>(CoverableArea.VAGINA)), null))),
+							Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.ANUS), new ListValue<CoverableArea>(CoverableArea.PENIS), new ListValue<CoverableArea>(CoverableArea.VAGINA)), null, null))),
 
-			null,
-
-			Colour.lingerieColours, null, null, null, null, null){
+			null, Colour.lingerieColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -6737,7 +6807,7 @@ public class ClothingType {
 				return UtilText.parse(clothingOwner, "[npc.Name] moves [npc.her] bikini bottoms back into their proper place.");
 		}
 	};
-	public static AbstractClothingType GROIN_BOYSHORTS = new AbstractClothingType(
+	public static AbstractClothingType GROIN_BOYSHORTS = new AbstractClothingType(150,
 			"a pair of",
 			true,
 			"boyshorts",
@@ -6749,6 +6819,7 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"groin_boyshorts",
+
 			null,
 
 			Util.newArrayListOfValues(
@@ -6757,13 +6828,11 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL),
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN),
 									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-							null, null)),
+							null, null, null)),
 					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.SHIFTS_ASIDE, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-							Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.ANUS), new ListValue<CoverableArea>(CoverableArea.PENIS), new ListValue<CoverableArea>(CoverableArea.VAGINA)), null))),
+							Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.ANUS), new ListValue<CoverableArea>(CoverableArea.PENIS), new ListValue<CoverableArea>(CoverableArea.VAGINA)), null, null))),
 
-			null,
-
-			Colour.lingerieColours, null, null, null, null, null){
+			null, Colour.lingerieColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -6812,7 +6881,7 @@ public class ClothingType {
 				return UtilText.parse(clothingOwner, "[npc.Name] moves [npc.her] boyshorts back into their proper place.");
 		}
 	};
-	public static AbstractClothingType GROIN_BRIEFS = new AbstractClothingType(
+	public static AbstractClothingType GROIN_BRIEFS = new AbstractClothingType(100,
 			"a pair of",
 			true,
 			"briefs",
@@ -6824,6 +6893,7 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"groin_briefs",
+
 			null,
 
 			Util.newArrayListOfValues(
@@ -6832,7 +6902,7 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL),
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN),
 									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-							null, null)),
+							null, null, null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.SHIFTS_ASIDE,
 							Util.newArrayListOfValues(
@@ -6841,11 +6911,9 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.ANUS),
 									new ListValue<CoverableArea>(CoverableArea.PENIS),
 									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-							null))),
+							null, null))),
 
-			null,
-
-			Colour.masculineColours, null, null, null, null, null){
+			null, Colour.masculineColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -6897,15 +6965,16 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType GROIN_CROTCHLESS_BRIEFS = new AbstractClothingType(
+	public static AbstractClothingType GROIN_CROTCHLESS_BRIEFS = new AbstractClothingType(150,
 			"a pair of",
 			true,
 			"crotchless briefs",
 			"crotchless briefs",
 			"A pair of men's briefs, with a section cut out at the front that leaves the wearer's genitalia completely exposed.",
 			1,
-			Femininity.MASCULINE,
-			InventorySlot.GROIN, Rarity.COMMON, null, "groin_crotchless_briefs", null,
+			Femininity.MASCULINE, InventorySlot.GROIN, Rarity.COMMON, null, "groin_crotchless_briefs",
+
+			null,
 
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
@@ -6913,7 +6982,7 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL),
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN),
 									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-							null, null)),
+							null, null, null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
 									DisplacementType.SHIFTS_ASIDE,
@@ -6921,11 +6990,9 @@ public class ClothingType {
 											new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
 									Util.newArrayListOfValues(
 											new ListValue<CoverableArea>(CoverableArea.ANUS)),
-									null))),
+									null, null))),
 
-			null,
-
-			Colour.masculineColours, null, null, null, null, null){
+			null, Colour.masculineColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -6977,7 +7044,7 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType GROIN_BOXERS = new AbstractClothingType(
+	public static AbstractClothingType GROIN_BOXERS = new AbstractClothingType(100,
 			"a pair of",
 			true,
 			"boxer shorts",
@@ -6989,6 +7056,7 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"groin_boxers",
+
 			null,
 
 			Util.newArrayListOfValues(
@@ -6997,13 +7065,11 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL),
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN),
 									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-							null, null)),
+							null, null, null)),
 					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.SHIFTS_ASIDE, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
-							Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.ANUS), new ListValue<CoverableArea>(CoverableArea.PENIS), new ListValue<CoverableArea>(CoverableArea.VAGINA)), null))),
+							Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.ANUS), new ListValue<CoverableArea>(CoverableArea.PENIS), new ListValue<CoverableArea>(CoverableArea.VAGINA)), null, null))),
 
-			null,
-
-			Colour.masculineColours, null, null, null, null, null){
+			null, Colour.masculineColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -7055,7 +7121,7 @@ public class ClothingType {
 
 	// SOCK
 	
-	public static AbstractClothingType SOCK_SOCKS = new AbstractClothingType(
+	public static AbstractClothingType SOCK_SOCKS = new AbstractClothingType(50,
 			"a pair of",
 			true,
 			"socks",
@@ -7074,9 +7140,8 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
 							null,
-							null))),
-			null,
-			Colour.allClothingColours, null, null, null, null, null){
+							null, null))),
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 		
@@ -7103,7 +7168,7 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType SOCK_TRAINER_SOCKS = new AbstractClothingType(
+	public static AbstractClothingType SOCK_TRAINER_SOCKS = new AbstractClothingType(50,
 			"a pair of",
 			true,
 			"trainer socks",
@@ -7122,9 +7187,8 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
 							null,
-							null))),
-			null,
-			Colour.allClothingColours, null, null, null, null, null){
+							null, null))),
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -7151,7 +7215,7 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType SOCK_KNEEHIGH_SOCKS = new AbstractClothingType(
+	public static AbstractClothingType SOCK_KNEEHIGH_SOCKS = new AbstractClothingType(100,
 			"a pair of",
 			true,
 			"knee-high socks",
@@ -7163,14 +7227,13 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"sock_kneehigh_socks",
+
 			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
-					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET), new ListValue<ClothingAccess>(ClothingAccess.CALVES)), null, null))),
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET), new ListValue<ClothingAccess>(ClothingAccess.CALVES)), null, null, null))),
 
-			null,
-
-			Colour.allClothingColours, null, null, null, null, null){
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -7197,7 +7260,8 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType SOCK_THIGHHIGH_SOCKS = new AbstractClothingType("a pair of",
+	public static AbstractClothingType SOCK_THIGHHIGH_SOCKS = new AbstractClothingType(150,
+			"a pair of",
 			true,
 			"thigh-high socks",
 			"thigh-high socks",
@@ -7216,9 +7280,8 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.FEET),
 									new ListValue<ClothingAccess>(ClothingAccess.CALVES)),
 							null,
-							null))),
-			null,
-			Colour.allClothingColours, null, null, null, null, null){
+							null, null))),
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 		
 				private static final long serialVersionUID = 1L;
@@ -7246,7 +7309,8 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType SOCK_THIGHHIGH_SOCKS_STRIPED = new AbstractClothingType("a pair of",
+	public static AbstractClothingType SOCK_THIGHHIGH_SOCKS_STRIPED = new AbstractClothingType(150,
+			"a pair of",
 			true,
 			"striped thigh-high socks",
 			"striped thigh-high socks",
@@ -7265,10 +7329,9 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.FEET),
 									new ListValue<ClothingAccess>(ClothingAccess.CALVES)),
 							null,
-							null))),
-			null,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT), new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT)), Colour.allClothingColours,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_WHITE)), Colour.allClothingColours, null, null){
+							null, null))),
+			null, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT), new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT)),
+			Colour.allClothingColours, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_WHITE)), Colour.allClothingColours, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -7295,7 +7358,7 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType SOCK_TIGHTS = new AbstractClothingType(
+	public static AbstractClothingType SOCK_TIGHTS = new AbstractClothingType(100,
 			"a pair of",
 			true,
 			"pantyhose",
@@ -7307,6 +7370,7 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"sock_tights",
+
 			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
@@ -7320,7 +7384,7 @@ public class ClothingType {
 											ClothingAccess.LEGS_UP_TO_GROIN)),
 							null,
 							Util.newArrayListOfValues(new ListValue<ClothingAccess>(
-									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL)))),
+									ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL)), null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
 									DisplacementType.PULLS_DOWN,
@@ -7333,11 +7397,9 @@ public class ClothingType {
 											new ListValue<CoverableArea>(
 													CoverableArea.VAGINA)),
 									Util.newArrayListOfValues(new ListValue<ClothingAccess>(
-											ClothingAccess.GROIN))))),
+											ClothingAccess.GROIN)), null))),
 
-			null,
-
-			Colour.allClothingColours, null, null, null, null, null){
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -7386,7 +7448,7 @@ public class ClothingType {
 				return UtilText.parse(clothingOwner, "[npc.Name] pulls [npc.her] pantyhose back up to [npc.her] waist.");
 		}
 	};
-	public static AbstractClothingType SOCK_FISHNET_STOCKINGS = new AbstractClothingType(
+	public static AbstractClothingType SOCK_FISHNET_STOCKINGS = new AbstractClothingType(150,
 			"a pair of",
 			true,
 			"fishnet stockings",
@@ -7398,14 +7460,13 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"sock_fishnets",
+
 			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
-					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET), new ListValue<ClothingAccess>(ClothingAccess.CALVES)), null, null))),
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET), new ListValue<ClothingAccess>(ClothingAccess.CALVES)), null, null, null))),
 
-			null,
-
-			Colour.allClothingColours, null, null, null, null, null){
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -7434,7 +7495,7 @@ public class ClothingType {
 
 	// ANKLE
 
-	public static AbstractClothingType ANKLE_BRACELET = new AbstractClothingType(
+	public static AbstractClothingType ANKLE_BRACELET = new AbstractClothingType(300,
 			"an",
 			false,
 			"anklet",
@@ -7446,14 +7507,13 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"ankle_bracelet",
+
 			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.CALVES)), null,
-					Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.CALVES))))),
+					Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.CALVES)), null))),
 
-			null,
-
-			Colour.allMetalColours, null, null, null, null, null){
+			null, Colour.allMetalColours, null, null, null, null, null){
 		
 		
 				private static final long serialVersionUID = 1L;
@@ -7481,7 +7541,7 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType ANKLE_SHIN_GUARDS = new AbstractClothingType(
+	public static AbstractClothingType ANKLE_SHIN_GUARDS = new AbstractClothingType(250,
 			"a pair of",
 			true,
 			"shin guards",
@@ -7493,14 +7553,13 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"ankle_shin_guards",
+
 			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.CALVES)), null,
-					Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.CALVES))))),
+					Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.CALVES)), null))),
 
-			null,
-
-			Colour.allClothingColours, null, null, null, null, null){
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -7531,7 +7590,7 @@ public class ClothingType {
 
 	// FOOT
 	
-	public static AbstractClothingType FOOT_HEELS = new AbstractClothingType(
+	public static AbstractClothingType FOOT_HEELS = new AbstractClothingType(250,
 			"a pair of",
 			true,
 			"heels",
@@ -7551,9 +7610,8 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET))))),
-			null,
-			Colour.allClothingColours, null, null, null, null, null){
+									new ListValue<ClothingAccess>(ClothingAccess.FEET)), null))),
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 		
@@ -7580,7 +7638,7 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType FOOT_STILETTO_HEELS = new AbstractClothingType(
+	public static AbstractClothingType FOOT_STILETTO_HEELS = new AbstractClothingType(500,
 			"a pair of",
 			true,
 			"stiletto heel",
@@ -7600,9 +7658,8 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET))))),
-			null,
-			Colour.allClothingColours, null, null, null, null, null){
+									new ListValue<ClothingAccess>(ClothingAccess.FEET)), null))),
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 		
@@ -7629,7 +7686,60 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType FOOT_ANKLE_BOOTS = new AbstractClothingType(
+	public static AbstractClothingType FOOT_CHELSEA_BOOTS = new AbstractClothingType(250,
+			"a pair of",
+			true,
+			"chelsea boots",
+			"chelsea boots",
+			"A pair of feminine chelsea-style ankle boots.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.FOOT,
+			Rarity.COMMON,
+			null,
+			"foot_chelsea_boots",
+			null,
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null))),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.CLOTHING_BLACK),
+					new ListValue<Colour>(Colour.CLOTHING_WHITE),
+					new ListValue<Colour>(Colour.CLOTHING_TAN),
+					new ListValue<Colour>(Colour.CLOTHING_BROWN)),
+			Colour.allClothingColours,
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.CLOTHING_BLACK)),
+			Colour.allClothingColours,
+			null, null){
+		
+				private static final long serialVersionUID = 1L;
+
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
+				return "You push your feet into the ankle boots and zip up the sides.";
+			else
+				return UtilText.parse(clothingOwner,
+						"[npc.Name] pushes [npc.her] feet into " + clothing.getName(true) + " and zips up the sides.");
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
+				return "You unzip your ankle boots and pull them off.";
+			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
+				return UtilText.parse(clothingOwner, "[npc.Name] unzips [npc.her] ankle boots and pulls them off.");
+			else {
+				if (clothingOwner.isPlayer())
+					return "[npc.Name] pulls off your ankle boots.";
+				else
+					return UtilText.parse(clothingOwner, "You pull off [npc.name]'s ankle boots.");
+			}
+		}
+	};
+	
+	public static AbstractClothingType FOOT_ANKLE_BOOTS = new AbstractClothingType(250,
 			"a pair of",
 			true,
 			"ankle boots",
@@ -7642,13 +7752,21 @@ public class ClothingType {
 			null,
 			"foot_ankle_boots",
 			null,
-
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
-					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET))))),
-
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null))),
 			null,
-
-			Colour.allClothingColours, null, null, null, null, null){
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.CLOTHING_BLACK),
+					new ListValue<Colour>(Colour.CLOTHING_WHITE),
+					new ListValue<Colour>(Colour.CLOTHING_TAN),
+					new ListValue<Colour>(Colour.CLOTHING_BROWN)),
+			Colour.allClothingColours,
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.CLOTHING_BLACK)),
+			Colour.allClothingColours,
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.CLOTHING_STEEL)),
+			Colour.allMetalColours){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -7676,7 +7794,7 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType FOOT_PLATFORM_BOOTS = new AbstractClothingType(
+	public static AbstractClothingType FOOT_PLATFORM_BOOTS = new AbstractClothingType(300,
 			"a pair of",
 			true,
 			"platform boots",
@@ -7689,13 +7807,19 @@ public class ClothingType {
 			null,
 			"foot_platform_boots",
 			null,
-
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
-					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET))))),
-
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null))),
 			null,
-
-			Colour.allClothingColours, null, null, null, null, null){
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.CLOTHING_BLACK),
+					new ListValue<Colour>(Colour.CLOTHING_WHITE),
+					new ListValue<Colour>(Colour.CLOTHING_TAN),
+					new ListValue<Colour>(Colour.CLOTHING_BROWN)),
+			Colour.allClothingColours,
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.CLOTHING_BLACK)),
+			Colour.allClothingColours,
+			null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -7722,7 +7846,8 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType FOOT_THIGH_HIGH_BOOTS = new AbstractClothingType(
+	
+	public static AbstractClothingType FOOT_THIGH_HIGH_BOOTS = new AbstractClothingType(750,
 			"a pair of",
 			true,
 			"thigh high boots",
@@ -7734,14 +7859,13 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"foot_thigh_high_boots",
+
 			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
-					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET))))),
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null))),
 
-			null,
-
-			Colour.allClothingColours, null, null, null, null, null){
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -7768,7 +7892,7 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType FOOT_MENS_SMART_SHOES = new AbstractClothingType(
+	public static AbstractClothingType FOOT_MENS_SMART_SHOES = new AbstractClothingType(500,
 			"a pair of",
 			true,
 			"men's shoes",
@@ -7780,14 +7904,13 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"foot_mens_smart_shoes",
+
 			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
-					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET))))),
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null))),
 
-			null,
-
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BLACK), new ListValue<Colour>(Colour.CLOTHING_WHITE)), null, null, null, null, null){
+			null, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BLACK), new ListValue<Colour>(Colour.CLOTHING_WHITE)), null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -7814,7 +7937,7 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType FOOT_WORK_BOOTS = new AbstractClothingType(
+	public static AbstractClothingType FOOT_WORK_BOOTS = new AbstractClothingType(600,
 			"a pair of",
 			true,
 			"work boots",
@@ -7826,17 +7949,16 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"foot_work_boots",
+
 			null,
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
-					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET))))),
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null))),
 
-			null,
-
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLACK),
-					new ListValue<Colour>(Colour.CLOTHING_BROWN),
-					new ListValue<Colour>(Colour.CLOTHING_TAN)), null, null, null, null, null){
+			null, Util.newArrayListOfValues(
+							new ListValue<Colour>(Colour.CLOTHING_BLACK),
+							new ListValue<Colour>(Colour.CLOTHING_BROWN),
+							new ListValue<Colour>(Colour.CLOTHING_TAN)), null, null, null, null, null){
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -7865,6 +7987,7 @@ public class ClothingType {
 	};
 	
 	public static AbstractClothingType FOOT_TRAINERS = new AbstractClothingType(
+			500,
 			"a pair of",
 			true,
 			"trainers",
@@ -7884,9 +8007,8 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET))))),
-			null,
-			Colour.allClothingColours, null, null, null, null, null){
+									new ListValue<ClothingAccess>(ClothingAccess.FEET)), null))),
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 		
@@ -7913,7 +8035,7 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType FOOT_LOW_TOP_SKATER_SHOES = new AbstractClothingType(
+	public static AbstractClothingType FOOT_LOW_TOP_SKATER_SHOES = new AbstractClothingType(350,
 			"a pair of",
 			true,
 			"low-top skater shoe",
@@ -7933,9 +8055,8 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.FEET))))),
-			null,
-			Colour.allClothingColours, null, null, null, null, null){
+									new ListValue<ClothingAccess>(ClothingAccess.FEET)), null))),
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 			private static final long serialVersionUID = 1L;
 
@@ -7962,7 +8083,7 @@ public class ClothingType {
 			}
 	};
 	
-	public static AbstractClothingType PENIS_CONDOM = new AbstractClothingType(
+	public static AbstractClothingType PENIS_CONDOM = new AbstractClothingType(20,
 			"a",
 			false,
 			"condom",
@@ -7973,7 +8094,8 @@ public class ClothingType {
 			InventorySlot.PENIS,
 			Rarity.COMMON,
 			null,
-			"penis_condom_unequipped", "penis_condom_equipped",
+			"penis_condom_unequipped",
+			"penis_condom_equipped",
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(
@@ -7981,9 +8103,8 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
 							null,
-							null))),
-			null,
-			Colour.allClothingColours, null, null, null, null, null){
+							null, null))),
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 		
@@ -8049,7 +8170,7 @@ public class ClothingType {
 	// CLOTHING SETS:
 
 	// MAID:
-	public static AbstractClothingType MAID_HEADPIECE = new AbstractClothingType(
+	public static AbstractClothingType MAID_HEADPIECE = new AbstractClothingType(600,
 			"a",
 			false,
 			"Maid's headpiece",
@@ -8061,13 +8182,12 @@ public class ClothingType {
 			Rarity.EPIC,
 			ClothingSet.MAID,
 			"maidHeadband",
+
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 2)),
 
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null))),
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null, null))),
 
-			null,
-
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT), new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
+			null, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT), new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -8095,7 +8215,7 @@ public class ClothingType {
 
 	};
 	
-	public static AbstractClothingType MAID_DRESS = new AbstractClothingType(
+	public static AbstractClothingType MAID_DRESS = new AbstractClothingType(2500,
 			"a",
 			false,
 			"Maid's dress",
@@ -8122,7 +8242,7 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)))),
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
 									DisplacementType.PULLS_UP,
@@ -8132,9 +8252,8 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.PENIS),
 											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
-			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)),
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT), new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null))),
+			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)), Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT), new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
 		
 			private static final long serialVersionUID = 1L;
 
@@ -8207,7 +8326,7 @@ public class ClothingType {
 			}
 		}
 	};
-	public static AbstractClothingType MAID_STOCKINGS = new AbstractClothingType(
+	public static AbstractClothingType MAID_STOCKINGS = new AbstractClothingType(450,
 			"a pair of",
 			true,
 			"Maid's stockings",
@@ -8219,16 +8338,15 @@ public class ClothingType {
 			Rarity.EPIC,
 			ClothingSet.MAID,
 			"maidStockings",
+
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(
 					Attribute.DAMAGE_LUST,
 					2)),
 
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
-					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET), new ListValue<ClothingAccess>(ClothingAccess.CALVES)), null, null))),
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET), new ListValue<ClothingAccess>(ClothingAccess.CALVES)), null, null, null))),
 
-			null,
-
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT), new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
+			null, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT), new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -8255,7 +8373,7 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType MAID_HEELS = new AbstractClothingType(
+	public static AbstractClothingType MAID_HEELS = new AbstractClothingType(800,
 			"a pair of",
 			true,
 			"Maid's high heels",
@@ -8267,15 +8385,14 @@ public class ClothingType {
 			Rarity.EPIC,
 			ClothingSet.MAID,
 			"maidHeels",
+
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(
 					Attribute.DAMAGE_LUST,
 					2)),
 
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, null))),
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, null, null))),
 
-			null,
-
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT), new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
+			null, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT), new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -8302,7 +8419,7 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType MAID_SLEEVES = new AbstractClothingType(
+	public static AbstractClothingType MAID_SLEEVES = new AbstractClothingType(350,
 			"a pair of",
 			true,
 			"Maid's sleeves",
@@ -8314,13 +8431,12 @@ public class ClothingType {
 			Rarity.EPIC,
 			ClothingSet.MAID,
 			"maidGloves",
+
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 2)),
 
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WRISTS)), null, null))),
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WRISTS)), null, null, null))),
 
-			null,
-
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT), new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
+			null, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT), new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
 		
 				private static final long serialVersionUID = 1L;
 
@@ -8349,7 +8465,8 @@ public class ClothingType {
 
 	// BDSM:
 	
-	public static AbstractClothingType BDSM_BALLGAG = new AbstractClothingType("a",
+	public static AbstractClothingType BDSM_BALLGAG = new AbstractClothingType(150,
+			"a",
 			false,
 			"ball gag",
 			"ball gags",
@@ -8361,7 +8478,7 @@ public class ClothingType {
 			ClothingSet.BDSM,
 			"mouth_ballgag",
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(
-					Attribute.MAJOR_STRENGTH,
+					Attribute.MAJOR_PHYSIQUE,
 					-5)),
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(
@@ -8369,9 +8486,8 @@ public class ClothingType {
 							null,
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.MOUTH)),
-							null))),
-			null,
-			Colour.allClothingColours, null, null, null, null, null){
+							null, null))),
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -8412,7 +8528,8 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType BDSM_RINGGAG = new AbstractClothingType("a",
+	public static AbstractClothingType BDSM_RINGGAG = new AbstractClothingType(200,
+			"a",
 			false,
 			"ring gag",
 			"ring gags",
@@ -8423,15 +8540,14 @@ public class ClothingType {
 			Rarity.EPIC,
 			ClothingSet.BDSM,
 			"mouth_ringgag",
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, -5)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, -5)),
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							null,
 							null,
-							null))),
-			null,
-			Colour.allClothingColours, null, null, null, null, null){
+							null, null))),
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 		
 				private static final long serialVersionUID = 1L;
@@ -8464,7 +8580,8 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType BDSM_CHOKER = new AbstractClothingType("a",
+	public static AbstractClothingType BDSM_CHOKER = new AbstractClothingType(350,
+			"a",
 			false,
 			"tagged choker",
 			"tagged chokers",
@@ -8475,15 +8592,14 @@ public class ClothingType {
 			Rarity.EPIC,
 			ClothingSet.BDSM,
 			"neck_choker",
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, -5)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, -5)),
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							null,
 							null,
-							null))),
-			null,
-			Colour.allMetalColours, null, null, null, null, null){
+							null, null))),
+			null, Colour.allMetalColours, null, null, null, null, null){
 		
 		
 				private static final long serialVersionUID = 1L;
@@ -8516,7 +8632,8 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType BDSM_WRIST_RESTRAINTS = new AbstractClothingType("a pair of",
+	public static AbstractClothingType BDSM_WRIST_RESTRAINTS = new AbstractClothingType(400,
+			"a pair of",
 			true,
 			"wrist restraints",
 			"wrist restraints",
@@ -8527,16 +8644,15 @@ public class ClothingType {
 			Rarity.EPIC,
 			ClothingSet.BDSM,
 			"wrist_restraints",
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, -5)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, -5)),
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(
 					DisplacementType.REMOVE_OR_EQUIP,
 					Util.newArrayListOfValues(
 							new ListValue<ClothingAccess>(ClothingAccess.WRISTS)),
 					null,
 					Util.newArrayListOfValues(
-							new ListValue<ClothingAccess>(ClothingAccess.WRISTS))))),
-			null,
-			Colour.allClothingColours, null, null, null, null, null){
+							new ListValue<ClothingAccess>(ClothingAccess.WRISTS)), null))),
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 		
 				private static final long serialVersionUID = 1L;
@@ -8569,7 +8685,8 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType BDSM_SPREADER_BAR = new AbstractClothingType("a",
+	public static AbstractClothingType BDSM_SPREADER_BAR = new AbstractClothingType(450,
+			"a",
 			false,
 			"spreader bar",
 			"spreader bars",
@@ -8580,7 +8697,7 @@ public class ClothingType {
 			Rarity.EPIC,
 			ClothingSet.BDSM,
 			"ankle_spreaderbar",
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, -5)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, -5)),
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(
 					DisplacementType.REMOVE_OR_EQUIP,
 					Util.newArrayListOfValues(
@@ -8589,9 +8706,8 @@ public class ClothingType {
 					Util.newArrayListOfValues(
 							new ListValue<>(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL),
 							new ListValue<>(ClothingAccess.LEGS_UP_TO_GROIN),
-							new ListValue<>(ClothingAccess.CALVES))))),
-			null,
-			Colour.allClothingColours, null, null, null, null, null){
+							new ListValue<>(ClothingAccess.CALVES)), null))),
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 		
 				private static final long serialVersionUID = 1L;
@@ -8624,7 +8740,8 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType BDSM_CHASTITY_BELT = new AbstractClothingType("a",
+	public static AbstractClothingType BDSM_CHASTITY_BELT = new AbstractClothingType(500,
+			"a",
 			false,
 			"chastity belt",
 			"chastity belts",
@@ -8635,7 +8752,7 @@ public class ClothingType {
 			Rarity.EPIC,
 			ClothingSet.BDSM,
 			"groin_chastity_belt",
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, -5)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, -5)),
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
@@ -8646,9 +8763,8 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.PENIS),
 									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
-							null))),
-			null,
-			Colour.allClothingColours, null, null, null, null, null){
+							null, null))),
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 		
 				private static final long serialVersionUID = 1L;
@@ -8681,7 +8797,8 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType BDSM_CHASTITY_CAGE = new AbstractClothingType("a",
+	public static AbstractClothingType BDSM_CHASTITY_CAGE = new AbstractClothingType(250,
+			"a",
 			false,
 			"chastity cage",
 			"chastity cages",
@@ -8692,7 +8809,7 @@ public class ClothingType {
 			Rarity.EPIC,
 			ClothingSet.BDSM,
 			"groin_chastityCage",
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, -5)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, -5)),
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
@@ -8700,9 +8817,8 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.PENIS)),
-							null))),
-			null,
-			Colour.allClothingColours, null, null, null, null, null){
+							null, null))),
+			null, Colour.allClothingColours, null, null, null, null, null){
 
 		
 				private static final long serialVersionUID = 1L;
@@ -8752,7 +8868,8 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType BDSM_KARADA = new AbstractClothingType("an",
+	public static AbstractClothingType BDSM_KARADA = new AbstractClothingType(400,
+			"an",
 			false,
 			"enchanted karada",
 			"enchanted karadas",
@@ -8763,7 +8880,7 @@ public class ClothingType {
 			Rarity.EPIC,
 			ClothingSet.BDSM,
 			"stomach_karada",
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, -5)),
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, -5)),
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
@@ -8775,9 +8892,8 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN_LOW_LEVEL),
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
 			null,
-//			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.CHEST)),
 			Colour.allClothingColours, null, null, null, null, null){
 		
 		
@@ -8811,7 +8927,8 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType ENFORCER_SHIRT = new AbstractClothingType("an",
+	public static AbstractClothingType ENFORCER_SHIRT = new AbstractClothingType(1500,
+			"an",
 			false,
 			"Enforcer's shirt",
 			"Enforcer's shirts",
@@ -8824,14 +8941,14 @@ public class ClothingType {
 			"enforcerShirt",
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 5),
-					new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 5)),
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5)),
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
 							null,
-							null)),
+							null, null)),
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.UNBUTTONS,
 							null,
@@ -8840,11 +8957,10 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
-			null,
-			Colour.allClothingColours, null, 
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)), Colour.allClothingColours, null, null){
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
+			null, Colour.allClothingColours, 
+			null, Util.newArrayListOfValues(
+							new ListValue<Colour>(Colour.CLOTHING_BLACK)), Colour.allClothingColours, null, null){
 		
 		
 				private static final long serialVersionUID = 1L;
@@ -8872,7 +8988,8 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType ENFORCER_SHORTS = new AbstractClothingType("a pair of",
+	public static AbstractClothingType ENFORCER_SHORTS = new AbstractClothingType(600,
+			"a pair of",
 			true,
 			"Enforcer's shorts",
 			"Enforcer's shorts",
@@ -8885,7 +9002,8 @@ public class ClothingType {
 			"enforcerShorts",
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 5),
-					new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 5)),
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5)),
+
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
@@ -8893,7 +9011,7 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)),
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)))),
+									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)), null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
 									DisplacementType.PULLS_DOWN,
@@ -8903,7 +9021,7 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.PENIS),
 											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)))),
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
 									DisplacementType.UNZIPS,
@@ -8911,10 +9029,8 @@ public class ClothingType {
 									Util.newArrayListOfValues(
 											new ListValue<CoverableArea>(CoverableArea.PENIS)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
-
-			null,
-			Colour.allClothingColours, null, null, null, null, null){
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null))),
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 		
 				private static final long serialVersionUID = 1L;
@@ -8942,7 +9058,8 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType CATTLE_PIERCING_EAR_TAGS = new AbstractClothingType("an",
+	public static AbstractClothingType CATTLE_PIERCING_EAR_TAGS = new AbstractClothingType(150,
+			"an",
 			false,
 			"ear tag",
 			"ear tags",
@@ -8954,10 +9071,9 @@ public class ClothingType {
 			ClothingSet.CATTLE,
 			"piercing_livestock_tags",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 2)),
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
-			null,
-			Util.newArrayListOfValues(new ListValue<>(Colour.CLOTHING_YELLOW)), null, null, null, null, null){
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 2)),
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			null, Util.newArrayListOfValues(new ListValue<>(Colour.CLOTHING_YELLOW)), null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -8984,7 +9100,8 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType CATTLE_PIERCING_NOSE_BOVINE_RING = new AbstractClothingType("a",
+	public static AbstractClothingType CATTLE_PIERCING_NOSE_BOVINE_RING = new AbstractClothingType(250,
+			"a",
 			false,
 			"bovine nose ring",
 			"bovine nose rings",
@@ -8996,10 +9113,9 @@ public class ClothingType {
 			ClothingSet.CATTLE,
 			"piercing_nose_cow_ring",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 3)),
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
-			null,
-			Colour.allMetalColours, null, null, null, null, null){
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 3)),
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			null, Colour.allMetalColours, null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -9026,7 +9142,8 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType CATTLE_NECK_COWBELL_COLLAR  = new AbstractClothingType("a",
+	public static AbstractClothingType CATTLE_NECK_COWBELL_COLLAR  = new AbstractClothingType(600,
+			"a",
 			false,
 			"cowbell collar",
 			"cowbell collars",
@@ -9038,10 +9155,9 @@ public class ClothingType {
 			ClothingSet.CATTLE,
 			"neck_cowbell_collar",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 3)),
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null))),
-			null,
-			Colour.allMetalColours, null, null, null, null, null){
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 3)),
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			null, Colour.allMetalColours, null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -9077,7 +9193,8 @@ public class ClothingType {
 	};
 
 	
-	public static AbstractClothingType MILK_MAID_TORSO_DRESS = new AbstractClothingType("a",
+	public static AbstractClothingType MILK_MAID_TORSO_DRESS = new AbstractClothingType(1500,
+			"a",
 			false,
 			"Milk Maid's dress",
 			"Milk Maid's dresses",
@@ -9089,8 +9206,9 @@ public class ClothingType {
 			Rarity.EPIC,
 			ClothingSet.MILK_MAID,
 			"milk_maid_dress",
+			
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 5)),
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5)),
 			
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(
@@ -9100,7 +9218,7 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)))),
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null)),
 					
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.PULLS_UP,
@@ -9110,7 +9228,7 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.PENIS),
 									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
 							Util.newArrayListOfValues(
-									new ListValue<ClothingAccess>(ClothingAccess.GROIN)))),
+									new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null)),
 					
 					new ListValue<BlockedParts>(
 							new BlockedParts(
@@ -9120,25 +9238,24 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.BREASTS),
 											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.CHEST))
+											new ListValue<ClothingAccess>(ClothingAccess.CHEST)), null
 									))),
-			
-			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)),
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_PURPLE_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_GREEN),
-					new ListValue<Colour>(Colour.CLOTHING_TAN),
-					new ListValue<Colour>(Colour.CLOTHING_BROWN),
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)), Colour.allClothingColours, 
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_WHITE)), Colour.allClothingColours,
-			null, null){
+			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)), Util.newArrayListOfValues(
+							new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
+							new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
+							new ListValue<Colour>(Colour.CLOTHING_PURPLE_LIGHT),
+							new ListValue<Colour>(Colour.CLOTHING_GREEN),
+							new ListValue<Colour>(Colour.CLOTHING_TAN),
+							new ListValue<Colour>(Colour.CLOTHING_BROWN),
+							new ListValue<Colour>(Colour.CLOTHING_BLACK)), 
+			Colour.allClothingColours, Util.newArrayListOfValues(
+							new ListValue<Colour>(Colour.CLOTHING_WHITE)),
+			Colour.allClothingColours, null, null){
 		private static final long serialVersionUID = 1L;
 	};
 	
-	public static AbstractClothingType MILK_MAID_HEADBAND = new AbstractClothingType("a",
+	public static AbstractClothingType MILK_MAID_HEADBAND = new AbstractClothingType(400,
+			"a",
 			false,
 			"Milk Maid's headband",
 			"Milk Maid's headbands",
@@ -9150,17 +9267,16 @@ public class ClothingType {
 			ClothingSet.MILK_MAID,
 			"milk_maid_headband",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 2)),
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null))),
-			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_PURPLE_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_GREEN),
-					new ListValue<Colour>(Colour.CLOTHING_TAN),
-					new ListValue<Colour>(Colour.CLOTHING_BROWN),
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 2)),
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null, null))),
+			null, Util.newArrayListOfValues(
+							new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
+							new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
+							new ListValue<Colour>(Colour.CLOTHING_PURPLE_LIGHT),
+							new ListValue<Colour>(Colour.CLOTHING_GREEN),
+							new ListValue<Colour>(Colour.CLOTHING_TAN),
+							new ListValue<Colour>(Colour.CLOTHING_BROWN),
+							new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
 		
 			private static final long serialVersionUID = 1L;
 
@@ -9187,7 +9303,8 @@ public class ClothingType {
 			}
 	};
 	
-	public static AbstractClothingType MILK_MAID_KERCHIEF = new AbstractClothingType("a",
+	public static AbstractClothingType MILK_MAID_KERCHIEF = new AbstractClothingType(300,
+			"a",
 			false,
 			"kerchief",
 			"kerchiefs",
@@ -9199,10 +9316,9 @@ public class ClothingType {
 			ClothingSet.MILK_MAID,
 			"milk_maid_kerchief",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 2)),
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null))),
-			null,
-			Colour.allClothingColours, null, null, null, null, null){
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 2)),
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null, null))),
+			null, Colour.allClothingColours, null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -9229,7 +9345,7 @@ public class ClothingType {
 		}
 	};
 
-	public static AbstractClothingType SOCK_RAINBOW_STOCKINGS = new AbstractClothingType(
+	public static AbstractClothingType SOCK_RAINBOW_STOCKINGS = new AbstractClothingType(250,
 			"a pair of",
 			true,
 			"rainbow stockings",
@@ -9242,11 +9358,10 @@ public class ClothingType {
 			ClothingSet.RAINBOW,
 			"sock_rainbow_stockings",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 3)),
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 3)),
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
-					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET), new ListValue<ClothingAccess>(ClothingAccess.CALVES)), null, null))),
-			null,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_MULTICOLOURED)), null, null, null, null, null){
+					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET), new ListValue<ClothingAccess>(ClothingAccess.CALVES)), null, null, null))),
+			null, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_MULTICOLOURED)), null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -9274,7 +9389,7 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType HAND_RAINBOW_FINGERLESS_GLOVES = new AbstractClothingType(
+	public static AbstractClothingType HAND_RAINBOW_FINGERLESS_GLOVES = new AbstractClothingType(250,
 			"a pair of",
 			true,
 			"rainbow glove",
@@ -9287,7 +9402,8 @@ public class ClothingType {
 			ClothingSet.RAINBOW,
 			"hand_rainbow_fingerless_gloves",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 3)),
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 3)),
+
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
@@ -9295,11 +9411,9 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.FINGERS),
 									new ListValue<ClothingAccess>(ClothingAccess.WRISTS)),
 							null,
-							null))),
+							null, null))),
 
-			null,
-
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_MULTICOLOURED)), null, null, null, null, null){
+			null, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_MULTICOLOURED)), null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -9327,7 +9441,8 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType MEGA_MILK = new AbstractClothingType("a",
+	public static AbstractClothingType MEGA_MILK = new AbstractClothingType(400,
+			"a",
 			false,
 			"Mega Milk T-shirt",
 			"Mega Milk T-shirts",
@@ -9339,7 +9454,7 @@ public class ClothingType {
 			null,
 			"torso_tshirt_megamilk",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 5)),
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5)),
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.REMOVE_OR_EQUIP,
@@ -9347,7 +9462,7 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
 									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
 							null,
-							null)),
+							null, null)),
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.PULLS_UP,
 							null,
@@ -9356,16 +9471,12 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
-			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLUE),
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
+			null, Util.newArrayListOfValues(
+							new ListValue<Colour>(Colour.CLOTHING_BLUE),
+							new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
 		
-		/**
-						 * 
-						 */
-						private static final long serialVersionUID = 1L;
+		private static final long serialVersionUID = 1L;
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -9392,6 +9503,7 @@ public class ClothingType {
 	
 	
 	public static AbstractClothingType WITCH_HAT = new AbstractClothingType(
+			1000,
 			"a",
 			false,
 			"Witch's hat",
@@ -9404,11 +9516,10 @@ public class ClothingType {
 			ClothingSet.WITCH,
 			"witch_hat",
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 5)),
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null))),
-			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_WHITE),
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null, null))),
+			null, Util.newArrayListOfValues(
+							new ListValue<Colour>(Colour.CLOTHING_WHITE),
+							new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -9436,7 +9547,7 @@ public class ClothingType {
 
 	};
 	
-	public static AbstractClothingType WITCH_DRESS = new AbstractClothingType(
+	public static AbstractClothingType WITCH_DRESS = new AbstractClothingType(3000,
 			"a",
 			false,
 			"Witch's dress",
@@ -9462,7 +9573,7 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)))),
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
 									DisplacementType.PULLS_UP,
@@ -9472,11 +9583,10 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.PENIS),
 											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
-			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)),
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_WHITE),
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null))),
+			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)), Util.newArrayListOfValues(
+							new ListValue<Colour>(Colour.CLOTHING_WHITE),
+							new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -9528,7 +9638,7 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType WITCH_BOOTS = new AbstractClothingType(
+	public static AbstractClothingType WITCH_BOOTS = new AbstractClothingType(1500,
 			"a pair of",
 			true,
 			"Witch's boots",
@@ -9541,11 +9651,10 @@ public class ClothingType {
 			ClothingSet.WITCH,
 			"witch_boots",
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 5)),
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, null))),
-			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_WHITE),
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, null, null))),
+			null, Util.newArrayListOfValues(
+							new ListValue<Colour>(Colour.CLOTHING_WHITE),
+							new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -9572,7 +9681,7 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType WITCH_BOOTS_THIGH_HIGH = new AbstractClothingType(
+	public static AbstractClothingType WITCH_BOOTS_THIGH_HIGH = new AbstractClothingType(1750,
 			"a pair of",
 			true,
 			"Witch's thigh-high boots",
@@ -9585,11 +9694,10 @@ public class ClothingType {
 			ClothingSet.WITCH,
 			"witch_boots_thigh_high",
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 5)),
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, null))),
-			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_WHITE),
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, null, null))),
+			null, Util.newArrayListOfValues(
+							new ListValue<Colour>(Colour.CLOTHING_WHITE),
+							new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -9617,7 +9725,7 @@ public class ClothingType {
 	};
 	
 	
-	public static AbstractClothingType KIMONO_HAIR_KANZASHI = new AbstractClothingType(
+	public static AbstractClothingType KIMONO_HAIR_KANZASHI = new AbstractClothingType(500,
 			"a",
 			false,
 			"kanzashi",
@@ -9631,29 +9739,28 @@ public class ClothingType {
 			"kimono_hair_kanzashi",
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 5)),
 			null,
-			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_PINK),
-					new ListValue<Colour>(Colour.CLOTHING_PURPLE),
-					new ListValue<Colour>(Colour.CLOTHING_PURPLE_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_RED),
-					new ListValue<Colour>(Colour.CLOTHING_TURQUOISE),
-					new ListValue<Colour>(Colour.CLOTHING_WHITE),
-					new ListValue<Colour>(Colour.CLOTHING_YELLOW)), Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_WHITE)), Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_PINK),
-					new ListValue<Colour>(Colour.CLOTHING_PURPLE),
-					new ListValue<Colour>(Colour.CLOTHING_PURPLE_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_RED),
-					new ListValue<Colour>(Colour.CLOTHING_TURQUOISE),
-					new ListValue<Colour>(Colour.CLOTHING_WHITE),
-					new ListValue<Colour>(Colour.CLOTHING_YELLOW)), Colour.allClothingColours){
+			null, Util.newArrayListOfValues(
+							new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
+							new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
+							new ListValue<Colour>(Colour.CLOTHING_PINK),
+							new ListValue<Colour>(Colour.CLOTHING_PURPLE),
+							new ListValue<Colour>(Colour.CLOTHING_PURPLE_LIGHT),
+							new ListValue<Colour>(Colour.CLOTHING_RED),
+							new ListValue<Colour>(Colour.CLOTHING_TURQUOISE),
+							new ListValue<Colour>(Colour.CLOTHING_WHITE),
+							new ListValue<Colour>(Colour.CLOTHING_YELLOW)),
+			Colour.allClothingColours, Util.newArrayListOfValues(
+							new ListValue<Colour>(Colour.CLOTHING_WHITE)),
+			Colour.allClothingColours, Util.newArrayListOfValues(
+							new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
+							new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
+							new ListValue<Colour>(Colour.CLOTHING_PINK),
+							new ListValue<Colour>(Colour.CLOTHING_PURPLE),
+							new ListValue<Colour>(Colour.CLOTHING_PURPLE_LIGHT),
+							new ListValue<Colour>(Colour.CLOTHING_RED),
+							new ListValue<Colour>(Colour.CLOTHING_TURQUOISE),
+							new ListValue<Colour>(Colour.CLOTHING_WHITE),
+							new ListValue<Colour>(Colour.CLOTHING_YELLOW)), Colour.allClothingColours){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -9681,7 +9788,7 @@ public class ClothingType {
 
 	};
 	
-	public static AbstractClothingType KIMONO_DRESS = new AbstractClothingType(
+	public static AbstractClothingType KIMONO_DRESS = new AbstractClothingType(3000,
 			"a",
 			false,
 			"kimono",
@@ -9694,7 +9801,7 @@ public class ClothingType {
 			ClothingSet.GEISHA,
 			"kimono_torso_kimono",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 5),
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
 					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 10)),
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(
@@ -9707,7 +9814,7 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)))),
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
 									DisplacementType.UNTIE,
@@ -9721,7 +9828,7 @@ public class ClothingType {
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.GROIN),
 											new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-											new ListValue<ClothingAccess>(ClothingAccess.WAIST)))),
+											new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
 									DisplacementType.PULLS_UP,
@@ -9731,38 +9838,37 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.PENIS),
 											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
-			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)),
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_PINK),
-					new ListValue<Colour>(Colour.CLOTHING_PURPLE),
-					new ListValue<Colour>(Colour.CLOTHING_PURPLE_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_RED),
-					new ListValue<Colour>(Colour.CLOTHING_TURQUOISE),
-					new ListValue<Colour>(Colour.CLOTHING_WHITE),
-					new ListValue<Colour>(Colour.CLOTHING_YELLOW)), Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_PINK),
-					new ListValue<Colour>(Colour.CLOTHING_PURPLE),
-					new ListValue<Colour>(Colour.CLOTHING_PURPLE_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_RED),
-					new ListValue<Colour>(Colour.CLOTHING_TURQUOISE),
-					new ListValue<Colour>(Colour.CLOTHING_WHITE),
-					new ListValue<Colour>(Colour.CLOTHING_YELLOW)), Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_PINK),
-					new ListValue<Colour>(Colour.CLOTHING_PURPLE),
-					new ListValue<Colour>(Colour.CLOTHING_PURPLE_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_RED),
-					new ListValue<Colour>(Colour.CLOTHING_TURQUOISE),
-					new ListValue<Colour>(Colour.CLOTHING_WHITE),
-					new ListValue<Colour>(Colour.CLOTHING_YELLOW)), Colour.allClothingColours){
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null))),
+			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)), Util.newArrayListOfValues(
+							new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
+							new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
+							new ListValue<Colour>(Colour.CLOTHING_PINK),
+							new ListValue<Colour>(Colour.CLOTHING_PURPLE),
+							new ListValue<Colour>(Colour.CLOTHING_PURPLE_LIGHT),
+							new ListValue<Colour>(Colour.CLOTHING_RED),
+							new ListValue<Colour>(Colour.CLOTHING_TURQUOISE),
+							new ListValue<Colour>(Colour.CLOTHING_WHITE),
+							new ListValue<Colour>(Colour.CLOTHING_YELLOW)),
+			Colour.allClothingColours, Util.newArrayListOfValues(
+							new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
+							new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
+							new ListValue<Colour>(Colour.CLOTHING_PINK),
+							new ListValue<Colour>(Colour.CLOTHING_PURPLE),
+							new ListValue<Colour>(Colour.CLOTHING_PURPLE_LIGHT),
+							new ListValue<Colour>(Colour.CLOTHING_RED),
+							new ListValue<Colour>(Colour.CLOTHING_TURQUOISE),
+							new ListValue<Colour>(Colour.CLOTHING_WHITE),
+							new ListValue<Colour>(Colour.CLOTHING_YELLOW)),
+			Colour.allClothingColours, Util.newArrayListOfValues(
+							new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
+							new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
+							new ListValue<Colour>(Colour.CLOTHING_PINK),
+							new ListValue<Colour>(Colour.CLOTHING_PURPLE),
+							new ListValue<Colour>(Colour.CLOTHING_PURPLE_LIGHT),
+							new ListValue<Colour>(Colour.CLOTHING_RED),
+							new ListValue<Colour>(Colour.CLOTHING_TURQUOISE),
+							new ListValue<Colour>(Colour.CLOTHING_WHITE),
+							new ListValue<Colour>(Colour.CLOTHING_YELLOW)), Colour.allClothingColours){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -9789,7 +9895,7 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType KIMONO_GETA = new AbstractClothingType(
+	public static AbstractClothingType KIMONO_GETA = new AbstractClothingType(350,
 			"a pair of",
 			true,
 			"geta",
@@ -9802,20 +9908,19 @@ public class ClothingType {
 			ClothingSet.GEISHA,
 			"kimono_foot_geta",
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 5)),
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, null))),
-			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_PINK),
-					new ListValue<Colour>(Colour.CLOTHING_PURPLE),
-					new ListValue<Colour>(Colour.CLOTHING_PURPLE_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_RED),
-					new ListValue<Colour>(Colour.CLOTHING_TURQUOISE),
-					new ListValue<Colour>(Colour.CLOTHING_WHITE),
-					new ListValue<Colour>(Colour.CLOTHING_YELLOW)), Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)), Colour.allClothingColours, null, null){
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, null, null))),
+			null, Util.newArrayListOfValues(
+							new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
+							new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
+							new ListValue<Colour>(Colour.CLOTHING_PINK),
+							new ListValue<Colour>(Colour.CLOTHING_PURPLE),
+							new ListValue<Colour>(Colour.CLOTHING_PURPLE_LIGHT),
+							new ListValue<Colour>(Colour.CLOTHING_RED),
+							new ListValue<Colour>(Colour.CLOTHING_TURQUOISE),
+							new ListValue<Colour>(Colour.CLOTHING_WHITE),
+							new ListValue<Colour>(Colour.CLOTHING_YELLOW)),
+			Colour.allClothingColours, Util.newArrayListOfValues(
+							new ListValue<Colour>(Colour.CLOTHING_BLACK)), Colour.allClothingColours, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -9842,7 +9947,7 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType KIMONO_MENS_KIMONO = new AbstractClothingType(
+	public static AbstractClothingType KIMONO_MENS_KIMONO = new AbstractClothingType(1500,
 			"a",
 			false,
 			"men's kimono",
@@ -9855,7 +9960,7 @@ public class ClothingType {
 			ClothingSet.RONIN,
 			"kimono_torso_mens_kimono",
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 5),
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
 					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 10)),
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(
@@ -9868,7 +9973,7 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)))),
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
 									DisplacementType.UNTIE,
@@ -9882,7 +9987,7 @@ public class ClothingType {
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.GROIN),
 											new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-											new ListValue<ClothingAccess>(ClothingAccess.WAIST)))),
+											new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
 									DisplacementType.PULLS_UP,
@@ -9892,17 +9997,16 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.PENIS),
 											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
-			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)),
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLACK),
-					new ListValue<Colour>(Colour.CLOTHING_GREY),
-					new ListValue<Colour>(Colour.CLOTHING_BLUE)), Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_WHITE)), Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_GREY)), Colour.allClothingColours){
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null))),
+			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)), Util.newArrayListOfValues(
+							new ListValue<Colour>(Colour.CLOTHING_BLACK),
+							new ListValue<Colour>(Colour.CLOTHING_GREY),
+							new ListValue<Colour>(Colour.CLOTHING_BLUE)),
+			Colour.allClothingColours, Util.newArrayListOfValues(
+							new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
+							new ListValue<Colour>(Colour.CLOTHING_WHITE)),
+			Colour.allClothingColours, Util.newArrayListOfValues(
+							new ListValue<Colour>(Colour.CLOTHING_GREY)), Colour.allClothingColours){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -9929,7 +10033,8 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType KIMONO_HAORI = new AbstractClothingType("a",
+	public static AbstractClothingType KIMONO_HAORI = new AbstractClothingType(750,
+			"a",
 			false,
 			"men's haori",
 			"men's haori",
@@ -9949,14 +10054,13 @@ public class ClothingType {
 											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
 									null,
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER))
+											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null
 									))),
-			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLACK),
-					new ListValue<Colour>(Colour.CLOTHING_GREY),
-					new ListValue<Colour>(Colour.CLOTHING_BLUE)), Colour.allClothingColours,
-			null, null, null, null){
+			null, Util.newArrayListOfValues(
+							new ListValue<Colour>(Colour.CLOTHING_BLACK),
+							new ListValue<Colour>(Colour.CLOTHING_GREY),
+							new ListValue<Colour>(Colour.CLOTHING_BLUE)),
+			Colour.allClothingColours, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 		
@@ -9983,7 +10087,7 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType KIMONO_MENS_GETA = new AbstractClothingType(
+	public static AbstractClothingType KIMONO_MENS_GETA = new AbstractClothingType(350,
 			"a pair of",
 			true,
 			"men's geta",
@@ -9996,14 +10100,13 @@ public class ClothingType {
 			ClothingSet.RONIN,
 			"kimono_foot_mens_geta",
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 5)),
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, null))),
-			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLACK),
-					new ListValue<Colour>(Colour.CLOTHING_GREY),
-					new ListValue<Colour>(Colour.CLOTHING_BLUE)), Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)), Colour.allClothingColours, null, null){
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, null, null))),
+			null, Util.newArrayListOfValues(
+							new ListValue<Colour>(Colour.CLOTHING_BLACK),
+							new ListValue<Colour>(Colour.CLOTHING_GREY),
+							new ListValue<Colour>(Colour.CLOTHING_BLUE)),
+			Colour.allClothingColours, Util.newArrayListOfValues(
+							new ListValue<Colour>(Colour.CLOTHING_BLACK)), Colour.allClothingColours, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -10031,7 +10134,7 @@ public class ClothingType {
 	};
 	
 	
-	public static AbstractClothingType JOLNIR_HAT = new AbstractClothingType(
+	public static AbstractClothingType JOLNIR_HAT = new AbstractClothingType(400,
 			"a",
 			false,
 			"J&oacute;lnir's hat",
@@ -10044,11 +10147,10 @@ public class ClothingType {
 			ClothingSet.JOLNIR,
 			"jolnir_head_hat",
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.CRITICAL_DAMAGE, 10)),
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null))),
-			null,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_RED)), Colour.allClothingColours,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_WHITE)), Colour.allClothingColours,
-			null, null){
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null, null))),
+			null, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_RED)),
+			Colour.allClothingColours, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_WHITE)),
+			Colour.allClothingColours, null, null){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -10076,7 +10178,8 @@ public class ClothingType {
 
 	};
 	
-	public static AbstractClothingType JOLNIR_COAT = new AbstractClothingType("a",
+	public static AbstractClothingType JOLNIR_COAT = new AbstractClothingType(750,
+			"a",
 			false,
 			"J&oacute;lnir's coat",
 			"J&oacute;lnir's coats",
@@ -10096,12 +10199,11 @@ public class ClothingType {
 											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
 									null,
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER))
+											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null
 									))),
-			null,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_RED)), Colour.allClothingColours,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_WHITE)), Colour.allClothingColours,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BLACK)), Colour.allClothingColours){
+			null, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_RED)),
+			Colour.allClothingColours, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_WHITE)),
+			Colour.allClothingColours, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BLACK)), Colour.allClothingColours){
 		
 		private static final long serialVersionUID = 1L;
 		
@@ -10128,7 +10230,7 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType JOLNIR_DRESS = new AbstractClothingType(
+	public static AbstractClothingType JOLNIR_DRESS = new AbstractClothingType(900,
 			"a",
 			false,
 			"J&oacute;lnir's dress",
@@ -10154,7 +10256,7 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-									new ListValue<ClothingAccess>(ClothingAccess.WAIST)))),
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
 									DisplacementType.PULLS_UP,
@@ -10164,11 +10266,10 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.PENIS),
 											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN))))),
-			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)),
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_RED)), Colour.allClothingColours,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_WHITE)), Colour.allClothingColours,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BLACK)), Colour.allClothingColours){
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null))),
+			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)), Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_RED)),
+			Colour.allClothingColours, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_WHITE)),
+			Colour.allClothingColours, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BLACK)), Colour.allClothingColours){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -10220,7 +10321,7 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType JOLNIR_BOOTS = new AbstractClothingType(
+	public static AbstractClothingType JOLNIR_BOOTS = new AbstractClothingType(500,
 			"a pair of",
 			true,
 			"J&oacute;lnir's boot",
@@ -10233,11 +10334,10 @@ public class ClothingType {
 			ClothingSet.JOLNIR,
 			"jolnir_foot_boots",
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.CRITICAL_CHANCE, 5)),
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, null))),
-			null,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_RED)), Colour.allClothingColours,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BLACK)), Colour.allClothingColours,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_WHITE)), Colour.allClothingColours){
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, null, null))),
+			null, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_RED)),
+			Colour.allClothingColours, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BLACK)),
+			Colour.allClothingColours, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_WHITE)), Colour.allClothingColours){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -10264,7 +10364,7 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType JOLNIR_BOOTS_FEMININE = new AbstractClothingType(
+	public static AbstractClothingType JOLNIR_BOOTS_FEMININE = new AbstractClothingType(750,
 			"a pair of",
 			true,
 			"J&oacute;lnir's heeled boot",
@@ -10277,11 +10377,10 @@ public class ClothingType {
 			ClothingSet.JOLNIR,
 			"jolnir_foot_boots_feminine",
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.CRITICAL_CHANCE, 5)),
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, null))),
-			null,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_RED)), Colour.allClothingColours,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BLACK)), Colour.allClothingColours,
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_WHITE)), Colour.allClothingColours){
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, null, null))),
+			null, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_RED)),
+			Colour.allClothingColours, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BLACK)),
+			Colour.allClothingColours, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_WHITE)), Colour.allClothingColours){
 		
 		private static final long serialVersionUID = 1L;
 
@@ -10309,7 +10408,8 @@ public class ClothingType {
 	};
 	
 	
-	public static AbstractClothingType SCIENTIST_TORSO_OVER_LAB_COAT = new AbstractClothingType("a",
+	public static AbstractClothingType SCIENTIST_TORSO_OVER_LAB_COAT = new AbstractClothingType(800,
+			"a",
 			false,
 			"lab coat",
 			"lab coats",
@@ -10331,7 +10431,7 @@ public class ClothingType {
 									null,
 									null,
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER))
+											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null
 									)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
@@ -10342,7 +10442,7 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.PENIS),
 											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
 									Util.newArrayListOfValues(
-											new ListValue<ClothingAccess>(ClothingAccess.GROIN)))),
+											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
 									DisplacementType.UNBUTTONS,
@@ -10355,11 +10455,10 @@ public class ClothingType {
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.GROIN),
 											new ListValue<ClothingAccess>(ClothingAccess.CHEST),
-											new ListValue<ClothingAccess>(ClothingAccess.WAIST))))),
-			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_WHITE),
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
+											new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
+			null, Util.newArrayListOfValues(
+							new ListValue<Colour>(Colour.CLOTHING_WHITE),
+							new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 		
@@ -10386,7 +10485,7 @@ public class ClothingType {
 		}
 	};
 	
-	public static AbstractClothingType SCIENTIST_EYES_SAFETY_GOGGLES = new AbstractClothingType(
+	public static AbstractClothingType SCIENTIST_EYES_SAFETY_GOGGLES = new AbstractClothingType(150,
 			"a pair of",
 			true,
 			"safety goggles",
@@ -10402,6 +10501,7 @@ public class ClothingType {
 					new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 2),
 					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 2),
 					new Value<Attribute, Integer>(Attribute.RESISTANCE_ICE, 2)),
+
 			Util.newArrayListOfValues(
 					new ListValue<BlockedParts>(
 							new BlockedParts(
@@ -10410,11 +10510,9 @@ public class ClothingType {
 											new ListValue<ClothingAccess>(ClothingAccess.HEAD),
 											new ListValue<ClothingAccess>(ClothingAccess.EYES)),
 									null,
-									null))),
+									null, null))), // List<InventorySlot> incompatibleSlots
 
-			null, // List<InventorySlot> incompatibleSlots
-
-			Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
+			null, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
 		
 		private static final long serialVersionUID = 1L;
 

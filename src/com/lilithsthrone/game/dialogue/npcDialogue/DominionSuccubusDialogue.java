@@ -222,7 +222,7 @@ public class DominionSuccubusDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "This demon doesn't look so tough! You're pretty sure you can beat [npc.herHim].", ALLEY_DEMON_ATTACK, Main.game.getActiveNPC()){
+				return new ResponseCombat("Fight", "This demon doesn't look so tough! You're pretty sure you can beat [npc.herHim].", Main.game.getActiveNPC()){
 					@Override
 					public void effects() {
 						if(Main.game.getActiveNPC().isVisiblyPregnant())

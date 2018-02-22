@@ -1,8 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.dominion;
 
 import com.lilithsthrone.game.character.NameTriplet;
-import com.lilithsthrone.game.character.Quest;
-import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
@@ -19,6 +17,8 @@ import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.Brax;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -1392,7 +1392,7 @@ public class EnforcerHQDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "[brax.name] looks like he's ready to give you another beating!", INTERIOR_BRAX_TRUTH, Main.game.getBrax());
+				return new ResponseCombat("Fight", "[brax.name] looks like he's ready to give you another beating!", Main.game.getBrax());
 					
 			} else {
 				return null;
@@ -1423,7 +1423,7 @@ public class EnforcerHQDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "If you want to find out what happened to Arthur, you're going to have to fight [brax.name]!", INTERIOR_BRAX_TRUTH, Main.game.getBrax());
+				return new ResponseCombat("Fight", "If you want to find out what happened to Arthur, you're going to have to fight [brax.name]!", Main.game.getBrax());
 					
 			} else {
 				return null;
@@ -1497,7 +1497,7 @@ public class EnforcerHQDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "[brax.name] looks extremely embarrassed, and you're sure that you've given yourself at least a small advantage by tricking him like this!", INTERIOR_BRAX_LIE_IDIOT_BRAX, Main.game.getBrax()){
+				return new ResponseCombat("Fight", "[brax.name] looks extremely embarrassed, and you're sure that you've given yourself at least a small advantage by tricking him like this!", Main.game.getBrax()){
 					@Override
 					public void effects(){
 						Main.game.getBrax().incrementMana(-Main.game.getBrax().getAttributeValue(Attribute.MANA_MAXIMUM)/4);
@@ -1560,15 +1560,10 @@ public class EnforcerHQDialogue {
 			if (index == 1) {
 				return new Response("Let him go", "Tell [brax.name] to have fun. From your directions, it'll take at least a couple of hours before he figures out he's been fooled.", INTERIOR_BRAX_LIE_BLUFFING_SUCCESS){
 					@Override
-					public QuestLine getQuestLine() {
-						if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_C_WOLFS_DEN) {
-							return QuestLine.MAIN;
-						} else {
-							return null;
-						}
-					}
-					@Override
 					public void effects(){
+						if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_C_WOLFS_DEN) {
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_D_SLAVERY));
+						}
 						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHIRT, Colour.CLOTHING_BLUE, false), false);
 						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHORTS, Colour.CLOTHING_BLUE, false), false);
 					}
@@ -1664,7 +1659,7 @@ public class EnforcerHQDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "[brax.name] looks extremely embarrassed, and you're sure that you've given yourself a big advantage by tricking him like this!", INTERIOR_BRAX_LIE_IDIOT_BRAX, Main.game.getBrax()){
+				return new ResponseCombat("Fight", "[brax.name] looks extremely embarrassed, and you're sure that you've given yourself a big advantage by tricking him like this!", Main.game.getBrax()){
 					@Override
 					public void effects(){
 						Main.game.getBrax().incrementMana(-Main.game.getBrax().getAttributeValue(Attribute.MANA_MAXIMUM)/2);
@@ -1710,14 +1705,10 @@ public class EnforcerHQDialogue {
 			if (index == 1) {
 				return new Response("Read", "Read the piece of paper [brax.name] just handed to you.", INTERIOR_BRAX_GETTING_TEASED_UH_OH){
 					@Override
-					public QuestLine getQuestLine() {
-						if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_C_WOLFS_DEN)
-							return QuestLine.MAIN;
-						else
-							return null;
-					}
-					@Override
 					public void effects(){
+						if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_C_WOLFS_DEN) {
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_D_SLAVERY));
+						}
 						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHIRT, Colour.CLOTHING_BLUE, false), false);
 						Main.game.getPlayer().addClothing(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHORTS, Colour.CLOTHING_BLUE, false), false);
 					}

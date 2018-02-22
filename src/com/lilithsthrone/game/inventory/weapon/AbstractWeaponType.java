@@ -31,7 +31,8 @@ import com.lilithsthrone.utils.Util;
 public abstract class AbstractWeaponType extends AbstractCoreType implements Serializable {
 
 	protected static final long serialVersionUID = 1L;
-	
+
+	private int baseValue;
 	private String determiner, pronoun, name, namePlural, description, pathName;
 	protected DamageLevel damageLevel;
 	protected DamageVariance damageVariance;
@@ -42,9 +43,22 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 	private Map<DamageType, String> SVGStringMap;
 	private List<Spell> spells;
 
-	public AbstractWeaponType(String determiner, String pronoun, String name, String namePlural, String description, InventorySlot slot, String pathName, Rarity rarity, List<DamageType> availableDamageTypes, DamageLevel damageLevel,
-			DamageVariance damageVariance, Map<Attribute, Integer> attributeModifiers, List<Spell> spells) {
+	public AbstractWeaponType(int baseValue,
+			String determiner,
+			String pronoun,
+			String name,
+			String namePlural,
+			String description,
+			InventorySlot slot,
+			String pathName,
+			Rarity rarity,
+			List<DamageType> availableDamageTypes,
+			DamageLevel damageLevel,
+			DamageVariance damageVariance,
+			Map<Attribute, Integer> attributeModifiers,
+			List<Spell> spells) {
 
+		this.baseValue = baseValue;
 		this.determiner = determiner;
 		this.pronoun = pronoun;
 		this.name = name;
@@ -246,6 +260,10 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 							"[npc.Name] kicks out at you, and as [npc.she] does so, a bolt of arcane energy shoots out of [npc.her] [npc.foot] to sail harmlessly through the air as you dodge [npc.her] attack."));
 			}
 		}
+	}
+
+	public int getBaseValue() {
+		return baseValue;
 	}
 	
 	public String getDeterminer() {

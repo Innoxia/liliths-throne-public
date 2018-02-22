@@ -13,9 +13,9 @@ import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.PlayerCharacter;
-import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
@@ -42,7 +42,7 @@ import javafx.stage.Stage;
 
 /**
  * @since 0.1.0
- * @version 0.1.98
+ * @version 0.1.99.5
  * @author Innoxia
  */
 public class Main extends Application {
@@ -56,7 +56,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.1.99",
+	public static final String VERSION_NUMBER = "0.1.99.5",
 			VERSION_DESCRIPTION = "Early Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
@@ -74,14 +74,8 @@ public class Main extends Application {
 		+ "</p>"
 			
 		+ "<p>"
-			+ "I ran into some major unexpected problems (involving the UI and code refactoring) when reworking the stats and perk systems this week (as a precursor to the combat rework), so I lost a lot of time getting all of that sorted."
-			+ " As a result, Nyan's content and the fluid mechanics are not done yet, and the combat rework is only half-way done."
-			+ " I really am very sorry that I didn't manage to get all of that done on time. :("
-		+ "</p>"
-			
-		+ "<p>"
-			+ "I will get all of that finished off for 0.2.0, which will be the last update in which I'm working mainly on engine-side stuff."
-			+ " Once this combat and stats work is finished, all of the core engine mechanics will be finished, and I'll move on to mainly writing content."
+			+ "Adding in Nyan's content took a lot longer than I'd thought it would, so as a result, I haven't managed to get much work done on finishing the combat and sex systems in this version."
+			+ " I will concentrate fully on that for the full version of 0.2.0, as well as (finally) getting the last of the fluid mechanics finished. (I'm really sorry that that's taken so long. ;_;)"
 		+ "</p>"
 		
 		+ "<p>"
@@ -92,102 +86,61 @@ public class Main extends Application {
 		+ "</br>"
 
 		+ "<list>"
-			+ "<h6>v0.1.98.5</h6>"
+			+ "<h6>v0.1.99.5</h6>"
 			+"<li>Engine:</li>"
-			+"<ul>Updated to Java 9.0.4. If you're using the .jar version of the game, and are encountering UI bugs, please update your Java to 9.0.4 (.exe versions are unaffected, as they are packaged with 9.0.4).</ul>"
-			+"<ul>Save files now only keep track of the last 50 events in the event log. (As only the last 50 are ever displayed within the game, it was pointless to be saving more than this.)</ul>"
+			+"<ul>Added support to read .xml files for parsing game content.</ul>"
+			+"<ul>Added 'subspecies' as a more refined way to track a character's race.</ul>"
+			+"<ul>Added support for clothing to conceal slots (I'll fill in the data for all clothing items as soon as I can).</ul>"
+			+"<ul>Reworked the way Quest data is handled in the engine (to allow branching quests).</ul>"
 
 			+"<li>Gameplay:</li>"
-			+"<ul>Expanded fetish mechanics to tie-in with the lust mechanic in sex. You can now select your 'desire' for each fetish, which affects your lust gains in sex. (Lust affects NPC pace, and when in consensual sex, dominant NPCs stop sex if their lust gets to 0, and submissive NPCs stop it when they drop below 20.)</ul>"
-			+"<ul>All NPCs now have their own desires. You can see these by hovering over their 'desires' status effect. (I chose to display these in a easy manner, rather than having you find them out 1-by-1, as I thought 'desire discovery' mechanics would get very tedious.)</ul>"
-			+"<ul>Added voyeurist, vaginal, pussy slut, leg lover, and strutter fetishes.</ul>"
-			+"<ul>Added new fetishes and desire increases/decreases to the 'mystery kink' item's enchantments. Also organised the fetish order in that menu.</ul>"
-			+"<ul>You now earn experience for each fetish-related action both in and out of sex. Higher fetish levels increase arousal gains from those actions in sex, and for the next version I'll make them level the fetish up to provide larger bonuses.</ul>"
-			+"<ul>Added the start of stamina drains in sex (although I haven't added exhaustion for when the character reaches 0 yet).</ul>"
-			+"<ul>Added the start of alcoholic effects (the rest & psychoactive effects will be finished for the full version).</ul>"
+			+"<ul>Maximum Energy and Aura now take level into account (+2 per level).</ul>"
+			+"<ul>Added: Ashley's shop ('Dream Lover'). This is a gift shop, and the items bought from here can be used as a way to boost affection with NPCs (only Nyan for now). (This shop, and the character 'Ashley', were both written by Kumiko.)</ul>"
+			+"<ul>Added: Gifts for Ashley to sell; Chocolates, Rose Bouquet, Rose Perfume, and Teddy Bear. Also moved feather duster from Vicky's shop to Ashley's.</ul>"
+			+"<ul>Nyan no longer stocks enchanted or 'special' clothing by default (her shop's contents will refresh to the correct stock at midnight).</ul>"
+			+"<ul>Nyan now has a quest 'Supplier Issues', through which you can unlock enchanted clothing (she now also stocks one +5/+5 rare piece of clothing in each category after completing this quest).</ul>"
+			+"<ul>Nyan now has several romance actions. (Unlocked after completing 'Supplier Issues'.)</ul>"
+
+			+"<li>Transformations/Body Parts:</li>"
+			+"<ul>Improved race detection for the 'greater/lesser/minor/partial' system (it now uses weighting of all body parts).</ul>"
+			+"<ul>Added 'dobermann-morph' as a dog-morph subspecies (for use in Nyan's quest).</ul>"
+			+"<ul>The transformation to 'increase antenna/tail/horn count' will now grow a new pair of antennae/tail/pair of horns if you have none.</ul>"
+			+"<ul>Added 'marked' to possible covering patterns (naturally occurs on dog, wolf, cat, horse, and cow morphs, as well as harpies).</ul>"
+			+"<ul>Standardised the availability of covering patterns for all skin/fur/hair coverings.</ul>"
+			+"<ul>Added 'pointed' dog-morph ear variation TF. (Standard dog-morph ears are now described as 'floppy'.)</ul>"
+			+"<ul>Added 'stubby' dog-morph tail variation TF.</ul>"
+			+"<ul>Dog-morph penis transformation now sets penis colour to red, and dog-morph penises will now spawn with red skin.</ul>"
+			+"<ul>Penis transformation when growing a new penis now sets size to 1 inch (if the underlying size was 0).</ul>"
+			+"<ul>Added 'modifier' for coverings (such as 'smooth' and 'fluffy' for cat fur), which can be changed in Kate's shop. (I needed this for the Dobermann addition.)</ul>"
+			+"<ul>Added 'tan' as a covering colour for fur.</ul>"
+
+			+"<li>Clothing:</li>"
+			+"<ul>Added: Cloak (Gender neutral, over-torso slot).</ul>"
+			+"<ul>Remade the 'ankle boots' and 'platform boots' icons.</ul>"
+			+"<ul>Added: Chelsea boots (feminine, foot slot).</ul>"
+
+			+"<li>Combat:</li>"
+			+"<ul>Added support for multiple combatants, both as allies and enemies.</ul>"
 
 			+"<li>Other:</li>"
-			+"<ul>Improved the save/load icons. (I'm sorry they were so poorly thought-out before!)</ul>"
-			+"<ul>Added more antler and horn colours.</ul>"
-			+"<ul>If you are the dom in a sex scene in which your partner does not have equal control (i.e. a non-con scene), then your partner will not be allowed to remove your clothing by default. (You can still permit them to.)</ul>"
-			+"<ul>Taking a shower now cleans 500ml of cum from all orifices, except your mouth (representing cum in stomach), which isn't affected.</ul>"
-			+"<ul>Sightly improved formatting of all tooltips.</ul>"
-			+"<ul>Added associated fetishes to orgasms.</ul>"
-			+"<ul>Added save/load entries to event log.</ul>"
-			+"<ul>Added correct fetishes to Lilaya & Rose (I still need to go through all unique NPCs and give them proper likes/dislikes).</ul>"
-			+"<ul>Ralph now stocks 25 dye brushes instead of 5. (Wait for his shop to refresh at midnight for him to start stocking 25.)</ul>"
+			+"<ul>Improved price calculations for all clothing, weapons, and items. Also increased loot drop money, Pix's gym costs to match new amounts.</ul>"
+			+"<ul>Removed 'pure' damage and resistance as attributes. (Pure damage will be a damage type for certain spells and attacks later on, but will function as expected - to bypass all resistances.)</ul>"
+			+"<ul>Renamed 'strength' attribute to 'physique'.</ul>"
+			+"<ul>Added 'Muscle Definition', 'Body Size', and 'Body Shape' to the 'Body Stats' page in your phone.</ul>"
+			+"<ul>The 'Cardio' and 'Weights' options in Pix's Playground now reduce your Body Size and increase your Muscle, respectively, while Pix's special workout will apply both effects.</ul>"
+			+"<ul>Added physical resist to 'Masochist' fetish. (Also tweaked Sadist and Sadomasochist fetish attribute buffs.)</ul>"
+			+"<ul>Added money and essences back to the main UI.</ul>"
+			+"<ul>Added unique icons for wolf-morph status effect and items.</ul>"
+			+"<ul>Doubled the quantity of items that Ralph stocks.</ul>"
 
 			+"<li>Bugs:</li>"
-			+"<ul>Fixed ongoing penetration status effect's incorrect tooltip descriptions.</ul>"
-			+"<ul>Typos and parsing fixes (including fixing knotting descriptions).</ul>"
-			+"<ul>Fixed incorrect naming for breast shape and horn TF potions.</ul>"
-			+"<ul>Loading a game no longer overwrites the activity log.</ul>"
-			+"<ul>Your discoveries of NPC genitals are now correctly saved/loaded.</ul>"
-			+"<ul>Cumming inside a partner multiple times should no longer result in multiple pregnancy possibilities in the pregnancy stats screen.</ul>"
-			+"<ul>The description of losing your penile virginity should now always be appended correctly in sex.</ul>"
-			+"<ul>Body parts being exposed in sex should now have the correct descriptions appended.</ul>"
-			+"<ul>Fixed bug where the action 'Pull out (chest)' sometimes wouldn't work.</ul>"
-			+"<ul>Fixed grey horns and antlers text colour being red.</ul>"
-			+"<ul>Fixed Kate's intro referencing three pairs of breasts (she now just has a single pair of breasts).</ul>"
-			+"<ul>Fixed clothing remaining dirty after taking a shower.</ul>"
-			+"<ul>Fixed some sex actions randomly not being available.</ul>"
-			+"<ul>Fixed bug where 'stop X' actions would show up in sex actions for when your partner was using themselves. (e.g. 'Stop fingering' would show up when your partner was fingering themselves.)</ul>"
-			+"<ul>Fixed bug where the status message informing you that your clothing was getting dirty would lock up sex scenes.</ul>"
-			+"<ul>Fixed penile virginity being reset on every game load (old characters will still incorrectly be penile virgins, but after losing it their non-virgin state will be saved).</ul>"
-			+"<ul>NPCs will no longer listen to your pullout/creampie requests if they're the dom in non-con sex.</ul>"
-		+ "</list>"
-
-		+ "</br>"
-
-		+ "<list>"
-			+ "<h6>v0.1.99</h6>"
-			+"<li>Gameplay:</li>"
-			+"<ul>Increased level cap to 50.</ul>"
-			+"<ul>Changed core stats from Strength, Intelligence, Fitness, Corruption + Health, Willpower, Stamina to Strength, Arcane, Lust, Corruption + Energy, Aura. (Removed fitness and stamina stats.) This is still a work-in-progress.</ul>"
-			+"<ul>Reworked all attribute-related status effects. (The bonuses you get from raising strength/arcane/corruption.)</ul>"
-			+"<ul>Removed level-up points (the points that you'd spend on strength, intelligence, and fitness).</ul>"
-			+"<ul><b>Updated:</b> Perk tree mechanics. (I didn't intend for this to be part of the combat update just yet, but it turned out to be necessary in order for other parts of the game to continue to function properly.)</ul>"
-			
-			+"<li>Sex AI:</li>"
-			+"<ul>NPCs that either love or like the Submissive or Dominant fetishes will now start sex in Eager or Rough paces.</ul>"
-			+"<ul>NPCs will no longer perform actions that they dislike or hate.</ul>"
-			+"<ul>Dominant NPCs will no longer end sex due to having 0 lust. Only submissive NPCs who have equal control (such as in consensual scenes, like Lilaya's), will end sex when they fall into the resisting pace.</ul>"
-			+"<ul>NPCs should no longer refrain from performing penetration actions (this was a bug where all NPC preferences were accidentally being removed, leaving them only wanting to perform self-actions).</ul>"
-			+"<ul>Fixed a cause of incorrect fetish associations for sex actions (such as your partner being affected by your masturbation actions as though they were the one masturbating), which should help the AI's decision-making process a little.</ul>"
-			+"<ul>NPC's anal action preference is now treated the same as all the others. (The fetish desire system has replaced the old method I was using to weigh NPC action preferences.)</ul>"
-			+"<ul>NPCs have been told to reign in their obsession with self-actions.</ul>"
-			
-			+"<li>Other:</li>"
-			+"<ul><b>Removed:</b> All references to slimes in the code (as they will be implemented a little differently to how I originally planned). If you've become a slime through the debug menu, you should switch back before loading your character into this version.</ul>"
-			+"<ul>Tweaked base height and breast sizes for several races.</ul>"
-			+"<ul>Halved the lust drop from performing hated sex actions from -50 to -25.</ul>"
-			+"<ul>Succubus attackers and Cultists now have fetishes & desires generated like other NPCs (although they will never dislike or hate performing non-con).</ul>"
-			+"<ul>You are now always able to remove NPCs' clothing during sex (although they will still default to not being able to remove yours if they are the sub in non-equal-control sex).</ul>"
-			
-			+"<li>Contributors:</li>"
-			+"<ul>Use correct character for special penetration descriptions. (MissyDirection)</ul>"
-			+"<ul>Allow player to stop getting tail-pegged during chair sex. (MissyDirection)</ul>"
-			
-			+"<li>Bugs:</li>"
-			+"<ul>Fixed a cause of some UI lag (caused by some poor flexbox performance).</ul>"
-			+"<ul>Fixed Vicky's sex scene causing a game-breaking bug to occur.</ul>"
-			+"<ul>Minor fix to Brax's TF description.</ul>"
-			+"<ul>Minor formatting fix to event log to prevent horizontal overflow.</ul>"
-			+"<ul>Several typo fixes.</ul>"
-			+"<ul>Fixed displacement text for an NPC's nursing bra being pulled down.</ul>"
-			+"<ul>Fixed bug with t-shirt displacement causing a major crash to occur.</ul>"
-			+"<ul>'Cummy meal' status effect no longer continuously makes your mouth dirty.</ul>"
-			+"<ul>Fixed resisting NPCs casually commenting on your cock size.</ul>"
-			+"<ul>Fixed 'Anal tease' sex action applying incorrect lubrication transfers.</ul>"
-			+"<ul>NPCs who hate/dislike non-con should now never use you after combat.</ul>"
-			+"<ul>Fixed incorrect inflation descriptions.</ul>"
-			+"<ul>You can no longer set your skin to be glowing in the character creation.</ul>"
-			+"<ul>Fixed incorrect virginity loss descriptions for succubus attacker.</ul>"
-			+"<ul>Fixed incorrect breast-related dirty talk.</ul>"
-			+"<ul>Fixed self-penetrative dirty talk referencing your partner.</ul>"
-			+"<ul>You can no longer help yourself to Ralph's condoms in his sex scene.</ul>"
-			+"<ul>Extra piercings will no longer spawn in the character creation's inventory when repeatedly going to check clothing and back.</ul>"
-			+"<ul>Fixed potions displaying '+X Attribute' twice when drunk.</ul>"
+			+"<ul>Fixed poor formatting for covering colours (such as 'brown, hair,').</ul>"
+			+"<ul>Active traits should now be correctly restored when loading a game.</ul>"
+			+"<ul>Fixed bug where tiles in the bottom-left of maps would be hidden on loading a game.</ul>"
+			+"<ul>Fixed some instances of incorrect dirty talk lines.</ul>"
+			+"<ul>Fixed issue where NPCs would generate a huge amount of fetish desires, as well as the bug where NPCs would re-generate desires on a game load. (I think - please let me know if this is still happening!)</ul>"
+			+"<ul>Fixed UI bug where horizontal scroll bar would sometimes appear in the left panel.</ul>"
+			+"<ul>Added ability to get anally penetrated while lying down in the missionary position.</ul>"
 		+ "</list>"
 		;
 	
@@ -585,7 +538,7 @@ public class Main extends Application {
 			properties.level = game.getPlayer().getLevel();
 			properties.money = game.getPlayer().getMoney();
 			properties.arcaneEssences = game.getPlayer().getEssenceCount(TFEssence.ARCANE);
-			properties.race = game.getPlayer().getRace().getName();
+			properties.race = game.getPlayer().getSubspecies().getName();
 			properties.quest = game.getPlayer().getQuest(QuestLine.MAIN).getName();
 
 			properties.savePropertiesAsXML();

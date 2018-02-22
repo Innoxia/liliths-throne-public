@@ -144,7 +144,7 @@ public class Ralph extends NPC {
 		}
 		
 		for (AbstractItemType item : itemsForSale) {
-			for (int i = 0; i < 3 + (Util.random.nextInt(6)); i++) {
+			for (int i = 0; i < 6 + (Util.random.nextInt(12)); i++) {
 				this.addItem(AbstractItemType.generateItem(item), false);
 			}
 		}
@@ -152,10 +152,10 @@ public class Ralph extends NPC {
 		Colour condomColour1 = ClothingType.PENIS_CONDOM.getAvailablePrimaryColours().get(Util.random.nextInt(ClothingType.PENIS_CONDOM.getAvailablePrimaryColours().size()));
 		Colour condomColour2 = ClothingType.PENIS_CONDOM.getAvailablePrimaryColours().get(Util.random.nextInt(ClothingType.PENIS_CONDOM.getAvailablePrimaryColours().size()));
 		
-		for (int i = 0; i < 3+(Util.random.nextInt(6)); i++) {
+		for (int i = 0; i < 6+(Util.random.nextInt(12)); i++) {
 			this.addClothing(AbstractClothingType.generateClothing(ClothingType.PENIS_CONDOM, condomColour1, false), false);
 		}
-		for (int i = 0; i < 3+(Util.random.nextInt(6)); i++) {
+		for (int i = 0; i < 6+(Util.random.nextInt(12)); i++) {
 			this.addClothing(AbstractClothingType.generateClothing(ClothingType.PENIS_CONDOM, condomColour2, false), false);
 		}
 	}
@@ -268,10 +268,6 @@ public class Ralph extends NPC {
 	// Combat (you never fight Ralph):
 	@Override
 	public String getCombatDescription() {
-		return null;
-	}
-	@Override
-	public String getAttackDescription(Attack attackType, boolean isHit) {
 		return null;
 	}
 	@Override

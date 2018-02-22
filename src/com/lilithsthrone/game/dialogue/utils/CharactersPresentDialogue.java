@@ -11,7 +11,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.3
- * @version 0.1.85
+ * @version 0.1.99
  * @author Innoxia
  */
 public class CharactersPresentDialogue {
@@ -26,7 +26,7 @@ public class CharactersPresentDialogue {
 			CharactersPresentDialogue.characterViewed = characterViewed;
 		}
 		menuTitle = "Characters present ("+Util.capitaliseSentence(CharactersPresentDialogue.characterViewed.getName())+")";
-		menuContent = NPC.getCharacterInformationScreen((NPC) CharactersPresentDialogue.characterViewed);
+		menuContent = ((NPC) CharactersPresentDialogue.characterViewed).getCharacterInformationScreen();
 	}
 	
 	public static final DialogueNodeOld MENU = new DialogueNodeOld("", "", true) {
@@ -62,7 +62,7 @@ public class CharactersPresentDialogue {
 						characterViewed = Main.game.getCharactersPresent().get(index-1);
 						
 						menuTitle = "Characters present ("+Util.capitaliseSentence(Main.game.getCharactersPresent().get(index - 1).getName())+")";
-						menuContent = NPC.getCharacterInformationScreen((NPC) Main.game.getCharactersPresent().get(index - 1));
+						menuContent = ((NPC) Main.game.getCharactersPresent().get(index - 1)).getCharacterInformationScreen();
 					}
 				};
 				

@@ -9,7 +9,7 @@ import com.lilithsthrone.utils.Colour;
  */
 public enum PerkCategory {
 	
-	PHYSICAL(Colour.ATTRIBUTE_STRENGTH),
+	PHYSICAL(Colour.ATTRIBUTE_PHYSIQUE),
 	
 	BOTH(Colour.ATTRIBUTE_CORRUPTION),
 	

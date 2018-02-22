@@ -343,7 +343,7 @@ public class AlleywayProstituteDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "[npc.Name] is determined not to be caught, leaving you with no choice but to defend yourself!", ALLEY_PROSTITUTE_FIGHT, Main.game.getActiveNPC());
+				return new ResponseCombat("Fight", "[npc.Name] is determined not to be caught, leaving you with no choice but to defend yourself!", Main.game.getActiveNPC());
 				
 			} else {
 				return null;
@@ -703,7 +703,7 @@ public class AlleywayProstituteDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Defend yourself", "[npc.Name] is determined not to be caught, leaving you with no choice but to defend yourself!", AFTER_SEX_PAID_FIGHT, Main.game.getActiveNPC());
+				return new ResponseCombat("Defend yourself", "[npc.Name] is determined not to be caught, leaving you with no choice but to defend yourself!", Main.game.getActiveNPC());
 				
 			} else {
 				return null;

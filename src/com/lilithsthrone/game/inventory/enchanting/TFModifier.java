@@ -67,14 +67,14 @@ public enum TFModifier {
 	// Attributes:
 	
 	STRENGTH(AttributeCategory.STRENGTH,
-			Attribute.MAJOR_STRENGTH,
-			"Applies an effect related to the primary attribute 'Strength'.",
+			Attribute.MAJOR_PHYSIQUE,
+			"Applies an effect related to the primary attribute 'Physique'.",
 			"modifier_circle_strength",
 			Rarity.EPIC),
 	
 	INTELLIGENCE(AttributeCategory.INTELLIGENCE,
 			Attribute.MAJOR_ARCANE,
-			"Applies an effect related to the primary attribute 'Intelligence'.",
+			"Applies an effect related to the primary attribute 'Arcane'.",
 			"modifier_circle_intelligence",
 			Rarity.EPIC),
 	
@@ -117,7 +117,7 @@ public enum TFModifier {
 			Rarity.RARE),
 	
 	
-	DAMAGE_LUST(AttributeCategory.FITNESS,
+	DAMAGE_LUST(AttributeCategory.CORRUPTION,
 			Attribute.DAMAGE_LUST,
 			"Applies an effect related to the secondary attribute 'Seduction damage'.",
 			"modifier_circle_damage",
@@ -135,7 +135,7 @@ public enum TFModifier {
 			"modifier_circle_damage",
 			Rarity.RARE),
 	
-	DAMAGE_FIRE(AttributeCategory.FITNESS,
+	DAMAGE_FIRE(AttributeCategory.INTELLIGENCE,
 			Attribute.DAMAGE_FIRE,
 			"Applies an effect related to the secondary attribute 'Fire damage'.",
 			"modifier_circle_damage",
@@ -147,20 +147,14 @@ public enum TFModifier {
 			"modifier_circle_damage",
 			Rarity.RARE),
 	
-	DAMAGE_POISON(AttributeCategory.CORRUPTION,
+	DAMAGE_POISON(AttributeCategory.INTELLIGENCE,
 			Attribute.DAMAGE_POISON,
 			"Applies an effect related to the secondary attribute 'Poison damage'.",
 			"modifier_circle_damage",
 			Rarity.RARE),
 	
-	DAMAGE_PURE(AttributeCategory.CORRUPTION,
-			Attribute.DAMAGE_PURE,
-			"Applies an effect related to the secondary attribute 'Global damage'.",
-			"modifier_circle_damage",
-			Rarity.LEGENDARY),
 	
-	
-	RESISTANCE_LUST(AttributeCategory.FITNESS,
+	RESISTANCE_LUST(AttributeCategory.CORRUPTION,
 			Attribute.RESISTANCE_LUST,
 			"Applies an effect related to the secondary attribute 'Seduction resistance'.",
 			"modifier_circle_resistance",
@@ -178,7 +172,7 @@ public enum TFModifier {
 			"modifier_circle_resistance",
 			Rarity.RARE),
 	
-	RESISTANCE_FIRE(AttributeCategory.FITNESS,
+	RESISTANCE_FIRE(AttributeCategory.INTELLIGENCE,
 			Attribute.RESISTANCE_FIRE,
 			"Applies an effect related to the secondary attribute 'Fire resistance'.",
 			"modifier_circle_resistance",
@@ -190,17 +184,11 @@ public enum TFModifier {
 			"modifier_circle_resistance",
 			Rarity.RARE),
 	
-	RESISTANCE_POISON(AttributeCategory.CORRUPTION,
+	RESISTANCE_POISON(AttributeCategory.INTELLIGENCE,
 			Attribute.RESISTANCE_POISON,
 			"Applies an effect related to the secondary attribute 'Poison resistance'.",
 			"modifier_circle_resistance",
 			Rarity.RARE),
-	
-	RESISTANCE_PURE(AttributeCategory.CORRUPTION,
-			Attribute.RESISTANCE_PURE,
-			"Applies an effect related to the secondary attribute 'Global resistance'.",
-			"modifier_circle_resistance",
-			Rarity.LEGENDARY),
 	
 	
 	// Racial parts:
@@ -939,7 +927,6 @@ public enum TFModifier {
 	private static List<TFModifier>
 		TFModStrengthList = new ArrayList<>(),
 		TFModIntelligenceList = new ArrayList<>(),
-		TFModFitnessList = new ArrayList<>(),
 		TFModCorruptionList = new ArrayList<>(),
 		TFModSexualList = new ArrayList<>(),
 		TFAttributeList = new ArrayList<>(),
@@ -951,7 +938,6 @@ public enum TFModifier {
 
 		TFModStrengthList.add(NONE);
 		TFModIntelligenceList.add(NONE);
-		TFModFitnessList.add(NONE);
 		TFModCorruptionList.add(NONE);
 		TFModSexualList.add(NONE);
 		
@@ -960,9 +946,6 @@ public enum TFModifier {
 				switch(tfMod.getAttributeCategory()) {
 					case CORRUPTION:
 						TFModCorruptionList.add(tfMod);
-						break;
-					case FITNESS:
-						TFModFitnessList.add(tfMod);
 						break;
 					case INTELLIGENCE:
 						TFModIntelligenceList.add(tfMod);
@@ -1052,7 +1035,6 @@ public enum TFModifier {
 	
 	private enum AttributeCategory {
 		STRENGTH,
-		FITNESS,
 		INTELLIGENCE,
 		CORRUPTION;
 	}
@@ -1194,10 +1176,6 @@ public enum TFModifier {
 
 	public static List<TFModifier> getTFModIntelligenceList() {
 		return TFModIntelligenceList;
-	}
-
-	public static List<TFModifier> getTFModFitnessList() {
-		return TFModFitnessList;
 	}
 
 	public static List<TFModifier> getTFModCorruptionList() {

@@ -33,8 +33,6 @@ import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.History;
 import com.lilithsthrone.game.character.PlayerCharacter;
-import com.lilithsthrone.game.character.Quest;
-import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
@@ -51,6 +49,7 @@ import com.lilithsthrone.game.character.npc.SlaveImport;
 import com.lilithsthrone.game.character.npc.dominion.Alexa;
 import com.lilithsthrone.game.character.npc.dominion.Amber;
 import com.lilithsthrone.game.character.npc.dominion.Arthur;
+import com.lilithsthrone.game.character.npc.dominion.Ashley;
 import com.lilithsthrone.game.character.npc.dominion.Brax;
 import com.lilithsthrone.game.character.npc.dominion.CandiReceptionist;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
@@ -72,11 +71,15 @@ import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
 import com.lilithsthrone.game.character.npc.dominion.Rose;
 import com.lilithsthrone.game.character.npc.dominion.Scarlett;
 import com.lilithsthrone.game.character.npc.dominion.SlaveInStocks;
+import com.lilithsthrone.game.character.npc.dominion.SupplierLeader;
+import com.lilithsthrone.game.character.npc.dominion.SupplierPartner;
 import com.lilithsthrone.game.character.npc.dominion.TestNPC;
 import com.lilithsthrone.game.character.npc.dominion.Vicky;
 import com.lilithsthrone.game.character.npc.dominion.Zaranix;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKatherine;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKelly;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueFlags;
@@ -478,6 +481,7 @@ public class Game implements Serializable, XMLSaving {
 				
 				// Maps:
 				for(int i=0; i<((Element) gameElement.getElementsByTagName("maps").item(0)).getElementsByTagName("world").getLength(); i++){
+					
 					Element e = (Element) ((Element) gameElement.getElementsByTagName("maps").item(0)).getElementsByTagName("world").item(i);
 					World world = World.loadFromXML(e, doc);
 					
@@ -486,8 +490,11 @@ public class Game implements Serializable, XMLSaving {
 				
 				// Add missing world types:
 				for(WorldType wt : WorldType.values()) {
+					Generation gen = new Generation();
+					if(Main.isVersionOlderThan(version, "0.1.99.5")) {
+						gen.worldGeneration(WorldType.SHOPPING_ARCADE);
+					}
 					if(newGame.worlds.get(wt)==null) {
-						Generation gen = new Generation();
 						gen.worldGeneration(wt);
 					}
 				}
@@ -516,7 +523,12 @@ public class Game implements Serializable, XMLSaving {
 						}
 
 						// Generate desires in non-unique NPCs:
-						if(Main.isVersionOlderThan(version, "0.1.98.5") && !npc.isUnique()) {
+						if(Main.isVersionOlderThan(version, "0.1.98.5") && !npc.isUnique() && npc.getFetishDesireMap().isEmpty()) {
+							CharacterUtils.generateDesires(npc);
+						}
+						
+						if(Main.isVersionOlderThan(version, "0.2.0") && npc.getFetishDesireMap().size()>10) {
+							npc.clearFetishDesires();
 							CharacterUtils.generateDesires(npc);
 						}
 						
@@ -524,7 +536,7 @@ public class Game implements Serializable, XMLSaving {
 							slaveImports.add(npc);
 						}
 					} else {
-						System.out.println("duplicate");
+						System.err.println("duplicate character attempted to be imported");
 					}
 				}
 				
@@ -561,6 +573,16 @@ public class Game implements Serializable, XMLSaving {
 					newGame.addNPC(new Arthur(), false);
 				}
 				
+				if(!newGame.NPCMap.containsKey(newGame.getUniqueNPCId(Ashley.class))) {
+					newGame.addNPC(new Ashley(), false);
+				}
+				if(!newGame.NPCMap.containsKey(newGame.getUniqueNPCId(SupplierLeader.class))) {
+					newGame.addNPC(new SupplierLeader(), false);
+				}
+				if(!newGame.NPCMap.containsKey(newGame.getUniqueNPCId(SupplierPartner.class))) {
+					newGame.addNPC(new SupplierPartner(), false);
+				}
+				
 				// To prevent errors from previous versions, reset Zaranix progress if prior to 0.1.95:
 				if(Main.isVersionOlderThan(version, "0.1.90.5")) {
 					if(Main.game.getPlayer().getWorldLocation() == WorldType.ZARANIX_HOUSE_GROUND_FLOOR
@@ -576,7 +598,7 @@ public class Game implements Serializable, XMLSaving {
 						Main.game.getArthur().setLocation(WorldType.ZARANIX_HOUSE_FIRST_FLOOR, PlaceType.ZARANIX_FF_OFFICE, true);
 						
 						if(Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
-							Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE.getSortingOrder());
+							Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE);
 						}
 					}
 				}
@@ -598,11 +620,6 @@ public class Game implements Serializable, XMLSaving {
 		Main.game.setRenderMap(true);
 		Main.game.setInNewWorld(true);
 		Main.game.setRenderAttributesSection(true);
-
-		// This is due to the fact that on new world creation, the player is placed at coordinates (0, 0), which reveals the three squares at the bottom left corner of the map:
-		Main.game.getActiveWorld().getCell(0, 0).setDiscovered(false);
-		Main.game.getActiveWorld().getCell(0, 1).setDiscovered(false);
-		Main.game.getActiveWorld().getCell(1, 0).setDiscovered(false);
 		
 		Main.game.started = true;
 		
@@ -733,6 +750,7 @@ public class Game implements Serializable, XMLSaving {
 			Amber amber = new Amber();
 			addNPC(amber, false);
 			
+			
 			zaranix.setAffection(katherine, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
 			zaranix.setAffection(kelly, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
 			zaranix.setAffection(amber, AffectionLevel.POSITIVE_FOUR_LOVE.getMedianValue());
@@ -750,7 +768,10 @@ public class Game implements Serializable, XMLSaving {
 			katherine.setAffection(amber, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
 			
 			addNPC(new Arthur(), false);
-			
+
+			addNPC(new Ashley(), false);
+			addNPC(new SupplierLeader(), false);
+			addNPC(new SupplierPartner(), false);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -963,11 +984,11 @@ public class Game implements Serializable, XMLSaving {
 				@Override
 				public void effects() {
 					if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY) && Main.game.getPlayer().hasNonArcaneEssences()) {
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY));
 					}
 					
 					if (!Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY) && Main.game.getPlayer().isVisiblyPregnant()) {
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY));
 					}
 				}	
 			});
@@ -1111,8 +1132,10 @@ public class Game implements Serializable, XMLSaving {
 								if (character instanceof NPC) {
 									if (((NPC) character).isAddedToContacts()) {
 										Main.game.getPlayer().addCharacterEncountered(character);
-									} 
-									Main.getProperties().addRaceDiscovered(character.getRace());
+									}
+									if(!character.isRaceConcealed()) {
+										Main.getProperties().addRaceDiscovered(character.getRace());
+									}
 									((NPC) character).setLastTimeEncountered(minutesPassed);
 								}
 							}
@@ -1147,7 +1170,6 @@ public class Game implements Serializable, XMLSaving {
 										+ textStartStringBuilder.toString()
 										+ content
 										+ textEndStringBuilder.toString()
-										+ (response.getQuestLine() != null ? Main.game.getPlayer().incrementQuest(response.getQuestLine()) : "")
 									));
 						}
 					} else {
@@ -1166,7 +1188,6 @@ public class Game implements Serializable, XMLSaving {
 									+ textStartStringBuilder.toString()
 									+ content
 									+ textEndStringBuilder.toString()
-									+ (response.getQuestLine() != null ? Main.game.getPlayer().incrementQuest(response.getQuestLine()) : "")
 								));
 					}
 				} else {
@@ -1313,8 +1334,7 @@ public class Game implements Serializable, XMLSaving {
 						pastDialogueSB.append(UtilText.parse("<hr id='position" + positionAnchor + "'><p class='option-disabled'>&gt " + currentDialogueNode.getLabel() + "</p>"));
 					}
 					
-					pastDialogueSB.append(content
-							+ (response.getQuestLine() != null ? Main.game.getPlayer().incrementQuest(response.getQuestLine()) : ""));
+					pastDialogueSB.append(content);
 				}
 			} else {
 				dialogueTitle = UtilText.parse(node.getLabel());
@@ -1328,7 +1348,6 @@ public class Game implements Serializable, XMLSaving {
 							+ textStartStringBuilder.toString()
 							+ content
 							 + textEndStringBuilder.toString()
-							+ (response.getQuestLine() != null ? Main.game.getPlayer().incrementQuest(response.getQuestLine()) : "")
 						));
 			}
 		} else {
@@ -1339,7 +1358,6 @@ public class Game implements Serializable, XMLSaving {
 						textStartStringBuilder.toString()
 						+ content
 						 + textEndStringBuilder.toString()
-						+ (response.getQuestLine() != null ? Main.game.getPlayer().incrementQuest(response.getQuestLine()) : "")
 					));
 		}
 		
@@ -2314,6 +2332,18 @@ public class Game implements Serializable, XMLSaving {
 	
 	public NPC getKatherine() {
 		return (NPC) this.getNPCById(getUniqueNPCId(ZaranixMaidKatherine.class));
+	}
+
+	public NPC getAshley() {
+		return (NPC) this.getNPCById(getUniqueNPCId(Ashley.class));
+	}
+	
+	public NPC getSupplierLeader() {
+		return (NPC) this.getNPCById(getUniqueNPCId(SupplierLeader.class));
+	}
+	
+	public NPC getSupplierPartner() {
+		return (NPC) this.getNPCById(getUniqueNPCId(SupplierPartner.class));
 	}
 
 	public NPC getGenericMaleNPC() {

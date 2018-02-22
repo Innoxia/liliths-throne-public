@@ -1,10 +1,10 @@
 package com.lilithsthrone.game.dialogue.places.dominion.harpyNests;
 
 import com.lilithsthrone.game.Weather;
-import com.lilithsthrone.game.character.Quest;
-import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -248,11 +248,7 @@ public class HarpyNestAlexa {
 					@Override
 					public void effects() {
 						Main.game.getAlexa().setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
-					}
-					
-					@Override
-					public QuestLine getQuestLine() {
-						return QuestLine.MAIN;
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE));
 					}
 				};
 				
@@ -392,11 +388,7 @@ public class HarpyNestAlexa {
 					@Override
 					public void effects() {
 						Main.game.getAlexa().setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
-					}
-					
-					@Override
-					public QuestLine getQuestLine() {
-						return QuestLine.MAIN;
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE));
 					}
 				};
 				
@@ -405,11 +397,7 @@ public class HarpyNestAlexa {
 					@Override
 					public void effects() {
 						Main.game.getAlexa().setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
-					}
-					
-					@Override
-					public QuestLine getQuestLine() {
-						return QuestLine.MAIN;
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE));
 					}
 				};
 				
@@ -423,11 +411,7 @@ public class HarpyNestAlexa {
 					@Override
 					public void effects() {
 						Main.game.getAlexa().setLocation(WorldType.SLAVER_ALLEY, PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP, true);
-					}
-					
-					@Override
-					public QuestLine getQuestLine() {
-						return QuestLine.MAIN;
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_F_SCARLETTS_FATE));
 					}
 				};
 				

@@ -5,8 +5,6 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.PlayerCharacter;
-import com.lilithsthrone.game.character.Quest;
-import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
@@ -14,6 +12,8 @@ import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -274,7 +274,7 @@ public class Lab {
 						return new Response("Agree", "Knowing how fierce your aunt can get when she's in one of these moods, you realise that you don't really have much of a choice...", LAB_ARTHURS_TALE){
 							@Override
 							public void effects() {
-								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_J_ARTHURS_ROOM));
 								Main.game.getDialogueFlags().values.remove(DialogueFlagValue.waitingOnLilayaPregnancyResults);
 							}
 						};
@@ -363,21 +363,10 @@ public class Lab {
 							} else {
 								generatedResponses.add(new Response("Pregnancy", "Speak to Lilaya about your pregnancy.", LILAYA_ASSISTS_PREGNANCY){
 									@Override
-									public QuestLine getQuestLine() {
-										if (Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
-											if (Main.game.getPlayer().getQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY) == Quest.SIDE_PREGNANCY_CONSULT_LILAYA) {
-												return QuestLine.SIDE_FIRST_TIME_PREGNANCY;
-											} else {
-												return null;
-											}
-										} else {
-											return null;
-										}
-									}
-									@Override
 									public void effects() {
-										if (!Main.game.getPlayer().hasQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY))
-											Main.game.getPlayer().incrementQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY);
+										if (Main.game.getPlayer().getQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY) == Quest.SIDE_PREGNANCY_CONSULT_LILAYA) {
+											Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_FIRST_TIME_PREGNANCY, Quest.SIDE_PREGNANCY_LILAYA_THE_MIDWIFE));
+										}
 									}
 								});
 							}
@@ -1267,7 +1256,7 @@ public class Lab {
 									+ "<i>You can now enchant items by selecting them in your inventory, and then pressing the 'Enchant' button.</i></br></br>"
 									+ "<i>In the same way, you're now able to remove jinxes from clothing. Simply select the clothing in your inventory, then press the 'Remove jinx' button.</i>"
 								+ "</div>"
-								+ Main.game.getPlayer().incrementQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY));
+								+ Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_ENCHANTMENT_DISCOVERY, Quest.SIDE_UTIL_COMPLETE));
 						
 					}
 				};
@@ -1611,15 +1600,10 @@ public class Lab {
 			if (index == 1) {
 				return new Response("Returning home", "Ask Lilaya if she's found a way to send you back home.", AUNT_HOME_LABORATORY_TESTING_ARTHUR){
 					@Override
-					public QuestLine getQuestLine() {
-						if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_A_LILAYAS_TESTS)
-							return QuestLine.MAIN;
-						else
-							return null;
-					}
-
-					@Override
 					public void effects() {
+						if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_A_LILAYAS_TESTS) {
+							Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_B_DEMON_HOME);
+						}
 						if (Main.game.getPlayer().isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToPregnancyLilaya))
 							Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToPregnancyLilaya);
 					}
@@ -2123,8 +2107,10 @@ public class Lab {
 			if (index == 1) {
 				return new Response("Accommodation", "Agree with Lilaya's observation that you'll need somewhere to keep your slaves.", LILAYA_SLAVER_RECOMMENDATION_SLAVE_ACCOMMODATION) {
 					@Override
-					public QuestLine getQuestLine() {
-						return QuestLine.SIDE_SLAVERY;
+					public void effects() {
+						if (Main.game.getPlayer().getQuest(QuestLine.SIDE_SLAVERY) == Quest.SIDE_SLAVER_NEED_RECOMMENDATION) {
+							Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLAVERY, Quest.SIDE_SLAVER_RECOMMENDATION_OBTAINED);
+						}
 					}
 				};
 
@@ -2853,15 +2839,11 @@ public class Lab {
 			if (index == 1) {
 				return new Response("Pass out", "You have no energy left, and can't stay conscious any longer...", LILAYA_ASSISTS_BIRTHING_FINISHED){
 					@Override
-					public QuestLine getQuestLine() {
-						if (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
-							return QuestLine.SIDE_FIRST_TIME_PREGNANCY;
-						} else {
-							return null;
-						}
-					}
-					@Override
 					public void effects() {
+						if (Main.game.getPlayer().getQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY) == Quest.SIDE_PREGNANCY_LILAYA_THE_MIDWIFE) {
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_FIRST_TIME_PREGNANCY, Quest.SIDE_UTIL_COMPLETE));
+						}
+						
 						Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
 
 						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
@@ -2907,15 +2889,11 @@ public class Lab {
 			if (index == 1) {
 				return new Response("Pass out", "The drink Lilaya gave you goes straight to your head, and you collapse back onto the bed as you lose consciousness.", LILAYA_ASSISTS_BIRTHING_FINISHED){
 					@Override
-					public QuestLine getQuestLine() {
-						if (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
-							return QuestLine.SIDE_FIRST_TIME_PREGNANCY;
-						} else {
-							return null;
-						}
-					}
-					@Override
 					public void effects() {
+						if (Main.game.getPlayer().getQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY) == Quest.SIDE_PREGNANCY_LILAYA_THE_MIDWIFE) {
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_FIRST_TIME_PREGNANCY, Quest.SIDE_UTIL_COMPLETE));
+						}
+						
 						Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
 
 						Main.game.getLilaya().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
@@ -3167,15 +3145,10 @@ public class Lab {
 			if (index == 1) {
 				return new Response("Some time later", "You eventually wake up from your exhausted slumber...", LILAYA_ASSISTS_BIRTHING_FINISHED){
 					@Override
-					public QuestLine getQuestLine() {
-						if (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
-							return QuestLine.SIDE_FIRST_TIME_PREGNANCY;
-						} else {
-							return null;
-						}
-					}
-					@Override
 					public void effects() {
+						if (Main.game.getPlayer().getQuest(QuestLine.SIDE_FIRST_TIME_PREGNANCY) == Quest.SIDE_PREGNANCY_LILAYA_THE_MIDWIFE) {
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_FIRST_TIME_PREGNANCY, Quest.SIDE_UTIL_COMPLETE));
+						}
 						Main.game.getPlayer().setMana(Main.game.getPlayer().getAttributeValue(Attribute.MANA_MAXIMUM));
 					}
 				};
@@ -3253,7 +3226,7 @@ public class Lab {
 					case DEMON:
 						litterSB.append(" mischievous");
 						break;
-					case DOG_MORPH:
+					case DOG_MORPH: case DOG_MORPH_DOBERMANN:
 						litterSB.append(" smiling");
 						break;
 					case ALLIGATOR_MORPH:
@@ -3270,6 +3243,9 @@ public class Lab {
 						break;
 					case HUMAN:
 						litterSB.append(" smiling");
+						break;
+					case SLIME:
+						litterSB.append(" bubbly");
 						break;
 					case SQUIRREL_MORPH:
 						litterSB.append(" playful");
@@ -3301,7 +3277,7 @@ public class Lab {
 					case DEMON:
 						litterSB.append(" mischievous");
 						break;
-					case DOG_MORPH:
+					case DOG_MORPH: case DOG_MORPH_DOBERMANN:
 						litterSB.append(" smiling");
 						break;
 					case ALLIGATOR_MORPH:
@@ -3318,6 +3294,9 @@ public class Lab {
 						break;
 					case HUMAN:
 						litterSB.append(" smiling");
+						break;
+					case SLIME:
+						litterSB.append(" bubbly");
 						break;
 					case SQUIRREL_MORPH:
 						litterSB.append(" playful");
@@ -3349,7 +3328,7 @@ public class Lab {
 					case DEMON:
 						litterSB.append(" cheeky");
 						break;
-					case DOG_MORPH:
+					case DOG_MORPH: case DOG_MORPH_DOBERMANN:
 						litterSB.append(" playful");
 						break;
 					case ALLIGATOR_MORPH:
@@ -3366,6 +3345,9 @@ public class Lab {
 						break;
 					case HUMAN:
 						litterSB.append(" smiling");
+						break;
+					case SLIME:
+						litterSB.append(" bubbly");
 						break;
 					case SQUIRREL_MORPH:
 						litterSB.append(" wily");
@@ -3397,7 +3379,7 @@ public class Lab {
 					case DEMON:
 						litterSB.append(" cheeky");
 						break;
-					case DOG_MORPH:
+					case DOG_MORPH: case DOG_MORPH_DOBERMANN:
 						litterSB.append(" playful");
 						break;
 					case ALLIGATOR_MORPH:
@@ -3414,6 +3396,9 @@ public class Lab {
 						break;
 					case HUMAN:
 						litterSB.append(" smiling");
+						break;
+					case SLIME:
+						litterSB.append(" bubbly");
 						break;
 					case SQUIRREL_MORPH:
 						litterSB.append(" wily");

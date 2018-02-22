@@ -58,7 +58,7 @@ public enum ParserTarget {
 						}
 						
 					} else if(Main.game.isInCombat()) {
-						return Combat.getOpponent();
+						return Combat.getActiveNPC();
 						
 					} else if (Main.game.isInSex()) {
 						return Sex.getActivePartner();
@@ -459,6 +459,44 @@ public enum ParserTarget {
 		@Override
 		public GameCharacter getCharacter(String tag) {
 			return Main.game.getKatherine();
+		}
+	},
+	
+	ASHLEY(Util.newArrayListOfValues(
+			new ListValue<>("ashley")), ""){
+		public String getDescription() {
+			return Main.game.getAshley().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getAshley();
+		}
+	},
+	
+	WOLFGANG(Util.newArrayListOfValues(
+			new ListValue<>("wolfgang"),
+			new ListValue<>("supplierLeader")), ""){
+		public String getDescription() {
+			return Main.game.getSupplierLeader().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getSupplierLeader();
+		}
+	},
+	
+	KARL(Util.newArrayListOfValues(
+			new ListValue<>("karl"),
+			new ListValue<>("supplierPartner")), ""){
+		public String getDescription() {
+			return Main.game.getSupplierPartner().getDescription();
+		}
+
+		@Override
+		public GameCharacter getCharacter(String tag) {
+			return Main.game.getSupplierPartner();
 		}
 	},
 	;

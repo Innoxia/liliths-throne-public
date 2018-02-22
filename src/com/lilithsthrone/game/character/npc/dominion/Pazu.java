@@ -50,7 +50,7 @@ public class Pazu extends NPC {
 				 *  He adores with all his heart, but due to this, he’s not keen on sharing you with anybody else.
 				 * TODO ( If he opens his candy shop and you're not his lover)
 				 *  Pazu is a beautiful male harpy, and the owner of a candy shop. He used to be a harpy matriarch, but left the oppressing nests in search of a simpler life.
-				 *  (if he opens the shop and is still your lover, his description is the same but with, "He also owns a candy shop in the shopping promenade." at the end)
+				 *  (if he opens the shop and is still your lover, his description is the same but with, "He also owns a candy shop in the shopping arcade." at the end)
 				 */
 				1, Gender.M_P_MALE, RacialBody.HARPY, RaceStage.LESSER,
 				new CharacterInventory(1), WorldType.JUNGLE, PlaceType.JUNGLE_CLUB, true); //TODO He's in the jungle for now ^^
@@ -74,7 +74,7 @@ public class Pazu extends NPC {
 			
 			this.setFemininity(80);
 			
-			this.setAttribute(Attribute.MAJOR_STRENGTH, 4);
+			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 4);
 			this.setAttribute(Attribute.MAJOR_ARCANE, 45);
 			this.setAttribute(Attribute.MAJOR_CORRUPTION, 5);
 	
@@ -120,10 +120,6 @@ public class Pazu extends NPC {
 	// Combat (you never fight Pazu):
 	@Override
 	public String getCombatDescription() {
-		return null;
-	}
-	@Override
-	public String getAttackDescription(Attack attackType, boolean isHit) {
 		return null;
 	}
 	@Override

@@ -38,6 +38,7 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 	private String determiner, name, namePlural, description, pathName, pathNameEquipped;
 
 	private boolean plural;
+	private int baseValue;
 	private int physicalResistance, femininityMinimum, femininityMaximum;
 	private Femininity femininityRestriction;
 	private InventorySlot slot;
@@ -67,7 +68,8 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 
 	private List<DisplacementType> displacementTypesAvailableWithoutNONE;
 	
-	public AbstractClothingType(
+	protected AbstractClothingType(
+			int baseValue,
 			String determiner,
 			boolean plural,
 			String name,
@@ -79,15 +81,15 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 			Rarity rarity,
 			ClothingSet clothingSet,
 			String pathName,
-			Map<Attribute, Integer> attributeModifiers,
-			List<BlockedParts> blockedPartsList, List<InventorySlot> incompatibleSlots,
+			Map<Attribute, Integer> attributeModifiers, List<BlockedParts> blockedPartsList,
+			List<InventorySlot> incompatibleSlots,
 			List<Colour> availablePrimaryColours,
 			List<Colour> availablePrimaryDyeColours,
 			List<Colour> availableSecondaryColours,
 			List<Colour> availableSecondaryDyeColours,
-			List<Colour> availableTertiaryColours,
-			List<Colour> availableTertiaryDyeColours) {
-		this(determiner,
+			List<Colour> availableTertiaryColours, List<Colour> availableTertiaryDyeColours) {
+		this(baseValue,
+				determiner,
 				plural,
 				name,
 				namePlural,
@@ -99,17 +101,17 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 				clothingSet,
 				pathName,
 				null,
-				attributeModifiers,
-				blockedPartsList, incompatibleSlots,
+				attributeModifiers, blockedPartsList,
+				incompatibleSlots,
 				availablePrimaryColours,
 				availablePrimaryDyeColours,
 				availableSecondaryColours,
 				availableSecondaryDyeColours,
-				availableTertiaryColours,
-				availableTertiaryDyeColours);
+				availableTertiaryColours, availableTertiaryDyeColours);
 	}
 	
 	public AbstractClothingType(
+			int baseValue,
 			String determiner,
 			boolean plural,
 			String name,
@@ -122,15 +124,16 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 			ClothingSet clothingSet,
 			String pathName,
 			String pathNameEquipped,
-			Map<Attribute, Integer> attributeModifiers,
-			List<BlockedParts> blockedPartsList, List<InventorySlot> incompatibleSlots,
+			Map<Attribute, Integer> attributeModifiers, List<BlockedParts> blockedPartsList,
+			List<InventorySlot> incompatibleSlots,
 			List<Colour> availablePrimaryColours,
 			List<Colour> availablePrimaryDyeColours,
 			List<Colour> availableSecondaryColours,
 			List<Colour> availableSecondaryDyeColours,
-			List<Colour> availableTertiaryColours,
-			List<Colour> availableTertiaryDyeColours) {
-
+			List<Colour> availableTertiaryColours, List<Colour> availableTertiaryDyeColours) {
+		
+		this.baseValue = baseValue;
+		
 		this.determiner = determiner;
 		this.plural = plural;
 		this.name = name;
@@ -376,32 +379,19 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 			}
 		}
 		
-		if (secondaryColour == null) {
+		if (secondaryColour == null || !clothingType.getAllAvailableSecondaryColours().contains(secondaryColour)) {
 			if(clothingType.getAvailableSecondaryColours().isEmpty()) {
 				c2 = Colour.CLOTHING_BLACK;
 			} else {
 				c2 = clothingType.getAvailableSecondaryColours().get(Util.random.nextInt(clothingType.getAvailableSecondaryColours().size()));
 			}
-		} else if(!clothingType.getAllAvailableSecondaryColours().contains(secondaryColour)) {
-			if(clothingType.getAllAvailableSecondaryColours().isEmpty()) {
-				c2 = Colour.CLOTHING_BLACK;
-			} else {
-				c2 = clothingType.getAllAvailableSecondaryColours().get(Util.random.nextInt(clothingType.getAllAvailableSecondaryColours().size()));
-			}
 		}
 		
-		if (tertiaryColour == null) {
+		if (tertiaryColour == null || !clothingType.getAllAvailableTertiaryColours().contains(tertiaryColour)) {
 			if(clothingType.getAvailableTertiaryColours().isEmpty()) {
 				c3 = Colour.CLOTHING_BLACK;
 			} else {
 				c3 = clothingType.getAvailableTertiaryColours().get(Util.random.nextInt(clothingType.getAvailableTertiaryColours().size()));
-			}
-			
-		} else if(!clothingType.getAllAvailableTertiaryColours().contains(tertiaryColour)) {
-			if(clothingType.getAllAvailableTertiaryColours().isEmpty()) {
-				c3 = Colour.CLOTHING_BLACK;
-			} else {
-				c3 = clothingType.getAllAvailableTertiaryColours().get(Util.random.nextInt(clothingType.getAllAvailableTertiaryColours().size()));
 			}
 		}
 		
@@ -445,6 +435,10 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 	
 	public String getId() {
 		return ClothingType.getIdFromClothingType(this);
+	}
+
+	public int getBaseValue() {
+		return baseValue;
 	}
 
 	static Map<ClothingSet, List<AbstractClothingType>> clothingSetMap = new EnumMap<>(ClothingSet.class);

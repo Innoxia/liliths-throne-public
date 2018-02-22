@@ -35,6 +35,7 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.SexType;
@@ -47,7 +48,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.69
- * @version 0.1.95
+ * @version 0.1.99
  * @author Innoxia
  */
 public class DominionSuccubusAttacker extends NPC {
@@ -63,9 +64,6 @@ public class DominionSuccubusAttacker extends NPC {
 				new CharacterInventory(10), WorldType.DOMINION, PlaceType.DOMINION_BACK_ALLEYS, false);
 
 		if(!isImported) {
-			setAttribute(Attribute.MAJOR_STRENGTH, (int)(this.getAttributeValue(Attribute.MAJOR_STRENGTH) * (0.75f + (Math.random()/2))));
-			setAttribute(Attribute.MAJOR_ARCANE, (int)(this.getAttributeValue(Attribute.MAJOR_ARCANE) * (0.75f + (Math.random()/2))));
-			setAttribute(Attribute.MAJOR_CORRUPTION, 100);
 			
 			this.setWorldLocation(Main.game.getPlayer().getWorldLocation());
 			this.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
@@ -308,60 +306,58 @@ public class DominionSuccubusAttacker extends NPC {
 			return Sex.getActivePartner().useItem(item, target, false);
 		}
 	}
+
+	@Override
+	public String getMainAttackDescription(boolean isHit) {
+		if(this.isFeminine()) {
+			return UtilText.parse(this,
+					UtilText.returnStringAtRandom(
+							"[npc.Name] looks annoyed that you're trying to put up a fight, and leaps forwards to deliver a stinging slap across your face.",
+							"With an angry little click of her tongue, [npc.Name] slaps you across the face.",
+							"With a frustrated whine, [npc.Name] kicks out at your shins."));
+		} else {
+			return UtilText.parse(this,
+					UtilText.returnStringAtRandom(
+							"[npc.Name] looks annoyed that you're trying to put up a fight, and leaps forwards to deliver a solid punch to your [pc.arm].",
+							"With an angry shout, [npc.Name] darts forwards and punches you right in the chest!",
+							"With a frustrated cry, [npc.Name] kicks out at your shins."));
+		}
+	}
 	
 	@Override
-	public String getAttackDescription(Attack attackType, boolean isHit) {
-
-		if (attackType == Attack.MAIN) {
-			if(this.isFeminine()) {
-				return UtilText.parse(this,
-						UtilText.returnStringAtRandom(
-								"[npc.Name] looks annoyed that you're trying to put up a fight, and leaps forwards to deliver a stinging slap across your face.",
-								"With an angry little click of her tongue, [npc.Name] slaps you across the face.",
-								"With a frustrated whine, [npc.Name] kicks out at your shins."));
-			} else {
-				return UtilText.parse(this,
-						UtilText.returnStringAtRandom(
-								"[npc.Name] looks annoyed that you're trying to put up a fight, and leaps forwards to deliver a solid punch to your [pc.arm].",
-								"With an angry shout, [npc.Name] darts forwards and punches you right in the chest!",
-								"With a frustrated cry, [npc.Name] kicks out at your shins."));
-			}
-			
+	public String getSeductionDescription() {
+		if(this.isFeminine()) {
+			return UtilText.parse(this,
+					UtilText.returnStringAtRandom(
+							"[npc.Name] puts on a smouldering look, and as her eyes meet yours, you hear an extremely lewd moan echoing around in your head, [npc.thought(~Aaah!~ "
+									+(this.hasVagina()
+											?"You're making me so wet!"
+											:this.hasPenis()
+												?"You're getting me so hard!"
+												:"You're turning me on so much!")+")]",
+							"[npc.Name] locks her big, innocent-looking eyes with yours, and as she pouts, you hear an echoing moan deep within your mind, [npc.thought("+
+									(this.hasVagina()
+											?"~Mmm!~ Fuck me! ~Aaa!~ My pussy's wet and ready for you!"
+											:this.hasPenis()
+												?"~Mmm!~ I can't wait to fuck you! ~Aaa!~ You're going to love my cock!"
+												:"~Mmm!~ Fuck me! ~Aaa!~ I need you so badly!")+")]",
+							"[npc.Name] pouts innocently at you, before blowing you a wet kiss. As she straightens back up, you feel a ghostly pair of wet lips press against your cheek."));
 		} else {
-			if(this.isFeminine()) {
-				return UtilText.parse(this,
-						UtilText.returnStringAtRandom(
-								"[npc.Name] puts on a smouldering look, and as her eyes meet yours, you hear an extremely lewd moan echoing around in your head, [npc.thought(~Aaah!~ "
-										+(this.hasVagina()
-												?"You're making me so wet!"
-												:this.hasPenis()
-													?"You're getting me so hard!"
-													:"You're turning me on so much!")+")]",
-								"[npc.Name] locks her big, innocent-looking eyes with yours, and as she pouts, you hear an echoing moan deep within your mind, [npc.thought("+
-										(this.hasVagina()
-												?"~Mmm!~ Fuck me! ~Aaa!~ My pussy's wet and ready for you!"
-												:this.hasPenis()
-													?"~Mmm!~ I can't wait to fuck you! ~Aaa!~ You're going to love my cock!"
-													:"~Mmm!~ Fuck me! ~Aaa!~ I need you so badly!")+")]",
-								"[npc.Name] pouts innocently at you, before blowing you a wet kiss. As she straightens back up, you feel a ghostly pair of wet lips press against your cheek."));
-			} else {
-				return UtilText.parse(this,
-						UtilText.returnStringAtRandom(
-								"[npc.Name] puts on a confident look, and as his eyes meet yours, you hear an extremely lewd groan echoing around in your head, [npc.thought(~Mmm!~ "
-										+(this.hasVagina()
-												?"You're making me so wet!"
-												:this.hasPenis()
-													?"You're getting me so hard!"
-													:"You're turning me on so much!")+")]",
-								"[npc.Name] locks his eyes with yours, and as he throws you a charming smile, you hear an echoing groan deep within your mind, [npc.thought("+
-										(this.hasVagina()
-												?"~Mmm!~ Fuck me! ~Aaa!~ My pussy's wet and ready for you!"
-												:this.hasPenis()
-													?"~Mmm!~ I can't wait to fuck you! You're going to love my cock!"
-													:"~Mmm!~ I cna't wait to have some fun with you!")+")]",
-								"[npc.Name] throws you a charming smile, before winking at you and striking a heroic pose. As he straightens back up, you feel a ghostly pair of arms pulling you into a strong, confident embrace."));
-			}
-			
+			return UtilText.parse(this,
+					UtilText.returnStringAtRandom(
+							"[npc.Name] puts on a confident look, and as his eyes meet yours, you hear an extremely lewd groan echoing around in your head, [npc.thought(~Mmm!~ "
+									+(this.hasVagina()
+											?"You're making me so wet!"
+											:this.hasPenis()
+												?"You're getting me so hard!"
+												:"You're turning me on so much!")+")]",
+							"[npc.Name] locks his eyes with yours, and as he throws you a charming smile, you hear an echoing groan deep within your mind, [npc.thought("+
+									(this.hasVagina()
+											?"~Mmm!~ Fuck me! ~Aaa!~ My pussy's wet and ready for you!"
+											:this.hasPenis()
+												?"~Mmm!~ I can't wait to fuck you! You're going to love my cock!"
+												:"~Mmm!~ I cna't wait to have some fun with you!")+")]",
+							"[npc.Name] throws you a charming smile, before winking at you and striking a heroic pose. As he straightens back up, you feel a ghostly pair of arms pulling you into a strong, confident embrace."));
 		}
 	}
 
@@ -609,16 +605,18 @@ public class DominionSuccubusAttacker extends NPC {
 	public String getDirtyTalkNoPenetration(GameCharacter target, boolean isPlayerDom){
 		List<String> speech = new ArrayList<>();
 		
-		if(isPlayerDom){
+		if(isPlayerDom && Sex.getSexPace(this)!=SexPace.SUB_RESISTING){
 			speech.add("Come on, fuck me already!");
 			speech.add("Come on! What's taking so long?!");
 			speech.add("Fuck me already!");
 			speech.add("Let's get started! Come on!");
-		} else {
+		} else if(!isPlayerDom) {
 			speech.add("I'm gonna turn you into a slut for demon cock!");
 			speech.add("You ever been fucked by a demon?");
 			speech.add("You're going to be begging for my cum before the end!");
 			speech.add("You're going to be a good little bitch!");
+		} else {
+			return super.getDirtyTalkNoPenetration(target, isPlayerDom);
 		}
 		
 		return speech.get(Util.random.nextInt(speech.size()));

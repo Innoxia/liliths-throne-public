@@ -510,8 +510,8 @@ public enum ItemEffectType {
 	
 	STR_EQUINE_CIDER(Util.newArrayListOfValues(
 			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldHealth(energy)]"),
-			new ListValue<>("[style.boldGood(+1)] [style.boldStrength(strength)] to 'potion effects'")),
-			Colour.ATTRIBUTE_STRENGTH) {
+			new ListValue<>("[style.boldGood(+1)] [style.boldPhysique(physique)] to 'potion effects'")),
+			Colour.ATTRIBUTE_PHYSIQUE) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
@@ -521,14 +521,14 @@ public enum ItemEffectType {
 						?"A powerful wave of arcane energy washes over you......"
 						:UtilText.parse(target, "A powerful wave of arcane energy washes over [npc.name]..."))
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.MAJOR_STRENGTH, 1);
+					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1);
 		}
 	},
 
 	STR_BUBBLE_MILK(Util.newArrayListOfValues(
 			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldHealth(energy)]"),
-			new ListValue<>("[style.boldGood(+1)] [style.boldStrength(strength)] to 'potion effects'")),
-			Colour.ATTRIBUTE_STRENGTH) {
+			new ListValue<>("[style.boldGood(+1)] [style.boldPhysique(physique)] to 'potion effects'")),
+			Colour.ATTRIBUTE_PHYSIQUE) {
 		
 		@Override
 		public List<TFModifier> getPrimaryModifiers() {
@@ -548,14 +548,14 @@ public enum ItemEffectType {
 						?"A powerful wave of arcane energy washes over you......"
 						:UtilText.parse(target, "A powerful wave of arcane energy washes over [npc.name]..."))
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.MAJOR_STRENGTH, 1);
+					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1);
 		}
 	},
 
 	STR_WOLF_WHISKEY(Util.newArrayListOfValues(
 			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldHealth(energy)]"),
-			new ListValue<>("[style.boldGood(+1)] [style.boldStrength(strength)] to 'potion effects'")),
-			Colour.ATTRIBUTE_STRENGTH) {
+			new ListValue<>("[style.boldGood(+1)] [style.boldPhysique(physique)] to 'potion effects'")),
+			Colour.ATTRIBUTE_PHYSIQUE) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
@@ -565,14 +565,14 @@ public enum ItemEffectType {
 						?"A powerful wave of arcane energy washes over you......"
 						:UtilText.parse(target, "A powerful wave of arcane energy washes over [npc.name]..."))
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.MAJOR_STRENGTH, 1);
+					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1);
 		}
 	},
 	
 	STR_SWAMP_WATER(Util.newArrayListOfValues(
 			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldHealth(energy)]"),
-			new ListValue<>("[style.boldGood(+1)] [style.boldStrength(strength)] to 'potion effects'")),
-			Colour.ATTRIBUTE_STRENGTH) {
+			new ListValue<>("[style.boldGood(+1)] [style.boldPhysique(physique)] to 'potion effects'")),
+			Colour.ATTRIBUTE_PHYSIQUE) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
@@ -580,7 +580,7 @@ public enum ItemEffectType {
 
 			return "A powerful wave of arcane energy washes over you..."
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.MAJOR_STRENGTH, 1);
+					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1);
 		}
 	},
 	
@@ -624,8 +624,8 @@ public enum ItemEffectType {
 	
 	FIT_CANINE_CRUSH(Util.newArrayListOfValues(
 			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldHealth(energy)]"),
-			new ListValue<>("[style.boldGood(+1)] [style.boldStrength(strength)] to 'potion effects'")),
-			Colour.ATTRIBUTE_STRENGTH) {
+			new ListValue<>("[style.boldGood(+1)] [style.boldPhysique(physique)] to 'potion effects'")),
+			Colour.ATTRIBUTE_PHYSIQUE) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
@@ -635,14 +635,14 @@ public enum ItemEffectType {
 						?"A soothing wave of arcane energy washes over you......"
 						:UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]..."))
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.MAJOR_STRENGTH, 1);
+					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1);
 		}
 	},
 	
 	FIT_SQUIRREL_JAVA(Util.newArrayListOfValues(
 			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldHealth(energy)]"),
-			new ListValue<>("[style.boldGood(+1)] [style.boldStrength(strength)] to 'potion effects'")),
-			Colour.ATTRIBUTE_STRENGTH) {
+			new ListValue<>("[style.boldGood(+1)] [style.boldPhysique(physique)] to 'potion effects'")),
+			Colour.ATTRIBUTE_PHYSIQUE) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
@@ -652,14 +652,14 @@ public enum ItemEffectType {
 						?"A soothing wave of arcane energy washes over you......"
 						:UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]..."))
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.MAJOR_STRENGTH, 1);
+					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1);
 		}
 	},
 	
 	FIT_EGG_NOG(Util.newArrayListOfValues(
 			new ListValue<>("[style.boldGood(Restores)] 5% [style.boldHealth(energy)]"),
-			new ListValue<>("[style.boldGood(+1)] [style.boldStrength(strength)] to 'potion effects'")),
-			Colour.ATTRIBUTE_STRENGTH) {
+			new ListValue<>("[style.boldGood(+1)] [style.boldPhysique(physique)] to 'potion effects'")),
+			Colour.ATTRIBUTE_PHYSIQUE) {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
@@ -669,13 +669,13 @@ public enum ItemEffectType {
 						?"A soothing wave of arcane energy washes over you......"
 						:UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]..."))
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.MAJOR_STRENGTH, 1);
+					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1);
 		}
 	},
 	
 	SEX_HARPY_PERFUME(Util.newArrayListOfValues(
 			new ListValue<>("[style.boldSex(+1)] [style.boldFeminine(femininity)]"),
-			new ListValue<>("[style.boldGood(+5)] [style.boldMana(strength)] to 'potion effects'")),
+			new ListValue<>("[style.boldGood(+5)] [style.boldMana("+Attribute.DAMAGE_LUST.getName()+")] to 'potion effects'")),
 			Colour.GENERIC_SEX) {
 		
 		@Override
@@ -814,6 +814,37 @@ public enum ItemEffectType {
 		}
 	},
 	
+	GIFT_CHOCOLATES(Util.newArrayListOfValues(
+			new ListValue<>("[style.boldGood(Restores)] 30% [style.boldHealth(energy)]")),
+			Colour.ATTRIBUTE_HEALTH) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			target.incrementHealth((target.getAttributeValue(Attribute.HEALTH_MAXIMUM)/100)*30);
+			
+			if(target.isPlayer()) {
+				return "They're absolutely delicious, and it only takes you a few moments to finish off the entire box.";
+			} else {
+				return "";
+			}
+		}
+	},
+	
+	GIFT_PERFUME(Util.newArrayListOfValues(
+			new ListValue<>("[style.boldGood(+5)] [style.boldSeduction(seduction damage)] to 'potion effects'")),
+			Colour.ATTRIBUTE_LUST) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			return (target.isPlayer()
+						?"You smell a lot nicer now..."
+						:UtilText.parse(target, "[npc.Name] smells a lot nicer now..."))
+					+ "</br>"
+					+ target.addPotionEffect(Attribute.DAMAGE_LUST, 5);
+		}
+	},
+	
+	
 	PRESENT(Util.newArrayListOfValues(
 			new ListValue<>("Contains a random item.")),
 			Colour.GENERIC_EXCELLENT) {
@@ -881,7 +912,7 @@ public enum ItemEffectType {
 	// Racial:
 	
 	RACE_INNOXIAS_GIFT(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+2)] [style.boldStrength(strength)] to 'potion effects'"),
+			new ListValue<>("[style.boldGood(+2)] [style.boldPhysique(physique)] to 'potion effects'"),
 			new ListValue<>("[style.boldGood(+2)] [style.boldIntelligence(arcane)] to 'potion effects'"),
 			new ListValue<>("[style.boldGood(+5)] [style.boldCorruption(corruption)] to 'potion effects'")),
 			Colour.RACE_HUMAN) {
@@ -890,7 +921,7 @@ public enum ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			return "You start to feel like this item is just for testing purposes..."
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.MAJOR_STRENGTH, 2)
+					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 2)
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.MAJOR_ARCANE, 2)
 					+ "</br>"
@@ -900,7 +931,7 @@ public enum ItemEffectType {
 	
 	RACE_ANGELS_TEARS(Util.newArrayListOfValues(
 			new ListValue<>("[style.boldGood(+1)] [style.boldIntelligence(arcane)] to 'potion effects'"),
-			new ListValue<>("[style.boldGood(+1)] [style.boldStrength(strength)] to 'potion effects'")),
+			new ListValue<>("[style.boldGood(+1)] [style.boldPhysique(physique)] to 'potion effects'")),
 			Colour.RACE_HUMAN) {
 		
 		@Override
@@ -909,14 +940,14 @@ public enum ItemEffectType {
 						?"You start to feel a lot healthier..."
 						:UtilText.parse(target, "[npc.Name] starts to feel a lot healthier..."))
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.MAJOR_STRENGTH, 1)
+					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 1)
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.MAJOR_ARCANE, 1);
 		}
 	},
 	
 	RACE_CANINE_CRUNCH(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+2)] [style.boldStrength(strength)] to 'potion effects'")),
+			new ListValue<>("[style.boldGood(+2)] [style.boldPhysique(physique)] to 'potion effects'")),
 			Colour.RACE_DOG_MORPH) {
 		
 		@Override
@@ -925,7 +956,7 @@ public enum ItemEffectType {
 						?"You start to feel a lot more energetic..."
 						:UtilText.parse(target, "[npc.Name] starts to feel a lot more energetic..."))
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.MAJOR_STRENGTH, 2);
+					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 2);
 		}
 	},
 	
@@ -958,7 +989,7 @@ public enum ItemEffectType {
 	},
 	
 	RACE_SUGAR_CARROT_CUBE(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+3)] [style.boldStrength(strength)] to 'potion effects'")),
+			new ListValue<>("[style.boldGood(+3)] [style.boldPhysique(physique)] to 'potion effects'")),
 			Colour.RACE_HORSE_MORPH) {
 		
 		@Override
@@ -967,12 +998,12 @@ public enum ItemEffectType {
 						?"You start to feel a lot stronger..."
 						:UtilText.parse(target, "[npc.Name] starts to feel a lot stronger..."))
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.MAJOR_STRENGTH, 3);
+					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 3);
 		}
 	},
 	
 	RACE_SUGAR_COOKIE(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+3)] [style.boldStrength(strength)] to 'potion effects'")),
+			new ListValue<>("[style.boldGood(+3)] [style.boldPhysique(physique)] to 'potion effects'")),
 			Colour.RACE_REINDEER_MORPH) {
 		
 		@Override
@@ -981,12 +1012,12 @@ public enum ItemEffectType {
 						?"You start to feel a lot stronger..."
 						:UtilText.parse(target, "[npc.Name] starts to feel a lot stronger..."))
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.MAJOR_STRENGTH, 3);
+					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 3);
 		}
 	},
 	
 	RACE_ALLIGATORS_GUMBO(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+3)] [style.boldStrength(strength)] to 'potion effects'")),
+			new ListValue<>("[style.boldGood(+3)] [style.boldPhysique(physique)] to 'potion effects'")),
 			Colour.RACE_ALLIGATOR_MORPH) {
 		
 		@Override
@@ -995,12 +1026,12 @@ public enum ItemEffectType {
 						?"You start to feel a lot stronger..."
 						:UtilText.parse(target, "[npc.Name] starts to feel a lot stronger..."))
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.MAJOR_STRENGTH, 3);
+					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 3);
 		}
 	},
 	
 	RACE_BUBBLE_CREAM(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+3)] [style.boldStrength(strength)] to 'potion effects'")),
+			new ListValue<>("[style.boldGood(+3)] [style.boldPhysique(physique)] to 'potion effects'")),
 			Colour.RACE_COW_MORPH) {
 		
 		@Override
@@ -1009,12 +1040,12 @@ public enum ItemEffectType {
 						?"You start to feel a lot stronger..."
 						:UtilText.parse(target, "[npc.Name] starts to feel a lot stronger..."))
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.MAJOR_STRENGTH, 3);
+					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 3);
 		}
 	},
 	
 	RACE_MEAT_AND_MARROW(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+5)] [style.boldStrength(strength)] to 'potion effects'"),
+			new ListValue<>("[style.boldGood(+5)] [style.boldPhysique(physique)] to 'potion effects'"),
 			new ListValue<>("[style.boldGood(+3)] [style.boldCorruption(corruption)] to 'potion effects'")),
 			Colour.RACE_WOLF_MORPH) {
 		
@@ -1024,14 +1055,14 @@ public enum ItemEffectType {
 						?"You start to feel a lot stronger..."
 						:UtilText.parse(target, "[npc.Name] starts to feel a lot stronger..."))
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.MAJOR_STRENGTH, 5)
+					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 5)
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.MAJOR_CORRUPTION, 3);
 		}
 	},
 	
 	RACE_LOLLIPOP(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldGood(+5)] [style.boldStrength(strength)] to 'potion effects'"),
+			new ListValue<>("[style.boldGood(+5)] [style.boldPhysique(physique)] to 'potion effects'"),
 			new ListValue<>("[style.boldSex(+3)] [style.boldFeminine(femininity)]")),
 			Colour.RACE_WOLF_MORPH) {
 		
@@ -1043,7 +1074,7 @@ public enum ItemEffectType {
 					+ "</br>"
 					+ target.incrementFemininity(3)
 					+ "</br>"
-					+ target.addPotionEffect(Attribute.MAJOR_STRENGTH, 5);
+					+ target.addPotionEffect(Attribute.MAJOR_PHYSIQUE, 5);
 		}
 	},
 	
@@ -1511,8 +1542,8 @@ public enum ItemEffectType {
 	
 	// Enchantment effects: TODO
 	
-	ATTRIBUTE_STRENGTH(null,
-			Colour.ATTRIBUTE_STRENGTH) {
+	ATTRIBUTE_PHYSIQUE(null,
+			Colour.ATTRIBUTE_PHYSIQUE) {
 
 		@Override
 		public List<TFModifier> getPrimaryModifiers() {
@@ -1544,7 +1575,7 @@ public enum ItemEffectType {
 		}
 	},
 	
-	ATTRIBUTE_INTELLIGENCE(null,
+	ATTRIBUTE_ARCANE(null,
 			Colour.ATTRIBUTE_ARCANE) {
 
 		@Override
@@ -2651,7 +2682,9 @@ public enum ItemEffectType {
 				break;
 				
 			case TF_EARS:
-				secondaryModPotencyMap.put(TFModifier.TF_TYPE_1, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
+				for(int i=0; i< EarType.getEarTypes(race).size();i++) {
+					secondaryModPotencyMap.put(TFModifier.valueOf("TF_TYPE_"+(i+1)), Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
+				}
 				break;
 				
 			case TF_EYES:
@@ -2741,7 +2774,10 @@ public enum ItemEffectType {
 				break;
 				
 			case TF_TAIL:
-				secondaryModPotencyMap.put(TFModifier.TF_TYPE_1, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
+				secondaryModPotencyMap.put(TFModifier.REMOVAL, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
+				for(int i=0; i< TailType.getTailTypes(race).size();i++) {
+					secondaryModPotencyMap.put(TFModifier.valueOf("TF_TYPE_"+(i+1)), Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
+				}
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_COUNT, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_DRAIN), new ListValue<>(TFPotency.MINOR_BOOST)));
 				break;
 				
@@ -2836,7 +2872,12 @@ public enum ItemEffectType {
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Removes an extra pair of antennae.", singleDrain, "") { @Override public String applyEffect() { return target.incrementAntennaRows(singleDrain); } };
 							case MINOR_BOOST: default:
-								return new RacialEffectUtil("Adds an extra pair of antennae.", singleBoost, "") { @Override public String applyEffect() { return target.incrementAntennaRows(singleBoost); } };
+								return new RacialEffectUtil("Adds an extra pair of antennae.", singleBoost, "") { @Override public String applyEffect() {
+									if(target.getAntennaType()==AntennaType.NONE && RacialBody.valueOfRace(race).getAntennaType()!=AntennaType.NONE) {
+										return target.setAntennaType(RacialBody.valueOfRace(race).getAntennaType());
+									} else {
+										return target.incrementAntennaRows(singleBoost);
+									} } };
 						}
 					default:
 						if(RacialBody.valueOfRace(race).getAntennaType() == AntennaType.NONE) {
@@ -3292,7 +3333,30 @@ public enum ItemEffectType {
 				}
 				
 			case TF_EARS:
-				return new RacialEffectUtil(Util.capitaliseSentence(race.getName())+" ears transformation.", 0, "") { @Override public String applyEffect() { return target.setEarType(RacialBody.valueOfRace(race).getEarType()); } };
+				switch(secondaryModifier) {
+					case TF_TYPE_1:
+						return new RacialEffectUtil(Util.capitaliseSentence(EarType.getEarTypes(race).get(0).getTransformName())+" ears transformation.", 0, "") {
+							@Override public String applyEffect() { return target.setEarType(EarType.getEarTypes(race).get(0)); } };
+	
+					case TF_TYPE_2:
+						return new RacialEffectUtil(Util.capitaliseSentence(EarType.getEarTypes(race).get(1).getTransformName())+" ears transformation.", 0, "") {
+							@Override public String applyEffect() { return target.setEarType(EarType.getEarTypes(race).get(1)); } };
+	
+					case TF_TYPE_3:
+						return new RacialEffectUtil(Util.capitaliseSentence(EarType.getEarTypes(race).get(2).getTransformName())+" ears transformation.", 0, "") {
+							@Override public String applyEffect() { return target.setEarType(EarType.getEarTypes(race).get(2)); } };
+	
+					case TF_TYPE_4:
+						return new RacialEffectUtil(Util.capitaliseSentence(EarType.getEarTypes(race).get(3).getTransformName())+" ears transformation.", 0, "") {
+							@Override public String applyEffect() { return target.setEarType(EarType.getEarTypes(race).get(3)); } };
+	
+					case TF_TYPE_5:
+						return new RacialEffectUtil(Util.capitaliseSentence(EarType.getEarTypes(race).get(4).getTransformName())+" ears transformation.", 0, "") {
+							@Override public String applyEffect() { return target.setEarType(EarType.getEarTypes(race).get(4)); } };
+							
+					default:
+						return new RacialEffectUtil(Util.capitaliseSentence(race.getName())+" ears transformation.", 0, "") { @Override public String applyEffect() { return target.setEarType(RacialBody.valueOfRace(race).getEarType()); } };
+				}
 				
 			case TF_EYES:
 				switch(secondaryModifier) {
@@ -3479,7 +3543,12 @@ public enum ItemEffectType {
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Removes an extra pair of horns.", singleDrain, " pair of horns") { @Override public String applyEffect() { return target.incrementHornRows(singleDrain); } };
 							case MINOR_BOOST: default:
-								return new RacialEffectUtil("Adds an extra pair of horns.", singleBoost, " pair of horns") { @Override public String applyEffect() { return target.incrementHornRows(singleBoost); } };
+								return new RacialEffectUtil("Adds an extra pair of horns.", singleBoost, " pair of horns") { @Override public String applyEffect() {
+									if(target.getHornType()==HornType.NONE && RacialBody.valueOfRace(race).getHornType().size()>1) {
+										return target.setHornType(RacialBody.valueOfRace(race).getHornType().get(1));
+									} else {
+										return target.incrementHornRows(singleBoost);
+									} } };
 						}
 						
 					case TF_TYPE_1:
@@ -3727,8 +3796,36 @@ public enum ItemEffectType {
 							case MINOR_DRAIN:
 								return new RacialEffectUtil("Removes an extra tail.", singleDrain, " tail") { @Override public String applyEffect() { return target.incrementTailCount(singleDrain); } };
 							case MINOR_BOOST: default:
-								return new RacialEffectUtil("Adds an extra tail.", singleBoost, " tail") { @Override public String applyEffect() { return target.incrementTailCount(singleBoost); } };
+								return new RacialEffectUtil("Adds an extra tail.", singleBoost, " tail") { @Override public String applyEffect() {
+									if(target.getTailType()==TailType.NONE && RacialBody.valueOfRace(race).getTailType()!=TailType.NONE) {
+										return target.setTailType(RacialBody.valueOfRace(race).getTailType());
+									} else {
+										return target.incrementTailCount(singleBoost);
+									} } };
 						}
+					case REMOVAL:
+						return new RacialEffectUtil("Removes tail.", 0, "") { @Override public String applyEffect() { return target.setTailType(TailType.NONE); } };
+						
+					case TF_TYPE_1:
+						return new RacialEffectUtil(Util.capitaliseSentence(TailType.getTailTypes(race).get(0).getTransformName())+" tail transformation.", 0, "") {
+							@Override public String applyEffect() { return target.setTailType(TailType.getTailTypes(race).get(0)); } };
+						
+					case TF_TYPE_2:
+						return new RacialEffectUtil(Util.capitaliseSentence(TailType.getTailTypes(race).get(1).getTransformName())+" tail transformation.", 0, "") {
+							@Override public String applyEffect() { return target.setTailType(TailType.getTailTypes(race).get(1)); } };
+	
+					case TF_TYPE_3:
+						return new RacialEffectUtil(Util.capitaliseSentence(TailType.getTailTypes(race).get(2).getTransformName())+" tail transformation.", 0, "") {
+							@Override public String applyEffect() { return target.setTailType(TailType.getTailTypes(race).get(2)); } };
+	
+					case TF_TYPE_4:
+						return new RacialEffectUtil(Util.capitaliseSentence(TailType.getTailTypes(race).get(3).getTransformName())+" tail transformation.", 0, "") {
+							@Override public String applyEffect() { return target.setTailType(TailType.getTailTypes(race).get(3)); } };
+	
+					case TF_TYPE_5:
+						return new RacialEffectUtil(Util.capitaliseSentence(TailType.getTailTypes(race).get(4).getTransformName())+" tail transformation.", 0, "") {
+							@Override public String applyEffect() { return target.setTailType(TailType.getTailTypes(race).get(4)); } };
+							
 					default:
 						if(RacialBody.valueOfRace(race).getTailType() == TailType.NONE) {
 							return new RacialEffectUtil("Removes tail.", 0, "") { @Override public String applyEffect() { return target.setTailType(RacialBody.valueOfRace(race).getTailType()); } };

@@ -80,7 +80,7 @@ public class TestNPC extends NPC {
 			this.setSkinCovering(new Covering(BodyCoveringType.FELINE_FUR, Colour.COVERING_BROWN), true);
 			this.setSkinCovering(new Covering(BodyCoveringType.HUMAN, Colour.SKIN_LIGHT), true);
 	
-			this.setAttribute(Attribute.MAJOR_STRENGTH, 5);
+			this.setAttribute(Attribute.MAJOR_PHYSIQUE, 5);
 			this.setAttribute(Attribute.MAJOR_ARCANE, 25);
 			this.setAttribute(Attribute.MAJOR_CORRUPTION, 0);
 			
@@ -575,10 +575,6 @@ public class TestNPC extends NPC {
 	// Combat:
 	@Override
 	public String getCombatDescription() {
-		return null;
-	}
-	@Override
-	public String getAttackDescription(Attack attackType, boolean isHit) {
 		return null;
 	}
 	@Override
