@@ -4830,8 +4830,10 @@ public class MainController implements Initializable {
 			for (Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateWeapons().entrySet()) {
 				id = "WEAPON_FLOOR_" + entry.getKey().hashCode();
 				if (((EventTarget) documentRight.getElementById(id)) != null) {
-					InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setWeaponInventory(entry.getKey(), null);
-					addEventListener(documentRight, id, "click", el, false);
+					if(!Main.game.getCurrentDialogueNode().isInventoryDisabled()) {
+						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setWeaponInventory(entry.getKey(), null);
+						addEventListener(documentRight, id, "click", el, false);
+					}
 					addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
 					addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
 					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), null);
@@ -4843,8 +4845,10 @@ public class MainController implements Initializable {
 			for (Entry<AbstractClothing, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateClothing().entrySet()) {
 				id = "CLOTHING_FLOOR_" + entry.getKey().hashCode();
 				if (((EventTarget) documentRight.getElementById(id)) != null) {
-					InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingInventory(entry.getKey(), null);
-					addEventListener(documentRight, id, "click", el, false);
+					if(!Main.game.getCurrentDialogueNode().isInventoryDisabled()) {
+						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingInventory(entry.getKey(), null);
+						addEventListener(documentRight, id, "click", el, false);
+					}
 					addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
 					addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
 					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setClothing(entry.getKey(), null, null);
@@ -4856,8 +4860,10 @@ public class MainController implements Initializable {
 			for (Entry<AbstractItem, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateItems().entrySet()) {
 				id = "ITEM_FLOOR_" + entry.getKey().hashCode();
 				if (((EventTarget) documentRight.getElementById(id)) != null) {
-					InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setItemInventory(entry.getKey(), null);
-					addEventListener(documentRight, id, "click", el, false);
+					if(!Main.game.getCurrentDialogueNode().isInventoryDisabled()) {
+						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setItemInventory(entry.getKey(), null);
+						addEventListener(documentRight, id, "click", el, false);
+					}
 					addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
 					addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
 					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setItem(entry.getKey(), null, null);

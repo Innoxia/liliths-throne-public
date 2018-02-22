@@ -13,6 +13,7 @@
 	Bugs:
 		Fixed bug where Nyan's 'Small Talk' action would increment arousal by 100 instead of 1...
 		Fixed bug where character imports wouldn't work.
+		Fixed bug where the 'Face' modification screen in character creation would cause a major background bug to occur.
 	
 	
 	
