@@ -72,6 +72,7 @@ public class Covering  {
 	public Covering(Covering coveringToClone) {
 		this.type = coveringToClone.getType();
 		this.pattern = coveringToClone.getPattern();
+		this.modifier = coveringToClone.getModifier();
 		this.primaryColour = coveringToClone.getPrimaryColour();
 		this.primaryGlowing = coveringToClone.isPrimaryGlowing();
 		this.secondaryColour = coveringToClone.getSecondaryColour();
