@@ -133,7 +133,7 @@ public class Ashley extends NPC {
 					+ (Main.game.getPlayer().hasTraitActivated(Perk.OBSERVANT)
 							?"Despite the fact that you're highly observant, there's no giveaway whatsoever which would hint as to what Ashley's gender is."
 							:"You have no idea what Ashley's gender is.")
-					+ " Standing at full height, they measure 6' 1” (186cm)."
+					+ " Standing at full height, they measure [npc.heightFeetInches] ([npc.heightCm]cm)."
 				+ "</p>"
 				+ "<p>"
 					+ "The hood of their cloak is pulled up, completely obscuring their facial features."

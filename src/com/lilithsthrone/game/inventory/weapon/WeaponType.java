@@ -331,8 +331,8 @@ public class WeaponType {
 		public String getDescription() {
 			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SHOPPING_ARCADE_ASHLEYS_SHOP) {
 				return "A short-handled feather duster, ideal for keeping a house clean, but not much use in combat..."
-						+ " [Ashley.speech(A feather duster: the epitome of romance, at least for those who don’t know anything about their lover, other than that they're the person who keeps the house clean.)]";
-//						+ " Surely, that’s all that’s going on with their lives, right?)]";
+						+ " [Ashley.speech(A feather duster: the epitome of romance, at least for those who don't know anything about their lover, other than that they're the person who keeps the house clean.)]";
+//						+ " Surely, that's all that's going on with their lives, right?)]";
 			} else {
 				return "A short-handled feather duster, ideal for keeping a house clean, but not much use in combat...";
 			}
