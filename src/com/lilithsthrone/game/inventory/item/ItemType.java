@@ -3396,8 +3396,8 @@ public class ItemType {
 			"Rose Bouquet",
 			"Rose Bouquets",
 			"A bouquet filled with roses of many colours, it smells pleasant even from a distance."
-				+ " [Ashley.speech(Just in case you're clueless to the point that you don’t even know the favourite colour of your intended recipient, every natural colour is included here.)]",
-			//				+ " If their favourite happens to be blue, tough luck; maybe you should try getting acquainted with another species of flower instead of going with what’s safe.)] ",
+				+ " [Ashley.speech(Just in case you're clueless to the point that you don't even know the favourite colour of your intended recipient, every natural colour is included here.)]",
+			//				+ " If their favourite happens to be blue, tough luck; maybe you should try getting acquainted with another species of flower instead of going with what's safe.)] ",
 			"giftRoseBouquet",
 			Colour.BASE_RED,
 			Colour.BASE_ORANGE,
@@ -3412,7 +3412,7 @@ public class ItemType {
 		public String getDescription() {
 			if(Main.game.getPlayer().getLocationPlace().getPlaceType()==PlaceType.SHOPPING_ARCADE_ASHLEYS_SHOP) {
 				return "A bouquet filled with roses of many colours, it smells pleasant even from a distance."
-						+ " [Ashley.speech(Just in case you're clueless to the point that you don’t even know the favourite colour of your intended recipient, every natural colour is included here.)]";
+						+ " [Ashley.speech(Just in case you're clueless to the point that you don't even know the favourite colour of your intended recipient, every natural colour is included here.)]";
 			} else {
 				return "A bouquet filled with roses of many colours, it smells pleasant even from a distance.";
 			}

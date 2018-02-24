@@ -429,7 +429,7 @@ public class SuccubisSecrets {
 						+ "She hands you a nearby brochure, and as you thank her, you can't help but feel quite taken aback at how casual she's acting about this."
 						+ "</p>"
 						+ "<p>"
-						+ "[pc.speech(Is there anything I can get for you?)] you ask, unsure of quite how to react to Kate's blasé attitude, [pc.speech(You don't seem very concerned about being pregnant...)]"
+						+ "[pc.speech(Is there anything I can get for you?)] you ask, unsure of quite how to react to Kate's blas&eacute; attitude, [pc.speech(You don't seem very concerned about being pregnant...)]"
 						+ "</p>"
 						+ "<p>"
 						+ "[kate.speech(Aww that's sweet of you, but I'm fine thanks. I love being pregnant!)] she laughs again, [kate.speech(It gives me an excuse to just lie around all day. Anyway, just let me know if you need something.)]"

@@ -130,21 +130,21 @@ Perhaps there could be options to look for trouble/attack hostile NPCs in alleys
 	
 	
 	
-	Flesh out the post-sex page a little. We’ve talked before about variation based on just how well fucked the NPC is, but there could also be some other things. Some ideas:
-• Have a short description of them replacing their clothing. This pretty much exists already, the game gives narration when you swap your equipment around.
-• Have them wipe their face off if you gave them a facial.
-• Have them scoop the cum into their mouth if you gave them a facial and they’re a cum addict — Might have consequences if the cum has special effects.
-• If they have the “Dominant” fetish, they could say how they’ll get you next time, like the witches do.
-• If they (still) have the virginity fetish, they could thank you for not taking it.
-• If you took one of their virginities, they could comment on that. There’s a pretty long piece when the player loses one of their virginities, but the single line you get when you take an NPC’s virginity makes the “Deflowering” fetish basically just about the bonus XP.
-• If you gave them the broken virgin fetish, they could thank you for breaking them in and showing them the little slut they truly are.
-I’m sure there are a lot more, probably by the time you read this others will have suggested things I didn’t think of.
+	Flesh out the post-sex page a little. We've talked before about variation based on just how well fucked the NPC is, but there could also be some other things. Some ideas:
+* Have a short description of them replacing their clothing. This pretty much exists already, the game gives narration when you swap your equipment around.
+* Have them wipe their face off if you gave them a facial.
+* Have them scoop the cum into their mouth if you gave them a facial and they're a cum addict - Might have consequences if the cum has special effects.
+* If they have the "Dominant" fetish, they could say how they'll get you next time, like the witches do.
+* If they (still) have the virginity fetish, they could thank you for not taking it.
+* If you took one of their virginities, they could comment on that. There's a pretty long piece when the player loses one of their virginities, but the single line you get when you take an NPC's virginity makes the "Deflowering" fetish basically just about the bonus XP.
+* If you gave them the broken virgin fetish, they could thank you for breaking them in and showing them the little slut they truly are.
+I'm sure there are a lot more, probably by the time you read this others will have suggested things I didn't think of.
 
 Let us adjust how often whores appear relative to muggers, like we can with sex and gender ratios.
 
-Add actions to make subs lick off any cum you’ve got on you. Might have consequences if the cum has special effects.
+Add actions to make subs lick off any cum you've got on you. Might have consequences if the cum has special effects.
 
-Before the sex system is frozen, you should probably implement a system for restraint of limbs. This would be used for scenes like the stocks, for characters wearing cuffs, or just if the dominant decides to pin the sub’s hands in place with one of their own. The effect of this should be obvious — restricting any actions that require free hands. (And add a few for struggling or wiggling, I guess, to make up the difference)
+Before the sex system is frozen, you should probably implement a system for restraint of limbs. This would be used for scenes like the stocks, for characters wearing cuffs, or just if the dominant decides to pin the sub's hands in place with one of their own. The effect of this should be obvious - restricting any actions that require free hands. (And add a few for struggling or wiggling, I guess, to make up the difference)
 	
 	
 	
@@ -256,7 +256,7 @@ Receving cowgirl
 Sixty-nine where you can choose to be bottom whilst being dom (sometimes people might prefer to be gently sucked as bottom rather than ramming their cock in someone's mouth from top) : P 
 
 Receving/performing oral in missionary position;
-Being able to choose to face the wall yourself should you play as a sub (or facing the wall in general without the need to be a sub) ; ) The same goes for the ”Back to wall” position too.
+Being able to choose to face the wall yourself should you play as a sub (or facing the wall in general without the need to be a sub) ; ) The same goes for the "Back to wall" position too.
 
 And while this is fresh in my head, having relationships with slaves/Lilaya/Rose/shop owners/prostitutes would be awesome. Though I'm guessing that is for a future update.
 
@@ -465,21 +465,21 @@ Torn and destroyed items will be able to be repaired, so you won't lose your clo
 	
 	
 	
-	Now that multiple clothing colours are a thing, probably some of the old clothing items could do with them. Ones that spring immediately to mind as having significant non-primary-coloured parts would be the Bike Shorts, Shin Guards, Trainers, and Skater Shoes. Some of the panties also have that thing where if they’re light pink, they turn out white with trim, which would also suggest multiple coloured areas would fit nicely.
+	Now that multiple clothing colours are a thing, probably some of the old clothing items could do with them. Ones that spring immediately to mind as having significant non-primary-coloured parts would be the Bike Shorts, Shin Guards, Trainers, and Skater Shoes. Some of the panties also have that thing where if they're light pink, they turn out white with trim, which would also suggest multiple coloured areas would fit nicely.
 
-We’ll be able to set up slaves in double rooms soon, correct? Will roommates have relationships with each other? I can imagine a bit of variety depending on if they get along or not, maybe if they start fighting the player has to step in and make them resolve things?
+We'll be able to set up slaves in double rooms soon, correct? Will roommates have relationships with each other? I can imagine a bit of variety depending on if they get along or not, maybe if they start fighting the player has to step in and make them resolve things?
 
-In full character descriptions (selfie + examining NPC), animalistic faces are described, while human faces simply say “face”. Also, neither describes the colour of the face. IMO it should say something like “She has a feminine, human face with pale skin” or “He has a masculine, muzzled wolf-like face with white fur”.
+In full character descriptions (selfie + examining NPC), animalistic faces are described, while human faces simply say "face". Also, neither describes the colour of the face. IMO it should say something like "She has a feminine, human face with pale skin" or "He has a masculine, muzzled wolf-like face with white fur".
 
-Unzipping trousers or shorts doesn’t provide access to a character’s pussy. While that might not be enough of an opening to fuck someone, it should easily be enough to get a hand in and finger them.
+Unzipping trousers or shorts doesn't provide access to a character's pussy. While that might not be enough of an opening to fuck someone, it should easily be enough to get a hand in and finger them.
 
-The “Frustrated” status effect has been discussed before, but while quite a few people have complained about it, I don’t recall anyone else suggesting a way to improve it. One way would be, instead of basing it on orgasm count, to base it off of arousal level at the point sex ends; if you’re not aroused, you don’t get frustrated, if you’re building up to an orgasm and get denied, you do. Whether you’ve stayed calm while masturbating someone into oblivion, or are sated after having just cum yourself, either way you wouldn’t get frustrated.
+The "Frustrated" status effect has been discussed before, but while quite a few people have complained about it, I don't recall anyone else suggesting a way to improve it. One way would be, instead of basing it on orgasm count, to base it off of arousal level at the point sex ends; if you're not aroused, you don't get frustrated, if you're building up to an orgasm and get denied, you do. Whether you've stayed calm while masturbating someone into oblivion, or are sated after having just cum yourself, either way you wouldn't get frustrated.
 
-The shield spells are completely useless. They give you +50 resist, but they only last for 2 turns(?!?), so you’re pretty much wasting one action to get half damage on two enemy attacks. However, you’re then one attack behind them, so you actually only break even. Assuming that the enemy made that kind of attack, of course. If they made another kind of attack, you actually end up worse off than if you hadn’t cast anything. It would be worth casting a shield at the start of a fight if it had an extended duration, but with such a short duration they are totally not worth it.
+The shield spells are completely useless. They give you +50 resist, but they only last for 2 turns(?!?), so you're pretty much wasting one action to get half damage on two enemy attacks. However, you're then one attack behind them, so you actually only break even. Assuming that the enemy made that kind of attack, of course. If they made another kind of attack, you actually end up worse off than if you hadn't cast anything. It would be worth casting a shield at the start of a fight if it had an extended duration, but with such a short duration they are totally not worth it.
 
-We can suck our own fingers (or tail if we have one), but we can’t make our partner do it. This would be both an alternative means to get them lubed up before use, or if you’ve already used them, make them taste themself on you.
+We can suck our own fingers (or tail if we have one), but we can't make our partner do it. This would be both an alternative means to get them lubed up before use, or if you've already used them, make them taste themself on you.
 
-When farming for essence, it would be nice to have some form of indicator on the map to show if an NPC will give you any. Maybe a “Hunting Senses” perk? We could sure do with more of those. Or a spell we could learn — we have all sorts of examples of demons doing cool stuff with their magic, most of which we can’t learn to do.
+When farming for essence, it would be nice to have some form of indicator on the map to show if an NPC will give you any. Maybe a "Hunting Senses" perk? We could sure do with more of those. Or a spell we could learn - we have all sorts of examples of demons doing cool stuff with their magic, most of which we can't learn to do.
 	
 	
 	
@@ -671,17 +671,17 @@ more for the proof of concept of the current clothing system:
 	
 	Suggestions:
 
-Lust-inducing spells that attack willpower. I don’t think that needs elaborating.
+Lust-inducing spells that attack willpower. I don't think that needs elaborating.
 
 Some way to change gender preference, be it a new Mystery Kink enchant or something different.
 
-Let the player learn how to do “magic styling” like Kate does (possibly as part of her romance quest?), that they could use on slaves/encounters/themselves. Presumably this would have an essence cost comparable to the price in flames that Kate charges.
+Let the player learn how to do "magic styling" like Kate does (possibly as part of her romance quest?), that they could use on slaves/encounters/themselves. Presumably this would have an essence cost comparable to the price in flames that Kate charges.
 
 Speaking of which, it might be neat if, when buying from Kate, you could pay her in essence or cash.
 
-Items to improve certain specific tease attacks — for example a whip could make a sadist tease more effective.
+Items to improve certain specific tease attacks - for example a whip could make a sadist tease more effective.
 
-How about a perk for “Sterile”, giving -100 virility to match “Barren”?
+How about a perk for "Sterile", giving -100 virility to match "Barren"?
 
 The way gender is determined for androgynous NPCs could use some work. Presently, the only variable used is clothing, however IMO before that the game should take into account certain body features; an extreme example is an NPC I met recently with the cross-dressing and exhibitionism fetishes. Standing there topless, with crotchless chaps on, her huge breasts and pussy were fully on display, but she was wearing a masculine watch, so the game called her a man. So, as I said, IMO a character with visible breasts or an exposed pussy should be considered female, then clothing should be taken into account.
 
