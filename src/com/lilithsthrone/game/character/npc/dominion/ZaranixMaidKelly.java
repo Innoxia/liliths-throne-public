@@ -280,7 +280,7 @@ public class ZaranixMaidKelly extends NPC {
 				
 			} else if (index == 4) {
 				return new Response("Transformations",
-						"Get Kelly to use [npc.her] demonic powers to transform [npc.herself]...",
+						"Get Kelly to use [kelly.her] demonic powers to transform [kelly.herself]...",
 						BodyChanging.BODY_CHANGING_CORE){
 					@Override
 					public void effects() {

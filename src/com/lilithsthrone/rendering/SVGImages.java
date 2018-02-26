@@ -49,6 +49,8 @@ public enum SVGImages {
 			responseDomGentle, responseDomNormal, responseDomRough,
 			
 			NPCWarningMale, NPCWarningFemale, NPCWarningDemon,
+
+			counterZero, counterOne, counterTwo, counterThree, counterFour, counterFive, counterFivePlus,
 			
 			scaleZero, scaleOne, scaleTwo, scaleThree, scaleFour,
 			scaleZeroDisabled, scaleOneDisabled, scaleTwoDisabled, scaleThreeDisabled, scaleFourDisabled,
@@ -326,6 +328,29 @@ public enum SVGImages {
 			
 			
 			// scales:
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/fetishes/overlay0.svg");
+			counterZero = Util.inputStreamToString(is);
+			counterZero = setColour(counterZero, Colour.BASE_PINK);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/fetishes/overlay1.svg");
+			counterOne = Util.inputStreamToString(is);
+			counterOne = setColour(counterOne, Colour.BASE_PINK);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/fetishes/overlay2.svg");
+			counterTwo = Util.inputStreamToString(is);
+			counterTwo = setColour(counterTwo, Colour.BASE_PINK);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/fetishes/overlay3.svg");
+			counterThree = Util.inputStreamToString(is);
+			counterThree = setColour(counterThree, Colour.BASE_PINK);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/fetishes/overlay4.svg");
+			counterFour = Util.inputStreamToString(is);
+			counterFour = setColour(counterFour, Colour.BASE_PINK);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/fetishes/overlay5.svg");
+			counterFive = Util.inputStreamToString(is);
+			counterFive = setColour(counterFive, Colour.BASE_PINK);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/fetishes/overlay5Plus.svg");
+			counterFivePlus = Util.inputStreamToString(is);
+			counterFivePlus = setColour(counterFivePlus, Colour.BASE_PINK);
+			
 
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/scale_zero.svg");
 			scaleZero = Util.inputStreamToString(is);
@@ -1071,6 +1096,34 @@ public enum SVGImages {
 	
 	public String getRaceDobermannDesaturated() {
 		return raceDobermannDesaturated;
+	}
+
+	public String getCounterZero() {
+		return counterZero;
+	}
+
+	public String getCounterOne() {
+		return counterOne;
+	}
+
+	public String getCounterTwo() {
+		return counterTwo;
+	}
+
+	public String getCounterThree() {
+		return counterThree;
+	}
+
+	public String getCounterFour() {
+		return counterFour;
+	}
+
+	public String getCounterFive() {
+		return counterFive;
+	}
+
+	public String getCounterFivePlus() {
+		return counterFivePlus;
 	}
 	
 	

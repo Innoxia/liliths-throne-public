@@ -153,7 +153,7 @@ import com.lilithsthrone.world.places.PlaceType;
  * The class for all the game's characters. I think this is the biggest class in the game.
  * 
  * @since 0.1.0
- * @version 0.1.89
+ * @version 0.1.99
  * @author Innoxia
  */
 public abstract class GameCharacter implements Serializable, XMLSaving {
@@ -1841,40 +1841,40 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	public int getValueAsSlave() {
-		int value = 1000;
+		int value = 10000;
 		switch(this.getRace()) {
 			case ANGEL:
-				value = 50000;
+				value = 500000;
 				break;
 			case CAT_MORPH: case DOG_MORPH:
-				value = 800;
+				value = 8000;
 				break;
 			case COW_MORPH: case HORSE_MORPH:
-				value = 1500;
+				value = 15000;
 				break;
 			case REINDEER_MORPH:
-				value = 2000;
+				value = 20000;
 				break;
 			case DEMON:
-				value = 10000;
+				value = 500000;
 				break;
 			case HARPY:
-				value = 1200;
+				value = 12000;
 				break;
 			case HUMAN:
-				value = 400;
+				value = 4000;
 				break;
 			case SQUIRREL_MORPH:
-				value = 600;
+				value = 6000;
 				break;
 			case ALLIGATOR_MORPH:
-				value = 1000;
+				value = 10000;
 				break;
 			case WOLF_MORPH:
-				value = 1000;
+				value = 10000;
 				break;
 			case SLIME:
-				value = 1000;
+				value = 10000;
 				break;
 		}
 		
@@ -7534,8 +7534,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return UtilText.formatStretching(rawInput);
 	}
 
-	
-	public String getStretchingDescription(PenetrationType penetrationType, OrificeType orifice) {
+	public String getStretchingDescription(GameCharacter partner, PenetrationType penetrationType, OrificeType orifice) {
 		switch(orifice) {
 			case ANUS:
 				switch(penetrationType) {
@@ -7552,21 +7551,38 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			case MOUTH:
 				switch(penetrationType) {
 					case FINGER:
+						if(partner.equals(this)) {
+							return formatStretching(this.isPlayer()
+									?UtilText.parse(partner, "You're struggling to fit your fingers down your throat.")
+									:UtilText.parse(this, "[npc.Name] is struggling to fit [npc.her] fingers down [npc.her] throat."));
+						}
 						return formatStretching(this.isPlayer()
-								?UtilText.parse(this, "You're struggling to fit [npc.name]'s fingers down your throat.")
-								:UtilText.parse(this, "[npc.Name] is struggling to fit your fingers down [npc.her] throat."));
+								?UtilText.parse(partner, "You're struggling to fit [npc.name]'s fingers down your throat.")
+								:(partner.isPlayer()
+										?UtilText.parse(this, "[npc.Name] is struggling to fit your fingers down [npc.her] throat.")
+										:UtilText.parse(this, partner, "[npc.Name] is struggling to fit [npc2.name]'s fingers down [npc.her] throat.")));
 					case PENIS:
+						if(partner.equals(this)) {
+							return formatStretching(this.isPlayer()
+									?UtilText.parse(partner, "You're struggling to fit your [pc.cock+] down your throat.")
+									:UtilText.parse(this, "[npc.Name] is struggling to fit [npc.her] [npc.cock+] down [npc.her] throat."));
+						}
 						return formatStretching(this.isPlayer()
-								?UtilText.parse(this, "You're struggling to fit [npc.name]'s [npc.cock+] down your throat.")
-								:UtilText.parse(this, "[npc.Name] is struggling to fit your [pc.cock+] down [npc.her] throat."));
+								?UtilText.parse(partner, "You're struggling to fit [npc.name]'s [npc.cock+] down your throat.")
+								:(partner.isPlayer()
+										?UtilText.parse(this, "[npc.Name] is struggling to fit your [pc.cock+] down [npc.her] throat.")
+										:UtilText.parse(this, partner, "[npc.Name] is struggling to fit [npc2.name]'s [npc2.cock+] down [npc.her] throat.")));
 					case TAIL:
+						if(partner.equals(this)) {
+							return formatStretching(this.isPlayer()
+									?UtilText.parse(partner, "You're struggling to fit your [pc.tail] down your throat.")
+									:UtilText.parse(this, "[npc.Name] is struggling to fit [npc.her] [npc.tail] down [npc.her] throat."));
+						}
 						return formatStretching(this.isPlayer()
-								?UtilText.parse(this, "You're struggling to fit [npc.name]'s [npc.tail] down your throat.")
-								:UtilText.parse(this, "[npc.Name] is struggling to fit your [pc.tail] down [npc.her] throat."));
-					case TONGUE:
-						return formatStretching(this.isPlayer()
-								?UtilText.parse(this, "You're struggling to fit [npc.name]'s [npc.tongue] down your throat.")
-								:UtilText.parse(this, "[npc.Name] is struggling to fit your [pc.tongue] down [npc.her] throat."));
+								?UtilText.parse(partner, "You're struggling to fit [npc.name]'s [npc.tail] down your throat.")
+								:(partner.isPlayer()
+										?UtilText.parse(this, "[npc.Name] is struggling to fit your [pc.tail] down [npc.her] throat.")
+										:UtilText.parse(this, partner, "[npc.Name] is struggling to fit [npc2.name]'s [npc2.tail] down [npc.her] throat.")));
 					default:
 						return "Your throat is being stretched out.";
 				}
@@ -7599,9 +7615,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return "";
 	}
 
-	// Finished stretching:
-	
-	
 	public String getStretchingFinishedDescription(OrificeType orifice) {
 		if(this.isPlayer()) {
 			switch(orifice) {
@@ -8620,7 +8633,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public int getWeaponCount(AbstractWeapon weapon) {
 		return inventory.getWeaponCount(weapon);
 	}
-	
+
 	public Map<AbstractClothing, Integer> getMapOfDuplicateClothing() {
 		return inventory.getMapOfDuplicateClothing();
 	}
@@ -9141,7 +9154,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public boolean isAbleToEquip(AbstractClothing newClothing, boolean automaticClothingManagement, GameCharacter characterClothingEquipper) {
 		return inventory.isAbleToEquip(newClothing, false, automaticClothingManagement, this, characterClothingEquipper);
 	}
-
 
 	public String getEquipDescription() {
 		return inventory.getEquipDescription();

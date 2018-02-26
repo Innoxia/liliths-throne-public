@@ -1854,7 +1854,6 @@ public enum Sex {
 		// Only apply penetration effects if this action isn't an orgasm, and it isn't the end of sex. (Otherwise, ongoing descriptions get appended after the main description, which usually don't make sense.) TODO
 		if (!Sex.getOrgasmActionsPlayer().contains(sexAction)
 				&& !Sex.getOrgasmActionsPartner().contains(sexAction)
-//				&& !Sex.getMutualOrgasmActions().contains(sexAction)
 				&& sexAction.getActionType() != SexActionType.PARTNER_POSITIONING
 				&& sexAction.getActionType() != SexActionType.PLAYER_POSITIONING
 				&& !sexAction.endsSex()) {
@@ -2230,7 +2229,7 @@ public enum Sex {
 	}
 
 
-	private static Set<OrificeType> initialPenetrations = new HashSet<>();
+	private static Map<GameCharacter, Set<OrificeType>> initialPenetrations = new HashMap<>();
 	
 	public static void applyPenetration(GameCharacter characterPenetrating, GameCharacter characterPenetrated, PenetrationType penetration, OrificeType orifice) {
 		
@@ -2243,7 +2242,8 @@ public enum Sex {
 		ongoingPenetrationMap.get(characterPenetrating).get(characterPenetrated).putIfAbsent(penetration, new HashSet<>());
 		ongoingPenetrationMap.get(characterPenetrating).get(characterPenetrated).get(penetration).add(orifice);
 		
-		initialPenetrations.add(orifice);
+		initialPenetrations.putIfAbsent(characterPenetrated, new HashSet<>());
+		initialPenetrations.get(characterPenetrated).add(orifice);
 		
 		if(characterPenetrated != null && characterPenetrating != null) {
 			characterPenetrated.incrementSexCount(relatedSexTypePenetrated);
@@ -2296,7 +2296,7 @@ public enum Sex {
 		}
 		
 		if (orifice == OrificeType.ANUS) {
-			if (initialPenetrations.contains(OrificeType.ANUS)) {
+			if (initialPenetrations.get(characterPenetrated).contains(OrificeType.ANUS)) {
 				sexSB.append(formatInitialPenetration(characterPenetrating.getPenetrationDescription(true, characterPenetrating, penetrationType, characterPenetrated, orifice)));
 				
 				if (characterPenetrated.isAssVirgin()) {
@@ -2309,32 +2309,32 @@ public enum Sex {
 						characterPenetrated.setAssVirgin(false);
 					}
 				}
-				initialPenetrations.remove(OrificeType.ANUS);
+				initialPenetrations.get(characterPenetrated).remove(OrificeType.ANUS);
 			} else {
 				sexSB.append(formatPenetration(characterPenetrating.getPenetrationDescription(false, characterPenetrating, penetrationType, characterPenetrated, orifice)));
 			}
 				
 		}  else if (orifice == OrificeType.VAGINA) {
-			if (initialPenetrations.contains(OrificeType.VAGINA)) {
+			if (initialPenetrations.get(characterPenetrated).contains(OrificeType.VAGINA)) {
 				sexSB.append(formatInitialPenetration(characterPenetrating.getPenetrationDescription(true, characterPenetrating, penetrationType, characterPenetrated, orifice)));
 				
 				if (characterPenetrated.isVaginaVirgin()) {
-						if (penetrationType.isTakesVirginity()) {
-							sexSB.append(characterPenetrating.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, characterPenetrated, OrificeType.VAGINA));
-							if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
-								characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingVaginalVirginity(characterPenetrating));
-							}
-							characterPenetrated.setVirginityLoss(relatedSexTypeForCharacterPenetrated, characterPenetrating.getName("a") + " " + characterPenetrating.getLostVirginityDescriptor());
-							characterPenetrated.setVaginaVirgin(false);
+					if (penetrationType.isTakesVirginity()) {
+						sexSB.append(characterPenetrating.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, characterPenetrated, OrificeType.VAGINA));
+						if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
+							characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingVaginalVirginity(characterPenetrating));
 						}
+						characterPenetrated.setVirginityLoss(relatedSexTypeForCharacterPenetrated, characterPenetrating.getName("a") + " " + characterPenetrating.getLostVirginityDescriptor());
+						characterPenetrated.setVaginaVirgin(false);
+					}
 				}
-				initialPenetrations.remove(OrificeType.VAGINA);
+				initialPenetrations.get(characterPenetrated).remove(OrificeType.VAGINA);
 			} else {
 				sexSB.append(formatPenetration(characterPenetrating.getPenetrationDescription(false, characterPenetrating, penetrationType, characterPenetrated, orifice)));
 			}
 			
 		} else if (orifice == OrificeType.NIPPLE) {
-			if (initialPenetrations.contains(OrificeType.NIPPLE)) {
+			if (initialPenetrations.get(characterPenetrated).contains(OrificeType.NIPPLE)) {
 					sexSB.append(formatInitialPenetration(characterPenetrating.getPenetrationDescription(true, characterPenetrating, penetrationType, characterPenetrated, orifice)));
 					
 					if (characterPenetrated.isNippleVirgin()) {
@@ -2347,13 +2347,13 @@ public enum Sex {
 							characterPenetrated.setNippleVirgin(false);
 						}
 					}
-					initialPenetrations.remove(OrificeType.NIPPLE);
+					initialPenetrations.get(characterPenetrated).remove(OrificeType.NIPPLE);
 				} else {
 					sexSB.append(formatPenetration(characterPenetrating.getPenetrationDescription(false, characterPenetrating, penetrationType, characterPenetrated, orifice)));
 				}
 				
 		} else if (orifice == OrificeType.URETHRA) {
-			if (initialPenetrations.contains(OrificeType.URETHRA)) {
+			if (initialPenetrations.get(characterPenetrated).contains(OrificeType.URETHRA)) {
 					sexSB.append(formatInitialPenetration(characterPenetrating.getPenetrationDescription(true, characterPenetrating, penetrationType, characterPenetrated, orifice)));
 					
 					if (characterPenetrated.isUrethraVirgin()) {
@@ -2366,13 +2366,13 @@ public enum Sex {
 							characterPenetrated.setUrethraVirgin(false);
 						}
 					}
-					initialPenetrations.remove(OrificeType.URETHRA);
+					initialPenetrations.get(characterPenetrated).remove(OrificeType.URETHRA);
 				} else {
 					sexSB.append(formatPenetration(characterPenetrating.getPenetrationDescription(false, characterPenetrating, penetrationType, characterPenetrated, orifice)));
 				}
 			
 		} else if (orifice == OrificeType.MOUTH) {
-			if (initialPenetrations.contains(OrificeType.MOUTH)) {
+			if (initialPenetrations.get(characterPenetrated).contains(OrificeType.MOUTH)) {
 					sexSB.append(formatInitialPenetration(characterPenetrating.getPenetrationDescription(true, characterPenetrating, penetrationType, characterPenetrated, orifice)));
 					
 					if (characterPenetrated.isFaceVirgin()) {
@@ -2385,7 +2385,7 @@ public enum Sex {
 							characterPenetrated.setFaceVirgin(false);
 						}
 					}
-					initialPenetrations.remove(OrificeType.MOUTH);
+					initialPenetrations.get(characterPenetrated).remove(OrificeType.MOUTH);
 				} else {
 					sexSB.append(formatPenetration(characterPenetrating.getPenetrationDescription(false, characterPenetrating, penetrationType, characterPenetrated, orifice)));
 				}
@@ -2405,7 +2405,7 @@ public enum Sex {
 			areasCurrentlyStretching.get(characterPenetrated).clear();
 			if (orifice == OrificeType.ANUS){
 				if (Capacity.isPenisSizeTooBig((int)characterPenetrated.getAssStretchedCapacity(), characterPenetrating.getPenisRawSizeValue(), lubed, twoPenisesInOrifice)){
-					sexSB.append(characterPenetrated.getStretchingDescription(penetrationType, OrificeType.ANUS));
+					sexSB.append(characterPenetrated.getStretchingDescription(characterPenetrating, penetrationType, OrificeType.ANUS));
 
 					// Stretch out the orifice by a factor of elasticity's modifier.
 					characterPenetrated.incrementAssStretchedCapacity((((float)characterPenetrating.getPenisRawSizeValue())-characterPenetrated.getAssStretchedCapacity())*characterPenetrated.getAssElasticity().getStretchModifier());
@@ -2429,7 +2429,7 @@ public enum Sex {
 
 			} else if (orifice == OrificeType.VAGINA){
 				if (Capacity.isPenisSizeTooBig((int)characterPenetrated.getVaginaStretchedCapacity(), characterPenetrating.getPenisRawSizeValue(), lubed, twoPenisesInOrifice)){
-					sexSB.append(characterPenetrated.getStretchingDescription(penetrationType, OrificeType.VAGINA));
+					sexSB.append(characterPenetrated.getStretchingDescription(characterPenetrating, penetrationType, OrificeType.VAGINA));
 					
 					// Stretch out the orifice by a factor of elasticity's modifier.
 					characterPenetrated.incrementVaginaStretchedCapacity((((float)characterPenetrating.getPenisRawSizeValue())-characterPenetrated.getVaginaStretchedCapacity())*characterPenetrated.getVaginaElasticity().getStretchModifier());
@@ -2454,7 +2454,7 @@ public enum Sex {
 
 			}else if (orifice == OrificeType.NIPPLE){
 				if (Capacity.isPenisSizeTooBig((int)characterPenetrated.getNippleStretchedCapacity(), characterPenetrating.getPenisRawSizeValue(), lubed, twoPenisesInOrifice)){
-					sexSB.append(characterPenetrated.getStretchingDescription(penetrationType, OrificeType.NIPPLE));
+					sexSB.append(characterPenetrated.getStretchingDescription(characterPenetrating, penetrationType, OrificeType.NIPPLE));
 
 					// Stretch out the orifice by a factor of elasticity's modifier.
 					characterPenetrated.incrementNippleStretchedCapacity((((float)characterPenetrating.getPenisRawSizeValue())-characterPenetrated.getNippleStretchedCapacity())*characterPenetrated.getNippleElasticity().getStretchModifier());
@@ -2478,7 +2478,7 @@ public enum Sex {
 
 			}else if (orifice == OrificeType.URETHRA){
 				if (Capacity.isPenisSizeTooBig((int)characterPenetrated.getPenisStretchedCapacity(), characterPenetrating.getPenisRawSizeValue(), lubed, twoPenisesInOrifice)){
-					sexSB.append(characterPenetrated.getStretchingDescription(penetrationType, OrificeType.URETHRA));
+					sexSB.append(characterPenetrated.getStretchingDescription(characterPenetrating, penetrationType, OrificeType.URETHRA));
 
 					// Stretch out the orifice by a factor of elasticity's modifier.
 					characterPenetrated.incrementPenisStretchedCapacity((((float)characterPenetrating.getPenisRawSizeValue())-characterPenetrated.getPenisStretchedCapacity())*characterPenetrated.getUrethraElasticity().getStretchModifier());
@@ -2502,7 +2502,7 @@ public enum Sex {
 
 			}else if (orifice == OrificeType.MOUTH){
 				if (Capacity.isPenisSizeTooBig((int)characterPenetrated.getFaceStretchedCapacity(), characterPenetrating.getPenisRawSizeValue(), lubed, twoPenisesInOrifice)){
-					sexSB.append(characterPenetrated.getStretchingDescription(penetrationType, OrificeType.MOUTH));
+					sexSB.append(characterPenetrated.getStretchingDescription(characterPenetrating, penetrationType, OrificeType.MOUTH));
 
 					// Stretch out the orifice by a factor of elasticity's modifier.
 					characterPenetrated.incrementFaceStretchedCapacity((((float)characterPenetrating.getPenisRawSizeValue())-characterPenetrated.getFaceStretchedCapacity())*characterPenetrated.getFaceElasticity().getStretchModifier());

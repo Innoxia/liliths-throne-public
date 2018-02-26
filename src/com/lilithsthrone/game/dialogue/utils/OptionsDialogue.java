@@ -111,21 +111,13 @@ public class OptionsDialogue {
 				 }
 				
 			} else if (index == 2) {
-				if(Main.game.isInCombat()) {
-					return new Response("Save/Load", "You cannot save during combat! Sorry! I'm trying to fix this so that you'll be able to!", null);
-					
-				} else if(Main.game.isInSex()) {
-					return new Response("Save/Load", "You cannot save during sex! Sorry! I'm trying to fix this so that you'll be able to!", null);
-							
-				} else {
-					return new Response("Save/Load", "Open the save/load game window.", SAVE_LOAD){
-						@Override
-						public void effects() {
-							loadConfirmationName = ""; overwriteConfirmationName = ""; deleteConfirmationName = "";
-							confirmNewGame=false;
-						}
-					};
-				}
+				return new Response("Save/Load", "Open the save/load game window.", SAVE_LOAD){
+					@Override
+					public void effects() {
+						loadConfirmationName = ""; overwriteConfirmationName = ""; deleteConfirmationName = "";
+						confirmNewGame=false;
+					}
+				};
 				
 			} else if (index == 3) {
 				return new Response("Export character", "Open the character export game window.", IMPORT_EXPORT){
@@ -480,7 +472,7 @@ public class OptionsDialogue {
 							+ baseName
 						+ "</div>"
 						+ "<div class='container-full-width' style='width:calc(25% - 16px);text-align:center; background:transparent;'>"
-							+ (Main.game.isStarted()
+							+ (Main.game.isStarted() && !Main.game.isInCombat() && !Main.game.isInSex()
 									?(name.equals(overwriteConfirmationName)
 										?"<div class='square-button saveIcon' id='overwrite_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskSaveConfirm()+"</div></div>"
 										:"<div class='square-button saveIcon' id='overwrite_saved_" + baseName + "'><div class='square-button-content'>"+SVGImages.SVG_IMAGE_PROVIDER.getDiskOverwrite()+"</div></div>")

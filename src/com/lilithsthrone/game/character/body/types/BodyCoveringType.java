@@ -461,7 +461,7 @@ public enum BodyCoveringType {
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
-			CoveringPattern.allStandardCoveringPatterns,
+			CoveringPattern.allHairCoveringPatterns,
 			Colour.naturalHairColours,
 			Colour.dyeHairColours,
 			Colour.naturalHairColours,
@@ -477,7 +477,7 @@ public enum BodyCoveringType {
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
-			CoveringPattern.allStandardCoveringPatterns,
+			CoveringPattern.allHairCoveringPatterns,
 			Colour.naturalHairColours,
 			Colour.dyeHairColours,
 			Colour.naturalHairColours,
@@ -493,7 +493,7 @@ public enum BodyCoveringType {
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
-			CoveringPattern.allStandardCoveringPatterns,
+			CoveringPattern.allHairCoveringPatterns,
 			Colour.naturalHairColours,
 			Colour.dyeHairColours,
 			Colour.naturalHairColours,
@@ -509,7 +509,7 @@ public enum BodyCoveringType {
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
-			CoveringPattern.allStandardCoveringPatterns,
+			CoveringPattern.allHairCoveringPatterns,
 			Colour.naturalHairColours,
 			Colour.dyeHairColours,
 			Colour.naturalHairColours,
@@ -525,7 +525,7 @@ public enum BodyCoveringType {
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
-			CoveringPattern.allStandardCoveringPatterns,
+			CoveringPattern.allHairCoveringPatterns,
 			Colour.naturalHairColours,
 			Colour.dyeHairColours,
 			Colour.naturalHairColours,
@@ -541,7 +541,7 @@ public enum BodyCoveringType {
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
-			CoveringPattern.allStandardCoveringPatterns,
+			CoveringPattern.allHairCoveringPatterns,
 			Colour.naturalHairColours,
 			Colour.dyeHairColours,
 			Colour.naturalHairColours,
@@ -557,7 +557,7 @@ public enum BodyCoveringType {
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
-			CoveringPattern.allStandardCoveringPatterns,
+			CoveringPattern.allHairCoveringPatterns,
 			Colour.naturalHairColours,
 			Colour.dyeHairColours,
 			Colour.naturalHairColours,
@@ -573,7 +573,7 @@ public enum BodyCoveringType {
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
-			CoveringPattern.allStandardCoveringPatterns,
+			CoveringPattern.allHairCoveringPatterns,
 			Colour.naturalHairColours,
 			Colour.dyeHairColours,
 			Colour.naturalHairColours,
@@ -589,7 +589,7 @@ public enum BodyCoveringType {
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
-			CoveringPattern.allStandardCoveringPatterns,
+			CoveringPattern.allHairCoveringPatterns,
 			Colour.naturalHairColours,
 			Colour.dyeHairColours,
 			Colour.naturalHairColours,
@@ -605,7 +605,7 @@ public enum BodyCoveringType {
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
-			CoveringPattern.allStandardCoveringPatterns,
+			CoveringPattern.allHairCoveringPatterns,
 			Colour.naturalHairColours,
 			Colour.dyeHairColours,
 			Colour.naturalHairColours,
@@ -619,13 +619,8 @@ public enum BodyCoveringType {
 			Util.newArrayListOfValues(
 					new ListValue<CoveringModifier>(CoveringModifier.SMOOTH)),
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<CoveringPattern>(CoveringPattern.NONE),
-					new ListValue<CoveringPattern>(CoveringPattern.HIGHLIGHTS),
-					new ListValue<CoveringPattern>(CoveringPattern.SPOTTED),
-					new ListValue<CoveringPattern>(CoveringPattern.STRIPED),
-					new ListValue<CoveringPattern>(CoveringPattern.MOTTLED)),
-			CoveringPattern.allStandardCoveringPatterns,
+			CoveringPattern.allHairCoveringPatterns,
+			null,
 			Util.newArrayListOfValues(
 					new ListValue<Colour>(Colour.FEATHERS_BLEACH_BLONDE),
 					new ListValue<Colour>(Colour.FEATHERS_WHITE),

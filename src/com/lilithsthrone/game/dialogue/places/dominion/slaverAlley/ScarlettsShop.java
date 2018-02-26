@@ -476,7 +476,7 @@ public class ScarlettsShop {
 						+ " [pc.speech(There you go. I'd like to buy Scarlett now please.)]"
 					+ "</p>"
 					+ "<p>"
-						+ "After checking your license to make sure that everything's in order, Alexa counts out the coins, and, once satisfied that it's all there, she stand sup from behind her desk."
+						+ "After checking your license to make sure that everything's in order, Alexa counts out the coins, and, once satisfied that it's all there, she stands up from behind her desk."
 						+ " Walking over to Scarlett's hiding place, she reaches down and grabs her by the plume of feathers on top of her head."
 						+ " Dragging the unfortunate harpy over to you, Alexa throws her at your feet."
 					+ "</p>"

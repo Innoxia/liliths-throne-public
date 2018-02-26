@@ -16,7 +16,7 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.8
- * @version 0.1.83
+ * @version 0.2.0
  * @author Innoxia
  */
 public class ItemEffect implements Serializable, XMLSaving {
@@ -26,6 +26,14 @@ public class ItemEffect implements Serializable, XMLSaving {
 	private TFModifier primaryModifier, secondaryModifier;
 	private TFPotency potency;
 	private int limit;
+	
+	public ItemEffect(ItemEffectType itemEffectType) {
+		this.itemEffectType = itemEffectType;
+		this.primaryModifier = null;
+		this.secondaryModifier = null;
+		this.potency = null;
+		this.limit = 0;
+	}
 	
 	public ItemEffect(ItemEffectType itemEffectType, TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit) {
 		this.itemEffectType = itemEffectType;
@@ -109,8 +117,8 @@ public class ItemEffect implements Serializable, XMLSaving {
 				cost+=getSecondaryModifier().getValue();
 			}
 		}
-		if(getPotency()!=null) {
-			cost+=getPotency().getValue();
+		if(potency!=null) {
+			cost += potency.getValue();
 		}
 		if(getLimit()!=-1) {
 			cost+=1;
@@ -149,10 +157,6 @@ public class ItemEffect implements Serializable, XMLSaving {
 
 	public TFPotency getPotency() {
 		return potency;
-	}
-
-	public void setPotency(TFPotency potency) {
-		this.potency = potency;
 	}
 
 	public int getLimit() {

@@ -891,7 +891,8 @@ public class Game implements Serializable, XMLSaving {
 		for (NPC npc : NPCMap.values()) {
 			npc.calculateStatusEffects(turnTime);
 			
-			if(npc.isPendingClothingDressing()
+			if((npc.isPendingClothingDressing()
+					|| (!npc.isSlave() && !npc.isUnique() && (npc.hasStatusEffect(StatusEffect.EXPOSED) || npc.hasStatusEffect(StatusEffect.EXPOSED_BREASTS) || npc.hasStatusEffect(StatusEffect.EXPOSED_PLUS_BREASTS))))
 					&& (Main.game.getCurrentDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false))
 						|| !(npc.getWorldLocation()==Main.game.getPlayer().getWorldLocation() && npc.getLocation().equals(Main.game.getPlayer().getLocation())))) {
 				npc.equipClothing(true, true);
@@ -1310,8 +1311,9 @@ public class Game implements Serializable, XMLSaving {
 						if (((NPC) character).isAddedToContacts()) {
 							Main.game.getPlayer().addCharacterEncountered(character);
 						}
-						Main.getProperties().addRaceDiscovered(character.getRace());
-						
+						if(!character.isRaceConcealed()) {
+							Main.getProperties().addRaceDiscovered(character.getRace());
+						}
 						((NPC) character).setLastTimeEncountered(minutesPassed);
 					}
 				}

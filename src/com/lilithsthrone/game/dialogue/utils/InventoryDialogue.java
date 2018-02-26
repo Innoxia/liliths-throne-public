@@ -5128,6 +5128,7 @@ public class InventoryDialogue {
 							clothing.setSecondaryColour(dyePreviewSecondary);
 							clothing.setTertiaryColour(dyePreviewTertiary);
 							owner.addClothing(clothing, false);
+
 						} else {
 							Main.game.getPlayerCell().getInventory().removeClothing(clothing);
 							clothing.setColour(dyePreviewPrimary);

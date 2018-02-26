@@ -939,7 +939,7 @@ public class Body implements Serializable, XMLSaving {
 		Element horn = (Element)parentElement.getElementsByTagName("horn").item(0);
 		
 		Horn importedHorn = new Horn(HornType.NONE, 0);
-		importedHorn.rows = (Integer.valueOf(horn.getAttribute("rows")));
+		int rows = (Integer.valueOf(horn.getAttribute("rows")));
 		
 		String hornType = horn.getAttribute("type");
 		if(hornType.equals("DEMON")) {
@@ -960,6 +960,7 @@ public class Body implements Serializable, XMLSaving {
 		}
 		try {
 			importedHorn = new Horn(HornType.valueOf(hornType), length);
+			importedHorn.rows = rows;
 			CharacterUtils.appendToImportLog(log, "</br></br>Body: Horn: "
 					+ "</br>type: "+importedHorn.getType()
 					+ "</br>length: "+length
@@ -968,9 +969,11 @@ public class Body implements Serializable, XMLSaving {
 		} catch(IllegalArgumentException e) {
 			if(horn.getAttribute("type").startsWith("DEMON")) {
 				importedHorn = new Horn(HornType.SWEPT_BACK, length);
+				importedHorn.rows = rows;
 				
 			} else if(horn.getAttribute("type").startsWith("BOVINE")) {
 				importedHorn = new Horn(HornType.CURVED, length);
+				importedHorn.rows = rows;
 			}
 			
 			CharacterUtils.appendToImportLog(log, "</br></br>Body: Horn: "
@@ -979,8 +982,6 @@ public class Body implements Serializable, XMLSaving {
 		}
 		
 		
-		
-			
 			
 		// **************** Leg **************** //
 		
@@ -1247,17 +1248,29 @@ public class Body implements Serializable, XMLSaving {
 				type = "HORN";
 			}
 			try {
+				String colourPrimary = e.getAttribute("colourPrimary");
+				String colourSecondary = e.getAttribute("colourSecondary");
+				
+				if(type.startsWith("HAIR_")) {
+					if(colourPrimary.equals("COVERING_TAN")) {
+						colourPrimary = "COVERING_DIRTY_BLONDE";
+					}
+					if(colourSecondary.equals("COVERING_TAN")) {
+						colourSecondary = "COVERING_DIRTY_BLONDE";
+					}
+				}
+				
 				if(e.getAttribute("modifier").isEmpty()) {
 					body.setBodyCoveringForXMLImport(BodyCoveringType.valueOf(type),
 							CoveringPattern.valueOf(e.getAttribute("pattern")),
-							Colour.valueOf(e.getAttribute("colourPrimary")), Boolean.valueOf(e.getAttribute("glowPrimary")),
-							Colour.valueOf(e.getAttribute("colourSecondary")), Boolean.valueOf(e.getAttribute("glowSecondary")));
+							Colour.valueOf(colourPrimary), Boolean.valueOf(e.getAttribute("glowPrimary")),
+							Colour.valueOf(colourSecondary), Boolean.valueOf(e.getAttribute("glowSecondary")));
 				} else {
 					body.setBodyCoveringForXMLImport(BodyCoveringType.valueOf(type),
 							CoveringPattern.valueOf(e.getAttribute("pattern")),
 							CoveringModifier.valueOf(e.getAttribute("modifier")),
-							Colour.valueOf(e.getAttribute("colourPrimary")), Boolean.valueOf(e.getAttribute("glowPrimary")),
-							Colour.valueOf(e.getAttribute("colourSecondary")), Boolean.valueOf(e.getAttribute("glowSecondary")));
+							Colour.valueOf(colourPrimary), Boolean.valueOf(e.getAttribute("glowPrimary")),
+							Colour.valueOf(colourSecondary), Boolean.valueOf(e.getAttribute("glowSecondary")));
 				}
 			} catch(Exception ex) {
 			}

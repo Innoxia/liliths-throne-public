@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.inventory;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
@@ -100,10 +101,10 @@ public abstract class AbstractCoreItem implements Serializable, XMLSaving {
 	@Override
 	public boolean equals (Object o) {
 		if(o instanceof AbstractCoreItem){
-			if(((AbstractCoreItem)o).getName().equals(name)
-				&& ((AbstractCoreItem)o).getColour() == colourShade
-				&& ((AbstractCoreItem)o).getRarity() == rarity
-				&& ((AbstractCoreItem)o).getAttributeModifiers().equals(attributeModifiers)
+			if(((AbstractCoreItem)o).getName().equals(this.getName())
+				&& ((AbstractCoreItem)o).getColour() == this.getColour()
+				&& ((AbstractCoreItem)o).getRarity() == this.getRarity()
+				&& ((AbstractCoreItem)o).getAttributeModifiers().equals(this.getAttributeModifiers())
 				&& ((AbstractCoreItem)o).getEnchantmentEffect() == getEnchantmentEffect()
 				&& ((AbstractCoreItem)o).getEnchantmentItemType(null) == getEnchantmentItemType(null)
 				&& ((AbstractCoreItem)o).getRelatedEssence() == getRelatedEssence()){
@@ -116,10 +117,10 @@ public abstract class AbstractCoreItem implements Serializable, XMLSaving {
 	@Override
 	public int hashCode() {
 		int result = 17;
-		result = 31 * result + name.hashCode();
-		result = 31 * result + colourShade.hashCode();
-		result = 31 * result + rarity.hashCode();
-		result = 31 * result + attributeModifiers.hashCode();
+		result = 31 * result + this.getName().hashCode();
+		result = 31 * result + this.getColour().hashCode();
+		result = 31 * result + this.getRarity().hashCode();
+		result = 31 * result + this.getAttributeModifiers().hashCode();
 		if(getEnchantmentEffect()!=null)
 			result = 31 * result + getEnchantmentEffect().hashCode();
 		if(getEnchantmentItemType(null)!=null)
@@ -165,7 +166,7 @@ public abstract class AbstractCoreItem implements Serializable, XMLSaving {
 	 * @return the name of a css class to use as a displayed rarity in inventory screens
 	 */
 	public String getDisplayRarity() {
-		return rarity.getName();
+		return getRarity().getName();
 	}
 
 	public Colour getColour() {
@@ -183,5 +184,8 @@ public abstract class AbstractCoreItem implements Serializable, XMLSaving {
 	public void setAttributeModifiers(Map<Attribute, Integer> attributeModifiers) {
 		this.attributeModifiers = attributeModifiers;
 	}
-
+	
+	public List<ItemEffect> getEffects() {
+		return new ArrayList<ItemEffect>();
+	}
 }

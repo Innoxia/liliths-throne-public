@@ -1563,7 +1563,8 @@ public enum Race {
 			boolean vulnerableToLilithsLustStorm,
 			
 			float chanceForMaleOffspring,
-			int numberOfOffspringLow, int numberOfOffspringHigh,
+			int numberOfOffspringLow,
+			int numberOfOffspringHigh,
 			
 			Attribute damageMultiplier,
 			Attribute resistanceMultiplier,

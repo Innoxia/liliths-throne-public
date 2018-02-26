@@ -991,45 +991,45 @@ public enum SpecialAttack {
 				attackText = (UtilText.returnStringAtRandom(
 						"You tilt your head down in a sign of submission, before looking up with big, innocent eyes, "
 								+ (target.getAppearsAsGender().isFeminine()
-									?"[pc.speech(I'll be a good [pc.girl]! I promise!)]"
-									:"[pc.speech(I'll be a good [pc.girl]! I promise!)]"),
+									?"[npc.speech(I'll be a good [npc.girl]! I promise!)]"
+									:"[npc.speech(I'll be a good [npc.girl]! I promise!)]"),
 
 						"You bite your lip and shuffle your feet as you do your best to look as weak as possible, "
 								+ (target.getAppearsAsGender().isFeminine()
-									?"[pc.speech(I'll do anything you want!)]"
-									:"[pc.speech(I'll do anything you want!)]"),
+									?"[npc.speech(I'll do anything you want!)]"
+									:"[npc.speech(I'll do anything you want!)]"),
 
-						"You shuffle your feet and make yourself as small as possible, before lustfully gazing up at [npc.name], "
+						"You shuffle your feet and make yourself as small as possible, before lustfully gazing up at [npc2.name], "
 								+ (target.getAppearsAsGender().isFeminine()
-									?"[pc.speech(Please! Treat me like your little bitch!)]"
-									:"[pc.speech(Please! Make me your little fuck-toy!)]"),
+									?"[npc.speech(Please! Treat me like your little bitch!)]"
+									:"[npc.speech(Please! Make me your little fuck-toy!)]"),
 
-						"You put on your most innocent look as you gaze up lustfully at [npc.name], "
+						"You put on your most innocent look as you gaze up lustfully at [npc2.name], "
 								+ (target.getAppearsAsGender().isFeminine()
-									?"[pc.speech(I'll be your little slave!)]"
-									:"[pc.speech(I'll be a good little cock-sleeve! I promise)]")));
+									?"[npc.speech(I'll be your little slave!)]"
+									:"[npc.speech(I'll be a good little cock-sleeve! I promise)]")));
 				
 			} else {
 				attackText = (UtilText.returnStringAtRandom(
 						"[npc.Name] tilts [npc.her] head down in a sign of submission, before looking up with big, innocent eyes, "
 								+ (target.getAppearsAsGender().isFeminine()
-									?"[pc.speech(I'll be a good [pc.girl]! I promise!)]"
-									:"[pc.speech(I'll be a good [pc.girl]! I promise!)]"),
+									?"[npc.speech(I'll be a good [npc.girl]! I promise!)]"
+									:"[npc.speech(I'll be a good [npc.girl]! I promise!)]"),
 
 						"[npc.Name] bites [npc.her] [npc.lip] and shuffles [npc.her] [npc.feet] as [npc.she] does [npc.her] best to look as weak as possible, "
 								+ (target.getAppearsAsGender().isFeminine()
-									?"[pc.speech(I'll do anything you want!)]"
-									:"[pc.speech(I'll do anything you want!)]"),
+									?"[npc.speech(I'll do anything you want!)]"
+									:"[npc.speech(I'll do anything you want!)]"),
 
 						"[npc.Name] shuffles [npc.her] [npc.feet] and makes [npc.herself] as small as possible, before lustfully gazing up at you, "
 								+ (target.getAppearsAsGender().isFeminine()
-									?"[pc.speech(Please! Treat me like your little bitch!)]"
-									:"[pc.speech(Please! Make me your little fuck-toy!)]"),
+									?"[npc.speech(Please! Treat me like your little bitch!)]"
+									:"[npc.speech(Please! Make me your little fuck-toy!)]"),
 
 						"[npc.Name] puts on [npc.her] most innocent look as [npc.she] gazes up lustfully into your eyes, "
 								+ (target.getAppearsAsGender().isFeminine()
-									?"[pc.speech(I'll be your little slave!)]"
-									:"[pc.speech(I'll be a good little cock-sleeve! I promise)]")));
+									?"[npc.speech(I'll be your little slave!)]"
+									:"[npc.speech(I'll be a good little cock-sleeve! I promise)]")));
 			}
 			
 			return applySpecialSeduction(caster, target, Fetish.FETISH_DOMINANT, attackText);

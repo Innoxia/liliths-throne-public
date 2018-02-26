@@ -6694,6 +6694,33 @@ public enum StatusEffect {
 		}
 		
 		@Override
+		public String getSVGString(GameCharacter owner) {
+			SVGImageSB = new StringBuilder();
+
+			SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGString+"</div>");
+			
+			int orgasms = Sex.getNumberOfOrgasms(owner);
+			
+			if(orgasms == 0) {
+				SVGImageSB.append("<div style='width:40%;height:40%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCounterZero()+"</div>");
+			} else if(orgasms == 1) {
+				SVGImageSB.append("<div style='width:40%;height:40%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCounterOne()+"</div>");
+			} else if(orgasms == 2) {
+				SVGImageSB.append("<div style='width:40%;height:40%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCounterTwo()+"</div>");
+			} else if(orgasms == 3) {
+				SVGImageSB.append("<div style='width:40%;height:40%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCounterThree()+"</div>");
+			} else if(orgasms == 4) {
+				SVGImageSB.append("<div style='width:40%;height:40%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCounterFour()+"</div>");
+			} else if(orgasms == 5) {
+				SVGImageSB.append("<div style='width:40%;height:40%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCounterFive()+"</div>");
+			} else {
+				SVGImageSB.append("<div style='width:40%;height:40%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCounterFivePlus()+"</div>");
+			}
+			
+			return SVGImageSB.toString();
+		}
+		
+		@Override
 		public String extraRemovalEffects(GameCharacter target) {
 			return "";
 		}
@@ -7540,7 +7567,7 @@ public enum StatusEffect {
 	private boolean beneficial;
 	private Map<Attribute, Float> attributeModifiers;
 
-	private String SVGString;
+	protected String SVGString;
 	private String SVGStringDesaturated;
 
 	private List<String> extraEffects;

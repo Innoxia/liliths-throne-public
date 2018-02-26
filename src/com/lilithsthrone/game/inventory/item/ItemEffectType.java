@@ -321,7 +321,7 @@ public enum ItemEffectType {
 					}
 					
 				} else {
-					boolean alreadyAndrophilic = target.getSexualOrientation()==SexualOrientation.AMBIPHILIC;
+					boolean alreadyAndrophilic = target.getSexualOrientation()==SexualOrientation.ANDROPHILIC;
 					target.setSexualOrientation(SexualOrientation.ANDROPHILIC);
 					if(target.isPlayer()) {//TODO
 						return "<p style='text-align:center;'>"
@@ -1738,6 +1738,7 @@ public enum ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			List<Fetish> availableFetishes = new ArrayList<>();
+			
 			if(primaryModifier == TFModifier.TF_MOD_FETISH_BEHAVIOUR) {
 				for(TFModifier mod : TFModifier.getTFBehaviouralFetishList()) {
 					if(mod.getFetish()!=null) {
@@ -2291,7 +2292,65 @@ public enum ItemEffectType {
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
 			return getRacialEffect(Race.HARPY, primaryModifier, secondaryModifier, potency, user, target).applyEffect();
 		}
-	},;
+	},
+	
+	// CLOTHING:
+	
+	CLOTHING(null,
+			Colour.RARITY_RARE) {
+
+		@Override
+		public List<TFModifier> getPrimaryModifiers() {
+			return TFModifier.getClothingPrimaryList();
+		}
+
+		@Override
+		public List<TFModifier> getSecondaryModifiers(TFModifier primaryModifier) {
+			if(primaryModifier == TFModifier.CLOTHING_ATTRIBUTE) {
+				return TFModifier.getClothingAttributeList();
+			}
+
+			return Util.newArrayListOfValues(new ListValue<>(TFModifier.ARCANE_BOOST));
+		}
+		
+		@Override
+		public List<TFPotency> getPotencyModifiers(TFModifier primaryModifier, TFModifier secondaryModifier) {
+			if(primaryModifier == TFModifier.CLOTHING_ATTRIBUTE) {
+				return TFPotency.getAllPotencies();
+			} else {
+				return Util.newArrayListOfValues(new ListValue<>(TFPotency.BOOST));
+			}
+		}
+		
+		@Override
+		public List<String> getEffectsDescription(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			List<String> effectsList = new ArrayList<>();
+			
+			if(primaryModifier == TFModifier.CLOTHING_ATTRIBUTE) {
+				effectsList.add(
+						(potency.getValue()<0
+								?"[style.boldBad(-"+potency.getValue()+")] "
+								:"[style.boldGood(+"+potency.getValue()+")] ")
+						+ "<b style='color:"+secondaryModifier.getAssociatedAttribute().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(secondaryModifier.getAssociatedAttribute().getName())+"</b>");
+			}
+
+			if(primaryModifier == TFModifier.CLOTHING_SEALING) {
+				effectsList.add("[style.boldArcane(Seals onto wearer)]");
+			}
+			
+			if(primaryModifier == TFModifier.CLOTHING_ENSLAVEMENT) {
+				effectsList.add("[style.boldCrimson(Enslaves the wearer)]");
+			}
+			
+			return effectsList;
+		}
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
+			return getRacialEffect(Race.HARPY, primaryModifier, secondaryModifier, potency, user, target).applyEffect();//TODO add time passed
+		}
+	},
+	;
 	
 	
 	private List<String> effectsDescriptions;
@@ -2484,7 +2543,7 @@ public enum ItemEffectType {
 	}
 	
 	private static String genericAttributeEffect(resourceRestoration restorationType, TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target) {
-		
+
 		switch(secondaryModifier) {
 			case ARCANE_BOOST:
 				switch(potency) {
@@ -2577,15 +2636,6 @@ public enum ItemEffectType {
 		if(racialPrimaryModSecondaryModPotencyGrid.containsKey(race) && racialPrimaryModSecondaryModPotencyGrid.get(race).containsKey(primaryModifier)) {
 			return new ArrayList<>(racialPrimaryModSecondaryModPotencyGrid.get(race).get(primaryModifier).keySet());
 		} else {
-//			racialPrimaryModSecondaryModPotencyGrid.clear();
-//			for(TFModifier mod : TFModifier.values()) {
-//				for(TFPotency potency : TFPotency.values()) {
-//					if(getRacialEffect(race, primaryModifier, mod, potency, user, target)!=null) {
-//						racialPrimaryModSecondaryModPotencyGrid.putIfAbsent(key, value);
-//						racialPrimaryModSecondaryModPotencyGrid.put(primaryModifier, secondaryModPotencyMap);
-//					}
-//				}
-//			}
 			populateGrid(race, primaryModifier);
 			return new ArrayList<>(racialPrimaryModSecondaryModPotencyGrid.get(race).get(primaryModifier).keySet());
 		}
@@ -2863,7 +2913,10 @@ public enum ItemEffectType {
 	private static int singleDrain = -1;
 	private static int singleBoost = 1;
 	
+	
+	
 	private static RacialEffectUtil getRacialEffect(Race race, TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, GameCharacter user, GameCharacter target) {
+		
 		switch(primaryModifier) {
 			case TF_ANTENNA:
 				switch(secondaryModifier) {

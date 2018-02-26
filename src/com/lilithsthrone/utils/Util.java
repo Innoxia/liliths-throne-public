@@ -418,6 +418,9 @@ public class Util {
 	}
 
 	public static String capitaliseSentence(String sentence) {
+		if(sentence==null || sentence.isEmpty()) {
+			return sentence;
+		}
 		return Character.toUpperCase(sentence.charAt(0)) + sentence.substring(1);
 	}
 

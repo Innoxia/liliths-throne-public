@@ -496,7 +496,7 @@ public class UtilText {
 		}
 		
 		if(strings.isEmpty()) {
-			return "<p style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Dialogue for '"+tag+"' not found!</p>";
+			return "<p><span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Dialogue for '"+tag+"' not found! (Make sure that the 'res' folder is in the same directory as the .jar or .exe.)</span></p>";
 
 		} else {
 			return parse(specialNPC, strings.get(Util.random.nextInt(strings.size())));

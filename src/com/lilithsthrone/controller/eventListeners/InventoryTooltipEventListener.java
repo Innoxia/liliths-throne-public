@@ -27,6 +27,7 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
+import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemEffect;
@@ -59,6 +60,7 @@ public class InventoryTooltipEventListener implements EventListener {
 	private AbstractClothing dyeClothing;
 	private InventorySlot invSlot;
 	private TFModifier enchantmentModifier;
+	private TFPotency potency;
 	private TFEssence essence;
 	private static StringBuilder tooltipSB = new StringBuilder();
 
@@ -76,8 +78,8 @@ public class InventoryTooltipEventListener implements EventListener {
 				yIncrease += 2;
 			}
 			
-			if(item.getItemEffects().size()>0) {
-				for(ItemEffect ie : item.getItemEffects()) {
+			if(item.getEffects().size()>0) {
+				for(ItemEffect ie : item.getEffects()) {
 					yIncrease += ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer()).size();
 				}
 			}
@@ -87,10 +89,10 @@ public class InventoryTooltipEventListener implements EventListener {
 			tooltipSB.setLength(0);
 			tooltipSB.append("<div class='title'>" + Util.capitaliseSentence(item.getDisplayName(true)) + "</div>");
 
-			if(item.getItemEffects().size()>0) {
+			if(item.getEffects().size()>0) {
 				tooltipSB.append("<div class='subTitle'>");
 				int ieCount=0;
-				for(ItemEffect ie : item.getItemEffects()) {
+				for(ItemEffect ie : item.getEffects()) {
 					if(ieCount>0)
 						tooltipSB.append("</br>");
 					ieCount++;
@@ -384,6 +386,10 @@ public class InventoryTooltipEventListener implements EventListener {
 								+ enchantmentModifier.getValue()+" "+EnchantmentDialogue.ingredient.getRelatedEssence().getName()+"</b> essence cost"
 					+ "</div>"));
 		
+		} else if(potency!=null) {
+			Main.mainController.setTooltipSize(360, 60);
+			Main.mainController.setTooltipContent(UtilText.parse("<div class='title'>Set potency to <b style='color:"+potency.getColour().toWebHexString()+";'>" + Util.capitaliseSentence(potency.getName()) + "</b></div>"));
+			
 		} else if (essence != null) {
 			Main.mainController.setTooltipSize(360, 60);
 			Main.mainController.setTooltipContent(UtilText.parse("<div class='title'><b style='color:"+essence.getColour().toWebHexString()+";'>" + Util.capitaliseSentence(essence.getName()) + "</b> essence</div>"));
@@ -491,6 +497,12 @@ public class InventoryTooltipEventListener implements EventListener {
 		return this;
 	}
 	
+	public InventoryTooltipEventListener setTFPotency(TFPotency potency) {
+		resetVariables();
+		this.potency = potency;
+		return this;
+	}
+	
 	public InventoryTooltipEventListener setEssence(TFEssence essence) {
 		resetVariables();
 		this.essence = essence;
@@ -514,6 +526,7 @@ public class InventoryTooltipEventListener implements EventListener {
 		genericClothing = null;
 		invSlot = null;
 		enchantmentModifier = null;
+		potency = null;
 		essence = null;
 	}
 
@@ -595,70 +608,43 @@ public class InventoryTooltipEventListener implements EventListener {
 	}
 
 	private void clothingTooltip(AbstractClothing absClothing) {
-		int yIncrease = 0;
+		int yIncrease = (absClothing.getEffects().size() > 4 ? absClothing.getEffects().size() - 4 : 0);
 
-		if (!absClothing.getAttributeModifiers().isEmpty() && absClothing.isEnchantmentKnown()) {
-			if (absClothing.getAttributeModifiers().size() >= absClothing.getExtraDescriptions(equippedToCharacter).size()) {
-				yIncrease = absClothing.getAttributeModifiers().size();
-			} else {
-				yIncrease = absClothing.getExtraDescriptions(equippedToCharacter).size() - 1;
-			}
-		} else {
-			if (absClothing.getExtraDescriptions(equippedToCharacter).size() >= 1) {
-				yIncrease = absClothing.getExtraDescriptions(equippedToCharacter).size() - 1;
-			}
-		}
-
-		if (InventoryDialogue.getInventoryNPC() != null && InventoryDialogue.getNPCInventoryInteraction() == InventoryInteraction.TRADING) {
-			yIncrease += 2;
-		}
+		Main.mainController.setTooltipSize(360, 400 + (yIncrease * LINE_HEIGHT));
 		
-		Main.mainController.setTooltipSize(360, 316 + (LINE_HEIGHT * yIncrease));
-
-		// Core information:
+		// Title:
 		tooltipSB.setLength(0);
-		tooltipSB.append("<div class='title'>" + Util.capitaliseSentence(absClothing.getDisplayName(true)) + "</div>"
-
-				+ "<div class='subTitle-half'>" + Util.capitaliseSentence(absClothing.getClothingType().getSlot().getName()) + "</div>"
-
-				+ "<div class='subTitle-half'>"
-				+ (absClothing.getClothingType().getClothingSet() == null ? "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Not part of a set</span>" : absClothing.getClothingType().getClothingSet().getName() + " set") + "</div>"
-
-				+ "<div class='description'>" + UtilText.parse(absClothing.getClothingType().getDescription()) + "</div>");
-
-		// Bonus attributes and information:
-		tooltipSB.append("<div class='subTitle-half'>");
-
-		if (!absClothing.getAttributeModifiers().isEmpty()) {// Display enchantments:
-			if (!absClothing.isEnchantmentKnown())
-				tooltipSB.append("<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Unidentified!</span>");
-			else {
-				tooltipSB.append("<b>" + Util.capitaliseSentence(absClothing.isBadEnchantment() ? absClothing.getCoreEnchantment().getNegativeEnchantment() : absClothing.getCoreEnchantment().getPositiveEnchantment()) + "</b>");
-				for (Entry<Attribute, Integer> e : absClothing.getAttributeModifiers().entrySet())
-					tooltipSB.append("</br>" + (e.getValue() < 0 ? "<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>" : "<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>+") + e.getValue()
-							+ "</span> <span style='color:" + e.getKey().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(e.getKey().getAbbreviatedName()) + "</span>");
+		tooltipSB.append("<body>"
+			+ "<div class='title'>" + Util.capitaliseSentence(absClothing.getDisplayName(true)) + "</div>");
+		
+		// Attribute modifiers:
+		tooltipSB.append("<div class='subTitle-picture'>");
+		int res = absClothing.getClothingType().getPhysicalResistance();
+		tooltipSB.append(
+				(res>0
+					?"[style.boldGood(+"+absClothing.getClothingType().getPhysicalResistance()+")]"
+					:"[style.boldDisabled(0)]")
+				+" [style.boldResPhysical("+Util.capitaliseSentence(Attribute.RESISTANCE_PHYSICAL.getName())+")]");
+		if (absClothing.getEffects().size() != 0) {
+			for (ItemEffect e : absClothing.getEffects()) {
+				for(String s : e.getEffectsDescription(owner, owner)) {
+					tooltipSB.append("</br>"+ s);
+				}
 			}
+			
 		} else {
-			tooltipSB.append("<b>Ordinary</b>");
-		}
-		// Display resistance:
-		tooltipSB.append(absClothing.getClothingType().getPhysicalResistance() == 0
-				? "</br><span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>0 "+ Attribute.RESISTANCE_PHYSICAL.getAbbreviatedName() +"</span>"
-				: "</br><span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>+" + absClothing.getClothingType().getPhysicalResistance() + "</span>" + " <span style='color:" + Attribute.RESISTANCE_PHYSICAL.getColour().toWebHexString()
-						+ ";'>" + Attribute.RESISTANCE_PHYSICAL.getAbbreviatedName() + "</span>");
-
-		tooltipSB.append("</div>");
-
-		tooltipSB.append("<div class='subTitle-half'>");
-		if (absClothing.getExtraDescriptions(equippedToCharacter).isEmpty())
-			tooltipSB.append("<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>No Status</span>");
-		else {
-			tooltipSB.append("<b>Status</b>");
-			for (String s : absClothing.getExtraDescriptions(equippedToCharacter))
-				tooltipSB.append("</br>" + s);
+			tooltipSB.append("</br>[style.colourDisabled(No bonuses)]");
 		}
 		tooltipSB.append("</div>");
-
+		
+		// Picture:
+		tooltipSB.append("<div class='picture'>"
+						+ absClothing.getSVGEquippedString(owner)
+					+ "</div>"
+					+ "<div class='description'>"
+						+ absClothing.getClothingType().getDescription()
+					+ "</div>");
+		
 		// Value:
 		tooltipSB.append("<div class='subTitle'>" + (absClothing.isEnchantmentKnown() ? UtilText.formatAsMoney(absClothing.getValue()) : "?") + "</div>");
 
@@ -676,8 +662,94 @@ public class InventoryTooltipEventListener implements EventListener {
 				}
 			}
 		}
+		
+		tooltipSB.append("</body>");
+		
+		Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
-		Main.mainController.setTooltipContent(tooltipSB.toString());
+//		int yIncrease = 0;
+//
+//		if (!absClothing.getAttributeModifiers().isEmpty() && absClothing.isEnchantmentKnown()) {
+//			if (absClothing.getAttributeModifiers().size() >= absClothing.getExtraDescriptions(equippedToCharacter).size()) {
+//				yIncrease = absClothing.getAttributeModifiers().size();
+//			} else {
+//				yIncrease = absClothing.getExtraDescriptions(equippedToCharacter).size() - 1;
+//			}
+//		} else {
+//			if (absClothing.getExtraDescriptions(equippedToCharacter).size() >= 1) {
+//				yIncrease = absClothing.getExtraDescriptions(equippedToCharacter).size() - 1;
+//			}
+//		}
+//
+//		if (InventoryDialogue.getInventoryNPC() != null && InventoryDialogue.getNPCInventoryInteraction() == InventoryInteraction.TRADING) {
+//			yIncrease += 2;
+//		}
+//		
+//		Main.mainController.setTooltipSize(360, 316 + (LINE_HEIGHT * yIncrease));
+//
+//		// Core information:
+//		tooltipSB.setLength(0);
+//		tooltipSB.append("<div class='title'>" + Util.capitaliseSentence(absClothing.getDisplayName(true)) + "</div>"
+//
+//				+ "<div class='subTitle-half'>" + Util.capitaliseSentence(absClothing.getClothingType().getSlot().getName()) + "</div>"
+//
+//				+ "<div class='subTitle-half'>"
+//				+ (absClothing.getClothingType().getClothingSet() == null ? "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Not part of a set</span>" : absClothing.getClothingType().getClothingSet().getName() + " set") + "</div>"
+//
+//				+ "<div class='description'>" + UtilText.parse(absClothing.getClothingType().getDescription()) + "</div>");
+//
+//		// Bonus attributes and information:
+//		tooltipSB.append("<div class='subTitle-half'>");
+//
+//		if (!absClothing.getAttributeModifiers().isEmpty()) {// Display enchantments:
+//			if (!absClothing.isEnchantmentKnown())
+//				tooltipSB.append("<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Unidentified!</span>");
+//			else {
+//				tooltipSB.append("<b>" + Util.capitaliseSentence(absClothing.isBadEnchantment() ? absClothing.getCoreEnchantment().getNegativeEnchantment() : absClothing.getCoreEnchantment().getPositiveEnchantment()) + "</b>");
+//				for (Entry<Attribute, Integer> e : absClothing.getAttributeModifiers().entrySet())
+//					tooltipSB.append("</br>" + (e.getValue() < 0 ? "<span style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>" : "<span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>+") + e.getValue()
+//							+ "</span> <span style='color:" + e.getKey().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(e.getKey().getAbbreviatedName()) + "</span>");
+//			}
+//		} else {
+//			tooltipSB.append("<b>Ordinary</b>");
+//		}
+//		// Display resistance:
+//		tooltipSB.append(absClothing.getClothingType().getPhysicalResistance() == 0
+//				? "</br><span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>0 "+ Attribute.RESISTANCE_PHYSICAL.getAbbreviatedName() +"</span>"
+//				: "</br><span style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>+" + absClothing.getClothingType().getPhysicalResistance() + "</span>" + " <span style='color:" + Attribute.RESISTANCE_PHYSICAL.getColour().toWebHexString()
+//						+ ";'>" + Attribute.RESISTANCE_PHYSICAL.getAbbreviatedName() + "</span>");
+//
+//		tooltipSB.append("</div>");
+//
+//		tooltipSB.append("<div class='subTitle-half'>");
+//		if (absClothing.getExtraDescriptions(equippedToCharacter).isEmpty())
+//			tooltipSB.append("<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>No Status</span>");
+//		else {
+//			tooltipSB.append("<b>Status</b>");
+//			for (String s : absClothing.getExtraDescriptions(equippedToCharacter))
+//				tooltipSB.append("</br>" + s);
+//		}
+//		tooltipSB.append("</div>");
+//
+//		// Value:
+//		tooltipSB.append("<div class='subTitle'>" + (absClothing.isEnchantmentKnown() ? UtilText.formatAsMoney(absClothing.getValue()) : "?") + "</div>");
+//
+//		if (InventoryDialogue.getInventoryNPC() != null && InventoryDialogue.getNPCInventoryInteraction() == InventoryInteraction.TRADING) {
+//			if (owner.isPlayer()) {
+//				if (InventoryDialogue.getInventoryNPC().willBuy(absClothing))
+//					tooltipSB.append("<div class='subTitle'>" + InventoryDialogue.getInventoryNPC().getName("The") + " offers " + UtilText.formatAsMoney(absClothing.getPrice(InventoryDialogue.getInventoryNPC().getBuyModifier())) + "</div>");
+//				else
+//					tooltipSB.append("<div class='subTitle'>" + "<span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>" + InventoryDialogue.getInventoryNPC().getName("The") + " will not buy this</span>" + "</div>");
+//			} else {
+//				if (InventoryDialogue.isBuyback()) {
+//					tooltipSB.append("<div class='subTitle'>" + InventoryDialogue.getInventoryNPC().getName("The") + " wants " + UtilText.formatAsMoney( + getBuybackPriceFor(absClothing)) + "</div>");
+//				} else {
+//					tooltipSB.append("<div class='subTitle'>" + InventoryDialogue.getInventoryNPC().getName("The") + " wants " + UtilText.formatAsMoney(absClothing.getPrice(InventoryDialogue.getInventoryNPC().getSellModifier())) + "</div>");
+//				}
+//			}
+//		}
+//
+//		Main.mainController.setTooltipContent(tooltipSB.toString());
 	}
 	
 	private int getBuybackPriceFor(AbstractCoreItem item) {

@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemEffect;
@@ -16,7 +18,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.75
- * @version 0.1.97
+ * @version 0.2.0
  * @author Innoxia
  */
 public class EnchantingUtils {
@@ -39,7 +41,31 @@ public class EnchantingUtils {
 		return craftedItem;
 	}
 	
+	public static AbstractClothing craftClothing(AbstractCoreItem ingredient, List<ItemEffect> effects) {
+
+		AbstractClothing craftedClothing = null;
+
+		List<ItemEffect> effectsToBeAdded = new ArrayList<>();
+		effectsToBeAdded.addAll(effects);
+		
+		craftedClothing = AbstractClothingType.generateClothing(
+				(AbstractClothingType) ingredient.getEnchantmentItemType(effects),
+				ingredient.getColour(),
+				((AbstractClothing)ingredient).getSecondaryColour(),
+				((AbstractClothing)ingredient).getTertiaryColour(),
+				effectsToBeAdded);
+		
+		craftedClothing.setEnchantmentKnown(true);
+		
+		return craftedClothing;
+	}
+	
 	public static String getPotionName(AbstractCoreItem ingredient, List<ItemEffect> effects) {
+		
+		if(ingredient.getEnchantmentItemType(effects) instanceof AbstractClothingType) {
+			return Util.capitaliseSentence(ingredient.getName());
+		}
+		
 		
 		if(((AbstractItem)ingredient).getItemType().getId().equals(ItemType.ORIENTATION_HYPNO_WATCH.getId())) {
 			if(effects.isEmpty() || effects.get(0).getPrimaryModifier()==TFModifier.REMOVAL) {
@@ -141,7 +167,14 @@ public class EnchantingUtils {
 		int cost = 0;
 		
 		for(ItemEffect ie : effects) {
-			cost+=ie.getCost();
+			if(!ingredient.getEffects().contains(ie)) {
+				cost+=ie.getCost();
+			}
+		}
+		for(ItemEffect ie : ingredient.getEffects()) {
+			if(!effects.contains(ie)) {
+				cost+=ie.getCost();
+			}
 		}
 		
 		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING)) {
@@ -152,6 +185,10 @@ public class EnchantingUtils {
 	}
 	
 	public static String getSVGString(AbstractCoreItem ingredient, List<ItemEffect> effects) {
+		
+		if(ingredient.getEnchantmentItemType(effects) instanceof AbstractClothingType) {
+			return ingredient.getSVGString();
+		}
 		
 		if(((AbstractItem)ingredient).getItemType().getId().equals(ItemType.ORIENTATION_HYPNO_WATCH.getId())) {
 			if(effects.isEmpty() || effects.get(0).getPrimaryModifier()==TFModifier.REMOVAL) {

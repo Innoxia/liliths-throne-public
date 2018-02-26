@@ -8,7 +8,7 @@ import com.lilithsthrone.utils.Colour;
 
 /**
  * @since 0.1.83
- * @version 0.1.83
+ * @version 0.2.0
  * @author Innoxia
  */
 public enum TFPotency {
@@ -47,9 +47,37 @@ public enum TFPotency {
 	public int getValue() {
 		return value;
 	}
+	
+	public boolean isNegative() {
+		return this==TFPotency.MINOR_DRAIN || this==TFPotency.DRAIN || this==TFPotency.MAJOR_DRAIN;
+	}
 
 	public static List<TFPotency> getAllPotencies() {
 		return allPotencies;
+	}
+	
+	public static TFPotency getRandomWeightedPositivePotency() {
+		double rnd = Math.random();
+		
+		if(rnd<0.6) {
+			return TFPotency.MINOR_BOOST;
+		} else if (rnd<0.9) {
+			return TFPotency.BOOST;
+		} else {
+			return TFPotency.MAJOR_BOOST;
+		}
+	}
+	
+	public static TFPotency getRandomWeightedNegativePotency() {
+		double rnd = Math.random();
+		
+		if(rnd<0.6) {
+			return TFPotency.MAJOR_DRAIN;
+		} else if (rnd<0.9) {
+			return TFPotency.DRAIN;
+		} else {
+			return TFPotency.MAJOR_DRAIN;
+		}
 	}
 	
 }

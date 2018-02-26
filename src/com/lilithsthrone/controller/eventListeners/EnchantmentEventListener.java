@@ -8,16 +8,20 @@ import com.lilithsthrone.game.dialogue.utils.EnchantmentDialogue;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
+import com.lilithsthrone.game.inventory.item.ItemEffect;
 import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.7
- * @version 0.1.83
+ * @version 0.2.0
  * @author Innoxia
  */
 public class EnchantmentEventListener implements EventListener {
 	private AbstractCoreItem itemToEnchant;
 	private TFModifier primaryModifier, secondaryModifier;
+	private TFPotency potency;
+	private boolean effect;
+	private int effectIndex;
 
 	@Override
 	public void handleEvent(Event event) {
@@ -33,6 +37,13 @@ public class EnchantmentEventListener implements EventListener {
 			
 		} else if(secondaryModifier != null) {
 			EnchantmentDialogue.secondaryMod = secondaryModifier;
+			
+		} else if(potency != null) {
+			EnchantmentDialogue.potency = potency;
+			
+		} else if(effect) {
+			ItemEffect e = EnchantmentDialogue.effects.get(effectIndex);
+			EnchantmentDialogue.effects.remove(e);
 		}
 		
 		if(!EnchantmentDialogue.ingredient.getEnchantmentEffect().getPrimaryModifiers().contains(EnchantmentDialogue.primaryMod)) {
@@ -71,10 +82,28 @@ public class EnchantmentEventListener implements EventListener {
 
 		return this;
 	}
+	
+	public EnchantmentEventListener setPotency(TFPotency potency) {
+		resetVariables();
+		this.potency = potency;
+
+		return this;
+	}
+	
+	public EnchantmentEventListener removeEffect(int effectIndex) {
+		resetVariables();
+		effect = true;
+		this.effectIndex = effectIndex;
+
+		return this;
+	}
 
 	private void resetVariables() {
+		effect = false;
+		effectIndex = 0;
 		itemToEnchant = null;
 		primaryModifier = null;
 		secondaryModifier = null;
+		potency = null;
 	}
 }

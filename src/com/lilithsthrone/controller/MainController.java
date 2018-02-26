@@ -133,6 +133,7 @@ import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
+import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemEffect;
@@ -1520,6 +1521,36 @@ public class MainController implements Initializable {
 				InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setTFModifier(EnchantmentDialogue.secondaryMod);
 				addEventListener(document, "MOD_SECONDARY_ENCHANTING", "mouseenter", el2, false);
 			}
+
+			for(TFPotency potency : TFPotency.values()) {
+				id = "POTENCY_"+potency;
+				if (((EventTarget) document.getElementById(id)) != null) {
+	
+					EnchantmentEventListener el = new EnchantmentEventListener().setPotency(potency);
+					addEventListener(document, id, "click", el, false);
+					
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+					
+					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setTFPotency(potency);
+					addEventListener(document, id, "mouseenter", el2, false);
+				}
+			}
+			for(int effectCount=0; effectCount<EnchantmentDialogue.effects.size(); effectCount++) {
+				id = "DELETE_EFFECT_"+effectCount;
+				
+				if (((EventTarget) document.getElementById(id)) != null) {
+					
+					EnchantmentEventListener el = new EnchantmentEventListener().removeEffect(effectCount);
+					addEventListener(document, id, "click", el, false);
+					
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+
+					TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation("Delete Effect", "");
+					addEventListener(document, id, "mouseenter", el2, false);
+				}
+			}
 			
 			// Ingredient icon:
 			if (((EventTarget) document.getElementById("INGREDIENT_ENCHANTING")) != null) {
@@ -1537,7 +1568,14 @@ public class MainController implements Initializable {
 				addEventListener(document, "INGREDIENT_ENCHANTING", "mousemove", moveTooltipListener, false);
 				addEventListener(document, "INGREDIENT_ENCHANTING", "mouseleave", hideTooltipListener, false);
 				
-				InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setItem((AbstractItem) EnchantmentDialogue.ingredient, Main.game.getPlayer(), null);
+				InventoryTooltipEventListener el2;
+				if(EnchantmentDialogue.ingredient instanceof AbstractItem) {
+					el2 = new InventoryTooltipEventListener().setItem((AbstractItem) EnchantmentDialogue.ingredient, Main.game.getPlayer(), null);
+				} else if(EnchantmentDialogue.ingredient instanceof AbstractClothing) {
+					el2 = new InventoryTooltipEventListener().setClothing((AbstractClothing) EnchantmentDialogue.ingredient, Main.game.getPlayer(), null);
+				} else {
+					el2 = new InventoryTooltipEventListener().setWeapon((AbstractWeapon) EnchantmentDialogue.ingredient, Main.game.getPlayer());
+				}
 				addEventListener(document, "INGREDIENT_ENCHANTING", "mouseenter", el2, false);
 			}
 			
@@ -1553,12 +1591,32 @@ public class MainController implements Initializable {
 								public void effects() {
 									EnchantmentDialogue.craftItem(EnchantmentDialogue.ingredient, EnchantmentDialogue.effects);
 									
-									if(Main.game.getPlayer().hasItem((AbstractItem) EnchantmentDialogue.previousIngredient)) {
-										EnchantmentDialogue.ingredient = EnchantmentDialogue.previousIngredient;
-										Main.game.setContent(new Response("", "", EnchantmentDialogue.ENCHANTMENT_MENU));
+									if(EnchantmentDialogue.ingredient instanceof AbstractItem) {
+										if(Main.game.getPlayer().hasItem((AbstractItem) EnchantmentDialogue.previousIngredient)) {
+											EnchantmentDialogue.ingredient = EnchantmentDialogue.previousIngredient;
+											Main.game.setContent(new Response("", "", EnchantmentDialogue.ENCHANTMENT_MENU));
+										} else {
+											Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
+										}
+										
+									} else if(EnchantmentDialogue.ingredient instanceof AbstractClothing) {
+										if(Main.game.getPlayer().hasClothing((AbstractClothing) EnchantmentDialogue.previousIngredient)) {
+											EnchantmentDialogue.ingredient = EnchantmentDialogue.previousIngredient;
+											Main.game.setContent(new Response("", "", EnchantmentDialogue.ENCHANTMENT_MENU));
+										} else {
+											Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
+										}
+										
 									} else {
-										Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
+										if(Main.game.getPlayer().hasWeapon((AbstractWeapon) EnchantmentDialogue.previousIngredient)) {
+											EnchantmentDialogue.ingredient = EnchantmentDialogue.previousIngredient;
+											Main.game.setContent(new Response("", "", EnchantmentDialogue.ENCHANTMENT_MENU));
+										} else {
+											Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
+										}
 									}
+									
+									
 									
 								}
 							});
@@ -1593,6 +1651,9 @@ public class MainController implements Initializable {
 				
 				addEventListener(document, "ENCHANT_ADD_BUTTON", "mousemove", moveTooltipListener, false);
 				addEventListener(document, "ENCHANT_ADD_BUTTON", "mouseleave", hideTooltipListener, false);
+
+				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation("Add Effect", "");
+				addEventListener(document, "ENCHANT_ADD_BUTTON", "mouseenter", el2, false);
 			}
 			
 			// Choosing a primary modifier:
@@ -4234,7 +4295,7 @@ public class MainController implements Initializable {
 		}
 		
 		// Save/load:
-		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.SAVE_LOAD && !Main.game.isInCombat() && !Main.game.isInSex()) {
+		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.SAVE_LOAD) {
 			for (File f : Main.getSavedGames()) {
 				id = "overwrite_saved_" + f.getName().substring(0, f.getName().lastIndexOf('.'));
 				if (((EventTarget) document.getElementById(id)) != null) {

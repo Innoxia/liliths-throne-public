@@ -27,10 +27,13 @@ public enum CoveringPattern {
 	STRIPED("striped"),
 	SPOTTED("spotted"),
 	MOTTLED("mottled"),
-	MARKED("marked");
+	MARKED("marked"),
+	
+	OMBRE("ombre");
 	
 	
 	public static List<CoveringPattern> allStandardCoveringPatterns = new ArrayList<>();
+	public static List<CoveringPattern> allHairCoveringPatterns = new ArrayList<>();
 	
 	static {
 		allStandardCoveringPatterns.add(NONE);
@@ -39,6 +42,15 @@ public enum CoveringPattern {
 		allStandardCoveringPatterns.add(SPOTTED);
 		allStandardCoveringPatterns.add(MOTTLED);
 		allStandardCoveringPatterns.add(MARKED);
+		
+
+		allHairCoveringPatterns.add(NONE);
+		allHairCoveringPatterns.add(HIGHLIGHTS);
+		allHairCoveringPatterns.add(STRIPED);
+		allHairCoveringPatterns.add(SPOTTED);
+		allHairCoveringPatterns.add(MOTTLED);
+		allHairCoveringPatterns.add(MARKED);
+		allHairCoveringPatterns.add(OMBRE);
 	}
 	
 	
