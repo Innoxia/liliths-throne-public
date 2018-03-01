@@ -273,11 +273,23 @@ public class SexActionPresets {
 		playerGenerics.add(PlayerTalk.class);
 		playerGenerics.add(GenericActions.class);
 		playerGenerics.add(GenericOrgasms.class);
+		playerGenerics.add(PlayerTailVagina.class);
+		playerGenerics.add(PlayerTailAnus.class);
+		playerGenerics.add(PlayerTailMouth.class);
+		playerGenerics.add(PartnerTailVagina.class);
+		playerGenerics.add(PartnerTailAnus.class);
+		playerGenerics.add(PartnerTailMouth.class);
 		
 		partnerGenerics.add(GenericPositioning.class);
 		partnerGenerics.add(PartnerTalk.class);
 		partnerGenerics.add(GenericActions.class);
 		partnerGenerics.add(GenericOrgasms.class);
+		partnerGenerics.add(PlayerTailVagina.class);
+		partnerGenerics.add(PlayerTailAnus.class);
+		partnerGenerics.add(PlayerTailMouth.class);
+		partnerGenerics.add(PartnerTailVagina.class);
+		partnerGenerics.add(PartnerTailAnus.class);
+		partnerGenerics.add(PartnerTailMouth.class);
 		
 		// Default self-actions:
 		
@@ -326,11 +338,6 @@ public class SexActionPresets {
 		playerDoggyBehind.add(PlayerPenisThighs.class);
 		playerDoggyBehind.add(PlayerPenisAnus.class);
 		playerDoggyBehind.add(PlayerPenisAss.class);
-		playerDoggyBehind.add(PlayerTailVagina.class);
-		playerDoggyBehind.add(PlayerTailAnus.class);
-
-		playerDoggyBehind.add(PartnerTailVagina.class);
-		playerDoggyBehind.add(PartnerTailAnus.class);
 
 		playerDoggyBehind.addAll(playerGenerics);
 		
@@ -346,11 +353,6 @@ public class SexActionPresets {
 		partnerDoggyBehind.add(PartnerPenisThighs.class);
 		partnerDoggyBehind.add(PartnerPenisAnus.class);
 		partnerDoggyBehind.add(PartnerPenisAss.class);
-		partnerDoggyBehind.add(PartnerTailVagina.class);
-		partnerDoggyBehind.add(PartnerTailAnus.class);
-
-		partnerDoggyBehind.add(PlayerTailVagina.class);
-		partnerDoggyBehind.add(PlayerTailAnus.class);
 
 		partnerDoggyBehind.addAll(partnerGenerics);
 		
@@ -450,8 +452,6 @@ public class SexActionPresets {
 		playerBackToWallFacingTarget.add(PlayerFingerVagina.class);
 		playerBackToWallFacingTarget.add(PlayerPenisVagina.class);
 		playerBackToWallFacingTarget.add(PlayerPenisThighs.class);
-		playerBackToWallFacingTarget.add(PlayerTailVagina.class);
-		playerBackToWallFacingTarget.add(PlayerTailAnus.class);
 
 		playerBackToWallFacingTarget.add(PartnerTongueMouth.class);
 		playerBackToWallFacingTarget.add(PartnerTongueBreasts.class);
@@ -461,8 +461,6 @@ public class SexActionPresets {
 		playerBackToWallFacingTarget.add(PartnerFingerVagina.class);
 		playerBackToWallFacingTarget.add(PartnerPenisVagina.class);
 		playerBackToWallFacingTarget.add(PartnerPenisThighs.class);
-		playerBackToWallFacingTarget.add(PartnerTailVagina.class);
-		playerBackToWallFacingTarget.add(PartnerTailAnus.class);
 
 		playerBackToWallFacingTarget.addAll(playerGenerics);
 		
@@ -478,8 +476,6 @@ public class SexActionPresets {
 		partnerBackToWallFacingTarget.add(PlayerFingerVagina.class);
 		partnerBackToWallFacingTarget.add(PlayerPenisVagina.class);
 		partnerBackToWallFacingTarget.add(PlayerPenisThighs.class);
-		partnerBackToWallFacingTarget.add(PlayerTailVagina.class);
-		partnerBackToWallFacingTarget.add(PlayerTailAnus.class);
 
 		partnerBackToWallFacingTarget.add(PartnerTongueMouth.class);
 		partnerBackToWallFacingTarget.add(PartnerTongueBreasts.class);
@@ -489,8 +485,6 @@ public class SexActionPresets {
 		partnerBackToWallFacingTarget.add(PartnerFingerVagina.class);
 		partnerBackToWallFacingTarget.add(PartnerPenisVagina.class);
 		partnerBackToWallFacingTarget.add(PartnerPenisThighs.class);
-		partnerBackToWallFacingTarget.add(PartnerTailVagina.class);
-		partnerBackToWallFacingTarget.add(PartnerTailAnus.class);
 
 		partnerBackToWallFacingTarget.addAll(partnerGenerics);
 		
@@ -521,20 +515,12 @@ public class SexActionPresets {
 		playerFacingWallFacingTarget.add(PlayerPenisThighs.class);
 		playerFacingWallFacingTarget.add(PlayerPenisAnus.class);
 		playerFacingWallFacingTarget.add(PlayerPenisAss.class);
-		playerFacingWallFacingTarget.add(PlayerTailVagina.class);
-		playerFacingWallFacingTarget.add(PlayerTailAnus.class);
-
-		playerFacingWallFacingTarget.add(PartnerTailVagina.class);
-		playerFacingWallFacingTarget.add(PartnerTailAnus.class);
 
 		playerFacingWallFacingTarget.addAll(playerGenerics);
 		
 		// Facing wall partner facing target:
 
 		partnerFacingWallFacingTarget.addAll(partnerDefaultSelf);
-		
-		partnerFacingWallFacingTarget.add(PlayerTailVagina.class);
-		partnerFacingWallFacingTarget.add(PlayerTailAnus.class);
 		
 		partnerFacingWallFacingTarget.add(PartnerTongueMouth.class);
 		partnerFacingWallFacingTarget.add(PartnerFingerNipple.class);
@@ -545,8 +531,6 @@ public class SexActionPresets {
 		partnerFacingWallFacingTarget.add(PartnerPenisThighs.class);
 		partnerFacingWallFacingTarget.add(PartnerPenisAnus.class);
 		partnerFacingWallFacingTarget.add(PartnerPenisAss.class);
-		partnerFacingWallFacingTarget.add(PartnerTailVagina.class);
-		partnerFacingWallFacingTarget.add(PartnerTailAnus.class);
 
 		partnerFacingWallFacingTarget.addAll(partnerGenerics);
 		
@@ -575,8 +559,6 @@ public class SexActionPresets {
 		playerCowgirlRiding.add(PlayerFingerNipple.class);
 		playerCowgirlRiding.add(PlayerFingerUrethra.class);
 		playerCowgirlRiding.add(PlayerFingerVagina.class);
-		playerCowgirlRiding.add(PlayerTailVagina.class);
-		playerCowgirlRiding.add(PlayerTailAnus.class);
 		playerCowgirlRiding.add(PlayerPenisNipple.class);
 		playerCowgirlRiding.add(PlayerPenisBreasts.class);
 
@@ -588,8 +570,6 @@ public class SexActionPresets {
 		playerCowgirlRiding.add(PartnerPenisVagina.class);
 		playerCowgirlRiding.add(PartnerPenisThighs.class);
 		playerCowgirlRiding.add(PartnerPenisAnus.class);
-		playerCowgirlRiding.add(PartnerTailVagina.class);
-		playerCowgirlRiding.add(PartnerTailAnus.class);
 		
 		playerCowgirlRiding.addAll(playerGenerics);
 		
@@ -605,8 +585,6 @@ public class SexActionPresets {
 		partnerCowgirlRiding.add(PlayerPenisVagina.class);
 		partnerCowgirlRiding.add(PlayerPenisThighs.class);
 		partnerCowgirlRiding.add(PlayerPenisAnus.class);
-		partnerCowgirlRiding.add(PlayerTailVagina.class);
-		partnerCowgirlRiding.add(PlayerTailAnus.class);
 
 		partnerCowgirlRiding.add(PartnerTongueMouth.class);
 		partnerCowgirlRiding.add(PartnerTongueBreasts.class);
@@ -614,8 +592,6 @@ public class SexActionPresets {
 		partnerCowgirlRiding.add(PartnerFingerNipple.class);
 		partnerCowgirlRiding.add(PartnerFingerUrethra.class);
 		partnerCowgirlRiding.add(PartnerFingerVagina.class);
-		partnerCowgirlRiding.add(PartnerTailVagina.class);
-		partnerCowgirlRiding.add(PartnerTailAnus.class);
 		partnerCowgirlRiding.add(PartnerPenisNipple.class);
 		partnerCowgirlRiding.add(PartnerPenisBreasts.class);
 		
@@ -748,8 +724,6 @@ public class SexActionPresets {
 		playerStandingSub.add(PlayerFingerNipple.class);
 		playerStandingSub.add(PlayerFingerUrethra.class);
 		playerStandingSub.add(PlayerFingerVagina.class);
-		playerStandingSub.add(PlayerTailVagina.class);
-		playerStandingSub.add(PlayerTailAnus.class);
 		
 		playerStandingSub.add(PartnerTongueMouth.class);
 		playerStandingSub.add(PartnerTongueBreasts.class);
@@ -757,8 +731,6 @@ public class SexActionPresets {
 		playerStandingSub.add(PartnerFingerNipple.class);
 		playerStandingSub.add(PartnerFingerUrethra.class);
 		playerStandingSub.add(PartnerFingerVagina.class);
-		playerStandingSub.add(PartnerTailVagina.class);
-		playerStandingSub.add(PartnerTailAnus.class);
 		
 		playerStandingSub.addAll(playerGenerics);
 		
@@ -772,8 +744,6 @@ public class SexActionPresets {
 		partnerStandingSub.add(PlayerFingerNipple.class);
 		partnerStandingSub.add(PlayerFingerUrethra.class);
 		partnerStandingSub.add(PlayerFingerVagina.class);
-		partnerStandingSub.add(PlayerTailVagina.class);
-		partnerStandingSub.add(PlayerTailAnus.class);
 		
 		partnerStandingSub.add(PartnerTongueMouth.class);
 		partnerStandingSub.add(PartnerTongueBreasts.class);
@@ -781,8 +751,6 @@ public class SexActionPresets {
 		partnerStandingSub.add(PartnerFingerNipple.class);
 		partnerStandingSub.add(PartnerFingerUrethra.class);
 		partnerStandingSub.add(PartnerFingerVagina.class);
-		partnerStandingSub.add(PartnerTailVagina.class);
-		partnerStandingSub.add(PartnerTailAnus.class);
 		
 		partnerStandingSub.addAll(partnerGenerics);
 		
@@ -979,8 +947,6 @@ public class SexActionPresets {
 		playerMissionaryKneelingBetweenLegs.add(PlayerFingerVagina.class);
 		playerMissionaryKneelingBetweenLegs.add(PlayerPenisVagina.class);
 		playerMissionaryKneelingBetweenLegs.add(PlayerPenisAnus.class);
-		playerMissionaryKneelingBetweenLegs.add(PlayerTailVagina.class);
-		playerMissionaryKneelingBetweenLegs.add(PlayerTailAnus.class);
 
 		playerMissionaryKneelingBetweenLegs.add(PartnerTongueMouth.class);
 		playerMissionaryKneelingBetweenLegs.add(PartnerTongueBreasts.class);
@@ -989,8 +955,6 @@ public class SexActionPresets {
 		playerMissionaryKneelingBetweenLegs.add(PartnerFingerUrethra.class);
 		playerMissionaryKneelingBetweenLegs.add(PartnerFingerVagina.class);
 		playerMissionaryKneelingBetweenLegs.add(PartnerPenisVagina.class);
-		playerMissionaryKneelingBetweenLegs.add(PartnerTailVagina.class);
-		playerMissionaryKneelingBetweenLegs.add(PartnerTailAnus.class);
 
 		playerMissionaryKneelingBetweenLegs.addAll(playerGenerics);
 		
@@ -1005,8 +969,6 @@ public class SexActionPresets {
 		partnerMissionaryKneelingBetweenLegs.add(PlayerFingerUrethra.class);
 		partnerMissionaryKneelingBetweenLegs.add(PlayerFingerVagina.class);
 		partnerMissionaryKneelingBetweenLegs.add(PlayerPenisVagina.class);
-		partnerMissionaryKneelingBetweenLegs.add(PlayerTailVagina.class);
-		partnerMissionaryKneelingBetweenLegs.add(PlayerTailAnus.class);
 
 		partnerMissionaryKneelingBetweenLegs.add(PartnerTongueMouth.class);
 		partnerMissionaryKneelingBetweenLegs.add(PartnerTongueBreasts.class);
@@ -1016,8 +978,6 @@ public class SexActionPresets {
 		partnerMissionaryKneelingBetweenLegs.add(PartnerFingerVagina.class);
 		partnerMissionaryKneelingBetweenLegs.add(PartnerPenisVagina.class);
 		partnerMissionaryKneelingBetweenLegs.add(PartnerPenisAnus.class);
-		partnerMissionaryKneelingBetweenLegs.add(PartnerTailVagina.class);
-		partnerMissionaryKneelingBetweenLegs.add(PartnerTailAnus.class);
 
 		partnerMissionaryKneelingBetweenLegs.addAll(partnerGenerics);
 
@@ -1142,18 +1102,12 @@ public class SexActionPresets {
 		playerMissionaryAltarDomCultist.add(PlayerFingerVagina.class);
 		playerMissionaryAltarDomCultist.add(PlayerPenisVagina.class);
 		playerMissionaryAltarDomCultist.add(PlayerPenisAnus.class);
-		playerMissionaryAltarDomCultist.add(PlayerTailVagina.class);
-		playerMissionaryAltarDomCultist.add(PlayerTailAnus.class);
-		playerMissionaryAltarDomCultist.add(PartnerTailVagina.class);
-		playerMissionaryAltarDomCultist.add(PartnerTailAnus.class);
 		playerMissionaryAltarDomCultist.add(SASpecialCultist.class);
 		playerMissionaryAltarDomCultist.addAll(playerGenerics);
 		playerMissionaryAltarDomCultist.remove(GenericPositioning.class);
 		
 		partnerMissionaryAltarDomCultist.addAll(partnerDefaultSelf);
 		partnerMissionaryAltarDomCultist.add(PlayerFingerNipple.class);
-		partnerMissionaryAltarDomCultist.add(PlayerTailVagina.class);
-		partnerMissionaryAltarDomCultist.add(PlayerTailAnus.class);
 		partnerMissionaryAltarDomCultist.add(PartnerTongueBreasts.class);
 		partnerMissionaryAltarDomCultist.add(PartnerTongueNipple.class);
 		partnerMissionaryAltarDomCultist.add(PartnerTongueMouth.class);
@@ -1162,8 +1116,6 @@ public class SexActionPresets {
 		partnerMissionaryAltarDomCultist.add(PartnerFingerVagina.class);
 		partnerMissionaryAltarDomCultist.add(PartnerPenisVagina.class);
 		partnerMissionaryAltarDomCultist.add(PartnerPenisAnus.class);
-		partnerMissionaryAltarDomCultist.add(PartnerTailVagina.class);
-		partnerMissionaryAltarDomCultist.add(PartnerTailAnus.class);
 		partnerMissionaryAltarDomCultist.add(SASpecialCultist.class);
 		partnerMissionaryAltarDomCultist.addAll(partnerGenerics);
 		partnerMissionaryAltarDomCultist.remove(GenericPositioning.class);
