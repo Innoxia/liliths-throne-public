@@ -996,7 +996,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 	// Enchantments:
 	
 	public int getEnchantmentLimit() {
-		int base = (getClothingSet()==null?2:3);
+		int base = (getClothingSet()==null?5:10);
 		return base + getIncompatibleSlots().size()*base;
 	}
 	

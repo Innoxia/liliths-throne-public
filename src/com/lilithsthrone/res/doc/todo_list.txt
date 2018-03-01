@@ -9,84 +9,11 @@
 	
 	Patch notes:
 	
-	Gameplay:
-		Increased both slavery income and value to fit in with the recent economy balancing.
-		Fetish desires are now free to change.
-		All addictions now progress through withdrawal stages at a rate of one stage per day.
-		Addictions are no longer removed by simply waiting them out. You now need to drink 'Angel's Kiss' to remove addictions.
-		Satisfying an NPC's addiction while they're under the effects of withdrawal will make them gain affection towards you (and also obedience if they're a slave).
-		Added alcohol content to all alcoholic drink items.
-		Going over 50% intoxication level will apply 'drunk speech' to your sentences.
-		Psychoactive fluids now apply a status effect. While under this effect, you will randomly suffer from hallucinations (~0.75% chance of a hallucination triggering every minute).
-		While under the effect of psychoactive fluids, your view of people's bodies will be distorted.
-		You can perform hypnotic suggestions to NPCs under the influence of psychoactive fluids during sex. (NPCs will also do this to you under the right circumstances.)
-		Added small chance (0.5% each) for NPCs to spawn with addictive or psychoactive cum and girlcum.
-		Added 15% chance for NPCs with breasts to spawn in lactating. Added further chance (2.5% each) for the resulting milk to be addictive or psychoactive.
-		Added 'squirter' modifier to vagina, along with orgasm descriptions for it. You can add/remove the 'squirter' modifier through potions.
-		Finished Nyan's gift dialogues.
-	
-	Enchanting:
-		<b>Added:</b> Clothing enchanting.
-		Improved the enchantment UI.
-	
-	Combat & stats:
-		NPCs now have 'resting' lust values based on their corruption. NPCs who are vulnerable to arcane storms have a high amount of lust when exposed to a storm.
-		Seduction attacks can no longer critically hit. Only the special seduction attacks can score criticals.
-		Seduction attacks no longer damage the target's aura.
-		A character will no longer lose combat if their aura reaches 0.
-		Characters with an arcane ability of less than 15 will lose combat when reaching 100 lust.
-		Characters with an arcane ability of greater than 15 will suffer from 'desperate for sex' status effect when reaching 100 lust, causing all incoming damage to ignore resistances.
-		Difference in levels no longer provides a flat +/-25% when levels are 3 or more apart. Instead, each level in difference awards a +/-2% damage modifier to the attacker.
-		Damage stats are now calculated with 0 as the base value, instead of 100 (to move them in-line with all the other attributes).
-		Masochist fetish damage reduction reduced from 40% to 25%.
-	
-	Clothing:
-		Added more colour options for breeder collar, ballgag, ring gag, choker, restraints, spreader bar, chastity belt, chastity cage, maid dress/sleeves/heels/headpiece, enforcer shorts, livestock tags, cow-bell collar, milk maid headband, mega milk t-shirt, witch boots/hat/dress, and scientist coat/goggles.
-		Changed slave collar to simply be called 'metal collar', and added it to the bdsm set.
-		Improved clothing tooltips.
-		Breeder collar now enslaves the wearer, seals onto them, and applies a vaginal wetness TF by default.
-	
 	Other:
-		Added 'hazel' eye colour.
-		Added 'auburn' to hair colour, and renamed 'tan' hair colour to 'dirty blonde'.
-		Added 'ombre' style to all hair types.
-		Added 'freckled' style to all skin types.
-		Added counter to orgasm status effect icon.
-		Alleyway attackers now demand 250 flames instead of 25.
-		You can now load games while in sex or combat.
-		Adjusted Scarlett's price from 2000/1000 to 15000/10000.
-		Taking/dealing damage now increases masochist/sadist fetishes, respectively.
-		'Stroke cock' and 'Stroke pussy' now transfers lubrication between penis/vagina and fingers.
-		Angel's Nectar now cures alcoholic and psychoactive effects, in addition to removing addictions.
-		Removed fetish desire 'cumming' from the randomly generated dislike/hate pool.
-		Retconned lore about kissing slaves being taboo.
-		The more cum in an orifice, the faster it now leaks out. (Up to 1.75x the normal value.)
-		
-	Contributors:
-		Added Nyan pregnancy reaction. (by Duner)
+		Increased clothing enchant limit from 2 & 3 for normal & set clothing, respectively, to 5 & 10.
 	
 	Bugs:
-		Fixed a bug where games saved after exploring the storage rooms in the Supplier Depot would not be able to be loaded.
-		Fixed font error in Ashley's height description.
-		Chelsea boots are now unisex.
-		Loading a game now correctly restores the number of horns characters have.
-		Minor typo fixes.
-		NPCs will now generate a new outfit for themselves if you beat them and steal their clothes (to leave them exposed) even if you don't sex with them.
-		Ashley's race should no longer be added to your encyclopedia (as it's meant to be hidden).
-		Fixed clothing with negative enchantments having a very low value (such as chastity cages and gags being sold for 1 flame).
-		Fixed bug where your offspring's race would be described as 'null'.
-		Fixed bug where sometimes your virginity would not be lost when penetrated.
-		Fixed broken throat-stretching descriptions.
-		Fixed minor text bug when using the hypno watch to set someone's orientation to androphilic.
-		Fixed duplicate associated fetishes showing up for sex action tooltips, and removed vaginal/seeder/impregnation fetishes where not appropriate, as well as fixing a bug where incorrect associated fetishes would be displayed.
-		Fixed some character import bugs.
-		Fixed bug where 'Tease her pussy' sex action wouldn't show any text.
-		Offspring dialogue flags (the values used to determine whether you've visited/attacked/apologised/etc.) should now be correctly saved.
-		Cumming down someone's throat will no longer dirty their mouth slot.
-		Fixed bug where special attacks would describe you attacking yourself.
-		Fixed 'Commands' button not working in the debugger's parser.
-		Fixed bug where sadist effects were being applied to the wrong person.
-		Temporarily fixed position-switching bug in multiple-partner sex by disabling position switching. (I'll fix this properly for the next version.)
+		Fixed a save game import bug.
 	
 	
 	
@@ -94,6 +21,12 @@
 	you know about the sex positions with Wolfgang and Karl being bugged (eat out
 		And the Wolfgang Karl positions being bugged was if you switch to I think it is receiving oral the other will leave)
 		
+	
+	need to add way to ingest milk and girlcum
+	
+	finally fix the breast/cock exposing reactions
+	
+	enchants up to 4
 	
 	
 	Combat lust
