@@ -38,7 +38,8 @@ public enum SexPositionSlot {
 			Util.newArrayListOfValues(
 					new ListValue<>(OrgasmCumTarget.BACK),
 					new ListValue<>(OrgasmCumTarget.ASS),
-					new ListValue<>(OrgasmCumTarget.GROIN)),
+					new ListValue<>(OrgasmCumTarget.GROIN),
+					new ListValue<>(OrgasmCumTarget.LEGS)),
 			SexActionPresets.playerDoggyBehind,
 			SexActionPresets.partnerDoggyBehind),
 
@@ -52,7 +53,8 @@ public enum SexPositionSlot {
 	/**The partner who's in front of the doggy-style target. They can receive oral from the doggy-style target.*/
 	DOGGY_INFRONT("Kneeling infront",
 			Util.newArrayListOfValues(
-					new ListValue<>(OrgasmCumTarget.FACE)),
+					new ListValue<>(OrgasmCumTarget.FACE),
+					new ListValue<>(OrgasmCumTarget.FLOOR)),
 			SexActionPresets.playerDoggyInfront,
 			SexActionPresets.partnerDoggyInfront),
 
@@ -108,13 +110,16 @@ public enum SexPositionSlot {
 	
 	COWGIRL_ON_BACK("Cowgirl (on back)",
 			Util.newArrayListOfValues(
-					new ListValue<>(OrgasmCumTarget.GROIN)),
+					new ListValue<>(OrgasmCumTarget.FLOOR)),
 			SexActionPresets.playerCowgirlOnBack,
 			SexActionPresets.partnerCowgirlOnBack),
 	
 	COWGIRL_RIDING("Cowgirl (riding)",
 			Util.newArrayListOfValues(
-					new ListValue<>(OrgasmCumTarget.STOMACH)),
+					new ListValue<>(OrgasmCumTarget.STOMACH),
+					new ListValue<>(OrgasmCumTarget.BREASTS),
+					new ListValue<>(OrgasmCumTarget.FACE),
+					new ListValue<>(OrgasmCumTarget.HAIR)),
 			SexActionPresets.playerCowgirlRiding,
 			SexActionPresets.partnerCowgirlRiding),
 	
@@ -124,6 +129,7 @@ public enum SexPositionSlot {
 			Util.newArrayListOfValues(
 					new ListValue<>(OrgasmCumTarget.FACE),
 					new ListValue<>(OrgasmCumTarget.BREASTS),
+					new ListValue<>(OrgasmCumTarget.HAIR),
 					new ListValue<>(OrgasmCumTarget.FLOOR)),
 			SexActionPresets.playerSixtyNineOnTop,
 			SexActionPresets.partnerSixtyNineOnTop),
@@ -132,6 +138,7 @@ public enum SexPositionSlot {
 			Util.newArrayListOfValues(
 					new ListValue<>(OrgasmCumTarget.FACE),
 					new ListValue<>(OrgasmCumTarget.BREASTS),
+					new ListValue<>(OrgasmCumTarget.HAIR),
 					new ListValue<>(OrgasmCumTarget.FLOOR)),
 			SexActionPresets.playerSixtyNineOnBottom,
 			SexActionPresets.partnerSixtyNineOnBottom),
@@ -157,6 +164,7 @@ public enum SexPositionSlot {
 	
 	STANDING_DOMINANT("Standing",
 			Util.newArrayListOfValues(
+					new ListValue<>(OrgasmCumTarget.STOMACH),
 					new ListValue<>(OrgasmCumTarget.GROIN),
 					new ListValue<>(OrgasmCumTarget.LEGS),
 					new ListValue<>(OrgasmCumTarget.FLOOR)),
@@ -165,6 +173,7 @@ public enum SexPositionSlot {
 	
 	STANDING_SUBMISSIVE("Standing",
 			Util.newArrayListOfValues(
+					new ListValue<>(OrgasmCumTarget.STOMACH),
 					new ListValue<>(OrgasmCumTarget.GROIN),
 					new ListValue<>(OrgasmCumTarget.LEGS),
 					new ListValue<>(OrgasmCumTarget.FLOOR)),
@@ -175,6 +184,9 @@ public enum SexPositionSlot {
 	
 	CHAIR_TOP("Standing",
 			Util.newArrayListOfValues(
+					new ListValue<>(OrgasmCumTarget.HAIR),
+					new ListValue<>(OrgasmCumTarget.FACE),
+					new ListValue<>(OrgasmCumTarget.BREASTS),
 					new ListValue<>(OrgasmCumTarget.STOMACH),
 					new ListValue<>(OrgasmCumTarget.GROIN)),
 			SexActionPresets.playerChairTop,
@@ -223,14 +235,14 @@ public enum SexPositionSlot {
 	
 	MISSIONARY_ON_BACK("Lying on back",
 			Util.newArrayListOfValues(
-					new ListValue<>(OrgasmCumTarget.GROIN),
-					new ListValue<>(OrgasmCumTarget.STOMACH),
 					new ListValue<>(OrgasmCumTarget.FLOOR)),
 			SexActionPresets.playerMissionaryOnBack,
 			SexActionPresets.partnerMissionaryOnBack),
 	
 	MISSIONARY_KNEELING_BETWEEN_LEGS("Kneeling between legs",
 			Util.newArrayListOfValues(
+					new ListValue<>(OrgasmCumTarget.HAIR),
+					new ListValue<>(OrgasmCumTarget.BREASTS),
 					new ListValue<>(OrgasmCumTarget.STOMACH),
 					new ListValue<>(OrgasmCumTarget.GROIN),
 					new ListValue<>(OrgasmCumTarget.LEGS),
@@ -313,6 +325,9 @@ public enum SexPositionSlot {
 	
 	MISSIONARY_DESK_DOM_VICKY("Standing between legs",
 			Util.newArrayListOfValues(
+					new ListValue<>(OrgasmCumTarget.HAIR),
+					new ListValue<>(OrgasmCumTarget.FACE),
+					new ListValue<>(OrgasmCumTarget.BREASTS),
 					new ListValue<>(OrgasmCumTarget.STOMACH),
 					new ListValue<>(OrgasmCumTarget.GROIN),
 					new ListValue<>(OrgasmCumTarget.LEGS),
@@ -333,14 +348,15 @@ public enum SexPositionSlot {
 	
 	MISSIONARY_ALTAR_LYING_ON_ALTAR("Lying on altar",
 			Util.newArrayListOfValues(
-					new ListValue<>(OrgasmCumTarget.GROIN),
-					new ListValue<>(OrgasmCumTarget.LEGS),
 					new ListValue<>(OrgasmCumTarget.FLOOR)),
 			SexActionPresets.playerMissionaryAltarSubCultist,
 			SexActionPresets.partnerMissionaryAltarSubCultist),
 
 	MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS("Between legs",
 			Util.newArrayListOfValues(
+					new ListValue<>(OrgasmCumTarget.HAIR),
+					new ListValue<>(OrgasmCumTarget.FACE),
+					new ListValue<>(OrgasmCumTarget.BREASTS),
 					new ListValue<>(OrgasmCumTarget.STOMACH),
 					new ListValue<>(OrgasmCumTarget.GROIN),
 					new ListValue<>(OrgasmCumTarget.LEGS),
@@ -356,14 +372,15 @@ public enum SexPositionSlot {
 	
 	MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR("Lying on altar",
 			Util.newArrayListOfValues(
-					new ListValue<>(OrgasmCumTarget.GROIN),
-					new ListValue<>(OrgasmCumTarget.LEGS),
 					new ListValue<>(OrgasmCumTarget.FLOOR)),
 			SexActionPresets.playerMissionaryAltarSealedSubCultist,
 			SexActionPresets.partnerMissionaryAltarSealedSubCultist),
 
 	MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS("Between legs",
 			Util.newArrayListOfValues(
+					new ListValue<>(OrgasmCumTarget.HAIR),
+					new ListValue<>(OrgasmCumTarget.FACE),
+					new ListValue<>(OrgasmCumTarget.BREASTS),
 					new ListValue<>(OrgasmCumTarget.STOMACH),
 					new ListValue<>(OrgasmCumTarget.GROIN),
 					new ListValue<>(OrgasmCumTarget.LEGS),
