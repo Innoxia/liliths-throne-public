@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.sex.sexActions.baseActionsPartner;
 
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.OrificeType;
@@ -129,7 +130,13 @@ public class PartnerFingerUrethra {
 	
 			return UtilText.nodeContentSB.toString();
 		}
-		
+
+		@Override
+		public void applyEffects() {
+			if(Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS)) {
+				Sex.transferLubrication(Sex.getActivePartner(), PenetrationType.FINGER, Main.game.getPlayer(), PenetrationType.PENIS);
+			}
+		}
 	};
 	
 	public static final SexAction PARTNER_FONDLE_BALLS = new SexAction(

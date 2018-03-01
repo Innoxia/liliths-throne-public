@@ -2,7 +2,6 @@ package com.lilithsthrone.game.inventory.clothing;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumMap;
@@ -13,13 +12,17 @@ import java.util.Map;
 import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.Rarity;
+import com.lilithsthrone.game.inventory.enchanting.TFEssence;
+import com.lilithsthrone.game.inventory.enchanting.TFModifier;
+import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
+import com.lilithsthrone.game.inventory.item.ItemEffect;
+import com.lilithsthrone.game.inventory.item.ItemEffectType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
@@ -28,10 +31,10 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.84
- * @version 0.1.84
+ * @version 0.2.0
  * @author Innoxia
  */
-public abstract class AbstractClothingType extends AbstractCoreType implements Serializable {
+public abstract class AbstractClothingType extends AbstractCoreType {
 
 	protected static final long serialVersionUID = 1L;
 	
@@ -39,7 +42,9 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 
 	private boolean plural;
 	private int baseValue;
-	private int physicalResistance, femininityMinimum, femininityMaximum;
+	private int physicalResistance;
+	private int femininityMinimum;
+	private int femininityMaximum;
 	private Femininity femininityRestriction;
 	private InventorySlot slot;
 
@@ -47,11 +52,11 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 	private List<BlockedParts> blockedPartsList;
 	private List<InventorySlot> incompatibleSlots;
 
-	private Map<Attribute, Integer> attributeModifiers;
-
 	private Map<Colour, Map<Colour, Map<Colour, String>>> SVGStringMap;
 	private Map<Colour, Map<Colour, Map<Colour, String>>> SVGStringEquippedMap;
 
+	protected List<ItemEffect> effects;
+	
 	private ClothingSet clothingSet;
 	private Rarity rarity;
 	private List<Colour> availablePrimaryColours;
@@ -81,13 +86,15 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 			Rarity rarity,
 			ClothingSet clothingSet,
 			String pathName,
-			Map<Attribute, Integer> attributeModifiers, List<BlockedParts> blockedPartsList,
+			List<ItemEffect> effects,
+			List<BlockedParts> blockedPartsList,
 			List<InventorySlot> incompatibleSlots,
 			List<Colour> availablePrimaryColours,
 			List<Colour> availablePrimaryDyeColours,
 			List<Colour> availableSecondaryColours,
 			List<Colour> availableSecondaryDyeColours,
-			List<Colour> availableTertiaryColours, List<Colour> availableTertiaryDyeColours) {
+			List<Colour> availableTertiaryColours,
+			List<Colour> availableTertiaryDyeColours) {
 		this(baseValue,
 				determiner,
 				plural,
@@ -101,7 +108,8 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 				clothingSet,
 				pathName,
 				null,
-				attributeModifiers, blockedPartsList,
+				effects,
+				blockedPartsList,
 				incompatibleSlots,
 				availablePrimaryColours,
 				availablePrimaryDyeColours,
@@ -124,7 +132,8 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 			ClothingSet clothingSet,
 			String pathName,
 			String pathNameEquipped,
-			Map<Attribute, Integer> attributeModifiers, List<BlockedParts> blockedPartsList,
+			List<ItemEffect> effects,
+			List<BlockedParts> blockedPartsList,
 			List<InventorySlot> incompatibleSlots,
 			List<Colour> availablePrimaryColours,
 			List<Colour> availablePrimaryDyeColours,
@@ -166,10 +175,10 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 		this.pathNameEquipped = pathNameEquipped;
 
 		// Attribute modifiers:
-		if (attributeModifiers != null) {
-			this.attributeModifiers = attributeModifiers;
+		if (effects != null) {
+			this.effects = new ArrayList<>(effects);
 		} else {
-			this.attributeModifiers = new EnumMap<>(Attribute.class);
+			this.effects = new ArrayList<>();
 		}
 		
 		// Blocked Parts:
@@ -273,7 +282,7 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 						&& ((AbstractClothingType)o).getFemininityMinimum() == getFemininityMinimum()
 						&& ((AbstractClothingType)o).getFemininityRestriction() == getFemininityRestriction()
 						&& ((AbstractClothingType)o).getSlot() == getSlot()
-						&& ((AbstractClothingType)o).getAttributeModifiers().equals(getAttributeModifiers())
+						&& ((AbstractClothingType)o).getEffects().equals(getEffects())
 						&& ((AbstractClothingType)o).getClothingSet() == getClothingSet()
 						&& ((AbstractClothingType)o).getRarity() == getRarity()
 						){
@@ -294,7 +303,7 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 		result = 31 * result + getFemininityMinimum();
 		if(getFemininityRestriction()!=null)
 			result = 31 * result + getFemininityRestriction().hashCode();
-		result = 31 * result + getAttributeModifiers().hashCode();
+		result = 31 * result + getEffects().hashCode();
 		if(getClothingSet()!=null)
 			result = 31 * result + getClothingSet().hashCode();
 		result = 31 * result + getRarity().hashCode();
@@ -368,7 +377,7 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 	/**
 	 * Generates clothing with the provided enchantments.
 	 */
-	public static AbstractClothing generateClothing(AbstractClothingType clothingType, Colour primaryColour, Colour secondaryColour, Colour tertiaryColour, Map<Attribute, Integer> enchantmentMap) {
+	public static AbstractClothing generateClothing(AbstractClothingType clothingType, Colour primaryColour, Colour secondaryColour, Colour tertiaryColour, List<ItemEffect> effects) {
 		Colour c1 = primaryColour;
 		Colour c2 = secondaryColour;
 		Colour c3 = tertiaryColour;
@@ -395,7 +404,7 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 			}
 		}
 		
-		return new AbstractClothing(clothingType, c1, c2, c3, enchantmentMap) {
+		return new AbstractClothing(clothingType, c1, c2, c3, effects) {
 			private static final long serialVersionUID = 1L;
 		};
 	}
@@ -403,27 +412,27 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 	/**
 	 * Generates clothing with the provided enchantments.
 	 */
-	public static AbstractClothing generateClothing(AbstractClothingType clothingType, Colour colour, Map<Attribute, Integer> enchantmentMap) {
-		return generateClothing(clothingType, colour, null, null, enchantmentMap);
+	public static AbstractClothing generateClothing(AbstractClothingType clothingType, Colour colour, List<ItemEffect> effects) {
+		return generateClothing(clothingType, colour, null, null, effects);
 	}
 	
 	/**
 	 * Uses random colour.
 	 */
-	public static AbstractClothing generateClothing(AbstractClothingType clothingType, Map<Attribute, Integer> enchantmentMap) {
-		return AbstractClothingType.generateClothing(clothingType, clothingType.getAvailablePrimaryColours().get(Util.random.nextInt(clothingType.getAvailablePrimaryColours().size())), enchantmentMap);
+	public static AbstractClothing generateClothing(AbstractClothingType clothingType, List<ItemEffect> effects) {
+		return AbstractClothingType.generateClothing(clothingType, clothingType.getAvailablePrimaryColours().get(Util.random.nextInt(clothingType.getAvailablePrimaryColours().size())), effects);
 	}
 	
 	/**
 	 * Generates clothing with a random enchantment.
 	 */
 	public static AbstractClothing generateClothingWithEnchantment(AbstractClothingType clothingType, Colour colour) {
-		Map<Attribute, Integer> enchantments = new EnumMap<>(Attribute.class);
-		Attribute rndAtt = Attribute.attributeBonusesForEnchanting.get(Util.random.nextInt(Attribute.attributeBonusesForEnchanting.size()));
+		List<ItemEffect> effects = new ArrayList<>();
+
+		TFModifier rndMod = TFModifier.getClothingAttributeList().get(Util.random.nextInt(TFModifier.getClothingAttributeList().size()));
+		effects.add(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, rndMod, TFPotency.getRandomWeightedPositivePotency(), 0));
 		
-		enchantments.put(rndAtt, Util.random.nextInt(5)+1);
-		
-		return generateClothing(clothingType, colour, enchantments);
+		return generateClothing(clothingType, colour, effects);
 	}
 	
 	/**
@@ -971,8 +980,8 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 		return rarity;
 	}
 
-	public Map<Attribute, Integer> getAttributeModifiers() {
-		return attributeModifiers;
+	public List<ItemEffect> getEffects() {
+		return effects;
 	}
 
 	public int getPhysicalResistance() {
@@ -981,5 +990,25 @@ public abstract class AbstractClothingType extends AbstractCoreType implements S
 
 	public void setPhysicalResistance(int physicalResistance) {
 		this.physicalResistance = physicalResistance;
+	}
+	
+
+	// Enchantments:
+	
+	public int getEnchantmentLimit() {
+		int base = (getClothingSet()==null?5:10);
+		return base + getIncompatibleSlots().size()*base;
+	}
+	
+	public ItemEffectType getEnchantmentEffect() {
+		return ItemEffectType.CLOTHING;
+	}
+	
+	public TFEssence getRelatedEssence() {
+		return TFEssence.ARCANE;
+	}
+	
+	public AbstractClothingType getEnchantmentItemType(List<ItemEffect> effects) {
+		return this;
 	}
 }

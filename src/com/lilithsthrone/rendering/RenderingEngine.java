@@ -321,7 +321,7 @@ public enum RenderingEngine {
 					}
 				}
 			}
-
+			
 			// Fill space:
 			for (int i = 24; i > Main.game.getPlayer().getBuybackStack().size(); i--) {
 				inventorySB.append("<div class='inventory-item-slot unequipped'></div>");
@@ -684,7 +684,7 @@ public enum RenderingEngine {
 		return Main.game.getActiveNPC();
 	}
 	
-	private static String getEntryBackgroundColour(boolean alternative) {
+	public static String getEntryBackgroundColour(boolean alternative) {
 		if(Main.getProperties().lightTheme) {
 			if(alternative) {
 				return "#d9d9d9";

@@ -41,5 +41,6 @@ public class TooltipMoveEventListener implements EventListener {
 //		}
 		
 		Main.mainController.getTooltip().setAnchorY(yPosition);
+		
 	}
 }

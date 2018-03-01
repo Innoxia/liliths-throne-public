@@ -259,10 +259,14 @@ public class TooltipInformationEventListener implements EventListener {
 				tooltipSB.append("<div class='subTitle' style='text-align:center;'>Cost: [style.boldDisabled(N/A)]</div>");
 			} else {
 				tooltipSB.append("<div class='description' style='height:53px'>" + fetish.getFetishDesireDescription(owner, desire) + "</div>");
-				if(owner.getFetishDesire(fetish)==desire) {
+				if(owner.getBaseFetishDesire(fetish)==desire) {
 					tooltipSB.append("<div class='subTitle' style='text-align:center;'>Cost: [style.boldDisabled(N/A)]</div>");
 				} else {
-					tooltipSB.append("<div class='subTitle' style='text-align:center;'>Cost: [style.boldArcane("+FetishDesire.getCostToChange()+" Arcane Essence"+(FetishDesire.getCostToChange()>1?"s":"")+")]</div>");
+					tooltipSB.append("<div class='subTitle' style='text-align:center;'>Cost: [style.boldArcane("
+							+ (FetishDesire.getCostToChange()==0
+								?"Free"
+								:""+FetishDesire.getCostToChange()+" Arcane Essence"+(FetishDesire.getCostToChange()>1?"s":""))
+							+ ")]</div>");
 				}
 			}
 
@@ -324,7 +328,7 @@ public class TooltipInformationEventListener implements EventListener {
 				tooltipSB.append("<div class='description'>" + fetish.getDescription(owner) + "</div>");
 				
 				if(fetish.getFetishesForAutomaticUnlock().isEmpty()) {
-					if(owner.hasFetish(fetish)) {
+					if(owner.hasBaseFetish(fetish)) {
 						tooltipSB.append("<div class='subTitle' style='text-align:center;'>Cost: [style.boldDisabled(N/A)]</div>");
 					} else {
 						tooltipSB.append("<div class='subTitle' style='text-align:center;'>Cost: [style.boldArcane("+fetish.getCost()+" Arcane Essences)]</div>");

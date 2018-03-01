@@ -112,9 +112,15 @@ public class Covering  {
 				case HIGHLIGHTS:
 					return (primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColourName+"</span>, "
 							+(secondaryGlowing?spanStartGlowing(secondaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+secondaryColour.toWebHexString()+";'>")+secondaryColourName+"-highlighted</span>";
+				case OMBRE:
+					return (primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColourName+"</span>, "
+							+(secondaryGlowing?spanStartGlowing(secondaryColour)+getGlowingDescriptor()+" ":"fading into <span style='color:"+secondaryColour.toWebHexString()+";'>")+secondaryColourName+"</span>";
 				case MOTTLED:
 					return (primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColourName+"</span>, "
 							+(secondaryGlowing?spanStartGlowing(secondaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+secondaryColour.toWebHexString()+";'>")+secondaryColourName+"-mottled</span>";
+				case FRECKLED:
+					return (primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColourName+"</span>, "
+							+(secondaryGlowing?spanStartGlowing(secondaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+secondaryColour.toWebHexString()+";'>")+secondaryColourName+"-freckled</span>";
 				case SPOTTED:
 					return (primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColourName+"</span>, "
 							+(secondaryGlowing?spanStartGlowing(secondaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+secondaryColour.toWebHexString()+";'>")+secondaryColourName+"-spotted</span>";
@@ -155,8 +161,12 @@ public class Covering  {
 			switch(pattern) {
 				case HIGHLIGHTS:
 					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColourName+", "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColourName+"-highlighted";
+				case OMBRE:
+					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColourName+", fading into "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColourName+"";
 				case MOTTLED:
 					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColourName+", "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColourName+"-mottled";
+				case FRECKLED:
+					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColourName+", "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColourName+"-freckled";
 				case SPOTTED:
 					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColourName+", "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColourName+"-spotted";
 				case MARKED:
@@ -216,10 +226,18 @@ public class Covering  {
 					return (primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColour.getName()+"</span>"
 							+(descriptor!=null && !descriptor.isEmpty()?", "+descriptor:"")+" "+type.getName(gc)+", with "
 							+(secondaryGlowing?spanStartGlowing(secondaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+secondaryColour.toWebHexString()+";'>")+secondaryColour.getName()+" highlights</span>";
+				case OMBRE:
+					return (primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColour.getName()+"</span>"
+							+(descriptor!=null && !descriptor.isEmpty()?", "+descriptor:"")+" "+type.getName(gc)+", which gradually fades into "
+							+(secondaryGlowing?spanStartGlowing(secondaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+secondaryColour.toWebHexString()+";'>")+secondaryColour.getName()+"</span>";
 				case MOTTLED:
 					return (primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColour.getName()+"</span>"
 							+(descriptor!=null && !descriptor.isEmpty()?", "+descriptor:"")+" "+type.getName(gc)+", with "
 							+(secondaryGlowing?spanStartGlowing(secondaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+secondaryColour.toWebHexString()+";'>")+secondaryColour.getName()+" mottling</span>";
+				case FRECKLED:
+					return (primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColour.getName()+"</span>"
+							+(descriptor!=null && !descriptor.isEmpty()?", "+descriptor:"")+" "+type.getName(gc)+", with "
+							+(secondaryGlowing?spanStartGlowing(secondaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+secondaryColour.toWebHexString()+";'>")+secondaryColour.getName()+" freckles</span>";
 				case SPOTTED:
 					return (primaryGlowing?spanStartGlowing(primaryColour)+getGlowingDescriptor()+" ":"<span style='color:"+primaryColour.toWebHexString()+";'>")+primaryColour.getName()+"</span>"
 							+(descriptor!=null && !descriptor.isEmpty()?", "+descriptor:"")+" "+type.getName(gc)+", with "
@@ -268,9 +286,15 @@ public class Covering  {
 				case HIGHLIGHTS:
 					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColour.getName()
 							+(descriptor!=null && !descriptor.isEmpty()?", "+descriptor:"")+" "+type.getName(gc)+", with "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColour.getName()+" highlights";
+				case OMBRE:
+					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColour.getName()
+							+(descriptor!=null && !descriptor.isEmpty()?", "+descriptor:"")+" "+type.getName(gc)+", which gradually fades into "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColour.getName();
 				case MOTTLED:
 					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColour.getName()
 							+(descriptor!=null && !descriptor.isEmpty()?", "+descriptor:"")+" "+type.getName(gc)+", with "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColour.getName()+" mottling";
+				case FRECKLED:
+					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColour.getName()
+							+(descriptor!=null && !descriptor.isEmpty()?", "+descriptor:"")+" "+type.getName(gc)+", with "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColour.getName()+" freckles";
 				case SPOTTED:
 					return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColour.getName()
 							+(descriptor!=null && !descriptor.isEmpty()?", "+descriptor:"")+" "+type.getName(gc)+", with "+(secondaryGlowing?getGlowingDescriptor()+" ":"")+secondaryColour.getName()+" spots";

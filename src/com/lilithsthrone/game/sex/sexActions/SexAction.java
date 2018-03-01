@@ -2,8 +2,10 @@ package com.lilithsthrone.game.sex.sexActions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -35,8 +37,8 @@ public abstract class SexAction implements SexActionInterface {
 
 	private SexParticipantType participantType;
 	private SexPace sexPacePlayer, sexPacePartner;
-	private Map<GameCharacter, List<Fetish>> characterFetishes;
-	private Map<GameCharacter, List<Fetish>> characterFetishesForPartner;
+	private Map<GameCharacter, Set<Fetish>> characterFetishes;
+	private Map<GameCharacter, Set<Fetish>> characterFetishesForPartner;
 	
 	public SexAction(
 			SexActionType sexActionType,
@@ -154,18 +156,17 @@ public abstract class SexAction implements SexActionInterface {
 	}
 	
 	public List<Fetish> getFetishesForEitherPartner(GameCharacter characterPerformingAction, boolean characterPerformingActionFetishes) {
-		
-		if(characterFetishes==null || characterFetishes.get(characterPerformingAction)==null) {
+//		if(characterFetishes==null || characterFetishes.get(characterPerformingAction)==null) {
 			GameCharacter characterTarget = Sex.getTargetedPartner(characterPerformingAction);
 			
 			characterFetishes = new HashMap<>();
 			characterFetishesForPartner = new HashMap<>();
 			
-			characterFetishes.putIfAbsent(characterPerformingAction, new ArrayList<>());
-			characterFetishesForPartner.putIfAbsent(characterPerformingAction, new ArrayList<>());
+			characterFetishes.putIfAbsent(characterPerformingAction, new HashSet<>());
+			characterFetishesForPartner.putIfAbsent(characterPerformingAction, new HashSet<>());
 			
 			if(this.getParticipantType()==SexParticipantType.SELF && !characterPerformingActionFetishes) { // If this is a self action, do not apply fetishes to other partner.
-				return characterFetishesForPartner.get(characterPerformingAction);
+				return new ArrayList<>(characterFetishesForPartner.get(characterPerformingAction));
 			}
 			
 			if(this.getParticipantType()!=SexParticipantType.SELF && characterPerformingAction.isRelatedTo(characterTarget)) {
@@ -381,11 +382,17 @@ public abstract class SexAction implements SexActionInterface {
 					characterFetishesForPartner.get(characterPerformingAction).addAll(getFetishesFromPenetrationAndOrificeTypes(characterPerformingAction, this.getAssociatedPenetrationType(), this.getAssociatedOrificeType(), characterPerformingActionFetishes));
 				}
 			}
-		}
+			
+			characterFetishes.get(characterPerformingAction).removeIf(f -> !characterTarget.hasVagina() && (f==Fetish.FETISH_VAGINAL_GIVING || f==Fetish.FETISH_IMPREGNATION || f==Fetish.FETISH_SEEDER));
+			characterFetishesForPartner.get(characterPerformingAction).removeIf(f -> !characterTarget.hasVagina() && (f==Fetish.FETISH_VAGINAL_GIVING || f==Fetish.FETISH_IMPREGNATION || f==Fetish.FETISH_SEEDER));
+//		}
+		
+		
 		if(characterPerformingActionFetishes) {
-			return characterFetishes.get(characterPerformingAction);
+			return new ArrayList<>(characterFetishes.get(characterPerformingAction));
+			
 		} else {
-			return characterFetishesForPartner.get(characterPerformingAction);
+			return new ArrayList<>(characterFetishesForPartner.get(characterPerformingAction));
 		}
 	}
 	

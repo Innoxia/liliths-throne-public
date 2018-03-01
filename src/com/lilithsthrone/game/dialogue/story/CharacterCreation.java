@@ -81,7 +81,7 @@ public class CharacterCreation {
 		
 		@Override
 		public String getLabel() {
-			return "Version " + Main.VERSION_NUMBER + " | <b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Early Alpha!</b>";
+			return "Version " + Main.VERSION_NUMBER + " | <b style='color:" + Colour.BASE_YELLOW_LIGHT.toWebHexString() + ";'>"+Main.VERSION_DESCRIPTION+"</b>";
 		}
 		
 		@Override

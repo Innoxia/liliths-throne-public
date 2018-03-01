@@ -47,7 +47,7 @@ public class Pazu extends NPC {
 				 *  He has a friendly relationship with you, so you can visit his nest at any time*
 				 * TODO (Once lover)
 				 *  Pazu is a beautiful male harpy, and also your boyfriend. Despite being an ex-matriarch, he can act rather shy and bashful, and is still rather naïve.
-				 *  He adores with all his heart, but due to this, he’s not keen on sharing you with anybody else.
+				 *  He adores with all his heart, but due to this, he's not keen on sharing you with anybody else.
 				 * TODO ( If he opens his candy shop and you're not his lover)
 				 *  Pazu is a beautiful male harpy, and the owner of a candy shop. He used to be a harpy matriarch, but left the oppressing nests in search of a simpler life.
 				 *  (if he opens the shop and is still your lover, his description is the same but with, "He also owns a candy shop in the shopping arcade." at the end)

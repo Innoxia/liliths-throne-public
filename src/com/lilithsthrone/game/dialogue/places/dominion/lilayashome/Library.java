@@ -341,10 +341,10 @@ public class Library {
 					+ "</p>"
 					+ "<p>"
 						+ "There isn't really much useful information inside, and you quickly finish the book from cover to cover."
-						+ " There's an interesting passage about the construction of Dominion by Lilith and the demons many centuries ago, but it doesn't really go into much detail."
+						+ " There's an interesting passage about the construction of Dominion by Lilith and the demons many centuries ago, but it doesn't really go into any detail."
 						+ " Apart from that, the only other part of the book that piques your interest is a small section justifying the practice of slavery as a necessary evil."
-						+ " The passage explains how it's customary for a new slave to be kissed one last time by their new owner before their enslavement."
-						+ " It seems as though it's quite taboo for a slave to be kissed."
+						+ " The passage explains how demons are the only race not commonly subjected to enslavement."
+						+ " Apparently, a demonic slave being owned by a non-demon is considered completely unacceptable in Dominion's society..."
 					+ "</p>"
 					+ "<p>"
 						+ "Other than that snippet of trivia, the book doesn't contain anything useful."
@@ -619,7 +619,7 @@ public class Library {
 			return new Response(book.getName(false), book.getDescription(), LIBRARY) {
 				@Override
 				public void effects() {
-					Main.game.getTextEndStringBuilder().append(book.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer()));
+					Main.game.getTextEndStringBuilder().append(book.getEffects().get(0).applyEffect(Main.game.getPlayer(), Main.game.getPlayer(), 1));
 				}
 			};
 		} else {

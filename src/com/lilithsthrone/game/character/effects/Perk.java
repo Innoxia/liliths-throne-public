@@ -667,7 +667,7 @@ public enum Perk {
 			PerkCategory.ARCANE,
 			"perks/fitness_female_attraction",
 			Colour.FEMININE,
-			null, Util.newArrayListOfValues(new ListValue<>("+10% <span style='color:" + Colour.DAMAGE_TYPE_MANA.toWebHexString() + ";'>aura damage</span>"
+			null, Util.newArrayListOfValues(new ListValue<>("+10% <span style='color:" + Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>lust damage</span>"
 					+ " vs <span style='color:" + Colour.FEMININE.toWebHexString()+ ";'>feminine opponents</span>"))) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
@@ -694,7 +694,7 @@ public enum Perk {
 			PerkCategory.ARCANE,
 			"perks/fitness_male_attraction",
 			Colour.MASCULINE,
-			null, Util.newArrayListOfValues(new ListValue<>("+10% <span style='color:" + Colour.DAMAGE_TYPE_MANA.toWebHexString() + ";'>aura damage</span>"
+			null, Util.newArrayListOfValues(new ListValue<>("+10% <span style='color:" + Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>lust damage</span>"
 					+ " vs <span style='color:" + Colour.MASCULINE.toWebHexString()+ ";'>masculine opponents</span>"))) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {

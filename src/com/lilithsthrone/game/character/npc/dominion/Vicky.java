@@ -245,7 +245,7 @@ public class Vicky extends NPC {
 		if(applyEffects) {
 			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.arthursPackageObtained)) {
 				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.arthursPackageObtained, true);
-				Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.ARTHURS_PACKAGE), false));
+				Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.ARTHURS_PACKAGE), false, true));
 			}
 		}
 	}

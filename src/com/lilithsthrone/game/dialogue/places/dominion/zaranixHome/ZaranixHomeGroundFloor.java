@@ -1508,7 +1508,7 @@ public class ZaranixHomeGroundFloor {
 				
 			} else if (index == 4 && Main.game.getAmber().getLocationPlace().getPlaceType()==PlaceType.ZARANIX_GF_ENTRANCE) {
 				return new Response("Transformations",
-						"Get Amber to use [npc.her] demonic powers to transform [npc.herself]...",
+						"Get Amber to use [amber.her] demonic powers to transform [amber.herself]...",
 						BodyChanging.BODY_CHANGING_CORE){
 					@Override
 					public void effects() {
@@ -1873,7 +1873,7 @@ public class ZaranixHomeGroundFloor {
 					
 				} else if (index == 3) {
 					return new Response("Transformations",
-							"Get Katherine to use [npc.her] demonic powers to transform [npc.herself]...",
+							"Get Katherine to use [katherine.her] demonic powers to transform [katherine.herself]...",
 							BodyChanging.BODY_CHANGING_CORE){
 						@Override
 						public void effects() {
@@ -2050,7 +2050,7 @@ public class ZaranixHomeGroundFloor {
 					
 				} else if (index == 3) {
 					return new Response("Transformations",
-							"Get Amber to use [npc.her] demonic powers to transform [npc.herself]...",
+							"Get Amber to use [amber.her] demonic powers to transform [amber.herself]...",
 							BodyChanging.BODY_CHANGING_CORE){
 						@Override
 						public void effects() {

@@ -4,8 +4,10 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
@@ -66,9 +68,10 @@ public enum Attack {
 	 * @return Hit chance from 1 to 100, representing % chance to hit.
 	 */
 	public static float calculateHitChance(GameCharacter attacker, GameCharacter defender, Spell spell) {
-		if (spell.isSelfCastSpell())
+		if (spell.isSelfCastSpell()) {
 			return 100;
-
+		}
+		
 		// Calculate hit:
 		float chanceToHit = 100;
 
@@ -95,9 +98,10 @@ public enum Attack {
 	 * @return
 	 */
 	public static float getSeductionDamage(GameCharacter attacker) {
-		if (attacker == null)
+		if (attacker == null) {
 			return 0;
-		return (4 + attacker.getLevel());
+		}
+		return 15;
 	}
 
 	/**
@@ -121,8 +125,9 @@ public enum Attack {
 		}
 
 		// Is critical:
-		if (critical)
+		if (critical) {
 			damage *= (attacker.getAttributeValue(Attribute.CRITICAL_DAMAGE) / 100f);
+		}
 		
 		// Round float value to nearest 1 decimal place:
 		damage = (Math.round(damage*10))/10f;
@@ -162,7 +167,7 @@ public enum Attack {
 					getMeleeDamage(attacker, weapon) * (weapon == null ? 1 - DamageVariance.MEDIUM.getPercentage() : 1f - weapon.getWeaponType().getDamageVariance().getPercentage()));
 	
 		} else {
-			damage =  (getModifiedDamage(attacker, defender, attackType, DamageType.LUST, getSeductionDamage(attacker) * 0.8f));
+			damage =  (getModifiedDamage(attacker, defender, attackType, DamageType.LUST, getSeductionDamage(attacker) * 0.9f));
 		}
 		
 		// Round float value to nearest 1 decimal place:
@@ -200,7 +205,7 @@ public enum Attack {
 					getMeleeDamage(attacker, weapon) * (weapon == null ? 1 + DamageVariance.MEDIUM.getPercentage() : 1f + weapon.getWeaponType().getDamageVariance().getPercentage()));
 	
 		} else {
-			damage = (getModifiedDamage(attacker, defender, attackType, DamageType.LUST, getSeductionDamage(attacker) * 1.2f));
+			damage = (getModifiedDamage(attacker, defender, attackType, DamageType.LUST, getSeductionDamage(attacker) * 1.1f));
 		}
 
 		// Round float value to nearest 1 decimal place:
@@ -226,28 +231,31 @@ public enum Attack {
 	 */
 	private static float getModifiedDamage(GameCharacter attacker, GameCharacter defender, Attack attackType, DamageType damageType, float attackersDamage) {
 		float damage = attackersDamage;
-		if (damage < 1)
+		if (damage < 1) {
 			damage = 1;
-
+		}
+		
 		// Melee attack:
 		if (attackType == MAIN || attackType == OFFHAND) {
 
 			if (attacker != null) {
 				// Attacker modifiers:
 				// Damage Type modifier:
-				damage *= (attacker.getAttributeValue(damageType.getMultiplierAttribute()) / 100f);
+				damage *= 1 + Util.getModifiedDropoffValue(attacker.getAttributeValue(damageType.getMultiplierAttribute()), 100)/100f;
 
-				if (damage < 1)
+				if (damage < 1) {
 					damage = 1;
+				}
 			}
 
-			if (defender != null) {
+			if (defender != null && !defender.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
 				// Defender modifiers:
 				// Damage Type modifier:
-				damage *= ((100 - defender.getAttributeValue(damageType.getResistAttribute())) / 100f);
+				damage *= 1 - Util.getModifiedDropoffValue(defender.getAttributeValue(damageType.getResistAttribute()), 100)/100f;
 
-				if (damage < 1)
+				if (damage < 1) {
 					damage = 1;
+				}
 			}
 			
 		// Seduction attack:
@@ -255,7 +263,7 @@ public enum Attack {
 
 			if (attacker != null) {
 				// Attacker modifiers:
-				damage *= (attacker.getAttributeValue(Attribute.DAMAGE_LUST) / 100f);
+				damage *= 1 + Util.getModifiedDropoffValue(attacker.getAttributeValue(Attribute.DAMAGE_LUST), 100)/100f;
 				
 				if(attacker.hasTrait(Perk.FEMALE_ATTRACTION, true) && defender.isFeminine()) {
 					damage *=1.1f;
@@ -264,13 +272,14 @@ public enum Attack {
 					damage *=1.1f;
 				}
 
-				if (damage < 1)
+				if (damage < 1) {
 					damage = 1;
+				}
 			}
 
-			if (defender != null) {
+			if (defender != null && !defender.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
 				// Defender modifiers:
-				damage *= ((100 - defender.getAttributeValue(Attribute.RESISTANCE_LUST)) / 100f);
+				damage *= 1 - Util.getModifiedDropoffValue(defender.getAttributeValue(Attribute.RESISTANCE_LUST), 100)/100f;
 				
 				if(attacker.getSexualOrientation()==SexualOrientation.ANDROPHILIC && defender.isFeminine()) {
 					damage*=0.5f;
@@ -288,18 +297,16 @@ public enum Attack {
 
 		if (defender != null) {
 			// Modifiers based on race resistance:
-			damage *= ((100 - defender.getAttributeValue(attacker.getRace().getResistanceMultiplier())) / 100f);
+			if(!defender.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
+				damage *= 1 - Util.getModifiedDropoffValue(defender.getAttributeValue(attacker.getRace().getResistanceMultiplier()), 100)/100f;
+			}
 			// Modifiers based on race damage:
-			damage *= ((100 + attacker.getAttributeValue(defender.getRace().getDamageMultiplier())) / 100f);
+			damage *= 1 + Util.getModifiedDropoffValue(attacker.getAttributeValue(defender.getRace().getDamageMultiplier()), 100)/100f;
 			
 			// Modifiers based on level:
-			if (defender.getLevel() - attacker.getLevel() >= 3) {
-				damage = damage * 0.75f;
-			} else if (defender.getLevel() - attacker.getLevel() <= -3) {
-				damage = damage * 1.25f;
-			}
-			
-			
+			float levelBoost = (attacker.getLevel() - defender.getLevel())*2;
+			levelBoost = Util.getModifiedDropoffValue(levelBoost, 100)/100f;
+			damage = damage * (1 + (levelBoost/100));
 		}
 		
 		return damage;

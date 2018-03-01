@@ -316,7 +316,7 @@ public class Zaranix extends NPC {
 				
 			} else if (index == 4) {
 				return new Response("Transformations",
-						"Get Zaranix to use [npc.her] demonic powers to transform [npc.herself]...",
+						"Get Zaranix to use [zaranix.her] demonic powers to transform [zaranix.herself]...",
 						BodyChanging.BODY_CHANGING_CORE){
 					@Override
 					public void effects() {

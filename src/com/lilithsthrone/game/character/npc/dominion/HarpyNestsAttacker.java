@@ -17,6 +17,7 @@ import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.HarpyNestsAttackerDialogue;
+import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
@@ -92,7 +93,7 @@ public class HarpyNestsAttacker extends NPC {
 			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
 		}
 
-		this.setEnslavementDialogue(HarpyNestsAttackerDialogue.ENSLAVEMENT_DIALOGUE);
+		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE);
 		
 	}
 	

@@ -214,7 +214,13 @@ public class PartnerFingerVagina {
 				
 			}
 		}
-		
+
+		@Override
+		public void applyEffects() {
+			if(Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.VAGINA)) {
+				Sex.transferLubrication(Sex.getActivePartner(), Main.game.getPlayer(), PenetrationType.FINGER, OrificeType.VAGINA);
+			}
+		}
 	};
 	
 	public static final SexAction PARTNER_CLIT_PLAY = new SexAction(

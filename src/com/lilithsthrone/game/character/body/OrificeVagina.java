@@ -14,6 +14,11 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 
+/**
+ * @since 0.1.?
+ * @version 0.2.0
+ * @author Innoxia
+ */
 public class OrificeVagina implements OrificeInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -24,6 +29,7 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 	protected float stretchedCapacity;
 	protected boolean virgin;
 	protected Set<OrificeModifier> orificeModifiers;
+	protected boolean squirter;
 
 	public OrificeVagina(int wetness, float capacity, int elasticity, int plasticity, boolean virgin, Collection<OrificeModifier> orificeModifiers) {
 		this.wetness = wetness;
@@ -32,6 +38,7 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 		this.elasticity = elasticity;
 		this.plasticity = plasticity;
 		this.virgin = virgin;
+		squirter = wetness > Wetness.THREE_WET.getValue();
 		
 		this.orificeModifiers = new HashSet<>(orificeModifiers);
 	}
@@ -432,6 +439,40 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 
 	public Set<OrificeModifier> getOrificeModifiers() {
 		return orificeModifiers;
+	}
+	
+
+
+	public boolean isSquirter() {
+		return squirter;
+	}
+
+	public String setSquirter(GameCharacter owner, boolean squirter) {
+		if(owner == null) {
+			this.squirter = squirter;
+			return "";
+		}
+		if(this.squirter == squirter || !owner.hasVagina()) {
+			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
+		}
+		
+		this.squirter = squirter;
+		
+		if(squirter) {
+			if(owner.isPlayer()) {
+				return "<p>You are now a [style.boldGrow(squirter)]!</p>";
+			} else {
+				return UtilText.parse(owner,
+						"<p>[npc.Name] is now a [style.boldGrow(squirter)]!</p>");
+			}
+		} else {
+			if(owner.isPlayer()) {
+				return "<p>You are no longer a [style.boldShrink(squirter)]!</p>";
+			} else {
+				return UtilText.parse(owner,
+						"<p>[npc.Name] is no longer a [style.boldShrink(squirter)]!</p>");
+			}
+		}
 	}
 
 }

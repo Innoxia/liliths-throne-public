@@ -253,42 +253,42 @@ public enum Attribute {
 
 	// Damages:
 	
-	DAMAGE_SPELLS(100, "spell damage", "Spell damage", "swordIcon", Colour.ATTRIBUTE_MANA, "arcane power", "arcane dulling", null) {
+	DAMAGE_SPELLS(0, "spell damage", "Spell damage", "swordIcon", Colour.ATTRIBUTE_MANA, "arcane power", "arcane dulling", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases spell damage done by 1%.";
 		}
 	},
 
-	DAMAGE_PHYSICAL(100, "physical damage", "Physical damage", "swordIcon", Colour.DAMAGE_TYPE_PHYSICAL, "force", "softness", null) {
+	DAMAGE_PHYSICAL(0, "physical damage", "Physical damage", "swordIcon", Colour.DAMAGE_TYPE_PHYSICAL, "force", "softness", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases physical damage done by 1%.";
 		}
 	},
 	
-	DAMAGE_LUST(100, "seduction damage", "Seduction damage", "swordIcon", Colour.GENERIC_SEX, "seduction", "repulsion", null) {
+	DAMAGE_LUST(0, "seduction damage", "Seduction damage", "swordIcon", Colour.GENERIC_SEX, "seduction", "repulsion", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases aura and lust damage done by 1%.";
 		}
 	},
 	
-	DAMAGE_FIRE(100, "fire damage", "Fire damage", "swordIcon", Colour.DAMAGE_TYPE_FIRE, "inferno", "dying embers", null) {
+	DAMAGE_FIRE(0, "fire damage", "Fire damage", "swordIcon", Colour.DAMAGE_TYPE_FIRE, "inferno", "dying embers", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases fire damage done by 1%.";
 		}
 	},
 	
-	DAMAGE_ICE(100, "cold damage", "Cold damage", "swordIcon", Colour.DAMAGE_TYPE_COLD, "blizzard", "slush", null) {
+	DAMAGE_ICE(0, "cold damage", "Cold damage", "swordIcon", Colour.DAMAGE_TYPE_COLD, "blizzard", "slush", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases cold damage done by 1%.";
 		}
 	},
 	
-	DAMAGE_POISON(100, "poison damage", "Poison damage", "swordIcon", Colour.DAMAGE_TYPE_POISON, "venom", "dilution", null) {
+	DAMAGE_POISON(0, "poison damage", "Poison damage", "swordIcon", Colour.DAMAGE_TYPE_POISON, "venom", "dilution", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases poison damage done by 1%.";

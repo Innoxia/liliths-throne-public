@@ -283,7 +283,7 @@ public class HarpyNestBimbo {
 						public void effects() {
 							Main.game.getDialogueFlags().values.add(DialogueFlagValue.bimboEncountered);
 							Main.game.getDialogueFlags().values.add(DialogueFlagValue.bimboPacified);
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MATRIARCH_BIMBO_LOLLIPOP), false));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MATRIARCH_BIMBO_LOLLIPOP), false, true));
 							
 							if(Main.game.getPlayer().getQuest(QuestLine.SIDE_HARPY_PACIFICATION) == Quest.HARPY_PACIFICATION_ONE) {
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HARPY_PACIFICATION, Quest.HARPY_PACIFICATION_TWO));
@@ -366,7 +366,7 @@ public class HarpyNestBimbo {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.bimboPacified);
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MATRIARCH_BIMBO_LOLLIPOP), false));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MATRIARCH_BIMBO_LOLLIPOP), false, true));
 						
 						if(Main.game.getPlayer().getQuest(QuestLine.SIDE_HARPY_PACIFICATION) == Quest.HARPY_PACIFICATION_ONE) {
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HARPY_PACIFICATION, Quest.HARPY_PACIFICATION_TWO));
@@ -646,7 +646,7 @@ public class HarpyNestBimbo {
 								+ " An intense, sweet flavour hits your tongue, and you find that it's quite unlike anything you've ever tasted before."
 								+ " Before you know what you're doing, you're wrapping your [pc.lips] around the delicious candy, letting out little whining noises as you find yourself unable to stop sucking and licking it..."
 							+ "</p>"
-							+ItemEffectType.BIMBO_LOLLIPOP.applyEffect(null, null, null, 0, Main.game.getHarpyBimbo(), Main.game.getPlayer()));
+							+ItemEffectType.BIMBO_LOLLIPOP.applyEffect(null, null, null, 0, Main.game.getHarpyBimbo(), Main.game.getPlayer(), null));
 					}
 				};
 					
@@ -759,7 +759,7 @@ public class HarpyNestBimbo {
 								+ " An intense, sweet flavour hits your tongue, and you find that it's quite unlike anything you've ever tasted before."
 								+ " Before you know what you're doing, you're wrapping your [pc.lips] around the delicious candy, letting out little whining noises as you find yourself unable to stop sucking and licking it..."
 							+ "</p>"
-							+ItemEffectType.BIMBO_LOLLIPOP.applyEffect(null, null, null, 0, Main.game.getHarpyBimbo(), Main.game.getPlayer()));
+							+ItemEffectType.BIMBO_LOLLIPOP.applyEffect(null, null, null, 0, Main.game.getHarpyBimbo(), Main.game.getPlayer(), null));
 					}
 				};
 					

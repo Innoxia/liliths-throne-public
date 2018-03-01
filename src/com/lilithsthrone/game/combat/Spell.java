@@ -47,7 +47,7 @@ public enum Spell {
 			
 			// If attack hits, apply damage and effects:
 			if (isHit) {
-				descriptionSB.append(target.incrementHealth(-damage));
+				descriptionSB.append(target.incrementHealth(caster, -damage));
 				for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
 					target.addStatusEffect(se.getKey(), se.getValue());
 			}
@@ -90,7 +90,7 @@ public enum Spell {
 			
 			// If attack hits, apply damage and effects:
 			if (isHit) {
-				descriptionSB.append(target.incrementHealth(-damage));
+				descriptionSB.append(target.incrementHealth(caster, -damage));
 				for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
 					target.addStatusEffect(se.getKey(), se.getValue());
 			}
@@ -140,7 +140,7 @@ public enum Spell {
 			
 			// If attack hits, apply damage and effects:
 			if (isHit) {
-				descriptionSB.append(target.incrementHealth(-damage));
+				descriptionSB.append(target.incrementHealth(caster, -damage));
 				for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
 					target.addStatusEffect(se.getKey(), se.getValue());
 			}
@@ -184,7 +184,7 @@ public enum Spell {
 			
 			// If attack hits, apply damage and effects:
 			if (isHit) {
-				descriptionSB.append(target.incrementHealth(-damage));
+				descriptionSB.append(target.incrementHealth(caster, -damage));
 				for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
 					target.addStatusEffect(se.getKey(), se.getValue());
 			}
@@ -227,7 +227,7 @@ public enum Spell {
 			
 			// If attack hits, apply damage and effects:
 			if (isHit) {
-				descriptionSB.append(target.incrementHealth(-damage));
+				descriptionSB.append(target.incrementHealth(caster, -damage));
 				for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
 					target.addStatusEffect(se.getKey(), se.getValue());
 			}

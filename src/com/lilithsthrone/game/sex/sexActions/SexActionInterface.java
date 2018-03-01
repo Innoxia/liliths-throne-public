@@ -661,6 +661,12 @@ public interface SexActionInterface {
 	}
 	
 	public default boolean isPhysicallyPossible() {
+		if(Sex.getTotalParticipantCount() > 2
+				&& (this.getActionType()==SexActionType.PLAYER_POSITIONING
+				|| this.getActionType()==SexActionType.PARTNER_POSITIONING)) { //TODO!!!
+			return false;
+		}
+		
 		// Things that make *any* actions related to the penetration ***physically impossible***:
 		if(getAssociatedPenetrationType() != null) {
 			switch(getAssociatedPenetrationType()) {

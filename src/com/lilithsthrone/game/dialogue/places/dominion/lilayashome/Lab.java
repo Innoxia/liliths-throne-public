@@ -1332,7 +1332,7 @@ public class Lab {
 						return new Response("Extract (1)", "Extract one of your "+TFEssence.ARCANE.getName()+" essences.", ESSENCE_EXTRACTION_BOTTLED) {
 							@Override
 							public void effects() {
-								Main.game.getPlayer().addItem(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)), false);
+								Main.game.getPlayer().addItem(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)), false, false);
 								int count = Main.game.getPlayer().getItemCount(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)));
 								
 								Main.game.getTextEndStringBuilder().append(
@@ -1361,7 +1361,7 @@ public class Lab {
 							@Override
 							public void effects() {
 								for(int i =0; i<5; i++) {
-									Main.game.getPlayer().addItem(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)), false);
+									Main.game.getPlayer().addItem(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)), false, false);
 								}
 								int count = Main.game.getPlayer().getItemCount(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)));
 								Main.game.getTextEndStringBuilder().append(
@@ -1392,7 +1392,7 @@ public class Lab {
 							@Override
 							public void effects() {
 								for(int i =0; i<25; i++) {
-									Main.game.getPlayer().addItem(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)), false);
+									Main.game.getPlayer().addItem(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)), false, false);
 								}
 								int count = Main.game.getPlayer().getItemCount(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)));
 								Main.game.getTextEndStringBuilder().append(
@@ -1423,7 +1423,7 @@ public class Lab {
 							@Override
 							public void effects() {
 								for(int i =0; i<Main.game.getPlayer().getEssenceCount(TFEssence.ARCANE); i++) {
-									Main.game.getPlayer().addItem(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)), false);
+									Main.game.getPlayer().addItem(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)), false, false);
 								}
 								int count = Main.game.getPlayer().getItemCount(AbstractItemType.generateItem(TFEssence.essenceToItem(TFEssence.ARCANE)));
 								Main.game.getTextEndStringBuilder().append(

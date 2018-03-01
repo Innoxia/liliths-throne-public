@@ -16,7 +16,7 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.8
- * @version 0.1.83
+ * @version 0.2.0
  * @author Innoxia
  */
 public class ItemEffect implements Serializable, XMLSaving {
@@ -26,6 +26,16 @@ public class ItemEffect implements Serializable, XMLSaving {
 	private TFModifier primaryModifier, secondaryModifier;
 	private TFPotency potency;
 	private int limit;
+	private ItemEffectTimer timer;
+	
+	public ItemEffect(ItemEffectType itemEffectType) {
+		this.itemEffectType = itemEffectType;
+		this.primaryModifier = null;
+		this.secondaryModifier = null;
+		this.potency = null;
+		this.limit = 0;
+		this.timer = new ItemEffectTimer();
+	}
 	
 	public ItemEffect(ItemEffectType itemEffectType, TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit) {
 		this.itemEffectType = itemEffectType;
@@ -33,6 +43,7 @@ public class ItemEffect implements Serializable, XMLSaving {
 		this.secondaryModifier = secondaryModifier;
 		this.potency = potency;
 		this.limit = limit;
+		this.timer = new ItemEffectTimer();
 	}
 	
 	@Override
@@ -76,21 +87,30 @@ public class ItemEffect implements Serializable, XMLSaving {
 		CharacterUtils.addAttribute(doc, effect, "secondaryModifier", (getSecondaryModifier()==null?"null":getSecondaryModifier().toString()));
 		CharacterUtils.addAttribute(doc, effect, "potency", (getPotency()==null?"null":getPotency().toString()));
 		CharacterUtils.addAttribute(doc, effect, "limit", String.valueOf(getLimit()));
+		CharacterUtils.addAttribute(doc, effect, "timer", String.valueOf(getTimer().getTimePassed()));
 		
 		return effect;
 	}
 	
 	public static ItemEffect loadFromXML(Element parentElement, Document doc) {
-		return new ItemEffect(
+		ItemEffect ie = new ItemEffect(
 				ItemEffectType.valueOf(parentElement.getAttribute("itemEffectType")),
 				(parentElement.getAttribute("primaryModifier").equals("null")?null:TFModifier.valueOf(parentElement.getAttribute("primaryModifier"))),
 				(parentElement.getAttribute("secondaryModifier").equals("null")?null:TFModifier.valueOf(parentElement.getAttribute("secondaryModifier"))),
 				(parentElement.getAttribute("potency").equals("null")?null:TFPotency.valueOf(parentElement.getAttribute("potency"))),
 				Integer.valueOf(parentElement.getAttribute("limit")));
+		
+		try {
+			ie.getTimer().setTimePassed(Integer.valueOf(parentElement.getAttribute("timer")));
+		} catch(Exception ex) {	
+		}
+		
+		return ie;
 	}
 	
-	public String applyEffect(GameCharacter user, GameCharacter target) {
-		return getItemEffectType().applyEffect(getPrimaryModifier(), getSecondaryModifier(), getPotency(), getLimit(), user, target);
+	public String applyEffect(GameCharacter user, GameCharacter target, long timePassed) {
+		this.timer.incrementTimePassed((int)timePassed);
+		return getItemEffectType().applyEffect(getPrimaryModifier(), getSecondaryModifier(), getPotency(), getLimit(), user, target, this.timer);
 	}
 	
 	public List<String> getEffectsDescription(GameCharacter user, GameCharacter target) {
@@ -109,8 +129,8 @@ public class ItemEffect implements Serializable, XMLSaving {
 				cost+=getSecondaryModifier().getValue();
 			}
 		}
-		if(getPotency()!=null) {
-			cost+=getPotency().getValue();
+		if(potency!=null) {
+			cost += potency.getValue();
 		}
 		if(getLimit()!=-1) {
 			cost+=1;
@@ -151,10 +171,6 @@ public class ItemEffect implements Serializable, XMLSaving {
 		return potency;
 	}
 
-	public void setPotency(TFPotency potency) {
-		this.potency = potency;
-	}
-
 	public int getLimit() {
 		return limit;
 	}
@@ -162,6 +178,13 @@ public class ItemEffect implements Serializable, XMLSaving {
 	public void setLimit(int limit) {
 		this.limit = limit;
 	}
-	
+
+	public ItemEffectTimer getTimer() {
+		return timer;
+	}
+
+	public void setTimer(ItemEffectTimer timer) {
+		this.timer = timer;
+	}
 	
 }

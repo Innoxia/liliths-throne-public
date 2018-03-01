@@ -63,6 +63,7 @@ public class HarpyNympho extends NPC {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 	
 			this.addFetish(Fetish.FETISH_CUM_ADDICT);
+			this.addFetish(Fetish.FETISH_VAGINAL_RECEIVING);
 			this.addFetish(Fetish.FETISH_ANAL_RECEIVING);
 			this.addFetish(Fetish.FETISH_ORAL_GIVING);
 			this.addFetish(Fetish.FETISH_BREASTS_SELF);
@@ -100,6 +101,7 @@ public class HarpyNympho extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		this.addFetish(Fetish.FETISH_VAGINAL_RECEIVING);
 	}
 
 	@Override
@@ -179,7 +181,7 @@ public class HarpyNympho extends NPC {
 				@Override
 				public void effects() {
 					Main.game.getDialogueFlags().values.add(DialogueFlagValue.nymphoPacified);
-					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MATRIARCH_NYMPHO_LOLLIPOP), false));
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MATRIARCH_NYMPHO_LOLLIPOP), false, true));
 					
 					if(Main.game.getPlayer().getQuest(QuestLine.SIDE_HARPY_PACIFICATION) == Quest.HARPY_PACIFICATION_ONE) {
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HARPY_PACIFICATION, Quest.HARPY_PACIFICATION_TWO));

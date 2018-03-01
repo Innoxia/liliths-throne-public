@@ -14,47 +14,47 @@ import com.lilithsthrone.utils.Colour;
 
 /**
  * @since 0.1.97
- * @version 0.1.97
+ * @version 0.2.0
  * @author Innoxia
  */
 public enum LustLevel {
 
-	ZERO_COLD("cold", 0, 5, 0f, 0.5f, Colour.LUST_STAGE_ZERO, SexPace.SUB_RESISTING, SexPace.DOM_GENTLE) {
+	ZERO_COLD("cold", 0, 5, 0.5f, Colour.LUST_STAGE_ZERO, SexPace.SUB_RESISTING, SexPace.DOM_GENTLE) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.LUST_PERK_0;
 		}
 	},
 
-	ONE_HORNY("horny", 5, 20, 0.1f, 0.75f, Colour.LUST_STAGE_ONE, SexPace.SUB_NORMAL, SexPace.DOM_NORMAL) {
+	ONE_HORNY("horny", 5, 20, 0.75f, Colour.LUST_STAGE_ONE, SexPace.SUB_NORMAL, SexPace.DOM_NORMAL) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.LUST_PERK_1;
 		}
 	},
 
-	TWO_AMOROUS("amorous", 20, 50, 0.25f, 1f, Colour.LUST_STAGE_TWO, SexPace.SUB_NORMAL, SexPace.DOM_NORMAL) {
+	TWO_AMOROUS("sensual", 20, 50, 1f, Colour.LUST_STAGE_TWO, SexPace.SUB_NORMAL, SexPace.DOM_NORMAL) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.LUST_PERK_2;
 		}
 	},
 
-	THREE_LUSTFUL("lustful", 50, 80, 0.5f, 1.25f, Colour.LUST_STAGE_THREE, SexPace.SUB_NORMAL, SexPace.DOM_NORMAL) {
+	THREE_LUSTFUL("amorous", 50, 80, 1.25f, Colour.LUST_STAGE_THREE, SexPace.SUB_NORMAL, SexPace.DOM_NORMAL) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.LUST_PERK_3;
 		}
 	},
 
-	FOUR_IMPASSIONED("impassioned", 80, 95, 0.8f, 1.5f, Colour.LUST_STAGE_FOUR, SexPace.SUB_EAGER, SexPace.DOM_ROUGH) {
+	FOUR_IMPASSIONED("lustful", 80, 95, 1.5f, Colour.LUST_STAGE_FOUR, SexPace.SUB_EAGER, SexPace.DOM_ROUGH) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.LUST_PERK_4;
 		}
 	},
 	
-	FIVE_BURNING("burning", 95, 100, 1f, 1.5f, Colour.LUST_STAGE_FIVE, SexPace.SUB_EAGER, SexPace.DOM_ROUGH) {
+	FIVE_BURNING("impassioned", 95, 100, 1.5f, Colour.LUST_STAGE_FIVE, SexPace.SUB_EAGER, SexPace.DOM_ROUGH) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.LUST_PERK_5;
@@ -64,17 +64,15 @@ public enum LustLevel {
 	
 	private String name;
 	private int minimumValue, maximumValue;
-	private float auraDamagePercentage;
 	private float arousalModifier;
 	private Colour colour;
 	private SexPace sexPaceSubmissive;
 	private SexPace sexPaceDominant;
 
-	private LustLevel(String name, int minimumValue, int maximumValue, float auraDamagePercentage, float arousalModifier, Colour colour, SexPace sexPaceSubmissive, SexPace sexPaceDominant) {
+	private LustLevel(String name, int minimumValue, int maximumValue, float arousalModifier, Colour colour, SexPace sexPaceSubmissive, SexPace sexPaceDominant) {
 		this.name = name;
 		this.minimumValue = minimumValue;
 		this.maximumValue = maximumValue;
-		this.auraDamagePercentage = auraDamagePercentage;
 		this.arousalModifier = arousalModifier;
 		this.colour = colour;
 		this.sexPaceSubmissive = sexPaceSubmissive;
@@ -97,10 +95,6 @@ public enum LustLevel {
 	
 	public int getMedianValue() {
 		return (minimumValue + maximumValue) / 2;
-	}
-
-	public float getAuraDamagePercentage() {
-		return auraDamagePercentage;
 	}
 	
 	public float getArousalModifier() {

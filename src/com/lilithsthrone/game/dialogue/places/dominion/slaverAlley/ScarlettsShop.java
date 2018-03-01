@@ -366,7 +366,7 @@ public class ScarlettsShop {
 						public void effects() {
 							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_G_SLAVERY));
 							if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.punishedByAlexa)) {
-								Main.game.getDialogueFlags().scarlettPrice = 1000;
+								Main.game.getDialogueFlags().scarlettPrice = 10000;
 							}
 						}
 					};
@@ -430,9 +430,9 @@ public class ScarlettsShop {
 						+ "[alexa.speech(Excellent!)] Alexa cries, leaning forwards in her chair,"
 						+ (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.punishedByAlexa)
 							?"[alexa.speech(now, taking into consideration that you took that little punishment of mine on her behalf, I'm willing to give you a discount."
-									+ " Although she does as I command, I imagine that she'd be quite disobedient for any other owner, so I'd say Scarlett's only worth about two thousand flames, but for you, I'll sell her for one thousand.)]"
-							:"[alexa.speech(Although she does as I command, I imagine that she'd be quite disobedient for any other owner, so I'd say Scarlett's only worth about two thousand flames."
-									+ " I'm not one for bargaining over price, so you can either pay up the two thousand, or I'll sell her to someone else.)]")
+									+ " Although she does as I command, I imagine that she'd be quite disobedient for any other owner, so I'd say Scarlett's only worth about fifteen thousand flames, but for you, I'll sell her for ten thousand.)]"
+							:"[alexa.speech(Although she does as I command, I imagine that she'd be quite disobedient for any other owner, so I'd say Scarlett's only worth about fifteen thousand flames."
+									+ " I'm not one for bargaining over price, so you can either pay up the fifteen thousand, or I'll sell her to someone else.)]")
 					+ "</p>"
 					+ "<p>"
 						+ "[pc.speech(Alright,)] you agree, not wanting Alexa to sell Scarlett to anyone else,"
@@ -476,7 +476,7 @@ public class ScarlettsShop {
 						+ " [pc.speech(There you go. I'd like to buy Scarlett now please.)]"
 					+ "</p>"
 					+ "<p>"
-						+ "After checking your license to make sure that everything's in order, Alexa counts out the coins, and, once satisfied that it's all there, she stand sup from behind her desk."
+						+ "After checking your license to make sure that everything's in order, Alexa counts out the coins, and, once satisfied that it's all there, she stands up from behind her desk."
 						+ " Walking over to Scarlett's hiding place, she reaches down and grabs her by the plume of feathers on top of her head."
 						+ " Dragging the unfortunate harpy over to you, Alexa throws her at your feet."
 					+ "</p>"

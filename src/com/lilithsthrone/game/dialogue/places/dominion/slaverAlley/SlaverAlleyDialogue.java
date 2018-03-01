@@ -666,7 +666,7 @@ public class SlaverAlleyDialogue {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "<i><b>Placeholder:</b> This should be added in for the next version!</i>"
+						+ "<i><b>Placeholder:</b> I will get this added in as soon as I can!</i>"
 					+ "</p>"
 					+ "<p>"
 						+ "The brothel 'Angel's Kiss' is one of the largest establishments in Slaver Alley."
@@ -718,7 +718,7 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	private static int slaverLicenseCost = 500;
+	private static int slaverLicenseCost = 5000;
 	
 	public static final DialogueNodeOld SLAVERY_ADMINISTRATION = new DialogueNodeOld("Slavery Administration", ".", true) {
 		private static final long serialVersionUID = 1L;
@@ -893,7 +893,7 @@ public class SlaverAlleyDialogue {
 					+ "</p>"
 					+ "<p>"
 						+ "[finch.Name] leans back in his chair, grinning up at you,"
-						+ " [finch.speech(Yeah, there's a form to fill out, <i>and</i> a fee of five hundred flames to pay, but slaver licenses aren't handed out to just anyone."
+						+ " [finch.speech(Yeah, there's a form to fill out, <i>and</i> a fee of five-thousand flames to pay, but slaver licenses aren't handed out to just anyone."
 							+ " If you're looking to apply for one, you're going to have to join the waiting list."
 							+ " Last time I looked, I think the estimated wait time for new applicants is just over four years...)]"
 					+ "</p>"
@@ -938,7 +938,7 @@ public class SlaverAlleyDialogue {
 					+ "<p>"
 						+ "[finch.speech(Your aunt is <i>Lilaya</i>?)]"
 						+ " he asks, putting the letter to one side,"
-						+ " [finch.speech(why didn't you say so earlier?! If you've got the five hundred flame fee, I'll process your license right now!)]"
+						+ " [finch.speech(why didn't you say so earlier?! If you've got the five-thousand flame fee, I'll process your license right now!)]"
 					+ "</p>"
 					+ "<p>"
 						+ "[pc.speech(Oh, great!)]"

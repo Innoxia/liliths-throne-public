@@ -43,7 +43,7 @@ public enum SlaveJob {
 	
 	CLEANING(20, "maid", "manservant", "Assign this slave to help Rose keep the house clean, deal with visitors, and perform all sorts of menial housework.",
 			0, 0.5f,
-			5, 0f, 0.1f,
+			80, 0f, 0.1f,
 			null, null, null,
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR,
 			PlaceType.LILAYA_HOME_CORRIDOR) {
@@ -71,14 +71,14 @@ public enum SlaveJob {
 	
 	LIBRARY(5, "librarian", "librarian", "Assign this slave to work in Lilaya's library.",
 			0, 0.25f,
-			5, 0, 0.1f,
+			80, 0, 0.1f,
 			null, null, null,
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR,
 			PlaceType.LILAYA_HOME_LIBRARY),
 	
 	KITCHEN(5, "cook", "cook", "Assign this slave to work in Lilaya's kitchen as a cook.",
 			0, 0.25f,
-			5, 0, 0.05f,
+			80, 0, 0.05f,
 			null, null, null,
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR,
 			PlaceType.LILAYA_HOME_KITCHEN),
@@ -92,7 +92,7 @@ public enum SlaveJob {
 	
 	TEST_SUBJECT(5, "test subject", "test subject", "Allow Lilaya to use this slave as a test subject for her experiments.",
 			-0.5f, 0.5f,
-			10, 0, 0,
+			150, 0, 0,
 			Util.newArrayListOfValues(
 					new ListValue<>(SlaveJobSetting.TEST_SUBJECT_ALLOW_TRANSFORMATIONS_FEMALE),
 					new ListValue<>(SlaveJobSetting.TEST_SUBJECT_ALLOW_TRANSFORMATIONS_MALE)),
@@ -184,11 +184,19 @@ public enum SlaveJob {
 	private PlaceType placeLocation;
 	
 	private SlaveJob(int slaveLimit,
-			String nameFeminine, String nameMasculine, String description,
-			float affectionGain, float obedienceGain,
-			int income, float affectionIncomeModifier, float obedienceIncomeModifier,
-			List<SlaveJobSetting> mutualSettings, Map<String, List<SlaveJobSetting>> mutuallyExclusiveSettings, List<SlaveJobSetting> defaultMutuallyExclusiveSettings,
-			WorldType worldLocation, PlaceType placeLocation) {
+			String nameFeminine,
+			String nameMasculine,
+			String description,
+			float affectionGain,
+			float obedienceGain,
+			int income,
+			float affectionIncomeModifier,
+			float obedienceIncomeModifier,
+			List<SlaveJobSetting> mutualSettings,
+			Map<String, List<SlaveJobSetting>> mutuallyExclusiveSettings,
+			List<SlaveJobSetting> defaultMutuallyExclusiveSettings,
+			WorldType worldLocation,
+			PlaceType placeLocation) {
 		
 		this.slaveLimit = slaveLimit;
 		this.nameFeminine = nameFeminine;

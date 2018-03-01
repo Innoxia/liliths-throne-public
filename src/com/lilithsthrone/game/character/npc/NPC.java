@@ -459,6 +459,26 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		return false;
 	}
 
+	public boolean hasFlag(NPCFlagValue flag) {
+		return NPCFlagValues.contains(flag);
+	}
+	
+	public boolean addFlag(NPCFlagValue flag) {
+		return NPCFlagValues.add(flag);
+	}
+	
+	public boolean removeFlag(NPCFlagValue flag) {
+		return NPCFlagValues.remove(flag);
+	}
+	
+	public boolean setFlag(NPCFlagValue flag, boolean value) {
+		if(value) {
+			return addFlag(flag);
+		} else {
+			return removeFlag(flag);
+		}
+	}
+	
 	public boolean isKnowsPlayerGender() {
 		return NPCFlagValues.contains(NPCFlagValue.knowsPlayerGender);
 	}

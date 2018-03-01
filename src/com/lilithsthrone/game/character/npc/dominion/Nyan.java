@@ -11,7 +11,6 @@ import org.w3c.dom.Element;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.SexualOrientation;
-import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
@@ -37,8 +36,12 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
+import com.lilithsthrone.game.inventory.enchanting.TFModifier;
+import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.ItemEffect;
+import com.lilithsthrone.game.inventory.item.ItemEffectType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
@@ -50,7 +53,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.1.89
+ * @version 0.2.0
  * @author Innoxia
  */
 public class Nyan extends NPC {
@@ -363,17 +366,21 @@ public class Nyan extends NPC {
 	}
 	
 	private static AbstractClothing generateRareClothing(AbstractClothingType type) {
-		List<Attribute> attList = new ArrayList<>(Attribute.attributeBonusesForEnchanting);
-		Attribute att1 = attList.get(Util.random.nextInt(attList.size()));
-		attList.remove(att1);
-		Attribute att2 = attList.get(Util.random.nextInt(attList.size()));
+		List<ItemEffect> effects = new ArrayList<>();
+		
+		List<TFModifier> attributeMods = new ArrayList<>(TFModifier.getClothingAttributeList());
+		
+		TFModifier rndMod = attributeMods.get(Util.random.nextInt(attributeMods.size()));
+		attributeMods.remove(rndMod);
+		TFModifier rndMod2 = attributeMods.get(Util.random.nextInt(attributeMods.size()));
+		
+		effects.add(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, rndMod, TFPotency.MAJOR_BOOST, 0));
+		effects.add(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, rndMod2, TFPotency.MAJOR_BOOST, 0));
 		
 		return AbstractClothingType.generateClothing(
 				type,
 				type.getAvailablePrimaryColours().get(Util.random.nextInt(type.getAvailablePrimaryColours().size())),
-				Util.newHashMapOfValues(
-						new Value<>(att1, 5),
-						new Value<>(att2, 5)));
+				effects);
 	}
 	
 	@Override
@@ -424,7 +431,7 @@ public class Nyan extends NPC {
 			if(type.equals(ItemType.GIFT_CHOCOLATES)) {
 				text =  UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_GIFT_CHOCOLATES")
 						+(applyEffects
-								?Main.game.getNyan().incrementAffection(Main.game.getPlayer(), 5)
+								?Main.game.getNyan().incrementAffection(Main.game.getPlayer(), 50)
 								:"");
 				
 			} else if(type.equals(ItemType.GIFT_PERFUME)) {
