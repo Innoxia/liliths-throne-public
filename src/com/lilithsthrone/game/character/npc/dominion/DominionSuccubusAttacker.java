@@ -23,6 +23,7 @@ import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.Attack;
+import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.DominionSuccubusDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -178,7 +179,7 @@ public class DominionSuccubusAttacker extends NPC {
 	public Attack attackType() {
 		double rnd = Math.random();
 		
-		if (rnd < 0.1) {
+		if (rnd < 0.1 || Combat.getTargetedCombatant(this).getLust()>=100) {
 			return Attack.MAIN;
 		} else if (rnd < 0.5) {
 			return Attack.SPECIAL_ATTACK;

@@ -222,7 +222,7 @@ public class DomKneeling {
 			UtilText.nodeContentSB.append("You feel a desperate heat building in your groin, and with a lewd cry, you slam your [pc.cock+] deep down [npc.name]'s throat.");
 			
 			if(Main.game.getPlayer().hasPenisModifier(PenisModifier.KNOTTED)) {
-				UtilText.nodeContentSB.append(" You force the knot at the base of your [pc.cock] past [npc.her] [npc.lips+], and [npc.she] shuffles around on [npc.her] knees as it quickly swells up, locking you both in place");
+				UtilText.nodeContentSB.append(" You force the knot at the base of your [pc.cock] past [npc.her] [npc.lips+], and [npc.she] shuffles around on [npc.her] knees as it quickly swells up, locking you both in place.");
 				
 			} else if(Main.game.getPlayer().hasPenisModifier(PenisModifier.FLARED)) {
 				UtilText.nodeContentSB.append(" You feel it start to twitch and throb, and you reach down to hold [npc.her] head in position as your wide, flared head swells up in [npc.her] throat.");

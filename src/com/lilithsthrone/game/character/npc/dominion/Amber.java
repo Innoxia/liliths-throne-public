@@ -298,7 +298,7 @@ public class Amber extends NPC {
 				
 			} else if (index == 4) {
 				return new Response("Transformations",
-						"Get Amber to use [npc.her] demonic powers to transform [npc.herself]...",
+						"Get Amber to use [amber.her] demonic powers to transform [amber.herself]...",
 						BodyChanging.BODY_CHANGING_CORE){
 					@Override
 					public void effects() {

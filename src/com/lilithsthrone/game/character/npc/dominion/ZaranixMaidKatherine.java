@@ -281,7 +281,7 @@ public class ZaranixMaidKatherine extends NPC {
 				
 			} else if (index == 4) {
 				return new Response("Transformations",
-						"Get Katherine to use [npc.her] demonic powers to transform [npc.herself]...",
+						"Get Katherine to use [katherine.her] demonic powers to transform [katherine.herself]...",
 						BodyChanging.BODY_CHANGING_CORE){
 					@Override
 					public void effects() {

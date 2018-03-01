@@ -19,7 +19,7 @@ import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.79
- * @version 0.1.8
+ * @version 0.2.0
  * @author Innoxia
  */
 public class PartnerSelfNoPen {
@@ -65,6 +65,13 @@ public class PartnerSelfNoPen {
 			}
 		}
 		
+		@Override
+		public void applyEffects() {
+			if(Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.VAGINA)) {
+				Sex.transferLubrication(Sex.getActivePartner(), Sex.getActivePartner(), PenetrationType.FINGER, OrificeType.VAGINA);
+			}
+		}
+		
 	};
 	
 	
@@ -107,6 +114,13 @@ public class PartnerSelfNoPen {
 							+", before pressing down and trying to stimulate [npc.her] [npc.cock+] through [npc.her] clothing.",
 						"Pushing down between [npc.her] [npc.legs] with the palm of [npc.her] [npc.hand], [npc.name] rubs [npc.her] "+Sex.getActivePartner().getLowestZLayerCoverableArea(CoverableArea.PENIS).getName()
 								+" tightly against [npc.her] concealed [npc.cock+].");
+			}
+		}
+		
+		@Override
+		public void applyEffects() {
+			if(Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.PENIS)) {
+				Sex.transferLubrication(Sex.getActivePartner(), PenetrationType.FINGER, Sex.getActivePartner(), PenetrationType.PENIS);
 			}
 		}
 		

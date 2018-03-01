@@ -20,7 +20,6 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
-import com.lilithsthrone.game.character.body.valueEnums.AddictionLevel;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
@@ -38,6 +37,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.ClothingSet;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.LubricationType;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.Sex;
@@ -54,7 +54,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.1.96
+ * @version 0.2.0
  * @author Innoxia
  */
 public enum StatusEffect {
@@ -306,7 +306,8 @@ public enum StatusEffect {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, -75f),
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, -75f)),
-			null) {
+			Util.newArrayListOfValues(
+					new ListValue<String>("<b style='color: " + Colour.GENERIC_TERRIBLE.toWebHexString() + "'>Surrender in combat at maximum lust</b>"))) {
 		
 		@Override
 		public String getName(GameCharacter target) {
@@ -344,7 +345,8 @@ public enum StatusEffect {
 			Colour.INTELLIGENCE_STAGE_ONE,
 			true,
 			null,
-			null) {
+			Util.newArrayListOfValues(
+					new ListValue<String>("<b style='color: " + Colour.GENERIC_TERRIBLE.toWebHexString() + "'>Surrender in combat at maximum lust</b>"))) {
 		
 		@Override
 		public String getName(GameCharacter target) {
@@ -1070,10 +1072,7 @@ public enum StatusEffect {
 			Colour.LUST_STAGE_ZERO,
 			false,
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<String>("<b style='color: " + Colour.GENERIC_COMBAT.toWebHexString() + "'>Take "+(int)(LustLevel.ZERO_COLD.getAuraDamagePercentage()*100)+"%</b>"
-							+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Seduction Damage</b>"
-							+ " <b>as</b> <b style='color:"+Colour.ATTRIBUTE_ARCANE.toWebHexString()+";'>Aura Damage</b>"))) {
+			null) {
 		
 		@Override
 		public String getName(GameCharacter target) {
@@ -1115,10 +1114,7 @@ public enum StatusEffect {
 			Colour.LUST_STAGE_ONE,
 			false,
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<String>("<b style='color: " + Colour.GENERIC_COMBAT.toWebHexString() + "'>"+(int)(LustLevel.ONE_HORNY.getAuraDamagePercentage()*100)+"% Incoming</b>"
-							+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Seduction Damage</b>"
-							+ " <b>converted to</b> <b style='color:"+Colour.ATTRIBUTE_ARCANE.toWebHexString()+";'>Aura Damage</b>"))) {
+			null) {
 		
 		@Override
 		public String getName(GameCharacter target) {
@@ -1160,10 +1156,7 @@ public enum StatusEffect {
 			Colour.LUST_STAGE_TWO,
 			false,
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<String>("<b style='color: " + Colour.GENERIC_COMBAT.toWebHexString() + "'>"+(int)(LustLevel.TWO_AMOROUS.getAuraDamagePercentage()*100)+"% Incoming</b>"
-							+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Seduction Damage</b>"
-							+ " <b>converted to</b> <b style='color:"+Colour.ATTRIBUTE_ARCANE.toWebHexString()+";'>Aura Damage</b>"))) {
+			null) {
 		
 		@Override
 		public String getName(GameCharacter target) {
@@ -1205,10 +1198,7 @@ public enum StatusEffect {
 			Colour.LUST_STAGE_THREE,
 			false,
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<String>("<b style='color: " + Colour.GENERIC_COMBAT.toWebHexString() + "'>"+(int)(LustLevel.THREE_LUSTFUL.getAuraDamagePercentage()*100)+"% Incoming</b>"
-							+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Seduction Damage</b>"
-							+ " <b>converted to</b> <b style='color:"+Colour.ATTRIBUTE_ARCANE.toWebHexString()+";'>Aura Damage</b>"))) {
+			null) {
 		
 		@Override
 		public String getName(GameCharacter target) {
@@ -1250,10 +1240,7 @@ public enum StatusEffect {
 			Colour.LUST_STAGE_FOUR,
 			false,
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<String>("<b style='color: " + Colour.GENERIC_COMBAT.toWebHexString() + "'>"+(int)(LustLevel.FOUR_IMPASSIONED.getAuraDamagePercentage()*100)+"% Incoming</b>"
-							+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Seduction Damage</b>"
-							+ " <b>converted to</b> <b style='color:"+Colour.ATTRIBUTE_ARCANE.toWebHexString()+";'>Aura Damage</b>"))) {
+			null) {
 		
 		@Override
 		public String getName(GameCharacter target) {
@@ -1295,10 +1282,7 @@ public enum StatusEffect {
 			Colour.LUST_STAGE_FOUR,
 			false,
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<String>("<b style='color: " + Colour.GENERIC_COMBAT.toWebHexString() + "'>"+(int)(LustLevel.FIVE_BURNING.getAuraDamagePercentage()*100)+"% Incoming</b>"
-							+ " <b style='color: " + Colour.GENERIC_SEX.toWebHexString() + "'>Seduction Damage</b>"
-							+ " <b>converted to</b> <b style='color:"+Colour.ATTRIBUTE_ARCANE.toWebHexString()+";'>Aura Damage</b>"))) {
+			null) {
 		
 		@Override
 		public String getName(GameCharacter target) {
@@ -1780,6 +1764,7 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.getRace() == Race.HUMAN
+					&& !target.isRaceConcealed()
 					&& target.getRaceStage() == RaceStage.HUMAN
 					&& Main.game.isInNewWorld();
 		}
@@ -1813,6 +1798,7 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.getRace() == Race.ANGEL
+					&& !target.isRaceConcealed()
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
 		
@@ -1855,6 +1841,7 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.getRace() == Race.DEMON
+					&& !target.isRaceConcealed()
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
 		
@@ -1891,6 +1878,7 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.getRace() == Race.DOG_MORPH
+					&& !target.isRaceConcealed()
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
 		
@@ -1926,6 +1914,7 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.getRace() == Race.WOLF_MORPH
+					&& !target.isRaceConcealed()
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
 		
@@ -1962,6 +1951,7 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.getRace() == Race.CAT_MORPH
+					&& !target.isRaceConcealed()
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
 		
@@ -1997,6 +1987,7 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.getRace() == Race.SQUIRREL_MORPH
+					&& !target.isRaceConcealed()
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
 		
@@ -2033,6 +2024,7 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.getRace() == Race.HORSE_MORPH
+					&& !target.isRaceConcealed()
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
 		
@@ -2070,6 +2062,7 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.getRace() == Race.REINDEER_MORPH
+					&& !target.isRaceConcealed()
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
 		
@@ -2106,6 +2099,7 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.getRace() == Race.COW_MORPH
+					&& !target.isRaceConcealed()
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
 		
@@ -2143,6 +2137,7 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.getRace() == Race.ALLIGATOR_MORPH
+					&& !target.isRaceConcealed()
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
 		
@@ -2211,6 +2206,7 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.getRace() == Race.HARPY
+					&& !target.isRaceConcealed()
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
 		
@@ -2761,6 +2757,145 @@ public enum StatusEffect {
 		}
 	},
 	
+	PSYCHOACTIVE(
+			80,
+			"Psychoactive Trip",
+			"psychoactive",
+			Colour.BASE_YELLOW,
+			false,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -5f),
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -50f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -50f)),
+			Util.newArrayListOfValues(new ListValue<String>("Open to <b style='color: " + Colour.PSYCHOACTIVE.toWebHexString() + ";'>Hypnotic Suggestion</b>"))) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			if(target.isPlayer() && Math.random()<=Util.getModifiedDropoffValue(minutesPassed*0.0075f, 0.5f)) {
+				
+				if(target.getPsychoactiveFluidsIngested().isEmpty()) {
+					return "<p>"
+								+ "You find yourself losing track of where you are as you struggle to overcome the psychoactive effects..."
+							+ "</p>"
+							+ "<p><i>"
+							+ UtilText.returnStringAtRandom(
+									"Suddenly, you find yourself back in your aunt Lily's museum."
+										+ " One of the museum's staff is holding you by the [pc.hand] and pulling you into an empty room."
+										+ " Once inside, they drop to their knees, grinning up at you as they lean forwards and plant a wet kiss on your exposed genitals...",
+									"Suddenly, you find yourself face-to-face with your aunt Lily; the two of you standing in her old apartment."
+										+ " With a giggle, she suddenly reaches down and grabs you by the [pc.hand], before pulling you into her bedroom."
+										+ " Once inside, she slips off her dressing gown and steps forwards, pressing her lips against yours...",
+									"Suddenly, you find yourself standing before a stunningly-beautiful demon."
+										+ " She steps forwards, pressing her naked breasts against your body as her tail snakes up to rub against your groin."
+										+ " Letting out a lewd moan, she presses her lips against yours...")
+							+"</i></p>"
+							+ "<p>"
+								+ "With a gasp, you suddenly snap out of the hallucination."
+								+ " Blushing, you feel a needy heat spreading throughout your groin..."
+							+ "</p>"
+							+target.incrementLust(25);
+				} else {
+					List<FluidType> list = new ArrayList<>(target.getPsychoactiveFluidsIngested());
+					FluidType fluid = list.get(Util.random.nextInt(list.size()));
+					String npcName = UtilText.generateSingularDeterminer(fluid.getRace().getName())+" "+fluid.getRace().getName();
+					switch(fluid.getBaseType()) {
+						case CUM:
+							return "<p>"
+										+ "You find yourself losing track of where you are as you struggle to overcome the psychoactive effects..."
+									+ "</p>"
+									+ "<p><i>"
+									+ UtilText.returnStringAtRandom(
+											"Suddenly, you find yourself back in your aunt Lily's museum."
+												+ " You're kneeling before one of the museum's staff, "+npcName+", as you eagerly suck their cock."
+												+ " After just a few moments, their shaft starts to twitch, and you let out a delighted moan as a thick stream of cum pours out into your mouth...",
+											"Suddenly, you find yourself beside your aunt Lily; the two of you kneeling next to each other in the bedroom of her old apartment."
+												+ " She's grinning in delight as she watches you suck the cock of the "+fluid.getRace().getName()+" before you."
+												+ " As the thick shaft in your mouth starts to twitch, Lily reaches forwards and holds your head in place, making sure that the hot stream of cum spurts down your throat...",
+											"Suddenly, you find yourself kneeling before a completely naked "+fluid.getRace().getName()+"."
+												+ " They step forwards, reaching down to pull your head forwards as they force their hard cock into your mouth."
+												+ " With a desperate moan, they instantly start cumming, filling your mouth with hot cum...")
+									+"</i></p>"
+									+ "<p>"
+										+ "With a gasp, you suddenly snap out of the hallucination."
+										+ " Blushing, you feel a needy heat spreading throughout your groin..."
+									+ "</p>"
+									+target.incrementLust(25);
+						case GIRLCUM:
+							return "<p>"
+										+ "You find yourself losing track of where you are as you struggle to overcome the psychoactive effects..."
+									+ "</p>"
+									+ "<p><i>"
+									+ UtilText.returnStringAtRandom(
+											"Suddenly, you find yourself back in your aunt Lily's museum."
+												+ " You're kneeling before one of the museum's staff, "+npcName+", as you eagerly lick and kiss their dripping-wet pussy."
+												+ " After just a few moments, their cunt starts to spasm and twitch, and you let out a delighted moan as you lick up every drop of their delicious girlcum...",
+											"Suddenly, you find yourself beside your aunt Lily; the two of you kneeling next to each other in the bedroom of her old apartment."
+												+ " She's grinning in delight as she watches you lick and kiss the pussy of the "+fluid.getRace().getName()+" before you."
+												+ " As their cunt starts to spasm and twitch, Lily reaches forwards and pushes your head forwards, making sure that you lick up every drop of their delicious girlcum...",
+											"Suddenly, you find yourself kneeling before a completely naked "+fluid.getRace().getName()+"."
+												+ " They step forwards, reaching down to pull your head forwards as they force their dripping-wet cunt against your [pc.lips+]."
+												+ " With a desperate moan, they instantly start cumming, roughly forcing your face into their groin as they make you lick up every drop of their delicious girlcum...")
+									+"</i></p>"
+									+ "<p>"
+										+ "With a gasp, you suddenly snap out of the hallucination."
+										+ " Blushing, you feel a needy heat spreading throughout your groin..."
+									+ "</p>"
+									+target.incrementLust(25);
+						case MILK:
+							return "<p>"
+										+ "You find yourself losing track of where you are as you struggle to overcome the psychoactive effects..."
+									+ "</p>"
+									+ "<p><i>"
+									+ UtilText.returnStringAtRandom(
+											"Suddenly, you find yourself back in your aunt Lily's museum."
+												+ " You're sitting in the lap of one of the museum's staff, "+npcName+", as you eagerly kiss and suckle their engorged teats."
+												+ " After just a few moments, a steady stream of milk starts to flow into your mouth, and you let out a delighted moan as you gulp down the delicious liquid...",
+											"Suddenly, you find yourself in the lap of your aunt Lily; the two of you sitting on her bed in her old apartment."
+												+ " She's grinning down at you in delight as you kiss and suckle her engorged teats."
+												+ " After just a few moments, a steady stream of milk starts to flow into your mouth, and you let out a delighted moan as you gulp down the delicious liquid...",
+											"Suddenly, you find yourself sitting in the lap of a completely naked "+fluid.getRace().getName()+"."
+												+ " They reach down to pull your head into their huge breasts as they force one of their engorged teats against your [pc.lips+]."
+												+ " With a desperate moan, you start kissing and suckling their puffy nipples, and after just a few moments, a steady stream of milk starts to flow into your mouth...")
+									+"</i></p>"
+									+ "<p>"
+										+ "With a gasp, you suddenly snap out of the hallucination."
+										+ " Blushing, you feel a needy heat spreading throughout your groin..."
+									+ "</p>"
+									+target.incrementLust(25);
+					}
+				}
+				return "";
+			} else {
+				return "";
+			}
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target.isPlayer()) {
+				return "You're feeling very peculiar at the moment... Strange visions keep flashing before your [pc.eyes], and you aren't quite sure of your surroundings...";
+			} else {
+				return UtilText.parse(target, "[npc.name] is feeling very peculiar at the moment... Strange visions keep flashing before [npc.her] [npc.eyes], and [npc.she] doesn't seem to be quite sure of [npc.her] surroundings...");
+			}
+		}
+		
+		@Override
+		public String extraRemovalEffects(GameCharacter target) {
+			target.removePsychoactiveEffects();
+			return "";
+		}
+		
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return false;
+		}
+	},
+	
 	DRUNK_1(
 			80,
 			"Intoxicated I - Tipsy",
@@ -2784,10 +2919,10 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
 				return ("After recently drinking an alcoholic liquid, you're feeling a little tipsy...</br>"
-						+ "Blood alcohol content: "+Math.round(target.getAlcoholLevel()*0.2f*100)/100f+"%");
+						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%");
 			} else {
 				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling a little tipsy...</br>"
-						+ "Blood alcohol content: "+Math.round(target.getAlcoholLevel()*0.2f*100)/100f+"%"));
+						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%"));
 			}
 		}
 		
@@ -2825,10 +2960,10 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
 				return ("After recently drinking an alcoholic liquid, you're feeling quite merry...</br>"
-						+ "Blood alcohol content: "+Math.round(target.getAlcoholLevel()*0.2f*100)/100f+"%");
+						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%");
 			} else {
 				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling quite merry...</br>"
-						+ "Blood alcohol content: "+Math.round(target.getAlcoholLevel()*0.2f*100)/100f+"%"));
+						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%"));
 			}
 		}
 
@@ -2865,10 +3000,10 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
 				return ("After recently drinking an alcoholic liquid, you're feeling quite drunk...</br>"
-						+ "Blood alcohol content: "+Math.round(target.getAlcoholLevel()*0.2f*100)/100f+"%");
+						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%");
 			} else {
 				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling quite drunk...</br>"
-						+ "Blood alcohol content: "+Math.round(target.getAlcoholLevel()*0.2f*100)/100f+"%"));
+						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%"));
 			}
 		}
 
@@ -2906,10 +3041,10 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
 				return ("After recently drinking an alcoholic liquid, you're feeling pretty hammered...</br>"
-						+ "Blood alcohol content: "+Math.round(target.getAlcoholLevel()*0.2f*100)/100f+"%");
+						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%");
 			} else {
 				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling pretty hammered...</br>"
-						+ "Blood alcohol content: "+Math.round(target.getAlcoholLevel()*0.2f*100)/100f+"%"));
+						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%"));
 			}
 		}
 
@@ -2947,10 +3082,10 @@ public enum StatusEffect {
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
 				return ("After recently drinking an alcoholic liquid, you're feeling completely wasted...</br>"
-						+ "Blood alcohol content: "+Math.round(target.getAlcoholLevel()*0.2f*100)/100f+"%");
+						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%");
 			} else {
 				return (UtilText.parse(target, "After recently drinking an alcoholic liquid, [npc.name] is feeling completely wasted...</br>"
-						+ "Blood alcohol content: "+Math.round(target.getAlcoholLevel()*0.2f*100)/100f+"%"));
+						+ "Intoxication: "+(target.getAlcoholLevel()*100)/100f+"%"));
 			}
 		}
 
@@ -2972,37 +3107,40 @@ public enum StatusEffect {
 			Colour.BASE_CRIMSON,
 			false,
 			null,
-			Util.newArrayListOfValues(new ListValue<String>("[style.boldBad(Suffer withdrawal effects)]"))) {
+			null) {
 
 		@Override
+		public List<String> getExtraEffects(GameCharacter target) {
+			extraEffects.clear();
+			
+			for(Addiction addiction : target.getAddictions()) {
+				extraEffects.add("<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getDescriptor(target))+" "+addiction.getFluid().getName(target)+"</b>: "
+						+ (Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied()<24*60
+								?" [style.colourGood("+(23-(Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied())/60)+":"+String.format("%02d", (60-(Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied())%60))+")]"
+								:" [style.boldArcane(Withdrawal!)]"));
+			}
+			
+			return extraEffects;
+		}
+		
+		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			target.recalculateFluidAddictions();
 			return "";
 		}
 
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target!=null) {
-				StringBuilder sb = new StringBuilder();
-				
 				if(target.isPlayer()) {
-					sb.append("You have the following addictions:");
+					return "You are currently addicted to "+Util.intToString(target.getAddictions().size())+(target.getAddictions().size()==1?" type of fluid":" types of fluids")+"!"
+							+ " After going for more than 24 hours without getting a fix, you will start to suffer from withdrawal symptoms."
+							+ " <i>Addictions can be cleared by using '"+ItemType.ADDICTION_REMOVAL.getName(false)+"'.</i>";
 				} else {
-					sb.append(UtilText.parse(target, "[npc.Name] has the following addictions:"));
+					return UtilText.parse(target,
+							"[npc.Name] is currently addicted to "+Util.intToString(target.getAddictions().size())+(target.getAddictions().size()==1?" type of fluid":" types of fluids")+"!"
+									+ " After going for more than 24 hours without getting a fix, [npc.she] will start to suffer from withdrawal symptoms."
+									+ " <i>Addictions can be cleared by using '"+ItemType.ADDICTION_REMOVAL.getName(false)+"'.</i>");
 				}
-				
-				for(Entry<FluidType, Integer> entry : target.getAddictionsMap().entrySet()) {
-					if(entry.getValue()>0) {
-						sb.append("</br><b style='color:"+entry.getKey().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getDescriptor(target))+" "+entry.getKey().getName(target)+"</b>: "
-								+entry.getValue()+" (<span style='color:"+AddictionLevel.valueOf(entry.getValue()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(AddictionLevel.valueOf(entry.getValue()).getName(false))+"</span>)"
-								+ (Main.game.getMinutesPassed()-target.getLastTimeSatisfiedAddictionMap().get(entry.getKey())<24*60
-										?" [style.colourGood(Satisfied)]: "+(23-(Main.game.getMinutesPassed()-target.getLastTimeSatisfiedAddictionMap().get(entry.getKey()))/60)
-												+":"+String.format("%02d", (60-(Main.game.getMinutesPassed()-target.getLastTimeSatisfiedAddictionMap().get(entry.getKey()))%60))
-										:" [style.boldArcane(Withdrawal!)]"));
-					}
-				}
-				
-				return sb.toString();
 			} else {
 				return "";
 			}
@@ -3015,7 +3153,7 @@ public enum StatusEffect {
 		
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return !target.getAddictionsMap().isEmpty();
+			return !target.getAddictions().isEmpty();
 		}
 	},
 	
@@ -3042,19 +3180,17 @@ public enum StatusEffect {
 				StringBuilder sb = new StringBuilder();
 				
 				if(target.isPlayer()) {
-					sb.append("You are suffering withdrawal from:");
+					sb.append("You are suffering mild withdrawal from:");
 				} else {
-					sb.append(UtilText.parse(target, "[npc.Name] is suffering withdrawal from:"));
+					sb.append(UtilText.parse(target, "[npc.Name] is suffering mild withdrawal from:"));
 				}
-				
-				for(Entry<FluidType, Long> entry : target.getLastTimeSatisfiedAddictionMap().entrySet()) {
-					int minutesPassed = (int) (Main.game.getMinutesPassed()-entry.getValue());
-					if(minutesPassed>(AddictionLevel.ONE_MILD.getDaysUntilAddictionCured()-1)*24*60 && minutesPassed<AddictionLevel.ONE_MILD.getDaysUntilAddictionCured()*24*60) {
-						sb.append("</br><b style='color:"+entry.getKey().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getDescriptor(target))+" "+entry.getKey().getName(target)+"</b>: "
-								+(AddictionLevel.ONE_MILD.getDaysUntilAddictionCured()*24*60-minutesPassed)/60+":"+String.format("%02d", (AddictionLevel.ONE_MILD.getDaysUntilAddictionCured()*24*60-minutesPassed)%60)
-								+" ("+(AddictionLevel.valueOf(target.getAddiction(entry.getKey()))==AddictionLevel.ONE_MILD
-									?"[style.colourGood(Until addiction removed)]"
-									:"[style.colourArcane(Until next withdrawal stage)]")+")");
+
+				for(Addiction addiction : target.getAddictions()) {
+					long timeDifference = Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied();
+					if(timeDifference>=24*60 && timeDifference<2*24*60) {
+						sb.append("</br>"
+								+ "<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getDescriptor(target))+" "+addiction.getFluid().getName(target)+"</b>: "
+								+ " [style.boldArcane(worsens in)] "+(2*24-1-(Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied())/60)+":"+String.format("%02d", (60-(Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied())%60)));
 					}
 				}
 				
@@ -3072,9 +3208,9 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			// Time without getting fluid:
-			for(long value : target.getLastTimeSatisfiedAddictionMap().values()) {
-				if(Main.game.getMinutesPassed()-value>=(AddictionLevel.ONE_MILD.getDaysUntilAddictionCured()-1)*24*60
-						&& Main.game.getMinutesPassed()-value<AddictionLevel.ONE_MILD.getDaysUntilAddictionCured()*24*60) {
+			for(Addiction addiction : target.getAddictions()) {
+				long timeDifference = Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied();
+				if(timeDifference>=24*60 && timeDifference<2*24*60) {
 					return true;
 				}
 			}
@@ -3105,19 +3241,17 @@ public enum StatusEffect {
 				StringBuilder sb = new StringBuilder();
 				
 				if(target.isPlayer()) {
-					sb.append("You are suffering withdrawal from:");
+					sb.append("You are suffering noticeable withdrawal from:");
 				} else {
-					sb.append(UtilText.parse(target, "[npc.Name] is suffering withdrawal from:"));
+					sb.append(UtilText.parse(target, "[npc.Name] is suffering noticeable withdrawal from:"));
 				}
-				
-				for(Entry<FluidType, Long> entry : target.getLastTimeSatisfiedAddictionMap().entrySet()) {
-					int minutesPassed = (int) (Main.game.getMinutesPassed()-entry.getValue());
-					if(minutesPassed>(AddictionLevel.TWO_NOTICEABLE.getDaysUntilAddictionCured()-1)*24*60 && minutesPassed<AddictionLevel.TWO_NOTICEABLE.getDaysUntilAddictionCured()*24*60) {
-						sb.append("</br><b style='color:"+entry.getKey().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getDescriptor(target))+" "+entry.getKey().getName(target)+"</b>: "
-								+(AddictionLevel.TWO_NOTICEABLE.getDaysUntilAddictionCured()*24*60-minutesPassed)/60+":"+String.format("%02d", (AddictionLevel.TWO_NOTICEABLE.getDaysUntilAddictionCured()*24*60-minutesPassed)%60)
-								+" ("+(AddictionLevel.valueOf(target.getAddiction(entry.getKey()))==AddictionLevel.TWO_NOTICEABLE
-									?"[style.colourGood(Until addiction removed)]"
-									:"[style.colourArcane(Until next withdrawal stage)]")+")");
+
+				for(Addiction addiction : target.getAddictions()) {
+					long timeDifference = Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied();
+					if(timeDifference>=2*24*60 && timeDifference<3*24*60) {
+						sb.append("</br>"
+								+ "<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getDescriptor(target))+" "+addiction.getFluid().getName(target)+"</b>: "
+								+ " [style.boldArcane(worsens in)] "+(3*24-1-(Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied())/60)+":"+String.format("%02d", (60-(Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied())%60)));
 					}
 				}
 				
@@ -3135,9 +3269,9 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			// Time without getting fluid:
-			for(long value : target.getLastTimeSatisfiedAddictionMap().values()) {
-				if(Main.game.getMinutesPassed()-value>=(AddictionLevel.TWO_NOTICEABLE.getDaysUntilAddictionCured()-1)*24*60
-						&& Main.game.getMinutesPassed()-value<AddictionLevel.TWO_NOTICEABLE.getDaysUntilAddictionCured()*24*60) {
+			for(Addiction addiction : target.getAddictions()) {
+				long timeDifference = Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied();
+				if(timeDifference>=2*24*60 && timeDifference<3*24*60) {
 					return true;
 				}
 			}
@@ -3168,19 +3302,17 @@ public enum StatusEffect {
 				StringBuilder sb = new StringBuilder();
 				
 				if(target.isPlayer()) {
-					sb.append("You are suffering withdrawal from:");
+					sb.append("You are suffering strong withdrawal from:");
 				} else {
-					sb.append(UtilText.parse(target, "[npc.Name] is suffering withdrawal from:"));
+					sb.append(UtilText.parse(target, "[npc.Name] is suffering strong withdrawal from:"));
 				}
-				
-				for(Entry<FluidType, Long> entry : target.getLastTimeSatisfiedAddictionMap().entrySet()) {
-					int minutesPassed = (int) (Main.game.getMinutesPassed()-entry.getValue());
-					if(minutesPassed>(AddictionLevel.THREE_STRONG.getDaysUntilAddictionCured()-1)*24*60 && minutesPassed<AddictionLevel.THREE_STRONG.getDaysUntilAddictionCured()*24*60) {
-						sb.append("</br><b style='color:"+entry.getKey().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getDescriptor(target))+" "+entry.getKey().getName(target)+"</b>: "
-								+(AddictionLevel.THREE_STRONG.getDaysUntilAddictionCured()*24*60-minutesPassed)/60+":"+String.format("%02d", (AddictionLevel.THREE_STRONG.getDaysUntilAddictionCured()*24*60-minutesPassed)%60)
-								+" ("+(AddictionLevel.valueOf(target.getAddiction(entry.getKey()))==AddictionLevel.THREE_STRONG
-									?"[style.colourGood(Until addiction removed)]"
-									:"[style.colourArcane(Until next withdrawal stage)]")+")");
+
+				for(Addiction addiction : target.getAddictions()) {
+					long timeDifference = Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied();
+					if(timeDifference>=3*24*60 && timeDifference<4*24*60) {
+						sb.append("</br>"
+								+ "<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getDescriptor(target))+" "+addiction.getFluid().getName(target)+"</b>: "
+								+ " [style.boldArcane(worsens in)] "+(4*24-1-(Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied())/60)+":"+String.format("%02d", (60-(Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied())%60)));
 					}
 				}
 				
@@ -3198,9 +3330,9 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			// Time without getting fluid:
-			for(long value : target.getLastTimeSatisfiedAddictionMap().values()) {
-				if(Main.game.getMinutesPassed()-value>=(AddictionLevel.THREE_STRONG.getDaysUntilAddictionCured()-1)*24*60
-						&& Main.game.getMinutesPassed()-value<AddictionLevel.THREE_STRONG.getDaysUntilAddictionCured()*24*60) {
+			for(Addiction addiction : target.getAddictions()) {
+				long timeDifference = Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied();
+				if(timeDifference>=3*24*60 && timeDifference<4*24*60) {
 					return true;
 				}
 			}
@@ -3231,19 +3363,17 @@ public enum StatusEffect {
 				StringBuilder sb = new StringBuilder();
 				
 				if(target.isPlayer()) {
-					sb.append("You are suffering withdrawal from:");
+					sb.append("You are suffering severe withdrawal from:");
 				} else {
-					sb.append(UtilText.parse(target, "[npc.Name] is suffering withdrawal from:"));
+					sb.append(UtilText.parse(target, "[npc.Name] is suffering severe withdrawal from:"));
 				}
-				
-				for(Entry<FluidType, Long> entry : target.getLastTimeSatisfiedAddictionMap().entrySet()) {
-					int minutesPassed = (int) (Main.game.getMinutesPassed()-entry.getValue());
-					if(minutesPassed>(AddictionLevel.FOUR_SEVERE.getDaysUntilAddictionCured()-1)*24*60 && minutesPassed<AddictionLevel.FOUR_SEVERE.getDaysUntilAddictionCured()*24*60) {
-						sb.append("</br><b style='color:"+entry.getKey().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getDescriptor(target))+" "+entry.getKey().getName(target)+"</b>: "
-								+(AddictionLevel.FOUR_SEVERE.getDaysUntilAddictionCured()*24*60-minutesPassed)/60+":"+String.format("%02d", (AddictionLevel.FOUR_SEVERE.getDaysUntilAddictionCured()*24*60-minutesPassed)%60)
-								+" ("+(AddictionLevel.valueOf(target.getAddiction(entry.getKey()))==AddictionLevel.FOUR_SEVERE
-									?"[style.colourGood(Until addiction removed)]"
-									:"[style.colourArcane(Until next withdrawal stage)]")+")");
+
+				for(Addiction addiction : target.getAddictions()) {
+					long timeDifference = Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied();
+					if(timeDifference>=4*24*60 && timeDifference<5*24*60) {
+						sb.append("</br>"
+								+ "<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getDescriptor(target))+" "+addiction.getFluid().getName(target)+"</b>: "
+								+ " [style.boldArcane(worsens in)] "+(5*24-1-(Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied())/60)+":"+String.format("%02d", (60-(Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied())%60)));
 					}
 				}
 				
@@ -3261,9 +3391,9 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			// Time without getting fluid:
-			for(long value : target.getLastTimeSatisfiedAddictionMap().values()) {
-				if(Main.game.getMinutesPassed()-value>=(AddictionLevel.FOUR_SEVERE.getDaysUntilAddictionCured()-1)*24*60
-						&& Main.game.getMinutesPassed()-value<AddictionLevel.FOUR_SEVERE.getDaysUntilAddictionCured()*24*60) {
+			for(Addiction addiction : target.getAddictions()) {
+				long timeDifference = Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied();
+				if(timeDifference>=4*24*60 && timeDifference<5*24*60) {
 					return true;
 				}
 			}
@@ -3273,7 +3403,7 @@ public enum StatusEffect {
 	
 	WITHDRAWAL_5(
 			80,
-			"Dependence Withdrawal",
+			"Intense Withdrawal",
 			"withdrawal5",
 			Colour.CORRUPTION_STAGE_FIVE,
 			false,
@@ -3294,19 +3424,16 @@ public enum StatusEffect {
 				StringBuilder sb = new StringBuilder();
 				
 				if(target.isPlayer()) {
-					sb.append("You are suffering withdrawal from:");
+					sb.append("You are suffering intense withdrawal from:");
 				} else {
-					sb.append(UtilText.parse(target, "[npc.Name] is suffering withdrawal from:"));
+					sb.append(UtilText.parse(target, "[npc.Name] is suffering intense withdrawal from:"));
 				}
-				
-				for(Entry<FluidType, Long> entry : target.getLastTimeSatisfiedAddictionMap().entrySet()) {
-					int minutesPassed = (int) (Main.game.getMinutesPassed()-entry.getValue());
-					if(minutesPassed>(AddictionLevel.FIVE_DEPENDENCE.getDaysUntilAddictionCured()-1)*24*60 && minutesPassed<AddictionLevel.FIVE_DEPENDENCE.getDaysUntilAddictionCured()*24*60) {
-						sb.append("</br><b style='color:"+entry.getKey().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(entry.getKey().getDescriptor(target))+" "+entry.getKey().getName(target)+"</b>: "
-								+(AddictionLevel.FIVE_DEPENDENCE.getDaysUntilAddictionCured()*24*60-minutesPassed)/60+":"+String.format("%02d", (AddictionLevel.FIVE_DEPENDENCE.getDaysUntilAddictionCured()*24*60-minutesPassed)%60)
-								+" ("+(AddictionLevel.valueOf(target.getAddiction(entry.getKey()))==AddictionLevel.FIVE_DEPENDENCE
-									?"[style.colourGood(Until addiction removed)]"
-									:"[style.colourArcane(Until next withdrawal stage)]")+")");
+
+				for(Addiction addiction : target.getAddictions()) {
+					long timeDifference = Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied();
+					if(timeDifference>=5*24*60) {
+						sb.append("</br>"
+								+ "<b style='color:"+addiction.getFluid().getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(addiction.getFluid().getDescriptor(target))+" "+addiction.getFluid().getName(target)+"</b>.");
 					}
 				}
 				
@@ -3324,9 +3451,9 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			// Time without getting fluid:
-			for(long value : target.getLastTimeSatisfiedAddictionMap().values()) {
-				if(Main.game.getMinutesPassed()-value>=(AddictionLevel.FIVE_DEPENDENCE.getDaysUntilAddictionCured()-1)*24*60
-						&& Main.game.getMinutesPassed()-value<AddictionLevel.FIVE_DEPENDENCE.getDaysUntilAddictionCured()*24*60) {
+			for(Addiction addiction : target.getAddictions()) {
+				long timeDifference = Main.game.getMinutesPassed()-addiction.getLastTimeSatisfied();
+				if(timeDifference>=5*24*60) {
 					return true;
 				}
 			}
@@ -4047,7 +4174,7 @@ public enum StatusEffect {
 		public List<String> getModifiersAsStringList(GameCharacter target) {
 			List<String> attributeModifiersList = attributeModifiersToStringList(getAttributeModifiers(target));
 			
-			attributeModifiersList.addAll(this.getExtraEffects());
+			attributeModifiersList.addAll(this.getExtraEffects(target));
 			
 			return attributeModifiersList;
 		}
@@ -4055,7 +4182,9 @@ public enum StatusEffect {
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
 			// Lose 5ml per minute:
-			int cumLost = OrificeType.VAGINA.getCumLossPerMinute() * minutesPassed;
+			int cumLost = (int) (OrificeType.VAGINA.getCumLossPerMinute()
+					* (1 + 5*Util.getModifiedDropoffValue(target.getCummedInAreaMap().get(OrificeType.VAGINA), CumProduction.SEVEN_MONSTROUS.getMaximumValue())/CumProduction.SEVEN_MONSTROUS.getMaximumValue())
+					* minutesPassed);
 			
 			StringBuilder sb = new StringBuilder();
 			
@@ -4079,15 +4208,18 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
+			int cumLost = (int) (OrificeType.VAGINA.getCumLossPerMinute()
+					* (1 + 5*Util.getModifiedDropoffValue(target.getCummedInAreaMap().get(OrificeType.VAGINA), CumProduction.SEVEN_MONSTROUS.getMaximumValue())/CumProduction.SEVEN_MONSTROUS.getMaximumValue()));
+			
 			if(target.isPlayer()) {
 				return "As you walk, you can feel slimy cum drooling out of your recently-used pussy.</br>"
 						+ "Current creampie: [style.colourSex("+target.getCummedInAreaMap().get(OrificeType.VAGINA)+"ml)]</br>"
-						+ "(-5ml/minute)";
+						+ "(-"+cumLost+"ml/minute)";
 			} else {
 				return UtilText.parse(target, 
 						"[npc.Name]'s [npc.pussy] has recently been filled with cum.</br>"
 						+ "Current creampie: [style.colourSex("+target.getCummedInAreaMap().get(OrificeType.VAGINA)+"ml)]</br>"
-						+ "(-5ml/minute)");
+						+ "(-"+cumLost+"ml/minute)");
 			}
 		}
 		
@@ -4139,7 +4271,7 @@ public enum StatusEffect {
 		public List<String> getModifiersAsStringList(GameCharacter target) {
 			List<String> attributeModifiersList = attributeModifiersToStringList(getAttributeModifiers(target));
 			
-			attributeModifiersList.addAll(this.getExtraEffects());
+			attributeModifiersList.addAll(this.getExtraEffects(target));
 			
 			return attributeModifiersList;
 		}
@@ -4147,7 +4279,9 @@ public enum StatusEffect {
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
 			// Lose 5ml per minute:
-			int cumLost = OrificeType.ANUS.getCumLossPerMinute() * minutesPassed;
+			int cumLost = (int) (OrificeType.ANUS.getCumLossPerMinute()
+					* (1 + 5*Util.getModifiedDropoffValue(target.getCummedInAreaMap().get(OrificeType.ANUS), CumProduction.SEVEN_MONSTROUS.getMaximumValue())/CumProduction.SEVEN_MONSTROUS.getMaximumValue())
+					* minutesPassed);
 			
 			StringBuilder sb = new StringBuilder();
 			
@@ -4171,15 +4305,17 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
+			int cumLost = (int) (OrificeType.ANUS.getCumLossPerMinute()
+					* (1 + 5*Util.getModifiedDropoffValue(target.getCummedInAreaMap().get(OrificeType.ANUS), CumProduction.SEVEN_MONSTROUS.getMaximumValue())/CumProduction.SEVEN_MONSTROUS.getMaximumValue()));
 			if(target.isPlayer()) {
 				return "As you walk, you can feel slimy cum drooling out of your recently-used asshole.</br>"
 						+ "Current creampie: [style.colourSex("+target.getCummedInAreaMap().get(OrificeType.ANUS)+"ml)]</br>"
-						+ "(-5ml/minute)";
+						+ "(-"+cumLost+"ml/minute)";
 			} else {
 				return UtilText.parse(target, 
 						"[npc.Name]'s [npc.asshole] has recently been filled with cum.</br>"
 						+ "Current creampie: [style.colourSex("+target.getCummedInAreaMap().get(OrificeType.ANUS)+"ml)]</br>"
-						+ "(-5ml/minute)");
+						+ "(-"+cumLost+"ml/minute)");
 			}
 		}
 		
@@ -4231,7 +4367,7 @@ public enum StatusEffect {
 		public List<String> getModifiersAsStringList(GameCharacter target) {
 			List<String> attributeModifiersList = attributeModifiersToStringList(getAttributeModifiers(target));
 			
-			attributeModifiersList.addAll(this.getExtraEffects());
+			attributeModifiersList.addAll(this.getExtraEffects(target));
 			
 			return attributeModifiersList;
 		}
@@ -4239,7 +4375,9 @@ public enum StatusEffect {
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
 			// Lose 5ml per minute:
-			int cumLost = OrificeType.NIPPLE.getCumLossPerMinute() * minutesPassed;
+			int cumLost = (int) (OrificeType.NIPPLE.getCumLossPerMinute()
+					* (1 + 5*Util.getModifiedDropoffValue(target.getCummedInAreaMap().get(OrificeType.NIPPLE), CumProduction.SEVEN_MONSTROUS.getMaximumValue())/CumProduction.SEVEN_MONSTROUS.getMaximumValue())
+					* minutesPassed);
 			
 			StringBuilder sb = new StringBuilder();
 			
@@ -4263,15 +4401,17 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
+			int cumLost = (int) (OrificeType.NIPPLE.getCumLossPerMinute()
+					* (1 + 5*Util.getModifiedDropoffValue(target.getCummedInAreaMap().get(OrificeType.NIPPLE), CumProduction.SEVEN_MONSTROUS.getMaximumValue())/CumProduction.SEVEN_MONSTROUS.getMaximumValue()));
 			if(target.isPlayer()) {
 				return "As you walk, you can feel slimy cum drooling out of your recently-used nipples.</br>"
 						+ "Current creampie: [style.colourSex("+target.getCummedInAreaMap().get(OrificeType.NIPPLE)+"ml)]</br>"
-						+ "(-5ml/minute)";
+						+ "(-"+cumLost+"ml/minute)";
 			} else {
 				return UtilText.parse(target, 
 						"[npc.Name]'s [npc.nipples] have recently been filled with cum.</br>"
 						+ "Current creampie: [style.colourSex("+target.getCummedInAreaMap().get(OrificeType.NIPPLE)+"ml)]</br>"
-						+ "(-5ml/minute)");
+						+ "(-"+cumLost+"ml/minute)");
 			}
 		}
 		
@@ -4322,8 +4462,8 @@ public enum StatusEffect {
 		public List<String> getModifiersAsStringList(GameCharacter target) {
 			List<String> attributeModifiersList = attributeModifiersToStringList(getAttributeModifiers(target));
 			
-			if(this.getExtraEffects()!=null) {
-				attributeModifiersList.addAll(this.getExtraEffects());
+			if(this.getExtraEffects(target)!=null) {
+				attributeModifiersList.addAll(this.getExtraEffects(target));
 			}
 			
 			return attributeModifiersList;
@@ -5500,6 +5640,35 @@ public enum StatusEffect {
 		}
 	},
 	
+	CLOTHING_EFFECT(
+			70,
+			"clothing effects",
+			"combatHidden",
+			Colour.TRANSFORMATION_GENERIC,
+			false,
+			null,
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "-";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			return "-";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return false;
+		}
+		
+		@Override
+		public boolean renderInEffectsPanel() {
+			return false;
+		}
+	},
 	
 	POTION_EFFECTS(
 			80,
@@ -5974,35 +6143,42 @@ public enum StatusEffect {
 		}
 	},
 	
-//	ZERO_MANA(
-//			70,
-//			"mentally fatigued",
-//			"outOfMana",
-//			Colour.ATTRIBUTE_ARCANE,
-//			false,
-//			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.CRITICAL_CHANCE, -100f)),
-//			null) {
-//
-//		@Override
-//		public String applyEffect(GameCharacter target, int minutesPassed) {
-//			return "";
-//		}
-//
-//		@Override
-//		public String getDescription(GameCharacter target) {
-//			return "You feel completely drained, but due to your indefatigable perk, you aren't ready to give up just yet!";
-//		}
-//
-//		@Override
-//		public boolean isConditionsMet(GameCharacter target) {
-//			return target.getMana() == 0 && target.hasTrait(Perk.INDEFATIGABLE, true);
-//		}
-//		
-//		@Override
-//		public boolean isCombatEffect() {
-//			return true;
-//		}
-//	},
+	DESPERATE_FOR_SEX(
+			70,
+			"desperate for sex",
+			"desperateForSex",
+			Colour.ATTRIBUTE_LUST,
+			false,
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<String>("<b style='color: " + Colour.GENERIC_TERRIBLE.toWebHexString() + "'>All incoming damage is treated as</b> <b style='color:"+Colour.DAMAGE_TYPE_PURE.toWebHexString()+";'>pure damage</b>"
+							+"<b style='color: " + Colour.GENERIC_TERRIBLE.toWebHexString() + "'>, which ignores all resistances!</b>"))) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target.isPlayer()) {
+				return "You are absolutely desperate for sex, but thanks to the strength of your arcane aura, you are able to resist giving up right here on the spot!";
+			} else {
+				return UtilText.parse(target,
+						"[npc.Name] is absolutely desperate for sex, but thanks to the strength of [npc.her] arcane aura, [npc.she]'s able to resist giving up right here on the spot!");
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getLust()>=100 && !target.isVulnerableToLustLoss();
+		}
+		
+		@Override
+		public boolean isCombatEffect() {
+			return true;
+		}
+	},
 
 	// From spells (still in combat):
 	
@@ -6691,6 +6867,33 @@ public enum StatusEffect {
 			modList.add("<b style='color:"+orgasmColour.toWebHexString()+";'>"+Sex.getNumberOfOrgasms(target)+"</b> Orgasms");
 			
 			return modList;
+		}
+		
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			SVGImageSB = new StringBuilder();
+
+			SVGImageSB.append("<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+SVGString+"</div>");
+			
+			int orgasms = Sex.getNumberOfOrgasms(owner);
+			
+			if(orgasms == 0) {
+				SVGImageSB.append("<div style='width:40%;height:40%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCounterZero()+"</div>");
+			} else if(orgasms == 1) {
+				SVGImageSB.append("<div style='width:40%;height:40%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCounterOne()+"</div>");
+			} else if(orgasms == 2) {
+				SVGImageSB.append("<div style='width:40%;height:40%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCounterTwo()+"</div>");
+			} else if(orgasms == 3) {
+				SVGImageSB.append("<div style='width:40%;height:40%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCounterThree()+"</div>");
+			} else if(orgasms == 4) {
+				SVGImageSB.append("<div style='width:40%;height:40%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCounterFour()+"</div>");
+			} else if(orgasms == 5) {
+				SVGImageSB.append("<div style='width:40%;height:40%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCounterFive()+"</div>");
+			} else {
+				SVGImageSB.append("<div style='width:40%;height:40%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCounterFivePlus()+"</div>");
+			}
+			
+			return SVGImageSB.toString();
 		}
 		
 		@Override
@@ -7540,10 +7743,10 @@ public enum StatusEffect {
 	private boolean beneficial;
 	private Map<Attribute, Float> attributeModifiers;
 
-	private String SVGString;
+	protected String SVGString;
 	private String SVGStringDesaturated;
 
-	private List<String> extraEffects;
+	protected List<String> extraEffects;
 
 	protected List<String> modifiersList;
 	
@@ -7556,8 +7759,12 @@ public enum StatusEffect {
 		this.attributeModifiers = attributeModifiers;
 		this.colourShade = colourShade;
 
-		this.extraEffects = extraEffects;
-
+		if(extraEffects == null) {
+			this.extraEffects = new ArrayList<>();
+		} else {
+			this.extraEffects = extraEffects;
+		}
+		
 		if(pathName!=null) {
 			try {
 				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/" + pathName + ".svg");
@@ -7598,10 +7805,6 @@ public enum StatusEffect {
 		}
 
 		modifiersList = attributeModifiersToStringList(attributeModifiers);
-		
-		if (extraEffects != null) {
-			modifiersList.addAll(extraEffects);
-		}
 	}
 	
 	protected List<String> attributeModifiersToStringList(Map<Attribute, Float> attributeMap) {
@@ -7677,7 +7880,9 @@ public enum StatusEffect {
 	public abstract String getDescription(GameCharacter target);
 
 	public List<String> getModifiersAsStringList(GameCharacter target) {
-		return modifiersList;
+		ArrayList<String> fullModList = new ArrayList<>(modifiersList);
+		fullModList.addAll(getExtraEffects(target));
+		return fullModList;
 	}
 	
 	public boolean isBeneficial() {
@@ -7692,7 +7897,7 @@ public enum StatusEffect {
 		return colourShade;
 	}
 
-	public List<String> getExtraEffects() {
+	public List<String> getExtraEffects(GameCharacter target) {
 		return extraEffects;
 	}
 

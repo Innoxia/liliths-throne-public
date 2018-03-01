@@ -1759,10 +1759,11 @@ public class PhoneDialogue {
 		public String getContent() {
 			journalSB = new StringBuilder(
 					"<div class='container-full-width' style='padding:8px;'>"
-						+ "You can select your [style.colourLust(desire)] for each fetish at the cost of [style.colourArcane("+FetishDesire.getCostToChange()+" Arcane Essence)],"
-								+ " or choose to take the associated [style.colourFetish(fetish)] for [style.colourArcane("+Fetish.FETISH_ANAL_GIVING.getCost()+" Arcane Essences)].</br>"
-						+ "Simply choosing a desire will affect bonus lust gains in sex, while taking a fetish will permanently lock your desire to 'love', and also give you special bonuses."
+						+ "You can select your [style.colourLust(desire)] for each fetish [style.colourArcane(for free)],"
+							+ " or choose to take the associated [style.colourFetish(fetish)] for [style.colourArcane("+Fetish.FETISH_ANAL_GIVING.getCost()+" Arcane Essences)].</br>"
+						+ "Choosing a desire will affect bonus lust gains in sex, while taking a fetish will permanently lock your desire to 'love', and also give you special bonuses."
 						+ " Fetishes can only be removed through enchanted potions.</br>"
+						+ "Your currently selected desire has a "+Colour.FETISH.getName()+" border, but your true desire (indicated by the coloured desire icon) may be modified by enchanted clothes or other items.</br>"
 						+ "You earn experience for each fetish through performing related actions in sex."
 						+ " Experience is earned regardless of whether or not you have the associated fetish."
 						+ " Higher level fetishes will cause both you and your partner to gain more arousal from related sex actions, as well as increase the fetish's bonuses.</br>"
@@ -1865,12 +1866,12 @@ public class PhoneDialogue {
 					+ "</div>"
 					+"<div class='container-full-width' style='margin:0 8px; width: calc(22% - 16px);'>"
 						+ "<div id='fetishUnlock" + fetish + "' class='fetish-icon full" + (Main.game.getPlayer().hasFetish(fetish)
-							? " owned' style='border:2px solid " + Colour.FETISH.getShades()[1] + ";'>"
+							? " owned' style='border:2px solid " + Colour.FETISH.toWebHexString() + ";'>"
 							: (fetish.isAvailable(Main.game.getPlayer())
 									? " unlocked' style='border:2px solid " + Colour.TEXT_GREY.toWebHexString() + ";" + "'>"
 									: " locked' style='border:2px solid " + Colour.TEXT_GREY.toWebHexString() + ";'>"))
 										+ "<div class='fetish-icon-content'>"+fetish.getSVGString()+"</div>"
-										+ "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"+level.getSVGImageOverlay()+"</div>"
+										+ "<div style='width:40%;height:40%;position:absolute;top:0;right:0;'>"+level.getSVGImageOverlay()+"</div>"
 										+ (Main.game.getPlayer().hasFetish(fetish) // Overlay to create disabled effect:
 											? ""
 											: (fetish.isAvailable(Main.game.getPlayer())
@@ -1893,8 +1894,9 @@ public class PhoneDialogue {
 	}
 	
 	private static String getFetishDesireEntry(Fetish fetish, FetishDesire desire) {
-		return "<div class='square-button"+(desire!=FetishDesire.FOUR_LOVE&&Main.game.getPlayer().hasFetish(fetish)?" disabled":"")+"' style='width:10%; margin:0 5%;' id='"+fetish+"_"+desire+"'>"
-				+ "<div class='square-button-content'>"+desire.getSVGImage()+"</div>"
+		return "<div class='square-button"+(desire!=FetishDesire.FOUR_LOVE && Main.game.getPlayer().hasFetish(fetish)?" disabled":"")+"' id='"+fetish+"_"+desire+"'"
+					+ " style='"+(Main.game.getPlayer().getBaseFetishDesire(fetish)==desire?"border:2px solid "+Colour.FETISH.getShades()[1]+";":"")+"width:10%; margin:0 5%;'>"
+				+ "<div class='square-button-content'>"+(Main.game.getPlayer().getFetishDesire(fetish)==desire?desire.getSVGImage():desire.getSVGImageDesaturated())+"</div>"
 				+ (Main.game.getPlayer().hasFetish(fetish) && Main.game.getPlayer().getFetishDesire(fetish)!=desire
 					?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.8; border-radius:5px;'></div>"
 					:Main.game.getPlayer().getFetishDesire(fetish)!=desire

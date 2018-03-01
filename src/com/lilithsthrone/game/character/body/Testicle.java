@@ -11,7 +11,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
- * @version 0.1.83
+ * @version 0.2.0
  * @author Innoxia
  */
 public class Testicle implements BodyPartInterface, Serializable {
@@ -31,7 +31,7 @@ public class Testicle implements BodyPartInterface, Serializable {
 
 	public Testicle(TesticleType type, int testicleSize, int cumProduction, int testicleCount) {
 		this.type = type;
-		this.testicleSize = testicleSize;
+		this.testicleSize = Math.max(0, Math.min(testicleSize, TesticleSize.SEVEN_ABSURD.getValue()));
 		this.cumProduction = cumProduction;
 		
 		this.testicleCount = Math.max(MIN_TESTICLE_COUNT, Math.min(testicleCount, MAX_TESTICLE_COUNT));

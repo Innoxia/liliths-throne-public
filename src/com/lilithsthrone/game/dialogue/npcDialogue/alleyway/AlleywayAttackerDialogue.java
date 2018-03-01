@@ -164,12 +164,12 @@ public class AlleywayAttackerDialogue {
 				
 			} else if (index == 2) {
 				if(Main.game.getPlayer().getMoney()<25) {
-					return new Response("Offer money ("+UtilText.formatAsMoney(25, "span")+")", "You don't have enough money to offer to pay [npc.name] off. You'll have to either fight [npc.herHim] or offer [npc.herHim] your body!", null);
+					return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")", "You don't have enough money to offer to pay [npc.name] off. You'll have to either fight [npc.herHim] or offer [npc.herHim] your body!", null);
 				} else {
-					return new Response("Offer money ("+UtilText.formatAsMoney(25, "span")+")", "Offer to pay [npc.name] 25 flames to leave you alone.", DebugDialogue.getDefaultDialogueNoEncounter()) {
+					return new Response("Offer money ("+UtilText.formatAsMoney(250, "span")+")", "Offer to pay [npc.name] 250 flames to leave you alone.", DebugDialogue.getDefaultDialogueNoEncounter()) {
 						@Override
 						public void effects() {
-							Main.game.getPlayer().incrementMoney(-25);
+							Main.game.getPlayer().incrementMoney(-250);
 							Main.game.getTextStartStringBuilder().append(
 									"<p>"
 										+ "Wanting to avoid a fight if at all possible, you take a step backwards, fumbling about to grab a handful of flames to offer to the [npc.race],"
@@ -1087,50 +1087,6 @@ public class AlleywayAttackerDialogue {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				return new Response("Continue", "Carry on your way.", AFTER_SEX_VICTORY){
-					@Override
-					public DialogueNodeOld getNextDialogue(){
-						return DebugDialogue.getDefaultDialogueNoEncounter();
-					}
-				};
-				
-			} else {
-				return null;
-			}
-		}
-	};
-	
-	public static final DialogueNodeOld ENSLAVEMENT_DIALOGUE = new DialogueNodeOld("New Slave", "", true) {
-		private static final long serialVersionUID = 1L;
-		
-		@Override
-		public String getDescription(){
-			return ".";
-		}
-
-		@Override
-		public String getContent() {//TODO
-			return UtilText.parse(Main.game.getActiveNPC(),
-					"<p>"
-						+ "TODO</br>"
-						+ "You clasp the collar around [npc.name]'s neck.</br>"
-						+ "The arcane enchantment recognises [npc.herHim] as being a criminal, and, with a purple flash, <b>they're teleported to the 'Slave Administration' building in Slaver Alley, where they'll be waiting for you to pick them up</b>."
-					+ "</p>"
-					+ "<p>"
-						+ "Just before they disappear, glowing purple lettering appears on the collar's surface, which reads:</br>"
-						+ "Slave identification: [style.boldArcane("+Main.game.getActiveNPC().getNameIgnoresPlayerKnowledge()+")]"
-					+ "</p>");
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new Response("Continue", "Carry on your way.", ENSLAVEMENT_DIALOGUE){
-					@Override
-					public void effects() {
-						Main.game.getActiveNPC().setPlayerKnowsName(true);
-						Main.game.getActiveNPC().setAffection(Main.game.getPlayer(), -100+Util.random.nextInt(10));
-						Main.game.getActiveNPC().setObedience(-100+Util.random.nextInt(10));
-					}
 					@Override
 					public DialogueNodeOld getNextDialogue(){
 						return DebugDialogue.getDefaultDialogueNoEncounter();

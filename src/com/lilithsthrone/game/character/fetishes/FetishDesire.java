@@ -11,31 +11,32 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.99
- * @version 0.1.99
+ * @version 0.2.0
  * @author Innoxia
  */
 public enum FetishDesire {
 	
-	ZERO_HATE("hate", "hate", "hates", "fondness1", -25f, Colour.BASE_CRIMSON),
+	ZERO_HATE(0, "hate", "hate", "hates", "fondness1", -25f, Colour.BASE_CRIMSON),
 	
-	ONE_DISLIKE("dislike", "dislike", "dislikes", "fondness2", -10f, Colour.BASE_RED),
+	ONE_DISLIKE(1, "dislike", "dislike", "dislikes", "fondness2", -10f, Colour.BASE_RED),
 	
-	TWO_NEUTRAL("indifferent", "are indifferent to", "is indifferent to", "fondness3", 0, Colour.BASE_GREY),
+	TWO_NEUTRAL(2, "indifferent", "are indifferent to", "is indifferent to", "fondness3", 0, Colour.BASE_BLUE_STEEL),
 	
-	THREE_LIKE("like", "like", "likes", "fondness4", 5f, Colour.BASE_PINK_LIGHT),
+	THREE_LIKE(3, "like", "like", "likes", "fondness4", 5f, Colour.BASE_PINK_LIGHT),
 	
-	FOUR_LOVE("love", "love", "loves", "fondness5", 10f, Colour.BASE_PINK);
+	FOUR_LOVE(4, "love", "love", "loves", "fondness5", 10f, Colour.BASE_PINK);
 	
-	
+	private int value;
 	private String name;
 	private String nameAsPlayerVerb;
 	private String nameAsVerb;
-	private String SVGImage;
+	private String SVGImage, SVGImageDesaturated;
 	private float lustIncrement;
 	private Colour colour;
 	private List<String> modifiersList;
 	
-	private FetishDesire(String name, String nameAsPlayerVerb, String nameAsVerb, String pathName, float lustIncrement, Colour colour) {
+	private FetishDesire(int value, String name, String nameAsPlayerVerb, String nameAsVerb, String pathName, float lustIncrement, Colour colour) {
+		this.value = value;
 		this.name = name;
 		this.nameAsPlayerVerb = nameAsPlayerVerb;
 		this.nameAsVerb = nameAsVerb;
@@ -48,13 +49,21 @@ public enum FetishDesire {
 		
 		try {
 			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/fetishes/" + pathName + ".svg");
-			SVGImage = Util.inputStreamToString(is);
+			String base = Util.inputStreamToString(is);
 
+			SVGImage = base;
 			SVGImage = SVGImage.replaceAll("#ff2a2a", colour.getShades()[0]);
 			SVGImage = SVGImage.replaceAll("#ff5555", colour.getShades()[1]);
 			SVGImage = SVGImage.replaceAll("#ff8080", colour.getShades()[2]);
 			SVGImage = SVGImage.replaceAll("#ffaaaa", colour.getShades()[3]);
 			SVGImage = SVGImage.replaceAll("#ffd5d5", colour.getShades()[4]);
+			
+			SVGImageDesaturated = base;
+			SVGImageDesaturated = SVGImageDesaturated.replaceAll("#ff2a2a", Colour.BASE_GREY.getShades()[0]);
+			SVGImageDesaturated = SVGImageDesaturated.replaceAll("#ff5555", Colour.BASE_GREY.getShades()[1]);
+			SVGImageDesaturated = SVGImageDesaturated.replaceAll("#ff8080", Colour.BASE_GREY.getShades()[2]);
+			SVGImageDesaturated = SVGImageDesaturated.replaceAll("#ffaaaa", Colour.BASE_GREY.getShades()[3]);
+			SVGImageDesaturated = SVGImageDesaturated.replaceAll("#ffd5d5", Colour.BASE_GREY.getShades()[4]);
 
 			is.close();
 
@@ -64,7 +73,21 @@ public enum FetishDesire {
 	}
 	
 	public static int getCostToChange() {
-		return 1;
+		return 0;
+	}
+	
+	public static FetishDesire getDesireFromValue(int value) {
+		for(FetishDesire desire : FetishDesire.values()) {
+			if(desire.getValue() == value) {
+				return desire;
+			}
+		}
+		
+		if(value<=ZERO_HATE.getValue()) {
+			return ZERO_HATE;
+		} else {
+			return FOUR_LOVE;
+		}
 	}
 	
 	public FetishDesire getPreviousDesire() {
@@ -99,6 +122,10 @@ public enum FetishDesire {
 		return TWO_NEUTRAL;
 	}
 	
+	public int getValue() {
+		return value;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -117,6 +144,10 @@ public enum FetishDesire {
 
 	public String getSVGImage() {
 		return SVGImage;
+	}
+	
+	public String getSVGImageDesaturated() {
+		return SVGImageDesaturated;
 	}
 
 	public Colour getColour() {

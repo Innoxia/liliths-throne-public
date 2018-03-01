@@ -433,11 +433,11 @@ public enum RacialBody {
 			LegType.SQUIRREL_MORPH,
 			SkinType.SQUIRREL_MORPH, BodyMaterial.FLESH,
 			HornLength.ZERO_TINY, HornLength.ZERO_TINY, Util.newArrayListOfValues(new ListValue<>(HornType.NONE)),
-			PenisType.SQUIRREL, PenisSize.THREE_LARGE,
+			PenisType.SQUIRREL, PenisSize.FOUR_HUGE,
 			PenisType.NONE, PenisSize.TWO_AVERAGE,
 			TesticleSize.THREE_LARGE, 2, CumProduction.THREE_AVERAGE,
 			TailType.SQUIRREL_MORPH,
-			VaginaType.SQUIRREL_MORPH, Wetness.TWO_MOIST, Capacity.FOUR_LOOSE, ClitorisSize.ONE_BIG, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
+			VaginaType.SQUIRREL_MORPH, Wetness.TWO_MOIST, Capacity.THREE_SLIGHTLY_LOOSE, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
 			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
 

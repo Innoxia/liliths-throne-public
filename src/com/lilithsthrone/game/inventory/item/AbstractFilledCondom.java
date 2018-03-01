@@ -91,7 +91,7 @@ public class AbstractFilledCondom extends AbstractItem implements Serializable, 
 		
 		Element innerElement = doc.createElement("itemEffects");
 		element.appendChild(innerElement);
-		for(ItemEffect ie : this.getItemEffects()) {
+		for(ItemEffect ie : this.getEffects()) {
 			ie.saveAsXML(innerElement, doc);
 		}
 

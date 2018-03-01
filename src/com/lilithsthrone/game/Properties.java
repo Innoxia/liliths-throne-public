@@ -636,8 +636,9 @@ public class Properties implements Serializable {
 						Element e = ((Element)element.getElementsByTagName("itemType").item(i));
 						
 						if(!e.getAttribute("id").isEmpty()) {
-							if(ItemType.idToItemMap.get(e.getAttribute("id"))!=null)
+							if(ItemType.idToItemMap.get(e.getAttribute("id"))!=null) {
 								itemsDiscovered.add(ItemType.idToItemMap.get(e.getAttribute("id")));
+							}
 						}
 					}
 				}

@@ -885,46 +885,4 @@ public class AlleywayProstituteDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld ENSLAVEMENT_DIALOGUE = new DialogueNodeOld("New Slave", "", true) {
-		private static final long serialVersionUID = 1L;
-		
-		@Override
-		public String getDescription(){
-			return ".";
-		}
-
-		@Override
-		public String getContent() {
-			return UtilText.parse(Main.game.getActiveNPC(),
-					"<p>"
-						+ "Pulling out a slave collar, you take a step towards [npc.name]."
-						+ " [npc.She] lets out a distressed cry as [npc.she] sees what you're about to do, but [npc.she]'s so exhausted that [npc.she] can't manage to put up any significant amount of resistance."
-					+ "</p>"
-					+ "<p>"
-						+ "Clasping the metal around [npc.her] neck, you step back, looking down at a face filled with fear."
-						+ " The collar's arcane enchantment recognises [npc.name] as being a criminal, and, with a purple flash,"
-							+ " <b>[npc.she]'s teleported to the 'Slave Administration' building in Slaver Alley, where [npc.she]'ll be waiting for you to pick them up</b>."
-					+ "</p>"
-					+ "<p>"
-						+ "Just before they disappear, glowing purple lettering appears on the collar's surface, which reads:</br>"
-						+ "Slave identification: [style.boldArcane("+Main.game.getActiveNPC().getNameIgnoresPlayerKnowledge()+")]"
-					+ "</p>");
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new Response("Continue", "Carry on your way.", DebugDialogue.getDefaultDialogueNoEncounter()){
-					@Override
-					public void effects() {
-						Main.game.getActiveNPC().setAffection(Main.game.getPlayer(), -100+Util.random.nextInt(10));
-						Main.game.getActiveNPC().setObedience(-100+Util.random.nextInt(10));
-					}
-				};
-				
-			} else {
-				return null;
-			}
-		}
-	};
 }

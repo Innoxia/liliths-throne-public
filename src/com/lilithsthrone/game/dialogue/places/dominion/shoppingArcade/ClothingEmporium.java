@@ -107,8 +107,21 @@ public class ClothingEmporium {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		public String getAuthor() {
+			if(Main.game.getNyan().isPregnant() && !Main.game.getNyan().isReactedToPregnancy()) {
+				return "Duner";
+			} else {
+				return "Innoxia";
+			}
+		}
+		
+		@Override
 		public String getContent() {
-			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/clothingEmporium", "NYAN_GREETING_REPEAT");
+			if(Main.game.getNyan().isVisiblyPregnant() && !Main.game.getNyan().isReactedToPregnancy()) {
+				return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/clothingEmporium", "NYAN_GREETING_REPEAT_PREGNANT");
+			} else {
+				return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/clothingEmporium", "NYAN_GREETING_REPEAT");
+			}
 		}
 
 		@Override
@@ -136,6 +149,9 @@ public class ClothingEmporium {
 								public void effects() {
 									Main.game.getTextEndStringBuilder().append(Main.game.getNyan().incrementAffection(Main.game.getPlayer(), 1f));
 									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanTalkedTo, true);
+									if(Main.game.getNyan().isVisiblyPregnant()) {
+										Main.game.getNyan().setReactedToPregnancy(true);
+									}
 								}
 							};
 						}
@@ -150,6 +166,9 @@ public class ClothingEmporium {
 								public void effects() {
 									Main.game.getTextEndStringBuilder().append(Main.game.getNyan().incrementAffection(Main.game.getPlayer(), 3f));
 									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanComplimented, true);
+									if(Main.game.getNyan().isVisiblyPregnant()) {
+										Main.game.getNyan().setReactedToPregnancy(true);
+									}
 								}
 							};
 						}
@@ -168,6 +187,9 @@ public class ClothingEmporium {
 								public void effects() {
 									Main.game.getTextEndStringBuilder().append(Main.game.getNyan().incrementAffection(Main.game.getPlayer(), 4f));
 									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanFlirtedWith, true);
+									if(Main.game.getNyan().isVisiblyPregnant()) {
+										Main.game.getNyan().setReactedToPregnancy(true);
+									}
 								}
 							};
 						}
@@ -186,6 +208,9 @@ public class ClothingEmporium {
 								public void effects() {
 									Main.game.getTextEndStringBuilder().append(Main.game.getNyan().incrementAffection(Main.game.getPlayer(), 5f));
 									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanKissed, true);
+									if(Main.game.getNyan().isVisiblyPregnant()) {
+										Main.game.getNyan().setReactedToPregnancy(true);
+									}
 								}
 							};
 						}
@@ -204,6 +229,9 @@ public class ClothingEmporium {
 								public void effects() {
 									Main.game.getTextEndStringBuilder().append(Main.game.getNyan().incrementAffection(Main.game.getPlayer(), 6f));
 									Main.game.getDialogueFlags().setFlag(DialogueFlagValue.nyanMakeOut, true);
+									if(Main.game.getNyan().isVisiblyPregnant()) {
+										Main.game.getNyan().setReactedToPregnancy(true);
+									}
 								}
 							};
 						}
@@ -216,6 +244,12 @@ public class ClothingEmporium {
 								@Override
 								public DialogueNodeOld getNextDialogue() {
 									return GiftDialogue.getGiftDialogue(Main.game.getNyan(), SHOP_CLOTHING_REPEAT, ROMANCE_GIFT);
+								}
+								@Override
+								public void effects() {
+									if(Main.game.getNyan().isVisiblyPregnant()) {
+										Main.game.getNyan().setReactedToPregnancy(true);
+									}
 								}
 							};
 						}
@@ -236,7 +270,14 @@ public class ClothingEmporium {
 											Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.MISSIONARY_KNEELING_BETWEEN_LEGS)),
 											Util.newHashMapOfValues(new Value<>(Main.game.getNyan(), SexPositionSlot.MISSIONARY_ON_BACK))),
 									END_SEX,
-									UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_SEX"));
+									UtilText.parseFromXMLFile("characters/dominion/nyan", "NYAN_SEX")) {
+								@Override
+								public void effects() {
+									if(Main.game.getNyan().isVisiblyPregnant()) {
+										Main.game.getNyan().setReactedToPregnancy(true);
+									}
+								}
+							};
 						}
 					}
 					
@@ -286,6 +327,9 @@ public class ClothingEmporium {
 						@Override
 						public void effects() {
 							Main.game.getTextStartStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/shoppingArcade/clothingEmporium", "NYAN_EXIT"));
+							if(Main.game.getNyan().isVisiblyPregnant()) {
+								Main.game.getNyan().setReactedToPregnancy(true);
+							}
 						}
 					};
 					

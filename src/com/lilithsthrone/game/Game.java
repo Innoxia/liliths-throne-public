@@ -885,13 +885,19 @@ public class Game implements Serializable, XMLSaving {
 			if(!Main.game.getPlayer().getLocation().equals(npc.getLocation())) {
 				npc.setHealthPercentage(1);
 				npc.setManaPercentage(1);
+				if(npc.hasStatusEffect(StatusEffect.WEATHER_STORM_VULNERABLE)) {
+					npc.setLust((int) (75+(Math.random()*15)));
+				} else {
+					npc.setLust((int) ((npc.getAttributeValue(Attribute.MAJOR_CORRUPTION)/2)*(0.8f+(Math.random()*0.4f))));
+				}
 			}
 		}
 		
 		for (NPC npc : NPCMap.values()) {
 			npc.calculateStatusEffects(turnTime);
 			
-			if(npc.isPendingClothingDressing()
+			if((npc.isPendingClothingDressing()
+					|| (!npc.isSlave() && !npc.isUnique() && (npc.hasStatusEffect(StatusEffect.EXPOSED) || npc.hasStatusEffect(StatusEffect.EXPOSED_BREASTS) || npc.hasStatusEffect(StatusEffect.EXPOSED_PLUS_BREASTS))))
 					&& (Main.game.getCurrentDialogueNode().equals(Main.game.getPlayer().getLocationPlace().getDialogue(false))
 						|| !(npc.getWorldLocation()==Main.game.getPlayer().getWorldLocation() && npc.getLocation().equals(Main.game.getPlayer().getLocation())))) {
 				npc.equipClothing(true, true);
@@ -957,10 +963,6 @@ public class Game implements Serializable, XMLSaving {
 		
 		// If not in combat:
 		if (!isInCombat()) {
-			if(Main.game.getCurrentDialogueNode()!=MiscDialogue.STATUS_EFFECTS) {
-				Main.game.getPlayer().calculateStatusEffects(turnTime);
-			}
-			
 			// Regenerate health and stamina over time:
 			if (!inSex && !currentDialogueNode.isRegenerationDisabled()) {
 				if (Main.game.getPlayer().getHealthPercentage() < 1)
@@ -969,6 +971,10 @@ public class Game implements Serializable, XMLSaving {
 					Main.game.getPlayer().incrementMana(turnTime * 0.1f);
 			}
 		}
+		if(Main.game.getCurrentDialogueNode()!=MiscDialogue.STATUS_EFFECTS) {
+			Main.game.getPlayer().calculateStatusEffects(turnTime);
+		}
+		
 		
 		RenderingEngine.ENGINE.renderButtons();
 		Main.mainController.updateUI();
@@ -1310,8 +1316,9 @@ public class Game implements Serializable, XMLSaving {
 						if (((NPC) character).isAddedToContacts()) {
 							Main.game.getPlayer().addCharacterEncountered(character);
 						}
-						Main.getProperties().addRaceDiscovered(character.getRace());
-						
+						if(!character.isRaceConcealed()) {
+							Main.getProperties().addRaceDiscovered(character.getRace());
+						}
 						((NPC) character).setLastTimeEncountered(minutesPassed);
 					}
 				}
@@ -2411,7 +2418,7 @@ public class Game implements Serializable, XMLSaving {
 		if(!NPCMap.containsKey(id)) {
 			System.err.println("!WARNING! getNPC("+id+") is returning null!");
 			return null;
-//			throw new NullPointerException();
+//			new NullPointerException().printStackTrace();
 		}
 		return NPCMap.get(id);
 	}

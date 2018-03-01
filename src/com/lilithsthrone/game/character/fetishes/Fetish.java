@@ -865,8 +865,7 @@ public enum Fetish {
 			Colour.GENERIC_ARCANE,
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<>("Unlocks <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>incest tease</span>"),
-					new ListValue<>("<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Not yet implemented!</span>")),
+					new ListValue<>("Unlocks <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>incest tease</span>")),
 			null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -895,7 +894,8 @@ public enum Fetish {
 			Colour.GENERIC_ARCANE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 5)),
 			Util.newArrayListOfValues(
-					new ListValue<>("40% of incoming <span style='color:"+ Colour.ATTRIBUTE_HEALTH.toWebHexString()+ ";'>energy damage</span> is converted to <span style='color:"+ Colour.DAMAGE_TYPE_MANA.toWebHexString()+ ";'>aura damage</span>")),
+					new ListValue<>("All incoming <span style='color:"+ Colour.ATTRIBUTE_HEALTH.toWebHexString()+ ";'>energy damage</span> is reduced by 25%"),
+					new ListValue<>("Reduced damage is converted to <span style='color:"+ Attribute.DAMAGE_LUST.getColour().toWebHexString()+ ";'>lust damage</span>")),
 			null) {
 
 		@Override
@@ -926,7 +926,7 @@ public enum Fetish {
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 5)),
 			Util.newArrayListOfValues(
 					new ListValue<>("You take 10% of dealt <span style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>energy damage</span> as "
-										+ "<span style='color:"+ Colour.DAMAGE_TYPE_MANA.toWebHexString()+ ";'>aura damage</span>")),
+										+ "<span style='color:"+ Attribute.DAMAGE_LUST.getColour().toWebHexString()+ ";'>lust damage</span>")),
 			null) {
 
 		@Override

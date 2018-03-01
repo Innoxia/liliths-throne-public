@@ -36,14 +36,6 @@ public class NPCOffspring extends NPC {
 
 	private static final long serialVersionUID = 1L;
 	
-	public boolean flagIntroduced = false;
-	public boolean flagApartmentIntroduced = false;
-	public boolean flagFightApologyNeeded = false;
-	public boolean flagRapeApologyNeeded = false;
-	public boolean fightInApartment = false;
-	public int flagBackgroundProgress = 0;
-
-	
 	public NPCOffspring() {
 		this(false);
 	}

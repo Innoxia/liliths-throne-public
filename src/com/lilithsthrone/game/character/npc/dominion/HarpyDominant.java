@@ -180,7 +180,7 @@ public class HarpyDominant extends NPC {
 				@Override
 				public void effects() {
 					Main.game.getDialogueFlags().values.add(DialogueFlagValue.dominantPacified);
-					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MATRIARCH_DOMINANT_PERFUME), false));
+					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MATRIARCH_DOMINANT_PERFUME), false, true));
 					
 					if(Main.game.getPlayer().getQuest(QuestLine.SIDE_HARPY_PACIFICATION) == Quest.HARPY_PACIFICATION_ONE) {
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HARPY_PACIFICATION, Quest.HARPY_PACIFICATION_TWO));

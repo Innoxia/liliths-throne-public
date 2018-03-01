@@ -404,6 +404,8 @@ public enum Subspecies {
 		this.singularFemaleName = singularFemaleName;
 		
 		this.pluralMaleName = pluralMaleName;
+		this.pluralFemaleName = pluralFemaleName;
+		
 		this.race = race;
 		this.colour = colour;
 		this.subspeciesPreferenceDefault = subspeciesPreferenceDefault;

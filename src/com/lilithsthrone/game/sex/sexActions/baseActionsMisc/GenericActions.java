@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.attributes.LustLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
@@ -81,6 +82,108 @@ public class GenericActions {
 			Sex.getActivePartner().setPenisSize(PenisSize.FIVE_ENORMOUS.getMedianValue());
 		}
 	};
+
+	
+	public static final SexAction PLAYER_HYPNOTIC_SUGGESTION_LUST_DECREASE = new SexAction(
+			SexActionType.PLAYER,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.TWO_LOW,
+			CorruptionLevel.THREE_DIRTY,
+			null,
+			null,
+			SexParticipantType.MISC) {
+		@Override
+		public String getActionTitle() {
+			return "[style.colourPsychoactive(Calming Suggestion)]";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "[npc.Name] is under the effect of a psychoactive substance. Use this to your advantage and hypnotically suggest that [npc.she] doesn't like having sex with you.";
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !Sex.getActivePartner().getPsychoactiveFluidsIngested().isEmpty();
+		}
+
+		@Override
+		public String getDescription() {
+			return "Wanting to take advantage of the fact that [npc.name] is under the strong effect of a psychoactive substance, you lean towards [npc.herHim] and [pc.moan],"
+					+ " [pc.speech(You aren't really interested in having sex with me, are you?)]"
+				+ "</p>"
+				+ "<p>"
+					+ "[npc.Name]'s [npc.eyes] glaze over a little as [npc.she] answers,"
+					+ " [npc.speech(Yes... I... I don't know why I'm having sex with you...)]"
+				+ "</p>"
+				+ "<p>"
+					+ "Pushing a little further, you continue,"
+					+ " [pc.speech(You'd rather I wasn't fucking you right now, isn't that right?)]"
+				+ "</p>"
+				+ "<p>"
+					+ (Sex.isDom(Sex.getActivePartner())
+							?"As the hypnotic suggestion sinks into [npc.name]'s head, [npc.she] starts to sound a lot calmer, and sighs,"
+								+ " [npc.speech(This isn't really all that fun...)]"
+							:"As the hypnotic suggestion sinks into [npc.name]'s head, [npc.she] starts to sound a lot more distressed, and cries out,"
+								+ " [npc.speech(Wait, w-why is this happening?! Please, stop it! Get away from me!)]")
+				+ "</p>";
+		}
+
+		@Override
+		public void applyEffects() {
+			Sex.getActivePartner().incrementLust(-50);
+		}
+	};
+	
+	public static final SexAction PLAYER_HYPNOTIC_SUGGESTION_LUST_INCREASE = new SexAction(
+			SexActionType.PLAYER,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.TWO_LOW,
+			CorruptionLevel.THREE_DIRTY,
+			null,
+			null,
+			SexParticipantType.MISC) {
+		@Override
+		public String getActionTitle() {
+			return "[style.colourPsychoactive(Lustful Suggestion)]";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "[npc.Name] is under the effect of a psychoactive substance. Use this to your advantage and hypnotically suggest that [npc.she] loves to have sex with you.";
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return !Sex.getActivePartner().getPsychoactiveFluidsIngested().isEmpty();
+		}
+
+		@Override
+		public String getDescription() {
+				return "Wanting to take advantage of the fact that [npc.name] is under the strong effect of a psychoactive substance, you lean towards [npc.herHim] and [pc.moan],"
+						+ " [pc.speech(You love having sex with me, don't you?)]"
+					+ "</p>"
+					+ "<p>"
+						+ "[npc.Name]'s [npc.eyes] glaze over a little as [npc.she] answers,"
+						+ " [npc.speech(Yes... I... I love having sex with you...)]"
+					+ "</p>"
+					+ "<p>"
+						+ "Pushing a little further, you continue,"
+						+ " [pc.speech(You love begging for me to fuck you, isn't that right?)]"
+					+ "</p>"
+					+ "<p>"
+						+ "As the hypnotic suggestion sinks into [npc.name]'s head, [npc.she] starts to sound a lot more eager, and [npc.moansVerb],"
+						+ " [npc.speech(Yes [pc.name]! I love it! Please, fuck me! I <i>need</i> you to fuck me!)]"
+					+ "</p>";
+		}
+
+		@Override
+		public void applyEffects() {
+			Sex.getActivePartner().incrementLust(50);
+		}
+	};
+	
+	
 	
 	public static final SexAction PLAYER_RESIST = new SexAction(
 			SexActionType.PLAYER,
@@ -614,6 +717,109 @@ public class GenericActions {
 	};
 	
 	// Partner:
+	
+	public static final SexAction PARTNER_HYPNOTIC_SUGGESTION_LUST_DECREASE = new SexAction(
+			SexActionType.PARTNER,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.TWO_LOW,
+			CorruptionLevel.THREE_DIRTY,
+			null,
+			null,
+			SexParticipantType.MISC) {
+		@Override
+		public String getActionTitle() {
+			return "[style.colourPsychoactive(Calming Suggestion)]";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "[pc.Name] is under the effect of a psychoactive substance. Use this to your advantage and hypnotically suggest that [pc.she] doesn't like having sex with you.";
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.isDom(Sex.getActivePartner())
+					&& !Main.game.getPlayer().getPsychoactiveFluidsIngested().isEmpty()
+					&& Sex.getActivePartner().hasFetish(Fetish.FETISH_NON_CON_DOM)
+					&& Main.game.getPlayer().getLust()>LustLevel.ONE_HORNY.getMaximumValue();
+		}
+
+		@Override
+		public String getDescription() {
+			return "Wanting to take advantage of the fact that you're under the strong effect of a psychoactive substance, [npc.name] leans towards you and [npc.moansVerb],"
+					+ " [npc.speech(You aren't really interested in having sex with me, are you?)]"
+				+ "</p>"
+				+ "<p>"
+					+ "You can't help but agree with what [npc.she]'s saying, and you haltingly answer,"
+					+ " [pc.speech(Yes... I... I don't know why I'm having sex with you...)]"
+				+ "</p>"
+				+ "<p>"
+					+ "Pushing a little further, and driven on by her fetish for having non-consensual sex, [npc.name] continues,"
+					+ " [pc.speech(You'd rather I wasn't fucking you right now, isn't that right?)]"
+				+ "</p>"
+				+ "<p>"
+					+ "As the hypnotic suggestion sinks into your head, you start to feel a lot more distressed, and cry out,"
+						+ " [pc.speech(Wait, w-why is this happening?! Please, stop it! Get away from me!)]"
+				+ "</p>";
+		}
+
+		@Override
+		public void applyEffects() {
+			Main.game.getPlayer().incrementLust(-50);
+		}
+	};
+	
+	public static final SexAction PARTNER_HYPNOTIC_SUGGESTION_LUST_INCREASE = new SexAction(
+			SexActionType.PARTNER,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.TWO_LOW,
+			CorruptionLevel.THREE_DIRTY,
+			null,
+			null,
+			SexParticipantType.MISC) {
+		@Override
+		public String getActionTitle() {
+			return "[style.colourPsychoactive(Lustful Suggestion)]";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "[pc.Name] is under the effect of a psychoactive substance. Use this to your advantage and hypnotically suggest that [pc.she] loves to have sex with you.";
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.isDom(Sex.getActivePartner())
+					&& !Main.game.getPlayer().getPsychoactiveFluidsIngested().isEmpty()
+					&& !Sex.getActivePartner().hasFetish(Fetish.FETISH_NON_CON_DOM)
+					&& Main.game.getPlayer().getLust()<LustLevel.FOUR_IMPASSIONED.getMinimumValue();
+		}
+
+		@Override
+		public String getDescription() {
+				return "Wanting to take advantage of the fact that you're under the strong effect of a psychoactive substance, [npc.name] leans towards you and [npc.moansVerb],"
+						+ " [npc.speech(You love having sex with me, don't you?)]"
+					+ "</p>"
+					+ "<p>"
+						+ "You can't help but agree with what [npc.she]'s saying, and you haltingly answer,"
+						+ " [pc.speech(Yes... I... I love having sex with you...)]"
+					+ "</p>"
+					+ "<p>"
+						+ "Pushing a little further, [npc.name] continues,"
+						+ " [npc.speech(You love begging for me to fuck you, isn't that right?)]"
+					+ "</p>"
+					+ "<p>"
+						+ "As the hypnotic suggestion sinks into your head, you cna't help but feel a lot more eager, and [pc.moan],"
+						+ " [pc.speech(Yes! I love it! Please, fuck me! I <i>need</i> you to fuck me!)]"
+					+ "</p>";
+		}
+
+		@Override
+		public void applyEffects() {
+			Main.game.getPlayer().incrementLust(50);
+		}
+	};
+	
 	
 	public static final SexAction PARTNER_RESIST = new SexAction(
 			SexActionType.PARTNER,

@@ -24,7 +24,6 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ShopTransaction;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.BlockedParts;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
@@ -44,7 +43,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.1.87
+ * @version 0.2.0
  * @author Innoxia
  */
 public class InventoryDialogue {
@@ -305,7 +304,7 @@ public class InventoryDialogue {
 										//TODO optimize (what if someone stores a thousand panties somewhere?)
 										int i = Main.game.getPlayerCell().getInventory().getItemsInInventory().size();
 										while(i > 0) {
-											Main.game.getPlayer().addItem(Main.game.getPlayerCell().getInventory().getItemsInInventory().get(i-1), true);
+											Main.game.getPlayer().addItem(Main.game.getPlayerCell().getInventory().getItemsInInventory().get(i-1), true, true);
 											i--;
 										}
 										
@@ -337,7 +336,7 @@ public class InventoryDialogue {
 										int i = inventoryNPC.getAllItemsInInventory().size();
 										while(i > 0) {
 											if(!Main.game.getPlayer().isInventoryFull() || Main.game.getPlayer().hasClothing(inventoryNPC.getAllClothingInInventory().get(i-1))) {
-												Main.game.getPlayer().addItem(inventoryNPC.getAllItemsInInventory().get(i-1), false);
+												Main.game.getPlayer().addItem(inventoryNPC.getAllItemsInInventory().get(i-1), false, true);
 												inventoryNPC.removeItem(inventoryNPC.getAllItemsInInventory().get(i-1));
 											}
 											i--;
@@ -559,7 +558,7 @@ public class InventoryDialogue {
 									//TODO optimize (what if someone stores a thousand panties somewhere?)
 									int i = Main.game.getPlayerCell().getInventory().getItemsInInventory().size();
 									while(i > 0) {
-										Main.game.getPlayer().addItem(Main.game.getPlayerCell().getInventory().getItemsInInventory().get(i-1), true);
+										Main.game.getPlayer().addItem(Main.game.getPlayerCell().getInventory().getItemsInInventory().get(i-1), true, true);
 										i--;
 									}
 									
@@ -3151,11 +3150,11 @@ public class InventoryDialogue {
 								return getQuickTradeResponse();
 								
 							} else if(index == 11) {
-								if(clothing.getClothingType().equals(ClothingType.NECK_SLAVE_COLLAR) && inventoryNPC.isAbleToBeEnslaved() && !inventoryNPC.isSlave()) {
+								if(clothing.isEnslavementClothing() && inventoryNPC.isAbleToBeEnslaved() && !inventoryNPC.isSlave()) {
 									return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), UtilText.parse(inventoryNPC, "Make [npc.name] equip the "+clothing.getName()+"!"), INVENTORY_MENU){
 										@Override
 										public DialogueNodeOld getNextDialogue() {
-											return inventoryNPC.getEnslavementDialogue();
+											return inventoryNPC.getEnslavementDialogue(clothing);
 										}
 										@Override
 										public void effects(){
@@ -3615,11 +3614,11 @@ public class InventoryDialogue {
 								
 							} else if(index == 11) {
 
-								if(clothing.getClothingType().equals(ClothingType.NECK_SLAVE_COLLAR) && inventoryNPC.isAbleToBeEnslaved() && !inventoryNPC.isSlave()) {
+								if(clothing.isEnslavementClothing() && inventoryNPC.isAbleToBeEnslaved() && !inventoryNPC.isSlave()) {
 									return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), UtilText.parse(inventoryNPC, "Make [npc.name] equip the "+clothing.getName()+"!"), INVENTORY_MENU){
 										@Override
 										public DialogueNodeOld getNextDialogue() {
-											return inventoryNPC.getEnslavementDialogue();
+											return inventoryNPC.getEnslavementDialogue(clothing);
 										}
 										@Override
 										public void effects(){
@@ -5128,6 +5127,7 @@ public class InventoryDialogue {
 							clothing.setSecondaryColour(dyePreviewSecondary);
 							clothing.setTertiaryColour(dyePreviewTertiary);
 							owner.addClothing(clothing, false);
+
 						} else {
 							Main.game.getPlayerCell().getInventory().removeClothing(clothing);
 							clothing.setColour(dyePreviewPrimary);
@@ -5467,7 +5467,7 @@ public class InventoryDialogue {
 					+ SVGString
 				+ "</div>"
 			+ "</div>"
-			+ "<h4><b>"+title+"</b></h4>"
+			+ "<h5><b>"+title+"</b></h5>"
 			+ "<p>"
 				+ description
 			+ "</p>";
@@ -5579,7 +5579,7 @@ public class InventoryDialogue {
 				.collect(Collectors.toList());
 			
 			for(int i = 0 ; i<count; i++) {
-				to.addItem(items.get(i), false);
+				to.addItem(items.get(i), false, to.isPlayer());
 				from.removeItem(items.get(i));
 			}
 		}
@@ -5609,7 +5609,7 @@ public class InventoryDialogue {
 				.collect(Collectors.toList());
 			
 			for(int i = 0 ; i<count; i++) {
-				to.addItem(items.get(i), true);
+				to.addItem(items.get(i), true, to.isPlayer());
 			}
 		}
 		resetPostAction();
@@ -5621,7 +5621,7 @@ public class InventoryDialogue {
 			if(buyback && to.isPlayer()) {
 				Main.game.getPlayer().incrementMoney(-itemPrice);
 				from.incrementMoney(itemPrice);
-				Main.game.getPlayer().addItem(item, false);
+				Main.game.getPlayer().addItem(item, false, true);
 				Main.game.getPlayer().getBuybackStack().remove(buyBackIndex);
 				
 			} else {

@@ -273,7 +273,7 @@ public class ArcaneArts {
 						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().setFlag(DialogueFlagValue.arthursPackageObtained, true);
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.ARTHURS_PACKAGE), false));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.ARTHURS_PACKAGE), false, true));
 							Main.game.getPlayer().incrementMoney(-100);
 						}
 					};

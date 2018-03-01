@@ -440,7 +440,7 @@ public class Breast implements BodyPartInterface, Serializable {
 				return "</p>"
 							+ "You feel a tingling heat quickly spreading throughout your torso, and you can't help but let out [pc.a_moan+] as your "
 							+ (hadBreasts
-									? "[pc.breasts] swell up and [style.boldGrow(grown larger)].</br>"
+									? "[pc.breasts] swell up and [style.boldGrow(grow larger)].</br>"
 									: "chest swells up, and before you know what's happening, a pair of breasts have [style.boldGrow(grown)] out of your previously-flat torso.</br>")
 							+ "You now have [style.boldSex(" + sizeDescriptor + (getSize().getMeasurement()>CupSize.AA.getMeasurement()?", "+getSize().getCupSizeName()+"-cup":"") + " breasts)]!"
 						+ "</p>";
@@ -449,7 +449,7 @@ public class Breast implements BodyPartInterface, Serializable {
 						"</p>"
 							+ "[npc.Name] feels a tingling heat quickly spreading throughout [npc.her] torso, and [npc.she] can't help but let out [npc.a_moan+] as [npc.her] "
 							+ (hadBreasts
-									? "[npc.breasts] swell up and [style.boldGrow(grown larger)].</br>"
+									? "[npc.breasts] swell up and [style.boldGrow(grow larger)].</br>"
 									: "chest swells up, and before [npc.she] knows what's happening, a pair of breasts have [style.boldGrow(grown)] out of [npc.her] previously-flat torso.</br>")
 							+ "[npc.Name] now has [style.boldSex(" + sizeDescriptor + (getSize().getMeasurement()>CupSize.AA.getMeasurement()?", "+getSize().getCupSizeName()+"-cup":"") + " breasts)]!"
 						+ "</p>");

@@ -62,6 +62,52 @@
 	]]>
 	</htmlContent>
 	
+	<htmlContent tag="NYAN_GREETING_REPEAT_PREGNANT"><![CDATA[
+	<p>
+		Entering the store, you're surprised to find that Nyan is nowhere in sight.
+		 Pushing through the throngs of people, you manage to catch one of the employees not busy with a customer, and upon asking after Nyan, you're pointed in the direction of the stock room.
+	</p>
+	<p>
+		Entering the familiar room, you discover that Nyan is indeed in here, murmuring to herself behind a stack of boxed clothing.
+		 Wringing her hands and staring at her feet, something has quite clearly got her more worked up than usual, and you notice that she jumps a little as she sees you approach.
+	</p>
+	<p>
+		[pc.speech(What's wrong Nyan?)]
+		 you ask.
+	</p>
+	<p>
+		[nyan.speech(O-Oh... well um...)] she says haltingly, [nyan.speech(Do y-you remember when w-we...you know...)] she blushes fiercely and says in a very quiet voice, [nyan.speech(Had s-sex...?)]
+	</p>
+	<p>
+		You smile at the memory and nod.
+		 Nyan smiles nervously back, before continuing,
+		 [nyan.speech(W-Well my tummy felt a little funny a-after so I took a t-test and...a-and...)]
+		 She closes her eyes and takes a deep breath, bunching up the bottom of her skirt as if gathering her courage before blurting out,
+		 [nyan.speech(I’m pregnant with your baby!)]
+	</p>
+	<p>
+		After her outburst, she just stands there; eyes scrunched closed, trembling hands clenching her skirt, she seems to be waiting for an admonishment.
+		 Stepping forwards, you sweep her into your arms, wishing that you'd been able to record the surprised squeak that bursts out of her mouth.
+		 She blinks in surprise as you hold her close, before pulling back a little and staring at you with open mouthed shock,
+		 [nyan.speech(W-W-What? You’re not a-angry?)]
+	</p>
+	<p>
+		You hold her at arm's length for a moment, smiling as you shake your head,
+		 [pc.speech(Why would I be angry? This is great news!)]
+	</p>
+	<p>
+		A visible tension seems to melt from her entire being as the nervous cat-girl cutely smiles back and snuggles into your [pc.arms],
+		 [nyan.speech(W-Will you come b-by and visit from time to t-time?)]
+	</p>
+	<p>
+		You instantly agree, and can't help but grin as you notice that she's looking happier than you’ve ever seen her before.
+		 Still nestled against your chest, Nyan mumbles,
+		 [nyan.speech(D-Did you need something w-while we’re in the s-stockroom?)]
+	</p>
+	<p>
+	]]>
+	</htmlContent>
+	
 	<htmlContent tag="NYAN_STOCK_ROOM"><![CDATA[
 	<p>
 		The stockroom of Nyan's Clothing Emporium looks pretty much exactly as you'd expected it be.
@@ -211,7 +257,7 @@
 		 Perhaps once all this supplier business is taken care of, you could try to get to know her a little better.
 	</p>
 	<p>
-		Any further thoughts on teh matter are interrupted, as Nyan suddenly returns, rushing up to you and thrusting a little wad of cash into your [pc.hands],
+		Any further thoughts on the matter are interrupted, as Nyan suddenly returns, rushing up to you and thrusting a little wad of cash into your [pc.hands],
 		 [nyan.speech(P-Please take this!)]
 		 she squeaks, before stepping back,
 		 [nyan.speech(A-And I c-can give y-you a t-twenty-five percent d-discount too!)]
