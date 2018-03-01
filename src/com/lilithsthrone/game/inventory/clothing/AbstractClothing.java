@@ -262,7 +262,10 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		// Try to load attributes:
 		
 		if(!parentElement.getAttribute("coreEnchantment").equals("null")) {
-			clothing.coreEnchantment = Attribute.valueOf(parentElement.getAttribute("coreEnchantment"));
+			try {
+				clothing.coreEnchantment = Attribute.valueOf(parentElement.getAttribute("coreEnchantment"));
+			} catch(Exception ex) {
+			}
 		}
 		
 		

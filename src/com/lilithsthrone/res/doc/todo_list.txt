@@ -57,7 +57,7 @@
 		Adjusted Scarlett's price from 2000/1000 to 15000/10000.
 		Taking/dealing damage now increases masochist/sadist fetishes, respectively.
 		'Stroke cock' and 'Stroke pussy' now transfers lubrication between penis/vagina and fingers.
-		Angel's Nectar now cures alcoholic and psychoactive effects, in addition to remocing addictions.
+		Angel's Nectar now cures alcoholic and psychoactive effects, in addition to removing addictions.
 		Removed fetish desire 'cumming' from the randomly generated dislike/hate pool.
 		Retconned lore about kissing slaves being taboo.
 		The more cum in an orifice, the faster it now leaks out. (Up to 1.75x the normal value.)
