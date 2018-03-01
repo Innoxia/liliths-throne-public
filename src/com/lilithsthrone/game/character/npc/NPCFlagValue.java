@@ -21,5 +21,11 @@ public enum NPCFlagValue {
 	flagSlavePettings,
 	flagSlaveInspect,
 	flagSlaveSpanking,
-	flagSlaveMolest;
+	flagSlaveMolest,
+	
+	flagOffspringIntroduced,
+	flagOffspringApartmentIntroduced,
+	flagOffspringFightApologyNeeded,
+	flagOffspringRapeApologyNeeded,
+	fightOffspringInApartment;
 }

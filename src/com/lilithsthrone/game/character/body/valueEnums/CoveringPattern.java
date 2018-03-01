@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * @since 0.1.83
- * @version 0.1.99
+ * @version 0.2.0
  * @author Innoxia
  */
 public enum CoveringPattern {
@@ -28,6 +28,7 @@ public enum CoveringPattern {
 	SPOTTED("spotted"),
 	MOTTLED("mottled"),
 	MARKED("marked"),
+	FRECKLED("freckled"),
 	
 	OMBRE("ombre");
 	
@@ -42,6 +43,7 @@ public enum CoveringPattern {
 		allStandardCoveringPatterns.add(SPOTTED);
 		allStandardCoveringPatterns.add(MOTTLED);
 		allStandardCoveringPatterns.add(MARKED);
+		allStandardCoveringPatterns.add(FRECKLED);
 		
 
 		allHairCoveringPatterns.add(NONE);

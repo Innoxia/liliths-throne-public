@@ -53,7 +53,7 @@ public class DialogueFlags implements Serializable, XMLSaving {
 		ralphDiscountStartTime=-1;
 		ralphDiscount=0;
 		
-		scarlettPrice = 2000;
+		scarlettPrice = 15000;
 	}
 	
 	public Element saveAsXML(Element parentElement, Document doc) {

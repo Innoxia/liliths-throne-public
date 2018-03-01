@@ -617,6 +617,44 @@ public class Util {
 		return utilitiesStringBuilder.toString();
 	}
 
+	private static String[] drunkSounds = new String[] { "~Hic!~ " };
+	/**
+	 * Turns a normal sentence into a sexy sentence.</br>
+	 * Example:</br>
+	 * "How far is it to the town hall?"</br>
+	 * "How ~Aah!~ far is it ~Mmm!~ to the town ~Aah!~ hall?"</br>
+	 * 
+	 * @param sentence
+	 *            sentence to apply sexy modifications
+	 * @param frequency
+	 *            of sex sounds (i.e. 4 would be 1 in 4 words are sexy)
+	 * @return
+	 *            modified sentence
+	 */
+	public static String addDrunkSlur(String sentence, int frequency) {
+		splitSentence = sentence.split(" ");
+		utilitiesStringBuilder.setLength(0);
+
+		// 1 in "frequency" words are sexy interjections, with a minimum of 1.
+		int wordsToMuffle = splitSentence.length / frequency + 1;
+
+		int offset = 0;
+		for (int i = 0; i < wordsToMuffle; i++) {
+			offset = random.nextInt(frequency);
+			offset = ((i * frequency + offset) >= splitSentence.length ? splitSentence.length - 1 : (i * frequency + offset));
+			
+			// Add the sexy sound to this word:
+			splitSentence[offset] = drunkSounds[random.nextInt(drunkSounds.length)] + splitSentence[offset];
+			
+		}
+		for (String word : splitSentence) {
+			utilitiesStringBuilder.append(word + " ");
+		}
+		utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
+		
+		return utilitiesStringBuilder.toString().replaceAll("Hi ", "Heeey ").replaceAll("yes", "yesh").replaceAll("is", "ish").replaceAll("So", "Sho").replaceAll("so", "sho");
+	}
+
 	/**
 	 * Builds a string representing the list of items in a collection.
 	 *

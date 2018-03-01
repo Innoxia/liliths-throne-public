@@ -1499,6 +1499,14 @@ public class GenericOrgasms {
 			}
 		}
 		
+		if(characterOrgasming.isVaginaSquirter()) {
+			if(characterOrgasming.isPlayer()) {
+				genericOrgasmSB.append(" As your inner muscles spasm and quiver with delight, a huge spurt of female ejaculate squirts out from your [npc1.pussy+].");
+			} else {
+				genericOrgasmSB.append(" As [npc1.name]'s inner muscles spasm and quiver with delight, a huge spurt of female ejaculate squirts out from [npc1.her] [npc1.pussy+].");
+			}
+		}
+		
 		if(characterOrgasming.isPlayer()) {	
 			genericOrgasmSB.append(" With a deeply-satisfied sigh, your feminine climax starts to fade, and you take a few deep gasps of air as you seek to catch your breath.");
 		} else {

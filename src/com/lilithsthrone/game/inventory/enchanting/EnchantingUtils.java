@@ -1,7 +1,10 @@
 package com.lilithsthrone.game.inventory.enchanting;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
@@ -137,7 +140,7 @@ public class EnchantingUtils {
 		String finalPotionName = potionDescriptor + potionName;
 		
 		for(ItemEffect ie : effects) {
-			if(ie.getPrimaryModifier() != TFModifier.NONE) {
+			if(ie.getPrimaryModifier() != null && ie.getPrimaryModifier() != TFModifier.NONE) {
 				potionSuffix = ie.getPrimaryModifier().getDescriptor();
 				
 				if(ie.getSecondaryModifier() != TFModifier.NONE) {
@@ -165,16 +168,21 @@ public class EnchantingUtils {
 	public static int getCost(AbstractCoreItem ingredient, List<ItemEffect> effects) {
 		
 		int cost = 0;
-		
+		Map<ItemEffect, Integer> effectCount = new HashMap<>();
 		for(ItemEffect ie : effects) {
-			if(!ingredient.getEffects().contains(ie)) {
-				cost+=ie.getCost();
-			}
+			effectCount.putIfAbsent(ie, 0);
+			effectCount.put(ie, effectCount.get(ie)+1);
 		}
 		for(ItemEffect ie : ingredient.getEffects()) {
-			if(!effects.contains(ie)) {
-				cost+=ie.getCost();
+			if(effects.contains(ie)) {
+				effectCount.put(ie, effectCount.get(ie)-1);
+			} else {
+				effectCount.putIfAbsent(ie, 0);
+				effectCount.put(ie, effectCount.get(ie)+1);
 			}
+		}
+		for(Entry<ItemEffect, Integer> entry : effectCount.entrySet()) {
+			cost += entry.getKey().getCost() * Math.abs(entry.getValue());
 		}
 		
 		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING)) {

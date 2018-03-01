@@ -174,7 +174,7 @@ import javafx.scene.web.WebView;
 
 /**
  * @since 0.1.0
- * @version 0.1.99
+ * @version 0.2.0
  * @author Innoxia
  */
 public class MainController implements Initializable {
@@ -460,7 +460,16 @@ public class MainController implements Initializable {
 //						 }
 						
 						 if(event.getCode()==KeyCode.END){
-//							 
+							 
+//							 Main.game.getPlayer().incrementCummedInArea(OrificeType.VAGINA, 10000);
+							 
+//							 Main.game.getPlayer().addPsychoactiveFluidIngested(FluidType.CUM_HUMAN);
+//							 Main.game.getPlayer().addPsychoactiveFluidIngested(FluidType.MILK_HUMAN);
+//							 Main.game.getPlayer().addPsychoactiveFluidIngested(FluidType.GIRL_CUM_HUMAN);
+//							 Main.game.getPlayer().addStatusEffect(StatusEffect.PSYCHOACTIVE, 60*6);
+							 
+//							 Main.game.getPlayer().addAddiction(new Addiction(FluidType.MILK_HUMAN, Main.game.getMinutesPassed()));
+							 
 //							 Main.game.getPlayer().incrementAlcoholLevel(0.2f);
 							 
 //							 for(Fetish f : Fetish.values()) {
@@ -1552,6 +1561,94 @@ public class MainController implements Initializable {
 				}
 			}
 			
+			id = "LIMIT_MINIMUM";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				if(EnchantmentDialogue.limit>0) {
+					EnchantmentEventListener el = new EnchantmentEventListener().setLimit(0);
+					addEventListener(document, id, "click", el, false);
+				}
+				addEventListener(document, id, "mousemove", moveTooltipListener, false);
+				addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+				
+				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation((EnchantmentDialogue.limit==0?"Minimum Limit Reached":"Limit Minimum"), "");
+				addEventListener(document, id, "mouseenter", el2, false);
+			}
+			
+			id = "LIMIT_DECREASE_LARGE";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				if(EnchantmentDialogue.limit>0) {
+					EnchantmentEventListener el = new EnchantmentEventListener().setLimit(Math.max(0, EnchantmentDialogue.limit-(EnchantmentDialogue.ingredient.getEnchantmentEffect().getLimits(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod)/10)));
+					addEventListener(document, id, "click", el, false);
+				}
+				addEventListener(document, id, "mousemove", moveTooltipListener, false);
+				addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+				
+				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation((EnchantmentDialogue.limit==0?"Minimum Limit Reached":"Large Limit Decrease"), "");
+				addEventListener(document, id, "mouseenter", el2, false);
+			}
+			
+			id = "LIMIT_DECREASE";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				if(EnchantmentDialogue.limit>0) {
+					EnchantmentEventListener el = new EnchantmentEventListener().setLimit(EnchantmentDialogue.limit-1);
+					addEventListener(document, id, "click", el, false);
+				}
+				addEventListener(document, id, "mousemove", moveTooltipListener, false);
+				addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+				
+				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation((EnchantmentDialogue.limit==0?"Minimum Limit Reached":"Limit Decrease"), "");
+				addEventListener(document, id, "mouseenter", el2, false);
+			}
+			
+			id = "LIMIT_INCREASE";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				if(EnchantmentDialogue.limit < EnchantmentDialogue.ingredient.getEnchantmentEffect().getLimits(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod)) {
+					EnchantmentEventListener el = new EnchantmentEventListener().setLimit(EnchantmentDialogue.limit+1);
+					addEventListener(document, id, "click", el, false);
+				}
+				addEventListener(document, id, "mousemove", moveTooltipListener, false);
+				addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+				
+				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation(
+						(EnchantmentDialogue.limit < EnchantmentDialogue.ingredient.getEnchantmentEffect().getLimits(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod)
+								?"Limit Increase"
+								:"Maximum Limit Reached"), "");
+				addEventListener(document, id, "mouseenter", el2, false);
+			}
+			
+			id = "LIMIT_INCREASE_LARGE";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				int limit = EnchantmentDialogue.ingredient.getEnchantmentEffect().getLimits(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod);
+				if(EnchantmentDialogue.limit < limit) {
+					EnchantmentEventListener el = new EnchantmentEventListener().setLimit(Math.min(limit, EnchantmentDialogue.limit+(limit/10)));
+					addEventListener(document, id, "click", el, false);
+				}
+				addEventListener(document, id, "mousemove", moveTooltipListener, false);
+				addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+				
+				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation(
+						(EnchantmentDialogue.limit < EnchantmentDialogue.ingredient.getEnchantmentEffect().getLimits(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod)
+								?"Large Limit Increase"
+								:"Maximum Limit Reached"), "");
+				addEventListener(document, id, "mouseenter", el2, false);
+			}
+
+			id = "LIMIT_MAXIMUM";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				if(EnchantmentDialogue.limit < EnchantmentDialogue.ingredient.getEnchantmentEffect().getLimits(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod)) {
+					EnchantmentEventListener el = new EnchantmentEventListener().setLimit(EnchantmentDialogue.ingredient.getEnchantmentEffect().getLimits(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod));
+					addEventListener(document, id, "click", el, false);
+				}
+				addEventListener(document, id, "mousemove", moveTooltipListener, false);
+				addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+				
+				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation(
+						(EnchantmentDialogue.limit < EnchantmentDialogue.ingredient.getEnchantmentEffect().getLimits(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod)
+								?"Set Limit To Maximum"
+								:"Maximum Limit Reached"), "");
+				addEventListener(document, id, "mouseenter", el2, false);
+			}
+			
 			// Ingredient icon:
 			if (((EventTarget) document.getElementById("INGREDIENT_ENCHANTING")) != null) {
 				
@@ -1589,32 +1686,44 @@ public class MainController implements Initializable {
 							Main.game.setContent(new ResponseEffectsOnly("Craft", "Craft '"+EnchantingUtils.getPotionName(EnchantmentDialogue.ingredient, EnchantmentDialogue.effects)+"'."){
 								@Override
 								public void effects() {
+									
 									EnchantmentDialogue.craftItem(EnchantmentDialogue.ingredient, EnchantmentDialogue.effects);
 									
-									if(EnchantmentDialogue.ingredient instanceof AbstractItem) {
-										if(Main.game.getPlayer().hasItem((AbstractItem) EnchantmentDialogue.previousIngredient)) {
-											EnchantmentDialogue.ingredient = EnchantmentDialogue.previousIngredient;
-											Main.game.setContent(new Response("", "", EnchantmentDialogue.ENCHANTMENT_MENU));
-										} else {
-											Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
-										}
-										
-									} else if(EnchantmentDialogue.ingredient instanceof AbstractClothing) {
-										if(Main.game.getPlayer().hasClothing((AbstractClothing) EnchantmentDialogue.previousIngredient)) {
-											EnchantmentDialogue.ingredient = EnchantmentDialogue.previousIngredient;
-											Main.game.setContent(new Response("", "", EnchantmentDialogue.ENCHANTMENT_MENU));
-										} else {
-											Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
-										}
-										
+									if((EnchantmentDialogue.previousIngredient instanceof AbstractItem?Main.game.getPlayer().hasItem((AbstractItem) EnchantmentDialogue.previousIngredient):true)
+											&& (EnchantmentDialogue.previousIngredient instanceof AbstractClothing?Main.game.getPlayer().hasClothing((AbstractClothing) EnchantmentDialogue.previousIngredient):true)
+											&& (EnchantmentDialogue.previousIngredient instanceof AbstractWeapon?Main.game.getPlayer().hasWeapon((AbstractWeapon) EnchantmentDialogue.previousIngredient):true)) {
+										EnchantmentDialogue.ingredient = EnchantmentDialogue.previousIngredient;
+										Main.game.setContent(new Response("", "", EnchantmentDialogue.ENCHANTMENT_MENU));
 									} else {
-										if(Main.game.getPlayer().hasWeapon((AbstractWeapon) EnchantmentDialogue.previousIngredient)) {
-											EnchantmentDialogue.ingredient = EnchantmentDialogue.previousIngredient;
-											Main.game.setContent(new Response("", "", EnchantmentDialogue.ENCHANTMENT_MENU));
-										} else {
-											Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
-										}
+										Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
 									}
+									
+//									EnchantmentDialogue.craftItem(EnchantmentDialogue.ingredient, EnchantmentDialogue.effects);
+//									
+//									if(EnchantmentDialogue.ingredient instanceof AbstractItem) {
+//										if(Main.game.getPlayer().hasItem((AbstractItem) EnchantmentDialogue.previousIngredient)) {
+//											EnchantmentDialogue.ingredient = EnchantmentDialogue.previousIngredient;
+//											Main.game.setContent(new Response("", "", EnchantmentDialogue.ENCHANTMENT_MENU));
+//										} else {
+//											Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
+//										}
+//										
+//									} else if(EnchantmentDialogue.ingredient instanceof AbstractClothing) {
+//										if(Main.game.getPlayer().hasClothing((AbstractClothing) EnchantmentDialogue.previousIngredient)) {
+//											EnchantmentDialogue.ingredient = EnchantmentDialogue.previousIngredient;
+//											Main.game.setContent(new Response("", "", EnchantmentDialogue.ENCHANTMENT_MENU));
+//										} else {
+//											Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
+//										}
+//										
+//									} else if(EnchantmentDialogue.ingredient instanceof AbstractWeapon) {
+//										if(Main.game.getPlayer().hasWeapon((AbstractWeapon) EnchantmentDialogue.previousIngredient)) {
+//											EnchantmentDialogue.ingredient = EnchantmentDialogue.previousIngredient;
+//											Main.game.setContent(new Response("", "", EnchantmentDialogue.ENCHANTMENT_MENU));
+//										} else {
+//											Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
+//										}
+//									}
 									
 									
 									
@@ -1632,9 +1741,10 @@ public class MainController implements Initializable {
 			}
 			
 			// Adding an effect:
-			if (((EventTarget) document.getElementById("ENCHANT_ADD_BUTTON")) != null) {
+			id = "ENCHANT_ADD_BUTTON";
+			if (((EventTarget) document.getElementById(id)) != null) {
 				
-				((EventTarget) document.getElementById("ENCHANT_ADD_BUTTON")).addEventListener("click", e -> {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 					if(EnchantmentDialogue.ingredient.getEnchantmentEffect().getEffectsDescription(
 							EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod, EnchantmentDialogue.potency, EnchantmentDialogue.limit, Main.game.getPlayer(), Main.game.getPlayer())==null) {
 						
@@ -1649,11 +1759,21 @@ public class MainController implements Initializable {
 					}
 				}, false);
 				
-				addEventListener(document, "ENCHANT_ADD_BUTTON", "mousemove", moveTooltipListener, false);
-				addEventListener(document, "ENCHANT_ADD_BUTTON", "mouseleave", hideTooltipListener, false);
+				addEventListener(document, id, "mousemove", moveTooltipListener, false);
+				addEventListener(document, id, "mouseleave", hideTooltipListener, false);
 
 				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation("Add Effect", "");
-				addEventListener(document, "ENCHANT_ADD_BUTTON", "mouseenter", el2, false);
+				addEventListener(document, id, "mouseenter", el2, false);
+			}
+			
+			id = "ENCHANT_ADD_BUTTON_DISABLED";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				addEventListener(document, id, "mousemove", moveTooltipListener, false);
+				addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+
+				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation("Add Effect",
+						EnchantmentDialogue.effects.size() >= EnchantmentDialogue.ingredient.getEnchantmentLimit()?"You have already added the maximum number of effects for this item!":"");
+				addEventListener(document, id, "mouseenter", el2, false);
 			}
 			
 			// Choosing a primary modifier:

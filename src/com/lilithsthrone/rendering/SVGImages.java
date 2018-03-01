@@ -286,14 +286,14 @@ public enum SVGImages {
 			responseUnlocked = setColour(responseUnlocked, Colour.GENERIC_GOOD);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/responseUnlocked.svg");
 			responseUnlockedDisabled = Util.inputStreamToString(is);
-			responseUnlockedDisabled = setColour(responseUnlockedDisabled, Colour.BASE_GREY);
+			responseUnlockedDisabled = setColour(responseUnlockedDisabled, Colour.BASE_BLACK);
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/responseOption.svg");
 			responseOption = Util.inputStreamToString(is);
 			responseOption = setColour(responseOption, Colour.GENERIC_GOOD);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/responseOption.svg");
 			responseOptionDisabled = Util.inputStreamToString(is);
-			responseOptionDisabled = setColour(responseOptionDisabled, Colour.BASE_GREY);
+			responseOptionDisabled = setColour(responseOptionDisabled, Colour.BASE_BLACK);
 			
 			
 			

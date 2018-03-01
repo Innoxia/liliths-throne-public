@@ -35,7 +35,7 @@ public class DominionEncounterDialogue {
 				return new Response("Take", "Add the " + Encounter.getRandomItem().getName() + " to your inventory.", DebugDialogue.getDefaultDialogueNoEncounter()){
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addItem(Encounter.getRandomItem(), true));
+						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addItem(Encounter.getRandomItem(), true, true));
 					}
 				};
 				
@@ -145,7 +145,7 @@ public class DominionEncounterDialogue {
 				return new Response("Take", "Add the " + Encounter.getRandomItem().getName() + " to your inventory.", DebugDialogue.getDefaultDialogueNoEncounter()){
 					@Override
 					public void effects() {
-						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addItem(Encounter.getRandomItem(), true));
+						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().addItem(Encounter.getRandomItem(), true, true));
 					}
 				};
 				

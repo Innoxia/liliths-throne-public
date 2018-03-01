@@ -22,6 +22,7 @@ public class EnchantmentEventListener implements EventListener {
 	private TFPotency potency;
 	private boolean effect;
 	private int effectIndex;
+	private int limit;
 
 	@Override
 	public void handleEvent(Event event) {
@@ -44,6 +45,9 @@ public class EnchantmentEventListener implements EventListener {
 		} else if(effect) {
 			ItemEffect e = EnchantmentDialogue.effects.get(effectIndex);
 			EnchantmentDialogue.effects.remove(e);
+			
+		} else if(limit != EnchantmentDialogue.limit) {
+			EnchantmentDialogue.limit = limit;
 		}
 		
 		if(!EnchantmentDialogue.ingredient.getEnchantmentEffect().getPrimaryModifiers().contains(EnchantmentDialogue.primaryMod)) {
@@ -55,8 +59,8 @@ public class EnchantmentEventListener implements EventListener {
 		if(!EnchantmentDialogue.ingredient.getEnchantmentEffect().getPotencyModifiers(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod).contains(EnchantmentDialogue.potency)) {
 			EnchantmentDialogue.potency = TFPotency.MINOR_BOOST;
 		}
-		if(!EnchantmentDialogue.ingredient.getEnchantmentEffect().getLimits(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod).contains(EnchantmentDialogue.limit)) {
-			EnchantmentDialogue.limit = 0;
+		if(EnchantmentDialogue.limit > EnchantmentDialogue.ingredient.getEnchantmentEffect().getLimits(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod)) {
+			EnchantmentDialogue.limit = EnchantmentDialogue.ingredient.getEnchantmentEffect().getLimits(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod);
 		}
 		
 		Main.game.setContent(new Response("Enchanting", "Start enchanting.", EnchantmentDialogue.ENCHANTMENT_MENU));
@@ -97,6 +101,13 @@ public class EnchantmentEventListener implements EventListener {
 
 		return this;
 	}
+	
+	public EnchantmentEventListener setLimit(int limit) {
+		resetVariables();
+		this.limit = limit;
+
+		return this;
+	}
 
 	private void resetVariables() {
 		effect = false;
@@ -105,5 +116,6 @@ public class EnchantmentEventListener implements EventListener {
 		primaryModifier = null;
 		secondaryModifier = null;
 		potency = null;
+		limit = 0;
 	}
 }

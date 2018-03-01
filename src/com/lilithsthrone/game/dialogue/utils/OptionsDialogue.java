@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.dialogue.utils;
 
 import java.awt.Desktop;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -38,7 +39,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.98
+ * @version 0.2.0
  * @author Innoxia
  */
 public class OptionsDialogue {
@@ -65,6 +66,11 @@ public class OptionsDialogue {
 						+ "You can visit my blog (https://lilithsthrone.blogspot.co.uk) to check on development progress (use the 'Blog' button below to open the blog in your default browser)."
 					+ "</p>"
 					+ getJavaVersionInformation()
+					+ (Toolkit.getDefaultToolkit().getScreenSize().getHeight()<800
+							?"<p style='text-align:center; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"
+								+ "If the game's resolution isn't fitting to your screen, press the keys: 'Windows' + 'Up Arrow' to maximise!"
+							+ "</p>"
+							:"")
 					+ "</br>"
 					+ (Main.game.isStarted() || Main.getProperties().name.isEmpty()
 							?""

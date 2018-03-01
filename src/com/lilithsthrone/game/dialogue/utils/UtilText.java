@@ -71,8 +71,15 @@ public class UtilText {
 
 	public static String parsePlayerSpeech(String text) {
 		modifiedSentence = text;
-		if (Main.game.getPlayer().hasFetish(Fetish.FETISH_BIMBO))
+		if (Main.game.getPlayer().hasFetish(Fetish.FETISH_BIMBO)) {
 			modifiedSentence = Util.addBimbo(modifiedSentence, 6);
+		}
+		
+		if(Main.game.getPlayer().getAlcoholLevel()>0.75f) {
+			modifiedSentence = Util.addDrunkSlur(modifiedSentence, 4);
+		} else if(Main.game.getPlayer().getAlcoholLevel()>0.5f) {
+			modifiedSentence = Util.addDrunkSlur(modifiedSentence, 8);
+		}
 		
 		// Apply speech effects:
 		if(Main.game.isInSex()) {
@@ -117,6 +124,12 @@ public class UtilText {
 
 		if (target.hasFetish(Fetish.FETISH_BIMBO)) {
 			modifiedSentence = Util.addBimbo(modifiedSentence, 6);
+		}
+		
+		if(target.getAlcoholLevel()>0.75f) {
+			modifiedSentence = Util.addDrunkSlur(modifiedSentence, 4);
+		} else if(target.getAlcoholLevel()>0.5f) {
+			modifiedSentence = Util.addDrunkSlur(modifiedSentence, 8);
 		}
 		
 		// Apply speech effects:
@@ -315,13 +328,28 @@ public class UtilText {
 		return "&#9737;"; // Java doesn't support unicode 6 ;_;   No pentagram for me... ;_;  "&#9956";
 	}
 	
+	public static String formatAsEssencesUncoloured(int amount, String tag, boolean withOverlay) {
+		return "<div class='item-inline'>"
+					+ TFEssence.ARCANE.getSVGStringUncoloured() + (withOverlay?"<div class='overlay no-pointer' id='ESSENCE_"+TFEssence.ARCANE.hashCode()+"'></div>":"")
+				+"</div>"
+				+ " <"+tag+" style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"+amount+"</"+tag+">";
+	}
+	
+	
 	public static String formatAsEssences(int amount, String tag, boolean withOverlay) {
-		return "<div class='item-inline'>"+ TFEssence.ARCANE.getSVGString()+ (withOverlay?"<div class='overlay no-pointer' id='ESSENCE_"+TFEssence.ARCANE.hashCode()+"'></div>":"")
-					+"</div> <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"+amount+"</b>";
+		return "<div class='item-inline'>"
+					+ TFEssence.ARCANE.getSVGString() + (withOverlay?"<div class='overlay no-pointer' id='ESSENCE_"+TFEssence.ARCANE.hashCode()+"'></div>":"")
+				+"</div>"
+				+ " <"+tag+" style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"+amount+"</"+tag+">";
 	}
 	
 	public static String formatAsMoney(int money, String tag) {
 		return formatAsMoney(money, tag, null);
+	}
+	
+	public static String formatAsMoney(String money, String tag) {
+		return "<" + tag + " style='color:" + Colour.CURRENCY_GOLD.toWebHexString() + "; padding-right:2px;'>" + getCurrencySymbol() + "</" + tag + ">"
+				+ "<" + tag + " style='color:" + Colour.TEXT.getShades(8)[3] + ";'>" + money + "</" + tag + ">";
 	}
 	
 	//private static NumberFormat formatter = new DecimalFormat("#0.00");   formatter.format(money/100d)
@@ -398,10 +426,14 @@ public class UtilText {
 	}
 
 	public static String generateSingularDeterminer(String word) {
-		if (isVowel(word.charAt(0)))
+		if(word.isEmpty()) {
+			return "";
+		}
+		if (isVowel(word.charAt(0)) || word.charAt(0)=='x' || word.charAt(0)=='X') {
 			return "an";
-		else
+		} else {
 			return "a";
+		}
 	}
 
 //	private static String[] assNames = new String[] { "ass", "rear end", "butt", "rump" };
@@ -834,6 +866,24 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
+						new ListValue<>("mommy"),
+						new ListValue<>("daddy")),
+				true,
+				true,
+				"",//TODO
+				"Description of method"){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(character.isFeminine()) {
+					return "mommy";
+				} else {
+					return "daddy";
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
 						new ListValue<>("mom"),
 						new ListValue<>("mum"),
 						new ListValue<>("dad")),
@@ -847,6 +897,42 @@ public class UtilText {
 					return "mom";
 				} else {
 					return "dad";
+				}
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("sister"),
+						new ListValue<>("brother")),
+				true,
+				true,
+				"",//TODO
+				"Description of method"){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(character.isFeminine()) {
+					return "sister";
+				} else {
+					return "brother";
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("sis"),
+						new ListValue<>("bro")),
+				true,
+				true,
+				"",//TODO
+				"Description of method"){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				if(character.isFeminine()) {
+					return "sis";
+				} else {
+					return "bro";
 				}
 			}
 		});
@@ -3722,7 +3808,11 @@ public class UtilText {
 				bodyPart){
 			@Override
 			public String parse(String command, String arguments, String target) {
-				return getBodyPartFromType(bodyPart).getType().getRace().getName();
+				try {
+					return getBodyPartFromType(bodyPart).getType().getRace().getName();
+				} catch(Exception ex) {
+					return "null_body_part";
+				}
 			}
 		});
 		

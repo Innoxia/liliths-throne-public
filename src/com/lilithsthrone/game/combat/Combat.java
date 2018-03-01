@@ -202,7 +202,7 @@ public enum Combat {
 					for(AbstractCoreItem item : enemy.getLootItems()) {
 						postCombatStringBuilder.append("<p style='text-align:center;'>You gained <b style='color:"+item.getRarity().getColour().toWebHexString()+";'>"+item.getName()+"</b>!</p>");
 						if(item instanceof AbstractItem) {
-							Main.game.getPlayer().addItem((AbstractItem) item, false);
+							Main.game.getPlayer().addItem((AbstractItem) item, false, true);
 						} else if(item instanceof AbstractWeapon) {
 							Main.game.getPlayer().addWeapon((AbstractWeapon) item, false);
 						} else if(item instanceof AbstractClothing) {
@@ -345,7 +345,7 @@ public enum Combat {
 	}
 	
 	private static boolean isCombatantDefeated(GameCharacter character) {
-		return (character.getHealth() <= 0 || character.getMana() <= 0);
+		return (character.getHealth() <= 0 || (character.getLust()>=100 && character.isVulnerableToLustLoss()));
 	}
 	
 	private static boolean isAlliedPartyDefeated() {
@@ -826,7 +826,7 @@ public enum Combat {
 			}
 		}
 
-		attackStringBuilder.append(target.incrementHealth(-damage));
+		attackStringBuilder.append(target.incrementHealth(attacker, -damage));
 		
 		combatStringBuilder.append(getCharactersTurnDiv(attacker, "Main Attack", attackStringBuilder.toString()));
 	}
@@ -864,7 +864,7 @@ public enum Combat {
 					+ damageAttribute.getName() + "</b>!</b></p>");
 		}
 
-		attackStringBuilder.append(target.incrementHealth(-damage));
+		attackStringBuilder.append(target.incrementHealth(attacker, -damage));
 		
 		combatStringBuilder.append(getCharactersTurnDiv(attacker, "Offhand Attack", attackStringBuilder.toString()));
 	}
@@ -904,7 +904,7 @@ public enum Combat {
 			attackStringBuilder.append("<p><b>You missed!</b></p>");
 		}
 		
-		attackStringBuilder.append(target.incrementHealth(-(damageMain+damageOffhand)));
+		attackStringBuilder.append(target.incrementHealth(attacker, -(damageMain+damageOffhand)));
 		
 		combatStringBuilder.append(getCharactersTurnDiv(attacker, "Dual Strike", attackStringBuilder.toString()));
 	}
@@ -931,17 +931,13 @@ public enum Combat {
 	private static void attackSeduction(GameCharacter attacker) {
 		GameCharacter target = getTargetedCombatant(attacker);
 		// Calculate hit + damage
-		float damage = 0;
 		attackStringBuilder = new StringBuilder("");
 		
 		attackStringBuilder.append(attacker.getSeductionDescription());
 		
-		boolean critical = isCriticalHit(attacker);
+		boolean critical = false;//isCriticalHit(attacker);
 	
-		damage = Attack.calculateDamage(attacker, target, Attack.SEDUCTION, critical);
-	
-		float auraDamage = damage * target.getLustLevel().getAuraDamagePercentage();
-		float lustDamage = damage - auraDamage;
+		float lustDamage = Attack.calculateDamage(attacker, target, Attack.SEDUCTION, critical);
 		
 		if(attacker.isPlayer()) {
 			attackStringBuilder.append(UtilText.parse(target,
@@ -952,11 +948,9 @@ public enum Combat {
 						+ (lustDamage > 0
 								? "<b>[npc.Name] gains " + lustDamage + " <b style='color:" + Colour.ATTRIBUTE_LUST.toWebHexString() + ";'>lust</b> as [npc.she] tries to resist your seductive display!</b></br>"
 								: "")
-						+ (auraDamage > 0
-								? "<b>[npc.Name] suffers " + damage + " <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura damage</b> as your seductive display causes [npc.herHim] to lose control!</b>"
-								: "")
 					+ "</p>"));
-		} else {
+			
+		} else if(target.isPlayer()) {
 			attackStringBuilder.append(UtilText.parse(attacker,
 					"<p>"
 						+ (critical
@@ -965,14 +959,21 @@ public enum Combat {
 						+ (lustDamage > 0
 								? "<b>You gain " + lustDamage + " <b style='color:" + Colour.ATTRIBUTE_LUST.toWebHexString() + ";'>lust</b> as you try to resist [npc.her] seductive display!</b></br>"
 								: "")
-						+ (auraDamage > 0
-								? "<b>You suffer " + damage + " <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura damage</b> as [npc.her] seductive display causes you to lose control!</b>"
+					+ "</p>"));
+			
+		} else {
+			attackStringBuilder.append(UtilText.parse(attacker, target,
+					"<p>"
+						+ (critical
+								? "[npc1.Her] seductive display was <b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>extremely effective</b>!</br>"
+								: "")
+						+ (lustDamage > 0
+								? "<b>[npc2.Name] gains " + lustDamage + " <b style='color:" + Colour.ATTRIBUTE_LUST.toWebHexString() + ";'>lust</b> as [npc2.she] tries to resist [npc1.name]'s seductive display!</b></br>"
 								: "")
 					+ "</p>"));
 		}
 
 		target.incrementLust(lustDamage);
-		target.incrementMana(-auraDamage);
 		
 		combatStringBuilder.append(getCharactersTurnDiv(attacker, "Seduction", attackStringBuilder.toString()));
 	}
@@ -1095,6 +1096,10 @@ public enum Combat {
 		} else {
 			// Calculate what attack to use based on NPC preference:
 			Attack opponentAttack = npc.attackType();
+			
+			if(opponentAttack == Attack.SEDUCTION && Combat.getTargetedCombatant(npc).getLust()>=100) {
+				opponentAttack = Attack.MAIN;
+			}
 			
 			switch(opponentAttack){
 				case DUAL:

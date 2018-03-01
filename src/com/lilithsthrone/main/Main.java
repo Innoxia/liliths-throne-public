@@ -42,7 +42,7 @@ import javafx.stage.Stage;
 
 /**
  * @since 0.1.0
- * @version 0.1.99.5
+ * @version 0.2.0
  * @author Innoxia
  */
 public class Main extends Application {
@@ -56,8 +56,8 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.1.99.6",
-			VERSION_DESCRIPTION = "Early Alpha";
+	public static final String VERSION_NUMBER = "0.2.0",
+			VERSION_DESCRIPTION = "Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
 
@@ -70,12 +70,20 @@ public class Main extends Application {
 //		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Early Alpha!</b></h6>"
 		
 		"<p>"
-			+ "Hello everyone!"
+			+ "Hello everyone! Finally, I managed to reach 0.2.0! ^^"
 		+ "</p>"
 			
 		+ "<p>"
-			+ "Adding in Nyan's content took a lot longer than I'd thought it would, so as a result, I haven't managed to get much work done on finishing the combat and sex systems in this version."
-			+ " I will concentrate fully on that for the full version of 0.2.0, as well as (finally) getting the last of the fluid mechanics finished. (I'm really sorry that that's taken so long. ;_;)"
+			+ "There are still a couple more bugs and minor combat/sex improvements left for me to work on, but they are very small things, and won't hold me back from moving on to focusing on content from here on out."
+			+ " Over the next few versions, I'll be adding Submission, a few new races, more content for the existing NPCs (looking at you Pix...), and a lot of other things! ^^"
+		+ "</p>"
+			
+		+ "<p>"
+			+ "Thank you all so, so much for all of your support and kind words through LT's 'Early Alpha' phase! Now that I've finished all the engine work, I'll now move on to 'Alpha'. :3"
+		+ "</p>"
+		
+		+ "<p>"
+			+ "There might be some bugs in this version, and if they prove to be large enough, I'll make a hotfix in time for Friday evening (GMT). :3"
 		+ "</p>"
 		
 		+ "<p>"
@@ -152,6 +160,90 @@ public class Main extends Application {
 			+"<ul>Fixed bug where character imports wouldn't work.</ul>"
 			+"<ul>Fixed bug where the 'Face' modification screen in character creation would cause a major background bug to occur.</ul>"
 			+"<ul>Fixed game-breaking bug where if you clicked on an item in the right-panel during the prologue, it would freeze the game.</ul>"
+		+ "</list>"
+
+		+ "</br>"
+
+		+ "<list>"
+			+ "<h6>v0.2.0</h6>"
+			+"<li>Gameplay:</li>"
+			+"<ul>Increased both slavery income and value to fit in with the recent economy balancing.</ul>"
+			+"<ul>Fetish desires are now free to change.</ul>"
+			+"<ul>All addictions now progress through withdrawal stages at a rate of one stage per day.</ul>"
+			+"<ul>Addictions are no longer removed by simply waiting them out. You now need to drink 'Angel's Kiss' to remove addictions.</ul>"
+			+"<ul>Satisfying an NPC's addiction while they're under the effects of withdrawal will make them gain affection towards you (and also obedience if they're a slave).</ul>"
+			+"<ul>Added alcohol content to all alcoholic drink items.</ul>"
+			+"<ul>Going over 50% intoxication level will apply 'drunk speech' to your sentences.</ul>"
+			+"<ul>Psychoactive fluids now apply a status effect. While under this effect, you will randomly suffer from hallucinations (~0.75% chance of a hallucination triggering every minute).</ul>"
+			+"<ul>While under the effect of psychoactive fluids, your view of people's bodies will be distorted.</ul>"
+			+"<ul>You can perform hypnotic suggestions to NPCs under the influence of psychoactive fluids during sex. (NPCs will also do this to you under the right circumstances.)</ul>"
+			+"<ul>Added small chance (0.5% each) for NPCs to spawn with addictive or psychoactive cum and girlcum.</ul>"
+			+"<ul>Added 15% chance for NPCs with breasts to spawn in lactating. Added further chance (2.5% each) for the resulting milk to be addictive or psychoactive.</ul>"
+			+"<ul>Added 'squirter' modifier to vagina, along with orgasm descriptions for it. You can add/remove the 'squirter' modifier through potions.</ul>"
+			+"<ul>Finished Nyan's gift dialogues.</ul>"
+			
+			+"<li>Enchanting:</li>"
+			+"<ul><b>Added:</b> Clothing enchanting.</ul>"
+			+"<ul>Improved the enchantment UI.</ul>"
+			
+			+"<li>Combat & stats:</li>"
+			+"<ul>NPCs now have 'resting' lust values based on their corruption. NPCs who are vulnerable to arcane storms have a high amount of lust when exposed to a storm.</ul>"
+			+"<ul>Seduction attacks can no longer critically hit. Only the special seduction attacks can score criticals.</ul>"
+			+"<ul>Seduction attacks no longer damage the target's aura.</ul>"
+			+"<ul>A character will no longer lose combat if their aura reaches 0.</ul>"
+			+"<ul>Characters with an arcane ability of less than 15 will lose combat when reaching 100 lust.</ul>"
+			+"<ul>Characters with an arcane ability of greater than 15 will suffer from 'desperate for sex' status effect when reaching 100 lust, causing all incoming damage to ignore resistances.</ul>"
+			+"<ul>Difference in levels no longer provides a flat +/-25% when levels are 3 or more apart. Instead, each level in difference awards a +/-2% damage modifier to the attacker.</ul>"
+			+"<ul>Damage stats are now calculated with 0 as the base value, instead of 100 (to move them in-line with all the other attributes).</ul>"
+			+"<ul>Masochist fetish damage reduction reduced from 40% to 25%.</ul>"
+			
+			+"<li>Clothing:</li>"
+			+"<ul>Added more colour options for breeder collar, ballgag, ring gag, choker, restraints, spreader bar, chastity belt, chastity cage, maid dress/sleeves/heels/headpiece, enforcer shorts, livestock tags, cow-bell collar, milk maid headband, mega milk t-shirt, witch boots/hat/dress, and scientist coat/goggles.</ul>"
+			+"<ul>Changed slave collar to simply be called 'metal collar', and added it to the bdsm set.</ul>"
+			+"<ul>Improved clothing tooltips.</ul>"
+			+"<ul>Breeder collar now enslaves the wearer, seals onto them, and applies a vaginal wetness TF by default.</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Added 'hazel' eye colour.</ul>"
+			+"<ul>Added 'auburn' to hair colour, and renamed 'tan' hair colour to 'dirty blonde'.</ul>"
+			+"<ul>Added 'ombre' style to all hair types.</ul>"
+			+"<ul>Added 'freckled' style to all skin types.</ul>"
+			+"<ul>Added counter to orgasm status effect icon.</ul>"
+			+"<ul>Alleyway attackers now demand 250 flames instead of 25.</ul>"
+			+"<ul>You can now load games while in sex or combat.</ul>"
+			+"<ul>Adjusted Scarlett's price from 2000/1000 to 15000/10000.</ul>"
+			+"<ul>Taking/dealing damage now increases masochist/sadist fetishes, respectively.</ul>"
+			+"<ul>'Stroke cock' and 'Stroke pussy' now transfers lubrication between penis/vagina and fingers.</ul>"
+			+"<ul>Angel's Nectar now cures alcoholic and psychoactive effects, in addition to removing addictions.</ul>"
+			+"<ul>Removed fetish desire 'cumming' from the randomly generated dislike/hate pool.</ul>"
+			+"<ul>Retconned lore about kissing slaves being taboo.</ul>"
+			+"<ul>The more cum in an orifice, the faster it now leaks out. (Up to 1.75x the normal value.)</ul>"
+			
+			+"<li>Contributors:</li>"
+			+"<ul>Added Nyan pregnancy reaction. (by Duner)</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed a bug where games saved after exploring the storage rooms in the Supplier Depot would not be able to be loaded.</ul>"
+			+"<ul>Fixed font error in Ashley's height description.</ul>"
+			+"<ul>Chelsea boots are now unisex.</ul>"
+			+"<ul>Loading a game now correctly restores the number of horns characters have.</ul>"
+			+"<ul>Minor typo fixes.</ul>"
+			+"<ul>NPCs will now generate a new outfit for themselves if you beat them and steal their clothes (to leave them exposed) even if you don't sex with them.</ul>"
+			+"<ul>Ashley's race should no longer be added to your encyclopedia (as it's meant to be hidden).</ul>"
+			+"<ul>Fixed clothing with negative enchantments having a very low value (such as chastity cages and gags being sold for 1 flame).</ul>"
+			+"<ul>Fixed bug where your offspring's race would be described as 'null'.</ul>"
+			+"<ul>Fixed bug where sometimes your virginity would not be lost when penetrated.</ul>"
+			+"<ul>Fixed broken throat-stretching descriptions.</ul>"
+			+"<ul>Fixed minor text bug when using the hypno watch to set someone's orientation to androphilic.</ul>"
+			+"<ul>Fixed duplicate associated fetishes showing up for sex action tooltips, and removed vaginal/seeder/impregnation fetishes where not appropriate, as well as fixing a bug where incorrect associated fetishes would be displayed.</ul>"
+			+"<ul>Fixed some character import bugs.</ul>"
+			+"<ul>Fixed bug where 'Tease her pussy' sex action wouldn't show any text.</ul>"
+			+"<ul>Offspring dialogue flags (the values used to determine whether you've visited/attacked/apologised/etc.) should now be correctly saved.</ul>"
+			+"<ul>Cumming down someone's throat will no longer dirty their mouth slot.</ul>"
+			+"<ul>Fixed bug where special attacks would describe you attacking yourself.</ul>"
+			+"<ul>Fixed 'Commands' button not working in the debugger's parser.</ul>"
+			+"<ul>Fixed bug where sadist effects were being applied to the wrong person.</ul>"
+			+"<ul>Temporarily fixed position-switching bug in multiple-partner sex by disabling position switching. (I'll fix this properly for the next version.)</ul>"
 		+ "</list>"
 		;
 	
@@ -454,16 +546,16 @@ public class Main extends Application {
 		String[] v2 = versionToCheckAgainst.split("\\.");
 		
 		try {
-			if(Integer.valueOf(v1[0]) < Integer.valueOf(v2[0])) {
-				return true;
+			if(Integer.valueOf(v1[0]) > Integer.valueOf(v2[0])) {
+				return false;
 			}
 			
-			if(Integer.valueOf((v1[1].length()==1?v1[1]+"0":v1[1])) < Integer.valueOf((v2[1].length()==1?v2[1]+"0":v2[1]))) {
-				return true;
+			if(Integer.valueOf((v1[1].length()==1?v1[1]+"0":v1[1])) > Integer.valueOf((v2[1].length()==1?v2[1]+"0":v2[1]))) {
+				return false;
 			}
 			
-			if(Integer.valueOf((v1[2].length()==1?v1[2]+"0":v1[2])) < Integer.valueOf((v2[2].length()==1?v2[2]+"0":v2[2]))) {
-				return true;
+			if(Integer.valueOf((v1[2].length()==1?v1[2]+"0":v1[2])) > Integer.valueOf((v2[2].length()==1?v2[2]+"0":v2[2]))) {
+				return false;
 			}
 			
 			if(v1.length<4) {

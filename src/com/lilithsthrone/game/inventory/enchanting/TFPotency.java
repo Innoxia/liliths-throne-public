@@ -13,12 +13,12 @@ import com.lilithsthrone.utils.Colour;
  */
 public enum TFPotency {
 	
-	MAJOR_DRAIN("Major Drain", Colour.GENERIC_TERRIBLE, 4),
-	DRAIN("Drain", Colour.GENERIC_BAD, 2),
-	MINOR_DRAIN("Minor Drain", Colour.GENERIC_MINOR_BAD, 1),
-	MINOR_BOOST("Minor Boost", Colour.GENERIC_MINOR_GOOD, 1),
-	BOOST("Boost", Colour.GENERIC_GOOD, 2),
-	MAJOR_BOOST("Major Boost", Colour.GENERIC_EXCELLENT, 4);
+	MAJOR_DRAIN("Major Drain", Colour.GENERIC_TERRIBLE, 4, -5),
+	DRAIN("Drain", Colour.GENERIC_BAD, 2, -3),
+	MINOR_DRAIN("Minor Drain", Colour.GENERIC_MINOR_BAD, 1, -1),
+	MINOR_BOOST("Minor Boost", Colour.GENERIC_MINOR_GOOD, 1, 1),
+	BOOST("Boost", Colour.GENERIC_GOOD, 2, 3),
+	MAJOR_BOOST("Major Boost", Colour.GENERIC_EXCELLENT, 4, 5);
 	
 	private static List<TFPotency> allPotencies = new ArrayList<>();
 
@@ -29,11 +29,13 @@ public enum TFPotency {
 	private String name;
 	private Colour colour;
 	private int value;
+	private int clothingBonusValue;
 	
-	private TFPotency(String name, Colour colour, int value) {
+	private TFPotency(String name, Colour colour, int value, int clothingBonusValue) {
 		this.name = name;
 		this.colour = colour;
 		this.value = value;
+		this.clothingBonusValue = clothingBonusValue;
 	}
 
 	public String getName() {
@@ -46,6 +48,10 @@ public enum TFPotency {
 
 	public int getValue() {
 		return value;
+	}
+	
+	public int getClothingBonusValue() {
+		return clothingBonusValue;
 	}
 	
 	public boolean isNegative() {

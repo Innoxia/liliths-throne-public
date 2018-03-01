@@ -754,6 +754,16 @@ public enum TFModifier {
 			Colour.BASE_TEAL,
 			Rarity.COMMON),
 	
+	// vagina:
+	
+
+	TF_MOD_VAGINA_SQUIRTER("squirter",
+			"Applies an effect related to making someone a squirter.",
+			"squirting",
+			"modifier_circle_squirter",
+			Colour.BASE_AQUA,
+			Rarity.COMMON),
+	
 	// fluid modifiers:
 	
 	TF_MOD_FLUID_MUSKY("musky",
@@ -1018,7 +1028,6 @@ public enum TFModifier {
 		TFAttributeList.add(ARCANE_BOOST);
 		
 
-		TFBodyPartFetishList.add(NONE);
 		TFBodyPartFetishList.add(TF_MOD_FETISH_ANAL_GIVING);
 		TFBodyPartFetishList.add(TF_MOD_FETISH_ANAL_RECEIVING);
 		TFBodyPartFetishList.add(TF_MOD_FETISH_BREASTS_OTHERS);
@@ -1030,7 +1039,6 @@ public enum TFModifier {
 		TFBodyPartFetishList.add(TF_MOD_FETISH_LEG_LOVER);
 		TFBodyPartFetishList.add(TF_MOD_FETISH_STRUTTER);
 
-		TFBehaviouralFetishList.add(NONE);
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_DOMINANT);
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_SUBMISSIVE);
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_CUM_STUD);
@@ -1059,6 +1067,15 @@ public enum TFModifier {
 		clothingPrimaryList.add(TFModifier.CLOTHING_ATTRIBUTE);
 		clothingPrimaryList.add(TFModifier.CLOTHING_SEALING);
 		clothingPrimaryList.add(TFModifier.CLOTHING_ENSLAVEMENT);
+		clothingPrimaryList.add(TFModifier.TF_MOD_FETISH_BODY_PART);
+		clothingPrimaryList.add(TFModifier.TF_MOD_FETISH_BEHAVIOUR);
+		clothingPrimaryList.add(TF_FACE);
+		clothingPrimaryList.add(TF_CORE);
+		clothingPrimaryList.add(TF_HAIR);
+		clothingPrimaryList.add(TF_ASS);
+		clothingPrimaryList.add(TF_BREASTS);
+		clothingPrimaryList.add(TF_PENIS);
+		clothingPrimaryList.add(TF_VAGINA);
 		
 		clothingAttributeList.add(TFModifier.RESISTANCE_FIRE);
 		clothingAttributeList.add(TFModifier.RESISTANCE_ICE);

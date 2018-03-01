@@ -11,21 +11,59 @@
 	
 	Gameplay:
 		Increased both slavery income and value to fit in with the recent economy balancing.
+		Fetish desires are now free to change.
+		All addictions now progress through withdrawal stages at a rate of one stage per day.
+		Addictions are no longer removed by simply waiting them out. You now need to drink 'Angel's Kiss' to remove addictions.
+		Satisfying an NPC's addiction while they're under the effects of withdrawal will make them gain affection towards you (and also obedience if they're a slave).
+		Added alcohol content to all alcoholic drink items.
+		Going over 50% intoxication level will apply 'drunk speech' to your sentences.
+		Psychoactive fluids now apply a status effect. While under this effect, you will randomly suffer from hallucinations (~0.75% chance of a hallucination triggering every minute).
+		While under the effect of psychoactive fluids, your view of people's bodies will be distorted.
+		You can perform hypnotic suggestions to NPCs under the influence of psychoactive fluids during sex. (NPCs will also do this to you under the right circumstances.)
+		Added small chance (0.5% each) for NPCs to spawn with addictive or psychoactive cum and girlcum.
+		Added 15% chance for NPCs with breasts to spawn in lactating. Added further chance (2.5% each) for the resulting milk to be addictive or psychoactive.
+		Added 'squirter' modifier to vagina, along with orgasm descriptions for it. You can add/remove the 'squirter' modifier through potions.
+		Finished Nyan's gift dialogues.
 	
 	Enchanting:
-		Added: Clothing enchanting.	
+		<b>Added:</b> Clothing enchanting.
 		Improved the enchantment UI.
 	
+	Combat & stats:
+		NPCs now have 'resting' lust values based on their corruption. NPCs who are vulnerable to arcane storms have a high amount of lust when exposed to a storm.
+		Seduction attacks can no longer critically hit. Only the special seduction attacks can score criticals.
+		Seduction attacks no longer damage the target's aura.
+		A character will no longer lose combat if their aura reaches 0.
+		Characters with an arcane ability of less than 15 will lose combat when reaching 100 lust.
+		Characters with an arcane ability of greater than 15 will suffer from 'desperate for sex' status effect when reaching 100 lust, causing all incoming damage to ignore resistances.
+		Difference in levels no longer provides a flat +/-25% when levels are 3 or more apart. Instead, each level in difference awards a +/-2% damage modifier to the attacker.
+		Damage stats are now calculated with 0 as the base value, instead of 100 (to move them in-line with all the other attributes).
+		Masochist fetish damage reduction reduced from 40% to 25%.
+	
 	Clothing:
-		Added more colour options for ballgag, ring gag, choker, restraints, spreader bar, chastity belt, chastity cage, maid dress/sleeves/heels/headpiece, enforcer shorts, livestock tags, cow-bell collar, milk maid headband, mega milk t-shirt, witch boots/hat/dress, and scientist coat/goggles.
+		Added more colour options for breeder collar, ballgag, ring gag, choker, restraints, spreader bar, chastity belt, chastity cage, maid dress/sleeves/heels/headpiece, enforcer shorts, livestock tags, cow-bell collar, milk maid headband, mega milk t-shirt, witch boots/hat/dress, and scientist coat/goggles.
+		Changed slave collar to simply be called 'metal collar', and added it to the bdsm set.
+		Improved clothing tooltips.
+		Breeder collar now enslaves the wearer, seals onto them, and applies a vaginal wetness TF by default.
 	
 	Other:
 		Added 'hazel' eye colour.
 		Added 'auburn' to hair colour, and renamed 'tan' hair colour to 'dirty blonde'.
 		Added 'ombre' style to all hair types.
+		Added 'freckled' style to all skin types.
 		Added counter to orgasm status effect icon.
-		Alleyway attackers now demand 250 flames instead of 25 (to align the asked-for amount with the new economy).
+		Alleyway attackers now demand 250 flames instead of 25.
 		You can now load games while in sex or combat.
+		Adjusted Scarlett's price from 2000/1000 to 15000/10000.
+		Taking/dealing damage now increases masochist/sadist fetishes, respectively.
+		'Stroke cock' and 'Stroke pussy' now transfers lubrication between penis/vagina and fingers.
+		Angel's Nectar now cures alcoholic and psychoactive effects, in addition to remocing addictions.
+		Removed fetish desire 'cumming' from the randomly generated dislike/hate pool.
+		Retconned lore about kissing slaves being taboo.
+		The more cum in an orifice, the faster it now leaks out. (Up to 1.75x the normal value.)
+		
+	Contributors:
+		Added Nyan pregnancy reaction. (by Duner)
 	
 	Bugs:
 		Fixed a bug where games saved after exploring the storage rooms in the Supplier Depot would not be able to be loaded.
@@ -40,44 +78,54 @@
 		Fixed bug where sometimes your virginity would not be lost when penetrated.
 		Fixed broken throat-stretching descriptions.
 		Fixed minor text bug when using the hypno watch to set someone's orientation to androphilic.
+		Fixed duplicate associated fetishes showing up for sex action tooltips, and removed vaginal/seeder/impregnation fetishes where not appropriate, as well as fixing a bug where incorrect associated fetishes would be displayed.
+		Fixed some character import bugs.
+		Fixed bug where 'Tease her pussy' sex action wouldn't show any text.
+		Offspring dialogue flags (the values used to determine whether you've visited/attacked/apologised/etc.) should now be correctly saved.
+		Cumming down someone's throat will no longer dirty their mouth slot.
+		Fixed bug where special attacks would describe you attacking yourself.
+		Fixed 'Commands' button not working in the debugger's parser.
+		Fixed bug where sadist effects were being applied to the wrong person.
+		Temporarily fixed position-switching bug in multiple-partner sex by disabling position switching. (I'll fix this properly for the next version.)
 	
 	
 	
-	
-	
-	clothing apply effect - modifiers
-	
-	Breeder collar:
-		it would be literally purrfect as a slave collar instead of just a normal clothing item.
-		which would be super amusing because instead of someone only being shocked that something is a slave collar, their words would be cut off near the end with said needy moan as they teleported. 
-		and of course when possible it adds the breeder fetish, and if possibly leaves their pussy permanently dripping wet~
+	TEMP FIXED IN isPhysicallyPossible()
+	you know about the sex positions with Wolfgang and Karl being bugged (eat out
+		And the Wolfgang Karl positions being bugged was if you switch to I think it is receiving oral the other will leave)
 		
-	add enslavement as an enchantment
 	
-	add freckled pattern for skin
+	
+	Combat lust
+		Lust carrying over into sex
+		
+	Spell tooltips in combat
+		
+	Damage scaling
+		weapon & melee attacks
+		level differences (make it a status effect or text displayed on each attack)
+		fireball static 5 dmg values
+	
+	
+	
+	Combat & sex bugs
+	
+	
+	
+	Pictures!
+	
+	INTRO
+	
+	Need to add perk for harpies to make them good in combat
 	
 	can TF Bree
 	
-	parser commands button broken
-	
-	Not sure if it's a bug or not, but If you want Ashley's status as an Angel to be a surprise you should probably remove the "Angel 100% seduction resist" from the status bar.
-	
-	all SA teases are parsing wrong
-	
-	: Got an NPC that spawned with both pure virgin and pussy slut fetishes
-	
 	Huh. I don't think broodmother or seeder are working. Seeder + broodmother on a harpy only resulted in 3 kids.
 	
-	
-	it's kinda weird that NPCs start with 0 lust when you encounter them during an arcane storm. It seems like they should have a lot.
-	
-	fireball static 5 dmg values
-	
-	The text for cum-inflation only keeps track of the hole you're currently filling. If you've pumped enough in a girl's pussy and ass, combined, to make her look hugely-pregnant, it'll still only give the message for looking slightly-pregnant when you cum, if that's all that hole contains.
+	The text for cum-inflation only keeps track of the hole you're currently filling.
+	 If you've pumped enough in a girl's pussy and ass, combined, to make her look hugely-pregnant, it'll still only give the message for looking slightly-pregnant when you cum, if that's all that hole contains.
 	
 	...I just got a status effect update telling me I'm not pregnant.
-	
-	aybe it will be adjusted later so the more cum in their ass the faster it ooz's out
 	
 	Move res into internal file ;_;
 	
@@ -171,8 +219,6 @@ Submissive NPCs with with a virginity fetish still tell you to "Fuck my virgin p
 	
 	Back out from trading needs to return a new dialogue
 	
-	Then sort out fluids
-	
 	Nyan pregnancy reactions
 	
 	
@@ -184,10 +230,6 @@ Submissive NPCs with with a virginity fetish still tell you to "Fuck my virgin p
 	combat issues
 	
 	
-	
-	items: make all alcohol alcoholic
-	ADDICTION_REMOVAL should cure alcoholic effects (all negative effects) too
-	
 	unbuttoning shirt before pulling up hoodie :o
 	
 	I think I'll remove the spit option in the next release. As the forced TFs can now be disabled in the content options, there's really no need for it to be there anymore. ^^
@@ -195,6 +237,16 @@ Submissive NPCs with with a virginity fetish still tell you to "Fuck my virgin p
 	bimbo to perk
 	
 	Add Candi dialogue for Nyan quest
+	
+	
+	Just an FYI, I don't know if it's a bug but it seemed consistent enough for me, for some reason lubricating fingers will sometimes just crash the game, but it appears to be random when it happens.
+	
+	Because hands are not tracked separately, fluids can travel from one hand to the other in unexpected ways.  If a partner fingers your ass, then somehow lubricates their other fingers while still fingering you, your ass will also become lubricated
+	
+	Saliva
+	
+	can we get glue like as a fluid mod? IE like how pig cum hardens in contact with air to seal up the female's vagina and trap the rest of the cum inside
+		congealing
 	
 	
 	I've noticed after testing hours of being submissive with slaves, they will never use their penis for anal even with the anal fetish and dislikes/hate on all other actions. They get stuck in a loop of only wanting to finger you anally and do nothing else, I tested on 5 different slaves and adjusted their fetishes many times and never got one anal penis scene when I was being submissive.
@@ -266,9 +318,6 @@ Scarlett is free-willed, and will do whatever she wants.'
 	
 	
 	- Fix the multiple-partner sex scene bugs.
-	
-	- Add in missing content related to addictive/psychoactive/alcoholic fluids.
-		Make alcohol timed
 	
 	
 	configure Bree and BRandi
@@ -770,9 +819,6 @@ When an NPC cums, and the PC is dominant, the player should be given some immedi
 	
 	
 	
-	psychoactive/alcoholic fluids
-	Also flavours
-	
 	breast reactions are using NPC self values
 	
 	Stamina:
@@ -923,9 +969,6 @@ When fucking Kate, there are two “Dirty talk” actions. Also, the buttons to 
 
 When doing the quick transform with a succubus, the adjective for her breasts doesn’t match up with what breasts of that size are normally called.
 
-A couple of possible bugs regarding the fluid soiling system:
-Are females who don’t displace/strip their clothing supposed to dirty their panties when they cum? I ask because girlcum doesn’t seem to dirty anything else that I can see; usually it’s cum that messes things up.
-Is it supposed to dirty the mouth slot if you cum down someone’s throat?
 	
 	Remotely chanigng NPC's clothing should reveal genitals
 	
@@ -958,7 +1001,6 @@ Show percentage somewhere on health bars. Since restore potions restore by perce
 I posted this as a reply to an older post, but I’m not sure if you’ll have seen it, so again:
 The first time the sub tries to strip you, give you a couple of reaction options like with cumming; either to allow them, or stop them. This would be better than either them being able to get you half-undressed before you stop them, or magically knowing that you don’t want them stripping you.
 
-Make stroking a cock transfer fluids from hand to cock, and vice-versa.
 
 Bug Report:
 
@@ -1026,10 +1068,6 @@ There are presently technical issues preventing saving during combat or sex; wou
 	
 	 allow you to define all three names in city hall (for those who like the idea of their name dynamically changing).
 	
-	
-	Finish fluid modifier descriptions
-	alcoholic and/or psychoactive effects
-	
 	Add trib
 	riding cowgirl just allowed for the dominant partner
 	
@@ -1079,9 +1117,6 @@ There are presently technical issues preventing saving during combat or sex; wou
 	Go through sex managers and convert orgasms
 	Add Brax's insemination orgasm
 	Add in cum-eating sex actions (eating out pussy, ass, or nipples)
-	
-	Add in missing content related to addictive fluids, and start writing in descriptions for different TF types during sex (such as tongue length influencing oral descriptions, grabbing horns, using multiple tails, etc.).
-		Basically, finish addictive fluids, and add hypnotic and alcoholic effects
 	
 	
 	
@@ -1207,7 +1242,6 @@ It was actually quite amusing, I got to grind out 8 condoms super quick
 -similarly, probably been mentioned already, but thigh sex still has no associated fetish.
 
 -maybe add a single-turn action to briefly finger your and/or someone else's anus with your lubricated fingers? doesn't matter what they're lubed with, saliva, pre, fem-pre.
--similarly, maybe make the stroke cock action transfer fluids, either from dick to fingers, or from fingers to dick.
 -could also do the same with some of the breast and pussy rubbing actions.
 -maybe also single-turn and ongoing actions for putting your fingers in their mouth? similar to the lubricate and suck fingers self actions?
 -also, making these and the existing lubricate fingers repeatable might be nice(maybe rename it "lick fingers"), some people might like being able to stick their fingers in their parter then licking the fluids on their fingers.
@@ -1635,8 +1669,6 @@ Npc's are doing that black magic voodoo thing where they're pulling up my chemis
 	
 	 I discovered that if you accidentally make too many slaves have overlapping shifts at the stocks, the cell is full and you're unable to enter it.	
 	 
-	 give NPCs a small chance to spawn with addictive fluids for this next update
-	
 	Having the Denial Fetish should turn the 'Sexually Frustrated' penalty into a bonus of some sort
 	
 	Is initiating submissive sex raising corruption a bug
@@ -1816,22 +1848,11 @@ BlobHyperSweats1
 	
 	------------
 	
-	
 	get cloacas working
 	
 	Apparently, it doesn't like it when you ride the 19 inch succubi cock analy like a slut, tail peg her ass, and finger her pussy.. at the same time
 	
-	Sex work:	
-	
 	- go through positioning actions and check conditions
-	
-	- Improve orgasm dialogue.
-		- Add in position-specific orgasm scenes.
-		- Add in body-part recognition for orgasm scenes. Things such as knotting, orifice modifiers, fluid modifiers, etc.
-	
-	- Add in missing content related to the new transformations. Addictive fluids, part modifiers referenced during sex, etc.
-	
-	- Add thigh sex.
 	
 	- Add more slave jobs.
 		Assisting Rose
@@ -1843,13 +1864,7 @@ BlobHyperSweats1
 	
 	
 	
-	
-	
 	Add Amber repeat action (fence has arcane barrier now)
-	
-	
-	
-	
 	
 	
 	
@@ -2638,11 +2653,6 @@ I'll add descriptions for tasting the lubrication types on your fingers; great i
 	
 	if you're doing that, might i suggest a fetish for talking? dirty/rough talking is another sex action that doesn't have a fetish to prevent corruption gain.
 	
-	First make a person addicted to the fluid in general.
-	Then the specifics become more important to them. The taste, the flavor.
-	Then the very cells inside the fluid, the DNA of the giver, becomes the addicting fluid
-	the addiction was to guzzling it having it shot in your ass or getting creampied and impreged
-	
 	No options sometimes
 	
 	Have an interesting bug where all of my equipped items have disappeared. One moment they were there, now every slot is empty except for my on hand off hand weapons. Was using the condom belt and have 9 in inventory so far, but no item overflow occured.  
@@ -2700,8 +2710,6 @@ Okay, just purchased and equipped a new condom belt, it vaporizes into the aethe
 	So, while riding my son's cock, kissing him and fingering my own ass, he tells me to pull out because he doesnt want to taste my cum :stuck_out_tongue:
 	Also, condom belts when removed during sex are called microskirts
 	it was fixed by removing an item of clothing
-	
-	Addictive fluids
 	
 	Add orgasm/pullout actions & cum-soaked effects
 	One of the annoying things NPCs can do is to pull away when they orgasm while being roughly fucked. This is merely text related but I don't want to be pulled out, I want them to deal with it without "pushing my hips away"
@@ -2809,9 +2817,6 @@ BlobPeek1
 	When the feminine transformation slave event drops, it's reporting that "Lilaya tested some very intrusive transformations on the cat-girl", regardless of actual race or gender of the slave (in this case, a horse-boy and cow-boy).
 
 Edit: Also, when enchanting a Sugar Carrot Cube, I'm apparently able to enchant a Horse-Morph Horns transformation. If I do this, it has the expected effect (remove horns), but it's still reporting wrong on the enchanting screen.
-	
-	
-	I'll add an obedience gain for NPCs addicted to your fluids, yes (the reasoning being that they're willing to do as they're told in order to get more of the fluid they're addicted to).
 	
 	The new position selection is not working as it should, even if the npc has an valid fetish, 90% of the time it chooses the "back to the wall" position, even in situations that is not possible to start penetrative sex in this position.
 	
@@ -3141,9 +3146,6 @@ So basically, the transformer fetish actually reduces the cost of enchantments b
 	
 	add plasticity to the stats shown when looking at an NPC's orifices?
 	
-	
-	Saliva as fluid
-	
 	- Perhaps a help option for some options, (he doesn't know what is an average breast size is)
 	
 	
@@ -3281,12 +3283,6 @@ It lacks something before the period.
 	assign slaves to room service for a modifier to price or even a x amount of free service
 	
 	what about improving your bedroom for better resting perks? ( change the game so you need to rest longer to regain more) but nicer room improves the rate of health return
-	
-	There is an issue with the levels of fluid production.
-	 150 ml may be 20 times the average ejaculation but it is enough to fill only something of the size of a tea cup, clearly not something that should cause stomach distension which does in the game.
-	  When measuring levels like these it is a good idea to use a logarithmic scale, something like 1<10<100<1000.
-	
-	Ashley's shop
 	
 	I will definitely add options for offspring to willingly be enslaved later on. :3
 
@@ -3664,8 +3660,6 @@ When you defeat them you will get the option to "reclaim" giving you back only i
 	There seems to be a bug with scrolling on the main screen during large scenes.  Intermittently it will not scroll to new text.  EDIT: This may have been confusion over especially long text sequences.  I have not had any issues for awhile now
 	Hmm, the default screen width isn't enough to make the +/- buttons work right on the level-up screen
 	
-	Because hands are not tracked separately, fluids can travel from one hand to the other in unexpected ways.  If a partner fingers your ass, then somehow lubricates their other fingers while still fingering you, your ass will also become lubricated
-	
 	Forgot to ping you earlier and editing it in doesn't help but giving an NPC the collar then equipping it to them doesn't make them your slave. Probably would have liked that before the release but yeah I have memory that looks worse than swiss cheese
 	
 	The AI seems to be fixating on chest-play when in the kneeling position for some reason.  Oral and oral performers are more into paizuri/naizuri than breast and breast lovers.  There is possibly also too much of a focus on anal fingering, but this may be due to a lack of other options
@@ -3730,10 +3724,7 @@ When you defeat them you will get the option to "reclaim" giving you back only i
 	
 	Sex actions -> partner-on-partner
 	
-	quad nipples on less tahn greater cows
-	 
-	 can we get glue like as a fluid mod? IE like how pig cum hardens in contact with air to seal up the female's vagina and trap the rest of the cum inside
-	 congealing
+	quad nipples on less than greater cows
 	 
 	 dying equipped items duplicates them
 	 
@@ -3841,8 +3832,6 @@ When you defeat them you will get the option to "reclaim" giving you back only i
 		That's probably because there's no dick or breast statuses.
 	
 	flared & tapered make mutually exclusive
-	
-	Fluid falvours and addiction
 	
 	Really need to improve sex AI
 	

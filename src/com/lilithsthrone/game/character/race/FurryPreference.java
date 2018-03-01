@@ -13,11 +13,11 @@ public enum FurryPreference {
 	HUMAN("Disabled") {
 		@Override
 		public String getDescriptionFeminine(Subspecies r) {
-			return "Feminine "+r.getNamePlural()+" will be completed disabled in random encounters. If all feminine preferences are set to 'Disabled', random encounters will default to feminine humans.";
+			return "Feminine "+r.getNamePlural()+" will be completely disabled in random encounters. If all feminine preferences are set to 'Disabled', random encounters will default to feminine humans.";
 		}
 		@Override
 		public String getDescriptionMasculine(Subspecies r) {
-			return "Masculine "+r.getNamePlural()+" will be completed disabled in random encounters. If all masculine preferences are set to 'Disabled', random encounters will default to masculine humans.";
+			return "Masculine "+r.getNamePlural()+" will be completely disabled in random encounters. If all masculine preferences are set to 'Disabled', random encounters will default to masculine humans.";
 		}
 		@Override
 		public String getSVGImage(boolean disabled) {

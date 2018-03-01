@@ -21,8 +21,10 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Attack;
+import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.alleyway.AlleywayAttackerDialogue;
 import com.lilithsthrone.game.dialogue.npcDialogue.alleyway.AlleywayProstituteDialogue;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -223,12 +225,8 @@ public class DominionAlleywayAttacker extends NPC {
 			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
 		}
-		
-		if(this.getHistory()==History.PROSTITUTE) {
-			this.setEnslavementDialogue(AlleywayProstituteDialogue.ENSLAVEMENT_DIALOGUE);
-		} else {
-			this.setEnslavementDialogue(AlleywayAttackerDialogue.ENSLAVEMENT_DIALOGUE);
-		}
+
+		this.setEnslavementDialogue(SlaveDialogue.DEFAULT_ENSLAVEMENT_DIALOGUE);
 	}
 	
 	private void addToSubspeciesMap(int weight, Gender gender, Subspecies subspecies, Map<Subspecies, Integer> map) {
@@ -332,16 +330,16 @@ public class DominionAlleywayAttacker extends NPC {
 	@Override
 	public Attack attackType() {
 		if(!getSpecialAttacks().isEmpty()) {
-			if (Math.random() < 0.6) {
-				return Attack.MAIN;
-			} else if (Math.random() < 0.8) {
+			if (Math.random() < 0.2 && Combat.getTargetedCombatant(this).getLust()<100) {
 				return Attack.SEDUCTION;
+			} else if (Math.random() < 0.8) {
+				return Attack.MAIN;
 			} else {
 				return Attack.SPECIAL_ATTACK;
 			}
 			
 		} else {
-			if (Math.random() < 0.7) {
+			if (Math.random() < 0.7 || Combat.getTargetedCombatant(this).getLust()>=100) {
 				return Attack.MAIN;
 			} else {
 				return Attack.SEDUCTION;

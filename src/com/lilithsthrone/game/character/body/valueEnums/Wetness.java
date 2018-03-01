@@ -11,15 +11,15 @@ import com.lilithsthrone.utils.Colour;
  */
 public enum Wetness {
 
-	ZERO_DRY("dry", 0, 100, Colour.GENERIC_SIZE_ONE),
+	ZERO_DRY("dry", 0, 101, Colour.GENERIC_SIZE_ONE),
 	
-	ONE_SLIGHTLY_MOIST("slightly moist", 1, 50, Colour.GENERIC_SIZE_TWO),
+	ONE_SLIGHTLY_MOIST("slightly moist", 1, 100, Colour.GENERIC_SIZE_TWO),
 	
-	TWO_MOIST("moist", 2, 25, Colour.GENERIC_SIZE_THREE),
+	TWO_MOIST("moist", 2, 50, Colour.GENERIC_SIZE_THREE),
 	
-	THREE_WET("wet", 3, 10, Colour.GENERIC_SIZE_FOUR),
+	THREE_WET("wet", 3, 25, Colour.GENERIC_SIZE_FOUR),
 	
-	FOUR_SLIMY("slimy", 4, 5, Colour.GENERIC_SIZE_FIVE),
+	FOUR_SLIMY("slimy", 4, 0, Colour.GENERIC_SIZE_FIVE),
 	
 	FIVE_SLOPPY("sloppy", 5, 0, Colour.GENERIC_SIZE_SIX),
 	

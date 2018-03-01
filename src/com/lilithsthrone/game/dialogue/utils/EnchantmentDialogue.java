@@ -50,7 +50,7 @@ public class EnchantmentDialogue {
 		ItemEffect effect = new ItemEffect(ingredient.getEnchantmentEffect(), primaryMod, secondaryMod, potency, limit);
 		
 		// Primary mods:
-		inventorySB.append("<div class='container-half-width'>");
+		inventorySB.append("<div class='container-half-width' style='padding-bottom:0;'>");
 		for (TFModifier tfMod : ingredient.getEnchantmentEffect().getPrimaryModifiers()) {
 			inventorySB.append("<div class='modifier-icon " + tfMod.getRarity().getName() + "' style='width:11.5%;'>"
 					+ "<div class='modifier-icon-content'>"+tfMod.getSVGString()+"</div>"
@@ -63,7 +63,7 @@ public class EnchantmentDialogue {
 		
 		inventorySB.append("<div class='container-full-width'>"
 				+ "<div class='container-half-width' style='width:78%; margin:0 1%; text-align:center; line-height:100vh;'>"
-				+ "<h5>Primary Modifier</h5>"
+				+ "<h5 style='margin:0; padding:0;'>Primary Modifier</h5>"
 				+ "</div>"
 				+ "<div class='container-half-width' style='width:18%; margin:0 1%;'>");
 		if(primaryMod != null) {
@@ -83,7 +83,7 @@ public class EnchantmentDialogue {
 		
 		
 		// Secondary mods:
-		inventorySB.append("<div class='container-half-width'>");
+		inventorySB.append("<div class='container-half-width' style='padding-bottom:0;'>");
 		for (TFModifier tfMod : ingredient.getEnchantmentEffect().getSecondaryModifiers(primaryMod)) {
 			inventorySB.append("<div class='modifier-icon " + tfMod.getRarity().getName() + "' style='width:11.5%;'>"
 					+ "<div class='modifier-icon-content'>"+tfMod.getSVGString()+"</div>"
@@ -109,7 +109,7 @@ public class EnchantmentDialogue {
 		}
 		inventorySB.append("</div>"
 				+ "<div class='container-half-width' style='width:78%; margin:0 1%; text-align:center; line-height:100vh;'>"
-					+ "<h5>Secondary Modifier</h5>"
+					+ "<h5 style='margin:0; padding:0;'>Secondary Modifier</h5>"
 				+ "</div>"
 				+ "</div>");
 		
@@ -126,6 +126,31 @@ public class EnchantmentDialogue {
 		
 		inventorySB.append("</div>");
 
+		// Limits:
+		int ingredientLimit = ingredient.getEnchantmentEffect().getLimits(primaryMod, secondaryMod);
+		if(ingredientLimit!=0) {
+			inventorySB.append(
+					"<div class='container-full-width' style='text-align:center; padding:8px 0; margin-top:0;'>"
+						+ "<div style='float:left; width:14.6%; margin:0 1%; padding:0;'>"
+							+ "<div class='normal-button"+(limit == 0?" disabled":"")+"' id='LIMIT_MINIMUM' style='width:100%;'>Limit Min.</div>"
+						+ "</div>"
+						+ "<div style='float:left; width:14.6%; margin:0 1%; padding:0;'>"
+							+ "<div class='normal-button"+(limit == 0?" disabled":"")+"' id='LIMIT_DECREASE_LARGE' style='width:100%;'>Limit--</div>"
+						+ "</div>"
+						+ "<div style='float:left; width:14.6%; margin:0 1%; padding:0;'>"
+							+ "<div class='normal-button"+(limit == 0?" disabled":"")+"' id='LIMIT_DECREASE' style='width:100%;'>Limit-</div>"
+						+ "</div>"
+						+ "<div style='float:left; width:14.6%; margin:0 1%; padding:0;'>"
+							+ "<div class='normal-button"+(limit == ingredientLimit?" disabled":"")+"' id='LIMIT_INCREASE' style='width:100%;'>Limit+</div>"
+						+ "</div>"
+						+ "<div style='float:left; width:14.6%; margin:0 1%; padding:0;'>"
+							+ "<div class='normal-button"+(limit == ingredientLimit?" disabled":"")+"' id='LIMIT_INCREASE_LARGE' style='width:100%;'>Limit++</div>"
+						+ "</div>"
+						+ "<div style='float:left; width:14.6%; margin:0 1%; padding:0;'>"
+							+ "<div class='normal-button"+(limit == ingredientLimit?" disabled":"")+"' id='LIMIT_MAXIMUM' style='width:100%;'>Limit Max.</div>"
+						+ "</div>"
+					+ "</div>");
+		}
 		
 		// Effect:
 		inventorySB.append("<div class='container-full-width' style='text-align:center; padding:8px 0; margin-top:0;'>");
@@ -156,15 +181,17 @@ public class EnchantmentDialogue {
 						|| ingredient.getEnchantmentEffect().getEffectsDescription(primaryMod, secondaryMod, potency, limit, Main.game.getPlayer(), Main.game.getPlayer()).isEmpty()) {
 					inventorySB.append(
 							"<div class='normal-button disabled' style='width:100%; margin:auto 0;'>"
-							+ "<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Add</b> | "
-							+ UtilText.formatAsEssences(effect.getCost(), "b", false)
+							+ "<b>Add</b> | "
+							+ UtilText.formatAsEssencesUncoloured(effect.getCost(), "b", false)
+							+ "<div class='overlay no-pointer' id='ENCHANT_ADD_BUTTON_DISABLED'></div>"
 							+ "</div>");
 					
 				} else {
 					inventorySB.append(
-							"<div class='normal-button' id='ENCHANT_ADD_BUTTON' style='width:100%; margin:auto 0;'>"
+							"<div class='normal-button' style='width:100%; margin:auto 0;'>"
 							+ "<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Add</b> | "
 							+ UtilText.formatAsEssences(effect.getCost(), "b", false)
+							+ "<div class='overlay' id='ENCHANT_ADD_BUTTON'></div>"
 							+ "</div>");
 					
 				}
@@ -336,7 +363,7 @@ public class EnchantmentDialogue {
 		if(ingredient instanceof AbstractItem) {
 			Main.game.getPlayer().removeItem((AbstractItem) ingredient);
 			AbstractItem craftedItem = EnchantingUtils.craftItem(ingredient, effects);
-			Main.game.getPlayer().addItem(craftedItem, false);
+			Main.game.getPlayer().addItem(craftedItem, false, true);
 			
 		} else if(ingredient instanceof AbstractClothing) {
 			Main.game.getPlayer().removeClothing((AbstractClothing) ingredient);
@@ -372,7 +399,11 @@ public class EnchantmentDialogue {
 	public static void initModifiers(AbstractCoreItem ingredient) {
 		EnchantmentDialogue.ingredient = ingredient;
 		
-		EnchantmentDialogue.effects = new ArrayList<>(ingredient.getEffects());
+		if(ingredient instanceof AbstractClothing) {
+			EnchantmentDialogue.effects = new ArrayList<>(ingredient.getEffects());
+		} else {
+			EnchantmentDialogue.effects = new ArrayList<>();
+		}
 		
 		if(!EnchantmentDialogue.ingredient.getEnchantmentEffect().getPrimaryModifiers().contains(EnchantmentDialogue.primaryMod)) {
 			EnchantmentDialogue.primaryMod = EnchantmentDialogue.ingredient.getEnchantmentEffect().getPrimaryModifiers().get(0);
@@ -383,8 +414,8 @@ public class EnchantmentDialogue {
 		if(!EnchantmentDialogue.ingredient.getEnchantmentEffect().getPotencyModifiers(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod).contains(EnchantmentDialogue.potency)) {
 			EnchantmentDialogue.potency = TFPotency.MINOR_BOOST;
 		}
-		if(!EnchantmentDialogue.ingredient.getEnchantmentEffect().getLimits(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod).contains(EnchantmentDialogue.limit)) {
-			EnchantmentDialogue.limit = 0;
+		if(EnchantmentDialogue.limit <= EnchantmentDialogue.ingredient.getEnchantmentEffect().getLimits(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod)) {
+			EnchantmentDialogue.limit = EnchantmentDialogue.ingredient.getEnchantmentEffect().getLimits(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod);
 		}
 	}
 }

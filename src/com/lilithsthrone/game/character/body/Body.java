@@ -46,6 +46,7 @@ import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
+import com.lilithsthrone.game.character.body.valueEnums.FluidTypeBase;
 import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.Height;
@@ -57,6 +58,7 @@ import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
 import com.lilithsthrone.game.character.body.valueEnums.StartingSkinTone;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.character.body.valueEnums.TongueModifier;
+import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
@@ -344,10 +346,16 @@ public class Body implements Serializable, XMLSaving {
 			CharacterUtils.addAttribute(doc, element, "pattern", this.coverings.get(bct).getPattern().toString());
 			CharacterUtils.addAttribute(doc, element, "modifier", this.coverings.get(bct).getModifier().toString());
 			CharacterUtils.addAttribute(doc, element, "colourPrimary", this.coverings.get(bct).getPrimaryColour().toString());
-			CharacterUtils.addAttribute(doc, element, "glowPrimary", String.valueOf(this.coverings.get(bct).isPrimaryGlowing()));
+			if(this.coverings.get(bct).isPrimaryGlowing()) {
+				CharacterUtils.addAttribute(doc, element, "glowPrimary", String.valueOf(this.coverings.get(bct).isPrimaryGlowing()));
+			}
 			CharacterUtils.addAttribute(doc, element, "colourSecondary", this.coverings.get(bct).getSecondaryColour().toString());
-			CharacterUtils.addAttribute(doc, element, "glowSecondary", String.valueOf(this.coverings.get(bct).isSecondaryGlowing()));
-			CharacterUtils.addAttribute(doc, element, "discovered", String.valueOf(this.getBodyCoveringTypesDiscovered().contains(bct)));
+			if(this.coverings.get(bct).isSecondaryGlowing()) {
+				CharacterUtils.addAttribute(doc, element, "glowSecondary", String.valueOf(this.coverings.get(bct).isSecondaryGlowing()));
+			}
+			if(this.getBodyCoveringTypesDiscovered().contains(bct)) {
+				CharacterUtils.addAttribute(doc, element, "discovered", String.valueOf(this.getBodyCoveringTypesDiscovered().contains(bct)));
+			}
 		}
 		
 
@@ -1263,26 +1271,30 @@ public class Body implements Serializable, XMLSaving {
 				if(e.getAttribute("modifier").isEmpty()) {
 					body.setBodyCoveringForXMLImport(BodyCoveringType.valueOf(type),
 							CoveringPattern.valueOf(e.getAttribute("pattern")),
-							Colour.valueOf(colourPrimary), Boolean.valueOf(e.getAttribute("glowPrimary")),
-							Colour.valueOf(colourSecondary), Boolean.valueOf(e.getAttribute("glowSecondary")));
+							Colour.valueOf(colourPrimary),
+							!e.getAttribute("glowPrimary").isEmpty()?Boolean.valueOf(e.getAttribute("glowPrimary")):false,
+							Colour.valueOf(colourSecondary),
+							!e.getAttribute("glowSecondary").isEmpty()?Boolean.valueOf(e.getAttribute("glowSecondary")):false);
 				} else {
 					body.setBodyCoveringForXMLImport(BodyCoveringType.valueOf(type),
 							CoveringPattern.valueOf(e.getAttribute("pattern")),
 							CoveringModifier.valueOf(e.getAttribute("modifier")),
-							Colour.valueOf(colourPrimary), Boolean.valueOf(e.getAttribute("glowPrimary")),
-							Colour.valueOf(colourSecondary), Boolean.valueOf(e.getAttribute("glowSecondary")));
+							Colour.valueOf(colourPrimary),
+							!e.getAttribute("glowPrimary").isEmpty()?Boolean.valueOf(e.getAttribute("glowPrimary")):false,
+							Colour.valueOf(colourSecondary),
+							!e.getAttribute("glowSecondary").isEmpty()?Boolean.valueOf(e.getAttribute("glowSecondary")):false);
 				}
+				
+				if(!e.getAttribute("discovered").isEmpty() && Boolean.valueOf(e.getAttribute("discovered"))) {
+					body.getBodyCoveringTypesDiscovered().add(BodyCoveringType.valueOf(type));
+				}
+				
+				CharacterUtils.appendToImportLog(log, "</br>Body: Set bodyCovering: "+e.getAttribute("type") +" pattern:"+CoveringPattern.valueOf(e.getAttribute("pattern"))
+					+" "+Colour.valueOf(e.getAttribute("colourPrimary")) +" glow:"+Boolean.valueOf(e.getAttribute("glowPrimary"))
+					+" | "+Colour.valueOf(e.getAttribute("colourSecondary")) +" glow:"+Boolean.valueOf(e.getAttribute("glowSecondary"))
+					+" (discovered: "+e.getAttribute("discovered")+")");
 			} catch(Exception ex) {
 			}
-			
-			if(Boolean.valueOf(e.getAttribute("discovered"))) {
-				body.getBodyCoveringTypesDiscovered().add(BodyCoveringType.valueOf(type));
-			}
-			
-			CharacterUtils.appendToImportLog(log, "</br>Body: Set bodyCovering: "+e.getAttribute("type") +" pattern:"+CoveringPattern.valueOf(e.getAttribute("pattern"))
-				+" "+Colour.valueOf(e.getAttribute("colourPrimary")) +" glow:"+Boolean.valueOf(e.getAttribute("glowPrimary"))
-				+" | "+Colour.valueOf(e.getAttribute("colourSecondary")) +" glow:"+Boolean.valueOf(e.getAttribute("glowSecondary"))
-				+" (discovered: "+e.getAttribute("discovered")+")");
 		}
 		
 		body.calculateRace();
@@ -2177,80 +2189,99 @@ public class Body implements Serializable, XMLSaving {
 		// Breasts:
 		
 		sb.append("<p>");
+		Breast viewedBreast = breast;
+		if(Main.game.getPlayer().hasIngestedPsychoactiveFluidType(FluidTypeBase.MILK)) {
+			viewedBreast = new Breast(breast.getType(),
+					breast.getShape(),
+					(int)(breast.getRawSizeValue()*(1.75f)),
+					(int)((breast.getRawLactationValue()+100)*(2.25f)),
+					breast.getRows(),
+					breast.getNipples().getNippleSizeValue(),
+					breast.getNipples().getNippleShape(),
+					breast.getNipples().getAreolaeSizeValue(),
+					breast.getNippleCountPerBreast(),
+					breast.getNipples().getOrificeNipples().getRawCapacityValue(),
+					breast.getNipples().getOrificeNipples().getElasticity().getValue(),
+					breast.getNipples().getOrificeNipples().getPlasticity().getValue(),
+					breast.getNipples().getOrificeNipples().isVirgin());
+			sb.append(" <i style='color:"+Colour.PSYCHOACTIVE.toWebHexString()+";'>The psychoactive milk you recently ingested is causing your view of "+(owner.isPlayer()?"your":"[npc.name]'s")+" breasts to be distorted!</i>");
+		}
 		if(owner.isPlayer()){
-			if(breast.getRawSizeValue()>0){
-				sb.append(" You have " + Util.intToString(breast.getRows()) + " pair" + (breast.getRows() == 1 ? "" : "s") + " of [pc.breastSize] [pc.breasts]");
+			if(viewedBreast.getRawSizeValue()>0){
+				sb.append(" You have " + Util.intToString(viewedBreast.getRows()) + " pair" + (viewedBreast.getRows() == 1 ? "" : "s") + " of "+viewedBreast.getSize().getDescriptor()+" [pc.breasts]");
 				
-				if(breast.getRows()==1) {
-					if (breast.getSize() == CupSize.TRAINING) {
+				if(viewedBreast.getRows()==1) {
+					if (viewedBreast.getSize() == CupSize.TRAINING) {
 						sb.append(", which fit comfortably into a training bra.");
 					} else {
-						sb.append(", which fit comfortably into [pc.a_cupSize]-cup bra.");
+						sb.append(", which fit comfortably into "+UtilText.generateSingularDeterminer(viewedBreast.getSize().getCupSizeName())+" "+viewedBreast.getSize().getCupSizeName()+"-cup bra.");
 					}
 					
-				} else if(breast.getRows()==2) {
-					if (breast.getSize() == CupSize.TRAINING) {
+				} else if(viewedBreast.getRows()==2) {
+					if (viewedBreast.getSize() == CupSize.TRAINING) {
 						sb.append(", with your top pair fitting comfortably into a training bra, and the pair below being slightly smaller.");
 					} else {
-						sb.append(", with your top pair fitting comfortably into [pc.a_cupSize]-cup bra, and the pair below being slightly smaller.");
+						sb.append(", with your top pair fitting comfortably into "+UtilText.generateSingularDeterminer(viewedBreast.getSize().getCupSizeName())+" "+viewedBreast.getSize().getCupSizeName()+"-cup bra, and the pair below being slightly smaller.");
 					}
 					
-				} else if(breast.getRows()>2) {
-					if (breast.getSize() == CupSize.TRAINING) {
+				} else if(viewedBreast.getRows()>2) {
+					if (viewedBreast.getSize() == CupSize.TRAINING) {
 						sb.append(", with your top pair fitting comfortably into a training bra, and the pairs below each being slightly smaller than the ones above.");
 					} else {
-						sb.append(", with your top pair fitting comfortably into [pc.a_cupSize]-cup bra, and the pairs below each being slightly smaller than the ones above.");
+						sb.append(", with your top pair fitting comfortably into "
+									+UtilText.generateSingularDeterminer(viewedBreast.getSize().getCupSizeName())+" "+viewedBreast.getSize().getCupSizeName()+"-cup bra, and the pairs below each being slightly smaller than the ones above.");
 					}
 				}
 				
 			} else {
 				sb.append(" You have a completely flat chest");
-				if(breast.getRows()==1) {
+				if(viewedBreast.getRows()==1) {
 					sb.append(", with a single pair of pecs.");
 				} else {
-					sb.append(", with "+Util.intToString(breast.getRows())+" pairs of pecs.");
+					sb.append(", with "+Util.intToString(viewedBreast.getRows())+" pairs of pecs.");
 				}
 			}
 			
 		}else{
-			if(breast.getRawSizeValue()>0){
-				sb.append(" [npc.She] has " + Util.intToString(breast.getRows()) + " pair" + (breast.getRows() == 1 ? "" : "s") + " of [npc.breastSize] [npc.breasts]");
+			if(viewedBreast.getRawSizeValue()>0){
+				sb.append(" [npc.She] has " + Util.intToString(viewedBreast.getRows()) + " pair" + (viewedBreast.getRows() == 1 ? "" : "s") + " of "+viewedBreast.getSize().getDescriptor()+" [npc.breasts]");
 				
-				if(breast.getRows()==1) {
-					if (breast.getSize() == CupSize.TRAINING) {
+				if(viewedBreast.getRows()==1) {
+					if (viewedBreast.getSize() == CupSize.TRAINING) {
 						sb.append(", which fit comfortably into a training bra.");
 					} else {
-						sb.append(", which fit comfortably into [npc.a_cupSize]-cup bra.");
+						sb.append(", which fit comfortably into "+UtilText.generateSingularDeterminer(viewedBreast.getSize().getCupSizeName())+" "+viewedBreast.getSize().getCupSizeName()+"-cup bra.");
 					}
 					
-				} else if(breast.getRows()==2) {
-					if (breast.getSize() == CupSize.TRAINING) {
+				} else if(viewedBreast.getRows()==2) {
+					if (viewedBreast.getSize() == CupSize.TRAINING) {
 						sb.append(", with [npc.her] top pair fitting comfortably into a training bra, and the pair below being slightly smaller.");
 					} else {
-						sb.append(", with [npc.her] top pair fitting comfortably into [npc.a_cupSize]-cup bra, and the pair below being slightly smaller.");
+						sb.append(", with [npc.her] top pair fitting comfortably into "+UtilText.generateSingularDeterminer(viewedBreast.getSize().getCupSizeName())+" "+viewedBreast.getSize().getCupSizeName()+"-cup bra, and the pair below being slightly smaller.");
 					}
 					
-				} else if(breast.getRows()>2) {
-					if (breast.getSize() == CupSize.TRAINING) {
+				} else if(viewedBreast.getRows()>2) {
+					if (viewedBreast.getSize() == CupSize.TRAINING) {
 						sb.append(", with [npc.her] top pair fitting comfortably into a training bra, and the pairs below each being slightly smaller than the ones above.");
 					} else {
-						sb.append(", with [npc.her] top pair fitting comfortably into [npc.a_cupSize]-cup bra, and the pairs below each being slightly smaller than the ones above.");
+						sb.append(", with [npc.her] top pair fitting comfortably into "
+									+UtilText.generateSingularDeterminer(viewedBreast.getSize().getCupSizeName())+" "+viewedBreast.getSize().getCupSizeName()+"-cup bra, and the pairs below each being slightly smaller than the ones above.");
 					}
 				}
 				
 			} else {
 				sb.append(" [npc.She] has a completely flat chest");
-				if(breast.getRows()==1) {
+				if(viewedBreast.getRows()==1) {
 					sb.append(", with a single pair of pecs.");
 				} else {
-					sb.append(", with "+Util.intToString(breast.getRows())+" pairs of pecs.");
+					sb.append(", with "+Util.intToString(viewedBreast.getRows())+" pairs of pecs.");
 				}
 			}
 		}
 		
 		// Nipples & piercings
 		
-		sb.append(" " + getBreastDescription(owner));
+		sb.append(" " + getBreastDescription(owner, viewedBreast));
 		sb.append("</p>");
 
 		// Arms and legs:
@@ -3394,6 +3425,10 @@ public class Body implements Serializable, XMLSaving {
 	}
 
 	public String getBreastDescription(GameCharacter owner) {
+		return getBreastDescription(owner, breast);
+	}
+	
+	public String getBreastDescription(GameCharacter owner, Breast viewedBreast) {
 		descriptionSB = new StringBuilder();
 		
 		boolean isPlayer = owner.isPlayer();
@@ -3439,16 +3474,16 @@ public class Body implements Serializable, XMLSaving {
 			}
 			
 			if(owner.getNippleCapacity() != Capacity.ZERO_IMPENETRABLE) {
-				if (breast.isFuckable()) {
+				if (viewedBreast.isFuckable()) {
 					descriptionSB.append("</br>Your [pc.breasts] have internal, [pc.nippleSecondaryColour(true)] channels, allowing your [pc.breastCapacity] [pc.nipples] to be comfortably penetrated by "
-							+ Capacity.getCapacityFromValue(breast.getNipples().getOrificeNipples().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " objects with sufficient lubrication.");
+							+ Capacity.getCapacityFromValue(viewedBreast.getNipples().getOrificeNipples().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " objects with sufficient lubrication.");
 					
 				} else {
 					descriptionSB.append("</br>Your [pc.breasts] have internal, [pc.nippleSecondaryColour(true)] channels, but you'd need at least D-cups before your [pc.breastCapacity] [pc.nipples] could be penetrated.");
 				}
 				
 				// Nipple elasticity & plasticity:
-				switch (breast.getNipples().getOrificeNipples().getElasticity()) {
+				switch (viewedBreast.getNipples().getOrificeNipples().getElasticity()) {
 					case ZERO_UNYIELDING:
 						descriptionSB.append(" [style.colourSex(They are extremely unyielding,");
 						break;
@@ -3476,7 +3511,7 @@ public class Body implements Serializable, XMLSaving {
 					default:
 						break;
 				}
-				switch (breast.getNipples().getOrificeNipples().getPlasticity()) {
+				switch (viewedBreast.getNipples().getOrificeNipples().getPlasticity()) {
 					case ZERO_RUBBERY:
 						descriptionSB.append(" and instantly return to their original size.)]");
 						break;
@@ -3524,7 +3559,7 @@ public class Body implements Serializable, XMLSaving {
 					}
 				}
 				
-				if (!breast.getNipples().getOrificeNipples().isVirgin()) {
+				if (!viewedBreast.getNipples().getOrificeNipples().isVirgin()) {
 					for(PenetrationType pt : PenetrationType.values()) {
 						if(owner.getVirginityLoss(new SexType(SexParticipantType.CATCHER,pt, OrificeType.NIPPLE))!=null && !owner.getVirginityLoss(new SexType(SexParticipantType.CATCHER,pt, OrificeType.NIPPLE)).isEmpty()) {
 							descriptionSB.append(" [style.colourArcane(You lost your nipple virginity to "+ owner.getVirginityLoss(new SexType(SexParticipantType.CATCHER,pt, OrificeType.NIPPLE)) + ".)]");
@@ -3541,10 +3576,10 @@ public class Body implements Serializable, XMLSaving {
 				}
 			}
 
-			if (breast.getRawLactationValue() > 0) {
-				descriptionSB.append("</br>You are currently producing "+ breast.getRawLactationValue() + "mL of [pc.milkPrimaryColour(true)] [pc.milk]");
+			if (viewedBreast.getRawLactationValue() > 0) {
+				descriptionSB.append("</br>You are currently producing "+ viewedBreast.getRawLactationValue() + "ml of [pc.milkPrimaryColour(true)] [pc.milk]");
 				
-				switch(breast.getMilk().getFlavour()) {
+				switch(viewedBreast.getMilk().getFlavour()) {
 					case CHOCOLATE:
 						descriptionSB.append(", which tastes of chocolate.");
 						break;
@@ -3652,16 +3687,16 @@ public class Body implements Serializable, XMLSaving {
 			}
 			
 			if(owner.getNippleCapacity() != Capacity.ZERO_IMPENETRABLE) {
-				if (breast.isFuckable()) {
+				if (viewedBreast.isFuckable()) {
 					descriptionSB.append("</br>[npc.Her] [npc.breasts] have internal, [npc.nippleSecondaryColour(true)] channels, allowing [npc.her] [npc.breastCapacity] [npc.nipples] to be comfortably penetrated by "
-							+ Capacity.getCapacityFromValue(breast.getNipples().getOrificeNipples().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " objects with sufficient lubrication.");
+							+ Capacity.getCapacityFromValue(viewedBreast.getNipples().getOrificeNipples().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " objects with sufficient lubrication.");
 					
 				} else {
 					descriptionSB.append("</br>[npc.Her] [npc.breasts] have internal, [npc.nippleSecondaryColour(true)] channels, but [npc.she]'s need at least D-cups before [npc.her] [npc.breastCapacity] [npc.nipples] could be penetrated.");
 				}
 				
 				// Nipple elasticity & plasticity:
-				switch (breast.getNipples().getOrificeNipples().getElasticity()) {
+				switch (viewedBreast.getNipples().getOrificeNipples().getElasticity()) {
 					case ZERO_UNYIELDING:
 						descriptionSB.append(" [style.colourSex(They are extremely unyielding,");
 						break;
@@ -3689,7 +3724,7 @@ public class Body implements Serializable, XMLSaving {
 					default:
 						break;
 				}
-				switch (breast.getNipples().getOrificeNipples().getPlasticity()) {
+				switch (viewedBreast.getNipples().getOrificeNipples().getPlasticity()) {
 					case ZERO_RUBBERY:
 						descriptionSB.append(" and instantly return to their original size.)]");
 						break;
@@ -3737,7 +3772,7 @@ public class Body implements Serializable, XMLSaving {
 					}
 				}
 				
-				if (!breast.getNipples().getOrificeNipples().isVirgin()) {
+				if (!viewedBreast.getNipples().getOrificeNipples().isVirgin()) {
 					for(PenetrationType pt : PenetrationType.values()) {
 						if(owner.getVirginityLoss(new SexType(SexParticipantType.CATCHER,pt, OrificeType.NIPPLE))!=null && !owner.getVirginityLoss(new SexType(SexParticipantType.CATCHER,pt, OrificeType.NIPPLE)).isEmpty()) {
 							descriptionSB.append(" [style.colourArcane([npc.Name] lost [npc.her] nipple virginity to "+ owner.getVirginityLoss(new SexType(SexParticipantType.CATCHER,pt, OrificeType.NIPPLE)) + ".)]");
@@ -3748,10 +3783,10 @@ public class Body implements Serializable, XMLSaving {
 					descriptionSB.append(" [style.colourGood([npc.Name] has retained [npc.her] nipple virginity.)]");
 				}
 				
-				if (breast.getRawLactationValue() > 0) {
-					descriptionSB.append("</br>[npc.She] is currently producing "+ breast.getRawLactationValue() + "mL of [npc.milkPrimaryColour(true)] [npc.milk]");
+				if (viewedBreast.getRawLactationValue() > 0) {
+					descriptionSB.append("</br>[npc.She] is currently producing "+ viewedBreast.getRawLactationValue() + "ml of [npc.milkPrimaryColour(true)] [npc.milk]");
 					
-					switch(breast.getMilk().getFlavour()) {
+					switch(viewedBreast.getMilk().getFlavour()) {
 						case CHOCOLATE:
 							descriptionSB.append(", which tastes of chocolate.");
 							break;
@@ -3836,13 +3871,23 @@ public class Body implements Serializable, XMLSaving {
 		
 		descriptionSB = new StringBuilder();
 		
-		if (isPlayer) {
-			descriptionSB.append("You have [pc.a_penisSize], "+(owner.getPenisRawSizeValue()>=1?owner.getPenisRawSizeValue()+"-inch":"sub-1-inch"));
-		} else {
-			descriptionSB.append("[npc.She] has [npc.a_penisSize], "+(owner.getPenisRawSizeValue()>=1?owner.getPenisRawSizeValue()+"-inch":"sub-1-inch"));
+		Penis viewedPenis = penis;
+		if(Main.game.getPlayer().hasIngestedPsychoactiveFluidType(FluidTypeBase.CUM)) {
+			viewedPenis = new Penis(penis.getType(),
+					(int) (penis.getRawSizeValue() * 2.25f),
+					penis.getTesticle().getTesticleSize().getValue()*2,
+					(int) ((penis.getTesticle().getRawCumProductionValue()+100) * 3.25f),
+					penis.getTesticle().getTesticleCount());
+			descriptionSB.append("<i style='color:"+Colour.PSYCHOACTIVE.toWebHexString()+";'>The psychoactive cum you recently ingested is causing your view of "+(owner.isPlayer()?"your":"[npc.name]'s")+" cock to be distorted!</i> ");
 		}
 		
-		switch (penis.getType()) {
+		if (isPlayer) {
+			descriptionSB.append("You have "+UtilText.generateSingularDeterminer(viewedPenis.getSize().getDescriptor())+" "+viewedPenis.getSize().getDescriptor()+", "+(owner.getPenisRawSizeValue()>=1?owner.getPenisRawSizeValue()+"-inch":"sub-1-inch"));
+		} else {
+			descriptionSB.append("[npc.She] has "+UtilText.generateSingularDeterminer(viewedPenis.getSize().getDescriptor())+" "+viewedPenis.getSize().getDescriptor()+", "+(owner.getPenisRawSizeValue()>=1?owner.getPenisRawSizeValue()+"-inch":"sub-1-inch"));
+		}
+		
+		switch (viewedPenis.getType()) {
 			case HUMAN:
 				descriptionSB.append(" human cock");
 				break;
@@ -3927,7 +3972,7 @@ public class Body implements Serializable, XMLSaving {
 		}
 
 		if(owner.isPlayer()) {
-			if (!penis.isVirgin()) {
+			if (!viewedPenis.isVirgin()) {
 					for(OrificeType ot : OrificeType.values()) {
 						if(owner.getVirginityLoss(new SexType(SexParticipantType.PITCHER,PenetrationType.PENIS, ot)) != null && !owner.getVirginityLoss(new SexType(SexParticipantType.PITCHER,PenetrationType.PENIS, ot)).isEmpty()) {
 							descriptionSB.append(" [style.colourArcane(You lost your penile virginity to "+ owner.getVirginityLoss(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, ot)) + ".)]");
@@ -3939,7 +3984,7 @@ public class Body implements Serializable, XMLSaving {
 			}
 			
 		} else {
-			if (!penis.isVirgin()) {
+			if (!viewedPenis.isVirgin()) {
 				for(OrificeType ot : OrificeType.values()) {
 					if(owner.getVirginityLoss(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, ot))!=null && !owner.getVirginityLoss(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, ot)).isEmpty()) {
 						descriptionSB.append(" [style.colourArcane([npc.Name] has lost [npc.her] penile virginity.)]");
@@ -3952,15 +3997,15 @@ public class Body implements Serializable, XMLSaving {
 		}
 		
 		// Capacity:
-		if (Capacity.getCapacityFromValue(penis.getOrificeUrethra().getStretchedCapacity()) != Capacity.ZERO_IMPENETRABLE) {
+		if (Capacity.getCapacityFromValue(viewedPenis.getOrificeUrethra().getStretchedCapacity()) != Capacity.ZERO_IMPENETRABLE) {
 			if (isPlayer) {
 				descriptionSB.append(" Your cock's urethra has been loosened enough that it presents a ready orifice for penetration,"
-						+ " [style.colourSex(and can be comfortably penetrated by "+ Capacity.getCapacityFromValue(penis.getOrificeUrethra().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " cocks with sufficient lubrication.)]");
+						+ " [style.colourSex(and can be comfortably penetrated by "+ Capacity.getCapacityFromValue(viewedPenis.getOrificeUrethra().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " cocks with sufficient lubrication.)]");
 			} else {
 				descriptionSB.append(" [npc.Her] cock's urethra has been loosened enough that it presents a ready orifice for penetration,"
-						+ " [style.colourSex(and can be comfortably penetrated by "+ Capacity.getCapacityFromValue(penis.getOrificeUrethra().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " cocks with sufficient lubrication.)]");
+						+ " [style.colourSex(and can be comfortably penetrated by "+ Capacity.getCapacityFromValue(viewedPenis.getOrificeUrethra().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " cocks with sufficient lubrication.)]");
 			}
-			switch (penis.getOrificeUrethra().getElasticity()) {
+			switch (viewedPenis.getOrificeUrethra().getElasticity()) {
 				case ZERO_UNYIELDING:
 					descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It is extremely unyielding,");
 					break;
@@ -3988,7 +4033,7 @@ public class Body implements Serializable, XMLSaving {
 				default:
 					break;
 			}
-			switch (penis.getOrificeUrethra().getPlasticity()) {
+			switch (viewedPenis.getOrificeUrethra().getPlasticity()) {
 				case ZERO_RUBBERY:
 					descriptionSB.append(" and will instantly return to its original size.</span>");
 					break;
@@ -4202,7 +4247,7 @@ public class Body implements Serializable, XMLSaving {
 			}
 			
 		} else {
-			switch (penis.getTesticle().getTesticleSize()) {
+			switch (viewedPenis.getTesticle().getTesticleSize()) {
 				case ZERO_VESTIGIAL:
 					if (isPlayer) {
 						descriptionSB.append(" Your [pc.ballsCount] [pc.balls] are covered in [pc.ballFullDescription(true)], and are so small that they're only just visible as tiny little mounds nestling beneath your [pc.cock].");
@@ -4259,9 +4304,9 @@ public class Body implements Serializable, XMLSaving {
 		if(owner.isPlayer()) {
 			cumName = "[pc.cum+]";
 		}
-		switch (penis.getTesticle().getCumProduction()) {
+		switch (viewedPenis.getTesticle().getCumProduction()) {
 			case ZERO_NONE:
-				if (penis.getTesticle().getTesticleSize().getValue() > TesticleSize.TWO_AVERAGE.getValue()) {
+				if (viewedPenis.getTesticle().getTesticleSize().getValue() > TesticleSize.TWO_AVERAGE.getValue()) {
 					descriptionSB.append(" Despite their large size, they");
 				} else {
 					descriptionSB.append(" They");
@@ -4269,7 +4314,7 @@ public class Body implements Serializable, XMLSaving {
 				descriptionSB.append(" don't produce any "+cumName+" at all.");
 				break;
 			case ONE_TRICKLE:
-				if (penis.getTesticle().getTesticleSize().getValue() > TesticleSize.TWO_AVERAGE.getValue()) {
+				if (viewedPenis.getTesticle().getTesticleSize().getValue() > TesticleSize.TWO_AVERAGE.getValue()) {
 					descriptionSB.append(" Despite their large size, they");
 				} else {
 					descriptionSB.append(" They");
@@ -4277,7 +4322,7 @@ public class Body implements Serializable, XMLSaving {
 				descriptionSB.append(" only produce a tiny trickle of "+cumName+" at each orgasm.");
 				break;
 			case TWO_SMALL_AMOUNT:
-				if (penis.getTesticle().getTesticleSize().getValue() > TesticleSize.THREE_LARGE.getValue()) {
+				if (viewedPenis.getTesticle().getTesticleSize().getValue() > TesticleSize.THREE_LARGE.getValue()) {
 					descriptionSB.append(" Despite their large size, they");
 				} else {
 					descriptionSB.append(" They");
@@ -4285,7 +4330,7 @@ public class Body implements Serializable, XMLSaving {
 				descriptionSB.append(" only produce a small amount of "+cumName+" at each orgasm.");
 				break;
 			case THREE_AVERAGE:
-				if (penis.getTesticle().getTesticleSize().getValue() > TesticleSize.FOUR_HUGE.getValue()) {
+				if (viewedPenis.getTesticle().getTesticleSize().getValue() > TesticleSize.FOUR_HUGE.getValue()) {
 					descriptionSB.append(" Despite their huge size, they only");
 				} else {
 					descriptionSB.append(" They");
@@ -4293,7 +4338,7 @@ public class Body implements Serializable, XMLSaving {
 				descriptionSB.append(" produce an average amount of "+cumName+" at each orgasm.");
 				break;
 			case FOUR_LARGE:
-				if (penis.getTesticle().getTesticleSize().getValue() < TesticleSize.TWO_AVERAGE.getValue()) {
+				if (viewedPenis.getTesticle().getTesticleSize().getValue() < TesticleSize.TWO_AVERAGE.getValue()) {
 					descriptionSB.append(" Despite their small size, they");
 				} else {
 					descriptionSB.append(" They");
@@ -4301,7 +4346,7 @@ public class Body implements Serializable, XMLSaving {
 				descriptionSB.append(" produce a large amount of "+cumName+" at each orgasm.");
 				break;
 			case FIVE_HUGE:
-				if (penis.getTesticle().getTesticleSize().getValue() < TesticleSize.TWO_AVERAGE.getValue()) {
+				if (viewedPenis.getTesticle().getTesticleSize().getValue() < TesticleSize.TWO_AVERAGE.getValue()) {
 					descriptionSB.append(" Despite their small size, they");
 				} else {
 					descriptionSB.append(" They");
@@ -4309,7 +4354,7 @@ public class Body implements Serializable, XMLSaving {
 				descriptionSB.append(" produce a huge amount of "+cumName+" at each orgasm.");
 				break;
 			case SIX_EXTREME:
-				if (penis.getTesticle().getTesticleSize().getValue() < TesticleSize.TWO_AVERAGE.getValue()) {
+				if (viewedPenis.getTesticle().getTesticleSize().getValue() < TesticleSize.TWO_AVERAGE.getValue()) {
 					descriptionSB.append(" Despite their small size, they");
 				} else {
 					descriptionSB.append(" They");
@@ -4317,7 +4362,7 @@ public class Body implements Serializable, XMLSaving {
 				descriptionSB.append(" produce an extreme amount of "+cumName+" at each orgasm.");
 				break;
 			case SEVEN_MONSTROUS:
-				if (penis.getTesticle().getTesticleSize().getValue() < TesticleSize.TWO_AVERAGE.getValue()) {
+				if (viewedPenis.getTesticle().getTesticleSize().getValue() < TesticleSize.TWO_AVERAGE.getValue()) {
 					descriptionSB.append(" Despite their small size, they");
 				} else {
 					descriptionSB.append(" They");
@@ -4332,7 +4377,7 @@ public class Body implements Serializable, XMLSaving {
 			descriptionSB.append(" [npc.Her] [npc.cum]");
 		}
 		
-		switch(penis.getTesticle().getCum().getFlavour()) {
+		switch(viewedPenis.getTesticle().getCum().getFlavour()) {
 			case CHOCOLATE:
 				descriptionSB.append(" tastes of chocolate.");
 				break;
@@ -4407,6 +4452,20 @@ public class Body implements Serializable, XMLSaving {
 		
 		descriptionSB = new StringBuilder();
 
+		Vagina viewedVagina = vagina;
+		if(Main.game.getPlayer().hasIngestedPsychoactiveFluidType(FluidTypeBase.GIRLCUM)) {
+			viewedVagina = new Vagina(vagina.getType(),
+					vagina.getRawLabiaSizeValue(),
+					vagina.getRawClitorisSizeValue(),
+					Wetness.SEVEN_DROOLING.getValue(),
+					vagina.getOrificeVagina().getRawCapacityValue() *3,
+					vagina.getOrificeVagina().getElasticity().getValue(),
+					vagina.getOrificeVagina().getPlasticity().getValue(),
+					vagina.getOrificeVagina().isVirgin());
+			viewedVagina.setPierced(owner, vagina.isPierced());
+			descriptionSB.append("<i style='color:"+Colour.PSYCHOACTIVE.toWebHexString()+";'>The psychoactive girlcum which you recently ingested is causing your view of "+(owner.isPlayer()?"your":"[npc.name]'s")+" pussy to be distorted!</i> ");
+		}
+		
 		if (isPlayer) {
 			if (penis.getType() != PenisType.NONE)
 				descriptionSB.append("Beneath your [pc.penis], you have");
@@ -4419,89 +4478,89 @@ public class Body implements Serializable, XMLSaving {
 				descriptionSB.append("Between [npc.her] legs, [npc.she] has");
 		}
 		
-		switch (vagina.getType()) {
+		switch (viewedVagina.getType()) {
 			case HUMAN:
 				if (isPlayer) {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" human pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((viewedVagina.isPierced()?" a pierced,":" a")+" human pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
 				} else {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" human pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((viewedVagina.isPierced()?" a pierced,":" a")+" human pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
 				}
 				break;
 			case ANGEL:
 				if (isPlayer) {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" an")+" angelic pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((viewedVagina.isPierced()?" a pierced,":" an")+" angelic pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
 				} else {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" an")+" angelic pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((viewedVagina.isPierced()?" a pierced,":" an")+" angelic pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
 				}
 				break;
 			case DEMON_COMMON:
 				if (isPlayer) {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" demonic pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((viewedVagina.isPierced()?" a pierced,":" a")+" demonic pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
 				} else {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" demonic pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((viewedVagina.isPierced()?" a pierced,":" a")+" demonic pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
 				}
 				break;
 			case DOG_MORPH:
 				if (isPlayer) {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" canine pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((viewedVagina.isPierced()?" a pierced,":" a")+" canine pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
 				} else {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" canine pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((viewedVagina.isPierced()?" a pierced,":" a")+" canine pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
 				}
 				break;
 			case WOLF_MORPH:
 				if (isPlayer) {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" lupine pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((viewedVagina.isPierced()?" a pierced,":" a")+" lupine pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
 				} else {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" lupine pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((viewedVagina.isPierced()?" a pierced,":" a")+" lupine pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
 				}
 				break;
 			case ALLIGATOR_MORPH:
 				if (isPlayer) {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" reptilian pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((viewedVagina.isPierced()?" a pierced,":" a")+" reptilian pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
 				} else {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" reptilian pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((viewedVagina.isPierced()?" a pierced,":" a")+" reptilian pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
 				}
 				break;
 			case CAT_MORPH:
 				if (isPlayer) {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" feline pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((viewedVagina.isPierced()?" a pierced,":" a")+" feline pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
 				} else {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" feline pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((viewedVagina.isPierced()?" a pierced,":" a")+" feline pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
 				}
 				break;
 			case COW_MORPH:
 				if (isPlayer) {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" bovine pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((viewedVagina.isPierced()?" a pierced,":" a")+" bovine pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
 				} else {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" bovine pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((viewedVagina.isPierced()?" a pierced,":" a")+" bovine pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
 				}
 				break;
 			case SQUIRREL_MORPH:
 				if (isPlayer) {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" squirrel-morph's pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((viewedVagina.isPierced()?" a pierced,":" a")+" squirrel-morph's pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
 				} else {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" a")+" squirrel-morph's pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((viewedVagina.isPierced()?" a pierced,":" a")+" squirrel-morph's pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
 				}
 				break;
 			case HORSE_MORPH:
 				if (isPlayer) {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" an")+" equine pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((viewedVagina.isPierced()?" a pierced,":" an")+" equine pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
 				} else {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" an")+" equine pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((viewedVagina.isPierced()?" a pierced,":" an")+" equine pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
 				}
 				break;
 			case REINDEER_MORPH:
 				if (isPlayer) {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" an")+" rangiferine pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((viewedVagina.isPierced()?" a pierced,":" an")+" rangiferine pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
 				} else {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" an")+" rangiferine pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((viewedVagina.isPierced()?" a pierced,":" an")+" rangiferine pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
 				}
 				break;
 			case HARPY:
 				if (isPlayer) {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" an")+" avian pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((viewedVagina.isPierced()?" a pierced,":" an")+" avian pussy, with [pc.labiaSize], [pc.pussyPrimaryColour(true)] labia and [pc.pussySecondaryColour(true)] inner-walls.");
 				} else {
-					descriptionSB.append((vagina.isPierced()?" a pierced,":" an")+" avian pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
+					descriptionSB.append((viewedVagina.isPierced()?" a pierced,":" an")+" avian pussy, with [npc.labiaSize], [npc.pussyPrimaryColour(true)] labia and [npc.pussySecondaryColour(true)] inner-walls.");
 				}
 				break;
 			default:
@@ -4585,18 +4644,18 @@ public class Body implements Serializable, XMLSaving {
 			}
 		}
 		// Virgin/capacity:
-		if (vagina.getOrificeVagina().isVirgin()) {
+		if (viewedVagina.getOrificeVagina().isVirgin()) {
 			if (isPlayer) {
-				descriptionSB.append(" [style.colourSex(Within your " + Capacity.getCapacityFromValue(vagina.getOrificeVagina().getStretchedCapacity()).getDescriptor() + " [pc.pussy], your hymen is still intact, as it has never been penetrated before.)]"
+				descriptionSB.append(" [style.colourSex(Within your " + Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getDescriptor() + " [pc.pussy], your hymen is still intact, as it has never been penetrated before.)]"
 						+ " [style.colourGood(You have retained your vaginal virginity.)]");
 			} else {
-				descriptionSB.append(" [style.colourSex(Within [npc.her] " + Capacity.getCapacityFromValue(vagina.getOrificeVagina().getStretchedCapacity()).getDescriptor() + " [npc.pussy], [npc.her] hymen is still intact, as it has never been penetrated before.)]"
+				descriptionSB.append(" [style.colourSex(Within [npc.her] " + Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getDescriptor() + " [npc.pussy], [npc.her] hymen is still intact, as it has never been penetrated before.)]"
 						+ " [style.colourGood([npc.She] has retained [npc.her] vaginal virginity.)]");
 			}
 		} else {
 			if (isPlayer) {
-				descriptionSB.append(" [style.colourSex(Your pussy is " + Capacity.getCapacityFromValue(vagina.getOrificeVagina().getStretchedCapacity()).getDescriptor() + ", and can comfortably take "
-						+ Capacity.getCapacityFromValue(vagina.getOrificeVagina().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " cocks with sufficient lubrication.)]");
+				descriptionSB.append(" [style.colourSex(Your pussy is " + Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getDescriptor() + ", and can comfortably take "
+						+ Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " cocks with sufficient lubrication.)]");
 				
 				for(PenetrationType pt : PenetrationType.values()) {
 					if(Main.game.getPlayer().getVirginityLoss(new SexType(SexParticipantType.CATCHER, pt, OrificeType.VAGINA))!=null
@@ -4609,13 +4668,13 @@ public class Body implements Serializable, XMLSaving {
 				}
 				
 			} else{
-				descriptionSB.append(" [style.colourSex([npc.Her] pussy is " + Capacity.getCapacityFromValue(vagina.getOrificeVagina().getStretchedCapacity()).getDescriptor() + ", and can comfortably take "
-						+ Capacity.getCapacityFromValue(vagina.getOrificeVagina().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " cocks with sufficient lubrication.)]");
+				descriptionSB.append(" [style.colourSex([npc.Her] pussy is " + Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getDescriptor() + ", and can comfortably take "
+						+ Capacity.getCapacityFromValue(viewedVagina.getOrificeVagina().getStretchedCapacity()).getMaximumSizeComfortableWithLube().getDescriptor() + " cocks with sufficient lubrication.)]");
 			}
 		}
 		
 		// Wetness:
-		switch (vagina.getOrificeVagina().getWetness(owner)) {
+		switch (viewedVagina.getOrificeVagina().getWetness(owner)) {
 			case ZERO_DRY:
 				if (isPlayer) {
 					descriptionSB.append(" [style.colourSex(It's completely dry and never gets wet, no matter how aroused you are.)]");
@@ -4676,8 +4735,16 @@ public class Body implements Serializable, XMLSaving {
 				break;
 		}
 		
+		if(viewedVagina.getOrificeVagina().isSquirter()) {
+			if (isPlayer) {
+				descriptionSB.append(" [style.colourSex(You are a squirter, and produce a considerable amount of female ejaculate each time you orgasm.)]");
+			} else {
+				descriptionSB.append(" [style.colourSex([npc.She] is a squirter, and produces a considerable amount of female ejaculate each time [npc.she] orgasms.)]");
+			}
+		}
+		
 		// Elasticity & plasticity:
-		switch (vagina.getOrificeVagina().getElasticity()) {
+		switch (viewedVagina.getOrificeVagina().getElasticity()) {
 			case ZERO_UNYIELDING:
 				descriptionSB.append(" [style.colourSex(It is extremely unyielding,");
 				break;
@@ -4705,7 +4772,7 @@ public class Body implements Serializable, XMLSaving {
 			default:
 				break;
 		}
-		switch (vagina.getOrificeVagina().getPlasticity()) {
+		switch (viewedVagina.getOrificeVagina().getPlasticity()) {
 			case ZERO_RUBBERY:
 				descriptionSB.append(" and will instantly return to its original size.)]");
 				break;

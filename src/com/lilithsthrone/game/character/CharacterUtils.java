@@ -63,6 +63,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
@@ -972,6 +973,15 @@ public class CharacterUtils {
 		
 		if(character.hasBreasts()) {
 			character.setBreastSize(Math.max(CupSize.AA.getMeasurement(), character.getBreastSize().getMeasurement() -2 +(Util.random.nextInt(5)))); // Random size between -2 and +2 of base value.
+			if(Math.random()<=0.015f) {
+				character.setBreastLactation((int)((character.getBreastSize().getMeasurement() * 5)*(1+(Math.random()*2))));
+				if(Math.random()<=0.025f) {
+					character.addMilkModifier(FluidModifier.ADDICTIVE);
+				}
+				if(Math.random()<=0.025f) {
+					character.addMilkModifier(FluidModifier.HALLUCINOGENIC);
+				}
+			}
 		}
 		
 		// Face:
@@ -1017,6 +1027,12 @@ public class CharacterUtils {
 			} else {
 				character.setPenisSize(character.getPenisSize().getMinimumValue() + Util.random.nextInt(character.getPenisSize().getMaximumValue() - character.getPenisSize().getMinimumValue()) +1);
 			}
+			if(Math.random()<=0.005f) {
+				character.addCumModifier(FluidModifier.ADDICTIVE);
+			}
+			if(Math.random()<=0.005f) {
+				character.addCumModifier(FluidModifier.HALLUCINOGENIC);
+			}
 		}
 		
 		// Vagina:
@@ -1036,6 +1052,12 @@ public class CharacterUtils {
 				}
 			}
 			character.setVaginaWetness(character.getVaginaWetness().getValue() -1 + Util.random.nextInt(3)); // +1 or -1 either way
+			if(Math.random()<=0.005f) {
+				character.addGirlcumModifier(FluidModifier.ADDICTIVE);
+			}
+			if(Math.random()<=0.005f) {
+				character.addGirlcumModifier(FluidModifier.HALLUCINOGENIC);
+			}
 		}
 		
 		character.setAssStretchedCapacity(character.getAssRawCapacityValue());
@@ -1243,9 +1265,13 @@ public class CharacterUtils {
 		}
 		
 		desiresAssigned = 0;
-		if(character instanceof Cultist || character instanceof DominionSuccubusAttacker) { // Cultists and succubus attackers never mind rape
+		if(character instanceof Cultist || character instanceof DominionSuccubusAttacker) { // Cultists and succubus attackers like raping
 			availableFetishes.remove(Fetish.FETISH_NON_CON_DOM);
 		}
+		
+		availableFetishes.remove(Fetish.FETISH_CUM_STUD); // Who doesn't like cumming? :3
+		
+		
 		while(desiresAssigned < numberOfNegativeDesires && !availableFetishes.isEmpty()) {
 			Fetish f = availableFetishes.get(Util.random.nextInt(availableFetishes.size()));
 			character.setFetishDesire(f, Math.random()>0.5?FetishDesire.ONE_DISLIKE:FetishDesire.ZERO_HATE);

@@ -391,14 +391,12 @@ public enum Sex {
 			wetPenetrationTypes.put(character, new HashMap<PenetrationType, Set<LubricationType>>());
 			for(PenetrationType pt : PenetrationType.values()) {
 				wetPenetrationTypes.get(character).put(pt, new HashSet<>());
-				
 			}
 		}
 		for(GameCharacter character : Sex.getAllParticipants()) {
 			wetOrificeTypes.put(character, new HashMap<OrificeType, Set<LubricationType>>());
 			for(OrificeType ot : OrificeType.values()) {
 				wetOrificeTypes.get(character).put(ot, new HashSet<>());
-				
 			}
 		}
 		
@@ -914,7 +912,11 @@ public enum Sex {
 			}
 			activePartner.addStatusEffect(StatusEffect.RECOVERING_AURA, 240);
 		}
-
+		
+		if(Sex.getNumberOfOrgasms(Main.game.getPlayer())>0) {
+			Main.game.getPlayer().setLust(0);
+		}
+		
 		endSexDescription = sexSB.toString();
 	}
 	
@@ -1771,11 +1773,11 @@ public enum Sex {
 										}
 										break;
 									case MOUTH:
-										if (cumTarget.getHighestZLayerCoverableArea(CoverableArea.MOUTH)!=null) {
-											cumTarget.getHighestZLayerCoverableArea(CoverableArea.MOUTH).setDirty(true);
-										} else {
-											cumTarget.addDirtySlot(InventorySlot.MOUTH);
-										}
+//										if (cumTarget.getHighestZLayerCoverableArea(CoverableArea.MOUTH)!=null) {
+//											cumTarget.getHighestZLayerCoverableArea(CoverableArea.MOUTH).setDirty(true);
+//										} else {
+//											cumTarget.addDirtySlot(InventorySlot.MOUTH);
+//										}
 										break;
 									case STOMACH:
 										if (cumTarget.getHighestZLayerCoverableArea(CoverableArea.STOMACH)!=null) {
@@ -1809,11 +1811,18 @@ public enum Sex {
 			if(Main.game.getPlayer().isWearingCondom()){
 				Main.game.getPlayer().getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()).setSealed(false);
 				if(Main.game.getPlayer().getPenisRawCumProductionValue()>0) {
-					sexSB.append(Main.game.getPlayer().addItem(AbstractItemType.generateFilledCondom(Main.game.getPlayer().getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()).getColour(), Main.game.getPlayer(), Main.game.getPlayer().getCum()), false));
+					sexSB.append(Main.game.getPlayer().addItem(AbstractItemType.generateFilledCondom(Main.game.getPlayer().getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()).getColour(), Main.game.getPlayer(), Main.game.getPlayer().getCum()), false, true));
 				}
 				Main.game.getPlayer().unequipClothingIntoVoid(Main.game.getPlayer().getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()), true, Main.game.getPlayer());
 				
 			}
+			
+			if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().getLowestZLayerCoverableArea(CoverableArea.VAGINA)!=null) {
+				if(Main.game.getPlayer().isVaginaSquirter()) {
+					Main.game.getPlayer().getLowestZLayerCoverableArea(CoverableArea.VAGINA).setDirty(true);
+				}
+			}
+			
 			// Apply orgasm arousal resets:
 			incrementNumberOfOrgasms(Main.game.getPlayer(), 1);
 			player().setArousal(0);
@@ -1829,11 +1838,18 @@ public enum Sex {
 			if(activePartner.isWearingCondom()){
 				activePartner.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()).setSealed(false);
 				if(activePartner.getPenisRawCumProductionValue()>0) {
-					sexSB.append(Main.game.getPlayer().addItem(AbstractItemType.generateFilledCondom(activePartner.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()).getColour(), activePartner, activePartner.getCum()), false));
+					sexSB.append(Main.game.getPlayer().addItem(AbstractItemType.generateFilledCondom(activePartner.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()).getColour(), activePartner, activePartner.getCum()), false, true));
 				}
 				activePartner.unequipClothingIntoVoid(activePartner.getClothingInSlot(ClothingType.PENIS_CONDOM.getSlot()), true, activePartner);
 				
 			}
+			
+			if(activePartner.hasVagina() && activePartner.getLowestZLayerCoverableArea(CoverableArea.VAGINA)!=null) {
+				if(activePartner.isVaginaSquirter()) {
+					activePartner.getLowestZLayerCoverableArea(CoverableArea.VAGINA).setDirty(true);
+				}
+			}
+			
 			// Apply orgasm arousal resets:
 			incrementNumberOfOrgasms(activePartner, 1);
 			activePartner.setArousal(0);
@@ -2148,7 +2164,7 @@ public enum Sex {
 		if(!lubricationTransferred.isEmpty()) {
 			sexSB.append(formatCoverableAreaGettingWet(
 					Util.capitaliseSentence(Util.stringsToStringList(lubricationTransferred, false))+" quickly lubricate"+(lastLubricationPlural?" ":"s ")
-						+(penetrated.isPlayer()?"your ":activePartner.getName("the")+"'s ")+orificeType.getName(penetrated)+"."));
+						+(penetrated.isPlayer()?"your ":penetrated.getName("the")+"'s ")+orificeType.getName(penetrated)+"."));
 		}
 		
 		lubricationTransferred.clear();
@@ -2164,7 +2180,42 @@ public enum Sex {
 		if(!lubricationTransferred.isEmpty()) {
 			sexSB.append(formatCoverableAreaGettingWet(
 					Util.capitaliseSentence(Util.stringsToStringList(lubricationTransferred, false))+" quickly lubricate"+(lastLubricationPlural?" ":"s ")
-						+(penetrator.isPlayer()?"your ":activePartner.getName("the")+"'s ")+penetrationType.getName(penetrator)+"."));
+						+(penetrator.isPlayer()?"your ":penetrator.getName("the")+"'s ")+penetrationType.getName(penetrator)+"."));
+		}
+	}
+	
+	public static void transferLubrication(GameCharacter penetrator1, PenetrationType penetrationType1, GameCharacter penetrator2, PenetrationType penetrationType2) {
+		List<String> lubricationTransferred = new ArrayList<>();
+		boolean lastLubricationPlural = false;
+		
+		for(LubricationType lt : wetPenetrationTypes.get(penetrator1).get(penetrationType1)) {
+			if(!wetPenetrationTypes.get(penetrator2).get(penetrationType2).contains(lt)) {
+				wetPenetrationTypes.get(penetrator2).get(penetrationType2).add(lt);
+				lubricationTransferred.add(lt.getName());
+				lastLubricationPlural = lt.isPlural();
+			}
+		}
+		
+		if(!lubricationTransferred.isEmpty()) {
+			sexSB.append(formatCoverableAreaGettingWet(
+					Util.capitaliseSentence(Util.stringsToStringList(lubricationTransferred, false))+" quickly lubricate"+(lastLubricationPlural?" ":"s ")
+						+(penetrator2.isPlayer()?"your ":penetrator2.getName("the")+"'s ")+penetrationType2.getName(penetrator2)+"."));
+		}
+		
+		lubricationTransferred.clear();
+		
+		for(LubricationType lt : wetPenetrationTypes.get(penetrator2).get(penetrationType2)) {
+			if(!wetPenetrationTypes.get(penetrator1).get(penetrationType1).contains(lt)) {
+				wetPenetrationTypes.get(penetrator1).get(penetrationType1).add(lt);
+				lubricationTransferred.add(lt.getName());
+				lastLubricationPlural = lt.isPlural();
+			}
+		}
+		
+		if(!lubricationTransferred.isEmpty()) {
+			sexSB.append(formatCoverableAreaGettingWet(
+					Util.capitaliseSentence(Util.stringsToStringList(lubricationTransferred, false))+" quickly lubricate"+(lastLubricationPlural?" ":"s ")
+						+(penetrator1.isPlayer()?"your ":penetrator1.getName("the")+"'s ")+penetrationType1.getName(penetrator1)+"."));
 		}
 	}
 	
