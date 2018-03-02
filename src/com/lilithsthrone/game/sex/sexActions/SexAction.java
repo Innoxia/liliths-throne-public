@@ -42,22 +42,22 @@ public abstract class SexAction implements SexActionInterface {
 	
 	public SexAction(
 			SexActionType sexActionType,
-			ArousalIncrease playerArousalGain,
-			ArousalIncrease partnerArousalGain,
+			ArousalIncrease selfArousalGain,
+			ArousalIncrease targetArousalGain,
 			CorruptionLevel minimumCorruptionNeeded,
 			PenetrationType penetrationTypeAccessRequired,
 			OrificeType orificeTypeAccessRequired,
 			SexParticipantType participantType) {
 		
 		this(sexActionType,
-				 playerArousalGain,
-				 partnerArousalGain,
-				 minimumCorruptionNeeded,
-				 penetrationTypeAccessRequired,
-				 orificeTypeAccessRequired,
-				 participantType,
-				 null,
-				 null);
+				selfArousalGain,
+				targetArousalGain,
+				minimumCorruptionNeeded,
+				penetrationTypeAccessRequired,
+				orificeTypeAccessRequired,
+				participantType,
+				null,
+				null);
 	}
 	
 	public SexAction(

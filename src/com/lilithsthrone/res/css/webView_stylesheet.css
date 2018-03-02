@@ -98,11 +98,12 @@ li:before {
 }
 ul{
 	margin:0 auto;
-	padding:8px 8px 8px 32px;
+	padding:2px 8px 2px 32px;
 	list-style: none;
 }
 ul:before {
-    content: '-';
+	font-weight: bold;
+    content: "- ";
 }
 
 h1{

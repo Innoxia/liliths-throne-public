@@ -2962,6 +2962,9 @@ public class InventoryDialogue {
 						if(clothing.getEnchantmentItemType(null)==null) {
 							return new Response("Enchant", "This clothing cannot be enchanted!", null);
 							
+						} else if(!clothing.isEnchantmentKnown()) {
+							return new Response("Enchant", "You need to identify the clothing before it can be enchanted!", null);
+							
 						} else if(Main.game.isDebugMode()) {
 							return new Response("Enchant", "Enchant this clothing.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 								@Override
@@ -3113,7 +3116,10 @@ public class InventoryDialogue {
 								if(clothing.getEnchantmentItemType(null)==null) {
 									return new Response("Enchant", "This clothing cannot be enchanted!", null);
 									
-								} else if(Main.game.isDebugMode()) {
+								} else if(!clothing.isEnchantmentKnown()) {
+									return new Response("Enchant", "You need to identify the clothing before it can be enchanted!", null);
+									
+								}  else if(Main.game.isDebugMode()) {
 									return new Response("Enchant", "Enchant this clothing.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 										@Override
 										public void effects() {
@@ -3310,7 +3316,10 @@ public class InventoryDialogue {
 								if(clothing.getEnchantmentItemType(null)==null) {
 									return new Response("Enchant", "This clothing cannot be enchanted!", null);
 									
-								} else if(Main.game.isDebugMode()) {
+								} else if(!clothing.isEnchantmentKnown()) {
+									return new Response("Enchant", "You need to identify the clothing before it can be enchanted!", null);
+									
+								}  else if(Main.game.isDebugMode()) {
 									return new Response("Enchant", "Enchant this clothing.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 										@Override
 										public void effects() {

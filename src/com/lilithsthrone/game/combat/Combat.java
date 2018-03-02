@@ -48,6 +48,7 @@ public enum Combat {
 	private static List<NPC> allies;
 	private static List<NPC> enemies;
 	private static List<NPC> allCombatants;
+	private static Map<GameCharacter, Map<SpecialAttack, Integer>> cooldowns;
 	private static float escapeChance = 0;
 	private static int turn = 0;
 	private static boolean escaped = false;
@@ -61,7 +62,6 @@ public enum Combat {
 	// For use in repeat last action:
 	private static Attack previousAction;
 	private static Spell previouslyUsedSpell;
-	private static int previouslyUsedSpellLevel;
 	private static SpecialAttack previouslyUsedSpecialAttack;
 
 	private Combat() {
@@ -89,6 +89,12 @@ public enum Combat {
 		allCombatants = new ArrayList<>();
 		allCombatants.addAll(Combat.allies);
 		allCombatants.addAll(Combat.enemies);
+		
+		cooldowns = new HashMap<>();
+		cooldowns.put(Main.game.getPlayer(), new HashMap<>());
+		for(GameCharacter character : allCombatants) {
+			cooldowns.put(character, new HashMap<>());
+		}
 		
 		targetedCombatant = enemies.get(0);
 		activeNPC = enemies.get(0);
@@ -583,20 +589,26 @@ public enum Combat {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			
-			
 			if(responseTab==1) { // Special attacks:
 				if (Main.game.getPlayer().getSpecialAttacks().size() >= index && index!=0) {
-					return new Response(Util.capitaliseSentence(Main.game.getPlayer().getSpecialAttacks().get(index - 1).getName()),
-							getSpecialAttackDescription(Main.game.getPlayer().getSpecialAttacks().get(index - 1)),
-							ENEMY_ATTACK){
-						@Override
-						public void effects() {
-							attackSpecialAttack(Main.game.getPlayer(), Main.game.getPlayer().getSpecialAttacks().get(index - 1));
-							endCombatTurn();
-							previousAction = Attack.SPECIAL_ATTACK;
-							previouslyUsedSpecialAttack = Main.game.getPlayer().getSpecialAttacks().get(index - 1);
-						}
-					};
+					int cooldown = Combat.getCooldown(Main.game.getPlayer(), Main.game.getPlayer().getSpecialAttacks().get(index - 1));
+					if(cooldown==0) {
+						return new Response(Util.capitaliseSentence(Main.game.getPlayer().getSpecialAttacks().get(index - 1).getName()),
+								getSpecialAttackDescription(Main.game.getPlayer().getSpecialAttacks().get(index - 1)),
+								ENEMY_ATTACK){
+							@Override
+							public void effects() {
+								attackSpecialAttack(Main.game.getPlayer(), Main.game.getPlayer().getSpecialAttacks().get(index - 1));
+								endCombatTurn();
+								previousAction = Attack.SPECIAL_ATTACK;
+								previouslyUsedSpecialAttack = Main.game.getPlayer().getSpecialAttacks().get(index - 1);
+							}
+						};
+					} else {
+						return new Response(Util.capitaliseSentence(Main.game.getPlayer().getSpecialAttacks().get(index - 1).getName()),
+								"This special move is on cooldown for [style.colourBad("+cooldown+")] more turns!",
+								null);
+					}
 					
 				} else {
 					return null;
@@ -610,11 +622,10 @@ public enum Combat {
 							ENEMY_ATTACK){
 						@Override
 						public void effects() {
-							attackSpell(Main.game.getPlayer(), Main.game.getPlayer().getSpells().get(index - 1), Main.game.getPlayer().getLevel());
+							attackSpell(Main.game.getPlayer(), Main.game.getPlayer().getSpells().get(index - 1));
 							endCombatTurn();
 							previousAction = Attack.SPELL;
 							previouslyUsedSpell = Main.game.getPlayer().getSpells().get(index - 1);
-							previouslyUsedSpellLevel = Main.game.getPlayer().getLevel();
 						}
 					};
 					
@@ -744,7 +755,7 @@ public enum Combat {
 							return new Response(Util.capitaliseSentence(previouslyUsedSpell.getName()), getSpellDescription(previouslyUsedSpell, null), ENEMY_ATTACK){
 								@Override
 								public void effects() {
-									attackSpell(Main.game.getPlayer(), previouslyUsedSpell, previouslyUsedSpellLevel);
+									attackSpell(Main.game.getPlayer(), previouslyUsedSpell);
 									endCombatTurn();
 								}
 							};
@@ -789,7 +800,7 @@ public enum Combat {
 	};
 
 	private static boolean isCriticalHit(GameCharacter attacker) {
-		return Util.random.nextInt(100) + 1 <= attacker.getAttributeValue(Attribute.CRITICAL_CHANCE);
+		return Util.random.nextInt(100) + 1 <= Util.getModifiedDropoffValue(attacker.getAttributeValue(Attribute.CRITICAL_CHANCE), 100);
 	}
 
 	// Calculations for melee attack:
@@ -978,7 +989,7 @@ public enum Combat {
 		combatStringBuilder.append(getCharactersTurnDiv(attacker, "Seduction", attackStringBuilder.toString()));
 	}
 
-	private static void attackSpell(GameCharacter attacker, Spell spell, int level) {
+	private static void attackSpell(GameCharacter attacker, Spell spell) {
 		GameCharacter target = getTargetedCombatant(attacker);
 
 		boolean critical = isCriticalHit(attacker);
@@ -988,7 +999,7 @@ public enum Combat {
 		attackStringBuilder.append(getPregnancyProtectionText(attacker, target));
 
 		attackStringBuilder.append(attacker.getSpellDescription());
-		attackStringBuilder.append(spell.applyEffect(attacker, target, level, true, critical));
+		attackStringBuilder.append(spell.applyEffect(attacker, target, true, critical));
 		
 		if(critical && attacker.hasTraitActivated(Perk.ARCANE_CRITICALS)) {//TODO description
 			target.addStatusEffect(StatusEffect.ARCANE_WEAKNESS, 1);
@@ -1100,6 +1111,16 @@ public enum Combat {
 			if(opponentAttack == Attack.SEDUCTION && Combat.getTargetedCombatant(npc).getLust()>=100) {
 				opponentAttack = Attack.MAIN;
 			}
+
+			List<SpecialAttack> availableSAs = new ArrayList<>(npc.getSpecialAttacks());
+			for(SpecialAttack sa : npc.getSpecialAttacks()) {
+				if(Combat.getCooldown(npc, sa)!=0) {
+					availableSAs.remove(sa);
+				}
+			}
+			if(availableSAs.isEmpty() && opponentAttack == Attack.SPECIAL_ATTACK) {
+				opponentAttack = Attack.MAIN;
+			}
 			
 			switch(opponentAttack){
 				case DUAL:
@@ -1125,13 +1146,13 @@ public enum Combat {
 					break;
 					
 				case SPECIAL_ATTACK:
-					SpecialAttack specialAttack = npc.getSpecialAttacks().get(Util.random.nextInt(npc.getSpecialAttacks().size()));
+					SpecialAttack specialAttack = availableSAs.get(Util.random.nextInt(availableSAs.size()));
 					attackSpecialAttack(npc, specialAttack);
 					break;
 					
 				case SPELL:
 					Spell spell = npc.getSpell();
-					attackSpell(npc, spell, npc.getLevel());
+					attackSpell(npc, spell);
 					break;
 					
 				case USE_ITEM:
@@ -1165,12 +1186,21 @@ public enum Combat {
 		for(NPC character : allCombatants) {
 			attackNPC(character);
 		}
-		
-		// Remove any status effects from all characters that are beneficial:
+
+		// Player end turn effects:
 		removeBeneficialEffects(Main.game.getPlayer());
+		for(SpecialAttack sa : Combat.getCooldowns(Main.game.getPlayer()).keySet()) {
+			Combat.incrementCooldown(Main.game.getPlayer(), sa, -1);
+		}
+
+		// NPC end turn effects:
 		for(NPC character : allCombatants) {
 			removeBeneficialEffects(character);
+			for(SpecialAttack sa : Combat.getCooldowns(character).keySet()) {
+				Combat.incrementCooldown(character, sa, -1);
+			}
 		}
+		
 		
 		combatContent = combatStringBuilder.toString();
 		combatStringBuilder.setLength(0);
@@ -1314,23 +1344,30 @@ public enum Combat {
 	private static String getSpellDescription(Spell spell, AbstractWeapon source) {
 		return "Cast <b>Level " + Main.game.getPlayer().getLevel() + "</b> <b style='color:" + spell.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(spell.getName()) + "</b></br></br>"
 
-				+ "<b>" + spell.getMinimumDamage(Main.game.getPlayer(), targetedCombatant, Main.game.getPlayer().getLevel()) + " - " + spell.getMaximumDamage(Main.game.getPlayer(), targetedCombatant, Main.game.getPlayer().getLevel()) + "</b>" + " <b style='color:"
+				+ "<b>"
+					+ Attack.getMinimumSpellDamage(Main.game.getPlayer(), targetedCombatant, spell.getDamageType(), spell.getDamage(), spell.damageVariance)
+					+ " - "
+					+ Attack.getMaximumSpellDamage(Main.game.getPlayer(), targetedCombatant, spell.getDamageType(), spell.getDamage(), spell.damageVariance)
+				+ "</b>"
+				+ " <b style='color:"
 				+ spell.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(spell.getDamageType().getName()) + "</b> <b>damage</b></br></br>"
 				
-				+ "<b>" + spell.getMinimumCost(Main.game.getPlayer(), Main.game.getPlayer().getLevel()) + " - " + spell.getMaximumCost(Main.game.getPlayer(), Main.game.getPlayer().getLevel()) + "</b>" + " <b style='color:"
-				+ Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura</b> <b>cost</b></br></br>";
+				+ "<b>" + spell.getModifiedCost(Main.game.getPlayer()) + "</b> <b style='color:"+ Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura</b> <b>cost</b></br></br>";
 	}
 
 	private static String getSpecialAttackDescription(SpecialAttack specialAttack) {
 
 		return "Use your <b style='color:" + specialAttack.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(specialAttack.getName()) + "</b> special attack.</br></br>"
 
-				+ "<b>" + specialAttack.getMinimumDamage(Main.game.getPlayer(), targetedCombatant) + " - " + specialAttack.getMaximumDamage(Main.game.getPlayer(), targetedCombatant) + "</b>" + " <b style='color:"
-				+ specialAttack.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(specialAttack.getDamageType().getName()) + "</b> <b>damage</b></br></br>"
+				+ "<b>"
+					+ Attack.getMinimumSpecialAttackDamage(Main.game.getPlayer(), targetedCombatant, specialAttack.getDamageType(), specialAttack.getDamage(), specialAttack.getDamageVariance())
+					+ " - "
+					+ Attack.getMaximumSpecialAttackDamage(Main.game.getPlayer(), targetedCombatant, specialAttack.getDamageType(), specialAttack.getDamage(), specialAttack.getDamageVariance())
+				+ "</b>" 
+				+ " <b style='color:"+ specialAttack.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(specialAttack.getDamageType().getName()) + "</b> <b>damage</b></br></br>"
 
 
-				+ "<b>" + specialAttack.getMinimumCost(Main.game.getPlayer()) + " - " + specialAttack.getMaximumCost(Main.game.getPlayer()) + "</b>" + " <b style='color:"
-				+ Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>energy</b> <b>cost</b></br></br>";
+				+ "<b style='color:"+ Colour.GENERIC_MINOR_BAD.toWebHexString() + ";'>" + specialAttack.getCooldown() + "-turn cooldown</b></br></br>";
 	}
 
 	public static GameCharacter getTargetedCombatant(GameCharacter attacker) {
@@ -1410,5 +1447,29 @@ public enum Combat {
 
 	public static List<NPC> getEnemies() {
 		return enemies;
+	}
+
+	public static Map<SpecialAttack, Integer> getCooldowns(GameCharacter character) {
+		return cooldowns.get(character);
+	}
+	
+	public static void clearCooldowns(GameCharacter character) {
+		cooldowns.get(character).clear();
+	}
+	
+	public static int getCooldown(GameCharacter character, SpecialAttack attack) {
+		cooldowns.get(character).putIfAbsent(attack, 0);
+		
+		return cooldowns.get(character).get(attack);
+	}
+	
+	public static void setCooldown(GameCharacter character, SpecialAttack attack, int cooldown) {
+		cooldowns.get(character).put(attack, cooldown);
+	}
+	
+	public static void incrementCooldown(GameCharacter character, SpecialAttack attack, int increment) {
+		cooldowns.get(character).putIfAbsent(attack, 0);
+		
+		cooldowns.get(character).put(attack, Math.max(0, cooldowns.get(character).get(attack)+increment));
 	}
 }

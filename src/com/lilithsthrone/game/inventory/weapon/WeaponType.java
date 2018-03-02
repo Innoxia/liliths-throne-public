@@ -8,7 +8,6 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.combat.DamageLevel;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.DamageVariance;
 import com.lilithsthrone.game.combat.Spell;
@@ -23,7 +22,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.84
- * @version 0.1.90
+ * @version 0.2.0
  * @author Innoxia
  */
 public class WeaponType {
@@ -39,7 +38,7 @@ public class WeaponType {
 			"meleeCrystal1",
 			Rarity.RARE,
 			Util.newArrayListOfValues(new ListValue<DamageType>(DamageType.PHYSICAL), new ListValue<DamageType>(DamageType.FIRE), new ListValue<DamageType>(DamageType.ICE), new ListValue<DamageType>(DamageType.POISON)),
-			DamageLevel.POOR,
+			10,
 			DamageVariance.MEDIUM,
 			null,
 			null) {
@@ -73,7 +72,7 @@ public class WeaponType {
 			"meleeCrystal2",
 			Rarity.EPIC,
 			Util.newArrayListOfValues(new ListValue<DamageType>(DamageType.PHYSICAL), new ListValue<DamageType>(DamageType.FIRE), new ListValue<DamageType>(DamageType.ICE), new ListValue<DamageType>(DamageType.POISON)),
-			DamageLevel.NORMAL,
+			15,
 			DamageVariance.MEDIUM,
 			null,
 			null) {
@@ -107,7 +106,7 @@ public class WeaponType {
 			"meleeCrystal3",
 			Rarity.LEGENDARY,
 			Util.newArrayListOfValues(new ListValue<DamageType>(DamageType.FIRE)),
-			DamageLevel.HIGH,
+			20,
 			DamageVariance.LOW,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5)),
 			Util.newArrayListOfValues(
@@ -145,7 +144,7 @@ public class WeaponType {
 			"rangedFeather1",
 			Rarity.RARE,
 			Util.newArrayListOfValues(new ListValue<DamageType>(DamageType.PHYSICAL), new ListValue<DamageType>(DamageType.FIRE), new ListValue<DamageType>(DamageType.ICE), new ListValue<DamageType>(DamageType.POISON)),
-			DamageLevel.NORMAL,
+			10,
 			DamageVariance.HIGH,
 			null,
 			null) {
@@ -179,7 +178,7 @@ public class WeaponType {
 			"rangedFeather2",
 			Rarity.EPIC,
 			Util.newArrayListOfValues(new ListValue<DamageType>(DamageType.PHYSICAL), new ListValue<DamageType>(DamageType.FIRE), new ListValue<DamageType>(DamageType.ICE), new ListValue<DamageType>(DamageType.POISON)),
-			DamageLevel.HIGH,
+			15,
 			DamageVariance.HIGH,
 			null,
 			null) {
@@ -213,7 +212,7 @@ public class WeaponType {
 			"western_kkp",
 			Rarity.LEGENDARY,
 			Util.newArrayListOfValues(new ListValue<DamageType>(DamageType.PHYSICAL)),
-			DamageLevel.ABSURD,
+			10000,
 			DamageVariance.LOW,
 			null,
 			null) {
@@ -251,7 +250,7 @@ public class WeaponType {
 					new ListValue<DamageType>(DamageType.FIRE),
 					new ListValue<DamageType>(DamageType.ICE),
 					new ListValue<DamageType>(DamageType.POISON)),
-			DamageLevel.AWFUL,
+			5,
 			DamageVariance.LOW,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 5)),
 			Util.newArrayListOfValues(
@@ -317,7 +316,7 @@ public class WeaponType {
 			"feather_duster",
 			Rarity.EPIC,
 			Util.newArrayListOfValues(new ListValue<DamageType>(DamageType.PHYSICAL)),
-			DamageLevel.AWFUL,
+			2,
 			DamageVariance.LOW,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5)),
 			Util.newArrayListOfValues(

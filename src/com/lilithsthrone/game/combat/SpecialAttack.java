@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.body.types.LegType;
@@ -22,7 +21,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.0
- * @version 0.1.89
+ * @version 0.2.0
  * @author Innoxia
  */
 public enum SpecialAttack {
@@ -33,9 +32,9 @@ public enum SpecialAttack {
 			"fetish_generic",
 			Colour.GENERIC_ARCANE,
 			DamageType.LUST,
-			DamageLevel.NORMAL,
+			20,
 			DamageVariance.LOW,
-			SpecialAttackSpellCosts.MEDIUM,
+			5,
 			null) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -135,9 +134,9 @@ public enum SpecialAttack {
 			"fetish_generic",
 			Colour.GENERIC_ARCANE,
 			DamageType.LUST,
-			DamageLevel.NORMAL,
+			20,
 			DamageVariance.LOW,
-			SpecialAttackSpellCosts.MEDIUM,
+			5,
 			null) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -205,9 +204,9 @@ public enum SpecialAttack {
 			"fetish_generic",
 			Colour.GENERIC_ARCANE,
 			DamageType.LUST,
-			DamageLevel.NORMAL,
+			20,
 			DamageVariance.LOW,
-			SpecialAttackSpellCosts.MEDIUM,
+			5,
 			null) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -285,9 +284,9 @@ public enum SpecialAttack {
 			"fetish_generic",
 			Colour.GENERIC_ARCANE,
 			DamageType.LUST,
-			DamageLevel.NORMAL,
+			20,
 			DamageVariance.LOW,
-			SpecialAttackSpellCosts.MEDIUM,
+			5,
 			null) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -355,9 +354,9 @@ public enum SpecialAttack {
 			"fetish_generic",
 			Colour.GENERIC_ARCANE,
 			DamageType.LUST,
-			DamageLevel.NORMAL,
+			20,
 			DamageVariance.LOW,
-			SpecialAttackSpellCosts.MEDIUM,
+			5,
 			null) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -451,9 +450,9 @@ public enum SpecialAttack {
 			"fetish_generic",
 			Colour.GENERIC_ARCANE,
 			DamageType.LUST,
-			DamageLevel.NORMAL,
+			20,
 			DamageVariance.LOW,
-			SpecialAttackSpellCosts.MEDIUM,
+			5,
 			null) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -521,9 +520,9 @@ public enum SpecialAttack {
 			"fetish_generic",
 			Colour.GENERIC_ARCANE,
 			DamageType.LUST,
-			DamageLevel.NORMAL,
+			20,
 			DamageVariance.LOW,
-			SpecialAttackSpellCosts.MEDIUM,
+			5,
 			null) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -600,9 +599,9 @@ public enum SpecialAttack {
 			"fetish_generic",
 			Colour.GENERIC_ARCANE,
 			DamageType.LUST,
-			DamageLevel.NORMAL,
+			20,
 			DamageVariance.LOW,
-			SpecialAttackSpellCosts.MEDIUM,
+			5,
 			null) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -666,7 +665,7 @@ public enum SpecialAttack {
 	},
 	
 	TEASE_ORAL_GIVING(50, "oral performer tease", "fetish_generic", Colour.GENERIC_ARCANE,
-			DamageType.LUST, DamageLevel.NORMAL, DamageVariance.LOW, SpecialAttackSpellCosts.MEDIUM,
+			DamageType.LUST, 20, DamageVariance.LOW, 5,
 			null) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -767,9 +766,9 @@ public enum SpecialAttack {
 			"fetish_generic",
 			Colour.GENERIC_ARCANE,
 			DamageType.LUST,
-			DamageLevel.NORMAL,
+			20,
 			DamageVariance.LOW,
-			SpecialAttackSpellCosts.MEDIUM,
+			5,
 			null) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -855,7 +854,7 @@ public enum SpecialAttack {
 	},
 	
 	TEASE_BREASTS(50, "breasts tease", "fetish_generic", Colour.GENERIC_ARCANE,
-			DamageType.LUST, DamageLevel.NORMAL, DamageVariance.LOW, SpecialAttackSpellCosts.MEDIUM,
+			DamageType.LUST, 20, DamageVariance.LOW, 5,
 			null) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -952,7 +951,7 @@ public enum SpecialAttack {
 	},
 	
 	TEASE_FERTILITY(50, "fertility tease", "fetish_generic", Colour.GENERIC_ARCANE,
-			DamageType.LUST, DamageLevel.NORMAL, DamageVariance.LOW, SpecialAttackSpellCosts.MEDIUM,
+			DamageType.LUST, 20, DamageVariance.LOW, 5,
 			null) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -1124,7 +1123,7 @@ public enum SpecialAttack {
 	},
 	
 	TEASE_VIRILITY(50, "virility tease", "fetish_generic", Colour.GENERIC_ARCANE,
-			DamageType.LUST, DamageLevel.NORMAL, DamageVariance.LOW, SpecialAttackSpellCosts.MEDIUM,
+			DamageType.LUST, 20, DamageVariance.LOW, 5,
 			null) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -1297,7 +1296,7 @@ public enum SpecialAttack {
 	
 	
 	TEASE_DOMINANT(50, "dominant tease", "fetish_generic", Colour.GENERIC_ARCANE,
-			DamageType.LUST, DamageLevel.NORMAL, DamageVariance.LOW, SpecialAttackSpellCosts.MEDIUM,
+			DamageType.LUST, 20, DamageVariance.LOW, 5,
 			null) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -1393,7 +1392,7 @@ public enum SpecialAttack {
 		}
 	},
 	TEASE_SUBMISSIVE(50, "submissive tease", "fetish_generic", Colour.GENERIC_ARCANE,
-			DamageType.LUST, DamageLevel.NORMAL, DamageVariance.LOW, SpecialAttackSpellCosts.MEDIUM,
+			DamageType.LUST, 20, DamageVariance.LOW, 5,
 			null) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -1501,14 +1500,14 @@ public enum SpecialAttack {
 			"biteIcon",
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			DamageType.PHYSICAL,
-			DamageLevel.HIGH,
+			20,
 			DamageVariance.LOW,
-			SpecialAttackSpellCosts.MEDIUM,
+			6,
 			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.CRIPPLE, 4))) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 
-			float damage = calculateDamage(caster, target, isCritical), cost = calculateCost(caster);
+			float damage = Attack.calculateSpecialAttackDamage(caster, target, damageType, this.getDamage(), damageVariance, isCritical);
 
 			descriptionSB = new StringBuilder();
 			
@@ -1519,7 +1518,7 @@ public enum SpecialAttack {
 										+ " and you manage to cause some serious damage with your sharp canines before [npc.she] manages to throw you off of [npc.herHim]."
 										: target.getName("The") + " manages to jump to one side, and there's an audible snap as your teeth clamp down on thin air.")
 								+ "</p>")
-						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			} else {
 				descriptionSB.append(UtilText.parse(caster,
 						"<p>" + "With a sudden burst of energy, " + caster.getName("the") + " leaps forwards as [npc.she] tries to bite you."
@@ -1527,7 +1526,7 @@ public enum SpecialAttack {
 										+ " and [npc.she] shakes [npc.her] head from side-to-side, managing to cause some serious damage with [npc.her] sharp canines before you manage to throw [npc.herHim] off of you."
 										: "You jump to one side as you see the attack coming, and there's an audible snap as [npc.her] teeth thankfully clamp down on nothing but thin air.")
 								+ "</p>")
-						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			}
 			
 			// If attack hits, apply damage and effects:
@@ -1536,8 +1535,6 @@ public enum SpecialAttack {
 				for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
 					target.addStatusEffect(se.getKey(), se.getValue());
 			}
-
-			caster.incrementHealth(-cost);
 			
 			return descriptionSB.toString();
 		}
@@ -1561,14 +1558,14 @@ public enum SpecialAttack {
 			"hornsIcon",
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			DamageType.PHYSICAL,
-			DamageLevel.HIGH,
+			20,
 			DamageVariance.LOW,
-			SpecialAttackSpellCosts.MEDIUM,
+			5,
 			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.DAZED, 2))) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 
-			float damage = calculateDamage(caster, target, isCritical), cost = calculateCost(caster);
+			float damage = Attack.calculateSpecialAttackDamage(caster, target, damageType, this.getDamage(), damageVariance, isCritical);
 
 			descriptionSB = new StringBuilder();
 			
@@ -1581,7 +1578,7 @@ public enum SpecialAttack {
 											+ " you knock the wind out of [npc.herHim] and cause [npc.herHim] to stagger backwards in a daze."
 									: " [npc.She] manages to jump to one side, and there's an audible whoosh as you thrust your horns through the air.")
 						+ "</p>")
-						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			} else {
 				descriptionSB.append(UtilText.parse(caster,
 						"<p>"
@@ -1591,7 +1588,7 @@ public enum SpecialAttack {
 											+ " [npc.she] knocks the wind out of you and causes you to stagger backwards in a daze."
 									: " You manage to jump to one side, and there's an audible whoosh as [npc.she] thrusts [npc.her] horns through the air.")
 						+ "</p>")
-						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			}
 			
 			// If attack hits, apply damage and effects:
@@ -1600,8 +1597,6 @@ public enum SpecialAttack {
 				for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
 					target.addStatusEffect(se.getKey(), se.getValue());
 			}
-
-			caster.incrementHealth(-cost);
 			
 			return descriptionSB.toString();
 		}
@@ -1626,14 +1621,14 @@ public enum SpecialAttack {
 			"hornsIcon",
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			DamageType.PHYSICAL,
-			DamageLevel.HIGH,
+			20,
 			DamageVariance.LOW,
-			SpecialAttackSpellCosts.MEDIUM,
+			5,
 			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.DAZED, 2))) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 
-			float damage = calculateDamage(caster, target, isCritical), cost = calculateCost(caster);
+			float damage = Attack.calculateSpecialAttackDamage(caster, target, damageType, this.getDamage(), damageVariance, isCritical);
 
 			descriptionSB = new StringBuilder();
 			
@@ -1646,7 +1641,7 @@ public enum SpecialAttack {
 											+ " you knock the wind out of [npc.herHim] and cause [npc.herHim] to stagger backwards in a daze."
 									: " [npc.She] manages to jump to one side, and there's an audible whoosh as you thrust your antlers through the air.")
 						+ "</p>")
-						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			} else {
 				descriptionSB.append(UtilText.parse(caster,
 						"<p>"
@@ -1656,7 +1651,7 @@ public enum SpecialAttack {
 											+ " [npc.she] knocks the wind out of you and causes you to stagger backwards in a daze."
 									: " You manage to jump to one side, and there's an audible whoosh as [npc.she] thrusts [npc.her] antlers through the air.")
 						+ "</p>")
-						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			}
 			
 			// If attack hits, apply damage and effects:
@@ -1665,8 +1660,6 @@ public enum SpecialAttack {
 				for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
 					target.addStatusEffect(se.getKey(), se.getValue());
 			}
-
-			caster.incrementHealth(-cost);
 			
 			return descriptionSB.toString();
 		}
@@ -1686,12 +1679,19 @@ public enum SpecialAttack {
 		}
 	},
 
-	WOLF_SAVAGE(50, "savage attack", "savageIcon", Colour.DAMAGE_TYPE_PHYSICAL, DamageType.PHYSICAL, DamageLevel.EXTREME, DamageVariance.HIGH, SpecialAttackSpellCosts.EXTREME,
+	WOLF_SAVAGE(50,
+			"savage attack",
+			"savageIcon",
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			DamageType.PHYSICAL,
+			30,
+			DamageVariance.HIGH,
+			8,
 			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.CRIPPLE, 5))) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 
-			float damage = calculateDamage(caster, target, isCritical), cost = calculateCost(caster);
+			float damage = Attack.calculateSpecialAttackDamage(caster, target, damageType, this.getDamage(), damageVariance, isCritical);
 			
 			descriptionSB = new StringBuilder();
 			
@@ -1704,7 +1704,7 @@ public enum SpecialAttack {
 												+ " doing a considerable amount of damage before [npc.she] manages to kick you off of [npc.herHim]."
 										: " [npc.She] manages to jump out of the way, and you end up tumbling to the ground as you're caught off-guard by your target's sudden evasive move.")
 							+ "</p>")
-						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			} else {
 				descriptionSB.append(UtilText.parse(caster,
 						"<p>" + "With a savage howl, [npc.name] launches [npc.herself] at you."
@@ -1713,7 +1713,7 @@ public enum SpecialAttack {
 												+ " doing a considerable amount of damage before you manage to kick [npc.herHim] off of you."
 										: "You manage to jump out of the way, and [npc.she] ends up tumbling to the ground as [npc.she]'s caught off-guard by your sudden evasive move.")
 								+ "</p>")
-						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			}
 			
 			// If attack hits, apply damage and effects:
@@ -1722,8 +1722,6 @@ public enum SpecialAttack {
 				for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
 					target.addStatusEffect(se.getKey(), se.getValue());
 			}
-
-			caster.incrementHealth(-cost);
 			
 			return descriptionSB.toString();
 
@@ -1744,12 +1742,19 @@ public enum SpecialAttack {
 		}
 	},
 
-	SQUIRREL_SCRATCH(50, "scratch", "scratchIcon", Colour.DAMAGE_TYPE_PHYSICAL, DamageType.PHYSICAL, DamageLevel.NORMAL, DamageVariance.HIGH, SpecialAttackSpellCosts.HIGH,
+	SQUIRREL_SCRATCH(50,
+			"scratch",
+			"scratchIcon",
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			DamageType.PHYSICAL,
+			10,
+			DamageVariance.HIGH,
+			6,
 			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.VULNERABLE, 4))) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 
-			float damage = calculateDamage(caster, target, isCritical), cost = calculateCost(caster);
+			float damage = Attack.calculateSpecialAttackDamage(caster, target, damageType, this.getDamage(), damageVariance, isCritical);
 
 			descriptionSB = new StringBuilder();
 			
@@ -1759,14 +1764,14 @@ public enum SpecialAttack {
 								+ (isHit ? " Your sharp claws rake over " + target.getName("the") + "'s body, and [npc.she] lets out a surprised cry as you jump back."
 										: target.getName("The") + " manages to dodge your attack, and you end up swiping at nothing more than thin air.")
 								+ "</p>")
-						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			} else {
 				descriptionSB.append(UtilText.parse(caster,
 						"<p>" + caster.getName("The") + " flexes the claws on [npc.her] anthropomorphic squirrel-like hands, and with a quick dash forwards, attempts to strike at you."
 								+ (isHit ? " [npc.Her] sharp claws rake over your body, and you let out a surprised cry as [npc.she] quickly jumps back, and smirking at you."
 										: " You see [npc.her] attack coming, and you jump out of the way just in time, leaving [npc.herHim] to swipe at nothing more than thin air.")
 								+ "</p>")
-						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			}
 			
 			// If attack hits, apply damage and effects:
@@ -1775,8 +1780,6 @@ public enum SpecialAttack {
 				for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
 					target.addStatusEffect(se.getKey(), se.getValue());
 			}
-
-			caster.incrementHealth(-cost);
 			
 			return descriptionSB.toString();
 			
@@ -1797,12 +1800,19 @@ public enum SpecialAttack {
 		}
 	},
 	
-	ALLIGATOR_TAIL_SWIPE(50, "tail swipe", "tailSwipeIcon", Colour.RACE_ALLIGATOR_MORPH, DamageType.PHYSICAL, DamageLevel.HIGH, DamageVariance.HIGH, SpecialAttackSpellCosts.HIGH,
+	ALLIGATOR_TAIL_SWIPE(50,
+			"tail swipe",
+			"tailSwipeIcon",
+			Colour.RACE_ALLIGATOR_MORPH,
+			DamageType.PHYSICAL,
+			25,
+			DamageVariance.HIGH,
+			6,
 			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.DAZED, 2))) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 
-			float damage = calculateDamage(caster, target, isCritical), cost = calculateCost(caster);
+			float damage = Attack.calculateSpecialAttackDamage(caster, target, damageType, this.getDamage(), damageVariance, isCritical);
 
 			descriptionSB = new StringBuilder();
 			
@@ -1814,7 +1824,7 @@ public enum SpecialAttack {
 										? " Your appendage connects fully with [npc.her] body, causing considerable damage and dazing [npc.herHim] from the powerful blow!"
 										: " [npc.Name] manages to dodge your attack, and you end up swiping at nothing more than thin air!")
 						+ "</p>")
-						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			} else {
 				descriptionSB.append(UtilText.parse(caster,
 						"<p>"
@@ -1823,7 +1833,7 @@ public enum SpecialAttack {
 										? " [npc.Her] appendage connects fully with your body, causing considerable damage and dazing you from the powerful blow!"
 										: " You manage to dodge [npc.her] attack, and [npc.she] ends up swiping at nothing more than thin air!")
 						+ "</p>")
-						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			}
 			
 			// If attack hits, apply damage and effects:
@@ -1832,8 +1842,6 @@ public enum SpecialAttack {
 				for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
 					target.addStatusEffect(se.getKey(), se.getValue());
 			}
-
-			caster.incrementHealth(-cost);
 			
 			return descriptionSB.toString();
 			
@@ -1854,12 +1862,19 @@ public enum SpecialAttack {
 		}
 	},
 
-	CAT_SCRATCH(50, "scratch", "scratchIcon", Colour.DAMAGE_TYPE_PHYSICAL, DamageType.PHYSICAL, DamageLevel.NORMAL, DamageVariance.HIGH, SpecialAttackSpellCosts.HIGH,
+	CAT_SCRATCH(50,
+			"scratch",
+			"scratchIcon",
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			DamageType.PHYSICAL,
+			15,
+			DamageVariance.HIGH,
+			6,
 			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.VULNERABLE, 4))) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 
-			float damage = calculateDamage(caster, target, isCritical), cost = calculateCost(caster);
+			float damage = Attack.calculateSpecialAttackDamage(caster, target, damageType, this.getDamage(), damageVariance, isCritical);
 
 			descriptionSB = new StringBuilder();
 			
@@ -1869,14 +1884,14 @@ public enum SpecialAttack {
 								+ (isHit ? " Your sharp claws rake over " + target.getName("the") + "'s body, and [npc.she] lets out a surprised cry as you jump back, retracting your claws."
 										: target.getName("The") + " manages to dodge your attack, and you end up swiping at nothing more than thin air.")
 								+ "</p>")
-						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			} else {
 				descriptionSB.append(UtilText.parse(caster,
 						"<p>" + caster.getName("The") + " extends the claws on [npc.her] anthropomorphic cat-like hands, and with a quick dash forwards, attempts to strike at you."
 								+ (isHit ? " [npc.Her] sharp claws rake over your body, and you let out a surprised cry as [npc.she] quickly jumps back, retracting [npc.her] claws and smirking at you."
 										: " You see [npc.her] attack coming, and you jump out of the way just in time, leaving [npc.herHim] to swipe at nothing more than thin air.")
 								+ "</p>")
-						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			}
 			
 			// If attack hits, apply damage and effects:
@@ -1885,8 +1900,6 @@ public enum SpecialAttack {
 				for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
 					target.addStatusEffect(se.getKey(), se.getValue());
 			}
-
-			caster.incrementHealth(-cost);
 			
 			return descriptionSB.toString();
 			
@@ -1907,11 +1920,19 @@ public enum SpecialAttack {
 		}
 	},
 
-	HORSE_KICK(50, "kick", "kickIcon", Colour.CLOTHING_RED, DamageType.PHYSICAL, DamageLevel.HIGH, DamageVariance.LOW, SpecialAttackSpellCosts.MEDIUM, Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.DAZED, 4))) {
+	HORSE_KICK(50,
+			"kick",
+			"kickIcon",
+			Colour.CLOTHING_RED,
+			DamageType.PHYSICAL,
+			20,
+			DamageVariance.LOW,
+			6,
+			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.DAZED, 4))) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 
-			float damage = calculateDamage(caster, target, isCritical), cost = calculateCost(caster);
+			float damage = Attack.calculateSpecialAttackDamage(caster, target, damageType, this.getDamage(), damageVariance, isCritical);
 
 			descriptionSB = new StringBuilder();
 			
@@ -1921,12 +1942,12 @@ public enum SpecialAttack {
 								+ (isHit ? " Your hooved foot slams into " + target.getName("the") + ", and [npc.she] staggers back in a daze."
 										: target.getName("The") + " sees your attack coming, and [npc.she] manages to dodge to one side at the last second.")
 								+ "</p>")
-						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			} else {
 				descriptionSB.append(UtilText.parse(caster,
 						"<p>" + caster.getName("The") + " turns to one side and kicks out with one of [npc.her] powerful horse-like legs."
 								+ (isHit ? " [npc.Her] hooved foot slams into you, causing you to stagger back in a daze." : " You see [npc.her] attack coming, and manage to dodge to one side at the last second.") + "</p>")
-						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			}
 			
 			// If attack hits, apply damage and effects:
@@ -1935,8 +1956,6 @@ public enum SpecialAttack {
 				for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
 					target.addStatusEffect(se.getKey(), se.getValue());
 			}
-
-			caster.incrementHealth(-cost);
 			
 			return descriptionSB.toString();
 
@@ -1960,21 +1979,28 @@ public enum SpecialAttack {
 
 	protected String name;
 	protected DamageType damageType;
-	protected DamageLevel damageLevel;
+	protected int damage;
 	protected DamageVariance damageVariance;
-	protected SpecialAttackSpellCosts specialAttackCost;
+	protected int cooldown;
 	protected int renderingPriority;
 	private Map<StatusEffect, Integer> statusEffects;
 	private String SVGString;
 
-	private SpecialAttack(int renderingPriority, String name, String pathName, Colour colourShade, DamageType damage, DamageLevel damageLevel, DamageVariance damageVariance, SpecialAttackSpellCosts specialAttackCost,
+	private SpecialAttack(int renderingPriority,
+			String name,
+			String pathName,
+			Colour colourShade,
+			DamageType damageType,
+			int damage,
+			DamageVariance damageVariance,
+			int cooldown,
 			Map<StatusEffect, Integer> statusEffects) {
 		this.renderingPriority = renderingPriority;
 		this.name = name;
-		this.damageType = damage;
-		this.damageLevel = damageLevel;
+		this.damageType = damageType;
+		this.damage = damage;
 		this.damageVariance = damageVariance;
-		this.specialAttackCost = specialAttackCost;
+		this.cooldown = cooldown;
 		
 		if(statusEffects==null)
 			this.statusEffects = new EnumMap<>(StatusEffect.class);
@@ -1997,132 +2023,11 @@ public enum SpecialAttack {
 			e.printStackTrace();
 		}
 	}
-	
-	public float calculateDamage(GameCharacter caster, GameCharacter target, boolean critical) {
-
-		float damage = getMinimumDamage(caster, target);
-
-		// Add variation:
-		if (getMaximumDamage(caster, target) - getMinimumDamage(caster, target) > 0) {
-			float difference = getMaximumDamage(caster, target) - getMinimumDamage(caster, target);
-			
-			damage += Math.random()*difference;
-		}
-
-		// Is critical:
-		if (critical)
-			damage *= (caster.getAttributeValue(Attribute.CRITICAL_DAMAGE) / 100f);
-
-		// Round float value to nearest 1 decimal place:
-		damage = (Math.round(damage*10))/10f;
-
-		return damage;
-	}
-
-	public float getMaximumDamage(GameCharacter caster, GameCharacter target) {
-		float damage = getModifiedDamage(caster, target, getDamage(caster) * (1 + damageVariance.getPercentage()));
-
-		// Round float value to nearest 1 decimal place:
-		damage = (Math.round(damage*10))/10f;
-		
-		return damage;
-	}
-
-	public float getMinimumDamage(GameCharacter caster, GameCharacter target) {
-		float damage = getModifiedDamage(caster, target, getDamage(caster) * (1 - damageVariance.getPercentage()));
-
-		// Round float value to nearest 1 decimal place:
-		damage = (Math.round(damage*10))/10f;
-		
-		return damage;
-	}
-
-	private float getModifiedDamage(GameCharacter caster, GameCharacter target, float attackersDamage) {
-		float damage = attackersDamage;
-		if (damage < 1)
-			damage = 1;
-
-		// Attacker modifiers:
-		// Damage Type modifier:
-		damage *= (caster.getAttributeValue(damageType.getMultiplierAttribute()) / 100f);
-
-		if (damage < 1)
-			damage = 1;
-
-		if (target != null) {
-			// Defender modifiers:
-			// Damage Type modifier:
-			damage *= ((100 - target.getAttributeValue(damageType.getResistAttribute())) / 100f);
-
-			if (damage < 1)
-				damage = 1;
-
-			// Modifiers based on level:
-			if (target.getLevel() - caster.getLevel() >= 3) // High defender
-															// level
-				return damage * 0.5f;
-			else if (target.getLevel() - caster.getLevel() <= -3) // Low
-																	// defender
-																	// level
-				return damage * 1.5f;
-			else
-				return damage;
-
-		} else
-			return damage;
-	}
-
-	
-	public float calculateCost(GameCharacter caster) {
-
-		float cost = getMinimumCost(caster);
-
-		// Add variation:
-		if (getMaximumCost(caster) - getMinimumCost(caster) > 0) {
-			float difference = getMaximumCost(caster) - getMinimumCost(caster);
-			
-			cost += Math.random()*difference;
-		}
-
-		// Round float value to nearest 1 decimal place:
-		cost = (Math.round(cost*10))/10f;
-
-		return cost;
-	}
-
-	public float getMaximumCost(GameCharacter caster) {
-		float damage = getModifiedCost(caster);
-		
-		damage*=1.1f;
-		
-		// Round float value to nearest 1 decimal place:
-		damage = (Math.round(damage*10))/10f;
-		
-		return damage;
-	}
-
-	public float getMinimumCost(GameCharacter caster) {
-		float damage = getModifiedCost(caster);
-		
-		damage*=0.9f;
-		
-		// Round float value to nearest 1 decimal place:
-		damage = (Math.round(damage*10))/10f;
-		
-		return damage;
-	}
-	
-	private float getModifiedCost(GameCharacter caster) {
-		float calculatedCost = caster.getLevel() + (caster.getAttributeValue(Attribute.HEALTH_MAXIMUM) * (specialAttackCost.getPercentage())/100f);
-		
-		// Round float value to nearest 1 decimal place:
-		calculatedCost = (Math.round(calculatedCost*10))/10f;
-		
-		return calculatedCost;
-	}
 
 	protected String getDamageAndCostDescription(GameCharacter caster, GameCharacter target, float cost, float damage, boolean isHit, boolean isCritical) {
 		StringBuilder descriptionSB = new StringBuilder();
+
+		Combat.setCooldown(caster, this, this.getCooldown()+1);
 		
 		if (caster == Main.game.getPlayer()) {
 			if (isCritical)
@@ -2147,7 +2052,9 @@ public enum SpecialAttack {
 				descriptionSB.append(".</p>");
 			}
 
-			descriptionSB.append("<p>" + "Using your non-human body parts in such a manner is quite tiring, and you lose <b>" + cost + "</b> <b style='color:" + Attribute.HEALTH_MAXIMUM.getColour().toWebHexString() + ";'>energy</b>!</b>" + "</p>");
+			descriptionSB.append("<p>"
+									+ "You will be unable to repeat this attack for <b style='color:" + Colour.GENERIC_MINOR_BAD.toWebHexString() + ";'>"+this.getCooldown()+" turns</b>.</b>"
+								+ "</p>");
 
 		} else {
 			if (isCritical)
@@ -2173,7 +2080,9 @@ public enum SpecialAttack {
 			}
 
 			descriptionSB.append(UtilText.parse(caster,
-					"<p>" + "Using [npc.her] non-human body parts in such a manner is quite tiring, and [npc.she] loses <b>" + cost + "</b> <b style='color:" + Attribute.HEALTH_MAXIMUM.getColour().toWebHexString() + ";'>energy</b>!</b>" + "</p>"));
+					"<p>"
+						+ "[npc.Name] will be unable to repeat this attack for <b style='color:" + Colour.GENERIC_MINOR_BAD.toWebHexString() + ";'>"+this.getCooldown()+" turns</b>.</b>"
+					+ "</p>"));
 		}
 
 		return descriptionSB.toString();
@@ -2250,20 +2159,19 @@ public enum SpecialAttack {
 			}	
 		}
 		
-
-		float cost = calculateCost(caster);
-		caster.incrementHealth(-cost);
+		Combat.setCooldown(caster, this, this.getCooldown()+1);
+		
 		if(caster.isPlayer()) {
 			descriptionSB.append(
 					UtilText.parse(target,
 					"<p>"
-						+ "Putting on such a display is quite tiring, and you lose <b>" + cost + "</b>  <b style='color:" + Attribute.HEALTH_MAXIMUM.getColour().toWebHexString() + ";'>energy</b>.</b>"
+						+ "Putting on such a display is quite tiring, and you will be unable to repeat this attack for <b style='color:" + Colour.GENERIC_MINOR_BAD.toWebHexString() + ";'>"+this.getCooldown()+" turns</b>.</b>"
 					+ "</p>"));
 		} else {
 			descriptionSB.append(
 					UtilText.parse(caster,
 					"<p>"
-						+ "Putting on such a display is quite tiring, and as a result [npc.name] loses <b>" + cost + "</b>  <b style='color:" + Attribute.HEALTH_MAXIMUM.getColour().toWebHexString() + ";'>energy</b>.</b>"
+						+ "Putting on such a display is quite tiring, and [npc.name] will be unable to repeat this attack for <b style='color:" + Colour.GENERIC_MINOR_BAD.toWebHexString() + ";'>"+this.getCooldown()+" turns</b>.</b>"
 					+ "</p>"));
 		}
 		
@@ -2288,22 +2196,15 @@ public enum SpecialAttack {
 		return damageType;
 	}
 
-	/**
-	 * Special attack damage is 3 + (caster level) * (1 + damageModifier):
-	 * 
-	 * @param attacker
-	 * @return
-	 */
-	public int getDamage(GameCharacter caster) {
-		int damage = (int) Math.ceil(3 + caster.getLevel() * (1 + damageLevel.getDamageModifier()));
-
-		if (damage < 1)
-			damage = 1;
-
+	public int getDamage() {
 		return damage;
 	}
 
-	public DamageVariance getDamageVariance(GameCharacter caster) {
+	public int getCooldown() {
+		return cooldown;
+	}
+	
+	public DamageVariance getDamageVariance() {
 		return damageVariance;
 	}
 

@@ -83,22 +83,39 @@ public enum LubricationType {
 		}
 	},
 	
-	// I'm using these two values to represent vaginal lubrication, but due to the nature of the game, a similar kind of lubrication can be gained from having fuckable nipples or a wet asshole.
-	// Basically, this is the same slippery liquid that you get when getting wet.
 	
-	PLAYER_NATURAL_LUBRICATION(true) {
+	PLAYER_GIRLCUM(false) {
 		@Override
 		public String getName() {
-			return "your juices";
+			return "your girlcum";
 		}
 	},
-	PARTNER_NATURAL_LUBRICATION(true) {
+	PARTNER_GIRLCUM(false) {
 		@Override
 		public String getName() {
 			if(Sex.getActivePartner()!=null) {
-				return Sex.getActivePartner().getName("the")+"'s juices";
+				return Sex.getActivePartner().getName("the")+"'s girlcum";
 			} else {
-				return "juices";
+				return "girlcum";
+			}
+		}
+	},
+	
+	// This is only present if the anus has been transformed to be 'wetter' than usual:
+	
+	PLAYER_ANAL_LUBE(false) {
+		@Override
+		public String getName() {
+			return "your anal lubricant";
+		}
+	},
+	PARTNER_ANAL_LUBE(false) {
+		@Override
+		public String getName() {
+			if(Sex.getActivePartner()!=null) {
+				return Sex.getActivePartner().getName("the")+"'s anal lubricant";
+			} else {
+				return "anal lubricant";
 			}
 		}
 	},

@@ -56,7 +56,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.2.0.1",
+	public static final String VERSION_NUMBER = "0.2.0.2",
 			VERSION_DESCRIPTION = "Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
@@ -244,6 +244,63 @@ public class Main extends Application {
 			+"<ul>Fixed 'Commands' button not working in the debugger's parser.</ul>"
 			+"<ul>Fixed bug where sadist effects were being applied to the wrong person.</ul>"
 			+"<ul>Temporarily fixed position-switching bug in multiple-partner sex by disabling position switching. (I'll fix this properly for the next version.)</ul>"
+		+ "</list>"
+
+		+ "</br>"
+
+		+ "<list>"
+			+ "<h6>v0.2.0.1</h6>"
+			+"<li>Other:</li>"
+			+"<ul>Increased clothing enchant limit from 2 & 3 for normal & set clothing, respectively, to 5 & 10.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed major save game import bug.</ul>"
+		+ "</list>"
+
+		+ "</br>"
+
+		+ "<list>"
+			+ "<h6>v0.2.0.2</h6>"
+			+"<li>Gameplay:</li>"
+			+"<ul><b>Due to a slight change in the perk tree layout, your character's perks will be reset (and the points refunded) when you load into this version!</b></ul>"
+			+"<ul>Added trait 'Arcane weaver', which halves essence costs of enchanting clothing.</ul>"
+
+			+"<li>Sex:</li>"
+			+"<ul>Finished off sex position structure code to allow for proper multiple-partner targeting in sex.</ul>"
+			+"<ul>Added ability to switch between doggy-style positions in threesomes.</ul>"
+			+"<ul>Added interaction actions between all multiple-partner doggy-style participants.</ul>"
+			+"<ul>Added 'Side-by-side' as a dominant sex threesome position for slaves. (Need to have two slaves in one room for this to be available.)</ul>"
+			+"<ul>Added 'Grow cock' action for self-growing a demonic cock. (Requires your race being 'demon'.)</ul>"
+			+"<ul>NPCs will now ignore any dislike or hatred towards giving oral if they're addicted to their partner's cum or girlcum, and ignore dislike or hatred towards others' breasts if they're addicted to their partner's milk.</ul>"
+			+"<ul>Characters can now ingest girlcum to get girlcum addictive/psychoactive/other effects applied to them. (Need their partner to be a squirter, and to be eating their partner out when their partner orgasms.)</ul>"
+			+"<ul>NPCs in multiple-partner scenes should now only end sex when all their fellow doms/subs have orgasmed.</ul>"
+			+"<ul>Characters that dislike or hate inflicting pain will no longer use the rough pace.</ul>"
+
+			+"<li>Combat:</li>"
+			+"<ul>All spell and special attack damage has been reworked.</ul>"
+			+"<ul>Special attacks no longer cost energy to cast. Instead, they have a cooldown. (I will balance the cooldowns and damage values soon!)</ul>"
+
+			+"<li>Other:</li>"
+			+"<ul>Cow-morphs are now more likely to have the 'self breast play' fetish.</ul>"
+			+"<ul>Added a 'reset' button to the perk screen.</ul>"
+
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed description in clothing enchanting where periodic transformations said the minor drain was hourly, and the major drain was weekly.</ul>"
+			+"<ul>Fixed sadist fetish not applying lust damage correctly.</ul>"
+			+"<ul>Spells should no longer do 0 damage.</ul>"
+			+"<ul>Fixed combat spell icon tooltips not working.</ul>"
+			+"<ul>(Finally) Fixed NPCs laughing at average-sized penises, as well as incorrect breast-reveal dialogue.</ul>"
+			+"<ul>Transformer fetish no longer applies cost reduction to clothing enchantments.</ul>"
+			+"<ul>You can no longer enchant unidentified clothing.</ul>"
+			+"<ul>Transformer fetish now correctly reduces potion enchantment costs by 50%, instead of 75%.</ul>"
+			+"<ul>Fixed bug where weapons would be duplicated when added to a full inventory (such as when finding them in alleyway events).</ul>"
+			+"<ul>Fixed offspring enslavement dialogue referencing slave collar for all clothing.</ul>"
+			+"<ul>When searching the storage rooms in the Supplier Depot with a full inventory, discovered items will now correctly fall to the floor.</ul>"
+			+"<ul>Fixed minor bug in item tooltip height being too tall.</ul>"
+			+"<ul>Fixed clothing transformation bug where if you had multiple duplicate enchantments on the same item, the lowest limit applied. This also fixed the issue where the combination of a size decrease with a high limit would instantly set the value to the limit.</ul>"
+
+			+"<li>Contributors:</li>"
+			+"<ul>Fixed bug where incoming seduction damage was being reduced based on the attacker's sexual preference, not the defenders. (by Master of Puppets)</ul>"
 		+ "</list>"
 		;
 	
@@ -541,37 +598,49 @@ public class Main extends Application {
 		new Thread(gen).start();
 	}
 	
+	// Yes, this is probably a stupid way to do it... x_x
 	public static boolean isVersionOlderThan(String versionToCheck, String versionToCheckAgainst) {
 		String[] v1 = versionToCheck.split("\\.");
 		String[] v2 = versionToCheckAgainst.split("\\.");
 		
 		try {
-			if(Integer.valueOf(v1[0]) > Integer.valueOf(v2[0])) {
-				return false;
+			int v1i1 = Integer.valueOf((v1[0]+"00").substring(0, 3));
+			int v1i2 = Integer.valueOf((v1[1]+"00").substring(0, 3));
+			int v1i3 = 0;
+			int v1i4 = 0;
+			if(v1.length>2) {
+				v1i3 = Integer.valueOf((v1[2]+"00").substring(0, 3));
+			}
+			if(v1.length>3) {
+				v1i4 = Integer.valueOf((v1[3]+"00").substring(0, 3));
+			}
+			int v2i1 = Integer.valueOf((v2[0]+"00").substring(0, 3));
+			int v2i2 = Integer.valueOf((v2[1]+"00").substring(0, 3));
+			int v2i3 = 0;
+			int v2i4 = 0;
+			if(v2.length>2) {
+				v2i3 = Integer.valueOf((v2[2]+"00").substring(0, 3));
+			}
+			if(v2.length>3) {
+				v2i4 = Integer.valueOf((v2[3]+"00").substring(0, 3));
 			}
 			
-			if(Integer.valueOf((v1[1].length()==1?v1[1]+"0":v1[1])) > Integer.valueOf((v2[1].length()==1?v2[1]+"0":v2[1]))) {
-				return false;
-			}
-			
-			if(Integer.valueOf((v1[2].length()==1?v1[2]+"0":v1[2])) > Integer.valueOf((v2[2].length()==1?v2[2]+"0":v2[2]))) {
-				return false;
-			}
-			
-			if(v1.length<4) {
-				if(v2.length<4) {
-					return false;
-				} else {
+			if(v1i1 < v2i1) {
+				return true;
+			} else if(v1i1 == v2i1) {
+				if(v1i2 < v2i2) {
 					return true;
+				} else if(v1i2 == v2i2) {
+					if(v1i3 < v2i3) {
+						return true;
+					} else if(v1i3 == v2i3) {
+						if(v1i4 < v2i4) {
+							return true;
+						}
+					}
 				}
 			}
-			if(v2.length<4) {
-				return false;
-			}
 			
-			if(Integer.valueOf((v1[3].length()==1?v1[3]+"0":v1[3])) < Integer.valueOf((v2[3].length()==1?v2[3]+"0":v2[3]))) {
-				return true;
-			}
 		} catch(Exception ex) {
 			return true;
 		}

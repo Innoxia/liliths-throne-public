@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -185,7 +186,10 @@ public class EnchantingUtils {
 			cost += entry.getKey().getCost() * Math.abs(entry.getValue());
 		}
 		
-		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING)) {
+		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) && ingredient instanceof AbstractItem) {
+			cost/=2;
+		}
+		if(Main.game.getPlayer().hasTrait(Perk.CLOTHING_ENCHANTER, true) && ingredient instanceof AbstractClothing) {
 			cost/=2;
 		}
 		
