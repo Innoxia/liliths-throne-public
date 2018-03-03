@@ -78,6 +78,7 @@ import com.lilithsthrone.game.character.gender.PronounType;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.character.npc.dominion.DominionSuccubusAttacker;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
@@ -1197,10 +1198,18 @@ public class CharacterUtils {
 			}
 		}
 		
-		while(fetishesAssigned < numberOfFetishes) {
+		if(character.getRace()==Race.COW_MORPH && availableFetishes.contains(Fetish.FETISH_BREASTS_SELF)) {
+			availableFetishes.add(Fetish.FETISH_BREASTS_SELF);
+			availableFetishes.add(Fetish.FETISH_BREASTS_SELF);
+			availableFetishes.add(Fetish.FETISH_BREASTS_SELF);
+			availableFetishes.add(Fetish.FETISH_BREASTS_SELF);
+			availableFetishes.add(Fetish.FETISH_BREASTS_SELF);
+		}
+		
+		while(fetishesAssigned < numberOfFetishes && !availableFetishes.isEmpty()) {
 			Fetish f = availableFetishes.get(Util.random.nextInt(availableFetishes.size()));
 			character.addFetish(f);
-			availableFetishes.remove(f);
+			while(availableFetishes.remove(f)) {}
 			fetishesAssigned++;
 		}
 		

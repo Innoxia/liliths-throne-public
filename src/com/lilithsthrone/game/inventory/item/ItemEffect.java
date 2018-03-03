@@ -8,10 +8,8 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
 import com.lilithsthrone.game.inventory.enchanting.TFPotency;
-import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.XMLSaving;
 
 /**
@@ -134,10 +132,6 @@ public class ItemEffect implements Serializable, XMLSaving {
 		}
 		if(getLimit()!=-1) {
 			cost+=1;
-		}
-
-		if(Main.game.getPlayer().hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING)) {
-			cost/=2;
 		}
 		
 		return cost;

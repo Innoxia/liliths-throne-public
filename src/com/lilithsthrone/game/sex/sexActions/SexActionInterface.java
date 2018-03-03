@@ -68,7 +68,7 @@ public interface SexActionInterface {
 		return getActionType()==SexActionType.PARTNER_PENETRATION && this.getParticipantType() == SexParticipantType.SELF;
 	}
 	
-	public default void baseEffects() {
+	public default String baseEffects() {
 		
 		if(getActionType()==SexActionType.PLAYER_PENETRATION) {
 			if(getAssociatedPenetrationType()!=null && getAssociatedOrificeType()!=null) {
@@ -155,9 +155,15 @@ public interface SexActionInterface {
 		}
 		
 		applyEffects();
+		
+		return applyEffectsString();
 	}
 
 	public default void applyEffects(){
+	}
+	
+	public default String applyEffectsString(){
+		return "";
 	}
 	
 	public default boolean isBaseRequirementsMet() { return true; }
@@ -473,12 +479,16 @@ public interface SexActionInterface {
 	
 	public default Response convertToResponse() {
 		if(getCategory() != SexActionCategory.CHARACTER_SWITCH) {
-			return new Response(getActionTitle(), getActionDescription(), Sex.SEX_DIALOGUE,
+			return new Response(getActionTitle(),
+					getActionDescription(),
+					Sex.SEX_DIALOGUE,
 					getFetishes(Main.game.getPlayer()),
 					getCorruptionNeeded(),
 					null, null, null,
-					getPenetratingCharacter(), getAssociatedPenetrationType(),
-					getOrificeCharacter(), getAssociatedOrificeType()){
+					getPenetratingCharacter(),
+					getAssociatedPenetrationType(),
+					getOrificeCharacter(),
+					getAssociatedOrificeType()){
 				
 				@Override
 				public void effects() {
@@ -661,11 +671,6 @@ public interface SexActionInterface {
 	}
 	
 	public default boolean isPhysicallyPossible() {
-		if(Sex.getTotalParticipantCount() > 2
-				&& (this.getActionType()==SexActionType.PLAYER_POSITIONING
-				|| this.getActionType()==SexActionType.PARTNER_POSITIONING)) { //TODO!!!
-			return false;
-		}
 		
 		// Things that make *any* actions related to the penetration ***physically impossible***:
 		if(getAssociatedPenetrationType() != null) {

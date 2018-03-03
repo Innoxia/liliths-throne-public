@@ -1737,7 +1737,18 @@ public class PhoneDialogue {
 		
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 0) {
+			if(index==1) {
+				return new Response("Reset", "Reset all perks and traits, refunding all points spent. (This is a temporary action while the perk tree is still under development.)", CHARACTER_LEVEL_UP) {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().resetPerksMap();
+						Main.game.getPlayer().setPerkPoints(Main.game.getPlayer().getPerkPointsAtLevel(Main.game.getPlayer().getLevel()));
+						Main.game.getPlayer().clearTraits();
+					}
+				};
+				
+				
+			} else if (index == 0) {
 				return new Response("Back", "Return to your phone's main menu.", MENU);
 			
 			} else {

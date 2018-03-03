@@ -17,6 +17,8 @@ import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
@@ -3012,24 +3014,47 @@ public class DominionOffspringDialogue {
 
 		@Override
 		public String getContent() {
-			return UtilText.parse(offspring(),
-					"<p>"
-						+ "As you lift the collar up to [npc.name]'s neck, you see that the ring attached to the front starts to glow green; a clear indication that it's detecting your [npc.daughter] as a potential enslavement target."
-						+ " Encouraged by the light, you finish what you started, and with a heavy metal 'clink', you clasp the collar around [npc.name]'s neck."
-					+ "</p>"
-					+ "<p>"
-						+ "As the collar's arcane enchantment recognises its new wearer as being a criminal, ominous purple lettering starts to glow around the metal band, reading;"
-							+ " <i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>New Slave Accepted. Identification: [style.boldArcane("+offspring().getNameIgnoresPlayerKnowledge()+")], [npc.race].</i>"
-						+ " Finally realising what's going on, [npc.name] looks up at you with fear in [npc.her] [npc.eyes],"
-						+ " [npc.speech(W-Wait, [npc.pcName]! T-This isn't a slave collar is it?!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "Grinning at your [npc.daughter], you don't have time to offer a response, as with a bright purple flash, they suddenly disappear from sight."
-						+ " The last thing you see as they're whisked away is a face of shocked betrayal, and you imagine how angry they'll be when you see them next."
-					+ "</p>"
-					+ "<p>"
-						+ "From Finch's instructions, you know that <b>they've been teleported to the 'Slave Administration' building in Slaver Alley</b>, where they'll be waiting for you to pick them up."
-					+ "</p>");
+			AbstractClothing enslavementClothing = Main.game.getActiveNPC().getEnslavementClothing();
+			if(enslavementClothing.getClothingType().equals(ClothingType.NECK_SLAVE_COLLAR)) {
+				return UtilText.parse(offspring(),
+						"<p>"
+							+ "As you lift the collar up to [npc.name]'s neck, you see that the ring attached to the front starts to glow green; a clear indication that it's detecting your [npc.daughter] as a potential enslavement target."
+							+ " Encouraged by the light, you finish what you started, and with a heavy metal 'clink', you clasp the collar around [npc.name]'s neck."
+						+ "</p>"
+						+ "<p>"
+							+ "As the collar's arcane enchantment recognises its new wearer as being a criminal, ominous purple lettering starts to glow around the metal band, reading;"
+								+ " <i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>New Slave Accepted. Identification: [style.boldArcane("+offspring().getNameIgnoresPlayerKnowledge()+")], [npc.race].</i>"
+							+ " Finally realising what's going on, [npc.name] looks up at you with fear in [npc.her] [npc.eyes],"
+							+ " [npc.speech(W-Wait, [npc.pcName]! T-This isn't a slave collar is it?!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "Grinning at your [npc.daughter], you don't have time to offer a response, as with a bright purple flash, they suddenly disappear from sight."
+							+ " The last thing you see as they're whisked away is a face of shocked betrayal, and you imagine how angry they'll be when you see them next."
+						+ "</p>"
+						+ "<p>"
+							+ "From Finch's instructions, you know that <b>they've been teleported to the 'Slave Administration' building in Slaver Alley</b>, where they'll be waiting for you to pick them up."
+						+ "</p>");
+			} else {
+				return UtilText.parse(offspring(),
+						"<p>"
+							+ "As you bring the "+enslavementClothing.getName()+" closer to [npc.name], you feel "+(enslavementClothing.getClothingType().isPlural()?"them":"it")
+								+" start to steadily hum; a clear indication that your [npc.daughter] is being detected as a potential enslavement target."
+							+ " Encouraged by this, you decide to finish what you started, and quickly force [npc.name] to wear the enslaving clothing."
+						+ "</p>"
+						+ "<p>"
+							+ "As the arcane enchantment recognises its new wearer as being a criminal, ominous purple lettering is projected into the air, reading;"
+							+ "<i>Slave identification: [style.boldArcane("+Main.game.getActiveNPC().getNameIgnoresPlayerKnowledge()+")]</i>"
+							+ " Finally realising what's going on, [npc.name] looks up at you with fear in [npc.her] [npc.eyes],"
+							+ " [npc.speech(W-Wait, [npc.pcName]! T-This isn't enslaving me, is it?!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "Grinning at your [npc.daughter], you don't have any time to offer a response, as with a bright purple flash, they suddenly disappear from sight."
+							+ " The last thing you see as they're whisked away is a face of shocked betrayal, and you imagine how angry they'll be when you see them next."
+						+ "</p>"
+						+ "<p>"
+							+ "From Finch's instructions, you know that <b>they've been teleported to the 'Slave Administration' building in Slaver Alley</b>, where they'll be waiting for you to pick them up."
+						+ "</p>");
+			}
 		}
 
 		@Override
@@ -3042,8 +3067,7 @@ public class DominionOffspringDialogue {
 					}
 					@Override
 					public void effects() {
-						Main.game.getActiveNPC().setAffection(Main.game.getPlayer(), -100+Util.random.nextInt(10));
-						Main.game.getActiveNPC().setObedience(-100+Util.random.nextInt(10));
+						Main.game.getActiveNPC().applyEnslavementEffects(Main.game.getPlayer());
 					}
 				};
 				

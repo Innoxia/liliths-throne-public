@@ -627,7 +627,7 @@ public class SlaveDialogue {
 					
 				} else if (index == 3) {
 					if(charactersPresent.size()==2) {
-						return new ResponseSex("Spitroast",
+						return new ResponseSex("Get Spitroasted",
 								UtilText.parse(charactersPresent.get(0), charactersPresent.get(1), "Let [npc1.name] and [npc2.name] spitroast you."),
 								null, null, null, null, null, null,
 								true, true,
@@ -642,6 +642,25 @@ public class SlaveDialogue {
 								+ "</p>");
 					} else {
 						return new Response("Spitroast", "Another slave needs to be present for this...",null);
+					}
+				
+				} else if (index == 4) {
+					if(charactersPresent.size()==2) {
+						return new ResponseSex("Side-by-side",
+								UtilText.parse(charactersPresent.get(0), charactersPresent.get(1), "Push [npc1.name] and [npc2.name] down onto all fours, side-by-side, and get ready to fuck them."),
+								null, null, null, null, null, null,
+								true, true,
+								new SMDoggy(
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
+										Util.newHashMapOfValues(
+												new Value<>(charactersPresent.get(0), SexPositionSlot.DOGGY_ON_ALL_FOURS),
+												new Value<>(charactersPresent.get(1), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
+								AFTER_SEX,
+								"<p>"
+									+ ""//TODO
+								+ "</p>");
+					} else {
+						return new Response("Side-by-side", "Another slave needs to be present for this...",null);
 					}
 				
 				} else if (index == 0) {

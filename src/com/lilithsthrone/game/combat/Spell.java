@@ -17,19 +17,25 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.0
- * @version 0.1.88
+ * @version 0.2.0
  * @author Innoxia
  */
 public enum Spell {
 
 	// OFFENSIVE SPELLS:
 
-	SLAM_1("slam", "spellSlam", DamageType.PHYSICAL, DamageLevel.HIGH, DamageVariance.MEDIUM, SpecialAttackSpellCosts.MEDIUM, Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.DAZED, 2))) {
+	SLAM_1("slam",
+			"spellSlam",
+			DamageType.PHYSICAL,
+			20,
+			DamageVariance.MEDIUM,
+			10,
+			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.DAZED, 2))) {
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, int spellLevel, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 
-			float damage = calculateDamage(caster, target, spellLevel, isCritical);
-			float cost = calculateCost(caster, spellLevel);
+			float damage = Attack.calculateSpellDamage(caster, target, damageType, this.getDamage(), damageVariance, isCritical);
+			float cost = getModifiedCost(caster);
 
 			if (caster.isPlayer()) {
 				descriptionSB = new StringBuilder(UtilText.parse(target,
@@ -67,12 +73,18 @@ public enum Spell {
 			return false;
 		}
 	},
-	FIREBALL_1("fireball", "spellFireball", DamageType.FIRE, DamageLevel.HIGH, DamageVariance.LOW, SpecialAttackSpellCosts.MEDIUM, Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.BURN_WEAK, 2))) {
+	FIREBALL_1("fireball",
+			"spellFireball",
+			DamageType.FIRE,
+			15,
+			DamageVariance.LOW,
+			10,
+			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.BURN_WEAK, 2))) {
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, int spellLevel, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 
-			float damage = calculateDamage(caster, target, spellLevel, isCritical);
-			float cost = calculateCost(caster, spellLevel);
+			float damage = Attack.calculateSpellDamage(caster, target, damageType, this.getDamage(), damageVariance, isCritical);
+			float cost = getModifiedCost(caster);
 
 			if (caster.isPlayer()) {
 				descriptionSB = new StringBuilder(UtilText.parse(target,
@@ -114,15 +126,15 @@ public enum Spell {
 	FIRE_INFERNO("inferno",
 			"spellFireball",
 			DamageType.FIRE,
-			DamageLevel.EXTREME,
+			20,
 			DamageVariance.LOW,
-			SpecialAttackSpellCosts.HIGH,
+			25,
 			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.BURN_WEAK, 2))) {
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, int spellLevel, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 
-			float damage = calculateDamage(caster, target, spellLevel, isCritical);
-			float cost = calculateCost(caster, spellLevel);
+			float damage = Attack.calculateSpellDamage(caster, target, damageType, this.getDamage(), damageVariance, isCritical);
+			float cost = getModifiedCost(caster);
 
 			if (caster.isPlayer()) {
 				descriptionSB = new StringBuilder(UtilText.parse(target,
@@ -160,13 +172,21 @@ public enum Spell {
 			return false;
 		}
 	},
-	
-	ICESHARD_1("ice shard", "spellIceShard", DamageType.ICE, DamageLevel.POOR, DamageVariance.LOW, SpecialAttackSpellCosts.LOW, Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.CHILL, 2))) {
-		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, int spellLevel, boolean isHit, boolean isCritical) {
 
-			float damage = calculateDamage(caster, target, spellLevel, isCritical);
-			float cost = calculateCost(caster, spellLevel);
+	ICESHARD_1("ice shard",
+			"spellIceShard",
+			DamageType.ICE,
+			10,
+			DamageVariance.LOW,
+			10,
+			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(
+					StatusEffect.CHILL,
+					2))) {
+		@Override
+		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+
+			float damage = Attack.calculateSpellDamage(caster, target, damageType, this.getDamage(), damageVariance, isCritical);
+			float cost = getModifiedCost(caster);
 
 			if (caster.isPlayer()) {
 				descriptionSB = new StringBuilder(UtilText.parse(target,
@@ -204,12 +224,19 @@ public enum Spell {
 			return false;
 		}
 	},
-	POISON_NOVA_1("poison nova", "spellPoisonNova", DamageType.POISON, DamageLevel.POOR, DamageVariance.MEDIUM, SpecialAttackSpellCosts.LOW, Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.POISON_WEAK, 2))) {
-		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, int spellLevel, boolean isHit, boolean isCritical) {
 
-			float damage = calculateDamage(caster, target, spellLevel, isCritical);
-			float cost = calculateCost(caster, spellLevel);
+	POISON_NOVA_1("poison nova",
+			"spellPoisonNova",
+			DamageType.POISON,
+			5,
+			DamageVariance.MEDIUM,
+			5,
+			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.POISON_WEAK, 2))) {
+		@Override
+		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+
+			float damage = Attack.calculateSpellDamage(caster, target, damageType, this.getDamage(), damageVariance, isCritical);
+			float cost = getModifiedCost(caster);
 
 			if (caster.isPlayer()) {
 				descriptionSB = new StringBuilder(UtilText.parse(target,
@@ -249,11 +276,19 @@ public enum Spell {
 	},
 
 	// DEFENSIVE SPELLS:
-	ARCANE_SHIELD("arcane shield", "specialAttackIcon", DamageType.PHYSICAL, DamageLevel.NONE, DamageVariance.NONE, SpecialAttackSpellCosts.LOW, Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.ARCANE_SHIELD, 2))) {
+	ARCANE_SHIELD("arcane shield",
+			"specialAttackIcon",
+			DamageType.PHYSICAL,
+			0,
+			DamageVariance.NONE,
+			5,
+			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(
+					StatusEffect.ARCANE_SHIELD,
+					2))) {
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, int spellLevel, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 
-			float cost = calculateCost(caster, spellLevel);
+			float cost = getModifiedCost(caster);
 
 			for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
 				caster.addStatusEffect(se.getKey(), se.getValue() * (isCritical ? 2 : 1));
@@ -289,11 +324,20 @@ public enum Spell {
 			return true;
 		}
 	},
-	FIRE_SHIELD("fire shield", "specialAttackIcon", DamageType.FIRE, DamageLevel.NONE, DamageVariance.NONE, SpecialAttackSpellCosts.LOW, Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.FIRE_SHIELD, 2))) {
-		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, int spellLevel, boolean isHit, boolean isCritical) {
 
-			float cost = calculateCost(caster, spellLevel);
+	FIRE_SHIELD("fire shield",
+			"specialAttackIcon",
+			DamageType.FIRE,
+			0,
+			DamageVariance.NONE,
+			5,
+			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(
+					StatusEffect.FIRE_SHIELD,
+					2))) {
+		@Override
+		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+
+			float cost = getModifiedCost(caster);
 
 			for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
 				caster.addStatusEffect(se.getKey(), se.getValue() * (isCritical ? 2 : 1));
@@ -329,11 +373,20 @@ public enum Spell {
 			return true;
 		}
 	},
-	ICE_SHIELD("ice shield", "specialAttackIcon", DamageType.ICE, DamageLevel.NONE, DamageVariance.NONE, SpecialAttackSpellCosts.LOW, Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.ICE_SHIELD, 2))) {
+	
+	ICE_SHIELD("ice shield",
+			"specialAttackIcon",
+			DamageType.ICE,
+			0,
+			DamageVariance.NONE,
+			5,
+			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(
+					StatusEffect.ICE_SHIELD,
+					2))) {
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, int spellLevel, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 
-			float cost = calculateCost(caster, spellLevel);
+			float cost = getModifiedCost(caster);
 
 			for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
 				caster.addStatusEffect(se.getKey(), se.getValue() * (isCritical ? 2 : 1));
@@ -369,12 +422,20 @@ public enum Spell {
 			return true;
 		}
 	},
-	
-	POISON_SHIELD("poison shield", "specialAttackIcon", DamageType.POISON, DamageLevel.NONE, DamageVariance.NONE, SpecialAttackSpellCosts.LOW, Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.POISON_SHIELD, 2))) {
-		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, int spellLevel, boolean isHit, boolean isCritical) {
 
-			float cost = calculateCost(caster, spellLevel);
+	POISON_SHIELD("poison shield",
+			"specialAttackIcon",
+			DamageType.POISON,
+			0,
+			DamageVariance.NONE,
+			5,
+			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(
+					StatusEffect.POISON_SHIELD,
+					2))) {
+		@Override
+		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+
+			float cost = getModifiedCost(caster);
 
 			for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
 				caster.addStatusEffect(se.getKey(), se.getValue() * (isCritical ? 2 : 1));
@@ -411,9 +472,15 @@ public enum Spell {
 		}
 	},
 
-	CLEANSE("cleanse", "specialAttackIcon", DamageType.MISC, DamageLevel.NONE, DamageVariance.NONE, SpecialAttackSpellCosts.MEDIUM, null) {
+	CLEANSE("cleanse",
+			"specialAttackIcon",
+			DamageType.MISC,
+			0,
+			DamageVariance.NONE,
+			10,
+			null) {
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, int spellLevel, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 			return "";
 		}
 
@@ -429,9 +496,15 @@ public enum Spell {
 		}
 	},
 
-	BLIND("blind", "specialAttackIcon", DamageType.MISC, DamageLevel.NONE, DamageVariance.NONE, SpecialAttackSpellCosts.MEDIUM, null) {
+	BLIND("blind",
+			"specialAttackIcon",
+			DamageType.MISC,
+			0,
+			DamageVariance.NONE,
+			10,
+			null) {
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, int spellLevel, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 			return "";
 		}
 
@@ -447,9 +520,15 @@ public enum Spell {
 		}
 	},
 
-	SILENCE("silence", "specialAttackIcon", DamageType.MISC, DamageLevel.NONE, DamageVariance.NONE, SpecialAttackSpellCosts.MEDIUM, null) {
+	SILENCE("silence",
+			"specialAttackIcon",
+			DamageType.MISC,
+			0,
+			DamageVariance.NONE,
+			10,
+			null) {
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, int spellLevel, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 			return "";
 		}
 
@@ -465,9 +544,15 @@ public enum Spell {
 		}
 	},
 
-	HEAL("heal", "specialAttackIcon", DamageType.MISC, DamageLevel.NONE, DamageVariance.NONE, SpecialAttackSpellCosts.MEDIUM, null) {
+	HEAL("heal",
+			"specialAttackIcon",
+			DamageType.MISC,
+			0,
+			DamageVariance.NONE,
+			10,
+			null) {
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, int spellLevel, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 			return "";
 		}
 
@@ -484,9 +569,15 @@ public enum Spell {
 	},
 
 	// MISC SPELLS:
-	CHARM("charm", "specialAttackIcon", DamageType.MISC, DamageLevel.NONE, DamageVariance.NONE, SpecialAttackSpellCosts.MEDIUM, null) {
+	CHARM("charm",
+			"specialAttackIcon",
+			DamageType.MISC,
+			0,
+			DamageVariance.NONE,
+			10,
+			null) {
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, int spellLevel, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 			return "";
 		}
 
@@ -502,9 +593,15 @@ public enum Spell {
 		}
 	},
 
-	STUN("stun", "specialAttackIcon", DamageType.MISC, DamageLevel.NONE, DamageVariance.NONE, SpecialAttackSpellCosts.MEDIUM, null) {
+	STUN("stun",
+			"specialAttackIcon",
+			DamageType.MISC,
+			0,
+			DamageVariance.NONE,
+			10,
+			null) {
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, int spellLevel, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 			return "";
 		}
 
@@ -523,15 +620,15 @@ public enum Spell {
 	WITCH_SEAL("Witch's Seal",
 			"spell_witch_seal",
 			DamageType.MISC,
-			DamageLevel.NONE,
+			0,
 			DamageVariance.NONE,
-			SpecialAttackSpellCosts.EXTREME,
+			25,
 			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.WITCH_SEAL, 2))) {
 		
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, int spellLevel, boolean isHit, boolean isCritical) {
+		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 
-			float cost = calculateCost(caster, spellLevel);
+			float cost = getModifiedCost(caster);
 
 			for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet()) {
 				target.addStatusEffect(se.getKey(), se.getValue());
@@ -566,19 +663,17 @@ public enum Spell {
 	WITCH_CHARM("Witch's Charm",
 			"spell_witch_charm",
 			DamageType.MISC,
-			DamageLevel.NONE,
+			0,
 			DamageVariance.NONE,
-			SpecialAttackSpellCosts.HIGH,
+			20,
 			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.WITCH_CHARM, 5))) {
 		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, int spellLevel, boolean isHit, boolean isCritical) {
-			float cost = calculateCost(caster, spellLevel);
-
+		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 			for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet()) {
 				caster.addStatusEffect(se.getKey(), se.getValue() * (isCritical ? 2 : 1));
 			}
 
-			caster.incrementMana(-cost);
+			caster.incrementMana(-getModifiedCost(caster));
 			
 			if (caster.isPlayer()) {
 				return UtilText.parse(target,
@@ -609,21 +704,21 @@ public enum Spell {
 	private static StringBuilder descriptionSB;
 
 	private String name;
+	protected int damage;
+	protected int spellCost;
 	protected DamageType damageType;
-	protected DamageLevel damageLevel;
 	protected DamageVariance damageVariance;
-	protected SpecialAttackSpellCosts spellCost;
 	private Map<StatusEffect, Integer> statusEffects;
 
 	private String SVGString;
 
-	private Spell(String name, String pathName, DamageType damage, DamageLevel damageLevel, DamageVariance damageVariance, SpecialAttackSpellCosts spellCost, Map<StatusEffect, Integer> statusEffects) {
+	private Spell(String name, String pathName, DamageType damageType, int damage, DamageVariance damageVariance, int spellCost, Map<StatusEffect, Integer> statusEffects) {
 		this.name = name;
-		this.damageType = damage;
+		this.damageType = damageType;
 
-		this.damageLevel = damageLevel;
+		this.damage = damage;
 		this.damageVariance = damageVariance;
-
+		
 		this.spellCost = spellCost;
 
 		this.statusEffects = statusEffects;
@@ -632,11 +727,11 @@ public enum Spell {
 			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/combat/" + pathName + ".svg");
 			SVGString = Util.inputStreamToString(is);
 
-			SVGString = SVGString.replaceAll("#ff2a2a", damage.getMultiplierAttribute().getColour().getShades()[0]);
-			SVGString = SVGString.replaceAll("#ff5555", damage.getMultiplierAttribute().getColour().getShades()[1]);
-			SVGString = SVGString.replaceAll("#ff8080", damage.getMultiplierAttribute().getColour().getShades()[2]);
-			SVGString = SVGString.replaceAll("#ffaaaa", damage.getMultiplierAttribute().getColour().getShades()[3]);
-			SVGString = SVGString.replaceAll("#ffd5d5", damage.getMultiplierAttribute().getColour().getShades()[4]);
+			SVGString = SVGString.replaceAll("#ff2a2a", damageType.getMultiplierAttribute().getColour().getShades()[0]);
+			SVGString = SVGString.replaceAll("#ff5555", damageType.getMultiplierAttribute().getColour().getShades()[1]);
+			SVGString = SVGString.replaceAll("#ff8080", damageType.getMultiplierAttribute().getColour().getShades()[2]);
+			SVGString = SVGString.replaceAll("#ffaaaa", damageType.getMultiplierAttribute().getColour().getShades()[3]);
+			SVGString = SVGString.replaceAll("#ffd5d5", damageType.getMultiplierAttribute().getColour().getShades()[4]);
 			
 			SVGString += "<div style='width:100%;height:100%;position:absolute;left:0;bottom:0;'>"
 							+ SVGImages.SVG_IMAGE_PROVIDER.getSpellOverlay()
@@ -649,130 +744,12 @@ public enum Spell {
 		}
 	}
 
-	public abstract String applyEffect(GameCharacter caster, GameCharacter target, int spellLevel, boolean isHit, boolean isCritical);
+	public abstract String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical);
 
 	public abstract boolean isSelfCastSpell();
 
-	public float calculateDamage(GameCharacter caster, GameCharacter target, int spellLevel, boolean critical) {
-
-		float damage = getMinimumDamage(caster, target, spellLevel);
-
-		// Add variation:
-		if (getMaximumDamage(caster, target, spellLevel) - getMinimumDamage(caster, target, spellLevel) > 0) {
-			float difference = getMaximumDamage(caster, target, spellLevel) - getMinimumDamage(caster, target, spellLevel);
-			
-			damage += Math.random()*difference;
-		}
-
-		// Is critical:
-		if (critical)
-			damage *= (caster.getAttributeValue(Attribute.CRITICAL_DAMAGE) / 100f);
-
-		// Round float value to nearest 1 decimal place:
-		damage = (Math.round(damage*10))/10f;
-
-		return damage;
-	}
-
-	public float getMaximumDamage(GameCharacter caster, GameCharacter target, int spellLevel) {
-		float damage = getModifiedDamage(caster, target, getDamage(caster, spellLevel) * (1 + damageVariance.getPercentage()));
-
-		// Round float value to nearest 1 decimal place:
-		damage = (Math.round(damage*10))/10f;
-		
-		return damage;
-	}
-
-	public float getMinimumDamage(GameCharacter caster, GameCharacter target, int spellLevel) {
-		float damage = getModifiedDamage(caster, target, getDamage(caster, spellLevel) * (1 - damageVariance.getPercentage()));
-
-		// Round float value to nearest 1 decimal place:
-		damage = (Math.round(damage*10))/10f;
-		
-		return damage;
-	}
-
-	private float getModifiedDamage(GameCharacter caster, GameCharacter target, float attackersDamage) {
-		float damage = attackersDamage;
-		if (damage < 0)
-			damage = 0;
-
-		// Attacker modifiers:
-		// Spell modifier:
-		damage *= (caster.getAttributeValue(Attribute.DAMAGE_SPELLS) / 100f);
-		// Damage Type modifier:
-		damage *= (caster.getAttributeValue(damageType.getMultiplierAttribute()) / 100f);
-
-		if (damage < 0)
-			damage = 0;
-
-		if (target != null) {
-			// Defender modifiers:
-			// Spell modifier:
-			damage *= ((100 - target.getAttributeValue(Attribute.RESISTANCE_SPELLS)) / 100f);
-			// Damage Type modifier:
-			damage *= ((100 - target.getAttributeValue(damageType.getResistAttribute())) / 100f);
-
-			if (damage < 0)
-				damage = 0;
-
-			// Modifiers based on level:
-			if (target.getLevel() - caster.getLevel() >= 3) // High defender
-															// level
-				return damage * 0.5f;
-			else if (target.getLevel() - caster.getLevel() <= -3) // Low
-																	// defender
-																	// level
-				return damage * 1.5f;
-			else
-				return damage;
-
-		} else
-			return damage;
-
-	}
-
-	public float calculateCost(GameCharacter caster, int level) {
-
-		float cost = getMinimumCost(caster, level);
-
-		// Add variation:
-		if (getMaximumCost(caster, level) - getMinimumCost(caster, level) > 0) {
-			float difference = getMaximumCost(caster, level) - getMinimumCost(caster, level);
-			
-			cost += Math.random()*difference;
-		}
-
-		// Round float value to nearest 1 decimal place:
-		cost = (Math.round(cost*10))/10f;
-
-		return cost;
-	}
-
-	public float getMaximumCost(GameCharacter caster, int level) {
-		float damage = getModifiedCost(caster, level);
-		
-		damage*=1.1f;
-		
-		// Round float value to nearest 1 decimal place:
-		damage = (Math.round(damage*10))/10f;
-		
-		return damage;
-	}
-
-	public float getMinimumCost(GameCharacter caster, int level) {
-		float damage = getModifiedCost(caster, level);
-		
-		damage*=0.9f;
-		
-		// Round float value to nearest 1 decimal place:
-		damage = (Math.round(damage*10))/10f;
-		
-		return damage;
-	}
-	
-	private float getModifiedCost(GameCharacter caster, int level) {
-		float calculatedCost = level + (caster.getAttributeValue(Attribute.MANA_MAXIMUM) * (spellCost.getPercentage())/100f);
+	public float getModifiedCost(GameCharacter caster) {
+		float calculatedCost = spellCost;
 		
 		calculatedCost *= ((100 - caster.getAttributeValue(Attribute.SPELL_COST_MODIFIER)) / 100f);
 		
@@ -860,23 +837,11 @@ public enum Spell {
 		return damageType;
 	}
 
-	/**
-	 * Spell damage is 3 + (caster level) * (1 + (spell level *
-	 * damageModifier)):
-	 * 
-	 * @param attacker
-	 * @return
-	 */
-	public float getDamage(GameCharacter caster, int level) {
-		float damage = (4 + caster.getLevel()) * damageLevel.getDamageModifier();
-
-		if (damage < 0)
-			damage = 0;
-
+	public float getDamage() {
 		return damage;
 	}
 
-	public DamageVariance getDamageVariance(int level) {
+	public DamageVariance getDamageVariance() {
 		return damageVariance;
 	}
 
