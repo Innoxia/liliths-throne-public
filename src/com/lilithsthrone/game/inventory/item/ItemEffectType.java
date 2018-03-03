@@ -3556,7 +3556,12 @@ public enum ItemEffectType {
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_RIBBED, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_DRAIN), new ListValue<>(TFPotency.MINOR_BOOST)));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_MUSCLED, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_DRAIN), new ListValue<>(TFPotency.MINOR_BOOST)));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_TENTACLED, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_DRAIN), new ListValue<>(TFPotency.MINOR_BOOST)));
-				
+
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_CAPACITY, TFPotency.getAllPotencies());
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_ELASTICITY, TFPotency.getAllPotencies());
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_PLASTICITY, TFPotency.getAllPotencies());
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_WETNESS, TFPotency.getAllPotencies());
+
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_TONGUE_RIBBED, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_DRAIN), new ListValue<>(TFPotency.MINOR_BOOST)));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_TONGUE_TENTACLED, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_DRAIN), new ListValue<>(TFPotency.MINOR_BOOST)));
@@ -4291,7 +4296,66 @@ public enum ItemEffectType {
 							case MINOR_BOOST: default:
 								return new RacialEffectUtil("Adds internal tentacles to throat.", 0, "") { @Override public String applyEffect() { return target.addFaceOrificeModifier(OrificeModifier.TENTACLED); } };
 						}
-						
+					case TF_MOD_CAPACITY:
+						switch(potency) {
+							case MAJOR_DRAIN:
+								return new RacialEffectUtil("Huge decrease in throat capacity.", mediumChangeMajorDrain, " capacity") { @Override public String applyEffect() { return target.incrementFaceCapacity(mediumChangeMajorDrain, true); } };
+							case DRAIN:
+								return new RacialEffectUtil("Decrease in throat capacity.", mediumChangeDrain, " capacity") { @Override public String applyEffect() { return target.incrementFaceCapacity(mediumChangeDrain, true); } };
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Small decrease in throat capacity.", mediumChangeMinorDrain, " capacity") { @Override public String applyEffect() { return target.incrementFaceCapacity(mediumChangeMinorDrain, true); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Small increase in throat capacity.", mediumChangeMinorBoost, " capacity") { @Override public String applyEffect() { return target.incrementFaceCapacity(mediumChangeMinorBoost, true); } };
+							case BOOST:
+								return new RacialEffectUtil("Increase in throat capacity.", mediumChangeBoost, " capacity") { @Override public String applyEffect() { return target.incrementFaceCapacity(mediumChangeBoost, true); } };
+							case MAJOR_BOOST:
+								return new RacialEffectUtil("Huge increase in throat capacity.", mediumChangeMajorBoost, " capacity") { @Override public String applyEffect() { return target.incrementFaceCapacity(mediumChangeMajorBoost, true); } };
+						}
+					case TF_MOD_ELASTICITY:
+						switch(potency) {
+							case MAJOR_DRAIN:
+								return new RacialEffectUtil("Huge decrease in throat elasticity.", smallChangeMajorDrain, " elasticity") { @Override public String applyEffect() { return target.incrementFaceElasticity(smallChangeMajorDrain); } };
+							case DRAIN:
+								return new RacialEffectUtil("Decrease in throat elasticity.", smallChangeDrain, " elasticity") { @Override public String applyEffect() { return target.incrementFaceElasticity(smallChangeDrain); } };
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Small decrease in throat elasticity.", smallChangeMinorDrain, " elasticity") { @Override public String applyEffect() { return target.incrementFaceElasticity(smallChangeMinorDrain); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Small increase in throat elasticity.", smallChangeMinorBoost, " elasticity") { @Override public String applyEffect() { return target.incrementFaceElasticity(smallChangeMinorBoost); } };
+							case BOOST:
+								return new RacialEffectUtil("Increase in throat elasticity.", smallChangeBoost, " elasticity") { @Override public String applyEffect() { return target.incrementFaceElasticity(smallChangeBoost); } };
+							case MAJOR_BOOST:
+								return new RacialEffectUtil("Huge increase in throat elasticity.", smallChangeMajorBoost, " elasticity") { @Override public String applyEffect() { return target.incrementFaceElasticity(smallChangeMajorBoost); } };
+						}
+					case TF_MOD_PLASTICITY:
+						switch(potency) {
+							case MAJOR_DRAIN:
+								return new RacialEffectUtil("Huge decrease in throat plasticity.", smallChangeMajorDrain, " plasticity") { @Override public String applyEffect() { return target.incrementFacePlasticity(smallChangeMajorDrain); } };
+							case DRAIN:
+								return new RacialEffectUtil("Decrease in throat plasticity.", smallChangeDrain, " plasticity") { @Override public String applyEffect() { return target.incrementFacePlasticity(smallChangeDrain); } };
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Small decrease in throat plasticity.", smallChangeMinorDrain, " plasticity") { @Override public String applyEffect() { return target.incrementFacePlasticity(smallChangeMinorDrain); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Small increase in throat plasticity.", smallChangeMinorBoost, " plasticity") { @Override public String applyEffect() { return target.incrementFacePlasticity(smallChangeMinorBoost); } };
+							case BOOST:
+								return new RacialEffectUtil("Increase in throat plasticity.", smallChangeBoost, " plasticity") { @Override public String applyEffect() { return target.incrementFacePlasticity(smallChangeBoost); } };
+							case MAJOR_BOOST:
+								return new RacialEffectUtil("Huge increase in throat plasticity.", smallChangeMajorBoost, " plasticity") { @Override public String applyEffect() { return target.incrementFacePlasticity(smallChangeMajorBoost); } };
+						}
+					case TF_MOD_WETNESS:
+						switch(potency) {
+							case MAJOR_DRAIN:
+								return new RacialEffectUtil("Huge decrease in saliva production.", smallChangeMajorDrain, " wetness") { @Override public String applyEffect() { return target.incrementFaceWetness(smallChangeMajorDrain); } };
+							case DRAIN:
+								return new RacialEffectUtil("Decrease in saliva production.", smallChangeDrain, " wetness") { @Override public String applyEffect() { return target.incrementFaceWetness(smallChangeDrain); } };
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Small decrease saliva production.", smallChangeMinorDrain, " wetness") { @Override public String applyEffect() { return target.incrementFaceWetness(smallChangeMinorDrain); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Small increase saliva productionn.", smallChangeMinorBoost, " wetness") { @Override public String applyEffect() { return target.incrementFaceWetness(smallChangeMinorBoost); } };
+							case BOOST:
+								return new RacialEffectUtil("Increase in saliva production.", smallChangeBoost, " wetness") { @Override public String applyEffect() { return target.incrementFaceWetness(smallChangeBoost); } };
+							case MAJOR_BOOST:
+								return new RacialEffectUtil("Huge increase in saliva production.", smallChangeMajorBoost, " wetness") { @Override public String applyEffect() { return target.incrementFaceWetness(smallChangeMajorBoost); } };
+						}
 					case TF_MOD_SIZE_SECONDARY:
 						switch(potency) {
 							case MAJOR_DRAIN:
