@@ -65,6 +65,9 @@ public class OptionsDialogue {
 					+"<p>"
 						+ "You can visit my blog (https://lilithsthrone.blogspot.co.uk) to check on development progress (use the 'Blog' button below to open the blog in your default browser)."
 					+ "</p>"
+					+ "<p style='text-align:center'>"
+						+ "<b>Please use either my blog or github to get the latest official version of Lilith's Throne!</b>"
+					+ "</p>"
 					+ getJavaVersionInformation()
 					+ (Toolkit.getDefaultToolkit().getScreenSize().getHeight()<800
 							?"<p style='text-align:center; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>"
@@ -182,6 +185,21 @@ public class OptionsDialogue {
 					public void effects() {
 						try {
 							Desktop.getDesktop().browse(new URI("https://lilithsthrone.blogspot.co.uk/"));
+						} catch (IOException | URISyntaxException e) {
+							e.printStackTrace();
+						}	
+						confirmNewGame=false;
+						
+					}
+					
+				};
+			
+			} else if (index == 11) {
+				return new ResponseEffectsOnly("Github", "Opens the page:</br></br><i>https://github.com/Innoxia/liliths-throne-public</i></br></br><b>Externally in your default browser.</b>"){
+					@Override
+					public void effects() {
+						try {
+							Desktop.getDesktop().browse(new URI("https://github.com/Innoxia/liliths-throne-public"));
 						} catch (IOException | URISyntaxException e) {
 							e.printStackTrace();
 						}	

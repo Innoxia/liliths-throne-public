@@ -53,7 +53,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.1.99
+ * @version 0.2.0
  * @author Innoxia
  */
 public enum RenderingEngine {
@@ -1748,13 +1748,56 @@ public enum RenderingEngine {
 		}
 		
 		for (SpecialAttack sa : character.getSpecialAttacks()) {
-			panelSB.append(
-					"<div class='icon"+(compact?" effect":"")+"' style='border:1px solid "+Colour.SPECIAL_ATTACK.toWebHexString()+"'>"
-							+ "<div class='icon-content'>"
-								+ sa.getSVGString()
+			int cooldown = Combat.getCooldown(character, sa);
+			if (cooldown > 0) {
+				int timerHeight = (int) ((Math.min(5, cooldown)/5f)*100);
+
+				Colour timerColour = Colour.STATUS_EFFECT_TIME_MEDIUM;
+				
+				if(timerHeight>=100) {
+					timerHeight=100;
+					timerColour = Colour.STATUS_EFFECT_TIME_LOW;
+				} else if(cooldown<2) {
+					timerColour = Colour.STATUS_EFFECT_TIME_OVERFLOW;
+				} else if (cooldown<4) {
+					timerColour = Colour.STATUS_EFFECT_TIME_HIGH;
+				}
+				
+//				String counterOverlay = "";
+//				
+//				if(cooldown == 1) {
+//					counterOverlay = ("<div style='width:50%;height:50%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCounterOne()+"</div>");
+//				} else if(cooldown == 2) {
+//					counterOverlay = ("<div style='width:50%;height:50%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCounterTwo()+"</div>");
+//				} else if(cooldown == 3) {
+//					counterOverlay = ("<div style='width:50%;height:50%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCounterThree()+"</div>");
+//				} else if(cooldown == 4) {
+//					counterOverlay = ("<div style='width:50%;height:50%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCounterFour()+"</div>");
+//				} else if(cooldown == 5) {
+//					counterOverlay = ("<div style='width:50%;height:50%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCounterFive()+"</div>");
+//				} else {
+//					counterOverlay = ("<div style='width:50%;height:50%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getCounterFivePlus()+"</div>");
+//				}
+				
+				panelSB.append(
+						"<div class='icon"+(compact?" effect":"")+"' style='border:1px solid "+Colour.SPECIAL_ATTACK.toWebHexString()+"'>"
+								+ "<div class='timer-background' style='width:"+timerHeight+"%; background:"+ timerColour.toWebHexString() + ";'></div>"
+								+ "<div class='icon-content'>"
+									+ sa.getSVGString()
+								+ "</div>"
+								+ "<div style='width:100%;height:100%;position:absolute;right:0; top:0;'>"+SVGImages.SVG_IMAGE_PROVIDER.getStopwatch()+"</div>"
 								+ "<div class='overlay' id='SA_" + idPrefix + sa + "'></div>"
-							+ "</div>"
-					+ "</div>");
+						+ "</div>");
+				
+			} else {
+				panelSB.append(
+						"<div class='icon"+(compact?" effect":"")+"' style='border:1px solid "+Colour.SPECIAL_ATTACK.toWebHexString()+"'>"
+								+ "<div class='icon-content'>"
+									+ sa.getSVGString()
+									+ "<div class='overlay' id='SA_" + idPrefix + sa + "'></div>"
+								+ "</div>"
+						+ "</div>");
+			}
 		}
 		
 		for (Spell s : character.getSpells()) {
@@ -1762,7 +1805,7 @@ public enum RenderingEngine {
 					"<div class='icon"+(compact?" effect":"")+"' style='border:1px solid "+Colour.DAMAGE_TYPE_SPELL.toWebHexString()+"'>"
 							+ "<div class='icon-content'>"
 								+ s.getSVGString()
-								+ "<div class='overlay' id='SA_" + idPrefix + s + "'></div>"
+								+ "<div class='overlay' id='SPELL_" + idPrefix + s + "'></div>"
 							+ "</div>"
 					+ "</div>");
 		}

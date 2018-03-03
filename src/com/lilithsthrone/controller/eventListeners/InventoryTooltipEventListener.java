@@ -71,8 +71,9 @@ public class InventoryTooltipEventListener implements EventListener {
 	public void handleEvent(Event event) {
 		if (item != null || (coreItem instanceof AbstractItem)) {
 			
-			if(coreItem != null)
+			if(coreItem != null) {
 				item = (AbstractItem) coreItem;
+			}
 			
 			int yIncrease = 0;
 			if (InventoryDialogue.getInventoryNPC() != null && InventoryDialogue.getNPCInventoryInteraction() == InventoryInteraction.TRADING) {
@@ -80,12 +81,13 @@ public class InventoryTooltipEventListener implements EventListener {
 			}
 			
 			if(item.getEffects().size()>0) {
+				yIncrease+=1;
 				for(ItemEffect ie : item.getEffects()) {
 					yIncrease += ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer()).size();
 				}
 			}
 			
-			Main.mainController.setTooltipSize(360, 290 + (LINE_HEIGHT * yIncrease));
+			Main.mainController.setTooltipSize(360, 256 + (LINE_HEIGHT * yIncrease));
 
 			tooltipSB.setLength(0);
 			tooltipSB.append("<div class='title'>" + Util.capitaliseSentence(item.getDisplayName(true)) + "</div>");

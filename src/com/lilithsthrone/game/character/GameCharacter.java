@@ -31,6 +31,7 @@ import com.lilithsthrone.game.character.body.BodyPartInterface;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.FluidCum;
+import com.lilithsthrone.game.character.body.FluidGirlCum;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.AssType;
@@ -94,8 +95,8 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
-import com.lilithsthrone.game.character.fetishes.FetishLevel;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
+import com.lilithsthrone.game.character.fetishes.FetishLevel;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCOffspring;
@@ -1109,9 +1110,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		nodes = parentElement.getElementsByTagName("perks");
 		element = (Element) nodes.item(0);
 		if(element!=null) {
-			if(!version.isEmpty() && Main.isVersionOlderThan(version, "0.1.99")) {
+			if(!version.isEmpty() && Main.isVersionOlderThan(version, "0.2.0.2")) {
 				int points = character.getPerkPointsAtLevel(character.getLevel());
-				character.setPerkPoints(points); //TODO
+				character.setPerkPoints(points);
+				character.clearTraits();
 				CharacterUtils.appendToImportLog(log, "</br>Added Perk Points: "+points);
 			} else {
 				for(int i=0; i<element.getElementsByTagName("perk").getLength(); i++){
@@ -2370,11 +2372,12 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 		// Core attribute values are bound between 0 and 100
 		if (att == Attribute.MAJOR_PHYSIQUE || att == Attribute.MAJOR_ARCANE || att == Attribute.MAJOR_CORRUPTION) {
-			if (value < 0)
+			if (value < 0) {
 				value = 0;
-			if (value > 100)
+			}
+			if (value > 100) {
 				value = 100;
-
+			}
 			return value;
 		}
 
@@ -2525,12 +2528,23 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return traits.remove(perk);
 	}
 	
+	public void clearTraits() {
+		traits.clear();
+	}
+	
 	public boolean addTrait(Perk perk) {
 		if(traits.contains(perk) || traits.size()>=MAX_TRAITS) {
 			return false;
 		}
 		traits.add(perk);
 		return true;
+	}
+	
+	public void resetPerksMap() {
+		perks.clear();
+
+		this.addPerk(Perk.PHYSICAL_BASE);
+		this.addPerk(Perk.ARCANE_BASE);
 	}
 	
 	public Map<Integer, Set<Perk>> getPerksMap() {
@@ -5467,14 +5481,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					// Feminine NPC:
 					if(this.isFeminine()) {
 						if (characterBeingRevealed.isFeminine()) {
-							if (!this.hasBreasts()) {
+							if (!characterBeingRevealed.hasBreasts()) {
 								return "<p>"
 										+ "[npc.Name] struggles to stifle a mocking laugh as your flat chest is revealed, "
 										+ "[npc.speech(Pfft-hahaha!)]"
 										+ "</p>";
 								
-							} else if (this.getBreastRawSizeValue() <= CupSize.JJ.getMeasurement()) {
-								if(this.getBreastSize().getMeasurement() >= this.getBreastSize().getMeasurement()) {
+							} else if (characterBeingRevealed.getBreastRawSizeValue() <= CupSize.JJ.getMeasurement()) {
+								if(this.getBreastSize().getMeasurement() >= characterBeingRevealed.getBreastSize().getMeasurement()) {
 									return "<p>"
 											+ "[npc.Name] puts on a patronising smile as your [pc.breastSize] breasts are revealed, "
 											+ "[npc.speech(Aww... They're pretty cute!)]"
@@ -5490,22 +5504,22 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							} else {
 								return "<p>"
 										+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-										+ "[npc.speech(How much bubble milk have you been drinking?!)]"
+										+ "[npc.speech(How did you your tits to be that huge?!)]"
 										+ "</p>";
 							}
 							
 						} else {
-							if (!this.hasBreasts()) {
+							if (!characterBeingRevealed.hasBreasts()) {
 								return "";
 								
-							} else if (this.getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
+							} else if (characterBeingRevealed.getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
 								return "<p>"
 										+ "In a very patronising voice, [npc.name] reacts to your breasts being revealed, "
 										+ "[npc.speech(Aww, you trying to become a girl?)]"
 										+ "</p>";
 			
-							} else if (this.getBreastRawSizeValue() <= CupSize.JJ.getMeasurement()) {
-								if(this.getBreastSize().getMeasurement() >= this.getBreastSize().getMeasurement()) {
+							} else if (characterBeingRevealed.getBreastRawSizeValue() <= CupSize.JJ.getMeasurement()) {
+								if(this.getBreastSize().getMeasurement() >= characterBeingRevealed.getBreastSize().getMeasurement()) {
 									return "<p>"
 											+ "[npc.Name] looks surprised as your [pc.breastSize] breasts are revealed, "
 											+ "[npc.speech(Why would a guy have tits like that?)]"
@@ -5521,7 +5535,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							} else {
 								return "<p>"
 										+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-										+ "[npc.speech(How much bubble milk have you been drinking?!)]"
+										+ "[npc.speech(How did you your tits to be that huge?!)]"
 										+ "</p>";
 							}
 							
@@ -5530,19 +5544,19 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					// Masculine NPC:
 					} else {
 						if (characterBeingRevealed.isFeminine()) {
-							if (!this.hasBreasts()) {
+							if (!characterBeingRevealed.hasBreasts()) {
 								return "<p>"
 										+ "[npc.Name] struggles to stifle a mocking laugh as your flat chest is revealed, "
 										+ "[npc.speech(Pfft-hahaha!)]"
 										+ "</p>";
 								
-							} else if (this.getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
+							} else if (characterBeingRevealed.getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
 								return "<p>"
 										+ "[npc.Name] lets out a disappointed hum as your [pc.breastSize] breasts are revealed, "
 										+ "[npc.speech(Huh... They're pretty small you know...)]"
 										+ "</p>";
 								
-							} else if (this.getBreastRawSizeValue() <= CupSize.JJ.getMeasurement()) {
+							} else if (characterBeingRevealed.getBreastRawSizeValue() <= CupSize.JJ.getMeasurement()) {
 								return UtilText.parse(this,
 											"[npc.Name]'s eyes light up as your [pc.breastSize] breasts are revealed, "
 											+ "[npc.speech(Oh fuck yeah... Look at the size of those tits!)]")
@@ -5551,27 +5565,27 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							} else {
 								return UtilText.parse(this,
 											"[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-											+ "[npc.speech(How much bubble milk have you been drinking?!)]")
+											+ "[npc.speech(How did you your tits to be that huge?!)]")
 										+ "</p>";
 							}
 							
 						} else {
-							if (!this.hasBreasts()) {
+							if (!characterBeingRevealed.hasBreasts()) {
 								return "";
 								
-							} else if (this.getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
+							} else if (characterBeingRevealed.getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
 								return "<p>"
 											+ "In a mocking tone, [npc.name] questions you as your tiny breasts are revealed, "
 											+ "[npc.speech(Hah, you trying to become a girl?)]"
 										+ "</p>";
 								
-							} else if (this.getBreastRawSizeValue() <= CupSize.FF.getMeasurement()) {
+							} else if (characterBeingRevealed.getBreastRawSizeValue() <= CupSize.FF.getMeasurement()) {
 								return "<p>"
 											+ "[npc.Name] looks surprised as your [pc.breastSize] breasts are revealed, "
 											+ "[npc.speech(Why would a guy have tits like that?)]"
 										+ "</p>";
 								
-							} else if (this.getBreastRawSizeValue() <= CupSize.JJ.getMeasurement()) {
+							} else if (characterBeingRevealed.getBreastRawSizeValue() <= CupSize.JJ.getMeasurement()) {
 								return "<p>"
 											+ "[npc.Name] fails to contain his surprise as your [pc.breastSize] breasts are revealed, "
 											+ "[npc.speech(What's a <i>guy</i> doing with such massive tits?!)]"
@@ -5580,7 +5594,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							} else {
 								return "<p>"
 											+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-											+ "[npc.speech(How much bubble milk have you been drinking?!)]"
+											+ "[npc.speech(How did you your tits to be that huge?!)]"
 										+ "</p>";
 							}
 							
@@ -5591,14 +5605,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					// Feminine NPC:
 					if(this.isFeminine()) {
 						if (characterBeingRevealed.isFeminine()) {
-							if (!this.hasBreasts()) {
+							if (!characterBeingRevealed.hasBreasts()) {
 								return "<p>"
 										+ "[npc.Name] lets out a mocking laugh as your flat chest is revealed, "
 										+ "[npc.speech(Hahaha, I don't think I've ever seen a girl with a chest <i>that</i> flat before!)]"
 										+ "</p>";
 			
-							} else if (this.getBreastRawSizeValue() <= CupSize.JJ.getMeasurement()) {
-								if(this.getBreastSize().getMeasurement() >= this.getBreastSize().getMeasurement()) {
+							} else if (characterBeingRevealed.getBreastRawSizeValue() <= CupSize.JJ.getMeasurement()) {
+								if(this.getBreastSize().getMeasurement() >= characterBeingRevealed.getBreastSize().getMeasurement()) {
 									return "<p>"
 											+ "[npc.Name] grins down at you as your [pc.breastSize] breasts are revealed, "
 											+ "[npc.speech(Aww, look at those tiny little things, how cute!)]"
@@ -5614,22 +5628,22 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							} else {
 								return "<p>"
 										+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-										+ "[npc.speech(How much bubble milk have you been drinking?!)]"
+										+ "[npc.speech(How did you your tits to be that huge?!)]"
 										+ "</p>";
 							}
 			
 						} else {
-							if (!this.hasBreasts()) {
+							if (!characterBeingRevealed.hasBreasts()) {
 								return "";
 								
-							} else if (this.getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
+							} else if (characterBeingRevealed.getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
 								return "<p>"
 										+ "[npc.Name] grins at you as your [pc.breastSize] breasts are revealed, "
 										+ "[npc.speech(Aww, you trying to become a girl?)]"
 										+ "</p>";
 			
-							} else if (this.getBreastRawSizeValue() <= CupSize.JJ.getMeasurement()) {
-								if(this.getBreastSize().getMeasurement() >= this.getBreastSize().getMeasurement()) {
+							} else if (characterBeingRevealed.getBreastRawSizeValue() <= CupSize.JJ.getMeasurement()) {
+								if(this.getBreastSize().getMeasurement() >= characterBeingRevealed.getBreastSize().getMeasurement()) {
 									return "<p>"
 											+ "[npc.Name] looks surprised as your [pc.breastSize] breasts are revealed, "
 											+ "[npc.speech(Why would a guy have tits like that?)]"
@@ -5645,7 +5659,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							} else {
 								return "<p>"
 										+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-										+ "[npc.speech(How much bubble milk have you been drinking?!)]"
+										+ "[npc.speech(How did you your tits to be that huge?!)]"
 										+ "</p>";
 							}
 							
@@ -5654,25 +5668,25 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					// Masculine NPC:
 					} else {
 						if (characterBeingRevealed.isFeminine()) {
-							if (!this.hasBreasts()) {
+							if (!characterBeingRevealed.hasBreasts()) {
 								return "<p>"
 											+ "[npc.Name] lets out a mocking laugh as your flat chest is revealed, "
 											+ "[npc.speech(Hahaha, I don't think I've ever seen a girl with a chest <i>that</i> flat before!)]"
 										+ "</p>";
 								
-							} else if (this.getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
+							} else if (characterBeingRevealed.getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
 								return "<p>"
 											+ "[npc.Name] growls down at you as your [pc.breastSize] breasts are revealed, "
 											+ "[npc.speech(I like my girls with bigger tits than that!)]"
 										+ "</p>";
 								
-							} else if (this.getBreastRawSizeValue() <= CupSize.FF.getMeasurement()) {
+							} else if (characterBeingRevealed.getBreastRawSizeValue() <= CupSize.FF.getMeasurement()) {
 								return "<p>"
 											+ "[npc.Name] grins as your [pc.breastSize] breasts are revealed, "
 											+ "[npc.speech(Mmm yeah, those are some nice tits!)]"
 										+ "</p>";
 								
-							} else if (this.getBreastRawSizeValue() <= CupSize.JJ.getMeasurement()) {
+							} else if (characterBeingRevealed.getBreastRawSizeValue() <= CupSize.JJ.getMeasurement()) {
 								return "<p>"
 											+ "[npc.Name] looks delighted as your [pc.breastSize] breasts are revealed, "
 											+ "[npc.speech(Oh fuck yeah! Look at the size of those things!)]"
@@ -5681,27 +5695,27 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							} else {
 								return "<p>"
 											+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-											+ "[npc.speech(How much bubble milk have you been drinking?! What a fucking tit-cow!)]"
+											+ "[npc.speech(How did you your tits to be that huge?! What a fucking tit-cow!)]"
 										+ "</p>";
 							}
 							
 						} else {
-							if (!this.hasBreasts()) {
+							if (!characterBeingRevealed.hasBreasts()) {
 								return "";
 								
-							} else if (this.getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
+							} else if (characterBeingRevealed.getBreastRawSizeValue() <= CupSize.C.getMeasurement()) {
 								return "<p>"
 											+ "[npc.Name] bursts out laughing as your [pc.breastSize] breasts are revealed, "
 											+ "[npc.speech(Hahaha, you trying to become a girl?!)]"
 										+ "</p>";
 								
-							} else if (this.getBreastRawSizeValue() <= CupSize.FF.getMeasurement()) {
+							} else if (characterBeingRevealed.getBreastRawSizeValue() <= CupSize.FF.getMeasurement()) {
 								return "<p>"
 											+ "[npc.Name] looks surprised as your [pc.breastSize] breasts are revealed, "
 											+ "[npc.speech(Why would a guy have tits like that?!)]"
 										+ "</p>";
 								
-							} else if (this.getBreastRawSizeValue() <= CupSize.JJ.getMeasurement()) {
+							} else if (characterBeingRevealed.getBreastRawSizeValue() <= CupSize.JJ.getMeasurement()) {
 								return "<p>"
 											+ "[npc.Name] lets out a mocking laugh as your [pc.breastSize] breasts are revealed, "
 											+ "[npc.speech(Are you kidding me?! Why does a <i>guy</i> have tits like that?!)]"
@@ -5710,7 +5724,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							} else {
 								return "<p>"
 											+ "[npc.Name]'s jaw drops as your [pc.breastSize] breasts are revealed, "
-											+ "[npc.speech(How much bubble milk have you been drinking?!)]"
+											+ "[npc.speech(How did you your tits to be that huge?!)]"
 										+ "</p>";
 							}
 						}
@@ -5794,13 +5808,13 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							}
 							
 						} else {
-							if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
+							if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.ZERO_MICROSCOPIC.getMaximumValue()) {
 								return "<p>"+
 											"[npc.She] fails to suppress a mocking laugh as your tiny [pc.cock] is revealed, "
 											+ "[npc.speech(Hahaha, that's so pathetic! It's like a little clit!)]"
 										+ "</p>";
 					
-							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()) {
+							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
 								return "<p>"+
 											"[npc.She] lets out a patronising 'aww' as your [pc.cockSize] [pc.cock] is revealed, "
 											+ "[npc.speech(Look at that cute little thing!)]"
@@ -5828,13 +5842,13 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						
 					} else {
 						if (characterBeingRevealed.isFeminine()) {
-							if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
+							if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.ZERO_MICROSCOPIC.getMaximumValue()) {
 								return "<p>"
 										+ "[npc.She] lets out a little giggle as your tiny [pc.cock] is revealed, "
 										+ "[npc.speech(Aww, that's so cute! I didn't realise you were [pc.a_gender]!)]"
 										+ "</p>";
 			
-							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()) {
+							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
 								return "<p>"
 										+ "[npc.She] lets out a surprised gasp as your [pc.cockSize] [pc.cock] is revealed, "
 										+ "[npc.speech(Ooh! You're a cute little [pc.gender], aren't you?!)]"
@@ -5860,13 +5874,13 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							}
 			
 						} else {
-							if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
+							if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.ZERO_MICROSCOPIC.getMaximumValue()) {
 								return "<p>"
 										+ "[npc.She] lets out a mocking laugh as your tiny [pc.cock] is revealed, "
 										+ "[npc.speech(Hahaha, that's so pathetic!)]"
 										+ "</p>";
 			
-							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()) {
+							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
 								return "<p>"
 										+ "[npc.She] lets out a patronising 'aww' as your [pc.cockSize] [pc.cock] is revealed, "
 										+ "[npc.speech(Look at that cute little thing!)]"
@@ -5931,13 +5945,13 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							}
 							
 						} else {
-							if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
+							if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.ZERO_MICROSCOPIC.getMaximumValue()) {
 								return "<p>"
 											+ "[npc.Name] struggles to suppress a mocking grunt as your tiny [pc.cock] is revealed, "
 											+ "[npc.speech(Pfft! What a cute little thing...)]"
 										+ "</p>";
 					
-							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()) {
+							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
 								return "<p>"
 											+ "[npc.Name] lets out a patronising grunt as your [pc.cockSize] [pc.cock] is revealed, "
 											+ "[npc.speech(Hah! Look at that little thing!)]"
@@ -6003,7 +6017,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							}
 							
 						} else {
-							if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
+							if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.ZERO_MICROSCOPIC.getMaximumValue()) {
 								return "<p>"
 											+ "[npc.Name] lets out a derisive sneer as your tiny [pc.cock] is revealed, "
 											+ (this.hasPenis()&&this.getPenisRawSizeValue()<characterBeingRevealed.getPenisRawSizeValue()
@@ -6011,7 +6025,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 												: "[npc.speech(Hah! That's so pathetic!)]")
 										+ "</p>";
 					
-							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.TWO_AVERAGE.getMaximumValue()) {
+							} else if (characterBeingRevealed.getPenisRawSizeValue() <= PenisSize.ONE_TINY.getMaximumValue()) {
 								return "<p>"
 											+ "[npc.Name] lets out a patronising sneer as your [pc.cockSize] [pc.cock] is revealed, "
 											+ "[npc.speech(Hah! Look at that little thing!)]"
@@ -6131,7 +6145,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				case DOM_GENTLE:
 					return "<p>"
 							+ "[npc.Name] lets out a soft [npc.moan] as [npc.she] sees "
-									+ (Sex.getWetOrificeTypes(characterBeingRevealed).get(OrificeType.VAGINA).contains(LubricationType.PLAYER_NATURAL_LUBRICATION)
+									+ (Sex.getWetOrificeTypes(characterBeingRevealed).get(OrificeType.VAGINA).contains(LubricationType.PLAYER_GIRLCUM)
 											? "your wet [pc.pussy] betraying your arousal, "
 											: "your [pc.pussy+], ")
 									+ (this.hasPenis()
@@ -6141,7 +6155,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				case DOM_NORMAL:
 					return "<p>"
 							+ "[npc.Name] lets out a soft [npc.moan] as [npc.she] sees "
-									+ (Sex.getWetOrificeTypes(characterBeingRevealed).get(OrificeType.VAGINA).contains(LubricationType.PLAYER_NATURAL_LUBRICATION)
+									+ (Sex.getWetOrificeTypes(characterBeingRevealed).get(OrificeType.VAGINA).contains(LubricationType.PLAYER_GIRLCUM)
 											? "your wet [pc.pussy] betraying your arousal, "
 											: "your [pc.pussy+], ")
 									+ (this.hasPenis()
@@ -6151,7 +6165,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				case DOM_ROUGH:
 					return "<p>"
 							+ "[npc.Name] smirks when [npc.she] sees "
-									+ (Sex.getWetOrificeTypes(characterBeingRevealed).get(OrificeType.VAGINA).contains(LubricationType.PLAYER_NATURAL_LUBRICATION)
+									+ (Sex.getWetOrificeTypes(characterBeingRevealed).get(OrificeType.VAGINA).contains(LubricationType.PLAYER_GIRLCUM)
 											? "your wet [pc.pussy] betraying your arousal, "
 											: "your [pc.pussy+], ")
 									+ (this.hasPenis()
@@ -6161,7 +6175,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				case SUB_EAGER:
 					return "<p>"
 							+ "[npc.Name]'s eyes light up when [npc.she] sees "
-							+ (Sex.getWetOrificeTypes(characterBeingRevealed).get(OrificeType.VAGINA).contains(LubricationType.PLAYER_NATURAL_LUBRICATION)
+							+ (Sex.getWetOrificeTypes(characterBeingRevealed).get(OrificeType.VAGINA).contains(LubricationType.PLAYER_GIRLCUM)
 									? "your wet [pc.pussy] betraying your arousal."
 									: "your [pc.pussy].")
 							+ "</p>";
@@ -6172,7 +6186,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				case SUB_RESISTING:
 					return "<p>"
 							+ "[npc.Name] tries to pull away from you as "
-							+ (Sex.getWetOrificeTypes(characterBeingRevealed).get(OrificeType.VAGINA).contains(LubricationType.PLAYER_NATURAL_LUBRICATION)
+							+ (Sex.getWetOrificeTypes(characterBeingRevealed).get(OrificeType.VAGINA).contains(LubricationType.PLAYER_GIRLCUM)
 									? "your wet [pc.pussy] is revealed."
 									: "your [pc.pussy+] is revealed.")
 							+ "</p>";
@@ -7800,6 +7814,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	 * @return A <b>formatted paragraph</b> description of addiction increasing/satisfied, or an empty String if no addictive effects occur.
 	 */
 	public String ingestFluid(GameCharacter charactersFluid, FluidType fluid, OrificeType orificeIngestedThrough, int millilitres, List<FluidModifier> modifiers) {
+		StringBuilder fluidIngestionSB = new StringBuilder();
 		if(modifiers.contains(FluidModifier.ALCOHOLIC)) { //TODO factor in body size:
 			this.incrementAlcoholLevel(millilitres * 0.001f);
 		}
@@ -7807,37 +7822,49 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		if(modifiers.contains(FluidModifier.HALLUCINOGENIC)) {
 			this.addPsychoactiveFluidIngested(fluid);
 			this.addStatusEffect(StatusEffect.PSYCHOACTIVE, 6*60);
+			if(isPlayer()) {
+				fluidIngestionSB.append("<p>"
+							+ "Due to the psychoactive properties of "+(charactersFluid==this?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
+								+", you start <span style='color:"+Colour.PSYCHOACTIVE.toWebHexString()+";'>tripping out</span>!"
+						+ "</p>");
+			} else {
+				fluidIngestionSB.append(UtilText.parse(this,
+						"<p>"
+						+ "Due to the psychoactive properties of "+(charactersFluid==this?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
+							+", [npc.name] starts <span style='color:"+Colour.PSYCHOACTIVE.toWebHexString()+";'>tripping out</span>!"
+					+ "</p>"));
+			}
 		}
 		
 		if(modifiers.contains(FluidModifier.ADDICTIVE)) {
 			addAddiction(new Addiction(fluid, Main.game.getMinutesPassed(), charactersFluid.getId()));
 			if(isPlayer()) {
-				return "<p>"
+				fluidIngestionSB.append("<p>"
 							+ "Due to the addictive properties of "+(charactersFluid==this?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
 								+", you find yourself [style.colourArcane(craving)] <span style='color:"+fluid.getRace().getColour().toWebHexString()+";'>"+fluid.getDescriptor(charactersFluid)+"</span> "+fluid.getName(charactersFluid)+"!"
-						+ "</p>";
+						+ "</p>");
 			} else {
-				return UtilText.parse(this,
+				fluidIngestionSB.append(UtilText.parse(this,
 						"<p>"
 							+ "Due to the addictive properties of "+(charactersFluid==this?"[npc.her]":(charactersFluid.isPlayer()?"your":charactersFluid.getName()+"'s"))+" "+fluid.getName(charactersFluid)
 								+", [npc.name] finds [npc.herself] [style.colourArcane(craving)] <span style='color:"+fluid.getRace().getColour().toWebHexString()+";'>"+fluid.getDescriptor(charactersFluid)+"</span> "+fluid.getName(charactersFluid)+"!"
-						+ "</p>");
+						+ "</p>"));
 			}
 			
 		} else if(this.getAddiction(fluid)!=null) {
 			setLastTimeSatisfiedAddiction(fluid, Main.game.getMinutesPassed());
 			boolean curedWithdrawal = Main.game.getMinutesPassed()-this.getAddiction(fluid).getLastTimeSatisfied()>=24*60;
 			if(isPlayer()) {
-				return UtilText.parse(charactersFluid,
+				fluidIngestionSB.append(UtilText.parse(charactersFluid,
 						"<p>"
 							+ "Your [style.colourArcane(craving)] for <span style='color:"+fluid.getRace().getColour().toWebHexString()+";'>"+fluid.getDescriptor(charactersFluid)+"</span> "+fluid.getName(charactersFluid)+" has been satisfied!"
 							+ (curedWithdrawal
 								?" You feel deeply grateful to [npc.name] for providing you with what you needed most..."
 								:" You weren't suffering from withdrawal, but you still feel thankful to [npc.name] for feeding your addiction...")
-						+ "</p>");
+						+ "</p>"));
 			} else {
 				if(charactersFluid.isPlayer()) {
-					return UtilText.parse(this,
+					fluidIngestionSB.append(UtilText.parse(this,
 							"<p>"
 								+ "[npc.Name]'s [style.colourArcane(craving)] for <span style='color:"+fluid.getRace().getColour().toWebHexString()+";'>"+fluid.getDescriptor(charactersFluid)+"</span> "+fluid.getName(charactersFluid)+" has been satisfied!"
 								+ (curedWithdrawal
@@ -7846,9 +7873,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 											+ this.incrementAffection(charactersFluid, 5)
 											+ (this.isSlave()?this.incrementObedience(5):"")
 									:" [npc.She] wasn't suffering from withdrawal, but [npc.she] still feels thankful to you for feeding [npc.her] addiction..."
-											+ "</p>"));
+											+ "</p>")));
 				} else {
-					return UtilText.parse(this, charactersFluid,
+					fluidIngestionSB.append(UtilText.parse(this, charactersFluid,
 							"<p>"
 								+ "[npc.Name]'s [style.colourArcane(craving)] for <span style='color:"+fluid.getRace().getColour().toWebHexString()+";'>"+fluid.getDescriptor(charactersFluid)+"</span> "+fluid.getName(charactersFluid)+" has been satisfied!"
 								+ (curedWithdrawal
@@ -7857,11 +7884,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 											+ this.incrementAffection(charactersFluid, 5)
 											+ (this.isSlave()?this.incrementObedience(5):"")
 									:" [npc.She] wasn't suffering from withdrawal, but [npc.she] still feels thankful to [npc2.name] for feeding [npc.her] addiction..."
-											+ "</p>"));
+											+ "</p>")));
 				}
 			}
 		}
-		return "";
+		return fluidIngestionSB.toString();
 	}
 	
 	public float getAlcoholLevel() {
@@ -8075,24 +8102,21 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				float manaLoss = (Math.round((increment*0.1f)*10))/10f;
 				
 				this.incrementFetishExperience(Fetish.FETISH_SADIST, 2);
+
+				attacker.incrementLust(-manaLoss);
+				setHealth(getHealth() + increment);
 				
-				if (isPlayer()) {
-					attacker.incrementLust(-manaLoss);
-					setHealth(getHealth() + increment);
-					
+				if (!attacker.isPlayer()) {
 					return (UtilText.parse(attacker,
 							"<p>"
-								+ "Due to [npc.her] <b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>sadist fetish</b>, [npc.name] suffers 10% of dealt damage as aura damage, causing [npc.herHim] to take"
-								+ " <b>"+(-manaLoss)+"</b> <b style='color:" + Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>lust damage</b> as [npc.she] struggles to control [npc.her] arousal!"
+								+ "Due to [npc.her] <b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>sadist fetish</b>, [npc.name] suffers <b>"+(-manaLoss)+"</b>"
+										+ " <b style='color:" + Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>lust damage</b> as [npc.she] gets aroused by inflicting damage!"
 							+ "</p>"));
 					
 				} else {
-					Main.game.getPlayer().incrementLust(manaLoss);
-					setHealth(getHealth() + increment);
-					
 					return ("<p>"
-							+ "Due to your <b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>sadist fetish</b>, you suffer 10% of dealt damage as aura damage, causing you to take"
-									+ " <b>"+(-manaLoss)+"</b> <b style='color:" + Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>lust damage</b> as you struggle to control your arousal!"
+							+ "Due to your <b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>sadist fetish</b>, you suffer <b>"+(-manaLoss)+"</b>"
+									+ " <b style='color:" + Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>lust damage</b> as you get aroused by inflicting damage!"
 							+ "</p>");
 				}
 				
@@ -8947,7 +8971,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			return "<p style='text-align:center;'>" + addedItemToInventoryText(weapon)+"</p>";
 			
 		} else {
-			Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().addWeapon(weapon);
+			if(!removingFromFloor) {
+				Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().addWeapon(weapon);
+			}
 			return inventoryFullText() + "</br>" + droppedItemText(weapon);
 		}
 	}
@@ -9148,11 +9174,16 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public String addClothing(AbstractClothing clothing, boolean removingFromFloor) {
 		if (inventory.addClothing(clothing)) {
 			updateInventoryListeners();
-			if (removingFromFloor)
+			if (removingFromFloor) {
 				Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().removeClothing(clothing);
+			}
 			return "<p style='text-align:center;'>" + addedItemToInventoryText(clothing)+"</p>";
-		} else
+		} else {
+			if (!removingFromFloor) {
+				Main.game.getWorlds().get(getWorldLocation()).getCell(location).getInventory().addClothing(clothing);
+			}
 			return inventoryFullText() + droppedItemText(clothing);
+		}
 	}
 
 
@@ -11603,7 +11634,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	// Milk:
-	
+	public FluidType getMilkType() {
+		return body.getBreast().getMilk().getType();
+	}
 	public String getMilkName() {
 		return body.getBreast().getMilk().getName(this);
 	}
@@ -12593,6 +12626,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public FluidCum getCum() {
 		return body.getPenis().getTesticle().getCum();
 	}
+	public FluidType getCumType() {
+		return body.getPenis().getTesticle().getCum().getType();
+	}
 	public String getCumName() {
 		return body.getPenis().getTesticle().getCum().getName(this);
 	}
@@ -12882,7 +12918,12 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	// Girlcum:
-	
+	public FluidGirlCum getGirlcum() {
+		return body.getVagina().getGirlcum();
+	}
+	public FluidType getGirlcumType() {
+		return body.getVagina().getGirlcum().getType();
+	}
 	public String getGirlcumName() {
 		return body.getVagina().getGirlcum().getName(this);
 	}

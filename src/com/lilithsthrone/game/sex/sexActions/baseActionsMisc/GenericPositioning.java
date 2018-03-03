@@ -1,5 +1,8 @@
 package com.lilithsthrone.game.sex.sexActions.baseActionsMisc;
 
+import java.util.HashMap;
+
+import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.Sex;
@@ -752,9 +755,18 @@ public class GenericPositioning {
 		
 			@Override
 			public void applyEffects() {
+				HashMap<GameCharacter, SexPositionSlot> submissives = new HashMap<>();
+				for(GameCharacter participant : Sex.getSubmissiveParticipants().keySet()) {
+					if(Sex.getActivePartner().equals(participant)) {
+						submissives.put(participant, SexPositionSlot.DOGGY_ON_ALL_FOURS);
+					} else {
+						submissives.put(participant, SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND);
+					}
+				}
+				
 				Sex.setSexManager(new SMDoggy(
 						Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
-						Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.DOGGY_ON_ALL_FOURS))));
+						submissives));
 				
 //				SexFlags.positioningBlockedPartner = true;
 				SexFlags.resetRequests();
@@ -839,9 +851,17 @@ public class GenericPositioning {
 
 		@Override
 		public void applyEffects() {
+			HashMap<GameCharacter, SexPositionSlot> submissives = new HashMap<>();
+			for(GameCharacter participant : Sex.getSubmissiveParticipants().keySet()) {
+				if(Sex.getActivePartner().equals(participant)) {
+					submissives.put(participant , SexPositionSlot.DOGGY_BEHIND);
+				} else {
+					submissives.put(participant , SexPositionSlot.DOGGY_INFRONT);
+				}
+			}
 			Sex.setSexManager(new SMDoggy(
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS)),
-					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.DOGGY_BEHIND))));
+					submissives));
 			
 //			SexFlags.positioningBlockedPartner = true;
 			SexFlags.resetRequests();
@@ -889,9 +909,17 @@ public class GenericPositioning {
 
 		@Override
 		public void applyEffects() {
+			HashMap<GameCharacter, SexPositionSlot> submissives = new HashMap<>();
+			for(GameCharacter participant : Sex.getSubmissiveParticipants().keySet()) {
+				if(Sex.getActivePartner().equals(participant)) {
+					submissives.put(participant , SexPositionSlot.DOGGY_ON_ALL_FOURS);
+				} else {
+					submissives.put(participant , SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND);
+				}
+			}
 			Sex.setSexManager(new SMDoggy(
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND_ORAL)),
-					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.DOGGY_ON_ALL_FOURS))));
+					submissives));
 			
 //			SexFlags.positioningBlockedPartner = true;
 			SexFlags.resetRequests();
@@ -935,9 +963,17 @@ public class GenericPositioning {
 
 		@Override
 		public void applyEffects() {
+			HashMap<GameCharacter, SexPositionSlot> submissives = new HashMap<>();
+			for(GameCharacter participant : Sex.getSubmissiveParticipants().keySet()) {
+				if(Sex.getActivePartner().equals(participant)) {
+					submissives.put(participant , SexPositionSlot.DOGGY_BEHIND_ORAL);
+				} else {
+					submissives.put(participant , SexPositionSlot.DOGGY_INFRONT);
+				}
+			}
 			Sex.setSexManager(new SMDoggy(
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS)),
-					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.DOGGY_BEHIND_ORAL))));
+					submissives));
 			
 //			SexFlags.positioningBlockedPartner = true;
 			SexFlags.resetRequests();
@@ -1539,8 +1575,18 @@ public class GenericPositioning {
 
 		@Override
 		public void applyEffects() {
+			HashMap<GameCharacter, SexPositionSlot> dominants = new HashMap<>();
+			int i=0;
+			for(GameCharacter participant : Sex.getDominantParticipants().keySet()) {
+				if(i==0) {
+					dominants.put(participant , SexPositionSlot.DOGGY_BEHIND);
+				} else {
+					dominants.put(participant , SexPositionSlot.DOGGY_INFRONT);
+				}
+				i++;
+			}
 			Sex.setSexManager(new SMDoggy(
-					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.DOGGY_BEHIND)),
+					dominants,
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))));
 			
 //			SexFlags.positioningBlockedPartner = true;
@@ -1587,8 +1633,18 @@ public class GenericPositioning {
 
 		@Override
 		public void applyEffects() {
+			HashMap<GameCharacter, SexPositionSlot> dominants = new HashMap<>();
+			int i=0;
+			for(GameCharacter participant : Sex.getDominantParticipants().keySet()) {
+				if(i==0) {
+					dominants.put(participant , SexPositionSlot.DOGGY_BEHIND_ORAL);
+				} else {
+					dominants.put(participant , SexPositionSlot.DOGGY_INFRONT);
+				}
+				i++;
+			}
 			Sex.setSexManager(new SMDoggy(
-					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.DOGGY_BEHIND_ORAL)),
+					dominants,
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_ON_ALL_FOURS))));
 			
 //			SexFlags.positioningBlockedPartner = true;
@@ -1635,8 +1691,18 @@ public class GenericPositioning {
 
 		@Override
 		public void applyEffects() {
+			HashMap<GameCharacter, SexPositionSlot> dominants = new HashMap<>();
+			int i=0;
+			for(GameCharacter participant : Sex.getDominantParticipants().keySet()) {
+				if(i==0) {
+					dominants.put(participant , SexPositionSlot.DOGGY_ON_ALL_FOURS);
+				} else {
+					dominants.put(participant , SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND);
+				}
+				i++;
+			}
 			Sex.setSexManager(new SMDoggy(
-					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.DOGGY_ON_ALL_FOURS)),
+					dominants,
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND_ORAL))));
 			
 //			SexFlags.positioningBlockedPartner = true;
@@ -1683,8 +1749,18 @@ public class GenericPositioning {
 
 		@Override
 		public void applyEffects() {
+			HashMap<GameCharacter, SexPositionSlot> dominants = new HashMap<>();
+			int i=0;
+			for(GameCharacter participant : Sex.getDominantParticipants().keySet()) {
+				if(i==0) {
+					dominants.put(participant , SexPositionSlot.DOGGY_ON_ALL_FOURS);
+				} else {
+					dominants.put(participant , SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND);
+				}
+				i++;
+			}
 			Sex.setSexManager(new SMDoggy(
-					Util.newHashMapOfValues(new Value<>(Sex.getActivePartner(), SexPositionSlot.DOGGY_ON_ALL_FOURS)),
+					dominants,
 					Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND))));
 			
 //			SexFlags.positioningBlockedPartner = true;

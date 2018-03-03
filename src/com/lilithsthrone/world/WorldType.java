@@ -182,7 +182,7 @@ public enum WorldType {
 		}
 	},
 	
-	SUPPLIER_DEN("Supplier Den",
+	SUPPLIER_DEN("Supplier Depot",
 			Colour.BASE_CRIMSON,
 			1,
 			"/com/lilithsthrone/res/map/dominion/shoppingArcade/supplierDen.png",

@@ -48,17 +48,13 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 			throw new IllegalArgumentException("Too many characters for Sex Manager!");
 		}
 		
-		for(List<SexPositionSlot> slots : position.getAvailableSlots()) {
+		for(SexPositionSlot slot : position.getSlotTargets().keySet()) {
 			int count = 0;
-			for(SexPositionSlot assignedSlot : dominants.values()) {
-				if(slots.contains(assignedSlot)) {
-					count++;
-				}
+			if(dominants.values().contains(slot)) {
+				count++;
 			}
-			for(SexPositionSlot assignedSlot : submissives.values()) {
-				if(slots.contains(assignedSlot)) {
-					count++;
-				}
+			if(submissives.values().contains(slot)) {
+				count++;
 			}
 			if(count>1) {
 				throw new IllegalArgumentException("Multiple partners assigned to a single slot!");

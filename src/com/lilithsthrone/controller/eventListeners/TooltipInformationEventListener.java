@@ -29,6 +29,8 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.fetishes.FetishLevel;
 import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.combat.Attack;
+import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.SpecialAttack;
 import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -349,8 +351,14 @@ public class TooltipInformationEventListener implements EventListener {
 			tooltipSB.append("<div class='title'>" + Util.capitaliseSentence(specialAttack.getName()) + "</div>");
 
 			// Attribute modifiers:
-			tooltipSB.append("<div class='subTitle-picture'>" + "<b style='color:" + Colour.SPECIAL_ATTACK.toWebHexString() + ";'>Special Attack</b></br>" + "<b>" + (specialAttack.getMinimumDamage(owner, null)) + "-"
-					+ (specialAttack.getMaximumDamage(owner, null)) + "</b>" + " <b style='color:" + specialAttack.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + specialAttack.getDamageType().getName()
+			tooltipSB.append("<div class='subTitle-picture'>"
+					+ "<b style='color:" + Colour.SPECIAL_ATTACK.toWebHexString() + ";'>Special Attack</b></br>"
+					+ "<b>"
+						+ Attack.getMinimumSpecialAttackDamage(owner, null, specialAttack.getDamageType(), specialAttack.getDamage(), specialAttack.getDamageVariance())
+						+ "-"
+						+ Attack.getMaximumSpecialAttackDamage(owner, null, specialAttack.getDamageType(), specialAttack.getDamage(), specialAttack.getDamageVariance())
+					+ "</b>"
+					+ " <b style='color:" + specialAttack.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + specialAttack.getDamageType().getName()
 					+ "</b> damage");
 
 			tooltipSB.append("</br><b style='color:" + Colour.SPECIAL_ATTACK.toWebHexString() + ";'>Applies</b>");
@@ -365,11 +373,19 @@ public class TooltipInformationEventListener implements EventListener {
 			tooltipSB.append("<div class='picture'>" + specialAttack.getSVGString() + "</div>");
 
 			// Description & turns remaining:
-			tooltipSB.append("<div class='description'>" + specialAttack.getDescription(owner) + "</div>");
-
-			tooltipSB.append("<div class='subTitle'>"
-					+ "<b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Costs</b> <b>" + (specialAttack.getMinimumCost(owner)) + " - " + (specialAttack.getMaximumCost(owner)) + "</b>"
-							+ " <b style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>energy</b>" + "</div>");
+			tooltipSB.append("<div class='description'>"
+							+ specialAttack.getDescription(owner)
+					+ "</div>"
+					+ "<div class='subTitle-half'>"
+						+ "<b>Cooldown: " + (specialAttack.getCooldown()) + "</b>"
+					+ "</div>"
+					+ "<div class='subTitle-half'>"
+						+ (Main.game.isInCombat()
+								?(Combat.getCooldown(owner, specialAttack)==0
+										?"[style.boldGood(Off Cooldown)]"
+										:"[style.boldCooldown(On Cooldown:)] "+Combat.getCooldown(owner, specialAttack))
+								:"[style.boldGood(Off Cooldown)]")
+					+ "</div>");
 
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 
@@ -386,31 +402,43 @@ public class TooltipInformationEventListener implements EventListener {
 			// Attribute modifiers:
 			tooltipSB.append("<div class='subTitle-picture'>" + "<b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Spell</b></br>");
 
-			if (spell.isSelfCastSpell())
+			if (spell.isSelfCastSpell()) {
 				tooltipSB.append("<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Beneficial</b> <b style='color:" + spell.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + spell.getDamageType().getName()
 						+ "</b> spell");
-			else
-				tooltipSB.append("<b>" + (spell.getMinimumDamage(owner, null, spellLevel)) + "-" + (spell.getMaximumDamage(owner, null, spellLevel)) + "</b>" + " <b style='color:"
+			} else {
+				tooltipSB.append(
+						"<b>"
+							+ Attack.getMinimumSpellDamage(owner, null, spell.getDamageType(), spell.getDamage(), spell.getDamageVariance())
+							+ "-"
+							+ Attack.getMaximumSpellDamage(owner, null, spell.getDamageType(), spell.getDamage(), spell.getDamageVariance())
+						+ "</b>"
+						+ " <b style='color:"
 						+ spell.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + spell.getDamageType().getName() + "</b> damage");
-
+			}
+			
 			tooltipSB.append("</br><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Applies</b>");
 			if (spell.getStatusEffects().size() != 0) {
-				for (Entry<StatusEffect, Integer> e : spell.getStatusEffects().entrySet())
+				for (Entry<StatusEffect, Integer> e : spell.getStatusEffects().entrySet()) {
 					tooltipSB.append("</br><b style='color:" + e.getKey().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(e.getKey().getName(owner)) + "</b> for " + e.getValue() + " turn" + (e.getValue() > 1 ? "s" : ""));
-			} else
+				}
+			} else {
 				tooltipSB.append("</br><span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>No effects</span>");
-
+			}
+			
 			tooltipSB.append("</div>");
 
 			// Picture:
 			tooltipSB.append("<div class='picture'>" + spell.getSVGString() + "</div>");
 
 			// Description & turns remaining:
-			tooltipSB.append("<div class='description'>" + spell.getDescription(owner, spellLevel) + "</div>");
-
-			tooltipSB.append("<div class='subTitle'>"
-					+ "<b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Costs</b> <b>" + (spell.getMinimumCost(owner, spellLevel)) + " - " + (spell.getMaximumCost(owner, spellLevel)) + "</b>"
-							+ " <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura</b>" + "</div>");
+			tooltipSB.append(
+					"<div class='description'>"
+							+ spell.getDescription(owner, spellLevel)
+					+ "</div>"
+					+ "<div class='subTitle'>"
+						+ "<b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Costs</b> <b>" + (spell.getModifiedCost(owner)) + "</b>"
+						+ " <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura</b>"
+					+ "</div>");
 
 			Main.mainController.setTooltipContent(UtilText.parse(tooltipSB.toString()));
 

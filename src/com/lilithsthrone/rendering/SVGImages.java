@@ -50,6 +50,8 @@ public enum SVGImages {
 			
 			NPCWarningMale, NPCWarningFemale, NPCWarningDemon,
 
+			stopwatch,
+			
 			counterZero, counterOne, counterTwo, counterThree, counterFour, counterFive, counterFivePlus,
 			
 			scaleZero, scaleOne, scaleTwo, scaleThree, scaleFour,
@@ -326,6 +328,11 @@ public enum SVGImages {
 			NPCWarningDemon = Util.inputStreamToString(is);
 			NPCWarningDemon = setColour(NPCWarningDemon, Colour.GENERIC_ARCANE);
 			
+			
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/stopwatch.svg");
+			stopwatch = Util.inputStreamToString(is);
+			stopwatch = setColour(stopwatch, Colour.BASE_GREY);
 			
 			// scales:
 			
@@ -1124,6 +1131,10 @@ public enum SVGImages {
 
 	public String getCounterFivePlus() {
 		return counterFivePlus;
+	}
+
+	public String getStopwatch() {
+		return stopwatch;
 	}
 	
 	

@@ -903,7 +903,7 @@ public class ItemType {
 			"Mystery Kink",
 			"Mystery Kinks",
 			"A delicate glass bottle, filled with a viscous, glowing-pink liquid."
-					+ " It's quite clear just from its appearance that it carries a potent enchantment, and from the label on one side reading 'Mystery Kink', it's quite safe to assume that it somehow influences the drinker's fetishes.",
+					+ " From the label on one side reading 'Mystery Kink', it's quite safe to assume that this concoction carries a potent enchantment, which somehow influences the drinker's fetishes.",
 			"fetishDrink",
 			Colour.GENERIC_SEX,
 			null,
@@ -1306,7 +1306,8 @@ public class ItemType {
 			false,
 			"Canine Crunch",
 			"Canine Crunches",
-			"An individually-wrapped biscuit in the shape of a bone.",
+			"An individually-wrapped dog-biscuit in the shape of a bone."
+					+ " It's obviously meant as a snack for dog-morphs, but is edible for all races.",
 			"raceDogMorphCanineCrunch",
 			Colour.RACE_DOG_MORPH,
 			null,
@@ -1354,7 +1355,8 @@ public class ItemType {
 			false,
 			"Sugar Carrot Cube",
 			"Sugar Carrot Cubes",
-			"An individually-wrapped sugar cube, which, except for the fact that it's bright orange and smells of carrots, appears to be identical to every other sugar cube you've seen.",
+			"A bright orange sugar cube, which smells of carrots."
+					+ " From the equine icon on the wrapper, this is obviously meant as a snack for horse-morphs, but is edible for all races.",
 			"raceHorseMorphSugarCarrotCube",
 			Colour.RACE_HORSE_MORPH,
 			null,

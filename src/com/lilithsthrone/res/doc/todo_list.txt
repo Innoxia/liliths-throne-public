@@ -9,24 +9,124 @@
 	
 	Patch notes:
 	
+	Gameplay:
+		<b>Due to a slight change in the perk tree layout, your character's perks will be reset (and the points refunded) when you load into this version!</b>
+		Added trait 'Arcane weaver', which halves essence costs of enchanting clothing.
+	
+	Sex:
+		Finished off sex position structure code to allow for proper multiple-partner targeting in sex.
+		Added ability to switch between doggy-style positions in threesomes.
+		Added interaction actions between all multiple-partner doggy-style participants.
+		Added 'Side-by-side' as a dominant sex threesome position for slaves. (Need to have two slaves in one room for this to be available.)
+		Added 'Grow cock' action for self-growing a demonic cock. (Requires your race being 'demon'.)
+		NPCs will now ignore any dislike or hatred towards giving oral if they're addicted to their partner's cum or girlcum, and ignore dislike or hatred towards others' breasts if they're addicted to their partner's milk.
+		Characters can now ingest girlcum to get girlcum addictive/psychoactive/other effects applied to them. (Need their partner to be a squirter, and to be eating their partner out when their partner orgasms.)
+		NPCs in multiple-partner scenes should now only end sex when all their fellow doms/subs have orgasmed.
+		Characters that dislike or hate inflicting pain will no longer use the rough pace.
+	
+	Combat:
+		All spell and special attack damage has been reworked.
+		Special attacks no longer cost energy to cast. Instead, they have a cooldown. (I will balance the cooldowns and damage values soon!)
+	
 	Other:
-		Increased clothing enchant limit from 2 & 3 for normal & set clothing, respectively, to 5 & 10.
+		Cow-morphs are now more likely to have the 'self breast play' fetish.
+		Added a 'reset' button to the perk screen.
 	
 	Bugs:
-		Fixed a save game import bug.
+		Fixed description in clothing enchanting where periodic transformations said the minor drain was hourly, and the major drain was weekly.
+		Fixed sadist fetish not applying lust damage correctly.
+		Spells should no longer do 0 damage.
+		Fixed combat spell icon tooltips not working.
+		(Finally) Fixed NPCs laughing at average-sized penises, as well as incorrect breast-reveal dialogue.
+		Transformer fetish no longer applies cost reduction to clothing enchantments.
+		You can no longer enchant unidentified clothing.
+		Transformer fetish now correctly reduces potion enchantment costs by 50%, instead of 75%.
+		Fixed bug where weapons would be duplicated when added to a full inventory (such as when finding them in alleyway events).
+		Fixed offspring enslavement dialogue referencing slave collar for all clothing.
+		When searching the storage rooms in the Supplier Depot with a full inventory, discovered items will now correctly fall to the floor.
+		Fixed minor bug in item tooltip height being too tall.
+		Fixed clothing transformation bug where if you had multiple duplicate enchantments on the same item, the lowest limit applied. This also fixed the issue where the combination of a size decrease with a high limit would instantly set the value to the limit. 
+	
+	Contributors:
+		Fixed bug where incoming seduction damage was being reduced based on the attacker's sexual preference, not the defenders. (by Master of Puppets)
 	
 	
 	
-	TEMP FIXED IN isPhysicallyPossible()
-	you know about the sex positions with Wolfgang and Karl being bugged (eat out
-		And the Wolfgang Karl positions being bugged was if you switch to I think it is receiving oral the other will leave)
+	
+	More wing colours, really weird we can't use all the hair colours
+	
+	free enchantments?
+		: Another enchantment issue, if you have a pile of items with the same enchantment and it loads to the next one then it forgets to look for existing enchantments
+	
+	Not sure if this is a bug or not, but if you get a slave to be extremely obedient and you ask him to finish in your mouth he/she still pulls out
+		Make obedient slaves & psychoactive/submissive NPCs not pull out!!!!!!
+	
+	I've noticed after testing hours of being submissive with slaves, they will never use their penis for anal even with the anal fetish and dislikes/hate on all other actions. They get stuck in a loop of only wanting to finger you anally and do nothing else, I tested on 5 different slaves and adjusted their fetishes many times and never got one anal penis scene when I was being submissive.
+	sorry I should mention they do enjoy hotdogging aswell, but never penetration.
+	
+	: As Ninxx said, seems to be something going on that causes NPC's to not remove fingers from orifices once they're over the foreplay lust number and they instead start hotdogging or thigh sex.
+	
+	Just letting you know that when NPC's are being dominant, they absolutely refuse to anally penetrate PC.
+	 If they do not have Anal Fetish they will always prioritize hotdogging or thigh sex, if they have Anal Fetish they will 100% of the time do anal fingering instead of anal sex.
+	  I imagine it's because both anal and anal fingering are now linked under the same fetish.
+	
+	As mentioned by others, there seems to be an awful lot of fingering and a notorious lack of actual dicking. Most likely due to anal and vaginal preference counting also for fingering
+	
+	 Secondly, I could select appropriate sex options for Karl, but when I switched to Wolfgang there were blank spots where the normal/eager buttons should have been.
+	
+	I applied addictive and psychoactive properties to my character's girlcum, then tried to test it out by having her get eaten out, then once she reached her climax I clicked 'thigh squeeze', to cum directly into her partner's mouth. However, none of the effects worked.
+	
+	My character got impregnated by a dobermann, but gave birth to normal dog-morphs.
+	
+	
+	
+	
+	
+	
+	NPCs have trouble removing witch dress + hooded cloak combo
+	
+	. Does a hypnotic trip get extended if they still have an orifice jampacked full of the hypnotic cum
+	
+	need to add way to ingest milk
+	Need to add girlcum effects from non-orgasm lube
+	
+	vagina squirter face descriptions
+	
+	
+	
+	Move res into internal file ;_;
+	
+	
+	
+	save/load enchantment templates
+	
+	
+	 Geisha Lilaya sex isn't checking for pregnancy properly?
+	
+	
+	Spell work
+		'Base' spells are unlocked by having higher arcane
+		Have offensive, defensive, and utility spells (5 of each)
+		Weapon types change spells into other things
 		
+	NPC-on-NPC kissing actions
 	
-	need to add way to ingest milk and girlcum
+	Sex AI to target others
+		check to see if attracted to them
+		check to see if actions is not empty
 	
-	finally fix the breast/cock exposing reactions
+	Then thoroughly playtest multiple-partner sex
 	
-	enchants up to 4
+	if a character isn't an anal virgin but has virginal virginity shouldn't it be a like
+	
+	ability to name your enchanted items
+	add a "New Slot" button
+	
+	make that enchantment unlock after getting the license
+	
+	when fighting a harpy matriarch, (aura 20) I defeated them with just seduction, by lusting them to 100
+	
+	Trying to use the gifts on an NPC from the after battle from the inventory doesn't work, you use it on you
 	
 	
 	Combat lust
@@ -45,6 +145,9 @@
 	
 	
 	
+	Update chair sex, Pix, and Ralph
+	
+	
 	Pictures!
 	
 	INTRO
@@ -60,9 +163,7 @@
 	
 	...I just got a status effect update telling me I'm not pregnant.
 	
-	Move res into internal file ;_;
-	
-	Add Submission as a placeholder - need rats, slimes, and imps
+	Add Submission as a placeholder - need rats, slimes, bats, and imps
 	
 	With confirmations ON, trying to delete an exported character from the export character menu will bump you to the save/load menu instead.
 	
@@ -113,7 +214,8 @@ While swallowing a load of cum shouldn’t usually dirty a character’s face, i
 
 Why do cat-morphs have arcane affinity? The text says that they’re physically agile, surely that should be a physique or energy boost, not arcane? That’s kind of a problem with having too few stats, I think; the racial stat boosts can’t distinguish between different things like they could if you had strength, toughness, and dexterity (for example). Most game systems have 4-6 primary stats, the three you had before were limiting, now there are only two it’s even more so.
 
-The catgirl I just met is “Stronger than the average horse-boy”. Something about that just doesn’t seem right. I don’t typically think of catgirls as being super-strong. Is she right at the edge of the bell-curve, or is something wrong with NPC generation? It seems a bit odd that a level one NPC should be able to kick my ass quite so easily.
+The catgirl I just met is “Stronger than the average horse-boy”. Something about that just doesn’t seem right.
+ I don’t typically think of catgirls as being super-strong. Is she right at the edge of the bell-curve, or is something wrong with NPC generation? It seems a bit odd that a level one NPC should be able to kick my ass quite so easily.
 
 NPCs always spawn with zero lust. This doesn’t quite fit with them wanting to rape you, and even those who aren’t into your gender are supposedly affected by your aura. Mechanically, this makes them far too resistant to seduction attacks, since you do zero damage until you get their lust up.
 
@@ -145,19 +247,11 @@ Submissive NPCs with with a virginity fetish still tell you to "Fuck my virgin p
 		
 	Angel's kiss
 	
-	
 	Use the agility system.
 	
 	Nyan gifts
 	
 	Back out from trading needs to return a new dialogue
-	
-	Nyan pregnancy reactions
-	
-	
-	
-	Then make sure multiple-partner sex is working (they are using each other's actions at the moment)
-	Especially position switching and side-by-side
 	
 	
 	combat issues
@@ -182,15 +276,6 @@ Submissive NPCs with with a virginity fetish still tell you to "Fuck my virgin p
 		congealing
 	
 	
-	I've noticed after testing hours of being submissive with slaves, they will never use their penis for anal even with the anal fetish and dislikes/hate on all other actions. They get stuck in a loop of only wanting to finger you anally and do nothing else, I tested on 5 different slaves and adjusted their fetishes many times and never got one anal penis scene when I was being submissive.
-	sorry I should mention they do enjoy hotdogging aswell, but never penetration.
-	
-	: As Ninxx said, seems to be something going on that causes NPC's to not remove fingers from orifices once they're over the foreplay lust number and they instead start hotdogging or thigh sex.
-	
-	Just letting you know that when NPC's are being dominant, they absolutely refuse to anally penetrate PC. If they do not have Anal Fetish they will always prioritize hotdogging or thigh sex, if they have Anal Fetish they will 100% of the time do anal fingering instead of anal sex. I imagine it's because both anal and anal fingering are now linked under the same fetish.
-	
-	As mentioned by others, there seems to be an awful lot of fingering and a notorious lack of actual dicking. Most likely due to anal and vaginal preference counting also for fingering
-		
 		
 	and a minor bug where the enemy statistic of win and lose or sub and dom sex also reset after you load the game.
 	

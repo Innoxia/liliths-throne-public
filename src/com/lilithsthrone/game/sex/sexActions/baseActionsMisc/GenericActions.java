@@ -31,10 +31,56 @@ import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.79
- * @version 0.1.96
+ * @version 0.2.0
  * @author Innoxia
  */
 public class GenericActions {
+	
+	public static final SexAction PLAYER_SELF_GROW_PENIS = new SexAction(
+			SexActionType.PLAYER,
+			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.TWO_LOW,
+			CorruptionLevel.ONE_VANILLA,
+			null,
+			null,
+			SexParticipantType.MISC) {
+		@Override
+		public String getActionTitle() {
+			return "Grow cock";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "Use your demonic powers to grow a cock for yourself. <b>You will automatically transform the grown cock away when sex ends.</b>";
+		}
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Main.game.getPlayer().getRace()==Race.DEMON
+					&& !Main.game.getPlayer().hasPenis();
+		}
+
+		@Override
+		public String getDescription() {
+			return "Deciding to use your demonic powers to grow a nice thick cock, you grin at [npc.name] as you [pc.moanVerb],"
+					+ " [pc.speech(You're going to love this!)]";
+		}
+
+		@Override
+		public String applyEffectsString() {
+			SexFlags.playerGrewDemonicCock = true;
+			
+			StringBuilder sb = new StringBuilder();
+			sb.append(Main.game.getPlayer().setPenisType(PenisType.DEMON_COMMON));
+			if(Main.game.getPlayer().getPenisRawCumProductionValue() < CumProduction.FIVE_HUGE.getMedianValue()) {
+				sb.append(Main.game.getPlayer().setCumProduction(CumProduction.FIVE_HUGE.getMedianValue()));
+			}
+			if(Main.game.getPlayer().getPenisRawSizeValue() < PenisSize.FIVE_ENORMOUS.getMedianValue()) {
+				sb.append(Main.game.getPlayer().setPenisSize(PenisSize.FIVE_ENORMOUS.getMedianValue()));
+			}
+			return sb.toString();
+		}
+	};
 	
 	public static final SexAction PLAYER_GET_PARTNER_TO_GROW_PENIS = new SexAction(
 			SexActionType.PLAYER,
@@ -46,7 +92,7 @@ public class GenericActions {
 			SexParticipantType.MISC) {
 		@Override
 		public String getActionTitle() {
-			return "Grow cock";
+			return "[npc.Name] grow cock";
 		}
 
 		@Override
@@ -1083,14 +1129,29 @@ public class GenericActions {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
+			boolean partnersSatisfied = true;
+			if(Sex.isDom(Main.game.getPlayer())) {
+				for(GameCharacter character : Sex.getSubmissiveParticipants().keySet()) {
+					if(Sex.getNumberOfOrgasms(character) == 0) {
+						partnersSatisfied = false;
+					}
+				}
+			} else {
+				for(GameCharacter character : Sex.getDominantParticipants().keySet()) {
+					if(Sex.getNumberOfOrgasms(character) == 0) {
+						partnersSatisfied = false;
+					}
+				}
+			}
+			
 			if(!Sex.isDom(Main.game.getPlayer()) && !Sex.isConsensual()) {
-				return Sex.getNumberOfOrgasms(Sex.getActivePartner())>=1;
+				return partnersSatisfied;
 				
 			} else if(Sex.isDom(Main.game.getPlayer()) && !Sex.isSubHasEqualControl()) {
 				return false;
 				
 			} else {
-				return Sex.getNumberOfOrgasms(Sex.getActivePartner())>=1 && Sex.getNumberOfOrgasms(Main.game.getPlayer())>=1;
+				return partnersSatisfied && Sex.getNumberOfOrgasms(Main.game.getPlayer())>=1;
 			}
 		}
 		

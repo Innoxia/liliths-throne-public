@@ -624,9 +624,8 @@ public enum Perk {
 			PerkCategory.PHYSICAL,
 			"perks/fitness_runner",
 			Colour.ATTRIBUTE_PHYSIQUE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 3)), Util.newArrayListOfValues(new ListValue<>("<b>*</b> <span style='color:"
-					+ Colour.ATTRIBUTE_PHYSIQUE.toWebHexString()
-					+ ";'>Improved escape chance</span>"))) {
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 3)),
+			Util.newArrayListOfValues(new ListValue<>("<span style='color:"+ Colour.ATTRIBUTE_PHYSIQUE.toWebHexString()+ ";'>Improved escape chance</span>"))) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -642,9 +641,8 @@ public enum Perk {
 			PerkCategory.PHYSICAL,
 			"perks/fitness_runner_2",
 			Colour.ATTRIBUTE_PHYSIQUE,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5)), Util.newArrayListOfValues(new ListValue<>("<b>*</b> <span style='color:"
-					+ Colour.ATTRIBUTE_PHYSIQUE.toWebHexString()
-					+ ";'>Improved escape chance</span>"))) {
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5)),
+			Util.newArrayListOfValues(new ListValue<>("<span style='color:"+ Colour.ATTRIBUTE_PHYSIQUE.toWebHexString()+ ";'>Improved escape chance</span>"))) {
 		@Override
 		public String getName(GameCharacter character) {
 			if (character.isFeminine())
@@ -723,7 +721,8 @@ public enum Perk {
 			"perks/fitness_nymphomaniac",
 			Colour.GENERIC_SEX,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, -25)), Util.newArrayListOfValues(new ListValue<>("Doubles <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString()+ ";'>arcane essence gain</span> from each orgasm"))) {
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, -25)),
+			Util.newArrayListOfValues(new ListValue<>("Doubles <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString()+ ";'>arcane essence gain</span> from each orgasm"))) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -734,6 +733,30 @@ public enum Perk {
 		}
 	},
 	
+	
+	CLOTHING_ENCHANTER(20,
+			true,
+			"arcane weaver",
+			PerkCategory.ARCANE,
+			"perks/arcaneWeaver",
+			Colour.GENERIC_ARCANE,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 1)),
+			Util.newArrayListOfValues(new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Halves cost of all clothing enchantments</span>"))) {
+
+		@Override
+		public boolean isAlwaysAvailable() {
+			return true;
+		}
+		
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "You have a natural affinity for weaving arcane enchantments into items of clothing, allowing you to expend only half of the usual arcane essences when enchanting clothing.";
+			} else {
+				return UtilText.parse(owner, "[npc.Name] has a natural affinity for weaving arcane enchantments into items of clothing, allowing [npc.herHim] to expend only half of the usual arcane essences when enchanting clothing.");
+			}
+		}
+	},
 	
 	BARREN(20,
 			false,

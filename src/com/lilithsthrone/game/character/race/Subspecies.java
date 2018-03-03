@@ -455,8 +455,8 @@ public enum Subspecies {
 								|| body.getCoverings().get(BodyCoveringType.CANINE_FUR).getSecondaryColour()==Colour.COVERING_TAN)
 						&& body.getCoverings().get(BodyCoveringType.CANINE_FUR).getPattern() == CoveringPattern.MARKED
 						&& body.getCoverings().get(BodyCoveringType.CANINE_FUR).getModifier() == CoveringModifier.SHORT
-//						&& body.getEar().getType()==EarType.DOG_MORPH_CROPPED
-//						&& body.getTail().getType()==TailType.DOG_MORPH_DOCKED
+//						&& body.getEar().getType()==EarType.DOG_MORPH_POINTED
+//						&& body.getTail().getType()==TailType.DOG_MORPH_STUBBY
 						) {
 						subspecies = Subspecies.DOG_MORPH_DOBERMANN;
 					}

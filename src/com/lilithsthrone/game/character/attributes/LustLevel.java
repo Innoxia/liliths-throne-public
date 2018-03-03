@@ -6,6 +6,7 @@ import java.util.List;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
@@ -138,7 +139,10 @@ public enum LustLevel {
 			pace = SexPace.SUB_NORMAL;
 		}
 		
-		if(pace==SexPace.DOM_ROUGH && !character.hasFetish(Fetish.FETISH_DOMINANT) && !character.hasFetish(Fetish.FETISH_SADIST) && !character.hasFetish(Fetish.FETISH_NON_CON_DOM)) {
+		if(pace==SexPace.DOM_ROUGH
+				&& (!character.hasFetish(Fetish.FETISH_DOMINANT) && !character.hasFetish(Fetish.FETISH_SADIST) && !character.hasFetish(Fetish.FETISH_NON_CON_DOM))
+				|| (character.getFetishDesire(Fetish.FETISH_SADIST) == FetishDesire.ONE_DISLIKE
+					|| character.getFetishDesire(Fetish.FETISH_SADIST) == FetishDesire.ZERO_HATE)) {
 			pace = SexPace.DOM_NORMAL;
 		}
 		

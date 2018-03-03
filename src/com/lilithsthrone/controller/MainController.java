@@ -4926,26 +4926,13 @@ public class MainController implements Initializable {
 					addEventListener(documentAttributes, "SA_"+idModifier + sa, "mouseenter", el, false);
 				}
 			}
-			if (character.getMainWeapon() != null) {
-				for (Spell s : character.getMainWeapon().getSpells()) {
-					if (((EventTarget) documentAttributes.getElementById("SPELL_MAIN_"+idModifier + s)) != null) {
-						addEventListener(documentAttributes, "SPELL_MAIN_"+idModifier + s, "mousemove", moveTooltipListener, false);
-						addEventListener(documentAttributes, "SPELL_MAIN_"+idModifier + s, "mouseleave", hideTooltipListener, false);
-	
-						TooltipInformationEventListener el = new TooltipInformationEventListener().setSpell(s, character.getLevel(), character);
-						addEventListener(documentAttributes, "SPELL_MAIN_"+idModifier + s, "mouseenter", el, false);
-					}
-				}
-			}
-			if (character.getOffhandWeapon() != null) {
-				for (Spell s : character.getOffhandWeapon().getSpells()) {
-					if (((EventTarget) documentAttributes.getElementById("SPELL_OFFHAND_"+idModifier + s)) != null) {
-						addEventListener(documentAttributes, "SPELL_OFFHAND_"+idModifier + s, "mousemove", moveTooltipListener, false);
-						addEventListener(documentAttributes, "SPELL_OFFHAND_"+idModifier + s, "mouseleave", hideTooltipListener, false);
-	
-						TooltipInformationEventListener el = new TooltipInformationEventListener().setSpell(s, character.getLevel(), character);
-						addEventListener(documentAttributes, "SPELL_OFFHAND_"+idModifier + s, "mouseenter", el, false);
-					}
+			for (Spell s : character.getSpells()) {
+				if (((EventTarget) documentAttributes.getElementById("SPELL_"+idModifier + s)) != null) {
+					addEventListener(documentAttributes, "SPELL_"+idModifier + s, "mousemove", moveTooltipListener, false);
+					addEventListener(documentAttributes, "SPELL_"+idModifier + s, "mouseleave", hideTooltipListener, false);
+
+					TooltipInformationEventListener el = new TooltipInformationEventListener().setSpell(s, character.getLevel(), character);
+					addEventListener(documentAttributes, "SPELL_"+idModifier + s, "mouseenter", el, false);
 				}
 			}
 		}
@@ -5144,26 +5131,13 @@ public class MainController implements Initializable {
 						addEventListener(documentRight, "SA_NPC_"+idModifier + sa, "mouseenter", el, false);
 					}
 				}
-				if (character.getMainWeapon() != null) {
-					for (Spell s : character.getMainWeapon().getSpells()) {
-						if (((EventTarget) documentRight.getElementById("SPELL_MAIN_NPC_"+idModifier + s)) != null) {
-							addEventListener(documentRight, "SPELL_MAIN_NPC_"+idModifier + s, "mousemove", moveTooltipListener, false);
-							addEventListener(documentRight, "SPELL_MAIN_NPC_"+idModifier + s, "mouseleave", hideTooltipListener, false);
-		
-							TooltipInformationEventListener el = new TooltipInformationEventListener().setSpell(s, character.getLevel(), character);
-							addEventListener(documentRight, "SPELL_MAIN_NPC_"+idModifier + s, "mouseenter", el, false);
-						}
-					}
-				}
-				if (character.getOffhandWeapon() != null) {
-					for (Spell s : character.getOffhandWeapon().getSpells()) {
-						if (((EventTarget) documentRight.getElementById("SPELL_OFFHAND_NPC_"+idModifier + s)) != null) {
-							addEventListener(documentRight, "SPELL_OFFHAND_NPC_"+idModifier + s, "mousemove", moveTooltipListener, false);
-							addEventListener(documentRight, "SPELL_OFFHAND_NPC_"+idModifier + s, "mouseleave", hideTooltipListener, false);
-		
-							TooltipInformationEventListener el = new TooltipInformationEventListener().setSpell(s, character.getLevel(), character);
-							addEventListener(documentRight, "SPELL_OFFHAND_NPC_"+idModifier + s, "mouseenter", el, false);
-						}
+				for (Spell s : character.getSpells()) {
+					if (((EventTarget) documentAttributes.getElementById("SPELL_"+idModifier + s)) != null) {
+						addEventListener(documentAttributes, "SPELL_"+idModifier + s, "mousemove", moveTooltipListener, false);
+						addEventListener(documentAttributes, "SPELL_"+idModifier + s, "mouseleave", hideTooltipListener, false);
+
+						TooltipInformationEventListener el = new TooltipInformationEventListener().setSpell(s, character.getLevel(), character);
+						addEventListener(documentAttributes, "SPELL_"+idModifier + s, "mouseenter", el, false);
 					}
 				}
 			}

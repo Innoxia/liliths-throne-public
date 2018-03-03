@@ -2837,11 +2837,11 @@ public enum ItemEffectType {
 			case MAJOR_BOOST:
 				return ("Hourly "+subject+" increase. (Limit: "+limit+")");
 			case MINOR_DRAIN:
-				return ("Hourly "+subject+" decrease. (Limit: "+limit+")");
+				return ("Weekly "+subject+" decrease. (Limit: "+limit+")");
 			case DRAIN:
 				return ("Daily "+subject+" decrease. (Limit: "+limit+")");
 			case MAJOR_DRAIN:
-				return ("Weekly "+subject+" decrease. (Limit: "+limit+")");
+				return ("Hourly "+subject+" decrease. (Limit: "+limit+")");
 		}
 		return "";
 	}
@@ -2914,42 +2914,42 @@ public enum ItemEffectType {
 						case TF_MOD_SIZE:
 							if(isWithinLimits(assSizeIncrement, target.getAssSize().getValue(), limit)) {
 								sb.append(target.incrementAssSize(assSizeIncrement));
-							} else if(target.getAssSize().getValue() != limit) {
+							} else if(isSetToLimit(assSizeIncrement, target.getAssSize().getValue(), limit)) {
 								sb.append(target.setAssSize(limit));
 							}
 							break;
 						case TF_MOD_SIZE_SECONDARY:
 							if(isWithinLimits(hipSizeIncrement, target.getHipSize().getValue(), limit)) {
 								sb.append(target.incrementHipSize(assSizeIncrement));
-							} else if(target.getHipSize().getValue() != limit) {
+							} else if(isSetToLimit(hipSizeIncrement, target.getHipSize().getValue(), limit)) {
 								sb.append(target.setHipSize(limit));
 							}
 							break;
 						case TF_MOD_CAPACITY:
 							if(isWithinLimits(capacityIncrement, target.getAssRawCapacityValue(), limit)) {
 								sb.append(target.incrementAssCapacity(capacityIncrement, true));
-							} else if((int)target.getAssRawCapacityValue() != limit) {
+							} else if(isSetToLimit(capacityIncrement, target.getAssRawCapacityValue(), limit)) {
 								sb.append(target.setAssCapacity(limit, true));
 							}
 							break;
 						case TF_MOD_ELASTICITY:
 							if(isWithinLimits(elasticityIncrement, target.getAssElasticity().getValue(), limit)) {
 								sb.append(target.incrementAssElasticity(elasticityIncrement));
-							} else if(target.getAssElasticity().getValue() != limit) {
+							} else if(isSetToLimit(elasticityIncrement, target.getAssElasticity().getValue(), limit)) {
 								sb.append(target.setAssElasticity(limit));
 							}
 							break;
 						case TF_MOD_PLASTICITY:
 							if(isWithinLimits(plasticityIncrement, target.getAssPlasticity().getValue(), limit)) {
 								sb.append(target.incrementAssPlasticity(plasticityIncrement));
-							} else if(target.getAssPlasticity().getValue() != limit) {
+							} else if(isSetToLimit(plasticityIncrement, target.getAssPlasticity().getValue(), limit)) {
 								sb.append(target.setAssPlasticity(limit));
 							}
 							break;
 						case TF_MOD_WETNESS:
 							if(isWithinLimits(wetnessIncrement, target.getAssWetness().getValue(), limit)) {
 								sb.append(target.incrementAssWetness(wetnessIncrement));
-							} else if(target.getAssWetness().getValue() != limit) {
+							} else if(isSetToLimit(wetnessIncrement, target.getAssWetness().getValue(), limit)) {
 								sb.append(target.setAssWetness(limit));
 							}
 							break;
@@ -2962,49 +2962,49 @@ public enum ItemEffectType {
 						case TF_MOD_SIZE:
 							if(isWithinLimits(breastSizeIncrement, target.getBreastRawSizeValue(), limit)) {
 								sb.append(target.incrementBreastSize(breastSizeIncrement));
-							} else if(target.getBreastRawSizeValue() != limit) {
+							} else if(isSetToLimit(breastSizeIncrement, target.getBreastRawSizeValue(), limit)) {
 								sb.append(target.setBreastSize(limit));
 							}
 							break;
 						case TF_MOD_SIZE_SECONDARY:
 							if(isWithinLimits(nippleSizeIncrement, target.getNippleSize().getValue(), limit)) {
 								sb.append(target.incrementNippleSize(nippleSizeIncrement));
-							} else if(target.getNippleSize().getValue() != limit) {
+							} else if(isSetToLimit(nippleSizeIncrement, target.getNippleSize().getValue(), limit)) {
 								sb.append(target.incrementNippleSize(limit));
 							}
 							break;
 						case TF_MOD_SIZE_TERTIARY:
 							if(isWithinLimits(areolaeSizeIncrement, target.getAreolaeSize().getValue(), limit)) {
 								sb.append(target.incrementAreolaeSize(areolaeSizeIncrement));
-							} else if(target.getAreolaeSize().getValue() != limit) {
+							} else if(isSetToLimit(areolaeSizeIncrement, target.getAreolaeSize().getValue(), limit)) {
 								sb.append(target.incrementAreolaeSize(limit));
 							}
 							break;
 						case TF_MOD_CAPACITY:
 							if(isWithinLimits(capacityIncrement, target.getNippleRawCapacityValue(), limit)) {
 								sb.append(target.incrementNippleCapacity(capacityIncrement, true));
-							} else if((int)target.getNippleRawCapacityValue() != limit) {
+							} else if(isSetToLimit(capacityIncrement, target.getNippleRawCapacityValue(), limit)) {
 								sb.append(target.setNippleCapacity(limit, true));
 							}
 							break;
 						case TF_MOD_ELASTICITY:
 							if(isWithinLimits(elasticityIncrement, target.getNippleElasticity().getValue(), limit)) {
 								sb.append(target.incrementNippleElasticity(elasticityIncrement));
-							} else if(target.getNippleElasticity().getValue() != limit) {
+							} else if(isSetToLimit(elasticityIncrement, target.getNippleElasticity().getValue(), limit)) {
 								sb.append(target.setNippleElasticity(limit));
 							}
 							break;
 						case TF_MOD_PLASTICITY:
 							if(isWithinLimits(plasticityIncrement, target.getNipplePlasticity().getValue(), limit)) {
 								sb.append(target.incrementNipplePlasticity(plasticityIncrement));
-							} else if(target.getNipplePlasticity().getValue() != limit) {
+							} else if(isSetToLimit(plasticityIncrement, target.getNipplePlasticity().getValue(), limit)) {
 								sb.append(target.setNipplePlasticity(limit));
 							}
 							break;
 						case TF_MOD_WETNESS:
 							if(isWithinLimits(lactationIncrement, target.getBreastRawLactationValue(), limit)) {
 								sb.append(target.incrementBreastLactation(lactationIncrement));
-							} else if(target.getBreastRawLactationValue() != limit) {
+							} else if(isSetToLimit(lactationIncrement, target.getBreastRawLactationValue(), limit)) {
 								sb.append(target.setBreastLactation(limit));
 							}
 							break;
@@ -3017,28 +3017,28 @@ public enum ItemEffectType {
 						case TF_MOD_SIZE:
 							if(isWithinLimits(heightIncrement, target.getHeightValue()-Height.ZERO_TINY.getMinimumValue(), limit)) {
 								sb.append(target.incrementHeight(heightIncrement));
-							} else if(target.getHeightValue()-Height.ZERO_TINY.getMinimumValue() != limit) {
+							} else if(isSetToLimit(heightIncrement, target.getHeightValue()-Height.ZERO_TINY.getMinimumValue(), limit)) {
 								sb.append(target.setHeight(limit));
 							}
 							break;
 						case TF_MOD_SIZE_SECONDARY:
 							if(isWithinLimits(muscleIncrement, target.getMuscleValue(), limit)) {
 								sb.append(target.incrementMuscle(muscleIncrement));
-							} else if(target.getMuscleValue() != limit) {
+							} else if(isSetToLimit(muscleIncrement, target.getMuscleValue(), limit)) {
 								sb.append(target.setMuscle(limit));
 							}
 							break;
 						case TF_MOD_SIZE_TERTIARY:
 							if(isWithinLimits(bodySizeIncrement, target.getBodySizeValue(), limit)) {
 								sb.append(target.incrementBodySize(bodySizeIncrement));
-							} else if(target.getBodySizeValue() != limit) {
+							} else if(isSetToLimit(bodySizeIncrement, target.getBodySizeValue(), limit)) {
 								sb.append(target.setBodySize(limit));
 							}
 							break;
 						case TF_MOD_FEMININITY:
 							if(isWithinLimits(femininityIncrement, target.getFemininityValue(), limit)) {
 								sb.append(target.incrementFemininity(femininityIncrement));
-							} else if(target.getFemininityValue() != limit) {
+							} else if(isSetToLimit(femininityIncrement, target.getFemininityValue(), limit)) {
 								sb.append(target.setFemininity(limit));
 							}
 							break;
@@ -3051,7 +3051,7 @@ public enum ItemEffectType {
 						case TF_MOD_SIZE:
 							if(isWithinLimits(lipSizeIncrement, target.getLipSizeValue(), limit)) {
 								sb.append(target.incrementLipSize(lipSizeIncrement));
-							} else if(target.getLipSizeValue() != limit) {
+							} else if(isSetToLimit(lipSizeIncrement, target.getLipSizeValue(), limit)) {
 								sb.append(target.setLipSize(limit));
 							}
 							break;
@@ -3064,7 +3064,7 @@ public enum ItemEffectType {
 						case TF_MOD_SIZE:
 							if(isWithinLimits(hairLengthIncrement, target.getHairRawLengthValue(), limit)) {
 								sb.append(target.incrementHairLength(hairLengthIncrement));
-							} else if(target.getHairRawLengthValue() != limit) {
+							} else if(isSetToLimit(hairLengthIncrement, target.getHairRawLengthValue(), limit)) {
 								sb.append(target.setHairLength(limit));
 							}
 							break;
@@ -3077,42 +3077,42 @@ public enum ItemEffectType {
 						case TF_MOD_SIZE:
 							if(isWithinLimits(penisSizeIncrement, target.getPenisRawSizeValue(), limit)) {
 								sb.append(target.incrementPenisSize(penisSizeIncrement));
-							} else if(target.getPenisRawSizeValue() != limit) {
+							} else if(isSetToLimit(penisSizeIncrement, target.getPenisRawSizeValue(), limit)) {
 								sb.append(target.setPenisSize(limit));
 							}
 							break;
 						case TF_MOD_SIZE_SECONDARY:
 							if(isWithinLimits(testicleSizeIncrement, target.getTesticleSize().getValue(), limit)) {
 								sb.append(target.incrementTesticleSize(testicleSizeIncrement));
-							} else if(target.getTesticleSize().getValue() != limit) {
+							} else if(isSetToLimit(testicleSizeIncrement, target.getTesticleSize().getValue(), limit)) {
 								sb.append(target.setTesticleSize(limit));
 							}
 							break;
 						case TF_MOD_CAPACITY:
 							if(isWithinLimits(capacityIncrement, target.getPenisRawCapacityValue(), limit)) {
 								sb.append(target.incrementPenisCapacity(capacityIncrement, true));
-							} else if((int)target.getPenisRawCapacityValue() != limit) {
+							} else if(isSetToLimit(capacityIncrement, target.getPenisRawCapacityValue(), limit)) {
 								sb.append(target.setPenisCapacity(limit, true));
 							}
 							break;
 						case TF_MOD_ELASTICITY:
 							if(isWithinLimits(elasticityIncrement, target.getUrethraElasticity().getValue(), limit)) {
 								sb.append(target.incrementUrethraElasticity(elasticityIncrement));
-							} else if(target.getUrethraElasticity().getValue() != limit) {
+							} else if(isSetToLimit(elasticityIncrement, target.getUrethraElasticity().getValue(), limit)) {
 								sb.append(target.setUrethraElasticity(limit));
 							}
 							break;
 						case TF_MOD_PLASTICITY:
 							if(isWithinLimits(plasticityIncrement, target.getUrethraPlasticity().getValue(), limit)) {
 								sb.append(target.incrementUrethraPlasticity(plasticityIncrement));
-							} else if(target.getUrethraPlasticity().getValue() != limit) {
+							} else if(isSetToLimit(plasticityIncrement, target.getUrethraPlasticity().getValue(), limit)) {
 								sb.append(target.setUrethraPlasticity(limit));
 							}
 							break;
 						case TF_MOD_WETNESS:
 							if(isWithinLimits(cumProductionIncrement, target.getPenisRawCumProductionValue(), limit)) {
 								sb.append(target.incrementPenisCumProduction(cumProductionIncrement));
-							} else if(target.getPenisRawCumProductionValue() != limit) {
+							} else if(isSetToLimit(cumProductionIncrement, target.getPenisRawCumProductionValue(), limit)) {
 								sb.append(target.setCumProduction(limit));
 							}
 							break;
@@ -3125,42 +3125,42 @@ public enum ItemEffectType {
 						case TF_MOD_SIZE:
 							if(isWithinLimits(clitorisSizeIncrement, target.getVaginaRawClitorisSizeValue(), limit)) {
 								sb.append(target.incrementVaginaClitorisSize(clitorisSizeIncrement));
-							} else if(target.getVaginaRawClitorisSizeValue() != limit) {
+							} else if(isSetToLimit(clitorisSizeIncrement, target.getVaginaRawClitorisSizeValue(), limit)) {
 								sb.append(target.setVaginaClitorisSize(limit));
 							}
 							break;
 						case TF_MOD_SIZE_SECONDARY:
 							if(isWithinLimits(labiaSizeIncrement, target.getVaginaRawLabiaSizeValue(), limit)) {
 								sb.append(target.incrementVaginaLabiaSize(labiaSizeIncrement));
-							} else if(target.getVaginaRawLabiaSizeValue() != limit) {
+							} else if(isSetToLimit(labiaSizeIncrement, target.getVaginaRawLabiaSizeValue(), limit)) {
 								sb.append(target.setVaginaLabiaSize(limit));
 							}
 							break;
 						case TF_MOD_CAPACITY:
 							if(isWithinLimits(capacityIncrement, target.getVaginaRawCapacityValue(), limit)) {
 								sb.append(target.incrementVaginaCapacity(capacityIncrement, true));
-							} else if((int)target.getVaginaRawCapacityValue() != limit) {
+							} else if(isSetToLimit(capacityIncrement, target.getVaginaRawCapacityValue(), limit)) {
 								sb.append(target.setVaginaCapacity(limit, true));
 							}
 							break;
 						case TF_MOD_ELASTICITY:
 							if(isWithinLimits(elasticityIncrement, target.getVaginaElasticity().getValue(), limit)) {
 								sb.append(target.incrementVaginaElasticity(elasticityIncrement));
-							} else if(target.getVaginaElasticity().getValue() != limit) {
+							} else if(isSetToLimit(elasticityIncrement, target.getVaginaElasticity().getValue(), limit)) {
 								sb.append(target.setVaginaElasticity(limit));
 							}
 							break;
 						case TF_MOD_PLASTICITY:
 							if(isWithinLimits(plasticityIncrement, target.getVaginaPlasticity().getValue(), limit)) {
 								sb.append(target.incrementVaginaPlasticity(plasticityIncrement));
-							} else if(target.getVaginaPlasticity().getValue() != limit) {
+							} else if(isSetToLimit(plasticityIncrement, target.getVaginaPlasticity().getValue(), limit)) {
 								sb.append(target.setVaginaPlasticity(limit));
 							}
 							break;
 						case TF_MOD_WETNESS:
 							if(isWithinLimits(wetnessIncrement, target.getVaginaWetness().getValue(), limit)) {
 								sb.append(target.incrementVaginaWetness(wetnessIncrement));
-							} else if(target.getVaginaWetness().getValue() != limit) {
+							} else if(isSetToLimit(wetnessIncrement, target.getVaginaWetness().getValue(), limit)) {
 								sb.append(target.setVaginaWetness(limit));
 							}
 							break;
@@ -3183,6 +3183,19 @@ public enum ItemEffectType {
 			}
 		} else {
 			if(increment + currentValue > limit) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	private static boolean isSetToLimit(int increment, float currentValue, int limit) {
+		if(increment<0) {
+			if(currentValue < limit) {
+				return false;
+			}
+		} else {
+			if(currentValue > limit) {
 				return false;
 			}
 		}
