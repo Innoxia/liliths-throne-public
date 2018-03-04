@@ -14,6 +14,17 @@ import com.lilithsthrone.world.places.PlaceType;
  * @since 0.1.0
  * @version 0.1.89
  * @author Innoxia
+ * @see Comment by LightC
+ * This is a list of the world type as an enum and each contain information like
+ *	-World size
+ *	-world name
+ *	-map color
+ *	-time to travel between cell'
+ *	-Standard cell
+ *	-"CutOffZone" (danger zone)
+ *	-list of unique location
+ *	-list of unique dangerous place
+ * 
  */
 public enum WorldType {
 	

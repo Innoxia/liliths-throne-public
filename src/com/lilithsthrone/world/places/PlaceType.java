@@ -53,6 +53,18 @@ import com.lilithsthrone.world.WorldType;
  * @since 0.1.0
  * @version 0.1.90
  * @author Innoxia
+ * @see Comment by LightC
+ * This contain a list of cell declaration
+ * -cell name
+ * -SVGpath
+ * -cell color
+ * -dialogue node***decripit?***
+ * -encounter
+ * -is populated
+ * -is dangerous
+ * -is storm immune
+ * -does item disappear
+ * -virginity lost description
  */
 public enum PlaceType {
 	

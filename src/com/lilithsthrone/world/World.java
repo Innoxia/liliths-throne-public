@@ -21,6 +21,14 @@ import com.lilithsthrone.world.places.PlaceType;
  * @since 0.1.0
  * @version 0.1.89
  * @author Innoxia
+ * @see Comment by LightC
+ * This class is the world information container mostly for Generation.java
+ * It contain:
+ * -world width
+ * -world height
+ * -the world grid
+ * -The world type
+ * and the ability to save in an XML format
  */
 public class World implements Serializable, XMLSaving {
 	private static final long serialVersionUID = 1L;

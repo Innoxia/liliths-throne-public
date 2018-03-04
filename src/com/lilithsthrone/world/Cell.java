@@ -21,6 +21,8 @@ import com.lilithsthrone.world.places.GenericPlace;
  * @since 0.1.0
  * @version 0.1.97
  * @author Innoxia
+ * @see Comment by LightC
+ * This is the used for the map generator and maze gen and contain information as follow 
  */
 public class Cell implements Serializable, XMLSaving {
 	private static final long serialVersionUID = 1L;
