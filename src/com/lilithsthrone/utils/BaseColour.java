@@ -27,6 +27,7 @@ public enum BaseColour {
 	MAGENTA(Util.newColour(0xFF1472), Util.newColour(0xFF1472)),
 	CRIMSON(Util.newColour(0xFF385D), Util.newColour(0xFF385D)),
 	RED(Util.newColour(0xEA5D76), Util.newColour(0xDD1D40)),
+	RED_DARK(Util.newColour(0xA61641), Util.newColour(0x960012)),
 	RED_LIGHT(Util.newColour(0xEE95A6), Util.newColour(0xE9536F)),
 	
 	TAN(Util.newColour(0xEDC491), Util.newColour(0xDC8D2E)),
@@ -51,6 +52,7 @@ public enum BaseColour {
 	TEAL(Util.newColour(0x6CBCB1), Util.newColour(0x439389)),
 	BLUE_LIGHT(Util.newColour(0x99EBFF), Util.newColour(0x00A7D1)),
 	BLUE(Util.newColour(0x05CDFF), Util.newColour(0x00627A)),
+	BLUE_DARK(Util.newColour(0x0090BF), Util.newColour(0x002E43)),
 	BLUE_STEEL(Util.newColour(0xA7B7D2), Util.newColour(0x5671A4)),
 
 	GREY(Util.newColour(0xB3B3B3), Util.newColour(0x777777)),
