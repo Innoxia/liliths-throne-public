@@ -19,10 +19,10 @@ public enum PenisSize {
 	/**Average size for a harpy. (2-3 inches)*/
 	ONE_TINY("small", 2, 4, Colour.GENERIC_SIZE_TWO),
 
-	/**Average size for a cat-morph or human. (4-7 inches)*/
+	/**Average size for all regular morphs. (4-7 inches)*/
 	TWO_AVERAGE("average-sized", 4, 8, Colour.GENERIC_SIZE_THREE),
 
-	/**Average size for a dog or wolf morph. (8-11 inches)*/
+	/**Average size for a wolf morph. (8-11 inches)*/
 	THREE_LARGE("large", 8, 12, Colour.GENERIC_SIZE_FOUR),
 
 	/**Average size for a horse morph. (12-15 inches)*/

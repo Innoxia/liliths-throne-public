@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import com.lilithsthrone.game.character.Quest;
-import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
@@ -300,7 +300,7 @@ public class SlaverAlleyDialogue {
 								+ "<div style='width:40%; float:left; margin:0; padding:0; text-align:center;'>"
 									+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+slave.getName()+"</b> - "
 									+ "<span style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(slave.getGender().getName())+"</span> "
-									+ "<span style='color:"+slave.getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence((slave.isFeminine()?slave.getRace().getSingularFemaleName():slave.getRace().getSingularMaleName()))+"</span>"
+									+ "<span style='color:"+slave.getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence((slave.isFeminine()?slave.getSubspecies().getSingularFemaleName():slave.getSubspecies().getSingularMaleName()))+"</span>"
 								+ "</div>"
 								+ "<div style='float:left; width:17%; margin:0; padding:0; text-align:center;'>"
 									+ "<b style='color:"+slave.getObedience().getColour().toWebHexString()+";'>"+slave.getObedienceValue()+ "</b>"
@@ -666,7 +666,7 @@ public class SlaverAlleyDialogue {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "<i><b>Placeholder:</b> This should be added in for the next version!</i>"
+						+ "<i><b>Placeholder:</b> I will get this added in as soon as I can!</i>"
 					+ "</p>"
 					+ "<p>"
 						+ "The brothel 'Angel's Kiss' is one of the largest establishments in Slaver Alley."
@@ -718,7 +718,7 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	private static int slaverLicenseCost = 500;
+	private static int slaverLicenseCost = 5000;
 	
 	public static final DialogueNodeOld SLAVERY_ADMINISTRATION = new DialogueNodeOld("Slavery Administration", ".", true) {
 		private static final long serialVersionUID = 1L;
@@ -843,11 +843,8 @@ public class SlaverAlleyDialogue {
 					if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_SLAVERY)) {
 						return new Response("Slaver license", "Ask Finch about obtaining a slaver license.", SLAVERY_ADMINISTRATION_ASK_ABOUT_SLAVER_LICENSE) {
 							@Override
-							public QuestLine getQuestLine() {
-								return QuestLine.SIDE_SLAVERY;
-							}
-							@Override
 							public void effects() {
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_SLAVERY));
 								Main.game.getDialogueFlags().values.add(DialogueFlagValue.finchIntroduced);
 							}
 						};
@@ -896,7 +893,7 @@ public class SlaverAlleyDialogue {
 					+ "</p>"
 					+ "<p>"
 						+ "[finch.Name] leans back in his chair, grinning up at you,"
-						+ " [finch.speech(Yeah, there's a form to fill out, <i>and</i> a fee of five hundred flames to pay, but slaver licenses aren't handed out to just anyone."
+						+ " [finch.speech(Yeah, there's a form to fill out, <i>and</i> a fee of five-thousand flames to pay, but slaver licenses aren't handed out to just anyone."
 							+ " If you're looking to apply for one, you're going to have to join the waiting list."
 							+ " Last time I looked, I think the estimated wait time for new applicants is just over four years...)]"
 					+ "</p>"
@@ -941,7 +938,7 @@ public class SlaverAlleyDialogue {
 					+ "<p>"
 						+ "[finch.speech(Your aunt is <i>Lilaya</i>?)]"
 						+ " he asks, putting the letter to one side,"
-						+ " [finch.speech(why didn't you say so earlier?! If you've got the five hundred flame fee, I'll process your license right now!)]"
+						+ " [finch.speech(why didn't you say so earlier?! If you've got the five-thousand flame fee, I'll process your license right now!)]"
 					+ "</p>"
 					+ "<p>"
 						+ "[pc.speech(Oh, great!)]"
@@ -973,8 +970,8 @@ public class SlaverAlleyDialogue {
 			if (index == 1) {
 				return new Response("Rules", "Allow [finch.name] to explain the rules to you.", SLAVERY_ADMINISTRATION_SLAVER_LICENSE_OBTAINED_RULES) {
 					@Override
-					public QuestLine getQuestLine() {
-						return QuestLine.SIDE_SLAVERY;
+					public void effects() {
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_SLAVERY, Quest.SIDE_UTIL_COMPLETE));
 					}
 				};
 

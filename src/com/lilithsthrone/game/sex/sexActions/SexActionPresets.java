@@ -115,8 +115,14 @@ public class SexActionPresets {
 	public static List<Class<?>> playerDoggyOnAllFours = new ArrayList<>();
 	public static List<Class<?>> partnerDoggyOnAllFours = new ArrayList<>();
 	
+	public static List<Class<?>> playerDoggyOnAllFoursSideBySide = new ArrayList<>();
+	public static List<Class<?>> partnerDoggyOnAllFoursSideBySide = new ArrayList<>();
+	
 	public static List<Class<?>> playerDoggyBehind = new ArrayList<>();
 	public static List<Class<?>> partnerDoggyBehind = new ArrayList<>();
+
+	public static List<Class<?>> playerDoggyBehindInteractingCharacterInfront = new ArrayList<>();
+	public static List<Class<?>> partnerDoggyBehindInteractingCharacterInfront = new ArrayList<>();
 	
 	public static List<Class<?>> playerDoggyBehindOral = new ArrayList<>();
 	public static List<Class<?>> partnerDoggyBehindOral = new ArrayList<>();
@@ -314,6 +320,18 @@ public class SexActionPresets {
 		partnerDoggyOnAllFours.add(DomDoggy.class);
 		partnerDoggyOnAllFours.addAll(partnerGenerics);
 		
+		// Doggy on all fours player (side-by-side):
+		
+		playerDoggyOnAllFoursSideBySide.addAll(playerDefaultSelf);
+		playerDoggyOnAllFoursSideBySide.add(PlayerTongueMouth.class);
+		playerDoggyOnAllFoursSideBySide.addAll(playerGenerics);
+		
+		// Doggy on all fours partner (side-by-side):
+
+		partnerDoggyOnAllFoursSideBySide.addAll(partnerDefaultSelf);
+		partnerDoggyOnAllFoursSideBySide.add(PartnerTongueMouth.class);
+		partnerDoggyOnAllFoursSideBySide.addAll(partnerGenerics);
+		
 		// Doggy player behind:
 
 		playerDoggyBehind.addAll(playerDefaultSelf);
@@ -353,6 +371,18 @@ public class SexActionPresets {
 		partnerDoggyBehind.add(PlayerTailAnus.class);
 
 		partnerDoggyBehind.addAll(partnerGenerics);
+
+		// Doggy player behind (interacting with person in front of doggy target):
+		
+		playerDoggyBehindInteractingCharacterInfront.addAll(playerDefaultSelf);
+		playerDoggyBehindInteractingCharacterInfront.add(PlayerTongueMouth.class);
+		playerDoggyBehindInteractingCharacterInfront.addAll(playerGenerics);
+		
+		// Doggy partner behind (interacting with person in front of doggy target):
+
+		partnerDoggyBehindInteractingCharacterInfront.addAll(partnerDefaultSelf);
+		partnerDoggyBehindInteractingCharacterInfront.add(PartnerTongueMouth.class);
+		partnerDoggyBehindInteractingCharacterInfront.addAll(partnerGenerics);
 		
 		// Doggy player behind oral:
 
@@ -967,7 +997,7 @@ public class SexActionPresets {
 		partnerMissionaryOnBack.addAll(partnerGenerics);
 		
 		
-		// Back to wall player facing target:
+		// Missionary:
 		
 		playerMissionaryKneelingBetweenLegs.addAll(playerDefaultSelf);
 		
@@ -994,7 +1024,7 @@ public class SexActionPresets {
 
 		playerMissionaryKneelingBetweenLegs.addAll(playerGenerics);
 		
-		// Back to wall partner facing target:
+		// Missionary:
 
 		partnerMissionaryKneelingBetweenLegs.addAll(partnerDefaultSelf);
 		
@@ -1005,7 +1035,6 @@ public class SexActionPresets {
 		partnerMissionaryKneelingBetweenLegs.add(PlayerFingerUrethra.class);
 		partnerMissionaryKneelingBetweenLegs.add(PlayerFingerVagina.class);
 		partnerMissionaryKneelingBetweenLegs.add(PlayerPenisVagina.class);
-		partnerMissionaryKneelingBetweenLegs.add(PlayerPenisThighs.class);
 		partnerMissionaryKneelingBetweenLegs.add(PlayerTailVagina.class);
 		partnerMissionaryKneelingBetweenLegs.add(PlayerTailAnus.class);
 
@@ -1016,6 +1045,7 @@ public class SexActionPresets {
 		partnerMissionaryKneelingBetweenLegs.add(PartnerFingerUrethra.class);
 		partnerMissionaryKneelingBetweenLegs.add(PartnerFingerVagina.class);
 		partnerMissionaryKneelingBetweenLegs.add(PartnerPenisVagina.class);
+		partnerMissionaryKneelingBetweenLegs.add(PartnerPenisAnus.class);
 		partnerMissionaryKneelingBetweenLegs.add(PartnerTailVagina.class);
 		partnerMissionaryKneelingBetweenLegs.add(PartnerTailAnus.class);
 

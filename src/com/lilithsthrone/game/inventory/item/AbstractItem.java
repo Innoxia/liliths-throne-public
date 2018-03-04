@@ -31,7 +31,7 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 	protected List<ItemEffect> itemEffects;
 
 	public AbstractItem(AbstractItemType itemType) {
-		super(itemType.getName(false), itemType.getNamePlural(false), itemType.getSVGString(), itemType.getColour(), itemType.getRarity(), null);
+		super(itemType.getName(false), itemType.getNamePlural(false), itemType.getSVGString(), itemType.getColourPrimary(), itemType.getRarity(), null);
 
 		this.itemType = itemType;
 		this.itemEffects = itemType.getEffects();
@@ -42,7 +42,7 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 		if(super.equals(o)) {
 			return (o instanceof AbstractItem)
 					&& ((AbstractItem)o).getItemType().equals(itemType)
-					&& ((AbstractItem)o).getItemEffects().equals(itemEffects);
+					&& ((AbstractItem)o).getEffects().equals(itemEffects);
 		} else {
 			return false;
 		}
@@ -67,7 +67,7 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 		Element innerElement = doc.createElement("itemEffects");
 		element.appendChild(innerElement);
 		
-		for(ItemEffect ie : this.getItemEffects()) {
+		for(ItemEffect ie : this.getEffects()) {
 			ie.saveAsXML(innerElement, doc);
 		}
 		
@@ -96,7 +96,7 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 			
 			return item;
 		} catch(Exception ex) {
-			System.err.println("Warning: An instance of AbstractItem was unable to be imported.");
+			System.err.println("Warning: An instance of AbstractItem was unable to be imported. ("+parentElement.getAttribute("id")+")");
 			return null;
 		}
 	}
@@ -105,7 +105,8 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 		return itemType;
 	}
 
-	public List<ItemEffect> getItemEffects() {
+	@Override
+	public List<ItemEffect> getEffects() {
 		return itemEffects;
 	}
 
@@ -116,8 +117,8 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 	public String applyEffect(GameCharacter user, GameCharacter target) {
 		StringBuilder sb = new StringBuilder();
 		
-		for(ItemEffect ie : getItemEffects()) {
-			sb.append(UtilText.parse(target, ie.applyEffect(user, target)));
+		for(ItemEffect ie : getEffects()) {
+			sb.append(UtilText.parse(target, ie.applyEffect(user, target, 1)));
 		}
 		
 		return sb.toString();
@@ -168,7 +169,7 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 		sb.append("<p>"
 					+ "<b>Effects:</b></br>");
 		
-		for(ItemEffect ie : getItemEffects()) {
+		for(ItemEffect ie : getEffects()) {
 			for(String s : ie.getEffectsDescription(user, target)) {
 				sb.append(s+"</br>");
 			}
@@ -218,5 +219,8 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 		return itemType.isAbleToBeUsedInSex();
 	}
 	
+	public boolean isGift() {
+		return itemType.isGift();
+	}
 	
 }

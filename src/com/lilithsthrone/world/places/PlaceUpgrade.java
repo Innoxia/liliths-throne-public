@@ -3,8 +3,8 @@ package com.lilithsthrone.world.places;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lilithsthrone.game.character.Quest;
-import com.lilithsthrone.game.character.QuestLine;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;

@@ -1,12 +1,12 @@
 package com.lilithsthrone.game.dialogue.places.dominion.slaverAlley;
 
-import com.lilithsthrone.game.character.Quest;
-import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.Scarlett;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
@@ -178,7 +178,7 @@ public class ScarlettsShop {
 				return new Response("Agree", "Agree to help Scarlett.", SCARLETT_IS_A_SUPER_BITCH) {
 					@Override
 					public void effects() {
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_E_REPORT_TO_ALEXA));
 					}
 				};
 
@@ -361,15 +361,12 @@ public class ScarlettsShop {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if (Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_F_SCARLETTS_FATE) {
-					return new Response("Offer to buy", "Offer to buy Scarlett from Alexa.", ALEXAS_SHOP_SCARLETT_FOR_SALE) { 
-						@Override
-						public QuestLine getQuestLine() {
-							return QuestLine.MAIN;
-						}
+					return new Response("Offer to buy", "Offer to buy Scarlett from Alexa.", ALEXAS_SHOP_SCARLETT_FOR_SALE) {
 						@Override
 						public void effects() {
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_G_SLAVERY));
 							if(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.punishedByAlexa)) {
-								Main.game.getDialogueFlags().scarlettPrice = 1000;
+								Main.game.getDialogueFlags().scarlettPrice = 10000;
 							}
 						}
 					};
@@ -433,9 +430,9 @@ public class ScarlettsShop {
 						+ "[alexa.speech(Excellent!)] Alexa cries, leaning forwards in her chair,"
 						+ (Main.game.getDialogueFlags().values.contains(DialogueFlagValue.punishedByAlexa)
 							?"[alexa.speech(now, taking into consideration that you took that little punishment of mine on her behalf, I'm willing to give you a discount."
-									+ " Although she does as I command, I imagine that she'd be quite disobedient for any other owner, so I'd say Scarlett's only worth about two thousand flames, but for you, I'll sell her for one thousand.)]"
-							:"[alexa.speech(Although she does as I command, I imagine that she'd be quite disobedient for any other owner, so I'd say Scarlett's only worth about two thousand flames."
-									+ " I'm not one for bargaining over price, so you can either pay up the two thousand, or I'll sell her to someone else.)]")
+									+ " Although she does as I command, I imagine that she'd be quite disobedient for any other owner, so I'd say Scarlett's only worth about fifteen thousand flames, but for you, I'll sell her for ten thousand.)]"
+							:"[alexa.speech(Although she does as I command, I imagine that she'd be quite disobedient for any other owner, so I'd say Scarlett's only worth about fifteen thousand flames."
+									+ " I'm not one for bargaining over price, so you can either pay up the fifteen thousand, or I'll sell her to someone else.)]")
 					+ "</p>"
 					+ "<p>"
 						+ "[pc.speech(Alright,)] you agree, not wanting Alexa to sell Scarlett to anyone else,"
@@ -479,7 +476,7 @@ public class ScarlettsShop {
 						+ " [pc.speech(There you go. I'd like to buy Scarlett now please.)]"
 					+ "</p>"
 					+ "<p>"
-						+ "After checking your license to make sure that everything's in order, Alexa counts out the coins, and, once satisfied that it's all there, she stand sup from behind her desk."
+						+ "After checking your license to make sure that everything's in order, Alexa counts out the coins, and, once satisfied that it's all there, she stands up from behind her desk."
 						+ " Walking over to Scarlett's hiding place, she reaches down and grabs her by the plume of feathers on top of her head."
 						+ " Dragging the unfortunate harpy over to you, Alexa throws her at your feet."
 					+ "</p>"
@@ -504,11 +501,8 @@ public class ScarlettsShop {
 				return new Response("Calm her down", "Gently reassure Scarlett to get her to calm down.", ALEXAS_SHOP_GENTLE) {
 					@Override
 					public void effects() {
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE));
 						Main.game.getTextEndStringBuilder().append(Main.game.getScarlett().incrementAffection(Main.game.getPlayer(), 5));
-					}
-					@Override
-					public QuestLine getQuestLine() {
-						return QuestLine.MAIN;
 					}
 				};
 				
@@ -516,12 +510,9 @@ public class ScarlettsShop {
 				return new Response("Shout at her", "Shout at Scarlett and remind her that she's now your property.", ALEXAS_SHOP_SHOUT) {
 					@Override
 					public void effects() {
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE));
 						Main.game.getTextEndStringBuilder().append(Main.game.getScarlett().incrementAffection(Main.game.getPlayer(), -2));
 						Main.game.getTextEndStringBuilder().append(Main.game.getScarlett().incrementObedience(2));
-					}
-					@Override
-					public QuestLine getQuestLine() {
-						return QuestLine.MAIN;
 					}
 				};
 				
@@ -535,12 +526,9 @@ public class ScarlettsShop {
 						) {
 					@Override
 					public void effects() {
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE));
 						Main.game.getTextEndStringBuilder().append(Main.game.getScarlett().incrementAffection(Main.game.getPlayer(), -5));
 						Main.game.getTextEndStringBuilder().append(Main.game.getScarlett().incrementObedience(5));
-					}
-					@Override
-					public QuestLine getQuestLine() {
-						return QuestLine.MAIN;
 					}
 				};
 			} else {

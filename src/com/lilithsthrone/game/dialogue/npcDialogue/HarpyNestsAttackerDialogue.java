@@ -2,9 +2,9 @@ package com.lilithsthrone.game.dialogue.npcDialogue;
 
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
@@ -215,7 +215,7 @@ public class HarpyNestsAttackerDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "You find yourself fighting " + Main.game.getActiveNPC().getName("the") + "!", HARPY_ATTACKS, Main.game.getActiveNPC()){
+				return new ResponseCombat("Fight", "You find yourself fighting " + Main.game.getActiveNPC().getName("the") + "!", Main.game.getActiveNPC()){
 					@Override
 					public void effects() {
 						if(Main.game.getActiveNPC().isVisiblyPregnant())
@@ -1045,50 +1045,6 @@ public class HarpyNestsAttackerDialogue {
 					@Override
 					public DialogueNodeOld getNextDialogue(){
 						return Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(false);
-					}
-				};
-				
-			} else {
-				return null;
-			}
-		}
-	};
-	
-	public static final DialogueNodeOld ENSLAVEMENT_DIALOGUE = new DialogueNodeOld("New Slave", "", true) {
-		private static final long serialVersionUID = 1L;
-		
-		@Override
-		public String getDescription(){
-			return ".";
-		}
-
-		@Override
-		public String getContent() {//TODO
-			return UtilText.parse(Main.game.getActiveNPC(),
-					"<p>"
-						+ "TODO</br>"
-						+ "You clasp the collar around [npc.name]'s neck.</br>"
-						+ "The arcane enchantment recognises [npc.herHim] as being a criminal, and, with a purple flash, <b>they're teleported to the 'Slave Administration' building in Slaver Alley, where they'll be waiting for you to pick them up</b>."
-					+ "</p>"
-					+ "<p>"
-						+ "Just before they disappear, glowing purple lettering appears on the collar's surface, which reads:</br>"
-						+ "Slave identification: [style.boldArcane("+Main.game.getActiveNPC().getNameIgnoresPlayerKnowledge()+")]"
-					+ "</p>");
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
-				return new Response("Continue", "Carry on your way.", ENSLAVEMENT_DIALOGUE){
-					@Override
-					public void effects() {
-						Main.game.getActiveNPC().setPlayerKnowsName(true);
-						Main.game.getActiveNPC().setAffection(Main.game.getPlayer(), -100+Util.random.nextInt(10));
-						Main.game.getActiveNPC().setObedience(-100+Util.random.nextInt(10));
-					}
-					@Override
-					public DialogueNodeOld getNextDialogue(){
-						return DebugDialogue.getDefaultDialogueNoEncounter();
 					}
 				};
 				

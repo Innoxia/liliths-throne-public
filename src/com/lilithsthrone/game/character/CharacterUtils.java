@@ -63,6 +63,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
+import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
@@ -80,6 +81,7 @@ import com.lilithsthrone.game.character.npc.dominion.DominionSuccubusAttacker;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.BlockedParts;
@@ -225,7 +227,7 @@ public class CharacterUtils {
 		RacialBody startingBodyType = RacialBody.HUMAN;
 		RacialBody motherBody = RacialBody.valueOfRace(mother.getRace());
 		RacialBody fatherBody = RacialBody.valueOfRace(father.getRace());
-		Race raceTakesAfter = mother.getRace();
+		Subspecies raceTakesAfter = mother.getSubspecies();
 		RaceStage stage = RaceStage.HUMAN;
 		boolean takesAfterMother = true;
 		boolean raceFromMother = true;
@@ -240,11 +242,13 @@ public class CharacterUtils {
 		} else {
 			startingBodyType = fatherBody;
 			stage = father.getRaceStage();
-			raceTakesAfter = father.getRace();
+			raceTakesAfter = father.getSubspecies();
 			raceFromMother = false;
 		}
 		
-		switch(startingGender.isFeminine()?Main.getProperties().raceFemininePreferencesMap.get(raceTakesAfter):Main.getProperties().raceMasculinePreferencesMap.get(raceTakesAfter)) {
+		switch(startingGender.isFeminine()
+				?Main.getProperties().subspeciesFeminineFurryPreferencesMap.get(raceTakesAfter)
+				:Main.getProperties().subspeciesMasculineFurryPreferencesMap.get(raceTakesAfter)) {
 			case HUMAN:
 				stage = RaceStage.HUMAN;
 				break;
@@ -820,9 +824,16 @@ public class CharacterUtils {
 		
 //		return (int) ((baseSize + (Math.signum(difference)*Util.random.nextInt(Math.abs(difference) +1)))*(0.9f+(Math.random()*0.2f)));
 	}
-	
+
+	public static Body generateBody(Gender startingGender, Subspecies species, RaceStage stage) {
+		return generateBody(startingGender, RacialBody.valueOfRace(species.getRace()), species, stage);
+	}
 	
 	public static Body generateBody(Gender startingGender, RacialBody startingBodyType, RaceStage stage) {
+		return generateBody(startingGender, startingBodyType, null, stage);
+	}
+	
+	public static Body generateBody(Gender startingGender, RacialBody startingBodyType, Subspecies species, RaceStage stage) {
 		
 		boolean hasVagina = startingGender.getGenderName().isHasVagina();
 		boolean hasPenis = startingGender.getGenderName().isHasPenis();
@@ -901,6 +912,11 @@ public class CharacterUtils {
 		body.getArm().setUnderarmHair(null, hair);
 		body.getAss().getAnus().setAssHair(null, hair);
 		
+		if(species!=null) {
+			species.applySpeciesChanges(body);
+			body.calculateRace();
+		}
+		
 		return body;
 	}
 	
@@ -958,6 +974,15 @@ public class CharacterUtils {
 		
 		if(character.hasBreasts()) {
 			character.setBreastSize(Math.max(CupSize.AA.getMeasurement(), character.getBreastSize().getMeasurement() -2 +(Util.random.nextInt(5)))); // Random size between -2 and +2 of base value.
+			if(Math.random()<=0.015f) {
+				character.setBreastLactation((int)((character.getBreastSize().getMeasurement() * 5)*(1+(Math.random()*2))));
+				if(Math.random()<=0.025f) {
+					character.addMilkModifier(FluidModifier.ADDICTIVE);
+				}
+				if(Math.random()<=0.025f) {
+					character.addMilkModifier(FluidModifier.HALLUCINOGENIC);
+				}
+			}
 		}
 		
 		// Face:
@@ -1003,6 +1028,12 @@ public class CharacterUtils {
 			} else {
 				character.setPenisSize(character.getPenisSize().getMinimumValue() + Util.random.nextInt(character.getPenisSize().getMaximumValue() - character.getPenisSize().getMinimumValue()) +1);
 			}
+			if(Math.random()<=0.005f) {
+				character.addCumModifier(FluidModifier.ADDICTIVE);
+			}
+			if(Math.random()<=0.005f) {
+				character.addCumModifier(FluidModifier.HALLUCINOGENIC);
+			}
 		}
 		
 		// Vagina:
@@ -1022,6 +1053,12 @@ public class CharacterUtils {
 				}
 			}
 			character.setVaginaWetness(character.getVaginaWetness().getValue() -1 + Util.random.nextInt(3)); // +1 or -1 either way
+			if(Math.random()<=0.005f) {
+				character.addGirlcumModifier(FluidModifier.ADDICTIVE);
+			}
+			if(Math.random()<=0.005f) {
+				character.addGirlcumModifier(FluidModifier.HALLUCINOGENIC);
+			}
 		}
 		
 		character.setAssStretchedCapacity(character.getAssRawCapacityValue());
@@ -1161,10 +1198,18 @@ public class CharacterUtils {
 			}
 		}
 		
-		while(fetishesAssigned < numberOfFetishes) {
+		if(character.getRace()==Race.COW_MORPH && availableFetishes.contains(Fetish.FETISH_BREASTS_SELF)) {
+			availableFetishes.add(Fetish.FETISH_BREASTS_SELF);
+			availableFetishes.add(Fetish.FETISH_BREASTS_SELF);
+			availableFetishes.add(Fetish.FETISH_BREASTS_SELF);
+			availableFetishes.add(Fetish.FETISH_BREASTS_SELF);
+			availableFetishes.add(Fetish.FETISH_BREASTS_SELF);
+		}
+		
+		while(fetishesAssigned < numberOfFetishes && !availableFetishes.isEmpty()) {
 			Fetish f = availableFetishes.get(Util.random.nextInt(availableFetishes.size()));
 			character.addFetish(f);
-			availableFetishes.remove(f);
+			while(availableFetishes.remove(f)) {}
 			fetishesAssigned++;
 		}
 		
@@ -1229,9 +1274,13 @@ public class CharacterUtils {
 		}
 		
 		desiresAssigned = 0;
-		if(character instanceof Cultist || character instanceof DominionSuccubusAttacker) { // Cultists and succubus attackers never mind rape
+		if(character instanceof Cultist || character instanceof DominionSuccubusAttacker) { // Cultists and succubus attackers like raping
 			availableFetishes.remove(Fetish.FETISH_NON_CON_DOM);
 		}
+		
+		availableFetishes.remove(Fetish.FETISH_CUM_STUD); // Who doesn't like cumming? :3
+		
+		
 		while(desiresAssigned < numberOfNegativeDesires && !availableFetishes.isEmpty()) {
 			Fetish f = availableFetishes.get(Util.random.nextInt(availableFetishes.size()));
 			character.setFetishDesire(f, Math.random()>0.5?FetishDesire.ONE_DISLIKE:FetishDesire.ZERO_HATE);
@@ -1283,10 +1332,10 @@ public class CharacterUtils {
 								character.equipClothingFromNowhere(AbstractClothingType.generateClothing(
 										ct,
 										(slot == InventorySlot.GROIN || slot==InventorySlot.CHEST || slot==InventorySlot.SOCK
-												? lingerieColour
+												? ct.getAvailablePrimaryColours().contains(lingerieColour)?lingerieColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
 												: (slot.isCoreClothing()
-														?primaryColour
-														:secondaryColour)),
+														?ct.getAvailablePrimaryColours().contains(primaryColour)?primaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
+														:ct.getAvailablePrimaryColours().contains(secondaryColour)?secondaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size())))),
 										false), true, character);
 							}
 						}
@@ -1319,10 +1368,10 @@ public class CharacterUtils {
 							character.equipClothingFromNowhere(AbstractClothingType.generateClothing(
 									ct,
 									(slot == InventorySlot.GROIN || slot==InventorySlot.CHEST || slot==InventorySlot.SOCK
-											? lingerieColour
-											: (slot.isCoreClothing()
-													?primaryColour
-													:secondaryColour)),
+											?  ct.getAvailablePrimaryColours().contains(lingerieColour)?lingerieColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
+													: (slot.isCoreClothing()
+															?ct.getAvailablePrimaryColours().contains(primaryColour)?primaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size()))
+															:ct.getAvailablePrimaryColours().contains(secondaryColour)?secondaryColour:ct.getAvailablePrimaryColours().get(Util.random.nextInt(ct.getAvailablePrimaryColours().size())))),
 									false), true, character);
 							}
 								

@@ -152,11 +152,9 @@ public class CultistDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new ResponseCombat("Fight", "You're left with no choice but to fight!", ENCOUNTER_CHAPEL, Main.game.getActiveNPC(),
-						"Prepare",
-						"You tell the succubus that you're not interested, and just as you expected, she moves to attack!",
-						"Prepare",
-						"[npc.Name] readies her broomstick and shouts, [npc.speech(How <i>dare</i> you try to refuse my gift! I'll give it to you by force!)]");
+				return new ResponseCombat("Fight", "You're left with no choice but to fight!", Main.game.getActiveNPC(), Util.newHashMapOfValues(
+						new Value<>(Main.game.getPlayer(), "You tell the succubus that you're not interested, and just as you expected, she moves to attack!"),
+						new Value<>(Main.game.getActiveNPC(), "[npc.Name] readies her broomstick and shouts, [npc.speech(How <i>dare</i> you try to refuse my gift! I'll give it to you by force!)]")));
 				
 			} else if(index==2) {
 				return new ResponseSex("Accept", "Drop to your knees and prepare to service her orally.",

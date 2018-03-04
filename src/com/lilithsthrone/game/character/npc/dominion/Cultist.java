@@ -51,7 +51,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.88
- * @version 0.1.89
+ * @version 0.1.99
  * @author Innoxia
  */
 public class Cultist extends NPC {
@@ -78,8 +78,6 @@ public class Cultist extends NPC {
 				false);
 		
 		if(!isImported) {
-			setAttribute(Attribute.MAJOR_STRENGTH, (int)(this.getAttributeValue(Attribute.MAJOR_STRENGTH) * (0.75f + (Math.random()/2))));
-			setAttribute(Attribute.MAJOR_ARCANE, (int)(this.getAttributeValue(Attribute.MAJOR_ARCANE) * (0.75f + (Math.random()/2))));
 			setAttribute(Attribute.MAJOR_CORRUPTION, 100);
 	
 			this.setWorldLocation(Main.game.getPlayer().getWorldLocation());
@@ -392,29 +390,24 @@ public class Cultist extends NPC {
 		}
 	}
 	
-	@Override
-	public String getAttackDescription(Attack attackType, boolean isHit) {
-		if (attackType == Attack.MAIN) {
-			return this.getMainWeapon().getWeaponType().getAttackDescription(this, Main.game.getPlayer(), isHit);
-			
-		} else if (attackType == Attack.SPELL) {
-			return "<p>"
-						+UtilText.parse(this,
-							UtilText.returnStringAtRandom(
-									"[npc.Name] swirls her broomstick around in a mesmerising pattern, before thrusting it at you and casting a spell!",
-									"[npc.Name] places her broomstick between her legs, and, thrusting her hips forwards, she lets out an incredibly lewd moan as she casts a spell!",
-									"[npc.Name] thrusts her broomstick out into mid-air five times, before letting out a desperate moan and casting a spell!"))
-					+"</p>";
-			
-		} else {
-			return "<p>"
-					+UtilText.parse(this,
-						UtilText.returnStringAtRandom(
-								"[npc.Name] puts on a smouldering look, and as her eyes meet yours, you hear an extremely lewd moan echoing around in your head, [npc.thought(~Aaah!~ You're making me so wet!)]",
-								"[npc.Name] locks her big, innocent-looking eyes with yours, and as she pouts, you hear an echoing moan deep within your mind, [npc.thought(~Mmm!~ Fuck me! ~Aaa!~ My pussy's wet and ready for you!)]",
-								"[npc.Name] pouts innocently at you, before blowing you a wet kiss. As she straightens back up, you feel a ghostly pair of wet lips press against your cheek."))
-					+"</p>";
-		}
+	public String getSpellDescription() {
+		return "<p>"
+				+UtilText.parse(this,
+					UtilText.returnStringAtRandom(
+							"[npc.Name] swirls her broomstick around in a mesmerising pattern, before thrusting it at you and casting a spell!",
+							"[npc.Name] places her broomstick between her legs, and, thrusting her hips forwards, she lets out an incredibly lewd moan as she casts a spell!",
+							"[npc.Name] thrusts her broomstick out into mid-air five times, before letting out a desperate moan and casting a spell!"))
+			+"</p>";
+	}
+	
+	public String getSeductionDescription(Attack attackType, boolean isHit) {
+		return "<p>"
+				+UtilText.parse(this,
+					UtilText.returnStringAtRandom(
+							"[npc.Name] puts on a smouldering look, and as her eyes meet yours, you hear an extremely lewd moan echoing around in your head, [npc.thought(~Aaah!~ You're making me so wet!)]",
+							"[npc.Name] locks her big, innocent-looking eyes with yours, and as she pouts, you hear an echoing moan deep within your mind, [npc.thought(~Mmm!~ Fuck me! ~Aaa!~ My pussy's wet and ready for you!)]",
+							"[npc.Name] pouts innocently at you, before blowing you a wet kiss. As she straightens back up, you feel a ghostly pair of wet lips press against your cheek."))
+				+"</p>";
 	}
 
 	@Override

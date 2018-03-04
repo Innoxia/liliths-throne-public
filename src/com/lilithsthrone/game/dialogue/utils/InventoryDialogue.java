@@ -7,11 +7,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -24,7 +24,6 @@ import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.ShopTransaction;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.BlockedParts;
-import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
@@ -44,7 +43,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.1.87
+ * @version 0.2.0
  * @author Innoxia
  */
 public class InventoryDialogue {
@@ -190,8 +189,8 @@ public class InventoryDialogue {
 											}
 										}
 									}
-									Combat.setPlayerTurnText(responseSB.toString());
-									Combat.attackEnemy();
+									Combat.appendTurnText(Main.game.getPlayer(), "Clothing Displacement", responseSB.toString());
+									Combat.endCombatTurn();
 									Combat.setPreviousAction(Attack.NONE);
 									Main.mainController.openInventory();
 								}
@@ -219,9 +218,9 @@ public class InventoryDialogue {
 											}
 										}
 									}
-									
-									Combat.setPlayerTurnText(responseSB.toString());
-									Combat.attackEnemy();
+
+									Combat.appendTurnText(Main.game.getPlayer(), "Clothing Replacement", responseSB.toString());
+									Combat.endCombatTurn();
 									Combat.setPreviousAction(Attack.NONE);
 									Main.mainController.openInventory();
 								}
@@ -245,9 +244,9 @@ public class InventoryDialogue {
 										Main.game.getPlayer().unequipClothingIntoInventory(c, true, Main.game.getPlayer());
 										responseSB.append("<p style='text-align:center;'>"+Main.game.getPlayer().getUnequipDescription()+"</p>");
 									}
-									
-									Combat.setPlayerTurnText(responseSB.toString());
-									Combat.attackEnemy();
+
+									Combat.appendTurnText(Main.game.getPlayer(), "Clothing Removal", responseSB.toString());
+									Combat.endCombatTurn();
 									Combat.setPreviousAction(Attack.NONE);
 									Main.mainController.openInventory();
 								}
@@ -278,9 +277,9 @@ public class InventoryDialogue {
 											slotsTaken.add(c.getClothingType().getSlot());
 										}
 									}
-									
-									Combat.setPlayerTurnText(responseSB.toString());
-									Combat.attackEnemy();
+
+									Combat.appendTurnText(Main.game.getPlayer(), "Wearing Clothing", responseSB.toString());
+									Combat.endCombatTurn();
 									Combat.setPreviousAction(Attack.NONE);
 									Main.mainController.openInventory();
 								}
@@ -305,7 +304,7 @@ public class InventoryDialogue {
 										//TODO optimize (what if someone stores a thousand panties somewhere?)
 										int i = Main.game.getPlayerCell().getInventory().getItemsInInventory().size();
 										while(i > 0) {
-											Main.game.getPlayer().addItem(Main.game.getPlayerCell().getInventory().getItemsInInventory().get(i-1), true);
+											Main.game.getPlayer().addItem(Main.game.getPlayerCell().getInventory().getItemsInInventory().get(i-1), true, true);
 											i--;
 										}
 										
@@ -337,7 +336,7 @@ public class InventoryDialogue {
 										int i = inventoryNPC.getAllItemsInInventory().size();
 										while(i > 0) {
 											if(!Main.game.getPlayer().isInventoryFull() || Main.game.getPlayer().hasClothing(inventoryNPC.getAllClothingInInventory().get(i-1))) {
-												Main.game.getPlayer().addItem(inventoryNPC.getAllItemsInInventory().get(i-1), false);
+												Main.game.getPlayer().addItem(inventoryNPC.getAllItemsInInventory().get(i-1), false, true);
 												inventoryNPC.removeItem(inventoryNPC.getAllItemsInInventory().get(i-1));
 											}
 											i--;
@@ -559,7 +558,7 @@ public class InventoryDialogue {
 									//TODO optimize (what if someone stores a thousand panties somewhere?)
 									int i = Main.game.getPlayerCell().getInventory().getItemsInInventory().size();
 									while(i > 0) {
-										Main.game.getPlayer().addItem(Main.game.getPlayerCell().getInventory().getItemsInInventory().get(i-1), true);
+										Main.game.getPlayer().addItem(Main.game.getPlayerCell().getInventory().getItemsInInventory().get(i-1), true, true);
 										i--;
 									}
 									
@@ -1071,9 +1070,9 @@ public class InventoryDialogue {
 									return new Response(Util.capitaliseSentence(item.getItemType().getUseName()) +" (self)", Util.capitaliseSentence(item.getItemType().getUseName()) + " the " + item.getName() + ".", Combat.ENEMY_ATTACK){
 										@Override
 										public void effects(){
-											Combat.setPlayerTurnText(Main.game.getPlayer().useItem(item, Main.game.getPlayer(), false));
+											Combat.appendTurnText(Main.game.getPlayer(), Util.capitaliseSentence(item.getItemType().getUseName())+" "+item.getName(), Main.game.getPlayer().useItem(item, Main.game.getPlayer(), false));
 											resetPostAction();
-											Combat.attackEnemy();
+											Combat.endCombatTurn();
 											Combat.setPreviousAction(Attack.NONE);
 											Main.mainController.openInventory();
 										}
@@ -1106,9 +1105,9 @@ public class InventoryDialogue {
 											null){
 										@Override
 										public void effects(){
-											Combat.setPlayerTurnText(Main.game.getPlayer().useItem(item, inventoryNPC, false));
+											Combat.appendTurnText(Main.game.getPlayer(), Util.capitaliseSentence(item.getItemType().getUseName())+" "+item.getName(), Main.game.getPlayer().useItem(item, inventoryNPC, false));
 											resetPostAction();
-											Combat.attackEnemy();
+											Combat.endCombatTurn();
 											Combat.setPreviousAction(Attack.NONE);
 											Main.mainController.openInventory();
 										}
@@ -1119,9 +1118,9 @@ public class InventoryDialogue {
 											"Get "+inventoryNPC.getName("the")+" to "+ item.getItemType().getUseName() + " the " + item.getName() + ".", Combat.ENEMY_ATTACK){
 										@Override
 										public void effects(){
-											Combat.setPlayerTurnText(Main.game.getPlayer().useItem(item, inventoryNPC, false));
+											Combat.appendTurnText(Main.game.getPlayer(), Util.capitaliseSentence(item.getItemType().getUseName())+" "+item.getName(), Main.game.getPlayer().useItem(item, inventoryNPC, false));
 											resetPostAction();
-											Combat.attackEnemy();
+											Combat.endCombatTurn();
 											Combat.setPreviousAction(Attack.NONE);
 											Main.mainController.openInventory();
 										}
@@ -2251,13 +2250,13 @@ public class InventoryDialogue {
 								return new Response("Equip (self)", "Equip the " + weapon.getName() + ".", Combat.ENEMY_ATTACK){
 									@Override
 									public void effects(){
-										Combat.setPlayerTurnText("<p style='text-align:center;'>"
-																	+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
-																	?Main.game.getPlayer().equipMainWeaponFromInventory(weapon, Main.game.getPlayer())
-																	:Main.game.getPlayer().equipOffhandWeaponFromInventory(weapon, Main.game.getPlayer()))
-																+ "</p>");
+										Combat.appendTurnText(Main.game.getPlayer(), "Equip weapon", "<p style='text-align:center;'>"
+												+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
+												?Main.game.getPlayer().equipMainWeaponFromInventory(weapon, Main.game.getPlayer())
+												:Main.game.getPlayer().equipOffhandWeaponFromInventory(weapon, Main.game.getPlayer()))
+											+ "</p>");
 										resetPostAction();
-										Combat.attackEnemy();
+										Combat.endCombatTurn();
 										Combat.setPreviousAction(Attack.NONE);
 										Main.mainController.openInventory();
 									}
@@ -2963,6 +2962,9 @@ public class InventoryDialogue {
 						if(clothing.getEnchantmentItemType(null)==null) {
 							return new Response("Enchant", "This clothing cannot be enchanted!", null);
 							
+						} else if(!clothing.isEnchantmentKnown()) {
+							return new Response("Enchant", "You need to identify the clothing before it can be enchanted!", null);
+							
 						} else if(Main.game.isDebugMode()) {
 							return new Response("Enchant", "Enchant this clothing.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 								@Override
@@ -3030,11 +3032,12 @@ public class InventoryDialogue {
 								return new Response("Equip (self)", "Equip the " + clothing.getName() + ".", Combat.ENEMY_ATTACK){
 									@Override
 									public void effects(){
-										Combat.setPlayerTurnText(
+										Combat.appendTurnText(Main.game.getPlayer(), "Equip " + clothing.getName(),
 												"<p style='text-align:center;'>"
-														+ equipClothingFromInventory(Main.game.getPlayer(), Main.game.getPlayer(), clothing)
-												+ "</p>");
-										Combat.attackEnemy();
+												+ equipClothingFromInventory(Main.game.getPlayer(), Main.game.getPlayer(), clothing)
+										+ "</p>");
+										resetPostAction();
+										Combat.endCombatTurn();
 										Combat.setPreviousAction(Attack.NONE);
 										Main.mainController.openInventory();
 									}
@@ -3113,7 +3116,10 @@ public class InventoryDialogue {
 								if(clothing.getEnchantmentItemType(null)==null) {
 									return new Response("Enchant", "This clothing cannot be enchanted!", null);
 									
-								} else if(Main.game.isDebugMode()) {
+								} else if(!clothing.isEnchantmentKnown()) {
+									return new Response("Enchant", "You need to identify the clothing before it can be enchanted!", null);
+									
+								}  else if(Main.game.isDebugMode()) {
 									return new Response("Enchant", "Enchant this clothing.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 										@Override
 										public void effects() {
@@ -3150,11 +3156,11 @@ public class InventoryDialogue {
 								return getQuickTradeResponse();
 								
 							} else if(index == 11) {
-								if(clothing.getClothingType().equals(ClothingType.NECK_SLAVE_COLLAR) && inventoryNPC.isAbleToBeEnslaved() && !inventoryNPC.isSlave()) {
+								if(clothing.isEnslavementClothing() && inventoryNPC.isAbleToBeEnslaved() && !inventoryNPC.isSlave()) {
 									return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), UtilText.parse(inventoryNPC, "Make [npc.name] equip the "+clothing.getName()+"!"), INVENTORY_MENU){
 										@Override
 										public DialogueNodeOld getNextDialogue() {
-											return inventoryNPC.getEnslavementDialogue();
+											return inventoryNPC.getEnslavementDialogue(clothing);
 										}
 										@Override
 										public void effects(){
@@ -3310,7 +3316,10 @@ public class InventoryDialogue {
 								if(clothing.getEnchantmentItemType(null)==null) {
 									return new Response("Enchant", "This clothing cannot be enchanted!", null);
 									
-								} else if(Main.game.isDebugMode()) {
+								} else if(!clothing.isEnchantmentKnown()) {
+									return new Response("Enchant", "You need to identify the clothing before it can be enchanted!", null);
+									
+								}  else if(Main.game.isDebugMode()) {
 									return new Response("Enchant", "Enchant this clothing.", EnchantmentDialogue.ENCHANTMENT_MENU) {
 										@Override
 										public void effects() {
@@ -3614,11 +3623,11 @@ public class InventoryDialogue {
 								
 							} else if(index == 11) {
 
-								if(clothing.getClothingType().equals(ClothingType.NECK_SLAVE_COLLAR) && inventoryNPC.isAbleToBeEnslaved() && !inventoryNPC.isSlave()) {
+								if(clothing.isEnslavementClothing() && inventoryNPC.isAbleToBeEnslaved() && !inventoryNPC.isSlave()) {
 									return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), UtilText.parse(inventoryNPC, "Make [npc.name] equip the "+clothing.getName()+"!"), INVENTORY_MENU){
 										@Override
 										public DialogueNodeOld getNextDialogue() {
-											return inventoryNPC.getEnslavementDialogue();
+											return inventoryNPC.getEnslavementDialogue(clothing);
 										}
 										@Override
 										public void effects(){
@@ -3843,14 +3852,14 @@ public class InventoryDialogue {
 							return new Response("Unequip", "Unequip the " + weapon.getName() + ".", Combat.ENEMY_ATTACK){
 								@Override
 								public void effects(){
-									Combat.setPlayerTurnText(
+									Combat.appendTurnText(Main.game.getPlayer(), "Unequip " + weapon.getName(),
 											"<p style='text-align:center;'>"
-												+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
-													?Main.game.getPlayer().unequipMainWeapon(false)
-													:Main.game.getPlayer().unequipOffhandWeapon(false))
-											+ "</p>");
+													+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
+														?Main.game.getPlayer().unequipMainWeapon(false)
+														:Main.game.getPlayer().unequipOffhandWeapon(false))
+												+ "</p>");
 									resetPostAction();
-									Combat.attackEnemy();
+									Combat.endCombatTurn();
 									Combat.setPreviousAction(Attack.NONE);
 									Main.mainController.openInventory();
 								}
@@ -3865,14 +3874,14 @@ public class InventoryDialogue {
 									return new Response("Drop", "Drop your " + weapon.getName() + ".", Combat.ENEMY_ATTACK){
 										@Override
 										public void effects(){
-											Combat.setPlayerTurnText(
+											Combat.appendTurnText(Main.game.getPlayer(), "Drop " + weapon.getName(),
 													"<p style='text-align:center;'>"
-														+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
-															?Main.game.getPlayer().unequipMainWeapon(true)
-															:Main.game.getPlayer().unequipOffhandWeapon(true))
-													+ "</p>");
+															+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
+																?Main.game.getPlayer().unequipMainWeapon(true)
+																:Main.game.getPlayer().unequipOffhandWeapon(true))
+														+ "</p>");
 											resetPostAction();
-											Combat.attackEnemy();
+											Combat.endCombatTurn();
 											Combat.setPreviousAction(Attack.NONE);
 											Main.mainController.openInventory();
 										}
@@ -3886,14 +3895,14 @@ public class InventoryDialogue {
 									return new Response("Store", "Store your " + weapon.getName() + " in this area.", Combat.ENEMY_ATTACK){
 										@Override
 										public void effects(){
-											Combat.setPlayerTurnText(
+											Combat.appendTurnText(Main.game.getPlayer(), "Store " + weapon.getName(),
 													"<p style='text-align:center;'>"
-														+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
-															?Main.game.getPlayer().unequipMainWeapon(true)
-															:Main.game.getPlayer().unequipOffhandWeapon(true))
-													+ "</p>");
+															+ (weapon.getWeaponType().getSlot()==InventorySlot.WEAPON_MAIN
+																?Main.game.getPlayer().unequipMainWeapon(true)
+																:Main.game.getPlayer().unequipOffhandWeapon(true))
+														+ "</p>");
 											resetPostAction();
-											Combat.attackEnemy();
+											Combat.endCombatTurn();
 											Combat.setPreviousAction(Attack.NONE);
 											Main.mainController.openInventory();
 										}
@@ -4235,8 +4244,9 @@ public class InventoryDialogue {
 										@Override
 										public void effects(){
 											unequipClothingToFloor(Main.game.getPlayer(), clothing);
-											Combat.setPlayerTurnText(owner.getUnequipDescription());
-											Combat.attackEnemy();
+											Combat.appendTurnText(Main.game.getPlayer(), "Drop " + clothing.getName(), owner.getUnequipDescription());
+											resetPostAction();
+											Combat.endCombatTurn();
 											Combat.setPreviousAction(Attack.NONE);
 											Main.mainController.openInventory();
 										}
@@ -4253,8 +4263,9 @@ public class InventoryDialogue {
 										@Override
 										public void effects(){
 											unequipClothingToFloor(Main.game.getPlayer(), clothing);
-											Combat.setPlayerTurnText(owner.getUnequipDescription());
-											Combat.attackEnemy();
+											Combat.appendTurnText(Main.game.getPlayer(), "Store " + clothing.getName(), owner.getUnequipDescription());
+											resetPostAction();
+											Combat.endCombatTurn();
 											Combat.setPreviousAction(Attack.NONE);
 											Main.mainController.openInventory();
 										}
@@ -4282,8 +4293,9 @@ public class InventoryDialogue {
 									@Override
 									public void effects(){
 										unequipClothingToInventory(Main.game.getPlayer(), clothing);
-										Combat.setPlayerTurnText(owner.getUnequipDescription());
-										Combat.attackEnemy();
+										Combat.appendTurnText(Main.game.getPlayer(), "Unequip " + clothing.getName(), owner.getUnequipDescription());
+										resetPostAction();
+										Combat.endCombatTurn();
 										Combat.setPreviousAction(Attack.NONE);
 										Main.mainController.openInventory();
 									}
@@ -4309,8 +4321,9 @@ public class InventoryDialogue {
 										@Override
 										public void effects(){
 											Main.game.getPlayer().isAbleToBeReplaced(clothing, clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11), true, true, Main.game.getPlayer());
-											Combat.setPlayerTurnText(owner.getReplaceDescription());
-											Combat.attackEnemy();
+											Combat.appendTurnText(Main.game.getPlayer(), "Replace " + clothing.getName(), owner.getReplaceDescription());
+											resetPostAction();
+											Combat.endCombatTurn();
 											Combat.setPreviousAction(Attack.NONE);
 											Main.mainController.openInventory();
 										}
@@ -4333,8 +4346,9 @@ public class InventoryDialogue {
 										@Override
 										public void effects(){
 											Main.game.getPlayer().isAbleToBeDisplaced(clothing, clothing.getClothingType().getBlockedPartsKeysAsListWithoutNONE().get(index - 11), true, true, Main.game.getPlayer());
-											Combat.setPlayerTurnText(owner.getDisplaceDescription());
-											Combat.attackEnemy();
+											Combat.appendTurnText(Main.game.getPlayer(), "Displace " + clothing.getName(), owner.getDisplaceDescription());
+											resetPostAction();
+											Combat.endCombatTurn();
 											Combat.setPreviousAction(Attack.NONE);
 											Main.mainController.openInventory();
 										}
@@ -5122,6 +5136,7 @@ public class InventoryDialogue {
 							clothing.setSecondaryColour(dyePreviewSecondary);
 							clothing.setTertiaryColour(dyePreviewTertiary);
 							owner.addClothing(clothing, false);
+
 						} else {
 							Main.game.getPlayerCell().getInventory().removeClothing(clothing);
 							clothing.setColour(dyePreviewPrimary);
@@ -5461,7 +5476,7 @@ public class InventoryDialogue {
 					+ SVGString
 				+ "</div>"
 			+ "</div>"
-			+ "<h4><b>"+title+"</b></h4>"
+			+ "<h5><b>"+title+"</b></h5>"
 			+ "<p>"
 				+ description
 			+ "</p>";
@@ -5573,7 +5588,7 @@ public class InventoryDialogue {
 				.collect(Collectors.toList());
 			
 			for(int i = 0 ; i<count; i++) {
-				to.addItem(items.get(i), false);
+				to.addItem(items.get(i), false, to.isPlayer());
 				from.removeItem(items.get(i));
 			}
 		}
@@ -5603,7 +5618,7 @@ public class InventoryDialogue {
 				.collect(Collectors.toList());
 			
 			for(int i = 0 ; i<count; i++) {
-				to.addItem(items.get(i), true);
+				to.addItem(items.get(i), true, to.isPlayer());
 			}
 		}
 		resetPostAction();
@@ -5615,7 +5630,7 @@ public class InventoryDialogue {
 			if(buyback && to.isPlayer()) {
 				Main.game.getPlayer().incrementMoney(-itemPrice);
 				from.incrementMoney(itemPrice);
-				Main.game.getPlayer().addItem(item, false);
+				Main.game.getPlayer().addItem(item, false, true);
 				Main.game.getPlayer().getBuybackStack().remove(buyBackIndex);
 				
 			} else {

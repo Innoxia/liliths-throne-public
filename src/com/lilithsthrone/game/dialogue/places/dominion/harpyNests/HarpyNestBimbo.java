@@ -1,9 +1,10 @@
 package com.lilithsthrone.game.dialogue.places.dominion.harpyNests;
 
 import com.lilithsthrone.game.Weather;
-import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -282,11 +283,17 @@ public class HarpyNestBimbo {
 						public void effects() {
 							Main.game.getDialogueFlags().values.add(DialogueFlagValue.bimboEncountered);
 							Main.game.getDialogueFlags().values.add(DialogueFlagValue.bimboPacified);
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MATRIARCH_BIMBO_LOLLIPOP), false));
-						}
-						@Override
-						public QuestLine getQuestLine() {
-							return QuestLine.SIDE_HARPY_PACIFICATION;
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MATRIARCH_BIMBO_LOLLIPOP), false, true));
+							
+							if(Main.game.getPlayer().getQuest(QuestLine.SIDE_HARPY_PACIFICATION) == Quest.HARPY_PACIFICATION_ONE) {
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HARPY_PACIFICATION, Quest.HARPY_PACIFICATION_TWO));
+								
+							} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_HARPY_PACIFICATION) == Quest.HARPY_PACIFICATION_TWO) {
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HARPY_PACIFICATION, Quest.HARPY_PACIFICATION_THREE));
+								
+							} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_HARPY_PACIFICATION) == Quest.HARPY_PACIFICATION_THREE) {
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HARPY_PACIFICATION, Quest.HARPY_PACIFICATION_REWARD));
+							}
 						}
 					};
 						
@@ -359,11 +366,17 @@ public class HarpyNestBimbo {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.bimboPacified);
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MATRIARCH_BIMBO_LOLLIPOP), false));
-					}
-					@Override
-					public QuestLine getQuestLine() {
-						return QuestLine.SIDE_HARPY_PACIFICATION;
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.HARPY_MATRIARCH_BIMBO_LOLLIPOP), false, true));
+						
+						if(Main.game.getPlayer().getQuest(QuestLine.SIDE_HARPY_PACIFICATION) == Quest.HARPY_PACIFICATION_ONE) {
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HARPY_PACIFICATION, Quest.HARPY_PACIFICATION_TWO));
+							
+						} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_HARPY_PACIFICATION) == Quest.HARPY_PACIFICATION_TWO) {
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HARPY_PACIFICATION, Quest.HARPY_PACIFICATION_THREE));
+							
+						} else if(Main.game.getPlayer().getQuest(QuestLine.SIDE_HARPY_PACIFICATION) == Quest.HARPY_PACIFICATION_THREE) {
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HARPY_PACIFICATION, Quest.HARPY_PACIFICATION_REWARD));
+						}
 					}
 				};
 					
@@ -423,7 +436,7 @@ public class HarpyNestBimbo {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "[bimboHarpyCompanion.Name] rushes to do her matriarch's bidding!", HARPY_NEST_BIMBO_UGLY, Main.game.getHarpyBimboCompanion());
+				return new ResponseCombat("Fight", "[bimboHarpyCompanion.Name] rushes to do her matriarch's bidding!", Main.game.getHarpyBimboCompanion());
 					
 			} else {
 				return null;
@@ -558,7 +571,7 @@ public class HarpyNestBimbo {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "[bimboHarpyCompanion.Name] rushes to do her matriarch's bidding!", HARPY_NEST_BIMBO_FIGHT, Main.game.getHarpyBimboCompanion());
+				return new ResponseCombat("Fight", "[bimboHarpyCompanion.Name] rushes to do her matriarch's bidding!", Main.game.getHarpyBimboCompanion());
 					
 			} else {
 				return null;
@@ -633,7 +646,7 @@ public class HarpyNestBimbo {
 								+ " An intense, sweet flavour hits your tongue, and you find that it's quite unlike anything you've ever tasted before."
 								+ " Before you know what you're doing, you're wrapping your [pc.lips] around the delicious candy, letting out little whining noises as you find yourself unable to stop sucking and licking it..."
 							+ "</p>"
-							+ItemEffectType.BIMBO_LOLLIPOP.applyEffect(null, null, null, 0, Main.game.getHarpyBimbo(), Main.game.getPlayer()));
+							+ItemEffectType.BIMBO_LOLLIPOP.applyEffect(null, null, null, 0, Main.game.getHarpyBimbo(), Main.game.getPlayer(), null));
 					}
 				};
 					
@@ -667,7 +680,7 @@ public class HarpyNestBimbo {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "[bimboHarpy.Name] looks furious as she launches her attack on you!", HARPY_NEST_BIMBO_FIGHT_BEAT_GF, Main.game.getHarpyBimbo());
+				return new ResponseCombat("Fight", "[bimboHarpy.Name] looks furious as she launches her attack on you!", Main.game.getHarpyBimbo());
 					
 			} else {
 				return null;
@@ -746,7 +759,7 @@ public class HarpyNestBimbo {
 								+ " An intense, sweet flavour hits your tongue, and you find that it's quite unlike anything you've ever tasted before."
 								+ " Before you know what you're doing, you're wrapping your [pc.lips] around the delicious candy, letting out little whining noises as you find yourself unable to stop sucking and licking it..."
 							+ "</p>"
-							+ItemEffectType.BIMBO_LOLLIPOP.applyEffect(null, null, null, 0, Main.game.getHarpyBimbo(), Main.game.getPlayer()));
+							+ItemEffectType.BIMBO_LOLLIPOP.applyEffect(null, null, null, 0, Main.game.getHarpyBimbo(), Main.game.getPlayer(), null));
 					}
 				};
 					

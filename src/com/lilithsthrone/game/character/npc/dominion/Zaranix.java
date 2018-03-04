@@ -5,7 +5,6 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.NameTriplet;
-import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
@@ -18,6 +17,8 @@ import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.Attack;
@@ -50,8 +51,8 @@ import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
- * @since 0.1.0
- * @version 0.1.90
+ * @since 0.1.?
+ * @version 0.1.99
  * @author Innoxia
  */
 public class Zaranix extends NPC {
@@ -172,21 +173,22 @@ public class Zaranix extends NPC {
 	}
 
 	@Override
-	public String getAttackDescription(Attack attackType, boolean isHit) {
-		if (attackType == Attack.MAIN) {
-			return "<p>"
-						+ UtilText.returnStringAtRandom(
-								"With a booming shout, Zaranix delivers a solid kick to your torso!",
-								"With an angry roar, Zaranix punches you square in the chest!",
-								"Zaranix lets out a furious shout as he punches you in the [pc.arm]!") 
-					+ "</p>";
-		} else {
-			return "<p>"
-					+ UtilText.returnStringAtRandom(
-							"Letting out a booming roar, Zaranix thrusts his arm into the air and casts a spell!",
-							"Zaranix steps back, and with an angry shout, casts a spell!") 
-				+ "</p>";
-		}
+	public String getMainAttackDescription(boolean isHit) {
+		return "<p>"
+				+ UtilText.returnStringAtRandom(
+						"With a booming shout, Zaranix delivers a solid kick to your torso!",
+						"With an angry roar, Zaranix punches you square in the chest!",
+						"Zaranix lets out a furious shout as he punches you in the [pc.arm]!") 
+			+ "</p>";
+	}
+
+	@Override
+	public String getSpellDescription() {
+		return "<p>"
+				+ UtilText.returnStringAtRandom(
+						"Letting out a booming roar, Zaranix thrusts his arm into the air and casts a spell!",
+						"Zaranix steps back, and with an angry shout, casts a spell!") 
+			+ "</p>";
 	}
 	
 	@Override
@@ -195,8 +197,11 @@ public class Zaranix extends NPC {
 			return new Response("Victory", "You have defeated Zaranix!", AFTER_COMBAT_VICTORY) {
 				@Override
 				public void effects() {
-					Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
 					Main.game.getArthur().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, false);
+					
+					if(Main.game.getPlayer().getQuest(QuestLine.MAIN) == Quest.MAIN_1_H_THE_GREAT_ESCAPE) {
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_I_ARTHURS_TALE));
+					}
 				}
 			};
 		} else {
@@ -311,7 +316,7 @@ public class Zaranix extends NPC {
 				
 			} else if (index == 4) {
 				return new Response("Transformations",
-						"Get Zaranix to use [npc.her] demonic powers to transform [npc.herself]...",
+						"Get Zaranix to use [zaranix.her] demonic powers to transform [zaranix.herself]...",
 						BodyChanging.BODY_CHANGING_CORE){
 					@Override
 					public void effects() {

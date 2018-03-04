@@ -7,7 +7,6 @@ import org.w3c.dom.Element;
 
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.NameTriplet;
-import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.Covering;
@@ -20,6 +19,7 @@ import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.Attack;
@@ -146,7 +146,6 @@ public class Vicky extends NPC {
 		}
 		this.addWeapon(AbstractWeaponType.generateWeapon(WeaponType.OFFHAND_CHAOS_EPIC), false);
 		this.addWeapon(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_EPIC), false);
-		this.addWeapon(AbstractWeaponType.generateWeapon(WeaponType.MAIN_FEATHER_DUSTER), false);
 		
 		AbstractItem ingredient = AbstractItemType.generateItem(availableIngredients[Util.random.nextInt(availableIngredients.length)]);
 		TFModifier primaryMod = TFModifier.getTFRacialBodyPartsList().get(Util.random.nextInt(TFModifier.getTFRacialBodyPartsList().size()));
@@ -246,7 +245,7 @@ public class Vicky extends NPC {
 		if(applyEffects) {
 			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.arthursPackageObtained)) {
 				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.arthursPackageObtained, true);
-				Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.ARTHURS_PACKAGE), false));
+				Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.ARTHURS_PACKAGE), false, true));
 			}
 		}
 	}
@@ -255,11 +254,6 @@ public class Vicky extends NPC {
 	@Override
 	public String getCombatDescription() {
 		return null;// You never fight
-	}
-
-	@Override
-	public String getAttackDescription(Attack attackType, boolean isHit) {
-		return null; // You never fight
 	}
 
 	@Override

@@ -22,10 +22,14 @@ public class ResponseTrade extends Response {
 	public void openTrade() {
 		Main.mainController.openInventory(tradePartner, InventoryInteraction.TRADING);
 	}
-	
 
 	@Override
 	public boolean disabledOnNullDialogue(){
 		return false;
+	}
+	
+	@Override
+	public boolean isTradeHighlight() {
+		return true;
 	}
 }

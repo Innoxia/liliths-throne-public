@@ -62,6 +62,31 @@ public class Util {
 	public static Color newColour(int hex) {
 		return newColour((hex & 0xFF0000) >> 16, (hex & 0xFF00) >> 8, (hex & 0xFF));
 	}
+	
+	/**
+	 * Takes an input, and a maximum value, and returns LT's universal "dropoff" formula to it. 
+	 * This maps values using a cos function to apply dropoff at higher values.</br></br>
+	 * 
+	 * e.g.</br>
+	 * getModifiedDropoffValue(-25, 100) = -28.7</br>
+	 * getModifiedDropoffValue(0, 100) = 0</br>
+	 * getModifiedDropoffValue(25, 100) = 28.7</br>
+	 * getModifiedDropoffValue(50, 100) = 53.03</br>
+	 * getModifiedDropoffValue(75, 100) = 69.29</br>
+	 * getModifiedDropoffValue(100, 100) = 75</br>
+	 * 
+	 * @param input
+	 * @param maxValue
+	 * @return
+	 */
+	public static float getModifiedDropoffValue(float input, float maxValue) {
+		if(Math.abs(input)>Math.abs(maxValue)) {
+			input = Math.signum(input) * maxValue;
+		}
+		float value = Math.abs(input)/Math.abs(maxValue);
+		//y = 0.75 * cos((x*(pi/2))-(pi/2))
+		return ((int)((Math.signum(input) * maxValue * 0.75f * Math.cos((value * (Math.PI/2)) - (Math.PI/2)))*100))/100f;
+	}
 
 	public static class Value<T, S> {
 		private T key;
@@ -393,6 +418,9 @@ public class Util {
 	}
 
 	public static String capitaliseSentence(String sentence) {
+		if(sentence==null || sentence.isEmpty()) {
+			return sentence;
+		}
 		return Character.toUpperCase(sentence.charAt(0)) + sentence.substring(1);
 	}
 
@@ -587,6 +615,44 @@ public class Util {
 		utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
 
 		return utilitiesStringBuilder.toString();
+	}
+
+	private static String[] drunkSounds = new String[] { "~Hic!~ " };
+	/**
+	 * Turns a normal sentence into a sexy sentence.</br>
+	 * Example:</br>
+	 * "How far is it to the town hall?"</br>
+	 * "How ~Aah!~ far is it ~Mmm!~ to the town ~Aah!~ hall?"</br>
+	 * 
+	 * @param sentence
+	 *            sentence to apply sexy modifications
+	 * @param frequency
+	 *            of sex sounds (i.e. 4 would be 1 in 4 words are sexy)
+	 * @return
+	 *            modified sentence
+	 */
+	public static String addDrunkSlur(String sentence, int frequency) {
+		splitSentence = sentence.split(" ");
+		utilitiesStringBuilder.setLength(0);
+
+		// 1 in "frequency" words are sexy interjections, with a minimum of 1.
+		int wordsToMuffle = splitSentence.length / frequency + 1;
+
+		int offset = 0;
+		for (int i = 0; i < wordsToMuffle; i++) {
+			offset = random.nextInt(frequency);
+			offset = ((i * frequency + offset) >= splitSentence.length ? splitSentence.length - 1 : (i * frequency + offset));
+			
+			// Add the sexy sound to this word:
+			splitSentence[offset] = drunkSounds[random.nextInt(drunkSounds.length)] + splitSentence[offset];
+			
+		}
+		for (String word : splitSentence) {
+			utilitiesStringBuilder.append(word + " ");
+		}
+		utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
+		
+		return utilitiesStringBuilder.toString().replaceAll("Hi ", "Heeey ").replaceAll("yes", "yesh").replaceAll("is", "ish").replaceAll("So", "Sho").replaceAll("so", "sho");
 	}
 
 	/**

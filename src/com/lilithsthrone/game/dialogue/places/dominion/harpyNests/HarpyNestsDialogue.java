@@ -1,7 +1,7 @@
 package com.lilithsthrone.game.dialogue.places.dominion.harpyNests;
 
-import com.lilithsthrone.game.character.Quest;
-import com.lilithsthrone.game.character.QuestLine;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
@@ -170,7 +170,7 @@ public class HarpyNestsDialogue {
 						@Override
 						public void effects() {
 							Main.game.getDialogueFlags().values.add(DialogueFlagValue.hasHarpyNestAccess);
-							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.BOOK_HARPY), false));
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.BOOK_HARPY), false, true));
 						}
 					};
 					
@@ -182,8 +182,8 @@ public class HarpyNestsDialogue {
 				if(!Main.game.getPlayer().hasQuest(QuestLine.SIDE_HARPY_PACIFICATION)) {
 					return new Response("Angry Harpies", "Ask one of the Enforcers about the recent troubles in the Harpy Nests.", ENTRANCE_ENFORCER_POST_ASK_ABOUT_RIOTS) {
 						@Override
-						public QuestLine getQuestLine() {
-							return QuestLine.SIDE_HARPY_PACIFICATION;
+						public void effects() {
+							Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.SIDE_HARPY_PACIFICATION));
 						}
 					};
 					
@@ -191,11 +191,8 @@ public class HarpyNestsDialogue {
 					if(Main.game.getPlayer().getQuest(QuestLine.SIDE_HARPY_PACIFICATION) == Quest.HARPY_PACIFICATION_REWARD && !Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)) {
 						return new Response("Report back", "Report to the Enforcer that you've calmed the three matriarchs down.", ENTRANCE_ENFORCER_POST_COMPLETED_PACIFICATION) {
 							@Override
-							public QuestLine getQuestLine() {
-								return QuestLine.SIDE_HARPY_PACIFICATION;
-							}
-							@Override
 							public void effects() {
+								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HARPY_PACIFICATION, Quest.SIDE_UTIL_COMPLETE));
 								Main.game.getPlayer().incrementMoney(1500);
 							}
 						};

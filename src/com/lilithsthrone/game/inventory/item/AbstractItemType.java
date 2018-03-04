@@ -18,7 +18,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.84
- * @version 0.1.84
+ * @version 0.1.99
  * @author Innoxia
  */
 public abstract class AbstractItemType extends AbstractCoreType implements Serializable {
@@ -27,7 +27,9 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 	
 	private String determiner, name, namePlural, description, pathName;
 	private boolean plural;
-	private Colour colourShade;
+	private Colour colourPrimary;
+	private Colour colourSecondary;
+	private Colour colourTertiary;
 	private int value;
 	private Rarity rarity;
 	protected String SVGString;
@@ -35,14 +37,16 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 	protected List<ItemEffect> effects;
 
 	public AbstractItemType(
+			int value,
 			String determiner,
 			boolean plural,
 			String name,
 			String namePlural,
 			String description,
 			String pathName,
-			Colour colourShade,
-			int value,
+			Colour colourPrimary,
+			Colour colourSecondary,
+			Colour colourTertiary,
 			Rarity rarity,
 			TFEssence relatedEssence,
 			List<ItemEffect> effects) {
@@ -65,10 +69,20 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 			this.effects=effects;
 		}
 
-		if (colourShade == null) {
-			this.colourShade = com.lilithsthrone.utils.Colour.CLOTHING_BLACK;
+		if (colourPrimary == null) {
+			this.colourPrimary = com.lilithsthrone.utils.Colour.CLOTHING_BLACK;
 		} else {
-			this.colourShade = colourShade;
+			this.colourPrimary = colourPrimary;
+		}
+		if (colourSecondary == null) {
+			this.colourSecondary = com.lilithsthrone.utils.Colour.CLOTHING_BLACK;
+		} else {
+			this.colourSecondary = colourSecondary;
+		}
+		if (colourTertiary == null) {
+			this.colourTertiary = com.lilithsthrone.utils.Colour.CLOTHING_BLACK;
+		} else {
+			this.colourTertiary = colourTertiary;
 		}
 		
 		// Set this item's file image:
@@ -76,20 +90,45 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/items/" + pathName + ".svg");
 			String s = Util.inputStreamToString(is);
 
-			for (int i = 0; i <= 14; i++)
-				s = s.replaceAll("linearGradient" + i, this.hashCode() + this.colourShade.toString() + "linearGradient" + i);
-			s = s.replaceAll("#ff2a2a", this.colourShade.getShades()[0]);
-			s = s.replaceAll("#ff5555", this.colourShade.getShades()[1]);
-			s = s.replaceAll("#ff8080", this.colourShade.getShades()[2]);
-			s = s.replaceAll("#ffaaaa", this.colourShade.getShades()[3]);
-			s = s.replaceAll("#ffd5d5", this.colourShade.getShades()[4]);
-			SVGString = s;
-
+			SVGString = colourReplacement(this.colourPrimary, this.colourSecondary, this.colourTertiary, s);
+			
 			is.close();
 
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+	}
+	
+	private String colourReplacement(Colour colour, Colour colourSecondary, Colour colourTertiary, String inputString) {
+		String s = inputString;
+		for (int i = 0; i <= 14; i++) {
+			s = s.replaceAll("linearGradient" + i, this.hashCode() + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "linearGradient" + i);
+			s = s.replaceAll("innoGrad" + i, this.hashCode() + colour.toString() + (colourSecondary!=null?colourSecondary.toString():"") + (colourTertiary!=null?colourTertiary.toString():"") + "innoGrad" + i);
+			
+		}
+		s = s.replaceAll("#ff2a2a", colour.getShades()[0]);
+		s = s.replaceAll("#ff5555", colour.getShades()[1]);
+		s = s.replaceAll("#ff8080", colour.getShades()[2]);
+		s = s.replaceAll("#ffaaaa", colour.getShades()[3]);
+		s = s.replaceAll("#ffd5d5", colour.getShades()[4]);
+		
+		if(colourSecondary!=null) {
+			s = s.replaceAll("#ff7f2a", colourSecondary.getShades()[0]);
+			s = s.replaceAll("#ff9955", colourSecondary.getShades()[1]);
+			s = s.replaceAll("#ffb380", colourSecondary.getShades()[2]);
+			s = s.replaceAll("#ffccaa", colourSecondary.getShades()[3]);
+			s = s.replaceAll("#ffe6d5", colourSecondary.getShades()[4]);
+		}
+		
+		if(colourTertiary!=null) {
+			s = s.replaceAll("#ffd42a", colourTertiary.getShades()[0]);
+			s = s.replaceAll("#ffdd55", colourTertiary.getShades()[1]);
+			s = s.replaceAll("#ffe680", colourTertiary.getShades()[2]);
+			s = s.replaceAll("#ffeeaa", colourTertiary.getShades()[3]);
+			s = s.replaceAll("#fff6d5", colourTertiary.getShades()[4]);
+		}
+		
+		return s;
 	}
 	
 	@Override
@@ -203,8 +242,16 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 		return pathName;
 	}
 
-	public Colour getColour() {
-		return colourShade;
+	public Colour getColourPrimary() {
+		return colourPrimary;
+	}
+	
+	public Colour getColourSecondary() {
+		return colourSecondary;
+	}
+	
+	public Colour getColourTertiary() {
+		return colourTertiary;
 	}
 
 	public int getValue() {
@@ -250,6 +297,10 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 	}
 	
 	public boolean isTransformative() {
+		return false;
+	}
+	
+	public boolean isGift() {
 		return false;
 	}
 	

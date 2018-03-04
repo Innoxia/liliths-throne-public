@@ -20,7 +20,7 @@ public enum SVGImages {
 
 	private String
 
-	displacedIcon, cummedInIcon, feminineWarningIcon, masculineWarningIcon, jinxedIcon,
+	displacedIcon, concealedIcon, cummedInIcon, feminineWarningIcon, masculineWarningIcon, jinxedIcon,
 
 			menuIcon, inventoryIcon, inventoryIconDisabled, inventorySwitchIcon, inventorySwitchOppositeIcon, journalIcon, peopleIcon, zoomInIcon, zoomOutIcon, copyIcon, exportIcon, calendarIcon,
 
@@ -33,6 +33,8 @@ public enum SVGImages {
 			playerMapIconFeminine, playerPlaceMapIconFeminine,
 			playerMapDangerousIcon, playerPlaceMapDangerousIcon,
 
+			raceUnknown, raceDobermann, raceDobermannDesaturated,
+			
 			perkTreeArrow, spellOverlay,
 
 			weatherDayClear, weatherDayCloud, weatherDayRain, weatherDaySnow, weatherDayStormIncoming, weatherDayStorm, weatherDayStormProtected,
@@ -47,6 +49,10 @@ public enum SVGImages {
 			responseDomGentle, responseDomNormal, responseDomRough,
 			
 			NPCWarningMale, NPCWarningFemale, NPCWarningDemon,
+
+			stopwatch,
+			
+			counterZero, counterOne, counterTwo, counterThree, counterFour, counterFive, counterFivePlus,
 			
 			scaleZero, scaleOne, scaleTwo, scaleThree, scaleFour,
 			scaleZeroDisabled, scaleOneDisabled, scaleTwoDisabled, scaleThreeDisabled, scaleFourDisabled,
@@ -80,6 +86,10 @@ public enum SVGImages {
 			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/InventoryIcons/displacedWarningIcon.svg");
 			displacedIcon = Util.inputStreamToString(is);
 
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/InventoryIcons/concealed.svg");
+			concealedIcon = Util.inputStreamToString(is);
+			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/InventoryIcons/cummedInWarningIcon.svg");
 			cummedInIcon = Util.inputStreamToString(is);
 
@@ -193,6 +203,19 @@ public enum SVGImages {
 			playerPlaceMapDangerousIcon = setColour(playerPlaceMapDangerousIcon, Colour.GENERIC_BAD);
 
 			
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/raceUnknown.svg");
+			raceUnknown = Util.inputStreamToString(is);
+			raceUnknown = setColour(raceUnknown, Colour.RACE_UNKNOWN);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/raceDogMorphDobermann.svg");
+			raceDobermann = Util.inputStreamToString(is);
+			raceDobermann = setColour(raceDobermann, Colour.RACE_DOG_MORPH);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/raceDogMorphDobermann.svg");
+			raceDobermannDesaturated = Util.inputStreamToString(is);
+			raceDobermannDesaturated = setColour(raceDobermannDesaturated, Colour.BASE_GREY);
+			
+			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/perkTreeArrow.svg");
 			perkTreeArrow = Util.inputStreamToString(is);
 			
@@ -265,14 +288,14 @@ public enum SVGImages {
 			responseUnlocked = setColour(responseUnlocked, Colour.GENERIC_GOOD);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/responseUnlocked.svg");
 			responseUnlockedDisabled = Util.inputStreamToString(is);
-			responseUnlockedDisabled = setColour(responseUnlockedDisabled, Colour.BASE_GREY);
+			responseUnlockedDisabled = setColour(responseUnlockedDisabled, Colour.BASE_BLACK);
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/responseOption.svg");
 			responseOption = Util.inputStreamToString(is);
 			responseOption = setColour(responseOption, Colour.GENERIC_GOOD);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/responseOption.svg");
 			responseOptionDisabled = Util.inputStreamToString(is);
-			responseOptionDisabled = setColour(responseOptionDisabled, Colour.BASE_GREY);
+			responseOptionDisabled = setColour(responseOptionDisabled, Colour.BASE_BLACK);
 			
 			
 			
@@ -306,7 +329,35 @@ public enum SVGImages {
 			NPCWarningDemon = setColour(NPCWarningDemon, Colour.GENERIC_ARCANE);
 			
 			
+
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/stopwatch.svg");
+			stopwatch = Util.inputStreamToString(is);
+			stopwatch = setColour(stopwatch, Colour.BASE_GREY);
+			
 			// scales:
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/fetishes/overlay0.svg");
+			counterZero = Util.inputStreamToString(is);
+			counterZero = setColour(counterZero, Colour.BASE_PINK);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/fetishes/overlay1.svg");
+			counterOne = Util.inputStreamToString(is);
+			counterOne = setColour(counterOne, Colour.BASE_PINK);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/fetishes/overlay2.svg");
+			counterTwo = Util.inputStreamToString(is);
+			counterTwo = setColour(counterTwo, Colour.BASE_PINK);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/fetishes/overlay3.svg");
+			counterThree = Util.inputStreamToString(is);
+			counterThree = setColour(counterThree, Colour.BASE_PINK);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/fetishes/overlay4.svg");
+			counterFour = Util.inputStreamToString(is);
+			counterFour = setColour(counterFour, Colour.BASE_PINK);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/fetishes/overlay5.svg");
+			counterFive = Util.inputStreamToString(is);
+			counterFive = setColour(counterFive, Colour.BASE_PINK);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/fetishes/overlay5Plus.svg");
+			counterFivePlus = Util.inputStreamToString(is);
+			counterFivePlus = setColour(counterFivePlus, Colour.BASE_PINK);
+			
 
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/scale_zero.svg");
 			scaleZero = Util.inputStreamToString(is);
@@ -527,6 +578,10 @@ public enum SVGImages {
 		return displacedIcon;
 	}
 
+	public String getConcealedIcon() {
+		return concealedIcon;
+	}
+	
 	public String getCummedInIcon() {
 		return cummedInIcon;
 	}
@@ -1037,5 +1092,50 @@ public enum SVGImages {
 	public String getCreampieMasochist() {
 		return creampieMasochist;
 	}
+
+	public String getRaceUnknown() {
+		return raceUnknown;
+	}
+
+	public String getRaceDobermann() {
+		return raceDobermann;
+	}
+	
+	public String getRaceDobermannDesaturated() {
+		return raceDobermannDesaturated;
+	}
+
+	public String getCounterZero() {
+		return counterZero;
+	}
+
+	public String getCounterOne() {
+		return counterOne;
+	}
+
+	public String getCounterTwo() {
+		return counterTwo;
+	}
+
+	public String getCounterThree() {
+		return counterThree;
+	}
+
+	public String getCounterFour() {
+		return counterFour;
+	}
+
+	public String getCounterFive() {
+		return counterFive;
+	}
+
+	public String getCounterFivePlus() {
+		return counterFivePlus;
+	}
+
+	public String getStopwatch() {
+		return stopwatch;
+	}
+	
 	
 }

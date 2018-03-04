@@ -8,7 +8,7 @@ import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
  * Compares by rarity.
  * 
  * @since 0.1.2
- * @version 0.1.84
+ * @version 0.2.0
  * @author Innoxia
  */
 public class WeaponRarityComparator implements Comparator<AbstractWeaponType> {
@@ -18,7 +18,7 @@ public class WeaponRarityComparator implements Comparator<AbstractWeaponType> {
 		if (result != 0) {
 			return result;
 		} else {
-			return (int) (first.getDamageLevel().getDamageModifier() - second.getDamageLevel().getDamageModifier());
+			return (int) (first.getDamage() - second.getDamage());
 		}
 	}
 }

@@ -56,11 +56,12 @@ public enum Race {
 			1,
 			Attribute.DAMAGE_HUMAN,
 			Attribute.RESISTANCE_HUMAN,
-			null,
-			null),
+			FurryPreference.NORMAL,
+			FurryPreference.NORMAL),
 
 	// ANGEL:
-	ANGEL("angel", "angels",
+	ANGEL("angel",
+			"angels",
 			"angel",
 			"angel",
 			"angel",
@@ -95,11 +96,12 @@ public enum Race {
 			1,
 			Attribute.DAMAGE_ANGEL,
 			Attribute.RESISTANCE_ANGEL,
-			null,
-			null),
+			FurryPreference.NORMAL,
+			FurryPreference.NORMAL),
 
 	// DEMON:
-	DEMON("demon", "demons",
+	DEMON("demon",
+			"demons",
 			"incubus",
 			"succubus",
 			"incubi",
@@ -125,7 +127,6 @@ public enum Race {
 				+ "A demon's offspring will be a mixture of imps and offspring of their partner's race."
 			+ "</p>",
 
-
 			Colour.RACE_DEMON,
 			Genus.CELESTIAL,
 			Disposition.CIVILIZED,
@@ -137,30 +138,12 @@ public enum Race {
 			3,
 			Attribute.DAMAGE_DEMON,
 			Attribute.RESISTANCE_DEMON,
-			null,
-			null){
-		
-		@Override
-		public String getOffspringMaleName() {
-			return "imps";
-		}
-		@Override
-		public String getOffspringMaleNameSingular() {
-			return "imp";
-		}
-
-		@Override
-		public String getOffspringFemaleName() {
-			return "imps";
-		}
-		@Override
-		public String getOffspringFemaleNameSingular() {
-			return "imp";
-		}
-	},
+			FurryPreference.NORMAL,
+			FurryPreference.NORMAL),
 
 	// BOVINES:
-	COW_MORPH("cow-morph", "cow-morphs",
+	COW_MORPH("cow-morph",
+			"cow-morphs",
 			"cow-boy",
 			"cow-girl",
 			"cow-boys",
@@ -199,7 +182,8 @@ public enum Race {
 			FurryPreference.NORMAL),
 
 	// CANINES:
-	DOG_MORPH("dog-morph", "dog-morphs",
+	DOG_MORPH("dog-morph",
+			"dog-morphs",
 			"dog-boy",
 			"dog-girl",
 			"dog-boys",
@@ -236,12 +220,10 @@ public enum Race {
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL),
 
-	WOLF_MORPH(
-			"wolf-morph", "wolf-morphs",
-			
+	WOLF_MORPH("wolf-morph",
+			"wolf-morphs",
 			"wolf-boy",
 			"wolf-girl",
-			
 			"wolf-boys",
 			"wolf-girls",
 
@@ -278,11 +260,10 @@ public enum Race {
 			FurryPreference.NORMAL),
 
 	// FELINES:
-	CAT_MORPH("cat-morph", "cat-morphs",
-			
+	CAT_MORPH("cat-morph",
+			"cat-morphs",
 			"cat-boy",
 			"cat-girl",
-			
 			"cat-boys",
 			"cat-girls",
 
@@ -321,12 +302,10 @@ public enum Race {
 			FurryPreference.NORMAL),
 
 	// EQUINE:
-	HORSE_MORPH(
-			"horse-morph", "horse-morphs",
-			
+	HORSE_MORPH("horse-morph",
+			"horse-morphs",
 			"horse-boy",
 			"horse-girl",
-			
 			"horse-boys",
 			"horse-girls",
 
@@ -364,12 +343,10 @@ public enum Race {
 			FurryPreference.NORMAL),
 
 	
-	 REINDEER_MORPH(
-			 "reindeer-morph", "reindeer-morphs",
-				
+	 REINDEER_MORPH("reindeer-morph",
+			"reindeer-morphs",
 			"reindeer-boy",
 			"reindeer-girl",
-			
 			"reindeer-boys",
 			"reindeer-girls",
 
@@ -407,12 +384,10 @@ public enum Race {
 			FurryPreference.NORMAL),
 			
 
-	SQUIRREL_MORPH(
-			"squirrel-morph", "squirrel-morphs",
-			
+	SQUIRREL_MORPH("squirrel-morph",
+			"squirrel-morphs",
 			"squirrel-boy",
 			"squirrel-girl",
-			
 			"squirrel-boys",
 			"squirrel-girls",
 
@@ -450,13 +425,10 @@ public enum Race {
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL),
 	
-	ALLIGATOR_MORPH(
-			"alligator-morph",
+	ALLIGATOR_MORPH("alligator-morph",
 			"alligator-morphs",
-			
 			"alligator-boy",
 			"alligator-girl",
-			
 			"alligator-boys",
 			"alligator-girls",
 
@@ -498,58 +470,56 @@ public enum Race {
 			FurryPreference.NORMAL,
 			FurryPreference.NORMAL),
 
-//	// SLIME:
-//	SLIME("slime", "slimes",
-//			
-//			"slime",
-//			"slime",
-//			
-//			"slimes",
-//			"slimes",
-//			
-//			// TODO Not accurate!
-//			"<p>"
-//				+ "Slimes are a humanoid race, able to morph their bodies into different shapes and sizes."
-//				+ " Slimes are tolerated in Dominion, as they aren't aggressive and don't cause too many problems."
-//				+ " They are typically found near bodies of water, as they require a steady source of liquid to stay healthy."
-//				+ " Slimes can change their gender at will, though the vast majority choose to take on a female form, and seeing a male slime is a very rare occurrence."
-//			+ "</p>",
-//
-//			"<p>"
-//				+ "Slimes are quite stupid, and usually only care about obtaining other species' cum and milk."
-//				+ " They will change their bodies to become as attractive as possible in order to attract a mate."
-//				+ " Once a suitable mate has been found, slimes will be extremely eager to please them in any way they can, so they can feast on their sexual fluids."
-//				+ " If they attract a female partner, they will encourage them to drink lactation-inducing liquids in order to get a full meal."
-//			+ "</p>"
-//
-//			+ "<p>"
-//				+ "Slimes can come in all shapes and sizes, as they are capable of morphing their bodies."
-//				+ " Doing so requires some time and effort, so slimes usually stick to one appearance."
-//				+ " Most slimes, however, will take on the form of a beautiful woman with massive breasts, as they prefer attracting male partners."
-//				+ " If they attract an unwilling partner, slimes have no qualms about fighting, as they can't be hurt by any physical attacks."
-//				+ " Their soft bodies are unable to inflict much damage on others though, so they will often resort to seducing their opponents into submission."
-//			+ "</p>",
-//
-//			Colour.CLOTHING_WHITE,
-//			Genus.SLIME,
-//			Disposition.NEUTRAL,
-//			StatusEffect.SLIME,
-//			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SEDUCTION)),
-//			true,
-//			0.5f,
-//			1,
-//			1,
-//			Attribute.DAMAGE_HUMAN,
-//			Attribute.RESISTANCE_HUMAN,
-//			null,
-//			null),
+	// SLIME:
+	SLIME("slime",
+			"slimes",
+			"slime",
+			"slime",
+			"slimes",
+			"slimes",
+			
+			// TODO Not accurate!
+			"<p>"
+				+ "Slimes are a humanoid race, able to morph their bodies into different shapes and sizes."
+				+ " Slimes are tolerated in Dominion, as they aren't aggressive and don't cause too many problems."
+				+ " They are typically found near bodies of water, as they require a steady source of liquid to stay healthy."
+				+ " Slimes can change their gender at will, though the vast majority choose to take on a female form, and seeing a male slime is a very rare occurrence."
+			+ "</p>",
+
+			"<p>"
+				+ "Slimes are quite stupid, and usually only care about obtaining other species' cum and milk."
+				+ " They will change their bodies to become as attractive as possible in order to attract a mate."
+				+ " Once a suitable mate has been found, slimes will be extremely eager to please them in any way they can, so they can feast on their sexual fluids."
+				+ " If they attract a female partner, they will encourage them to drink lactation-inducing liquids in order to get a full meal."
+			+ "</p>"
+
+			+ "<p>"
+				+ "Slimes can come in all shapes and sizes, as they are capable of morphing their bodies."
+				+ " Doing so requires some time and effort, so slimes usually stick to one appearance."
+				+ " Most slimes, however, will take on the form of a beautiful woman with massive breasts, as they prefer attracting male partners."
+				+ " If they attract an unwilling partner, slimes have no qualms about fighting, as they can't be hurt by any physical attacks."
+				+ " Their soft bodies are unable to inflict much damage on others though, so they will often resort to seducing their opponents into submission."
+			+ "</p>",
+
+			Colour.CLOTHING_WHITE,
+			Genus.SLIME,
+			Disposition.NEUTRAL,
+			StatusEffect.SLIME,
+			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SEDUCTION)),
+			true,
+			0.5f,
+			1,
+			1,
+			Attribute.DAMAGE_HUMAN,
+			Attribute.RESISTANCE_HUMAN,
+			FurryPreference.NORMAL,
+			FurryPreference.NORMAL),
 
 	// AVIAN:
-	HARPY("harpy", "harpies",
-			
+	HARPY("harpy",
+			"harpies",
 			"harpy",
 			"harpy",
-			
 			"harpies",
 			"harpies",
 			
@@ -605,8 +575,8 @@ public enum Race {
 			4,
 			Attribute.DAMAGE_HARPY,
 			Attribute.RESISTANCE_HARPY,
-			null,
-			null);
+			FurryPreference.NORMAL,
+			FurryPreference.NORMAL);
 
 	/*
 	 * // INSECTS: BEE_MORPH("bee-morph",
@@ -1563,7 +1533,7 @@ public enum Race {
 	 * StatusEffect.LILIN);
 	 */
 
-	private String name, namePlural, singularMaleName, singularFemaleName, pluralMaleName, pluralFemaleName, basicDescription, advancedDescription;
+	private String name, basicDescription, advancedDescription;
 	private Colour colour;
 	private Genus genus;
 	private Disposition disposition;
@@ -1575,8 +1545,7 @@ public enum Race {
 	private Attribute damageMultiplier, resistanceMultiplier;
 	private FurryPreference defaultFemininePreference, defaultMasculinePreference;
 	
-	private Race(
-			String name,
+	private Race(String name,
 			String namePlural,
 			String singularMaleName,
 			String singularFemaleName,
@@ -1594,7 +1563,8 @@ public enum Race {
 			boolean vulnerableToLilithsLustStorm,
 			
 			float chanceForMaleOffspring,
-			int numberOfOffspringLow, int numberOfOffspringHigh,
+			int numberOfOffspringLow,
+			int numberOfOffspringHigh,
 			
 			Attribute damageMultiplier,
 			Attribute resistanceMultiplier,
@@ -1602,13 +1572,6 @@ public enum Race {
 			FurryPreference defaultFemininePreference,
 			FurryPreference defaultMasculinePreference) {
 		this.name = name;
-		this.namePlural = namePlural;
-
-		this.singularMaleName = singularMaleName;
-		this.singularFemaleName = singularFemaleName;
-		
-		this.pluralMaleName = pluralMaleName;
-		this.pluralFemaleName = pluralFemaleName;
 
 		this.basicDescription = basicDescription;
 		this.advancedDescription = advancedDescription;
@@ -1636,10 +1599,6 @@ public enum Race {
 
 	public String getName() {
 		return name;
-	}
-	
-	public String getNamePlural() {
-		return namePlural;
 	}
 
 	public String getBasicDescription() {
@@ -1677,22 +1636,6 @@ public enum Race {
 	public int getNumberOfOffspringHigh() {
 		return numberOfOffspringHigh;
 	}
-
-	public String getSingularMaleName() {
-		return singularMaleName;
-	}
-
-	public String getSingularFemaleName() {
-		return singularFemaleName;
-	}
-	
-	public String getPluralMaleName() {
-		return pluralMaleName;
-	}
-
-	public String getPluralFemaleName() {
-		return pluralFemaleName;
-	}
 	
 	public Colour getColour() {
 		return colour;
@@ -1706,20 +1649,6 @@ public enum Race {
 	
 	public float getChanceForMaleOffspring() {
 		return chanceForMaleOffspring;
-	}
-
-	public String getOffspringMaleName() {
-		return pluralMaleName;
-	}
-	public String getOffspringMaleNameSingular() {
-		return singularMaleName;
-	}
-	
-	public String getOffspringFemaleName() {
-		return pluralFemaleName;
-	}
-	public String getOffspringFemaleNameSingular() {
-		return singularFemaleName;
 	}
 
 	public Attribute getDamageMultiplier() {

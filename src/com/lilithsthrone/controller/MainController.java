@@ -41,7 +41,6 @@ import com.lilithsthrone.game.character.CharacterChangeEventListener;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.Personality;
-import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Breast;
@@ -62,6 +61,7 @@ import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
+import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
@@ -97,7 +97,7 @@ import com.lilithsthrone.game.character.gender.GenderPronoun;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.TestNPC;
 import com.lilithsthrone.game.character.race.FurryPreference;
-import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.SpecialAttack;
@@ -118,6 +118,7 @@ import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.CharacterModificationUtils;
 import com.lilithsthrone.game.dialogue.utils.CharactersPresentDialogue;
 import com.lilithsthrone.game.dialogue.utils.EnchantmentDialogue;
+import com.lilithsthrone.game.dialogue.utils.GiftDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryDialogue;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.OptionsDialogue;
@@ -132,6 +133,7 @@ import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.enchanting.TFModifier;
+import com.lilithsthrone.game.inventory.enchanting.TFPotency;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemEffect;
@@ -172,7 +174,7 @@ import javafx.scene.web.WebView;
 
 /**
  * @since 0.1.0
- * @version 0.1.99
+ * @version 0.2.0
  * @author Innoxia
  */
 public class MainController implements Initializable {
@@ -307,7 +309,7 @@ public class MainController implements Initializable {
 			openInventory(null, InventoryInteraction.CHARACTER_CREATION);
 			
 		} else if(Main.game.isInCombat()) {
-			openInventory((NPC) Combat.getOpponent(), InventoryInteraction.COMBAT);
+			openInventory((NPC) Combat.getTargetedCombatant(Main.game.getPlayer()), InventoryInteraction.COMBAT);
 			
 		} else if(Main.game.isInSex()) {
 			openInventory((NPC) Sex.getActivePartner(), InventoryInteraction.SEX);
@@ -458,8 +460,17 @@ public class MainController implements Initializable {
 //						 }
 						
 						 if(event.getCode()==KeyCode.END){
-//							 
-							 Main.game.getPlayer().incrementAlcoholLevel(0.2f);
+							 
+//							 Main.game.getPlayer().incrementCummedInArea(OrificeType.VAGINA, 10000);
+							 
+//							 Main.game.getPlayer().addPsychoactiveFluidIngested(FluidType.CUM_HUMAN);
+//							 Main.game.getPlayer().addPsychoactiveFluidIngested(FluidType.MILK_HUMAN);
+//							 Main.game.getPlayer().addPsychoactiveFluidIngested(FluidType.GIRL_CUM_HUMAN);
+//							 Main.game.getPlayer().addStatusEffect(StatusEffect.PSYCHOACTIVE, 60*6);
+							 
+//							 Main.game.getPlayer().addAddiction(new Addiction(FluidType.MILK_HUMAN, Main.game.getMinutesPassed()));
+							 
+//							 Main.game.getPlayer().incrementAlcoholLevel(0.2f);
 							 
 //							 for(Fetish f : Fetish.values()) {
 //								 Main.game.getPlayer().incrementFetishExperience(f, (int) (Math.random()*20));
@@ -1110,236 +1121,6 @@ public class MainController implements Initializable {
 					"Export the currently displayed character to the 'data/characters' folder. Exported characters can be imported at the auction block in Slaver Alley."), false);
 		}
 		
-		// Combat tooltips:
-		if (Main.game.isInCombat()) {
-			for (StatusEffect se : Main.game.getPlayer().getStatusEffects()) {
-				if (((EventTarget) document.getElementById("COMBAT_PLAYER_SE_" + se)) != null) {
-					addEventListener(document, "COMBAT_PLAYER_SE_" + se, "mousemove", moveTooltipListener, false);
-					addEventListener(document, "COMBAT_PLAYER_SE_" + se, "mouseleave", hideTooltipListener, false);
-					
-					TooltipInformationEventListener el = new TooltipInformationEventListener().setStatusEffect(se, Main.game.getPlayer());
-					addEventListener(document, "COMBAT_PLAYER_SE_" + se, "mouseenter", el, false);
-				}
-			}
-			for (SpecialAttack sa : Main.game.getPlayer().getSpecialAttacks()) {
-				if (((EventTarget) document.getElementById("COMBAT_PLAYER_SA_" + sa)) != null) {
-					addEventListener(document, "COMBAT_PLAYER_SA_" + sa, "mousemove", moveTooltipListener, false);
-					addEventListener(document, "COMBAT_PLAYER_SA_" + sa, "mouseleave", hideTooltipListener, false);
-					
-					TooltipInformationEventListener el = new TooltipInformationEventListener().setSpecialAttack(sa, Main.game.getPlayer());
-					addEventListener(document, "COMBAT_PLAYER_SA_" + sa, "mouseenter", el, false);
-				}
-			}
-			if (Main.game.getPlayer().getMainWeapon() != null) {
-				for (Spell s : Main.game.getPlayer().getMainWeapon().getSpells()) {
-					if (((EventTarget) document.getElementById("COMBAT_PLAYER_SPELL_MAIN_" + s)) != null) {
-						addEventListener(document, "COMBAT_PLAYER_SPELL_MAIN_" + s, "mousemove", moveTooltipListener, false);
-						addEventListener(document, "COMBAT_PLAYER_SPELL_MAIN_" + s, "mouseleave", hideTooltipListener, false);
-						
-						TooltipInformationEventListener el = new TooltipInformationEventListener().setSpell(s, Main.game.getPlayer().getLevel(), Main.game.getPlayer());
-						addEventListener(document, "COMBAT_PLAYER_SPELL_MAIN_" + s, "mouseenter", el, false);
-					}
-				}
-			}
-			if (Main.game.getPlayer().getOffhandWeapon() != null) {
-				for (Spell s : Main.game.getPlayer().getOffhandWeapon().getSpells()) {
-					if (((EventTarget) document.getElementById("COMBAT_PLAYER_SPELL_OFFHAND_" + s)) != null) {
-						addEventListener(document, "COMBAT_PLAYER_SPELL_OFFHAND_" + s, "mousemove", moveTooltipListener, false);
-						addEventListener(document, "COMBAT_PLAYER_SPELL_OFFHAND_" + s, "mouseleave", hideTooltipListener, false);
-						
-						TooltipInformationEventListener el = new TooltipInformationEventListener().setSpell(s, Main.game.getPlayer().getLevel(), Main.game.getPlayer());
-						addEventListener(document, "COMBAT_PLAYER_SPELL_OFFHAND_" + s, "mouseenter", el, false);
-					}
-				}
-			}
-			
-			for (StatusEffect se : Combat.getOpponent().getStatusEffects()) {
-				if (((EventTarget) document.getElementById("SE_COMBAT_" + se)) != null) {
-					addEventListener(document, "SE_COMBAT_" + se, "mousemove", moveTooltipListener, false);
-					addEventListener(document, "SE_COMBAT_" + se, "mouseleave", hideTooltipListener, false);
-					
-					TooltipInformationEventListener el = new TooltipInformationEventListener().setStatusEffect(se, Combat.getOpponent());
-					addEventListener(document, "SE_COMBAT_" + se, "mouseenter", el, false);
-				}
-			}
-			if (((EventTarget) document.getElementById("SE_COMBAT_" + StatusEffect.COMBAT_HIDDEN)) != null) {
-				addEventListener(document, "SE_COMBAT_" + StatusEffect.COMBAT_HIDDEN, "mousemove", moveTooltipListener, false);
-				addEventListener(document, "SE_COMBAT_" + StatusEffect.COMBAT_HIDDEN, "mouseleave", hideTooltipListener, false);
-				
-				TooltipInformationEventListener el = new TooltipInformationEventListener().setStatusEffect(StatusEffect.COMBAT_HIDDEN, Combat.getOpponent());
-				addEventListener(document, "SE_COMBAT_" + StatusEffect.COMBAT_HIDDEN, "mouseenter", el, false);
-			}
-			for (Perk p : Combat.getOpponent().getMajorPerks()) {
-				if (((EventTarget) document.getElementById("PERK_COMBAT_" + p)) != null) {
-					addEventListener(document, "PERK_COMBAT_" + p, "mousemove", moveTooltipListener, false);
-					addEventListener(document, "PERK_COMBAT_" + p, "mouseleave", hideTooltipListener, false);
-					
-					TooltipInformationEventListener el = new TooltipInformationEventListener().setPerk(p, Combat.getOpponent());
-					addEventListener(document, "PERK_COMBAT_" + p, "mouseenter", el, false);
-				}
-			}
-			for (Fetish f : Combat.getOpponent().getFetishes()) {
-				if (((EventTarget) document.getElementById("FETISH_COMBAT_" + f)) != null) {
-					addEventListener(document, "FETISH_COMBAT_" + f, "mousemove", moveTooltipListener, false);
-					addEventListener(document, "FETISH_COMBAT_" + f, "mouseleave", hideTooltipListener, false);
-					
-					TooltipInformationEventListener el = new TooltipInformationEventListener().setFetish(f, Combat.getOpponent());
-					addEventListener(document, "FETISH_COMBAT_" + f, "mouseenter", el, false);
-				}
-			}
-			for (SpecialAttack sa : Combat.getOpponent().getSpecialAttacks()) {
-				if (((EventTarget) document.getElementById("SA_COMBAT_" + sa)) != null) {
-					addEventListener(document, "SA_COMBAT_" + sa, "mousemove", moveTooltipListener, false);
-					addEventListener(document, "SA_COMBAT_" + sa, "mouseleave", hideTooltipListener, false);
-					
-					TooltipInformationEventListener el = new TooltipInformationEventListener().setSpecialAttack(sa, Combat.getOpponent());
-					addEventListener(document, "SA_COMBAT_" + sa, "mouseenter", el, false);
-				}
-			}
-			if (Combat.getOpponent().getMainWeapon() != null)
-				for (Spell s : Combat.getOpponent().getMainWeapon().getSpells()) {
-					if (((EventTarget) document.getElementById("SPELL_MAIN_COMBAT_" + s)) != null) {
-						addEventListener(document, "SPELL_MAIN_COMBAT_" + s, "mousemove", moveTooltipListener, false);
-						addEventListener(document, "SPELL_MAIN_COMBAT_" + s, "mouseleave", hideTooltipListener, false);
-						
-						TooltipInformationEventListener el = new TooltipInformationEventListener().setSpell(s, Combat.getOpponent().getLevel(), Combat.getOpponent());
-						addEventListener(document, "SPELL_MAIN_COMBAT_" + s, "mouseenter", el , false);
-					}
-				}
-			if (Combat.getOpponent().getOffhandWeapon() != null)
-				for (Spell s : Combat.getOpponent().getOffhandWeapon().getSpells()) {
-					if (((EventTarget) document.getElementById("SPELL_OFFHAND_COMBAT_" + s)) != null) {
-						addEventListener(document, "SPELL_OFFHAND_COMBAT_" + s, "mousemove", moveTooltipListener, false);
-						addEventListener(document, "SPELL_OFFHAND_COMBAT_" + s, "mouseleave", hideTooltipListener, false);
-						
-						TooltipInformationEventListener el =  new TooltipInformationEventListener().setSpell(s, Combat.getOpponent().getLevel(), Combat.getOpponent());
-						addEventListener(document, "SPELL_OFFHAND_COMBAT_" + s, "mouseenter", el, false);
-					}
-				}
-
-			Attribute[] attributes = { Attribute.MAJOR_STRENGTH, Attribute.MAJOR_ARCANE, Attribute.MAJOR_CORRUPTION, Attribute.HEALTH_MAXIMUM, Attribute.MANA_MAXIMUM };
-			for (Attribute a : attributes) {
-				if (((EventTarget) document.getElementById("COMBAT_PLAYER_" + a)) != null) {
-					addEventListener(document, "COMBAT_PLAYER_" + a, "mousemove", moveTooltipListener, false);
-					addEventListener(document, "COMBAT_PLAYER_" + a, "mouseleave", hideTooltipListener, false);
-					
-					TooltipInformationEventListener el = new TooltipInformationEventListener().setAttribute(a, Main.game.getPlayer());
-					addEventListener(document, "COMBAT_PLAYER_" + a, "mouseenter", el, false);
-				}
-				if (((EventTarget) document.getElementById("COMBAT_OPPONENT_" + a)) != null) {
-					addEventListener(document, "COMBAT_OPPONENT_" + a, "mousemove", moveTooltipListener, false);
-					addEventListener(document, "COMBAT_OPPONENT_" + a, "mouseleave", hideTooltipListener, false);
-					
-					TooltipInformationEventListener el = new TooltipInformationEventListener().setAttribute(a, Combat.getOpponent());
-					addEventListener(document, "COMBAT_OPPONENT_" + a, "mouseenter", el, false);
-				}
-			}
-
-			if (((EventTarget) document.getElementById("COMBAT_OPPONENT_ATTRIBUTES")) != null) {
-				addEventListener(document, "COMBAT_OPPONENT_ATTRIBUTES", "mousemove", moveTooltipListener, false);
-				addEventListener(document, "COMBAT_OPPONENT_ATTRIBUTES", "mouseleave", hideTooltipListener, false);
-				
-				TooltipInformationEventListener el = new TooltipInformationEventListener().setOpponentExtraAttributes();
-				addEventListener(document, "COMBAT_OPPONENT_ATTRIBUTES", "mouseenter", el, false);
-			}
-
-		}
-		
-		if (Main.game.getCurrentDialogueNode()==CharactersPresentDialogue.MENU || Main.game.getCurrentDialogueNode()==PhoneDialogue.CONTACTS) {
-			
-			for (StatusEffect se : CharactersPresentDialogue.characterViewed.getStatusEffects()) {
-				if (((EventTarget) document.getElementById("SE_COMBAT_" + se)) != null) {
-					addEventListener(document, "SE_COMBAT_" + se, "mousemove", moveTooltipListener, false);
-					addEventListener(document, "SE_COMBAT_" + se, "mouseleave", hideTooltipListener, false);
-					
-					TooltipInformationEventListener el = new TooltipInformationEventListener().setStatusEffect(se, CharactersPresentDialogue.characterViewed);
-					addEventListener(document, "SE_COMBAT_" + se, "mouseenter", el, false);
-				}
-			}
-			if (((EventTarget) document.getElementById("SE_COMBAT_" + StatusEffect.COMBAT_HIDDEN)) != null) {
-				addEventListener(document, "SE_COMBAT_" + StatusEffect.COMBAT_HIDDEN, "mousemove", moveTooltipListener, false);
-				addEventListener(document, "SE_COMBAT_" + StatusEffect.COMBAT_HIDDEN, "mouseleave", hideTooltipListener, false);
-				
-				TooltipInformationEventListener el = new TooltipInformationEventListener().setStatusEffect(StatusEffect.COMBAT_HIDDEN, CharactersPresentDialogue.characterViewed);
-				addEventListener(document, "SE_COMBAT_" + StatusEffect.COMBAT_HIDDEN, "mouseenter", el, false);
-			}
-			for (Perk p : CharactersPresentDialogue.characterViewed.getMajorPerks()) {
-				if (((EventTarget) document.getElementById("PERK_COMBAT_" + p)) != null) {
-					addEventListener(document, "PERK_COMBAT_" + p, "mousemove", moveTooltipListener, false);
-					addEventListener(document, "PERK_COMBAT_" + p, "mouseleave", hideTooltipListener, false);
-					
-					TooltipInformationEventListener el = new TooltipInformationEventListener().setPerk(p, CharactersPresentDialogue.characterViewed);
-					addEventListener(document, "PERK_COMBAT_" + p, "mouseenter", el, false);
-				}
-			}
-			for (Fetish f : CharactersPresentDialogue.characterViewed.getFetishes()) {
-				if (((EventTarget) document.getElementById("FETISH_COMBAT_" + f)) != null) {
-					addEventListener(document, "FETISH_COMBAT_" + f, "mousemove", moveTooltipListener, false);
-					addEventListener(document, "FETISH_COMBAT_" + f, "mouseleave", hideTooltipListener, false);
-					
-					TooltipInformationEventListener el = new TooltipInformationEventListener().setFetish(f, CharactersPresentDialogue.characterViewed);
-					addEventListener(document, "FETISH_COMBAT_" + f, "mouseenter", el, false);
-				}
-			}
-			for (SpecialAttack sa : CharactersPresentDialogue.characterViewed.getSpecialAttacks()) {
-				if (((EventTarget) document.getElementById("SA_COMBAT_" + sa)) != null) {
-					addEventListener(document, "SA_COMBAT_" + sa, "mousemove", moveTooltipListener, false);
-					addEventListener(document, "SA_COMBAT_" + sa, "mouseleave", hideTooltipListener, false);
-					
-					TooltipInformationEventListener el = new TooltipInformationEventListener().setSpecialAttack(sa, CharactersPresentDialogue.characterViewed);
-					addEventListener(document, "SA_COMBAT_" + sa, "mouseenter", el, false);
-				}
-			}
-			if (CharactersPresentDialogue.characterViewed.getMainWeapon() != null)
-				for (Spell s : CharactersPresentDialogue.characterViewed.getMainWeapon().getSpells()) {
-					if (((EventTarget) document.getElementById("SPELL_MAIN_COMBAT_" + s)) != null) {
-						addEventListener(document, "SPELL_MAIN_COMBAT_" + s, "mousemove", moveTooltipListener, false);
-						addEventListener(document, "SPELL_MAIN_COMBAT_" + s, "mouseleave", hideTooltipListener, false);
-						
-						TooltipInformationEventListener el = new TooltipInformationEventListener().setSpell(s, CharactersPresentDialogue.characterViewed.getLevel(), CharactersPresentDialogue.characterViewed);
-						addEventListener(document, "SPELL_MAIN_COMBAT_" + s, "mouseenter", el , false);
-					}
-				}
-			if (CharactersPresentDialogue.characterViewed.getOffhandWeapon() != null)
-				for (Spell s : CharactersPresentDialogue.characterViewed.getOffhandWeapon().getSpells()) {
-					if (((EventTarget) document.getElementById("SPELL_OFFHAND_COMBAT_" + s)) != null) {
-						addEventListener(document, "SPELL_OFFHAND_COMBAT_" + s, "mousemove", moveTooltipListener, false);
-						addEventListener(document, "SPELL_OFFHAND_COMBAT_" + s, "mouseleave", hideTooltipListener, false);
-						
-						TooltipInformationEventListener el =  new TooltipInformationEventListener().setSpell(s, CharactersPresentDialogue.characterViewed.getLevel(), CharactersPresentDialogue.characterViewed);
-						addEventListener(document, "SPELL_OFFHAND_COMBAT_" + s, "mouseenter", el, false);
-					}
-				}
-
-			Attribute[] attributes = { Attribute.MAJOR_STRENGTH, Attribute.MAJOR_ARCANE, Attribute.MAJOR_CORRUPTION, Attribute.HEALTH_MAXIMUM, Attribute.MANA_MAXIMUM };
-			for (Attribute a : attributes) {
-				if (((EventTarget) document.getElementById("COMBAT_PLAYER_" + a)) != null) {
-					addEventListener(document, "COMBAT_PLAYER_" + a, "mousemove", moveTooltipListener, false);
-					addEventListener(document, "COMBAT_PLAYER_" + a, "mouseleave", hideTooltipListener, false);
-					
-					TooltipInformationEventListener el = new TooltipInformationEventListener().setAttribute(a, Main.game.getPlayer());
-					addEventListener(document, "COMBAT_PLAYER_" + a, "mouseenter", el, false);
-				}
-				if (((EventTarget) document.getElementById("COMBAT_OPPONENT_" + a)) != null) {
-					addEventListener(document, "COMBAT_OPPONENT_" + a, "mousemove", moveTooltipListener, false);
-					addEventListener(document, "COMBAT_OPPONENT_" + a, "mouseleave", hideTooltipListener, false);
-					
-					TooltipInformationEventListener el = new TooltipInformationEventListener().setAttribute(a, CharactersPresentDialogue.characterViewed);
-					addEventListener(document, "COMBAT_OPPONENT_" + a, "mouseenter", el, false);
-				}
-			}
-
-			if (((EventTarget) document.getElementById("COMBAT_OPPONENT_ATTRIBUTES")) != null) {
-				addEventListener(document, "COMBAT_OPPONENT_ATTRIBUTES", "mousemove", moveTooltipListener, false);
-				addEventListener(document, "COMBAT_OPPONENT_ATTRIBUTES", "mouseleave", hideTooltipListener, false);
-				
-				TooltipInformationEventListener el = new TooltipInformationEventListener().setOpponentExtraAttributes();
-				addEventListener(document, "COMBAT_OPPONENT_ATTRIBUTES", "mouseenter", el, false);
-			}
-
-		}
-		
-
 		
 		// -------------------- Debug menu -------------------- //
 		
@@ -1492,7 +1273,66 @@ public class MainController implements Initializable {
 				}
 			}
 			
-			
+			// Gifts:
+			if(Main.game.getCurrentDialogueNode().equals(GiftDialogue.GIFT_DIALOGUE)) {
+				for (Entry<AbstractWeapon, Integer> entry : Main.game.getPlayer().getMapOfDuplicateWeapons().entrySet()) {
+					id = "GIFT_" + entry.getKey().hashCode();
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							Main.game.setContent(new Response("Give Gift", ":3", GiftDialogue.getDialogueToProceedTo()){
+								@Override
+								public void effects() {
+									Main.game.getTextStartStringBuilder().append(GiftDialogue.getReceiver().getGiftReaction(entry.getKey(), true));
+									Main.game.getPlayer().removeWeapon(entry.getKey());
+								}
+							});
+						}, false);
+						
+						addEventListener(document, id, "mousemove", moveTooltipListener, false);
+						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), Main.game.getPlayer());
+						addEventListener(document, id, "mouseenter", el2, false);
+					}
+				}
+				for (Entry<AbstractItem, Integer> entry : Main.game.getPlayer().getMapOfDuplicateItems().entrySet()) {
+					id = "GIFT_" + entry.getKey().hashCode();
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							Main.game.setContent(new Response("Give Gift", ":3", GiftDialogue.getDialogueToProceedTo()){
+								@Override
+								public void effects() {
+									Main.game.getTextStartStringBuilder().append(GiftDialogue.getReceiver().getGiftReaction(entry.getKey(), true));
+									Main.game.getPlayer().removeItem(entry.getKey());
+								}
+							});
+						}, false);
+						
+						addEventListener(document, id, "mousemove", moveTooltipListener, false);
+						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setItem(entry.getKey(), Main.game.getPlayer(), null);
+						addEventListener(document, id, "mouseenter", el2, false);
+					}
+				}
+				for (Entry<AbstractClothing, Integer> entry : Main.game.getPlayer().getMapOfDuplicateClothing().entrySet()) {
+					id = "GIFT_" + entry.getKey().hashCode();
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							Main.game.setContent(new Response("Give Gift", ":3", GiftDialogue.getDialogueToProceedTo()){
+								@Override
+								public void effects() {
+									Main.game.getTextStartStringBuilder().append(GiftDialogue.getReceiver().getGiftReaction(entry.getKey(), true));
+									Main.game.getPlayer().removeClothing(entry.getKey());
+								}
+							});
+						}, false);
+						
+						addEventListener(document, id, "mousemove", moveTooltipListener, false);
+						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setClothing(entry.getKey(), Main.game.getPlayer(), null);
+						addEventListener(document, id, "mouseenter", el2, false);
+					}
+				}
+			}
 			
 			// Non-equipped inventory:
 			
@@ -1690,6 +1530,124 @@ public class MainController implements Initializable {
 				InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setTFModifier(EnchantmentDialogue.secondaryMod);
 				addEventListener(document, "MOD_SECONDARY_ENCHANTING", "mouseenter", el2, false);
 			}
+
+			for(TFPotency potency : TFPotency.values()) {
+				id = "POTENCY_"+potency;
+				if (((EventTarget) document.getElementById(id)) != null) {
+	
+					EnchantmentEventListener el = new EnchantmentEventListener().setPotency(potency);
+					addEventListener(document, id, "click", el, false);
+					
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+					
+					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setTFPotency(potency);
+					addEventListener(document, id, "mouseenter", el2, false);
+				}
+			}
+			for(int effectCount=0; effectCount<EnchantmentDialogue.effects.size(); effectCount++) {
+				id = "DELETE_EFFECT_"+effectCount;
+				
+				if (((EventTarget) document.getElementById(id)) != null) {
+					
+					EnchantmentEventListener el = new EnchantmentEventListener().removeEffect(effectCount);
+					addEventListener(document, id, "click", el, false);
+					
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+
+					TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation("Delete Effect", "");
+					addEventListener(document, id, "mouseenter", el2, false);
+				}
+			}
+			
+			id = "LIMIT_MINIMUM";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				if(EnchantmentDialogue.limit>0) {
+					EnchantmentEventListener el = new EnchantmentEventListener().setLimit(0);
+					addEventListener(document, id, "click", el, false);
+				}
+				addEventListener(document, id, "mousemove", moveTooltipListener, false);
+				addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+				
+				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation((EnchantmentDialogue.limit==0?"Minimum Limit Reached":"Limit Minimum"), "");
+				addEventListener(document, id, "mouseenter", el2, false);
+			}
+			
+			id = "LIMIT_DECREASE_LARGE";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				if(EnchantmentDialogue.limit>0) {
+					EnchantmentEventListener el = new EnchantmentEventListener().setLimit(Math.max(0, EnchantmentDialogue.limit-(EnchantmentDialogue.ingredient.getEnchantmentEffect().getLimits(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod)/10)));
+					addEventListener(document, id, "click", el, false);
+				}
+				addEventListener(document, id, "mousemove", moveTooltipListener, false);
+				addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+				
+				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation((EnchantmentDialogue.limit==0?"Minimum Limit Reached":"Large Limit Decrease"), "");
+				addEventListener(document, id, "mouseenter", el2, false);
+			}
+			
+			id = "LIMIT_DECREASE";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				if(EnchantmentDialogue.limit>0) {
+					EnchantmentEventListener el = new EnchantmentEventListener().setLimit(EnchantmentDialogue.limit-1);
+					addEventListener(document, id, "click", el, false);
+				}
+				addEventListener(document, id, "mousemove", moveTooltipListener, false);
+				addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+				
+				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation((EnchantmentDialogue.limit==0?"Minimum Limit Reached":"Limit Decrease"), "");
+				addEventListener(document, id, "mouseenter", el2, false);
+			}
+			
+			id = "LIMIT_INCREASE";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				if(EnchantmentDialogue.limit < EnchantmentDialogue.ingredient.getEnchantmentEffect().getLimits(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod)) {
+					EnchantmentEventListener el = new EnchantmentEventListener().setLimit(EnchantmentDialogue.limit+1);
+					addEventListener(document, id, "click", el, false);
+				}
+				addEventListener(document, id, "mousemove", moveTooltipListener, false);
+				addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+				
+				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation(
+						(EnchantmentDialogue.limit < EnchantmentDialogue.ingredient.getEnchantmentEffect().getLimits(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod)
+								?"Limit Increase"
+								:"Maximum Limit Reached"), "");
+				addEventListener(document, id, "mouseenter", el2, false);
+			}
+			
+			id = "LIMIT_INCREASE_LARGE";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				int limit = EnchantmentDialogue.ingredient.getEnchantmentEffect().getLimits(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod);
+				if(EnchantmentDialogue.limit < limit) {
+					EnchantmentEventListener el = new EnchantmentEventListener().setLimit(Math.min(limit, EnchantmentDialogue.limit+(limit/10)));
+					addEventListener(document, id, "click", el, false);
+				}
+				addEventListener(document, id, "mousemove", moveTooltipListener, false);
+				addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+				
+				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation(
+						(EnchantmentDialogue.limit < EnchantmentDialogue.ingredient.getEnchantmentEffect().getLimits(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod)
+								?"Large Limit Increase"
+								:"Maximum Limit Reached"), "");
+				addEventListener(document, id, "mouseenter", el2, false);
+			}
+
+			id = "LIMIT_MAXIMUM";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				if(EnchantmentDialogue.limit < EnchantmentDialogue.ingredient.getEnchantmentEffect().getLimits(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod)) {
+					EnchantmentEventListener el = new EnchantmentEventListener().setLimit(EnchantmentDialogue.ingredient.getEnchantmentEffect().getLimits(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod));
+					addEventListener(document, id, "click", el, false);
+				}
+				addEventListener(document, id, "mousemove", moveTooltipListener, false);
+				addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+				
+				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation(
+						(EnchantmentDialogue.limit < EnchantmentDialogue.ingredient.getEnchantmentEffect().getLimits(EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod)
+								?"Set Limit To Maximum"
+								:"Maximum Limit Reached"), "");
+				addEventListener(document, id, "mouseenter", el2, false);
+			}
 			
 			// Ingredient icon:
 			if (((EventTarget) document.getElementById("INGREDIENT_ENCHANTING")) != null) {
@@ -1707,7 +1665,14 @@ public class MainController implements Initializable {
 				addEventListener(document, "INGREDIENT_ENCHANTING", "mousemove", moveTooltipListener, false);
 				addEventListener(document, "INGREDIENT_ENCHANTING", "mouseleave", hideTooltipListener, false);
 				
-				InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setItem((AbstractItem) EnchantmentDialogue.ingredient, Main.game.getPlayer(), null);
+				InventoryTooltipEventListener el2;
+				if(EnchantmentDialogue.ingredient instanceof AbstractItem) {
+					el2 = new InventoryTooltipEventListener().setItem((AbstractItem) EnchantmentDialogue.ingredient, Main.game.getPlayer(), null);
+				} else if(EnchantmentDialogue.ingredient instanceof AbstractClothing) {
+					el2 = new InventoryTooltipEventListener().setClothing((AbstractClothing) EnchantmentDialogue.ingredient, Main.game.getPlayer(), null);
+				} else {
+					el2 = new InventoryTooltipEventListener().setWeapon((AbstractWeapon) EnchantmentDialogue.ingredient, Main.game.getPlayer());
+				}
 				addEventListener(document, "INGREDIENT_ENCHANTING", "mouseenter", el2, false);
 			}
 			
@@ -1721,18 +1686,46 @@ public class MainController implements Initializable {
 							Main.game.setContent(new ResponseEffectsOnly("Craft", "Craft '"+EnchantingUtils.getPotionName(EnchantmentDialogue.ingredient, EnchantmentDialogue.effects)+"'."){
 								@Override
 								public void effects() {
+									
 									EnchantmentDialogue.craftItem(EnchantmentDialogue.ingredient, EnchantmentDialogue.effects);
 									
-									if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-										Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY));
-									}
-									
-									if(Main.game.getPlayer().hasItem((AbstractItem) EnchantmentDialogue.previousIngredient)) {
+									if((EnchantmentDialogue.previousIngredient instanceof AbstractItem?Main.game.getPlayer().hasItem((AbstractItem) EnchantmentDialogue.previousIngredient):true)
+											&& (EnchantmentDialogue.previousIngredient instanceof AbstractClothing?Main.game.getPlayer().hasClothing((AbstractClothing) EnchantmentDialogue.previousIngredient):true)
+											&& (EnchantmentDialogue.previousIngredient instanceof AbstractWeapon?Main.game.getPlayer().hasWeapon((AbstractWeapon) EnchantmentDialogue.previousIngredient):true)) {
 										EnchantmentDialogue.ingredient = EnchantmentDialogue.previousIngredient;
 										Main.game.setContent(new Response("", "", EnchantmentDialogue.ENCHANTMENT_MENU));
 									} else {
 										Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
 									}
+									
+//									EnchantmentDialogue.craftItem(EnchantmentDialogue.ingredient, EnchantmentDialogue.effects);
+//									
+//									if(EnchantmentDialogue.ingredient instanceof AbstractItem) {
+//										if(Main.game.getPlayer().hasItem((AbstractItem) EnchantmentDialogue.previousIngredient)) {
+//											EnchantmentDialogue.ingredient = EnchantmentDialogue.previousIngredient;
+//											Main.game.setContent(new Response("", "", EnchantmentDialogue.ENCHANTMENT_MENU));
+//										} else {
+//											Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
+//										}
+//										
+//									} else if(EnchantmentDialogue.ingredient instanceof AbstractClothing) {
+//										if(Main.game.getPlayer().hasClothing((AbstractClothing) EnchantmentDialogue.previousIngredient)) {
+//											EnchantmentDialogue.ingredient = EnchantmentDialogue.previousIngredient;
+//											Main.game.setContent(new Response("", "", EnchantmentDialogue.ENCHANTMENT_MENU));
+//										} else {
+//											Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
+//										}
+//										
+//									} else if(EnchantmentDialogue.ingredient instanceof AbstractWeapon) {
+//										if(Main.game.getPlayer().hasWeapon((AbstractWeapon) EnchantmentDialogue.previousIngredient)) {
+//											EnchantmentDialogue.ingredient = EnchantmentDialogue.previousIngredient;
+//											Main.game.setContent(new Response("", "", EnchantmentDialogue.ENCHANTMENT_MENU));
+//										} else {
+//											Main.game.setContent(new Response("", "", InventoryDialogue.INVENTORY_MENU));
+//										}
+//									}
+									
+									
 									
 								}
 							});
@@ -1748,9 +1741,10 @@ public class MainController implements Initializable {
 			}
 			
 			// Adding an effect:
-			if (((EventTarget) document.getElementById("ENCHANT_ADD_BUTTON")) != null) {
+			id = "ENCHANT_ADD_BUTTON";
+			if (((EventTarget) document.getElementById(id)) != null) {
 				
-				((EventTarget) document.getElementById("ENCHANT_ADD_BUTTON")).addEventListener("click", e -> {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 					if(EnchantmentDialogue.ingredient.getEnchantmentEffect().getEffectsDescription(
 							EnchantmentDialogue.primaryMod, EnchantmentDialogue.secondaryMod, EnchantmentDialogue.potency, EnchantmentDialogue.limit, Main.game.getPlayer(), Main.game.getPlayer())==null) {
 						
@@ -1765,8 +1759,21 @@ public class MainController implements Initializable {
 					}
 				}, false);
 				
-				addEventListener(document, "ENCHANT_ADD_BUTTON", "mousemove", moveTooltipListener, false);
-				addEventListener(document, "ENCHANT_ADD_BUTTON", "mouseleave", hideTooltipListener, false);
+				addEventListener(document, id, "mousemove", moveTooltipListener, false);
+				addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+
+				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation("Add Effect", "");
+				addEventListener(document, id, "mouseenter", el2, false);
+			}
+			
+			id = "ENCHANT_ADD_BUTTON_DISABLED";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				addEventListener(document, id, "mousemove", moveTooltipListener, false);
+				addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+
+				TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation("Add Effect",
+						EnchantmentDialogue.effects.size() >= EnchantmentDialogue.ingredient.getEnchantmentLimit()?"You have already added the maximum number of effects for this item!":"");
+				addEventListener(document, id, "mouseenter", el2, false);
 			}
 			
 			// Choosing a primary modifier:
@@ -3440,6 +3447,23 @@ public class MainController implements Initializable {
 						}, false);
 					}
 				}
+				
+				for(CoveringModifier modifier : CoveringModifier.values()) {
+					id = bct+"_MODIFIER_"+modifier;
+					
+					if (((EventTarget) document.getElementById(id)) != null) {
+						
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()){
+								@Override
+								public void effects() {
+									CharacterModificationUtils.getCoveringsToBeApplied().putIfAbsent(bct, new Covering(BodyChanging.getTarget().getCovering(bct)));
+									CharacterModificationUtils.getCoveringsToBeApplied().get(bct).setModifier(modifier);
+								}
+							});
+						}, false);
+					}
+				}
 
 				for(Colour colour : bct.getAllPrimaryColours()) {
 					id = bct+"_PRIMARY_"+colour;
@@ -4112,11 +4136,9 @@ public class MainController implements Initializable {
 			// Race preferences:
 			if (((EventTarget) document.getElementById("furry_preference_female_human_all")) != null) {
 				((EventTarget) document.getElementById("furry_preference_female_human_all")).addEventListener("click", e -> {
-					for (Race r : Race.values()) {
-						if(r.isAffectedByFurryPreference()) {
-							Main.getProperties().raceFemininePreferencesMap.put(r, FurryPreference.HUMAN);
-							Main.getProperties().raceMasculinePreferencesMap.put(r, FurryPreference.HUMAN);
-						}
+					for (Subspecies r : Subspecies.values()) {
+						Main.getProperties().subspeciesFeminineFurryPreferencesMap.put(r, FurryPreference.HUMAN);
+						Main.getProperties().subspeciesMasculineFurryPreferencesMap.put(r, FurryPreference.HUMAN);
 					}
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
@@ -4124,11 +4146,9 @@ public class MainController implements Initializable {
 			}
 			if (((EventTarget) document.getElementById("furry_preference_female_minimum_all")) != null) {
 				((EventTarget) document.getElementById("furry_preference_female_minimum_all")).addEventListener("click", e -> {
-					for (Race r : Race.values()) {
-						if(r.isAffectedByFurryPreference()) {
-							Main.getProperties().raceFemininePreferencesMap.put(r, FurryPreference.MINIMUM);
-							Main.getProperties().raceMasculinePreferencesMap.put(r, FurryPreference.MINIMUM);
-						}
+					for (Subspecies r : Subspecies.values()) {
+						Main.getProperties().subspeciesFeminineFurryPreferencesMap.put(r, FurryPreference.MINIMUM);
+						Main.getProperties().subspeciesMasculineFurryPreferencesMap.put(r, FurryPreference.MINIMUM);
 					}
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
@@ -4136,11 +4156,9 @@ public class MainController implements Initializable {
 			}
 			if (((EventTarget) document.getElementById("furry_preference_female_reduced_all")) != null) {
 				((EventTarget) document.getElementById("furry_preference_female_reduced_all")).addEventListener("click", e -> {
-					for (Race r : Race.values()) {
-						if(r.isAffectedByFurryPreference()) {
-							Main.getProperties().raceFemininePreferencesMap.put(r, FurryPreference.REDUCED);
-							Main.getProperties().raceMasculinePreferencesMap.put(r, FurryPreference.REDUCED);
-						}
+					for (Subspecies r : Subspecies.values()) {
+						Main.getProperties().subspeciesFeminineFurryPreferencesMap.put(r, FurryPreference.REDUCED);
+						Main.getProperties().subspeciesMasculineFurryPreferencesMap.put(r, FurryPreference.REDUCED);
 					}
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
@@ -4148,11 +4166,9 @@ public class MainController implements Initializable {
 			}
 			if (((EventTarget) document.getElementById("furry_preference_female_normal_all")) != null) {
 				((EventTarget) document.getElementById("furry_preference_female_normal_all")).addEventListener("click", e -> {
-					for (Race r : Race.values()) {
-						if(r.isAffectedByFurryPreference()) {
-							Main.getProperties().raceFemininePreferencesMap.put(r, FurryPreference.NORMAL);
-							Main.getProperties().raceMasculinePreferencesMap.put(r, FurryPreference.NORMAL);
-						}
+					for (Subspecies r : Subspecies.values()) {
+						Main.getProperties().subspeciesFeminineFurryPreferencesMap.put(r, FurryPreference.NORMAL);
+						Main.getProperties().subspeciesMasculineFurryPreferencesMap.put(r, FurryPreference.NORMAL);
 					}
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
@@ -4160,151 +4176,92 @@ public class MainController implements Initializable {
 			}
 			if (((EventTarget) document.getElementById("furry_preference_female_maximum_all")) != null) {
 				((EventTarget) document.getElementById("furry_preference_female_maximum_all")).addEventListener("click", e -> {
-					for (Race r : Race.values()) {
-						if(r.isAffectedByFurryPreference()) {
-							Main.getProperties().raceFemininePreferencesMap.put(r, FurryPreference.MAXIMUM);
-							Main.getProperties().raceMasculinePreferencesMap.put(r, FurryPreference.MAXIMUM);
-						}
+					for (Subspecies r : Subspecies.values()) {
+						Main.getProperties().subspeciesFeminineFurryPreferencesMap.put(r, FurryPreference.MAXIMUM);
+						Main.getProperties().subspeciesMasculineFurryPreferencesMap.put(r, FurryPreference.MAXIMUM);
 					}
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
 			}
 			
-			for (Race r : Race.values()) {
-				// Feminine:
-				id = "furry_preference_female_human_"+r;
-				if (((EventTarget) document.getElementById(id)) != null) {
-					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						Main.getProperties().raceFemininePreferencesMap.put(r, FurryPreference.HUMAN);
-						Main.saveProperties();
-						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-					}, false);
-					addEventListener(document, id, "mousemove", moveTooltipListener, false);
-					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
-					TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(FurryPreference.HUMAN.getName(), FurryPreference.HUMAN.getDescriptionFeminine(r));
-					addEventListener(document, id, "mouseenter", el, false);
-				}
-				id = "furry_preference_female_minimum_"+r;
-				if (((EventTarget) document.getElementById(id)) != null) {
-					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						Main.getProperties().raceFemininePreferencesMap.put(r, FurryPreference.MINIMUM);
-						Main.saveProperties();
-						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-					}, false);
-					addEventListener(document, id, "mousemove", moveTooltipListener, false);
-					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
-					TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(FurryPreference.MINIMUM.getName(), FurryPreference.MINIMUM.getDescriptionFeminine(r));
-					addEventListener(document, id, "mouseenter", el, false);
-				}
-				id = "furry_preference_female_reduced_"+r;
-				if (((EventTarget) document.getElementById(id)) != null) {
-					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						Main.getProperties().raceFemininePreferencesMap.put(r, FurryPreference.REDUCED);
-						Main.saveProperties();
-						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-					}, false);
-
-					addEventListener(document, id, "mousemove", moveTooltipListener, false);
-					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
-					TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(FurryPreference.REDUCED.getName(), FurryPreference.REDUCED.getDescriptionFeminine(r));
-					addEventListener(document, id, "mouseenter", el, false);
-				}
-				id = "furry_preference_female_normal_"+r;
-				if (((EventTarget) document.getElementById(id)) != null) {
-					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						Main.getProperties().raceFemininePreferencesMap.put(r, FurryPreference.NORMAL);
-						Main.saveProperties();
-						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-					}, false);
-
-					addEventListener(document, id, "mousemove", moveTooltipListener, false);
-					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
-					TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(FurryPreference.NORMAL.getName(), FurryPreference.NORMAL.getDescriptionFeminine(r));
-					addEventListener(document, id, "mouseenter", el, false);
-				}
-				id = "furry_preference_female_maximum_"+r;
-				if (((EventTarget) document.getElementById(id)) != null) {
-					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						Main.getProperties().raceFemininePreferencesMap.put(r, FurryPreference.MAXIMUM);
-						Main.saveProperties();
-						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-					}, false);
-
-					addEventListener(document, id, "mousemove", moveTooltipListener, false);
-					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
-					TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(FurryPreference.MAXIMUM.getName(), FurryPreference.MAXIMUM.getDescriptionFeminine(r));
-					addEventListener(document, id, "mouseenter", el, false);
-				}
-				
-				// Masculine:
-				id = "furry_preference_male_human_"+r;
-				if (((EventTarget) document.getElementById(id)) != null) {
-					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						Main.getProperties().raceMasculinePreferencesMap.put(r, FurryPreference.HUMAN);
-						Main.saveProperties();
-						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-					}, false);
-
-					addEventListener(document, id, "mousemove", moveTooltipListener, false);
-					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
-					TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(FurryPreference.HUMAN.getName(), FurryPreference.HUMAN.getDescriptionMasculine(r));
-					addEventListener(document, id, "mouseenter", el, false);
-				}
-				id = "furry_preference_male_minimum_"+r;
-				if (((EventTarget) document.getElementById(id)) != null) {
-					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						Main.getProperties().raceMasculinePreferencesMap.put(r, FurryPreference.MINIMUM);
-						Main.saveProperties();
-						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-					}, false);
-
-					addEventListener(document, id, "mousemove", moveTooltipListener, false);
-					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
-					TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(FurryPreference.MINIMUM.getName(), FurryPreference.MINIMUM.getDescriptionMasculine(r));
-					addEventListener(document, id, "mouseenter", el, false);
-				}
-				id = "furry_preference_male_reduced_"+r;
-				if (((EventTarget) document.getElementById(id)) != null) {
-					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						Main.getProperties().raceMasculinePreferencesMap.put(r, FurryPreference.REDUCED);
-						Main.saveProperties();
-						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-					}, false);
-
-					addEventListener(document, id, "mousemove", moveTooltipListener, false);
-					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
-					TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(FurryPreference.REDUCED.getName(), FurryPreference.REDUCED.getDescriptionMasculine(r));
-					addEventListener(document, id, "mouseenter", el, false);
-				}
-				id = "furry_preference_male_normal_"+r;
-				if (((EventTarget) document.getElementById(id)) != null) {
-					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						Main.getProperties().raceMasculinePreferencesMap.put(r, FurryPreference.NORMAL);
-						Main.saveProperties();
-						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-					}, false);
-
-					addEventListener(document, id, "mousemove", moveTooltipListener, false);
-					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
-					TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(FurryPreference.NORMAL.getName(), FurryPreference.NORMAL.getDescriptionMasculine(r));
-					addEventListener(document, id, "mouseenter", el, false);
-				}
-				id = "furry_preference_male_maximum_"+r;
-				if (((EventTarget) document.getElementById(id)) != null) {
-					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						Main.getProperties().raceMasculinePreferencesMap.put(r, FurryPreference.MAXIMUM);
-						Main.saveProperties();
-						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-					}, false);
-
-					addEventListener(document, id, "mousemove", moveTooltipListener, false);
-					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
-					TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(FurryPreference.MAXIMUM.getName(), FurryPreference.MAXIMUM.getDescriptionMasculine(r));
-					addEventListener(document, id, "mouseenter", el, false);
+			for (Subspecies s : Subspecies.values()) {
+				for(FurryPreference preference : FurryPreference.values()) {
+					id = "FEMININE_" + preference+"_"+s;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							Main.getProperties().subspeciesFeminineFurryPreferencesMap.put(s, preference);
+							Main.saveProperties();
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+	
+						addEventListener(document, id, "mousemove", moveTooltipListener, false);
+						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+						TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(preference.getName(), preference.getDescriptionFeminine(s));
+						addEventListener(document, id, "mouseenter", el, false);
+					}
+					id = "MASCULINE_" + preference+"_"+s;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							Main.getProperties().subspeciesMasculineFurryPreferencesMap.put(s, preference);
+							Main.saveProperties();
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+	
+						addEventListener(document, id, "mousemove", moveTooltipListener, false);
+						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+						TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(preference.getName(), preference.getDescriptionMasculine(s));
+						addEventListener(document, id, "mouseenter", el, false);
+					}
 				}
 			}
+			
+//			for (Subspecies s : Subspecies.values()) {
+//				for(SubspeciesPreference preference : SubspeciesPreference.values()) {
+//					id = "FEMININE_" + preference+"_"+s;
+//					if (((EventTarget) document.getElementById(id)) != null) {
+//						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+//							Main.getProperties().subspeciesFemininePreferencesMap.put(s, preference);
+//							Main.saveProperties();
+//							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+//						}, false);
+//
+//						addEventListener(document, id, "mousemove", moveTooltipListener, false);
+//						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+//						TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(preference.getName(), "");
+//						addEventListener(document, id, "mouseenter", el, false);
+//					}
+//					id = "MASCULINE_" + preference+"_"+s;
+//					if (((EventTarget) document.getElementById(id)) != null) {
+//						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+//							Main.getProperties().subspeciesFemininePreferencesMap.put(s, preference);
+//							Main.saveProperties();
+//							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+//						}, false);
+//
+//						addEventListener(document, id, "mousemove", moveTooltipListener, false);
+//						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+//						TooltipInformationEventListener el = new TooltipInformationEventListener().setInformation(preference.getName(), "");
+//						addEventListener(document, id, "mouseenter", el, false);
+//					}
+//				}
+//			}
 		}
+		
+//		// Race preferences:
+//		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.SPECIES_PREFERENCE) {
+//			for (Subspecies s : Subspecies.values()) {
+//				for(SubspeciesPreference preference : SubspeciesPreference.values()) {
+//					if (((EventTarget) document.getElementById(preference+"_"+s)) != null) {
+//						((EventTarget) document.getElementById(preference+"_"+s)).addEventListener("click", e -> {
+//							Main.getProperties().subspeciesPreferencesMap.put(s, preference);
+//							Main.saveProperties();
+//							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+//						}, false);
+//					}
+//				}
+//			}
+//		}
 		
 		// Content preferences:
 
@@ -4458,7 +4415,7 @@ public class MainController implements Initializable {
 		}
 		
 		// Save/load:
-		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.SAVE_LOAD && !Main.game.isInCombat() && !Main.game.isInSex()) {
+		if (Main.game.getCurrentDialogueNode() == OptionsDialogue.SAVE_LOAD) {
 			for (File f : Main.getSavedGames()) {
 				id = "overwrite_saved_" + f.getName().substring(0, f.getName().lastIndexOf('.'));
 				if (((EventTarget) document.getElementById(id)) != null) {
@@ -4773,6 +4730,7 @@ public class MainController implements Initializable {
 			id = invSlot.toString() + "Slot";
 			if (invSlot != InventorySlot.WEAPON_MAIN && invSlot != InventorySlot.WEAPON_OFFHAND) {
 				if (((EventTarget) documentAttributes.getElementById(id)) != null) {
+					
 					InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingEquipped(Main.game.getPlayer(),invSlot);
 					addEventListener(documentAttributes, id, "click", el, false);
 					addEventListener(documentAttributes, id, "mousemove", moveTooltipListener, false);
@@ -4836,7 +4794,7 @@ public class MainController implements Initializable {
 				Attribute.HEALTH_MAXIMUM,
 				Attribute.MANA_MAXIMUM,
 				Attribute.EXPERIENCE,
-				Attribute.MAJOR_STRENGTH,
+				Attribute.MAJOR_PHYSIQUE,
 				Attribute.MAJOR_ARCANE,
 				Attribute.MAJOR_CORRUPTION,
 				Attribute.AROUSAL,
@@ -4846,6 +4804,9 @@ public class MainController implements Initializable {
 		if(Main.game.isInSex()) {
 			charactersBeingRendered.addAll(Sex.getDominantParticipants().keySet());
 			charactersBeingRendered.addAll(Sex.getSubmissiveParticipants().keySet());
+		} else if(Main.game.isInCombat()) {
+			charactersBeingRendered.add(Main.game.getPlayer());
+			charactersBeingRendered.addAll(Combat.getAllies());
 		} else {
 			if(Main.game.getPlayer()!=null) {
 				charactersBeingRendered.add(Main.game.getPlayer());
@@ -4965,214 +4926,28 @@ public class MainController implements Initializable {
 					addEventListener(documentAttributes, "SA_"+idModifier + sa, "mouseenter", el, false);
 				}
 			}
-			if (character.getMainWeapon() != null) {
-				for (Spell s : character.getMainWeapon().getSpells()) {
-					if (((EventTarget) documentAttributes.getElementById("SPELL_MAIN_"+idModifier + s)) != null) {
-						addEventListener(documentAttributes, "SPELL_MAIN_"+idModifier + s, "mousemove", moveTooltipListener, false);
-						addEventListener(documentAttributes, "SPELL_MAIN_"+idModifier + s, "mouseleave", hideTooltipListener, false);
-	
-						TooltipInformationEventListener el = new TooltipInformationEventListener().setSpell(s, character.getLevel(), character);
-						addEventListener(documentAttributes, "SPELL_MAIN_"+idModifier + s, "mouseenter", el, false);
-					}
-				}
-			}
-			if (character.getOffhandWeapon() != null) {
-				for (Spell s : character.getOffhandWeapon().getSpells()) {
-					if (((EventTarget) documentAttributes.getElementById("SPELL_OFFHAND_"+idModifier + s)) != null) {
-						addEventListener(documentAttributes, "SPELL_OFFHAND_"+idModifier + s, "mousemove", moveTooltipListener, false);
-						addEventListener(documentAttributes, "SPELL_OFFHAND_"+idModifier + s, "mouseleave", hideTooltipListener, false);
-	
-						TooltipInformationEventListener el = new TooltipInformationEventListener().setSpell(s, character.getLevel(), character);
-						addEventListener(documentAttributes, "SPELL_OFFHAND_"+idModifier + s, "mouseenter", el, false);
-					}
+			for (Spell s : character.getSpells()) {
+				if (((EventTarget) documentAttributes.getElementById("SPELL_"+idModifier + s)) != null) {
+					addEventListener(documentAttributes, "SPELL_"+idModifier + s, "mousemove", moveTooltipListener, false);
+					addEventListener(documentAttributes, "SPELL_"+idModifier + s, "mouseleave", hideTooltipListener, false);
+
+					TooltipInformationEventListener el = new TooltipInformationEventListener().setSpell(s, character.getLevel(), character);
+					addEventListener(documentAttributes, "SPELL_"+idModifier + s, "mouseenter", el, false);
 				}
 			}
 		}
 		
-		
-		
-		
-//		Attribute[] attributes = {
-//				Attribute.HEALTH_MAXIMUM,
-//				Attribute.MANA_MAXIMUM,
-//				Attribute.STAMINA_MAXIMUM,
-//				Attribute.EXPERIENCE,
-//				Attribute.STRENGTH,
-//				Attribute.INTELLIGENCE,
-//				Attribute.CORRUPTION,
-//				Attribute.FITNESS,
-//				Attribute.AROUSAL,
-//				Attribute.LUST };
-//		for (Attribute a : attributes) {
-//			if (((EventTarget) documentAttributes.getElementById("PLAYER_"+a.getName())) != null) {
-//				addEventListener(documentAttributes, "PLAYER_"+a.getName(), "mousemove", moveTooltipListener, false);
-//				addEventListener(documentAttributes, "PLAYER_"+a.getName(), "mouseleave", hideTooltipListener, false);
-//
-//				TooltipInformationEventListener el = new TooltipInformationEventListener().setAttribute(a, Main.game.getPlayer());
-//				addEventListener(documentAttributes, "PLAYER_"+a.getName(), "mouseenter", el, false);
-//				
-//				if(a==Attribute.EXPERIENCE) {
-//					((EventTarget) documentAttributes.getElementById("PLAYER_"+a.getName())).addEventListener("click", e -> {
-//						
-//						//TODO block when in character creation
-//						
-//						if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.PHONE) {
-//							if(Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_LEVEL_UP) {
-//								openPhone();
-//							} else {
-//								Main.game.setContent(new Response("", "", PhoneDialogue.CHARACTER_LEVEL_UP){
-//									@Override
-//									public void effects() {
-//										PhoneDialogue.strengthPoints = 0;
-//										PhoneDialogue.intelligencePoints = 0;
-//										PhoneDialogue.fitnessPoints = 0;
-//										PhoneDialogue.spendingPoints = Main.game.getPlayer().getPerkPoints();
-//										PhoneDialogue.levelUpPerks.clear();
-//									}
-//								});
-//							}
-//							
-//						} else if (!Main.game.getCurrentDialogueNode().isOptionsDisabled()) {
-//							if (Main.game.getCurrentDialogueNode().getMapDisplay() == MapDisplay.NORMAL)
-//								Main.game.saveDialogueNode();
-//
-//							Main.game.setContent(new Response("", "", PhoneDialogue.CHARACTER_LEVEL_UP){
-//								@Override
-//								public void effects() {
-//									PhoneDialogue.strengthPoints = 0;
-//									PhoneDialogue.intelligencePoints = 0;
-//									PhoneDialogue.fitnessPoints = 0;
-//									PhoneDialogue.spendingPoints = Main.game.getPlayer().getPerkPoints();
-//									PhoneDialogue.levelUpPerks.clear();
-//								}
-//							});
-//						}
-//						
-//					}, false);
-//				}
-//			}
-//			if (((EventTarget) documentAttributes.getElementById("PARTNER_"+a.getName())) != null) {
-//				addEventListener(documentAttributes, "PARTNER_"+a.getName(), "mousemove", moveTooltipListener, false);
-//				addEventListener(documentAttributes, "PARTNER_"+a.getName(), "mouseleave", hideTooltipListener, false);
-//
-//				TooltipInformationEventListener el = new TooltipInformationEventListener().setAttribute(a, Sex.getActivePartner());
-//				addEventListener(documentAttributes, "PARTNER_"+a.getName(), "mouseenter", el, false);
-//			}
-//		}
-//		
-//		// Extra attribute info:
-//		if(((EventTarget) documentAttributes.getElementById("EXTRA_ATTRIBUTES"))!=null){
-//			addEventListener(documentAttributes, "EXTRA_ATTRIBUTES", "mousemove", moveTooltipListener, false);
-//			addEventListener(documentAttributes, "EXTRA_ATTRIBUTES", "mouseleave", hideTooltipListener, false);
-//
-//			TooltipInformationEventListener el = new TooltipInformationEventListener().setExtraAttributes(Main.game.getPlayer());
-//			addEventListener(documentAttributes, "EXTRA_ATTRIBUTES", "mouseenter", el, false);
-//		}
-//		
-//		// For status effect slots:
-//		if(Main.game.getPlayer()!=null) {
-//			for (StatusEffect se : Main.game.getPlayer().getStatusEffects()) {
-//				if (((EventTarget) documentAttributes.getElementById("SE_PLAYER_" + se)) != null) {
-//					addEventListener(documentAttributes, "SE_PLAYER_" + se, "mousemove", moveTooltipListener, false);
-//					addEventListener(documentAttributes, "SE_PLAYER_" + se, "mouseleave", hideTooltipListener, false);
-//
-//					TooltipInformationEventListener el = new TooltipInformationEventListener().setStatusEffect(se, Main.game.getPlayer());
-//					addEventListener(documentAttributes, "SE_PLAYER_" + se, "mouseenter", el, false);
-//				}
-//			}
-//		}
-//		if(Main.game.isInSex()) {
-//			for (StatusEffect se : Sex.getActivePartner().getStatusEffects()) {
-//				if (((EventTarget) documentAttributes.getElementById("SE_PARTNER_" + se)) != null) {
-//					addEventListener(documentAttributes, "SE_PARTNER_" + se, "mousemove", moveTooltipListener, false);
-//					addEventListener(documentAttributes, "SE_PARTNER_" + se, "mouseleave", hideTooltipListener, false);
-//
-//					TooltipInformationEventListener el = new TooltipInformationEventListener().setStatusEffect(se, Sex.getActivePartner());
-//					addEventListener(documentAttributes, "SE_PARTNER_" + se, "mouseenter", el, false);
-//				}
-//			}
-//		}
-//		
-//		// For perk slots:
-//		if(Main.game.getPlayer()!=null) {
-//			for (Perk p : Main.game.getPlayer().getPerks()) {
-//				if (((EventTarget) documentAttributes.getElementById("PERK_PLAYER_" + p)) != null) {
-//					addEventListener(documentAttributes, "PERK_PLAYER_" + p, "mousemove", moveTooltipListener, false);
-//					addEventListener(documentAttributes, "PERK_PLAYER_" + p, "mouseleave", hideTooltipListener, false);
-//
-//					TooltipInformationEventListener el = new TooltipInformationEventListener().setPerk(p, Main.game.getPlayer());
-//					addEventListener(documentAttributes, "PERK_PLAYER_" + p, "mouseenter", el, false);
-//				}
-//			}
-//			for (Fetish f : Main.game.getPlayer().getFetishes()) {
-//				if (((EventTarget) documentAttributes.getElementById("FETISH_PLAYER_" + f)) != null) {
-//					addEventListener(documentAttributes, "FETISH_PLAYER_" + f, "mousemove", moveTooltipListener, false);
-//					addEventListener(documentAttributes, "FETISH_PLAYER_" + f, "mouseleave", hideTooltipListener, false);
-//
-//					TooltipInformationEventListener el = new TooltipInformationEventListener().setFetish(f, Main.game.getPlayer());
-//					addEventListener(documentAttributes, "FETISH_PLAYER_" + f, "mouseenter", el, false);
-//				}
-//			}
-//		}
-//		if(Main.game.isInSex()) {
-//			for (Perk p : Sex.getActivePartner().getPerks()) {
-//				if (((EventTarget) documentAttributes.getElementById("PERK_PARTNER_" + p)) != null) {
-//					addEventListener(documentAttributes, "PERK_PARTNER_" + p, "mousemove", moveTooltipListener, false);
-//					addEventListener(documentAttributes, "PERK_PARTNER_" + p, "mouseleave", hideTooltipListener, false);
-//
-//					TooltipInformationEventListener el = new TooltipInformationEventListener().setPerk(p, Sex.getActivePartner());
-//					addEventListener(documentAttributes, "PERK_PARTNER_" + p, "mouseenter", el, false);
-//				}
-//			}
-//			for (Fetish f : Sex.getActivePartner().getFetishes()) {
-//				if (((EventTarget) documentAttributes.getElementById("FETISH_PARTNER_" + f)) != null) {
-//					addEventListener(documentAttributes, "FETISH_PARTNER_" + f, "mousemove", moveTooltipListener, false);
-//					addEventListener(documentAttributes, "FETISH_PARTNER_" + f, "mouseleave", hideTooltipListener, false);
-//
-//					TooltipInformationEventListener el = new TooltipInformationEventListener().setFetish(f, Sex.getActivePartner());
-//					addEventListener(documentAttributes, "FETISH_PARTNER_" + f, "mouseenter", el, false);
-//				}
-//			}
-//		}
-//		if(Main.game.getPlayer()!=null)
-//			for (SpecialAttack sa : Main.game.getPlayer().getSpecialAttacks()) {
-//				if (((EventTarget) documentAttributes.getElementById("SA_" + sa)) != null) {
-//					addEventListener(documentAttributes, "SA_" + sa, "mousemove", moveTooltipListener, false);
-//					addEventListener(documentAttributes, "SA_" + sa, "mouseleave", hideTooltipListener, false);
-//
-//					TooltipInformationEventListener el = new TooltipInformationEventListener().setSpecialAttack(sa, Main.game.getPlayer());
-//					addEventListener(documentAttributes, "SA_" + sa, "mouseenter", el, false);
-//				}
-//			}
-//		if(Main.game.getPlayer()!=null)
-//			if (Main.game.getPlayer().getMainWeapon() != null) {
-//				for (Spell s : Main.game.getPlayer().getMainWeapon().getSpells()) {
-//					if (((EventTarget) documentAttributes.getElementById("SPELL_MAIN_" + s)) != null) {
-//						addEventListener(documentAttributes, "SPELL_MAIN_" + s, "mousemove", moveTooltipListener, false);
-//						addEventListener(documentAttributes, "SPELL_MAIN_" + s, "mouseleave", hideTooltipListener, false);
-//
-//						TooltipInformationEventListener el = new TooltipInformationEventListener().setSpell(s, Main.game.getPlayer().getLevel(), Main.game.getPlayer());
-//						addEventListener(documentAttributes, "SPELL_MAIN_" + s, "mouseenter", el, false);
-//					}
-//				}
-//			}
-//		if(Main.game.getPlayer()!=null)
-//			if (Main.game.getPlayer().getOffhandWeapon() != null) {
-//				for (Spell s : Main.game.getPlayer().getOffhandWeapon().getSpells()) {
-//					if (((EventTarget) documentAttributes.getElementById("SPELL_OFFHAND_" + s)) != null) {
-//						addEventListener(documentAttributes, "SPELL_OFFHAND_" + s, "mousemove", moveTooltipListener, false);
-//						addEventListener(documentAttributes, "SPELL_OFFHAND_" + s, "mouseleave", hideTooltipListener, false);
-//
-//						TooltipInformationEventListener el = new TooltipInformationEventListener().setSpell(s, Main.game.getPlayer().getLevel(), Main.game.getPlayer());
-//						addEventListener(documentAttributes, "SPELL_OFFHAND_" + s, "mouseenter", el, false);
-//					}
-//				}
-//			}
 	}
 	
 	private void manageRightListeners() {
 		documentRight = (Document) webEngineRight.executeScript("document");
 		EventListenerDataMap.put(documentRight, new ArrayList<>());
+
+		List<InventorySlot> concealedSlots = new ArrayList<>();
+		
+		if(RenderingEngine.getCharacterToRender()!=null) {
+			concealedSlots = RenderingEngine.getCharacterToRender().getInventorySlotsConcealed();
+		}
 		
 		// Inventory:
 		String id;
@@ -5180,14 +4955,21 @@ public class MainController implements Initializable {
 			id = invSlot.toString() + "Slot";
 			if (invSlot != InventorySlot.WEAPON_MAIN && invSlot != InventorySlot.WEAPON_OFFHAND) {
 				if (((EventTarget) documentRight.getElementById(id)) != null) {
-					
-					InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingEquipped(RenderingEngine.getCharacterToRender(), invSlot);
-					addEventListener(documentRight, id, "click", el, false);
-					
-					addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
-					addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
-					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setInventorySlot(invSlot, RenderingEngine.getCharacterToRender());
-					addEventListener(documentRight, id, "mouseenter", el2, false);
+					if(concealedSlots.contains(invSlot)) {
+						addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
+						addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
+						TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation(Util.capitaliseSentence(invSlot.getName())+" - [style.boldBad(Concealed!)]", "");
+						addEventListener(documentRight, id, "mouseenter", el2, false);
+						
+					} else {
+						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingEquipped(RenderingEngine.getCharacterToRender(), invSlot);
+						addEventListener(documentRight, id, "click", el, false);
+						
+						addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
+						addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
+						InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setInventorySlot(invSlot, RenderingEngine.getCharacterToRender());
+						addEventListener(documentRight, id, "mouseenter", el2, false);
+					}
 				}
 			} else {
 				if (((EventTarget) documentRight.getElementById(id)) != null) {
@@ -5216,8 +4998,10 @@ public class MainController implements Initializable {
 			for (Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateWeapons().entrySet()) {
 				id = "WEAPON_FLOOR_" + entry.getKey().hashCode();
 				if (((EventTarget) documentRight.getElementById(id)) != null) {
-					InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setWeaponInventory(entry.getKey(), null);
-					addEventListener(documentRight, id, "click", el, false);
+					if(!Main.game.getCurrentDialogueNode().isInventoryDisabled()) {
+						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setWeaponInventory(entry.getKey(), null);
+						addEventListener(documentRight, id, "click", el, false);
+					}
 					addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
 					addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
 					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setWeapon(entry.getKey(), null);
@@ -5229,8 +5013,10 @@ public class MainController implements Initializable {
 			for (Entry<AbstractClothing, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateClothing().entrySet()) {
 				id = "CLOTHING_FLOOR_" + entry.getKey().hashCode();
 				if (((EventTarget) documentRight.getElementById(id)) != null) {
-					InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingInventory(entry.getKey(), null);
-					addEventListener(documentRight, id, "click", el, false);
+					if(!Main.game.getCurrentDialogueNode().isInventoryDisabled()) {
+						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingInventory(entry.getKey(), null);
+						addEventListener(documentRight, id, "click", el, false);
+					}
 					addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
 					addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
 					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setClothing(entry.getKey(), null, null);
@@ -5242,8 +5028,10 @@ public class MainController implements Initializable {
 			for (Entry<AbstractItem, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateItems().entrySet()) {
 				id = "ITEM_FLOOR_" + entry.getKey().hashCode();
 				if (((EventTarget) documentRight.getElementById(id)) != null) {
-					InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setItemInventory(entry.getKey(), null);
-					addEventListener(documentRight, id, "click", el, false);
+					if(!Main.game.getCurrentDialogueNode().isInventoryDisabled()) {
+						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setItemInventory(entry.getKey(), null);
+						addEventListener(documentRight, id, "click", el, false);
+					}
 					addEventListener(documentRight, id, "mousemove", moveTooltipListener, false);
 					addEventListener(documentRight, id, "mouseleave", hideTooltipListener, false);
 					InventoryTooltipEventListener el2 = new InventoryTooltipEventListener().setItem(entry.getKey(), null, null);
@@ -5257,7 +5045,7 @@ public class MainController implements Initializable {
 					Attribute.HEALTH_MAXIMUM,
 					Attribute.MANA_MAXIMUM,
 					Attribute.EXPERIENCE,
-					Attribute.MAJOR_STRENGTH,
+					Attribute.MAJOR_PHYSIQUE,
 					Attribute.MAJOR_ARCANE,
 					Attribute.MAJOR_CORRUPTION,
 					Attribute.AROUSAL,
@@ -5267,6 +5055,8 @@ public class MainController implements Initializable {
 			if(Main.game.isInSex()) {
 				charactersBeingRendered.addAll(Sex.getDominantParticipants().keySet());
 				charactersBeingRendered.addAll(Sex.getSubmissiveParticipants().keySet());
+			} else if(Main.game.isInCombat()) {
+				charactersBeingRendered.addAll(Combat.getEnemies());
 			} else {
 				charactersBeingRendered.add(RenderingEngine.getCharacterToRender());
 			}
@@ -5341,26 +5131,13 @@ public class MainController implements Initializable {
 						addEventListener(documentRight, "SA_NPC_"+idModifier + sa, "mouseenter", el, false);
 					}
 				}
-				if (character.getMainWeapon() != null) {
-					for (Spell s : character.getMainWeapon().getSpells()) {
-						if (((EventTarget) documentRight.getElementById("SPELL_MAIN_NPC_"+idModifier + s)) != null) {
-							addEventListener(documentRight, "SPELL_MAIN_NPC_"+idModifier + s, "mousemove", moveTooltipListener, false);
-							addEventListener(documentRight, "SPELL_MAIN_NPC_"+idModifier + s, "mouseleave", hideTooltipListener, false);
-		
-							TooltipInformationEventListener el = new TooltipInformationEventListener().setSpell(s, character.getLevel(), character);
-							addEventListener(documentRight, "SPELL_MAIN_NPC_"+idModifier + s, "mouseenter", el, false);
-						}
-					}
-				}
-				if (character.getOffhandWeapon() != null) {
-					for (Spell s : character.getOffhandWeapon().getSpells()) {
-						if (((EventTarget) documentRight.getElementById("SPELL_OFFHAND_NPC_"+idModifier + s)) != null) {
-							addEventListener(documentRight, "SPELL_OFFHAND_NPC_"+idModifier + s, "mousemove", moveTooltipListener, false);
-							addEventListener(documentRight, "SPELL_OFFHAND_NPC_"+idModifier + s, "mouseleave", hideTooltipListener, false);
-		
-							TooltipInformationEventListener el = new TooltipInformationEventListener().setSpell(s, character.getLevel(), character);
-							addEventListener(documentRight, "SPELL_OFFHAND_NPC_"+idModifier + s, "mouseenter", el, false);
-						}
+				for (Spell s : character.getSpells()) {
+					if (((EventTarget) documentAttributes.getElementById("SPELL_"+idModifier + s)) != null) {
+						addEventListener(documentAttributes, "SPELL_"+idModifier + s, "mousemove", moveTooltipListener, false);
+						addEventListener(documentAttributes, "SPELL_"+idModifier + s, "mouseleave", hideTooltipListener, false);
+
+						TooltipInformationEventListener el = new TooltipInformationEventListener().setSpell(s, character.getLevel(), character);
+						addEventListener(documentAttributes, "SPELL_"+idModifier + s, "mouseenter", el, false);
 					}
 				}
 			}

@@ -2,7 +2,7 @@ package com.lilithsthrone.game.dialogue.npcDialogue;
 
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
-import com.lilithsthrone.game.character.attributes.StrengthLevel;
+import com.lilithsthrone.game.character.attributes.PhysiqueLevel;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
@@ -234,7 +234,7 @@ public class ReindeerOverseerDialogue {
 				return new Response("Shovel snow", "Tell [npc.name] that you'll shovel snow with the rest of the workers.", ENCOUNTER_WORK_FINISHED) {
 					@Override
 					public void effects() {
-						int money = (int)(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_STRENGTH)*1.5f);
+						int money = (int)(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_PHYSIQUE)*1.5f);
 						Main.game.getPlayer().incrementMoney(money);
 						
 						Main.game.getTextStartStringBuilder().append(
@@ -245,7 +245,7 @@ public class ReindeerOverseerDialogue {
 								+ "</p>"
 								+ "<p>"
 									+ "Setting off to where the other reindeer-morphs are working, you get stuck in and start shovelling snow.");
-						switch(StrengthLevel.getStrengthLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_STRENGTH))) {
+						switch(PhysiqueLevel.getPhysiqueLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_PHYSIQUE))) {
 							case ZERO_WEAK: case ONE_AVERAGE:
 								Main.game.getTextStartStringBuilder().append(
 										" Although it didn't seem too hard at first, you're not able to keep up with the stamina or strength of the reindeer-morphs, and before long you find yourself having to take a break."
@@ -391,7 +391,7 @@ public class ReindeerOverseerDialogue {
 				return new Response("Encouragement", "Tell [npc.name] that you'd be best suited for delivering drinks and encouraging the workers.", ENCOUNTER_WORK_FINISHED) {
 					@Override
 					public void effects() {
-						int money = (int)(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_STRENGTH)*1.5f);
+						int money = (int)(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_PHYSIQUE)*1.5f);
 						Main.game.getPlayer().incrementMoney(money);
 
 						Main.game.getTextStartStringBuilder().append(
@@ -404,7 +404,7 @@ public class ReindeerOverseerDialogue {
 								+ "<p>"
 									+ "Setting off to the area where the reindeer-morphs are working, you do as [npc.name] instructed, and start asking each one if they'd like a drink.");
 						
-						switch(StrengthLevel.getStrengthLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_STRENGTH))) {
+						switch(PhysiqueLevel.getPhysiqueLevelFromValue(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_PHYSIQUE))) {
 							case ZERO_WEAK: case ONE_AVERAGE:
 								Main.game.getTextStartStringBuilder().append(
 										" The workers are far more demanding than you'd expected, and before long you find yourself struggling to keep up with their requests."

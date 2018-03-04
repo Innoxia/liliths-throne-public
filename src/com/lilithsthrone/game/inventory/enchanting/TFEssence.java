@@ -107,7 +107,7 @@ public enum TFEssence {
 			Rarity.LEGENDARY);
 	
 
-	private String name, description, descriptor, SVGString;
+	private String name, description, descriptor, SVGString, SVGStringUncoloured;
 	private Colour colour;
 	private Rarity rarity;
 
@@ -116,20 +116,30 @@ public enum TFEssence {
 		this.description = description;
 		this.descriptor = descriptor;
 		this.SVGString = SVGString;
+		this.SVGStringUncoloured = SVGString;
 		this.colour = colour;
 		this.rarity = rarity;
 		
 		// Set this item's file image:
 		try {
 			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/crafting/" + SVGString + ".svg");
-			String s = Util.inputStreamToString(is);
+			String base = Util.inputStreamToString(is);
+			
+			String s = base;
+			s = s.replaceAll("#ff2a2a", Colour.BASE_GREY.getShades()[0]);
+			s = s.replaceAll("#ff5555", Colour.BASE_GREY.getShades()[1]);
+			s = s.replaceAll("#ff8080", Colour.BASE_GREY.getShades()[2]);
+			s = s.replaceAll("#ffaaaa", Colour.BASE_GREY.getShades()[3]);
+			s = s.replaceAll("#ffd5d5", Colour.BASE_GREY.getShades()[4]);
+			this.SVGStringUncoloured = s;
 
-			s = s.replaceAll("#ff2a2a", this.colour.getShades()[0]);
-			s = s.replaceAll("#ff5555", this.colour.getShades()[1]);
-			s = s.replaceAll("#ff8080", this.colour.getShades()[2]);
-			s = s.replaceAll("#ffaaaa", this.colour.getShades()[3]);
-			s = s.replaceAll("#ffd5d5", this.colour.getShades()[4]);
-			this.SVGString = s;
+			String s2 = base;
+			s2 = s2.replaceAll("#ff2a2a", this.colour.getShades()[0]);
+			s2 = s2.replaceAll("#ff5555", this.colour.getShades()[1]);
+			s2 = s2.replaceAll("#ff8080", this.colour.getShades()[2]);
+			s2 = s2.replaceAll("#ffaaaa", this.colour.getShades()[3]);
+			s2 = s2.replaceAll("#ffd5d5", this.colour.getShades()[4]);
+			this.SVGString = s2;
 
 			is.close();
 
@@ -152,6 +162,10 @@ public enum TFEssence {
 
 	public String getSVGString() {
 		return SVGString;
+	}
+	
+	public String getSVGStringUncoloured() {
+		return SVGStringUncoloured;
 	}
 
 	public Colour getColour() {

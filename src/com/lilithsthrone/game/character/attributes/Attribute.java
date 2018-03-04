@@ -111,22 +111,22 @@ public enum Attribute {
 				}
 			},
 
-	MAJOR_STRENGTH(0,
-			"strength",
-			"Strength",
+	MAJOR_PHYSIQUE(0,
+			"physique",
+			"Physique",
 			"strengthIcon",
-			Colour.ATTRIBUTE_STRENGTH,
+			Colour.ATTRIBUTE_PHYSIQUE,
 			"power",
 			"weakness",
-			Util.newArrayListOfValues(new ListValue<String>("<b>+2</b> <b style='color: " + Colour.ATTRIBUTE_HEALTH.toWebHexString() + "'>Energy</b> per 1 strength"))) {
+			Util.newArrayListOfValues(new ListValue<String>("<b>+2</b> <b style='color: " + Colour.ATTRIBUTE_HEALTH.toWebHexString() + "'>Energy</b> per 1 physique"))) {
 						@Override
 						public String getDescription(GameCharacter owner) {
 							if(owner.isPlayer())
-								return "A measure of how physically healthy you are, strength <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>passively increases</b> your"
+								return "A measure of how physically healthy you are, physique <b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>passively increases</b> your"
 									+ " <b style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>maximum energy</b>.";
 							else
 								return UtilText.parse(owner,
-										"A measure of [npc.name]'s strength.");
+										"A measure of [npc.name]'s physical health.");
 						}
 					},
 
@@ -137,7 +137,7 @@ public enum Attribute {
 			Colour.ATTRIBUTE_ARCANE,
 			"arcane-boost",
 			"arcane-drain",
-			Util.newArrayListOfValues(new ListValue<String>("<b>+2</b> <b style='color: " + Colour.ATTRIBUTE_MANA.toWebHexString() + "'>Aura</b> per 1 mental strength"))) {
+			Util.newArrayListOfValues(new ListValue<String>("<b>+2</b> <b style='color: " + Colour.ATTRIBUTE_MANA.toWebHexString() + "'>Aura</b> per 1 arcane"))) {
 						@Override
 						public String getDescription(GameCharacter owner) {
 							if(owner.isPlayer())
@@ -250,62 +250,48 @@ public enum Attribute {
 			return "Each point reduces poison damage taken by 1%.";
 		}
 	},
-	
-	RESISTANCE_PURE(0, "global resistance", "Global resist", "shieldIcon", Colour.DAMAGE_TYPE_PURE, "invulnerability", "vulnerability", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Each point reduces all damage taken by 1%.";
-		}
-	},
 
 	// Damages:
 	
-	DAMAGE_SPELLS(100, "spell damage", "Spell damage", "swordIcon", Colour.ATTRIBUTE_MANA, "arcane power", "arcane dulling", null) {
+	DAMAGE_SPELLS(0, "spell damage", "Spell damage", "swordIcon", Colour.ATTRIBUTE_MANA, "arcane power", "arcane dulling", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases spell damage done by 1%.";
 		}
 	},
 
-	DAMAGE_PHYSICAL(100, "physical damage", "Physical damage", "swordIcon", Colour.DAMAGE_TYPE_PHYSICAL, "force", "softness", null) {
+	DAMAGE_PHYSICAL(0, "physical damage", "Physical damage", "swordIcon", Colour.DAMAGE_TYPE_PHYSICAL, "force", "softness", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases physical damage done by 1%.";
 		}
 	},
 	
-	DAMAGE_LUST(100, "seduction damage", "Seduction damage", "swordIcon", Colour.GENERIC_SEX, "seduction", "repulsion", null) {
+	DAMAGE_LUST(0, "seduction damage", "Seduction damage", "swordIcon", Colour.GENERIC_SEX, "seduction", "repulsion", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases aura and lust damage done by 1%.";
 		}
 	},
 	
-	DAMAGE_FIRE(100, "fire damage", "Fire damage", "swordIcon", Colour.DAMAGE_TYPE_FIRE, "inferno", "dying embers", null) {
+	DAMAGE_FIRE(0, "fire damage", "Fire damage", "swordIcon", Colour.DAMAGE_TYPE_FIRE, "inferno", "dying embers", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases fire damage done by 1%.";
 		}
 	},
 	
-	DAMAGE_ICE(100, "cold damage", "Cold damage", "swordIcon", Colour.DAMAGE_TYPE_COLD, "blizzard", "slush", null) {
+	DAMAGE_ICE(0, "cold damage", "Cold damage", "swordIcon", Colour.DAMAGE_TYPE_COLD, "blizzard", "slush", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases cold damage done by 1%.";
 		}
 	},
 	
-	DAMAGE_POISON(100, "poison damage", "Poison damage", "swordIcon", Colour.DAMAGE_TYPE_POISON, "venom", "dilution", null) {
+	DAMAGE_POISON(0, "poison damage", "Poison damage", "swordIcon", Colour.DAMAGE_TYPE_POISON, "venom", "dilution", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases poison damage done by 1%.";
-		}
-	},
-	
-	DAMAGE_PURE(0, "global damage", "Global damage", "swordIcon", Colour.DAMAGE_TYPE_PURE, "smiting", "debilitation", null) {
-		@Override
-		public String getDescription(GameCharacter owner) {
-			return "Each point increases all damage done by 1%.";
 		}
 	},
 	
@@ -474,7 +460,6 @@ public enum Attribute {
 		attributeBonusesForEnchanting.add(Attribute.RESISTANCE_FIRE);
 		attributeBonusesForEnchanting.add(Attribute.RESISTANCE_ICE);
 		attributeBonusesForEnchanting.add(Attribute.RESISTANCE_POISON);
-		attributeBonusesForEnchanting.add(Attribute.RESISTANCE_PURE);
 
 		attributeBonusesForEnchanting.add(Attribute.DAMAGE_PHYSICAL);
 		attributeBonusesForEnchanting.add(Attribute.DAMAGE_SPELLS);
@@ -482,7 +467,7 @@ public enum Attribute {
 		attributeBonusesForEnchanting.add(Attribute.DAMAGE_ICE);
 		attributeBonusesForEnchanting.add(Attribute.DAMAGE_POISON);
 
-		baseAttributesGood.add(Attribute.MAJOR_STRENGTH);
+		baseAttributesGood.add(Attribute.MAJOR_PHYSIQUE);
 		baseAttributesGood.add(Attribute.MAJOR_ARCANE);
 	}
 
@@ -517,7 +502,7 @@ public enum Attribute {
 	}
 
 	public static Attribute[] getCoreAttributes() {
-		return new Attribute[] { MAJOR_STRENGTH, MAJOR_ARCANE, MAJOR_CORRUPTION };
+		return new Attribute[] { MAJOR_PHYSIQUE, MAJOR_ARCANE, MAJOR_CORRUPTION };
 	}
 
 	public int getBaseValue() {

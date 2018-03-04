@@ -170,35 +170,37 @@ public class ZaranixMaidKatherine extends NPC {
 	}
 
 	@Override
-	public String getAttackDescription(Attack attackType, boolean isHit) {
-		if (attackType == Attack.MAIN) {
-			return "<p>"
-					+ UtilText.returnStringAtRandom(
-							"Letting out a desperate cry, Katherine swings her little feather duster at you, brushing the feathers over your face!",
-							"With a little shout, Katherine tickles her feather duster over your torso!",
-							"Brushing her feather duster over your torso, Katherine lets out a little cry!") 
-				+ "</p>";
-			
-		} else if (attackType == Attack.SPELL) {
-			return "<p>"
-					+ UtilText.returnStringAtRandom(
-							"Katherine grips her feather duster to her chest and cries out as she casts a spell!",
-							"Katherine thrusts her feather duster up into the air as she casts a spell!") 
-				+ "</p>";
-			
-		} else {
-			return "<p>"
-					+ UtilText.returnStringAtRandom(
-							"Katherine pulls the bottom of her maid's dress up a little, moaning, [katherine.speech(If you beat me, there'd be nothing stopping you from ravishing me!)]",
-							"With a lewd moan, Katherine snakes a hand under her dress, moaning [katherine.speech(~Ah!~ You're so powerful! I'm getting wet already!)]",
-							"Biting her lip, Katherine looks up into your eyes, and you hear a lewd moan echoing around inside of your head, [katherine.speech(I hope you beat me! Show me no mercy!)]",
-							"With an incredibly lewd moan, Katherine runs her hands up the length of her body to cup her [katherine.cupSize]-cup breasts, [katherine.speech(~Mmm!~ If I fail, there'd be nothing stopping you from fucking me!)]",
-							"Katherine makes a show of staggering back, before desperately pressing her hands down between her legs, [katherine.speech(~Aah!~ I can just imagine all the lewd things you'd do to me if I fall here!)]",
-							"Katherine's [npc.breasts+] starts to heave up and down as she pants, [katherine.speech(Oh no! I'm feeling weak already! Y-You're sure to take advantage of me if I lose!)]") 
-				+ "</p>";
-		}
-
+	public String getMainAttackDescription(boolean isHit) {
+		return "<p>"
+				+ UtilText.returnStringAtRandom(
+						"Letting out a desperate cry, Katherine swings her little feather duster at you, brushing the feathers over your face!",
+						"With a little shout, Katherine tickles her feather duster over your torso!",
+						"Brushing her feather duster over your torso, Katherine lets out a little cry!") 
+			+ "</p>";
 	}
+
+	@Override
+	public String getSpellDescription() {
+		return "<p>"
+				+ UtilText.returnStringAtRandom(
+						"Katherine grips her feather duster to her chest and cries out as she casts a spell!",
+						"Katherine thrusts her feather duster up into the air as she casts a spell!") 
+			+ "</p>";
+	}
+
+	@Override
+	public String getSeductionDescription() {
+		return "<p>"
+				+ UtilText.returnStringAtRandom(
+						"Katherine pulls the bottom of her maid's dress up a little, moaning, [katherine.speech(If you beat me, there'd be nothing stopping you from ravishing me!)]",
+						"With a lewd moan, Katherine snakes a hand under her dress, moaning [katherine.speech(~Ah!~ You're so powerful! I'm getting wet already!)]",
+						"Biting her lip, Katherine looks up into your eyes, and you hear a lewd moan echoing around inside of your head, [katherine.speech(I hope you beat me! Show me no mercy!)]",
+						"With an incredibly lewd moan, Katherine runs her hands up the length of her body to cup her [katherine.cupSize]-cup breasts, [katherine.speech(~Mmm!~ If I fail, there'd be nothing stopping you from fucking me!)]",
+						"Katherine makes a show of staggering back, before desperately pressing her hands down between her legs, [katherine.speech(~Aah!~ I can just imagine all the lewd things you'd do to me if I fall here!)]",
+						"Katherine's [npc.breasts+] starts to heave up and down as she pants, [katherine.speech(Oh no! I'm feeling weak already! Y-You're sure to take advantage of me if I lose!)]") 
+			+ "</p>";
+	}
+	
 	
 	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
@@ -279,7 +281,7 @@ public class ZaranixMaidKatherine extends NPC {
 				
 			} else if (index == 4) {
 				return new Response("Transformations",
-						"Get Katherine to use [npc.her] demonic powers to transform [npc.herself]...",
+						"Get Katherine to use [katherine.her] demonic powers to transform [katherine.herself]...",
 						BodyChanging.BODY_CHANGING_CORE){
 					@Override
 					public void effects() {
@@ -440,10 +442,6 @@ public class ZaranixMaidKatherine extends NPC {
 	@Override
 	public int getExperienceFromVictory() {
 		return 35;
-	}
-	
-	public int getLootMoney() {
-		return 80;
 	}
 
 }

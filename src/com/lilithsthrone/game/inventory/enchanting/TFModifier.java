@@ -67,14 +67,14 @@ public enum TFModifier {
 	// Attributes:
 	
 	STRENGTH(AttributeCategory.STRENGTH,
-			Attribute.MAJOR_STRENGTH,
-			"Applies an effect related to the primary attribute 'Strength'.",
+			Attribute.MAJOR_PHYSIQUE,
+			"Applies an effect related to the primary attribute 'Physique'.",
 			"modifier_circle_strength",
 			Rarity.EPIC),
 	
 	INTELLIGENCE(AttributeCategory.INTELLIGENCE,
 			Attribute.MAJOR_ARCANE,
-			"Applies an effect related to the primary attribute 'Intelligence'.",
+			"Applies an effect related to the primary attribute 'Arcane'.",
 			"modifier_circle_intelligence",
 			Rarity.EPIC),
 	
@@ -117,7 +117,7 @@ public enum TFModifier {
 			Rarity.RARE),
 	
 	
-	DAMAGE_LUST(AttributeCategory.FITNESS,
+	DAMAGE_LUST(AttributeCategory.CORRUPTION,
 			Attribute.DAMAGE_LUST,
 			"Applies an effect related to the secondary attribute 'Seduction damage'.",
 			"modifier_circle_damage",
@@ -135,7 +135,7 @@ public enum TFModifier {
 			"modifier_circle_damage",
 			Rarity.RARE),
 	
-	DAMAGE_FIRE(AttributeCategory.FITNESS,
+	DAMAGE_FIRE(AttributeCategory.INTELLIGENCE,
 			Attribute.DAMAGE_FIRE,
 			"Applies an effect related to the secondary attribute 'Fire damage'.",
 			"modifier_circle_damage",
@@ -147,20 +147,14 @@ public enum TFModifier {
 			"modifier_circle_damage",
 			Rarity.RARE),
 	
-	DAMAGE_POISON(AttributeCategory.CORRUPTION,
+	DAMAGE_POISON(AttributeCategory.INTELLIGENCE,
 			Attribute.DAMAGE_POISON,
 			"Applies an effect related to the secondary attribute 'Poison damage'.",
 			"modifier_circle_damage",
 			Rarity.RARE),
 	
-	DAMAGE_PURE(AttributeCategory.CORRUPTION,
-			Attribute.DAMAGE_PURE,
-			"Applies an effect related to the secondary attribute 'Global damage'.",
-			"modifier_circle_damage",
-			Rarity.LEGENDARY),
 	
-	
-	RESISTANCE_LUST(AttributeCategory.FITNESS,
+	RESISTANCE_LUST(AttributeCategory.CORRUPTION,
 			Attribute.RESISTANCE_LUST,
 			"Applies an effect related to the secondary attribute 'Seduction resistance'.",
 			"modifier_circle_resistance",
@@ -178,7 +172,7 @@ public enum TFModifier {
 			"modifier_circle_resistance",
 			Rarity.RARE),
 	
-	RESISTANCE_FIRE(AttributeCategory.FITNESS,
+	RESISTANCE_FIRE(AttributeCategory.INTELLIGENCE,
 			Attribute.RESISTANCE_FIRE,
 			"Applies an effect related to the secondary attribute 'Fire resistance'.",
 			"modifier_circle_resistance",
@@ -190,16 +184,34 @@ public enum TFModifier {
 			"modifier_circle_resistance",
 			Rarity.RARE),
 	
-	RESISTANCE_POISON(AttributeCategory.CORRUPTION,
+	RESISTANCE_POISON(AttributeCategory.INTELLIGENCE,
 			Attribute.RESISTANCE_POISON,
 			"Applies an effect related to the secondary attribute 'Poison resistance'.",
 			"modifier_circle_resistance",
 			Rarity.RARE),
 	
-	RESISTANCE_PURE(AttributeCategory.CORRUPTION,
-			Attribute.RESISTANCE_PURE,
-			"Applies an effect related to the secondary attribute 'Global resistance'.",
-			"modifier_circle_resistance",
+	
+	// Clothing parts:
+	
+	CLOTHING_ATTRIBUTE("attribute",
+			"Applies a modifier to an attribute.",
+			"attribute",
+			"modifier_circle_arcane",
+			Colour.GENERIC_ATTRIBUTE,
+			Rarity.UNCOMMON),
+
+	CLOTHING_ENSLAVEMENT("enslavement",
+			"Makes this piece of clothing enslave the wearer.",
+			"enslavement",
+			"modifier_circle_enslavement",
+			Colour.BASE_PURPLE_DARK,
+			Rarity.LEGENDARY),
+	
+	CLOTHING_SEALING("sealing",
+			"Makes this piece of clothing seal itself onto the wearer.",
+			"sealing",
+			"modifier_circle_sealing",
+			Colour.SEALED,
 			Rarity.LEGENDARY),
 	
 	
@@ -742,6 +754,16 @@ public enum TFModifier {
 			Colour.BASE_TEAL,
 			Rarity.COMMON),
 	
+	// vagina:
+	
+
+	TF_MOD_VAGINA_SQUIRTER("squirter",
+			"Applies an effect related to making someone a squirter.",
+			"squirting",
+			"modifier_circle_squirter",
+			Colour.BASE_AQUA,
+			Rarity.COMMON),
+	
 	// fluid modifiers:
 	
 	TF_MOD_FLUID_MUSKY("musky",
@@ -935,23 +957,22 @@ public enum TFModifier {
 	TF_MOD_FETISH_BIMBO(Fetish.FETISH_BIMBO),
 	;
 
-	
-	private static List<TFModifier>
-		TFModStrengthList = new ArrayList<>(),
-		TFModIntelligenceList = new ArrayList<>(),
-		TFModFitnessList = new ArrayList<>(),
-		TFModCorruptionList = new ArrayList<>(),
-		TFModSexualList = new ArrayList<>(),
-		TFAttributeList = new ArrayList<>(),
-		TFRacialBodyPartsList = new ArrayList<>(),
-		TFBodyPartFetishList = new ArrayList<>(),
-		TFBehaviouralFetishList = new ArrayList<>();
+	private static List<TFModifier> TFModStrengthList = new ArrayList<>();
+	private static List<TFModifier> TFModIntelligenceList = new ArrayList<>();
+	private static List<TFModifier> TFModCorruptionList = new ArrayList<>();
+	private static List<TFModifier> TFModSexualList = new ArrayList<>();
+	private static List<TFModifier> TFAttributeList = new ArrayList<>();
+	private static List<TFModifier> TFRacialBodyPartsList = new ArrayList<>();
+	private static List<TFModifier> TFBodyPartFetishList = new ArrayList<>();
+	private static List<TFModifier> TFBehaviouralFetishList = new ArrayList<>();
+
+	private static List<TFModifier> clothingPrimaryList = new ArrayList<>();
+	private static List<TFModifier> clothingAttributeList = new ArrayList<>();
 	
 	static {
 
 		TFModStrengthList.add(NONE);
 		TFModIntelligenceList.add(NONE);
-		TFModFitnessList.add(NONE);
 		TFModCorruptionList.add(NONE);
 		TFModSexualList.add(NONE);
 		
@@ -960,9 +981,6 @@ public enum TFModifier {
 				switch(tfMod.getAttributeCategory()) {
 					case CORRUPTION:
 						TFModCorruptionList.add(tfMod);
-						break;
-					case FITNESS:
-						TFModFitnessList.add(tfMod);
 						break;
 					case INTELLIGENCE:
 						TFModIntelligenceList.add(tfMod);
@@ -1010,7 +1028,6 @@ public enum TFModifier {
 		TFAttributeList.add(ARCANE_BOOST);
 		
 
-		TFBodyPartFetishList.add(NONE);
 		TFBodyPartFetishList.add(TF_MOD_FETISH_ANAL_GIVING);
 		TFBodyPartFetishList.add(TF_MOD_FETISH_ANAL_RECEIVING);
 		TFBodyPartFetishList.add(TF_MOD_FETISH_BREASTS_OTHERS);
@@ -1022,7 +1039,6 @@ public enum TFModifier {
 		TFBodyPartFetishList.add(TF_MOD_FETISH_LEG_LOVER);
 		TFBodyPartFetishList.add(TF_MOD_FETISH_STRUTTER);
 
-		TFBehaviouralFetishList.add(NONE);
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_DOMINANT);
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_SUBMISSIVE);
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_CUM_STUD);
@@ -1047,12 +1063,40 @@ public enum TFModifier {
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_CROSS_DRESSER);
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_MASTURBATION);
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_INCEST);
+		
+		clothingPrimaryList.add(TFModifier.CLOTHING_ATTRIBUTE);
+		clothingPrimaryList.add(TFModifier.CLOTHING_SEALING);
+		clothingPrimaryList.add(TFModifier.CLOTHING_ENSLAVEMENT);
+		clothingPrimaryList.add(TFModifier.TF_MOD_FETISH_BODY_PART);
+		clothingPrimaryList.add(TFModifier.TF_MOD_FETISH_BEHAVIOUR);
+		clothingPrimaryList.add(TF_FACE);
+		clothingPrimaryList.add(TF_CORE);
+		clothingPrimaryList.add(TF_HAIR);
+		clothingPrimaryList.add(TF_ASS);
+		clothingPrimaryList.add(TF_BREASTS);
+		clothingPrimaryList.add(TF_PENIS);
+		clothingPrimaryList.add(TF_VAGINA);
+		
+		clothingAttributeList.add(TFModifier.RESISTANCE_FIRE);
+		clothingAttributeList.add(TFModifier.RESISTANCE_ICE);
+		clothingAttributeList.add(TFModifier.RESISTANCE_LUST);
+		clothingAttributeList.add(TFModifier.RESISTANCE_PHYSICAL);
+		clothingAttributeList.add(TFModifier.RESISTANCE_POISON);
+		clothingAttributeList.add(TFModifier.RESISTANCE_SPELLS);
+		clothingAttributeList.add(TFModifier.DAMAGE_FIRE);
+		clothingAttributeList.add(TFModifier.DAMAGE_ICE);
+		clothingAttributeList.add(TFModifier.DAMAGE_LUST);
+		clothingAttributeList.add(TFModifier.DAMAGE_PHYSICAL);
+		clothingAttributeList.add(TFModifier.DAMAGE_POISON);
+		clothingAttributeList.add(TFModifier.DAMAGE_SPELLS);
+		clothingAttributeList.add(TFModifier.SPELL_COST_MODIFIER);
+		clothingAttributeList.add(TFModifier.CRITICAL_CHANCE);
+		clothingAttributeList.add(TFModifier.CRITICAL_DAMAGE);
 	}
 	
 	
 	private enum AttributeCategory {
 		STRENGTH,
-		FITNESS,
 		INTELLIGENCE,
 		CORRUPTION;
 	}
@@ -1196,10 +1240,6 @@ public enum TFModifier {
 		return TFModIntelligenceList;
 	}
 
-	public static List<TFModifier> getTFModFitnessList() {
-		return TFModFitnessList;
-	}
-
 	public static List<TFModifier> getTFModCorruptionList() {
 		return TFModCorruptionList;
 	}
@@ -1226,5 +1266,13 @@ public enum TFModifier {
 
 	public Fetish getFetish() {
 		return fetish;
+	}
+
+	public static List<TFModifier> getClothingAttributeList() {
+		return clothingAttributeList;
+	}
+
+	public static List<TFModifier> getClothingPrimaryList() {
+		return clothingPrimaryList;
 	}
 }

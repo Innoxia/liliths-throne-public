@@ -3,7 +3,6 @@ package com.lilithsthrone.game.dialogue.responses;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
@@ -23,14 +22,13 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.69
- * @version 0.1.82
+ * @version 0.1.99
  * @author Innoxia
  */
 public class Response {
 	
 	protected String title, tooltipText;
 	protected DialogueNodeOld nextDialogue;
-	private QuestLine questLine;
 	
 	protected List<Fetish> fetishesRequired;
 	protected CorruptionLevel corruptionBypass;
@@ -136,6 +134,10 @@ public class Response {
 		return false;
 	}
 	
+	public boolean isTradeHighlight() {
+		return false;
+	}
+	
 	public Colour getHighlightColour() {
 		if(isSexHighlight()) {
 			return Colour.GENERIC_SEX;
@@ -152,13 +154,12 @@ public class Response {
 		} else if(isCorruptionHighlight()) {
 			return Colour.ATTRIBUTE_CORRUPTION;
 			
+		} else if(isTradeHighlight()) {
+			return Colour.BASE_YELLOW_LIGHT;
+			
 		} else {
 			return Colour.TEXT;
 		}
-	}
-	
-	public QuestLine getQuestLine() {
-		return null;
 	}
 	
 	public SexPace getSexPace() {
@@ -170,10 +171,6 @@ public class Response {
 	}
 	
 	public final void applyEffects() {
-		if(questLine != null) {
-			Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(questLine));
-		}
-		
 		effects();
 	}
 	

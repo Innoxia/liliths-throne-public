@@ -146,11 +146,6 @@ public class Finch extends NPC {
 	}
 
 	@Override
-	public String getAttackDescription(Attack attackType, boolean isHit) {
-		return null; // You never fight
-	}
-
-	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
 		return null; // You never fight
 	}

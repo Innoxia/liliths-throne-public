@@ -221,7 +221,7 @@ public class SubKneeling {
 			UtilText.nodeContentSB.append("You feel [npc.name]'s [npc.cock] start to twitch and throb in your mouth, and before you can react, [npc.she] grabs the sides of your head and slams [npc.her] entire length fully down your throat.");
 			
 			if(Sex.getActivePartner().hasPenisModifier(PenisModifier.KNOTTED)) {
-				UtilText.nodeContentSB.append(" Forcing the knot at the base of [npc.her] [npc.cock] past your [pc.lips+], you shuffle around on your knees as it quickly swells up, locking you both in place");
+				UtilText.nodeContentSB.append(" Forcing the knot at the base of [npc.her] [npc.cock] past your [pc.lips+], you shuffle around on your knees as it quickly swells up, locking you both in place.");
 				
 			} else if(Sex.getActivePartner().hasPenisModifier(PenisModifier.FLARED)) {
 				UtilText.nodeContentSB.append(" You feel it start to twitch and throb, and [npc.she] reaches down to hold your head in position as [npc.her] wide, flared head swells up in your throat.");

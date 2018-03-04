@@ -1,17 +1,21 @@
 package com.lilithsthrone.game.character.body.types;
 
+import java.util.ArrayList;
+import java.util.List;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.83
- * @version 0.1.83
+ * @version 0.1.99
  * @author Innoxia
  */
 public enum AntennaType implements BodyPartTypeInterface {
 	NONE("", null, null);
-
+	
+	
+	
 	private BodyCoveringType skinType;
 	private Race race;
 	
@@ -64,5 +68,27 @@ public enum AntennaType implements BodyPartTypeInterface {
 	@Override
 	public Race getRace() {
 		return race;
+	}
+	
+	public List<AntennaType> getAntennaTypes(Race r) {
+		List<AntennaType> types = new ArrayList<>();
+		switch(r) {
+			case ALLIGATOR_MORPH:
+			case ANGEL:
+			case CAT_MORPH:
+			case COW_MORPH:
+			case DEMON:
+			case DOG_MORPH:
+			case HARPY:
+			case HORSE_MORPH:
+			case HUMAN:
+			case REINDEER_MORPH:
+			case SLIME:
+			case SQUIRREL_MORPH:
+			case WOLF_MORPH:
+				types.add(NONE);
+				break;
+		}
+		return types;
 	}
 }

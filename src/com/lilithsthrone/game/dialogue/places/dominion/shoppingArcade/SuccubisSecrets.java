@@ -178,7 +178,7 @@ public class SuccubisSecrets {
 				return new Response("Watch", "Wait for the sleeping demon to wake up.", SHOP_BEAUTY_SALON_WATCH);
 
 			} else if (index == 0) {
-				return new Response("Back", "Head back out to the Shopping Promenade.", EXTERIOR);
+				return new Response("Back", "Head back out to the Shopping Arcade.", EXTERIOR);
 
 			} else {
 				return null;
@@ -365,7 +365,7 @@ public class SuccubisSecrets {
 						+ " you ask, wondering why she seems to actively keep the shop front looking so uninviting."
 						+ "</p>"
 						+ "<p>"
-						+ UtilText.parseSpeech("Well, yeah I'm aware! You know, the owners of this whole promenade keep threatening me with legal action, saying I have a 'responsibility' to keep the area looking nice."
+						+ UtilText.parseSpeech("Well, yeah I'm aware! You know, the owners of this whole arcade keep threatening me with legal action, saying I have a 'responsibility' to keep the area looking nice."
 								+ " As if! As long as I display an 'open for business' sign, I'm following all the terms of my contract! You know what happened when I opened this place?! Thirty. Six. Customers. All in one day. Eugh!"
 								+ " As the last one of those demanding know-it-alls left, I followed them outside, boarded up the windows, and threw paint stripper all over the sign. One day's hard work is enough for anyone...",
 								Main.game.getKate())
@@ -655,7 +655,7 @@ public class SuccubisSecrets {
 			};
 			
 		} else if (index == 0) {
-			return new Response("Leave", "Leave Kate's shop, heading back out into the shopping promenade.", EXTERIOR){
+			return new Response("Leave", "Leave Kate's shop, heading back out into the Shopping Arcade.", EXTERIOR){
 				@Override
 				public void effects() {
 					if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {

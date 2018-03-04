@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.FaceType;
 import com.lilithsthrone.game.character.body.types.LegType;
@@ -22,7 +21,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.0
- * @version 0.1.89
+ * @version 0.2.0
  * @author Innoxia
  */
 public enum SpecialAttack {
@@ -33,9 +32,9 @@ public enum SpecialAttack {
 			"fetish_generic",
 			Colour.GENERIC_ARCANE,
 			DamageType.LUST,
-			DamageLevel.NORMAL,
+			20,
 			DamageVariance.LOW,
-			SpecialAttackSpellCosts.MEDIUM,
+			5,
 			null) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -43,7 +42,8 @@ public enum SpecialAttack {
 			String attackText = "";
 			
 			if(caster.isPlayer()) {
-				attackText = (UtilText.returnStringAtRandom(
+				attackText = UtilText.parse(target,
+								(UtilText.returnStringAtRandom(
 						"You turn around, presenting your [pc.ass+] to [npc.name] before giving it a slap and [pc.moaning], "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[pc.speech(You want to come have a squeeze?)]"
@@ -62,10 +62,11 @@ public enum SpecialAttack {
 						"You turn around, spreading apart your ass cheeks with both hands as you [pc.moan], "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[pc.speech(You know you want a go!)]"
-									:"[pc.speech(My slutty asshole <i>needs</i> your cock!)]")));
+									:"[pc.speech(My slutty asshole <i>needs</i> your cock!)]"))));
 				
-			} else {
-				attackText = (UtilText.returnStringAtRandom(
+			} else if(target.isPlayer()) {
+				attackText = UtilText.parse(caster,
+						(UtilText.returnStringAtRandom(
 						"[npc.Name] turns around, presenting [npc.her] [npc.ass+] to you before giving it a slap and [npc.moaning], "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[npc.speech(You want to come have a squeeze?)]"
@@ -84,7 +85,29 @@ public enum SpecialAttack {
 						"[npc.Name] turns around, spreading apart [npc.her] ass cheeks with both hands as [npc.she] [npc.moans], "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[npc.speech(You know you want a go!)]"
-									:"[npc.speech(My slutty asshole <i>needs</i> your cock!)]")));
+									:"[npc.speech(My slutty asshole <i>needs</i> your cock!)]"))));
+			} else {
+				attackText = UtilText.parse(caster, target,
+						(UtilText.returnStringAtRandom(
+						"[npc.Name] turns around, presenting [npc.her] [npc.ass+] to [npc2.name] before giving it a slap and [npc.moaning], "
+								+ (target.getAppearsAsGender().isFeminine()
+									?"[npc.speech(You want to come have a squeeze?)]"
+									:"[npc.speech(I feel so empty! My asshole's crying out for your cock!)]"),
+								
+						"[npc.Name] turns around, squeezing and groping [npc.her] [npc.ass+] as [npc.she] [npc.moansVerb], "
+								+ (target.getAppearsAsGender().isFeminine()
+									?"[npc.speech(Why don't you come and have a go?)]"
+									:"[npc.speech(My asshole needs cock!)]"),
+								
+						"[npc.Name] turns around, using both hands to grope and spread apart [npc.her] ass cheeks as [npc.she] [pc.moans], "
+								+ (target.getAppearsAsGender().isFeminine()
+									?"[npc.speech(Come and play!)]"
+									:"[npc.speech(Please, I want your cock in my ass!)]"),
+								
+						"[npc.Name] turns around, spreading apart [npc.her] ass cheeks with both hands as [npc.she] [npc.moans], "
+								+ (target.getAppearsAsGender().isFeminine()
+									?"[npc.speech(You know you want a go!)]"
+									:"[npc.speech(My slutty asshole <i>needs</i> your cock!)]"))));
 			}
 			
 			return applySpecialSeduction(caster, target, Fetish.FETISH_ANAL_GIVING, attackText);
@@ -111,9 +134,9 @@ public enum SpecialAttack {
 			"fetish_generic",
 			Colour.GENERIC_ARCANE,
 			DamageType.LUST,
-			DamageLevel.NORMAL,
+			20,
 			DamageVariance.LOW,
-			SpecialAttackSpellCosts.MEDIUM,
+			5,
 			null) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -121,7 +144,8 @@ public enum SpecialAttack {
 			String attackText = "";
 			
 			if(caster.isPlayer()) {
-				attackText = (UtilText.returnStringAtRandom(
+				attackText = UtilText.parse(target,
+						(UtilText.returnStringAtRandom(
 						"You grin at [npc.name], before moving your gaze down to [npc.her] [npc.ass+] and [pc.moaning],"
 							+" [pc.speech(Your ass looks like it needs a good fuck!)]",
 
@@ -129,10 +153,11 @@ public enum SpecialAttack {
 							+" [pc.speech(I'm going to fuck that ass so hard!)]",
 
 						"Gazing lustfully at [npc.name]'s [npc.ass+], you let out [pc.a_moan+],"
-							+" [pc.speech(I'm going to pound that sweet ass into the ground!)]"));
+							+" [pc.speech(I'm going to pound that sweet ass into the ground!)]")));
 				
-			} else {
-				attackText = (UtilText.returnStringAtRandom(
+			} else if(target.isPlayer()){
+				attackText =  UtilText.parse(caster,
+						(UtilText.returnStringAtRandom(
 						"[npc.Name] grins at you, before moving [npc.her] gaze down to your [pc.ass+] and [npc.moaning],"
 							+" [npc.speech(Your ass looks like it needs a good fuck!)]",
 
@@ -140,7 +165,19 @@ public enum SpecialAttack {
 							+" [npc.speech(I'm going to fuck that ass so hard!)]",
 
 						"Gazing lustfully at your [pc.ass+], [npc.name] lets out [npc.a_moan+],"
-							+" [npc.speech(I'm going to pound that sweet ass into the ground!)]"));
+							+" [npc.speech(I'm going to pound that sweet ass into the ground!)]")));
+				
+			} else {
+				attackText = UtilText.parse(caster, target,
+						(UtilText.returnStringAtRandom(
+						"[npc.Name] grins at [npc2.name], before moving [npc.her] gaze down to [npc2.her] [npc2.ass+] and [npc.moaning],"
+							+" [npc.speech(Your ass looks like it needs a good fuck!)]",
+
+						"[npc.Name] hungrily stares at [npc2.name]'s [npc2.ass+], [npc.moaning],"
+							+" [npc.speech(I'm going to fuck that ass so hard!)]",
+
+						"Gazing lustfully at [npc2.name]'s [npc2.ass+], [npc.name] lets out [npc.a_moan+],"
+							+" [npc.speech(I'm going to pound that sweet ass into the ground!)]")));
 			}
 			
 			return applySpecialSeduction(caster, target, Fetish.FETISH_ANAL_RECEIVING, attackText);
@@ -167,9 +204,9 @@ public enum SpecialAttack {
 			"fetish_generic",
 			Colour.GENERIC_ARCANE,
 			DamageType.LUST,
-			DamageLevel.NORMAL,
+			20,
 			DamageVariance.LOW,
-			SpecialAttackSpellCosts.MEDIUM,
+			5,
 			null) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -177,7 +214,8 @@ public enum SpecialAttack {
 			String attackText = "";
 			
 			if(caster.isPlayer()) {
-				attackText = (UtilText.returnStringAtRandom(
+				attackText = UtilText.parse(target,
+						(UtilText.returnStringAtRandom(
 						"You slide your [pc.hands] down between your [pc.legs] and [pc.moanVerb], "
 								+ "[pc.speech(My pussy's aching for your touch!)]",
 								
@@ -188,10 +226,11 @@ public enum SpecialAttack {
 								+ "[pc.speech(I'm getting wet already! Come fuck my little pussy!)]",
 										
 						"You wink at [npc.name] and [pc.moanVerb], "
-								+ "[pc.speech(My slutty pussy <i>needs</i> some attention!)]"));
+								+ "[pc.speech(My slutty pussy <i>needs</i> some attention!)]")));
 				
-			} else {
-				attackText = (UtilText.returnStringAtRandom(
+			} else if(target.isPlayer()) {
+				attackText = UtilText.parse(caster,
+						(UtilText.returnStringAtRandom(
 						"[npc.Name] slides [npc.her] [npc.hands] down between [npc.her] [npc.legs] and [npc.moansVerb], "
 								+ "[npc.speech(My pussy's aching for your touch!)]",
 								
@@ -202,7 +241,23 @@ public enum SpecialAttack {
 								+ "[npc.speech(I'm getting wet already! Come fuck my little pussy!)]",
 										
 						"[npc.Name] winks at you and [npc.moansVerb], "
-								+ "[npc.speech(My slutty pussy <i>needs</i> some attention!)]"));
+								+ "[npc.speech(My slutty pussy <i>needs</i> some attention!)]")));
+				
+			} else {
+				attackText = UtilText.parse(caster, target,
+						(UtilText.returnStringAtRandom(
+						"[npc.Name] slides [npc.her] [npc.hands] down between [npc.her] [npc.legs] and [npc.moansVerb], "
+								+ "[npc.speech(My pussy's aching for your touch!)]",
+								
+						"[npc.Name] slips one [npc.hand] down between [npc.her] [npc.legs] and [npc.moansVerb], "
+								+ "[npc.speech(Come fuck my pussy!)]",
+								
+						"[npc.Name] thrusts [npc.her] [npc.hips+] out a little and [npc.moansVerb], "
+								+ "[npc.speech(I'm getting wet already! Come fuck my little pussy!)]",
+										
+						"[npc.Name] winks at [npc2.name] and [npc.moansVerb], "
+								+ "[npc.speech(My slutty pussy <i>needs</i> some attention!)]")));
+				
 			}
 			
 			return applySpecialSeduction(caster, target, Fetish.FETISH_VAGINAL_GIVING, attackText);
@@ -229,9 +284,9 @@ public enum SpecialAttack {
 			"fetish_generic",
 			Colour.GENERIC_ARCANE,
 			DamageType.LUST,
-			DamageLevel.NORMAL,
+			20,
 			DamageVariance.LOW,
-			SpecialAttackSpellCosts.MEDIUM,
+			5,
 			null) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -239,7 +294,8 @@ public enum SpecialAttack {
 			String attackText = "";
 			
 			if(caster.isPlayer()) {
-				attackText = (UtilText.returnStringAtRandom(
+				attackText = UtilText.parse(target,
+						(UtilText.returnStringAtRandom(
 						"You grin at [npc.name], before moving your gaze down between [npc.her] [npc.legs] and [pc.moaning],"
 							+" [pc.speech(Your pussy looks like it needs a good fuck!)]",
 
@@ -247,10 +303,11 @@ public enum SpecialAttack {
 							+" [pc.speech(I'm going to fuck that pussy so hard!)]",
 
 						"Gazing lustfully between [npc.name]'s [npc.legs], you let out [pc.a_moan+],"
-							+" [pc.speech(I'm going to pound that sweet pussy into the ground!)]"));
+							+" [pc.speech(I'm going to pound that sweet pussy into the ground!)]")));
 				
-			} else {
-				attackText = (UtilText.returnStringAtRandom(
+			} else if(target.isPlayer()) {
+				attackText = UtilText.parse(caster,
+						(UtilText.returnStringAtRandom(
 						"[npc.Name] grins at you, before moving [npc.her] gaze down to between your [pc.legs] and [npc.moaning],"
 							+" [npc.speech(Your pussy looks like it needs a good fuck!)]",
 
@@ -258,7 +315,19 @@ public enum SpecialAttack {
 							+" [npc.speech(I'm going to fuck that pussy so hard!)]",
 
 						"Gazing lustfully between your [pc.legs], [npc.name] lets out [npc.a_moan+],"
-							+" [npc.speech(I'm going to pound that sweet pussy into the ground!)]"));
+							+" [npc.speech(I'm going to pound that sweet pussy into the ground!)]")));
+				
+			} else {
+				attackText = UtilText.parse(caster, target,
+						(UtilText.returnStringAtRandom(
+						"[npc.Name] grins at [npc2.name], before moving [npc.her] gaze down to between [npc2.her] [npc2.legs] and [npc.moaning],"
+							+" [npc.speech(Your pussy looks like it needs a good fuck!)]",
+
+						"[npc.Name] hungrily stares between [npc2.name]'s [npc2.legs], [npc.moaning],"
+							+" [npc.speech(I'm going to fuck that pussy so hard!)]",
+
+						"Gazing lustfully between [npc2.name]'s [npc2.legs], [npc.name] lets out [npc.a_moan+],"
+							+" [npc.speech(I'm going to pound that sweet pussy into the ground!)]")));
 			}
 			
 			return applySpecialSeduction(caster, target, Fetish.FETISH_VAGINAL_RECEIVING, attackText);
@@ -280,14 +349,110 @@ public enum SpecialAttack {
 		}
 	},
 	
+	TEASE_INCEST(50,
+			"incest tease",
+			"fetish_generic",
+			Colour.GENERIC_ARCANE,
+			DamageType.LUST,
+			20,
+			DamageVariance.LOW,
+			5,
+			null) {
+		@Override
+		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+
+			String attackText = "";
+			
+			String dialogue = "";
+			
+			switch(caster.getRelationship(target)) {
+				case OFFSPRING:
+					dialogue = UtilText.returnStringAtRandom(
+							"Let me take care of you [npc.mommy]!",
+							"Come on [npc2.mommy]! I just want to take <i>real</i> good care of you!",
+							"[npc2.Mommy]! I just want to show you how much I love you!");
+					break;
+				case PARENT:
+					dialogue = UtilText.returnStringAtRandom(
+							"Let [npc.mommy] take care of you!",
+							"Don't worry sweetie, [npc.mommy]'s going to take good care of you!",
+							"[npc.Mommy] just wants to show you how much [npc.she] loves you!");
+					break;
+				case SIBLING:
+					dialogue = UtilText.returnStringAtRandom(
+							"Let your [npc.sis] take care of you!",
+							"Don't worry [npc2.sis], I'm going to take good care of you!",
+							"Come on [npc2.sis]! I just want to show you how much I love you!");
+					break;
+				default:
+					break;
+			}
+			
+			if(caster.isPlayer()) {
+				attackText = UtilText.parse(caster, target,
+						(UtilText.returnStringAtRandom(
+						"You grin at [npc2.name], before thrusting your [npc.hips] out at [npc2.herHim], "
+								+ "[npc1.speech("+dialogue+")]",
+
+						"Running your [npc1.hands] down over your groin, you call out to [npc2.name], "
+								+ "[npc1.speech("+dialogue+")]",
+
+						"You let out an eager groan as you thrust your [npc1.hips] at [npc2.name], "
+								+ "[npc1.speech("+dialogue+")]")));
+				
+			} else if(target.isPlayer()) {
+				attackText = UtilText.parse(caster, target,
+						(UtilText.returnStringAtRandom(
+						"[npc1.Name] grins at you, before thrusting [npc1.her] [npc1.hips] forwards and calling out, "
+								+ "[npc1.speech("+dialogue+")]",
+
+						"Running [npc1.her] [npc1.hands] down over [npc1.her] groin, [npc1.name] calls out to you, "
+								+ "[npc1.speech("+dialogue+")]",
+
+						"[npc1.Name] lets out an eager groan as [npc1.she] thrusts [npc1.her] [npc1.hips] at you, "
+								+ "[npc1.speech("+dialogue+")]")));
+				
+			} else {
+				attackText = UtilText.parse(caster, target,
+						(UtilText.returnStringAtRandom(
+						"[npc1.Name] grins at [npc2.name], before thrusting [npc1.her] [npc1.hips] forwards and calling out, "
+								+ "[npc1.speech("+dialogue+")]",
+
+						"Running [npc1.her] [npc1.hands] down over [npc1.her] groin, [npc1.name] calls out to [npc2.name], "
+								+ "[npc1.speech("+dialogue+")]",
+
+						"[npc1.Name] lets out an eager groan as [npc1.she] thrusts [npc1.her] [npc1.hips] at [npc2.name], "
+								+ "[npc1.speech("+dialogue+")]")));
+			}
+			
+			return applySpecialSeduction(caster, target, Fetish.FETISH_INCEST, attackText);
+
+		}
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "Due to your incest fetish, you're able to more effectively seduce your relations.";
+			} else {
+				return UtilText.parse(owner, "[npc.Name] is able to use a special incest tease to seduce [npc.her] relations!");
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter owner) {
+			return owner.hasFetish(Fetish.FETISH_INCEST)
+					&& (!Main.game.isInCombat() || Combat.getTargetedCombatant(owner).isRelatedTo(owner));
+		}
+	},
+	
 	TEASE_CUM_STUD(50,
 			"cum stud tease",
 			"fetish_generic",
 			Colour.GENERIC_ARCANE,
 			DamageType.LUST,
-			DamageLevel.NORMAL,
+			20,
 			DamageVariance.LOW,
-			SpecialAttackSpellCosts.MEDIUM,
+			5,
 			null) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -295,7 +460,8 @@ public enum SpecialAttack {
 			String attackText = "";
 			
 			if(caster.isPlayer()) {
-				attackText = (UtilText.returnStringAtRandom(
+				attackText = UtilText.parse(target,
+						(UtilText.returnStringAtRandom(
 						"You grin at [npc.name], before thrusting your [pc.hips] out at [npc.herHim], "
 								+ "[pc.speech(I can't wait to fill you with my [pc.cum]!)]",
 
@@ -303,10 +469,11 @@ public enum SpecialAttack {
 								+ "[pc.speech(I bet you can't wait to taste my [pc.cum]!)]",
 
 						"You let out an eager groan as you thrust your [pc.hips] at [npc.name], "
-								+ "[pc.speech(I can't wait to fill you with my [pc.cum]!)]"));
+								+ "[pc.speech(I can't wait to fill you with my [pc.cum]!)]")));
 				
-			} else {
-				attackText = (UtilText.returnStringAtRandom(
+			} else if(target.isPlayer()) {
+				attackText = UtilText.parse(target,
+						(UtilText.returnStringAtRandom(
 						"[npc.Name] grins at you, before thrusting [npc.her] [npc.hips] and calling out, "
 								+ "[npc.speech(I can't wait to fill you with my [npc.cum]!)]",
 
@@ -314,7 +481,19 @@ public enum SpecialAttack {
 								+ "[npc.speech(I bet you can't wait to taste my [npc.cum]!)]",
 
 						"[npc.Name] lets out an eager groan as [npc.she] thrusts [npc.her] [npc.hips] at you, "
-								+ "[npc.speech(I can't wait to fill you with my [npc.cum]!)]"));
+								+ "[npc.speech(I can't wait to fill you with my [npc.cum]!)]")));
+				
+			} else {
+				attackText = UtilText.parse(caster, target,
+						(UtilText.returnStringAtRandom(
+						"[npc.Name] grins at [npc2.name], before thrusting [npc.her] [npc.hips] and calling out, "
+								+ "[npc.speech(I can't wait to fill you with my [npc.cum]!)]",
+
+						"Running [npc.her] [npc.hands] down over [npc.her] groin, [npc.name] calls out to [npc2.name], "
+								+ "[npc.speech(I bet you can't wait to taste my [npc.cum]!)]",
+
+						"[npc.Name] lets out an eager groan as [npc.she] thrusts [npc.her] [npc.hips] at [npc2.name], "
+								+ "[npc.speech(I can't wait to fill you with my [npc.cum]!)]")));
 			}
 			
 			return applySpecialSeduction(caster, target, Fetish.FETISH_CUM_ADDICT, attackText);
@@ -341,9 +520,9 @@ public enum SpecialAttack {
 			"fetish_generic",
 			Colour.GENERIC_ARCANE,
 			DamageType.LUST,
-			DamageLevel.NORMAL,
+			20,
 			DamageVariance.LOW,
-			SpecialAttackSpellCosts.MEDIUM,
+			5,
 			null) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -351,7 +530,8 @@ public enum SpecialAttack {
 			String attackText = "";
 			
 			if(caster.isPlayer()) {
-				attackText = (UtilText.returnStringAtRandom(
+				attackText = UtilText.parse(target,
+						(UtilText.returnStringAtRandom(
 						"You let out a desperate moan as you suddenly realise that your mouth isn't full of cum, "
 								+ "[pc.speech(Aah! I need cum! I haven't had a meal in ages!)]",
 
@@ -362,10 +542,11 @@ public enum SpecialAttack {
 								+ "[pc.speech(I'm so hungry! I need cum!)]",
 
 						"You let out a pathetic whine as you beg for a meal, "
-								+ "[pc.speech(Please! I need some cum!)]"));
+								+ "[pc.speech(Please! I need some cum!)]")));
 				
-			} else {
-				attackText = (UtilText.returnStringAtRandom(
+			} else if(target.isPlayer()) {
+				attackText = UtilText.parse(caster,
+						(UtilText.returnStringAtRandom(
 						"[npc.Name] lets out [npc.a_moan+] as [npc.she] suddenly realises that [npc.her] mouth isn't full of cum, "
 								+ "[npc.speech(Aah! I need cum! I haven't had a meal in ages!)]",
 
@@ -376,7 +557,22 @@ public enum SpecialAttack {
 								+ "[npc.speech(I'm so hungry! I need cum!)]",
 
 						"[npc.Name] lets out a pathetic whine as [npc.she] begs for a meal, "
-								+ "[npc.speech(Please! I need some cum!)]"));
+								+ "[npc.speech(Please! I need some cum!)]")));
+				
+			} else {
+				attackText = UtilText.parse(caster, target,
+						(UtilText.returnStringAtRandom(
+						"[npc.Name] lets out [npc.a_moan+] as [npc.she] suddenly realises that [npc.her] mouth isn't full of cum, "
+								+ "[npc.speech(Aah! I need cum! I haven't had a meal in ages!)]",
+
+						"Opening wide to show [npc2.name] how empty [npc.her] mouth is, [npc.name] cries out, "
+								+ "[npc.speech(Mmm! I need cum!)]",
+
+						"[npc.Name] lets out a pathetic whine as [npc.she] realises that [npc.she] hasn't had any cum in a while, "
+								+ "[npc.speech(I'm so hungry! I need cum!)]",
+
+						"[npc.Name] lets out a pathetic whine as [npc.she] begs for a meal, "
+								+ "[npc.speech(Please! I need some cum!)]")));
 			}
 			
 			return applySpecialSeduction(caster, target, Fetish.FETISH_CUM_STUD, attackText);
@@ -403,9 +599,9 @@ public enum SpecialAttack {
 			"fetish_generic",
 			Colour.GENERIC_ARCANE,
 			DamageType.LUST,
-			DamageLevel.NORMAL,
+			20,
 			DamageVariance.LOW,
-			SpecialAttackSpellCosts.MEDIUM,
+			5,
 			null) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -413,7 +609,8 @@ public enum SpecialAttack {
 			String attackText = "";
 			
 			if(caster.isPlayer()) {
-				attackText = (UtilText.returnStringAtRandom(
+				attackText = UtilText.parse(target,
+						(UtilText.returnStringAtRandom(
 						"You grin at [npc.name], gazing at [npc.her] [npc.lips+] as you [pc.moanVerb],"
 							+" [pc.speech(I can't wait to put your [npc.lips] to use!)]",
 
@@ -421,10 +618,11 @@ public enum SpecialAttack {
 							+" [pc.speech(Your tongue belongs between my [pc.legs]!)]",
 
 						"Gazing lustfully at [npc.name]'s [npc.lips+], you let out [pc.a_moan+],"
-							+" [pc.speech(I'm going to put your [npc.lips] to good use!)]"));
+							+" [pc.speech(I'm going to put your [npc.lips] to good use!)]")));
 				
-			} else {
-				attackText = (UtilText.returnStringAtRandom(
+			} else if(target.isPlayer()) {
+				attackText = UtilText.parse(caster,
+						(UtilText.returnStringAtRandom(
 						"[npc.Name] grins at you, gazing at your [pc.lips+] as [npc.she] [npc.moansVerb],"
 							+" [npc.speech(I can't wait to put your [pc.lips] to use!)]",
 
@@ -432,7 +630,19 @@ public enum SpecialAttack {
 							+" [npc.speech(Your tongue belongs between my [npc.legs]!)]",
 
 						"Gazing lustfully at your [pc.lips+], [npc.name] lets out [npc.a_moan+],"
-							+" [npc.speech(I'm going to put your [pc.lips] to good use!)]"));
+							+" [npc.speech(I'm going to put your [pc.lips] to good use!)]")));
+				
+			} else {
+				attackText = UtilText.parse(caster, target,
+						(UtilText.returnStringAtRandom(
+						"[npc.Name] grins at [npc2.name], gazing at [npc2.her] [npc2.lips+] as [npc.she] [npc.moansVerb],"
+							+" [npc.speech(I can't wait to put your [npc2.lips] to use!)]",
+
+						"[npc.Name] hungrily stares at [npc2.name]'s [npc2.lips+], [npc.moaning],"
+							+" [npc.speech(Your tongue belongs between my [npc.legs]!)]",
+
+						"Gazing lustfully at [npc2.name]'s [npc2.lips+], [npc.name] lets out [npc.a_moan+],"
+							+" [npc.speech(I'm going to put your [npc2.lips] to good use!)]")));
 			}
 			
 			return applySpecialSeduction(caster, target, Fetish.FETISH_ORAL_GIVING, attackText);
@@ -455,7 +665,7 @@ public enum SpecialAttack {
 	},
 	
 	TEASE_ORAL_GIVING(50, "oral performer tease", "fetish_generic", Colour.GENERIC_ARCANE,
-			DamageType.LUST, DamageLevel.NORMAL, DamageVariance.LOW, SpecialAttackSpellCosts.MEDIUM,
+			DamageType.LUST, 20, DamageVariance.LOW, 5,
 			null) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -463,7 +673,8 @@ public enum SpecialAttack {
 			String attackText = "";
 			
 			if(caster.isPlayer()) {
-				attackText = (UtilText.returnStringAtRandom(
+				attackText = UtilText.parse(target,
+						(UtilText.returnStringAtRandom(
 						"You open your mouth, sticking out your [pc.tongue] and making a suggestive gesture with one of your [pc.hands], "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[pc.speech(You know, I'm pretty skilled with my tongue!)]"
@@ -482,10 +693,11 @@ public enum SpecialAttack {
 						"You open your mouth, sticking out your [pc.tongue] and making a suggestive gesture with one of your [pc.hands], "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[pc.speech(You know you want to feel my tongue!)]"
-									:"[pc.speech(You know you want me to suck your cock!)]")));
+									:"[pc.speech(You know you want me to suck your cock!)]"))));
 				
-			} else {
-				attackText = (UtilText.returnStringAtRandom(
+			} else if(target.isPlayer()) {
+				attackText = UtilText.parse(caster,
+						(UtilText.returnStringAtRandom(
 						"[npc.Name] opens [npc.her] mouth, sticking out [npc.her] [npc.tongue] and making a suggestive gesture with one of [npc.her] [npc.hands], "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[npc.speech(You know, I'm pretty skilled with my tongue!)]"
@@ -504,7 +716,30 @@ public enum SpecialAttack {
 						"[npc.Name] opens [npc.her] mouth, sticking out [npc.her] [npc.tongue] and making a suggestive gesture with one of [npc.her] [npc.hands], "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[npc.speech(You know you want to feel my tongue!)]"
-									:"[npc.speech(You know you want me to suck your cock!)]")));
+									:"[npc.speech(You know you want me to suck your cock!)]"))));
+				
+			} else {
+				attackText = UtilText.parse(caster, target,
+						(UtilText.returnStringAtRandom(
+						"[npc.Name] opens [npc.her] mouth, sticking out [npc.her] [npc.tongue] and making a suggestive gesture with one of [npc.her] [npc.hands], "
+								+ (target.getAppearsAsGender().isFeminine()
+									?"[npc.speech(You know, I'm pretty skilled with my tongue!)]"
+									:"[npc.speech(Want to find out how deep I can take it?)]"),
+
+						"[npc.Name] opens [npc.her] mouth, sticking out [npc.her] [npc.tongue] and making a suggestive gesture with one of [npc.her] [npc.hands], "
+								+ (target.getAppearsAsGender().isFeminine()
+									?"[npc.speech(You'd love the feeling of my tongue!)]"
+									:"[npc.speech(Want to stick your cock down my throat?)]"),
+
+						"[npc.Name] opens [npc.her] mouth, sticking out [npc.her] [npc.tongue] and making a suggestive gesture with one of [npc.her] [npc.hands], "
+								+ (target.getAppearsAsGender().isFeminine()
+									?"[npc.speech(I'm the best at eating girls out! Want to see?)]"
+									:"[npc.speech(I'm the best at blowjobs! Want to see?)]"),
+
+						"[npc.Name] opens [npc.her] mouth, sticking out [npc.her] [npc.tongue] and making a suggestive gesture with one of [npc.her] [npc.hands], "
+								+ (target.getAppearsAsGender().isFeminine()
+									?"[npc.speech(You know you want to feel my tongue!)]"
+									:"[npc.speech(You know you want me to suck your cock!)]"))));	
 			}
 			
 			return applySpecialSeduction(caster, target, Fetish.FETISH_ORAL_RECEIVING, attackText);
@@ -531,9 +766,9 @@ public enum SpecialAttack {
 			"fetish_generic",
 			Colour.GENERIC_ARCANE,
 			DamageType.LUST,
-			DamageLevel.NORMAL,
+			20,
 			DamageVariance.LOW,
-			SpecialAttackSpellCosts.MEDIUM,
+			5,
 			null) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -542,7 +777,8 @@ public enum SpecialAttack {
 			
 			if(caster.isPlayer()) {
 				if(target.hasBreasts()) {
-					attackText = (UtilText.returnStringAtRandom(
+					attackText = UtilText.parse(target,
+							(UtilText.returnStringAtRandom(
 							"You grin at [npc.name], gazing at [npc.her] [npc.breasts+] as you [pc.moanVerb],"
 								+" [pc.speech(I can't wait to get my [pc.hands] on your [npc.breasts]!)]",
 	
@@ -550,28 +786,50 @@ public enum SpecialAttack {
 								+" [pc.speech(I'm going to have fun playing with those!)]",
 	
 							"Gazing lustfully at [npc.name]'s [npc.breasts+], you let out [pc.a_moan+],"
-								+" [pc.speech(I'm going to have fun those [npc.breasts+] of yours!)]"));
+								+" [pc.speech(I'm going to have fun with those [npc.breasts+] of yours!)]")));
 					
 				} else { //TODO
-					attackText = "Gazing at [npc.name]'s chest, you let out an annoyed huff,"
-									+ " [pc.speech(I wish you had a nice pair of tits that I could use!)]";
+					attackText = UtilText.parse(target,
+							"Gazing at [npc.name]'s chest, you let out an annoyed huff,"
+									+ " [pc.speech(I wish you had a nice pair of tits that I could use!)]");
+				}
+				
+			} else if(target.isPlayer()){
+				if(target.hasBreasts()) {
+					attackText = UtilText.parse(caster,
+							(UtilText.returnStringAtRandom(
+							"[npc.Name] grins at you, gazing at your [pc.breasts+] as [npc.she] [npc.moansVerb],"
+								+" [npc.speech(I can't wait to get my [npc.hands] on your [pc.breasts]!)]",
+	
+							"[npc.Name] hungrily stares at your [pc.breasts+], [npc.moaning],"
+								+" [npc.speech(I'm going to have fun playing with those!)]",
+	
+							"Gazing lustfully at your [pc.breasts+], [npc.name] lets out [npc.a_moan+],"
+									+" [npc.speech(I'm going to have fun with those [pc.breasts+] of yours!)]")));
+					
+				} else { //TODO
+					attackText = UtilText.parse(caster,
+							"Gazing at your chest, [npc.name] lets out an annoyed huff,"
+									+ " [npc.speech(I wish you had a nice pair of tits that I could use!)]");
 				}
 				
 			} else {
 				if(target.hasBreasts()) {
-					attackText = (UtilText.returnStringAtRandom(
-							"[npc.Name] grins at you, gazing at your [pc.breasts+] as [npc.she] [npc.moansVerb],"
-								+" [npc.speech(I can't wait to put your [pc.lips] to use!)]",
+					attackText = UtilText.parse(caster, target,
+							(UtilText.returnStringAtRandom(
+							"[npc.Name] grins at [npc2.name], gazing at [npc2.her] [npc2.breasts+] as [npc.she] [npc.moansVerb],"
+								+" [npc.speech(I can't wait to get my [npc.hands] on your [npc2.breasts]!)]",
 	
-							"[npc.Name] hungrily stares at your [pc.breasts+], [npc.moaning],"
-								+" [npc.speech(Your going to have fun playing with those!)]",
+							"[npc.Name] hungrily stares at [npc2.name]'s [npc2.breasts+], [npc.moaning],"
+								+" [npc.speech(I'm going to have fun playing with those!)]",
 	
-							"Gazing lustfully at your [pc.breasts+], [npc.name] lets out [npc.a_moan+],"
-									+" [npc.speech(I'm going to have fun those [pc.breasts+] of yours!)]"));
+							"Gazing lustfully at [npc2.name]'s [npc2.breasts+], [npc.name] lets out [npc.a_moan+],"
+									+" [npc.speech(I'm going to have fun with those [npc2.breasts+] of yours!)]")));
 					
 				} else { //TODO
-					attackText = "Gazing at your chest, [npc.name] lets out an annoyed huff,"
-									+ " [npc.speech(I wish you had a nice pair of tits that I could use!)]";
+					attackText = UtilText.parse(caster, target,
+							"Gazing at [npc2.name]'s chest, [npc.name] lets out an annoyed huff,"
+									+ " [npc.speech(I wish you had a nice pair of tits that I could use!)]");
 				}
 			}
 			
@@ -591,15 +849,12 @@ public enum SpecialAttack {
 		@Override
 		public boolean isConditionsMet(GameCharacter owner) {
 			return owner.hasFetish(Fetish.FETISH_BREASTS_OTHERS)
-					&& (!Main.game.isInCombat()
-						|| (owner.isPlayer()
-							? Combat.getOpponent().hasBreasts()
-							: Main.game.getPlayer().hasBreasts()));
+					&& (!Main.game.isInCombat() || Combat.getTargetedCombatant(owner).hasBreasts());
 		}
 	},
 	
 	TEASE_BREASTS(50, "breasts tease", "fetish_generic", Colour.GENERIC_ARCANE,
-			DamageType.LUST, DamageLevel.NORMAL, DamageVariance.LOW, SpecialAttackSpellCosts.MEDIUM,
+			DamageType.LUST, 20, DamageVariance.LOW, 5,
 			null) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -607,7 +862,8 @@ public enum SpecialAttack {
 			String attackText = "";
 			
 			if(caster.isPlayer()) {
-				attackText = (UtilText.returnStringAtRandom(
+				attackText = UtilText.parse(target,
+						(UtilText.returnStringAtRandom(
 						"Pushing your [pc.breasts+] together, you lean forwards and wink at [npc.name], "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[pc.speech(Let's play together!)]"
@@ -626,10 +882,11 @@ public enum SpecialAttack {
 						"Running your hands suggestively over your [pc.breasts+], you bite your lip before pouting at [npc.name], "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[pc.speech(Come on! Let's have some fun!)]"
-									:"[pc.speech(~Aah!~ My nipples are so hard!)]")));
+									:"[pc.speech(~Aah!~ My nipples are so hard!)]"))));
 				
-			} else {
-				attackText = (UtilText.returnStringAtRandom(
+			} else if(target.isPlayer()) {
+				attackText = UtilText.parse(caster,
+						(UtilText.returnStringAtRandom(
 						"Pushing [npc.her] [npc.breasts+] together, [npc.name] leans forwards and winks at you, "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[npc.speech(Let's play together!)]"
@@ -648,7 +905,30 @@ public enum SpecialAttack {
 						"Running [npc.her] [npc.hands] suggestively over [npc.her] [npc.breasts+], [npc.name] bites [npc.her] lip before pouting at you, "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[npc.speech(Come on! Let's have some fun!)]"
-									:"[npc.speech(~Aah!~ My nipples are so hard!)]")));
+									:"[npc.speech(~Aah!~ My nipples are so hard!)]"))));
+				
+			} else {
+				attackText = UtilText.parse(caster, target,
+						(UtilText.returnStringAtRandom(
+						"Pushing [npc.her] [npc.breasts+] together, [npc.name] leans forwards and winks at [npc2.name], "
+								+ (target.getAppearsAsGender().isFeminine()
+									?"[npc.speech(Let's play together!)]"
+									:"[npc.speech(Come on, I'll let you have a squeeze!)]"),
+
+						"Pushing [npc.her] [npc.breasts+] together, [npc.name] leans forwards and winks at [npc2.name], "
+								+ (target.getAppearsAsGender().isFeminine()
+									?"[npc.speech(Want to have some fun?)]"
+									:"[npc.speech(Come on, you know you want a feel!)]"),
+
+						"Running [npc.her] [npc.hands] suggestively over [npc.her] [npc.breasts+], [npc.name] bites [npc.her] lip before pouting at [npc2.name], "
+								+ (target.getAppearsAsGender().isFeminine()
+									?"[npc.speech(Don't you want to come and play?)]"
+									:"[npc.speech(I bet you're dying for a touch!)]"),
+
+						"Running [npc.her] [npc.hands] suggestively over [npc.her] [npc.breasts+], [npc.name] bites [npc.her] lip before pouting at [npc2.name], "
+								+ (target.getAppearsAsGender().isFeminine()
+									?"[npc.speech(Come on! Let's have some fun!)]"
+									:"[npc.speech(~Aah!~ My nipples are so hard!)]"))));
 			}
 			
 			return applySpecialSeduction(caster, target, Fetish.FETISH_BREASTS_OTHERS, attackText);
@@ -671,7 +951,7 @@ public enum SpecialAttack {
 	},
 	
 	TEASE_FERTILITY(50, "fertility tease", "fetish_generic", Colour.GENERIC_ARCANE,
-			DamageType.LUST, DamageLevel.NORMAL, DamageVariance.LOW, SpecialAttackSpellCosts.MEDIUM,
+			DamageType.LUST, 20, DamageVariance.LOW, 5,
 			null) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -680,7 +960,8 @@ public enum SpecialAttack {
 			
 			if(caster.isPlayer()) {
 				if(caster.isVisiblyPregnant()) {
-					attackText = (UtilText.returnStringAtRandom(
+					attackText = UtilText.parse(target,
+							(UtilText.returnStringAtRandom(
 							"Running your [pc.hands] over your pregnant belly, you wink at [npc.name], "
 									+ (target.getAppearsAsGender().isFeminine()
 										?"[pc.speech(Let me tell you the best ways to get knocked up!)]"
@@ -699,10 +980,11 @@ public enum SpecialAttack {
 							"Posturing so as to draw attention to your pregnant bump, you bite your lip at [npc.name], "
 									+ (target.getAppearsAsGender().isFeminine()
 										?"[pc.speech(Come on, why don't we have some fun?!)]"
-										:"[pc.speech(Want to find out how good it feels to fuck a pregnant [pc.girl]?)]")));
+										:"[pc.speech(Want to find out how good it feels to fuck a pregnant [pc.girl]?)]"))));
 					
 				} else {
-					attackText = (UtilText.returnStringAtRandom(
+					attackText = UtilText.parse(target,
+							(UtilText.returnStringAtRandom(
 							"Rubbing your [pc.hands] over your flat stomach, you bite your lip at [npc.name], "
 									+ (target.getAppearsAsGender().isFeminine()
 										?"[pc.speech(Aww... I wish I were pregnant so bad!)]"
@@ -721,12 +1003,13 @@ public enum SpecialAttack {
 							"Sliding your [pc.hands] over your flat abdomen, you bite your lip at [npc.name], "
 									+ (target.getAppearsAsGender().isFeminine()
 										?"[pc.speech(I wish I were pregnant...)]"
-										:"[pc.speech(Come breed me already! My womb's waiting for your seed!)]")));
+										:"[pc.speech(Come breed me already! My womb's waiting for your seed!)]"))));
 				}
 				
-			} else {
+			} else if(target.isPlayer()){
 				if(caster.isVisiblyPregnant()) {
-					attackText = (UtilText.returnStringAtRandom(
+					attackText = UtilText.parse(caster,
+							(UtilText.returnStringAtRandom(
 							"Running [npc.her] [npc.hands] over [npc.her] pregnant belly, [npc.name] winks at you, "
 									+ (target.getAppearsAsGender().isFeminine()
 										?"[npc.speech(Let me tell you the best ways to get knocked up!)]"
@@ -745,10 +1028,11 @@ public enum SpecialAttack {
 							"Posturing so as to draw attention to [npc.her] pregnant bump, [npc.name] bites [npc.her] lip at you, "
 									+ (target.getAppearsAsGender().isFeminine()
 										?"[npc.speech(Come on, why don't we have some fun?!)]"
-										:"[npc.speech(Want to find out how good it feels to fuck a pregnant [npc.girl]?)]")));
+										:"[npc.speech(Want to find out how good it feels to fuck a pregnant [npc.girl]?)]"))));
 					
 				} else {
-					attackText = (UtilText.returnStringAtRandom(
+					attackText = UtilText.parse(caster,
+							(UtilText.returnStringAtRandom(
 							"Rubbing [npc.her] [npc.hands] over [npc.her] flat stomach, [npc.name] bites [npc.her] [npc.lip] at you, "
 									+ (target.getAppearsAsGender().isFeminine()
 										?"[npc.speech(Aww... I wish I were pregnant so bad!)]"
@@ -767,7 +1051,55 @@ public enum SpecialAttack {
 							"Rubbing [npc.her] [npc.hands] over [npc.her] flat stomach, [npc.name] bites [npc.her] [npc.lip] at you, "
 									+ (target.getAppearsAsGender().isFeminine()
 										?"[npc.speech(I wish I were pregnant...)]"
-										:"[npc.speech(Come breed me already! My womb's waiting for your seed!)]")));
+										:"[npc.speech(Come breed me already! My womb's waiting for your seed!)]"))));
+				}
+				
+			} else {
+				if(caster.isVisiblyPregnant()) {
+					attackText = UtilText.parse(caster, target,
+							(UtilText.returnStringAtRandom(
+							"Running [npc.her] [npc.hands] over [npc.her] pregnant belly, [npc.name] winks at [npc2.name], "
+									+ (target.getAppearsAsGender().isFeminine()
+										?"[npc.speech(Let me tell you the best ways to get knocked up!)]"
+										:"[npc.speech(Ever wanted to fuck a pregnant [npc.girl]?)]"),
+
+							"[npc.Name] pushes out [npc.her] pregnant belly and giggles at [npc2.name], "
+									+ (target.getAppearsAsGender().isFeminine()
+										?"[npc.speech(I'll tell you all about how I got knocked up!)]"
+										:"[npc.speech(Fucking pregnant [npc.girl]s is the best thing ever! Come on, I'll show you!)]"),
+
+							"Sliding [npc.her] [npc.hands] over [npc.her] pregnant bump, [npc.name] pouts at [npc2.name], "
+									+ (target.getAppearsAsGender().isFeminine()
+										?"[npc.speech(Come have a feel!)]"
+										:"[npc.speech(Pregnant [npc.girl]s are the the best fucks around!)]"),
+
+							"Posturing so as to draw attention to [npc.her] pregnant bump, [npc.name] bites [npc.her] lip at [npc2.name], "
+									+ (target.getAppearsAsGender().isFeminine()
+										?"[npc.speech(Come on, why don't we have some fun?!)]"
+										:"[npc.speech(Want to find out how good it feels to fuck a pregnant [npc.girl]?)]"))));
+					
+				} else {
+					attackText = UtilText.parse(caster, target,
+							(UtilText.returnStringAtRandom(
+							"Rubbing [npc.her] [npc.hands] over [npc.her] flat stomach, [npc.name] bites [npc.her] [npc.lip] at [npc2.name], "
+									+ (target.getAppearsAsGender().isFeminine()
+										?"[npc.speech(Aww... I wish I were pregnant so bad!)]"
+										:"[npc.speech(I need to get pregnant so bad! Come fill me your cum already!)]"),
+
+							"Sliding [npc.her] [npc.hands] over [npc.her] flat stomach, [npc.name] pouts at [npc2.name], "
+									+ (target.getAppearsAsGender().isFeminine()
+										?"[npc.speech(Aww... I wish I were pregnant...)]"
+										:"[npc.speech(Come put some kids in my belly already!)]"),
+
+							"Sliding [npc.her] [npc.hands] over [npc.her] flat stomach, [npc.name] pouts at [npc2.name], "
+									+ (target.getAppearsAsGender().isFeminine()
+										?"[npc.speech(I wish I were pregnant...)]"
+										:"[npc.speech(Come fill my womb your yummy cum! I want to get pregnant already!)]"),
+
+							"Rubbing [npc.her] [npc.hands] over [npc.her] flat stomach, [npc.name] bites [npc.her] [npc.lip] at [npc2.name], "
+									+ (target.getAppearsAsGender().isFeminine()
+										?"[npc.speech(I wish I were pregnant...)]"
+										:"[npc.speech(Come breed me already! My womb's waiting for your seed!)]"))));
 				}
 			}
 			
@@ -791,7 +1123,7 @@ public enum SpecialAttack {
 	},
 	
 	TEASE_VIRILITY(50, "virility tease", "fetish_generic", Colour.GENERIC_ARCANE,
-			DamageType.LUST, DamageLevel.NORMAL, DamageVariance.LOW, SpecialAttackSpellCosts.MEDIUM,
+			DamageType.LUST, 20, DamageVariance.LOW, 5,
 			null) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -800,7 +1132,8 @@ public enum SpecialAttack {
 			
 			if(caster.isPlayer()) {
 				if(target.isVisiblyPregnant()) {
-					attackText = (UtilText.returnStringAtRandom(
+					attackText = UtilText.parse(target,
+							(UtilText.returnStringAtRandom(
 							"Reaching down to grab your crotch, you wink at [npc.name], "
 									+ (target.getAppearsAsGender().isFeminine()
 										?"[pc.speech(Shame you're already pregnant... But that won't stop me from filling your pussy with my [pc.cum+]!)]"
@@ -819,10 +1152,11 @@ public enum SpecialAttack {
 							"Reaching down to grab your crotch, you grin at [npc.name], "
 									+ (target.getAppearsAsGender().isFeminine()
 										?"[pc.speech(It's a shame you're already pregnant... But I'm still going to fill you up with my [pc.cum+]!)]"
-										:"[pc.speech(Got many girls knocked up recently?)]")));
+										:"[pc.speech(Got many girls knocked up recently?)]"))));
 					
 				} else {
-					attackText = (UtilText.returnStringAtRandom(
+					attackText = UtilText.parse(target,
+							(UtilText.returnStringAtRandom(
 							"Reaching down to grab your crotch, you wink at [npc.name], "
 									+ (target.getAppearsAsGender().isFeminine()
 										?"[pc.speech(Want to get knocked up? My cum's crying out to fill your womb!)]"
@@ -841,12 +1175,13 @@ public enum SpecialAttack {
 							"Reaching down to grab your crotch, you grin at [npc.name], "
 									+ (target.getAppearsAsGender().isFeminine()
 										?"[pc.speech(I'm going to fuck you pregnant!)]"
-										:"[pc.speech(Got many girls knocked up recently?)]")));
+										:"[pc.speech(Got many girls knocked up recently?)]"))));
 				}
 				
-			} else {
+			} else if(target.isPlayer()) {
 				if(target.isVisiblyPregnant()) {
-					attackText = (UtilText.returnStringAtRandom(
+					attackText = UtilText.parse(caster,
+							(UtilText.returnStringAtRandom(
 							"Reaching down to grab [npc.her] crotch, [npc.name] winks at you, "
 									+ (target.getAppearsAsGender().isFeminine()
 										?"[npc.speech(Shame you're already pregnant... But that won't stop me from filling your pussy with my [npc.cum+]!)]"
@@ -865,10 +1200,11 @@ public enum SpecialAttack {
 							"Reaching down to grab [npc.her] crotch, [npc.name] grins at you, "
 									+ (target.getAppearsAsGender().isFeminine()
 										?"[npc.speech(It's a shame you're already pregnant... But I'm still going to fill you up with my [npc.cum+]!)]"
-										:"[npc.speech(Got many girls knocked up recently?)]")));
+										:"[npc.speech(Got many girls knocked up recently?)]"))));
 					
 				} else {
-					attackText = (UtilText.returnStringAtRandom(
+					attackText = UtilText.parse(caster,
+							(UtilText.returnStringAtRandom(
 							"Reaching down to grab [npc.her] crotch, [npc.name] winks at you, "
 									+ (target.getAppearsAsGender().isFeminine()
 										?"[npc.speech(Want to get knocked up? My cum's crying out to fill your womb!)]"
@@ -887,7 +1223,55 @@ public enum SpecialAttack {
 							"Reaching down to grab [npc.her] crotch, [npc.name] grins at you, "
 									+ (target.getAppearsAsGender().isFeminine()
 										?"[npc.speech(I'm going to fuck you pregnant!)]"
-										:"[npc.speech(Got many girls knocked up recently?)]")));
+										:"[npc.speech(Got many girls knocked up recently?)]"))));
+				}
+				
+			} else {
+				if(target.isVisiblyPregnant()) {
+					attackText = UtilText.parse(caster, target,
+							(UtilText.returnStringAtRandom(
+							"Reaching down to grab [npc.her] crotch, [npc.name] winks at [npc2.name], "
+									+ (target.getAppearsAsGender().isFeminine()
+										?"[npc.speech(Shame you're already pregnant... But that won't stop me from filling your pussy with my [npc.cum+]!)]"
+										:"[npc.speech(How many girls have you knocked up recently?)]"),
+
+							"Running [npc.her] [npc.hands] down over [npc.her] crotch, [npc.name] winks at [npc2.name], "
+									+ (target.getAppearsAsGender().isFeminine()
+										?"[npc.speech(You may already be pregnant, but that won't stop me from giving you a nice creampie!)]"
+										:"[npc.speech(How many girls have you got pregnant recently?)]"),
+
+							"Sliding [npc.her] [npc.hands] down to draw attention to [npc.her] crotch, [npc.name] grins at [npc2.name], "
+									+ (target.getAppearsAsGender().isFeminine()
+										?"[npc.speech(Don't think that being pregnant will stop me from filling your cunt with my [npc.cum+]!)]"
+										:"[npc.speech(Got many girls pregnant recently?)]"),
+
+							"Reaching down to grab [npc.her] crotch, [npc.name] grins at [npc2.name], "
+									+ (target.getAppearsAsGender().isFeminine()
+										?"[npc.speech(It's a shame you're already pregnant... But I'm still going to fill you up with my [npc.cum+]!)]"
+										:"[npc.speech(Got many girls knocked up recently?)]"))));
+					
+				} else {
+					attackText = UtilText.parse(caster, target,
+							(UtilText.returnStringAtRandom(
+							"Reaching down to grab [npc.her] crotch, [npc.name] winks at [npc2.name], "
+									+ (target.getAppearsAsGender().isFeminine()
+										?"[npc.speech(Want to get knocked up? My cum's crying out to fill your womb!)]"
+										:"[npc.speech(How many girls have you knocked up recently?)]"),
+
+							"Running [npc.her] [npc.hands] down over [npc.her] crotch, [npc.name] winks at [npc2.name], "
+									+ (target.getAppearsAsGender().isFeminine()
+										?"[npc.speech(My seed's so potent, I'm going to knock you up on the first fuck!)]"
+										:"[npc.speech(How many girls have you got pregnant recently?)]"),
+
+							"Sliding [npc.her] [npc.hands] down to draw attention to [npc.her] crotch, [npc.name] grins at [npc2.name], "
+									+ (target.getAppearsAsGender().isFeminine()
+										?"[npc.speech(My seed's so potent, you're going to get knocked up from our first fuck!)]"
+										:"[npc.speech(Got many girls pregnant recently?)]"),
+
+							"Reaching down to grab [npc.her] crotch, [npc.name] grins at [npc2.name], "
+									+ (target.getAppearsAsGender().isFeminine()
+										?"[npc.speech(I'm going to fuck you pregnant!)]"
+										:"[npc.speech(Got many girls knocked up recently?)]"))));
 				}
 			}
 			
@@ -912,7 +1296,7 @@ public enum SpecialAttack {
 	
 	
 	TEASE_DOMINANT(50, "dominant tease", "fetish_generic", Colour.GENERIC_ARCANE,
-			DamageType.LUST, DamageLevel.NORMAL, DamageVariance.LOW, SpecialAttackSpellCosts.MEDIUM,
+			DamageType.LUST, 20, DamageVariance.LOW, 5,
 			null) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -920,7 +1304,8 @@ public enum SpecialAttack {
 			String attackText = "";
 			
 			if(caster.isPlayer()) {
-				attackText = (UtilText.returnStringAtRandom(
+				attackText = UtilText.parse(target,
+						(UtilText.returnStringAtRandom(
 						"Grinning lustfully at [npc.name], you growl out, "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[pc.speech(I'm going to fuck you into next week, bitch!)]"
@@ -939,10 +1324,11 @@ public enum SpecialAttack {
 						"You let out a menacing growl as you stare lustfully at [npc.name], "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[pc.speech(You're going to be a good little submissive slut for me!)]"
-									:"[pc.speech(I'm going to fuck you so hard, you'll be squealing like a little bitch!)]")));
+									:"[pc.speech(I'm going to fuck you so hard, you'll be squealing like a little bitch!)]"))));
 				
-			} else {
-				attackText = (UtilText.returnStringAtRandom(
+			} else if(target.isPlayer()) {
+				attackText =  UtilText.parse(caster,
+						(UtilText.returnStringAtRandom(
 						"Grinning lustfully at you, [npc.name] growls out, "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[npc.speech(I'm going to fuck you into next week, bitch!)]"
@@ -961,7 +1347,30 @@ public enum SpecialAttack {
 						"[npc.Name] lets out a menacing growl as [npc.she] stares lustfully at you, "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[npc.speech(You're going to be a good little submissive slut for me!)]"
-									:"[npc.speech(I'm going to fuck you so hard, you'll be squealing like a little bitch!)]")));
+									:"[npc.speech(I'm going to fuck you so hard, you'll be squealing like a little bitch!)]"))));
+				
+			} else {
+				attackText =  UtilText.parse(caster, target,
+						(UtilText.returnStringAtRandom(
+						"Grinning lustfully at [npc2.name], [npc.name] growls out, "
+								+ (target.getAppearsAsGender().isFeminine()
+									?"[npc.speech(I'm going to fuck you into next week, bitch!)]"
+									:"[npc.speech(I'm going to make you my bitch!)]"),
+
+						"With an evil grin, [npc.name] growls at [npc2.name], "
+								+ (target.getAppearsAsGender().isFeminine()
+									?"[npc.speech(You're going to get the fucking of a lifetime!)]"
+									:"[npc.speech(You're going to be my bitch soon enough!)]"),
+
+						"With a powerful stare, [npc.name] growls at [npc2.name], "
+								+ (target.getAppearsAsGender().isFeminine()
+									?"[npc.speech(I'm going to make you my bitch!)]"
+									:"[npc.speech(You're going to be a mewling little bitch by the time I'm done with you!)]"),
+
+						"[npc.Name] lets out a menacing growl as [npc.she] stares lustfully at [npc2.name], "
+								+ (target.getAppearsAsGender().isFeminine()
+									?"[npc.speech(You're going to be a good little submissive slut for me!)]"
+									:"[npc.speech(I'm going to fuck you so hard, you'll be squealing like a little bitch!)]"))));
 			}
 			
 			return applySpecialSeduction(caster, target, Fetish.FETISH_SUBMISSIVE, attackText);
@@ -983,7 +1392,7 @@ public enum SpecialAttack {
 		}
 	},
 	TEASE_SUBMISSIVE(50, "submissive tease", "fetish_generic", Colour.GENERIC_ARCANE,
-			DamageType.LUST, DamageLevel.NORMAL, DamageVariance.LOW, SpecialAttackSpellCosts.MEDIUM,
+			DamageType.LUST, 20, DamageVariance.LOW, 5,
 			null) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
@@ -991,7 +1400,8 @@ public enum SpecialAttack {
 			String attackText = "";
 			
 			if(caster.isPlayer()) {
-				attackText = (UtilText.returnStringAtRandom(
+				attackText = UtilText.parse(target,
+						(UtilText.returnStringAtRandom(
 						"You tilt your head down in a sign of submission, before looking up with big, innocent eyes, "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[pc.speech(I'll be a good [pc.girl]! I promise!)]"
@@ -1010,29 +1420,54 @@ public enum SpecialAttack {
 						"You put on your most innocent look as you gaze up lustfully at [npc.name], "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[pc.speech(I'll be your little slave!)]"
-									:"[pc.speech(I'll be a good little cock-sleeve! I promise)]")));
+									:"[pc.speech(I'll be a good little cock-sleeve! I promise)]"))));
 				
-			} else {
-				attackText = (UtilText.returnStringAtRandom(
+			} else if(target.isPlayer()) {
+				attackText = UtilText.parse(caster,
+						(UtilText.returnStringAtRandom(
 						"[npc.Name] tilts [npc.her] head down in a sign of submission, before looking up with big, innocent eyes, "
 								+ (target.getAppearsAsGender().isFeminine()
-									?"[pc.speech(I'll be a good [pc.girl]! I promise!)]"
-									:"[pc.speech(I'll be a good [pc.girl]! I promise!)]"),
+									?"[npc.speech(I'll be a good [npc.girl]! I promise!)]"
+									:"[npc.speech(I'll be a good [npc.girl]! I promise!)]"),
 
 						"[npc.Name] bites [npc.her] [npc.lip] and shuffles [npc.her] [npc.feet] as [npc.she] does [npc.her] best to look as weak as possible, "
 								+ (target.getAppearsAsGender().isFeminine()
-									?"[pc.speech(I'll do anything you want!)]"
-									:"[pc.speech(I'll do anything you want!)]"),
+									?"[npc.speech(I'll do anything you want!)]"
+									:"[npc.speech(I'll do anything you want!)]"),
 
 						"[npc.Name] shuffles [npc.her] [npc.feet] and makes [npc.herself] as small as possible, before lustfully gazing up at you, "
 								+ (target.getAppearsAsGender().isFeminine()
-									?"[pc.speech(Please! Treat me like your little bitch!)]"
-									:"[pc.speech(Please! Make me your little fuck-toy!)]"),
+									?"[npc.speech(Please! Treat me like your little bitch!)]"
+									:"[npc.speech(Please! Make me your little fuck-toy!)]"),
 
 						"[npc.Name] puts on [npc.her] most innocent look as [npc.she] gazes up lustfully into your eyes, "
 								+ (target.getAppearsAsGender().isFeminine()
-									?"[pc.speech(I'll be your little slave!)]"
-									:"[pc.speech(I'll be a good little cock-sleeve! I promise)]")));
+									?"[npc.speech(I'll be your little slave!)]"
+									:"[npc.speech(I'll be a good little cock-sleeve! I promise)]"))));
+				
+			} else {
+
+				attackText = UtilText.parse(caster, target,
+						(UtilText.returnStringAtRandom(
+						"[npc.Name] tilts [npc.her] head down in a sign of submission, before looking up with big, innocent eyes, "
+								+ (target.getAppearsAsGender().isFeminine()
+									?"[npc.speech(I'll be a good [npc.girl]! I promise!)]"
+									:"[npc.speech(I'll be a good [npc.girl]! I promise!)]"),
+
+						"[npc.Name] bites [npc.her] [npc.lip] and shuffles [npc.her] [npc.feet] as [npc.she] does [npc.her] best to look as weak as possible, "
+								+ (target.getAppearsAsGender().isFeminine()
+									?"[npc.speech(I'll do anything you want!)]"
+									:"[npc.speech(I'll do anything you want!)]"),
+
+						"[npc.Name] shuffles [npc.her] [npc.feet] and makes [npc.herself] as small as possible, before lustfully gazing up at [npc2.name], "
+								+ (target.getAppearsAsGender().isFeminine()
+									?"[npc.speech(Please! Treat me like your little bitch!)]"
+									:"[npc.speech(Please! Make me your little fuck-toy!)]"),
+
+						"[npc.Name] puts on [npc.her] most innocent look as [npc.she] gazes up lustfully into [npc2.name]'s [npc2.eyes], "
+								+ (target.getAppearsAsGender().isFeminine()
+									?"[npc.speech(I'll be your little slave!)]"
+									:"[npc.speech(I'll be a good little cock-sleeve! I promise)]"))));
 			}
 			
 			return applySpecialSeduction(caster, target, Fetish.FETISH_DOMINANT, attackText);
@@ -1055,7 +1490,7 @@ public enum SpecialAttack {
 	
 	
 	
-	
+	//TODO need NPC-on-NPC variants
 	/*
 	 * Special attack's main feature is that they should apply long-duration
 	 * status effects. Damage is secondary. They CAN miss.
@@ -1065,14 +1500,14 @@ public enum SpecialAttack {
 			"biteIcon",
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			DamageType.PHYSICAL,
-			DamageLevel.HIGH,
+			20,
 			DamageVariance.LOW,
-			SpecialAttackSpellCosts.MEDIUM,
+			6,
 			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.CRIPPLE, 4))) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 
-			float damage = calculateDamage(caster, target, isCritical), cost = calculateCost(caster);
+			float damage = Attack.calculateSpecialAttackDamage(caster, target, damageType, this.getDamage(), damageVariance, isCritical);
 
 			descriptionSB = new StringBuilder();
 			
@@ -1083,7 +1518,7 @@ public enum SpecialAttack {
 										+ " and you manage to cause some serious damage with your sharp canines before [npc.she] manages to throw you off of [npc.herHim]."
 										: target.getName("The") + " manages to jump to one side, and there's an audible snap as your teeth clamp down on thin air.")
 								+ "</p>")
-						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			} else {
 				descriptionSB.append(UtilText.parse(caster,
 						"<p>" + "With a sudden burst of energy, " + caster.getName("the") + " leaps forwards as [npc.she] tries to bite you."
@@ -1091,17 +1526,15 @@ public enum SpecialAttack {
 										+ " and [npc.she] shakes [npc.her] head from side-to-side, managing to cause some serious damage with [npc.her] sharp canines before you manage to throw [npc.herHim] off of you."
 										: "You jump to one side as you see the attack coming, and there's an audible snap as [npc.her] teeth thankfully clamp down on nothing but thin air.")
 								+ "</p>")
-						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			}
 			
 			// If attack hits, apply damage and effects:
 			if (isHit) {
-				descriptionSB.append(target.incrementHealth(-damage));
+				descriptionSB.append(target.incrementHealth(caster, -damage));
 				for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
 					target.addStatusEffect(se.getKey(), se.getValue());
 			}
-
-			caster.incrementHealth(-cost);
 			
 			return descriptionSB.toString();
 		}
@@ -1125,14 +1558,14 @@ public enum SpecialAttack {
 			"hornsIcon",
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			DamageType.PHYSICAL,
-			DamageLevel.HIGH,
+			20,
 			DamageVariance.LOW,
-			SpecialAttackSpellCosts.MEDIUM,
+			5,
 			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.DAZED, 2))) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 
-			float damage = calculateDamage(caster, target, isCritical), cost = calculateCost(caster);
+			float damage = Attack.calculateSpecialAttackDamage(caster, target, damageType, this.getDamage(), damageVariance, isCritical);
 
 			descriptionSB = new StringBuilder();
 			
@@ -1145,7 +1578,7 @@ public enum SpecialAttack {
 											+ " you knock the wind out of [npc.herHim] and cause [npc.herHim] to stagger backwards in a daze."
 									: " [npc.She] manages to jump to one side, and there's an audible whoosh as you thrust your horns through the air.")
 						+ "</p>")
-						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			} else {
 				descriptionSB.append(UtilText.parse(caster,
 						"<p>"
@@ -1155,17 +1588,15 @@ public enum SpecialAttack {
 											+ " [npc.she] knocks the wind out of you and causes you to stagger backwards in a daze."
 									: " You manage to jump to one side, and there's an audible whoosh as [npc.she] thrusts [npc.her] horns through the air.")
 						+ "</p>")
-						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			}
 			
 			// If attack hits, apply damage and effects:
 			if (isHit) {
-				descriptionSB.append(target.incrementHealth(-damage));
+				descriptionSB.append(target.incrementHealth(caster, -damage));
 				for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
 					target.addStatusEffect(se.getKey(), se.getValue());
 			}
-
-			caster.incrementHealth(-cost);
 			
 			return descriptionSB.toString();
 		}
@@ -1190,14 +1621,14 @@ public enum SpecialAttack {
 			"hornsIcon",
 			Colour.DAMAGE_TYPE_PHYSICAL,
 			DamageType.PHYSICAL,
-			DamageLevel.HIGH,
+			20,
 			DamageVariance.LOW,
-			SpecialAttackSpellCosts.MEDIUM,
+			5,
 			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.DAZED, 2))) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 
-			float damage = calculateDamage(caster, target, isCritical), cost = calculateCost(caster);
+			float damage = Attack.calculateSpecialAttackDamage(caster, target, damageType, this.getDamage(), damageVariance, isCritical);
 
 			descriptionSB = new StringBuilder();
 			
@@ -1210,7 +1641,7 @@ public enum SpecialAttack {
 											+ " you knock the wind out of [npc.herHim] and cause [npc.herHim] to stagger backwards in a daze."
 									: " [npc.She] manages to jump to one side, and there's an audible whoosh as you thrust your antlers through the air.")
 						+ "</p>")
-						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			} else {
 				descriptionSB.append(UtilText.parse(caster,
 						"<p>"
@@ -1220,17 +1651,15 @@ public enum SpecialAttack {
 											+ " [npc.she] knocks the wind out of you and causes you to stagger backwards in a daze."
 									: " You manage to jump to one side, and there's an audible whoosh as [npc.she] thrusts [npc.her] antlers through the air.")
 						+ "</p>")
-						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			}
 			
 			// If attack hits, apply damage and effects:
 			if (isHit) {
-				descriptionSB.append(target.incrementHealth(-damage));
+				descriptionSB.append(target.incrementHealth(caster, -damage));
 				for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
 					target.addStatusEffect(se.getKey(), se.getValue());
 			}
-
-			caster.incrementHealth(-cost);
 			
 			return descriptionSB.toString();
 		}
@@ -1250,12 +1679,19 @@ public enum SpecialAttack {
 		}
 	},
 
-	WOLF_SAVAGE(50, "savage attack", "savageIcon", Colour.DAMAGE_TYPE_PHYSICAL, DamageType.PHYSICAL, DamageLevel.EXTREME, DamageVariance.HIGH, SpecialAttackSpellCosts.EXTREME,
+	WOLF_SAVAGE(50,
+			"savage attack",
+			"savageIcon",
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			DamageType.PHYSICAL,
+			30,
+			DamageVariance.HIGH,
+			8,
 			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.CRIPPLE, 5))) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 
-			float damage = calculateDamage(caster, target, isCritical), cost = calculateCost(caster);
+			float damage = Attack.calculateSpecialAttackDamage(caster, target, damageType, this.getDamage(), damageVariance, isCritical);
 			
 			descriptionSB = new StringBuilder();
 			
@@ -1268,7 +1704,7 @@ public enum SpecialAttack {
 												+ " doing a considerable amount of damage before [npc.she] manages to kick you off of [npc.herHim]."
 										: " [npc.She] manages to jump out of the way, and you end up tumbling to the ground as you're caught off-guard by your target's sudden evasive move.")
 							+ "</p>")
-						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			} else {
 				descriptionSB.append(UtilText.parse(caster,
 						"<p>" + "With a savage howl, [npc.name] launches [npc.herself] at you."
@@ -1277,17 +1713,15 @@ public enum SpecialAttack {
 												+ " doing a considerable amount of damage before you manage to kick [npc.herHim] off of you."
 										: "You manage to jump out of the way, and [npc.she] ends up tumbling to the ground as [npc.she]'s caught off-guard by your sudden evasive move.")
 								+ "</p>")
-						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			}
 			
 			// If attack hits, apply damage and effects:
 			if (isHit) {
-				descriptionSB.append(target.incrementHealth(-damage));
+				descriptionSB.append(target.incrementHealth(caster, -damage));
 				for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
 					target.addStatusEffect(se.getKey(), se.getValue());
 			}
-
-			caster.incrementHealth(-cost);
 			
 			return descriptionSB.toString();
 
@@ -1308,12 +1742,19 @@ public enum SpecialAttack {
 		}
 	},
 
-	SQUIRREL_SCRATCH(50, "scratch", "scratchIcon", Colour.DAMAGE_TYPE_PHYSICAL, DamageType.PHYSICAL, DamageLevel.NORMAL, DamageVariance.HIGH, SpecialAttackSpellCosts.HIGH,
+	SQUIRREL_SCRATCH(50,
+			"scratch",
+			"scratchIcon",
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			DamageType.PHYSICAL,
+			10,
+			DamageVariance.HIGH,
+			6,
 			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.VULNERABLE, 4))) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 
-			float damage = calculateDamage(caster, target, isCritical), cost = calculateCost(caster);
+			float damage = Attack.calculateSpecialAttackDamage(caster, target, damageType, this.getDamage(), damageVariance, isCritical);
 
 			descriptionSB = new StringBuilder();
 			
@@ -1323,24 +1764,22 @@ public enum SpecialAttack {
 								+ (isHit ? " Your sharp claws rake over " + target.getName("the") + "'s body, and [npc.she] lets out a surprised cry as you jump back."
 										: target.getName("The") + " manages to dodge your attack, and you end up swiping at nothing more than thin air.")
 								+ "</p>")
-						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			} else {
 				descriptionSB.append(UtilText.parse(caster,
 						"<p>" + caster.getName("The") + " flexes the claws on [npc.her] anthropomorphic squirrel-like hands, and with a quick dash forwards, attempts to strike at you."
 								+ (isHit ? " [npc.Her] sharp claws rake over your body, and you let out a surprised cry as [npc.she] quickly jumps back, and smirking at you."
 										: " You see [npc.her] attack coming, and you jump out of the way just in time, leaving [npc.herHim] to swipe at nothing more than thin air.")
 								+ "</p>")
-						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			}
 			
 			// If attack hits, apply damage and effects:
 			if (isHit) {
-				descriptionSB.append(target.incrementHealth(-damage));
+				descriptionSB.append(target.incrementHealth(caster, -damage));
 				for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
 					target.addStatusEffect(se.getKey(), se.getValue());
 			}
-
-			caster.incrementHealth(-cost);
 			
 			return descriptionSB.toString();
 			
@@ -1361,12 +1800,19 @@ public enum SpecialAttack {
 		}
 	},
 	
-	ALLIGATOR_TAIL_SWIPE(50, "tail swipe", "tailSwipeIcon", Colour.RACE_ALLIGATOR_MORPH, DamageType.PHYSICAL, DamageLevel.HIGH, DamageVariance.HIGH, SpecialAttackSpellCosts.HIGH,
+	ALLIGATOR_TAIL_SWIPE(50,
+			"tail swipe",
+			"tailSwipeIcon",
+			Colour.RACE_ALLIGATOR_MORPH,
+			DamageType.PHYSICAL,
+			25,
+			DamageVariance.HIGH,
+			6,
 			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.DAZED, 2))) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 
-			float damage = calculateDamage(caster, target, isCritical), cost = calculateCost(caster);
+			float damage = Attack.calculateSpecialAttackDamage(caster, target, damageType, this.getDamage(), damageVariance, isCritical);
 
 			descriptionSB = new StringBuilder();
 			
@@ -1378,7 +1824,7 @@ public enum SpecialAttack {
 										? " Your appendage connects fully with [npc.her] body, causing considerable damage and dazing [npc.herHim] from the powerful blow!"
 										: " [npc.Name] manages to dodge your attack, and you end up swiping at nothing more than thin air!")
 						+ "</p>")
-						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			} else {
 				descriptionSB.append(UtilText.parse(caster,
 						"<p>"
@@ -1387,17 +1833,15 @@ public enum SpecialAttack {
 										? " [npc.Her] appendage connects fully with your body, causing considerable damage and dazing you from the powerful blow!"
 										: " You manage to dodge [npc.her] attack, and [npc.she] ends up swiping at nothing more than thin air!")
 						+ "</p>")
-						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			}
 			
 			// If attack hits, apply damage and effects:
 			if (isHit) {
-				descriptionSB.append(target.incrementHealth(-damage));
+				descriptionSB.append(target.incrementHealth(caster, -damage));
 				for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
 					target.addStatusEffect(se.getKey(), se.getValue());
 			}
-
-			caster.incrementHealth(-cost);
 			
 			return descriptionSB.toString();
 			
@@ -1418,12 +1862,19 @@ public enum SpecialAttack {
 		}
 	},
 
-	CAT_SCRATCH(50, "scratch", "scratchIcon", Colour.DAMAGE_TYPE_PHYSICAL, DamageType.PHYSICAL, DamageLevel.NORMAL, DamageVariance.HIGH, SpecialAttackSpellCosts.HIGH,
+	CAT_SCRATCH(50,
+			"scratch",
+			"scratchIcon",
+			Colour.DAMAGE_TYPE_PHYSICAL,
+			DamageType.PHYSICAL,
+			15,
+			DamageVariance.HIGH,
+			6,
 			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.VULNERABLE, 4))) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 
-			float damage = calculateDamage(caster, target, isCritical), cost = calculateCost(caster);
+			float damage = Attack.calculateSpecialAttackDamage(caster, target, damageType, this.getDamage(), damageVariance, isCritical);
 
 			descriptionSB = new StringBuilder();
 			
@@ -1433,24 +1884,22 @@ public enum SpecialAttack {
 								+ (isHit ? " Your sharp claws rake over " + target.getName("the") + "'s body, and [npc.she] lets out a surprised cry as you jump back, retracting your claws."
 										: target.getName("The") + " manages to dodge your attack, and you end up swiping at nothing more than thin air.")
 								+ "</p>")
-						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			} else {
 				descriptionSB.append(UtilText.parse(caster,
 						"<p>" + caster.getName("The") + " extends the claws on [npc.her] anthropomorphic cat-like hands, and with a quick dash forwards, attempts to strike at you."
 								+ (isHit ? " [npc.Her] sharp claws rake over your body, and you let out a surprised cry as [npc.she] quickly jumps back, retracting [npc.her] claws and smirking at you."
 										: " You see [npc.her] attack coming, and you jump out of the way just in time, leaving [npc.herHim] to swipe at nothing more than thin air.")
 								+ "</p>")
-						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			}
 			
 			// If attack hits, apply damage and effects:
 			if (isHit) {
-				descriptionSB.append(target.incrementHealth(-damage));
+				descriptionSB.append(target.incrementHealth(caster, -damage));
 				for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
 					target.addStatusEffect(se.getKey(), se.getValue());
 			}
-
-			caster.incrementHealth(-cost);
 			
 			return descriptionSB.toString();
 			
@@ -1471,11 +1920,19 @@ public enum SpecialAttack {
 		}
 	},
 
-	HORSE_KICK(50, "kick", "kickIcon", Colour.CLOTHING_RED, DamageType.PHYSICAL, DamageLevel.HIGH, DamageVariance.LOW, SpecialAttackSpellCosts.MEDIUM, Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.DAZED, 4))) {
+	HORSE_KICK(50,
+			"kick",
+			"kickIcon",
+			Colour.CLOTHING_RED,
+			DamageType.PHYSICAL,
+			20,
+			DamageVariance.LOW,
+			6,
+			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.DAZED, 4))) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 
-			float damage = calculateDamage(caster, target, isCritical), cost = calculateCost(caster);
+			float damage = Attack.calculateSpecialAttackDamage(caster, target, damageType, this.getDamage(), damageVariance, isCritical);
 
 			descriptionSB = new StringBuilder();
 			
@@ -1485,22 +1942,20 @@ public enum SpecialAttack {
 								+ (isHit ? " Your hooved foot slams into " + target.getName("the") + ", and [npc.she] staggers back in a daze."
 										: target.getName("The") + " sees your attack coming, and [npc.she] manages to dodge to one side at the last second.")
 								+ "</p>")
-						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			} else {
 				descriptionSB.append(UtilText.parse(caster,
 						"<p>" + caster.getName("The") + " turns to one side and kicks out with one of [npc.her] powerful horse-like legs."
 								+ (isHit ? " [npc.Her] hooved foot slams into you, causing you to stagger back in a daze." : " You see [npc.her] attack coming, and manage to dodge to one side at the last second.") + "</p>")
-						+ getDamageAndCostDescription(caster, target, cost, damage, isHit, isCritical));
+						+ getDamageAndCostDescription(caster, target, this.getCooldown(), damage, isHit, isCritical));
 			}
 			
 			// If attack hits, apply damage and effects:
 			if (isHit) {
-				descriptionSB.append(target.incrementHealth(-damage));
+				descriptionSB.append(target.incrementHealth(caster, -damage));
 				for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
 					target.addStatusEffect(se.getKey(), se.getValue());
 			}
-
-			caster.incrementHealth(-cost);
 			
 			return descriptionSB.toString();
 
@@ -1524,21 +1979,28 @@ public enum SpecialAttack {
 
 	protected String name;
 	protected DamageType damageType;
-	protected DamageLevel damageLevel;
+	protected int damage;
 	protected DamageVariance damageVariance;
-	protected SpecialAttackSpellCosts specialAttackCost;
+	protected int cooldown;
 	protected int renderingPriority;
 	private Map<StatusEffect, Integer> statusEffects;
 	private String SVGString;
 
-	private SpecialAttack(int renderingPriority, String name, String pathName, Colour colourShade, DamageType damage, DamageLevel damageLevel, DamageVariance damageVariance, SpecialAttackSpellCosts specialAttackCost,
+	private SpecialAttack(int renderingPriority,
+			String name,
+			String pathName,
+			Colour colourShade,
+			DamageType damageType,
+			int damage,
+			DamageVariance damageVariance,
+			int cooldown,
 			Map<StatusEffect, Integer> statusEffects) {
 		this.renderingPriority = renderingPriority;
 		this.name = name;
-		this.damageType = damage;
-		this.damageLevel = damageLevel;
+		this.damageType = damageType;
+		this.damage = damage;
 		this.damageVariance = damageVariance;
-		this.specialAttackCost = specialAttackCost;
+		this.cooldown = cooldown;
 		
 		if(statusEffects==null)
 			this.statusEffects = new EnumMap<>(StatusEffect.class);
@@ -1561,136 +2023,11 @@ public enum SpecialAttack {
 			e.printStackTrace();
 		}
 	}
-	
-	public float calculateDamage(GameCharacter caster, GameCharacter target, boolean critical) {
-
-		float damage = getMinimumDamage(caster, target);
-
-		// Add variation:
-		if (getMaximumDamage(caster, target) - getMinimumDamage(caster, target) > 0) {
-			float difference = getMaximumDamage(caster, target) - getMinimumDamage(caster, target);
-			
-			damage += Math.random()*difference;
-		}
-
-		// Is critical:
-		if (critical)
-			damage *= (caster.getAttributeValue(Attribute.CRITICAL_DAMAGE) / 100f);
-
-		// Round float value to nearest 1 decimal place:
-		damage = (Math.round(damage*10))/10f;
-
-		return damage;
-	}
-
-	public float getMaximumDamage(GameCharacter caster, GameCharacter target) {
-		float damage = getModifiedDamage(caster, target, getDamage(caster) * (1 + damageVariance.getPercentage()));
-
-		// Round float value to nearest 1 decimal place:
-		damage = (Math.round(damage*10))/10f;
-		
-		return damage;
-	}
-
-	public float getMinimumDamage(GameCharacter caster, GameCharacter target) {
-		float damage = getModifiedDamage(caster, target, getDamage(caster) * (1 - damageVariance.getPercentage()));
-
-		// Round float value to nearest 1 decimal place:
-		damage = (Math.round(damage*10))/10f;
-		
-		return damage;
-	}
-
-	private float getModifiedDamage(GameCharacter caster, GameCharacter target, float attackersDamage) {
-		float damage = attackersDamage;
-		if (damage < 1)
-			damage = 1;
-
-		// Attacker modifiers:
-		// Damage Type modifier:
-		damage *= (caster.getAttributeValue(damageType.getMultiplierAttribute()) / 100f);
-		// Pure damage modifier:
-		damage *= ((100 + caster.getAttributeValue(Attribute.DAMAGE_PURE)) / 100f);
-
-		if (damage < 1)
-			damage = 1;
-
-		if (target != null) {
-			// Defender modifiers:
-			// Damage Type modifier:
-			damage *= ((100 - target.getAttributeValue(damageType.getResistAttribute())) / 100f);
-			// Pure damage modifier:
-			damage *= ((100 - target.getAttributeValue(Attribute.RESISTANCE_PURE)) / 100f);
-
-			if (damage < 1)
-				damage = 1;
-
-			// Modifiers based on level:
-			if (target.getLevel() - caster.getLevel() >= 3) // High defender
-															// level
-				return damage * 0.5f;
-			else if (target.getLevel() - caster.getLevel() <= -3) // Low
-																	// defender
-																	// level
-				return damage * 1.5f;
-			else
-				return damage;
-
-		} else
-			return damage;
-	}
-
-	
-	public float calculateCost(GameCharacter caster) {
-
-		float cost = getMinimumCost(caster);
-
-		// Add variation:
-		if (getMaximumCost(caster) - getMinimumCost(caster) > 0) {
-			float difference = getMaximumCost(caster) - getMinimumCost(caster);
-			
-			cost += Math.random()*difference;
-		}
-
-		// Round float value to nearest 1 decimal place:
-		cost = (Math.round(cost*10))/10f;
-
-		return cost;
-	}
-
-	public float getMaximumCost(GameCharacter caster) {
-		float damage = getModifiedCost(caster);
-		
-		damage*=1.1f;
-		
-		// Round float value to nearest 1 decimal place:
-		damage = (Math.round(damage*10))/10f;
-		
-		return damage;
-	}
-
-	public float getMinimumCost(GameCharacter caster) {
-		float damage = getModifiedCost(caster);
-		
-		damage*=0.9f;
-		
-		// Round float value to nearest 1 decimal place:
-		damage = (Math.round(damage*10))/10f;
-		
-		return damage;
-	}
-	
-	private float getModifiedCost(GameCharacter caster) {
-		float calculatedCost = caster.getLevel() + (caster.getAttributeValue(Attribute.HEALTH_MAXIMUM) * (specialAttackCost.getPercentage())/100f);
-		
-		// Round float value to nearest 1 decimal place:
-		calculatedCost = (Math.round(calculatedCost*10))/10f;
-		
-		return calculatedCost;
-	}
 
 	protected String getDamageAndCostDescription(GameCharacter caster, GameCharacter target, float cost, float damage, boolean isHit, boolean isCritical) {
 		StringBuilder descriptionSB = new StringBuilder();
+
+		Combat.setCooldown(caster, this, this.getCooldown()+1);
 		
 		if (caster == Main.game.getPlayer()) {
 			if (isCritical)
@@ -1715,7 +2052,9 @@ public enum SpecialAttack {
 				descriptionSB.append(".</p>");
 			}
 
-			descriptionSB.append("<p>" + "Using your non-human body parts in such a manner is quite tiring, and you lose <b>" + cost + "</b> <b style='color:" + Attribute.HEALTH_MAXIMUM.getColour().toWebHexString() + ";'>energy</b>!</b>" + "</p>");
+			descriptionSB.append("<p>"
+									+ "You will be unable to repeat this attack for <b style='color:" + Colour.GENERIC_MINOR_BAD.toWebHexString() + ";'>"+this.getCooldown()+" turns</b>.</b>"
+								+ "</p>");
 
 		} else {
 			if (isCritical)
@@ -1741,7 +2080,9 @@ public enum SpecialAttack {
 			}
 
 			descriptionSB.append(UtilText.parse(caster,
-					"<p>" + "Using [npc.her] non-human body parts in such a manner is quite tiring, and [npc.she] loses <b>" + cost + "</b> <b style='color:" + Attribute.HEALTH_MAXIMUM.getColour().toWebHexString() + ";'>energy</b>!</b>" + "</p>"));
+					"<p>"
+						+ "[npc.Name] will be unable to repeat this attack for <b style='color:" + Colour.GENERIC_MINOR_BAD.toWebHexString() + ";'>"+this.getCooldown()+" turns</b>.</b>"
+					+ "</p>"));
 		}
 
 		return descriptionSB.toString();
@@ -1758,56 +2099,87 @@ public enum SpecialAttack {
 
 		float damage = Attack.calculateDamage(caster, target, Attack.SEDUCTION, critical);
 		
-		target.incrementMana(-damage);
+		target.incrementLust(damage);
 		
 		if(caster.isPlayer()) {
 			if(critical) {
 				descriptionSB.append(
+						UtilText.parse(target,
 						"<p>"
 							+ "[npc.Name] can't bring [npc.herself] to look away, and as [npc.she] lets out a desperate whine, you realise that [npc.she] has "
 							+ UtilText.generateSingularDeterminer(fetishWeakness.getName(target))+" <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"+fetishWeakness.getName(target)+" fetish</b>, and your display is"
 							+ " <b style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>massively turning [npc.herHim] on</b>!</br></br>"
-							+ "<b>[npc.She] loses " + damage + " <b style='color:" + DamageType.LUST.getMultiplierAttribute().getColour().toWebHexString() + ";'>aura</b>!"
-						+ "</p>");
+							+ "<b>[npc.She] gains " + damage + " <b style='color:" + DamageType.LUST.getMultiplierAttribute().getColour().toWebHexString() + ";'>lust</b>!"
+						+ "</p>"));
 			} else {
 				descriptionSB.append(
+						UtilText.parse(target,
 						"<p>"
 							+ "[npc.Name] seems to be enjoying the show you're putting on, but it doesn't seem to be any more effective than a normal tease attack...</br></br>"
-							+ "<b>[npc.She] loses " + damage + " <b style='color:" + DamageType.LUST.getMultiplierAttribute().getColour().toWebHexString() + ";'>aura</b>."
-						+ "</p>");
+							+ "<b>[npc.She] gains " + damage + " <b style='color:" + DamageType.LUST.getMultiplierAttribute().getColour().toWebHexString() + ";'>lust</b>."
+						+ "</p>"));
 			}
-		} else {
+			
+		} else if(target.isPlayer()){
 			if(critical) {
 				descriptionSB.append(
+						UtilText.parse(caster,
 						"<p>"
 							+ "Because you have "
 							+UtilText.generateSingularDeterminer(fetishWeakness.getName(target))+" <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"+fetishWeakness.getName(target)+" fetish</b>,"
 							+ " you find yourself unable to look away from [npc.name]'s enticing display, which is <b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>massively turning you on</b>!</br></br>"
-							+ "<b>You lose " + damage + " <b style='color:" + DamageType.LUST.getMultiplierAttribute().getColour().toWebHexString() + ";'>aura</b>!"
-						+ "</p>");
+							+ "<b>You gain " + damage + " <b style='color:" + DamageType.LUST.getMultiplierAttribute().getColour().toWebHexString() + ";'>lust</b>!"
+						+ "</p>"));
 			} else {
 				descriptionSB.append(
+						UtilText.parse(caster,
 						"<p>"
 							+ "[npc.Name]'s display is quite arousing...</br></br>"
-							+ "<b>You lose " + damage + " <b style='color:" + DamageType.LUST.getMultiplierAttribute().getColour().toWebHexString() + ";'>aura</b>."
-						+ "</p>");
+							+ "<b>You gain " + damage + " <b style='color:" + DamageType.LUST.getMultiplierAttribute().getColour().toWebHexString() + ";'>lust</b>."
+						+ "</p>"));
+			}
+			
+		} else {
+			if(critical) {
+				descriptionSB.append(
+						UtilText.parse(caster, target,
+						"<p>"
+							+ "Because [npc2.name] has "
+							+UtilText.generateSingularDeterminer(fetishWeakness.getName(target))+" <b style='color: " + Colour.GENERIC_ARCANE.toWebHexString() + ";'>"+fetishWeakness.getName(target)+" fetish</b>,"
+							+ " [npc2.she] finds [npc2.herself] unable to look away from [npc.name]'s enticing display, which is <b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>massively turning [npc2.herHim] on</b>!</br></br>"
+							+ "<b>[npc2.Name] gains " + damage + " <b style='color:" + DamageType.LUST.getMultiplierAttribute().getColour().toWebHexString() + ";'>lust</b>!"
+						+ "</p>"));
+			} else {
+				descriptionSB.append(
+						UtilText.parse(caster, target,
+						"<p>"
+							+ "[npc2.Name] finds [npc.name]'s display to be quite arousing...</br></br>"
+							+ "<b>[npc2.Name] gains " + damage + " <b style='color:" + DamageType.LUST.getMultiplierAttribute().getColour().toWebHexString() + ";'>lust</b>."
+						+ "</p>"));
 			}	
 		}
 		
-
-		float cost = calculateCost(caster);
-		caster.incrementHealth(-cost);
+		Combat.setCooldown(caster, this, this.getCooldown()+1);
+		
 		if(caster.isPlayer()) {
-			descriptionSB.append("<p>"
-						+ "Putting on such a display is quite tiring, and you lose <b>" + cost + "</b>  <b style='color:" + Attribute.HEALTH_MAXIMUM.getColour().toWebHexString() + ";'>energy</b>.</b>"
-					+ "</p>");
+			descriptionSB.append(
+					UtilText.parse(target,
+					"<p>"
+						+ "Putting on such a display is quite tiring, and you will be unable to repeat this attack for <b style='color:" + Colour.GENERIC_MINOR_BAD.toWebHexString() + ";'>"+this.getCooldown()+" turns</b>.</b>"
+					+ "</p>"));
 		} else {
-			descriptionSB.append("<p>"
-						+ "Putting on such a display is quite tiring, and as a result [npc.name] loses <b>" + cost + "</b>  <b style='color:" + Attribute.HEALTH_MAXIMUM.getColour().toWebHexString() + ";'>energy</b>.</b>"
-					+ "</p>");
+			descriptionSB.append(
+					UtilText.parse(caster,
+					"<p>"
+						+ "Putting on such a display is quite tiring, and [npc.name] will be unable to repeat this attack for <b style='color:" + Colour.GENERIC_MINOR_BAD.toWebHexString() + ";'>"+this.getCooldown()+" turns</b>.</b>"
+					+ "</p>"));
 		}
 		
-		return descriptionSB.toString();
+		if(caster.isPlayer()) {
+			return UtilText.parse(target, descriptionSB.toString());
+		} else {
+			return UtilText.parse(caster, descriptionSB.toString());
+		}
 	}
 
 	public abstract boolean isConditionsMet(GameCharacter owner);
@@ -1824,22 +2196,15 @@ public enum SpecialAttack {
 		return damageType;
 	}
 
-	/**
-	 * Special attack damage is 3 + (caster level) * (1 + damageModifier):
-	 * 
-	 * @param attacker
-	 * @return
-	 */
-	public int getDamage(GameCharacter caster) {
-		int damage = (int) Math.ceil(3 + caster.getLevel() * (1 + damageLevel.getDamageModifier()));
-
-		if (damage < 1)
-			damage = 1;
-
+	public int getDamage() {
 		return damage;
 	}
 
-	public DamageVariance getDamageVariance(GameCharacter caster) {
+	public int getCooldown() {
+		return cooldown;
+	}
+	
+	public DamageVariance getDamageVariance() {
 		return damageVariance;
 	}
 

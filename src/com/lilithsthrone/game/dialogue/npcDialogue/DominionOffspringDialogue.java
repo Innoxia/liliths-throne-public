@@ -7,6 +7,7 @@ import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.fetishes.Fetish;
+import com.lilithsthrone.game.character.npc.NPCFlagValue;
 import com.lilithsthrone.game.character.npc.NPCOffspring;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
@@ -16,6 +17,8 @@ import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.InventoryInteraction;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
+import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
@@ -41,7 +44,7 @@ public class DominionOffspringDialogue {
 	}
 	
 	private static String getOffspringLabel() {
-		if(offspring().flagIntroduced) {
+		if(offspring().hasFlag(NPCFlagValue.flagOffspringIntroduced)) {
 			return UtilText.parse(offspring(), "Talking to [npc.Name]");
 		} else {
 			return "A familiar face";
@@ -60,7 +63,7 @@ public class DominionOffspringDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(!offspring().flagIntroduced) {
+			if(!offspring().hasFlag(NPCFlagValue.flagOffspringIntroduced)) {
 				
 				UtilText.nodeContentSB.append(
 						"<p>"
@@ -349,7 +352,7 @@ public class DominionOffspringDialogue {
 				
 				
 				// Taking into account player not apologised for attack/rape
-				if(offspring().flagFightApologyNeeded || offspring().flagRapeApologyNeeded) {
+				if(offspring().hasFlag(NPCFlagValue.flagOffspringFightApologyNeeded) || offspring().hasFlag(NPCFlagValue.flagOffspringRapeApologyNeeded)) {
 					UtilText.nodeContentSB.append("<p>");
 					switch(offspring().getAffectionLevel(Main.game.getPlayer())) {
 						case NEGATIVE_FIVE_LOATHE: case NEGATIVE_FOUR_HATE: case NEGATIVE_THREE_STRONG_DISLIKE: case NEGATIVE_TWO_DISLIKE:
@@ -428,15 +431,15 @@ public class DominionOffspringDialogue {
 					return new Response("Apologise", "Apologise to [npc.name].", OFFSPRING_ENCOUNTER_APOLOGY) {
 						@Override
 						public void effects() {
-							if(!offspring().flagFightApologyNeeded && !offspring().flagRapeApologyNeeded) {
+							if(!offspring().hasFlag(NPCFlagValue.flagOffspringFightApologyNeeded) && !offspring().hasFlag(NPCFlagValue.flagOffspringRapeApologyNeeded)) {
 								Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), 20));
 							} else {
-								if(offspring().flagFightApologyNeeded) {
-									offspring().flagFightApologyNeeded = false;
+								if(offspring().hasFlag(NPCFlagValue.flagOffspringFightApologyNeeded)) {
+									offspring().setFlag(NPCFlagValue.flagOffspringFightApologyNeeded, false);
 									Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), 10));
 								}
-								if(offspring().flagRapeApologyNeeded) {
-									offspring().flagRapeApologyNeeded = false;
+								if(offspring().hasFlag(NPCFlagValue.flagOffspringRapeApologyNeeded)) {
+									offspring().setFlag(NPCFlagValue.flagOffspringRapeApologyNeeded, false);
 									Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), 10));
 								}
 							}
@@ -460,7 +463,7 @@ public class DominionOffspringDialogue {
 						}
 						@Override
 						public void effects() {
-							offspring().flagFightApologyNeeded = true;
+							offspring().setFlag(NPCFlagValue.flagOffspringFightApologyNeeded, true);
 							Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), -100));
 							setOffspringFlags();
 						}
@@ -484,7 +487,7 @@ public class DominionOffspringDialogue {
 					return new Response("Greeting", "Say hello to [npc.name].", OFFSPRING_ENCOUNTER_TALKING) {
 						@Override
 						public void effects() {
-							if(!offspring().flagIntroduced) {
+							if(!offspring().hasFlag(NPCFlagValue.flagOffspringIntroduced)) {
 								Main.game.getTextStartStringBuilder().append(
 										"<p>"
 											+ "You're the first to recover from the shock of your surprise meeting, and, stepping forwards, you greet your [npc.daughter],"
@@ -516,7 +519,7 @@ public class DominionOffspringDialogue {
 					return new Response("Hug", "Hug [npc.name].", OFFSPRING_ENCOUNTER_TALKING) {
 						@Override
 						public void effects() {
-							if(!offspring().flagIntroduced) {
+							if(!offspring().hasFlag(NPCFlagValue.flagOffspringIntroduced)) {
 								Main.game.getTextStartStringBuilder().append(
 										"<p>"
 											+ "You're the first to recover from the shock of your surprise meeting, and, stepping forwards, you wrap your [pc.arms] around your [npc.daughter], before pulling [npc.herHim] into a loving hug."
@@ -553,7 +556,7 @@ public class DominionOffspringDialogue {
 					return new Response("Kiss", "Give [npc.name] a hug and a kiss.", OFFSPRING_ENCOUNTER_TALKING) {
 						@Override
 						public void effects() {
-							if(!offspring().flagIntroduced) {
+							if(!offspring().hasFlag(NPCFlagValue.flagOffspringIntroduced)) {
 								Main.game.getTextStartStringBuilder().append(
 										"<p>"
 											+ "You're the first to recover from the shock of your surprise meeting, and, stepping forwards, you wrap your [pc.arms] around your [npc.daughter],"
@@ -597,7 +600,7 @@ public class DominionOffspringDialogue {
 							null) {
 						@Override
 						public void effects() {
-							if(!offspring().flagIntroduced) {
+							if(!offspring().hasFlag(NPCFlagValue.flagOffspringIntroduced)) {
 								if(offspring().isAttractedTo(Main.game.getPlayer())) {
 									Main.game.getTextStartStringBuilder().append(
 											"<p>"
@@ -751,7 +754,7 @@ public class DominionOffspringDialogue {
 							OFFSPRING_ENCOUNTER_TALKING) {
 						@Override
 						public void effects() {
-							if(!offspring().flagIntroduced) {
+							if(!offspring().hasFlag(NPCFlagValue.flagOffspringIntroduced)) {
 								if(offspring().getHistory()==History.PROSTITUTE) {
 									Main.game.getTextStartStringBuilder().append(
 											"<p>"
@@ -896,13 +899,13 @@ public class DominionOffspringDialogue {
 						}
 						@Override
 						public void effects() {
-							offspring().flagFightApologyNeeded = true;
+							offspring().setFlag(NPCFlagValue.flagOffspringFightApologyNeeded, true);
 							Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), -100));
 							setOffspringFlags();
 						}
 					};
 					
-				} else if (index == 0 && offspring().flagIntroduced) {
+				} else if (index == 0 && offspring().hasFlag(NPCFlagValue.flagOffspringIntroduced)) {
 					return new Response("Leave", "Tell [npc.name] that you'll catch up with [npc.herHim] some other time.", OFFSPRING_ENCOUNTER) {
 							@Override
 							public DialogueNodeOld getNextDialogue() {
@@ -918,7 +921,7 @@ public class DominionOffspringDialogue {
 										+ "</p>");
 								
 								// Taking into account player not apologised for attack/rape
-								if(offspring().flagFightApologyNeeded || offspring().flagRapeApologyNeeded) {
+								if(offspring().hasFlag(NPCFlagValue.flagOffspringFightApologyNeeded) || offspring().hasFlag(NPCFlagValue.flagOffspringRapeApologyNeeded)) {
 									Main.game.getTextStartStringBuilder().append("<p>");
 									switch(offspring().getAffectionLevel(Main.game.getPlayer())) {
 										case NEGATIVE_FIVE_LOATHE: case NEGATIVE_FOUR_HATE: case NEGATIVE_THREE_STRONG_DISLIKE: case NEGATIVE_TWO_DISLIKE:
@@ -1035,7 +1038,7 @@ public class DominionOffspringDialogue {
 	};
 	
 	private static void setOffspringFlags() {
-		offspring().flagIntroduced = true;
+		offspring().setFlag(NPCFlagValue.flagOffspringIntroduced, true);
 		offspring().setReactedToPregnancy(true);
 		offspring().setReactedToPlayerPregnancy(true);
 		Main.game.getDialogueFlags().offspringDialogueTokens = 2;
@@ -1054,21 +1057,21 @@ public class DominionOffspringDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(offspring().flagFightApologyNeeded && offspring().flagRapeApologyNeeded) {
+			if(offspring().hasFlag(NPCFlagValue.flagOffspringFightApologyNeeded) && offspring().hasFlag(NPCFlagValue.flagOffspringRapeApologyNeeded)) {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "Deciding that you need to apologise for both attacking, and then raping your [npc.daughter], you step forwards and start to speak,"
 							+ " [pc.speech([npc.Name], I really am sorry for what I've done to you. I'm truly sorry...)]"
 						+ "</p>");
 				
-			} else if (offspring().flagFightApologyNeeded) {
+			} else if (offspring().hasFlag(NPCFlagValue.flagOffspringFightApologyNeeded)) {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "Deciding that you need to apologise for attacking your [npc.daughter], you step forwards and start to speak,"
 							+ " [pc.speech([npc.Name], I really am sorry for what I've done to you. I'm truly sorry...)]"
 						+ "</p>");
 				
-			} else if(offspring().flagRapeApologyNeeded) {
+			} else if(offspring().hasFlag(NPCFlagValue.flagOffspringRapeApologyNeeded)) {
 				UtilText.nodeContentSB.append(
 						"<p>"
 							+ "Deciding that you need to apologise for attacking your [npc.daughter], you step forwards and start to speak,"
@@ -1186,11 +1189,11 @@ public class DominionOffspringDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "You find yourself fighting your [npc.daughter]!", OFFSPRING_ENCOUNTER, offspring()) {
+				return new ResponseCombat("Fight", "You find yourself fighting your [npc.daughter]!", offspring()) {
 						@Override
 						public void effects() {
-							offspring().fightInApartment = false;
-							offspring().flagFightApologyNeeded = true;
+							offspring().setFlag(NPCFlagValue.fightOffspringInApartment, true);
+							offspring().setFlag(NPCFlagValue.flagOffspringFightApologyNeeded, true);
 						};
 				};
 			} else {
@@ -1247,7 +1250,7 @@ public class DominionOffspringDialogue {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
-			if(!offspring().flagApartmentIntroduced) {
+			if(!offspring().hasFlag(NPCFlagValue.flagOffspringApartmentIntroduced)) {
 				UtilText.nodeContentSB.append("<p>"
 							+ "[npc.Name] turns around and sets off down the alleyway."
 							+ " Following in [npc.her] footsteps, you allow your [npc.daughter] to take the lead as [npc.she] guides you through the trail of narrow passageways that lead to [npc.her] home."
@@ -1327,7 +1330,7 @@ public class DominionOffspringDialogue {
 										+ " [npc.she] replies, showing you to the door."
 										+ " You both say your farewells, and after just a few moments, you find yourself back out in the alleyways once again..."
 									+ "</p>");
-							offspring().flagApartmentIntroduced = true;
+							offspring().setFlag(NPCFlagValue.flagOffspringApartmentIntroduced, true);
 						}
 						@Override
 						public DialogueNodeOld getNextDialogue() {
@@ -1345,7 +1348,7 @@ public class DominionOffspringDialogue {
 						@Override
 						public void effects() {
 							Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), 10));
-							offspring().flagApartmentIntroduced = true;
+							offspring().setFlag(NPCFlagValue.flagOffspringApartmentIntroduced, true);
 							Main.game.getDialogueFlags().offspringDialogueTokens--;
 						}
 					};
@@ -1355,7 +1358,7 @@ public class DominionOffspringDialogue {
 						@Override
 						public void effects() {
 							Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), 5));
-							offspring().flagApartmentIntroduced = true;
+							offspring().setFlag(NPCFlagValue.flagOffspringApartmentIntroduced, true);
 							Main.game.getDialogueFlags().offspringDialogueTokens--;
 						}
 					};
@@ -1365,7 +1368,7 @@ public class DominionOffspringDialogue {
 						@Override
 						public void effects() {
 							Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), 10));
-							offspring().flagApartmentIntroduced = true;
+							offspring().setFlag(NPCFlagValue.flagOffspringApartmentIntroduced, true);
 							Main.game.getDialogueFlags().offspringDialogueTokens--;
 						}
 					};
@@ -1375,7 +1378,7 @@ public class DominionOffspringDialogue {
 						@Override
 						public void effects() {
 							Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), -10));
-							offspring().flagApartmentIntroduced = true;
+							offspring().setFlag(NPCFlagValue.flagOffspringApartmentIntroduced, true);
 							Main.game.getDialogueFlags().offspringDialogueTokens--;
 						}
 					};
@@ -1384,7 +1387,7 @@ public class DominionOffspringDialogue {
 					return new Response("Pet name", "Ask [npc.name] to call you by a different name.", OFFSPRING_ENCOUNTER_CHOOSE_NAME) {
 						@Override
 						public void effects() {
-							offspring().flagApartmentIntroduced = true;
+							offspring().setFlag(NPCFlagValue.flagOffspringApartmentIntroduced, true);
 							Main.game.getDialogueFlags().offspringDialogueTokens--;
 						}
 					};
@@ -1422,7 +1425,7 @@ public class DominionOffspringDialogue {
 								
 								Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 15));
 								
-								offspring().flagApartmentIntroduced = true;
+								offspring().setFlag(NPCFlagValue.flagOffspringApartmentIntroduced, true);
 								Main.game.getDialogueFlags().offspringDialogueTokens--;
 							}
 						};
@@ -1444,7 +1447,7 @@ public class DominionOffspringDialogue {
 							} else if(offspring().getHistory()!=History.PROSTITUTE){
 								Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), -10));
 							}
-							offspring().flagApartmentIntroduced = true;
+							offspring().setFlag(NPCFlagValue.flagOffspringApartmentIntroduced, true);
 							Main.game.getDialogueFlags().offspringDialogueTokens--;
 						}	
 					};
@@ -1458,9 +1461,9 @@ public class DominionOffspringDialogue {
 						}
 						@Override
 						public void effects() {
-							offspring().flagFightApologyNeeded = true;
+							offspring().setFlag(NPCFlagValue.flagOffspringFightApologyNeeded, true);
 							Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), -100));
-							offspring().flagApartmentIntroduced = true;
+							offspring().setFlag(NPCFlagValue.flagOffspringApartmentIntroduced, true);
 						}
 					};
 					
@@ -1482,7 +1485,7 @@ public class DominionOffspringDialogue {
 											+ " you reply, allowing [npc.name] to show you to the door."
 											+ " You both say your farewells, and after just a few moments, you find yourself back out in the alleyways once again..."
 										+ "</p>");
-								offspring().flagApartmentIntroduced = true;
+								offspring().setFlag(NPCFlagValue.flagOffspringApartmentIntroduced, true);
 							}
 							@Override
 							public DialogueNodeOld getNextDialogue() {
@@ -2158,11 +2161,11 @@ public class DominionOffspringDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new ResponseCombat("Fight", "You find yourself fighting your [npc.daughter]!", OFFSPRING_ENCOUNTER, offspring()) {
+				return new ResponseCombat("Fight", "You find yourself fighting your [npc.daughter]!", offspring()) {
 					@Override
 					public void effects() {
-						offspring().fightInApartment = true;
-						offspring().flagFightApologyNeeded = true;
+						offspring().setFlag(NPCFlagValue.fightOffspringInApartment, true);
+						offspring().setFlag(NPCFlagValue.flagOffspringFightApologyNeeded, true);
 					}
 				};
 				
@@ -2239,7 +2242,7 @@ public class DominionOffspringDialogue {
 										+ " you find yourself back out in the alleyways once again..."
 								+ "</p>");
 						Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), 25));
-						offspring().flagFightApologyNeeded = false;
+						offspring().setFlag(NPCFlagValue.flagOffspringFightApologyNeeded, false);
 					}
 				};
 				
@@ -2280,7 +2283,7 @@ public class DominionOffspringDialogue {
 							+ "</p>") {
 						@Override
 						public void effects() {
-							offspring().flagRapeApologyNeeded = true;
+							offspring().setFlag(NPCFlagValue.flagOffspringRapeApologyNeeded, true);
 						}
 					};
 				}
@@ -2337,7 +2340,7 @@ public class DominionOffspringDialogue {
 							+ "</p>") {
 						@Override
 						public void effects() {
-							offspring().flagRapeApologyNeeded = true;
+							offspring().setFlag(NPCFlagValue.flagOffspringRapeApologyNeeded, true);
 						}
 					};
 				}
@@ -2395,7 +2398,7 @@ public class DominionOffspringDialogue {
 							+ "</p>") {
 						@Override
 						public void effects() {
-							offspring().flagRapeApologyNeeded = true;
+							offspring().setFlag(NPCFlagValue.flagOffspringRapeApologyNeeded, true);
 						}
 					};
 				}
@@ -2434,7 +2437,7 @@ public class DominionOffspringDialogue {
 						@Override
 						public void effects() {
 							Main.game.getTextEndStringBuilder().append(offspring().incrementAffection(Main.game.getPlayer(), 50));
-							offspring().flagFightApologyNeeded = false;
+							offspring().setFlag(NPCFlagValue.flagOffspringFightApologyNeeded, false);
 						}
 					};
 				} else {
@@ -2462,7 +2465,7 @@ public class DominionOffspringDialogue {
 					}
 					@Override
 					public void effects() {
-						if(offspring().fightInApartment) {
+						if(offspring().hasFlag(NPCFlagValue.fightOffspringInApartment)) {
 							Main.game.getTextStartStringBuilder().append(
 									"<p>"
 										+ "Looking down at your [npc.daughter] as [npc.she] shuffles about on the floor, you remind yourself that you're doing this for [npc.her] own good."
@@ -2603,7 +2606,7 @@ public class DominionOffspringDialogue {
 							+ "</p>") {
 						@Override
 						public void effects() {
-							offspring().flagFightApologyNeeded = false;
+							offspring().setFlag(NPCFlagValue.flagOffspringFightApologyNeeded, false);
 						}
 					};
 					
@@ -2632,7 +2635,7 @@ public class DominionOffspringDialogue {
 							+ "</p>") {
 						@Override
 						public void effects() {
-							offspring().flagFightApologyNeeded = false;
+							offspring().setFlag(NPCFlagValue.flagOffspringFightApologyNeeded, false);
 						}
 					};
 					
@@ -2662,7 +2665,7 @@ public class DominionOffspringDialogue {
 							+ "</p>") {
 						@Override
 						public void effects() {
-							offspring().flagFightApologyNeeded = false;
+							offspring().setFlag(NPCFlagValue.flagOffspringFightApologyNeeded, false);
 						}
 					};
 					
@@ -2679,7 +2682,7 @@ public class DominionOffspringDialogue {
 						}
 						@Override
 						public void effects() {
-							offspring().flagFightApologyNeeded = false;
+							offspring().setFlag(NPCFlagValue.flagOffspringFightApologyNeeded, false);
 						}
 					};
 					
@@ -2761,7 +2764,7 @@ public class DominionOffspringDialogue {
 
 		@Override
 		public String getContent() {
-			if(offspring().fightInApartment) {
+			if(offspring().hasFlag(NPCFlagValue.fightOffspringInApartment)) {
 				if(!offspring().isAttractedTo(Main.game.getPlayer()) && Main.game.isNonConEnabled()) {
 					return UtilText.parse(offspring(),
 							"<p>"
@@ -2833,7 +2836,7 @@ public class DominionOffspringDialogue {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append("<p>");
-						if(offspring().fightInApartment) {
+						if(offspring().hasFlag(NPCFlagValue.fightOffspringInApartment)) {
 							if(!offspring().isAttractedTo(Main.game.getPlayer()) && Main.game.isNonConEnabled()) {
 								Main.game.getTextStartStringBuilder().append(" Smirking down at your [npc.daughter] one last time, you turn around and walk over to the door, before pulling it open and heading back out into the alleyways.");
 								
@@ -2889,7 +2892,7 @@ public class DominionOffspringDialogue {
 					}
 					@Override
 					public void effects() {
-						if(offspring().fightInApartment) {
+						if(offspring().hasFlag(NPCFlagValue.fightOffspringInApartment)) {
 							Main.game.getTextStartStringBuilder().append(
 									"<p>"
 										+ "Looking down at your [npc.daughter] as [npc.she] shuffles about on the floor, you remind yourself that you're doing this for [npc.her] own good."
@@ -2947,7 +2950,7 @@ public class DominionOffspringDialogue {
 
 		@Override
 		public String getContent() {
-			if(offspring().fightInApartment) {
+			if(offspring().hasFlag(NPCFlagValue.fightOffspringInApartment)) {
 				return UtilText.parse(
 						"<p>"
 							+ "As [npc.name] steps back and sorts [npc.her] clothes out, you sink down onto the sofa, totally worn out from [npc.her] dominant treatment of you."
@@ -3011,24 +3014,47 @@ public class DominionOffspringDialogue {
 
 		@Override
 		public String getContent() {
-			return UtilText.parse(offspring(),
-					"<p>"
-						+ "As you lift the collar up to [npc.name]'s neck, you see that the ring attached to the front starts to glow green; a clear indication that it's detecting your [npc.daughter] as a potential enslavement target."
-						+ " Encouraged by the light, you finish what you started, and with a heavy metal 'clink', you clasp the collar around [npc.name]'s neck."
-					+ "</p>"
-					+ "<p>"
-						+ "As the collar's arcane enchantment recognises its new wearer as being a criminal, ominous purple lettering starts to glow around the metal band, reading;"
-							+ " <i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>New Slave Accepted. Identification: [style.boldArcane("+offspring().getNameIgnoresPlayerKnowledge()+")], [npc.race].</i>"
-						+ " Finally realising what's going on, [npc.name] looks up at you with fear in [npc.her] [npc.eyes],"
-						+ " [npc.speech(W-Wait, [npc.pcName]! T-This isn't a slave collar is it?!)]"
-					+ "</p>"
-					+ "<p>"
-						+ "Grinning at your [npc.daughter], you don't have time to offer a response, as with a bright purple flash, they suddenly disappear from sight."
-						+ " The last thing you see as they're whisked away is a face of shocked betrayal, and you imagine how angry they'll be when you see them next."
-					+ "</p>"
-					+ "<p>"
-						+ "From Finch's instructions, you know that <b>they've been teleported to the 'Slave Administration' building in Slaver Alley</b>, where they'll be waiting for you to pick them up."
-					+ "</p>");
+			AbstractClothing enslavementClothing = Main.game.getActiveNPC().getEnslavementClothing();
+			if(enslavementClothing.getClothingType().equals(ClothingType.NECK_SLAVE_COLLAR)) {
+				return UtilText.parse(offspring(),
+						"<p>"
+							+ "As you lift the collar up to [npc.name]'s neck, you see that the ring attached to the front starts to glow green; a clear indication that it's detecting your [npc.daughter] as a potential enslavement target."
+							+ " Encouraged by the light, you finish what you started, and with a heavy metal 'clink', you clasp the collar around [npc.name]'s neck."
+						+ "</p>"
+						+ "<p>"
+							+ "As the collar's arcane enchantment recognises its new wearer as being a criminal, ominous purple lettering starts to glow around the metal band, reading;"
+								+ " <i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>New Slave Accepted. Identification: [style.boldArcane("+offspring().getNameIgnoresPlayerKnowledge()+")], [npc.race].</i>"
+							+ " Finally realising what's going on, [npc.name] looks up at you with fear in [npc.her] [npc.eyes],"
+							+ " [npc.speech(W-Wait, [npc.pcName]! T-This isn't a slave collar is it?!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "Grinning at your [npc.daughter], you don't have time to offer a response, as with a bright purple flash, they suddenly disappear from sight."
+							+ " The last thing you see as they're whisked away is a face of shocked betrayal, and you imagine how angry they'll be when you see them next."
+						+ "</p>"
+						+ "<p>"
+							+ "From Finch's instructions, you know that <b>they've been teleported to the 'Slave Administration' building in Slaver Alley</b>, where they'll be waiting for you to pick them up."
+						+ "</p>");
+			} else {
+				return UtilText.parse(offspring(),
+						"<p>"
+							+ "As you bring the "+enslavementClothing.getName()+" closer to [npc.name], you feel "+(enslavementClothing.getClothingType().isPlural()?"them":"it")
+								+" start to steadily hum; a clear indication that your [npc.daughter] is being detected as a potential enslavement target."
+							+ " Encouraged by this, you decide to finish what you started, and quickly force [npc.name] to wear the enslaving clothing."
+						+ "</p>"
+						+ "<p>"
+							+ "As the arcane enchantment recognises its new wearer as being a criminal, ominous purple lettering is projected into the air, reading;"
+							+ "<i>Slave identification: [style.boldArcane("+Main.game.getActiveNPC().getNameIgnoresPlayerKnowledge()+")]</i>"
+							+ " Finally realising what's going on, [npc.name] looks up at you with fear in [npc.her] [npc.eyes],"
+							+ " [npc.speech(W-Wait, [npc.pcName]! T-This isn't enslaving me, is it?!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "Grinning at your [npc.daughter], you don't have any time to offer a response, as with a bright purple flash, they suddenly disappear from sight."
+							+ " The last thing you see as they're whisked away is a face of shocked betrayal, and you imagine how angry they'll be when you see them next."
+						+ "</p>"
+						+ "<p>"
+							+ "From Finch's instructions, you know that <b>they've been teleported to the 'Slave Administration' building in Slaver Alley</b>, where they'll be waiting for you to pick them up."
+						+ "</p>");
+			}
 		}
 
 		@Override
@@ -3041,8 +3067,7 @@ public class DominionOffspringDialogue {
 					}
 					@Override
 					public void effects() {
-						Main.game.getActiveNPC().setAffection(Main.game.getPlayer(), -100+Util.random.nextInt(10));
-						Main.game.getActiveNPC().setObedience(-100+Util.random.nextInt(10));
+						Main.game.getActiveNPC().applyEnslavementEffects(Main.game.getPlayer());
 					}
 				};
 				

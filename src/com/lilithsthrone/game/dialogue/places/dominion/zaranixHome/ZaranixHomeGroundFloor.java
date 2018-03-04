@@ -1,16 +1,17 @@
 package com.lilithsthrone.game.dialogue.places.dominion.zaranixHome;
 
 import com.lilithsthrone.game.Weather;
-import com.lilithsthrone.game.character.QuestLine;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
-import com.lilithsthrone.game.character.attributes.StrengthLevel;
+import com.lilithsthrone.game.character.attributes.PhysiqueLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.dominion.Amber;
 import com.lilithsthrone.game.character.npc.dominion.Zaranix;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKatherine;
 import com.lilithsthrone.game.character.npc.dominion.ZaranixMaidKelly;
+import com.lilithsthrone.game.character.quests.Quest;
+import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
@@ -145,7 +146,7 @@ public class ZaranixHomeGroundFloor {
 				if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.zaranixKickedDownDoor)) {
 					return new Response("Kick down door", "After your last entrance, the front door has been reinforced. You're unable to enter like this again.", null);
 					
-				} else if(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_STRENGTH) >= StrengthLevel.THREE_POWERFUL.getMinimumValue()) {
+				} else if(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_PHYSIQUE) >= PhysiqueLevel.THREE_POWERFUL.getMinimumValue()) {
 					return new Response("Kick down door", "Kick down the front door.", ENTRANCE_KICK_DOWN_DOOR) {
 						@Override
 						public boolean isCombatHighlight() {
@@ -162,7 +163,7 @@ public class ZaranixHomeGroundFloor {
 						}
 					};
 				} else {
-					return new Response("Kick down door", "You don't think you're strong enough to kick down such a sturdy-looking door. (Requires 35 strength.)", null);
+					return new Response("Kick down door", "You don't think you're strong enough to kick down such a sturdy-looking door. (Requires 35 physique.)", null);
 				}
 				
 			} else if (index == 0) {
@@ -901,7 +902,7 @@ public class ZaranixHomeGroundFloor {
 				return new Response("Arthur", "You finally come face-to-face with your elusive quarry.", MEETING_ZARANIX_ARTHUR) {
 					@Override
 					public void effects() {
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_I_ARTHURS_TALE));
 						Main.game.getArthur().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, false);
 					}
 				};
@@ -966,7 +967,7 @@ public class ZaranixHomeGroundFloor {
 				return new Response("Arthur", "You finally come face-to-face with your elusive quarry.", MEETING_ZARANIX_ARTHUR) {
 					@Override
 					public void effects() {
-						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().incrementQuest(QuestLine.MAIN));
+						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_I_ARTHURS_TALE));
 						Main.game.getArthur().setLocation(WorldType.ZARANIX_HOUSE_GROUND_FLOOR, PlaceType.ZARANIX_GF_LOUNGE, false);
 					}
 				};
@@ -1399,7 +1400,7 @@ public class ZaranixHomeGroundFloor {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new ResponseCombat("Fight", "Defend yourself against the furious maid!", ENTRANCE_KICK_DOWN_DOOR, Main.game.getAmber()) {
+				return new ResponseCombat("Fight", "Defend yourself against the furious maid!", Main.game.getAmber()) {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.zaranixMaidsHostile, true);
@@ -1507,7 +1508,7 @@ public class ZaranixHomeGroundFloor {
 				
 			} else if (index == 4 && Main.game.getAmber().getLocationPlace().getPlaceType()==PlaceType.ZARANIX_GF_ENTRANCE) {
 				return new Response("Transformations",
-						"Get Amber to use [npc.her] demonic powers to transform [npc.herself]...",
+						"Get Amber to use [amber.her] demonic powers to transform [amber.herself]...",
 						BodyChanging.BODY_CHANGING_CORE){
 					@Override
 					public void effects() {
@@ -1872,7 +1873,7 @@ public class ZaranixHomeGroundFloor {
 					
 				} else if (index == 3) {
 					return new Response("Transformations",
-							"Get Katherine to use [npc.her] demonic powers to transform [npc.herself]...",
+							"Get Katherine to use [katherine.her] demonic powers to transform [katherine.herself]...",
 							BodyChanging.BODY_CHANGING_CORE){
 						@Override
 						public void effects() {
@@ -1886,7 +1887,7 @@ public class ZaranixHomeGroundFloor {
 				}
 			} else {
 				if(index==1) {
-					return new ResponseCombat("Fight", "Defend yourself against the furious maid!", CORRIDOR_MAID, Main.game.getKatherine()) {
+					return new ResponseCombat("Fight", "Defend yourself against the furious maid!", Main.game.getKatherine()) {
 						@Override
 						public void effects() {
 							Main.game.getKatherine().setPlayerKnowsName(true);
@@ -2049,7 +2050,7 @@ public class ZaranixHomeGroundFloor {
 					
 				} else if (index == 3) {
 					return new Response("Transformations",
-							"Get Amber to use [npc.her] demonic powers to transform [npc.herself]...",
+							"Get Amber to use [amber.her] demonic powers to transform [amber.herself]...",
 							BodyChanging.BODY_CHANGING_CORE){
 						@Override
 						public void effects() {
@@ -2119,7 +2120,7 @@ public class ZaranixHomeGroundFloor {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new ResponseCombat("Fight", "Defend yourself against the furious maid!", LOUNGE_AMBER, Main.game.getAmber()) {
+				return new ResponseCombat("Fight", "Defend yourself against the furious maid!", Main.game.getAmber()) {
 					@Override
 					public void effects() {
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.zaranixMaidsHostile, true);

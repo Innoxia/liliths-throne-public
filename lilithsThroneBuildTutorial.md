@@ -56,3 +56,12 @@ This is most likely because you have already have an outdated build open as a pr
 2. In the Package Explorer, right click the project, and click Delete
 3. Make sure you select "Delete Project Contents on Disk". If you don't do this, you will have to do it manually in Windows File Explorer.
 4. Try Importing again
+
+####  Eclipse stuck on importing from Git
+The GIT plugin of Eclipse tries to run the "bash" command, and if you hadn't installed Windows Subsystem for Linux  properly, it may cause problems with import.
+1. In "Turn Windows features on or off", check if Windows Subsystem for Linux is activated.
+2. If it's active, try to execute "bash" in Command Prompt.
+3. If result contains the phrase "Windows Subsystem for Linux has no installed distributions", then you have to install Linux distribution. Fortunately, the basic setup can be done with just one command.
+4. Run "lxrun /install" in Command Prompt, type "y" to continue, after that - enter some username and password.
+5. Run "bash" in Command Prompt once. If the appearance of the console changes, then you've succeeded.
+6. Try Importing once again.

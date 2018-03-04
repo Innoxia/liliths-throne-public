@@ -11,7 +11,6 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
-import com.lilithsthrone.game.combat.DamageLevel;
 import com.lilithsthrone.game.combat.DamageType;
 import com.lilithsthrone.game.combat.DamageVariance;
 import com.lilithsthrone.game.combat.Spell;
@@ -25,15 +24,16 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.84
- * @version 0.1.84
+ * @version 0.2.0
  * @author Innoxia
  */
 public abstract class AbstractWeaponType extends AbstractCoreType implements Serializable {
 
 	protected static final long serialVersionUID = 1L;
-	
+
+	private int baseValue;
 	private String determiner, pronoun, name, namePlural, description, pathName;
-	protected DamageLevel damageLevel;
+	protected int damage;
 	protected DamageVariance damageVariance;
 	private InventorySlot slot;
 	private List<DamageType> availableDamageTypes;
@@ -42,9 +42,22 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 	private Map<DamageType, String> SVGStringMap;
 	private List<Spell> spells;
 
-	public AbstractWeaponType(String determiner, String pronoun, String name, String namePlural, String description, InventorySlot slot, String pathName, Rarity rarity, List<DamageType> availableDamageTypes, DamageLevel damageLevel,
-			DamageVariance damageVariance, Map<Attribute, Integer> attributeModifiers, List<Spell> spells) {
+	public AbstractWeaponType(int baseValue,
+			String determiner,
+			String pronoun,
+			String name,
+			String namePlural,
+			String description,
+			InventorySlot slot,
+			String pathName,
+			Rarity rarity,
+			List<DamageType> availableDamageTypes,
+			int damage,
+			DamageVariance damageVariance,
+			Map<Attribute, Integer> attributeModifiers,
+			List<Spell> spells) {
 
+		this.baseValue = baseValue;
 		this.determiner = determiner;
 		this.pronoun = pronoun;
 		this.name = name;
@@ -55,7 +68,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 		this.slot = slot;
 		this.availableDamageTypes = availableDamageTypes;
 
-		this.damageLevel = damageLevel;
+		this.damage = damage;
 		this.damageVariance = damageVariance;
 
 		this.pathName = pathName;
@@ -100,7 +113,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 			if(o instanceof AbstractWeaponType){
 				if(((AbstractWeaponType)o).getName().equals(getName())
 						&& ((AbstractWeaponType)o).getPathName().equals(getPathName())
-						&& ((AbstractWeaponType)o).getDamageLevel() == getDamageLevel()
+						&& ((AbstractWeaponType)o).getDamage() == getDamage()
 						&& ((AbstractWeaponType)o).getDamageVariance() == getDamageVariance()
 						&& ((AbstractWeaponType)o).getSlot() == getSlot()
 						&& ((AbstractWeaponType)o).getRarity() == getRarity()
@@ -120,7 +133,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 		int result = super.hashCode();
 		result = 31 * result + getName().hashCode();
 		result = 31 * result + getPathName().hashCode();
-		result = 31 * result + getDamageLevel().hashCode();
+		result = 31 * result + getDamage();
 		result = 31 * result + getDamageVariance().hashCode();
 		result = 31 * result + getSlot().hashCode();
 		result = 31 * result + getRarity().hashCode();
@@ -247,6 +260,10 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 			}
 		}
 	}
+
+	public int getBaseValue() {
+		return baseValue;
+	}
 	
 	public String getDeterminer() {
 		return determiner;
@@ -280,8 +297,8 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 		return pathName;
 	}
 
-	public DamageLevel getDamageLevel() {
-		return damageLevel;
+	public int getDamage() {
+		return damage;
 	}
 
 	public DamageVariance getDamageVariance() {

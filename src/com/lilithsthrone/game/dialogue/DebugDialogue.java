@@ -109,10 +109,10 @@ public class DebugDialogue {
 				return new Response("Open parser", "Test the parser.", PARSER);
 				
 			} else if (index == 3) {
-				return new Response("+50 xp", "Give yourself 50xp.", DEBUG_MENU){
+				return new Response("+500 xp", "Give yourself 500xp.", DEBUG_MENU){
 					@Override
 					public void effects() {
-						Main.game.getPlayer().incrementExperience(50);
+						Main.game.getPlayer().incrementExperience(500);
 						
 					}
 				};
@@ -167,16 +167,16 @@ public class DebugDialogue {
 				return new Response("Set body parts", "Manually set your body parts.", BODY_PART);
 				
 			}  else if(index==10){
-				return new Response("<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>+5</span> <span style='color:"+Colour.ATTRIBUTE_STRENGTH.toWebHexString()+";'>Strength</span>", "", DEBUG_MENU){
+				return new Response("<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>+5</span> <span style='color:"+Colour.ATTRIBUTE_PHYSIQUE.toWebHexString()+";'>Physique</span>", "", DEBUG_MENU){
 					@Override
 					public void effects() {
-						Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_STRENGTH, 5);
+						Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_PHYSIQUE, 5);
 						
 					}
 				};
 			}
 			else if(index==11){
-				return new Response("<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>+5</span> <span style='color:"+Colour.ATTRIBUTE_ARCANE.toWebHexString()+";'>Intelligence</span>", "", DEBUG_MENU){
+				return new Response("<span style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>+5</span> <span style='color:"+Colour.ATTRIBUTE_ARCANE.toWebHexString()+";'>Arcane</span>", "", DEBUG_MENU){
 					@Override
 					public void effects() {
 						Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_ARCANE, 5);
@@ -197,7 +197,7 @@ public class DebugDialogue {
 				return new Response("<span style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>Max all attributes</span>", "", DEBUG_MENU){
 					@Override
 					public void effects() {
-						Main.game.getPlayer().setAttribute(Attribute.MAJOR_STRENGTH, 100);
+						Main.game.getPlayer().setAttribute(Attribute.MAJOR_PHYSIQUE, 100);
 						Main.game.getPlayer().setAttribute(Attribute.MAJOR_ARCANE, 100);
 						Main.game.getPlayer().setAttribute(Attribute.MAJOR_CORRUPTION, 100);
 						
@@ -205,16 +205,16 @@ public class DebugDialogue {
 				};
 			}
 			else if(index==14){
-				return new Response("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>-5</span> <span style='color:"+Colour.ATTRIBUTE_STRENGTH.toWebHexString()+";'>Strength</span>", "", DEBUG_MENU){
+				return new Response("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>-5</span> <span style='color:"+Colour.ATTRIBUTE_PHYSIQUE.toWebHexString()+";'>Physique</span>", "", DEBUG_MENU){
 					@Override
 					public void effects() {
-						Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_STRENGTH, -5);
+						Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_PHYSIQUE, -5);
 						
 					}
 				};
 			}
 			else if(index==15){
-				return new Response("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>-5</span> <span style='color:"+Colour.ATTRIBUTE_ARCANE.toWebHexString()+";'>Intelligence</span>", "", DEBUG_MENU){
+				return new Response("<span style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>-5</span> <span style='color:"+Colour.ATTRIBUTE_ARCANE.toWebHexString()+";'>Arcane</span>", "", DEBUG_MENU){
 					@Override
 					public void effects() {
 						Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_ARCANE, -5);

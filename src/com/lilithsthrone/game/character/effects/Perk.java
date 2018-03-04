@@ -29,23 +29,23 @@ public enum Perk {
 			"natural fitness",
 			PerkCategory.PHYSICAL,
 			"perks/attStrength5",
-			Colour.ATTRIBUTE_STRENGTH,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 5)),
+			Colour.ATTRIBUTE_PHYSIQUE,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5)),
 			null) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
-			return "You have a natural amount of physical strength.";
+			return "You have a natural amount of physical fitness.";
 		}
 	},
 	
-	STRENGTH_1(20,
+	PHYSIQUE_1(20,
 			false,
 			"physically fit I",
 			PerkCategory.PHYSICAL,
 			"perks/attStrength1",
-			Colour.ATTRIBUTE_STRENGTH,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 1)),
+			Colour.ATTRIBUTE_PHYSIQUE,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 1)),
 			null) {
 
 		@Override
@@ -54,13 +54,13 @@ public enum Perk {
 		}
 	},
 	
-	STRENGTH_3(20,
+	PHYSIQUE_3(20,
 			false,
 			"physically fit III",
 			PerkCategory.PHYSICAL,
 			"perks/attStrength3",
-			Colour.ATTRIBUTE_STRENGTH,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 3)),
+			Colour.ATTRIBUTE_PHYSIQUE,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 3)),
 			null) {
 
 		@Override
@@ -69,13 +69,13 @@ public enum Perk {
 		}
 	},
 
-	STRENGTH_5(20,
+	PHYSIQUE_5(20,
 			false,
 			"physically fit V",
 			PerkCategory.PHYSICAL,
 			"perks/attStrength5",
-			Colour.ATTRIBUTE_STRENGTH,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 5)),
+			Colour.ATTRIBUTE_PHYSIQUE,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5)),
 			null) {
 
 		@Override
@@ -373,7 +373,7 @@ public enum Perk {
 			"brawler",
 			PerkCategory.PHYSICAL,
 			"perks/physical_brawler",
-			Colour.ATTRIBUTE_STRENGTH,
+			Colour.ATTRIBUTE_PHYSIQUE,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 15),
 					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 15)), null) {
 
@@ -386,76 +386,7 @@ public enum Perk {
 		}
 	},
 	
-//	ACCURATE(20,
-//			true,
-//			"deadeye",
-//			PerkCategory.PHYSICAL,
-//			"perks/physical_accurate",
-//			Colour.ATTRIBUTE_STRENGTH,
-//			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.CRITICAL_CHANCE, 10)), null) {
-//
-//		@Override
-//		public String getDescription(GameCharacter owner) {
-//			if (owner.isPlayer())
-//				return "You almost never miss your target.";
-//			else
-//				return UtilText.parse(owner, "[npc.Name] almost never misses [npc.her] target.");
-//		}
-//	},
-//	
-//	TANK(20,
-//			true,
-//			"tank",
-//			PerkCategory.PHYSICAL,
-//			"perks/physical_tank",
-//			Colour.ATTRIBUTE_STRENGTH,
-//			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 25)), null) {
-//
-//		@Override
-//		public String getDescription(GameCharacter owner) {
-//			if (owner.isPlayer())
-//				return "You can shrug off attacks that would floor most people.";
-//			else
-//				return UtilText.parse(owner, "[npc.Name] can shrug off attacks that would floor most people.");
-//		}
-//	},
-//	
-//	TANK_2(20,
-//			true,
-//			"indomitable",
-//			PerkCategory.PHYSICAL,
-//			"perks/physical_tank_2",
-//			Colour.ATTRIBUTE_STRENGTH,
-//			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 60)), null) {
-//		
-//		@Override
-//		public String getDescription(GameCharacter owner) {
-//			if (owner.isPlayer())
-//				return "The mightiest of blows from the greatest of warriors would do little to impede you.";
-//			else
-//				return UtilText.parse(owner, "The mightiest of blows from the greatest of warriors would do little to impede [npc.name].");
-//		}
-//	},
 	
-//	INDEFATIGABLE(20,
-//			true,
-//			"indefatigable",
-//			PerkCategory.PHYSICAL,
-//			"perks/physical_indefatigable",
-//			Colour.ATTRIBUTE_STRENGTH,
-//			null, Util.newArrayListOfValues(new ListValue<>("<span style='color:"
-//					+ Colour.ATTRIBUTE_STRENGTH.toWebHexString()
-//					+ ";'>Improved Combat</span>"))) {
-//
-//		@Override
-//		public String getDescription(GameCharacter owner) {
-//			if (owner.isPlayer())
-//				return "You can continue fighting through almost anything. You will no longer lose combat if your willpower or stamina drop to 0.";
-//			else
-//				return UtilText.parse(owner, "[npc.Name] is relentless. Even if [npc.her] willpower or stamina drop to 0, [npc.she] will continue fighting.");
-//		}
-//	},
-
 	OBSERVANT(60,
 			true,
 			"observant",
@@ -692,10 +623,9 @@ public enum Perk {
 			"runner",
 			PerkCategory.PHYSICAL,
 			"perks/fitness_runner",
-			Colour.ATTRIBUTE_STRENGTH,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 3)), Util.newArrayListOfValues(new ListValue<>("<b>*</b> <span style='color:"
-					+ Colour.ATTRIBUTE_STRENGTH.toWebHexString()
-					+ ";'>Improved escape chance</span>"))) {
+			Colour.ATTRIBUTE_PHYSIQUE,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 3)),
+			Util.newArrayListOfValues(new ListValue<>("<span style='color:"+ Colour.ATTRIBUTE_PHYSIQUE.toWebHexString()+ ";'>Improved escape chance</span>"))) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -710,10 +640,9 @@ public enum Perk {
 			"cardio champion",
 			PerkCategory.PHYSICAL,
 			"perks/fitness_runner_2",
-			Colour.ATTRIBUTE_STRENGTH,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_STRENGTH, 5)), Util.newArrayListOfValues(new ListValue<>("<b>*</b> <span style='color:"
-					+ Colour.ATTRIBUTE_STRENGTH.toWebHexString()
-					+ ";'>Improved escape chance</span>"))) {
+			Colour.ATTRIBUTE_PHYSIQUE,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5)),
+			Util.newArrayListOfValues(new ListValue<>("<span style='color:"+ Colour.ATTRIBUTE_PHYSIQUE.toWebHexString()+ ";'>Improved escape chance</span>"))) {
 		@Override
 		public String getName(GameCharacter character) {
 			if (character.isFeminine())
@@ -736,7 +665,7 @@ public enum Perk {
 			PerkCategory.ARCANE,
 			"perks/fitness_female_attraction",
 			Colour.FEMININE,
-			null, Util.newArrayListOfValues(new ListValue<>("+10% <span style='color:" + Colour.DAMAGE_TYPE_MANA.toWebHexString() + ";'>aura damage</span>"
+			null, Util.newArrayListOfValues(new ListValue<>("+10% <span style='color:" + Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>lust damage</span>"
 					+ " vs <span style='color:" + Colour.FEMININE.toWebHexString()+ ";'>feminine opponents</span>"))) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
@@ -763,7 +692,7 @@ public enum Perk {
 			PerkCategory.ARCANE,
 			"perks/fitness_male_attraction",
 			Colour.MASCULINE,
-			null, Util.newArrayListOfValues(new ListValue<>("+10% <span style='color:" + Colour.DAMAGE_TYPE_MANA.toWebHexString() + ";'>aura damage</span>"
+			null, Util.newArrayListOfValues(new ListValue<>("+10% <span style='color:" + Attribute.DAMAGE_LUST.getColour().toWebHexString() + ";'>lust damage</span>"
 					+ " vs <span style='color:" + Colour.MASCULINE.toWebHexString()+ ";'>masculine opponents</span>"))) {
 		@Override
 		public String applyPerkGained(GameCharacter character) {
@@ -792,7 +721,8 @@ public enum Perk {
 			"perks/fitness_nymphomaniac",
 			Colour.GENERIC_SEX,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, -25)), Util.newArrayListOfValues(new ListValue<>("Doubles <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString()+ ";'>arcane essence gain</span> from each orgasm"))) {
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, -25)),
+			Util.newArrayListOfValues(new ListValue<>("Doubles <span style='color:" + Colour.GENERIC_ARCANE.toWebHexString()+ ";'>arcane essence gain</span> from each orgasm"))) {
 
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -803,6 +733,30 @@ public enum Perk {
 		}
 	},
 	
+	
+	CLOTHING_ENCHANTER(20,
+			true,
+			"arcane weaver",
+			PerkCategory.ARCANE,
+			"perks/arcaneWeaver",
+			Colour.GENERIC_ARCANE,
+			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 1)),
+			Util.newArrayListOfValues(new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Halves cost of all clothing enchantments</span>"))) {
+
+		@Override
+		public boolean isAlwaysAvailable() {
+			return true;
+		}
+		
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "You have a natural affinity for weaving arcane enchantments into items of clothing, allowing you to expend only half of the usual arcane essences when enchanting clothing.";
+			} else {
+				return UtilText.parse(owner, "[npc.Name] has a natural affinity for weaving arcane enchantments into items of clothing, allowing [npc.herHim] to expend only half of the usual arcane essences when enchanting clothing.");
+			}
+		}
+	},
 	
 	BARREN(20,
 			false,

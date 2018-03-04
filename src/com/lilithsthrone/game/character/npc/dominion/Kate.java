@@ -220,7 +220,7 @@ public class Kate extends NPC {
 					+ " you ask as you finally get your clothing back in order."
 					+ "</p>"
 					+ "<p>"
-					+ UtilText.parseSpeech("Well, yeah I'm aware! You know, the owners of this whole promenade keep threatening me with legal action, saying I have a 'responsibility' to keep the area looking nice."
+					+ UtilText.parseSpeech("Well, yeah I'm aware! You know, the owners of this whole Arcade keep threatening me with legal action, saying I have a 'responsibility' to keep the area looking nice."
 							+ " As if! As long as I display an 'open for business' sign, I'm following all the terms of my contract! You know what happened when I opened this place?! Thirty. Six. Customers. All in one day. Eugh!"
 							+ " As the last one of those demanding know-it-alls left, I followed them outside, boarded up the windows, and threw paint stripper all over the sign. One day's hard work is enough for anyone...",
 							Main.game.getKate())
@@ -296,10 +296,6 @@ public class Kate extends NPC {
 	// Combat (you never fight Kate):
 	@Override
 	public String getCombatDescription() {
-		return null;
-	}
-	@Override
-	public String getAttackDescription(Attack attackType, boolean isHit) {
 		return null;
 	}
 	@Override

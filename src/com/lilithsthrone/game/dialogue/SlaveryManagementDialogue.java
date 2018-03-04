@@ -986,7 +986,7 @@ public class SlaveryManagementDialogue {
 				"<div class='container-full-width inner' style='margin-bottom:0;"+(alternateBackground?"background:#292929;'":"'")+"'>"
 						+ "<div style='width:20%; float:left; margin:0; padding:0;'>"
 							+ "<b style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+slave.getName()+"</b></br>"
-							+ "<span style='color:"+slave.getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence((slave.isFeminine()?slave.getRace().getSingularFemaleName():slave.getRace().getSingularMaleName()))+"</span></br>"
+							+ "<span style='color:"+slave.getRace().getColour().toWebHexString()+";'>"+Util.capitaliseSentence((slave.isFeminine()?slave.getSubspecies().getSingularFemaleName():slave.getSubspecies().getSingularMaleName()))+"</span></br>"
 							+ "<span style='color:"+slave.getFemininity().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(slave.getGender().getName())+"</span>"
 						+ "</div>"
 						+ "<div style='width:20%; float:left; margin:0; padding:0;'>"
@@ -1211,7 +1211,7 @@ public class SlaveryManagementDialogue {
 					"<div class='container-full-width'>"
 							+ "<h6 style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+"; text-align:center;'>Inspection</h6>"
 							+ "<div class='container-full-width inner'>"
-								+NPC.getCharacterInformationScreen(character)
+								+character.getCharacterInformationScreen()
 							+"</div>"
 					+"</div>"
 					+ "<p id='hiddenFieldName' style='display:none;'></p>");

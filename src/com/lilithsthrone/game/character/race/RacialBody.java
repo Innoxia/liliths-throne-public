@@ -62,7 +62,7 @@ public enum RacialBody {
 
 	// HUMAN:
 	HUMAN(Util.newHashMapOfValues(
-				new Value<Attribute, AttributeRange>(Attribute.MAJOR_STRENGTH, new AttributeRange(5f, 15f)),
+				new Value<Attribute, AttributeRange>(Attribute.MAJOR_PHYSIQUE, new AttributeRange(5f, 15f)),
 				new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(0f, 0f)),
 				new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(5f, 25f))),
 			AntennaType.NONE,
@@ -90,7 +90,7 @@ public enum RacialBody {
 
 	// ANGEL:
 	ANGEL(Util.newHashMapOfValues(
-				new Value<Attribute, AttributeRange>(Attribute.MAJOR_STRENGTH, new AttributeRange(20f, 40f)),
+				new Value<Attribute, AttributeRange>(Attribute.MAJOR_PHYSIQUE, new AttributeRange(20f, 40f)),
 				new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(20f, 30f)),
 				new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(0f, 0f))),
 			AntennaType.NONE,
@@ -117,7 +117,7 @@ public enum RacialBody {
 			GenitalArrangement.NORMAL) {
 
 		@Override
-		public Personality getPersionality() {
+		public Personality getPersonality() {
 			return generatePersonality(50, 10, 20, 20);
 		}
 		
@@ -129,7 +129,7 @@ public enum RacialBody {
 
 	// DEMON:
 	DEMON(Util.newHashMapOfValues(
-				new Value<Attribute, AttributeRange>(Attribute.MAJOR_STRENGTH, new AttributeRange(20f, 40f)),
+				new Value<Attribute, AttributeRange>(Attribute.MAJOR_PHYSIQUE, new AttributeRange(20f, 40f)),
 				new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(20f, 30f)),
 				new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(80f, 100f))),
 			AntennaType.NONE,
@@ -157,7 +157,7 @@ public enum RacialBody {
 			GenitalArrangement.NORMAL) {
 		
 		@Override
-		public Personality getPersionality() {
+		public Personality getPersonality() {
 			return generatePersonality(40, 10, 30, 20);
 		}
 		
@@ -170,7 +170,7 @@ public enum RacialBody {
 	// BOVINES:
 	COW_MORPH(
 			Util.newHashMapOfValues(
-					new Value<Attribute, AttributeRange>(Attribute.MAJOR_STRENGTH, new AttributeRange(20f, 50f)),
+					new Value<Attribute, AttributeRange>(Attribute.MAJOR_PHYSIQUE, new AttributeRange(20f, 50f)),
 					new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(0f, 0f)),
 					new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(20f, 30f))),
 			AntennaType.NONE,
@@ -197,7 +197,7 @@ public enum RacialBody {
 			GenitalArrangement.NORMAL) {
 
 		@Override
-		public Personality getPersionality() {
+		public Personality getPersonality() {
 			return generatePersonality(30, 50, 10, 10);
 		}
 	},
@@ -205,7 +205,7 @@ public enum RacialBody {
 	// CANINES:
 	DOG_MORPH(
 			Util.newHashMapOfValues(
-					new Value<Attribute, AttributeRange>(Attribute.MAJOR_STRENGTH, new AttributeRange(20f, 30f)),
+					new Value<Attribute, AttributeRange>(Attribute.MAJOR_PHYSIQUE, new AttributeRange(20f, 30f)),
 					new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(0f, 0f)),
 					new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(20f, 30f))),
 			AntennaType.NONE,
@@ -223,7 +223,7 @@ public enum RacialBody {
 			LegType.DOG_MORPH,
 			SkinType.DOG_MORPH, BodyMaterial.FLESH,
 			HornLength.ZERO_TINY, HornLength.ZERO_TINY, Util.newArrayListOfValues(new ListValue<>(HornType.NONE)),
-			PenisType.CANINE, PenisSize.THREE_LARGE,
+			PenisType.CANINE, PenisSize.TWO_AVERAGE,
 			PenisType.NONE, PenisSize.TWO_AVERAGE,
 			TesticleSize.THREE_LARGE, 2, CumProduction.FOUR_LARGE,
 			TailType.DOG_MORPH,
@@ -232,14 +232,14 @@ public enum RacialBody {
 			GenitalArrangement.NORMAL) {
 
 		@Override
-		public Personality getPersionality() {
+		public Personality getPersonality() {
 			return generatePersonality(60, 10, 20, 10);
 		}
 	},
 	
 	WOLF_MORPH(
 			Util.newHashMapOfValues(
-					new Value<Attribute, AttributeRange>(Attribute.MAJOR_STRENGTH, new AttributeRange(20f, 40f)),
+					new Value<Attribute, AttributeRange>(Attribute.MAJOR_PHYSIQUE, new AttributeRange(20f, 40f)),
 					new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(0f, 0f)),
 					new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(30f, 50f))),
 			AntennaType.NONE,
@@ -266,7 +266,7 @@ public enum RacialBody {
 			GenitalArrangement.NORMAL) {
 
 		@Override
-		public Personality getPersionality() {
+		public Personality getPersonality() {
 			return generatePersonality(20, 10, 60, 10);
 		}
 	},
@@ -274,7 +274,7 @@ public enum RacialBody {
 	// FELINES:
 	CAT_MORPH(
 			Util.newHashMapOfValues(
-					new Value<Attribute, AttributeRange>(Attribute.MAJOR_STRENGTH, new AttributeRange(10f, 30f)),
+					new Value<Attribute, AttributeRange>(Attribute.MAJOR_PHYSIQUE, new AttributeRange(10f, 30f)),
 					new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(0f, 0f)),
 					new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(20f, 30f))),
 			AntennaType.NONE,
@@ -301,7 +301,7 @@ public enum RacialBody {
 			GenitalArrangement.NORMAL) {
 
 		@Override
-		public Personality getPersionality() {
+		public Personality getPersonality() {
 			return generatePersonality(30, 20, 10, 40);
 		}
 	},
@@ -309,7 +309,7 @@ public enum RacialBody {
 	// EQUINES:
 	HORSE_MORPH(
 			Util.newHashMapOfValues(
-					new Value<Attribute, AttributeRange>(Attribute.MAJOR_STRENGTH, new AttributeRange(20f, 40f)),
+					new Value<Attribute, AttributeRange>(Attribute.MAJOR_PHYSIQUE, new AttributeRange(20f, 40f)),
 					new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(0f, 0f)),
 					new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(20f, 30f))),
 			AntennaType.NONE,
@@ -336,13 +336,13 @@ public enum RacialBody {
 			GenitalArrangement.NORMAL) {
 
 		@Override
-		public Personality getPersionality() {
+		public Personality getPersonality() {
 			return generatePersonality(20, 40, 30, 10);
 		}
 	},
 
 	REINDEER_MORPH(Util.newHashMapOfValues(
-				new Value<Attribute, AttributeRange>(Attribute.MAJOR_STRENGTH, new AttributeRange(20f, 50f)),
+				new Value<Attribute, AttributeRange>(Attribute.MAJOR_PHYSIQUE, new AttributeRange(20f, 50f)),
 				new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(0f, 0f)),
 				new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(20f, 30f))),
 			AntennaType.NONE,
@@ -369,14 +369,14 @@ public enum RacialBody {
 			GenitalArrangement.NORMAL) {
 	
 		@Override
-		public Personality getPersionality() {
+		public Personality getPersonality() {
 			return generatePersonality(30, 30, 20, 20);
 		}
 	},
 
 	// REPTILE:
 	ALLIGATOR_MORPH(Util.newHashMapOfValues(
-	            new Value<Attribute, AttributeRange>(Attribute.MAJOR_STRENGTH, new AttributeRange(20f, 40f)),
+	            new Value<Attribute, AttributeRange>(Attribute.MAJOR_PHYSIQUE, new AttributeRange(20f, 40f)),
 	            new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(0f, 0f)),
 	            new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(20f, 30f))),
 		    AntennaType.NONE,
@@ -394,7 +394,7 @@ public enum RacialBody {
 		    LegType.ALLIGATOR_MORPH,
 		    SkinType.ALLIGATOR_MORPH, BodyMaterial.FLESH,
 			HornLength.ZERO_TINY, HornLength.ZERO_TINY, Util.newArrayListOfValues(new ListValue<>(HornType.NONE)),
-		    PenisType.ALLIGATOR_MORPH, PenisSize.FIVE_ENORMOUS,
+		    PenisType.ALLIGATOR_MORPH, PenisSize.THREE_LARGE,
 		    PenisType.NONE, PenisSize.TWO_AVERAGE,
 		    TesticleSize.FOUR_HUGE, 2, CumProduction.FIVE_HUGE,
 		    TailType.ALLIGATOR_MORPH,
@@ -403,7 +403,7 @@ public enum RacialBody {
 		    GenitalArrangement.CLOACA) {
 
 		@Override
-		public Personality getPersionality() {
+		public Personality getPersonality() {
 			return generatePersonality(10, 40, 40, 10);
 		}
 		
@@ -415,7 +415,7 @@ public enum RacialBody {
 	
 	// RODENTS:
 	SQUIRREL_MORPH(Util.newHashMapOfValues(
-				new Value<Attribute, AttributeRange>(Attribute.MAJOR_STRENGTH, new AttributeRange(5f, 15f)),
+				new Value<Attribute, AttributeRange>(Attribute.MAJOR_PHYSIQUE, new AttributeRange(5f, 15f)),
 				new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(0f, 0f)),
 				new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(20f, 30f))),
 			AntennaType.NONE,
@@ -433,23 +433,23 @@ public enum RacialBody {
 			LegType.SQUIRREL_MORPH,
 			SkinType.SQUIRREL_MORPH, BodyMaterial.FLESH,
 			HornLength.ZERO_TINY, HornLength.ZERO_TINY, Util.newArrayListOfValues(new ListValue<>(HornType.NONE)),
-			PenisType.SQUIRREL, PenisSize.THREE_LARGE,
+			PenisType.SQUIRREL, PenisSize.FOUR_HUGE,
 			PenisType.NONE, PenisSize.TWO_AVERAGE,
 			TesticleSize.THREE_LARGE, 2, CumProduction.THREE_AVERAGE,
 			TailType.SQUIRREL_MORPH,
-			VaginaType.SQUIRREL_MORPH, Wetness.TWO_MOIST, Capacity.FOUR_LOOSE, ClitorisSize.ONE_BIG, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
+			VaginaType.SQUIRREL_MORPH, Wetness.TWO_MOIST, Capacity.THREE_SLIGHTLY_LOOSE, ClitorisSize.ZERO_AVERAGE, OrificeElasticity.FOUR_LIMBER, OrificePlasticity.THREE_RESILIENT,
 			WingType.NONE, WingSize.ZERO_TINY, WingSize.ZERO_TINY,
 			GenitalArrangement.NORMAL) {
 
 		@Override
-		public Personality getPersionality() {
+		public Personality getPersonality() {
 			return generatePersonality(40, 10, 10, 40);
 		}
 	},
 
 	// AVIAN:
 	HARPY(Util.newHashMapOfValues(
-				new Value<Attribute, AttributeRange>(Attribute.MAJOR_STRENGTH, new AttributeRange(0f, 15f)),
+				new Value<Attribute, AttributeRange>(Attribute.MAJOR_PHYSIQUE, new AttributeRange(0f, 15f)),
 				new Value<Attribute, AttributeRange>(Attribute.MAJOR_ARCANE, new AttributeRange(0f, 0f)),
 				new Value<Attribute, AttributeRange>(Attribute.MAJOR_CORRUPTION, new AttributeRange(20f, 50f))),
 			AntennaType.NONE,
@@ -476,7 +476,7 @@ public enum RacialBody {
 			GenitalArrangement.CLOACA) {
 		
 		@Override
-		public Personality getPersionality() {
+		public Personality getPersonality() {
 			return generatePersonality(70, 10, 10, 10);
 		}
 		
@@ -674,6 +674,8 @@ public enum RacialBody {
 				return RacialBody.WOLF_MORPH;
 			case SQUIRREL_MORPH:
 				return RacialBody.SQUIRREL_MORPH;
+			case SLIME:
+				return RacialBody.HUMAN;
 		}
 		return RacialBody.HUMAN;
 	}
@@ -693,15 +695,15 @@ public enum RacialBody {
 		}
 		
 		if(gender.isFeminine()) {
-			for(Entry<Race, FurryPreference> entry : Main.getProperties().raceFemininePreferencesMap.entrySet()) {
+			for(Entry<Subspecies, FurryPreference> entry : Main.getProperties().subspeciesFeminineFurryPreferencesMap.entrySet()) {
 				if(entry.getValue() == FurryPreference.HUMAN) {
-					availableRaces.remove(entry.getKey());
+					availableRaces.remove(entry.getKey().getRace());
 				}
 			}
 		} else {
-			for(Entry<Race, FurryPreference> entry : Main.getProperties().raceMasculinePreferencesMap.entrySet()) {
+			for(Entry<Subspecies, FurryPreference> entry : Main.getProperties().subspeciesMasculineFurryPreferencesMap.entrySet()) {
 				if(entry.getValue() == FurryPreference.HUMAN) {
-					availableRaces.remove(entry.getKey());
+					availableRaces.remove(entry.getKey().getRace());
 				}
 			}
 		}
@@ -713,7 +715,7 @@ public enum RacialBody {
 		return valueOfRace(availableRaces.get(Util.random.nextInt(availableRaces.size())));
 	}
 	
-	public Personality getPersionality() {
+	public Personality getPersonality() {
 		return generatePersonality(25, 25, 25, 25);
 	}
 	

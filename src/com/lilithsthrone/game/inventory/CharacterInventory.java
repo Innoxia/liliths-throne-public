@@ -639,11 +639,28 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		return clothingCurrentlyEquipped;
 	}
 
+	public List<InventorySlot> getInventorySlotsConcealed() {
+		Set<InventorySlot> concealed = new HashSet<>();
+		Set<InventorySlot> revealed = new HashSet<>();
+		for(AbstractClothing c : getClothingCurrentlyEquipped()) {
+			for(BlockedParts bp : c.getClothingType().getBlockedPartsList()) {
+				if(!c.getDisplacedList().contains(bp.displacementType)) {
+					concealed.addAll(bp.concealedSlots);
+				} else {
+					revealed.addAll(bp.concealedSlots);
+				}
+			}
+		}
+		concealed.removeAll(revealed);
+		List<InventorySlot> concealedFinal = new ArrayList<>();
+		concealedFinal.addAll(concealed);
+		return concealedFinal;
+	}
+	
 	/**
 	 * @return clothing in the slot specified. Returns null if no clothing in
 	 *         that slot.
 	 */
-	
 	public AbstractClothing getClothingInSlot(InventorySlot invSlot) {
 		AbstractClothing clothingInSlot = null;
 		for (AbstractClothing clothing : clothingCurrentlyEquipped)

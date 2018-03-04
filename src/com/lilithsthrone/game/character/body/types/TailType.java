@@ -1,5 +1,10 @@
 package com.lilithsthrone.game.character.body.types;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -7,7 +12,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.84
+ * @version 0.1.99
  * @author Innoxia
  */
 public enum TailType implements BodyPartTypeInterface {
@@ -16,6 +21,8 @@ public enum TailType implements BodyPartTypeInterface {
 	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON, true, true),
 
 	DOG_MORPH(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH, false, false),
+	
+	DOG_MORPH_STUBBY(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH, false, false),
 	
 	LYCAN(BodyCoveringType.LYCAN_FUR, Race.WOLF_MORPH, false, false),
 
@@ -100,6 +107,8 @@ public enum TailType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("spaded", "demonic");
 			case DOG_MORPH:
 				return UtilText.returnStringAtRandom("dog-like");
+			case DOG_MORPH_STUBBY:
+				return UtilText.returnStringAtRandom("stubby", "dog-like");
 			case ALLIGATOR_MORPH:
 				return UtilText.returnStringAtRandom("gator-like");
 			case HARPY:
@@ -114,9 +123,9 @@ public enum TailType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("squirrel-like", "fluffy");
 			case NONE:
 				return UtilText.returnStringAtRandom("");
-			default:
-				return UtilText.returnStringAtRandom("");
 		}
+		
+		return "";
 	}
 	
 	public String getTransformName() {
@@ -129,6 +138,8 @@ public enum TailType implements BodyPartTypeInterface {
 				return "spaded";
 			case DOG_MORPH:
 				return "canine";
+			case DOG_MORPH_STUBBY:
+				return UtilText.returnStringAtRandom("stubby canine");
 			case HARPY:
 				return "plume";
 			case HORSE_MORPH:
@@ -181,4 +192,19 @@ public enum TailType implements BodyPartTypeInterface {
 		return suitableForPenetration;
 	}
 	
+	private static Map<Race, List<TailType>> typesMap = new HashMap<>();
+	public static List<TailType> getTailTypes(Race r) {
+		if(typesMap.containsKey(r)) {
+			return typesMap.get(r);
+		}
+		
+		List<TailType> types = new ArrayList<>();
+		for(TailType type : TailType.values()) {
+			if(type.getRace()==r) {
+				types.add(type);
+			}
+		}
+		typesMap.put(r, types);
+		return types;
+	}
 }

@@ -32,6 +32,7 @@ public enum BaseColour {
 	TAN(Util.newColour(0xEDC491), Util.newColour(0xDC8D2E)),
 	BROWN(Util.newColour(0xD0A38B), Util.newColour(0xB5714A)),
 	BROWN_DARK(Util.newColour(0x9F775B), Util.newColour(0x785945)),
+	AUBURN(Util.newColour(0xCF6654), Util.newColour(0xBB4935)),
 	ORANGE(Util.newColour(0xFF9970), Util.newColour(0xFA4700)),
 	AMBER(Util.newColour(0xFFC552), Util.newColour(0xBD7E00)),
 	GINGER(Util.newColour(0xFF9147), Util.newColour(0xF06000)),

@@ -129,7 +129,7 @@ public class GenericOrgasms {
 					orgasmText = "[npc.Name] shuffles backwards, pressing [npc.her] [npc.ass+] up against your [pc.face+] and letting out [npc.a_moan+] as [npc.she] prepares to reach [npc.her] climax.";
 				}
 				break;
-			case DOGGY_ON_ALL_FOURS: case DOGGY_ON_ALL_FOURS_AMBER:
+			case DOGGY_ON_ALL_FOURS: case DOGGY_ON_ALL_FOURS_SECOND: case DOGGY_ON_ALL_FOURS_AMBER:
 				if(characterOrgasming.isPlayer()) {
 					orgasmText = "You brace yourself on all fours, letting out [pc.a_moan+] as you prepare to reach your climax.";
 				} else {
@@ -1496,6 +1496,14 @@ public class GenericOrgasms {
 				genericOrgasmSB.append(" Your [npc1.pussy+] clenches down hard, and the wave of disappointment upon finding itself empty almost overwhelms the pleasure that radiates up through your groin.");
 			} else {
 				genericOrgasmSB.append(" [npc1.Name]'s [npc1.pussy+] clenches down hard, and the wave of disappointment upon finding itself empty almost overwhelms the pleasure that radiates up through [npc.her] groin.");
+			}
+		}
+		
+		if(characterOrgasming.isVaginaSquirter()) {
+			if(characterOrgasming.isPlayer()) {
+				genericOrgasmSB.append(" As your inner muscles spasm and quiver with delight, a huge spurt of female ejaculate squirts out from your [npc1.pussy+].");
+			} else {
+				genericOrgasmSB.append(" As [npc1.name]'s inner muscles spasm and quiver with delight, a huge spurt of female ejaculate squirts out from [npc1.her] [npc1.pussy+].");
 			}
 		}
 		

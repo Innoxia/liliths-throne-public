@@ -10,6 +10,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.ArousalIncrease;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
+import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
@@ -19,7 +20,7 @@ import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.79
- * @version 0.1.8
+ * @version 0.2.0
  * @author Innoxia
  */
 public class PlayerSelfNoPen {
@@ -62,6 +63,13 @@ public class PlayerSelfNoPen {
 			}
 		}
 		
+		@Override
+		public void applyEffects() {
+			if(Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.VAGINA)) {
+				Sex.transferLubrication(Main.game.getPlayer(), Main.game.getPlayer(), PenetrationType.FINGER, OrificeType.VAGINA);
+			}
+		}
+		
 	};
 	
 	
@@ -101,6 +109,13 @@ public class PlayerSelfNoPen {
 						"You slide your fingertips over your "+Main.game.getPlayer().getHighestZLayerCoverableArea(CoverableArea.PENIS).getName()+", before pressing down and trying to stimulate your [pc.cock+] through your clothing.",
 						"Pushing down between your legs with the palm of your hand, you rub up and down as you feel your "+Main.game.getPlayer().getLowestZLayerCoverableArea(CoverableArea.PENIS).getName()
 								+" being pressed tightly against your concealed [pc.cock].");
+			}
+		}
+		
+		@Override
+		public void applyEffects() {
+			if(Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS)) {
+				Sex.transferLubrication(Main.game.getPlayer(), PenetrationType.FINGER, Main.game.getPlayer(), PenetrationType.PENIS);
 			}
 		}
 		

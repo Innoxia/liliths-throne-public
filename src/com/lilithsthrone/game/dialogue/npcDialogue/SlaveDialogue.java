@@ -16,6 +16,7 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.BodyChanging;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.sex.Sex;
@@ -31,7 +32,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.85
- * @version 0.1.95
+ * @version 0.2.0
  * @author Innoxia
  */
 public class SlaveDialogue {
@@ -39,6 +40,53 @@ public class SlaveDialogue {
 	private static NPC slave() {
 		return Main.game.getActiveNPC();
 	}
+	
+	public static final DialogueNodeOld DEFAULT_ENSLAVEMENT_DIALOGUE = new DialogueNodeOld("New Slave", "", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getDescription(){
+			return ".";
+		}
+
+		@Override
+		public String getContent() {
+			AbstractClothing enslavementClothing = Main.game.getActiveNPC().getEnslavementClothing();
+			return UtilText.parse(Main.game.getActiveNPC(),
+					"<p>"
+						+ "Holding the "+enslavementClothing.getName()+" in one [pc.hand], you take a step towards [npc.name]."
+						+ " [npc.She] lets out a distressed cry as [npc.she] sees what you're about to do, but [npc.she]'s so exhausted that [npc.she] can't manage to put up any significant amount of resistance."
+					+ "</p>"
+					+ "<p>"
+						+ "Forcing the item of clothing onto [npc.herHim], you step back, looking down at a face filled with fear."
+						+ " The "+enslavementClothing.getName()+"'s arcane enchantment recognises [npc.name] as being a criminal, and, with a purple flash,"
+							+ " <b>[npc.she]'s teleported to the 'Slave Administration' building in Slaver Alley, where [npc.she]'ll be waiting for you to pick them up</b>."
+					+ "</p>"
+					+ "<p>"
+						+ "Just before they disappear, glowing purple lettering is projected into the air, which reads:</br>"
+						+ "<i>Slave identification: [style.boldArcane("+Main.game.getActiveNPC().getNameIgnoresPlayerKnowledge()+")]</i>"
+					+ "</p>");
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Continue", "Carry on your way.", DEFAULT_ENSLAVEMENT_DIALOGUE){
+					@Override
+					public void effects() {
+						Main.game.getActiveNPC().applyEnslavementEffects(Main.game.getPlayer());
+					}
+					@Override
+					public DialogueNodeOld getNextDialogue(){
+						return DebugDialogue.getDefaultDialogueNoEncounter();
+					}
+				};
+				
+			} else {
+				return null;
+			}
+		}
+	};
 	
 	public static final DialogueNodeOld SLAVE_START = new DialogueNodeOld("", ".", true) {
 		private static final long serialVersionUID = 1L;
@@ -579,7 +627,7 @@ public class SlaveDialogue {
 					
 				} else if (index == 3) {
 					if(charactersPresent.size()==2) {
-						return new ResponseSex("Spitroast",
+						return new ResponseSex("Get Spitroasted",
 								UtilText.parse(charactersPresent.get(0), charactersPresent.get(1), "Let [npc1.name] and [npc2.name] spitroast you."),
 								null, null, null, null, null, null,
 								true, true,
@@ -594,6 +642,25 @@ public class SlaveDialogue {
 								+ "</p>");
 					} else {
 						return new Response("Spitroast", "Another slave needs to be present for this...",null);
+					}
+				
+				} else if (index == 4) {
+					if(charactersPresent.size()==2) {
+						return new ResponseSex("Side-by-side",
+								UtilText.parse(charactersPresent.get(0), charactersPresent.get(1), "Push [npc1.name] and [npc2.name] down onto all fours, side-by-side, and get ready to fuck them."),
+								null, null, null, null, null, null,
+								true, true,
+								new SMDoggy(
+										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
+										Util.newHashMapOfValues(
+												new Value<>(charactersPresent.get(0), SexPositionSlot.DOGGY_ON_ALL_FOURS),
+												new Value<>(charactersPresent.get(1), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
+								AFTER_SEX,
+								"<p>"
+									+ ""//TODO
+								+ "</p>");
+					} else {
+						return new Response("Side-by-side", "Another slave needs to be present for this...",null);
 					}
 				
 				} else if (index == 0) {

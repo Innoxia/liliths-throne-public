@@ -144,7 +144,7 @@ public class Ralph extends NPC {
 		}
 		
 		for (AbstractItemType item : itemsForSale) {
-			for (int i = 0; i < 3 + (Util.random.nextInt(6)); i++) {
+			for (int i = 0; i < 6 + (Util.random.nextInt(12)); i++) {
 				this.addItem(AbstractItemType.generateItem(item), false);
 			}
 		}
@@ -152,10 +152,10 @@ public class Ralph extends NPC {
 		Colour condomColour1 = ClothingType.PENIS_CONDOM.getAvailablePrimaryColours().get(Util.random.nextInt(ClothingType.PENIS_CONDOM.getAvailablePrimaryColours().size()));
 		Colour condomColour2 = ClothingType.PENIS_CONDOM.getAvailablePrimaryColours().get(Util.random.nextInt(ClothingType.PENIS_CONDOM.getAvailablePrimaryColours().size()));
 		
-		for (int i = 0; i < 3+(Util.random.nextInt(6)); i++) {
+		for (int i = 0; i < 6+(Util.random.nextInt(12)); i++) {
 			this.addClothing(AbstractClothingType.generateClothing(ClothingType.PENIS_CONDOM, condomColour1, false), false);
 		}
-		for (int i = 0; i < 3+(Util.random.nextInt(6)); i++) {
+		for (int i = 0; i < 6+(Util.random.nextInt(12)); i++) {
 			this.addClothing(AbstractClothingType.generateClothing(ClothingType.PENIS_CONDOM, condomColour2, false), false);
 		}
 	}
@@ -271,10 +271,6 @@ public class Ralph extends NPC {
 		return null;
 	}
 	@Override
-	public String getAttackDescription(Attack attackType, boolean isHit) {
-		return null;
-	}
-	@Override
 	public Response endCombat(boolean applyEffects, boolean victory) {
 		return null;
 	}
@@ -357,11 +353,11 @@ public class Ralph extends NPC {
 	// Vagina:
 	
 	@Override
-	public String getStretchingDescription(PenetrationType penetrationType, OrificeType orifice) {
+	public String getStretchingDescription(GameCharacter partner, PenetrationType penetrationType, OrificeType orifice) {
 		switch(orifice) {
 			case MOUTH:
 				if(Math.random()<0.3) {
-					return super.getStretchingDescription(penetrationType, orifice);
+					return super.getStretchingDescription(partner, penetrationType, orifice);
 				} else {
 					return formatStretching(UtilText.returnStringAtRandom(
 							"You feel tears streaming down your face as you force the "+Sex.getActivePartner().getPenisName(true)+" down your throat.",
@@ -371,7 +367,7 @@ public class Ralph extends NPC {
 				}
 			case VAGINA:
 				if(Math.random()<0.3) {
-					return super.getStretchingDescription(penetrationType, orifice);
+					return super.getStretchingDescription(partner, penetrationType, orifice);
 				} else {
 					return formatStretching(UtilText.returnStringAtRandom(
 							"You squirm about uncomfortably on the counter-top as Ralph's " +Sex.getActivePartner().getPenisName(true)+" struggles to fit in your "+Main.game.getPlayer().getVaginaCapacity().getDescriptor()+" "+Main.game.getPlayer().getVaginaName(false)+".",
@@ -380,7 +376,7 @@ public class Ralph extends NPC {
 							"Your "+Main.game.getPlayer().getVaginaCapacity().getDescriptor()+" little "+Main.game.getPlayer().getVaginaName(false)+" struggles to accommodate the sheer size of Ralph's "+Sex.getActivePartner().getPenisName(true)+"."));
 				}
 			default:
-				return super.getStretchingDescription(penetrationType, orifice);
+				return super.getStretchingDescription(partner, penetrationType, orifice);
 		}
 	}
 	

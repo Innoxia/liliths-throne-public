@@ -52,7 +52,7 @@ public class PlayerPenisVagina {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Main.game.getPlayer()) ||Sex.isConsensual();
+			return Sex.isDom(Main.game.getPlayer()) || Sex.isConsensual();
 		}
 
 		@Override
@@ -67,12 +67,6 @@ public class PlayerPenisVagina {
 							"With a soft [pc.moan], you line your [pc.cock+] up to [npc.name]'s [npc.pussy+], before starting to gently slide the [pc.cockHead] up and down between [npc.her] folds.",
 							"Gently sliding the [pc.cockHead+] of your [pc.cock] up and down over [npc.name]'s [npc.pussy+], you let out a soft [pc.moan] at the thought of being able to penetrate [npc.herHim] whenever you feel like it."));
 					break;
-				case DOM_NORMAL:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Lining your [pc.cock+] up to [npc.name]'s [npc.pussy+], you start eagerly sliding your [pc.cockHead+] up and down between [npc.her] lips, ready to penetrate [npc.herHim] at any moment.",
-							"With [pc.a_moan+], you line your [pc.cock+] up to [npc.name]'s [npc.pussy+], before starting to eagerly slide your [pc.cockHead] up and down between [npc.her] folds.",
-							"Eagerly sliding the [pc.cockHead+] of your [pc.cock] up and down over [npc.name]'s [npc.pussy+], you let out [pc.a_moan+] at the thought of being able to penetrate [npc.herHim] whenever you feel like it."));
-					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Grinding your [pc.cock+] up against [npc.name]'s [npc.pussy+], you pull back a little before starting to slide your [pc.cockHead+] up and down between [npc.her] lips,"
@@ -81,6 +75,10 @@ public class PlayerPenisVagina {
 							"Roughly grinding the [pc.cockHead+] of your [pc.cock] up and down over [npc.name]'s [npc.pussy+], you let out [pc.a_moan+] at the thought of being able to start fucking [npc.herHim] whenever you feel like it."));
 					break;
 				default:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							"Lining your [pc.cock+] up to [npc.name]'s [npc.pussy+], you start eagerly sliding your [pc.cockHead+] up and down between [npc.her] lips, ready to penetrate [npc.herHim] at any moment.",
+							"With [pc.a_moan+], you line your [pc.cock+] up to [npc.name]'s [npc.pussy+], before starting to eagerly slide your [pc.cockHead] up and down between [npc.her] folds.",
+							"Eagerly sliding the [pc.cockHead+] of your [pc.cock] up and down over [npc.name]'s [npc.pussy+], you let out [pc.a_moan+] at the thought of being able to penetrate [npc.herHim] whenever you feel like it."));
 					break;
 			}
 			switch(Sex.getSexPace(Sex.getActivePartner())) {
@@ -89,12 +87,6 @@ public class PlayerPenisVagina {
 							" [npc.A_moan+] bursts out from between [npc.name]'s [npc.lips+], [npc.speech(Please! Fuck me! I need your cock inside of me!)]",
 							" [npc.Name] lets out a desperate [npc.moan], before pleading, [npc.speech(Go on! Please! Fuck me already!)]",
 							" [npc.Name] [npc.moansVerb] in delight as [npc.she] begs, [npc.speech(Yes! Fuck my little pussy! I need you inside of me!)]"));
-					break;
-				case SUB_NORMAL:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [npc.A_moan+] drifts out from between [npc.name]'s [npc.lips+], [npc.speech(That's right, fuck me!)]",
-							" [npc.Name] lets out a [npc.moan], before addressing you, [npc.speech(Please! Fuck me already!)]",
-							" [npc.Name] [npc.moansVerb] out loud as [npc.she] speaks to you, [npc.speech(Come on, fuck me already!)]"));
 					break;
 				case SUB_RESISTING:
 					if(Sex.getActivePartner().isVaginaVirgin()) {
@@ -111,6 +103,10 @@ public class PlayerPenisVagina {
 					}
 					break;
 				default:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							" [npc.A_moan+] drifts out from between [npc.name]'s [npc.lips+], [npc.speech(That's right, fuck me!)]",
+							" [npc.Name] lets out a [npc.moan], before addressing you, [npc.speech(Please! Fuck me already!)]",
+							" [npc.Name] [npc.moansVerb] out loud as [npc.she] speaks to you, [npc.speech(Come on, fuck me already!)]"));
 					break;
 			}
 			
@@ -149,7 +145,7 @@ public class PlayerPenisVagina {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isDom(Main.game.getPlayer()) ||Sex.isConsensual();
+			return Sex.isDom(Sex.getActivePartner()) || Sex.isConsensual();
 		}
 
 		@Override
@@ -166,14 +162,6 @@ public class PlayerPenisVagina {
 							"Lining [npc.her] [npc.pussy+] up to your [pc.cock+], [npc.name] gently slides your [pc.cockHead+] over [npc.her] folds,"
 									+ " letting out a soft [npc.moan] as [npc.she] teases you with the promise of penetrating [npc.her] [npc.pussy+]."));
 					break;
-				case DOM_NORMAL:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							"Shifting [npc.her] [npc.hips], [npc.name] lines your [pc.cock+] up to [npc.her] [npc.pussy+],"
-									+ " eagerly pushing your [pc.cockHead+] up and down between [npc.her] lips as [npc.she] teases you with the promise of penetration at any moment.",
-							"With [npc.a_moan+], [npc.name] lines your [pc.cock+] up to [npc.her] [npc.pussy+], before starting to eagerly slide your [pc.cockHead] up and down between [npc.her] folds.",
-							"Lining [npc.her] [npc.pussy+] up to your [pc.cock+], [npc.name] eagerly slides your [pc.cockHead+] over [npc.her] folds,"
-									+ " letting out [npc.a_moan+] as [npc.she] teases you with the promise of penetrating [npc.her] [npc.pussy+]."));
-					break;
 				case DOM_ROUGH:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							"Shifting [npc.her] [npc.hips], [npc.name] grinds your [pc.cock+] against [npc.her] [npc.pussy+],"
@@ -183,6 +171,12 @@ public class PlayerPenisVagina {
 									+ " letting out [npc.a_moan+] as [npc.she] teases you with the promise of penetrating [npc.her] [npc.pussy+]."));
 					break;
 				default:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							"Shifting [npc.her] [npc.hips], [npc.name] lines your [pc.cock+] up to [npc.her] [npc.pussy+],"
+									+ " eagerly pushing your [pc.cockHead+] up and down between [npc.her] lips as [npc.she] teases you with the promise of penetration at any moment.",
+							"With [npc.a_moan+], [npc.name] lines your [pc.cock+] up to [npc.her] [npc.pussy+], before starting to eagerly slide your [pc.cockHead] up and down between [npc.her] folds.",
+							"Lining [npc.her] [npc.pussy+] up to your [pc.cock+], [npc.name] eagerly slides your [pc.cockHead+] over [npc.her] folds,"
+									+ " letting out [npc.a_moan+] as [npc.she] teases you with the promise of penetrating [npc.her] [npc.pussy+]."));
 					break;
 			}
 			switch(Sex.getSexPace(Main.game.getPlayer())) {
@@ -192,12 +186,6 @@ public class PlayerPenisVagina {
 							" You let out a desperate [pc.moan], before pleading with [npc.herHim], [pc.speech(Yes! Please, let me fuck you!)]",
 							" You [pc.moan] in delight as you beg, [pc.speech(Yes! Let me fuck your pussy! Please!)]"));
 					break;
-				case SUB_NORMAL:
-					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
-							" [pc.A_moan+] drifts out from between your [pc.lips+], [pc.speech(Yes, I want to fuck you!)]",
-							" You let out a [pc.moan], before calling out, [pc.speech(Please! Let me fuck you!)]",
-							" You [pc.moan] out loud as you speak to [npc.herHim], [pc.speech(Come on, let me fuck you already!)]"));
-					break;
 				case SUB_RESISTING:
 					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
 							" [pc.A_sob+] bursts out from between your [pc.lips+], [pc.speech(No! Don't! Please! Get away from me!)]",
@@ -205,6 +193,10 @@ public class PlayerPenisVagina {
 							" You [pc.sob] in distress as you beg, [pc.speech(No! Stop! Get away from there!)]"));
 					break;
 				default:
+					UtilText.nodeContentSB.append(UtilText.returnStringAtRandom(
+							" [pc.A_moan+] drifts out from between your [pc.lips+], [pc.speech(Yes, I want to fuck you!)]",
+							" You let out a [pc.moan], before calling out, [pc.speech(Please! Let me fuck you!)]",
+							" You [pc.moan] out loud as you speak to [npc.herHim], [pc.speech(Come on, let me fuck you already!)]"));
 					break;
 			}
 			
