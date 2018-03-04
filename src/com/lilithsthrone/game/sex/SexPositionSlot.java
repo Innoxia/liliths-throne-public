@@ -187,6 +187,7 @@ public enum SexPositionSlot {
 	MISSIONARY_KNEELING_BETWEEN_LEGS("Kneeling between legs",
 			Util.newArrayListOfValues(
 					new ListValue<>(OrgasmCumTarget.HAIR),
+					new ListValue<>(OrgasmCumTarget.FACE),
 					new ListValue<>(OrgasmCumTarget.BREASTS),
 					new ListValue<>(OrgasmCumTarget.STOMACH),
 					new ListValue<>(OrgasmCumTarget.GROIN),
