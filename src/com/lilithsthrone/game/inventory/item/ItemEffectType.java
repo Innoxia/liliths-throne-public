@@ -3191,11 +3191,11 @@ public enum ItemEffectType {
 	
 	private static boolean isSetToLimit(int increment, float currentValue, int limit) {
 		if(increment<0) {
-			if(currentValue < limit) {
+			if(currentValue <= limit) {
 				return false;
 			}
 		} else {
-			if(currentValue > limit) {
+			if(currentValue >= limit) {
 				return false;
 			}
 		}
