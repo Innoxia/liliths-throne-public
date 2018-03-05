@@ -236,13 +236,13 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 			clothing.setColour(Colour.valueOf(parentElement.getAttribute("colour")));
 			if(!parentElement.getAttribute("colourSecondary").isEmpty()) {
 				Colour secColour = Colour.valueOf(parentElement.getAttribute("colourSecondary"));
-				if(clothing.clothingType.getAvailableSecondaryColours().contains(secColour)) {
+				if(clothing.clothingType.getAllAvailableSecondaryColours().contains(secColour)) {
 					clothing.setSecondaryColour(secColour);
 				}
 			}
 			if(!parentElement.getAttribute("colourTertiary").isEmpty()) {
 				Colour terColour = Colour.valueOf(parentElement.getAttribute("colourTertiary"));
-				if(clothing.clothingType.getAvailableTertiaryColours().contains(terColour)) {
+				if(clothing.clothingType.getAllAvailableTertiaryColours().contains(terColour)) {
 					clothing.setTertiaryColour(terColour);
 				}
 			}
