@@ -4,54 +4,92 @@
 		Update README
 		Create .exe version
 	
-	32 bit exe
+	!!! 32 bit exe !!!
 	
 	
 	Patch notes:
 	
-	Gameplay:
-		<b>Due to a slight change in the perk tree layout, your character's perks will be reset (and the points refunded) when you load into this version!</b>
-		Added trait 'Arcane weaver', which halves essence costs of enchanting clothing.
-	
-	Sex:
-		Finished off sex position structure code to allow for proper multiple-partner targeting in sex.
-		Added ability to switch between doggy-style positions in threesomes.
-		Added interaction actions between all multiple-partner doggy-style participants.
-		Added 'Side-by-side' as a dominant sex threesome position for slaves. (Need to have two slaves in one room for this to be available.)
-		Added 'Grow cock' action for self-growing a demonic cock. (Requires your race being 'demon'.)
-		NPCs will now ignore any dislike or hatred towards giving oral if they're addicted to their partner's cum or girlcum, and ignore dislike or hatred towards others' breasts if they're addicted to their partner's milk.
-		Characters can now ingest girlcum to get girlcum addictive/psychoactive/other effects applied to them. (Need their partner to be a squirter, and to be eating their partner out when their partner orgasms.)
-		NPCs in multiple-partner scenes should now only end sex when all their fellow doms/subs have orgasmed.
-		Characters that dislike or hate inflicting pain will no longer use the rough pace.
-	
-	Combat:
-		All spell and special attack damage has been reworked.
-		Special attacks no longer cost energy to cast. Instead, they have a cooldown. (I will balance the cooldowns and damage values soon!)
-	
-	Other:
-		Cow-morphs are now more likely to have the 'self breast play' fetish.
-		Added a 'reset' button to the perk screen.
-	
-	Bugs:
-		Fixed description in clothing enchanting where periodic transformations said the minor drain was hourly, and the major drain was weekly.
-		Fixed sadist fetish not applying lust damage correctly.
-		Spells should no longer do 0 damage.
-		Fixed combat spell icon tooltips not working.
-		(Finally) Fixed NPCs laughing at average-sized penises, as well as incorrect breast-reveal dialogue.
-		Transformer fetish no longer applies cost reduction to clothing enchantments.
-		You can no longer enchant unidentified clothing.
-		Transformer fetish now correctly reduces potion enchantment costs by 50%, instead of 75%.
-		Fixed bug where weapons would be duplicated when added to a full inventory (such as when finding them in alleyway events).
-		Fixed offspring enslavement dialogue referencing slave collar for all clothing.
-		When searching the storage rooms in the Supplier Depot with a full inventory, discovered items will now correctly fall to the floor.
-		Fixed minor bug in item tooltip height being too tall.
-		Fixed clothing transformation bug where if you had multiple duplicate enchantments on the same item, the lowest limit applied. This also fixed the issue where the combination of a size decrease with a high limit would instantly set the value to the limit. 
 	
 	Contributors:
-		Fixed bug where incoming seduction damage was being reduced based on the attacker's sexual preference, not the defenders. (by Master of Puppets)
+		Added throat capacity, elasticity, plasticity, and wetness to available enchantments. (CondingAnon)
+		Added a significant amount of extra colour availability to clothing & skin. (Master of Puppets)
+		Fixed bug where clothing dyed in secondary/tertiary colours wouldn't be loaded correctly. (Master of Puppets)
+		Fixed bug where after reaching the maximum limit of a clothing TF enchantment, it would revert back to the minimum value. (riwigica & Master of Puppets)
+	
+	bugs:
+		
 	
 	
 	
+	
+	
+	neko
+	
+	patreon vote
+	
+	silver, platinum, and rose gold, violet, black eye colours
+	
+	sun dress
+	
+	"Witch's Toy" from the halloween event seems to be broken, it's the only option and clicking it does nothing. (using jar version)
+	
+	check PC as doberman
+	
+	Finish seduction combat stuff (beat all opponents through seduction)
+	
+	Ashley not selling anything?
+	
+	opt out of anal fingering
+	
+	notepad++ bugs
+	
+	add the ability to interact with the sub's genitals through clothing asap! :3
+
+	Also you have the 40 Arcane before you even go into the museum. That may be an oversight, but there are a ton of other small details at the start so I'm not convinced that it is.
+	
+	I will also add jockstraps! ^^
+	
+	Multi-participant combat seems to have screwed up the [npc.name] and similar macros; doing a special tease gives something like “Grinning lustfully at David[...]”, where David is my name. It also says “He loses 20.5 aura”, when the NPC is a woman. The damage is applied to them as it should be, it’s just the text that is wrong.
+	
+	It seems that the PARTNER_RESIST action is still causing their Arousal to drop when an NPC does it. I’m pretty sure that in the new system, it should be decreasing Lust instead, right?
+
+An NPC who "likes" "being raped", but doesn’t have a fetish for it, still stays right at zero lust even if you aren’t doing anything they dislike/hate. Is this intended?
+	
+	dyed secondary and tertiary colors don't survive save/load.
+	
+	There’s an interrupting event for when a storm starts, but when it reaches the end it just stops with no fanfare. There really should be something to indicate that the storm has passed.
+	
+	When you trade with Nyan, leaving the trade puts you in the “Talk” tab. Either the “Trade” tab should be first, or the game should remember the last tab you were on so you can switch between trade categories easier.
+	
+	Maybe there could be some variation there based on muscle tone, say an untoned character might have their chest described as “your soft chest”, while a highly toned one might see “your chiseled pecs” or whatever.
+	
+	“Rough Talk” with Kate is associated with the “Incest” fetish.
+	
+	If you cum while giving an NPC doggy oral, you can cum on their back. You couldn’t possibly do this while actually eating them out, of course, you’d have to stand up first. There’s no real reason why this shouldn’t be allowed, really, you could for example be fucking someone against a wall, then when you’re done turn them around and push them down to give them a facial. It might be nice to be able to do this without having to switch position manually, in fact. Based on how most positions work, however, this is a bug.
+	
+	Base income of lab assistant didn't get boosted, so it's gone from the best paying job to one of the lowest, since most of the others got something like 70+/hr boost.
+	
+	peryton subspecies
+	
+	smaller nose ring
+	
+	Could you implement trait/perk/fetish that forces it so the ofspring is always of the father species?
+	
+	For clothing enchanting, can tongue length be added as a modifier
+	
+	spiky/choppy hair
+	
+	and zero day later, she gave birth to
+	
+	pregnancy possibility including someone without penis
+	
+	I try doing side by side but it always kicks me out of it with my slaves
+	
+	When you are having double sex, like getting spitroasted, if one partner comes inside your vagina, it says they both do.
+	
+	: in doggystyle with brax I can fuck him AND ride his cock
+	
+	 Is it supposed to say "Talk Dirty to (blank)" for the description of "Beg for (blank) to stop"?
 	
 	More wing colours, really weird we can't use all the hair colours
 	
@@ -78,10 +116,11 @@
 	
 	My character got impregnated by a dobermann, but gave birth to normal dog-morphs.
 	
+	Also not sure that this is a bug but when having submissive sex, and the slave has a submissive fetish, and he is subservent, and also worships you... shouldn't he gladly switch to the position you want?, im resending this here because it's kind of a grey line, cause i don't know if it is supposed to be this way
 	
+	I Have a greater incubus slave. I put her to work as a test subject with Lilaya (male transformation). She was pregnant ( I know I´m an horrible person), In the last transformation she lost her vagina and gained a penis. But she is still pregnant, and when i have sex with her I was able to use her vagina. So it still exist. I understand that when a character is pregnant is not posible to remove the vagina. Is that what happened here? Lilaya tried to transform her but she was unable?
 	
-	
-	
+	NPC idea: Gang Leader, a badass morph mugger with one or two regular muggers by their side, usually all the same species, encountered in purple alley-ways. Can be more dangerous than demons sometimes and often wears swank enchanted clothing
 	
 	NPCs have trouble removing witch dress + hooded cloak combo
 	
@@ -92,17 +131,24 @@
 	
 	vagina squirter face descriptions
 	
-	
+	content option to turn off nipple penetration
 	
 	Move res into internal file ;_;
 	
+	somehow a dog"girl" in the doggystyle managed to tease my butt with her dick
 	
-	
+	set the number of potions you want to make at once
 	save/load enchantment templates
 	
 	
 	 Geisha Lilaya sex isn't checking for pregnancy properly?
 	
+	
+	Possibly grey out NPC clothing that the PC can’t see, such as underwear or crotch piercings if they are covered.
+
+When a female grows a cock, the size could be based on the type, say a cat-cock might start at 4-6″, while a horse-cock could start at more like 12-18″ or whatever. The race definitions have information on cock sizes used when spawning a new NPC, right? I’d use that rather than starting out at 1″.
+
+The Arcane stat could have a multiplier on essence received alongside its other effects.
 	
 	Spell work
 		'Base' spells are unlocked by having higher arcane
@@ -1400,9 +1446,6 @@ Bug Reports:
 I recently commented on how NPCs might sometimes not fill all clothing slots, and how some underwears could really pass as outerwear. A counterpart to that is that, even when filling all slots, NPCs often end up not covering up fully. I’ve often seen NPCs spawning with the crotchless and cupless underwears in conjunction with a microskirt or fishnet top. This seems to be the norm for exhibitionists, but it happens with NPCs without the exhibitionist fetish too.
 
 When you use Arthur’s hypno-watch on someone, it says they are now “command_unknown”.
-	
-	Bug: The bug with the alligator head transformation reappeared. This is the one where the PC's description will describe their hair as, for example "You have 'long', 'brown', 'scales' in place of hair, [...]" showing both hair length, hair color, and hair style, when these do not apply to alligator hair transformations.
-Perhaps you could add a rule, like if the hair type equals to alligator, then there shouldn't be any type of hair descriptions, instead opting for the one which states that the hair is made of scales?
 	
 	Lost virginity to an Incubus and the broken virgin fetish lines were referring to the Incubus as "she" and "her".
 	

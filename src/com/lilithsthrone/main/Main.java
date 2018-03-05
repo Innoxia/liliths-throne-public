@@ -83,10 +83,6 @@ public class Main extends Application {
 		+ "</p>"
 		
 		+ "<p>"
-			+ "There might be some bugs in this version, and if they prove to be large enough, I'll make a hotfix in time for Friday evening (GMT). :3"
-		+ "</p>"
-		
-		+ "<p>"
 			+ "Thank you all for playing Lilith's Throne! And a very big thank you to all the people supporting me on Patreon!"
 			+ " If you wanted to ask me any specific questions about the game, you can either find me on my blog, or on the Lilith's Throne Discord. You can find a link to the discord on my blog. ^^"
 		+ "</p>"

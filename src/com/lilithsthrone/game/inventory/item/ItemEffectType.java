@@ -4348,9 +4348,9 @@ public enum ItemEffectType {
 							case DRAIN:
 								return new RacialEffectUtil("Decrease in saliva production.", smallChangeDrain, " wetness") { @Override public String applyEffect() { return target.incrementFaceWetness(smallChangeDrain); } };
 							case MINOR_DRAIN:
-								return new RacialEffectUtil("Small decrease saliva production.", smallChangeMinorDrain, " wetness") { @Override public String applyEffect() { return target.incrementFaceWetness(smallChangeMinorDrain); } };
+								return new RacialEffectUtil("Small decrease in saliva production.", smallChangeMinorDrain, " wetness") { @Override public String applyEffect() { return target.incrementFaceWetness(smallChangeMinorDrain); } };
 							case MINOR_BOOST: default:
-								return new RacialEffectUtil("Small increase saliva productionn.", smallChangeMinorBoost, " wetness") { @Override public String applyEffect() { return target.incrementFaceWetness(smallChangeMinorBoost); } };
+								return new RacialEffectUtil("Small increase in saliva production.", smallChangeMinorBoost, " wetness") { @Override public String applyEffect() { return target.incrementFaceWetness(smallChangeMinorBoost); } };
 							case BOOST:
 								return new RacialEffectUtil("Increase in saliva production.", smallChangeBoost, " wetness") { @Override public String applyEffect() { return target.incrementFaceWetness(smallChangeBoost); } };
 							case MAJOR_BOOST:
