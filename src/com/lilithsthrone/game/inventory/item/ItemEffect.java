@@ -95,6 +95,7 @@ public class ItemEffect implements Serializable, XMLSaving {
 		switch(itemEffectType)
 		{
 			case "ATTRIBUTE_STRENGTH":
+			case "ATTRIBUTE_FITNESS":
 				itemEffectType = "ATTRIBUTE_PHYSIQUE";
 				break;
 			case "ATTRIBUTE_INTELLIGENCE":
