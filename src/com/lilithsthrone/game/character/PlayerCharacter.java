@@ -117,7 +117,9 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		Element innerElement = doc.createElement("booksRead");
 		playerSpecific.appendChild(innerElement);
 		for(AbstractItemType book : booksRead) {
-			CharacterUtils.createXMLElementWithValue(doc, innerElement, "book", book.getId());
+			if(book != null) {
+				CharacterUtils.createXMLElementWithValue(doc, innerElement, "book", book.getId());
+			}
 		}
 		
 		Element charactersEncounteredElement = doc.createElement("charactersEncountered");
