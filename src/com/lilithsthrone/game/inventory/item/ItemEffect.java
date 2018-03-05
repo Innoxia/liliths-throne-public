@@ -91,8 +91,21 @@ public class ItemEffect implements Serializable, XMLSaving {
 	}
 	
 	public static ItemEffect loadFromXML(Element parentElement, Document doc) {
+		String itemEffectType = parentElement.getAttribute("itemEffectType");
+		switch(itemEffectType)
+		{
+			case "ATTRIBUTE_STRENGTH":
+			case "ATTRIBUTE_FITNESS":
+			case "ATTRIBUTE_PHYSIQUE":
+				itemEffectType = "MAJOR_PHYSIQUE";
+				break;
+			case "ATTRIBUTE_INTELLIGENCE":
+			case "ATTRIBUTE_ARCANE":
+				itemEffectType = "MAJOR_ARCANE";
+				break;
+		}
 		ItemEffect ie = new ItemEffect(
-				ItemEffectType.valueOf(parentElement.getAttribute("itemEffectType")),
+				ItemEffectType.valueOf(itemEffectType),
 				(parentElement.getAttribute("primaryModifier").equals("null")?null:TFModifier.valueOf(parentElement.getAttribute("primaryModifier"))),
 				(parentElement.getAttribute("secondaryModifier").equals("null")?null:TFModifier.valueOf(parentElement.getAttribute("secondaryModifier"))),
 				(parentElement.getAttribute("potency").equals("null")?null:TFPotency.valueOf(parentElement.getAttribute("potency"))),
