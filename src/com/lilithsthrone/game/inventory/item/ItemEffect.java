@@ -96,10 +96,12 @@ public class ItemEffect implements Serializable, XMLSaving {
 		{
 			case "ATTRIBUTE_STRENGTH":
 			case "ATTRIBUTE_FITNESS":
-				itemEffectType = "ATTRIBUTE_PHYSIQUE";
+			case "ATTRIBUTE_PHYSIQUE":
+				itemEffectType = "MAJOR_PHYSIQUE";
 				break;
 			case "ATTRIBUTE_INTELLIGENCE":
-				itemEffectType = "ATTRIBUTE_ARCANE";
+			case "ATTRIBUTE_ARCANE":
+				itemEffectType = "MAJOR_ARCANE";
 				break;
 		}
 		ItemEffect ie = new ItemEffect(
