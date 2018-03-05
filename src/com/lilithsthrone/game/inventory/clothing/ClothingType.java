@@ -55,7 +55,13 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
 							null,
 							null, null))),
-			null, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_GOLD)), null, null, null, null, null){
+			null,
+			Colour.justGold,
+			null,
+			null,
+			null,
+			null,
+			null){
 		
 	
 
@@ -97,7 +103,13 @@ public class ClothingType {
 			"piercing_ear_ring",
 			null,
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
-			null, Colour.allMetalColours, null, null, null, null, null){
+			null,
+			Colour.allMetalColours,
+			Colour.allJewelryColours,
+			null,
+			null,
+			null,
+			null){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -136,7 +148,13 @@ public class ClothingType {
 			"piercing_ear_snowflakes",
 			null,
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
-			null, Colour.allMetalColours, null, null, null, null, null){
+			null,
+			Colour.allMetalColours,
+			Colour.allJewelryColours,
+			null,
+			null,
+			null,
+			null){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -176,7 +194,13 @@ public class ClothingType {
 			"piercing_nose_ring",
 			null,
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
-			null, Colour.allMetalColours, null, null, null, null, null){
+			null,
+			Colour.allMetalColours,
+			Colour.allJewelryColours,
+			null,
+			null,
+			null,
+			null){
 		
 
 		@Override
@@ -216,7 +240,13 @@ public class ClothingType {
 			"piercing_nose_snowflake",
 			null,
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
-			null, Colour.allMetalColours, null, null, null, null, null){
+			null,
+			Colour.allMetalColours,
+			Colour.allJewelryColours,
+			null,
+			null,
+			null,
+			null){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -256,7 +286,13 @@ public class ClothingType {
 			"piercing_lip_double_ring",
 			null,
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
-			null, Colour.allMetalColours, null, null, null, null, null){
+			null,
+			Colour.allMetalColours,
+			Colour.allJewelryColours,
+			null,
+			null,
+			null,
+			null){
 		
 
 		@Override
@@ -296,7 +332,13 @@ public class ClothingType {
 			"piercing_tongue_bar",
 			null,
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
-			null, Colour.allMetalColours, null, null, null, null, null){
+			null,
+			Colour.allMetalColours,
+			Colour.allJewelryColours,
+			null,
+			null,
+			null,
+			null){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -335,7 +377,13 @@ public class ClothingType {
 			"piercing_navel_basic",
 			null,
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
-			null, Colour.allMetalColours, null, null, null, null, null){
+			null,
+			Colour.allMetalColours,
+			Colour.allJewelryColours,
+			null,
+			null,
+			null,
+			null){
 		
 
 		@Override
@@ -375,7 +423,13 @@ public class ClothingType {
 			"piercing_nipple_bars",
 			null,
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
-			null, Colour.allMetalColours, null, null, null, null, null){
+			null,
+			Colour.allMetalColours,
+			Colour.allJewelryColours,
+			null,
+			null,
+			null,
+			null){
 		
 
 		@Override
@@ -420,7 +474,13 @@ public class ClothingType {
 							null,
 							null,
 							null, null))),
-			null, Colour.allMetalColours, null, null, null, null, null){
+			null,
+			Colour.allMetalColours,
+			Colour.allJewelryColours,
+			null,
+			null,
+			null,
+			null){
 		
 
 		@Override
@@ -460,7 +520,13 @@ public class ClothingType {
 			"piercing_penis_ring",
 			null,
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
-			null, Colour.allMetalColours, null, null, null, null, null){
+			null,
+			Colour.allMetalColours,
+			Colour.allJewelryColours,
+			null,
+			null,
+			null,
+			null){
 		
 
 		@Override
@@ -501,7 +567,13 @@ public class ClothingType {
 			"head_circlet",
 			null,
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null, null))),
-			null, Colour.allMetalColours, null, null, null, null, null){
+			null,
+			Colour.allMetalColours,
+			Colour.allJewelryColours,
+			null,
+			null,
+			null,
+			null){
 		
 
 		@Override
@@ -541,7 +613,14 @@ public class ClothingType {
 			"head_tiara",
 			null,
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null, null))),
-			null, Colour.allMetalColours, null, null, null, null, null){
+			null,
+			Colour.allMetalColours,
+			Colour.allJewelryColours,
+			null,
+			null,
+			null,
+			null){
+		
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -699,11 +778,13 @@ public class ClothingType {
 			"head_cowboy_hat",
 			null,
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null, null))),
-			null, Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_BLACK),
-							new ListValue<Colour>(Colour.CLOTHING_WHITE),
-							new ListValue<Colour>(Colour.CLOTHING_BROWN),
-							new ListValue<Colour>(Colour.CLOTHING_TAN)), Colour.allClothingColours, null, null, null, null){
+			null,
+			Colour.leatherColours,
+			Colour.allClothingColours,
+			null,
+			null,
+			null,
+			null){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -742,7 +823,13 @@ public class ClothingType {
 			"head_antler_headband",
 			null,
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null, null))),
-			null, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BROWN)), null, null, null, null, null){
+			null,
+			Colour.justBrown,
+			null,
+			null,
+			null,
+			null,
+			null){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -782,7 +869,13 @@ public class ClothingType {
 			"eye_glasses",
 			null,
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.EYES)), null, null, null))),
-			null, Colour.allMetalColours, null, null, null, null, null){
+			null,
+			Colour.allMetalColours,
+			Colour.allJewelryColours,
+			null,
+			null,
+			null,
+			null){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -820,9 +913,13 @@ public class ClothingType {
 			"eye_aviators",
 			null,
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.EYES)), null, null, null))),
-			null, Colour.allMetalColours,
-			null, null,
-			null, null, null){
+			null,
+			Colour.allMetalColours,
+			Colour.allJewelryColours,
+			null,
+			null,
+			null,
+			null){
 		
 	
 			
@@ -944,7 +1041,14 @@ public class ClothingType {
 			"neck_heartNecklace",
 			null,
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
-			null, Colour.allMetalColours, null, null, null, null, null){
+			null,
+			Colour.allMetalColours,
+			Colour.allJewelryColours,
+			null,
+			null,
+			null,
+			null){
+		
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -983,7 +1087,14 @@ public class ClothingType {
 			"neck_snowflake_necklace",
 			null,
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
-			null, Colour.allMetalColours, null, null, null, null, null){
+			null,
+			Colour.allMetalColours,
+			Colour.allJewelryColours,
+			null,
+			null,
+			null,
+			null){
+		
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -1022,9 +1133,14 @@ public class ClothingType {
 			"neck_ankhNecklace",
 			null,
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
-			null, Colour.allMetalColours,
-			null, null,
-			null, null, null){
+			null,
+			Colour.allMetalColours,
+			Colour.allJewelryColours,
+			null,
+			null,
+			null,
+			null){
+		
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -1198,15 +1314,12 @@ public class ClothingType {
 					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.TF_VAGINA, TFModifier.TF_MOD_WETNESS, TFPotency.MAJOR_BOOST, Wetness.SEVEN_DROOLING.getValue()))),
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
 			null,
-			Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_PINK)),
+			Colour.justPink,
 			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_STEEL)),
-			Colour.allMetalColours,
-			Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_STEEL)),
-			Colour.allMetalColours){
+			Colour.justSteel,
+			Colour.allJewelryColours,
+			Colour.justSteel,
+			Colour.allJewelryColours){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -1625,11 +1738,12 @@ public class ClothingType {
 											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null
 									))),
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLACK),
-					new ListValue<Colour>(Colour.CLOTHING_GREY),
-					new ListValue<Colour>(Colour.CLOTHING_WHITE)),
-			Colour.allClothingColours, null, null, null, null){
+			Colour.allClothingColours,
+			null,
+			null,
+			null,
+			null,
+			null){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -1696,10 +1810,12 @@ public class ClothingType {
 //											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER))
 //									))),
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLACK),
-					new ListValue<Colour>(Colour.CLOTHING_GREY)),
-			Colour.allClothingColours, null, null, null, null){
+			Colour.allClothingColours,
+			null,
+			null,
+			null,
+			null,
+			null){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -1755,9 +1871,13 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
-			null, Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_BLACK)),
-			Colour.allClothingColours, null, null, null, null){
+			null,
+			Colour.leatherColours,
+			Colour.allClothingColours,
+			null,
+			null,
+			null,
+			null){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -1814,11 +1934,13 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
-			null, Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_WHITE),
-							new ListValue<Colour>(Colour.CLOTHING_GREY),
-							new ListValue<Colour>(Colour.CLOTHING_BLACK),
-							new ListValue<Colour>(Colour.CLOTHING_TAN)), null, null, null, null, null){
+			null,
+			Colour.allClothingColours,
+			null,
+			null,
+			null,
+			null,
+			null){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -1875,13 +1997,13 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
-			null, Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_PURPLE),
-							new ListValue<Colour>(Colour.CLOTHING_TAN),
-							new ListValue<Colour>(Colour.CLOTHING_RED),
-							new ListValue<Colour>(Colour.CLOTHING_GREY)),
-			Colour.allClothingColours, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BLACK)),
-			Colour.allClothingColours, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_WHITE)), Colour.allClothingColours){
+			null,
+			Colour.allClothingColours,
+			null,
+			Colour.justBlack,
+			Colour.allClothingColours,
+			Colour.justWhite,
+			Colour.allClothingColours){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -1985,12 +2107,12 @@ public class ClothingType {
 											new ListValue<InventorySlot>(InventorySlot.WEAPON_OFFHAND),
 											new ListValue<InventorySlot>(InventorySlot.WRIST))))),
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLACK),
-					new ListValue<Colour>(Colour.CLOTHING_WHITE),
-					new ListValue<Colour>(Colour.CLOTHING_TAN),
-					new ListValue<Colour>(Colour.CLOTHING_BROWN)),
-			Colour.allClothingColours, Colour.allMetalColours, null, null, null){
+			Colour.leatherColours,
+			Colour.allClothingColours,
+			Colour.allMetalColours,
+			Colour.allJewelryColours,
+			null,
+			null){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -2082,12 +2204,13 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
 
-			null, Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_RED)),
-
-			Colour.allClothingColours, Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_WHITE)),
-			Colour.allClothingColours, null, null){
+			null,
+			Colour.notWhite,
+			Colour.allClothingColours,
+			Colour.justWhite,
+			Colour.allClothingColours,
+			null,
+			null){
 	};
 	
 	public static AbstractClothingType TORSO_KEYHOLE_SWEATER = new AbstractClothingType(350,
@@ -4115,9 +4238,13 @@ public class ClothingType {
 											new ListValue<ClothingAccess>(ClothingAccess.CHEST)), null
 									))
 					),
-			null, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT), new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT)),
-			Colour.allClothingColours, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_WHITE)),
-			Colour.allClothingColours, null, null){
+			null,
+			Colour.notWhite,
+			Colour.allClothingColours,
+			Colour.justWhite,
+			Colour.allClothingColours,
+			null,
+			null){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -4860,8 +4987,14 @@ public class ClothingType {
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WRISTS)), null,
 					Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WRISTS)), null))),
 
-			null, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT), new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
-							new ListValue<Colour>(Colour.CLOTHING_WHITE), new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
+			null,
+			Colour.allClothingColours,
+			null,
+			null,
+			null,
+			null,
+			null){
+		
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -4904,7 +5037,13 @@ public class ClothingType {
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WRISTS)), null,
 					Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WRISTS)), null))),
 
-			null, Colour.allMetalColours, null, null, null, null, null){
+			null,
+			Colour.allMetalColours,
+			Colour.allJewelryColours,
+			null,
+			null,
+			null,
+			null){
 		
 
 		@Override
@@ -4948,7 +5087,13 @@ public class ClothingType {
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WRISTS)), null,
 					Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WRISTS)), null))),
 
-			null, Colour.allMetalColours, null, null, null, null, null){
+			null,
+			Colour.allMetalColours,
+			Colour.allJewelryColours,
+			null,
+			null,
+			null,
+			null){
 		
 
 		@Override
@@ -4998,7 +5143,13 @@ public class ClothingType {
 							null,
 							null, null))),
 
-			null, Colour.allMetalColours, null, null, null, null, null){
+			null,
+			Colour.allMetalColours,
+			Colour.allJewelryColours,
+			null,
+			null,
+			null,
+			null){
 		
 
 		@Override
@@ -5596,12 +5747,14 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.PENIS)),
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null))),
-			null, Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_BLUE),
-							new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
-							new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
-							new ListValue<Colour>(Colour.CLOTHING_WHITE),
-							new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
+			null,
+			Colour.denimColours,
+			Colour.allClothingColours,
+			null,
+			null,
+			null,
+			null){
+		
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -5666,12 +5819,14 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.PENIS)),
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null))),
-			null, Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_BLUE),
-							new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
-							new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
-							new ListValue<Colour>(Colour.CLOTHING_WHITE),
-							new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
+			null,
+			Colour.denimColours,
+			Colour.allClothingColours,
+			null,
+			null,
+			null,
+			null){
+		
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -5736,9 +5891,14 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.PENIS)),
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null))),
-			null, Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_WHITE),
-							new ListValue<Colour>(Colour.CLOTHING_BLACK)), null, null, null, null, null){
+			null,
+			Colour.allClothingColours,
+			null,
+			null,
+			null,
+			null,
+			null){
+		
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -5803,10 +5963,14 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.PENIS)),
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null))),
-			null, Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_BLACK),
-							new ListValue<Colour>(Colour.CLOTHING_BROWN),
-							new ListValue<Colour>(Colour.CLOTHING_TAN)), null, null, null, null, null){
+			null,
+			Colour.leatherColours,
+			Colour.allClothingColours,
+			null,
+			null,
+			null,
+			null){
+		
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -5922,7 +6086,14 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
 							null, null))),
 
-			null, Colour.allClothingColours, null, null, null, null, null){
+			null,
+			Colour.leatherColours,
+			Colour.allClothingColours,
+			null,
+			null,
+			null,
+			null){
+		
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -5994,7 +6165,14 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.LEGS_UP_TO_GROIN)), null))), // List<InventorySlot> incompatibleSlots
 
-			null, Colour.allClothingColours, null, null, null, null, null){
+			null, // List<InventorySlot> incompatibleSlots
+			Colour.leatherColours,
+			Colour.allClothingColours,
+			null,
+			null,
+			null,
+			null){
+		
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -6109,8 +6287,13 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.PENIS),
 									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
 							null, null))),
-			null, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT), new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT)),
-			Colour.allClothingColours, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_WHITE)), Colour.allClothingColours, null, null){
+			null,
+			Colour.notWhite,
+			Colour.allClothingColours,
+			Colour.justWhite,
+			Colour.allClothingColours,
+			null,
+			null){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -6699,7 +6882,14 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
 							null, null))),
 
-			null, Colour.masculineColours, null, null, null, null, null){
+			null,
+			Colour.allClothingColours,
+			null,
+			null,
+			null,
+			null,
+			null){
+		
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -6776,7 +6966,14 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.ANUS)),
 									null, null))),
 
-			null, Colour.masculineColours, null, null, null, null, null){
+			null,
+			Colour.allClothingColours,
+			null,
+			null,
+			null,
+			null,
+			null){
+		
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -6851,7 +7048,14 @@ public class ClothingType {
 					new ListValue<BlockedParts>(new BlockedParts(DisplacementType.SHIFTS_ASIDE, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.GROIN)),
 							Util.newArrayListOfValues(new ListValue<CoverableArea>(CoverableArea.ANUS), new ListValue<CoverableArea>(CoverableArea.PENIS), new ListValue<CoverableArea>(CoverableArea.VAGINA)), null, null))),
 
-			null, Colour.masculineColours, null, null, null, null, null){
+			null,
+			Colour.allClothingColours,
+			null,
+			null,
+			null,
+			null,
+			null){
+		
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -7102,8 +7306,13 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.CALVES)),
 							null,
 							null, null))),
-			null, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT), new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT)),
-			Colour.allClothingColours, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_WHITE)), Colour.allClothingColours, null, null){
+			null,
+			Colour.notWhite,
+			Colour.allClothingColours,
+			Colour.justWhite,
+			Colour.allClothingColours,
+			null,
+			null){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -7279,7 +7488,13 @@ public class ClothingType {
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.CALVES)), null,
 					Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.CALVES)), null))),
 
-			null, Colour.allMetalColours, null, null, null, null, null){
+			null,
+			Colour.allMetalColours,
+			Colour.allJewelryColours,
+			null,
+			null,
+			null,
+			null){
 		
 
 		@Override
@@ -7460,16 +7675,12 @@ public class ClothingType {
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null))),
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLACK),
-					new ListValue<Colour>(Colour.CLOTHING_WHITE),
-					new ListValue<Colour>(Colour.CLOTHING_TAN),
-					new ListValue<Colour>(Colour.CLOTHING_BROWN)),
+			Colour.leatherColours,
 			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)),
+			Colour.justBlack,
 			Colour.allClothingColours,
-			null, null){
+			null,
+			null){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -7511,18 +7722,14 @@ public class ClothingType {
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null))),
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLACK),
-					new ListValue<Colour>(Colour.CLOTHING_WHITE),
-					new ListValue<Colour>(Colour.CLOTHING_TAN),
-					new ListValue<Colour>(Colour.CLOTHING_BROWN)),
+
+			Colour.leatherColours,
 			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)),
+			Colour.justBlack,
 			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_STEEL)),
-			Colour.allMetalColours){
+			Colour.allMetalColours,
+			Colour.allJewelryColours){
+		
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -7564,16 +7771,13 @@ public class ClothingType {
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null))),
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLACK),
-					new ListValue<Colour>(Colour.CLOTHING_WHITE),
-					new ListValue<Colour>(Colour.CLOTHING_TAN),
-					new ListValue<Colour>(Colour.CLOTHING_BROWN)),
+
+			Colour.leatherColours,
 			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)),
+			Colour.justBlack,
 			Colour.allClothingColours,
-			null, null){
+			null,
+			null){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -7617,7 +7821,14 @@ public class ClothingType {
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null))),
 
-			null, Colour.allClothingColours, null, null, null, null, null){
+			null,
+			Colour.leatherColours,
+			Colour.allClothingColours,
+			null,
+			null,
+			null,
+			null){
+		
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -7660,7 +7871,14 @@ public class ClothingType {
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null))),
 
-			null, Util.newArrayListOfValues(new ListValue<Colour>(Colour.CLOTHING_BLACK), new ListValue<Colour>(Colour.CLOTHING_WHITE)), null, null, null, null, null){
+			null,
+			Colour.leatherColours,
+			Colour.allClothingColours,
+			null,
+			null,
+			null,
+			null){
+		
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -7703,11 +7921,14 @@ public class ClothingType {
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(
 					new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null))),
 
-			null, Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_BLACK),
-							new ListValue<Colour>(Colour.CLOTHING_BROWN),
-							new ListValue<Colour>(Colour.CLOTHING_TAN)), null, null, null, null, null){
+			null,
 
+			Colour.leatherColours,
+			Colour.allClothingColours,
+			null,
+			null,
+			null,
+			null){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -7935,13 +8156,12 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
 							null, null, null))),
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)),
-			Colour.allClothingColours, Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_WHITE)),
+			Colour.maidColours,
 			Colour.allClothingColours,
-			null, null){
+			Colour.justWhite,
+			Colour.allClothingColours,
+			null,
+			null){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -8005,13 +8225,12 @@ public class ClothingType {
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null))),
 			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)),
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)),
-			Colour.allClothingColours, Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_WHITE)),
+			Colour.maidColours,
 			Colour.allClothingColours,
-			null, null){
+			Colour.justWhite,
+			Colour.allClothingColours,
+			null,
+			null){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -8100,13 +8319,12 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.CALVES)),
 							null, null, null))),
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)),
-			Colour.allClothingColours, Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_WHITE)),
+			Colour.maidColours,
 			Colour.allClothingColours,
-			null, null){
+			Colour.justWhite,
+			Colour.allClothingColours,
+			null,
+			null){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -8152,16 +8370,12 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
 							null, null, null))),
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)),
+			Colour.maidColours,
 			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_WHITE)),
+			Colour.justWhite,
 			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLACK_STEEL)),
-			Colour.allMetalColours){
+			Colour.justSteel,
+			Colour.allJewelryColours){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -8207,13 +8421,12 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.WRISTS)),
 							null, null, null))),
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)),
-			Colour.allClothingColours, Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_WHITE)),
+			Colour.maidColours,
 			Colour.allClothingColours,
-			null, null){
+			Colour.justWhite,
+			Colour.allClothingColours,
+			null,
+			null){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -8276,11 +8489,11 @@ public class ClothingType {
 							null, null, null, null))),
 			null,
 			Colour.allMetalColours,
+			Colour.allJewelryColours,
+			Colour.justSteel,
+			Colour.allJewelryColours,
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_STEEL)),
-			Colour.allMetalColours,
-			null, null){
+			null){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -8339,16 +8552,12 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.MOUTH)),
 							null, null))),
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_RED),
-					new ListValue<Colour>(Colour.CLOTHING_PINK)),
 			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)),
+			null,
+			Colour.justBlack,
 			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_STEEL)),
-			Colour.allMetalColours){
+			Colour.justSteel,
+			Colour.allJewelryColours){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -8408,16 +8617,12 @@ public class ClothingType {
 							null,
 							null, null))),
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_RED),
-					new ListValue<Colour>(Colour.CLOTHING_PINK)),
+			Colour.justSteel,
+			Colour.allJewelryColours,
+			Colour.justBlack,
 			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)),
-			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_STEEL)),
-			Colour.allMetalColours){
+			Colour.justSteel,
+			Colour.allJewelryColours){
 		
 
 		@Override
@@ -8470,11 +8675,11 @@ public class ClothingType {
 							null, null))),
 			null,
 			Colour.allMetalColours,
-			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)),
+			Colour.allJewelryColours,
+			Colour.justBlack,
 			Colour.allClothingColours,
-			null, null){
+			null,
+			null){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -8526,15 +8731,12 @@ public class ClothingType {
 					Util.newArrayListOfValues(
 							new ListValue<ClothingAccess>(ClothingAccess.WRISTS)), null))),
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)),
 			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_STEEL)),
-			Colour.allMetalColours,
-			null, null){
+			null,
+			Colour.justSteel,
+			Colour.allJewelryColours,
+			null,
+			null){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -8588,15 +8790,12 @@ public class ClothingType {
 							new ListValue<>(ClothingAccess.LEGS_UP_TO_GROIN),
 							new ListValue<>(ClothingAccess.CALVES)), null))),
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)),
 			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_STEEL)),
-			Colour.allMetalColours,
-			null, null){
+			null,
+			Colour.justSteel,
+			Colour.allJewelryColours,
+			null,
+			null){
 		
 
 		@Override
@@ -8653,17 +8852,12 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.VAGINA)),
 							null, null))),
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)),
 			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_STEEL)),
-			Colour.allMetalColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_GOLD)),
-			Colour.allMetalColours){
+			Colour.allJewelryColours,
+			Colour.justSteel,
+			Colour.allJewelryColours,
+			Colour.justGold,
+			Colour.allJewelryColours){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -8716,17 +8910,12 @@ public class ClothingType {
 									new ListValue<CoverableArea>(CoverableArea.PENIS)),
 							null, null))),
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)),
-			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_GOLD)),
-			Colour.allMetalColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_STEEL)),
-			Colour.allMetalColours){
+			Colour.allJewelryColours,
+			null,
+			Colour.justGold,
+			Colour.allJewelryColours,
+			Colour.justSteel,
+			Colour.allJewelryColours){
 
 		@Override
 		public boolean isCanBeEquipped(GameCharacter clothingOwner) {
@@ -8867,8 +9056,7 @@ public class ClothingType {
 					new ListValue<Colour>(Colour.CLOTHING_BLACK),
 					new ListValue<Colour>(Colour.CLOTHING_PINK)),
 			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_BLACK)),
+			Colour.justBlack,
 			Colour.allClothingColours,
 			null, null){
 		
@@ -8943,8 +9131,7 @@ public class ClothingType {
 					new ListValue<Colour>(Colour.CLOTHING_BLACK),
 					new ListValue<Colour>(Colour.CLOTHING_PINK)),
 			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_BLACK)),
+			Colour.justBlack,
 			Colour.allClothingColours,
 			null, null){
 		
@@ -8991,13 +9178,12 @@ public class ClothingType {
 							DisplacementType.REMOVE_OR_EQUIP,
 							null, null, null, null))),
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<>(Colour.CLOTHING_YELLOW)),
+			Colour.justYellow,
 			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<>(Colour.CLOTHING_RED)),
+			Colour.justRed,
 			Colour.allClothingColours,
-			null, null){
+			null,
+			null){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -9041,8 +9227,12 @@ public class ClothingType {
 							DisplacementType.REMOVE_OR_EQUIP,
 							null, null, null, null))),
 			null,
-			Colour.allMetalColours, null,
-			null, null, null, null){
+			Colour.allMetalColours,
+			Colour.allJewelryColours,
+			null,
+			null,
+			null,
+			null){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -9087,13 +9277,11 @@ public class ClothingType {
 							null, null, null, null))),
 			null,
 			Colour.allMetalColours,
-			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)),
+			Colour.allJewelryColours,
+			Colour.justBlack,
 			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_STEEL)),
-			Colour.allMetalColours){
+			Colour.justSteel,
+			Colour.allJewelryColours){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -9165,19 +9353,12 @@ public class ClothingType {
 											new ListValue<ClothingAccess>(ClothingAccess.CHEST)), null
 									))),
 			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)),
-			Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
-							new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
-							new ListValue<Colour>(Colour.CLOTHING_PURPLE_LIGHT),
-							new ListValue<Colour>(Colour.CLOTHING_GREEN),
-							new ListValue<Colour>(Colour.CLOTHING_TAN),
-							new ListValue<Colour>(Colour.CLOTHING_BROWN),
-							new ListValue<Colour>(Colour.CLOTHING_BLACK)), 
+			Colour.milkmaidColours,
 			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_WHITE)),
+			Colour.justWhite,
 			Colour.allClothingColours,
-			null, null){
+			null,
+			null){
 
 	};
 	
@@ -9202,19 +9383,12 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
 							null, null, null))),
 			null,
-			Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
-							new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
-							new ListValue<Colour>(Colour.CLOTHING_PURPLE_LIGHT),
-							new ListValue<Colour>(Colour.CLOTHING_GREEN),
-							new ListValue<Colour>(Colour.CLOTHING_TAN),
-							new ListValue<Colour>(Colour.CLOTHING_BROWN),
-							new ListValue<Colour>(Colour.CLOTHING_BLACK)),
+			Colour.milkmaidColours,
 			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_WHITE)),
+			Colour.justWhite,
 			Colour.allClothingColours,
-			null, null){
+			null,
+			null){
 		
 			@Override
 			public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -9422,11 +9596,9 @@ public class ClothingType {
 							new ListValue<Colour>(Colour.CLOTHING_BLUE),
 							new ListValue<Colour>(Colour.CLOTHING_BLACK)),
 			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_WHITE)),
+			Colour.justWhite,
 			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)),
+			Colour.justBlack,
 			Colour.allClothingColours){
 
 		@Override
@@ -9475,14 +9647,12 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
 							null, null, null))),
 			null,
-			Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_WHITE),
-							new ListValue<Colour>(Colour.CLOTHING_BLACK)),
+			Colour.blackOrWhite,
 			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_GOLD)),
-			Colour.allMetalColours,
-			null, null){
+			Colour.justGold,
+			Colour.allJewelryColours,
+			null,
+			null){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -9546,14 +9716,12 @@ public class ClothingType {
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null))),
 			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)),
-			Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_WHITE),
-							new ListValue<Colour>(Colour.CLOTHING_BLACK)),
+			Colour.blackOrWhite,
 			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_GOLD)),
-			Colour.allMetalColours,
-			null, null){
+			Colour.justGold,
+			Colour.allJewelryColours,
+			null,
+			null){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -9624,15 +9792,11 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
 							null, null, null))),
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_WHITE),
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)),
+			Colour.blackOrWhite,
 			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_GOLD)),
-			Colour.allMetalColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)),
+			Colour.justGold,
+			Colour.allJewelryColours,
+			Colour.justBlack,
 			Colour.allClothingColours){
 
 		@Override
@@ -9679,15 +9843,11 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
 							null, null, null))),
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_WHITE),
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)),
+			Colour.blackOrWhite,
 			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_GOLD)),
-			Colour.allMetalColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)),
+			Colour.justGold,
+			Colour.allJewelryColours,
+			Colour.justBlack,
 			Colour.allClothingColours){
 
 		@Override
@@ -9729,28 +9889,13 @@ public class ClothingType {
 			Util.newArrayListOfValues(
 					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_LUST, TFPotency.MAJOR_BOOST, 0))),
 			null,
-			null, Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
-							new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
-							new ListValue<Colour>(Colour.CLOTHING_PINK),
-							new ListValue<Colour>(Colour.CLOTHING_PURPLE),
-							new ListValue<Colour>(Colour.CLOTHING_PURPLE_LIGHT),
-							new ListValue<Colour>(Colour.CLOTHING_RED),
-							new ListValue<Colour>(Colour.CLOTHING_TURQUOISE),
-							new ListValue<Colour>(Colour.CLOTHING_WHITE),
-							new ListValue<Colour>(Colour.CLOTHING_YELLOW)),
-			Colour.allClothingColours, Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_WHITE)),
-			Colour.allClothingColours, Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
-							new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
-							new ListValue<Colour>(Colour.CLOTHING_PINK),
-							new ListValue<Colour>(Colour.CLOTHING_PURPLE),
-							new ListValue<Colour>(Colour.CLOTHING_PURPLE_LIGHT),
-							new ListValue<Colour>(Colour.CLOTHING_RED),
-							new ListValue<Colour>(Colour.CLOTHING_TURQUOISE),
-							new ListValue<Colour>(Colour.CLOTHING_WHITE),
-							new ListValue<Colour>(Colour.CLOTHING_YELLOW)), Colour.allClothingColours){
+			null,
+			Colour.kimonoColours,
+			Colour.allClothingColours,
+			Colour.justWhite,
+			Colour.allClothingColours,
+			Colour.kimonoColours,
+			Colour.allClothingColours){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -9827,36 +9972,13 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null))),
-			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)), Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
-							new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
-							new ListValue<Colour>(Colour.CLOTHING_PINK),
-							new ListValue<Colour>(Colour.CLOTHING_PURPLE),
-							new ListValue<Colour>(Colour.CLOTHING_PURPLE_LIGHT),
-							new ListValue<Colour>(Colour.CLOTHING_RED),
-							new ListValue<Colour>(Colour.CLOTHING_TURQUOISE),
-							new ListValue<Colour>(Colour.CLOTHING_WHITE),
-							new ListValue<Colour>(Colour.CLOTHING_YELLOW)),
-			Colour.allClothingColours, Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
-							new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
-							new ListValue<Colour>(Colour.CLOTHING_PINK),
-							new ListValue<Colour>(Colour.CLOTHING_PURPLE),
-							new ListValue<Colour>(Colour.CLOTHING_PURPLE_LIGHT),
-							new ListValue<Colour>(Colour.CLOTHING_RED),
-							new ListValue<Colour>(Colour.CLOTHING_TURQUOISE),
-							new ListValue<Colour>(Colour.CLOTHING_WHITE),
-							new ListValue<Colour>(Colour.CLOTHING_YELLOW)),
-			Colour.allClothingColours, Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
-							new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
-							new ListValue<Colour>(Colour.CLOTHING_PINK),
-							new ListValue<Colour>(Colour.CLOTHING_PURPLE),
-							new ListValue<Colour>(Colour.CLOTHING_PURPLE_LIGHT),
-							new ListValue<Colour>(Colour.CLOTHING_RED),
-							new ListValue<Colour>(Colour.CLOTHING_TURQUOISE),
-							new ListValue<Colour>(Colour.CLOTHING_WHITE),
-							new ListValue<Colour>(Colour.CLOTHING_YELLOW)), Colour.allClothingColours){
+			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)),
+			Colour.kimonoColours,
+			Colour.allClothingColours,
+			Colour.kimonoColours,
+			Colour.allClothingColours,
+			Colour.kimonoColours,
+			Colour.allClothingColours){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -9901,18 +10023,13 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
 							null, null, null))),
-			null, Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
-							new ListValue<Colour>(Colour.CLOTHING_PINK_LIGHT),
-							new ListValue<Colour>(Colour.CLOTHING_PINK),
-							new ListValue<Colour>(Colour.CLOTHING_PURPLE),
-							new ListValue<Colour>(Colour.CLOTHING_PURPLE_LIGHT),
-							new ListValue<Colour>(Colour.CLOTHING_RED),
-							new ListValue<Colour>(Colour.CLOTHING_TURQUOISE),
-							new ListValue<Colour>(Colour.CLOTHING_WHITE),
-							new ListValue<Colour>(Colour.CLOTHING_YELLOW)),
-			Colour.allClothingColours, Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_BLACK)), Colour.allClothingColours, null, null){
+			null,
+			Colour.kimonoColours,
+			Colour.allClothingColours,
+			Colour.justBlack,
+			Colour.allClothingColours,
+			null,
+			null){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -9988,15 +10105,18 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null))),
-			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)), Util.newArrayListOfValues(
+			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)),
+			Util.newArrayListOfValues(
 							new ListValue<Colour>(Colour.CLOTHING_BLACK),
 							new ListValue<Colour>(Colour.CLOTHING_GREY),
 							new ListValue<Colour>(Colour.CLOTHING_BLUE)),
-			Colour.allClothingColours, Util.newArrayListOfValues(
+			Colour.allClothingColours,
+			Util.newArrayListOfValues(
 							new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
 							new ListValue<Colour>(Colour.CLOTHING_WHITE)),
-			Colour.allClothingColours, Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_GREY)), Colour.allClothingColours){
+			Colour.allClothingColours,
+			Colour.justGrey,
+			Colour.allClothingColours){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -10045,11 +10165,16 @@ public class ClothingType {
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null
 									))),
-			null, Util.newArrayListOfValues(
+			null,
+			Util.newArrayListOfValues(
 							new ListValue<Colour>(Colour.CLOTHING_BLACK),
 							new ListValue<Colour>(Colour.CLOTHING_GREY),
 							new ListValue<Colour>(Colour.CLOTHING_BLUE)),
-			Colour.allClothingColours, null, null, null, null){
+			Colour.allClothingColours,
+			null,
+			null,
+			null,
+			null){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -10089,12 +10214,16 @@ public class ClothingType {
 			Util.newArrayListOfValues(
 					new ListValue<>(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, TFModifier.DAMAGE_PHYSICAL, TFPotency.BOOST, 0))),
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.FEET)), null, null, null))),
-			null, Util.newArrayListOfValues(
+			null,
+			Util.newArrayListOfValues(
 							new ListValue<Colour>(Colour.CLOTHING_BLACK),
 							new ListValue<Colour>(Colour.CLOTHING_GREY),
 							new ListValue<Colour>(Colour.CLOTHING_BLUE)),
-			Colour.allClothingColours, Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_BLACK)), Colour.allClothingColours, null, null){
+			Colour.allClothingColours,
+			Colour.justBlack,
+			Colour.allClothingColours,
+			null,
+			null){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -10141,13 +10270,12 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
 							null, null, null))),
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_RED)),
+			Colour.justRed,
 			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_WHITE)),
+			Colour.justWhite,
 			Colour.allClothingColours,
-			null, null){
+			null,
+			null){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -10199,14 +10327,11 @@ public class ClothingType {
 											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null
 									))),
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_RED)),
+			Colour.justRed,
 			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_WHITE)),
+			Colour.justWhite,
 			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)),
+			Colour.justBlack,
 			Colour.allClothingColours){
 		
 		@Override
@@ -10270,14 +10395,11 @@ public class ClothingType {
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.GROIN)), null))),
 			Util.newArrayListOfValues(new ListValue<InventorySlot>(InventorySlot.LEG)),
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_RED)),
+			Colour.justRed,
 			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_WHITE)),
+			Colour.justWhite,
 			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)),
+			Colour.justBlack,
 			Colour.allClothingColours){
 
 		@Override
@@ -10349,14 +10471,11 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
 							null, null, null))),
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_RED)),
+			Colour.justRed,
 			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)),
+			Colour.justBlack,
 			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_WHITE)),
+			Colour.justWhite,
 			Colour.allClothingColours){
 
 		@Override
@@ -10403,14 +10522,11 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.FEET)),
 							null, null, null))),
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_RED)),
+			Colour.justRed,
 			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)),
+			Colour.justBlack,
 			Colour.allClothingColours,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_WHITE)),
+			Colour.justWhite,
 			Colour.allClothingColours){
 
 		@Override
@@ -10486,11 +10602,12 @@ public class ClothingType {
 											new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 											new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
 			null,
-			Util.newArrayListOfValues(
-							new ListValue<Colour>(Colour.CLOTHING_WHITE),
-							new ListValue<Colour>(Colour.CLOTHING_BLACK)),
+			Colour.blackOrWhite,
 			Colour.allClothingColours,
-			null, null, null, null){
+			null,
+			null,
+			null,
+			null){
 		
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
@@ -10541,10 +10658,12 @@ public class ClothingType {
 									null,
 									null, null))), // List<InventorySlot> incompatibleSlots
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.CLOTHING_BLACK)),
+			Colour.justBlack,
 			Colour.allClothingColours,
-			null, null, null, null){
+			null,
+			null,
+			null,
+			null){
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
