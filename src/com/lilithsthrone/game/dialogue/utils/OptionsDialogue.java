@@ -183,30 +183,18 @@ public class OptionsDialogue {
 				return new ResponseEffectsOnly("Blog", "Opens the page:</br></br><i>https://lilithsthrone.blogspot.co.uk/</i></br></br><b>Externally in your default browser.</b>"){
 					@Override
 					public void effects() {
-						try {
-							Desktop.getDesktop().browse(new URI("https://lilithsthrone.blogspot.co.uk/"));
-						} catch (IOException | URISyntaxException e) {
-							e.printStackTrace();
-						}	
+						browser("https://lilithsthrone.blogspot.co.uk/");
 						confirmNewGame=false;
-						
 					}
-					
 				};
 			
 			} else if (index == 11) {
 				return new ResponseEffectsOnly("Github", "Opens the page:</br></br><i>https://github.com/Innoxia/liliths-throne-public</i></br></br><b>Externally in your default browser.</b>"){
 					@Override
 					public void effects() {
-						try {
-							Desktop.getDesktop().browse(new URI("https://github.com/Innoxia/liliths-throne-public"));
-						} catch (IOException | URISyntaxException e) {
-							e.printStackTrace();
-						}	
+						browser("https://github.com/Innoxia/liliths-throne-public");
 						confirmNewGame=false;
-						
 					}
-					
 				};
 			
 			} else if (index == 0) {
@@ -478,7 +466,20 @@ public class OptionsDialogue {
 			return MapDisplay.OPTIONS;
 		}
 	};
-	
+	private static void browser(String url) {
+		Runtime runtime = Runtime.getRuntime();
+		try {
+			runtime.exec("xdg-open " + url);
+		} catch (IOException e0) {
+			Desktop desktop = Desktop.getDesktop();
+			try {
+				desktop.browse(new URI(url));
+			} catch (IOException | URISyntaxException e) {
+				e.printStackTrace();
+				e0.printStackTrace();
+			}
+		}
+	}
 	private static String getFileTime(File file) throws IOException {
 	    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy - hh:mm");
 	    return dateFormat.format(file.lastModified());
