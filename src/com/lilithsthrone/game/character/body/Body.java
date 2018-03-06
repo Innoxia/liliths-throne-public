@@ -1693,9 +1693,9 @@ public class Body implements Serializable, XMLSaving {
 		}
 		if(owner.getEyeShadow().getPrimaryColour()!=Colour.COVERING_NONE) {
 			if(owner.isPlayer()) {
-				sb.append(" You're wearing a tasteful amount of "+owner.getEyeShadow().getColourDescriptor(true, false)+" eye shadow.");
+				sb.append(" You're wearing a tasteful amount of "+owner.getEyeShadow().getFullDescription(owner, true)+".");
 			} else {
-				sb.append(" [npc.She]'s wearing a tasteful amount of "+owner.getEyeShadow().getColourDescriptor(true, false)+" eye shadow.");
+				sb.append(" [npc.She]'s wearing a tasteful amount of "+owner.getEyeShadow().getFullDescription(owner, true)+".");
 			}
 		}
 		
@@ -1917,7 +1917,7 @@ public class Body implements Serializable, XMLSaving {
 		if (owner.isPlayer()) {
 			sb.append(" You have [pc.lipSize], [pc.mouthColourPrimary(true)] [pc.lips]");
 			if(owner.getLipstick().getPrimaryColour()!=Colour.COVERING_NONE) {
-				sb.append((owner.isPiercedLip()?", which have been pierced, and":", which")+" are currently covered in "+owner.getLipstick().getColourDescriptor(true, false)+" lipstick.");
+				sb.append((owner.isPiercedLip()?", which have been pierced, and":", which")+" are currently covered in "+owner.getLipstick().getFullDescription(owner, true)+".");
 			} else {
 				sb.append((owner.isPiercedLip()?", which have been pierced.":"."));
 			}
@@ -1925,7 +1925,7 @@ public class Body implements Serializable, XMLSaving {
 		} else {
 			sb.append(" [npc.She] has [npc.lipSize], [npc.mouthColourPrimary(true)] [pc.lips]");
 			if(owner.getLipstick().getPrimaryColour()!=Colour.COVERING_NONE) {
-				sb.append((owner.isPiercedLip()?", which have been pierced, and":", which")+" are currently covered in "+owner.getLipstick().getColourDescriptor(true, false)+" lipstick.");
+				sb.append((owner.isPiercedLip()?", which have been pierced, and":", which")+" are currently covered in "+owner.getLipstick().getFullDescription(owner, true)+".");
 			} else {
 				sb.append((owner.isPiercedLip()?", which have been pierced.":"."));
 			}
