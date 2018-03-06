@@ -85,6 +85,7 @@ public enum SexPositionSlot {
 	
 	COWGIRL_ON_BACK("Cowgirl (on back)",
 			Util.newArrayListOfValues(
+					new ListValue<>(OrgasmCumTarget.GROIN),
 					new ListValue<>(OrgasmCumTarget.FLOOR))),
 	
 	COWGIRL_RIDING("Cowgirl (riding)",
@@ -182,6 +183,8 @@ public enum SexPositionSlot {
 	
 	MISSIONARY_ON_BACK("Lying on back",
 			Util.newArrayListOfValues(
+					new ListValue<>(OrgasmCumTarget.GROIN),
+					new ListValue<>(OrgasmCumTarget.STOMACH),
 					new ListValue<>(OrgasmCumTarget.FLOOR))),
 	
 	MISSIONARY_KNEELING_BETWEEN_LEGS("Kneeling between legs",
@@ -260,6 +263,8 @@ public enum SexPositionSlot {
 	
 	MISSIONARY_ALTAR_LYING_ON_ALTAR("Lying on altar",
 			Util.newArrayListOfValues(
+					new ListValue<>(OrgasmCumTarget.GROIN),
+					new ListValue<>(OrgasmCumTarget.LEGS),
 					new ListValue<>(OrgasmCumTarget.FLOOR))),
 
 	MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS("Between legs",
@@ -278,6 +283,8 @@ public enum SexPositionSlot {
 	
 	MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR("Lying on altar",
 			Util.newArrayListOfValues(
+					new ListValue<>(OrgasmCumTarget.GROIN),
+					new ListValue<>(OrgasmCumTarget.LEGS),
 					new ListValue<>(OrgasmCumTarget.FLOOR))),
 
 	MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS("Between legs",
