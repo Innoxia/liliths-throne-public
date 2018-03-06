@@ -448,36 +448,48 @@ public enum RenderingEngine {
 	
 	private static void appendDivsForItemsToInventory(GameCharacter charactersInventoryToRender, StringBuilder stringBuilder, Map<? extends AbstractCoreItem, Integer> map, String idPrefix) {
 		for (Entry<? extends AbstractCoreItem, Integer> entry : map.entrySet()) {
-			stringBuilder.append(
-					"<div class='inventory-item-slot unequipped "+ entry.getKey().getDisplayRarity() + "'>"
-							+ "<div class='inventory-icon-content'>"+entry.getKey().getSVGString()+"</div>"
-					+ "<div class='overlay"
-					+ (charactersInventoryToRender!=null && InventoryDialogue.getNPCInventoryInteraction() == InventoryInteraction.TRADING
-							? (InventoryDialogue.getInventoryNPC().willBuy(entry.getKey()) || !charactersInventoryToRender.isPlayer() ? "" : " dark")
-							: (entry.getKey() instanceof AbstractItem
-									?((Main.game.isInSex() && (!((AbstractItem)entry.getKey()).isAbleToBeUsedInSex()
-											|| (!charactersInventoryToRender.isPlayer() && ((NPC) charactersInventoryToRender).isTrader()))
-											|| (charactersInventoryToRender!=null?!charactersInventoryToRender.isPlayer():false))
-											|| (Main.game.isInCombat() && !((AbstractItem)entry.getKey()).isAbleToBeUsedInCombat())?" disabled":"")
-									:(entry.getKey() instanceof AbstractClothing
-											?((Main.game.isInSex() && 
-													(!((AbstractClothing)entry.getKey()).getClothingType().isAbleToBeEquippedDuringSex() || (!charactersInventoryToRender.isPlayer() && ((NPC) charactersInventoryToRender).isTrader())))
-													|| Main.game.isInCombat() ?" disabled":"")
-											:(Main.game.isInSex() || Main.game.isInCombat() ?" disabled":""))))
-					+ "' id='" + idPrefix + entry.getKey().hashCode() + "'>"
-					+ getItemCountDiv(entry.getValue()));
-			
-			if(charactersInventoryToRender != null && InventoryDialogue.getNPCInventoryInteraction() == InventoryInteraction.TRADING) {
+			AbstractCoreItem item = entry.getKey();
+
+			stringBuilder.append("<div class='inventory-item-slot unequipped "+ item.getDisplayRarity() + "'>"
+							+ "<div class='inventory-icon-content'>"+item.getSVGString()+"</div>");
+
+			if (item instanceof AbstractClothing && ((AbstractClothing)item).isDirty()) {
+				stringBuilder.append("<div class='cummedIcon'>" + SVGImages.SVG_IMAGE_PROVIDER.getCummedInIcon() + "</div>");
+			}
+			String overlay = "<div class='overlay";
+			String last_layer = "";
+
+			if (charactersInventoryToRender!=null && InventoryDialogue.getNPCInventoryInteraction() == InventoryInteraction.TRADING) {
+
+				NPC npc = InventoryDialogue.getInventoryNPC();
 				if(charactersInventoryToRender.isPlayer()) {
-					if (InventoryDialogue.getInventoryNPC().willBuy(entry.getKey())) {
-						stringBuilder.append(getItemPriceDiv(entry.getKey().getPrice(InventoryDialogue.getInventoryNPC().getBuyModifier())));
+
+					if (npc.willBuy(item)) {
+						last_layer = getItemPriceDiv(item.getPrice(npc.getBuyModifier()));
+					} else {
+						overlay += " dark";
 					}
 				} else {
-					stringBuilder.append(getItemPriceDiv(entry.getKey().getPrice(InventoryDialogue.getInventoryNPC().getSellModifier())));
+					last_layer = getItemPriceDiv(item.getPrice(npc.getSellModifier()));
+				}
+			} else {
+				boolean nonPlayerInv = charactersInventoryToRender!=null && charactersInventoryToRender.isPlayer() == false;
+				boolean isTraderInv = nonPlayerInv && ((NPC) charactersInventoryToRender).isTrader();
+
+				if (item instanceof AbstractItem) {
+					AbstractItem abItem = (AbstractItem)item;
+					if (nonPlayerInv || (Main.game.isInSex() && (isTraderInv || abItem.isAbleToBeUsedInSex() == false))
+							|| (Main.game.isInCombat() && abItem.isAbleToBeUsedInCombat() == false)) {
+						overlay += " disabled";
+					}
+				} else if (item instanceof AbstractClothing) {
+					AbstractClothing clothing = (AbstractClothing)item;
+					if (Main.game.isInCombat() || (Main.game.isInSex() && (isTraderInv || clothing.getClothingType().isAbleToBeEquippedDuringSex() == false ))) {
+						overlay += " disabled";
+					}
 				}
 			}
-			
-			stringBuilder.append("</div></div>");
+			stringBuilder.append(overlay+"' id='" + idPrefix + item.hashCode() + "'>"+getItemCountDiv(entry.getValue())+last_layer+"</div></div>");
 		}
 	}
 
