@@ -139,7 +139,8 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			List<Colour> availablePrimaryDyeColours,
 			List<Colour> availableSecondaryColours,
 			List<Colour> availableSecondaryDyeColours,
-			List<Colour> availableTertiaryColours, List<Colour> availableTertiaryDyeColours) {
+			List<Colour> availableTertiaryColours,
+			List<Colour> availableTertiaryDyeColours) {
 		
 		this.baseValue = baseValue;
 		
@@ -215,7 +216,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			colourSet.addAll(availablePrimaryDyeColours);
 		}
 		this.allAvailablePrimaryColours.addAll(colourSet);
-		
+		this.allAvailablePrimaryColours.sort((c1, c2) -> c1.compareTo(c2));
 		
 		this.availableSecondaryColours = new ArrayList<>();
 		if (availableSecondaryColours != null) {
@@ -236,6 +237,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			colourSet.addAll(availableSecondaryDyeColours);
 		}
 		this.allAvailableSecondaryColours.addAll(colourSet);
+		this.allAvailableSecondaryColours.sort((c1, c2) -> c1.compareTo(c2));
 
 		
 		this.availableTertiaryColours = new ArrayList<>();
@@ -257,6 +259,7 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 			colourSet.addAll(availableTertiaryDyeColours);
 		}
 		this.allAvailableTertiaryColours.addAll(colourSet);
+		this.allAvailableTertiaryColours.sort((c1, c2) -> c1.compareTo(c2));
 		
 
 		SVGStringMap = new HashMap<>();

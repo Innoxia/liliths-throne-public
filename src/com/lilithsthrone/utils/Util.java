@@ -310,7 +310,7 @@ public class Util {
 			case ESCAPE:
 				return "Esc";
 			case EURO_SIGN:
-				return "€";
+				return "&euro;"; // €
 			case EXCLAMATION_MARK:
 				return "!";
 			case GREATER:
@@ -362,7 +362,7 @@ public class Util {
 			case PLUS:
 				return "+";
 			case POUND:
-				return "£";
+				return "&pound;"; // £
 			case POWER:
 				return "^";
 			case QUOTE:

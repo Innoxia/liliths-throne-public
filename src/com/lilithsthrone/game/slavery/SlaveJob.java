@@ -85,7 +85,7 @@ public enum SlaveJob {
 	
 	LAB_ASSISTANT(1, "lab assistant", "lab assistant", "Assign this slave to help Lilaya in her lab.",
 			0, 0.25f,
-			10, 0, 0.2f,
+			100, 0, 0.2f,
 			null, null, null,
 			WorldType.LILAYAS_HOUSE_GROUND_FLOOR,
 			PlaceType.LILAYA_HOME_LAB),

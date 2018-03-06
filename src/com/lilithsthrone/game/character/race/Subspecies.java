@@ -1,5 +1,8 @@
 package com.lilithsthrone.game.character.race;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.Covering;
@@ -8,18 +11,19 @@ import com.lilithsthrone.game.character.body.types.EarType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
-import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
+import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.91
- * @version 0.1.99
+ * @version 0.2.1
  * @author tukaima
  */
 public enum Subspecies {
 
 	// HUMAN:
-	HUMAN("human",
+	HUMAN("raceHuman",
+			"human",
 			"humans",
 			"man",
 			"woman",
@@ -37,7 +41,8 @@ public enum Subspecies {
 	},
 
 	// ANGEL:
-	ANGEL("angel",
+	ANGEL("raceAngel",
+			"angel",
 			"angels",
 			"angel",
 			"angel",
@@ -55,7 +60,8 @@ public enum Subspecies {
 	},
 
 	// DEMON:
-	DEMON("demon",
+	DEMON("raceDemon",
+			"demon",
 			"demons",
 			"incubus",
 			"succubus",
@@ -96,7 +102,8 @@ public enum Subspecies {
 	//		"A typical "+Race.LILIN.getName()),
 
 	// BOVINES:
-	COW_MORPH("cow-morph",
+	COW_MORPH("raceCowMorph",
+			"cow-morph",
 			"cow-morphs",
 			"cow-boy",
 			"cow-girl",
@@ -116,7 +123,8 @@ public enum Subspecies {
 	//		"An aggressive male-only variety of "+Race.COW_MORPH.getName()),
 	
 	// CANINES:
-	DOG_MORPH("dog-morph",
+	DOG_MORPH("raceDogMorph",
+			"dog-morph",
 			"dog-morphs",
 			"dog-boy",
 			"dog-girl",
@@ -132,7 +140,8 @@ public enum Subspecies {
 				}
 			},
 	
-	DOG_MORPH_DOBERMANN("dobermann-morph",
+	DOG_MORPH_DOBERMANN("raceDogMorphDobermann",
+			"dobermann-morph",
 			"dobermann-morphs",
 			"dobermann",
 			"dobermann",
@@ -141,7 +150,7 @@ public enum Subspecies {
 			Race.DOG_MORPH,
 			Colour.RACE_DOG_MORPH,
 			SubspeciesPreference.TWO_AVERAGE,
-			"A dog-morph which resembles an anthropomorphised dobermann.") {
+			"A dog-morph which resembles an anthropomorphised dobermann. To be identified as a Dobermann, a character must be a dog-morph that has short, black fur, with either brown, dark-brown, or tan markings.") {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			Colour secondaryColour = Colour.COVERING_BROWN;
@@ -162,19 +171,10 @@ public enum Subspecies {
 				body.getTail().setType(null, TailType.DOG_MORPH_STUBBY);
 			}
 		}
-
-		@Override
-		public String getMapIcon(GameCharacter character) {
-			return SVGImages.SVG_IMAGE_PROVIDER.getRaceDobermann();
-		}
-
-		@Override
-		public String getHomeMapIcon(GameCharacter character) {
-			return SVGImages.SVG_IMAGE_PROVIDER.getRaceDobermannDesaturated();
-		}
 	},
 	
-	WOLF_MORPH("wolf-morph",
+	WOLF_MORPH("raceWolfMorph",
+			"wolf-morph",
 			"wolf-morphs",
 			"wolf-boy",
 			"wolf-girl",
@@ -201,7 +201,8 @@ public enum Subspecies {
 	//		"A "+Race.FOX_MORPH.getName()+" with a bestial lower body that walks on four legs"),
 
 	// FELINES:
-	CAT_MORPH("cat-morph",
+	CAT_MORPH("raceCatMorph",
+			"cat-morph",
 			"cat-morphs",
 			"cat-boy",
 			"cat-girl",
@@ -219,7 +220,8 @@ public enum Subspecies {
 	},
 
 	// EQUINES:
-	HORSE_MORPH("horse-morph",
+	HORSE_MORPH("raceHorseMorph",
+			"horse-morph",
 			"horse-morphs",
 			"horse-boy",
 			"horse-girl",
@@ -236,7 +238,8 @@ public enum Subspecies {
 		}
 	},
 
-	REINDEER_MORPH("reindeer-morph",
+	REINDEER_MORPH("raceReindeerMorph",
+			"reindeer-morph",
 			"reindeer-morphs",
 			"reindeer-boy",
 			"reindeer-girl",
@@ -257,7 +260,8 @@ public enum Subspecies {
 	//		"A "+Race.HORSE_MORPH.getName()+" with a bestial lower body that walks on four legs"),
 
 	// REPTILE:
-	ALLIGATOR_MORPH("alligator-morph",
+	ALLIGATOR_MORPH("raceGatorMorph",
+			"alligator-morph",
 			"alligator-morphs",
 			"alligator-boy",
 			"alligator-girl",
@@ -309,7 +313,8 @@ public enum Subspecies {
 	//		"A "+Race.DRAGON.getName()+" with a serpentine lower body, devoid of legs"),
 	
 	// SLIMES:
-	SLIME("slime",
+	SLIME("raceSlime",
+			"slime",
 			"slimes",
 			"slime",
 			"slime",
@@ -341,7 +346,8 @@ public enum Subspecies {
 //			"A "+Race.GARGOYLE.getName()+" resembling a typical bipedal "+Race.HORSE_MORPH.getName()),
 
 	// RODENTS:
-	SQUIRREL_MORPH("squirrel-morph",
+	SQUIRREL_MORPH("raceSquirrelMorph",
+			"squirrel-morph",
 			"squirrel-morphs",
 			"squirrel-boy",
 			"squirrel-girl",
@@ -363,7 +369,8 @@ public enum Subspecies {
 	//		"An extremely aggressive variety of "+Race.MOUSE_MORPH.getName()),
 
 	// AVIAN:
-	HARPY("harpy",
+	HARPY("raceHarpy",
+			"harpy",
 			"harpies",
 			"harpy",
 			"harpy",
@@ -388,15 +395,21 @@ public enum Subspecies {
 	private Colour colour;
 	private SubspeciesPreference subspeciesPreferenceDefault;
 	private String description;
+	protected String SVGString;
+	private String SVGStringDesaturated;
 
 	private Subspecies(
+			String iconPathName,
 			String name,
 			String namePlural,
 			String singularMaleName,
 			String singularFemaleName,
 			String pluralMaleName,
 			String pluralFemaleName,
-			Race race, Colour colour, SubspeciesPreference subspeciesPreferenceDefault, String description) {
+			Race race,
+			Colour colour,
+			SubspeciesPreference subspeciesPreferenceDefault,
+			String description) {
 		this.name = name;
 		this.namePlural = namePlural;
 
@@ -410,6 +423,43 @@ public enum Subspecies {
 		this.colour = colour;
 		this.subspeciesPreferenceDefault = subspeciesPreferenceDefault;
 		this.description = description;
+		
+		if(iconPathName!=null) {
+			try {
+				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/" + iconPathName + ".svg");
+				SVGString = Util.inputStreamToString(is);
+	
+				SVGString = SVGString.replaceAll("#ff2a2a", colour.getShades()[0]);
+				SVGString = SVGString.replaceAll("#ff5555", colour.getShades()[1]);
+				SVGString = SVGString.replaceAll("#ff8080", colour.getShades()[2]);
+				SVGString = SVGString.replaceAll("#ffaaaa", colour.getShades()[3]);
+				SVGString = SVGString.replaceAll("#ffd5d5", colour.getShades()[4]);
+	
+				is.close();
+	
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			try {
+				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/" + iconPathName + ".svg");
+				SVGStringDesaturated = Util.inputStreamToString(is);
+	
+				SVGStringDesaturated = SVGStringDesaturated.replaceAll("#ff2a2a", Colour.BASE_GREY.getShades()[0]);
+				SVGStringDesaturated = SVGStringDesaturated.replaceAll("#ff5555", Colour.BASE_GREY.getShades()[1]);
+				SVGStringDesaturated = SVGStringDesaturated.replaceAll("#ff8080", Colour.BASE_GREY.getShades()[2]);
+				SVGStringDesaturated = SVGStringDesaturated.replaceAll("#ffaaaa", Colour.BASE_GREY.getShades()[3]);
+				SVGStringDesaturated = SVGStringDesaturated.replaceAll("#ffd5d5", Colour.BASE_GREY.getShades()[4]);
+	
+				is.close();
+	
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		} else {
+			SVGString = "";
+		}
 	}
 
 	public abstract void applySpeciesChanges(Body body);
@@ -542,11 +592,11 @@ public enum Subspecies {
 		return description;
 	}
 	
-	public String getMapIcon(GameCharacter character) {
-		return getRace().getStatusEffect().getSVGString(character);
+	public String getSVGString(GameCharacter character) {
+		return SVGString;
 	}
 	
-	public String getHomeMapIcon(GameCharacter character) {
-		return getRace().getStatusEffect().getSVGStringDesaturated(character);
+	public String getSVGStringDesaturated(GameCharacter character) {
+		return SVGStringDesaturated;
 	}
 }

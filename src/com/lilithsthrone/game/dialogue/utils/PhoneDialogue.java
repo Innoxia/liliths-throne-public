@@ -1665,9 +1665,27 @@ public class PhoneDialogue {
 						}
 						
 						raceSB.append("</table>"
-								+ "</div>"
-								+ race.getBasicDescription()
-								+(Main.getProperties().isAdvancedRaceKnowledgeDiscovered(race)
+								+ "</div>");
+						
+						for(Subspecies sub : Subspecies.values()) {
+							if(sub.getRace()==race) {
+								raceSB.append(
+										"<p>"
+											+ "<b>Subspecies:</b> <b style='color:"+sub.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(sub.getName())+"</b>"
+											+ "</br>"
+											+ "(<span style='color:"+Femininity.valueOf(racialBody.getMaleFemininity()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(sub.getSingularMaleName())+"</span>"
+											+ "/<span style='color:"+Femininity.valueOf(racialBody.getFemaleFemininity()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(sub.getSingularFemaleName())+"</span>)"
+											+ "</br>"
+											+ sub.getDescription()
+										+ "</p>");
+							}
+						}
+						
+						
+						raceSB.append(
+								"<h6>"+Util.capitaliseSentence(race.getName())+" Lore</h6>"
+									+race.getBasicDescription()
+									+ (Main.getProperties().isAdvancedRaceKnowledgeDiscovered(race)
 										?race.getAdvancedDescription()
 										:"<p style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>"
 											+ "Further information can be discovered in books!"

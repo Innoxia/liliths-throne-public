@@ -85,9 +85,9 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 
 		charactersEncountered = new ArrayList<>();
 
-		this.setAttribute(Attribute.MAJOR_PHYSIQUE, 10f);
-		this.setAttribute(Attribute.MAJOR_ARCANE, 0f);
-		this.setAttribute(Attribute.MAJOR_CORRUPTION, 0f);
+		this.setAttribute(Attribute.MAJOR_PHYSIQUE, 10f, false);
+		this.setAttribute(Attribute.MAJOR_ARCANE, 0f, false);
+		this.setAttribute(Attribute.MAJOR_CORRUPTION, 0f, false);
 		
 		this.addPerk(Perk.PHYSICAL_BASE);
 		this.addPerk(Perk.ARCANE_BASE);

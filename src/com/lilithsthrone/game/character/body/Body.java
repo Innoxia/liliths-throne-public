@@ -4954,10 +4954,10 @@ public class Body implements Serializable, XMLSaving {
 			for(Litter litter : owner.getLittersBirthed()) {
 				int daysSpentPregnant = litter.getDayOfBirth()-litter.getDayOfConception();
 				if(litter.getFather().isPlayer()) {
-					descriptionSB.append("</br>On day "+litter.getDayOfConception()+", you impregnated [npc.herHim], and "+Util.intToString(daysSpentPregnant)+" day"+(daysSpentPregnant>1?"s":"")+" later, [npc.she] gave birth to ");
+					descriptionSB.append("</br>On day "+litter.getDayOfConception()+", you impregnated [npc.herHim], and "+Util.intToString(daysSpentPregnant)+" day"+(daysSpentPregnant!=1?"s":"")+" later, [npc.she] gave birth to ");
 				} else {
 					descriptionSB.append("</br>On day "+litter.getDayOfConception()
-						+", "+litter.getFather().getName()+" impregnated [npc.her], and "+Util.intToString(daysSpentPregnant)+" day"+(daysSpentPregnant>1?"s":"")+" later, [npc.she] gave birth to ");
+						+", "+litter.getFather().getName()+" impregnated [npc.her], and "+Util.intToString(daysSpentPregnant)+" day"+(daysSpentPregnant!=1?"s":"")+" later, [npc.she] gave birth to ");
 				}
 				
 				descriptionSB.append(litter.getBirthedDescriptionList());

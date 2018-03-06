@@ -1668,7 +1668,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		return SexPace.DOM_NORMAL;
 	}
 	
-	
+	public List<Class<?>> getUniqueSexClasses() {
+		return new ArrayList<>();
+	}
 
 	/**
 	 * Returns a description of how this npc reacts to item usage.

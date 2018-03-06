@@ -792,8 +792,7 @@ public enum Spell {
 				damageCostDescriptionSB.append(".</p>");
 			}
 
-			damageCostDescriptionSB
-					.append("<p>" + "Harnessing the arcane to cast spells is incredibly draining, and you lose <b>" + cost + "</b> <b style='color:" + Attribute.MANA_MAXIMUM.getColour().toWebHexString() + ";'>aura</b>!</b>" + "</p>");
+			damageCostDescriptionSB.append("<p>" + "Harnessing the arcane to cast spells is incredibly draining, and you lose <b>" + cost + "</b> <b style='color:" + Attribute.MANA_MAXIMUM.getColour().toWebHexString() + ";'>aura</b>!</b>" + "</p>");
 		} else {
 
 			if (isCritical)

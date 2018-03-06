@@ -474,7 +474,8 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		
 		if(sexActionPlayer.getActionType()==SexActionType.PLAYER_STOP_PENETRATION
 				|| sexActionPlayer.equals(GenericActions.PLAYER_FORBID_PARTNER_SELF)
-				|| sexActionPlayer.equals(GenericActions.PLAYER_STOP_PARTNER_SELF)) {
+				|| sexActionPlayer.equals(GenericActions.PLAYER_STOP_PARTNER_SELF)
+				|| sexActionPlayer.equals(GenericActions.PLAYER_STOP_ALL_PENETRATIONS)) {
 			availableActions.removeIf(sexAction -> sexAction.getActionType()==SexActionType.PARTNER_PENETRATION);
 		}
 		
@@ -533,7 +534,8 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		
 		if(sexActionPlayer.getActionType()==SexActionType.PLAYER_STOP_PENETRATION
 				|| sexActionPlayer.equals(GenericActions.PLAYER_FORBID_PARTNER_SELF)
-				|| sexActionPlayer.equals(GenericActions.PLAYER_STOP_PARTNER_SELF)) {
+				|| sexActionPlayer.equals(GenericActions.PLAYER_STOP_PARTNER_SELF)
+				|| sexActionPlayer.equals(GenericActions.PLAYER_STOP_ALL_PENETRATIONS)) {
 			availableActions.removeIf(sexAction -> sexAction.getActionType()==SexActionType.PARTNER_PENETRATION);
 		}
 		

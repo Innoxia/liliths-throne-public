@@ -171,7 +171,7 @@
 	
 	Double check the weather as it seems to apply inside buildings. I see it apply in Enforcer HQ.
 	Vaginal statues are still applied even with no vagina. This is due to the importer removing vaginas.
-	Fluff: The replace pans dialogue shows up before replacing panties, after which the replace pants dialogue shows up again. I don’t think women wear their panties on top of skirts or pants or w/e lol.
+	Fluff: The replace pans dialogue shows up before replacing panties, after which the replace pants dialogue shows up again. I don't think women wear their panties on top of skirts or pants or w/e lol.
 	
 	female (didn't encounter male, so I don't know if it affects them too) harpy parser pronouns not working? (they display as blank)
 	After Brax defeat/transformation (starting as male - androgynous) - "Your precum quickly lubricates your ." and "Your precum quickly lubricates your hard ."

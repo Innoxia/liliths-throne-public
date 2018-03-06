@@ -48,7 +48,6 @@ import com.lilithsthrone.game.sex.sexActions.SexActionCategory;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.game.sex.sexActions.SexActionUtility;
-import com.lilithsthrone.game.sex.sexActions.dominion.lilaya.SALilayaSpecials;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Colour;
@@ -60,7 +59,7 @@ import com.lilithsthrone.utils.Util;
  * startSex(), which returns the starting DialogueNode.
  *
  * @since 0.1.0
- * @version 0.1.88
+ * @version 0.2.1
  * @author Innoxia
  */
 public enum Sex {
@@ -1026,7 +1025,7 @@ public enum Sex {
 			} else {
 				
 				if(responseTab==0) {
-					if(index <= miscActionsPlayer.size()) {
+					if(index < miscActionsPlayer.size()) {
 						if(index==0) {
 							if(miscActionsPlayer.size()>=15) {
 								return miscActionsPlayer.get(14).toResponse();
@@ -1034,12 +1033,16 @@ public enum Sex {
 								return null;
 							}
 						} else {
-							return miscActionsPlayer.get(index-1).toResponse();
+							if(index>=15) {
+								return miscActionsPlayer.get(index).toResponse();
+							} else {
+								return miscActionsPlayer.get(index-1).toResponse();
+							}
 						}
 					}
 					
 				} else if(responseTab==1) {
-					if(index <= selfActionsPlayer.size()) {
+					if(index < selfActionsPlayer.size()) {
 						if(index==0) {
 							if(selfActionsPlayer.size()>=15) {
 								return selfActionsPlayer.get(14).toResponse();
@@ -1047,12 +1050,16 @@ public enum Sex {
 								return null;
 							}
 						} else {
-							return selfActionsPlayer.get(index-1).toResponse();
+							if(index>=15) {
+								return selfActionsPlayer.get(index).toResponse();
+							} else {
+								return selfActionsPlayer.get(index-1).toResponse();
+							}
 						}
 					}
 					
 				} else if(responseTab==2) {
-					if(index <= sexActionsPlayer.size()) {
+					if(index < sexActionsPlayer.size()) {
 						if(index==0) {
 							if(sexActionsPlayer.size()>=15) {
 								return sexActionsPlayer.get(14).toResponse();
@@ -1060,12 +1067,16 @@ public enum Sex {
 								return null;
 							}
 						} else {
-							return sexActionsPlayer.get(index-1).toResponse();
+							if(index>=15) {
+								return sexActionsPlayer.get(index).toResponse();
+							} else {
+								return sexActionsPlayer.get(index-1).toResponse();
+							}
 						}
 					}
 					
 				} else if(responseTab==3) {
-					if(index <= positionActionsPlayer.size()) {
+					if(index < positionActionsPlayer.size()) {
 						if(index==0) {
 							if(positionActionsPlayer.size()>=15) {
 								return positionActionsPlayer.get(14).toResponse();
@@ -1073,12 +1084,16 @@ public enum Sex {
 								return null;
 							}
 						} else {
-							return positionActionsPlayer.get(index-1).toResponse();
+							if(index>=15) {
+								return positionActionsPlayer.get(index).toResponse();
+							} else {
+								return positionActionsPlayer.get(index-1).toResponse();
+							}
 						}
 					}
 					
 				} else if(responseTab==4) {
-					if(index <= repeatActionsPlayer.size()) {
+					if(index < repeatActionsPlayer.size()) {
 						if(index==0) {
 							if(repeatActionsPlayer.size()>=15) {
 								return repeatActionsPlayer.get(14).toResponse();
@@ -1086,7 +1101,11 @@ public enum Sex {
 								return null;
 							}
 						} else {
-							return repeatActionsPlayer.get(index-1).toResponse();
+							if(index>=15) {
+								return repeatActionsPlayer.get(index).toResponse();
+							} else {
+								return repeatActionsPlayer.get(index-1).toResponse();
+							}
 						}
 					}
 					
@@ -3047,26 +3066,33 @@ public enum Sex {
 		actionsAvailablePartner.clear();
 		orgasmActionsPlayer.clear();
 		orgasmActionsPartner.clear();
-//		mutualOrgasmActions.clear();
 
 		for(Entry<GameCharacter, SexPositionSlot> entry: Sex.getDominantParticipants().entrySet()) {
 			SexActionPresetPair pair = Sex.sexManager.getPosition().getSlotTargets().get(entry.getValue()).get(Sex.getSexPositionSlot(Sex.getTargetedPartner(entry.getKey())));
-			addActionsFromContainingClasses(pair.getPlayerSexActionContainingClasses(), pair.getPartnerSexActionContainingClasses());
+			if(entry.getKey().isPlayer()) {
+				addActionsFromContainingClasses(pair.getPlayerSexActionContainingClasses());
+			} else {
+				addActionsFromContainingClasses(pair.getPartnerSexActionContainingClasses());
+			}
 		}
 		for(Entry<GameCharacter, SexPositionSlot> entry: Sex.getSubmissiveParticipants().entrySet()) {
 			SexActionPresetPair pair = Sex.sexManager.getPosition().getSlotTargets().get(entry.getValue()).get(Sex.getSexPositionSlot(Sex.getTargetedPartner(entry.getKey())));
-			addActionsFromContainingClasses(pair.getPlayerSexActionContainingClasses(), pair.getPartnerSexActionContainingClasses());
+			if(entry.getKey().isPlayer()) {
+				addActionsFromContainingClasses(pair.getPlayerSexActionContainingClasses());
+			} else {
+				addActionsFromContainingClasses(pair.getPartnerSexActionContainingClasses());
+			}
 		}
 		
-		if(activePartner.equals(Main.game.getLilaya())) {// TODO move to somewhere logical
-			Sex.addSexActionClass(SALilayaSpecials.class);
+		for(Class<?> sexClass : activePartner.getUniqueSexClasses()) {
+			Sex.addSexActionClass(sexClass);
 		}
 	}
 	
-	private static void addActionsFromContainingClasses(List<Class<?>> playerSexActionContainingClasses, List<Class<?>> partnerSexActionContainingClasses) {
+	private static void addActionsFromContainingClasses(List<Class<?>> sexActionContainingClasses) {
 		try {
-			if (!playerSexActionContainingClasses.isEmpty()) {
-				for(Class<?> container : playerSexActionContainingClasses) {
+			if (!sexActionContainingClasses.isEmpty()) {
+				for(Class<?> container : sexActionContainingClasses) {
 					if(container!=null) {
 						Field[] fields = container.getFields();
 						
@@ -3074,10 +3100,6 @@ public enum Sex {
 							
 							if (SexAction.class.isAssignableFrom(f.getType())) {
 								if (((SexAction) f.get(null)).getActionType().isOrgasmOption()) {
-//									if (((SexAction) f.get(null)).getActionType() == SexActionType.MUTUAL_ORGASM) {
-//										playerSlotMutualOrgasmActions.add(((SexAction) f.get(null)));
-//										
-//									} else 
 									if (((SexAction) f.get(null)).getActionType().isPlayerAction()) {
 										orgasmActionsPlayer.add(((SexAction) f.get(null)));
 										
@@ -3099,39 +3121,6 @@ public enum Sex {
 				}
 			}
 			
-			if (!partnerSexActionContainingClasses.isEmpty()) {
-				for(Class<?> container : partnerSexActionContainingClasses) {
-					if(container!=null) {
-						Field[] fields = container.getFields();
-						
-						for(Field f : fields){
-							
-							if (SexAction.class.isAssignableFrom(f.getType())) {
-								if (((SexAction) f.get(null)).getActionType().isOrgasmOption()) {
-//									if (((SexAction) f.get(null)).getActionType() == SexActionType.MUTUAL_ORGASM) {
-//										partnerSlotMutualOrgasmActions.add(((SexAction) f.get(null)));
-//										
-//									} else 
-									if (((SexAction) f.get(null)).getActionType().isPlayerAction()) {
-										orgasmActionsPlayer.add(((SexAction) f.get(null)));
-										
-									} else {
-										orgasmActionsPartner.add(((SexAction) f.get(null)));
-									}
-									
-								} else {
-									if (((SexAction) f.get(null)).getActionType().isPlayerAction()) {
-										actionsAvailablePlayer.add(((SexAction) f.get(null)));
-										
-									} else {
-										actionsAvailablePartner.add(((SexAction) f.get(null)));
-									}
-								}
-							}
-						}
-					}
-				}
-			}
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {

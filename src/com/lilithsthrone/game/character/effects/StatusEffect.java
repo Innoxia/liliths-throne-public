@@ -297,6 +297,35 @@ public enum StatusEffect {
 	},
 
 	// Intelligence:
+	INTELLIGENCE_PERK_0_OLD_WORLD(
+			80,
+			"No Arcane Power",
+			"attIntelligence0",
+			Colour.INTELLIGENCE_STAGE_ZERO,
+			false,
+			null,
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Due to the fact that the arcane doesn't exist in this world, your ability to cast spells is non-existent.";
+		}
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return IntelligenceLevel.getIntelligenceLevelFromValue(target.getAttributeValue(Attribute.MAJOR_ARCANE)) == IntelligenceLevel.ZERO_AIRHEAD && !Main.game.isInNewWorld();
+		}
+		
+		@Override
+		public boolean renderInEffectsPanel() {
+			return false;
+		}
+	},
 	INTELLIGENCE_PERK_0(
 			80,
 			"arcane impotence",
@@ -330,7 +359,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return IntelligenceLevel.getIntelligenceLevelFromValue(target.getAttributeValue(Attribute.MAJOR_ARCANE)) == IntelligenceLevel.ZERO_AIRHEAD;
+			return IntelligenceLevel.getIntelligenceLevelFromValue(target.getAttributeValue(Attribute.MAJOR_ARCANE)) == IntelligenceLevel.ZERO_AIRHEAD && Main.game.isInNewWorld();
 		}
 		
 		@Override
@@ -1745,7 +1774,7 @@ public enum StatusEffect {
 	PURE_HUMAN(
 			90,
 			"human",
-			"raceHuman",
+			null,
 			Colour.CLOTHING_WHITE,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 20f)),
@@ -1768,18 +1797,17 @@ public enum StatusEffect {
 					&& target.getRaceStage() == RaceStage.HUMAN
 					&& Main.game.isInNewWorld();
 		}
-		
+
 		@Override
-		protected boolean needsDesaturated() {
-			return true;
+		public String getSVGString(GameCharacter owner) {
+			return owner.getSubspecies().getSVGString(owner);
 		}
 	},
 
 	// ANGEL:
-	ANGEL(
-			90,
+	ANGEL(90,
 			"angel",
-			"raceHuman",
+			null,
 			Colour.CLOTHING_WHITE,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 100f)),
@@ -1801,18 +1829,17 @@ public enum StatusEffect {
 					&& !target.isRaceConcealed()
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
-		
+
 		@Override
-		protected boolean needsDesaturated() {
-			return true;
+		public String getSVGString(GameCharacter owner) {
+			return owner.getSubspecies().getSVGString(owner);
 		}
 	},
 
-	// DEMON: TODO
-	DEMON(
-			90,
+	// DEMON:
+	DEMON(90,
 			"demon",
-			"raceDemon",
+			null,
 			Colour.GENERIC_ARCANE,
 			true,
 			Util.newHashMapOfValues(
@@ -1844,18 +1871,17 @@ public enum StatusEffect {
 					&& !target.isRaceConcealed()
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
-		
+
 		@Override
-		protected boolean needsDesaturated() {
-			return true;
+		public String getSVGString(GameCharacter owner) {
+			return owner.getSubspecies().getSVGString(owner);
 		}
 	},
 
 	// CANINE:
-	DOG_MORPH(
-			90,
+	DOG_MORPH(90,
 			"dog-morph",
-			"raceDogMorph",
+			null,
 			Colour.RACE_DOG_MORPH,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f)),
@@ -1881,17 +1907,16 @@ public enum StatusEffect {
 					&& !target.isRaceConcealed()
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
-		
+
 		@Override
-		protected boolean needsDesaturated() {
-			return true;
+		public String getSVGString(GameCharacter owner) {
+			return owner.getSubspecies().getSVGString(owner);
 		}
 	},
 	
-	WOLF_MORPH(
-			90,
+	WOLF_MORPH(90,
 			"wolf-morph",
-			"raceWolfMorph",
+			null,
 			Colour.RACE_WOLF_MORPH,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 10f)),
@@ -1917,18 +1942,17 @@ public enum StatusEffect {
 					&& !target.isRaceConcealed()
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
-		
+
 		@Override
-		protected boolean needsDesaturated() {
-			return true;
+		public String getSVGString(GameCharacter owner) {
+			return owner.getSubspecies().getSVGString(owner);
 		}
 	},
 
 	// FELINE:
-	CAT_MORPH(
-			90,
+	CAT_MORPH(90,
 			"cat-morph",
-			"raceCatMorph",
+			null,
 			Colour.RACE_CAT_MORPH,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f)),
@@ -1954,18 +1978,17 @@ public enum StatusEffect {
 					&& !target.isRaceConcealed()
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
-		
+
 		@Override
-		protected boolean needsDesaturated() {
-			return true;
+		public String getSVGString(GameCharacter owner) {
+			return owner.getSubspecies().getSVGString(owner);
 		}
 	},
 
 	// RODENT:
-	SQUIRREL_MORPH(
-			90,
+	SQUIRREL_MORPH(90,
 			"Squirrel-morph",
-			"raceSquirrelMorph",
+			null,
 			Colour.RACE_SQUIRREL_MORPH,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f)),
@@ -1990,18 +2013,17 @@ public enum StatusEffect {
 					&& !target.isRaceConcealed()
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
-		
+
 		@Override
-		protected boolean needsDesaturated() {
-			return true;
+		public String getSVGString(GameCharacter owner) {
+			return owner.getSubspecies().getSVGString(owner);
 		}
 	},
 
 	// EQUINE:
-	HORSE_MORPH(
-			90,
+	HORSE_MORPH(90,
 			"horse-morph",
-			"raceHorseMorph",
+			null,
 			Colour.RACE_HORSE_MORPH,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -5f), new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 15f)),
@@ -2027,17 +2049,16 @@ public enum StatusEffect {
 					&& !target.isRaceConcealed()
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
-		
+
 		@Override
-		protected boolean needsDesaturated() {
-			return true;
+		public String getSVGString(GameCharacter owner) {
+			return owner.getSubspecies().getSVGString(owner);
 		}
 	},
 	
-	REINDEER_MORPH(
-			90,
+	REINDEER_MORPH(90,
 			"reindeer-morph",
-			"raceReindeerMorph",
+			null,
 			Colour.RACE_REINDEER_MORPH,
 			true,
 			Util.newHashMapOfValues(
@@ -2065,18 +2086,17 @@ public enum StatusEffect {
 					&& !target.isRaceConcealed()
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
-		
+
 		@Override
-		protected boolean needsDesaturated() {
-			return true;
+		public String getSVGString(GameCharacter owner) {
+			return owner.getSubspecies().getSVGString(owner);
 		}
 	},
 
 	// BOVINE:
-	COW_MORPH(
-			90,
+	COW_MORPH(90,
 			"cow-morph",
-			"raceCowMorph",
+			null,
 			Colour.RACE_COW_MORPH,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -5f), new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 15f)),
@@ -2102,18 +2122,17 @@ public enum StatusEffect {
 					&& !target.isRaceConcealed()
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
-		
+
 		@Override
-		protected boolean needsDesaturated() {
-			return true;
+		public String getSVGString(GameCharacter owner) {
+			return owner.getSubspecies().getSVGString(owner);
 		}
 	},
 
 	// REPTILE:
-	ALLIGATOR_MORPH(
-			90,
+	ALLIGATOR_MORPH(90,
 			"Alligator-morph",
-			"raceGatorMorph",
+			null,
 			Colour.RACE_ALLIGATOR_MORPH,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 15f),
@@ -2140,18 +2159,17 @@ public enum StatusEffect {
 					&& !target.isRaceConcealed()
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
-		
+
 		@Override
-		protected boolean needsDesaturated() {
-			return true;
+		public String getSVGString(GameCharacter owner) {
+			return owner.getSubspecies().getSVGString(owner);
 		}
 	},
 
 		// SLIME:
-	SLIME(
-			90,
+	SLIME(90,
 			"slime",
-			"raceSlime",
+			null,
 			Colour.CLOTHING_BLUE_LIGHT,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 100f),
@@ -2177,17 +2195,17 @@ public enum StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.getBodyMaterial()==BodyMaterial.SLIME;
 		}
-		
+
 		@Override
-		protected boolean needsDesaturated() {
-			return true;
+		public String getSVGString(GameCharacter owner) {
+			return owner.getSubspecies().getSVGString(owner);
 		}
 	},
 
 	// AVIAN:
 	HARPY(90,
 			"harpy",
-			"raceHarpy",
+			null,
 			Colour.CLOTHING_PINK_LIGHT,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 25f)),
@@ -2209,10 +2227,10 @@ public enum StatusEffect {
 					&& !target.isRaceConcealed()
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
-		
+
 		@Override
-		protected boolean needsDesaturated() {
-			return true;
+		public String getSVGString(GameCharacter owner) {
+			return owner.getSubspecies().getSVGString(owner);
 		}
 	},
 	
@@ -7745,7 +7763,6 @@ public enum StatusEffect {
 	private Map<Attribute, Float> attributeModifiers;
 
 	protected String SVGString;
-	private String SVGStringDesaturated;
 
 	protected List<String> extraEffects;
 
@@ -7783,24 +7800,6 @@ public enum StatusEffect {
 				e.printStackTrace();
 			}
 			
-			if(needsDesaturated()) {
-				try {
-					InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/" + pathName + ".svg");
-					SVGStringDesaturated = Util.inputStreamToString(is);
-		
-					SVGStringDesaturated = SVGStringDesaturated.replaceAll("#ff2a2a", Colour.BASE_GREY.getShades()[0]);
-					SVGStringDesaturated = SVGStringDesaturated.replaceAll("#ff5555", Colour.BASE_GREY.getShades()[1]);
-					SVGStringDesaturated = SVGStringDesaturated.replaceAll("#ff8080", Colour.BASE_GREY.getShades()[2]);
-					SVGStringDesaturated = SVGStringDesaturated.replaceAll("#ffaaaa", Colour.BASE_GREY.getShades()[3]);
-					SVGStringDesaturated = SVGStringDesaturated.replaceAll("#ffd5d5", Colour.BASE_GREY.getShades()[4]);
-		
-					is.close();
-		
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-			
 		} else {
 			SVGString = "";
 		}
@@ -7820,10 +7819,6 @@ public enum StatusEffect {
 		return attributeModifiersList;
 	}
 	
-	protected boolean needsDesaturated() {
-		return false;
-	}
-
 	public abstract String applyEffect(GameCharacter target, int minutesPassed);
 
 	/**
@@ -7903,13 +7898,6 @@ public enum StatusEffect {
 	}
 
 	public String getSVGString(GameCharacter owner) {
-		return SVGString;
-	}
-	
-	public String getSVGStringDesaturated(GameCharacter owner) {
-		if(needsDesaturated()) {
-			return SVGStringDesaturated;
-		}
 		return SVGString;
 	}
 	

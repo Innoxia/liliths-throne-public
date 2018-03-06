@@ -649,7 +649,7 @@ public class SlaveDialogue {
 						return new ResponseSex("Side-by-side",
 								UtilText.parse(charactersPresent.get(0), charactersPresent.get(1), "Push [npc1.name] and [npc2.name] down onto all fours, side-by-side, and get ready to fuck them."),
 								null, null, null, null, null, null,
-								true, true,
+								true, false,
 								new SMDoggy(
 										Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
 										Util.newHashMapOfValues(

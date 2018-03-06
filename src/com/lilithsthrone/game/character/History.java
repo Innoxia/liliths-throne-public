@@ -120,6 +120,7 @@ Calm:
 			"You shouldn't be seeing this. x_x",
 			null),
 	
+	// Salaryman/woman - inspired by your work ethic, slaves earn 25% more money
 	OFFICE_WORKER(true,
 			false,
 			"office worker",
@@ -128,6 +129,7 @@ Calm:
 					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 2),
 					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 2))),
 	
+	// Student discount - 25% discount in all shops
 	STUDENT(true,
 			false,
 			"student",
@@ -135,6 +137,7 @@ Calm:
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 3))),
 
+	// Arcane Composition - All utility spells have double length
 	MUSICIAN(true,
 			false,
 			"musician",
@@ -143,6 +146,7 @@ Calm:
 					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 2),
 					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 1))),
 	
+	// In Control - Slaves gain obedience 10% faster
 	TEACHER(true,
 			false,
 			"teacher",
@@ -151,6 +155,7 @@ Calm:
 					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 5),
 					new Value<Attribute, Integer>(Attribute.MANA_MAXIMUM, 10))),
 	
+	// Diary - You keep a diary and do your best to learn from past mistakes +15% xp gains
 	WRITER(true,
 			false,
 			"writer",
@@ -158,6 +163,7 @@ Calm:
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 5))),
 	
+	// Fine Taste - Doubles all potion effects
 	CHEF(true,
 			false,
 			"chef",
@@ -167,6 +173,7 @@ Calm:
 					new Value<Attribute, Integer>(Attribute.RESISTANCE_FIRE, 10),
 					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 10))),
 	
+	// Combat Drill - You ignore all initiative modifiers and always strike first. 
 	SOLDIER(true,
 			false,
 			"soldier",
@@ -175,7 +182,8 @@ Calm:
 					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
 					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 10),
 					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 20))),
-
+	
+	// 10-second barrier - Always escape on first try
 	ATHLETE(true,
 			false,
 			"athlete",
@@ -183,6 +191,7 @@ Calm:
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 15))),
 	
+	// Special maid outfit effects (make it OP as fuck)
 	MAID(true,
 			false,
 			"maid",
@@ -195,6 +204,7 @@ Calm:
 		}
 	},
 	
+	// Special butler outfit effects (make it OP as fuck)
 	BUTLER(true,
 			false,
 			"butler",

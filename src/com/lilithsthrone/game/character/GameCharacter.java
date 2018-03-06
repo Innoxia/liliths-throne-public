@@ -225,7 +225,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	/** String is character ID*/
 	private Map<String, Float> affectionMap;
 	
-
+	
 	// Pregnancy:
 	protected long timeProgressedToFinalPregnancyStage;
 	protected List<PregnancyPossibility> potentialPartnersAsMother, potentialPartnersAsFather;
@@ -1532,14 +1532,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		if(isRaceConcealed()) {
 			return SVGImages.SVG_IMAGE_PROVIDER.getRaceUnknown();
 		} else {
-			return getSubspecies().getMapIcon(this);
+			return getSubspecies().getSVGString(this);
 		}
 	}
 	public String getHomeMapIcon() {
 		if(isRaceConcealed()) {
 			return SVGImages.SVG_IMAGE_PROVIDER.getRaceUnknown();
 		} else {
-			return getSubspecies().getHomeMapIcon(this);
+			return getSubspecies().getSVGStringDesaturated(this);
 		}
 	}
 
@@ -2364,6 +2364,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 
 	public float getAttributeValue(Attribute att) {
+		if(!Main.game.isInNewWorld() && att == Attribute.MAJOR_ARCANE) {
+			return 0;
+		}
+		
 		float value = getBaseAttributeValue(att) + getBonusAttributeValue(att);
 		
 		if (att == Attribute.HEALTH_MAXIMUM || att == Attribute.MANA_MAXIMUM) {
@@ -2381,7 +2385,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			return value;
 		}
 
-		return value;
+		return ((int)(value * 100))/100f;
 	}
 
 	public String setAttribute(Attribute att, float value) {
@@ -2416,7 +2420,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		attributes.put(att, value);
 		
 		if(isPlayer() && appendAttributeChangeText) {
-			Main.game.addEvent(new EventLogEntryAttributeChange(att, increment, true), !Main.game.isInSex());
+			Main.game.addEvent(new EventLogEntryAttributeChange(att, ((int)(increment * 100))/100f, true), !Main.game.isInSex());
 		}
 
 		// Increment health, mana and stamina based on the change:
@@ -2425,7 +2429,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 		updateAttributeListeners();
 		
-		return att.getAttributeChangeText(this, increment);
+		return att.getAttributeChangeText(this, ((int)(increment * 100))/100f);
 	}
 
 
@@ -2541,7 +2545,18 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	public void resetPerksMap() {
-		perks.clear();
+		HashMap<Integer, Set<Perk>> currentPerks = new HashMap<>(perks);
+		
+		for(Entry<Integer, Set<Perk>> entry : currentPerks.entrySet()) {
+			Set<Perk> tooTiredToThink = new HashSet<>(entry.getValue());
+			for(Perk p : tooTiredToThink) {
+				this.removePerk(entry.getKey(), p);
+			}
+		}
+		
+		calculateSpecialAttacks();
+		
+		updateAttributeListeners();
 
 		this.addPerk(Perk.PHYSICAL_BASE);
 		this.addPerk(Perk.ARCANE_BASE);
@@ -8012,6 +8027,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	 */
 
 	public List<SpecialAttack> getSpecialAttacks() {
+		calculateSpecialAttacks();
 		List<SpecialAttack> tempListSpecialAttacks = new ArrayList<>(specialAttacks);
 		tempListSpecialAttacks.sort(Comparator.comparingInt(SpecialAttack::getRenderingPriority));
 		return tempListSpecialAttacks;
@@ -8021,11 +8037,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public void calculateSpecialAttacks() {
 		specialAttacks.clear();
 
-		for (SpecialAttack sAttack : SpecialAttack.values())
-			if (sAttack.isConditionsMet(this))
+		for (SpecialAttack sAttack : SpecialAttack.values()) {
+			if (sAttack.isConditionsMet(this)) {
 				specialAttacks.add(sAttack);
-
-		updateAttributeListeners();
+			}
+		}
 	}
 
 	/**
@@ -11181,6 +11197,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	public String setHandNailPolish(Covering nailPolish) {
 		body.getCoverings().put(nailPolish.getType(), nailPolish);
+		postTransformationCalculation();
+		
 		if(isPlayer()) {
 			if(nailPolish.getPattern()==CoveringPattern.NONE) {
 				return "<p>"
@@ -11746,6 +11764,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	public String setEyeLiner(Covering eyeLiner) {
 		body.getCoverings().put(eyeLiner.getType(), eyeLiner);
+		postTransformationCalculation();
+		
 		if(isPlayer()) {
 			if(eyeLiner.getPattern()==CoveringPattern.NONE) {
 				return "<p>"
@@ -11774,6 +11794,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	public String setEyeShadow(Covering eyeShadow) {
 		body.getCoverings().put(eyeShadow.getType(), eyeShadow);
+		postTransformationCalculation();
+		
 		if(isPlayer()) {
 			if(eyeShadow.getPattern()==CoveringPattern.NONE) {
 				return "<p>"
@@ -11904,6 +11926,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	public String setLipstick(Covering lipstick) {
 		body.getCoverings().put(lipstick.getType(), lipstick);
+		postTransformationCalculation();
+		
 		if(isPlayer()) {
 			if(lipstick.getPattern()==CoveringPattern.NONE) {
 				return "<p>"
@@ -11932,6 +11956,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	public String setBlusher(Covering blusher) {
 		body.getCoverings().put(blusher.getType(), blusher);
+		postTransformationCalculation();
+		
 		if(isPlayer()) {
 			if(blusher.getPattern()==CoveringPattern.NONE) {
 				return "<p>"
@@ -12126,13 +12152,15 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				return "<p>"
 							+ "You let out a little gasp as your [pc.hair] "+(getHairType().isDefaultPlural()?"change":"changes")+" colour.</br>"
 							+ "You now have [style.boldTfGeneric([pc.hairFullDescription])]."
-						+ "</p>";
+						+ "</p>"
+						+ postTransformationCalculation();
 			} else {
 				return UtilText.parse(this,
 						"<p>"
 							+ "[npc.Name] lets out a little gasp as [npc.her] [npc.hair] "+(getHairType().isDefaultPlural()?"change":"changes")+" colour.</br>"
 							+ "[npc.She] now has [style.boldTfGeneric([npc.hairFullDescription])]."
-						+ "</p>");
+						+ "</p>"
+						+ postTransformationCalculation());
 			}
 		}
 		
@@ -12227,6 +12255,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	public String setFootNailPolish(Covering nailPolish) {
 		body.getCoverings().put(nailPolish.getType(), nailPolish);
+		postTransformationCalculation();
+		
 		if(isPlayer()) {
 			if(nailPolish.getPattern()==CoveringPattern.NONE) {
 				return "<p>"
@@ -12715,14 +12745,16 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 								+ "The " + coveringType.getName(this) + " on your " + Util.stringsToStringList(affectedParts, false) + " suddenly start" + (coveringType.isDefaultPlural() ? "" : "s") + " to itch, and you let out a startled cry as "
 								+ (coveringType.isDefaultPlural() ? "they begin" : "it begins") + " to change colour.</br>"
 								+ "You now have "+covering.getFullDescription(this, true)+"."
-							+ "</p>";
+							+ "</p>"
+							+ postTransformationCalculation();
 				} else {
 					return UtilText.parse(this,
 							"<p>"
 								+ "[npc.Name] feels the " + coveringType.getName(this) + " on [npc.her] " + Util.stringsToStringList(affectedParts, false) + " suddenly start to itch, and [npc.she] lets out a startled cry as "
 								+ (coveringType.isDefaultPlural() ? "they begin" : "it begins") + " to change colour.</br>"
 								+ "[npc.She] now has "+covering.getFullDescription(this, true)+"."
-							+ "</p>");
+							+ "</p>"
+							+ postTransformationCalculation());
 				}
 			}
 		}

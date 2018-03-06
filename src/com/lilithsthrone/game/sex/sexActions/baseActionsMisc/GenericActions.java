@@ -233,7 +233,7 @@ public class GenericActions {
 	
 	public static final SexAction PLAYER_RESIST = new SexAction(
 			SexActionType.PLAYER,
-			ArousalIncrease.NEGATIVE,
+			ArousalIncrease.NEGATIVE_MINOR,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
@@ -869,7 +869,7 @@ public class GenericActions {
 	
 	public static final SexAction PARTNER_RESIST = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.NEGATIVE,
+			ArousalIncrease.NEGATIVE_MINOR,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
