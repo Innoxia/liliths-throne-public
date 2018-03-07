@@ -10,6 +10,10 @@ public enum CoveringModifier {
 	EYE("eye"),
 	FLUID("fluid"),
 	MAKEUP("makeup"),
+	GLOSSY("glossy"),
+	MATTE("matte"),
+	SPARKLY("sparkly"),
+	METALLIC("metallic"),
 	
 	SHORT("short"),
 	SILKEN("silken"),
