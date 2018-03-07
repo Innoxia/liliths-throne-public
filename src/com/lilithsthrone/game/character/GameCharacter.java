@@ -7936,7 +7936,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						:this.alcoholLevel>=0.3f
 						?"very dizzy and light headed as the alcohol quickly enters your system."
 						:this.alcoholLevel>=0.15f?"dizzy and light headed as the alcohol quickly enters your system."
-						:this.alcoholLevel>=0.05f?"":"a little dizzy and light headed as the alcohol quickly enters your system.")
+						:"a little dizzy and light headed as the alcohol quickly enters your system.")
 						+"</br>"
 						+ "Your [style.boldAlcohol(intoxication level)] is now at "+((int)(this.alcoholLevel*100))/100f+"%"
 					+ "</p>";
@@ -7951,9 +7951,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						:this.alcoholLevel>=0.3f
 						?"very dizzy and light headed as the alcohol quickly enters [npc.her] system."
 						:this.alcoholLevel>=0.15f?"dizzy and light headed as the alcohol quickly enters [npc.her] system."
-						:this.alcoholLevel>=0.05f?"":"a little dizzy and light headed as the alcohol quickly enters [npc.her] system."))
+						:"a little dizzy and light headed as the alcohol quickly enters [npc.her] system."))
 					+"</br>"
-					+ "Your [style.boldAlcohol(intoxication level)] is now at "+((int)(this.alcoholLevel*100))/100f+"%"
+					+ "[npc.Name]'s [style.boldAlcohol(intoxication level)] is now at "+((int)(this.alcoholLevel*100))/100f+"%"
 				+ "</p>";
 		}
 	}

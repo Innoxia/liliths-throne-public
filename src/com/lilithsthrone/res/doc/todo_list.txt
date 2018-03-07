@@ -40,6 +40,8 @@
 		Fixed 'Blog' and 'Github' buttons in the options menu causing the game to hang on Linux systems. (picobyte)
 		Fixed the 'Witch's Toy' sex scene (after losing to the Cultist) not working. (Master of Puppets)
 		Typo fixes. (Woeful Wombat)
+		Added glossy, matte, metallic, and sparkly modifiers to makeup. (Master of Puppets)
+		Fixed dirty clothing icon not showing for clothing in inventory. (picobyte)
 	
 	Bugs:
 		<b>Fixed:</b> Huge bug where sex actions belonging to your partner would be available for you to use.
@@ -60,6 +62,7 @@
 		Fixed some bugs in Karl & Wolfgang's sex scene.
 		Fixed NPC ordering in sex scenes not matching intended order.
 		Fixed thighs not being detected as a plural.
+		Fixed NPC's alcohol intake message.
 	
 	
 	
@@ -76,11 +79,11 @@
 	Slimes
 	Imps
 	
-	[17:00]
+	[19:00]
 	
 	Submission
 	
-	[19:00]
+	[21:00]
 	
 	Lactation/Milking
 		breast growth/lactation from preg
@@ -88,7 +91,7 @@
 		Breast pumps
 		And milk leaking into bra/clothing if you have too much production. I might make that into a "max milk capacity"/"current milk" mechanic
 		
-	[23:00]
+	[01:00]
 	
 	Chair sex actions
 		"Rough Talk" with Kate is associated with the "Incest" fetish.
