@@ -573,12 +573,12 @@ public class Lab {
 						+ "[lilaya.speech(W-Well, these are random gifts, right? S-So it's probably not even going to be a kimono, b-but thank you anyway,)]"
 						+ " Lilaya says, placing the gift down on the table beside her, before pulling off the ribbon and wrapping paper."
 						+ " Lifting off the lid, your easily-embarrassed aunt fails to contain an excited little cry as she sees what's inside."
-						+ " Your suspicions as to what it is are proven correct, as she quickly lifts out a beautiful pink "+ClothingType.KIMONO_DRESS.getNamePlural()+", before turning and beaming at you in delight,"
+						+ " Your suspicions as to what it is are proven correct, as she quickly lifts out a beautiful pink "+ClothingType.KIMONO_DRESS.getNameSingular()+", before turning and beaming at you in delight,"
 						+ " [lilaya.speech(Thank you so, so much [pc.name]! This is the best Yuletide ever!)]"
 					+ "</p>"
 					+ "<p>"
 						+ "Before you can say anything, your demonic aunt leaps forwards and pulls you into the most loving hug yet; her [lilaya.breastSize] breasts squishing up against your body as she holds you close."
-						+ " After a moment, she then pulls back, and, placing the "+ClothingType.KIMONO_DRESS.getNamePlural()+" to one side, she waits to see what you'd like to discuss next."
+						+ " After a moment, she then pulls back, and, placing the "+ClothingType.KIMONO_DRESS.getNameSingular()+" to one side, she waits to see what you'd like to discuss next."
 					+ "</p>";
 				
 			} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.givenLilayaPresent2)) {
