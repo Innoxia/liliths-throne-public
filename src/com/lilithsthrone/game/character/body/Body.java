@@ -3260,7 +3260,7 @@ public class Body implements Serializable, XMLSaving {
 				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Its surface is always slimy, and the interior is constantly sloppy and ready for sex.</span>");
 				break;
 			case SIX_SOPPING_WET:
-				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>Its constantly sopping wet from natural lubrication and ready for penetration.</span>");
+				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It's constantly sopping wet from natural lubrication and ready for penetration.</span>");
 				break;
 			case SEVEN_DROOLING:
 				descriptionSB.append(" <span style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>It constantly drools with natural lubrication, and its sopping wet entrance is always ready for penetration.</span>");
