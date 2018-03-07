@@ -21,7 +21,6 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Attack;
-import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
@@ -330,7 +329,7 @@ public class DominionAlleywayAttacker extends NPC {
 	@Override
 	public Attack attackType() {
 		if(!getSpecialAttacks().isEmpty()) {
-			if (Math.random() < 0.2 && Combat.getTargetedCombatant(this).getLust()<100) {
+			if (Math.random() < 0.2) {
 				return Attack.SEDUCTION;
 			} else if (Math.random() < 0.8) {
 				return Attack.MAIN;
@@ -339,7 +338,7 @@ public class DominionAlleywayAttacker extends NPC {
 			}
 			
 		} else {
-			if (Math.random() < 0.7 || Combat.getTargetedCombatant(this).getLust()>=100) {
+			if (Math.random() < 0.7) {
 				return Attack.MAIN;
 			} else {
 				return Attack.SEDUCTION;

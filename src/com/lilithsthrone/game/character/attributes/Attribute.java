@@ -60,7 +60,7 @@ public enum Attribute {
 			"experience",
 			"Experience",
 			"experienceIcon",
-			Colour.DAMAGE_TYPE_STAMINA,
+			Colour.GENERIC_EXPERIENCE,
 			"learning",
 			"forgetfulness",
 			null) {

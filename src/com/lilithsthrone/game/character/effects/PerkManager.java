@@ -220,6 +220,8 @@ public enum PerkManager {
 			case PHYSICAL:
 				entryX = 100;
 				break;
+			case JOB:
+				break;
 		}
 		switch(siblingCategory) {
 			case ARCANE:
@@ -230,6 +232,8 @@ public enum PerkManager {
 				break;
 			case PHYSICAL:
 				siblingX = 100;
+				break;
+			case JOB:
 				break;
 		}
 		

@@ -10,16 +10,24 @@
 	Patch notes:
 	
 	
+	Combat:
+		When a character is suffering from the 'Desperate for sex' status effect, incoming lust damage is now converted to 2*Energy damage and 1*Aura Damage. (So a seduction attack that would deal 15 lust damage now deals 30 energy damage and 15 aura damage.)
+	
 	Sex:
+		<b>Improved:</b> NPCs should no longer insist on fingering you through the entirety of sex scenes, and should now prioritise penis/tail actions once they get past 25 arousal. They will still finger you during the 'foreplay' (under 25 arousal) section of sex.
 		Partners should no longer re-penetrate the player on the same turn that you stop them from penetrating you.
 		Halved the arousal reduction from the generic 'resist' action in sex.
 		Slaves should no longer be able to end sex in the side-by-side scene.
+		Obedient slaves and submissive NPCs will now always obey your requests to pull out or creampie you.
+		Added 'No request' reaction to partner orgasming.
 	
 	Other:
 		Slightly improved encyclopedia's race page to show subspecies.
 		Boosted lab assistant slave job income from 10 to 100 per hour.
 		Ordered colours in dye menu.
 		Fixed character having 40 arcane in the intro.
+		NPCs now tell you what they're trying to turn you into when they force TF potions on you.
+		Improved multiple-tab switching behaviour, so now you won't end up on a blank page of actions.
 	
 	Contributors:
 		Added throat capacity, elasticity, plasticity, and wetness to available enchantments. (CondingAnon)
@@ -30,6 +38,8 @@
 		Fixed import error caused by null values in PlayerCharacter's booksRead Set. (Master of Puppets)
 		Applied encoding compatibility for special characters. (CognitiveMist)
 		Fixed 'Blog' and 'Github' buttons in the options menu causing the game to hang on Linux systems. (picobyte)
+		Fixed the 'Witch's Toy' sex scene (after losing to the Cultist) not working. (Master of Puppets)
+		Typo fixes. (Woeful Wombat)
 	
 	Bugs:
 		<b>Fixed:</b> Huge bug where sex actions belonging to your partner would be available for you to use.
@@ -41,33 +51,60 @@
 		Fixed duplicated sex action appearing in slot 1 on second page of sex actions.
 		Fixed detection of subspecies not always being applied correctly (the game should now correctly detect whe you TF into a Dobermann-morph).
 		Fixed dog-morph status effect never showing up as a Dobermann-morph.
-		Fixed the 'Witch's Toy' sex scene (after losing to the Cultist) not working.
 		Stroke pussy and stroke cock now have the same associated corruption (vanilla).
 		Fixed but where resetting perk points would retain stat increases.
 		Typo fixes.
+		Vaginal tease is now only available when your targeted opponent has a vagina.
+		Fixed penis descriptors being applied globally.
+		Fixed 'Seductive look' in doggy style being available for all targeted partners.
+		Fixed some bugs in Karl & Wolfgang's sex scene.
+		Fixed NPC ordering in sex scenes not matching intended order.
+		Fixed thighs not being detected as a plural.
 	
 	
 	
 	
-	
-	
-	
-	post about plan & patreon vote
-		Submission
-		Slimes
-		Imps
-		Lactation
-	
-	remove add
+	PRs
 	
 	Finish History improvements
+		unique effects
+		
+	[14:00]
+	
+	Penis girth
+	
+	Slimes
+	Imps
+	
+	[17:00]
+	
+	Submission
+	
+	[19:00]
+	
+	Lactation/Milking
+		breast growth/lactation from preg
+		Fetishes
+		Breast pumps
+		And milk leaking into bra/clothing if you have too much production. I might make that into a "max milk capacity"/"current milk" mechanic
+		
+	[23:00]
 	
 	Chair sex actions
-		“Rough Talk" with Kate is associated with the “Incest" fetish.
+		"Rough Talk" with Kate is associated with the "Incest" fetish.
 	
+	Harpy OP flying move
+		Detect combat as melee
+		
+	Foot fetish
 	
+	Natural hair growth
 	
+	All targeting is completely messed up in multiple-partner sex
+	Tooltips, orgasm descriptions, available actions, everything
+	Orgasming seems broken until the targeted partner gets to 100
 	
+	if you have trap andro or trap feminine selected in gender preferences or both. You get human spawns in alleyways even if human spawns are disabled.
 	An NPC who "likes" "being raped", but doesn't have a fetish for it, still stays right at zero lust even if you aren't doing anything they dislike/hate. Is this intended?
 	There's an interrupting event for when a storm starts, but when it reaches the end it just stops with no fanfare. There really should be something to indicate that the storm has passed.
 	If you cum while giving an NPC doggy oral, you can cum on their back. You couldn't possibly do this while actually eating them out, of course, you'd have to stand up first.
@@ -75,13 +112,11 @@
 		 It might be nice to be able to do this without having to switch position manually, in fact. Based on how most positions work, however, this is a bug.
 	"and zero day later, she gave birth to"
 	
-	
 	sun dress
 	
-	Finish seduction combat stuff
-		when have status effect, seduction damage does 2* energy damage
-	
 	opt out of anal fingering
+	
+	 a "stomp" attack for reindeer leg
 	
 	notepad++ bugs
 	
@@ -117,20 +152,6 @@
 	
 	free enchantments?
 		: Another enchantment issue, if you have a pile of items with the same enchantment and it loads to the next one then it forgets to look for existing enchantments
-	
-	Not sure if this is a bug or not, but if you get a slave to be extremely obedient and you ask him to finish in your mouth he/she still pulls out
-		Make obedient slaves & psychoactive/submissive NPCs not pull out!!!!!!
-	
-	I've noticed after testing hours of being submissive with slaves, they will never use their penis for anal even with the anal fetish and dislikes/hate on all other actions. They get stuck in a loop of only wanting to finger you anally and do nothing else, I tested on 5 different slaves and adjusted their fetishes many times and never got one anal penis scene when I was being submissive.
-	sorry I should mention they do enjoy hotdogging aswell, but never penetration.
-	
-	: As Ninxx said, seems to be something going on that causes NPC's to not remove fingers from orifices once they're over the foreplay lust number and they instead start hotdogging or thigh sex.
-	
-	Just letting you know that when NPC's are being dominant, they absolutely refuse to anally penetrate PC.
-	 If they do not have Anal Fetish they will always prioritize hotdogging or thigh sex, if they have Anal Fetish they will 100% of the time do anal fingering instead of anal sex.
-	  I imagine it's because both anal and anal fingering are now linked under the same fetish.
-	
-	As mentioned by others, there seems to be an awful lot of fingering and a notorious lack of actual dicking. Most likely due to anal and vaginal preference counting also for fingering
 	
 	 Secondly, I could select appropriate sex options for Karl, but when I switched to Wolfgang there were blank spots where the normal/eager buttons should have been.
 	

@@ -819,20 +819,20 @@ public enum Combat {
 		
 		if(attacker.isPlayer()) {
 			if(attacker.getMainWeapon() == null) {
-				attackStringBuilder.append("<p><b>You " + (critical ? "<b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>critically</b> hit for " : " hit for ") + damage + " <b style='color: "
+				attackStringBuilder.append("<p><b>You " + (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> hit for " : " hit for ") + damage + " <b style='color: "
 						+ Attribute.DAMAGE_PHYSICAL.getColour().toWebHexString() + ";'>" + Attribute.DAMAGE_PHYSICAL.getName() + "</b>!</b></p>");
 				
 			} else {
-				attackStringBuilder.append("<p><b>You " + (critical ? "<b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>critically</b> hit for " : " hit for ") + damage + " <b style='color: "
+				attackStringBuilder.append("<p><b>You " + (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> hit for " : " hit for ") + damage + " <b style='color: "
 						+ attacker.getMainWeapon().getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + attacker.getMainWeapon().getDamageType().getMultiplierAttribute().getName() + "</b>!</b></p>");
 			}
 		} else {
 			if(attacker.getMainWeapon() == null) {
-				attackStringBuilder.append("<p><b>You were " + (critical ? "<b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>critically</b> hit for " : " hit for ") + damage + " <b style='color: "
+				attackStringBuilder.append("<p><b>You were " + (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> hit for " : " hit for ") + damage + " <b style='color: "
 						+ Attribute.DAMAGE_PHYSICAL.getColour().toWebHexString() + ";'>" + Attribute.DAMAGE_PHYSICAL.getName() + "</b>!</b></p>");
 				
 			} else {
-				attackStringBuilder.append("<p><b>You were " + (critical ? "<b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>critically</b> hit for " : " hit for ") + damage + " <b style='color: "
+				attackStringBuilder.append("<p><b>You were " + (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> hit for " : " hit for ") + damage + " <b style='color: "
 						+ attacker.getMainWeapon().getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + attacker.getMainWeapon().getDamageType().getMultiplierAttribute().getName() + "</b>!</b></p>");
 			}
 		}
@@ -865,12 +865,12 @@ public enum Combat {
 
 		if(attacker.isPlayer()) {
 			attackStringBuilder.append("<p>"
-					+ "<b>You " + (critical ? "<b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>critically</b> " : "") +"hit for "+ damage + " <b style='color: "
+					+ "<b>You " + (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> " : "") +"hit for "+ damage + " <b style='color: "
 					+ damageAttribute.getColour().toWebHexString() + ";'>"
 					+ damageAttribute.getName() + "</b>!</b></p>");
 		} else {
 			attackStringBuilder.append("<p>"
-					+ "<b>You were " + (critical ? "<b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>critically</b> " : "") +"hit for "+ damage + " <b style='color: "
+					+ "<b>You were " + (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> " : "") +"hit for "+ damage + " <b style='color: "
 					+ damageAttribute.getColour().toWebHexString() + ";'>"
 					+ damageAttribute.getName() + "</b>!</b></p>");
 		}
@@ -907,7 +907,7 @@ public enum Combat {
 					damageOffhandAttribute = (attacker.getOffhandWeapon() == null ? Attribute.DAMAGE_PHYSICAL : attacker.getOffhandWeapon().getDamageType().getMultiplierAttribute());
 			
 			attackStringBuilder.append("<p>"
-					+ "<b>You " + (critical ? "<b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>critically</b> " : "") +"hit for "
+					+ "<b>You " + (critical ? "<b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>critically</b> " : "") +"hit for "
 					+ damageMain + " <b style='color: " + damageMainAttribute.getColour().toWebHexString() + ";'>" + damageMainAttribute.getName() + "</b>, and then again for "
 					+ damageOffhand + " <b style='color: " + damageOffhandAttribute.getColour().toWebHexString() + ";'>" + damageOffhandAttribute.getName() + "</b>!</b></p>");
 		} else {
@@ -949,42 +949,85 @@ public enum Combat {
 		boolean critical = false;//isCriticalHit(attacker);
 	
 		float lustDamage = Attack.calculateDamage(attacker, target, Attack.SEDUCTION, critical);
-		
-		if(attacker.isPlayer()) {
-			attackStringBuilder.append(UtilText.parse(target,
-					"<p>"
-						+ (critical
-								? "Your seductive display was <b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>extremely effective</b>!</br>"
-								: "")
-						+ (lustDamage > 0
-								? "<b>[npc.Name] gains " + lustDamage + " <b style='color:" + Colour.ATTRIBUTE_LUST.toWebHexString() + ";'>lust</b> as [npc.she] tries to resist your seductive display!</b></br>"
-								: "")
-					+ "</p>"));
-			
-		} else if(target.isPlayer()) {
-			attackStringBuilder.append(UtilText.parse(attacker,
-					"<p>"
-						+ (critical
-								? "[npc.Her] seductive display was <b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>extremely effective</b>!</br>"
-								: "")
-						+ (lustDamage > 0
-								? "<b>You gain " + lustDamage + " <b style='color:" + Colour.ATTRIBUTE_LUST.toWebHexString() + ";'>lust</b> as you try to resist [npc.her] seductive display!</b></br>"
-								: "")
-					+ "</p>"));
+
+		if(target.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
+			if(attacker.isPlayer()) {
+				attackStringBuilder.append(UtilText.parse(target,
+						"<p>"
+							+ (critical
+									? "Your seductive display was <b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>extremely effective</b>!</br>"
+									: "")
+							+ (lustDamage > 0
+									? "<b>[npc.Name] takes " + (lustDamage*2) + " <b style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>energy damage</b>"
+											+ " and "+lustDamage+" <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura damage</b> as [npc.she] struggles to control [npc.her] burning desire for sex!</b></br>"
+									: "")
+						+ "</p>"));
+				
+			} else if(target.isPlayer()) {
+				attackStringBuilder.append(UtilText.parse(attacker,
+						"<p>"
+							+ (critical
+									? "[npc.Her] seductive display was <b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>extremely effective</b>!</br>"
+									: "")
+							+ (lustDamage > 0
+									? "<b>You take " + (lustDamage*2) + " <b style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>energy damage</b>"
+										+ " and "+lustDamage+" <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura damage</b> as you struggle to control your burning desire for sex!</b></br>"
+									: "")
+						+ "</p>"));
+				
+			} else {
+				attackStringBuilder.append(UtilText.parse(attacker, target,
+						"<p>"
+							+ (critical
+									? "[npc1.Her] seductive display was <b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>extremely effective</b>!</br>"
+									: "")
+							+ (lustDamage > 0
+									? "<b>[npc2.Name] takes " + (lustDamage*2) + " <b style='color:" + Colour.ATTRIBUTE_HEALTH.toWebHexString() + ";'>energy damage</b>"
+										+ " and "+lustDamage+" <b style='color:" + Colour.ATTRIBUTE_MANA.toWebHexString() + ";'>aura damage</b> as [npc2.she] struggles to control [npc2.her] burning desire for sex!</b></br>"
+									: "")
+						+ "</p>"));
+			}
+
+			target.incrementHealth(-lustDamage*2);
+			target.incrementMana(-lustDamage);
 			
 		} else {
-			attackStringBuilder.append(UtilText.parse(attacker, target,
-					"<p>"
-						+ (critical
-								? "[npc1.Her] seductive display was <b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>extremely effective</b>!</br>"
-								: "")
-						+ (lustDamage > 0
-								? "<b>[npc2.Name] gains " + lustDamage + " <b style='color:" + Colour.ATTRIBUTE_LUST.toWebHexString() + ";'>lust</b> as [npc2.she] tries to resist [npc1.name]'s seductive display!</b></br>"
-								: "")
-					+ "</p>"));
+			if(attacker.isPlayer()) {
+				attackStringBuilder.append(UtilText.parse(target,
+						"<p>"
+							+ (critical
+									? "Your seductive display was <b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>extremely effective</b>!</br>"
+									: "")
+							+ (lustDamage > 0
+									? "<b>[npc.Name] gains " + lustDamage + " <b style='color:" + Colour.DAMAGE_TYPE_LUST.toWebHexString() + ";'>lust</b> as [npc.she] tries to resist your seductive display!</b></br>"
+									: "")
+						+ "</p>"));
+				
+			} else if(target.isPlayer()) {
+				attackStringBuilder.append(UtilText.parse(attacker,
+						"<p>"
+							+ (critical
+									? "[npc.Her] seductive display was <b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>extremely effective</b>!</br>"
+									: "")
+							+ (lustDamage > 0
+									? "<b>You gain " + lustDamage + " <b style='color:" + Colour.DAMAGE_TYPE_LUST.toWebHexString() + ";'>lust</b> as you try to resist [npc.her] seductive display!</b></br>"
+									: "")
+						+ "</p>"));
+				
+			} else {
+				attackStringBuilder.append(UtilText.parse(attacker, target,
+						"<p>"
+							+ (critical
+									? "[npc1.Her] seductive display was <b style='color: " + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>extremely effective</b>!</br>"
+									: "")
+							+ (lustDamage > 0
+									? "<b>[npc2.Name] gains " + lustDamage + " <b style='color:" + Colour.DAMAGE_TYPE_LUST.toWebHexString() + ";'>lust</b> as [npc2.she] tries to resist [npc1.name]'s seductive display!</b></br>"
+									: "")
+						+ "</p>"));
+			}
+			
+			target.incrementLust(lustDamage);
 		}
-
-		target.incrementLust(lustDamage);
 		
 		combatStringBuilder.append(getCharactersTurnDiv(attacker, "Seduction", attackStringBuilder.toString()));
 	}
@@ -1107,10 +1150,6 @@ public enum Combat {
 		} else {
 			// Calculate what attack to use based on NPC preference:
 			Attack opponentAttack = npc.attackType();
-			
-			if(opponentAttack == Attack.SEDUCTION && Combat.getTargetedCombatant(npc).getLust()>=100) {
-				opponentAttack = Attack.MAIN;
-			}
 
 			List<SpecialAttack> availableSAs = new ArrayList<>(npc.getSpecialAttacks());
 			for(SpecialAttack sa : npc.getSpecialAttacks()) {

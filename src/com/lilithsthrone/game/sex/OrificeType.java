@@ -113,6 +113,10 @@ public enum OrificeType {
 		public boolean isFree(GameCharacter owner) {
 			return Sex.isOrificeFree(owner, this);
 		}
+		@Override
+		public boolean isPlural() {
+			return true;
+		}
 	},
 	
 	URETHRA(1,

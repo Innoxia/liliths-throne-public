@@ -8,6 +8,7 @@ import java.util.Map;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
 /**
@@ -188,8 +189,12 @@ public enum TailType implements BodyPartTypeInterface {
 		return prehensile;
 	}
 
+	/**
+	 * Takes into account whether player has 'Allow furry tail penetrations' turned on or off.
+	 * @return
+	 */
 	public boolean isSuitableForPenetration() {
-		return suitableForPenetration;
+		return prehensile && (suitableForPenetration || Main.getProperties().furryTailPenetrationContent);
 	}
 	
 	private static Map<Race, List<TailType>> typesMap = new HashMap<>();

@@ -234,7 +234,7 @@ public enum Colour {
 	// Combat colours:
 	DAMAGE_TYPE_PHYSICAL(Util.newColour(0xFF428E), Util.newColour(0xFF428E), "red", Util.newArrayListOfValues(new ListValue<>("dmgPhysical"), new ListValue<>("resPhysical"))),
 	DAMAGE_TYPE_MANA(BaseColour.PURPLE_LIGHT, "purple", Util.newArrayListOfValues(new ListValue<>("dmgMana"), new ListValue<>("resMana"))),
-	DAMAGE_TYPE_STAMINA(Util.newColour(0x9999ff), Util.newColour(0x9999ff), "light purple", Util.newArrayListOfValues(new ListValue<>("dmgStamina"), new ListValue<>("resStamina"))),
+	DAMAGE_TYPE_LUST(BaseColour.MAGENTA, "magenta", Util.newArrayListOfValues(new ListValue<>("dmgLust"), new ListValue<>("resLust"))),
 	DAMAGE_TYPE_SPELL(Util.newColour(0xFF6BDA), Util.newColour(0xFF6BDA), "pink", Util.newArrayListOfValues(new ListValue<>("dmgSpell"), new ListValue<>("resSpell"))),
 	DAMAGE_TYPE_FIRE(Util.newColour(0xff9955), Util.newColour(0xff9955), "orange", Util.newArrayListOfValues(new ListValue<>("dmgFire"), new ListValue<>("resFire"))),
 	DAMAGE_TYPE_COLD(Util.newColour(0x85C6FF), Util.newColour(0x85C6FF), "blue", Util.newArrayListOfValues(new ListValue<>("dmgCold"), new ListValue<>("resCold"))),

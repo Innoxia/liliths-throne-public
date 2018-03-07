@@ -39,6 +39,7 @@ import com.lilithsthrone.game.KeyCodeWithModifiers;
 import com.lilithsthrone.game.KeyboardAction;
 import com.lilithsthrone.game.character.CharacterChangeEventListener;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.History;
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.Personality;
 import com.lilithsthrone.game.character.SexualOrientation;
@@ -1195,6 +1196,25 @@ public class MainController implements Initializable {
 			}
 		}
 		
+		
+		
+		
+		if(Main.game.getCurrentDialogueNode() == CharacterCreation.BACKGROUND_SELECTION_MENU) {
+			for(History history : History.values()) {
+				id = "HISTORY_"+history;
+				if (((EventTarget) document.getElementById(id)) != null) {
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+					addEventListener(document, id, "mouseenter", new TooltipInformationEventListener().setPerk(history.getAssociatedPerk(), Main.game.getPlayer()), false);
+					
+					((EventTarget) document.getElementById(id)).addEventListener("click", event -> {
+						Main.game.getPlayer().setHistory(history);
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+			
+			}
+		}
 		
 		
 		// -------------------- Inventory listeners -------------------- //
@@ -3811,16 +3831,26 @@ public class MainController implements Initializable {
 			}
 
 			for(Perk perk : Perk.values()) { //TODO
-				id = "TRAIT_"+perk;
-				if (((EventTarget) document.getElementById(id)) != null) {
-					addEventListener(document, id, "mousemove", moveTooltipListener, false);
-					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
-					addEventListener(document, id, "mouseenter", new TooltipInformationEventListener().setLevelUpPerk(PerkManager.MANAGER.getPerkRow(perk), perk, Main.game.getPlayer()), false);
+				if(perk.getPerkCategory() == PerkCategory.JOB) {
+					id = "HISTORY_"+perk;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						addEventListener(document, id, "mousemove", moveTooltipListener, false);
+						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+						addEventListener(document, id, "mouseenter", new TooltipInformationEventListener().setLevelUpPerk(0, perk, Main.game.getPlayer()), false);
+					}
 					
-					((EventTarget) document.getElementById(id)).addEventListener("click", event -> {
-						Main.game.getPlayer().removeTrait(perk);
-						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-					}, false);
+				} else {
+					id = "TRAIT_"+perk;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						addEventListener(document, id, "mousemove", moveTooltipListener, false);
+						addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+						addEventListener(document, id, "mouseenter", new TooltipInformationEventListener().setLevelUpPerk(PerkManager.MANAGER.getPerkRow(perk), perk, Main.game.getPlayer()), false);
+						
+						((EventTarget) document.getElementById(id)).addEventListener("click", event -> {
+							Main.game.getPlayer().removeTrait(perk);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
 				}
 			}
 			

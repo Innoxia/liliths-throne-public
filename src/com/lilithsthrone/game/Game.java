@@ -1535,6 +1535,7 @@ public class Game implements Serializable, XMLSaving {
 		for(int i=-1; i>-6; i--) {
 			if(currentDialogueNode.getResponseTabTitle(responseTab+i)!=null) {
 				responseTab+=i;
+				checkForResponsePage();
 				return true;
 			}
 		}
@@ -1545,6 +1546,7 @@ public class Game implements Serializable, XMLSaving {
 		for(int i=1; i<6; i++) {
 			if(currentDialogueNode.getResponseTabTitle(responseTab+i)!=null) {
 				responseTab+=i;
+				checkForResponsePage();
 				return true;
 			}
 		}
@@ -2613,6 +2615,7 @@ public class Game implements Serializable, XMLSaving {
 
 	public void setResponseTab(int responseTab) {
 		this.responseTab = responseTab;
+		checkForResponsePage();
 	}
 
 	public DialogueNodeOld getSavedDialogueNode() {

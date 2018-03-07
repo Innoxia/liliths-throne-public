@@ -18,12 +18,243 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.0
- * @version 0.1.99
+ * @version 0.2.1
  * @author Innoxia
  */
 public enum Perk {
 	
+	// NPC Histories:
+	
+	JOB_PROSTITUTE(20,
+			true,
+			"The oldest profession",
+			PerkCategory.JOB,
+			"perks/jobs/prostitute",
+			Colour.BASE_PINK,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 25),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 25)),
+			Util.newArrayListOfValues(new ListValue<>("[style.boldExcellent(Doubles)] all slave and self-prostitution income"))) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return ".";//TODO
+		}
+	},
+	
+	JOB_MUGGER(20,
+			true,
+			"Outlaw",
+			PerkCategory.JOB,
+			"perks/jobs/mugger",
+			Colour.BASE_CRIMSON,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 15),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 15)),
+			Util.newArrayListOfValues(new ListValue<>("[style.boldExcellent(Triples)] all mugging income"))) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return ".";//TODO
+		}
+	},
+	
+	// Player Histories:
+	
+	JOB_UNEMPLOYED(20,
+			true,
+			"NEET",
+			PerkCategory.JOB,
+			"perks/jobs/unemployed",
+			Colour.BASE_RED,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 2),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 5),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 5),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 5)),
+			Util.newArrayListOfValues(new ListValue<>("[style.boldExcellent(Boosts)] 'Well Rested' bonus"))) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "With so much free time on your hands, you've managed to improve yourself in several different ways."
+					+ " You also benefit from knowing exactly how best to relax, boosting the bonus you get from sleeping.";
+		}
+	},
+	
+	JOB_OFFICE_WORKER(20,
+			true,
+			"The Salaryman",
+			PerkCategory.JOB,
+			"perks/jobs/officeWorker",
+			Colour.BASE_BROWN,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.CRITICAL_DAMAGE, 50)),
+			Util.newArrayListOfValues(new ListValue<>("[style.boldExcellent(+25%)] all slave income"))) {
+		@Override
+		public String getName(GameCharacter owner) {
+			if(owner.isFeminine()) {
+				return "The Career Woman";
+			} else {
+				return "The Salaryman";
+			}
+		}
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "From your considerable office experience, you know exactly how to motivate those working beneath you."
+					+ " The stressful work environment has caused you to bottle up a lot of frustration, which manifests in increased critical damage.";
+		}
+	},
+	
+	JOB_STUDENT(20,
+			true,
+			"Student Discount",
+			PerkCategory.JOB,
+			"perks/jobs/student",
+			Colour.BASE_YELLOW,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MAJOR_ARCANE, 10)),
+			Util.newArrayListOfValues(new ListValue<>("[style.boldExcellent(25%)] discount in all stores"))) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Your student discount has never failed you before!"
+					+ " Along with a guaranteed 25% discount in all stores, you can be confident in your ability to quickly learn new things.";
+		}
+	},
+	
+	JOB_MUSICIAN(20,
+			true,
+			"Arcane Composition",
+			PerkCategory.JOB,
+			"perks/jobs/musician",
+			Colour.BASE_GREY,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 25)),
+			Util.newArrayListOfValues(new ListValue<>("[style.boldExcellent(Double)] length of all spell effects"))) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "You find that your abilities as a musician translate quite well into the art of seduction."
+					+ " You feel the same sort of rhythm in casting spells as you do with music, resulting in all of your spell effects lasting twice as long as usual.";
+		}
+	},
+	
+	JOB_TEACHER(20,
+			true,
+			"In Control",
+			PerkCategory.JOB,
+			"perks/jobs/teacher",
+			Colour.BASE_BLUE_LIGHT,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.SPELL_COST_MODIFIER, 10)),
+			Util.newArrayListOfValues(new ListValue<>("[style.boldExcellent(Triple)] all slave obedience gains"))) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "You know exactly how to deal with unruly students."
+					+ " Your ability to clearly understand and explain difficult subjects is reflected in a reduced cost of casting spells.";
+		}
+	},
+	
+	JOB_WRITER(20,
+			true,
+			"Meditations",
+			PerkCategory.JOB,
+			"perks/jobs/writer",
+			Colour.BASE_PURPLE,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.DAMAGE_SPELLS, 25)),
+			Util.newArrayListOfValues(new ListValue<>("[style.boldExcellent(+25%)] to all experience gains"))) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "You keep a diary of your personal thoughts and encounters, allowing you to reflect upon and learn from your experiences."
+					+ " Your keen interest in books also allows you to quickly read up on the most effective application of spells.";
+		}
+	},
+
+	JOB_CHEF(20,
+			true,
+			"Fine Taste",
+			PerkCategory.JOB,
+			"perks/jobs/chef",
+			Colour.BASE_ORANGE,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 50)),
+			Util.newArrayListOfValues(new ListValue<>("[style.boldExcellent(Double)] all temporary attribute-boosting effects from consumables and potions"))) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Thanks to spending a considerable amount of time tasting food, you have both a significant resistance to poison, as well as the ability to make the most of things that are a culinary marvel.";
+		}
+	},
+
+	JOB_SOLDIER(20,
+			true,
+			"Infantry Aggression",
+			PerkCategory.JOB,
+			"perks/jobs/soldier",
+			Colour.BASE_GREEN,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 10),
+					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 20),
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 25),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 25)),
+			Util.newArrayListOfValues(new ListValue<>("Your first strike in combat deals [style.boldExcellent(300%)] damage"))) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "You've spent a considerable amount of time training to fight, and as a result, you are far stronger and healthier than a normal person."
+					+ " Thanks to this training, you are also able to channel your aggression into your attacks.";
+		}
+	},
+
+	JOB_ATHLETE(20,
+			true,
+			"Ten-second barrier",
+			PerkCategory.JOB,
+			"perks/jobs/athlete",
+			Colour.BASE_TEAL,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 25)),
+			Util.newArrayListOfValues(new ListValue<>("All non-zero escape chances in combat are boosted to [style.boldExcellent(100%)]"))) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "You are a world-class sprinter, and have a guaranteed 100% success of escaping any combat situation where running away is an option.";
+		}
+	},
+
+	JOB_MAID(20,
+			true,
+			"Housekeeper",
+			PerkCategory.JOB,
+			"perks/jobs/maid",
+			Colour.BASE_PINK_LIGHT,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.DAMAGE_LUST, 5),
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5)),
+			Util.newArrayListOfValues(
+					new ListValue<>("[style.boldExcellent(Boosted)] Maid's set bonuses"),
+					new ListValue<>("[style.boldExcellent(Double)] slave income from maids and butlers"))) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "You are the perfect example of a hard-working maid, and while wearing a complete set of maid's clothes, the bonus that you receive is considerably boosted."
+					+ " You also know how to train butlers and other maids to be exceptional at their jobs.";
+		}
+	},
+
+	JOB_BUTLER(20,
+			true,
+			"Legacy of Jeeves",
+			PerkCategory.JOB,
+			"perks/jobs/butler",
+			Colour.BASE_BLUE_STEEL,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_LUST, 25),
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5)),
+			Util.newArrayListOfValues(
+					new ListValue<>("[style.boldExcellent(Boosted)] Butler's set bonuses"),
+					new ListValue<>("[style.boldExcellent(Double)] slave income from maids and butlers"))) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "You are the perfect example of a hard-working and composed butler, and while wearing a complete set of butler's clothes, the bonus that you receive is considerably boosted."
+					+ " You also know how to train maids and other butlers to be exceptional at their jobs.";
+		}
+	},
+	
 	// Physical:
+	
 	PHYSICAL_BASE(20,
 			false,
 			"natural fitness",
@@ -806,6 +1037,7 @@ public enum Perk {
 
 	private int renderingPriority;
 	protected String name;
+	private Colour colour;
 	private boolean major;
 
 	// Attributes modified by this Virtue:
@@ -819,10 +1051,12 @@ public enum Perk {
 
 	private List<String> modifiersList;
 
-	private Perk(int renderingPriority, boolean major, String name, PerkCategory perkCategory, String pathName, Colour colourShade, HashMap<Attribute, Integer> attributeModifiers, List<String> extraEffects) {
+	private Perk(int renderingPriority, boolean major, String name, PerkCategory perkCategory, String pathName, Colour colour, HashMap<Attribute, Integer> attributeModifiers, List<String> extraEffects) {
 
 		this.renderingPriority = renderingPriority;
 		this.name = name;
+		this.colour = colour;
+		
 		this.major = major;
 		
 		this.perkCategory = perkCategory;
@@ -837,11 +1071,11 @@ public enum Perk {
 					+ ".svg");
 			SVGString = Util.inputStreamToString(is);
 
-			SVGString = SVGString.replaceAll("#ff2a2a", colourShade.getShades()[0]);
-			SVGString = SVGString.replaceAll("#ff5555", colourShade.getShades()[1]);
-			SVGString = SVGString.replaceAll("#ff8080", colourShade.getShades()[2]);
-			SVGString = SVGString.replaceAll("#ffaaaa", colourShade.getShades()[3]);
-			SVGString = SVGString.replaceAll("#ffd5d5", colourShade.getShades()[4]);
+			SVGString = SVGString.replaceAll("#ff2a2a", colour.getShades()[0]);
+			SVGString = SVGString.replaceAll("#ff5555", colour.getShades()[1]);
+			SVGString = SVGString.replaceAll("#ff8080", colour.getShades()[2]);
+			SVGString = SVGString.replaceAll("#ffaaaa", colour.getShades()[3]);
+			SVGString = SVGString.replaceAll("#ffd5d5", colour.getShades()[4]);
 
 			is.close();
 
@@ -873,6 +1107,10 @@ public enum Perk {
 	
 	public String getName(GameCharacter owner) {
 		return name;
+	}
+
+	public Colour getColour() {
+		return colour;
 	}
 
 	public boolean isMajor() {

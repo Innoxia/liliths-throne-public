@@ -231,7 +231,7 @@ public enum SexPositionType {
 		@Override
 		public String getDescription() { //TODO
 			if(Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.DOGGY_ON_ALL_FOURS || Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND) {
-				return "You're down on all fours, presenting yourself to [npc.name], who's kneeling down behind you, eager to take advantage of your submissive position.";
+				return "You're down on all fours, submissively presenting yourself as you prepare to get fucked in the doggy-style position.";
 			} else if(Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.DOGGY_BEHIND) {
 				return "[npc.Name] is down on all fours, presenting [npc.herself] to you. You're kneeling down behind [npc.herHim], ready to take advantage of [npc.her] submissive position.";
 			} else {

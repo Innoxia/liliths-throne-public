@@ -23,6 +23,7 @@ import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -203,23 +204,29 @@ public class TooltipInformationEventListener implements EventListener {
 			tooltipSB.append("<div class='description'>" + levelUpPerk.getDescription(Main.game.getPlayer()) + "</div>");
 
 			if(levelUpPerk.isMajor()) {
-				if(!owner.hasPerkInTree(perkRow, levelUpPerk)) {
-					if(!PerkManager.MANAGER.isPerkAvailable(perkRow, levelUpPerk)) {
-						tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Purchasing requires a connecting perk or trait.</div>");
-					} else {
-						tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_MINOR_GOOD.toWebHexString()+";'>Click to purchase trait.</div>");
-					}
+				if(levelUpPerk.getPerkCategory()==PerkCategory.JOB) {
+					tooltipSB.append("<div class='subTitle' style='color:"+Colour.TRAIT.toWebHexString()+";'>Job-related trait cannot be removed.</div>");
+					
 				} else {
-					if(owner.getTraits().contains(levelUpPerk)) {
-						tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_MINOR_BAD.toWebHexString()+";'>Click to unequip trait.</div>");
-					} else {
-						if(owner.getTraits().size()==GameCharacter.MAX_TRAITS) {
-							tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Maximum traits activated.</div>");
+					if(!owner.hasPerkInTree(perkRow, levelUpPerk)) {
+						if(!PerkManager.MANAGER.isPerkAvailable(perkRow, levelUpPerk)) {
+							tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Purchasing requires a connecting perk or trait.</div>");
 						} else {
-							tooltipSB.append("<div class='subTitle' style='color:"+Colour.TRAIT.toWebHexString()+";'>Click to equip trait.</div>");
+							tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_MINOR_GOOD.toWebHexString()+";'>Click to purchase trait.</div>");
+						}
+					} else {
+						if(owner.getTraits().contains(levelUpPerk)) {
+							tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_MINOR_BAD.toWebHexString()+";'>Click to unequip trait.</div>");
+						} else {
+							if(owner.getTraits().size()==GameCharacter.MAX_TRAITS) {
+								tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Maximum traits activated.</div>");
+							} else {
+								tooltipSB.append("<div class='subTitle' style='color:"+Colour.TRAIT.toWebHexString()+";'>Click to equip trait.</div>");
+							}
 						}
 					}
 				}
+				
 			} else {
 				if(!owner.hasPerkInTree(perkRow, levelUpPerk)) {
 					if(!PerkManager.MANAGER.isPerkAvailable(perkRow, levelUpPerk)) {

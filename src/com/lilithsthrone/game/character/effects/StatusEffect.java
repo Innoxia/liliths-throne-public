@@ -6170,8 +6170,10 @@ public enum StatusEffect {
 			false,
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<String>("<b style='color: " + Colour.GENERIC_TERRIBLE.toWebHexString() + "'>All incoming damage is treated as</b> <b style='color:"+Colour.DAMAGE_TYPE_PURE.toWebHexString()+";'>pure damage</b>"
-							+"<b style='color: " + Colour.GENERIC_TERRIBLE.toWebHexString() + "'>, which ignores all resistances!</b>"))) {
+					new ListValue<String>("Incoming <b style='color:"+Colour.ATTRIBUTE_LUST.toWebHexString()+";'>Lust damage</b> dealt as"
+							+ " <b style='color:"+Colour.ATTRIBUTE_HEALTH.toWebHexString()+";'>2*Energy damage</b>"
+							+ " and <b style='color:"+Colour.ATTRIBUTE_MANA.toWebHexString()+";'>1*Aura damage</b>"),
+					new ListValue<String>("<b style='color: " + Colour.GENERIC_TERRIBLE.toWebHexString() + "'>Incoming damage ignores all resistances</b>"))) {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {

@@ -891,8 +891,13 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			CharacterUtils.appendToImportLog(log, "</br>Set playerKnowsName: "+character.isPlayerKnowsName());
 		}
 		if(element.getElementsByTagName("history").getLength()!=0) {
-			character.setHistory(History.valueOf(((Element)element.getElementsByTagName("history").item(0)).getAttribute("value")));
-			CharacterUtils.appendToImportLog(log, "</br>Set history: "+character.getHistory());
+			try {
+				character.setHistory(History.valueOf(((Element)element.getElementsByTagName("history").item(0)).getAttribute("value")));
+				CharacterUtils.appendToImportLog(log, "</br>Set history: "+character.getHistory());
+			} catch(Exception ex) {
+				character.setHistory(History.STUDENT);
+				CharacterUtils.appendToImportLog(log, "</br>History import failed. Set history to: "+character.getHistory());
+			}
 		}
 		if(element.getElementsByTagName("personality").getLength()!=0) {
 			String personality = ((Element)element.getElementsByTagName("personality").item(0)).getAttribute("value");
@@ -1763,15 +1768,24 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return history;
 	}
 
+	/**
+	 * Only player character gets job attribute bonuses.
+	 */
 	public void setHistory(History history) {
 		// Revert attributes from old History:
-		for (Attribute att : this.history.getAttributeModifiers().keySet())
-			incrementBonusAttribute(att, -this.history.getAttributeModifiers().get(att));
+		if(this.history.getAssociatedPerk()!=null && this.isPlayer()) {
+			for (Attribute att : this.history.getAssociatedPerk().getAttributeModifiers().keySet()) {
+				incrementBonusAttribute(att, -this.history.getAssociatedPerk().getAttributeModifiers().get(att));
+			}
+		}
 		this.history.revertExtraEffects(this);
 
 		// Implement attributes from new History:
-		for (Attribute att : history.getAttributeModifiers().keySet())
-			incrementBonusAttribute(att, history.getAttributeModifiers().get(att));
+		if(history.getAssociatedPerk()!=null && this.isPlayer()) {
+			for (Attribute att : history.getAssociatedPerk().getAttributeModifiers().keySet()) {
+				incrementBonusAttribute(att, history.getAssociatedPerk().getAttributeModifiers().get(att));
+			}
+		}
 		history.applyExtraEffects(this);
 
 		this.history = history;

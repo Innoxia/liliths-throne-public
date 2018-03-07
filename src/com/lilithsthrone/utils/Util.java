@@ -3,9 +3,9 @@ package com.lilithsthrone.utils;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -107,12 +107,13 @@ public class Util {
 	}
 
 	@SafeVarargs
-	public static <T, S> HashMap<T, S> newHashMapOfValues(Value<T, S>... values) {
-		HashMap<T, S> map = new HashMap<>();
+	public static <T, S> LinkedHashMap<T, S> newHashMapOfValues(Value<T, S>... values) {
+		LinkedHashMap<T, S> map = new LinkedHashMap<>();
 
-		for (Value<T, S> v : values)
+		for (Value<T, S> v : values) {
 			map.put(v.getKey(), v.getValue());
-
+		}
+		
 		return map;
 	}
 

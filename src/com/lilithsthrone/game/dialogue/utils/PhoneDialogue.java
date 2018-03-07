@@ -1722,6 +1722,10 @@ public class PhoneDialogue {
 					+ "</div>"
 					+ "<div class='container-full-width' style='padding:8px; text-align:center;'>"
 					+ "<h6 style='text-align:center;'>Active Traits</h6>");
+
+			UtilText.nodeContentSB.append("<div id='HISTORY_" + Main.game.getPlayer().getHistory().getAssociatedPerk() + "' class='square-button small' style='width:8%; display:inline-block; float:none; border:2px solid " + Colour.TRAIT.toWebHexString() + ";'>"
+					+ "<div class='square-button-content'>"+Main.game.getPlayer().getHistory().getAssociatedPerk().getSVGString()+"</div>"
+					+ "</div>");
 			
 			for(int i=0;i<GameCharacter.MAX_TRAITS;i++) {
 				Perk p = null;
