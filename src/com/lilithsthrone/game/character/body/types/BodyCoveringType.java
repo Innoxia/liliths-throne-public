@@ -1227,7 +1227,9 @@ public enum BodyCoveringType {
 			"eye shadow",
 			"eye shadow",
 			Util.newArrayListOfValues(
-					new ListValue<CoveringModifier>(CoveringModifier.MAKEUP)),
+					new ListValue<CoveringModifier>(CoveringModifier.MATTE),
+					new ListValue<CoveringModifier>(CoveringModifier.SPARKLY),
+					new ListValue<CoveringModifier>(CoveringModifier.METALLIC)),
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
@@ -1259,7 +1261,10 @@ public enum BodyCoveringType {
 			"lipstick",
 			"lipstick",
 			Util.newArrayListOfValues(
-					new ListValue<CoveringModifier>(CoveringModifier.MAKEUP)),
+					new ListValue<CoveringModifier>(CoveringModifier.GLOSSY),
+					new ListValue<CoveringModifier>(CoveringModifier.MATTE),
+					new ListValue<CoveringModifier>(CoveringModifier.SPARKLY),
+					new ListValue<CoveringModifier>(CoveringModifier.METALLIC)),
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
@@ -1310,7 +1315,9 @@ public enum BodyCoveringType {
 			"nail polish",
 			"nail polish",
 			Util.newArrayListOfValues(
-					new ListValue<CoveringModifier>(CoveringModifier.SMOOTH)),
+					new ListValue<CoveringModifier>(CoveringModifier.SMOOTH),
+					new ListValue<CoveringModifier>(CoveringModifier.SPARKLY),
+					new ListValue<CoveringModifier>(CoveringModifier.METALLIC)),
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
@@ -1361,7 +1368,9 @@ public enum BodyCoveringType {
 			"nail polish",
 			"nail polish",
 			Util.newArrayListOfValues(
-					new ListValue<CoveringModifier>(CoveringModifier.SMOOTH)),
+					new ListValue<CoveringModifier>(CoveringModifier.SMOOTH),
+					new ListValue<CoveringModifier>(CoveringModifier.SPARKLY),
+					new ListValue<CoveringModifier>(CoveringModifier.METALLIC)),
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
