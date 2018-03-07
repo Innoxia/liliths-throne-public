@@ -1731,7 +1731,10 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			return "You're a human, just like every other person in this world.";
+			if(target.isPlayer())
+				return "You're a human, just like every other person in this world.";
+			else
+				return "[npc.Name] is a human, just like every other person in this world.";
 		}
 
 		@Override
