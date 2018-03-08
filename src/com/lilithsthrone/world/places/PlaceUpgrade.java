@@ -16,21 +16,7 @@ import com.lilithsthrone.world.Cell;
  * @since 0.1.85
  * @version 0.1.97
  * @author Innoxia
- * @see Comment by LightC
- * This is a list of all upgradable room  in a enum as follow
- * -core room upgrade
- * -room color
- * -room name
- * -desc for purchase
- * -desc after purchase
- * -room desc
- * -install cost
- * -removal cost
- * -upkeep
- * -capacity
- * -affection gain
- * -obedience gain
- * 
+ *  
  */
 public enum PlaceUpgrade {
 	
