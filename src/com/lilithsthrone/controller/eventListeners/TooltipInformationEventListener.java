@@ -12,6 +12,7 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.LustLevel;
+import com.lilithsthrone.game.character.attributes.BladderLevel;
 import com.lilithsthrone.game.character.attributes.PhysiqueLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.AntennaType;
@@ -476,6 +477,11 @@ public class TooltipInformationEventListener implements EventListener {
 					currentAttributeStatusEffect = LustLevel.getLustLevelFromValue(owner.getAttributeValue(Attribute.LUST)).getRelatedStatusEffect();
 					minimumLevelValue = LustLevel.getLustLevelFromValue(owner.getAttributeValue(Attribute.LUST)).getMinimumValue();
 					maximumLevelValue = LustLevel.getLustLevelFromValue(owner.getAttributeValue(Attribute.LUST)).getMaximumValue();
+
+				} else if(attribute == Attribute.BLADDER) {
+					currentAttributeStatusEffect = BladderLevel.getBladderLevelFromValue(owner.getAttributeValue(Attribute.BLADDER)).getRelatedStatusEffect();
+					minimumLevelValue = BladderLevel.getBladderLevelFromValue(owner.getAttributeValue(Attribute.BLADDER)).getMinimumValue();
+					maximumLevelValue = BladderLevel.getBladderLevelFromValue(owner.getAttributeValue(Attribute.BLADDER)).getMaximumValue();
 				}
 				
 				

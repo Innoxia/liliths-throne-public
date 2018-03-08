@@ -17,6 +17,7 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.LustLevel;
+import com.lilithsthrone.game.character.attributes.BladderLevel;
 import com.lilithsthrone.game.character.attributes.PhysiqueLevel;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
@@ -324,7 +325,7 @@ public enum RenderingEngine {
 			
 			// Fill space:
 			for (int i = 24; i > Main.game.getPlayer().getBuybackStack().size(); i--) {
-				inventorySB.append("<div class='inventory-item-slot unequipped'></div>");
+				inventorySB.append("<div class='inventory-item-slot unequipped'><//div>");
 			}
 			
 		} else {
@@ -1411,7 +1412,13 @@ public enum RenderingEngine {
 						Colour.ATTRIBUTE_LUST,
 						character.getLust(),
 						100,
-						idPrefix + Attribute.LUST.getName()));
+						idPrefix + Attribute.LUST.getName())
+
+				+getAttributeBarHalf(BladderLevel.getBladderLevelFromValue(character.getBladder()).getRelatedStatusEffect().getSVGString(character),
+						Colour.ATTRIBUTE_BLADDER,
+						character.getBladder(),
+						100,
+						idPrefix + Attribute.BLADDER.getName()));
 		
 		panelSB.append("<hr style='border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+"; margin: 2px 0;'></hr>");
 		
@@ -1702,7 +1709,13 @@ public enum RenderingEngine {
 						Colour.ATTRIBUTE_LUST,
 						character.getLust(),
 						100,
-						idPrefix + Attribute.LUST.getName()));
+						idPrefix + Attribute.LUST.getName())
+
+				+getAttributeBar(BladderLevel.getBladderLevelFromValue(character.getBladder()).getRelatedStatusEffect().getSVGString(character),
+						Colour.ATTRIBUTE_BLADDER,
+						character.getBladder(),
+						100,
+						idPrefix + Attribute.BLADDER.getName()));
 		
 	
 							

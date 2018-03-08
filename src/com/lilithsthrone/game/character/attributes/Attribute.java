@@ -111,6 +111,25 @@ public enum Attribute {
 				}
 			},
 
+	BLADDER(0,
+			"bladder",
+			"Bladder",
+			"bladderIcon",
+			Colour.ATTRIBUTE_BLADDER,
+			"urge",
+			"releaved",
+			null) {
+				@Override
+				public String getDescription(GameCharacter owner) {
+					if(owner.isPlayer()) {
+						return "How urgently you need to pee. If your need is high this affects your actions.";
+					} else {
+						return UtilText.parse(owner,
+								"How urgently [npc.name] needs to pee. The higher [npc.her] need, the more likely [npc.she] will pee.");
+					}
+				}
+			},
+
 	MAJOR_PHYSIQUE(0,
 			"physique",
 			"Physique",

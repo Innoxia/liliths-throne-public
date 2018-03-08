@@ -116,6 +116,7 @@ public enum Colour {
 
 	ATTRIBUTE_AROUSAL(BaseColour.PINK_DEEP, "pink", Util.newArrayListOfValues(new ListValue<>("arousal"), new ListValue<>("ars"))),
 	ATTRIBUTE_LUST(BaseColour.MAGENTA, "magenta", Util.newArrayListOfValues(new ListValue<>("lust"), new ListValue<>("lst"), new ListValue<>("seduction"))),
+	ATTRIBUTE_BLADDER(BaseColour.YELLOW, "yellow", Util.newArrayListOfValues(new ListValue<>("bladder"), new ListValue<>("bldr"))),
 
 	//TODO
 	PHYSIQUE_STAGE_ZERO(BaseColour.MAGENTA, "magenta"),
@@ -161,6 +162,13 @@ public enum Colour {
 	LUST_STAGE_THREE(Util.newColour(0xFF61AB), Util.newColour(0xf94dff), "pink"),
 	LUST_STAGE_FOUR(Util.newColour(0xFF3377), Util.newColour(0xf824ff), "dark pink"),
 	LUST_STAGE_FIVE(Util.newColour(0xFF1A66), Util.newColour(0xf824ff), "dark pink"),
+
+	BLADDER_STAGE_ZERO(Util.newColour(0xfcffe2), Util.newColour(0xfcffe2), "yellow"),
+	BLADDER_STAGE_ONE(Util.newColour(0xfcffb8), Util.newColour(0xfcffb8), "yellow"),
+	BLADDER_STAGE_TWO(Util.newColour(0xf9ff93), Util.newColour(0xf9ff93), "yellow"),
+	BLADDER_STAGE_THREE(Util.newColour(0xfbf671), Util.newColour(0xfbf671), "yellow"),
+	BLADDER_STAGE_FOUR(Util.newColour(0xe8cb55), Util.newColour(0xe8cb55), "yellow"),
+	BLADDER_STAGE_FIVE(Util.newColour(0xe07b21), Util.newColour(0xe07b21), "orange"),
 
 	DESIRE_STAGE_ZERO(Util.newColour(0xB699FF), Util.newColour(0xfcb3ff), "purple"),
 	DESIRE_STAGE_ONE(Util.newColour(0xFF99D1), Util.newColour(0xfb80ff), "pink"),

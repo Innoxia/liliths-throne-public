@@ -25,6 +25,7 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.LustLevel;
+import com.lilithsthrone.game.character.attributes.BladderLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
@@ -8212,7 +8213,15 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public LustLevel getLustLevel() {
 		return LustLevel.getLustLevelFromValue(getAttributeValue(Attribute.LUST));
 	}
-	
+
+	public float getBladder() {
+		return getAttributeValue(Attribute.BLADDER);
+	}
+
+	public BladderLevel getBladderLevel() {
+		return BladderLevel.getBladderLevelFromValue(getAttributeValue(Attribute.BLADDER));
+	}
+
 	public String setLust(float lust) {
 		if (lust < 0) {
 			setAttribute(Attribute.LUST, 0, false);
@@ -8262,6 +8271,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	public boolean isSubmissive() {
 		return hasFetish(Fetish.FETISH_SUBMISSIVE);
+	}
+
+	public boolean needsToPee() {
+		return this.getAttributeValue(Attribute.BLADDER) > BladderLevel.FOUR_NEED_TO_GO.getMinimumValue();
 	}
 	
 	// Pregnancy:

@@ -15,6 +15,7 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.LustLevel;
+import com.lilithsthrone.game.character.attributes.BladderLevel;
 import com.lilithsthrone.game.character.attributes.PhysiqueLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.FluidType;
@@ -1317,9 +1318,237 @@ public enum StatusEffect {
 		}
 	},
 	
-	
-	
-	
+	// Bladder:
+	BLADDER_PERK_0(
+			100,
+			"drained",
+			"attBladder0",
+			Colour.BLADDER_STAGE_ZERO,
+			false,
+			null,
+			null) {
+
+		@Override
+		public String getName(GameCharacter target) {
+			return Util.capitaliseSentence(BladderLevel.ZERO_JUST_PEED.getName());
+		}
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "You've just taken a leak, you don't feel the need to go at all.";
+			} else {
+				return UtilText.parse(owner, "[npc.Name] just took a leak.");
+			}
+		}
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return BladderLevel.getBladderLevelFromValue(target.getAttributeValue(Attribute.BLADDER)) == BladderLevel.ZERO_JUST_PEED;
+		}
+
+		@Override
+		public boolean renderInEffectsPanel() {
+			return false;
+		}
+	},
+	BLADDER_PERK_1(
+			100,
+			"needless",
+			"attBladder1",
+			Colour.BLADDER_STAGE_ONE,
+			true,
+			null,
+			null) {
+
+		@Override
+		public String getName(GameCharacter target) {
+			return Util.capitaliseSentence(BladderLevel.ONE_RECENTLY_PEED.getName());
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "You peed recently, no need to go.";
+			} else {
+				return UtilText.parse(target, "[npc.Name] recently took a leak.");
+			}
+		}
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return BladderLevel.getBladderLevelFromValue(target.getAttributeValue(Attribute.BLADDER)) == BladderLevel.ONE_RECENTLY_PEED;
+		}
+
+		@Override
+		public boolean renderInEffectsPanel() {
+			return false;
+		}
+	},
+	BLADDER_PERK_2(
+			100,
+			"adjusted",
+			"attBladder2",
+			Colour.BLADDER_STAGE_TWO,
+			true,
+			null,
+			null) {
+
+		@Override
+		public String getName(GameCharacter target) {
+			return Util.capitaliseSentence(BladderLevel.TWO_PEED_A_WHILE_AGO.getName());
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "You peed a while ago, but you don't feel the need to go jus yet.";
+			} else {
+				return UtilText.parse(target, "[npc.Name] peed some time ago.");
+			}
+		}
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return BladderLevel.getBladderLevelFromValue(target.getAttributeValue(Attribute.BLADDER)) == BladderLevel.TWO_PEED_A_WHILE_AGO;
+		}
+
+		@Override
+		public boolean renderInEffectsPanel() {
+			return false;
+		}
+	},
+	BLADDER_PERK_3(
+			100,
+			"predisposed",
+			"attBladder3",
+			Colour.BLADDER_STAGE_THREE,
+			true,
+			null,
+			null) {
+
+		@Override
+		public String getName(GameCharacter target) {
+			return Util.capitaliseSentence(BladderLevel.THREE_MAY_WANT_TO_GO.getName());
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "You peed a while ago, you're starting to feel the need to go again.";
+			} else {
+				return UtilText.parse(target, "[npc.Name] could go to the toilet.");
+			}
+		}
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return BladderLevel.getBladderLevelFromValue(target.getAttributeValue(Attribute.BLADDER)) == BladderLevel.THREE_MAY_WANT_TO_GO;
+		}
+
+		@Override
+		public boolean renderInEffectsPanel() {
+			return false;
+		}
+	},
+	BLADDER_PERK_4(
+			100,
+			"urged",
+			"attBladder4",
+			Colour.BLADDER_STAGE_FOUR,
+			true,
+			null,
+			null) {
+
+		@Override
+		public String getName(GameCharacter target) {
+			return Util.capitaliseSentence(BladderLevel.FOUR_NEED_TO_GO.getName());
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "You need to go, better go find a toilet, or you may just have an accident.";
+			} else {
+				return UtilText.parse(target, "[npc.Name] is looking for a toilet.");
+			}
+		}
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return BladderLevel.getBladderLevelFromValue(target.getAttributeValue(Attribute.BLADDER)) == BladderLevel.FOUR_NEED_TO_GO;
+		}
+
+		@Override
+		public boolean renderInEffectsPanel() {
+			return false;
+		}
+	},
+	BLADDER_PERK_5(
+			100,
+			"bursting",
+			"attBladder5",
+			Colour.BLADDER_STAGE_FIVE,
+			true,
+			null,
+			null) {
+
+		@Override
+		public String getName(GameCharacter target) {
+			return Util.capitaliseSentence(BladderLevel.FIVE_BARELY_HOLD_IT.getName());
+		}
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "You barely can hold your bladder! Maybe you should just do it here?";
+			} else {
+				return "[npc.Name] really needs to go pee, [npc.she] just decided to remove [npc.her] clothing and do it here.";
+			}
+		}
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return BladderLevel.getBladderLevelFromValue(target.getAttributeValue(Attribute.BLADDER)) == BladderLevel.FIVE_BARELY_HOLD_IT;
+		}
+
+		@Override
+		public boolean renderInEffectsPanel() {
+			return false;
+		}
+	},
+
+
 	// STANDARD EFFECTS:
 	
 	WEATHER_PROLOGUE(100,
