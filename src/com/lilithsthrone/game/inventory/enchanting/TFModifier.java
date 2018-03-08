@@ -1168,8 +1168,8 @@ public enum TFModifier {
 	}
 	
 	private TFModifier(Fetish f) {
-		this.name = f.getName(null);
-		this.description = "Applies an effect related to the "+name+" fetish.";
+		this.name = f.getName(null);		
+		this.description = "Applies an effect related to the "+name+" fetish.("+f.getShortDescriptor()+")";
 		this.descriptor = name;
 		this.rarity = Rarity.EPIC;
 		this.colour = Colour.FETISH;
