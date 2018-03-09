@@ -942,6 +942,15 @@ public class GenericActions {
 						"Begging for you to leave [npc.herHim] alone, [npc.name] desperately struggles against you, [npc.sobbing] in distress as you easily hold [npc.herHim] in place.");
 			}
 		}
+		
+		@Override
+		public List<Fetish> getFetishes(GameCharacter character) {
+			if(character.isPlayer()) {
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM));
+			} else {
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_SUB));
+			}
+		}
 	};
 	
 	public static final SexAction PARTNER_STOP_PLAYER_SELF = new SexAction(
