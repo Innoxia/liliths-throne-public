@@ -88,11 +88,18 @@ public class World implements Serializable, XMLSaving {
 			newGrid[c.getLocation().getX()][c.getLocation().getY()] = c;
 		}
 		
+		WorldType type = WorldType.EMPTY;
+		if(parentElement.getAttribute("worldType").equals("SEWERS")) {
+			type = WorldType.SUBMISSION;
+		} else {
+			type = WorldType.valueOf(parentElement.getAttribute("worldType"));
+		}
+		
 		World world = new World(
 				Integer.valueOf(parentElement.getAttribute("width")),
 				Integer.valueOf(parentElement.getAttribute("height")),
 				newGrid,
-				WorldType.valueOf(parentElement.getAttribute("worldType")));
+				type);
 		
 		for(int i=0; i<((Element) parentElement.getElementsByTagName("placesOfInterest").item(0)).getElementsByTagName("entry").getLength(); i++){
 			Element e = (Element) ((Element) parentElement.getElementsByTagName("placesOfInterest").item(0)).getElementsByTagName("entry").item(i);

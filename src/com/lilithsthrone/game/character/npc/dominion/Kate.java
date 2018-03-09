@@ -306,10 +306,6 @@ public class Kate extends NPC {
 	public Attack attackType() {
 		return null;
 	}
-	@Override
-	public int getExperienceFromVictory() {
-		return 0;
-	}
 	
 	@Override
 	public String getItemUseEffects(AbstractItem item, GameCharacter user, GameCharacter target){

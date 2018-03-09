@@ -22,10 +22,12 @@ import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.world.WorldType;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.1.96
+ * @version 0.2.1
  * @author Innoxia
  */
 public class CityPlaces {
@@ -565,11 +567,11 @@ public class CityPlaces {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Submission", "Enter the undercity of Submission. (This will be added after the first chapter of the story is complete!)", null){
-//					@Override
-//					public void specialEffects() {
-//						Main.mainController.moveGameWorld(true);
-//					}
+				return new ResponseEffectsOnly("Submission", "Enter the undercity of Submission."){
+					@Override
+					public void effects() {
+						Main.mainController.moveGameWorld(WorldType.SUBMISSION, PlaceType.SUBMISSION_ENTRANCE, true);
+					}
 				};
 
 			} else {

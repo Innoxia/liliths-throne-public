@@ -81,8 +81,16 @@ public class Cell implements Serializable, XMLSaving {
 	}
 	
 	public static Cell loadFromXML(Element parentElement, Document doc) {
+		
+		WorldType type = WorldType.EMPTY;
+		if(parentElement.getAttribute("worldType").equals("SEWERS")) {
+			type = WorldType.SUBMISSION;
+		} else {
+			type = WorldType.valueOf(parentElement.getAttribute("worldType"));
+		}
+		
 		Cell cell = new Cell(
-				WorldType.valueOf(parentElement.getAttribute("worldType")),
+				type,
 				new Vector2i(
 					Integer.valueOf(((Element)parentElement.getElementsByTagName("location").item(0)).getAttribute("x")),
 					Integer.valueOf(((Element)parentElement.getElementsByTagName("location").item(0)).getAttribute("y"))));

@@ -1317,7 +1317,7 @@ public class CharacterCreation {
 						+ "<p>"
 							+ "[prologueMale.speech(Hah! You know Arthur? I'm here by his invitation. He and I go way back,)]"
 							+ " the man cheerly replies, his smile causing your heart to race,"
-							+ " [prologueMale.speech(I'm [prologueMale.name] by the way, pleased you meet you "+(Main.game.getPlayer().isFeminine()?"Ms. ...?":"Mr. ...?")+")]"
+							+ " [prologueMale.speech(I'm [prologueMale.name] by the way, pleased to meet you "+(Main.game.getPlayer().isFeminine()?"Ms. ...?":"Mr. ...?")+")]"
 						+ "</p>"
 						+ "<p>"
 							+ "[pc.speech(Likewise,)] you respond, shaking his offered hand while trying not to think of how powerful and dominant his grip is, [pc.speech(I'm [pc.Name].)]"
@@ -1354,7 +1354,7 @@ public class CharacterCreation {
 						+ "<p>"
 							+ "[prologueFemale.speech(Oh! You know Arthur? I'm here by his invitation, actually. He and I go way back,)]"
 							+ " the woman cheerly replies, her smile causing your heart to race,"
-							+ " [prologueFemale.speech(I'm [prologueFemale.name] by the way, pleased you meet you "+(Main.game.getPlayer().isFeminine()?"Ms. ...?":"Mr. ...?")+")]"
+							+ " [prologueFemale.speech(I'm [prologueFemale.name] by the way, pleased to meet you "+(Main.game.getPlayer().isFeminine()?"Ms. ...?":"Mr. ...?")+")]"
 						+ "</p>"
 						+ "<p>"
 							+ "[pc.speech(Likewise,)] you respond, shaking her offered hand while trying not to think of how soft and delicate her skin is, [pc.speech(I'm [pc.Name].)]"
@@ -1387,25 +1387,82 @@ public class CharacterCreation {
 					}
 				};
 				
-			} else if (index <= History.getAvailableHistories(Main.game.getPlayer()).size()) {
-				return new Response(Util.capitaliseSentence(History.getAvailableHistories(Main.game.getPlayer()).get(index - 1).getName()),
-						History.getAvailableHistories(Main.game.getPlayer()).get(index - 1).getDescriptionPlayer()
-						+ (History.getAvailableHistories(Main.game.getPlayer()).get(index - 1).getModifiersAsStringList().length() == 0
-							? ""
-							: "</br>" + History.getAvailableHistories(Main.game.getPlayer()).get(index - 1).getModifiersAsStringList()), CHOOSE_SEX_EXPERIENCE){
-					@Override
-					public void effects() {
-						Main.game.getPlayer().setHistory(History.getAvailableHistories(Main.game.getPlayer()).get(index - 1));
-						// Remove attribute gain sentences in the start game screen:
-						Main.game.clearTextEndStringBuilder();
-					}
-				};
+			} else if (index == 1) {
+				return new Response("Select Job", "Proceed to the job selection screen.", BACKGROUND_SELECTION_MENU);
 				
 			} else {
 				return null;
 			}
 		}
 	};
+	
+	public static final DialogueNodeOld BACKGROUND_SELECTION_MENU = new DialogueNodeOld("In the Museum", "-", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append("<div class='container-full-width'>"
+									+ "<h6 style='text-align:center'>Job Selection</h6>"
+									+ "<p style='text-align:center'>Click on the icon next to the job that you'd like, and then choose 'Continue'.</p>"
+								+ "</div>");
+
+			UtilText.nodeContentSB.append("<div class='container-full-width'>");
+				int i=0;
+				for(History history : History.getAvailableHistories(Main.game.getPlayer())) {
+					if(i%2==0) {
+						UtilText.nodeContentSB.append("<div class='container-full-width'>");
+					}
+					UtilText.nodeContentSB.append(
+							"<div class='container-half-width'>"
+								+"<div class='container-full-width' style='margin:0 8px; width: calc(25% - 16px);'>"
+									+ "<div id='HISTORY_" + history + "' class='fetish-icon full" + (Main.game.getPlayer().getHistory()==history
+										? " owned' style='border:2px solid " + Colour.GENERIC_GOOD.toWebHexString() + ";'>"
+										: " unlocked' style='border:2px solid " + Colour.TEXT_GREY.toWebHexString() + ";" + "'>")
+										+ "<div class='fetish-icon-content'>"+history.getAssociatedPerk().getSVGString()+"</div>"
+									+ "</div>"
+								+ "</div>"
+								+"<div class='container-full-width' style='margin:0 8px; width: calc(75% - 16px);'>"
+									+ "<h6 style='color:"+history.getAssociatedPerk().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(history.getName())+"</h6>"
+									+ "<p>"
+										+ history.getDescriptionPlayer()
+									+ "</p>"
+								+ "</div>"
+							+ "</div>");
+					if(i%2!=0) {
+						UtilText.nodeContentSB.append("</div>");
+					}
+					i++;
+				}
+				if(i%2!=0) {
+					UtilText.nodeContentSB.append("</div>");
+				}
+			UtilText.nodeContentSB.append("</div>");
+			
+			return UtilText.nodeContentSB.toString();
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 0) {
+				return new Response("Back", "Return to the previous screen.", CHOOSE_BACKGROUND);
+				
+			} else if (index == 1) {
+				if(Main.game.getPlayer().getHistory().getAssociatedPerk()==null) {
+					return new Response("Continue", "You need to select a job before continuing!", null);
+				} else {
+					return new Response("Continue", femalePrologueNPC()?"Tell [prologueFemale.name] what it is you do for a living.":"Tell [prologueMale.name] what it is you do for a living.", CHOOSE_SEX_EXPERIENCE);
+				}
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	
+	
 	
 	//TODO
 	
@@ -1696,17 +1753,7 @@ public class CharacterCreation {
 				};
 				
 			} else if (index == 0) {
-				return new Response("Back", "Return to background selection.", CHOOSE_BACKGROUND){
-					@Override
-					public void effects() {
-						Main.game.getPlayer().setHistory(History.NONE);
-						Main.game.getPlayer().incrementHealth(1000);
-						Main.game.getPlayer().incrementMana(1000);
-						
-						// Remove attribute gain sentences in the start game screen:
-						Main.game.clearTextEndStringBuilder();
-					}
-				};
+				return new Response("Back", "Return to background selection.", BACKGROUND_SELECTION_MENU);
 				
 			} else {
 				return null;

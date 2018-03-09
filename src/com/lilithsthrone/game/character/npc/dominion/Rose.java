@@ -133,10 +133,6 @@ public class Rose extends NPC {
 	public Attack attackType() {
 		return null;
 	}
-	@Override
-	public int getExperienceFromVictory() {
-		return 0;
-	}
 	
 	public static final DialogueNodeOld END_HAND_SEX = new DialogueNodeOld("Recover", "Both you and Rose and exhausted from your hand-holding session.", true) {
 		private static final long serialVersionUID = 1L;

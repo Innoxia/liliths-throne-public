@@ -6,7 +6,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.83
- * @version 0.1.83
+ * @version 0.2.1
  * @author Innoxia
  */
 public enum SkinType implements BodyPartTypeInterface {
@@ -17,6 +17,8 @@ public enum SkinType implements BodyPartTypeInterface {
 	COW_MORPH(BodyCoveringType.BOVINE_FUR, Race.COW_MORPH),
 
 	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON),
+
+	IMP(BodyCoveringType.IMP, Race.IMP),
 
 	DOG_MORPH(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH),
 
@@ -99,6 +101,8 @@ public enum SkinType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("cow-like");
 			case DEMON_COMMON:
 				return UtilText.returnStringAtRandom("demonic");
+			case IMP:
+				return UtilText.returnStringAtRandom("impish");
 			case DOG_MORPH:
 				return UtilText.returnStringAtRandom("dog-like");
 			case SQUIRREL_MORPH:
@@ -115,9 +119,8 @@ public enum SkinType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("");
 			case LYCAN:
 				return UtilText.returnStringAtRandom("wolf-like");
-			default:
-				return UtilText.returnStringAtRandom("");
 		}
+		return "";
 	}
 
 	@Override

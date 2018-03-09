@@ -4,13 +4,20 @@ import com.lilithsthrone.utils.Colour;
 
 /**
  * @since 0.1.86
- * @version 0.1.86
+ * @version 0.2.1
  * @author Innoxia
  */
 public enum Height {
 
+
+	/**2' to 3'6"*/
+	NEGATIVE_TWO_MIMIMUM("tiny", 61, 106, Colour.GENERIC_SIZE_ONE),
+	
+	/**3'6" to 4'*/
+	NEGATIVE_ONE_TINY("tiny", 106, 122, Colour.GENERIC_SIZE_ONE),
+	
 	/**4' to 5'*/
-	ZERO_TINY("tiny", 122, 152, Colour.GENERIC_SIZE_ONE),
+	ZERO_TINY("small", 122, 152, Colour.GENERIC_SIZE_ONE),
 	
 	/**5' to 5'6"*/
 	ONE_SHORT("short", 152, 166, Colour.GENERIC_SIZE_TWO),

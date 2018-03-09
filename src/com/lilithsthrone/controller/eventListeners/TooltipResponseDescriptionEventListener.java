@@ -82,9 +82,9 @@ public class TooltipResponseDescriptionEventListener implements EventListener {
 					response = Main.game.getCurrentDialogueNode().getResponse(Main.game.getResponseTab(), index);
 				} else {
 					if (index != 0) {
-						response = Main.game.getCurrentDialogueNode().getResponse(0, Main.game.getResponsePage() * MainController.RESPONSE_COUNT + index - 1);
+						response = Main.game.getCurrentDialogueNode().getResponse(Main.game.getResponseTab(), Main.game.getResponsePage() * MainController.RESPONSE_COUNT + index - 1);
 					} else {
-						response = Main.game.getCurrentDialogueNode().getResponse(0, Main.game.getResponsePage() * MainController.RESPONSE_COUNT + MainController.RESPONSE_COUNT-1);
+						response = Main.game.getCurrentDialogueNode().getResponse(Main.game.getResponseTab(), Main.game.getResponsePage() * MainController.RESPONSE_COUNT + MainController.RESPONSE_COUNT-1);
 					}
 				}
 			}

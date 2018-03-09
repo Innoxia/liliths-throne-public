@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -13,7 +14,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.2.1
  * @author Innoxia
  */
 public enum PenisType implements BodyPartTypeInterface {
@@ -27,6 +28,8 @@ public enum PenisType implements BodyPartTypeInterface {
 
 	DEMON_COMMON(BodyCoveringType.PENIS, TesticleType.DEMON_COMMON, Race.DEMON, PenisModifier.RIBBED, PenisModifier.TENTACLED, PenisModifier.PREHENSILE),
 
+	IMP(BodyCoveringType.PENIS, TesticleType.IMP, Race.IMP, PenisModifier.RIBBED, PenisModifier.TENTACLED, PenisModifier.PREHENSILE),
+	
 	CANINE(BodyCoveringType.PENIS, TesticleType.CANINE, Race.DOG_MORPH, PenisModifier.KNOTTED, PenisModifier.SHEATHED, PenisModifier.TAPERED),
 	
 	LUPINE(BodyCoveringType.PENIS, TesticleType.LUPINE, Race.WOLF_MORPH, PenisModifier.KNOTTED, PenisModifier.SHEATHED, PenisModifier.TAPERED),
@@ -70,66 +73,12 @@ public enum PenisType implements BodyPartTypeInterface {
 	
 	@Override
 	public String getNameSingular(GameCharacter gc) {
-		switch(this){
-			case ANGEL:
-				return UtilText.returnStringAtRandom("cock", "shaft");
-			case AVIAN:
-				return UtilText.returnStringAtRandom("cock", "shaft");
-			case BOVINE:
-				return UtilText.returnStringAtRandom("bull-cock", "bovine cock", "bull-like cock", "bull-dick");
-			case CANINE:
-				return UtilText.returnStringAtRandom("dog-cock", "canine cock", "dog-like cock", "dog-dick");
-			case DEMON_COMMON:
-				return UtilText.returnStringAtRandom("cock", "demon-cock", "demon-dick");
-			case EQUINE:
-				return UtilText.returnStringAtRandom("horse-cock", "equine cock", "horse-like cock", "horse-dick");
-			case REINDEER_MORPH:
-				return UtilText.returnStringAtRandom("reindeer-cock", "rangiferine cock", "reindeer-like cock", "reindeer-dick");
-			case FELINE:
-				return UtilText.returnStringAtRandom("cat-cock", "feline cock", "cat-like cock", "cat-dick");
-			case ALLIGATOR_MORPH:
-				return UtilText.returnStringAtRandom("reptile-cock", "reptile cock", "reptile-like cock", "reptile-dick");
-			case HUMAN:
-				return UtilText.returnStringAtRandom("cock", "shaft");
-			case NONE:
-				return UtilText.returnStringAtRandom("");
-			case SQUIRREL:
-				return UtilText.returnStringAtRandom("squirrel-cock", "rodent cock", "squirrel-like cock", "squirrel-dick");
-			default:
-				return UtilText.returnStringAtRandom("cock", "shaft");
-		}
+		return UtilText.returnStringAtRandom("cock", "dick", "shaft");
 	}
 	
 	@Override
 	public String getNamePlural(GameCharacter gc) {
-		switch(this){
-			case ANGEL:
-				return UtilText.returnStringAtRandom("cocks", "shafts");
-			case AVIAN:
-				return UtilText.returnStringAtRandom("cocks", "shafts");
-			case BOVINE:
-				return UtilText.returnStringAtRandom("bull-cocks", "bovine cocks", "bull-like cocks", "bull-dicks");
-			case CANINE:
-				return UtilText.returnStringAtRandom("dog-cocks", "canine cocks", "dog-like cocks", "dog-dicks");
-			case DEMON_COMMON:
-				return UtilText.returnStringAtRandom("cocks", "demon-cocks", "demon-dicks");
-			case EQUINE:
-				return UtilText.returnStringAtRandom("horse-cocks", "equine cocks", "horse-like cocks", "horse-dicks");
-			case REINDEER_MORPH:
-				return UtilText.returnStringAtRandom("reindeer-cocks", "rangiferine cocks", "reindeer-like cocks", "reindeer-dicks");
-			case FELINE:
-				return UtilText.returnStringAtRandom("cat-cocks", "feline cocks", "cat-like cocks", "cat-dicks");
-			case ALLIGATOR_MORPH:
-				return UtilText.returnStringAtRandom("reptile-cocks", "reptile cocks", "reptile-like cocks", "reptile-dicks");
-			case HUMAN:
-				return UtilText.returnStringAtRandom("cocks", "shafts");
-			case NONE:
-				return UtilText.returnStringAtRandom("");
-			case SQUIRREL:
-				return UtilText.returnStringAtRandom("squirrel-cocks", "rodent cocks", "squirrel-like cocks", "squirrel-dicks");
-			default:
-				return UtilText.returnStringAtRandom("cocks", "shafts");
-		}
+		return UtilText.returnStringAtRandom("cocks", "dick", "shafts");
 	}
 
 	@Override
@@ -143,38 +92,45 @@ public enum PenisType implements BodyPartTypeInterface {
 					case AVIAN:
 						return UtilText.returnStringAtRandom("avian");
 					case BOVINE:
-						return UtilText.returnStringAtRandom("bestial", "thick");
+						return UtilText.returnStringAtRandom("bovine", "bull-", "bull-like", "bestial");
 					case CANINE:
-						return UtilText.returnStringAtRandom("bestial");
+						return UtilText.returnStringAtRandom("canine", "dog-", "dog-like", "bestial");
 					case DEMON_COMMON:
-						return UtilText.returnStringAtRandom("demonic");
+						return UtilText.returnStringAtRandom("demonic", "demon-");
+					case IMP:
+						return UtilText.returnStringAtRandom("impish", "imp-");
 					case EQUINE:
-						return UtilText.returnStringAtRandom("bestial", "thick");
+						return UtilText.returnStringAtRandom("equine", "horse-", "horse-like", "bestial");
 					case REINDEER_MORPH:
-						return UtilText.returnStringAtRandom("bestial", "thick");
+						return UtilText.returnStringAtRandom("rangiferine", "reindeer-", "reindeer-like", "bestial");
 					case FELINE:
-						return UtilText.returnStringAtRandom("bestial");
+						return UtilText.returnStringAtRandom("feline", "cat-", "cat-like", "bestial");
 					case ALLIGATOR_MORPH:
-						return UtilText.returnStringAtRandom("reptilian");
+						return UtilText.returnStringAtRandom("reptilian", "alligator-", "alligator-like");
 					case HUMAN:
 						return UtilText.returnStringAtRandom("");
 					case NONE:
 						return UtilText.returnStringAtRandom("");
 					case SQUIRREL:
-						return UtilText.returnStringAtRandom("");
-					default:
-						return UtilText.returnStringAtRandom("");
+						return UtilText.returnStringAtRandom("rodent", "squirrel-", "squirrel-like");
+					case LUPINE:
+						return UtilText.returnStringAtRandom("lupine", "wolf-", "wolf-like", "bestial");
 				}
+				break;
 			case 1:
-				return gc.getPenisSize().getDescriptor();
+				return UtilText.returnStringAtRandom(
+						gc.getPenisSize().getDescriptor(),
+						gc.getPenisGirth()==PenisGirth.TWO_AVERAGE?"":gc.getPenisGirth().getName());
 			default:
 				if(Main.game.isInSex()) {
 					return UtilText.returnStringAtRandom("hard", "throbbing");
 				} else {
-					return gc.getPenisSize().getDescriptor();
+					return UtilText.returnStringAtRandom(
+							gc.getPenisSize().getDescriptor(),
+							gc.getPenisGirth()==PenisGirth.TWO_AVERAGE?"":gc.getPenisGirth().getName());
 				}
 		}
-		
+		return "";
 	}
 	
 	public String getTransformName() {
@@ -189,6 +145,8 @@ public enum PenisType implements BodyPartTypeInterface {
 				return "canine";
 			case DEMON_COMMON:
 				return "demonic";
+			case IMP:
+				return "impish";
 			case EQUINE:
 				return "equine";
 			case REINDEER_MORPH:

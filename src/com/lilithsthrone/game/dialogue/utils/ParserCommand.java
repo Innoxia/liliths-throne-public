@@ -68,10 +68,11 @@ public abstract class ParserCommand {
 	 * Some methods might return a null or empty string for a descriptor. This method accounts for that, applying a descriptor if one is available and then returning the descriptor + name combination.
 	 */
 	protected static String applyDescriptor(String descriptor, String name) {
-		if(descriptor==null)
+		if(descriptor==null) {
 			return name;
+		}
 		
-		return (descriptor.length() > 0 ? descriptor + " " : "") + name;
+		return (descriptor.length() > 0 ? descriptor + (descriptor.charAt(descriptor.length()-1)=='-'?"":" ") : "") + name;
 	}
 	
 	/**

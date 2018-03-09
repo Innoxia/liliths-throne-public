@@ -1,11 +1,12 @@
 package com.lilithsthrone.game.character.attributes;
 
 import com.lilithsthrone.game.character.effects.StatusEffect;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 
 /**
  * @since 0.1.65
- * @version 0.1.79
+ * @version 0.2.1
  * @author Innoxia
  */
 public enum IntelligenceLevel {
@@ -13,7 +14,11 @@ public enum IntelligenceLevel {
 	ZERO_AIRHEAD("arcane impotence", 0, 5, Colour.INTELLIGENCE_STAGE_ZERO) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
-			return StatusEffect.INTELLIGENCE_PERK_0;
+			if(Main.game.isInNewWorld()) {
+				return StatusEffect.INTELLIGENCE_PERK_0;
+			} else {
+				return StatusEffect.INTELLIGENCE_PERK_0_OLD_WORLD;
+			}
 		}
 	},
 	

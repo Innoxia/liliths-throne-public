@@ -210,18 +210,22 @@ public enum WorldType {
 	
 	// Other:
 	
-	SEWERS(6,
+	SUBMISSION(6,
 			"Submission",
 			Colour.BASE_GREEN,
 			5,
 			PlaceType.SUBMISSION_WALKWAYS,
-			PlaceType.GENERIC_IMPASSABLE,
+			PlaceType.SUBMISSION_TUNNELS,
 			Util.newArrayListOfValues(
-					new ListValue<PlaceType>(PlaceType.SUBMISSION_RAT_TUNNELS),
-					new ListValue<PlaceType>(PlaceType.SUBMISSION_IMP_PALACE),
+					new ListValue<PlaceType>(PlaceType.SUBMISSION_BAT_CAVERNS),
+					new ListValue<PlaceType>(PlaceType.SUBMISSION_RAT_WARREN),
 					new ListValue<PlaceType>(PlaceType.SUBMISSION_GAMBLING_DEN),
+					new ListValue<PlaceType>(PlaceType.SUBMISSION_LILIN_PALACE),
 					new ListValue<PlaceType>(PlaceType.SUBMISSION_ENTRANCE)),
-			null),
+			Util.newArrayListOfValues(
+					new ListValue<PlaceType>(PlaceType.SUBMISSION_IMP_FORTRESS_1),
+					new ListValue<PlaceType>(PlaceType.SUBMISSION_IMP_FORTRESS_2),
+					new ListValue<PlaceType>(PlaceType.SUBMISSION_IMP_FORTRESS_3))),
 
 	JUNGLE(6,
 			"jungle",
@@ -249,7 +253,14 @@ public enum WorldType {
 	private Map<Color, PlaceType> placesMap;
 	
 
-	WorldType(int worldSize, String name, Colour colour, int timeToTransition, PlaceType standardPlace, PlaceType cutOffZone, List<PlaceType> places, List<PlaceType> dangerousPlaces) {
+	WorldType(int worldSize,
+			String name,
+			Colour colour,
+			int timeToTransition,
+			PlaceType standardPlace,
+			PlaceType cutOffZone,
+			List<PlaceType> places,
+			List<PlaceType> dangerousPlaces) {
 		this.worldSize=worldSize;
 		
 		this.name = name;

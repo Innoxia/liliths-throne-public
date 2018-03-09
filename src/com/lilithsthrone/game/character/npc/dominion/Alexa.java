@@ -169,9 +169,5 @@ public class Alexa extends NPC {
 	public Attack attackType() {
 		return null;
 	}
-	@Override
-	public int getExperienceFromVictory() {
-		return 0;
-	}
 
 }

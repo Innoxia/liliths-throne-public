@@ -85,7 +85,7 @@ public class ZaranixHomeFirstFloor {
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append("<p>"
-						+ "Much like those found on the ground floor, these corridors are home to numerous fine painting, cushioned chairs, and well-crafted cabinets."
+						+ "Much like those found on the ground floor, these corridors are home to numerous fine paintings, cushioned chairs, and well-crafted cabinets."
 						+ " Where once you might have been deeply impressed by the extravagant luxury of this incubus's mansion, you now find yourself thinking that it's not quite as grand as Lilaya's."
 					+ "</p>");
 			
@@ -441,7 +441,7 @@ public class ZaranixHomeFirstFloor {
 						+ " [zaranix.speech(Hah! I think not! And how did you even get up here?! I would have been informed if there was a guest, which means you've forced your way in here!)]"
 					+ "</p>"
 					+ "<p>"
-						+ "The incubus' tone grows angrier and angrier, and you see him clench his fist as he comes to a halt in front of you,"
+						+ "The incubus's tone grows angrier and angrier, and you see him clench his fist as he comes to a halt in front of you,"
 						+ " [zaranix.speech(I'll show you what I do to trespassers!)]"
 					+ "</p>"
 					+ "<p>"
@@ -477,7 +477,7 @@ public class ZaranixHomeFirstFloor {
 						+ " [pc.speech(And so if I could buy Arthur from you, both my aunt and I would be extremely grateful. Without him, she's not going to be able to solve this problem of hers.)]"
 					+ "</p>"
 					+ "<p>"
-						+ "[zaranix.speech(Hah!)] zaranix half-laughs, half-sighs,"
+						+ "[zaranix.speech(Hah!)] Zaranix half-laughs, half-sighs,"
 						+ " [zaranix.speech(So <i>you're</i> the [pc.race] who's moved in with Lilaya? Yes, I know who you are. I may not get out much, but I still keep my ear close to the grapevine.)]"
 					+ "</p>"
 					+ "<p>"
