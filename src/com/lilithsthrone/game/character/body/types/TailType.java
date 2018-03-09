@@ -8,17 +8,20 @@ import java.util.Map;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.99
+ * @version 0.2.1
  * @author Innoxia
  */
 public enum TailType implements BodyPartTypeInterface {
 	NONE(null, null, false, false),
 
 	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON, true, true),
+
+	IMP(BodyCoveringType.IMP, Race.IMP, true, true),
 
 	DOG_MORPH(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH, false, false),
 	
@@ -105,6 +108,8 @@ public enum TailType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("cow-like", "tufted");
 			case DEMON_COMMON:
 				return UtilText.returnStringAtRandom("spaded", "demonic");
+			case IMP:
+				return UtilText.returnStringAtRandom("spaded", "impish");
 			case DOG_MORPH:
 				return UtilText.returnStringAtRandom("dog-like");
 			case DOG_MORPH_STUBBY:
@@ -135,6 +140,8 @@ public enum TailType implements BodyPartTypeInterface {
 			case COW_MORPH:
 				return "bovine";
 			case DEMON_COMMON:
+				return "spaded";
+			case IMP:
 				return "spaded";
 			case DOG_MORPH:
 				return "canine";
@@ -169,6 +176,8 @@ public enum TailType implements BodyPartTypeInterface {
 		switch(this){
 			case DEMON_COMMON:
 				return UtilText.returnStringAtRandom("spaded");
+			case IMP:
+				return UtilText.returnStringAtRandom("spaded");
 			default:
 				return UtilText.returnStringAtRandom("");
 		}
@@ -188,8 +197,12 @@ public enum TailType implements BodyPartTypeInterface {
 		return prehensile;
 	}
 
+	/**
+	 * Takes into account whether player has 'Allow furry tail penetrations' turned on or off.
+	 * @return
+	 */
 	public boolean isSuitableForPenetration() {
-		return suitableForPenetration;
+		return prehensile && (suitableForPenetration || Main.getProperties().furryTailPenetrationContent);
 	}
 	
 	private static Map<Race, List<TailType>> typesMap = new HashMap<>();

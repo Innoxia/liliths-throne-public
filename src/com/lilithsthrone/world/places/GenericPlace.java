@@ -81,10 +81,6 @@ public class GenericPlace implements Serializable, XMLSaving {
 		if(placeType.equals("ZARANIX_FF_BEDROOM")) {
 			placeType = "ZARANIX_FF_OFFICE";
 		}
-
-//		placeType = placeType.replace("SUPPLIERS_DEN", "SUPPLIER_DEPOT");
-//		placeType = placeType.replace("SUPPLIER_DEN", "SUPPLIER_DEPOT");
-		
 		
 		GenericPlace place = new GenericPlace(PlaceType.valueOf(placeType));
 		place.setName(parentElement.getAttribute("name"));

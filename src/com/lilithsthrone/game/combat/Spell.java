@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
@@ -54,8 +55,7 @@ public enum Spell {
 			// If attack hits, apply damage and effects:
 			if (isHit) {
 				descriptionSB.append(target.incrementHealth(caster, -damage));
-				for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
-					target.addStatusEffect(se.getKey(), se.getValue());
+				applyStatusEffects(caster, target, isCritical);
 			}
 
 			caster.incrementMana(-cost);
@@ -67,12 +67,8 @@ public enum Spell {
 		public String getDescription(GameCharacter caster, int level) {
 			return "Summons a wave of crushing force that slams into the unlucky target.";
 		}
-
-		@Override
-		public boolean isSelfCastSpell() {
-			return false;
-		}
 	},
+	
 	FIREBALL_1("fireball",
 			"spellFireball",
 			DamageType.FIRE,
@@ -103,8 +99,7 @@ public enum Spell {
 			// If attack hits, apply damage and effects:
 			if (isHit) {
 				descriptionSB.append(target.incrementHealth(caster, -damage));
-				for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
-					target.addStatusEffect(se.getKey(), se.getValue());
+				applyStatusEffects(caster, target, isCritical);
 			}
 
 			caster.incrementMana(-cost);
@@ -115,11 +110,6 @@ public enum Spell {
 		@Override
 		public String getDescription(GameCharacter caster, int level) {
 			return "Summons a ball of flames that can be launched at a target.";
-		}
-
-		@Override
-		public boolean isSelfCastSpell() {
-			return false;
 		}
 	},
 	
@@ -153,8 +143,7 @@ public enum Spell {
 			// If attack hits, apply damage and effects:
 			if (isHit) {
 				descriptionSB.append(target.incrementHealth(caster, -damage));
-				for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
-					target.addStatusEffect(se.getKey(), se.getValue());
+				applyStatusEffects(caster, target, isCritical);
 			}
 
 			caster.incrementMana(-cost);
@@ -165,11 +154,6 @@ public enum Spell {
 		@Override
 		public String getDescription(GameCharacter caster, int level) {
 			return "Summons a ball of flames that can be launched at a target.";
-		}
-
-		@Override
-		public boolean isSelfCastSpell() {
-			return false;
 		}
 	},
 
@@ -205,8 +189,7 @@ public enum Spell {
 			// If attack hits, apply damage and effects:
 			if (isHit) {
 				descriptionSB.append(target.incrementHealth(caster, -damage));
-				for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
-					target.addStatusEffect(se.getKey(), se.getValue());
+				applyStatusEffects(caster, target, isCritical);
 			}
 
 			caster.incrementMana(-cost);
@@ -217,11 +200,6 @@ public enum Spell {
 		@Override
 		public String getDescription(GameCharacter caster, int level) {
 			return "Summons a shard of ice that can be launched at a target.";
-		}
-
-		@Override
-		public boolean isSelfCastSpell() {
-			return false;
 		}
 	},
 
@@ -255,8 +233,7 @@ public enum Spell {
 			// If attack hits, apply damage and effects:
 			if (isHit) {
 				descriptionSB.append(target.incrementHealth(caster, -damage));
-				for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
-					target.addStatusEffect(se.getKey(), se.getValue());
+				applyStatusEffects(caster, target, isCritical);
 			}
 
 			caster.incrementMana(-cost);
@@ -267,11 +244,6 @@ public enum Spell {
 		@Override
 		public String getDescription(GameCharacter caster, int level) {
 			return "Summons a cloud of toxic miasma that can be launched at a target.";
-		}
-
-		@Override
-		public boolean isSelfCastSpell() {
-			return false;
 		}
 	},
 
@@ -290,8 +262,7 @@ public enum Spell {
 
 			float cost = getModifiedCost(caster);
 
-			for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
-				caster.addStatusEffect(se.getKey(), se.getValue() * (isCritical ? 2 : 1));
+			applyStatusEffects(caster, caster, isCritical);
 
 			caster.incrementMana(-cost);
 
@@ -318,9 +289,9 @@ public enum Spell {
 		public String getDescription(GameCharacter caster, int level) {
 			return "Summons a shield of pure energy that protects the caster from physical attacks.";
 		}
-
+		
 		@Override
-		public boolean isSelfCastSpell() {
+		public boolean isBeneficial() {
 			return true;
 		}
 	},
@@ -339,8 +310,7 @@ public enum Spell {
 
 			float cost = getModifiedCost(caster);
 
-			for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
-				caster.addStatusEffect(se.getKey(), se.getValue() * (isCritical ? 2 : 1));
+			applyStatusEffects(caster, caster, isCritical);
 
 			caster.incrementMana(-cost);
 
@@ -367,9 +337,9 @@ public enum Spell {
 		public String getDescription(GameCharacter caster, int level) {
 			return "Summons a shield of arcane fire that protects the caster from fire attacks.";
 		}
-
+		
 		@Override
-		public boolean isSelfCastSpell() {
+		public boolean isBeneficial() {
 			return true;
 		}
 	},
@@ -388,8 +358,7 @@ public enum Spell {
 
 			float cost = getModifiedCost(caster);
 
-			for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
-				caster.addStatusEffect(se.getKey(), se.getValue() * (isCritical ? 2 : 1));
+			applyStatusEffects(caster, caster, isCritical);
 
 			caster.incrementMana(-cost);
 
@@ -416,9 +385,9 @@ public enum Spell {
 		public String getDescription(GameCharacter caster, int level) {
 			return "Summons a shield of arcane ice that protects the caster from cold attacks.";
 		}
-
+		
 		@Override
-		public boolean isSelfCastSpell() {
+		public boolean isBeneficial() {
 			return true;
 		}
 	},
@@ -437,8 +406,7 @@ public enum Spell {
 
 			float cost = getModifiedCost(caster);
 
-			for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet())
-				caster.addStatusEffect(se.getKey(), se.getValue() * (isCritical ? 2 : 1));
+			applyStatusEffects(caster, caster, isCritical);
 
 			caster.incrementMana(-cost);
 
@@ -465,9 +433,9 @@ public enum Spell {
 		public String getDescription(GameCharacter caster, int level) {
 			return "Summons a shield of toxic miasma that protects the caster from poison attacks.";
 		}
-
+		
 		@Override
-		public boolean isSelfCastSpell() {
+		public boolean isBeneficial() {
 			return true;
 		}
 	},
@@ -485,14 +453,14 @@ public enum Spell {
 		}
 
 		@Override
-		public boolean isSelfCastSpell() {
-			return true;
-		}
-
-		@Override
 		public String getDescription(GameCharacter caster, int level) {
 			// TODO Auto-generated method stub
 			return null;
+		}
+		
+		@Override
+		public boolean isBeneficial() {
+			return true;
 		}
 	},
 
@@ -506,11 +474,6 @@ public enum Spell {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 			return "";
-		}
-
-		@Override
-		public boolean isSelfCastSpell() {
-			return false;
 		}
 
 		@Override
@@ -533,11 +496,6 @@ public enum Spell {
 		}
 
 		@Override
-		public boolean isSelfCastSpell() {
-			return false;
-		}
-
-		@Override
 		public String getDescription(GameCharacter caster, int level) {
 			// TODO Auto-generated method stub
 			return null;
@@ -557,14 +515,14 @@ public enum Spell {
 		}
 
 		@Override
-		public boolean isSelfCastSpell() {
-			return true;
-		}
-
-		@Override
 		public String getDescription(GameCharacter caster, int level) {
 			// TODO Auto-generated method stub
 			return null;
+		}
+		
+		@Override
+		public boolean isBeneficial() {
+			return true;
 		}
 	},
 
@@ -579,11 +537,6 @@ public enum Spell {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
 			return "";
-		}
-
-		@Override
-		public boolean isSelfCastSpell() {
-			return false;
 		}
 
 		@Override
@@ -606,11 +559,6 @@ public enum Spell {
 		}
 
 		@Override
-		public boolean isSelfCastSpell() {
-			return false;
-		}
-
-		@Override
 		public String getDescription(GameCharacter caster, int level) {
 			// TODO Auto-generated method stub
 			return null;
@@ -630,9 +578,7 @@ public enum Spell {
 
 			float cost = getModifiedCost(caster);
 
-			for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet()) {
-				target.addStatusEffect(se.getKey(), se.getValue());
-			}
+			applyStatusEffects(caster, target, isCritical);
 
 			caster.incrementMana(-cost);
 			
@@ -653,11 +599,6 @@ public enum Spell {
 		public String getDescription(GameCharacter caster, int level) {
 			return "Places an arcane seal upon the target, preventing them from taking any action for two turns.";
 		}
-
-		@Override
-		public boolean isSelfCastSpell() {
-			return false;
-		}
 	},
 	
 	WITCH_CHARM("Witch's Charm",
@@ -669,9 +610,7 @@ public enum Spell {
 			Util.newHashMapOfValues(new Value<StatusEffect, Integer>(StatusEffect.WITCH_CHARM, 5))) {
 		@Override
 		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
-			for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet()) {
-				caster.addStatusEffect(se.getKey(), se.getValue() * (isCritical ? 2 : 1));
-			}
+			applyStatusEffects(caster, caster, isCritical);
 
 			caster.incrementMana(-getModifiedCost(caster));
 			
@@ -689,13 +628,13 @@ public enum Spell {
 		}
 
 		@Override
-		public boolean isSelfCastSpell() {
-			return true;
-		}
-
-		@Override
 		public String getDescription(GameCharacter caster, int level) {
 			return "Places an arcane enchantment upon the target, causing them to appear irresistibly beautiful to anyone who looks upon them.";
+		}
+		
+		@Override
+		public boolean isBeneficial() {
+			return true;
 		}
 	},
 	
@@ -745,9 +684,11 @@ public enum Spell {
 	}
 
 	public abstract String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical);
-
-	public abstract boolean isSelfCastSpell();
-
+	
+	public boolean isBeneficial() {
+		return false;
+	}
+	
 	public float getModifiedCost(GameCharacter caster) {
 		float calculatedCost = spellCost;
 		
@@ -758,6 +699,12 @@ public enum Spell {
 		
 		return calculatedCost;
 	}
+	
+	protected void applyStatusEffects(GameCharacter caster, GameCharacter target, boolean isCritical) {
+		for (Entry<StatusEffect, Integer> se : getStatusEffects().entrySet()) {
+			target.addStatusEffect(se.getKey(), se.getValue() * (caster.isPlayer() && caster.hasTrait(Perk.JOB_MUSICIAN, true)?2:1) * (isCritical?2:1));
+		}
+	}
 
 	public abstract String getDescription(GameCharacter caster, int level);
 
@@ -766,58 +713,74 @@ public enum Spell {
 	protected String getDamageAndCostDescription(GameCharacter caster, GameCharacter target, float cost, float damage, boolean isHit, boolean isCritical) {
 		damageCostDescriptionSB = new StringBuilder();
 
+		boolean selfCast = caster.equals(target);
+		
 		if (caster == Main.game.getPlayer()) {
-			if (isCritical)
-				damageCostDescriptionSB.append(!isSelfCastSpell()
+			if (isCritical) {
+				damageCostDescriptionSB.append(!selfCast
 						? "<p>" + (isHit ? "<b>You <b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>critically</b> hit for " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>"
 								+ damageType.getName() + "</b>" + " damage!</b>" : "<b>You missed!</b>") + "</p>"
 						: "<p>" + (isHit ? "<b>You <b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>critically</b> cast the spell, doubling its duration!</b>" : "<b>You missed!</b>") + "</p>");
-			else
-				damageCostDescriptionSB.append(!isSelfCastSpell()
+			} else {
+				damageCostDescriptionSB.append(!selfCast
 						? "<p>" + (isHit ? "<b>You did " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + damageType.getName() + "</b>" + " damage!</b>" : "<b>You missed!</b>") + "</p>"
 						: "");
-
+			}
+			
 			if (statusEffects != null && isHit) {
-				damageCostDescriptionSB.append(UtilText.parse(target, (!isSelfCastSpell() ? "<p>[npc.She] is now suffering " : "<p>You are now benefiting from ")));
+				damageCostDescriptionSB.append("<p>"
+						+UtilText.parse(target,
+								(!selfCast
+									? "[npc.She] is now suffering "
+									: "You are now benefiting from ")));
+				
 				int i = 0;
 				for (Entry<StatusEffect, Integer> seEntry : statusEffects.entrySet()) {
 					if (i != 0) {
-						if (i == statusEffects.size() - 1)
+						if (i == statusEffects.size() - 1) {
 							damageCostDescriptionSB.append(" and ");
-						else
+						} else {
 							damageCostDescriptionSB.append(", ");
+						}
 					}
-					damageCostDescriptionSB.append("<b>" + seEntry.getValue() + "</b> turns of <b style='color:" + seEntry.getKey().getColour().toWebHexString() + ";'>" + seEntry.getKey().getName(target) + "</b>");
+					damageCostDescriptionSB.append("<b>" + seEntry.getValue() * (caster.isPlayer() && caster.hasTrait(Perk.JOB_MUSICIAN, true)?2:1) * (isCritical?2:1)
+							+ "</b> turns"
+							+(caster.hasTrait(Perk.JOB_MUSICIAN, true)?" ([style.boldExcellent(doubled)] from <b style='color:"+Perk.JOB_MUSICIAN.getColour().toWebHexString()+";'>"+Perk.JOB_MUSICIAN.getName(caster)+"</b>)":"")
+							+ " of <b style='color:" + seEntry.getKey().getColour().toWebHexString() + ";'>" + seEntry.getKey().getName(target) + "</b>");
 				}
 				damageCostDescriptionSB.append(".</p>");
 			}
 
-			damageCostDescriptionSB
-					.append("<p>" + "Harnessing the arcane to cast spells is incredibly draining, and you lose <b>" + cost + "</b> <b style='color:" + Attribute.MANA_MAXIMUM.getColour().toWebHexString() + ";'>aura</b>!</b>" + "</p>");
+			damageCostDescriptionSB.append("<p>" + "Harnessing the arcane to cast spells is incredibly draining, and you lose <b>" + cost + "</b> <b style='color:" + Attribute.MANA_MAXIMUM.getColour().toWebHexString() + ";'>aura</b>!</b>" + "</p>");
 		} else {
 
-			if (isCritical)
-				damageCostDescriptionSB.append(!isSelfCastSpell()
+			if (isCritical) {
+				damageCostDescriptionSB.append(!selfCast
 						? "<p>" + (isHit ? "<b>You were <b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>critically</b> hit for " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>"
 								+ damageType.getName() + "</b>" + " damage!</b>" : "<b>" + caster.getName("The") + " missed!</b>") + "</p>"
 						: "<p>" + (isHit ? "<b>" + caster.getName("The") + " <b style='color: " + Colour.CLOTHING_GOLD.toWebHexString() + ";'>critically</b> cast the spell, doubling its duration!</b>"
 								: "<b>" + caster.getName("The") + " missed!</b>") + "</p>");
-			else
+			} else {
 				damageCostDescriptionSB
-						.append(!isSelfCastSpell() ? "<p>" + (isHit ? "<b>You took " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + damageType.getName() + "</b>" + " damage!</b>"
+						.append(!selfCast ? "<p>" + (isHit ? "<b>You took " + damage + " <b style='color: " + damageType.getMultiplierAttribute().getColour().toWebHexString() + ";'>" + damageType.getName() + "</b>" + " damage!</b>"
 								: "<b>" + caster.getName("The") + " missed!</b>") + "</p>" : "");
-
+			}
+			
 			if (statusEffects != null && isHit) {
-				damageCostDescriptionSB.append(UtilText.parse(caster, (!isSelfCastSpell() ? "<p>You are now suffering " : "<p>[npc.She] is now benefiting from ")));
+				damageCostDescriptionSB.append(UtilText.parse(caster, (!selfCast ? "<p>You are now suffering " : "<p>[npc.She] is now benefiting from ")));
 				int i = 0;
 				for (Entry<StatusEffect, Integer> seEntry : statusEffects.entrySet()) {
 					if (i != 0) {
-						if (i == statusEffects.size() - 1)
+						if (i == statusEffects.size() - 1) {
 							damageCostDescriptionSB.append(" and ");
-						else
+						} else {
 							damageCostDescriptionSB.append(", ");
+						}
 					}
-					damageCostDescriptionSB.append("<b>" + seEntry.getValue() + "</b> turns of <b style='color:" + seEntry.getKey().getColour().toWebHexString() + ";'>" + seEntry.getKey().getName(target) + "</b>");
+					damageCostDescriptionSB.append("<b>" + seEntry.getValue() * (caster.isPlayer() && caster.hasTrait(Perk.JOB_MUSICIAN, true)?2:1) * (isCritical?2:1)
+							+ "</b> turns"
+							+(caster.hasTrait(Perk.JOB_MUSICIAN, true)?" ([style.boldExcellent(doubled)] from <b style='color:"+Perk.JOB_MUSICIAN.getColour().toWebHexString()+";'>"+Perk.JOB_MUSICIAN.getName(caster)+"</b>)":"")
+							+ " of <b style='color:" + seEntry.getKey().getColour().toWebHexString() + ";'>" + seEntry.getKey().getName(target) + "</b>");
 				}
 				damageCostDescriptionSB.append("!</p>");
 			}

@@ -11,7 +11,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.83
- * @version 0.1.83
+ * @version 0.2.1
  * @author Innoxia
  */
 public enum AnusType implements BodyPartTypeInterface {
@@ -20,6 +20,8 @@ public enum AnusType implements BodyPartTypeInterface {
 	ANGEL(BodyCoveringType.ANUS, Race.ANGEL, OrificeModifier.RIBBED, OrificeModifier.TENTACLED, OrificeModifier.MUSCLE_CONTROL),
 	
 	DEMON_COMMON(BodyCoveringType.ANUS, Race.DEMON, OrificeModifier.RIBBED, OrificeModifier.TENTACLED, OrificeModifier.MUSCLE_CONTROL),
+	
+	IMP(BodyCoveringType.ANUS, Race.IMP, OrificeModifier.RIBBED, OrificeModifier.TENTACLED, OrificeModifier.MUSCLE_CONTROL),
 	
 	COW_MORPH(BodyCoveringType.ANUS, Race.COW_MORPH),
 	

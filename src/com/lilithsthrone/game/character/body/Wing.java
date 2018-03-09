@@ -102,14 +102,18 @@ public class Wing implements BodyPartInterface, Serializable {
 				if(owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 								" You bite your [pc.lip] to try and suppress an unexpected moan of pleasure as a pair of huge, feathered wings push out from your shoulder blades."
-								+ " You give them an experimental flap, and, much to your delight, you discover that they're powerful enough to enable you to fly."
+								+ (getSize().isSizeAllowsFlight()
+										?" You give them an experimental flap, and, much to your delight, you discover that they're powerful enough to enable you to fly."
+										:" You give them an experimental flap, and although they aren't quite big enough just yet, you think that if you were to increase their size, they'd enable you to fly.")
 								+ "</br>"
 								+ "You now have [style.boldAngel(angelic, feathered wings)]."
 							+ "</p>");
 				} else {
 					UtilText.transformationContentSB.append(
 								" [npc.She] bites [npc.her] [npc.lip] to try and suppress an unexpected moan of pleasure as a pair of huge, feathered wings push out from [npc.her] shoulder blades."
-								+ " [npc.She] gives them an experimental flap, and, much to [npc.her] delight, [npc.she] discovers that they're powerful enough to enable [npc.herHim] to fly."
+								+ (getSize().isSizeAllowsFlight()
+										?" [npc.She] gives them an experimental flap, and, much to [npc.her] delight, [npc.she] discovers that they're powerful enough to enable [npc.herHim] to fly."
+										:" [npc.She] gives them an experimental flap, and although they aren't quite big enough just yet, it looks as though if they were to be a little bigger, they'd enable [npc.herHim] to fly.")
 								+ "</br>"
 								+ "[npc.Name] now has [style.boldAngel(angelic, feathered wings)]."
 							+ "</p>");
@@ -119,16 +123,41 @@ public class Wing implements BodyPartInterface, Serializable {
 				if(owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 								" You bite your [pc.lip] to try and suppress an unexpected moan of pleasure as a pair of cute little bat-like wings push out from your shoulder blades."
-								+ " You give them an experimental flutter, but they seem to be too small to be of any use."
+								+ (getSize().isSizeAllowsFlight()
+										?" You give them an experimental flutter, and, much to your delight, you discover that they're powerful enough to enable you to fly."
+										:" You give them an experimental flutter, and although they aren't quite big enough just yet, you think that if you were to increase their size, they'd enable you to fly.")
 								+ "</br>"
 								+ "You now have [style.boldDemon(demonic bat-like wings)]."
 							+ "</p>");
 				} else {
 					UtilText.transformationContentSB.append(
 								" [npc.She] bites [npc.her] [npc.lip] to try and suppress an unexpected moan of pleasure as a pair of cute little bat-like wings push out from [npc.her] shoulder blades."
-								+ " [npc.She] gives them an experimental flutter, but they seem to be too small to be of any use."
+								+ (getSize().isSizeAllowsFlight()
+										?" [npc.She] gives them an experimental flutter, and, much to [npc.her] delight, [npc.she] discovers that they're powerful enough to enable [npc.herHim] to fly."
+										:" [npc.She] gives them an experimental flutter, and although they aren't quite big enough just yet, it looks as though if they were to be a little bigger, they'd enable [npc.herHim] to fly.")
 								+ "</br>"
 								+ "[npc.Name] now has [style.boldDemon(demonic bat-like wings)]."
+							+ "</p>");
+				}
+				break;
+			case IMP:
+				if(owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" You bite your [pc.lip] to try and suppress an unexpected moan of pleasure as a pair of cute little bat-like wings push out from your shoulder blades."
+								+ (getSize().isSizeAllowsFlight()
+										?" You give them an experimental flutter, and, much to your delight, you discover that they're powerful enough to enable you to fly."
+										:" You give them an experimental flutter, and although they aren't quite big enough just yet, you think that if you were to increase their size, they'd enable you to fly.")
+								+ "</br>"
+								+ "You now have [style.boldImp(impish bat-like wings)]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" [npc.She] bites [npc.her] [npc.lip] to try and suppress an unexpected moan of pleasure as a pair of cute little bat-like wings push out from [npc.her] shoulder blades."
+								+ (getSize().isSizeAllowsFlight()
+										?" [npc.She] gives them an experimental flutter, and, much to [npc.her] delight, [npc.she] discovers that they're powerful enough to enable [npc.herHim] to fly."
+										:" [npc.She] gives them an experimental flutter, and although they aren't quite big enough just yet, it looks as though if they were to be a little bigger, they'd enable [npc.herHim] to fly.")
+								+ "</br>"
+								+ "[npc.Name] now has [style.boldImp(impish bat-like wings)]."
 							+ "</p>");
 				}
 				break;

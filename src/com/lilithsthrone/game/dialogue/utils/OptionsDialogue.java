@@ -1337,6 +1337,10 @@ public class OptionsDialogue {
 						break;
 					case DEMON:
 						break;
+					case IMP:
+						break;
+					case IMP_ALPHA:
+						break;
 					case DOG_MORPH:
 						UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(subspecies, i%2==0));
 						i++;
@@ -1358,6 +1362,18 @@ public class OptionsDialogue {
 						i++;
 						break;
 					case SLIME:
+					case SLIME_ALLIGATOR:
+					case SLIME_ANGEL:
+					case SLIME_CAT:
+					case SLIME_COW:
+					case SLIME_DEMON:
+					case SLIME_DOG:
+					case SLIME_HARPY:
+					case SLIME_HORSE:
+					case SLIME_IMP:
+					case SLIME_REINDEER:
+					case SLIME_SQUIRREL:
+					case SLIME_WOLF:
 						break;
 					case SQUIRREL_MORPH:
 						UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(subspecies, i%2==0));

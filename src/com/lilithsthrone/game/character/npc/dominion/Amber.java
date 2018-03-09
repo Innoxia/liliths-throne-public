@@ -459,11 +459,6 @@ public class Amber extends NPC {
 	public int getEscapeChance() {
 		return 0;
 	}
-
-	@Override
-	public int getExperienceFromVictory() {
-		return 50;
-	}
 	
 	public int getLootMoney() {
 		return 5000;

@@ -3,9 +3,11 @@ package com.lilithsthrone.game.inventory;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -20,7 +22,7 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
- * @version 0.1.89
+ * @version 0.2.1
  * @author Innoxia
  */
 public abstract class AbstractCoreItem implements Serializable, XMLSaving {
@@ -33,8 +35,31 @@ public abstract class AbstractCoreItem implements Serializable, XMLSaving {
 
 	protected Map<Attribute, Integer> attributeModifiers;
 	protected TFEssence relatedEssence;
+	
+	protected Set<ItemTag> itemTags;
 
-	public AbstractCoreItem(String name, String namePlural, String SVGString, Colour colour, Rarity rarity, Map<Attribute, Integer> attributeModifiers) {
+	public AbstractCoreItem(String name,
+			String namePlural,
+			String SVGString,
+			Colour colour,
+			Rarity rarity,
+			Map<Attribute, Integer> attributeModifiers) {
+		this(name,
+				namePlural,
+				SVGString,
+				colour,
+				rarity,
+				attributeModifiers,
+				new HashSet<>());
+	}
+	
+	public AbstractCoreItem(String name,
+			String namePlural,
+			String SVGString,
+			Colour colour,
+			Rarity rarity,
+			Map<Attribute, Integer> attributeModifiers,
+			Set<ItemTag> itemTags) {
 		super();
 		this.name = name;
 		this.namePlural = namePlural;
@@ -43,13 +68,19 @@ public abstract class AbstractCoreItem implements Serializable, XMLSaving {
 		this.SVGString = SVGString;
 
 		this.attributeModifiers = new EnumMap<>(Attribute.class);
+		this.itemTags = new HashSet<>();
 		
 		relatedEssence = null;
 
-		if (attributeModifiers != null)
-			for (Entry<Attribute, Integer> e : attributeModifiers.entrySet())
+		if (attributeModifiers != null) {
+			for (Entry<Attribute, Integer> e : attributeModifiers.entrySet()) {
 				this.attributeModifiers.put(e.getKey(), e.getValue());
-
+			}
+		}
+		
+		if(itemTags != null) {
+			this.itemTags.addAll(itemTags);
+		}
 	}
 	
 	public Element saveAsXML(Element parentElement, Document doc) {
@@ -107,7 +138,8 @@ public abstract class AbstractCoreItem implements Serializable, XMLSaving {
 				&& ((AbstractCoreItem)o).getAttributeModifiers().equals(this.getAttributeModifiers())
 				&& ((AbstractCoreItem)o).getEnchantmentEffect() == getEnchantmentEffect()
 				&& ((AbstractCoreItem)o).getEnchantmentItemType(null) == getEnchantmentItemType(null)
-				&& ((AbstractCoreItem)o).getRelatedEssence() == getRelatedEssence()){
+				&& ((AbstractCoreItem)o).getRelatedEssence() == getRelatedEssence()
+				&& ((AbstractCoreItem)o).getItemTags().equals(getItemTags())){
 					return true;
 			}
 		}
@@ -121,12 +153,18 @@ public abstract class AbstractCoreItem implements Serializable, XMLSaving {
 		result = 31 * result + this.getColour().hashCode();
 		result = 31 * result + this.getRarity().hashCode();
 		result = 31 * result + this.getAttributeModifiers().hashCode();
-		if(getEnchantmentEffect()!=null)
+		if(getEnchantmentEffect()!=null) {
 			result = 31 * result + getEnchantmentEffect().hashCode();
-		if(getEnchantmentItemType(null)!=null)
-		result = 31 * result + getEnchantmentItemType(null).hashCode();
-		if(getRelatedEssence()!=null)
+		}
+		if(getEnchantmentItemType(null)!=null) {
+			result = 31 * result + getEnchantmentItemType(null).hashCode();
+		}
+		if(getRelatedEssence()!=null) {
 			result = 31 * result + getRelatedEssence().hashCode();
+		}
+		if(getItemTags()!=null) {
+			result = 31 * result + getItemTags().hashCode();
+		}
 		return result;
 	}
 	
@@ -187,5 +225,9 @@ public abstract class AbstractCoreItem implements Serializable, XMLSaving {
 	
 	public List<ItemEffect> getEffects() {
 		return new ArrayList<ItemEffect>();
+	}
+
+	public Set<ItemTag> getItemTags() {
+		return itemTags;
 	}
 }

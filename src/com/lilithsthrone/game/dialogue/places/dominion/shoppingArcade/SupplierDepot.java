@@ -340,7 +340,7 @@ public class SupplierDepot {
 					return new ResponseSex("Fuck Them",
 							UtilText.parse(Main.game.getSupplierLeader(), Main.game.getSupplierPartner(), "Push Wolfgang and Karl down side-by-side in the doggy-style position, ready to have some fun with them..."),
 							Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_DOMINANT)), null, null, null, null, null,
-							false, false,
+							true, false,
 							new SMDoggy(
 									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.DOGGY_BEHIND)),
 									Util.newHashMapOfValues(
@@ -353,7 +353,7 @@ public class SupplierDepot {
 					return new ResponseSex("Get Fucked",
 							UtilText.parse(Main.game.getSupplierLeader(), Main.game.getSupplierPartner(), "Allow Wolfgang and Karl to spitroast you..."),
 							null, null, null, null, null, null,
-							true, true,
+							true, false,
 							new SMDoggy(
 									Util.newHashMapOfValues(
 											new Value<>(Main.game.getSupplierLeader(), SexPositionSlot.DOGGY_BEHIND),
@@ -443,7 +443,7 @@ public class SupplierDepot {
 				return new ResponseSex("Offer Body",
 						UtilText.parse(Main.game.getSupplierLeader(), Main.game.getSupplierPartner(), "Offer your body to Wolfgang and Karl in order to avoid a fight..."),
 						null, null, null, null, null, null,
-						true, true,
+						true, false,
 						new SMDoggy(
 								Util.newHashMapOfValues(
 										new Value<>(Main.game.getSupplierLeader(), SexPositionSlot.DOGGY_BEHIND),

@@ -159,11 +159,6 @@ public class Ashley extends NPC {
 
 		this.addWeapon(AbstractWeaponType.generateWeapon(WeaponType.MAIN_FEATHER_DUSTER), false);
 	}
-	
-	@Override
-	public float getSellModifier() {
-		return 1.0f;
-	}
 
 	@Override
 	public boolean willBuy(AbstractCoreItem item) {
@@ -202,11 +197,6 @@ public class Ashley extends NPC {
 	@Override
 	public Attack attackType() {
 		return null; // You never fight
-	}
-
-	@Override
-	public int getExperienceFromVictory() {
-		return 0;
 	}
 
 }

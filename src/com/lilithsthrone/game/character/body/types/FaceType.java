@@ -6,7 +6,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.1.69.9
+ * @version 0.2.1
  * @author Innoxia
  */
 public enum FaceType implements BodyPartTypeInterface {
@@ -16,6 +16,8 @@ public enum FaceType implements BodyPartTypeInterface {
 
 	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, MouthType.DEMON_COMMON, TongueType.DEMON_COMMON, Race.DEMON),
 
+	IMP(BodyCoveringType.IMP, MouthType.IMP, TongueType.IMP, Race.IMP),
+	
 	DOG_MORPH(BodyCoveringType.CANINE_FUR, MouthType.DOG_MORPH, TongueType.DOG_MORPH, Race.DOG_MORPH),
 	
 	LYCAN(BodyCoveringType.LYCAN_FUR, MouthType.WOLF_MORPH, TongueType.WOLF_MORPH, Race.WOLF_MORPH),
@@ -99,12 +101,14 @@ public enum FaceType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("anthropomorphic cow-like", "cow-like", "bovine");
 			case DEMON_COMMON:
 				return UtilText.returnStringAtRandom("perfect", "flawless", "demonic");
+			case IMP:
+				return UtilText.returnStringAtRandom("mischievous", "impish");
 			case DOG_MORPH:
 				return UtilText.returnStringAtRandom("anthropomorphic dog-like", "dog-like", "canine");
 			case SQUIRREL_MORPH:
 				return UtilText.returnStringAtRandom("anthropomorphic squirrel-like", "squirrel-like", "rodent");
 			case ALLIGATOR_MORPH:
-				return UtilText.returnStringAtRandom("anthropomorphic alligator-like", "gator-like", "reptile");
+				return UtilText.returnStringAtRandom("anthropomorphic alligator-like", "alligator-like", "reptile");
 			case HARPY:
 				return UtilText.returnStringAtRandom("anthropomorphic bird-like", "bird-like");
 			case HORSE_MORPH:
@@ -115,9 +119,8 @@ public enum FaceType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("");
 			case LYCAN:
 				return UtilText.returnStringAtRandom("anthropomorphic wolf-like", "wolf-like");
-			default:
-				return UtilText.returnStringAtRandom("");
 		}
+		return "";
 	}
 
 	public String getTransformName() {
@@ -128,6 +131,8 @@ public enum FaceType implements BodyPartTypeInterface {
 				return "feline";
 			case DEMON_COMMON:
 				return "demonic";
+			case IMP:
+				return "impish";
 			case DOG_MORPH:
 				return "canine";
 			case COW_MORPH:

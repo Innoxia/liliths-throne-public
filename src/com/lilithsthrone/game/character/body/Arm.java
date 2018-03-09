@@ -100,6 +100,21 @@ public class Arm implements BodyPartInterface, Serializable {
 							+ "</p>");
 				}
 				break;
+			case ANGEL:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" Within a matter of moments, they've changed into slender, human-like arms, complete with human-like hands."
+								+ " Despite their somewhat-normal appearance, they have a subtle, alluring quality to them that reveals their true angelic nature.</br>"
+								+ "You now have [style.boldAngel(angelic arms and hands)], which are covered in [pc.armFullDescription]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" Within a matter of moments, they've changed into slender, human-like arms, complete with human-like hands."
+								+ " Despite their somewhat-normal appearance, they have a subtle, alluring quality to them that reveals their true angelic nature.</br>"
+								+ "[npc.Name] now has [style.boldAngel(angelic arms and hands)], which are covered in [npc.armFullDescription]."
+							+ "</p>");
+				}
+				break;
 			case DEMON_COMMON:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
@@ -112,6 +127,21 @@ public class Arm implements BodyPartInterface, Serializable {
 								" Within a matter of moments, they've changed into slender, human-like arms, complete with human-like hands."
 								+ " Despite their somewhat-normal appearance, they have a subtle, alluring quality to them that reveals their true demonic nature.</br>"
 								+ "[npc.Name] now has [style.boldDemon(demonic arms and hands)], which are covered in [npc.armFullDescription]."
+							+ "</p>");
+				}
+				break;
+			case IMP:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" Within a matter of moments, they've changed into slender, human-like arms, complete with human-like hands."
+								+ " Despite their somewhat-normal appearance, they have a subtle, alluring quality to them that reveals their true impish nature.</br>"
+								+ "You now have [style.boldImp(impish arms and hands)], which are covered in [pc.armFullDescription]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" Within a matter of moments, they've changed into slender, human-like arms, complete with human-like hands."
+								+ " Despite their somewhat-normal appearance, they have a subtle, alluring quality to them that reveals their true impish nature.</br>"
+								+ "[npc.Name] now has [style.boldImp(impish arms and hands)], which are covered in [npc.armFullDescription]."
 							+ "</p>");
 				}
 				break;
@@ -279,18 +309,18 @@ public class Arm implements BodyPartInterface, Serializable {
 							+ "</p>");
 				}
 				break;
-			default:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-								" Within a matter of moments, a layer of [pc.armFullDescription] has quickly grown over them, and, looking down, you see that your arms have transformed into a new form.</br>"
-								+ "As the transformation comes to an end, you're left with [style.boldTfLesser([pc.arms+])], which are covered in [pc.armFullDescription]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-								" Within a matter of moments, a layer of [npc.armFullDescription] has quickly grown over them, and, looking down, [npc.she] sees that [npc.her] arms have transformed into a new form.</br>"
-								+ "As the transformation comes to an end, [npc.name] is left with [style.boldTfLesser([npc.arms+])], which are covered in [npc.armFullDescription]."
-							+ "</p>");
-				}
+//			default:
+//				if (owner.isPlayer()) {
+//					UtilText.transformationContentSB.append(
+//								" Within a matter of moments, a layer of [pc.armFullDescription] has quickly grown over them, and, looking down, you see that your arms have transformed into a new form.</br>"
+//								+ "As the transformation comes to an end, you're left with [style.boldTfLesser([pc.arms+])], which are covered in [pc.armFullDescription]."
+//							+ "</p>");
+//				} else {
+//					UtilText.transformationContentSB.append(
+//								" Within a matter of moments, a layer of [npc.armFullDescription] has quickly grown over them, and, looking down, [npc.she] sees that [npc.her] arms have transformed into a new form.</br>"
+//								+ "As the transformation comes to an end, [npc.name] is left with [style.boldTfLesser([npc.arms+])], which are covered in [npc.armFullDescription]."
+//							+ "</p>");
+//				}
 		}
 		return UtilText.parse(owner, UtilText.transformationContentSB.toString())
 				+ "</br></br>"

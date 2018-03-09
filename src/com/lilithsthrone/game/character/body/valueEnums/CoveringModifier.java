@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.body.valueEnums;
 
+import com.lilithsthrone.game.dialogue.utils.UtilText;
+
 /**
  * @since 0.1.99
  * @version 0.1.99
@@ -10,6 +12,20 @@ public enum CoveringModifier {
 	EYE("eye"),
 	FLUID("fluid"),
 	MAKEUP("makeup"),
+	GLOSSY("glossy"),
+	MATTE("matte"),
+	SPARKLY("sparkly"),
+	METALLIC("metallic"),
+
+	GOOEY("gooey") {
+		@Override
+		public String getName() {
+			return UtilText.returnStringAtRandom(
+					"gooey",
+					"wet",
+					"squishy");
+		}
+	},
 	
 	SHORT("short"),
 	SILKEN("silken"),

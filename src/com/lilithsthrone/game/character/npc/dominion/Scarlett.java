@@ -140,9 +140,5 @@ public class Scarlett extends NPC {
 	public Attack attackType() {
 		return null;
 	}
-	@Override
-	public int getExperienceFromVictory() {
-		return 0;
-	}
 
 }

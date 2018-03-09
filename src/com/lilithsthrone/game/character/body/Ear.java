@@ -115,6 +115,21 @@ public class Ear implements BodyPartInterface, Serializable {
 							+ "</p>");
 				}
 				break;
+			case IMP:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" They quickly shift into delicate, human-like ears, but with long, pointed tips, all covered in [pc.earFullDescriptionColour]."
+								+ "</br>"
+								+ "You now have [style.boldImp(pointed, impish ears)]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" They quickly shift into delicate, human-like ears, but with long, pointed tips, all covered in [npc.earFullDescriptionColour]."
+								+ "</br>"
+								+ "[npc.Name] now has [style.boldImp(pointed, impish ears)]."
+							+ "</p>");
+				}
+				break;
 			case DOG_MORPH: case DOG_MORPH_POINTED:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(

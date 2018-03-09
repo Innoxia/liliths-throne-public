@@ -113,7 +113,6 @@ public class SlaveryUtil implements Serializable {
 			
 			// ***** EVENTS: ***** //
 			
-			
 			// Washing body:
 			if(slave.hasSlavePermissionSetting(SlavePermissionSetting.CLEANLINESS_WASH_BODY)
 					&& !slave.getWorkHours()[hour]

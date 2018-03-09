@@ -11,7 +11,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.83
- * @version 0.1.83
+ * @version 0.2.1
  * @author Innoxia
  */
 public enum MouthType implements BodyPartTypeInterface {
@@ -21,6 +21,8 @@ public enum MouthType implements BodyPartTypeInterface {
 	ANGEL(BodyCoveringType.MOUTH, Race.ANGEL),
 
 	DEMON_COMMON(BodyCoveringType.MOUTH, Race.DEMON),
+
+	IMP(BodyCoveringType.MOUTH, Race.IMP),
 
 	DOG_MORPH(BodyCoveringType.MOUTH, Race.DOG_MORPH),
 	

@@ -573,12 +573,12 @@ public class Lab {
 						+ "[lilaya.speech(W-Well, these are random gifts, right? S-So it's probably not even going to be a kimono, b-but thank you anyway,)]"
 						+ " Lilaya says, placing the gift down on the table beside her, before pulling off the ribbon and wrapping paper."
 						+ " Lifting off the lid, your easily-embarrassed aunt fails to contain an excited little cry as she sees what's inside."
-						+ " Your suspicions as to what it is are proven correct, as she quickly lifts out a beautiful pink "+ClothingType.KIMONO_DRESS.getNamePlural()+", before turning and beaming at you in delight,"
+						+ " Your suspicions as to what it is are proven correct, as she quickly lifts out a beautiful pink "+ClothingType.KIMONO_DRESS.getName()+", before turning and beaming at you in delight,"
 						+ " [lilaya.speech(Thank you so, so much [pc.name]! This is the best Yuletide ever!)]"
 					+ "</p>"
 					+ "<p>"
 						+ "Before you can say anything, your demonic aunt leaps forwards and pulls you into the most loving hug yet; her [lilaya.breastSize] breasts squishing up against your body as she holds you close."
-						+ " After a moment, she then pulls back, and, placing the "+ClothingType.KIMONO_DRESS.getNamePlural()+" to one side, she waits to see what you'd like to discuss next."
+						+ " After a moment, she then pulls back, and, placing the "+ClothingType.KIMONO_DRESS.getName()+" to one side, she waits to see what you'd like to discuss next."
 					+ "</p>";
 				
 			} else if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.givenLilayaPresent2)) {
@@ -3223,7 +3223,7 @@ public class Lab {
 					case COW_MORPH:
 						litterSB.append(" strong");
 						break;
-					case DEMON:
+					case DEMON: case IMP: case IMP_ALPHA:
 						litterSB.append(" mischievous");
 						break;
 					case DOG_MORPH: case DOG_MORPH_DOBERMANN:
@@ -3245,6 +3245,18 @@ public class Lab {
 						litterSB.append(" smiling");
 						break;
 					case SLIME:
+					case SLIME_ALLIGATOR:
+					case SLIME_ANGEL:
+					case SLIME_CAT:
+					case SLIME_COW:
+					case SLIME_DEMON:
+					case SLIME_DOG:
+					case SLIME_HARPY:
+					case SLIME_HORSE:
+					case SLIME_IMP:
+					case SLIME_REINDEER:
+					case SLIME_SQUIRREL:
+					case SLIME_WOLF:
 						litterSB.append(" bubbly");
 						break;
 					case SQUIRREL_MORPH:
@@ -3274,7 +3286,7 @@ public class Lab {
 					case COW_MORPH:
 						litterSB.append(" strong");
 						break;
-					case DEMON:
+					case DEMON: case IMP: case IMP_ALPHA:
 						litterSB.append(" mischievous");
 						break;
 					case DOG_MORPH: case DOG_MORPH_DOBERMANN:
@@ -3296,6 +3308,18 @@ public class Lab {
 						litterSB.append(" smiling");
 						break;
 					case SLIME:
+					case SLIME_ALLIGATOR:
+					case SLIME_ANGEL:
+					case SLIME_CAT:
+					case SLIME_COW:
+					case SLIME_DEMON:
+					case SLIME_DOG:
+					case SLIME_HARPY:
+					case SLIME_HORSE:
+					case SLIME_IMP:
+					case SLIME_REINDEER:
+					case SLIME_SQUIRREL:
+					case SLIME_WOLF:
 						litterSB.append(" bubbly");
 						break;
 					case SQUIRREL_MORPH:
@@ -3325,7 +3349,7 @@ public class Lab {
 					case COW_MORPH:
 						litterSB.append(" docile");
 						break;
-					case DEMON:
+					case DEMON: case IMP: case IMP_ALPHA:
 						litterSB.append(" cheeky");
 						break;
 					case DOG_MORPH: case DOG_MORPH_DOBERMANN:
@@ -3347,6 +3371,18 @@ public class Lab {
 						litterSB.append(" smiling");
 						break;
 					case SLIME:
+					case SLIME_ALLIGATOR:
+					case SLIME_ANGEL:
+					case SLIME_CAT:
+					case SLIME_COW:
+					case SLIME_DEMON:
+					case SLIME_DOG:
+					case SLIME_HARPY:
+					case SLIME_HORSE:
+					case SLIME_IMP:
+					case SLIME_REINDEER:
+					case SLIME_SQUIRREL:
+					case SLIME_WOLF:
 						litterSB.append(" bubbly");
 						break;
 					case SQUIRREL_MORPH:
@@ -3376,7 +3412,7 @@ public class Lab {
 					case COW_MORPH:
 						litterSB.append(" docile");
 						break;
-					case DEMON:
+					case DEMON: case IMP: case IMP_ALPHA:
 						litterSB.append(" cheeky");
 						break;
 					case DOG_MORPH: case DOG_MORPH_DOBERMANN:
@@ -3398,6 +3434,18 @@ public class Lab {
 						litterSB.append(" smiling");
 						break;
 					case SLIME:
+					case SLIME_ALLIGATOR:
+					case SLIME_ANGEL:
+					case SLIME_CAT:
+					case SLIME_COW:
+					case SLIME_DEMON:
+					case SLIME_DOG:
+					case SLIME_HARPY:
+					case SLIME_HORSE:
+					case SLIME_IMP:
+					case SLIME_REINDEER:
+					case SLIME_SQUIRREL:
+					case SLIME_WOLF:
 						litterSB.append(" bubbly");
 						break;
 					case SQUIRREL_MORPH:

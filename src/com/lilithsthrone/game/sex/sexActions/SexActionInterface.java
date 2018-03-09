@@ -526,6 +526,7 @@ public interface SexActionInterface {
 				public void effects() {
 					SexActionInterface.this.applyEffects();
 					Main.mainController.updateUI();
+					Main.game.updateResponses();
 				}
 				@Override
 				public Colour getHighlightColour() {
@@ -682,10 +683,7 @@ public interface SexActionInterface {
 						return false;
 					break;
 				case TAIL:
-					if(!getPenetratingCharacter().getTailType().isPrehensile()) {
-						return false;
-						
-					} else if(!getPenetratingCharacter().getTailType().isSuitableForPenetration() && !Main.getProperties().furryTailPenetrationContent) {
+					if(!getPenetratingCharacter().getTailType().isSuitableForPenetration()) {
 						return false;
 					}
 					break;

@@ -559,12 +559,7 @@ public class AlleywayAttackerDialogue {
 							+ "</p>"
 							+ "<p>"
 								+ "[npc.speech(You're my perfect little "
-											+"<b style='color:"+Main.game.getActiveNPC().getPreferredBody().getGender().getColour().toWebHexString()+";'>"
-												+(Main.game.getActiveNPC().getPreferredBody().getGender().getName())
-											+"</b> "
-											+"<b style='color:"+Main.game.getActiveNPC().getPreferredBody().getRace().getColour().toWebHexString()+";'>"
-												+(Main.game.getActiveNPC().getPreferredBody().getRace().getName())
-											+"</b>"
+											+Main.game.getActiveNPC().getPreferredBodyDescription("b")
 											+ " now! Don't forget bitch, <i>I'm</i> the one in charge!)] [npc.she] growls, before pulling you into a forceful kiss."
 							+ "</p>");
 					
@@ -579,7 +574,7 @@ public class AlleywayAttackerDialogue {
 							+ "</p>"
 							+ "<p>"
 								+ "As [npc.she] pins you to the floor, [npc.she] produces a curious little bottle from somewhere out of sight, and shakes it from side to side, grinning,"
-								+ " [npc.speech(I think you could do with some <i>improvements</i>!)]"
+								+ " [npc.speech(I think you could do with some <i>improvements</i>! I'm going to turn you into my perfect "+Main.game.getActiveNPC().getPreferredBodyDescription("b")+"!)]"
 							+ "</p>"
 							+ "<p>"
 								+ "[npc.She] pulls out the little stopper from the top of the bottle, and as you open your mouth to protest, [npc.she] suddenly shoves the neck past your [pc.lips+]."
@@ -751,12 +746,8 @@ public class AlleywayAttackerDialogue {
 							+ "After shouting down into your face, [npc.name] stands up, pulling you roughly to your [pc.feet] as [npc.she] does so, before pressing [npc.herself] against you and forcing you into a wet kiss."
 							+ " You're powerless to resist [npc.her] advances, and as [npc.her] [npc.hands] reach around to give your [pc.ass+] a squeeze, [npc.she] laughs,"
 							+ " [npc.speech(I'll turn you into my perfect little "
-								+"<b style='color:"+Main.game.getActiveNPC().getPreferredBody().getGender().getColour().toWebHexString()+";'>"
-									+(Main.game.getActiveNPC().getPreferredBody().getGender().getName())
-								+"</b> "
-								+"<b style='color:"+Main.game.getActiveNPC().getPreferredBody().getRace().getColour().toWebHexString()+";'>"
-									+(Main.game.getActiveNPC().getPreferredBody().getRace().getName())
-								+"</b> next time! For now, I'm going to get some fun out of you just as you are!)]"
+							+Main.game.getActiveNPC().getPreferredBodyDescription("b")
+							+" next time! For now, I'm going to get some fun out of you just as you are!)]"
 						+ "</p>");
 			
 			} else {
@@ -869,12 +860,8 @@ public class AlleywayAttackerDialogue {
 							+ "As you struggle to recover from your transformation, [npc.name] pulls you to your [pc.feet], before pressing [npc.herself] against you and forcing you into a wet kiss."
 							+ " You're powerless to resist [npc.her] advances, and as [npc.her] [npc.hands] reach around to give your [pc.ass+] a squeeze, [npc.she] laughs,"
 							+ " [npc.speech(I'll turn you into my perfect little "
-								+"<b style='color:"+Main.game.getActiveNPC().getPreferredBody().getGender().getColour().toWebHexString()+";'>"
-									+(Main.game.getActiveNPC().getPreferredBody().getGender().getName())
-								+"</b> "
-								+"<b style='color:"+Main.game.getActiveNPC().getPreferredBody().getRace().getColour().toWebHexString()+";'>"
-									+(Main.game.getActiveNPC().getPreferredBody().getRace().getName())
-								+"</b>! Now for the real fun!)]"
+							+ Main.game.getActiveNPC().getPreferredBodyDescription("b")
+							+ "! Now for the real fun!)]"
 						+ "</p>");
 			
 			} else {
@@ -885,12 +872,7 @@ public class AlleywayAttackerDialogue {
 						+ "</p>"
 						+ "<p>"
 							+ "[npc.speech(You're not good enough for me to be interested in you just yet!)] [npc.she] growls down at you, [npc.speech(Come back and pay me another visit, <i>or else</i>! I'm going to turn you into my perfect little "
-								+"<b style='color:"+Main.game.getActiveNPC().getPreferredBody().getGender().getColour().toWebHexString()+";'>"
-									+(Main.game.getActiveNPC().getPreferredBody().getGender().getName())
-								+"</b> "
-								+"<b style='color:"+Main.game.getActiveNPC().getPreferredBody().getRace().getColour().toWebHexString()+";'>"
-									+(Main.game.getActiveNPC().getPreferredBody().getRace().getName())
-								+"</b>!)]"
+								+Main.game.getActiveNPC().getPreferredBodyDescription("b")+"!)]"
 						+ "</p>"
 						+ "<p>"
 							+ "With that, [npc.she] turns around and runs off, leaving you panting and sweating as you attempt to recover from the transformations that were just forced upon you..."

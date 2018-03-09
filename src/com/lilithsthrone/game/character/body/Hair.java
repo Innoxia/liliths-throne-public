@@ -111,6 +111,19 @@ public class Hair implements BodyPartInterface, Serializable {
 							+ "</p>");
 				}
 				break;
+			case IMP:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" The feeling goes away almost as quickly as it came, leaving you with silky, impish hair.</br>"
+								+ "You now have [pc.hairColour] [style.boldImp(impish hair)]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" The transformation only lasts a matter of moments, leaving [npc.herHim] with silky, impish hair.</br>"
+								+ "[npc.Name] now has [npc.hairColour] [style.boldImp(impish hair)]."
+							+ "</p>");
+				}
+				break;
 			case DOG_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(

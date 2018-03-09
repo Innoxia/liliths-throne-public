@@ -1598,7 +1598,7 @@ public class ZaranixHomeGroundFloor {
 			
 			UtilText.nodeContentSB.append("<p>"
 						+ "You find yourself comparing the corridors of Zaranix's home to those of Lilaya's."
-						+ " While they're just as well-furnished as those of your aunt's house, being home to numerous fine painting, cushioned chairs, and well-crafted cabinets, they're not quite as wide nor high."
+						+ " While they're just as well-furnished as those of your aunt's house, being home to numerous fine paintings, cushioned chairs, and well-crafted cabinets, they're not quite as wide nor high."
 						+ " Where once you might have been deeply impressed by the extravagant luxury of this incubus's mansion, you now find yourself thinking that it's not quite as grand as the one you live in."
 					+ "</p>");
 			
