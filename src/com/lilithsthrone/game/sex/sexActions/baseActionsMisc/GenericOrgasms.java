@@ -2629,7 +2629,12 @@ public class GenericOrgasms {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return (!Sex.getActivePartner().hasPenis() || !Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.PENIS) || Sex.getActivePartner().isWearingCondom());
+			return true;
+		}
+		
+		@Override
+		public SexActionPriority getPriority() {
+			return SexActionPriority.LOW;
 		}
 
 		@Override
