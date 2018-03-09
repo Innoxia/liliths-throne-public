@@ -13,6 +13,7 @@ import com.lilithsthrone.game.character.body.Skin;
 import com.lilithsthrone.game.character.body.Vagina;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.FaceType;
+import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.PiercingType;
 import com.lilithsthrone.game.character.npc.dominion.Kate;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -576,31 +577,34 @@ public class SuccubisSecrets {
 				public void effects() {
 					
 					CoveringsNamesMap = new LinkedHashMap<>();
-					
-					for(BodyPartInterface bp : Main.game.getPlayer().getAllBodyParts()){
-						if(bp.getType().getBodyCoveringType()!=null
-								&& bp.getType().getBodyCoveringType().getRace()!=null
-								&& !(bp instanceof Hair)
-								&& !(bp instanceof Eye)) {
-							
-							String name = bp.getName(Main.game.getPlayer());
-							if(bp instanceof Skin) {
-								name = "torso";
-							} else if(bp instanceof Vagina) {
-								name = "vagina";
-							}
-							
-							if(CoveringsNamesMap.containsKey(bp.getType().getBodyCoveringType())) {
-								CoveringsNamesMap.get(bp.getType().getBodyCoveringType()).add(name);
-							} else {
-								CoveringsNamesMap.put(bp.getType().getBodyCoveringType(), Util.newArrayListOfValues(new ListValue<>(name)));
+					if(Main.game.getPlayer().getBodyMaterial()==BodyMaterial.SLIME) {
+						CoveringsNamesMap.put(BodyCoveringType.SLIME, Util.newArrayListOfValues(new ListValue<>("SLIME")));
+					} else {
+						for(BodyPartInterface bp : Main.game.getPlayer().getAllBodyParts()){
+							if(bp.getType().getBodyCoveringType()!=null
+									&& bp.getType().getBodyCoveringType().getRace()!=null
+									&& !(bp instanceof Hair)
+									&& !(bp instanceof Eye)) {
+								
+								String name = bp.getName(Main.game.getPlayer());
+								if(bp instanceof Skin) {
+									name = "torso";
+								} else if(bp instanceof Vagina) {
+									name = "vagina";
+								}
+								
+								if(CoveringsNamesMap.containsKey(bp.getType().getBodyCoveringType())) {
+									CoveringsNamesMap.get(bp.getType().getBodyCoveringType()).add(name);
+								} else {
+									CoveringsNamesMap.put(bp.getType().getBodyCoveringType(), Util.newArrayListOfValues(new ListValue<>(name)));
+								}
 							}
 						}
+						CoveringsNamesMap.put(BodyCoveringType.ANUS, Util.newArrayListOfValues(new ListValue<>("anus")));
+						CoveringsNamesMap.put(BodyCoveringType.MOUTH, Util.newArrayListOfValues(new ListValue<>("mouth")));
+						CoveringsNamesMap.put(BodyCoveringType.NIPPLES, Util.newArrayListOfValues(new ListValue<>("nipples")));
+						CoveringsNamesMap.put(BodyCoveringType.TONGUE, Util.newArrayListOfValues(new ListValue<>("tongue")));
 					}
-					CoveringsNamesMap.put(BodyCoveringType.ANUS, Util.newArrayListOfValues(new ListValue<>("anus")));
-					CoveringsNamesMap.put(BodyCoveringType.MOUTH, Util.newArrayListOfValues(new ListValue<>("mouth")));
-					CoveringsNamesMap.put(BodyCoveringType.NIPPLES, Util.newArrayListOfValues(new ListValue<>("nipples")));
-					CoveringsNamesMap.put(BodyCoveringType.TONGUE, Util.newArrayListOfValues(new ListValue<>("tongue")));
 
 					if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
 						Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToKatePregnancy);
@@ -732,7 +736,11 @@ public class SuccubisSecrets {
 				String title = Util.capitaliseSentence(bct.getName(Main.game.getPlayer()));
 				String description = "This is the "+bct.getName(Main.game.getPlayer())+" that's currently covering your "+Util.stringsToStringList(entry.getValue(), false)+".";
 				
-				if(bct == BodyCoveringType.ANUS) {
+				if(bct == BodyCoveringType.SLIME) {
+					title = "Slime";
+					description = "Your entire body is made of slime!";
+					
+				} if(bct == BodyCoveringType.ANUS) {
 					title = "Anus";
 					description = "This is the skin that's currently covering your anal rim. The secondary colour determines what your anus's inner-walls look like.";
 					

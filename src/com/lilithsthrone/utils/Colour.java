@@ -332,10 +332,24 @@ public enum Colour {
 	SKIN_GREY(BaseColour.GREY, "grey"),
 
 	// Slime types:
-	SLIME_BLUE(BaseColour.BLUE, "translucent blue"),
+
 	SLIME_RED(BaseColour.RED, "translucent red"),
-	SLIME_GREEN(BaseColour.GREEN, "translucent green"),
+	SLIME_RED_DARK(BaseColour.RED_DARK, "translucent dark red"),
+	SLIME_BROWN(BaseColour.BROWN, "translucent brown"),
+	SLIME_YELLOW(BaseColour.YELLOW, "translucent yellow"),
+	SLIME_AMBER(BaseColour.AMBER, "translucent amber"),
 	SLIME_PINK(BaseColour.PINK, "translucent pink"),
+	SLIME_PINK_LIGHT(BaseColour.PINK_LIGHT, "translucent light pink"),
+	SLIME_GREEN(BaseColour.GREEN, "translucent green"),
+	SLIME_GREEN_DARK(BaseColour.GREEN_DARK, "translucent dark green"),
+	SLIME_BLUE_LIGHT(BaseColour.BLUE_LIGHT, "translucent light blue"),
+	SLIME_BLUE(BaseColour.BLUE, "translucent blue"),
+	SLIME_BLUE_DARK(BaseColour.BLUE_DARK, "translucent dark blue"),
+	SLIME_LILAC(BaseColour.LILAC, "translucent lilac"),
+	SLIME_PURPLE(BaseColour.PURPLE, "translucent purple"),
+	SLIME_PURPLE_DARK(BaseColour.PURPLE_DARK, "translucent dark purple"),
+	SLIME_CLEAR(BaseColour.WHITE, "clear"),
+	SLIME_GREY(BaseColour.GREY, "translucent grey"),
 	SLIME_BLACK(BaseColour.BLACK, "translucent black"),
 
 	// Feathers:
@@ -693,6 +707,28 @@ public enum Colour {
 			new ListValue<Colour>(Colour.SKIN_PURPLE),
 			new ListValue<Colour>(Colour.SKIN_PURPLE_DARK),
 			new ListValue<Colour>(Colour.SKIN_IVORY));
+
+	public static List<Colour> allSlimeColours = Util.newArrayListOfValues(
+			new ListValue<Colour>(Colour.SLIME_RED),
+			new ListValue<Colour>(Colour.SLIME_RED_DARK),
+			new ListValue<Colour>(Colour.SLIME_BROWN),
+			new ListValue<Colour>(Colour.SLIME_YELLOW),
+			new ListValue<Colour>(Colour.SLIME_AMBER),
+			new ListValue<Colour>(Colour.SLIME_PINK),
+			new ListValue<Colour>(Colour.SLIME_PINK_LIGHT),
+			new ListValue<Colour>(Colour.SLIME_GREEN),
+			new ListValue<Colour>(Colour.SLIME_GREEN_DARK),
+			new ListValue<Colour>(Colour.SLIME_BLUE_LIGHT),
+			new ListValue<Colour>(Colour.SLIME_BLUE),
+			new ListValue<Colour>(Colour.SLIME_BLUE_DARK),
+			new ListValue<Colour>(Colour.SLIME_LILAC),
+			new ListValue<Colour>(Colour.SLIME_PURPLE),
+			new ListValue<Colour>(Colour.SLIME_PURPLE_DARK),
+			new ListValue<Colour>(Colour.SLIME_CLEAR),
+			new ListValue<Colour>(Colour.SLIME_GREY),
+			new ListValue<Colour>(Colour.SLIME_BLACK)
+			);
+	
 	
 	
 	public static List<Colour> naturalFurColours = Util.newArrayListOfValues(

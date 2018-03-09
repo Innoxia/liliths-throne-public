@@ -328,7 +328,7 @@ public enum BodyCoveringType {
 					new ListValue<Colour>(Colour.ORIFICE_INTERIOR)),
 			Colour.allSkinColours),
 	
-	SLIME(Race.HUMAN,
+	SLIME(Race.SLIME,
 			"a layer of",
 			false,
 			"slime",
@@ -338,12 +338,7 @@ public enum BodyCoveringType {
 			null,
 			null,
 			null,
-			Util.newArrayListOfValues(
-					new ListValue<Colour>(Colour.SLIME_PINK),
-					new ListValue<Colour>(Colour.SLIME_BLUE),
-					new ListValue<Colour>(Colour.SLIME_GREEN),
-					new ListValue<Colour>(Colour.SLIME_RED),
-					new ListValue<Colour>(Colour.SLIME_BLACK)),
+			Colour.allSlimeColours,
 			null,
 			null,
 			null),

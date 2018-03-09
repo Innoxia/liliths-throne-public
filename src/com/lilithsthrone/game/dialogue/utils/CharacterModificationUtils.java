@@ -3111,23 +3111,40 @@ public class CharacterModificationUtils {
 			}
 			contentSB.append("</div>");
 			
-			contentSB.append("<div class='container-full-width'>");
-			for(CoveringModifier mod : activeCovering.getType().getNaturalModifiers()) {
-				if (activeCovering.getModifier() == mod) {
-					contentSB.append(
-							"<div class='cosmetics-button active'>"
-								+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>" + Util.capitaliseSentence(mod.getName()) + "</b>"
-							+ "</div>");
-				} else {
-					contentSB.append(
-							"<div id='"+coveringType+"_MODIFIER_"+mod+"' class='cosmetics-button'>"
-									+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(coveringType) || !withCost
-										? "<span style='color:"+Colour.TRANSFORMATION_GENERIC.getShades()[0]+";'>" + Util.capitaliseSentence(mod.getName()) + "</span>"
-										: "[style.colourDisabled(" + Util.capitaliseSentence(mod.getName()) + ")]")
-							+ "</div>");
+			if(activeCovering.getType().getNaturalModifiers().size() + activeCovering.getType().getExtraModifiers().size()>1) {
+				contentSB.append("<div class='container-full-width'>");
+				for(CoveringModifier mod : activeCovering.getType().getNaturalModifiers()) {
+					if (activeCovering.getModifier() == mod) {
+						contentSB.append(
+								"<div class='cosmetics-button active'>"
+									+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>" + Util.capitaliseSentence(mod.getName()) + "</b>"
+								+ "</div>");
+					} else {
+						contentSB.append(
+								"<div id='"+coveringType+"_MODIFIER_"+mod+"' class='cosmetics-button'>"
+										+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(coveringType) || !withCost
+											? "<span style='color:"+Colour.TRANSFORMATION_GENERIC.getShades()[0]+";'>" + Util.capitaliseSentence(mod.getName()) + "</span>"
+											: "[style.colourDisabled(" + Util.capitaliseSentence(mod.getName()) + ")]")
+								+ "</div>");
+					}
 				}
+				for(CoveringModifier mod : activeCovering.getType().getExtraModifiers()) {
+					if (activeCovering.getModifier() == mod) {
+						contentSB.append(
+								"<div class='cosmetics-button active'>"
+									+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>" + Util.capitaliseSentence(mod.getName()) + "</b>"
+								+ "</div>");
+					} else {
+						contentSB.append(
+								"<div id='"+coveringType+"_MODIFIER_"+mod+"' class='cosmetics-button'>"
+										+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.getBodyCoveringTypeCost(coveringType) || !withCost
+											? "<span style='color:"+Colour.TRANSFORMATION_GENERIC.getShades()[0]+";'>" + Util.capitaliseSentence(mod.getName()) + "</span>"
+											: "[style.colourDisabled(" + Util.capitaliseSentence(mod.getName()) + ")]")
+								+ "</div>");
+					}
+				}
+				contentSB.append("</div>");
 			}
-			contentSB.append("</div>");
 		contentSB.append("</div>");
 		
 		
