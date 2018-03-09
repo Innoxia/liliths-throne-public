@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -13,7 +14,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.2.1
  * @author Innoxia
  */
 public enum PenisType implements BodyPartTypeInterface {
@@ -27,6 +28,8 @@ public enum PenisType implements BodyPartTypeInterface {
 
 	DEMON_COMMON(BodyCoveringType.PENIS, TesticleType.DEMON_COMMON, Race.DEMON, PenisModifier.RIBBED, PenisModifier.TENTACLED, PenisModifier.PREHENSILE),
 
+	IMP(BodyCoveringType.PENIS, TesticleType.IMP, Race.IMP, PenisModifier.RIBBED, PenisModifier.TENTACLED, PenisModifier.PREHENSILE),
+	
 	CANINE(BodyCoveringType.PENIS, TesticleType.CANINE, Race.DOG_MORPH, PenisModifier.KNOTTED, PenisModifier.SHEATHED, PenisModifier.TAPERED),
 	
 	LUPINE(BodyCoveringType.PENIS, TesticleType.LUPINE, Race.WOLF_MORPH, PenisModifier.KNOTTED, PenisModifier.SHEATHED, PenisModifier.TAPERED),
@@ -79,7 +82,7 @@ public enum PenisType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public String getDescriptor(GameCharacter gc) { //TODO girth
+	public String getDescriptor(GameCharacter gc) {
 		// Randomly give a size/aroused or type-specific descriptor:
 		switch(Util.random.nextInt(3)){
 			case 0:
@@ -94,6 +97,8 @@ public enum PenisType implements BodyPartTypeInterface {
 						return UtilText.returnStringAtRandom("canine", "dog-", "dog-like", "bestial");
 					case DEMON_COMMON:
 						return UtilText.returnStringAtRandom("demonic", "demon-");
+					case IMP:
+						return UtilText.returnStringAtRandom("impish", "imp-");
 					case EQUINE:
 						return UtilText.returnStringAtRandom("equine", "horse-", "horse-like", "bestial");
 					case REINDEER_MORPH:
@@ -113,12 +118,16 @@ public enum PenisType implements BodyPartTypeInterface {
 				}
 				break;
 			case 1:
-				return gc.getPenisSize().getDescriptor();
+				return UtilText.returnStringAtRandom(
+						gc.getPenisSize().getDescriptor(),
+						gc.getPenisGirth()==PenisGirth.TWO_AVERAGE?"":gc.getPenisGirth().getName());
 			default:
 				if(Main.game.isInSex()) {
 					return UtilText.returnStringAtRandom("hard", "throbbing");
 				} else {
-					return gc.getPenisSize().getDescriptor();
+					return UtilText.returnStringAtRandom(
+							gc.getPenisSize().getDescriptor(),
+							gc.getPenisGirth()==PenisGirth.TWO_AVERAGE?"":gc.getPenisGirth().getName());
 				}
 		}
 		return "";
@@ -136,6 +145,8 @@ public enum PenisType implements BodyPartTypeInterface {
 				return "canine";
 			case DEMON_COMMON:
 				return "demonic";
+			case IMP:
+				return "impish";
 			case EQUINE:
 				return "equine";
 			case REINDEER_MORPH:

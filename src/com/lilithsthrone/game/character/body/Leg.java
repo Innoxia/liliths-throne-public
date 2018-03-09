@@ -109,6 +109,23 @@ public class Leg implements BodyPartInterface, Serializable {
 							+ "</p>");
 				}
 				break;
+			case IMP:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" They quickly shift into a pair of smooth, slender legs, and you let out a gasp as a layer of flawless, impish skin rapidly grows to cover them."
+								+ " As they finish transforming, you almost lose your balance and fall over as the bones in your feet start to shift and rearrange themselves."
+								+ " After a moment, they've transformed into slender human-like feet, ending in soft, delicate toes.</br>"
+								+ "You now have [style.boldImp(impish legs and feet)], which are covered in [pc.legFullDescription]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" They quickly shift into a pair of smooth, slender legs, and [npc.she] lets out a gasp as a layer of flawless, impish skin rapidly grows to cover them."
+								+ " As they finish transforming, [npc.she] almost loses [npc.her] balance as the bones in [npc.her] feet start to shift and rearrange themselves."
+								+ " After a moment, they've transformed into slender human-like feet, ending in soft, delicate toes.</br>"
+								+ "[npc.Name] now has [style.boldImp(impish legs and feet)], which are covered in [npc.legFullDescription]."
+							+ "</p>");
+				}
+				break;
 			case DOG_MORPH:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(

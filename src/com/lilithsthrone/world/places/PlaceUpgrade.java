@@ -39,7 +39,7 @@ public enum PlaceUpgrade {
 			"Rose will return this room to its original state, which will render it unsuitable for housing any of your slaves.",
 			"This room is empty, and would need conversion work to be done if you'd like to house any of your slaves here.",
 			"This room is unoccupied, and although Rose seems to be doing an excellent job of keeping it clean and well-dusted, it seems a shame that it's not being used to its full potential...",
-			200,
+			2000,
 			0,
 			0,
 			0,
@@ -132,9 +132,9 @@ public enum PlaceUpgrade {
 					+ " A single-size bed, covered in a plain white duvet, sits against one wall."
 					+ " Beside it, there's a simple bedside cabinet, complete with arcane-powered lamp."
 					+ " Other than that, the only other pieces of furniture in here are a wooden wardrobe and chest of drawers.",
-			200,
+			2000,
 			0,
-			10,
+			100,
 			1,
 			0.1f,
 			0,
@@ -200,9 +200,9 @@ public enum PlaceUpgrade {
 					+ " A pair of single-size beds, covered in a plain white duvets, sit against opposite walls."
 					+ " Beside each one, there's a simple bedside cabinet, complete with arcane-powered lamp."
 					+ " Other than that, the only other pieces of furniture in here are a single wooden wardrobe and solitary chest of drawers.",
-			350,
+			3500,
 			0,
-			10,
+			100,
 			2,
 			-0.05f,
 			0,
@@ -266,9 +266,9 @@ public enum PlaceUpgrade {
 			"A small, single size bed, complete with an uncomfortable mattress, a hard pillow, and a thin blanket, has been installed in this room.",
 			"A small, single size bed, complete with an uncomfortable mattress, a hard pillow, and a thin blanket, sits against one side of the room."
 					+ " Providing this room's occupant with such an uncomfortable place to sleep will definitely reinforce the fact that they're a slave, but at the same time, they're bound to dislike you more...",
-			25,
-			25,
-			-1,
+			250,
+			100,
+			-10,
 			0,
 			-0.1f,
 			0.2f,
@@ -296,9 +296,9 @@ public enum PlaceUpgrade {
 			"A double size bed, complete with a comfortable mattress, fluffy pillows, and a warm duvet, has been installed in this room.",
 			"A double size bed, complete with a comfortable mattress, fluffy pillows, and a warm duvet, sits against one side of the room."
 					+ " Providing this room's occupant with such a delightful place to sleep will definitely get them to like you more, although such luxury might make them forget their place...",
+			500,
 			200,
-			50,
-			5,
+			25,
 			0,
 			0.2f,
 			-0.1f,
@@ -341,9 +341,9 @@ public enum PlaceUpgrade {
 			"One of Lilaya's experimental devices, a so-called 'obedience trainer', has been installed in the middle of this room."
 					+ " Taking the form of a large, glowing crystal, the obedience trainer will shoot a shocking bolt of arcane energy at any slave nearby that dares to think a disobedient thought."
 					+ " Although highly effective at training obedience, any slaves subjected to this intrusive training method will be sure to loathe you before long...",
-			1000,
+			10000,
 			500,
-			5,
+			250,
 			0,
 			-0.2f,
 			0.4f,
@@ -358,9 +358,9 @@ public enum PlaceUpgrade {
 					+ " It's definitely making them like you more, but it's also costing a fair amount in upkeep, and is having a negative effect on your slave's obedience...",
 			"An little push-trolley with a few empty silver plates and glasses stacked on top of it is evidence that the slave who lives here is taking full advantage of the unlimited room service you've offered to them."
 					+ " It's definitely making them like you more, but having such a luxury available to them is also having a negative impact on their obedience, not to mention the damage it's doing to your bank account...",
-			20,
+			100,
 			0,
-			50,
+			250,
 			0,
 			0.4f,
 			-0.2f,
@@ -375,9 +375,9 @@ public enum PlaceUpgrade {
 					+ " Your slaves find this to be an intrusion on what little personal space they have, and their affection towards you will suffer as a result.",
 			"In exchange for lowering this room's upkeep, Lilaya has installed several arcane instruments around the room, which allow her to gather data about any slave being housed in here."
 					+ " A couple of them give off a very quiet humming noise, which, combined with their faint purple glow, makes them quite intrusive, and will negatively impact the occupant's affection towards you.",
-			50,
-			50,
-			-5,
+			500,
+			100,
+			-25,
 			0,
 			-0.1f,
 			0f,
@@ -431,8 +431,16 @@ public enum PlaceUpgrade {
 	private float affectionGain, obedienceGain;
 	private List<PlaceUpgrade> prerequisites;
 
-	private PlaceUpgrade(boolean isCoreRoomUpgrade, Colour colour, String name, String descriptionForPurchase, String descriptionAfterPurchase, String roomDescription,
-			int installCost, int removalCost, int upkeep, int capacity,
+	private PlaceUpgrade(boolean isCoreRoomUpgrade,
+			Colour colour,
+			String name,
+			String descriptionForPurchase,
+			String descriptionAfterPurchase,
+			String roomDescription,
+			int installCost,
+			int removalCost,
+			int upkeep,
+			int capacity,
 			float affectionGain,
 			float obedienceGain,
 			List<PlaceUpgrade> prerequisites) {

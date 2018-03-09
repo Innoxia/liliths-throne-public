@@ -54,7 +54,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.0
+ * @version 0.2.1
  * @author Innoxia
  */
 public enum StatusEffect {
@@ -1848,7 +1848,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 10f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 75f)),
-			null) {
+			Util.newArrayListOfValues(new ListValue<String>("<b style='color: "+ Colour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'>Can morph body at will</b>"))) {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
@@ -1868,6 +1868,44 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.getRace() == Race.DEMON
+					&& !target.isRaceConcealed()
+					&& target.getRaceStage() == RaceStage.GREATER;
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return owner.getSubspecies().getSVGString(owner);
+		}
+	},
+	
+	IMP(90,
+			"imp",
+			null,
+			Colour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 50f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "You find that your impish form has a deep, insatiable craving for sex...";
+			} else {
+				return UtilText.parse(target,
+						"[npc.Name]'s impish body has a deep, insatiable craving for sex...");
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.IMP
 					&& !target.isRaceConcealed()
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
@@ -2166,7 +2204,7 @@ public enum StatusEffect {
 		}
 	},
 
-		// SLIME:
+	// SLIME:
 	SLIME(90,
 			"slime",
 			null,
@@ -2174,11 +2212,8 @@ public enum StatusEffect {
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 100f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, -100f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -15f)),
-			Util.newArrayListOfValues(new ListValue<String>("<b>*</b> <b style='color: "
-					+ Colour.CLOTHING_PINK.toWebHexString()
-					+ ";'>You can morph your body at will.<b>"))) {
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f)),
+			Util.newArrayListOfValues(new ListValue<String>("<b style='color: "+ Colour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'>Can morph body at will</b>"))) {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
@@ -2187,8 +2222,8 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			return "Slimes are completely immune to physical damage, but can't really do any physical damage either."
-					+ " They can morph their bodies to seem extremely attractive, but also get aroused incredibly easily.";
+			return "Due to their soft and morphable bodies, slimes have an extremely high resistance to physical damage, but they can't really do much physical damage either."
+					+ " They can morph their bodies to seem extremely attractive to their opponents.";
 		}
 
 		@Override
@@ -2711,9 +2746,12 @@ public enum StatusEffect {
 			80,
 			"well rested",
 			"wellRested",
-			Colour.CLOTHING_BLUE,
+			Colour.ATTRIBUTE_HEALTH,
+			Colour.ATTRIBUTE_MANA,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 20f), new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 20f)),
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 20f),
+					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 20f)),
 			null) {
 
 		@Override
@@ -2726,6 +2764,42 @@ public enum StatusEffect {
 			if(target!=null) {
 				if(target.isPlayer()) {
 					return "After having a good rest, you feel full of energy.";
+				} else {
+					return UtilText.parse(target, "After having a good rest, [npc.name] feels full of energy.");
+				}
+			} else {
+				return "";
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return false;
+		}
+	},
+	
+	WELL_RESTED_BOOSTED(
+			80,
+			"very well rested",
+			"wellRestedBoosted",
+			Colour.ATTRIBUTE_HEALTH,
+			Colour.ATTRIBUTE_MANA,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 50f),
+					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 50f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				if(target.isPlayer()) {
+					return "Thanks to your ability of knowing how to get the most out of a good rest, you now feel extremely full of energy.";
 				} else {
 					return UtilText.parse(target, "After having a good rest, [npc.name] feels full of energy.");
 				}
@@ -5277,7 +5351,9 @@ public enum StatusEffect {
 			"set_maid",
 			Colour.CLOTHING_BLACK,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 10f), new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f)),
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 10f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f)),
 			null) {
 
 		@Override
@@ -5302,7 +5378,47 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return ClothingSet.MAID.isCharacterWearingCompleteSet(target);
+			return ClothingSet.MAID.isCharacterWearingCompleteSet(target) && !target.hasTrait(Perk.JOB_MAID, true);
+		}
+	},
+	
+	SET_MAID_BOOSTED(
+			70,
+			"Professional Maid",
+			"set_maidBoosted",
+			Colour.CLOTHING_BLACK,
+			Colour.BASE_GOLD,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 25f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 25f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				if(target.isPlayer()) {
+					return "By wearing the entire Maid's Outfit, you are reminded of your true profession; that of an exceptionally talented maid!";
+					
+				} else {
+					return UtilText.parse(target, "By wearing the entire Maid's Outfit, [npc.name] is filled with the energy [npc.she] needs in order to be a sexy hard-working maid.");
+					
+				}
+			} else {
+				return "";
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return ClothingSet.MAID.isCharacterWearingCompleteSet(target) && target.hasTrait(Perk.JOB_MAID, true);
 		}
 	},
 	
@@ -5870,6 +5986,38 @@ public enum StatusEffect {
 			return false;
 		}
 	},
+
+	COMBAT_BONUS_IMP(
+			80,
+			"impish intuition",
+			"combatBonusImp",
+			Colour.RACE_DEMON,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_IMP, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_IMP, 25f)),
+			null) {
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target == null) {
+				return "";
+			}
+			if (target.isPlayer()) {
+				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how imps will behave.";
+			} else {
+				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how imps will behave.");
+			}
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return false;
+		}
+	},
 	
 	COMBAT_BONUS_DOG_MORPH(
 			80,
@@ -6119,6 +6267,38 @@ public enum StatusEffect {
 				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how wolf-morphs will behave.";
 			} else {
 				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how wolf-morphs will behave.");
+			}
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return false;
+		}
+	},
+	
+	COMBAT_BONUS_SLIME(
+			80,
+			"slime intuition",
+			"combatBonusSlime",
+			Colour.RACE_SLIME,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_SLIME, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_SLIME, 25f)),
+			null) {
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target == null) {
+				return "";
+			}
+			if (target.isPlayer()) {
+				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how slimes will behave.";
+			} else {
+				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how slimes will behave.");
 			}
 		}
 		@Override
@@ -7772,7 +7952,37 @@ public enum StatusEffect {
 	
 	private static StringBuilder descriptionSB, SVGImageSB;
 
-	private StatusEffect(int renderingPriority, String name, String pathName, Colour colourShade, boolean beneficial, Map<Attribute, Float> attributeModifiers, List<String> extraEffects) {
+	private StatusEffect(int renderingPriority,
+			String name,
+			String pathName,
+			Colour colourShade,
+			boolean beneficial,
+			Map<Attribute, Float> attributeModifiers,
+			List<String> extraEffects) {
+		this(renderingPriority, name, pathName, colourShade, colourShade, colourShade, beneficial, attributeModifiers, extraEffects);
+	}
+	
+	private StatusEffect(int renderingPriority,
+			String name,
+			String pathName,
+			Colour colourShade,
+			Colour colourShadeSecondary,
+			boolean beneficial,
+			Map<Attribute, Float> attributeModifiers,
+			List<String> extraEffects) {
+		this(renderingPriority, name, pathName, colourShade, colourShadeSecondary, colourShade, beneficial, attributeModifiers, extraEffects);
+	}
+	
+	private StatusEffect(int renderingPriority,
+			String name,
+			String pathName,
+			Colour colourShade,
+			Colour colourShadeSecondary,
+			Colour colourShadeTertiary,
+			boolean beneficial,
+			Map<Attribute, Float> attributeModifiers,
+			List<String> extraEffects) {
+		
 		this.renderingPriority = renderingPriority;
 		this.name = name;
 		this.beneficial = beneficial;
@@ -7788,16 +7998,8 @@ public enum StatusEffect {
 		if(pathName!=null) {
 			try {
 				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/" + pathName + ".svg");
-				SVGString = Util.inputStreamToString(is);
-	
-				SVGString = SVGString.replaceAll("#ff2a2a", colourShade.getShades()[0]);
-				SVGString = SVGString.replaceAll("#ff5555", colourShade.getShades()[1]);
-				SVGString = SVGString.replaceAll("#ff8080", colourShade.getShades()[2]);
-				SVGString = SVGString.replaceAll("#ffaaaa", colourShade.getShades()[3]);
-				SVGString = SVGString.replaceAll("#ffd5d5", colourShade.getShades()[4]);
-	
+				SVGString = Util.colourReplacement(this.toString(), colourShade, colourShadeSecondary, colourShadeTertiary, Util.inputStreamToString(is));
 				is.close();
-	
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

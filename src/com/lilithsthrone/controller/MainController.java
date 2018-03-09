@@ -462,6 +462,16 @@ public class MainController implements Initializable {
 						
 						 if(event.getCode()==KeyCode.END){
 							 
+//							 Cell[][] grid = new Cell[5][5];
+//							 for(int i=0; i<grid.length;i++) {
+//								 for(int j=0; j<grid[0].length;j++) {
+//									 grid[i][j] = new Cell(WorldType.SEWERS, new Vector2i(i, j));
+//									 grid[i][j].setPlace(new GenericPlace(PlaceType.SUBMISSION_IMP_PALACE));
+//								 }
+//							 }
+//							 
+//							 Generation.printMaze(WorldType.SEWERS, Generation.generateTestMap(WorldType.SEWERS, 0, 0, grid, 2));
+							 
 //							 Main.game.getPlayer().incrementCummedInArea(OrificeType.VAGINA, 10000);
 							 
 //							 Main.game.getPlayer().addPsychoactiveFluidIngested(FluidType.CUM_HUMAN);

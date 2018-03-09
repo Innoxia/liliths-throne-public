@@ -34,7 +34,7 @@ import com.lilithsthrone.utils.Util;
  * Call initialiseCombat() before using.
  *
  * @since 0.1.0
- * @version 0.1.99
+ * @version 0.2.1
  * @author Innoxia
  */
 public enum Combat {
@@ -118,12 +118,31 @@ public enum Combat {
 		} else if (Main.game.getPlayer().hasTrait(Perk.RUNNER_2, true)) {
 			escapeChance *= 2f;
 		}
+		if(escapeChance >0 && Main.game.getPlayer().hasTrait(Perk.JOB_ATHLETE, true)) {
+			escapeChance = 100;
+		}
 		
 		
 		if(openingDescriptions!=null && openingDescriptions.containsKey(Main.game.getPlayer())) {
-			combatStringBuilder.append(getCharactersTurnDiv(Main.game.getPlayer(), "Preparation", openingDescriptions.get(Main.game.getPlayer())));
+			combatStringBuilder.append(getCharactersTurnDiv(Main.game.getPlayer(),
+					"Preparation",
+					(Main.game.getPlayer().hasTrait(Perk.JOB_SOLDIER, true)
+							?"<p style='text-align:center;'>"
+								+"Any damage done in this first turn is [style.boldExcellent(doubled)] thanks to your"
+									+ " <b style='color:"+Perk.JOB_SOLDIER.getColour().toWebHexString()+";'>"+Perk.JOB_SOLDIER.getName(Main.game.getPlayer())+"</b> ability."
+								+ "</p>"
+							:"")
+					+openingDescriptions.get(Main.game.getPlayer())));
 		} else {
-			combatStringBuilder.append(getCharactersTurnDiv(Main.game.getPlayer(), "Preparation", "You prepare to make a move..."));
+			combatStringBuilder.append(getCharactersTurnDiv(Main.game.getPlayer(),
+					"Preparation",
+					(Main.game.getPlayer().hasTrait(Perk.JOB_SOLDIER, true)
+							?"<p style='text-align:center;'>"
+								+"Any damage done in this first turn is [style.boldExcellent(doubled)] thanks to your"
+									+ " <b style='color:"+Perk.JOB_SOLDIER.getColour().toWebHexString()+";'>"+Perk.JOB_SOLDIER.getName(Main.game.getPlayer())+"</b> ability."
+								+ "</p>"
+							:"")
+					+"<p>You prepare to make a move...</p>"));
 		}
 		
 		for(NPC enemy : enemies) {
@@ -187,19 +206,14 @@ public enum Combat {
 			}
 			
 			for(NPC ally : allies) {
-				ally.incrementExperience(xp);
-				postCombatStringBuilder.append(UtilText.parse(ally,
-						"<h6 style='text-align:center;'>[npc.Name] gained <b style='color:" + Colour.GENERIC_EXPERIENCE.toWebHexString() + ";'>" + xp + " xp!</b>"));
+				postCombatStringBuilder.append(ally.incrementExperience(xp, true));
 			}
 			
-			Main.game.getPlayer().incrementExperience(xp);
-			postCombatStringBuilder.append("<h6 style='text-align:center;'>You gained <b style='color:" + Colour.GENERIC_EXPERIENCE.toWebHexString() + ";'>" + xp + " xp</b>");
+			postCombatStringBuilder.append(Main.game.getPlayer().incrementExperience(xp, true));
 			
 			Main.game.getPlayer().incrementMoney(money);
 			if (money > 0) {
-				postCombatStringBuilder.append(" and " + UtilText.formatAsMoney(money) + "!</h6>");
-			} else {
-				postCombatStringBuilder.append("!</h6>");
+				postCombatStringBuilder.append("<p style='text-align:center'>You gained " + UtilText.formatAsMoney(money) + "!</p>");
 			}
 			
 			// Apply loot drop:
@@ -303,9 +317,7 @@ public enum Combat {
 			int xpGain = (Main.game.getPlayer().getLevel()*2);
 			
 			for(NPC enemy : enemies) {
-				enemy.incrementExperience(xpGain);
-				postCombatStringBuilder.append(UtilText.parse(enemy,
-						"<h6 style='text-align:center;'>[npc.Name] gained <b style='color:" + Colour.GENERIC_EXPERIENCE.toWebHexString() + ";'>" + xpGain + " xp</b> from defeating you!</h6>"));
+				postCombatStringBuilder.append(enemy.incrementExperience(xpGain, true));
 			}
 			
 			int money = Main.game.getPlayer().getMoney();
@@ -692,7 +704,11 @@ public enum Combat {
 						return new Response("Escape", "You can't run from this fight!", null);
 						
 					} else {
-						return new Response("Escape", "Try to escape.</br></br>You have a "+escapeChance+"% chance to get away!", ENEMY_ATTACK){
+						return new Response("Escape",
+								Main.game.getPlayer().hasTrait(Perk.JOB_ATHLETE, true) && escapeChance==100
+									?"Try to escape.</br></br>Thanks to your <b style='color:"+Perk.JOB_ATHLETE.getColour().toWebHexString()+";'>"+Perk.JOB_ATHLETE.getName(Main.game.getPlayer())+"</b> ability, you have a "+escapeChance+"% chance to get away!"
+									:"Try to escape.</br></br>You have a "+escapeChance+"% chance to get away!",
+								ENEMY_ATTACK){
 							@Override
 							public void effects() {
 								escape(Main.game.getPlayer());
@@ -1510,5 +1526,9 @@ public enum Combat {
 		cooldowns.get(character).putIfAbsent(attack, 0);
 		
 		cooldowns.get(character).put(attack, Math.max(0, cooldowns.get(character).get(attack)+increment));
+	}
+
+	public static int getTurn() {
+		return turn;
 	}
 }

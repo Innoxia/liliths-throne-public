@@ -61,7 +61,7 @@ Calm:
 	
 	// Partner histories:
 
-	UNEMPLOYED(true, true, Perk.JOB_UNEMPLOYED, "unemployed", "-"),
+	UNEMPLOYED(true, true, Perk.JOB_UNEMPLOYED, "unemployed", "You've been out of work for a little while now."),
 	
 	// Sociable personality:
 	

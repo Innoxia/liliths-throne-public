@@ -174,7 +174,7 @@ public enum Perk {
 			Colour.BASE_ORANGE,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Integer>(Attribute.RESISTANCE_POISON, 50)),
-			Util.newArrayListOfValues(new ListValue<>("[style.boldExcellent(Double)] all temporary attribute-boosting effects from consumables and potions"))) {
+			Util.newArrayListOfValues(new ListValue<>("[style.boldExcellent(Double)] all potions effects' strength and length"))) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Thanks to spending a considerable amount of time tasting food, you have both a significant resistance to poison, as well as the ability to make the most of things that are a culinary marvel.";
@@ -183,16 +183,16 @@ public enum Perk {
 
 	JOB_SOLDIER(20,
 			true,
-			"Infantry Aggression",
+			"Controlled Aggression",
 			PerkCategory.JOB,
 			"perks/jobs/soldier",
 			Colour.BASE_GREEN,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 10),
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5),
 					new Value<Attribute, Integer>(Attribute.HEALTH_MAXIMUM, 20),
-					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 25),
-					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 25)),
-			Util.newArrayListOfValues(new ListValue<>("Your first strike in combat deals [style.boldExcellent(300%)] damage"))) {
+					new Value<Attribute, Integer>(Attribute.RESISTANCE_PHYSICAL, 10),
+					new Value<Attribute, Integer>(Attribute.DAMAGE_PHYSICAL, 10)),
+			Util.newArrayListOfValues(new ListValue<>("Your first strike in combat deals [style.boldExcellent(double)] damage"))) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "You've spent a considerable amount of time training to fight, and as a result, you are far stronger and healthier than a normal person."
@@ -202,12 +202,12 @@ public enum Perk {
 
 	JOB_ATHLETE(20,
 			true,
-			"Ten-second barrier",
+			"Ten-Second Barrier",
 			PerkCategory.JOB,
 			"perks/jobs/athlete",
 			Colour.BASE_TEAL,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 25)),
+					new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 10)),
 			Util.newArrayListOfValues(new ListValue<>("All non-zero escape chances in combat are boosted to [style.boldExcellent(100%)]"))) {
 		@Override
 		public String getDescription(GameCharacter owner) {

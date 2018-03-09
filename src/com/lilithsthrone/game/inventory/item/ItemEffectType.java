@@ -30,6 +30,7 @@ import com.lilithsthrone.game.character.body.valueEnums.AreolaeShape;
 import com.lilithsthrone.game.character.body.valueEnums.AreolaeSize;
 import com.lilithsthrone.game.character.body.valueEnums.AssSize;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
+import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
@@ -161,6 +162,17 @@ public enum ItemEffectType {
 			return getBookEffect(Race.DEMON, ItemType.BOOK_DEMON);
 		}
 	},
+
+	BOOK_READ_IMP(Util.newArrayListOfValues(
+			new ListValue<>("Adds imp encyclopedia entry."),
+			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(arcane)]")),
+			Colour.RACE_IMP) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			return getBookEffect(Race.IMP, ItemType.BOOK_IMP);
+		}
+	},
 	
 	BOOK_READ_DOG_MORPH(Util.newArrayListOfValues(
 			new ListValue<>("Adds dog-morph encyclopedia entry."),
@@ -247,6 +259,17 @@ public enum ItemEffectType {
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
 			return getBookEffect(Race.WOLF_MORPH, ItemType.BOOK_WOLF_MORPH);
+		}
+	},
+
+	BOOK_READ_SLIME(Util.newArrayListOfValues(
+			new ListValue<>("Adds slime encyclopedia entry."),
+			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(arcane)]")),
+			Colour.RACE_SLIME) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			return getBookEffect(Race.SLIME, ItemType.BOOK_SLIME);
 		}
 	},
 	
@@ -777,6 +800,25 @@ public enum ItemEffectType {
 					+"</p>";
 		}
 	},
+
+	COR_IMPISH_BREW(Util.newArrayListOfValues(
+			new ListValue<>("[style.boldGood(Restores)] 10% [style.boldAura(aura)]"),
+			new ListValue<>("[style.boldGood(+5)] [style.boldCorruption(corruption)] to 'potion effects'")),
+			Colour.ATTRIBUTE_CORRUPTION) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			target.incrementMana(target.getAttributeValue(Attribute.MANA_MAXIMUM)/10);
+
+			return "<p style='text-align:center;'>"
+					+(target.isPlayer()
+						?"A sickly wave of corruptive arcane energy washes over you......"
+						:UtilText.parse(target, "A sickly wave of corruptive arcane energy washes over [npc.name]..."))
+					+ "</br>"
+					+ target.addPotionEffect(Attribute.MAJOR_CORRUPTION, 5)
+					+"</p>";
+		}
+	},
 	
 	MYSTERY_KINK(Util.newArrayListOfValues(
 			new ListValue<>("[style.boldFetish(Random fetish addition or removal)]")),
@@ -1148,6 +1190,23 @@ public enum ItemEffectType {
 		}
 	},
 	
+	RACE_BIOJUICE(Util.newArrayListOfValues(
+			new ListValue<>("[style.boldGood(+50)] [style.boldCorruption(corruption)] to 'potion effects'"),
+			new ListValue<>("[style.boldSlime(Transforms body into slime!)]")),
+			Colour.RACE_SLIME) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			return (target.isPlayer()
+						?"You start to feel more feminine..."
+						:UtilText.parse(target, "[npc.Name] starts to feel more feminine..."))
+					+ "</br>"
+					+ target.addPotionEffect(Attribute.MAJOR_CORRUPTION, 50)
+					+ "</br>"
+					+ target.setBodyMaterial(BodyMaterial.SLIME);
+		}
+	},
+	
 	// Essences:
 	
 //	BOTTLED_ESSENCE_ANGEL(Util.newArrayListOfValues(
@@ -1251,6 +1310,20 @@ public enum ItemEffectType {
 			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldDemon(demons)]!";
 		}
 	},
+
+	BOTTLED_ESSENCE_IMP(Util.newArrayListOfValues(
+			new ListValue<>("[style.boldGood(+1)] [style.boldArcane(Arcane)] essence"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldImp(imps)]"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldImp(imps)]")),
+			Colour.RACE_IMP) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			target.incrementEssenceCount(TFEssence.ARCANE, 1);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_IMP, 60*4);
+			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldImp(imps)]!";
+		}
+	},
 	
 	BOTTLED_ESSENCE_DOG_MORPH(Util.newArrayListOfValues(
 			new ListValue<>("[style.boldGood(+1)] [style.boldArcane(Arcane)] essence"),
@@ -1333,6 +1406,20 @@ public enum ItemEffectType {
 			target.incrementEssenceCount(TFEssence.ARCANE, 1);
 			target.addStatusEffect(StatusEffect.COMBAT_BONUS_WOLF_MORPH, 60*4);
 			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldWolf(wolf-morphs)]!";
+		}
+	},
+	
+	BOTTLED_ESSENCE_SLIME(Util.newArrayListOfValues(
+			new ListValue<>("[style.boldGood(+1)] [style.boldArcane(Arcane)] essence"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(damage vs)] [style.boldSlime(slimes)]"),
+			new ListValue<>("[style.boldGood(+25%)] [style.bold(resistance vs)] [style.boldSlime(slimes)]")),
+			Colour.RACE_WOLF_MORPH) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			target.incrementEssenceCount(TFEssence.ARCANE, 1);
+			target.addStatusEffect(StatusEffect.COMBAT_BONUS_SLIME, 60*4);
+			return "You have absorbed [style.boldGood(+1)] [style.boldArcane(Arcane)] essence, and are now far more effective at fighting [style.boldSlime(slimes)]!";
 		}
 	},
 	
@@ -3592,6 +3679,7 @@ public enum ItemEffectType {
 			case TF_PENIS:
 				secondaryModPotencyMap.put(TFModifier.TF_TYPE_1, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE, TFPotency.getAllPotencies());
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.REMOVAL, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
 
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_BARBED, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_DRAIN), new ListValue<>(TFPotency.MINOR_BOOST)));
@@ -3605,7 +3693,7 @@ public enum ItemEffectType {
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_PENIS_VEINY, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_DRAIN), new ListValue<>(TFPotency.MINOR_BOOST)));
 				
 				
-				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE_SECONDARY, TFPotency.getAllPotencies());
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_COUNT, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_DRAIN), new ListValue<>(TFPotency.MINOR_BOOST)));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_WETNESS, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_INTERNAL, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_DRAIN), new ListValue<>(TFPotency.MINOR_BOOST)));
@@ -4510,6 +4598,21 @@ public enum ItemEffectType {
 							case MAJOR_BOOST:
 								return new RacialEffectUtil("Huge increase in penis size.", mediumChangeMajorBoost, " inches") { @Override public String applyEffect() { return target.incrementPenisSize(mediumChangeMajorBoost); } };
 						}
+					case TF_MOD_SIZE_SECONDARY:
+						switch(potency) {
+							case MAJOR_DRAIN:
+								return new RacialEffectUtil("Huge decrease in penis girth.", smallChangeMajorDrain, " girth") { @Override public String applyEffect() { return target.incrementPenisGirth(smallChangeMajorDrain); } };
+							case DRAIN:
+								return new RacialEffectUtil("Decrease in penis girth.", smallChangeDrain, " size") { @Override public String applyEffect() { return target.incrementPenisGirth(smallChangeDrain); } };
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Small decrease in penis girth.", smallChangeMinorDrain, " girth") { @Override public String applyEffect() { return target.incrementPenisGirth(smallChangeMinorDrain); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Small increase in penis girth.", smallChangeMinorBoost, " girth") { @Override public String applyEffect() { return target.incrementPenisGirth(smallChangeMinorBoost); } };
+							case BOOST:
+								return new RacialEffectUtil("Increase in penis girth.", smallChangeBoost, " girth") { @Override public String applyEffect() { return target.incrementPenisGirth(smallChangeBoost); } };
+							case MAJOR_BOOST:
+								return new RacialEffectUtil("Huge increase in penis girth.", smallChangeMajorBoost, " girth") { @Override public String applyEffect() { return target.incrementPenisGirth(smallChangeMajorBoost); } };
+						}
 					case REMOVAL:
 							return new RacialEffectUtil("Removes penis.", 0, "") { @Override public String applyEffect() { return target.setPenisType(PenisType.NONE); } };
 								
@@ -4577,7 +4680,7 @@ public enum ItemEffectType {
 								return new RacialEffectUtil("Adds bulging veins to penis.", 0, "") { @Override public String applyEffect() { return target.addPenisModifier(PenisModifier.VEINY); } };
 						}
 
-					case TF_MOD_SIZE_SECONDARY:
+					case TF_MOD_SIZE_TERTIARY:
 						switch(potency) {
 							case MAJOR_DRAIN:
 								return new RacialEffectUtil("Huge decrease in testicle size.", smallChangeMajorDrain, " size") { @Override public String applyEffect() { return target.incrementTesticleSize(smallChangeMajorDrain); } };

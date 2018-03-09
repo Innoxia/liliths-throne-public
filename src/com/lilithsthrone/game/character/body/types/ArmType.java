@@ -6,7 +6,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.2.1
  * @author Innoxia
  */
 public enum ArmType implements BodyPartTypeInterface {
@@ -16,6 +16,8 @@ public enum ArmType implements BodyPartTypeInterface {
 	ANGEL(BodyCoveringType.HUMAN, Race.ANGEL),
 
 	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON),
+
+	IMP(BodyCoveringType.IMP, Race.IMP),
 
 	COW_MORPH(BodyCoveringType.BOVINE_FUR, Race.COW_MORPH),
 	
@@ -97,6 +99,8 @@ public enum ArmType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("furry", "fur-coated");
 			case DEMON_COMMON:
 				return UtilText.returnStringAtRandom("slender", "flawless");
+			case IMP:
+				return UtilText.returnStringAtRandom("slender");
 			case DOG_MORPH:
 				return UtilText.returnStringAtRandom("furry", "fur-coated");
 			case COW_MORPH:
@@ -115,9 +119,8 @@ public enum ArmType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("");
 			case LYCAN:
 				return UtilText.returnStringAtRandom("furry", "fur-coated");
-			default:
-				return UtilText.returnStringAtRandom("");
 		}
+		return "";
 	}
 	
 	public String getTransformName() {
@@ -128,6 +131,8 @@ public enum ArmType implements BodyPartTypeInterface {
 				return "feline";
 			case DEMON_COMMON:
 				return "demonic";
+			case IMP:
+				return "impish";
 			case DOG_MORPH:
 				return "canine";
 			case COW_MORPH:

@@ -83,6 +83,7 @@ import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
+import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
@@ -92,6 +93,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.character.body.valueEnums.WingSize;
 import com.lilithsthrone.game.character.effects.Addiction;
 import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -164,10 +166,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 
 	private static final long serialVersionUID = 1L;
 	
-	/** Calculation description as used in getAttributeValue() */
+	/** Calculations description as used in getAttributeValue() */
 	public static final String HEALTH_CALCULATION = "10 + 2*level + Physique*2 + Bonus Energy";
-	/** Calculation description as used in getAttributeValue() */
 	public static final String MANA_CALCULATION = "10 + 2*level + Arcane*2 + Bonus Aura";
+	public static final String RESTING_LUST_CALCULATION = "Corruption/2";
 
 	public static final int LEVEL_CAP = 50;
 	public static final int MAX_TRAITS = 6;
@@ -1001,11 +1003,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			
 			element = (Element) nodes.item(0);
 	
-			character.incrementExperience(Integer.valueOf(((Element)element.getElementsByTagName("experience").item(0)).getAttribute("value")));
+			character.incrementExperience(Integer.valueOf(((Element)element.getElementsByTagName("experience").item(0)).getAttribute("value")), false);
 			CharacterUtils.appendToImportLog(log, "</br>Set experience: " + Integer.valueOf(((Element)element.getElementsByTagName("experience").item(0)).getAttribute("value")));
 			
 		} else {
-			character.incrementExperience(Integer.valueOf(((Element)element.getElementsByTagName("experience").item(0)).getAttribute("value")));
+			character.incrementExperience(Integer.valueOf(((Element)element.getElementsByTagName("experience").item(0)).getAttribute("value")), false);
 			CharacterUtils.appendToImportLog(log, "</br>Set experience: " + Integer.valueOf(((Element)element.getElementsByTagName("experience").item(0)).getAttribute("value")));
 			
 			try {
@@ -1787,7 +1789,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			}
 		}
 		history.applyExtraEffects(this);
-
+		
 		this.history = history;
 
 		updateAttributeListeners();
@@ -1844,14 +1846,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	public float getHourlyObedienceChange(int hour) {
 		if(this.workHours[hour]) {
 			if(this.getSlaveJob()==SlaveJob.IDLE) {
-				return this.getHomeLocationPlace().getHourlyObedienceChange();
+				return this.getHomeLocationPlace().getHourlyObedienceChange() * (this.getOwner().hasTrait(Perk.JOB_TEACHER, true)?3:1);
 			}
 			// To get rid of e.g. 2.3999999999999999999999:
-			return Math.round(this.getSlaveJob().getObedienceGain(this)*100)/100f;
+			return (Math.round(this.getSlaveJob().getObedienceGain(this)*100)/100f) * (this.getOwner().hasTrait(Perk.JOB_TEACHER, true)?3:1);
 		}
 		
 		// To get rid of e.g. 2.3999999999999999999999:
-		return Math.round(this.getHomeLocationPlace().getHourlyObedienceChange()*100)/100f;
+		return (Math.round(this.getHomeLocationPlace().getHourlyObedienceChange()*100)/100f) * (this.getOwner().hasTrait(Perk.JOB_TEACHER, true)?3:1);
 	}
 	
 	public float getDailyObedienceChange() {
@@ -1869,7 +1871,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			totalObedienceChange+=this.getHomeLocationPlace().getHourlyObedienceChange();
 		}
 		// To get rid of e.g. 2.3999999999999999999999:
-		return Math.round(totalObedienceChange*100)/100f;
+		return (Math.round(totalObedienceChange*100)/100f) * (this.getOwner().hasTrait(Perk.JOB_TEACHER, true)?3:1);
 	}
 	
 	public int getSlavesWorkingJob(SlaveJob job) {
@@ -1899,6 +1901,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				break;
 			case DEMON:
 				value = 500000;
+				break;
+			case IMP:
+				value = 1000; // Imps make terrible slaves
 				break;
 			case HARPY:
 				value = 12000;
@@ -2295,16 +2300,30 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return getLevel() * 10;
 	}
 	
-	public void incrementExperience(int increment) {
+	public String incrementExperience(int increment, boolean withExtaModifiers) {
 		if (getLevel() == LEVEL_CAP) {
 			experience = 0;
-			return;
+			return "";
 		}
-
-		experience += Math.max(0, increment);
-
+		
+		int xpIncrement = (int) Math.max(0, increment * (withExtaModifiers&&this.hasTrait(Perk.JOB_WRITER, true)?1.25f:1));
+		
+		experience += xpIncrement;
+		
 		if (experience >= getExperienceNeededForNextLevel()) {
 			levelUp();
+		}
+		
+		if(this.isPlayer()) {
+			return "<p style='text-align:center;'>"
+						+ "You gained <b style='color:" + Colour.GENERIC_EXPERIENCE.toWebHexString() + ";'>" + xpIncrement + " xp</b>!"
+					+ "</p>";
+			
+		} else {
+			return (UtilText.parse(this,
+					"<p style='text-align:center;'>"
+							+ "[npc.Name] gained <b style='color:" + Colour.GENERIC_EXPERIENCE.toWebHexString() + ";'>" + xpIncrement + " xp</b>!"
+					+ "</p>"));
 		}
 	}
 
@@ -2489,6 +2508,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		setPotionAttributes(savedPotionEffects);
 		
+		value *= this.isPlayer()&&this.hasTrait(Perk.JOB_CHEF, true)?2:1;
+		
 		if(potionAttributes.containsKey(att)) {
 			setPotionAttribute(att, potionAttributes.get(att)+value);
 		} else {
@@ -2499,10 +2520,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			potionAttributes.remove(att);
 		}
 		
-		potionTimeRemaining+=30;
+		potionTimeRemaining += 30 * (this.isPlayer()&&this.hasTrait(Perk.JOB_CHEF, true)?2:1);
 		
-		if(potionTimeRemaining>=6*60) {
-			addStatusEffect(StatusEffect.POTION_EFFECTS, 6*60);
+		if(potionTimeRemaining>=12*60) {
+			addStatusEffect(StatusEffect.POTION_EFFECTS, 12*60);
 			
 		} else if(potionTimeRemaining>60) {
 			addStatusEffect(StatusEffect.POTION_EFFECTS, potionTimeRemaining);
@@ -2513,17 +2534,35 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		}
 		
 		if(isPlayer()) {
-			if(potionAttributes.get(att)<0)
-				return "You now have [style.boldBad("+potionAttributes.get(att)+")] <b style='color:"+att.getColour().toWebHexString()+";'>"+att.getName()+"</b> for as long as you can maintain your potion effects!";
-			else
-				return "You now have [style.boldGood(+"+potionAttributes.get(att)+")] <b style='color:"+att.getColour().toWebHexString()+";'>"+att.getName()+"</b> for as long as you can maintain your potion effects!";
+			if(potionAttributes.get(att)<0) {
+				return "<p>"
+							+ "You now have [style.boldBad("+potionAttributes.get(att)+")] <b style='color:"+att.getColour().toWebHexString()+";'>"+att.getName()+"</b>"
+							+(this.hasTrait(Perk.JOB_CHEF, true)?" ([style.boldExcellent(doubled)] from <b style='color:"+Perk.JOB_CHEF.getColour().toWebHexString()+";'>"+Perk.JOB_CHEF.getName(this)+"</b>)":"")
+							+" for as long as you can maintain your potion effects!"
+						+ "</p>";
+			} else {
+				return "<p>"
+							+ "You now have [style.boldGood(+"+potionAttributes.get(att)+")] <b style='color:"+att.getColour().toWebHexString()+";'>"+att.getName()+"</b>"
+							+(this.hasTrait(Perk.JOB_CHEF, true)?" ([style.boldExcellent(doubled)] from <b style='color:"+Perk.JOB_CHEF.getColour().toWebHexString()+";'>"+Perk.JOB_CHEF.getName(this)+"</b>)":"")
+							+" for as long as you can maintain your potion effects!"
+						+ "</p>";
+			}
 		} else {
-			if(potionAttributes.get(att)<0)
-				return UtilText.parse(this,
-						"[npc.Name] now has [style.boldBad("+potionAttributes.get(att)+")] <b style='color:"+att.getColour().toWebHexString()+";'>"+att.getName()+"</b> for as long as [npc.she] can maintain [npc.her] potion effects!");
-			else
-				return UtilText.parse(this,
-						"[npc.Name] now has [style.boldGood(+"+potionAttributes.get(att)+")] <b style='color:"+att.getColour().toWebHexString()+";'>"+att.getName()+"</b> for as long as [npc.she] can maintain [npc.her] potion effects!");
+			if(potionAttributes.get(att)<0) {
+				return "<p>"
+							+ UtilText.parse(this,
+							"[npc.Name] now has [style.boldBad("+potionAttributes.get(att)+")] <b style='color:"+att.getColour().toWebHexString()+";'>"+att.getName()+"</b>"
+							+(this.hasTrait(Perk.JOB_CHEF, true)?" ([style.boldExcellent(doubled)] from <b style='color:"+Perk.JOB_CHEF.getColour().toWebHexString()+";'>"+Perk.JOB_CHEF.getName(this)+"</b>)":"")
+							+" for as long as [npc.she] can maintain [npc.her] potion effects!")
+						+ "</p>";
+			} else {
+				return "<p>"
+							+ UtilText.parse(this,
+							"[npc.Name] now has [style.boldGood(+"+potionAttributes.get(att)+")] <b style='color:"+att.getColour().toWebHexString()+";'>"+att.getName()+"</b>"
+							+(this.hasTrait(Perk.JOB_CHEF, true)?" ([style.boldExcellent(doubled)] from <b style='color:"+Perk.JOB_CHEF.getColour().toWebHexString()+";'>"+Perk.JOB_CHEF.getName(this)+"</b>)":"")
+							+" for as long as [npc.she] can maintain [npc.her] potion effects!")
+						+ "</p>";
+			}
 		}
 	}
 	
@@ -2742,7 +2781,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	public boolean hasTrait(Perk p, boolean equipped) {
 		if(p.isMajor()) {
-			if(equipped) {
+			if((p.getPerkCategory()==PerkCategory.JOB)) {
+				return getHistory().getAssociatedPerk()==p;
+			} else if(equipped) {
 				return traits.contains(p);
 			} else {
 				return hasPerkInTree(PerkManager.MANAGER.getPerkRow(p), p);
@@ -6732,44 +6773,51 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	public String getPenetrationDescription(boolean initialPenetration, GameCharacter characterPenetrating, PenetrationType penetrationType, GameCharacter characterPenetrated, OrificeType orifice) {
-		
+		List<String> initialDescriptions = new ArrayList<>();
 		if(orifice == OrificeType.ANUS) {
 			if(characterPenetrated.isPlayer()) {
 				if(initialPenetration) {
 					switch(penetrationType) {
 						case PENIS:
 							if(!characterPenetrating.isPlayer()) {
-								switch(characterPenetrating.getPenisType()){
-									case ANGEL:
-										break;
-									case AVIAN:
-										break;
-									case BOVINE:
-										return "You let out [pc.a_moan+] as you feel [npc.name]'s cow-like cock push into your [pc.asshole+].";
-									case CANINE:
-										return "You let out [pc.a_moan+] as you feel [npc.name]'s dog-like cock push into your [pc.asshole+].";
-									case LUPINE:
-										return "You let out [pc.a_moan+] as you feel [npc.name]'s wolf-like cock push into your [pc.asshole+].";
-									case ALLIGATOR_MORPH:
-										return "You let out [pc.a_moan+] as you feel [npc.name]'s reptile-like cock push into your [pc.asshole+].";
-									case SQUIRREL:
-										return "You let out [pc.a_moan+] as you feel [npc.name]'s squirrel-like cock push into your [pc.asshole+].";
-									case DEMON_COMMON:
-										return "You let out [pc.a_moan+] as you feel the little bumps lining [npc.name]'s demonic cock wriggling against the walls of your [pc.asshole] as [npc.she] penetrates you.";
-									case EQUINE:
-										return "You let out [pc.a_moan+] as you feel the flared head of [npc.name]'s horse-like cock push into your [pc.asshole+].";
-									case REINDEER_MORPH:
-										return "You let out [pc.a_moan+] as you feel the flared head of [npc.name]'s reindeer-like cock push into your [pc.asshole+].";
-									case FELINE:
-										return "You let out [pc.a_moan+] as you feel the barbs lining [npc.name]'s cat-like cock rake the walls of your [pc.asshole+] as [npc.she] starts to pull back.";
-									case HUMAN:
-										break;
-									case NONE:
-										break;
+								initialDescriptions.add("You let out [pc.a_moan+] as you feel [npc.name]'s [npc.cock+] push into your [pc.asshole+].");
+								for(PenisModifier mod : characterPenetrating.getPenisModifiers()) {
+									switch(mod) {
+										case BARBED:
+											initialDescriptions.add("You let out [pc.a_moan+] as you feel the little barbs lining [npc.name]'s [npc.cock] rake the insides of your [pc.asshole+].");
+											break;
+										case BLUNT:
+											initialDescriptions.add("You let out [pc.a_moan+] as you feel the blunt head of [npc.name]'s [npc.cock] push inside your [pc.asshole+].");
+											break;
+										case FLARED:
+											initialDescriptions.add("You let out [pc.a_moan+] as you feel the flared head of [npc.name]'s [npc.cock] push inside your [pc.asshole+].");
+											break;
+										case KNOTTED:
+											initialDescriptions.add("You let out [pc.a_moan+] as you feel the fat knot at the base of [npc.name]'s [npc.cock] bump up against your [pc.asshole+] as [npc.she] fully penetrates you in one thrust.");
+											break;
+										case PREHENSILE:
+											initialDescriptions.add("You let out [pc.a_moan+] as you feel [npc.name]'s prehensile [npc.cock] exploring the insides of your [pc.asshole+].");
+											break;
+										case RIBBED:
+											initialDescriptions.add("You let out [pc.a_moan+] as you feel [npc.name]'s ribbed [npc.cock] push into your [pc.asshole+].");
+											break;
+										case SHEATHED:
+											break;
+										case TAPERED:
+											initialDescriptions.add("You let out [pc.a_moan+] as you feel the tapered head of [npc.name]'s [npc.cock] push inside your [pc.asshole+].");
+											break;
+										case TENTACLED:
+											initialDescriptions.add("You let out [pc.a_moan+] as you feel the little tentacles lining [npc.name]'s [npc.cock] squirm and wriggle against the insides of your [pc.asshole+].");
+											break;
+										case VEINY:
+											break;
+									}
+								}
+								if(initialDescriptions.isEmpty()) {
+									return initialDescriptions.get(Util.random.nextInt(initialDescriptions.size()));
 								}
 							}
 							break;
-						
 						default:
 							break;
 					}
@@ -6782,17 +6830,31 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				if(initialPenetration) {
 					switch(penetrationType) {
 						case PENIS:
-							if(characterPenetrating.isPlayer()) {
-								switch(characterPenetrated.getAssType()){
-									case DEMON_COMMON:
-										return "As the [pc.cockHead+] of your [pc.cock+] pushes its way into [npc.name]'s demonic, pussy-like [npc.asshole],"
-												+ " you feel a series of little writhing tentacles start to massage and stroke your throbbing length.";
-									default:
-										break;
+							if(!characterPenetrating.isPlayer()) {
+								initialDescriptions.add("You let out [pc.a_moan+] as you sink your [pc.cock+] into [npc.name]'s [npc.asshole+].");
+								for(OrificeModifier mod : characterPenetrating.getVaginaOrificeModifiers()) {
+									switch(mod) {
+										case MUSCLE_CONTROL:
+											initialDescriptions.add("As the [pc.cockHead+] of your [pc.cock+] pushes its way into [npc.name]'s [npc.asshole+],"
+													+ " you feel a series of internal muscles instantly start to grip and squeeze down on your throbbing length.");
+											break;
+										case PUFFY:
+											break;
+										case RIBBED:
+											initialDescriptions.add("As the [pc.cockHead+] of your [pc.cock+] pushes its way into [npc.name]'s [npc.asshole+],"
+													+ " you feel the ribbed interior bumping down against your throbbing length.");
+											break;
+										case TENTACLED:
+											initialDescriptions.add("As the [pc.cockHead+] of your [pc.cock+] pushes its way into [npc.name]'s [npc.asshole+],"
+													+ " you feel a series of little writhing tentacles start to massage and stroke your throbbing length.");
+											break;
+									}
+								}
+								if(initialDescriptions.isEmpty()) {
+									return initialDescriptions.get(Util.random.nextInt(initialDescriptions.size()));
 								}
 							}
 							break;
-						
 						default:
 							break;
 					}
@@ -6810,33 +6872,41 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					switch(penetrationType) {
 						case PENIS:
 							if(!characterPenetrating.isPlayer()) {
-								switch(characterPenetrating.getPenisType()){
-									case ANGEL:
-										break;
-									case AVIAN:
-										break;
-									case BOVINE:
-										return "You let out [pc.a_moan+] as you feel [npc.name]'s cow-like cock push into your [pc.pussy+].";
-									case CANINE:
-										return "You let out [pc.a_moan+] as you feel [npc.name]'s dog-like cock push into your [pc.pussy+].";
-									case LUPINE:
-										return "You let out [pc.a_moan+] as you feel [npc.name]'s wolf-like cock push into your [pc.pussy+].";
-									case ALLIGATOR_MORPH:
-										return "You let out [pc.a_moan+] as you feel [npc.name]'s reptile-like cock push into your [pc.pussy+].";
-									case SQUIRREL:
-										return "You let out [pc.a_moan+] as you feel [npc.name]'s squirrel-like cock push into your [pc.pussy+].";
-									case DEMON_COMMON:
-										return "You let out [pc.a_moan+] as you feel the little bumps lining [npc.name]'s demonic cock wriggling against the walls of your [pc.pussy] as [npc.she] penetrates you.";
-									case EQUINE:
-										return "You let out [pc.a_moan+] as you feel the flared head of [npc.name]'s horse-like cock push into your [pc.pussy+].";
-									case REINDEER_MORPH:
-										return "You let out [pc.a_moan+] as you feel the flared head of [npc.name]'s reindeer-like cock push into your [pc.pussy+].";
-									case FELINE:
-										return "You let out [pc.a_moan+] as you feel the barbs lining [npc.name]'s cat-like cock rake the walls of your [pc.pussy+] as [npc.she] starts to pull back.";
-									case HUMAN:
-										break;
-									case NONE:
-										break;
+								initialDescriptions.add("You let out [pc.a_moan+] as you feel [npc.name]'s [npc.cock+] push into your [pc.pussy+].");
+								for(PenisModifier mod : characterPenetrating.getPenisModifiers()) {
+									switch(mod) {
+										case BARBED:
+											initialDescriptions.add("You let out [pc.a_moan+] as you feel the little barbs lining [npc.name]'s [npc.cock] rake the insides of your [pc.pussy+].");
+											break;
+										case BLUNT:
+											initialDescriptions.add("You let out [pc.a_moan+] as you feel the blunt head of [npc.name]'s [npc.cock] push inside your [pc.pussy+].");
+											break;
+										case FLARED:
+											initialDescriptions.add("You let out [pc.a_moan+] as you feel the flared head of [npc.name]'s [npc.cock] push inside your [pc.pussy+].");
+											break;
+										case KNOTTED:
+											initialDescriptions.add("You let out [pc.a_moan+] as you feel the fat knot at the base of [npc.name]'s [npc.cock] bump up against your [pc.pussy+] as [npc.she] fully penetrates you in one thrust.");
+											break;
+										case PREHENSILE:
+											initialDescriptions.add("You let out [pc.a_moan+] as you feel [npc.name]'s prehensile [npc.cock] exploring the insides of your [pc.pussy+].");
+											break;
+										case RIBBED:
+											initialDescriptions.add("You let out [pc.a_moan+] as you feel [npc.name]'s ribbed [npc.cock] push into your [pc.pussy+].");
+											break;
+										case SHEATHED:
+											break;
+										case TAPERED:
+											initialDescriptions.add("You let out [pc.a_moan+] as you feel the tapered head of [npc.name]'s [npc.cock] push inside your [pc.pussy+].");
+											break;
+										case TENTACLED:
+											initialDescriptions.add("You let out [pc.a_moan+] as you feel the little tentacles lining [npc.name]'s [npc.cock] squirm and wriggle against the insides of your [pc.pussy+].");
+											break;
+										case VEINY:
+											break;
+									}
+								}
+								if(initialDescriptions.isEmpty()) {
+									return initialDescriptions.get(Util.random.nextInt(initialDescriptions.size()));
 								}
 							}
 							break;
@@ -6854,12 +6924,28 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				if(initialPenetration) {
 					switch(penetrationType) {
 						case PENIS:
-							if(characterPenetrating.isPlayer()) {
-								switch(characterPenetrated.getVaginaType()){
-									case DEMON_COMMON:
-										return "As the [pc.cockHead+] of your [pc.cock+] pushes its way into [npc.name]'s demonic [npc.pussy], you feel a series of little writhing tentacles start to massage and stroke your throbbing length.";
-									default:
-										break;
+							if(!characterPenetrating.isPlayer()) {
+								initialDescriptions.add("You let out [pc.a_moan+] as you sink your [pc.cock+] into [npc.name]'s [npc.pussy+].");
+								for(OrificeModifier mod : characterPenetrating.getVaginaOrificeModifiers()) {
+									switch(mod) {
+										case MUSCLE_CONTROL:
+											initialDescriptions.add("As the [pc.cockHead+] of your [pc.cock+] pushes its way into [npc.name]'s [npc.pussy+],"
+													+ " you feel a series of internal muscles instantly start to grip and squeeze down on your throbbing length.");
+											break;
+										case PUFFY:
+											break;
+										case RIBBED:
+											initialDescriptions.add("As the [pc.cockHead+] of your [pc.cock+] pushes its way into [npc.name]'s [npc.pussy+],"
+													+ " you feel the ribbed interior bumping down against your throbbing length.");
+											break;
+										case TENTACLED:
+											initialDescriptions.add("As the [pc.cockHead+] of your [pc.cock+] pushes its way into [npc.name]'s [npc.pussy+],"
+													+ " you feel a series of little writhing tentacles start to massage and stroke your throbbing length.");
+											break;
+									}
+								}
+								if(initialDescriptions.isEmpty()) {
+									return initialDescriptions.get(Util.random.nextInt(initialDescriptions.size()));
 								}
 							}
 							break;
@@ -6881,33 +6967,41 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					switch(penetrationType) {
 						case PENIS:
 							if(!characterPenetrating.isPlayer()) {
-								switch(characterPenetrating.getPenisType()){
-									case ANGEL:
-										break;
-									case AVIAN:
-										break;
-									case BOVINE:
-										return "You let out [pc.a_moan+] as you feel [npc.name]'s cow-like cock push into your [pc.nipple+].";
-									case CANINE:
-										return "You let out [pc.a_moan+] as you feel [npc.name]'s dog-like cock push into your [pc.nipple+].";
-									case LUPINE:
-										return "You let out [pc.a_moan+] as you feel [npc.name]'s wolf-like cock push into your [pc.nipple+].";
-									case ALLIGATOR_MORPH:
-										return "You let out [pc.a_moan+] as you feel [npc.name]'s reptile-like cock push into your [pc.nipple+].";
-									case SQUIRREL:
-										return "You let out [pc.a_moan+] as you feel [npc.name]'s squirrel-like cock push into your [pc.nipple+].";
-									case DEMON_COMMON:
-										return "You let out [pc.a_moan+] as you feel the little bumps lining [npc.name]'s demonic cock wriggling against the walls of your fuckable [pc.nipple] as [npc.she] penetrates you.";
-									case EQUINE:
-										return "You let out [pc.a_moan+] as you feel the flared head of [npc.name]'s horse-like cock push into your [pc.nipple+].";
-									case REINDEER_MORPH:
-										return "You let out [pc.a_moan+] as you feel the flared head of [npc.name]'s reindeer-like cock push into your [pc.nipple+].";
-									case FELINE:
-										return "You let out [pc.a_moan+] as you feel the barbs lining [npc.name]'s cat-like cock rake the walls of your [pc.nipple+] as [npc.she] starts to pull back.";
-									case HUMAN:
-										break;
-									case NONE:
-										break;
+								initialDescriptions.add("You let out [pc.a_moan+] as you feel [npc.name]'s [npc.cock+] push into your [pc.nipple+].");
+								for(PenisModifier mod : characterPenetrating.getPenisModifiers()) {
+									switch(mod) {
+										case BARBED:
+											initialDescriptions.add("You let out [pc.a_moan+] as you feel the little barbs lining [npc.name]'s [npc.cock] rake the insides of your [pc.nipple+].");
+											break;
+										case BLUNT:
+											initialDescriptions.add("You let out [pc.a_moan+] as you feel the blunt head of [npc.name]'s [npc.cock] push inside your [pc.nipple+].");
+											break;
+										case FLARED:
+											initialDescriptions.add("You let out [pc.a_moan+] as you feel the flared head of [npc.name]'s [npc.cock] push inside your [pc.nipple+].");
+											break;
+										case KNOTTED:
+											initialDescriptions.add("You let out [pc.a_moan+] as you feel the fat knot at the base of [npc.name]'s [npc.cock] bump up against your [pc.nipple+] as [npc.she] fully penetrates you in one thrust.");
+											break;
+										case PREHENSILE:
+											initialDescriptions.add("You let out [pc.a_moan+] as you feel [npc.name]'s prehensile [npc.cock] exploring the insides of your [pc.nipple+].");
+											break;
+										case RIBBED:
+											initialDescriptions.add("You let out [pc.a_moan+] as you feel [npc.name]'s ribbed [npc.cock] push into your [pc.nipple+].");
+											break;
+										case SHEATHED:
+											break;
+										case TAPERED:
+											initialDescriptions.add("You let out [pc.a_moan+] as you feel the tapered head of [npc.name]'s [npc.cock] push inside your [pc.nipple+].");
+											break;
+										case TENTACLED:
+											initialDescriptions.add("You let out [pc.a_moan+] as you feel the little tentacles lining [npc.name]'s [npc.cock] squirm and wriggle against the insides of your [pc.nipple+].");
+											break;
+										case VEINY:
+											break;
+									}
+								}
+								if(initialDescriptions.isEmpty()) {
+									return initialDescriptions.get(Util.random.nextInt(initialDescriptions.size()));
 								}
 							}
 							break;
@@ -6925,12 +7019,28 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				if(initialPenetration) {
 					switch(penetrationType) {
 						case PENIS:
-							if(characterPenetrating.isPlayer()) {
-								switch(characterPenetrated.getBreastType()){
-									case DEMON_COMMON:
-										return "As the [pc.cockHead+] of your [pc.cock+] pushes its way into [npc.name]'s [npc.nipples+], you feel a series of little writhing tentacles start to massage and stroke your throbbing length.";
-									default:
-										break;
+							if(!characterPenetrating.isPlayer()) {
+								initialDescriptions.add("You let out [pc.a_moan+] as you sink your [pc.cock+] into [npc.name]'s [npc.nipple+].");
+								for(OrificeModifier mod : characterPenetrating.getNippleOrificeModifiers()) {
+									switch(mod) {
+										case MUSCLE_CONTROL:
+											initialDescriptions.add("As the [pc.cockHead+] of your [pc.cock+] pushes its way into [npc.name]'s [npc.nipple+],"
+													+ " you feel a series of internal muscles instantly start to grip and squeeze down on your throbbing length.");
+											break;
+										case PUFFY:
+											break;
+										case RIBBED:
+											initialDescriptions.add("As the [pc.cockHead+] of your [pc.cock+] pushes its way into [npc.name]'s [npc.nipple+],"
+													+ " you feel the ribbed interior bumping down against your throbbing length.");
+											break;
+										case TENTACLED:
+											initialDescriptions.add("As the [pc.cockHead+] of your [pc.cock+] pushes its way into [npc.name]'s [npc.nipple+],"
+													+ " you feel a series of little writhing tentacles start to massage and stroke your throbbing length.");
+											break;
+									}
+								}
+								if(initialDescriptions.isEmpty()) {
+									return initialDescriptions.get(Util.random.nextInt(initialDescriptions.size()));
 								}
 							}
 							break;
@@ -6951,33 +7061,41 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					switch(penetrationType) {
 						case PENIS:
 							if(!characterPenetrating.isPlayer()) {
-								switch(characterPenetrating.getPenisType()){
-									case ANGEL:
-										break;
-									case AVIAN:
-										break;
-									case BOVINE:
-										return "You let out a muffled [pc.moan] as [npc.name]'s cow-like cock pushes its way into your mouth.";
-									case CANINE:
-										return "You let out a muffled [pc.moan] as [npc.name]'s dog-like cock pushes its way into your mouth.";
-									case LUPINE:
-										return "You let out a muffled [pc.moan] as [npc.name]'s wolf-like cock pushes its way into your mouth.";
-									case ALLIGATOR_MORPH:
-										return "You let out a muffled [pc.moan] as [npc.name]'s reptile-like cock pushes its way into your mouth.";
-									case SQUIRREL:
-										return "You let out a muffled [pc.moan] as [npc.name]'s squirrel-like cock pushes its way into your mouth.";
-									case DEMON_COMMON:
-										return "You let out a muffled [pc.moan] as you feel the little bumps lining [npc.name]'s demonic cock wriggling against your [pc.tongue+] as you start sucking [npc.herHim] off.";
-									case EQUINE:
-										return "You let out a muffled [pc.moan] as you feel the flared head of [npc.name]'s horse-like cock push its way into your mouth.";
-									case REINDEER_MORPH:
-										return "You let out a muffled [pc.moan] as you feel the flared head of [npc.name]'s reindeer-like cock push its way into your mouth.";
-									case FELINE:
-										return "You let out a muffled [pc.moan] as you feel the barbs lining [npc.name]'s cat-like cock rake over your [pc.tongue] as [npc.she] starts to pull back.";
-									case HUMAN:
-										break;
-									case NONE:
-										break;
+								initialDescriptions.add("You let out [pc.a_moan+] as [npc.name]'s [npc.cock+] pushes its way down into your throat.");
+								for(PenisModifier mod : characterPenetrating.getPenisModifiers()) {
+									switch(mod) {
+										case BARBED:
+											initialDescriptions.add("You let out [pc.a_moan+] as you feel the little barbs lining [npc.name]'s [npc.cock] rake the insides of your throat.");
+											break;
+										case BLUNT:
+											initialDescriptions.add("You let out [pc.a_moan+] as you feel the blunt head of [npc.name]'s [npc.cock] push down into your throat.");
+											break;
+										case FLARED:
+											initialDescriptions.add("You let out [pc.a_moan+] as you feel the flared head of [npc.name]'s [npc.cock] push down into your throat.");
+											break;
+										case KNOTTED:
+											initialDescriptions.add("You let out [pc.a_moan+] as you feel the fat knot at the base of [npc.name]'s [npc.cock] bump against your [pc.lips+] as [npc.she] fully penetrates you in one thrust.");
+											break;
+										case PREHENSILE:
+											initialDescriptions.add("You let out [pc.a_moan+] as you feel [npc.name]'s prehensile [npc.cock] exploring the insides of your throat.");
+											break;
+										case RIBBED:
+											initialDescriptions.add("You let out [pc.a_moan+] as you feel [npc.name]'s ribbed [npc.cock] push down into your throat.");
+											break;
+										case SHEATHED:
+											break;
+										case TAPERED:
+											initialDescriptions.add("You let out [pc.a_moan+] as you feel the tapered head of [npc.name]'s [npc.cock] push down into your throat.");
+											break;
+										case TENTACLED:
+											initialDescriptions.add("You let out [pc.a_moan+] as you feel the little tentacles lining [npc.name]'s [npc.cock] squirm and wriggle against the insides of your throat.");
+											break;
+										case VEINY:
+											break;
+									}
+								}
+								if(initialDescriptions.isEmpty()) {
+									return initialDescriptions.get(Util.random.nextInt(initialDescriptions.size()));
 								}
 							}
 							break;
@@ -6998,34 +7116,28 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				if(initialPenetration) {
 					switch(penetrationType) {
 						case PENIS:
-							if(characterPenetrating.isPlayer()) {
-								switch(characterPenetrating.getPenisType()){
-									case ANGEL:
-										break;
-									case AVIAN:
-										break;
-									case BOVINE:
-										return "[npc.Name] lets out a muffled [npc.moan] as your cow-like cock pushes its way into [npc.her] mouth.";
-									case CANINE:
-										return "[npc.Name] lets out a muffled [npc.moan] as your dog-like cock pushes its way into [npc.her] mouth.";
-									case LUPINE:
-										return "[npc.Name] lets out a muffled [npc.moan] as your wolf-like cock pushes its way into [npc.her] mouth.";
-									case ALLIGATOR_MORPH:
-										return "[npc.Name] lets out a muffled [npc.moan] as your reptile-like cock pushes its way into [npc.her] mouth.";
-									case SQUIRREL:
-										return "[npc.Name] lets out a muffled [npc.moan] as your squirrel-like cock pushes its way into [npc.her] mouth.";
-									case DEMON_COMMON:
-										return "[npc.Name] lets out a muffled [npc.moan] as [npc.she] feels the little bumps lining your demonic cock wriggling against [npc.her] [npc.tongue+] as [npc.she] starts sucking you off.";
-									case EQUINE:
-										return "[npc.Name] lets out a muffled [npc.moan] as [npc.she] feels the flared head of your horse-like cock push its way into [npc.her] mouth.";
-									case REINDEER_MORPH:
-										return "[npc.Name] lets out a muffled [npc.moan] as [npc.she] feels the flared head of your reindeer-like cock push its way into [npc.her] mouth.";
-									case FELINE:
-										return "[npc.Name] lets out a muffled [npc.moan] as [npc.she] feels the barbs lining your cat-like cock rake over [npc.her] [npc.tongue] as you start to thrust in and out of [npc.her] mouth.";
-									case HUMAN:
-										break;
-									case NONE:
-										break;
+							if(!characterPenetrating.isPlayer()) {
+								initialDescriptions.add("You let out [pc.a_moan+] as you sink your [pc.cock+] down into [npc.name]'s throat.");
+								for(OrificeModifier mod : characterPenetrating.getFaceOrificeModifiers()) {
+									switch(mod) {
+										case MUSCLE_CONTROL:
+											initialDescriptions.add("As the [pc.cockHead+] of your [pc.cock+] pushes its way down into [npc.name]'s throat,"
+													+ " you feel a series of internal muscles instantly start to grip and squeeze down on your throbbing length.");
+											break;
+										case PUFFY:
+											break;
+										case RIBBED:
+											initialDescriptions.add("As the [pc.cockHead+] of your [pc.cock+] pushes its way down into [npc.name]'s throat,"
+													+ " you feel the ribbed interior bumping down against your throbbing length.");
+											break;
+										case TENTACLED:
+											initialDescriptions.add("As the [pc.cockHead+] of your [pc.cock+] pushes its way down into [npc.name]'s throat,"
+													+ " you feel a series of little writhing tentacles start to massage and stroke your throbbing length.");
+											break;
+									}
+								}
+								if(initialDescriptions.isEmpty()) {
+									return initialDescriptions.get(Util.random.nextInt(initialDescriptions.size()));
 								}
 							}
 							break;
@@ -8241,6 +8353,25 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	public LustLevel getLustLevel() {
 		return LustLevel.getLustLevelFromValue(getAttributeValue(Attribute.LUST));
+	}
+	
+	public void alignLustToRestingLust(int minutes) {
+		if(hasStatusEffect(StatusEffect.WEATHER_STORM_VULNERABLE)) {
+			setLust(100);
+		} else {
+			if(getLust()>getRestingLust()) {
+				incrementLust(Math.min(getRestingLust()-getLust(), -0.5f*minutes));
+			} else if(getLust()<getRestingLust()) {
+				incrementLust(Math.min(getRestingLust()-getLust(), 0.5f*minutes));
+			}
+		}
+	}
+	
+	public float getRestingLust() {
+		if(hasStatusEffect(StatusEffect.WEATHER_STORM_VULNERABLE)) {
+			return 100;
+		}
+		return getAttributeValue(Attribute.MAJOR_CORRUPTION)/2;
 	}
 	
 	public String setLust(float lust) {
@@ -10637,14 +10768,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 									+ (bct == BodyCoveringType.HORN
 										? "<b>"+bctName+"'s"
 										: "<b style='color:"+bct.getRace().getColour().toWebHexString()+";'>"+bctName+"'s</b> <b>"+bct.getName(this))
-									+" colour is "+getCovering(bct).getColourDescriptor(true, false)+"!</b>");
+									+" colour is "+getCovering(bct).getColourDescriptor(this, true, false)+"!</b>");
 						} else {
 							postTFSB.append(UtilText.parse(this,
 									"<b>[npc.Name] has discovered that [npc.her] natural</b> "
 									+ (bct == BodyCoveringType.HORN
 										? "<b>"+bctName+"'s"
 										: "<b style='color:"+bct.getRace().getColour().toWebHexString()+";'>"+bctName+"'s</b> <b>"+bct.getName(this))
-									+" colour is "+getCovering(bct).getColourDescriptor(true, false)+"!</b>"));
+									+" colour is "+getCovering(bct).getColourDescriptor(this, true, false)+"!</b>"));
 						}
 					}
 				}
@@ -10676,6 +10807,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				return BodyCoveringType.BODY_HAIR_BOVINE_FUR;
 			case DEMON:
 				return BodyCoveringType.BODY_HAIR_DEMON;
+			case IMP:
+				return BodyCoveringType.BODY_HAIR_IMP;
 			case DOG_MORPH:
 				return BodyCoveringType.BODY_HAIR_CANINE_FUR;
 			case ALLIGATOR_MORPH:
@@ -10928,7 +11061,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	 */
 	public String setHeight(int height) {
 		if (body.getHeightValue() < height) {
-			if (body.setHeight(height))
+			if (body.setHeight(Math.max(this.getRace().isShortStature()?Height.NEGATIVE_TWO_MIMIMUM.getMinimumValue():Height.ZERO_TINY.getMinimumValue(), height))) {
 				return isPlayer()
 						? "<p class='center'>"
 							+ "The world around you seems slightly further away than it used to be, but after a moment you realise that you've just <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>grown taller</b>."
@@ -10939,8 +11072,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							"<p class='center'>"
 								+ "[npc.She] sways from side to side a little, [npc.her] balance suddenly thrown off by the fact that [npc.she]'s just <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>grown taller</b>."
 							+ "</p>");
+			}
 		} else {
-			if (body.setHeight(height))
+			if (body.setHeight(Math.max(this.getRace().isShortStature()?Height.NEGATIVE_TWO_MIMIMUM.getMinimumValue():Height.ZERO_TINY.getMinimumValue(), height))) {
 				return isPlayer()
 						? "<p class='center'>"
 							+ "The world around you suddenly seems slightly closer than it used to be, but after a moment you realise that you've just <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>become shorter</b>."
@@ -10951,6 +11085,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							"<p class='center'>"
 								+ "[npc.She] shrinks down, <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>becoming noticeably shorter</b>."
 							+ "</p>");
+			}
 		}
 		
 		if(isPlayer()) {
@@ -11220,7 +11355,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						+ "</p>";
 			} else {
 				return "<p>"
-							+ "You are [style.boldGrow(now wearing)] "+nailPolish.getColourDescriptor(true, false)+" nail polish."
+							+ "You are [style.boldGrow(now wearing)] "+nailPolish.getColourDescriptor(this, true, false)+" nail polish."
 						+ "</p>";
 			}
 			
@@ -11231,7 +11366,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						+ "</p>");
 			} else {
 				return UtilText.parse(this,"<p>"
-							+ "[npc.Name] is [style.boldGrow(now wearing)] "+nailPolish.getColourDescriptor(true, false)+" nail polish."
+							+ "[npc.Name] is [style.boldGrow(now wearing)] "+nailPolish.getColourDescriptor(this, true, false)+" nail polish."
 						+ "</p>");
 			}
 		}
@@ -11421,6 +11556,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		body.getAss().getAnus().setAssBleached(this, bleached);
 	}
 	// Modifiers:
+	public Set<OrificeModifier> getAssOrificeModifiers() {
+		return body.getAss().getAnus().getOrificeAnus().getOrificeModifiers();
+	}
 	public boolean hasAssOrificeModifier(OrificeModifier modifier) {
 		return body.getAss().getAnus().getOrificeAnus().hasOrificeModifier(modifier);
 	}
@@ -11441,6 +11579,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	public String setBodyMaterial(BodyMaterial type) {
 		body.setBodyMaterial(type);
+
+		postTransformationCalculation(false);
 		
 		return ""; // TODO
 	}
@@ -11655,6 +11795,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		body.getBreast().getNipples().getOrificeNipples().setVirgin(virgin);
 	}
 	// Modifiers:
+	public Set<OrificeModifier> getNippleOrificeModifiers() {
+		return body.getBreast().getNipples().getOrificeNipples().getOrificeModifiers();
+	}
 	public boolean hasNippleOrificeModifier(OrificeModifier modifier) {
 		return body.getBreast().getNipples().getOrificeNipples().hasOrificeModifier(modifier);
 	}
@@ -11787,7 +11930,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						+ "</p>";
 			} else {
 				return "<p>"
-							+ "You are [style.boldGrow(now wearing)] "+eyeLiner.getColourDescriptor(true, false)+" eye liner."
+							+ "You are [style.boldGrow(now wearing)] "+eyeLiner.getColourDescriptor(this, true, false)+" eye liner."
 						+ "</p>";
 			}
 			
@@ -11798,7 +11941,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						+ "</p>");
 			} else {
 				return UtilText.parse(this,"<p>"
-							+ "[npc.Name] is [style.boldGrow(now wearing)] "+eyeLiner.getColourDescriptor(true, false)+" eye liner."
+							+ "[npc.Name] is [style.boldGrow(now wearing)] "+eyeLiner.getColourDescriptor(this, true, false)+" eye liner."
 						+ "</p>");
 			}
 		}
@@ -11817,7 +11960,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						+ "</p>";
 			} else {
 				return "<p>"
-							+ "You are [style.boldGrow(now wearing)] "+eyeShadow.getColourDescriptor(true, false)+" eye shadow."
+							+ "You are [style.boldGrow(now wearing)] "+eyeShadow.getColourDescriptor(this, true, false)+" eye shadow."
 						+ "</p>";
 			}
 			
@@ -11828,7 +11971,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						+ "</p>");
 			} else {
 				return UtilText.parse(this,"<p>"
-							+ "[npc.Name] is [style.boldGrow(now wearing)] "+eyeShadow.getColourDescriptor(true, false)+" eye shadow."
+							+ "[npc.Name] is [style.boldGrow(now wearing)] "+eyeShadow.getColourDescriptor(this, true, false)+" eye shadow."
 						+ "</p>");
 			}
 		}
@@ -11949,7 +12092,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						+ "</p>";
 			} else {
 				return "<p>"
-							+ "You are [style.boldGrow(now wearing)] "+lipstick.getColourDescriptor(true, false)+" lipstick."
+							+ "You are [style.boldGrow(now wearing)] "+lipstick.getColourDescriptor(this, true, false)+" lipstick."
 						+ "</p>";
 			}
 			
@@ -11960,7 +12103,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						+ "</p>");
 			} else {
 				return UtilText.parse(this,"<p>"
-							+ "[npc.Name] is [style.boldGrow(now wearing)] "+lipstick.getColourDescriptor(true, false)+" lipstick."
+							+ "[npc.Name] is [style.boldGrow(now wearing)] "+lipstick.getColourDescriptor(this, true, false)+" lipstick."
 						+ "</p>");
 			}
 		}
@@ -11979,7 +12122,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						+ "</p>";
 			} else {
 				return "<p>"
-							+ "You are [style.boldGrow(now wearing)] "+blusher.getColourDescriptor(true, false)+" blusher."
+							+ "You are [style.boldGrow(now wearing)] "+blusher.getColourDescriptor(this, true, false)+" blusher."
 						+ "</p>";
 			}
 			
@@ -11990,7 +12133,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						+ "</p>");
 			} else {
 				return UtilText.parse(this,"<p>"
-							+ "[npc.Name] is [style.boldGrow(now wearing)] "+blusher.getColourDescriptor(true, false)+" blusher."
+							+ "[npc.Name] is [style.boldGrow(now wearing)] "+blusher.getColourDescriptor(this, true, false)+" blusher."
 						+ "</p>");
 			}
 		}
@@ -12081,6 +12224,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		body.getFace().getMouth().getOrificeMouth().setVirgin(virgin);
 	}
 	// Modifiers:
+	public Set<OrificeModifier> getFaceOrificeModifiers() {
+		return body.getFace().getMouth().getOrificeMouth().getOrificeModifiers();
+	}
 	public boolean hasFaceOrificeModifier(OrificeModifier modifier) {
 		return body.getFace().getMouth().getOrificeMouth().hasOrificeModifier(modifier);
 	}
@@ -12278,7 +12424,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						+ "</p>";
 			} else {
 				return "<p>"
-							+ "You are [style.boldGrow(now wearing)] "+nailPolish.getColourDescriptor(true, false)+" toenail polish."
+							+ "You are [style.boldGrow(now wearing)] "+nailPolish.getColourDescriptor(this, true, false)+" toenail polish."
 						+ "</p>";
 			}
 			
@@ -12289,7 +12435,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						+ "</p>");
 			} else {
 				return UtilText.parse(this,"<p>"
-							+ "[npc.Name] is [style.boldGrow(now wearing)] "+nailPolish.getColourDescriptor(true, false)+" toenail polish."
+							+ "[npc.Name] is [style.boldGrow(now wearing)] "+nailPolish.getColourDescriptor(this, true, false)+" toenail polish."
 						+ "</p>");
 			}
 		}
@@ -12397,6 +12543,19 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	public String getPenisDescription() {
 		return body.getPenisDescription(this);
+	}
+	// Penis girth:
+	public PenisGirth getPenisGirth() {
+		return body.getPenis().getGirth();
+	}
+	public int getPenisRawGirthValue() {
+		return body.getPenis().getRawGirthValue();
+	}
+	public String setPenisGirth(int size) {
+		return body.getPenis().setPenisGirth(this, size);
+	}
+	public String incrementPenisGirth(int increment) {
+		return setPenisGirth(getPenisRawGirthValue() + increment);
 	}
 	// Penis size:
 	public PenisSize getPenisSize() {
@@ -12953,6 +13112,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return body.getVagina().getOrificeVagina().setSquirter(this, squirter);
 	}
 	// Modifiers:
+	public Set<OrificeModifier> getVaginaOrificeModifiers() {
+		return body.getVagina().getOrificeVagina().getOrificeModifiers();
+	}
 	public boolean hasVaginaOrificeModifier(OrificeModifier modifier) {
 		return body.getVagina().getOrificeVagina().hasOrificeModifier(modifier);
 	}

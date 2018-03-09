@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
@@ -267,11 +268,25 @@ public enum SlaveJob {
 	}
 	
 	public int getFinalHourlyIncomeAfterModifiers(GameCharacter character) {
-		return Math.max(0, (int) (income + ((getAffectionIncomeModifier()*character.getAffection(Main.game.getPlayer()))) + ((getObedienceIncomeModifier()*character.getObedienceValue()))));
+		int value = (int)(Math.max(0, (income + ((getAffectionIncomeModifier()*character.getAffection(Main.game.getPlayer()))) + ((getObedienceIncomeModifier()*character.getObedienceValue())))));
+		if(character.getOwner().hasTrait(Perk.JOB_OFFICE_WORKER, true)) {
+			return (int) (1.25f * value);
+		} else if((character.getOwner().hasTrait(Perk.JOB_MAID, true) || character.getOwner().hasTrait(Perk.JOB_BUTLER, true)) && this==SlaveJob.CLEANING) {
+			return (int) (2 * value);
+		}
+		
+		return value;
 	}
 	
 	public int getFinalDailyIncomeAfterModifiers(GameCharacter character) {
-		return Math.max(0, (int) (income + ((getAffectionIncomeModifier()*character.getAffection(Main.game.getPlayer()))) + ((getObedienceIncomeModifier()*character.getObedienceValue()))))*character.getTotalHoursWorked();
+		int value = (int)(Math.max(0, (income + ((getAffectionIncomeModifier()*character.getAffection(Main.game.getPlayer()))) + ((getObedienceIncomeModifier()*character.getObedienceValue()))))*character.getTotalHoursWorked());
+		if(character.getOwner().hasTrait(Perk.JOB_OFFICE_WORKER, true)) {
+			return (int) (1.25f * value);
+		} else if((character.getOwner().hasTrait(Perk.JOB_MAID, true) || character.getOwner().hasTrait(Perk.JOB_BUTLER, true)) && this==SlaveJob.CLEANING) {
+			return (int) (2 * value);
+		}
+		
+		return value;
 	}
 
 	public float getObedienceIncomeModifier() {

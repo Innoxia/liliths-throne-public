@@ -101,6 +101,21 @@ public enum BodyCoveringType {
 			Colour.demonSkinColours,
 			null),
 
+	IMP(Race.IMP,
+			"a layer of",
+			false,
+			"skin",
+			"skin",
+			Util.newArrayListOfValues(new ListValue<CoveringModifier>(CoveringModifier.SMOOTH)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
+			CoveringPattern.allStandardCoveringPatterns,
+			Colour.demonSkinColours,
+			null,
+			Colour.demonSkinColours,
+			null),
+
 	CANINE_FUR(Race.DOG_MORPH,
 			"a layer of",
 			false,
@@ -241,8 +256,9 @@ public enum BodyCoveringType {
 			null,
 			Colour.allSkinColours,
 			null,
-			null,
-			null),
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.ORIFICE_INTERIOR)),
+			Colour.allSkinColours),
 
 	ANUS(Race.HUMAN,
 			"a layer of",
@@ -257,8 +273,9 @@ public enum BodyCoveringType {
 			null,
 			Colour.allSkinColours,
 			null,
-			Colour.orificeInteriors,
-			null),
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.ORIFICE_INTERIOR)),
+			Colour.allSkinColours),
 	
 	MOUTH(Race.HUMAN,
 			"a layer of",
@@ -273,8 +290,9 @@ public enum BodyCoveringType {
 			null,
 			Colour.allSkinColours,
 			null,
-			Colour.orificeInteriors,
-			null),
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.ORIFICE_INTERIOR)),
+			Colour.allSkinColours),
 	
 	NIPPLES(Race.HUMAN,
 			"a layer of",
@@ -289,8 +307,9 @@ public enum BodyCoveringType {
 			null,
 			Colour.allSkinColours,
 			null,
-			Colour.orificeInteriors,
-			null),
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.ORIFICE_INTERIOR)),
+			Colour.allSkinColours),
 	
 	VAGINA(Race.HUMAN,
 			"a layer of",
@@ -305,8 +324,9 @@ public enum BodyCoveringType {
 			null,
 			Colour.allSkinColours,
 			null,
-			Colour.orificeInteriors,
-			null),
+			Util.newArrayListOfValues(
+					new ListValue<Colour>(Colour.ORIFICE_INTERIOR)),
+			Colour.allSkinColours),
 	
 	SLIME(Race.HUMAN,
 			"a layer of",
@@ -314,7 +334,7 @@ public enum BodyCoveringType {
 			"slime",
 			"slime",
 			Util.newArrayListOfValues(
-					new ListValue<CoveringModifier>(CoveringModifier.SMOOTH)),
+					new ListValue<CoveringModifier>(CoveringModifier.GOOEY)),
 			null,
 			null,
 			null,
@@ -499,6 +519,22 @@ public enum BodyCoveringType {
 			Colour.naturalHairColours,
 			Colour.dyeHairColours),
 
+	HAIR_IMP(Race.IMP,
+			"a head of",
+			false,
+			"hair",
+			"hair",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.SILKEN)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
+			CoveringPattern.allHairCoveringPatterns,
+			Colour.naturalHairColours,
+			Colour.dyeHairColours,
+			Colour.naturalHairColours,
+			Colour.dyeHairColours),
+	
 	HAIR_CANINE_FUR(Race.DOG_MORPH,
 			"a layer of",
 			false,
@@ -682,6 +718,21 @@ public enum BodyCoveringType {
 			Colour.dyeHairColours),
 
 	BODY_HAIR_DEMON(Race.DEMON,
+			"a layer of",
+			false,
+			"hair",
+			"hair",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.SILKEN)),
+			null,
+			null,
+			CoveringPattern.allStandardCoveringPatterns,
+			Colour.naturalHairColours,
+			Colour.dyeHairColours,
+			Colour.naturalHairColours,
+			Colour.dyeHairColours),
+
+	BODY_HAIR_IMP(Race.IMP,
 			"a layer of",
 			false,
 			"hair",
@@ -908,6 +959,23 @@ public enum BodyCoveringType {
 			Colour.naturalDemonIrisColours,
 			Colour.dyeDemonIrisColours),
 
+	EYE_IMP(Race.IMP,
+			"a pair of",
+			true,
+			"eyes",
+			"eye",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.EYE)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.EYE_IRISES)),
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.EYE_IRISES_HETEROCHROMATIC)),
+			Colour.naturalDemonIrisColours,
+			Colour.dyeDemonIrisColours,
+			Colour.naturalDemonIrisColours,
+			Colour.dyeDemonIrisColours),
+	
 	EYE_DOG_MORPH(Race.DOG_MORPH,
 			"a pair of",
 			true,

@@ -4,11 +4,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.FluidCum;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
+import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
@@ -18,7 +21,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.84
- * @version 0.1.99
+ * @version 0.2.1
  * @author Innoxia
  */
 public abstract class AbstractItemType extends AbstractCoreType implements Serializable {
@@ -35,6 +38,7 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 	protected String SVGString;
 	private TFEssence relatedEssence;
 	protected List<ItemEffect> effects;
+	protected Set<ItemTag> itemTags;
 
 	public AbstractItemType(
 			int value,
@@ -49,7 +53,8 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 			Colour colourTertiary,
 			Rarity rarity,
 			TFEssence relatedEssence,
-			List<ItemEffect> effects) {
+			List<ItemEffect> effects,
+			List<ItemTag> itemTags) {
 
 		this.determiner = determiner;
 		this.plural = plural;
@@ -62,6 +67,11 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 		this.rarity = rarity;
 		
 		this.relatedEssence = relatedEssence;
+		
+		this.itemTags = new HashSet<>();
+		if(itemTags!=null) {
+			this.itemTags.addAll(itemTags);
+		}
 		
 		if(effects==null) {
 			this.effects = new ArrayList<>();
@@ -183,8 +193,6 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 	public boolean canBeSold() {
 		return true;
 	}
-	
-	public abstract boolean isCommonItem();
 	
 	// Enchantments:
 	
@@ -319,5 +327,9 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 					+ " As you touch the bristles to the " + clothing.getName() + "'s surface, the Dye-brush instantly evaporates!"
 					+ " You see that the arcane enchantment has dyed the " + clothing.getName() + " " + colour.getName() + "."
 				+ "</p>";
+	}
+
+	public Set<ItemTag> getItemTags() {
+		return itemTags;
 	}
 }

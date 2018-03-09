@@ -11,7 +11,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.1.69.9
+ * @version 0.2.1
  * @author Innoxia
  */
 public enum EarType implements BodyPartTypeInterface {
@@ -21,6 +21,8 @@ public enum EarType implements BodyPartTypeInterface {
 
 	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON),
 
+	IMP(BodyCoveringType.IMP, Race.IMP),
+	
 	DOG_MORPH(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH),
 	
 	DOG_MORPH_POINTED(BodyCoveringType.CANINE_FUR, Race.DOG_MORPH),
@@ -80,6 +82,8 @@ public enum EarType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("furry", "fur-coated", "cow-like");
 			case DEMON_COMMON:
 				return UtilText.returnStringAtRandom("pointed", "demonic");
+			case IMP:
+				return UtilText.returnStringAtRandom("pointed", "impish");
 			case DOG_MORPH:
 				return UtilText.returnStringAtRandom("floppy", "furry", "fur-coated", "dog-like");
 			case DOG_MORPH_POINTED:
@@ -110,6 +114,8 @@ public enum EarType implements BodyPartTypeInterface {
 				return "feline";
 			case DEMON_COMMON:
 				return "demonic";
+			case IMP:
+				return "impish";
 			case DOG_MORPH:
 				return "canine";
 			case DOG_MORPH_POINTED:

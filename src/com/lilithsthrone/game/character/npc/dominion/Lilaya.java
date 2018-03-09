@@ -359,10 +359,6 @@ public class Lilaya extends NPC {
 	public Attack attackType() {
 		return null;
 	}
-	@Override
-	public int getExperienceFromVictory() {
-		return 0;
-	}
 	
 	
 	// Sex:

@@ -7,7 +7,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.69.9
+ * @version 0.2.1
  * @author Innoxia
  */
 public enum AssType implements BodyPartTypeInterface {
@@ -16,6 +16,8 @@ public enum AssType implements BodyPartTypeInterface {
 	ANGEL(BodyCoveringType.ANGEL, AnusType.ANGEL, Race.ANGEL),
 	
 	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, AnusType.DEMON_COMMON, Race.DEMON),
+	
+	IMP(BodyCoveringType.IMP, AnusType.IMP, Race.IMP),
 	
 	DOG_MORPH(BodyCoveringType.CANINE_FUR, AnusType.DOG_MORPH, Race.DOG_MORPH),
 	

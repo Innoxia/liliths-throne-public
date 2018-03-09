@@ -9,6 +9,16 @@
 	
 	Patch notes:
 	
+	Gameplay:
+		<b>Please note that a lot of this is half-finished in this version!</b>
+		<b>Improved:</b> Job selection in character creator, and added an associated perk for each job.
+		<b>Added:</b> *Basic* map of Submission. This will be expanded upon and improved throughout version 0.2. Most of the descriptions are still TODO!
+		<b>Added:</b> Imp race.
+		<b>Added:</b> Slime race. (5% chance of finding slime TF item in Submission's tunnels.)
+		Demons should now correctly produce imp offspring, not more demons.
+		All characters now have a 'resting lust' value, and over time will gain/lose lust to realign with this value. (Resting lust = Corruption/2)
+		Increased amount of experience gained after beating an NPC in combat from 2*level to 10*level.
+		Alligator-morphs are now only found in Submission.
 	
 	Combat:
 		When a character is suffering from the 'Desperate for sex' status effect, incoming lust damage is now converted to 2*Energy damage and 1*Aura Damage. (So a seduction attack that would deal 15 lust damage now deals 30 energy damage and 15 aura damage.)
@@ -28,6 +38,10 @@
 		Fixed character having 40 arcane in the intro.
 		NPCs now tell you what they're trying to turn you into when they force TF potions on you.
 		Improved multiple-tab switching behaviour, so now you won't end up on a blank page of actions.
+		Resting and washing no longer reset lust to 0.
+		Balanced room upgrade costs.
+		Added 'girth' as a minor transformation to penis. (It is just for descriptions at the moment - I will most likely include a mechanical impact later on.)
+		Offspring should now only spawn in suitable locations (i.e. imps/alligator-morphs only spawn in Submission).
 	
 	Contributors:
 		Added throat capacity, elasticity, plasticity, and wetness to available enchantments. (CondingAnon)
@@ -42,6 +56,8 @@
 		Typo fixes. (Woeful Wombat)
 		Added glossy, matte, metallic, and sparkly modifiers to makeup. (Master of Puppets)
 		Fixed dirty clothing icon not showing for clothing in inventory. (picobyte)
+		Fixed prologue NPC human status effect showing incorrect text. (Master of Puppets)
+		Added more cum target availability in several sex positions. (Master of Puppets)
 	
 	Bugs:
 		<b>Fixed:</b> Huge bug where sex actions belonging to your partner would be available for you to use.
@@ -63,27 +79,22 @@
 		Fixed NPC ordering in sex scenes not matching intended order.
 		Fixed thighs not being detected as a plural.
 		Fixed NPC's alcohol intake message.
-	
-	
-	
-	
-	PRs
-	
-	Finish History improvements
-		unique effects
+		Fixed incorrect initial penetration descriptions.
+		Fixed NPCs spawning in with incorrect stats for their race.
 		
-	[14:00]
 	
-	Penis girth
+	
 	
 	Slimes
-	Imps
-	
-	[19:00]
-	
-	Submission
-	
-	[21:00]
+		Racial Lore
+		Detection for all body parts made of slime
+		TF item
+		Large description of TF
+		Transform menu in phone
+		Description for body material TF
+		Racial slime variants
+		
+	[18:00]
 	
 	Lactation/Milking
 		breast growth/lactation from preg
@@ -91,7 +102,10 @@
 		Breast pumps
 		And milk leaking into bra/clothing if you have too much production. I might make that into a "max milk capacity"/"current milk" mechanic
 		
-	[01:00]
+	
+	
+	
+	breast & ass coverings
 	
 	Chair sex actions
 		"Rough Talk" with Kate is associated with the "Incest" fetish.
@@ -100,6 +114,8 @@
 		Detect combat as melee
 		
 	Foot fetish
+	
+	 my game froze when Lilaya tried to undress me and I had chastity crotch belt with chastity penis cage equipped.
 	
 	Natural hair growth
 	

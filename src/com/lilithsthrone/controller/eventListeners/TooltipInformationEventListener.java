@@ -409,7 +409,7 @@ public class TooltipInformationEventListener implements EventListener {
 			// Attribute modifiers:
 			tooltipSB.append("<div class='subTitle-picture'>" + "<b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Spell</b></br>");
 
-			if (spell.isSelfCastSpell()) {
+			if (spell.isBeneficial()) {
 				tooltipSB.append("<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Beneficial</b> <b style='color:" + spell.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + spell.getDamageType().getName()
 						+ "</b> spell");
 			} else {
@@ -764,7 +764,7 @@ public class TooltipInformationEventListener implements EventListener {
 	
 	private String getBodyPartDiv(String name, Race race, BodyCoveringType covering) {
 		return "<div class='subTitle' style='font-weight:normal; text-align:left; margin-top:2px; white-space: nowrap;'>"+ name + ": <span style='color:" + race.getColour().toWebHexString() + ";'>"+ Util.capitaliseSentence(race.getName()) + "</span> - "
-					+ owner.getCovering(covering).getColourDescriptor(true, true) + " " + owner.getCovering(covering).getName(owner)+"</div>";
+					+ owner.getCovering(covering).getColourDescriptor(owner, true, true) + " " + owner.getCovering(covering).getName(owner)+"</div>";
 	}
 	
 	private String getEmptyBodyPartDiv(String name, String description) {

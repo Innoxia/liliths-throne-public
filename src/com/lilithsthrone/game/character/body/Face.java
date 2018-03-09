@@ -142,6 +142,19 @@ public class Face implements BodyPartInterface, Serializable {
 							+ "</p>"));
 				}
 				break;
+			case ANGEL:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" Thankfully, the alarming feeling is over within a few moments, and you discover that you've been left with an angelic, human-looking face, covered in [pc.faceSkin+].</br>"
+								+ "You now have an [style.boldAngel(angelic face)], covered in [pc.faceFullDescription], and within your mouth, you have an [style.boldAngel(angelic tongue)]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(UtilText.parse(owner,
+								" Thankfully for [npc.herHim], the transformation only lasts a matter of moments, leaving [npc.herHim] with an angelic, human-looking face, covered in [npc.faceSkin+].</br>"
+								+ "[npc.Name] now has an [style.boldAngel(angelic face)], covered in [npc.faceFullDescription], and within [npc.her] mouth, [npc.she] has an [style.boldAngel(angelic tongue)]."
+							+ "</p>"));
+				}
+				break;
 			case DEMON_COMMON:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
@@ -152,6 +165,19 @@ public class Face implements BodyPartInterface, Serializable {
 					UtilText.transformationContentSB.append(UtilText.parse(owner,
 								" Thankfully for [npc.herHim], the transformation only lasts a matter of moments, leaving [npc.herHim] with a demonic, human-looking face, covered in [npc.faceSkin+].</br>"
 								+ "[npc.Name] now has a [style.boldDemon(demonic face)], covered in [npc.faceFullDescription], and within [npc.her] mouth, [npc.she] has a [style.boldDemon(demonic tongue)]."
+							+ "</p>"));
+				}
+				break;
+			case IMP:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" Thankfully, the alarming feeling is over within a few moments, and you discover that you've been left with an impish, human-looking face, covered in [pc.faceSkin+].</br>"
+								+ "You now have an [style.boldImp(impish face)], covered in [pc.faceFullDescription], and within your mouth, you have an [style.boldImp(impish tongue)]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(UtilText.parse(owner,
+								" Thankfully for [npc.herHim], the transformation only lasts a matter of moments, leaving [npc.herHim] with an impish, human-looking face, covered in [npc.faceSkin+].</br>"
+								+ "[npc.Name] now has an [style.boldImp(impish face)], covered in [npc.faceFullDescription], and within [npc.her] mouth, [npc.she] has an [style.boldImp(impish tongue)]."
 							+ "</p>"));
 				}
 				break;
@@ -294,18 +320,18 @@ public class Face implements BodyPartInterface, Serializable {
 							+ "</p>"));
 				}
 				break;
-			default:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append(
-								" Within a matter of moments, a layer of [pc.faceFullDescription] has quickly grown over your new face.</br>"
-								+ "As the transformation comes to an end, you're left with [style.boldTfLesser([pc.face+])], which is covered in [pc.faceFullDescription]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(UtilText.parse(owner,
-								" Within a matter of moments, a layer of [npc.faceFullDescription] has quickly grown over [npc.her] new face.</br>"
-								+ "As the transformation comes to an end, [npc.name] is left with [style.boldTfLesser([npc.face+])], which is covered in [npc.faceFullDescription]."
-							+ "</p>"));
-				}
+//			default:
+//				if (owner.isPlayer()) {
+//					UtilText.transformationContentSB.append(
+//								" Within a matter of moments, a layer of [pc.faceFullDescription] has quickly grown over your new face.</br>"
+//								+ "As the transformation comes to an end, you're left with [style.boldTfLesser([pc.face+])], which is covered in [pc.faceFullDescription]."
+//							+ "</p>");
+//				} else {
+//					UtilText.transformationContentSB.append(UtilText.parse(owner,
+//								" Within a matter of moments, a layer of [npc.faceFullDescription] has quickly grown over [npc.her] new face.</br>"
+//								+ "As the transformation comes to an end, [npc.name] is left with [style.boldTfLesser([npc.face+])], which is covered in [npc.faceFullDescription]."
+//							+ "</p>"));
+//				}
 		}
 		return UtilText.parse(owner, UtilText.transformationContentSB.toString())
 				+ "</br></br>"

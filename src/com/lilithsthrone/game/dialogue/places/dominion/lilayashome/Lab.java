@@ -3223,7 +3223,7 @@ public class Lab {
 					case COW_MORPH:
 						litterSB.append(" strong");
 						break;
-					case DEMON:
+					case DEMON: case IMP: case IMP_ALPHA:
 						litterSB.append(" mischievous");
 						break;
 					case DOG_MORPH: case DOG_MORPH_DOBERMANN:
@@ -3245,6 +3245,18 @@ public class Lab {
 						litterSB.append(" smiling");
 						break;
 					case SLIME:
+					case SLIME_ALLIGATOR:
+					case SLIME_ANGEL:
+					case SLIME_CAT:
+					case SLIME_COW:
+					case SLIME_DEMON:
+					case SLIME_DOG:
+					case SLIME_HARPY:
+					case SLIME_HORSE:
+					case SLIME_IMP:
+					case SLIME_REINDEER:
+					case SLIME_SQUIRREL:
+					case SLIME_WOLF:
 						litterSB.append(" bubbly");
 						break;
 					case SQUIRREL_MORPH:
@@ -3274,7 +3286,7 @@ public class Lab {
 					case COW_MORPH:
 						litterSB.append(" strong");
 						break;
-					case DEMON:
+					case DEMON: case IMP: case IMP_ALPHA:
 						litterSB.append(" mischievous");
 						break;
 					case DOG_MORPH: case DOG_MORPH_DOBERMANN:
@@ -3296,6 +3308,18 @@ public class Lab {
 						litterSB.append(" smiling");
 						break;
 					case SLIME:
+					case SLIME_ALLIGATOR:
+					case SLIME_ANGEL:
+					case SLIME_CAT:
+					case SLIME_COW:
+					case SLIME_DEMON:
+					case SLIME_DOG:
+					case SLIME_HARPY:
+					case SLIME_HORSE:
+					case SLIME_IMP:
+					case SLIME_REINDEER:
+					case SLIME_SQUIRREL:
+					case SLIME_WOLF:
 						litterSB.append(" bubbly");
 						break;
 					case SQUIRREL_MORPH:
@@ -3325,7 +3349,7 @@ public class Lab {
 					case COW_MORPH:
 						litterSB.append(" docile");
 						break;
-					case DEMON:
+					case DEMON: case IMP: case IMP_ALPHA:
 						litterSB.append(" cheeky");
 						break;
 					case DOG_MORPH: case DOG_MORPH_DOBERMANN:
@@ -3347,6 +3371,18 @@ public class Lab {
 						litterSB.append(" smiling");
 						break;
 					case SLIME:
+					case SLIME_ALLIGATOR:
+					case SLIME_ANGEL:
+					case SLIME_CAT:
+					case SLIME_COW:
+					case SLIME_DEMON:
+					case SLIME_DOG:
+					case SLIME_HARPY:
+					case SLIME_HORSE:
+					case SLIME_IMP:
+					case SLIME_REINDEER:
+					case SLIME_SQUIRREL:
+					case SLIME_WOLF:
 						litterSB.append(" bubbly");
 						break;
 					case SQUIRREL_MORPH:
@@ -3376,7 +3412,7 @@ public class Lab {
 					case COW_MORPH:
 						litterSB.append(" docile");
 						break;
-					case DEMON:
+					case DEMON: case IMP: case IMP_ALPHA:
 						litterSB.append(" cheeky");
 						break;
 					case DOG_MORPH: case DOG_MORPH_DOBERMANN:
@@ -3398,6 +3434,18 @@ public class Lab {
 						litterSB.append(" smiling");
 						break;
 					case SLIME:
+					case SLIME_ALLIGATOR:
+					case SLIME_ANGEL:
+					case SLIME_CAT:
+					case SLIME_COW:
+					case SLIME_DEMON:
+					case SLIME_DOG:
+					case SLIME_HARPY:
+					case SLIME_HORSE:
+					case SLIME_IMP:
+					case SLIME_REINDEER:
+					case SLIME_SQUIRREL:
+					case SLIME_WOLF:
 						litterSB.append(" bubbly");
 						break;
 					case SQUIRREL_MORPH:

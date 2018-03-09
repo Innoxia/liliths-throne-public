@@ -16,6 +16,7 @@ import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
 import com.lilithsthrone.game.character.npc.dominion.DominionSuccubusAttacker;
 import com.lilithsthrone.game.character.npc.dominion.HarpyNestsAttacker;
+import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
@@ -32,6 +33,7 @@ import com.lilithsthrone.game.slavery.SlavePermissionSetting;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
+import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 import com.lilithsthrone.utils.Util.Value;
 
@@ -145,7 +147,9 @@ public enum Encounter {
 				
 				if(Main.game.isIncestEnabled() && Math.random()<0.2f) { // Incest
 					List<NPC> offspringAvailable = new ArrayList<>();
-					offspringAvailable.addAll(Main.game.getOffspring().stream().filter(npc -> !npc.isSlave() && npc.getLastTimeEncountered()==NPC.DEFAULT_TIME_START_VALUE).collect(Collectors.toList()));
+					offspringAvailable.addAll(Main.game.getOffspring().stream().filter(npc -> !npc.isSlave()
+																								&& npc.getSubspecies().getWorldLocations().contains(WorldType.DOMINION)
+																								&& npc.getLastTimeEncountered()==NPC.DEFAULT_TIME_START_VALUE).collect(Collectors.toList()));
 					offspringAvailable.removeAll(Main.game.getOffspringSpawned());
 					
 					if(!offspringAvailable.isEmpty()) {
@@ -173,7 +177,7 @@ public enum Encounter {
 			} else if (node == EncounterType.DOMINION_FIND_ITEM) {
 				
 				if(Math.random()<0.995f) {
-					randomItem = AbstractItemType.generateItem(ItemType.commonItems.get(Util.random.nextInt(ItemType.commonItems.size())));
+					randomItem = AbstractItemType.generateItem(ItemType.dominionAlleywayItems.get(Util.random.nextInt(ItemType.dominionAlleywayItems.size())));
 				} else {
 					randomItem = AbstractItemType.generateItem(ItemType.EGGPLANT);
 				}
@@ -375,6 +379,65 @@ public enum Encounter {
 			}
 			
 			return null;
+		}
+	},
+	
+	SUBMISSION_TUNNELS(Util.newHashMapOfValues(
+			new Value<EncounterType, Float>(EncounterType.SUBMISSION_TUNNEL_ATTACK, 15f),
+			new Value<EncounterType, Float>(EncounterType.SUBMISSION_FIND_ITEM, 3f))) {
+
+		@Override
+		protected DialogueNodeOld initialiseEncounter(EncounterType node) {
+			if (node == EncounterType.SUBMISSION_TUNNEL_ATTACK) {
+				
+				// Prioritise re-encountering the NPC on this tile:
+				for(NPC npc : Main.game.getCharactersPresent()) {
+					Main.game.setActiveNPC(npc);
+					return Main.game.getActiveNPC().getEncounterDialogue();
+				}
+				
+				if(Main.game.isIncestEnabled() && Math.random()<0.2f) {
+					List<NPC> offspringAvailable = new ArrayList<>();
+					offspringAvailable.addAll(Main.game.getOffspring().stream().filter(npc -> !npc.isSlave()
+																								&& npc.getSubspecies().getWorldLocations().contains(WorldType.SUBMISSION)
+																								&& npc.getLastTimeEncountered()==NPC.DEFAULT_TIME_START_VALUE).collect(Collectors.toList()));
+					offspringAvailable.removeAll(Main.game.getOffspringSpawned());
+					
+					if(!offspringAvailable.isEmpty()) {
+						NPC offspring = offspringAvailable.get(Util.random.nextInt(offspringAvailable.size()));
+						Main.game.getOffspringSpawned().add(offspring);
+						
+						offspring.setWorldLocation(Main.game.getPlayer().getWorldLocation());
+						offspring.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
+						
+						Main.game.setActiveNPC(offspring);
+						
+						return Main.game.getActiveNPC().getEncounterDialogue();
+					}
+				}
+				
+				Main.game.setActiveNPC(new SubmissionAttacker(GenderPreference.getGenderFromUserPreferences()));
+				try {
+					Main.game.addNPC(Main.game.getActiveNPC(), false);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return Main.game.getActiveNPC().getEncounterDialogue();
+				
+			} else if (node == EncounterType.SUBMISSION_FIND_ITEM) {
+				
+				if(Math.random()<0.95f) {
+					randomItem = AbstractItemType.generateItem(ItemType.submissionTunnelItems.get(Util.random.nextInt(ItemType.submissionTunnelItems.size())));
+				} else {
+					randomItem = AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_SLIME);
+				}
+				
+				Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getInventory().addItem(randomItem);
+				return SubmissionEncounterDialogue.ALLEY_FIND_ITEM;
+				
+			} else {
+				return null;
+			}
 		}
 	};
 
