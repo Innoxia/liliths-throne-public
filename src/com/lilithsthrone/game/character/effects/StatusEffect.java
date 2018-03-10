@@ -1506,7 +1506,9 @@ public enum StatusEffect {
 			"attBladder4",
 			Colour.BLADDER_STAGE_FOUR,
 			true,
-			null,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -20f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -10f)),
 			null) {
 
 		@Override
@@ -1544,7 +1546,9 @@ public enum StatusEffect {
 			"attBladder5",
 			Colour.BLADDER_STAGE_FIVE,
 			true,
-			null,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -50f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -30f)),
 			null) {
 
 		@Override
