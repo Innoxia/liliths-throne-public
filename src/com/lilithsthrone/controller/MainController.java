@@ -4838,8 +4838,7 @@ public class MainController implements Initializable {
 				Attribute.MAJOR_ARCANE,
 				Attribute.MAJOR_CORRUPTION,
 				Attribute.AROUSAL,
-				Attribute.LUST,
-				Attribute.BLADDER };
+				Attribute.LUST };
 		
 		List<GameCharacter> charactersBeingRendered = new ArrayList<>();
 		if(Main.game.isInSex()) {
@@ -5090,8 +5089,7 @@ public class MainController implements Initializable {
 					Attribute.MAJOR_ARCANE,
 					Attribute.MAJOR_CORRUPTION,
 					Attribute.AROUSAL,
-					Attribute.LUST,
-					Attribute.BLADDER };
+					Attribute.LUST };
 			
 			List<GameCharacter> charactersBeingRendered = new ArrayList<>();
 			if(Main.game.isInSex()) {

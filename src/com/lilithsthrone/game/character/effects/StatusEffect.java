@@ -1497,7 +1497,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean renderInEffectsPanel() {
-			return false;
+			return true;
 		}
 	},
 	BLADDER_PERK_4(
@@ -1537,7 +1537,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean renderInEffectsPanel() {
-			return false;
+			return true;
 		}
 	},
 	BLADDER_PERK_5(
@@ -1577,7 +1577,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean renderInEffectsPanel() {
-			return false;
+			return true;
 		}
 	},
 

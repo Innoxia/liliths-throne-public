@@ -1412,13 +1412,7 @@ public enum RenderingEngine {
 						Colour.ATTRIBUTE_LUST,
 						character.getLust(),
 						100,
-						idPrefix + Attribute.LUST.getName())
-
-				+getAttributeBarHalf(BladderLevel.getBladderLevelFromValue(character.getBladder()).getRelatedStatusEffect().getSVGString(character),
-						Colour.ATTRIBUTE_BLADDER,
-						character.getBladder(),
-						100,
-						idPrefix + Attribute.BLADDER.getName()));
+						idPrefix + Attribute.LUST.getName()));
 		
 		panelSB.append("<hr style='border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+"; margin: 2px 0;'></hr>");
 		
@@ -1709,13 +1703,7 @@ public enum RenderingEngine {
 						Colour.ATTRIBUTE_LUST,
 						character.getLust(),
 						100,
-						idPrefix + Attribute.LUST.getName())
-
-				+getAttributeBar(BladderLevel.getBladderLevelFromValue(character.getBladder()).getRelatedStatusEffect().getSVGString(character),
-						Colour.ATTRIBUTE_BLADDER,
-						character.getBladder(),
-						100,
-						idPrefix + Attribute.BLADDER.getName()));
+						idPrefix + Attribute.LUST.getName()));
 		
 	
 							
