@@ -20,6 +20,7 @@ import com.lilithsthrone.game.dialogue.places.dominion.DemonHome;
 import com.lilithsthrone.game.dialogue.places.dominion.EnforcerHQDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.LilithsTower;
 import com.lilithsthrone.game.dialogue.places.dominion.NightlifeDistrict;
+import com.lilithsthrone.game.dialogue.places.dominion.Toilet;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestAlexa;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestBimbo;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestDominant;
@@ -484,6 +485,8 @@ public enum PlaceType {
 	
 	LILAYA_HOME_ROOM_PLAYER("Your Room", "dominion/lilayasHome/roomPlayer", BaseColour.AQUA, RoomPlayer.ROOM, null, true, false, true, false, "in your room"),
 	
+	LILAYA_HOME_1ST_FLOOR_TOILET("A toilet", "dominion/toiletIcon", BaseColour.YELLOW, Toilet.HALL, null, true, false, true, false, "in the toilet"),
+
 	LILAYA_HOME_STAIR_DOWN("Staircase", "dominion/lilayasHome/stairsDown", BaseColour.RED, LilayaHomeGeneric.STAIRCASE_DOWN, null, true, false, true, false, "in Lilaya's Home"),
 	
 	
@@ -536,6 +539,8 @@ public enum PlaceType {
 	},
 	
 	SHOPPING_ARCADE_PIXS_GYM("City Gym", "dominion/shoppingArcade/gym", BaseColour.GOLD, PixsPlayground.GYM_EXTERIOR, null, true, false, true, true, "in her gym"),
+
+	SHOPPING_ARCADE_TOILET("A toilet", "dominion/toiletIcon", BaseColour.YELLOW, Toilet.HALL, null, true, false, true, false, "in the toilet"),
 
 	// Exits & entrances:
 	SHOPPING_ARCADE_ENTRANCE("Exit", "dominion/shoppingArcade/exit", BaseColour.RED, ShoppingArcadeDialogue.ENTRY, null, true, false, true, true, "in the Shopping Arcade"),

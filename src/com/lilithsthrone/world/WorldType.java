@@ -93,6 +93,7 @@ public enum WorldType {
 					new Value<>(new Color(0xff80ff), PlaceType.LILAYA_HOME_ROOM_LILAYA),
 					new Value<>(new Color(0x0080ff), PlaceType.LILAYA_HOME_ROOM_ROSE),
 					new Value<>(new Color(0x00ffff), PlaceType.LILAYA_HOME_ROOM_PLAYER),
+					new Value<>(new Color(0xe8cb55), PlaceType.LILAYA_HOME_1ST_FLOOR_TOILET),
 					new Value<>(new Color(0xff0000), PlaceType.LILAYA_HOME_STAIR_DOWN))){
 		@Override
 		public boolean isRevealedOnStart() {
@@ -174,7 +175,8 @@ public enum WorldType {
 					new Value<>(new Color(0xff8000), PlaceType.SHOPPING_ARCADE_KATES_SHOP),
 					new Value<>(new Color(0xff00ff), PlaceType.SHOPPING_ARCADE_GENERIC_SHOP),
 					new Value<>(new Color(0x008000), PlaceType.SHOPPING_ARCADE_ASHLEYS_SHOP),
-					new Value<>(new Color(0x00ff00), PlaceType.SHOPPING_ARCADE_SUPPLIER_DEPOT)
+					new Value<>(new Color(0x00ff00), PlaceType.SHOPPING_ARCADE_SUPPLIER_DEPOT),
+					new Value<>(new Color(0xe8cb55), PlaceType.SHOPPING_ARCADE_TOILET)
 					)){
 		@Override
 		public boolean isRevealedOnStart() {

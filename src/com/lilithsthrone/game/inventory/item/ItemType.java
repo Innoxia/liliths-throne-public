@@ -3334,7 +3334,34 @@ public class ItemType {
 					"[npc.Name] produces a book, titled 'Slimy Fun', which [npc.she] then forces you to read...");
 		}
 	};
-	
+
+	public static AbstractItemType DIURETICUM = new AbstractItemType(250,
+			null,
+			false,
+			"Diureticum",
+			"Diuretica",
+			"A substance that causes increased production of urine.",
+			"diureticum",
+			Colour.BLADDER_STAGE_THREE,
+			null,
+			null,
+			Rarity.RARE,
+			null,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.DIURESIS))), null) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getUseName() {
+			return "drink";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getEssenceAbsorbtionText(Colour.BLADDER_STAGE_THREE, user, target);
+		}
+	};
+
 	public static AbstractItemType PRESENT = new AbstractItemType(250,
 			"a",
 			false,
