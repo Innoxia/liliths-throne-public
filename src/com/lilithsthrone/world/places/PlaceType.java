@@ -14,7 +14,6 @@ import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.dialogue.places.JunglePlaces;
-import com.lilithsthrone.game.dialogue.places.SewerPlaces;
 import com.lilithsthrone.game.dialogue.places.dominion.CityHall;
 import com.lilithsthrone.game.dialogue.places.dominion.CityPlaces;
 import com.lilithsthrone.game.dialogue.places.dominion.DemonHome;
@@ -42,6 +41,7 @@ import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.ScarlettsShop
 import com.lilithsthrone.game.dialogue.places.dominion.slaverAlley.SlaverAlleyDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeFirstFloor;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloor;
+import com.lilithsthrone.game.dialogue.places.submission.SubmissionGenericPlaces;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Bearing;
@@ -61,9 +61,9 @@ public enum PlaceType {
 	
 	GENERIC_IMPASSABLE(null, null, null, null, null, false, false, false, true, ""),
 	
-	GENERIC_EMPTY_TILE("Empty", "slaverAlleyIcon",  BaseColour.CRIMSON, null, null, true, false, false, true, ""),
+	GENERIC_EMPTY_TILE("Empty", "dominion/slaverAlleyIcon",  BaseColour.CRIMSON, null, null, true, false, false, true, ""),
 	
-	GENERIC_MUSEUM("Museum", "slaverAlleyIcon",  BaseColour.TAN, null, null, true, false, true, false, "in the restroom of Lily's Museum"),
+	GENERIC_MUSEUM("Museum", "dominion/slaverAlleyIcon",  BaseColour.TAN, null, null, true, false, true, false, "in the restroom of Lily's Museum"),
 	
 	
 	DOMINION_STREET("Dominion Streets", null, null, CityPlaces.STREET, Encounter.DOMINION_STREET, true, false, false, true, "in the streets of Dominion") {
@@ -74,7 +74,7 @@ public enum PlaceType {
 		}
 	},
 	
-	DOMINION_LILITHS_TOWER("Lilith's Tower", "lilithsTowerIcon", BaseColour.PURPLE, LilithsTower.OUTSIDE, Encounter.DOMINION_STREET, true, false, false, true, "in the streets of Dominion") {
+	DOMINION_LILITHS_TOWER("Lilith's Tower", "dominion/lilithsTowerIcon", BaseColour.PURPLE, LilithsTower.OUTSIDE, Encounter.DOMINION_STREET, true, false, false, true, "in the streets of Dominion") {
 		
 		@Override
 		public boolean isDangerous() {
@@ -82,7 +82,7 @@ public enum PlaceType {
 		}
 	},
 	
-	DOMINION_ENFORCER_HQ("Enforcer HQ", "enforcerHQIcon", BaseColour.BLUE, EnforcerHQDialogue.EXTERIOR, Encounter.DOMINION_STREET, true, false, false, true, "in the streets of Dominion") {
+	DOMINION_ENFORCER_HQ("Enforcer HQ", "dominion/enforcerHQIcon", BaseColour.BLUE, EnforcerHQDialogue.EXTERIOR, Encounter.DOMINION_STREET, true, false, false, true, "in the streets of Dominion") {
 		
 		@Override
 		public boolean isDangerous() {
@@ -90,7 +90,7 @@ public enum PlaceType {
 		}
 	},
 	
-	DOMINION_DEMON_HOME("Demon Home", "demonHomeIcon", BaseColour.PINK, DemonHome.DEMON_HOME_STREET, Encounter.DOMINION_STREET, true, false, false, true, "in the streets of Dominion") {
+	DOMINION_DEMON_HOME("Demon Home", "dominion/demonHomeIcon", BaseColour.PINK, DemonHome.DEMON_HOME_STREET, Encounter.DOMINION_STREET, true, false, false, true, "in the streets of Dominion") {
 		
 		@Override
 		public boolean isDangerous() {
@@ -98,7 +98,7 @@ public enum PlaceType {
 		}
 	},
 	
-	DOMINION_SHOPPING_ARCADE("Shopping Arcade", "shoppingArcadeIcon", BaseColour.GOLD, ShoppingArcadeDialogue.OUTSIDE, Encounter.DOMINION_STREET, true, false, false, true, "in the streets of Dominion") {
+	DOMINION_SHOPPING_ARCADE("Shopping Arcade", "dominion/shoppingArcadeIcon", BaseColour.GOLD, ShoppingArcadeDialogue.OUTSIDE, Encounter.DOMINION_STREET, true, false, false, true, "in the streets of Dominion") {
 		
 		@Override
 		public boolean isDangerous() {
@@ -106,7 +106,7 @@ public enum PlaceType {
 		}
 	},
 	
-	DOMINION_HARPY_NESTS("Harpy Nests", "harpyNestIcon", BaseColour.MAGENTA, HarpyNestsDialogue.OUTSIDE, Encounter.DOMINION_STREET, true, false, false, true, "in the streets of Dominion") {
+	DOMINION_HARPY_NESTS("Harpy Nests", "dominion/harpyNestIcon", BaseColour.MAGENTA, HarpyNestsDialogue.OUTSIDE, Encounter.DOMINION_STREET, true, false, false, true, "in the streets of Dominion") {
 		
 		@Override
 		public boolean isDangerous() {
@@ -114,7 +114,7 @@ public enum PlaceType {
 		}
 	},
 	
-	DOMINION_NIGHTLIFE_DISTRICT("Nightlife District", "nightlifeIcon", BaseColour.PINK_LIGHT, NightlifeDistrict.OUTSIDE, Encounter.DOMINION_STREET, true, false, false, true, "in the streets of Dominion") {
+	DOMINION_NIGHTLIFE_DISTRICT("Nightlife District", "dominion/nightlifeIcon", BaseColour.PINK_LIGHT, NightlifeDistrict.OUTSIDE, Encounter.DOMINION_STREET, true, false, false, true, "in the streets of Dominion") {
 		
 		@Override
 		public boolean isDangerous() {
@@ -122,7 +122,7 @@ public enum PlaceType {
 		}
 	},
 	
-	DOMINION_CITY_HALL("City Hall", "townHallIcon",  BaseColour.LILAC, CityHall.OUTSIDE, Encounter.DOMINION_STREET, true, false, false, true, "in the streets of Dominion") {
+	DOMINION_CITY_HALL("City Hall", "dominion/townHallIcon",  BaseColour.LILAC, CityHall.OUTSIDE, Encounter.DOMINION_STREET, true, false, false, true, "in the streets of Dominion") {
 		
 		@Override
 		public boolean isDangerous() {
@@ -130,7 +130,7 @@ public enum PlaceType {
 		}
 	},
 	
-	DOMINION_AUNTS_HOME("Lilaya's Home", "homeIcon", BaseColour.BLUE_LIGHT, LilayaHomeGeneric.OUTSIDE, Encounter.DOMINION_STREET, true, false, false, true, "in the streets of Dominion") {
+	DOMINION_AUNTS_HOME("Lilaya's Home", "dominion/homeIcon", BaseColour.BLUE_LIGHT, LilayaHomeGeneric.OUTSIDE, Encounter.DOMINION_STREET, true, false, false, true, "in the streets of Dominion") {
 
 		@Override
 		public boolean isDangerous() {
@@ -138,7 +138,7 @@ public enum PlaceType {
 		}
 	},
 	
-	DOMINION_SLAVER_ALLEY("Slaver Alley", "slaverAlleyIcon",  BaseColour.CRIMSON, SlaverAlleyDialogue.OUTSIDE, null, true, false, false, true, "in the alleyways near Slaver's Alley") {
+	DOMINION_SLAVER_ALLEY("Slaver Alley", "dominion/slaverAlleyIcon",  BaseColour.CRIMSON, SlaverAlleyDialogue.OUTSIDE, null, true, false, false, true, "in the alleyways near Slaver's Alley") {
 
 		@Override
 		public boolean isDangerous() {
@@ -148,13 +148,13 @@ public enum PlaceType {
 
 	// Dangerous tiles:
 	
-	DOMINION_BACK_ALLEYS("Dominion Alleyways", "alleysIcon",  BaseColour.BLACK, CityPlaces.BACK_ALLEYS, Encounter.DOMINION_ALLEY, false, true, false, true, "in one of Dominion's backalleys"),
+	DOMINION_BACK_ALLEYS("Dominion Alleyways", "dominion/alleysIcon",  BaseColour.BLACK, CityPlaces.BACK_ALLEYS, Encounter.DOMINION_ALLEY, false, true, false, true, "in one of Dominion's backalleys"),
 
-	DOMINION_DARK_ALLEYS("Dark Alleyways", "alleysDarkIcon",  BaseColour.PURPLE, CityPlaces.DARK_ALLEYS, Encounter.DOMINION_DARK_ALLEY, false, true, false, true, "in one of Dominion's dark alleyways"),
+	DOMINION_DARK_ALLEYS("Dark Alleyways", "dominion/alleysDarkIcon",  BaseColour.PURPLE, CityPlaces.DARK_ALLEYS, Encounter.DOMINION_DARK_ALLEY, false, true, false, true, "in one of Dominion's dark alleyways"),
 	
 	// Exits & entrances:
 	
-	DOMINION_EXIT_TO_SEWERS("Submission Entrance", "submissionExit",  BaseColour.BROWN, CityPlaces.CITY_EXIT_SEWERS, Encounter.DOMINION_STREET, true, false, false, true, "in the streets of Dominion") {
+	DOMINION_EXIT_TO_SEWERS("Submission Entrance", "dominion/submissionExit",  BaseColour.BROWN, CityPlaces.CITY_EXIT_SEWERS, Encounter.DOMINION_STREET, true, false, false, true, "in the streets of Dominion") {
 		
 		@Override
 		public boolean isDangerous() {
@@ -167,7 +167,7 @@ public enum PlaceType {
 		}
 	},
 	
-	DOMINION_EXIT_TO_JUNGLE("Jungle Entrance", "JungleExit",  BaseColour.GREEN_LIME, CityPlaces.CITY_EXIT_JUNGLE, Encounter.DOMINION_STREET, true, false, false, true, "in the streets of Dominion") {
+	DOMINION_EXIT_TO_JUNGLE("Jungle Entrance", "dominion/JungleExit",  BaseColour.GREEN_LIME, CityPlaces.CITY_EXIT_JUNGLE, Encounter.DOMINION_STREET, true, false, false, true, "in the streets of Dominion") {
 		
 		@Override
 		public boolean isDangerous() {
@@ -180,7 +180,7 @@ public enum PlaceType {
 		}
 	},
 	
-	DOMINION_EXIT_TO_FIELDS("Fields Entrance", "fieldsExit",  BaseColour.GREEN_LIGHT, CityPlaces.CITY_EXIT_FIELDS, Encounter.DOMINION_STREET, true, false, false, true, "in the streets of Dominion") {
+	DOMINION_EXIT_TO_FIELDS("Fields Entrance", "dominion/fieldsExit",  BaseColour.GREEN_LIGHT, CityPlaces.CITY_EXIT_FIELDS, Encounter.DOMINION_STREET, true, false, false, true, "in the streets of Dominion") {
 		
 		@Override
 		public boolean isDangerous() {
@@ -193,7 +193,7 @@ public enum PlaceType {
 		}
 	},
 	
-	DOMINION_EXIT_TO_SEA("Endless Sea Entrance", "endlessSeaExit",  BaseColour.TEAL, CityPlaces.CITY_EXIT_SEA, Encounter.DOMINION_STREET, true, false, false, true, "in the streets of Dominion") {
+	DOMINION_EXIT_TO_SEA("Endless Sea Entrance", "dominion/endlessSeaExit",  BaseColour.TEAL, CityPlaces.CITY_EXIT_SEA, Encounter.DOMINION_STREET, true, false, false, true, "in the streets of Dominion") {
 		
 		@Override
 		public boolean isDangerous() {
@@ -206,7 +206,7 @@ public enum PlaceType {
 		}
 	},
 	
-	DOMINION_EXIT_TO_DESERT("Desert Entrance", "desertExit", BaseColour.YELLOW, CityPlaces.CITY_EXIT_DESERT, Encounter.DOMINION_STREET, true, false, false, true, "in the streets of Dominion") {
+	DOMINION_EXIT_TO_DESERT("Desert Entrance", "dominion/desertExit", BaseColour.YELLOW, CityPlaces.CITY_EXIT_DESERT, Encounter.DOMINION_STREET, true, false, false, true, "in the streets of Dominion") {
 		
 		@Override
 		public boolean isDangerous() {
@@ -243,7 +243,6 @@ public enum PlaceType {
 	},
 
 	ENFORCER_HQ_ENTRANCE("Entranceway", "dominion/enforcerHQ/exit", BaseColour.RED, EnforcerHQDialogue.ENTRANCE, null, true, false, true, true, ""),
-	
 	
 	
 	
@@ -616,28 +615,23 @@ public enum PlaceType {
 	
 	
 	
-	SUBMISSION_WALKWAYS("Submission Walkways", null, BaseColour.BLACK, SewerPlaces.WALKWAYS, null, false, true, true, true, "in Submission"),
+	SUBMISSION_WALKWAYS("Walkways", null, BaseColour.BLACK, SubmissionGenericPlaces.WALKWAYS, null, true, false, true, true, "in Submission"),
 
-	SUBMISSION_RAT_TUNNELS("Rat Tunnels", null, BaseColour.BLACK, SewerPlaces.RAT_TUNNELS, null, true, false, true, true, "in Submission"),
+	SUBMISSION_TUNNELS("Tunnels", "submission/tunnelsIcon", BaseColour.BLACK, SubmissionGenericPlaces.TUNNEL, Encounter.SUBMISSION_TUNNELS, false, true, true, true, "in Submission"),
 	
-	SUBMISSION_GAMBLING_DEN("Gambling Den", null, BaseColour.BLACK, SewerPlaces.GAMBLING_DEN, null, true, false, true, true, "in Submission"),
+	SUBMISSION_BAT_CAVERNS("Bat Caverns", "submission/batCaverns", BaseColour.BLUE, SubmissionGenericPlaces.BAT_CAVERNS, null, true, false, true, true, "in Submission"),
 	
-	SUBMISSION_IMP_PALACE("Imp Palace", null, BaseColour.BLACK, SewerPlaces.IMP_PALACE, null, true, false, true, true, "in Submission"),
+	SUBMISSION_RAT_WARREN("Rat Warren", "submission/ratWarren", BaseColour.BROWN_DARK, SubmissionGenericPlaces.RAT_WARREN, null, true, false, true, true, "in Submission"),
+	
+	SUBMISSION_GAMBLING_DEN("Gambling Den", "submission/gamblingDen", BaseColour.GOLD, SubmissionGenericPlaces.GAMBLING_DEN, null, true, false, true, true, "in Submission"),
+	
+	SUBMISSION_LILIN_PALACE("Lyssieth's Palace", "submission/lilinPalace", BaseColour.PURPLE, SubmissionGenericPlaces.LILIN_PALACE, null, true, false, true, true, "in Submission"),
 
-	SUBMISSION_ENTRANCE("Submission Entrance", null, BaseColour.BLACK, SewerPlaces.SEWER_ENTRANCE, null, true, false, true, true, "in Submission"){
-		@Override
-		public WorldType getParentWorldType() {
-			return WorldType.DOMINION;
-		}
-		@Override
-		public PlaceType getParentPlaceType() {
-			return PlaceType.DOMINION_EXIT_TO_SEWERS;
-		}
-		@Override
-		public EntranceType getParentAlignment() {
-			return EntranceType.ALIGNED;
-		}
-	};
+	SUBMISSION_IMP_FORTRESS_1("Imp Fortress", "submission/impFortress1", BaseColour.CRIMSON, SubmissionGenericPlaces.IMP_FORTRESS_1, null, true, false, true, true, "in Submission"),
+	SUBMISSION_IMP_FORTRESS_2("Imp Fortress", "submission/impFortress2", BaseColour.MAGENTA, SubmissionGenericPlaces.IMP_FORTRESS_2, null, true, false, true, true, "in Submission"),
+	SUBMISSION_IMP_FORTRESS_3("Imp Fortress", "submission/impFortress3", BaseColour.PINK, SubmissionGenericPlaces.IMP_FORTRESS_3, null, true, false, true, true, "in Submission"),
+
+	SUBMISSION_ENTRANCE("Enforcer Checkpoint", "submission/submissionExit", BaseColour.BROWN, SubmissionGenericPlaces.SEWER_ENTRANCE, null, true, false, true, true, "in Submission");
 
 	
 	private String name;

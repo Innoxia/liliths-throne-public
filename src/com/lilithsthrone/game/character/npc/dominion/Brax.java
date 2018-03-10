@@ -1056,11 +1056,6 @@ public class Brax extends NPC {
 	public int getEscapeChance() {
 		return 0;
 	}
-
-	@Override
-	public int getExperienceFromVictory() {
-		return 20;
-	}
 	
 	public int getLootMoney() {
 		return 2500;

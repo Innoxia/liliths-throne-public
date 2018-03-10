@@ -409,24 +409,6 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 			}
 		}
 		
-//		// Ban all anal actions unless the partner has an anal fetish, or if there is no vagina available to use.
-//		if(!Sex.getActivePartner().hasFetish(Fetish.FETISH_ANAL_GIVING)) {
-//			for(SexActionInterface action : availableActions) {
-//				if(action.getAssociatedOrificeType()!=null) {
-//					if(action.getAssociatedOrificeType() == OrificeType.ANUS) {
-//						if(action.getParticipantType().isUsingSelfPenetrationType()) {
-//							if(Main.game.getPlayer().hasVagina() && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) { // If the player has a vagina, ban the action so vaginal actions are preferred:
-//								bannedActions.add(action);
-//							}
-//						} else {
-//							bannedActions.add(action);
-//						}
-//					}
-//				}
-//			}
-//		}
-
-		
 		// --- Priority 6 | Perform actions based on foreplay or sex ---
 		
 		// Perform foreplay action if arousal is < 25 and haven't orgasmed yet:
@@ -444,17 +426,10 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 			}
 		}
 
-//		System.out.println("---------------------------");
-		
 		// --- Priority 7 using other options at random ---
 		possibleActions.addAll(availableActions);
 
 		possibleActions.removeAll(bannedActions);
-		
-//		System.out.println("REMOVED:");
-//		for (SexActionInterface action : possibleActions) {
-//			System.out.println(action.getActionTitle());
-//		}
 		
 		if (!possibleActions.isEmpty()) {
 			return possibleActions.get(Util.random.nextInt(possibleActions.size()));
@@ -474,7 +449,8 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		
 		if(sexActionPlayer.getActionType()==SexActionType.PLAYER_STOP_PENETRATION
 				|| sexActionPlayer.equals(GenericActions.PLAYER_FORBID_PARTNER_SELF)
-				|| sexActionPlayer.equals(GenericActions.PLAYER_STOP_PARTNER_SELF)) {
+				|| sexActionPlayer.equals(GenericActions.PLAYER_STOP_PARTNER_SELF)
+				|| sexActionPlayer.equals(GenericActions.PLAYER_STOP_ALL_PENETRATIONS)) {
 			availableActions.removeIf(sexAction -> sexAction.getActionType()==SexActionType.PARTNER_PENETRATION);
 		}
 		
@@ -533,7 +509,8 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		
 		if(sexActionPlayer.getActionType()==SexActionType.PLAYER_STOP_PENETRATION
 				|| sexActionPlayer.equals(GenericActions.PLAYER_FORBID_PARTNER_SELF)
-				|| sexActionPlayer.equals(GenericActions.PLAYER_STOP_PARTNER_SELF)) {
+				|| sexActionPlayer.equals(GenericActions.PLAYER_STOP_PARTNER_SELF)
+				|| sexActionPlayer.equals(GenericActions.PLAYER_STOP_ALL_PENETRATIONS)) {
 			availableActions.removeIf(sexAction -> sexAction.getActionType()==SexActionType.PARTNER_PENETRATION);
 		}
 		
@@ -542,14 +519,18 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		List<SexActionInterface> returnableActions = new ArrayList<>();
 		
 		boolean isSexPenetration = false;
+		boolean isSexPenetrationPossible = Sex.getActivePartner().hasPenis()
+				|| Sex.getActivePartner().getTailType().isSuitableForPenetration()
+				|| Main.game.getPlayer().hasPenis()
+				|| Main.game.getPlayer().getTailType().isSuitableForPenetration();
 		
 		// Is any sexual penetration happening:
 		outerloop:
 		for(GameCharacter penetrator : Sex.getAllParticipants()) {
 			for(GameCharacter penetrated : Sex.getAllParticipants()) {
-				if(penetrator.equals(Sex.getActivePartner()) || penetrated.equals(Sex.getActivePartner())) {
+				if((penetrator.equals(Sex.getActivePartner()) || penetrated.equals(Sex.getActivePartner())) && !penetrator.equals(penetrated)) {
 					for(Entry<PenetrationType, Set<OrificeType>> e : Sex.getOngoingPenetrationMap(penetrator).get(penetrated).entrySet()) {
-						if(e.getKey() == PenetrationType.PENIS || e.getKey() == PenetrationType.TAIL || e.getKey() == PenetrationType.TENTACLE) {
+						if(e.getKey().isTakesVirginity()) {
 							isSexPenetration = true;
 							break outerloop;
 						}
@@ -558,24 +539,24 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 			}
 		}
 		
-		if(!isSexPenetration) {
+		// If there is no real penetration going on:
+		if(!isSexPenetration && isSexPenetrationPossible) {
 			// --- Stop foreplay actions: ---
-//			if(!removedAllPenetrationAfterForeplay) {
-//				for(SexActionInterface action : availableActions) {
-//					if(action.getActionType() == SexActionType.PARTNER_STOP_PENETRATION) {
-//						if(!(action.getAssociatedPenetrationType()==PenetrationType.TONGUE && action.getAssociatedOrificeType()==OrificeType.MOUTH)) { // Don't stop kissing actions:
-//							returnableActions.add(action);
-//						}
-//					}
-//				}
-//			}
+			for(SexActionInterface action : availableActions) {
+				if(action.getActionType() == SexActionType.PARTNER_STOP_PENETRATION) {
+					if(!(action.getAssociatedPenetrationType()==PenetrationType.TONGUE && action.getAssociatedOrificeType()==OrificeType.MOUTH)) { // Don't stop kissing actions:
+						returnableActions.add(action);
+					}
+				}
+			}
 			if(returnableActions.size()<=1) {
-//				removedAllPenetrationAfterForeplay = true;
 				SexFlags.positioningBlockedPartner = false;
 			}
 			if(!returnableActions.isEmpty()) {
 				return (SexAction) returnableActions.get(Util.random.nextInt(returnableActions.size()));
 			}
+			
+			// Foreplay actions are stopped:
 			
 			// If the NPC has a preference, they are more likely to choose actions related to that:
 			List<SexActionInterface> penetrativeActionList = new ArrayList<>();
@@ -584,6 +565,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 				for(SexActionInterface action : availableActions) {
 					if(action.getAssociatedOrificeType() == Sex.getActivePartner().getMainSexPreference().getOrificeType()
 							&& action.getAssociatedPenetrationType() == Sex.getActivePartner().getMainSexPreference().getPenetrationType()
+							&& !action.isPartnerSelfAction()
 							&& action.getActionType() != SexActionType.PARTNER_STOP_PENETRATION) {
 						highPriorityList.add(action);
 						if(action.getActionType() == SexActionType.PARTNER_PENETRATION) { // If a penetrative action is in the list, always return that first.
@@ -651,7 +633,7 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 		// Ban stop penetration actions:
 		for(SexActionInterface action : availableActions) {
 			if(action.getActionType() == SexActionType.PARTNER_STOP_PENETRATION) {
-				if(action.getAssociatedPenetrationType() == PenetrationType.PENIS || action.getAssociatedPenetrationType() == PenetrationType.TAIL) {
+				if(action.getAssociatedPenetrationType().isTakesVirginity()) {
 					bannedActions.add(action);
 				}
 			}

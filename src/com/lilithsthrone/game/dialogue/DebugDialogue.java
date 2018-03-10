@@ -17,6 +17,7 @@ import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
+import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.Race;
@@ -112,7 +113,7 @@ public class DebugDialogue {
 				return new Response("+500 xp", "Give yourself 500xp.", DEBUG_MENU){
 					@Override
 					public void effects() {
-						Main.game.getPlayer().incrementExperience(500);
+						Main.game.getPlayer().incrementExperience(500, false);
 						
 					}
 				};
@@ -498,6 +499,9 @@ public class DebugDialogue {
 				
 			} else if (index == 14) {
 				return new Response("Ass choices", "", BODY_PART_ASS);
+				
+			} else if (index == 15) {
+				return new Response("Material choices", "", BODY_PART_MATERIAL);
 				
 			} else if (index == 0) {
 				return new Response("Back", "", DEBUG_MENU);
@@ -885,7 +889,36 @@ public class DebugDialogue {
 			}
 		}
 	};
+	
+	public static final DialogueNodeOld BODY_PART_MATERIAL = new DialogueNodeOld("Set body parts", "Set body parts.", false) {
+		private static final long serialVersionUID = 1L;
 
+		@Override
+		public String getContent() {
+			return "Choose a material type.";
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index != 0 && index < BodyMaterial.values().length+1) {
+				return new Response(BodyMaterial.values()[index - 1].getName(), "", BODY_PART_MATERIAL){
+					@Override
+					public void effects() {
+						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setBodyMaterial(BodyMaterial.values()[index - 1]));
+					}
+				};
+				
+			} else if (index == 0) {
+				return new Response("Back", "", BODY_PART);
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	
+	
 	public static final DialogueNodeOld CLOTHING_COLLAGE = new DialogueNodeOld("Clothing collage", "Clothing collage.", false) {
 		/**
 		 * 

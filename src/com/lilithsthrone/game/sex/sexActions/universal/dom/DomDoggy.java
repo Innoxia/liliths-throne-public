@@ -14,6 +14,7 @@ import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.sex.SexPace;
 import com.lilithsthrone.game.sex.SexParticipantType;
+import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.sexActions.SexAction;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.main.Main;
@@ -40,7 +41,11 @@ public class DomDoggy {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Main.game.getPlayer());
+			SexPositionSlot targetedSlot = Sex.getSexPositionSlot(Sex.getTargetedPartner(Sex.getActivePartner()));
+			return Sex.isDom(Main.game.getPlayer())
+					&& (targetedSlot==SexPositionSlot.DOGGY_BEHIND
+					|| targetedSlot==SexPositionSlot.DOGGY_BEHIND_AMBER
+					|| targetedSlot==SexPositionSlot.DOGGY_BEHIND_ORAL);
 		}
 		
 		@Override

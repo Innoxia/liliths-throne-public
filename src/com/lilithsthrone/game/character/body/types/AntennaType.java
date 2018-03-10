@@ -78,6 +78,7 @@ public enum AntennaType implements BodyPartTypeInterface {
 			case CAT_MORPH:
 			case COW_MORPH:
 			case DEMON:
+			case IMP:
 			case DOG_MORPH:
 			case HARPY:
 			case HORSE_MORPH:

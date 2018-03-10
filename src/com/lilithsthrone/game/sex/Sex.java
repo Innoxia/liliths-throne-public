@@ -48,7 +48,6 @@ import com.lilithsthrone.game.sex.sexActions.SexActionCategory;
 import com.lilithsthrone.game.sex.sexActions.SexActionInterface;
 import com.lilithsthrone.game.sex.sexActions.SexActionType;
 import com.lilithsthrone.game.sex.sexActions.SexActionUtility;
-import com.lilithsthrone.game.sex.sexActions.dominion.lilaya.SALilayaSpecials;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.BaseColour;
 import com.lilithsthrone.utils.Colour;
@@ -60,7 +59,7 @@ import com.lilithsthrone.utils.Util;
  * startSex(), which returns the starting DialogueNode.
  *
  * @since 0.1.0
- * @version 0.1.88
+ * @version 0.2.1
  * @author Innoxia
  */
 public enum Sex {
@@ -207,12 +206,9 @@ public enum Sex {
 		
 		setSexManager(sexManager);
 		
-		Sex.activePartner.generateSexChoices(Sex.getTargetedPartner(Sex.getActivePartner()));
 		Sex.postSexDialogue = postSexDialogue;
 		
 		sexStarted = false;
-
-		activePartner.setLocation(Main.game.getPlayer().getLocation());
 
 		if(isConsensual()) {
 			activePartner.setSexConsensualCount(activePartner.getSexConsensualCount()+1);
@@ -222,7 +218,6 @@ public enum Sex {
 		} else {
 			activePartner.setSexAsDomCount(activePartner.getSexAsDomCount()+1);
 		}
-		
 		
 		ongoingPenetrationMap = new HashMap<>();
 		for(GameCharacter characterPenetrating : Sex.getAllParticipants()) {
@@ -242,6 +237,7 @@ public enum Sex {
 		charactersAbleToRemoveSelfClothing = new HashSet<>();
 		charactersAbleToRemoveOthersClothing = new HashSet<>();
 		for(GameCharacter character : Sex.getAllParticipants()) {
+			
 			if(sexManager.isAbleToRemoveSelfClothing(character)) {
 				charactersAbleToRemoveSelfClothing.add(character);
 			}
@@ -297,6 +293,10 @@ public enum Sex {
 		forceSexPaceMap = new HashMap<>();
 		
 		for(GameCharacter character : Sex.getAllParticipants()) {
+			if(character instanceof NPC) {
+				((NPC)character).generateSexChoices(Sex.getTargetedPartner(character));
+			}
+			
 			// Default starting lust and arousal:
 			character.setLust(50);
 			character.setArousal(0);
@@ -1026,67 +1026,97 @@ public enum Sex {
 			} else {
 				
 				if(responseTab==0) {
-					if(index <= miscActionsPlayer.size()) {
-						if(index==0) {
-							if(miscActionsPlayer.size()>=15) {
-								return miscActionsPlayer.get(14).toResponse();
+					if(index>=15) {
+						if(index < miscActionsPlayer.size()) {
+							return miscActionsPlayer.get(index).toResponse();
+						}
+					} else {
+						if(index <= miscActionsPlayer.size()) {
+							if(index==0) {
+								if(miscActionsPlayer.size()>=15) {
+									return miscActionsPlayer.get(14).toResponse();
+								} else {
+									return null;
+								}
 							} else {
-								return null;
+								return miscActionsPlayer.get(index-1).toResponse();
 							}
-						} else {
-							return miscActionsPlayer.get(index-1).toResponse();
 						}
 					}
 					
 				} else if(responseTab==1) {
-					if(index <= selfActionsPlayer.size()) {
-						if(index==0) {
-							if(selfActionsPlayer.size()>=15) {
-								return selfActionsPlayer.get(14).toResponse();
+					if(index>=15) {
+						if(index < selfActionsPlayer.size()) {
+							return selfActionsPlayer.get(index).toResponse();
+						}
+					} else {
+						if(index <= selfActionsPlayer.size()) {
+							if(index==0) {
+								if(selfActionsPlayer.size()>=15) {
+									return selfActionsPlayer.get(14).toResponse();
+								} else {
+									return null;
+								}
 							} else {
-								return null;
+								return selfActionsPlayer.get(index-1).toResponse();
 							}
-						} else {
-							return selfActionsPlayer.get(index-1).toResponse();
 						}
 					}
 					
 				} else if(responseTab==2) {
-					if(index <= sexActionsPlayer.size()) {
-						if(index==0) {
-							if(sexActionsPlayer.size()>=15) {
-								return sexActionsPlayer.get(14).toResponse();
+					if(index>=15) {
+						if(index < sexActionsPlayer.size()) {
+							return sexActionsPlayer.get(index).toResponse();
+						}
+					} else {
+						if(index <= sexActionsPlayer.size()) {
+							if(index==0) {
+								if(sexActionsPlayer.size()>=15) {
+									return sexActionsPlayer.get(14).toResponse();
+								} else {
+									return null;
+								}
 							} else {
-								return null;
+								return sexActionsPlayer.get(index-1).toResponse();
 							}
-						} else {
-							return sexActionsPlayer.get(index-1).toResponse();
 						}
 					}
 					
 				} else if(responseTab==3) {
-					if(index <= positionActionsPlayer.size()) {
-						if(index==0) {
-							if(positionActionsPlayer.size()>=15) {
-								return positionActionsPlayer.get(14).toResponse();
+					if(index>=15) {
+						if(index < positionActionsPlayer.size()) {
+							return positionActionsPlayer.get(index).toResponse();
+						}
+					} else {
+						if(index <= positionActionsPlayer.size()) {
+							if(index==0) {
+								if(positionActionsPlayer.size()>=15) {
+									return positionActionsPlayer.get(14).toResponse();
+								} else {
+									return null;
+								}
 							} else {
-								return null;
+								return positionActionsPlayer.get(index-1).toResponse();
 							}
-						} else {
-							return positionActionsPlayer.get(index-1).toResponse();
 						}
 					}
 					
 				} else if(responseTab==4) {
-					if(index <= repeatActionsPlayer.size()) {
-						if(index==0) {
-							if(repeatActionsPlayer.size()>=15) {
-								return repeatActionsPlayer.get(14).toResponse();
+					if(index>=15) {
+						if(index < repeatActionsPlayer.size()) {
+							return repeatActionsPlayer.get(index).toResponse();
+						}
+					} else {
+						if(index <= repeatActionsPlayer.size()) {
+							if(index==0) {
+								if(repeatActionsPlayer.size()>=15) {
+									return repeatActionsPlayer.get(14).toResponse();
+								} else {
+									return null;
+								}
 							} else {
-								return null;
+								return repeatActionsPlayer.get(index-1).toResponse();
 							}
-						} else {
-							return repeatActionsPlayer.get(index-1).toResponse();
 						}
 					}
 					
@@ -1328,7 +1358,7 @@ public enum Sex {
 		
 		if(Sex.getTotalParticipantCount()>2) {
 			for(GameCharacter character : Sex.getDominantParticipants().keySet()) {
-				if(!character.isPlayer()) {
+				if(!character.isPlayer() && !Sex.getTargetedPartner(Main.game.getPlayer()).equals(character)) {
 					miscActionsPlayer.add(new SexAction(
 												SexActionType.PLAYER,
 												ArousalIncrease.ZERO_NONE,
@@ -1360,47 +1390,47 @@ public enum Sex {
 													@Override
 													public void applyEffects() {
 														Sex.setActivePartner((NPC) character);
+														Sex.recalculateSexActions();
 													}
 												});
 				}
 			}
 			for(GameCharacter character : Sex.getSubmissiveParticipants().keySet()) {
-				if(!character.isPlayer()) {
-					if(!character.isPlayer()) {
-						miscActionsPlayer.add(new SexAction(
-													SexActionType.PLAYER,
-													ArousalIncrease.ZERO_NONE,
-													ArousalIncrease.ZERO_NONE,
-													CorruptionLevel.ZERO_PURE,
-													null,
-													null,
-													SexParticipantType.MISC) {
-														@Override
-														public String getActionTitle() {
-															return character.getName();
-														}
-												
-														@Override
-														public String getActionDescription() {
-															return UtilText.parse(character, "Set [npc.name] as the active partner.");
-														}
-												
-														@Override
-														public String getDescription() {
-															return "";
-														}
-														
-														@Override
-														public SexActionCategory getCategory() {
-															return SexActionCategory.CHARACTER_SWITCH;
-														}
-														
-														@Override
-														public void applyEffects() {
-															Sex.setActivePartner((NPC) character);
-														}
-													});
-					}
+				if(!character.isPlayer() && !Sex.getTargetedPartner(Main.game.getPlayer()).equals(character)) {
+					miscActionsPlayer.add(new SexAction(
+												SexActionType.PLAYER,
+												ArousalIncrease.ZERO_NONE,
+												ArousalIncrease.ZERO_NONE,
+												CorruptionLevel.ZERO_PURE,
+												null,
+												null,
+												SexParticipantType.MISC) {
+													@Override
+													public String getActionTitle() {
+														return character.getName();
+													}
+											
+													@Override
+													public String getActionDescription() {
+														return UtilText.parse(character, "Set [npc.name] as the active partner.");
+													}
+											
+													@Override
+													public String getDescription() {
+														return "";
+													}
+													
+													@Override
+													public SexActionCategory getCategory() {
+														return SexActionCategory.CHARACTER_SWITCH;
+													}
+													
+													@Override
+													public void applyEffects() {
+														Sex.setActivePartner((NPC) character);
+														Sex.recalculateSexActions();
+													}
+												});
 				}
 			}
 		}
@@ -2365,7 +2395,7 @@ public enum Sex {
 			if(characterPenetrating.isPenisVirgin()) {
 				penileVirginityLoss = characterPenetrating.getVirginityLossPenetrationDescription(characterPenetrating, PenetrationType.PENIS, characterPenetrated, orifice);
 				if(characterPenetrated.hasFetish(Fetish.FETISH_DEFLOWERING)) {
-					characterPenetrated.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrated));
+					characterPenetrated.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrated), true);
 				}
 				characterPenetrating.setVirginityLoss(relatedSexTypeForCharacterPenetrating, characterPenetrated.getName("a") + " " + characterPenetrated.getLostVirginityDescriptor());
 				characterPenetrating.setPenisVirgin(false);
@@ -2381,7 +2411,7 @@ public enum Sex {
 					if (penetrationType.isTakesVirginity()) {
 						sexSB.append(characterPenetrating.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, characterPenetrated, OrificeType.ANUS));
 						if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
-							characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating));
+							characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating), true);
 						}
 						characterPenetrated.setVirginityLoss(relatedSexTypeForCharacterPenetrated, characterPenetrating.getName("a") + " " + characterPenetrating.getLostVirginityDescriptor());
 						characterPenetrated.setAssVirgin(false);
@@ -2400,7 +2430,7 @@ public enum Sex {
 					if (penetrationType.isTakesVirginity()) {
 						sexSB.append(characterPenetrating.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, characterPenetrated, OrificeType.VAGINA));
 						if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
-							characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingVaginalVirginity(characterPenetrating));
+							characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingVaginalVirginity(characterPenetrating), true);
 						}
 						characterPenetrated.setVirginityLoss(relatedSexTypeForCharacterPenetrated, characterPenetrating.getName("a") + " " + characterPenetrating.getLostVirginityDescriptor());
 						characterPenetrated.setVaginaVirgin(false);
@@ -2419,7 +2449,7 @@ public enum Sex {
 						if (penetrationType.isTakesVirginity()) {
 							sexSB.append(characterPenetrating.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, characterPenetrated, OrificeType.NIPPLE));
 							if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
-								characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating));
+								characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating), true);
 							}
 							characterPenetrated.setVirginityLoss(relatedSexTypeForCharacterPenetrated, characterPenetrating.getName("a") + " " + characterPenetrating.getLostVirginityDescriptor());
 							characterPenetrated.setNippleVirgin(false);
@@ -2438,7 +2468,7 @@ public enum Sex {
 						if (penetrationType.isTakesVirginity()) {
 							sexSB.append(characterPenetrating.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, characterPenetrated, OrificeType.URETHRA));
 							if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
-								characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating));
+								characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating), true);
 							}
 							characterPenetrated.setVirginityLoss(relatedSexTypeForCharacterPenetrated, characterPenetrating.getName("a") + " " + characterPenetrating.getLostVirginityDescriptor());
 							characterPenetrated.setUrethraVirgin(false);
@@ -2457,7 +2487,7 @@ public enum Sex {
 						if (penetrationType.isTakesVirginity()) {
 							sexSB.append(characterPenetrating.getVirginityLossOrificeDescription(characterPenetrating, penetrationType, characterPenetrated, OrificeType.MOUTH));
 							if(characterPenetrating.hasFetish(Fetish.FETISH_DEFLOWERING)) {
-								characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating));
+								characterPenetrating.incrementExperience(Fetish.getExperienceGainFromTakingOtherVirginity(characterPenetrating), true);
 							}
 							characterPenetrated.setVirginityLoss(relatedSexTypeForCharacterPenetrated, characterPenetrating.getName("a") + " " + characterPenetrating.getLostVirginityDescriptor());
 							characterPenetrated.setFaceVirgin(false);
@@ -2654,7 +2684,7 @@ public enum Sex {
 	}
 
 	public static boolean isInForeplay() {
-		return Sex.getActivePartner().getArousal()<ArousalLevel.ONE_TURNED_ON.getMaximumValue() && Sex.getNumberOfOrgasms(activePartner)==0;
+		return Sex.getActivePartner().getArousal()<ArousalLevel.ONE_TURNED_ON.getMaximumValue() && Sex.getNumberOfOrgasms(Sex.getActivePartner())==0;
 	}
 	
 	// Getters & Setters:
@@ -3009,7 +3039,7 @@ public enum Sex {
 		
 		// Add dominants to map, with player as the first entry:
 		List<GameCharacter> tempCharacterList = new ArrayList<>(sexManager.getDominants().keySet());
-		Collections.sort(tempCharacterList, (p1, p2) -> p1.isPlayer()?-1:p1.getName().compareTo(p2.getName()));
+		Collections.sort(tempCharacterList, (p1, p2) -> p1.isPlayer()?-1:0);
 		Sex.dominants = new LinkedHashMap<>();
 		for(GameCharacter character : tempCharacterList) {
 			Sex.dominants.put(character, sexManager.getDominants().get(character));
@@ -3022,7 +3052,7 @@ public enum Sex {
 
 		// Add submissives to map, with player as the first entry:
 		tempCharacterList = new ArrayList<>(sexManager.getSubmissives().keySet());
-		Collections.sort(tempCharacterList, (p1, p2) -> p1.isPlayer()?-1:p1.getName().compareTo(p2.getName()));
+		Collections.sort(tempCharacterList, (p1, p2) -> p1.isPlayer()?-1:0);
 		Sex.submissives = new LinkedHashMap<>();
 		for(GameCharacter character : tempCharacterList) {
 			Sex.submissives.put(character, sexManager.getSubmissives().get(character));
@@ -3047,26 +3077,33 @@ public enum Sex {
 		actionsAvailablePartner.clear();
 		orgasmActionsPlayer.clear();
 		orgasmActionsPartner.clear();
-//		mutualOrgasmActions.clear();
 
 		for(Entry<GameCharacter, SexPositionSlot> entry: Sex.getDominantParticipants().entrySet()) {
 			SexActionPresetPair pair = Sex.sexManager.getPosition().getSlotTargets().get(entry.getValue()).get(Sex.getSexPositionSlot(Sex.getTargetedPartner(entry.getKey())));
-			addActionsFromContainingClasses(pair.getPlayerSexActionContainingClasses(), pair.getPartnerSexActionContainingClasses());
+			if(entry.getKey().isPlayer()) {
+				addActionsFromContainingClasses(pair.getPlayerSexActionContainingClasses());
+			} else {
+				addActionsFromContainingClasses(pair.getPartnerSexActionContainingClasses());
+			}
 		}
 		for(Entry<GameCharacter, SexPositionSlot> entry: Sex.getSubmissiveParticipants().entrySet()) {
 			SexActionPresetPair pair = Sex.sexManager.getPosition().getSlotTargets().get(entry.getValue()).get(Sex.getSexPositionSlot(Sex.getTargetedPartner(entry.getKey())));
-			addActionsFromContainingClasses(pair.getPlayerSexActionContainingClasses(), pair.getPartnerSexActionContainingClasses());
+			if(entry.getKey().isPlayer()) {
+				addActionsFromContainingClasses(pair.getPlayerSexActionContainingClasses());
+			} else {
+				addActionsFromContainingClasses(pair.getPartnerSexActionContainingClasses());
+			}
 		}
 		
-		if(activePartner.equals(Main.game.getLilaya())) {// TODO move to somewhere logical
-			Sex.addSexActionClass(SALilayaSpecials.class);
+		for(Class<?> sexClass : activePartner.getUniqueSexClasses()) {
+			Sex.addSexActionClass(sexClass);
 		}
 	}
 	
-	private static void addActionsFromContainingClasses(List<Class<?>> playerSexActionContainingClasses, List<Class<?>> partnerSexActionContainingClasses) {
+	private static void addActionsFromContainingClasses(List<Class<?>> sexActionContainingClasses) {
 		try {
-			if (!playerSexActionContainingClasses.isEmpty()) {
-				for(Class<?> container : playerSexActionContainingClasses) {
+			if (!sexActionContainingClasses.isEmpty()) {
+				for(Class<?> container : sexActionContainingClasses) {
 					if(container!=null) {
 						Field[] fields = container.getFields();
 						
@@ -3074,10 +3111,6 @@ public enum Sex {
 							
 							if (SexAction.class.isAssignableFrom(f.getType())) {
 								if (((SexAction) f.get(null)).getActionType().isOrgasmOption()) {
-//									if (((SexAction) f.get(null)).getActionType() == SexActionType.MUTUAL_ORGASM) {
-//										playerSlotMutualOrgasmActions.add(((SexAction) f.get(null)));
-//										
-//									} else 
 									if (((SexAction) f.get(null)).getActionType().isPlayerAction()) {
 										orgasmActionsPlayer.add(((SexAction) f.get(null)));
 										
@@ -3099,39 +3132,6 @@ public enum Sex {
 				}
 			}
 			
-			if (!partnerSexActionContainingClasses.isEmpty()) {
-				for(Class<?> container : partnerSexActionContainingClasses) {
-					if(container!=null) {
-						Field[] fields = container.getFields();
-						
-						for(Field f : fields){
-							
-							if (SexAction.class.isAssignableFrom(f.getType())) {
-								if (((SexAction) f.get(null)).getActionType().isOrgasmOption()) {
-//									if (((SexAction) f.get(null)).getActionType() == SexActionType.MUTUAL_ORGASM) {
-//										partnerSlotMutualOrgasmActions.add(((SexAction) f.get(null)));
-//										
-//									} else 
-									if (((SexAction) f.get(null)).getActionType().isPlayerAction()) {
-										orgasmActionsPlayer.add(((SexAction) f.get(null)));
-										
-									} else {
-										orgasmActionsPartner.add(((SexAction) f.get(null)));
-									}
-									
-								} else {
-									if (((SexAction) f.get(null)).getActionType().isPlayerAction()) {
-										actionsAvailablePlayer.add(((SexAction) f.get(null)));
-										
-									} else {
-										actionsAvailablePartner.add(((SexAction) f.get(null)));
-									}
-								}
-							}
-						}
-					}
-				}
-			}
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {

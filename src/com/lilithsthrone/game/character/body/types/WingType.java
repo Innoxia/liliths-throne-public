@@ -6,36 +6,30 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.1.97
+ * @version 0.2.1
  * @author Innoxia
  */
 public enum WingType implements BodyPartTypeInterface {
-	NONE(null, null),
+	NONE(null, null, false),
 
-	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON) {
-		@Override
-		public boolean allowsFlight() {
-			return true;
-		}
-	},
+	DEMON_COMMON(BodyCoveringType.DEMON_COMMON, Race.DEMON, true),
 
-	ANGEL(BodyCoveringType.ANGEL_FEATHER, Race.ANGEL) {
-		@Override
-		public boolean allowsFlight() {
-			return true;
-		}
-	};
+	IMP(BodyCoveringType.IMP, Race.IMP, true),
+
+	ANGEL(BodyCoveringType.ANGEL_FEATHER, Race.ANGEL, true);
 
 	private BodyCoveringType skinType;
 	private Race race;
+	private boolean allowsFlight;
 
-	private WingType(BodyCoveringType skinType, Race race) {
+	private WingType(BodyCoveringType skinType, Race race, boolean allowsFlight) {
 		this.skinType = skinType;
 		this.race = race;
+		this.allowsFlight = allowsFlight;
 	}
 
 	public boolean allowsFlight() {
-		return false;
+		return allowsFlight;
 	}
 
 	@Override
@@ -63,12 +57,13 @@ public enum WingType implements BodyPartTypeInterface {
 			case ANGEL:
 				return UtilText.returnStringAtRandom("angelic", "huge", "feathered");
 			case DEMON_COMMON:
-				return UtilText.returnStringAtRandom("demonic", "little", "bat-like");
+				return UtilText.returnStringAtRandom("demonic", "bat-like");
+			case IMP:
+				return UtilText.returnStringAtRandom("impish", "bat-like");
 			case NONE:
-				return UtilText.returnStringAtRandom("");
-			default:
-				return UtilText.returnStringAtRandom("");
+				return "";
 		}
+		return "";
 	}
 	
 	public String getTransformName() {
@@ -76,6 +71,8 @@ public enum WingType implements BodyPartTypeInterface {
 			case ANGEL:
 				return "angelic";
 			case DEMON_COMMON:
+				return "bat-like";
+			case IMP:
 				return "bat-like";
 			case NONE:
 				return "none";

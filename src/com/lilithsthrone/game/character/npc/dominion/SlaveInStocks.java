@@ -104,6 +104,10 @@ public class SlaveInStocks extends NPC {
 						break;
 					case DEMON:
 						break;
+					case IMP:
+						break;
+					case IMP_ALPHA:
+						break;
 					case DOG_MORPH:
 						addToSubspeciesMap(20, gender, s, availableRaces);
 						break;
@@ -118,6 +122,18 @@ public class SlaveInStocks extends NPC {
 					case HUMAN:
 						break;
 					case SLIME:
+					case SLIME_ALLIGATOR:
+					case SLIME_ANGEL:
+					case SLIME_CAT:
+					case SLIME_COW:
+					case SLIME_DEMON:
+					case SLIME_DOG:
+					case SLIME_HARPY:
+					case SLIME_HORSE:
+					case SLIME_IMP:
+					case SLIME_REINDEER:
+					case SLIME_SQUIRREL:
+					case SLIME_WOLF:
 						break;
 					case REINDEER_MORPH:
 						if(Main.game.getSeason()==Season.WINTER && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter)) {

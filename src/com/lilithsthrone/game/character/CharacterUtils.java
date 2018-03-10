@@ -225,8 +225,8 @@ public class CharacterUtils {
 	
 	public static Body generateBody(Gender startingGender, GameCharacter mother, GameCharacter father) {
 		RacialBody startingBodyType = RacialBody.HUMAN;
-		RacialBody motherBody = RacialBody.valueOfRace(mother.getRace());
-		RacialBody fatherBody = RacialBody.valueOfRace(father.getRace());
+		RacialBody motherBody = RacialBody.valueOfRace(mother.getSubspecies().getOffspringSubspecies().getRace());
+		RacialBody fatherBody = RacialBody.valueOfRace(father.getSubspecies().getOffspringSubspecies().getRace());
 		Subspecies raceTakesAfter = mother.getSubspecies();
 		RaceStage stage = RaceStage.HUMAN;
 		boolean takesAfterMother = true;
@@ -776,7 +776,7 @@ public class CharacterUtils {
 					Covering covering = character.getCovering(bp.getType().getBodyCoveringType());
 					body.getCoverings().put(
 							bp.getType().getBodyCoveringType(),
-							new Covering(covering.getType(), covering.getPattern(), covering.getPrimaryColour(), covering.isPrimaryGlowing(), covering.getSecondaryColour(), covering.isSecondaryGlowing()));
+							new Covering(covering.getType(), covering.getPattern(), covering.getModifier(), covering.getPrimaryColour(), covering.isPrimaryGlowing(), covering.getSecondaryColour(), covering.isSecondaryGlowing()));
 					tempList.remove(bp.getType().getBodyCoveringType());
 //					System.out.println("Set: "+bp.getType().getName(character)+" : "+bp.getType().getBodyCoveringType().getName(character)+"("+bp.getType().getRace().getName()+") : "+covering.getPrimaryColour().getName());
 				}
@@ -794,7 +794,7 @@ public class CharacterUtils {
 				Covering covering = character.getCovering(bct);
 					body.getCoverings().put(
 							bct,
-							new Covering(covering.getType(), covering.getPattern(), covering.getPrimaryColour(), covering.isPrimaryGlowing(), covering.getSecondaryColour(), covering.isSecondaryGlowing()));
+							new Covering(covering.getType(), covering.getPattern(), covering.getModifier(), covering.getPrimaryColour(), covering.isPrimaryGlowing(), covering.getSecondaryColour(), covering.isSecondaryGlowing()));
 					tempList.remove(bct);
 			}
 //				System.out.println("Set: "+bct+" : "+bct.getName(character)+" : "+covering.getPrimaryColour().getName());
@@ -895,10 +895,11 @@ public class CharacterUtils {
 						.penis(hasPenis
 								? new Penis(stage.isPenisFurry()?startingBodyType.getPenisType():PenisType.HUMAN,
 									startingBodyType.getPenisSize(),
+									startingBodyType.getPenisGirth(),
 									startingBodyType.getTesticleSize(),
 									startingBodyType.getCumProduction(),
 									startingBodyType.getTesticleQuantity())
-								: new Penis(PenisType.NONE, 0, 0, 0, 2))
+								: new Penis(PenisType.NONE, 0, 0, 0, 0, 2))
 						.horn(new Horn((stage.isHornFurry()?startingBodyType.getRandomHornType(false):HornType.NONE), (startingGender.isFeminine() ? startingBodyType.getFemaleHornLength() : startingBodyType.getMaleHornLength())))
 						.antenna(new Antenna(stage.isAntennaFurry()?startingBodyType.getAntennaType():AntennaType.NONE))
 						.tail(new Tail(stage.isTailFurry()?startingBodyType.getTailType():TailType.NONE))

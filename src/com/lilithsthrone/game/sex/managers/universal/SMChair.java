@@ -1,4 +1,4 @@
-package com.lilithsthrone.game.sex.managers.universal.consensual;
+package com.lilithsthrone.game.sex.managers.universal;
 
 import java.util.Map;
 

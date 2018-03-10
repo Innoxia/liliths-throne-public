@@ -11,6 +11,7 @@ import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
+import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -20,7 +21,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.2.1
  * @author Innoxia
  */
 public class Penis implements BodyPartInterface, Serializable {
@@ -30,6 +31,7 @@ public class Penis implements BodyPartInterface, Serializable {
 
 	protected PenisType type;
 	protected int size;
+	protected int girth;
 	protected boolean pierced;
 	protected boolean virgin;
 	protected Set<PenisModifier> penisModifiers;
@@ -37,9 +39,10 @@ public class Penis implements BodyPartInterface, Serializable {
 	protected Testicle testicle;
 	protected OrificeUrethra orificeUrethra;
 
-	public Penis(PenisType type, int size, int testicleSize, int cumProduction, int testicleCount) {
+	public Penis(PenisType type, int size, int girth, int testicleSize, int cumProduction, int testicleCount) {
 		this.type = type;
 		this.size = size;
+		this.girth = girth;
 		pierced = false;
 		virgin = true;
 		
@@ -263,6 +266,23 @@ public class Penis implements BodyPartInterface, Serializable {
 							+ "[npc.She] has [style.boldDemon([npc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" demonic balls)], covered in [npc.ballsFullDescription(true)], which produce [npc.cumColour(true)] [style.boldDemon(demon cum)].");
 				}
 				break;
+			case IMP:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+							"You squirm and [pc.moan] as the skin covering your cock transforms into a smooth, highly sensitive impish counterpart."
+							+ " Slimy pre-cum starts drooling from the tip, and you let out [pc.a_moan+] as thick ridges suddenly press out all along its length."
+							+ " As if that wasn't enough, rows of little bumps start to press out and form into little tentacles, which then start wriggling with a mind of their own.</br>"
+							+ "You now have an [style.boldImp(impish penis)], covered in [pc.penisFullDescription(true)].</br>"
+							+ "You have [style.boldImp([pc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" impish balls)], covered in [pc.ballsFullDescription(true)], which produce [pc.cumColour(true)] [style.boldImp(imp cum)].");
+				} else {
+					UtilText.transformationContentSB.append(
+							"[npc.She] squirms and [npc.moansVerb] as the skin covering [npc.her] cock transforms into a smooth, highly sensitive impish counterpart."
+							+ " Slimy pre-cum starts drooling from the tip, and [npc.she] lets out [npc.a_moan+] as thick ridges suddenly press out all along its length."
+							+ " As if that wasn't enough, rows of little bumps start to press out and form into little tentacles, which then start wriggling with a mind of their own.</br>"
+							+ "[npc.She] now has a [style.boldImp(impish penis)], covered in [npc.penisFullDescription(true)].</br>"
+							+ "[npc.She] has [style.boldImp([npc.ballsCount]"+(owner.isInternalTesticles()?" internal,":"")+" impish balls)], covered in [npc.ballsFullDescription(true)], which produce [npc.cumColour(true)] [style.boldImp(imp cum)].");
+				}
+				break;
 			case CANINE:
 				owner.setSkinCovering(new Covering(BodyCoveringType.PENIS, Colour.SKIN_RED), false);
 				if (owner.isPlayer()) {
@@ -400,8 +420,6 @@ public class Penis implements BodyPartInterface, Serializable {
 									+ " which produce [npc.cumColour(true)] [style.boldSquirrelMorph(squirrel-morph cum)].");
 				}
 				break;
-			default:
-				break;
 		}
 
 		penisModifiers.clear();
@@ -440,6 +458,86 @@ public class Penis implements BodyPartInterface, Serializable {
 				+ "<p>"
 				+ owner.postTransformationCalculation(false)
 				+ "</p>";
+	}
+	
+	// Girth:
+
+	public PenisGirth getGirth() {
+		return PenisGirth.getPenisGirthFromInt(girth);
+	}
+
+	public int getRawGirthValue() {
+		return girth;
+	}
+
+	/**
+	 * Sets the girth. Value is bound to >=0 && <=PenisGirth.FOUR_FAT.getValue()
+	 */
+	public String setPenisGirth(GameCharacter owner, int girth) {
+		if(!owner.hasPenis()) {
+			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
+		}
+		
+		int girthChange = 0;
+		
+		if (girth <= 0) {
+			if (this.girth != 0) {
+				girthChange = 0 - this.girth;
+				this.girth = 0;
+			}
+		} else if (girth >= PenisGirth.FOUR_FAT.getValue()) {
+			if (this.girth != PenisGirth.FOUR_FAT.getValue()) {
+				girthChange = PenisGirth.FOUR_FAT.getValue() - this.girth;
+				this.girth = PenisGirth.FOUR_FAT.getValue();
+			}
+		} else {
+			if (this.girth != girth) {
+				girthChange = girth - this.girth;
+				this.girth = girth;
+			}
+		}
+		
+		if(girthChange == 0) {
+			if(owner.isPlayer()) {
+				return "<p style='text-align:center;'>[style.colourDisabled(The girth of your [pc.cock] doesn't change...)]</p>";
+			} else {
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The girth of [npc.name]'s [npc.cock] doesn't change...)]</p>");
+			}
+		}
+		
+		if (girthChange > 0) {
+			if (owner.isPlayer()) {
+				return "</p>"
+							+ "You let out [pc.a_moan+] as you feel a deep throbbing sensation building up at the base of your cock."
+							+ " Your cheeks flush red as the feeling works its way up your shaft, and as a trickle of pre-cum leaks out from the head of your now-hard member, you realise that your cock has [style.boldGrow(grown thicker)].</br>"
+							+ "You now have [style.boldSex([pc.a_penisGirth] [pc.cock])]!"
+						+ "</p>";
+			} else {
+				return UtilText.parse(owner,
+						"</p>"
+							+ "[npc.Name] lets out [npc.a_moan+] as [npc.she] feels a deep throbbing sensation building up at the base of [npc.her] cock."
+							+ " [npc.Her] cheeks flush red as the feeling works its way up [npc.her] shaft, and as a trickle of pre-cum leaks out from the head of [npc.her] now-hard member,"
+								+ " [npc.she] realises that [npc.her] cock has [style.boldGrow(grown thicker)].</br>"
+							+ "[npc.She] now has [style.boldSex([npc.a_penisGirth] [npc.cock])]!"
+						+ "</p>");
+			}
+		} else {
+			if (owner.isPlayer()) {
+				return "</p>"
+							+ "You let out [pc.a_moan+] as you feel a deep throbbing sensation building up at the base of your cock."
+							+ " Your cheeks flush red as the feeling works its way up your shaft, and as a trickle of pre-cum leaks out from the head of your now-hard member, you realise that your cock has [style.boldShrink(got thinner)].</br>"
+							+ "You now have [style.boldSex([pc.a_penisGirth] [pc.cock])]!"
+						+ "</p>";
+			} else {
+				return UtilText.parse(owner,
+						"</p>"
+								+ "[npc.Name] lets out [npc.a_moan+] as [npc.she] feels a deep throbbing sensation building up at the base of [npc.her] cock."
+								+ " [npc.Her] cheeks flush red as the feeling works its way up [npc.her] shaft, and as a trickle of pre-cum leaks out from the head of [npc.her] now-hard member,"
+									+ " [npc.she] realises that [npc.her] cock has [style.boldShrink(got thinner)].</br>"
+							+ "[npc.She] now has [style.boldSex([npc.a_penisGirth] [npc.cock])]!"
+						+ "</p>");
+			}
+		}
 	}
 	
 	// Size:

@@ -7,7 +7,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.83
- * @version 0.1.83
+ * @version 0.2.1
  * @author Innoxia
  */
 public enum EyeType implements BodyPartTypeInterface {
@@ -18,6 +18,8 @@ public enum EyeType implements BodyPartTypeInterface {
 	COW_MORPH(BodyCoveringType.EYE_COW_MORPH, Race.COW_MORPH, 1, EyeShape.ROUND, EyeShape.ROUND),
 
 	DEMON_COMMON(BodyCoveringType.EYE_DEMON_COMMON, Race.DEMON, 1, EyeShape.ROUND, EyeShape.VERTICAL),
+
+	IMP(BodyCoveringType.EYE_IMP, Race.IMP, 1, EyeShape.ROUND, EyeShape.VERTICAL),
 
 	DOG_MORPH(BodyCoveringType.EYE_DOG_MORPH, Race.DOG_MORPH, 1, EyeShape.ROUND, EyeShape.ROUND),
 
@@ -80,6 +82,8 @@ public enum EyeType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("cow-like");
 			case DEMON_COMMON:
 				return UtilText.returnStringAtRandom("demonic");
+			case IMP:
+				return UtilText.returnStringAtRandom("impish");
 			case DOG_MORPH:
 				return UtilText.returnStringAtRandom("dog-like");
 			case SQUIRREL_MORPH:
@@ -96,9 +100,8 @@ public enum EyeType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("");
 			case LYCAN:
 				return UtilText.returnStringAtRandom("wolf-like");
-			default:
-				return UtilText.returnStringAtRandom("");
 		}
+		return "";
 	}
 	
 	public String getTransformName() {
@@ -109,6 +112,8 @@ public enum EyeType implements BodyPartTypeInterface {
 				return "feline";
 			case DEMON_COMMON:
 				return "demonic";
+			case IMP:
+				return "impish";
 			case DOG_MORPH:
 				return "canine";
 			case COW_MORPH:

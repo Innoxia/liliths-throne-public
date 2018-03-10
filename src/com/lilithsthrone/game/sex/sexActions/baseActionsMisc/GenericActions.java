@@ -46,7 +46,7 @@ public class GenericActions {
 			SexParticipantType.MISC) {
 		@Override
 		public String getActionTitle() {
-			return "Grow cock";
+			return "Grow cock (self)";
 		}
 
 		@Override
@@ -92,7 +92,7 @@ public class GenericActions {
 			SexParticipantType.MISC) {
 		@Override
 		public String getActionTitle() {
-			return "[npc.Name] grow cock";
+			return "Grow cock";
 		}
 
 		@Override
@@ -233,7 +233,7 @@ public class GenericActions {
 	
 	public static final SexAction PLAYER_RESIST = new SexAction(
 			SexActionType.PLAYER,
-			ArousalIncrease.NEGATIVE,
+			ArousalIncrease.NEGATIVE_MINOR,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,
@@ -800,7 +800,7 @@ public class GenericActions {
 					+ " [pc.speech(Yes... I... I don't know why I'm having sex with you...)]"
 				+ "</p>"
 				+ "<p>"
-					+ "Pushing a little further, and driven on by her fetish for having non-consensual sex, [npc.name] continues,"
+					+ "Pushing a little further, and driven on by [npc.her] fetish for having non-consensual sex, [npc.name] continues,"
 					+ " [pc.speech(You'd rather I wasn't fucking you right now, isn't that right?)]"
 				+ "</p>"
 				+ "<p>"
@@ -869,7 +869,7 @@ public class GenericActions {
 	
 	public static final SexAction PARTNER_RESIST = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.NEGATIVE,
+			ArousalIncrease.NEGATIVE_MINOR,
 			ArousalIncrease.ONE_MINIMUM,
 			CorruptionLevel.ZERO_PURE,
 			null,

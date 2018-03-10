@@ -12,7 +12,7 @@ import com.lilithsthrone.utils.Util.ListValue;
 
 /**
  * @since 0.1.83
- * @version 0.2.0
+ * @version 0.2.1
  * @author Innoxia
  */
 public enum FluidType implements BodyPartTypeInterface {
@@ -45,6 +45,15 @@ public enum FluidType implements BodyPartTypeInterface {
 					new ListValue<>(FluidModifier.STICKY),
 					new ListValue<>(FluidModifier.SLIMY)),
 			Race.DEMON),
+
+	CUM_IMP(FluidTypeBase.CUM,
+			BodyCoveringType.CUM,
+			FluidFlavour.CUM,
+			Util.newArrayListOfValues(new ListValue<>("impish")),
+			Util.newArrayListOfValues(
+					new ListValue<>(FluidModifier.STICKY),
+					new ListValue<>(FluidModifier.SLIMY)),
+			Race.IMP),
 
 	CUM_DOG_MORPH(FluidTypeBase.CUM,
 			BodyCoveringType.CUM,
@@ -157,6 +166,14 @@ public enum FluidType implements BodyPartTypeInterface {
 					new ListValue<>(FluidModifier.SLIMY)),
 			Race.DEMON),
 
+	GIRL_CUM_IMP(FluidTypeBase.GIRLCUM,
+			BodyCoveringType.GIRL_CUM,
+			FluidFlavour.GIRL_CUM,
+			Util.newArrayListOfValues(new ListValue<>("impish")),
+			Util.newArrayListOfValues(
+					new ListValue<>(FluidModifier.SLIMY)),
+			Race.IMP),
+
 	GIRL_CUM_DOG_MORPH(FluidTypeBase.GIRLCUM,
 			BodyCoveringType.GIRL_CUM,
 			FluidFlavour.GIRL_CUM,
@@ -258,6 +275,13 @@ public enum FluidType implements BodyPartTypeInterface {
 			Util.newArrayListOfValues(new ListValue<>("demonic")),
 			Util.newArrayListOfValues(),
 			Race.DEMON),
+
+	MILK_IMP(FluidTypeBase.MILK,
+			BodyCoveringType.MILK,
+			FluidFlavour.MILK,
+			Util.newArrayListOfValues(new ListValue<>("impish")),
+			Util.newArrayListOfValues(),
+			Race.IMP),
 
 	MILK_DOG_MORPH(FluidTypeBase.MILK,
 			BodyCoveringType.MILK,

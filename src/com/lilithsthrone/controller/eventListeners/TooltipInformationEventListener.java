@@ -23,6 +23,7 @@ import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.effects.Perk;
+import com.lilithsthrone.game.character.effects.PerkCategory;
 import com.lilithsthrone.game.character.effects.PerkManager;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -203,23 +204,29 @@ public class TooltipInformationEventListener implements EventListener {
 			tooltipSB.append("<div class='description'>" + levelUpPerk.getDescription(Main.game.getPlayer()) + "</div>");
 
 			if(levelUpPerk.isMajor()) {
-				if(!owner.hasPerkInTree(perkRow, levelUpPerk)) {
-					if(!PerkManager.MANAGER.isPerkAvailable(perkRow, levelUpPerk)) {
-						tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Purchasing requires a connecting perk or trait.</div>");
-					} else {
-						tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_MINOR_GOOD.toWebHexString()+";'>Click to purchase trait.</div>");
-					}
+				if(levelUpPerk.getPerkCategory()==PerkCategory.JOB) {
+					tooltipSB.append("<div class='subTitle' style='color:"+Colour.TRAIT.toWebHexString()+";'>Job-related trait cannot be removed.</div>");
+					
 				} else {
-					if(owner.getTraits().contains(levelUpPerk)) {
-						tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_MINOR_BAD.toWebHexString()+";'>Click to unequip trait.</div>");
-					} else {
-						if(owner.getTraits().size()==GameCharacter.MAX_TRAITS) {
-							tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Maximum traits activated.</div>");
+					if(!owner.hasPerkInTree(perkRow, levelUpPerk)) {
+						if(!PerkManager.MANAGER.isPerkAvailable(perkRow, levelUpPerk)) {
+							tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Purchasing requires a connecting perk or trait.</div>");
 						} else {
-							tooltipSB.append("<div class='subTitle' style='color:"+Colour.TRAIT.toWebHexString()+";'>Click to equip trait.</div>");
+							tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_MINOR_GOOD.toWebHexString()+";'>Click to purchase trait.</div>");
+						}
+					} else {
+						if(owner.getTraits().contains(levelUpPerk)) {
+							tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_MINOR_BAD.toWebHexString()+";'>Click to unequip trait.</div>");
+						} else {
+							if(owner.getTraits().size()==GameCharacter.MAX_TRAITS) {
+								tooltipSB.append("<div class='subTitle' style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>Maximum traits activated.</div>");
+							} else {
+								tooltipSB.append("<div class='subTitle' style='color:"+Colour.TRAIT.toWebHexString()+";'>Click to equip trait.</div>");
+							}
 						}
 					}
 				}
+				
 			} else {
 				if(!owner.hasPerkInTree(perkRow, levelUpPerk)) {
 					if(!PerkManager.MANAGER.isPerkAvailable(perkRow, levelUpPerk)) {
@@ -402,7 +409,7 @@ public class TooltipInformationEventListener implements EventListener {
 			// Attribute modifiers:
 			tooltipSB.append("<div class='subTitle-picture'>" + "<b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Spell</b></br>");
 
-			if (spell.isSelfCastSpell()) {
+			if (spell.isBeneficial()) {
 				tooltipSB.append("<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Beneficial</b> <b style='color:" + spell.getDamageType().getMultiplierAttribute().getColour().toWebHexString() + ";'>" + spell.getDamageType().getName()
 						+ "</b> spell");
 			} else {
@@ -624,13 +631,8 @@ public class TooltipInformationEventListener implements EventListener {
 						"<div class='title' style='color:" + attribute.getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(attribute.getName()) + "</div>"
 
 						+ "<div class='subTitle-third'>"
-						+ "<b style='color:"
-						+ Colour.TEXT_GREY.toWebHexString()
-						+ ";'>Core</b></br>"
-						+ (owner.getBaseAttributeValue(attribute) > 0 ? "<span style='color: "
-								+ Colour.GENERIC_EXCELLENT.getShades()[1]
-								+ ";'>" : "<span>")
-						+ owner.getBaseAttributeValue(attribute)
+						+ "<b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>Core</b></br>"
+						+ (owner.getBaseAttributeValue(attribute) > 0 ? "<span style='color: " + Colour.GENERIC_EXCELLENT.getShades()[1] + ";'>" : "<span>") + String.format("%.2f", owner.getBaseAttributeValue(attribute))
 						+ "</span>"
 						+ "</div>"
 						+ "<div class='subTitle-third'>"
@@ -646,15 +648,12 @@ public class TooltipInformationEventListener implements EventListener {
 										: "<span style='color: "
 												+ Colour.GENERIC_BAD.getShades()[1]
 												+ ";'>"))
-						+ owner.getBonusAttributeValue(attribute)
+						+ String.format("%.2f", owner.getBonusAttributeValue(attribute))
 						+ "</span>"
 						+ "</div>"
 						+ "<div class='subTitle-third'>"
 						+ "<b style='color:"
-						+ attribute.getColour().toWebHexString()
-						+ ";'>Total</b></br>"
-						+ owner.getAttributeValue(attribute)
-						+ "</span>"
+						+ attribute.getColour().toWebHexString() + ";'>Total</b></br>" + String.format("%.2f", owner.getAttributeValue(attribute)) + "</span>"
 						+ "</div>"
 
 						+ "<div class='description'>" + attribute.getDescription(owner) + "</div>"));
@@ -765,7 +764,7 @@ public class TooltipInformationEventListener implements EventListener {
 	
 	private String getBodyPartDiv(String name, Race race, BodyCoveringType covering) {
 		return "<div class='subTitle' style='font-weight:normal; text-align:left; margin-top:2px; white-space: nowrap;'>"+ name + ": <span style='color:" + race.getColour().toWebHexString() + ";'>"+ Util.capitaliseSentence(race.getName()) + "</span> - "
-					+ owner.getCovering(covering).getColourDescriptor(true, true) + " " + owner.getCovering(covering).getName(owner)+"</div>";
+					+ owner.getCovering(covering).getColourDescriptor(owner, true, true) + " " + owner.getCovering(covering).getName(owner)+"</div>";
 	}
 	
 	private String getEmptyBodyPartDiv(String name, String description) {

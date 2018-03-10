@@ -278,10 +278,6 @@ public class Ralph extends NPC {
 	public Attack attackType() {
 		return null;
 	}
-	@Override
-	public int getExperienceFromVictory() {
-		return 0;
-	}
 	
 	@Override
 	public String getCondomEquipEffects(GameCharacter equipper, GameCharacter target, boolean rough) {

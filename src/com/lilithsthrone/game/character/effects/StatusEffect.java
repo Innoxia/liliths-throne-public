@@ -54,7 +54,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.0
+ * @version 0.2.1
  * @author Innoxia
  */
 public enum StatusEffect {
@@ -297,6 +297,35 @@ public enum StatusEffect {
 	},
 
 	// Intelligence:
+	INTELLIGENCE_PERK_0_OLD_WORLD(
+			80,
+			"No Arcane Power",
+			"attIntelligence0",
+			Colour.INTELLIGENCE_STAGE_ZERO,
+			false,
+			null,
+			null) {
+		
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Due to the fact that the arcane doesn't exist in this world, your ability to cast spells is non-existent.";
+		}
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return IntelligenceLevel.getIntelligenceLevelFromValue(target.getAttributeValue(Attribute.MAJOR_ARCANE)) == IntelligenceLevel.ZERO_AIRHEAD && !Main.game.isInNewWorld();
+		}
+		
+		@Override
+		public boolean renderInEffectsPanel() {
+			return false;
+		}
+	},
 	INTELLIGENCE_PERK_0(
 			80,
 			"arcane impotence",
@@ -330,7 +359,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return IntelligenceLevel.getIntelligenceLevelFromValue(target.getAttributeValue(Attribute.MAJOR_ARCANE)) == IntelligenceLevel.ZERO_AIRHEAD;
+			return IntelligenceLevel.getIntelligenceLevelFromValue(target.getAttributeValue(Attribute.MAJOR_ARCANE)) == IntelligenceLevel.ZERO_AIRHEAD && Main.game.isInNewWorld();
 		}
 		
 		@Override
@@ -1731,7 +1760,10 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			return "You're a human, just like every other person in this world.";
+			if(target.isPlayer())
+				return "You're a human, just like every other person in this world.";
+			else
+				return "[npc.Name] is a human, just like every other person in this world.";
 		}
 
 		@Override
@@ -1745,7 +1777,7 @@ public enum StatusEffect {
 	PURE_HUMAN(
 			90,
 			"human",
-			"raceHuman",
+			null,
 			Colour.CLOTHING_WHITE,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 20f)),
@@ -1768,18 +1800,17 @@ public enum StatusEffect {
 					&& target.getRaceStage() == RaceStage.HUMAN
 					&& Main.game.isInNewWorld();
 		}
-		
+
 		@Override
-		protected boolean needsDesaturated() {
-			return true;
+		public String getSVGString(GameCharacter owner) {
+			return owner.getSubspecies().getSVGString(owner);
 		}
 	},
 
 	// ANGEL:
-	ANGEL(
-			90,
+	ANGEL(90,
 			"angel",
-			"raceHuman",
+			null,
 			Colour.CLOTHING_WHITE,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 100f)),
@@ -1801,18 +1832,17 @@ public enum StatusEffect {
 					&& !target.isRaceConcealed()
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
-		
+
 		@Override
-		protected boolean needsDesaturated() {
-			return true;
+		public String getSVGString(GameCharacter owner) {
+			return owner.getSubspecies().getSVGString(owner);
 		}
 	},
 
-	// DEMON: TODO
-	DEMON(
-			90,
+	// DEMON:
+	DEMON(90,
 			"demon",
-			"raceDemon",
+			null,
 			Colour.GENERIC_ARCANE,
 			true,
 			Util.newHashMapOfValues(
@@ -1821,7 +1851,7 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 10f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 75f)),
-			null) {
+			Util.newArrayListOfValues(new ListValue<String>("<b style='color: "+ Colour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'>Can morph body at will</b>"))) {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
@@ -1844,18 +1874,55 @@ public enum StatusEffect {
 					&& !target.isRaceConcealed()
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
-		
+
 		@Override
-		protected boolean needsDesaturated() {
-			return true;
+		public String getSVGString(GameCharacter owner) {
+			return owner.getSubspecies().getSVGString(owner);
+		}
+	},
+	
+	IMP(90,
+			"imp",
+			null,
+			Colour.GENERIC_ARCANE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_CORRUPTION, 50f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "You find that your impish form has a deep, insatiable craving for sex...";
+			} else {
+				return UtilText.parse(target,
+						"[npc.Name]'s impish body has a deep, insatiable craving for sex...");
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getRace() == Race.IMP
+					&& !target.isRaceConcealed()
+					&& target.getRaceStage() == RaceStage.GREATER;
+		}
+
+		@Override
+		public String getSVGString(GameCharacter owner) {
+			return owner.getSubspecies().getSVGString(owner);
 		}
 	},
 
 	// CANINE:
-	DOG_MORPH(
-			90,
+	DOG_MORPH(90,
 			"dog-morph",
-			"raceDogMorph",
+			null,
 			Colour.RACE_DOG_MORPH,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f)),
@@ -1881,17 +1948,16 @@ public enum StatusEffect {
 					&& !target.isRaceConcealed()
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
-		
+
 		@Override
-		protected boolean needsDesaturated() {
-			return true;
+		public String getSVGString(GameCharacter owner) {
+			return owner.getSubspecies().getSVGString(owner);
 		}
 	},
 	
-	WOLF_MORPH(
-			90,
+	WOLF_MORPH(90,
 			"wolf-morph",
-			"raceWolfMorph",
+			null,
 			Colour.RACE_WOLF_MORPH,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 10f)),
@@ -1917,18 +1983,17 @@ public enum StatusEffect {
 					&& !target.isRaceConcealed()
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
-		
+
 		@Override
-		protected boolean needsDesaturated() {
-			return true;
+		public String getSVGString(GameCharacter owner) {
+			return owner.getSubspecies().getSVGString(owner);
 		}
 	},
 
 	// FELINE:
-	CAT_MORPH(
-			90,
+	CAT_MORPH(90,
 			"cat-morph",
-			"raceCatMorph",
+			null,
 			Colour.RACE_CAT_MORPH,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, 5f)),
@@ -1954,18 +2019,17 @@ public enum StatusEffect {
 					&& !target.isRaceConcealed()
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
-		
+
 		@Override
-		protected boolean needsDesaturated() {
-			return true;
+		public String getSVGString(GameCharacter owner) {
+			return owner.getSubspecies().getSVGString(owner);
 		}
 	},
 
 	// RODENT:
-	SQUIRREL_MORPH(
-			90,
+	SQUIRREL_MORPH(90,
 			"Squirrel-morph",
-			"raceSquirrelMorph",
+			null,
 			Colour.RACE_SQUIRREL_MORPH,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f)),
@@ -1990,18 +2054,17 @@ public enum StatusEffect {
 					&& !target.isRaceConcealed()
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
-		
+
 		@Override
-		protected boolean needsDesaturated() {
-			return true;
+		public String getSVGString(GameCharacter owner) {
+			return owner.getSubspecies().getSVGString(owner);
 		}
 	},
 
 	// EQUINE:
-	HORSE_MORPH(
-			90,
+	HORSE_MORPH(90,
 			"horse-morph",
-			"raceHorseMorph",
+			null,
 			Colour.RACE_HORSE_MORPH,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -5f), new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 15f)),
@@ -2027,17 +2090,16 @@ public enum StatusEffect {
 					&& !target.isRaceConcealed()
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
-		
+
 		@Override
-		protected boolean needsDesaturated() {
-			return true;
+		public String getSVGString(GameCharacter owner) {
+			return owner.getSubspecies().getSVGString(owner);
 		}
 	},
 	
-	REINDEER_MORPH(
-			90,
+	REINDEER_MORPH(90,
 			"reindeer-morph",
-			"raceReindeerMorph",
+			null,
 			Colour.RACE_REINDEER_MORPH,
 			true,
 			Util.newHashMapOfValues(
@@ -2065,18 +2127,17 @@ public enum StatusEffect {
 					&& !target.isRaceConcealed()
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
-		
+
 		@Override
-		protected boolean needsDesaturated() {
-			return true;
+		public String getSVGString(GameCharacter owner) {
+			return owner.getSubspecies().getSVGString(owner);
 		}
 	},
 
 	// BOVINE:
-	COW_MORPH(
-			90,
+	COW_MORPH(90,
 			"cow-morph",
-			"raceCowMorph",
+			null,
 			Colour.RACE_COW_MORPH,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -5f), new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 15f)),
@@ -2102,18 +2163,17 @@ public enum StatusEffect {
 					&& !target.isRaceConcealed()
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
-		
+
 		@Override
-		protected boolean needsDesaturated() {
-			return true;
+		public String getSVGString(GameCharacter owner) {
+			return owner.getSubspecies().getSVGString(owner);
 		}
 	},
 
 	// REPTILE:
-	ALLIGATOR_MORPH(
-			90,
+	ALLIGATOR_MORPH(90,
 			"Alligator-morph",
-			"raceGatorMorph",
+			null,
 			Colour.RACE_ALLIGATOR_MORPH,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 15f),
@@ -2140,27 +2200,23 @@ public enum StatusEffect {
 					&& !target.isRaceConcealed()
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
-		
+
 		@Override
-		protected boolean needsDesaturated() {
-			return true;
+		public String getSVGString(GameCharacter owner) {
+			return owner.getSubspecies().getSVGString(owner);
 		}
 	},
 
-		// SLIME:
-	SLIME(
-			90,
+	// SLIME:
+	SLIME(90,
 			"slime",
-			"raceSlime",
+			null,
 			Colour.CLOTHING_BLUE_LIGHT,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 100f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, -100f),
-					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -15f)),
-			Util.newArrayListOfValues(new ListValue<String>("<b>*</b> <b style='color: "
-					+ Colour.CLOTHING_PINK.toWebHexString()
-					+ ";'>You can morph your body at will.<b>"))) {
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f)),
+			Util.newArrayListOfValues(new ListValue<String>("<b style='color: "+ Colour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'>Can morph body at will</b>"))) {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
@@ -2169,25 +2225,25 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			return "Slimes are completely immune to physical damage, but can't really do any physical damage either."
-					+ " They can morph their bodies to seem extremely attractive, but also get aroused incredibly easily.";
+			return "Due to their soft and morphable bodies, slimes have an extremely high resistance to physical damage, but they can't really do much physical damage either."
+					+ " They can morph their bodies to seem extremely attractive to their opponents.";
 		}
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.getBodyMaterial()==BodyMaterial.SLIME;
 		}
-		
+
 		@Override
-		protected boolean needsDesaturated() {
-			return true;
+		public String getSVGString(GameCharacter owner) {
+			return owner.getSubspecies().getSVGString(owner);
 		}
 	},
 
 	// AVIAN:
 	HARPY(90,
 			"harpy",
-			"raceHarpy",
+			null,
 			Colour.CLOTHING_PINK_LIGHT,
 			true,
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 25f)),
@@ -2209,10 +2265,10 @@ public enum StatusEffect {
 					&& !target.isRaceConcealed()
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}
-		
+
 		@Override
-		protected boolean needsDesaturated() {
-			return true;
+		public String getSVGString(GameCharacter owner) {
+			return owner.getSubspecies().getSVGString(owner);
 		}
 	},
 	
@@ -2693,9 +2749,12 @@ public enum StatusEffect {
 			80,
 			"well rested",
 			"wellRested",
-			Colour.CLOTHING_BLUE,
+			Colour.ATTRIBUTE_HEALTH,
+			Colour.ATTRIBUTE_MANA,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 20f), new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 20f)),
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 20f),
+					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 20f)),
 			null) {
 
 		@Override
@@ -2708,6 +2767,42 @@ public enum StatusEffect {
 			if(target!=null) {
 				if(target.isPlayer()) {
 					return "After having a good rest, you feel full of energy.";
+				} else {
+					return UtilText.parse(target, "After having a good rest, [npc.name] feels full of energy.");
+				}
+			} else {
+				return "";
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return false;
+		}
+	},
+	
+	WELL_RESTED_BOOSTED(
+			80,
+			"very well rested",
+			"wellRestedBoosted",
+			Colour.ATTRIBUTE_HEALTH,
+			Colour.ATTRIBUTE_MANA,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 50f),
+					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 50f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				if(target.isPlayer()) {
+					return "Thanks to your ability of knowing how to get the most out of a good rest, you now feel extremely full of energy.";
 				} else {
 					return UtilText.parse(target, "After having a good rest, [npc.name] feels full of energy.");
 				}
@@ -5259,7 +5354,9 @@ public enum StatusEffect {
 			"set_maid",
 			Colour.CLOTHING_BLACK,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 10f), new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f)),
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 10f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f)),
 			null) {
 
 		@Override
@@ -5284,7 +5381,47 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return ClothingSet.MAID.isCharacterWearingCompleteSet(target);
+			return ClothingSet.MAID.isCharacterWearingCompleteSet(target) && !target.hasTrait(Perk.JOB_MAID, true);
+		}
+	},
+	
+	SET_MAID_BOOSTED(
+			70,
+			"Professional Maid",
+			"set_maidBoosted",
+			Colour.CLOTHING_BLACK,
+			Colour.BASE_GOLD,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 25f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, 25f)),
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target!=null) {
+				if(target.isPlayer()) {
+					return "By wearing the entire Maid's Outfit, you are reminded of your true profession; that of an exceptionally talented maid!";
+					
+				} else {
+					return UtilText.parse(target, "By wearing the entire Maid's Outfit, [npc.name] is filled with the energy [npc.she] needs in order to be a sexy hard-working maid.");
+					
+				}
+			} else {
+				return "";
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return ClothingSet.MAID.isCharacterWearingCompleteSet(target) && target.hasTrait(Perk.JOB_MAID, true);
 		}
 	},
 	
@@ -5852,6 +5989,38 @@ public enum StatusEffect {
 			return false;
 		}
 	},
+
+	COMBAT_BONUS_IMP(
+			80,
+			"impish intuition",
+			"combatBonusImp",
+			Colour.RACE_DEMON,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_IMP, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_IMP, 25f)),
+			null) {
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target == null) {
+				return "";
+			}
+			if (target.isPlayer()) {
+				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how imps will behave.";
+			} else {
+				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how imps will behave.");
+			}
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return false;
+		}
+	},
 	
 	COMBAT_BONUS_DOG_MORPH(
 			80,
@@ -6109,6 +6278,38 @@ public enum StatusEffect {
 		}
 	},
 	
+	COMBAT_BONUS_SLIME(
+			80,
+			"slime intuition",
+			"combatBonusSlime",
+			Colour.RACE_SLIME,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
+					new Value<Attribute, Float>(Attribute.DAMAGE_SLIME, 25f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_SLIME, 25f)),
+			null) {
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target == null) {
+				return "";
+			}
+			if (target.isPlayer()) {
+				return "After absorbing a specially-enchanted arcane essence, you find that you're able to accurately predict how slimes will behave.";
+			} else {
+				return UtilText.parse(target, "After absorbing a specially-enchanted arcane essence, [npc.name] is able to accurately predict how slimes will behave.");
+			}
+		}
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return false;
+		}
+	},
+	
 	
 	
 
@@ -6152,8 +6353,10 @@ public enum StatusEffect {
 			false,
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<String>("<b style='color: " + Colour.GENERIC_TERRIBLE.toWebHexString() + "'>All incoming damage is treated as</b> <b style='color:"+Colour.DAMAGE_TYPE_PURE.toWebHexString()+";'>pure damage</b>"
-							+"<b style='color: " + Colour.GENERIC_TERRIBLE.toWebHexString() + "'>, which ignores all resistances!</b>"))) {
+					new ListValue<String>("Incoming <b style='color:"+Colour.ATTRIBUTE_LUST.toWebHexString()+";'>Lust damage</b> dealt as"
+							+ " <b style='color:"+Colour.ATTRIBUTE_HEALTH.toWebHexString()+";'>2*Energy damage</b>"
+							+ " and <b style='color:"+Colour.ATTRIBUTE_MANA.toWebHexString()+";'>1*Aura damage</b>"),
+					new ListValue<String>("<b style='color: " + Colour.GENERIC_TERRIBLE.toWebHexString() + "'>Incoming damage ignores all resistances</b>"))) {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
@@ -7745,7 +7948,6 @@ public enum StatusEffect {
 	private Map<Attribute, Float> attributeModifiers;
 
 	protected String SVGString;
-	private String SVGStringDesaturated;
 
 	protected List<String> extraEffects;
 
@@ -7753,7 +7955,37 @@ public enum StatusEffect {
 	
 	private static StringBuilder descriptionSB, SVGImageSB;
 
-	private StatusEffect(int renderingPriority, String name, String pathName, Colour colourShade, boolean beneficial, Map<Attribute, Float> attributeModifiers, List<String> extraEffects) {
+	private StatusEffect(int renderingPriority,
+			String name,
+			String pathName,
+			Colour colourShade,
+			boolean beneficial,
+			Map<Attribute, Float> attributeModifiers,
+			List<String> extraEffects) {
+		this(renderingPriority, name, pathName, colourShade, colourShade, colourShade, beneficial, attributeModifiers, extraEffects);
+	}
+	
+	private StatusEffect(int renderingPriority,
+			String name,
+			String pathName,
+			Colour colourShade,
+			Colour colourShadeSecondary,
+			boolean beneficial,
+			Map<Attribute, Float> attributeModifiers,
+			List<String> extraEffects) {
+		this(renderingPriority, name, pathName, colourShade, colourShadeSecondary, colourShade, beneficial, attributeModifiers, extraEffects);
+	}
+	
+	private StatusEffect(int renderingPriority,
+			String name,
+			String pathName,
+			Colour colourShade,
+			Colour colourShadeSecondary,
+			Colour colourShadeTertiary,
+			boolean beneficial,
+			Map<Attribute, Float> attributeModifiers,
+			List<String> extraEffects) {
+		
 		this.renderingPriority = renderingPriority;
 		this.name = name;
 		this.beneficial = beneficial;
@@ -7769,36 +8001,10 @@ public enum StatusEffect {
 		if(pathName!=null) {
 			try {
 				InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/" + pathName + ".svg");
-				SVGString = Util.inputStreamToString(is);
-	
-				SVGString = SVGString.replaceAll("#ff2a2a", colourShade.getShades()[0]);
-				SVGString = SVGString.replaceAll("#ff5555", colourShade.getShades()[1]);
-				SVGString = SVGString.replaceAll("#ff8080", colourShade.getShades()[2]);
-				SVGString = SVGString.replaceAll("#ffaaaa", colourShade.getShades()[3]);
-				SVGString = SVGString.replaceAll("#ffd5d5", colourShade.getShades()[4]);
-	
+				SVGString = Util.colourReplacement(this.toString(), colourShade, colourShadeSecondary, colourShadeTertiary, Util.inputStreamToString(is));
 				is.close();
-	
 			} catch (IOException e) {
 				e.printStackTrace();
-			}
-			
-			if(needsDesaturated()) {
-				try {
-					InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/statusEffects/" + pathName + ".svg");
-					SVGStringDesaturated = Util.inputStreamToString(is);
-		
-					SVGStringDesaturated = SVGStringDesaturated.replaceAll("#ff2a2a", Colour.BASE_GREY.getShades()[0]);
-					SVGStringDesaturated = SVGStringDesaturated.replaceAll("#ff5555", Colour.BASE_GREY.getShades()[1]);
-					SVGStringDesaturated = SVGStringDesaturated.replaceAll("#ff8080", Colour.BASE_GREY.getShades()[2]);
-					SVGStringDesaturated = SVGStringDesaturated.replaceAll("#ffaaaa", Colour.BASE_GREY.getShades()[3]);
-					SVGStringDesaturated = SVGStringDesaturated.replaceAll("#ffd5d5", Colour.BASE_GREY.getShades()[4]);
-		
-					is.close();
-		
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
 			}
 			
 		} else {
@@ -7820,10 +8026,6 @@ public enum StatusEffect {
 		return attributeModifiersList;
 	}
 	
-	protected boolean needsDesaturated() {
-		return false;
-	}
-
 	public abstract String applyEffect(GameCharacter target, int minutesPassed);
 
 	/**
@@ -7903,13 +8105,6 @@ public enum StatusEffect {
 	}
 
 	public String getSVGString(GameCharacter owner) {
-		return SVGString;
-	}
-	
-	public String getSVGStringDesaturated(GameCharacter owner) {
-		if(needsDesaturated()) {
-			return SVGStringDesaturated;
-		}
 		return SVGString;
 	}
 	

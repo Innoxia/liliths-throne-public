@@ -6,7 +6,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.83
- * @version 0.1.83
+ * @version 0.2.1
  * @author Innoxia
  */
 public enum TesticleType implements BodyPartTypeInterface {
@@ -18,6 +18,8 @@ public enum TesticleType implements BodyPartTypeInterface {
 	ANGEL(BodyCoveringType.PENIS, FluidType.CUM_ANGEL, Race.ANGEL, false),
 
 	DEMON_COMMON(BodyCoveringType.PENIS, FluidType.CUM_DEMON, Race.DEMON, false),
+
+	IMP(BodyCoveringType.PENIS, FluidType.CUM_IMP, Race.IMP, false),
 
 	BOVINE(BodyCoveringType.BOVINE_FUR, FluidType.CUM_COW_MORPH, Race.COW_MORPH, false),
 	
