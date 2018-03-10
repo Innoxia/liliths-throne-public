@@ -111,6 +111,19 @@ public class Ass implements BodyPartInterface, Serializable {
 							+ "</p>");
 				}
 				break;
+			case ANGEL:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+							"You now have an [style.boldAngel(angelic ass)], covered in [pc.assFullDescription].</br>"
+							+ "You have also been left with [style.boldAngel(an angelic)] [pc.assholeFullDescription]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+							"[npc.She] now has a [style.boldAngel(angelic ass)], covered in [npc.assFullDescription].</br>"
+							+ "[npc.She] has also been left with [style.boldAngel(an angelic)] [npc.assholeFullDescription]."
+							+ "</p>");
+				}
+				break;
 			case DEMON_COMMON:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
@@ -121,6 +134,19 @@ public class Ass implements BodyPartInterface, Serializable {
 					UtilText.transformationContentSB.append(
 							"[npc.She] now has a [style.boldDemon(demonic ass)], covered in [npc.assFullDescription].</br>"
 							+ "[npc.She] has also been left with [style.boldDemon(a demonic)] [npc.assholeFullDescription]."
+							+ "</p>");
+				}
+				break;
+			case IMP:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+							"You now have an [style.boldImp(impish ass)], covered in [pc.assFullDescription].</br>"
+							+ "You have also been left with [style.boldImp(an impish)] [pc.assholeFullDescription]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+							"[npc.She] now has an [style.boldImp(impish ass)], covered in [npc.assFullDescription].</br>"
+							+ "[npc.She] has also been left with [style.boldImp(an impish)] [npc.assholeFullDescription]."
 							+ "</p>");
 				}
 				break;
@@ -241,18 +267,18 @@ public class Ass implements BodyPartInterface, Serializable {
 							+ "</p>");
 				}
 				break;
-			default:
-				if (owner.isPlayer()) {
-					UtilText.transformationContentSB.append("You discover that your ass has shifted shape and transformed.</br>"
-							+ "You now have an [style.boldSex("+type.getRace().getName()+" asshole)]."
-							+ "</p>");
-				} else {
-					UtilText.transformationContentSB.append(
-							"[npc.She] soon discovers that [npc.her] ass has shifted shape and transformed.</br>"
-							+ "[npc.She] now has an [style.boldHarpy("+type.getRace().getName()+" asshole)]."
-							+ "</p>");
-				}
-				break;
+//			default:
+//				if (owner.isPlayer()) {
+//					UtilText.transformationContentSB.append("You discover that your ass has shifted shape and transformed.</br>"
+//							+ "You now have an [style.boldSex("+type.getRace().getName()+" asshole)]."
+//							+ "</p>");
+//				} else {
+//					UtilText.transformationContentSB.append(
+//							"[npc.She] soon discovers that [npc.her] ass has shifted shape and transformed.</br>"
+//							+ "[npc.She] now has an [style.boldHarpy("+type.getRace().getName()+" asshole)]."
+//							+ "</p>");
+//				}
+//				break;
 		}
 		
 		return UtilText.parse(owner, UtilText.transformationContentSB.toString())

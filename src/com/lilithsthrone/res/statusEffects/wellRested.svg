@@ -26,8 +26,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="8.0000005"
-     inkscape:cx="51.974423"
-     inkscape:cy="24.477828"
+     inkscape:cx="61.286922"
+     inkscape:cy="38.227827"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -55,21 +55,17 @@
      id="layer1"
      transform="translate(0,-988.36216)"
      style="display:inline">
-    <g
-       id="g4216"
-       transform="matrix(1.2155062,0,0,1.2155062,-8.0094144,-222.93668)">
-      <path
-         sodipodi:nodetypes="ccccccc"
-         inkscape:connector-curvature="0"
-         id="path4194"
-         d="m 13.493836,1041.8263 0,-9.1219 19.445597,-13.3976 20.273279,12.7987 0,9.7904 -20.263454,-13.5322 z"
-         style="fill:#9999ff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <path
-         sodipodi:nodetypes="ccccccc"
-         inkscape:connector-curvature="0"
-         id="path4194-6"
-         d="m 13.57806,1026.044 0,-9.1219 19.445597,-13.3976 20.273279,12.7987 0,9.7904 -20.263454,-13.5322 z"
-         style="display:inline;fill:#1dbae2;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    </g>
+    <path
+       style="fill:#ffb380;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.2155062;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 8.3924269,1043.4096 0,-11.0877 23.6362441,-16.2848 24.642296,15.5569 0,11.9002 -24.630354,-16.4484 z"
+       id="path4194"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccccc" />
+    <path
+       style="display:inline;fill:#ff8080;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.2155062;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 8.4948017,1024.2262 0,-11.0878 23.6362433,-16.28483 24.642297,15.55693 0,11.9003 -24.630354,-16.4485 z"
+       id="path4194-6"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccccc" />
   </g>
 </svg>

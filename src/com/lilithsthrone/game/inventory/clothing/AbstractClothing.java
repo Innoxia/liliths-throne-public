@@ -49,8 +49,6 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	private boolean cummedIn, enchantmentKnown;
 	private List<DisplacementType> displacedList;
 
-	private Attribute coreEnchantment;
-
 	public AbstractClothing(AbstractClothingType clothingType, Colour colour, Colour secondaryColour, Colour tertiaryColour, boolean allowRandomEnchantment) {
 		super(clothingType.getName(),
 				clothingType.getNamePlural(),
@@ -91,7 +89,6 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 					effects.add(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, rndMod2, TFPotency.getRandomWeightedNegativePotency(), 0));
 				}
 				
-				coreEnchantment = rndMod.getAssociatedAttribute();
 				enchantmentKnown = false;
 				
 			} else if (chance >= 75) { // Enchanted:
@@ -99,17 +96,9 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 				if(chance > 90) {
 					effects.add(new ItemEffect(ItemEffectType.CLOTHING, TFModifier.CLOTHING_ATTRIBUTE, rndMod2, TFPotency.getRandomWeightedPositivePotency(), 0));
 				}
-				coreEnchantment = rndMod.getAssociatedAttribute();
 				enchantmentKnown = false;
 			}
 
-		} else if (!effects.isEmpty()) {
-			for (ItemEffect effect : effects) {
-				if(effect.getPrimaryModifier()==TFModifier.CLOTHING_ATTRIBUTE) {
-					coreEnchantment = effect.getSecondaryModifier().getAssociatedAttribute();
-					break;
-				}
-			}
 		}
 	}
 	
@@ -135,13 +124,6 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		this.effects = effects;
 
 		enchantmentKnown = false;
-		
-		for (ItemEffect effect : effects) {
-			if(effect.getPrimaryModifier()==TFModifier.CLOTHING_ATTRIBUTE) {
-				coreEnchantment = effect.getSecondaryModifier().getAssociatedAttribute();
-				break;
-			}
-		}
 	}
 	
 	@Override
@@ -155,7 +137,6 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 						&& ((AbstractClothing)o).isDirty()==cummedIn
 						&& ((AbstractClothing)o).isEnchantmentKnown()==enchantmentKnown
 						&& ((AbstractClothing)o).isBadEnchantment()==this.isBadEnchantment()
-						&& ((AbstractClothing)o).getCoreEnchantment()==coreEnchantment
 						&& ((AbstractClothing)o).getEffects().equals(this.getEffects())
 						){
 					return true;
@@ -179,9 +160,6 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		result = 31 * result + (cummedIn ? 1 : 0);
 		result = 31 * result + (enchantmentKnown ? 1 : 0);
 		result = 31 * result + (this.isBadEnchantment() ? 1 : 0);
-		if(coreEnchantment != null) {
-			result = 31 * result + coreEnchantment.hashCode();
-		}
 		result = 31 * result + this.getEffects().hashCode();
 		return result;
 	}
@@ -196,7 +174,6 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		CharacterUtils.addAttribute(doc, element, "colourTertiary", this.getTertiaryColour().toString());
 		CharacterUtils.addAttribute(doc, element, "isDirty", String.valueOf(this.isDirty()));
 		CharacterUtils.addAttribute(doc, element, "enchantmentKnown", String.valueOf(this.isEnchantmentKnown()));
-		CharacterUtils.addAttribute(doc, element, "coreEnchantment", (this.getCoreEnchantment()==null?"null":this.getCoreEnchantment().toString()));
 		
 		Element innerElement = doc.createElement("effects");
 		element.appendChild(innerElement);
@@ -260,14 +237,6 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 		}
 		
 		// Try to load attributes:
-		
-		if(!parentElement.getAttribute("coreEnchantment").equals("null")) {
-			try {
-				clothing.coreEnchantment = Attribute.valueOf(parentElement.getAttribute("coreEnchantment"));
-			} catch(Exception ex) {
-			}
-		}
-		
 		
 		if(parentElement.getElementsByTagName("attributeModifiers")!=null && parentElement.getElementsByTagName("attributeModifiers").getLength()>0) {
 			if(clothing.getClothingType().getClothingSet()==null) {
@@ -580,8 +549,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 					pointlessSB.append(
 							getClothingType().equipText(clothingOwner, clothingEquipper, rough, this, true)
 							+ "<p style='text-align:center;'>"
-									+ "<b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Jinx revealed:</b> <b style='color:"+ coreEnchantment.getColour().toWebHexString() + ";'>"
-										+ Util.capitaliseSentence(coreEnchantment.getNegativeEnchantment()) + "</b>");
+									+ "<b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Jinx revealed:</b> "+getDisplayName(true));
 					
 					for(Entry<Attribute, Integer> att : attributeModifiers.entrySet()) {
 						pointlessSB.append("</br><b>(" + att.getValue()+"</b> <b style='color:"+att.getKey().getColour().toWebHexString()+";'>"+ Util.capitaliseSentence(att.getKey().getName()) + "</b><b>)</b>");
@@ -596,8 +564,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 					pointlessSB.append(
 							getClothingType().equipText(clothingOwner, clothingEquipper, rough, this, true)
 							+ "<p style='text-align:center;'>"
-									+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Enchantment revealed:</b> <b style='color:"+ coreEnchantment.getColour().toWebHexString() + ";'>"
-										+ Util.capitaliseSentence(coreEnchantment.getPositiveEnchantment()) + "</b>");
+									+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Enchantment revealed:</b> "+getDisplayName(true));
 					
 					for(Entry<Attribute, Integer> att : attributeModifiers.entrySet()) {
 						pointlessSB.append("</br><b>(+" + att.getValue()+"</b> <b style='color:"+att.getKey().getColour().toWebHexString()+";'>"+ Util.capitaliseSentence(att.getKey().getName()) + "</b><b>)</b>");
@@ -874,7 +841,6 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 
 	public void removeBadEnchantments() {
 		this.getEffects().removeIf(e -> e.getPrimaryModifier() == TFModifier.CLOTHING_ATTRIBUTE && e.getPotency().isNegative());
-		this.coreEnchantment = null;
 	}
 
 	public boolean isSealed() {
@@ -924,8 +890,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 			if (isBadEnchantment()) {
 				pointlessSB.append(
 						"<p style='text-align:center;'>"
-								+ "<b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Jinx revealed:</b> <b style='color:"+ coreEnchantment.getColour().toWebHexString() + ";'>"
-									+ Util.capitaliseSentence(coreEnchantment.getNegativeEnchantment()) + "</b>");
+								+ "<b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Jinx revealed:</b> "+getDisplayName(true));
 				
 				for(Entry<Attribute, Integer> att : attributeModifiers.entrySet()) {
 					pointlessSB.append("</br><b>(" + att.getValue()+"</b> <b style='color:"+att.getKey().getColour().toWebHexString()+";'>"+ Util.capitaliseSentence(att.getKey().getName()) + "</b><b>)</b>");
@@ -936,8 +901,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 			} else {
 				pointlessSB.append(
 						"<p style='text-align:center;'>"
-								+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Enchantment revealed:</b> <b style='color:"+ coreEnchantment.getColour().toWebHexString() + ";'>"
-									+ Util.capitaliseSentence(coreEnchantment.getPositiveEnchantment()) + "</b>");
+								+ "<b style='color:" + Colour.GENERIC_GOOD.toWebHexString() + ";'>Enchantment revealed:</b> "+getDisplayName(true));
 				
 				for(Entry<Attribute, Integer> att : attributeModifiers.entrySet()) {
 					pointlessSB.append("</br><b>(+" + att.getValue()+"</b> <b style='color:"+att.getKey().getColour().toWebHexString()+";'>"+ Util.capitaliseSentence(att.getKey().getName()) + "</b><b>)</b>");
@@ -954,7 +918,16 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	}
 
 	public Attribute getCoreEnchantment() {
-		return coreEnchantment;
+		Attribute att = Attribute.MAJOR_PHYSIQUE;
+		int max = 0;
+		for(Entry<Attribute, Integer> entry : getAttributeModifiers().entrySet()) {
+			if(entry.getValue() > max) {
+				att = entry.getKey();
+				max = entry.getValue();
+			}
+		}
+		
+		return att;
 	}
 	
 	public String getEnchantmentPostfix(boolean coloured, String tag) {

@@ -3,10 +3,10 @@
 	<htmlContent tag="EXTERIOR"><![CDATA[
 	<p>
 		Unlike the rest of the buildings in the Arcade, the one in front of you has no real storefront to speak of, and the only indication of it being a shop at all is the rather plain-looking sign above the entrance bearing the name 'Dream Lover'.
-		 It's not like the place is in a state of decay, so you can’t say that it’s the worst looking shop you’ve ever seen, although it would definitely be in the running for the blandest.
+		 It's not like the place is in a state of decay, so you can't say that it's the worst looking shop you've ever seen, although it would definitely be in the running for the blandest.
 	</p>
 	<p>
-		Taking a closer inspection of the property, you can’t find any information that reveals the shop’s working hours, or even what sort of goods are stocked here.
+		Taking a closer inspection of the property, you can't find any information that reveals the shop's working hours, or even what sort of goods are stocked here.
 		 Despite all of this, there's also no indication that the store is closed, so you could take a look inside if you wanted to.
 	</p>
 	]]>
@@ -15,13 +15,13 @@
 	<htmlContent tag="EXIT"><![CDATA[
 	<p>
 		Having had enough of this store for now, you turn to look at Ashley, wondering if you should wave them goodbye.
-		 You doubt you’ll get any response, but, considering that you're the only two people here, it seems a little impolite not to say anything, so you call out,
-		 [pc.speech(I’ll be leaving now.)]
+		 You doubt you'll get any response, but, considering that you're the only two people here, it seems a little impolite not to say anything, so you call out,
+		 [pc.speech(I'll be leaving now.)]
 	</p>
 	<p>
-		Ashley doesn’t look at you, but you hear them mutter,
+		Ashley doesn't look at you, but you hear them mutter,
 		 [Ashley.speech(Feel free to come back any time.)]
-		 It’s a passionless plea, more like a social obligation than anything else, but at least they said something back.
+		 It's a passionless plea, more like a social obligation than anything else, but at least they said something back.
 	</p>
 	<p>
 		With a sigh of relief, you finally leave the building and the rude owner within it.
@@ -36,22 +36,22 @@
 	</p>
 	<p>
 		The first thing that strikes you is how huge the shop floor is; despite the unassuming exterior, you think that this must be one of the largest stores here in the Arcade.
-		 Rows and rows of free-standing shelves fill every available spot in the room, with each and every one of them being filled with so many different types of items that you can’t begin to guess what the store specialises in.
-		 The second thing that strikes you is how boring the shop looks; barring the products for sale, there’s not a single poster, potted plant, or any other form of decoration to be seen, giving the store a very 'brown' feel.
-		 Beige walls, plain wooden floor, brown shelves, brown counters... this dull aesthetic is accentuated by the fact that the store isn’t very well lit.
+		 Rows and rows of free-standing shelves fill every available spot in the room, with each and every one of them being filled with so many different types of items that you can't begin to guess what the store specialises in.
+		 The second thing that strikes you is how boring the shop looks; barring the products for sale, there's not a single poster, potted plant, or any other form of decoration to be seen, giving the store a very 'brown' feel.
+		 Beige walls, plain wooden floor, brown shelves, brown counters... this dull aesthetic is accentuated by the fact that the store isn't very well lit.
 	</p>
 	<p>
 		At the back of this richly stocked, but poorly decorated, shop is what you assume to be the owner, resting their head in their hands and adopting a slumped pose suggestive of extreme boredom.
-		 Strangely enough, they're wearing a black hooded cloak that covers them from head to toe, obscuring their body and face so much that you can’t possibly tell what gender or even what species they are.
-		 The counter behind which this figure is seated is located in the darkest corner of the room, which doesn’t help in your efforts to identify them.
+		 Strangely enough, they're wearing a black hooded cloak that covers them from head to toe, obscuring their body and face so much that you can't possibly tell what gender or even what species they are.
+		 The counter behind which this figure is seated is located in the darkest corner of the room, which doesn't help in your efforts to identify them.
 		 All you can make out from under the dark fabric is the faint shimmer of blue eyes; eyes that you now realise have been staring at you since the moment you walked into the store.
 	</p>
 	<p>
 		Deciding that it'd in your best interests to be polite, you walk over the counter and introduce yourself,
-		 [pc.speech(Hello, I’m [pc.name].)]
+		 [pc.speech(Hello, I'm [pc.name].)]
 	</p>
 	<p>
-		[Ashley.speech(I’m Ashley,)]
+		[Ashley.speech(I'm Ashley,)]
 		 an androgynous voice answers, giving you no clue as to what gender this person is.
 		 While Ashley doesn't give any hint of wanting any further interaction with you, they also seem to have lost interest in observing your every move, so you decide to step away and explore the shop.
 	</p>
@@ -65,16 +65,16 @@
 	<p>
 		The shop is filled to the brim with items suited for every taste, from the typical bouquets of flowers and expensive boxes of chocolates, to cosmetics and perfumes, to books and craft supplies, and everything in-between.
 		 Despite the wide range of goods on offer, it's only the chocolates and sweets that seem to be selling, while the rest of the stock, while dusted and in pristine condition, looks like it's never been touched by anyone but the owner.
-		 The sex toys could probably sell really well, but they’re so well hidden that it's almost impossible to find them without combing through the entire store.
+		 The sex toys could probably sell really well, but they're so well hidden that it's almost impossible to find them without combing through the entire store.
 	</p>
 	<p>
 		Other than the richly stocked shelves, the shop has a very lonely and empty feel.
-		 The walls are completely bare of decoration; there’s not even any posters to advertise products, and while the store is clean, it isn’t very well lit.
+		 The walls are completely bare of decoration; there's not even any posters to advertise products, and while the store is clean, it isn't very well lit.
 		 The whole room has a very 'brown' feeling to it, with both the wallpaper and the wooden floor bearing different shades of the dull colour.
 	</p>
 	<p>
 		In the back of the store, lurking in the darkest corner, is Ashley, the owner.
-		 The hooded cloak that they're wearing does a fantastic job of obscuring all of their features, except the faint glimmer of blue eyes, so much so that you can’t even tell what race or gender they are.
+		 The hooded cloak that they're wearing does a fantastic job of obscuring all of their features, except the faint glimmer of blue eyes, so much so that you can't even tell what race or gender they are.
 		 As ever, Ashley is resting their head in their hands and adopting a slumped pose suggestive of extreme boredom, while simultaneously giving off the vibe that they'll bite your head off if you dare bother them.
 	</p>
 	<p>
@@ -87,7 +87,7 @@
 	<htmlContent tag="ENTRY_REPEAT_ATTITUDE"><![CDATA[
 	<p>
 		As Ashley sees you walking around the store, they begin to throw the occasional grunt in your general direction.
-		 You can’t help but get annoyed at their rude attitude again...
+		 You can't help but get annoyed at their rude attitude again...
 	</p>
 	]]>
 	</htmlContent>
@@ -97,7 +97,7 @@
 		Wanting to discover what items there are on offer, you set off into the store, quickly losing yourself amongst the endless rows of shelves.
 	</p>
 	<p>
-		The first section that you walk through, being the one closest to the entrance, is filled with bouquets of flowers and boxes of chocolates; a scene, you think to yourself, reminiscent of a store in the build-up to Valentine’s day.
+		The first section that you walk through, being the one closest to the entrance, is filled with bouquets of flowers and boxes of chocolates; a scene, you think to yourself, reminiscent of a store in the build-up to Valentine's day.
 		 Judging by the number of out-of-stock products, it seems that the chocolates sell quite well, even if the flowers do look a little neglected...
 		 Continuing with your exploration, you soon discover that this store stocks items of all sorts.
 		 You find books that would be fit for an academy, art supplies that would make craft stores green with envy, sweets that one could find in a bakery, fishing supplies, exercise shoes, perfumes, even over-the-counter medicine; it seems that this shop has a little bit of everything.
@@ -105,7 +105,7 @@
 	</p>
 	<p>
 		You wonder why this store would offer such a huge variety of products if only some of them sell.
-		 Shouldn’t the space be used to stock more of the popular items instead?
+		 Shouldn't the space be used to stock more of the popular items instead?
 		 Despite their unpopularity, the goods all appear to be clean and kept free of dust, so it's obvious that the owner spends their time keeping them looking presentable.
 		 Was this meant to be a different type of store in its conception?
 		 With these questions in mind, you set off to get some answers from the mysterious shopkeeper, Ashley.
@@ -114,11 +114,11 @@
 		[Ashley.speech(What do you want?)]
 		 the hooded figure groans as they see you approach.
 		 Taken aback by the owner's brusque tone, you falter for a moment before starting to ask your questions, but before you can even get two sentences out, Ashley grunts in frustration and rudely interrupts you,
-		 [Ashley.speech(If you bother to look, you’ll notice that I have placed descriptions beneath each item I sell.
+		 [Ashley.speech(If you bother to look, you'll notice that I have placed descriptions beneath each item I sell.
 		 If you need any more clues than that, then you have no business being here.)]
 	</p>
 	<p>
-		That wasn’t actually what you were going to ask, but as you turn to scan your eyes over the shelves in order to confirm what's just been said, you see that there are indeed various plaques beneath each product which offer some hints at what they could be used for.
+		That wasn't actually what you were going to ask, but as you turn to scan your eyes over the shelves in order to confirm what's just been said, you see that there are indeed various plaques beneath each product which offer some hints at what they could be used for.
 		 Mildly annoyed at how this rude shopkeeper just treated you, you decide to drop your inquiries about the shop's curious inventory and head back to read some of the plaques instead.
 	</p>
 	<p>
@@ -135,11 +135,11 @@
 		 Seriously, what did I do to you to deserve this attitude?)]
 	</p>
 	<p>
-		[Ashley.speech(What’s with <i>my</i> attitude? The question you should be asking is what’s with <i>everyone else’s</i> attitude!)] they blurt out.
+		[Ashley.speech(What's with <i>my</i> attitude? The question you should be asking is what's with <i>everyone else's</i> attitude!)] they blurt out.
 	</p>
 	<p>
 		You open your mouth in an attempt to reply, but Ashley cuts you off,
-		 [Ashley.speech(When I opened this store I had only the noblest of intentions: to make this the one-stop place for everyone’s romantic needs. I gathered stock for <i>every</i> occasion.
+		 [Ashley.speech(When I opened this store I had only the noblest of intentions: to make this the one-stop place for everyone's romantic needs. I gathered stock for <i>every</i> occasion.
 		 Going on a first date? A rose bouquet is sure to please your partner.
 		 Planning a romantic dinner? I've got a wide selection of coloured and scented candles to help set the mood.
 		 Celebrating an anniversary? Need something with a bit more meaning? I have something on offer for almost every hobby!)]
@@ -149,25 +149,25 @@
 		 [Ashley.speech(But you've seen my store.
 		 The only things that sell are the chocolates, sweets, and other piddly items that people buy for <i>themselves</i>.
 		 People seem to be completely incapable of buying a bag of candies without starting to eat them before they've even exited the store!
-		 They don’t even taste any good!)]
+		 They don't even taste any good!)]
 		 Ashley snorts at the last part.
 	</p>
 	<p>
-		[Ashley.speech(It’s like nobody cares for anybody but themselves. My good intentions went down the drain!)]
+		[Ashley.speech(It's like nobody cares for anybody but themselves. My good intentions went down the drain!)]
 		 they exclaim, slamming a fist down on the counter,
-		[Ashley.speech(So yeah, that's what's up with my 'attitude'. I just want to see my products be appreciated, but no! Well, if my customers don’t care, then I won’t either!)]
+		[Ashley.speech(So yeah, that's what's up with my 'attitude'. I just want to see my products be appreciated, but no! Well, if my customers don't care, then I won't either!)]
 	</p>
 	<p>
 		You feel a little awkward at being forced to witness Ashley's outburst.
-		 Although they seem to quickly calm down, you don’t want to risk angering them again, so you quietly turn back to check out some of the merchandise.
+		 Although they seem to quickly calm down, you don't want to risk angering them again, so you quietly turn back to check out some of the merchandise.
 		 As you get some distance between yourself and the frustrated shopkeeper, you note that maybe the descriptions aren't as useless as you assumed; after all, it saves customers from having to deal with the owner...
 	</p>
 	<p>
 		As you're getting lost looking at the rows and rows of ignored merchandise, you hear Ashley call out,
-		 [Ashley.speech(If you haven’t guessed already, no 'sex' discounts. I’m not interested in <i>that</i>. But...)]
+		 [Ashley.speech(If you haven't guessed already, no 'sex' discounts. I'm not interested in <i>that</i>. But...)]
 		 their voice drops to a whisper,
-		 [Ashley.speech(If you manage to use these gifts properly instead of buying them only for yourself, I’d be more willing to negotiate.
-		 It’d be nice to see some of these items being appreciated... But I’m not going to wait on <i>that</i>. So buy the chocolates you were eyeing, or whatever.)]
+		 [Ashley.speech(If you manage to use these gifts properly instead of buying them only for yourself, I'd be more willing to negotiate.
+		 It'd be nice to see some of these items being appreciated... But I'm not going to wait on <i>that</i>. So buy the chocolates you were eyeing, or whatever.)]
 	</p>
 	<p>
 		With a roll of your eyes, you resume looking at the products, wondering how you'd ever prove to Ashley that you'd used them 'properly'...

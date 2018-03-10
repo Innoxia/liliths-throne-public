@@ -439,9 +439,4 @@ public class ZaranixMaidKatherine extends NPC {
 		return 0;
 	}
 
-	@Override
-	public int getExperienceFromVictory() {
-		return 35;
-	}
-
 }

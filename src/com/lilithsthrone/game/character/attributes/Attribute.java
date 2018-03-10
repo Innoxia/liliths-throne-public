@@ -60,7 +60,7 @@ public enum Attribute {
 			"experience",
 			"Experience",
 			"experienceIcon",
-			Colour.DAMAGE_TYPE_STAMINA,
+			Colour.GENERIC_EXPERIENCE,
 			"learning",
 			"forgetfulness",
 			null) {
@@ -103,7 +103,8 @@ public enum Attribute {
 				@Override
 				public String getDescription(GameCharacter owner) {
 					if(owner.isPlayer()) {
-						return "How desperate for sexual contact you are. The higher your lust, the more aura damage you will take from seduction attacks.";
+						return "How desperate for sexual contact you are. Your lust will move towards your resting lust value over time.</br>"
+								+ "<b>Resting Lust = " + GameCharacter.RESTING_LUST_CALCULATION + "</b>";
 					} else {
 						return UtilText.parse(owner,
 								"How desperate for sexual contact [npc.name] is. The higher [npc.her] lust, the more aura damage [npc.she] will take from seduction attacks.");
@@ -358,6 +359,12 @@ public enum Attribute {
 			return "Each point increases damage done vs horse-morphs by 1%.";
 		}
 	},
+	DAMAGE_IMP(0, "imp damage", "Imp damage", "swordIcon", Colour.RACE_IMP, "impish-obliteration", "impish-mercy", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Each point increases damage done vs imps by 1%.";
+		}
+	},
 	DAMAGE_REINDEER_MORPH(0, "reindeer-morph damage", "Reindeer-morph damage", "swordIcon", Colour.RACE_REINDEER_MORPH, "reindeer-morph-obliteration", "reindeer-morph-mercy", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -386,6 +393,12 @@ public enum Attribute {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases damage done vs wolf-morphs by 1%.";
+		}
+	},
+	DAMAGE_SLIME(0, "slime damage", "Slime damage", "swordIcon", Colour.RACE_SLIME, "slime-obliteration", "slime-mercy", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Each point increases damage done vs slimes by 1%.";
 		}
 	},
 	
@@ -431,6 +444,12 @@ public enum Attribute {
 			return "Each point increases resistance vs damage inflicted by horse-morphs by 1%.";
 		}
 	},
+	RESISTANCE_IMP(0, "imp resistance", "Imp resistance", "shieldIcon", Colour.RACE_IMP, "impish-immunity", "impish-vulnerability", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Each point increases resistance vs damage inflicted by imps by 1%.";
+		}
+	},
 	RESISTANCE_REINDEER_MORPH(0, "reindeer-morph resistance", "Reindeer-morph resistance", "shieldIcon", Colour.RACE_REINDEER_MORPH, "reindeer-morph-immunity", "reindeer-morph-vulnerability", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -459,6 +478,12 @@ public enum Attribute {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases resistance vs damage inflicted by wolf-morphs by 1%.";
+		}
+	},
+	RESISTANCE_SLIME(0, "slime resistance", "Slime resistance", "shieldIcon", Colour.RACE_SLIME, "slime-immunity", "slime-vulnerability", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Each point increases resistance vs damage inflicted by slimes by 1%.";
 		}
 	};
 

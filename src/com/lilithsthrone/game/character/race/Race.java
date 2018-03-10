@@ -133,13 +133,60 @@ public enum Race {
 			StatusEffect.DEMON,
 			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SEDUCTION), new ListValue<Attack>(Attack.SPELL)),
 			false,
-			0f,
+			0.75f,
 			2,
 			3,
 			Attribute.DAMAGE_DEMON,
 			Attribute.RESISTANCE_DEMON,
-			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			FurryPreference.MAXIMUM,
+			FurryPreference.MAXIMUM),
+
+	IMP("imp",
+			"imps",
+			"imp",
+			"imp",
+			"imps",
+			"imps",
+
+			"<p>"
+				+ "Other than their diminutive height (with most individuals standing at around three feet tall), an imp's appearance is identical to that of a demon."
+				+ " Despite their similar appearances, however, imps are far more mischievous and aggressive than their larger counterparts."
+				+ " Due to these antisocial personality traits, Dominion's enforcers always drive imps out of the city at first sight, with the vast majority of them ending up down in the undercity of Submission."
+			+ "</p>",
+			
+			"<p>"
+				+ "Just like demons, imps are immune to all racial transformations, and, while they're still affected by non-racial transformation potions, they lack the demon's ability to shape-shift their own bodies at will."
+				+ " Again, in similarity to demons, there's no way to transform someone into an imp through use of standard potions."
+				+ " The only way that an imp is created is by being the offspring of the resulting pregnancy between a demon and a non-Lilin."
+			+ "</p>"
+			+ "<p>"
+				+ "Individually, imps are very weak, and so for their own protection (as well as for the increased opportunity to cause mischief), they will naturally form gangs of up to five or six members."
+				+ " The leader of these gangs is typically the largest one of the group, and is referred to as the alpha imp."
+				+ " Although most of the time these gangs are content to fight amongst themselves, they occasionally work up the courage to assault larger races."
+				+ " There have even been cases of imps sneaking up out of Submission during an arcane storm; making the most of the lack of enforcers to assault anyone in sight."
+			+ "</p>"
+			+ "<p>"
+				+ "An imp's offspring will always be more imps."
+			+ "</p>",
+
+			Colour.RACE_DEMON,
+			Genus.CELESTIAL,
+			Disposition.UNPREDICTABLE,
+			StatusEffect.IMP,
+			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SEDUCTION), new ListValue<Attack>(Attack.SPELL)),
+			true,
+			0.75f,
+			2,
+			3,
+			Attribute.DAMAGE_IMP,
+			Attribute.RESISTANCE_IMP,
+			FurryPreference.MAXIMUM,
+			FurryPreference.MAXIMUM) {
+		@Override
+		public boolean isShortStature() {
+			return true;
+		}
+	},
 
 	// BOVINES:
 	COW_MORPH("cow-morph",
@@ -478,30 +525,18 @@ public enum Race {
 			"slimes",
 			"slimes",
 			
-			// TODO Not accurate!
 			"<p>"
-				+ "Slimes are a humanoid race, able to morph their bodies into different shapes and sizes."
-				+ " Slimes are tolerated in Dominion, as they aren't aggressive and don't cause too many problems."
-				+ " They are typically found near bodies of water, as they require a steady source of liquid to stay healthy."
-				+ " Slimes can change their gender at will, though the vast majority choose to take on a female form, and seeing a male slime is a very rare occurrence."
+				+ "TODO: Slimes can take on any racial form. They are found in Submission."//TODO
 			+ "</p>",
 
 			"<p>"
-				+ "Slimes are quite stupid, and usually only care about obtaining other species' cum and milk."
-				+ " They will change their bodies to become as attractive as possible in order to attract a mate."
-				+ " Once a suitable mate has been found, slimes will be extremely eager to please them in any way they can, so they can feast on their sexual fluids."
-				+ " If they attract a female partner, they will encourage them to drink lactation-inducing liquids in order to get a full meal."
-			+ "</p>"
-
-			+ "<p>"
-				+ "Slimes can come in all shapes and sizes, as they are capable of morphing their bodies."
-				+ " Doing so requires some time and effort, so slimes usually stick to one appearance."
-				+ " Most slimes, however, will take on the form of a beautiful woman with massive breasts, as they prefer attracting male partners."
-				+ " If they attract an unwilling partner, slimes have no qualms about fighting, as they can't be hurt by any physical attacks."
-				+ " Their soft bodies are unable to inflict much damage on others though, so they will often resort to seducing their opponents into submission."
+				+ "TODO:</br>"
+				+ "- Slime lore.</br>"
+				+ "- Slime habits (need fluids).</br>"
+				+ "- Slime reproduction (similar to normal pregnancies, but with slime cores)."
 			+ "</p>",
 
-			Colour.CLOTHING_WHITE,
+			Colour.RACE_SLIME,
 			Genus.SLIME,
 			Disposition.NEUTRAL,
 			StatusEffect.SLIME,
@@ -510,10 +545,10 @@ public enum Race {
 			0.5f,
 			1,
 			1,
-			Attribute.DAMAGE_HUMAN,
-			Attribute.RESISTANCE_HUMAN,
-			FurryPreference.NORMAL,
-			FurryPreference.NORMAL),
+			Attribute.DAMAGE_SLIME,
+			Attribute.RESISTANCE_SLIME,
+			FurryPreference.MAXIMUM,
+			FurryPreference.MAXIMUM),
 
 	// AVIAN:
 	HARPY("harpy",
@@ -1635,6 +1670,10 @@ public enum Race {
 
 	public int getNumberOfOffspringHigh() {
 		return numberOfOffspringHigh;
+	}
+	
+	public boolean isShortStature() {
+		return false;
 	}
 	
 	public Colour getColour() {

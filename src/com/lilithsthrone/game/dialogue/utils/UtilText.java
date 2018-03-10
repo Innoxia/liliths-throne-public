@@ -479,14 +479,17 @@ public class UtilText {
 	public static String returnStringAtRandom(String... strings) {
 		randomStrings.clear();
 		
-		for(String s : strings)
-			if(s!=null && !s.isEmpty())
+		for(String s : strings) {
+			if(s!=null && !s.isEmpty()) {
 				randomStrings.add(s);
+			}
+		}
 		
-		if(randomStrings.size()!=0)
+		if(randomStrings.size()!=0) {
 			return randomStrings.get(Util.random.nextInt(randomStrings.size()));
-		else
+		} else {
 			return "";
+		}
 	}
 
 	/**
@@ -3065,6 +3068,22 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
+						new ListValue<>("penisGirth"),
+						new ListValue<>("cockGirth"),
+						new ListValue<>("dickGrith")),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.PENIS){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getPenisGirth().getName();
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
 						new ListValue<>("penisCm")),
 				false,
 				false,
@@ -3470,10 +3489,10 @@ public class UtilText {
 			public String parse(String command, String arguments, String target) {
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(character.getEyeType().getBodyCoveringType()).getColourDescriptor(true, parseCapitalise);
+						return character.getCovering(character.getEyeType().getBodyCoveringType()).getColourDescriptor(character, true, parseCapitalise);
 					}
 				}
-				return character.getCovering(character.getEyeType().getBodyCoveringType()).getColourDescriptor(false, parseCapitalise);
+				return character.getCovering(character.getEyeType().getBodyCoveringType()).getColourDescriptor(character, false, parseCapitalise);
 			}
 		});
 		
@@ -3564,10 +3583,10 @@ public class UtilText {
 			public String parse(String command, String arguments, String target) {
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(BodyCoveringType.EYE_PUPILS).getColourDescriptor(true, parseCapitalise);
+						return character.getCovering(BodyCoveringType.EYE_PUPILS).getColourDescriptor(character, true, parseCapitalise);
 					}
 				}
-				return character.getCovering(BodyCoveringType.EYE_PUPILS).getColourDescriptor(false, parseCapitalise);
+				return character.getCovering(BodyCoveringType.EYE_PUPILS).getColourDescriptor(character, false, parseCapitalise);
 			}
 		});
 		
@@ -3906,10 +3925,10 @@ public class UtilText {
 				}
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getColourDescriptor(true, parseCapitalise);
+						return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getColourDescriptor(character, true, parseCapitalise);
 					}
 				}
-				return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getColourDescriptor(false, parseCapitalise);
+				return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getColourDescriptor(character, false, parseCapitalise);
 			}
 		});
 		

@@ -68,7 +68,7 @@ public enum Attack {
 	 * @return Hit chance from 1 to 100, representing % chance to hit.
 	 */
 	public static float calculateHitChance(GameCharacter attacker, GameCharacter defender, Spell spell) {
-		if (spell.isSelfCastSpell()) {
+		if (attacker.equals(defender)) {
 			return 100;
 		}
 		
@@ -120,16 +120,20 @@ public enum Attack {
 			damage *= (attacker.getAttributeValue(Attribute.CRITICAL_DAMAGE) / 100f);
 		}
 		
-		// Round float value to nearest 1 decimal place:
-		damage = (Math.round(damage*10))/10f;
-		
 		if(attacker.isPlayer()) {
 			damage *= Main.getProperties().difficultyLevel.getDamageModifierPlayer();
 		} else {
 			damage *= Main.getProperties().difficultyLevel.getDamageModifierNPC();
 		}
 		
-		return damage;
+		// Round float value to nearest 1 decimal place:
+		damage = (Math.round(damage*10))/10f;
+
+		if(attacker.hasTrait(Perk.JOB_SOLDIER, true) && Main.game.isInCombat() && Combat.getTurn()==0) {
+			return 2 * damage;
+		} else {
+			return damage;
+		}
 	}
 	
 	public static float calculateSpellDamage(GameCharacter attacker, GameCharacter defender, DamageType damageType, float damage, DamageVariance damageVariance, boolean critical) {
@@ -150,16 +154,20 @@ public enum Attack {
 			finalDamage *= (attacker.getAttributeValue(Attribute.CRITICAL_DAMAGE) / 100f);
 		}
 		
-		// Round float value to nearest 1 decimal place:
-		finalDamage = (Math.round(finalDamage*10))/10f;
-		
 		if(attacker.isPlayer()) {
 			finalDamage *= Main.getProperties().difficultyLevel.getDamageModifierPlayer();
 		} else {
 			finalDamage *= Main.getProperties().difficultyLevel.getDamageModifierNPC();
 		}
 		
-		return finalDamage;
+		// Round float value to nearest 1 decimal place:
+		finalDamage = (Math.round(finalDamage*10))/10f;
+		
+		if(attacker.hasTrait(Perk.JOB_SOLDIER, true) && Main.game.isInCombat() && Combat.getTurn()==0) {
+			return 2 * finalDamage;
+		} else {
+			return finalDamage;
+		}
 	}
 	
 	public static float calculateSpecialAttackDamage(GameCharacter attacker, GameCharacter defender, DamageType damageType, float damage, DamageVariance damageVariance, boolean critical) {
@@ -180,16 +188,20 @@ public enum Attack {
 			finalDamage *= (attacker.getAttributeValue(Attribute.CRITICAL_DAMAGE) / 100f);
 		}
 		
-		// Round float value to nearest 1 decimal place:
-		finalDamage = (Math.round(finalDamage*10))/10f;
-		
 		if(attacker.isPlayer()) {
 			finalDamage *= Main.getProperties().difficultyLevel.getDamageModifierPlayer();
 		} else {
 			finalDamage *= Main.getProperties().difficultyLevel.getDamageModifierNPC();
 		}
-		
-		return finalDamage;
+
+		// Round float value to nearest 1 decimal place:
+		finalDamage = (Math.round(finalDamage*10))/10f;
+
+		if(attacker.hasTrait(Perk.JOB_SOLDIER, true) && Main.game.isInCombat() && Combat.getTurn()==0) {
+			return 2 * finalDamage;
+		} else {
+			return finalDamage;
+		}
 	}
 
 	/**

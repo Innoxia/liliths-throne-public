@@ -19,6 +19,8 @@ public enum TongueType implements BodyPartTypeInterface {
 	HUMAN(BodyCoveringType.TONGUE, Race.HUMAN, 1),
 
 	DEMON_COMMON(BodyCoveringType.TONGUE, Race.DEMON, 1, TongueModifier.BIFURCATED),
+	
+	IMP(BodyCoveringType.TONGUE, Race.IMP, 1, TongueModifier.BIFURCATED),
 
 	DOG_MORPH(BodyCoveringType.TONGUE, Race.DOG_MORPH, 1),
 

@@ -45,7 +45,7 @@ public class PlayerFingerVagina {
 			SexActionType.PLAYER_REQUIRES_NO_PENETRATION,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.THREE_NORMAL,
-			CorruptionLevel.ZERO_PURE,
+			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.FINGER,
 			OrificeType.VAGINA,
 			SexParticipantType.PITCHER) {

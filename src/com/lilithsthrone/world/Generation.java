@@ -505,43 +505,202 @@ public class Generation extends Task<Boolean> {
 
 		return grid;
 	}
+	
+	
+	
+	
+	/*
+	 * Take in grid where important places need to go
+	 * Take in important places list
+	 * Randomly place places into grid
+	 * Generate new grid with IMPASSABLE padding - place important places at regular intervals
+	 * Start from middle and explore grid until visited all original places, changing IMPASSABLE to generic path or dangerous path as you go
+	 * cannot explore into corners
+	 */
+	
+	
+	public static Cell[][] generateTestMap(WorldType worldType, int x, int y, Cell[][] grid, int padding) {
+		int paddedCellSize = 2*padding+1;
+		
+		Cell[][] paddedGrid = new Cell[(grid.length*paddedCellSize)-(2*padding)][(grid[0].length*paddedCellSize)-(2*padding)];
+		
+		for(int i=0; i<paddedGrid.length;i++) {
+			for(int j=0; j<paddedGrid[0].length;j++) {
+				if(i%paddedCellSize==0 && j%paddedCellSize==0) {
+					paddedGrid[i][j] = grid[i/paddedCellSize][j/paddedCellSize];
+				} else {
+					paddedGrid[i][j] = new Cell(worldType, new Vector2i(i, j));
+					paddedGrid[i][j].setPlace(new GenericPlace(PlaceType.GENERIC_IMPASSABLE));
+				}
+			}
+		}
+		int totalMajorPlaces = grid.length*grid[0].length;
+		List<Vector2i> discoveredMajorPlaces = new ArrayList<>();
+		return recursiveGenerateTestMap(worldType, (paddedGrid.length/2)+1, (paddedGrid[0].length/2)+1, paddedGrid, totalMajorPlaces, discoveredMajorPlaces);
+	}
+	
+	private static Cell[][] recursiveGenerateTestMap(WorldType worldType, int x, int y, Cell[][] grid, int totalMajorPlaces, List<Vector2i> discoveredMajorPlaces) {
+		if(totalMajorPlaces == discoveredMajorPlaces.size()) {
+			return grid;
+		}
+		
+		Random rnd = new Random();
 
-	public static void printMaze(Cell[][] maze) {
-		StringBuilder lineOneBuffer = new StringBuilder(""), lineTwoBuffer = new StringBuilder(""), lineThreeBuffer = new StringBuilder("");
+		int width = grid.length;
+		int height = grid[0].length;
+		
+		// randomise this order:
+		int[] direction = { 1, 2, 3, 4 };
+		for (int i = direction.length - 1; i > 0; i--) {
+			int index = rnd.nextInt(i + 1);
+			// Simple swap
+			int a = direction[index];
+			direction[index] = direction[i];
+			direction[i] = a;
+		}
+
+		for (Integer index : direction) {
+			switch (index) {
+				case 1: // West
+					if (x - 1 >= 0 && y >= 0 && y <= height - 1) {
+						if (!isCorner(x - 1, y, grid) && grid[x - 1][y].getPlace().getPlaceType()==PlaceType.GENERIC_IMPASSABLE) {
+							grid[x - 1][y].setPlace(new GenericPlace(worldType.getStandardPlace()));
+							recursiveGenerateTestMap(worldType, x - 1, y, grid, totalMajorPlaces, discoveredMajorPlaces);
+							
+						} else if(grid[x - 1][y].getPlace().getPlaceType()!=worldType.getStandardPlace()) {
+							if(!discoveredMajorPlaces.contains(new Vector2i(x-1, y))) {
+								discoveredMajorPlaces.add(new Vector2i(x-1, y));
+								recursiveGenerateTestMap(worldType, x - 1, y, grid, totalMajorPlaces, discoveredMajorPlaces);
+							}
+						}
+					}
+					break;
+	
+				case 2: // East
+					if (x + 1 <= width - 1 && y >= 0 && y <= height - 1) {
+						if (!isCorner(x + 1, y, grid) &&grid[x + 1][y].getPlace().getPlaceType()==PlaceType.GENERIC_IMPASSABLE) {
+							grid[x + 1][y].setPlace(new GenericPlace(worldType.getStandardPlace()));
+							recursiveGenerateTestMap(worldType, x + 1, y, grid, totalMajorPlaces, discoveredMajorPlaces);
+							
+						} else if(grid[x + 1][y].getPlace().getPlaceType()!=worldType.getStandardPlace()) {
+							if(!discoveredMajorPlaces.contains(new Vector2i(x+1, y))) {
+								discoveredMajorPlaces.add(new Vector2i(x+1, y));
+								recursiveGenerateTestMap(worldType, x + 1, y, grid, totalMajorPlaces, discoveredMajorPlaces);
+							}
+						}
+					}
+					break;
+	
+				case 3: // South
+					if (y - 1 >= 0 && x >= 0 && x <= width - 1) {
+						if (!isCorner(x, y-1, grid) &&grid[x][y - 1].getPlace().getPlaceType()==PlaceType.GENERIC_IMPASSABLE) {
+							grid[x][y - 1].setPlace(new GenericPlace(worldType.getStandardPlace()));
+							recursiveGenerateTestMap(worldType, x, y - 1, grid, totalMajorPlaces, discoveredMajorPlaces);
+							
+						} else if(grid[x][y-1].getPlace().getPlaceType()!=worldType.getStandardPlace()) {
+							if(!discoveredMajorPlaces.contains(new Vector2i(x, y-1))) {
+								discoveredMajorPlaces.add(new Vector2i(x, y-1));
+								recursiveGenerateTestMap(worldType, x, y-1, grid, totalMajorPlaces, discoveredMajorPlaces);
+							}
+						}
+					}
+					break;
+	
+				case 4: // North
+					if (y + 1 <= height - 1 && x >= 0 && x <= width - 1) {
+						if (!isCorner(x, y+1, grid) &&grid[x][y + 1].getPlace().getPlaceType()==PlaceType.GENERIC_IMPASSABLE) {
+							grid[x][y + 1].setPlace(new GenericPlace(worldType.getStandardPlace()));
+							recursiveGenerateTestMap(worldType, x, y + 1, grid, totalMajorPlaces, discoveredMajorPlaces);
+							
+						} else if(grid[x][y+1].getPlace().getPlaceType()!=worldType.getStandardPlace()) {
+							if(!discoveredMajorPlaces.contains(new Vector2i(x, y+1))) {
+								discoveredMajorPlaces.add(new Vector2i(x, y+1));
+								recursiveGenerateTestMap(worldType, x, y+1, grid, totalMajorPlaces, discoveredMajorPlaces);
+							}
+						}
+					}
+					break;
+			}
+		}
+		System.out.println(discoveredMajorPlaces.size());
+		return grid;
+	}
+	
+	private static boolean isCorner(int x, int y, Cell[][] grid) {
+		int x1[] = new int[] {-1, 0, 1, 1, 1, 0, -1, -1};
+		int y1[] = new int[] {1, 1, 1, 0, -1, -1, -1, 0};
+		
+		int count=0;
+		for(int i=0;i<8;i++) {
+			if(x+x1[i]>0 && x+x1[i]<grid.length
+				&& y+y1[i]>0 && y+y1[i]<grid[0].length
+					&& grid[x+x1[i]][y+y1[i]].getPlace().getPlaceType()!=PlaceType.GENERIC_IMPASSABLE) {
+				count++;
+			} else {
+				count = 0;
+			}
+			if(count==3) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static void printMaze(WorldType worldType, Cell[][] maze) {
+		StringBuilder lineOneBuffer = new StringBuilder("");
 		for (int y = maze[0].length - 1; y >= 0; y--) {
 			for (int x = 0; x < maze.length; x++) {
-				lineOneBuffer.append('#');
-				if (maze[x][y].isNorthAccess())
-					lineOneBuffer.append('_');
-				else
+				if (maze[x][y].getPlace().getPlaceType() == PlaceType.GENERIC_IMPASSABLE) {
 					lineOneBuffer.append('#');
-				lineOneBuffer.append('#');
-
-				if (maze[x][y].isWestAccess())
-					lineTwoBuffer.append('_');
-				else
-					lineTwoBuffer.append('#');
-
-				if (maze[x][y].isEastAccess())
-					lineTwoBuffer.append('_');
-				else
-					lineTwoBuffer.append('#');
-
-				lineThreeBuffer.append('#');
-				if (maze[x][y].isSouthAccess())
-					lineThreeBuffer.append('_');
-				else
-					lineThreeBuffer.append('#');
-				lineThreeBuffer.append('#');
+				} else if (maze[x][y].getPlace().getPlaceType() == worldType.getStandardPlace()) {
+					lineOneBuffer.append('-');
+				} else {
+					lineOneBuffer.append('*');
+				}
 			}
 
 			System.out.println(lineOneBuffer.toString());
 			lineOneBuffer = new StringBuilder("");
-			System.out.println(lineTwoBuffer.toString() + " " + y);
-			lineTwoBuffer = new StringBuilder("");
-			System.out.println(lineThreeBuffer.toString());
-			lineThreeBuffer = new StringBuilder("");
 		}
 	}
+	
+//	public static void printMaze(Cell[][] maze) {
+//		StringBuilder lineOneBuffer = new StringBuilder(""), lineTwoBuffer = new StringBuilder(""), lineThreeBuffer = new StringBuilder("");
+//		for (int y = maze[0].length - 1; y >= 0; y--) {
+//			for (int x = 0; x < maze.length; x++) {
+//				lineOneBuffer.append('#');
+//				if (maze[x][y].isNorthAccess())
+//					lineOneBuffer.append('-');
+//				else
+//					lineOneBuffer.append('#');
+//				lineOneBuffer.append('#');
+//
+//				if (maze[x][y].isWestAccess())
+//					lineTwoBuffer.append('-');
+//				else
+//					lineTwoBuffer.append('#');
+//				lineTwoBuffer.append('*');
+//
+//				if (maze[x][y].isEastAccess())
+//					lineTwoBuffer.append('-');
+//				else
+//					lineTwoBuffer.append('#');
+//
+//				lineThreeBuffer.append('#');
+//				if (maze[x][y].isSouthAccess())
+//					lineThreeBuffer.append('-');
+//				else
+//					lineThreeBuffer.append('#');
+//				lineThreeBuffer.append('#');
+//			}
+//
+//			System.out.println(lineOneBuffer.toString());
+//			lineOneBuffer = new StringBuilder("");
+//			System.out.println(lineTwoBuffer.toString() + " " + y);
+//			lineTwoBuffer = new StringBuilder("");
+//			System.out.println(lineThreeBuffer.toString());
+//			lineThreeBuffer = new StringBuilder("");
+//		}
+//	}
 
 }

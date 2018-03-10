@@ -433,9 +433,4 @@ public class ZaranixMaidKelly extends NPC {
 		return Spell.ARCANE_SHIELD;
 	}
 
-	@Override
-	public int getExperienceFromVictory() {
-		return 35;
-	}
-
 }

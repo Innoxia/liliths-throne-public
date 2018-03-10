@@ -15,7 +15,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.2.1
  * @author Innoxia
  */
 public enum VaginaType implements BodyPartTypeInterface {
@@ -27,6 +27,8 @@ public enum VaginaType implements BodyPartTypeInterface {
 	ANGEL(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_ANGEL, Race.ANGEL, OrificeModifier.MUSCLE_CONTROL),
 
 	DEMON_COMMON(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_DEMON, Race.DEMON, OrificeModifier.MUSCLE_CONTROL, OrificeModifier.TENTACLED),
+
+	IMP(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_IMP, Race.IMP, OrificeModifier.MUSCLE_CONTROL, OrificeModifier.TENTACLED),
 
 	DOG_MORPH(BodyCoveringType.VAGINA, FluidType.GIRL_CUM_DOG_MORPH, Race.DOG_MORPH),
 
@@ -128,6 +130,8 @@ public enum VaginaType implements BodyPartTypeInterface {
 						return UtilText.returnStringAtRandom("perfect");
 					case DEMON_COMMON:
 						return UtilText.returnStringAtRandom("irresistible", "demonic");
+					case IMP:
+						return UtilText.returnStringAtRandom("irresistible", "impish");
 					case DOG_MORPH:
 						return UtilText.returnStringAtRandom("hot", "animalistic", "dog-like", "canine");
 					case WOLF_MORPH:
@@ -137,7 +141,7 @@ public enum VaginaType implements BodyPartTypeInterface {
 					case COW_MORPH:
 						return UtilText.returnStringAtRandom("hot", "animalistic", "cow-like", "bovine");
 					case ALLIGATOR_MORPH:
-						return UtilText.returnStringAtRandom("hot", "gator-like", "reptilian");
+						return UtilText.returnStringAtRandom("hot", "alligator-like", "reptilian");
 					case HORSE_MORPH:
 						return UtilText.returnStringAtRandom("hot", "animalistic", "equine");
 					case REINDEER_MORPH:
@@ -148,9 +152,10 @@ public enum VaginaType implements BodyPartTypeInterface {
 						return UtilText.returnStringAtRandom("");
 					case HARPY:
 						return UtilText.returnStringAtRandom("hot", "bird-like", "avian");
-					default:
-						return UtilText.returnStringAtRandom("");
+					case SQUIRREL_MORPH:
+						return UtilText.returnStringAtRandom("hot", "squirrel-like", "rodent");
 				}
+				return "";
 			case 1:
 				if(Main.game.isInSex()) {
 					if(!Sex.getWetOrificeTypes(gc).get(OrificeType.VAGINA).isEmpty()) {
@@ -179,6 +184,8 @@ public enum VaginaType implements BodyPartTypeInterface {
 				return UtilText.returnStringAtRandom("canine");
 			case DEMON_COMMON:
 				return UtilText.returnStringAtRandom("demonic");
+			case IMP:
+				return UtilText.returnStringAtRandom("impish");
 			case HORSE_MORPH:
 				return UtilText.returnStringAtRandom("equine");
 			case REINDEER_MORPH:

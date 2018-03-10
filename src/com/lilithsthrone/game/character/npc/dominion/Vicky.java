@@ -20,6 +20,7 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.Attack;
@@ -56,7 +57,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.1.97
+ * @version 0.2.1
  * @author Innoxia
  */
 public class Vicky extends NPC {
@@ -160,30 +161,51 @@ public class Vicky extends NPC {
 		}
 		
 		if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-			for(int i=0; i<25+Util.random.nextInt(20);i++)
-				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_ARCANE), false);
-			for(int i=0; i<25+Util.random.nextInt(20);i++)
-				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_CAT_MORPH), false);
-			for(int i=0; i<25+Util.random.nextInt(20);i++)
-				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_DEMON), false);
-			for(int i=0; i<25+Util.random.nextInt(20);i++)
-				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_DOG_MORPH), false);
-			for(int i=0; i<25+Util.random.nextInt(20);i++)
-				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_HARPY), false);
-			for(int i=0; i<25+Util.random.nextInt(20);i++)
-				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_HORSE_MORPH), false);
-			for(int i=0; i<25+Util.random.nextInt(20);i++)
-				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_HUMAN), false);
-			for(int i=0; i<25+Util.random.nextInt(20);i++)
-				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_WOLF_MORPH), false);
-			for(int i=0; i<25+Util.random.nextInt(20);i++)
-				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_SQUIRREL_MORPH), false);
-			for(int i=0; i<25+Util.random.nextInt(20);i++)
-				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_COW_MORPH), false);
-			for(int i=0; i<25+Util.random.nextInt(20);i++)
-				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_ALLIGATOR_MORPH), false);
-			for(int i=0; i<25+Util.random.nextInt(20);i++)
-				this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_REINDEER_MORPH), false);
+			this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_ARCANE), false);
+			for(Race r : Race.values()) {
+				switch(r) {
+					case ALLIGATOR_MORPH:
+						this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_ALLIGATOR_MORPH), false);
+						break;
+					case ANGEL:
+						break;
+					case CAT_MORPH:
+						this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_CAT_MORPH), false);
+						break;
+					case COW_MORPH:
+						this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_COW_MORPH), false);
+						break;
+					case DEMON:
+						this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_DEMON), false);
+						break;
+					case DOG_MORPH:
+						this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_DOG_MORPH), false);
+						break;
+					case HARPY:
+						this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_HARPY), false);
+						break;
+					case HORSE_MORPH:
+						this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_HORSE_MORPH), false);
+						break;
+					case HUMAN:
+						this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_HUMAN), false);
+						break;
+					case IMP:
+						this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_IMP), false);
+						break;
+					case REINDEER_MORPH:
+						this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_REINDEER_MORPH), false);
+						break;
+					case SLIME:
+						break;
+					case SQUIRREL_MORPH:
+						this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_SQUIRREL_MORPH), false);
+						break;
+					case WOLF_MORPH:
+						this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_WOLF_MORPH), false);
+						break;
+				}
+			}
 		}
 	}
 	
@@ -264,11 +286,6 @@ public class Vicky extends NPC {
 	@Override
 	public Attack attackType() {
 		return null; // You never fight
-	}
-
-	@Override
-	public int getExperienceFromVictory() {
-		return 0;
 	}
 	
 	// Sex:

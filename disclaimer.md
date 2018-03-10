@@ -7,6 +7,7 @@ All of the characters that appear in the game are fictional entities who have gi
 If you find yourself concerned for the characters in the game then please be reassured that they are all consenting adults who are speaking lines from a script.
 None of the characters portrayed within this game were, or are, being harmed in any way during the construction or execution of the game.
 Every character in the game is at least 18 years of age (or is magically the legal age required to appear in erotic media in whatever country you are in).
+No character in this game is blood-related to any other; once again, they are simply speaking lines from a script.
 
 By choosing to play this game, or view this source code, you are agreeing to be exposed to graphic sexual and adult content that is presented as part of the game's fictional universe.
 Such content consists of, but is not limited to; graphic depictions of sex, inter-species sex (with fantasy sentient creatures), sexual transformation,
@@ -15,7 +16,7 @@ rape fantasy/implied lack of consent, mild physical violence, sexual violence an
 Extreme fetish content such as guro/extreme violence, scat, and under/questionable age, is not, and will never be, a part of this game.
 
 By playing this game, or choosing to view this source code, you also agree that you are at least 18 years of age (or the legal age for you to purchase and view pornographic material in your country).
-   
+
 This game has been made in the spirit of creating a piece of artistic interactive literature.
 
 If you do not wish to be exposed to such content as described above, please refrain from playing this game and do not read any of the source code.

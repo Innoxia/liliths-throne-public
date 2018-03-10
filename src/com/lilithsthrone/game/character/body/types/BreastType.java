@@ -11,7 +11,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
  * body skin.
  * 
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.2.1
  * @author Innoxia
  */
 public enum BreastType implements BodyPartTypeInterface {
@@ -20,6 +20,8 @@ public enum BreastType implements BodyPartTypeInterface {
 	ANGEL(NippleType.ANGEL, FluidType.MILK_ANGEL, BodyCoveringType.ANGEL, Race.ANGEL),
 
 	DEMON_COMMON(NippleType.DEMON_COMMON, FluidType.MILK_DEMON_COMMON, BodyCoveringType.DEMON_COMMON, Race.DEMON),
+	
+	IMP(NippleType.IMP, FluidType.MILK_IMP, BodyCoveringType.IMP, Race.IMP),
 
 	DOG_MORPH(NippleType.DOG_MORPH, FluidType.MILK_DOG_MORPH, BodyCoveringType.CANINE_FUR, Race.DOG_MORPH),
 	

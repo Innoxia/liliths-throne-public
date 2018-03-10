@@ -118,9 +118,4 @@ public class Arthur extends NPC {
 		return null; // You never fight
 	}
 
-	@Override
-	public int getExperienceFromVictory() {
-		return 0;
-	}
-
 }

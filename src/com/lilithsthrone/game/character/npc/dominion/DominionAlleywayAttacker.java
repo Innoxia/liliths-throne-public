@@ -21,7 +21,6 @@ import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Attack;
-import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
@@ -95,7 +94,6 @@ public class DominionAlleywayAttacker extends NPC {
 			for(Subspecies s : Subspecies.values()) {
 				switch(s) {
 					case ALLIGATOR_MORPH:
-						addToSubspeciesMap(5, gender, s, availableRaces);
 						break;
 					case ANGEL:
 						break;
@@ -106,6 +104,10 @@ public class DominionAlleywayAttacker extends NPC {
 						addToSubspeciesMap(10, gender, s, availableRaces);
 						break;
 					case DEMON:
+						break;
+					case IMP:
+						break;
+					case IMP_ALPHA:
 						break;
 					case DOG_MORPH:
 						addToSubspeciesMap(20, gender, s, availableRaces);
@@ -121,6 +123,18 @@ public class DominionAlleywayAttacker extends NPC {
 					case HUMAN:
 						break;
 					case SLIME:
+					case SLIME_ALLIGATOR:
+					case SLIME_ANGEL:
+					case SLIME_CAT:
+					case SLIME_COW:
+					case SLIME_DEMON:
+					case SLIME_DOG:
+					case SLIME_HARPY:
+					case SLIME_HORSE:
+					case SLIME_IMP:
+					case SLIME_REINDEER:
+					case SLIME_SQUIRREL:
+					case SLIME_WOLF:
 						break;
 					case REINDEER_MORPH:
 						if(Main.game.getSeason()==Season.WINTER && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter)) {
@@ -221,6 +235,11 @@ public class DominionAlleywayAttacker extends NPC {
 	
 			CharacterUtils.equipClothing(this, true, false);
 			CharacterUtils.applyMakeup(this, true);
+			
+			// Set starting attributes based on the character's race
+			for (Attribute a : RacialBody.valueOfRace(species.getRace()).getAttributeModifiers().keySet()) {
+				attributes.put(a, RacialBody.valueOfRace(species.getRace()).getAttributeModifiers().get(a).getMinimum() + RacialBody.valueOfRace(species.getRace()).getAttributeModifiers().get(a).getRandomVariance());
+			}
 			
 			setMana(getAttributeValue(Attribute.MANA_MAXIMUM));
 			setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM));
@@ -330,7 +349,7 @@ public class DominionAlleywayAttacker extends NPC {
 	@Override
 	public Attack attackType() {
 		if(!getSpecialAttacks().isEmpty()) {
-			if (Math.random() < 0.2 && Combat.getTargetedCombatant(this).getLust()<100) {
+			if (Math.random() < 0.2) {
 				return Attack.SEDUCTION;
 			} else if (Math.random() < 0.8) {
 				return Attack.MAIN;
@@ -339,7 +358,7 @@ public class DominionAlleywayAttacker extends NPC {
 			}
 			
 		} else {
-			if (Math.random() < 0.7 || Combat.getTargetedCombatant(this).getLust()>=100) {
+			if (Math.random() < 0.7) {
 				return Attack.MAIN;
 			} else {
 				return Attack.SEDUCTION;

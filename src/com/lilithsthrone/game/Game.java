@@ -483,9 +483,11 @@ public class Game implements Serializable, XMLSaving {
 				for(int i=0; i<((Element) gameElement.getElementsByTagName("maps").item(0)).getElementsByTagName("world").getLength(); i++){
 					
 					Element e = (Element) ((Element) gameElement.getElementsByTagName("maps").item(0)).getElementsByTagName("world").item(i);
-					World world = World.loadFromXML(e, doc);
+					if(!e.getAttribute("worldType").equals("SEWERS") || !Main.isVersionOlderThan(version, "0.2.0.5")) {
+						World world = World.loadFromXML(e, doc);
+						newGame.worlds.put(world.getWorldType(), world);
+					}
 					
-					newGame.worlds.put(world.getWorldType(), world);
 				}
 				
 				// Add missing world types:
@@ -493,6 +495,9 @@ public class Game implements Serializable, XMLSaving {
 					Generation gen = new Generation();
 					if(Main.isVersionOlderThan(version, "0.1.99.5")) {
 						gen.worldGeneration(WorldType.SHOPPING_ARCADE);
+					}
+					if(Main.isVersionOlderThan(version, "0.2.0.5")) {
+						gen.worldGeneration(WorldType.SUBMISSION);
 					}
 					if(newGame.worlds.get(wt)==null) {
 						gen.worldGeneration(wt);
@@ -874,26 +879,22 @@ public class Game implements Serializable, XMLSaving {
 		// Apply status effects and update all NPCs:
 		isInNPCUpdateLoop = true;
 		
-		// Remove Dominion attackers if they aren't in alleyways: TODO this is because storm attackers need to be removed after a storm
 		for(NPC npc : NPCMap.values()) {
+			// Remove Dominion attackers if they aren't in alleyways: TODO this is because storm attackers need to be removed after a storm
 			if(npc.getLocationPlace().getPlaceType() != PlaceType.DOMINION_BACK_ALLEYS
 					&& npc.getWorldLocation() == WorldType.DOMINION
 					&& npc instanceof DominionAlleywayAttacker
 					&& !Main.game.getPlayer().getLocation().equals(npc.getLocation())) {
 						banishNPC(npc);
 					}
-			if(!Main.game.getPlayer().getLocation().equals(npc.getLocation())) {
+			
+			// Set NPC resource values:
+			if(!Main.game.getPlayer().getLocation().equals(npc.getLocation()) && !Main.game.isInCombat() && !Main.game.isInSex()) {
 				npc.setHealthPercentage(1);
 				npc.setManaPercentage(1);
-				if(npc.hasStatusEffect(StatusEffect.WEATHER_STORM_VULNERABLE)) {
-					npc.setLust((int) (75+(Math.random()*15)));
-				} else {
-					npc.setLust((int) ((npc.getAttributeValue(Attribute.MAJOR_CORRUPTION)/2)*(0.8f+(Math.random()*0.4f))));
-				}
+				npc.alignLustToRestingLust(turnTime);
 			}
-		}
-		
-		for (NPC npc : NPCMap.values()) {
+			
 			npc.calculateStatusEffects(turnTime);
 			
 			if((npc.isPendingClothingDressing()
@@ -964,11 +965,14 @@ public class Game implements Serializable, XMLSaving {
 		// If not in combat:
 		if (!isInCombat()) {
 			// Regenerate health and stamina over time:
-			if (!inSex && !currentDialogueNode.isRegenerationDisabled()) {
-				if (Main.game.getPlayer().getHealthPercentage() < 1)
+			if (!isInSex() && !currentDialogueNode.isRegenerationDisabled()) {
+				if (Main.game.getPlayer().getHealthPercentage() < 1) {
 					Main.game.getPlayer().incrementHealth(turnTime * 0.1f);
-				if (Main.game.getPlayer().getManaPercentage() < 1)
+				}
+				if (Main.game.getPlayer().getManaPercentage() < 1) {
 					Main.game.getPlayer().incrementMana(turnTime * 0.1f);
+				}
+				Main.game.getPlayer().alignLustToRestingLust(turnTime);
 			}
 		}
 		if(Main.game.getCurrentDialogueNode()!=MiscDialogue.STATUS_EFFECTS) {
@@ -1535,6 +1539,7 @@ public class Game implements Serializable, XMLSaving {
 		for(int i=-1; i>-6; i--) {
 			if(currentDialogueNode.getResponseTabTitle(responseTab+i)!=null) {
 				responseTab+=i;
+				checkForResponsePage();
 				return true;
 			}
 		}
@@ -1545,6 +1550,7 @@ public class Game implements Serializable, XMLSaving {
 		for(int i=1; i<6; i++) {
 			if(currentDialogueNode.getResponseTabTitle(responseTab+i)!=null) {
 				responseTab+=i;
+				checkForResponsePage();
 				return true;
 			}
 		}
@@ -2613,6 +2619,7 @@ public class Game implements Serializable, XMLSaving {
 
 	public void setResponseTab(int responseTab) {
 		this.responseTab = responseTab;
+		checkForResponsePage();
 	}
 
 	public DialogueNodeOld getSavedDialogueNode() {
