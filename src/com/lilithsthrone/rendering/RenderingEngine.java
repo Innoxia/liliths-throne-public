@@ -17,7 +17,6 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.LustLevel;
-import com.lilithsthrone.game.character.attributes.BladderLevel;
 import com.lilithsthrone.game.character.attributes.PhysiqueLevel;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;

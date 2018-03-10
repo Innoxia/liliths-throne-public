@@ -34,21 +34,21 @@ public enum BladderLevel {
 		}
 	},
 
-	THREE_MAY_WANT_TO_GO("predisposed", 50, 80, 1.25f, Colour.BLADDER_STAGE_THREE) {
+	THREE_MAY_WANT_TO_GO("predisposed", 50, 70, 1.25f, Colour.BLADDER_STAGE_THREE) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.BLADDER_PERK_3;
 		}
 	},
 
-	FOUR_NEED_TO_GO("urged", 80, 95, 1.5f, Colour.BLADDER_STAGE_FOUR) {
+	FOUR_NEED_TO_GO("urged", 70, 90, 1.5f, Colour.BLADDER_STAGE_FOUR) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.BLADDER_PERK_4;
 		}
 	},
 
-	FIVE_BARELY_HOLD_IT("bursting", 95, 100, 1.5f, Colour.BLADDER_STAGE_FIVE) {
+	FIVE_BARELY_HOLD_IT("bursting", 90, 100, 1.5f, Colour.BLADDER_STAGE_FIVE) {
 		@Override
 		public StatusEffect getRelatedStatusEffect() {
 			return StatusEffect.BLADDER_PERK_5;
