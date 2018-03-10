@@ -86,6 +86,7 @@ public enum SexPositionSlot {
 	COWGIRL_ON_BACK("Cowgirl (on back)",
 			Util.newArrayListOfValues(
 					new ListValue<>(OrgasmCumTarget.GROIN),
+					new ListValue<>(OrgasmCumTarget.SELF_STOMACH),
 					new ListValue<>(OrgasmCumTarget.FLOOR))),
 	
 	COWGIRL_RIDING("Cowgirl (riding)",
@@ -106,6 +107,7 @@ public enum SexPositionSlot {
 	
 	SIXTY_NINE_BOTTOM("Sixty-nine (bottom)",
 			Util.newArrayListOfValues(
+					new ListValue<>(OrgasmCumTarget.SELF_STOMACH),
 					new ListValue<>(OrgasmCumTarget.FACE),
 					new ListValue<>(OrgasmCumTarget.BREASTS),
 					new ListValue<>(OrgasmCumTarget.HAIR),
@@ -153,7 +155,9 @@ public enum SexPositionSlot {
 	CHAIR_BOTTOM("Sitting",
 			Util.newArrayListOfValues(
 					new ListValue<>(OrgasmCumTarget.STOMACH),
-					new ListValue<>(OrgasmCumTarget.GROIN))),
+					new ListValue<>(OrgasmCumTarget.GROIN),
+					new ListValue<>(OrgasmCumTarget.SELF_STOMACH),
+					new ListValue<>(OrgasmCumTarget.FLOOR))),
 	
 	/* Stocks */
 	
@@ -185,6 +189,7 @@ public enum SexPositionSlot {
 			Util.newArrayListOfValues(
 					new ListValue<>(OrgasmCumTarget.GROIN),
 					new ListValue<>(OrgasmCumTarget.STOMACH),
+					new ListValue<>(OrgasmCumTarget.SELF_STOMACH),
 					new ListValue<>(OrgasmCumTarget.FLOOR))),
 	
 	MISSIONARY_KNEELING_BETWEEN_LEGS("Kneeling between legs",
@@ -240,6 +245,7 @@ public enum SexPositionSlot {
 	
 	MISSIONARY_DESK_SUB_VICKY("Lying on counter",
 			Util.newArrayListOfValues(
+					new ListValue<>(OrgasmCumTarget.SELF_STOMACH),
 					new ListValue<>(OrgasmCumTarget.GROIN),
 					new ListValue<>(OrgasmCumTarget.LEGS),
 					new ListValue<>(OrgasmCumTarget.FLOOR))),
@@ -265,6 +271,7 @@ public enum SexPositionSlot {
 			Util.newArrayListOfValues(
 					new ListValue<>(OrgasmCumTarget.GROIN),
 					new ListValue<>(OrgasmCumTarget.LEGS),
+					new ListValue<>(OrgasmCumTarget.SELF_STOMACH),
 					new ListValue<>(OrgasmCumTarget.FLOOR))),
 
 	MISSIONARY_ALTAR_STANDING_BETWEEN_LEGS("Between legs",
@@ -285,6 +292,7 @@ public enum SexPositionSlot {
 			Util.newArrayListOfValues(
 					new ListValue<>(OrgasmCumTarget.GROIN),
 					new ListValue<>(OrgasmCumTarget.LEGS),
+					new ListValue<>(OrgasmCumTarget.SELF_STOMACH),
 					new ListValue<>(OrgasmCumTarget.FLOOR))),
 
 	MISSIONARY_ALTAR_SEALED_STANDING_BETWEEN_LEGS("Between legs",

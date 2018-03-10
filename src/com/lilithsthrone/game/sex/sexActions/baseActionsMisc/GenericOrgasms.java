@@ -1132,6 +1132,22 @@ public class GenericOrgasms {
 					}
 				case WALL:
 					return " all up the wall.";
+				case SELF_STOMACH:
+					target = characterOrgasming;
+					if (target.getHighestZLayerCoverableArea(CoverableArea.STOMACH)!=null) {
+						return getClothingCummedOnText(characterOrgasming, target, CoverableArea.STOMACH);
+					} else {
+						if(characterOrgasming.isPlayer()) {
+							return UtilText.parse(characterOrgasming,
+									" all over your stomach."
+									+ " You can't help but let out [pc.a_moan] as you feel it running down over your [pc.skin].");
+						} else {
+							return UtilText.parse(characterOrgasming,
+									" all over [npc.her] stomach."
+									+ " [npc.She] can't help but let out [npc.a_moan] as [npc.she] feels it running down over [npc.her] [npc.skin].");
+							
+						}
+					}
 			}
 			
 			// Continued description for cumming inside:
@@ -2057,6 +2073,50 @@ public class GenericOrgasms {
 		@Override
 		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
 			if(cumProvider.isPlayer() && cumTarget.equals(Sex.getTargetedPartner(Main.game.getPlayer()))) {
+				return Util.newArrayListOfValues(
+						new ListValue<>(CoverableArea.STOMACH));
+			}
+			return null; 
+		}
+	};
+	
+	public static final SexAction PLAYER_GENERIC_ORGASM_SELF_STOMACH = new SexAction(PLAYER_GENERIC_ORGASM_FLOOR) {
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Main.game.getPlayer().hasPenis()
+					&& Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS)
+					&& !Main.game.getPlayer().isWearingCondom()
+					&& Sex.getSexPositionSlot(Main.game.getPlayer()).getAvailableCumTargets().contains(OrgasmCumTarget.SELF_STOMACH);
+		}
+		
+		@Override
+		public String getActionTitle() {
+			if(!Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), PenetrationType.PENIS).isEmpty()) {
+				return "Pull out (own stomach)";
+			}
+			return "Cum on your stomach";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto your stomach.";
+		}
+
+		@Override
+		public String getDescription() {
+			return getGenericOrgasmDescription(Main.game.getPlayer(), OrgasmCumTarget.SELF_STOMACH);
+		}
+
+		@Override
+		public void applyEffects() {
+			// Pull out:
+			PLAYER_GENERIC_ORGASM_FLOOR.applyEffects();
+		}
+
+		@Override
+		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(cumProvider.isPlayer() && cumTarget.isPlayer()) {
 				return Util.newArrayListOfValues(
 						new ListValue<>(CoverableArea.STOMACH));
 			}
@@ -3082,6 +3142,47 @@ public class GenericOrgasms {
 						new ListValue<>(CoverableArea.STOMACH));
 			}
 			return null; 
+		}
+	};
+	
+	public static final SexAction PARTNER_GENERIC_ORGASM_SELF_STOMACH = new SexAction(PARTNER_GENERIC_ORGASM_FLOOR) {
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return isGenericPartnerCumTargetRequirementsMet() && Sex.getSexPositionSlot(Sex.getActivePartner()).getAvailableCumTargets().contains(OrgasmCumTarget.SELF_STOMACH);
+		}
+		
+		@Override
+		public String getActionTitle() {
+			if(!Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), PenetrationType.PENIS).isEmpty()) {
+				return "Pull out (own stomach)";
+			}
+			return "Cum on your stomach";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto your stomach.";
+		}
+
+		@Override
+		public String getDescription() {
+			return getGenericOrgasmDescription(Sex.getActivePartner(), OrgasmCumTarget.SELF_STOMACH);
+		}
+
+		@Override
+		public void applyEffects() {
+			// Pull out:
+			PARTNER_GENERIC_ORGASM_FLOOR.applyEffects();
+		}
+
+		@Override
+		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
+	//		if(cumTarget.equals(Sex.getActivePartner())) {
+				return Util.newArrayListOfValues(
+						new ListValue<>(CoverableArea.STOMACH));
+	//		}
+	//		return null; 
 		}
 	};
 	
