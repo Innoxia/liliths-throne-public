@@ -243,7 +243,7 @@
 	</p>
 	<p>
 		An excited little squeak bursts out from between Nyan's lips, causing her to instinctively clasp her paw-like hands over her mouth,
-		 [nyan.speech(Eep! T-Thank you s-so much [pc.name]!)]
+		 [nyan.speech(Eep! T-Thank you s-so much, [pc.name]!)]
 	</p>
 	<p>
 		You smile at Nyan's genuine reaction to the news, which unintentionally makes matters worse for the nervous cat-girl.
@@ -263,12 +263,12 @@
 		 [nyan.speech(A-And I c-can give y-you a t-twenty-five percent d-discount too!)]
 	</p>
 	<p>
-		[pc.speech(Thank you Nyan,)]
+		[pc.speech(Thank you, Nyan,)]
 		 you reply, smiling,
 		 [pc.speech(I'm just happy to have helped!)]
 	</p>
 	<p>
-		[nyan.speech(I-I really a-appreciate it [pc.name],)]
+		[nyan.speech(I-I really a-appreciate it, [pc.name],)]
 		 Nyan stammers, looking at the ground,
 		 [nyan.speech(I-I d-don't have a-a [pc.girlfriend] o-or anything...)]
 	</p>
