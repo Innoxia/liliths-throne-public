@@ -147,7 +147,7 @@
 		As you look around Nyan's stockroom, you can't help but notice the fact that all of her wares are very 'ordinary'.
 		 You expected to see at least one or two items of enchanted or unusual clothing, but there's nothing of that sort on any of the shelves.
 		 Turning to the nervous cat-girl who's hovering at your side, you ask her about this state of affairs,
-		 [pc.speech(You don't happen to have any enchanted clothing hidden away somewhere, do you Nyan? You've got a good selection stored back here, but I was looking for something a little special.)]
+		 [pc.speech(You don't happen to have any enchanted clothing hidden away somewhere, do you, Nyan? You've got a good selection stored back here, but I was looking for something a little special.)]
 	</p>
 	<p>
 		[nyan.speech(Ah! W-Well, erm, you see, ah, I-I used to, but then they said they wouldn't be offering any, a-and they'd already driven the others away, s-so I can't really get anything like that anymore,)]
@@ -155,7 +155,7 @@
 		  [nyan.speech(s-so I'm really sorry, b-but no...)]
 	</p>
 	<p>
-		[pc.speech(Slow down Nyan,)]
+		[pc.speech(Slow down, Nyan,)]
 		 you say, trying to calm her down,
 		 [pc.speech(I don't fully understand.
 		  Who are 'they', and who are these others that they drove away?)]
@@ -187,7 +187,7 @@
 	</p>
 	<p>
 		Sensing that Nyan is on the verge of a panic attack, you decide that it would be best to drop the subject for the moment,
-		 [pc.speech(Thank you for telling me about it Nyan, but we should carry on looking at the clothing you've got in here, ok?)]
+		 [pc.speech(Thank you for telling me about it, Nyan, but we should carry on looking at the clothing you've got in here, ok?)]
 	</p>
 	<p>
 		Nyan lets out a relieved sigh as she casts her eyes down at her clipboard, clearly grateful for the fact that you're dropping the subject for now.
@@ -225,12 +225,12 @@
 		 E-Even the Arcade owners are scared to m-make them tidy it up...)]
 	</p>
 	<p>
-		[pc.speech(Thanks Nyan. I'll get all of this sorted out soon, don't you worry!)]
+		[pc.speech(Thanks, Nyan. I'll get all of this sorted out soon, don't you worry!)]
 	</p>
 	<p>
 		[nyan.speech(Mhmm,)]
 		 Nyan mumbles, blushing a little as she looks to the floor,
-		 [nyan.speech(T-Thank you [pc.name]... Y-You're so... k-kind...)]
+		 [nyan.speech(T-Thank you, [pc.name]... Y-You're so... k-kind...)]
 	</p>
 	]]>
 	</htmlContent>
