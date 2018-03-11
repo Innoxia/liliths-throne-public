@@ -9815,6 +9815,21 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return body.getAllBodyParts();
 	}
 	
+	public String homeostasis() {
+		String ret = "";
+		float bonus = getBonusAttributeValue(Attribute.BLADDER);
+		float increment = getRace().getUresis(getAttributeValue(Attribute.BLADDER_PRESSURE));
+		if (bonus + increment > 100) {
+			addDirtySlot(InventorySlot.GROIN);
+			addDirtySlot(InventorySlot.LEG);
+			ret = "<p><b style='color:" + Colour.CUMMED + ";'>you just peed your pants.</b></p>";
+			increment = -bonus;
+		}
+		incrementBonusAttribute(Attribute.BLADDER, increment);
+		// TODO: hunger, thirst.
+		return ret;
+	}
+
 	private class GenderAppearance {
 		public String description;
 		public Gender gender;

@@ -664,7 +664,7 @@ public class PhoneDialogue {
 								true)
 						+ statRow(Colour.TRANSFORMATION_GENERIC, "Bladder pressure",
 								Colour.TEXT, String.valueOf(Main.game.getPlayer().getBladder()),
-								Colour.GENERIC_SEX, Main.game.getPlayer().getBladderLevel().name(), true))
+								Colour.GENERIC_SEX, Main.game.getPlayer().getBladderLevel().getCName(), true))
 
 					+ (Main.game.getPlayer().getVaginaType() == VaginaType.NONE ? "" :
 						"<span style='height:16px;width:100%;float:left;'></span>"
@@ -694,7 +694,7 @@ public class PhoneDialogue {
 						+ (Main.game.getPlayer().getPenisType() != PenisType.NONE ? "" :
 							statRow(Colour.TRANSFORMATION_GENERIC, "Bladder pressure",
 								Colour.TEXT, String.valueOf(Main.game.getPlayer().getBladder()),
-								Colour.GENERIC_SEX, Main.game.getPlayer().getBladderLevel().name(), true)))
+								Colour.GENERIC_SEX, Main.game.getPlayer().getBladderLevel().getCName(), true)))
 					
 					+ "<span style='height:16px;width:100%;float:left;'></span>"
 					+ "<h6 style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+"; text-align:center;'>Anus Attributes</h6>"

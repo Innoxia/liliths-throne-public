@@ -70,7 +70,8 @@ public enum StatusEffect {
 			false,
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, -15f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -15f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -15f),
+					new Value<Attribute, Float>(Attribute.BLADDER_PRESSURE, 3f)),
 			null) {
 		
 		@Override
@@ -1988,7 +1989,7 @@ public enum StatusEffect {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
+			return target.homeostasis();
 		}
 
 		@Override
@@ -2018,7 +2019,7 @@ public enum StatusEffect {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
+			return target.homeostasis();
 		}
 
 		@Override
@@ -2051,7 +2052,7 @@ public enum StatusEffect {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
+			return target.homeostasis();
 		}
 
 		@Override
@@ -2088,7 +2089,7 @@ public enum StatusEffect {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
+			return target.homeostasis();
 		}
 
 		@Override
@@ -2126,7 +2127,7 @@ public enum StatusEffect {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
+			return target.homeostasis();
 		}
 
 		@Override
@@ -2163,7 +2164,7 @@ public enum StatusEffect {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
+			return target.homeostasis();
 		}
 
 		@Override
@@ -2198,7 +2199,7 @@ public enum StatusEffect {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
+			return target.homeostasis();
 		}
 
 		@Override
@@ -2234,7 +2235,7 @@ public enum StatusEffect {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
+			return target.homeostasis();
 		}
 
 		@Override
@@ -2270,7 +2271,7 @@ public enum StatusEffect {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
+			return target.homeostasis();
 		}
 
 		@Override
@@ -2305,7 +2306,7 @@ public enum StatusEffect {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
+			return target.homeostasis();
 		}
 
 		@Override
@@ -2342,7 +2343,7 @@ public enum StatusEffect {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
+			return target.homeostasis();
 		}
 
 		@Override
@@ -2378,7 +2379,7 @@ public enum StatusEffect {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
+			return target.homeostasis();
 		}
 
 		@Override
@@ -2416,7 +2417,7 @@ public enum StatusEffect {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
+			return target.homeostasis();
 		}
 
 		@Override
@@ -2453,7 +2454,7 @@ public enum StatusEffect {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
+			return target.homeostasis();
 		}
 
 		@Override
@@ -2484,7 +2485,7 @@ public enum StatusEffect {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			return "";
+			return target.homeostasis();
 		}
 
 		@Override
@@ -3234,7 +3235,8 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 2f),
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 10f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -5f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -5f),
+					new Value<Attribute, Float>(Attribute.BLADDER_PRESSURE, 1f)),
 			null) {
 
 		@Override
@@ -3275,7 +3277,8 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, 5f),
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 20f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -10f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -10f),
+					new Value<Attribute, Float>(Attribute.BLADDER_PRESSURE, 2f)),
 			null) {
 
 		@Override
@@ -3315,7 +3318,8 @@ public enum StatusEffect {
 			Util.newHashMapOfValues(
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 5f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -20f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -20f),
+					new Value<Attribute, Float>(Attribute.BLADDER_PRESSURE, 3f)),
 			null) {
 
 		@Override
@@ -3356,7 +3360,8 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -5f),
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -10f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, -5f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -20f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -20f),
+					new Value<Attribute, Float>(Attribute.BLADDER_PRESSURE, 4f)),
 			null) {
 
 		@Override
@@ -3397,7 +3402,8 @@ public enum StatusEffect {
 					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -10f),
 					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -15f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, -10f),
-					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f)),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -25f),
+					new Value<Attribute, Float>(Attribute.BLADDER_PRESSURE, 7f)),
 			null) {
 
 		@Override
@@ -4028,7 +4034,8 @@ public enum StatusEffect {
 			"pregnancy2",
 			Colour.GENERIC_ARCANE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 10f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 10f),
+					new Value<Attribute, Float>(Attribute.BLADDER_PRESSURE, 1f)),
 			null) {
 
 		@Override
@@ -4100,7 +4107,8 @@ public enum StatusEffect {
 			"pregnancy3",
 			Colour.GENERIC_ARCANE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 15f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 15f),
+					new Value<Attribute, Float>(Attribute.BLADDER_PRESSURE, 2f)),
 			null) {
 
 		@Override
@@ -4771,7 +4779,8 @@ public enum StatusEffect {
 			Colour.CUMMED,
 			false,
 			Util.newHashMapOfValues(
-					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f)),
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f),
+					new Value<Attribute, Float>(Attribute.BLADDER_PRESSURE, 0.3f)),
 			null) {
 		
 		@Override
@@ -4854,7 +4863,8 @@ public enum StatusEffect {
 			"cumInflation1",
 			Colour.GENERIC_ARCANE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -2f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -2f),
+					new Value<Attribute, Float>(Attribute.BLADDER_PRESSURE, 1f)),
 			null) {
 
 		@Override
@@ -4898,7 +4908,8 @@ public enum StatusEffect {
 			"cumInflation2",
 			Colour.GENERIC_ARCANE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -5f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -5f),
+					new Value<Attribute, Float>(Attribute.BLADDER_PRESSURE, 3f)),
 			null) {
 
 		@Override
@@ -4943,7 +4954,8 @@ public enum StatusEffect {
 			"cumInflation3",
 			Colour.GENERIC_ARCANE,
 			true,
-			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -10f)),
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -10f),
+					new Value<Attribute, Float>(Attribute.BLADDER_PRESSURE, 5f)),
 			null) {
 
 		@Override
@@ -6047,7 +6059,7 @@ public enum StatusEffect {
 			"potionEffects",
 			Colour.GENERIC_ARCANE,
 			false,
-			null,
+			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.BLADDER_PRESSURE, 0.2f)),
 			null) {
 
 		@Override

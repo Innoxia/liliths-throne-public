@@ -2141,13 +2141,12 @@ public enum ItemEffectType {
 
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			target.incrementBonusAttribute(Attribute.BLADDER_PRESSURE, 10);
 			return "<p style='text-align:center;'>"
 					+(target.isPlayer()
 						?"You're starting to feel the need to pee rising..."
 						:UtilText.parse(target, "[npc.Name] nervously looks around, guess she needs to pee..."))
-					+ "</br>"
-					+ target.addPotionEffect(Attribute.BLADDER, 10)
-					+"</p>";
+					+ "</br></p>";
 		}
 	},
 	// RACIAL:

@@ -3,6 +3,9 @@ package com.lilithsthrone.game.dialogue.places.dominion;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
+import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
+import com.lilithsthrone.game.inventory.item.AbstractItemType;
+import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 
@@ -42,6 +45,14 @@ public class Toilet {
 							+ "</p>");
 					}
 				};
+			} else if (index == 5) {
+				return new ResponseEffectsOnly("Diureticum", "Obtain diureticum."){
+					@Override
+					public void effects() {
+						Main.game.getPlayer().addItem(AbstractItemType.generateItem(ItemType.DIURETICUM), false, false);
+					}
+				};
+
 			} else {
 				return null;
 			}
@@ -64,8 +75,9 @@ public class Toilet {
 				return new Response("Pee", "Use the toilet.", HALL){
 					@Override
 					public void effects() {
-						Main.game.getPlayer().setAttribute(Attribute.BLADDER, 0f, false);
-						Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>You sit down and relieve yourself.</br></p>");
+						Main.game.getTextEndStringBuilder().append("<p style='text-align:center;'>You sit down and relieve yourself.</p>");
+						// FIXME: act on factor.
+						Main.game.getPlayer().incrementBonusAttribute(Attribute.BLADDER, -Main.game.getPlayer().getBonusAttributeValue(Attribute.BLADDER));
 					}
 				};
 			} else if (index == 0) {
