@@ -646,45 +646,55 @@ public class PhoneDialogue {
 							Colour.GENERIC_SEX, Util.capitaliseSentence(Main.game.getPlayer().getNipplePlasticity().getDescriptor()),
 							true)
 					
-					+ "<span style='height:16px;width:100%;float:left;'></span>"
-					+ "<h6 style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+"; text-align:center;'>Penis Attributes</h6>"
-					+ statHeader()
-					+ statRow(Colour.TRANSFORMATION_GENERIC, "Penis Size",
-							Colour.TEXT, Main.game.getPlayer().getPenisType() == PenisType.NONE ? "N/A" : String.valueOf(Main.game.getPlayer().getPenisRawSizeValue()),
-							Colour.GENERIC_SEX, Main.game.getPlayer().getPenisType() == PenisType.NONE ? "N/A" : Util.capitaliseSentence(Main.game.getPlayer().getPenisSize().getDescriptor()),
-							true)
-					+ statRow(Colour.TRANSFORMATION_GENERIC, "Testicle Size",
-							Colour.TEXT, Main.game.getPlayer().getPenisType() == PenisType.NONE ? "N/A" : String.valueOf(Main.game.getPlayer().getTesticleSize().getValue()),
-							Colour.GENERIC_SEX, Main.game.getPlayer().getPenisType() == PenisType.NONE ? "N/A" : Util.capitaliseSentence(Main.game.getPlayer().getTesticleSize().getDescriptor()),
-							false)
-					+ statRow(Colour.TRANSFORMATION_GENERIC, "Cum Production (mL)",
-							Colour.TEXT, Main.game.getPlayer().getPenisType() == PenisType.NONE ? "N/A" : String.valueOf(Main.game.getPlayer().getPenisRawCumProductionValue()),
-							Colour.GENERIC_SEX, Main.game.getPlayer().getPenisType() == PenisType.NONE ? "N/A" : Util.capitaliseSentence(Main.game.getPlayer().getPenisCumProduction().getDescriptor()),
-							true)
-					
-					+ "<span style='height:16px;width:100%;float:left;'></span>"
-					+ "<h6 style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+"; text-align:center;'>Vagina Attributes</h6>"
-					+ statHeader()
-					+ statRow(Colour.TRANSFORMATION_GENERIC, "Clitoris Size",
-							Colour.TEXT, Main.game.getPlayer().getVaginaType() == VaginaType.NONE ? "N/A" : String.valueOf(Main.game.getPlayer().getVaginaRawClitorisSizeValue()),
-							Colour.GENERIC_SEX, Main.game.getPlayer().getVaginaType() == VaginaType.NONE ? "N/A" : Util.capitaliseSentence(Main.game.getPlayer().getVaginaClitorisSize().getDescriptor()),
-							true)
-					+ statRow(Colour.TRANSFORMATION_GENERIC, "Wetness",
-							Colour.TEXT, Main.game.getPlayer().getVaginaType() == VaginaType.NONE ? "N/A" : String.valueOf(Main.game.getPlayer().getVaginaWetness().getValue()),
-							Colour.GENERIC_SEX, Main.game.getPlayer().getVaginaType() == VaginaType.NONE ? "N/A" : Util.capitaliseSentence(Main.game.getPlayer().getVaginaWetness().getDescriptor()),
-							false)
-					+ statRow(Colour.TRANSFORMATION_GENERIC, "Capacity (inches)",
-							Colour.TEXT, Main.game.getPlayer().getVaginaType() == VaginaType.NONE ? "N/A" : String.valueOf(Main.game.getPlayer().getVaginaRawCapacityValue()),
-							Colour.GENERIC_SEX, Main.game.getPlayer().getVaginaType() == VaginaType.NONE ? "N/A" : Util.capitaliseSentence(Main.game.getPlayer().getVaginaCapacity().getDescriptor()),
-							true)
-					+ statRow(Colour.TRANSFORMATION_GENERIC, "Elasticity",
-							Colour.TEXT, Main.game.getPlayer().getVaginaType() == VaginaType.NONE ? "N/A" : String.valueOf(Main.game.getPlayer().getVaginaElasticity().getValue()),
-							Colour.GENERIC_SEX, Main.game.getPlayer().getVaginaType() == VaginaType.NONE ? "N/A" : Util.capitaliseSentence(Main.game.getPlayer().getVaginaElasticity().getDescriptor()),
-							false)
-					+ statRow(Colour.TRANSFORMATION_GENERIC, "Plasticity",
-							Colour.TEXT, Main.game.getPlayer().getVaginaType() == VaginaType.NONE ? "N/A" : String.valueOf(Main.game.getPlayer().getVaginaPlasticity().getValue()),
-							Colour.GENERIC_SEX, Main.game.getPlayer().getVaginaType() == VaginaType.NONE ? "N/A" : Util.capitaliseSentence(Main.game.getPlayer().getVaginaPlasticity().getDescriptor()),
-							true)
+					+ (Main.game.getPlayer().getPenisType() == PenisType.NONE ? "" :
+						"<span style='height:16px;width:100%;float:left;'></span>"
+						+ "<h6 style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+"; text-align:center;'>Penis Attributes</h6>"
+						+ statHeader()
+						+ statRow(Colour.TRANSFORMATION_GENERIC, "Penis Size",
+								Colour.TEXT, String.valueOf(Main.game.getPlayer().getPenisRawSizeValue()),
+								Colour.GENERIC_SEX, Util.capitaliseSentence(Main.game.getPlayer().getPenisSize().getDescriptor()),
+								true)
+						+ statRow(Colour.TRANSFORMATION_GENERIC, "Testicle Size",
+								Colour.TEXT, String.valueOf(Main.game.getPlayer().getTesticleSize().getValue()),
+								Colour.GENERIC_SEX, Util.capitaliseSentence(Main.game.getPlayer().getTesticleSize().getDescriptor()),
+								false)
+						+ statRow(Colour.TRANSFORMATION_GENERIC, "Cum Production (mL)",
+								Colour.TEXT, String.valueOf(Main.game.getPlayer().getPenisRawCumProductionValue()),
+								Colour.GENERIC_SEX, Util.capitaliseSentence(Main.game.getPlayer().getPenisCumProduction().getDescriptor()),
+								true)
+						+ statRow(Colour.TRANSFORMATION_GENERIC, "Bladder pressure",
+								Colour.TEXT, String.valueOf(Main.game.getPlayer().getBladder()),
+								Colour.GENERIC_SEX, Main.game.getPlayer().getBladderLevel().name(), true))
+
+					+ (Main.game.getPlayer().getVaginaType() == VaginaType.NONE ? "" :
+						"<span style='height:16px;width:100%;float:left;'></span>"
+						+ "<h6 style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+"; text-align:center;'>Vagina Attributes</h6>"
+						+ statHeader()
+						+ statRow(Colour.TRANSFORMATION_GENERIC, "Clitoris Size",
+								Colour.TEXT, String.valueOf(Main.game.getPlayer().getVaginaRawClitorisSizeValue()),
+								Colour.GENERIC_SEX, Util.capitaliseSentence(Main.game.getPlayer().getVaginaClitorisSize().getDescriptor()),
+								true)
+						+ statRow(Colour.TRANSFORMATION_GENERIC, "Wetness",
+								Colour.TEXT, String.valueOf(Main.game.getPlayer().getVaginaWetness().getValue()),
+								Colour.GENERIC_SEX, Util.capitaliseSentence(Main.game.getPlayer().getVaginaWetness().getDescriptor()),
+								false)
+						+ statRow(Colour.TRANSFORMATION_GENERIC, "Capacity (inches)",
+								Colour.TEXT, String.valueOf(Main.game.getPlayer().getVaginaRawCapacityValue()),
+								Colour.GENERIC_SEX, Util.capitaliseSentence(Main.game.getPlayer().getVaginaCapacity().getDescriptor()),
+								true)
+						+ statRow(Colour.TRANSFORMATION_GENERIC, "Elasticity",
+								Colour.TEXT, String.valueOf(Main.game.getPlayer().getVaginaElasticity().getValue()),
+								Colour.GENERIC_SEX, Util.capitaliseSentence(Main.game.getPlayer().getVaginaElasticity().getDescriptor()),
+								false)
+						+ statRow(Colour.TRANSFORMATION_GENERIC, "Plasticity",
+								Colour.TEXT, String.valueOf(Main.game.getPlayer().getVaginaPlasticity().getValue()),
+								Colour.GENERIC_SEX, Util.capitaliseSentence(Main.game.getPlayer().getVaginaPlasticity().getDescriptor()),
+								true)
+						// If characters can ever have both a penis and a vagina, bladder pressure is only listed for the penis (above). 
+						+ (Main.game.getPlayer().getPenisType() != PenisType.NONE ? "" :
+							statRow(Colour.TRANSFORMATION_GENERIC, "Bladder pressure",
+								Colour.TEXT, String.valueOf(Main.game.getPlayer().getBladder()),
+								Colour.GENERIC_SEX, Main.game.getPlayer().getBladderLevel().name(), true)))
 					
 					+ "<span style='height:16px;width:100%;float:left;'></span>"
 					+ "<h6 style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+"; text-align:center;'>Anus Attributes</h6>"
