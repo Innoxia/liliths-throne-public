@@ -7,7 +7,7 @@
 	<p>
 		Wanting to talk with Nyan for a little while, you turn to face her and give her a smile.
 		 Shuffling about on the spot, the cat-girl's cheeks start to redden, and she mumbles,
-		 [nyan.speech(W-What is it [pc.name]?)]
+		 [nyan.speech(W-What is it, [pc.name]?)]
 	</p>
 	]]>
 	</htmlContent>
@@ -103,7 +103,7 @@
 	<p>
 		Nyan instantly blushes, and before she can stop herself, a happy little giggle escapes from her mouth.
 		 Tilting her head down a little, she looks up at you with her big, blue eyes, and stammers,
-		 [nyan.speech(T-Thank you [pc.name]! Y-You're so nice to me...)]
+		 [nyan.speech(T-Thank you, [pc.name]! Y-You're so nice to me...)]
 	</p>
 	]]>
 	</htmlContent>
