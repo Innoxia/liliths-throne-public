@@ -3191,11 +3191,11 @@ public class GenericOrgasms {
 
 		@Override
 		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
-	//		if(cumTarget.equals(Sex.getActivePartner())) {
+			if(cumProvider == Sex.getActivePartner()) {
 				return Util.newArrayListOfValues(
 						new ListValue<>(CoverableArea.STOMACH));
-	//		}
-	//		return null; 
+			}
+			return null;
 		}
 	};
 	
