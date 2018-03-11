@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.types.MouthType;
 import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
@@ -172,5 +173,19 @@ public class Mouth implements BodyPartInterface, Serializable {
 			}
 		}
 	}
+	public String savor(GameCharacter owner, FluidType fluid) {
+		return "<p>" + this.orificeMouth.addFluid(owner, fluid, false) + "</p>";
+	}
 	
+	public String drink(GameCharacter owner, FluidType fluid) {
+		return "<p>" + this.orificeMouth.addFluid(owner, fluid, true) + "</p>";
+	}
+
+	public String swallow(GameCharacter owner) {
+		return "<p>" + this.orificeMouth.swallow(owner) + "</p>";
+	}
+
+	public String spit(GameCharacter owner) {
+		return "<p>" + this.orificeMouth.spit(owner, -1) + "</p>";
+	}
 }

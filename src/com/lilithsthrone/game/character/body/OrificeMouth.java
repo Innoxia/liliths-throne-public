@@ -3,16 +3,22 @@ package com.lilithsthrone.game.character.body;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
+import java.util.Iterator;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.types.FluidType;
 import com.lilithsthrone.game.character.body.types.OrificeInterface;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
+import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
+import com.lilithsthrone.utils.Colour;
 
 public class OrificeMouth implements OrificeInterface, Serializable {
 	private static final long serialVersionUID = 1L;
@@ -24,6 +30,7 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 	protected float stretchedCapacity;
 	protected boolean virgin;
 	protected Set<OrificeModifier> orificeModifiers;
+	Map<FluidType, Integer> contents;
 
 	public OrificeMouth(int wetness, int capacity, int elasticity, int plasticity, boolean virgin, Collection<OrificeModifier> orificeModifiers) {
 		this.wetness = wetness;
@@ -409,6 +416,78 @@ public class OrificeMouth implements OrificeInterface, Serializable {
 		
 		// Catch:
 		return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
+	}
+
+	private String getContentsDescription()
+	{
+		switch (this.contents.size()) {
+		case 0:
+			return "";
+		case 1:
+			Entry<FluidType, Integer> f = this.contents.entrySet().iterator().next();
+			FluidType fluid = f.getKey();
+			return "<b style='color:"+fluid.getRace().getColour().toWebHexString()+";'>" + (f.getValue() > 1 ? "a lot of " : "the ") + fluid.name() + "</b>";
+		}
+		return "<b style='color:" + Colour.CUMMED + ";'>a mixture of fluids</b>";
+	}
+
+	public String addFluid(GameCharacter owner, FluidType fluid, boolean autoSwallow) {
+
+		String gulp = this.getContentsDescription();
+		String ret = "You now add some ";
+
+		if (gulp.isEmpty() || this.contents.containsKey(fluid) == false) {
+			this.contents.put(fluid, 1);
+		} else {
+			this.contents.put(fluid, this.contents.get(fluid) + 1);
+			ret += "more ";
+		}
+
+		ret += "<b style='color:" + fluid.getRace().getColour().toWebHexString() + ";'>"
+				+ fluid.name() + "</b> in your mouth" + (this.contents.size() > 1 ? " as well" : "") + ".";
+
+		int sum = 0;
+		for (Entry<FluidType, Integer> e : this.contents.entrySet())
+			sum += e.getValue();
+
+		if (sum > this.capacity + this.elasticity) // the mouth is full
+			ret += " But it is all too much to contain, as there is already " + gulp+ " in your mouth. "
+					+ (autoSwallow || Math.random()>=0.8 ? this.swallow(owner) : this.spit(owner, 1));
+		return ret;
+	}
+
+	public String swallow(GameCharacter owner) {
+		String gulp = this.getContentsDescription();
+		if (gulp.isEmpty())
+			return "You have nothing in your mouth.";
+
+		for (Entry<FluidType, Integer> e : this.contents.entrySet()) {
+			switch (e.getKey().getBaseType()) {
+				case CUM:
+				case GIRLCUM:
+					owner.addStatusEffect(StatusEffect.CREAMPIE_MOUTH, 10 * e.getValue());
+					break;
+				case MILK:
+			}
+		}
+		this.contents.clear();
+		return "You swallow " + gulp + " that you had in your mouth.";
+	}
+
+	public String spit(GameCharacter owner, int amount) {
+		String ret = "";
+
+		for(Iterator<Map.Entry<FluidType, Integer>> it = this.contents.entrySet().iterator(); it.hasNext(); ) {
+			Map.Entry<FluidType, Integer> entry = it.next();
+			int v = entry.getValue();
+			if(amount == -1 || v <= amount)
+				it.remove();
+			else
+				entry.setValue(v - amount);
+
+			owner.addStatusEffect(StatusEffect.BODY_CUM, 10 * v);
+		}
+		return ret;
 	}
 
 	public Set<OrificeModifier> getOrificeModifiers() {
