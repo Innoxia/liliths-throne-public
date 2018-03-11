@@ -1133,9 +1133,8 @@ public class GenericOrgasms {
 				case WALL:
 					return " all up the wall.";
 				case SELF_STOMACH:
-					target = characterOrgasming;
-					if (target.getHighestZLayerCoverableArea(CoverableArea.STOMACH)!=null) {
-						return getClothingCummedOnText(characterOrgasming, target, CoverableArea.STOMACH);
+					if (characterOrgasming.getHighestZLayerCoverableArea(CoverableArea.STOMACH)!=null) {
+						return getClothingCummedOnText(characterOrgasming, CoverableArea.STOMACH);
 					} else {
 						if(characterOrgasming.isPlayer()) {
 							return UtilText.parse(characterOrgasming,
@@ -1352,6 +1351,20 @@ public class GenericOrgasms {
 					" all over your "+target.getHighestZLayerCoverableArea(area).getName()+"."
 					+ " [npc1.Name] grins as [npc1.her] [npc1.cum+] splatters onto your clothing, making a mess of your outfit.");
 		}
+	}
+
+	private static String getClothingCummedOnText(GameCharacter characterOrgasming, CoverableArea area) {
+			if(characterOrgasming.isPlayer()) {
+				return UtilText.parse(characterOrgasming,
+						" all over your "+characterOrgasming.getHighestZLayerCoverableArea(area).getName()+"."
+								+ " You give a lusty [pc.moan+] as your [pc.cum+] splatters onto your clothing,"
+								+ " making a mess of your outfit.");
+			} else {
+				return UtilText.parse(characterOrgasming,
+						" all over [npc.her] "+characterOrgasming.getHighestZLayerCoverableArea(area).getName()+"."
+								+ " [npc.She] give a lusty [npc.moan+] as [npc.her] [npc.cum+] splatters onto"
+								+ " [npc.her] clothing, making a mess of [npc.her] outfit.");
+			}
 	}
 	
 	private static String getInflationText(GameCharacter characterOrgasming, GameCharacter target, int cumAmount) {
