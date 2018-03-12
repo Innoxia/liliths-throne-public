@@ -49,14 +49,16 @@ public class GenericOrgasms {
 	}
 
 	private static boolean isGenericPartnerCumTargetRequirementsMet() {
-		return Sex.getActivePartner().hasPenis()
-				&& Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.PENIS)
-				&& !Sex.getActivePartner().isWearingCondom()
-				&& (isActiveNPCObeyingPlayer()
-						?(!SexFlags.playerRequestedCreampie
-								&& !Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), PenetrationType.PENIS).isEmpty()
-								&& Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), PenetrationType.PENIS).get(0).isPlayer())
-						:true);
+		if(!Sex.getActivePartner().hasPenis())
+			return false;
+		if(!Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.PENIS))
+			return false;
+		if(Sex.getActivePartner().isWearingCondom())
+			return false;
+		if(isActiveNPCObeyingPlayer()
+				&& SexFlags.playerRequestedCreampie)
+			return false;
+		return true;
 	}
 	
 	private static String getPositionPreparation(GameCharacter characterOrgasming) {
