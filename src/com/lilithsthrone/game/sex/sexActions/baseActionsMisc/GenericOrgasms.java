@@ -1138,12 +1138,12 @@ public class GenericOrgasms {
 					} else {
 						if(characterOrgasming.isPlayer()) {
 							return UtilText.parse(characterOrgasming,
-									" all over your stomach."
-									+ " You can't help but let out [pc.a_moan] as you feel it running down over your [pc.skin].");
+									" all over your stomach. You can't help but let out [pc.a_moan] as you feel it running"
+											+ " down over your [pc.skin].");
 						} else {
 							return UtilText.parse(characterOrgasming,
-									" all over [npc.her] stomach."
-									+ " [npc.She] can't help but let out [npc.a_moan] as [npc.she] feels it running down over [npc.her] [npc.skin].");
+									" all over [npc.her] stomach. [npc.She] can't help but let out [npc.a_moan] as"
+											+ " [npc.she] feels it running down over [npc.her] [npc.skin].");
 							
 						}
 					}
