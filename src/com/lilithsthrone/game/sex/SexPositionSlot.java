@@ -86,6 +86,8 @@ public enum SexPositionSlot {
 	COWGIRL_ON_BACK("Cowgirl (on back)",
 			Util.newArrayListOfValues(
 					new ListValue<>(OrgasmCumTarget.SELF_STOMACH),
+					new ListValue<>(OrgasmCumTarget.SELF_BREASTS),
+					new ListValue<>(OrgasmCumTarget.SELF_FACE),
 					new ListValue<>(OrgasmCumTarget.GROIN),
 					new ListValue<>(OrgasmCumTarget.FLOOR))),
 	
@@ -108,6 +110,7 @@ public enum SexPositionSlot {
 	SIXTY_NINE_BOTTOM("Sixty-nine (bottom)",
 			Util.newArrayListOfValues(
 					new ListValue<>(OrgasmCumTarget.SELF_STOMACH),
+					new ListValue<>(OrgasmCumTarget.SELF_BREASTS),
 					new ListValue<>(OrgasmCumTarget.FACE),
 					new ListValue<>(OrgasmCumTarget.BREASTS),
 					new ListValue<>(OrgasmCumTarget.HAIR),
@@ -155,6 +158,8 @@ public enum SexPositionSlot {
 	CHAIR_BOTTOM("Sitting",
 			Util.newArrayListOfValues(
 					new ListValue<>(OrgasmCumTarget.SELF_STOMACH),
+					new ListValue<>(OrgasmCumTarget.SELF_BREASTS),
+					new ListValue<>(OrgasmCumTarget.SELF_FACE),
 					new ListValue<>(OrgasmCumTarget.STOMACH),
 					new ListValue<>(OrgasmCumTarget.GROIN),
 					new ListValue<>(OrgasmCumTarget.FLOOR))),
@@ -188,6 +193,8 @@ public enum SexPositionSlot {
 	MISSIONARY_ON_BACK("Lying on back",
 			Util.newArrayListOfValues(
 					new ListValue<>(OrgasmCumTarget.SELF_STOMACH),
+					new ListValue<>(OrgasmCumTarget.SELF_BREASTS),
+					new ListValue<>(OrgasmCumTarget.SELF_FACE),
 					new ListValue<>(OrgasmCumTarget.GROIN),
 					new ListValue<>(OrgasmCumTarget.STOMACH),
 					new ListValue<>(OrgasmCumTarget.FLOOR))),
@@ -246,6 +253,8 @@ public enum SexPositionSlot {
 	MISSIONARY_DESK_SUB_VICKY("Lying on counter",
 			Util.newArrayListOfValues(
 					new ListValue<>(OrgasmCumTarget.SELF_STOMACH),
+					new ListValue<>(OrgasmCumTarget.SELF_BREASTS),
+					new ListValue<>(OrgasmCumTarget.SELF_FACE),
 					new ListValue<>(OrgasmCumTarget.GROIN),
 					new ListValue<>(OrgasmCumTarget.LEGS),
 					new ListValue<>(OrgasmCumTarget.FLOOR))),
@@ -270,6 +279,8 @@ public enum SexPositionSlot {
 	MISSIONARY_ALTAR_LYING_ON_ALTAR("Lying on altar",
 			Util.newArrayListOfValues(
 					new ListValue<>(OrgasmCumTarget.SELF_STOMACH),
+					new ListValue<>(OrgasmCumTarget.SELF_BREASTS),
+					new ListValue<>(OrgasmCumTarget.SELF_FACE),
 					new ListValue<>(OrgasmCumTarget.GROIN),
 					new ListValue<>(OrgasmCumTarget.LEGS),
 					new ListValue<>(OrgasmCumTarget.FLOOR))),
@@ -291,6 +302,8 @@ public enum SexPositionSlot {
 	MISSIONARY_ALTAR_SEALED_LYING_ON_ALTAR("Lying on altar",
 			Util.newArrayListOfValues(
 					new ListValue<>(OrgasmCumTarget.SELF_STOMACH),
+					new ListValue<>(OrgasmCumTarget.SELF_BREASTS),
+					new ListValue<>(OrgasmCumTarget.SELF_FACE),
 					new ListValue<>(OrgasmCumTarget.GROIN),
 					new ListValue<>(OrgasmCumTarget.LEGS),
 					new ListValue<>(OrgasmCumTarget.FLOOR))),
