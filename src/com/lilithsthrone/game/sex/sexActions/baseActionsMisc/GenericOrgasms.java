@@ -3191,7 +3191,8 @@ public class GenericOrgasms {
 
 		@Override
 		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
-			if(cumProvider == Sex.getActivePartner()) {
+			if(cumProvider == Sex.getActivePartner()
+					&& cumTarget == Sex.getActivePartner()) {
 				return Util.newArrayListOfValues(
 						new ListValue<>(CoverableArea.STOMACH));
 			}
