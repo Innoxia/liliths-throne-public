@@ -102,6 +102,12 @@ public class ItemEffect implements Serializable, XMLSaving {
 				itemEffectType = "ATTRIBUTE_ARCANE";
 				break;
 		}
+		switch(parentElement.getAttribute("primaryModifier"))
+		{
+			case "DAMAGE_ATTACK":
+			case "RESISTANCE_ATTACK":
+				return null;
+		}
 		ItemEffect ie = new ItemEffect(
 				ItemEffectType.valueOf(itemEffectType),
 				(parentElement.getAttribute("primaryModifier").equals("null")?null:TFModifier.valueOf(parentElement.getAttribute("primaryModifier"))),
