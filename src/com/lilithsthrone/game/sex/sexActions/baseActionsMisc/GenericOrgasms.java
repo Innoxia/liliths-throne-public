@@ -1147,6 +1147,36 @@ public class GenericOrgasms {
 							
 						}
 					}
+				case SELF_BREASTS:
+					if (characterOrgasming.getHighestZLayerCoverableArea(CoverableArea.BREASTS)!=null) {
+						return getClothingCummedOnText(characterOrgasming, CoverableArea.BREASTS);
+					} else {
+						if(characterOrgasming.isPlayer()) {
+							return UtilText.parse(characterOrgasming,
+									" all over your [npc.breasts]. You can't help but let out [npc.a_moan] as you feel"
+											+ " it running down over your [npc.breastsSkin].");
+						} else {
+							return UtilText.parse(characterOrgasming,
+									" all over [npc.name]'s [npc.breasts]. [npc.She] can't help but let out [npc.a_moan]"
+											+ " as [npc.she] feels it running down over [npc.her] [npc.breastsSkin].");
+							
+						}
+					}
+				case SELF_FACE:
+					if (characterOrgasming.getHighestZLayerCoverableArea(CoverableArea.MOUTH)!=null) {
+						return getClothingCummedOnText(characterOrgasming, CoverableArea.MOUTH);
+					} else {
+						if(characterOrgasming.isPlayer()) {
+							return UtilText.parse(characterOrgasming,
+									" all over your [pc.face+]. You can't help but let out [pc.a_moan] as you feel it"
+											+ " running down over your [pc.faceSkin].");
+						} else {
+							return UtilText.parse(characterOrgasming,
+									" all over [npc.name]'s [npc.face+]. [npc.She] can't help but let out [npc.a_moan]"
+											+ " as [npc.she] feels it running down over [npc.her] [npc.faceSkin].");
+							
+						}
+					}
 			}
 			
 			// Continued description for cumming inside:
@@ -1960,6 +1990,50 @@ public class GenericOrgasms {
 			return null; 
 		}
 	};
+
+	public static final SexAction PLAYER_GENERIC_ORGASM_SELF_BREASTS = new SexAction(PLAYER_GENERIC_ORGASM_FLOOR) {
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Main.game.getPlayer().hasPenis()
+					&& Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS)
+					&& !Main.game.getPlayer().isWearingCondom()
+					&& Sex.getSexPositionSlot(Main.game.getPlayer()).getAvailableCumTargets().contains(OrgasmCumTarget.SELF_BREASTS);
+		}
+		
+		@Override
+		public String getActionTitle() {
+			if(!Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), PenetrationType.PENIS).isEmpty()) {
+				return "Pull out (own [pc.breasts])";
+			}
+			return "Cum on your [pc.breasts]";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto your [pc.breasts+].";
+		}
+
+		@Override
+		public String getDescription() {
+			return getGenericOrgasmDescription(Main.game.getPlayer(), OrgasmCumTarget.SELF_BREASTS);
+		}
+
+		@Override
+		public void applyEffects() {
+			// Pull out:
+			PLAYER_GENERIC_ORGASM_FLOOR.applyEffects();
+		}
+
+		@Override
+		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(cumProvider.isPlayer() && cumTarget.isPlayer()) {
+				return Util.newArrayListOfValues(
+						new ListValue<>(CoverableArea.BREASTS));
+			}
+			return null; 
+		}
+	};
 	
 	public static final SexAction PLAYER_GENERIC_ORGASM_FACE = new SexAction(PLAYER_GENERIC_ORGASM_FLOOR) {
 
@@ -1998,6 +2072,50 @@ public class GenericOrgasms {
 		@Override
 		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
 			if(cumProvider.isPlayer() && cumTarget.equals(Sex.getTargetedPartner(Main.game.getPlayer()))) {
+				return Util.newArrayListOfValues(
+						new ListValue<>(CoverableArea.MOUTH));
+			}
+			return null; 
+		}
+	};
+
+	public static final SexAction PLAYER_GENERIC_ORGASM_SELF_FACE = new SexAction(PLAYER_GENERIC_ORGASM_FLOOR) {
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Main.game.getPlayer().hasPenis()
+					&& Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS)
+					&& !Main.game.getPlayer().isWearingCondom()
+					&& Sex.getSexPositionSlot(Main.game.getPlayer()).getAvailableCumTargets().contains(OrgasmCumTarget.SELF_FACE);
+		}
+		
+		@Override
+		public String getActionTitle() {
+			if(!Sex.getCharactersBeingPenetratedBy(Main.game.getPlayer(), PenetrationType.PENIS).isEmpty()) {
+				return "Pull out (own [pc.face])";
+			}
+			return "Cum on your [pc.face]";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto your [pc.face+].";
+		}
+
+		@Override
+		public String getDescription() {
+			return getGenericOrgasmDescription(Main.game.getPlayer(), OrgasmCumTarget.SELF_FACE);
+		}
+
+		@Override
+		public void applyEffects() {
+			// Pull out:
+			PLAYER_GENERIC_ORGASM_FLOOR.applyEffects();
+		}
+
+		@Override
+		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(cumProvider.isPlayer() && cumTarget.isPlayer()) {
 				return Util.newArrayListOfValues(
 						new ListValue<>(CoverableArea.MOUTH));
 			}
@@ -3034,6 +3152,48 @@ public class GenericOrgasms {
 			return null; 
 		}
 	};
+
+	public static final SexAction PARTNER_GENERIC_ORGASM_SELF_BREASTS = new SexAction(PARTNER_GENERIC_ORGASM_FLOOR) {
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return isGenericPartnerCumTargetRequirementsMet() && Sex.getSexPositionSlot(Sex.getActivePartner()).getAvailableCumTargets().contains(OrgasmCumTarget.SELF_BREASTS);
+		}
+		
+		@Override
+		public String getActionTitle() {
+			if(!Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), PenetrationType.PENIS).isEmpty()) {
+				return "Pull out (own [npc.breasts])";
+			}
+			return "Cum on your [npc.breasts]";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto your [npc.breasts+].";
+		}
+
+		@Override
+		public String getDescription() {
+			return getGenericOrgasmDescription(Sex.getActivePartner(), OrgasmCumTarget.SELF_BREASTS);
+		}
+
+		@Override
+		public void applyEffects() {
+			// Pull out:
+			PARTNER_GENERIC_ORGASM_FLOOR.applyEffects();
+		}
+
+		@Override
+		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(cumProvider == Sex.getActivePartner()
+					&& cumTarget == Sex.getActivePartner()) {
+				return Util.newArrayListOfValues(
+						new ListValue<>(CoverableArea.BREASTS));
+			}
+			return null;
+		}
+	};
 	
 	public static final SexAction PARTNER_GENERIC_ORGASM_FACE = new SexAction(PARTNER_GENERIC_ORGASM_FLOOR) {
 
@@ -3073,6 +3233,48 @@ public class GenericOrgasms {
 						new ListValue<>(CoverableArea.MOUTH));
 			}
 			return null; 
+		}
+	};
+
+	public static final SexAction PARTNER_GENERIC_ORGASM_SELF_FACE = new SexAction(PARTNER_GENERIC_ORGASM_FLOOR) {
+
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return isGenericPartnerCumTargetRequirementsMet() && Sex.getSexPositionSlot(Sex.getActivePartner()).getAvailableCumTargets().contains(OrgasmCumTarget.SELF_FACE);
+		}
+		
+		@Override
+		public String getActionTitle() {
+			if(!Sex.getCharactersBeingPenetratedBy(Sex.getActivePartner(), PenetrationType.PENIS).isEmpty()) {
+				return "Pull out (own [npc.face])";
+			}
+			return "Cum on your [npc.face]";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "You've reached your climax, and can't hold back your orgasm any longer. Direct your cum onto your [npc.face+].";
+		}
+
+		@Override
+		public String getDescription() {
+			return getGenericOrgasmDescription(Sex.getActivePartner(), OrgasmCumTarget.SELF_FACE);
+		}
+
+		@Override
+		public void applyEffects() {
+			// Pull out:
+			PARTNER_GENERIC_ORGASM_FLOOR.applyEffects();
+		}
+
+		@Override
+		public List<CoverableArea> getAreasCummedOn(GameCharacter cumProvider, GameCharacter cumTarget) {
+			if(cumProvider == Sex.getActivePartner()
+					&& cumTarget == Sex.getActivePartner()) {
+				return Util.newArrayListOfValues(
+						new ListValue<>(CoverableArea.MOUTH));
+			}
+			return null;
 		}
 	};
 	
