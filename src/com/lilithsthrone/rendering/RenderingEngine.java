@@ -293,8 +293,8 @@ public enum RenderingEngine {
 				+ "<div style='position:absolute; right:16px'>"+ UtilText.formatAsEssences(charactersInventoryToRender.getEssenceCount(TFEssence.ARCANE), "b", true) +"</div>"
 				+"<p style='width:100%; text-align:center; padding:0 margin:0;'>"
 					+(charactersInventoryToRender.isPlayer()
-						?"<b style='color:"+Femininity.valueOf(charactersInventoryToRender.getFemininityValue()).getColour().toWebHexString()+";'>Your</b> <b>Inventory</b>"
-						:"<b style='color:"+Femininity.valueOf(charactersInventoryToRender.getFemininityValue()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(charactersInventoryToRender.getName())+"'s</b> <b>Inventory</b>")
+						?"<b style='color:"+charactersInventoryToRender.getSpeechColour()+";'>Your</b> <b>Inventory</b>"
+						:"<b style='color:"+charactersInventoryToRender.getSpeechColour()+";'>"+Util.capitaliseSentence(charactersInventoryToRender.getName())+"'s</b> <b>Inventory</b>")
 				+"</p>");
 		
 //		inventorySB.append(getInventoryEquippedPanel(charactersInventoryToRender, idModifier));
@@ -853,7 +853,7 @@ public enum RenderingEngine {
 				for(NPC character : charactersPresent) {
 					uiAttributeSB.append(
 							"<div class='event-log-entry' style='background:"+getEntryBackgroundColour(count%2==0)+";'>"
-								+ "<span style='color:"+character.getFemininity().getColour().toWebHexString()+";'>"+character.getName("A")+"</span>"
+								+ "<span style='color:"+character.getSpeechColour()+";'>"+character.getName("A")+"</span>"
 								+ " - "
 									+ (character.isRaceConcealed()
 											?"<span style='color:"+Colour.RACE_UNKNOWN.toWebHexString()+";'>Unknown"
@@ -1363,7 +1363,7 @@ public enum RenderingEngine {
 						+ "</div>"
 						+ "<div class='full-width-container' style='text-align:center;padding:0;margin:0;float:left;width:86%;'>"
 							+ "<div class='full-width-container' style='text-align:center;padding:0;margin:0;'>"
-								+ "<b style='color:"+ Femininity.valueOf(character.getFemininityValue()).getColour().toWebHexString() + ";'>"
+								+ "<b style='color:"+ character.getSpeechColour() + ";'>"
 									+ (character.getName().length() == 0
 											? Util.capitaliseSentence(character.isFeminine()?character.getSubspecies().getSingularFemaleName():character.getSubspecies().getSingularMaleName())
 											: Util.capitaliseSentence(character.getName()))
@@ -1517,7 +1517,7 @@ public enum RenderingEngine {
 						+ "</div>"
 						+ "<div class='full-width-container' style='text-align:center;padding:0;margin:0;float:left;width:86%;'>"
 							+ "<div class='full-width-container' style='text-align:center;padding:0;margin:0;'>"
-								+ "<b style='color:"+ Femininity.valueOf(character.getFemininityValue()).getColour().toWebHexString() + ";'>"
+								+ "<b style='color:"+ character.getSpeechColour() + ";'>"
 									+ (character.getName().length() == 0
 											? Util.capitaliseSentence(character.isFeminine()?character.getSubspecies().getSingularFemaleName():character.getSubspecies().getSingularMaleName())
 											: Util.capitaliseSentence(character.getName()))
@@ -1646,7 +1646,7 @@ public enum RenderingEngine {
 						+ "</div>"
 						+ "<div class='full-width-container' style='text-align:center;padding:0;margin:0;float:left;width:86%;'>"
 							+ "<div class='full-width-container' style='text-align:center;padding:0;margin:0;'>"
-								+ "<b style='color:"+ Femininity.valueOf(character.getFemininityValue()).getColour().toWebHexString() + ";'>"
+								+ "<b style='color:"+ character.getSpeechColour() + ";'>"
 									+ (character.getName().length() == 0
 											? Util.capitaliseSentence(character.isFeminine()?character.getSubspecies().getSingularFemaleName():character.getSubspecies().getSingularMaleName())
 											: Util.capitaliseSentence(character.getName()))

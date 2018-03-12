@@ -1292,9 +1292,9 @@ public class CharacterUtils {
 	}
 	
 	public static void equipClothing(GameCharacter character, boolean replaceUnsuitableClothing, boolean onlyAddCoreClothing) {
-		Colour primaryColour = Colour.allClothingColours.get(Util.random.nextInt(Colour.allClothingColours.size())),
-				secondaryColour = Colour.allClothingColours.get(Util.random.nextInt(Colour.allClothingColours.size())),
-				lingerieColour = Colour.lingerieColours.get(Util.random.nextInt(Colour.lingerieColours.size()));
+		Colour primaryColour = character.primaryColour,
+				secondaryColour = character.secondaryColour,
+				lingerieColour = character.tertiaryColour;
 		
 		List<InventorySlot> inventorySlotsInPriorityOrder = new ArrayList<>();
 		inventorySlotsInPriorityOrder.add(InventorySlot.TORSO_UNDER); // Torso needs to be randomly decided first, to give girls a chance to wear a dress.

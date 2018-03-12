@@ -183,6 +183,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	protected String playerPetName = "";
 	protected String description;
 	protected int level;
+	protected Colour primaryColour;
+	protected Colour secondaryColour;
+	protected Colour tertiaryColour;
 	
 	protected History history;
 	protected Personality personality;
@@ -303,6 +306,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		playerKnowsName = true;
 		this.description = description;
 		this.level = level;
+		
+		// Pick random colours
+		this.primaryColour = Colour.allClothingColours.get(Util.random.nextInt(Colour.allClothingColours.size()));
+		this.secondaryColour = Colour.allClothingColours.get(Util.random.nextInt(Colour.allClothingColours.size()));
+		this.tertiaryColour = Colour.allClothingColours.get(Util.random.nextInt(Colour.allClothingColours.size()));
 		
 		this.worldLocation = worldLocation;
 		this.homeWorldLocation = worldLocation;
@@ -443,6 +451,15 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		CharacterUtils.addAttribute(doc, name, "nameFeminine", this.getNameTriplet().getFeminine());
 		CharacterUtils.addAttribute(doc, name, "nameAndrogynous", this.getNameTriplet().getAndrogynous());
 		CharacterUtils.addAttribute(doc, name, "nameMasculine", this.getNameTriplet().getMasculine());
+
+		Element colours = doc.createElement("colours");
+		characterCoreInfo.appendChild(colours);
+		if(this.primaryColour != null)
+			CharacterUtils.addAttribute(doc, colours, "primaryColour", this.primaryColour.toString());
+		if(this.secondaryColour != null)
+			CharacterUtils.addAttribute(doc, colours, "secondaryColour", this.secondaryColour.toString());
+		if(this.tertiaryColour != null)
+			CharacterUtils.addAttribute(doc, colours, "tertiaryColour", this.tertiaryColour.toString());
 		
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "surname", this.getSurname());
 		CharacterUtils.createXMLElementWithValue(doc, characterCoreInfo, "description", this.getDescription());
@@ -856,6 +873,22 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					nameElement.getAttribute("nameMasculine"),
 					nameElement.getAttribute("nameAndrogynous"),
 					nameElement.getAttribute("nameFeminine")));
+		}
+		
+		// Colours:
+		if(element.getElementsByTagName("colours").getLength() > 0)
+		{
+			Element colourElement = (Element)element.getElementsByTagName("colours").item(0);
+			try
+			{
+				character.primaryColour = Colour.valueOf(colourElement.getAttribute("primaryColour"));
+				character.secondaryColour = Colour.valueOf(colourElement.getAttribute("secondaryColour"));
+				character.tertiaryColour = Colour.valueOf(colourElement.getAttribute("tertiaryColour"));
+			}
+			catch(IllegalArgumentException e)
+			{
+				System.err.println("Warning: Importing character with invalid colours");
+			}
 		}
 		
 		// Surname:
@@ -1583,34 +1616,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 
 	public String getSpeechColour() {
-		if(this.isPlayer()) {
-			switch(Femininity.valueOf(getFemininityValue())) {
-				case ANDROGYNOUS:
-					return Colour.ANDROGYNOUS.toWebHexString();
-				case FEMININE:
-					return Colour.FEMININE.toWebHexString();
-				case FEMININE_STRONG:
-					return Colour.FEMININE_PLUS.toWebHexString();
-				case MASCULINE:
-					return Colour.MASCULINE.toWebHexString();
-				case MASCULINE_STRONG:
-					return Colour.MASCULINE_PLUS.toWebHexString();
-			}
-		} else {
-			switch(Femininity.valueOf(getFemininityValue())) {
-				case ANDROGYNOUS:
-					return Colour.ANDROGYNOUS_NPC.toWebHexString();
-				case FEMININE:
-					return Colour.FEMININE_NPC.toWebHexString();
-				case FEMININE_STRONG:
-					return Colour.FEMININE_PLUS_NPC.toWebHexString();
-				case MASCULINE:
-					return Colour.MASCULINE_NPC.toWebHexString();
-				case MASCULINE_STRONG:
-					return Colour.MASCULINE_PLUS_NPC.toWebHexString();
-			}
-		}
-		return null;
+		return primaryColour.toWebHexString();
 	}
 
 	protected void updateAttributeListeners() {
