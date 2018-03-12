@@ -1,6 +1,8 @@
 package com.lilithsthrone.main;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -386,6 +388,14 @@ public class Main extends Application {
 	}
 
 	public static void main(String[] args) {
+		
+		// Open error log
+		try {
+			System.setErr(new PrintStream("error.log"));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		// Create folders:
 		File dir = new File("data/");
