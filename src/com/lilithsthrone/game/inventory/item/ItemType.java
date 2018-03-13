@@ -3342,10 +3342,10 @@ public class ItemType {
 			"Diuretica",
 			"A substance that causes increased production of urine.",
 			"diureticum",
-			Colour.BLADDER_STAGE_THREE,
+			Colour.BLADDER,
 			null,
 			null,
-			Rarity.RARE,
+			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.DIURESIS))), null) {
 
@@ -3358,7 +3358,7 @@ public class ItemType {
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getEssenceAbsorbtionText(Colour.BLADDER_STAGE_THREE, user, target);
+			return getEssenceAbsorbtionText(Colour.BLADDER, user, target);
 		}
 	};
 

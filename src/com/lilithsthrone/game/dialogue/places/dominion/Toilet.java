@@ -26,12 +26,14 @@ public class Toilet {
 
 		@Override
 		public String getContent() {
-			return "<p>You stand in the hall before the toilets; You could enter a cell to relieve yourself or wash under the faucet.</p>";
+			return "<p>You stand in the hall before the toilets; You " +
+					(Main.game.isBladderEnabled() ?"could enter a cell to relieve yourself or" : "can") +
+					" wash under the faucet.</p>";
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			if (index == 1) {
+			if (Main.game.isBladderEnabled() && index == 1) {
 				return new Response("Enter", "You're allowed to pee in here.", CELL);
 			} else if (index == 2) {
 				return new Response("Wash", "wash your hands", HALL){
@@ -45,7 +47,7 @@ public class Toilet {
 							+ "</p>");
 					}
 				};
-			} else if (index == 5) {
+			} else if (Main.game.isBladderEnabled() && index == 5) {
 				return new ResponseEffectsOnly("Diureticum", "Obtain diureticum."){
 					@Override
 					public void effects() {

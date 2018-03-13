@@ -283,6 +283,7 @@ public enum Colour {
 
 	SEALED(BaseColour.PINK_DEEP, "pink"),
 	CUMMED(Util.newColour(0xE1E49B), Util.newColour(0xE1E49B), "light yellow",  Util.newArrayListOfValues(new ListValue<>("cummed"), new ListValue<>("dirty"))),
+	BLADDER(Util.newColour(0xfbf671), Util.newColour(0xfbf671), "yellow"),
 	DISPLACED(BaseColour.CRIMSON, "crimson"),
 
 	// Text colours:

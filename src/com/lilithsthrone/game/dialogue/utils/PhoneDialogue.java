@@ -661,16 +661,7 @@ public class PhoneDialogue {
 						+ statRow(Colour.TRANSFORMATION_GENERIC, "Cum Production (mL)",
 								Colour.TEXT, String.valueOf(Main.game.getPlayer().getPenisRawCumProductionValue()),
 								Colour.GENERIC_SEX, Util.capitaliseSentence(Main.game.getPlayer().getPenisCumProduction().getDescriptor()),
-								true)
-						+ statRow(Colour.TRANSFORMATION_GENERIC, "Bladder pressure",
-								Colour.TEXT, String.valueOf(Main.game.getPlayer().getBladder()),
-								Colour.GENERIC_SEX, Main.game.getPlayer().getBladderLevel().getCName(), true)
-						+ statRow(Colour.TRANSFORMATION_GENERIC, "Huger",
-								Colour.TEXT, String.valueOf(Main.game.getPlayer().getHunger()),
-								Colour.GENERIC_SEX, Main.game.getPlayer().getHungerLevel().getCName(), true)
-						+ statRow(Colour.TRANSFORMATION_GENERIC, "thirst",
-								Colour.TEXT, String.valueOf(Main.game.getPlayer().getThirst()),
-								Colour.GENERIC_SEX, Main.game.getPlayer().getThirstLevel().getCName(), true))
+								true))
 
 					+ (Main.game.getPlayer().getVaginaType() == VaginaType.NONE ? "" :
 						"<span style='height:16px;width:100%;float:left;'></span>"
@@ -695,19 +686,7 @@ public class PhoneDialogue {
 						+ statRow(Colour.TRANSFORMATION_GENERIC, "Plasticity",
 								Colour.TEXT, String.valueOf(Main.game.getPlayer().getVaginaPlasticity().getValue()),
 								Colour.GENERIC_SEX, Util.capitaliseSentence(Main.game.getPlayer().getVaginaPlasticity().getDescriptor()),
-								true)
-						// If characters can ever have both a penis and a vagina, bladder pressure is only listed for the penis (above). 
-						+ (Main.game.getPlayer().getPenisType() != PenisType.NONE ? "" :
-							(statRow(Colour.TRANSFORMATION_GENERIC, "Bladder pressure",
-								Colour.TEXT, String.valueOf(Main.game.getPlayer().getBladder()),
-								Colour.GENERIC_SEX, Main.game.getPlayer().getBladderLevel().getCName(), true)
-							+ statRow(Colour.TRANSFORMATION_GENERIC, "Huger",
-									Colour.TEXT, String.valueOf(Main.game.getPlayer().getAttributeValue(Attribute.HUNGER)),
-									Colour.GENERIC_SEX, Main.game.getPlayer().getHungerLevel().getCName(), true)
-							+ statRow(Colour.TRANSFORMATION_GENERIC, "thirst",
-									Colour.TEXT, String.valueOf(Main.game.getPlayer().getAttributeValue(Attribute.THIRST)),
-									Colour.GENERIC_SEX, Main.game.getPlayer().getThirstLevel().getCName(), true)
-									)))
+								true))
 					
 					+ "<span style='height:16px;width:100%;float:left;'></span>"
 					+ "<h6 style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+"; text-align:center;'>Anus Attributes</h6>"
@@ -729,7 +708,25 @@ public class PhoneDialogue {
 							Colour.GENERIC_SEX, Util.capitaliseSentence(Main.game.getPlayer().getAssPlasticity().getDescriptor()),
 							true)
 					
-					+"</div>");
+					+"</div>"
+
+					+(Main.game.isMetabolismEnabled() || Main.game.isBladderEnabled() ? (
+							"<span style='height:16px;width:100%;float:left;'></span>"
+									+ "<h6 style='color:"+Colour.BLADDER.toWebHexString()+"; text-align:center;'>Metabolism Attributes</h6>"
+									+ statHeader() +
+							(Main.game.isMetabolismEnabled() ? (
+									statRow(Colour.TRANSFORMATION_GENERIC, "Huger",
+											Colour.TEXT, String.valueOf(Main.game.getPlayer().getAttributeValue(Attribute.HUNGER)),
+											Colour.GENERIC_SEX, Main.game.getPlayer().getHungerLevel().getCName(), true)
+									+ statRow(Colour.TRANSFORMATION_GENERIC, "Thirst",
+											Colour.TEXT, String.valueOf(Main.game.getPlayer().getAttributeValue(Attribute.THIRST)),
+											Colour.GENERIC_SEX, Main.game.getPlayer().getThirstLevel().getCName(), true)) : "")
+							+ (Main.game.isBladderEnabled() ? (
+									statRow(Colour.TRANSFORMATION_GENERIC, "Bladder",
+											Colour.TEXT, String.valueOf(Main.game.getPlayer().getBladder()),
+											Colour.GENERIC_SEX, Main.game.getPlayer().getBladderLevel().getCName(), true)) : ""))
+							+ "</div>"
+							: ""));
 			
 			return UtilText.nodeContentSB.toString();
 		}

@@ -42,6 +42,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.History;
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.Personality;
+import com.lilithsthrone.game.character.PlayerCharacter;
 import com.lilithsthrone.game.character.SexualOrientation;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Breast;
@@ -4403,6 +4404,54 @@ public class MainController implements Initializable {
 			if (((EventTarget) document.getElementById(id)) != null) {
 				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 					Main.getProperties().bodyHairContent = !Main.getProperties().bodyHairContent;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+
+			id = "METABOLISM_ON";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().metabolismContent = !Main.getProperties().metabolismContent;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			id = "METABOLISM_OFF";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					for (NPC npc : Main.game.getAllNPCs()) {
+						npc.incrementBonusAttribute(Attribute.HUNGER, -npc.getBonusAttributeValue(Attribute.HUNGER));
+						npc.incrementBonusAttribute(Attribute.THIRST, -npc.getBonusAttributeValue(Attribute.THIRST));
+					}
+					PlayerCharacter pc = Main.game.getPlayer();
+					pc.incrementBonusAttribute(Attribute.HUNGER, -pc.getBonusAttributeValue(Attribute.HUNGER));
+					pc.incrementBonusAttribute(Attribute.THIRST, -pc.getBonusAttributeValue(Attribute.THIRST));
+					Main.getProperties().metabolismContent = !Main.getProperties().metabolismContent;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+
+			id = "BLADDER_ON";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().bladderContent = !Main.getProperties().bladderContent;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			id = "BLADDER_OFF";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					for (NPC npc : Main.game.getAllNPCs()) {
+						npc.incrementBonusAttribute(Attribute.BLADDER, -npc.getBonusAttributeValue(Attribute.BLADDER));
+						npc.incrementBonusAttribute(Attribute.BLADDER_PRESSURE, -npc.getBonusAttributeValue(Attribute.BLADDER_PRESSURE));
+					}
+					PlayerCharacter pc = Main.game.getPlayer();
+					pc.incrementBonusAttribute(Attribute.BLADDER, -pc.getBonusAttributeValue(Attribute.BLADDER));
+					pc.incrementBonusAttribute(Attribute.BLADDER_PRESSURE, -pc.getBonusAttributeValue(Attribute.BLADDER_PRESSURE));
+					Main.getProperties().bladderContent = !Main.getProperties().bladderContent;
 					Main.saveProperties();
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);

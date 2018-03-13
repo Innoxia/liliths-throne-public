@@ -2665,6 +2665,14 @@ public class Game implements Serializable, XMLSaving {
 	public boolean isBodyHairEnabled() {
 		return Main.getProperties().bodyHairContent;
 	}
+
+        public boolean isMetabolismEnabled() {
+		return Main.getProperties().metabolismContent;
+	}
+
+        public boolean isBladderEnabled() {
+		return Main.getProperties().bladderContent;
+	}
 	
 	public boolean isRenderMap() {
 		return renderMap;

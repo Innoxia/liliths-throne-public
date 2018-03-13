@@ -61,6 +61,8 @@ public class Properties implements Serializable {
 			facialHairContent = false,
 			pubicHairContent = false,
 			bodyHairContent = false,
+			metabolismContent = false,
+			bladderContent = false,
 			
 			newWeaponDiscovered = false,
 			newClothingDiscovered = false,
@@ -180,6 +182,8 @@ public class Properties implements Serializable {
 			createXMLElementWithValue(doc, settings, "facialHairContent", String.valueOf(facialHairContent));
 			createXMLElementWithValue(doc, settings, "pubicHairContent", String.valueOf(pubicHairContent));
 			createXMLElementWithValue(doc, settings, "bodyHairContent", String.valueOf(bodyHairContent));
+			createXMLElementWithValue(doc, settings, "metabolismContent", String.valueOf(metabolismContent));
+			createXMLElementWithValue(doc, settings, "bladderContent", String.valueOf(bladderContent));
 			createXMLElementWithValue(doc, settings, "overwriteWarning", String.valueOf(overwriteWarning));
 			createXMLElementWithValue(doc, settings, "fadeInText", String.valueOf(fadeInText));
 			createXMLElementWithValue(doc, settings, "calendarDisplay", String.valueOf(calendarDisplay));
@@ -465,6 +469,9 @@ public class Properties implements Serializable {
 				facialHairContent = ((((Element)element.getElementsByTagName("facialHairContent").item(0)).getAttribute("value")).equals("true"));
 				pubicHairContent = ((((Element)element.getElementsByTagName("pubicHairContent").item(0)).getAttribute("value")).equals("true"));
 				bodyHairContent = ((((Element)element.getElementsByTagName("bodyHairContent").item(0)).getAttribute("value")).equals("true"));
+
+				metabolismContent = ((((Element)element.getElementsByTagName("metabolismContent").item(0)).getAttribute("value")).equals("true"));
+				bladderContent = ((((Element)element.getElementsByTagName("bladderContent").item(0)).getAttribute("value")).equals("true"));
 				
 				newWeaponDiscovered = Boolean.valueOf(((Element)element.getElementsByTagName("newWeaponDiscovered").item(0)).getAttribute("value"));
 				newClothingDiscovered = Boolean.valueOf(((Element)element.getElementsByTagName("newClothingDiscovered").item(0)).getAttribute("value"));

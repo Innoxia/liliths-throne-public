@@ -9836,36 +9836,39 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	public String homeostasis() {
 		String ret = "";
-		float bladder = getBonusAttributeValue(Attribute.BLADDER);
-		float bladder_inc = getRace().getUresis(getAttributeValue(Attribute.BLADDER_PRESSURE));
-		if (bladder + bladder_inc > 100) {
-			// pee in pants, BODY_CUM is for various kinds of fluids, it seems.
-			addDirtySlot(InventorySlot.GROIN);
-			addDirtySlot(InventorySlot.LEG);
-			ret += "You just peed your pants. ";
-			bladder_inc = -bladder;
+		if (Main.game.isBladderEnabled()) {
+			float bladder = getBonusAttributeValue(Attribute.BLADDER);
+			float bladder_inc = getRace().getUresis(getAttributeValue(Attribute.BLADDER_PRESSURE));
+			if (bladder + bladder_inc > 100) {
+				// pee in pants, BODY_CUM is for various kinds of fluids, it seems.
+				addDirtySlot(InventorySlot.GROIN);
+				addDirtySlot(InventorySlot.LEG);
+				ret += "You just peed your pants. ";
+				bladder_inc = -bladder;
+			}
+			incrementBonusAttribute(Attribute.BLADDER, bladder_inc);
 		}
-		incrementBonusAttribute(Attribute.BLADDER, bladder_inc);
+		if(Main.game.isMetabolismEnabled()) {
+			float hunger = getBonusAttributeValue(Attribute.HUNGER);
+			float digest = getRace().getDigestionSpeed()/8f;
+			if (hunger + digest > 100) {
+				// damage.
+				incrementBonusAttribute(Attribute.DAMAGE_PHYSICAL, -0.1f);
+				ret += "You collapse from hunger. ";
+				digest = -4f; // next collapse after some time
+			}
+			incrementBonusAttribute(Attribute.HUNGER, digest);
 
-		float hunger = getBonusAttributeValue(Attribute.HUNGER);
-		float digest = getRace().getDigestionSpeed()/8f;
-		if (hunger + digest > 100) {
-			// damage.
-			incrementBonusAttribute(Attribute.DAMAGE_PHYSICAL, -0.1f);
-			ret += "You collapse from hunger. ";
-			digest = -4f; // next collapse after some time
+			float thirst = getBonusAttributeValue(Attribute.THIRST);
+			float swallow = getRace().getDigestionSpeed()/7f;
+			if (thirst + swallow > 100) {
+				// damage.
+				incrementBonusAttribute(Attribute.DAMAGE_PHYSICAL, -0.1f);
+				ret += "You collapse from thirst. ";
+				swallow = -4f; // next collapse after some time
+			}
+			incrementBonusAttribute(Attribute.THIRST, swallow);
 		}
-		incrementBonusAttribute(Attribute.HUNGER, digest);
-
-		float thirst = getBonusAttributeValue(Attribute.THIRST);
-		float swallow = getRace().getDigestionSpeed()/7f;
-		if (thirst + swallow > 100) {
-			// damage.
-			incrementBonusAttribute(Attribute.DAMAGE_PHYSICAL, -0.1f);
-			ret += "You collapse from thirst. ";
-			swallow = -4f; // next collapse after some time
-		}
-		incrementBonusAttribute(Attribute.THIRST, swallow);
 		return ret;
 	}
 

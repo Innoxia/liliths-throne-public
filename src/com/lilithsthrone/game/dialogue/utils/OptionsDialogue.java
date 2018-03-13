@@ -1567,6 +1567,23 @@ public class OptionsDialogue {
 							"Cum Inflation",
 							"This enables cum inflation mechanics.",
 							Main.getProperties().inflationContent)
+				+"</div>"
+
+
+                                + "<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>"
+					+getContentPreferenceDiv(
+						"METABOLISM",
+						Colour.BASE_BROWN,
+						"Metabolism",
+						"This enables hunger and thirst that in crease in time.",
+						Main.getProperties().metabolismContent)
+
+					+getContentPreferenceDiv(
+							"BLADDER",
+							Colour.BLADDER,
+							"Bladder",
+							"Drinking fluids in time causes the production of urine.",
+							Main.getProperties().bladderContent)
 				+"</div>");
 			
 			return UtilText.nodeContentSB.toString();
