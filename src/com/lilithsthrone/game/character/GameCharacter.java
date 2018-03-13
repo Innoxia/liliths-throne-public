@@ -26,6 +26,8 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.LustLevel;
 import com.lilithsthrone.game.character.attributes.BladderLevel;
+import com.lilithsthrone.game.character.attributes.HungerLevel;
+import com.lilithsthrone.game.character.attributes.ThirstLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
@@ -2422,6 +2424,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return ((int)(value * 100))/100f;
 	}
 
+	// XXX: this should be renamed to setBaseAttribute, because it does not change the bonusAttribute
 	public String setAttribute(Attribute att, float value) {
 		return setAttribute(att, value, true);
 	}
@@ -8364,6 +8367,22 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return BladderLevel.getBladderLevelFromValue(getAttributeValue(Attribute.BLADDER));
 	}
 
+	public float getHunger() {
+		return getAttributeValue(Attribute.HUNGER);
+	}
+
+	public HungerLevel getHungerLevel() {
+		return HungerLevel.getHungerLevelFromValue(getAttributeValue(Attribute.HUNGER));
+	}
+
+	public float getThirst() {
+		return getAttributeValue(Attribute.THIRST);
+	}
+
+	public ThirstLevel getThirstLevel() {
+		return ThirstLevel.getThirstLevelFromValue(getAttributeValue(Attribute.THIRST));
+	}
+
 	public void alignLustToRestingLust(int minutes) {
 		if(hasStatusEffect(StatusEffect.WEATHER_STORM_VULNERABLE)) {
 			setLust(100);
@@ -9817,16 +9836,36 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	public String homeostasis() {
 		String ret = "";
-		float bonus = getBonusAttributeValue(Attribute.BLADDER);
-		float increment = getRace().getUresis(getAttributeValue(Attribute.BLADDER_PRESSURE));
-		if (bonus + increment > 100) {
+		float bladder = getBonusAttributeValue(Attribute.BLADDER);
+		float bladder_inc = getRace().getUresis(getAttributeValue(Attribute.BLADDER_PRESSURE));
+		if (bladder + bladder_inc > 100) {
+			// pee in pants, BODY_CUM is for various kinds of fluids, it seems.
 			addDirtySlot(InventorySlot.GROIN);
 			addDirtySlot(InventorySlot.LEG);
-			ret = "<p><b style='color:" + Colour.CUMMED + ";'>you just peed your pants.</b></p>";
-			increment = -bonus;
+			ret += "You just peed your pants. ";
+			bladder_inc = -bladder;
 		}
-		incrementBonusAttribute(Attribute.BLADDER, increment);
-		// TODO: hunger, thirst.
+		incrementBonusAttribute(Attribute.BLADDER, bladder_inc);
+
+		float hunger = getBonusAttributeValue(Attribute.HUNGER);
+		float digest = getRace().getDigestionSpeed()/8f;
+		if (hunger + digest > 100) {
+			// damage.
+			incrementBonusAttribute(Attribute.DAMAGE_PHYSICAL, -0.1f);
+			ret += "You collapse from hunger. ";
+			digest = -4f; // next collapse after some time
+		}
+		incrementBonusAttribute(Attribute.HUNGER, digest);
+
+		float thirst = getBonusAttributeValue(Attribute.THIRST);
+		float swallow = getRace().getDigestionSpeed()/7f;
+		if (thirst + swallow > 100) {
+			// damage.
+			incrementBonusAttribute(Attribute.DAMAGE_PHYSICAL, -0.1f);
+			ret += "You collapse from thirst. ";
+			swallow = -4f; // next collapse after some time
+		}
+		incrementBonusAttribute(Attribute.THIRST, swallow);
 		return ret;
 	}
 

@@ -131,6 +131,42 @@ public enum Attribute {
 				}
 			},
 
+	THIRST(0,
+			"thirst",
+			"thirst",
+			"thirstIcon",
+			Colour.ATTRIBUTE_THIRST,
+			"thirst",
+			"quenched",
+			null) {
+				@Override
+				public String getDescription(GameCharacter owner) {
+					if(owner.isPlayer()) {
+						return "How much you'd like to drink. If you are very thirsty this may affect you.";
+					} else {
+						return UtilText.parse(owner, "How much [npc.name] would like to drink.");
+					}
+				}
+			},
+
+	HUNGER(0,
+			"hunger",
+			"hunger",
+			"hungerIcon",
+			Colour.ATTRIBUTE_HUNGER,
+			"hunger",
+			"fed",
+			null) {
+				@Override
+				public String getDescription(GameCharacter owner) {
+					if(owner.isPlayer()) {
+						return "How much you'd like to eat. If you are very hungry this may affect you.";
+					} else {
+						return UtilText.parse(owner, "How much [npc.name] would like to eat.");
+					}
+				}
+			},
+
 	BLADDER_PRESSURE(0,
 			"bladder",
 			"Bladder",

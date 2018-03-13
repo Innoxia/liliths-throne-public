@@ -117,7 +117,10 @@ public enum Colour {
 
 	ATTRIBUTE_AROUSAL(BaseColour.PINK_DEEP, "pink", Util.newArrayListOfValues(new ListValue<>("arousal"), new ListValue<>("ars"))),
 	ATTRIBUTE_LUST(BaseColour.MAGENTA, "magenta", Util.newArrayListOfValues(new ListValue<>("lust"), new ListValue<>("lst"), new ListValue<>("seduction"))),
+
 	ATTRIBUTE_BLADDER(BaseColour.YELLOW, "yellow", Util.newArrayListOfValues(new ListValue<>("bladder"), new ListValue<>("bldr"))),
+	ATTRIBUTE_HUNGER(BaseColour.GREEN, "green", Util.newArrayListOfValues(new ListValue<>("hunger"), new ListValue<>("hngr"))),
+	ATTRIBUTE_THIRST(BaseColour.BLUE, "blue", Util.newArrayListOfValues(new ListValue<>("thirst"), new ListValue<>("trst"))),
 
 	//TODO
 	PHYSIQUE_STAGE_ZERO(BaseColour.MAGENTA, "magenta"),
@@ -170,6 +173,20 @@ public enum Colour {
 	BLADDER_STAGE_THREE(Util.newColour(0xfbf671), Util.newColour(0xfbf671), "yellow"),
 	BLADDER_STAGE_FOUR(Util.newColour(0xe8cb55), Util.newColour(0xe8cb55), "yellow"),
 	BLADDER_STAGE_FIVE(Util.newColour(0xe07b21), Util.newColour(0xe07b21), "orange"),
+
+	THIRST_STAGE_ZERO(Util.newColour(0x274287), Util.newColour(0x274287), "blue"),
+	THIRST_STAGE_ONE(Util.newColour(0x7ea0f4), Util.newColour(0x7ea0f4), "light blue"),
+	THIRST_STAGE_TWO(Util.newColour(0xacc0f3), Util.newColour(0xacc0f3), "light blue"),
+	THIRST_STAGE_THREE(Util.newColour(0xc9bd5b), Util.newColour(0xc9bd5b), "light yellow"),
+	THIRST_STAGE_FOUR(Util.newColour(0xffe400), Util.newColour(0xffe400), "yellow"),
+	THIRST_STAGE_FIVE(Util.newColour(0xa76200), Util.newColour(0xa76200), "light orange"),
+
+	HUNGER_STAGE_ZERO(Util.newColour(0x27b700), Util.newColour(0x27b700), "green"),
+	HUNGER_STAGE_ONE(Util.newColour(0x71b060), Util.newColour(0x71b060), "light green"),
+	HUNGER_STAGE_TWO(Util.newColour(0xc0e5b6), Util.newColour(0xc0e5b6), "light green"),
+	HUNGER_STAGE_THREE(Util.newColour(0xc9bd5b), Util.newColour(0xc9bd5b), "light yellow"),
+	HUNGER_STAGE_FOUR(Util.newColour(0xffe400), Util.newColour(0xffe400), "yellow"),
+	HUNGER_STAGE_FIVE(Util.newColour(0xa76200), Util.newColour(0xa76200), "light orange"),
 
 	DESIRE_STAGE_ZERO(Util.newColour(0xB699FF), Util.newColour(0xfcb3ff), "purple"),
 	DESIRE_STAGE_ONE(Util.newColour(0xFF99D1), Util.newColour(0xfb80ff), "pink"),

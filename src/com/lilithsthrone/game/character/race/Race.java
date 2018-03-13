@@ -1708,10 +1708,14 @@ public enum Race {
 	public float getChanceForMaleOffspring() {
 		return chanceForMaleOffspring;
 	}
+
 	public float getUresis(float pressure) {
 		return digestionSpeed + 0.004f * pressure;
 	}
 
+	public float getDigestionSpeed() {
+		return digestionSpeed;
+	}
 	public Attribute getDamageMultiplier() {
 		return damageMultiplier;
 	}

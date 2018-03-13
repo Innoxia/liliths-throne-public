@@ -16,6 +16,8 @@ import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.IntelligenceLevel;
 import com.lilithsthrone.game.character.attributes.LustLevel;
 import com.lilithsthrone.game.character.attributes.BladderLevel;
+import com.lilithsthrone.game.character.attributes.HungerLevel;
+import com.lilithsthrone.game.character.attributes.ThirstLevel;
 import com.lilithsthrone.game.character.attributes.PhysiqueLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.FluidType;
@@ -1582,6 +1584,473 @@ public enum StatusEffect {
 		}
 	},
 
+	// HUNGER:
+	HUNGER_PERK_0(
+			100,
+			"quenched",
+			"attHunger3",
+			Colour.HUNGER_STAGE_ZERO,
+			false,
+			null,
+			null) {
+
+		@Override
+		public String getName(GameCharacter target) {
+			return Util.capitaliseSentence(HungerLevel.ZERO_SATIATED.getName());
+		}
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "You currently are not hungry at all.";
+			} else {
+				return UtilText.parse(owner, "[npc.Name] isn't hungry at all.");
+			}
+		}
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return HungerLevel.getHungerLevelFromValue(target.getAttributeValue(Attribute.HUNGER)) == HungerLevel.ZERO_SATIATED;
+		}
+
+		@Override
+		public boolean renderInEffectsPanel() {
+			return false;
+		}
+	},
+	HUNGER_PERK_1(
+			100,
+			"fed",
+			"attHunger3",
+			Colour.HUNGER_STAGE_ONE,
+			true,
+			null,
+			null) {
+
+		@Override
+		public String getName(GameCharacter target) {
+			return Util.capitaliseSentence(HungerLevel.ONE_FED.getName());
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "You recently ate something, you are not yet hungry.";
+			} else {
+				return UtilText.parse(target, "[npc.Name] recently ate something, [npc.she] doesn't need to eat.");
+			}
+		}
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return HungerLevel.getHungerLevelFromValue(target.getAttributeValue(Attribute.HUNGER)) == HungerLevel.ONE_FED;
+		}
+
+		@Override
+		public boolean renderInEffectsPanel() {
+			return false;
+		}
+	},
+	HUNGER_PERK_2(
+			100,
+			"nourished",
+			"attHunger3",
+			Colour.HUNGER_STAGE_TWO,
+			true,
+			null,
+			null) {
+
+		@Override
+		public String getName(GameCharacter target) {
+			return Util.capitaliseSentence(HungerLevel.TWO_NOURISHED.getName());
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "It's been some time ago that you ate something, but you are not hungry yet.";
+			} else {
+				return UtilText.parse(target, "[npc.Name] wouldn't refuse some food, but [npc.she] isn't hungry yet.");
+			}
+		}
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return HungerLevel.getHungerLevelFromValue(target.getAttributeValue(Attribute.HUNGER)) == HungerLevel.TWO_NOURISHED;
+		}
+
+		@Override
+		public boolean renderInEffectsPanel() {
+			return false;
+		}
+	},
+	HUNGER_PERK_3(
+			100,
+			"hungering",
+			"attHunger3",
+			Colour.HUNGER_STAGE_THREE,
+			true,
+			null,
+			null) {
+
+		@Override
+		public String getName(GameCharacter target) {
+			return Util.capitaliseSentence(HungerLevel.THREE_HUNGRY.getName());
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "You feel the hunger rising. You could use some food.";
+			} else {
+				return UtilText.parse(target, "[npc.Name] could use some food.");
+			}
+		}
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return HungerLevel.getHungerLevelFromValue(target.getAttributeValue(Attribute.HUNGER)) == HungerLevel.THREE_HUNGRY;
+		}
+
+		@Override
+		public boolean renderInEffectsPanel() {
+			return true;
+		}
+	},
+	HUNGER_PERK_4(
+			100,
+			"hungry",
+			"attHunger4",
+			Colour.HUNGER_STAGE_FOUR,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -20f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -10f)),
+			null) {
+
+		@Override
+		public String getName(GameCharacter target) {
+			return Util.capitaliseSentence(HungerLevel.FOUR_STARVING.getName());
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "You are famined, you'd really could use some food!";
+			} else {
+				return UtilText.parse(target, "[npc.Name] is really hungry, [npc.she] is dying for some food!");
+			}
+		}
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return HungerLevel.getHungerLevelFromValue(target.getAttributeValue(Attribute.HUNGER)) == HungerLevel.FOUR_STARVING;
+		}
+
+		@Override
+		public boolean renderInEffectsPanel() {
+			return true;
+		}
+	},
+	HUNGER_PERK_5(
+			100,
+			"famined",
+			"attHunger5",
+			Colour.HUNGER_STAGE_FIVE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -50f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -30f)),
+			null) {
+
+		@Override
+		public String getName(GameCharacter target) {
+			return Util.capitaliseSentence(HungerLevel.FIVE_FAMINED.getName());
+		}
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "You're seriously famined, you're feeling weak and are dying for some food, anything will do!";
+			} else {
+				return "[npc.Name] is famined! [npc.She]'s dying for some food, anything will do!";
+			}
+		}
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return HungerLevel.getHungerLevelFromValue(target.getAttributeValue(Attribute.HUNGER)) == HungerLevel.FIVE_FAMINED;
+		}
+
+		@Override
+		public boolean renderInEffectsPanel() {
+			return true;
+		}
+	},
+
+	// THIRST:
+	THIRST_PERK_0(
+			100,
+			"quenched",
+			"attThirst3",
+			Colour.THIRST_STAGE_ZERO,
+			false,
+			null,
+			null) {
+
+		@Override
+		public String getName(GameCharacter target) {
+			return Util.capitaliseSentence(ThirstLevel.ZERO_QUENCHED.getName());
+		}
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "You currently are not thirsty at all.";
+			} else {
+				return UtilText.parse(owner, "[npc.Name] isn't thirsty at all.");
+			}
+		}
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return ThirstLevel.getThirstLevelFromValue(target.getAttributeValue(Attribute.THIRST)) == ThirstLevel.ZERO_QUENCHED;
+		}
+
+		@Override
+		public boolean renderInEffectsPanel() {
+			return false;
+		}
+	},
+	THIRST_PERK_1(
+			100,
+			"slaked",
+			"attThirst3",
+			Colour.THIRST_STAGE_ONE,
+			true,
+			null,
+			null) {
+
+		@Override
+		public String getName(GameCharacter target) {
+			return Util.capitaliseSentence(ThirstLevel.ONE_SLAKED.getName());
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "You recently drank something, you are not yet thirsty.";
+			} else {
+				return UtilText.parse(target, "[npc.Name] recently drank something, [npc.she] doesn't need to drink.");
+			}
+		}
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return ThirstLevel.getThirstLevelFromValue(target.getAttributeValue(Attribute.THIRST)) == ThirstLevel.ONE_SLAKED;
+		}
+
+		@Override
+		public boolean renderInEffectsPanel() {
+			return false;
+		}
+	},
+	THIRST_PERK_2(
+			100,
+			"freshened",
+			"attThirst3",
+			Colour.THIRST_STAGE_TWO,
+			true,
+			null,
+			null) {
+
+		@Override
+		public String getName(GameCharacter target) {
+			return Util.capitaliseSentence(ThirstLevel.TWO_FRESHENED.getName());
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "It's been some time ago that you drank something, but you are not thirsty yet.";
+			} else {
+				return UtilText.parse(target, "[npc.Name] wouldn't refuse a drink, but [npc.she] isn't thirsty yet.");
+			}
+		}
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return ThirstLevel.getThirstLevelFromValue(target.getAttributeValue(Attribute.THIRST)) == ThirstLevel.TWO_FRESHENED;
+		}
+
+		@Override
+		public boolean renderInEffectsPanel() {
+			return false;
+		}
+	},
+	THIRST_PERK_3(
+			100,
+			"thirsting",
+			"attThirst3",
+			Colour.THIRST_STAGE_THREE,
+			true,
+			null,
+			null) {
+
+		@Override
+		public String getName(GameCharacter target) {
+			return Util.capitaliseSentence(ThirstLevel.THREE_THIRSTING.getName());
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "You feel the thirst rising. You could use a drink.";
+			} else {
+				return UtilText.parse(target, "[npc.Name] could use a drink.");
+			}
+		}
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return ThirstLevel.getThirstLevelFromValue(target.getAttributeValue(Attribute.THIRST)) == ThirstLevel.THREE_THIRSTING;
+		}
+
+		@Override
+		public boolean renderInEffectsPanel() {
+			return true;
+		}
+	},
+	THIRST_PERK_4(
+			100,
+			"thirsty",
+			"attThirst4",
+			Colour.THIRST_STAGE_FOUR,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -20f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -10f)),
+			null) {
+
+		@Override
+		public String getName(GameCharacter target) {
+			return Util.capitaliseSentence(ThirstLevel.FOUR_THIRSTY.getName());
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if (target.isPlayer()) {
+				return "You are parch dry, you'd really could use a drink!";
+			} else {
+				return UtilText.parse(target, "[npc.Name] is really thirsty, [npc.she] is dying for a drink!");
+			}
+		}
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return ThirstLevel.getThirstLevelFromValue(target.getAttributeValue(Attribute.THIRST)) == ThirstLevel.FOUR_THIRSTY;
+		}
+
+		@Override
+		public boolean renderInEffectsPanel() {
+			return true;
+		}
+	},
+	THIRST_PERK_5(
+			100,
+			"dehydrated",
+			"attThirst5",
+			Colour.THIRST_STAGE_FIVE,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_ARCANE, -50f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, -30f)),
+			null) {
+
+		@Override
+		public String getName(GameCharacter target) {
+			return Util.capitaliseSentence(ThirstLevel.FIVE_DEHYDRATED.getName());
+		}
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "You're seriously dehydrated, you're feeling weak and are dying for a drink, anything will do!";
+			} else {
+				return "[npc.Name] is almost bone-dry! [npc.She]'s dying for a drink, anything will do!";
+			}
+		}
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return ThirstLevel.getThirstLevelFromValue(target.getAttributeValue(Attribute.THIRST)) == ThirstLevel.FIVE_DEHYDRATED;
+		}
+
+		@Override
+		public boolean renderInEffectsPanel() {
+			return true;
+		}
+	},
 
 	// STANDARD EFFECTS:
 	
