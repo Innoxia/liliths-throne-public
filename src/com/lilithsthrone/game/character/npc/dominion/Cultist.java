@@ -77,6 +77,8 @@ public class Cultist extends NPC {
 				PlaceType.DOMINION_BACK_ALLEYS,
 				false);
 		
+		this.primaryColour = this.getCovering(BodyCoveringType.DEMON_COMMON).getPrimaryColour();
+		
 		if(!isImported) {
 			setAttribute(Attribute.MAJOR_CORRUPTION, 100);
 	
