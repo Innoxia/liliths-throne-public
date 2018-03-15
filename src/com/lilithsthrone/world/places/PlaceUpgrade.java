@@ -16,6 +16,7 @@ import com.lilithsthrone.world.Cell;
  * @since 0.1.85
  * @version 0.1.97
  * @author Innoxia
+ *  
  */
 public enum PlaceUpgrade {
 	

@@ -14,6 +14,7 @@ import com.lilithsthrone.world.places.PlaceType;
  * @since 0.1.0
  * @version 0.1.89
  * @author Innoxia
+ * 
  */
 public enum WorldType {
 	

@@ -21,6 +21,7 @@ import com.lilithsthrone.world.places.PlaceType;
  * @since 0.1.0
  * @version 0.1.89
  * @author Innoxia
+ *
  */
 public class World implements Serializable, XMLSaving {
 	private static final long serialVersionUID = 1L;

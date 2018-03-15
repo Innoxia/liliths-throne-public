@@ -21,6 +21,7 @@ import com.lilithsthrone.world.places.GenericPlace;
  * @since 0.1.0
  * @version 0.1.97
  * @author Innoxia
+ * 
  */
 public class Cell implements Serializable, XMLSaving {
 	private static final long serialVersionUID = 1L;
