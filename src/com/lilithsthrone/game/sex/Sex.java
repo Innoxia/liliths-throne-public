@@ -21,6 +21,7 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
+import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
@@ -763,7 +764,7 @@ public enum Sex {
 				sexSB.append("<p style='text-align:center'>[style.boldArcane(After finishing sex without orgasming once, you're left feeling frustrated and horny!)]</p>");
 			}
 			
-		} else {
+		} else if(Main.game.isInNewWorld()) {
 			Main.game.getPlayer().removeStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM);
 			if(Main.game.getPlayer().hasStatusEffect(StatusEffect.RECOVERING_AURA)) {
 				sexSB.append("<p style='text-align:center'><b>Your arcane aura is still strengthened from a previous sexual encounter, so</b> [style.boldArcane(you don't receive any arcane essences!)]</p>");
@@ -1751,8 +1752,13 @@ public enum Sex {
 								
 								cumTarget.incrementCummedInArea(ot, cumProvidor.getPenisRawCumProductionValue());
 								
-								if(ot == OrificeType.VAGINA) {
+								if(cumTarget.getBodyMaterial()==BodyMaterial.SLIME) {
 									sexSB.append(cumTarget.rollForPregnancy(cumProvidor));
+									
+								} else {
+									if(ot == OrificeType.VAGINA) {
+										sexSB.append(cumTarget.rollForPregnancy(cumProvidor));
+									}
 								}
 							}
 						}
@@ -2133,7 +2139,7 @@ public enum Sex {
 		}
 
 		// Add milk in nipples:
-		if(Main.game.getPlayer().getBreastRawLactationValue()>0) {
+		if(Main.game.getPlayer().getBreastRawMilkStorageValue()>0) {
 			addOrificeLubrication(Main.game.getPlayer(), OrificeType.NIPPLE, LubricationType.PLAYER_MILK);
 		}
 		
@@ -2158,7 +2164,7 @@ public enum Sex {
 				addOrificeLubrication(character, OrificeType.MOUTH, LubricationType.PARTNER_SALIVA);
 				addPenetrationTypeLubrication(character, PenetrationType.TONGUE, LubricationType.PARTNER_SALIVA);
 				
-				if(activePartner.getBreastRawLactationValue()>0) {
+				if(activePartner.getBreastRawMilkStorageValue()>0) {
 					addOrificeLubrication(character, OrificeType.NIPPLE, LubricationType.PARTNER_MILK);
 				}
 

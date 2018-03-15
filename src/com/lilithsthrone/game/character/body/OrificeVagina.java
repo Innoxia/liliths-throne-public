@@ -7,6 +7,7 @@ import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.OrificeInterface;
+import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
@@ -60,6 +61,15 @@ public class OrificeVagina implements OrificeInterface, Serializable {
 				
 			} else {
 				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled([npc.Name] lacks a vagina, so nothing happens...)]</p>");
+			}
+		}
+		
+		if(this.wetness < Wetness.SEVEN_DROOLING.getValue() && owner.getBodyMaterial()==BodyMaterial.SLIME) {
+			this.wetness = Wetness.SEVEN_DROOLING.getValue();
+			if(owner.isPlayer()) {
+				return "<p style='text-align:center;'>[style.colourSex(Due to being a slime, your [pc.pussy] can't be anything but "+Wetness.SEVEN_DROOLING.getDescriptor()+"...)]</p>";
+			} else {
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourSex(Due to being a slime, [npc.name]'s [npc.pussy] can't be anything but "+Wetness.SEVEN_DROOLING.getDescriptor()+"...)]</p>");
 			}
 		}
 		

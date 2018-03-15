@@ -412,7 +412,7 @@ public class PixShowerTime {
 					
 					"You let out [pc.a_moan+] as Pix reaches around and starts to grope and squeeze each of your [pc.breasts+] in turn."));
 			
-			switch (Main.game.getPlayer().getBreastLactation()) {
+			switch (Main.game.getPlayer().getBreastStoredMilk()) {
 				case ONE_TRICKLE:
 					UtilText.nodeContentSB.append(" A small trickle of [pc.milk] leaks out onto her fingertips as she squeezes down on your [pc.nipples+].");
 					break;
@@ -448,6 +448,11 @@ public class PixShowerTime {
 			} else {
 				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_BREASTS_OTHERS));
 			}
+		}
+		
+		@Override
+		public String applyEffectsString() {
+			return Main.game.getPlayer().incrementBreastStoredMilk(-10);
 		}
 		
 	};

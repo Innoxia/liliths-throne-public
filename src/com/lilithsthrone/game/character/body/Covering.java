@@ -4,14 +4,13 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
-import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
- * @version 0.1.99
+ * @version 0.2.1
  * @author Innoxia
  */
 public class Covering  {
@@ -107,11 +106,11 @@ public class Covering  {
 	public String getColourDescriptor(GameCharacter gc, boolean coloured, boolean capitalised) {
 		String primaryColourName = capitalised?Util.capitaliseSentence(primaryColour.getName()):primaryColour.getName();
 		String secondaryColourName = capitalised?Util.capitaliseSentence(secondaryColour.getName()):secondaryColour.getName();
-		if(gc.getRace()==Race.SLIME) {
-			if(this.getType()!=BodyCoveringType.SLIME) {
-				return gc.getCovering(BodyCoveringType.SLIME).getColourDescriptor(gc, coloured, capitalised);
-			}
-		}
+//		if(gc.getRace()==Race.SLIME) {
+//			if(this.getType()!=BodyCoveringType.SLIME) {
+//				return gc.getCovering(BodyCoveringType.SLIME).getColourDescriptor(gc, coloured, capitalised);
+//			}
+//		}
 		if(coloured) {
 			switch(pattern) {
 				case HIGHLIGHTS:
@@ -226,11 +225,11 @@ public class Covering  {
 		//text-shadow: 0px 0px 4px #FF0000;
 		String descriptor = modifier.getName();
 		String name = type.getName(gc);
-		if(gc.getRace()==Race.SLIME) {
-			if(this.getType()!=BodyCoveringType.SLIME) {
-				return gc.getCovering(BodyCoveringType.SLIME).getFullDescription(gc, coloured);
-			}
-		}
+//		if(gc.getRace()==Race.SLIME) {
+//			if(this.getType()!=BodyCoveringType.SLIME) {
+//				return gc.getCovering(BodyCoveringType.SLIME).getFullDescription(gc, coloured);
+//			}
+//		}
 		if(coloured) {
 			switch(pattern) {
 				case HIGHLIGHTS:

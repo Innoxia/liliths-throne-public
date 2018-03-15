@@ -762,6 +762,8 @@ public enum SpecialAttack {
 		}
 	},
 	
+	
+
 	TEASE_BREASTS_OTHERS(50,
 			"breasts lover tease",
 			"fetish_generic",
@@ -870,7 +872,7 @@ public enum SpecialAttack {
 									?"[pc.speech(Let's play together!)]"
 									:"[pc.speech(Come on, I'll let you have a squeeze!)]"),
 
-						"Pushing your [pc.breasts+] breasts together, you lean forwards and wink at [npc.name], "
+						"Pushing your [pc.breasts+] together, you lean forwards and wink at [npc.name], "
 								+ (target.getAppearsAsGender().isFeminine()
 									?"[pc.speech(Want to have some fun?)]"
 									:"[pc.speech(Come on, you know you want a feel!)]"),
@@ -948,6 +950,178 @@ public enum SpecialAttack {
 		@Override
 		public boolean isConditionsMet(GameCharacter owner) {
 			return owner.hasFetish(Fetish.FETISH_BREASTS_SELF) && owner.hasBreasts();
+		}
+	},
+	
+
+	TEASE_LACTATION_OTHERS(50,
+			"milk-lover tease",
+			"fetish_generic",
+			Colour.GENERIC_ARCANE,
+			DamageType.LUST,
+			20,
+			DamageVariance.LOW,
+			5,
+			null) {
+		@Override
+		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+			
+			String attackText = "";
+			
+			if(caster.isPlayer()) {
+				if(target.hasBreasts()) {
+					attackText = UtilText.parse(target,
+							(UtilText.returnStringAtRandom(
+							"You grin at [npc.name], gazing at [npc.her] [npc.breasts+] as you [pc.moanVerb],"
+								+" [pc.speech(I'm going to have fun milking your udders!)]",
+	
+							"You hungrily stare at [npc.name]'s [npc.breasts+], [pc.moaning],"
+								+" [pc.speech(I can't wait to give you a good milking!)]",
+	
+							"Gazing lustfully at [npc.name]'s [npc.breasts+], you let out [pc.a_moan+],"
+								+" [pc.speech(I'm going to have fun milking those [npc.breasts+] of yours!)]")));
+					
+				} else { //TODO
+					attackText = UtilText.parse(target,
+							"Gazing at [npc.name]'s chest, you let out an annoyed huff,"
+									+ " [pc.speech(I wish you had a nice pair of tits that I could milk!)]");
+				}
+				
+			} else if(target.isPlayer()){
+				if(target.hasBreasts()) {
+					attackText = UtilText.parse(caster,
+							(UtilText.returnStringAtRandom(
+							"[npc.Name] grins at you, gazing at your [pc.breasts+] as [npc.she] [npc.moansVerb],"
+								+" [npc.speech(I'm going to have fun milking your udders!)]",
+	
+							"[npc.Name] hungrily stares at your [pc.breasts+], [npc.moaning],"
+								+" [npc.speech(I can't wait to give you a good milking!)]",
+	
+							"Gazing lustfully at your [pc.breasts+], [npc.name] lets out [npc.a_moan+],"
+									+" [npc.speech(I'm going to have fun milking those [pc.breasts+] of yours!)]")));
+					
+				} else { //TODO
+					attackText = UtilText.parse(caster,
+							"Gazing at your chest, [npc.name] lets out an annoyed huff,"
+									+ " [npc.speech(I wish you had a nice pair of tits that I could milk!)]");
+				}
+				
+			} else {
+				if(target.hasBreasts()) {
+					attackText = UtilText.parse(caster, target,
+							(UtilText.returnStringAtRandom(
+							"[npc.Name] grins at [npc2.name], gazing at [npc2.her] [npc2.breasts+] as [npc.she] [npc.moansVerb],"
+								+" [npc.speech(I'm going to have fun milking your udders!)]",
+	
+							"[npc.Name] hungrily stares at [npc2.name]'s [npc2.breasts+], [npc.moaning],"
+								+" [npc.speech(I can't wait to give you a good milking!)]",
+	
+							"Gazing lustfully at [npc2.name]'s [npc2.breasts+], [npc.name] lets out [npc.a_moan+],"
+									+" [npc.speech(I'm going to have fun milking those [npc2.breasts+] of yours!)]")));
+					
+				} else { //TODO
+					attackText = UtilText.parse(caster, target,
+							"Gazing at [npc2.name]'s chest, [npc.name] lets out an annoyed huff,"
+									+ " [npc.speech(I wish you had a nice pair of tits that I could milk!)]");
+				}
+			}
+			
+			return applySpecialSeduction(caster, target, Fetish.FETISH_LACTATION_SELF, attackText);
+
+		}
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "Due to your "+Fetish.FETISH_LACTATION_OTHERS.getName(owner)+" fetish, you're able to use a special tease attack!";
+			} else {
+				return UtilText.parse(owner, "[npc.Name] is able to use a special "+Fetish.FETISH_LACTATION_OTHERS.getName(owner)+" tease attack!");
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter owner) {
+			return owner.hasFetish(Fetish.FETISH_LACTATION_OTHERS)
+					&& (!Main.game.isInCombat() || Combat.getTargetedCombatant(owner).hasBreasts());
+		}
+	},
+	
+	TEASE_LACTATION(50,
+			"lactation tease",
+			"fetish_generic",
+			Colour.GENERIC_ARCANE,
+			DamageType.LUST,
+			20,
+			DamageVariance.LOW,
+			5,
+			null) {
+		@Override
+		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+			
+			String attackText = "";
+			
+			if(caster.isPlayer()) {
+				attackText = UtilText.parse(target,
+						(UtilText.returnStringAtRandom(
+						"Pushing your [pc.breasts+] together, you pout [npc.name], "
+								+ "[pc.speech(My breasts are so sore! Please, I need milking!)]",
+
+						"Slowly rubbing your [pc.breasts+], you let out a whine as you bat your eyelids at [npc.name], "
+								+ "[pc.speech(I'm so full of milk! I need help!)]",
+
+						"Running your hands suggestively over your [pc.breasts+], you bite your lip before pouting at [npc.name], "
+								+ "[pc.speech(Please, I need milking!)]",
+
+						"Running your hands suggestively over your [pc.breasts+], you bite your lip before pouting at [npc.name], "
+								+ "[pc.speech(~Aah!~ I'm so full of milk! Please, I need your help!)]")));
+				
+			} else if(target.isPlayer()) {
+				attackText = UtilText.parse(caster,
+						(UtilText.returnStringAtRandom(
+						"Pushing [npc.her] [npc.breasts+] together, [npc.name] pouts at you, "
+								+ "[npc.speech(My breasts are so sore! Please, I need milking!)]",
+
+						"Slowly rubbing [npc.her] [npc.breasts+], [npc.name] lets out a whine as [npc.she] bats [npc.her] eyelids at you, "
+								+ "[npc.speech(I'm so full of milk! I need help!)]",
+
+						"Running [npc.her] [npc.hands] suggestively over [npc.her] [npc.breasts+], [npc.name] bites [npc.her] lip before pouting at you, "
+								+ "[npc.speech(Please, I need milking!)]",
+
+						"Running [npc.her] [npc.hands] suggestively over [npc.her] [npc.breasts+], [npc.name] bites [npc.her] lip before pouting at you, "
+								+ "[npc.speech(~Aah!~ I'm so full of milk! Please, I need your help!)]")));
+				
+			} else {
+				attackText = UtilText.parse(caster, target,
+						(UtilText.returnStringAtRandom(
+						"Pushing [npc.her] [npc.breasts+] together, [npc.name] pouts at [npc2.name], "
+								+ "[npc.speech(My breasts are so sore! Please, I need milking!)]",
+
+						"Pushing [npc.her] [npc.breasts+] together, [npc.name] lets out a whine as [npc.she] bats [npc.her] eyelids at [npc2.name], "
+								+ "[npc.speech(I'm so full of milk! I need help!)]",
+
+						"Running [npc.her] [npc.hands] suggestively over [npc.her] [npc.breasts+], [npc.name] bites [npc.her] lip before pouting at [npc2.name], "
+								+ "[npc.speech(Please, I need milking!)]",
+
+						"Running [npc.her] [npc.hands] suggestively over [npc.her] [npc.breasts+], [npc.name] bites [npc.her] lip before pouting at [npc2.name], "
+								+ "[npc.speech(~Aah!~ I'm so full of milk! Please, I need your help!)]")));
+			}
+			
+			return applySpecialSeduction(caster, target, Fetish.FETISH_LACTATION_OTHERS, attackText);
+
+		}
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "Due to your "+Fetish.FETISH_LACTATION_SELF.getName(owner)+" fetish, you're able to use a special tease attack!";
+			} else {
+				return UtilText.parse(owner, "[npc.Name] is able to use a special tease attack by using [npc.her] breasts!");
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter owner) {
+			return owner.hasFetish(Fetish.FETISH_LACTATION_SELF) && owner.hasBreasts();
 		}
 	},
 	

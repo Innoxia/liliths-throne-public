@@ -56,7 +56,7 @@ public class PlayerSelfFingerNipple {
 					
 					"Your nipples are just begging for some attention, and you reach up and start to pinch at them, whining in delight as [npc.name] smirks at you."));
 			
-			switch (Main.game.getPlayer().getBreastLactation()) {
+			switch (Main.game.getPlayer().getBreastStoredMilk()) {
 				case ONE_TRICKLE:
 					UtilText.nodeContentSB.append(" A small trickle of [pc.milk] leaks out onto your fingertips.");
 					break;
@@ -83,6 +83,11 @@ public class PlayerSelfFingerNipple {
 			}
 
 			return UtilText.nodeContentSB.toString();
+		}
+		
+		@Override
+		public String applyEffectsString() {
+			return Main.game.getPlayer().incrementBreastStoredMilk(-10);
 		}
 		
 	};
@@ -120,7 +125,7 @@ public class PlayerSelfFingerNipple {
 					"With a lewd cry, you sink your digits into your inviting nipple-cunts, panting heavily as you start eagerly fingering yourself."));
 			
 		
-			switch (Main.game.getPlayer().getBreastLactation()) {
+			switch (Main.game.getPlayer().getBreastStoredMilk()) {
 				case ONE_TRICKLE:
 					UtilText.nodeContentSB.append(" A small trickle of [pc.milk] leaks out around your fingertips.");
 					break;
@@ -148,7 +153,11 @@ public class PlayerSelfFingerNipple {
 
 			return UtilText.nodeContentSB.toString();
 		}
-		
+
+		@Override
+		public String applyEffectsString() {
+			return Main.game.getPlayer().incrementBreastStoredMilk(-10);
+		}
 	};
 	
 	public static final SexAction DOM_PLAYER_SELF_FINGER_NIPPLE_GENTLE = new SexAction(

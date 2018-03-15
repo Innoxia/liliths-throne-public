@@ -11,7 +11,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.1.97
+ * @version 0.2.1
  * @author Innoxia
  */
 public enum InventorySlot {
@@ -63,8 +63,8 @@ public enum InventorySlot {
 	PIERCING_PENIS(0, "cock piercing", false, true),
 
 	// EQUIPPABLE:
-	WEAPON_OFFHAND(0, "offhand weapon", false, false),
-	WEAPON_MAIN(0, "main weapon", false, false);
+	WEAPON_MAIN(0, "primary weapon", false, false),
+	WEAPON_OFFHAND(0, "secondary weapon", false, false);
 
 	private int zLayer;
 	private String name;

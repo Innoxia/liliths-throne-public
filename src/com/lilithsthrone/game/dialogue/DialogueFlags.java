@@ -73,6 +73,10 @@ public class DialogueFlags implements Serializable, XMLSaving {
 			CharacterUtils.createXMLElementWithValue(doc, valuesElement, "dialogueValue", value.toString());
 		}
 		
+		saveSet(element, doc, reindeerEncounteredIDs, "reindeerEncounteredIDs");
+		saveSet(element, doc, reindeerWorkedForIDs, "reindeerWorkedForIDs");
+		saveSet(element, doc, reindeerFuckedIDs, "reindeerFuckedIDs");
+		
 		Element supplierStorageRoomsCheckedElement = doc.createElement("supplierStorageRoomsChecked");
 		element.appendChild(supplierStorageRoomsCheckedElement);
 		for(Vector2i value : supplierStorageRoomsChecked) {
@@ -104,6 +108,10 @@ public class DialogueFlags implements Serializable, XMLSaving {
 			} catch(Exception ex) {
 			}
 		}
+
+		loadSet(parentElement, doc, newFlags.reindeerEncounteredIDs, "reindeerEncounteredIDs");
+		loadSet(parentElement, doc, newFlags.reindeerWorkedForIDs, "reindeerWorkedForIDs");
+		loadSet(parentElement, doc, newFlags.reindeerFuckedIDs, "reindeerFuckedIDs");
 		
 		if(parentElement.getElementsByTagName("supplierStorageRoomsChecked").item(0)!=null) {
 			for(int i=0; i<((Element) parentElement.getElementsByTagName("supplierStorageRoomsChecked").item(0)).getElementsByTagName("location").getLength(); i++){
@@ -116,6 +124,28 @@ public class DialogueFlags implements Serializable, XMLSaving {
 			}
 		}
 		return newFlags;
+	}
+	
+	private static void saveSet(Element parentElement, Document doc, Set<String> set, String title) {
+		Element valuesElement = doc.createElement(title);
+		parentElement.appendChild(valuesElement);
+		for(String value : set) {
+			CharacterUtils.createXMLElementWithValue(doc, valuesElement, "value", value.toString());
+		}
+	}
+	
+	private static void loadSet(Element parentElement, Document doc, Set<String> set, String title) {
+		try {
+			if(parentElement.getElementsByTagName(title).item(0)!=null) {
+				for(int i=0; i<((Element) parentElement.getElementsByTagName(title).item(0)).getElementsByTagName("value").getLength(); i++){
+					Element e = (Element) ((Element) parentElement.getElementsByTagName(title).item(0)).getElementsByTagName("value").item(i);
+				
+					set.add(e.getAttribute("value"));
+				}
+			}
+		} catch(Exception ex) {
+			System.err.println("Whoopsie :^)");
+		}
 	}
 
 	public boolean hasFlag(DialogueFlagValue flag) {

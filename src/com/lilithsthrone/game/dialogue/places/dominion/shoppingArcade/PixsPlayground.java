@@ -9,6 +9,7 @@ import com.lilithsthrone.game.dialogue.responses.ResponseSex;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.sex.SexPositionSlot;
 import com.lilithsthrone.game.sex.managers.dominion.SMPixShowerTime;
+import com.lilithsthrone.game.sex.managers.universal.SMFaceToWall;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -54,7 +55,6 @@ public class PixsPlayground {
 					public void effects(){
 						Main.game.getPlayer().incrementHealth(-Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM) * 0.4f);
 						Main.game.getTextEndStringBuilder().append(
-//								Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_PHYSIQUE, 0.5f)+
 								"<p style='text-align:center'>[style.boldGood(+5)] <b style='color:"+Colour.MUSCLE_THREE.toWebHexString()+";'>Muscle Definition</b></p>"
 								+Main.game.getPlayer().incrementMuscle(5));
 					}
@@ -73,14 +73,10 @@ public class PixsPlayground {
 							"Pix is hovering close by, bouncing up and down on the spot while glancing your way. She obviously wants you to ask her for a personal training session. Call her over and grant her wish.", GYM_PIX_TRAINING){
 						@Override
 						public void effects(){
-
-							Main.game.getPlayer().incrementHealth(-Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM) * 0.8f);
+							Main.game.getPlayer().incrementHealth(-Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM) * 0.1f);
 							Main.game.getTextEndStringBuilder().append(
-//									Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_PHYSIQUE, 1f)+
-									"<p style='text-align:center'>[style.boldBad(-10)] <b style='color:"+Colour.BODY_SIZE_THREE.toWebHexString()+";'>Body Size</b></p>"
-									+Main.game.getPlayer().incrementBodySize(-10)
-									+ "<p style='text-align:center'>[style.boldGood(+10)] <b style='color:"+Colour.MUSCLE_THREE.toWebHexString()+";'>Muscle Definition</b></p>"
-									+Main.game.getPlayer().incrementMuscle(10));
+									"<p style='text-align:center'>[style.boldGood(+4)] <b style='color:"+Colour.MUSCLE_THREE.toWebHexString()+";'>Muscle Definition</b></p>"
+									+Main.game.getPlayer().incrementMuscle(4));
 						}
 					};
 				}
@@ -493,61 +489,203 @@ public class PixsPlayground {
 		
 		@Override
 		public int getMinutesPassed(){
-			return 120;
+			return 20;
 		}
-
 
 		@Override
 		public String getContent() {
 			return "<p>"
-					+ "You look over to where Pix is trying, very badly, to act nonchalant as she watches you."
-					+ " Beckoning her over, she immediately breaks her composure, smiling happily as she bounces her way over to you."
+						+ "You look over to where Pix is trying, very badly, to act nonchalant as she watches you."
+						+ " Beckoning her over, she immediately breaks her composure, smiling happily as she bounces her way over to you."
 					+ "</p>"
 					+ "<p>"
-					+ UtilText.parseSpeech("Heya! How're ya doin'?!", Main.game.getPix())
-					+ " she squeals, obviously extremely pleased that you've asked her to come over."
+						+ UtilText.parseSpeech("Heya! How're ya doin'?!", Main.game.getPix())
+						+ " she squeals, obviously extremely pleased that you've asked her to come over."
 					+ "</p>"
 					+ "<p>"
-					+ "You start to say that you'd like her to show you a good routine to follow, but before you're even halfway through your first sentence, she hastily interrupts you in her eagerness to respond, "
-					+ UtilText.parseSpeech("Wohoo! So, like, you want to have a good workout, huh?! Let's start over here!", Main.game.getPix())
+						+ "You start to say that you'd like her to show you a good routine to follow, but before you're even halfway through your first sentence, she hastily interrupts you in her eagerness to respond, "
+						+ UtilText.parseSpeech("Wohoo! So, like, you want to have a good workout, huh?! Let's start over here!", Main.game.getPix())
 					+ "</p>"
 					+ "<p>"
-					+ "You follow Pix over to the free weights section, where she begins to show you her special routine."
-					+ " She gets you to do several sets of weights, working her way through every set of muscles on your body."
-					+ " By the time you're done, you're left panting and feeling thoroughly worn out."
+						+ "You follow Pix over to the free weights section, where she begins to show you her special routine."
+						+ " She gets you to do several sets of weights, working your way through every set of muscles on your body."
 					+ "</p>"
 					+ "<p>"
-					+ UtilText.parseSpeech("Come on now! No slacking!", Main.game.getPix())
-					+ " she exclaims, before bounding over to the cardio section."
+						+ "[pix.speech(C'mon! You can do better than that, can'tcha?!)]"
+						+ " Pix exclaims, energetically jumping up and down on the spot."
 					+ "</p>"
 					+ "<p>"
-					+ "You let out a groan as you realise that she wants you to exercise on the running machines."
-					+ " Pix's tail, which up until now hasn't stopped wagging, flicks upright for a second, before continuing its seemingly uncontrollable motion."
+						+ "You feel as though you're already working quite hard, and if you were to push yourself any further, you'd quickly get very fatigued."
+						+ " Then again, you <i>are</i> trying to get fitter, and Pix is a professional..."
+						+ " Maybe you should give it your all?"
+					+ "</p>";
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Full effort", "Put all of your effort into the weights routine.", GYM_PIX_TRAINING_CARDIO){
+					@Override
+					public void effects(){
+						Main.game.getPlayer().incrementHealth(-Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM) * 0.4f);
+						Main.game.getTextStartStringBuilder().append(
+								"<p>"
+									+ "Deciding that it'd be best to give Pix one hundred percent of your effort, you fully commit to the exercise."
+									+ " Following Pix's instructions, you work your way through several more sets of weights, and by the time you're done, you're left panting and feeling thoroughly worn out."
+								+ "</p>"
+								+ "<p>"
+									+ "The routine isn't over just yet, however, and, once you're done with the weights, Pix leads you over towards the cardio section."
+								+ "</p>"
+								+ "<p style='text-align:center'>[style.boldGood(+6)] <b style='color:"+Colour.MUSCLE_THREE.toWebHexString()+";'>Muscle Definition</b></p>"
+								+Main.game.getPlayer().incrementMuscle(6));
+						Main.game.getTextEndStringBuilder().append(
+								"<p style='text-align:center'>[style.boldBad(-4)] <b style='color:"+Colour.BODY_SIZE_THREE.toWebHexString()+";'>Body Size</b></p>"
+								+Main.game.getPlayer().incrementBodySize(-4));
+					}
+				};
+				
+			} else if (index == 2) {
+				return new Response("Hold back", "Hold back and conserve your energy...", GYM_PIX_TRAINING_CARDIO){
+					@Override
+					public void effects(){
+						Main.game.getPlayer().incrementHealth(-Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM) * 0.15f);
+						Main.game.getTextStartStringBuilder().append(
+								"<p>"
+									+ "Not wanting to exhaust yourself, you decide to hold back a little."
+									+ " Following Pix's instructions, you work your way through several more sets of weights, but,"
+										+ " while still maintaining the impression that you're putting one-hundred percent of your effort into it, you don't fully commit yourself to the exercise."
+								+ "</p>"
+								+ "<p>"
+									+ "Pix doesn't seem to pick up on the fact that you're holding back, and, once you're done with the weights, she leads you over towards the cardio section."
+								+ "</p>"
+								+ "<p style='text-align:center'>[style.boldGood(+2)] <b style='color:"+Colour.MUSCLE_THREE.toWebHexString()+";'>Muscle Definition</b></p>"
+								+Main.game.getPlayer().incrementMuscle(2));
+						Main.game.getTextEndStringBuilder().append(
+								"<p style='text-align:center'>[style.boldBad(-4)] <b style='color:"+Colour.BODY_SIZE_THREE.toWebHexString()+";'>Body Size</b></p>"
+								+Main.game.getPlayer().incrementBodySize(-4));
+					}
+				};
+				
+			} else {
+				return null;
+			}
+		}
+
+		@Override
+		public boolean isRegenerationDisabled() {
+			return true;
+		}
+	};
+	
+	public static final DialogueNodeOld GYM_PIX_TRAINING_CARDIO = new DialogueNodeOld("Pix's Playground", "-", true, true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public int getMinutesPassed(){
+			return 30;
+		}
+
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ UtilText.parseSpeech("Come on now! No slacking!", Main.game.getPix())
+						+ " she exclaims as she leads you over towards the running machines."
 					+ "</p>"
 					+ "<p>"
-					+ UtilText.parseSpeech("Hey! I heard that! Come on now, if you give me an hour, I'll make it worth your while!", Main.game.getPix())
-					+ " she winks, pushing you onto one of the machines and turning it on."
+						+ "You let out a groan as you see what Pix has got in store for you."
+						+ " The dog-girl's tail, which up until now hasn't stopped wagging, flicks upright for a second, before continuing its seemingly uncontrollable motion."
 					+ "</p>"
 					+ "<p>"
-					+ "With her excitable manner of talking over you, combined with the fact that you've been breathing heavily throughout Pix's exercise routine, you've been completely unable to get out a single sentence."
-					+ " You wonder what she means by making it 'worth your while', but as you run, you start to get a clear idea of what she means."
-					+ " Pix moves round behind you as you run, and you can almost feel her lustful gaze resting on your ass."
+						+ UtilText.parseSpeech("Hey! I heard that! Come on now, if you give me thirty more minutes, I'll make it worth your while!", Main.game.getPix())
+						+ " she winks, pushing you onto one of the machines and turning it on."
 					+ "</p>"
 					+ "<p>"
-					+ UtilText.parseSpeech("Mmm! Y'know, you've got one hot ass!", Main.game.getPix())
-					+ " she giggles."
+						+ "With her excitable manner of talking over you, combined with the fact that you've been breathing heavily throughout Pix's exercise routine, you've been completely unable to get out a single sentence."
+						+ " You wonder what she means by making it 'worth your while', but as you start running, you're given a clear idea of what she means."
+						+ " Pix moves around behind you as you run, and you can almost feel her lustful gaze resting on your rear end."
 					+ "</p>"
 					+ "<p>"
-					+ "As focused as you are on having to keep up with the treadmill's movement, you're unable to respond to her pervy comment, and just keep running."
-					+ " While you exercise, Pix uses the opportunity to check you out, making inappropriate comments every now and then about the state of your body."
-					+ " After what feels like an eternity, Pix leans over and dials the difficulty back, instructing you to take a few minutes to do a cooldown walk."
-					+ " As you pant heavily, Pix leans over and uses a towel to wipe the sweat from your forehead."
-					+ " She brushes her hand over your body as she retracts, and reminds you of what she promised earlier."
+						+ UtilText.parseSpeech("Mmm! Y'know, you've got one hot ass!", Main.game.getPix())
+						+ " she giggles,"
+						+ "[pix.speech(Now show me what you're made of!)]"
 					+ "</p>"
 					+ "<p>"
-					+ UtilText.parseSpeech("You're like, my star pupil, y'know! I said I'd make it worth your while, remember?!"
-							+ " So come meet me in the showers if you want a little one-to-one cooldown exercise...", Main.game.getPix())
-					+ " she says, enticingly sliding her paw-like hands over her breasts and giggling before bouncing away towards the showers."
+						+ "Once again, you find yourself with a choice to make."
+						+ " Should you put in your full amount of effort, or hold back and conserve your energy?"
+					+ "</p>";
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Steady run", "Set the running machine's speed to a steady pace.", GYM_PIX_TRAINING_FINISH){
+					@Override
+					public void effects(){
+						Main.game.getPlayer().incrementHealth(-Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM) * 0.4f);
+						Main.game.getTextStartStringBuilder().append(
+								"<p>"
+									+ "Wanting to show Pix what you can do, you decide to set the machine for a steady run."
+									+ " Pix lets out an impressed hum as she sees what speed you're setting the machine to,"
+									+ " [pix.speech(Mmm... You're eager to show off for me, aren't ya?)]"
+								+ "</p>"
+								+ "<p style='text-align:center'>[style.boldBad(-6)] <b style='color:"+Colour.BODY_SIZE_THREE.toWebHexString()+";'>Body Size</b></p>"
+								+Main.game.getPlayer().incrementBodySize(-6));
+					}
+				};
+				
+			} else if (index == 2) {
+				return new Response("Slow jog", "Set the running machine's speed to a slow jog in order to conserve energy.", GYM_PIX_TRAINING_FINISH){
+					@Override
+					public void effects(){
+						Main.game.getPlayer().incrementHealth(-Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM) * 0.15f);
+						Main.game.getTextStartStringBuilder().append(
+								"<p>"
+									+ "Unwilling to completely exhaust yourself on the running machine, you decide to settle for a slow jog."
+									+ " Pix lets out a mildly annoyed huff as she sees what speed you're setting the machine to,"
+									+ " [pix.speech(Huh... You're more exhausted than I thought! You're gonna need to get fitter, aren't ya?)]"
+								+ "</p>"
+								+ "<p style='text-align:center'>[style.boldBad(-2)] <b style='color:"+Colour.BODY_SIZE_THREE.toWebHexString()+";'>Body Size</b></p>"
+								+Main.game.getPlayer().incrementBodySize(-2));
+					}
+				};
+				
+			} else {
+				return null;
+			}
+		}
+
+		@Override
+		public boolean isRegenerationDisabled() {
+			return true;
+		}
+	};
+	
+	public static final DialogueNodeOld GYM_PIX_TRAINING_FINISH = new DialogueNodeOld("Pix's Playground", "-", true, true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public int getMinutesPassed(){
+			return 30;
+		}
+
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "As you exercise, Pix uses the opportunity to check you out, making inappropriate comments every now and then about the state of your body,"
+						+ " [pix.speech(That's right, keep working that ass for me... Mmm, yeah, that's good...)]"
+					+ "</p>"
+					+ "<p>"
+						+ "As focused as you are on having to keep up with the treadmill's movement, you're unable to respond to the pervy comments, and just focus on what you're doing instead."
+					+ "</p>"
+					+ "<p>"
+						+ "After what feels like an eternity, the dog-girl trainer finally leans over and dials the difficulty back, instructing you to take a few minutes to do a cooldown walk."
+						+ " As you heavily pant, Pix leans over and uses a towel to wipe the sweat from your forehead."
+						+ " She brushes her hand over your body as she retracts, and reminds you of what she promised earlier,"
+						+ UtilText.parseSpeech("You're like, my star pupil, y'know! I said I'd make it worth your while, remember?!"
+								+ " So come meet me in the showers if you want a little one-to-one cooldown exercise...", Main.game.getPix())
+					+"</p>"
+					+ "<p>"
+						+ "Enticingly sliding her paw-like hands over her breasts, Pix lets out one final giggle before bouncing away towards the showers..."
 					+ "</p>";
 		}
 		
@@ -597,11 +735,18 @@ public class PixsPlayground {
 					
 				+ "<p>"
 					+ "You start to let out a yell in surprise, but the dog-girl quickly clasps a paw-like hand over your mouth as she leans in, pressing her naked body against yours as she growls in your ear, "
-					+ UtilText.parseSpeech("Haha! So, like, were you trying to avoid me or something?! 'Cause that kinda makes me sad!"
-							+ " And y'know, it also kinda makes me think that you need a little punishment! So, whattya got to say for yourself, huh, huh, huh?!", Main.game.getPix())
+					+ UtilText.parseSpeech("Haha! So, like, were you trying to avoid me or something?!"
+							+ " 'Cause that kinda makes me sad!"
+							+ " And y'know, it also kinda makes me think that you need a little punishment!"
+							+ " So, whattya got to say for yourself, huh, huh, huh?!", Main.game.getPix())
+					+ " As she lifts her hand from over your mouth, you're given a chance to respond."
 				+ "</p>"
 				+ "<p>"
-				+ "As she lifts her hand from over your mouth, you finally get the chance to respond."
+				+ (Main.game.getPlayer().getHealthPercentage()<0.4f
+						?"[style.italicsBad(You are completely exhausted from Pix's exercise routine, which, looking back at it, might have been exactly what she was after all this time...)]"
+						:(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_PHYSIQUE)<Main.game.getPix().getAttributeValue(Attribute.MAJOR_PHYSIQUE)
+							?"[style.italicsGood(As you decided to hold back a little, you think you have enough energy to break free, but, seeing as Pix is stronger and fitter than you, you don't think you could turn the tables on her...)]"
+							:"[style.italicsExcellent(As you decided to hold back a little, you think you have enough energy to break free, and, seeing as you're stronger and fitter than Pix, you think you could even turn the tables on her...)]"))
 				+ "</p>";
 		}
 
@@ -637,8 +782,8 @@ public class PixsPlayground {
 						+ "</p>");
 				
 			} else if(index==2) {
-				return new ResponseSex("Make it up to her",
-						"Tell Pix that you can make it up to her right now.",
+				return new ResponseSex("Offer sex",
+						"Tell Pix that you can make it up to her right now...",
 						false, false,
 						new SMPixShowerTime(
 								Util.newHashMapOfValues(new Value<>(Main.game.getPix(), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL_SHOWER_PIX)),
@@ -666,7 +811,7 @@ public class PixsPlayground {
 						+ "</p>");
 				
 			} else if(index==3) {
-				return new ResponseSex("Apologise",
+				return new ResponseSex("Accept punishment",
 						"Apologise to Pix and accept her punishment.",
 						false, false,
 						new SMPixShowerTime(
@@ -694,13 +839,135 @@ public class PixsPlayground {
 								+ " I can see that you're made of tougher stuff though, so I'm sure you won't mind helping me have a little fun!", Main.game.getPix())
 						+ "</p>");
 				
+			} else if(index==4) {
+				if(Main.game.getPlayer().getHealthPercentage()<0.4f) {
+					return new Response("Break free",
+							"You simply don't have enough energy left to try and break free! You need at least 40% energy for this ("+(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM)*0.4)+")",
+							null);
+					
+				} else {
+					return new Response("Break free",
+							"Use the energy that you've saved by holding back during your exercise to break free from Pix.",
+							PIX_BREAK_FREE);
+				}
+				
+			} else if(index==5) {
+				if(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_PHYSIQUE)<Main.game.getPix().getAttributeValue(Attribute.MAJOR_PHYSIQUE)) {
+					return new Response("Turn Tables",
+							"Pix is both stronger and fitter than you (her physique of "+Main.game.getPix().getAttributeValue(Attribute.MAJOR_PHYSIQUE)+" is greater than your physique of "
+									+Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_PHYSIQUE)+"), so you don't stand a chance of turning the tables on her in this situation.",
+							null);
+					
+				} else if(Main.game.getPlayer().getHealthPercentage()<0.4f) {
+					return new Response("Turn Tables",
+							"You simply don't have enough energy left to try and turn the tables on Pix! You need at least 40% energy for this ("+(Main.game.getPlayer().getAttributeValue(Attribute.HEALTH_MAXIMUM)*0.4)+")",
+							null);
+					
+				} else {
+					return new ResponseSex("Turn Tables",
+							"Use the energy that you've saved by holding back during your exercise to break free from Pix, and then turn the tables on her...",
+							false, false,
+							new SMFaceToWall(
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.FACE_TO_WALL_FACING_TARGET)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPix(), SexPositionSlot.FACE_TO_WALL_AGAINST_WALL))) {
+								@Override
+								public boolean isPlayerStartNaked() {
+									return true;
+								}
+		
+								@Override
+								public boolean isPartnerStartNaked() {
+									return true;
+								}
+							},
+							PIX_POST_SEX_TABLES_TURNED,
+							"<p>"
+								+ "Summoning the energy that you've saved by holding back during Pix's exercise, you push yourself off from the shower wall, causing Pix to stumble backwards."
+								+ " Twisting to one side, you break free of her grip, before spinning around and grabbing the startled dog-girl."
+								+ " In one swift move, you're behind her, and, locking her arms behind her back, you completely turn the tables as you end up pinning the dog-girl up against the shower wall."
+							+ "</p>"
+							+ "<p>"
+								+ "[pix.speech(Aaah!)]"
+								+ " Pix cries, with more than a little excitement in her voice,"
+								+ " [pix.speech(Like, nobody's ever managed to do <i>this</i> before!)]"
+							+ "</p>"
+							+ "<p>"
+								+ "Leaning in over her shoulder, you can't help but grin as you growl into Pix's ear,"
+								+ " [pc.speech(It looks like it's <i>you</i> who's the one in need of some punishment...)]"
+							+ "</p>");
+				}
+				
 			} else {
 				return null;
 			}
 		}
 	};
 	
+	public static final DialogueNodeOld PIX_BREAK_FREE = new DialogueNodeOld("", "", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "Summoning the energy that you've saved by holding back during Pix's exercise, you push yourself off from the shower wall, causing Pix to stumble backwards."
+						+ " Twisting to one side, you break free of her grip, before spinning around to face the naked dog-girl."
+					+ "</p>"
+					+ "<p>"
+						+ "[pix.speech(Hah!)]"
+						+ " she cries,"
+						+ " [pix.speech(I knew ya were holdin' back! Well, I guess I'll just have ta get ya another time!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "Throwing you a mischievous grin, she bolts off towards the exit, calling out behind her as she goes,"
+						+ " [pix.speech(Come back soon! You're, like, still my star pupil!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "Shaking your head, you continue with your shower, making sure to keep an eye on the entrance."
+						+ " After you're done, you head back into the changing rooms, and without further incident, dry yourself off, get changed, and leave the gym."
+					+ "</p>";
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Exit gym", "Leave the gym and carry on your way.", GYM_EXTERIOR);
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld PIX_POST_SEX_TABLES_TURNED = new DialogueNodeOld("Changing Rooms", "Carry Pix out to the changing rooms.", true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public int getMinutesPassed(){
+			return 60;
+		}
 
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "Hooking your arms under Pix's, you drag the exhausted dog-girl out from the showers, and into the changing rooms."
+						+ " Lying her down on one of the wooden benches, you grab a nearby towel, before quickly drying her body off."
+						+ " You can't help but grin as she sighs,"
+						+ " [pix.speech(Ahh... Thanks [pc.name]... That sure was fun, y'know...)]"
+					+ "</p>"
+					+ "<p>"
+						+ "You let out a satisfied sigh of your own in response, and, as the dog-girl lies back on the bench, you dry yourself off and get changed."
+						+ " Knowing that she's going to need some time to recover from her special 'one-to-one cooldown exercise', you pat the dog-girl on the head, before setting off out of the gym."
+					+ "</p>";
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Exit gym", "Leave the gym and carry on your way.", GYM_EXTERIOR);
+			} else {
+				return null;
+			}
+		}
+	};
 	
 	public static final DialogueNodeOld PIX_POST_SEX = new DialogueNodeOld("Pix dresses you", "You're too tired to complain as Pix starts dressing you.", true) {
 		private static final long serialVersionUID = 1L;

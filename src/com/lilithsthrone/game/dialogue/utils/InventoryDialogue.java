@@ -3237,7 +3237,7 @@ public class InventoryDialogue {
 										};
 									} else {
 										return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"),
-												UtilText.parse(inventoryNPC, "[npc.Name] can't equip the " + clothing.getName() + ", as other clothing is blocking [npc.her] from doing so!"), null);
+												UtilText.parse(inventoryNPC, "[npc.Name] can't equip the " + clothing.getName() + ", as other clothing is blocking [npc.herHim] from doing so!"), null);
 									}
 								} else {
 									return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), "You can't equip clothing while having sex with someone!", null);
@@ -3704,7 +3704,7 @@ public class InventoryDialogue {
 										};
 									} else {
 										return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"),
-												UtilText.parse(inventoryNPC, "[npc.Name] can't equip the " + clothing.getName() + ", as other clothing is blocking [npc.her] from doing so!"), null);
+												UtilText.parse(inventoryNPC, "[npc.Name] can't equip the " + clothing.getName() + ", as other clothing is blocking [npc.herHim] from doing so!"), null);
 									}
 								} else {
 									return new Response(UtilText.parse(inventoryNPC, "Equip ([npc.Name])"), "You can't equip this clothing while having sex with someone!", null);

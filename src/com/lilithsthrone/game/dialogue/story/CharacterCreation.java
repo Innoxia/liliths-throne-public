@@ -10,7 +10,6 @@ import com.lilithsthrone.game.character.Name;
 import com.lilithsthrone.game.character.NameTriplet;
 import com.lilithsthrone.game.character.Personality;
 import com.lilithsthrone.game.character.SexualOrientation;
-import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
@@ -40,10 +39,6 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
-import com.lilithsthrone.game.sex.OrificeType;
-import com.lilithsthrone.game.sex.PenetrationType;
-import com.lilithsthrone.game.sex.SexParticipantType;
-import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
@@ -53,7 +48,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.1.87
+ * @version 0.2.1
  * @author Innoxia
  */
 public class CharacterCreation {
@@ -863,7 +858,7 @@ public class CharacterCreation {
 						
 					+ CharacterModificationUtils.getHeightChoiceDiv()
 					
-					+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.HUMAN, "Skin Colour", "The colour of the skin that's covering your body.", false, false, false)
+					+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyCoveringType.HUMAN, "Skin Colour", "The colour of the skin that's covering your body.", true, false, false)
 					
 					+ "<div class='cosmetics-container' style='background:transparent;'>"
 					
@@ -1269,7 +1264,7 @@ public class CharacterCreation {
 		Main.game.getPrologueFemale().setLocation(WorldType.JUNGLE, PlaceType.JUNGLE_CLUB, false);
 	}
 	
-	private static boolean femalePrologueNPC() {
+	public static boolean femalePrologueNPC() {
 		return Main.game.getPlayer().getSexualOrientation()==SexualOrientation.GYNEPHILIC || (Main.game.getPlayer().getSexualOrientation()==SexualOrientation.AMBIPHILIC && Main.game.getPlayer().hasPenis());
 	}
 	
@@ -1285,7 +1280,7 @@ public class CharacterCreation {
 						+ " With each step you take, you inexplicably find yourself getting more and more turned on, and by the time you've barely covered half the distance to the bustling crowd of visitors,"
 							+(Main.game.getPlayer().hasPenis()
 									?" you're struggling to keep yourself from getting an erection."
-									:" you can feel your pussy getting wet from arousal.")+"."
+									:" you can feel your pussy getting wet from arousal.")
 					+ "</p>"
 					+ "<p>"
 						+ "Ducking behind a nearby pillar, you shake your head to try and dislodge the dirty thoughts that are starting to seep into your mind."
@@ -1366,10 +1361,6 @@ public class CharacterCreation {
 						+ "</p>");
 			}
 			
-			UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align:center;'>"
-												+ "<i>This is still a placeholder. I'm planning on adding a lot of backgrounds for you to choose from!</i>"
-											+ "</div>");
-			
 			return UtilText.nodeContentSB.toString();
 		}
 		
@@ -1409,35 +1400,56 @@ public class CharacterCreation {
 								+ "</div>");
 
 			UtilText.nodeContentSB.append("<div class='container-full-width'>");
-				int i=0;
-				for(History history : History.getAvailableHistories(Main.game.getPlayer())) {
-					if(i%2==0) {
-						UtilText.nodeContentSB.append("<div class='container-full-width'>");
-					}
-					UtilText.nodeContentSB.append(
-							"<div class='container-half-width'>"
-								+"<div class='container-full-width' style='margin:0 8px; width: calc(25% - 16px);'>"
-									+ "<div id='HISTORY_" + history + "' class='fetish-icon full" + (Main.game.getPlayer().getHistory()==history
-										? " owned' style='border:2px solid " + Colour.GENERIC_GOOD.toWebHexString() + ";'>"
-										: " unlocked' style='border:2px solid " + Colour.TEXT_GREY.toWebHexString() + ";" + "'>")
-										+ "<div class='fetish-icon-content'>"+history.getAssociatedPerk().getSVGString()+"</div>"
-									+ "</div>"
+			for(History history : History.getAvailableHistories(Main.game.getPlayer())) {
+				UtilText.nodeContentSB.append(
+						"<div class='container-full-width'>"
+							+"<div class='container-full-width' style='margin:0;padding:0;'>"
+								+ "<h6 style='color:"+history.getAssociatedPerk().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(history.getName())+"</h6>"
+							+ "</div>"
+							+"<div class='container-full-width' style='margin:0 8px; width: calc(10% - 16px);'>"
+								+ "<div id='HISTORY_" + history + "' class='fetish-icon full" + (Main.game.getPlayer().getHistory()==history
+									? " owned' style='border:2px solid " + Colour.GENERIC_GOOD.toWebHexString() + ";'>"
+									: " unlocked' style='border:2px solid " + Colour.TEXT_GREY.toWebHexString() + ";" + "'>")
+									+ "<div class='fetish-icon-content'>"+history.getAssociatedPerk().getSVGString()+"</div>"
 								+ "</div>"
-								+"<div class='container-full-width' style='margin:0 8px; width: calc(75% - 16px);'>"
-									+ "<h6 style='color:"+history.getAssociatedPerk().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(history.getName())+"</h6>"
-									+ "<p>"
-										+ history.getDescriptionPlayer()
-									+ "</p>"
-								+ "</div>"
-							+ "</div>");
-					if(i%2!=0) {
-						UtilText.nodeContentSB.append("</div>");
-					}
-					i++;
-				}
-				if(i%2!=0) {
-					UtilText.nodeContentSB.append("</div>");
-				}
+							+ "</div>"
+							+"<div class='container-full-width' style='margin:0 8px; width: calc(90% - 16px);'>"
+								+ "<p>"
+									+ history.getDescriptionPlayer()
+								+ "</p>"
+							+ "</div>"
+						+ "</div>");
+			}
+			
+//				int i=0;
+//				for(History history : History.getAvailableHistories(Main.game.getPlayer())) {
+//					if(i%2==0) {
+//						UtilText.nodeContentSB.append("<div class='container-full-width'>");
+//					}
+//					UtilText.nodeContentSB.append(
+//							"<div class='container-half-width'>"
+//								+"<div class='container-full-width' style='margin:0 8px; width: calc(25% - 16px);'>"
+//									+ "<div id='HISTORY_" + history + "' class='fetish-icon full" + (Main.game.getPlayer().getHistory()==history
+//										? " owned' style='border:2px solid " + Colour.GENERIC_GOOD.toWebHexString() + ";'>"
+//										: " unlocked' style='border:2px solid " + Colour.TEXT_GREY.toWebHexString() + ";" + "'>")
+//										+ "<div class='fetish-icon-content'>"+history.getAssociatedPerk().getSVGString()+"</div>"
+//									+ "</div>"
+//								+ "</div>"
+//								+"<div class='container-full-width' style='margin:0 8px; width: calc(75% - 16px);'>"
+//									+ "<h6 style='color:"+history.getAssociatedPerk().getColour().toWebHexString()+";'>"+Util.capitaliseSentence(history.getName())+"</h6>"
+//									+ "<p>"
+//										+ history.getDescriptionPlayer()
+//									+ "</p>"
+//								+ "</div>"
+//							+ "</div>");
+//					if(i%2!=0) {
+//						UtilText.nodeContentSB.append("</div>");
+//					}
+//					i++;
+//				}
+//				if(i%2!=0) {
+//					UtilText.nodeContentSB.append("</div>");
+//				}
 			UtilText.nodeContentSB.append("</div>");
 			
 			return UtilText.nodeContentSB.toString();
@@ -1462,42 +1474,6 @@ public class CharacterCreation {
 	};
 	
 	
-	
-	
-	//TODO
-	
-	private static void resetVirginity() {
-		if(Main.game.getPlayer().getAttributeValue(Attribute.MAJOR_CORRUPTION)>0) {
-			Main.game.getPlayer().setAttribute(Attribute.MAJOR_CORRUPTION, 0);
-		}
-		
-		Main.game.getPlayer().setSexCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.VAGINA), 0);
-		Main.game.getPlayer().setVirginityLoss(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.VAGINA), null);
-
-		Main.game.getPlayer().setSexCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.ANUS), 0);
-		Main.game.getPlayer().setVirginityLoss(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.ANUS), null);
-
-		Main.game.getPlayer().setSexCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH), 0);
-		Main.game.getPlayer().setVirginityLoss(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH), null);
-
-		Main.game.getPlayer().setSexCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.ANUS), 0);
-		Main.game.getPlayer().setVirginityLoss(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.ANUS), null);
-
-		Main.game.getPlayer().setSexCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH), 0);
-		Main.game.getPlayer().setVirginityLoss(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH), null);
-		
-		Main.game.getPlayer().setSexCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.VAGINA), 0);
-		Main.game.getPlayer().setVirginityLoss(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.VAGINA), null);
-
-		Main.game.getPlayer().setSexCount(new SexType(SexParticipantType.CATCHER, PenetrationType.FINGER, OrificeType.VAGINA), 0);
-		Main.game.getPlayer().setVirginityLoss(new SexType(SexParticipantType.CATCHER, PenetrationType.FINGER, OrificeType.VAGINA), null);
-
-		Main.game.getPlayer().setPenisVirgin(true);
-		Main.game.getPlayer().setVaginaVirgin(true);
-		Main.game.getPlayer().setAssVirgin(true);
-		Main.game.getPlayer().setFaceVirgin(true);
-	}
-	
 	public static final DialogueNodeOld CHOOSE_SEX_EXPERIENCE = new DialogueNodeOld("Start", "", true) {
 		private static final long serialVersionUID = 1L;
 		
@@ -1505,10 +1481,90 @@ public class CharacterCreation {
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
+			UtilText.nodeContentSB.append("<p>");
+			switch(Main.game.getPlayer().getHistory()) {
+				case ATHLETE:
+					UtilText.nodeContentSB.append(
+							"[pc.speech(I'm a professional athlete,)]"
+							+ " you explain,"
+							+ " [pc.speech(and I spend most of my time training for and attending competitions.)]");
+					break;
+				case BUTLER:
+					UtilText.nodeContentSB.append(
+							"[pc.speech(I work as the butler for a highly influential family here in the city,)]"
+							+ " you explain,"
+							+ " [pc.speech(but I took tonight off so I could attend Lily's presentation.)]");
+					break;
+				case CHEF:
+					UtilText.nodeContentSB.append(
+							"[pc.speech(I'm the head chef at a restaurant just around the corner from here,)]"
+							+ " you explain,"
+							+ " [pc.speech(but I took tonight off so I could attend Lily's presentation.)]");
+					break;
+				case MAID:
+					UtilText.nodeContentSB.append(
+							"[pc.speech(I work as the head maid for a highly influential family here in the city,)]"
+							+ " you explain,"
+							+ " [pc.speech(but I took tonight off so I could attend Lily's presentation.)]");
+					break;
+				case MUGGER:
+					// "I beat people up and steal their money! :D"
+					break;
+				case MUSICIAN:
+					UtilText.nodeContentSB.append(
+							"[pc.speech(I'm a member of the city orchestra,)]"
+							+ " you explain,"
+							+ " [pc.speech(and I also do private music tutoring.)]");
+					break;
+				case OFFICE_WORKER:
+					UtilText.nodeContentSB.append(
+							"[pc.speech(I work in one of the corporate offices in the centre of the city,)]"
+							+ " you explain,"
+							+ " [pc.speech(mostly doing admin and paper work.)]");
+					break;
+				case PROSTITUTE:
+					// "I'm a whore! Want to know my rates? :D"
+					break;
+				case REINDEER_OVERSEER:
+					// "Well, if you hadn't already noticed, I'm actually an anthropormpic reindeer, and I come down from the snowy mountains to shovel snow in teh city every winter. :D"
+					break;
+				case SOLDIER:
+					UtilText.nodeContentSB.append(
+							"[pc.speech(I'm in the army,)]"
+							+ " you explain,"
+							+ " [pc.speech(I'm on leave for the rest of the week, and then it's back to the barracks for me.)]");
+					break;
+				case STUDENT:
+					UtilText.nodeContentSB.append(
+							"[pc.speech(I'm a student at the city uni,)]"
+							+ " you explain,"
+							+ " [pc.speech(although I haven't quite decided what to take as my major yet.)]");
+					break;
+				case TEACHER:
+					UtilText.nodeContentSB.append(
+							"[pc.speech(I'm a teacher at a local secondary school,)]"
+							+ " you explain,"
+							+ " [pc.speech(but seeing as it's half-term, I get to take it easy this week.)]");
+					break;
+				case UNEMPLOYED:
+					UtilText.nodeContentSB.append(
+							"[pc.speech(I'm in-between jobs at the moment,)]"
+							+ " you explain,"
+							+ " [pc.speech(I've actually been thinking about applying to work here at the museum.)]");
+					break;
+				case WRITER:
+					UtilText.nodeContentSB.append(
+							"[pc.speech(I'm a professional author,)]" // I write erotic novels... :3
+							+ " you explain,"
+							+ " [pc.speech(and I'm currently waiting to hear back from my publisher about my latest novel.)]");
+					break;
+			}
+			UtilText.nodeContentSB.append("</p>");
+			
 			if(femalePrologueNPC()) {
 				UtilText.nodeContentSB.append(
 						"<p>"
-							+ "As the two of you continue to talk, you find yourself getting more and more turned on."
+							+ "As the two of you continue to talk, first about work, and then about more general subjects, you find yourself getting more and more turned on."
 							+ " What's more, you begin to notice that [prologueFemale.name]'s cheeks are starting to flush red, and she keeps on glancing hungrily down at your body when she thinks that you aren't looking."
 						+ "</p>"
 						+ "<p>"
@@ -1522,7 +1578,7 @@ public class CharacterCreation {
 			} else {
 				UtilText.nodeContentSB.append(
 						"<p>"
-							+ "As the two of you continue to talk, you find yourself getting more and more turned on."
+							+ "As the two of you continue to talk, first about work, and then about more general subjects, you find yourself getting more and more turned on."
 							+ " What's more, you begin to notice that [prologueMale.name]'s cheeks are starting to flush red, and he keeps on glancing hungrily down at your body when he thinks that you aren't looking."
 						+ "</p>"
 						+ "<p>"
@@ -1533,10 +1589,12 @@ public class CharacterCreation {
 							+ "And so, after talking with [prologueMale.name] for no longer than ten minutes, you're telling him every little detail about your sexual experiences..."
 						+ "</p>");
 			}
-
-			UtilText.nodeContentSB.append("<div class='container-full-width' style='text-align:center;'>"
-												+ "<i>This is a <b>temporary placeholder</b>. I'm planning on adding a detailed menu for you to choose your sexual experiences from!</i>"
-											+ "</div>");
+			
+			UtilText.nodeContentSB.append(
+					"<div class='container-full-width' style='text-align:center;'>"
+							+ "<i>For each increase in sexual experience, you will gain 1 corruption. (You can see your corruption, along with your other attributes, in the character panel in the left of the screen.)</i>"
+						+ "</div>"
+							+CharacterModificationUtils.getSexualExperienceDiv());
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -1544,213 +1602,7 @@ public class CharacterCreation {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Virgin", "You still have your virginity.", START_GAME){
-					@Override
-					public void effects() {
-						resetVirginity();
-					}
-				};
-				
-			} else if (index == 2) {
-				return new Response("Limited experience",
-						(Main.game.getPlayer().hasVagina()
-								?"You have lost your vaginal virginity (but not your anal virginity), and have only had sex with one person."
-								:"You have lost your virginity (but not your anal virginity), and have only had sex with one person."),
-						START_GAME){
-					@Override
-					public void effects() {
-						resetVirginity();
-						
-						if(Main.game.getPlayer().hasVagina()) {
-							
-							String virginityLossText = Main.game.getPlayer().getSexualOrientation()==SexualOrientation.GYNEPHILIC?"your girlfriend":"your boyfriend";
-							
-							Main.game.getPlayer().setVaginaVirgin(false);
-							Main.game.getPlayer().setVirginityLoss(new SexType(SexParticipantType.CATCHER, PenetrationType.FINGER, OrificeType.VAGINA), virginityLossText);
-							Main.game.getPlayer().setSexCount(new SexType(SexParticipantType.CATCHER, PenetrationType.FINGER, OrificeType.VAGINA), 10 + Util.random.nextInt(20));
-							Main.game.getPlayer().setCumCount(new SexType(SexParticipantType.CATCHER, PenetrationType.FINGER, OrificeType.VAGINA), 5 + Util.random.nextInt(10));
-
-							Main.game.getPlayer().setFaceVirgin(false);
-							Main.game.getPlayer().setVirginityLoss(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH), virginityLossText);
-							Main.game.getPlayer().setSexCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH), 10 + Util.random.nextInt(20));
-							Main.game.getPlayer().setCumCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH), 5 + Util.random.nextInt(10));
-
-							Main.game.getPlayer().setVirginityLoss(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.VAGINA), virginityLossText);
-							Main.game.getPlayer().setSexCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.VAGINA), 10 + Util.random.nextInt(20));
-							Main.game.getPlayer().setCumCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.VAGINA), 5 + Util.random.nextInt(10));
-							
-						} else {
-							String virginityLossText = Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC?"your boyfriend":"your girlfriend";
-							
-							if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
-								Main.game.getPlayer().setPenisVirgin(false);
-								Main.game.getPlayer().setVirginityLoss(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.ANUS), virginityLossText);
-								Main.game.getPlayer().setSexCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.ANUS), 10 + Util.random.nextInt(20));
-								Main.game.getPlayer().setCumCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.ANUS), 5 + Util.random.nextInt(10));
-
-								Main.game.getPlayer().setVirginityLoss(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH), virginityLossText);
-								Main.game.getPlayer().setSexCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH), 10 + Util.random.nextInt(20));
-								Main.game.getPlayer().setCumCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH), 5 + Util.random.nextInt(10));
-
-								Main.game.getPlayer().setFaceVirgin(false);
-								Main.game.getPlayer().setVirginityLoss(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH), virginityLossText);
-								Main.game.getPlayer().setSexCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH), 10 + Util.random.nextInt(20));
-								Main.game.getPlayer().setCumCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH), 5 + Util.random.nextInt(10));
-								
-							} else {
-								Main.game.getPlayer().setPenisVirgin(false);
-								Main.game.getPlayer().setVirginityLoss(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.VAGINA), virginityLossText);
-								Main.game.getPlayer().setSexCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.VAGINA), 10 + Util.random.nextInt(20));
-								Main.game.getPlayer().setCumCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.VAGINA), 5 + Util.random.nextInt(10));
-
-								Main.game.getPlayer().setVirginityLoss(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH), virginityLossText);
-								Main.game.getPlayer().setSexCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH), 10 + Util.random.nextInt(20));
-								Main.game.getPlayer().setCumCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH), 5 + Util.random.nextInt(10));
-								
-							}
-						}
-						Main.game.getPlayer().setAttribute(Attribute.MAJOR_CORRUPTION, 5);
-
-					}
-				};
-				
-			} else if (index == 3) {
-				return new Response("Moderate experience",
-						(Main.game.getPlayer().hasVagina()
-								?"You have lost your vaginal virginity (but not your anal virginity), and have had sex with quite a few people."
-								:"You have lost your virginity (but not your anal virginity), and have had sex with quite a few people."),
-						START_GAME){
-					@Override
-					public void effects() {
-						resetVirginity();
-						
-						if(Main.game.getPlayer().hasVagina()) {
-							
-							String virginityLossText = Main.game.getPlayer().getSexualOrientation()==SexualOrientation.GYNEPHILIC?"your first girlfriend":"your first boyfriend";
-							
-							Main.game.getPlayer().setVaginaVirgin(false);
-							Main.game.getPlayer().setVirginityLoss(new SexType(SexParticipantType.CATCHER, PenetrationType.FINGER, OrificeType.VAGINA), virginityLossText);
-							Main.game.getPlayer().setSexCount(new SexType(SexParticipantType.CATCHER, PenetrationType.FINGER, OrificeType.VAGINA), 50 + Util.random.nextInt(30));
-							Main.game.getPlayer().setCumCount(new SexType(SexParticipantType.CATCHER, PenetrationType.FINGER, OrificeType.VAGINA), 25 + Util.random.nextInt(15));
-
-							Main.game.getPlayer().setFaceVirgin(false);
-							Main.game.getPlayer().setVirginityLoss(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH), virginityLossText);
-							Main.game.getPlayer().setSexCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH), 50 + Util.random.nextInt(30));
-							Main.game.getPlayer().setCumCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH), 25 + Util.random.nextInt(15));
-
-							Main.game.getPlayer().setVirginityLoss(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.VAGINA), virginityLossText);
-							Main.game.getPlayer().setSexCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.VAGINA), 50 + Util.random.nextInt(30));
-							Main.game.getPlayer().setCumCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.VAGINA), 25 + Util.random.nextInt(15));
-							
-						} else {
-							String virginityLossText = Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC?"your first boyfriend":"your first girlfriend";
-							
-							if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC) {
-								Main.game.getPlayer().setPenisVirgin(false);
-								Main.game.getPlayer().setVirginityLoss(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.ANUS), virginityLossText);
-								Main.game.getPlayer().setSexCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.ANUS), 50 + Util.random.nextInt(30));
-								Main.game.getPlayer().setCumCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.ANUS), 25 + Util.random.nextInt(15));
-
-								Main.game.getPlayer().setVirginityLoss(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH), virginityLossText);
-								Main.game.getPlayer().setSexCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH), 50 + Util.random.nextInt(30));
-								Main.game.getPlayer().setCumCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH), 25 + Util.random.nextInt(15));
-
-								Main.game.getPlayer().setFaceVirgin(false);
-								Main.game.getPlayer().setVirginityLoss(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH), virginityLossText);
-								Main.game.getPlayer().setSexCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH), 50 + Util.random.nextInt(30));
-								Main.game.getPlayer().setCumCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH), 25 + Util.random.nextInt(15));
-								
-							} else {
-								Main.game.getPlayer().setPenisVirgin(false);
-								Main.game.getPlayer().setVirginityLoss(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.VAGINA), virginityLossText);
-								Main.game.getPlayer().setSexCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.VAGINA), 50 + Util.random.nextInt(30));
-								Main.game.getPlayer().setCumCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.VAGINA), 25 + Util.random.nextInt(15));
-
-								Main.game.getPlayer().setVirginityLoss(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH), virginityLossText);
-								Main.game.getPlayer().setSexCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH), 50 + Util.random.nextInt(30));
-								Main.game.getPlayer().setCumCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH), 25 + Util.random.nextInt(15));
-								
-							}
-						}
-						Main.game.getPlayer().setAttribute(Attribute.MAJOR_CORRUPTION, 10);
-
-					}
-				};
-				
-			} else if (index == 4) {
-				return new Response("Highly experienced",
-						(Main.game.getPlayer().hasVagina()
-								?"You have lost both your vaginal virginity and anal virginity, and have had sex with more people than you can count."
-								:(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.GYNEPHILIC
-										?"You have lost your virginity (but not your anal virginity), and have had sex with more people than you can count"
-										:"You have lost both your virginity and anal virginity, and have had sex with more people than you can count.")),
-						START_GAME){
-					@Override
-					public void effects() {
-						resetVirginity();
-						
-						if(Main.game.getPlayer().hasVagina()) {
-							
-							String virginityLossText = Main.game.getPlayer().getSexualOrientation()==SexualOrientation.GYNEPHILIC?"some girl in her apartment":"some guy in a club's restroom";
-							
-							Main.game.getPlayer().setVaginaVirgin(false);
-							Main.game.getPlayer().setVirginityLoss(new SexType(SexParticipantType.CATCHER, PenetrationType.FINGER, OrificeType.VAGINA), virginityLossText);
-							Main.game.getPlayer().setSexCount(new SexType(SexParticipantType.CATCHER, PenetrationType.FINGER, OrificeType.VAGINA), 50 + Util.random.nextInt(30));
-							Main.game.getPlayer().setCumCount(new SexType(SexParticipantType.CATCHER, PenetrationType.FINGER, OrificeType.VAGINA), 25 + Util.random.nextInt(15));
-
-							Main.game.getPlayer().setFaceVirgin(false);
-							Main.game.getPlayer().setVirginityLoss(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH), virginityLossText);
-							Main.game.getPlayer().setSexCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH), 50 + Util.random.nextInt(30));
-							Main.game.getPlayer().setCumCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH), 25 + Util.random.nextInt(15));
-
-							Main.game.getPlayer().setVirginityLoss(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.VAGINA), virginityLossText);
-							Main.game.getPlayer().setSexCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.VAGINA), 50 + Util.random.nextInt(30));
-							Main.game.getPlayer().setCumCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.VAGINA), 25 + Util.random.nextInt(15));
-
-							Main.game.getPlayer().setAssVirgin(false);
-							Main.game.getPlayer().setVirginityLoss(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.ANUS), virginityLossText);
-							Main.game.getPlayer().setSexCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.ANUS), 20 + Util.random.nextInt(10));
-							Main.game.getPlayer().setCumCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.ANUS), 10 + Util.random.nextInt(5));
-							
-						} else {
-							String virginityLossText = Main.game.getPlayer().getSexualOrientation()==SexualOrientation.ANDROPHILIC?"some guy in a club's restroom":"some girl in her apartment";
-							
-							if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.GYNEPHILIC) {
-								Main.game.getPlayer().setPenisVirgin(false);
-								Main.game.getPlayer().setVirginityLoss(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.VAGINA), virginityLossText);
-								Main.game.getPlayer().setSexCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.VAGINA), 50 + Util.random.nextInt(30));
-								Main.game.getPlayer().setCumCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.VAGINA), 25 + Util.random.nextInt(15));
-
-								Main.game.getPlayer().setVirginityLoss(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH), virginityLossText);
-								Main.game.getPlayer().setSexCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH), 50 + Util.random.nextInt(30));
-								Main.game.getPlayer().setCumCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH), 25 + Util.random.nextInt(15));
-								
-							} else {
-								Main.game.getPlayer().setPenisVirgin(false);
-								Main.game.getPlayer().setVirginityLoss(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.ANUS), virginityLossText);
-								Main.game.getPlayer().setSexCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.ANUS), 50 + Util.random.nextInt(30));
-								Main.game.getPlayer().setCumCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.ANUS), 25 + Util.random.nextInt(15));
-
-								Main.game.getPlayer().setVirginityLoss(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH), virginityLossText);
-								Main.game.getPlayer().setSexCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH), 50 + Util.random.nextInt(30));
-								Main.game.getPlayer().setCumCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH), 25 + Util.random.nextInt(15));
-
-								Main.game.getPlayer().setFaceVirgin(false);
-								Main.game.getPlayer().setVirginityLoss(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH), virginityLossText);
-								Main.game.getPlayer().setSexCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH), 50 + Util.random.nextInt(30));
-								Main.game.getPlayer().setCumCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH), 25 + Util.random.nextInt(15));
-								
-								Main.game.getPlayer().setAssVirgin(false);
-								Main.game.getPlayer().setVirginityLoss(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.ANUS), virginityLossText);
-								Main.game.getPlayer().setSexCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.ANUS), 20 + Util.random.nextInt(10));
-								Main.game.getPlayer().setCumCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.ANUS), 10 + Util.random.nextInt(5));
-								
-							}
-						}
-						Main.game.getPlayer().setAttribute(Attribute.MAJOR_CORRUPTION, 15);
-
-					}
-				};
+				return new Response("Continue", "Once you're happy with your sexual experience, proceed to the next part of the character creation.", FINAL_CHECK);
 				
 			} else if (index == 0) {
 				return new Response("Back", "Return to background selection.", BACKGROUND_SELECTION_MENU);
@@ -1761,74 +1613,20 @@ public class CharacterCreation {
 		}
 	};
 	
-	
-	public static final DialogueNodeOld START_GAME = new DialogueNodeOld("Start", "", true) {
+	public static final DialogueNodeOld FINAL_CHECK = new DialogueNodeOld("Start", "", true) {
 		private static final long serialVersionUID = 1L;
 		
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
-			
-			if(femalePrologueNPC()) {
-				UtilText.nodeContentSB.append(
-						"<p>"
-							+ "As the two of you talk about your sexual backgrounds, you find yourself increasingly unable to control your arousal, and from the desperate look in [prologueFemale.name]'s eyes, she's having the same problem as you are."
-							+ " Stepping forwards, she half-speaks, half-moans,"
-							+ " [prologueFemale.speech(All this talk's got me pretty turned on... How about you and I-)]"
-						+ "</p>"
-						+ "<p>"
-							+ "[lilaya.speech([pc.Name]! There you are! I've been looking everywhere for you,)]"
-							+ " a very familiar, and at this moment very unwanted, voice calls out,"
-							+ " [lilaya.speech(sorry if I'm interrupting, but I really need your help!)]"
-						+ "</p>"
-						+ "<p>"
-							+ "Turning towards the unmistakable voice of your aunt Lily, you suppress a frustrated sigh,"
-							+ " [pc.speech(Is this about the opening being delayed?)]"
-						+ "</p>"
-						+ "<p>"
-							+ "[prologueFemale.speech(I see you're going to be busy, perhaps I'll catch you later,)] [prologueFemale.name] says, before walking off and leaving you alone with your aunt."
-						+ "</p>");
-				
-			} else {
-				UtilText.nodeContentSB.append(
-						"<p>"
-							+ "As the two of you talk about your sexual backgrounds, you find yourself increasingly unable to control your arousal, and from the desperate look in [prologueMale.name]'s eyes, he's having the same problem as you are."
-							+ " Stepping forwards, he half-speaks, half-groans,"
-							+ " [prologueMale.speech(All this talk's got me pretty turned on... How about you and I-)]"
-						+ "</p>"
-						+ "<p>"
-							+ "[lilaya.speech([pc.Name]! There you are! I've been looking everywhere for you,)]"
-							+ " a very familiar, and at this moment very unwanted, voice calls out,"
-							+ " [lilaya.speech(sorry if I'm interrupting, but I really need your help!)]"
-						+ "</p>"
-						+ "<p>"
-							+ "Turning towards the unmistakable voice of your aunt Lily, you suppress a frustrated sigh,"
-							+ " [pc.speech(Is this about the opening being delayed?)]"
-						+ "</p>"
-						+ "<p>"
-							+ "[prologueMale.speech(I see you're going to be busy, perhaps I'll catch you later,)] [prologueMale.name] says, before walking off and leaving you alone with your aunt."
-						+ "</p>");
-			}
-			
-			UtilText.nodeContentSB.append("<p>"
-					+ "[lilaya.speech(Erm... goodbye!)] Lily awkwardly calls out, completely oblivious as to what was just about to happen, before turning back to you,"
-					+ " [lilaya.speech(Yes! This is to do with the delay! Arthur's gone missing, and I can't start without him! Everyone's crowding me asking questions, so I can't go out and look for him myself."
-						+ " Please, please <i>please</i> can you go and find him for me?)]"
-				+ "</p>"
-				+ "<p>"
-					+ "Lily's puppy-dog eyes always were too much for you to say no to, and you find yourself agreeing to do as she asks,"
-					+ " [pc.speech(Ok Lily, I'll find him for you, don't worry.)]"
-				+ "</p>"
-				+ "<p>"
-					+ "As Lily starts thanking you, someone calls out from behind her, asking her to return to the stage."
-					+ " Thanking you once more, she then rushes off, leaving you to do as you said you would..."
-				+ "</p>"
-				+"<div class='container-full-width' style='text-align:center;'>"
-					+ "<i>Still a <b>temporary placeholder</b>. You'll be able to have sex with "+(femalePrologueNPC()?"[prologueFemale.name]":"[prologueMale.name]")+" soon!</i>"
+			UtilText.nodeContentSB.append(
+				"<div class='container-full-width' style='text-align:center;'>"
+					+ "<i>Once you're happy with your appearance, press the 'Start Game' button to proceed to begin!</br>"
+					+ "[style.boldBad(You will not be unable to undo your choices if you proceed past this point, so make sure you're happy with everything before continuing!)]</i>"
 				+ "</div>"
 				+ "</br>"
 				+ "<div class='container-full-width'>"
-					+ "<h5 style='text-align:center;'>Appearance</h5>"
+					+ "<h5 style='text-align:center;'>Final Appearance</h5>"
 					+ Main.game.getPlayer().getBodyDescription()
 				+ "</div>");
 			
@@ -1838,7 +1636,7 @@ public class CharacterCreation {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Start", "Use this character and start the game at the very beginning, with trying to find Arthur in the museum.", PrologueDialogue.INTRO_2){
+				return new Response("Start Game", "Use this character and start the game at the very beginning, with trying to find Arthur in the museum.", PrologueDialogue.INTRO){
 					@Override
 					public void effects() {
 						Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.MAIN));
@@ -1874,8 +1672,6 @@ public class CharacterCreation {
 				return new Response("Back", "Return to background selection.", CHOOSE_SEX_EXPERIENCE){
 					@Override
 					public void effects() {
-						resetVirginity();
-						
 						// Remove attribute gain sentences in the start game screen:
 						Main.game.clearTextEndStringBuilder();
 					}

@@ -855,7 +855,7 @@ public class GenericActions {
 						+ " [npc.speech(You love begging for me to fuck you, isn't that right?)]"
 					+ "</p>"
 					+ "<p>"
-						+ "As the hypnotic suggestion sinks into your head, you cna't help but feel a lot more eager, and [pc.moan],"
+						+ "As the hypnotic suggestion sinks into your head, you can't help but feel a lot more eager, and [pc.moan],"
 						+ " [pc.speech(Yes! I love it! Please, fuck me! I <i>need</i> you to fuck me!)]"
 					+ "</p>";
 		}
@@ -877,6 +877,14 @@ public class GenericActions {
 			SexParticipantType.MISC,
 			null,
 			SexPace.SUB_RESISTING) {
+		
+		@Override
+		public ArousalIncrease getArousalGainSelf() {
+			if(Sex.getActivePartner().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
+				return ArousalIncrease.THREE_NORMAL;
+			}
+			return ArousalIncrease.NEGATIVE;
+		}
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
@@ -932,6 +940,15 @@ public class GenericActions {
 						"[npc.Name] slaps, hits, and kicks you as [npc.she] desperately tries to struggle out of your grip, but [npc.her] efforts prove to be in vain as you easily continue restraining [npc.herHim].",
 						"Struggling against you, [npc.name] lets out [npc.a_sob+] as [npc.she] weakly tries to wriggle out of your grasp.",
 						"Begging for you to leave [npc.herHim] alone, [npc.name] desperately struggles against you, [npc.sobbing] in distress as you easily hold [npc.herHim] in place.");
+			}
+		}
+		
+		@Override
+		public List<Fetish> getFetishes(GameCharacter character) {
+			if(character.isPlayer()) {
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM));
+			} else {
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_SUB));
 			}
 		}
 	};

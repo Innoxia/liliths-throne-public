@@ -28,7 +28,8 @@ public enum BodyCoveringType {
 			Util.newArrayListOfValues(new ListValue<CoveringModifier>(CoveringModifier.SMOOTH)),
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
+					new ListValue<CoveringPattern>(CoveringPattern.NONE),
+					new ListValue<CoveringPattern>(CoveringPattern.FRECKLED)),
 			CoveringPattern.allStandardCoveringPatterns,
 			Colour.humanSkinColours,
 			null,

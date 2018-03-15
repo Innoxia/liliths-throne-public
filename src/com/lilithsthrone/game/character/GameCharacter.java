@@ -32,6 +32,7 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.FluidCum;
 import com.lilithsthrone.game.character.body.FluidGirlCum;
+import com.lilithsthrone.game.character.body.FluidMilk;
 import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.ArmType;
 import com.lilithsthrone.game.character.body.types.AssType;
@@ -61,6 +62,7 @@ import com.lilithsthrone.game.character.body.valueEnums.BodySize;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.ClitorisSize;
+import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
@@ -68,6 +70,7 @@ import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
+import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
 import com.lilithsthrone.game.character.body.valueEnums.FluidTypeBase;
 import com.lilithsthrone.game.character.body.valueEnums.GenitalArrangement;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
@@ -109,6 +112,8 @@ import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.combat.SpecialAttack;
 import com.lilithsthrone.game.combat.Spell;
+import com.lilithsthrone.game.combat.SpellSchool;
+import com.lilithsthrone.game.combat.SpellType;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.SlaveryManagementDialogue;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
@@ -257,7 +262,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	
 	// Combat:
-	protected Set<Spell> spells;
 	protected Set<SpecialAttack> specialAttacks;
 	protected float health, mana;
 
@@ -374,7 +378,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		potionAttributes = new EnumMap<>(Attribute.class);
 
-		spells = EnumSet.noneOf(Spell.class);
 		specialAttacks = EnumSet.noneOf(SpecialAttack.class);
 
 		// Player knowledge:
@@ -2395,11 +2398,11 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			return 10 + 2*getLevel() + getAttributeValue(Attribute.MAJOR_ARCANE)*2;
 		}
 		
-		return attributes.get(attribute);
+		return Math.round(attributes.get(attribute)*100)/100f;
 	}
 
 	public float getBonusAttributeValue(Attribute att) {
-		return bonusAttributes.get(att);
+		return Math.round(bonusAttributes.get(att)*100)/100f;
 	}
 
 	public float getAttributeValue(Attribute att) {
@@ -2409,22 +2412,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		float value = getBaseAttributeValue(att) + getBonusAttributeValue(att);
 		
-		if (att == Attribute.HEALTH_MAXIMUM || att == Attribute.MANA_MAXIMUM) {
-			return Math.max(1, value);
+		if(value < att.getLowerLimit()) {
+			return att.getLowerLimit();
+			
+		} else if(value > att.getUpperLimit()) {
+			return att.getUpperLimit();
 		}
 
-		// Core attribute values are bound between 0 and 100
-		if (att == Attribute.MAJOR_PHYSIQUE || att == Attribute.MAJOR_ARCANE || att == Attribute.MAJOR_CORRUPTION) {
-			if (value < 0) {
-				value = 0;
-			}
-			if (value > 100) {
-				value = 100;
-			}
-			return value;
-		}
-
-		return ((int)(value * 100))/100f;
+		return Math.round(value * 100)/100f;
 	}
 
 	public String setAttribute(Attribute att, float value) {
@@ -2446,16 +2441,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		// attribute being changed:
 		float healthPercentage = getHealthPercentage();
 		float manaPercentage = getManaPercentage();
-
-		// Core attribute values are bound between 0 and 100
-		if (att == Attribute.MAJOR_PHYSIQUE || att == Attribute.MAJOR_ARCANE || att == Attribute.MAJOR_CORRUPTION) {
-			if (value < 0) {
-				value = 0;
-			}
-			if (value > 100) {
-				value = 100;
-			}
+		
+		if(value < att.getLowerLimit()) {
+			value = att.getLowerLimit();
+			
+		} else if(value > att.getUpperLimit()) {
+			value = att.getUpperLimit();
 		}
+		
 		attributes.put(att, value);
 		
 		if(isPlayer() && appendAttributeChangeText) {
@@ -2478,9 +2471,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		float healthPercentage = getHealthPercentage();
 		float manaPercentage = getManaPercentage();
 
-		// Bonus attributes can be literally anything (well, maybe not past
-		// Integer.MAX_VALUE or Integer.MIN_VALUE, but that'll never happen,
-		// right?)
 		bonusAttributes.put(att, value);
 
 		setHealth(getAttributeValue(Attribute.HEALTH_MAXIMUM) * healthPercentage);
@@ -2499,6 +2489,13 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	public void setPotionAttribute(Attribute att, float value) {
 		potionAttributes.put(att, value);
+		
+		for(float v : potionAttributes.values()) {
+			if(v>0) {
+				return;
+			}
+		}
+		this.removeStatusEffect(StatusEffect.POTION_EFFECTS);
 	}
 	
 	public String addPotionEffect(Attribute att, float value) {
@@ -7971,13 +7968,13 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			this.addStatusEffect(StatusEffect.PSYCHOACTIVE, 6*60);
 			if(isPlayer()) {
 				fluidIngestionSB.append("<p>"
-							+ "Due to the psychoactive properties of "+(charactersFluid==this?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
+							+ "Due to the psychoactive properties of "+(charactersFluid.equals(this)?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
 								+", you start <span style='color:"+Colour.PSYCHOACTIVE.toWebHexString()+";'>tripping out</span>!"
 						+ "</p>");
 			} else {
 				fluidIngestionSB.append(UtilText.parse(this,
 						"<p>"
-						+ "Due to the psychoactive properties of "+(charactersFluid==this?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
+						+ "Due to the psychoactive properties of "+(charactersFluid.equals(this)?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
 							+", [npc.name] starts <span style='color:"+Colour.PSYCHOACTIVE.toWebHexString()+";'>tripping out</span>!"
 					+ "</p>"));
 			}
@@ -7987,13 +7984,13 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			addAddiction(new Addiction(fluid, Main.game.getMinutesPassed(), charactersFluid.getId()));
 			if(isPlayer()) {
 				fluidIngestionSB.append("<p>"
-							+ "Due to the addictive properties of "+(charactersFluid==this?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
+							+ "Due to the addictive properties of "+(charactersFluid.equals(this)?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
 								+", you find yourself [style.colourArcane(craving)] <span style='color:"+fluid.getRace().getColour().toWebHexString()+";'>"+fluid.getDescriptor(charactersFluid)+"</span> "+fluid.getName(charactersFluid)+"!"
 						+ "</p>");
 			} else {
 				fluidIngestionSB.append(UtilText.parse(this,
 						"<p>"
-							+ "Due to the addictive properties of "+(charactersFluid==this?"[npc.her]":(charactersFluid.isPlayer()?"your":charactersFluid.getName()+"'s"))+" "+fluid.getName(charactersFluid)
+							+ "Due to the addictive properties of "+(charactersFluid.equals(this)?"[npc.her]":(charactersFluid.isPlayer()?"your":charactersFluid.getName()+"'s"))+" "+fluid.getName(charactersFluid)
 								+", [npc.name] finds [npc.herself] [style.colourArcane(craving)] <span style='color:"+fluid.getRace().getColour().toWebHexString()+";'>"+fluid.getDescriptor(charactersFluid)+"</span> "+fluid.getName(charactersFluid)+"!"
 						+ "</p>"));
 			}
@@ -8157,7 +8154,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	/**
 	 * The returned list is ordered by rendering priority.
 	 */
-
 	public List<SpecialAttack> getSpecialAttacks() {
 		calculateSpecialAttacks();
 		List<SpecialAttack> tempListSpecialAttacks = new ArrayList<>(specialAttacks);
@@ -8176,38 +8172,73 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		}
 	}
 
-	/**
-	 * Includes spells from weapons.
-	 */
-	public List<Spell> getSpells() {
-		List<Spell> tempListSpells = new ArrayList<>(spells);
+	/** Base spells, modified by primary weapon SpellSchool. */
+	public List<Spell> getOffensiveSpells() {
+		SpellSchool school = SpellSchool.DEFAULT;
 		
-		if(getMainWeapon()!=null)
-			if(getMainWeapon().getSpells()!=null)
-				tempListSpells.addAll(getMainWeapon().getSpells());
+		if(getMainWeapon()!=null) {
+			school = getMainWeapon().getSpellSchool();
+		}
+
+		List<Spell> tempListSpells = new ArrayList<>();
 		
-		if(getOffhandWeapon()!=null)
-			if(getOffhandWeapon().getSpells()!=null)
-				tempListSpells.addAll(getOffhandWeapon().getSpells());
+		for(Spell s : Spell.getSpellsFromSchoolMap().get(school)) {
+			if(s.getType()==SpellType.OFFENSIVE) {
+				tempListSpells.add(s);
+			}
+		}
 		
 		return tempListSpells;
 	}
 
+	/** Base spells, modified by secondary weapon SpellSchool. */
+	public List<Spell> getDefensiveSpells() {
+		SpellSchool school = SpellSchool.DEFAULT;
+		
+		if(getOffhandWeapon()!=null) {
+			school = getOffhandWeapon().getSpellSchool();
+		}
 
-	public boolean spellKnown(Spell spell) {
-		return spells.contains(spell);
+		List<Spell> tempListSpells = new ArrayList<>();
+		
+		for(Spell s : Spell.getSpellsFromSchoolMap().get(school)) {
+			if(s.getType()==SpellType.DEFENSIVE) {
+				tempListSpells.add(s);
+			}
+		}
+		
+		return tempListSpells;
 	}
 
-
-	public boolean addSpell(Spell spell) {
-		return spells.add(spell);
+	/** Spells from weapons. */
+	public List<Spell> getExtraSpells() {
+		List<Spell> tempListSpells = new ArrayList<>();
+		
+		if(getMainWeapon()!=null) {
+			if(getMainWeapon().getSpells()!=null) {
+				tempListSpells.addAll(getMainWeapon().getSpells());
+			}
+		}
+		
+		if(getOffhandWeapon()!=null) {
+			if(getOffhandWeapon().getSpells()!=null) {
+				tempListSpells.addAll(getOffhandWeapon().getSpells());
+			}
+		}
+		
+		return tempListSpells;
 	}
 
+	public List<Spell> getAllSpells() {
+		List<Spell> tempListSpells = new ArrayList<>();
 
-	public boolean removeSpell(Spell spell) {
-		return spells.remove(spell);
+		tempListSpells.addAll(getOffensiveSpells());
+		tempListSpells.addAll(getDefensiveSpells());
+		tempListSpells.addAll(getExtraSpells());
+		
+		return tempListSpells;
 	}
-
+	
 
 	public float getHealth() {
 		return health;
@@ -8363,7 +8394,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	public void alignLustToRestingLust(int minutes) {
 		if(hasStatusEffect(StatusEffect.WEATHER_STORM_VULNERABLE)) {
-			setLust(100);
+			setLust(75);
 		} else {
 			if(getLust()>getRestingLust()) {
 				incrementLust(Math.min(getRestingLust()-getLust(), -0.5f*minutes));
@@ -8433,6 +8464,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	// Pregnancy:
 
+	public static final String PREGNANCY_CALCULATION = "((Virility% * Cum Production Modifier) + Fertility%) / 2";
+	
 	public String rollForPregnancy(GameCharacter partner) {
 		
 		float pregnancyChance = 0;
@@ -8442,12 +8475,14 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			
 		} else {
 			pregnancyChance = 0;
-			pregnancyChance += (partner.getAttributeValue(Attribute.VIRILITY)/100f) * partner.getPenisCumProduction().getPregnancyModifier();
-			pregnancyChance += (getAttributeValue(Attribute.FERTILITY)/100f);
+			pregnancyChance += (Util.getModifiedDropoffValue(partner.getAttributeValue(Attribute.VIRILITY), Attribute.VIRILITY.getUpperLimit())/100f) * partner.getPenisCumProduction().getPregnancyModifier();
+			pregnancyChance += (Util.getModifiedDropoffValue(partner.getAttributeValue(Attribute.FERTILITY), Attribute.FERTILITY.getUpperLimit())/100f);
+			pregnancyChance /= 2;
 		}
 		
-		if(pregnancyChance>1)
+		if(pregnancyChance>1) {
 			pregnancyChance=1;
+		}
 		
 		String s;
 		
@@ -10683,6 +10718,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return body.getSubspecies();
 	}
 	
+	public boolean isAbleToSelfTransform() {
+		return this.getRace()==Race.DEMON || this.getRace()==Race.SLIME;
+	}
+	
 	public Race getAntennaRace() {
 		return body.getAntenna().getType().getRace();
 	}
@@ -11584,11 +11623,128 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return body.getBodyMaterial();
 	}
 	public String setBodyMaterial(BodyMaterial type) {
-		body.setBodyMaterial(type);
+		
+		String tfDescription = "";
+		
+		if(type == BodyMaterial.SLIME) {
+			for(BodyCoveringType bct : BodyCoveringType.values()) { // Slimes can't wear makeup:
+				switch(bct) {
+					case MAKEUP_BLUSHER:
+					case MAKEUP_EYE_LINER:
+					case MAKEUP_EYE_SHADOW:
+					case MAKEUP_LIPSTICK:
+					case MAKEUP_NAIL_POLISH_FEET:
+					case MAKEUP_NAIL_POLISH_HANDS:
+						body.getCoverings().put(bct, new Covering(bct, CoveringPattern.NONE, CoveringModifier.SMOOTH, Colour.COVERING_NONE, false, Colour.COVERING_NONE, false));
+						break;
+					default:
+						break;
+				}
+			}
+			
+			this.setVaginaWetness(Wetness.SEVEN_DROOLING.getValue());			
+			this.setAssWetness(Wetness.SEVEN_DROOLING.getValue());
+			
+			String colourBasic = this.getCovering(BodyCoveringType.SLIME).getPrimaryColour().getName();
+			try {
+				colourBasic = this.getCovering(BodyCoveringType.SLIME).getPrimaryColour().getName().split(" ")[1];
+			} catch(Exception ex) {
+			}
+			
+			if(this.isPlayer()) {//TODO
+				tfDescription = "<p>"
+							+ "Despite the fact that there's no sudden change in the weather, you feel as though the air around you is rapidly getting warmer and warmer,"
+								+ " and within the space of just a few seconds, it's as though you're standing in the middle of a sauna."
+							+ " Droplets of sweat quickly begin to bead on your [pc.skin], forming little little rivulets of cool, "
+								+this.getCovering(BodyCoveringType.SLIME).getPrimaryColour().getName()+" liquid, which quickly run down over your burning body to drip onto the floor beneath you."
+						+ "</p>"
+						+ "<p>"
+							+ "Despite your body's best efforts at cooling you down, you still find yourself getting hotter and hotter, and, with a heavy sigh, you feel your [pc.legs] collapse out from under you as the heavy heat beats you down."
+							+ " Lifting [pc.a_hand] to your face to wipe the sweat from your [pc.eyes], your heat-addled mind suddenly realises that something's very wrong,"
+							+ " [pc.thought(Wait... Why is my sweat "+colourBasic+"?!"
+									+ " And why is there so much of it?!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "You open your mouth to scream, only to discover that your throat is rapidly being filled with liquid, and all you can manage is a garbled cry,"
+							+ " [pc.speechNoEffects(~Bllgh!~ ~Blllgggh!~)]"
+						+ "</p>"
+						+ "<p>"
+							+ "Thrashing around in a frenzied state of panic, your efforts to escape this mysterious goo prove to be completely fruitless, and within a matter of seconds your entire body is covered in slime."
+							+ " What's more, you suddenly realise that you've gotten a lot smaller, and, looking down, you see that your [pc.legs] have completely melted away to form more of the goo that's quickly overtaking you."
+							+ " Your struggles only seem to speed this alarming process up, and after just a minute more, your [pc.arms] have suffered the same fate as your [pc.legs], having melted away into yet more of the "
+								+this.getCovering(BodyCoveringType.SLIME).getPrimaryColour().getName()+" liquid."
+						+ "</p>"
+						+ "<p>"
+							+ "As the rest of your body proceeds to turn into slime, the intense heat that started this whole process starts to fade away, quickly being replaced by the sense of a still, calm coolness all around you."
+							+ " Sinking down into the ever-increasing quantity of slime that's enveloping you, you're aware of the fact that the final solid parts of your body have now condensed down into a small sphere,"
+								+ " which is what's now housing your senses and consciousness."
+							+ " As this final stage of your transformation presents itself, you find yourself remarkably relaxed, considering that your entire being is now just a little core floating around in a sea of "
+								+colourBasic+"."
+						+ "</p>"
+						+ "<p>"
+							+ "The calm coolness that's surrounding you steadily starts to come under your control, and, having now undergone your complete transformation into a slime core,"
+								+ " you find that you can manipulate the liquid surrounding you in any way you like."
+							+ " Quickly reforming a slimy version of your old body around yourself, you discover that you can project your senses into the areas where they used to reside."
+							+ " Your vision travels up out of your core and into your slimy eyes, finally allowing you escape the world of "
+								+this.getCovering(BodyCoveringType.SLIME).getPrimaryColour().getName()+" goo and see clearly out into your surroundings once again."
+							+ " Similarly, you restore your senses of hearing, taste, touch, and smell to their original homes, leaving you as very much the person you were before this alarming transformation, albeit now being composed entirely of slime."
+						+ "</p>"
+						+ "<p>"
+							+ "Your entire being is now condensed into a [style.boldSlime(slime core)]!</br><i>"
+							+ "- You have complete control over all of the slime which surrounds you, allowing you to morph your body parts at will!</br>"
+							+ "- The wetness of your pussy and asshole can never be anything less than "+Wetness.SEVEN_DROOLING.getDescriptor()+"!</br>"
+							+ "- You are unable to apply any makeup to your slimy body!</br>"
+							+ "- You can now be impregnated through any orifice, even if you lack a vagina!</i>"
+						+ "</p>";
+				
+			} else {
+				tfDescription = UtilText.parse(this,
+						"<p>"
+							+ "[npc.Name]'s cheeks instantly flush, and [npc.she] starts panting and sighing as though [npc.she]'s suffering from an intense heat stroke."
+							+ " Droplets of sweat quickly begin to bead on [npc.her] [npc.skin], forming little little rivulets of cool, "
+								+this.getCovering(BodyCoveringType.SLIME).getPrimaryColour().getName()+" liquid, which quickly run down over [npc.her] burning body to drip onto the floor beneath [npc.herHim]."
+						+ "</p>"
+						+ "<p>"
+							+ "Despite [npc.her] body's best efforts at cooling [npc.her] down, [npc.she] lets out a heavy sigh, and [npc.her] [npc.legs] collapse out from under [npc.herHim] as [npc.she]'s beaten down by the intense heat [npc.she]'s feeling."
+							+ " Lifting [npc.a_hand] to [npc.her] face to wipe the sweat from [npc.her] [npc.eyes], [npc.her] heat-addled mind suddenly realises that something's very wrong, and [npc.she] exclaims,"
+							+ " [npc.speech(Wait... Why is my sweat "+colourBasic+"?!"
+									+ " What's happening?!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "[npc.She] tries to scream, but [npc.her] throat is rapidly being filled with liquid, and all [npc.she] can manage is a garbled cry,"
+							+ " [npc.speechNoEffects(~Bllgh!~ ~Blllgggh!~)]"
+						+ "</p>"
+						+ "<p>"
+							+ "Thrashing around in a frenzied state of panic, [npc.her] efforts to escape this mysterious goo prove to be completely fruitless, and within a matter of seconds [npc.her] entire body is covered in slime."
+							+ " What's more, [npc.she] suddenly realises that [npc.she]'s gotten a lot smaller, and, looking down,"
+								+ " [npc.she] sees that [npc.her] [npc.legs] have completely melted away to form more of the goo that's quickly overtaking [npc.herHim]."
+							+ " [npc.Her] struggles only seem to speed this alarming process up, and after just a minute more, [npc.her] [npc.arms] have suffered the same fate as [npc.her] [npc.legs], having melted away into yet more of the "
+								+this.getCovering(BodyCoveringType.SLIME).getPrimaryColour().getName()+" liquid."
+						+ "</p>"
+						+ "<p>"
+							+ "As [npc.name] proceeds to turn into a slime, the final solid parts of [npc.her] body condense down into a small sphere, which is what now houses [npc.her] senses and consciousness."
+							+ " Transformed into a little core that's now floating around in a sea of " +colourBasic+", [npc.name] soon finds that [npc.she] can manipulate the liquid surrounding [npc.herHim] in any way [npc.she] likes."
+						+"</p>"
+						+ "<p>"
+							+ "Quickly reforming a slimy version of [npc.her] old body around [npc.herself], [npc.she] discovers that [npc.she] can project [npc.her] senses into the areas where they used to reside."
+							+ " [npc.Her] slimy eyes slowly blink as [npc.she] escapes the world of "+this.getCovering(BodyCoveringType.SLIME).getPrimaryColour().getName()+" goo and sees clearly out into [npc.her] surroundings once again."
+							+ " Similarly, [npc.she] restores [npc.her] senses of hearing, taste, touch, and smell to their original homes, leaving [npc.herHim] as very much the person [npc.she] was before this alarming transformation,"
+								+ " albeit now being composed entirely of slime."
+						+ "</p>"
+						+ "<p>"
+							+ "[npc.Name]'s entire being is now condensed into a [style.boldSlime(slime core)]!</br><i>"
+							+ "- [npc.She] has complete control over all of the slime which surrounds [npc.herHim], allowing [npc.herHim] to morph [npc.her] body parts at will!</br>"
+							+ "- The wetness of [npc.her] pussy and asshole can never be anything less than "+Wetness.SEVEN_DROOLING.getDescriptor()+"!</br>"
+							+ "- [npc.She] is unable to apply any makeup to [npc.her] slimy body!</br>"
+							+ "- [npc.She] can now be impregnated through any orifice, even if [npc.she] lacks a vagina!</i>"
+						+ "</p>");
+			}
+		}
 
+		body.setBodyMaterial(type);
 		postTransformationCalculation(false);
 		
-		return ""; // TODO
+		return tfDescription;
 	}
 	
 	
@@ -11649,17 +11805,43 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return setBreastRows(getBreastRows() + increment);
 	}
 	// Lactation:
-	public Lactation getBreastLactation() {
-		return body.getBreast().getLactation();
+	public Lactation getBreastMilkStorage() {
+		return body.getBreast().getMilkStorage();
 	}
-	public int getBreastRawLactationValue() {
-		return body.getBreast().getRawLactationValue();
+	public int getBreastRawMilkStorageValue() {
+		return body.getBreast().getRawMilkStorageValue();
 	}
-	public String setBreastLactation(int lactation) {
-		return body.getBreast().setLactation(this, lactation);
+	public String setBreastMilkStorage(int lactation) {
+		return body.getBreast().setMilkStorage(this, lactation);
 	}
-	public String incrementBreastLactation(int increment) {
-		return setBreastLactation(getBreastRawLactationValue() + increment);
+	public String incrementBreastMilkStorage(int increment) {
+		return setBreastMilkStorage(getBreastRawMilkStorageValue() + increment);
+	}
+	// Current milk:
+	public Lactation getBreastStoredMilk() {
+		return body.getBreast().getStoredMilk();
+	}
+	public int getBreastRawStoredMilkValue() {
+		return body.getBreast().getRawStoredMilkValue();
+	}
+	public String setBreastStoredMilk(int lactation) {
+		return body.getBreast().setStoredMilk(this, lactation);
+	}
+	public String incrementBreastStoredMilk(int increment) {
+		return setBreastStoredMilk(getBreastRawStoredMilkValue() + increment);
+	}
+	// Regen:
+	public FluidRegeneration getBreastLactationRegeneration() {
+		return body.getBreast().getLactationRegeneration();
+	}
+	public int getBreastRawLactationRegenerationValue() {
+		return body.getBreast().getRawLactationRegenerationValue();
+	}
+	public String setBreastLactationRegeneration(int regenerationValue) {
+		return body.getBreast().setLactationRegeneration(this, regenerationValue);
+	}
+	public String incrementBreastLactationRegeneration(int increment) {
+		return setBreastLactationRegeneration(getBreastRawLactationRegenerationValue() + increment);
 	}
 	// Breast size:
 	public CupSize getBreastSize() {
@@ -11815,6 +11997,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	// Milk:
+	public FluidMilk getMilk() {
+		return body.getBreast().getMilk();
+	}
 	public FluidType getMilkType() {
 		return body.getBreast().getMilk().getType();
 	}
@@ -11912,12 +12097,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return body.getEye().getType().getPronoun();
 	}
 	// Coverings:
-	public Covering getEyeIrisCovering() {
-		return body.getCoverings().get(body.getEye().getType().getBodyCoveringType());
-	}
-	public Covering getEyePupilCovering() {
-		return body.getCoverings().get(BodyCoveringType.EYE_PUPILS);
-	}
 	public String setEyeCovering(Covering covering) {
 		return body.getEye().setEyeCovering(this, covering);
 	}
@@ -12305,11 +12484,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return body.getHair().setStyle(this, hairStyle);
 	}
 	// Covering:
-	public Covering getHairCovering() {
-		return body.getCoverings().get(body.getHair().getType().getBodyCoveringType());
-	}
 	public String setHairCovering(Covering covering, boolean updateBodyHair) {
-		if(!getHairCovering().equals(covering)) {
+		if(!getCovering(getHairType().getBodyCoveringType()).equals(covering)) {
 			body.getCoverings().put(covering.getType(), covering);
 			
 			body.updateCoverings(false, false, updateBodyHair, false);
@@ -12896,6 +13072,19 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return body.getSkin().getType().getPronoun();
 	}
 	public Covering getCovering(BodyCoveringType bodyCoveringType) {
+		if(this.getBodyMaterial()==BodyMaterial.SLIME) {
+			switch(bodyCoveringType) {
+				case MAKEUP_BLUSHER:
+				case MAKEUP_EYE_LINER:
+				case MAKEUP_EYE_SHADOW:
+				case MAKEUP_LIPSTICK:
+				case MAKEUP_NAIL_POLISH_FEET:
+				case MAKEUP_NAIL_POLISH_HANDS:
+					break;
+				default:
+					return body.getCoverings().get(BodyCoveringType.SLIME);
+			}
+		}
 		return body.getCoverings().get(bodyCoveringType);
 	}
 

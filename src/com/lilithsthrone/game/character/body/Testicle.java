@@ -5,13 +5,14 @@ import java.io.Serializable;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.TesticleType;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
+import com.lilithsthrone.game.character.body.valueEnums.FluidRegeneration;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.83
- * @version 0.2.0
+ * @version 0.2.1
  * @author Innoxia
  */
 public class Testicle implements BodyPartInterface, Serializable {
@@ -23,16 +24,20 @@ public class Testicle implements BodyPartInterface, Serializable {
 	
 	protected TesticleType type;
 	protected int testicleSize;
-	protected int cumProduction;
+	protected int cumStorage;
+	protected int currentCum;
+	protected int cumRegeneration;
 	protected int testicleCount;
 	protected boolean internal;
 	
 	protected FluidCum cum;
 
-	public Testicle(TesticleType type, int testicleSize, int cumProduction, int testicleCount) {
+	public Testicle(TesticleType type, int testicleSize, int cumStorage, int testicleCount) {
 		this.type = type;
 		this.testicleSize = Math.max(0, Math.min(testicleSize, TesticleSize.SEVEN_ABSURD.getValue()));
-		this.cumProduction = cumProduction;
+		this.cumStorage = cumStorage;
+		currentCum = cumStorage;
+		cumRegeneration = FluidRegeneration.ONE_AVERAGE.getValue();
 		
 		this.testicleCount = Math.max(MIN_TESTICLE_COUNT, Math.min(testicleCount, MAX_TESTICLE_COUNT));
 		
@@ -137,11 +142,11 @@ public class Testicle implements BodyPartInterface, Serializable {
 	// Cum production:
 
 	public CumProduction getCumProduction() {
-		return CumProduction.getCumProductionFromInt(cumProduction);
+		return CumProduction.getCumProductionFromInt(cumStorage);
 	}
 
 	public int getRawCumProductionValue() {
-		return cumProduction;
+		return cumStorage;
 	}
 
 	public String setCumProduction(GameCharacter owner, int cumProduction) {
@@ -150,9 +155,9 @@ public class Testicle implements BodyPartInterface, Serializable {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		
-		int oldCumProduction = this.cumProduction;
-		this.cumProduction = Math.max(0, Math.min(cumProduction, CumProduction.SEVEN_MONSTROUS.getMaximumValue()));
-		int cumProductionChange = this.cumProduction - oldCumProduction;
+		int oldCumProduction = this.cumStorage;
+		this.cumStorage = Math.max(0, Math.min(cumProduction, CumProduction.SEVEN_MONSTROUS.getMaximumValue()));
+		int cumProductionChange = this.cumStorage - oldCumProduction;
 		
 		if (cumProductionChange == 0) {
 			if(owner.isPlayer()) {

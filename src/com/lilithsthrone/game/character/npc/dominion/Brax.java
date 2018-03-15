@@ -118,6 +118,7 @@ public class Brax extends NPC {
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.ENFORCER_SHIRT, Colour.CLOTHING_BLACK, false), true, this);
 	
 			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.MELEE_CHAOS_EPIC, DamageType.FIRE));
+			this.equipMainWeaponFromNowhere(AbstractWeaponType.generateWeapon(WeaponType.OFFHAND_CHAOS_EPIC, DamageType.FIRE));
 			
 			this.addFetish(Fetish.FETISH_DOMINANT);
 		}
@@ -1035,13 +1036,15 @@ public class Brax extends NPC {
 
 	@Override
 	public Attack attackType() {
-		if (Math.random() < 0.7
-				|| this.getManaPercentage() <= 0.6f
-				|| (Main.game.getPlayer().getStatusEffects().contains(StatusEffect.BURN_WEAK)
-						&& this.getStatusEffects().contains(StatusEffect.FIRE_SHIELD)))
+		if (this.getAllSpells().isEmpty()
+				|| (Math.random() < 0.7
+						|| this.getManaPercentage() <= 0.6f
+						|| (Main.game.getPlayer().getStatusEffects().contains(StatusEffect.BURN_WEAK)
+								&& this.getStatusEffects().contains(StatusEffect.FIRE_SHIELD)))) {
 			return Attack.MAIN;
-		else
+		} else {
 			return Attack.SPELL;
+		}
 	}
 
 	@Override

@@ -10,6 +10,7 @@ import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.FluidCum;
+import com.lilithsthrone.game.character.body.FluidMilk;
 import com.lilithsthrone.game.inventory.AbstractCoreType;
 import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.Rarity;
@@ -100,7 +101,7 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 			InputStream is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/items/" + pathName + ".svg");
 			String s = Util.inputStreamToString(is);
 
-			SVGString = colourReplacement(this.colourPrimary, this.colourSecondary, this.colourTertiary, s);
+			SVGString = colourReplacement(this.getColourPrimary(), this.getColourSecondary(), this.getColourTertiary(), s);
 			
 			is.close();
 
@@ -178,6 +179,12 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 	
 	public static AbstractItem generateFilledCondom(Colour colour, GameCharacter character, FluidCum cum) {
 		return new AbstractFilledCondom(ItemType.CONDOM_USED, colour, character, cum, character.getPenisRawCumProductionValue()) {
+			private static final long serialVersionUID = 1L;
+		};
+	}
+
+	public static AbstractItem generateFilledBreastPump(Colour colour, GameCharacter character, FluidMilk milk, int quantity) {
+		return new AbstractFilledBreastPump(ItemType.MOO_MILKER_FULL, colour, character, milk, quantity) {
 			private static final long serialVersionUID = 1L;
 		};
 	}

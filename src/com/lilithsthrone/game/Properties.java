@@ -22,6 +22,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.gender.AndrogynousIdentification;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderNames;
@@ -41,31 +42,54 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.1.84
+ * @version 0.2.1
  * @author Innoxia
  */
 public class Properties implements Serializable {
 	private static final long serialVersionUID = 1L;
+
+	public String lastSaveLocation = "";
+	public String lastQuickSaveName = "";
+	public String nameColour = "";
+	public String name = "";
+	public String race = "";
+	public String quest = "";
+	public String versionNumber = "";
+
+	public int fontSize = 18;
+	public int level = 1;
+	public int money = 0;
+	public int arcaneEssences = 0;
+	public int humanEncountersLevel = 1;
+	public int multiBreasts = 1;
+	public int forcedTFPercentage = 40;
+
+	public int pregnancyBreastGrowthVariance = 2;
+	public int pregnancyBreastGrowth = 1;
+	public int pregnancyBreastGrowthLimit = CupSize.E.getMeasurement();
+	public int pregnancyLactationIncreaseVariance = 100;
+	public int pregnancyLactationIncrease = 250;
+	public int pregnancyLactationLimit = 1000;
 	
-	public String lastSaveLocation = "", lastQuickSaveName = "", nameColour = "", name = "", race = "", quest = "", versionNumber="";
+	public boolean lightTheme = false;
+	public boolean overwriteWarning = true;
+	public boolean fadeInText = false;
+	public boolean calendarDisplay = true;
+	public boolean twentyFourHourTime = true;
+
+	public boolean furryTailPenetrationContent = false;
+	public boolean nonConContent = false;
+	public boolean incestContent = false;
+	public boolean forcedTransformationContent = false;
+	public boolean inflationContent = true;
+	public boolean facialHairContent = false;
+	public boolean pubicHairContent = false;
+	public boolean bodyHairContent = false;
 	
-	public int fontSize = 18, level = 1, money = 0, arcaneEssences = 0, humanEncountersLevel = 1, multiBreasts = 1, forcedTFPercentage = 40;
-	
-	public boolean lightTheme = false, overwriteWarning = true, fadeInText=false, calendarDisplay = true, twentyFourHourTime = true,
-			
-			furryTailPenetrationContent = false,
-			nonConContent = false,
-			incestContent = false,
-//			forcedTransformationContent = false,
-			inflationContent = true,
-			facialHairContent = false,
-			pubicHairContent = false,
-			bodyHairContent = false,
-			
-			newWeaponDiscovered = false,
-			newClothingDiscovered = false,
-			newItemDiscovered = false,
-			newRaceDiscovered = false;
+	public boolean newWeaponDiscovered = false;
+	public boolean newClothingDiscovered = false;
+	public boolean newItemDiscovered = false;
+	public boolean newRaceDiscovered = false;
 	
 	public DifficultyLevel difficultyLevel = DifficultyLevel.NORMAL;
 	
@@ -188,7 +212,14 @@ public class Properties implements Serializable {
 			createXMLElementWithValue(doc, settings, "humanEncountersLevel", String.valueOf(humanEncountersLevel));
 			createXMLElementWithValue(doc, settings, "multiBreasts", String.valueOf(multiBreasts));
 			createXMLElementWithValue(doc, settings, "forcedTFPercentage", String.valueOf(forcedTFPercentage));
-
+			
+			createXMLElementWithValue(doc, settings, "pregnancyBreastGrowthVariance", String.valueOf(pregnancyBreastGrowthVariance));
+			createXMLElementWithValue(doc, settings, "pregnancyBreastGrowth", String.valueOf(pregnancyBreastGrowth));
+			createXMLElementWithValue(doc, settings, "pregnancyBreastGrowthLimit", String.valueOf(pregnancyBreastGrowthLimit));
+			createXMLElementWithValue(doc, settings, "pregnancyLactationIncreaseVariance", String.valueOf(pregnancyLactationIncreaseVariance));
+			createXMLElementWithValue(doc, settings, "pregnancyLactationIncrease", String.valueOf(pregnancyLactationIncrease));
+			createXMLElementWithValue(doc, settings, "pregnancyLactationLimit", String.valueOf(pregnancyLactationLimit));
+			
 			createXMLElementWithValue(doc, settings, "newWeaponDiscovered", String.valueOf(newWeaponDiscovered));
 			createXMLElementWithValue(doc, settings, "newClothingDiscovered", String.valueOf(newClothingDiscovered));
 			createXMLElementWithValue(doc, settings, "newItemDiscovered", String.valueOf(newItemDiscovered));
@@ -509,6 +540,16 @@ public class Properties implements Serializable {
 				// Forced TF preference:
 				if(element.getElementsByTagName("forcedTFPreference").item(0)!=null) {
 					forcedTFPreference = FurryPreference.valueOf(((Element)element.getElementsByTagName("forcedTFPreference").item(0)).getAttribute("value"));
+				}
+				
+				try {
+					pregnancyBreastGrowthVariance = Integer.valueOf(((Element)element.getElementsByTagName("pregnancyBreastGrowthVariance").item(0)).getAttribute("value"));
+					pregnancyBreastGrowth = Integer.valueOf(((Element)element.getElementsByTagName("pregnancyBreastGrowth").item(0)).getAttribute("value"));
+					pregnancyBreastGrowthLimit = Integer.valueOf(((Element)element.getElementsByTagName("pregnancyBreastGrowthLimit").item(0)).getAttribute("value"));
+					pregnancyLactationIncreaseVariance = Integer.valueOf(((Element)element.getElementsByTagName("pregnancyLactationIncreaseVariance").item(0)).getAttribute("value"));
+					pregnancyLactationIncrease = Integer.valueOf(((Element)element.getElementsByTagName("pregnancyLactationIncrease").item(0)).getAttribute("value"));
+					pregnancyLactationLimit = Integer.valueOf(((Element)element.getElementsByTagName("pregnancyLactationLimit").item(0)).getAttribute("value"));
+				}catch(Exception ex) {
 				}
 				
 				// Keys:

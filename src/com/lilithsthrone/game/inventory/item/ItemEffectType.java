@@ -120,6 +120,16 @@ public enum ItemEffectType {
 		}
 	},
 	
+	FILLED_MOO_MILKER_DRINK(Util.newArrayListOfValues(
+			new ListValue<>("Provides a milky drink.")),
+			Colour.GENERIC_SEX) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			return ""; // THIS EFFECT IS NOT USED, AS AbstractFilledBreastPump OVERRIDES THE USUAL AbstractItem's applyEffects() METHOD!!!
+		}
+	},
+	
 	BOOK_READ_CAT_MORPH(Util.newArrayListOfValues(
 			new ListValue<>("Adds cat-morph encyclopedia entry."),
 			new ListValue<>("[style.boldExcellent(+0.5)] [style.boldIntelligence(arcane)]")),
@@ -456,6 +466,31 @@ public enum ItemEffectType {
 		}
 	},
 	
+
+	MOO_MILKER(Util.newArrayListOfValues(
+			new ListValue<>("Milks breasts.")),
+			Colour.GENERIC_SEX) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			int milkPumped = Math.min(target.getBreastRawStoredMilkValue(), ItemType.getMooMilkerMaxMilk());
+			target.incrementBreastStoredMilk(-milkPumped);
+			if(target.isPlayer()) {
+				return "<p>"
+							+ "It only takes a moment before the beaker is filled with "+milkPumped+"ml of your [pc.milk]."
+						+ "</p>"
+						+ user.addItem(AbstractItemType.generateFilledBreastPump(ItemType.MOO_MILKER_EMPTY.getColourPrimary(), target, target.getMilk(), milkPumped), false, true);
+			
+			} else {
+				return UtilText.parse(target,
+						"<p>"
+							+ "It only takes a moment before the beaker is filled with "+milkPumped+"ml of [npc.her] [npc.milk]."
+						+ "</p>"
+						+ user.addItem(AbstractItemType.generateFilledBreastPump(ItemType.MOO_MILKER_EMPTY.getColourPrimary(), target, target.getMilk(), milkPumped), false, true));
+			}
+		}
+	},
+	
 	MOTHERS_MILK(Util.newArrayListOfValues(
 			new ListValue<>("Advances pregnancy.")),
 			Colour.GENERIC_SEX) {
@@ -756,6 +791,25 @@ public enum ItemEffectType {
 					+ "</br>"
 					+ target.addPotionEffect(Attribute.DAMAGE_LUST, 5)
 					+"</p>";
+		}
+	},
+	
+	SEX_SLIME_DRINK(Util.newArrayListOfValues(
+			new ListValue<>("[style.boldSex(+1)] [style.boldCorruption(Vagina Wetness)]"),
+			new ListValue<>("[style.boldSex(+1)] [style.boldCorruption(Anal Wetness)]"),
+			new ListValue<>("[style.boldGood(+5)] [style.boldMana("+Attribute.DAMAGE_LUST.getName()+")] to 'potion effects'")),
+			Colour.GENERIC_SEX) {
+		
+		@Override
+		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
+			return "<p style='text-align:center;'>"
+					+(target.isPlayer()
+						?"A soothing wave of arcane energy washes over you......"
+						:UtilText.parse(target, "A soothing wave of arcane energy washes over [npc.name]..."))
+					+ "</p>"
+					+ (target.hasVagina()?target.incrementVaginaWetness(1):"")
+					+ target.incrementAssWetness(1)
+					+ target.addPotionEffect(Attribute.DAMAGE_LUST, 5);
 		}
 	},
 	
@@ -1197,11 +1251,7 @@ public enum ItemEffectType {
 		
 		@Override
 		public String applyEffect(TFModifier primaryModifier, TFModifier secondaryModifier, TFPotency potency, int limit, GameCharacter user, GameCharacter target, ItemEffectTimer timer) {
-			return (target.isPlayer()
-						?"You start to feel more feminine..."
-						:UtilText.parse(target, "[npc.Name] starts to feel more feminine..."))
-					+ "</br>"
-					+ target.addPotionEffect(Attribute.MAJOR_CORRUPTION, 50)
+			return target.addPotionEffect(Attribute.MAJOR_CORRUPTION, 50)
 					+ "</br>"
 					+ target.setBodyMaterial(BodyMaterial.SLIME);
 		}
@@ -2609,12 +2659,14 @@ public enum ItemEffectType {
 		if(Main.getProperties().addAdvancedRaceKnowledge(race)) {
 			Main.game.addEvent(new EventLogEntryBookAddedToLibrary(book), true);
 		}
-		if(Main.game.getPlayer().addBooksRead(book)) {
-			Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_ARCANE, 0.5f);
+		String attributeIncrease = "<p style='text-align:center; color:"+Colour.TEXT_GREY.toWebHexString()+";'>Nothing further can be gained from re-reading this book...</p>";
+		if(Main.game.getPlayer().addRaceDiscoveredFromBook(race)) {
+			attributeIncrease = Main.game.getPlayer().incrementAttribute(Attribute.MAJOR_ARCANE, 0.5f);
 		}
 		
 		return race.getBasicDescription()
-				+race.getAdvancedDescription();
+				+race.getAdvancedDescription()
+				+attributeIncrease;
 	}
 	
 	private static List<TFModifier> getClothingTFSecondaryModifiers(TFModifier primaryModifier) {
@@ -3089,10 +3141,10 @@ public enum ItemEffectType {
 							}
 							break;
 						case TF_MOD_WETNESS:
-							if(isWithinLimits(lactationIncrement, target.getBreastRawLactationValue(), limit)) {
-								sb.append(target.incrementBreastLactation(lactationIncrement));
-							} else if(isSetToLimit(lactationIncrement, target.getBreastRawLactationValue(), limit)) {
-								sb.append(target.setBreastLactation(limit));
+							if(isWithinLimits(lactationIncrement, target.getBreastRawMilkStorageValue(), limit)) {
+								sb.append(target.incrementBreastMilkStorage(lactationIncrement));
+							} else if(isSetToLimit(lactationIncrement, target.getBreastRawMilkStorageValue(), limit)) {
+								sb.append(target.setBreastMilkStorage(limit));
 							}
 							break;
 						default:
@@ -3596,6 +3648,7 @@ public enum ItemEffectType {
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_ELASTICITY, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_PLASTICITY, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_WETNESS, TFPotency.getAllPotencies());
+				secondaryModPotencyMap.put(TFModifier.TF_MOD_REGENERATION, TFPotency.getAllPotencies());
 
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_PUFFY, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_DRAIN), new ListValue<>(TFPotency.MINOR_BOOST)));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_RIBBED, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_DRAIN), new ListValue<>(TFPotency.MINOR_BOOST)));
@@ -3696,6 +3749,7 @@ public enum ItemEffectType {
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE_TERTIARY, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_COUNT, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_DRAIN), new ListValue<>(TFPotency.MINOR_BOOST)));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_WETNESS, TFPotency.getAllPotencies());
+//				secondaryModPotencyMap.put(TFModifier.TF_MOD_REGENERATION, TFPotency.getAllPotencies()); TODO
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_INTERNAL, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_DRAIN), new ListValue<>(TFPotency.MINOR_BOOST)));
 				
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_CAPACITY, TFPotency.getAllPotencies());
@@ -4141,17 +4195,32 @@ public enum ItemEffectType {
 					case TF_MOD_WETNESS:
 						switch(potency) {
 							case MAJOR_DRAIN:
-								return new RacialEffectUtil("Huge decrease in lactation.", largeChangeMajorDrain, "ml") { @Override public String applyEffect() { return target.incrementBreastLactation(largeChangeMajorDrain); } };
+								return new RacialEffectUtil("Huge decrease in milk storage.", largeChangeMajorDrain, "ml") { @Override public String applyEffect() { return target.incrementBreastMilkStorage(largeChangeMajorDrain); } };
 							case DRAIN:
-								return new RacialEffectUtil("Decrease in lactation.", largeChangeDrain, "ml") { @Override public String applyEffect() { return target.incrementBreastLactation(largeChangeDrain); } };
+								return new RacialEffectUtil("Decrease in milk storage.", largeChangeDrain, "ml") { @Override public String applyEffect() { return target.incrementBreastMilkStorage(largeChangeDrain); } };
 							case MINOR_DRAIN:
-								return new RacialEffectUtil("Small decrease in lactation.", largeChangeMinorDrain, "ml") { @Override public String applyEffect() { return target.incrementBreastLactation(largeChangeMinorDrain); } };
+								return new RacialEffectUtil("Small decrease in milk storage.", largeChangeMinorDrain, "ml") { @Override public String applyEffect() { return target.incrementBreastMilkStorage(largeChangeMinorDrain); } };
 							case MINOR_BOOST: default:
-								return new RacialEffectUtil("Small increase in lactation.", largeChangeMinorBoost, "ml") { @Override public String applyEffect() { return target.incrementBreastLactation(largeChangeMinorBoost); } };
+								return new RacialEffectUtil("Small increase in milk storage.", largeChangeMinorBoost, "ml") { @Override public String applyEffect() { return target.incrementBreastMilkStorage(largeChangeMinorBoost); } };
 							case BOOST:
-								return new RacialEffectUtil("Increase in lactation.", largeChangeBoost, "ml") { @Override public String applyEffect() { return target.incrementBreastLactation(largeChangeBoost); } };
+								return new RacialEffectUtil("Increase in milk storage.", largeChangeBoost, "ml") { @Override public String applyEffect() { return target.incrementBreastMilkStorage(largeChangeBoost); } };
 							case MAJOR_BOOST:
-								return new RacialEffectUtil("Huge increase in lactation.", largeChangeMajorBoost, "ml") { @Override public String applyEffect() { return target.incrementBreastLactation(largeChangeMajorBoost); } };
+								return new RacialEffectUtil("Huge increase in milk storage.", largeChangeMajorBoost, "ml") { @Override public String applyEffect() { return target.incrementBreastMilkStorage(largeChangeMajorBoost); } };
+						}
+					case TF_MOD_REGENERATION:
+						switch(potency) {
+							case MAJOR_DRAIN:
+								return new RacialEffectUtil("Huge decrease in milk regeneration.", largeChangeMajorDrain, "") { @Override public String applyEffect() { return target.incrementBreastLactationRegeneration(largeChangeMajorDrain); } };
+							case DRAIN:
+								return new RacialEffectUtil("Decrease in milk regeneration.", largeChangeDrain, "") { @Override public String applyEffect() { return target.incrementBreastLactationRegeneration(largeChangeDrain); } };
+							case MINOR_DRAIN:
+								return new RacialEffectUtil("Small decrease in milk regeneration.", largeChangeMinorDrain, "") { @Override public String applyEffect() { return target.incrementBreastLactationRegeneration(largeChangeMinorDrain); } };
+							case MINOR_BOOST: default:
+								return new RacialEffectUtil("Small increase in milk regeneration.", largeChangeMinorBoost, "") { @Override public String applyEffect() { return target.incrementBreastLactationRegeneration(largeChangeMinorBoost); } };
+							case BOOST:
+								return new RacialEffectUtil("Increase in milk regeneration.", largeChangeBoost, "") { @Override public String applyEffect() { return target.incrementBreastLactationRegeneration(largeChangeBoost); } };
+							case MAJOR_BOOST:
+								return new RacialEffectUtil("Huge increase in milk regeneration.", largeChangeMajorBoost, "") { @Override public String applyEffect() { return target.incrementBreastLactationRegeneration(largeChangeMajorBoost); } };
 						}
 						
 					case TF_MOD_ORIFICE_PUFFY:
@@ -5183,17 +5252,17 @@ public enum ItemEffectType {
 					default:
 						switch(potency) {
 							case MAJOR_DRAIN:
-								return new RacialEffectUtil("Huge decrease in lactation.", largeChangeMajorDrain, "ml") { @Override public String applyEffect() { return target.incrementBreastLactation(largeChangeMajorDrain); } };
+								return new RacialEffectUtil("Huge decrease in milk storage.", largeChangeMajorDrain, "ml") { @Override public String applyEffect() { return target.incrementBreastMilkStorage(largeChangeMajorDrain); } };
 							case DRAIN:
-								return new RacialEffectUtil("Decrease in lactation.", largeChangeDrain, "ml") { @Override public String applyEffect() { return target.incrementBreastLactation(largeChangeDrain); } };
+								return new RacialEffectUtil("Decrease in milk storage.", largeChangeDrain, "ml") { @Override public String applyEffect() { return target.incrementBreastMilkStorage(largeChangeDrain); } };
 							case MINOR_DRAIN:
-								return new RacialEffectUtil("Small decrease in lactation.", largeChangeMinorDrain, "ml") { @Override public String applyEffect() { return target.incrementBreastLactation(largeChangeMinorDrain); } };
+								return new RacialEffectUtil("Small decrease in milk storage.", largeChangeMinorDrain, "ml") { @Override public String applyEffect() { return target.incrementBreastMilkStorage(largeChangeMinorDrain); } };
 							case MINOR_BOOST:
-								return new RacialEffectUtil("Small increase in lactation.", largeChangeMinorBoost, "ml") { @Override public String applyEffect() { return target.incrementBreastLactation(largeChangeMinorBoost); } };
+								return new RacialEffectUtil("Small increase in milk storage.", largeChangeMinorBoost, "ml") { @Override public String applyEffect() { return target.incrementBreastMilkStorage(largeChangeMinorBoost); } };
 							case BOOST:
-								return new RacialEffectUtil("Increase in lactation.", largeChangeBoost, "ml") { @Override public String applyEffect() { return target.incrementBreastLactation(largeChangeBoost); } };
+								return new RacialEffectUtil("Increase in milk storage.", largeChangeBoost, "ml") { @Override public String applyEffect() { return target.incrementBreastMilkStorage(largeChangeBoost); } };
 							case MAJOR_BOOST:
-								return new RacialEffectUtil("Huge increase in lactation.", largeChangeMajorBoost, "ml") { @Override public String applyEffect() { return target.incrementBreastLactation(largeChangeMajorBoost); } };
+								return new RacialEffectUtil("Huge increase in milk storage.", largeChangeMajorBoost, "ml") { @Override public String applyEffect() { return target.incrementBreastMilkStorage(largeChangeMajorBoost); } };
 						}
 				}
 				break;

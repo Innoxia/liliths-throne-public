@@ -323,7 +323,7 @@ public enum Combat {
 			int money = Main.game.getPlayer().getMoney();
 			int moneyLoss = (-enemies.get(0).getLootMoney()/2)*enemies.size();
 			Main.game.getPlayer().incrementMoney(moneyLoss);
-			postCombatStringBuilder.append("<h6 style='text-align:center;'>You <b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>lost</b> "+ UtilText.formatAsMoney((Main.game.getPlayer().getMoney()==0?money:moneyLoss)) + "!</h6>");
+			postCombatStringBuilder.append("<h6 style='text-align:center;'>You <b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>lost</b> "+ UtilText.formatAsMoney(Math.abs(Main.game.getPlayer().getMoney()==0?money:moneyLoss)) + "!</h6>");
 
 			for(NPC enemy : enemies) {
 				enemy.setWonCombatCount(enemy.getWonCombatCount()+1);
@@ -342,12 +342,10 @@ public enum Combat {
 		for(NPC enemy : enemies) {
 			enemy.setMana(enemy.getAttributeValue(Attribute.MANA_MAXIMUM));
 			enemy.setHealth(enemy.getAttributeValue(Attribute.HEALTH_MAXIMUM));
-			enemy.setLust(enemy.getAttributeValue(Attribute.MAJOR_CORRUPTION)*0.1f);
 		}
 		for(NPC ally : allies) {
 			ally.setMana(ally.getAttributeValue(Attribute.MANA_MAXIMUM));
 			ally.setHealth(ally.getAttributeValue(Attribute.HEALTH_MAXIMUM));
-			ally.setLust(ally.getAttributeValue(Attribute.MAJOR_CORRUPTION)*0.1f);
 		}
 
 		Main.game.getTextStartStringBuilder().append(postCombatStringBuilder.toString());
@@ -628,16 +626,46 @@ public enum Combat {
 			}
 			
 			if(responseTab==2) { // Spells
-				if (Main.game.getPlayer().getSpells().size() >= index  && index!=0) {
-					return new Response(Util.capitaliseSentence(Main.game.getPlayer().getSpells().get(index - 1).getName()),
-							getSpellDescription(Main.game.getPlayer().getSpells().get(index - 1), null),
+				if(index == 0) {
+					return null;
+					
+				} else if(index<=5 && Main.game.getPlayer().getOffensiveSpells().size()>=index) {
+					return new Response(Util.capitaliseSentence(Main.game.getPlayer().getOffensiveSpells().get(index - 1).getName()),
+							getSpellDescription(Main.game.getPlayer().getOffensiveSpells().get(index - 1), null),
 							ENEMY_ATTACK){
 						@Override
 						public void effects() {
-							attackSpell(Main.game.getPlayer(), Main.game.getPlayer().getSpells().get(index - 1));
+							attackSpell(Main.game.getPlayer(), Main.game.getPlayer().getOffensiveSpells().get(index - 1));
 							endCombatTurn();
 							previousAction = Attack.SPELL;
-							previouslyUsedSpell = Main.game.getPlayer().getSpells().get(index - 1);
+							previouslyUsedSpell = Main.game.getPlayer().getOffensiveSpells().get(index - 1);
+						}
+					};
+					
+				} else if(index>5 && index<=10 && Main.game.getPlayer().getDefensiveSpells().size()+5>=index) {
+					return new Response(Util.capitaliseSentence(Main.game.getPlayer().getDefensiveSpells().get(index - 6).getName()),
+							getSpellDescription(Main.game.getPlayer().getDefensiveSpells().get(index - 6), null),
+							ENEMY_ATTACK){
+						@Override
+						public void effects() {
+							attackSpell(Main.game.getPlayer(), Main.game.getPlayer().getDefensiveSpells().get(index - 6));
+							endCombatTurn();
+							previousAction = Attack.SPELL;
+							previouslyUsedSpell = Main.game.getPlayer().getDefensiveSpells().get(index - 6);
+						}
+					};
+					
+				} else if(index>10 && index<=14 && Main.game.getPlayer().getExtraSpells().size()+10>=index) {
+					return new Response(Util.capitaliseSentence(Main.game.getPlayer().getExtraSpells().get(index - 11).getName()),
+							getSpellDescription(Main.game.getPlayer().getExtraSpells().get(index - 11),
+							null),
+							ENEMY_ATTACK){
+						@Override
+						public void effects() {
+							attackSpell(Main.game.getPlayer(), Main.game.getPlayer().getExtraSpells().get(index - 11));
+							endCombatTurn();
+							previousAction = Attack.SPELL;
+							previouslyUsedSpell = Main.game.getPlayer().getExtraSpells().get(index - 11);
 						}
 					};
 					
@@ -718,31 +746,53 @@ public enum Combat {
 					}
 					
 				} else if (index == 1) {
-					return new Response("Main attack", getMainAttackDescription(), ENEMY_ATTACK){
-						@Override
-						public void effects() {
-							attackMelee(Main.game.getPlayer());
-							endCombatTurn();
-						}
-					};
+					if(Main.game.getPlayer().getMainWeapon() == null || Main.game.getPlayer().getMainWeapon().isAbleToBeUsed(Main.game.getPlayer(), Combat.getTargetedCombatant(Main.game.getPlayer()))) {
+						return new Response((Main.game.getPlayer().getMainWeapon() != null?Main.game.getPlayer().getMainWeapon().getWeaponType().getAttackDescriptor():"Melee Strike"),
+								getMainAttackDescription(),
+								ENEMY_ATTACK){
+							@Override
+							public void effects() {
+								attackMelee(Main.game.getPlayer());
+								endCombatTurn();
+							}
+						};
+					} else {
+						return new Response((Main.game.getPlayer().getMainWeapon() != null?Main.game.getPlayer().getMainWeapon().getWeaponType().getAttackDescriptor():"Melee Strike"),
+								Main.game.getPlayer().getMainWeapon().getUnableToBeUsedDescription(), null);
+					}
 
 				} else if (index == 2) {
-					return new Response("Offhand attack", getOffhandAttackDescription(), ENEMY_ATTACK){
-						@Override
-						public void effects() {
-							attackOffhand(Main.game.getPlayer());
-							endCombatTurn();
-						}
-					};
+					if(Main.game.getPlayer().getOffhandWeapon() == null || Main.game.getPlayer().getOffhandWeapon().isAbleToBeUsed(Main.game.getPlayer(), Combat.getTargetedCombatant(Main.game.getPlayer()))) {
+						return new Response((Main.game.getPlayer().getOffhandWeapon() != null?Main.game.getPlayer().getOffhandWeapon().getWeaponType().getAttackDescriptor():"Melee Strike"),
+								getOffhandAttackDescription(), ENEMY_ATTACK){
+							@Override
+							public void effects() {
+								attackOffhand(Main.game.getPlayer());
+								endCombatTurn();
+							}
+						};
+					} else {
+						return new Response((Main.game.getPlayer().getOffhandWeapon() != null?Main.game.getPlayer().getOffhandWeapon().getWeaponType().getAttackDescriptor():"Melee Strike"),
+								Main.game.getPlayer().getOffhandWeapon().getUnableToBeUsedDescription(), null);
+					}
 
 				} else if (index == 3) {
-					return new Response("Dual strike", getDualAttackDescription(), ENEMY_ATTACK){
-						@Override
-						public void effects() {
-							attackDual(Main.game.getPlayer());
-							endCombatTurn();
+					if((Main.game.getPlayer().getMainWeapon() == null || Main.game.getPlayer().getMainWeapon().isAbleToBeUsed(Main.game.getPlayer(), Combat.getTargetedCombatant(Main.game.getPlayer())))
+							&& (Main.game.getPlayer().getOffhandWeapon() == null || Main.game.getPlayer().getOffhandWeapon().isAbleToBeUsed(Main.game.getPlayer(), Combat.getTargetedCombatant(Main.game.getPlayer())))) {
+						return new Response("Dual Strike", getDualAttackDescription(), ENEMY_ATTACK){
+							@Override
+							public void effects() {
+								attackDual(Main.game.getPlayer());
+								endCombatTurn();
+							}
+						};
+					} else {
+						if((Main.game.getPlayer().getMainWeapon() != null && !Main.game.getPlayer().getMainWeapon().isAbleToBeUsed(Main.game.getPlayer(), Combat.getTargetedCombatant(Main.game.getPlayer())))) {
+							return new Response("Dual Strike", Main.game.getPlayer().getMainWeapon().getUnableToBeUsedDescription(), null);
+						} else {
+							return new Response("Dual Strike", Main.game.getPlayer().getOffhandWeapon().getUnableToBeUsedDescription(), null);
 						}
-					};
+					}
 
 				} else if (index == 4) {
 					return new Response("Seduce", getTeaseDescription(), ENEMY_ATTACK){
@@ -777,13 +827,20 @@ public enum Combat {
 							};
 	
 						case SPECIAL_ATTACK:
-							return new Response(Util.capitaliseSentence(previouslyUsedSpecialAttack.getName()), getSpecialAttackDescription(previouslyUsedSpecialAttack), ENEMY_ATTACK){
-								@Override
-								public void effects() {
-									attackSpecialAttack(Main.game.getPlayer(), previouslyUsedSpecialAttack);
-									endCombatTurn();
-								}
-							};
+							int cooldown = Combat.getCooldown(Main.game.getPlayer(), previouslyUsedSpecialAttack);
+							if(cooldown==0) {
+								return new Response(Util.capitaliseSentence(previouslyUsedSpecialAttack.getName()), getSpecialAttackDescription(previouslyUsedSpecialAttack), ENEMY_ATTACK){
+									@Override
+									public void effects() {
+										attackSpecialAttack(Main.game.getPlayer(), previouslyUsedSpecialAttack);
+										endCombatTurn();
+									}
+								};
+							} else {
+								return new Response(Util.capitaliseSentence(previouslyUsedSpecialAttack.getName()),
+										"This special move is on cooldown for [style.colourBad("+cooldown+")] more turns!",
+										null);
+							}
 	
 						default:
 							return new Response("Repeat", "You have to perform an action first!", null);
@@ -854,6 +911,10 @@ public enum Combat {
 		}
 
 		attackStringBuilder.append(target.incrementHealth(attacker, -damage));
+
+		if(attacker.getMainWeapon() != null) {
+			attackStringBuilder.append(attacker.getMainWeapon().applyExtraEfects(attacker, target));
+		}
 		
 		combatStringBuilder.append(getCharactersTurnDiv(attacker, "Main Attack", attackStringBuilder.toString()));
 	}
@@ -892,6 +953,10 @@ public enum Combat {
 		}
 
 		attackStringBuilder.append(target.incrementHealth(attacker, -damage));
+
+		if(attacker.getOffhandWeapon() != null) {
+			attackStringBuilder.append(attacker.getOffhandWeapon().applyExtraEfects(attacker, target));
+		}
 		
 		combatStringBuilder.append(getCharactersTurnDiv(attacker, "Offhand Attack", attackStringBuilder.toString()));
 	}
@@ -1061,7 +1126,7 @@ public enum Combat {
 		attackStringBuilder.append(spell.applyEffect(attacker, target, true, critical));
 		
 		if(critical && attacker.hasTraitActivated(Perk.ARCANE_CRITICALS)) {//TODO description
-			target.addStatusEffect(StatusEffect.ARCANE_WEAKNESS, 1);
+			target.addStatusEffect(StatusEffect.ARCANE_WEAKNESS, 2);
 		}
 		
 		combatStringBuilder.append(getCharactersTurnDiv(attacker, Util.capitaliseSentence(spell.getName()), attackStringBuilder.toString()));
@@ -1322,7 +1387,11 @@ public enum Combat {
 	private static String getMainAttackDescription() {
 		attackDescriptionSB = new StringBuilder();
 		
-		attackDescriptionSB.append("Strike out at " + targetedCombatant.getName("the") + "!</br></br>");
+		if(Main.game.getPlayer().getMainWeapon()!=null) {
+			attackDescriptionSB.append(Main.game.getPlayer().getMainWeapon().getWeaponType().getAttackDescription(Main.game.getPlayer(), targetedCombatant)+"</br>");
+		} else {
+			attackDescriptionSB.append(UtilText.parse(targetedCombatant, "Attack [npc.name] in melee!</br>"));
+		}
 		
 		if (Main.game.getPlayer().getMainWeapon() == null) {
 			attackDescriptionSB.append("<b>" + Attack.getMinimumDamage(Main.game.getPlayer(), targetedCombatant, Attack.MAIN) + " - " + Attack.getMaximumDamage(Main.game.getPlayer(), targetedCombatant, Attack.MAIN) + "</b>" + " <b style='color:"
@@ -1340,8 +1409,12 @@ public enum Combat {
 	
 	private static String getOffhandAttackDescription() {
 		attackDescriptionSB = new StringBuilder();
-		
-		attackDescriptionSB.append("Strike out at " + targetedCombatant.getName("the") + "!</br></br>");
+
+		if(Main.game.getPlayer().getOffhandWeapon()!=null) {
+			attackDescriptionSB.append(Main.game.getPlayer().getOffhandWeapon().getWeaponType().getAttackDescription(Main.game.getPlayer(), targetedCombatant)+"</br>");
+		} else {
+			attackDescriptionSB.append(UtilText.parse(targetedCombatant, "Attack [npc.name] in melee!</br>"));
+		}
 		
 		if (Main.game.getPlayer().getOffhandWeapon() == null) {
 			attackDescriptionSB.append("<b>" + Attack.getMinimumDamage(Main.game.getPlayer(), targetedCombatant, Attack.OFFHAND) + " - " + Attack.getMaximumDamage(Main.game.getPlayer(), targetedCombatant, Attack.OFFHAND) + "</b>" + " <b style='color:"

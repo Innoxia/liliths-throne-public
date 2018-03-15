@@ -58,6 +58,7 @@ import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyHair;
+import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
@@ -314,28 +315,28 @@ public class CharacterUtils {
 		if(Math.random()>=0.9f) {
 			if(Math.random()>=takesAfterMotherChance) {
 				body.getCoverings().put(body.getEye().getType().getBodyCoveringType(),
-						new Covering(body.getEye().getType().getBodyCoveringType(), mother.getEyeIrisCovering().getPattern(),
-								mother.getEyeIrisCovering().getPrimaryColour(), mother.getEyeIrisCovering().isPrimaryGlowing(),
-								mother.getEyeIrisCovering().getPrimaryColour(), mother.getEyeIrisCovering().isPrimaryGlowing()));
+						new Covering(body.getEye().getType().getBodyCoveringType(), mother.getCovering(mother.getEyeType().getBodyCoveringType()).getPattern(),
+								mother.getCovering(mother.getEyeType().getBodyCoveringType()).getPrimaryColour(), mother.getCovering(mother.getEyeType().getBodyCoveringType()).isPrimaryGlowing(),
+								mother.getCovering(mother.getEyeType().getBodyCoveringType()).getPrimaryColour(), mother.getCovering(mother.getEyeType().getBodyCoveringType()).isPrimaryGlowing()));
 			} else {
 				body.getCoverings().put(body.getEye().getType().getBodyCoveringType(),
-						new Covering(body.getEye().getType().getBodyCoveringType(), father.getEyeIrisCovering().getPattern(),
-								father.getEyeIrisCovering().getPrimaryColour(), father.getEyeIrisCovering().isPrimaryGlowing(),
-								father.getEyeIrisCovering().getPrimaryColour(), father.getEyeIrisCovering().isPrimaryGlowing()));
+						new Covering(body.getEye().getType().getBodyCoveringType(), father.getCovering(father.getEyeType().getBodyCoveringType()).getPattern(),
+								father.getCovering(father.getEyeType().getBodyCoveringType()).getPrimaryColour(), father.getCovering(father.getEyeType().getBodyCoveringType()).isPrimaryGlowing(),
+								father.getCovering(father.getEyeType().getBodyCoveringType()).getPrimaryColour(), father.getCovering(father.getEyeType().getBodyCoveringType()).isPrimaryGlowing()));
 			}
 		}
 		// Pupil colour:
 		if(Math.random()>=0.4f) {
 			if(Math.random()>=takesAfterMotherChance) {
 				body.getCoverings().put(BodyCoveringType.EYE_PUPILS,
-						new Covering(body.getEye().getType().getBodyCoveringType(), mother.getEyePupilCovering().getPattern(),
-								mother.getEyePupilCovering().getPrimaryColour(), mother.getEyePupilCovering().isPrimaryGlowing(),
-								mother.getEyePupilCovering().getPrimaryColour(), mother.getEyePupilCovering().isPrimaryGlowing()));
+						new Covering(body.getEye().getType().getBodyCoveringType(), mother.getCovering(BodyCoveringType.EYE_PUPILS).getPattern(),
+								mother.getCovering(BodyCoveringType.EYE_PUPILS).getPrimaryColour(), mother.getCovering(BodyCoveringType.EYE_PUPILS).isPrimaryGlowing(),
+								mother.getCovering(BodyCoveringType.EYE_PUPILS).getPrimaryColour(), mother.getCovering(BodyCoveringType.EYE_PUPILS).isPrimaryGlowing()));
 			} else {
 				body.getCoverings().put(BodyCoveringType.EYE_PUPILS,
-						new Covering(body.getEye().getType().getBodyCoveringType(), father.getEyePupilCovering().getPattern(),
-								father.getEyePupilCovering().getPrimaryColour(), father.getEyePupilCovering().isPrimaryGlowing(),
-								father.getEyePupilCovering().getPrimaryColour(), father.getEyePupilCovering().isPrimaryGlowing()));
+						new Covering(body.getEye().getType().getBodyCoveringType(), father.getCovering(BodyCoveringType.EYE_PUPILS).getPattern(),
+								father.getCovering(BodyCoveringType.EYE_PUPILS).getPrimaryColour(), father.getCovering(BodyCoveringType.EYE_PUPILS).isPrimaryGlowing(),
+								father.getCovering(BodyCoveringType.EYE_PUPILS).getPrimaryColour(), father.getCovering(BodyCoveringType.EYE_PUPILS).isPrimaryGlowing()));
 			}
 		}
 		
@@ -760,6 +761,10 @@ public class CharacterUtils {
 			}
 		}
 		
+		if(mother.getBodyMaterial()==BodyMaterial.SLIME) {
+			body.setBodyMaterial(BodyMaterial.SLIME);
+		}
+		
 		return body;
 	}
 	
@@ -976,7 +981,7 @@ public class CharacterUtils {
 		if(character.hasBreasts()) {
 			character.setBreastSize(Math.max(CupSize.AA.getMeasurement(), character.getBreastSize().getMeasurement() -2 +(Util.random.nextInt(5)))); // Random size between -2 and +2 of base value.
 			if(Math.random()<=0.015f) {
-				character.setBreastLactation((int)((character.getBreastSize().getMeasurement() * 5)*(1+(Math.random()*2))));
+				character.setBreastMilkStorage((int)((character.getBreastSize().getMeasurement() * 5)*(1+(Math.random()*2))));
 				if(Math.random()<=0.025f) {
 					character.addMilkModifier(FluidModifier.ADDICTIVE);
 				}
@@ -1001,17 +1006,18 @@ public class CharacterUtils {
 		}
 		
 		// Hair:
-		if(Math.random()<=0.2f && !character.getHairCovering().getType().getDyePatterns().isEmpty()) { // 20% chance to have a non-natural hair colour:
+		if(Math.random()<=0.2f && !character.getCovering(character.getHairType().getBodyCoveringType()).getType().getDyePatterns().isEmpty()) { // 20% chance to have a non-natural hair colour:
+			Covering currentCovering = character.getCovering(character.getHairType().getBodyCoveringType());
 			character.setHairCovering(new Covering(
-					character.getHairCovering().getType(),
-					character.getHairCovering().getType().getDyePatterns().get(Util.random.nextInt(character.getHairCovering().getType().getDyePatterns().size())),
-					character.getHairCovering().getType().getAllPrimaryColours().isEmpty()
-						?character.getHairCovering().getPrimaryColour()
-						:character.getHairCovering().getType().getAllPrimaryColours().get(Util.random.nextInt(character.getHairCovering().getType().getAllPrimaryColours().size())),
+					currentCovering.getType(),
+					currentCovering.getType().getDyePatterns().get(Util.random.nextInt(currentCovering.getType().getDyePatterns().size())),
+					currentCovering.getType().getAllPrimaryColours().isEmpty()
+						?currentCovering.getPrimaryColour()
+						:currentCovering.getType().getAllPrimaryColours().get(Util.random.nextInt(currentCovering.getType().getAllPrimaryColours().size())),
 					Math.random()<=0.05f,
-					character.getHairCovering().getType().getAllSecondaryColours().isEmpty()
-						?character.getHairCovering().getSecondaryColour()
-						:character.getHairCovering().getType().getAllSecondaryColours().get(Util.random.nextInt(character.getHairCovering().getType().getAllSecondaryColours().size())),
+					currentCovering.getType().getAllSecondaryColours().isEmpty()
+						?currentCovering.getSecondaryColour()
+						:currentCovering.getType().getAllSecondaryColours().get(Util.random.nextInt(currentCovering.getType().getAllSecondaryColours().size())),
 					Math.random()<=0.05f),
 					true);
 		}

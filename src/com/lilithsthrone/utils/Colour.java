@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 
 /**
  * @since 0.1.0
- * @version 0.1.84
+ * @version 0.2.1
  * @author Innoxia
  */
 public enum Colour {
@@ -29,7 +29,7 @@ public enum Colour {
 	BASE_VIOLET(BaseColour.VIOLET, "violet", Util.newArrayListOfValues(new ListValue<>("violet"))),
 	BASE_PINK(BaseColour.PINK, "pink", Util.newArrayListOfValues(new ListValue<>("pink"))),
 	BASE_PINK_LIGHT(BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues(new ListValue<>("lightPink"))),
-	BASE_PINK_DEEP(BaseColour.PINK_DEEP, "deep pink", Util.newArrayListOfValues(new ListValue<>("deepPink"))),
+	BASE_PINK_DEEP(BaseColour.PINK_DEEP, "deep pink", Util.newArrayListOfValues(new ListValue<>("deepPink"), new ListValue<>("darkPink"))),
 		
 	BASE_MAGENTA(BaseColour.MAGENTA, "magenta", Util.newArrayListOfValues(new ListValue<>("magenta"))),
 	BASE_CRIMSON(BaseColour.CRIMSON, "crimson", Util.newArrayListOfValues(new ListValue<>("crimson"))),
@@ -435,7 +435,7 @@ public enum Colour {
 	
 	// Special nail polish:
 	COVERING_CLEAR(BaseColour.WHITE, "clear"),
-	COVERING_NONE(BaseColour.TAN, "none"),
+	COVERING_NONE(BaseColour.GREY, "none"),
 
 	// Eye colours:
 	EYE_BROWN(BaseColour.BROWN, "brown"),

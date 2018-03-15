@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
+import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
@@ -23,7 +24,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.84
- * @version 0.1.97
+ * @version 0.2.1
  * @author Innoxia
  */
 public class ItemType {
@@ -752,6 +753,52 @@ public class ItemType {
 					"[npc.Name] pulls out a bottle of 'Harpy Perfume', and, after quickly popping off the cap, [npc.she] promptly sprays a little squirt onto [npc.her] neck.",
 					"[npc.Name] pulls out a bottle of 'Harpy Perfume', and, after quickly popping off the cap, [npc.she] sprays a little squirt onto your neck."
 						+ " You instantly feel a bubbly wave of excitement running through you, and without thinking, you find yourself letting out a very girly giggle.");
+		}
+	};
+	
+	public static AbstractItemType SEX_INGREDIENT_SLIME_QUENCHER = new AbstractItemType(250,
+			"a bottle of",
+			false,
+			"Slime Quencher",
+			"Slime Quenchers",
+			"A small glass bottle of luminescent, fizzy pop."
+					+ " The label on the front reads 'Slime Quencher', and, to one side, there's a picture of a completely naked slime-girl pressing her breasts together and smiling at you.",
+			"attributeSlimeDrink",
+			Colour.GENERIC_SEX,
+			null,
+			null,
+			Rarity.UNCOMMON,
+			TFEssence.ARCANE,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.SEX_SLIME_DRINK))),
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN))) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public ItemEffectType getEnchantmentEffect() {
+			return ItemEffectType.ATTRIBUTE_SEXUAL;
+		}
+
+		@Override
+		public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
+			return POTION;
+		}
+
+		@Override
+		public String getUseName() {
+			return "drink";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"You pop off the cap and start drinking the bottle of 'Slime Quencher'."
+						+ " The recognisable taste of a sugary energy drink fills your mouth, and you greedily gulp down the all of the glowing liquid in a matter of seconds.",
+					"Popping off the cap, you bring the bottle of 'Slime Quencher' to [npc.name]'s lips, before tilting [npc.her] head back and forcing [npc.herHim] to quickly gulp down the liquid.",
+					"[npc.Name] pulls out a bottle of 'Slime Quencher', and, after quickly popping off the cap, [npc.she] promptly downs the entire bottle.",
+					"[npc.Name] pulls out a bottle of 'Slime Quencher', and, after quickly popping off the cap, [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the contents."
+						+ " The recognisable taste of a sugary energy drink fills your mouth, and, with [npc.name]'s help, you greedily gulp down the all of the glowing liquid in a matter of seconds.");
 		}
 	};
 	
@@ -1558,17 +1605,30 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		public boolean isAbleToBeUsed(GameCharacter target) {
+			return (!Main.game.isInCombat() || target.isPlayer()) && !target.isPregnant();
+		}
+		
+		@Override
+		public String getUnableToBeUsedDescription(GameCharacter target) {
+			return "This item cannot be used on pregnant people!";
+		}
+		
+		@Override
 		public String getUseName() {
 			return "drink";
 		}
 
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
-			return getGenericUseDescription(user, target, //TODO
-					"TODO: drinking biojuice.",
-					"TODO: Making [npc.name] drink biojuice.",
-					"TODO: [npc.name] drinking biojuice.",
-					"TODO: [npc.name] making you drink biojuice.");
+			return getGenericUseDescription(user, target,
+					"Ignoring the warning on the front, you unseal one end of the canister and bring it up to your [pc.lips]."
+							+ " The glowing green liquid within gives off a faintly sweet smell, and you tilt your head back and gulp it all down...",
+					"You unseal one end of the canister and bring it up to [npc.name]'s [npc.lips]."
+							+ " Tilting [npc.her] head abck, you force [npc.herHim] to drink down all of teh glowing green liquid...",
+					"[npc.Name] pulls out a canister of Biojuice, and, unsealing one end of the canister, [npc.she] brings it up to [npc.her] [npc.lips] and gulps it all down....",
+					"[npc.Name] pulls out a canister of Biojuice, and, unsealing one end of the canister, [npc.she] brings it up to your [pc.lips]."
+							+ " The glowing green liquid within gives off a faintly sweet smell, and [npc.name] tilts your head back and forces you to gulp it all down....");
 		}
 	};
 	
@@ -2540,7 +2600,9 @@ public class ItemType {
 			null,
 			Rarity.COMMON,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.USED_CONDOM_DRINK))), null) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.USED_CONDOM_DRINK))),
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.REMOVE_FROM_DEBUG_SPAWNER))) {
 		
 		private static final long serialVersionUID = 1L;
 
@@ -2752,6 +2814,101 @@ public class ItemType {
 		}
 	};
 	
+	public static AbstractItemType MOO_MILKER_EMPTY = new AbstractItemType(50,
+			"a",
+			false,
+			"Moo Milker",
+			"Moo Milkers",
+			"A manual cow-themed breast pump, capable of holding up to 1000ml of liquid in the attached plastic beaker.",
+			"breastPump",
+			Colour.BASE_PURPLE_LIGHT,
+			null,
+			null,
+			Rarity.COMMON,
+			null,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.MOO_MILKER))),
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
+					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN))) {
+
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getUseName() {
+			return "milk";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"Bringing the Moo Milker up to your breast, you place the suction cup over your [pc.nipple], before starting to pump the lever up and down."
+							+ " Your [pc.milk+] starts to squirt out into the attached beaker, and you can't help but let out a deeply satisfied sigh at the delightful sensation of milking yourself.",
+					"Bringing the Moo Milker up to [npc.name]'s breast, you place the suction cup over [npc.her] [npc.nipple], before starting to pump the lever up and down."
+							+ " [npc.Her] [npc.milk+] starts to squirt out into the attached beaker, and [npc.she] can't help but let out a deeply satisfied sigh at the delightful sensation of being milked.",
+					"Bringing a Moo Milker up to [npc.her] breast, [npc.name] places the suction cup over [npc.her] [npc.nipple], before starting to pump the lever up and down."
+							+ " [npc.Her] [npc.milk+] starts to squirt out into the attached beaker, and [npc.she] can't help but let out a deeply satisfied sigh at the delightful sensation of milking [npc.herself].",
+					"Bringing a Moo Milker up to your breast, [npc.name] places the suction cup over your [pc.nipple], before starting to pump the lever up and down."
+							+ " Your [pc.milk+] starts to squirt out into the attached beaker, and you can't help but let out a deeply satisfied sigh at the delightful sensation of being milked.");
+		}
+
+		@Override
+		public boolean isAbleToBeUsed(GameCharacter target) {
+			return target.isAbleToAccessCoverableArea(CoverableArea.NIPPLES, true) && target.getBreastRawMilkStorageValue()>0;
+		}
+
+		@Override
+		public String getUnableToBeUsedDescription(GameCharacter target) {
+			if(target.isPlayer()) {
+				if(!target.isAbleToAccessCoverableArea(CoverableArea.NIPPLES, true)) {
+					return "You need to be able to access your nipples in order to use this!";
+				} else {
+					return "You need to have at least 1ml of milk stored in your breasts in order to use this!";
+				}
+				
+			} else {
+				if(!target.isAbleToAccessCoverableArea(CoverableArea.NIPPLES, true)) {
+					return UtilText.parse(target, "You need to be able to access [npc.name]'s nipples in order to use this!");
+				} else {
+					return UtilText.parse(target, "[npc.Name] needs to have at least 1ml of milk stored in [npc.her] breasts in order to use this!");
+				}
+			}
+		}
+	};
+	
+	public static AbstractItemType MOO_MILKER_FULL = new AbstractItemType(150,
+			"a",
+			false,
+			"Filled Moo Milker",
+			"Filled Moo Milkers",
+			"A manual cow-themed breast pump."
+					+ " The attached plastic beaker has been filled with milk, and, by unscrewing the pumping mechanism on top, you can gain access to the liquid at any time.",
+			"breastPumpFilled",
+			Colour.BASE_PURPLE_LIGHT,
+			null,
+			null,
+			Rarity.COMMON,
+			null,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.FILLED_MOO_MILKER_DRINK))),
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.REMOVE_FROM_DEBUG_SPAWNER))) {
+		
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getUseName() {
+			return "drink";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"You unscrew the top of the breast pump, and, bringing it up to your lips, you gulp down the contents.",
+					"You unscrew the top of the breast pump, and, bringing it up to [npc.name]'s [npc.lips], you force [npc.her] to gulp down the contents.",
+					"Unscrewing the top of the breast pump, [npc.name] brings it up to [npc.her] [npc.lips], before swallowing down the contents.",
+					"Unscrewing the top of the breast pump, [npc.name] brings it up to your [pc.lips], before forcing you to gulp down the contents.");
+		}
+	};
+	
 	public static AbstractItemType MOTHERS_MILK = new AbstractItemType(100,
 			"a bottle of",
 			false,
@@ -2806,7 +2963,7 @@ public class ItemType {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.getProperties().isAdvancedRaceKnowledgeDiscovered(Race.CAT_MORPH);
+			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.CAT_MORPH);
 		}
 
 		@Override
@@ -2849,7 +3006,7 @@ public class ItemType {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.getProperties().isAdvancedRaceKnowledgeDiscovered(Race.COW_MORPH);
+			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.COW_MORPH);
 		}
 
 		@Override
@@ -2892,7 +3049,7 @@ public class ItemType {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.getProperties().isAdvancedRaceKnowledgeDiscovered(Race.DEMON);
+			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.DEMON);
 		}
 
 		@Override
@@ -2934,7 +3091,7 @@ public class ItemType {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.getProperties().isAdvancedRaceKnowledgeDiscovered(Race.IMP);
+			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.IMP);
 		}
 
 		@Override
@@ -2976,7 +3133,7 @@ public class ItemType {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.getProperties().isAdvancedRaceKnowledgeDiscovered(Race.DOG_MORPH);
+			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.DOG_MORPH);
 		}
 
 		@Override
@@ -3018,7 +3175,7 @@ public class ItemType {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.getProperties().isAdvancedRaceKnowledgeDiscovered(Race.ALLIGATOR_MORPH);
+			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.ALLIGATOR_MORPH);
 		}
 
 		@Override
@@ -3060,7 +3217,7 @@ public class ItemType {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.getProperties().isAdvancedRaceKnowledgeDiscovered(Race.HARPY);
+			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.HARPY);
 		}
 
 		@Override
@@ -3102,7 +3259,7 @@ public class ItemType {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.getProperties().isAdvancedRaceKnowledgeDiscovered(Race.HORSE_MORPH);
+			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.HORSE_MORPH);
 		}
 
 		@Override
@@ -3144,7 +3301,7 @@ public class ItemType {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.getProperties().isAdvancedRaceKnowledgeDiscovered(Race.REINDEER_MORPH);
+			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.REINDEER_MORPH);
 		}
 
 		@Override
@@ -3186,7 +3343,7 @@ public class ItemType {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.getProperties().isAdvancedRaceKnowledgeDiscovered(Race.HUMAN);
+			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.HUMAN);
 		}
 
 		@Override
@@ -3228,7 +3385,7 @@ public class ItemType {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.getProperties().isAdvancedRaceKnowledgeDiscovered(Race.SQUIRREL_MORPH);
+			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.SQUIRREL_MORPH);
 		}
 
 		@Override
@@ -3270,7 +3427,7 @@ public class ItemType {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.getProperties().isAdvancedRaceKnowledgeDiscovered(Race.WOLF_MORPH);
+			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.WOLF_MORPH);
 		}
 
 		@Override
@@ -3312,7 +3469,7 @@ public class ItemType {
 
 		@Override
 		public boolean isAbleToBeUsed(GameCharacter target) {
-			return !Main.getProperties().isAdvancedRaceKnowledgeDiscovered(Race.SLIME);
+			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.SLIME);
 		}
 
 		@Override
@@ -3904,6 +4061,11 @@ public class ItemType {
 //		}
 //	};
 //
+	
+
+	public static int getMooMilkerMaxMilk() {
+		return 1000;
+	}
 	
 	public static List<AbstractItemType>
 			dominionAlleywayItems = new ArrayList<>(),

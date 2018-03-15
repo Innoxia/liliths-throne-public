@@ -205,7 +205,7 @@ public class ConChairTop {
 							
 					"[npc.name(The)]'s [npc.breastRows] [npc.breasts+] are fully exposed, and before you know what you're doing, you're pinching and squeezing [npc.her] [npc.nipples+] as [npc.she] moans beneath you."));
 			
-			switch (Sex.getActivePartner().getBreastLactation()) {
+			switch (Sex.getActivePartner().getBreastStoredMilk()) {
 				case ONE_TRICKLE:
 					descriptionSB.append(" As you squeeze down on [npc.her] [npc.nipples], a small trickle of [npc.milk] leaks out onto your fingertips.");
 					break;
@@ -232,6 +232,11 @@ public class ConChairTop {
 			}
 			
 			return descriptionSB.toString();
+		}
+		
+		@Override
+		public String applyEffectsString() {
+			return Sex.getActivePartner().incrementBreastStoredMilk(-10);
 		}
 		
 	};
@@ -272,7 +277,7 @@ public class ConChairTop {
 					"Circling [npc.name]'s [npc.nipples] with your fingers, you decide to take it one step further, and, sinking your digits into [npc.her] inviting [npc.nipples],"
 							+ " you start fingering [npc.her] [npc.breasts] as [npc.she] [npc.moansVerb] and sighs in delight."));
 			
-			switch (Sex.getActivePartner().getBreastLactation()) {
+			switch (Sex.getActivePartner().getBreastStoredMilk()) {
 				case ONE_TRICKLE:
 					descriptionSB.append(" As you start fingering [npc.her] [npc.nipples], a small trickle of [npc.milk] leaks out to run down [npc.her] [npc.breasts+].");
 					break;
@@ -299,6 +304,11 @@ public class ConChairTop {
 			}
 		
 			return descriptionSB.toString();
+		}
+		
+		@Override
+		public String applyEffectsString() {
+			return Sex.getActivePartner().incrementBreastStoredMilk(-10);
 		}
 		
 	};
@@ -337,7 +347,7 @@ public class ConChairTop {
 					"[npc.Name] lets out [npc.a_moan+] as you press your mouth down over one of [npc.her] [npc.nipples+]."
 					+ " Running your tongue around [npc.her] sensitive areolae, you soon find yourself joining your own [pc.moans] with [npc.hers]."));
 			
-			switch (Sex.getActivePartner().getBreastLactation()) {
+			switch (Sex.getActivePartner().getBreastStoredMilk()) {
 				case ONE_TRICKLE:
 					descriptionSB.append(" As you kiss and suck on [npc.her] [npc.nipples], a small trickle of [npc.milk] leaks out into your mouth.");
 					break;
@@ -369,6 +379,11 @@ public class ConChairTop {
 		@Override
 		public void applyEffects() {
 			Sex.addOrificeLubrication(Sex.getActivePartner(), OrificeType.NIPPLE, LubricationType.PLAYER_SALIVA);
+		}
+		
+		@Override
+		public String applyEffectsString() {
+			return Sex.getActivePartner().incrementBreastStoredMilk(-10);
 		}
 		
 	};
@@ -1510,7 +1525,7 @@ public class ConChairTop {
 							
 					"Your [pc.breastRows] [pc.breasts+] lie fully exposed above [npc.name], and before you know what's happening, [npc.she]'s pinching and squeezing your [pc.nipples+], causing you to cry out in pleasure."));
 			
-			switch (Main.game.getPlayer().getBreastLactation()) {
+			switch (Main.game.getPlayer().getBreastStoredMilk()) {
 				case ONE_TRICKLE:
 					descriptionSB.append(" As [npc.she] starts pinching your [pc.nipples], a small trickle of [pc.milk] leaks out to run down your [pc.breasts+].");
 					break;
@@ -1537,6 +1552,11 @@ public class ConChairTop {
 			}
 		
 			return descriptionSB.toString();
+		}
+		
+		@Override
+		public String applyEffectsString() {
+			return Main.game.getPlayer().incrementBreastStoredMilk(-10);
 		}
 		
 	};
@@ -1580,7 +1600,7 @@ public class ConChairTop {
 					"You let out [pc.a_moan+] as [npc.name] presses [npc.her] mouth up against your [pc.breasts+]."
 					+ " Running [npc.her] [npc.tongue+] around your sensitive areolae, your [pc.moans] increase in intensity as [npc.she] starts kissing and nibbling on your [pc.nipples+]."));
 			
-			switch (Sex.getActivePartner().getBreastLactation()) {
+			switch (Sex.getActivePartner().getBreastStoredMilk()) {
 				case ONE_TRICKLE:
 					descriptionSB.append(" As [npc.she] kisses and sucks on your [pc.nipples], a small trickle of [pc.milk] leaks out into [npc.her] mouth.");
 					break;
@@ -1612,6 +1632,11 @@ public class ConChairTop {
 		@Override
 		public void applyEffects() {
 			Sex.addOrificeLubrication(Main.game.getPlayer(), OrificeType.NIPPLE, LubricationType.PARTNER_SALIVA);
+		}
+		
+		@Override
+		public String applyEffectsString() {
+			return Main.game.getPlayer().incrementBreastStoredMilk(-10);
 		}
 		
 	};

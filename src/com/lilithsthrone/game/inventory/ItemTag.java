@@ -7,6 +7,8 @@ package com.lilithsthrone.game.inventory;
  */
 public enum ItemTag {
 
+	REMOVE_FROM_DEBUG_SPAWNER,
+	
 	ESSENCE,
 	BOOK, 
 	GIFT,

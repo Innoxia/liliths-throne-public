@@ -7,6 +7,7 @@ import java.util.Set;
 
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.OrificeInterface;
+import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
@@ -52,6 +53,15 @@ public class OrificeAnus implements OrificeInterface, Serializable {
 				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(Your [pc.asshole]'s wetness doesn't change...)]</p>");
 			} else {
 				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourDisabled(The wetness of [npc.name]'s [npc.asshole] doesn't change...)]</p>");
+			}
+		}
+
+		if(this.wetness < Wetness.SEVEN_DROOLING.getValue() && owner.getBodyMaterial()==BodyMaterial.SLIME) {
+			this.wetness = Wetness.SEVEN_DROOLING.getValue();
+			if(owner.isPlayer()) {
+				return "<p style='text-align:center;'>[style.colourSex(Due to being a slime, your [pc.asshole] can't be anything but "+Wetness.SEVEN_DROOLING.getDescriptor()+"...)]</p>";
+			} else {
+				return UtilText.parse(owner, "<p style='text-align:center;'>[style.colourSex(Due to being a slime, [npc.name]'s [npc.asshole] can't be anything but "+Wetness.SEVEN_DROOLING.getDescriptor()+"...)]</p>");
 			}
 		}
 		

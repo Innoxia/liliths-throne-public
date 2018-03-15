@@ -78,7 +78,7 @@ public class PrologueMale extends NPC {
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_MENS_WATCH, Colour.CLOTHING_BLACK_STEEL, false), true, this);
 			
 			this.addFetish(Fetish.FETISH_CUM_STUD);
-			this.addFetish(Fetish.FETISH_BREASTS_OTHERS);
+			this.addFetish(Fetish.FETISH_VAGINAL_GIVING);
 		}
 	}
 	

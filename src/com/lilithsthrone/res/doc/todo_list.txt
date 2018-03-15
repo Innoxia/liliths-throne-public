@@ -9,33 +9,109 @@
 	
 	Patch notes:
 	
+	Gameplay:
+		Added breastfeeding and lactation fetishes, with associated teases.
+		Added 'Moo Milker' breast pump item.
+		Expanded the single 'Lactation' stat into three related stats: 'Milk Storage', 'Milk Stored', and 'Milk Regeneration'. The amount of milk in your breasts will slowly increase over time (rate based on 'Milk Regeneration' stat) up to your 'Milk Storage' value.
+		Added 'regeneration' transformation effect to breast-related potions.
+		Added a small, rare event where you can't resist milking yourself (0.1% chance every minute while breasts are full).
+		Added breast growth & lactation increases from pregnancy (both can separately be turned off or increased in the options).
+		Added 'Milk partner'/'Get milked' and 'Suckle/Breastfeed' actions in sex.
+		Added 'Slime Quencher' drink as a random drop for slimes.
+		Expanded character creation to include sex experience.
+		Added an optional sex scene to the game's prologue.
+		Split up Pix's exercise dialogue and added a reversal sex scene for her.
 	
-	Slimes
-		Recolouring
-		Racial Lore
-		Detection for all body parts made of slime
-		TF item
-		Large description of TF
-		Transform menu in phone
-		Description for body material TF
-		Racial slime variants
-		Bugs:
-			Harpy slime not detected?
-			And all the slimes have turned into humans
+	Spells:
+		Added schools of magic - Fire, air, earth, water, and arcane.
+		Spells now require a certain 'Spell Mastery' to unlock (gained through the 'Arcane' attribute's associated status effects).
+		Weapons now have an associated offensive or defensive magic school. Equipping a weapon will change your default spells (not added yet) to those associated with the weapon's school of magic.
+		(This work is support for the addition of the full set of spells in an upcoming update.)
+	
+	Other:
+		Tidied up weapon attacks and descriptions.
+		Added slime transformation description and lore entry.
+		Increased chance of slime TF drop in tunnels (on each explore) from 0.15% to 2%. (10% chance of finding an item, and then 20% chance that item will be slime TF.)
+		Improved weapon tooltips.
+		Organised the phone menu buttons.
+		Made combat and non-combat character UI panels the same.
+		Improved stats screen.
+		Choosing the 'Lie' option in Brax's encounter, and then choosing to fight him, now increases his lust instead of draining his aura.
+		Slime's pussy and asshole wetness are now locked to maximum.
+		The square coloured button for 'none' in the cosmetics UI is now a grey square with red cross, to distinguish it from actual colours.
+		Added self-transformation menu in phone for slimes. (There are still some things left for me to add here, such as piercings.)
+		Slimes can now be impregnated through any orifice.
+		Slime offspring will now always be slimes.
+		Added slime-specific descriptions in the pregnancy advancement text. (I will get Lilaya's reactions to slime pregnancies done for the next release!)
+		Non-slave NPCs will now automatically clean their bodies/clothes.
+		Added 'freckles' pattern to character creation menu.
 		
-	[18:00]
+	Contributors:
+		Improved fetish descriptors in enchanting menu. (Lightcanadian)	
+		Brought partner 'Resist' arousal increase value in line with player's. (Master of Puppets)
+		Punctuation fixes, mainly commas. (WoefulWombat)
+		Fixed GenericOrgasms.isGenericPartnerCumTargetRequirements method. (Master of Puppets)
+		Fixed incorrect lubrication on PC anal tease. (Master of Puppets)
 	
-	Lactation/Milking
-		breast growth/lactation from preg
-		Fetishes
-		Breast pumps
-		And milk leaking into bra/clothing if you have too much production. I might make that into a "max milk capacity"/"current milk" mechanic
+	Bugs:
+		Fixed Vicky only stocking one of each essence (she now stocks 20-30 of each).
+		Fixed slime body material not being restored when loading a game.
+		Fixed slime covering detection not working in some tooltips.
+		Text formatting and typo fixes.
+		Fixed weapon description displaying incorrect damage.
+		Fixed bug where you would instantly win combat while in an arcane storm, due to your opponent having 100 lust.
+		Slimes will now drop the correct racial book.
+		'Arcane Weakness' is now correctly applied to target when performing a critical spell.
+		Special attack cooldowns can no longer be bypassed by using the repeat action in combat.
+		Fixed bug where books wouldn't spawn on a new save.
+		Reindeer encounters should now save properly.
+		Time will now pass as you move through the Supplier Depot and Submission.
+	
+	
+	
+	
+	
+	SUBMISSION
+	
+	
+	Improve breast-feeding action text
+	
+	Spell & Combat page
+	Spell level to work
+	
+	
+	Improve intro to reference increasing arousal more
+	
+	
+	Lilaya slime pregnancy birthing
+	
+	Slime TF screen piercings.
+	
+	Udders
+	
+	sailor uniform
+	
+	A baton and aphrodisiac dart taser for the enforcer set
+	
+	In the github version, I came across some male NPCs that had a high fetish for receiving vaginal sex, despite having no vagina as well as some female NPCs that were cum studs despite having no penis. There might be something wrong with whatever bit of code you wrote to make sure that randomly assigned fetishes were appropriate.
+	
+	witches who have 100 corruption start at 10 lust
+		Lust into combat/sex
+		Attraction
 		
-	Time doesn't pass when travelling between spaces in submission
+	Are demons supposed to be able to have pure human babies? Because every demon I knock up has a mixure of humans and imps.
+		
+	Maybe related to the last,  slimes with transformer fetish make no effort to transform a defeated player to slime.  (find female human. > I want a male slime.  Turns to male in two defeats.  >You are my perfect male slime.)
+	Incubus in dominions alleyways, when defeated, transforms normally when going through full transformation, but going through quick transformation (incubus,  remove penis, add vagina, add breasts) only manages to add the breasts.
 	
-	My game just crashed when an Imp tried to cum in the Standing position
-		The Prepare option doesn't do anything
+	I don't think Nyan notes when she gives birth
 	
+	
+	ear size modifier
+	
+	Imps should receive a spell cost reduction, but have hefty seduction damage resistance penalties in any combat that involves a demon
+	
+	The enemies in Submission are worth way too much exp and money for how easy they are, especially since the TF item to become a slime is so rare that you'll need to fight about twenty thousand or so of them to see it.
 	
 	breast & ass coverings
 	
@@ -478,6 +554,10 @@ color-able bell-collar bell with the metallic colors.
 	There is something different with the permissions for the slaves. Before they had sex with each other. But now the only ones who have sex are the ones display for public use. The permissions doesn´t make sense now.
 	
 	Was being spitroasted. Someone was doing an anal penetrative action, and all lines said they were fucking my ass, but when I went to respond to the dick in my ass, it said "eagerly hotdogged" and "eagerly anal fingered". It fixed itself later but I found it odd
+	
+	Choking, face slapping, breast/chest hitting
+	
+	Specifically, having one participant fuck another, while a third licks their groins and cleans up their mess. I'm not sure if I can do that with my girls yet.
 	
 	- There's an unnaturally high number of prostitutes spawning this version considering there should've been some nerfs to their spawn chance.
 - I have to 're-insert' my observant perk on any load or game restart.

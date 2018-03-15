@@ -42,7 +42,7 @@ import javafx.stage.Stage;
 
 /**
  * @since 0.1.0
- * @version 0.2.0
+ * @version 0.2.1
  * @author Innoxia
  */
 public class Main extends Application {
@@ -56,7 +56,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.2.0.5",
+	public static final String VERSION_NUMBER = "0.2.1",
 			VERSION_DESCRIPTION = "Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
@@ -70,16 +70,16 @@ public class Main extends Application {
 //		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Early Alpha!</b></h6>"
 		
 		"<p>"
-			+ "Hello everyone! Sorry that this release was a little late... :("
+			+ "Hello everyone! ^^"
 		+ "</p>"
 			
 		+ "<p>"
-			+ "I've managed to get a lot of work done on adding Submission, Imps, and slimes, but I underestimated how long it would take to get them all working fully..."
-			+ " As a result, I haven't managed to get the lactation content finished just yet, but it will be added for the full version next week!"
+			+ "I've got lactation content, the introduction sex scene, Pix's reversal sex scene, and a lot of slime-related bugs and missing content finished!"
+			+ " I dind't quite have enough time to get the Submission placeholder content finished, or to add bat and rat morphs, but those will all be done for 0.2.2! ^^"
 		+ "</p>"
 
 		+"<p>"
-			+ "<b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>Please be aware that this is a preview build, and most of the content is only half-done!</b>"
+			+ "<b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>Please be aware that a lot of the Submission content is just placeholders for now! It will be finished for 0.2.2!</b>"
 		+ "</p>"
 			
 		+ "<p>"
@@ -164,6 +164,69 @@ public class Main extends Application {
 			+"<ul>Fixed incorrect initial penetration descriptions.</ul>"
 			+"<ul>Fixed NPCs spawning in with incorrect stats for their race.</ul>"
 		+ "</list>"
+
+		+ "</br>"
+
+		+ "<list>"
+			+ "<h6>v0.2.1</h6>"
+			+"<li>Gameplay:</li>"
+			+"<ul>Added breastfeeding and lactation fetishes, with associated teases.</ul>"
+			+"<ul>Added 'Moo Milker' breast pump item.</ul>"
+			+"<ul>Expanded the single 'Lactation' stat into three related stats: 'Milk Storage', 'Milk Stored', and 'Milk Regeneration'. The amount of milk in your breasts will slowly increase over time (rate based on 'Milk Regeneration' stat) up to your 'Milk Storage' value.</ul>"
+			+"<ul>Added 'regeneration' transformation effect to breast-related potions.</ul>"
+			+"<ul>Added a small, rare event where you can't resist milking yourself (0.1% chance every minute while breasts are full).</ul>"
+			+"<ul>Added breast growth & lactation increases from pregnancy (both can separately be turned off or increased in the options).</ul>"
+			+"<ul>Added 'Milk partner'/'Get milked' and 'Suckle/Breastfeed' actions in sex.</ul>"
+			+"<ul>Added 'Slime Quencher' drink as a random drop for slimes.</ul>"
+			+"<ul>Expanded character creation to include sex experience.</ul>"
+			+"<ul>Added an optional sex scene to the game's prologue.</ul>"
+			+"<ul>Split up Pix's exercise dialogue and added a reversal sex scene for her.</ul>"
+			
+			+"<li>Spells:</li>"
+			+"<ul>Added schools of magic - Fire, air, earth, water, and arcane.</ul>"
+			+"<ul>Spells now require a certain 'Spell Mastery' to unlock (gained through the 'Arcane' attribute's associated status effects).</ul>"
+			+"<ul>Weapons now have an associated offensive or defensive magic school. Equipping a weapon will change your default spells (not added yet) to those associated with the weapon's school of magic.</ul>"
+			+"<ul>(This work is support for the addition of the full set of spells in an upcoming update.)</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Tidied up weapon attacks and descriptions.</ul>"
+			+"<ul>Added slime transformation description and lore entry.</ul>"
+			+"<ul>Increased chance of slime TF drop in tunnels (on each explore) from 0.15% to 2%. (10% chance of finding an item, and then 20% chance that item will be slime TF.)</ul>"
+			+"<ul>Improved weapon tooltips.</ul>"
+			+"<ul>Organised the phone menu buttons.</ul>"
+			+"<ul>Made combat and non-combat character UI panels the same.</ul>"
+			+"<ul>Improved stats screen.</ul>"
+			+"<ul>Choosing the 'Lie' option in Brax's encounter, and then choosing to fight him, now increases his lust instead of draining his aura.</ul>"
+			+"<ul>Slime's pussy and asshole wetness are now locked to maximum.</ul>"
+			+"<ul>The square coloured button for 'none' in the cosmetics UI is now a grey square with red cross, to distinguish it from actual colours.</ul>"
+			+"<ul>Added self-transformation menu in phone for slimes. (There are still some things left for me to add here, such as piercings.)</ul>"
+			+"<ul>Slimes can now be impregnated through any orifice.</ul>"
+			+"<ul>Slime offspring will now always be slimes.</ul>"
+			+"<ul>Added slime-specific descriptions in the pregnancy advancement text. (I will get Lilaya's reactions to slime pregnancies done for the next release!)</ul>"
+			+"<ul>Non-slave NPCs will now automatically clean their bodies/clothes.</ul>"
+			+"<ul>Added 'freckles' pattern to character creation menu.</ul>"
+			
+			+"<li>Contributors:</li>"
+			+"<ul>Improved fetish descriptors in enchanting menu. (Lightcanadian)</ul>"
+			+"<ul>Brought partner 'Resist' arousal increase value in line with player's. (Master of Puppets)</ul>"
+			+"<ul>Punctuation fixes, mainly commas. (WoefulWombat)</ul>"
+			+"<ul>Fixed GenericOrgasms.isGenericPartnerCumTargetRequirements method. (Master of Puppets)</ul>"
+			+"<ul>Fixed incorrect lubrication on PC anal tease. (Master of Puppets)</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed Vicky only stocking one of each essence (she now stocks 20-30 of each).</ul>"
+			+"<ul>Fixed slime body material not being restored when loading a game.</ul>"
+			+"<ul>Fixed slime covering detection not working in some tooltips.</ul>"
+			+"<ul>Text formatting and typo fixes.</ul>"
+			+"<ul>Fixed weapon description displaying incorrect damage.</ul>"
+			+"<ul>Fixed bug where you would instantly win combat while in an arcane storm, due to your opponent having 100 lust.</ul>"
+			+"<ul>Slimes will now drop the correct racial book.</ul>"
+			+"<ul>'Arcane Weakness' is now correctly applied to target when performing a critical spell.</ul>"
+			+"<ul>Special attack cooldowns can no longer be bypassed by using the repeat action in combat.</ul>"
+			+"<ul>Fixed bug where books wouldn't spawn on a new save.</ul>"
+			+"<ul>Reindeer encounters should now save properly.</ul>"
+			+"<ul>Time will now pass as you move through the Supplier Depot and Submission.</ul>"
+		+ "</list>"
 		;
 	
 	public static String disclaimer = "<h6 style='text-align: center; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>You must read and agree to the following in order to play this game!</h6>"
@@ -197,143 +260,155 @@ public class Main extends Application {
 		
 		
 		credits.add(new CreditsSlot("fun_bot", "", 0, 0, 0, 3));
-		credits.add(new CreditsSlot("Garth614", "", 0, 0, 0, 3));
-		credits.add(new CreditsSlot("Dan", "", 0, 1, 0, 3));
-		credits.add(new CreditsSlot("Ash", "", 0, 1, 0, 3));
+		credits.add(new CreditsSlot("Garth614", "", 0, 0, 0, 4));
+		credits.add(new CreditsSlot("Dan", "", 0, 1, 0, 4));
+		credits.add(new CreditsSlot("Ash", "", 0, 1, 0, 4));
 		
-		credits.add(new CreditsSlot("masterpuppet", "", 0, 0, 3, 0));
-		credits.add(new CreditsSlot("WodashGSJ", "", 0, 0, 3, 0));
-		credits.add(new CreditsSlot("vasadariu", "", 0, 0, 3, 0));
-		credits.add(new CreditsSlot("Casper &quot;Cdaser&quot; D.", "", 0, 0, 3, 0));
-		credits.add(new CreditsSlot("Cryostorm", "", 0, 0, 3, 0));
-		credits.add(new CreditsSlot("BLKCandy", "", 0, 0, 3, 0));
-		credits.add(new CreditsSlot("Testostetyrone", "", 0, 0, 3, 0));
+		credits.add(new CreditsSlot("masterpuppet", "", 0, 0, 4, 0));
+		credits.add(new CreditsSlot("WodashGSJ", "", 0, 0, 4, 0));
+		credits.add(new CreditsSlot("vasadariu", "", 0, 0, 4, 0));
+		credits.add(new CreditsSlot("Casper &quot;Cdaser&quot; D.", "", 0, 0, 4, 0));
+		credits.add(new CreditsSlot("Cryostorm", "", 0, 0, 4, 0));
+		credits.add(new CreditsSlot("BLKCandy", "", 0, 0, 4, 0));
+		credits.add(new CreditsSlot("Testostetyrone", "", 0, 0, 4, 0));
 		credits.add(new CreditsSlot("Brandon Stach", "", 0, 0, 2, 0));
-		credits.add(new CreditsSlot("CMPirate9867", "", 0, 0, 3, 0));
+		credits.add(new CreditsSlot("CMPirate9867", "", 0, 0, 4, 0));
 
-		credits.add(new CreditsSlot("Zakarin", "", 0, 0, 0, 2));
-		credits.add(new CreditsSlot("Demonicgamer666", "", 0, 0, 0, 2));
+		credits.add(new CreditsSlot("Zakarin", "", 0, 0, 0, 3));
+		credits.add(new CreditsSlot("Demonicgamer666", "", 0, 0, 0, 3));
 		credits.add(new CreditsSlot("Endness", "", 0, 0, 0, 2));
-		credits.add(new CreditsSlot("FidelPinochetov", "", 0, 0, 0, 2));
+		credits.add(new CreditsSlot("FidelPinochetov", "", 0, 0, 0, 3));
 		credits.add(new CreditsSlot("Aleskah", "", 0, 0, 0, 1));
-		credits.add(new CreditsSlot("The Void Prince", "", 0, 0, 2, 0));
+		credits.add(new CreditsSlot("The Void Prince", "", 0, 0, 3, 0));
 		
-		
-		
+		credits.add(new CreditsSlot("Nnxx", "", 0, 1, 2, 0));
+		credits.add(new CreditsSlot("Eushully", "", 0, 0, 0, 2));
+
+		credits.add(new CreditsSlot("Avandemine", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("ilderon", "", 0, 0, 3, 0));
+
+		credits.add(new CreditsSlot("Helyriel", "", 0, 0, 4, 0));
+
+		credits.add(new CreditsSlot("F. Rowan", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("Desgax", "", 0, 0, 2, 0));
+
+		credits.add(new CreditsSlot("Archan9el S117", "", 0, 0, 0, 1));
+		credits.add(new CreditsSlot("FreakyHydra", "", 0, 0, 0, 1));
+		 
 		
 		credits.add(new CreditsSlot("Adhana Konker", "", 0, 0, 3, 0));
 		credits.add(new CreditsSlot("Lexi <3", "", 0, 0, 0, 1));
-		credits.add(new CreditsSlot("48days", "", 0, 0, 2, 5));
+		credits.add(new CreditsSlot("48days", "", 0, 0, 2, 6));
 		credits.add(new CreditsSlot("Spaghetti Code", "", 0, 0, 2, 0));
-		credits.add(new CreditsSlot("SchALLieS", "", 0, 0, 0, 6));
-		credits.add(new CreditsSlot("Argmoe", "", 0, 0, 6, 0));
-		credits.add(new CreditsSlot("HoneyNutQueerios", "", 0, 0, 4, 0));
+		credits.add(new CreditsSlot("SchALLieS", "", 0, 0, 0, 7));
+		credits.add(new CreditsSlot("Argmoe", "", 0, 0, 7, 0));
+		credits.add(new CreditsSlot("HoneyNutQueerios", "", 0, 0, 5, 0));
 		credits.add(new CreditsSlot("Arkhan", "", 0, 0, 6, 0));
-		credits.add(new CreditsSlot("Avery", "", 0, 1, 5, 0));
+		credits.add(new CreditsSlot("Avery", "", 0, 1, 6, 0));
 		credits.add(new CreditsSlot("b00marrows", "", 0, 1, 5, 0));
-		credits.add(new CreditsSlot("Baz GoldenClaw", "", 0, 0, 5, 0));
+		credits.add(new CreditsSlot("Baz GoldenClaw", "", 0, 0, 6, 0));
 		credits.add(new CreditsSlot("Runehood66", "", 0, 0, 0, 4));
-		credits.add(new CreditsSlot("Blackcanine", "", 0, 0, 5, 0));
-		credits.add(new CreditsSlot("Blacktouch", "", 0, 0, 2, 5));
-		credits.add(new CreditsSlot("Blue999", "", 0, 0, 0, 7));
-		credits.add(new CreditsSlot("BreakerB", "", 0, 0, 4, 0));
-		credits.add(new CreditsSlot("BRobort", "", 0, 0, 7, 0));
-		credits.add(new CreditsSlot("BloodsailXXII", "", 0, 0, 0, 7));
-		credits.add(new CreditsSlot("Burt", "", 0, 0, 5, 0));
-		credits.add(new CreditsSlot("Calrak", "", 0, 0, 0, 6));
-		credits.add(new CreditsSlot("CelestialNightmare", "", 0, 0, 0, 7));
+		credits.add(new CreditsSlot("Blackcanine", "", 0, 0, 6, 0));
+		credits.add(new CreditsSlot("Blacktouch", "", 0, 0, 2, 6));
+		credits.add(new CreditsSlot("Blue999", "", 0, 0, 0, 8));
+		credits.add(new CreditsSlot("BreakerB", "", 0, 0, 5, 0));
+		credits.add(new CreditsSlot("BRobort", "", 0, 0, 8, 0));
+		credits.add(new CreditsSlot("BloodsailXXII", "", 0, 0, 0, 8));
+		credits.add(new CreditsSlot("Burt", "", 0, 0, 6, 0));
+		credits.add(new CreditsSlot("Calrak", "", 0, 0, 0, 7));
+		credits.add(new CreditsSlot("CelestialNightmare", "", 0, 0, 0, 8));
 		credits.add(new CreditsSlot("Sxythe", "", 0, 0, 0, 2));
-		credits.add(new CreditsSlot("Lexi the slut", "", 0, 0, 0, 7));
-		credits.add(new CreditsSlot("Vmpireassassin (Chloe)", "", 0, 0, 0, 1));
+		credits.add(new CreditsSlot("Lexi the slut", "", 0, 0, 0, 8));
+		credits.add(new CreditsSlot("Vmpireassassin (Chloe)", "", 0, 0, 0, 3));
 		credits.add(new CreditsSlot("crashtestdummy", "", 0, 0, 7, 0));
-		credits.add(new CreditsSlot("Crimson", "", 0, 0, 0, 5));
-		credits.add(new CreditsSlot("Cursed Rena", "", 0, 0, 1, 5));
-		credits.add(new CreditsSlot("DeadMasterZero", "", 0, 0, 2, 0));
-		credits.add(new CreditsSlot("Destont", "", 0, 0, 4, 0));
+		credits.add(new CreditsSlot("Crimson", "", 0, 0, 0, 6));
+		credits.add(new CreditsSlot("Cursed Rena", "", 0, 0, 1, 6));
+		credits.add(new CreditsSlot("DeadMasterZero", "", 0, 0, 3, 0));
+		credits.add(new CreditsSlot("Destont", "", 0, 0, 5, 0));
 		credits.add(new CreditsSlot("Yllarius", "", 0, 0, 2, 0));
 		credits.add(new CreditsSlot("John Scarlet", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("rinoskin", "", 0, 0, 0, 2));
 		credits.add(new CreditsSlot("Alatar", "", 0, 0, 0, 2));
-		credits.add(new CreditsSlot("Elmsdor", "", 0, 0, 0, 7));
+		credits.add(new CreditsSlot("Elmsdor", "", 0, 0, 0, 8));
 		credits.add(new CreditsSlot("Gr33n B3ans", "", 0, 0, 0, 2));
-		credits.add(new CreditsSlot("Farseeker", "", 0, 0, 6, 0));
-		credits.add(new CreditsSlot("pupslut felix", "", 0, 0, 0, 5));
-		credits.add(new CreditsSlot("Fenrakk101", "", 0, 0, 6, 0));
-		credits.add(new CreditsSlot("Fiona", "", 0, 0, 0, 7));
-		credits.add(new CreditsSlot("ForeverFree2MeTaMax", "", 0, 0, 7, 0));
-		credits.add(new CreditsSlot("Niki Parks", "", 0, 0, 7, 0));
-		credits.add(new CreditsSlot("Georgio154", "", 0, 0, 1, 5));
-		credits.add(new CreditsSlot("glocknar", "", 0, 0, 4, 0));
+		credits.add(new CreditsSlot("Farseeker", "", 0, 0, 7, 0));
+		credits.add(new CreditsSlot("pupslut felix", "", 0, 0, 0, 6));
+		credits.add(new CreditsSlot("Fenrakk101", "", 0, 0, 7, 0));
+		credits.add(new CreditsSlot("Fiona", "", 0, 0, 0, 8));
+		credits.add(new CreditsSlot("ForeverFree2MeTaMax", "", 0, 0, 8, 0));
+		credits.add(new CreditsSlot("Niki Parks", "", 0, 0, 8, 0));
+		credits.add(new CreditsSlot("Georgio154", "", 0, 0, 1, 6));
+		credits.add(new CreditsSlot("glocknar", "", 0, 0, 5, 0));
 		credits.add(new CreditsSlot("Krissy2017", "", 0, 0, 0, 4));
-		credits.add(new CreditsSlot("Grakcnar", "", 0, 0, 5, 0));
-		credits.add(new CreditsSlot("Hedgehog", "", 0, 0, 0, 4));
-		credits.add(new CreditsSlot("Bocaj91", "", 0, 0, 0, 5));
-		credits.add(new CreditsSlot("Krejil", "", 0, 0, 5, 0));
-		credits.add(new CreditsSlot("suka", "", 0, 0, 7, 0));
-		credits.add(new CreditsSlot("EnigmaticYoshi", "", 0, 0, 7, 0));
-		credits.add(new CreditsSlot("HerrKommissar11", "", 0, 0, 1, 3));
-		credits.add(new CreditsSlot("Kelly999", "", 0, 1, 4, 0));
-		credits.add(new CreditsSlot("kenshin5491", "", 0, 0, 6, 0));
-		credits.add(new CreditsSlot("Kestrel", "", 0, 0, 7, 0));
-		credits.add(new CreditsSlot("Kiroberos", "", 0, 0, 0, 5));
+		credits.add(new CreditsSlot("Grakcnar", "", 0, 0, 6, 0));
+		credits.add(new CreditsSlot("Hedgehog", "", 0, 0, 0, 5));
+		credits.add(new CreditsSlot("Bocaj91", "", 0, 0, 0, 6));
+		credits.add(new CreditsSlot("Krejil", "", 0, 0, 6, 0));
+		credits.add(new CreditsSlot("suka", "", 0, 0, 8, 0));
+		credits.add(new CreditsSlot("EnigmaticYoshi", "", 0, 0, 8, 0));
+		credits.add(new CreditsSlot("HerrKommissar11", "", 0, 0, 1, 4));
+		credits.add(new CreditsSlot("Kelly999", "", 0, 1, 5, 0));
+		credits.add(new CreditsSlot("kenshin5491", "", 0, 0, 7, 0));
+		credits.add(new CreditsSlot("Kestrel", "", 0, 0, 8, 0));
+		credits.add(new CreditsSlot("Kiroberos", "", 0, 0, 0, 6));
 		credits.add(new CreditsSlot("Kernog", "", 0, 0, 1, 0));
-		credits.add(new CreditsSlot("Knight-Lord Xander", "", 0, 0, 0, 7));
-		credits.add(new CreditsSlot("Chris Turpin", "", 0, 0, 5, 0));
+		credits.add(new CreditsSlot("Knight-Lord Xander", "", 0, 0, 0, 8));
+		credits.add(new CreditsSlot("Chris Turpin", "", 0, 0, 6, 0));
 		credits.add(new CreditsSlot("Pallid", "", 0, 0, 0, 5));
 		credits.add(new CreditsSlot("Mr L", "", 0, 0, 4, 1));
-		credits.add(new CreditsSlot("loveless", "", 0, 0, 0, 7));
-		credits.add(new CreditsSlot("Vaddex", "", 0, 0, 0, 4));
-		credits.add(new CreditsSlot("KingofKings", "", 0, 0, 0, 7));
-		credits.add(new CreditsSlot("waaaghkus", "", 0, 0, 7, 0));
+		credits.add(new CreditsSlot("loveless", "", 0, 0, 0, 8));
+		credits.add(new CreditsSlot("Vaddex", "", 0, 0, 0, 5));
+		credits.add(new CreditsSlot("KingofKings", "", 0, 0, 0, 8));
+		credits.add(new CreditsSlot("waaaghkus", "", 0, 0, 8, 0));
 		credits.add(new CreditsSlot("Nightmare", "", 0, 0, 0, 5));
-		credits.add(new CreditsSlot("AlphaOneBravo", "", 0, 0, 0, 7));
-		credits.add(new CreditsSlot("Max Nobody", "", 0, 0, 0, 7));
-		credits.add(new CreditsSlot("Muhaku", "", 0, 0, 5, 0));
-		credits.add(new CreditsSlot("Nick LaBlue", "", 0, 0, 6, 0));
-		credits.add(new CreditsSlot("Kvernik", "", 0, 0, 5, 0));
-		credits.add(new CreditsSlot("Niko", "", 0, 0, 7, 0));
-		credits.add(new CreditsSlot("Odd8Ball", "", 0, 0, 0, 6));
-		credits.add(new CreditsSlot("Party Commissar", "", 0, 0, 4, 1));
-		credits.add(new CreditsSlot("Rohsie", "", 0, 0, 0, 7));
+		credits.add(new CreditsSlot("AlphaOneBravo", "", 0, 0, 0, 8));
+		credits.add(new CreditsSlot("Max Nobody", "", 0, 0, 0, 8));
+		credits.add(new CreditsSlot("Muhaku", "", 0, 0, 6, 0));
+		credits.add(new CreditsSlot("Nick LaBlue", "", 0, 0, 7, 0));
+		credits.add(new CreditsSlot("Kvernik", "", 0, 0, 6, 0));
+		credits.add(new CreditsSlot("Niko", "", 0, 0, 8, 0));
+		credits.add(new CreditsSlot("Odd8Ball", "", 0, 0, 0, 7));
+		credits.add(new CreditsSlot("Party Commissar", "", 0, 0, 4, 2));
+		credits.add(new CreditsSlot("Rohsie", "", 0, 0, 0, 8));
 		credits.add(new CreditsSlot("P.", "", 0, 0, 0, 4));
-		credits.add(new CreditsSlot("Pierre Mura", "", 0, 0, 0, 7));
-		credits.add(new CreditsSlot("Pokys", "", 0, 0, 7, 0));
-		credits.add(new CreditsSlot("QQQ", "", 0, 0, 0, 7));
-		credits.add(new CreditsSlot("Rakesh", "", 0, 0, 6, 0));
-		credits.add(new CreditsSlot("Master's dumb bitch", "", 0, 0, 0, 7));
-		credits.add(new CreditsSlot("redwulfen", "", 0, 0, 0, 6));
-		credits.add(new CreditsSlot("RogueRandom", "", 0, 0, 4, 0));
-		credits.add(new CreditsSlot("Horagen81", "", 0, 0, 0, 6));
+		credits.add(new CreditsSlot("Pierre Mura", "", 0, 0, 0, 8));
+		credits.add(new CreditsSlot("Pokys", "", 0, 0, 8, 0));
+		credits.add(new CreditsSlot("QQQ", "", 0, 0, 0, 8));
+		credits.add(new CreditsSlot("Rakesh", "", 0, 0, 7, 0));
+		credits.add(new CreditsSlot("Master's dumb bitch", "", 0, 0, 0, 8));
+		credits.add(new CreditsSlot("redwulfen", "", 0, 0, 0, 7));
+		credits.add(new CreditsSlot("RogueRandom", "", 0, 0, 5, 0));
+		credits.add(new CreditsSlot("Horagen81", "", 0, 0, 0, 7));
 		credits.add(new CreditsSlot("RyubosJ", "", 0, 0, 4, 0));
-		credits.add(new CreditsSlot("Saladine the Legendary", "", 0, 0, 0, 7));
-		credits.add(new CreditsSlot("S", "", 0, 0, 1, 6));
-		credits.add(new CreditsSlot("Shas'O Dal'yth Kauyon Kais Taku", "", 0, 0, 7, 0));
-		credits.add(new CreditsSlot("Crow Invictus", "", 0, 0, 6, 0));
-		credits.add(new CreditsSlot("Sheltem", "", 0, 0, 5, 0));
+		credits.add(new CreditsSlot("Saladine the Legendary", "", 0, 0, 0, 8));
+		credits.add(new CreditsSlot("S", "", 0, 0, 1, 7));
+		credits.add(new CreditsSlot("Shas'O Dal'yth Kauyon Kais Taku", "", 0, 0, 8, 0));
+		credits.add(new CreditsSlot("Crow Invictus", "", 0, 0, 7, 0));
+		credits.add(new CreditsSlot("Sheltem", "", 0, 0, 6, 0));
 		credits.add(new CreditsSlot("Sig", "", 0, 0, 4, 0));
-		credits.add(new CreditsSlot("Silentark", "", 0, 0, 4, 0));
-		credits.add(new CreditsSlot("Sorter", "", 0, 0, 0, 7));
-		credits.add(new CreditsSlot("Spookermen", "", 0, 0, 0, 7));
-		credits.add(new CreditsSlot("Swift Shot", "", 0, 0, 7, 0));
-		credits.add(new CreditsSlot("TalonMort", "", 0, 0, 5, 0));
-		credits.add(new CreditsSlot("Tanall", "", 0, 1, 4, 0));
+		credits.add(new CreditsSlot("Silentark", "", 0, 0, 5, 0));
+		credits.add(new CreditsSlot("Sorter", "", 0, 0, 0, 8));
+		credits.add(new CreditsSlot("Spookermen", "", 0, 0, 0, 8));
+		credits.add(new CreditsSlot("Swift Shot", "", 0, 0, 8, 0));
+		credits.add(new CreditsSlot("TalonMort", "", 0, 0, 6, 0));
+		credits.add(new CreditsSlot("Tanall", "", 0, 1, 6, 0));
 		credits.add(new CreditsSlot("Tanner D.", "", 0, 0, 0, 6));
 		credits.add(new CreditsSlot("Terrance", "", 0, 0, 3, 0));
-		credits.add(new CreditsSlot("Jordan Aitken", "", 0, 0, 7, 0));
-		credits.add(new CreditsSlot("T. Garou", "", 0, 0, 0, 5));
+		credits.add(new CreditsSlot("Jordan Aitken", "", 0, 0, 8, 0));
+		credits.add(new CreditsSlot("T. Garou", "", 0, 0, 0, 6));
 		credits.add(new CreditsSlot("Timmybond24", "", 0, 0, 0, 4));
-		credits.add(new CreditsSlot("Torinir", "", 0, 0, 7, 0));
-		credits.add(new CreditsSlot("Torsten015", "", 0, 0, 0, 6));
+		credits.add(new CreditsSlot("Torinir", "", 0, 0, 8, 0));
+		credits.add(new CreditsSlot("Torsten015", "", 0, 0, 0, 7));
 		credits.add(new CreditsSlot("TreenVall", "", 0, 0, 3, 0));
-		credits.add(new CreditsSlot("triangleman", "", 0, 0, 7, 0));
-		credits.add(new CreditsSlot("Antriad", "", 0, 0, 1, 3));
-		credits.add(new CreditsSlot("Isidoros", "", 0, 0, 6, 0));
-		credits.add(new CreditsSlot("Vaelin", "", 0, 0, 4, 2));
-		credits.add(new CreditsSlot("iloveyouMiaoNiNi", "", 0, 0, 0, 7));
-		credits.add(new CreditsSlot("Whatever", "", 0, 0, 5, 0));
+		credits.add(new CreditsSlot("triangleman", "", 0, 0, 8, 0));
+		credits.add(new CreditsSlot("Antriad", "", 0, 0, 1, 4));
+		credits.add(new CreditsSlot("Isidoros", "", 0, 0, 7, 0));
+		credits.add(new CreditsSlot("Vaelin", "", 0, 0, 4, 3));
+		credits.add(new CreditsSlot("iloveyouMiaoNiNi", "", 0, 0, 0, 8));
+		credits.add(new CreditsSlot("Whatever", "", 0, 0, 6, 0));
 		credits.add(new CreditsSlot("William Brown", "", 0, 0, 5, 2));
-		credits.add(new CreditsSlot("Wolfregis", "", 0, 0, 0, 7));
-		credits.add(new CreditsSlot("Nelson Adams", "", 0, 0, 7, 0));
+		credits.add(new CreditsSlot("Wolfregis", "", 0, 0, 0, 8));
+		credits.add(new CreditsSlot("Nelson Adams", "", 0, 0, 8, 0));
 		
 		
 		credits.sort(Comparator.comparing((CreditsSlot a) -> a.getName().toLowerCase()));

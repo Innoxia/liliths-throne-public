@@ -41,7 +41,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.1.82
+ * @version 0.2.1
  * @author Innoxia
  */
 public class Ralph extends NPC {
@@ -69,11 +69,13 @@ public class Ralph extends NPC {
 			ItemType.FIT_INGREDIENT_CANINE_CRUSH,
 			ItemType.FIT_INGREDIENT_EGG_NOG,
 			ItemType.SEX_INGREDIENT_HARPY_PERFUME,
+			ItemType.SEX_INGREDIENT_SLIME_QUENCHER,
 			ItemType.COR_INGREDIENT_LILITHS_GIFT,
 			ItemType.FIT_INGREDIENT_SQUIRREL_JAVA,
 			ItemType.FETISH_UNREFINED,
 			ItemType.ADDICTION_REMOVAL,
 
+			ItemType.MOO_MILKER_EMPTY,
 			ItemType.VIXENS_VIRILITY,
 			ItemType.PROMISCUITY_PILL,
 			ItemType.MOTHERS_MILK };
