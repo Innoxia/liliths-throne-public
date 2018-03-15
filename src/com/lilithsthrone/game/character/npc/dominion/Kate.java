@@ -64,6 +64,8 @@ public class Kate extends NPC {
 				10, Gender.F_V_B_FEMALE, RacialBody.DEMON, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_KATES_SHOP, true);
 
+		this.primaryColour = Colour.SKIN_PINK;
+		
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 	
@@ -110,6 +112,8 @@ public class Kate extends NPC {
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 
+		this.primaryColour = Colour.SKIN_PINK;
+		
 		this.setWingSize(WingSize.ONE_SMALL.getValue());
 		
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_DEMON, Colour.COVERING_RED), true);
