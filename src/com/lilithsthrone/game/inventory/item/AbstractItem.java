@@ -89,6 +89,8 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 				ItemEffect itemEffect = ItemEffect.loadFromXML(e, doc);
 				if(itemEffect == null) {
 					System.err.println("Warning: Failed to import ItemEffect");
+				}
+				else {
 					effectsToBeAdded.add(itemEffect);
 				}
 			}
