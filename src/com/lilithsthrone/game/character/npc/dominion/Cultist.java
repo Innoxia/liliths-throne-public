@@ -183,6 +183,8 @@ public class Cultist extends NPC {
 		if(this.getFetishDesire(Fetish.FETISH_NON_CON_DOM)==FetishDesire.ONE_DISLIKE || this.getFetishDesire(Fetish.FETISH_NON_CON_DOM)==FetishDesire.ZERO_HATE) {
 			this.setFetishDesire(Fetish.FETISH_NON_CON_DOM, FetishDesire.TWO_NEUTRAL);
 		}
+		
+		this.primaryColour = this.getCovering(BodyCoveringType.DEMON_COMMON).getPrimaryColour();
 	}
 	
 	@Override
