@@ -879,6 +879,14 @@ public class GenericActions {
 			SexPace.SUB_RESISTING) {
 		
 		@Override
+		public ArousalIncrease getArousalGainSelf() {
+			if(Sex.getActivePartner().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
+				return ArousalIncrease.THREE_NORMAL;
+			}
+			return ArousalIncrease.NEGATIVE;
+		}
+		
+		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isDom(Main.game.getPlayer()) && !Sex.isConsensual();
 		}
@@ -932,6 +940,15 @@ public class GenericActions {
 						"[npc.Name] slaps, hits, and kicks you as [npc.she] desperately tries to struggle out of your grip, but [npc.her] efforts prove to be in vain as you easily continue restraining [npc.herHim].",
 						"Struggling against you, [npc.name] lets out [npc.a_sob+] as [npc.she] weakly tries to wriggle out of your grasp.",
 						"Begging for you to leave [npc.herHim] alone, [npc.name] desperately struggles against you, [npc.sobbing] in distress as you easily hold [npc.herHim] in place.");
+			}
+		}
+		
+		@Override
+		public List<Fetish> getFetishes(GameCharacter character) {
+			if(character.isPlayer()) {
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_DOM));
+			} else {
+				return Util.newArrayListOfValues(new ListValue<>(Fetish.FETISH_NON_CON_SUB));
 			}
 		}
 	};
