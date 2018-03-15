@@ -48,6 +48,8 @@ public class CandiReceptionist extends NPC {
 				1, Gender.F_V_B_FEMALE, RacialBody.CAT_MORPH, RaceStage.LESSER,
 				new CharacterInventory(30), WorldType.ENFORCER_HQ, PlaceType.ENFORCER_HQ_RECEPTION_DESK, true);
 
+		this.primaryColour = Colour.FEMININE_PLUS_NPC;
+		
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			
@@ -99,6 +101,8 @@ public class CandiReceptionist extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		
+		this.primaryColour = Colour.FEMININE_PLUS_NPC;
 	}
 
 	@Override
