@@ -53,6 +53,8 @@ public class Rose extends NPC {
 						+ " Their relationship strays into something more than a master-slave arrangement, and Rose and Lilaya can often be seen hugging and whispering to one another.",
 				10, Gender.F_V_B_FEMALE, RacialBody.CAT_MORPH, RaceStage.PARTIAL_FULL,
 				new CharacterInventory(10), WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
+
+		this.primaryColour = Colour.COVERING_RED;
 		
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
@@ -89,6 +91,7 @@ public class Rose extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		this.primaryColour = Colour.COVERING_RED;
 		
 		this.addFetish(Fetish.FETISH_SUBMISSIVE);
 		this.addFetish(Fetish.FETISH_DOMINANT);
