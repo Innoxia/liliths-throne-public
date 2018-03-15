@@ -723,7 +723,7 @@ public class SlaveDialogue {
 							break;
 						case OBEDIENT:
 							UtilText.nodeContentSB.append("[npc.She] obediently does [npc.her] very best to conceal the look of hatred in [npc.her] [npc.eyes] as [npc.she] responds,"
-									+ " [npc.speech(There's not really much to say about all that [npc.pcName]. I lived an uneventful life up until becoming your property. Is there anything else you need?)]");
+									+ " [npc.speech(There's not really much to say about all that, [npc.pcName]. I lived an uneventful life up until becoming your property. Is there anything else you need?)]");
 							break;
 					}
 					break;
@@ -731,7 +731,7 @@ public class SlaveDialogue {
 					switch(ObedienceLevelBasic.getObedienceLevelFromValue(Main.game.getActiveNPC().getObedienceValue())) {
 						case DISOBEDIENT:
 							UtilText.nodeContentSB.append("Although [npc.she] doesn't seem to hate you, [npc.name] obviously doesn't feel too comfortable talking about [npc.her] past with you, and sighs,"
-									+ " [npc.speech(I don't know [npc.pcName], it's not like there's anything to tell, really. Let's just talk about something else, ok?)]");
+									+ " [npc.speech(I don't know, [npc.pcName], it's not like there's anything to tell, really. Let's just talk about something else, ok?)]");
 							break;
 						case NEUTRAL:
 							UtilText.nodeContentSB.append("Although [npc.she] doesn't seem to hate you, [npc.name] obviously doesn't feel too comfortable talking about [npc.her] past with you, and sighs,"
@@ -747,7 +747,7 @@ public class SlaveDialogue {
 					switch(ObedienceLevelBasic.getObedienceLevelFromValue(Main.game.getActiveNPC().getObedienceValue())) { //TODO
 						case DISOBEDIENT:
 							UtilText.nodeContentSB.append("Barely able to contain [npc.her] excitement at being asked about [npc.her] past life, [npc.name] quickly responds,"
-									+ " [npc.speech(Thanks for asking [npc.pcName]! Oh, but maybe we should talk about this some other time...)]");
+									+ " [npc.speech(Thanks for asking, [npc.pcName]! Oh, but maybe we should talk about this some other time...)]");
 							break;
 						case NEUTRAL:
 							UtilText.nodeContentSB.append("[npc.Name] smiles as you ask [npc.herHim] about [npc.her] past life, and responds,"
@@ -809,7 +809,7 @@ public class SlaveDialogue {
 									+ "<p>"
 									+ "Realising that you're not going to get anywhere like this, you give up on trying to talk to [npc.name]."
 									+ " As you turn away, [npc.she] scowls,"
-									+ " [npc.speech(Are you finished with me [npc.pcName]?)]");
+									+ " [npc.speech(Are you finished with me, [npc.pcName]?)]");
 							break;
 						case OBEDIENT:
 							UtilText.nodeContentSB.append(" No matter how hard you try, however, your attempts at conversation are met with short, dismissive remarks."
@@ -817,7 +817,7 @@ public class SlaveDialogue {
 									+ "<p>"
 									+ "Realising that you're not going to get anywhere like this, you give up on trying to talk to [npc.name]."
 									+ " As you turn away, [npc.she] asks,"
-									+ " [npc.speech(Is there anything else I can do for you [npc.pcName]?)]");
+									+ " [npc.speech(Is there anything else I can do for you, [npc.pcName]?)]");
 							break;
 					}
 					UtilText.nodeContentSB.append("</p>"
@@ -836,7 +836,7 @@ public class SlaveDialogue {
 									+ "</p>"
 									+ "<p>"
 										+ "After spending some time talking with [npc.name] like this, you decide to bring your conversation to an end, and as you do, your slave mutters,"
-										+ " [npc.speech(Thanks for talking to me [npc.pcName]...)]");
+										+ " [npc.speech(Thanks for talking to me, [npc.pcName]...)]");
 							break;
 						case NEUTRAL:
 							UtilText.nodeContentSB.append(
@@ -845,7 +845,7 @@ public class SlaveDialogue {
 								+ "</p>"
 								+ "<p>"
 									+ "After spending some time talking with [npc.name] like this, you decide to bring your conversation to an end, and as you do, your slave mutters,"
-									+ " [npc.speech(Thank you [npc.pcName]. I enjoyed talking with you...)]");
+									+ " [npc.speech(Thank you, [npc.pcName]. I enjoyed talking with you...)]");
 							break;
 						case OBEDIENT:
 							UtilText.nodeContentSB.append(
@@ -854,7 +854,7 @@ public class SlaveDialogue {
 								+ "</p>"
 								+ "<p>"
 									+ "After spending some time talking with [npc.name] like this, you decide to bring your conversation to an end, and as you do, your slave smiles,"
-									+ " [npc.speech(I hope my answers were to your satisfaction [npc.pcName].)]");
+									+ " [npc.speech(I hope my answers were to your satisfaction, [npc.pcName].)]");
 							break;
 					}
 					UtilText.nodeContentSB.append("</p>"
@@ -873,7 +873,7 @@ public class SlaveDialogue {
 									+ "</p>"
 									+ "<p>"
 										+ "After a little while, you decide to bring your conversation to an end, and as you do, your slave grins at you,"
-										+ " [npc.speech(Thanks [npc.pcName]! It's really great getting to talk with you now and again!)]");
+										+ " [npc.speech(Thanks, [npc.pcName]! It's really great getting to talk with you now and again!)]");
 							break;
 						case NEUTRAL:
 							UtilText.nodeContentSB.append(
@@ -882,7 +882,7 @@ public class SlaveDialogue {
 								+ "</p>"
 								+ "<p>"
 									+ "After a little while, you decide to bring your conversation to an end, and as you do, your slave smiles,"
-									+ " [npc.speech(Thank you [npc.pcName]. I appreciate you taking your time to talk with me.)]");
+									+ " [npc.speech(Thank you, [npc.pcName]. I appreciate you taking your time to talk with me.)]");
 							break;
 						case OBEDIENT:
 							UtilText.nodeContentSB.append(
@@ -893,7 +893,7 @@ public class SlaveDialogue {
 								+ "</p>"
 								+ "<p>"
 									+ "After a little while, you decide to bring your conversation to an end, and as you do, your slave smiles,"
-									+ " [npc.speech(I hope my answers were to your satisfaction [npc.pcName].)]");
+									+ " [npc.speech(I hope my answers were to your satisfaction, [npc.pcName].)]");
 							break;
 					}
 					UtilText.nodeContentSB.append("</p>"
@@ -977,7 +977,7 @@ public class SlaveDialogue {
 									+ "<p>"
 									+ "From [npc.her] curt reaction, it's quite clear that [npc.name] isn't too well adjusted to [npc.her] life as a slave."
 									+ " Before you can say anything else, [npc.she] impatiently asks,"
-									+ " [npc.speech(Is there anything else [npc.pcName]? Or are you finished with me for now?)]");
+									+ " [npc.speech(Is there anything else, [npc.pcName]? Or are you finished with me for now?)]");
 							break;
 						case OBEDIENT:
 							UtilText.nodeContentSB.append(" The moment that you finish speaking, your obedient slave quickly responds,"
@@ -986,7 +986,7 @@ public class SlaveDialogue {
 									+ "<p>"
 									+ "From [npc.her] curt reaction, it's quite clear that while [npc.name] will obediently carry out [npc.her] duties as a slave, [npc.she] doens't like you."
 									+ " Before you can say anything else, [npc.she] asks,"
-									+ " [npc.speech(What more do you need of me [npc.pcName]?)]");
+									+ " [npc.speech(What more do you need of me, [npc.pcName]?)]");
 							break;
 					}
 					UtilText.nodeContentSB.append("</p>"
@@ -1051,7 +1051,7 @@ public class SlaveDialogue {
 						case NEUTRAL:
 							UtilText.nodeContentSB.append(
 									" The moment that you finish speaking, your slave smiles and responds,"
-									+ " [npc.speech(Everything's going fine, thank you for asking [npc.pcName]. I love working for you...)]"
+									+ " [npc.speech(Everything's going fine, thank you for asking, [npc.pcName]. I love working for you...)]"
 								+ "</p>"
 								+ "<p>"
 									+ "[npc.Her] cheeks flush bright red as [npc.she] admits to [npc.her] enjoyment at being your slave, but even without [npc.her] shy display, you already know that [npc.name] cares for you deeply."
@@ -1138,13 +1138,13 @@ public class SlaveDialogue {
 						case OBEDIENT:
 							UtilText.nodeContentSB.append(
 									" [npc.She] freezes up as you take hold of [npc.herHim], and mutters, without a trace of sincerity in [npc.her] voice,"
-									+ " [npc.speech(Thank you [npc.pcName]...)]"
+									+ " [npc.speech(Thank you, [npc.pcName]...)]"
 								+ "</p>"
 								+ "<p>"
 									+ "You ignore your slave's cold reaction, holding [npc.herHim] close to your body and breathing in [npc.her] [npc.scent]."
 									+ " [npc.She] remains completely still, clearly not impressed by your method of reassuring [npc.herHim], but you ignore [npc.her] refusal to react, and continue pressing yourself against [npc.herHim]."
 									+ " After a short while, you finally release [npc.name], and [npc.she] steps back, looking down at the floor,"
-									+ " [npc.speech(Thank you [npc.pcName]. What else do you require?)]");
+									+ " [npc.speech(Thank you, [npc.pcName]. What else do you require?)]");
 							break;
 					}
 					UtilText.nodeContentSB.append("</p>"
@@ -1159,7 +1159,7 @@ public class SlaveDialogue {
 						case DISOBEDIENT:
 							UtilText.nodeContentSB.append(
 										" [npc.She] half-heartedly returns your embrace, sighing,"
-										+ " [npc.speech(Thanks [npc.pcName], I guess a hug now and then isn't too bad...)]"
+										+ " [npc.speech(Thanks, [npc.pcName], I guess a hug now and then isn't too bad...)]"
 									+ "</p>"
 									+ "<p>"
 										+ "You pull [npc.name] in a little more, holding [npc.herHim] close to your body and breathing in [npc.her] [npc.scent]."
@@ -1170,7 +1170,7 @@ public class SlaveDialogue {
 						case NEUTRAL:
 							UtilText.nodeContentSB.append(
 									" [npc.She] half-heartedly returns your embrace, sighing,"
-									+ " [npc.speech(Thank you [npc.pcName]...)]"
+									+ " [npc.speech(Thank you, [npc.pcName]...)]"
 								+ "</p>"
 								+ "<p>"
 									+ "You pull [npc.name] in a little more, holding [npc.herHim] close to your body and breathing in [npc.her] [npc.scent]."
@@ -1181,7 +1181,7 @@ public class SlaveDialogue {
 						case OBEDIENT:
 							UtilText.nodeContentSB.append(
 									" [npc.She] half-heartedly returns your embrace, sighing,"
-									+ " [npc.speech(Thank you [npc.pcName].)]"
+									+ " [npc.speech(Thank you, [npc.pcName].)]"
 								+ "</p>"
 								+ "<p>"
 									+ "You pull [npc.name] in a little more, holding [npc.herHim] close to your body and breathing in [npc.her] [npc.scent]."
@@ -1202,7 +1202,7 @@ public class SlaveDialogue {
 						case DISOBEDIENT:
 							UtilText.nodeContentSB.append(
 										" [npc.She] eagerly returns your embrace, letting out a deep sigh,"
-										+ " [npc.speech(Thank you [npc.pcName]!)]"
+										+ " [npc.speech(Thank you, [npc.pcName]!)]"
 									+ "</p>"
 									+ "<p>"
 										+ "You pull [npc.name] in a little more, holding [npc.herHim] close to your body and breathing in [npc.her] [npc.scent]."
@@ -1211,12 +1211,12 @@ public class SlaveDialogue {
 									+ "</p>"
 									+ "<p>"
 										+ "After a while, you finally release [npc.name], and [npc.she] steps back, smiling,"
-										+ " [npc.speech(Thank you [npc.pcName]! I really needed that...)]");
+										+ " [npc.speech(Thank you, [npc.pcName]! I really needed that...)]");
 							break;
 						case NEUTRAL:
 							UtilText.nodeContentSB.append(
 									" [npc.She] eagerly returns your embrace, letting out a deep sigh,"
-									+ " [npc.speech(Thank you [npc.pcName]...)]"
+									+ " [npc.speech(Thank you, [npc.pcName]...)]"
 								+ "</p>"
 								+ "<p>"
 									+ "You pull [npc.name] in a little more, holding [npc.herHim] close to your body and breathing in [npc.her] [npc.scent]."
@@ -1225,12 +1225,12 @@ public class SlaveDialogue {
 								+ "</p>"
 								+ "<p>"
 									+ "After a while, you finally release [npc.name], and [npc.she] steps back, smiling,"
-									+ " [npc.speech(Thank you [npc.pcName]. I really needed that... Is there anything I can do for you?)]");
+									+ " [npc.speech(Thank you, [npc.pcName]. I really needed that... Is there anything I can do for you?)]");
 							break;
 						case OBEDIENT:
 							UtilText.nodeContentSB.append(
 									" [npc.She] eagerly returns your embrace, letting out a deep sigh,"
-									+ " [npc.speech(Thank you [npc.pcName]...)]"
+									+ " [npc.speech(Thank you, [npc.pcName]...)]"
 								+ "</p>"
 								+ "<p>"
 									+ "You pull [npc.name] in a little more, holding [npc.herHim] close to your body and breathing in [npc.her] [npc.scent]."
@@ -1239,7 +1239,7 @@ public class SlaveDialogue {
 								+ "</p>"
 								+ "<p>"
 									+ "After a while, you finally release [npc.name], and [npc.she] steps back, smiling,"
-									+ " [npc.speech(Thank you [npc.pcName]. Is there anything I can do for you?)]");
+									+ " [npc.speech(Thank you, [npc.pcName]. Is there anything I can do for you?)]");
 							break;
 					}
 					UtilText.nodeContentSB.append("</p>"
@@ -1296,7 +1296,7 @@ public class SlaveDialogue {
 						case NEUTRAL:
 							UtilText.nodeContentSB.append(
 									"Shocked by your actions, it takes [npc.name] a moment to respond, and with an uncomfortable whine, [npc.she] steps back, apologising,"
-									+ " [npc.speech(Sorry [npc.pcName], but, could you not do that?)]"
+									+ " [npc.speech(Sorry, [npc.pcName], but, could you not do that?)]"
 								+ "</p>");
 							break;
 						case OBEDIENT:
@@ -1304,7 +1304,7 @@ public class SlaveDialogue {
 									"Shocked by your actions, it takes [npc.name] a moment to respond, and with an uncomfortable whine,"
 										+ " [npc.she] remains still, scrunching up [npc.her] [npc.eyes] as [npc.she] forces [npc.herself] to endure your unwanted attention."
 									+ " After a moment, you stop what you're doing and take your [pc.hand] away, causing [npc.name] to let out a relieved sigh, before asking,"
-									+ " [npc.speech(Is there anything else I can do for you [npc.pcName]?)]"
+									+ " [npc.speech(Is there anything else I can do for you, [npc.pcName]?)]"
 								+ "</p>");
 							break;
 					}
@@ -1330,7 +1330,7 @@ public class SlaveDialogue {
 						case NEUTRAL:
 							UtilText.nodeContentSB.append(
 									"Taken by surprise at your action, it takes [npc.name] a moment to respond, and with little sigh, [npc.she] tilts [npc.her] head to one side,"
-									+ " [npc.speech(That feels kind of good... Thank you [npc.pcName]...)]"
+									+ " [npc.speech(That feels kind of good... Thank you, [npc.pcName]...)]"
 								+ "</p>"
 								+ "<p>"
 									+ "Encouraged by [npc.her] reaction, you continue stroking and patting [npc.her] head for quite some time."
@@ -1340,7 +1340,7 @@ public class SlaveDialogue {
 						case OBEDIENT:
 							UtilText.nodeContentSB.append(
 									"Taken by surprise at your action, it takes [npc.name] a moment to respond, and with little sigh, [npc.she] tilts [npc.her] head to one side,"
-									+ " [npc.speech(Thank you [npc.pcName]...)]"
+									+ " [npc.speech(Thank you, [npc.pcName]...)]"
 								+ "</p>"
 								+ "<p>"
 									+ "Encouraged by [npc.her] reaction, you continue stroking and patting [npc.her] head for quite some time."
@@ -1370,7 +1370,7 @@ public class SlaveDialogue {
 						case NEUTRAL:
 							UtilText.nodeContentSB.append(
 										"[npc.Name] lets out a loving sigh, and steps towards you as [npc.she] tilts [npc.her] head to one side,"
-										+ " [npc.speech(Thank you [npc.pcName]! That feels so good! Please don't stop!)]"
+										+ " [npc.speech(Thank you, [npc.pcName]! That feels so good! Please don't stop!)]"
 									+ "</p>"
 									+ "<p>"
 										+ "You do as [npc.she] asks, and continue stroking and patting [npc.her] head for quite some time."
@@ -1380,7 +1380,7 @@ public class SlaveDialogue {
 						case OBEDIENT:
 							UtilText.nodeContentSB.append(
 										"[npc.Name] lets out a loving sigh, and steps towards you as [npc.she] tilts [npc.her] head to one side,"
-										+ " [npc.speech(Thank you [npc.pcName]!)]"
+										+ " [npc.speech(Thank you, [npc.pcName]!)]"
 									+ "</p>"
 									+ "<p>"
 										+ "Encouraged by [npc.her] reaction, you continue stroking and patting [npc.her] head for quite some time."
@@ -1464,19 +1464,19 @@ public class SlaveDialogue {
 						case DISOBEDIENT:
 							UtilText.nodeContentSB.append(
 										"Taken completely off-guard, [npc.name] lets out a happy little cry, and as you press the gift into [npc.her] [npc.hands], [npc.she] smiles at you,"
-										+ " [npc.speech(F-For me? Thank you [npc.pcName]!)]"
+										+ " [npc.speech(F-For me? Thank you, [npc.pcName]!)]"
 									+ "</p>");
 							break;
 						case NEUTRAL:
 							UtilText.nodeContentSB.append(
 									"Taken completely off-guard, [npc.name] lets out a happy little cry, and as you press the gift into [npc.her] [npc.hands], [npc.she] smiles at you,"
-									+ " [npc.speech(F-For me? Thank you [npc.pcName]!)]"
+									+ " [npc.speech(F-For me? Thank you, [npc.pcName]!)]"
 								+ "</p>");
 							break;
 						case OBEDIENT:
 							UtilText.nodeContentSB.append(
 									"Taken completely off-guard, [npc.name] lets out a happy little cry, and as you press the gift into [npc.her] [npc.hands], [npc.she] smiles at you,"
-									+ " [npc.speech(Thank you [npc.pcName], I wish you a happy Yuletide as well!)]"
+									+ " [npc.speech(Thank you, [npc.pcName], I wish you a happy Yuletide as well!)]"
 								+ "</p>");
 							break;
 					}
@@ -1502,7 +1502,7 @@ public class SlaveDialogue {
 						case OBEDIENT:
 							UtilText.nodeContentSB.append(
 									"Taken completely off-guard, [npc.name] lets out an ecstatic cry, and as you press the gift into [npc.her] [npc.hands], [npc.she] beams at you,"
-									+ " [npc.speech(Thank you [npc.pcName]! Happy Yuletide to you too!)]"
+									+ " [npc.speech(Thank you, [npc.pcName]! Happy Yuletide to you too!)]"
 								+ "</p>");
 							break;
 					}
