@@ -223,7 +223,7 @@ public enum Fetish {
 	
 	FETISH_BREASTS_OTHERS(60,
 			"breasts lover",
-			"breast play",
+			"others' breasts",
 			"fetish_breasts_others",
 			Fetish.BASE_EXPERIENCE_GAIN,
 			Colour.GENERIC_ARCANE,

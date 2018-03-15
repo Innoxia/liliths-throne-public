@@ -45,6 +45,13 @@
 		Added slime-specific descriptions in the pregnancy advancement text. (I will get Lilaya's reactions to slime pregnancies done for the next release!)
 		Non-slave NPCs will now automatically clean their bodies/clothes.
 		Added 'freckles' pattern to character creation menu.
+		
+	Contributors:
+		Improved fetish descriptors in enchanting menu. (Lightcanadian)	
+		Brought partner 'Resist' arousal increase value in line with player's. (Master of Puppets)
+		Punctuation fixes, mainly commas. (WoefulWombat)
+		Fixed GenericOrgasms.isGenericPartnerCumTargetRequirements method. (Master of Puppets)
+		Fixed incorrect lubrication on PC anal tease. (Master of Puppets)
 	
 	Bugs:
 		Fixed Vicky only stocking one of each essence (she now stocks 20-30 of each).
