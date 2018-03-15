@@ -888,6 +888,12 @@ public class Game implements Serializable, XMLSaving {
 						banishNPC(npc);
 					}
 			
+			// Non-slave NPCs clean clothes:
+			if(!npc.isSlave() && !Main.game.getPlayer().getLocation().equals(npc.getLocation())) {
+				npc.cleanAllClothing();
+				npc.cleanAllDirtySlots();
+			}
+			
 			// Set NPC resource values:
 			if(!Main.game.getPlayer().getLocation().equals(npc.getLocation()) && !Main.game.isInCombat() && !Main.game.isInSex()) {
 				npc.setHealthPercentage(1);

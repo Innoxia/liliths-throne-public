@@ -2,6 +2,9 @@ package com.lilithsthrone.game.combat;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -18,14 +21,17 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.0
- * @version 0.2.0
+ * @version 0.2.1
  * @author Innoxia
  */
 public enum Spell {
 
 	// OFFENSIVE SPELLS:
 
-	SLAM_1("slam",
+	SLAM_1(SpellSchool.EARTH,
+			SpellType.OFFENSIVE,
+			1,
+			"slam",
 			"spellSlam",
 			DamageType.PHYSICAL,
 			20,
@@ -65,11 +71,14 @@ public enum Spell {
 
 		@Override
 		public String getDescription(GameCharacter caster, int level) {
-			return "Summons a wave of crushing force that slams into the unlucky target.";
+			return "Summons a wave of crushing force that slams into an unlucky target.";
 		}
 	},
 	
-	FIREBALL_1("fireball",
+	FIREBALL_1(SpellSchool.FIRE,
+			SpellType.OFFENSIVE,
+			1,
+			"fireball",
 			"spellFireball",
 			DamageType.FIRE,
 			15,
@@ -113,7 +122,10 @@ public enum Spell {
 		}
 	},
 	
-	FIRE_INFERNO("inferno",
+	FIRE_INFERNO(SpellSchool.FIRE,
+			SpellType.OFFENSIVE,
+			2,
+			"inferno",
 			"spellFireball",
 			DamageType.FIRE,
 			20,
@@ -157,7 +169,10 @@ public enum Spell {
 		}
 	},
 
-	ICESHARD_1("ice shard",
+	ICESHARD_1(SpellSchool.WATER,
+			SpellType.OFFENSIVE,
+			1,
+			"ice shard",
 			"spellIceShard",
 			DamageType.ICE,
 			10,
@@ -203,7 +218,10 @@ public enum Spell {
 		}
 	},
 
-	POISON_NOVA_1("poison nova",
+	POISON_NOVA_1(SpellSchool.AIR,
+			SpellType.OFFENSIVE,
+			1,
+			"poison nova",
 			"spellPoisonNova",
 			DamageType.POISON,
 			5,
@@ -248,7 +266,10 @@ public enum Spell {
 	},
 
 	// DEFENSIVE SPELLS:
-	ARCANE_SHIELD("arcane shield",
+	ARCANE_SHIELD(SpellSchool.EARTH,
+			SpellType.DEFENSIVE,
+			1,
+			"arcane shield",
 			"specialAttackIcon",
 			DamageType.PHYSICAL,
 			0,
@@ -296,7 +317,10 @@ public enum Spell {
 		}
 	},
 
-	FIRE_SHIELD("fire shield",
+	FIRE_SHIELD(SpellSchool.FIRE,
+			SpellType.DEFENSIVE,
+			1,
+			"fire shield",
 			"specialAttackIcon",
 			DamageType.FIRE,
 			0,
@@ -344,7 +368,10 @@ public enum Spell {
 		}
 	},
 	
-	ICE_SHIELD("ice shield",
+	ICE_SHIELD(SpellSchool.WATER,
+			SpellType.DEFENSIVE,
+			1,
+			"ice shield",
 			"specialAttackIcon",
 			DamageType.ICE,
 			0,
@@ -392,7 +419,10 @@ public enum Spell {
 		}
 	},
 
-	POISON_SHIELD("poison shield",
+	POISON_SHIELD(SpellSchool.AIR,
+			SpellType.DEFENSIVE,
+			1,
+			"poison shield",
 			"specialAttackIcon",
 			DamageType.POISON,
 			0,
@@ -440,132 +470,153 @@ public enum Spell {
 		}
 	},
 
-	CLEANSE("cleanse",
-			"specialAttackIcon",
-			DamageType.MISC,
-			0,
-			DamageVariance.NONE,
-			10,
-			null) {
-		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
-			return "";
-		}
-
-		@Override
-		public String getDescription(GameCharacter caster, int level) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		
-		@Override
-		public boolean isBeneficial() {
-			return true;
-		}
-	},
-
-	BLIND("blind",
-			"specialAttackIcon",
-			DamageType.MISC,
-			0,
-			DamageVariance.NONE,
-			10,
-			null) {
-		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
-			return "";
-		}
-
-		@Override
-		public String getDescription(GameCharacter caster, int level) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-	},
-
-	SILENCE("silence",
-			"specialAttackIcon",
-			DamageType.MISC,
-			0,
-			DamageVariance.NONE,
-			10,
-			null) {
-		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
-			return "";
-		}
-
-		@Override
-		public String getDescription(GameCharacter caster, int level) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-	},
-
-	HEAL("heal",
-			"specialAttackIcon",
-			DamageType.MISC,
-			0,
-			DamageVariance.NONE,
-			10,
-			null) {
-		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
-			return "";
-		}
-
-		@Override
-		public String getDescription(GameCharacter caster, int level) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		
-		@Override
-		public boolean isBeneficial() {
-			return true;
-		}
-	},
-
-	// MISC SPELLS:
-	CHARM("charm",
-			"specialAttackIcon",
-			DamageType.MISC,
-			0,
-			DamageVariance.NONE,
-			10,
-			null) {
-		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
-			return "";
-		}
-
-		@Override
-		public String getDescription(GameCharacter caster, int level) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-	},
-
-	STUN("stun",
-			"specialAttackIcon",
-			DamageType.MISC,
-			0,
-			DamageVariance.NONE,
-			10,
-			null) {
-		@Override
-		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
-			return "";
-		}
-
-		@Override
-		public String getDescription(GameCharacter caster, int level) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-	},
+//	CLEANSE(SpellSchool.AIR,
+//			SpellType.DEFENSIVE,
+//			2,
+//			"cleanse",
+//			"specialAttackIcon",
+//			DamageType.MISC,
+//			0,
+//			DamageVariance.NONE,
+//			10,
+//			null) {
+//		@Override
+//		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+//			return "";
+//		}
+//
+//		@Override
+//		public String getDescription(GameCharacter caster, int level) {
+//			// TODO Auto-generated method stub
+//			return null;
+//		}
+//		
+//		@Override
+//		public boolean isBeneficial() {
+//			return true;
+//		}
+//	},
+//
+//	BLIND(SpellSchool.AIR,
+//			SpellType.OFFENSIVE,
+//			1,
+//			"blind",
+//			"specialAttackIcon",
+//			DamageType.MISC,
+//			0,
+//			DamageVariance.NONE,
+//			10,
+//			null) {
+//		@Override
+//		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+//			return "";
+//		}
+//
+//		@Override
+//		public String getDescription(GameCharacter caster, int level) {
+//			// TODO Auto-generated method stub
+//			return null;
+//		}
+//	},
+//
+//	SILENCE(SpellSchool.WATER,
+//			SpellType.OFFENSIVE,
+//			1,
+//			"silence",
+//			"specialAttackIcon",
+//			DamageType.MISC,
+//			0,
+//			DamageVariance.NONE,
+//			10,
+//			null) {
+//		@Override
+//		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+//			return "";
+//		}
+//
+//		@Override
+//		public String getDescription(GameCharacter caster, int level) {
+//			// TODO Auto-generated method stub
+//			return null;
+//		}
+//	},
+//
+//	HEAL(SpellSchool.WATER,
+//			SpellType.DEFENSIVE,
+//			1,
+//			"heal",
+//			"specialAttackIcon",
+//			DamageType.MISC,
+//			0,
+//			DamageVariance.NONE,
+//			10,
+//			null) {
+//		@Override
+//		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+//			return "";
+//		}
+//
+//		@Override
+//		public String getDescription(GameCharacter caster, int level) {
+//			// TODO Auto-generated method stub
+//			return null;
+//		}
+//		
+//		@Override
+//		public boolean isBeneficial() {
+//			return true;
+//		}
+//	},
+//
+//	// MISC SPELLS:
+//	CHARM(SpellSchool.ARCANE,
+//			SpellType.DEFENSIVE,
+//			1,
+//			"charm",
+//			"specialAttackIcon",
+//			DamageType.MISC,
+//			0,
+//			DamageVariance.NONE,
+//			10,
+//			null) {
+//		@Override
+//		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+//			return "";
+//		}
+//
+//		@Override
+//		public String getDescription(GameCharacter caster, int level) {
+//			// TODO Auto-generated method stub
+//			return null;
+//		}
+//	},
+//
+//	STUN(SpellSchool.EARTH,
+//			SpellType.OFFENSIVE,
+//			1,
+//			"stun",
+//			"specialAttackIcon",
+//			DamageType.MISC,
+//			0,
+//			DamageVariance.NONE,
+//			10,
+//			null) {
+//		@Override
+//		public String applyEffect(GameCharacter caster, GameCharacter target, boolean isHit, boolean isCritical) {
+//			return "";
+//		}
+//
+//		@Override
+//		public String getDescription(GameCharacter caster, int level) {
+//			// TODO Auto-generated method stub
+//			return null;
+//		}
+//	},
 	
-	WITCH_SEAL("Witch's Seal",
+	WITCH_SEAL(SpellSchool.AIR,
+			SpellType.OFFENSIVE,
+			1,
+			"Witch's Seal",
 			"spell_witch_seal",
 			DamageType.MISC,
 			0,
@@ -601,7 +652,10 @@ public enum Spell {
 		}
 	},
 	
-	WITCH_CHARM("Witch's Charm",
+	WITCH_CHARM(SpellSchool.ARCANE,
+			SpellType.DEFENSIVE,
+			1,
+			"Witch's Charm",
 			"spell_witch_charm",
 			DamageType.MISC,
 			0,
@@ -636,12 +690,27 @@ public enum Spell {
 		public boolean isBeneficial() {
 			return true;
 		}
-	},
+	};
 	
-	;
-
+	private static Map<SpellSchool, List<Spell>> spellsFromSchoolMap = new HashMap<>();
+	
+	static {
+		for(SpellSchool school : SpellSchool.values()) {
+			spellsFromSchoolMap.put(school, new ArrayList<>());
+		}
+		for(Spell s : Spell.values()) {
+			spellsFromSchoolMap.get(s.getSpellSchool()).add(s);
+		}
+		for(List<Spell> spellList : spellsFromSchoolMap.values()) {
+			spellList.sort((s1, s2) -> s1.getSpellLevelRequired()-s2.getSpellLevelRequired());
+		}
+	}
+	
 	private static StringBuilder descriptionSB;
-
+	
+	private SpellSchool spellSchool;
+	private SpellType type;
+	private int spellLevelRequired;
 	private String name;
 	protected int damage;
 	protected int spellCost;
@@ -651,7 +720,22 @@ public enum Spell {
 
 	private String SVGString;
 
-	private Spell(String name, String pathName, DamageType damageType, int damage, DamageVariance damageVariance, int spellCost, Map<StatusEffect, Integer> statusEffects) {
+	private Spell(SpellSchool spellSchool,
+			SpellType type,
+			int spellLevelRequired,
+			String name,
+			String pathName,
+			DamageType damageType,
+			int damage,
+			DamageVariance damageVariance,
+			int spellCost,
+			Map<StatusEffect, Integer> statusEffects) {
+		
+		this.spellSchool = spellSchool;
+		this.type = type;
+		
+		this.spellLevelRequired = spellLevelRequired;
+		
 		this.name = name;
 		this.damageType = damageType;
 
@@ -792,6 +876,18 @@ public enum Spell {
 		return damageCostDescriptionSB.toString();
 	}
 
+	public SpellSchool getSpellSchool() {
+		return spellSchool;
+	}
+
+	public SpellType getType() {
+		return type;
+	}
+
+	public int getSpellLevelRequired() {
+		return spellLevelRequired;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -814,5 +910,9 @@ public enum Spell {
 
 	public String getSVGString() {
 		return SVGString;
+	}
+
+	public static Map<SpellSchool, List<Spell>> getSpellsFromSchoolMap() {
+		return spellsFromSchoolMap;
 	}
 }

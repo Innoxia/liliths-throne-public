@@ -78,8 +78,8 @@ public class PhoneDialogue {
 			if (index == 1) {
 				return new Response(
 						(Main.game.getPlayer().isMainQuestUpdated() || Main.game.getPlayer().isSideQuestUpdated() || Main.game.getPlayer().isRomanceQuestUpdated())
-							?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Planner</span>"
-							:"Planner",
+							?"<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Quests</span>"
+							:"Quests",
 						"Open your planner to view your current quests.", PLANNER_MAIN){
 					@Override
 					public void effects() {
@@ -88,13 +88,22 @@ public class PhoneDialogue {
 				};
 				
 			} else if (index == 2) {
-				return new Response("Selfie", "Take a selfie to get a good view of yourself.", CHARACTER_APPEARANCE);
+				return new Response(
+						Main.game.getPlayer().getPerkPoints() > 0
+							? "<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Perks</span>"
+							:"Perks",
+						"View your character page.", CHARACTER_LEVEL_UP);
 				
 			} else if (index == 3) {
-				return new Response("Stats", "Take a detailed look at your stats.", CHARACTER_STATS);
-				
+				return new Response("Fetishes", "View your fetishes page.", CHARACTER_FETISHES);
 				
 			} else if (index == 4) {
+				return new Response("Stats", "Take a detailed look at your stats.", CHARACTER_STATS);
+				
+			} else if (index == 5) {
+				return new Response("Selfie", "Take a selfie to get a good view of yourself.", CHARACTER_APPEARANCE);
+				
+			} else if (index == 6) {
 				if(Main.game.getPlayer().getCharactersEncountered().isEmpty()) {
 					return new Response("Contacts", "You haven't met anyone yet!", null);
 				} else {
@@ -106,7 +115,7 @@ public class PhoneDialogue {
 					};
 				}
 				
-			} else if (index == 5) {
+			} else if (index == 7) {
 				return new Response(
 						(Main.getProperties().isNewWeaponDiscovered() || Main.getProperties().isNewClothingDiscovered() || Main.getProperties().isNewItemDiscovered() || Main.getProperties().isNewRaceDiscovered())
 							? "<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Encyclopedia</span>"
@@ -118,18 +127,8 @@ public class PhoneDialogue {
 					}
 				};
 				
-			} else if (index == 6) {
-				return new Response(
-						Main.game.getPlayer().getPerkPoints() > 0
-							? "<span style='color:" + Colour.GENERIC_EXCELLENT.toWebHexString() + ";'>Character</span>"
-							:"Character",
-						"View your character page.", CHARACTER_LEVEL_UP);
-				
-			} else if (index == 7) {
-				return new Response("Fetishes", "View your fetishes page.", CHARACTER_FETISHES);
-				
 			} else if (index == 8) {
-				if(Main.game.getPlayer().getRace()==Race.DEMON) {
+				if(Main.game.getPlayer().isAbleToSelfTransform()) {
 					return new Response("Transform", "Transform your body.", BodyChanging.BODY_CHANGING_CORE) {
 						@Override
 						public void effects() {
@@ -476,50 +475,127 @@ public class PhoneDialogue {
 			UtilText.nodeContentSB.setLength(0);
 			
 			UtilText.nodeContentSB.append(
-				"<div class='container-full-width'>"
-					+ "<h4 style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+"; text-align:center;'>Core Attributes</h4>"
-					+ attributeHeader()
-					+ attributeValue(Main.game.getPlayer(), Attribute.MAJOR_PHYSIQUE, true)
-					+ attributeValue(Main.game.getPlayer(), Attribute.MAJOR_ARCANE, false)
-					+ attributeValue(Main.game.getPlayer(), Attribute.MAJOR_CORRUPTION, true)
-
-					+ "<span style='height:16px;width:100%;float:left;'></span>"
-					+ "<h4 style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+"; text-align:center;'>Misc. Attributes</h4>"
-					+ attributeHeader()
-					+ attributeValue(Main.game.getPlayer(), Attribute.FERTILITY, true)
-					+ attributeValue(Main.game.getPlayer(), Attribute.VIRILITY, false)
-					+ attributeValue(Main.game.getPlayer(), Attribute.SPELL_COST_MODIFIER, true)
-
-					+ "<span style='height:16px;width:100%;float:left;'></span>"
-					+ "<h4 style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+"; text-align:center;'>Combat Attributes</h4>"
-					+ attributeHeader()
-					+ attributeValue(Main.game.getPlayer(), Attribute.CRITICAL_CHANCE, true)
-					+ attributeValue(Main.game.getPlayer(), Attribute.CRITICAL_DAMAGE, false)
-
-					+ "<span style='height:16px;width:100%;float:left;'></span>"
-					+ "<h6 style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+"; text-align:center;'>Attack values</h6>"
-					+ attributeValue(Main.game.getPlayer(), Attribute.DAMAGE_PHYSICAL, false)
-					+ attributeValue(Main.game.getPlayer(), Attribute.DAMAGE_FIRE, true)
-					+ attributeValue(Main.game.getPlayer(), Attribute.DAMAGE_ICE, false)
-					+ attributeValue(Main.game.getPlayer(), Attribute.DAMAGE_POISON, true)
-					+ attributeValue(Main.game.getPlayer(), Attribute.DAMAGE_LUST, true)
-					+ attributeValue(Main.game.getPlayer(), Attribute.DAMAGE_SPELLS, false)
-
-					+ "<span style='height:16px;width:100%;float:left;'></span>"
-					+ "<h6 style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+"; text-align:center;'>Resistance values</h6>"
-					+ attributeValue(Main.game.getPlayer(), Attribute.RESISTANCE_PHYSICAL, true)
-					+ attributeValue(Main.game.getPlayer(), Attribute.RESISTANCE_FIRE, false)
-					+ attributeValue(Main.game.getPlayer(), Attribute.RESISTANCE_ICE, true)
-					+ attributeValue(Main.game.getPlayer(), Attribute.RESISTANCE_POISON, false)
-					+ attributeValue(Main.game.getPlayer(), Attribute.RESISTANCE_LUST, true)
-					+ attributeValue(Main.game.getPlayer(), Attribute.RESISTANCE_SPELLS, false)
 					
-					+ "<span style='height:16px;width:100%;float:left;'></span>"
+				"<details>"
+				+ "<summary>[style.boldExcellent(Important information)]</summary>"
+					+ "<p style='text-align:center;padding:margin:0;'>"
+						+ "All derived stats start to have diminishing returns past the half-way point!</br>"
+						+ "<b>For example:</b></br>"
+						+ "<b>25</b> <b style='color:"+Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Util.getModifiedDropoffValue(25, 100)+"% damage</i></br>"
+						+ "<b>50</b> <b style='color:"+Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Util.getModifiedDropoffValue(50, 100)+"% damage</i></br>"
+						+ "<i>Past this point, there are diminishing returns.</i></br>"
+						+ "<b>60</b> <b style='color:"+Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Util.getModifiedDropoffValue(60, 100)+"% damage</i></br>"
+						+ "<b>80</b> <b style='color:"+Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Util.getModifiedDropoffValue(80, 100)+"% damage</i></br>"
+						+ "<b>100</b> <b style='color:"+Colour.DAMAGE_TYPE_PHYSICAL.toWebHexString()+";'>Physical Damage</b> = <i>+"+Util.getModifiedDropoffValue(100, 100)+"% damage</i></br>"
+					+ "</p>"
+				+ "</details>"
+					
+				+ "<div class='container-full-width'>"
+					+ "<h4 style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+"; text-align:center;'>Core Attributes</h4>"
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.MAJOR_PHYSIQUE, "")
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.MAJOR_ARCANE, "")
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.MAJOR_CORRUPTION, "")
+					
+				+"</div>"
+				+"<div class='container-full-width'>"
+
+					+ "<h4 style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+"; text-align:center;'>Misc. Attributes</h4>"
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.FERTILITY,
+							"Pregnancy Chance:</br>"
+							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.FERTILITY), Attribute.FERTILITY.getUpperLimit())+"%</b>")
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.VIRILITY,
+							"Impregnation Chance:</br>"
+							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.VIRILITY), Attribute.VIRILITY.getUpperLimit())+"%</b>")
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.SPELL_COST_MODIFIER,
+							"Spell Cost:</br>"
+							+ "<b>-"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.SPELL_COST_MODIFIER), Attribute.SPELL_COST_MODIFIER.getUpperLimit())+"%</b>")
+
+					+ "<div class='container-full-width' style='text-align:center; background:#292929;'>"
+						+ "<b style='color:"+Colour.BASE_PINK_LIGHT.toWebHexString()+";'>Pregnancy calculation:</b> <i>"+GameCharacter.PREGNANCY_CALCULATION+"</i>"
+					+ "</div>"
+
+				+"</div>"
+				+"<div class='container-full-width'>"
+				
+					+ "<h4 style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+"; text-align:center;'>Combat Attributes</h4>"
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.CRITICAL_CHANCE,
+							"Critical Hit Chance:</br>"
+							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.CRITICAL_CHANCE), Attribute.CRITICAL_CHANCE.getUpperLimit())+"%</b>",
+							true)
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.CRITICAL_DAMAGE,
+							"Critical Hit Damage:</br>"
+							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.CRITICAL_DAMAGE), Attribute.CRITICAL_DAMAGE.getUpperLimit())+"%</b>",
+							true)
+					
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_PHYSICAL,
+							"Physical Damage:</br>"
+							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_PHYSICAL), Attribute.DAMAGE_PHYSICAL.getUpperLimit()))+"%</b>",
+							true)
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.RESISTANCE_PHYSICAL,
+							"Physical Resistance:</br>"
+							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_PHYSICAL), Attribute.RESISTANCE_PHYSICAL.getUpperLimit())+"%</b>",
+							true)
+					
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_FIRE,
+							"Fire Damage:</br>"
+							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_FIRE), Attribute.DAMAGE_FIRE.getUpperLimit()))+"%</b>",
+							true)
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.RESISTANCE_FIRE,
+							"Fire Resistance:</br>"
+							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_FIRE), Attribute.RESISTANCE_FIRE.getUpperLimit())+"%</b>",
+							true)
+					
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_ICE,
+							"Ice Damage:</br>"
+							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_ICE), Attribute.DAMAGE_ICE.getUpperLimit()))+"%</b>",
+							true)
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.RESISTANCE_ICE,
+							"Ice Resistance:</br>"
+							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_ICE), Attribute.RESISTANCE_ICE.getUpperLimit())+"%</b>",
+							true)
+
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_POISON,
+							"Poison Damage:</br>"
+							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_POISON), Attribute.DAMAGE_POISON.getUpperLimit()))+"%</b>",
+							true)
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.RESISTANCE_POISON,
+							"Poison Resistance:</br>"
+							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_POISON), Attribute.RESISTANCE_POISON.getUpperLimit())+"%</b>",
+							true)
+
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_LUST,
+							"Lust Damage:</br>"
+							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_LUST), Attribute.DAMAGE_LUST.getUpperLimit()))+"%</b>",
+							true)
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.RESISTANCE_LUST,
+							"Lust Resistance:</br>"
+							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_LUST), Attribute.RESISTANCE_LUST.getUpperLimit())+"%</b>",
+							true)
+
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.DAMAGE_SPELLS,
+							"Spell Damage:</br>"
+							+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.DAMAGE_SPELLS), Attribute.DAMAGE_SPELLS.getUpperLimit()))+"%</b>",
+							true)
+					+ getAttributeBox(Main.game.getPlayer(), Attribute.RESISTANCE_SPELLS,
+							"Spell Resistance:</br>"
+							+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(Attribute.RESISTANCE_SPELLS), Attribute.RESISTANCE_SPELLS.getUpperLimit())+"%</b>",
+							true)
+
+				+"</div>"
+				+"<div class='container-full-width'>"
 					+ "<h6 style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+"; text-align:center;'>Racial values</h6>");
 			
 			for(Race race : Race.values()) {
-				UtilText.nodeContentSB.append(attributeValue(Main.game.getPlayer(), race.getDamageMultiplier(), true));
-				UtilText.nodeContentSB.append(attributeValue(Main.game.getPlayer(), race.getResistanceMultiplier(), false));
+
+				UtilText.nodeContentSB.append(
+						getAttributeBox(Main.game.getPlayer(), race.getDamageMultiplier(),
+								Util.capitaliseSentence(race.getName())+" Damage:</br>"
+								+ "<b>"+(100+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(race.getDamageMultiplier()), race.getDamageMultiplier().getUpperLimit()))+"%</b>",
+								true)
+						+ getAttributeBox(Main.game.getPlayer(), race.getResistanceMultiplier(),
+								Util.capitaliseSentence(race.getName())+" Resistance:</br>"
+								+ "<b>"+Util.getModifiedDropoffValue(Main.game.getPlayer().getAttributeValue(race.getResistanceMultiplier()), race.getResistanceMultiplier().getUpperLimit())+"%</b>",
+								true));
 			}
 			
 			UtilText.nodeContentSB.append("</div>");
@@ -564,8 +640,8 @@ public class PhoneDialogue {
 			
 			
 			UtilText.nodeContentSB.append(
-				"<div class='container-full-width'>"
-						+ "<h6 style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+"; text-align:center;'>Orifice Mechanics</h6>"
+					"<details>"
+							+ "<summary style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+"; text-align:center;'>Orifice Mechanics</summary>"
 						
 						+ "[style.boldSex(Capacity:)] An orifice's capacity determines the size of objects that can be comfortably inserted."
 							+ " <b>Higher capacity values mean that the orifice can take larger insertions without stretching</b>."
@@ -582,7 +658,7 @@ public class PhoneDialogue {
 						+ "[style.boldSex(Plasticity:)] An orifice's plasticity determines how quickly it recovers after being stretched out."
 							+ " If your orifice has been stretched out during sex, <b>higher plasticity values mean that it will recover slower, with very high values meaning that it will never recover all of its original tightness</b>."
 							+ "</br>Plasticity values range from 0 (instantly returns to starting size after sex) to 7 (recovers none of its original size after sex)."
-				+ "</div>"
+				+ "</details>"
 						
 				+ "<div class='container-full-width'>"
 					+ "<h6 style='color:"+Colour.TRANSFORMATION_GENERIC.toWebHexString()+"; text-align:center;'>Core Attributes</h6>"
@@ -629,9 +705,13 @@ public class PhoneDialogue {
 							Colour.TEXT, String.valueOf(Main.game.getPlayer().getBreastRawSizeValue()),
 							Colour.GENERIC_SEX, Util.capitaliseSentence(Main.game.getPlayer().getBreastSize().getCupSizeName()),
 							true)
-					+ statRow(Colour.TRANSFORMATION_GENERIC, "Milk production (mL)",
-							Colour.TEXT, String.valueOf(Main.game.getPlayer().getBreastRawLactationValue()),
-							Colour.GENERIC_SEX, Util.capitaliseSentence(Main.game.getPlayer().getBreastLactation().getDescriptor()),
+					+ statRow(Colour.TRANSFORMATION_GENERIC, "Milk Storage (mL)",
+							Colour.TEXT, String.valueOf(Main.game.getPlayer().getBreastRawMilkStorageValue()),
+							Colour.GENERIC_SEX, Util.capitaliseSentence(Main.game.getPlayer().getBreastMilkStorage().getDescriptor()),
+							false)
+					+ statRow(Colour.TRANSFORMATION_GENERIC, "Milk Regeneration (%/minute)",
+							Colour.TEXT, String.valueOf(Math.round((Main.game.getPlayer().getBreastLactationRegeneration().getPercentageRegen()*100)*100)/100f),
+							Colour.GENERIC_SEX, Util.capitaliseSentence(Main.game.getPlayer().getBreastLactationRegeneration().getName()),
 							false)
 					+ statRow(Colour.TRANSFORMATION_GENERIC, "Capacity (inches)",
 							Colour.TEXT, String.valueOf(Main.game.getPlayer().getNippleRawCapacityValue()),
@@ -660,6 +740,11 @@ public class PhoneDialogue {
 					+ statRow(Colour.TRANSFORMATION_GENERIC, "Cum Production (mL)",
 							Colour.TEXT, Main.game.getPlayer().getPenisType() == PenisType.NONE ? "N/A" : String.valueOf(Main.game.getPlayer().getPenisRawCumProductionValue()),
 							Colour.GENERIC_SEX, Main.game.getPlayer().getPenisType() == PenisType.NONE ? "N/A" : Util.capitaliseSentence(Main.game.getPlayer().getPenisCumProduction().getDescriptor()),
+							true)
+					+ statRow(Colour.TRANSFORMATION_GENERIC, "Cum Production Pregnancy Modifier",
+							Colour.TEXT, Main.game.getPlayer().getPenisType() == PenisType.NONE ? "N/A" : String.valueOf(Main.game.getPlayer().getPenisCumProduction().getPregnancyModifier()),
+							Colour.GENERIC_SEX,
+							"N/A",
 							true)
 					
 					+ "<span style='height:16px;width:100%;float:left;'></span>"
@@ -1167,50 +1252,46 @@ public class PhoneDialogue {
 				+ "</div>";
 	}
 
-	private static String attributeHeader() {
-		return "<div class='container-full-width' style='margin-bottom:0;'>"
-					+ "<div style='width:40%; float:left; font-weight:bold; margin:0; padding:0;'>"
-						+ "Attribute"
-					+ "</div>"
-					+ "<div style='width:20%; float:left; font-weight:bold; margin:0; padding:0;'>"
-						+ "Base Value"
-					+ "</div>"
-					+ "<div style='width:20%; float:left; font-weight:bold; margin:0; padding:0;'>"
-						+ "Modifiers"
-					+ "</div>"
-					+ "<div style='float:left; width:20%; font-weight:bold; margin:0; padding:0;'>"
-						+ "Final Value"
-					+"</div>"
-				+ "</div>";
+	private static String getAttributeBox(GameCharacter owner, Attribute att, String effect) {
+		return getAttributeBox(owner, att, effect, false);
 	}
 	
-	private static String attributeValue(GameCharacter owner, Attribute att, boolean light) {
-		return "<div class='container-full-width inner' style='margin-bottom:0;"+(light?"background:#292929;'":"'")+">"
-				+ "<div style='color:" + att.getColour().toWebHexString() + "; width:40%; float:left; font-weight:bold; margin:0; padding:0;'>"
-					+ Util.capitaliseSentence(att.getName())
-				+ "</div>"
-				+ (owner.getBaseAttributeValue(att) > 0 
-						? "<div style='color:" + Colour.GENERIC_GOOD.getShades()[1] + ";"
-						: (owner.getBaseAttributeValue(att) < 0
-								? "<div style='color:" + Colour.GENERIC_BAD.getShades()[1] + ";"
-								: "<div style='color:" + Colour.TEXT_GREY.toWebHexString() + ";"))
-					+" width:20%; float:left; font-weight:bold; margin:0; padding:0;'>"
-					// To get rid of e.g. 2.3999999999999999999999:
-					+ Math.round(owner.getBaseAttributeValue(att)*100)/100f
-				+ "</div>"
-				+ (owner.getBonusAttributeValue(att) > 0
-						? "<div style='color:" + Colour.GENERIC_GOOD.getShades()[1] + ";"
-						: (owner.getBonusAttributeValue(att) < 0
-								? "<div style='color:" + Colour.GENERIC_BAD.getShades()[1] + ";"
-								: "<div style='color:" + Colour.TEXT_GREY.toWebHexString() + ";"))
-					+" width:20%; float:left; font-weight:bold; margin:0; padding:0;'>"
-					// To get rid of e.g. 2.3999999999999999999999:
-					+ Math.round(owner.getBonusAttributeValue(att)*100)/100f
-				+ "</div>"
-				+ "<div style='float:left; width:20%; font-weight:bold; margin:0; padding:0;'>"
-					// To get rid of e.g. 2.3999999999999999999999:
-					+ Math.round(owner.getAttributeValue(att)*100)/100f
-				+"</div>"
+	private static String getAttributeBox(GameCharacter owner, Attribute att, String effect, boolean half) {
+		return "<div class='container-half-width' style='"+(half?"width:calc(50% - 16px);":"width:calc(33% - 16px);")+" margin-bottom:0; background:#292929;'>"
+					+ "<div class='container-half-width' style='width:66.6%;margin:0;background:#292929;'>"
+						+ "<b style='color:" + att.getColour().toWebHexString() + ";'>"+Util.capitaliseSentence(att.getName())+"</b>"
+					+ "</div>"
+					+ "<div class='container-half-width' style='width:33.3%;margin:0;background:#292929;text-align:center;'>"
+						+ "<b"+(owner.getAttributeValue(att)==att.getUpperLimit()?" style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'":"")+">"+owner.getAttributeValue(att)+"</b>"
+					+ "</div>"
+					+ "<div class='container-full-width' style='height:6px;padding:0;border-radius: 2px;'>"
+						+ "<div class='container-full-width' style='width:" + (owner.getAttributeValue(att)/att.getUpperLimit()) * 100 + "%; padding:0; margin:0;height:100%; background:" + att.getColour().toWebHexString() + "; float:left; border-radius: 2px;'></div>"
+					+ "</div>"
+					+ "<div class='container-half-width' style='margin:0;background:#292929; padding:0; text-align:center;'>"
+							+ "Base: "+(owner.getBaseAttributeValue(att) > 0 
+								? "<b style='color:" + Colour.GENERIC_GOOD.getShades()[1] + ";"
+										: (owner.getBaseAttributeValue(att) < 0
+												? "<b style='color:" + Colour.GENERIC_BAD.getShades()[1] + ";"
+												: "<b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";"))+"'>"
+												+owner.getBaseAttributeValue(att)
+												+"</b>"
+					+ "</div>"
+					+ "<div class='container-half-width' style='margin:0;background:#292929; padding:0; text-align:center;'>"
+							+ "Bonus: "
+							+ (owner.getBonusAttributeValue(att) > 0 
+									? "<b style='color:" + Colour.GENERIC_GOOD.getShades()[1] + ";"
+											: (owner.getBonusAttributeValue(att) < 0
+													? "<b style='color:" + Colour.GENERIC_BAD.getShades()[1] + ";"
+													: "<b style='color:" + Colour.TEXT_GREY.toWebHexString() + ";"))+"'>"
+													+owner.getBonusAttributeValue(att)
+													+"</b>"
+					+ "</div>"
+					+ (effect.length()>0
+							?"<div class='container-full-width' style='margin:0;background:#292929; padding:0; text-align:center;'>"
+								+"<hr></hr>"
+								+ "<i>"+effect+"</i>"
+							+ "</div>"
+							:"")
 				+ "</div>";
 	}
 
@@ -1810,6 +1891,7 @@ public class PhoneDialogue {
 			journalSB.append(getFetishEntry(Fetish.FETISH_VAGINAL_GIVING, Fetish.FETISH_VAGINAL_RECEIVING));
 			journalSB.append(getFetishEntry(Fetish.FETISH_ANAL_GIVING, Fetish.FETISH_ANAL_RECEIVING));
 			journalSB.append(getFetishEntry(Fetish.FETISH_BREASTS_OTHERS, Fetish.FETISH_BREASTS_SELF));
+			journalSB.append(getFetishEntry(Fetish.FETISH_LACTATION_OTHERS, Fetish.FETISH_LACTATION_SELF));
 			journalSB.append(getFetishEntry(Fetish.FETISH_ORAL_RECEIVING, Fetish.FETISH_ORAL_GIVING));
 			journalSB.append(getFetishEntry(Fetish.FETISH_LEG_LOVER, Fetish.FETISH_STRUTTER));
 			journalSB.append(getFetishEntry(Fetish.FETISH_CUM_STUD, Fetish.FETISH_CUM_ADDICT));

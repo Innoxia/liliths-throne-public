@@ -47,11 +47,19 @@ import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Breast;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.Testicle;
+import com.lilithsthrone.game.character.body.types.AntennaType;
 import com.lilithsthrone.game.character.body.types.ArmType;
+import com.lilithsthrone.game.character.body.types.AssType;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
+import com.lilithsthrone.game.character.body.types.BreastType;
+import com.lilithsthrone.game.character.body.types.EarType;
+import com.lilithsthrone.game.character.body.types.EyeType;
+import com.lilithsthrone.game.character.body.types.FaceType;
+import com.lilithsthrone.game.character.body.types.HairType;
 import com.lilithsthrone.game.character.body.types.HornType;
 import com.lilithsthrone.game.character.body.types.LegType;
 import com.lilithsthrone.game.character.body.types.PenisType;
+import com.lilithsthrone.game.character.body.types.SkinType;
 import com.lilithsthrone.game.character.body.types.TailType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.types.WingType;
@@ -72,6 +80,7 @@ import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
+import com.lilithsthrone.game.character.body.valueEnums.Lactation;
 import com.lilithsthrone.game.character.body.valueEnums.LipSize;
 import com.lilithsthrone.game.character.body.valueEnums.Muscle;
 import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
@@ -141,7 +150,11 @@ import com.lilithsthrone.game.inventory.item.ItemEffect;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
+import com.lilithsthrone.game.sex.OrificeType;
+import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;
+import com.lilithsthrone.game.sex.SexParticipantType;
+import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.game.slavery.SlaveJob;
 import com.lilithsthrone.game.slavery.SlaveJobHours;
 import com.lilithsthrone.game.slavery.SlaveJobSetting;
@@ -306,7 +319,7 @@ public class MainController implements Initializable {
 	}
 
 	public void openInventory() {
-		if(!Main.game.isInNewWorld()) {
+		if(!Main.game.isInNewWorld() && !Main.game.isInSex()) {
 			openInventory(null, InventoryInteraction.CHARACTER_CREATION);
 			
 		} else if(Main.game.isInCombat()) {
@@ -2587,6 +2600,112 @@ public class MainController implements Initializable {
 						}, false);
 					}
 				}
+				
+				
+				// Sex experiences:
+				for(int i : CharacterModificationUtils.soSilly) {
+					
+					// Given:
+					
+					id = "HANDJOBS_GIVEN_"+i;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.PITCHER, PenetrationType.FINGER, OrificeType.URETHRA), i);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+					
+					id = "FINGERINGS_GIVEN_"+i;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.PITCHER, PenetrationType.FINGER, OrificeType.VAGINA), i);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+					
+					id = "BLOWJOBS_GIVEN_"+i;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH), i);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+					
+					id = "CUNNILINGUS_GIVEN_"+i;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.PITCHER, PenetrationType.TONGUE, OrificeType.VAGINA), i);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+					
+					id = "VAGINAL_GIVEN_"+i;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.VAGINA), i);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+					
+					id = "ANAL_GIVEN_"+i;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.ANUS), i);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+					
+					// Received:
+
+					id = "HANDJOBS_TAKEN_"+i;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.CATCHER, PenetrationType.FINGER, OrificeType.URETHRA), i);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+					
+					id = "FINGERINGS_TAKEN_"+i;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.CATCHER, PenetrationType.FINGER, OrificeType.VAGINA), i);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+					
+					id = "BLOWJOBS_TAKEN_"+i;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH), i);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+					
+					id = "CUNNILINGUS_TAKEN_"+i;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.CATCHER, PenetrationType.TONGUE, OrificeType.VAGINA), i);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+					
+					id = "VAGINAL_TAKEN_"+i;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.VAGINA), i);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+					
+					id = "ANAL_TAKEN_"+i;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							CharacterModificationUtils.setSexExperience(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.ANUS), i);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
 			}
 			
 			if(!Main.game.isInNewWorld()
@@ -2819,7 +2938,7 @@ public class MainController implements Initializable {
 					id = "LACTATION_"+i;
 					if (((EventTarget) document.getElementById(id)) != null) {
 						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-							BodyChanging.getTarget().setBreastLactation(i);
+							BodyChanging.getTarget().setBreastMilkStorage(i);
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -2975,6 +3094,26 @@ public class MainController implements Initializable {
 					}
 				}
 				
+				for(EyeType eyeType: EyeType.values()) {
+					id = "CHANGE_EYE_"+eyeType;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setEyeType(eyeType);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
+				for(EarType earType: EarType.values()) {
+					id = "CHANGE_EAR_"+earType;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setEarType(earType);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
 				for(HornType hornType: HornType.values()) {
 					id = "CHANGE_HORN_"+hornType;
 					if (((EventTarget) document.getElementById(id)) != null) {
@@ -2985,11 +3124,52 @@ public class MainController implements Initializable {
 					}
 				}
 				
+				for(AntennaType antennaType: AntennaType.values()) {
+					id = "CHANGE_ANTENNA_"+antennaType;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setAntennaType(antennaType);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+
+				for(HairType hairType: HairType.values()) {
+					id = "CHANGE_HAIR_"+hairType;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setHairType(hairType);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
+				
 				for(LegType legType: LegType.values()) {
 					id = "CHANGE_LEG_"+legType;
 					if (((EventTarget) document.getElementById(id)) != null) {
 						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 							BodyChanging.getTarget().setLegType(legType);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
+				for(FaceType faceType: FaceType.values()) {
+					id = "CHANGE_FACE_"+faceType;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setFaceType(faceType);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
+				for(SkinType skinType: SkinType.values()) {
+					id = "CHANGE_SKIN_"+skinType;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setSkinType(skinType);
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -3014,7 +3194,26 @@ public class MainController implements Initializable {
 						}, false);
 					}
 				}
+
+				for(AssType assType: AssType.values()) {
+					id = "CHANGE_ASS_"+assType;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setAssType(assType);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
 				
+				for(BreastType breastType: BreastType.values()) {
+					id = "CHANGE_BREAST_"+breastType;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setBreastType(breastType);
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
 				// Face:
 				
 				for(EyeShape eyeShape : EyeShape.values()) {
@@ -3198,7 +3397,7 @@ public class MainController implements Initializable {
 					id = "LACTATION_"+i;
 					if (((EventTarget) document.getElementById(id)) != null) {
 						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-							BodyChanging.getTarget().setBreastLactation(i);
+							BodyChanging.getTarget().setBreastMilkStorage(i);
 							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 						}, false);
 					}
@@ -4340,23 +4539,6 @@ public class MainController implements Initializable {
 				}, false);
 			}
 			
-//			id = "FORCED_TF_ON";
-//			if (((EventTarget) document.getElementById(id)) != null) {
-//				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-//					Main.getProperties().forcedTransformationContent = !Main.getProperties().forcedTransformationContent;
-//					Main.saveProperties();
-//					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-//				}, false);
-//			}
-//			id = "FORCED_TF_OFF";
-//			if (((EventTarget) document.getElementById(id)) != null) {
-//				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-//					Main.getProperties().forcedTransformationContent = !Main.getProperties().forcedTransformationContent;
-//					Main.saveProperties();
-//					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-//				}, false);
-//			}
-			
 			id = "HAIR_FACIAL_ON";
 			if (((EventTarget) document.getElementById(id)) != null) {
 				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
@@ -4442,15 +4624,92 @@ public class MainController implements Initializable {
 				}, false);
 			}
 			
-			for(int i : OptionsDialogue.forcedTFsettings) {
-				id = "FORCED_TF_"+i;
-				if (((EventTarget) document.getElementById(id)) != null) {
-					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-						Main.getProperties().forcedTFPercentage = i;
-						Main.saveProperties();
-						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-					}, false);
-				}
+
+			id = "FORCED_TF_ON";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().forcedTFPercentage = Math.min(100, Main.getProperties().forcedTFPercentage+10);
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			id = "FORCED_TF_OFF";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().forcedTFPercentage = Math.max(0, Main.getProperties().forcedTFPercentage-10);
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			
+
+			id = "PREGNANCY_BREAST_GROWTH_ON";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().pregnancyBreastGrowth = Math.min(10, Main.getProperties().pregnancyBreastGrowth+1);
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			id = "PREGNANCY_BREAST_GROWTH_OFF";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().pregnancyBreastGrowth = Math.max(0, Main.getProperties().pregnancyBreastGrowth-1);
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			
+			id = "PREGNANCY_BREAST_GROWTH_LIMIT_ON";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().pregnancyBreastGrowthLimit = Math.min(100, Main.getProperties().pregnancyBreastGrowthLimit+1);
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			id = "PREGNANCY_BREAST_GROWTH_LIMIT_OFF";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().pregnancyBreastGrowthLimit = Math.max(0, Main.getProperties().pregnancyBreastGrowthLimit-1);
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			
+			
+			id = "PREGNANCY_LACTATION_ON";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().pregnancyLactationIncrease = Math.min(1000, Main.getProperties().pregnancyLactationIncrease+50);
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			id = "PREGNANCY_LACTATION_OFF";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().pregnancyLactationIncrease = Math.max(0, Main.getProperties().pregnancyLactationIncrease-50);
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			
+			id = "PREGNANCY_LACTATION_LIMIT_ON";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().pregnancyLactationLimit = Math.min(Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue(), Main.getProperties().pregnancyLactationLimit+250);
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			id = "PREGNANCY_LACTATION_LIMIT_OFF";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().pregnancyLactationLimit = Math.max(0, Main.getProperties().pregnancyLactationLimit-250);
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
 			}
 		}
 		
@@ -4966,7 +5225,7 @@ public class MainController implements Initializable {
 					addEventListener(documentAttributes, "SA_"+idModifier + sa, "mouseenter", el, false);
 				}
 			}
-			for (Spell s : character.getSpells()) {
+			for (Spell s : character.getAllSpells()) {
 				if (((EventTarget) documentAttributes.getElementById("SPELL_"+idModifier + s)) != null) {
 					addEventListener(documentAttributes, "SPELL_"+idModifier + s, "mousemove", moveTooltipListener, false);
 					addEventListener(documentAttributes, "SPELL_"+idModifier + s, "mouseleave", hideTooltipListener, false);
@@ -5171,7 +5430,7 @@ public class MainController implements Initializable {
 						addEventListener(documentRight, "SA_NPC_"+idModifier + sa, "mouseenter", el, false);
 					}
 				}
-				for (Spell s : character.getSpells()) {
+				for (Spell s : character.getAllSpells()) {
 					if (((EventTarget) documentAttributes.getElementById("SPELL_"+idModifier + s)) != null) {
 						addEventListener(documentAttributes, "SPELL_"+idModifier + s, "mousemove", moveTooltipListener, false);
 						addEventListener(documentAttributes, "SPELL_"+idModifier + s, "mouseleave", hideTooltipListener, false);

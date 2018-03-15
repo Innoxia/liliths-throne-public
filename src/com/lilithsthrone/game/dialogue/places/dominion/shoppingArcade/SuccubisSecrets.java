@@ -521,16 +521,21 @@ public class SuccubisSecrets {
 			};
 			
 		} else if (index == 2) {
-			return new Response("Makeup",
-					"Kate offers a wide range of different cosmetic services, and several pages of the brochure are devoted to images displaying different styles and colours of lipstick, nail polish, and other forms of makeup.",
-					SHOP_BEAUTY_SALON_COSMETICS){
-				@Override
-				public void effects() {
-					if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
-						Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToKatePregnancy);
+			if(Main.game.getPlayer().getBodyMaterial()==BodyMaterial.SLIME) {
+				return new Response("Makeup", "Kate is unable to apply any makeup to your slimy body!", null);
+				
+			} else {
+				return new Response("Makeup",
+						"Kate offers a wide range of different cosmetic services, and several pages of the brochure are devoted to images displaying different styles and colours of lipstick, nail polish, and other forms of makeup.",
+						SHOP_BEAUTY_SALON_COSMETICS){
+					@Override
+					public void effects() {
+						if(Main.game.getKate().isVisiblyPregnant() && !Main.game.getDialogueFlags().values.contains(DialogueFlagValue.reactedToKatePregnancy)) {
+							Main.game.getDialogueFlags().values.add(DialogueFlagValue.reactedToKatePregnancy);
+						}
 					}
-				}
-			};
+				};
+			}
 
 		} else if (index == 3) {
 			return new Response("Hair",
@@ -577,6 +582,7 @@ public class SuccubisSecrets {
 				public void effects() {
 					
 					CoveringsNamesMap = new LinkedHashMap<>();
+					
 					if(Main.game.getPlayer().getBodyMaterial()==BodyMaterial.SLIME) {
 						CoveringsNamesMap.put(BodyCoveringType.SLIME, Util.newArrayListOfValues(new ListValue<>("SLIME")));
 					} else {
@@ -696,8 +702,8 @@ public class SuccubisSecrets {
 
 					+CharacterModificationUtils.getKatesDivHairStyles(true, "Hair Style", "Hair style availability is determined by your hair length.")
 					
-					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, Main.game.getPlayer().getHairCovering().getType(), "[pc.Hair] Colour", "All hair recolourings are permanent, so if you want to change your colour again at a later time, you'll have to visit Kate again.", true, true)
+					+CharacterModificationUtils.getKatesDivCoveringsNew(true, Main.game.getPlayer().getCovering(Main.game.getPlayer().getHairType().getBodyCoveringType()).getType(),
+							"[pc.Hair] Colour", "All hair recolourings are permanent, so if you want to change your colour again at a later time, you'll have to visit Kate again.", true, true)
 					;
 		}
 		

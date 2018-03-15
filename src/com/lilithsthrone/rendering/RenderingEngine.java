@@ -1388,30 +1388,26 @@ public enum RenderingEngine {
 		
 		panelSB.append("<hr style='border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+"; margin: 2px 0;'></hr>");
 		
+
 		panelSB.append(
-				getAttributeBarHalf(PhysiqueLevel.getPhysiqueLevelFromValue(character.getAttributeValue(Attribute.MAJOR_PHYSIQUE)).getRelatedStatusEffect().getSVGString(character),
+				getAttributeBarThird(PhysiqueLevel.getPhysiqueLevelFromValue(character.getAttributeValue(Attribute.MAJOR_PHYSIQUE)).getRelatedStatusEffect().getSVGString(character),
 						Attribute.MAJOR_PHYSIQUE.getColour(),
 						character.getAttributeValue(Attribute.MAJOR_PHYSIQUE),
 						100,
 						idPrefix + Attribute.MAJOR_PHYSIQUE.getName())
 				
-				+getAttributeBarHalf(IntelligenceLevel.getIntelligenceLevelFromValue(character.getAttributeValue(Attribute.MAJOR_ARCANE)).getRelatedStatusEffect().getSVGString(character),
+				+getAttributeBarThird(IntelligenceLevel.getIntelligenceLevelFromValue(character.getAttributeValue(Attribute.MAJOR_ARCANE)).getRelatedStatusEffect().getSVGString(character),
 						Attribute.MAJOR_ARCANE.getColour(),
 						character.getAttributeValue(Attribute.MAJOR_ARCANE),
 						100,
 						idPrefix + Attribute.MAJOR_ARCANE.getName())
 			
-				+getAttributeBarHalf(CorruptionLevel.getCorruptionLevelFromValue(character.getAttributeValue(Attribute.MAJOR_CORRUPTION)).getRelatedStatusEffect().getSVGString(character),
+				+getAttributeBarThird(CorruptionLevel.getCorruptionLevelFromValue(character.getAttributeValue(Attribute.MAJOR_CORRUPTION)).getRelatedStatusEffect().getSVGString(character),
 						Attribute.MAJOR_CORRUPTION.getColour(),
 						character.getAttributeValue(Attribute.MAJOR_CORRUPTION),
 						100,
 						idPrefix + Attribute.MAJOR_CORRUPTION.getName())
-				
-				+getAttributeBarHalf(LustLevel.getLustLevelFromValue(character.getLust()).getRelatedStatusEffect().getSVGString(character),
-						Colour.ATTRIBUTE_LUST,
-						character.getLust(),
-						100,
-						idPrefix + Attribute.LUST.getName()));
+				);
 		
 		panelSB.append("<hr style='border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+"; margin: 2px 0;'></hr>");
 		
@@ -1426,7 +1422,13 @@ public enum RenderingEngine {
 						Colour.ATTRIBUTE_MANA,
 						character.getMana(),
 						character.getAttributeValue(Attribute.MANA_MAXIMUM),
-						idPrefix + Attribute.MANA_MAXIMUM.getName()));
+						idPrefix + Attribute.MANA_MAXIMUM.getName())
+				
+				+getAttributeBar(LustLevel.getLustLevelFromValue(character.getLust()).getRelatedStatusEffect().getSVGString(character),
+						Colour.ATTRIBUTE_LUST,
+						character.getLust(),
+						100,
+						idPrefix + Attribute.LUST.getName()));
 		
 	
 							
@@ -1661,7 +1663,15 @@ public enum RenderingEngine {
 							+"</div>"
 							+"<div class='overlay' id='"+idPrefix+"ATTRIBUTES' style='cursor:pointer;'></div>"
 						+"</div>"
+						+ (character.isPlayer()
+								?"<div class='full-width-container' style='text-align:center;'>"
+									+ "<div class='half-width-container' style='padding:0 8px;'>"+ UtilText.formatAsMoney(character.getMoney(), "b") +"</div>"
+									+ "<div class='half-width-container' style='padding:0 8px;'>"+ UtilText.formatAsEssences(character.getEssenceCount(TFEssence.ARCANE), "b", true) +"</div>"
+								+"</div>"
+								:"")
 					+"</div>");
+		
+		panelSB.append("<hr style='border:1px solid "+Colour.TEXT_GREY_DARK.toWebHexString()+"; margin: 2px 0;'></hr>");
 		
 		panelSB.append(
 				getAttributeBarThird(PhysiqueLevel.getPhysiqueLevelFromValue(character.getAttributeValue(Attribute.MAJOR_PHYSIQUE)).getRelatedStatusEffect().getSVGString(character),
@@ -1812,7 +1822,7 @@ public enum RenderingEngine {
 			}
 		}
 		
-		for (Spell s : character.getSpells()) {
+		for (Spell s : character.getAllSpells()) {
 			panelSB.append(
 					"<div class='icon"+(compact?" effect":"")+"' style='border:1px solid "+Colour.DAMAGE_TYPE_SPELL.toWebHexString()+"'>"
 							+ "<div class='icon-content'>"

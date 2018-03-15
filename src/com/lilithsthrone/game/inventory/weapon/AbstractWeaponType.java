@@ -24,7 +24,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.84
- * @version 0.2.0
+ * @version 0.2.1
  * @author Innoxia
  */
 public abstract class AbstractWeaponType extends AbstractCoreType implements Serializable {
@@ -32,7 +32,13 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 	protected static final long serialVersionUID = 1L;
 
 	private int baseValue;
-	private String determiner, pronoun, name, namePlural, description, pathName;
+	private String determiner;
+	private String pronoun;
+	private String name;
+	private String namePlural;
+	private String attackDescriptor;
+	private String description;
+	private String pathName;
 	protected int damage;
 	protected DamageVariance damageVariance;
 	private InventorySlot slot;
@@ -47,6 +53,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 			String pronoun,
 			String name,
 			String namePlural,
+			String attackDescriptor,
 			String description,
 			InventorySlot slot,
 			String pathName,
@@ -62,6 +69,7 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 		this.pronoun = pronoun;
 		this.name = name;
 		this.namePlural = namePlural;
+		this.attackDescriptor = attackDescriptor;
 		this.description = description;
 		this.rarity = rarity;
 
@@ -144,13 +152,14 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 	}
 
 	public static AbstractWeapon generateWeapon(AbstractWeaponType wt, DamageType dt) {
-		DamageType damageType = dt;
-
-		if (wt.getAvailableDamageTypes() != null)
-			if (!wt.getAvailableDamageTypes().contains(dt))
+		
+		if (wt.getAvailableDamageTypes() != null) {
+			if (!wt.getAvailableDamageTypes().contains(dt)) {
 				dt = wt.getAvailableDamageTypes().get(Util.random.nextInt(wt.getAvailableDamageTypes().size()));
-
-		return new AbstractWeapon(wt, damageType) {
+			}
+		}
+		
+		return new AbstractWeapon(wt, dt) {
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -261,6 +270,18 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 		}
 	}
 
+	public boolean isAbleToBeUsed(GameCharacter user, GameCharacter target) {
+		return true;
+	}
+	
+	public String getUnableToBeUsedDescription() {
+		return "";
+	}
+	
+	public String applyExtraEfects(GameCharacter user, GameCharacter target) {
+		return "";
+	}
+	
 	public int getBaseValue() {
 		return baseValue;
 	}
@@ -280,6 +301,12 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 	public String getNamePlural() {
 		return namePlural;
 	}
+
+	public String getAttackDescriptor() {
+		return attackDescriptor;
+	}
+
+	public abstract String getAttackDescription(GameCharacter user, GameCharacter target);
 
 	public String getDescription() {
 		return description;
@@ -309,6 +336,10 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 		return attributeModifiers;
 	}
 
+	public Map<Attribute, Integer> getGenerationAttributeModifiers(DamageType dt) {
+		return null;
+	}
+	
 	public List<DamageType> getAvailableDamageTypes() {
 		return availableDamageTypes;
 	}
@@ -319,5 +350,9 @@ public abstract class AbstractWeaponType extends AbstractCoreType implements Ser
 
 	public List<Spell> getSpells() {
 		return spells;
+	}
+	
+	public List<Spell> getGenerationSpells(DamageType dt) {
+		return null;
 	}
 }

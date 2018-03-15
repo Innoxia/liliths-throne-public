@@ -383,8 +383,8 @@ public enum Encounter {
 	},
 	
 	SUBMISSION_TUNNELS(Util.newHashMapOfValues(
-			new Value<EncounterType, Float>(EncounterType.SUBMISSION_TUNNEL_ATTACK, 15f),
-			new Value<EncounterType, Float>(EncounterType.SUBMISSION_FIND_ITEM, 3f))) {
+			new Value<EncounterType, Float>(EncounterType.SUBMISSION_TUNNEL_ATTACK, 20f),
+			new Value<EncounterType, Float>(EncounterType.SUBMISSION_FIND_ITEM, 10f))) {
 
 		@Override
 		protected DialogueNodeOld initialiseEncounter(EncounterType node) {
@@ -426,7 +426,7 @@ public enum Encounter {
 				
 			} else if (node == EncounterType.SUBMISSION_FIND_ITEM) {
 				
-				if(Math.random()<0.95f) {
+				if(Math.random()<0.8f) {
 					randomItem = AbstractItemType.generateItem(ItemType.submissionTunnelItems.get(Util.random.nextInt(ItemType.submissionTunnelItems.size())));
 				} else {
 					randomItem = AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_SLIME);

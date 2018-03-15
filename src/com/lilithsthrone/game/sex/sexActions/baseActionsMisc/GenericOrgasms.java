@@ -7,6 +7,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.attributes.ObedienceLevel;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
 import com.lilithsthrone.game.character.fetishes.Fetish;
@@ -1313,8 +1314,20 @@ public class GenericOrgasms {
 			}
 		}
 		
+
+		
 		if(target!=null) {
+			if(target.getBodyMaterial()==BodyMaterial.SLIME) {
+				if(characterOrgasming.isPlayer()) {
+					cumTargetSB.append("</br>"
+							+ "As [npc2.name]'s body is made completely out of translucent slime, you're able to see the cloud of your [npc1.cum+] shooting up and dispersing inside of her.");
+				} else {
+					cumTargetSB.append("</br>"
+							+ "As your body is made completely out of translucent slime, you're able to see the cloud of [npc1.name]'s [npc1.cum+] shooting up and dispersing inside of you.");
+				}
+			}
 			return UtilText.parse(characterOrgasming, target, cumTargetSB.toString());
+			
 		} else {
 			return UtilText.parse(characterOrgasming, cumTargetSB.toString());
 		}

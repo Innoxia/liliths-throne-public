@@ -1,13 +1,14 @@
 package com.lilithsthrone.game.sex;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.effects.StatusEffect;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Colour;
 
 /**
  * @since 0.1.65
- * @version 0.1.66
+ * @version 0.2.1
  * @author Innoxia
  */
 public enum PregnancyDescriptor {
@@ -15,11 +16,16 @@ public enum PregnancyDescriptor {
 	ALREADY_PREGNANT {
 		@Override
 		public String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum) {
+			boolean isSlime = characterBeingImpregnated.getBodyMaterial()==BodyMaterial.SLIME;
+			
 			if(characterBeingImpregnated.isPlayer()){
 					return UtilText.parse(characterProvidingCum,
 							"<p>"
-								+ "You feel [npc.name]'s [npc.cum+] deep in your [pc.pussy+], but because "
-								+ "<b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>you're already pregnant, you don't have to worry about it!</b>"
+								+ "You feel [npc.name]'s [npc.cum+] "
+									+(isSlime
+										?"dispersing through your slimy body, seeking to impregnate your core"
+										:"deep in your [pc.pussy+]")
+								+", but because <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>you're already pregnant, you don't have to worry about it!</b>"
 							+ "</p>");
 			}else{
 				if(characterProvidingCum.isPlayer()) {
@@ -36,13 +42,20 @@ public enum PregnancyDescriptor {
 			}
 		}
 	},
+	
 	NO_CHANCE {
 		@Override
 		public String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum) {
+			boolean isSlime = characterBeingImpregnated.getBodyMaterial()==BodyMaterial.SLIME;
+			
 			if(characterBeingImpregnated.isPlayer()){
 					return UtilText.parse(characterProvidingCum,
 							"<p>"
-								+ "Despite feeling [npc.name]'s [npc.cum+] deep in your womb, you feel that <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>you aren't going to get pregnant from this.</b>"
+								+ "Despite feeling [npc.name]'s [npc.cum+] "
+									+(isSlime
+										?"dispersing through your slimy body, seeking to impregnate your core"
+										:"deep in your womb")
+								+", you feel that <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>you aren't going to get pregnant from this.</b>"
 							+ "</p>");
 			}else{
 				if(characterProvidingCum.isPlayer()) {
@@ -59,21 +72,33 @@ public enum PregnancyDescriptor {
 			}
 		}
 	},
+	
 	LOW_CHANCE {
 		@Override
 		public String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum) {
+			boolean isSlime = characterBeingImpregnated.getBodyMaterial()==BodyMaterial.SLIME;
+			
 			if(characterBeingImpregnated.isPlayer()){
-				return "<p>"
-						+ "You feel " + characterProvidingCum.getName("the") + "'s hot cum deep in your womb, and you realise that <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
+				return UtilText.parse(characterProvidingCum,
+						"<p>"
+							+ "You feel [npc.name]'s [npc.cum+] "
+							+(isSlime
+									?"dispersing through your slimy body, seeking to impregnate your core"
+									:"deep in your womb")
+							+", and you realise that <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
 								+ (characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)
 										?"if you aren't already pregnant, there's a small chance you are now!</b>"
 										:"there's a small chance you'll get pregnant!</b>")
-						+ "</p>";
+						+ "</p>");
 			}else{
 				if(characterProvidingCum.isPlayer()) {
 					return UtilText.parse(characterBeingImpregnated,
 							"<p>"
-							+ "After depositing your hot cum in [npc.name]'s womb, you realise that <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
+							+ "After depositing your [pc.cum+] in [npc.name]'s "
+							+(isSlime
+									?"slimy body"
+									:"womb")
+							+", you realise that <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
 									+ (characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)
 											?"if [npc.she] isn't already pregnant, there's a small chance [npc.she] is now!</b>"
 											:"there's a small chance [npc.she]'s going to get pregnant!</b>")
@@ -81,7 +106,11 @@ public enum PregnancyDescriptor {
 				} else {
 					return UtilText.parse(characterProvidingCum, characterBeingImpregnated,
 							"<p>"
-								+ "Now that [npc1.name] has deposited [npc1.her] [npc1.cum+] in [npc2.name]'s womb, <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
+								+ "Now that [npc1.name] has deposited [npc1.her] [npc1.cum+] in [npc2.name]'s "
+								+(isSlime
+										?"slimy body"
+										:"womb")
+								+", <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
 										+ (characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)
 												?"if [npc2.she] isn't already pregnant, there's a small chance [npc2.she] is now!</b>"
 												:"there's a small chance that [npc2.she]'s going to get pregnant!</b>")
@@ -90,21 +119,33 @@ public enum PregnancyDescriptor {
 			}
 		}
 	},
+	
 	AVERAGE_CHANCE {
 		@Override
 		public String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum) {
+			boolean isSlime = characterBeingImpregnated.getBodyMaterial()==BodyMaterial.SLIME;
+			
 			if(characterBeingImpregnated.isPlayer()){
-				return "<p>"
-						+ "You feel " + characterProvidingCum.getName("the") + "'s hot cum deep in your womb, and you realise that <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
+				return UtilText.parse(characterProvidingCum,
+						"<p>"
+						+ "You feel [npc.name]'s [npc.cum+] "
+						+(isSlime
+								?"dispersing through your slimy body, seeking to impregnate your core"
+								:"deep in your womb")
+						+", and you realise that <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
 								+ (characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)
 										?"if you aren't already pregnant, there's a chance you are now!</b>"
 										:"there's a chance you'll get pregnant!</b>")
-						+ "</p>";
+						+ "</p>");
 			}else{
 				if(characterProvidingCum.isPlayer()) {
 					return UtilText.parse(characterBeingImpregnated,
 							"<p>"
-							+ "After depositing your hot cum in [npc.name]'s womb, you realise that <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
+							+ "After depositing your [pc.cum+] in [npc.name]'s "
+							+(isSlime
+									?"slimy body"
+									:"womb")
+							+", you realise that <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
 									+ (characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)
 											?"if [npc.she] isn't already pregnant, there's a chance [npc.she] is now!</b>"
 											:"there's a chance [npc.she]'s going to get pregnant!</b>")
@@ -112,7 +153,11 @@ public enum PregnancyDescriptor {
 				} else {
 					return UtilText.parse(characterProvidingCum, characterBeingImpregnated,
 							"<p>"
-								+ "Now that [npc1.name] has deposited [npc1.her] [npc1.cum+] in [npc2.name]'s womb, <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
+								+ "Now that [npc1.name] has deposited [npc1.her] [npc1.cum+] in [npc2.name]'s "
+								+(isSlime
+										?"slimy body"
+										:"womb")
+								+", <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
 										+ (characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)
 												?"if [npc2.she] isn't already pregnant, there's a chance [npc2.she] is now!</b>"
 												:"there's a chance that [npc2.she]'s going to get pregnant!</b>")
@@ -121,21 +166,33 @@ public enum PregnancyDescriptor {
 			}
 		}
 	},
+	
 	HIGH_CHANCE {
 		@Override
 		public String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum) {
+			boolean isSlime = characterBeingImpregnated.getBodyMaterial()==BodyMaterial.SLIME;
+			
 			if(characterBeingImpregnated.isPlayer()){
-				return "<p>"
-						+ "You feel " + characterProvidingCum.getName("the") + "'s hot cum deep in your womb, and you realise that <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
+				return UtilText.parse(characterProvidingCum,
+						"<p>"
+						+ "You feel [npc.name]'s [npc.cum+] "+
+						(isSlime
+								?"dispersing through your slimy body, seeking to impregnate your core"
+								:"deep in your womb")
+						+", and you realise that <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
 								+ (characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)
 										?"if you aren't already pregnant, there's a high chance you are now!</b>"
 										:"there's a high chance you'll get pregnant!</b>")
-						+ "</p>";
+						+ "</p>");
 			}else{
 				if(characterProvidingCum.isPlayer()) {
 					return UtilText.parse(characterBeingImpregnated,
 							"<p>"
-							+ "After depositing your hot cum in [npc.name]'s womb, you realise that <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
+							+ "After depositing your [pc.cum+] in [npc.name]'s "
+							+(isSlime
+									?"slimy body"
+									:"womb")
+							+", you realise that <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
 									+ (characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)
 											?"if [npc.she] isn't already pregnant, there's a high chance [npc.she] is now!</b>"
 											:"there's a high chance [npc.she]'s going to get pregnant!</b>")
@@ -143,7 +200,11 @@ public enum PregnancyDescriptor {
 				} else {
 					return UtilText.parse(characterProvidingCum, characterBeingImpregnated,
 							"<p>"
-								+ "Now that [npc1.name] has deposited [npc1.her] [npc1.cum+] in [npc2.name]'s womb, <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
+								+ "Now that [npc1.name] has deposited [npc1.her] [npc1.cum+] in [npc2.name]'s "
+								+(isSlime
+										?"slimy body"
+										:"womb")
+								+", <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
 										+ (characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)
 												?"if [npc2.she] isn't already pregnant, there's a high chance [npc2.she] is now!</b>"
 												:"there's a high chance that [npc2.she]'s going to get pregnant!</b>")
@@ -152,21 +213,33 @@ public enum PregnancyDescriptor {
 			}
 		}
 	},
+	
 	CERTAINTY {
 		@Override
 		public String getDescriptor(GameCharacter characterBeingImpregnated, GameCharacter characterProvidingCum) {
+			boolean isSlime = characterBeingImpregnated.getBodyMaterial()==BodyMaterial.SLIME;
+			
 			if(characterBeingImpregnated.isPlayer()){
-				return "<p>"
-						+ "You feel " + characterProvidingCum.getName("the") + "'s hot cum deep in your womb, and you realise that <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
+				return UtilText.parse(characterProvidingCum,
+						"<p>"
+							+ "You feel [npc.name]'s [npc.cum+] "
+							+(isSlime
+									?"dispersing through your slimy body, seeking to impregnate your core"
+									:"deep in your womb")
+							+", and you realise that <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
 								+ (characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)
 										?"if you aren't already pregnant, you certainly are now!</b>"
 										:"it's a certainty that you'll get pregnant!</b>")
-						+ "</p>";
+						+ "</p>");
 			}else{
 				if(characterProvidingCum.isPlayer()) {
 					return UtilText.parse(characterBeingImpregnated,
 							"<p>"
-							+ "After depositing your hot cum in [npc.name]'s womb, you realise that <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
+							+ "After depositing your [pc.cum+] in [npc.name]'s "
+							+(isSlime
+									?"slimy body"
+									:"womb")
+							+", you realise that <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
 									+ (characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)
 											?"if [npc.she] isn't already pregnant, [npc.she] certainly is now!</b>"
 											:"it's a certainty that [npc.she]'s going to get pregnant!</b>")
@@ -174,7 +247,11 @@ public enum PregnancyDescriptor {
 				} else {
 					return UtilText.parse(characterProvidingCum, characterBeingImpregnated,
 							"<p>"
-								+ "Now that [npc1.name] has deposited [npc1.her] [npc1.cum+] in [npc2.name]'s womb, <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
+								+ "Now that [npc1.name] has deposited [npc1.her] [npc1.cum+] in [npc2.name]'s "
+								+(isSlime
+										?"slimy body"
+										:"womb")
+								+", <b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>"
 										+ (characterBeingImpregnated.hasStatusEffect(StatusEffect.PREGNANT_0)
 												?"if [npc2.she] isn't already pregnant, [npc2.she] certainly is now!</b>"
 												:"it's a certainty that [npc2.she]'s going to get pregnant!</b>")

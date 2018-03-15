@@ -387,7 +387,7 @@ public class Library {
 						+ " It only takes a few minutes for new-borns to develop and mature into adults, and will inherit all of the common knowledge held by their parents."
 						+ " This doesn't include specific memories, so, for example, if a child's mother knows how to read and write, they will too, but they won't have the memory of their mother learning this information."
 					+ "</p>"
-					+ "</p>"
+					+ "<p>"
 						+ "After reaching full maturity within a matter of hours, the vast majority of children will immediately leave their parents in order to strike out for themselves and become fully independent."
 						+ " Despite this almost-immediate separation, a parent will always share special maternal or paternal bonds with their children, and, whether due to the arcane or some natural intuition,"
 							+ " a parent and child, as well as siblings, will always recognise each other at first sight."

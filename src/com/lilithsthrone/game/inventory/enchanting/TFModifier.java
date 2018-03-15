@@ -444,6 +444,14 @@ public enum TFModifier {
 			Colour.BASE_ROSE,
 			Rarity.COMMON),
 	
+
+	TF_MOD_REGENERATION("regeneration",
+			"Applies an effect related to the regeneration rate of fluids.",
+			"refilling",
+			"modifier_circle_regeneration",
+			Colour.BASE_GREEN_LIGHT,
+			Rarity.COMMON),
+	
 	// Orifices:
 	
 	TF_MOD_CAPACITY("capacity",

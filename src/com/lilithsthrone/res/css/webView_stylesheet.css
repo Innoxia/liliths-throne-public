@@ -158,7 +158,20 @@ details{
 	border-radius:5px;
 }
 summary{
+	font-weight: bold;
+	text-align:center;
+	
+	margin:8px auto 8px auto;
+	padding:8px;
+	width: calc(100% - 16px);
+	
+	background:#333;
+	border-radius:5px;
 	outline:none;
+}
+summary:hover {
+	cursor:pointer;
+	background:#444;
 }
 
 td, th{
@@ -303,42 +316,53 @@ input:focus {
 	position:relative;
 	border-radius: 5px;
 	width:8.33%;
-	border:solid 1px #444;
+	border:solid 2px #444;
 	margin: 2px 0 0 0;
 	-webkit-box-sizing: border-box;
 	cursor:pointer;
+	
+	background: -webkit-gradient(
+		linear, left top, left bottom,
+		from(#555),
+		color-stop(0.50, #444),
+		color-stop(0.92, #333),
+		to(#222));
+	text-shadow:
+		1px 1px 2px rgba(000,000,000,0.7),
+		0px 1px 0px rgba(000,000,000,0.4);
 }
 .normal-button.hour{
-	background-color: #222;
+	background: #222;
 }
 .normal-button:hover{
-	background-color: #666;
+	background: #666;
 }
 .normal-button.selected{
-	background-color: #444;
-	border:solid 1px #666;
+	background: #444;
+	border:solid 2px #666;
 }
 .normal-button.hour.selected{
-	background-color: #186737;
+	background: #186737;
 }
 .normal-button.selected:hover{
-	background-color: #777;
+	background: #777;
 }
 .normal-button.hour.selected:hover{
-	background-color: #239550;
+	background: #239550;
 }
 .normal-button.disabled{
+	background: #333;
 	color: #444;
 	cursor:default;
 }
 .normal-button.disabled:hover{
-	background-color: #333;
+	background: #333;
 }
 .normal-button.hour.disabled{
-	background-color: #222;
+	background: #222;
 }
 .normal-button.hour.disabled.selected{
-	background-color: #333;
+	background: #333;
 }
 
 /***********************************************************/

@@ -94,7 +94,7 @@ public class PrologueFemale extends NPC {
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_ROSE_GOLD, false), true, this);
 			
 			this.addFetish(Fetish.FETISH_MASOCHIST);
-			this.addFetish(Fetish.FETISH_ORAL_GIVING);
+			this.addFetish(Fetish.FETISH_VAGINAL_RECEIVING);
 		}
 	}
 	

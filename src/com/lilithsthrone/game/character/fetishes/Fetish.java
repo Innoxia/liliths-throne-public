@@ -285,6 +285,70 @@ public enum Fetish {
 		}
 	},
 	
+	FETISH_LACTATION_OTHERS(60,
+			"milk lover",
+			"being breast-fed",
+			"fetish_lactation_others",
+			Fetish.BASE_EXPERIENCE_GAIN,
+			Colour.GENERIC_ARCANE,
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>milk-lover tease</span>"),
+					new ListValue<>("<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Weak to</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>lactation tease</span>")),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "You have an obsession with being breast-fed. You love nothing more than to be suckling on someone's engorged, milky teats.";
+			} else {
+				return UtilText.parse(owner, "[npc.Name] has a fetish for being breast-fed.");
+			}
+		}
+
+		@Override
+		public String getFetishDesireDescription(GameCharacter target, FetishDesire desire) {
+			return getGenericFetishDesireDescription(target, desire, "being breast-fed");
+		}
+		
+		@Override
+		public CorruptionLevel getAssociatedCorruptionLevel() {
+			return CorruptionLevel.ONE_VANILLA;
+		}
+	},
+	
+	FETISH_LACTATION_SELF(60,
+			"lactation",
+			"lactating",
+			"fetish_lactation_self",
+			Fetish.BASE_EXPERIENCE_GAIN,
+			Colour.GENERIC_ARCANE,
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Unlocks</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>lactation tease</span>"),
+					new ListValue<>("<span style='color:"+ Colour.GENERIC_BAD.toWebHexString()+ ";'>Weak to</span> <span style='color:"+ Colour.GENERIC_SEX.toWebHexString()+ ";'>milk-lover tease</span>")),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "You have an obsession with lactating. You love nothing more than the full, satisfying feeling of having your breasts milked.";
+			} else {
+				return UtilText.parse(owner, "[npc.Name] has a fetish for lactating.");
+			}
+		}
+
+		@Override
+		public String getFetishDesireDescription(GameCharacter target, FetishDesire desire) {
+			return getGenericFetishDesireDescription(target, desire, "having your [npc.breasts] milked");
+		}
+		
+		@Override
+		public CorruptionLevel getAssociatedCorruptionLevel() {
+			return CorruptionLevel.ONE_VANILLA;
+		}
+	},
+	
 	FETISH_LEG_LOVER(60,
 			"leg lover",
 			"partner's legs",

@@ -909,6 +909,7 @@ public enum Subspecies {
 	public String getOffspringFemaleName() {
 		return pluralFemaleName;
 	}
+	
 	public String getOffspringFemaleNameSingular() {
 		return singularFemaleName;
 	}

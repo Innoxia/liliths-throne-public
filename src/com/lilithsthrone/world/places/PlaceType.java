@@ -63,7 +63,7 @@ public enum PlaceType {
 	
 	GENERIC_EMPTY_TILE("Empty", "dominion/slaverAlleyIcon",  BaseColour.CRIMSON, null, null, true, false, false, true, ""),
 	
-	GENERIC_MUSEUM("Museum", "dominion/slaverAlleyIcon",  BaseColour.TAN, null, null, true, false, true, false, "in the restroom of Lily's Museum"),
+	GENERIC_MUSEUM("Museum", "dominion/slaverAlleyIcon",  BaseColour.TAN, null, null, true, false, true, false, "in Lily's Museum"),
 	
 	
 	DOMINION_STREET("Dominion Streets", null, null, CityPlaces.STREET, Encounter.DOMINION_STREET, true, false, false, true, "in the streets of Dominion") {

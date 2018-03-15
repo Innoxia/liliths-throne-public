@@ -855,7 +855,7 @@ public class GenericActions {
 						+ " [npc.speech(You love begging for me to fuck you, isn't that right?)]"
 					+ "</p>"
 					+ "<p>"
-						+ "As the hypnotic suggestion sinks into your head, you cna't help but feel a lot more eager, and [pc.moan],"
+						+ "As the hypnotic suggestion sinks into your head, you can't help but feel a lot more eager, and [pc.moan],"
 						+ " [pc.speech(Yes! I love it! Please, fuck me! I <i>need</i> you to fuck me!)]"
 					+ "</p>";
 		}

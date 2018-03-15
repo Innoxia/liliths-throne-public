@@ -78,6 +78,11 @@ public class SupplierDepot {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		public int getMinutesPassed(){
+			return 1;
+		}
+		
+		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
 			
@@ -182,6 +187,11 @@ public class SupplierDepot {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		public int getMinutesPassed(){
+			return 1;
+		}
+		
+		@Override
 		public String getContent() {
 			return UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "CORRIDOR");
 		}
@@ -195,6 +205,11 @@ public class SupplierDepot {
 	public static final DialogueNodeOld SUPPLIER_DEPOT_STORAGE_ROOM = new DialogueNodeOld("Storage Room", "-", false) {
 		private static final long serialVersionUID = 1L;
 
+		@Override
+		public int getMinutesPassed(){
+			return 1;
+		}
+		
 		@Override
 		public String getContent() {
 			UtilText.nodeContentSB.setLength(0);
@@ -239,6 +254,11 @@ public class SupplierDepot {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		public int getMinutesPassed(){
+			return 5;
+		}
+		
+		@Override
 		public String getContent() {
 			return (UtilText.parseFromXMLFile("places/dominion/shoppingArcade/suppliersDepot", "STORAGE_ROOM"));
 		}
@@ -256,7 +276,7 @@ public class SupplierDepot {
 	
 	public static final DialogueNodeOld SUPPLIER_DEPOT_OFFICE = new DialogueNodeOld("Office", "-", true) {
 		private static final long serialVersionUID = 1L;
-
+		
 		@Override
 		public String getContent() {
 			if(Main.game.getPlayer().hasStatusEffect(StatusEffect.SET_ENFORCER)) {

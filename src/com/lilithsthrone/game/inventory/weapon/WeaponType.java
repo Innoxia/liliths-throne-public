@@ -14,6 +14,7 @@ import com.lilithsthrone.game.combat.Spell;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
 import com.lilithsthrone.game.inventory.Rarity;
+import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
@@ -32,13 +33,18 @@ public class WeaponType {
 			"it",
 			"opaque demonstone",
 			"opaque demonstones",
+			"Crystal Strike",
 			"A common type of demonstone, the power of which can be harnessed as a weapon."
 					+ " Demonstones are rumoured to be crystallised essences of a Lilin's orgasm.",
 			InventorySlot.WEAPON_MAIN,
 			"meleeCrystal1",
 			Rarity.RARE,
-			Util.newArrayListOfValues(new ListValue<DamageType>(DamageType.PHYSICAL), new ListValue<DamageType>(DamageType.FIRE), new ListValue<DamageType>(DamageType.ICE), new ListValue<DamageType>(DamageType.POISON)),
-			10,
+			Util.newArrayListOfValues(
+					new ListValue<DamageType>(DamageType.PHYSICAL),
+					new ListValue<DamageType>(DamageType.FIRE),
+					new ListValue<DamageType>(DamageType.ICE),
+					new ListValue<DamageType>(DamageType.POISON)),
+			8,
 			DamageVariance.MEDIUM,
 			null,
 			null) {
@@ -59,6 +65,12 @@ public class WeaponType {
 		public String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
 			return genericMeleeAttackDescription(character, target, isHit);
 		}
+
+		@Override
+		public String getAttackDescription(GameCharacter user, GameCharacter target) {
+			return UtilText.parse(target,
+					"Strike at [npc.name] in melee, using your crystal's power to inflict extra damage!");
+		}
 	};
 	
 	public static AbstractWeaponType MELEE_CHAOS_EPIC = new AbstractWeaponType(1500,
@@ -66,13 +78,18 @@ public class WeaponType {
 			"it",
 			"misty demonstone",
 			"misty demonstones",
+			"Crystal Strike",
 			"A powerful demonstone, the power of which can be harnessed as a weapon."
 					+ " Demonstones are rumoured to be crystallised essences of a Lilin's orgasm.",
 			InventorySlot.WEAPON_MAIN,
 			"meleeCrystal2",
 			Rarity.EPIC,
-			Util.newArrayListOfValues(new ListValue<DamageType>(DamageType.PHYSICAL), new ListValue<DamageType>(DamageType.FIRE), new ListValue<DamageType>(DamageType.ICE), new ListValue<DamageType>(DamageType.POISON)),
-			15,
+			Util.newArrayListOfValues(
+					new ListValue<DamageType>(DamageType.PHYSICAL),
+					new ListValue<DamageType>(DamageType.FIRE),
+					new ListValue<DamageType>(DamageType.ICE),
+					new ListValue<DamageType>(DamageType.POISON)),
+			14,
 			DamageVariance.MEDIUM,
 			null,
 			null) {
@@ -93,6 +110,50 @@ public class WeaponType {
 		public String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
 			return genericMeleeAttackDescription(character, target, isHit);
 		}
+
+		@Override
+		public String getAttackDescription(GameCharacter user, GameCharacter target) {
+			return UtilText.parse(target,
+					"Strike at [npc.name] in melee, using your crystal's power to inflict extra damage!");
+		}
+
+		@Override
+		public Map<Attribute, Integer> getGenerationAttributeModifiers(DamageType dt) {
+			switch(dt) {
+				case FIRE:
+					return Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_FIRE, 5));
+				case ICE:
+					return Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_ICE, 5));
+				case LUST:
+					break;
+				case MISC:
+					break;
+				case PHYSICAL:
+					return Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_PHYSICAL, 5));
+				case POISON:
+					return Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_POISON, 5));
+			}
+			return null;
+		}
+		
+		@Override
+		public List<Spell> getGenerationSpells(DamageType dt) {
+			switch(dt) {
+				case FIRE:
+					return Util.newArrayListOfValues(new ListValue<>(Spell.FIREBALL_1));
+				case ICE:
+					return Util.newArrayListOfValues(new ListValue<>(Spell.ICESHARD_1));
+				case LUST:
+					break;
+				case MISC:
+					break;
+				case PHYSICAL:
+					return Util.newArrayListOfValues(new ListValue<>(Spell.SLAM_1));
+				case POISON:
+					return Util.newArrayListOfValues(new ListValue<>(Spell.POISON_NOVA_1));
+			}
+			return null;
+		}
 	};
 	
 	public static AbstractWeaponType MELEE_CHAOS_LEGENDARY = new AbstractWeaponType(2500,
@@ -100,19 +161,21 @@ public class WeaponType {
 			"it",
 			"clear demonstone",
 			"clear demonstones",
+			"Crystal Strike",
 			"An extremely powerful demonstone, the power of which can be harnessed as a weapon."
 					+ " Demonstones are rumoured to be crystallised essences of a Lilin's orgasm.",
 			InventorySlot.WEAPON_MAIN,
 			"meleeCrystal3",
 			Rarity.LEGENDARY,
-			Util.newArrayListOfValues(new ListValue<DamageType>(DamageType.FIRE)),
+			Util.newArrayListOfValues(
+					new ListValue<DamageType>(DamageType.PHYSICAL),
+					new ListValue<DamageType>(DamageType.FIRE),
+					new ListValue<DamageType>(DamageType.ICE),
+					new ListValue<DamageType>(DamageType.POISON)),
 			20,
 			DamageVariance.LOW,
-			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.MAJOR_PHYSIQUE, 5)),
-			Util.newArrayListOfValues(
-					new ListValue<Spell>(Spell.FIREBALL_1),
-					new ListValue<Spell>(Spell.FIRE_SHIELD),
-					new ListValue<Spell>(Spell.FIRE_INFERNO))) {
+			null,
+			null){
 
 		private static final long serialVersionUID = 1L;
 
@@ -130,6 +193,66 @@ public class WeaponType {
 		public String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
 			return genericMeleeAttackDescription(character, target, isHit);
 		}
+
+		@Override
+		public String getAttackDescription(GameCharacter user, GameCharacter target) {
+			return UtilText.parse(target,
+					"Strike at [npc.name] in melee, using your crystal's power to inflict extra damage!");
+		}
+
+		@Override
+		public Map<Attribute, Integer> getGenerationAttributeModifiers(DamageType dt) {
+			switch(dt) {
+				case FIRE:
+					return Util.newHashMapOfValues(
+							new Value<>(Attribute.DAMAGE_FIRE, 5),
+							new Value<>(Attribute.RESISTANCE_FIRE, 5));
+				case ICE:
+					return Util.newHashMapOfValues(
+							new Value<>(Attribute.DAMAGE_ICE, 5),
+							new Value<>(Attribute.RESISTANCE_ICE, 5));
+				case LUST:
+					break;
+				case MISC:
+					break;
+				case PHYSICAL:
+					return Util.newHashMapOfValues(
+							new Value<>(Attribute.DAMAGE_PHYSICAL, 5),
+							new Value<>(Attribute.RESISTANCE_PHYSICAL, 5));
+				case POISON:
+					return Util.newHashMapOfValues(
+							new Value<>(Attribute.DAMAGE_POISON, 5),
+							new Value<>(Attribute.RESISTANCE_POISON, 5));
+			}
+			return null;
+		}
+		
+		@Override
+		public List<Spell> getGenerationSpells(DamageType dt) {
+			switch(dt) {
+				case FIRE:
+					return Util.newArrayListOfValues(
+							new ListValue<>(Spell.FIREBALL_1),
+							new ListValue<>(Spell.FIRE_SHIELD));
+				case ICE:
+					return Util.newArrayListOfValues(
+							new ListValue<>(Spell.ICESHARD_1),
+							new ListValue<>(Spell.ICE_SHIELD));
+				case LUST:
+					break;
+				case MISC:
+					break;
+				case PHYSICAL:
+					return Util.newArrayListOfValues(
+							new ListValue<>(Spell.SLAM_1),
+							new ListValue<>(Spell.ARCANE_SHIELD));
+				case POISON:
+					return Util.newArrayListOfValues(
+							new ListValue<>(Spell.POISON_NOVA_1),
+							new ListValue<>(Spell.POISON_SHIELD));
+			}
+			return null;
+		}
 	};
 
 	// OFFHAND
@@ -138,13 +261,14 @@ public class WeaponType {
 			"it",
 			"chaos feather",
 			"chaos feathers",
+			"Feather Bolt",
 			"A magical feather, the power of which can be harnessed as a weapon."
 					+ " Feathers like this are rumoured to have been plucked from a Lilin's wings.",
 			InventorySlot.WEAPON_OFFHAND,
 			"rangedFeather1",
 			Rarity.RARE,
 			Util.newArrayListOfValues(new ListValue<DamageType>(DamageType.PHYSICAL), new ListValue<DamageType>(DamageType.FIRE), new ListValue<DamageType>(DamageType.ICE), new ListValue<DamageType>(DamageType.POISON)),
-			10,
+			8,
 			DamageVariance.HIGH,
 			null,
 			null) {
@@ -165,6 +289,12 @@ public class WeaponType {
 		public String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
 			return genericRangedAttackDescription(character, target, isHit);
 		}
+
+		@Override
+		public String getAttackDescription(GameCharacter user, GameCharacter target) {
+			return UtilText.parse(target,
+					"Use your feather's power to shoot a bolt of energy at [npc.name]!");
+		}
 	};
 	
 	public static AbstractWeaponType OFFHAND_CHAOS_EPIC = new AbstractWeaponType(1500,
@@ -172,13 +302,14 @@ public class WeaponType {
 			"it",
 			"chaos feather",
 			"chaos feathers",
+			"Feather Bolt",
 			"A well-preserved magical feather, the power of which can be harnessed as a weapon."
 					+ " Feathers like this are rumoured to have been plucked from a Lilin's wings.",
 			InventorySlot.WEAPON_OFFHAND,
 			"rangedFeather2",
 			Rarity.EPIC,
 			Util.newArrayListOfValues(new ListValue<DamageType>(DamageType.PHYSICAL), new ListValue<DamageType>(DamageType.FIRE), new ListValue<DamageType>(DamageType.ICE), new ListValue<DamageType>(DamageType.POISON)),
-			15,
+			14,
 			DamageVariance.HIGH,
 			null,
 			null) {
@@ -199,6 +330,50 @@ public class WeaponType {
 		public String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
 			return genericRangedAttackDescription(character, target,isHit);
 		}
+
+		@Override
+		public String getAttackDescription(GameCharacter user, GameCharacter target) {
+			return UtilText.parse(target,
+					"Use your feather's power to shoot a bolt of energy at [npc.name]!");
+		}
+
+		@Override
+		public Map<Attribute, Integer> getGenerationAttributeModifiers(DamageType dt) {
+			switch(dt) {
+				case FIRE:
+					return Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_FIRE, 5));
+				case ICE:
+					return Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_ICE, 5));
+				case LUST:
+					break;
+				case MISC:
+					break;
+				case PHYSICAL:
+					return Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_PHYSICAL, 5));
+				case POISON:
+					return Util.newHashMapOfValues(new Value<>(Attribute.DAMAGE_POISON, 5));
+			}
+			return null;
+		}
+		
+		@Override
+		public List<Spell> getGenerationSpells(DamageType dt) {
+			switch(dt) {
+				case FIRE:
+					return Util.newArrayListOfValues(new ListValue<>(Spell.FIRE_SHIELD));
+				case ICE:
+					return Util.newArrayListOfValues(new ListValue<>(Spell.ICE_SHIELD));
+				case LUST:
+					break;
+				case MISC:
+					break;
+				case PHYSICAL:
+					return Util.newArrayListOfValues(new ListValue<>(Spell.ARCANE_SHIELD));
+				case POISON:
+					return Util.newArrayListOfValues(new ListValue<>(Spell.POISON_SHIELD));
+			}
+			return null;
+		}
 	};
 	
 	// I made this in one of my lunch breaks x_x
@@ -207,12 +382,13 @@ public class WeaponType {
 			"it",
 			"Western KKP",
 			"Western KKPs",
+			"Fire KKP",
 			"A blowback-operated semi-automatic pistol, featuring an exposed hammer, a traditional double-action trigger mechanism, a single-column magazine, and a fixed barrel that also acts as the guide rod for the recoil spring.",
 			InventorySlot.WEAPON_MAIN,
 			"western_kkp",
 			Rarity.LEGENDARY,
 			Util.newArrayListOfValues(new ListValue<DamageType>(DamageType.PHYSICAL)),
-			10000,
+			100000,
 			DamageVariance.LOW,
 			null,
 			null) {
@@ -233,6 +409,109 @@ public class WeaponType {
 		public String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
 			return "You just shoot them... Thankfully, there seems to be some kind of arcane force preventing your gun from actually killing them...";
 		}
+
+		@Override
+		public String getAttackDescription(GameCharacter user, GameCharacter target) {
+			return UtilText.parse(target,
+					"The name's [pc.surname]... [pc.name] [pc.surname].");
+		}
+	};
+	
+	public static AbstractWeaponType RANGED_MUSKET = new AbstractWeaponType(15000,
+			"an",
+			"it",
+			"Arcane Musket",
+			"Arcane Muskets",
+			"Fire Musket",
+			"Carried by Lyssieth's demonic guard, these smoothbore long guns fire bolts of arcane energy instead of bullets."
+					+ " Each discharge drains one arcane essence from the user, meaning that only those who have the ability to absorb arcane essences can fire it.",
+			InventorySlot.WEAPON_MAIN,
+			"arcaneMusket",
+			Rarity.LEGENDARY,
+			Util.newArrayListOfValues(
+					new ListValue<DamageType>(DamageType.PHYSICAL)),
+			25,
+			DamageVariance.LOW,
+			null,
+			null) {
+		
+		private static final long serialVersionUID = 1L;
+				
+		@Override
+		public String equipText(GameCharacter character) {
+			return "You ready your musket.";
+		}
+
+		@Override
+		public String unequipText(GameCharacter character) {
+			return "You put your musket away.";
+		}
+
+		@Override
+		public boolean isAbleToBeUsed(GameCharacter user, GameCharacter target) {
+			return user.getEssenceCount(TFEssence.ARCANE) > 0;
+		}
+
+		@Override
+		public String getUnableToBeUsedDescription() {
+			return "You need at least [style.boldBad(one)] [style.boldArcane(arcane essence)] in order to fire the musket!";
+		}
+
+		@Override
+		public String applyExtraEfects(GameCharacter user, GameCharacter target) {
+			user.incrementEssenceCount(TFEssence.ARCANE, -1);
+			if(user.isPlayer()) {
+				return "<p>"
+							+ "Firing the arcane musket drains [style.boldBad(one)] [style.boldArcane(arcane essence)] from your aura!"
+						+ "</p>";
+			} else {
+				return "<p>"
+							+ UtilText.parse(user, "Firing the arcane musket drains [style.boldBad(one)] [style.boldArcane(arcane essence)] from [npc.name]'s aura!")
+						+ "</p>";
+			}
+		}
+
+		@Override
+		public String getAttackDescription(GameCharacter character, GameCharacter target, boolean isHit) {
+			if(isHit) {
+				if(character.isPlayer()) {
+					return UtilText.parse(target,
+							UtilText.returnStringAtRandom(
+								"You point your arcane musket at [npc.name] and pull the trigger, unleashing a blast of arcane power that strikes [npc.herHim] right in the chest!",
+								"Taking aim at [npc.name] with your musket, you pull the trigger, unleashing a powerful blast of arcane energy that slams into [npc.her] torso!",
+								"You fire your musket at [npc.name], blasting forth a powerful jolt of arcane energy that strikes [npc.herHim] straight in the chest!"));
+					
+				} else {
+					return UtilText.parse(character,
+							UtilText.returnStringAtRandom(
+								"[npc.Name] points [npc.her] arcane musket at you and pulls the trigger, unleashing a blast of arcane power that strikes you right in the chest!",
+								"Taking aim at you with [npc.her] musket, [npc.name] pulls the trigger, unleashing a powerful blast of arcane energy that slams into your torso!",
+								"[npc.Name] fires [npc.her] musket at you, blasting forth a powerful jolt of arcane energy that strikes you straight in the chest!"));
+				}
+				
+			} else {
+				if(character.isPlayer()) {
+					return UtilText.parse(target,
+							UtilText.returnStringAtRandom(
+								"You point you arcane musket at [npc.name] and pull the trigger, but, much to your dismay, the blast of arcane power misses its target!",
+								"Taking aim at [npc.name] with your musket, you pull the trigger, but unfortunately the blast of arcane power that you unleash misses your target!",
+								"You fire your musket at [npc.name], blasting forth a powerful jolt of arcane energy that unfortunately fails to hit your target!"));
+					
+				} else {
+					return UtilText.parse(character,
+							UtilText.returnStringAtRandom(
+									"[npc.Name] points [npc.her] arcane musket at you and pulls the trigger, but, much to [npc.her] dismay, the blast of arcane power misses you!",
+									"Taking aim at you with [npc.her] musket, [npc.name] pulls the trigger, but thankfully the blast of arcane power that [npc.she] unleashes misses you!",
+									"[npc.Name] fires [npc.her] musket at you, blasting forth a powerful jolt of arcane energy that thankfully fails to hit you!"));
+				}
+			}
+		}
+
+		@Override
+		public String getAttackDescription(GameCharacter user, GameCharacter target) {
+			return UtilText.parse(target,
+					"Point your musket at [npc.name] and fire!");
+		}
 	};
 	
 	public static AbstractWeaponType MAIN_WITCH_BROOM = new AbstractWeaponType(5000,
@@ -240,6 +519,7 @@ public class WeaponType {
 			"it",
 			"Witch's Broom",
 			"Witch's Brooms",
+			"Broom Swipe",
 			"An old-fashioned wooden broom, consisting of a long pole with a bundle of flexible twigs attached to one end."
 					+ " The opposite end of the pole widens out a little, where there's a curious engraving of a pentagram etched into the wood.",
 			InventorySlot.WEAPON_MAIN,
@@ -258,7 +538,7 @@ public class WeaponType {
 					new ListValue<Spell>(Spell.WITCH_CHARM))) {
 		
 		private static final long serialVersionUID = 1L;
-				
+		
 		@Override
 		public String equipText(GameCharacter character) {
 			return "You ready your broom.";
@@ -304,6 +584,12 @@ public class WeaponType {
 				}
 			}
 		}
+
+		@Override
+		public String getAttackDescription(GameCharacter user, GameCharacter target) {
+			return UtilText.parse(target,
+					"Swipe the broom at [npc.name]!");
+		}
 	};
 	
 	public static AbstractWeaponType MAIN_FEATHER_DUSTER = new AbstractWeaponType(250,
@@ -311,6 +597,7 @@ public class WeaponType {
 			"it",
 			"feather duster",
 			"feather dusters",
+			"Duster Tickle",
 			"A short-handled feather duster, ideal for keeping a house clean, but not much use in combat...",
 			InventorySlot.WEAPON_MAIN,
 			"feather_duster",
@@ -381,6 +668,12 @@ public class WeaponType {
 								"[npc.Name] swings [npc.her] feather duster at you, but you manage to duck at the last moment and avoid the tickling."));
 				}
 			}
+		}
+
+		@Override
+		public String getAttackDescription(GameCharacter user, GameCharacter target) {
+			return UtilText.parse(target,
+					"Tickle [npc.name] with your feather duster!");
 		}
 	};
 
