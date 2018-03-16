@@ -310,7 +310,9 @@ public class ItemType {
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.STR_EQUINE_CIDER))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
+					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -355,7 +357,9 @@ public class ItemType {
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.STR_BUBBLE_MILK))), 
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
+					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -399,8 +403,10 @@ public class ItemType {
 			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.STR_WOLF_WHISKEY))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.STR_WOLF_WHISKEY))), 
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
+					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -444,8 +450,10 @@ public class ItemType {
 			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.STR_SWAMP_WATER))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.STR_SWAMP_WATER))), 
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN),
+					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -494,7 +502,9 @@ public class ItemType {
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.INT_FELINE_FANCY))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
+					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -538,8 +548,11 @@ public class ItemType {
 			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.INT_VANILLA_WATER))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN))) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.INT_VANILLA_WATER))), 
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
+					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN),
+					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -586,7 +599,9 @@ public class ItemType {
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.FIT_CANINE_CRUSH))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
+					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -633,7 +648,9 @@ public class ItemType {
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.FIT_SQUIRREL_JAVA))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
+					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -679,7 +696,9 @@ public class ItemType {
 			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.FIT_EGG_NOG))), null) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.FIT_EGG_NOG))),
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -725,7 +744,9 @@ public class ItemType {
 			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.SEX_HARPY_PERFUME))), null) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.SEX_HARPY_PERFUME))),
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -771,7 +792,8 @@ public class ItemType {
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.SEX_SLIME_DRINK))),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN))) {
+					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN),
+					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -815,7 +837,9 @@ public class ItemType {
 			null,
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.SEX_MINCE_PIE))), null) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.SEX_MINCE_PIE))),
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -863,7 +887,9 @@ public class ItemType {
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.COR_LILITHS_GIFT))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
+					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -909,7 +935,9 @@ public class ItemType {
 			Rarity.UNCOMMON,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.COR_IMPISH_BREW))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN),
+					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -955,7 +983,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.MYSTERY_KINK))),
 			Util.newArrayListOfValues(
 					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
-					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN))) {
+					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN),
+					new ListValue<>(ItemTag.MISC_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1047,7 +1076,10 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.ADDICTION_REMOVAL))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
+					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN),
+					new ListValue<>(ItemTag.MISC_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1093,7 +1125,10 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_INNOXIAS_GIFT))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
+					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN),
+					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1138,7 +1173,10 @@ public class ItemType {
 			Rarity.RARE,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_ANGELS_TEARS))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
+					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN),
+					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1183,7 +1221,9 @@ public class ItemType {
 			Rarity.RARE,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_KITTYS_REWARD))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
+					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1230,7 +1270,9 @@ public class ItemType {
 			Rarity.RARE,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_BUBBLE_CREAM))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
+					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1279,7 +1321,9 @@ public class ItemType {
 			Rarity.RARE,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_ROUND_NUTS))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
+					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1326,7 +1370,9 @@ public class ItemType {
 			Rarity.RARE,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_CANINE_CRUNCH))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
+					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1371,7 +1417,9 @@ public class ItemType {
 			Rarity.RARE,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_SUGAR_CARROT_CUBE))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
+					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1414,7 +1462,9 @@ public class ItemType {
 			null,
 			Rarity.RARE,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_SUGAR_COOKIE))), null) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_SUGAR_COOKIE))),
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1461,7 +1511,9 @@ public class ItemType {
 			Rarity.RARE,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_ALLIGATORS_GUMBO))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN),
+					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1507,7 +1559,9 @@ public class ItemType {
 			Rarity.RARE,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_MEAT_AND_MARROW))),
-			Util.newArrayListOfValues(new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN))) {
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
+					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1553,7 +1607,9 @@ public class ItemType {
 			null,
 			Rarity.RARE,
 			TFEssence.ARCANE,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_LOLLIPOP))), null) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_LOLLIPOP))),
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -1600,7 +1656,8 @@ public class ItemType {
 			Rarity.LEGENDARY,
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_BIOJUICE))),
-			null) {
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -2314,7 +2371,9 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BIMBO_LOLLIPOP))), null) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BIMBO_LOLLIPOP))),
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
 		
@@ -2358,7 +2417,9 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.NYMPHO_LOLLIPOP))), null) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.NYMPHO_LOLLIPOP))),
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
 		
@@ -2401,7 +2462,9 @@ public class ItemType {
 			null,
 			Rarity.LEGENDARY,
 			null,
-			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.DOMINANT_PERFUME))), null) {
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.DOMINANT_PERFUME))),
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
 		
@@ -2758,7 +2821,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.VIXENS_VIRILITY))),
 			Util.newArrayListOfValues(
 					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
-					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN))) {
+					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN),
+					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -2795,7 +2859,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.PROMISCUITY_PILL))),
 			Util.newArrayListOfValues(
 					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
-					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN))) {
+					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN),
+					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -2925,7 +2990,8 @@ public class ItemType {
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.MOTHERS_MILK))),
 			Util.newArrayListOfValues(
 					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN),
-					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN))) {
+					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN),
+					new ListValue<>(ItemTag.MISC_TF_ITEM))) {
 
 		private static final long serialVersionUID = 1L;
 

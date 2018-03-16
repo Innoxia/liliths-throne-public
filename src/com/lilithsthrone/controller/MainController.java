@@ -2812,14 +2812,33 @@ public class MainController implements Initializable {
 				
 			
 				// Height:
-				for(int i : CharacterModificationUtils.heightChoices) {
-					id = "HEIGHT_"+i;
-					if (((EventTarget) document.getElementById(id)) != null) {
-						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
-							BodyChanging.getTarget().setHeight(i);
-							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
-						}, false);
-					}
+				id = "HEIGHT_INCREASE";
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						BodyChanging.getTarget().incrementHeight(1);
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+				id = "HEIGHT_INCREASE_LARGE";
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						BodyChanging.getTarget().incrementHeight(5);
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+				id = "HEIGHT_DECREASE";
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						BodyChanging.getTarget().incrementHeight(-1);
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
+				}
+				id = "HEIGHT_DECREASE_LARGE";
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						BodyChanging.getTarget().incrementHeight(-5);
+						Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+					}, false);
 				}
 				
 				// Body size:

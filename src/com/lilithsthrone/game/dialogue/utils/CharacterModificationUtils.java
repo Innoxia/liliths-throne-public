@@ -44,7 +44,6 @@ import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.HairStyle;
-import com.lilithsthrone.game.character.body.valueEnums.Height;
 import com.lilithsthrone.game.character.body.valueEnums.HipSize;
 import com.lilithsthrone.game.character.body.valueEnums.LabiaSize;
 import com.lilithsthrone.game.character.body.valueEnums.LipSize;
@@ -393,20 +392,32 @@ public class CharacterModificationUtils {
 		
 		Main.game.getPlayer().setSexCount(type, CharacterModificationUtils.normalSexExperienceValues[index]);
 		
-		if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.GYNEPHILIC
-				|| (Main.game.getPlayer().getSexualOrientation()==SexualOrientation.AMBIPHILIC && !Main.game.getPlayer().isFeminine())) {
-			Main.game.getPlayer().setVirginityLoss(type, "your girlfriend");
+		if(index!=0) {
+			if(Main.game.getPlayer().getSexualOrientation()==SexualOrientation.GYNEPHILIC
+					|| (Main.game.getPlayer().getSexualOrientation()==SexualOrientation.AMBIPHILIC && !Main.game.getPlayer().isFeminine())) {
+				Main.game.getPlayer().setVirginityLoss(type, "your girlfriend");
+			} else {
+				Main.game.getPlayer().setVirginityLoss(type, "your boyfriend");
+			}
 		} else {
-			Main.game.getPlayer().setVirginityLoss(type, "your boyfriend");
+			Main.game.getPlayer().setVirginityLoss(type, null);
 		}
 		
-		if(type.getPenetrationType()==PenetrationType.PENIS) {
+		if(type.getPenetrationType()==PenetrationType.PENIS && type.getAsParticipant().isUsingSelfPenetrationType()) {
+			if(index==0) {
+				Main.game.getPlayer().setPenisVirgin(true);
+			} else {
+				Main.game.getPlayer().setPenisVirgin(false);
+			}
+		}
+		
+		if(type.getPenetrationType()==PenetrationType.PENIS && type.getAsParticipant().isUsingSelfOrificeType()) {
 			switch(type.getOrificeType()) {
 				case ANUS:
 					if(index==0) {
-						Main.game.getPlayer().setAssVirgin(false);
-					} else {
 						Main.game.getPlayer().setAssVirgin(true);
+					} else {
+						Main.game.getPlayer().setAssVirgin(false);
 					}
 					break;
 				case ASS:
@@ -415,9 +426,9 @@ public class CharacterModificationUtils {
 					break;
 				case MOUTH:
 					if(index==0) {
-						Main.game.getPlayer().setFaceVirgin(false);
-					} else {
 						Main.game.getPlayer().setFaceVirgin(true);
+					} else {
+						Main.game.getPlayer().setFaceVirgin(false);
 					}
 					break;
 				case NIPPLE:
@@ -428,9 +439,9 @@ public class CharacterModificationUtils {
 					break;
 				case VAGINA:
 					if(index==0) {
-						Main.game.getPlayer().setVaginaVirgin(false);
-					} else {
 						Main.game.getPlayer().setVaginaVirgin(true);
+					} else {
+						Main.game.getPlayer().setVaginaVirgin(false);
 					}
 					break;
 			}
@@ -469,39 +480,15 @@ public class CharacterModificationUtils {
 	
 	// Advanced:
 	
-	private static int numberOfChoices = 18;
-	public static int[] heightChoices = new int[numberOfChoices];
-	static {
-		float height = 152;
-		for(int i=0; i<numberOfChoices; i++) {
-			heightChoices[i] = Math.round(height);
-			height += 2.54f;
-		}
-	}
-	
 	public static String getHeightChoiceDiv() {
-		contentSB.setLength(0);
-		
-		for(int i : heightChoices) {
-			if( BodyChanging.getTarget().getHeightValue() == i) {
-				contentSB.append(
-						"<div class='cosmetics-button active'>"
-							+ "<b style='color:"+ BodyChanging.getTarget().getHeight().getColour().toWebHexString()+";'>"+(Util.inchesToFeetAndInches(Util.conversionCentimetresToInches(i)))+"</b>"
-						+ "</div>");
-				
-			} else {
-				contentSB.append(
-						"<div id='HEIGHT_"+i+"' class='cosmetics-button'>"
-							+ "<span style='color:"+Height.getHeightFromInt(i).getColour().getShades()[0]+";'>"+(Util.inchesToFeetAndInches(Util.conversionCentimetresToInches(i)))+"</span>"
-						+ "</div>");
-			}
-		}
-
-		return applyFullWrapper("Height",
+		return applyFullVariableWrapper("Height",
 				(BodyChanging.getTarget().isPlayer()
-					?"Change how tall you are."+(!Main.game.isInNewWorld()?" This will affect some descriptions and scenes later on in the game.":"")
-					:UtilText.parse(BodyChanging.getTarget(), "Change how tall [npc.name] is.")),
-				contentSB.toString());
+			?"Change how tall you are."+(!Main.game.isInNewWorld()?" This will affect some descriptions and scenes later on in the game.":"")
+			:UtilText.parse(BodyChanging.getTarget(), "Change how tall [npc.name] is.")),
+			"HEIGHT",
+			BodyChanging.getTarget().getHeightValue()+"cm</br>("+Util.inchesToFeetAndInches(Util.conversionCentimetresToInches(BodyChanging.getTarget().getHeightValue()))+")",
+			BodyChanging.getTarget().getHeightValue()<=BodyChanging.getTarget().getMinimumHeight(),
+			BodyChanging.getTarget().getHeightValue()>=BodyChanging.getTarget().getMaximumHeight());
 	}
 	
 	public static String getFullFemininityChoiceDiv() {
@@ -595,6 +582,40 @@ public class CharacterModificationUtils {
 					+ "</div>"
 					+ "<div class='cosmetics-inner-container right'>"
 						+ input
+					+ "</div>"
+				+ "</div>";
+	}
+	
+	private static String applyFullVariableWrapper(String title, String description, String id, String value, boolean decreaseDisabled, boolean increaseDisabled) {
+		return "<div class='container-full-width'>"
+					+"<div class='container-half-width'>"
+						+ "<h5 style='text-align:center;'>"
+							+ title
+						+"</h5>"
+						+ "<p style='text-align:center;'>"
+							+ description
+						+ "</p>"
+					+ "</div>"
+					+ "<div class='container-half-width'>"
+						+ "<div class='container-half-width' style='width:calc(33.3% - 16px); text-align:center;'>"
+							+ "<div id='"+id+"_DECREASE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:100%;'>"
+								+ (decreaseDisabled?"[style.boldDisabled(-1cm)]":"[style.boldBadMinor(-1cm)]")
+							+ "</div>"
+							+ "<div id='"+id+"_DECREASE_LARGE' class='normal-button"+(decreaseDisabled?" disabled":"")+"' style='width:100%;'>"
+								+ (decreaseDisabled?"[style.boldDisabled(-5cm)]":"[style.boldBad(-5cm)]")
+							+ "</div>"
+						+ "</div>"
+						+ "<div class='container-half-width' style='width:calc(33.3% - 16px); text-align:center;'>"
+							+ value
+						+ "</div>"
+						+ "<div class='container-half-width' style='width:calc(33.3% - 16px); text-align:center;'>"
+							+ "<div id='"+id+"_INCREASE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:100%;'>"
+								+ (increaseDisabled?"[style.boldDisabled(+1cm)]":"[style.boldGoodMinor(+1cm)]")
+							+ "</div>"
+							+ "<div id='"+id+"_INCREASE_LARGE' class='normal-button"+(increaseDisabled?" disabled":"")+"' style='width:100%;'>"
+								+ (increaseDisabled?"[style.boldDisabled(+5cm)]":"[style.boldGood(+5cm)]")
+							+ "</div>"
+						+ "</div>"
 					+ "</div>"
 				+ "</div>";
 	}
@@ -765,6 +786,49 @@ public class CharacterModificationUtils {
 					?"Change your hair type."
 					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s hair type.")),
 				contentSB.toString());
+	}
+	
+	public static String getSelfDivHairStyles(String title, String description) {
+		contentSB.setLength(0);
+
+		contentSB.append(
+				"<div class='container-full-width'>"
+					+ "<div class='cosmetics-inner-container left'>"
+						+ "<h5 style='text-align:center;'>"
+							+title
+						+"</h5>"
+						+ "<p style='text-align:center;'>"
+							+ description
+						+ "</p>"
+					+ "</div>"
+					+ "<div class='cosmetics-inner-container right'>");
+		
+		for (HairStyle hairStyle : HairStyle.values()) {
+			if (BodyChanging.getTarget().getHairStyle() == hairStyle) {
+				contentSB.append(
+						"<div class='cosmetics-button active'>"
+							+ "<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>" + Util.capitaliseSentence(hairStyle.getName()) + "</b>"
+						+ "</div>");
+			} else {
+				if(BodyChanging.getTarget().getHairRawLengthValue() >= hairStyle.getMinimumLengthRequired()) {
+					contentSB.append(
+							"<div id='HAIR_STYLE_"+hairStyle+"' class='cosmetics-button'>"
+								+ "<span style='color:"+Colour.TRANSFORMATION_GENERIC.getShades()[0]+";'>" + Util.capitaliseSentence(hairStyle.getName()) + "</span>"
+							+ "</div>");
+				} else {
+					contentSB.append(
+							"<div class='cosmetics-button disabled'>"
+								+ "[style.colourDisabled(" + Util.capitaliseSentence(hairStyle.getName()) + ")]"
+							+ "</div>");
+				}
+			}
+		}
+		
+		contentSB.append(
+				"</div>"
+			+ "</div>");
+		
+		return contentSB.toString();
 	}
 	
 	public static String getSelfTransformAssChoiceDiv(List<Race> availableRaces) {
@@ -3015,7 +3079,7 @@ public class CharacterModificationUtils {
 				if(BodyChanging.getTarget().getHairRawLengthValue() >= hairStyle.getMinimumLengthRequired()) {
 					contentSB.append(
 							"<div id='HAIR_STYLE_"+hairStyle+"' class='cosmetics-button'>"
-									+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_HAIR_STYLE_COST | noCost
+									+ (Main.game.getPlayer().getMoney()>=SuccubisSecrets.BASE_HAIR_STYLE_COST || noCost
 										? "<span style='color:"+Colour.TRANSFORMATION_GENERIC.getShades()[0]+";'>" + Util.capitaliseSentence(hairStyle.getName()) + "</span>"
 										: "[style.colourDisabled(" + Util.capitaliseSentence(hairStyle.getName()) + ")]")
 							+ "</div>");

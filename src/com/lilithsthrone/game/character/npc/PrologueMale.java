@@ -69,6 +69,8 @@ public class PrologueMale extends NPC {
 	
 			this.setPenisSize(PenisSize.THREE_LARGE.getMedianValue());
 			this.setPenisVirgin(false);
+			this.setAssVirgin(false);
+			this.setFaceVirgin(false);
 	
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BOXERS, Colour.CLOTHING_BLACK, false), true, this);
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_BLACK, false), true, this);

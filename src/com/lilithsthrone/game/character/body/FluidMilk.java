@@ -124,6 +124,10 @@ public class FluidMilk implements BodyPartInterface, Serializable {
 		}
 
 		this.flavour = flavour;
+
+		if(owner == null) {
+			return "";
+		}
 		
 		if(owner.isPlayer()) {
 			return "<p>"
@@ -149,6 +153,10 @@ public class FluidMilk implements BodyPartInterface, Serializable {
 		}
 		
 		fluidModifiers.add(fluidModifier);
+		
+		if(owner == null) {
+			return "";
+		}
 		
 		switch(fluidModifier) {
 			case ADDICTIVE:
@@ -266,6 +274,10 @@ public class FluidMilk implements BodyPartInterface, Serializable {
 		}
 		
 		fluidModifiers.remove(fluidModifier);
+		
+		if(owner == null) {
+			return "";
+		}
 		
 		switch(fluidModifier) {
 			case ADDICTIVE:

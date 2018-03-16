@@ -120,12 +120,7 @@ public enum Race {
 			Attribute.DAMAGE_IMP,
 			Attribute.RESISTANCE_IMP,
 			FurryPreference.MAXIMUM,
-			FurryPreference.MAXIMUM) {
-		@Override
-		public boolean isShortStature() {
-			return true;
-		}
-	},
+			FurryPreference.MAXIMUM),
 
 	// BOVINES:
 	COW_MORPH("cow-morph",
@@ -1286,10 +1281,6 @@ public enum Race {
 
 	public int getNumberOfOffspringHigh() {
 		return numberOfOffspringHigh;
-	}
-	
-	public boolean isShortStature() {
-		return false;
 	}
 	
 	public Colour getColour() {

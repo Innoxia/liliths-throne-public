@@ -7,85 +7,91 @@
 	!!! 32 bit exe !!!
 	
 	
+	1. Have all of the core content for Submission finished (all of the encounters written in, and every area having at least the basics of their content added).
+	2. Imps, slimes, rat-morphs, mice-morphs, and bat-morphs completely finished and added.
+	3. The game's introduction to be finished (with a sex scene with the character you meet in the museum).
+	4. Adding in a scene where you dominate Pix.
+	5. Adding in the next stage of the main quest (earning an audience with Lyssieth).
+	6. Completely finish all combat stuff - I need to improve the spell system and do some final tweaks for damage calculations, as well as adding in more weapons.
+	7. Completely polish the multiple-partner sex scenes. (There are still some bugs that I need to get fixed before adding these scenes to random encounters.)
+	8. Write up a "lore bible" for contributors to reference, and add modding support for items and sex actions.
+	9. General improvements to all areas that need it (fixing bugs and expanding content)
+	
+	
+	
+	
 	Patch notes:
+
+Other:
+	Alexandria no longer spawns as a virgin.
+	Vicky will now both buy and sell Imp and Slime essences.
+	You can now have different colours for slime hair, eyes, pupils, and orifices (added colouring options to the self-transform menu).
+	Added a lot of colouring patterns to slime and slime hair coverings.
+	Added hair style to slime's self-transform options.
+	Added the new lactation fetishes to the mystery kink enchanting menu.
+	Fixed cause of a major bug where the sides of the screen would stop rendering & the game would break.
+	Added dark brown and tan to slime colours.
+	Added 'Dobermann-slime' subspecies. (Obtained by being a dog-slime with 'black' primary colour, 'brown', 'tan', or 'dark-brown' secondary colour, and 'marked' pattern.)
+	Slimes will now start sex with all orifices lubricated by slime.
+	Slime-imps can now reduce height to 2ft, like normal imps.
+	Improved height transformation panel in self-tf phone menu.
 	
-	Gameplay:
-		Added breastfeeding and lactation fetishes, with associated teases.
-		Added 'Moo Milker' breast pump item.
-		Expanded the single 'Lactation' stat into three related stats: 'Milk Storage', 'Milk Stored', and 'Milk Regeneration'. The amount of milk in your breasts will slowly increase over time (rate based on 'Milk Regeneration' stat) up to your 'Milk Storage' value.
-		Added 'regeneration' transformation effect to breast-related potions.
-		Added a small, rare event where you can't resist milking yourself (0.1% chance every minute while breasts are full).
-		Added breast growth & lactation increases from pregnancy (both can separately be turned off or increased in the options).
-		Added 'Milk partner'/'Get milked' and 'Suckle/Breastfeed' actions in sex.
-		Added 'Slime Quencher' drink as a random drop for slimes.
-		Expanded character creation to include sex experience.
-		Added an optional sex scene to the game's prologue.
-		Split up Pix's exercise dialogue and added a reversal sex scene for her.
-	
-	Spells:
-		Added schools of magic - Fire, air, earth, water, and arcane.
-		Spells now require a certain 'Spell Mastery' to unlock (gained through the 'Arcane' attribute's associated status effects).
-		Weapons now have an associated offensive or defensive magic school. Equipping a weapon will change your default spells (not added yet) to those associated with the weapon's school of magic.
-		(This work is support for the addition of the full set of spells in an upcoming update.)
-	
-	Other:
-		Tidied up weapon attacks and descriptions.
-		Added slime transformation description and lore entry.
-		Increased chance of slime TF drop in tunnels (on each explore) from 0.15% to 2%. (10% chance of finding an item, and then 20% chance that item will be slime TF.)
-		Improved weapon tooltips.
-		Organised the phone menu buttons.
-		Made combat and non-combat character UI panels the same.
-		Improved stats screen.
-		Choosing the 'Lie' option in Brax's encounter, and then choosing to fight him, now increases his lust instead of draining his aura.
-		Slime's pussy and asshole wetness are now locked to maximum.
-		The square coloured button for 'none' in the cosmetics UI is now a grey square with red cross, to distinguish it from actual colours.
-		Added self-transformation menu in phone for slimes. (There are still some things left for me to add here, such as piercings.)
-		Slimes can now be impregnated through any orifice.
-		Slime offspring will now always be slimes.
-		Added slime-specific descriptions in the pregnancy advancement text. (I will get Lilaya's reactions to slime pregnancies done for the next release!)
-		Non-slave NPCs will now automatically clean their bodies/clothes.
-		Added 'freckles' pattern to character creation menu.
-		
-	Contributors:
-		Improved fetish descriptors in enchanting menu. (Lightcanadian)	
-		Brought partner 'Resist' arousal increase value in line with player's. (Master of Puppets)
-		Punctuation fixes, mainly commas. (WoefulWombat)
-		Fixed GenericOrgasms.isGenericPartnerCumTargetRequirements method. (Master of Puppets)
-		Fixed incorrect lubrication on PC anal tease. (Master of Puppets)
-	
-	Bugs:
-		Fixed Vicky only stocking one of each essence (she now stocks 20-30 of each).
-		Fixed slime body material not being restored when loading a game.
-		Fixed slime covering detection not working in some tooltips.
-		Text formatting and typo fixes.
-		Fixed weapon description displaying incorrect damage.
-		Fixed bug where you would instantly win combat while in an arcane storm, due to your opponent having 100 lust.
-		Slimes will now drop the correct racial book.
-		'Arcane Weakness' is now correctly applied to target when performing a critical spell.
-		Special attack cooldowns can no longer be bypassed by using the repeat action in combat.
-		Fixed bug where books wouldn't spawn on a new save.
-		Reindeer encounters should now save properly.
-		Time will now pass as you move through the Supplier Depot and Submission.
+Bugs:
+	Fixed Alexandria changing to Alexander in the game's intro sex scene.
+	Fixed cause of game lock-up in the introduction's scene immediately before having sex with Alexandria.
+	Fixed several causes of save game files not loading.
+	Fixed virginity loss issues in the intro's sex experience settings.
+	Fixed issue with incorrect dialogue being returned in the intro's post-sex scene.
+	Fixed Arcane Essences quest triggering in the prologue.
+	Fixed the 'Suckle' sex action not being available.
+	Breastfeeding actions are now correctly associated with nipples.
+	Changing slime colour now correctly updates throat/inner orifices.
+	Fixed bug where you couldn't creampie/cum inside slime-boys.
+	Fixed slimes spawning with makeup on.
+	Fixed slime orifices not being described.
+	Fixed lust gain/loss over time continuously jumping past and then back beneath the resting lust mark.
+	Fixed lust resetting after combat.
+	Fixed being able to quicksave/load in prologue (which would break the game in the background).
 	
 	
 	
 	
+	
+	
+	
+	
+	As a slime girl, when having submissive sex with another slime girl (daughter), the  scene does not end after both characters orgasm, it just repeats endlessly.
+	
+	imp forced TFs messed up
+	NPC slimes will attempt to turn you into a slime and the game will tell you its working but you remain human
+	
+	sclera colors
+	
+	Allow demons to change their wing size and pubic hair color.
 	
 	SUBMISSION
-	
 	
 	Improve breast-feeding action text
 	
 	Spell & Combat page
 	Spell level to work
 	
+	content for pix impreg
 	
 	Improve intro to reference increasing arousal more
+	
+	Is it just me, or does the sexual preference setting get reset to ambiphilic once you get past the intro
 	
 	
 	Lilaya slime pregnancy birthing
 	
+	preg nipple & Areolae  size
+	
+	nyan chocolate is 50 affection?!
+	
 	Slime TF screen piercings.
+	
+	wolfgang climaxed in my vag and uh, so did karl?
 	
 	Udders
 	
@@ -106,6 +112,7 @@
 	
 	I don't think Nyan notes when she gives birth
 	
+	Submission: Been getting 10+ Essence from every fight in there, not to mention fuckloads of XP
 	
 	ear size modifier
 	

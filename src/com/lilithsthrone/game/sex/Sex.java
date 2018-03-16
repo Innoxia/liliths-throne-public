@@ -843,7 +843,7 @@ public enum Sex {
 				sexSB.append("<p style='text-align:center'>[style.boldArcane(After finishing sex without orgasming once, [npc.name] is left feeling frustrated and horny!)]</p>");
 			}
 			
-		} else {
+		} else if(Main.game.isInNewWorld()) {
 			activePartner.removeStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM);
 			if(activePartner.hasStatusEffect(StatusEffect.RECOVERING_AURA)) {
 				sexSB.append("<p style='text-align:center'><b>[npc.Name]'s arcane aura is still strengthened from a previous sexual encounter, so</b> [style.boldArcane(you don't receive any arcane essences!)]</p>");
@@ -2123,75 +2123,81 @@ public enum Sex {
 	private static void calculateWetAreas(boolean onSexInit) {
 
 		// Add starting lube:
-		addOrificeLubrication(Main.game.getPlayer(), OrificeType.MOUTH, LubricationType.PLAYER_SALIVA);
-		addPenetrationTypeLubrication(Main.game.getPlayer(), PenetrationType.TONGUE, LubricationType.PLAYER_SALIVA);
-
+		addOrificeLubrication(Main.game.getPlayer(), OrificeType.MOUTH, LubricationType.PLAYER_SALIVA, !onSexInit);
+		addPenetrationTypeLubrication(Main.game.getPlayer(), PenetrationType.TONGUE, LubricationType.PLAYER_SALIVA, !onSexInit);
+		
 		
 		// Add player lubrication from cum:
 		if(Main.game.getPlayer().hasStatusEffect(StatusEffect.CREAMPIE_ANUS)) {
-			addOrificeLubrication(Main.game.getPlayer(), OrificeType.ANUS, LubricationType.OTHER_CUM);
+			addOrificeLubrication(Main.game.getPlayer(), OrificeType.ANUS, LubricationType.OTHER_CUM, !onSexInit);
 		}
 		if(Main.game.getPlayer().hasStatusEffect(StatusEffect.CREAMPIE_NIPPLES)) {
-			addOrificeLubrication(Main.game.getPlayer(), OrificeType.NIPPLE, LubricationType.OTHER_CUM);
+			addOrificeLubrication(Main.game.getPlayer(), OrificeType.NIPPLE, LubricationType.OTHER_CUM, !onSexInit);
 		}
 		if(Main.game.getPlayer().hasStatusEffect(StatusEffect.CREAMPIE_VAGINA)) {
-			addOrificeLubrication(Main.game.getPlayer(), OrificeType.VAGINA, LubricationType.OTHER_CUM);
+			addOrificeLubrication(Main.game.getPlayer(), OrificeType.VAGINA, LubricationType.OTHER_CUM, !onSexInit);
 		}
 
 		// Add milk in nipples:
 		if(Main.game.getPlayer().getBreastRawMilkStorageValue()>0) {
-			addOrificeLubrication(Main.game.getPlayer(), OrificeType.NIPPLE, LubricationType.PLAYER_MILK);
+			addOrificeLubrication(Main.game.getPlayer(), OrificeType.NIPPLE, LubricationType.PLAYER_MILK, !onSexInit);
 		}
 		
 		// Add player natural lubrications:
 		if(Main.game.getPlayer().getArousal() >= Main.game.getPlayer().getAssWetness().getArousalNeededToGetVaginaWet()) {
-			addOrificeLubrication(Main.game.getPlayer(), OrificeType.ANUS, LubricationType.PLAYER_ANAL_LUBE);
+			addOrificeLubrication(Main.game.getPlayer(), OrificeType.ANUS, LubricationType.PLAYER_ANAL_LUBE, !onSexInit);
 		}
 		if(Main.game.getPlayer().hasPenis()) {
 			if(Main.game.getPlayer().getArousal() >= Main.game.getPlayer().getPenisCumProduction().getArousalNeededToStartPreCumming()) {
-				addPenetrationTypeLubrication(Main.game.getPlayer(), PenetrationType.PENIS, LubricationType.PLAYER_PRECUM);
-				addOrificeLubrication(Main.game.getPlayer(), OrificeType.URETHRA, LubricationType.PLAYER_PRECUM);
+				addPenetrationTypeLubrication(Main.game.getPlayer(), PenetrationType.PENIS, LubricationType.PLAYER_PRECUM, !onSexInit);
+				addOrificeLubrication(Main.game.getPlayer(), OrificeType.URETHRA, LubricationType.PLAYER_PRECUM, !onSexInit);
 			}
 		}
 		if(Main.game.getPlayer().hasVagina()) {
 			if(Main.game.getPlayer().getArousal() >= Main.game.getPlayer().getVaginaWetness().getArousalNeededToGetVaginaWet()) {
-				addOrificeLubrication(Main.game.getPlayer(), OrificeType.VAGINA, LubricationType.PLAYER_GIRLCUM);
+				addOrificeLubrication(Main.game.getPlayer(), OrificeType.VAGINA, LubricationType.PLAYER_GIRLCUM, !onSexInit);
 			}
 		}
 		
 		for(GameCharacter character : Sex.getAllParticipants()) {
+			if(character.getBodyMaterial()==BodyMaterial.SLIME && onSexInit) {
+				for(OrificeType orifice : OrificeType.values()) {
+					addOrificeLubrication(character, orifice, LubricationType.SLIME, !onSexInit);
+				}
+			}
+			
 			if(!character.isPlayer()) {
-				addOrificeLubrication(character, OrificeType.MOUTH, LubricationType.PARTNER_SALIVA);
-				addPenetrationTypeLubrication(character, PenetrationType.TONGUE, LubricationType.PARTNER_SALIVA);
+				addOrificeLubrication(character, OrificeType.MOUTH, LubricationType.PARTNER_SALIVA, !onSexInit);
+				addPenetrationTypeLubrication(character, PenetrationType.TONGUE, LubricationType.PARTNER_SALIVA, !onSexInit);
 				
-				if(activePartner.getBreastRawMilkStorageValue()>0) {
-					addOrificeLubrication(character, OrificeType.NIPPLE, LubricationType.PARTNER_MILK);
+				if(character.getBreastRawMilkStorageValue()>0) {
+					addOrificeLubrication(character, OrificeType.NIPPLE, LubricationType.PARTNER_MILK, !onSexInit);
 				}
 
 				// Add partner lubrication from cum:
-				if(activePartner.hasStatusEffect(StatusEffect.CREAMPIE_ANUS)) {
-					addOrificeLubrication(character, OrificeType.ANUS, LubricationType.OTHER_CUM);
+				if(character.hasStatusEffect(StatusEffect.CREAMPIE_ANUS)) {
+					addOrificeLubrication(character, OrificeType.ANUS, LubricationType.OTHER_CUM, !onSexInit);
 				}
-				if(activePartner.hasStatusEffect(StatusEffect.CREAMPIE_NIPPLES)) {
-					addOrificeLubrication(character, OrificeType.NIPPLE, LubricationType.OTHER_CUM);
+				if(character.hasStatusEffect(StatusEffect.CREAMPIE_NIPPLES)) {
+					addOrificeLubrication(character, OrificeType.NIPPLE, LubricationType.OTHER_CUM, !onSexInit);
 				}
-				if(activePartner.hasStatusEffect(StatusEffect.CREAMPIE_VAGINA)) {
-					addOrificeLubrication(character, OrificeType.VAGINA, LubricationType.OTHER_CUM);
+				if(character.hasStatusEffect(StatusEffect.CREAMPIE_VAGINA)) {
+					addOrificeLubrication(character, OrificeType.VAGINA, LubricationType.OTHER_CUM, !onSexInit);
 				}
 				
 				// Add partner natural lubrications:
-				if(activePartner.getArousal() >= activePartner.getAssWetness().getArousalNeededToGetVaginaWet()) {
-					addOrificeLubrication(character, OrificeType.ANUS, LubricationType.PARTNER_ANAL_LUBE);
+				if(character.getArousal() >= character.getAssWetness().getArousalNeededToGetVaginaWet()) {
+					addOrificeLubrication(character, OrificeType.ANUS, LubricationType.PARTNER_ANAL_LUBE, !onSexInit);
 				}
-				if(activePartner.hasPenis()) {
-					if(activePartner.getArousal() >= activePartner.getPenisCumProduction().getArousalNeededToStartPreCumming()) {
+				if(character.hasPenis()) {
+					if(character.getArousal() >= character.getPenisCumProduction().getArousalNeededToStartPreCumming()) {
 						addPenetrationTypeLubrication(character, PenetrationType.PENIS, LubricationType.PARTNER_PRECUM);
-						addOrificeLubrication(character, OrificeType.URETHRA, LubricationType.PARTNER_PRECUM);
+						addOrificeLubrication(character, OrificeType.URETHRA, LubricationType.PARTNER_PRECUM, !onSexInit);
 					}
 				}
-				if(activePartner.hasVagina()) {
-					if(activePartner.getArousal() >= activePartner.getVaginaWetness().getArousalNeededToGetVaginaWet()) {
-						addOrificeLubrication(character, OrificeType.VAGINA, LubricationType.PARTNER_GIRLCUM);
+				if(character.hasVagina()) {
+					if(character.getArousal() >= character.getVaginaWetness().getArousalNeededToGetVaginaWet()) {
+						addOrificeLubrication(character, OrificeType.VAGINA, LubricationType.PARTNER_GIRLCUM, !onSexInit);
 					}
 				}
 			}
@@ -2309,7 +2315,12 @@ public enum Sex {
 		return description.toString();
 	}
 	
+
 	public static void addOrificeLubrication(GameCharacter character, OrificeType orifice, LubricationType lubrication) {
+		addOrificeLubrication(character, orifice, lubrication, true);
+	}
+	
+	public static void addOrificeLubrication(GameCharacter character, OrificeType orifice, LubricationType lubrication, boolean appendTextToSex) {
 		boolean appendDescription =
 				orifice != OrificeType.URETHRA && orifice != OrificeType.URETHRA// Can't penetrate urethras for now, so skip that description.
 				&& !(orifice==OrificeType.MOUTH && lubrication==LubricationType.PLAYER_SALIVA) // Don't give descriptions of saliva lubricating your own mouth.
@@ -2319,13 +2330,17 @@ public enum Sex {
 				&& (orifice==OrificeType.NIPPLE?activePartner.isCoverableAreaExposed(CoverableArea.NIPPLES):true);
 		
 		if(wetOrificeTypes.get(character).get(orifice).add(lubrication)){
-			if(appendDescription) {
+			if(appendDescription && appendTextToSex) {
 				sexSB.append(formatCoverableAreaGettingWet((character.isPlayer()?"Your ":"[npc.Name]'s ")+orifice.getName(character)+" "+(orifice.isPlural()?"are":"is")+" quickly lubricated by "+lubrication.getName()+"."));
 			}
 		}
 	}
-	
+
 	public static void addPenetrationTypeLubrication(GameCharacter character, PenetrationType penetrationType, LubricationType lubrication) {
+		addPenetrationTypeLubrication(character, penetrationType, lubrication, true);
+	}
+	
+	public static void addPenetrationTypeLubrication(GameCharacter character, PenetrationType penetrationType, LubricationType lubrication, boolean appendTextToSex) {
 		boolean appendDescription =
 				!(penetrationType==PenetrationType.TONGUE && (lubrication==LubricationType.PLAYER_SALIVA || lubrication==LubricationType.PARTNER_SALIVA)) // Don't give descriptions of saliva lubricating your own tongue.
 				&& (penetrationType==PenetrationType.PENIS ? (!character.isPlayer() ? activePartner.isCoverableAreaExposed(CoverableArea.PENIS):true) :true);
@@ -2335,7 +2350,7 @@ public enum Sex {
 					? !character.isWearingCondom()
 					: true)) { // Can't lubricate if covered by condom
 			if(wetPenetrationTypes.get(character).get(penetrationType).add(lubrication)){
-				if(appendDescription) {
+				if(appendDescription && appendTextToSex) {
 					sexSB.append(formatCoverableAreaGettingWet((character.isPlayer()?"Your ":"[npc.Name]'s ")+penetrationType.getName(character)+" "+(penetrationType.isPlural()?"are":"is")+" quickly lubricated by "+lubrication.getName()+"."));
 				}
 			}

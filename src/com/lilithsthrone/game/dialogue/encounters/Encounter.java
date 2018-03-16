@@ -18,6 +18,7 @@ import com.lilithsthrone.game.character.npc.dominion.DominionSuccubusAttacker;
 import com.lilithsthrone.game.character.npc.dominion.HarpyNestsAttacker;
 import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
 import com.lilithsthrone.game.character.quests.QuestLine;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.SlaveDialogue;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
@@ -92,7 +93,8 @@ public enum Encounter {
 	
 	DOMINION_STREET(Util.newHashMapOfValues(
 			new Value<EncounterType, Float>(EncounterType.DOMINION_STORM_ATTACK, 15f),
-			new Value<EncounterType, Float>(EncounterType.SPECIAL_DOMINION_CULTIST, 5f))) {
+			new Value<EncounterType, Float>(EncounterType.SPECIAL_DOMINION_CULTIST, 5f),
+			new Value<EncounterType, Float>(EncounterType.DOMINION_STREET_FIND_HAPPINESS, 10f))) {
 		@Override
 		protected DialogueNodeOld initialiseEncounter(EncounterType node) {
 			if(node == EncounterType.DOMINION_STORM_ATTACK && Main.game.getCurrentWeather() == Weather.MAGIC_STORM) {
@@ -122,6 +124,12 @@ public enum Encounter {
 				}
 	
 				return Main.game.getActiveNPC().getEncounterDialogue();
+				
+			}  else if(node == EncounterType.DOMINION_STREET_FIND_HAPPINESS
+					&& Main.game.getPlayer().getName().equalsIgnoreCase("Kinariu")
+					&& !Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.foundHappiness)) {
+				Main.game.getDialogueFlags().setFlag(DialogueFlagValue.foundHappiness, true);
+				return DominionEncounterDialogue.DOMINION_STREET_FIND_HAPPINESS;
 				
 			} else {
 				return null;

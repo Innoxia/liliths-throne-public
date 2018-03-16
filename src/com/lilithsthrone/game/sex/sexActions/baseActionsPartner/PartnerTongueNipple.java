@@ -25,7 +25,7 @@ public class PartnerTongueNipple {
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.TONGUE,
-			OrificeType.BREAST,
+			OrificeType.NIPPLE,
 			SexParticipantType.PITCHER) {
 		
 		@Override
@@ -136,7 +136,7 @@ public class PartnerTongueNipple {
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.TONGUE,
-			OrificeType.BREAST,
+			OrificeType.NIPPLE,
 			SexParticipantType.CATCHER) {
 		
 		@Override
