@@ -12,6 +12,7 @@ import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -32,6 +33,7 @@ public class GenericAndrogynousNPC extends NPC {
 		super(new NameTriplet("Androgynous"), "Generic androgynous.",
 				1, Gender.N_P_V_HERMAPHRODITE, RacialBody.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(0), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
+		this.primaryColour = Colour.ANDROGYNOUS_NPC;
 		
 		this.setFemininity(50);
 	}
@@ -39,6 +41,7 @@ public class GenericAndrogynousNPC extends NPC {
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
+		this.primaryColour = Colour.ANDROGYNOUS_NPC;
 	}
 	
 	@Override

@@ -12,6 +12,7 @@ import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -32,12 +33,14 @@ public class GenericFemaleNPC extends NPC {
 		super(new NameTriplet("unknown female"), "Unknown.",
 				1, Gender.F_V_B_FEMALE, RacialBody.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(0), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
+		this.primaryColour = Colour.FEMININE_NPC;
 	}
 	
 	@Override
 	public void loadFromXML(Element parentElement, Document doc, CharacterImportSetting... settings) {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 		this.setName(new NameTriplet("unknown female"));
+		this.primaryColour = Colour.FEMININE_NPC;
 	}
 	
 	@Override

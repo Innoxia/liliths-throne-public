@@ -12,6 +12,7 @@ import com.lilithsthrone.game.combat.Attack;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -32,6 +33,7 @@ public class GenericMaleNPC extends NPC {
 		super(new NameTriplet("unknown male"), "Unknown.",
 				1, Gender.M_P_MALE, RacialBody.HUMAN, RaceStage.HUMAN,
 				new CharacterInventory(0), WorldType.EMPTY, PlaceType.GENERIC_EMPTY_TILE, true);
+		this.primaryColour = Colour.MASCULINE_NPC;
 	}
 	
 	@Override
@@ -39,6 +41,7 @@ public class GenericMaleNPC extends NPC {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 		
 		this.setName(new NameTriplet("unknown male"));
+		this.primaryColour = Colour.MASCULINE_NPC;
 	}
 	
 	@Override
