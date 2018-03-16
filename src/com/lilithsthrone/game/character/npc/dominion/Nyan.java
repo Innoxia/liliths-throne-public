@@ -74,6 +74,8 @@ public class Nyan extends NPC {
 				+ " She's extremely shy, and gets very nervous when having to talk to people.",
 				10, Gender.F_V_B_FEMALE, RacialBody.CAT_MORPH, RaceStage.LESSER,
 				new CharacterInventory(10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_NYANS_SHOP, true);
+		
+		this.primaryColour = Colour.BASE_WHITE;
 
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
