@@ -188,9 +188,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	protected String playerPetName = "";
 	protected String description;
 	protected int level;
-	protected Colour primaryColour;
-	protected Colour secondaryColour;
-	protected Colour tertiaryColour;
+	public Colour primaryColour;
+	public Colour secondaryColour;
+	public Colour tertiaryColour;
 	
 	protected History history;
 	protected Personality personality;
