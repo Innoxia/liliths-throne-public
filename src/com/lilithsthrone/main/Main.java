@@ -686,7 +686,7 @@ public class Main extends Application {
 
 		try {
 			properties.lastSaveLocation = name;//"data/saves/"+name+".lts";
-			properties.nameColour = Femininity.valueOf(game.getPlayer().getFemininityValue()).getColour().toWebHexString();
+			properties.nameColour = game.getPlayer().primaryColour.toWebHexString();
 			properties.name = game.getPlayer().getName();
 			properties.level = game.getPlayer().getLevel();
 			properties.money = game.getPlayer().getMoney();

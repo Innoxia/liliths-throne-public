@@ -72,9 +72,7 @@ public class LilayaHomeGeneric {
 								"<p>"
 									+ "You knock on the front door, and after only a brief moment, it swings open."
 								+ "</p>"
-								+ "<p>"
-									+ UtilText.parseNPCSpeech("Welcome back,", Femininity.FEMININE)
-									+ " Rose says, curtsying to you as you step into Lilaya's house."
+								+ "<p>[rose.speech(Welcome back,)] Rose says, curtsying to you as you step into Lilaya's house."
 								+ "</p>"
 								+ "<p>"
 									+ "You greet Rose as she closes the door behind you, and, excusing herself, she quickly hurries off to another part of the house, leaving you standing in the entrance hall."
