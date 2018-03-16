@@ -63,6 +63,10 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		super(nameTriplet, description, level, gender, startingRace, stage, new CharacterInventory(0), startingWorld, startingPlace);
 
 		this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
+		// Set starting colours
+		this.primaryColour = Colour.ANDROGYNOUS;
+		this.secondaryColour = Colour.CLOTHING_BLACK;
+		this.tertiaryColour = Colour.CLOTHING_BLACK;
 		
 		for(CoverableArea ca : CoverableArea.values()) {
 			playerKnowsAreas.add(ca);
