@@ -837,6 +837,9 @@ public class CharacterCreation {
 				
 			} else if (index == 10) {
 				return new Response("Extra hair", "Enter the customisation menu for facial, pubic, and body hair.", CHOOSE_ADVANCED_APPEARANCE_BODY_HAIR);
+
+			} else if (index == 11) {
+				return new Response("Colour", "Choose a player colour.", CHOOSE_ADVANCED_APPEARANCE_COLOUR);
 				
 			} else if (index == 0) {
 				return new Response("Back", "Confirm your choices and return to the content preferences menu.", CHOOSE_NAME);
@@ -1228,6 +1231,50 @@ public class CharacterCreation {
 			} else {
 				return null;
 			}
+		}
+	};
+	
+	public static final DialogueNodeOld CHOOSE_ADVANCED_APPEARANCE_COLOUR = new DialogueNodeOld("Choose Colour", "", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(
+					"<div class='container-full-width'>"
+						+ "<h3 style='text-align:center;'><b>Player Colour</b></h3>"
+						+ "<p>"
+							+ "Select the desired colour from the coloured buttons below."
+						+ "</p>"
+					+ "</div>"
+					+ "</br>"
+					+ "<div class='container-full-width'>"
+						+ "<h3 style='text-align:center;'><b>Dye & Preview</b></h3>"
+						+ "<div class='container-quarter-width'>"
+						+ "Colour:</br>");
+
+			for (Colour c : Colour.allClothingColours) {
+				UtilText.nodeContentSB.append("<div class='normal-button"+(Main.game.getPlayer().primaryColour==c?" selected":"")+"' id='COLOUR_" + c.toString() + "'"
+										+ " style='width:auto; margin-right:4px;"+(Main.game.getPlayer().primaryColour==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+									+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
+								+ "</div>");
+			}
+			
+			UtilText.nodeContentSB.append("</div>");
+			
+			UtilText.nodeContentSB.append("</div>");
+			
+			return UtilText.nodeContentSB.toString();
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 0) {
+				return new Response("Back", "Confirm your choices and return to the content preferences menu.", CHOOSE_ADVANCED_APPEARANCE);
+
+			} else
+				return null;
 		}
 	};
 	

@@ -4161,7 +4161,8 @@ public class MainController implements Initializable {
 					}
 				}
 			}
-			if (Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_COLOUR) {
+			if (Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_COLOUR
+					|| Main.game.getCurrentDialogueNode() == CharacterCreation.CHOOSE_ADVANCED_APPEARANCE_COLOUR) {
 				for (Colour c : Colour.allClothingColours) {
 					id = "COLOUR_" + c.toString();
 					if (((EventTarget) document.getElementById(id)) != null) {
