@@ -2037,9 +2037,9 @@ public class PhoneDialogue {
 					+ "</div>"
 					+ "</br>"
 					+ "<div class='container-full-width'>"
-						+ "<h3 style='text-align:center;'><b>Dye & Preview</b></h3>"
+						+ "<h3 style='text-align:center;'><b>Colours</b></h3>"
 						+ "<div class='container-quarter-width'>"
-						+ "Colour:</br>");
+						+ "Clothing Colours:</br>");
 
 			for (Colour c : Colour.allClothingColours) {
 				journalSB.append("<div class='normal-button"+(Main.game.getPlayer().primaryColour==c?" selected":"")+"' id='COLOUR_" + c.toString() + "'"
@@ -2047,9 +2047,21 @@ public class PhoneDialogue {
 									+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
 								+ "</div>");
 			}
-			
 			journalSB.append("</div>");
 			
+			journalSB.append("<div class='container-quarter-width'>"
+					+ "Hair Colours:</br>");
+			List<Colour> allHairColours = Util.newArrayListOfValues();
+			allHairColours.addAll(Colour.naturalHairColours);
+			allHairColours.addAll(Colour.dyeHairColours);
+			for (Colour c : allHairColours) {
+				journalSB.append("<div class='normal-button"+(Main.game.getPlayer().primaryColour==c?" selected":"")+"' id='COLOUR_" + c.toString() + "'"
+										+ " style='width:auto; margin-right:4px;"+(Main.game.getPlayer().primaryColour==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+									+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
+								+ "</div>");
+			}
+			journalSB.append("</div>");
+
 			journalSB.append("</div>");
 			
 			return journalSB.toString();

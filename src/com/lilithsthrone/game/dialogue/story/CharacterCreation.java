@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.dialogue.story;
 
 import java.io.File;
+import java.util.List;
 
 import com.lilithsthrone.game.Weather;
 import com.lilithsthrone.game.character.CharacterUtils;
@@ -1250,9 +1251,9 @@ public class CharacterCreation {
 					+ "</div>"
 					+ "</br>"
 					+ "<div class='container-full-width'>"
-						+ "<h3 style='text-align:center;'><b>Dye & Preview</b></h3>"
+						+ "<h3 style='text-align:center;'><b>Colours</b></h3>"
 						+ "<div class='container-quarter-width'>"
-						+ "Colour:</br>");
+						+ "Clothing Colours:</br>");
 
 			for (Colour c : Colour.allClothingColours) {
 				UtilText.nodeContentSB.append("<div class='normal-button"+(Main.game.getPlayer().primaryColour==c?" selected":"")+"' id='COLOUR_" + c.toString() + "'"
@@ -1260,7 +1261,19 @@ public class CharacterCreation {
 									+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
 								+ "</div>");
 			}
+			UtilText.nodeContentSB.append("</div>");
 			
+			UtilText.nodeContentSB.append("<div class='container-quarter-width'>"
+					+ "Hair Colours:</br>");
+			List<Colour> allHairColours = Util.newArrayListOfValues();
+			allHairColours.addAll(Colour.naturalHairColours);
+			allHairColours.addAll(Colour.dyeHairColours);
+			for (Colour c : allHairColours) {
+				UtilText.nodeContentSB.append("<div class='normal-button"+(Main.game.getPlayer().primaryColour==c?" selected":"")+"' id='COLOUR_" + c.toString() + "'"
+										+ " style='width:auto; margin-right:4px;"+(Main.game.getPlayer().primaryColour==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+									+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
+								+ "</div>");
+			}
 			UtilText.nodeContentSB.append("</div>");
 			
 			UtilText.nodeContentSB.append("</div>");
