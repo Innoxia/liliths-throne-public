@@ -289,6 +289,11 @@ public class FluidCum implements BodyPartInterface, Serializable, XMLSaving {
 	}
 	
 	public String removeFluidModifier(GameCharacter owner, FluidModifier fluidModifier) {
+		if(owner==null) {
+			fluidModifiers.remove(fluidModifier);
+			return "";
+		}
+		
 		if(!fluidModifiers.contains(fluidModifier) || !owner.hasPenis()) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}

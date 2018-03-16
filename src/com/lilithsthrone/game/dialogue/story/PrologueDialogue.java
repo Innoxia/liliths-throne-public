@@ -165,7 +165,7 @@ public class PrologueDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld INTRO_EMPTY_ROOM = new DialogueNodeOld("In the Museum", "", true) {
+	public static final DialogueNodeOld INTRO_EMPTY_ROOM = new DialogueNodeOld("In the Museum", "", true, true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -227,12 +227,12 @@ public class PrologueDialogue {
 							null, null, null,
 							true, true,
 							new SMStanding(
-									Util.newHashMapOfValues(new Value<>(Main.game.getPrologueMale(), SexPositionSlot.STANDING_DOMINANT)),
-									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_SUBMISSIVE))),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPlayer(), SexPositionSlot.STANDING_DOMINANT)),
+									Util.newHashMapOfValues(new Value<>(Main.game.getPrologueFemale(), SexPositionSlot.STANDING_SUBMISSIVE))),
 							AFTER_SEX,
 							(Main.game.getPlayer().hasPenis()
 								?"<p>"
-									+ "You pull [prologueFemale] into your [pc.breasts], desperately [pc.moaning] into her mouth as you dominantly grope and fondle [npc.her] body."
+									+ "You pull [prologueFemale.name] into your [pc.breasts], desperately [pc.moaning] into her mouth as you dominantly grope and fondle [npc.her] body."
 									+ " Breaking off the kiss for a moment, she pulls something out of her purse, before pushing it into your hands,"
 									+ " [prologueFemale.speech(I'd rather you didn't, but if you want to, you can wear this.)]"
 								+ "</p>"
@@ -334,7 +334,7 @@ public class PrologueDialogue {
 				}
 				
 			} else {
-				if(Sex.getNumberOfOrgasms(Main.game.getPrologueFemale())>0) {
+				if(Sex.getNumberOfOrgasms(Main.game.getPrologueMale())>0) {
 					UtilText.nodeContentSB.append(
 							"<p>"
 								+ "[prologueMale.Name] sinks down onto one of the leather sofas with a sigh,"
@@ -403,7 +403,7 @@ public class PrologueDialogue {
 	};
 	
 	
-	public static final DialogueNodeOld INTRO_SECOND_THOUGHTS = new DialogueNodeOld("In the Museum", "", true) {
+	public static final DialogueNodeOld INTRO_SECOND_THOUGHTS = new DialogueNodeOld("In the Museum", "", true, true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -480,7 +480,7 @@ public class PrologueDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld INTRO_NO = new DialogueNodeOld("In the Museum", "", true) {
+	public static final DialogueNodeOld INTRO_NO = new DialogueNodeOld("In the Museum", "", true, true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -558,7 +558,7 @@ public class PrologueDialogue {
 		}
 	};
 
-	public static final DialogueNodeOld INTRO_2 = new DialogueNodeOld("In the Museum", "", true) {
+	public static final DialogueNodeOld INTRO_2 = new DialogueNodeOld("In the Museum", "", true, true) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -729,7 +729,6 @@ public class PrologueDialogue {
 						Main.game.setWeather(Weather.MAGIC_STORM, 300);
 
 						Main.game.setRenderMap(true);
-						Main.game.setInNewWorld(true);
 						
 						Main.mainController.updateUI();
 						

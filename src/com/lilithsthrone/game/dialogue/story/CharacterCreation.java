@@ -1651,7 +1651,6 @@ public class CharacterCreation {
 					public void effects() {
 						
 						Main.game.setRenderMap(true);
-						Main.game.setInNewWorld(true);
 						
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().startQuest(QuestLine.MAIN));
 						Main.game.getTextStartStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.MAIN, Quest.MAIN_1_A_LILAYAS_TESTS));
@@ -1823,7 +1822,6 @@ public class CharacterCreation {
 					@Override
 					public void effects() {
 						Main.game.setRenderMap(true);
-						Main.game.setInNewWorld(true);
 
 						Main.game.getPlayer().resetAllQuests();
 						Main.game.getPlayer().getCharactersEncountered().clear();

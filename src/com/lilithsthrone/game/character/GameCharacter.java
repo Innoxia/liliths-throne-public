@@ -8391,18 +8391,18 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			setLust(75);
 		} else {
 			if(getLust()>getRestingLust()) {
-				incrementLust(Math.min(getRestingLust()-getLust(), -0.5f*minutes));
-			} else if(getLust()<getRestingLust()) {
+				incrementLust(-Math.min(getLust()-getRestingLust(), 0.5f*minutes));
+			} else if((int)getLust()!=getRestingLust()) {
 				incrementLust(Math.min(getRestingLust()-getLust(), 0.5f*minutes));
 			}
 		}
 	}
 	
-	public float getRestingLust() {
+	public int getRestingLust() {
 		if(hasStatusEffect(StatusEffect.WEATHER_STORM_VULNERABLE)) {
 			return 100;
 		}
-		return getAttributeValue(Attribute.MAJOR_CORRUPTION)/2;
+		return (int) Math.round(getAttributeValue(Attribute.MAJOR_CORRUPTION)/2);
 	}
 	
 	public String setLust(float lust) {
@@ -8512,13 +8512,29 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				int minimumNumberOfChildren = 1;
 				int maximumNumberOfChildren = 1;
 				
-				if(getVaginaType()==VaginaType.HUMAN) {
-					minimumNumberOfChildren = partner.getPenisType().getRace().getNumberOfOffspringLow();
-					maximumNumberOfChildren = partner.getPenisType().getRace().getNumberOfOffspringHigh();
+				if(this.getBodyMaterial()==BodyMaterial.SLIME) {
+					minimumNumberOfChildren = Race.SLIME.getNumberOfOffspringLow();
+					maximumNumberOfChildren = Race.SLIME.getNumberOfOffspringHigh();
 					
 				} else {
-					minimumNumberOfChildren = getVaginaType().getRace().getNumberOfOffspringLow();
-					maximumNumberOfChildren = getVaginaType().getRace().getNumberOfOffspringHigh();
+					if(getVaginaType()==VaginaType.HUMAN) {
+						if(partner.getPenisType().getRace()==null) {
+							minimumNumberOfChildren = partner.getRace().getNumberOfOffspringLow();
+							maximumNumberOfChildren = partner.getRace().getNumberOfOffspringHigh();
+						} else {
+							minimumNumberOfChildren = partner.getPenisType().getRace().getNumberOfOffspringLow();
+							maximumNumberOfChildren = partner.getPenisType().getRace().getNumberOfOffspringHigh();
+						}
+						
+					} else {
+						if(getVaginaType().getRace()==null) {
+							minimumNumberOfChildren = getRace().getNumberOfOffspringLow();
+							maximumNumberOfChildren = getRace().getNumberOfOffspringHigh();
+						} else {
+							minimumNumberOfChildren = getVaginaType().getRace().getNumberOfOffspringLow();
+							maximumNumberOfChildren = getVaginaType().getRace().getNumberOfOffspringHigh();
+						}
+					}
 				}
 				
 				if(partner.hasFetish(Fetish.FETISH_SEEDER)) {
@@ -11095,12 +11111,20 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return body.getHeight();
 	}
 
+	public int getMinimumHeight() {
+		return this.getSubspecies().isShortStature()?Height.NEGATIVE_TWO_MIMIMUM.getMinimumValue():Height.ZERO_TINY.getMinimumValue();
+	}
+	
+	public int getMaximumHeight() {
+		return Height.SEVEN_COLOSSAL.getMaximumValue();
+	}
+	
 	/**
 	 * @return Formatted description of height change.
 	 */
 	public String setHeight(int height) {
 		if (body.getHeightValue() < height) {
-			if (body.setHeight(Math.max(this.getRace().isShortStature()?Height.NEGATIVE_TWO_MIMIMUM.getMinimumValue():Height.ZERO_TINY.getMinimumValue(), height))) {
+			if (body.setHeight(Math.max(this.getSubspecies().isShortStature()?Height.NEGATIVE_TWO_MIMIMUM.getMinimumValue():Height.ZERO_TINY.getMinimumValue(), height))) {
 				return isPlayer()
 						? "<p class='center'>"
 							+ "The world around you seems slightly further away than it used to be, but after a moment you realise that you've just <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>grown taller</b>."
@@ -11113,7 +11137,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							+ "</p>");
 			}
 		} else {
-			if (body.setHeight(Math.max(this.getRace().isShortStature()?Height.NEGATIVE_TWO_MIMIMUM.getMinimumValue():Height.ZERO_TINY.getMinimumValue(), height))) {
+			if (body.setHeight(Math.max(this.getSubspecies().isShortStature()?Height.NEGATIVE_TWO_MIMIMUM.getMinimumValue():Height.ZERO_TINY.getMinimumValue(), height))) {
 				return isPlayer()
 						? "<p class='center'>"
 							+ "The world around you suddenly seems slightly closer than it used to be, but after a moment you realise that you've just <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>become shorter</b>."
@@ -13067,6 +13091,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	public Covering getCovering(BodyCoveringType bodyCoveringType) {
 		if(this.getBodyMaterial()==BodyMaterial.SLIME) {
+			if(bodyCoveringType.getNaturalModifiers().contains(CoveringModifier.EYE) || bodyCoveringType == BodyCoveringType.SLIME_EYE) {
+				return body.getCoverings().get(BodyCoveringType.SLIME_EYE);
+			}
 			switch(bodyCoveringType) {
 				case MAKEUP_BLUSHER:
 				case MAKEUP_EYE_LINER:
@@ -13075,6 +13102,35 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				case MAKEUP_NAIL_POLISH_FEET:
 				case MAKEUP_NAIL_POLISH_HANDS:
 					break;
+				case EYE_PUPILS: case SLIME_PUPILS:
+					return body.getCoverings().get(BodyCoveringType.SLIME_PUPILS);
+				case HAIR_ANGEL:
+				case HAIR_BOVINE_FUR:
+				case HAIR_CANINE_FUR:
+				case HAIR_DEMON:
+				case HAIR_FELINE_FUR:
+				case HAIR_HARPY:
+				case HAIR_HORSE_HAIR:
+				case HAIR_HUMAN:
+				case HAIR_IMP:
+				case HAIR_LYCAN_FUR:
+				case HAIR_REINDEER_FUR:
+				case HAIR_SCALES_ALLIGATOR:
+				case HAIR_SQUIRREL_FUR:
+				case SLIME_HAIR:
+					return body.getCoverings().get(BodyCoveringType.SLIME_HAIR);
+				case ANUS:
+				case SLIME_ANUS:
+					return body.getCoverings().get(BodyCoveringType.SLIME_ANUS);
+				case NIPPLES:
+				case SLIME_NIPPLES:
+					return body.getCoverings().get(BodyCoveringType.SLIME_NIPPLES);
+				case MOUTH:
+				case SLIME_MOUTH:
+					return body.getCoverings().get(BodyCoveringType.SLIME_MOUTH);
+				case VAGINA:
+				case SLIME_VAGINA:
+					return body.getCoverings().get(BodyCoveringType.SLIME_VAGINA);
 				default:
 					return body.getCoverings().get(BodyCoveringType.SLIME);
 			}
@@ -13086,6 +13142,22 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	 * @return Formatted description of skin colour change.
 	 */
 	public String setSkinCovering(Covering covering, boolean updateAllSkinColours) {
+		if(this.getBodyMaterial()==BodyMaterial.SLIME) {
+			switch(covering.getType()) {
+				case MAKEUP_BLUSHER:
+				case MAKEUP_EYE_LINER:
+				case MAKEUP_EYE_SHADOW:
+				case MAKEUP_LIPSTICK:
+				case MAKEUP_NAIL_POLISH_FEET:
+				case MAKEUP_NAIL_POLISH_HANDS:
+					return "<p>"
+								+ "[style.colourDisabled(Slimes cannot wear makeup...)]"
+							+ "</p>";
+				default:
+					break;
+			}
+		}
+		
 		if(!getCovering(getSkinType().getBodyCoveringType()).equals(covering)) {
 
 			BodyCoveringType coveringType = covering.getType();
@@ -13118,6 +13190,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 							+ "</p>"
 							+ postTransformationCalculation());
 				}
+			} else {
+				postTransformationCalculation();
 			}
 		}
 

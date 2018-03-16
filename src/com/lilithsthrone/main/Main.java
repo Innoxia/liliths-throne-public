@@ -56,7 +56,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.2.1",
+	public static final String VERSION_NUMBER = "0.2.1.1",
 			VERSION_DESCRIPTION = "Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
@@ -75,7 +75,7 @@ public class Main extends Application {
 			
 		+ "<p>"
 			+ "I've got lactation content, the introduction sex scene, Pix's reversal sex scene, and a lot of slime-related bugs and missing content finished!"
-			+ " I dind't quite have enough time to get the Submission placeholder content finished, or to add bat and rat morphs, but those will all be done for 0.2.2! ^^"
+			+ " I didn't quite have enough time to get the Submission placeholder content finished, or to add bat and rat morphs, but those will all be done for 0.2.2! ^^"
 		+ "</p>"
 
 		+"<p>"
@@ -227,6 +227,42 @@ public class Main extends Application {
 			+"<ul>Reindeer encounters should now save properly.</ul>"
 			+"<ul>Time will now pass as you move through the Supplier Depot and Submission.</ul>"
 		+ "</list>"
+
+		+ "</br>"
+
+		+ "<list>"
+			+ "<h6>v0.2.1.1</h6>"
+			+"<li>Other:</li>"
+			+"<ul>Alexandria no longer spawns as a virgin.</ul>"
+			+"<ul>Vicky will now both buy and sell Imp and Slime essences.</ul>"
+			+"<ul>You can now have different colours for slime hair, eyes, pupils, and orifices (added colouring options to the self-transform menu).</ul>"
+			+"<ul>Added a lot of colouring patterns to slime and slime hair coverings.</ul>"
+			+"<ul>Added hair style to slime's self-transform options.</ul>"
+			+"<ul>Added the new lactation fetishes to the mystery kink enchanting menu.</ul>"
+			+"<ul>Fixed cause of a major bug where the sides of the screen would stop rendering & the game would break.</ul>"
+			+"<ul>Added dark brown and tan to slime colours.</ul>"
+			+"<ul>Added 'Dobermann-slime' subspecies. (Obtained by being a dog-slime with 'black' primary colour, 'brown', 'tan', or 'dark-brown' secondary colour, and 'marked' pattern.)</ul>"
+			+"<ul>Slimes will now start sex with all orifices lubricated by slime.</ul>"
+			+"<ul>Slime-imps can now reduce height to 2ft, like normal imps.</ul>"
+			+"<ul>Improved height transformation panel in self-tf phone menu.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed Alexandria changing to Alexander in the game's intro sex scene.</ul>"
+			+"<ul>Fixed cause of game lock-up in the introduction's scene immediately before having sex with Alexandria.</ul>"
+			+"<ul>Fixed several causes of save game files not loading.</ul>"
+			+"<ul>Fixed virginity loss issues in the intro's sex experience settings.</ul>"
+			+"<ul>Fixed issue with incorrect dialogue being returned in the intro's post-sex scene.</ul>"
+			+"<ul>Fixed Arcane Essences quest triggering in the prologue.</ul>"
+			+"<ul>Fixed the 'Suckle' sex action not being available.</ul>"
+			+"<ul>Breastfeeding actions are now correctly associated with nipples.</ul>"
+			+"<ul>Changing slime colour now correctly updates throat/inner orifices.</ul>"
+			+"<ul>Fixed bug where you couldn't creampie/cum inside slime-boys.</ul>"
+			+"<ul>Fixed slimes spawning with makeup on.</ul>"
+			+"<ul>Fixed slime orifices not being described.</ul>"
+			+"<ul>Fixed lust gain/loss over time continuously jumping past and then back beneath the resting lust mark.</ul>"
+			+"<ul>Fixed lust resetting after combat.</ul>"
+			+"<ul>Fixed being able to quicksave/load in prologue (which would break the game in the background).</ul>"
+		+ "</list>"
 		;
 	
 	public static String disclaimer = "<h6 style='text-align: center; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>You must read and agree to the following in order to play this game!</h6>"
@@ -294,7 +330,11 @@ public class Main extends Application {
 
 		credits.add(new CreditsSlot("Archan9el S117", "", 0, 0, 0, 1));
 		credits.add(new CreditsSlot("FreakyHydra", "", 0, 0, 0, 1));
-		 
+		credits.add(new CreditsSlot("Reila Oda", "", 0, 0, 0, 1));
+
+		credits.add(new CreditsSlot("Blue Kobold", "", 0, 0, 1, 0));
+		
+		
 		
 		credits.add(new CreditsSlot("Adhana Konker", "", 0, 0, 3, 0));
 		credits.add(new CreditsSlot("Lexi <3", "", 0, 0, 0, 1));
@@ -604,6 +644,9 @@ public class Main extends Application {
 			
 		} else if (Main.game.getCurrentDialogueNode().getMapDisplay()!=MapDisplay.NORMAL) {
 			Main.game.flashMessage(Colour.GENERIC_BAD, "Can only quicksave in a normal scene!");
+			
+		} else if (!Main.game.isStarted() || !Main.game.getCurrentDialogueNode().equals(DebugDialogue.getDefaultDialogueNoEncounter())) {
+			Main.game.flashMessage(Colour.GENERIC_BAD, "Cannot save in this scene!");
 			
 		} else {
 			Main.getProperties().lastQuickSaveName = "QuickSave_"+Main.game.getPlayer().getName();

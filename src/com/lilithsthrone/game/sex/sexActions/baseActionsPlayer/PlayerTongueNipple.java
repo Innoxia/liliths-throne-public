@@ -20,12 +20,12 @@ import com.lilithsthrone.main.Main;
 public class PlayerTongueNipple {
 	
 	public static final SexAction PLAYER_SUCKLE = new SexAction(
-			SexActionType.PARTNER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
+			SexActionType.PLAYER_REQUIRES_NO_PENETRATION_AND_EXPOSED,
 			ArousalIncrease.TWO_LOW,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.TONGUE,
-			OrificeType.BREAST,
+			OrificeType.NIPPLE,
 			SexParticipantType.PITCHER) {
 		
 		@Override
@@ -136,7 +136,7 @@ public class PlayerTongueNipple {
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.TONGUE,
-			OrificeType.BREAST,
+			OrificeType.NIPPLE,
 			SexParticipantType.CATCHER) {
 		
 		@Override
