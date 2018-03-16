@@ -138,6 +138,9 @@ public class PhoneDialogue {
 				} else {
 					return new Response("Transform", "Only demons and slimes can transform themselves!", null);
 				}
+
+			} else if (index == 9) {
+				return new Response("Colour", "Choose a new primary colour.", CHARACTER_COLOUR);
 				
 			} else if (index == 0){
 				return new ResponseEffectsOnly("Back", "Put your phone away."){
@@ -2019,4 +2022,48 @@ public class PhoneDialogue {
 						:"")
 			+ "</div>";
 	}
+	
+	public static final DialogueNodeOld CHARACTER_COLOUR = new DialogueNodeOld("Choose Colour", "", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getContent() {
+			journalSB = new StringBuilder(
+					"<div class='container-full-width'>"
+						+ "<h3 style='text-align:center;'><b>Player Colour</b></h3>"
+						+ "<p>"
+							+ "Select the desired colour from the coloured buttons below."
+						+ "</p>"
+					+ "</div>"
+					+ "</br>"
+					+ "<div class='container-full-width'>"
+						+ "<h3 style='text-align:center;'><b>Dye & Preview</b></h3>"
+						+ "<div class='container-quarter-width'>"
+						+ "Colour:</br>");
+
+			for (Colour c : Colour.allClothingColours) {
+				journalSB.append("<div class='normal-button"+(Main.game.getPlayer().primaryColour==c?" selected":"")+"' id='COLOUR_" + c.toString() + "'"
+										+ " style='width:auto; margin-right:4px;"+(Main.game.getPlayer().primaryColour==c?" background-color:"+Colour.BASE_GREEN.getShades()[4]+";":"")+"'>"
+									+ "<div class='phone-item-colour' style='background-color:" + c.toWebHexString() + ";'></div>"
+								+ "</div>");
+			}
+			
+			journalSB.append("</div>");
+			
+			journalSB.append("</div>");
+			
+			return journalSB.toString();
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 0) {
+				return new Response("Back", "Return to your phone's main menu.", MENU) {
+
+				};
+
+			} else
+				return null;
+		}
+	};
 }

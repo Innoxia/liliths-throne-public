@@ -4161,6 +4161,23 @@ public class MainController implements Initializable {
 					}
 				}
 			}
+			if (Main.game.getCurrentDialogueNode() == PhoneDialogue.CHARACTER_COLOUR) {
+				for (Colour c : Colour.allClothingColours) {
+					id = "COLOUR_" + c.toString();
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							Main.game.getPlayer().primaryColour = c;
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+					
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+					
+					TooltipInformationEventListener el2 =  new TooltipInformationEventListener().setInformation(Util.capitaliseSentence(c.getName()), "");
+					addEventListener(document, id, "mouseenter", el2, false);
+				}
+			}
 		}
 
 		// Hotkey bindings:
