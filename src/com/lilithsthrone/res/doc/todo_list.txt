@@ -21,7 +21,7 @@
 	
 	
 	Patch notes:
-	
+
 Other:
 	Alexandria no longer spawns as a virgin.
 	Vicky will now both buy and sell Imp and Slime essences.
@@ -76,6 +76,7 @@ Bugs:
 	Spell & Combat page
 	Spell level to work
 	
+	content for pix impreg
 	
 	Improve intro to reference increasing arousal more
 	

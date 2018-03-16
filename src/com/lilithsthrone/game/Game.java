@@ -896,8 +896,8 @@ public class Game implements Serializable, XMLSaving {
 			if(!Main.game.getPlayer().getLocation().equals(npc.getLocation()) && !Main.game.isInCombat() && !Main.game.isInSex()) {
 				npc.setHealthPercentage(1);
 				npc.setManaPercentage(1);
-				npc.alignLustToRestingLust(turnTime);
 			}
+			npc.alignLustToRestingLust(turnTime*10);
 			
 			npc.calculateStatusEffects(turnTime);
 			
