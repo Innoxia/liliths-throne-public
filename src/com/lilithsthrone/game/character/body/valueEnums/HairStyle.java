@@ -29,7 +29,7 @@ public enum HairStyle {
 	MOHAWK("mohawk", HairLength.TWO_SHORT),
 	DREADLOCKS("dreadlocks", HairLength.TWO_SHORT),
 	BOB_CUT("bob-cut", HairLength.THREE_SHOULDER_LENGTH),
-	CHONMAGE("chonmage", HairLenth.THREE_SHOULDER_LENGTH),
+	CHONMAGE("chonmage", HairLength.THREE_SHOULDER_LENGTH),
 	TOPKNOT("topknot", HairLength.THREE_SHOULDER_LENGTH),
 	WAVY("wavy", HairLength.THREE_SHOULDER_LENGTH),
 	PONYTAIL("ponytail", HairLength.THREE_SHOULDER_LENGTH),
