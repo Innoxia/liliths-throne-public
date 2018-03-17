@@ -2412,6 +2412,43 @@ public class GenericOrgasms {
 		}
 	};
 	
+	public static final SexAction PLAYER_PREPARE_DENY = new SexAction(
+			SexActionType.PLAYER_PREPARE_PARTNER_ORGASM,
+			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.TWO_LOW,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			null,
+			SexParticipantType.MISC) {
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return Sex.isDom(Main.game.getPlayer());
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Deny";
+		}
+
+		@Override
+		public String getActionDescription() {
+			return "You can feel that [npc.name] is fast approaching [npc.her] orgasm. Don't let [npc.her] have it.";
+		}
+
+		@Override
+		public String getDescription() {
+			return UtilText.parse(Sex.getActivePartner(),
+					"Taking control of the situation, you hold [npc.name] quite still, only releasing [npc.herHim] once"
+							+ " [npc.she]'s lost a good portion of [npc.her] arousal.");
+		}
+		
+		@Override
+		public void applyEffects() {
+			SexFlags.playerDeniedPartner = true;
+		}
+	};
+	
 	// PARTNER
 	
 	public static final SexAction PARTNER_PREPARE = new SexAction(
