@@ -3218,5 +3218,47 @@ public class GenericOrgasms {
 			return null; 
 		}
 	};
+	
+	public static final SexAction PARTNER_GENERIC_ORGASM_DENIED = new SexAction(
+			SexActionType.PARTNER_ORGASM_NO_AROUSAL_RESET,
+			ArousalIncrease.NEGATIVE_MAJOR,
+			ArousalIncrease.TWO_LOW,
+			CorruptionLevel.ZERO_PURE,
+			null,
+			null,
+			SexParticipantType.MISC) {
+		
+		@Override
+		public boolean isBaseRequirementsMet() {
+			return SexFlags.playerDeniedPartner;
+		}
+		
+		@Override
+		public SexActionPriority getPriority() {
+			return SexActionPriority.UNIQUE_MAX;
+		}
+		
+		@Override
+		public String getActionTitle() {
+			return "Denied!";
+		}
+		
+		@Override
+		public String getActionDescription() {
+			return "You were denied at the last moment!";
+		}
+		
+		@Override
+		public String getDescription() {
+			return UtilText.parse(Sex.getActivePartner(),
+					"[npc.speech(Noooo! I was so close!)] [npc.name] wails in dismay.");
+		}
+		
+		@Override
+		public void applyEffects() {
+			SexFlags.playerDeniedPartner = false;
+			SexFlags.playerPreparedForOrgasm = false;
+		}
+	};
 
 }
