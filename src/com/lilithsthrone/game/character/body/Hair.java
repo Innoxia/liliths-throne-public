@@ -417,9 +417,30 @@ public class Hair implements BodyPartInterface, Serializable {
 				
 			case HIME_CUT:
 				if(owner.isPlayer()) {
-					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now straightened, and styled into a hime-cut.</p>";
+					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now straightened, and styled into a hime cut.</p>";
 				} else {
 					return UtilText.parse(owner, "<p>[npc.Name]'s [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now straightened, and styled into a hime-cut.</p>");
+				}
+				
+			case CHONMAGE:
+				if(owner.isPlayer()) {
+					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now straightened, oiled, and styled into a chonmage.</p>";
+				} else {
+					return UtilText.parse(owner, "<p>[npc.Name]'s [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now straightened, oiled, and styled into a chonmage.</p>");
+				}
+				
+			case DREADLOCKS:
+				if(owner.isPlayer()) {
+					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into dreadlocks.</p>";
+				} else {
+					return UtilText.parse(owner, "<p>[npc.Name]'s [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now styled into dreadlocks.</p>");
+				}
+				
+			case TOPKNOT:
+				if(owner.isPlayer()) {
+					return "<p>Your [pc.hair] "+(type.isDefaultPlural()?"are":"is")+" now gathered up into a topknot.</p>";
+				} else {
+					return UtilText.parse(owner, "<p>[npc.Name]'s [npc.hair] "+(type.isDefaultPlural()?"are":"is")+" now gathered up into a topknot.</p>");
 				}
 		}
 		
