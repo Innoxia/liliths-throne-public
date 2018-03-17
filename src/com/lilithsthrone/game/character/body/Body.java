@@ -1638,6 +1638,10 @@ public class Body implements Serializable, XMLSaving {
 				case MESSY:
 					sb.append(", which "+(hair.getType().isDefaultPlural()?"are":"is")+" unstyled and very messy.");
 					break;
+					
+				case HIME_CUT:
+					sb.append(", which "+(hair.getType().isDefaultPlural()?"are":"is")+" straightened and styled into a hime cut.");
+					break;
 			}
 		}
 		
