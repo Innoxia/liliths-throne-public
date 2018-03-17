@@ -31,7 +31,7 @@ public enum HairStyle {
 	WAVY("wavy", HairLength.THREE_SHOULDER_LENGTH),
 	PONYTAIL("ponytail", HairLength.THREE_SHOULDER_LENGTH),
 	TWIN_TAILS("twintails", HairLength.THREE_SHOULDER_LENGTH),
-	BRAIDED("braided", HairLength.FOUR_MID_BACK);
+	BRAIDED("braided", HairLength.FOUR_MID_BACK),
 	HIME_CUT("hime-cut", HairLength.FOUR_MID_BACK);
 	
 	private String descriptor;
