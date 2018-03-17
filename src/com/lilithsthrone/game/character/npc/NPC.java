@@ -330,8 +330,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				case WOLF_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_WOLF_WHISKEY)));
 				case HUMAN:
-				case SLIME:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.INT_INGREDIENT_VANILLA_WATER)));
+				case SLIME:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.SEX_INGREDIENT_SLIME_QUENCHER)));
 				case ANGEL:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.DYE_BRUSH)));
 				case DEMON:
@@ -346,7 +347,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.FIT_INGREDIENT_SQUIRREL_JAVA)));
 			}
 			
-		} else if(rnd <= 0.8 && !Main.getProperties().isRaceDiscovered(getRace())) {
+		} else if(rnd <= 0.8 && !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(getRace())) {
 			switch(getRace()) {
 				case CAT_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_CAT_MORPH)));
@@ -361,8 +362,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				case WOLF_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_WOLF_MORPH)));
 				case HUMAN:
-				case SLIME:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_HUMAN)));
+				case SLIME:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_SLIME)));
 				case ANGEL:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.DYE_BRUSH)));
 				case DEMON:
@@ -392,8 +394,9 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				case WOLF_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_WOLF_MORPH)));
 				case HUMAN:
-				case SLIME:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HUMAN)));
+				case SLIME:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.SEX_INGREDIENT_SLIME_QUENCHER)));
 				case ANGEL:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_HUMAN)));
 				case DEMON: case IMP:
@@ -1250,7 +1253,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		}
 		if(fetish == Fetish.FETISH_BREASTS_OTHERS) {
 			for(Addiction add : this.getAddictions()) {
-				if(target.getBreastRawLactationValue()>0 && add.getFluid() == target.getMilkType()) {
+				if(target.getBreastRawMilkStorageValue()>0 && add.getFluid() == target.getMilkType()) {
 					return true;
 				}
 			}
@@ -1271,7 +1274,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		}
 		if(fetish == Fetish.FETISH_BREASTS_OTHERS) {
 			for(Addiction add : this.getAddictions()) {
-				if(target.getBreastRawLactationValue()>0 && add.getFluid() == target.getMilkType()) {
+				if(target.getBreastRawMilkStorageValue()>0 && add.getFluid() == target.getMilkType()) {
 					return false;
 				}
 			}
@@ -1787,10 +1790,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 				+ "<tr style='height:8px; color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+";'><th>Breasts</th></tr>"
 				+ statRow("Cup size", character.getBreastRawSizeValue() == 0 ? "N/A" : Util.capitaliseSentence(character.getBreastSize().getCupSizeName()))
 				+ (character.getPlayerKnowsAreas().contains(CoverableArea.NIPPLES)
-					?statRow("Milk production (mL)", String.valueOf(character.getBreastRawLactationValue()))
+					?statRow("Milk Storage (mL)", String.valueOf(character.getBreastRawMilkStorageValue()))
+						+statRow("Milk regeneration (%/minute)", String.valueOf((Math.round(character.getBreastLactationRegeneration().getPercentageRegen()*100)*100)/100f))
 						+ statRow("Capacity (inches)", String.valueOf(character.getNippleRawCapacityValue()))
 						+ statRow("Elasticity", String.valueOf(character.getNippleElasticity().getValue()) + " ("+Util.capitaliseSentence(character.getNippleElasticity().getDescriptor())+")")
-					:statRow("Milk production (mL)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
+					:statRow("Milk Storage (mL)", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
 						+ statRow("Capacity (inches)","<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>")
 						+ statRow("Elasticity", "<span style='color:"+Colour.TEXT_GREY.toWebHexString()+";'>Undiscovered</span>"))
 				+ "<tr style='height:8px;'></tr>"

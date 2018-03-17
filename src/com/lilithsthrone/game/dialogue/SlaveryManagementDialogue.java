@@ -18,6 +18,7 @@ import com.lilithsthrone.game.character.body.Skin;
 import com.lilithsthrone.game.character.body.Vagina;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.FaceType;
+import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.PiercingType;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.dialogue.eventLog.SlaveryEventLogEntry;
@@ -1523,10 +1524,15 @@ public class SlaveryManagementDialogue {
 	
 	private static Response getCosmeticsResponse(int responseTab, int index) {
 		if (index == 1) {
-			return new Response("Makeup",
-					"Kate offers a wide range of different cosmetic services, and several pages of the brochure are devoted to images displaying different styles and colours of lipstick, nail polish, and other forms of makeup.",
-					SLAVE_MANAGEMENT_COSMETICS_MAKEUP);
-
+			if(BodyChanging.getTarget().getBodyMaterial()==BodyMaterial.SLIME) {
+				return new Response("Makeup", UtilText.parse(BodyChanging.getTarget(), "Kate is unable to apply any makeup to [npc.name]'s slimy body!"), null);
+				
+			} else {
+				return new Response("Makeup",
+						"Kate offers a wide range of different cosmetic services, and several pages of the brochure are devoted to images displaying different styles and colours of lipstick, nail polish, and other forms of makeup.",
+						SLAVE_MANAGEMENT_COSMETICS_MAKEUP);
+			}
+			
 		} else if (index == 2) {
 			return new Response("Hair",
 					"There's a double-page spread of all the different dyes, styles, and lengths of hair that Kate's able to work with.",
@@ -1551,31 +1557,35 @@ public class SlaveryManagementDialogue {
 				public void effects() {
 					
 					CoveringsNamesMap = new LinkedHashMap<>();
-					
-					for(BodyPartInterface bp : BodyChanging.getTarget().getAllBodyParts()){
-						if(bp.getType().getBodyCoveringType()!=null
-								&& bp.getType().getBodyCoveringType().getRace()!=null
-								&& !(bp instanceof Hair)
-								&& !(bp instanceof Eye)) {
-							
-							String name = bp.getName(BodyChanging.getTarget());
-							if(bp instanceof Skin) {
-								name = "torso";
-							} else if(bp instanceof Vagina) {
-								name = "vagina";
-							}
-							
-							if(CoveringsNamesMap.containsKey(bp.getType().getBodyCoveringType())) {
-								CoveringsNamesMap.get(bp.getType().getBodyCoveringType()).add(name);
-							} else {
-								CoveringsNamesMap.put(bp.getType().getBodyCoveringType(), Util.newArrayListOfValues(new ListValue<>(name)));
+
+					if(BodyChanging.getTarget().getBodyMaterial()==BodyMaterial.SLIME) {
+						CoveringsNamesMap.put(BodyCoveringType.SLIME, Util.newArrayListOfValues(new ListValue<>("SLIME")));
+					} else {
+						for(BodyPartInterface bp : BodyChanging.getTarget().getAllBodyParts()){
+							if(bp.getType().getBodyCoveringType()!=null
+									&& bp.getType().getBodyCoveringType().getRace()!=null
+									&& !(bp instanceof Hair)
+									&& !(bp instanceof Eye)) {
+								
+								String name = bp.getName(BodyChanging.getTarget());
+								if(bp instanceof Skin) {
+									name = "torso";
+								} else if(bp instanceof Vagina) {
+									name = "vagina";
+								}
+								
+								if(CoveringsNamesMap.containsKey(bp.getType().getBodyCoveringType())) {
+									CoveringsNamesMap.get(bp.getType().getBodyCoveringType()).add(name);
+								} else {
+									CoveringsNamesMap.put(bp.getType().getBodyCoveringType(), Util.newArrayListOfValues(new ListValue<>(name)));
+								}
 							}
 						}
+						CoveringsNamesMap.put(BodyCoveringType.ANUS, Util.newArrayListOfValues(new ListValue<>("anus")));
+						CoveringsNamesMap.put(BodyCoveringType.MOUTH, Util.newArrayListOfValues(new ListValue<>("mouth")));
+						CoveringsNamesMap.put(BodyCoveringType.NIPPLES, Util.newArrayListOfValues(new ListValue<>("nipples")));
+						CoveringsNamesMap.put(BodyCoveringType.TONGUE, Util.newArrayListOfValues(new ListValue<>("tongue")));
 					}
-					CoveringsNamesMap.put(BodyCoveringType.ANUS, Util.newArrayListOfValues(new ListValue<>("anus")));
-					CoveringsNamesMap.put(BodyCoveringType.MOUTH, Util.newArrayListOfValues(new ListValue<>("mouth")));
-					CoveringsNamesMap.put(BodyCoveringType.NIPPLES, Util.newArrayListOfValues(new ListValue<>("nipples")));
-					CoveringsNamesMap.put(BodyCoveringType.TONGUE, Util.newArrayListOfValues(new ListValue<>("tongue")));
 				}
 			};
 
@@ -1676,10 +1686,12 @@ public class SlaveryManagementDialogue {
 
 					+CharacterModificationUtils.getKatesDivHairStyles(true, "Hair Style", "Hair style availability is determined by [npc.name]'s [npc.hair] length.")
 					
-					+CharacterModificationUtils.getKatesDivCoveringsNew(
-							true, BodyChanging.getTarget().getHairCovering().getType(),
-							UtilText.parse(BodyChanging.getTarget(), "[npc.Hair] Colour"),
-							"All hair recolourings are permanent, so if you want to change your colour again at a later time, you'll have to visit Kate again.", true, true)
+					+(BodyChanging.getTarget().getBodyMaterial()!=BodyMaterial.SLIME
+						?CharacterModificationUtils.getKatesDivCoveringsNew(
+								true, BodyChanging.getTarget().getCovering(BodyChanging.getTarget().getHairType().getBodyCoveringType()).getType(),
+								UtilText.parse(BodyChanging.getTarget(), "[npc.Hair] Colour"),
+								"All hair recolourings are permanent, so if you want to change your colour again at a later time, you'll have to visit Kate again.", true, true)
+						:"")
 					);
 		}
 		

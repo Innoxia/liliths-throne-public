@@ -120,6 +120,13 @@ public enum LubricationType {
 		}
 	},
 	
+	SLIME(false) {
+		@Override
+		public String getName() {
+			return "slime";
+		}
+	},
+	
 	OTHER(false) {
 		@Override
 		public String getName() {

@@ -9,7 +9,6 @@ import com.lilithsthrone.game.character.body.CoverableArea;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCFlagValue;
-import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.responses.Response;
@@ -32,7 +31,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.85
- * @version 0.2.0
+ * @version 0.2.1
  * @author Innoxia
  */
 public class SlaveDialogue {
@@ -374,7 +373,7 @@ public class SlaveDialogue {
 					}
 					
 				} else if (index == 3) {
-					if(slave().getRace()!=Race.DEMON) {
+					if(!slave().isAbleToSelfTransform()) {
 						return new Response("Transformations", "Only demons and slimes can transform themselves on command...", null);
 						
 					} else {

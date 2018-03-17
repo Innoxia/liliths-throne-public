@@ -124,6 +124,10 @@ public enum Subspecies {
 		public void applySpeciesChanges(Body body) {
 			// TODO Auto-generated method stub
 		}
+		@Override
+		public boolean isShortStature() {
+			return true;
+		}
 	},
 	
 	IMP_ALPHA("raceImpAlpha",
@@ -145,6 +149,10 @@ public enum Subspecies {
 		@Override
 		public void applySpeciesChanges(Body body) {
 			body.setHeight(Height.NEGATIVE_ONE_TINY.getMedianValue());
+		}
+		@Override
+		public boolean isShortStature() {
+			return true;
 		}
 	},
 	
@@ -441,6 +449,10 @@ public enum Subspecies {
 //			body = CharacterUtils.generateBody(body.getGender(), Subspecies.IMP, RaceStage.PARTIAL);
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
+		@Override
+		public boolean isShortStature() {
+			return true;
+		}
 	},
 	SLIME_COW("raceSlime",
 			"cow-slime",
@@ -471,6 +483,24 @@ public enum Subspecies {
 			Colour.RACE_SLIME,
 			SubspeciesPreference.FOUR_ABUNDANT,
 			"A slime that's taken on the form of a dog-morph.",
+			Util.newArrayListOfValues(new ListValue<>(WorldType.SUBMISSION))) {
+		@Override
+		public void applySpeciesChanges(Body body) {
+//			body = CharacterUtils.generateBody(body.getGender(), Subspecies.DOG_MORPH, RaceStage.PARTIAL);
+			body.setBodyMaterial(BodyMaterial.SLIME);
+		}
+	},
+	SLIME_DOG_DOBERMANN("raceSlime",
+			"dobermann-slime",
+			"dobermann-slimes",
+			"dobermann-slime-boy",
+			"dobermann-slime-girl",
+			"dobermann-slime-boys",
+			"dobermann-slime-girls",
+			Race.SLIME,
+			Colour.RACE_SLIME,
+			SubspeciesPreference.FOUR_ABUNDANT,
+			"A slime that's taken on the form of a dobermann-morph.",
 			Util.newArrayListOfValues(new ListValue<>(WorldType.SUBMISSION))) {
 		@Override
 		public void applySpeciesChanges(Body body) {
@@ -837,7 +867,15 @@ public enum Subspecies {
 							subspecies = Subspecies.SLIME_DEMON;
 							break;
 						case DOG_MORPH:
-							subspecies = Subspecies.SLIME_DOG;
+							if(body.getCoverings().get(BodyCoveringType.SLIME).getPrimaryColour()==Colour.SLIME_BLACK
+									&& (body.getCoverings().get(BodyCoveringType.SLIME).getSecondaryColour()==Colour.SLIME_BROWN
+											|| body.getCoverings().get(BodyCoveringType.SLIME).getSecondaryColour()==Colour.SLIME_BROWN_DARK
+											|| body.getCoverings().get(BodyCoveringType.SLIME).getSecondaryColour()==Colour.SLIME_TAN)
+									&& body.getCoverings().get(BodyCoveringType.SLIME).getPattern() == CoveringPattern.MARKED) {
+								subspecies = Subspecies.SLIME_DOG_DOBERMANN;
+							} else {
+								subspecies = Subspecies.SLIME_DOG;
+							}
 							break;
 						case HARPY:
 							subspecies = Subspecies.SLIME_HARPY;
@@ -875,6 +913,10 @@ public enum Subspecies {
 		return this;
 	}
 	
+	public boolean isShortStature() {
+		return false;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -909,6 +951,7 @@ public enum Subspecies {
 	public String getOffspringFemaleName() {
 		return pluralFemaleName;
 	}
+	
 	public String getOffspringFemaleNameSingular() {
 		return singularFemaleName;
 	}

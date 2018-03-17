@@ -2680,7 +2680,7 @@ public class Lab {
 						+ "You hear Lilaya speaking from somewhere beneath you, but you can't make out what she's saying..."
 						+ "</br></br>");
 			
-			if(Main.game.getPlayer().getBreastRawLactationValue() > 0) {
+			if(Main.game.getPlayer().getBreastRawMilkStorageValue() > 0) {
 				UtilText.nodeContentSB.append("You feel a desperate suckling at your nipples, and you're vaguely aware of something greedily drinking down mouthfuls of your [pc.milk]...");
 			} else {
 				UtilText.nodeContentSB.append("You feel a weight on your chest, and you're vaguely aware of something greedily drinking a bottle of milk as you cradle it in your arms...");
@@ -3122,7 +3122,7 @@ public class Lab {
 					+ "</p>");
 			
 			
-				if(Main.game.getPlayer().getBreastRawLactationValue() > 0) {
+				if(Main.game.getPlayer().getBreastRawMilkStorageValue() > 0) {
 					UtilText.nodeContentSB.append("<p>"
 								+ "Some time later, you drift back into consciousness for a moment as you feel a desperate suckling at your nipples,"
 									+ " and you're vaguely aware that it's your children who are eagerly drinking down mouthfuls of your [pc.milk]."
@@ -3251,6 +3251,7 @@ public class Lab {
 					case SLIME_COW:
 					case SLIME_DEMON:
 					case SLIME_DOG:
+					case SLIME_DOG_DOBERMANN:
 					case SLIME_HARPY:
 					case SLIME_HORSE:
 					case SLIME_IMP:
@@ -3314,6 +3315,7 @@ public class Lab {
 					case SLIME_COW:
 					case SLIME_DEMON:
 					case SLIME_DOG:
+					case SLIME_DOG_DOBERMANN:
 					case SLIME_HARPY:
 					case SLIME_HORSE:
 					case SLIME_IMP:
@@ -3377,6 +3379,7 @@ public class Lab {
 					case SLIME_COW:
 					case SLIME_DEMON:
 					case SLIME_DOG:
+					case SLIME_DOG_DOBERMANN:
 					case SLIME_HARPY:
 					case SLIME_HORSE:
 					case SLIME_IMP:
@@ -3440,6 +3443,7 @@ public class Lab {
 					case SLIME_COW:
 					case SLIME_DEMON:
 					case SLIME_DOG:
+					case SLIME_DOG_DOBERMANN:
 					case SLIME_HARPY:
 					case SLIME_HORSE:
 					case SLIME_IMP:

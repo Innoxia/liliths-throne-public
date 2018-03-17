@@ -20,7 +20,6 @@ import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.quests.QuestLine;
-import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.Attack;
@@ -30,6 +29,7 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.EnchantingUtils;
@@ -161,49 +161,9 @@ public class Vicky extends NPC {
 		}
 		
 		if(Main.game.getPlayer().hasQuest(QuestLine.SIDE_ENCHANTMENT_DISCOVERY)) {
-			this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_ARCANE), false);
-			for(Race r : Race.values()) {
-				switch(r) {
-					case ALLIGATOR_MORPH:
-						this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_ALLIGATOR_MORPH), false);
-						break;
-					case ANGEL:
-						break;
-					case CAT_MORPH:
-						this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_CAT_MORPH), false);
-						break;
-					case COW_MORPH:
-						this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_COW_MORPH), false);
-						break;
-					case DEMON:
-						this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_DEMON), false);
-						break;
-					case DOG_MORPH:
-						this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_DOG_MORPH), false);
-						break;
-					case HARPY:
-						this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_HARPY), false);
-						break;
-					case HORSE_MORPH:
-						this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_HORSE_MORPH), false);
-						break;
-					case HUMAN:
-						this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_HUMAN), false);
-						break;
-					case IMP:
-						this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_IMP), false);
-						break;
-					case REINDEER_MORPH:
-						this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_REINDEER_MORPH), false);
-						break;
-					case SLIME:
-						break;
-					case SQUIRREL_MORPH:
-						this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_SQUIRREL_MORPH), false);
-						break;
-					case WOLF_MORPH:
-						this.addItem(AbstractItemType.generateItem(ItemType.BOTTLED_ESSENCE_WOLF_MORPH), false);
-						break;
+			for(AbstractItemType itemType : ItemType.essences) {
+				for(int i=0;i<20+Util.random.nextInt(11);i++) {
+					this.addItem(AbstractItemType.generateItem(itemType), false);
 				}
 			}
 		}
@@ -241,18 +201,7 @@ public class Vicky extends NPC {
 			return true;
 		
 		if(item instanceof AbstractItem) {
-			if(((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_ARCANE
-					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_CAT_MORPH
-					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_DEMON
-					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_DOG_MORPH
-					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_HARPY
-					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_HORSE_MORPH
-					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_HUMAN
-					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_WOLF_MORPH
-					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_COW_MORPH
-					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_SQUIRREL_MORPH
-					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_ALLIGATOR_MORPH
-					|| ((AbstractItem)item).getItemType()==ItemType.BOTTLED_ESSENCE_REINDEER_MORPH
+			if(((AbstractItem)item).getItemType().getItemTags().contains(ItemTag.ESSENCE)
 					|| ((AbstractItem)item).getItemType()==ItemType.POTION
 					|| ((AbstractItem)item).getItemType()==ItemType.ELIXIR) {
 				return true;

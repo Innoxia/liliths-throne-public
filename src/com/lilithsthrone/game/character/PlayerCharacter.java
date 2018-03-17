@@ -19,14 +19,13 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.quests.Quest;
 import com.lilithsthrone.game.character.quests.QuestLine;
 import com.lilithsthrone.game.character.quests.QuestType;
+import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
 import com.lilithsthrone.game.combat.Combat;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.CharacterInventory;
 import com.lilithsthrone.game.inventory.ShopTransaction;
-import com.lilithsthrone.game.inventory.item.AbstractItemType;
-import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -38,7 +37,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.1.99
+ * @version 0.2.1
  * @author Innoxia
  */
 public class PlayerCharacter extends GameCharacter implements XMLSaving {
@@ -53,7 +52,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 
 	private boolean mainQuestUpdated, sideQuestUpdated, romanceQuestUpdated;
 
-	private Set<AbstractItemType> booksRead;
+	private Set<Race> racesDiscoveredFromBook;
 	
 	// Trader buy-back:
 	private SizedStack<ShopTransaction> buybackStack;
@@ -79,7 +78,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		sideQuestUpdated = false;
 		romanceQuestUpdated = false;
 		
-		booksRead = new HashSet<>();
+		racesDiscoveredFromBook = new HashSet<>();
 
 		buybackStack = new SizedStack<>(24);
 
@@ -114,11 +113,11 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		CharacterUtils.createXMLElementWithValue(doc, playerSpecific, "sideQuestUpdated", String.valueOf(this.sideQuestUpdated));
 		CharacterUtils.createXMLElementWithValue(doc, playerSpecific, "romanceQuestUpdated", String.valueOf(this.romanceQuestUpdated));
 		
-		Element innerElement = doc.createElement("booksRead");
+		Element innerElement = doc.createElement("racesDiscovered");
 		playerSpecific.appendChild(innerElement);
-		for(AbstractItemType book : booksRead) {
-			if(book != null) {
-				CharacterUtils.createXMLElementWithValue(doc, innerElement, "book", book.getId());
+		for(Race race : racesDiscoveredFromBook) {
+			if(race != null) {
+				CharacterUtils.createXMLElementWithValue(doc, innerElement, "race", race.toString());
 			}
 		}
 		
@@ -181,11 +180,14 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 				character.setRomanceQuestUpdated(Boolean.valueOf(((Element)playerSpecificElement.getElementsByTagName("romanceQuestUpdated").item(0)).getAttribute("value")));
 			}
 	
-			if(playerSpecificElement.getElementsByTagName("booksRead").item(0)!=null) {
-				for(int i=0; i<((Element) playerSpecificElement.getElementsByTagName("booksRead").item(0)).getElementsByTagName("book").getLength(); i++){
-					Element e = (Element) ((Element) playerSpecificElement.getElementsByTagName("booksRead").item(0)).getElementsByTagName("book").item(i);
-					character.addBooksRead(ItemType.idToItemMap.get(e.getAttribute("value")));
+			try {
+				if(playerSpecificElement.getElementsByTagName("racesDiscovered").item(0)!=null) {
+					for(int i=0; i<((Element) playerSpecificElement.getElementsByTagName("racesDiscovered").item(0)).getElementsByTagName("race").getLength(); i++){
+						Element e = (Element) ((Element) playerSpecificElement.getElementsByTagName("racesDiscovered").item(0)).getElementsByTagName("race").item(i);
+						character.addRaceDiscoveredFromBook(Race.valueOf(e.getAttribute("value")));
+					}
 				}
+			} catch(Exception ex) {
 			}
 	
 			if(playerSpecificElement.getElementsByTagName("charactersEncountered").item(0)!=null) {
@@ -414,7 +416,7 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 			} else {
 				return "<p style='text-align:center;'>"
 						+ "<b style='color:" + questLine.getType().getColour().toWebHexString() + ";'>Quest - " + questLine.getName() + "</b></br>"
-						+ "<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Task Completed</b><b></br>"
+						+ "<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>Task Completed</b></br>"
 						+ "<b>New Task - " + quest.getName() + "</b></p>"
 						+ experienceUpdate;
 			}
@@ -508,12 +510,12 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		return buybackStack;
 	}
 
-	public boolean addBooksRead(AbstractItemType book) {
-		return booksRead.add(book);
+	public boolean addRaceDiscoveredFromBook(Race race) {
+		return racesDiscoveredFromBook.add(race);
 	}
 	
-	public Set<AbstractItemType> getBooksRead() {
-		return booksRead;
+	public Set<Race> getRacesDiscoveredFromBook() {
+		return racesDiscoveredFromBook;
 	}
 
 	@Override

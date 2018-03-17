@@ -15,6 +15,8 @@ import com.lilithsthrone.game.Game;
 import com.lilithsthrone.game.KeyboardAction;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.attributes.Attribute;
+import com.lilithsthrone.game.character.body.valueEnums.CupSize;
+import com.lilithsthrone.game.character.body.valueEnums.Lactation;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.AndrogynousIdentification;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -39,7 +41,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.2.0
+ * @version 0.2.1
  * @author Innoxia
  */
 public class OptionsDialogue {
@@ -1368,6 +1370,7 @@ public class OptionsDialogue {
 					case SLIME_COW:
 					case SLIME_DEMON:
 					case SLIME_DOG:
+					case SLIME_DOG_DOBERMANN:
 					case SLIME_HARPY:
 					case SLIME_HORSE:
 					case SLIME_IMP:
@@ -1460,7 +1463,6 @@ public class OptionsDialogue {
 		return sb.toString();
 	};
 	
-	public static int[] forcedTFsettings = new int[] {0, 10, 40, 70, 100};
 	public static final DialogueNodeOld CONTENT_PREFERENCE = new DialogueNodeOld("Content Options", "", true) {
 		private static final long serialVersionUID = 1L;
 		
@@ -1507,51 +1509,17 @@ public class OptionsDialogue {
 						"This enables body hair descriptions and content for armpits and assholes.",
 						Main.getProperties().bodyHairContent)
 					
-					+"<div class='cosmetics-inner-container'>"
-						+ "<h5 style='text-align:center; color:"+Colour.BASE_GREEN.toWebHexString()+";'>"
-							+ "Forced TF"
-						+"</h5>"
-						+ "<p style='text-align:center;'>"
-							+ "This sets the amount of NPCs spawning with the '"+Fetish.FETISH_TRANSFORMATION_GIVING.getName(null)+"' fetish, which causes them to try and forcibly transform you after beating you in combat."
-						+ "</p>"
-						+(Main.getProperties().forcedTFPercentage==forcedTFsettings[0]
-							?"<div class='cosmetics-button active'>"
-									+ "[style.boldGood("+forcedTFsettings[0]+"%)]"
-									+ "</div>"
-							:"<div id='FORCED_TF_"+forcedTFsettings[0]+"' class='cosmetics-button'>"
-									+ "<span style='color:"+Colour.GENERIC_BAD.getShades()[0]+";'>"+forcedTFsettings[0]+"%</span>"
-									+ "</div>")
-						+(Main.getProperties().forcedTFPercentage==forcedTFsettings[1]
-								?"<div class='cosmetics-button active'>"
-										+ "[style.boldGood("+forcedTFsettings[1]+"%)]"
-										+ "</div>"
-								:"<div id='FORCED_TF_"+forcedTFsettings[1]+"' class='cosmetics-button'>"
-										+ "<span style='color:"+Colour.GENERIC_BAD.getShades()[0]+";'>"+forcedTFsettings[1]+"%</span>"
-										+ "</div>")
-						+(Main.getProperties().forcedTFPercentage==forcedTFsettings[2]
-								?"<div class='cosmetics-button active'>"
-										+ "[style.boldGood("+forcedTFsettings[2]+"%)]"
-										+ "</div>"
-								:"<div id='FORCED_TF_"+forcedTFsettings[2]+"' class='cosmetics-button'>"
-										+ "<span style='color:"+Colour.GENERIC_BAD.getShades()[0]+";'>"+forcedTFsettings[2]+"%</span>"
-										+ "</div>")
-						+(Main.getProperties().forcedTFPercentage==forcedTFsettings[3]
-								?"<div class='cosmetics-button active'>"
-										+ "[style.boldGood("+forcedTFsettings[3]+"%)]"
-										+ "</div>"
-								:"<div id='FORCED_TF_"+forcedTFsettings[3]+"' class='cosmetics-button'>"
-										+ "<span style='color:"+Colour.GENERIC_BAD.getShades()[0]+";'>"+forcedTFsettings[3]+"%</span>"
-										+ "</div>")
-						+(Main.getProperties().forcedTFPercentage==forcedTFsettings[4]
-								?"<div class='cosmetics-button active'>"
-										+ "[style.boldGood("+forcedTFsettings[4]+"%)]"
-										+ "</div>"
-								:"<div id='FORCED_TF_"+forcedTFsettings[4]+"' class='cosmetics-button'>"
-										+ "<span style='color:"+Colour.GENERIC_BAD.getShades()[0]+";'>"+forcedTFsettings[4]+"%</span>"
-										+ "</div>")
-					+ "</div>"
+					+getContentPreferenceVariableDiv(
+							"FORCED_TF",
+							Colour.TRANSFORMATION_GENERIC,
+							"Forced TF",
+							"This sets the amount of NPCs spawning with the '"+Fetish.FETISH_TRANSFORMATION_GIVING.getName(null)+"' fetish, which causes them to forcibly transform you after beating you in combat.",
+							Main.getProperties().forcedTFPercentage+"%",
+							Main.getProperties().forcedTFPercentage,
+							0,
+							100)
+					
 				+"</div>"
-				
 				
 				+ "<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>"
 					+getContentPreferenceDiv(
@@ -1567,7 +1535,59 @@ public class OptionsDialogue {
 							"Cum Inflation",
 							"This enables cum inflation mechanics.",
 							Main.getProperties().inflationContent)
-				+"</div>");
+				+"</div>"
+				
+
+				+ "<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>"
+					+getContentPreferenceVariableDiv(
+							"PREGNANCY_BREAST_GROWTH",
+							Colour.BASE_PINK,
+							"Average Pregnancy Breast Growth",
+							"Set the <b>average</b> cup size growth that characters' will gain from each pregnancy. Actual breast growth will be within "+Util.intToString(Main.getProperties().pregnancyBreastGrowthVariance)+" sizes of this value.",
+							Main.getProperties().pregnancyBreastGrowth==0
+								?"[style.boldDisabled(Disabled)]"
+								:Main.getProperties().pregnancyBreastGrowth+" cup"+(Main.getProperties().pregnancyBreastGrowth!=1?"s":""),
+							Main.getProperties().pregnancyBreastGrowth,
+							0,
+							10)
+					
+					+getContentPreferenceVariableDiv(
+							"PREGNANCY_BREAST_GROWTH_LIMIT",
+							Colour.BASE_PINK_LIGHT,
+							"Pregnancy Breast Growth Limit",
+							"Set the maximum limit of cup size that characters' breasts will grow to from pregnancies.",
+							CupSize.getCupSizeFromInt(Main.getProperties().pregnancyBreastGrowthLimit).getCupSizeName()+"-cup",
+							Main.getProperties().pregnancyBreastGrowthLimit,
+							0,
+							100)
+					
+				+"</div>"
+
+				+ "<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>"
+					+getContentPreferenceVariableDiv(
+							"PREGNANCY_LACTATION",
+							Colour.BASE_YELLOW,
+							"Average Pregnancy Lactation",
+							"Set the <b>average</b> increase in lactation that characters will gain as a result of each pregnancy. Actual lactation increase will be within "+Main.getProperties().pregnancyLactationIncreaseVariance+"ml of this value.",
+							Main.getProperties().pregnancyLactationIncrease==0
+								?"[style.boldDisabled(Disabled)]"
+								:Main.getProperties().pregnancyLactationIncrease+"ml",
+							Main.getProperties().pregnancyLactationIncrease,
+							0,
+							1000)
+					
+					+getContentPreferenceVariableDiv(
+							"PREGNANCY_LACTATION_LIMIT",
+							Colour.BASE_YELLOW_LIGHT,
+							"Pregnancy Lactation Limit",
+							"Set the maximum limit of lactation that characters will gain from pregnancies.",
+							Main.getProperties().pregnancyLactationLimit+"ml",
+							Main.getProperties().pregnancyLactationLimit,
+							0,
+							Lactation.SEVEN_MONSTROUS_AMOUNT_POURING.getMaximumValue())
+					
+				+"</div>"
+					);
 			
 			return UtilText.nodeContentSB.toString();
 		}
@@ -1597,39 +1617,75 @@ public class OptionsDialogue {
 		StringBuilder contentSB = new StringBuilder();
 		
 		contentSB.append(
-				"<div class='cosmetics-inner-container'>"
-						+ "<h5 style='text-align:center; color:"+colour.toWebHexString()+";'>"
+				"<div class='container-half-width'>"
+				+ "<div class='container-half-width' style='width:calc(70% - 8px); margin:4px 4px 0 4px;'>"
+						+ "<h5 style='text-align:center; color:"+(enabled?colour.toWebHexString():Colour.TEXT_GREY.toWebHexString())+";'>"
 							+ title
 						+"</h5>"
-						+ "<p style='text-align:center;'>"
-							+ description
-						+ "</p>");
+				+ "</div>"
+				+ "<div class='container-half-width' style='width:calc(30% - 8px); margin:4px 4px 0 4px;'>");
 		
 		if(enabled) {
 			contentSB.append(
-					"<div id='"+id+"_OFF' class='cosmetics-button'>"
-						+ "<span style='color:"+Colour.GENERIC_BAD.getShades()[0]+";'>OFF</span>"
+					"<div id='"+id+"_OFF' class='normal-button' style='width:48%; margin-right:4%; text-align:center;'>"
+						+ "[style.colourDisabled(OFF)]"
 					+ "</div>"
-					+ "<div class='cosmetics-button active'>"
+					+ "<div class='normal-button selected' style='width:48%; text-align:center;'>"
 						+ "[style.boldGood(ON)]"
 					+ "</div>");
 		} else {
 			contentSB.append(
-					"<div class='cosmetics-button active'>"
+					"<div class='normal-button selected' style='width:48%; margin-right:4%; text-align:center;'>"
 						+ "[style.boldBad(OFF)]"
 					+ "</div>"
-					+ "<div id='"+id+"_ON' class='cosmetics-button'>"
-						+ "<span style='color:"+Colour.GENERIC_GOOD.getShades()[0]+";'>ON</span>"
+					+ "<div id='"+id+"_ON' class='normal-button' style='width:48%; text-align:center;'>"
+						+ "[style.colourDisabled(ON)]"
 					+ "</div>");
 		}
 
 		contentSB.append(
-				"</div>");
+					"</div>"
+					+ "<div class='container-full-width' style='margin-top:0;'>"
+						+ "<p style='text-align:center;'>"
+							+ description
+						+ "</p>"
+					+"</div>"
+				+"</div>");
 		
 		return contentSB.toString();
 	}
 	
-	
+	private static String getContentPreferenceVariableDiv(String id, Colour colour, String title, String description, String valueDisplay, int value, int minimum, int maximum) {
+		StringBuilder contentSB = new StringBuilder();
+		
+		contentSB.append(
+				"<div class='container-half-width'>"
+				+ "<div class='container-half-width' style='width:calc(70% - 8px); margin:4px 4px 0 4px;'>"
+						+ "<h5 style='text-align:center;'>"
+							+ "<span style='color:"+colour.toWebHexString()+";'>"+title + "</span>: "+valueDisplay
+						+"</h5>"
+				+ "</div>"
+				+ "<div class='container-half-width' style='width:calc(30% - 8px); margin:4px 4px 0 4px;'>");
+		
+		contentSB.append(
+				"<div id='"+id+"_OFF' class='normal-button"+(value==minimum?" disabled":"")+"' style='width:48%; margin-right:4%; text-align:center;'>"
+					+ (value==minimum?"[style.boldDisabled(-)]":"[style.boldBad(-)]")
+				+ "</div>"
+				+ "<div id='"+id+"_ON' class='normal-button"+(value==maximum?" disabled":"")+"' style='width:48%; text-align:center;'>"
+						+ (value==maximum?"[style.boldDisabled(+)]":"[style.boldGood(+)]")
+				+ "</div>");
+		
+		contentSB.append(
+					"</div>"
+					+ "<div class='container-full-width' style='margin-top:0;'>"
+						+ "<p style='text-align:center;'>"
+							+ description
+						+ "</p>"
+					+"</div>"
+				+"</div>");
+		
+		return contentSB.toString();
+	}
 	
 	
 	public static final DialogueNodeOld CREDITS = new DialogueNodeOld("Credits", "", true) {
@@ -1651,8 +1707,9 @@ public class OptionsDialogue {
 						+ "Special thanks to:</br>"
 						+ "<b>Sensei</b>,</br>"
 						+ "<b style='color:#fa0063;'>loveless</b>, <b style='color:#c790b2;'>Blue999</b>, and <b style='color:#ec9538;'>DesuDemona</b></br>"
+						+ "<b style='color:#21bec4;'>Github & wiki contributors</b></br>"
 						+ "<b style='color:#e06e5f;'>Everyone who's supported me on Patreon</b>,</br>"
-						+ "<b>Bug reporters, wikia contributors, content writers, and feedback providers</b>,</br>"
+						+ "<b>Bug reporters</b>,</br>"
 						+ "and</br>"
 						+ "<b>Everyone for playing Lilith's Throne!</b>"
 					+ "</p>"
@@ -1670,16 +1727,25 @@ public class OptionsDialogue {
 						UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_EPIC.toWebHexString()+";'>?</b> ");
 						UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_LEGENDARY.toWebHexString()+";'>?</b> ");
 					} else {
-						for(int i=0; i<cs.getUncommonCount(); i++) {
+						for(int i=0; i<cs.getUncommonCount()%5; i++) {
 							UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_UNCOMMON.toWebHexString()+";'>&#9679</b> ");
 						}
-						for(int i=0; i<cs.getRareCount(); i++) {
+						
+						for(int i=0; i<cs.getRareCount()%5; i++) {
 							UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_RARE.toWebHexString()+";'>&#9679</b> ");
 						}
-						for(int i=0; i<cs.getEpicCount(); i++) {
+						
+						for(int i=0; i<cs.getEpicCount()/5; i++) {// 5-marks:
+							UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_EPIC.toWebHexString()+";'>&#127775</b> ");
+						}
+						for(int i=0; i<cs.getEpicCount()%5; i++) {
 							UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_EPIC.toWebHexString()+";'>&#9679</b> ");
 						}
-						for(int i=0; i<cs.getLegendaryCount(); i++) {
+						
+						for(int i=0; i<cs.getLegendaryCount()/5; i++) {// 5-marks:
+							UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_LEGENDARY.toWebHexString()+";'>&#127775</b> ");
+						}
+						for(int i=0; i<cs.getLegendaryCount()%5; i++) {
 							UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_LEGENDARY.toWebHexString()+";'>&#9679</b> ");
 						}
 					}
@@ -1700,13 +1766,18 @@ public class OptionsDialogue {
 				if(cs.getLegendaryCount()==0 && cs.getEpicCount()>0) {
 					UtilText.nodeContentSB.append("</br>");
 					UtilText.nodeContentSB.append("<div style='width:50%; display:inline-block; text-align:right;'>");
-					for(int i=0; i<cs.getUncommonCount(); i++) {
+					for(int i=0; i<cs.getUncommonCount()%5; i++) {
 						UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_UNCOMMON.toWebHexString()+";'>&#9679</b> ");
 					}
-					for(int i=0; i<cs.getRareCount(); i++) {
+					
+					for(int i=0; i<cs.getRareCount()%5; i++) {
 						UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_RARE.toWebHexString()+";'>&#9679</b> ");
 					}
-					for(int i=0; i<cs.getEpicCount(); i++) {
+					
+					for(int i=0; i<cs.getEpicCount()/5; i++) {// 5-marks:
+						UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_EPIC.toWebHexString()+";'>&#127775</b> ");
+					}
+					for(int i=0; i<cs.getEpicCount()%5; i++) {
 						UtilText.nodeContentSB.append("<b style='color:"+Colour.RARITY_EPIC.toWebHexString()+";'>&#9679</b> ");
 					}
 					UtilText.nodeContentSB.append("</div>");

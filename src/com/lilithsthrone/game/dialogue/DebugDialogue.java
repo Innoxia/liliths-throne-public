@@ -27,6 +27,7 @@ import com.lilithsthrone.game.dialogue.utils.ParserCommand;
 import com.lilithsthrone.game.dialogue.utils.ParserTarget;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.InventorySlot;
+import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -351,7 +352,7 @@ public class DebugDialogue {
 	public static List<AbstractItemType> itemsTotal = new ArrayList<>();
 	static {
 		for (AbstractItemType c : ItemType.allItems) {
-			if(!c.equals(ItemType.CONDOM_USED)) {
+			if(!c.getItemTags().contains(ItemTag.REMOVE_FROM_DEBUG_SPAWNER)) {
 				itemsTotal.add(c);
 			}
 		}

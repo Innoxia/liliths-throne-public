@@ -147,7 +147,7 @@ public class Game implements Serializable, XMLSaving {
 
 	private Encounter currentEncounter;
 
-	private boolean hintsOn, started, inNewWorld;
+	private boolean hintsOn, started;
 	
 	private DialogueFlags dialogueFlags;
 	
@@ -186,7 +186,6 @@ public class Game implements Serializable, XMLSaving {
 
 		hintsOn = false;
 		started = false;
-		inNewWorld = false;
 
 		NPCMap = new HashMap<>();
 
@@ -623,7 +622,6 @@ public class Game implements Serializable, XMLSaving {
 		
 		
 		Main.game.setRenderMap(true);
-		Main.game.setInNewWorld(true);
 		Main.game.setRenderAttributesSection(true);
 		
 		Main.game.started = true;
@@ -888,12 +886,18 @@ public class Game implements Serializable, XMLSaving {
 						banishNPC(npc);
 					}
 			
+			// Non-slave NPCs clean clothes:
+			if(!npc.isSlave() && !Main.game.getPlayer().getLocation().equals(npc.getLocation())) {
+				npc.cleanAllClothing();
+				npc.cleanAllDirtySlots();
+			}
+			
 			// Set NPC resource values:
 			if(!Main.game.getPlayer().getLocation().equals(npc.getLocation()) && !Main.game.isInCombat() && !Main.game.isInSex()) {
 				npc.setHealthPercentage(1);
 				npc.setManaPercentage(1);
-				npc.alignLustToRestingLust(turnTime);
 			}
+			npc.alignLustToRestingLust(turnTime*10);
 			
 			npc.calculateStatusEffects(turnTime);
 			
@@ -2559,11 +2563,10 @@ public class Game implements Serializable, XMLSaving {
 	// Dialogues:
 
 	public boolean isInNewWorld() {
-		return inNewWorld;
-	}
-
-	public void setInNewWorld(boolean inNewWorld) {
-		this.inNewWorld = inNewWorld;
+		if(Main.game.getPlayer()==null) {
+			return true;
+		}
+		return Main.game.getPlayer().getWorldLocation()!=WorldType.EMPTY;
 	}
 
 	public StringBuilder getTextStartStringBuilder() {

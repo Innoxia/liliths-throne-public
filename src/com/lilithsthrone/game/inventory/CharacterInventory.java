@@ -19,6 +19,7 @@ import com.lilithsthrone.game.inventory.clothing.ClothingAccess;
 import com.lilithsthrone.game.inventory.clothing.ClothingSet;
 import com.lilithsthrone.game.inventory.clothing.DisplacementType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
+import com.lilithsthrone.game.inventory.item.AbstractFilledBreastPump;
 import com.lilithsthrone.game.inventory.item.AbstractFilledCondom;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
@@ -205,6 +206,10 @@ public class CharacterInventory implements Serializable, XMLSaving {
 			for(int itemCount = 0 ; itemCount < Integer.valueOf(e.getAttribute("count")); itemCount++) {
 				if(e.getAttribute("id").equals(ItemType.itemToIdMap.get(ItemType.CONDOM_USED))) {
 					inventory.addItem(AbstractFilledCondom.loadFromXML(e, doc));
+					
+				} else if(e.getAttribute("id").equals(ItemType.itemToIdMap.get(ItemType.MOO_MILKER_FULL))) {
+					inventory.addItem(AbstractFilledBreastPump.loadFromXML(e, doc));
+					
 				} else {
 					inventory.addItem(AbstractItem.loadFromXML(e, doc));
 				}

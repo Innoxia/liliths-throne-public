@@ -7,7 +7,12 @@ package com.lilithsthrone.game.inventory;
  */
 public enum ItemTag {
 
+	REMOVE_FROM_DEBUG_SPAWNER,
+	
 	ESSENCE,
+	ATTRIBUTE_TF_ITEM,
+	RACIAL_TF_ITEM,
+	MISC_TF_ITEM,
 	BOOK, 
 	GIFT,
 	DOMINION_ALLEYWAY_SPAWN,

@@ -128,6 +128,7 @@ public class SlaveInStocks extends NPC {
 					case SLIME_COW:
 					case SLIME_DEMON:
 					case SLIME_DOG:
+					case SLIME_DOG_DOBERMANN:
 					case SLIME_HARPY:
 					case SLIME_HORSE:
 					case SLIME_IMP:

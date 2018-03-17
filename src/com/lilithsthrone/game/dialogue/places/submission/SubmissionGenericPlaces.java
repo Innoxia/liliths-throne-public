@@ -28,6 +28,11 @@ public class SubmissionGenericPlaces {
 		}
 		
 		@Override
+		public int getMinutesPassed(){
+			return 5;
+		}
+		
+		@Override
 		public String getContent() {
 			return "<p>"
 						+ "The main tunnels of Submission are surprisingly spacious, clean and full of life."
@@ -72,6 +77,11 @@ public class SubmissionGenericPlaces {
 		@Override
 		public String getAuthor() {
 			return "Duner";
+		}
+
+		@Override
+		public int getMinutesPassed(){
+			return 5;
 		}
 		
 		@Override
@@ -193,9 +203,15 @@ public class SubmissionGenericPlaces {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		public int getMinutesPassed(){
+			return 5;
+		}
+		
+		@Override
 		public String getContent() {
 			return "<p>"
-						+ "TODO: Entrance to the bat caverns - a series of caves deep underground."
+						+ "TODO: Entrance to the bat caverns - a series of caves deep underground.</br>"
+						+ "This will be a mini-area (with bat-morphs in it), which will contain a couple of side-quests."
 					+ "</p>";
 		}
 
@@ -210,9 +226,15 @@ public class SubmissionGenericPlaces {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		public int getMinutesPassed(){
+			return 5;
+		}
+		
+		@Override
 		public String getContent() {
 			return "<p>"
-					+ "TODO: Entrance to the Rat Warren - a criminal gang's headquarters."
+					+ "TODO: Entrance to the Rat Warren - a criminal gang's headquarters.</br>"
+					+ "There will be a large side-quest related to this building (which will have an internal map)."
 				+ "</p>";
 		}
 
@@ -227,9 +249,15 @@ public class SubmissionGenericPlaces {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		public int getMinutesPassed(){
+			return 5;
+		}
+		
+		@Override
 		public String getContent() {
 			return "<p>"
-					+ "TODO: An especially large section of Submission - a huge two-story building dominates the area, with a sign proclaiming it to be the 'Gambling Den'."
+					+ "TODO: An especially large and busy section of Submission - a huge two-story building dominates the area, with a sign proclaiming it to be the 'Gambling Den'.</br>"
+						+ "This will be a commercial hub for Submission, which will include a few normal shops (of poorer quality than the ones in the Shopping Arcade), and one large gambling hall."
 				+ "</p>";
 		}
 
@@ -243,6 +271,11 @@ public class SubmissionGenericPlaces {
 	public static final DialogueNodeOld LILIN_PALACE = new DialogueNodeOld("Lyssieth's Palace", "", false) {
 		private static final long serialVersionUID = 1L;
 
+		@Override
+		public int getMinutesPassed(){
+			return 5;
+		}
+		
 		@Override
 		public String getContent() {
 			return "<p>"
@@ -268,9 +301,18 @@ public class SubmissionGenericPlaces {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		public int getMinutesPassed(){
+			return 5;
+		}
+		
+		@Override
 		public String getContent() {
 			return "<p>"
-					+ "TODO: A large underground cave, and in the middle, a wooden fortress has been crudely built."
+					+ "TODO: A large underground cave, and in the middle, a crude fortress has been built out of old wooden planks and pieces of sheet metal.</br>"
+					+ "Each of the three imp fortresses will be a repeatable quest (clearing the fortress), which, once cleared, will pacify the surrounding tunnels for a week or so."
+				+ "</p>"
+				+ "<p>"
+					+ "This particular fortress will be run by a single, very tough alpha-imp."
 				+ "</p>";
 		}
 
@@ -285,9 +327,18 @@ public class SubmissionGenericPlaces {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		public int getMinutesPassed(){
+			return 5;
+		}
+		
+		@Override
 		public String getContent() {
 			return "<p>"
-					+ "TODO: A large underground cave, and in the middle, a wooden fortress has been crudely built."
+					+ "TODO: A large underground cave, and in the middle, a crude fortress has been built out of old wooden planks and pieces of sheet metal.</br>"
+					+ "Each of the three imp fortresses will be a repeatable quest (clearing the fortress), which, once cleared, will pacify the surrounding tunnels for a week or so."
+				+ "</p>"
+				+ "<p>"
+					+ "This particular fortress will be made up of several groups of imps, who all share the same territory."
 				+ "</p>";
 		}
 
@@ -302,9 +353,18 @@ public class SubmissionGenericPlaces {
 		private static final long serialVersionUID = 1L;
 
 		@Override
+		public int getMinutesPassed(){
+			return 5;
+		}
+		
+		@Override
 		public String getContent() {
 			return "<p>"
-					+ "TODO: A large underground cave, and in the middle, a wooden fortress has been crudely built."
+					+ "TODO: A large underground cave, and in the middle, a crude fortress has been built out of old wooden planks and pieces of sheet metal.</br>"
+					+ "Each of the three imp fortresses will be a repeatable quest (clearing the fortress), which, once cleared, will pacify the surrounding tunnels for a week or so."
+				+ "</p>"
+				+ "<p>"
+					+ "This particular fortress will be a female-only imp clan, who prefer to use seduction rather than fighting physically."
 				+ "</p>";
 		}
 
@@ -320,6 +380,11 @@ public class SubmissionGenericPlaces {
 	public static final DialogueNodeOld SEWER_ENTRANCE = new DialogueNodeOld("Enforcer Checkpoint", "", false) {
 		private static final long serialVersionUID = 1L;
 
+		@Override
+		public int getMinutesPassed(){
+			return 5;
+		}
+		
 		@Override
 		public String getContent() {
 			return "<p>"

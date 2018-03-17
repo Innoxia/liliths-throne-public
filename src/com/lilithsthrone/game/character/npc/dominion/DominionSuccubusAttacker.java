@@ -356,7 +356,7 @@ public class DominionSuccubusAttacker extends NPC {
 											?"~Mmm!~ Fuck me! ~Aaa!~ My pussy's wet and ready for you!"
 											:this.hasPenis()
 												?"~Mmm!~ I can't wait to fuck you! You're going to love my cock!"
-												:"~Mmm!~ I cna't wait to have some fun with you!")+")]",
+												:"~Mmm!~ I can't wait to have some fun with you!")+")]",
 							"[npc.Name] throws you a charming smile, before winking at you and striking a heroic pose. As he straightens back up, you feel a ghostly pair of arms pulling you into a strong, confident embrace."));
 		}
 	}

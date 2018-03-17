@@ -19,13 +19,13 @@ import com.lilithsthrone.utils.Util.ListValue;
 public enum Attribute {
 
 	HEALTH_MAXIMUM(0,
+			1,
+			1000,
 			"energy",
 			"Energy",
 			"healthIcon",
 			Colour.ATTRIBUTE_HEALTH,
-			"energy",
-			"lethargy",
-			null) {
+			"energy", "lethargy", null) {
 				@Override
 				public String getDescription(GameCharacter owner) {
 					if(owner.isPlayer())
@@ -38,13 +38,13 @@ public enum Attribute {
 			},
 
 	MANA_MAXIMUM(0,
+			1,
+			1000,
 			"aura",
 			"Aura",
 			"manaIcon",
 			Colour.ATTRIBUTE_MANA,
-			"aura-boost",
-			"aura-drain",
-			null) {
+			"aura-boost", "aura-drain", null) {
 				@Override
 				public String getDescription(GameCharacter owner) {
 					if(owner.isPlayer())
@@ -57,13 +57,13 @@ public enum Attribute {
 			},
 
 	EXPERIENCE(0,
+			0,
+			1000000,
 			"experience",
 			"Experience",
 			"experienceIcon",
 			Colour.GENERIC_EXPERIENCE,
-			"learning",
-			"forgetfulness",
-			null) {
+			"learning", "forgetfulness", null) {
 				@Override
 				public String getDescription(GameCharacter owner) {
 					if(owner.isPlayer())
@@ -75,13 +75,13 @@ public enum Attribute {
 			},
 
 	AROUSAL(0,
+			0,
+			100,
 			"arousal",
 			"Arousal",
 			"arousalIcon",
 			Colour.ATTRIBUTE_AROUSAL,
-			"long-lasting",
-			"prematurity",
-			null) {
+			"long-lasting", "prematurity", null) {
 				@Override
 				public String getDescription(GameCharacter owner) {
 					if(owner.isPlayer())
@@ -93,13 +93,13 @@ public enum Attribute {
 			},
 	
 	LUST(0,
+			0,
+			100,
 			"lust",
 			"Lust",
 			"arousalIcon",
 			Colour.ATTRIBUTE_LUST,
-			"passion",
-			"indifference",
-			null) {
+			"passion", "indifference", null) {
 				@Override
 				public String getDescription(GameCharacter owner) {
 					if(owner.isPlayer()) {
@@ -113,13 +113,13 @@ public enum Attribute {
 			},
 
 	MAJOR_PHYSIQUE(0,
+			0,
+			100,
 			"physique",
 			"Physique",
 			"strengthIcon",
 			Colour.ATTRIBUTE_PHYSIQUE,
-			"power",
-			"weakness",
-			Util.newArrayListOfValues(new ListValue<String>("<b>+2</b> <b style='color: " + Colour.ATTRIBUTE_HEALTH.toWebHexString() + "'>Energy</b> per 1 physique"))) {
+			"power", "weakness", Util.newArrayListOfValues(new ListValue<String>("<b>+2</b> <b style='color: " + Colour.ATTRIBUTE_HEALTH.toWebHexString() + "'>Energy</b> per 1 physique"))) {
 						@Override
 						public String getDescription(GameCharacter owner) {
 							if(owner.isPlayer())
@@ -132,13 +132,13 @@ public enum Attribute {
 					},
 
 	MAJOR_ARCANE(0,
+			0,
+			100,
 			"arcane",
 			"Arcane",
 			"intelligenceIcon",
 			Colour.ATTRIBUTE_ARCANE,
-			"arcane-boost",
-			"arcane-drain",
-			Util.newArrayListOfValues(new ListValue<String>("<b>+2</b> <b style='color: " + Colour.ATTRIBUTE_MANA.toWebHexString() + "'>Aura</b> per 1 arcane"))) {
+			"arcane-boost", "arcane-drain", Util.newArrayListOfValues(new ListValue<String>("<b>+2</b> <b style='color: " + Colour.ATTRIBUTE_MANA.toWebHexString() + "'>Aura</b> per 1 arcane"))) {
 						@Override
 						public String getDescription(GameCharacter owner) {
 							if(owner.isPlayer())
@@ -151,13 +151,13 @@ public enum Attribute {
 					},
 
 	MAJOR_CORRUPTION(0,
+			0,
+			100,
 			"corruption",
 			"Corruption",
 			"corruptionIcon",
 			Colour.ATTRIBUTE_CORRUPTION,
-			"corruption",
-			"purity",
-			Util.newArrayListOfValues(new ListValue<String>("<b>-0.5</b> <b style='color: " + Colour.ATTRIBUTE_MANA.toWebHexString() + "'>arousal resistance</b> per 1 physical corruption"),
+			"corruption", "purity", Util.newArrayListOfValues(new ListValue<String>("<b>-0.5</b> <b style='color: " + Colour.ATTRIBUTE_MANA.toWebHexString() + "'>arousal resistance</b> per 1 physical corruption"),
 					new ListValue<String>("<b>+0.5</b> <b style='color: " + Colour.DAMAGE_TYPE_MANA.toWebHexString() + "'>arousal damage</b> per 1 physical corruption"))) {
 						@Override
 						public String getDescription(GameCharacter owner) {
@@ -172,21 +172,28 @@ public enum Attribute {
 	
 	// Miscellaneous attributes:
 
-	FERTILITY(10, "fertility", "Fertility", "shieldIcon", Colour.GENERIC_SEX, "fertility", "infertility", null) {
+	FERTILITY(10, -100, 100, "fertility", "Fertility", "shieldIcon", Colour.GENERIC_SEX, "fertility", "infertility", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Increases the likelihood of becoming pregnant.";
 		}
 	},
 	
-	VIRILITY(10, "virility", "Virility", "shieldIcon", Colour.GENERIC_SEX, "virility", "sterility", null) {
+	VIRILITY(10, -100, 100, "virility", "Virility", "shieldIcon", Colour.GENERIC_SEX, "virility", "sterility", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Increases the likelihood of impregnating someone.";
 		}
 	},
 	
-	SPELL_COST_MODIFIER(0, "spell cost reduction", "Spell efficiency", "shieldIcon", Colour.ATTRIBUTE_MANA, "proficiency", "incompetence", null) {
+	SPELL_LEVEL(0, 0, 5, "spell level", "Spell Level", "manaIcon", Colour.GENERIC_ARCANE, "spell casting", "spell misfires", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Each point allows you to cast spells of the next level.";
+		}
+	},
+	
+	SPELL_COST_MODIFIER(0, 0, 100, "spell efficiency", "Spell efficiency", "shieldIcon", Colour.ATTRIBUTE_MANA, "proficiency", "incompetence", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point reduces spell costs by 1%.";
@@ -195,13 +202,13 @@ public enum Attribute {
 
 	// Combat attributes:
 
-	CRITICAL_CHANCE(5, "critical hit chance", "Critical chance", "shieldIcon", Colour.ATTRIBUTE_HEALTH, "luck", "misfortune", null) {
+	CRITICAL_CHANCE(5, 0, 100, "critical hit chance", "Critical chance", "shieldIcon", Colour.ATTRIBUTE_HEALTH, "luck", "misfortune", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point gives 1% chance to perform a critical hit.";
 		}
 	},
-	CRITICAL_DAMAGE(150, "critical hit damage", "Critical damage", "shieldIcon", Colour.ATTRIBUTE_HEALTH, "impact", "failure", null) {
+	CRITICAL_DAMAGE(150, 100, 500, "critical hit damage", "Critical damage", "shieldIcon", Colour.ATTRIBUTE_HEALTH, "impact", "failure", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point gives 1% extra critical hit damage.";
@@ -210,42 +217,42 @@ public enum Attribute {
 
 	// Resistances:
 	
-	RESISTANCE_SPELLS(0, "spell resistance", "Spell resistance", "shieldIcon", Colour.ATTRIBUTE_MANA, "nullification", "arcane weakness", null) {
+	RESISTANCE_SPELLS(0, 0, 100, "spell resistance", "Spell resistance", "shieldIcon", Colour.ATTRIBUTE_MANA, "nullification", "arcane weakness", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point reduces spell damage taken by 1%.";
 		}
 	},
 
-	RESISTANCE_PHYSICAL(0, "physical resistance", "Physical resist", "shieldIcon", Colour.DAMAGE_TYPE_PHYSICAL, "toughness", "softness", null) {
+	RESISTANCE_PHYSICAL(0, 0, 100, "physical resistance", "Physical resist", "shieldIcon", Colour.DAMAGE_TYPE_PHYSICAL, "toughness", "softness", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point reduces physical damage taken by 1%.";
 		}
 	},
 	
-	RESISTANCE_LUST(0, "seduction resistance", "Seduction resist", "shieldIcon", Colour.GENERIC_SEX, "chastity", "temptation", null) {
+	RESISTANCE_LUST(0, 0, 100, "seduction resistance", "Seduction resist", "shieldIcon", Colour.GENERIC_SEX, "chastity", "temptation", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point reduces aura and lust damage taken by 1%.";
 		}
 	},
 	
-	RESISTANCE_FIRE(0, "fire resistance", "Fire resist", "shieldIcon", Colour.DAMAGE_TYPE_FIRE, "extinguishing", "flammability", null) {
+	RESISTANCE_FIRE(0, 0, 100, "fire resistance", "Fire resist", "shieldIcon", Colour.DAMAGE_TYPE_FIRE, "extinguishing", "flammability", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point reduces fire damage taken by 1%.";
 		}
 	},
 	
-	RESISTANCE_ICE(0, "cold resistance", "Cold resist", "shieldIcon", Colour.DAMAGE_TYPE_COLD, "warmth", "frostbite", null) {
+	RESISTANCE_ICE(0, 0, 100, "cold resistance", "Cold resist", "shieldIcon", Colour.DAMAGE_TYPE_COLD, "warmth", "frostbite", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point reduces cold damage taken by 1%.";
 		}
 	},
 	
-	RESISTANCE_POISON(0, "poison resistance", "Poison resist", "shieldIcon", Colour.DAMAGE_TYPE_POISON, "anti-venom", "sickness", null) {
+	RESISTANCE_POISON(0, 0, 100, "poison resistance", "Poison resist", "shieldIcon", Colour.DAMAGE_TYPE_POISON, "anti-venom", "sickness", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point reduces poison damage taken by 1%.";
@@ -254,42 +261,42 @@ public enum Attribute {
 
 	// Damages:
 	
-	DAMAGE_SPELLS(0, "spell damage", "Spell damage", "swordIcon", Colour.ATTRIBUTE_MANA, "arcane power", "arcane dulling", null) {
+	DAMAGE_SPELLS(0, 0, 100, "spell damage", "Spell damage", "swordIcon", Colour.ATTRIBUTE_MANA, "arcane power", "arcane dulling", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases spell damage done by 1%.";
 		}
 	},
 
-	DAMAGE_PHYSICAL(0, "physical damage", "Physical damage", "swordIcon", Colour.DAMAGE_TYPE_PHYSICAL, "force", "softness", null) {
+	DAMAGE_PHYSICAL(0, 0, 100, "physical damage", "Physical damage", "swordIcon", Colour.DAMAGE_TYPE_PHYSICAL, "force", "softness", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases physical damage done by 1%.";
 		}
 	},
 	
-	DAMAGE_LUST(0, "seduction damage", "Seduction damage", "swordIcon", Colour.GENERIC_SEX, "seduction", "repulsion", null) {
+	DAMAGE_LUST(0, 0, 100, "seduction damage", "Seduction damage", "swordIcon", Colour.GENERIC_SEX, "seduction", "repulsion", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases aura and lust damage done by 1%.";
 		}
 	},
 	
-	DAMAGE_FIRE(0, "fire damage", "Fire damage", "swordIcon", Colour.DAMAGE_TYPE_FIRE, "inferno", "dying embers", null) {
+	DAMAGE_FIRE(0, 0, 100, "fire damage", "Fire damage", "swordIcon", Colour.DAMAGE_TYPE_FIRE, "inferno", "dying embers", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases fire damage done by 1%.";
 		}
 	},
 	
-	DAMAGE_ICE(0, "cold damage", "Cold damage", "swordIcon", Colour.DAMAGE_TYPE_COLD, "blizzard", "slush", null) {
+	DAMAGE_ICE(0, 0, 100, "cold damage", "Cold damage", "swordIcon", Colour.DAMAGE_TYPE_COLD, "blizzard", "slush", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases cold damage done by 1%.";
 		}
 	},
 	
-	DAMAGE_POISON(0, "poison damage", "Poison damage", "swordIcon", Colour.DAMAGE_TYPE_POISON, "venom", "dilution", null) {
+	DAMAGE_POISON(0, 0, 100, "poison damage", "Poison damage", "swordIcon", Colour.DAMAGE_TYPE_POISON, "venom", "dilution", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases poison damage done by 1%.";
@@ -298,182 +305,188 @@ public enum Attribute {
 	
 	// Racial:
 	
-	DAMAGE_ANGEL(0, "angelic damage", "Angelic damage", "swordIcon", Colour.RACE_ANGEL, "angelic-obliteration", "angelic-mercy", null) {
+	DAMAGE_ANGEL(0, 0, 100, "angelic damage", "Angelic damage", "swordIcon", Colour.RACE_ANGEL, "angelic-obliteration", "angelic-mercy", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases damage done vs angels by 1%.";
 		}
 	},
-	DAMAGE_CAT_MORPH(0, "cat-morph damage", "Cat-morph damage", "swordIcon", Colour.RACE_CAT_MORPH, "cat-morph-obliteration", "cat-morph-mercy", null) {
+	DAMAGE_CAT_MORPH(0, 0, 100, "cat-morph damage", "Cat-morph damage", "swordIcon", Colour.RACE_CAT_MORPH, "cat-morph-obliteration", "cat-morph-mercy", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases damage done vs cat-morphs by 1%.";
 		}
 	},
-	DAMAGE_COW_MORPH(0, "cow-morph damage", "Cow-morph damage", "swordIcon", Colour.RACE_COW_MORPH, "cow-morph-obliteration", "cow-morph-mercy", null) {
+	DAMAGE_COW_MORPH(0, 0, 100, "cow-morph damage", "Cow-morph damage", "swordIcon", Colour.RACE_COW_MORPH, "cow-morph-obliteration", "cow-morph-mercy", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases damage done vs cow-morphs by 1%.";
 		}
 	},
-	DAMAGE_DEMON(0, "demonic damage", "Demonic damage", "swordIcon", Colour.RACE_DEMON, "demonic-obliteration", "demonic-mercy", null) {
+	DAMAGE_DEMON(0, 0, 100, "demonic damage", "Demonic damage", "swordIcon", Colour.RACE_DEMON, "demonic-obliteration", "demonic-mercy", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases damage done vs demons by 1%.";
 		}
 	},
-	DAMAGE_DOG_MORPH(0, "dog-morph damage", "Dog-morph damage", "swordIcon", Colour.RACE_DOG_MORPH, "dog-morph-obliteration", "dog-morph-mercy", null) {
+	DAMAGE_DOG_MORPH(0, 0, 100, "dog-morph damage", "Dog-morph damage", "swordIcon", Colour.RACE_DOG_MORPH, "dog-morph-obliteration", "dog-morph-mercy", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases damage done vs dog-morphs by 1%.";
 		}
 	},
-	DAMAGE_HARPY(0, "harpy damage", "Harpy damage", "swordIcon", Colour.RACE_HARPY, "harpy-obliteration", "harpy-mercy", null) {
+	DAMAGE_HARPY(0, 0, 100, "harpy damage", "Harpy damage", "swordIcon", Colour.RACE_HARPY, "harpy-obliteration", "harpy-mercy", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases damage done vs harpies by 1%.";
 		}
 	},
-	DAMAGE_HORSE_MORPH(0, "horse-morph damage", "Horse-morph damage", "swordIcon", Colour.RACE_HORSE_MORPH, "horse-morph-obliteration", "horse-morph-mercy", null) {
+	DAMAGE_HORSE_MORPH(0, 0, 100, "horse-morph damage", "Horse-morph damage", "swordIcon", Colour.RACE_HORSE_MORPH, "horse-morph-obliteration", "horse-morph-mercy", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases damage done vs horse-morphs by 1%.";
 		}
 	},
-	DAMAGE_IMP(0, "imp damage", "Imp damage", "swordIcon", Colour.RACE_IMP, "impish-obliteration", "impish-mercy", null) {
+	DAMAGE_IMP(0, 0, 100, "imp damage", "Imp damage", "swordIcon", Colour.RACE_IMP, "impish-obliteration", "impish-mercy", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases damage done vs imps by 1%.";
 		}
 	},
-	DAMAGE_REINDEER_MORPH(0, "reindeer-morph damage", "Reindeer-morph damage", "swordIcon", Colour.RACE_REINDEER_MORPH, "reindeer-morph-obliteration", "reindeer-morph-mercy", null) {
+	DAMAGE_REINDEER_MORPH(0, 0, 100, "reindeer-morph damage", "Reindeer-morph damage", "swordIcon", Colour.RACE_REINDEER_MORPH, "reindeer-morph-obliteration", "reindeer-morph-mercy", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases damage done vs reindeer-morphs by 1%.";
 		}
 	},
-	DAMAGE_HUMAN(0, "human damage", "Human damage", "swordIcon", Colour.RACE_HUMAN, "human-obliteration", "human-mercy", null) {
+	DAMAGE_HUMAN(0, 0, 100, "human damage", "Human damage", "swordIcon", Colour.RACE_HUMAN, "human-obliteration", "human-mercy", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases damage done vs humans by 1%.";
 		}
 	},
-	DAMAGE_SQUIRREL_MORPH(0, "squirrel-morph damage", "Squirrel-morph damage", "swordIcon", Colour.RACE_SQUIRREL_MORPH, "squirrel-morph-obliteration", "squirrel-morph-mercy", null) {
+	DAMAGE_SQUIRREL_MORPH(0, 0, 100, "squirrel-morph damage", "Squirrel-morph damage", "swordIcon", Colour.RACE_SQUIRREL_MORPH, "squirrel-morph-obliteration", "squirrel-morph-mercy", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases damage done vs squirrel-morphs by 1%.";
 		}
 	},
-	DAMAGE_ALLIGATOR_MORPH(0, "alligator-morph damage", "Alligator-morph damage", "swordIcon", Colour.RACE_ALLIGATOR_MORPH, "alligator-morph-obliteration", "alligator-morph-mercy", null) {
+	DAMAGE_ALLIGATOR_MORPH(0, 0, 100, "alligator-morph damage", "Alligator-morph damage", "swordIcon", Colour.RACE_ALLIGATOR_MORPH, "alligator-morph-obliteration", "alligator-morph-mercy", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases damage done vs alligator-morphs by 1%.";
 		}
 	},
-	DAMAGE_WOLF_MORPH(0, "wolf-morph damage", "Wolf-morph damage", "swordIcon", Colour.RACE_WOLF_MORPH, "wolf-morph-obliteration", "wolf-morph-mercy", null) {
+	DAMAGE_WOLF_MORPH(0, 0, 100, "wolf-morph damage", "Wolf-morph damage", "swordIcon", Colour.RACE_WOLF_MORPH, "wolf-morph-obliteration", "wolf-morph-mercy", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases damage done vs wolf-morphs by 1%.";
 		}
 	},
-	DAMAGE_SLIME(0, "slime damage", "Slime damage", "swordIcon", Colour.RACE_SLIME, "slime-obliteration", "slime-mercy", null) {
+	DAMAGE_SLIME(0, 0, 100, "slime damage", "Slime damage", "swordIcon", Colour.RACE_SLIME, "slime-obliteration", "slime-mercy", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases damage done vs slimes by 1%.";
 		}
 	},
 	
-	RESISTANCE_ANGEL(0, "angelic resistance", "Angelic resistance", "shieldIcon", Colour.RACE_ANGEL, "angelic-immunity", "angelic-vulnerability", null) {
+	RESISTANCE_ANGEL(0, 0, 100, "angelic resistance", "Angelic resistance", "shieldIcon", Colour.RACE_ANGEL, "angelic-immunity", "angelic-vulnerability", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases resistance vs damage inflicted by angels by 1%.";
 		}
 	},
-	RESISTANCE_CAT_MORPH(0, "cat-morph resistance", "Cat-morph resistance", "shieldIcon", Colour.RACE_CAT_MORPH, "cat-morph-immunity", "cat-morph-vulnerability", null) {
+	RESISTANCE_CAT_MORPH(0, 0, 100, "cat-morph resistance", "Cat-morph resistance", "shieldIcon", Colour.RACE_CAT_MORPH, "cat-morph-immunity", "cat-morph-vulnerability", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases resistance vs damage inflicted by cat-morphs by 1%.";
 		}
 	},
-	RESISTANCE_COW_MORPH(0, "cow-morph resistance", "Cow-morph resistance", "shieldIcon", Colour.RACE_COW_MORPH, "cow-morph-immunity", "cow-morph-vulnerability", null) {
+	RESISTANCE_COW_MORPH(0, 0, 100, "cow-morph resistance", "Cow-morph resistance", "shieldIcon", Colour.RACE_COW_MORPH, "cow-morph-immunity", "cow-morph-vulnerability", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases resistance vs damage inflicted by cow-morphs by 1%.";
 		}
 	},
-	RESISTANCE_DEMON(0, "demonic resistance", "Demonic resistance", "shieldIcon", Colour.RACE_DEMON, "demonic-immunity", "demonic-vulnerability", null) {
+	RESISTANCE_DEMON(0, 0, 100, "demonic resistance", "Demonic resistance", "shieldIcon", Colour.RACE_DEMON, "demonic-immunity", "demonic-vulnerability", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases resistance vs damage inflicted by demons by 1%.";
 		}
 	},
-	RESISTANCE_DOG_MORPH(0, "dog-morph resistance", "Dog-morph resistance", "shieldIcon", Colour.RACE_DOG_MORPH, "dog-morph-immunity", "dog-morph-vulnerability", null) {
+	RESISTANCE_DOG_MORPH(0, 0, 100, "dog-morph resistance", "Dog-morph resistance", "shieldIcon", Colour.RACE_DOG_MORPH, "dog-morph-immunity", "dog-morph-vulnerability", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases resistance vs damage inflicted by dog-morphs by 1%.";
 		}
 	},
-	RESISTANCE_HARPY(0, "harpy resistance", "Harpy resistance", "shieldIcon", Colour.RACE_HARPY, "harpy-immunity", "harpy-vulnerability", null) {
+	RESISTANCE_HARPY(0, 0, 100, "harpy resistance", "Harpy resistance", "shieldIcon", Colour.RACE_HARPY, "harpy-immunity", "harpy-vulnerability", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases resistance vs damage inflicted by harpies by 1%.";
 		}
 	},
-	RESISTANCE_HORSE_MORPH(0, "horse-morph resistance", "Horse-morph resistance", "shieldIcon", Colour.RACE_HORSE_MORPH, "horse-morph-immunity", "horse-morph-vulnerability", null) {
+	RESISTANCE_HORSE_MORPH(0, 0, 100, "horse-morph resistance", "Horse-morph resistance", "shieldIcon", Colour.RACE_HORSE_MORPH, "horse-morph-immunity", "horse-morph-vulnerability", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases resistance vs damage inflicted by horse-morphs by 1%.";
 		}
 	},
-	RESISTANCE_IMP(0, "imp resistance", "Imp resistance", "shieldIcon", Colour.RACE_IMP, "impish-immunity", "impish-vulnerability", null) {
+	RESISTANCE_IMP(0, 0, 100, "imp resistance", "Imp resistance", "shieldIcon", Colour.RACE_IMP, "impish-immunity", "impish-vulnerability", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases resistance vs damage inflicted by imps by 1%.";
 		}
 	},
-	RESISTANCE_REINDEER_MORPH(0, "reindeer-morph resistance", "Reindeer-morph resistance", "shieldIcon", Colour.RACE_REINDEER_MORPH, "reindeer-morph-immunity", "reindeer-morph-vulnerability", null) {
+	RESISTANCE_REINDEER_MORPH(0, 0, 100, "reindeer-morph resistance", "Reindeer-morph resistance", "shieldIcon", Colour.RACE_REINDEER_MORPH, "reindeer-morph-immunity", "reindeer-morph-vulnerability", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases resistance vs damage inflicted by reindeer-morphs by 1%.";
 		}
 	},
-	RESISTANCE_HUMAN(0, "human resistance", "Human resistance", "shieldIcon", Colour.RACE_HUMAN, "human-immunity", "human-vulnerability", null) {
+	RESISTANCE_HUMAN(0, 0, 100, "human resistance", "Human resistance", "shieldIcon", Colour.RACE_HUMAN, "human-immunity", "human-vulnerability", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases resistance vs damage inflicted by humans by 1%.";
 		}
 	},
-	RESISTANCE_SQUIRREL_MORPH(0, "squirrel-morph resistance", "Squirrel-morph resistance", "shieldIcon", Colour.RACE_SQUIRREL_MORPH, "squirrel-morph-immunity", "squirrel-morph-vulnerability", null) {
+	RESISTANCE_SQUIRREL_MORPH(0, 0, 100, "squirrel-morph resistance", "Squirrel-morph resistance", "shieldIcon", Colour.RACE_SQUIRREL_MORPH, "squirrel-morph-immunity", "squirrel-morph-vulnerability", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases resistance vs damage inflicted by squirrel-morphs by 1%.";
 		}
 	},
-	RESISTANCE_ALLIGATOR_MORPH(0, "alligator-morph resistance", "Alligator-morph resistance", "shieldIcon", Colour.RACE_ALLIGATOR_MORPH, "alligator-morph-immunity", "alligator-morph-vulnerability", null) {
+	RESISTANCE_ALLIGATOR_MORPH(0, 0, 100, "alligator-morph resistance", "Alligator-morph resistance", "shieldIcon", Colour.RACE_ALLIGATOR_MORPH, "alligator-morph-immunity", "alligator-morph-vulnerability", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases resistance vs damage inflicted by alligator-morphs by 1%.";
 		}
 	},
-	RESISTANCE_WOLF_MORPH(0, "wolf-morph resistance", "Wolf-morph resistance", "shieldIcon", Colour.RACE_WOLF_MORPH, "wolf-morph-immunity", "wolf-morph-vulnerability", null) {
+	RESISTANCE_WOLF_MORPH(0, 0, 100, "wolf-morph resistance", "Wolf-morph resistance", "shieldIcon", Colour.RACE_WOLF_MORPH, "wolf-morph-immunity", "wolf-morph-vulnerability", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases resistance vs damage inflicted by wolf-morphs by 1%.";
 		}
 	},
-	RESISTANCE_SLIME(0, "slime resistance", "Slime resistance", "shieldIcon", Colour.RACE_SLIME, "slime-immunity", "slime-vulnerability", null) {
+	RESISTANCE_SLIME(0, 0, 100, "slime resistance", "Slime resistance", "shieldIcon", Colour.RACE_SLIME, "slime-immunity", "slime-vulnerability", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases resistance vs damage inflicted by slimes by 1%.";
 		}
 	};
 
-	private String name, nameAbbreviation, positiveEnchantment, negativeEnchantment;
+	
+	private int baseValue;
+	private	int lowerLimit;
+	private	int upperLimit;
+	private String name;
+	private String nameAbbreviation;
+	private String positiveEnchantment;
+	private String negativeEnchantment;
 	private Colour colour;
 	public static final List<Attribute> attributeBonusesForEnchanting = new ArrayList<>(), baseAttributesGood = new ArrayList<>();
 	private List<String> extraEffects;
 	private String SVGString;
-	private int baseValue;
 
 	static {
 		attributeBonusesForEnchanting.add(Attribute.CRITICAL_CHANCE);
@@ -496,10 +509,18 @@ public enum Attribute {
 		baseAttributesGood.add(Attribute.MAJOR_ARCANE);
 	}
 
-	private Attribute(int baseValue, String name, String nameAbbreviation, String pathName, Colour colour, String positiveEnchantment, String negativeEnchantment,
-			List<String> extraEffects) {
+	private Attribute(int baseValue,
+			int lowerLimit,
+			int upperLimit,
+			String name,
+			String nameAbbreviation,
+			String pathName,
+			Colour colour,
+			String positiveEnchantment, String negativeEnchantment, List<String> extraEffects) {
 		
 		this.baseValue = baseValue;
+		this.lowerLimit = lowerLimit;
+		this.upperLimit = upperLimit;
 		this.name = name;
 		this.nameAbbreviation = nameAbbreviation;
 		this.colour = colour;
@@ -532,6 +553,14 @@ public enum Attribute {
 
 	public int getBaseValue() {
 		return baseValue;
+	}
+
+	public int getLowerLimit() {
+		return lowerLimit;
+	}
+	
+	public int getUpperLimit() {
+		return upperLimit;
 	}
 
 	public String getName() {

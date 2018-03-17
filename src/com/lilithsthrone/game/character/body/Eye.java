@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character.body;
 import java.io.Serializable;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.EyeType;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
 import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
@@ -365,7 +366,7 @@ public class Eye implements BodyPartInterface, Serializable {
 	}
 	
 	public String setEyeCovering(GameCharacter owner, Covering covering) {
-		if(owner.getEyeIrisCovering().equals(covering) || owner.getEyePupilCovering().equals(covering)) {
+		if(owner.getCovering(owner.getEyeType().getBodyCoveringType()).equals(covering) || owner.getCovering(BodyCoveringType.EYE_PUPILS).equals(covering)) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		

@@ -220,6 +220,10 @@ public abstract class SexAction implements SexActionInterface {
 						case BACK:
 							break;
 						case BREASTS: case NIPPLES:
+							if(characterTarget.getBreastRawMilkStorageValue()>0) {
+								characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_LACTATION_OTHERS);
+								characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_LACTATION_SELF);
+							}
 							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_BREASTS_OTHERS);
 							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_BREASTS_SELF);
 							break;
@@ -261,6 +265,10 @@ public abstract class SexAction implements SexActionInterface {
 						case BACK:
 							break;
 						case BREASTS: case NIPPLES:
+							if(characterPerformingAction.getBreastRawMilkStorageValue()>0) {
+								characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_LACTATION_SELF);
+								characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_LACTATION_OTHERS);
+							}
 							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_BREASTS_SELF);
 							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_BREASTS_OTHERS);
 							break;
@@ -302,6 +310,10 @@ public abstract class SexAction implements SexActionInterface {
 							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_ANAL_RECEIVING);
 							break;
 						case BREAST: case NIPPLE:
+							if(characterTarget.getBreastRawMilkStorageValue()>0) {
+								characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_LACTATION_OTHERS);
+								characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_LACTATION_SELF);
+							}
 							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_BREASTS_OTHERS);
 							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_BREASTS_SELF);
 							break;
@@ -343,6 +355,10 @@ public abstract class SexAction implements SexActionInterface {
 							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_ANAL_GIVING);
 							break;
 						case BREAST: case NIPPLE:
+							if(characterPerformingAction.getBreastRawMilkStorageValue()>0) {
+								characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_LACTATION_SELF);
+								characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_LACTATION_OTHERS);
+							}
 							characterFetishes.get(characterPerformingAction).add(Fetish.FETISH_BREASTS_SELF);
 							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_BREASTS_OTHERS);
 							break;
@@ -397,6 +413,8 @@ public abstract class SexAction implements SexActionInterface {
 	}
 	
 	protected List<Fetish> getFetishesFromPenetrationAndOrificeTypes(GameCharacter characterPerformingAction, PenetrationType penetrationBeingUsed, OrificeType orificeBeingUsed, boolean characterPerformingActionFetishes) {
+		GameCharacter characterTarget = Sex.getTargetedPartner(characterPerformingAction);
+		
 		List<Fetish> associatedFetishes = new ArrayList<>();
 		List<Fetish> associatedFetishesPartner = new ArrayList<>();
 
@@ -417,6 +435,9 @@ public abstract class SexAction implements SexActionInterface {
 							associatedFetishes.add(Fetish.FETISH_ORAL_GIVING);
 							break;
 						case NIPPLE:
+							if(characterPerformingAction.getBreastRawMilkStorageValue()>0) {
+								associatedFetishes.add(Fetish.FETISH_LACTATION_SELF);
+							}
 							associatedFetishes.add(Fetish.FETISH_BREASTS_SELF);
 							break;
 						case URETHRA:
@@ -445,6 +466,9 @@ public abstract class SexAction implements SexActionInterface {
 							break;
 						case NIPPLE:
 							if(!isCharacterPerformingActionUsingOrificeType) {
+								if(characterTarget.getBreastRawMilkStorageValue()>0) {
+									associatedFetishes.add(Fetish.FETISH_LACTATION_OTHERS);
+								}
 								associatedFetishes.add(Fetish.FETISH_BREASTS_OTHERS);
 							}
 							break;
@@ -477,6 +501,9 @@ public abstract class SexAction implements SexActionInterface {
 							}
 							break;
 						case NIPPLE:
+							if(characterPerformingAction.getBreastRawMilkStorageValue()>0) {
+								associatedFetishes.add(Fetish.FETISH_LACTATION_SELF);
+							}
 							associatedFetishes.add(Fetish.FETISH_BREASTS_SELF);
 							break;
 						case URETHRA:
@@ -504,6 +531,9 @@ public abstract class SexAction implements SexActionInterface {
 							break;
 						case NIPPLE:
 							if(!isCharacterPerformingActionUsingOrificeType) {
+								if(characterTarget.getBreastRawMilkStorageValue()>0) {
+									associatedFetishes.add(Fetish.FETISH_LACTATION_OTHERS);
+								}
 								associatedFetishes.add(Fetish.FETISH_BREASTS_OTHERS);
 							}
 							break;
@@ -534,6 +564,9 @@ public abstract class SexAction implements SexActionInterface {
 							}
 							break;
 						case NIPPLE:
+							if(characterPerformingAction.getBreastRawMilkStorageValue()>0) {
+								associatedFetishes.add(Fetish.FETISH_LACTATION_SELF);
+							}
 							associatedFetishes.add(Fetish.FETISH_BREASTS_SELF);
 							break;
 						case URETHRA:
@@ -561,6 +594,9 @@ public abstract class SexAction implements SexActionInterface {
 							break;
 						case NIPPLE:
 							if(!isCharacterPerformingActionUsingOrificeType) {
+								if(characterTarget.getBreastRawMilkStorageValue()>0) {
+									associatedFetishes.add(Fetish.FETISH_LACTATION_OTHERS);
+								}
 								associatedFetishes.add(Fetish.FETISH_BREASTS_OTHERS);
 							}
 							break;
@@ -591,6 +627,9 @@ public abstract class SexAction implements SexActionInterface {
 							}
 							break;
 						case NIPPLE:
+							if(characterPerformingAction.getBreastRawMilkStorageValue()>0) {
+								associatedFetishes.add(Fetish.FETISH_LACTATION_SELF);
+							}
 							associatedFetishes.add(Fetish.FETISH_BREASTS_SELF);
 							break;
 						case URETHRA:
@@ -618,6 +657,9 @@ public abstract class SexAction implements SexActionInterface {
 							break;
 						case NIPPLE:
 							if(!isCharacterPerformingActionUsingOrificeType) {
+								if(characterTarget.getBreastRawMilkStorageValue()>0) {
+									associatedFetishes.add(Fetish.FETISH_LACTATION_OTHERS);
+								}
 								associatedFetishes.add(Fetish.FETISH_BREASTS_OTHERS);
 							}
 							break;
@@ -652,6 +694,9 @@ public abstract class SexAction implements SexActionInterface {
 						case MOUTH:
 							break;
 						case NIPPLE:
+							if(characterPerformingAction.getBreastRawMilkStorageValue()>0) {
+								associatedFetishes.add(Fetish.FETISH_LACTATION_SELF);
+							}
 							associatedFetishes.add(Fetish.FETISH_BREASTS_SELF);
 							associatedFetishes.add(Fetish.FETISH_ORAL_RECEIVING);
 							if(this.getParticipantType()==SexParticipantType.SELF) {
@@ -694,6 +739,9 @@ public abstract class SexAction implements SexActionInterface {
 							break;
 						case NIPPLE:
 							if(!isCharacterPerformingActionUsingOrificeType) {
+								if(characterTarget.getBreastRawMilkStorageValue()>0) {
+									associatedFetishes.add(Fetish.FETISH_LACTATION_OTHERS);
+								}
 								associatedFetishes.add(Fetish.FETISH_BREASTS_OTHERS);
 							}
 							associatedFetishes.add(Fetish.FETISH_ORAL_GIVING);
@@ -732,6 +780,12 @@ public abstract class SexAction implements SexActionInterface {
 					break;
 				case FETISH_BREASTS_SELF:
 					associatedFetishesPartner.add(Fetish.FETISH_BREASTS_OTHERS);
+					break;
+				case FETISH_LACTATION_OTHERS:
+					associatedFetishesPartner.add(Fetish.FETISH_LACTATION_SELF);
+					break;
+				case FETISH_LACTATION_SELF:
+					associatedFetishesPartner.add(Fetish.FETISH_LACTATION_OTHERS);
 					break;
 				case FETISH_BREEDER:
 					break;

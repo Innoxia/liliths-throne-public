@@ -92,4 +92,12 @@ public enum AntennaType implements BodyPartTypeInterface {
 		}
 		return types;
 	}
+	
+	public String getTransformName() {
+		switch(this){
+			case NONE:
+				return "none";
+		}
+		return "";
+	}
 }

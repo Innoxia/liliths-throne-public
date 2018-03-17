@@ -82,6 +82,10 @@ public class PrologueFemale extends NPC {
 			this.setHairStyle(HairStyle.WAVY);
 			
 			this.setPiercedEar(true);
+
+			this.setVaginaVirgin(false);
+			this.setAssVirgin(false);
+			this.setFaceVirgin(false);
 			
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_CROTCHLESS_THONG, Colour.CLOTHING_RED, false), true, this);
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.CHEST_OPEN_CUP_BRA, Colour.CLOTHING_RED, false), true, this);
@@ -94,7 +98,7 @@ public class PrologueFemale extends NPC {
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.PIERCING_EAR_BASIC_RING, Colour.CLOTHING_ROSE_GOLD, false), true, this);
 			
 			this.addFetish(Fetish.FETISH_MASOCHIST);
-			this.addFetish(Fetish.FETISH_ORAL_GIVING);
+			this.addFetish(Fetish.FETISH_VAGINAL_RECEIVING);
 		}
 	}
 	

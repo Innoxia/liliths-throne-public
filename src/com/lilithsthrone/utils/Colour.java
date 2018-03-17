@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 
 /**
  * @since 0.1.0
- * @version 0.1.84
+ * @version 0.2.1
  * @author Innoxia
  */
 public enum Colour {
@@ -29,7 +29,7 @@ public enum Colour {
 	BASE_VIOLET(BaseColour.VIOLET, "violet", Util.newArrayListOfValues(new ListValue<>("violet"))),
 	BASE_PINK(BaseColour.PINK, "pink", Util.newArrayListOfValues(new ListValue<>("pink"))),
 	BASE_PINK_LIGHT(BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues(new ListValue<>("lightPink"))),
-	BASE_PINK_DEEP(BaseColour.PINK_DEEP, "deep pink", Util.newArrayListOfValues(new ListValue<>("deepPink"))),
+	BASE_PINK_DEEP(BaseColour.PINK_DEEP, "deep pink", Util.newArrayListOfValues(new ListValue<>("deepPink"), new ListValue<>("darkPink"))),
 		
 	BASE_MAGENTA(BaseColour.MAGENTA, "magenta", Util.newArrayListOfValues(new ListValue<>("magenta"))),
 	BASE_CRIMSON(BaseColour.CRIMSON, "crimson", Util.newArrayListOfValues(new ListValue<>("crimson"))),
@@ -65,8 +65,8 @@ public enum Colour {
 	GENERIC_COMBAT(BaseColour.CRIMSON, "crimson"),
 	GENERIC_ARCANE(BaseColour.PINK, "pink", Util.newArrayListOfValues(new ListValue<>("arcane"))),
 	GENERIC_TERRIBLE(BaseColour.CRIMSON, "crimson", Util.newArrayListOfValues(new ListValue<>("terrible"))),
-	GENERIC_MINOR_BAD(BaseColour.RED_LIGHT, "red", Util.newArrayListOfValues(new ListValue<>("minorBad"))),
-	GENERIC_MINOR_GOOD(BaseColour.GREEN_LIGHT, "light green", Util.newArrayListOfValues(new ListValue<>("minorGood"))),
+	GENERIC_MINOR_BAD(BaseColour.RED_LIGHT, "red", Util.newArrayListOfValues(new ListValue<>("minorBad"), new ListValue<>("badMinor"))),
+	GENERIC_MINOR_GOOD(BaseColour.GREEN_LIGHT, "light green", Util.newArrayListOfValues(new ListValue<>("minorGood"), new ListValue<>("goodMinor"))),
 	GENERIC_BAD(BaseColour.RED, "red", Util.newArrayListOfValues(new ListValue<>("bad"))),
 	GENERIC_GOOD(BaseColour.GREEN, "green", Util.newArrayListOfValues(new ListValue<>("good"))),
 	GENERIC_EXCELLENT(BaseColour.GOLD, "gold", Util.newArrayListOfValues(new ListValue<>("excellent"))),
@@ -335,7 +335,9 @@ public enum Colour {
 
 	SLIME_RED(BaseColour.RED, "translucent red"),
 	SLIME_RED_DARK(BaseColour.RED_DARK, "translucent dark red"),
+	SLIME_BROWN_DARK(BaseColour.BROWN_DARK, "translucent dark brown"),
 	SLIME_BROWN(BaseColour.BROWN, "translucent brown"),
+	SLIME_TAN(BaseColour.TAN, "translucent tan"),
 	SLIME_YELLOW(BaseColour.YELLOW, "translucent yellow"),
 	SLIME_AMBER(BaseColour.AMBER, "translucent amber"),
 	SLIME_PINK(BaseColour.PINK, "translucent pink"),
@@ -435,7 +437,7 @@ public enum Colour {
 	
 	// Special nail polish:
 	COVERING_CLEAR(BaseColour.WHITE, "clear"),
-	COVERING_NONE(BaseColour.TAN, "none"),
+	COVERING_NONE(BaseColour.GREY, "none"),
 
 	// Eye colours:
 	EYE_BROWN(BaseColour.BROWN, "brown"),
@@ -711,7 +713,9 @@ public enum Colour {
 	public static List<Colour> allSlimeColours = Util.newArrayListOfValues(
 			new ListValue<Colour>(Colour.SLIME_RED),
 			new ListValue<Colour>(Colour.SLIME_RED_DARK),
+			new ListValue<Colour>(Colour.SLIME_BROWN_DARK),
 			new ListValue<Colour>(Colour.SLIME_BROWN),
+			new ListValue<Colour>(Colour.SLIME_TAN),
 			new ListValue<Colour>(Colour.SLIME_YELLOW),
 			new ListValue<Colour>(Colour.SLIME_AMBER),
 			new ListValue<Colour>(Colour.SLIME_PINK),

@@ -69,6 +69,8 @@ public class PrologueMale extends NPC {
 	
 			this.setPenisSize(PenisSize.THREE_LARGE.getMedianValue());
 			this.setPenisVirgin(false);
+			this.setAssVirgin(false);
+			this.setFaceVirgin(false);
 	
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.GROIN_BOXERS, Colour.CLOTHING_BLACK, false), true, this);
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.SOCK_SOCKS, Colour.CLOTHING_BLACK, false), true, this);
@@ -78,7 +80,7 @@ public class PrologueMale extends NPC {
 			this.equipClothingFromNowhere(AbstractClothingType.generateClothing(ClothingType.WRIST_MENS_WATCH, Colour.CLOTHING_BLACK_STEEL, false), true, this);
 			
 			this.addFetish(Fetish.FETISH_CUM_STUD);
-			this.addFetish(Fetish.FETISH_BREASTS_OTHERS);
+			this.addFetish(Fetish.FETISH_VAGINAL_GIVING);
 		}
 	}
 	

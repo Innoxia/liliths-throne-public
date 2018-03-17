@@ -14,6 +14,11 @@ import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.Wetness;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 
+/**
+ * @since 0.1.?
+ * @version 0.2.1
+ * @author Innoxia
+ */
 public class OrificeNipples implements OrificeInterface, Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -36,7 +41,7 @@ public class OrificeNipples implements OrificeInterface, Serializable {
 	
 	@Override
 	public Wetness getWetness(GameCharacter owner) {
-		return owner.getBreastLactation().getAssociatedWetness();
+		return owner.getBreastMilkStorage().getAssociatedWetness();
 	}
 	
 	@Override

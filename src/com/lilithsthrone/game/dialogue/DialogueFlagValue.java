@@ -16,6 +16,9 @@ public enum DialogueFlagValue {
 	essenceOrgasmDiscovered,
 	essenceBottledDiscovered,
 
+	// Misc.:
+	foundHappiness,
+	
 	// Gym:
 	gymIntroduced,
 	gymHadTour,

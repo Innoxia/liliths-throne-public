@@ -2681,7 +2681,22 @@ public class UtilText {
 				BodyPartType.BREAST){//TODO
 			@Override
 			public String parse(String command, String arguments, String target) {
-				return character.getBreastLactation().getDescriptor();
+				return character.getBreastMilkStorage().getDescriptor();
+			}
+		});
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("milkRegen"),
+						new ListValue<>("milkRegeneration")),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.BREAST){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return character.getBreastLactationRegeneration().getName();
 			}
 		});
 		
@@ -3686,7 +3701,7 @@ public class UtilText {
 		}
 	}
 
-	private static GameCharacter character = Main.game.getPlayer();
+	private static GameCharacter character;
 	private static List<GameCharacter> specialNPCList = new ArrayList<>();
 	private static boolean parseCapitalise, parseAddPronoun;
 	private static String parseSyntaxNew(String target, String command, String arguments, List<GameCharacter> specialNPCList) {

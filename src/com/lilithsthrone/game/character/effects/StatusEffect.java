@@ -23,6 +23,7 @@ import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.BodyMaterial;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
+import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.fetishes.FetishDesire;
 import com.lilithsthrone.game.character.gender.Gender;
@@ -373,7 +374,8 @@ public enum StatusEffect {
 			"attIntelligence1",
 			Colour.INTELLIGENCE_STAGE_ONE,
 			true,
-			null,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.SPELL_LEVEL, 1f)),
 			Util.newArrayListOfValues(
 					new ListValue<String>("<b style='color: " + Colour.GENERIC_TERRIBLE.toWebHexString() + "'>Surrender in combat at maximum lust</b>"))) {
 		
@@ -413,6 +415,7 @@ public enum StatusEffect {
 			Colour.INTELLIGENCE_STAGE_TWO,
 			true,
 			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.SPELL_LEVEL, 2f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 10f),
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 10f)),
 			null) {
@@ -453,6 +456,7 @@ public enum StatusEffect {
 			Colour.INTELLIGENCE_STAGE_THREE,
 			true,
 			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.SPELL_LEVEL, 3f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 20f),
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 20f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 5f),
@@ -496,6 +500,7 @@ public enum StatusEffect {
 			Colour.INTELLIGENCE_STAGE_FOUR,
 			true,
 			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.SPELL_LEVEL, 4f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 30f),
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 30f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 15f),
@@ -540,6 +545,7 @@ public enum StatusEffect {
 			Colour.INTELLIGENCE_STAGE_FIVE,
 			true,
 			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.SPELL_LEVEL, 5f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_SPELLS, 100f),
 					new Value<Attribute, Float>(Attribute.SPELL_COST_MODIFIER, 100f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_FIRE, 75f),
@@ -719,9 +725,9 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			if (owner.isPlayer()) {
-				if (Main.game.getPlayer().getVaginaType() != VaginaType.NONE) {
+				if (owner.getVaginaType() != VaginaType.NONE) {
 					return "Given power by the fantasies that constantly run through your mind, the arcane is starting to have a physical effect on your body, and you feel as though it's going to be far easier to get pregnant from now on...";
-				} else if (Main.game.getPlayer().getPenisType() != PenisType.NONE) {
+				} else if (owner.getPenisType() != PenisType.NONE) {
 					return "Given power by the fantasies that constantly run through your mind, the arcane is starting to have a physical effect on your body,"
 							+ " and you feel as though it's going to be far easier to impregnate your sexual partners from now on...";
 				} else {
@@ -779,10 +785,10 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			if (owner.isPlayer()) {
-				if (Main.game.getPlayer().getVaginaType() != VaginaType.NONE) {
+				if (owner.getVaginaType() != VaginaType.NONE) {
 					return "Given a huge amount of power by the lewd fantasies that constantly run through your mind, the arcane is starting to have a physical effect on your body,"
 							+ " and you feel as though it's going to be far easier to get pregnant from now on...";
-				} else if (Main.game.getPlayer().getPenisType() != PenisType.NONE) {
+				} else if (owner.getPenisType() != PenisType.NONE) {
 					return "Given a huge amount of power by the lewd fantasies that constantly run through your mind, the arcane is starting to have a physical effect on your body,"
 							+ " and you feel as though it's going to be far easier to impregnate your sexual partners from now on...";
 				} else {
@@ -2216,7 +2222,9 @@ public enum StatusEffect {
 			Util.newHashMapOfValues(new Value<Attribute, Float>(Attribute.RESISTANCE_PHYSICAL, 100f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_PHYSICAL, -100f),
 					new Value<Attribute, Float>(Attribute.DAMAGE_LUST, 15f)),
-			Util.newArrayListOfValues(new ListValue<String>("<b style='color: "+ Colour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'>Can morph body at will</b>"))) {
+			Util.newArrayListOfValues(
+					new ListValue<String>("<b style='color: "+ Colour.TRANSFORMATION_GENERIC.toWebHexString()+ ";'>Can morph body at will</b>"),
+					new ListValue<String>("<b style='color: "+ Colour.GENERIC_SEX.toWebHexString()+ ";'>Impregnated through any orifice</b>"))) {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
@@ -3572,14 +3580,14 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			if(target.isPlayer())
+			if(target.isPlayer()) {
 				return "After recently having unprotected sex, there's a risk that you'll get pregnant!"
 					+ " Due to the fact that the arcane accelerates people's pregnancies, you'll know if you're pregnant within a matter of hours.";
-			else
+			} else {
 				return UtilText.parse(target,
 						"After recently having unprotected sex, there's a risk that "+target.getName("the")+" will get pregnant!"
 							+ " Due to the fact that the arcane accelerates people's pregnancies, [npc.she]'ll know if [npc.she]'s pregnant within a matter of hours.");
-				
+			}
 		}
 
 		@Override
@@ -3594,9 +3602,16 @@ public enum StatusEffect {
 				if(target.hasStatusEffect(StatusEffect.CUM_INFLATION_1)
 						|| target.hasStatusEffect(StatusEffect.CUM_INFLATION_2)
 						|| target.hasStatusEffect(StatusEffect.CUM_INFLATION_3)) {
-					inflationText = "<p>"
-								+ "[style.italicsSex(The swelling of your pregnant bump forces your body to expel most of the cum that's inflating your belly.)]"
+					if(target.getBodyMaterial()==BodyMaterial.SLIME) {
+						inflationText = "<p>"
+								+ "[style.italicsSex(The swelling of your pregnant bump forces your body to convert most of the cum that's inflating your belly into more slime.)]"
 							+ "</p>";
+						
+					} else {
+						inflationText = "<p>"
+									+ "[style.italicsSex(The swelling of your pregnant bump forces your body to expel most of the cum that's inflating your belly.)]"
+								+ "</p>";
+					}
 				}
 				
 				target.addStatusEffect(PREGNANT_1, 60 * (72 + Util.random.nextInt(13)));
@@ -3606,9 +3621,8 @@ public enum StatusEffect {
 					target.setCummedInArea(orifice, target.getCummedInAreaMap().get(orifice));
 				}
 				
-				
 				if (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
-					if(Main.game.getPlayer().hasFetish(Fetish.FETISH_PREGNANCY)) {
+					if(target.hasFetish(Fetish.FETISH_PREGNANCY)) {
 						sb.append("<p>"
 								+ "For the last few hours, your belly has been gradually swelling."
 								+ " The progress was so slow that you didn't even realise anything was happening, but as you glance down at your stomach, there's no mistaking it."
@@ -3634,8 +3648,14 @@ public enum StatusEffect {
 										+ "Wait! Of course! <b>Lilaya!</b> She'll want to see this too!)]"
 							+ "</p>"
 							+ "<p>"
-								+ "After a little while of stroking and rubbing your wonderfully-swollen abdomen, you start to calm down a little."
-								+ " You decide that you should probably go and see Lilaya, so that she can help you figure out all the details of giving birth."
+								+ (target.getBodyMaterial()==BodyMaterial.SLIME
+									?"Taking a closer look at your swollen, slimy stomach, you suddenly realise that you can see "
+											+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing in the place where your womb should be."
+										+ " You can't help but let out a delighted squeal of happiness as you see your "
+											+(target.getPregnantLitter().getTotalLitterCount()==1?"child":"children")+" growing inside of you, and spend the next few minutes stroking and rubbing your wonderfully-swollen abdomen in a state of absolute bliss."
+										+ " Eventually, however, you decide that you should probably go and see Lilaya, so that she can help you figure out all the details of giving birth."
+									:"After a little while of stroking and rubbing your wonderfully-swollen abdomen, you start to calm down a little."
+										+ " You decide that you should probably go and see Lilaya, so that she can help you figure out all the details of giving birth.")
 							+ "</p>"
 							+ "<p style='text-align:center;'>"
 								+ "<b style='color:"+ Colour.GENERIC_SEX.toWebHexString() + ";'>You're pregnant!</b>"
@@ -3667,8 +3687,14 @@ public enum StatusEffect {
 											+ "Wait! Of course! <b>Lilaya!</b> She'll know what to do!)]"
 								+ "</p>"
 								+ "<p>"
-									+ "You start to calm down a little as the initial shock starts to wear off."
-									+ " If anyone knows what to do, it'll be Lilaya."
+									+ (target.getBodyMaterial()==BodyMaterial.SLIME
+										?"As you take one last look at your swollen, slimy stomach, you suddenly realise that you can see "
+												+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing in the place where your womb should be."
+											+ " You can't help but let out a shocked cry as you see your "+(target.getPregnantLitter().getTotalLitterCount()==1?"child":"children")
+												+" growing inside of you, and spend the next few minutes stroking and rubbing your swollen abdomen in a state of panic."
+											+ " Eventually, however, you start to calm down a little, and decide that you should probably go and see Lilaya as soon as possible."
+										:"You start to calm down a little as the initial shock starts to wear off."
+											+ " If anyone knows what to do, it'll be Lilaya.")
 								+ "</p>"
 								+ "<p style='text-align:center;'>"
 									+ "<b style='color:"+ Colour.GENERIC_SEX.toWebHexString() + ";'>You're pregnant!</b>"
@@ -3681,30 +3707,39 @@ public enum StatusEffect {
 							+ " The progress was so slow that you didn't even realise anything was happening, but as you glance down at your stomach, there's no mistaking it."
 							+ " You're pregnant again."
 							+ " You start stroking your abdomen, making soft little gasps as the familiar feeling of being knocked up returns to you."
+							+ (target.getBodyMaterial()==BodyMaterial.SLIME
+								?"</p>"
+								+ "<p>"
+									+ "Looking a little closer at your swollen, slimy stomach, you see "+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"
+										+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing in the place where your womb should be."
+									+ " You can't help but let out a happy little sigh as you see your "+(target.getPregnantLitter().getTotalLitterCount()==1?"child":"children")
+									+" growing inside of you, and spend the next few minutes stroking and rubbing your swollen abdomen in a state of motherly bliss."
+								:"")
 						+ "</p>"
 						+ "<p>"
-							+ (Main.game.getPlayer().hasFetish(Fetish.FETISH_PREGNANCY)
+							+ (target.hasFetish(Fetish.FETISH_PREGNANCY)
 									?"[pc.thought(Haha! Yes! I got pregnant again! This is the best feeling ever...)]"
 									:"[pc.thought(Mmm... Looks like I got pregnant again...)]")
 						+ "</p>"
 						+ "<p>"
-							+ (Main.game.getPlayer().hasFetish(Fetish.FETISH_PREGNANCY)
+							+ (target.hasFetish(Fetish.FETISH_PREGNANCY)
 								?"Knowing what you're in for, you let out a delighted laugh before carrying on your way."
-								:"Knowing what you're in for, you let out a little contented sigh and start carrying on your way.")
+								:"Knowing what you're in for, you let out a contented sigh and start carrying on your way.")
 						+ "</p>"
 						+ "<p style='text-align:center;'>"
 							+ "<b style='color:" + Colour.GENERIC_SEX.toWebHexString()+ ";'>You're pregnant!</b>"
 						+ "</p>");
 				}
 				
-			} else{
+			} else {
 				target.endPregnancy(false);
 				sb.append("<p>"
 							+ "Enough time has passed now for you to be sure that you're in the clear."
-							+ " There's no sign of any bump in your belly, and you realise that despite having unprotected sex, you managed to avoid getting pregnant."
+							+ " There's no sign of any bump in your belly,"+(target.getBodyMaterial()==BodyMaterial.SLIME?" or of any slime cores growing inside of you,":"")
+								+" and you realise that despite having unprotected sex, you managed to avoid getting pregnant."
 						+ "</p>"
 						+ "<p>"
-							+ (Main.game.getPlayer().hasFetish(Fetish.FETISH_PREGNANCY)
+							+ (target.hasFetish(Fetish.FETISH_PREGNANCY)
 								?"[pc.thought(Damn it...)]"
 								:"[pc.thought(Well, that's a relief...)]")
 						+ "</p>"
@@ -3746,18 +3781,39 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			if(target.isPlayer())
+			if(target.isPlayer()) {
 				return "From one of your recent sexual encounters, you've been impregnated!"
-						+ " Due to the fact that the arcane accelerates people's pregnancies, you'll move onto the next stage in a matter of days.";
-			else
+						+ (target.getBodyMaterial()==BodyMaterial.SLIME
+							?" Through the [pc.skinColour] [pc.skin] that makes up your body, you can see "+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"
+								+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of you..."
+							:" Due to the fact that the arcane accelerates people's pregnancies, you'll move onto the next stage in a matter of days.");
+			} else {
 				return UtilText.parse(target,
-							"From one of [npc.name]'s recent sexual encounters, [npc.she]'s been impregnated!");
+							"From one of [npc.name]'s recent sexual encounters, [npc.she]'s been impregnated!"
+								+ (target.getBodyMaterial()==BodyMaterial.SLIME
+									?" Through the [npc.skinColour] [npc.skin] that makes up [npc.her] body, you can see "+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"
+										+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of [npc.herHim]..."
+									:""));
+			}
 		}
 
 		@Override
 		public String extraRemovalEffects(GameCharacter target) {
 
 			target.addStatusEffect(PREGNANT_2, 60 * (72 + Util.random.nextInt(13)));
+			
+			boolean breastGrowth = false;
+			if(Main.getProperties().pregnancyBreastGrowth>0 && target.getBreastRawSizeValue()<Main.getProperties().pregnancyBreastGrowthLimit) {
+				int valueIncrease = Math.max(1, Main.getProperties().pregnancyBreastGrowth - Main.getProperties().pregnancyBreastGrowthVariance + Util.random.nextInt(Main.getProperties().pregnancyBreastGrowthVariance*2 + 1));
+				
+				if(target.getBreastRawSizeValue() + valueIncrease > Main.getProperties().pregnancyBreastGrowthLimit) {
+					breastGrowth = true;
+					target.setBreastSize(Main.getProperties().pregnancyBreastGrowthLimit);
+				} else {
+					breastGrowth = true;
+					target.incrementBreastSize(valueIncrease);
+				}
+			}
 
 			if (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
 				return "<p>"
@@ -3765,17 +3821,42 @@ public enum StatusEffect {
 							+ " You can't resist rubbing your hands over the bump in your abdomen, and you wonder just how big it's going to get."
 							+ " As this is your first time getting pregnant, you're not quite sure what to expect, but you're reassured as you remember that Lilaya's always there to help."
 						+ "</p>"
+						+ (target.getBodyMaterial()==BodyMaterial.SLIME
+								?"<p>"
+									+ "Clearly visible through the translucent slime which your body is made up of, you see that the "
+										+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" slime core"+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of you have gotten a lot larger..."
+								+ "</p>"
+								:"")
 						+ "<p style='text-align:center;'>"
 							+ "<b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You're now heavily pregnant!</b>"
-						+ "</p>";
+						+ "</p>"
+						+(breastGrowth
+								? "<p><i>"
+										+"Your breasts have swollen and grown larger as your body prepares to start lactating."
+										+ " You now have [style.boldSex([pc.breastSize]"  + (target.getBreastRawSizeValue()>CupSize.AA.getMeasurement()?", "+target.getBreastSize().getCupSizeName()+"-cup":"") + " breasts)]!"
+									+ "</i></p>"
+								:"");
 			} else {
 				return "<p>"
 							+ "Even though the change has been gradual, you're suddenly hit by the familiar realisation that your belly has swollen massively."
 							+ " You can't resist rubbing your hands over the bump in your abdomen, smiling fondly at the comforting feeling."
-							+ " Having been through all this before, you know that you've still got a way to go before you're ready to give birth, and, giving your belly one final stroke, you continue on your way."
+							+ " Having been through all this before, you know that you've still got a way to go before you're ready to give birth."
 						+ "</p>"
-							+ "<p style='text-align:center;'>" + "<b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You're now heavily pregnant!</b>"
-						+ "</p>";
+						+ (target.getBodyMaterial()==BodyMaterial.SLIME
+							?"<p>"
+								+ "Clearly visible through the translucent slime which your body is made up of, you see that the "
+									+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" slime core"+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of you have gotten a lot larger..."
+							+ "</p>"
+							:"")
+						+ "<p style='text-align:center;'>"
+							+ "<b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You're now heavily pregnant!</b>"
+						+ "</p>"
+						+(breastGrowth
+								? "<p><i>"
+										+"Your breasts have swollen and grown larger as your body prepares to start lactating."
+										+ " You now have [style.boldSex([pc.breastSize]"  + (target.getBreastRawSizeValue()>CupSize.AA.getMeasurement()?", "+target.getBreastSize().getCupSizeName()+"-cup":"") + " breasts)]!"
+									+ "</i></p>"
+								:"");
 			}
 		}
 
@@ -3805,12 +3886,20 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			if(target.isPlayer())
+			if(target.isPlayer()) {
 				return "Your stomach has swollen considerably, making it clearly obvious to anyone who glances your way that you're expecting to give birth soon."
-						+ " Due to the fact that the arcane accelerates people's pregnancies, you'll move onto the final stage in a matter of days.";
-			else
+						+ (target.getBodyMaterial()==BodyMaterial.SLIME
+							?" Through the [pc.skinColour] [pc.skin] that makes up your body, you can see "+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"
+								+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of you..."
+							:" Due to the fact that the arcane accelerates people's pregnancies, you'll move onto the final stage in a matter of days.");
+			} else {
 				return UtilText.parse(target,
-							"[npc.Name]'s stomach has swollen considerably, making it clearly obvious to anyone who glances [npc.her] way that [npc.she]'s expecting to give birth soon.");
+							"[npc.Name]'s stomach has swollen considerably, making it clearly obvious to anyone who glances [npc.her] way that [npc.she]'s expecting to give birth soon."
+								+ (target.getBodyMaterial()==BodyMaterial.SLIME
+									?" Through the [npc.skinColour] [npc.skin] that makes up [npc.her] body, you can see "+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" little slime core"
+										+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of [npc.herHim]..."
+									:""));
+			}
 		}
 
 		@Override
@@ -3818,33 +3907,67 @@ public enum StatusEffect {
 
 			target.setTimeProgressedToFinalPregnancyStage(Main.game.getMinutesPassed());
 
+			boolean lactationIncrease = false;
+			if(Main.getProperties().pregnancyLactationIncrease>0 && target.getBreastRawMilkStorageValue()<Main.getProperties().pregnancyLactationLimit) {
+				int valueIncrease = Math.max(1, Main.getProperties().pregnancyLactationIncrease - Main.getProperties().pregnancyLactationIncreaseVariance + Util.random.nextInt(Main.getProperties().pregnancyLactationIncreaseVariance*2 + 1));
+				
+				if(target.getBreastRawMilkStorageValue() + valueIncrease > Main.getProperties().pregnancyLactationLimit) {
+					lactationIncrease = true;
+					target.setBreastMilkStorage(Main.getProperties().pregnancyLactationLimit);
+				} else {
+					lactationIncrease = true;
+					target.incrementBreastMilkStorage(valueIncrease);
+				}
+			}
+			
 			if (!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_FIRST_TIME_PREGNANCY)) {
 				return "<p>"
 							+ "By now, your stomach has completely ballooned out in front of you, and you're having to arch your back and support yourself with one hand as you walk around."
-							+ (Main.game.getPlayer().getVaginaType()==VaginaType.HARPY
-								?" Although you can feel the hard shells of your clutch of eggs pressing out against the inner walls of your womb, you don't find the sensation to be in any way uncomfortable."
-									+ " If anything, the feeling only seems to be boosting your maternal instincts, and you often catch yourself daydreaming about laying and incubating your eggs."
-								:" Some time in the last couple of hours, you felt a strange rumble in your pregnant bump, and after panicking for a little while, you realised that it was your offspring kicking about in your womb."
-									+ " You keep feeling another kick every now and then, and you know that you're ready to give birth.")
+							+ (target.getBodyMaterial()==BodyMaterial.SLIME
+								?" Clearly visible through the translucent slime which your body is made up of, you see that the "
+										+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" slime core"
+										+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of you "+(target.getPregnantLitter().getTotalLitterCount()==1?"has":"have")
+										+" grown to be just as large as your own, and you know that you're now ready to give birth."
+								:(target.getVaginaType()==VaginaType.HARPY
+									?" Although you can feel the hard shells of your clutch of eggs pressing out against the inner walls of your womb, you don't find the sensation to be in any way uncomfortable."
+										+ " If anything, the feeling only seems to be boosting your maternal instincts, and you often catch yourself daydreaming about laying and incubating your eggs."
+									:" Some time in the last couple of hours, you felt a strange rumble in your pregnant bump, and after panicking for a little while, you realised that it was your offspring kicking about in your womb."
+										+ " You keep feeling another kick every now and then, and you know that you're ready to give birth."))
 						+ "</p>"
 						+ "<p>"
 							+ UtilText.parsePlayerThought("I really should go and see Lilaya...")
 						+ "</p>"
+						+(lactationIncrease
+								? "<p><i>"
+										+"Your breasts have gotten noticeably heavier, and as you softly stroke the round bump in your belly, you feel droplets of [pc.milk] beading up on your engorged teats."
+										+ " You are now able to produce [style.boldSex(" + target.getBreastMilkStorage().getDescriptor() + " [pc.milk] ("+target.getBreastRawMilkStorageValue()+"ml))]!"
+									+ "</i></p>"
+								:"")
 						+ "<p style='text-align:center;'>"
 							+ "<b style='color:" + Colour.GENERIC_SEX.toWebHexString() + ";'>You're now ready to give birth!</b>" 
 						+ "</p>";
 			} else {
 				return "<p>"
 							+ "By now, your stomach has completely ballooned out in front of you, and you're having to arch your back and support yourself with one hand as you walk around."
-							+ (Main.game.getPlayer().getVaginaType()==VaginaType.HARPY
-							?" Although you can feel the hard shells of your clutch of eggs pressing out against the inner walls of your womb, you don't find the sensation to be in any way uncomfortable."
-								+ " If anything, the feeling only seems to be boosting your maternal instincts, and you often catch yourself daydreaming about laying and incubating your eggs."
-							:" Some time in the last couple of hours, you felt a familiar rumble in your pregnant bump, and from experience, you instantly recognised that it was your offspring kicking about in your womb."
-								+ " You keep feeling another kick every now and then, and you know that you're ready to give birth.")
+							+ (target.getBodyMaterial()==BodyMaterial.SLIME
+								?" Clearly visible through the translucent slime which your body is made up of, you see that the "
+										+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" slime core"+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+" growing inside of you "
+										+(target.getPregnantLitter().getTotalLitterCount()==1?"has":"have")+" grown to be just as large as your own, and you know that you're now ready to give birth."
+								:(target.getVaginaType()==VaginaType.HARPY
+									?" Although you can feel the hard shells of your clutch of eggs pressing out against the inner walls of your womb, you don't find the sensation to be in any way uncomfortable."
+										+ " If anything, the feeling only seems to be boosting your maternal instincts, and you often catch yourself daydreaming about laying and incubating your eggs."
+									:" Some time in the last couple of hours, you felt a familiar rumble in your pregnant bump, and from experience, you instantly recognised that it was your offspring kicking about in your womb."
+										+ " You keep feeling another kick every now and then, and you know that you're ready to give birth."))
 						+ "</p>"
 						+ "<p>"
 							+ UtilText.parsePlayerThought("I really should go and see Lilaya... Or maybe I'll stay like this for a little while!")
 						+ "</p>"
+						+(lactationIncrease
+								? "<p><i>"
+										+"Your breasts have gotten noticeably heavier, and as you softly stroke the round bump in your belly, you feel droplets of [pc.milk] beading up on your engorged teats."
+										+ " You are now able to produce [style.boldSex(" + target.getBreastMilkStorage().getDescriptor() + " [pc.milk] ("+target.getBreastRawMilkStorageValue()+"ml))]!"
+									+ "<i></p>"
+								:"")
 						+ "<p style='text-align:center;'>"
 							+ "<b style='color:" + Colour.GENERIC_SEX.toWebHexString()+ ";'>You're now ready to give birth!</b>"
 						+ "</p>";
@@ -3877,12 +4000,20 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			if(target.isPlayer())
+			if(target.isPlayer()) {
 				return "Your belly has inflated to a colossal size, and you find yourself having to support your back as you walk."
-						+ " It might be a good idea to visit Lilaya so that she can help you to give birth.";
-			else
+						+ (target.getBodyMaterial()==BodyMaterial.SLIME
+							?" Through the [pc.skinColour] [pc.skin] that makes up your body, you can see "+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" slime core"+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")
+									+", just as big as your own..."
+							:" It might be a good idea to visit Lilaya so that she can help you to give birth.");
+			} else {
 				return UtilText.parse(target,
-							"[npc.Name]'s belly has inflated to a colossal size, and [npc.she]'s finding that [npc.she] has to support [npc.her] back with one hand as [npc.she] walks.");
+							"[npc.Name]'s belly has inflated to a colossal size, and [npc.she]'s finding that [npc.she] has to support [npc.her] back with one hand as [npc.she] walks."
+								+ (target.getBodyMaterial()==BodyMaterial.SLIME
+									?" Through the [npc.skinColour] [npc.skin] that makes up [npc.her] body, you can see "+Util.intToString(target.getPregnantLitter().getTotalLitterCount())+" slime core"
+										+(target.getPregnantLitter().getTotalLitterCount()==1?"":"s")+", just as big as [npc.her] own..."
+									:""));
+			}
 		}
 		
 		@Override
@@ -3979,6 +4110,109 @@ public enum StatusEffect {
 		}
 	},
 
+	MILK_PRODUCTION(
+			80,
+			"Milk Production",
+			"milkProduction",
+			Colour.GENERIC_SEX,
+			true,
+			null,
+			null) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			target.incrementBreastStoredMilk((int) Math.ceil(minutesPassed * target.getBreastLactationRegeneration().getPercentageRegen() * target.getBreastRawMilkStorageValue()));
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			int milkRegenRate = (int) Math.ceil(target.getBreastLactationRegeneration().getPercentageRegen() * target.getBreastRawMilkStorageValue());
+			
+			if(target.isPlayer()) {
+				return "Your breasts are currently producing more [pc.milk], at a rate of "+milkRegenRate+"ml/minute."
+						+ " They have stored "+target.getBreastRawStoredMilkValue()+"ml, out of a maximum of "+target.getBreastRawMilkStorageValue()+"ml.";
+			} else {
+				return UtilText.parse(target,
+						"[npc.Name]'s breasts are currently producing more [npc.milk], at a rate of "+milkRegenRate+"ml/minute."
+						+ " They have stored "+target.getBreastRawStoredMilkValue()+"ml, out of a maximum of "+target.getBreastRawMilkStorageValue()+"ml.");
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getBreastRawMilkStorageValue()>0 && target.getBreastRawStoredMilkValue()!=target.getBreastRawMilkStorageValue();
+		}
+		
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+	},
+
+	MILK_FULL(
+			80,
+			"Full Breasts",
+			"milkFull",
+			Colour.GENERIC_SEX,
+			true,
+			null,
+			Util.newArrayListOfValues(new ListValue<String>("0.1% chance every minute to give in and <b style='color: "+ Colour.GENERIC_SEX.toWebHexString()+ ";'>milk yourself!</b>"))) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			if(minutesPassed>0 && Math.random() > Math.pow(0.999f, minutesPassed)) {
+				String milkLoss = target.incrementBreastStoredMilk(-target.getBreastRawMilkStorageValue()/4);
+				AbstractClothing nippleClothing = target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES);
+				AbstractClothing nippleTopClothing = target.getHighestZLayerCoverableArea(CoverableArea.NIPPLES);
+				if(nippleClothing!=null) {
+					nippleClothing.setDirty(true);
+				}
+				if(target.isPlayer()) {
+					return "<p>"
+								+ "For the past several minutes, an increasingly desperate desire to squeeze down on your full, milk-swollen breasts has been building up within you."
+								+ " Feeling as though you just can't bear it any longer, you give in, and, reaching up to your "
+								+ (nippleClothing==null
+									?"exposed [pc.breasts], you greedily start massaging and pinching at your engorged [pc.nipples]."
+										+ " Instantly, a spurt of [pc.milk+] shoots out all over your [pc.fingers], and you let out a deep, satisfied sigh as an immense feeling of relief washes over you..."
+									:"covered [pc.breasts], you greedily start massaging and pinching at your "+nippleTopClothing.getName()+", pushing "
+										+(nippleClothing.equals(nippleTopClothing)
+												?(nippleTopClothing.getClothingType().isPlural()
+														?"them"
+														:"it")
+												:"your "+nippleClothing.getName())
+										+" down roughly against your engorged [pc.nipples] in your desperation to get some relief."
+										+ " Instantly, a spurt of [pc.milk+] shoots out into your clothing, and you let out a deep, satisfied sigh as an immense feeling of relief washes over you...")
+							+ "</p>"
+							+ ""//TODO bra dirtied
+							+milkLoss;
+				}
+			}
+			
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			if(target.isPlayer()) {
+				return "Your [pc.breasts] are completely filled with [pc.milk], and you're finding it very hard to resist the temptation to reach up and squeeze at your engorged [pc.nipples]...";
+			} else {
+				return UtilText.parse(target,
+						"[npc.Name]'s [npc.breasts] are completely filled with [npc.milk], and [npc.she]'s finding it very hard to resist the temptation to reach up and squeeze at [npc.her] engorged [npc.nipples]...");
+			}
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.getBreastRawMilkStorageValue()>0 && target.getBreastRawStoredMilkValue()==target.getBreastRawMilkStorageValue();
+		}
+		
+		@Override
+		public boolean isSexEffect() {
+			return true;
+		}
+	},
+	
 	RECOVERING_ORIFICE(
 			80,
 			"Recovering Vagina",
@@ -5860,6 +6094,35 @@ public enum StatusEffect {
 		}
 	},
 	
+	HAPPINESS(
+			70,
+			"happiness",
+			"happinessFox",
+			Colour.CLOTHING_SILVER,
+			true,
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.HEALTH_MAXIMUM, 5f),
+					new Value<Attribute, Float>(Attribute.MANA_MAXIMUM, 5f)),
+			Util.newArrayListOfValues(
+					new ListValue<String>("[style.italicsGood(Happiness!)]"))) {
+
+		@Override
+		public String applyEffect(GameCharacter target, int minutesPassed) {
+			return "";
+		}
+
+		@Override
+		public String getDescription(GameCharacter target) {
+			return "The silver-furred fox, <i>Happiness</i>, is following you around wherever you go."
+					+ " Whenever you feel tired or down, the cute little animal brushes up against your [pc.legs] and sits still to have its ears scratched, which instantly fills you with happiness.";
+		}
+
+		@Override
+		public boolean isConditionsMet(GameCharacter target) {
+			return target.isPlayer() && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.foundHappiness);
+		}
+	},
+	
 	// Combat bonuses:
 	
 	COMBAT_BONUS_ANGEL(
@@ -6331,7 +6594,7 @@ public enum StatusEffect {
 
 		@Override
 		public String getDescription(GameCharacter target) {
-			return "You don't know what perks, status effects, spells, or special attacks your opponent has available. You require the "+Perk.OBSERVANT.getName(Main.game.getPlayer())+" perk to reveal such information.";
+			return "You don't know what perks, status effects, spells, or special attacks your opponent has available. You require the "+Perk.OBSERVANT.getName(target)+" perk to reveal such information.";
 		}
 
 		@Override

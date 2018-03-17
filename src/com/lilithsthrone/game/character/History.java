@@ -121,7 +121,7 @@ Calm:
 			false,
 			Perk.JOB_STUDENT,
 			"student",
-			"You're a student at the city's university, but your haven't quite decided what to take as your major just yet."),
+			"You're a student at the city's university, but you haven't quite decided what to take as your major just yet."),
 
 	// Arcane Composition - All utility spells have double length
 	MUSICIAN(true,

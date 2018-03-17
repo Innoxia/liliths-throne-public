@@ -51,7 +51,7 @@ public class PlayerSelfTailNipple {
 					"You eagerly thrust your [pc.tail+] deep into a needy [pc.nipple], letting out a series of [pc.moans+] as you start tail-fucking your own [pc.breasts]."));
 			
 		
-			switch (Main.game.getPlayer().getBreastLactation()) {
+			switch (Main.game.getPlayer().getBreastStoredMilk()) {
 				case ONE_TRICKLE:
 					UtilText.nodeContentSB.append(" A small trickle of [pc.milk] leaks out around your [pc.tail].");
 					break;
@@ -78,6 +78,11 @@ public class PlayerSelfTailNipple {
 			}
 
 			return UtilText.nodeContentSB.toString();
+		}
+		
+		@Override
+		public String applyEffectsString() {
+			return Main.game.getPlayer().incrementBreastStoredMilk(-10);
 		}
 		
 	};

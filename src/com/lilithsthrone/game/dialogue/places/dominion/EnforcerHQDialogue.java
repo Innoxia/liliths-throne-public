@@ -1,7 +1,6 @@
 package com.lilithsthrone.game.dialogue.places.dominion;
 
 import com.lilithsthrone.game.character.NameTriplet;
-import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.PenisType;
@@ -42,7 +41,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.1.97
+ * @version 0.2.1
  * @author Innoxia
  */
 public class EnforcerHQDialogue {
@@ -1500,7 +1499,7 @@ public class EnforcerHQDialogue {
 				return new ResponseCombat("Fight", "[brax.name] looks extremely embarrassed, and you're sure that you've given yourself at least a small advantage by tricking him like this!", Main.game.getBrax()){
 					@Override
 					public void effects(){
-						Main.game.getBrax().incrementMana(-Main.game.getBrax().getAttributeValue(Attribute.MANA_MAXIMUM)/4);
+						Main.game.getBrax().setLust(30);
 					}
 				};
 					
@@ -1662,7 +1661,7 @@ public class EnforcerHQDialogue {
 				return new ResponseCombat("Fight", "[brax.name] looks extremely embarrassed, and you're sure that you've given yourself a big advantage by tricking him like this!", Main.game.getBrax()){
 					@Override
 					public void effects(){
-						Main.game.getBrax().incrementMana(-Main.game.getBrax().getAttributeValue(Attribute.MANA_MAXIMUM)/2);
+						Main.game.getBrax().setLust(50);
 					}
 				};
 					

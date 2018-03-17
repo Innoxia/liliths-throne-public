@@ -28,7 +28,8 @@ public enum BodyCoveringType {
 			Util.newArrayListOfValues(new ListValue<CoveringModifier>(CoveringModifier.SMOOTH)),
 			null,
 			Util.newArrayListOfValues(
-					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
+					new ListValue<CoveringPattern>(CoveringPattern.NONE),
+					new ListValue<CoveringPattern>(CoveringPattern.FRECKLED)),
 			CoveringPattern.allStandardCoveringPatterns,
 			Colour.humanSkinColours,
 			null,
@@ -336,11 +337,126 @@ public enum BodyCoveringType {
 			Util.newArrayListOfValues(
 					new ListValue<CoveringModifier>(CoveringModifier.GOOEY)),
 			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
+			CoveringPattern.allStandardCoveringPatterns,
+			Colour.allSlimeColours,
 			null,
+			Colour.allSlimeColours,
+			null),
+
+	SLIME_EYE(Race.SLIME,
+			"a layer of",
+			false,
+			"slime",
+			"slime",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.GOOEY)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.EYE_IRISES)),
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.EYE_IRISES_HETEROCHROMATIC)),
+			Colour.allSlimeColours,
+			null,
+			Colour.allSlimeColours,
+			null),
+	
+	SLIME_PUPILS(Race.SLIME,
+			"a layer of",
+			false,
+			"slime",
+			"slime",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.GOOEY)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.EYE_PUPILS)),
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.EYE_PUPILS_HETEROCHROMATIC)),
+			Colour.allSlimeColours,
+			null,
+			Colour.allSlimeColours,
+			null),
+	
+	SLIME_HAIR(Race.SLIME,
+			"a layer of",
+			false,
+			"slime",
+			"slime",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.GOOEY)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
+			CoveringPattern.allHairCoveringPatterns,
+			Colour.allSlimeColours,
+			null,
+			Colour.allSlimeColours,
+			null),
+	
+	SLIME_ANUS(Race.SLIME,
+			"a layer of",
+			false,
+			"slime",
+			"slime",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.GOOEY)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.ORIFICE_ANUS)),
 			null,
 			Colour.allSlimeColours,
 			null,
+			Colour.allSlimeColours,
+			null),
+	
+	SLIME_MOUTH(Race.SLIME,
+			"a layer of",
+			false,
+			"slime",
+			"slime",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.GOOEY)),
 			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.ORIFICE_MOUTH)),
+			null,
+			Colour.allSlimeColours,
+			null,
+			Colour.allSlimeColours,
+			null),
+	
+	SLIME_NIPPLES(Race.SLIME,
+			"a layer of",
+			false,
+			"slime",
+			"slime",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.GOOEY)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.ORIFICE_NIPPLE)),
+			null,
+			Colour.allSlimeColours,
+			null,
+			Colour.allSlimeColours,
+			null),
+	
+	SLIME_VAGINA(Race.SLIME,
+			"a layer of",
+			false,
+			"slime",
+			"slime",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.GOOEY)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.ORIFICE_VAGINA)),
+			null,
+			Colour.allSlimeColours,
+			null,
+			Colour.allSlimeColours,
 			null),
 
 	FEATHERS(Race.HARPY,
