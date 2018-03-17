@@ -1640,7 +1640,19 @@ public class Body implements Serializable, XMLSaving {
 					break;
 					
 				case HIME_CUT:
-					sb.append(", which "+(hair.getType().isDefaultPlural()?"are":"is")+" straightened and styled into a hime cut.");
+					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been straightened and styled into a hime cut.");
+					break;
+					
+				case CHONMAGE:
+					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been straightened, oiled and styled into a chonmage topknot.");
+					break;
+					
+				case TOPKNOT:
+					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been styled into a topknot.");
+					break;
+					
+				case DREADLOCKS:
+					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been styled into dreadlocks");
 					break;
 			}
 		}
