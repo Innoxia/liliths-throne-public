@@ -32,6 +32,7 @@ public enum HairStyle {
 	PONYTAIL("ponytail", HairLength.THREE_SHOULDER_LENGTH),
 	TWIN_TAILS("twintails", HairLength.THREE_SHOULDER_LENGTH),
 	BRAIDED("braided", HairLength.FOUR_MID_BACK);
+	HIME_CUT("hime-cut", HairLength.FOUR_MID_BACK);
 	
 	private String descriptor;
 	private int minimumLengthRequired;
@@ -63,6 +64,7 @@ public enum HairStyle {
 			availableStyles.remove(HairStyle.AFRO);
 			availableStyles.remove(HairStyle.SIDECUT);
 			availableStyles.remove(HairStyle.MOHAWK);
+			availableStyles.remove(HairStyle.HIME_CUT);
 		}
 		
 		return availableStyles.get(Util.random.nextInt(availableStyles.size()));
