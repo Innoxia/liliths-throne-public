@@ -1638,21 +1638,32 @@ public class Body implements Serializable, XMLSaving {
 				case MESSY:
 					sb.append(", which "+(hair.getType().isDefaultPlural()?"are":"is")+" unstyled and very messy.");
 					break;
-					
 				case HIME_CUT:
 					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been straightened and styled into a hime cut.");
 					break;
-					
 				case CHONMAGE:
 					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been straightened, oiled and styled into a chonmage topknot.");
 					break;
-					
 				case TOPKNOT:
 					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been styled into a topknot.");
 					break;
-					
 				case DREADLOCKS:
 					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been styled into dreadlocks");
+					break;
+				case BIRD_CAGE:
+					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been styled into an elaborate bird cage.");
+					break;
+				case TWIN_BRAIDS:
+					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been woven into long twin braids.");
+					break;
+				case DRILLS:
+					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been styled into drills.");
+					break;
+				case LOW_PONYTAIL:
+					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been styled into a low ponytail.");
+					break;
+				case CROWN_BRAID:
+					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been woven into a "+UtilText.returnStringAtRandom("crown of braids.","braided crown.");
 					break;
 			}
 		}
