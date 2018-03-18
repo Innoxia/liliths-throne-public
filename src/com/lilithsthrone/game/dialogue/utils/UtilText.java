@@ -1110,6 +1110,55 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
+						new ListValue<>("bodyMaterialCovering")),
+				true,
+				true,
+				"covering type",//TODO
+				"Returns a descriptor based on the character's BodyMaterial and the chosen covering type. Functionality and arguments are temporary."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				switch (arguments) {
+					case ("skinNoun"): return character.getBodyMaterial().getSkinNoun();
+					case ("skinAdj"): return character.getBodyMaterial().getSkinAdj();
+					case ("skinAltNoun"): return character.getBodyMaterial().getSkinAltNoun();
+					case ("skinAltAdj"): return character.getBodyMaterial().getSkinAltAdj();
+					case ("orificeNoun"): return character.getBodyMaterial().getOrificeNoun();
+					case ("orificeAdj"): return character.getBodyMaterial().getOrificeAdj();
+					case ("orificeAltNoun"): return character.getBodyMaterial().getOrificeAltNoun();
+					case ("orificeAltAdj"): return character.getBodyMaterial().getOrificeAltAdj();
+					case ("hairNoun"): return character.getBodyMaterial().getHairNoun();
+					case ("hairAdj"): return character.getBodyMaterial().getHairAdj();
+					case ("hairBodyNoun"): return character.getBodyMaterial().getHairBodyNoun();
+					case ("hairBodyAdj"): return character.getBodyMaterial().getHairBodyAdj();
+					case ("hairAltNoun"): return character.getBodyMaterial().getHairAltNoun();
+					case ("hairAltAdj"): return character.getBodyMaterial().getHairAltAdj();
+					case ("furNoun"): return character.getBodyMaterial().getFurNoun();
+					case ("furAdj"): return character.getBodyMaterial().getFurAdj();
+					case ("furAltNoun"): return character.getBodyMaterial().getFurAltNoun();
+					case ("furAltAdj"): return character.getBodyMaterial().getFurAltAdj();
+					case ("featherNoun"): return character.getBodyMaterial().getFeatherNoun();
+					case ("featherAdj"): return character.getBodyMaterial().getFeatherAdj();
+					case ("featherAltNoun"): return character.getBodyMaterial().getFeatherAltNoun();
+					case ("featherAltAdj"): return character.getBodyMaterial().getFeatherAltAdj();
+					case ("scaleNoun"): return character.getBodyMaterial().getScaleNoun();
+					case ("scaleAdj"): return character.getBodyMaterial().getScaleAdj();
+					case ("scaleAltNoun"): return character.getBodyMaterial().getScaleAltNoun();
+					case ("scaleAltAdj"): return character.getBodyMaterial().getScaleAltAdj();
+					case ("shellNoun"): return character.getBodyMaterial().getShellNoun();
+					case ("shellAdj"): return character.getBodyMaterial().getShellAdj();
+					case ("shellAltNoun"): return character.getBodyMaterial().getShellAltNoun();
+					case ("shellAltAdj"): return character.getBodyMaterial().getShellAltAdj();
+					case ("keratinNoun"): return character.getBodyMaterial().getKeratinNoun();
+					case ("keratinAdj"): return character.getBodyMaterial().getKeratinAdj();
+					case ("keratinAltNoun"): return character.getBodyMaterial().getKeratinAltNoun();
+					case ("keratinAltAdj"): return character.getBodyMaterial().getKeratinAltAdj();
+					case ("name"): default: return character.getBodyMaterial().getName();
+				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
 						new ListValue<>("height")),
 				true,
 				true,
