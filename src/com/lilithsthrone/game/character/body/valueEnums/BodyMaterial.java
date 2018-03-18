@@ -28,9 +28,13 @@ public enum BodyMaterial {
 			"nails", "hard",
 			"keratin", "keratinous",
 			Colour.BASE_PINK_LIGHT),
+	
 	SLIME("slime", Colour.RACE_SLIME),
-	FIRE("fire", Colour.BASE_ORANGE),
-	ICE("ice", Colour.BASE_BLUE_LIGHT),
+	
+	FIRE("fire", "burning", Colour.BASE_ORANGE),
+	
+	ICE("ice", "icy", Colour.BASE_BLUE_LIGHT),
+	
 	RUBBER("rubber", Colour.BASE_BLACK);
 
 	private String name;
