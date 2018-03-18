@@ -247,12 +247,7 @@ public class UtilText {
 		if (stutter)
 			modifiedSentence = Util.addStutter(modifiedSentence, 6);
 
-		if (femininity == Femininity.MASCULINE || femininity == Femininity.MASCULINE_STRONG)
-			return "<span class='speech' style='color:" + Colour.MASCULINE_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
-		else if (femininity == Femininity.ANDROGYNOUS)
-			return "<span class='speech' style='color:" + Colour.ANDROGYNOUS_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
-		else
-			return "<span class='speech' style='color:" + Colour.FEMININE_NPC.toWebHexString() + ";'>" + modifiedSentence + "</span>";
+		return "<span class='speech' style='color:" + femininity.getColour().toWebHexString() + ";'>" + modifiedSentence + "</span>";
 	}
 	
 	public static String getDisabledResponse(String label) {
