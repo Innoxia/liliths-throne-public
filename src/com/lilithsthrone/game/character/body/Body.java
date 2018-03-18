@@ -1648,10 +1648,10 @@ public class Body implements Serializable, XMLSaving {
 					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been styled into a topknot.");
 					break;
 				case DREADLOCKS:
-					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been styled into dreadlocks");
+					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been styled into dreadlocks.");
 					break;
 				case BIRD_CAGE:
-					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been styled into an elaborate bird cage.");
+					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been styled into an elaborate bird cage"+UtilText.returnStringAtRandom("",", birds not included").");
 					break;
 				case TWIN_BRAIDS:
 					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been woven into long twin braids.");
