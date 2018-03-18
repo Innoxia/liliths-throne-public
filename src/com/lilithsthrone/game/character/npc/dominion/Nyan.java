@@ -156,6 +156,7 @@ public class Nyan extends NPC {
 		loadNPCVariablesFromXML(this, null, parentElement, doc, settings);
 		this.setHairCovering(new Covering(BodyCoveringType.HAIR_FELINE_FUR, Colour.COVERING_BLACK), true);
 		this.setSkinCovering(new Covering(BodyCoveringType.FELINE_FUR, Colour.COVERING_BLACK), true);
+		this.primaryColour = Colour.BASE_WHITE;
 		
 		this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
 		this.setFetishDesire(Fetish.FETISH_SUBMISSIVE, FetishDesire.THREE_LIKE);
