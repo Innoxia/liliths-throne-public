@@ -33,9 +33,14 @@ public enum HairStyle {
 	TOPKNOT("topknot", HairLength.THREE_SHOULDER_LENGTH),
 	WAVY("wavy", HairLength.THREE_SHOULDER_LENGTH),
 	PONYTAIL("ponytail", HairLength.THREE_SHOULDER_LENGTH),
+	LOW_PONYTAIL("low ponytail", HairLenght.THREE_SHOULDER_LENGTH),
 	TWIN_TAILS("twintails", HairLength.THREE_SHOULDER_LENGTH),
 	BRAIDED("braided", HairLength.FOUR_MID_BACK),
-	HIME_CUT("hime-cut", HairLength.FOUR_MID_BACK);
+	TWIN_BRAIDS("twin braids", HairLength.FOUR_MID_BACK),
+	CROWN_BRAID("crown braid", HairLnegth.FOUR_MID_BACK),
+	DRILLS("drill hair", HairLength.FOUR_MID_BACK),
+	HIME_CUT("hime-cut", HairLength.FOUR_MID_BACK),
+	BIRD_CAGE("bird cage", HairLength.SEVEN_TO_FLOOR);
 	
 	private String descriptor;
 	private int minimumLengthRequired;
@@ -68,6 +73,10 @@ public enum HairStyle {
 			availableStyles.remove(HairStyle.SIDECUT);
 			availableStyles.remove(HairStyle.MOHAWK);
 			availableStyles.remove(HairStyle.HIME_CUT);
+			availableStyles.remove(HairStyle.CHONMAGE);
+			availableStyles.remove(HairStyle.DREADLOCKS);
+			availableStyles.remove(HairStyle.BIRD_CAGE);
+			availableStyles.remove(HairStyle.DRILLS);
 		}
 		
 		return availableStyles.get(Util.random.nextInt(availableStyles.size()));
