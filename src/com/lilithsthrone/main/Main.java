@@ -56,7 +56,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.2.1.1",
+	public static final String VERSION_NUMBER = "0.2.1.2",
 			VERSION_DESCRIPTION = "Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
@@ -263,6 +263,14 @@ public class Main extends Application {
 			+"<ul>Fixed lust resetting after combat.</ul>"
 			+"<ul>Fixed being able to quicksave/load in prologue (which would break the game in the background).</ul>"
 		+ "</list>"
+			
+		+ "</br>"
+
+		+ "<list>"
+			+ "<h6>v0.2.1.2</h6>"
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed bug where seducing enemies in an arcane storm wouldn't work.</ul>"
+		+ "</list>"
 		;
 	
 	public static String disclaimer = "<h6 style='text-align: center; color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>You must read and agree to the following in order to play this game!</h6>"
@@ -333,6 +341,7 @@ public class Main extends Application {
 		credits.add(new CreditsSlot("Reila Oda", "", 0, 0, 0, 1));
 
 		credits.add(new CreditsSlot("Blue Kobold", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("KazukiNero", "", 0, 0, 1, 0));
 		
 		
 		

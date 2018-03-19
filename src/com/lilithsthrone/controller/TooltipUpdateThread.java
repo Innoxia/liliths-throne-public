@@ -39,7 +39,7 @@ public class TooltipUpdateThread extends Thread {
 				if (!cancelThreads) {
 					Main.mainController.getTooltip().show(Main.primaryStage);
 					
-					if(x!=-1){
+					if(x != -1){
 						Main.mainController.getTooltip().setAnchorY(y);	
 					}
 				}

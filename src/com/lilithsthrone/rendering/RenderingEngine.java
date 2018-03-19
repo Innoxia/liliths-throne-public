@@ -1449,7 +1449,7 @@ public enum RenderingEngine {
 		
 		// Infinite duration:
 		for (StatusEffect se : character.getStatusEffects()) {
-			if (!se.isCombatEffect() && character.getStatusEffectDuration(se)==-1 && se.renderInEffectsPanel())
+			if (!se.isCombatEffect() && character.getStatusEffectDuration(se) == -1 && se.renderInEffectsPanel())
 				panelSB.append(
 						"<div class='icon"+(compact?" effect":"")+"'>"
 								+ "<div class='icon-content'>"
@@ -1460,7 +1460,7 @@ public enum RenderingEngine {
 		}
 		// Timed:
 		for (StatusEffect se : character.getStatusEffects()) {
-			if (!se.isCombatEffect() && character.getStatusEffectDuration(se)!=-1 && se.renderInEffectsPanel()) {
+			if (!se.isCombatEffect() && character.getStatusEffectDuration(se) != -1 && se.renderInEffectsPanel()) {
 				int timerHeight = (int) ((character.getStatusEffectDuration(se)/(60*6f))*100);
 
 				Colour timerColour = Colour.STATUS_EFFECT_TIME_HIGH;
@@ -1578,7 +1578,7 @@ public enum RenderingEngine {
 		
 		// Infinite duration:
 		for (StatusEffect se : character.getStatusEffects()) {
-			if (se.isSexEffect() && character.getStatusEffectDuration(se)==-1 && se.renderInEffectsPanel()) {
+			if (se.isSexEffect() && character.getStatusEffectDuration(se) == -1 && se.renderInEffectsPanel()) {
 				panelSB.append(
 						"<div class='icon"+(compact?" effect":"")+"'>"
 								+ "<div class='icon-content'>"
@@ -1590,7 +1590,7 @@ public enum RenderingEngine {
 		}
 		// Timed:
 		for (StatusEffect se : character.getStatusEffects()) {
-			if (se.isSexEffect() && character.getStatusEffectDuration(se)!=-1 && se.renderInEffectsPanel()) {
+			if (se.isSexEffect() && character.getStatusEffectDuration(se) != -1 && se.renderInEffectsPanel()) {
 				int timerHeight = (int) ((character.getStatusEffectDuration(se)/(60*6f))*100);
 
 				Colour timerColour = Colour.STATUS_EFFECT_TIME_HIGH;
@@ -1733,7 +1733,7 @@ public enum RenderingEngine {
 		
 		// Infinite duration:
 		for (StatusEffect se : character.getStatusEffects()) {
-			if (character.getStatusEffectDuration(se)==-1 && se.renderInEffectsPanel())
+			if (character.getStatusEffectDuration(se) == -1 && se.renderInEffectsPanel())
 				panelSB.append(
 						"<div class='icon"+(compact?" effect":"")+"'>"
 								+ "<div class='icon-content'>"
@@ -1744,7 +1744,7 @@ public enum RenderingEngine {
 		}
 		// Timed:
 		for (StatusEffect se : character.getStatusEffects()) {
-			if (character.getStatusEffectDuration(se)!=-1 && se.renderInEffectsPanel()) {
+			if (character.getStatusEffectDuration(se) != -1 && se.renderInEffectsPanel()) {
 				int timerHeight = (int) ((character.getStatusEffectDuration(se)/(60*6f))*100);
 
 				Colour timerColour = Colour.STATUS_EFFECT_TIME_HIGH;

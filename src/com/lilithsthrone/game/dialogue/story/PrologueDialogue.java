@@ -180,7 +180,7 @@ public class PrologueDialogue {
 							+ " [prologueFemale.speech(~Mmm!~ This is going to be good!)]"
 						+ "</p>"
 						+ "<p>"
-							+ "Ignoring the sign which reads 'Staff Only', you push the heavy oaken door ajar and peer inside, smiling to yourself as he discovers that the room beyond is pitch black; proof that it's completely empty."
+							+ "Ignoring the sign which reads 'Staff Only', you push the heavy oaken door ajar and peer inside, smiling to yourself as you discover that the room beyond is pitch black; proof that it's completely empty."
 							+ " Pulling [prologueFemale.name] inside, you flick the lights on as you close the door behind you."
 						+ "</p>"
 						+ "<p>"

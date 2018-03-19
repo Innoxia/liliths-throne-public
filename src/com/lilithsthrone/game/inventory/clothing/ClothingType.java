@@ -974,7 +974,7 @@ public class ClothingType {
 							null,
 							null, null)),
 					new ListValue<BlockedParts>(new BlockedParts(
-							DisplacementType.PULLS_UP,
+							DisplacementType.PULLS_DOWN,
 							null,
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.MOUTH)),
@@ -1008,22 +1008,22 @@ public class ClothingType {
 		@Override
 		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You pull up your bandana.",
-					"You pull up [npc.name]'s bandana.",
+					"You pull down your bandana.",
+					"You pull down [npc.name]'s bandana.",
 					null,
-					"[npc.Name] pulls up [npc.her] bandana.",
-					"[npc.Name] pulls your bandana up.",
+					"[npc.Name] pulls down [npc.her] bandana.",
+					"[npc.Name] pulls your bandana down.",
 					null);
 		}
 
 		@Override
 		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You pull your bandana back down.",
-					"You pull [npc.name]'s bandana back down.",
+					"You pull your bandana back up.",
+					"You pull [npc.name]'s bandana back up.",
 					null,
-					"[npc.Name] pulls [npc.her] bandana back down.",
-					"[npc.Name] pulls your bandana back down.",
+					"[npc.Name] pulls [npc.her] bandana back up.",
+					"[npc.Name] pulls your bandana back up.",
 					null);
 		}
 	};

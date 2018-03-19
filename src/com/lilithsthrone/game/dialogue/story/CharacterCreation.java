@@ -1526,7 +1526,7 @@ public class CharacterCreation {
 					// "I'm a whore! Want to know my rates? :D"
 					break;
 				case REINDEER_OVERSEER:
-					// "Well, if you hadn't already noticed, I'm actually an anthropormpic reindeer, and I come down from the snowy mountains to shovel snow in teh city every winter. :D"
+					// "Well, if you hadn't already noticed, I'm actually an anthropormpic reindeer, and I come down from the snowy mountains to shovel snow in the city every winter. :D"
 					break;
 				case SOLDIER:
 					UtilText.nodeContentSB.append(

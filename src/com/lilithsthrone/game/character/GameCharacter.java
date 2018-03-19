@@ -415,13 +415,16 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		for (Attribute a : startingRace.getAttributeModifiers().keySet()) {
 			attributes.put(a, startingRace.getAttributeModifiers().get(a).getMinimum() + startingRace.getAttributeModifiers().get(a).getRandomVariance());
 		}
-		
-		health = getAttributeValue(Attribute.HEALTH_MAXIMUM);
-		mana = getAttributeValue(Attribute.MANA_MAXIMUM);
 
 		// Set the character's starting body based on their gender and race:
 		setBody(startingGender, startingRace, stage);
 		genderIdentity = startingGender;
+		
+		calculateStatusEffects(0);
+		
+		health = getAttributeValue(Attribute.HEALTH_MAXIMUM);
+		mana = getAttributeValue(Attribute.MANA_MAXIMUM);
+		setLust(getRestingLust());
 		
 	}
 	
@@ -1218,7 +1221,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			Element e = ((Element)element.getElementsByTagName("statusEffect").item(i));
 			
 			try {
-				if(Integer.valueOf(e.getAttribute("value"))!=-1) {
+				if(Integer.valueOf(e.getAttribute("value")) != -1) {
 					StatusEffect effect = StatusEffect.valueOf(e.getAttribute("type"));
 					if(!noPregnancy || (effect!=StatusEffect.PREGNANT_0 && effect!=StatusEffect.PREGNANT_1 && effect!=StatusEffect.PREGNANT_2 && effect!=StatusEffect.PREGNANT_3)) {
 						character.addStatusEffect(effect, Integer.valueOf(e.getAttribute("value")));
@@ -8400,7 +8403,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	public int getRestingLust() {
 		if(hasStatusEffect(StatusEffect.WEATHER_STORM_VULNERABLE)) {
-			return 100;
+			return 75;
 		}
 		return (int) Math.round(getAttributeValue(Attribute.MAJOR_CORRUPTION)/2);
 	}

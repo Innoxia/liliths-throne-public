@@ -208,7 +208,7 @@ public class Cell implements Serializable, XMLSaving {
 	}
 	
 	public void resetInventory(List<Rarity> rarityOfItemsToSave){
-		if(rarityOfItemsToSave!=null && rarityOfItemsToSave.size()>0) {
+		if(rarityOfItemsToSave!=null && !rarityOfItemsToSave.isEmpty()) {
 			List<AbstractItem> itemsToSave = new ArrayList<>();
 			for(AbstractItem item : this.inventory.getItemsInInventory()) {
 				if(rarityOfItemsToSave.contains(item.getRarity())) {

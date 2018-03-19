@@ -39,7 +39,7 @@ public class AlleywayAttackerDialogue {
 		
 		@Override
 		public String getContent() {
-			if(Main.game.getActiveNPC().getLastTimeEncountered()!=-1) {
+			if(Main.game.getActiveNPC().getLastTimeEncountered() != -1) {
 				if(Main.game.getActiveNPC().isVisiblyPregnant()){
 					// Pregnant encounters:
 					if(!Main.game.getActiveNPC().isReactedToPregnancy()) {

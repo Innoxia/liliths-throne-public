@@ -44,7 +44,7 @@ public class AlleywayProstituteDialogue {
 		public String getContent() {
 			
 			// You've encountered them before:
-			if(Main.game.getActiveNPC().getLastTimeEncountered()!=-1) {
+			if(Main.game.getActiveNPC().getLastTimeEncountered() != -1) {
 				UtilText.nodeContentSB.setLength(0);
 				UtilText.nodeContentSB.append(
 						"<p>"
