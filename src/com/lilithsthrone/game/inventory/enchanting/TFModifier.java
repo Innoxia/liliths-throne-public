@@ -1076,6 +1076,8 @@ public enum TFModifier {
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_CROSS_DRESSER);
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_MASTURBATION);
 		TFBehaviouralFetishList.add(TF_MOD_FETISH_INCEST);
+		TFBehaviouralFetishList.add(TF_MOD_FETISH_KINK_GIVING);
+		TFBehaviouralFetishList.add(TF_MOD_FETISH_KINK_RECEIVING);
 		
 		clothingPrimaryList.add(TFModifier.CLOTHING_ATTRIBUTE);
 		clothingPrimaryList.add(TFModifier.CLOTHING_SEALING);
