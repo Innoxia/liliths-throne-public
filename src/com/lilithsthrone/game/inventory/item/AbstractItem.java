@@ -86,7 +86,13 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 			Element element = (Element)parentElement.getElementsByTagName("itemEffects").item(0);
 			for(int i=0; i<element.getElementsByTagName("effect").getLength(); i++){
 				Element e = ((Element)element.getElementsByTagName("effect").item(i));
-				effectsToBeAdded.add(ItemEffect.loadFromXML(e, doc));
+				ItemEffect itemEffect = ItemEffect.loadFromXML(e, doc);
+				if(itemEffect == null) {
+					System.err.println("Warning: Failed to import ItemEffect");
+				}
+				else {
+					effectsToBeAdded.add(itemEffect);
+				}
 			}
 			item.setItemEffects(effectsToBeAdded);
 			
