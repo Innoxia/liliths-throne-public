@@ -946,9 +946,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					if(e.getAttribute("type").equals("CORRUPTION")) {
 						character.setAttribute(Attribute.MAJOR_CORRUPTION, Float.valueOf(e.getAttribute("value")), false);
 						
-					} else if(e.getAttribute("type").equals("INTELLIGENCE")) {
-						character.setAttribute(Attribute.MAJOR_ARCANE, Float.valueOf(e.getAttribute("value")), false);
-						
 					} else if(e.getAttribute("type").equals("STRENGTH") || e.getAttribute("type").equals("MAJOR_STRENGTH")) {
 						character.setAttribute(Attribute.MAJOR_PHYSIQUE, Float.valueOf(e.getAttribute("value")), false);
 						
