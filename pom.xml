@@ -12,7 +12,11 @@
 		<resources>
 			<resource>
 				<directory>src/com/lilithsthrone/res</directory>
-				<targetPath>target/classes/com/lilithsthrone/res</targetPath>
+				<targetPath>com/lilithsthrone/res</targetPath>
+			</resource>
+			<resource>
+				<directory>res</directory>
+				<targetPath>res</targetPath>
 			</resource>
 		</resources>
 		<plugins>

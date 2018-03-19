@@ -65,3 +65,18 @@ The GIT plugin of Eclipse tries to run the "bash" command, and if you hadn't ins
 4. Run "lxrun /install" in Command Prompt, type "y" to continue, after that - enter some username and password.
 5. Run "bash" in Command Prompt once. If the appearance of the console changes, then you've succeeded.
 6. Try Importing once again.
+
+## Using Maven
+[Maven](https://maven.apache.org) is a Java build system that can be used to build applications.  
+Support is integrated into Eclipse, but it can be used without an IDE, so you can build the game without Eclipse.  
+All build information is provided in [pom.xml](/pom.xml).
+
+### Building
+From the root of the repository (the folder where `pom.xml` is) run:
+
+```
+mvn package
+```
+
+This creates the JAR file in `/target/game-1.jar`.  
+Your first build will take longer than the subsequent ones as only changed files are recompiled.
