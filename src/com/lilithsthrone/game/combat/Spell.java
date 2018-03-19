@@ -776,7 +776,7 @@ public enum Spell {
 	public float getModifiedCost(GameCharacter caster) {
 		float calculatedCost = spellCost;
 		
-		calculatedCost *= ((100 - caster.getAttributeValue(Attribute.SPELL_COST_MODIFIER)) / 100f);
+		calculatedCost *= ((100 - Util.getModifiedDropoffValue(caster.getAttributeValue(Attribute.SPELL_COST_MODIFIER), 100)) / 100f);
 		
 		// Round float value to nearest 1 decimal place:
 		calculatedCost = (Math.round(calculatedCost*10))/10f;
@@ -831,6 +831,7 @@ public enum Spell {
 							+ "</b> turns"
 							+(caster.hasTrait(Perk.JOB_MUSICIAN, true)?" ([style.boldExcellent(doubled)] from <b style='color:"+Perk.JOB_MUSICIAN.getColour().toWebHexString()+";'>"+Perk.JOB_MUSICIAN.getName(caster)+"</b>)":"")
 							+ " of <b style='color:" + seEntry.getKey().getColour().toWebHexString() + ";'>" + seEntry.getKey().getName(target) + "</b>");
+					i++;
 				}
 				damageCostDescriptionSB.append(".</p>");
 			}
@@ -865,6 +866,7 @@ public enum Spell {
 							+ "</b> turns"
 							+(caster.hasTrait(Perk.JOB_MUSICIAN, true)?" ([style.boldExcellent(doubled)] from <b style='color:"+Perk.JOB_MUSICIAN.getColour().toWebHexString()+";'>"+Perk.JOB_MUSICIAN.getName(caster)+"</b>)":"")
 							+ " of <b style='color:" + seEntry.getKey().getColour().toWebHexString() + ";'>" + seEntry.getKey().getName(target) + "</b>");
+					i++;
 				}
 				damageCostDescriptionSB.append("!</p>");
 			}

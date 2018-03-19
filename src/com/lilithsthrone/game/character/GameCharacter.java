@@ -19,7 +19,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import com.lilithsthrone.game.DifficultyLevel;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -136,6 +135,7 @@ import com.lilithsthrone.game.inventory.item.ItemEffect;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
+import com.lilithsthrone.game.settings.DifficultyLevel;
 import com.lilithsthrone.game.sex.LubricationType;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
@@ -415,13 +415,16 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		for (Attribute a : startingRace.getAttributeModifiers().keySet()) {
 			attributes.put(a, startingRace.getAttributeModifiers().get(a).getMinimum() + startingRace.getAttributeModifiers().get(a).getRandomVariance());
 		}
-		
-		health = getAttributeValue(Attribute.HEALTH_MAXIMUM);
-		mana = getAttributeValue(Attribute.MANA_MAXIMUM);
 
 		// Set the character's starting body based on their gender and race:
 		setBody(startingGender, startingRace, stage);
 		genderIdentity = startingGender;
+		
+		calculateStatusEffects(0);
+		
+		health = getAttributeValue(Attribute.HEALTH_MAXIMUM);
+		mana = getAttributeValue(Attribute.MANA_MAXIMUM);
+		setLust(getRestingLust());
 		
 	}
 	
@@ -943,9 +946,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					if(e.getAttribute("type").equals("CORRUPTION")) {
 						character.setAttribute(Attribute.MAJOR_CORRUPTION, Float.valueOf(e.getAttribute("value")), false);
 						
-					} else if(e.getAttribute("type").equals("INTELLIGENCE")) {
-						character.setAttribute(Attribute.MAJOR_ARCANE, Float.valueOf(e.getAttribute("value")), false);
-						
 					} else if(e.getAttribute("type").equals("STRENGTH") || e.getAttribute("type").equals("MAJOR_STRENGTH")) {
 						character.setAttribute(Attribute.MAJOR_PHYSIQUE, Float.valueOf(e.getAttribute("value")), false);
 						
@@ -1218,7 +1218,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			Element e = ((Element)element.getElementsByTagName("statusEffect").item(i));
 			
 			try {
-				if(Integer.valueOf(e.getAttribute("value"))!=-1) {
+				if(Integer.valueOf(e.getAttribute("value")) != -1) {
 					StatusEffect effect = StatusEffect.valueOf(e.getAttribute("type"));
 					if(!noPregnancy || (effect!=StatusEffect.PREGNANT_0 && effect!=StatusEffect.PREGNANT_1 && effect!=StatusEffect.PREGNANT_2 && effect!=StatusEffect.PREGNANT_3)) {
 						character.addStatusEffect(effect, Integer.valueOf(e.getAttribute("value")));
@@ -2642,6 +2642,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	public boolean hasFetish(Fetish f) {
 		return fetishes.contains(f) || fetishesFromClothing.contains(f);
+	}
+	
+	public boolean hasTransformationFetish() {
+		return hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) || hasFetish(Fetish.FETISH_KINK_GIVING);
 	}
 	
 	public boolean addFetish(Fetish fetish) {
@@ -8400,7 +8404,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	public int getRestingLust() {
 		if(hasStatusEffect(StatusEffect.WEATHER_STORM_VULNERABLE)) {
-			return 100;
+			return 75;
 		}
 		return (int) Math.round(getAttributeValue(Attribute.MAJOR_CORRUPTION)/2);
 	}

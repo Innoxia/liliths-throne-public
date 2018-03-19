@@ -1032,7 +1032,7 @@ public class ItemType {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		public boolean isTransformative() {
+		public boolean isFetishGiving() {
 			return true;
 		}
 		
@@ -1682,7 +1682,7 @@ public class ItemType {
 					"Ignoring the warning on the front, you unseal one end of the canister and bring it up to your [pc.lips]."
 							+ " The glowing green liquid within gives off a faintly sweet smell, and you tilt your head back and gulp it all down...",
 					"You unseal one end of the canister and bring it up to [npc.name]'s [npc.lips]."
-							+ " Tilting [npc.her] head abck, you force [npc.herHim] to drink down all of teh glowing green liquid...",
+							+ " Tilting [npc.her] head back, you force [npc.herHim] to drink down all of the glowing green liquid...",
 					"[npc.Name] pulls out a canister of Biojuice, and, unsealing one end of the canister, [npc.she] brings it up to [npc.her] [npc.lips] and gulps it all down....",
 					"[npc.Name] pulls out a canister of Biojuice, and, unsealing one end of the canister, [npc.she] brings it up to your [pc.lips]."
 							+ " The glowing green liquid within gives off a faintly sweet smell, and [npc.name] tilts your head back and forces you to gulp it all down....");

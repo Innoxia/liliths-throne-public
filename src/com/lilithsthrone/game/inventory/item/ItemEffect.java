@@ -50,7 +50,6 @@ public class ItemEffect implements Serializable, XMLSaving {
 			if(((ItemEffect)o).getItemEffectType()==itemEffectType
 				&& ((ItemEffect)o).getPrimaryModifier() == primaryModifier
 				&& ((ItemEffect)o).getSecondaryModifier() == secondaryModifier
-				&& ((ItemEffect)o).getSecondaryModifier() == secondaryModifier
 				&& ((ItemEffect)o).getPotency() == potency
 				&& ((ItemEffect)o).getLimit() == limit){
 					return true;
@@ -102,6 +101,12 @@ public class ItemEffect implements Serializable, XMLSaving {
 				itemEffectType = "ATTRIBUTE_ARCANE";
 				break;
 		}
+		switch(parentElement.getAttribute("primaryModifier"))
+		{
+			case "DAMAGE_ATTACK":
+			case "RESISTANCE_ATTACK":
+				return null;
+		}
 		ItemEffect ie = new ItemEffect(
 				ItemEffectType.valueOf(itemEffectType),
 				(parentElement.getAttribute("primaryModifier").equals("null")?null:TFModifier.valueOf(parentElement.getAttribute("primaryModifier"))),
@@ -141,7 +146,7 @@ public class ItemEffect implements Serializable, XMLSaving {
 		if(potency!=null) {
 			cost += potency.getValue();
 		}
-		if(getLimit()!=-1) {
+		if(getLimit() != -1) {
 			cost+=1;
 		}
 		

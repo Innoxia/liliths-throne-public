@@ -80,7 +80,7 @@ public class InventoryTooltipEventListener implements EventListener {
 				yIncrease += 2;
 			}
 			
-			if(item.getEffects().size()>0) {
+			if(!item.getEffects().isEmpty()) {
 				yIncrease+=1;
 				for(ItemEffect ie : item.getEffects()) {
 					yIncrease += ie.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer()).size();
@@ -92,7 +92,7 @@ public class InventoryTooltipEventListener implements EventListener {
 			tooltipSB.setLength(0);
 			tooltipSB.append("<div class='title'>" + Util.capitaliseSentence(item.getDisplayName(true)) + "</div>");
 
-			if(item.getEffects().size()>0) {
+			if(!item.getEffects().isEmpty()) {
 				tooltipSB.append("<div class='subTitle'>");
 				int ieCount=0;
 				for(ItemEffect ie : item.getEffects()) {
@@ -701,7 +701,7 @@ public class InventoryTooltipEventListener implements EventListener {
 					:"[style.boldDisabled(0)]")
 				+" [style.boldResPhysical("+Util.capitaliseSentence(Attribute.RESISTANCE_PHYSICAL.getName())+")]");
 		
-		if (absClothing.getEffects().size() != 0) {
+		if (!absClothing.getEffects().isEmpty()) {
 			if (!absClothing.isEnchantmentKnown()) {
 				tooltipSB.append("</br>[style.colourDisabled(Unidentified effects!)]");
 			} else {

@@ -130,7 +130,7 @@ public class Ralph extends NPC {
 	 * Discount is active for three days after earning it.
 	 */
 	public boolean isDiscountActive(){
-		if(Main.game.getDialogueFlags().ralphDiscountStartTime==-1 || Main.game.getDialogueFlags().ralphDiscount<=0) {
+		if(Main.game.getDialogueFlags().ralphDiscountStartTime == -1 || Main.game.getDialogueFlags().ralphDiscount <= 0) {
 			return false;
 		} else {
 			return (Main.game.getMinutesPassed()-Main.game.getDialogueFlags().ralphDiscountStartTime) < (60*24*3);

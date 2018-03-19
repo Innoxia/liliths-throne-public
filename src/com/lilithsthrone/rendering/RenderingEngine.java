@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import com.lilithsthrone.game.KeyboardAction;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.ArousalLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -44,6 +43,7 @@ import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
+import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
@@ -1449,7 +1449,7 @@ public enum RenderingEngine {
 		
 		// Infinite duration:
 		for (StatusEffect se : character.getStatusEffects()) {
-			if (!se.isCombatEffect() && character.getStatusEffectDuration(se)==-1 && se.renderInEffectsPanel())
+			if (!se.isCombatEffect() && character.getStatusEffectDuration(se) == -1 && se.renderInEffectsPanel())
 				panelSB.append(
 						"<div class='icon"+(compact?" effect":"")+"'>"
 								+ "<div class='icon-content'>"
@@ -1460,7 +1460,7 @@ public enum RenderingEngine {
 		}
 		// Timed:
 		for (StatusEffect se : character.getStatusEffects()) {
-			if (!se.isCombatEffect() && character.getStatusEffectDuration(se)!=-1 && se.renderInEffectsPanel()) {
+			if (!se.isCombatEffect() && character.getStatusEffectDuration(se) != -1 && se.renderInEffectsPanel()) {
 				int timerHeight = (int) ((character.getStatusEffectDuration(se)/(60*6f))*100);
 
 				Colour timerColour = Colour.STATUS_EFFECT_TIME_HIGH;
@@ -1578,7 +1578,7 @@ public enum RenderingEngine {
 		
 		// Infinite duration:
 		for (StatusEffect se : character.getStatusEffects()) {
-			if (se.isSexEffect() && character.getStatusEffectDuration(se)==-1 && se.renderInEffectsPanel()) {
+			if (se.isSexEffect() && character.getStatusEffectDuration(se) == -1 && se.renderInEffectsPanel()) {
 				panelSB.append(
 						"<div class='icon"+(compact?" effect":"")+"'>"
 								+ "<div class='icon-content'>"
@@ -1590,7 +1590,7 @@ public enum RenderingEngine {
 		}
 		// Timed:
 		for (StatusEffect se : character.getStatusEffects()) {
-			if (se.isSexEffect() && character.getStatusEffectDuration(se)!=-1 && se.renderInEffectsPanel()) {
+			if (se.isSexEffect() && character.getStatusEffectDuration(se) != -1 && se.renderInEffectsPanel()) {
 				int timerHeight = (int) ((character.getStatusEffectDuration(se)/(60*6f))*100);
 
 				Colour timerColour = Colour.STATUS_EFFECT_TIME_HIGH;
@@ -1733,7 +1733,7 @@ public enum RenderingEngine {
 		
 		// Infinite duration:
 		for (StatusEffect se : character.getStatusEffects()) {
-			if (character.getStatusEffectDuration(se)==-1 && se.renderInEffectsPanel())
+			if (character.getStatusEffectDuration(se) == -1 && se.renderInEffectsPanel())
 				panelSB.append(
 						"<div class='icon"+(compact?" effect":"")+"'>"
 								+ "<div class='icon-content'>"
@@ -1744,7 +1744,7 @@ public enum RenderingEngine {
 		}
 		// Timed:
 		for (StatusEffect se : character.getStatusEffects()) {
-			if (character.getStatusEffectDuration(se)!=-1 && se.renderInEffectsPanel()) {
+			if (character.getStatusEffectDuration(se) != -1 && se.renderInEffectsPanel()) {
 				int timerHeight = (int) ((character.getStatusEffectDuration(se)/(60*6f))*100);
 
 				Colour timerColour = Colour.STATUS_EFFECT_TIME_HIGH;
@@ -1830,6 +1830,16 @@ public enum RenderingEngine {
 								+ "<div class='overlay' id='SPELL_" + idPrefix + s + "'></div>"
 							+ "</div>"
 					+ "</div>");
+		}
+
+		for (Fetish f : character.getFetishes()) {
+			panelSB.append(
+				"<div class='icon"+(compact?" effect":"")+"'>"
+					+ "<div class='icon-content'>"
+							+ f.getSVGString()
+							+ "<div class='overlay' id='FETISH_"+idPrefix + f + "'></div>"
+					+ "</div>"
+				+ "</div>");
 		}
 		
 		panelSB.append("</div></div>");

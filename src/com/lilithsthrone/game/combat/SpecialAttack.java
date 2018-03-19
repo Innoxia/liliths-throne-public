@@ -2223,6 +2223,7 @@ public enum SpecialAttack {
 							descriptionSB.append(", ");
 					}
 					descriptionSB.append("<b>" + seEntry.getValue() + "</b> turns of <b style='color:" + seEntry.getKey().getColour().toWebHexString() + ";'>" + seEntry.getKey().getName(target) + "</b>");
+					i++;
 				}
 				descriptionSB.append(".</p>");
 			}
@@ -2250,6 +2251,7 @@ public enum SpecialAttack {
 							descriptionSB.append(", ");
 					}
 					descriptionSB.append("<b>" + seEntry.getValue() + "</b> turns of <b style='color:" + seEntry.getKey().getColour().toWebHexString() + ";'>" + seEntry.getKey().getName(target) + "</b>");
+					i++;
 				}
 				descriptionSB.append("!</p>");
 			}

@@ -135,7 +135,7 @@ public class DominionSuccubusDialogue {
 				
 			}else{
 				// You've encountered this demon before:
-				if(Main.game.getActiveNPC().getLastTimeEncountered()!=-1) {
+				if(Main.game.getActiveNPC().getLastTimeEncountered() != -1) {
 					return("<p>"
 							+ "Although Dominion's alleyways are eerily quiet for most of the time, you suddenly start to feel a deep, unsettling stillness descending upon you."
 							+ " Stopping in your tracks, you glance back the way you came, before looking all around for any sign of danger."
