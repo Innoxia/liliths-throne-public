@@ -340,7 +340,7 @@ public class Covering  {
 		return (primaryGlowing?getGlowingDescriptor()+" ":"")+primaryColour.getName();
 	}
 	
-	private String spanStartGlowing(Colour colour) {
+	public static String spanStartGlowing(Colour colour) {
 		return "<span style='color:"+colour.toWebHexString()+"; text-shadow: 0px 0px 4px "+colour.getShades()[4]+";'>";
 	}
 	

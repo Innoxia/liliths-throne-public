@@ -17,6 +17,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
 import com.lilithsthrone.game.character.body.BodyPartInterface;
 import com.lilithsthrone.game.character.body.CoverableArea;
+import com.lilithsthrone.game.character.body.Covering;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.BodyPartType;
 import com.lilithsthrone.game.character.body.types.BodyPartTypeInterface;
@@ -29,6 +30,8 @@ import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
+import com.lilithsthrone.game.character.race.Race;
+import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
@@ -181,7 +184,9 @@ public class UtilText {
 		}
 
 		if (target.getSpeechColour() != null) {
-
+			// Just some fun for demon PCs, probably not canon :P
+			if(target.isPlayer() && target.getRace().equals(Race.DEMON) && target.getRaceStage().equals(RaceStage.GREATER))
+				return Covering.spanStartGlowing(target.primaryColour) + "<span class='speech'>" + modifiedSentence + "</span></span>";
 			return "<span class='speech' style='color:" + target.getSpeechColour() + ";'>" + modifiedSentence + "</span>";
 
 		} else {
