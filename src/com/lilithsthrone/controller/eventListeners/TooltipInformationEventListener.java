@@ -82,7 +82,7 @@ public class TooltipInformationEventListener implements EventListener {
 
 			// Attribute modifiers:
 			tooltipSB.append("<div class='subTitle-picture'>");
-				if (statusEffect.getModifiersAsStringList(owner).size() != 0) {
+				if (!statusEffect.getModifiersAsStringList(owner).isEmpty()) {
 					int i=0;
 					for (String s : statusEffect.getModifiersAsStringList(owner)) {
 						tooltipSB.append((i!=0?"</br>":"") + s);
@@ -149,7 +149,7 @@ public class TooltipInformationEventListener implements EventListener {
 			
 			// Attribute modifiers:
 			tooltipSB.append("<div class='subTitle-picture'>");
-			if (perk.getModifiersAsStringList().size() != 0) {
+			if (!perk.getModifiersAsStringList().isEmpty()) {
 				int i=0;
 				for (String s : perk.getModifiersAsStringList()) {
 					tooltipSB.append((i!=0?"</br>":"") + s);
@@ -186,7 +186,7 @@ public class TooltipInformationEventListener implements EventListener {
 			
 			// Attribute modifiers:
 			tooltipSB.append("<div class='subTitle-picture'>");
-			if (levelUpPerk.getModifiersAsStringList().size() != 0) {
+			if (!levelUpPerk.getModifiersAsStringList().isEmpty()) {
 				int i=0;
 				for (String s : levelUpPerk.getModifiersAsStringList()) {
 					tooltipSB.append((i!=0?"</br>":"") + s);
@@ -310,7 +310,7 @@ public class TooltipInformationEventListener implements EventListener {
 						+ " <span style='color:" + Colour.TEXT_GREY.toWebHexString() + ";'>|</span> " + owner.getFetishExperience(fetish) +" / "+ level.getMaximumExperience() + " xp" + "</div>");
 				
 				// Requirements:
-				if(fetish.getFetishesForAutomaticUnlock().size()>=1) {
+				if(!fetish.getFetishesForAutomaticUnlock().isEmpty()) {
 					tooltipSB.append("<div class='subTitle'>Requirements");
 					for (Fetish f : fetish.getFetishesForAutomaticUnlock())
 						tooltipSB.append("</br>[style.boldArcane(" + Util.capitaliseSentence(f.getName(Main.game.getPlayer()))+")]");
@@ -319,7 +319,7 @@ public class TooltipInformationEventListener implements EventListener {
 				
 				// Attribute modifiers:
 				tooltipSB.append("<div class='subTitle-picture'>");
-				if (fetish.getModifiersAsStringList(owner).size() != 0) {
+				if (!fetish.getModifiersAsStringList(owner).isEmpty()) {
 					int i=0;
 					for (String s : fetish.getModifiersAsStringList(owner)) {
 						tooltipSB.append((i!=0?"</br>":"") + s);
@@ -369,7 +369,7 @@ public class TooltipInformationEventListener implements EventListener {
 					+ "</b> damage");
 
 			tooltipSB.append("</br><b style='color:" + Colour.SPECIAL_ATTACK.toWebHexString() + ";'>Applies</b>");
-			if (specialAttack.getStatusEffects().size() != 0) {
+			if (!specialAttack.getStatusEffects().isEmpty()) {
 				for (Entry<StatusEffect, Integer> e : specialAttack.getStatusEffects().entrySet())
 					tooltipSB.append("</br><b style='color:" + e.getKey().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(e.getKey().getName(owner)) + "</b> for " + e.getValue() + " turn" + (e.getValue() > 1 ? "s" : ""));
 			} else
@@ -424,7 +424,7 @@ public class TooltipInformationEventListener implements EventListener {
 			}
 			
 			tooltipSB.append("</br><b style='color:" + Colour.GENERIC_ARCANE.toWebHexString() + ";'>Applies</b>");
-			if (spell.getStatusEffects().size() != 0) {
+			if (!spell.getStatusEffects().isEmpty()) {
 				for (Entry<StatusEffect, Integer> e : spell.getStatusEffects().entrySet()) {
 					tooltipSB.append("</br><b style='color:" + e.getKey().getColour().toWebHexString() + ";'>" + Util.capitaliseSentence(e.getKey().getName(owner)) + "</b> for " + e.getValue() + " turn" + (e.getValue() > 1 ? "s" : ""));
 				}
@@ -519,7 +519,7 @@ public class TooltipInformationEventListener implements EventListener {
 			
 				// Attribute modifiers:
 				tooltipSB.append("<div class='subTitle-picture'>");
-				if (currentAttributeStatusEffect.getModifiersAsStringList(owner).size() != 0) {
+				if (!currentAttributeStatusEffect.getModifiersAsStringList(owner).isEmpty()) {
 					int i=0;
 					for (String s : currentAttributeStatusEffect.getModifiersAsStringList(owner)) {
 						if(i!=0) {

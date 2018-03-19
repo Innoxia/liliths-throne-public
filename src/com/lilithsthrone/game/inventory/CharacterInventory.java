@@ -855,7 +855,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		}
 
 		// There is at least one piece of clothing that is incompatible with newClothing, and that clothing cannot be removed.
-		if (incompatibleUnequippableClothing.size() != 0) {
+		if (!incompatibleUnequippableClothing.isEmpty()) {
 			for(AbstractClothing c : incompatibleUnequippableClothing) {
 				if(c.isSealed())
 					equipTextSB.append("You can't equip the " + newClothing.getName() + " because your <b style='color:" + Colour.SEALED.toWebHexString() + ";'>sealed</b> "
@@ -1579,24 +1579,25 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	}
 
 	public int getClothingAverageFemininity() {
-		if(clothingCurrentlyEquipped.size()==0)
+		if(clothingCurrentlyEquipped.isEmpty()) {
 			return 50;
+		}
 		
-		int average = 50, count = 1;
+		int average = 50;
 		for (AbstractClothing c : clothingCurrentlyEquipped) {
 			if (c.getClothingType().getFemininityRestriction() == Femininity.FEMININE) {
 				average += 75;
-				count++;
+				
 			} else if (c.getClothingType().getFemininityRestriction() == Femininity.MASCULINE) {
 				average += 25;
-				count++;
+				
 			} else {
 				average += 50;
-				count++;
+				
 			}
 		}
 
-		average /= count;
+		average /= (clothingCurrentlyEquipped.size() + 1);
 		
 		return average;
 	}

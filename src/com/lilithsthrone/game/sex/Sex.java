@@ -758,13 +758,12 @@ public enum Sex {
 //				sexSB.append(activePartner.rollForPregnancy(Main.game.getPlayer()));
 //		}
 		
-		if(getNumberOfOrgasms(Main.game.getPlayer())==0) {
-			if(Sex.getSexPace(Main.game.getPlayer())!=SexPace.SUB_RESISTING) {
-				Main.game.getPlayer().addStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM, 240+postSexDialogue.getMinutesPassed());
-				sexSB.append("<p style='text-align:center'>[style.boldArcane(After finishing sex without orgasming once, you're left feeling frustrated and horny!)]</p>");
-			}
-			
-		} else if(Main.game.isInNewWorld()) {
+		if(Main.game.getPlayer().getArousal() > ArousalLevel.THREE_HEATED.getMaximumValue()) {
+			Main.game.getPlayer().addStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM, 240+postSexDialogue.getMinutesPassed());
+			sexSB.append("<p style='text-align:center'>[style.boldArcane(After stopping so close to the edge, you're left feeling frustrated and horny!)]</p>");
+		}
+		if(getNumberOfOrgasms(Main.game.getPlayer()) > 0
+				&& Main.game.isInNewWorld()) {
 			Main.game.getPlayer().removeStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM);
 			if(Main.game.getPlayer().hasStatusEffect(StatusEffect.RECOVERING_AURA)) {
 				sexSB.append("<p style='text-align:center'><b>Your arcane aura is still strengthened from a previous sexual encounter, so</b> [style.boldArcane(you don't receive any arcane essences!)]</p>");
@@ -837,13 +836,12 @@ public enum Sex {
 			Main.game.getPlayer().addStatusEffect(StatusEffect.RECOVERING_AURA, 240);	
 		}
 		
-		if(getNumberOfOrgasms(activePartner)==0) {
-			if(Sex.getSexPace(activePartner)!=SexPace.SUB_RESISTING) {
-				activePartner.addStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM, 240+postSexDialogue.getMinutesPassed());
-				sexSB.append("<p style='text-align:center'>[style.boldArcane(After finishing sex without orgasming once, [npc.name] is left feeling frustrated and horny!)]</p>");
-			}
-			
-		} else if(Main.game.isInNewWorld()) {
+		if(activePartner.getArousal() > ArousalLevel.THREE_HEATED.getMaximumValue()) {
+			activePartner.addStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM, 240+postSexDialogue.getMinutesPassed());
+			sexSB.append("<p style='text-align:center'>[style.boldArcane(After stopping so close to the edge, [npc.name] is left feeling frustrated and horny!)]</p>");
+		}
+		if(getNumberOfOrgasms(activePartner) > 0
+				&& Main.game.isInNewWorld()) {
 			activePartner.removeStatusEffect(StatusEffect.FRUSTRATED_NO_ORGASM);
 			if(activePartner.hasStatusEffect(StatusEffect.RECOVERING_AURA)) {
 				sexSB.append("<p style='text-align:center'><b>[npc.Name]'s arcane aura is still strengthened from a previous sexual encounter, so</b> [style.boldArcane(you don't receive any arcane essences!)]</p>");

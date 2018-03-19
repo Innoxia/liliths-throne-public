@@ -10,9 +10,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
 
-import com.lilithsthrone.game.DifficultyLevel;
 import com.lilithsthrone.game.Game;
-import com.lilithsthrone.game.KeyboardAction;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
@@ -33,6 +31,10 @@ import com.lilithsthrone.game.dialogue.MapDisplay;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
 import com.lilithsthrone.game.dialogue.story.CharacterCreation;
+import com.lilithsthrone.game.settings.DifficultyLevel;
+import com.lilithsthrone.game.settings.ForcedFetishTendency;
+import com.lilithsthrone.game.settings.ForcedTFTendency;
+import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.rendering.SVGImages;
 import com.lilithsthrone.utils.Colour;
@@ -1463,6 +1465,7 @@ public class OptionsDialogue {
 		return sb.toString();
 	};
 	
+	
 	public static final DialogueNodeOld CONTENT_PREFERENCE = new DialogueNodeOld("Content Options", "", true) {
 		private static final long serialVersionUID = 1L;
 		
@@ -1509,6 +1512,10 @@ public class OptionsDialogue {
 						"This enables body hair descriptions and content for armpits and assholes.",
 						Main.getProperties().bodyHairContent)
 					
+				+"</div>"
+				
+				+ "<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>"
+
 					+getContentPreferenceVariableDiv(
 							"FORCED_TF",
 							Colour.TRANSFORMATION_GENERIC,
@@ -1519,8 +1526,114 @@ public class OptionsDialogue {
 							0,
 							100)
 					
-				+"</div>"
+					+"<div class='cosmetics-inner-container'>"
+						+ "<h5 style='text-align:center; color:"+Colour.BASE_GREEN.toWebHexString()+";'>"
+						+ "Forced TF Gender Tendency"
+						+"</h5>"
+						+ "<p style='text-align:center;'>"
+						+ "This allows you to override NPC tastes when a forced transformation will alter your gender presentation."
+						+ "</p>"
+					+(Main.getProperties().forcedTFTendency==ForcedTFTendency.NEUTRAL
+						?"<div id='FORCED_TF_TENDENCY_\"+ForcedTFTendency.NEUTRAL+\"' class='cosmetics-button active'>"
+						+ "[style.boldGood("+ForcedTFTendency.NEUTRAL.getName()+")]"
+						+ "</div>"
+						:"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.NEUTRAL+"' class='cosmetics-button'>"
+						+ "<span style='color:"+Colour.GENERIC_BAD.getShades()[0]+";'>"+ForcedTFTendency.NEUTRAL.getName()+"</span>"
+						+ "</div>")	
+						+ ("<br>")	
+					+(Main.getProperties().forcedTFTendency==ForcedTFTendency.FEMININE
+						?"<div id='FORCED_TF_TENDENCY_\"+ForcedTFTendency.FEMININE+\"' class='cosmetics-button active'>"
+						+ "[style.boldGood("+ForcedTFTendency.FEMININE.getName()+")]"
+						+ "</div>"
+						:"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.FEMININE+"' class='cosmetics-button'>"
+						+ "<span style='color:"+Colour.FEMININE.getShades()[0]+";'>"+ForcedTFTendency.FEMININE.getName()+"</span>"
+						+ "</div>")
+					+(Main.getProperties().forcedTFTendency==ForcedTFTendency.FEMININE_HEAVY
+						?"<div id='FORCED_TF_TENDENCY_\"+ForcedTFTendency.FEMININE_HEAVY+\"' class='cosmetics-button active'>"
+						+ "[style.boldGood("+ForcedTFTendency.FEMININE_HEAVY.getName()+")]"
+						+ "</div>"
+						:"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.FEMININE_HEAVY+"' class='cosmetics-button'>"
+						+ "<span style='color:"+Colour.FEMININE.getShades()[0]+";'>"+ForcedTFTendency.FEMININE_HEAVY.getName()+"</span>"
+						+ "</div>")
+						
+					+(Main.getProperties().forcedTFTendency==ForcedTFTendency.MASCULINE
+						?"<div id='FORCED_TF_TENDENCY_\"+ForcedTFTendency.MASCULINE+\"' class='cosmetics-button active'>"
+						+ "[style.boldGood("+ForcedTFTendency.MASCULINE.getName()+")]"
+						+ "</div>"
+						:"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.MASCULINE+"' class='cosmetics-button'>"
+						+ "<span style='color:"+Colour.MASCULINE.getShades()[0]+";'>"+ForcedTFTendency.MASCULINE.getName()+"</span>"
+						+ "</div>")
+					+(Main.getProperties().forcedTFTendency==ForcedTFTendency.MASCULINE_HEAVY
+						?"<div id='FORCED_TF_TENDENCY_\"+ForcedTFTendency.MASCULINE_HEAVY+\"' class='cosmetics-button active'>"
+						+ "[style.boldGood("+ForcedTFTendency.MASCULINE_HEAVY.getName()+")]"
+						+ "</div>"
+						:"<div id='FORCED_TF_TENDENCY_"+ForcedTFTendency.MASCULINE_HEAVY+"' class='cosmetics-button'>"
+						+ "<span style='color:"+Colour.MASCULINE.getShades()[0]+";'>"+ForcedTFTendency.MASCULINE_HEAVY.getName()+"</span>"
+						+ "</div>")
+						+ "</div>" 
+					+ "</div>" 
+						
+						
+					+ "<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>"
+
+					+getContentPreferenceVariableDiv(
+							"FORCED_FETISH",
+							Colour.FETISH,
+							"Forced Fetishes",
+							"This sets the amount of NPCs spawning with the '"+Fetish.FETISH_KINK_GIVING.getName(null)+"' fetish, which causes them to try and forcibly give you fetishes after beating you in combat.",
+							Main.getProperties().forcedFetishPercentage+"%",
+							Main.getProperties().forcedFetishPercentage,
+							0,
+							100)
+					
+						+"<div class='cosmetics-inner-container'>"
+							+ "<h5 style='text-align:center; color:"+Colour.FETISH.toWebHexString()+";'>"
+								+ "Forced Fetish Tendency"
+							+"</h5>"
+							+ "<p style='text-align:center;'>"
+								+ "This allows you to override NPC tastes and control the tendency for forced fetishes to be for topping or bottoming."
+							+ "</p>"
+							+(Main.getProperties().forcedFetishTendency==ForcedFetishTendency.NEUTRAL
+							?"<div id='FORCED_FETISH_TENDENCY_\"+ForcedFetishTendency.NEUTRAL+\"' class='cosmetics-button active'>"
+									+ "[style.boldGood("+ForcedFetishTendency.NEUTRAL.getName()+")]"
+									+ "</div>"
+							:"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.NEUTRAL+"' class='cosmetics-button'>"
+									+ "<span style='color:"+Colour.GENERIC_BAD.getShades()[0]+";'>"+ForcedFetishTendency.NEUTRAL.getName()+"</span>"
+									+ "</div>")	
+									+ ("<br>")	
+							+(Main.getProperties().forcedFetishTendency==ForcedFetishTendency.BOTTOM
+								?"<div id='FORCED_FETISH_TENDENCY_\"+ForcedFetishTendency.BOTTOM+\"' class='cosmetics-button active'>"
+										+ "[style.boldGood("+ForcedFetishTendency.BOTTOM.getName()+")]"
+										+ "</div>"
+								:"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.BOTTOM+"' class='cosmetics-button'>"
+										+ "<span style='color:"+Colour.BASE_PURPLE_LIGHT.getShades()[0]+";'>"+ForcedFetishTendency.BOTTOM.getName()+"</span>"
+										+ "</div>")
+							+(Main.getProperties().forcedFetishTendency==ForcedFetishTendency.BOTTOM_HEAVY
+									?"<div id='FORCED_FETISH_TENDENCY_\"+ForcedFetishTendency.BOTTOM_HEAVY+\"' class='cosmetics-button active'>"
+											+ "[style.boldGood("+ForcedFetishTendency.BOTTOM_HEAVY.getName()+")]"
+											+ "</div>"
+									:"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.BOTTOM_HEAVY+"' class='cosmetics-button'>"
+											+ "<span style='color:"+Colour.BASE_PURPLE_LIGHT.getShades()[0]+";'>"+ForcedFetishTendency.BOTTOM_HEAVY.getName()+"</span>"
+											+ "</div>")
+							
+							+(Main.getProperties().forcedFetishTendency==ForcedFetishTendency.TOP
+									?"<div id='FORCED_FETISH_TENDENCY_\"+ForcedFetishTendency.TOP+\"' class='cosmetics-button active'>"
+											+ "[style.boldGood("+ForcedFetishTendency.TOP.getName()+")]"
+											+ "</div>"
+									:"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.TOP+"' class='cosmetics-button'>"
+											+ "<span style='color:"+Colour.BASE_PURPLE_DARK.getShades()[0]+";'>"+ForcedFetishTendency.TOP.getName()+"</span>"
+											+ "</div>")
+							+(Main.getProperties().forcedFetishTendency==ForcedFetishTendency.TOP_HEAVY
+									?"<div id='FORCED_FETISH_TENDENCY_\"+ForcedFetishTendency.TOP_HEAVY+\"' class='cosmetics-button active'>"
+											+ "[style.boldGood("+ForcedFetishTendency.TOP_HEAVY.getName()+")]"
+											+ "</div>"
+									:"<div id='FORCED_FETISH_TENDENCY_"+ForcedFetishTendency.TOP_HEAVY+"' class='cosmetics-button'>"
+											+ "<span style='color:"+Colour.BASE_PURPLE_DARK.getShades()[0]+";'>"+ForcedFetishTendency.TOP_HEAVY.getName()+"</span>"
+											+ "</div>")
+						+ "</div>" 
+				+ "</div>" 
 				
+
 				+ "<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>"
 					+getContentPreferenceDiv(
 						"FURRY_TAIL_PENETRATION",

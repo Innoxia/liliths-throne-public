@@ -876,6 +876,10 @@ public abstract class SexAction implements SexActionInterface {
 					break;
 				case FETISH_VOYEURIST:
 					break;
+				case FETISH_KINK_GIVING:
+					break;
+				case FETISH_KINK_RECEIVING:
+					break;
 			}
 		}
 		

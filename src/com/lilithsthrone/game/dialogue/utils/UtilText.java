@@ -490,7 +490,7 @@ public class UtilText {
 			}
 		}
 		
-		if(randomStrings.size()!=0) {
+		if(!randomStrings.isEmpty()) {
 			return randomStrings.get(Util.random.nextInt(randomStrings.size()));
 		} else {
 			return "";

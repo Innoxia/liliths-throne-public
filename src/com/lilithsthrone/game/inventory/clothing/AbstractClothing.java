@@ -250,15 +250,15 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 						int value = Integer.valueOf(e.getAttribute("value"));
 						
 						TFPotency pot = TFPotency.BOOST;
-						if(value<=-5) {
+						if(value <= -5) {
 							pot = TFPotency.MAJOR_DRAIN;
-						} else if(value<=-3) {
+						} else if(value <= -3) {
 							pot = TFPotency.DRAIN;
-						} else if(value<=-1) {
+						} else if(value <= -1) {
 							pot = TFPotency.MINOR_DRAIN;
-						} else if(value<=1) {
+						} else if(value <= 1) {
 							pot = TFPotency.MINOR_BOOST;
-						} else if(value<=3) {
+						} else if(value <= 3) {
 							pot = TFPotency.BOOST;
 						} else {
 							pot = TFPotency.MAJOR_BOOST;
@@ -375,7 +375,7 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 
 		if (enchantmentKnown) {
 			descriptionSB.append("<p>Effects:");
-				if (this.getEffects().size() != 0) {
+				if (!this.getEffects().isEmpty()) {
 					for (ItemEffect e : this.getEffects()) {
 						if(e.getPrimaryModifier()!=TFModifier.CLOTHING_ATTRIBUTE) {
 							for(String s : e.getEffectsDescription(Main.game.getPlayer(), Main.game.getPlayer())) {

@@ -50,8 +50,8 @@ public class DialogueFlags implements Serializable, XMLSaving {
 		slaveryManagerSlaveSelected = null;
 		slaveTrader = null;
 		
-		ralphDiscountStartTime=-1;
-		ralphDiscount=0;
+		ralphDiscountStartTime = -1;
+		ralphDiscount = 0;
 		
 		scarlettPrice = 15000;
 	}

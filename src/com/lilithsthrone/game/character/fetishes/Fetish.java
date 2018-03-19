@@ -746,7 +746,7 @@ public enum Fetish {
 			Util.newArrayListOfValues(
 					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Halves cost of all potion making</span>")),
 			null) {
-
+		
 		@Override
 		public String getDescription(GameCharacter owner) {
 			if (owner.isPlayer()) {
@@ -777,7 +777,7 @@ public enum Fetish {
 			Util.newArrayListOfValues(
 					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Increases potency</span> <span style='color:"+ Colour.GENERIC_ARCANE.toWebHexString()+ ";'>of receiving forced transformations</span>")),
 			null) {
-
+		
 		@Override
 		public String getDescription(GameCharacter owner) {
 			if (owner.isPlayer()) {
@@ -795,6 +795,72 @@ public enum Fetish {
 		@Override
 		public CorruptionLevel getAssociatedCorruptionLevel() {
 			return CorruptionLevel.TWO_HORNY;
+		}
+	},
+	
+	FETISH_KINK_GIVING(60,
+			"kink advocate",
+			"giving others fetishes",
+//			"fetish_transformation_giving",
+			"fetish_kink_giving",
+			Fetish.BASE_EXPERIENCE_GAIN,
+			Colour.GENERIC_ARCANE,
+			null,
+			Util.newArrayListOfValues(
+					// Unclear what extra effects this fetish should provide, other than triggering forced fetishes
+					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Enjoy making others try new things!</span>")),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "You love the idea of giving others new fetishes, either voluntarily or otherwise, is a massive turn-on for you.";
+			} else {
+				return UtilText.parse(owner, "[npc.Name] loves giving others new fetishes. Watching them enjoy perverse new things, either voluntarily or otherwise, is a massive turn-on for [npc.herHim].");
+			}
+		}
+		
+		@Override
+		public String getFetishDesireDescription(GameCharacter target, FetishDesire desire) {
+			return getGenericFetishDesireDescription(target, desire, "giving others new fetishes");
+		}
+		
+		@Override
+		public CorruptionLevel getAssociatedCorruptionLevel() {
+			return CorruptionLevel.FOUR_LUSTFUL;
+		}
+	},
+	
+	FETISH_KINK_RECEIVING(60,
+			"kink curious",
+			"being given new fetishes",
+//			"fetish_transformation_receiving",
+			"fetish_kink_receiving",
+			Fetish.BASE_EXPERIENCE_GAIN,
+			Colour.GENERIC_ARCANE,
+			null,
+			Util.newArrayListOfValues(
+					// Unclear what extra effects this fetish should provide, other than not taking corruption from recieving forced fetishes
+					new ListValue<>("<span style='color:"+ Colour.GENERIC_GOOD.toWebHexString()+ ";'>Removes corruption gain when a fetish is forced on you.</span>")),
+			null) {
+
+		@Override
+		public String getDescription(GameCharacter owner) {
+			if (owner.isPlayer()) {
+				return "You love the idea of being developing new fetishes. Gaining perverse joy from new things, either voluntarily or otherwise, is a massive turn-on for you.";
+			} else {
+				return UtilText.parse(owner, "[npc.Name] loves developing new fetishes. Gaining perverse joy from new things, either voluntarily or otherwise, is a massive turn-on for [npc.herHim].");
+			}
+		}
+		
+		@Override
+		public String getFetishDesireDescription(GameCharacter target, FetishDesire desire) {
+			return getGenericFetishDesireDescription(target, desire, "the idea of being given new fetishes");
+		}
+		
+		@Override
+		public CorruptionLevel getAssociatedCorruptionLevel() {
+			return CorruptionLevel.THREE_DIRTY;
 		}
 	},
 	

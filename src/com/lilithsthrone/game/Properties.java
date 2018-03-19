@@ -38,6 +38,11 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
+import com.lilithsthrone.game.settings.DifficultyLevel;
+import com.lilithsthrone.game.settings.ForcedFetishTendency;
+import com.lilithsthrone.game.settings.ForcedTFTendency;
+import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
+import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.main.Main;
 
 /**
@@ -63,6 +68,7 @@ public class Properties implements Serializable {
 	public int humanEncountersLevel = 1;
 	public int multiBreasts = 1;
 	public int forcedTFPercentage = 40;
+	public int forcedFetishPercentage = 0;
 
 	public int pregnancyBreastGrowthVariance = 2;
 	public int pregnancyBreastGrowth = 1;
@@ -91,6 +97,7 @@ public class Properties implements Serializable {
 	public boolean newItemDiscovered = false;
 	public boolean newRaceDiscovered = false;
 	
+	
 	public DifficultyLevel difficultyLevel = DifficultyLevel.NORMAL;
 	
 	public AndrogynousIdentification androgynousIdentification = AndrogynousIdentification.CLOTHING_FEMININE;
@@ -104,7 +111,10 @@ public class Properties implements Serializable {
 	public Map<Subspecies, FurryPreference> subspeciesFeminineFurryPreferencesMap, subspeciesMasculineFurryPreferencesMap;
 	public Map<Subspecies, SubspeciesPreference> subspeciesFemininePreferencesMap, subspeciesMasculinePreferencesMap;
 	
+	// Transformation Settings
 	public FurryPreference forcedTFPreference;
+	public ForcedTFTendency forcedTFTendency;
+	public ForcedFetishTendency forcedFetishTendency;
 	
 	// Discoveries:
 	private Set<AbstractItemType> itemsDiscovered;
@@ -145,6 +155,8 @@ public class Properties implements Serializable {
 		}
 		
 		forcedTFPreference = FurryPreference.NORMAL;
+		forcedTFTendency = ForcedTFTendency.NEUTRAL;
+		forcedFetishTendency = ForcedFetishTendency.NEUTRAL;
 		
 		subspeciesFeminineFurryPreferencesMap = new EnumMap<>(Subspecies.class);
 		subspeciesMasculineFurryPreferencesMap = new EnumMap<>(Subspecies.class);
@@ -212,7 +224,7 @@ public class Properties implements Serializable {
 			createXMLElementWithValue(doc, settings, "humanEncountersLevel", String.valueOf(humanEncountersLevel));
 			createXMLElementWithValue(doc, settings, "multiBreasts", String.valueOf(multiBreasts));
 			createXMLElementWithValue(doc, settings, "forcedTFPercentage", String.valueOf(forcedTFPercentage));
-			
+
 			createXMLElementWithValue(doc, settings, "pregnancyBreastGrowthVariance", String.valueOf(pregnancyBreastGrowthVariance));
 			createXMLElementWithValue(doc, settings, "pregnancyBreastGrowth", String.valueOf(pregnancyBreastGrowth));
 			createXMLElementWithValue(doc, settings, "pregnancyBreastGrowthLimit", String.valueOf(pregnancyBreastGrowthLimit));
@@ -220,6 +232,8 @@ public class Properties implements Serializable {
 			createXMLElementWithValue(doc, settings, "pregnancyLactationIncrease", String.valueOf(pregnancyLactationIncrease));
 			createXMLElementWithValue(doc, settings, "pregnancyLactationLimit", String.valueOf(pregnancyLactationLimit));
 			
+			createXMLElementWithValue(doc, settings, "forcedFetishPercentage", String.valueOf(forcedFetishPercentage));
+
 			createXMLElementWithValue(doc, settings, "newWeaponDiscovered", String.valueOf(newWeaponDiscovered));
 			createXMLElementWithValue(doc, settings, "newClothingDiscovered", String.valueOf(newClothingDiscovered));
 			createXMLElementWithValue(doc, settings, "newItemDiscovered", String.valueOf(newItemDiscovered));
@@ -334,8 +348,10 @@ public class Properties implements Serializable {
 				element.setAttributeNode(value);
 			}
 			
-			// Forced TF preference:
+			// Forced TF settings:
 			createXMLElementWithValue(doc, settings, "forcedTFPreference", String.valueOf(forcedTFPreference));
+			createXMLElementWithValue(doc, settings, "forcedTFTendency", String.valueOf(forcedTFTendency));
+			createXMLElementWithValue(doc, settings, "forcedFetishTendency", String.valueOf(forcedFetishTendency));
 			
 			// Race preferences:
 			Element racePreferences = doc.createElement("subspeciesPreferences");
@@ -536,10 +552,19 @@ public class Properties implements Serializable {
 				if(element.getElementsByTagName("forcedTFPercentage").item(0)!=null) {
 					forcedTFPercentage = Integer.valueOf(((Element)element.getElementsByTagName("forcedTFPercentage").item(0)).getAttribute("value"));
 				}
+				if(element.getElementsByTagName("forcedFetishPercentage").item(0)!=null) {
+					forcedFetishPercentage = Integer.valueOf(((Element)element.getElementsByTagName("forcedFetishPercentage").item(0)).getAttribute("value"));
+				}
 
 				// Forced TF preference:
 				if(element.getElementsByTagName("forcedTFPreference").item(0)!=null) {
 					forcedTFPreference = FurryPreference.valueOf(((Element)element.getElementsByTagName("forcedTFPreference").item(0)).getAttribute("value"));
+				}
+				if(element.getElementsByTagName("forcedTFTendency").item(0)!=null) {
+					forcedTFTendency = ForcedTFTendency.valueOf(((Element)element.getElementsByTagName("forcedTFTendency").item(0)).getAttribute("value"));
+				}
+				if(element.getElementsByTagName("forcedFetishTendency").item(0)!=null) {
+					forcedFetishTendency = ForcedFetishTendency.valueOf(((Element)element.getElementsByTagName("forcedFetishTendency").item(0)).getAttribute("value"));
 				}
 				
 				try {

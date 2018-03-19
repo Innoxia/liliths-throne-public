@@ -742,7 +742,15 @@ public class ClothingType {
 			null,
 			"head_cap",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null, null))),
+			Util.newArrayListOfValues(
+					new ListValue<BlockedParts>(new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.HAIR)),
+							null,
+							null))),
 			null, Colour.allClothingColours, null, null, null, null, null){
 
 		@Override
@@ -781,7 +789,14 @@ public class ClothingType {
 			null,
 			"head_cowboy_hat",
 			null,
-			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)), null, null, null))),
+			Util.newArrayListOfValues(
+					new ListValue<BlockedParts>(new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.HAIR)),
+							null,
+							null))),
 			null,
 			Colour.leatherColours,
 			Colour.allClothingColours,
@@ -974,7 +989,7 @@ public class ClothingType {
 							null,
 							null, null)),
 					new ListValue<BlockedParts>(new BlockedParts(
-							DisplacementType.PULLS_UP,
+							DisplacementType.PULLS_DOWN,
 							null,
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.MOUTH)),
@@ -1008,22 +1023,22 @@ public class ClothingType {
 		@Override
 		public String displaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You pull up your bandana.",
-					"You pull up [npc.name]'s bandana.",
+					"You pull down your bandana.",
+					"You pull down [npc.name]'s bandana.",
 					null,
-					"[npc.Name] pulls up [npc.her] bandana.",
-					"[npc.Name] pulls your bandana up.",
+					"[npc.Name] pulls down [npc.her] bandana.",
+					"[npc.Name] pulls your bandana down.",
 					null);
 		}
 
 		@Override
 		public String replaceText(GameCharacter clothingOwner, GameCharacter clothingRemover, DisplacementType dt, boolean rough) {
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
-					"You pull your bandana back down.",
-					"You pull [npc.name]'s bandana back down.",
+					"You pull your bandana back up.",
+					"You pull [npc.name]'s bandana back up.",
 					null,
-					"[npc.Name] pulls [npc.her] bandana back down.",
-					"[npc.Name] pulls your bandana back down.",
+					"[npc.Name] pulls [npc.her] bandana back up.",
+					"[npc.Name] pulls your bandana back up.",
 					null);
 		}
 	};
@@ -1374,14 +1389,16 @@ public class ClothingType {
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
-							null,
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.BACK)),
 							null, null)),
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.UNBUTTONS,
 							null,
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
+									new ListValue<CoverableArea>(CoverableArea.STOMACH)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
@@ -1506,14 +1523,16 @@ public class ClothingType {
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
-							null,
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.BACK)),
 							null, null)),
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.UNBUTTONS,
 							null,
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
+									new ListValue<CoverableArea>(CoverableArea.STOMACH)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
@@ -1637,7 +1656,8 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
 									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
-							null,
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.BACK)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null
 							)),
@@ -1646,7 +1666,8 @@ public class ClothingType {
 							null,
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
+									new ListValue<CoverableArea>(CoverableArea.STOMACH)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
@@ -1737,7 +1758,8 @@ public class ClothingType {
 									DisplacementType.REMOVE_OR_EQUIP,
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
-									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.BACK)),
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null
 									))),
@@ -1791,7 +1813,8 @@ public class ClothingType {
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
-							null,
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.BACK)),
 							Util.newArrayListOfValues(
 							new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null)),
 					new ListValue<BlockedParts>(new BlockedParts(
@@ -1799,7 +1822,8 @@ public class ClothingType {
 							null,
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
+									new ListValue<CoverableArea>(CoverableArea.STOMACH)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
@@ -1863,7 +1887,8 @@ public class ClothingType {
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
-							null,
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.BACK)),
 							Util.newArrayListOfValues(
 							new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null)),
 					new ListValue<BlockedParts>(new BlockedParts(
@@ -1871,7 +1896,8 @@ public class ClothingType {
 							null,
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
+									new ListValue<CoverableArea>(CoverableArea.STOMACH)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
@@ -1925,7 +1951,8 @@ public class ClothingType {
 									DisplacementType.REMOVE_OR_EQUIP,
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
-									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.BACK)),
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null
 									)),
@@ -1934,7 +1961,8 @@ public class ClothingType {
 							null,
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
+									new ListValue<CoverableArea>(CoverableArea.STOMACH)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
@@ -1988,7 +2016,8 @@ public class ClothingType {
 									DisplacementType.REMOVE_OR_EQUIP,
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
-									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.BACK)),
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null
 									)),
@@ -1997,7 +2026,8 @@ public class ClothingType {
 							null,
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
+									new ListValue<CoverableArea>(CoverableArea.STOMACH)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
@@ -2050,7 +2080,8 @@ public class ClothingType {
 							new BlockedParts(
 									DisplacementType.REMOVE_OR_EQUIP,
 									null,
-									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.BACK)),
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null
 									)),
@@ -2072,7 +2103,8 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.BREASTS),
 											new ListValue<CoverableArea>(CoverableArea.NIPPLES),
 											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+											new ListValue<CoverableArea>(CoverableArea.VAGINA),
+											new ListValue<CoverableArea>(CoverableArea.STOMACH)),
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.GROIN),
 											new ListValue<ClothingAccess>(ClothingAccess.CHEST),
@@ -2169,7 +2201,9 @@ public class ClothingType {
 							null,
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
+									new ListValue<CoverableArea>(CoverableArea.STOMACH),
+									new ListValue<CoverableArea>(CoverableArea.BACK)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
@@ -2203,7 +2237,9 @@ public class ClothingType {
 							null,
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
+									new ListValue<CoverableArea>(CoverableArea.STOMACH),
+									new ListValue<CoverableArea>(CoverableArea.BACK)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
@@ -2232,8 +2268,8 @@ public class ClothingType {
 			null,
 
 			Util.newArrayListOfValues(
-					new ListValue<BlockedParts>(
-							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
+					new ListValue<BlockedParts>(new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
 									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
@@ -2251,7 +2287,9 @@ public class ClothingType {
 							new BlockedParts(DisplacementType.PULLS_UP,
 							null,
 							Util.newArrayListOfValues(
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
+									new ListValue<CoverableArea>(CoverableArea.STOMACH),
+									new ListValue<CoverableArea>(CoverableArea.BACK)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
@@ -2287,7 +2325,9 @@ public class ClothingType {
 							null,
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
+									new ListValue<CoverableArea>(CoverableArea.STOMACH),
+									new ListValue<CoverableArea>(CoverableArea.BACK)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
@@ -2370,7 +2410,9 @@ public class ClothingType {
 									DisplacementType.PULLS_UP,
 									null,
 									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+											new ListValue<CoverableArea>(CoverableArea.NIPPLES),
+											new ListValue<CoverableArea>(CoverableArea.STOMACH),
+											new ListValue<CoverableArea>(CoverableArea.BACK)),
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 											new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))), // List<InventorySlot> incompatibleSlots
@@ -2653,7 +2695,9 @@ public class ClothingType {
 									null,
 									Util.newArrayListOfValues(
 											new ListValue<CoverableArea>(CoverableArea.BREASTS),
-											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+											new ListValue<CoverableArea>(CoverableArea.NIPPLES),
+											new ListValue<CoverableArea>(CoverableArea.STOMACH),
+											new ListValue<CoverableArea>(CoverableArea.BACK)),
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 											new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))), // List<InventorySlot> incompatibleSlots
@@ -2749,7 +2793,9 @@ public class ClothingType {
 									null,
 									Util.newArrayListOfValues(
 											new ListValue<CoverableArea>(CoverableArea.BREASTS),
-											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+											new ListValue<CoverableArea>(CoverableArea.NIPPLES),
+											new ListValue<CoverableArea>(CoverableArea.STOMACH),
+											new ListValue<CoverableArea>(CoverableArea.BACK)),
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.CHEST)), null))), // List<InventorySlot> incompatibleSlots
 
@@ -2837,7 +2883,9 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
+									new ListValue<CoverableArea>(CoverableArea.STOMACH),
+									new ListValue<CoverableArea>(CoverableArea.BACK)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null)),
@@ -2950,7 +2998,8 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
+									new ListValue<CoverableArea>(CoverableArea.STOMACH)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null)),
@@ -2991,7 +3040,9 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
+									new ListValue<CoverableArea>(CoverableArea.STOMACH),
+									new ListValue<CoverableArea>(CoverableArea.BACK)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null)),
@@ -3090,7 +3141,9 @@ public class ClothingType {
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
 									Util.newArrayListOfValues(
-											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+											new ListValue<CoverableArea>(CoverableArea.NIPPLES),
+											new ListValue<CoverableArea>(CoverableArea.STOMACH),
+											new ListValue<CoverableArea>(CoverableArea.BACK)),
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 											new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null)),
@@ -3189,7 +3242,9 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
+									new ListValue<CoverableArea>(CoverableArea.STOMACH),
+									new ListValue<CoverableArea>(CoverableArea.BACK)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null)),
@@ -3287,7 +3342,8 @@ public class ClothingType {
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
-							null,
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.BACK)),
 							null, null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(
@@ -3308,6 +3364,7 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.BREASTS),
 											new ListValue<CoverableArea>(CoverableArea.NIPPLES),
 											new ListValue<CoverableArea>(CoverableArea.PENIS),
+											new ListValue<CoverableArea>(CoverableArea.STOMACH),
 											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.CHEST),
@@ -3408,7 +3465,9 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.GROIN),
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST),
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-							null,
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.STOMACH),
+									new ListValue<CoverableArea>(CoverableArea.BACK)),
 							Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null)),
 					
 					new ListValue<BlockedParts>(
@@ -3520,7 +3579,9 @@ public class ClothingType {
 											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
 									Util.newArrayListOfValues(
 											new ListValue<CoverableArea>(CoverableArea.BREASTS),
-											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+											new ListValue<CoverableArea>(CoverableArea.NIPPLES),
+											new ListValue<CoverableArea>(CoverableArea.STOMACH),
+											new ListValue<CoverableArea>(CoverableArea.BACK)),
 									null, null))
 //					,
 //					new ListValue<BlockedParts>(
@@ -3911,7 +3972,8 @@ public class ClothingType {
 							new BlockedParts(DisplacementType.REMOVE_OR_EQUIP,
 									Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
 											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.BACK)),
 									null, null)),
 					new ListValue<BlockedParts>(
 							new BlockedParts(DisplacementType.PULLS_UP,
@@ -4433,8 +4495,9 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
 							Util.newArrayListOfValues(
-								new ListValue<CoverableArea>(CoverableArea.BREASTS),
-								new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+									new ListValue<CoverableArea>(CoverableArea.BREASTS),
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
+									new ListValue<CoverableArea>(CoverableArea.BACK)),
 							null, null))),
 
 			null, Colour.allClothingColours, null, null, null, null, null){
@@ -4494,7 +4557,9 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.GROIN),
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST),
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
-							null,
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.STOMACH),
+									new ListValue<CoverableArea>(CoverableArea.BACK)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null)),
 					new ListValue<BlockedParts>(
@@ -4601,7 +4666,9 @@ public class ClothingType {
 							new BlockedParts(
 								DisplacementType.REMOVE_OR_EQUIP,
 								Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-								null,
+								Util.newArrayListOfValues(
+										new ListValue<CoverableArea>(CoverableArea.STOMACH),
+										new ListValue<CoverableArea>(CoverableArea.BACK)),
 								Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
 
 			null, Colour.lingerieColours, null, null, null, null, null){
@@ -4651,7 +4718,9 @@ public class ClothingType {
 											new ListValue<ClothingAccess>(ClothingAccess.CHEST)),
 									Util.newArrayListOfValues(
 											new ListValue<CoverableArea>(CoverableArea.BREASTS),
-											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+											new ListValue<CoverableArea>(CoverableArea.NIPPLES),
+											new ListValue<CoverableArea>(CoverableArea.STOMACH),
+											new ListValue<CoverableArea>(CoverableArea.BACK)),
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.WAIST),
 											new ListValue<ClothingAccess>(ClothingAccess.CHEST)), null))),
@@ -4702,7 +4771,9 @@ public class ClothingType {
 							new BlockedParts(
 								DisplacementType.REMOVE_OR_EQUIP,
 								Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WAIST)),
-								null,
+								Util.newArrayListOfValues(
+										new ListValue<CoverableArea>(CoverableArea.STOMACH),
+										new ListValue<CoverableArea>(CoverableArea.BACK)),
 								Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
 
 			null, Colour.lingerieColours, null, null, null, null, null){
@@ -8219,7 +8290,9 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
+									new ListValue<CoverableArea>(CoverableArea.STOMACH),
+									new ListValue<CoverableArea>(CoverableArea.BACK)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null)),
@@ -9048,14 +9121,16 @@ public class ClothingType {
 							DisplacementType.REMOVE_OR_EQUIP,
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
-							null,
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.BACK)),
 							null, null)),
 					new ListValue<BlockedParts>(new BlockedParts(
 							DisplacementType.UNBUTTONS,
 							null,
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
+									new ListValue<CoverableArea>(CoverableArea.STOMACH)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
@@ -9337,7 +9412,9 @@ public class ClothingType {
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
 									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
-							null,
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.STOMACH),
+									new ListValue<CoverableArea>(CoverableArea.BACK)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null)),
 					
@@ -9601,7 +9678,9 @@ public class ClothingType {
 							null,
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
+									new ListValue<CoverableArea>(CoverableArea.STOMACH),
+									new ListValue<CoverableArea>(CoverableArea.BACK)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
@@ -9715,7 +9794,9 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
+									new ListValue<CoverableArea>(CoverableArea.STOMACH),
+									new ListValue<CoverableArea>(CoverableArea.BACK)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null)),
@@ -9958,7 +10039,8 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
+									new ListValue<CoverableArea>(CoverableArea.BACK)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null)),
@@ -9971,7 +10053,8 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.PENIS),
 											new ListValue<CoverableArea>(CoverableArea.VAGINA),
 											new ListValue<CoverableArea>(CoverableArea.BREASTS),
-											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+											new ListValue<CoverableArea>(CoverableArea.NIPPLES),
+											new ListValue<CoverableArea>(CoverableArea.STOMACH)),
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.GROIN),
 											new ListValue<ClothingAccess>(ClothingAccess.CHEST),
@@ -10091,7 +10174,8 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
+									new ListValue<CoverableArea>(CoverableArea.BACK)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null)),
@@ -10104,7 +10188,8 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.PENIS),
 											new ListValue<CoverableArea>(CoverableArea.VAGINA),
 											new ListValue<CoverableArea>(CoverableArea.BREASTS),
-											new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+											new ListValue<CoverableArea>(CoverableArea.NIPPLES),
+											new ListValue<CoverableArea>(CoverableArea.STOMACH)),
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.GROIN),
 											new ListValue<ClothingAccess>(ClothingAccess.CHEST),
@@ -10175,7 +10260,8 @@ public class ClothingType {
 									DisplacementType.REMOVE_OR_EQUIP,
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)),
-									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.BACK)),
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null
 									))),
@@ -10394,7 +10480,9 @@ public class ClothingType {
 									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
 							Util.newArrayListOfValues(
 									new ListValue<CoverableArea>(CoverableArea.BREASTS),
-									new ListValue<CoverableArea>(CoverableArea.NIPPLES)),
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
+									new ListValue<CoverableArea>(CoverableArea.STOMACH),
+									new ListValue<CoverableArea>(CoverableArea.BACK)),
 							Util.newArrayListOfValues(
 									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
 									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null)),
@@ -10588,7 +10676,8 @@ public class ClothingType {
 							new BlockedParts(
 									DisplacementType.REMOVE_OR_EQUIP,
 									null,
-									null,
+									Util.newArrayListOfValues(
+											new ListValue<CoverableArea>(CoverableArea.BACK)),
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER)), null
 									)),
@@ -10610,7 +10699,8 @@ public class ClothingType {
 											new ListValue<CoverableArea>(CoverableArea.BREASTS),
 											new ListValue<CoverableArea>(CoverableArea.NIPPLES),
 											new ListValue<CoverableArea>(CoverableArea.PENIS),
-											new ListValue<CoverableArea>(CoverableArea.VAGINA)),
+											new ListValue<CoverableArea>(CoverableArea.VAGINA),
+											new ListValue<CoverableArea>(CoverableArea.STOMACH)),
 									Util.newArrayListOfValues(
 											new ListValue<ClothingAccess>(ClothingAccess.GROIN),
 											new ListValue<ClothingAccess>(ClothingAccess.CHEST),

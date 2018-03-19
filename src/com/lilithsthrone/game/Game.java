@@ -102,6 +102,8 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
+import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.slavery.SlaveJobSetting;
 import com.lilithsthrone.game.slavery.SlaveryUtil;
@@ -893,11 +895,14 @@ public class Game implements Serializable, XMLSaving {
 			}
 			
 			// Set NPC resource values:
-			if(!Main.game.getPlayer().getLocation().equals(npc.getLocation()) && !Main.game.isInCombat() && !Main.game.isInSex()) {
-				npc.setHealthPercentage(1);
-				npc.setManaPercentage(1);
+			if(!Main.game.isInCombat() && !Main.game.isInSex()) {
+				if(!Main.game.getPlayer().getLocation().equals(npc.getLocation())) {
+					npc.setHealthPercentage(1);
+					npc.setManaPercentage(1);
+//					npc.setLust(npc.getRestingLust());
+				}
+				npc.alignLustToRestingLust(turnTime*10);
 			}
-			npc.alignLustToRestingLust(turnTime*10);
 			
 			npc.calculateStatusEffects(turnTime);
 			
@@ -1540,7 +1545,7 @@ public class Game implements Serializable, XMLSaving {
 	}
 	
 	public boolean decrementResponseTab() {
-		for(int i=-1; i>-6; i--) {
+		for(int i = -1; i > -6; i--) {
 			if(currentDialogueNode.getResponseTabTitle(responseTab+i)!=null) {
 				responseTab+=i;
 				checkForResponsePage();
