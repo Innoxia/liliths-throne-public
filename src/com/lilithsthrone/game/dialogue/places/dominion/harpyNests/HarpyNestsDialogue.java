@@ -193,7 +193,7 @@ public class HarpyNestsDialogue {
 							@Override
 							public void effects() {
 								Main.game.getTextEndStringBuilder().append(Main.game.getPlayer().setQuestProgress(QuestLine.SIDE_HARPY_PACIFICATION, Quest.SIDE_UTIL_COMPLETE));
-								Main.game.getPlayer().incrementMoney(1500);
+								Main.game.getPlayer().incrementMoney(5000);
 							}
 						};
 						
@@ -395,7 +395,7 @@ public class HarpyNestsDialogue {
 						+ " Alexa would probably even get involved, which is the last thing we need."
 						+ " I hate asking for help like this, but if by some miracle you're able to subdue those three,)]"
 						+ " he points to the papers in your hand again,"
-						+ " [style.speechMasculineStrong(I could offer a fifteen-hundred flame reward.)]"
+						+ " [style.speechMasculineStrong(I could offer a five thousand flame reward.)]"
 					+ "</p>"
 					+ "<p>"
 						+ "[pc.speech(Consider it done,)] you say, before moving to leave the office, [pc.speech(I'll be back to claim that reward!)]"
@@ -445,7 +445,7 @@ public class HarpyNestsDialogue {
 					+ "</p>"
 						+ "The muscular horse-boy produces a little brass key, and, bending down to unlock a heavy iron safe that's sitting beneath his desk, he retrieves a bag of money."
 						+ " Setting it down in front of him, he grins up at you,"
-						+ " [style.speechMasculineStrong(I still can't believe that you actually managed to do it! Well, I'll keep my end of the bargain; here's fifteen-hundred flames!)]"
+						+ " [style.speechMasculineStrong(I still can't believe that you actually managed to do it! Well, I'll keep my end of the bargain; here's five thousand flames!)]"
 					+ "</p>"
 					+ "<p>"
 						+ "Stepping forwards, you take the offered bag of money, before thanking the enforcer sergeant."
@@ -457,7 +457,7 @@ public class HarpyNestsDialogue {
 						+ "Having received your reward, you say farewell to the happy horse-boy, and, walking out of his office, head back into the Enforcer Post."
 					+ "</p>"
 					+ "<p style='text-align:center;'>"
-						+ "<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>You have received:</b> <b style='color:"+Colour.CURRENCY_GOLD.toWebHexString()+";'>"+UtilText.getCurrencySymbol()+"</b> <b>1,500</b>"
+						+ "<b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>You have received:</b> <b style='color:"+Colour.CURRENCY_GOLD.toWebHexString()+";'>"+UtilText.getCurrencySymbol()+"</b> <b>5,000</b>"
 					+ "</p>"
 					+ "<p style='text-align:center;'>"
 						+ "<b style='color:"+Colour.GENERIC_EXCELLENT.toWebHexString()+";'>The Harpy Nests are now safe to travel through!</b>"
