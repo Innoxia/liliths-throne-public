@@ -22,6 +22,7 @@
 	
 	Other:
 		Changed bandana displacement to be pulls down, not pulls up.
+		You can now see your opponent's fetishes in combat.
 	
 	Contributors:
 		Cleaned various issues. (Pimvgd)

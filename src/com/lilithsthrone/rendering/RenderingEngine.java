@@ -1831,6 +1831,16 @@ public enum RenderingEngine {
 							+ "</div>"
 					+ "</div>");
 		}
+
+		for (Fetish f : character.getFetishes()) {
+			panelSB.append(
+				"<div class='icon"+(compact?" effect":"")+"'>"
+					+ "<div class='icon-content'>"
+							+ f.getSVGString()
+							+ "<div class='overlay' id='FETISH_"+idPrefix + f + "'></div>"
+					+ "</div>"
+				+ "</div>");
+		}
 		
 		panelSB.append("</div></div>");
 		
