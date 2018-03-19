@@ -2,7 +2,7 @@ package com.lilithsthrone.game.sex;
 
 /**
  * @since 0.1.97
- * @version 0.1.97
+ * @version 0.2.2
  * @author Innoxia
  */
 public enum OrgasmCumTarget {
@@ -19,7 +19,10 @@ public enum OrgasmCumTarget {
 	HAIR("into hair"),
 	STOMACH("onto stomach"),
 	LEGS("onto legs"),
-	BACK("over back");
+	BACK("over back"),
+	SELF_STOMACH("onto self stomach"),
+	SELF_BREASTS("onto self breasts"),
+	SELF_FACE("onto self face");
 	
 	private String name;
 
