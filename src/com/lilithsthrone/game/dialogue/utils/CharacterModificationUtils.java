@@ -3526,10 +3526,6 @@ public class CharacterModificationUtils {
 			}
 			contentSB.append("</br>");
 			if(activeCovering.getPrimaryColour() == Colour.COVERING_NONE || !withGlow) { // Disable glow:
-					contentSB.append(
-							"<div class='normal-button disabled' style='width:50%; margin:2% auto; padding:0; text-align:center;'>"
-								+ "[style.colourDisabled(Glow)]"
-							+ "</div>");
 				
 			} else {
 				if(activeCovering.isPrimaryGlowing()) {
@@ -3578,10 +3574,6 @@ public class CharacterModificationUtils {
 			}
 			contentSB.append("</br>");
 			if(activeCovering.getSecondaryColour() == Colour.COVERING_NONE || !withGlow || activeCovering.getPattern()==CoveringPattern.NONE || !withSecondary) { // Disable glow:
-					contentSB.append(
-							"<div class='normal-button disabled' style='width:50%; margin:2% auto; padding:0; text-align:center;'>"
-								+ "[style.colourDisabled(Glow)]"
-							+ "</div>");
 				
 			} else {
 				if(activeCovering.isSecondaryGlowing()) {
