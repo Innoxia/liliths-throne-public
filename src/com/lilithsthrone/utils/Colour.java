@@ -629,6 +629,31 @@ public enum Colour {
 			new ListValue<Colour>(CLOTHING_PINK),
 			new ListValue<Colour>(CLOTHING_PINK_LIGHT));
 
+	public static List<Colour> notBlack = Util.newArrayListOfValues(
+			new ListValue<Colour>(CLOTHING_WHITE),
+			new ListValue<Colour>(CLOTHING_GREY),
+			new ListValue<Colour>(CLOTHING_RED),
+			new ListValue<Colour>(CLOTHING_RED_BRIGHT),
+			new ListValue<Colour>(CLOTHING_RED_DARK),
+			new ListValue<Colour>(CLOTHING_ORANGE),
+			new ListValue<Colour>(CLOTHING_ORANGE_BRIGHT),
+			new ListValue<Colour>(CLOTHING_ORANGE_DARK),
+			new ListValue<Colour>(CLOTHING_BROWN),
+			new ListValue<Colour>(CLOTHING_TAN),
+			new ListValue<Colour>(CLOTHING_YELLOW),
+			new ListValue<Colour>(CLOTHING_GREEN_LIME),
+			new ListValue<Colour>(CLOTHING_GREEN),
+			new ListValue<Colour>(CLOTHING_GREEN_DARK),
+			new ListValue<Colour>(CLOTHING_TURQUOISE),
+			new ListValue<Colour>(CLOTHING_BLUE_LIGHT),
+			new ListValue<Colour>(CLOTHING_BLUE),
+			new ListValue<Colour>(CLOTHING_BLUE_DARK),
+			new ListValue<Colour>(CLOTHING_PURPLE),
+			new ListValue<Colour>(CLOTHING_PURPLE_DARK),
+			new ListValue<Colour>(CLOTHING_PURPLE_LIGHT),
+			new ListValue<Colour>(CLOTHING_PINK),
+			new ListValue<Colour>(CLOTHING_PINK_LIGHT));
+
 	public static List<Colour> denimColours = Util.newArrayListOfValues(
 			new ListValue<Colour>(Colour.CLOTHING_BLUE_LIGHT),
 			new ListValue<Colour>(Colour.CLOTHING_BLUE),

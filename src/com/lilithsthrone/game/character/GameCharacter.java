@@ -312,7 +312,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		this.level = level;
 		
 		// Pick random colours
-		this.primaryColour = Colour.allClothingColours.get(Util.random.nextInt(Colour.allClothingColours.size()));
+		this.primaryColour = Colour.notBlack.get(Util.random.nextInt(Colour.notBlack.size()));
 		this.secondaryColour = Colour.allClothingColours.get(Util.random.nextInt(Colour.allClothingColours.size()));
 		this.tertiaryColour = Colour.allClothingColours.get(Util.random.nextInt(Colour.allClothingColours.size()));
 		
