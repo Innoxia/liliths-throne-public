@@ -11,7 +11,6 @@ import java.util.Set;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.lilithsthrone.game.ForcedTFTendency;
 import com.lilithsthrone.game.character.CharacterImportSetting;
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
@@ -63,6 +62,7 @@ import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemEffect;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.settings.ForcedTFTendency;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.Sex;

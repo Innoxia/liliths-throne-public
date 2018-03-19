@@ -102,6 +102,8 @@ import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
+import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
+import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.game.slavery.SlaveJobSetting;
 import com.lilithsthrone.game.slavery.SlaveryUtil;

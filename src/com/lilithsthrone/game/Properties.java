@@ -28,7 +28,6 @@ import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.gender.GenderNames;
 import com.lilithsthrone.game.character.gender.GenderPronoun;
 import com.lilithsthrone.game.character.race.FurryPreference;
-import com.lilithsthrone.game.ForcedTFTendency;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.character.race.SubspeciesPreference;
@@ -39,6 +38,11 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
 import com.lilithsthrone.game.inventory.weapon.WeaponType;
+import com.lilithsthrone.game.settings.DifficultyLevel;
+import com.lilithsthrone.game.settings.ForcedFetishTendency;
+import com.lilithsthrone.game.settings.ForcedTFTendency;
+import com.lilithsthrone.game.settings.KeyCodeWithModifiers;
+import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.main.Main;
 
 /**

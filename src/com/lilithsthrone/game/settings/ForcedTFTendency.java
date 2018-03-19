@@ -1,4 +1,4 @@
-package com.lilithsthrone.game;
+package com.lilithsthrone.game.settings;
 
 /**
  * @since 0.1.95

@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import com.lilithsthrone.game.KeyboardAction;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.attributes.ArousalLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
@@ -44,6 +43,7 @@ import com.lilithsthrone.game.inventory.clothing.ClothingType;
 import com.lilithsthrone.game.inventory.enchanting.TFEssence;
 import com.lilithsthrone.game.inventory.item.AbstractItem;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
+import com.lilithsthrone.game.settings.KeyboardAction;
 import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;

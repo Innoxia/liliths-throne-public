@@ -1,4 +1,4 @@
-package com.lilithsthrone.game;
+package com.lilithsthrone.game.settings;
 
 import javafx.scene.input.KeyCode;
 

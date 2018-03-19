@@ -1,6 +1,8 @@
 package com.lilithsthrone.main;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -518,6 +520,15 @@ public class Main extends Application {
 		dir.mkdir();
 		dir = new File("data/characters");
 		dir.mkdir();
+		
+		// Open error log
+		try {
+			@SuppressWarnings("resource")
+			PrintStream stream = new PrintStream("data/error.log");
+			System.setErr(stream);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		
 		// Load properties:
 		if (new File("data/properties.xml").exists()) {

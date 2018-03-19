@@ -19,7 +19,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import com.lilithsthrone.game.DifficultyLevel;
 import com.lilithsthrone.game.character.attributes.AffectionLevel;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.attributes.CorruptionLevel;
@@ -136,6 +135,7 @@ import com.lilithsthrone.game.inventory.item.ItemEffect;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeaponType;
+import com.lilithsthrone.game.settings.DifficultyLevel;
 import com.lilithsthrone.game.sex.LubricationType;
 import com.lilithsthrone.game.sex.OrificeType;
 import com.lilithsthrone.game.sex.PenetrationType;
