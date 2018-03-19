@@ -28,7 +28,7 @@
 		Cleaned various issues. (Pimvgd)
 		<b>Forced Fetishes and Forced TF Gender Tendency Settings.</b> This implements several new settings and related features for forced transformations and fetishes. You can see the full changes here: https://github.com/Innoxia/liliths-throne-public/pull/113 (FFongWong)
 		Add coverage to clothing for slots with no sex actions. This adds slots such as BACK, STOMACH, and HAIR to clothing concealment, which should fix the bug where you cum on a character's back or stomach and it dirties the body through the clothes. (Master of Puppets)
-		
+		Add cum targets for characters cumming on themselves. (Master of Puppets)
 	
 	Bugs:
 		Typo fixes.
