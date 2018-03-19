@@ -19,7 +19,10 @@ public enum OrgasmCumTarget {
 	HAIR("into hair"),
 	STOMACH("onto stomach"),
 	LEGS("onto legs"),
-	BACK("over back");
+	BACK("over back"),
+	SELF_STOMACH("onto self stomach"),
+	SELF_BREASTS("onto self breasts"),
+	SELF_FACE("onto self face");
 	
 	private String name;
 
