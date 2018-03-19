@@ -309,7 +309,7 @@ public class PlayerFingerNipple {
 
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.getActivePartner().hasBreasts() && Sex.getSexPace(Main.game.getPlayer())!=SexPace.SUB_RESISTING;
+			return Sex.getSexPace(Main.game.getPlayer())!=SexPace.SUB_RESISTING;
 		}
 
 		@Override
