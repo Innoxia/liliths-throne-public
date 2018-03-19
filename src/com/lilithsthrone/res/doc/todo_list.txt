@@ -30,9 +30,12 @@
 		Add coverage to clothing for slots with no sex actions. This adds slots such as BACK, STOMACH, and HAIR to clothing concealment, which should fix the bug where you cum on a character's back or stomach and it dirties the body through the clothes. (Master of Puppets)
 		Add cum targets for characters cumming on themselves. (Master of Puppets)
 		Add error logging to 'data/error.log' instead of STDERR. (Master of Puppets)
-	
+		Add check for new potion enchantments. (Master of Puppets)
+		Fixed spell cost reduction giving negative costs. (Master of Puppets)
+		
 	Bugs:
 		Typo fixes.
+		
 	
 	
 	
