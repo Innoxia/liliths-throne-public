@@ -511,7 +511,7 @@ public enum BodyCoveringType {
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
-			CoveringPattern.allStandardCoveringPatterns,
+			CoveringPattern.allScalesCoveringPatterns,
 			Colour.naturalScaleColours,
 			Colour.dyeScaleColours,
 			Colour.naturalScaleColours,
@@ -527,7 +527,7 @@ public enum BodyCoveringType {
 			null,
 			Util.newArrayListOfValues(
 					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
-			CoveringPattern.allStandardCoveringPatterns,
+			CoveringPattern.allScalesCoveringPatterns,
 			Colour.naturalScaleColours,
 			Colour.dyeScaleColours,
 			Colour.naturalScaleColours,

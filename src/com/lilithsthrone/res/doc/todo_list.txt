@@ -32,6 +32,13 @@
 		Add error logging to 'data/error.log' instead of STDERR. (Master of Puppets)
 		Add check for new potion enchantments. (Master of Puppets)
 		Fixed spell cost reduction giving negative costs. (Master of Puppets)
+		Remove translation of INTELLIGENCE to MAJOR_ARCANE for old character imports - this was giving all imported characters extra arcane ability, which the majority of them shouldn't have. (Master of Puppets)
+		Body hair/fur/feathers now uses the patterns for hair rather than skin. (Master of Puppets)
+		Increased Flame reward from Angry Harpy quest from 1500 to 5000 flames. (rfpnj)
+		Changed what triggers the 'Frustrated' status effect from 'did not cum' to 'ended sex just before orgasming'. (Master of Puppets)
+		Removed requirement for characters to have breasts in order to pinch nipples. (Master of Puppets)
+		Added several new hair styles. (WoefulWombat)
+		
 		
 	Bugs:
 		Typo fixes.
@@ -40,7 +47,16 @@
 	
 	
 	
+	Second bug I found is about October Priestesses/Witch Succubi
+		when you're in combat with them and they seal you, you can freely keep casting spells and use special attacks, as only the first menu is blocked[Button you're sealed or something](edited)
+		menus for special attacks and spells still offer option to use them, so you can use spells and teases or race attacks despite being sealed
 	
+	
+	while enchanting clothes, there are two pictures of the item - one is of the original item and one is craft button
+		When I clicked on picture of the original item, enchant potion interface froze (buttons were unresponsive, otherwise game worked normally)
+		
+	
+	Suggestion: Pale as a demon skin color.
 	
 	There seems to be a bug in the new character creation system where you don't have your virginities when you say you have no sexual experience and vice versa.
 	
