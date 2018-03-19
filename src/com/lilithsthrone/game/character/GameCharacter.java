@@ -10912,7 +10912,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		String beardLoss = "";
 		
-		if(femininity>=Femininity.ANDROGYNOUS.getMinimumFemininity() && this.getFacialHair()!=BodyHair.ZERO_NONE) {
+		if(femininity>=Femininity.ANDROGYNOUS.getMinimumFemininity() && this.getFacialHair()!=BodyHair.ZERO_NONE && !Main.getProperties().feminineBeardsContent) {
 			if(isPlayer()) {
 				beardLoss = "<p>"
 								+ "As your body shifts into a more feminine form, you feel your facial hair falling out; evidence that you're no longer able to grow a beard."
@@ -12347,7 +12347,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	// Facial hair:
 	public BodyHair getFacialHair() {
-		if(this.getFemininityValue()>=Femininity.ANDROGYNOUS.getMinimumFemininity()) {
+		if(this.getFemininityValue()>=Femininity.ANDROGYNOUS.getMinimumFemininity() && !Main.getProperties().feminineBeardsContent) {
 			setFacialHair(BodyHair.ZERO_NONE);
 		}
 		return body.getFace().getFacialHair();

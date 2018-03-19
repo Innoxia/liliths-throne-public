@@ -4611,6 +4611,24 @@ public class MainController implements Initializable {
 				}, false);
 			}
 			
+			id = "FEMININE_BEARD_ON";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().feminineBeardsContent = !Main.getProperties().feminineBeardsContent;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			id = "FEMININE_BEARD_OFF";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().feminineBeardsContent = !Main.getProperties().feminineBeardsContent;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			
+			
 			id = "FURRY_TAIL_PENETRATION_ON";
 			if (((EventTarget) document.getElementById(id)) != null) {
 				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {

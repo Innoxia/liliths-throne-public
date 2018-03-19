@@ -23,6 +23,7 @@
 	Other:
 		Changed bandana displacement to be pulls down, not pulls up.
 		You can now see your opponent's fetishes in combat.
+		Added content option for feminine characters to have facial hair (disabled by default).
 	
 	Contributors:
 		Cleaned various issues. (Pimvgd)
@@ -38,7 +39,8 @@
 		Changed what triggers the 'Frustrated' status effect from 'did not cum' to 'ended sex just before orgasming'. (Master of Puppets)
 		Removed requirement for characters to have breasts in order to pinch nipples. (Master of Puppets)
 		Added several new hair styles. (WoefulWombat)
-		
+		Fixed speech parsing not using correct femininity colour. (Master of Puppets)
+		Fixed Maid's Stockings secondary colour not working. (Master of Puppets)
 		
 	Bugs:
 		Typo fixes.
@@ -46,6 +48,15 @@
 	
 	
 	
+	
+	Suggestions: It would be nice to have mouth(inside - teeth and tongue) transformation apart from just face transformation [I like my wolf-girls with human face but canine teeth]
+
+	(far in the future)There could be alchemist perk like there is Arcane weaver perk, and Transformation fetish would then instead offer you a stat boost for 1 hr or 2 whenever you transform someone (perhaps something like + 10~20% exp gain)
+	Similar buffs could then come for Orgasm denier[Bonuses to physical damage for few hours] and Self denial fetish[Seduction damage bonus]
+	
+	I understand you wanted to offer condoms of different colours, but right now, it's bit annoying, as you can't properly stockpile on them - could you make it so that it's possible to change colour of more than one condom at once
+	
+	Unsure if this has been noted yet, but the buttons for delting the exported character files don't actually appear to work.  Hitting one takes me to the save/load menu instead and doesn't delete the file.
 	
 	Second bug I found is about October Priestesses/Witch Succubi
 		when you're in combat with them and they seal you, you can freely keep casting spells and use special attacks, as only the first menu is blocked[Button you're sealed or something](edited)
@@ -149,6 +160,18 @@
 
 The same issue is happening with having traps selected of either androgynous and feminine in gender preferences. Only humans will spawn even if humans are disabled.
 	
+		
+	
+	foot fetish
+		as for feet stuff, apart from regular footjobs and all, there could be more sadistic/humiliating stuff too, so it relates to available fetishes more too, such as making someone lick your feet/or being made to do so, which is hot asf tbh, apart from that what i though of was if you had a previous sexual encounter or your partner had it, and lets say they had someone cum on their legs or any part, you could be ordered/order someone to lick it up and all that sort of stuff
+		in rape scenarios you could force others to lick it up and all which would increase lust for one that has sadist or masochist fetishes and all
+		or could decrease lust if lets say you're raping someone who hates dirty stuff (lets say legs that have been soiled at this case) and forcing them to lick legs and having to clean it up in the progress
+		apart from that there could even be certain effects when you dont wash yourself in general even if you dont have encounters
+		lets say you went a full day without washing yourself and there's smell and all that
+		 as I'm particulary into legs/feet with any sort of hosiery/socks or whatever on them apart from shoes, then it could have negative effects on person whom you're raping, or negative effects on you if you're being raped and you do not have masochist fetish
+		all that sort of stuff ^^
+		also regarding lust system, you could get to know other fetishes lets say if you do some side quests to lilyana or lets say steal some of her device a bit later in game (such as googles)  that allow you to see a few fetishes of other characters
+		making it easier
 		
 	
 	For some reason, once I hit maximum lust, further seduction damage just seems to get ignored.  This is in a fresh game started with this version.
@@ -3318,7 +3341,6 @@ So basically, the transformer fetish actually reduces the cost of enchantments b
 	
 	During character creation, every time you change gender or femininity, physical resistance goes up by 6. By spamming cycle gender you can easily get 100+ physical resistance.
 	
-	foot fetish
 	
 	Debug mode still refers to enchanting being in Lilaya's house
 	
