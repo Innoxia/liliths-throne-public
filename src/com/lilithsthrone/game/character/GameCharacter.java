@@ -2647,6 +2647,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return fetishes.contains(f) || fetishesFromClothing.contains(f);
 	}
 	
+	public boolean hasTransformationFetish() {
+		return hasFetish(Fetish.FETISH_TRANSFORMATION_GIVING) || hasFetish(Fetish.FETISH_KINK_GIVING);
+	}
+	
 	public boolean addFetish(Fetish fetish) {
 		if (fetishes.contains(fetish)) {
 			return false;
