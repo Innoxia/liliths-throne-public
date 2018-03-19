@@ -39,11 +39,6 @@ public class PlayerSelfFingerNipple {
 		}
 
 		@Override
-		public boolean isBaseRequirementsMet() {
-			return Main.game.getPlayer().hasBreasts();
-		}
-
-		@Override
 		public String getDescription() {
 			UtilText.nodeContentSB.setLength(0);
 
