@@ -8579,13 +8579,6 @@ public class ClothingType {
 
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			
-			if(applyEffects) {
-				if(clothingOwner.isAbleToBeEnslaved() || clothingOwner.isSlave()) {
-					clothing.setSealed(true);
-				}
-			}
-			
 			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
 					"You clasp the heavy metal collar around your neck.",
 					"You clasp the heavy metal collar around [npc.name]'s neck.",

@@ -70,7 +70,7 @@ public enum Combat {
 	/**
 	 * @param allies A list of allies who are fighting with you. <b>Do not include Main.game.getPlayer() in this!</b>
 	 * @param enemies A list of enemies you're fighting. The first enemy in the list is considered the leader.
-	 * @param escapePercentage THe base chance of escaping in this combat situation. TODO
+	 * @param escapePercentage The base chance of escaping in this combat situation. TODO
 	 * @param openingDescriptions A map of opening descriptions for characters. If a description is not provided, one is generated automatically.
 	 */
 	public void initialiseCombat(
@@ -1065,7 +1065,7 @@ public enum Combat {
 		boolean critical = false;//isCriticalHit(attacker);
 	
 		float lustDamage = Attack.calculateDamage(attacker, target, Attack.SEDUCTION, critical);
-
+		
 		if(target.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
 			if(attacker.isPlayer()) {
 				attackStringBuilder.append(UtilText.parse(target,

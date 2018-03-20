@@ -433,10 +433,10 @@ public class Game implements Serializable, XMLSaving {
 			if(!exportFileName.startsWith("AutoSave")) {
 				if(overwrite) {
 					Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Game saved)]", saveLocation), false);
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()), Colour.GENERIC_GOOD, "Save game overwritten!");
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()), false, Colour.GENERIC_GOOD, "Save game overwritten!");
 				} else {
 					Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Game saved)]", saveLocation), false);
-					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()), Colour.GENERIC_GOOD, "Game saved!");
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()), false, Colour.GENERIC_GOOD, "Game saved!");
 				}
 			}
 			
@@ -1551,7 +1551,7 @@ public class Game implements Serializable, XMLSaving {
 	public void setContent(Response response) {
 		setContent(response, true, null, null);
 	}
-
+	
 	public void setContent(Response response, Colour colour, String messageText) {
 		setContent(response, true, colour, messageText);
 	}

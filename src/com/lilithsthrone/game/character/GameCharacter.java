@@ -2690,6 +2690,12 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		fetishes.add(fetish);
 
+		applyFetishGainEffects(fetish);
+
+		return true;
+	}
+	
+	private void applyFetishGainEffects(Fetish fetish) {
 		// Increment bonus attributes from this fetish:
 		if (fetish.getAttributeModifiers() != null) {
 			for (Entry<Attribute, Integer> e : fetish.getAttributeModifiers().entrySet()) {
@@ -2698,12 +2704,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		}
 		
 		calculateSpecialAttacks();
-		
 		updateAttributeListeners();
-		
 		calculateSpecialFetishes();
-
-		return true;
 	}
 
 	public boolean removeFetish(Fetish fetish) {
@@ -2713,6 +2715,12 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		fetishes.remove(fetish);
 
+		applyFetishLossEffects(fetish);
+		
+		return true;
+	}
+	
+	private void applyFetishLossEffects(Fetish fetish) {
 		// Reverse bonus attributes from this fetish:
 		if (fetish.getAttributeModifiers() != null) {
 			for (Entry<Attribute, Integer> e : fetish.getAttributeModifiers().entrySet()) {
@@ -2721,12 +2729,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		}
 		
 		calculateSpecialAttacks();
-		
 		updateAttributeListeners();
-
 		calculateSpecialFetishes();
-		
-		return true;
 	}
 	
 	private void calculateSpecialFetishes() {
@@ -9511,6 +9515,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						break;
 					case MAJOR_BOOST:
 						fetishesFromClothing.add(associatedFetish);
+						applyFetishGainEffects(associatedFetish);
 						break;
 					case MINOR_DRAIN:
 						clothingFetishDesireModifiersMap.putIfAbsent(associatedFetish, 0);
@@ -9547,6 +9552,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						break;
 					case MAJOR_BOOST:
 						fetishesFromClothing.remove(associatedFetish);
+						applyFetishLossEffects(associatedFetish);
 						break;
 					case MINOR_DRAIN:
 						clothingFetishDesireModifiersMap.put(associatedFetish, clothingFetishDesireModifiersMap.get(associatedFetish) + 1);

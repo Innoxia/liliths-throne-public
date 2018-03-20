@@ -55,7 +55,13 @@
 		Fixed enchanting screen bug, where clicking on the left clothing icon would cause a soft-lock.
 		Fixed addictions not saving/loading properly.
 		Triple obedience gains from the 'In Control' trait (the one gained from having the Teacher background) will now correctly be applied to all obedience gains.
-		
+		NPCs will no longer be enslaved if the enslavement clothing can't be equipped onto them.
+		Saving game will no longer progress time.
+		You will now take energy & aura damage from tease attacks when at 100 lust (just like enemy demons do).
+		Fetishes gained from clothing will now correctly apply attribute bonuses, special attacks, and derived fetishes.
+	
+	
+	
 	
 	
 	Suggestions: It would be nice to have mouth(inside - teeth and tongue) transformation apart from just face transformation [I like my wolf-girls with human face but canine teeth]
@@ -72,19 +78,15 @@
 		menus for special attacks and spells still offer option to use them, so you can use spells and teases or race attacks despite being sealed
 	
 	
-	while enchanting clothes, there are two pictures of the item - one is of the original item and one is craft button
-		When I clicked on picture of the original item, enchant potion interface froze (buttons were unresponsive, otherwise game worked normally)
-		
-	
 	Suggestion: Pale as a demon skin color.
 	
 	There seems to be a bug in the new character creation system where you don't have your virginities when you say you have no sexual experience and vice versa.
 	
-	- Player addictions reset when game is loaded
 	- Succubi seem to all change colors
 	- "-Breasts seem immediately refilled on load.
 	- Slave activity logbook completely clears on load.
-	- This creates occasional further bugs i.e. two of my slaves are exported and imported slave stocks NPCs and whenever I losd their status is returned to 'ready for birthing' except without pregnancy. Every single pregnancy of those two has to be resolved without loading a saved game, otherwise potential babies disappear into digital void. "
+		- This creates occasional further bugs i.e. two of my slaves are exported and imported slave stocks NPCs and whenever I losd their status is returned to 'ready for birthing' except without pregnancy.
+		 Every single pregnancy of those two has to be resolved without loading a saved game, otherwise potential babies disappear into digital void. "
 	
 	change it for the next version so that it turns into a debuff after ~24 hours of not being milked instead
 	

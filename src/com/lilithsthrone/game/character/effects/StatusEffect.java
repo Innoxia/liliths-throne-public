@@ -6640,11 +6640,6 @@ public enum StatusEffect {
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.getLust()>=100 && !target.isVulnerableToLustLoss();
 		}
-		
-		@Override
-		public boolean isCombatEffect() {
-			return true;
-		}
 	},
 
 	// From spells (still in combat):
