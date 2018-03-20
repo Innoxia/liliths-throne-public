@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
 import com.lilithsthrone.game.character.race.Race;
@@ -168,7 +169,7 @@ public enum PenisType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public BodyCoveringType getBodyCoveringType() {
+	public BodyCoveringType getBodyCoveringType(Body body) {
 		return skinType;
 	}
 	

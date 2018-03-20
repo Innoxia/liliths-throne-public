@@ -25,6 +25,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import com.lilithsthrone.controller.MainController;
 import com.lilithsthrone.controller.TooltipUpdateThread;
@@ -87,6 +88,7 @@ import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.MapDisplay;
 import com.lilithsthrone.game.dialogue.encounters.Encounter;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
+import com.lilithsthrone.game.dialogue.eventLog.SlaveryEventLogEntry;
 import com.lilithsthrone.game.dialogue.places.dominion.zaranixHome.ZaranixHomeGroundFloor;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
@@ -123,7 +125,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.1.89
+ * @version 0.2.2
  * @author Innoxia
  */
 public class Game implements Serializable, XMLSaving {
@@ -142,13 +144,13 @@ public class Game implements Serializable, XMLSaving {
 	private long minutesPassed;
 	private LocalDateTime startingDate;
 	private boolean debugMode, renderAttributesSection, renderMap, inCombat, inSex, imperialMeasurements;
-
+	
 	private Weather currentWeather;
 	private long nextStormTime;
 	private int weatherTimeRemaining;
-
+	
 	private Encounter currentEncounter;
-
+	
 	private boolean hintsOn, started;
 	
 	private DialogueFlags dialogueFlags;
@@ -164,8 +166,9 @@ public class Game implements Serializable, XMLSaving {
 	private StringBuilder pastDialogueSB = new StringBuilder(), choicesDialogueSB = new StringBuilder();
 	private StringBuilder textEndStringBuilder = new StringBuilder(), textStartStringBuilder = new StringBuilder();
 	
-	// Log:
+	// Logs:
 	private List<EventLogEntry> eventLog = new ArrayList<>();
+	private Map<Integer, List<SlaveryEventLogEntry>> slaveryEventLog = new HashMap<>();
 	
 	// Slavery:
 	private SlaveryUtil slaveryUtil = new SlaveryUtil();
@@ -371,6 +374,17 @@ public class Game implements Serializable, XMLSaving {
 				event.saveAsXML(eventLogNode, doc);
 			}
 			
+			Element slaveryEventLogNode = doc.createElement("slaveryEventLog");
+			game.appendChild(slaveryEventLogNode);
+			for(int day : Main.game.getSlaveryEventLog().keySet()) {
+				Element element = doc.createElement("day");
+				slaveryEventLogNode.appendChild(element);
+				CharacterUtils.addAttribute(doc, element, "value", String.valueOf(day));
+				for(SlaveryEventLogEntry event : Main.game.getSlaveryEventLog().get(day)) {
+					event.saveAsXML(element, doc);
+				}
+			}
+			
 			
 			// Add maps:
 			Element mapNode = doc.createElement("maps");
@@ -479,6 +493,24 @@ public class Game implements Serializable, XMLSaving {
 					newGame.eventLog.add(EventLogEntry.loadFromXML(e, doc));
 				}
 				newGame.eventLog.sort(Comparator.comparingLong(EventLogEntry::getTime));
+				
+				
+				NodeList nodes = gameElement.getElementsByTagName("slaveryEventLog");
+				Element extraEffectNode = (Element) nodes.item(0);
+				if(extraEffectNode != null) {
+					for(int i=0; i< extraEffectNode.getElementsByTagName("day").getLength(); i++){
+						Element e = (Element) gameElement.getElementsByTagName("day").item(i);
+						int day = Integer.valueOf(e.getAttribute("value"));
+						newGame.slaveryEventLog.put(day, new ArrayList<>());
+						
+						for(int j=0; j< e.getElementsByTagName("eventLogEntry").getLength(); j++){
+							Element entry = (Element) e.getElementsByTagName("eventLogEntry").item(j);
+							newGame.slaveryEventLog.get(day).add(SlaveryEventLogEntry.loadFromXML(entry, doc));
+						}
+					}
+				}
+				
+				
 				
 				// Maps:
 				for(int i=0; i<((Element) gameElement.getElementsByTagName("maps").item(0)).getElementsByTagName("world").getLength(); i++){
@@ -2695,6 +2727,16 @@ public class Game implements Serializable, XMLSaving {
 	
 	public void setEventLog(List<EventLogEntry> eventLog) {
 		this.eventLog = eventLog;
+	}
+	
+	public Map<Integer, List<SlaveryEventLogEntry>> getSlaveryEventLog() {
+		return slaveryEventLog;
+	}
+	
+	public void addSlaveryEvent(int day, NPC slave, SlaveryEventLogEntry event) {
+		slaveryEventLog.putIfAbsent(day, new ArrayList<>());
+		
+		slaveryEventLog.get(day).add(event);
 	}
 	
 

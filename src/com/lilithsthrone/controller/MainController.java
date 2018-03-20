@@ -1699,12 +1699,31 @@ public class MainController implements Initializable {
 				
 				((EventTarget) document.getElementById("INGREDIENT_ENCHANTING")).addEventListener("click", e -> {
 					Main.game.setResponseTab(1);
-					Main.game.setContent(new Response("Back", "Stop enchanting.", InventoryDialogue.ITEM_INVENTORY){
-						@Override
-						public void effects() {
-							EnchantmentDialogue.resetEnchantmentVariables();
-						}
-					});
+					if(EnchantmentDialogue.ingredient instanceof AbstractItem) {
+						Main.game.setContent(new Response("Back", "Stop enchanting.", InventoryDialogue.ITEM_INVENTORY){
+							@Override
+							public void effects() {
+								EnchantmentDialogue.resetEnchantmentVariables();
+							}
+						});
+					} else if(EnchantmentDialogue.ingredient instanceof AbstractClothing) {
+						Main.game.setContent(new Response("Back", "Stop enchanting.", InventoryDialogue.CLOTHING_INVENTORY){
+							@Override
+							public void effects() {
+								EnchantmentDialogue.resetEnchantmentVariables();
+							}
+						});
+						
+					} else {
+						Main.game.setContent(new Response("Back", "Stop enchanting.", InventoryDialogue.WEAPON_INVENTORY){
+							@Override
+							public void effects() {
+								EnchantmentDialogue.resetEnchantmentVariables();
+							}
+						});
+						
+					}
+					
 				}, false);
 				
 				addEventListener(document, "INGREDIENT_ENCHANTING", "mousemove", moveTooltipListener, false);

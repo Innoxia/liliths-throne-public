@@ -516,22 +516,6 @@ public enum BodyCoveringType {
 			Colour.dyeScaleColours,
 			Colour.naturalScaleColours,
 			Colour.dyeScaleColours),
-	
-	HAIR_SCALES_ALLIGATOR(Race.ALLIGATOR_MORPH,
-			"a layer of",
-			true,
-			"scales",
-			"scale",
-			Util.newArrayListOfValues(
-					new ListValue<CoveringModifier>(CoveringModifier.SMOOTH)),
-			null,
-			Util.newArrayListOfValues(
-					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
-			CoveringPattern.allScalesCoveringPatterns,
-			Colour.naturalScaleColours,
-			Colour.dyeScaleColours,
-			Colour.naturalScaleColours,
-			Colour.dyeScaleColours),
 
 	// MISC:
 	
@@ -794,6 +778,22 @@ public enum BodyCoveringType {
 					new ListValue<Colour>(Colour.FEATHERS_RED),
 					new ListValue<Colour>(Colour.FEATHERS_BLACK)),
 			null),
+	
+	HAIR_SCALES_ALLIGATOR(Race.ALLIGATOR_MORPH,
+			"a layer of",
+			false,
+			"hair",
+			"hair",
+			Util.newArrayListOfValues(
+					new ListValue<CoveringModifier>(CoveringModifier.COARSE)),
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<CoveringPattern>(CoveringPattern.NONE)),
+			CoveringPattern.allHairCoveringPatterns,
+			Colour.naturalHairColours,
+			Colour.dyeHairColours,
+			Colour.naturalHairColours,
+			Colour.dyeHairColours),
 	
 	
 	// BODY HAIR:

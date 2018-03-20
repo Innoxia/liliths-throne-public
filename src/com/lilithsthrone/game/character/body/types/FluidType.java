@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character.body.types;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
 import com.lilithsthrone.game.character.body.valueEnums.FluidModifier;
 import com.lilithsthrone.game.character.body.valueEnums.FluidTypeBase;
@@ -386,7 +387,7 @@ public enum FluidType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public BodyCoveringType getBodyCoveringType() {
+	public BodyCoveringType getBodyCoveringType(Body body) {
 		return bodyCoveringType;
 	}
 

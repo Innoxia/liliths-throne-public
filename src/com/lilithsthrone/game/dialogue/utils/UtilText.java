@@ -3477,10 +3477,10 @@ public class UtilText {
 			public String parse(String command, String arguments, String target) {
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(character.getEyeType().getBodyCoveringType()).getFullDescription(character, true);
+						return character.getCovering(character.getEyeType().getBodyCoveringType(character)).getFullDescription(character, true);
 					}
 				}
-				return character.getCovering(character.getEyeType().getBodyCoveringType()).getFullDescription(character, false);
+				return character.getCovering(character.getEyeType().getBodyCoveringType(character)).getFullDescription(character, false);
 			}
 		});
 		
@@ -3499,10 +3499,10 @@ public class UtilText {
 			public String parse(String command, String arguments, String target) {
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(character.getEyeType().getBodyCoveringType()).getColourDescriptor(character, true, parseCapitalise);
+						return character.getCovering(character.getEyeType().getBodyCoveringType(character)).getColourDescriptor(character, true, parseCapitalise);
 					}
 				}
-				return character.getCovering(character.getEyeType().getBodyCoveringType()).getColourDescriptor(character, false, parseCapitalise);
+				return character.getCovering(character.getEyeType().getBodyCoveringType(character)).getColourDescriptor(character, false, parseCapitalise);
 			}
 		});
 		
@@ -3525,10 +3525,10 @@ public class UtilText {
 			public String parse(String command, String arguments, String target) {
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(character.getEyeType().getBodyCoveringType()).getPrimaryColourDescriptor(true);
+						return character.getCovering(character.getEyeType().getBodyCoveringType(character)).getPrimaryColourDescriptor(true);
 					}
 				}
-				return character.getCovering(character.getEyeType().getBodyCoveringType()).getPrimaryColourDescriptor(false);
+				return character.getCovering(character.getEyeType().getBodyCoveringType(character)).getPrimaryColourDescriptor(false);
 			}
 		});
 
@@ -3551,10 +3551,10 @@ public class UtilText {
 			public String parse(String command, String arguments, String target) {
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(character.getEyeType().getBodyCoveringType()).getSecondaryColourDescriptor(true);
+						return character.getCovering(character.getEyeType().getBodyCoveringType(character)).getSecondaryColourDescriptor(true);
 					}
 				}
-				return character.getCovering(character.getEyeType().getBodyCoveringType()).getSecondaryColourDescriptor(false);
+				return character.getCovering(character.getEyeType().getBodyCoveringType(character)).getSecondaryColourDescriptor(false);
 			}
 		});
 		
@@ -3893,15 +3893,15 @@ public class UtilText {
 				bodyPart){
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType())==null) {
+				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character))==null) {
 					return "";
 				}
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getFullDescription(character, true);
+						return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character)).getFullDescription(character, true);
 					}
 				}
-				return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getFullDescription(character, false);
+				return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character)).getFullDescription(character, false);
 			}
 		});
 		
@@ -3914,10 +3914,10 @@ public class UtilText {
 				bodyPart){
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType())==null) {
+				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character))==null) {
 					return "";
 				}
-				return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getFullDescription(character, true);
+				return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character)).getFullDescription(character, true);
 			}
 		});
 		
@@ -3930,15 +3930,15 @@ public class UtilText {
 				bodyPart){
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType())==null) {
+				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character))==null) {
 					return "";
 				}
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getColourDescriptor(character, true, parseCapitalise);
+						return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character)).getColourDescriptor(character, true, parseCapitalise);
 					}
 				}
-				return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getColourDescriptor(character, false, parseCapitalise);
+				return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character)).getColourDescriptor(character, false, parseCapitalise);
 			}
 		});
 		
@@ -3951,15 +3951,15 @@ public class UtilText {
 				bodyPart){
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType())==null) {
+				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character))==null) {
 					return "";
 				}
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getPrimaryColourDescriptor(true);
+						return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character)).getPrimaryColourDescriptor(true);
 					}
 				}
-				return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getPrimaryColourDescriptor(false);
+				return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character)).getPrimaryColourDescriptor(false);
 			}
 		});
 		
@@ -3972,15 +3972,15 @@ public class UtilText {
 				bodyPart){
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType())==null) {
+				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character))==null) {
 					return "";
 				}
 				if(arguments!=null) {
 					if(arguments.equalsIgnoreCase("true")) {
-						return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getSecondaryColourDescriptor(true);
+						return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character)).getSecondaryColourDescriptor(true);
 					}
 				}
-				return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getSecondaryColourDescriptor(false);
+				return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character)).getSecondaryColourDescriptor(false);
 			}
 		});
 		
@@ -3993,10 +3993,10 @@ public class UtilText {
 				bodyPart){
 			@Override
 			public String parse(String command, String arguments, String target) {
-				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType())==null) {
+				if(character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character))==null) {
 					return "";
 				}
-				return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType()).getPrimaryColour().toWebHexString();
+				return character.getCovering(getBodyPartFromType(bodyPart).getType().getBodyCoveringType(character)).getPrimaryColour().toWebHexString();
 			}
 		});
 		
@@ -4185,26 +4185,28 @@ public class UtilText {
 	}
 	
 	private static String getSkinName(BodyPartTypeInterface bodyPart) {
-		if(bodyPart.getBodyCoveringType()==null)
+		if(bodyPart.getBodyCoveringType(character)==null)
 			return "";
 		
 		if(parseAddPronoun) {
 			parseAddPronoun = false;
-			return applyDeterminer(bodyPart.getBodyCoveringType().getDeterminer(character), bodyPart.getBodyCoveringType().getName(character));
+			return applyDeterminer(bodyPart.getBodyCoveringType(character).getDeterminer(character), bodyPart.getBodyCoveringType(character).getName(character));
 		} else {
-			return bodyPart.getBodyCoveringType().getName(character);
+			return bodyPart.getBodyCoveringType(character).getName(character);
 		}
 	}
 	
 	private static String getSkinNameWithDescriptor(BodyPartTypeInterface bodyPart) {
-		if(bodyPart.getBodyCoveringType()==null)
+		if(bodyPart.getBodyCoveringType(character)==null)
 			return "";
 		
 		if(parseAddPronoun) {
 			parseAddPronoun = false;
-			return applyDeterminer(bodyPart.getBodyCoveringType().getDeterminer(character), applyDescriptor(character.getCovering(bodyPart.getBodyCoveringType()).getModifier().getName(), bodyPart.getBodyCoveringType().getName(character)));
+			return applyDeterminer(bodyPart.getBodyCoveringType(character).getDeterminer(character),
+					applyDescriptor(character.getCovering(bodyPart.getBodyCoveringType(character)).getModifier().getName(),
+					bodyPart.getBodyCoveringType(character).getName(character)));
 		} else {
-			return applyDescriptor(character.getCovering(bodyPart.getBodyCoveringType()).getModifier().getName(), bodyPart.getBodyCoveringType().getName(character));
+			return applyDescriptor(character.getCovering(bodyPart.getBodyCoveringType(character)).getModifier().getName(), bodyPart.getBodyCoveringType(character).getName(character));
 		}
 	}
 	

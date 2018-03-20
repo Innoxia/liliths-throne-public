@@ -813,16 +813,20 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		// ************** Fluids **************//
 		
 		
+		Element characterAddictionsCore = doc.createElement("addictionsCore");
+		properties.appendChild(characterAddictionsCore);
+
+		CharacterUtils.addAttribute(doc, characterAddictionsCore, "alcoholLevel", String.valueOf(alcoholLevel));
+		
 		Element characterAddictions = doc.createElement("addictions");
-		properties.appendChild(characterAddictions);
+		characterAddictionsCore.appendChild(characterAddictions);
 		for(Addiction add : addictions) {
 			add.saveAsXML(characterAddictions, doc);
 		}
 		
-		CharacterUtils.addAttribute(doc, characterAddictions, "alcoholLevel", String.valueOf(alcoholLevel));
 		
 		Element psychoactives = doc.createElement("psychoactiveFluids");
-		properties.appendChild(psychoactives);
+		characterAddictionsCore.appendChild(psychoactives);
 		for(FluidType ft : this.getPsychoactiveFluidsIngested()) {
 			Element element = doc.createElement("fluid");
 			psychoactives.appendChild(element);
@@ -1483,7 +1487,23 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		// ************** Addictions **************//
 
-		nodes = parentElement.getElementsByTagName("addictions");
+//		Element characterAddictions = doc.createElement("addictions");
+//		properties.appendChild(characterAddictions);
+//		for(Addiction add : addictions) {
+//			add.saveAsXML(characterAddictions, doc);
+//		}
+//		
+//		CharacterUtils.addAttribute(doc, characterAddictions, "alcoholLevel", String.valueOf(alcoholLevel));
+//		
+//		Element psychoactives = doc.createElement("psychoactiveFluids");
+//		properties.appendChild(psychoactives);
+//		for(FluidType ft : this.getPsychoactiveFluidsIngested()) {
+//			Element element = doc.createElement("fluid");
+//			psychoactives.appendChild(element);
+//			CharacterUtils.addAttribute(doc, element, "value", ft.toString());
+//		}
+		
+		nodes = parentElement.getElementsByTagName("addictionsCore");
 		Element addictionsElement = (Element) nodes.item(0);
 		
 		if(addictionsElement!=null) {
@@ -1514,11 +1534,15 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					CharacterUtils.appendToImportLog(log, "</br>Set satisfied time:"+e.getAttribute("type")+" "+e.getAttribute("value"));
 				}
 			}
+			
 			// New addiction:
 			element = (Element) addictionsElement.getElementsByTagName("addictions").item(0);
 			if(element!=null) {
 				for(int i=0; i<element.getElementsByTagName("addiction").getLength(); i++){
-					character.addAddiction(Addiction.loadFromXML(log, ((Element)element.getElementsByTagName("addiction").item(i)), doc));
+					try {
+						character.addAddiction(Addiction.loadFromXML(log, ((Element)element.getElementsByTagName("addiction").item(i)), doc));
+					} catch(Exception ex) {	
+					}
 				}
 			}
 		}
@@ -1826,24 +1850,35 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 
 	public String setObedience(float obedience) {
-		
-		this.obedience = Math.max(-100, Math.min(100, obedience));
-		
-		return UtilText.parse(this,
-					"<p style='text-align:center'>"
-						+ "[npc.Name] now has <b>"+(obedience>0?"+":"")+obedience+"</b> [style.boldObedience(obedience)]!</br>"
-						+ ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(obedience), true, false)
-					+ "</p>");
+		return setObedience(obedience, true);
 	}
 	
+	public String setObedience(float obedience, boolean applyJobPerkGains) {
+		return incrementObedience(obedience - this.getObedienceValue(), applyJobPerkGains);
+	}
+
 	public String incrementObedience(float increment) {
+		return incrementObedience(increment, true);
+	}
+	
+	public String incrementObedience(float increment, boolean applyJobPerkGains) {
+		if(applyJobPerkGains && this.isSlave() && this.getOwner().hasTrait(Perk.JOB_TEACHER, true)) {
+			increment *= 3;
+		}
 		
-		setObedience(getObedienceValue()+increment);
+		this.obedience = Math.max(-100, Math.min(100, obedience+increment));
 		
 		return UtilText.parse(this,
 				"<p style='text-align:center'>"
-						+ "[npc.Name] "+(increment>0?"[style.boldGrow(gains)]":"[style.boldShrink(loses)]")+" <b>"+Math.abs(increment)+"</b> [style.boldObedience(obedience)]!"
-					+ "</p>");
+						+ "[npc.Name] "+(increment>0?"[style.boldGrow(gains)]":"[style.boldShrink(loses)]")+" <b>"+Math.abs(increment)+"</b> [style.boldObedience(obedience)]!</br>"
+						+ "[npc.She] now has <b>"+(obedience>0?"+":"")+obedience+"</b> [style.boldObedience(obedience)].</br>"
+						+ ObedienceLevel.getDescription(this, ObedienceLevel.getObedienceLevelFromValue(obedience), true, false)
+					+ "</p>"
+					+ (this.isSlave() && this.getOwner().hasTrait(Perk.JOB_TEACHER, true)
+						?"<p style='text-align:center'>"
+							+ "<i>Obedience gain was [style.colourExcellent(tripled)], as "+(this.getOwner().isPlayer()?"you have":this.getOwner().getName()+" has ")+" the '"+Perk.JOB_TEACHER.getName(this.getOwner())+"' trait.</i>"
+						+ "</p>"
+						:""));
 	}
 	
 	public float getHourlyObedienceChange(int hour) {
@@ -7966,13 +8001,13 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			this.addStatusEffect(StatusEffect.PSYCHOACTIVE, 6*60);
 			if(isPlayer()) {
 				fluidIngestionSB.append("<p>"
-							+ "Due to the psychoactive properties of "+(charactersFluid.equals(this)?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
+							+ "Due to the psychoactive properties of "+(charactersFluid.isPlayer()?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
 								+", you start <span style='color:"+Colour.PSYCHOACTIVE.toWebHexString()+";'>tripping out</span>!"
 						+ "</p>");
 			} else {
 				fluidIngestionSB.append(UtilText.parse(this,
 						"<p>"
-						+ "Due to the psychoactive properties of "+(charactersFluid.equals(this)?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
+						+ "Due to the psychoactive properties of "+(charactersFluid.isPlayer()?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
 							+", [npc.name] starts <span style='color:"+Colour.PSYCHOACTIVE.toWebHexString()+";'>tripping out</span>!"
 					+ "</p>"));
 			}
@@ -7982,7 +8017,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			addAddiction(new Addiction(fluid, Main.game.getMinutesPassed(), charactersFluid.getId()));
 			if(isPlayer()) {
 				fluidIngestionSB.append("<p>"
-							+ "Due to the addictive properties of "+(charactersFluid.equals(this)?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
+							+ "Due to the addictive properties of "+(charactersFluid.isPlayer()?"your":charactersFluid.getName()+"'s")+" "+fluid.getName(charactersFluid)
 								+", you find yourself [style.colourArcane(craving)] <span style='color:"+fluid.getRace().getColour().toWebHexString()+";'>"+fluid.getDescriptor(charactersFluid)+"</span> "+fluid.getName(charactersFluid)+"!"
 						+ "</p>");
 			} else {
@@ -10807,7 +10842,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		StringBuilder postTFSB = new StringBuilder();
 		// If this is the first time getting this covering type:
 		for(BodyPartInterface bp : body.getAllBodyParts()) {
-			BodyCoveringType bct = bp.getType().getBodyCoveringType();
+			BodyCoveringType bct = bp.getType().getBodyCoveringType(this);
 			if(!body.getBodyCoveringTypesDiscovered().contains(bct)) {
 				if(bct!=null) {
 					body.getBodyCoveringTypesDiscovered().add(bct);
@@ -12507,7 +12542,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	// Covering:
 	public String setHairCovering(Covering covering, boolean updateBodyHair) {
-		if(!getCovering(getHairType().getBodyCoveringType()).equals(covering)) {
+		if(!getCovering(getHairType().getBodyCoveringType(this)).equals(covering)) {
 			body.getCoverings().put(covering.getType(), covering);
 			
 			body.updateCoverings(false, false, updateBodyHair, false);
@@ -13162,7 +13197,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			}
 		}
 		
-		if(!getCovering(getSkinType().getBodyCoveringType()).equals(covering)) {
+		if(!getCovering(getSkinType().getBodyCoveringType(this)).equals(covering)) {
 
 			BodyCoveringType coveringType = covering.getType();
 			
@@ -13172,7 +13207,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			
 			List<String> affectedParts = new ArrayList<>();
 			for (BodyPartInterface part : body.getAllBodyParts()) {
-				if (part.getType().getBodyCoveringType() == coveringType) {
+				if (part.getType().getBodyCoveringType(this) == coveringType) {
 					affectedParts.add(part.getName(this));
 				}
 			}

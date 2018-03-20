@@ -5,6 +5,7 @@
 		Create .exe version
 	
 	!!! 32 bit exe !!!
+	Error logger!
 	
 	
 	1. Have all of the core content for Submission finished (all of the encounters written in, and every area having at least the basics of their content added).
@@ -21,9 +22,12 @@
 	Patch notes:
 	
 	Other:
+		<b>Changed:</b> Ass and Breasts are now covered in the same skin/fur type as that which covers the character's torso.
 		Changed bandana displacement to be pulls down, not pulls up.
 		You can now see your opponent's fetishes in combat.
 		Added content option for feminine characters to have facial hair (disabled by default).
+		Slave rooms no longer give +0.2 affection per hour.
+		Changed alligator-morph's 'scales in place of hair' to coarse hair. (All naturally-spawning alligators now spawn in with no hair.)
 	
 	Contributors:
 		Cleaned various issues. (Pimvgd)
@@ -44,9 +48,14 @@
 		
 	Bugs:
 		Typo fixes.
+		Slavery log events now properly save and load.
+		Fixed bimbo talk sometimes generating incorrect sentence endings. 
+		Fixed being able to cast spells even when out of aura.
+		Fixed bug in enchanting screen, where adding a new enchantment that matched an existing enchantment (i.e. Adding 5 seduction damage when an existing +5 seduction damage already existed), showed that the new one required an arcane cost to remove.
+		Fixed enchanting screen bug, where clicking on the left clothing icon would cause a soft-lock.
+		Fixed addictions not saving/loading properly.
+		Triple obedience gains from the 'In Control' trait (the one gained from having the Teacher background) will now correctly be applied to all obedience gains.
 		
-	
-	
 	
 	
 	Suggestions: It would be nice to have mouth(inside - teeth and tongue) transformation apart from just face transformation [I like my wolf-girls with human face but canine teeth]

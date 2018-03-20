@@ -3,6 +3,7 @@ package com.lilithsthrone.game.character.body.types;
 import java.util.ArrayList;
 import java.util.List;
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 
@@ -61,7 +62,7 @@ public enum AntennaType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public BodyCoveringType getBodyCoveringType() {
+	public BodyCoveringType getBodyCoveringType(Body body) {
 		return skinType;
 	}
 

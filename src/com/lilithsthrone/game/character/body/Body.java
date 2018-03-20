@@ -259,8 +259,8 @@ public class Body implements Serializable, XMLSaving {
 		
 		coveringsDiscovered = EnumSet.noneOf(BodyCoveringType.class);
 		for(BodyPartInterface bp : allBodyParts) {
-			if(bp.getType().getBodyCoveringType()!=null) {
-				coveringsDiscovered.add(bp.getType().getBodyCoveringType());
+			if(bp.getType().getBodyCoveringType(this)!=null) {
+				coveringsDiscovered.add(bp.getType().getBodyCoveringType(this));
 			}
 		}
 		
@@ -1576,7 +1576,7 @@ public class Body implements Serializable, XMLSaving {
 					sb.append(", fur-like hair");
 					break;
 				case ALLIGATOR_MORPH:
-					sb.append(", scales in place of hair");
+					sb.append(", coarse hair");
 					break;
 				case SQUIRREL_MORPH:
 					sb.append(", fur-like hair");
@@ -1792,7 +1792,7 @@ public class Body implements Serializable, XMLSaving {
 		}
 		
 		if (owner.isPlayer()) {
-			if(owner.getCovering(owner.getEyeType().getBodyCoveringType()).getPattern() == CoveringPattern.EYE_IRISES_HETEROCHROMATIC) {
+			if(owner.getCovering(owner.getEyeType().getBodyCoveringType(owner)).getPattern() == CoveringPattern.EYE_IRISES_HETEROCHROMATIC) {
 				sb.append(", with [pc.irisShape], heterochromatic [pc.irisPrimaryColour(true)]-and-[pc.irisSecondaryColour(true)] irises ");
 			} else {
 				sb.append(", with [pc.irisShape], [pc.irisPrimaryColour(true)] irises ");
@@ -1804,7 +1804,7 @@ public class Body implements Serializable, XMLSaving {
 				sb.append("and [pc.pupilShape], [pc.pupilPrimaryColour(true)] pupils.");
 			}
 		} else {
-			if(owner.getCovering(owner.getEyeType().getBodyCoveringType()).getPattern() == CoveringPattern.EYE_IRISES_HETEROCHROMATIC) {
+			if(owner.getCovering(owner.getEyeType().getBodyCoveringType(owner)).getPattern() == CoveringPattern.EYE_IRISES_HETEROCHROMATIC) {
 				sb.append(", with [npc.irisShape], heterochromatic [npc.irisPrimaryColour(true)]-and-[npc.irisSecondaryColour(true)] irises, ");
 			} else {
 				sb.append(", with [npc.irisShape], [npc.irisPrimaryColour(true)] irises ");
