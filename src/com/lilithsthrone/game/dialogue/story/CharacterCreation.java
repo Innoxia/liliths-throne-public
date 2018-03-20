@@ -133,6 +133,7 @@ public class CharacterCreation {
 						Main.game.setRenderAttributesSection(true);
 						Main.game.getPlayer().setName(new NameTriplet("Unknown", "Unknown", "Unknown"));
 						Main.game.getPlayer().setSurname("");
+						BodyChanging.setTarget(Main.game.getPlayer());
 					}
 				};
 				
@@ -697,7 +698,6 @@ public class CharacterCreation {
 							Main.game.getPlayer().setName(new NameTriplet(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldName").getTextContent()));
 							Main.game.getPlayer().setSurname(Main.mainController.getWebEngine().getDocument().getElementById("hiddenFieldSurname").getTextContent());
 							getDressed();
-							BodyChanging.setTarget(Main.game.getPlayer());
 							Main.game.setContent(new Response("" ,"", CHOOSE_ADVANCED_APPEARANCE));
 						}
 					}
