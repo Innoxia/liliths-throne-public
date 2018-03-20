@@ -1552,6 +1552,10 @@ public class Game implements Serializable, XMLSaving {
 		setContent(response, true, null, null);
 	}
 	
+	public void setContent(Response response, boolean allowTimeProgress) {
+		setContent(response, allowTimeProgress, null, null);
+	}
+	
 	public void setContent(Response response, Colour colour, String messageText) {
 		setContent(response, true, colour, messageText);
 	}
