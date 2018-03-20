@@ -1185,7 +1185,10 @@ public class Body implements Serializable, XMLSaving {
 		
 		importedVagina.pierced = (Boolean.valueOf(vagina.getAttribute("pierced")));
 		importedVagina.orificeVagina.stretchedCapacity = (Float.valueOf(vagina.getAttribute("stretchedCapacity")));
-		importedVagina.orificeVagina.squirter = (Boolean.valueOf(vagina.getAttribute("squirter")));
+		try {
+			importedVagina.orificeVagina.squirter = (Boolean.valueOf(vagina.getAttribute("squirter")));
+		} catch(Exception ex) {
+		}
 		
 		CharacterUtils.appendToImportLog(log, "</br></br>Body: Vagina: "
 				+ "</br>type: "+importedVagina.getType()
