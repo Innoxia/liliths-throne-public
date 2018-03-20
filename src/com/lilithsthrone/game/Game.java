@@ -662,7 +662,7 @@ public class Game implements Serializable, XMLSaving {
 		
 		DialogueNodeOld startingDialogueNode = Main.game.getPlayerCell().getPlace().getDialogue(false);
 		Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Game loaded)]", "data/saves/"+name+".xml"), false);
-		Main.game.setContent(new Response(startingDialogueNode.getLabel(), startingDialogueNode.getDescription(), startingDialogueNode));
+		Main.game.setContent(new Response(startingDialogueNode.getLabel(), startingDialogueNode.getDescription(), startingDialogueNode), false);
 		
 		newGame.endTurn(0);
 	}
@@ -1550,6 +1550,10 @@ public class Game implements Serializable, XMLSaving {
 	 */
 	public void setContent(Response response) {
 		setContent(response, true, null, null);
+	}
+	
+	public void setContent(Response response, boolean allowTimeProgress) {
+		setContent(response, allowTimeProgress, null, null);
 	}
 	
 	public void setContent(Response response, Colour colour, String messageText) {
