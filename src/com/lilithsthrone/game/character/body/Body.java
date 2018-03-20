@@ -578,6 +578,7 @@ public class Body implements Serializable, XMLSaving {
 			CharacterUtils.addAttribute(doc, bodyVagina, "capacity", String.valueOf(this.vagina.orificeVagina.capacity));
 			CharacterUtils.addAttribute(doc, bodyVagina, "stretchedCapacity", String.valueOf(this.vagina.orificeVagina.stretchedCapacity));
 			CharacterUtils.addAttribute(doc, bodyVagina, "virgin", String.valueOf(this.vagina.orificeVagina.virgin));
+			CharacterUtils.addAttribute(doc, bodyVagina, "squirter", String.valueOf(this.vagina.orificeVagina.squirter));
 			Element vaginaModifiers = doc.createElement("vaginaModifiers");
 			bodyVagina.appendChild(vaginaModifiers);
 			for(OrificeModifier om : OrificeModifier.values()) {
@@ -1184,6 +1185,10 @@ public class Body implements Serializable, XMLSaving {
 		
 		importedVagina.pierced = (Boolean.valueOf(vagina.getAttribute("pierced")));
 		importedVagina.orificeVagina.stretchedCapacity = (Float.valueOf(vagina.getAttribute("stretchedCapacity")));
+		try {
+			importedVagina.orificeVagina.squirter = (Boolean.valueOf(vagina.getAttribute("squirter")));
+		} catch(Exception ex) {
+		}
 		
 		CharacterUtils.appendToImportLog(log, "</br></br>Body: Vagina: "
 				+ "</br>type: "+importedVagina.getType()
