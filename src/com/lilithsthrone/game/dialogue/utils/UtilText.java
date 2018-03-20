@@ -113,6 +113,14 @@ public class UtilText {
 				}
 			}
 		}
+		
+		if (Main.game.getPlayer().getSpeechColour() != null) {
+			// Just some fun for demon PCs, probably not canon :P
+			if(Main.game.getPlayer().getRace().equals(Race.DEMON) && Main.game.getPlayer().getRaceStage().equals(RaceStage.GREATER))
+				return Covering.spanStartGlowing(Main.game.getPlayer().primaryColour) + "<span class='speech'>" + modifiedSentence + "</span></span>";
+			return "<span class='speech' style='color:" + Main.game.getPlayer().getSpeechColour() + ";'>" + modifiedSentence + "</span>";
+
+		}
 
 		if (Femininity.valueOf(Main.game.getPlayer().getFemininityValue()) == Femininity.MASCULINE || Femininity.valueOf(Main.game.getPlayer().getFemininityValue()) == Femininity.MASCULINE_STRONG)
 			return "<span class='speech' style='color:" + Colour.MASCULINE.toWebHexString() + ";'>" + modifiedSentence + "</span>";
