@@ -9891,8 +9891,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return inventory.getHighestZLayerCoverableArea(area);
 	}
 
-	public List<AbstractClothing> getAllLayersCoverableArea(CoverableArea area) {
-		return inventory.getAllLayersCoverableArea(area);
+	/** If preSex, attempt to get the relevant clothing as it was outside of sex. */
+	public List<AbstractClothing> getAllLayersCoverableArea(CoverableArea area, boolean preSex) {
+		return inventory.getAllLayersCoverableArea(area, preSex && Main.game.isInSex() ? Sex.getClothingPreSexMap(this) : null);
 	}
 	
 	public Set<InventorySlot> getDirtySlots() {
@@ -11952,7 +11953,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	public int getBreastAdjustedRawSizeValue() {
 		int size = getBreastRawSizeValue();
-		for(AbstractClothing clothing : getAllLayersCoverableArea(CoverableArea.BREASTS)) {
+		for(AbstractClothing clothing : getAllLayersCoverableArea(CoverableArea.BREASTS, true)) {
 			size += clothing.getBreastSizeAdjustment();
 		}
 		size = Math.max(size, CupSize.FLAT.getMeasurement());
@@ -12851,7 +12852,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	public int getPenisAdjustedRawSizeValue() {
 		int size = body.getPenis().getRawSizeValue();
-		for(AbstractClothing clothing : getAllLayersCoverableArea(CoverableArea.PENIS)) {
+		for(AbstractClothing clothing : getAllLayersCoverableArea(CoverableArea.PENIS, true)) {
 			size += clothing.getPenisSizeAdjustment();
 		}
 		size = Math.max(size, PenisSize.ZERO_MICROSCOPIC.getMinimumValue());

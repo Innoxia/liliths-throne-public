@@ -3693,4 +3693,9 @@ public enum Sex {
 		
 		return associatedFetishes;
 	}
+
+	public static Map<AbstractClothing, List<DisplacementType>> getClothingPreSexMap(GameCharacter whichCharacter) {
+		return clothingPreSexMap != null && clothingPreSexMap.containsKey(whichCharacter)
+				? clothingPreSexMap.get(whichCharacter) : null;
+	}
 }
