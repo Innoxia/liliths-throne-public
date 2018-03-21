@@ -1663,6 +1663,29 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		return c;
 	}
 
+	/**
+	 * A list of all clothing that is blocking this slot.</br>
+	 * <b>Note:</b> This takes into account displacement, so, for example, if your panties are displaced, and are the only piece of clothing otherwise blocking your vagina,
+	 *  this method will return an empty list for getAllLayersCoverableArea(CoverableArea.VAGINA)!
+	 */
+	public List<AbstractClothing> getAllLayersCoverableArea(CoverableArea area) {
+		List<AbstractClothing> c = new ArrayList<>();
+
+		// Iterate through currently worn clothing:
+		for (AbstractClothing clothing : clothingCurrentlyEquipped) {
+			// If this clothing is blocking the slot you are trying to access:
+			for (BlockedParts bp : clothing.getClothingType().getBlockedPartsList()) {
+				if (bp.blockedBodyParts.contains(area) && !clothing.getDisplacedList().contains(bp.displacementType)) {
+					if(!isCoverableAreaExposedFromElsewhere(clothing, area)) {
+						c.add(clothing);
+					}
+				}
+			}
+		}
+
+		return c;
+	}
+
 	public AbstractClothing getBlockingClothing() {
 		return blockingClothing;
 	}

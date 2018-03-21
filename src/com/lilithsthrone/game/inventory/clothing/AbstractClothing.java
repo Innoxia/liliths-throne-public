@@ -1009,4 +1009,12 @@ public abstract class AbstractClothing extends AbstractCoreItem implements Seria
 	public TFEssence getRelatedEssence() {
 		return clothingType.getRelatedEssence();
 	}
+
+	public int getBreastSizeAdjustment() {
+		return clothingType.getBreastSizeAdjustment();
+	}
+
+	public int getPenisSizeAdjustment() {
+		return clothingType.getPenisSizeAdjustment();
+	}
 }

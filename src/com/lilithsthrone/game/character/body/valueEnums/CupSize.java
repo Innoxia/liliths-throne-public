@@ -72,4 +72,8 @@ public enum CupSize {
 	public int getMeasurement() {
 		return measurement;
 	}
+
+	public int getMaxMeasurement() {
+		return upperBound;
+	}
 }
