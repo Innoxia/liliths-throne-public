@@ -53,7 +53,7 @@ import com.lilithsthrone.utils.WeaponRarityComparator;
 /**
  * @since 0.1.0
  * @version 0.1.99
- * @author Innoxia
+ * @author Innoxia, tukaima
  */
 public class PhoneDialogue {
 
@@ -1734,19 +1734,10 @@ public class PhoneDialogue {
 										+ "<td>-</td>"
 									+ "</tr>");
 						
-						for(Subspecies sub : Subspecies.values()) {
-							if(sub.getRace()==race) {
-								raceSB.append(
-										"<tr>"
-											+"<th>Subspecies:</th>"
-											+ "<th><b style='color:"+Femininity.valueOf(racialBody.getFemaleFemininity()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(sub.getSingularFemaleName())+"</b></th>"
-											+ "<th><b style='color:"+Femininity.valueOf(racialBody.getMaleFemininity()).getColour().toWebHexString()+";'>"+Util.capitaliseSentence(sub.getSingularMaleName())+"</b></th>"
-										+ "</tr>");
-							}
-						}
-						
 						raceSB.append("</table>"
-								+ "</div>");
+								+ "</div>"
+								+ "<details>"
+								+ "<summary>Subspecies</summary>");
 						
 						for(Subspecies sub : Subspecies.values()) {
 							if(sub.getRace()==race) {
@@ -1763,8 +1754,8 @@ public class PhoneDialogue {
 						}
 						
 						
-						raceSB.append(
-								"<h6>"+Util.capitaliseSentence(race.getName())+" Lore</h6>"
+						raceSB.append("</details>"
+								+ "<h6>"+Util.capitaliseSentence(race.getName())+" Lore</h6>"
 									+race.getBasicDescription()
 									+ (Main.getProperties().isAdvancedRaceKnowledgeDiscovered(race)
 										?race.getAdvancedDescription()
