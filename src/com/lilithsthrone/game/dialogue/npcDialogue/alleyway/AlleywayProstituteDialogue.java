@@ -2,7 +2,6 @@ package com.lilithsthrone.game.dialogue.npcDialogue.alleyway;
 
 import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
-import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
@@ -20,16 +19,24 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.95
- * @version 0.1.95
+ * @version 0.2.2
  * @author Innoxia
  */
 public class AlleywayProstituteDialogue {
 
 	private static int prostitutePrice() {
 		return CharacterUtils.getProstitutePrice(Main.game.getActiveNPC());
+	}
+	
+	private static boolean isCanal() {
+		PlaceType pt = Main.game.getActiveNPC().getLocationPlace().getPlaceType();
+		return (pt == PlaceType.DOMINION_ALLEYS_CANAL_CROSSING
+				|| pt == PlaceType.DOMINION_CANAL
+				|| pt == PlaceType.DOMINION_CANAL_END);
 	}
 	
 	public static final DialogueNodeOld ALLEY_PROSTITUTE = new DialogueNodeOld("Prostitute", "You run into someone who's selling their body.", true) {
@@ -39,24 +46,29 @@ public class AlleywayProstituteDialogue {
 		public String getLabel(){
 			return "Prostitute";
 		}
-
+		
 		@Override
 		public String getContent() {
 			
+			UtilText.nodeContentSB.setLength(0);
+			
 			// You've encountered them before:
 			if(Main.game.getActiveNPC().getLastTimeEncountered() != -1) {
-				UtilText.nodeContentSB.setLength(0);
-				UtilText.nodeContentSB.append(
-						"<p>"
-							+ "You find yourself wandering down yet another of Dominion's dark, isolated alleyways, staying alert for any sign of trouble."
-							+ " Reaching a turn in your path, you step around the corner to see a rare sign of life, taking the form of the familiar figure of [npc.name],"
-							+ " <b style='color:"+Femininity.valueOf(Main.game.getActiveNPC().getFemininityValue()).getColour().toWebHexString()+";'>"
-								+ "a "+Femininity.getFemininityName(Main.game.getActiveNPC().getFemininityValue(), false)
-							+"</b>"
-							+ " <b style='color:"+Main.game.getActiveNPC().getRaceStage().getColour().toWebHexString()+";'>[npc.raceStage]</b>"
-							+ " <b style='color:"+Main.game.getActiveNPC().getRace().getColour().toWebHexString()+";'>[npc.race]</b>"
-							+ ", leaning back against one wall."
-						+ "</p>");
+				
+				if(isCanal()) {
+					UtilText.nodeContentSB.append(
+							"<p>"
+								+ "You find yourself wandering down the path that runs alongside Dominion's canal, staying alert for any sign of trouble."
+								+ " Up ahead, you suddenly spot the familiar figure of [npc.name], [npc.a_fullRace(true)], leaning back against a brick wall."
+							+ "</p>");
+					
+				} else {
+					UtilText.nodeContentSB.append(
+							"<p>"
+								+ "You find yourself wandering down yet another of Dominion's dark, isolated alleyways, staying alert for any sign of trouble."
+								+ " Reaching a turn in your path, you step around the corner to see a rare sign of life, taking the form of the familiar figure of [npc.name], [npc.a_fullRace(true)], leaning back against one wall."
+							+ "</p>");
+				}
 				
 				if(Main.game.getActiveNPC().getFoughtPlayerCount()>0) { // You've fought them before, so they're a little scared:
 					if(Main.game.getActiveNPC().isVisiblyPregnant()){ // Pregnant encounters:
@@ -80,7 +92,7 @@ public class AlleywayProstituteDialogue {
 									+ "<p>"
 										+ "You step up to [npc.name], allowing [npc.her] to take hold of your [pc.hands] and hesitantly guide them down to stroke [npc.her] swollen bump."
 										+ " [npc.She] lets out a nervous little laugh, clearly worried that you're going to attack [npc.herHim] again, before biting [npc.her] [npc.lip] and batting [npc.her] eyelids at you,"
-										+ " [npc.speech(So, you wanna fuck a pregnant "+(Main.game.getActiveNPC().isFeminine()?"chick":"dude")+"? I'll even give you a discount; forty flames to the father of our kids!)]"
+										+ " [npc.speech(So, you wanna fuck a pregnant "+(Main.game.getActiveNPC().isFeminine()?"chick":"dude")+"? I'll even give you a discount; twenty percent off for the father of our kids!)]"
 									+ "</p>");
 						} else {
 							UtilText.nodeContentSB.append(
@@ -94,7 +106,7 @@ public class AlleywayProstituteDialogue {
 									+ "<p>"
 										+ "You walk up to [npc.name], once again allowing [npc.her] to take hold of your [pc.hands] and gingerly guide them down to stroke [npc.her] swollen bump."
 										+ " [npc.She] lets out hesitant laugh, before biting [npc.her] [npc.lip] and batting [npc.her] eyelids at you,"
-										+ " [npc.speech(So, you wanna fuck a pregnant "+(Main.game.getActiveNPC().isFeminine()?"chick":"dude")+"? I'll even give you a discount; forty flames to the father of our kids!)]"
+										+ " [npc.speech(So, you wanna fuck a pregnant "+(Main.game.getActiveNPC().isFeminine()?"chick":"dude")+"? I'll even give you a discount; twenty percent off for the father of our kids!)]"
 									+ "</p>");
 						}
 						
@@ -138,7 +150,7 @@ public class AlleywayProstituteDialogue {
 									+ "<p>"
 										+ "You step up to [npc.name], allowing [npc.her] to take hold of your [pc.hands] and guide them down to stroke [npc.her] swollen bump."
 										+ " [npc.She] lets out another little laugh, before biting [npc.her] [npc.lip] and batting [npc.her] eyelids at you,"
-										+ " [npc.speech(So, you wanna fuck a pregnant "+(Main.game.getActiveNPC().isFeminine()?"chick":"dude")+"? I'll even give you a discount; forty flames to the father of our kids!)]"
+										+ " [npc.speech(So, you wanna fuck a pregnant "+(Main.game.getActiveNPC().isFeminine()?"chick":"dude")+"? I'll even give you a discount; twenty percent off for the father of our kids!)]"
 									+ "</p>");
 						} else {
 							UtilText.nodeContentSB.append(
@@ -152,7 +164,7 @@ public class AlleywayProstituteDialogue {
 									+ "<p>"
 										+ "You walk up to [npc.name], once again allowing [npc.her] to take hold of your [pc.hands] and guide them down to stroke [npc.her] swollen bump."
 										+ " [npc.She] lets out another little laugh, before biting [npc.her] [npc.lip] and batting [npc.her] eyelids at you,"
-										+ " [npc.speech(So, you wanna fuck a pregnant "+(Main.game.getActiveNPC().isFeminine()?"chick":"dude")+"? I'll even give you a discount; forty flames to the father of our kids!)]"
+										+ " [npc.speech(So, you wanna fuck a pregnant "+(Main.game.getActiveNPC().isFeminine()?"chick":"dude")+"? I'll even give you a discount; twenty percent off for the father of our kids!)]"
 									+ "</p>");
 						}
 						
@@ -176,19 +188,24 @@ public class AlleywayProstituteDialogue {
 					}
 				}
 				
-				return UtilText.nodeContentSB.toString();
-				
 			} else {
-				return "<p>"
-						+ "You find yourself wandering down yet another of Dominion's dark, isolated alleyways, staying alert for any sign of trouble."
-						+ " Reaching a turn in your path, you step around the corner to see a rare sign of life, taking the form of"
-						+ " <b style='color:"+Femininity.valueOf(Main.game.getActiveNPC().getFemininityValue()).getColour().toWebHexString()+";'>"
-						+ Femininity.getFemininityName(Main.game.getActiveNPC().getFemininityValue(), true)+"</b>"
-						+ " <b style='color:"+Main.game.getActiveNPC().getRaceStage().getColour().toWebHexString()+";'>[npc.raceStage]</b>"
-						+ " <b style='color:"+Main.game.getActiveNPC().getRace().getColour().toWebHexString()+";'>[npc.race]</b>"
-						+ ", leaning back against one wall."
-					+ "</p>"
-					+ "<p>"
+				
+				if(isCanal()) {
+					UtilText.nodeContentSB.append(
+							"<p>"
+								+ "You find yourself wandering down the path that runs alongside Dominion's canal, staying alert for any sign of trouble."
+								+ " Up ahead, you suddenly spot a rare sign of life, taking the form of [npc.a_fullRace(true)], leaning back against a brick wall."
+							+ "</p>");
+					
+				} else {
+					UtilText.nodeContentSB.append(
+							"<p>"
+								+ "You find yourself wandering down yet another of Dominion's dark, isolated alleyways, staying alert for any sign of trouble."
+								+ " Reaching a turn in your path, you step around the corner to see a rare sign of life, taking the form of [npc.a_fullRace(true)], leaning back against one wall."
+							+ "</p>");
+				}
+				
+				UtilText.nodeContentSB.append("<p>"
 						+ "Looking over at you, [npc.she] smiles and steps forwards, blocking your way, "
 						+ UtilText.returnStringAtRandom(
 								"[npc.speech(Hey hot stuff! You lookin' for a good time?)]",
@@ -203,14 +220,16 @@ public class AlleywayProstituteDialogue {
 					+ "<p>"
 						+ "As you're wondering what to make of [npc.herHim], the [npc.race] whines,"
 						+ " [npc.speech(Come on! Only "+Util.intToString(prostitutePrice())+" flames, and [npc.name]'s all yours!)]"
-					+ "</p>";
+					+ "</p>");
 			}
+			
+			return UtilText.nodeContentSB.toString();
 		}
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Leave", "You're not at all interested in having sex with some backalley prostitute. Walk around [npc.herHim] and continue on your way.", DebugDialogue.getDefaultDialogueNoEncounter()) {
+				return new Response("Leave", "You're not at all interested in having sex with a prostitute. Walk around [npc.herHim] and continue on your way.", DebugDialogue.getDefaultDialogueNoEncounter()) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(
@@ -247,11 +266,18 @@ public class AlleywayProstituteDialogue {
 									+ " [npc.name] [npc.moans],"
 									+ " [npc.speech(follow me!)]"
 								+ "</p>"
-								+ "<p>"
-									+ "Producing a key from [npc.her] bag, the [npc.race] turns around, before unlocking a nondescript door behind [npc.herHim]."
-									+ " Opening the door and motioning for you to follow [npc.herHim] in, [npc.name] steps inside."
-									+ " Trailing in [npc.her] footsteps, you enter the [npc.race]'s apartment, and find yourself pleasantly surprised by the clean, well-lit interior."
-								+ "</p>"
+								+ (isCanal()
+										?"<p>"
+											+ "Leading you a little way down the canal, [npc.name] suddenly turns off the path, crossing a small clearing as [npc.she] leads you over to a nondescript doorway."
+											+ " Producing a key from [npc.her] bag, the [npc.race] reaches towards the lock, and, after a twist and a shove, opens the door."
+											+ " Motioning for you to follow [npc.herHim] in, [npc.name] then steps inside."
+											+ " Trailing in [npc.her] footsteps, you enter the [npc.race]'s apartment, and find yourself pleasantly surprised by the clean, well-lit interior."
+										+ "</p>"
+										:"<p>"
+											+ "Producing a key from [npc.her] bag, the [npc.race] turns around, before unlocking a nondescript door behind [npc.herHim]."
+											+ " Opening the door and motioning for you to follow [npc.herHim] in, [npc.name] steps inside."
+											+ " Trailing in [npc.her] footsteps, you enter the [npc.race]'s apartment, and find yourself pleasantly surprised by the clean, well-lit interior."
+										+ "</p>")
 								+ "<p>"
 									+ "Closing the door behind you, [npc.name] then leads you into [npc.her] bedroom, where [npc.she] turns around and grins at you,"
 									+ " [npc.speech(Let's get this party started!)]"
@@ -288,9 +314,18 @@ public class AlleywayProstituteDialogue {
 								+ " [npc.speech(follow me!)]"
 							+ "</p>"
 							+ "<p>"
-								+ "Producing a key from [npc.her] bag, the [npc.race] turns around, before unlocking a nondescript door behind [npc.herHim]."
-								+ " Opening the door and motioning for you to follow [npc.herHim] in, [npc.name] steps inside."
-								+ " Trailing in [npc.her] footsteps, you enter the [npc.race]'s apartment, and find yourself pleasantly surprised by the clean, well-lit interior."
+							+ (isCanal()
+									?"<p>"
+										+ "Leading you a little way down the canal, [npc.name] suddenly turns off the path, crossing a small clearing as [npc.she] leads you over to a nondescript doorway."
+										+ " Producing a key from [npc.her] bag, the [npc.race] reaches towards the lock, and, after a twist and a shove, opens the door."
+										+ " Motioning for you to follow [npc.herHim] in, [npc.name] then steps inside."
+										+ " Trailing in [npc.her] footsteps, you enter the [npc.race]'s apartment, and find yourself pleasantly surprised by the clean, well-lit interior."
+									+ "</p>"
+									:"<p>"
+										+ "Producing a key from [npc.her] bag, the [npc.race] turns around, before unlocking a nondescript door behind [npc.herHim]."
+										+ " Opening the door and motioning for you to follow [npc.herHim] in, [npc.name] steps inside."
+										+ " Trailing in [npc.her] footsteps, you enter the [npc.race]'s apartment, and find yourself pleasantly surprised by the clean, well-lit interior."
+									+ "</p>")
 							+ "</p>"
 							+ "<p>"
 								+ "Closing the door behind you, [npc.name] then leads you into [npc.her] bedroom, where [npc.she] turns around and grins at you,"
@@ -324,7 +359,7 @@ public class AlleywayProstituteDialogue {
 		public String getContent() {
 				return "<p>"
 							+ "Grinning at the [npc.race], you look into [npc.her] [npc.eyes] and question [npc.herHim],"
-							+ " [pc.speech(So, why do you work out of these alleyways, and not out in the streets like everyone else?)]"
+							+ " [pc.speech(So, why don't you work out in the streets like all the other prostitutes?)]"
 						+ "</p>"
 						+ "<p>"
 							+ "A look of worry flashes across [npc.name]'s face, and [npc.she] takes a step back, clearly afraid of your intentions,"
@@ -656,17 +691,17 @@ public class AlleywayProstituteDialogue {
 				};
 				
 			} else if (index == 10) {
-				if(Main.game.getPlayer().getMoney()<500) {
-					return new Response("Remove character ("+UtilText.formatAsMoney(500, "span")+")", "You don't have 500 flames, so you can't afford to pay [npc.name] to leave this area.", null);
+				if(Main.game.getPlayer().getMoney()<5000) {
+					return new Response("Remove character ("+UtilText.formatAsMoney(5000, "span")+")", "You don't have 5000 flames, so you can't afford to pay [npc.name] to leave this area.", null);
 				} else {
 					return new Response(
-							"Remove character ("+UtilText.formatAsMoney(500, "span")+")",
+							"Remove character ("+UtilText.formatAsMoney(5000, "span")+")",
 							"Give [npc.name] enough money to pay off the enforcers who are after [npc.herHim], which would allow [npc.her] to stop having to work in these dangerous alleyways."
 									+ " <b>This will permanently remove [npc.herHim] from the game.</b>",
 							AFTER_SEX_PAID_PAY_THEM_TO_LEAVE) {
 						@Override
 						public void effects() {
-							Main.game.getPlayer().incrementMoney(-500);
+							Main.game.getPlayer().incrementMoney(-5000);
 						}
 					};
 				}
@@ -683,21 +718,21 @@ public class AlleywayProstituteDialogue {
 		@Override
 		public String getContent() {
 				return "<p>"
-								+ "Grinning down at the panting [npc.race], you take a step forwards,"
-								+ " [pc.speech(So, why do you work out of these alleyways, and not out in the streets like everyone else?)]"
-							+ "</p>"
-							+ "<p>"
-								+ "A look of worry flashes across [npc.name]'s face, and [npc.she] shuffles back on the bed, clearly afraid of your intentions,"
-								+ " [npc.speech(I-I just prefer it back here! There's no other reason!)]"
-							+ "</p>"
-							+ "<p>"
-								+ "You laugh at the obvious lie,"
-								+ " [pc.speech(I don't think so! You're wanted by the enforcers, aren't you? I wonder what punishment they've got in store for you?)]"
-							+ "</p>"
-							+ "<p>"
-								+ "Realising that [npc.she]'s been caught, [npc.name]'s expression quickly turns into one of anger, and [npc.she] launches [npc.herself] at you in a blind fury,"
-								+ " [npc.speech(I'll never be a slave! Fuck you!)]"
-							+ "</p>";
+							+ "Grinning down at the panting [npc.race], you take a step forwards,"
+							+ " [pc.speech(So, why don't you work out in the streets like all the other prostitutes?)]"
+						+ "</p>"
+						+ "<p>"
+							+ "A look of worry flashes across [npc.name]'s face, and [npc.she] shuffles back on the bed, clearly afraid of your intentions,"
+							+ " [npc.speech(I-I just prefer it back here! There's no other reason!)]"
+						+ "</p>"
+						+ "<p>"
+							+ "You laugh at the obvious lie,"
+							+ " [pc.speech(I don't think so! You're wanted by the enforcers, aren't you? I wonder what punishment they've got in store for you?)]"
+						+ "</p>"
+						+ "<p>"
+							+ "Realising that [npc.she]'s been caught, [npc.name]'s expression quickly turns into one of anger, and [npc.she] launches [npc.herself] at you in a blind fury,"
+							+ " [npc.speech(I'll never be a slave! Fuck you!)]"
+						+ "</p>";
 		}
 
 		@Override
@@ -718,7 +753,7 @@ public class AlleywayProstituteDialogue {
 		public String getContent() {
 				return "<p>"
 							+ "Looking down at the panting [npc.race], you ask [npc.herHim] the question at the forefront of your mind,"
-							+ " [pc.speech(So, why do you work out of these alleyways, and not out in the streets like everyone else?)]"
+							+ " [pc.speech(So, why don't you work out in the streets like all the other prostitutes?)]"
 						+ "</p>"
 						+ "<p>"
 							+ "A look of worry flashes across [npc.name]'s face, and [npc.she] shuffles back on the bed, clearly afraid of your intentions,"

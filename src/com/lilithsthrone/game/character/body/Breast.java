@@ -451,7 +451,7 @@ public class Breast implements BodyPartInterface, Serializable {
 		boolean hadBreasts = hasBreasts();
 		
 		int oldSize = this.size;
-		this.size = Math.max(0, Math.min(size, CupSize.MAXIMUM.getMeasurement()));
+		this.size = Math.max(0, Math.min(size, CupSize.getMaximumCupSize().getMeasurement()));
 		int sizeChange = this.size - oldSize;
 		
 		if (sizeChange == 0) {

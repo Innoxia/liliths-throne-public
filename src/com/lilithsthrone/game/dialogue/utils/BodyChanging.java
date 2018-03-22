@@ -715,9 +715,11 @@ public class BodyChanging {
 								:UtilText.parse(BodyChanging.getTarget(), "<i>Get [npc.name] to focus [npc.her] demonic transformative powers on changing aspects of [npc.her] penis.</i>"))
 						+ "</div>"
 	
+						+ CharacterModificationUtils.getSelfTransformPenisChoiceDiv(demonRace, false)
+							
 						+"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformPenisChoiceDiv(demonRace)
 							+ CharacterModificationUtils.getSelfTransformPenisSizeDiv()
+							+ CharacterModificationUtils.getSelfTransformPenisGirthDiv()
 						+"</div>"
 						
 						+"<div style='clear:left;'>"
@@ -755,9 +757,11 @@ public class BodyChanging {
 								:UtilText.parse(BodyChanging.getTarget(), "<i>Get [npc.name] to focus [npc.her] efforts on changing aspects of [npc.her] penis.</i>"))
 						+ "</div>"
 	
+						+ CharacterModificationUtils.getSelfTransformPenisChoiceDiv(slimeRaces, false)
+							
 						+"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformPenisChoiceDiv(slimeRaces)
 							+ CharacterModificationUtils.getSelfTransformPenisSizeDiv()
+							+ CharacterModificationUtils.getSelfTransformPenisGirthDiv()
 						+"</div>"
 						
 						+"<div style='clear:left;'>"

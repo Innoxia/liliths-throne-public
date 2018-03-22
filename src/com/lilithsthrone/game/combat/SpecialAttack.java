@@ -473,7 +473,7 @@ public enum SpecialAttack {
 								+ "[pc.speech(I can't wait to fill you with my [pc.cum]!)]")));
 				
 			} else if(target.isPlayer()) {
-				attackText = UtilText.parse(target,
+				attackText = UtilText.parse(caster,
 						(UtilText.returnStringAtRandom(
 						"[npc.Name] grins at you, before thrusting [npc.her] [npc.hips] and calling out, "
 								+ "[npc.speech(I can't wait to fill you with my [npc.cum]!)]",

@@ -274,6 +274,10 @@ public class CharacterUtils {
 		}
 		
 		Body body = generateBody(startingGender, startingBodyType, stage);
+
+		if(mother.getBodyMaterial()==BodyMaterial.SLIME) {
+			body.setBodyMaterial(BodyMaterial.SLIME);
+		}
 		
 		// Genetics! (Sort of...)
 		
@@ -761,10 +765,6 @@ public class CharacterUtils {
 			}
 		}
 		
-		if(mother.getBodyMaterial()==BodyMaterial.SLIME) {
-			body.setBodyMaterial(BodyMaterial.SLIME);
-		}
-		
 		return body;
 	}
 	
@@ -919,6 +919,7 @@ public class CharacterUtils {
 		body.getAss().getAnus().setAssHair(null, hair);
 		
 		if(species!=null) {
+			body.calculateRace();
 			species.applySpeciesChanges(body);
 			body.calculateRace();
 		}
@@ -980,7 +981,7 @@ public class CharacterUtils {
 		
 		if(character.hasBreasts()) {
 			character.setBreastSize(Math.max(CupSize.AA.getMeasurement(), character.getBreastSize().getMeasurement() -2 +(Util.random.nextInt(5)))); // Random size between -2 and +2 of base value.
-			if(Math.random()<=0.015f) {
+			if(Math.random()<=0.015f || character.hasFetish(Fetish.FETISH_LACTATION_SELF)) {
 				character.setBreastMilkStorage((int)((character.getBreastSize().getMeasurement() * 5)*(1+(Math.random()*2))));
 				if(Math.random()<=0.025f) {
 					character.addMilkModifier(FluidModifier.ADDICTIVE);
@@ -1035,10 +1036,10 @@ public class CharacterUtils {
 			} else {
 				character.setPenisSize(character.getPenisSize().getMinimumValue() + Util.random.nextInt(character.getPenisSize().getMaximumValue() - character.getPenisSize().getMinimumValue()) +1);
 			}
-			if(Math.random()<=0.005f) {
+			if(Math.random()<=0.02f) {
 				character.addCumModifier(FluidModifier.ADDICTIVE);
 			}
-			if(Math.random()<=0.005f) {
+			if(Math.random()<=0.02f) {
 				character.addCumModifier(FluidModifier.HALLUCINOGENIC);
 			}
 		}
@@ -1060,10 +1061,10 @@ public class CharacterUtils {
 				}
 			}
 			character.setVaginaWetness(character.getVaginaWetness().getValue() -1 + Util.random.nextInt(3)); // +1 or -1 either way
-			if(Math.random()<=0.005f) {
+			if(Math.random()<=0.02f) {
 				character.addGirlcumModifier(FluidModifier.ADDICTIVE);
 			}
-			if(Math.random()<=0.005f) {
+			if(Math.random()<=0.02f) {
 				character.addGirlcumModifier(FluidModifier.HALLUCINOGENIC);
 			}
 		}
@@ -1499,7 +1500,7 @@ public class CharacterUtils {
 			prostitutePrice = prostitutePrice * 0.8f; // Pregnant prostitutes charge 80% of their usual price.
 		}
 
-		return Math.max(25, (int) (prostitutePrice * 100)); // Minimum value is 25 flames.
+		return Math.max(150, (int) (prostitutePrice * 750)); // Minimum value is 150 flames.
 	}
 
 	private static Map<History, ArrayList<AbstractClothingType>> suitableFeminineClothing = new HashMap<>();

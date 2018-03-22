@@ -8,26 +8,43 @@
 	Error logger!
 	
 	
-	1. Have all of the core content for Submission finished (all of the encounters written in, and every area having at least the basics of their content added).
-	2. Imps, slimes, rat-morphs, mice-morphs, and bat-morphs completely finished and added.
-	5. Adding in the next stage of the main quest (earning an audience with Lyssieth).
-	6. Completely finish all combat stuff - I need to improve the spell system and do some final tweaks for damage calculations, as well as adding in more weapons.
-	7. Completely polish the multiple-partner sex scenes. (There are still some bugs that I need to get fixed before adding these scenes to random encounters.)
-	8. Write up a "lore bible" for contributors to reference, and add modding support for items and sex actions.
-	9. General improvements to all areas that need it (fixing bugs and expanding content)
+	Goals:
 	
-	
+	Adding in the next stage of the main quest (earning an audience with Lyssieth).
+	Add 'Angels' Kiss' brothel.
+	Improve the slavery UI, and add more jobs & interactions. (Winner of Patreon poll.)
+	Make Zaranix & maids repeatable.
+	Add urethral penetration content.
+	Add in a mod template for items, clothing, weapons, and sex actions.
 	
 	
 	Patch notes:
 	
+	Gameplay:
+		Added fixed maps for Dominion, Submission, and Harpy Nests. (I will most likely tweak and improve these over the next few versions. I will also add random maps in some form or another a little later on.)
+		Added Canal tiles to Dominion. (Function similar to back alleys, but random attackers are more likely to be slimes and alligator morphs rather than normal alleyway races.)
+		Added three Parks, a central plaza, and boulevard tiles to Dominion.
+		Added basic descriptions for all new Dominion areas, and for about half of Submission. (Will be finished for the full release.)
+	
 	Other:
 		<b>Changed:</b> Ass and Breasts are now covered in the same skin/fur type as that which covers the character's torso.
+		<b>Removed:</b> Auto-milking chance from full breasts, and replaced it with a minor debuff. (The unavoidable loss in player agency was not in keeping with the rest of the game.)
 		Changed bandana displacement to be pulls down, not pulls up.
-		You can now see your opponent's fetishes in combat.
+		You can now see your opponent's fetishes in combat. (I'll tidy this up soon.)
 		Added content option for feminine characters to have facial hair (disabled by default).
 		Slave rooms no longer give +0.2 affection per hour.
 		Changed alligator-morph's 'scales in place of hair' to coarse hair. (All naturally-spawning alligators now spawn in with no hair.)
+		Increased chance of NPCs to spawn in with addictive or psychoactive cum/girlcum from 0.5% to 2%.
+		Added penis girth to body changing options.
+		Random NPCs with the lactation fetish will now spawn in producing milk.
+		Added normal human skin colours as colour options for demons.
+		Updated Scarlett's appearance and clothing, and gave her three fetishes. (These changes won't be applied if she is already your slave, as I didn't want to interfere with any transformations/clothing/fetishes you've given to her.)
+		Halved all milk regeneration values (even the minimum one was refilling to maximum after just 1 day).
+		Added training and hyper sizes to breast cup size detection.
+		Adjusted prostitute prices.
+	
+	Clothing:
+		Added: Sleeveless turtleneck (feminine, torso slot).
 	
 	Contributors:
 		Cleaned various issues. (Pimvgd)
@@ -45,6 +62,9 @@
 		Added several new hair styles. (WoefulWombat)
 		Fixed speech parsing not using correct femininity colour. (Master of Puppets)
 		Fixed Maid's Stockings secondary colour not working. (Master of Puppets)
+		Fixed loading the game advancing time. (Master of Puppets)
+		Fixed 'squirter' property of vaginas not being saved/loaded. (Master of Puppets)
+		Fixed bug where after having started a game and then selecting new game, you would be unable to set your new character's femininity and other attributes. (Master of Puppets)
 		
 	Bugs:
 		Typo fixes.
@@ -59,10 +79,66 @@
 		Saving game will no longer progress time.
 		You will now take energy & aura damage from tease attacks when at 100 lust (just like enemy demons do).
 		Fetishes gained from clothing will now correctly apply attribute bonuses, special attacks, and derived fetishes.
+		Fixed intro sex displaying that you lost your virginity 'in the jungle'.
+		Fixed cause of imps spawning in at incorrect heights, and of slimes birthing humans.
+		Added tooltips for milking actions.
+		Fixed active traits with buffs (such as +25 aura) remaining in effect even if you unequipped them.
+		Fixed bug where increasing height would say its increased even past the maximum limit.
+		Fixed gifting chocolate to Nyan boosting affection by 50 (it now correctly boosts by 5). 
+		Fixed 'locked in stocks' applying vaginal sex events to slaves with no vagina.
+		Slaves will no longer have amorous encounters with relations if they don't have the associated fetish.
+		Fixed cum stud tease parsing the wrong names.
+		
+	
+	
+	Have all of the core content for new Dominion, Submission, and Harpy Nests finished (all of the encounters written in, and every area having at least the basics of their content added).
+		Submission []
+	
+	Finish the spell system and add a few more weapons.
+	
+	Completely polish the multiple-partner sex scenes. (There are still some bugs that I need to get fixed before adding these scenes to random encounters.)
+	
+	Rat-morphs, mice-morphs, and bat-morphs completely finished and added.
 	
 	
 	
 	
+	
+	
+	- Succubi seem to all change colors
+	- Slave activity logbook completely clears on load.
+		- This creates occasional further bugs i.e. two of my slaves are exported and imported slave stocks NPCs and whenever I losd their status is returned to 'ready for birthing' except without pregnancy.
+		 Every single pregnancy of those two has to be resolved without loading a saved game, otherwise potential babies disappear into digital void. "
+	
+	Deepthroat orgasm is a less-detailed version of "creampie"
+	
+	A "milk prostate" action usable when fingering someone that has a dick?
+	
+	preg nipple & Areolae size
+	
+	one, when you import a character haircolor is changed to brown (it was previously green with black highlights)
+	When using Ice Shard spell on someone, it says they take LUST damage, but actually get their Aura damaged.
+	-Slimes still spawn with makeup in 2.1.1
+	no tooltip for spells
+	
+	
+	
+	need hyper breasts status effects
+	
+	NPCs !!!STILL!!! making you stop penetration just before climax!!! (Stopped me eating her out)
+	
+	eye sclera
+	
+	As a slime, Unable to eat a used condom to become pregnant... Literally Unplayable
+	Please let us avoid fights with slimes using used condoms
+	
+	The special dialog with Lilaya about pregnancy when she is the on that impregnated you is missing. Plus the dialogue is missing where you got pregnant from someone else and went to Lilaya after you had sex with her.
+	
+	using addictive and/or hypnotic fluids to brainwash slaves; forcibly increase obedience through addictive fluids, and forcibly increase both to a lesser degree through hypnotic.
+	
+	could you there be an option for pregnancy breasts and milk capacity revert back to the original size/amount after a period of time? maybe it could be like a timer 'status' effect?
+	
+	balance xp gains
 	
 	Suggestions: It would be nice to have mouth(inside - teeth and tongue) transformation apart from just face transformation [I like my wolf-girls with human face but canine teeth]
 
@@ -71,24 +147,15 @@
 	
 	I understand you wanted to offer condoms of different colours, but right now, it's bit annoying, as you can't properly stockpile on them - could you make it so that it's possible to change colour of more than one condom at once
 	
-	Unsure if this has been noted yet, but the buttons for delting the exported character files don't actually appear to work.  Hitting one takes me to the save/load menu instead and doesn't delete the file.
-	
 	Second bug I found is about October Priestesses/Witch Succubi
 		when you're in combat with them and they seal you, you can freely keep casting spells and use special attacks, as only the first menu is blocked[Button you're sealed or something](edited)
 		menus for special attacks and spells still offer option to use them, so you can use spells and teases or race attacks despite being sealed
 	
+	since there is an option to be a squirter if you have a vagina, maybe you could add an option to squirt milk from nipples when reaching orgasm. It would be possible if the character is lactating and the ejaculation would decrease the amount of milk stored in the breasts.
 	
-	Suggestion: Pale as a demon skin color.
-	
-	There seems to be a bug in the new character creation system where you don't have your virginities when you say you have no sexual experience and vice versa.
-	
-	- Succubi seem to all change colors
-	- "-Breasts seem immediately refilled on load.
-	- Slave activity logbook completely clears on load.
-		- This creates occasional further bugs i.e. two of my slaves are exported and imported slave stocks NPCs and whenever I losd their status is returned to 'ready for birthing' except without pregnancy.
-		 Every single pregnancy of those two has to be resolved without loading a saved game, otherwise potential babies disappear into digital void. "
-	
-	change it for the next version so that it turns into a debuff after ~24 hours of not being milked instead
+	So, with the quest to retrieve the package for Arthur, there's a possibility that Vicky will rape your character.
+	 Can you make it to where, when Arthur asks you if you had any troubles, you can say, "Well, let's just say I'm probably pregnant right now."
+	  or some such and make him feel guilty? I know this is probably bad, but I like the idea of him stammering out endless apologies for putting you in such a position.
 	
 	My slave at the public stocks gets pregnant and gives birth zero days later
 	
@@ -96,27 +163,11 @@
 	
 	Getting some phantom pregnancies with some of my slaves. One set shows up on the phone, but not on their status screens or anything else, and the other NPC gets pregnant, with all attendant status and dialogue changes, but occasionally doesn't resolve
 	
-	active traits with buff like +physique or +50 arcane are still in effect even if you unequip them
+	Lilaya panties
 	
+	Exhibitionist counter - prude
 	
-	i just encountered my first imp and it was 6 foot. is that supposed to happen?
-		i cant read my encylopedia on them because theres some sort of script error
-	
-	There's a bug with addictions right now, if you save your game and re-load it they get wiped away
-	
-	Slimes birthing humans
-	
-	- It seems the game has a penchant for returning the character's and some of the NPC's physical statuses back to an unknown 'base' when you load a saved game.
--Character's addictions disappear on load.
--Breasts seem immediately refilled on load.
-- Slave activity logbook completely clears on load.
-- This creates occasional further bugs i.e. two of my slaves are exported and imported slave stocks NPCs and whenever I losd their status is returned to 'ready for birthing' except without pregnancy. Every single pregnancy of those two has to be resolved without loading a saved game, otherwise potential babies disappear into digital void. 
-	
-	A "milk prostate" action usable when fingering someone that has a dick?
-	
-	Will slaves breed with their relatives if they don't have the Incest fetish
-	
-	It appears the Slavery Overview Activity Log gets reset every time you load game as well
+	erection & pregnancy work
 	
 	totalCumLoss = baseCumLoss + max(0, decayRate*(cumVolume -  orificeCapacity))
 	
@@ -125,10 +176,6 @@
 	-After interacting with either character's inventory during sex, the action menu tabs to Self Actions, which I almost never use. Maybe it could remember the tab you were on and return to that?
 	-More options for things like penetrating someone and sucking them off at the same time, or being penetrated and getting sucked off/doing paizuri, could be nice in certain positions...
 
-	don't forget to add penis thickness to the demon transformation menu.
-	
-	no tooltip for spells
-	
 	Just wanted to post a problem i have about arthur's secondary quest, Arthur's Experiment, i recieved the quest, i went to the shop to collect the package but then i get stuck when i want to deliver the package to Arthur i go to his room but i have no option to do deliver it to Arthur. There is also another problem with Arthur, after rescuing him he got placed into the bedroom in the mansion and the system now consider him as a slave even if in his page he is not, he does not even appear on my slave overview, i can interact with his in same way as any other slave in their room. But i can't give him his damn package.
 	
 	-Enslavement piercings work when they don't have the slot available, but then they don't have the item when you check the slave. They don't have any enslavement item at all. Even works with a dick piercing on a character without a dick.
@@ -137,42 +184,26 @@
 	-The "Fondle balls" action requires access to their urethra. No fondling while riding/sucking?
 	-In the description for "Suckle": "roughly suck and nipple her wet teat"
 	-The phrase "You can't help but shake the feeling that someone's..." appears often in environment descriptions. Should probably be either "You can't shake the feeling" or "You can't help but feel like someone's..."
-	-Slimes still spawn with makeup in 2.1.1
 	
-	Please let us avoid fights with slimes using used condoms
-	
-	I don't know if this is a new bug: when a slave with no vagina is assigned for Public Use and use vagina is checked, said slave will still receive vaginal sex regardless if a vagina is present or not. My poor new imp is now mpreg lol
-	
-	I noticed you said that you are still working on how piercings will work for slimes. Well if their entire bodies are made of goo then should you just be able to put piercings in and they will be able to be worn? And for if you turn back to flesh later, either they can immediately pop off and will be put in inventory if they weren't pierced before, or any place where piercings currently are becomes automatically pierced because the flesh forms around the piercings.
-	
-	It appears player character's addictions can often completely remove themselves on reload.
-	
-	i can use magic even though i'm at 0 aura
+	I noticed you said that you are still working on how piercings will work for slimes.
+	 Well if their entire bodies are made of goo then should you just be able to put piercings in and they will be able to be worn? And for if you turn back to flesh later, either they can immediately pop off and will be put in inventory if they weren't pierced before, or any place where piercings currently are becomes automatically pierced because the flesh forms around the piercings.
 	
 	Is anyone else having issues where if you start a new game and try to upgrade slave rooms, there's already a debt to pay before you even put in any upgrades?
 	
 	the slave interaction option button appears when there's nobody in the room
 	
-	Picking a sexual orientation during new game isn't working. It's stuck on Ambiphilic
-	(If backing out and then new game - Any newgame after the first doesn't actually let you pick preference)
-	
 	- Kid spawns in Submission (?)
-- Description says 'Whitney is your daughter, who you fathered with an alligator-girl. She was conceived on day 6, and seven days later she was born. You first encountered her prowling the alleyways of Dominion, and, through some arcane-influenced instinct, you both recognised your relationship at first sight.'
+	- Description says 'Whitney is your daughter, who you fathered with an alligator-girl. She was conceived on day 6, and seven days later she was born. You first encountered her prowling the alleyways of Dominion, and, through some arcane-influenced instinct, you both recognised your relationship at first sight.'
 	
 	You can have a floor length pixie-cut. Maybe my definition of pixie-cut is wrong but I would expect that it should be limit to short or something
 	
-	When using Ice Shard spell on someone, it says they take LUST damage, but actually get their Aura damaged.
-	
 	Plasticity decreasing enchantments on clothing don't work. Enchantment itself says "increase" even when you make the target the lowest possible value ("rubbery"), and there doesn't seem to be any periodic activation messages for the happenstance.
-	
-	URETHRAL PEN
 	
 	And finally unsure if the bug has been brought to your attention but it seems as if with anthromorph npc's there are no male feminine ones and if you have that listed for spawns (In the furry preferences) and not masculine it will spawn humans and humans only even if humans are disabled as random npc encounters. 
 
-The same issue is happening with having traps selected of either androgynous and feminine in gender preferences. Only humans will spawn even if humans are disabled.
+	The same issue is happening with having traps selected of either androgynous and feminine in gender preferences. Only humans will spawn even if humans are disabled.
 	
 		
-	
 	foot fetish
 		as for feet stuff, apart from regular footjobs and all, there could be more sadistic/humiliating stuff too, so it relates to available fetishes more too, such as making someone lick your feet/or being made to do so, which is hot asf tbh, apart from that what i though of was if you had a previous sexual encounter or your partner had it, and lets say they had someone cum on their legs or any part, you could be ordered/order someone to lick it up and all that sort of stuff
 		in rape scenarios you could force others to lick it up and all which would increase lust for one that has sadist or masochist fetishes and all
@@ -183,18 +214,10 @@ The same issue is happening with having traps selected of either androgynous and
 		all that sort of stuff ^^
 		also regarding lust system, you could get to know other fetishes lets say if you do some side quests to lilyana or lets say steal some of her device a bit later in game (such as googles)  that allow you to see a few fetishes of other characters
 		making it easier
-		
-	
-	For some reason, once I hit maximum lust, further seduction damage just seems to get ignored.  This is in a fresh game started with this version.
-	
-	playing the hotfix version now, the encyclopedia entry for demon and catmorph showed up while still in the museum
-	 I lost my virginity to Alexandria and the game claims that sex scene happened in the jungle
-	
-	arcane storms also make NPCs immune to tease
+	 
 	
 	!!! Pix consent version !!!
 	
-	one, when you import a character haircolor is changed to brown (it was previously green with black highlights) and two is during the cum stud tease they say your characters name is saying they cant wait to fill em up instead of morph type
 	
 	The molesting of the submissive by the dominant through their clothing and the addition of jockstraps to give a male version of backless undergarments
 
@@ -209,8 +232,6 @@ The same issue is happening with having traps selected of either androgynous and
 	
 	imp forced TFs messed up
 	NPC slimes will attempt to turn you into a slime and the game will tell you its working but you remain human
-	
-	sclera colors
 	
 	Change personalities to be personality traits:
 		kind/cruel
@@ -232,12 +253,8 @@ The same issue is happening with having traps selected of either androgynous and
 	
 	Is it just me, or does the sexual preference setting get reset to ambiphilic once you get past the intro
 	
-	
 	Lilaya slime pregnancy birthing
 	
-	preg nipple & Areolae  size
-	
-	nyan chocolate is 50 affection?!
 	
 	Slime TF screen piercings.
 	

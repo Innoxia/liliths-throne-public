@@ -30,7 +30,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.1.95
+ * @version 0.2.2
  * @author Innoxia
  */
 public class SlaverAlleyDialogue {
@@ -46,22 +46,22 @@ public class SlaverAlleyDialogue {
 		@Override
 		public String getContent() {
 			return "<p>"
-					+ "As you navigate through the labyrinthine passageways of Dominion's back-alleys, you start to hear the faint murmur of voices somewhere before you."
-					+ " Proceeding with caution, you slowly step around the next corner, and find yourself looking into a small, well-kept courtyard."
-				+ "</p>"
-				+ "<p>"
-					+ "Clean, grey cobblestones line the floor, and in the middle of the little square, surrounded by wooden benches, a bubbling stream of water cascades out of a finely-crafted stone fountain."
-					+ " On three of its sides, multiple narrow entrances link this area to the surrounding alleyways, but it's what's on the fourth that draws your attention."
-					+ " A huge, open gateway, flanked by a pair of muscular horse-boys, has been built into the wall, and it's through this opening that the sound of a busy marketplace can be heard."
-				+ "</p>"
-				+ "<p>"
-					+ "As you step closer, neither of the guards react to your presence, and you notice that their attention is focused solely on who's trying to leave the area beyond."
-					+ " Crossing the courtyard, you see that the words 'Slaver Alley' have been cast into the dull iron framing of the gate, and on the walls to either side,"
-						+ " promotional posters for different vendors have been plastered over the red bricks."
-				+ "</p>"
-				+ "<p>"
-					+ "It looks as though any member of the public is free to come and go as they please."
-				+ "</p>";
+						+ "As you navigate through the labyrinthine passageways of Dominion's back-alleys, you start to hear the faint murmur of voices somewhere before you."
+						+ " Proceeding with caution, you slowly step around the next corner, and find yourself looking into a small, well-kept courtyard."
+					+ "</p>"
+					+ "<p>"
+						+ "Clean, grey cobblestones line the floor, and in the middle of the little square, surrounded by wooden benches, a bubbling stream of water cascades out of a finely-crafted stone fountain."
+						+ " On three of its sides, multiple narrow entrances link this area to the surrounding alleyways, but it's what's on the fourth that draws your attention."
+						+ " A huge, open gateway, flanked by a pair of muscular horse-boys, has been built into the wall, and it's through this opening that the sound of a busy marketplace can be heard."
+					+ "</p>"
+					+ "<p>"
+						+ "As you step closer, neither of the guards react to your presence, and you notice that their attention is focused solely on who's trying to leave the area beyond."
+						+ " Crossing the courtyard, you see that the words 'Slaver Alley' have been cast into the dull iron framing of the gate, and on the walls to either side,"
+							+ " promotional posters for different vendors have been plastered over the red bricks."
+					+ "</p>"
+					+ "<p>"
+						+ "It looks as though any member of the public is free to come and go as they please."
+					+ "</p>";
 		}
 		
 		@Override

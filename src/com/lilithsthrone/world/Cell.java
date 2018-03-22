@@ -75,8 +75,9 @@ public class Cell implements Serializable, XMLSaving {
 		CharacterUtils.addAttribute(doc, element, "blocked", String.valueOf(this.blocked));
 		
 		place.saveAsXML(element, doc);
-		inventory.saveAsXML(element, doc);
-		
+		if(!inventory.isEmpty()) {
+			inventory.saveAsXML(element, doc);
+		}
 		return element;
 	}
 	
@@ -103,7 +104,14 @@ public class Cell implements Serializable, XMLSaving {
 		cell.setBlocked(Boolean.valueOf(parentElement.getAttribute("blocked")));
 		
 		cell.setPlace(GenericPlace.loadFromXML(((Element)parentElement.getElementsByTagName("place").item(0)), doc));
-		cell.setInventory(CharacterInventory.loadFromXML(((Element)parentElement.getElementsByTagName("characterInventory").item(0)), doc));
+		
+		try {
+			if(parentElement.getElementsByTagName("characterInventory").getLength()>0) {
+				cell.setInventory(CharacterInventory.loadFromXML(((Element)parentElement.getElementsByTagName("characterInventory").item(0)), doc));
+			}
+		} catch(Exception ex) {	
+			System.err.println("Cell import error 1");
+		}
 		
 		cell.getInventory().setMaximumInventorySpace(CELL_MAXIMUM_INVENTORY_SPACE);
 		

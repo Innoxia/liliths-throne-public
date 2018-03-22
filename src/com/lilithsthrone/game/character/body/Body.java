@@ -41,7 +41,6 @@ import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
-import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
@@ -80,7 +79,7 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
- * @version 0.1.87
+ * @version 0.2.2
  * @author Innoxia
  */
 public class Body implements Serializable, XMLSaving {
@@ -2356,21 +2355,21 @@ public class Body implements Serializable, XMLSaving {
 				sb.append(" You have " + Util.intToString(viewedBreast.getRows()) + " pair" + (viewedBreast.getRows() == 1 ? "" : "s") + " of "+viewedBreast.getSize().getDescriptor()+" [pc.breasts]");
 				
 				if(viewedBreast.getRows()==1) {
-					if (viewedBreast.getSize() == CupSize.TRAINING) {
+					if (viewedBreast.getSize().isTrainingBraSize()) {
 						sb.append(", which fit comfortably into a training bra.");
 					} else {
 						sb.append(", which fit comfortably into "+UtilText.generateSingularDeterminer(viewedBreast.getSize().getCupSizeName())+" "+viewedBreast.getSize().getCupSizeName()+"-cup bra.");
 					}
 					
 				} else if(viewedBreast.getRows()==2) {
-					if (viewedBreast.getSize() == CupSize.TRAINING) {
+					if (viewedBreast.getSize().isTrainingBraSize()) {
 						sb.append(", with your top pair fitting comfortably into a training bra, and the pair below being slightly smaller.");
 					} else {
 						sb.append(", with your top pair fitting comfortably into "+UtilText.generateSingularDeterminer(viewedBreast.getSize().getCupSizeName())+" "+viewedBreast.getSize().getCupSizeName()+"-cup bra, and the pair below being slightly smaller.");
 					}
 					
 				} else if(viewedBreast.getRows()>2) {
-					if (viewedBreast.getSize() == CupSize.TRAINING) {
+					if (viewedBreast.getSize().isTrainingBraSize()) {
 						sb.append(", with your top pair fitting comfortably into a training bra, and the pairs below each being slightly smaller than the ones above.");
 					} else {
 						sb.append(", with your top pair fitting comfortably into "
@@ -2392,21 +2391,21 @@ public class Body implements Serializable, XMLSaving {
 				sb.append(" [npc.She] has " + Util.intToString(viewedBreast.getRows()) + " pair" + (viewedBreast.getRows() == 1 ? "" : "s") + " of "+viewedBreast.getSize().getDescriptor()+" [npc.breasts]");
 				
 				if(viewedBreast.getRows()==1) {
-					if (viewedBreast.getSize() == CupSize.TRAINING) {
+					if (viewedBreast.getSize().isTrainingBraSize()) {
 						sb.append(", which fit comfortably into a training bra.");
 					} else {
 						sb.append(", which fit comfortably into "+UtilText.generateSingularDeterminer(viewedBreast.getSize().getCupSizeName())+" "+viewedBreast.getSize().getCupSizeName()+"-cup bra.");
 					}
 					
 				} else if(viewedBreast.getRows()==2) {
-					if (viewedBreast.getSize() == CupSize.TRAINING) {
+					if (viewedBreast.getSize().isTrainingBraSize()) {
 						sb.append(", with [npc.her] top pair fitting comfortably into a training bra, and the pair below being slightly smaller.");
 					} else {
 						sb.append(", with [npc.her] top pair fitting comfortably into "+UtilText.generateSingularDeterminer(viewedBreast.getSize().getCupSizeName())+" "+viewedBreast.getSize().getCupSizeName()+"-cup bra, and the pair below being slightly smaller.");
 					}
 					
 				} else if(viewedBreast.getRows()>2) {
-					if (viewedBreast.getSize() == CupSize.TRAINING) {
+					if (viewedBreast.getSize().isTrainingBraSize()) {
 						sb.append(", with [npc.her] top pair fitting comfortably into a training bra, and the pairs below each being slightly smaller than the ones above.");
 					} else {
 						sb.append(", with [npc.her] top pair fitting comfortably into "

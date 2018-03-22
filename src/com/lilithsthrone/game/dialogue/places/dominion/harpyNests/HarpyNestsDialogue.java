@@ -160,7 +160,7 @@ public class HarpyNestsDialogue {
 									+ "</p>");
 						}
 						
-						Main.mainController.moveGameWorld(WorldType.DOMINION, PlaceType.DOMINION_HARPY_NESTS, true);
+						Main.mainController.moveGameWorld(WorldType.DOMINION, PlaceType.DOMINION_HARPY_NESTS_ENTRANCE, true);
 					}
 				};
 
@@ -491,6 +491,136 @@ public class HarpyNestsDialogue {
 			UtilText.nodeContentSB.append(
 					"<p>"
 						+ "You find yourself walking down a winding, narrow walkway; part of an interconnected system of pathways, stairs, and ladders that have been built into the rooftops of Dominion."
+						+ " Being able to fly, the harpies that live up here have no use for them, and there aren't many people willing to risk a harpy's wrath just for the sake of taking a stroll through the nests."
+						+ " As a result, these links between the sprawling network of harpy nests are completely deserted."
+					+ "</p>"
+					+ "<p>"
+						+ "Although these walkways don't lead directly through any nests, you're still able to observe them as you pass."
+						+ " Each nest takes the form of a series of platforms, built on top of, and into, the rooves and upper floors of Dominion's residences."
+						+ " While most are confined to a single building, you see that a few span multiple houses, and have several tiers of platforms built on top of one anther;"
+							+ " evidence that the matriarch of that particular nest is extremely important."
+					+ "</p>");
+			
+			switch(Main.game.getCurrentWeather()) {
+				case MAGIC_STORM:
+					UtilText.nodeContentSB.append(
+							"<p>"
+								+ "Due to the ongoing arcane storm, each flock has taken shelter in the building below their nest."
+								+ " The only movement to be seen in the deserted nests takes the form of canvas coverings, erected to protect the harpies from the elements, billowing in the wind."
+								+ " Peering over the side of the railing, you see that the streets below are similarly abandoned, with only the occasional demon to be seen wandering through the area."
+							+ "</p>"
+							+ "<p>"
+								+ (Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)
+									?"Although you've pacified the harpy nests, these walkways are dangerous at the moment, due to the ongoing arcane storm."
+										+ " The harpies should all be taking shelter, you can't help but shake the feeling that you're being watched."
+										+ " An occasional flash of colour out of the corner of your [pc.eye] confirms your suspicions, but each time you turn to face your elusive stalker, they quickly duck out of sight."
+										+ " It's probably only a matter of time before they make their move..."
+									:"Although the harpies should all be taking shelter, you can't help but shake the feeling that you're being watched."
+										+ " An occasional flash of colour out of the corner of your [pc.eye] confirms your suspicions, but each time you turn to face your elusive stalker, they quickly duck out of sight."
+										+ " It's probably only a matter of time before they make their move...")
+							+ "</p>");
+					break;
+				case RAIN:
+					UtilText.nodeContentSB.append(
+							"<p>"
+								+ "Due to the ongoing rain, each flock has taken shelter in the building below their nest, or beneath the canvas coverings that have been erected to protect the harpies from the elements."
+								+ " The matriarch of each nest is clearly visible, even from a great distance, as they're always surrounded by other harpies eager to gain the favour of their leader."
+								+ " Peering over the side of the railing, you see that the people walking down the streets below are similarly huddling beneath any shelter they can find, desperate to get out of the rain."
+							+ "</p>"
+							+ "<p>"
+								+ (Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)
+									?"You sometimes see an enforcer patrolling a walkway off in the distance; reminding you that it's now safe for people to be travelling between the nests."
+										+ " Although there's no risk of being attacked, harpies are still quite touchy by nature, and you imagine that it wouldn't be too hard to cause a confrontation if you were to go looking for trouble..."
+									:"As you continue travelling down the walkways, you can't help but shake the feeling that you're being watched."
+										+ " An occasional flash of colour out of the corner of your [pc.eye] confirms your suspicions, but each time you turn to face your elusive stalker, they quickly fly off back to their nest."
+										+ " It's probably only a matter of time before one of them decides to openly confront you...")
+							+ "</p>");
+					break;
+				default:
+					if(Main.game.isDayTime()) {
+						UtilText.nodeContentSB.append(
+								"<p>"
+									+ "The members of each flock are sprawled out over their nest's platforms."
+									+ " Most are simply lounging about beneath canvas coverings, but there are plenty to be seen sunbathing or talking in little groups."
+									+ " The matriarch of each nest is clearly visible, even from a great distance, as they're always surrounded by other harpies eager to gain the favour of their leader."
+									+ " Peering over the side of the railing, you see the people walking down the streets below, oblivious to what's going on high above them."
+								+ "</p>");
+					} else {
+						UtilText.nodeContentSB.append(
+								"<p>"
+									+ "The members of each flock are sprawled out over their nest's platforms."
+									+ " Even at night, there are still plenty of harpies to be seen lounging about or talking in little groups, their brightly-coloured feathers illuminated by a series of bright lights that cover the rooftops."
+									+ " The matriarch of each nest is clearly visible, even from a great distance, as they're always surrounded by other harpies eager to gain the favour of their leader."
+									+ " Peering over the side of the railing, you see the people walking down the streets below, oblivious to what's going on high above them."
+								+ "</p>");
+					}
+					UtilText.nodeContentSB.append(
+							"<p>"
+								+ (Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)
+									?"You sometimes see an enforcer patrolling a walkway off in the distance; reminding you that it's now safe for people to be travelling between the nests."
+										+ " Although there's no risk of being attacked, harpies are still quite touchy by nature, and you imagine that it wouldn't be too hard to cause a confrontation if you were to go looking for trouble..."
+									:"As you continue travelling down the walkways, you can't help but shake the feeling that you're being watched."
+										+ " An occasional flash of colour out of the corner of your [pc.eye] confirms your suspicions, but each time you turn to face your elusive stalker, they quickly fly off back to their nest."
+										+ " It's probably only a matter of time before one of them decides to openly confront you...")
+							+ "</p>");
+					break;
+			
+			}
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index == 6) {
+				if(Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)) {
+					return new ResponseEffectsOnly(
+							"Look for trouble",
+							"Although you've pacified the harpy nests, you're sure that you can find a harpy who's looking for a confrontation..."){
+								@Override
+								public void effects() {
+									DialogueNodeOld dn = Encounter.HARPY_NEST_LOOK_FOR_TROUBLE.getRandomEncounter();
+									if (dn == null) {
+										Main.game.setContent(new Response("", "", WALKWAY));
+									} else {
+										Main.game.setContent(new Response("", "", dn));
+									}
+								}
+							};
+							
+				} else {
+					return new ResponseEffectsOnly(
+							"Explore",
+							"Explore the walkways. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
+								@Override
+								public void effects() {
+									DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
+									Main.game.setContent(new Response("", "", dn));
+								}
+							};
+				}
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld WALKWAY_BRIDGE = new DialogueNodeOld("Walkway Bridge", ".", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 1;
+		}
+
+		@Override
+		public String getContent() {// if(!Main.game.getPlayer().isQuestCompleted(QuestLine.SIDE_HARPY_PACIFICATION)) TODO Also harpy attack
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append(
+					"<p>"
+						+ "You find yourself walking over a narrow wooden bridge; part of an interconnected system of pathways, stairs, and ladders that have been built into the rooftops of Dominion."
 						+ " Being able to fly, the harpies that live up here have no use for them, and there aren't many people willing to risk a harpy's wrath just for the sake of taking a stroll through the nests."
 						+ " As a result, these links between the sprawling network of harpy nests are completely deserted."
 					+ "</p>"

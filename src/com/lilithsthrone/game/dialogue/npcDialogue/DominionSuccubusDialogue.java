@@ -5,7 +5,6 @@ import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.types.VaginaType;
 import com.lilithsthrone.game.character.body.valueEnums.CumProduction;
 import com.lilithsthrone.game.character.body.valueEnums.CupSize;
-import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.HairLength;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.body.valueEnums.TesticleSize;
@@ -31,7 +30,7 @@ import com.lilithsthrone.utils.Util.Value;
 
 /**
  * @since 0.1.?
- * @version 0.1.95
+ * @version 0.2.2
  * @author Innoxia
  */
 public class DominionSuccubusDialogue {
@@ -63,11 +62,7 @@ public class DominionSuccubusDialogue {
 								+ " A huge web, glistening pink with arcane energy, shimmers into life all around [npc.herHim], and with a snap of [npc.her] fingers, it falls harmlessly to the ground."
 							+ "</p>"
 							+ "<p>"
-								+ "As [npc.she] steps over the fallen webbing, you recognise your tormentor as the"
-								+ " <b style='color:"+Femininity.valueOf(Main.game.getActiveNPC().getFemininityValue()).getColour().toWebHexString()+";'>"+Femininity.getFemininityName(Main.game.getActiveNPC().getFemininityValue(), false)+"</b>"
-								+ " <b style='color:"+Main.game.getActiveNPC().getRaceStage().getColour().toWebHexString()+";'>" +Main.game.getActiveNPC().getRaceStage().getName()+"</b>"
-								+ " <b style='color:"+Main.game.getActiveNPC().getRace().getColour().toWebHexString()+";'>" + Main.game.getActiveNPC().getName() + "</b>"
-								+ " you've run into before."
+								+ "As [npc.she] steps over the fallen webbing, you recognise your tormentor as the [npc.fullRace(true)] you've run into before."
 							+ "</p>"
 							+ "<p>"
 								+ UtilText.parse(Main.game.getActiveNPC(),
@@ -105,11 +100,7 @@ public class DominionSuccubusDialogue {
 								+ " A huge web, glistening pink with arcane energy, shimmers into life all around [npc.herHim], and with a snap of [npc.her] fingers, it falls harmlessly to the ground."
 							+ "</p>"
 							+ "<p>"
-								+ "As [npc.she] steps over the fallen webbing, you recognise your tormentor as the"
-								+ " <b style='color:"+Femininity.valueOf(Main.game.getActiveNPC().getFemininityValue()).getColour().toWebHexString()+";'>"+Femininity.getFemininityName(Main.game.getActiveNPC().getFemininityValue(), false)+"</b>"
-								+ " <b style='color:"+Main.game.getActiveNPC().getRaceStage().getColour().toWebHexString()+";'>" +Main.game.getActiveNPC().getRaceStage().getName()+"</b>"
-								+ " <b style='color:"+Main.game.getActiveNPC().getRace().getColour().toWebHexString()+";'>" + Main.game.getActiveNPC().getName() + "</b>"
-								+ " you've run into before."
+								+ "As [npc.she] steps over the fallen webbing, you recognise your tormentor as the [npc.fullRace(true)] you've run into before."
 							+ "</p>"
 							+ "<p>"
 								+ UtilText.parse(Main.game.getActiveNPC(),
@@ -150,11 +141,7 @@ public class DominionSuccubusDialogue {
 							+ " A huge web, glistening pink with arcane energy, shimmers into life all around [npc.herHim], and with a snap of [npc.her] fingers, it falls harmlessly to the ground."
 						+ "</p>"
 						+ "<p>"
-							+ "As [npc.she] steps over the fallen webbing, you recognise your tormentor as the"
-							+ " <b style='color:"+Femininity.valueOf(Main.game.getActiveNPC().getFemininityValue()).getColour().toWebHexString()+";'>"+Femininity.getFemininityName(Main.game.getActiveNPC().getFemininityValue(), false)+"</b>"
-							+ " <b style='color:"+Main.game.getActiveNPC().getRaceStage().getColour().toWebHexString()+";'>" +Main.game.getActiveNPC().getRaceStage().getName()+"</b>"
-							+ " <b style='color:"+Main.game.getActiveNPC().getRace().getColour().toWebHexString()+";'>" + Main.game.getActiveNPC().getName() + "</b>"
-							+ " you've run into before."
+							+ "As [npc.she] steps over the fallen webbing, you recognise your tormentor as the [npc.fullRace(true)] you've run into before."
 						+ "</p>"
 						+ "<p>"
 							+ UtilText.parse(Main.game.getActiveNPC(),
@@ -185,11 +172,8 @@ public class DominionSuccubusDialogue {
 								+ " A huge web, glistening pink with arcane energy, shimmers into life all around [npc.herHim], and with a snap of [npc.her] fingers, it falls harmlessly to the ground."
 							+ "</p>"
 							+ "<p>"
-								+ "As [npc.she] steps over the fallen webbing, you see that your tormentor is, in fact, "
-								+ " <b style='color:"+Femininity.valueOf(Main.game.getActiveNPC().getFemininityValue()).getColour().toWebHexString()+";'>"+Femininity.getFemininityName(Main.game.getActiveNPC().getFemininityValue(), true)+"</b>"
-								+ " <b style='color:"+Main.game.getActiveNPC().getRaceStage().getColour().toWebHexString()+";'>" +Main.game.getActiveNPC().getRaceStage().getName()+"</b>"
-								+ " <b style='color:"+Main.game.getActiveNPC().getRace().getColour().toWebHexString()+";'>" + Main.game.getActiveNPC().getName() + "</b>"
-								+ ". Unlike Lilaya"+(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.kateIntroduced)?" or Kate":"")+", this demon has a hungry, primal look in [npc.her] eyes, and as [npc.she] moves closer, [npc.she] starts to talk."
+								+ "As [npc.she] steps over the fallen webbing, you see that your tormentor is, in fact, [npc.a_fullRace(true)]."
+								+ " Unlike Lilaya"+(Main.game.getDialogueFlags().values.contains(DialogueFlagValue.kateIntroduced)?" or Kate":"")+", this demon has a hungry, primal look in [npc.her] eyes, and as [npc.she] moves closer, [npc.she] starts to talk."
 							+ "</p>"
 							+ "<p>"
 								+ UtilText.parse(Main.game.getActiveNPC(),

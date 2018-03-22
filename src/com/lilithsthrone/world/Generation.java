@@ -21,7 +21,7 @@ import javafx.concurrent.Task;
 
 /**
  * @since 0.1.0
- * @version 0.1.89
+ * @version 0.2.2
  * @author Innoxia
  */
 public class Generation extends Task<Boolean> {
@@ -43,6 +43,9 @@ public class Generation extends Task<Boolean> {
 		int count = 0;
 		
 		for(WorldType wt : WorldType.values()) {
+			if(debug) {
+				System.out.println(wt);
+			}
 			worldGeneration(wt);
 			count++;
 			updateProgress(count, maxSize);
@@ -59,6 +62,9 @@ public class Generation extends Task<Boolean> {
 				
 				World world = new World(img.getWidth(), img.getHeight(), null, worldType);
 				Main.game.getWorlds().put(worldType, world);
+
+				if(debug)
+					System.out.println(worldType.getName()+" Start-File 1");
 				
 				Cell[][] grid = new Cell[img.getWidth()][img.getHeight()];
 				
@@ -70,6 +76,9 @@ public class Generation extends Task<Boolean> {
 						}
 					}
 				}
+
+				if(debug)
+					System.out.println(worldType.getName()+" Start-File 2");
 				
 				for(int w = 0 ; w < img.getWidth(); w++) {
 					for(int h = 0 ; h < img.getHeight(); h++) {
@@ -77,6 +86,9 @@ public class Generation extends Task<Boolean> {
 						world.addPlaceOfInterest(grid[w][img.getHeight()-1-h].getPlace(), new Vector2i(w, img.getHeight()-1-h));
 					}
 				}
+
+				if(debug)
+					System.out.println(worldType.getName()+" Start-File 3");
 				
 				world.setGrid(grid);
 				

@@ -56,7 +56,6 @@ public enum BaseColour {
 	BLUE_STEEL(Util.newColour(0xA7B7D2), Util.newColour(0x5671A4)),
 
 	GREY(Util.newColour(0xB3B3B3), Util.newColour(0x777777)),
-	
 	BLACK(Util.newColour(0x777777), Util.newColour(0x1F1F1F));
 	
 	private Color colour, lightColour;

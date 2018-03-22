@@ -2313,6 +2313,45 @@ public class ClothingType {
 	
 	};
 	
+	public static AbstractClothingType TORSO_SLEEVELESS_TURTLENECK = new AbstractClothingType(350,
+			"a",
+			false,
+			"sleeveless turtleneck",
+			"sleeveless turtlenecks",
+			"A feminine sleeveless sweater, with a high turtleneck.",
+			1,
+			Femininity.FEMININE,
+			InventorySlot.TORSO_UNDER,
+			Rarity.COMMON,
+			null,
+			"torso_sleeveless_turtleneck",
+			null,
+			Util.newArrayListOfValues(
+					new ListValue<BlockedParts>(new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.ARMS_UP_TO_SHOULDER),
+									new ListValue<ClothingAccess>(ClothingAccess.HEAD)),
+							null,
+							null, null
+							)),
+					new ListValue<BlockedParts>(new BlockedParts(
+							DisplacementType.PULLS_UP,
+							null,
+							Util.newArrayListOfValues(
+									new ListValue<CoverableArea>(CoverableArea.BREASTS),
+									new ListValue<CoverableArea>(CoverableArea.NIPPLES),
+									new ListValue<CoverableArea>(CoverableArea.STOMACH),
+									new ListValue<CoverableArea>(CoverableArea.BACK)),
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.CHEST),
+									new ListValue<ClothingAccess>(ClothingAccess.WAIST)), null))),
+			null,
+			Colour.allClothingColours,
+			null,
+			null, null, null, null){
+	};
+	
 	public static AbstractClothingType TORSO_TSHIRT = new AbstractClothingType(80,
 			"a",
 			false,

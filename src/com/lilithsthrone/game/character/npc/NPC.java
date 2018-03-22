@@ -2415,7 +2415,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 			return false;
 		}
 		
-		if(motherId.equals(character.getId()) || fatherId.equals(character.getId())) {
+		if(this.isRelatedTo(character)) {
 			if (!hasFetish(Fetish.FETISH_INCEST)) {
 				return false;
 			}

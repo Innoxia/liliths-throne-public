@@ -395,7 +395,12 @@ public class PrologueDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Search", "Go and search the museum for Arthur.", INTRO_2);
+				return new Response("Search", "Go and search the museum for Arthur.", INTRO_2) {
+					@Override
+					public void effects() {
+						CharacterCreation.moveNPCOutOfPlayerTile();
+					}
+				};
 			} else {
 				return null;
 			}
@@ -473,7 +478,12 @@ public class PrologueDialogue {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Search", "Go and search the museum for Arthur.", INTRO_2);
+				return new Response("Search", "Go and search the museum for Arthur.", INTRO_2) {
+					@Override
+					public void effects() {
+						CharacterCreation.moveNPCOutOfPlayerTile();
+					}
+				};
 			} else {
 				return null;
 			}
