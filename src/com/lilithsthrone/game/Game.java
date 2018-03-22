@@ -120,7 +120,6 @@ import com.lilithsthrone.world.Cell;
 import com.lilithsthrone.world.Generation;
 import com.lilithsthrone.world.World;
 import com.lilithsthrone.world.WorldType;
-import com.lilithsthrone.world.places.GenericPlace;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
@@ -198,7 +197,7 @@ public class Game implements Serializable, XMLSaving {
 		currentWeather = Weather.CLOUD;
 		weatherTimeRemaining = 300;
 		nextStormTime = minutesPassed + (60*48) + (60*Util.random.nextInt(24)); // Next storm in 2-3 days
-		
+
 	}
 	
 	private static boolean timeLog = false;
@@ -511,12 +510,15 @@ public class Game implements Serializable, XMLSaving {
 				}
 				
 				
-				
 				// Maps:
 				for(int i=0; i<((Element) gameElement.getElementsByTagName("maps").item(0)).getElementsByTagName("world").getLength(); i++){
 					
 					Element e = (Element) ((Element) gameElement.getElementsByTagName("maps").item(0)).getElementsByTagName("world").item(i);
-					if(!e.getAttribute("worldType").equals("SEWERS") || !Main.isVersionOlderThan(version, "0.2.0.5")) {
+					
+					if((!e.getAttribute("worldType").equals("SEWERS") || !Main.isVersionOlderThan(version, "0.2.0.5"))
+							&& (!e.getAttribute("worldType").equals("SUBMISSION") || !Main.isVersionOlderThan(version, "0.2.1.5"))
+							&& (!e.getAttribute("worldType").equals("DOMINION") || !Main.isVersionOlderThan(version, "0.2.1.5"))
+							&& (!e.getAttribute("worldType").equals("HARPY_NEST") || !Main.isVersionOlderThan(version, "0.2.1.5"))) {
 						World world = World.loadFromXML(e, doc);
 						newGame.worlds.put(world.getWorldType(), world);
 					}
@@ -529,8 +531,10 @@ public class Game implements Serializable, XMLSaving {
 					if(Main.isVersionOlderThan(version, "0.1.99.5")) {
 						gen.worldGeneration(WorldType.SHOPPING_ARCADE);
 					}
-					if(Main.isVersionOlderThan(version, "0.2.0.5")) {
+					if(Main.isVersionOlderThan(version, "0.2.1.5")) {
 						gen.worldGeneration(WorldType.SUBMISSION);
+						gen.worldGeneration(WorldType.DOMINION);
+						gen.worldGeneration(WorldType.HARPY_NEST);
 					}
 					if(newGame.worlds.get(wt)==null) {
 						gen.worldGeneration(wt);
@@ -2165,7 +2169,7 @@ public class Game implements Serializable, XMLSaving {
 	public void setActiveWorld(World world, PlaceType placeType, boolean setDefaultDialogue) {
 		setActiveWorld(
 				world,
-				world.getPlacesOfInterest().get(new GenericPlace(placeType)),
+				world.getClosestCell(Main.game.getPlayer().getLocation(), placeType).getLocation(),
 				setDefaultDialogue);
 	}
 	

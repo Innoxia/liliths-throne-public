@@ -9,11 +9,11 @@ import com.lilithsthrone.utils.Colour;
  */
 public enum FluidRegeneration {
 
-	ZERO_MINIMUM(0, 0.001f, "slow", "slowly", Colour.GENERIC_SIZE_ONE),
-	ONE_AVERAGE(1, 0.005f, "average", "", Colour.GENERIC_SIZE_TWO),
-	TWO_FULL(2, 0.015f, "fast", "quickly", Colour.GENERIC_SIZE_THREE),
-	THREE_PLUMP(3, 0.03f, "rapid", "rapidly", Colour.GENERIC_SIZE_FOUR),
-	FOUR_MAXIMUM(4, 0.1f, "very rapid", "very rapidly", Colour.GENERIC_SIZE_FIVE);
+	ZERO_MINIMUM(0, 0.0005f, "slow", "slowly", Colour.GENERIC_SIZE_ONE),
+	ONE_AVERAGE(1, 0.0025f, "average", "", Colour.GENERIC_SIZE_TWO),
+	TWO_FULL(2, 0.075f, "fast", "quickly", Colour.GENERIC_SIZE_THREE),
+	THREE_PLUMP(3, 0.015f, "rapid", "rapidly", Colour.GENERIC_SIZE_FOUR),
+	FOUR_MAXIMUM(4, 0.05f, "very rapid", "very rapidly", Colour.GENERIC_SIZE_FIVE);
 	
 	
 	private int value;

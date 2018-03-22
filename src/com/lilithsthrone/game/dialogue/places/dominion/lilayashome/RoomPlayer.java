@@ -377,7 +377,6 @@ public class RoomPlayer {
 			
 			UtilText.nodeContentSB.append("<p>"
 					+ "You notice that on each page of the calendar, there's a few paragraphs detailing the events that occur during that month."
-					+ " Although there doesn't seem to be anything interesting for any of the other months, October's entry appears to be quite detailed."
 					+ "</p>");
 			
 			// TODO probably not the best place to put it?

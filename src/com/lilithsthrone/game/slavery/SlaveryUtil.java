@@ -342,7 +342,7 @@ public class SlaveryUtil implements Serializable {
 					
 					// Please forgive this.
 					List<SlaveJobSetting> settingsEnabled = new ArrayList<>();
-					if(slave.getSlaveJobSettings().contains(SlaveJobSetting.SEX_VAGINAL) && slave.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+					if(slave.hasVagina() && slave.getSlaveJobSettings().contains(SlaveJobSetting.SEX_VAGINAL) && slave.isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
 						settingsEnabled.add(SlaveJobSetting.SEX_VAGINAL);
 					}
 					if(slave.getSlaveJobSettings().contains(SlaveJobSetting.SEX_ANAL) && slave.isAbleToAccessCoverableArea(CoverableArea.ANUS, true)) {
@@ -351,7 +351,7 @@ public class SlaveryUtil implements Serializable {
 					if(slave.getSlaveJobSettings().contains(SlaveJobSetting.SEX_ORAL) && slave.isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
 						settingsEnabled.add(SlaveJobSetting.SEX_ORAL);
 					}
-					if(slave.getSlaveJobSettings().contains(SlaveJobSetting.SEX_NIPPLES) && slave.isAbleToAccessCoverableArea(CoverableArea.NIPPLES, true) && slave.isBreastFuckableNipplePenetration()) {
+					if(slave.isBreastFuckableNipplePenetration() && slave.getSlaveJobSettings().contains(SlaveJobSetting.SEX_NIPPLES) && slave.isAbleToAccessCoverableArea(CoverableArea.NIPPLES, true)) {
 						settingsEnabled.add(SlaveJobSetting.SEX_NIPPLES);
 					}
 					

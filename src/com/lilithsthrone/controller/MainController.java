@@ -85,6 +85,7 @@ import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
+import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.body.valueEnums.PiercingType;
@@ -476,6 +477,8 @@ public class MainController implements Initializable {
 //						 }
 						
 						 if(event.getCode()==KeyCode.END){
+							 
+							 Main.game.getPlayer().setMana(1);
 							 
 //							 Cell[][] grid = new Cell[5][5];
 //							 for(int i=0; i<grid.length;i++) {
@@ -3032,6 +3035,18 @@ public class MainController implements Initializable {
 						}, false);
 					}
 				}
+
+				// Penis girth:
+				for(PenisGirth girth : PenisGirth.values()) {
+					id = "PENIS_GIRTH_"+girth;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setPenisGirth(girth.getValue());
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
 				
 				// Testicle size:
 				for(TesticleSize ts : CharacterModificationUtils.getTesticleSizesAvailable()) {

@@ -16,12 +16,12 @@
    id="svg4311"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="fieldsExit.svg">
+   sodipodi:docname="impFortress5.svg">
   <defs
      id="defs4313">
     <linearGradient
        inkscape:collect="always"
-       id="fieldsEntranceGradient">
+       id="impFortress5Gradient">
       <stop
          style="stop-color:#ff5555;stop-opacity:1"
          offset="0"
@@ -33,7 +33,7 @@
     </linearGradient>
     <linearGradient
        inkscape:collect="always"
-       xlink:href="#fieldsEntranceGradient"
+       xlink:href="#impFortress5Gradient"
        id="linearGradient15"
        x1="29.499998"
        y1="1025.4872"
@@ -49,9 +49,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="11.313709"
-     inkscape:cx="29.034597"
-     inkscape:cy="36.057414"
+     inkscape:zoom="8.0000004"
+     inkscape:cx="28.390817"
+     inkscape:cy="24.833847"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -60,7 +60,8 @@
      inkscape:window-height="1388"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
-     inkscape:window-maximized="1" />
+     inkscape:window-maximized="1"
+     showguides="false" />
   <metadata
      id="metadata4316">
     <rdf:RDF>
@@ -69,7 +70,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -86,22 +87,18 @@
        cx="32.000488"
        id="ellipse4146"
        style="display:inline;fill:url(#linearGradient15);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:5.4000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    <g
-       style="display:inline"
-       id="g4171"
-       transform="matrix(1.4035826,0,0,1.4035826,-13.315379,-411.66533)">
-      <path
-         sodipodi:nodetypes="ccc"
-         inkscape:connector-curvature="0"
-         id="path4163"
-         d="m 43.575064,1020.3922 -10.755024,-11.085 -11.549551,10.9236"
-         style="display:inline;fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:3.50999999;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <path
-         sodipodi:nodetypes="ccc"
-         inkscape:connector-curvature="0"
-         id="path4163-3"
-         d="m 43.502796,1029.8765 -10.755024,-11.085 -11.549551,10.9236"
-         style="display:inline;fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:3.50999999;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    </g>
+    <path
+       style="fill:#ffffff;fill-rule:evenodd;stroke:#ffffff;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 44.539062,17.914062 -5.132812,0.03125 0.07617,3.298829 -4.230469,-0.05469 0,-3.175781 -5.390625,0.03516 0.142578,3.234375 -4.386718,0.101563 -0.04297,-3.34961 -5.166016,0.07227 -0.08789,8.152344 3.96875,-0.04492 L 19.625,53.25 l 25.75,0 -4.335938,-27.037109 3.625,-0.08789 z m -7.866727,35.115729 -7.6875,0.0625 c -0.772815,-12.280914 8.140325,-11.810641 7.6875,-0.0625 z"
+       transform="translate(0,988.36216)"
+       id="path4941"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccccccccccccccccc" />
+    <path
+       style="fill:#ffffff;fill-rule:evenodd;stroke:#ffffff;stroke-width:0.82037246px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 32.666582,1006.5091 0,-11.82378 c 0,0 2.354459,-1.48088 3.35694,-1.51799 1.053632,-0.0389 2.656834,1.68889 3.702933,1.7743 1.217401,0.0994 3.386596,-0.64122 3.386596,-0.64122 0,0 -2.276678,1.98514 -3.401395,2.38618 -1.061387,0.37798 -2.480365,-0.97182 -3.539722,-0.575 -0.996549,0.37328 -3.463774,2.3624 -3.463774,2.3624"
+       id="path4943"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccsscssc" />
   </g>
 </svg>

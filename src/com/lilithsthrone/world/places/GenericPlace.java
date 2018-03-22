@@ -62,16 +62,16 @@ public class GenericPlace implements Serializable, XMLSaving {
 		CharacterUtils.addAttribute(doc, element, "name", this.getName());
 		CharacterUtils.addAttribute(doc, element, "type", this.getPlaceType().toString());
 		
-		Element innerElement = doc.createElement("placeUpgrades");
-		element.appendChild(innerElement);
-		
-		for(PlaceUpgrade upgrade : this.getPlaceUpgrades()) {
-			Element e = doc.createElement("upgrade");
-			innerElement.appendChild(e);
-			
-			CharacterUtils.addAttribute(doc, e, "type", upgrade.toString());
+		if(!this.getPlaceUpgrades().isEmpty()) {
+			Element innerElement = doc.createElement("placeUpgrades");
+			element.appendChild(innerElement);
+			for(PlaceUpgrade upgrade : this.getPlaceUpgrades()) {
+				Element e = doc.createElement("upgrade");
+				innerElement.appendChild(e);
+				
+				CharacterUtils.addAttribute(doc, e, "type", upgrade.toString());
+			}
 		}
-		
 		return element;
 	}
 	
@@ -85,35 +85,39 @@ public class GenericPlace implements Serializable, XMLSaving {
 		GenericPlace place = new GenericPlace(PlaceType.valueOf(placeType));
 		place.setName(parentElement.getAttribute("name"));
 		
-		if(((Element) parentElement.getElementsByTagName("placeUpgrades").item(0)).getElementsByTagName("upgrade").getLength()>0) {
-			List<PlaceUpgrade> coreUpgrades = new ArrayList<>();
-			List<PlaceUpgrade> upgrades = new ArrayList<>();
-			for(int i=0; i<((Element) parentElement.getElementsByTagName("placeUpgrades").item(0)).getElementsByTagName("upgrade").getLength(); i++){
-				Element e = (Element) ((Element) parentElement.getElementsByTagName("placeUpgrades").item(0)).getElementsByTagName("upgrade").item(i);
-				PlaceUpgrade upgrade = PlaceUpgrade.valueOf(e.getAttribute("type"));
+		try {
+			if(parentElement.getElementsByTagName("placeUpgrades").getLength()>0 && ((Element) parentElement.getElementsByTagName("placeUpgrades").item(0)).getElementsByTagName("upgrade").getLength()>0) {
+				List<PlaceUpgrade> coreUpgrades = new ArrayList<>();
+				List<PlaceUpgrade> upgrades = new ArrayList<>();
+				for(int i=0; i<((Element) parentElement.getElementsByTagName("placeUpgrades").item(0)).getElementsByTagName("upgrade").getLength(); i++){
+					Element e = (Element) ((Element) parentElement.getElementsByTagName("placeUpgrades").item(0)).getElementsByTagName("upgrade").item(i);
+					PlaceUpgrade upgrade = PlaceUpgrade.valueOf(e.getAttribute("type"));
+					
+					if(upgrade.isCoreRoomUpgrade()) {
+						coreUpgrades.add(upgrade);
+					} else {
+						upgrades.add(upgrade);
+					}
+				}
 				
-				if(upgrade.isCoreRoomUpgrade()) {
-					coreUpgrades.add(upgrade);
-				} else {
-					upgrades.add(upgrade);
+				// Add core upgrades first:
+				for(PlaceUpgrade coreUpgrade : coreUpgrades) {
+					if(!place.getPlaceUpgrades().contains(coreUpgrade)) {
+						if(!place.addPlaceUpgrade(coreUpgrade)) { // This line attempts to add the upgrade
+							System.err.println("WARNING: Import of GenericPlace ("+place.getPlaceType()+") was unable to add core upgrade: "+coreUpgrade.getName());
+						}
+					}
 				}
-			}
-			
-			// Add core upgrades first:
-			for(PlaceUpgrade coreUpgrade : coreUpgrades) {
-				if(!place.getPlaceUpgrades().contains(coreUpgrade)) {
-					if(!place.addPlaceUpgrade(coreUpgrade)) { // This line attempts to add the upgrade
-						System.err.println("WARNING: Import of GenericPlace ("+place.getPlaceType()+") was unable to add core upgrade: "+coreUpgrade.getName());
+				for(PlaceUpgrade upgrade : upgrades) {
+					if(!place.getPlaceUpgrades().contains(upgrade)) {
+						if(!place.addPlaceUpgrade(upgrade)) { // This line attempts to add the upgrade
+							System.err.println("WARNING: Import of GenericPlace ("+place.getPlaceType()+") was unable to add upgrade: "+upgrade.getName());
+						}
 					}
 				}
 			}
-			for(PlaceUpgrade upgrade : upgrades) {
-				if(!place.getPlaceUpgrades().contains(upgrade)) {
-					if(!place.addPlaceUpgrade(upgrade)) { // This line attempts to add the upgrade
-						System.err.println("WARNING: Import of GenericPlace ("+place.getPlaceType()+") was unable to add upgrade: "+upgrade.getName());
-					}
-				}
-			}
+		} catch(Exception ex) {
+			System.err.println("GenericPlace import error 1");
 		}
 		
 		return place;

@@ -451,7 +451,7 @@ public class PlayerFingerNipple {
 
 		@Override
 		public String getActionDescription() {
-			return "";
+			return "Reach up to [npc.name]'s [npc.breasts] and start milking [npc.herHim].";
 		}
 
 		@Override

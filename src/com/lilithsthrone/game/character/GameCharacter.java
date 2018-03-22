@@ -104,6 +104,20 @@ import com.lilithsthrone.game.character.fetishes.FetishLevel;
 import com.lilithsthrone.game.character.gender.Gender;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.NPCOffspring;
+import com.lilithsthrone.game.character.npc.dominion.Alexa;
+import com.lilithsthrone.game.character.npc.dominion.Cultist;
+import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
+import com.lilithsthrone.game.character.npc.dominion.DominionSuccubusAttacker;
+import com.lilithsthrone.game.character.npc.dominion.HarpyBimbo;
+import com.lilithsthrone.game.character.npc.dominion.HarpyBimboCompanion;
+import com.lilithsthrone.game.character.npc.dominion.HarpyDominant;
+import com.lilithsthrone.game.character.npc.dominion.HarpyDominantCompanion;
+import com.lilithsthrone.game.character.npc.dominion.HarpyNestsAttacker;
+import com.lilithsthrone.game.character.npc.dominion.HarpyNympho;
+import com.lilithsthrone.game.character.npc.dominion.HarpyNymphoCompanion;
+import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
+import com.lilithsthrone.game.character.npc.dominion.Scarlett;
+import com.lilithsthrone.game.character.npc.submission.SubmissionAttacker;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.character.race.RaceStage;
 import com.lilithsthrone.game.character.race.RacialBody;
@@ -520,11 +534,13 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		Element characterCoreAttributes = doc.createElement("attributes");
 		properties.appendChild(characterCoreAttributes);
 		for(Attribute att : Attribute.values()){
-			Element element = doc.createElement("attribute");
-			characterCoreAttributes.appendChild(element);
-			
-			CharacterUtils.addAttribute(doc, element, "type", att.toString());
-			CharacterUtils.addAttribute(doc, element, "value", String.valueOf(this.getBaseAttributeValue(att)));
+			if(this.getBaseAttributeValue(att) != att.getBaseValue()) {
+				Element element = doc.createElement("attribute");
+				characterCoreAttributes.appendChild(element);
+				
+				CharacterUtils.addAttribute(doc, element, "type", att.toString());
+				CharacterUtils.addAttribute(doc, element, "value", String.valueOf(this.getBaseAttributeValue(att)));
+			}
 		}
 		
 		Element characterPotionAttributes = doc.createElement("potionAttributes");
@@ -1031,18 +1047,76 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		nodes = parentElement.getElementsByTagName("locationInformation");
 		element = (Element) nodes.item(0);
 		if(element!=null) {
-			character.setLocation(
-					WorldType.valueOf(((Element)element.getElementsByTagName("worldLocation").item(0)).getAttribute("value")),
-					new Vector2i(
-							Integer.valueOf(((Element)element.getElementsByTagName("location").item(0)).getAttribute("x")),
-							Integer.valueOf(((Element)element.getElementsByTagName("location").item(0)).getAttribute("y"))),
-					false);
-
-			character.setHomeLocation(
-					WorldType.valueOf(((Element)element.getElementsByTagName("homeWorldLocation").item(0)).getAttribute("value")),
-					new Vector2i(
-							Integer.valueOf(((Element)element.getElementsByTagName("homeLocation").item(0)).getAttribute("x")),
-							Integer.valueOf(((Element)element.getElementsByTagName("homeLocation").item(0)).getAttribute("y"))));
+			
+			WorldType worldType = WorldType.valueOf(((Element)element.getElementsByTagName("worldLocation").item(0)).getAttribute("value"));
+			
+			if((worldType==WorldType.DOMINION || worldType==WorldType.SUBMISSION || worldType==WorldType.HARPY_NEST) && Main.isVersionOlderThan(version, "0.2.1.5")) {
+				PlaceType placeType = PlaceType.DOMINION_BACK_ALLEYS;
+				
+				if(character.isPlayer()) {
+					if(worldType==WorldType.DOMINION) {
+						placeType = PlaceType.DOMINION_AUNTS_HOME;
+						
+					} else if(worldType==WorldType.SUBMISSION) {
+						placeType = PlaceType.SUBMISSION_ENTRANCE;
+						
+					} else {
+						placeType = PlaceType.HARPY_NESTS_ENTRANCE_ENFORCER_POST;
+					}
+					
+				} else {
+					
+					if(character instanceof DominionAlleywayAttacker) {
+						placeType = PlaceType.DOMINION_BACK_ALLEYS;
+						
+					} else if(character instanceof DominionSuccubusAttacker) {
+						placeType = PlaceType.DOMINION_DARK_ALLEYS;
+						
+					} else if(character instanceof Cultist) {
+						placeType = PlaceType.DOMINION_STREET;
+						
+					} else if(character instanceof ReindeerOverseer) {
+						placeType = PlaceType.DOMINION_STREET;
+						
+					} else if(character instanceof SubmissionAttacker) {
+						placeType = PlaceType.SUBMISSION_TUNNELS;
+						
+					} else if(character instanceof HarpyNestsAttacker) {
+						placeType = PlaceType.HARPY_NESTS_WALKWAYS;
+						
+					} else if(character instanceof HarpyBimbo || character instanceof HarpyBimboCompanion) {
+						placeType = PlaceType.HARPY_NESTS_HARPY_NEST_YELLOW;
+						
+					} else if(character instanceof HarpyDominant || character instanceof HarpyDominantCompanion) {
+						placeType = PlaceType.HARPY_NESTS_HARPY_NEST_RED;
+						
+					} else if(character instanceof HarpyNympho || character instanceof HarpyNymphoCompanion) {
+						placeType = PlaceType.HARPY_NESTS_HARPY_NEST_PINK;
+						
+					} else if(character instanceof Scarlett || character instanceof Alexa) {
+						placeType = PlaceType.HARPY_NESTS_ALEXAS_NEST;
+						
+					}
+				}
+				
+				character.setLocation(
+						worldType,
+						Main.game.getWorlds().get(worldType).getRandomUnoccupiedCell(placeType).getLocation(),
+						true);
+				
+			} else {
+				character.setLocation(
+						worldType,
+						new Vector2i(
+								Integer.valueOf(((Element)element.getElementsByTagName("location").item(0)).getAttribute("x")),
+								Integer.valueOf(((Element)element.getElementsByTagName("location").item(0)).getAttribute("y"))),
+						false);
+				character.setHomeLocation(
+						WorldType.valueOf(((Element)element.getElementsByTagName("homeWorldLocation").item(0)).getAttribute("value")),
+						new Vector2i(
+								Integer.valueOf(((Element)element.getElementsByTagName("homeLocation").item(0)).getAttribute("x")),
+								Integer.valueOf(((Element)element.getElementsByTagName("homeLocation").item(0)).getAttribute("y"))));
+			}
 			
 		} else {
 			character.setLocation(new Vector2i(0, 0));
@@ -2614,10 +2688,17 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 
 	public boolean removeTrait(Perk perk) {
-		return traits.remove(perk);
+		if(traits.remove(perk)) {
+			applyPerkRemovalEffects(perk);
+			return true;
+		}
+		return false;
 	}
 	
 	public void clearTraits() {
+		for(Perk p : traits) {
+			applyPerkRemovalEffects(p);
+		}
 		traits.clear();
 	}
 	
@@ -2626,6 +2707,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			return false;
 		}
 		traits.add(perk);
+		applyPerkGainEffects(perk);
 		return true;
 	}
 	
@@ -2663,6 +2745,92 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		tempPerkList.sort(Comparator.comparingInt(Perk::getRenderingPriority));
 		return tempPerkList;
 	}
+	
+	public boolean hasTrait(Perk p, boolean equipped) {
+		if(p.isMajor()) {
+			if((p.getPerkCategory()==PerkCategory.JOB)) {
+				return getHistory().getAssociatedPerk()==p;
+			} else if(equipped) {
+				return traits.contains(p);
+			} else {
+				return hasPerkInTree(PerkManager.MANAGER.getPerkRow(p), p);
+			}
+		}
+		return false;
+	}
+	
+	public boolean hasPerkInTree(int row, Perk p) {
+		if(!perks.containsKey(row)) {
+			return false;
+		}
+		return perks.get(row).contains(p);
+	}
+
+	public boolean addPerk(Perk perk) {
+		return addPerk(PerkManager.MANAGER.getPerkRow(perk), perk);
+	}
+	
+	public boolean addPerk(int row, Perk perk) {
+		perks.putIfAbsent(row, new HashSet<>());
+		
+		if (perks.get(row).contains(perk)) {
+			return false;
+		}
+		
+		perks.get(row).add(perk);
+		
+		if(!perk.isMajor()) {
+			applyPerkGainEffects(perk);
+		}
+		
+		return true;
+	}
+
+	public boolean removePerk(int row, Perk perk) {
+		if (!perks.containsKey(row)) {
+			return false;
+		}
+		
+		if (!perks.get(row).contains(perk)) {
+			return false;
+		}
+		
+		perks.get(row).remove(perk);
+
+		if(!perk.isMajor()) {
+			applyPerkRemovalEffects(perk);
+		}
+		
+		return true;
+	}
+	
+	private void applyPerkGainEffects(Perk perk) {
+		// Increment bonus attributes from this perk:
+		if (perk.getAttributeModifiers() != null) {
+			for (Entry<Attribute, Integer> e : perk.getAttributeModifiers().entrySet()) {
+				incrementBonusAttribute(e.getKey(), e.getValue());
+			}
+		}
+		calculateSpecialAttacks();
+		
+		updateAttributeListeners();
+	}
+	
+	private void applyPerkRemovalEffects(Perk perk) {
+		
+		// Reverse bonus attributes from this perk:
+		if (perk.getAttributeModifiers() != null) {
+			for (Entry<Attribute, Integer> e : perk.getAttributeModifiers().entrySet()) {
+				incrementBonusAttribute(e.getKey(), -e.getValue());
+			}
+		}
+		calculateSpecialAttacks();
+		
+		updateAttributeListeners();
+	}
+	
+	
+	// Fetishes:
 
 	/**The returned list is ordered by rendering priority.*/
 	public List<Fetish> getFetishes() {
@@ -2817,76 +2985,6 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	public FetishLevel getFetishLevel(Fetish fetish) {
 		return FetishLevel.getFetishLevelFromValue(getFetishExperience(fetish));
-	}
-	
-	public boolean hasTrait(Perk p, boolean equipped) {
-		if(p.isMajor()) {
-			if((p.getPerkCategory()==PerkCategory.JOB)) {
-				return getHistory().getAssociatedPerk()==p;
-			} else if(equipped) {
-				return traits.contains(p);
-			} else {
-				return hasPerkInTree(PerkManager.MANAGER.getPerkRow(p), p);
-			}
-		}
-		return false;
-	}
-	
-	public boolean hasPerkInTree(int row, Perk p) {
-		if(!perks.containsKey(row)) {
-			return false;
-		}
-		return perks.get(row).contains(p);
-	}
-
-	public boolean addPerk(Perk perk) {
-		return addPerk(PerkManager.MANAGER.getPerkRow(perk), perk);
-	}
-	
-	public boolean addPerk(int row, Perk perk) {
-		perks.putIfAbsent(row, new HashSet<>());
-		
-		if (perks.get(row).contains(perk)) {
-			return false;
-		}
-		
-		perks.get(row).add(perk);
-
-		// Increment bonus attributes from this perk:
-		if (perk.getAttributeModifiers() != null) {
-			for (Entry<Attribute, Integer> e : perk.getAttributeModifiers().entrySet()) {
-				incrementBonusAttribute(e.getKey(), e.getValue());
-			}
-		}
-		calculateSpecialAttacks();
-		
-		updateAttributeListeners();
-
-		return true;
-	}
-
-	public boolean removePerk(int row, Perk perk) {
-		if (!perks.containsKey(row)) {
-			return false;
-		}
-		
-		if (!perks.get(row).contains(perk)) {
-			return false;
-		}
-		
-		perks.get(row).remove(perk);
-
-		// Reverse bonus attributes from this perk:
-		if (perk.getAttributeModifiers() != null) {
-			for (Entry<Attribute, Integer> e : perk.getAttributeModifiers().entrySet()) {
-				incrementBonusAttribute(e.getKey(), -e.getValue());
-			}
-		}
-		calculateSpecialAttacks();
-		
-		updateAttributeListeners();
-
-		return true;
 	}
 	
 
@@ -8532,16 +8630,17 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			this.addPotentialPartnerAsMother(pregPoss);
 			partner.addPotentialPartnerAsFather(pregPoss);
 
-			if (pregnancyChance <= 0)
+			if (pregnancyChance <= 0) {
 				s = PregnancyDescriptor.NO_CHANCE.getDescriptor(this, partner);
-			else if(pregnancyChance<=0.15f)
+			} else if(pregnancyChance<=0.15f) {
 				s = PregnancyDescriptor.LOW_CHANCE.getDescriptor(this, partner);
-			else if(pregnancyChance<=0.3f)
+			} else if(pregnancyChance<=0.3f) {
 				s = PregnancyDescriptor.AVERAGE_CHANCE.getDescriptor(this, partner);
-			else if(pregnancyChance<1)
+			} else if(pregnancyChance<1) {
 				s = PregnancyDescriptor.HIGH_CHANCE.getDescriptor(this, partner);
-			else
+			} else {
 				s = PregnancyDescriptor.CERTAINTY.getDescriptor(this, partner);
+			}
 		}
 		
 		if (!hasStatusEffect(StatusEffect.PREGNANT_0) && !isPregnant()) {
@@ -11168,8 +11267,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	 * @return Formatted description of height change.
 	 */
 	public String setHeight(int height) {
+		height = Math.min(Height.SEVEN_COLOSSAL.getMaximumValue(), Math.max(this.getSubspecies().isShortStature()?Height.NEGATIVE_TWO_MIMIMUM.getMinimumValue():Height.ZERO_TINY.getMinimumValue(), height));
+		
 		if (body.getHeightValue() < height) {
-			if (body.setHeight(Math.max(this.getSubspecies().isShortStature()?Height.NEGATIVE_TWO_MIMIMUM.getMinimumValue():Height.ZERO_TINY.getMinimumValue(), height))) {
+			if (body.setHeight(height)) {
 				return isPlayer()
 						? "<p class='center'>"
 							+ "The world around you seems slightly further away than it used to be, but after a moment you realise that you've just <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>grown taller</b>."
@@ -11181,8 +11282,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 								+ "[npc.She] sways from side to side a little, [npc.her] balance suddenly thrown off by the fact that [npc.she]'s just <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>grown taller</b>."
 							+ "</p>");
 			}
-		} else {
-			if (body.setHeight(Math.max(this.getSubspecies().isShortStature()?Height.NEGATIVE_TWO_MIMIMUM.getMinimumValue():Height.ZERO_TINY.getMinimumValue(), height))) {
+			
+		} else if (body.getHeightValue() > height) {
+			if (body.setHeight(height)) {
 				return isPlayer()
 						? "<p class='center'>"
 							+ "The world around you suddenly seems slightly closer than it used to be, but after a moment you realise that you've just <b style='color:" + Colour.TRANSFORMATION_GENERIC.toWebHexString() + ";'>become shorter</b>."

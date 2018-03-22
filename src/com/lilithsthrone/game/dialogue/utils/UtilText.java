@@ -763,7 +763,7 @@ public class UtilText {
 				Util.newArrayListOfValues(new ListValue<>("surname")),
 				true,
 				false,
-				"(prefix)",
+				"",
 				"Returns the surname of the target."){
 			@Override
 			public String parse(String command, String arguments, String target) {
@@ -1006,6 +1006,32 @@ public class UtilText {
 				} else {
 					return UtilText.returnStringAtRandom("bitch", "bastard", "fuckface", "fucker");
 				}
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("fullRace"),
+						new ListValue<>("femininityRace")),
+				true,
+				true,
+				"(coloured)",//TODO
+				"Returns a full description of this characters race (including femininity)."){
+			@Override
+			public String parse(String command, String arguments, String target) {
+				boolean pronoun = parseAddPronoun;
+				parseAddPronoun = false;
+				if(arguments!=null && Boolean.valueOf(arguments)) {
+					return "<span style='color:"+character.getFemininity().getColour().toWebHexString()+";'>"
+							+ Femininity.getFemininityName(character.getFemininityValue(), pronoun)+"</span>"
+							+ " <span style='color:"+character.getRaceStage().getColour().toWebHexString()+";'>" +character.getRaceStage().getName()+"</span>"
+							+ " <span style='color:"+character.getSubspecies().getColour().toWebHexString()+";'>" +  getSubspeciesName(character.getSubspecies()) + "</span>";
+				}
+				return Femininity.getFemininityName(character.getFemininityValue(), pronoun)+" "+character.getRaceStage().getName()+" "+getSubspeciesName(character.getSubspecies());
+			}
+			@Override
+			protected String applyDeterminer(String descriptor, String input) {
+				return input;
 			}
 		});
 		

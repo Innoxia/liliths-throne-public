@@ -68,6 +68,14 @@ public class DominionAlleywayAttacker extends NPC {
 			this.setWorldLocation(Main.game.getPlayer().getWorldLocation());
 			this.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
 			
+			boolean canalSpecies = false;
+			PlaceType pt = Main.game.getActiveWorld().getCell(location).getPlace().getPlaceType();
+			if(pt == PlaceType.DOMINION_ALLEYS_CANAL_CROSSING
+					|| pt == PlaceType.DOMINION_CANAL
+					|| pt == PlaceType.DOMINION_CANAL_END) {
+				canalSpecies = true;
+			}
+			
 			// Set random level from 1 to 3:
 			setLevel(Util.random.nextInt(3) + 1);
 			
@@ -94,14 +102,15 @@ public class DominionAlleywayAttacker extends NPC {
 			for(Subspecies s : Subspecies.values()) {
 				switch(s) {
 					case ALLIGATOR_MORPH:
+						addToSubspeciesMap(canalSpecies?20:0, gender, s, availableRaces);
 						break;
 					case ANGEL:
 						break;
 					case CAT_MORPH:
-						addToSubspeciesMap(20, gender, s, availableRaces);
+						addToSubspeciesMap(canalSpecies?5:20, gender, s, availableRaces);
 						break;
 					case COW_MORPH:
-						addToSubspeciesMap(10, gender, s, availableRaces);
+						addToSubspeciesMap(canalSpecies?1:10, gender, s, availableRaces);
 						break;
 					case DEMON:
 						break;
@@ -110,15 +119,15 @@ public class DominionAlleywayAttacker extends NPC {
 					case IMP_ALPHA:
 						break;
 					case DOG_MORPH:
-						addToSubspeciesMap(20, gender, s, availableRaces);
+						addToSubspeciesMap(canalSpecies?3:15, gender, s, availableRaces);
 						break;
 					case DOG_MORPH_DOBERMANN:
-						addToSubspeciesMap(20, gender, s, availableRaces);
+						addToSubspeciesMap(canalSpecies?2:5, gender, s, availableRaces);
 						break;
 					case HARPY:
 						break;
 					case HORSE_MORPH:
-						addToSubspeciesMap(20, gender, s, availableRaces);
+						addToSubspeciesMap(canalSpecies?5:20, gender, s, availableRaces);
 						break;
 					case HUMAN:
 						break;
@@ -136,17 +145,18 @@ public class DominionAlleywayAttacker extends NPC {
 					case SLIME_REINDEER:
 					case SLIME_SQUIRREL:
 					case SLIME_WOLF:
+						addToSubspeciesMap(canalSpecies?2:0, gender, s, availableRaces);
 						break;
 					case REINDEER_MORPH:
 						if(Main.game.getSeason()==Season.WINTER && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter)) {
-							addToSubspeciesMap(10, gender, s, availableRaces);
+							addToSubspeciesMap(canalSpecies?1:10, gender, s, availableRaces);
 						}
 						break;
 					case SQUIRREL_MORPH:
-						addToSubspeciesMap(10, gender, s, availableRaces);
+						addToSubspeciesMap(canalSpecies?1:10, gender, s, availableRaces);
 						break;
 					case WOLF_MORPH:
-						addToSubspeciesMap(20, gender, s, availableRaces);
+						addToSubspeciesMap(canalSpecies?5:20, gender, s, availableRaces);
 						break;
 				}
 			}
@@ -250,13 +260,15 @@ public class DominionAlleywayAttacker extends NPC {
 	}
 	
 	private void addToSubspeciesMap(int weight, Gender gender, Subspecies subspecies, Map<Subspecies, Integer> map) {
-		if(gender.isFeminine()) {
-			if(Main.getProperties().subspeciesFeminineFurryPreferencesMap!=FurryPreference.HUMAN && Main.getProperties().subspeciesFemininePreferencesMap.get(subspecies).getValue()>0) {
-				map.put(subspecies, weight*Main.getProperties().subspeciesFemininePreferencesMap.get(subspecies).getValue());
-			}
-		} else {
-			if(Main.getProperties().subspeciesMasculineFurryPreferencesMap!=FurryPreference.HUMAN && Main.getProperties().subspeciesMasculinePreferencesMap.get(subspecies).getValue()>0) {
-				map.put(subspecies, weight*Main.getProperties().subspeciesMasculinePreferencesMap.get(subspecies).getValue());
+		if(weight!=0) {
+			if(gender.isFeminine()) {
+				if(Main.getProperties().subspeciesFeminineFurryPreferencesMap!=FurryPreference.HUMAN && Main.getProperties().subspeciesFemininePreferencesMap.get(subspecies).getValue()>0) {
+					map.put(subspecies, weight*Main.getProperties().subspeciesFemininePreferencesMap.get(subspecies).getValue());
+				}
+			} else {
+				if(Main.getProperties().subspeciesMasculineFurryPreferencesMap!=FurryPreference.HUMAN && Main.getProperties().subspeciesMasculinePreferencesMap.get(subspecies).getValue()>0) {
+					map.put(subspecies, weight*Main.getProperties().subspeciesMasculinePreferencesMap.get(subspecies).getValue());
+				}
 			}
 		}
 	}
@@ -333,13 +345,19 @@ public class DominionAlleywayAttacker extends NPC {
 	
 	@Override
 	public DialogueNodeOld getEncounterDialogue() {
-		if(Main.game.getActiveWorld().getCell(location).getPlace().getPlaceType()==PlaceType.DOMINION_BACK_ALLEYS) {
+		PlaceType pt = Main.game.getActiveWorld().getCell(location).getPlace().getPlaceType();
+		
+		if(pt == PlaceType.DOMINION_BACK_ALLEYS
+				|| pt == PlaceType.DOMINION_CANAL
+				|| pt == PlaceType.DOMINION_ALLEYS_CANAL_CROSSING
+				|| pt == PlaceType.DOMINION_CANAL_END) {
 			if(this.getHistory()==History.PROSTITUTE) {
 				this.setPlayerKnowsName(true);
 				return AlleywayProstituteDialogue.ALLEY_PROSTITUTE;
 			} else {
 				return AlleywayAttackerDialogue.ALLEY_ATTACK;
 			}
+			
 		} else {
 			return AlleywayAttackerDialogue.STORM_ATTACK;
 		}

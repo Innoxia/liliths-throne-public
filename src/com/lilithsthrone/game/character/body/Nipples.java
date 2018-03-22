@@ -100,18 +100,20 @@ public class Nipples implements BodyPartInterface, Serializable {
 			descriptorList.add(om.getName());
 		}
 		
-		switch(owner.getBreastMilkStorage().getAssociatedWetness()) {
-			case ONE_SLIGHTLY_MOIST:
-			case TWO_MOIST:
-			case THREE_WET:
-			case FOUR_SLIMY:
-			case FIVE_SLOPPY:
-			case SIX_SOPPING_WET:
-			case SEVEN_DROOLING:
-				descriptorList.add(owner.getBreastMilkStorage().getAssociatedWetness().getDescriptor());
-				break;
-			default:
-				break;
+		if(owner.isBreastFuckableNipplePenetration()) {
+			switch(owner.getBreastMilkStorage().getAssociatedWetness()) {
+				case ONE_SLIGHTLY_MOIST:
+				case TWO_MOIST:
+				case THREE_WET:
+				case FOUR_SLIMY:
+				case FIVE_SLOPPY:
+				case SIX_SOPPING_WET:
+				case SEVEN_DROOLING:
+					descriptorList.add(owner.getBreastMilkStorage().getAssociatedWetness().getDescriptor());
+					break;
+				default:
+					break;
+			}
 		}
 		
 		if(Main.game.isInSex()) {

@@ -16,12 +16,12 @@
    id="svg4311"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="submissionExit.svg">
+   sodipodi:docname="bridge.svg">
   <defs
      id="defs4313">
     <linearGradient
        inkscape:collect="always"
-       id="submissionEntranceGradient">
+       id="bridgeGradient">
       <stop
          style="stop-color:#ff5555;stop-opacity:1"
          offset="0"
@@ -33,7 +33,7 @@
     </linearGradient>
     <linearGradient
        inkscape:collect="always"
-       xlink:href="#submissionEntranceGradient"
+       xlink:href="#bridgeGradient"
        id="linearGradient15"
        x1="29.499998"
        y1="1025.4872"
@@ -49,9 +49,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.6568545"
-     inkscape:cx="66.52477"
-     inkscape:cy="17.679455"
+     inkscape:zoom="2"
+     inkscape:cx="-65.443916"
+     inkscape:cy="48.817465"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -69,7 +69,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -86,16 +86,9 @@
        cx="32.000488"
        id="ellipse4146"
        style="display:inline;fill:url(#linearGradient15);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:5.4000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    <path
-       style="display:inline;fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 15.307219,1023.4296 8.932948,0.1475 -0.08863,6.075 7.177451,0.077 -0.01145,6.5435 6.881608,0.023 -0.07853,6.5733 8.442938,0.053"
-       id="path4163"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cccccccc" />
     <g
-       style="display:inline"
        id="g4205"
-       transform="matrix(1.21,0,0,1.21,-7.8008974,-227.33768)">
+       transform="matrix(1.21,0,0,1.21,-7.1524283,-216.79966)">
       <path
          sodipodi:nodetypes="cccccc"
          inkscape:connector-curvature="0"

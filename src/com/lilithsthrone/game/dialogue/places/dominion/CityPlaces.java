@@ -11,6 +11,7 @@ import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.character.npc.dominion.ReindeerOverseer;
+import com.lilithsthrone.game.character.race.Subspecies;
 import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
 import com.lilithsthrone.game.dialogue.npcDialogue.CultistDialogue;
@@ -27,12 +28,12 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.0
- * @version 0.2.1
+ * @version 0.2.2
  * @author Innoxia
  */
 public class CityPlaces {
 
-	public static final DialogueNodeOld STREET = new DialogueNodeOld("Dominion streets", "", false) {
+	public static final DialogueNodeOld STREET = new DialogueNodeOld("Dominion Streets", "", false) {
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -542,6 +543,364 @@ public class CityPlaces {
 			}
 		}
 	};
+	
+	public static final DialogueNodeOld BACK_ALLEYS_CANAL = new DialogueNodeOld("Canal Crossing", ".", false) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public int getMinutesPassed() {
+			return 5;
+		}
+		
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "At the junction between the canal and Dominion's dingy backalleys, a series of crude wooden walkways criss-cross over the water."
+						+ " Providing a bridge between the numerous passageways set into the flanking buildings on both sides of the waterway, these makeshift constructs are quite clearly the work of the denizens that haunt this area."
+					+ "</p>"
+					+ "<p>"
+						+ "Cautiously glancing around your deserted surroundings, you half-expect to see a shadowy figure emerge from one of the gloomy openings, but, much to your relief, there doesn't seem to be anyone waiting in ambush."
+						+ " Letting out a sigh, you continue on your way, happy that you didn't run into any of the lowlives that operate in this area."
+					+ "</p>";
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index == 6) {
+				return new ResponseEffectsOnly(
+						"Explore",
+						"Explore this area. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
+							@Override
+							public void effects() {
+								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
+								Main.game.setContent(new Response("", "", dn));
+							}
+						};
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld BOULEVARD = new DialogueNodeOld("Dominion Boulevard", ".", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 5;
+		}
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+
+			UtilText.nodeContentSB.append(
+					"<p>"
+						+ "You find yourself walking down one of Dominion's main boulevards, which is at least twice the width of all the other streets that you've seen in the city."
+						+ " Large, immaculately-maintained residential and commercial buildings flank the road on each side; their white marble facades decorated with countless dark-purple flags bearing the black pentagram of Lilith."
+					+ "</p>");
+			
+			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
+				UtilText.nodeContentSB.append(
+						"<p>"
+							+ "<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Arcane Storm:</b></br>"
+							+ "The arcane storm that's raging overhead has brought out a heavy presence of demon Enforcers in this area."
+							+ " Unaffected by the arousing power of the storm's thunder, these elite Enforcers keep a close watch on you as you pass through the all-but-deserted plaza."
+							+ " There's no way anyone would be able to assault you while under their watchful gaze, allowing you continue on your way in peace..."
+						+ "</p>");
+			} else {
+				if(Main.game.isDayTime()) {
+					UtilText.nodeContentSB.append(
+							"<p>"
+								+ "Being one of Dominion's main thoroughfares, this boulevard is immensely busy, and you walk past individuals of all different races and appearances as you continue onwards through the crowds."
+								+ " Although dog, cat and horse-morphs are still the most common races that you see, there are noticeably more demons mixed in with the crowds here."
+								+ " These succubi and incubi are very easy to spot, as wherever they walk, people hurriedly move to make way."
+							+ "</p>");
+				} else {
+					UtilText.nodeContentSB.append(
+							"<p>"
+								+ "Despite the fact that it's night-time, this boulevard is immensely busy, and you walk past individuals of all different races and appearances as you continue onwards through the crowds."
+								+ " Although dog, cat and horse-morphs are still the most common races that you see, there are noticeably more demons mixed in with the crowds here."
+								+ " These succubi and incubi are very easy to spot, as wherever they walk, people hurriedly move to make way."
+							+ "</p>");
+				}
+			}
+
+			if(Main.game.getDateNow().getMonth()==Month.OCTOBER) {
+				UtilText.nodeContentSB.append(
+					"<p>"
+						+ "<b style='color:"+Colour.BASE_ORANGE.toWebHexString()+";'>October;</b> <b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Lilith's Month:</b></br>"
+						+ "Orange, black, and purple flags fly from almost every window, and you look up to see that large banners have been hung across the street, each one bearing a different slogan celebrating Lilith's rule."
+						+ " The occasional demon that you see is usually dressed up in a Halloween-esque costume for the occasion, which does nothing to help alleviate the eerie atmosphere."
+					+ "</p>");
+			}
+			if(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter) && Main.game.getSeason()==Season.WINTER) {
+				UtilText.nodeContentSB.append(
+					"<p>"
+						+ "<b style='color:"+Colour.BASE_BLUE_LIGHT.toWebHexString()+";'>Snow:</b></br>"
+						+ "The reindeer-morph workers are doing a good job of keeping Dominion's streets clear from the snow, but the rooftops, trees, and tops of lamp posts are all home to a thick layer of white."
+						+ " You see your breath exiting your mouth in a little cloud of condensation, but despite the clear evidence of the air's freezing temperature, your arcane aura protects your body from feeling the cold."
+					+ "</p>");
+			}
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return null;
+		}
+	};
+
+	
+	public static final DialogueNodeOld DOMINION_PLAZA = new DialogueNodeOld("Lilith's Plaza", ".", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 10;
+		}
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append("<p>"
+						+ "You find yourself standing in the very centre of Dominion, where an expansive public square is situated."
+						+ " Large residential and commercial buildings flank the plaza on each of its four sides; their white marble facades decorated with countless dark-purple flags bearing the black pentagram of Lilith."
+					+ "</p>"
+					+ "<p>"
+						+ "Numerous grandiose statues and extravagantly-detailed water fountains, all carved from polished while marble, reside within this large area."
+						+ " Each one of these sculptures appears to represent a demon or Lilin, and although they're each a marvellous work of art, the one in the very middle of the square is quite simply breathtaking."
+						+ " On top of a plinth of at least thirty metres in height, stands a gigantic marble statue of Lilith herself;"
+							+ " with wings fully unfurled, and with her hands resting on her wide hips, she smirks down with a visage of manic delight at the crowds below."
+						+ " Completely naked, every inch of the effigy's subject is on display for all to see, and you find yourself looking straight up at Lilith's tight pussy as you marvel at the workmanship that went into this astounding piece of art."
+					+ "</p>");
+			
+			if(Main.game.getCurrentWeather()==Weather.MAGIC_STORM) {
+				UtilText.nodeContentSB.append(
+						"<p>"
+							+ "<b style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Arcane Storm:</b></br>"
+							+ "The arcane storm that's raging overhead has brought out a heavy presence of demon Enforcers in this area."
+							+ " Unaffected by the arousing power of the storm's thunder, these elite Enforcers keep a close watch on you as you pass through the all-but-deserted plaza."
+							+ " There's no way anyone would be able to assault you while under their watchful gaze, allowing you continue on your way in peace..."
+						+ "</p>");
+			} else {
+				UtilText.nodeContentSB.append(
+						"<p>"
+							+ "Being the central meeting place for Dominion's citizens, this plaza is the busiest location in all of Dominion."
+							+ " Throngs of people, of all different races and appearances, fill the square."
+							+ " Some appear to be simply passing through the area, while others lounge about on the many wooden benches and marble steps at the base of each statue."
+						+ "</p>"
+						+ "<p>"
+							+ "On raised platforms, well-spoken orators address the crowds, relaying news and important announcements to the many citizens who pass by."
+							+ " Pamphlets and newspapers are handed out beside each one of these stands, and you realise that this is the only place where you've seen any form of news being distributed to the population."
+						+ "</p>");
+			}
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index == 1) {
+				return new Response(
+						"News",
+						"Decide to stay a while and listen to one of the orators...", DOMINION_PLAZA_NEWS){
+							@Override
+							public void effects() {
+								List<Subspecies> possibleSubspecies = new ArrayList<>();
+								possibleSubspecies.add(Subspecies.CAT_MORPH);
+								possibleSubspecies.add(Subspecies.DOG_MORPH);
+								possibleSubspecies.add(Subspecies.HORSE_MORPH);
+								possibleSubspecies.add(Subspecies.WOLF_MORPH);
+								
+								String randomFemalePerson = possibleSubspecies.get(Util.random.nextInt(possibleSubspecies.size())).getSingularFemaleName();
+								String randomMalePerson = possibleSubspecies.get(Util.random.nextInt(possibleSubspecies.size())).getSingularMaleName();
+								
+								Main.game.getTextEndStringBuilder().append("<p>"
+										+UtilText.returnStringAtRandom(
+												"A rough-looking "+randomMalePerson+" unrolls a large scroll, before clearing his throat and calling out,"
+													+ " [maleNPC.speech(By decree of Lilith, and in the interests of Dominion's security,"
+														+ " any human found walking the streets between the hours of ten at night and five in the morning will be subject to a full body search from any passing Enforcer without warrant.)]",
+												Util.capitaliseSentence(UtilText.generateSingularDeterminer(randomFemalePerson))+" "+randomFemalePerson+" holds up an official-looking piece of paper, complete with a red wax seal, and declares,"
+													+ " [femaleNPC.speech(A reward of two-hundred-thousand flames has been issued for any information leading to the arrest of the person or persons responsible"
+														+ " for distributing illegal newspapers in the districts beneath the Harpy Nests!)]",
+												"A rather wild-looking succubus, dressed in a very Halloween-esque witch's costume, points to different members of the crowd as she screams,"
+													+ " [femaleNPC.speech(I count no less than three demons in the crowd who are without a cultist's uniform!"
+														+ " What would Lilith say if she could see this now?!)]",
+												Util.capitaliseSentence(UtilText.generateSingularDeterminer(randomMalePerson))+" "+randomMalePerson+" relays several boring, mundane pieces of news to the crowd."
+														+ " There's nothing that is of any interest to you, and you eventually turn away, having felt as though you just wasted your time.",
+												Util.capitaliseSentence(UtilText.generateSingularDeterminer(randomFemalePerson))+" "+randomFemalePerson+" relays several boring, mundane pieces of news to the crowd."
+														+ " There's nothing that is of any interest to you, and you eventually turn away, having felt as though you just wasted your time.",
+												Util.capitaliseSentence(UtilText.generateSingularDeterminer(randomMalePerson))+" "+randomMalePerson+" is currently reading out a list of advertisements for shops in the local area."
+														+ " There's really nothing of interest to be heard, and you soon find yourself turning away and moving on.",
+												Util.capitaliseSentence(UtilText.generateSingularDeterminer(randomFemalePerson))+" "+randomFemalePerson+" is currently reading out a list of advertisements for shops in the local area."
+														+ " There's really nothing of interest to be heard, and you soon find yourself turning away and moving on.")
+										+"</p>");
+							}
+						};
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld DOMINION_PLAZA_NEWS = new DialogueNodeOld("Lilith's Plaza", ".", false, true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 5;
+		}
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			
+			UtilText.nodeContentSB.append("<p>"
+					+ "You decide to stay and listen to one of the many orators who are addressing the crowds..."
+					+ "</p>");
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return DOMINION_PLAZA.getResponse(responseTab, index);
+		}
+	};
+	
+	public static final DialogueNodeOld PARK = new DialogueNodeOld("Park", ".", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getAuthor() {
+			return "Kumiko";
+		}
+		
+		@Override
+		public int getMinutesPassed() {
+			return 5;
+		}
+
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "This area of Dominion is taken up by a gigantic park, filled with a lush amount of foliage, which makes the air here feel very fresh compared to the rest of the city."
+						+ " The park consists of several alternating areas of open lawn and woodland, connected by a series of winding paths."
+						+ " There's a small lake situated in one corner of the park, and adjacent to that, there's a small field of wild flowers."
+						+ " A couple of food stands have been set up in one area for people that didn't come prepared with a picnic."
+					+ "</p>"
+					+ "<p>"
+						+ "The most noteworthy feature is at the very centre of the park, and takes the form of a huge statue of Lilith herself."
+						+ " The sultry smile carved into the white marble almost feels at though it's mocking you, and you cna't help but feel as though you don't want to stick around here for long."
+					+ "<p>"
+					+ "</p>"
+						+ "For now, you don't have much reason to wander through this park, but if you had someone else with you, it would be a nice place to spend an afternoon; if you can ignore the statue, that is..."
+					+ "</p>";
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return null;
+		}
+	};
+	
+	public static final DialogueNodeOld STREET_SHADED = new DialogueNodeOld("Dominion Streets (Shaded)", ".", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 5;
+		}
+
+		@Override
+		public String getContent() {
+			return STREET.getContent()
+					+ "<p>"
+						+ "<b style='color:"+Colour.RACE_HARPY.toWebHexString()+";'>Harpy Nests:</b></br>"
+						+ "The wooden platforms and bridges of the rooftop Harpy Nests cast a shadow over these streets."
+						+ " Looking up, you see the occasional flash of bright-coloured feathers as harpies swoop this way and that."
+					+ "</p>";
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return null;
+		}
+	};
+	
+	public static final DialogueNodeOld CANAL = new DialogueNodeOld("Dominion Canals", ".", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 5;
+		}
+
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "You find yourself walking down the narrow dirt path that runs alongside Dominion's canal."
+						+ " The murky waterway is, for the most part, flanked by dark, red-bricked buildings, which give this area of the city a very ominous atmosphere."
+					+ "</p>"
+					+ "<p>"
+						+ "Here and there, the track that you're on widens out, and occasionally branches off to connect with small clearings and gardens."
+						+ " Instead of giving you any sense of relief from your oppressive surroundings, however, these rare, foliage-filled areas only serve to fill you with unease,"
+							+ " as their leafy bushes and trees would easily grant any would-be attacker the perfect place to hide."
+					+ "</p>"
+					+ "<p>"
+						+ "Unlike the city's back-alleys, this canal-side path is not completely deserted, and every now and then you come across a passerby, who invariably averts their gaze and hurries past you, clearly not wanting to cause any trouble."
+						+ " The canal, too, seems to be in infrequent use, and every five minutes or so, an industrial barge slowly trawls past; its long deck stacked high with crates, or filled with tarpaulin-covered mounds of raw materials."
+					+ "</p>"
+					+ "<p>"
+						+ "Excluding these sparse signs of life, the canal is completely deserted."
+						+ " The distinct lack of any Enforcer presence is a clear indication that this area is ripe territory for muggers, and you make sure to stay alert as you continue on your way..."
+					+ "</p>";
+		}
+		
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if(index == 6) {
+				return new ResponseEffectsOnly(
+						"Explore",
+						"Explore this area. Although you don't think you're any more or less likely to find anything by doing this, at least you won't have to keep travelling back and forth..."){
+							@Override
+							public void effects() {
+								DialogueNodeOld dn = Main.game.getActiveWorld().getCell(Main.game.getPlayer().getLocation()).getPlace().getDialogue(true);
+								Main.game.setContent(new Response("", "", dn));
+							}
+						};
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld CANAL_END = new DialogueNodeOld("Dominion Canals", ".", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed() {
+			return 5;
+		}
+
+		@Override
+		public String getContent() {
+			return CANAL.getContent()
+					+ "<p>"
+						+ "<i>"
+							+ "The path before you abruptly ends, and although the canal continues on its way to the outskirts of the city, there's no way for you to continue onwards."
+						+ "</i>"
+					+ "</p>";
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return null;
+		}
+	};
 
 	// Entrances and exits:
 
@@ -556,11 +915,17 @@ public class CityPlaces {
 		@Override
 		public String getContent() {
 			return "<p>"
-					+ "In the middle of the street there is a large stairway leading down to the undercity of Submission."
-					+ " A pair of enforcers are blocking anyone from going down."
+						+ "A large stone bridge has been built over Dominion's canal, and as you walk over it, you hear the unmistakable sound of rushing water coming from below."
+						+ " Peering over the side, you see the origin of the noise; a huge, brick-lined opening, covered in metal bars, has been dug out on one side of the waterway, and it's into this that the water from the canal is flowing."
+						+ " Looking closer, you see that on the other side of the bars, there's a wide set of stone steps leading down into the gloom below."
 					+ "</p>"
 					+ "<p>"
-					+ "<b>Scheduled for release in an update to version 0.2.0.</b>"
+						+ "Searching for a way to get access to those steps, and the area beyond, you soon find yourself standing before a building marked as 'Submission Enforcer Post'."
+						+ " The doors are wide open, and, peering inside, you see that the origin of the stone staircase is situated in the middle of a large, mostly-empty waiting room."
+					+ "</p>"
+					+ "<p>"
+						+ "There only appears to be one Enforcer guarding the staircase, who half-heartedly glances up from their newspaper as they catch sight of you."
+						+ " Letting out a sigh, they motion towards the staircase, clearly gesturing that you're able to come and go as you please."
 					+ "</p>";
 		}
 
@@ -570,6 +935,21 @@ public class CityPlaces {
 				return new ResponseEffectsOnly("Submission", "Enter the undercity of Submission."){
 					@Override
 					public void effects() {
+						Main.game.getTextStartStringBuilder().append(
+								"<p>"
+									+ "Stepping into the building marked as the 'Submission Enforcer Post', you start to make your way towards the staircase."
+									+ " Seeing you approach, the Enforcer on duty calls out,"
+									+ " [npcMale.speech(If you have any questions about Submission, you can bother the guys on duty down below."
+										+ " I'm far too busy to be acting as an information kiosk right now.)]"
+								+ "</p>"
+								+ "<p>"
+									+ "As he finishes speaking, the Enforcer lets out a long yawn, before looking back down at the newspaper in his hands."
+									+ " His brazen, unhelpful attitude lets you know that there's no point in wasting any time in trying to deal with him, and, continuing forwards, you approach the staircase in front of you."
+								+ "</p>"
+								+ "<p>"
+									+ "The deafening roar of rushing water surrounds you as you start on your way down the damp stone steps."
+									+ " The orange glow of arcane-powered lamps illuminates your way, and it only takes a moment before you reached the bottom, and find yourself stepping forwards into the interior of yet another Enforcer post..."
+								+ "</p>");
 						Main.mainController.moveGameWorld(WorldType.SUBMISSION, PlaceType.SUBMISSION_ENTRANCE, true);
 					}
 				};
@@ -579,6 +959,7 @@ public class CityPlaces {
 			}
 		}
 	};
+	
 	public static final DialogueNodeOld CITY_EXIT_JUNGLE = new DialogueNodeOld("Jungle Entrance", "Travel to the jungle.", false) {
 		private static final long serialVersionUID = 1L;
 

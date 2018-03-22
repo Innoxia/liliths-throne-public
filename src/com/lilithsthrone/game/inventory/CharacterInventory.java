@@ -241,6 +241,18 @@ public class CharacterInventory implements Serializable, XMLSaving {
 		return inventory;
 	}
 	
+	public boolean isEmpty() {
+		return money == 0
+				&& itemsInInventory.isEmpty()
+				&& weaponsInInventory.isEmpty()
+				&& clothingInInventory.isEmpty()
+				&& essenceMap.get(TFEssence.ARCANE) == 0
+				&& dirtySlots.isEmpty()
+				&& mainWeapon == null
+				&& offhandWeapon == null
+				&& clothingCurrentlyEquipped.isEmpty();
+	}
+	
 	public List<AbstractItem> getItemsInInventory() {
 		return itemsInInventory;
 	}
