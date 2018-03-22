@@ -64,12 +64,7 @@ public class UtilText {
 		if (Main.game.getPlayer().hasFetish(Fetish.FETISH_BIMBO))
 			modifiedSentence = Util.addBimbo(text, 6);
 
-		if (Femininity.valueOf(Main.game.getPlayer().getFemininityValue()) == Femininity.MASCULINE || Femininity.valueOf(Main.game.getPlayer().getFemininityValue()) == Femininity.MASCULINE_STRONG)
-			return "<span class='thoughts masculine'>" + modifiedSentence + "</span>";
-		else if (Femininity.valueOf(Main.game.getPlayer().getFemininityValue()) == Femininity.ANDROGYNOUS)
-			return "<span class='thoughts androgynous'>" + modifiedSentence + "</span>";
-		else
-			return "<span class='thoughts feminine'>" + modifiedSentence + "</span>";
+		return "<span class='thoughts' style='" + Main.game.getPlayer().getSpeechColour() + "'>" + modifiedSentence + "</span>";
 	}
 
 	public static String parsePlayerSpeech(String text) {
