@@ -238,6 +238,48 @@ public enum Encounter {
 		}
 	},
 	
+	//TODO
+	DOMINION_CANAL(Util.newHashMapOfValues(
+			new Value<EncounterType, Float>(EncounterType.DOMINION_ALLEY_ATTACK, 8f))) {
+
+		@Override
+		protected DialogueNodeOld initialiseEncounter(EncounterType node) {
+			// Prioritise re-encountering the NPC on this tile:
+			for(NPC npc : Main.game.getCharactersPresent()) {
+				Main.game.setActiveNPC(npc);
+				return Main.game.getActiveNPC().getEncounterDialogue();
+			}
+			
+			if(Main.game.isIncestEnabled() && Math.random()<0.2f) { // Incest
+				List<NPC> offspringAvailable = new ArrayList<>();
+				offspringAvailable.addAll(Main.game.getOffspring().stream().filter(npc -> !npc.isSlave()
+																							&& npc.getSubspecies().getWorldLocations().contains(WorldType.DOMINION)
+																							&& npc.getLastTimeEncountered()==NPC.DEFAULT_TIME_START_VALUE).collect(Collectors.toList()));
+				offspringAvailable.removeAll(Main.game.getOffspringSpawned());
+				
+				if(!offspringAvailable.isEmpty()) {
+					NPC offspring = offspringAvailable.get(Util.random.nextInt(offspringAvailable.size()));
+					Main.game.getOffspringSpawned().add(offspring);
+					
+					offspring.setWorldLocation(Main.game.getPlayer().getWorldLocation());
+					offspring.setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()));
+					
+					Main.game.setActiveNPC(offspring);
+					
+					return Main.game.getActiveNPC().getEncounterDialogue();
+				}
+			}
+			
+			Main.game.setActiveNPC(new DominionAlleywayAttacker(GenderPreference.getGenderFromUserPreferences()));
+			try {
+				Main.game.addNPC(Main.game.getActiveNPC(), false);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return Main.game.getActiveNPC().getEncounterDialogue();
+		}
+	},
+	
 	HARPY_NEST_WALKWAYS(null) {
 		
 		@Override

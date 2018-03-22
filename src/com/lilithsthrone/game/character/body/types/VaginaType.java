@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
@@ -207,7 +208,7 @@ public enum VaginaType implements BodyPartTypeInterface {
 	}
 	
 	@Override
-	public BodyCoveringType getBodyCoveringType() {
+	public BodyCoveringType getBodyCoveringType(Body body) {
 		return skinType;
 	}
 	

@@ -52,6 +52,7 @@ import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
+import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.body.valueEnums.PiercingType;
@@ -324,27 +325,27 @@ public class CharacterModificationUtils {
 			contentSB.append(
 							getSexExperienceEntry("HANDJOBS_GIVEN", "Handjobs Given",
 									new SexType(SexParticipantType.PITCHER, PenetrationType.FINGER, OrificeType.URETHRA),
-									normalSexExperienceValues, Main.game.getPlayer().hasVagina()?feminineNames:masculineNames)
+									normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames)
 							
 							+ getSexExperienceEntry("FINGERINGS_GIVEN", "Fingerings Performed",
 									new SexType(SexParticipantType.PITCHER, PenetrationType.FINGER, OrificeType.VAGINA),
-									normalSexExperienceValues, Main.game.getPlayer().hasVagina()?feminineNames:masculineNames)
+									normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames)
 							
 							+ getSexExperienceEntry("BLOWJOBS_GIVEN", "Blowjobs Given",
 									new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.MOUTH),
-									normalSexExperienceValues, Main.game.getPlayer().hasVagina()?feminineNames:masculineNames)
+									normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames)
 							
 							+ getSexExperienceEntry("CUNNILINGUS_GIVEN", "Cunnilingus Performed",
 									new SexType(SexParticipantType.PITCHER, PenetrationType.TONGUE, OrificeType.VAGINA),
-									normalSexExperienceValues, Main.game.getPlayer().hasVagina()?feminineNames:masculineNames)
+									normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames)
 							
 							+ getSexExperienceEntry("VAGINAL_GIVEN", "Vaginal Sex Performed",
 									new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.VAGINA),
-									normalSexExperienceValues, Main.game.getPlayer().hasVagina()?feminineNames:masculineNames)
+									normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames)
 							
 							+ getSexExperienceEntry("ANAL_GIVEN", "Anal Sex Performed",
 									new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.ANUS),
-									normalSexExperienceValues, Main.game.getPlayer().hasVagina()?feminineNames:masculineNames));
+									normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames));
 		contentSB.append("</div>");
 
 		contentSB.append("<div class='container-full-width'>"
@@ -352,27 +353,27 @@ public class CharacterModificationUtils {
 			contentSB.append(
 							(Main.game.getPlayer().hasVagina()?"":getSexExperienceEntry("HANDJOBS_TAKEN", "Handjobs Received",
 									new SexType(SexParticipantType.CATCHER, PenetrationType.FINGER, OrificeType.URETHRA),
-									normalSexExperienceValues, Main.game.getPlayer().hasVagina()?feminineNames:masculineNames))
+									normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames))
 							
 							+ (Main.game.getPlayer().hasVagina()?getSexExperienceEntry("FINGERINGS_TAKEN", "Fingerings Received",
 									new SexType(SexParticipantType.CATCHER, PenetrationType.FINGER, OrificeType.VAGINA),
-									normalSexExperienceValues, Main.game.getPlayer().hasVagina()?feminineNames:masculineNames):"")
+									normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames):"")
 							
 							+ (Main.game.getPlayer().hasVagina()?"":getSexExperienceEntry("BLOWJOBS_TAKEN", "Blowjobs Received",
 									new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.MOUTH),
-									normalSexExperienceValues, Main.game.getPlayer().hasVagina()?feminineNames:masculineNames))
+									normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames))
 							
 							+ (Main.game.getPlayer().hasVagina()?getSexExperienceEntry("CUNNILINGUS_TAKEN", "Cunnilingus Received",
 									new SexType(SexParticipantType.CATCHER, PenetrationType.TONGUE, OrificeType.VAGINA),
-									normalSexExperienceValues, Main.game.getPlayer().hasVagina()?feminineNames:masculineNames):"")
+									normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames):"")
 							
 							+ (Main.game.getPlayer().hasVagina()?getSexExperienceEntry("VAGINAL_TAKEN", "Vaginal Sex Received",
 									new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.VAGINA),
-									normalSexExperienceValues, Main.game.getPlayer().hasVagina()?feminineNames:masculineNames):"")
+									normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames):"")
 							
 							+ getSexExperienceEntry("ANAL_TAKEN", "Anal Sex Received",
 									new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.ANUS),
-									normalSexExperienceValues, Main.game.getPlayer().hasVagina()?feminineNames:masculineNames));
+									normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames));
 		contentSB.append("</div>");
 		
 		return contentSB.toString();
@@ -551,39 +552,40 @@ public class CharacterModificationUtils {
 		}
 		
 
-		return applyFullWrapper("Femininity",
+		return applyWrapper("Femininity",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change how masculine or feminine your body and face are."
 					:UtilText.parse(BodyChanging.getTarget(), "Change how masculine or feminine [npc.name]'s body and face are.")),
-				contentSB.toString());
+				contentSB.toString(), false);
 	}
 	
-	private static String applyHalfWrapper(String title, String description, String input) {
-		return "<div class='cosmetics-inner-container'>"
-				+ "<h5 style='text-align:center;'>"
-					+ title
-				+"</h5>"
-				+ "<p style='text-align:center;'>"
-					+ description
-				+ "</p>"
-				+ input
-				+ "</div>";
-	}
-	
-	private static String applyFullWrapper(String title, String description, String input) {
-		return "<div class='container-full-width'>"
-					+"<div class='cosmetics-inner-container left'>"
-						+ "<h5 style='text-align:center;'>"
-							+ title
-						+"</h5>"
-						+ "<p style='text-align:center;'>"
-							+ description
-						+ "</p>"
-					+ "</div>"
-					+ "<div class='cosmetics-inner-container right'>"
-						+ input
-					+ "</div>"
-				+ "</div>";
+	private static String applyWrapper(String title, String description, String input, boolean halfWidth) {
+		if(halfWidth) {
+			return "<div class='cosmetics-inner-container'>"
+					+ "<h5 style='text-align:center;'>"
+						+ title
+					+"</h5>"
+					+ "<p style='text-align:center;'>"
+						+ description
+					+ "</p>"
+					+ input
+					+ "</div>";
+			
+		} else {
+			return "<div class='container-full-width'>"
+						+"<div class='cosmetics-inner-container left'>"
+							+ "<h5 style='text-align:center;'>"
+								+ title
+							+"</h5>"
+							+ "<p style='text-align:center;'>"
+								+ description
+							+ "</p>"
+						+ "</div>"
+						+ "<div class='cosmetics-inner-container right'>"
+							+ input
+						+ "</div>"
+					+ "</div>";
+		}
 	}
 	
 	private static String applyFullVariableWrapper(String title, String description, String id, String value, boolean decreaseDisabled, boolean increaseDisabled) {
@@ -648,11 +650,11 @@ public class CharacterModificationUtils {
 			}
 		}
 		
-		return applyHalfWrapper("Tail",
+		return applyWrapper("Tail",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change your tail type."
 					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s tail type.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformWingChoiceDiv(List<Race> availableRaces) {
@@ -683,11 +685,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Wings",
+		return applyWrapper("Wings",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change your wing type."
 					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s wing type.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformHornChoiceDiv(List<Race> availableRaces) {
@@ -718,11 +720,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Horns",
+		return applyWrapper("Horns",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change your horn type."
 					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s horn type.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformAntennaChoiceDiv(List<Race> availableRaces) {
@@ -753,11 +755,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Antennae",
+		return applyWrapper("Antennae",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change your antenna type."
 					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s antenna type.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 
 	public static String getSelfTransformHairChoiceDiv(List<Race> availableRaces) {
@@ -781,11 +783,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Hair",
+		return applyWrapper("Hair",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change your hair type."
 					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s hair type.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfDivHairStyles(String title, String description) {
@@ -852,11 +854,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyFullWrapper("Ass",
+		return applyWrapper("Ass",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change your ass type."
 					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s ass type.")),
-				contentSB.toString());
+				contentSB.toString(), false);
 	}
 	
 	public static String getSelfTransformBreastChoiceDiv(List<Race> availableRaces) {
@@ -880,11 +882,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyFullWrapper("Breast",
+		return applyWrapper("Breast",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change your breast type."
 					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s breast type.")),
-				contentSB.toString());
+				contentSB.toString(), false);
 	}
 	
 	public static String getSelfTransformArmChoiceDiv(List<Race> availableRaces) {
@@ -909,11 +911,11 @@ public class CharacterModificationUtils {
 				}
 			}
 
-			return applyHalfWrapper("Arms",
+			return applyWrapper("Arms",
 					(BodyChanging.getTarget().isPlayer()
 						?"Change your arm type."
 						:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s arm type.")),
-					contentSB.toString());
+					contentSB.toString(), true);
 			
 		} else {
 			if(BodyChanging.getTarget().getArmType().getRace()==Race.DEMON) {
@@ -936,11 +938,11 @@ public class CharacterModificationUtils {
 					}
 				}
 	
-				return applyHalfWrapper("Arms",
+				return applyWrapper("Arms",
 						(BodyChanging.getTarget().isPlayer()
 							?"Change your arm type."
 							:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s arm type.")),
-						contentSB.toString());
+						contentSB.toString(), true);
 				
 			} else {
 				return ("<div class='cosmetics-inner-container'>"
@@ -979,11 +981,11 @@ public class CharacterModificationUtils {
 				}
 			}
 
-			return applyHalfWrapper("Legs",
+			return applyWrapper("Legs",
 					(BodyChanging.getTarget().isPlayer()
 						?"Change your leg type."
 						:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s leg type.")),
-					contentSB.toString());
+					contentSB.toString(), true);
 			
 			
 		} else {
@@ -1007,11 +1009,11 @@ public class CharacterModificationUtils {
 					}
 				}
 	
-				return applyHalfWrapper("Legs",
+				return applyWrapper("Legs",
 						(BodyChanging.getTarget().isPlayer()
 							?"Change your leg type."
 							:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s leg type.")),
-						contentSB.toString());
+						contentSB.toString(), true);
 				
 			} else {
 				return ("<div class='cosmetics-inner-container'>"
@@ -1049,11 +1051,11 @@ public class CharacterModificationUtils {
 				}
 			}
 
-			return applyHalfWrapper("Face",
+			return applyWrapper("Face",
 					(BodyChanging.getTarget().isPlayer()
 						?"Change your face type."
 						:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s face type.")),
-					contentSB.toString());
+					contentSB.toString(), true);
 			
 		} else {
 			if(BodyChanging.getTarget().getFaceType().getRace()==Race.DEMON) {
@@ -1076,11 +1078,11 @@ public class CharacterModificationUtils {
 					}
 				}
 	
-				return applyHalfWrapper("Face",
+				return applyWrapper("Face",
 						(BodyChanging.getTarget().isPlayer()
 							?"Change your face type."
 							:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s face type.")),
-						contentSB.toString());
+						contentSB.toString(), true);
 				
 			} else {
 				return ("<div class='cosmetics-inner-container'>"
@@ -1117,11 +1119,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Body",
+		return applyWrapper("Body",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change your body type."
 					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s body type.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformEarChoiceDiv(List<Race> availableRaces) {
@@ -1144,11 +1146,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Ears",
+		return applyWrapper("Ears",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change your ear type."
 					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s ear type.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformEyeChoiceDiv(List<Race> availableRaces) {
@@ -1171,11 +1173,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Eyes",
+		return applyWrapper("Eyes",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change your eye type."
 					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s eye type.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 
 	public static String getSelfTransformIrisChoiceDiv() {
@@ -1196,11 +1198,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Iris Shape",
+		return applyWrapper("Iris Shape",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the shape of your irises."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the shape of [npc.name]'s irises.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformPupilChoiceDiv() {
@@ -1221,11 +1223,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Pupil Shape",
+		return applyWrapper("Pupil Shape",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the shape of your pupils."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the shape of [npc.name]'s pupils.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	
@@ -1247,11 +1249,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Lip Size",
+		return applyWrapper("Lip Size",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the size of your lips."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.name]'s lips.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformThroatModifiersDiv() {
@@ -1272,11 +1274,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Lip & Throat Modifiers",
+		return applyWrapper("Lip & Throat Modifiers",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the modifiers for your lips & throat."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the modifiers for [npc.name]'s lips & throat.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformTongueModifiersDiv() {
@@ -1297,11 +1299,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Tongue Modifiers",
+		return applyWrapper("Tongue Modifiers",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the modifiers for your tongue."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the modifiers for [npc.name]'s tongue.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformAssSizeDiv() {
@@ -1322,11 +1324,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Ass Size",
+		return applyWrapper("Ass Size",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the size of your ass."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.name]'s ass.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformHipSizeDiv() {
@@ -1347,11 +1349,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Hip Size",
+		return applyWrapper("Hip Size",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the size of your hips."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.name]'s hips.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformAnusCapacityDiv() {
@@ -1372,11 +1374,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Anus Capacity",
+		return applyWrapper("Anus Capacity",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the capacity of your asshole."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the capacity of [npc.name]'s asshole.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformAnusWetnessDiv() {
@@ -1397,11 +1399,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Anus Wetness",
+		return applyWrapper("Anus Wetness",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the wetness of your asshole."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the wetness of [npc.name]'s asshole.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformAnusElasticityDiv() {
@@ -1422,11 +1424,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Anus Elasticity",
+		return applyWrapper("Anus Elasticity",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the elasticity of your asshole."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the elasticity of [npc.name]'s asshole.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformAnusPlasticityDiv() {
@@ -1447,11 +1449,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Anus Plasticity",
+		return applyWrapper("Anus Plasticity",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the plasticity of your asshole."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the plasticity of [npc.name]'s asshole.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformAnusModifiersDiv() {
@@ -1472,11 +1474,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyFullWrapper("Anus Modifiers",
+		return applyWrapper("Anus Modifiers",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the modifiers for your anus."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the modifiers for [npc.name]'s anus.")),
-				contentSB.toString());
+				contentSB.toString(), false);
 	}
 	
 	public static String getSelfTransformBreastSizeDiv() {
@@ -1497,11 +1499,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyFullWrapper("Breast Size",
+		return applyWrapper("Breast Size",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the size of your breasts."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.name]'s breasts.")),
-				contentSB.toString());
+				contentSB.toString(), false);
 	}
 	
 	public static String getSelfTransformBreastShapeDiv() {
@@ -1522,11 +1524,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Breast Shape",
+		return applyWrapper("Breast Shape",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the shape of your breasts."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the shape of [npc.name]'s breasts.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 
 	public static String getSelfTransformBreastRowsDiv() {
@@ -1547,11 +1549,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Breast Rows",
+		return applyWrapper("Breast Rows",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the number of breast rows you have."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the number of breast rows [npc.name] has.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 
 	public static String getSelfTransformNippleCountDiv() {
@@ -1572,11 +1574,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Nipple Count",
+		return applyWrapper("Nipple Count",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the number of nipples you have on each breast."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the number of nipples [npc.name] has on each breast.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformNippleSizeDiv() {
@@ -1597,11 +1599,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Nipple Size",
+		return applyWrapper("Nipple Size",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the size of your nipples."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.name]'s nipples.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformAreolaeSizeDiv() {
@@ -1622,11 +1624,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Areolae Size",
+		return applyWrapper("Areolae Size",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the size of your areolae."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.name]'s areolae.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformNippleCapacityDiv() {
@@ -1647,11 +1649,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Nipple Capacity",
+		return applyWrapper("Nipple Capacity",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the capacity of your nipples."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the capacity of [npc.name]'s nipples.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	public static int[] demonLactationValues = new int[] {0, 5, 20, 50, 250, 500, 750, 1000, 1500, 2500, 5000, 10000};//, 20000, 50000, 100000};
@@ -1674,11 +1676,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Lactation",
+		return applyWrapper("Lactation",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change how much milk you produce."
 					:UtilText.parse(BodyChanging.getTarget(), "Change how much milk [npc.name] produces.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 
 	public static String getSelfTransformNippleElasticityDiv() {
@@ -1699,11 +1701,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Nipple Elasticity",
+		return applyWrapper("Nipple Elasticity",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the elasticity of your nipples."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the elasticity of [npc.name]'s nipples.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformNipplePlasticityDiv() {
@@ -1724,11 +1726,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Nipple Plasticity",
+		return applyWrapper("Nipple Plasticity",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the plasticity of your nipples."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the plasticity of [npc.name]'s nipples.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 
 	public static String getSelfTransformNippleModifiersDiv() {
@@ -1749,11 +1751,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Nipple Modifiers",
+		return applyWrapper("Nipple Modifiers",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the modifiers for your nipples."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the modifiers for [npc.name]'s nipples.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformVaginaChoiceDiv(List<Race> availableRaces) {
@@ -1784,11 +1786,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Vagina",
+		return applyWrapper("Vagina",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change your vagina type."
 					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s vagina type.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 
 	public static String getSelfTransformVaginaCapacityDiv() {
@@ -1809,11 +1811,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Vagina Capacity",
+		return applyWrapper("Vagina Capacity",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the capacity of your vagina."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the capacity of [npc.name]'s vagina.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformVaginaWetnessDiv() {
@@ -1834,11 +1836,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Vagina Wetness",
+		return applyWrapper("Vagina Wetness",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the wetness of your vagina."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the wetness of [npc.name]'s vagina.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 
 	public static String getSelfTransformVaginaElasticityDiv() {
@@ -1859,11 +1861,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Vagina Elasticity",
+		return applyWrapper("Vagina Elasticity",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the elasticity of your vagina."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the elasticity of [npc.name]'s vagina.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformVaginaPlasticityDiv() {
@@ -1884,11 +1886,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Vagina Plasticity",
+		return applyWrapper("Vagina Plasticity",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the plasticity of your vagina."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the plasticity of [npc.name]'s vagina.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformClitorisSizeDiv() {
@@ -1909,11 +1911,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Clitoris Size",
+		return applyWrapper("Clitoris Size",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the size of your clitoris."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.name]'s clitoris.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformLabiaSizeDiv() {
@@ -1934,11 +1936,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Labia Size",
+		return applyWrapper("Labia Size",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the size of your labia."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.name]'s labia.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformVaginaModifiersDiv() {
@@ -1959,14 +1961,14 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Vagina Modifiers",
+		return applyWrapper("Vagina Modifiers",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the modifiers for your vagina."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the modifiers for [npc.name]'s vagina.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
-	public static String getSelfTransformPenisChoiceDiv(List<Race> availableRaces) {
+	public static String getSelfTransformPenisChoiceDiv(List<Race> availableRaces, boolean halfWidth) {
 		contentSB.setLength(0);
 		
 		for(PenisType penis : PenisType.values()) {
@@ -1994,11 +1996,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Penis",
+		return applyWrapper("Penis",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change your penis type."
 					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s penis type.")),
-				contentSB.toString());
+				contentSB.toString(), halfWidth);
 	}
 	
 	public static String getSelfTransformPenisSizeDiv() {
@@ -2033,11 +2035,36 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Penis Size",
+		return applyWrapper("Penis Size",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the size of your penis."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.name]'s penis.")),
-				contentSB.toString());
+				contentSB.toString(), true);
+	}
+	
+	public static String getSelfTransformPenisGirthDiv() {
+		contentSB.setLength(0);
+		
+		for(PenisGirth girth : PenisGirth.values()) {
+			if(BodyChanging.getTarget().getPenisGirth() == girth) {
+				contentSB.append(
+						"<div class='cosmetics-button active'>"
+							+ "<b style='color:"+girth.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(girth.getName())+"</b>"
+						+ "</div>");
+				
+			} else {
+				contentSB.append(
+						"<div id='PENIS_GIRTH_"+girth+"' class='cosmetics-button'>"
+							+ "<span style='color:"+girth.getColour().getShades()[0]+";'>"+Util.capitaliseSentence(girth.getName())+"</span>"
+						+ "</div>");
+			}
+		}
+
+		return applyWrapper("Penis Girth",
+				(BodyChanging.getTarget().isPlayer()
+					?"Change the girth of your penis."
+					:UtilText.parse(BodyChanging.getTarget(), "Change the girth of [npc.name]'s penis.")),
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformTesticleSizeDiv() {
@@ -2058,11 +2085,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Testicle Size",
+		return applyWrapper("Testicle Size",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the size of your testicles."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the size of [npc.name]'s testicles.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformTesticleCountDiv() {
@@ -2083,11 +2110,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Testicle Count",
+		return applyWrapper("Testicle Count",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change how many testicles you have."
 					:UtilText.parse(BodyChanging.getTarget(), "Change how many testicles [npc.name] has.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformUrethraCapacityDiv() {
@@ -2108,11 +2135,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Urethra Capacity",
+		return applyWrapper("Urethra Capacity",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the capacity of your urethra."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the capacity of [npc.name]'s urethra.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformCumProductionDiv() {
@@ -2147,11 +2174,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Cum Production",
+		return applyWrapper("Cum Production",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change your cum production."
 					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s cum production.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformUrethraElasticityDiv() {
@@ -2172,11 +2199,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Urethra Elasticity",
+		return applyWrapper("Urethra Elasticity",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the elasticity of your urethra."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the elasticity of [npc.name]'s urethra.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformUrethraPlasticityDiv() {
@@ -2197,11 +2224,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Urethra Plasticity",
+		return applyWrapper("Urethra Plasticity",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the plasticity of your urethra."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the plasticity of [npc.name]'s urethra.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformPenisModifiersDiv() {
@@ -2222,11 +2249,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Penis Modifiers",
+		return applyWrapper("Penis Modifiers",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the modifiers for your penis."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the modifiers for [npc.name]'s penis.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	public static String getSelfTransformUrethraModifiersDiv() {
@@ -2247,11 +2274,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Urethra Modifiers",
+		return applyWrapper("Urethra Modifiers",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change the modifiers for your urethra."
 					:UtilText.parse(BodyChanging.getTarget(), "Change the modifiers for [npc.name]'s urethra.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	
@@ -2277,11 +2304,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Body Size",
+		return applyWrapper("Body Size",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change your body size."
 					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s body size.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	public static String getMuscleChoiceDiv() {
@@ -2302,11 +2329,11 @@ public class CharacterModificationUtils {
 			}
 		}
 
-		return applyHalfWrapper("Muscle Definition",
+		return applyWrapper("Muscle Definition",
 				(BodyChanging.getTarget().isPlayer()
 					?"Change your muscle definition."+(!Main.game.isInNewWorld()?" This does not affect the physique attribute of your character.":"")
 					:UtilText.parse(BodyChanging.getTarget(), "Change [npc.name]'s muscle definition.")),
-				contentSB.toString());
+				contentSB.toString(), true);
 	}
 	
 	public static String getLipSizeDiv() {
@@ -2386,7 +2413,7 @@ public class CharacterModificationUtils {
 	
 	public static CupSize[] getBreastSizesAvailable() {
 		if(BodyChanging.getTarget().hasPenis()) {
-			return new CupSize[] {CupSize.FLAT, CupSize.TRAINING};
+			return new CupSize[] {CupSize.FLAT, CupSize.TRAINING_AA, CupSize.TRAINING_A, CupSize.TRAINING_B};
 		} else {
 			return new CupSize[] {CupSize.AA, CupSize.A, CupSize.B, CupSize.C, CupSize.D, CupSize.DD, CupSize.E};
 		}

@@ -85,6 +85,7 @@ import com.lilithsthrone.game.character.body.valueEnums.NippleSize;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
+import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
 import com.lilithsthrone.game.character.body.valueEnums.PenisSize;
 import com.lilithsthrone.game.character.body.valueEnums.PiercingType;
@@ -476,6 +477,8 @@ public class MainController implements Initializable {
 //						 }
 						
 						 if(event.getCode()==KeyCode.END){
+							 
+							 Main.game.getPlayer().setMana(1);
 							 
 //							 Cell[][] grid = new Cell[5][5];
 //							 for(int i=0; i<grid.length;i++) {
@@ -1699,12 +1702,31 @@ public class MainController implements Initializable {
 				
 				((EventTarget) document.getElementById("INGREDIENT_ENCHANTING")).addEventListener("click", e -> {
 					Main.game.setResponseTab(1);
-					Main.game.setContent(new Response("Back", "Stop enchanting.", InventoryDialogue.ITEM_INVENTORY){
-						@Override
-						public void effects() {
-							EnchantmentDialogue.resetEnchantmentVariables();
-						}
-					});
+					if(EnchantmentDialogue.ingredient instanceof AbstractItem) {
+						Main.game.setContent(new Response("Back", "Stop enchanting.", InventoryDialogue.ITEM_INVENTORY){
+							@Override
+							public void effects() {
+								EnchantmentDialogue.resetEnchantmentVariables();
+							}
+						});
+					} else if(EnchantmentDialogue.ingredient instanceof AbstractClothing) {
+						Main.game.setContent(new Response("Back", "Stop enchanting.", InventoryDialogue.CLOTHING_INVENTORY){
+							@Override
+							public void effects() {
+								EnchantmentDialogue.resetEnchantmentVariables();
+							}
+						});
+						
+					} else {
+						Main.game.setContent(new Response("Back", "Stop enchanting.", InventoryDialogue.WEAPON_INVENTORY){
+							@Override
+							public void effects() {
+								EnchantmentDialogue.resetEnchantmentVariables();
+							}
+						});
+						
+					}
+					
 				}, false);
 				
 				addEventListener(document, "INGREDIENT_ENCHANTING", "mousemove", moveTooltipListener, false);
@@ -3013,6 +3035,18 @@ public class MainController implements Initializable {
 						}, false);
 					}
 				}
+
+				// Penis girth:
+				for(PenisGirth girth : PenisGirth.values()) {
+					id = "PENIS_GIRTH_"+girth;
+					if (((EventTarget) document.getElementById(id)) != null) {
+						((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+							BodyChanging.getTarget().setPenisGirth(girth.getValue());
+							Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+						}, false);
+					}
+				}
+				
 				
 				// Testicle size:
 				for(TesticleSize ts : CharacterModificationUtils.getTesticleSizesAvailable()) {
@@ -4628,6 +4662,24 @@ public class MainController implements Initializable {
 					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 				}, false);
 			}
+			
+			id = "FEMININE_BEARD_ON";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().feminineBeardsContent = !Main.getProperties().feminineBeardsContent;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			id = "FEMININE_BEARD_OFF";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					Main.getProperties().feminineBeardsContent = !Main.getProperties().feminineBeardsContent;
+					Main.saveProperties();
+					Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+				}, false);
+			}
+			
 			
 			id = "FURRY_TAIL_PENETRATION_ON";
 			if (((EventTarget) document.getElementById(id)) != null) {

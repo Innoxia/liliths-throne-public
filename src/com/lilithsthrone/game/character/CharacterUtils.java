@@ -274,6 +274,10 @@ public class CharacterUtils {
 		}
 		
 		Body body = generateBody(startingGender, startingBodyType, stage);
+
+		if(mother.getBodyMaterial()==BodyMaterial.SLIME) {
+			body.setBodyMaterial(BodyMaterial.SLIME);
+		}
 		
 		// Genetics! (Sort of...)
 		
@@ -288,11 +292,11 @@ public class CharacterUtils {
 		List<BodyCoveringType> typesToInfluence = new ArrayList<>();
 		// Skin & fur colours:
 		for(BodyPartInterface bp : body.getAllBodyParts()){
-			if(bp.getType().getBodyCoveringType()!=null
-					&& bp.getType().getBodyCoveringType().getRace()!=null
+			if(bp.getType().getBodyCoveringType(body)!=null
+					&& bp.getType().getBodyCoveringType(body).getRace()!=null
 					&& !(bp instanceof Eye)) {
 				
-				typesToInfluence.add(bp.getType().getBodyCoveringType());
+				typesToInfluence.add(bp.getType().getBodyCoveringType(body));
 			}
 		}
 		typesToInfluence.add(BodyCoveringType.ANUS);
@@ -314,27 +318,27 @@ public class CharacterUtils {
 		// Iris colour:
 		if(Math.random()>=0.9f) {
 			if(Math.random()>=takesAfterMotherChance) {
-				body.getCoverings().put(body.getEye().getType().getBodyCoveringType(),
-						new Covering(body.getEye().getType().getBodyCoveringType(), mother.getCovering(mother.getEyeType().getBodyCoveringType()).getPattern(),
-								mother.getCovering(mother.getEyeType().getBodyCoveringType()).getPrimaryColour(), mother.getCovering(mother.getEyeType().getBodyCoveringType()).isPrimaryGlowing(),
-								mother.getCovering(mother.getEyeType().getBodyCoveringType()).getPrimaryColour(), mother.getCovering(mother.getEyeType().getBodyCoveringType()).isPrimaryGlowing()));
+				body.getCoverings().put(body.getEye().getType().getBodyCoveringType(body),
+						new Covering(body.getEye().getType().getBodyCoveringType(body), mother.getCovering(mother.getEyeType().getBodyCoveringType(mother)).getPattern(),
+								mother.getCovering(mother.getEyeType().getBodyCoveringType(mother)).getPrimaryColour(), mother.getCovering(mother.getEyeType().getBodyCoveringType(mother)).isPrimaryGlowing(),
+								mother.getCovering(mother.getEyeType().getBodyCoveringType(mother)).getPrimaryColour(), mother.getCovering(mother.getEyeType().getBodyCoveringType(mother)).isPrimaryGlowing()));
 			} else {
-				body.getCoverings().put(body.getEye().getType().getBodyCoveringType(),
-						new Covering(body.getEye().getType().getBodyCoveringType(), father.getCovering(father.getEyeType().getBodyCoveringType()).getPattern(),
-								father.getCovering(father.getEyeType().getBodyCoveringType()).getPrimaryColour(), father.getCovering(father.getEyeType().getBodyCoveringType()).isPrimaryGlowing(),
-								father.getCovering(father.getEyeType().getBodyCoveringType()).getPrimaryColour(), father.getCovering(father.getEyeType().getBodyCoveringType()).isPrimaryGlowing()));
+				body.getCoverings().put(body.getEye().getType().getBodyCoveringType(body),
+						new Covering(body.getEye().getType().getBodyCoveringType(body), father.getCovering(father.getEyeType().getBodyCoveringType(father)).getPattern(),
+								father.getCovering(father.getEyeType().getBodyCoveringType(father)).getPrimaryColour(), father.getCovering(father.getEyeType().getBodyCoveringType(father)).isPrimaryGlowing(),
+								father.getCovering(father.getEyeType().getBodyCoveringType(father)).getPrimaryColour(), father.getCovering(father.getEyeType().getBodyCoveringType(father)).isPrimaryGlowing()));
 			}
 		}
 		// Pupil colour:
 		if(Math.random()>=0.4f) {
 			if(Math.random()>=takesAfterMotherChance) {
 				body.getCoverings().put(BodyCoveringType.EYE_PUPILS,
-						new Covering(body.getEye().getType().getBodyCoveringType(), mother.getCovering(BodyCoveringType.EYE_PUPILS).getPattern(),
+						new Covering(body.getEye().getType().getBodyCoveringType(body), mother.getCovering(BodyCoveringType.EYE_PUPILS).getPattern(),
 								mother.getCovering(BodyCoveringType.EYE_PUPILS).getPrimaryColour(), mother.getCovering(BodyCoveringType.EYE_PUPILS).isPrimaryGlowing(),
 								mother.getCovering(BodyCoveringType.EYE_PUPILS).getPrimaryColour(), mother.getCovering(BodyCoveringType.EYE_PUPILS).isPrimaryGlowing()));
 			} else {
 				body.getCoverings().put(BodyCoveringType.EYE_PUPILS,
-						new Covering(body.getEye().getType().getBodyCoveringType(), father.getCovering(BodyCoveringType.EYE_PUPILS).getPattern(),
+						new Covering(body.getEye().getType().getBodyCoveringType(body), father.getCovering(BodyCoveringType.EYE_PUPILS).getPattern(),
 								father.getCovering(BodyCoveringType.EYE_PUPILS).getPrimaryColour(), father.getCovering(BodyCoveringType.EYE_PUPILS).isPrimaryGlowing(),
 								father.getCovering(BodyCoveringType.EYE_PUPILS).getPrimaryColour(), father.getCovering(BodyCoveringType.EYE_PUPILS).isPrimaryGlowing()));
 			}
@@ -761,10 +765,6 @@ public class CharacterUtils {
 			}
 		}
 		
-		if(mother.getBodyMaterial()==BodyMaterial.SLIME) {
-			body.setBodyMaterial(BodyMaterial.SLIME);
-		}
-		
 		return body;
 	}
 	
@@ -773,16 +773,16 @@ public class CharacterUtils {
 		
 		// Skin & fur colours:
 		for(BodyPartInterface bp : character.getAllBodyParts()){
-			if(bp.getType().getBodyCoveringType()!=null
-					&& bp.getType().getBodyCoveringType().getRace()!=null
+			if(bp.getType().getBodyCoveringType(character)!=null
+					&& bp.getType().getBodyCoveringType(character).getRace()!=null
 					&& !(bp instanceof Eye)) {
 				
-				if(tempList.contains(bp.getType().getBodyCoveringType())) {
-					Covering covering = character.getCovering(bp.getType().getBodyCoveringType());
+				if(tempList.contains(bp.getType().getBodyCoveringType(character))) {
+					Covering covering = character.getCovering(bp.getType().getBodyCoveringType(character));
 					body.getCoverings().put(
-							bp.getType().getBodyCoveringType(),
+							bp.getType().getBodyCoveringType(character),
 							new Covering(covering.getType(), covering.getPattern(), covering.getModifier(), covering.getPrimaryColour(), covering.isPrimaryGlowing(), covering.getSecondaryColour(), covering.isSecondaryGlowing()));
-					tempList.remove(bp.getType().getBodyCoveringType());
+					tempList.remove(bp.getType().getBodyCoveringType(character));
 //					System.out.println("Set: "+bp.getType().getName(character)+" : "+bp.getType().getBodyCoveringType().getName(character)+"("+bp.getType().getRace().getName()+") : "+covering.getPrimaryColour().getName());
 				}
 			}
@@ -919,6 +919,7 @@ public class CharacterUtils {
 		body.getAss().getAnus().setAssHair(null, hair);
 		
 		if(species!=null) {
+			body.calculateRace();
 			species.applySpeciesChanges(body);
 			body.calculateRace();
 		}
@@ -980,7 +981,7 @@ public class CharacterUtils {
 		
 		if(character.hasBreasts()) {
 			character.setBreastSize(Math.max(CupSize.AA.getMeasurement(), character.getBreastSize().getMeasurement() -2 +(Util.random.nextInt(5)))); // Random size between -2 and +2 of base value.
-			if(Math.random()<=0.015f) {
+			if(Math.random()<=0.015f || character.hasFetish(Fetish.FETISH_LACTATION_SELF)) {
 				character.setBreastMilkStorage((int)((character.getBreastSize().getMeasurement() * 5)*(1+(Math.random()*2))));
 				if(Math.random()<=0.025f) {
 					character.addMilkModifier(FluidModifier.ADDICTIVE);
@@ -1006,8 +1007,8 @@ public class CharacterUtils {
 		}
 		
 		// Hair:
-		if(Math.random()<=0.2f && !character.getCovering(character.getHairType().getBodyCoveringType()).getType().getDyePatterns().isEmpty()) { // 20% chance to have a non-natural hair colour:
-			Covering currentCovering = character.getCovering(character.getHairType().getBodyCoveringType());
+		if(Math.random()<=0.2f && !character.getCovering(character.getHairType().getBodyCoveringType(character)).getType().getDyePatterns().isEmpty()) { // 20% chance to have a non-natural hair colour:
+			Covering currentCovering = character.getCovering(character.getHairType().getBodyCoveringType(character));
 			character.setHairCovering(new Covering(
 					currentCovering.getType(),
 					currentCovering.getType().getDyePatterns().get(Util.random.nextInt(currentCovering.getType().getDyePatterns().size())),
@@ -1021,7 +1022,7 @@ public class CharacterUtils {
 					Math.random()<=0.05f),
 					true);
 		}
-		if(character.getHairRawLengthValue()!=0 || (character.getFaceType() == FaceType.ALLIGATOR_MORPH && Math.random()<=0.2f)) {
+		if(character.getHairRawLengthValue()!=0) {
 			character.setHairLength(character.getHairLength().getMinimumValue() + Util.random.nextInt(character.getHairLength().getMaximumValue() - character.getHairLength().getMinimumValue()) +1);
 		}
 		
@@ -1035,10 +1036,10 @@ public class CharacterUtils {
 			} else {
 				character.setPenisSize(character.getPenisSize().getMinimumValue() + Util.random.nextInt(character.getPenisSize().getMaximumValue() - character.getPenisSize().getMinimumValue()) +1);
 			}
-			if(Math.random()<=0.005f) {
+			if(Math.random()<=0.02f) {
 				character.addCumModifier(FluidModifier.ADDICTIVE);
 			}
-			if(Math.random()<=0.005f) {
+			if(Math.random()<=0.02f) {
 				character.addCumModifier(FluidModifier.HALLUCINOGENIC);
 			}
 		}
@@ -1060,10 +1061,10 @@ public class CharacterUtils {
 				}
 			}
 			character.setVaginaWetness(character.getVaginaWetness().getValue() -1 + Util.random.nextInt(3)); // +1 or -1 either way
-			if(Math.random()<=0.005f) {
+			if(Math.random()<=0.02f) {
 				character.addGirlcumModifier(FluidModifier.ADDICTIVE);
 			}
-			if(Math.random()<=0.005f) {
+			if(Math.random()<=0.02f) {
 				character.addGirlcumModifier(FluidModifier.HALLUCINOGENIC);
 			}
 		}
@@ -1499,7 +1500,7 @@ public class CharacterUtils {
 			prostitutePrice = prostitutePrice * 0.8f; // Pregnant prostitutes charge 80% of their usual price.
 		}
 
-		return Math.max(25, (int) (prostitutePrice * 100)); // Minimum value is 25 flames.
+		return Math.max(150, (int) (prostitutePrice * 750)); // Minimum value is 150 flames.
 	}
 
 	private static Map<History, ArrayList<AbstractClothingType>> suitableFeminineClothing = new HashMap<>();

@@ -9,6 +9,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Vector2i;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -210,15 +211,29 @@ public class SubmissionGenericPlaces {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "TODO: Entrance to the bat caverns - a series of caves deep underground.</br>"
-						+ "This will be a mini-area (with bat-morphs in it), which will contain a couple of side-quests."
+						+ "The tunnel before you comes to an abrupt halt, but instead of a brick wall or iron grate to block your way, the passageway instead opens out into a pitch-black void."
+						+ " Cautiously stepping forwards, you see that a sign has been placed just before the end of the walkway, and you read:"
+					+ "</p>"
+					+ "<p style='text-align:center;'><i>"
+						+ "<b>Bat Caverns</b></br>"
+						+ "Travellers are advised to keep any light sources as dim as possible. The resident bat-morphs can get irritable if exposed to bright lights."
+					+ "</i></p>"
+					+ "<p>"
+						+ "Moving forwards past the sign, you peer down into the darkness."
+						+ " The light from the passage behind you manages to illuminate the first dozen steep stone steps that are carved into the rock below,"
+							+ " letting you know that there's a way down into these caverns even for morphs who are incapable of flight."
 					+ "</p>";
 		}
 
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return null;
+			if (index == 1) {
+				return new Response("Bat Caverns", "Enter the bat caverns. <b>Not yet added!</b> (This will be a mini-area, which will contain a couple of side-quests.)", null);
+
+			} else {
+				return null;
+			}
 		}
 	};
 	
@@ -233,15 +248,25 @@ public class SubmissionGenericPlaces {
 		@Override
 		public String getContent() {
 			return "<p>"
-					+ "TODO: Entrance to the Rat Warren - a criminal gang's headquarters.</br>"
-					+ "There will be a large side-quest related to this building (which will have an internal map)."
-				+ "</p>";
+						+ "This side tunnel looks just like all of the others that you've travelled through so far, but with one exception."
+						+ " Built into the wall nearest to where you're standing, a large stone archway has been constructed."
+						+ " A pair of heavy oaken doors, firmly shut tight, fill the opening, leaving you to wonder what could possibly be on the other side."
+					+ "</p>"
+					+ "<p>"
+						+ "Stepping forwards to take a closer look, you see that the name 'Rengar' has been crudely carved into the wood."
+						+ " Pressing your [pc.ear] against the surface, you can hear the distinct sounds of life within, and you wonder if you should give the doors a knock, or simply carry on your way..."
+					+ "</p>";
 		}
 
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
-			return null;
+			if (index == 1) {
+				return new Response("Knock", "Knock on the door. <b>Not yet added!</b> (This will be a mini-area, which will be related to a large side-quest.)", null);
+
+			} else {
+				return null;
+			}
 		}
 	};
 
@@ -268,6 +293,68 @@ public class SubmissionGenericPlaces {
 		}
 	};
 
+	public static final DialogueNodeOld LILIN_PALACE_CAVERN = new DialogueNodeOld("Lyssieth's Palace", "", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed(){
+			return 5;
+		}
+		
+		@Override
+		public String getContent() {
+			return "<p>"
+					+ "TODO: Submission opens up into a large underground cavern here, and up ahead, you can see that a massive, Gothic palace has been carved into the far stone wall."
+				+ "</p>";
+		}
+
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return null;
+		}
+	};
+	
+	public static final DialogueNodeOld LILIN_PALACE_GATE = new DialogueNodeOld("Lyssieth's Palace", "", true) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed(){
+			return 5;
+		}
+		
+		@Override
+		public String getContent() {
+			return "<p>"
+					+ "TODO: A dark chasm separates the palace from where you're standing."
+					+ " A heavy wooden drawbridge is the only means of entry."
+				+ "</p>"
+				+ "<p>"
+					+ "- Demon guards are everywhere.</br>"
+					+ "- Get stopped by the guard and asked what business you have here.</br>"
+					+ "- She demands that you step back.</br>"
+					+ "- Leads into Lyssieth's/Submission's main quest."
+				+ "</p>";
+		}
+
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new ResponseEffectsOnly("Step back", "Do as the guard says and step back.") {
+					@Override
+					public void effects() {
+						Main.game.getPlayer().setLocation(new Vector2i(Main.game.getPlayer().getLocation().getX(), Main.game.getPlayer().getLocation().getY()-1));
+						Main.game.setContent(new Response("", "", LILIN_PALACE_CAVERN));
+					}
+				};
+
+			} else {
+				return null;
+			}
+		}
+	};
+	
 	public static final DialogueNodeOld LILIN_PALACE = new DialogueNodeOld("Lyssieth's Palace", "", false) {
 		private static final long serialVersionUID = 1L;
 
@@ -374,6 +461,84 @@ public class SubmissionGenericPlaces {
 			return null;
 		}
 	};
+	
+	public static final DialogueNodeOld IMP_FORTRESS_4 = new DialogueNodeOld("Imp Fortress", "", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed(){
+			return 5;
+		}
+		
+		@Override
+		public String getContent() {
+			return "<p>"
+					+ "TODO: A large underground cave, and in the middle, a crude fortress has been built out of old wooden planks and pieces of sheet metal.</br>"
+					+ "Each of the three imp fortresses will be a repeatable quest (clearing the fortress), which, once cleared, will pacify the surrounding tunnels for a week or so."
+				+ "</p>"
+				+ "<p>"
+					+ "This particular fortress will be a male-only imp clan, who prefer to fight using dominant, physical attacks."
+				+ "</p>";
+		}
+
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return null;
+		}
+	};
+	
+	public static final DialogueNodeOld IMP_FORTRESS_5 = new DialogueNodeOld("Imp Fortress", "", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed(){
+			return 5;
+		}
+		
+		@Override
+		public String getContent() {
+			return "<p>"
+					+ "TODO: A large underground cave, and in the middle, a crude fortress has been built out of old wooden planks and pieces of sheet metal.</br>"
+					+ "Each of the three imp fortresses will be a repeatable quest (clearing the fortress), which, once cleared, will pacify the surrounding tunnels for a week or so."
+				+ "</p>"
+				+ "<p>"
+					+ "This particular fortress will be run by a group of imp-slimes, who like mimicking imps."
+				+ "</p>";
+		}
+
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return null;
+		}
+	};
+	
+	public static final DialogueNodeOld IMP_FORTRESS_6 = new DialogueNodeOld("Imp Fortress", "", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public int getMinutesPassed(){
+			return 5;
+		}
+		
+		@Override
+		public String getContent() {
+			return "<p>"
+					+ "TODO: A large underground cave, and in the middle, a crude fortress has been built out of old wooden planks and pieces of sheet metal.</br>"
+					+ "Each of the three imp fortresses will be a repeatable quest (clearing the fortress), which, once cleared, will pacify the surrounding tunnels for a week or so."
+				+ "</p>"
+				+ "<p>"
+					+ "This particular fortress will be balanced between alpha-imp and regular imp encounters."
+				+ "</p>";
+		}
+
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return null;
+		}
+	};
 
 	// Entrance and exits:
 
@@ -388,7 +553,13 @@ public class SubmissionGenericPlaces {
 		@Override
 		public String getContent() {
 			return "<p>"
-						+ "TODO: Enforcer checkpoint - need to talk to Enforcer before being given access to Submission. (Explains the basics of how Submission society works.)"
+						+ "A large stone building, spanning the entire width of the tunnel, has been erected here."
+						+ " Signs reading 'Dominion Enforcer Post' are displayed above each of the entrances, and within, a dozen or so Enforcers are manning desks or standing guard beside internal doorways."
+					+ "</p>"
+					+ "<p>"
+						+ "The Enforcers here don't seem to pay you much attention, allowing you to come and go as you please."
+						+ " You notice that one of the desks looks like an information booth, and the Enforcer stationed behind it doesn't seem to be as busy as all the others."
+						+ " If you wanted to, you could probably approach and ask for information about Submission..."
 					+ "</p>";
 		}
 
@@ -398,9 +569,15 @@ public class SubmissionGenericPlaces {
 				return new ResponseEffectsOnly("Dominion", "Head back up to Dominion."){
 					@Override
 					public void effects() {
-						Main.mainController.moveGameWorld(WorldType.DOMINION, PlaceType.DOMINION_EXIT_TO_SEWERS, true);
+						Main.mainController.moveGameWorld(WorldType.DOMINION, PlaceType.DOMINION_EXIT_TO_SUBMISSION, true);
 					}
 				};
+
+			} else if (index == 2) {
+				return new Response("Information", "Ask about Submission society. <b>Not yet added!</b>", null);
+
+			} else if (index == 3) {
+				return new Response("Lyssieth", "Ask about Lyssieth. <b>Not yet added!</b>", null);
 
 			} else {
 				return null;

@@ -4156,38 +4156,40 @@ public enum StatusEffect {
 			"milkFull",
 			Colour.GENERIC_SEX,
 			true,
-			null,
-			Util.newArrayListOfValues(new ListValue<String>("0.1% chance every minute to give in and <b style='color: "+ Colour.GENERIC_SEX.toWebHexString()+ ";'>milk yourself!</b>"))) {
+			Util.newHashMapOfValues(
+					new Value<Attribute, Float>(Attribute.MAJOR_PHYSIQUE, -1f),
+					new Value<Attribute, Float>(Attribute.RESISTANCE_LUST, -10f)),
+			null) {
 
 		@Override
 		public String applyEffect(GameCharacter target, int minutesPassed) {
-			if(minutesPassed>0 && Math.random() > Math.pow(0.999f, minutesPassed)) {
-				String milkLoss = target.incrementBreastStoredMilk(-target.getBreastRawMilkStorageValue()/4);
-				AbstractClothing nippleClothing = target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES);
-				AbstractClothing nippleTopClothing = target.getHighestZLayerCoverableArea(CoverableArea.NIPPLES);
-				if(nippleClothing!=null) {
-					nippleClothing.setDirty(true);
-				}
-				if(target.isPlayer()) {
-					return "<p>"
-								+ "For the past several minutes, an increasingly desperate desire to squeeze down on your full, milk-swollen breasts has been building up within you."
-								+ " Feeling as though you just can't bear it any longer, you give in, and, reaching up to your "
-								+ (nippleClothing==null
-									?"exposed [pc.breasts], you greedily start massaging and pinching at your engorged [pc.nipples]."
-										+ " Instantly, a spurt of [pc.milk+] shoots out all over your [pc.fingers], and you let out a deep, satisfied sigh as an immense feeling of relief washes over you..."
-									:"covered [pc.breasts], you greedily start massaging and pinching at your "+nippleTopClothing.getName()+", pushing "
-										+(nippleClothing.equals(nippleTopClothing)
-												?(nippleTopClothing.getClothingType().isPlural()
-														?"them"
-														:"it")
-												:"your "+nippleClothing.getName())
-										+" down roughly against your engorged [pc.nipples] in your desperation to get some relief."
-										+ " Instantly, a spurt of [pc.milk+] shoots out into your clothing, and you let out a deep, satisfied sigh as an immense feeling of relief washes over you...")
-							+ "</p>"
-							+ ""//TODO bra dirtied
-							+milkLoss;
-				}
-			}
+//			if(minutesPassed>0 && Math.random() > Math.pow(0.999f, minutesPassed)) {
+//				String milkLoss = target.incrementBreastStoredMilk(-target.getBreastRawMilkStorageValue()/4);
+//				AbstractClothing nippleClothing = target.getLowestZLayerCoverableArea(CoverableArea.NIPPLES);
+//				AbstractClothing nippleTopClothing = target.getHighestZLayerCoverableArea(CoverableArea.NIPPLES);
+//				if(nippleClothing!=null) {
+//					nippleClothing.setDirty(true);
+//				}
+//				if(target.isPlayer()) {
+//					return "<p>"
+//								+ "For the past several minutes, an increasingly desperate desire to squeeze down on your full, milk-swollen breasts has been building up within you."
+//								+ " Feeling as though you just can't bear it any longer, you give in, and, reaching up to your "
+//								+ (nippleClothing==null
+//									?"exposed [pc.breasts], you greedily start massaging and pinching at your engorged [pc.nipples]."
+//										+ " Instantly, a spurt of [pc.milk+] shoots out all over your [pc.fingers], and you let out a deep, satisfied sigh as an immense feeling of relief washes over you..."
+//									:"covered [pc.breasts], you greedily start massaging and pinching at your "+nippleTopClothing.getName()+", pushing "
+//										+(nippleClothing.equals(nippleTopClothing)
+//												?(nippleTopClothing.getClothingType().isPlural()
+//														?"them"
+//														:"it")
+//												:"your "+nippleClothing.getName())
+//										+" down roughly against your engorged [pc.nipples] in your desperation to get some relief."
+//										+ " Instantly, a spurt of [pc.milk+] shoots out into your clothing, and you let out a deep, satisfied sigh as an immense feeling of relief washes over you...")
+//							+ "</p>"
+//							+ ""//TODO bra dirtied
+//							+milkLoss;
+//				}
+//			}
 			
 			return "";
 		}
@@ -4195,10 +4197,10 @@ public enum StatusEffect {
 		@Override
 		public String getDescription(GameCharacter target) {
 			if(target.isPlayer()) {
-				return "Your [pc.breasts] are completely filled with [pc.milk], and you're finding it very hard to resist the temptation to reach up and squeeze at your engorged [pc.nipples]...";
+				return "Your [pc.breasts] are completely filled with [pc.milk], and your engorged [pc.nipples] are just begging for some attention...";
 			} else {
 				return UtilText.parse(target,
-						"[npc.Name]'s [npc.breasts] are completely filled with [npc.milk], and [npc.she]'s finding it very hard to resist the temptation to reach up and squeeze at [npc.her] engorged [npc.nipples]...");
+						"[npc.Name]'s [npc.breasts] are completely filled with [npc.milk], and [npc.her] engorged [npc.nipples] are just begging for some attention...");
 			}
 		}
 
@@ -6639,11 +6641,6 @@ public enum StatusEffect {
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
 			return target.getLust()>=100 && !target.isVulnerableToLustLoss();
-		}
-		
-		@Override
-		public boolean isCombatEffect() {
-			return true;
 		}
 	},
 

@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * @since 0.1.83
- * @version 0.2.0
+ * @version 0.2.2
  * @author Innoxia
  */
 public enum CoveringPattern {
@@ -35,6 +35,7 @@ public enum CoveringPattern {
 	
 	public static List<CoveringPattern> allStandardCoveringPatterns = new ArrayList<>();
 	public static List<CoveringPattern> allHairCoveringPatterns = new ArrayList<>();
+	public static List<CoveringPattern> allScalesCoveringPatterns = new ArrayList<>();
 	
 	static {
 		allStandardCoveringPatterns.add(NONE);
@@ -53,6 +54,13 @@ public enum CoveringPattern {
 		allHairCoveringPatterns.add(MOTTLED);
 		allHairCoveringPatterns.add(MARKED);
 		allHairCoveringPatterns.add(OMBRE);
+
+		allScalesCoveringPatterns.add(NONE);
+		allScalesCoveringPatterns.add(HIGHLIGHTS);
+		allScalesCoveringPatterns.add(STRIPED);
+		allScalesCoveringPatterns.add(SPOTTED);
+		allScalesCoveringPatterns.add(MOTTLED);
+		allScalesCoveringPatterns.add(MARKED);
 	}
 	
 	

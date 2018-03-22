@@ -1304,7 +1304,7 @@ public class PartnerFingerNipple {
 
 		@Override
 		public String getActionDescription() {
-			return "";
+			return "Guide [npc.name]'s hand up to your [pc.breasts+] and get [npc.herHim] to milk you.";
 		}
 
 		@Override

@@ -366,7 +366,7 @@ public class Eye implements BodyPartInterface, Serializable {
 	}
 	
 	public String setEyeCovering(GameCharacter owner, Covering covering) {
-		if(owner.getCovering(owner.getEyeType().getBodyCoveringType()).equals(covering) || owner.getCovering(BodyCoveringType.EYE_PUPILS).equals(covering)) {
+		if(owner.getCovering(owner.getEyeType().getBodyCoveringType(owner)).equals(covering) || owner.getCovering(BodyCoveringType.EYE_PUPILS).equals(covering)) {
 			return "<p style='text-align:center;'>[style.colourDisabled(Nothing happens...)]</p>";
 		}
 		

@@ -41,7 +41,6 @@ import com.lilithsthrone.game.character.body.valueEnums.BreastShape;
 import com.lilithsthrone.game.character.body.valueEnums.Capacity;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringModifier;
 import com.lilithsthrone.game.character.body.valueEnums.CoveringPattern;
-import com.lilithsthrone.game.character.body.valueEnums.CupSize;
 import com.lilithsthrone.game.character.body.valueEnums.EyeShape;
 import com.lilithsthrone.game.character.body.valueEnums.Femininity;
 import com.lilithsthrone.game.character.body.valueEnums.FluidFlavour;
@@ -80,7 +79,7 @@ import com.lilithsthrone.utils.XMLSaving;
 
 /**
  * @since 0.1.0
- * @version 0.1.87
+ * @version 0.2.2
  * @author Innoxia
  */
 public class Body implements Serializable, XMLSaving {
@@ -259,8 +258,8 @@ public class Body implements Serializable, XMLSaving {
 		
 		coveringsDiscovered = EnumSet.noneOf(BodyCoveringType.class);
 		for(BodyPartInterface bp : allBodyParts) {
-			if(bp.getType().getBodyCoveringType()!=null) {
-				coveringsDiscovered.add(bp.getType().getBodyCoveringType());
+			if(bp.getType().getBodyCoveringType(this)!=null) {
+				coveringsDiscovered.add(bp.getType().getBodyCoveringType(this));
 			}
 		}
 		
@@ -578,6 +577,7 @@ public class Body implements Serializable, XMLSaving {
 			CharacterUtils.addAttribute(doc, bodyVagina, "capacity", String.valueOf(this.vagina.orificeVagina.capacity));
 			CharacterUtils.addAttribute(doc, bodyVagina, "stretchedCapacity", String.valueOf(this.vagina.orificeVagina.stretchedCapacity));
 			CharacterUtils.addAttribute(doc, bodyVagina, "virgin", String.valueOf(this.vagina.orificeVagina.virgin));
+			CharacterUtils.addAttribute(doc, bodyVagina, "squirter", String.valueOf(this.vagina.orificeVagina.squirter));
 			Element vaginaModifiers = doc.createElement("vaginaModifiers");
 			bodyVagina.appendChild(vaginaModifiers);
 			for(OrificeModifier om : OrificeModifier.values()) {
@@ -1184,6 +1184,10 @@ public class Body implements Serializable, XMLSaving {
 		
 		importedVagina.pierced = (Boolean.valueOf(vagina.getAttribute("pierced")));
 		importedVagina.orificeVagina.stretchedCapacity = (Float.valueOf(vagina.getAttribute("stretchedCapacity")));
+		try {
+			importedVagina.orificeVagina.squirter = (Boolean.valueOf(vagina.getAttribute("squirter")));
+		} catch(Exception ex) {
+		}
 		
 		CharacterUtils.appendToImportLog(log, "</br></br>Body: Vagina: "
 				+ "</br>type: "+importedVagina.getType()
@@ -1576,7 +1580,7 @@ public class Body implements Serializable, XMLSaving {
 					sb.append(", fur-like hair");
 					break;
 				case ALLIGATOR_MORPH:
-					sb.append(", scales in place of hair");
+					sb.append(", coarse hair");
 					break;
 				case SQUIRREL_MORPH:
 					sb.append(", fur-like hair");
@@ -1637,6 +1641,33 @@ public class Body implements Serializable, XMLSaving {
 					break;
 				case MESSY:
 					sb.append(", which "+(hair.getType().isDefaultPlural()?"are":"is")+" unstyled and very messy.");
+					break;
+				case HIME_CUT:
+					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been straightened and styled into a hime cut.");
+					break;
+				case CHONMAGE:
+					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been straightened, oiled and styled into a chonmage topknot.");
+					break;
+				case TOPKNOT:
+					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been styled into a topknot.");
+					break;
+				case DREADLOCKS:
+					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been styled into dreadlocks.");
+					break;
+				case BIRD_CAGE:
+					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been styled into an elaborate bird cage"+UtilText.returnStringAtRandom(".",", birds not included."));
+					break;
+				case TWIN_BRAIDS:
+					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been woven into long twin braids.");
+					break;
+				case DRILLS:
+					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been styled into drills.");
+					break;
+				case LOW_PONYTAIL:
+					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been styled into a low ponytail.");
+					break;
+				case CROWN_BRAID:
+					sb.append(", which "+(hair.getType().isDefaultPlural()?"have":"has")+" been woven into a "+UtilText.returnStringAtRandom("crown of braids.","braided crown."));
 					break;
 			}
 		}
@@ -1765,7 +1796,7 @@ public class Body implements Serializable, XMLSaving {
 		}
 		
 		if (owner.isPlayer()) {
-			if(owner.getCovering(owner.getEyeType().getBodyCoveringType()).getPattern() == CoveringPattern.EYE_IRISES_HETEROCHROMATIC) {
+			if(owner.getCovering(owner.getEyeType().getBodyCoveringType(owner)).getPattern() == CoveringPattern.EYE_IRISES_HETEROCHROMATIC) {
 				sb.append(", with [pc.irisShape], heterochromatic [pc.irisPrimaryColour(true)]-and-[pc.irisSecondaryColour(true)] irises ");
 			} else {
 				sb.append(", with [pc.irisShape], [pc.irisPrimaryColour(true)] irises ");
@@ -1777,7 +1808,7 @@ public class Body implements Serializable, XMLSaving {
 				sb.append("and [pc.pupilShape], [pc.pupilPrimaryColour(true)] pupils.");
 			}
 		} else {
-			if(owner.getCovering(owner.getEyeType().getBodyCoveringType()).getPattern() == CoveringPattern.EYE_IRISES_HETEROCHROMATIC) {
+			if(owner.getCovering(owner.getEyeType().getBodyCoveringType(owner)).getPattern() == CoveringPattern.EYE_IRISES_HETEROCHROMATIC) {
 				sb.append(", with [npc.irisShape], heterochromatic [npc.irisPrimaryColour(true)]-and-[npc.irisSecondaryColour(true)] irises, ");
 			} else {
 				sb.append(", with [npc.irisShape], [npc.irisPrimaryColour(true)] irises ");
@@ -2324,21 +2355,21 @@ public class Body implements Serializable, XMLSaving {
 				sb.append(" You have " + Util.intToString(viewedBreast.getRows()) + " pair" + (viewedBreast.getRows() == 1 ? "" : "s") + " of "+viewedBreast.getSize().getDescriptor()+" [pc.breasts]");
 				
 				if(viewedBreast.getRows()==1) {
-					if (viewedBreast.getSize() == CupSize.TRAINING) {
+					if (viewedBreast.getSize().isTrainingBraSize()) {
 						sb.append(", which fit comfortably into a training bra.");
 					} else {
 						sb.append(", which fit comfortably into "+UtilText.generateSingularDeterminer(viewedBreast.getSize().getCupSizeName())+" "+viewedBreast.getSize().getCupSizeName()+"-cup bra.");
 					}
 					
 				} else if(viewedBreast.getRows()==2) {
-					if (viewedBreast.getSize() == CupSize.TRAINING) {
+					if (viewedBreast.getSize().isTrainingBraSize()) {
 						sb.append(", with your top pair fitting comfortably into a training bra, and the pair below being slightly smaller.");
 					} else {
 						sb.append(", with your top pair fitting comfortably into "+UtilText.generateSingularDeterminer(viewedBreast.getSize().getCupSizeName())+" "+viewedBreast.getSize().getCupSizeName()+"-cup bra, and the pair below being slightly smaller.");
 					}
 					
 				} else if(viewedBreast.getRows()>2) {
-					if (viewedBreast.getSize() == CupSize.TRAINING) {
+					if (viewedBreast.getSize().isTrainingBraSize()) {
 						sb.append(", with your top pair fitting comfortably into a training bra, and the pairs below each being slightly smaller than the ones above.");
 					} else {
 						sb.append(", with your top pair fitting comfortably into "
@@ -2360,21 +2391,21 @@ public class Body implements Serializable, XMLSaving {
 				sb.append(" [npc.She] has " + Util.intToString(viewedBreast.getRows()) + " pair" + (viewedBreast.getRows() == 1 ? "" : "s") + " of "+viewedBreast.getSize().getDescriptor()+" [npc.breasts]");
 				
 				if(viewedBreast.getRows()==1) {
-					if (viewedBreast.getSize() == CupSize.TRAINING) {
+					if (viewedBreast.getSize().isTrainingBraSize()) {
 						sb.append(", which fit comfortably into a training bra.");
 					} else {
 						sb.append(", which fit comfortably into "+UtilText.generateSingularDeterminer(viewedBreast.getSize().getCupSizeName())+" "+viewedBreast.getSize().getCupSizeName()+"-cup bra.");
 					}
 					
 				} else if(viewedBreast.getRows()==2) {
-					if (viewedBreast.getSize() == CupSize.TRAINING) {
+					if (viewedBreast.getSize().isTrainingBraSize()) {
 						sb.append(", with [npc.her] top pair fitting comfortably into a training bra, and the pair below being slightly smaller.");
 					} else {
 						sb.append(", with [npc.her] top pair fitting comfortably into "+UtilText.generateSingularDeterminer(viewedBreast.getSize().getCupSizeName())+" "+viewedBreast.getSize().getCupSizeName()+"-cup bra, and the pair below being slightly smaller.");
 					}
 					
 				} else if(viewedBreast.getRows()>2) {
-					if (viewedBreast.getSize() == CupSize.TRAINING) {
+					if (viewedBreast.getSize().isTrainingBraSize()) {
 						sb.append(", with [npc.her] top pair fitting comfortably into a training bra, and the pairs below each being slightly smaller than the ones above.");
 					} else {
 						sb.append(", with [npc.her] top pair fitting comfortably into "

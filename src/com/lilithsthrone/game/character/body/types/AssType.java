@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.body.types;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.utils.Util;
@@ -97,7 +98,10 @@ public enum AssType implements BodyPartTypeInterface {
 	}
 
 	@Override
-	public BodyCoveringType getBodyCoveringType() {
+	public BodyCoveringType getBodyCoveringType(Body body) {
+		if(body!=null) {
+			return body.getSkin().getType().getBodyCoveringType(body);
+		}
 		return skinType;
 	}
 

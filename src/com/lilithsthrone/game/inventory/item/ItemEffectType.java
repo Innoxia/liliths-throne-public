@@ -2762,7 +2762,7 @@ public enum ItemEffectType {
 			case TF_BREASTS:
 				switch(secondaryModifier) {
 					case TF_MOD_SIZE:
-						return CupSize.MAXIMUM.getMeasurement();
+						return CupSize.getMaximumCupSize().getMeasurement();
 					case TF_MOD_SIZE_SECONDARY:
 						return NippleSize.FOUR_MASSIVE.getValue();
 					case TF_MOD_SIZE_TERTIARY:

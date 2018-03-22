@@ -70,7 +70,7 @@ public enum Combat {
 	/**
 	 * @param allies A list of allies who are fighting with you. <b>Do not include Main.game.getPlayer() in this!</b>
 	 * @param enemies A list of enemies you're fighting. The first enemy in the list is considered the leader.
-	 * @param escapePercentage THe base chance of escaping in this combat situation. TODO
+	 * @param escapePercentage The base chance of escaping in this combat situation. TODO
 	 * @param openingDescriptions A map of opening descriptions for characters. If a description is not provided, one is generated automatically.
 	 */
 	public void initialiseCombat(
@@ -630,6 +630,11 @@ public enum Combat {
 					return null;
 					
 				} else if(index<=5 && Main.game.getPlayer().getOffensiveSpells().size()>=index) {
+					if(Main.game.getPlayer().getMana() < Main.game.getPlayer().getOffensiveSpells().get(index - 1).getModifiedCost(Main.game.getPlayer())) {
+						return new Response(Util.capitaliseSentence(Main.game.getPlayer().getOffensiveSpells().get(index - 1).getName()),
+								"You don't have enough aura to cast this spell!",
+								null);
+					}
 					return new Response(Util.capitaliseSentence(Main.game.getPlayer().getOffensiveSpells().get(index - 1).getName()),
 							getSpellDescription(Main.game.getPlayer().getOffensiveSpells().get(index - 1), null),
 							ENEMY_ATTACK){
@@ -643,6 +648,11 @@ public enum Combat {
 					};
 					
 				} else if(index>5 && index<=10 && Main.game.getPlayer().getDefensiveSpells().size()+5>=index) {
+					if(Main.game.getPlayer().getMana() < Main.game.getPlayer().getDefensiveSpells().get(index - 6).getModifiedCost(Main.game.getPlayer())) {
+						return new Response(Util.capitaliseSentence(Main.game.getPlayer().getDefensiveSpells().get(index - 6).getName()),
+								"You don't have enough aura to cast this spell!",
+								null);
+					}
 					return new Response(Util.capitaliseSentence(Main.game.getPlayer().getDefensiveSpells().get(index - 6).getName()),
 							getSpellDescription(Main.game.getPlayer().getDefensiveSpells().get(index - 6), null),
 							ENEMY_ATTACK){
@@ -656,6 +666,11 @@ public enum Combat {
 					};
 					
 				} else if(index>10 && index<=14 && Main.game.getPlayer().getExtraSpells().size()+10>=index) {
+					if(Main.game.getPlayer().getMana() < Main.game.getPlayer().getExtraSpells().get(index - 11).getModifiedCost(Main.game.getPlayer())) {
+						return new Response(Util.capitaliseSentence(Main.game.getPlayer().getExtraSpells().get(index - 11).getName()),
+								"You don't have enough aura to cast this spell!",
+								null);
+					}
 					return new Response(Util.capitaliseSentence(Main.game.getPlayer().getExtraSpells().get(index - 11).getName()),
 							getSpellDescription(Main.game.getPlayer().getExtraSpells().get(index - 11),
 							null),
@@ -818,6 +833,11 @@ public enum Combat {
 				} else if (index == 10) {
 					switch (previousAction) {
 						case SPELL:
+							if(Main.game.getPlayer().getMana() < previouslyUsedSpell.getModifiedCost(Main.game.getPlayer())) {
+								return new Response(Util.capitaliseSentence(previouslyUsedSpell.getName()),
+										"You don't have enough aura to cast this spell!",
+										null);
+							}
 							return new Response(Util.capitaliseSentence(previouslyUsedSpell.getName()), getSpellDescription(previouslyUsedSpell, null), ENEMY_ATTACK){
 								@Override
 								public void effects() {
@@ -841,7 +861,22 @@ public enum Combat {
 										"This special move is on cooldown for [style.colourBad("+cooldown+")] more turns!",
 										null);
 							}
-	
+//						case DUAL: TODO
+//							break;
+//						case ESCAPE:
+//							break;
+//						case MAIN:
+//							break;
+//						case NONE:
+//							break;
+//						case OFFHAND:
+//							break;
+//						case SEDUCTION:
+//							break;
+//						case USE_ITEM:
+//							break;
+//						case WAIT:
+//							break;
 						default:
 							return new Response("Repeat", "You have to perform an action first!", null);
 					}
@@ -1030,7 +1065,7 @@ public enum Combat {
 		boolean critical = false;//isCriticalHit(attacker);
 	
 		float lustDamage = Attack.calculateDamage(attacker, target, Attack.SEDUCTION, critical);
-
+		
 		if(target.hasStatusEffect(StatusEffect.DESPERATE_FOR_SEX)) {
 			if(attacker.isPlayer()) {
 				attackStringBuilder.append(UtilText.parse(target,

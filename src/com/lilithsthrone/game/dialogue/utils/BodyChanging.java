@@ -292,7 +292,7 @@ public class BodyChanging {
 										?"You can harness the power of your demonic form to change the length of your hair."
 										:UtilText.parse(BodyChanging.getTarget(), "[npc.Name] can harness the power of [npc.her] demonic form to change the length of [npc.her] hair.")))
 						
-						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyChanging.getTarget().getCovering(BodyChanging.getTarget().getHairType().getBodyCoveringType()).getType(), "Hair colour",
+						+ CharacterModificationUtils.getKatesDivCoveringsNew(false, BodyChanging.getTarget().getCovering(BodyChanging.getTarget().getHairType().getBodyCoveringType(BodyChanging.getTarget())).getType(), "Hair colour",
 								(BodyChanging.getTarget().isPlayer()
 										?"You can harness the power of your demonic form to change the colour of your hair."
 										:UtilText.parse(BodyChanging.getTarget(), "[npc.Name] can harness the power of [npc.her] demonic form to change the colour of [npc.her] hair.")), true, true)
@@ -715,9 +715,11 @@ public class BodyChanging {
 								:UtilText.parse(BodyChanging.getTarget(), "<i>Get [npc.name] to focus [npc.her] demonic transformative powers on changing aspects of [npc.her] penis.</i>"))
 						+ "</div>"
 	
+						+ CharacterModificationUtils.getSelfTransformPenisChoiceDiv(demonRace, false)
+							
 						+"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformPenisChoiceDiv(demonRace)
 							+ CharacterModificationUtils.getSelfTransformPenisSizeDiv()
+							+ CharacterModificationUtils.getSelfTransformPenisGirthDiv()
 						+"</div>"
 						
 						+"<div style='clear:left;'>"
@@ -755,9 +757,11 @@ public class BodyChanging {
 								:UtilText.parse(BodyChanging.getTarget(), "<i>Get [npc.name] to focus [npc.her] efforts on changing aspects of [npc.her] penis.</i>"))
 						+ "</div>"
 	
+						+ CharacterModificationUtils.getSelfTransformPenisChoiceDiv(slimeRaces, false)
+							
 						+"<div style='clear:left;'>"
-							+ CharacterModificationUtils.getSelfTransformPenisChoiceDiv(slimeRaces)
 							+ CharacterModificationUtils.getSelfTransformPenisSizeDiv()
+							+ CharacterModificationUtils.getSelfTransformPenisGirthDiv()
 						+"</div>"
 						
 						+"<div style='clear:left;'>"

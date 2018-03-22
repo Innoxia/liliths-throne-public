@@ -561,19 +561,21 @@ public class Util {
 		utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
 
 		// 1/3 chance of having a bimbo sentence ending:
-		switch (random.nextInt(6)) {
-			case 0:
-				char end = utilitiesStringBuilder.charAt(utilitiesStringBuilder.length() - 1);
-				utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
-				utilitiesStringBuilder.append(" and stuff");
-				utilitiesStringBuilder.append(end);
-				break;
-			case 1:
-				utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
-				utilitiesStringBuilder.append(", y'know?");
-				break;
-			default:
-				break;
+		if(!sentence.endsWith("~") && !sentence.endsWith("-")) {
+			switch (random.nextInt(6)) {
+				case 0:
+					char end = utilitiesStringBuilder.charAt(utilitiesStringBuilder.length() - 1);
+					utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
+					utilitiesStringBuilder.append(" and stuff");
+					utilitiesStringBuilder.append(end);
+					break;
+				case 1:
+					utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
+					utilitiesStringBuilder.append(", y'know?");
+					break;
+				default:
+					break;
+			}
 		}
 
 		return utilitiesStringBuilder.toString();

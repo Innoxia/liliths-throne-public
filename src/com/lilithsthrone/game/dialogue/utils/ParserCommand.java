@@ -78,7 +78,7 @@ public abstract class ParserCommand {
 	/**
 	 * Some methods might return a null or empty string for a determiner. This method accounts for that, applying a special determiner if one is available and then returning the descriptor + name combination.
 	 */
-	protected static String applyDeterminer(String descriptor, String input) {
+	protected String applyDeterminer(String descriptor, String input) {
 		if(descriptor==null)
 			return input;
 		

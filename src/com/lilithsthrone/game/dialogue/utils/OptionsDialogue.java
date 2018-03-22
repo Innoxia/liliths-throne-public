@@ -1512,6 +1512,12 @@ public class OptionsDialogue {
 						"This enables body hair descriptions and content for armpits and assholes.",
 						Main.getProperties().bodyHairContent)
 					
+					+getContentPreferenceDiv(
+							"FEMININE_BEARD",
+							Colour.BASE_PURPLE_DARK,
+							"Feminine Beards",
+							"This enables feminine characters to grow beards.",
+							Main.getProperties().feminineBeardsContent)
 				+"</div>"
 				
 				+ "<div class='container-full-width' style='background:transparent; padding:0; margin-bottom:0; margin-top:0;'>"

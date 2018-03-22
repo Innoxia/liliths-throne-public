@@ -136,7 +136,7 @@ public enum PlaceUpgrade {
 			0,
 			100,
 			1,
-			0.1f,
+			0,
 			0,
 			null) {
 		

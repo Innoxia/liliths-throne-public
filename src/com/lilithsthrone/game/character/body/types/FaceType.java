@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.body.types;
 
 import com.lilithsthrone.game.character.GameCharacter;
+import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.race.Race;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 
@@ -156,7 +157,7 @@ public enum FaceType implements BodyPartTypeInterface {
 	}
 	
 	@Override
-	public BodyCoveringType getBodyCoveringType() {
+	public BodyCoveringType getBodyCoveringType(Body body) {
 		return skinType;
 	}
 	

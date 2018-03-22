@@ -237,7 +237,7 @@ public class EnchantmentDialogue {
 							inventorySB.append(
 									"<div class='container-full-width' style='background:"+RenderingEngine.getEntryBackgroundColour(i%2==0)+"; width:98%; margin:0 1%; padding:2px;'>"
 										+Util.capitaliseSentence(s)
-										+(ingredient.getEffects().contains(ie)
+										+(ingredient.getEffects().size()>i && ingredient.getEffects().get(i).equals(ie)
 												?"<div class='normal-button' style='width:64px; height:22px; line-height:22px; font-size:16px; margin:0; padding:0 0 0 4px; float:right; text-align:left;'>"
 														+ "<b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>X</b> "
 																+ UtilText.formatAsEssences(ie.getCost(), "b", false)
