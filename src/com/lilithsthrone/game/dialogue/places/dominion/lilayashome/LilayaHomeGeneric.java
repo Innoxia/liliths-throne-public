@@ -1504,6 +1504,27 @@ public class LilayaHomeGeneric {
 
 		@Override
 		public Response getResponse(int responseTab, int index) {
+			// Companion NPC test was here. Since I'm hoping to bring in Arkhi as a fully fledged companion soon, this code can be removed, but it's here in case any tests on companions will be needed :3
+			/*if (index == 1) {
+				if(!Main.game.getPlayer().hasCompanion(Main.game.GetArkhi()))
+				{
+					return new ResponseEffectsOnly("Invite Arkhi", "Invites Arkhi to travel with you."){
+						@Override
+						public void effects() {
+							Main.game.getPlayer().addCompanion(Main.game.GetArkhi());
+						}
+					};
+				}
+				else
+				{
+					return new Response("Invite Arkhi", "Arkhi is already traveling with you!", null){
+					};
+				}
+			}
+			else
+			{
+				return null;
+			}*/
 			return null;
 		}
 	};

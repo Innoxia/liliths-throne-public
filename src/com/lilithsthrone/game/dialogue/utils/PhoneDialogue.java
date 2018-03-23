@@ -139,6 +139,18 @@ public class PhoneDialogue {
 					return new Response("Transform", "Only demons and slimes can transform themselves!", null);
 				}
 				
+			} else if (index == 9) {
+				if(Main.game.getPlayer().getCompanions().size() > 0) {
+					return new Response("Companions", "Check out your companions.", CompanionsDialogue.CHARACTER_SELECT) {
+						@Override
+						public void effects() {
+							
+						}
+					};
+				} else {
+					return new Response("Companions", "You are traveling alone.", null);
+				}
+				
 			} else if (index == 0){
 				return new ResponseEffectsOnly("Back", "Put your phone away."){
 					@Override

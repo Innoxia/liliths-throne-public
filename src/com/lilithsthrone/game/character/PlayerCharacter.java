@@ -72,6 +72,8 @@ public class PlayerCharacter extends GameCharacter implements XMLSaving {
 		
 		karma = 0;
 		
+		this.setMaxCompanions(1);
+		
 		quests = new EnumMap<>(QuestLine.class);
 
 		mainQuestUpdated = false;
