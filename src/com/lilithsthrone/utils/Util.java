@@ -562,15 +562,15 @@ public class Util {
 		for (int i = 0; i < wordsToBimbofy; i++) {
 			offset = random.nextInt(frequency);
 			offset = ((i * frequency + offset) >= splitSentence.length ? splitSentence.length - 1 : (i * frequency + offset));
-			char prev = splitSentence[offset - 1].charAt(-1);
+			char prev = splitSentence[offset - 1].charAt(splitSentence[offset - 1].length() - 1);
 
 			// Add a comma if the last word wasn't wasn't punctuation
 			if (".!?,".indexOf(prev) < 0) {
 				splitSentence[offset - 1] = splitSentence[offset - 1] + ",";
 			}
 
-			// Decapitalise the current word if it was originally the start of a sentence and isn't all caps
-			if (offset == 0 || offset > 0 && ".!?".indexOf(splitSentence[offset -1]) >= 0
+			// Decapitalise the current word if it was originally the start of a sentence
+			if (".!?".indexOf(prev) >= 0 && offset < splitSentence.length
 					&& splitSentence[offset] != splitSentence[offset].toUpperCase()) {
 				splitSentence[offset] = splitSentence[offset].toLowerCase();
 			}
@@ -608,6 +608,47 @@ public class Util {
 		return utilitiesStringBuilder.toString();
 	}
 
+	/**
+	 * Inserts words randomly into a sentence.</br>
+	 * 
+	 * @param sentence
+	 *            sentence to insert words into
+	 * @param frequency
+	 *            how often words are inserted. 1/frequency is the probability of inserting a word
+   * @param inserts
+   *            list of strings to insert into
+	 * @return
+	 *            modified sentence
+	 */
+  private static String insertIntoSentence(String sentence, int frequency, String[] inserts) {
+		splitSentence = sentence.split(" ");
+		utilitiesStringBuilder.setLength(0);
+
+		// 1 in "frequency" words are muffled interjections, with a minimum of 1.
+		int wordsToInsert = splitSentence.length / frequency + 1;
+
+		int offset = 0;
+		for (int i = 0; i < wordsToInsert; i++) {
+			offset = random.nextInt(frequency);
+			offset = ((i * frequency + offset) >= splitSentence.length ? splitSentence.length - 1 : (i * frequency + offset));
+
+			// Decapitalise the current word if it was originally the start of a sentence and isn't all caps
+			if (offset == 0 || offset > 0 && ".!?".indexOf(splitSentence[offset -1]) >= 0
+					&& splitSentence[offset] != splitSentence[offset].toUpperCase()) {
+				splitSentence[offset] = splitSentence[offset].toLowerCase();
+			}
+			
+			// Add the insert to this word:
+			splitSentence[offset] = inserts[random.nextInt(inserts.length)] + splitSentence[offset];
+			
+		}
+		for (String word : splitSentence)
+			utilitiesStringBuilder.append(word + " ");
+		utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
+
+		return utilitiesStringBuilder.toString();
+  }
+
 	private static String[] muffledSounds = new String[] { "~Mrph~ ", "~Mmm~ ", "~Mrmm~ " };
 	/**
 	 * Turns a normal sentence into a muffled sentence.</br>
@@ -623,26 +664,7 @@ public class Util {
 	 *            modified sentence
 	 */
 	public static String addMuffle(String sentence, int frequency) {
-		splitSentence = sentence.split(" ");
-		utilitiesStringBuilder.setLength(0);
-
-		// 1 in "frequency" words are muffled interjections, with a minimum of 1.
-		int wordsToMuffle = splitSentence.length / frequency + 1;
-
-		int offset = 0;
-		for (int i = 0; i < wordsToMuffle; i++) {
-			offset = random.nextInt(frequency);
-			offset = ((i * frequency + offset) >= splitSentence.length ? splitSentence.length - 1 : (i * frequency + offset));
-			
-			// Add the muffled sound to this word:
-			splitSentence[offset] = muffledSounds[random.nextInt(muffledSounds.length)] + splitSentence[offset];
-			
-		}
-		for (String word : splitSentence)
-			utilitiesStringBuilder.append(word + " ");
-		utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
-
-		return utilitiesStringBuilder.toString();
+		return insertIntoSentence(sentence, frequency, muffledSounds);
 	}
 	
 	private static String[] sexSounds = new String[] { "~Aah!~ ", "~Mmm!~ " };
@@ -660,26 +682,7 @@ public class Util {
 	 *            modified sentence
 	 */
 	public static String addSexSounds(String sentence, int frequency) {
-		splitSentence = sentence.split(" ");
-		utilitiesStringBuilder.setLength(0);
-
-		// 1 in "frequency" words are sexy interjections, with a minimum of 1.
-		int wordsToMuffle = splitSentence.length / frequency + 1;
-
-		int offset = 0;
-		for (int i = 0; i < wordsToMuffle; i++) {
-			offset = random.nextInt(frequency);
-			offset = ((i * frequency + offset) >= splitSentence.length ? splitSentence.length - 1 : (i * frequency + offset));
-			
-			// Add the sexy sound to this word:
-			splitSentence[offset] = sexSounds[random.nextInt(sexSounds.length)] + splitSentence[offset];
-			
-		}
-		for (String word : splitSentence)
-			utilitiesStringBuilder.append(word + " ");
-		utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
-
-		return utilitiesStringBuilder.toString();
+		return insertIntoSentence(sentence, frequency, sexSounds);
 	}
 
 	private static String[] drunkSounds = new String[] { "~Hic!~ " };
@@ -697,27 +700,12 @@ public class Util {
 	 *            modified sentence
 	 */
 	public static String addDrunkSlur(String sentence, int frequency) {
-		splitSentence = sentence.split(" ");
-		utilitiesStringBuilder.setLength(0);
-
-		// 1 in "frequency" words are sexy interjections, with a minimum of 1.
-		int wordsToMuffle = splitSentence.length / frequency + 1;
-
-		int offset = 0;
-		for (int i = 0; i < wordsToMuffle; i++) {
-			offset = random.nextInt(frequency);
-			offset = ((i * frequency + offset) >= splitSentence.length ? splitSentence.length - 1 : (i * frequency + offset));
-			
-			// Add the sexy sound to this word:
-			splitSentence[offset] = drunkSounds[random.nextInt(drunkSounds.length)] + splitSentence[offset];
-			
-		}
-		for (String word : splitSentence) {
-			utilitiesStringBuilder.append(word + " ");
-		}
-		utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
-		
-		return utilitiesStringBuilder.toString().replaceAll("Hi ", "Heeey ").replaceAll("yes", "yesh").replaceAll("is", "ish").replaceAll("So", "Sho").replaceAll("so", "sho");
+		return insertIntoSentence(sentence, frequency, drunkSounds)
+			.replaceAll("Hi ", "Heeey ")
+			.replaceAll("yes", "yesh")
+			.replaceAll("is", "ish")
+			.replaceAll("So", "Sho")
+			.replaceAll("so", "sho");
 	}
 
 	/**
