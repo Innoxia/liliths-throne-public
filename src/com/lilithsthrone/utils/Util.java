@@ -532,82 +532,6 @@ public class Util {
 		return utilitiesStringBuilder.toString();
 	}
 
-	private static String[] bimboWords = new String[] { "like, ", "like, ", "like, ", "um, ", "uh, ", "ah, " };
-	/**
-	 * Turns a normal sentence into the kind of thing a Bimbo would come out with.
-	 * Can be safely used in conjunction with addStutter.
-	 * If using addStutter after using addBimbo, bimbo words can also become stuttered.</br>
-	 * Example: "How far is it to the town hall?"</br>
-	 * "How, like, far is it to the town, uh, hall and stuff?"</br>
-	 * "How far is, like, it to the, um, town hall and stuff?"</br>
-	 * "Like, How far is it to the, like, town hall?"</br>
-	 * Used in conjunction with addStutter(): "L-Like, How far is it t-to the, like, town hall?"
-	 * 
-	 * @param sentence
-	 *            sentence to apply bimbo modifications
-	 * @param frequency
-	 *            of bimbo interjections (i.e. 4 would be 1 in 4 words have a
-	 *            bimbo interjection)
-	 * @return
-	 *            modified sentence
-	 */
-	public static String addBimbo(String sentence, int frequency) {
-		splitSentence = sentence.split(" ");
-		utilitiesStringBuilder.setLength(0);
-
-		// 1 in "frequency" words are bimbo interjections, with a minimum of 1.
-		int wordsToBimbofy = splitSentence.length / frequency + 1;
-
-		int offset = 0;
-		for (int i = 0; i < wordsToBimbofy; i++) {
-			offset = random.nextInt(frequency);
-			offset = ((i * frequency + offset) >= splitSentence.length ? splitSentence.length - 1 : (i * frequency + offset));
-			char prev = splitSentence[offset - 1].charAt(splitSentence[offset - 1].length() - 1);
-
-			// Add a comma if the last word wasn't wasn't punctuation
-			if (".!?,".indexOf(prev) < 0) {
-				splitSentence[offset - 1] = splitSentence[offset - 1] + ",";
-			}
-
-			// Decapitalise the current word if it was originally the start of a sentence
-			if (".!?".indexOf(prev) >= 0 && offset < splitSentence.length
-					&& splitSentence[offset] != splitSentence[offset].toUpperCase()) {
-				splitSentence[offset] = splitSentence[offset].toLowerCase();
-			}
-
-			// Add the bimbo part to this word, capitalise if at the beginning of string or a sentence
-			String word = bimboWords[random.nextInt(bimboWords.length)];
-			splitSentence[offset] = ((offset == 0 || ".!?".indexOf(prev) >= 0) ? capitaliseSentence(word) : word) + splitSentence[offset];
-
-			// for(int j=0; j<frequency && ((i*frequency
-			// +j)<splitSentence.length);j++)
-			// sb.append(splitSentence[i*frequency +j]+" ");
-		}
-		for (String word : splitSentence)
-			utilitiesStringBuilder.append(word + " ");
-		utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
-
-		// 1/3 chance of having a bimbo sentence ending:
-		if(!sentence.endsWith("~") && !sentence.endsWith("-")) {
-			switch (random.nextInt(6)) {
-				case 0:
-					char end = utilitiesStringBuilder.charAt(utilitiesStringBuilder.length() - 1);
-					utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
-					utilitiesStringBuilder.append(" and stuff");
-					utilitiesStringBuilder.append(end);
-					break;
-				case 1:
-					utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
-					utilitiesStringBuilder.append(", y'know?");
-					break;
-				default:
-					break;
-			}
-		}
-
-		return utilitiesStringBuilder.toString();
-	}
-
 	/**
 	 * Inserts words randomly into a sentence.</br>
 	 * 
@@ -648,6 +572,51 @@ public class Util {
 
 		return utilitiesStringBuilder.toString();
   }
+
+	private static String[] bimboWords = new String[] { "like, ", "like, ", "like, ", "um, ", "uh, ", "ah, " };
+	/**
+	 * Turns a normal sentence into the kind of thing a Bimbo would come out with.
+	 * Can be safely used in conjunction with addStutter.
+	 * If using addStutter after using addBimbo, bimbo words can also become stuttered.</br>
+	 * Example: "How far is it to the town hall?"</br>
+	 * "How, like, far is it to the town, uh, hall and stuff?"</br>
+	 * "How far is, like, it to the, um, town hall and stuff?"</br>
+	 * "Like, How far is it to the, like, town hall?"</br>
+	 * Used in conjunction with addStutter(): "L-Like, How far is it t-to the, like, town hall?"
+	 * 
+	 * @param sentence
+	 *            sentence to apply bimbo modifications
+	 * @param frequency
+	 *            of bimbo interjections (i.e. 4 would be 1 in 4 words have a
+	 *            bimbo interjection)
+	 * @return
+	 *            modified sentence
+	 */
+	public static String addBimbo(String sentence, int frequency) {
+		sentence = insertIntoSentence(sentence, frequency, bimboWords);
+		utilitiesStringBuilder.setLength(0);
+		utilitiesStringBuilder.append(sentence);
+
+		// 1/3 chance of having a bimbo sentence ending:
+		if(!sentence.endsWith("~") && !sentence.endsWith("-")) {
+			switch (random.nextInt(6)) {
+				case 0:
+					char end = utilitiesStringBuilder.charAt(utilitiesStringBuilder.length() - 1);
+					utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
+					utilitiesStringBuilder.append(" and stuff");
+					utilitiesStringBuilder.append(end);
+					break;
+				case 1:
+					utilitiesStringBuilder.deleteCharAt(utilitiesStringBuilder.length() - 1);
+					utilitiesStringBuilder.append(", y'know?");
+					break;
+				default:
+					break;
+			}
+		}
+
+		return utilitiesStringBuilder.toString();
+	}
 
 	private static String[] muffledSounds = new String[] { "~Mrph~ ", "~Mmm~ ", "~Mrmm~ " };
 	/**
