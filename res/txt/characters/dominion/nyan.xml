@@ -120,7 +120,7 @@
 
 	<htmlContent tag="NYAN_FLIRT"><![CDATA[
 	<p>
-		Playfully teasing her over the subject of which lingerie she likes the most, you soon manage to get the blushing cat-girl smiling and giggling as she light-heartedly smacks you on the [pc.arm],
+		Playfully teasing her over the subject of which lingerie she likes the most, you soon manage to get the blushing cat-girl smiling and giggling as she light-heartedly smacks you on the [pc.arm].
 		 [nyan.speech([pc.Name]! <i>~Hehe!~</i> Stop it!)]
 	</p>
 	]]>
@@ -254,7 +254,7 @@
 	<htmlContent tag="NYAN_END_SEX"><![CDATA[
 	<p>
 		You both lie there on the bed for a while, panting and sighing as you kiss and stroke one another.
-		 Eventually, however, Nyan remembers that she's supposed to be at work, and, planting one last passionate kiss on your lips, she stands up,
+		 Eventually, however, Nyan remembers that she's supposed to be at work, and, planting one last passionate kiss on your lips, she stands up.
 		 [nyan.speech(That was amazing...)]
 	</p>
 	<p>
@@ -267,7 +267,7 @@
 	<htmlContent tag="NYAN_END_SEX_NO_ORGASM"><![CDATA[
 	<p>
 		You both lie there on the bed for a while, panting and sighing as you kiss and stroke one another.
-		 Eventually, however, Nyan remembers that she's supposed to be at work, and, planting one last passionate kiss on your lips, she stands up,
+		 Eventually, however, Nyan remembers that she's supposed to be at work, and, planting one last passionate kiss on your lips, she stands up.
 		 [nyan.speech(That was... fun... b-but how about you let me orgasm next time...)]
 	</p>
 	<p>
@@ -281,11 +281,11 @@
 	
 	<htmlContent tag="NYAN_GIFT_CHOCOLATES"><![CDATA[
 	<p>
-		Producing the box of chocolates that you'd been hiding behind your back, you hold it out to Nyan,
+		Producing the box of chocolates that you'd been hiding behind your back, you hold it out to Nyan.
 		 [pc.speech(I got this for you, Nyan. I hope you like them!)]
 	</p>
 	<p>
-		Nyan gasps in shock, before tentatively reaching out and taking the box from you,
+		Nyan gasps in shock, before tentatively reaching out and taking the box from you.
 		 [nyan.speech(O-Oh my goodness! I-I don't know what t-to say! T-Thank you s-so much, [pc.name]!)]
 	</p>
 	<p>
@@ -297,20 +297,20 @@
 	
 	<htmlContent tag="NYAN_GIFT_PERFUME"><![CDATA[
 	<p>
-		You produce the bottle of perfume that you've bought for Nyan, smiling as you hold it out to her,
+		You produce the bottle of perfume that you've bought for Nyan, smiling as you hold it out to her.
 		 [pc.speech(I got this for you, Nyan!)]
 	</p>
 	<p>
-		The nervous cat-girl lets out an excited squeak in response,
+		The nervous cat-girl lets out an excited squeak in response.
 		 [nyan.speech([pc.Name]! Y-You didn't have to g-get me this!)]
 	</p>
 	<p>
-		[pc.speech(No, but I wanted to,)]
-		 you smile.
+		[pc.speech(No, but I wanted to.)]
+		 You smile.
 		 [pc.speech(You really deserve it, what with how hard you work and everything!)]
 	</p>
 	<p>
-		Nyan blushes as she takes the bottle from out of your [pc.hands],
+		Nyan blushes as she takes the bottle from out of your [pc.hands].
 		 [nyan.speech(T-Thank you s-so much!)]
 	</p>
 	<p>
@@ -323,7 +323,7 @@
 	<htmlContent tag="NYAN_GIFT_ROSES"><![CDATA[
 	<p>
 		From behind your back, you produce the bouquet of roses.
-		 Holding them out towards the nervous cat-girl, you smile,
+		 Holding them out towards the nervous cat-girl, you smile.
 		 [pc.speech(I bought these for you, Nyan. I hope you like them.)]
 	</p>
 	<p>
@@ -340,11 +340,11 @@
 	
 	<htmlContent tag="NYAN_GIFT_TEDDY_BEAR"><![CDATA[
 	<p>
-		Holding out the fluffy teddy bear, you smile at Nyan,
+		Holding out the fluffy teddy bear, you smile at Nyan.
 		 [pc.speech(Once I saw this, I couldn't resist buying it for you!)]
 	</p>
 	<p>
-		The delicate cat-girl lets out a delighted squeak as she sees the gift that you've bought for her,
+		The delicate cat-girl lets out a delighted squeak as she sees the gift that you've bought for her.
 		 [nyan.speech([pc.Name]! H-How did you know?! I-I love cuddly toys!)]
 	</p>
 	<p>
