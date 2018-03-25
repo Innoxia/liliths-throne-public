@@ -28,8 +28,8 @@
 	<htmlContent tag="NYAN_TALK"><![CDATA[
 	<p>
 		[pc.speech(I was wondering how your work's been going recently,)]
-		 you reply,
-		[pc.speech(your store looks as busy as ever today.)]
+		 you reply.
+		[pc.speech(Your store looks as busy as ever today.)]
 	</p>
 	<p>
 		[nyan.speech(W-Well, it's b-been going well, t-thank you,)]
@@ -42,8 +42,8 @@
 	<htmlContent tag="NYAN_TALK"><![CDATA[
 	<p>
 		[pc.speech(I just wanted to ask you how you cope with these arcane storms,)]
-		 you reply,
-		[pc.speech(they seem to be a real problem for all the people here in Dominion.)]
+		 you reply.
+		[pc.speech(They seem to be a real problem for all the people here in Dominion.)]
 	</p>
 	<p>
 		[nyan.speech(W-Well, I-I live in an a-apartment b-behind this store,)]
@@ -75,8 +75,8 @@
 	<htmlContent tag="NYAN_COMPLIMENT"><![CDATA[
 	<p>
 		[pc.speech(You know, you really do have beautiful eyes,)]
-		 you say, smiling at the pretty cat-girl,
-		 [pc.speech(they're such a gorgeous shade of blue.)]
+		 you say, smiling at the pretty cat-girl.
+		 [pc.speech(They're such a gorgeous shade of blue.)]
 	</p>
 	]]>
 	</htmlContent>
@@ -84,7 +84,7 @@
 	<htmlContent tag="NYAN_COMPLIMENT"><![CDATA[
 	<p>
 		[pc.speech(Your hair looks really good today,)]
-		 you say, smiling at the pretty cat-girl,
+		 you say, smiling at the pretty cat-girl.
 		 [pc.speech(I really love what you do with it.)]
 	</p>
 	]]>
@@ -93,8 +93,8 @@
 	<htmlContent tag="NYAN_COMPLIMENT"><![CDATA[
 	<p>
 		[pc.speech(I really love your outfit,)]
-		 you say, smiling at the pretty cat-girl,
-		 [pc.speech(that blouse suits you so well.)]
+		 you say, smiling at the pretty cat-girl.
+		 [pc.speech(That blouse suits you so well.)]
 	</p>
 	]]>
 	</htmlContent>
@@ -163,8 +163,8 @@
 	<htmlContent tag="NYAN_KISS"><![CDATA[
 	<p>
 		[nyan.speech(Ah, [pc.name],)]
-		 Nyan sighs, looking longingly into your eyes,
-		 [nyan.speech(what is it? Did you wan- <i>~Mmmm!~</i>)]
+		 Nyan sighs, looking longingly into your eyes.
+		 [nyan.speech(What is it? Did you wan- <i>~Mmmm!~</i>)]
 	</p>
 	<p>
 		Unable to resist any longer, you reach up and take hold of Nyan's head, before leaning in and pressing your lips against hers.
@@ -177,7 +177,7 @@
 	<htmlContent tag="NYAN_KISS"><![CDATA[
 	<p>
 		[nyan.speech([pc.Name]?)]
-		 Nyan asks, letting out a little sigh as she looks longingly into your eyes,
+		 Nyan asks, letting out a little sigh as she looks longingly into your eyes.
 		 [nyan.speech(Did you wan- <i>~Mmmm!~</i>)]
 	</p>
 	<p>
@@ -238,7 +238,7 @@
 	</p>
 	<p>
 		[nyan.speech(<i>~Mrph!~</i> Can't get caught here... <i>~Mmm!~</i>)]
-		 Nyan moans, reluctantly pulling away, before grabbing your [pc.hand] and leading you over to an unassuming door on the other side of the storeroom,
+		 Nyan moans, reluctantly pulling away, before grabbing your [pc.hand] and leading you over to an unassuming door on the other side of the storeroom.
 		 [nyan.speech(This is a back-entrance to my apartment... Hold on...)]
 		 The cat-girl excitedly unlocks the door before you, and, still holding on to your [pc.hand], pulls you into the room beyond.
 	</p>
@@ -286,7 +286,7 @@
 	</p>
 	<p>
 		Nyan gasps in shock, before tentatively reaching out and taking the box from you,
-		 [nyan.speech(O-Oh my goodness! I-I don't know what t-to say! T-Thank you s-so much [pc.name]!)]
+		 [nyan.speech(O-Oh my goodness! I-I don't know what t-to say! T-Thank you s-so much, [pc.name]!)]
 	</p>
 	<p>
 		You can't help but smile at Nyan's genuine reaction to the gift.
@@ -298,7 +298,7 @@
 	<htmlContent tag="NYAN_GIFT_PERFUME"><![CDATA[
 	<p>
 		You produce the bottle of perfume that you've bought for Nyan, smiling as you hold it out to her,
-		 [pc.speech(I got this for you Nyan!)]
+		 [pc.speech(I got this for you, Nyan!)]
 	</p>
 	<p>
 		The nervous cat-girl lets out an excited squeak in response,
@@ -306,8 +306,8 @@
 	</p>
 	<p>
 		[pc.speech(No, but I wanted to,)]
-		 you smile,
-		 [pc.speech(you really deserve it, what with how hard you work and everything!)]
+		 you smile.
+		 [pc.speech(You really deserve it, what with how hard you work and everything!)]
 	</p>
 	<p>
 		Nyan blushes as she takes the bottle from out of your [pc.hands],
@@ -324,11 +324,11 @@
 	<p>
 		From behind your back, you produce the bouquet of roses.
 		 Holding them out towards the nervous cat-girl, you smile,
-		 [pc.speech(I bought these for you Nyan, I hope you like them.)]
+		 [pc.speech(I bought these for you, Nyan. I hope you like them.)]
 	</p>
 	<p>
 		[nyan.speech(O-Oh m-my goodness!)]
-		 Nyan squeaks, her voice trembling with excitement,
+		 Nyan squeaks, her voice trembling with excitement.
 		 [nyan.speech(N-Nobody else h-has ever given m-me flowers before! T-Thank you so much!)]
 	</p>
 	<p>
