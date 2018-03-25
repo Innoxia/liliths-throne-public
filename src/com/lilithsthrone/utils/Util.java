@@ -562,23 +562,22 @@ public class Util {
 		for (int i = 0; i < wordsToBimbofy; i++) {
 			offset = random.nextInt(frequency);
 			offset = ((i * frequency + offset) >= splitSentence.length ? splitSentence.length - 1 : (i * frequency + offset));
-			if (offset != 0) {
-				// If previous word didn't end with punctuation:
-				if (splitSentence[offset - 1].charAt(splitSentence[offset - 1].length() - 1) != '.' && splitSentence[offset - 1].charAt(splitSentence[offset - 1].length() - 1) != '!'
-						&& splitSentence[offset - 1].charAt(splitSentence[offset - 1].length() - 1) != '?') {
-					// Add a comma to the end of the previous word:
-					if (splitSentence[offset - 1].charAt(splitSentence[offset - 1].length() - 1) != ',')
-						splitSentence[offset - 1] = splitSentence[offset - 1] + ",";
-					// Add the bimbo part to this word:
-					splitSentence[offset] = bimboWords[random.nextInt(bimboWords.length)] + splitSentence[offset];
-				} else {
-					// Previous word ended with punctuation, so the bimbo word needs to be capitalised:
-					splitSentence[offset] = capitaliseSentence(bimboWords[random.nextInt(bimboWords.length)]) + splitSentence[offset];
-				}
-			} else {
-				// This is the first word in the sentence, so capitalise the bimbo part of it:
-				splitSentence[offset] = capitaliseSentence(bimboWords[random.nextInt(bimboWords.length)]) + splitSentence[offset];
+			char prev = splitSentence[offset - 1].charAt(-1);
+
+			// Add a comma if the last word wasn't wasn't punctuation
+			if (".!?,".indexOf(prev) < 0) {
+				splitSentence[offset - 1] = splitSentence[offset - 1] + ",";
 			}
+
+			// Decapitalise the current word if it was originally the start of a sentence and isn't all caps
+			if (offset == 0 || offset > 0 && ".!?".indexOf(splitSentence[offset -1]) >= 0
+					&& splitSentence[offset] != splitSentence[offset].toUpperCase()) {
+				splitSentence[offset] = splitSentence[offset].toLowerCase();
+			}
+
+			// Add the bimbo part to this word, capitalise if at the beginning of string or a sentence
+			String word = bimboWords[random.nextInt(bimboWords.length)];
+			splitSentence[offset] = ((offset == 0 || ".!?".indexOf(prev) >= 0) ? capitaliseSentence(word) : word) + splitSentence[offset];
 
 			// for(int j=0; j<frequency && ((i*frequency
 			// +j)<splitSentence.length);j++)
