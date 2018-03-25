@@ -122,28 +122,32 @@ public class Tail implements BodyPartInterface, Serializable {
 							+ "[npc.Name] now has [style.boldTfGeneric(no tail)]");
 				}
 				break;
-			case CAT_MORPH:
+			case CAT_MORPH: case CAT_MORPH_SHORT: case CAT_MORPH_TUFTED:
 				if (owner.isPlayer()) {
 					UtilText.transformationContentSB.append(
 							(owner.getTailCount()==1
-								?" A furry, cat-like tail sprouts from just above your ass, rapidly growing in size until it's almost as long as one of your legs."
-									+ " You quickly realise that you have a decent amount of control over it, and you can twist it almost anywhere you please."
+								?" A furry, cat-like tail sprouts from just above your ass"+(type==TailType.CAT_MORPH_SHORT?".":", rapidly growing in size until it's almost as long as one of your legs.")
+									+(type==TailType.CAT_MORPH_SHORT?"": " You quickly realise that you have a decent amount of control over it, and you can twist it almost anywhere you please.")
+									+(type==TailType.CAT_MORPH_TUFTED?" At the end of the tail there is a bunch of fur giving it a tuft.":"")
 									+ "</br>"
 									+ "You now have a [style.boldCatMorph(cat-like tail)]"
-								:" [pc.TailCount] furry, cat-like tails sprout from just above your ass, rapidly growing in size until they're each almost as long as one of your legs."
-									+ " You quickly realise that you have a decent amount of control over them, and you can twist them almost anywhere you please."
+								:" [pc.TailCount] furry, cat-like tails sprout from just above your ass"+(type==TailType.CAT_MORPH_SHORT?".":", rapidly growing in size until they're each almost as long as one of your legs.")
+									+(type==TailType.CAT_MORPH_SHORT?"": " You quickly realise that you have a decent amount of control over them, and you can twist them almost anywhere you please.")
+									+(type==TailType.CAT_MORPH_TUFTED?" At the end of the tails there is a bunch of fur giving it a tuft.":"")
 									+ "</br>"
 									+ "You now have [pc.tailCount] [style.boldCatMorph(cat-like tails)]")
 							);
 				} else {
 					UtilText.transformationContentSB.append(
 							(owner.getTailCount()==1
-								?" A furry, cat-like tail sprouts from just above [npc.her] ass, rapidly growing in size until it's almost as long as one of [npc.her] legs."
-									+ " [npc.She] quickly realises that [npc.she] has a decent amount of control over it, and can twist it almost anywhere [npc.she] pleases."
+								?" A furry, cat-like tail sprouts from just above [npc.her] ass"+(type==TailType.CAT_MORPH_SHORT?".":", rapidly growing in size until it's almost as long as one of [npc.her] legs.")
+									+(type==TailType.CAT_MORPH_SHORT?"": " [npc.She] quickly realises that [npc.she] has a decent amount of control over it, and can twist it almost anywhere [npc.she] pleases.")
+									+(type==TailType.CAT_MORPH_TUFTED?" At the end of the tail there is a bunch of fur giving it a tuft.":"")
 									+ "</br>"
 									+ "[npc.Name] now has a [style.boldCatMorph(cat-like tail)]"
-								:" [npc.TailCount] furry, cat-like tails sprout from just above [npc.her] ass, rapidly growing in size until they're each almost as long as one of [npc.her] legs."
-									+ " [npc.She] quickly realises that [npc.she] has a decent amount of control over them, and can twist them almost anywhere [npc.she] pleases."
+								:" [npc.TailCount] furry, cat-like tails sprout from just above [npc.her] ass"+(type==TailType.CAT_MORPH_SHORT?".":", rapidly growing in size until they're each almost as long as one of [npc.her] legs.")
+									+(type==TailType.CAT_MORPH_SHORT?"":  " [npc.She] quickly realises that [npc.she] has a decent amount of control over them, and can twist them almost anywhere [npc.she] pleases.")
+									+(type==TailType.CAT_MORPH_TUFTED?" At the end of the tails there is a bunch of fur giving it a tuft.":"")
 									+ "</br>"
 									+ "[npc.Name] now has [npc.tailCount] [style.boldCatMorph(cat-like tails)]")
 							);

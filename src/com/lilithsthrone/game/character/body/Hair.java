@@ -57,6 +57,11 @@ public class Hair implements BodyPartInterface, Serializable {
 	}
 	
 	public String setType(GameCharacter owner, HairType type) {
+		if(owner==null) {
+			this.type = type;
+			return "";
+		}
+		
 		if (type == getType()) {
 			if (owner.isPlayer()) {
 				return "<p style='text-align:center;'>[style.colourDisabled(You already have the [pc.hair] of [pc.a_hairRace], so nothing happens...)]</p>";
@@ -160,6 +165,19 @@ public class Hair implements BodyPartInterface, Serializable {
 					UtilText.transformationContentSB.append(
 								" The transformation only lasts a matter of moments, leaving [npc.herHim] with fur-like hair.</br>"
 								+ "[npc.Name] now has [npc.hairColour] [style.boldCatMorph(feline hair)]."
+							+ "</p>");
+				}
+				break;
+			case CAT_MORPH_SIDEFLUFF:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" The feeling goes away almost as quickly as it came, leaving you with fur-like hair and a bunch of fluff on the sides of your face. </br>"
+								+ "You now have [pc.hairColour] [style.boldCatMorph(feline hair)] with side fluff."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" The transformation only lasts a matter of moments, leaving [npc.herHim] with fur-like hair and a bunch of fluff on the sides of [npc.her] face.</br>"
+								+ "[npc.Name] now has [npc.hairColour] [style.boldCatMorph(feline hair)] with side fluff."
 							+ "</p>");
 				}
 				break;

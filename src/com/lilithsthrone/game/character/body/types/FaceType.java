@@ -1,5 +1,10 @@
 package com.lilithsthrone.game.character.body.types;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.race.Race;
@@ -24,6 +29,8 @@ public enum FaceType implements BodyPartTypeInterface {
 	LYCAN(BodyCoveringType.LYCAN_FUR, MouthType.WOLF_MORPH, TongueType.WOLF_MORPH, Race.WOLF_MORPH),
 
 	CAT_MORPH(BodyCoveringType.FELINE_FUR, MouthType.CAT_MORPH, TongueType.CAT_MORPH, Race.CAT_MORPH),
+
+	CAT_MORPH_PANTHER(BodyCoveringType.FELINE_FUR, MouthType.CAT_MORPH, TongueType.CAT_MORPH, Race.CAT_MORPH),
 
 	COW_MORPH(BodyCoveringType.BOVINE_FUR, MouthType.COW_MORPH, TongueType.COW_MORPH, Race.COW_MORPH),
 
@@ -64,6 +71,8 @@ public enum FaceType implements BodyPartTypeInterface {
 		switch(this){
 			case CAT_MORPH:
 				return UtilText.returnStringAtRandom("muzzle", "face");
+			case CAT_MORPH_PANTHER:
+				return UtilText.returnStringAtRandom("muzzle", "face");
 			case COW_MORPH:
 				return UtilText.returnStringAtRandom("muzzle", "face");
 			case DOG_MORPH:
@@ -79,6 +88,8 @@ public enum FaceType implements BodyPartTypeInterface {
 	public String getNamePlural(GameCharacter gc) {
 		switch(this){
 			case CAT_MORPH:
+				return UtilText.returnStringAtRandom("muzzles", "faces");
+			case CAT_MORPH_PANTHER:
 				return UtilText.returnStringAtRandom("muzzles", "faces");
 			case COW_MORPH:
 				return UtilText.returnStringAtRandom("muzzles", "faces");
@@ -97,6 +108,8 @@ public enum FaceType implements BodyPartTypeInterface {
 			case ANGEL:
 				return UtilText.returnStringAtRandom("perfect", "flawless", "angelic");
 			case CAT_MORPH:
+				return UtilText.returnStringAtRandom("anthropomorphic cat-like", "cat-like", "feline");
+			case CAT_MORPH_PANTHER:
 				return UtilText.returnStringAtRandom("anthropomorphic cat-like", "cat-like", "feline");
 			case COW_MORPH:
 				return UtilText.returnStringAtRandom("anthropomorphic cow-like", "cow-like", "bovine");
@@ -130,6 +143,8 @@ public enum FaceType implements BodyPartTypeInterface {
 				return "angelic";
 			case CAT_MORPH:
 				return "feline";
+			case CAT_MORPH_PANTHER:
+				return "panther";
 			case DEMON_COMMON:
 				return "demonic";
 			case IMP:
@@ -174,6 +189,21 @@ public enum FaceType implements BodyPartTypeInterface {
 		return tongueType;
 	}
 	
+	private static Map<Race, List<FaceType>> typesMap = new HashMap<>();
+	public static List<FaceType> getFaceTypes(Race r) {
+		if(typesMap.containsKey(r)) {
+			return typesMap.get(r);
+		}
+		
+		List<FaceType> types = new ArrayList<>();
+		for(FaceType type : FaceType.values()) {
+			if(type.getRace()==r) {
+				types.add(type);
+			}
+		}
+		typesMap.put(r, types);
+		return types;
+	}
 	
 
 }

@@ -33,6 +33,10 @@ public enum TailType implements BodyPartTypeInterface {
 	COW_MORPH(BodyCoveringType.BOVINE_FUR, Race.COW_MORPH, false, false),
 	
 	CAT_MORPH(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH, true, false),
+	
+	CAT_MORPH_SHORT(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH, false, false),
+	
+	CAT_MORPH_TUFTED(BodyCoveringType.FELINE_FUR, Race.CAT_MORPH, true, false),
 
 	SQUIRREL_MORPH(BodyCoveringType.SQUIRREL_FUR, Race.SQUIRREL_MORPH, false, false),
 	
@@ -105,6 +109,10 @@ public enum TailType implements BodyPartTypeInterface {
 		switch(this){
 			case CAT_MORPH:
 				return UtilText.returnStringAtRandom("cat-like");
+			case CAT_MORPH_SHORT:
+				return UtilText.returnStringAtRandom("cat-like", "short");
+			case CAT_MORPH_TUFTED:
+				return UtilText.returnStringAtRandom("cat-like", "tufted");
 			case COW_MORPH:
 				return UtilText.returnStringAtRandom("cow-like", "tufted");
 			case DEMON_COMMON:
@@ -138,6 +146,10 @@ public enum TailType implements BodyPartTypeInterface {
 		switch(this){
 			case CAT_MORPH:
 				return "feline";
+			case CAT_MORPH_SHORT:
+				return "short feline";
+			case CAT_MORPH_TUFTED:
+				return "tufted feline";
 			case COW_MORPH:
 				return "bovine";
 			case DEMON_COMMON:

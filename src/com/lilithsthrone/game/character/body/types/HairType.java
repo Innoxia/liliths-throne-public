@@ -1,5 +1,10 @@
 package com.lilithsthrone.game.character.body.types;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.Body;
 import com.lilithsthrone.game.character.race.Race;
@@ -24,6 +29,8 @@ public enum HairType implements BodyPartTypeInterface {
 	LYCAN(BodyCoveringType.HAIR_LYCAN_FUR, Race.WOLF_MORPH),
 
 	CAT_MORPH(BodyCoveringType.HAIR_FELINE_FUR, Race.CAT_MORPH),
+
+	CAT_MORPH_SIDEFLUFF(BodyCoveringType.HAIR_FELINE_FUR, Race.CAT_MORPH),
 
 	COW_MORPH(BodyCoveringType.HAIR_BOVINE_FUR, Race.COW_MORPH),
 
@@ -96,7 +103,7 @@ public enum HairType implements BodyPartTypeInterface {
 		switch(this){
 			case ANGEL:
 				return UtilText.returnStringAtRandom("angelic");
-			case CAT_MORPH:
+			case CAT_MORPH: case CAT_MORPH_SIDEFLUFF:
 				return UtilText.returnStringAtRandom("cat-like");
 			case COW_MORPH:
 				return UtilText.returnStringAtRandom("cow-like");
@@ -132,5 +139,21 @@ public enum HairType implements BodyPartTypeInterface {
 	@Override
 	public Race getRace() {
 		return race;
+	}
+	
+	private static Map<Race, List<HairType>> typesMap = new HashMap<>();
+	public static List<HairType> getHairTypes(Race r) {
+		if(typesMap.containsKey(r)) {
+			return typesMap.get(r);
+		}
+		
+		List<HairType> types = new ArrayList<>();
+		for(HairType type : HairType.values()) {
+			if(type.getRace()==r) {
+				types.add(type);
+			}
+		}
+		typesMap.put(r, types);
+		return types;
 	}
 }

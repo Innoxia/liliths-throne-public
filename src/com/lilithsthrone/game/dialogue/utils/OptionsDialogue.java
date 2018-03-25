@@ -1335,6 +1335,34 @@ public class OptionsDialogue {
 						UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(subspecies, i%2==0));
 						i++;
 						break;
+					case CAT_MORPH_LYNX:
+						UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(subspecies, i%2==0));
+						i++;
+						break;
+					case CAT_MORPH_LEOPARD_SNOW:
+						UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(subspecies, i%2==0));
+						i++;
+						break;
+					case CAT_MORPH_LEOPARD:
+						UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(subspecies, i%2==0));
+						i++;
+						break;
+					case CAT_MORPH_LION:
+						UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(subspecies, i%2==0));
+						i++;
+						break;
+					case CAT_MORPH_TIGER:
+						UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(subspecies, i%2==0));
+						i++;
+						break;
+					case CAT_MORPH_CHEETAH:
+						UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(subspecies, i%2==0));
+						i++;
+						break;
+					case CAT_MORPH_OCELOT:
+						UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(subspecies, i%2==0));
+						i++;
+						break;
 					case COW_MORPH:
 						UtilText.nodeContentSB.append(getSubspeciesPreferencesPanel(subspecies, i%2==0));
 						i++;
@@ -1369,6 +1397,13 @@ public class OptionsDialogue {
 					case SLIME_ALLIGATOR:
 					case SLIME_ANGEL:
 					case SLIME_CAT:
+					case SLIME_CAT_LYNX:
+					case SLIME_CAT_LEOPARD_SNOW:
+					case SLIME_CAT_LEOPARD:
+					case SLIME_CAT_LION:
+					case SLIME_CAT_TIGER:
+					case SLIME_CAT_CHEETAH:
+					case SLIME_CAT_OCELOT:
 					case SLIME_COW:
 					case SLIME_DEMON:
 					case SLIME_DOG:

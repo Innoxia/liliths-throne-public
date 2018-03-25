@@ -3690,7 +3690,9 @@ public enum ItemEffectType {
 				break;
 				
 			case TF_FACE:
-				secondaryModPotencyMap.put(TFModifier.TF_TYPE_1, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
+				for(int i=0; i< FaceType.getFaceTypes(race).size();i++) {
+					secondaryModPotencyMap.put(TFModifier.valueOf("TF_TYPE_"+(i+1)), Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
+				}
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE, TFPotency.getAllPotencies());
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_PUFFY, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_DRAIN), new ListValue<>(TFPotency.MINOR_BOOST)));
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_ORIFICE_RIBBED, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_DRAIN), new ListValue<>(TFPotency.MINOR_BOOST)));
@@ -3713,7 +3715,9 @@ public enum ItemEffectType {
 				break;
 				
 			case TF_HAIR:
-				secondaryModPotencyMap.put(TFModifier.TF_TYPE_1, Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
+				for(int i=0; i< HairType.getHairTypes(race).size();i++) {
+					secondaryModPotencyMap.put(TFModifier.valueOf("TF_TYPE_"+(i+1)), Util.newArrayListOfValues(new ListValue<>(TFPotency.MINOR_BOOST)));
+				}
 				secondaryModPotencyMap.put(TFModifier.TF_MOD_SIZE, TFPotency.getAllPotencies());
 				break;
 				

@@ -96,6 +96,13 @@ public class SubmissionAttacker extends NPC {
 					case ANGEL:
 						break;
 					case CAT_MORPH:
+					case CAT_MORPH_LYNX:
+					case CAT_MORPH_LEOPARD_SNOW:
+					case CAT_MORPH_LEOPARD:
+					case CAT_MORPH_LION:
+					case CAT_MORPH_TIGER:
+					case CAT_MORPH_CHEETAH:
+					case CAT_MORPH_OCELOT:
 						break;
 					case COW_MORPH:
 						break;
@@ -121,6 +128,13 @@ public class SubmissionAttacker extends NPC {
 					case SLIME_ALLIGATOR:
 					case SLIME_ANGEL:
 					case SLIME_CAT:
+					case SLIME_CAT_LYNX:
+					case SLIME_CAT_LEOPARD_SNOW:
+					case SLIME_CAT_LEOPARD:
+					case SLIME_CAT_LION:
+					case SLIME_CAT_TIGER:
+					case SLIME_CAT_CHEETAH:
+					case SLIME_CAT_OCELOT:
 					case SLIME_COW:
 					case SLIME_DEMON:
 					case SLIME_DOG:
