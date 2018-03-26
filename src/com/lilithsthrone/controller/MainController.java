@@ -762,6 +762,17 @@ public class MainController implements Initializable {
 								}
 							}
 						}
+						if(Main.game.getCurrentDialogueNode() == EnchantmentDialogue.ENCHANTMENT_SAVE_LOAD){
+							if((boolean) Main.mainController.getWebEngine().executeScript("document.getElementById('new_save_name') === document.activeElement")) {
+								allowInput = false;
+								if (event.getCode() == KeyCode.ENTER) {
+									enterConsumed = true;
+									Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('new_save_name').value;");
+									EnchantmentDialogue.saveEnchant(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent(), false);
+									Main.game.setContent(new Response("Save", "", Main.game.getCurrentDialogueNode()));
+								}
+							}
+						}
 						if(Main.game.getCurrentDialogueNode() == SlaveryManagementDialogue.SLAVE_MANAGEMENT_INSPECT
 								|| Main.game.getCurrentDialogueNode() == SlaveryManagementDialogue.SLAVE_MANAGEMENT_JOBS
 								|| Main.game.getCurrentDialogueNode() == SlaveryManagementDialogue.SLAVE_MANAGEMENT_PERMISSIONS){
@@ -5145,6 +5156,88 @@ public class MainController implements Initializable {
 						addEventListener(document, id, "mouseenter", el, false);
 					}
 				}
+			}
+		}
+		
+		// Save/load enchantment:
+		if (Main.game.getCurrentDialogueNode() == EnchantmentDialogue.ENCHANTMENT_SAVE_LOAD) {
+			for (File f : EnchantmentDialogue.getSavedEnchants()) {
+				id = "overwrite_saved_" + f.getName().substring(0, f.getName().lastIndexOf('.'));
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						
+						if(!Main.getProperties().overwriteWarning || EnchantmentDialogue.overwriteConfirmationName.equals(f.getName())) {
+							EnchantmentDialogue.overwriteConfirmationName = "";
+							EnchantmentDialogue.saveEnchant(f.getName().substring(0, f.getName().lastIndexOf('.')), true);
+						} else {
+							EnchantmentDialogue.overwriteConfirmationName = f.getName();
+							EnchantmentDialogue.loadConfirmationName = "";
+							EnchantmentDialogue.deleteConfirmationName = "";
+							Main.game.setContent(new Response("Save/Load", "Open the save/load game window.", EnchantmentDialogue.ENCHANTMENT_MENU));
+						}
+						
+					}, false);
+
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+					TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Overwrite", "");
+					addEventListener(document, id, "mouseenter", el2, false);
+				}
+				id = "load_saved_" + f.getName().substring(0, f.getName().lastIndexOf('.'));
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						
+						if(!Main.getProperties().overwriteWarning || EnchantmentDialogue.loadConfirmationName.equals(f.getName())) {
+							EnchantmentDialogue.loadConfirmationName = "";
+							EnchantmentDialogue.loadEnchant(f.getName().substring(0, f.getName().lastIndexOf('.')));
+						} else {
+							EnchantmentDialogue.overwriteConfirmationName = "";
+							EnchantmentDialogue.loadConfirmationName = f.getName();
+							EnchantmentDialogue.deleteConfirmationName = "";
+							Main.game.setContent(new Response("Save/Load", "Open the save/load game window.", EnchantmentDialogue.ENCHANTMENT_MENU));
+						}
+						
+					}, false);
+
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+					TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Load", "");
+					addEventListener(document, id, "mouseenter", el2, false);
+				}
+				id = "delete_saved_" + f.getName().substring(0, f.getName().lastIndexOf('.'));
+				if (((EventTarget) document.getElementById(id)) != null) {
+					((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+						
+						if(!Main.getProperties().overwriteWarning || EnchantmentDialogue.deleteConfirmationName.equals(f.getName())) {
+							EnchantmentDialogue.deleteConfirmationName = "";
+							EnchantmentDialogue.deleteEnchant(f.getName().substring(0, f.getName().lastIndexOf('.')));
+						} else {
+							EnchantmentDialogue.overwriteConfirmationName = "";
+							EnchantmentDialogue.loadConfirmationName = "";
+							EnchantmentDialogue.deleteConfirmationName = f.getName();
+							Main.game.setContent(new Response("Save/Load", "Open the save/load game window.", EnchantmentDialogue.ENCHANTMENT_MENU));
+						}
+						
+					}, false);
+
+					addEventListener(document, id, "mousemove", moveTooltipListener, false);
+					addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+					TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Delete", "");
+					addEventListener(document, id, "mouseenter", el2, false);
+				}
+			}
+			id = "new_saved";
+			if (((EventTarget) document.getElementById(id)) != null) {
+				((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+					Main.mainController.getWebEngine().executeScript("document.getElementById('hiddenPField').innerHTML=document.getElementById('new_save_name').value;");
+					EnchantmentDialogue.saveEnchant(Main.mainController.getWebEngine().getDocument().getElementById("hiddenPField").getTextContent(), false);
+					
+				}, false);
+
+				addEventListener(document, id, "mousemove", moveTooltipListener, false);
+				addEventListener(document, id, "mouseleave", hideTooltipListener, false);
+				TooltipInformationEventListener el2 = new TooltipInformationEventListener().setInformation("Save", "");
+				addEventListener(document, id, "mouseenter", el2, false);
 			}
 		}
 		
