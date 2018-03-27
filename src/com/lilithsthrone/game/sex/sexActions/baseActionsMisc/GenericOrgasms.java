@@ -1229,52 +1229,52 @@ public class GenericOrgasms {
 											+ " gulp down as much of the");
 									break;
 								case CHOCOLATE:
-									cumTargetSB.append(" The unusual taste of [npc1.name]'s chocolate-flavoured cum rises up to hit your [npc2.tongue], and you"
+									cumTargetSB.append(" The unusual taste of [npc1.name]'s chocolate-flavoured cum rises up to hit your [npc2.tongue], and you "
 											+ UtilText.returnStringAtRandom("greedily","hungrily")
 											+ " gulp down as much of the");
 									break;
 								case CUM:
-									cumTargetSB.append(" The salty taste of cum rises up to hit your [npc2.tongue], and you"
+									cumTargetSB.append(" The salty taste of cum rises up to hit your [npc2.tongue], and you "
 											+ UtilText.returnStringAtRandom("greedily","hungrily")
 											+ " gulp down as much of the");
 									break;
 								case GIRL_CUM:
-									cumTargetSB.append(" The unusual taste of [npc1.name]'s sweet cum rises up to hit your [npc2.tongue], and you"
+									cumTargetSB.append(" The unusual taste of [npc1.name]'s sweet cum rises up to hit your [npc2.tongue], and you "
 											+ UtilText.returnStringAtRandom("greedily","hungrily")
 											+ " gulp down as much of the");
 									break;
 								case HONEY:
-									cumTargetSB.append(" The unusual taste of [npc1.name]'s honey-flavoured cum rises up to hit your [npc2.tongue], and you"
+									cumTargetSB.append(" The unusual taste of [npc1.name]'s honey-flavoured cum rises up to hit your [npc2.tongue], and you "
 											+ UtilText.returnStringAtRandom("greedily","hungrily")
 											+ " gulp down as much of the");
 									break;
 								case MILK:
-									cumTargetSB.append(" The unusual taste of [npc1.name]'s milk-flavoured cum rises up to hit your [npc2.tongue], and you"
+									cumTargetSB.append(" The unusual taste of [npc1.name]'s milk-flavoured cum rises up to hit your [npc2.tongue], and you "
 											+ UtilText.returnStringAtRandom("greedily","hungrily")
 											+ " gulp down as much of the");
 									break;
 								case MINT:
-									cumTargetSB.append(" The unusual taste of [npc1.name]'s mint-flavoured cum rises up to hit your [npc2.tongue], and you"
+									cumTargetSB.append(" The unusual taste of [npc1.name]'s mint-flavoured cum rises up to hit your [npc2.tongue], and you "
 											+ UtilText.returnStringAtRandom("greedily","hungrily")
 											+ " gulp down as much of the");
 									break;
 								case PINEAPPLE:
-									cumTargetSB.append(" The unusual taste of [npc1.name]'s pineapple-flavoured cum rises up to hit your [npc2.tongue], and you"
+									cumTargetSB.append(" The unusual taste of [npc1.name]'s pineapple-flavoured cum rises up to hit your [npc2.tongue], and you "
 											+ UtilText.returnStringAtRandom("greedily","hungrily")
 											+ " gulp down as much of the");
 									break;
 								case SLIME:
-									cumTargetSB.append(" The unusual taste of [npc1.name]'s sweet cum rises up to hit your [npc2.tongue], and you"
+									cumTargetSB.append(" The unusual taste of [npc1.name]'s sweet cum rises up to hit your [npc2.tongue], and you "
 											+ UtilText.returnStringAtRandom("greedily","hungrily")
 											+ " gulp down as much of the");
 									break;
 								case STRAWBERRY:
-									cumTargetSB.append(" The unusual taste of [npc1.name]'s strawberry-flavoured cum rises up to hit your [npc2.tongue], and you"
+									cumTargetSB.append(" The unusual taste of [npc1.name]'s strawberry-flavoured cum rises up to hit your [npc2.tongue], and you "
 											+ UtilText.returnStringAtRandom("greedily","hungrily")
 											+ " gulp down as much of the");
 									break;
 								case VANILLA:
-									cumTargetSB.append(" The unusual taste of [npc1.name]'s vanilla-flavoured cum rises up to hit your [npc2.tongue], and you"
+									cumTargetSB.append(" The unusual taste of [npc1.name]'s vanilla-flavoured cum rises up to hit your [npc2.tongue], and you "
 											+ UtilText.returnStringAtRandom("greedily","hungrily")
 											+ " gulp down as much of the");
 									break;
