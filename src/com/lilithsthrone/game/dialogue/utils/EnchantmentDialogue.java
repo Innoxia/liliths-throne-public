@@ -663,7 +663,7 @@ public class EnchantmentDialogue {
 		} catch (TransformerException tfe) {
 			tfe.printStackTrace();
 		}
-		Main.game.setContent(new Response("Save", "", Main.game.getCurrentDialogueNode()));
+		Main.game.setContent(new Response("Save", "", EnchantmentDialogue.ENCHANTMENT_MENU));
 	}
 
 	public static void loadEnchant(String name)
@@ -705,6 +705,7 @@ public class EnchantmentDialogue {
 						}
 					}
 					effects = effectsToBeAdded;
+					Main.game.setContent(new Response("Save", "", EnchantmentDialogue.ENCHANTMENT_MENU));
 				}
 				catch(Exception e)
 				{
@@ -735,5 +736,4 @@ public class EnchantmentDialogue {
 			Main.game.flashMessage(Colour.GENERIC_BAD, "File not found...");
 		}
 	}
-	
 }
