@@ -88,6 +88,16 @@ public class SexActionUtility {
 		}
 
 		@Override
+		public boolean isBaseRequirementsMet()
+		{
+			if(Sex.isDom(Main.game.getPlayer()))
+				return true;
+			if(Sex.isConsensual())
+				return true;
+			return false;
+		}
+		
+		@Override
 		public String getActionDescription() {
 			return "Focus on calming yourself down, which lowers your arousal.";
 		}
