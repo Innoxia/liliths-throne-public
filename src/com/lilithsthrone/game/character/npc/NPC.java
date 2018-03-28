@@ -302,7 +302,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	// Post-combat:
 
 	public int getExperienceFromVictory() {
-		return getLevel() * 10;
+		return getLevel() * 2;
 	}
 
 	public int getLootMoney() {
