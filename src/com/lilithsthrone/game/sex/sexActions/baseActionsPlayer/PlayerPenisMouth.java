@@ -53,6 +53,19 @@ public class PlayerPenisMouth {
 		public boolean isBaseRequirementsMet() {
 			return Sex.isDom(Main.game.getPlayer());
 		}
+
+		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.ONE_MINIMUM;
+			}
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -123,6 +136,19 @@ public class PlayerPenisMouth {
 			return "Balls focus";
 		}
 
+		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.ONE_MINIMUM;
+			}
+		}
+		
 		@Override
 		public String getActionDescription() {
 			return "Force [npc.name] to pay some attention to your [pc.balls+].";
@@ -479,6 +505,19 @@ public class PlayerPenisMouth {
 		}
 
 		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.TWO_LOW;
+			}
+		}
+		
+		@Override
 		public String getActionDescription() {
 			return "Slide your [pc.cock+] into [npc.name]'s mouth.";
 		}
@@ -633,6 +672,19 @@ public class PlayerPenisMouth {
 		public boolean isBaseRequirementsMet() {
 			return Sex.isDom(Main.game.getPlayer());
 		}
+
+		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.TWO_LOW;
+			}
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -691,6 +743,19 @@ public class PlayerPenisMouth {
 		public boolean isBaseRequirementsMet() {
 			return Sex.isDom(Main.game.getPlayer());
 		}
+
+		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.TWO_LOW;
+			}
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -748,6 +813,19 @@ public class PlayerPenisMouth {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isDom(Main.game.getPlayer());
+		}
+
+		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.TWO_LOW;
+			}
 		}
 		
 		@Override
@@ -1431,7 +1509,7 @@ public class PlayerPenisMouth {
 	
 	public static final SexAction PARTNER_BLOWJOB_SUB_RESIST = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.ONE_MINIMUM,
+			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.PENIS,

@@ -46,6 +46,19 @@ public class PlayerTalk {
 				return CorruptionLevel.ONE_VANILLA;
 			}
 		}
+
+		@Override
+		public ArousalIncrease getArousalGainSelf()
+		{
+			if(Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.TWO_LOW;
+			}
+		}
 		
 		@Override
 		public String getActionTitle() {

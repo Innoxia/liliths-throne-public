@@ -35,6 +35,19 @@ public class PlayerTongueVagina {
 		public boolean isBaseRequirementsMet() {
 			return Sex.getSexPace(Sex.getActivePartner())!=SexPace.SUB_RESISTING;
 		}
+
+		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.FOUR_HIGH;
+			}
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -635,7 +648,7 @@ public class PlayerTongueVagina {
 	
 	public static final SexAction PLAYER_CUNNILINGUS_SUB_RESISTING = new SexAction(
 			SexActionType.PLAYER,
-			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.TONGUE,
@@ -904,6 +917,19 @@ public class PlayerTongueVagina {
 		public boolean isBaseRequirementsMet() {
 			return Sex.isConsensual() || !Sex.isDom(Main.game.getPlayer()); // Partner can only start cunnilingus in consensual sex or if they're the dom.
 		}
+
+		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.TWO_LOW;
+			}
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -1067,6 +1093,19 @@ public class PlayerTongueVagina {
 		public boolean isBaseRequirementsMet() {
 			return !Sex.isDom(Main.game.getPlayer());
 		}
+
+		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.TWO_LOW;
+			}
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -1126,6 +1165,19 @@ public class PlayerTongueVagina {
 		public boolean isBaseRequirementsMet() {
 			return !Sex.isDom(Main.game.getPlayer());
 		}
+
+		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.TWO_LOW;
+			}
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -1184,6 +1236,19 @@ public class PlayerTongueVagina {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Sex.isDom(Main.game.getPlayer());
+		}
+
+		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.TWO_LOW;
+			}
 		}
 		
 		@Override

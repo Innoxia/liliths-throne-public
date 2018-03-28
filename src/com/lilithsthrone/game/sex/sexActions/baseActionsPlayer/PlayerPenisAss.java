@@ -40,6 +40,19 @@ public class PlayerPenisAss {
 		}
 
 		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.TWO_LOW;
+			}
+		}
+		
+		@Override
 		public String getActionDescription() {
 			return "Push [npc.name]'s ass cheeks together and tease your [pc.cockHead+] over the cleft.";
 		}
@@ -217,6 +230,19 @@ public class PlayerPenisAss {
 			// You can't penetrate if your partner is already fucking you, due to physical limitations. (I mean, if you're facing opposite ways and lying on top of each other, it might be possible, but that position will be special.)
 			return Sex.isPenetrationTypeFree(Sex.getActivePartner(), PenetrationType.PENIS) && (Sex.isDom(Main.game.getPlayer()) || Sex.isSubHasEqualControl());
 		}
+
+		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.THREE_NORMAL;
+			}
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -322,6 +348,19 @@ public class PlayerPenisAss {
 		}
 
 		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.THREE_NORMAL;
+			}
+		}
+		
+		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.isDom(Main.game.getPlayer());
 		}
@@ -376,6 +415,19 @@ public class PlayerPenisAss {
 			return "Normal hotdogging";
 		}
 
+		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.THREE_NORMAL;
+			}
+		}
+		
 		@Override
 		public String getActionDescription() {
 			return "Continue fucking [npc.name]'s ass cheeks.";
@@ -447,7 +499,19 @@ public class PlayerPenisAss {
 			return Sex.isDom(Main.game.getPlayer());
 		}
 
-
+		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.THREE_NORMAL;
+			}
+		}
+		
 		@Override
 		public String getDescription() {
 
@@ -1024,7 +1088,7 @@ public class PlayerPenisAss {
 	
 	public static final SexAction PARTNER_FUCKED_ANALLY_SUB_RESIST = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.PENIS,

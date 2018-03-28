@@ -39,6 +39,19 @@ public class PartnerPenisBreasts {
 		}
 
 		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.THREE_NORMAL;
+			}
+		}
+		
+		@Override
 		public boolean isBaseRequirementsMet() {
 			return Sex.getSexPace(Sex.getActivePartner())!=SexPace.SUB_RESISTING
 					&& Sex.getActivePartner().getPenisRawSizeValue()>=6
@@ -265,6 +278,19 @@ public class PartnerPenisBreasts {
 		}
 
 		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.FOUR_HIGH;
+			}
+		}
+		
+		@Override
 		public String getActionDescription() {
 			if(Main.game.getPlayer().isBreastFuckablePaizuri()) {
 				return "Sink your [npc.cock+] between [pc.name]'s [pc.breasts+] and start fucking them.";
@@ -481,6 +507,19 @@ public class PartnerPenisBreasts {
 		}
 
 		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.FOUR_HIGH;
+			}
+		}
+		
+		@Override
 		public String getActionDescription() {
 			if(Main.game.getPlayer().isBreastFuckablePaizuri()) {
 				return "Gently fuck [pc.name]'s [pc.breasts+].";
@@ -594,6 +633,19 @@ public class PartnerPenisBreasts {
 		}
 
 		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.FOUR_HIGH;
+			}
+		}
+		
+		@Override
 		public String getActionDescription() {
 			if(Main.game.getPlayer().isBreastFuckablePaizuri()) {
 				return "Continue fucking your [pc.breasts+].";
@@ -706,6 +758,19 @@ public class PartnerPenisBreasts {
 			}
 		}
 
+		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.FOUR_HIGH;
+			}
+		}
+		
 		@Override
 		public String getActionDescription() {
 			if(Main.game.getPlayer().isBreastFuckablePaizuri()) {
@@ -1808,7 +1873,7 @@ public class PartnerPenisBreasts {
 	
 	public static final SexAction PLAYER_FUCKED_SUB_RESIST = new SexAction(
 			SexActionType.PLAYER,
-			ArousalIncrease.FOUR_HIGH,
+			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.PENIS,

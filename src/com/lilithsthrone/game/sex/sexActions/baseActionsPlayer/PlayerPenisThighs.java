@@ -33,6 +33,19 @@ public class PlayerPenisThighs {
 			// You can't penetrate if your partner is already fucking you, due to physical limitations.
 			return Sex.isPenetrationTypeFree(Sex.getActivePartner(), PenetrationType.PENIS);
 		}
+
+		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.TWO_LOW;
+			}
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -136,6 +149,19 @@ public class PlayerPenisThighs {
 		}
 
 		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.TWO_LOW;
+			}
+		}
+		
+		@Override
 		public String getActionDescription() {
 			return "Gently fuck [npc.name]'s thighs.";
 		}
@@ -197,6 +223,19 @@ public class PlayerPenisThighs {
 		}
 
 		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.TWO_LOW;
+			}
+		}
+		
+		@Override
 		public String getActionDescription() {
 			return "Continue fucking [npc.name]'s thighs.";
 		}
@@ -257,6 +296,19 @@ public class PlayerPenisThighs {
 			return "Rough thigh sex";
 		}
 
+		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.TWO_LOW;
+			}
+		}
+		
 		@Override
 		public String getActionDescription() {
 			return "Roughly fuck [npc.name]'s thighs.";
@@ -854,7 +906,7 @@ public class PlayerPenisThighs {
 	
 	public static final SexAction PARTNER_THIGH_SEX_SUB_RESIST = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.PENIS,

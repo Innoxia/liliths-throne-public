@@ -35,6 +35,19 @@ public class PlayerFingerNipple {
 		}
 
 		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.THREE_NORMAL;
+			}
+		}
+		
+		@Override
 		public String getActionDescription() {
 			return "Reach up and start groping [npc.name]'s [npc.breasts+].";
 		}
@@ -984,6 +997,19 @@ public class PlayerFingerNipple {
 		}
 
 		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.TWO_LOW;
+			}
+		}
+		
+		@Override
 		public String getActionDescription() {
 			return "Force [pc.name] to start groping your [npc.breasts+].";
 		}
@@ -1250,6 +1276,19 @@ public class PlayerFingerNipple {
 			return "Get milked";
 		}
 
+		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.THREE_NORMAL;
+			}
+		}
+		
 		@Override
 		public String getActionDescription() {
 			return "";

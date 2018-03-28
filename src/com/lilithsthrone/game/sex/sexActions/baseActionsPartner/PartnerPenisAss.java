@@ -49,6 +49,19 @@ public class PartnerPenisAss {
 		}
 
 		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.TWO_LOW;
+			}
+		}
+		
+		@Override
 		public String getDescription() {
 				
 			UtilText.nodeContentSB.setLength(0);
@@ -218,6 +231,19 @@ public class PartnerPenisAss {
 			// Partner can't penetrate if you're already fucking them, due to physical limitations. (I mean, if you're facing opposite ways and lying on top of each other, it might be possible, but that position will be special.)
 			return Sex.isPenetrationTypeFree(Main.game.getPlayer(), PenetrationType.PENIS);
 		}
+
+		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.THREE_NORMAL;
+			}
+		}
 		
 		@Override
 		public String getActionTitle() {
@@ -325,6 +351,19 @@ public class PartnerPenisAss {
 		}
 
 		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.THREE_NORMAL;
+			}
+		}
+		
+		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Sex.isDom(Main.game.getPlayer());
 		}
@@ -387,6 +426,19 @@ public class PartnerPenisAss {
 			return "Continue fucking [pc.name]'s ass cheeks.";
 		}
 
+		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.THREE_NORMAL;
+			}
+		}
+		
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Sex.isDom(Main.game.getPlayer());
@@ -451,6 +503,19 @@ public class PartnerPenisAss {
 			return "Roughly fuck [pc.name]'s ass cheeks.";
 		}
 
+		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.THREE_NORMAL;
+			}
+		}
+		
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Sex.isDom(Main.game.getPlayer());
@@ -1052,7 +1117,7 @@ public class PartnerPenisAss {
 	
 	public static final SexAction PLAYER_FUCKED_ANALLY_SUB_RESIST = new SexAction(
 			SexActionType.PLAYER,
-			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.FOUR_HIGH,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.PENIS,

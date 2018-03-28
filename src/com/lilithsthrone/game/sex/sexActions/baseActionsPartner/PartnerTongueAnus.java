@@ -300,7 +300,7 @@ public class PartnerTongueAnus {
 	
 	public static final SexAction PARTNER_ANILINGUS_SUB_RESISTING = new SexAction(
 			SexActionType.PARTNER,
-			ArousalIncrease.THREE_NORMAL,
+			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.THREE_DIRTY,
 			PenetrationType.TONGUE,
@@ -565,6 +565,19 @@ public class PartnerTongueAnus {
 		}
 
 		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.THREE_NORMAL;
+			}
+		}
+		
+		@Override
 		public String getActionDescription() {
 			return "Get [npc.name] to start licking your [pc.asshole+].";
 		}
@@ -675,6 +688,19 @@ public class PartnerTongueAnus {
 		}
 
 		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.THREE_NORMAL;
+			}
+		}
+		
+		@Override
 		public String getActionDescription() {
 			return "Gently enjoy [npc.name]'s [npc.tongue+] in your [pc.asshole+].";
 		}
@@ -734,6 +760,19 @@ public class PartnerTongueAnus {
 		}
 
 		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.THREE_NORMAL;
+			}
+		}
+		
+		@Override
 		public String getActionDescription() {
 			return "Enjoy [npc.name]'s [npc.tongue+] in your [pc.asshole+].";
 		}
@@ -792,6 +831,19 @@ public class PartnerTongueAnus {
 			return "Rough anilingus";
 		}
 
+		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.THREE_NORMAL;
+			}
+		}
+		
 		@Override
 		public String getActionDescription() {
 			return "Grind your [pc.asshole+] down against [npc.name]'s [npc.tongue+].";

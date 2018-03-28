@@ -312,7 +312,7 @@ public class PlayerTongueAnus {
 	
 	public static final SexAction PLAYER_ANILINGUS_SUB_RESISTING = new SexAction(
 			SexActionType.PLAYER,
-			ArousalIncrease.TWO_LOW,
+			ArousalIncrease.ZERO_NONE,
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ZERO_PURE,
 			PenetrationType.TONGUE,
@@ -577,6 +577,19 @@ public class PlayerTongueAnus {
 		}
 
 		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.TWO_LOW;
+			}
+		}
+		
+		@Override
 		public String getDescription() {
 			
 			UtilText.nodeContentSB.setLength(0);
@@ -677,6 +690,19 @@ public class PlayerTongueAnus {
 		}
 
 		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.TWO_LOW;
+			}
+		}
+		
+		@Override
 		public String getActionDescription() {
 			return "Gently enjoy [pc.name]'s [pc.tongue+] in your [npc.asshole+].";
 		}
@@ -728,6 +754,19 @@ public class PlayerTongueAnus {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Sex.isDom(Main.game.getPlayer());
+		}
+
+		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.TWO_LOW;
+			}
 		}
 		
 		@Override
@@ -787,6 +826,19 @@ public class PlayerTongueAnus {
 		@Override
 		public boolean isBaseRequirementsMet() {
 			return !Sex.isDom(Main.game.getPlayer());
+		}
+
+		@Override
+		public ArousalIncrease getArousalGainTarget()
+		{
+			if(Sex.getSexPace(Main.game.getPlayer())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.TWO_LOW;
+			}
 		}
 		
 		@Override

@@ -247,7 +247,7 @@ public class GenericActions {
 			if(Main.game.getPlayer().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
 				return ArousalIncrease.THREE_NORMAL;
 			}
-			return ArousalIncrease.NEGATIVE;
+			return ArousalIncrease.ZERO_NONE;
 		}
 		
 		@Override
@@ -883,7 +883,7 @@ public class GenericActions {
 			if(Sex.getActivePartner().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
 				return ArousalIncrease.THREE_NORMAL;
 			}
-			return ArousalIncrease.NEGATIVE;
+			return ArousalIncrease.ZERO_NONE;
 		}
 		
 		@Override

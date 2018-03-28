@@ -44,6 +44,19 @@ public class PartnerTalk {
 		}
 		
 		@Override
+		public ArousalIncrease getArousalGainSelf()
+		{
+			if(Sex.getSexPace(Sex.getActivePartner())==SexPace.SUB_RESISTING)
+			{
+				return ArousalIncrease.ZERO_NONE;
+			}
+			else
+			{
+				return ArousalIncrease.TWO_LOW;
+			}
+		}
+		
+		@Override
 		public String getActionTitle() {
 			switch(Sex.getSexPace(Sex.getActivePartner())) {
 				case DOM_GENTLE:
