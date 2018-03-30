@@ -1291,8 +1291,6 @@ public class SexActionPresets {
 		playerMissionaryAltarDomCultistOral.add(PlayerFingerAnus.class);
 		playerMissionaryAltarDomCultistOral.add(PlayerTongueVagina.class);
 		playerMissionaryAltarDomCultistOral.add(PlayerTongueAnus.class);
-		playerMissionaryAltarDomCultistOral.add(PartnerPenisVagina.class);
-		playerMissionaryAltarDomCultistOral.add(PartnerPenisAnus.class);
 		playerMissionaryAltarDomCultistOral.add(PartnerTailVagina.class);
 		playerMissionaryAltarDomCultistOral.add(PartnerTailAnus.class);
 		playerMissionaryAltarDomCultistOral.add(SASpecialCultist.class);
@@ -1308,8 +1306,6 @@ public class SexActionPresets {
 		partnerMissionaryAltarDomCultistOral.add(PartnerFingerAnus.class);
 		partnerMissionaryAltarDomCultistOral.add(PartnerTongueVagina.class);
 		partnerMissionaryAltarDomCultistOral.add(PartnerTongueAnus.class);
-		partnerMissionaryAltarDomCultistOral.add(PartnerPenisVagina.class);
-		partnerMissionaryAltarDomCultistOral.add(PartnerPenisAnus.class);
 		partnerMissionaryAltarDomCultistOral.add(PartnerTailVagina.class);
 		partnerMissionaryAltarDomCultistOral.add(PartnerTailAnus.class);
 		partnerMissionaryAltarDomCultistOral.add(SASpecialCultist.class);
