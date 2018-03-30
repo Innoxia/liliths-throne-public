@@ -847,18 +847,12 @@ public class SexActionPresets {
 		playerChairBottom.add(PartnerTailAnus.class);
 
 		playerChairBottom.add(PlayerFingerAnus.class);
-		playerChairBottom.add(PlayerFingerAnus.class);
-		playerChairBottom.add(PartnerFingerAnus.class);
 		playerChairBottom.add(PartnerFingerAnus.class);
 
 		playerChairBottom.add(PlayerFingerUrethra.class);
-		playerChairBottom.add(PlayerFingerUrethra.class);
-		playerChairBottom.add(PartnerFingerUrethra.class);
 		playerChairBottom.add(PartnerFingerUrethra.class);
 
 		playerChairBottom.add(PlayerFingerVagina.class);
-		playerChairBottom.add(PlayerFingerVagina.class);
-		playerChairBottom.add(PartnerFingerVagina.class);
 		playerChairBottom.add(PartnerFingerVagina.class);
 		
 		playerChairBottom.add(ConChairBottom.class);
@@ -879,18 +873,12 @@ public class SexActionPresets {
 		partnerChairBottom.add(PlayerTailAnus.class);
 		
 		partnerChairBottom.add(PlayerFingerAnus.class);
-		partnerChairBottom.add(PlayerFingerAnus.class);
-		partnerChairBottom.add(PartnerFingerAnus.class);
 		partnerChairBottom.add(PartnerFingerAnus.class);
 
 		partnerChairBottom.add(PlayerFingerUrethra.class);
-		partnerChairBottom.add(PlayerFingerUrethra.class);
-		partnerChairBottom.add(PartnerFingerUrethra.class);
 		partnerChairBottom.add(PartnerFingerUrethra.class);
 
 		partnerChairBottom.add(PlayerFingerVagina.class);
-		partnerChairBottom.add(PlayerFingerVagina.class);
-		partnerChairBottom.add(PartnerFingerVagina.class);
 		partnerChairBottom.add(PartnerFingerVagina.class);
 		
 //		partnerChairBottom.add(ConChairBottom.class);
