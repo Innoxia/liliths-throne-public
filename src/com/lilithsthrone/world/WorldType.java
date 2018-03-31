@@ -78,7 +78,8 @@ public enum WorldType {
 					new Value<>(new Color(0x0000ff), PlaceType.DOMINION_ENFORCER_HQ),
 					new Value<>(new Color(0x000080), PlaceType.DOMINION_NIGHTLIFE_DISTRICT),
 					new Value<>(new Color(0xff0000), PlaceType.DOMINION_SLAVER_ALLEY),
-					new Value<>(new Color(0x4bff00), PlaceType.DOMINION_PARK)
+					new Value<>(new Color(0x4bff00), PlaceType.DOMINION_PARK),
+					new Value<>(new Color(0xff4000), PlaceType.DOMINION_RED_LIGHT_DISTRICT)
 					
 					)),
 	
@@ -187,7 +188,6 @@ public enum WorldType {
 			1,
 			"/com/lilithsthrone/res/map/dominion/slaverAlley/slaverAlley.png",
 			Util.newHashMapOfValues(
-					
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.SLAVER_ALLEY_PATH),
 					new Value<>(new Color(0xff0000), PlaceType.SLAVER_ALLEY_ENTRANCE),
@@ -195,15 +195,13 @@ public enum WorldType {
 					new Value<>(new Color(0x0000ff), PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION),
 					new Value<>(new Color(0xff0080), PlaceType.SLAVER_ALLEY_SCARLETTS_SHOP),
 					new Value<>(new Color(0xffff00), PlaceType.SLAVER_ALLEY_AUCTIONING_BLOCK),
-					new Value<>(new Color(0x00ff00), PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS),
-					new Value<>(new Color(0x0080ff), PlaceType.SLAVER_ALLEY_BROTHEL))),
+					new Value<>(new Color(0x00ff00), PlaceType.SLAVER_ALLEY_PUBLIC_STOCKS))),
 	
 	SHOPPING_ARCADE("Shopping Arcade",
 			Colour.BASE_YELLOW,
 			1,
 			"/com/lilithsthrone/res/map/dominion/shoppingArcade/shoppingArcade.png",
 			Util.newHashMapOfValues(
-					
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.SHOPPING_ARCADE_PATH),
 					new Value<>(new Color(0xff0000), PlaceType.SHOPPING_ARCADE_ENTRANCE),
@@ -227,7 +225,6 @@ public enum WorldType {
 			1,
 			"/com/lilithsthrone/res/map/dominion/shoppingArcade/supplierDen.png",
 			Util.newHashMapOfValues(
-					
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.SUPPLIER_DEPOT_CORRIDOR),
 					new Value<>(new Color(0xff0000), PlaceType.SUPPLIER_DEPOT_ENTRANCE),
@@ -239,7 +236,6 @@ public enum WorldType {
 			1,
 			"/com/lilithsthrone/res/map/dominion/enforcerHQ/enforcerHQ.png",
 			Util.newHashMapOfValues(
-					
 					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
 					new Value<>(new Color(0x808080), PlaceType.ENFORCER_HQ_CORRIDOR),
 					new Value<>(new Color(0xff0000), PlaceType.ENFORCER_HQ_ENTRANCE),
@@ -247,6 +243,30 @@ public enum WorldType {
 					new Value<>(new Color(0x8000ff), PlaceType.ENFORCER_HQ_WAITING_AREA),
 					new Value<>(new Color(0x0080ff), PlaceType.ENFORCER_HQ_RECEPTION_DESK),
 					new Value<>(new Color(0xff8000), PlaceType.ENFORCER_HQ_BRAXS_OFFICE))),
+
+	ANGELS_KISS_GROUND_FLOOR("Angel's Kiss",
+			Colour.BASE_MAGENTA,
+			1,
+			"/com/lilithsthrone/res/map/dominion/angelsKiss/angelsKissGroundFloor.png",
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.ANGELS_KISS_CORRIDOR),
+					new Value<>(new Color(0x00ff00), PlaceType.ANGELS_KISS_ENTRANCE),
+					new Value<>(new Color(0xff0000), PlaceType.ANGELS_KISS_STAIRCASE_UP),
+					new Value<>(new Color(0x00ffff), PlaceType.ANGELS_KISS_OFFICE),
+					new Value<>(new Color(0xff00ff), PlaceType.ANGELS_KISS_BEDROOM))),
+	
+	ANGELS_KISS_FIRST_FLOOR("Angel's Kiss",
+			Colour.BASE_MAGENTA,
+			1,
+			"/com/lilithsthrone/res/map/dominion/angelsKiss/angelsKissFirstFloor.png",
+			Util.newHashMapOfValues(
+					new Value<>(new Color(0xFFFFFF), PlaceType.GENERIC_IMPASSABLE),
+					new Value<>(new Color(0x808080), PlaceType.ANGELS_KISS_CORRIDOR),
+					new Value<>(new Color(0xff0000), PlaceType.ANGELS_KISS_STAIRCASE_DOWN),
+					new Value<>(new Color(0xff00ff), PlaceType.ANGELS_KISS_BEDROOM),
+					new Value<>(new Color(0xffff00), PlaceType.ANGELS_KISS_BEDROOM_BUNNY),
+					new Value<>(new Color(0xff8000), PlaceType.ANGELS_KISS_BEDROOM_LOPPY))),
 	
 	// Other:
 

@@ -49,6 +49,8 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Vector2i;
+import com.lilithsthrone.world.Cell;
+import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
@@ -979,7 +981,92 @@ public enum RenderingEngine {
 	}
 
 	private StringBuilder mapSB = new StringBuilder();
+	
+	private Colour getPlayerIconColour(boolean isDangerous) {
+		if(isDangerous) {
+			return Colour.BASE_RED;
+		} else {
+			switch(Main.game.getPlayer().getFemininity()) {
+				case ANDROGYNOUS:
+					return Femininity.ANDROGYNOUS.getColour();
+				case FEMININE:
+				case FEMININE_STRONG:
+					return Femininity.FEMININE_STRONG.getColour();
+				case MASCULINE:
+				case MASCULINE_STRONG:
+					return Femininity.MASCULINE_STRONG.getColour();
+			}
+			return Main.game.getPlayer().getFemininity().getColour();
+		}
+	}
 
+	public String getFullMap(WorldType world) {
+		mapSB.setLength(0);
+		
+		mapSB.append("<div class='container-full-width' style='width:80%; margin:2% 10%;'>");
+		
+		Cell[][] grid = Main.game.getWorlds().get(world).getGrid();
+		float width = 100f/grid.length;
+		for(int i=grid[0].length-1; i>=0; i--) {
+			for(int j=0; j<grid.length; j++) {
+				Cell c = grid[j][i];
+				
+				String background = c.getPlace().getPlaceType()==PlaceType.GENERIC_IMPASSABLE
+									?"background:transparent;"
+									:c.getPlace().getPlaceType().isDangerous() && c.isDiscovered()
+										?""
+										:c.isDiscovered()
+											?"background-color:"+c.getPlace().getPlaceType().getBackgroundColour().toWebHexString()+";"
+											:"background-color:"+Colour.MAP_BACKGROUND_UNEXPLORED.toWebHexString()+";";
+				
+				if(!c.isDiscovered()) {
+					mapSB.append("<div class='map-icon' style='width:"+(width-0.5)+"%; margin:0.25%; "+background+"'></div>");
+					
+				} else {
+					String border = c.getPlace() != null && c.getPlace().getPlaceType().getColour()!=null
+									?"border:1px solid; border-color:"+c.getPlace().getPlaceType().getColour().toWebHexString()+";"
+									:"";
+					
+					boolean playerOnTile = Main.game.getPlayer().getWorldLocation()==world && Main.game.getPlayer().getLocation().getX()==j && Main.game.getPlayer().getLocation().getY()==i;
+					boolean dangerousTile = c.getPlace().getPlaceType().isDangerous();
+					
+					mapSB.append(
+							"<div class='map-icon"+(dangerousTile?" dangerous":"")+"' style='width:"+(width-0.5)+"%; margin:0.25%; "+border+" "+background+"'>"
+								+(playerOnTile && (c.getPlace() == null || c.getPlace().getSVGString()==null)
+									?getPlayerIcon(dangerousTile)
+									:"")
+								+ (c.getPlace() != null && c.getPlace().getSVGString()!=null
+									? "<div class='map-icon-content' style='background-color:"+c.getPlace().getPlaceType().getColour().toWebHexString()+";"
+											+ " width:75%; height:75%; margin:12.5%; border-radius:50%;"
+										+(playerOnTile?" border:2px solid "+getPlayerIconColour(dangerousTile).toWebHexString()+";":"")+"'>"
+											+c.getPlace().getSVGString()+"</div>"
+									: "")
+							+ "</div>");
+				}
+			}
+		}
+		
+		mapSB.append("</div>");
+		
+		return mapSB.toString();
+	}
+	
+	private String getPlayerIcon(boolean dangerous) {
+		if (dangerous) {
+			return ("<div class='map-icon-content' style='width:75%; height:75%; margin:12.5%; border-radius:50%;'>" + SVGImages.SVG_IMAGE_PROVIDER.getPlayerMapDangerousIcon() + "</div>");
+		} else {
+			if(Main.game.getPlayer().getFemininityValue()<=Femininity.MASCULINE.getMaximumFemininity()) {
+				return ("<div class='map-icon-content' style='width:75%; height:75%; margin:12.5%; border-radius:50%;'>" + SVGImages.SVG_IMAGE_PROVIDER.getPlayerMapIconMasculine() + "</div>");
+				
+			} else if(Main.game.getPlayer().getFemininityValue()<=Femininity.ANDROGYNOUS.getMaximumFemininity()) {
+				return ("<div class='map-icon-content' style='width:75%; height:75%; margin:12.5%; border-radius:50%;'>" + SVGImages.SVG_IMAGE_PROVIDER.getPlayerMapIconAndrogynous() + "</div>");
+				
+			} else{
+				return ("<div class='map-icon-content' style='width:75%; height:75%; margin:12.5%; border-radius:50%;'>" + SVGImages.SVG_IMAGE_PROVIDER.getPlayerMapIconFeminine() + "</div>");
+			}
+		}
+	}
+	
 	public String renderedHTMLMap() {
 
 		mapSB.setLength(0);
@@ -1132,24 +1219,15 @@ public enum RenderingEngine {
 								}
 
 								// Put place icon onto tile:
-								if (Main.game.getActiveWorld().getCell(x, y).getPlace().getSVGString() != null) {
+								if (Main.game.getActiveWorld().getCell(x, y).getPlace().getSVGString() != null) { //TODO border
 									if (y == playerPosition.getY() && x == playerPosition.getX()) {
-										if (Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()) {
-											mapSB.append("<div class='place-icon' style='margin:7%;width:86%;'><div class='map-tile-content'>" + SVGImages.SVG_IMAGE_PROVIDER.getPlayerPlaceMapDangerousIcon() + "</div></div>");
-											
-										} else {
-											if(Main.game.getPlayer().getFemininityValue()<=Femininity.MASCULINE.getMaximumFemininity()) {
-												mapSB.append("<div class='place-icon' style='margin:7%;width:86%;'><div class='map-tile-content'>" + SVGImages.SVG_IMAGE_PROVIDER.getPlayerPlaceMapIconMasculine() + "</div></div>");
-												
-											} else if(Main.game.getPlayer().getFemininityValue()<=Femininity.ANDROGYNOUS.getMaximumFemininity()) {
-												mapSB.append("<div class='place-icon' style='margin:7%;width:86%;'><div class='map-tile-content'>" + SVGImages.SVG_IMAGE_PROVIDER.getPlayerPlaceMapIconAndrogynous() + "</div></div>");
-												
-											} else{
-												mapSB.append("<div class='place-icon' style='margin:7%;width:86%;'><div class='map-tile-content'>" + SVGImages.SVG_IMAGE_PROVIDER.getPlayerPlaceMapIconFeminine() + "</div></div>");
-											}
-										}
+										mapSB.append("<div class='place-icon' style='margin:calc(18% - 4px); width:64%;'>"
+												+ "<div class='map-tile-content' style='background-color:"+getPlayerIconColour(Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()).toWebHexString()+";"
+														+ "border:4px solid "+getPlayerIconColour(Main.game.getActiveWorld().getCell(x, y).getPlace().isDangerous()).toWebHexString()+"; border-radius:50%;'>"
+												+ Main.game.getActiveWorld().getCell(x, y).getPlace().getSVGString() + "</div></div>");
+									} else {
+										mapSB.append("<div class='place-icon' style='margin:18%;width:64%;'><div class='map-tile-content'>" + Main.game.getActiveWorld().getCell(x, y).getPlace().getSVGString() + "</div></div>");
 									}
-									mapSB.append("<div class='place-icon' style='margin:18%;width:64%;'><div class='map-tile-content'>" + Main.game.getActiveWorld().getCell(x, y).getPlace().getSVGString() + "</div></div>");
 
 								} else if (y == playerPosition.getY() && x == playerPosition.getX()) {
 

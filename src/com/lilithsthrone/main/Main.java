@@ -44,7 +44,7 @@ import javafx.stage.Stage;
 
 /**
  * @since 0.1.0
- * @version 0.2.1
+ * @version 0.2.2
  * @author Innoxia
  */
 public class Main extends Application {
@@ -58,7 +58,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.2.1.5",
+	public static final String VERSION_NUMBER = "0.2.2",
 			VERSION_DESCRIPTION = "Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
@@ -238,6 +238,7 @@ public class Main extends Application {
 
 		credits.add(new CreditsSlot("Blue Kobold", "", 0, 0, 1, 0));
 		credits.add(new CreditsSlot("KazukiNero", "", 0, 0, 1, 0));
+		credits.add(new CreditsSlot("CancerMage", "", 0, 0, 1, 0));
 		
 		
 		
@@ -416,13 +417,13 @@ public class Main extends Application {
 		dir.mkdir();
 		
 		// Open error log
-		try {
-			@SuppressWarnings("resource")
-			PrintStream stream = new PrintStream("data/error.log");
-			System.setErr(stream);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			@SuppressWarnings("resource")
+//			PrintStream stream = new PrintStream("data/error.log");
+//			System.setErr(stream);
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		}
 		
 		// Load properties:
 		if (new File("data/properties.xml").exists()) {

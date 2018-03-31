@@ -158,9 +158,11 @@ public class DebugDialogue {
 				return new Response("Brax's revenge", "Brax gets you pregnant! (If you have 0 fertility, this will probably crash the game!)", DEBUG_MENU){
 					@Override
 					public void effects() {
-						if(Main.game.getPlayer().getAttributeValue(Attribute.FERTILITY)>1)
-						while (!Main.game.getPlayer().isPregnant())
+						int i=0;
+						while (!Main.game.getPlayer().isPregnant() && i<100) {
 							Main.game.getPlayer().rollForPregnancy(Main.game.getBrax());
+							i++;
+						}
 						
 					}
 				};

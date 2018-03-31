@@ -119,7 +119,21 @@ public enum OrificeType {
 		}
 	},
 	
-	URETHRA(1,
+	URETHRA_VAGINA(1,
+			-0.5f, -0.5f, -1f,
+			0.5f, -0.5f ,-1f,
+			5) {
+		@Override
+		public String getName(GameCharacter owner) {
+			return "urethra";
+		}
+		@Override
+		public boolean isFree(GameCharacter owner) {
+			return Sex.isOrificeFree(owner, this);
+		}
+	},
+	
+	URETHRA_PENIS(1,
 			-0.5f, -0.5f, -1f,
 			0.5f, -0.5f ,-1f,
 			5) {

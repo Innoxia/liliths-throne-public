@@ -486,6 +486,53 @@ public class ItemType {
 		}
 	};
 	
+	public static AbstractItemType STR_INGREDIENT_BLACK_RATS_RUM = new AbstractItemType(200,
+			"a bottle of",
+			false,
+			"Black Rat's Rum",
+			"Black Rat's Rums",
+			"A glass bottle of 'Black Rat's Rum', filled with orange-coloured alcohol."
+				+ " The label on the front shows an image of a black-furred rat-boy, wearing a thief's mask, pinning a rat-girl against a wall as he fucks her from behind.",
+			"attributeRatMorphDrink",
+			Colour.ATTRIBUTE_PHYSIQUE,
+			null,
+			null,
+			Rarity.UNCOMMON,
+			TFEssence.ARCANE,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.STR_BLACK_RATS_RUM))), 
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN),
+					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public ItemEffectType getEnchantmentEffect() {
+			return ItemEffectType.ATTRIBUTE_PHYSIQUE;
+		}
+
+		@Override
+		public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
+			return POTION;
+		}
+
+		@Override
+		public String getUseName() {
+			return "drink";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"Unscrewing the lid, you bring the bottle of 'Black Rat's Rum' to your lips before tilting your head back and quickly gulping down the golden liquid."
+						+ " As the last few drops slide down your throat, you notice a faint, musky dryness permeating through the alcoholic liquid, which lingers for some time as a slightly unpleasant aftertaste.",
+					"Unscrewing the lid, you bring the bottle of 'Black Rat's Rum' to [npc.name]'s lips, before tilting [npc.her] head back and forcing [npc.herHim] to quickly gulp down the golden liquid.",
+					"[npc.Name] pulls out a bottle of 'Black Rat's Rum', and, after quickly unscrewing the cap, [npc.she] promptly downs the entire bottle.",
+					"[npc.Name] pulls out a bottle of 'Black Rat's Rum', and, after quickly unscrewing the cap, [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the golden liquid."
+						+ " As the last few drops slide down your throat, you notice a faint, musky dryness permeating through the alcoholic liquid, which lingers for some time as a slightly unpleasant aftertaste.");
+		}
+	};
+	
 	// Intelligence ingredients are cold non-alcoholic drinks:
 	
 	public static AbstractItemType INT_INGREDIENT_FELINE_FANCY = new AbstractItemType(150,
@@ -683,6 +730,54 @@ public class ItemType {
 		}
 	};
 	
+	public static AbstractItemType INT_INGREDIENT_FRUIT_BAT_SQUASH = new AbstractItemType(15,
+			"a",
+			false,
+			"Fruit Bat's Juice Box",
+			"Fruit Bat's Juice Boxes",
+			"A small cardboard carton, labelled as 'Fruit Bat's Juice Box'."
+					+ " On one side of the carton, there's an image of a scantily-clad bat-girl squeezing the juice from all sorts of fruit over her breasts.",
+			"attributeBatMorphDrink",
+			Colour.ATTRIBUTE_ARCANE,
+			null,
+			null,
+			Rarity.UNCOMMON,
+			TFEssence.ARCANE,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.INT_FRUIT_BAT_SQUASH))),
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN),
+					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public ItemEffectType getEnchantmentEffect() {
+			return ItemEffectType.ATTRIBUTE_ARCANE;
+		}
+
+		@Override
+		public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
+			return POTION;
+		}
+
+		@Override
+		public String getUseName() {
+			return "drink";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"Tearing the attached straw from the front of the orange-flavoured carton, you use it to pierce the little foil circle on the top, before wrapping your [pc.lips] around it and starting to drink."
+						+ " The liquid that enters your mouth has a very strong orange flavour, and, after quickly finishing it, you drink down the other carton, finding that the taste of apples is every bit as intense as orange one was.",
+					"Tearing the attached straw from the front of the orange-flavoured carton, you use it to pierce the little foil circle on the top, before bringing it to [npc.name]'s lips and forcing [npc.herHim] to quickly gulp down the liquid within."
+						+ " You then do the same with the apple-flavoured one, smiling as [npc.she] gulps down every drop.",
+					"[npc.Name] pulls out a pair of cartons of 'Fruit Bat's Squash', and, using the attached straws on each one, quickly gulps down the liquid within.",
+					"[npc.Name] pulls out a pair of cartons of 'Fruit Bat's Squash', and, using the attached straws on each one, forces you to drink down the contents."
+						+ " The first carton's contents has a very strong orange flavour, and, after quickly finishing it, [npc.name] gets you to drink down the other one, which proves to be apple-flavoured.");
+		}
+	};
+	
 	public static AbstractItemType FIT_INGREDIENT_EGG_NOG = new AbstractItemType(30,
 			"a bottle of",
 			false,
@@ -821,6 +916,53 @@ public class ItemType {
 					"[npc.Name] pulls out a bottle of 'Slime Quencher', and, after quickly popping off the cap, [npc.she] promptly downs the entire bottle.",
 					"[npc.Name] pulls out a bottle of 'Slime Quencher', and, after quickly popping off the cap, [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the contents."
 						+ " The recognisable taste of a sugary energy drink fills your mouth, and, with [npc.name]'s help, you greedily gulp down the all of the glowing liquid in a matter of seconds.");
+		}
+	};
+	
+	public static AbstractItemType SEX_INGREDIENT_BUNNY_JUICE = new AbstractItemType(250,
+			"a bottle of",
+			false,
+			"Bunny Juice",
+			"Bunny Juices",
+			"A small plastic bottle of what appears to be some sort of carrot juice, labelled as 'Bunny Juice'."
+					+ " On the label, there's a rather obscene image of a rabbit-girl stuffing a carrot-shaped dildo into her pussy.",
+			"attributeRabbitMorphDrink",
+			Colour.GENERIC_SEX,
+			null,
+			null,
+			Rarity.UNCOMMON,
+			TFEssence.ARCANE,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.SEX_RABBIT_MORPH_DRINK))),
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN), //TODO
+					new ListValue<>(ItemTag.ATTRIBUTE_TF_ITEM))) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public ItemEffectType getEnchantmentEffect() {
+			return ItemEffectType.ATTRIBUTE_SEXUAL;
+		}
+
+		@Override
+		public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
+			return POTION;
+		}
+
+		@Override
+		public String getUseName() {
+			return "drink";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"You unscrew the cap and start drinking the bottle of 'Bunny Juice'."
+						+ " An intense taste of carrots instantly fills your mouth, and as you swallow the delicious liquid, you discover that it has an unusually sweet aftertaste.",
+					"Unscrewing the cap, you bring the bottle of 'Bunny Juice' to [npc.name]'s lips, before tilting [npc.her] head back and forcing [npc.herHim] to quickly gulp down the orange liquid.",
+					"[npc.Name] pulls out a bottle of 'Bunny Juice', and, after quickly unscrewing the cap, [npc.she] promptly downs the entire bottle.",
+					"[npc.Name] pulls out a bottle of 'Bunny Juice', and, after quickly unscrewing the cap, [npc.she] brings it to your lips before tilting your head back and forcing you to quickly gulp down the contents."
+						+ " An intense taste of carrots instantly fills your mouth, and as you swallow the delicious liquid, you discover that it has an unusually sweet aftertaste.");
 		}
 	};
 	
@@ -1353,6 +1495,149 @@ public class ItemType {
 					"[npc.Name] pulls out a bag of 'Round Nuts', and, after tearing it open, [npc.she] forces you to eat the contents."
 						+ " A rich, earthy smell accompanies the sight of the nuts inside, and you find yourself unable to resist the delicious-looking display."
 						+ " You quickly wolf down the bag's contents, finding that the nuts are as delicious as they look.");
+		}
+	};
+	
+	public static AbstractItemType RACE_INGREDIENT_BAT_MORPH = new AbstractItemType(250,
+			"a",
+			false,
+			"Fruit Bat's Salad",
+			"Fruit Bat's Salads",
+			"A little plastic pot, containing a delicious-looking fruit salad."
+					+ " Printed into the film lid, there's a little picture of a bat-girl sitting cross-legged as she eats her way through a mountain of fruit.",
+			"raceBatMorphFruitSalad",
+			Colour.RACE_BAT_MORPH,
+			null,
+			null,
+			Rarity.RARE,
+			TFEssence.ARCANE,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_FRUIT_SALAD))),
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN),
+					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public ItemEffectType getEnchantmentEffect() {
+			return ItemEffectType.RACE_BAT_MORPH;
+		}
+
+		@Override
+		public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
+			return ELIXIR;
+		}
+
+		@Override
+		public String getUseName() {
+			return "eat";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"Peeling off the film lid, you start eating the fruit salad."
+						+ " The slices of orange, mango, and strawberry are all absolutely delicious, and it only takes you a moment to finish off the entire pot.",
+					"Peeling off the film lid, you force [npc.name] to eat the 'Fruit Bat's Salad'.",
+					"[npc.Name] pulls out a pot of 'Fruit Bat's Salad', and, after peeling off the lid, quickly wolfs down the contents.",
+					"[npc.Name] pulls out a pot of 'Fruit Bat's Salad', and, after peeling off the lid, forces you to eat the contents."
+							+ " The slices of orange, mango, and strawberry are all absolutely delicious, and it only takes you a moment to finish off the entire pot.");
+		}
+	};
+	
+	public static AbstractItemType RACE_INGREDIENT_RAT_MORPH = new AbstractItemType(250,
+			"a",
+			false,
+			"Brown Rat's Burger",
+			"Brown Rat's Burgers",
+			"A double-cheeseburger, wrapped up in greaseproof paper."
+					+ " On the wrapper, there's a picture of a brown-furred rat-boy greedily shoving one of these burgers into his mouth.",
+			"raceRatMorphBurger",
+			Colour.RACE_RAT_MORPH,
+			null,
+			null,
+			Rarity.RARE,
+			TFEssence.ARCANE,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_BURGER))),
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.SUBMISSION_TUNNEL_SPAWN),
+					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public ItemEffectType getEnchantmentEffect() {
+			return ItemEffectType.RACE_RAT_MORPH;
+		}
+
+		@Override
+		public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
+			return ELIXIR;
+		}
+
+		@Override
+		public String getUseName() {
+			return "eat";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"Unwrapping the paper covering, you quickly reveal the greasy cheeseburger within."
+							+ " Bringing it up to your mouth, you take a big bite, and discover that it's absolutely delicious."
+							+ " Encouraged by the taste, it only takes you a few moments to wolf down the meal.",
+					"Unwrapping the paper covering, you quickly reveal the greasy cheeseburger within."
+							+ " Bringing it up to [npc.name]'s mouth, you force [npc.herHim] to eat the entire burger.",
+					"[npc.Name] pulls out a 'Brown Rat's Burger', and, after peeling off the wrapper, quickly wolfs down the contents.",
+					"[npc.Name] pulls out a 'Brown Rat's Burger', and, after peeling off the wrapper, forces you to eat the contents."
+							+ " You quickly discover that it's absolutely delicious, and it only takes you a moment to finish off the entire burger.");
+		}
+	};
+	
+	public static AbstractItemType RACE_INGREDIENT_RABBIT_MORPH = new AbstractItemType(250,
+			"a",
+			false,
+			"Bunny Carrot-Cake",
+			"Bunny Carrot-Cakes",
+			"An individually-wrapped slice of frosted carrot cake, complete with a decorative icing carrot on the top."
+					+ " On the wrapper, there's a very lewd image of a rabbit-girl being bred by a muscular rabbit-boy.",
+			"raceRabbitMorphCarrotCake",
+			Colour.RACE_RABBIT_MORPH,
+			null,
+			null,
+			Rarity.RARE,
+			TFEssence.ARCANE,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_CARROT_CAKE))),
+			Util.newArrayListOfValues(
+					new ListValue<>(ItemTag.DOMINION_ALLEYWAY_SPAWN), //TODO
+					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public ItemEffectType getEnchantmentEffect() {
+			return ItemEffectType.RACE_RABBIT_MORPH;
+		}
+
+		@Override
+		public AbstractItemType getEnchantmentItemType(List<ItemEffect> effects) {
+			return ELIXIR;
+		}
+
+		@Override
+		public String getUseName() {
+			return "eat";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"Tearing off the little plastic wrapper, you pop the small slice of carrot cake into your mouth."
+							+ " The taste is absolutely delicious, and as you swallow down the sweet mess, a delightfully carroty aftertaste lingers on your tongue.",
+					"Unwrapping the little plastic wrapper, you pop the small slice of carrot cake into [npc.name]'s mouth, before making [npc.herHim] swallow it all down.",
+					"[npc.Name] pulls out a 'Bunny Carrot-Cake', and, after tearing off the little plastic wrapper, quickly wolfs down the cake in one go.",
+					"[npc.Name] pulls out a 'Bunny Carrot-Cake', and, after tearing off the little plastic wrapper, forces the small slice of cake into your mouth."
+							+ " The taste is absolutely delicious, and as you swallow down the sweet mess, a delightfully carroty aftertaste lingers on your tongue.");
 		}
 	};
 	
@@ -2077,6 +2362,120 @@ public class ItemType {
 		@Override
 		public String getUseDescription(GameCharacter user, GameCharacter target) {
 			return getEssenceAbsorbtionText(Colour.RACE_SQUIRREL_MORPH, user, target);
+		}
+		
+		public boolean isAbleToBeUsed(GameCharacter target) {
+			return target.getRace()==Race.DEMON || target.isPlayer();
+		}
+		
+		public String getUnableToBeUsedDescription(GameCharacter target) {
+			return "Only people with a demonic-strength aura are able to absorb arcane essences!";
+		}
+	};
+	
+	public static AbstractItemType BOTTLED_ESSENCE_RAT_MORPH = new AbstractItemType(
+			50,
+			null,
+			false,
+			"Bottled Rat-morph Essence",
+			"Bottled Rat-morph Essences",
+			"A small glass bottle, with a little cork stopper wedged firmly in the top."
+					+ " Inside, the swirling "+Colour.RACE_RAT_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a rat-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
+			"bottledEssenceRatMorph",
+			Colour.RACE_RAT_MORPH,
+			null,
+			null,
+			Rarity.EPIC,
+			null,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_RAT_MORPH))),
+			Util.newArrayListOfValues(new ListValue<>(ItemTag.ESSENCE))) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getUseName() {
+			return "absorb";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getEssenceAbsorbtionText(Colour.RACE_RAT_MORPH, user, target);
+		}
+		
+		public boolean isAbleToBeUsed(GameCharacter target) {
+			return target.getRace()==Race.DEMON || target.isPlayer();
+		}
+		
+		public String getUnableToBeUsedDescription(GameCharacter target) {
+			return "Only people with a demonic-strength aura are able to absorb arcane essences!";
+		}
+	};
+	
+	public static AbstractItemType BOTTLED_ESSENCE_RABBIT_MORPH = new AbstractItemType(
+			50,
+			null,
+			false,
+			"Bottled Rabbit-morph Essence",
+			"Bottled Rabbit-morph Essences",
+			"A small glass bottle, with a little cork stopper wedged firmly in the top."
+					+ " Inside, the swirling "+Colour.RACE_RABBIT_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a rabbit-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
+			"bottledEssenceRabbitMorph",
+			Colour.RACE_RABBIT_MORPH,
+			null,
+			null,
+			Rarity.EPIC,
+			null,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_RABBIT_MORPH))),
+			Util.newArrayListOfValues(new ListValue<>(ItemTag.ESSENCE))) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getUseName() {
+			return "absorb";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getEssenceAbsorbtionText(Colour.RACE_RABBIT_MORPH, user, target);
+		}
+		
+		public boolean isAbleToBeUsed(GameCharacter target) {
+			return target.getRace()==Race.DEMON || target.isPlayer();
+		}
+		
+		public String getUnableToBeUsedDescription(GameCharacter target) {
+			return "Only people with a demonic-strength aura are able to absorb arcane essences!";
+		}
+	};
+	
+	public static AbstractItemType BOTTLED_ESSENCE_BAT_MORPH = new AbstractItemType(
+			50,
+			null,
+			false,
+			"Bottled Bat-morph Essence",
+			"Bottled Bat-morph Essences",
+			"A small glass bottle, with a little cork stopper wedged firmly in the top."
+					+ " Inside, the swirling "+Colour.RACE_BAT_MORPH.getName()+" glow of an arcane essence, imbued with the energy of a bat-morph, flickers and swirls about in a mesmerising, cyclical pattern.",
+			"bottledEssenceBatMorph",
+			Colour.RACE_BAT_MORPH,
+			null,
+			null,
+			Rarity.EPIC,
+			null,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOTTLED_ESSENCE_BAT_MORPH))),
+			Util.newArrayListOfValues(new ListValue<>(ItemTag.ESSENCE))) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getUseName() {
+			return "absorb";
+		}
+
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getEssenceAbsorbtionText(Colour.RACE_BAT_MORPH, user, target);
 		}
 		
 		public boolean isAbleToBeUsed(GameCharacter target) {
@@ -3471,6 +3870,132 @@ public class ItemType {
 					"Opening the book, you force [npc.name] to read its contents...",
 					"[npc.Name] produces a book, titled 'Chasing Squirrels', which [npc.she] then starts to read...",
 					"[npc.Name] produces a book, titled 'Chasing Squirrels', which [npc.she] then forces you to read...");
+		}
+	};
+	
+	public static AbstractItemType BOOK_RAT_MORPH = new AbstractItemType(250,
+			null,
+			false,
+			"Causing Mischief",
+			"Causing Mischiefs",
+			"A book that details rat-morph society.",
+			"book_race_rat_morph",
+			Colour.RACE_RAT_MORPH,
+			null,
+			null,
+			Rarity.LEGENDARY,
+			null,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_RAT_MORPH))),
+			Util.newArrayListOfValues(new ListValue<>(ItemTag.BOOK))) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public boolean isAbleToBeUsed(GameCharacter target) {
+			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.RAT_MORPH);
+		}
+		
+		@Override
+		public String getUnableToBeUsedDescription(GameCharacter target) {
+			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
+		}
+		
+		@Override
+		public String getUseName() {
+			return "read";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"Opening the book, you read its contents...",
+					"Opening the book, you force [npc.name] to read its contents...",
+					"[npc.Name] produces a book, titled 'Causing Mischief', which [npc.she] then starts to read...",
+					"[npc.Name] produces a book, titled 'Causing Mischief', which [npc.she] then forces you to read...");
+		}
+	};
+	
+	public static AbstractItemType BOOK_RABBIT_MORPH = new AbstractItemType(250,
+			null,
+			false,
+			"Bunny Litters",
+			"Bunny Litters'",
+			"A book that details rabbit-morph society.",
+			"book_race_rabbit_morph",
+			Colour.RACE_RABBIT_MORPH,
+			null,
+			null,
+			Rarity.LEGENDARY,
+			null,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_RABBIT_MORPH))),
+			Util.newArrayListOfValues(new ListValue<>(ItemTag.BOOK))) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public boolean isAbleToBeUsed(GameCharacter target) {
+			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.RABBIT_MORPH);
+		}
+		
+		@Override
+		public String getUnableToBeUsedDescription(GameCharacter target) {
+			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
+		}
+		
+		@Override
+		public String getUseName() {
+			return "read";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"Opening the book, you read its contents...",
+					"Opening the book, you force [npc.name] to read its contents...",
+					"[npc.Name] produces a book, titled 'Bunny Litters', which [npc.she] then starts to read...",
+					"[npc.Name] produces a book, titled 'Bunny Litters', which [npc.she] then forces you to read...");
+		}
+	};
+	
+	public static AbstractItemType BOOK_BAT_MORPH = new AbstractItemType(250,
+			null,
+			false,
+			"Flying Foxes",
+			"Flying Foxes'",
+			"A book that details bat-morph society.",
+			"book_race_bat_morph",
+			Colour.RACE_BAT_MORPH,
+			null,
+			null,
+			Rarity.LEGENDARY,
+			null,
+			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BOOK_READ_BAT_MORPH))),
+			Util.newArrayListOfValues(new ListValue<>(ItemTag.BOOK))) {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public boolean isAbleToBeUsed(GameCharacter target) {
+			return !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(Race.BAT_MORPH);
+		}
+
+		@Override
+		public String getUnableToBeUsedDescription(GameCharacter target) {
+			return "You've already added this book to Lilaya's library! It would be best to just sell it...";
+		}
+		
+		@Override
+		public String getUseName() {
+			return "read";
+		}
+		
+		@Override
+		public String getUseDescription(GameCharacter user, GameCharacter target) {
+			return getGenericUseDescription(user, target,
+					"Opening the book, you read its contents...",
+					"Opening the book, you force [npc.name] to read its contents...",
+					"[npc.Name] produces a book, titled 'Flying Foxes', which [npc.she] then starts to read...",
+					"[npc.Name] produces a book, titled 'Flying Foxes', which [npc.she] then forces you to read...");
 		}
 	};
 	

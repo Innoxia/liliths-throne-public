@@ -295,6 +295,87 @@
 	]]>
 	</htmlContent>
 	
+	<!-- RAT-MORPHS -->
+	
+	<htmlContent tag="RAT_MORPH_BASIC"><![CDATA[
+	<p>
+		In terms of sheer numbers, rat-morphs can be counted as a very common anthropomorphic race.
+		 Despite their significant population, however, the vast majority of rat-morphs choose to live in the undercity of Submission, making them a rare sight in all other parts of the world.
+		 Their long, naked tails, twitching nose, and rounded, rodent-like ears are usually enough to identify a rat-morph.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RAT_MORPH_ADVANCED"><![CDATA[
+	<p>
+		Rat-morphs have a rather poor reputation, and are often accused of being criminals or troublemakers.
+		 There is more than a little truth in these accusations, as Submission's rat-morph society regards thievery, skulduggery, and subterfuge as highly desirable traits.
+		 Their immense fondness for these characteristics has resulted in the most notorious of Submission's thieves being regarded as folk heroes among the rat-morph population.
+	</p>
+	<p>
+		Rat-morphs, like the other common races, get heavily affected by arcane storms.
+		 Being exposed to arcane thunder will make rat-boys enter a potent rut, while rat-girls will go into an intense heat; seeking to be bred by the first suitable partner that they can find.
+	</p>
+	<p>
+		Rat-morphs will give birth to up to four offspring at once.
+		 Their pregnancies work in exactly the same way as a normal human one.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- BAT-MORPHS -->
+	
+	<htmlContent tag="BAT_MORPH_BASIC"><![CDATA[
+	<p>
+		Bat-morphs are are a rare race, and are only found in significant numbers in the dark caverns that are linked to the undercity of Submission.
+		 Their bat-like wings and large ears are usually enough to identify someone as a bat-morph.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="BAT_MORPH_ADVANCED"><![CDATA[
+	<p>
+		Bat-morphs mostly keep to themselves, and, being nocturnal, they sleep in their caverns during the day and only come out at night.
+		 Thanks to their echolocation ability, which involves emitting ultrasonic squeaks to produce echoes, they can 'see' perfectly in pitch-black darkness.
+		 Bat-morphs are typically quite reclusive and shy, but, much like humans, their personalities vary considerably between individuals.
+	</p>
+	<p>
+		Bat-morphs, like the other common races, get heavily affected by arcane storms.
+		 Being exposed to arcane thunder will make bat-boys enter a potent rut, while bat-girls will go into an intense heat; seeking to be bred by the first suitable partner that they can find.
+	</p>
+	<p>
+		Bat-morphs will give birth to one or two offspring at once.
+		 Their pregnancies work in exactly the same way as a normal human one.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<!-- RABBIT-MORPHS -->
+	
+	<htmlContent tag="RABBIT_MORPH_BASIC"><![CDATA[
+	<p>
+		Rabbit-morphs are one of the most common races to be found in the Foloi Fields, and are also occasionally to be seen wandering the streets of Dominion.
+		 Their large rabbit-like ears and round, fluffy tails are usually enough to identify someone as a rabbit-morph.
+	</p>
+	]]>
+	</htmlContent>
+	
+	<htmlContent tag="RABBIT_MORPH_ADVANCED"><![CDATA[
+	<p>
+		The vast majority of rabbit-morphs are obsessed with breeding and being bred.
+		 Although their personalities can vary wildly between individuals, they all share the same primal instinct to produce as many offspring as possible.
+	</p>
+	<p>
+		Rabbit-morphs, like the other common races, get heavily affected by arcane storms.
+		 Being exposed to arcane thunder will make rabbit-boys enter a potent rut, while rabbit-girls will go into an intense heat; seeking to be bred by the first suitable partner that they can find.
+	</p>
+	<p>
+		Rabbit-morphs will give birth to two to eight offspring at once.
+		 Their pregnancies work in exactly the same way as a normal human one.
+	</p>
+	]]>
+	</htmlContent>
+	
 	<!-- ALLIGATOR-MORPHS -->
 	
 	<htmlContent tag="ALLIGATOR_MORPH_BASIC"><![CDATA[

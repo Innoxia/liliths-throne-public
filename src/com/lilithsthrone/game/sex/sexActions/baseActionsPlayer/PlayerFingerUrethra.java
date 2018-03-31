@@ -30,7 +30,7 @@ public class PlayerFingerUrethra {
 			ArousalIncrease.TWO_LOW,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.FINGER,
-			OrificeType.URETHRA,
+			OrificeType.URETHRA_PENIS,
 			SexParticipantType.PITCHER) {
 
 		@Override
@@ -145,7 +145,7 @@ public class PlayerFingerUrethra {
 			ArousalIncrease.THREE_NORMAL,
 			CorruptionLevel.ONE_VANILLA,
 			PenetrationType.FINGER,
-			OrificeType.URETHRA,
+			OrificeType.URETHRA_PENIS,
 			SexParticipantType.PITCHER) {
 
 		@Override

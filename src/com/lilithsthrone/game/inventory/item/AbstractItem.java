@@ -183,7 +183,7 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 
 		sb.append("</p>"
 				+ "<p>"
-					+ "It has a value of " + UtilText.formatAsMoney(getValue()) + "."
+					+ (this.getItemType().isPlural()?"They have":"It has")+" a value of " + UtilText.formatAsMoney(getValue()) + "."
 				+ "</p>");
 		
 		return sb.toString();

@@ -616,6 +616,60 @@ public enum Subspecies {
 			body.setBodyMaterial(BodyMaterial.SLIME);
 		}
 	},
+	SLIME_RAT("raceSlime",
+			"rat-slime",
+			"rat-slimes",
+			"rat-slime-boy",
+			"rat-slime-girl",
+			"rat-slime-boys",
+			"rat-slime-girls",
+			Race.SLIME,
+			Colour.RACE_SLIME,
+			SubspeciesPreference.FOUR_ABUNDANT,
+			"A slime that's taken on the form of a rat-morph.",
+			Util.newArrayListOfValues(new ListValue<>(WorldType.SUBMISSION))) {
+		@Override
+		public void applySpeciesChanges(Body body) {
+//			body = CharacterUtils.generateBody(body.getGender(), Subspecies.RAT_MORPH, RaceStage.PARTIAL);
+			body.setBodyMaterial(BodyMaterial.SLIME);
+		}
+	},
+	SLIME_RABBIT("raceSlime",
+			"rabbit-slime",
+			"rabbit-slimes",
+			"rabbit-slime-boy",
+			"rabbit-slime-girl",
+			"rabbit-slime-boys",
+			"rabbit-slime-girls",
+			Race.SLIME,
+			Colour.RACE_SLIME,
+			SubspeciesPreference.FOUR_ABUNDANT,
+			"A slime that's taken on the form of a rabbit-morph.",
+			Util.newArrayListOfValues(new ListValue<>(WorldType.SUBMISSION))) {
+		@Override
+		public void applySpeciesChanges(Body body) {
+//			body = CharacterUtils.generateBody(body.getGender(), Subspecies.RAT_MORPH, RaceStage.PARTIAL);
+			body.setBodyMaterial(BodyMaterial.SLIME);
+		}
+	},
+	SLIME_BAT("raceSlime",
+			"bat-slime",
+			"bat-slimes",
+			"bat-slime-boy",
+			"bat-slime-girl",
+			"bat-slime-boys",
+			"bat-slime-girls",
+			Race.SLIME,
+			Colour.RACE_SLIME,
+			SubspeciesPreference.FOUR_ABUNDANT,
+			"A slime that's taken on the form of a bat-morph.",
+			Util.newArrayListOfValues(new ListValue<>(WorldType.SUBMISSION))) {
+		@Override
+		public void applySpeciesChanges(Body body) {
+//			body = CharacterUtils.generateBody(body.getGender(), Subspecies.RAT_MORPH, RaceStage.PARTIAL);
+			body.setBodyMaterial(BodyMaterial.SLIME);
+		}
+	},
 	SLIME_HARPY("raceSlime",
 			"harpy-slime",
 			"harpy-slimes",
@@ -670,11 +724,83 @@ public enum Subspecies {
 			
 		}
 	},
+	
 	//MOUSE_MORPH(Race.MOUSE_MORPH.getName(), Race.MOUSE_MORPH, RacialBody.MOUSE_MORPH, SubspeciesPreference.FIVE_ABUNDANT,
 	//		"A typical bipedal "+Race.MOUSE_MORPH.getName()),
-	//RAT_MORPH(Race.RAT_MORPH.getName(), Race.MOUSE_MORPH, RacialBody.RAT_MORPH, SubspeciesPreference.TWO_LOW,
-	//		"An extremely aggressive variety of "+Race.MOUSE_MORPH.getName()),
+	
+	RAT_MORPH("raceRatMorph",
+			"rat-morph",
+			"rat-morphs",
+			"rat-boy",
+			"rat-girl",
+			"rat-boys",
+			"rat-girls",
+			Race.RAT_MORPH,
+			Colour.RACE_RAT_MORPH,
+			SubspeciesPreference.FOUR_ABUNDANT,
+			"A typical bipedal rat-morph.",
+			Util.newArrayListOfValues(new ListValue<>(WorldType.SUBMISSION))) {
+		@Override
+		public void applySpeciesChanges(Body body) {
+			// TODO Auto-generated method stub
+		}
+	},
 
+	RABBIT_MORPH("raceRabbitMorph",
+			"rabbit-morph",
+			"rabbit-morphs",
+			"rabbit-boy",
+			"rabbit-girl",
+			"rabbit-boys",
+			"rabbit-girls",
+			Race.RABBIT_MORPH,
+			Colour.RACE_RABBIT_MORPH,
+			SubspeciesPreference.FOUR_ABUNDANT,
+			"A typical bipedal rabbit-morph.",
+			Util.newArrayListOfValues(new ListValue<>(WorldType.DOMINION))) { //TODO
+		@Override
+		public void applySpeciesChanges(Body body) {
+		}
+	},
+
+	RABBIT_MORPH_LOP("raceRabbitLopMorph",
+			"lop-rabbit-morph",
+			"lop-rabbit-morphs",
+			"lop-rabbit-boy",
+			"lop-rabbit-girl",
+			"lop-rabbit-boys",
+			"lop-rabbit-girls",
+			Race.RABBIT_MORPH,
+			Colour.RACE_RABBIT_MORPH,
+			SubspeciesPreference.FOUR_ABUNDANT,
+			"A bipedal rabbit-morph, with floppy ears instead of the usual upright ones.",
+			Util.newArrayListOfValues(new ListValue<>(WorldType.DOMINION))) { //TODO
+		@Override
+		public void applySpeciesChanges(Body body) {
+			if(body.getEar().getType()==EarType.RABBIT_MORPH) {
+				body.getEar().setType(null, EarType.RABBIT_MORPH_FLOPPY);
+			}
+		}
+	},
+	
+	BAT_MORPH("raceBatMorph",
+			"bat-morph",
+			"bat-morphs",
+			"bat-boy",
+			"bat-girl",
+			"bat-boys",
+			"bat-girls",
+			Race.BAT_MORPH,
+			Colour.RACE_BAT_MORPH,
+			SubspeciesPreference.FOUR_ABUNDANT,
+			"A typical bipedal bat-morph.",
+			Util.newArrayListOfValues(new ListValue<>(WorldType.SUBMISSION))) {
+		@Override
+		public void applySpeciesChanges(Body body) {
+			// TODO Auto-generated method stub
+		}
+	},
+	
 	// AVIAN:
 	HARPY("raceHarpy",
 			"harpy",
@@ -845,6 +971,12 @@ public enum Subspecies {
 				case SQUIRREL_MORPH:
 					subspecies = Subspecies.SQUIRREL_MORPH;
 					break;
+				case RAT_MORPH:
+					subspecies = Subspecies.RAT_MORPH;
+					break;
+				case BAT_MORPH:
+					subspecies = Subspecies.BAT_MORPH;
+					break;
 				case WOLF_MORPH:
 					subspecies = Subspecies.WOLF_MORPH;
 					break;
@@ -898,9 +1030,24 @@ public enum Subspecies {
 						case SQUIRREL_MORPH:
 							subspecies = Subspecies.SLIME_SQUIRREL;
 							break;
+						case RAT_MORPH:
+							subspecies = Subspecies.SLIME_RAT;
+							break;
+						case BAT_MORPH:
+							subspecies = Subspecies.SLIME_BAT;
+							break;
+						case RABBIT_MORPH:
+							subspecies = Subspecies.SLIME_RABBIT;
+							break;
 						case WOLF_MORPH:
 							subspecies = Subspecies.SLIME_WOLF;
 							break;
+					}
+					break;
+				case RABBIT_MORPH:
+					subspecies = Subspecies.RABBIT_MORPH;
+					if(body.getEar().getType()==EarType.RABBIT_MORPH_FLOPPY) {
+						subspecies = Subspecies.RABBIT_MORPH_LOP;
 					}
 					break;
 			}

@@ -38,7 +38,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.2.1
- * @version 0.2.1
+ * @version 0.2.2
  * @author Innoxia
  */
 public class SubmissionAttacker extends NPC {
@@ -90,34 +90,44 @@ public class SubmissionAttacker extends NPC {
 			Map<Subspecies, Integer> availableRaces = new HashMap<>();
 			for(Subspecies s : Subspecies.values()) {
 				switch(s) {
-					case ALLIGATOR_MORPH:
-						addToSubspeciesMap(30, gender, s, availableRaces);
-						break;
+					// No chance of spawn:
 					case ANGEL:
-						break;
 					case CAT_MORPH:
-						break;
 					case COW_MORPH:
-						break;
 					case DEMON:
+					case DOG_MORPH:
+					case DOG_MORPH_DOBERMANN:
+					case HARPY:
+					case HORSE_MORPH:
+					case HUMAN:
+					case REINDEER_MORPH:
+					case SQUIRREL_MORPH:
+					case WOLF_MORPH:
+					case RABBIT_MORPH:
+					case RABBIT_MORPH_LOP:
 						break;
-					case IMP:
-						addToSubspeciesMap(50, gender, s, availableRaces);
+					
+					// Rare spawns:
+					case BAT_MORPH:
+						addToSubspeciesMap(5, gender, s, availableRaces);
 						break;
 					case IMP_ALPHA:
 						addToSubspeciesMap(10, gender, s, availableRaces);
 						break;
-					case DOG_MORPH:
+						
+					// Common spawns:
+					case ALLIGATOR_MORPH:
+						addToSubspeciesMap(30, gender, s, availableRaces);
 						break;
-					case DOG_MORPH_DOBERMANN:
+					case IMP:
+						addToSubspeciesMap(50, gender, s, availableRaces);
 						break;
-					case HARPY:
-						break;
-					case HORSE_MORPH:
-						break;
-					case HUMAN:
+					case RAT_MORPH:
+						addToSubspeciesMap(40, gender, s, availableRaces);
 						break;
 					case SLIME:
+						addToSubspeciesMap(20, gender, s, availableRaces);
+						break;
 					case SLIME_ALLIGATOR:
 					case SLIME_ANGEL:
 					case SLIME_CAT:
@@ -131,13 +141,10 @@ public class SubmissionAttacker extends NPC {
 					case SLIME_REINDEER:
 					case SLIME_SQUIRREL:
 					case SLIME_WOLF:
-						addToSubspeciesMap(30, gender, s, availableRaces);
-						break;
-					case REINDEER_MORPH:
-						break;
-					case SQUIRREL_MORPH:
-						break;
-					case WOLF_MORPH:
+					case SLIME_RAT:
+					case SLIME_BAT:
+					case SLIME_RABBIT:
+						addToSubspeciesMap(1, gender, s, availableRaces);
 						break;
 				}
 			}

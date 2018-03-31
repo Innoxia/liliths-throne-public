@@ -2259,3 +2259,35 @@ border-radius:5px;
 	margin:0 0 2px 0;
 	vertical-align: middle;
 }
+
+/******************** MAP ********************/
+
+.map-icon {
+	display:inline-block;
+	position:relative;
+	float:left;
+	border-radius: 5px;
+	width:9%;
+	margin:0.5%;
+	-webkit-box-sizing: border-box;
+}
+.map-icon:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+.map-icon-content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+	-webkit-box-sizing: border-box;
+}
+.map-icon.dangerous{
+	background: repeating-linear-gradient(
+		  135deg,
+		  #333,
+		  #333 5px,
+		  #444 5px,
+		  #444 10px
+		);
+}

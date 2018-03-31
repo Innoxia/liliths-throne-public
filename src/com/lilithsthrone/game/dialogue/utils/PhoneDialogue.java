@@ -43,6 +43,7 @@ import com.lilithsthrone.game.sex.PenetrationType;
 import com.lilithsthrone.game.sex.SexParticipantType;
 import com.lilithsthrone.game.sex.SexType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.ClothingRarityComparator;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.ItemRarityComparator;
@@ -52,7 +53,7 @@ import com.lilithsthrone.utils.WeaponRarityComparator;
 
 /**
  * @since 0.1.0
- * @version 0.1.99
+ * @version 0.2.2
  * @author Innoxia
  */
 public class PhoneDialogue {
@@ -63,7 +64,8 @@ public class PhoneDialogue {
 
 		@Override
 		public String getContent() {
-			return "<p>You pull out your phone and tap in the unlock code.</p>"
+			return RenderingEngine.ENGINE.getFullMap(Main.game.getPlayer().getWorldLocation())
+					+"<p>You pull out your phone and tap in the unlock code.</p>"
 					+ (Main.game.isInNewWorld()
 							?"<p>"
 								+"Using your powerful aura, you've managed to figure out a way to channel the arcane into charging the battery of your phone, although considering that it's the only one in this world,"
@@ -881,11 +883,17 @@ public class PhoneDialogue {
 							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.NIPPLE)),
 							Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.NIPPLE)))
 
-					+ sexStatRow(Colour.AROUSAL_STAGE_FIVE, "Urethra penetration",
-							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.URETHRA)),
-							Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.URETHRA)),
-							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.URETHRA)),
-							Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.URETHRA)));
+					+ sexStatRow(Colour.AROUSAL_STAGE_FIVE, "Penis Urethra penetration",
+							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.URETHRA_PENIS)),
+							Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.URETHRA_PENIS)),
+							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.URETHRA_PENIS)),
+							Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.URETHRA_PENIS)))
+					
+					+ sexStatRow(Colour.AROUSAL_STAGE_FIVE, "Vagina Urethra penetration",
+							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.URETHRA_VAGINA)),
+							Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.PITCHER, PenetrationType.PENIS, OrificeType.URETHRA_VAGINA)),
+							Main.game.getPlayer().getSexCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.URETHRA_VAGINA)),
+							Main.game.getPlayer().getCumCount(new SexType(SexParticipantType.CATCHER, PenetrationType.PENIS, OrificeType.URETHRA_VAGINA)));
 		}
 		
 		@Override
@@ -1697,8 +1705,7 @@ public class PhoneDialogue {
 						Race race = racesDiscovered.get(index - 1);
 						RacialBody racialBody = RacialBody.valueOfRace(race);
 						
-						title = Util.capitaliseSentence(race.getName()) + " ("
-								+ Util.capitaliseSentence(race.getGenus().getName()) + ")";
+						title = Util.capitaliseSentence(race.getName());
 						raceSB.setLength(0);
 						raceSB.append("<div class='encyclopedia-container'>"
 								+ "<p style='width:100%; text-align:center;'><b style='color:"+race.getColour().toWebHexString()+";'>"+Util.capitaliseSentence(race.getName())+"</b></br>"

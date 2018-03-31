@@ -1305,6 +1305,48 @@ public class ClothingType {
 		}
 	};
 	
+	public static AbstractClothingType NECK_COLLAR_BOWTIE = new AbstractClothingType(150,
+			"a",
+			false,
+			"collar bowtie",
+			"collar bowties",
+			"A shirt collar, with a little bowtie affixed to the front.",
+			1,
+			null,
+			InventorySlot.NECK,
+			Rarity.COMMON,
+			null,
+			"neck_collar_bowtie",
+			null,
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, null, null, null, null))),
+			null,
+			Colour.justBlack, Colour.allClothingColours,
+			Colour.justWhite, Colour.allClothingColours,
+			Colour.justBlack, Colour.allClothingColours){
+
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You fasten the collar bowtie around your neck.",
+					"You fasten the collar bowtie around [npc.name]'s neck.",
+					null,
+					"[npc.Name] fastens the collar bowtie around [npc.her] neck.",
+					"[npc.Name] fasten the collar bowtie around your neck.",
+					null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You take off your collar bowtie.",
+					"You take off [npc.name]'s collar bowtie.",
+					null,
+					"[npc.Name] takes [npc.her] collar bowtie off.",
+					"[npc.Name] takes your collar bowtie off.",
+					null);
+		}
+	};
+	
 	public static AbstractClothingType NECK_BREEDER_COLLAR = new AbstractClothingType(10000,
 			"a",
 			false,
@@ -5188,6 +5230,7 @@ public class ClothingType {
 			}
 		}
 	};
+	
 	public static AbstractClothingType WRIST_BANGLE = new AbstractClothingType(600,
 			"a",
 			false,
@@ -5200,41 +5243,84 @@ public class ClothingType {
 			Rarity.COMMON,
 			null,
 			"wrist_bangle",
-
 			null,
-
 			Util.newArrayListOfValues(new ListValue<BlockedParts>(new BlockedParts(DisplacementType.REMOVE_OR_EQUIP, Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WRISTS)), null,
 					Util.newArrayListOfValues(new ListValue<ClothingAccess>(ClothingAccess.WRISTS)), null))),
-
 			null,
-			Colour.allMetalColours,
-			null,
-			null,
-			null,
-			null,
-			null){
+			Colour.allMetalColours, null,
+			null, null,
+			null, null){
 		
-
 		@Override
 		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You slide the bangle onto your wrist.";
-			else
-				return UtilText.parse(clothingOwner, "[npc.Name] slides " + clothing.getName(true) + " onto [npc.her] wrist.");
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You slide the bangle onto your wrist.",
+					"You slide the bangle onto [npc.name]'s wrist.",
+					null,
+					"[npc.Name] slides the bangle onto [npc.her] wrist.",
+					"[npc.Name] slides the bangle onto your wrist.",
+					null);
 		}
 
 		@Override
 		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
-			if (clothingOwner.isPlayer() && clothingRemover.isPlayer())
-				return "You slide your bangle off your wrist.";
-			else if (!clothingOwner.isPlayer() && !clothingRemover.isPlayer())
-				return UtilText.parse(clothingOwner, "[npc.Name] slides [npc.her] bangle off [npc.her] wrist.");
-			else {
-				if (clothingOwner.isPlayer())
-					return "[npc.Name] slides your bangle off your wrist.";
-				else
-					return UtilText.parse(clothingOwner, "You slide [npc.name]'s bangle off [npc.her] wrist.");
-			}
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You slide your bangle off of your wrist.",
+					"You slide [npc.name]'s bangle off of [npc.her] wrist.",
+					null,
+					"[npc.Name] slides [npc.her] bangle off of [npc.her] wrist.",
+					"[npc.Name] slides your bangle off of your wrist.",
+					null);
+		}
+	};
+	
+	public static AbstractClothingType WRIST_SUIT_CUFFS = new AbstractClothingType(100,
+			"a pair of",
+			true,
+			"suit cuff",
+			"suit cuffs",
+			"A pair of suit cuffs, which are worn around the wrists.",
+			1,
+			null,
+			InventorySlot.WRIST,
+			Rarity.COMMON,
+			null,
+			"wrist_suit_cuffs",
+			null,
+			Util.newArrayListOfValues(new ListValue<BlockedParts>(
+					new BlockedParts(
+							DisplacementType.REMOVE_OR_EQUIP,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.WRISTS)),
+							null,
+							Util.newArrayListOfValues(
+									new ListValue<ClothingAccess>(ClothingAccess.WRISTS)),
+							null))),
+			null,
+			Colour.justWhite, Colour.allClothingColours,
+			Colour.justBlack, Colour.allClothingColours,
+			null, null){
+		
+		@Override
+		public String equipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You fasten the suit cuffs around your wrists.",
+					"You fasten the suit cuffs around [npc.name]'s wrists.",
+					null,
+					"[npc.Name] fastens the suit cuffs around [npc.her] wrists.",
+					"[npc.Name] fastens the suit cuffs around your wrists.",
+					null);
+		}
+
+		@Override
+		public String unequipText(GameCharacter clothingOwner, GameCharacter clothingRemover, boolean rough, AbstractClothing clothing, boolean applyEffects) {
+			return getEquipDescriptions(clothingOwner, clothingRemover, rough,
+					"You unfasten your suit cuffs and take them off.",
+					"You unfasten [npc.name]'s suit cuffs and take them off.",
+					null,
+					"[npc.Name] unfastens [npc.her] suit cuffs and takes them off.",
+					"[npc.Name] unfastens your suit cuffs and takes them off.",
+					null);
 		}
 	};
 

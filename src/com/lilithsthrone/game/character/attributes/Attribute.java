@@ -371,6 +371,24 @@ public enum Attribute {
 			return "Each point increases damage done vs squirrel-morphs by 1%.";
 		}
 	},
+	DAMAGE_RAT_MORPH(0, 0, 100, "rat-morph damage", "Rat-morph damage", "swordIcon", Colour.RACE_RAT_MORPH, "rat-morph-obliteration", "rat-morph-mercy", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Each point increases damage done vs rat-morphs by 1%.";
+		}
+	},
+	DAMAGE_RABBIT_MORPH(0, 0, 100, "rabbit-morph damage", "Rabbit-morph damage", "swordIcon", Colour.RACE_RABBIT_MORPH, "rabbit-morph-obliteration", "rabbit-morph-mercy", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Each point increases damage done vs rabbit-morphs by 1%.";
+		}
+	},
+	DAMAGE_BAT_MORPH(0, 0, 100, "bat-morph damage", "Bat-morph damage", "swordIcon", Colour.RACE_BAT_MORPH, "bat-morph-obliteration", "bat-morph-mercy", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Each point increases damage done vs bat-morphs by 1%.";
+		}
+	},
 	DAMAGE_ALLIGATOR_MORPH(0, 0, 100, "alligator-morph damage", "Alligator-morph damage", "swordIcon", Colour.RACE_ALLIGATOR_MORPH, "alligator-morph-obliteration", "alligator-morph-mercy", null) {
 		@Override
 		public String getDescription(GameCharacter owner) {
@@ -454,6 +472,24 @@ public enum Attribute {
 		@Override
 		public String getDescription(GameCharacter owner) {
 			return "Each point increases resistance vs damage inflicted by squirrel-morphs by 1%.";
+		}
+	},
+	RESISTANCE_RAT_MORPH(0, 0, 100, "rat-morph resistance", "Rat-morph resistance", "shieldIcon", Colour.RACE_RAT_MORPH, "rat-morph-immunity", "rat-morph-vulnerability", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Each point increases resistance vs damage inflicted by rat-morphs by 1%.";
+		}
+	},
+	RESISTANCE_RABBIT_MORPH(0, 0, 100, "rabbit-morph resistance", "Rabbit-morph resistance", "shieldIcon", Colour.RACE_RABBIT_MORPH, "rabbit-morph-immunity", "rabbit-morph-vulnerability", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Each point increases resistance vs damage inflicted by rabbit-morphs by 1%.";
+		}
+	},
+	RESISTANCE_BAT_MORPH(0, 0, 100, "bat-morph resistance", "Bat-morph resistance", "shieldIcon", Colour.RACE_BAT_MORPH, "bat-morph-immunity", "bat-morph-vulnerability", null) {
+		@Override
+		public String getDescription(GameCharacter owner) {
+			return "Each point increases resistance vs damage inflicted by bat-morphs by 1%.";
 		}
 	},
 	RESISTANCE_ALLIGATOR_MORPH(0, 0, 100, "alligator-morph resistance", "Alligator-morph resistance", "shieldIcon", Colour.RACE_ALLIGATOR_MORPH, "alligator-morph-immunity", "alligator-morph-vulnerability", null) {
