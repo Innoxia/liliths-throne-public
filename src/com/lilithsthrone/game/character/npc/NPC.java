@@ -312,7 +312,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	}
 
 	public int getLootMoney() {
-		return (int) ((getLevel() * 100) * (1 + Math.random() - 0.5f));
+		return (int) ((getLevel() * 25) * (1 + Math.random() - 0.5f));
 	}
 	
 	public List<AbstractCoreItem> getLootItems() {

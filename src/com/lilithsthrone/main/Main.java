@@ -72,21 +72,23 @@ public class Main extends Application {
 //		+ "<h6 style='text-align:center;'><b style='color:" + Colour.GENERIC_BAD.toWebHexString() + ";'>Early Alpha!</b></h6>"
 		
 		"<p>"
-			+ "Hello everyone! ^^"
+			+ "Hello everyone!"
 		+ "</p>"
 			
 		+ "<p>"
-			+ "The main thing that I've got done for this preview is getting the non-random maps for Dominion, Submission, and the Harpy Nests working."
-			+ " It turned out to be a little more work than I'd originally anticipated, so I haven't had enough time to fully write in all the Submission areas and encounters yet."
-			+ " All of that, along with all the other goals, will be done for the full release next Wednesday! :3"
+			+ "As I said in the most recent blog & Patreon posts, I've had some personal issues going on since last Friday, and while I'd hoped that they'd all be sorted out by Tuesday,"
+				+ " it wasn't until Thursday morning that I was able to really get started on this week's progress."
+			+ " As a result, I didn't get as many of this week's goals done as I'd liked..."
+		+ "</p>"
+			
+		+ "<p>"
+			+ "That being said, there is some new content to be seen in the brothel 'Angel's Kiss', as well as the addition of rat, bat, and rabbit morphs."
+			+ " I know rabbit-morphs weren't in my goals, but I really wanted to get them added in time for Easter. ^^"
 		+ "</p>"
 		
 		+ "<p>"
-			+ "Unless there is a major game-breaking bug (which would warrant a hotfix), the next release will be on the 28th. ^^"
-		+ "</p>"
-
-		+"<p>"
-			+ "<b style='color:" + Colour.GENERIC_TERRIBLE.toWebHexString() + ";'>Please be aware that about half of the Submission content is just placeholders for now! It will be finished for 0.2.2!</b>"
+			+ "I will continue to work over this weekend to get urethral penetration actions added into the game, as well as finishing Submission's core content and making Zaranix & his maids repeatable encounters."
+			+ " I expect to push another release with all that in on Monday evening."
 		+ "</p>"
 			
 		+ "<p>"
@@ -166,6 +168,53 @@ public class Main extends Application {
 			+"<ul>Fixed 'locked in stocks' applying vaginal sex events to slaves with no vagina.</ul>"
 			+"<ul>Slaves will no longer have amorous encounters with relations if they don't have the associated fetish.</ul>"
 			+"<ul>Fixed cum stud tease parsing the wrong names.</ul>"
+		+ "</list>"
+
+		+ "</br>"
+
+		+ "<list>"
+			+ "<h6>v0.2.2</h6>"
+			+"<li>Gameplay:</li>"
+			+"<ul><b>Added:</b> Rat-morphs. Found in Submission and in Dominion's canal tiles.</ul>"
+			+"<ul><b>Added:</b> Bat-morphs. Found in Submission's bat caverns.</ul>"
+			+"<ul><b>Added:</b> Rabbit-morphs, with 'lop-rabbit' subspecies (they have floppy ears). Found rarely in Dominion's alleyways.</ul>"
+			+"<ul>Added full map display to phone's default menu.</ul>"
+			+"<ul>Added map to Lilaya's library.</ul>"
+			+"<ul>Added urethra orifice to vagina.</ul>"
+			+"<ul>Added all necessary support for penetrating urethras in the engine. (I will write in the associated sex actions and push another update within a couple of days.)</ul>"
+			+"<ul>Added content toggles for lactation and urethral content.</ul>"
+			
+			+"<li>Angel's Kiss:</li>"
+			+"<ul>Removed Angel's Kiss from Slaver Alley, and added it to a new location 'Red light district' in Dominion.</ul>"
+			+"<ul>Added NPCs for Angel's Kiss: Angel, Bunny, and Loppy.</ul>"
+			+"<ul>Added ability to buy a prostitution license from Angel, which allows you to send slaves to work as prostitutes in Angel's Kiss, ask alleyway prostitutes to move to Angel's Kiss, and whore yourself out for money.</ul>"
+			
+			+"<li>Clothing:</li>"
+			+"<ul>Added: Collar bowtie (neck slot).</ul>"
+			+"<ul>Added: Suit cuffs (wrist slot).</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Added slime birthing scene variation.</ul>"
+			+"<ul>Made Pix hate receiving anal sex, dislike being pregnant, and like receiving vaginal sex.</ul>"
+			
+			+"<li>Contributors:</li>"
+			+"<ul>Fixed addiction time bug (it was always saying that NPCs weren't suffering from withdrawal, even if they were). (AlacoGit)</ul>"
+			+"<ul>Added fast travel for Dream Lover. (Delvigore)</ul>"
+			+"<ul>Nerfed experience and essence gains from combat, (experience from 10 * enemyLevel to 2 * enemyLevel, and essence gain roughly halved). (Rfpnj)</ul>"
+			+"<ul>Typo fixes. (Master of Puppets)</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Fixed major bugs in availability of actions in multiple-partner sex.</ul>"
+			+"<ul>Fixed bug in multiple-partner sex where impregnation chances would fire for every participant, not just the one who came inside.</ul>"
+			+"<ul>Typo fixes.</ul>"
+			+"<ul>Fixed incorrect tongue and penis head descriptors.</ul>"
+			+"<ul>Fixed bug where map wouldn't load correctly when importing a pre-0.2.1.5 save.</ul>"
+			+"<ul>Fixed strange sex behaviour of demon attackers (the ones in dark alleyways tiles).</ul>"
+			+"<ul>Slaves with the non-con fetish now correctly gain affection from non-con sex.</ul>"
+			+"<ul>Fixed Submisison's slime spawn rate being far too high.</ul>"
+			+"<ul>Fixed newly enslaved NPCs re-equipped new clothing as they get transferred to Slavery Administration.</ul>"
+			+"<ul>Fixed bug in combat where if you were defeated/victorious/escaped/stunned, the spells and special attacks tabs wouldn't change to reflect this.</ul>"
+			+"<ul>Fixed minor display bugs in slave management dialogue.</ul>"
 		+ "</list>"
 		;
 	
@@ -417,13 +466,13 @@ public class Main extends Application {
 		dir.mkdir();
 		
 		// Open error log
-//		try {
-//			@SuppressWarnings("resource")
-//			PrintStream stream = new PrintStream("data/error.log");
-//			System.setErr(stream);
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		}
+		try {
+			@SuppressWarnings("resource")
+			PrintStream stream = new PrintStream("data/error.log");
+			System.setErr(stream);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		
 		// Load properties:
 		if (new File("data/properties.xml").exists()) {

@@ -19,7 +19,7 @@
 		Added full map display to phone's default menu.
 		Added map to Lilaya's library.
 		Added urethra orifice to vagina.
-		Added all necessary support for penetrating urethras in the engine. (I will write in the associated sex actions and push anotehr update within a couple of days.)
+		Added all necessary support for penetrating urethras in the engine. (I will write in the associated sex actions and push another update within a couple of days.)
 		Added content toggles for lactation and urethral content.
 	
 	Angel's Kiss:
@@ -38,7 +38,8 @@
 	Contributors:
 		Fixed addiction time bug (it was always saying that NPCs weren't suffering from withdrawal, even if they were). (AlacoGit)
 		Added fast travel for Dream Lover. (Delvigore)
-		Nerfed experience gains from combat, from 10 * enemyLevel to 2 * enemyLevel. (Rfpnj)
+		Nerfed experience and essence gains from combat, (experience from 10 * enemyLevel to 2 * enemyLevel, and essence gain roughly halved). (Rfpnj)
+		Typo fixes. (Master of Puppets)
 	
 	Bugs:
 		Fixed major bugs in availability of actions in multiple-partner sex.
@@ -72,7 +73,6 @@
 		You could put it under girls’ job tabs to assign them to your bedroom and act as alarm clock with blowjobs and sexual intercourse.  
 	
 	- Have all of the core content for Submission finished (all of the encounters written in, and every area having at least the basics of their content added).
-
 
 	- Finish the spell system and add a few more weapons.
 		Companions
