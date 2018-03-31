@@ -12,48 +12,9 @@
 	
 	Patch notes:
 	
-	Gameplay:
-		<b>Added:</b> Rat-morphs. Found in Submission and in Dominion's canal tiles.
-		<b>Added:</b> Bat-morphs. Found in Submission's bat caverns.
-		<b>Added:</b> Rabbit-morphs, with 'lop-rabbit' subspecies (they have floppy ears). Found rarely in Dominion's alleyways.
-		Added full map display to phone's default menu.
-		Added map to Lilaya's library.
-		Added urethra orifice to vagina.
-		Added all necessary support for penetrating urethras in the engine. (I will write in the associated sex actions and push another update within a couple of days.)
-		Added content toggles for lactation and urethral content.
-	
-	Angel's Kiss:
-		Removed Angel's Kiss from Slaver Alley, and added it to a new location 'Red light district' in Dominion.
-		Added NPCs for Angel's Kiss: Angel, Bunny, and Loppy.
-		Added ability to buy a prostitution license from Angel, which allows you to send slaves to work as prostitutes in Angel's Kiss, ask alleyway prostitutes to move to Angel's Kiss, and whore yourself out for money.
-	
-	Clothing:
-		Added: Collar bowtie (neck slot).
-		Added: Suit cuffs (wrist slot).
-	
-	Other:
-		Added slime birthing scene variation.
-		Made Pix hate receiving anal sex, dislike being pregnant, and like receiving vaginal sex.
-	
-	Contributors:
-		Fixed addiction time bug (it was always saying that NPCs weren't suffering from withdrawal, even if they were). (AlacoGit)
-		Added fast travel for Dream Lover. (Delvigore)
-		Nerfed experience and essence gains from combat, (experience from 10 * enemyLevel to 2 * enemyLevel, and essence gain roughly halved). (Rfpnj)
-		Typo fixes. (Master of Puppets)
-	
 	Bugs:
-		Fixed major bugs in availability of actions in multiple-partner sex.
-		Fixed bug in multiple-partner sex where impregnation chances would fire for every participant, not just the one who came inside.
 		Typo fixes.
-		Fixed incorrect tongue and penis head descriptors.
-		Fixed bug where map wouldn't load correctly when importing a pre-0.2.1.5 save.
-		Fixed strange sex behaviour of demon attackers (the ones in dark alleyways tiles).
-		Slaves with the non-con fetish now correctly gain affection from non-con sex.
-		Fixed Submisison's slime spawn rate being far too high.
-		Fixed newly enslaved NPCs re-equipped new clothing as they get transferred to Slavery Administration.
-		Fixed bug in combat where if you were defeated/victorious/escaped/stunned, the spells and special attacks tabs wouldn't change to reflect this.
-		Fixed minor display bugs in slave management dialogue.
-	
+		Fixed some bugs in Bunny's and Loppy's dialogue options.
 	
 	
 	

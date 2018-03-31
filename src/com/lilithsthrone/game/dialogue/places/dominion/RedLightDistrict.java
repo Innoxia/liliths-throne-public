@@ -664,7 +664,7 @@ public class RedLightDistrict {
 
 		@Override
 		public String getContent() {
-			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.bunnyIntroduced)) {
+			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.loppyIntroduced)) {
 				return UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY");
 			} else {
 				return UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_REPEAT");
@@ -734,7 +734,7 @@ public class RedLightDistrict {
 											new Value<>(Main.game.getBunny(), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
 							AFTER_SEX_BUNNY_THREESOME,
 							UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_THREESOME")
-							+(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.loppyIntroduced)
+							+(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.bunnyIntroduced)
 									?UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_THREESOME_BUNNY_INTRODUCED")
 									:UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_THREESOME_BUNNY_NOT_INTRODUCED"))) {
 						@Override
@@ -747,11 +747,11 @@ public class RedLightDistrict {
 					};
 				}
 				
-			} else if (!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.bunnyIntroduced) && index == 4) {
+			} else if (!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.loppyIntroduced) && index == 4) {
 				return new Response("Decline", "You're not really interested in paying for sex with Loppy right now...", ANGELS_KISS_BEDROOM_LOPPY){
 					@Override
 					public void effects() {
-						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.bunnyIntroduced, true);
+						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.loppyIntroduced, true);
 						Main.game.getTextEndStringBuilder().append(UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_DECLINE"));
 					}
 				};

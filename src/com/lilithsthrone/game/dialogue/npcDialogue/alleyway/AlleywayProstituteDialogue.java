@@ -379,7 +379,7 @@ public class AlleywayProstituteDialogue {
 		public String getContent() {
 			return "<p>"
 						+ "Knowing that if your suspicions are correct, [npc.name] may act in an unpredictable manner, you try to look as non-threatening as possible as you ask,"
-						+ " [pc.speech(You're working out of these alleyways illegally, arne't you? If you had a prostitution license, you'dd be out on teh streets, or working out of a brothel in teh red-light district.)]"
+						+ " [pc.speech(You're working out of these alleyways illegally, aren't you? If you had a prostitution license, you'd be out on the streets, or working out of a brothel in the red-light district.)]"
 					+ "</p>"
 					+ "<p>"
 						+ "A look of panic quickly flashes over [npc.name]'s face, and [npc.she] cries out,"
@@ -411,7 +411,7 @@ public class AlleywayProstituteDialogue {
 						+ " you say, smiling at [npc.name]."
 					+ "</p>"
 					+ "<p>"
-						+ "Quickly grabbing [npc.her] things, [npc.name] hurries off in teh direction of the red-light district, and you prepare to carry on your way, happy with the fact that you've helped [npc.name] to escape these dangerous alleyways."
+						+ "Quickly grabbing [npc.her] things, [npc.name] hurries off in the direction of the red-light district, and you prepare to carry on your way, happy with the fact that you've helped [npc.name] to escape these dangerous alleyways."
 					+ "</p>";
 		}
 
