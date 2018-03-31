@@ -794,7 +794,7 @@ public class CityPlaces {
 					+ "</p>"
 					+ "<p>"
 						+ "The most noteworthy feature is at the very centre of the park, and takes the form of a huge statue of Lilith herself."
-						+ " The sultry smile carved into the white marble almost feels at though it's mocking you, and you cna't help but feel as though you don't want to stick around here for long."
+						+ " The sultry smile carved into the white marble almost feels at though it's mocking you, and you can't help but feel as though you don't want to stick around here for long."
 					+ "<p>"
 					+ "</p>"
 						+ "For now, you don't have much reason to wander through this park, but if you had someone else with you, it would be a nice place to spend an afternoon; if you can ignore the statue, that is..."
