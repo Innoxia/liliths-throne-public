@@ -12,18 +12,40 @@
 	
 	Patch notes:
 	
+	Gameplay:
+		Ralph now stocks bat, rat, and rabbit consumables.
+	
+	Sex:	
+		Added 'Swap Position' action to sex, so you can now access every possible position by swapping with your partner. (Available if you're the dom, or if you have equal control in the sex scene.)
+	
 	Other:
 		Changed the perks 'barren' and 'firing blanks' to traits (can now be equipped/unequipped will), and changed the trait 'arcane weaver' to a perk.
+		Improved the inventory screen to use pages. (Using a scrollbar wasn't viable, as JavaFX struggles to render so many SVGs at once.)
+		Increased inventory slot limit from 32 to 120.
 	
 	Bugs:
 		Typo fixes.
 		Fixed some bugs in Bunny's and Loppy's dialogue options.
 		Clothing now correctly conceals piercing slots.
+		Fixed slave prostitute job's obedience, affection, and income being far too high.
+		Fixed rabbit-morph tails being tagged as prehensile and suitable for penetration.
+		Fixed bugs with rat and bat morph race detection.
+		Fixed bat penis being detected as squirrel penis.
+		Loppy and Bunny now correctly return to their rooms after the threesome.
 	
 	
 	
-	Need to add NPC swapping in sex
+	Arcane shield use text is messed up, and spell tooltips!
 	
+	
+	
+	Sex AI: Also, I'm not sure if it's a bug or if it's just weird luck on my end, but it seems like most enemies are not actively advancing sex scenes, even in the dominant role.
+	 I get a lot of cyclical fingering that never turns into sex, or stripping and then saying "What should I do with you? I wonder" and not actually doing anything.
+	
+	
+	- Have all of the core content for Submission finished (all of the encounters written in, and every area having at least the basics of their content added).
+	
+	Make sex action template
 	- Add urethral penetration content. (Just penises for now)
 		Add dirty talk
 		Fix penis urethra being used for handjobs
@@ -36,8 +58,6 @@
 		- I'll try and add in a setting for their behaviour this version (set them to act friendly or cold)
 		You could put it under girls’ job tabs to assign them to your bedroom and act as alarm clock with blowjobs and sexual intercourse.  
 	
-	- Have all of the core content for Submission finished (all of the encounters written in, and every area having at least the basics of their content added).
-
 	- Finish the spell system and add a few more weapons.
 		Companions
 		Spell levels
@@ -46,7 +66,6 @@
 	
 	- Add in a mod template for items, clothing, weapons, and sex actions.
 	
-
 	Prostitutes having sex (not removing partners correctly?)
 	
 	
@@ -72,8 +91,13 @@
 	
 	Give racial bonuses unique things
 	
+	my character started with the Witch's Seal spell
+	
+	Tooltips: his message isn't correct i've already taken off mah pants, also i can still unzip my pants and the description is "This will expose your cock" when i've already had it exposed
 	
 	Prostitutes are unaffected by arcane storms
+	
+	Could we get ability to spend an arcane essense to trigger clothing transformations on demand
 	
 	Not sure if it's a bug but NPCs you find in the Dominion's canals don't stick around after encountering them.
 		Also slimes have a very high spawn rate in Submission, only encountered 2 imps so far and I believe gators are on the verge of extinction because I have yet to find any down there
@@ -85,6 +109,8 @@
 	When you're getting Kink TFed it still does the regular TF text. Saying they'll make you into the perfect "whatever" morph, instead of perfect "kink"
 	
 	While dusting: "Diana caught sight of Diana, and... Jennifer might have gotten pregnant!"
+	
+	text for changing aprts in phone menu
 	
 	Do Lilaya's tests, creampie her so she banishes you then return. Asking her about Essences and Jinxes will be greyed out if her test sex was your first Dominion orgasm harvest, unsure if only tried to the not pregnant  conversation but suspect both outcomes also leave it greyed.
 	

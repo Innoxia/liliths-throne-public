@@ -22,7 +22,7 @@ public enum SVGImages {
 
 	displacedIcon, concealedIcon, cummedInIcon, feminineWarningIcon, masculineWarningIcon, jinxedIcon,
 
-			menuIcon, inventoryIcon, inventoryIconDisabled, inventorySwitchIcon, inventorySwitchOppositeIcon, journalIcon, peopleIcon, zoomInIcon, zoomOutIcon, copyIcon, exportIcon, calendarIcon,
+			menuIcon, inventoryIcon, inventoryIconDisabled, journalIcon, peopleIcon, zoomInIcon, zoomOutIcon, copyIcon, exportIcon, calendarIcon,
 
 			diskSave, diskSaveDisabled, diskSaveConfirm, diskOverwrite, diskLoad, diskLoadConfirm, diskDelete, diskDeleteConfirm,
 			
@@ -53,6 +53,7 @@ public enum SVGImages {
 			stopwatch,
 			
 			counterZero, counterOne, counterTwo, counterThree, counterFour, counterFive, counterFivePlus,
+			counterZeroDisabled, counterOneDisabled, counterTwoDisabled, counterThreeDisabled, counterFourDisabled, counterFiveDisabled, counterFivePlusDisabled,
 			
 			scaleZero, scaleOne, scaleTwo, scaleThree, scaleFour,
 			scaleZeroDisabled, scaleOneDisabled, scaleTwoDisabled, scaleThreeDisabled, scaleFourDisabled,
@@ -110,14 +111,15 @@ public enum SVGImages {
 
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/inventory.svg");
 			inventoryIcon = Util.inputStreamToString(is);
-			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/inventoryDisabled.svg");
+			inventoryIcon = setColour(inventoryIcon, Colour.BASE_BLACK);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/inventory.svg");
 			inventoryIconDisabled = Util.inputStreamToString(is);
-			inventoryIconDisabled = setColour(inventoryIconDisabled, Colour.BASE_GREY);
+			inventoryIconDisabled = setColour(inventoryIconDisabled, Colour.BASE_PITCH_BLACK);
 			
-			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/inventorySwitch.svg");
-			inventorySwitchIcon = Util.inputStreamToString(is);
-			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/inventorySwitchOpposite.svg");
-			inventorySwitchOppositeIcon = Util.inputStreamToString(is);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/itemsOnFloor.svg");
+			itemsOnFloorIcon = Util.inputStreamToString(is);
+			itemsOnFloorIcon = setColour(itemsOnFloorIcon, Colour.BASE_BLACK);
+			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/journal.svg");
 			journalIcon = Util.inputStreamToString(is);
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/people.svg");
@@ -165,10 +167,6 @@ public enum SVGImages {
 			diskDeleteConfirm = setColour(diskDeleteConfirm, Colour.GENERIC_EXCELLENT);
 			
 			
-			
-			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/itemsOnFloor.svg");
-			itemsOnFloorIcon = Util.inputStreamToString(is);
-			itemsOnFloorIcon = setColour(itemsOnFloorIcon, Colour.GENERIC_EXCELLENT);
 			
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/map/playerIcon.svg");
 			playerMapIconMasculine = Util.inputStreamToString(is);
@@ -341,6 +339,28 @@ public enum SVGImages {
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/fetishes/overlay5Plus.svg");
 			counterFivePlus = Util.inputStreamToString(is);
 			counterFivePlus = setColour(counterFivePlus, Colour.BASE_PINK);
+			
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/fetishes/overlay0.svg");
+			counterZeroDisabled = Util.inputStreamToString(is);
+			counterZeroDisabled = setColour(counterZeroDisabled, Colour.BASE_BLACK);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/fetishes/overlay1.svg");
+			counterOneDisabled = Util.inputStreamToString(is);
+			counterOneDisabled = setColour(counterOneDisabled, Colour.BASE_BLACK);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/fetishes/overlay2.svg");
+			counterTwoDisabled = Util.inputStreamToString(is);
+			counterTwoDisabled = setColour(counterTwoDisabled, Colour.BASE_BLACK);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/fetishes/overlay3.svg");
+			counterThreeDisabled = Util.inputStreamToString(is);
+			counterThreeDisabled = setColour(counterThreeDisabled, Colour.BASE_BLACK);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/fetishes/overlay4.svg");
+			counterFourDisabled = Util.inputStreamToString(is);
+			counterFourDisabled = setColour(counterFourDisabled, Colour.BASE_BLACK);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/fetishes/overlay5.svg");
+			counterFiveDisabled = Util.inputStreamToString(is);
+			counterFiveDisabled = setColour(counterFiveDisabled, Colour.BASE_BLACK);
+			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/fetishes/overlay5Plus.svg");
+			counterFivePlusDisabled = Util.inputStreamToString(is);
+			counterFivePlusDisabled = setColour(counterFivePlusDisabled, Colour.BASE_BLACK);
 			
 
 			is = this.getClass().getResourceAsStream("/com/lilithsthrone/res/UIElements/scale_zero.svg");
@@ -598,14 +618,6 @@ public enum SVGImages {
 
 	public String getInventoryIconDisabled() {
 		return inventoryIconDisabled;
-	}
-
-	public String getInventorySwitchIcon() {
-		return inventorySwitchIcon;
-	}
-
-	public String getInventorySwitchOppositeIcon() {
-		return inventorySwitchOppositeIcon;
 	}
 
 	public String getJournalIcon() {
@@ -1113,6 +1125,34 @@ public enum SVGImages {
 
 	public String getCounterFivePlus() {
 		return counterFivePlus;
+	}
+
+	public String getCounterZeroDisabled() {
+		return counterZeroDisabled;
+	}
+
+	public String getCounterOneDisabled() {
+		return counterOneDisabled;
+	}
+
+	public String getCounterTwoDisabled() {
+		return counterTwoDisabled;
+	}
+
+	public String getCounterThreeDisabled() {
+		return counterThreeDisabled;
+	}
+
+	public String getCounterFourDisabled() {
+		return counterFourDisabled;
+	}
+
+	public String getCounterFiveDisabled() {
+		return counterFiveDisabled;
+	}
+
+	public String getCounterFivePlusDisabled() {
+		return counterFivePlusDisabled;
 	}
 
 	public String getStopwatch() {

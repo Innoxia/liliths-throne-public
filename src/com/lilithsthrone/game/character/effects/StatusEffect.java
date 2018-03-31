@@ -2166,7 +2166,7 @@ public enum StatusEffect {
 
 		@Override
 		public boolean isConditionsMet(GameCharacter target) {
-			return target.getRace() == Race.RAT_MORPH
+			return target.getRace() == Race.BAT_MORPH
 					&& !target.isRaceConcealed()
 					&& target.getRaceStage() == RaceStage.GREATER;
 		}

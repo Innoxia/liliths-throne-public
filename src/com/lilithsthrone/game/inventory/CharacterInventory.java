@@ -27,6 +27,7 @@ import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.game.inventory.weapon.AbstractWeapon;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.RenderingEngine;
 import com.lilithsthrone.utils.AbstractClothingRarityComparator;
 import com.lilithsthrone.utils.ClothingZLayerComparator;
 import com.lilithsthrone.utils.Colour;
@@ -51,7 +52,7 @@ import java.util.Set;
  * Inventory for a Character. Tracks weapons equipped, clothes worn & inventory space.
  * 
  * @since 0.1.0
- * @version 0.1.98
+ * @version 0.2.2
  * @author Innoxia
  */
 public class CharacterInventory implements Serializable, XMLSaving {
@@ -83,6 +84,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	// ClothingSets being worn:
 	private Map<ClothingSet, Integer> clothingSetCount = new EnumMap<>(ClothingSet.class);
 
+	@SuppressWarnings("unused")
 	private int maxInventorySpace;
 
 	public CharacterInventory(int money) {
@@ -308,7 +310,8 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	}
 
 	public int getMaximumInventorySpace() {
-		return maxInventorySpace;
+//		return maxInventorySpace;
+		return RenderingEngine.INVENTORY_PAGES * RenderingEngine.ITEMS_PER_PAGE;
 	}
 	
 	public void clearNonEquippedInventory(){
@@ -326,7 +329,7 @@ public class CharacterInventory implements Serializable, XMLSaving {
 	}
 	
 	public boolean isInventoryFull() {
-		return getInventorySlotsTaken() >= maxInventorySpace;
+		return getInventorySlotsTaken() >= getMaximumInventorySpace();
 	}
 	
 	/**

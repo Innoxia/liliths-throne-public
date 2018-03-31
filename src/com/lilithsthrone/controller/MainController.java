@@ -343,6 +343,9 @@ public class MainController implements Initializable {
 		if(!Main.game.isStarted()) {
 			return;
 		}
+
+		RenderingEngine.setPageLeft(0);
+		RenderingEngine.setPageRight(0);
 		
 		InventoryDialogue.setBuyback(false);
 		InventoryDialogue.setInventoryNPC(npc);
@@ -1383,6 +1386,11 @@ public class MainController implements Initializable {
 			}
 			
 			// Non-equipped inventory:
+			for(int i=0 ; i<RenderingEngine.INVENTORY_PAGES; i++) {
+				setInventoryPageLeft(i);
+				setInventoryPageRight(i);
+			}
+			
 			
 			// Player:
 			for (Entry<AbstractWeapon, Integer> entry : Main.game.getPlayer().getMapOfDuplicateWeapons().entrySet()) {
@@ -1462,7 +1470,7 @@ public class MainController implements Initializable {
 			} else {
 				// Weapons on floor:
 				for (Entry<AbstractWeapon, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateWeapons().entrySet()) {
-					id = "WEAPON_FLOOR_" + entry.getKey().hashCode();
+					id = "FLOOR_WEAPON_" + entry.getKey().hashCode();
 					if (((EventTarget) document.getElementById(id)) != null) {
 						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setWeaponInventory(entry.getKey(), null);
 						addEventListener(document, id, "click", el, false);
@@ -1475,7 +1483,7 @@ public class MainController implements Initializable {
 				
 				// Clothing on floor:
 				for (Entry<AbstractClothing, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateClothing().entrySet()) {
-					id = "CLOTHING_FLOOR_" + entry.getKey().hashCode();
+					id = "FLOOR_CLOTHING_" + entry.getKey().hashCode();
 					if (((EventTarget) document.getElementById(id)) != null) {
 						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setClothingInventory(entry.getKey(), null);
 						addEventListener(document, id, "click", el, false);
@@ -1488,7 +1496,7 @@ public class MainController implements Initializable {
 				
 				// Items on floor:
 				for (Entry<AbstractItem, Integer> entry : Main.game.getPlayerCell().getInventory().getMapOfDuplicateItems().entrySet()) {
-					id = "ITEM_FLOOR_" + entry.getKey().hashCode();
+					id = "FLOOR_ITEM_" + entry.getKey().hashCode();
 					if (((EventTarget) document.getElementById(id)) != null) {
 						InventorySelectedItemEventListener el = new InventorySelectedItemEventListener().setItemInventory(entry.getKey(), null);
 						addEventListener(document, id, "click", el, false);
@@ -5236,6 +5244,26 @@ public class MainController implements Initializable {
 			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
 				Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().setWorkHour(i, !Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected().getWorkHours()[i]);
 				Main.game.setContent(new Response("", "", SlaveryManagementDialogue.getSlaveryManagementSlaveJobsDialogue(Main.game.getDialogueFlags().getSlaveryManagerSlaveSelected())));
+			}, false);
+		}
+	}
+	
+	private void setInventoryPageLeft(int i) {
+		String id = "INV_PAGE_LEFT_"+i;
+		if (((EventTarget) document.getElementById(id)) != null) {
+			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+				RenderingEngine.setPageLeft(i);
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
+			}, false);
+		}
+	}
+	
+	private void setInventoryPageRight(int i) {
+		String id = "INV_PAGE_RIGHT_"+i;
+		if (((EventTarget) document.getElementById(id)) != null) {
+			((EventTarget) document.getElementById(id)).addEventListener("click", e -> {
+				RenderingEngine.setPageRight(i);
+				Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));
 			}, false);
 		}
 	}

@@ -19,5 +19,10 @@ public class SMAmberDoggyFucked extends SexManagerDefault {
 				dominants,
 				submissives);
 	}
+	
+	@Override
+	public boolean isPlayerAbleToSwapPositions() {
+		return false;
+	}
 
 }

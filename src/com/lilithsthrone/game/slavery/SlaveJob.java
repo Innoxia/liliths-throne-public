@@ -138,7 +138,7 @@ public enum SlaveJob {
 	},
 	
 	PROSTITUTE(10, "Prostitute", "Prostitute", "Assign this slave to work as a prostitute at the brothel 'Angel's Kiss'.",
-			-2.5f, 5f,
+			-0.25f, 0.5f,
 			200, 0, 0.5f,
 			Util.newArrayListOfValues(
 					new ListValue<>(SlaveJobSetting.SEX_ORAL),

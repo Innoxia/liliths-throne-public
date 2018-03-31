@@ -497,7 +497,11 @@ public enum Sex {
 		}
 		
 		activePartner.setLastTimeHadSex(Main.game.getMinutesPassed(), Sex.getNumberOfOrgasms(activePartner)>0);
-		activePartner.endSex(true);
+		for(GameCharacter participant : Sex.getAllParticipants()) {
+			if(participant instanceof NPC) {
+				((NPC)participant).endSex(true);
+			}
+		}
 	}
 
 	private static String endSexDescription;
@@ -3298,6 +3302,27 @@ public enum Sex {
 		}
 		
 		throw new IllegalArgumentException("The passed character in Sex.getSexPositionSlot(character) is not detected as a participant in this Sex scene!");
+	}
+	
+	public static void swapSexPositionSlots(GameCharacter character1, GameCharacter character2) {
+		SexPositionSlot characterSlot1 = Sex.getSexPositionSlot(character1);
+		SexPositionSlot characterSlot2 = Sex.getSexPositionSlot(character2);
+		
+		if(Sex.dominants.keySet().contains(character1)) {
+			Sex.dominants.put(character1, characterSlot2);
+		}
+		if(Sex.submissives.keySet().contains(character1)) {
+			Sex.submissives.put(character1, characterSlot2);
+		}
+		
+		if(Sex.dominants.keySet().contains(character2)) {
+			Sex.dominants.put(character2, characterSlot1);
+		}
+		if(Sex.submissives.keySet().contains(character2)) {
+			Sex.submissives.put(character2, characterSlot1);
+		}
+		
+		updateAvailableActions();
 	}
 	
 	public static void setSexPositionSlot(GameCharacter character, SexPositionSlot slot) {

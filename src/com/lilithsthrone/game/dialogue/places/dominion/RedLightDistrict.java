@@ -732,7 +732,7 @@ public class RedLightDistrict {
 									Util.newHashMapOfValues(
 											new Value<>(Main.game.getLoppy(), SexPositionSlot.DOGGY_ON_ALL_FOURS),
 											new Value<>(Main.game.getBunny(), SexPositionSlot.DOGGY_ON_ALL_FOURS_SECOND))),
-							AFTER_SEX_BUNNY_THREESOME,
+							AFTER_SEX_LOPPY_THREESOME,
 							UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_THREESOME")
 							+(Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.bunnyIntroduced)
 									?UtilText.parseFromXMLFile("places/dominion/redLightDistrict/angelsKiss", "BEDROOM_LOPPY_THREESOME_BUNNY_INTRODUCED")

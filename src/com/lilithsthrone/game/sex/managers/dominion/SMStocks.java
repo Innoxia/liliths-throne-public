@@ -53,4 +53,9 @@ public class SMStocks extends SexManagerDefault {
 	public boolean isAbleToRemoveOthersClothing(GameCharacter character){
 		return getDominants().containsKey(character);
 	}
+	
+	@Override
+	public boolean isPlayerAbleToSwapPositions() {
+		return false;
+	}
 }

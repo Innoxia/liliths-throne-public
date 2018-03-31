@@ -57,6 +57,7 @@ public enum Colour {
 	BASE_BLUE_STEEL(BaseColour.BLUE_STEEL, "steely blue", Util.newArrayListOfValues(new ListValue<>("steelyBlue"))),
 	
 	BASE_BLACK(BaseColour.BLACK, "black", Util.newArrayListOfValues(new ListValue<>("black"))),
+	BASE_PITCH_BLACK(BaseColour.PITCH_BLACK, "black", Util.newArrayListOfValues(new ListValue<>("black"))),
 	
 	
 	

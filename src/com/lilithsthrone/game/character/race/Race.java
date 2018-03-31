@@ -353,7 +353,7 @@ public enum Race {
 
 			Colour.RACE_BAT_MORPH,
 			Disposition.NEUTRAL,
-			StatusEffect.RAT_MORPH,
+			StatusEffect.BAT_MORPH,
 			Util.newArrayListOfValues(new ListValue<Attack>(Attack.SPECIAL_ATTACK), new ListValue<Attack>(Attack.MAIN)),
 			true,
 			0.5f,

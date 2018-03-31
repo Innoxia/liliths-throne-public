@@ -1942,7 +1942,8 @@ public class ItemType {
 			TFEssence.ARCANE,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.RACE_BIOJUICE))),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
+					new ListValue<>(ItemTag.RACIAL_TF_ITEM),
+					new ListValue<>(ItemTag.NOT_FOR_SALE))) {
 
 		private static final long serialVersionUID = 1L;
 
@@ -2772,7 +2773,8 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.BIMBO_LOLLIPOP))),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
+					new ListValue<>(ItemTag.RACIAL_TF_ITEM),
+					new ListValue<>(ItemTag.NOT_FOR_SALE))) {
 
 		private static final long serialVersionUID = 1L;
 		
@@ -2818,7 +2820,8 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.NYMPHO_LOLLIPOP))),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
+					new ListValue<>(ItemTag.RACIAL_TF_ITEM),
+					new ListValue<>(ItemTag.NOT_FOR_SALE))) {
 
 		private static final long serialVersionUID = 1L;
 		
@@ -2863,7 +2866,8 @@ public class ItemType {
 			null,
 			Util.newArrayListOfValues(new ListValue<>(new ItemEffect(ItemEffectType.DOMINANT_PERFUME))),
 			Util.newArrayListOfValues(
-					new ListValue<>(ItemTag.RACIAL_TF_ITEM))) {
+					new ListValue<>(ItemTag.RACIAL_TF_ITEM),
+					new ListValue<>(ItemTag.NOT_FOR_SALE))) {
 
 		private static final long serialVersionUID = 1L;
 		

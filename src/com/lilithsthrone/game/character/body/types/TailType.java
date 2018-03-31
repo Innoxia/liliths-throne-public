@@ -38,7 +38,7 @@ public enum TailType implements BodyPartTypeInterface {
 	
 	RAT_MORPH(BodyCoveringType.RAT_SKIN, Race.RAT_MORPH, true, true),
 	
-	RABBIT_MORPH(BodyCoveringType.RABBIT_FUR, Race.RABBIT_MORPH, true, true),
+	RABBIT_MORPH(BodyCoveringType.RABBIT_FUR, Race.RABBIT_MORPH, false, false),
 	
 	ALLIGATOR_MORPH(BodyCoveringType.ALLIGATOR_SCALES, Race.ALLIGATOR_MORPH, false, false),
 	

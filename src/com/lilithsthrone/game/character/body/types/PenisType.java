@@ -51,7 +51,7 @@ public enum PenisType implements BodyPartTypeInterface {
 	
 	RABBIT_MORPH(BodyCoveringType.PENIS, TesticleType.RABBIT_MORPH, Race.RABBIT_MORPH, PenisModifier.SHEATHED),
 	
-	BAT_MORPH(BodyCoveringType.PENIS, TesticleType.BAT_MORPH, Race.SQUIRREL_MORPH, PenisModifier.SHEATHED);
+	BAT_MORPH(BodyCoveringType.PENIS, TesticleType.BAT_MORPH, Race.BAT_MORPH, PenisModifier.SHEATHED);
 
 	
 	private BodyCoveringType skinType;
