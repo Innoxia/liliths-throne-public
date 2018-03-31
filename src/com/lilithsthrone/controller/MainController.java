@@ -4130,7 +4130,7 @@ public class MainController implements Initializable {
 								addEventListener(document, id, "mouseleave", hideTooltipListener, false);
 								addEventListener(document, id, "mouseenter", new TooltipInformationEventListener().setLevelUpPerk(i, e.getPerk(), Main.game.getPlayer()), false);
 								((EventTarget) document.getElementById(id)).addEventListener("click", event -> {
-									if(e.getPerk().isMajor() && PerkManager.MANAGER.isPerkOwned(e)) {
+									if(e.getPerk().isEquippableTrait() && PerkManager.MANAGER.isPerkOwned(e)) {
 										if(!Main.game.getPlayer().hasTraitActivated(e.getPerk())) {
 											Main.game.getPlayer().addTrait(e.getPerk());
 										} else {
@@ -4141,7 +4141,7 @@ public class MainController implements Initializable {
 									} else if(Main.game.getPlayer().getPerkPoints()>=1 && PerkManager.MANAGER.isPerkAvailable(e)) {
 										if(Main.game.getPlayer().addPerk(e.getRow(), e.getPerk())) {
 											Main.game.getPlayer().incrementPerkPoints(-1);
-											if(e.getPerk().isMajor() && Main.game.getPlayer().getTraits().size()<GameCharacter.MAX_TRAITS) {
+											if(e.getPerk().isEquippableTrait() && Main.game.getPlayer().getTraits().size()<GameCharacter.MAX_TRAITS) {
 												Main.game.getPlayer().addTrait(e.getPerk());
 											}
 											Main.game.setContent(new Response("", "", Main.game.getCurrentDialogueNode()));

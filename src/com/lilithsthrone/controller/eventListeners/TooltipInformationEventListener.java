@@ -141,7 +141,7 @@ public class TooltipInformationEventListener implements EventListener {
 			tooltipSB.setLength(0);
 			tooltipSB.append("<div class='title'>" + Util.capitaliseSentence(perk.getName(owner)) + "</div>");
 
-			if(perk.isMajor()) {
+			if(perk.isEquippableTrait()) {
 				tooltipSB.append("<div class='subTitle' style='color:"+Colour.TRAIT.toWebHexString()+";'>Trait</div>");
 			} else {
 				tooltipSB.append("<div class='subTitle' style='color:"+Colour.PERK.toWebHexString()+";'>Perk</div>");
@@ -178,7 +178,7 @@ public class TooltipInformationEventListener implements EventListener {
 			tooltipSB.setLength(0);
 			tooltipSB.append("<div class='title'>" + Util.capitaliseSentence(levelUpPerk.getName(owner)) + "</div>");
 			
-			if(levelUpPerk.isMajor()) {
+			if(levelUpPerk.isEquippableTrait()) {
 				tooltipSB.append("<div class='subTitle' style='color:"+Colour.TRAIT.toWebHexString()+";'>Trait</div>");
 			} else {
 				tooltipSB.append("<div class='subTitle' style='color:"+Colour.PERK.toWebHexString()+";'>Perk</div>");
@@ -203,7 +203,7 @@ public class TooltipInformationEventListener implements EventListener {
 			// Description:
 			tooltipSB.append("<div class='description'>" + levelUpPerk.getDescription(Main.game.getPlayer()) + "</div>");
 
-			if(levelUpPerk.isMajor()) {
+			if(levelUpPerk.isEquippableTrait()) {
 				if(levelUpPerk.getPerkCategory()==PerkCategory.JOB) {
 					tooltipSB.append("<div class='subTitle' style='color:"+Colour.TRAIT.toWebHexString()+";'>Job-related trait cannot be removed.</div>");
 					

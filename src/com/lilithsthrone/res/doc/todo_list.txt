@@ -12,10 +12,13 @@
 	
 	Patch notes:
 	
+	Other:
+		Changed the perks 'barren' and 'firing blanks' to traits (can now be equipped/unequipped will), and changed the trait 'arcane weaver' to a perk.
+	
 	Bugs:
 		Typo fixes.
 		Fixed some bugs in Bunny's and Loppy's dialogue options.
-	
+		Clothing now correctly conceals piercing slots.
 	
 	
 	

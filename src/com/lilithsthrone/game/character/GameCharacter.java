@@ -1205,8 +1205,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		if(element!=null) {
 			for(int i=0; i<element.getElementsByTagName("perk").getLength(); i++){
 				Element e = ((Element)element.getElementsByTagName("perk").item(i));
-				
-				character.addTrait(Perk.valueOf(e.getAttribute("type")));
+				Perk p = Perk.valueOf(e.getAttribute("type"));
+				if(p.isEquippableTrait()) {
+					character.addTrait(p);
+				}
 				CharacterUtils.appendToImportLog(log, "</br>Added Equipped Perk: "+Perk.valueOf(e.getAttribute("type")).getName(character));
 			}
 		}
@@ -2763,7 +2765,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		List<Perk> tempPerkList = new ArrayList<>();
 		for(Entry<Integer, Set<Perk>> entry : perks.entrySet()) {
 			for(Perk p : entry.getValue()) {
-				if(p.isMajor()) {
+				if(p.isEquippableTrait()) {
 					tempPerkList.add(p);
 				}
 			}
@@ -2773,7 +2775,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	public boolean hasTrait(Perk p, boolean equipped) {
-		if(p.isMajor()) {
+		if(p.isEquippableTrait()) {
 			if((p.getPerkCategory()==PerkCategory.JOB)) {
 				return getHistory().getAssociatedPerk()==p;
 			} else if(equipped) {
@@ -2805,7 +2807,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		perks.get(row).add(perk);
 		
-		if(!perk.isMajor()) {
+		if(!perk.isEquippableTrait()) {
 			applyPerkGainEffects(perk);
 		}
 		
@@ -2823,7 +2825,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		perks.get(row).remove(perk);
 
-		if(!perk.isMajor()) {
+		if(!perk.isEquippableTrait()) {
 			applyPerkRemovalEffects(perk);
 		}
 		
