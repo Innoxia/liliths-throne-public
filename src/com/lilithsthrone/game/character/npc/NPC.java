@@ -441,7 +441,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	}
 	
 	public Map<TFEssence, Integer> getLootEssenceDrops() {
-		return Util.newHashMapOfValues(new Value<>(TFEssence.ARCANE, Util.random.nextInt(this.getLevel())+1+this.getLevel()));
+		return Util.newHashMapOfValues(new Value<>(TFEssence.ARCANE, Util.random.nextInt(this.getLevel())+1));
 	}
 	
 	
