@@ -146,6 +146,14 @@ public class ShoppingArcadeDialogue {
 					}
 				};
 
+			} else if (index == 11) {
+				return new ResponseEffectsOnly("Dream Lover", "Fast travel to Dream Lover."){
+					@Override
+					public void effects() {
+						Main.game.setActiveWorld(Main.game.getWorlds().get(WorldType.SHOPPING_ARCADE), PlaceType.SHOPPING_ARCADE_ASHLEYS_SHOP, true);
+					}
+				};
+
 			} else {
 				return null;
 			}
