@@ -38,5 +38,9 @@ public class SexManagerRalphDiscount extends SexManagerDefault {
 	public boolean isPlayerAbleToStopSex() {
 		return false;
 	}
-	
+
+	@Override
+	public boolean isAbleToRemoveOthersClothing(GameCharacter character){
+		return false;
+	}
 }
