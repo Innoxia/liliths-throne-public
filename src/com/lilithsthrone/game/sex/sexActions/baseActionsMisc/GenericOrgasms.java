@@ -1220,104 +1220,51 @@ public class GenericOrgasms {
 				case MOUTH:
 					if(target.isPlayer()) {
 						cumTargetSB.append(" deep down your throat, and you find yourself making muffled whining noises as you feel the [npc.cum+] sliding down into your stomach.");
+						switch(characterOrgasming.getCumFlavour()) {
+							case BEER:
+								cumTargetSB.append(" The unusual taste of [npc1.name]'s beer-flavoured");
+								break;
+							case CHOCOLATE:
+								cumTargetSB.append(" The unusual taste of [npc1.name]'s chocolate-flavoured");
+								break;
+							case CUM:
+								cumTargetSB.append(" The salty taste of");
+								break;
+							case GIRL_CUM:
+								cumTargetSB.append(" The unusual taste of [npc1.name]'s sweet");
+								break;
+							case HONEY:
+								cumTargetSB.append(" The unusual taste of [npc1.name]'s honey-flavoured");
+								break;
+							case MILK:
+								cumTargetSB.append(" The unusual taste of [npc1.name]'s milk-flavoured");
+								break;
+							case MINT:
+								cumTargetSB.append(" The unusual taste of [npc1.name]'s mint-flavoured");
+								break;
+							case PINEAPPLE:
+								cumTargetSB.append(" The unusual taste of [npc1.name]'s pineapple-flavoured");
+								break;
+							case SLIME:
+								cumTargetSB.append(" The unusual taste of [npc1.name]'s sweet");
+								break;
+							case STRAWBERRY:
+								cumTargetSB.append(" The unusual taste of [npc1.name]'s strawberry-flavoured");
+								break;
+							case VANILLA:
+								cumTargetSB.append(" The unusual taste of [npc1.name]'s vanilla-flavoured");
+								break;
+						}
+						cumTargetSB.append(" cum rises up to hit your [npc2.tongue], and you");
 						if(target.hasFetish(Fetish.FETISH_CUM_ADDICT) || SexFlags.playerRequestedCreampie)
 						{
-							switch(characterOrgasming.getCumFlavour()) {
-								case BEER:
-									cumTargetSB.append(" The unusual taste of [npc1.name]'s beer-flavoured cum rises up to hit your [npc2.tongue], and you "
-											+ UtilText.returnStringAtRandom("greedily","hungrily")
-											+ " gulp down as much of the");
-									break;
-								case CHOCOLATE:
-									cumTargetSB.append(" The unusual taste of [npc1.name]'s chocolate-flavoured cum rises up to hit your [npc2.tongue], and you "
-											+ UtilText.returnStringAtRandom("greedily","hungrily")
-											+ " gulp down as much of the");
-									break;
-								case CUM:
-									cumTargetSB.append(" The salty taste of cum rises up to hit your [npc2.tongue], and you "
-											+ UtilText.returnStringAtRandom("greedily","hungrily")
-											+ " gulp down as much of the");
-									break;
-								case GIRL_CUM:
-									cumTargetSB.append(" The unusual taste of [npc1.name]'s sweet cum rises up to hit your [npc2.tongue], and you "
-											+ UtilText.returnStringAtRandom("greedily","hungrily")
-											+ " gulp down as much of the");
-									break;
-								case HONEY:
-									cumTargetSB.append(" The unusual taste of [npc1.name]'s honey-flavoured cum rises up to hit your [npc2.tongue], and you "
-											+ UtilText.returnStringAtRandom("greedily","hungrily")
-											+ " gulp down as much of the");
-									break;
-								case MILK:
-									cumTargetSB.append(" The unusual taste of [npc1.name]'s milk-flavoured cum rises up to hit your [npc2.tongue], and you "
-											+ UtilText.returnStringAtRandom("greedily","hungrily")
-											+ " gulp down as much of the");
-									break;
-								case MINT:
-									cumTargetSB.append(" The unusual taste of [npc1.name]'s mint-flavoured cum rises up to hit your [npc2.tongue], and you "
-											+ UtilText.returnStringAtRandom("greedily","hungrily")
-											+ " gulp down as much of the");
-									break;
-								case PINEAPPLE:
-									cumTargetSB.append(" The unusual taste of [npc1.name]'s pineapple-flavoured cum rises up to hit your [npc2.tongue], and you "
-											+ UtilText.returnStringAtRandom("greedily","hungrily")
-											+ " gulp down as much of the");
-									break;
-								case SLIME:
-									cumTargetSB.append(" The unusual taste of [npc1.name]'s sweet cum rises up to hit your [npc2.tongue], and you "
-											+ UtilText.returnStringAtRandom("greedily","hungrily")
-											+ " gulp down as much of the");
-									break;
-								case STRAWBERRY:
-									cumTargetSB.append(" The unusual taste of [npc1.name]'s strawberry-flavoured cum rises up to hit your [npc2.tongue], and you "
-											+ UtilText.returnStringAtRandom("greedily","hungrily")
-											+ " gulp down as much of the");
-									break;
-								case VANILLA:
-									cumTargetSB.append(" The unusual taste of [npc1.name]'s vanilla-flavoured cum rises up to hit your [npc2.tongue], and you "
-											+ UtilText.returnStringAtRandom("greedily","hungrily")
-											+ " gulp down as much of the");
-									break;
-							}
+							cumTargetSB.append(" " + UtilText.returnStringAtRandom("greedily","hungrily"));
 						}
 						else
 						{
-							switch(characterOrgasming.getCumFlavour()) {
-								case BEER:
-									cumTargetSB.append(" The unusual taste of [npc1.name]'s beer-flavoured cum rises up to hit your [npc2.tongue], and you're left with no other option but to gulp down as much of the");
-									break;
-								case CHOCOLATE:
-									cumTargetSB.append(" The unusual taste of [npc1.name]'s chocolate-flavoured cum rises up to hit your [npc2.tongue], and you're left with no other option but to gulp down as much of the");
-									break;
-								case CUM:
-									cumTargetSB.append(" The salty taste of cum rises up to hit your [npc2.tongue], and you're left with no other option but to gulp down as much of the");
-									break;
-								case GIRL_CUM:
-									cumTargetSB.append(" The unusual taste of [npc1.name]'s sweet cum rises up to hit your [npc2.tongue], and you're left with no other option but to gulp down as much of the");
-									break;
-								case HONEY:
-									cumTargetSB.append(" The unusual taste of [npc1.name]'s honey-flavoured cum rises up to hit your [npc2.tongue], and you're left with no other option but to gulp down as much of the");
-									break;
-								case MILK:
-									cumTargetSB.append(" The unusual taste of [npc1.name]'s milk-flavoured cum rises up to hit your [npc2.tongue], and you're left with no other option but to gulp down as much of the");
-									break;
-								case MINT:
-									cumTargetSB.append(" The unusual taste of [npc1.name]'s mint-flavoured cum rises up to hit your [npc2.tongue], and you're left with no other option but to gulp down as much of the");
-									break;
-								case PINEAPPLE:
-									cumTargetSB.append(" The unusual taste of [npc1.name]'s pineapple-flavoured cum rises up to hit your [npc2.tongue], and you're left with no other option but to gulp down as much of the");
-									break;
-								case SLIME:
-									cumTargetSB.append(" The unusual taste of [npc1.name]'s sweet cum rises up to hit your [npc2.tongue], and you're left with no other option but to gulp down as much of the");
-									break;
-								case STRAWBERRY:
-									cumTargetSB.append(" The unusual taste of [npc1.name]'s strawberry-flavoured cum rises up to hit your [npc2.tongue], and you're left with no other option but to gulp down as much of the");
-									break;
-								case VANILLA:
-									cumTargetSB.append(" The unusual taste of [npc1.name]'s vanilla-flavoured cum rises up to hit your [npc2.tongue], and you're left with no other option but to gulp down as much of the");
-									break;
-							}
+							cumTargetSB.append("'re left with no other option but to");
 						}
+						cumTargetSB.append(" gulp down as much of the");
 						if(!characterOrgasming.getCumModifiers().isEmpty()) {
 							switch(characterOrgasming.getCumModifiers().get(Util.random.nextInt(characterOrgasming.getCumModifiers().size()))) { //TODO specials for ALCOHOLIC & HALLUCINOGENIC
 								case ADDICTIVE:
