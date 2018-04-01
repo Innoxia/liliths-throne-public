@@ -154,6 +154,14 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 	
 	// Getters & setters:
 	
+	public String getName(boolean withDeterminer, boolean withRarityColour) {
+		return (withDeterminer
+				? (!itemType.getDeterminer().equalsIgnoreCase("a") && !itemType.getDeterminer().equalsIgnoreCase("an")
+					? itemType.getDeterminer() + " "
+					: (Util.isVowel(name.charAt(0)) ? "an " : "a "))
+				: " ")
+				+ (withRarityColour ? (" <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : " "+name);
+	}
 	
 	public String getDisplayName(boolean withRarityColour) {
 		return Util.capitaliseSentence((itemType.getDeterminer()==""?"":itemType.getDeterminer()+" ") + (withRarityColour ? ("<span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : name));
@@ -183,7 +191,7 @@ public abstract class AbstractItem extends AbstractCoreItem implements Serializa
 
 		sb.append("</p>"
 				+ "<p>"
-					+ "It has a value of " + UtilText.formatAsMoney(getValue()) + "."
+					+ (this.getItemType().isPlural()?"They have":"It has")+" a value of " + UtilText.formatAsMoney(getValue()) + "."
 				+ "</p>");
 		
 		return sb.toString();

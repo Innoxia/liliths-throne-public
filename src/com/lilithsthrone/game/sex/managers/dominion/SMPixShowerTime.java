@@ -39,5 +39,10 @@ public class SMPixShowerTime extends SexManagerDefault {
 	public boolean isPartnerStartNaked() {
 		return true;
 	}
+	
+	@Override
+	public boolean isPlayerAbleToSwapPositions() {
+		return false;
+	}
 
 }

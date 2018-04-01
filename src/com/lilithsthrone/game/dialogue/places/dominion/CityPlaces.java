@@ -794,9 +794,9 @@ public class CityPlaces {
 					+ "</p>"
 					+ "<p>"
 						+ "The most noteworthy feature is at the very centre of the park, and takes the form of a huge statue of Lilith herself."
-						+ " The sultry smile carved into the white marble almost feels at though it's mocking you, and you cna't help but feel as though you don't want to stick around here for long."
-					+ "<p>"
+						+ " The sultry smile carved into the white marble almost feels at though it's mocking you, and you can't help but feel as though you don't want to stick around here for long."
 					+ "</p>"
+					+ "<p>"
 						+ "For now, you don't have much reason to wander through this park, but if you had someone else with you, it would be a nice place to spend an afternoon; if you can ignore the statue, that is..."
 					+ "</p>";
 		}
@@ -821,7 +821,7 @@ public class CityPlaces {
 					+ "<p>"
 						+ "<b style='color:"+Colour.RACE_HARPY.toWebHexString()+";'>Harpy Nests:</b></br>"
 						+ "The wooden platforms and bridges of the rooftop Harpy Nests cast a shadow over these streets."
-						+ " Looking up, you see the occasional flash of bright-coloured feathers as harpies swoop this way and that."
+						+ " Looking up, you see the occasional flash of brightly-coloured feathers as harpies swoop this way and that."
 					+ "</p>";
 		}
 

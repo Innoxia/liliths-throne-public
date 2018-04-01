@@ -270,7 +270,7 @@ public enum PerkManager {
 					+ "<svg width='100%' height='100%'><line x1='"+entryX+"%' y1='100%' x2='"+entryX+"%' y2='50%' stroke='"+getPerkLineChildColour(perkEntry).toWebHexString()+"' stroke-width='2px'/></svg></div>");
 		}
 		
-		entrySB.append("<div class='square-button"+(perkEntry.getPerk().isMajor()?"":" round")+(disabled?" disabled":"")+"' style='width:16%; margin:16px "+getMargin(size)+"%; "+
+		entrySB.append("<div class='square-button"+(perkEntry.getPerk().isEquippableTrait()?"":" round")+(disabled?" disabled":"")+"' style='width:16%; margin:16px "+getMargin(size)+"%; "+
 							(isPerkOwned(perkEntry)
 									?Main.game.getPlayer().hasTraitActivated(perkEntry.getPerk())
 										?"border-color:"+Colour.TRAIT.toWebHexString()+";"
@@ -278,9 +278,9 @@ public enum PerkManager {
 									:"")+"' id='"+perkEntry.getRow()+"_"+perkEntry.getPerk()+"'>"
 				+ "<div class='square-button-content'>"+perkEntry.getPerk().getSVGString()+"</div>"
 				+ (disabled
-					?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.8; "+(perkEntry.getPerk().isMajor()?"border-radius:5px;":" border-radius:50%;")+"'></div>"
+					?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.8; "+(perkEntry.getPerk().isEquippableTrait()?"border-radius:5px;":" border-radius:50%;")+"'></div>"
 					:!isPerkOwned(perkEntry)
-						?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.6; "+(perkEntry.getPerk().isMajor()?"border-radius:5px;":" border-radius:50%;")+"'></div>"
+						?"<div style='position:absolute; left:0; top:0; margin:0; padding:0; width:100%; height:100%; background-color:#000; opacity:0.6; "+(perkEntry.getPerk().isEquippableTrait()?"border-radius:5px;":" border-radius:50%;")+"'></div>"
 						:"")
 			+ "</div>");
 		

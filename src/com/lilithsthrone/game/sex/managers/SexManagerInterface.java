@@ -28,6 +28,7 @@ public interface SexManagerInterface {
 	public Map<GameCharacter, SexPositionSlot> getDominants();
 	public Map<GameCharacter, SexPositionSlot> getSubmissives();
 	
+	
 	public default SexPace getStartingSexPaceModifier(GameCharacter character) {
 		return null;
 	}
@@ -53,6 +54,10 @@ public interface SexManagerInterface {
 	
 	public default String getStartSexDescription() {
 		return "";
+	}
+
+	public default boolean isPlayerAbleToSwapPositions() {
+		return true;
 	}
 	
 	public default boolean isPlayerAbleToStopSex() {

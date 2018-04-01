@@ -4,7 +4,9 @@ import com.lilithsthrone.game.character.CharacterUtils;
 import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.dialogue.DebugDialogue;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.DialogueNodeOld;
+import com.lilithsthrone.game.dialogue.places.dominion.RedLightDistrict;
 import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.responses.ResponseCombat;
 import com.lilithsthrone.game.dialogue.responses.ResponseEffectsOnly;
@@ -19,6 +21,7 @@ import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
 import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.utils.Util.Value;
+import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
 /**
@@ -338,13 +341,84 @@ public class AlleywayProstituteDialogue {
 					};
 				}
 				
-			}  else if (index == 4) {
+			} else if (index == 4) {
 				return new Response("Attack", "If you really wanted to, there's nothing stopping you from attacking [npc.name]. After all, if [npc.she]'s run afoul of the law, as you assume [npc.she] has, then [npc.she]'s fair game!", ALLEY_PROSTITUTE_FIGHT) {
 					@Override
 					public boolean isCombatHighlight() {
 						return true;
 					}
 				};
+				
+			} else if (index == 5 && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.prostitutionLicenseObtained)) {
+				if(RedLightDistrict.isSpaceForMoreProstitutes()) {
+					return new Response("Angel's Kiss", "Offer [npc.name] a job at Angel's Kiss.", ALLEY_PROSTITUTE_SAVED) {
+						@Override
+						public void effects() {
+							Main.game.getPlayer().incrementKarma(25);
+							Main.game.getActiveNPC().setDescription(UtilText.parse(Main.game.getActiveNPC(), "You first found [npc.name] in the alleyways of Dominion, where [npc.she] was illegally selling [npc.her] body."
+									+ " You offered [npc.herHim] the chance to move and work out of Angel's Kiss; an offer that [npc.she] happily accepted."));
+							Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 50));
+							Main.game.getActiveNPC().setRandomUnoccupiedLocation(WorldType.ANGELS_KISS_GROUND_FLOOR, PlaceType.ANGELS_KISS_BEDROOM, true);
+						}
+					};
+					
+				} else {
+					return new Response("Angel's Kiss", "There's no room available at Angel's Kiss for another prostitute...", null);
+				}
+				
+			} else {
+				return null;
+			}
+		}
+	};
+	
+	public static final DialogueNodeOld ALLEY_PROSTITUTE_SAVED = new DialogueNodeOld("", "", true, true) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public String getContent() {
+			return "<p>"
+						+ "Knowing that if your suspicions are correct, [npc.name] may act in an unpredictable manner, you try to look as non-threatening as possible as you ask,"
+						+ " [pc.speech(You're working out of these alleyways illegally, aren't you? If you had a prostitution license, you'd be out on the streets, or working out of a brothel in the red-light district.)]"
+					+ "</p>"
+					+ "<p>"
+						+ "A look of panic quickly flashes over [npc.name]'s face, and [npc.she] cries out,"
+						+ " [npc.speech(N-No, I-I just like working back here, t-that's all!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "[pc.speech(You can relax,)]"
+						+ " you say,"
+						+ " [pc.speech(I'm not with the Enforcers or anything."
+						+ " I'm only asking because if that's the truth, then I can offer you some help."
+						+ " There's a large brothel in the middle of the red-light district, called 'Angel's Kiss', and I have an offer for you from the owner."
+						+ " She's in desperate need of prostitutes to come and work for her, and would be willing to provide you with a safe place to work out of.)]"
+					+ "</p>"
+					+ "<p>"
+						+ "[npc.Name]'s [npc.eyes] light up as you say this, and [npc.she] gasps,"
+						+ " [npc.speech(R-Really?! Y-You're not tricking me or anything? I can... I can finally escape these alleyways?!)]"
+					+ "</p>"
+					+ "<p>"
+						+ "[pc.speech(What would I have to gain from tricking you like that? I'm telling the truth,)]"
+						+ " you continue,"
+						+ " [pc.speech(so if you're interested, just make your way over there and ask for 'Angel'. Tell her that [pc.name] sent you to come and work for her.)]"
+					+ "</p>"
+					+ "<p>"
+						+ "With tears in [npc.her] eyes, [npc.name] accepts your offer,"
+						+ " [npc.speech(Thank you, thank you so much! I can't really... That is, I'm so grateful... I-I don't know what to say...)]"
+					+ "</p>"
+					+ "<p>"
+						+ "[pc.speech(Don't worry about saying saying anything, and you're welcome,)]"
+						+ " you say, smiling at [npc.name]."
+					+ "</p>"
+					+ "<p>"
+						+ "Quickly grabbing [npc.her] things, [npc.name] hurries off in the direction of the red-light district, and you prepare to carry on your way, happy with the fact that you've helped [npc.name] to escape these dangerous alleyways."
+					+ "</p>";
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			if (index == 1) {
+				return new Response("Continue", "Continue on your way through Dominion's alleyways...", DebugDialogue.getDefaultDialogueNoEncounter());
 				
 			} else {
 				return null;

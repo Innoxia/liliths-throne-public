@@ -57,10 +57,12 @@ public enum Colour {
 	BASE_BLUE_STEEL(BaseColour.BLUE_STEEL, "steely blue", Util.newArrayListOfValues(new ListValue<>("steelyBlue"))),
 	
 	BASE_BLACK(BaseColour.BLACK, "black", Util.newArrayListOfValues(new ListValue<>("black"))),
+	BASE_PITCH_BLACK(BaseColour.PITCH_BLACK, "black", Util.newArrayListOfValues(new ListValue<>("black"))),
 	
 	
 	
 	// Game colours:
+	MAP_BACKGROUND_UNEXPLORED(Util.newColour(0x111), Util.newColour(0x111), "black"),
 	MAP_BACKGROUND_PINK(Util.newColour(0xb2a4bb), Util.newColour(0xb2a4bb), "pink"),
 	MAP_BACKGROUND(Util.newColour(0xbbbbbb), Util.newColour(0xbbbbbb), "grey"),
 	MAP_BACKGROUND_DARK(Util.newColour(0x888888), Util.newColour(0x8f8f8f), "dark grey"),
@@ -103,6 +105,9 @@ public enum Colour {
 	RACE_HARPY(BaseColour.PINK_LIGHT, "light pink", Util.newArrayListOfValues(new ListValue<>("harpy"))),
 	RACE_SLIME(BaseColour.PINK, "pink", Util.newArrayListOfValues(new ListValue<>("slime"))),
 	RACE_SQUIRREL_MORPH(BaseColour.GINGER, "ginger", Util.newArrayListOfValues(new ListValue<>("squirrelMorph"), new ListValue<>("squirrel"))),
+	RACE_RAT_MORPH(BaseColour.BROWN_DARK, "dark brown", Util.newArrayListOfValues(new ListValue<>("ratMorph"), new ListValue<>("rat"))),
+	RACE_RABBIT_MORPH(BaseColour.BROWN_DARK, "dark brown", Util.newArrayListOfValues(new ListValue<>("rabbitMorph"), new ListValue<>("rabbit"))),
+	RACE_BAT_MORPH(BaseColour.BLACK, "black", Util.newArrayListOfValues(new ListValue<>("batMorph"), new ListValue<>("bat"))),
 	RACE_ALLIGATOR_MORPH(BaseColour.GREEN_DARK, "dark green", Util.newArrayListOfValues(new ListValue<>("alligatorMorph"), new ListValue<>("alligator"), new ListValue<>("gatorMorph"), new ListValue<>("gator"))),
 	
 	QUEST_MAIN(BaseColour.PINK, "pink"),
@@ -670,6 +675,9 @@ public enum Colour {
 			new ListValue<Colour>(Colour.SKIN_OLIVE),
 			new ListValue<Colour>(Colour.SKIN_DARK),
 			new ListValue<Colour>(Colour.SKIN_EBONY));
+
+	public static List<Colour> ratSkinColours = Util.newArrayListOfValues(
+			new ListValue<Colour>(Colour.SKIN_PINK_LIGHT));
 	
 	public static List<Colour> demonSkinColours = Util.newArrayListOfValues(
 			new ListValue<Colour>(Colour.SKIN_PALE),

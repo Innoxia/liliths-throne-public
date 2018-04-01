@@ -136,11 +136,18 @@ public class RoomPlayer {
 										Main.game.getTextEndStringBuilder().append(formatWashingArea(true, "You wash all of the cum off of your [pc.thighs]."));
 									}
 									break;
-								case URETHRA:
+								case URETHRA_PENIS:
 									if(Main.game.getPlayer().getCummedInAreaMap().get(orifice)>0) {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(false, "You wash as much of the cum out of your urethra as you can, but there's so much in there that you're unable to fully clean it all out!"));
+										Main.game.getTextEndStringBuilder().append(formatWashingArea(false, "You wash as much of the cum out of your cock's urethra as you can, but there's so much in there that you're unable to fully clean it all out!"));
 									} else {
-										Main.game.getTextEndStringBuilder().append(formatWashingArea(true, "You wash all of the cum out of your urethra."));
+										Main.game.getTextEndStringBuilder().append(formatWashingArea(true, "You wash all of the cum out of your cock's urethra."));
+									}
+									break;
+								case URETHRA_VAGINA:
+									if(Main.game.getPlayer().getCummedInAreaMap().get(orifice)>0) {
+										Main.game.getTextEndStringBuilder().append(formatWashingArea(false, "You wash as much of the cum out of your vagina's urethra as you can, but there's so much in there that you're unable to fully clean it all out!"));
+									} else {
+										Main.game.getTextEndStringBuilder().append(formatWashingArea(true, "You wash all of the cum out of your vagina's urethra."));
 									}
 									break;
 								case VAGINA:

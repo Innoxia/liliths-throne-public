@@ -386,7 +386,7 @@ public class GenericActions {
 							UtilText.nodeContentSB.append("</br>[pc.A_moan+] drifts out from between your [pc.lips+] as you stop stimulating your [pc.nipple+].");
 						}
 						break;
-					case URETHRA:
+					case URETHRA_PENIS: case URETHRA_VAGINA:
 						if (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(),  ot)!=null && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(),  ot).isPlayer()) {
 							UtilText.nodeContentSB.append("</br>[npc.Name] lets out [npc.a_moan+] as you pull out of [npc.her] [npc.urethra+].");
 						}

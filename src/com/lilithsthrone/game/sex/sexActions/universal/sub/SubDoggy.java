@@ -73,7 +73,9 @@ public class SubDoggy {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return !Sex.isDom(Main.game.getPlayer());
+			return !Sex.isDom(Main.game.getPlayer())
+					&& (Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_BEHIND
+						|| Sex.getSexPositionSlot(Sex.getActivePartner())==SexPositionSlot.DOGGY_BEHIND_AMBER);
 		}
 		
 		@Override

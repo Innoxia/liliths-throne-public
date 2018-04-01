@@ -1,5 +1,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
+import java.util.List;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -24,6 +26,7 @@ import com.lilithsthrone.game.dialogue.responses.Response;
 import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.AbstractCoreItem;
 import com.lilithsthrone.game.inventory.CharacterInventory;
+import com.lilithsthrone.game.inventory.ItemTag;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothing;
 import com.lilithsthrone.game.inventory.clothing.AbstractClothingType;
 import com.lilithsthrone.game.inventory.clothing.ClothingType;
@@ -36,6 +39,7 @@ import com.lilithsthrone.game.sex.Sex;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Colour;
 import com.lilithsthrone.utils.Util;
+import com.lilithsthrone.utils.Util.ListValue;
 import com.lilithsthrone.world.WorldType;
 import com.lilithsthrone.world.places.PlaceType;
 
@@ -48,38 +52,22 @@ public class Ralph extends NPC {
 
 	private static final long serialVersionUID = 1L;
 
-	private AbstractItemType[] itemsForSale = new AbstractItemType[] {
-			ItemType.RACE_INGREDIENT_CAT_MORPH,
-			ItemType.RACE_INGREDIENT_DOG_MORPH,
-			ItemType.RACE_INGREDIENT_HARPY,
-			ItemType.RACE_INGREDIENT_HORSE_MORPH,
-			ItemType.RACE_INGREDIENT_WOLF_MORPH,
-			ItemType.RACE_INGREDIENT_SQUIRREL_MORPH,
-			ItemType.RACE_INGREDIENT_ALLIGATOR_MORPH,
-			ItemType.RACE_INGREDIENT_REINDEER_MORPH,
-			ItemType.RACE_INGREDIENT_COW_MORPH,
-			ItemType.RACE_INGREDIENT_HUMAN,
-			ItemType.RACE_INGREDIENT_DEMON,
-
-			ItemType.STR_INGREDIENT_EQUINE_CIDER,
-			ItemType.STR_INGREDIENT_WOLF_WHISKEY,
-			ItemType.STR_INGREDIENT_BUBBLE_MILK,
-			ItemType.STR_INGREDIENT_SWAMP_WATER,
-			ItemType.INT_INGREDIENT_FELINE_FANCY,
-			ItemType.FIT_INGREDIENT_CANINE_CRUSH,
-			ItemType.FIT_INGREDIENT_EGG_NOG,
-			ItemType.SEX_INGREDIENT_HARPY_PERFUME,
-			ItemType.SEX_INGREDIENT_SLIME_QUENCHER,
-			ItemType.COR_INGREDIENT_LILITHS_GIFT,
-			ItemType.FIT_INGREDIENT_SQUIRREL_JAVA,
-			ItemType.FETISH_UNREFINED,
-			ItemType.ADDICTION_REMOVAL,
-
-			ItemType.MOO_MILKER_EMPTY,
-			ItemType.VIXENS_VIRILITY,
-			ItemType.PROMISCUITY_PILL,
-			ItemType.MOTHERS_MILK };
-
+	private static List<AbstractItemType> itemsForSale = Util.newArrayListOfValues(
+			new ListValue<>(ItemType.FETISH_UNREFINED),
+			new ListValue<>(ItemType.ADDICTION_REMOVAL),
+			new ListValue<>(ItemType.MOO_MILKER_EMPTY),
+			new ListValue<>(ItemType.VIXENS_VIRILITY),
+			new ListValue<>(ItemType.PROMISCUITY_PILL),
+			new ListValue<>(ItemType.MOTHERS_MILK));
+	
+	static {
+		for(AbstractItemType itemType : ItemType.allItems) {
+			if(!itemType.getItemTags().contains(ItemTag.NOT_FOR_SALE) && (itemType.getItemTags().contains(ItemTag.ATTRIBUTE_TF_ITEM) || itemType.getItemTags().contains(ItemTag.RACIAL_TF_ITEM))) {
+				itemsForSale.add(itemType);
+			}
+		}
+	}
+	
 	public Ralph() {
 		this(false);
 	}
@@ -88,7 +76,7 @@ public class Ralph extends NPC {
 		super(new NameTriplet("Ralph"), "Ralph is the owner of the shop 'Ralph's Snacks'. There's an air of confidence in the way he holds himself, and he behaves in a professional manner at all times.",
 				10, Gender.M_P_MALE, RacialBody.HORSE_MORPH, RaceStage.GREATER,
 				new CharacterInventory(10), WorldType.SHOPPING_ARCADE, PlaceType.SHOPPING_ARCADE_RALPHS_SHOP, true);
-
+		
 		if(!isImported) {
 			this.setSexualOrientation(SexualOrientation.AMBIPHILIC);
 			

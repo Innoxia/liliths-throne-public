@@ -224,7 +224,13 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	 */
 	public void dailyReset() {
 	}
-
+	
+	/**
+	 * Applies an hourly update to this NPC.
+	 */
+	public void hourlyUpdate() {
+	}
+	
 	public abstract void changeFurryLevel();
 	
 	public abstract DialogueNodeOld getEncounterDialogue();
@@ -302,11 +308,11 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	// Post-combat:
 
 	public int getExperienceFromVictory() {
-		return getLevel() * 10;
+		return getLevel() * 2;
 	}
 
 	public int getLootMoney() {
-		return (int) ((getLevel() * 100) * (1 + Math.random() - 0.5f));
+		return (int) ((getLevel() * 25) * (1 + Math.random() - 0.5f));
 	}
 	
 	public List<AbstractCoreItem> getLootItems() {
@@ -348,6 +354,12 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_SWAMP_WATER)));
 				case SQUIRREL_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.FIT_INGREDIENT_SQUIRREL_JAVA)));
+				case BAT_MORPH:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.INT_INGREDIENT_FRUIT_BAT_SQUASH)));
+				case RAT_MORPH:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.STR_INGREDIENT_BLACK_RATS_RUM)));
+				case RABBIT_MORPH:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.SEX_INGREDIENT_BUNNY_JUICE)));
 			}
 			
 		} else if(rnd <= 0.8 && !Main.game.getPlayer().getRacesDiscoveredFromBook().contains(getRace())) {
@@ -380,6 +392,12 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_ALLIGATOR_MORPH)));
 				case SQUIRREL_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_SQUIRREL_MORPH)));
+				case BAT_MORPH:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_BAT_MORPH)));
+				case RAT_MORPH:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_RAT_MORPH)));
+				case RABBIT_MORPH:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.BOOK_RABBIT_MORPH)));
 			}
 		
 		} else {
@@ -410,6 +428,12 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_ALLIGATOR_MORPH)));
 				case SQUIRREL_MORPH:
 					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_SQUIRREL_MORPH)));
+				case BAT_MORPH:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_BAT_MORPH)));
+				case RAT_MORPH:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_RAT_MORPH)));
+				case RABBIT_MORPH:
+					return Util.newArrayListOfValues(new ListValue<>(AbstractItemType.generateItem(ItemType.RACE_INGREDIENT_RABBIT_MORPH)));
 			}
 		}
 		
@@ -417,7 +441,7 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 	}
 	
 	public Map<TFEssence, Integer> getLootEssenceDrops() {
-		return Util.newHashMapOfValues(new Value<>(TFEssence.ARCANE, Util.random.nextInt(this.getLevel())+1+this.getLevel()));
+		return Util.newHashMapOfValues(new Value<>(TFEssence.ARCANE, Util.random.nextInt(this.getLevel())+1));
 	}
 	
 	
@@ -740,6 +764,15 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 					break;
 				case COW_MORPH:
 					itemType = ItemType.RACE_INGREDIENT_COW_MORPH;
+					break;
+				case RAT_MORPH:
+					itemType = ItemType.RACE_INGREDIENT_RAT_MORPH;
+					break;
+				case BAT_MORPH:
+					itemType = ItemType.RACE_INGREDIENT_BAT_MORPH;
+					break;
+				case RABBIT_MORPH:
+					itemType = ItemType.RACE_INGREDIENT_RABBIT_MORPH;
 					break;
 				case ANGEL:
 				case DEMON:

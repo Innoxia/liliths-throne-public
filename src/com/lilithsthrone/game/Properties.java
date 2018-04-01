@@ -47,7 +47,7 @@ import com.lilithsthrone.main.Main;
 
 /**
  * @since 0.1.0
- * @version 0.2.1
+ * @version 0.2.2
  * @author Innoxia
  */
 public class Properties implements Serializable {
@@ -92,6 +92,8 @@ public class Properties implements Serializable {
 	public boolean pubicHairContent = false;
 	public boolean bodyHairContent = false;
 	public boolean feminineBeardsContent = false;
+	public boolean lactationContent = true;
+	public boolean urethralContent = false;
 	
 	public boolean newWeaponDiscovered = false;
 	public boolean newClothingDiscovered = false;
@@ -218,6 +220,10 @@ public class Properties implements Serializable {
 			createXMLElementWithValue(doc, settings, "pubicHairContent", String.valueOf(pubicHairContent));
 			createXMLElementWithValue(doc, settings, "bodyHairContent", String.valueOf(bodyHairContent));
 			createXMLElementWithValue(doc, settings, "feminineBeardsContent", String.valueOf(feminineBeardsContent));
+			createXMLElementWithValue(doc, settings, "lactationContent", String.valueOf(lactationContent));
+			createXMLElementWithValue(doc, settings, "urethralContent", String.valueOf(urethralContent));
+			
+			
 			
 			createXMLElementWithValue(doc, settings, "overwriteWarning", String.valueOf(overwriteWarning));
 			createXMLElementWithValue(doc, settings, "fadeInText", String.valueOf(fadeInText));
@@ -517,6 +523,12 @@ public class Properties implements Serializable {
 				bodyHairContent = Boolean.valueOf((((Element)element.getElementsByTagName("bodyHairContent").item(0)).getAttribute("value")));
 				if(element.getElementsByTagName("feminineBeardsContent").item(0)!=null) {
 					feminineBeardsContent = Boolean.valueOf((((Element)element.getElementsByTagName("feminineBeardsContent").item(0)).getAttribute("value")));
+				}
+				if(element.getElementsByTagName("lactationContent").item(0)!=null) {
+					lactationContent = Boolean.valueOf((((Element)element.getElementsByTagName("lactationContent").item(0)).getAttribute("value")));
+				}
+				if(element.getElementsByTagName("urethralContent").item(0)!=null) {
+					urethralContent = Boolean.valueOf((((Element)element.getElementsByTagName("urethralContent").item(0)).getAttribute("value")));
 				}
 				
 				newWeaponDiscovered = Boolean.valueOf(((Element)element.getElementsByTagName("newWeaponDiscovered").item(0)).getAttribute("value"));

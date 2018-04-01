@@ -617,6 +617,7 @@ public class UtilText {
 						if(conditionalThens==1){
 							if(command==null) {
 								command=sb.toString().substring(1, sb.length()-4); // Cut off the '#THEN' at the start.
+								command = command.replaceAll("\n", "").replaceAll("\t", "");
 							}
 							sb.setLength(0);
 						}
@@ -735,6 +736,20 @@ public class UtilText {
 			@Override
 			public boolean process(String command, String arguments, String target) {
 				return character.isPlayer();
+			}
+		});
+		
+		conditionalCommandsList.add(new ParserConditionalCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("isVaginaExposed"),
+						new ListValue<>("isPussyExposed"),
+						new ListValue<>("isExposedVagina"),
+						new ListValue<>("isExposedPussy")),
+				"",
+				"Returns true if the character's vagina is exposed."){
+			@Override
+			public boolean process(String command, String arguments, String target) {
+				return character.isCoverableAreaExposed(CoverableArea.VAGINA);
 			}
 		});
 		

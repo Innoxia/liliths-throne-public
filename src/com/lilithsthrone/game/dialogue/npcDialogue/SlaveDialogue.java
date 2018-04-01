@@ -578,7 +578,11 @@ public class SlaveDialogue {
 								+ "</p>") {
 							@Override
 							public void effects() {
-								Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -15));
+								if(Main.game.getActiveNPC().hasFetish(Fetish.FETISH_NON_CON_SUB)) {
+									Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), 10));
+								} else {
+									Main.game.getTextEndStringBuilder().append(Main.game.getActiveNPC().incrementAffection(Main.game.getPlayer(), -50));
+								}
 							}
 						};
 						
@@ -955,6 +959,9 @@ public class SlaveDialogue {
 					break;
 				case PUBLIC_STOCKS:
 					UtilText.nodeContentSB.append("Wanting to encourage [npc.name] to do [npc.her] best while being publicly used in the stocks in Slaver Alley, you ask [npc.her] how [npc.she]'s finding it.");
+					break;
+				case PROSTITUTE:
+					UtilText.nodeContentSB.append("Wanting to encourage [npc.name] to do [npc.her] best while working as a prostitute in Angel's Kiss, you ask [npc.her] how [npc.she]'s finding it.");
 					break;
 			}
 			

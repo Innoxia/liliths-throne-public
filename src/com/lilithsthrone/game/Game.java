@@ -49,9 +49,11 @@ import com.lilithsthrone.game.character.npc.PrologueMale;
 import com.lilithsthrone.game.character.npc.SlaveImport;
 import com.lilithsthrone.game.character.npc.dominion.Alexa;
 import com.lilithsthrone.game.character.npc.dominion.Amber;
+import com.lilithsthrone.game.character.npc.dominion.Angel;
 import com.lilithsthrone.game.character.npc.dominion.Arthur;
 import com.lilithsthrone.game.character.npc.dominion.Ashley;
 import com.lilithsthrone.game.character.npc.dominion.Brax;
+import com.lilithsthrone.game.character.npc.dominion.Bunny;
 import com.lilithsthrone.game.character.npc.dominion.CandiReceptionist;
 import com.lilithsthrone.game.character.npc.dominion.Cultist;
 import com.lilithsthrone.game.character.npc.dominion.DominionAlleywayAttacker;
@@ -64,6 +66,7 @@ import com.lilithsthrone.game.character.npc.dominion.HarpyNympho;
 import com.lilithsthrone.game.character.npc.dominion.HarpyNymphoCompanion;
 import com.lilithsthrone.game.character.npc.dominion.Kate;
 import com.lilithsthrone.game.character.npc.dominion.Lilaya;
+import com.lilithsthrone.game.character.npc.dominion.Loppy;
 import com.lilithsthrone.game.character.npc.dominion.Nyan;
 import com.lilithsthrone.game.character.npc.dominion.Pazu;
 import com.lilithsthrone.game.character.npc.dominion.Pix;
@@ -517,7 +520,8 @@ public class Game implements Serializable, XMLSaving {
 					
 					if((!e.getAttribute("worldType").equals("SEWERS") || !Main.isVersionOlderThan(version, "0.2.0.5"))
 							&& (!e.getAttribute("worldType").equals("SUBMISSION") || !Main.isVersionOlderThan(version, "0.2.1.5"))
-							&& (!e.getAttribute("worldType").equals("DOMINION") || !Main.isVersionOlderThan(version, "0.2.1.5"))
+							&& (!e.getAttribute("worldType").equals("DOMINION") || !Main.isVersionOlderThan(version, "0.2.2"))
+							&& (!e.getAttribute("worldType").equals("SLAVER_ALLEY") || !Main.isVersionOlderThan(version, "0.2.2"))
 							&& (!e.getAttribute("worldType").equals("HARPY_NEST") || !Main.isVersionOlderThan(version, "0.2.1.5"))) {
 						World world = World.loadFromXML(e, doc);
 						newGame.worlds.put(world.getWorldType(), world);
@@ -535,6 +539,10 @@ public class Game implements Serializable, XMLSaving {
 						gen.worldGeneration(WorldType.SUBMISSION);
 						gen.worldGeneration(WorldType.DOMINION);
 						gen.worldGeneration(WorldType.HARPY_NEST);
+					}
+					if(Main.isVersionOlderThan(version, "0.2.2")) {
+						gen.worldGeneration(WorldType.DOMINION);
+						gen.worldGeneration(WorldType.SLAVER_ALLEY);
 					}
 					if(newGame.worlds.get(wt)==null) {
 						gen.worldGeneration(wt);
@@ -623,6 +631,15 @@ public class Game implements Serializable, XMLSaving {
 				}
 				if(!newGame.NPCMap.containsKey(newGame.getUniqueNPCId(SupplierPartner.class))) {
 					newGame.addNPC(new SupplierPartner(), false);
+				}
+				if(!newGame.NPCMap.containsKey(newGame.getUniqueNPCId(Angel.class))) {
+					newGame.addNPC(new Angel(), false);
+				}
+				if(!newGame.NPCMap.containsKey(newGame.getUniqueNPCId(Bunny.class))) {
+					newGame.addNPC(new Bunny(), false);
+				}
+				if(!newGame.NPCMap.containsKey(newGame.getUniqueNPCId(Loppy.class))) {
+					newGame.addNPC(new Loppy(), false);
 				}
 				
 				// To prevent errors from previous versions, reset Zaranix progress if prior to 0.1.95:
@@ -813,6 +830,10 @@ public class Game implements Serializable, XMLSaving {
 			addNPC(new Ashley(), false);
 			addNPC(new SupplierLeader(), false);
 			addNPC(new SupplierPartner(), false);
+
+			addNPC(new Angel(), false);
+			addNPC(new Bunny(), false);
+			addNPC(new Loppy(), false);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -991,6 +1012,10 @@ public class Game implements Serializable, XMLSaving {
 						npc.getPlayerKnowsAreas().add(ca);
 					}
 				}
+			}
+			
+			for(int i=1; i <= hoursPassed; i++) {
+				npc.hourlyUpdate();
 			}
 			
 			if(newDay) {
@@ -2406,6 +2431,18 @@ public class Game implements Serializable, XMLSaving {
 	
 	public NPC getSupplierPartner() {
 		return (NPC) this.getNPCById(getUniqueNPCId(SupplierPartner.class));
+	}
+	
+	public NPC getAngel() {
+		return (NPC) this.getNPCById(getUniqueNPCId(Angel.class));
+	}
+	
+	public NPC getBunny() {
+		return (NPC) this.getNPCById(getUniqueNPCId(Bunny.class));
+	}
+	
+	public NPC getLoppy() {
+		return (NPC) this.getNPCById(getUniqueNPCId(Loppy.class));
 	}
 
 	public NPC getGenericMaleNPC() {

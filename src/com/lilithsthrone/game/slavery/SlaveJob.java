@@ -9,6 +9,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.effects.Perk;
 import com.lilithsthrone.game.character.fetishes.Fetish;
 import com.lilithsthrone.game.character.npc.NPC;
+import com.lilithsthrone.game.dialogue.DialogueFlagValue;
 import com.lilithsthrone.game.dialogue.eventLog.EventLogEntry;
 import com.lilithsthrone.main.Main;
 import com.lilithsthrone.utils.Util;
@@ -19,7 +20,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.87
- * @version 0.1.95
+ * @version 0.2.2
  * @author Innoxia
  */
 public enum SlaveJob {
@@ -136,21 +137,47 @@ public enum SlaveJob {
 		}
 	},
 	
-	
-//	BROTHEL(5, "Prostitute (Brothel)", "Prostitute (Brothel)", "Assign this slave to work as a prostitute at the brothel 'Angel's Kiss' in slaver ally.",
-//			-0.5f, 0.5f,
-//			25, 0, 0.5f,
-//			Util.newArrayListOfValues(
-//					new ListValue<>(SlaveJobSettings.SEX_ORAL),
-//					new ListValue<>(SlaveJobSettings.SEX_VAGINAL),
-//					new ListValue<>(SlaveJobSettings.SEX_ANAL),
-//					new ListValue<>(SlaveJobSettings.SEX_NIPPLES),
-//					new ListValue<>(SlaveJobSettings.SEX_PROMISCUITY_PILLS),
-//					new ListValue<>(SlaveJobSettings.SEX_VIXENS_VIRILITY)),
-//			null,
-//			WorldType.SLAVER_ALLEY,
-//			SlaverAlley.BROTHEL),
-//	
+	PROSTITUTE(10, "Prostitute", "Prostitute", "Assign this slave to work as a prostitute at the brothel 'Angel's Kiss'.",
+			-0.25f, 0.5f,
+			200, 0, 0.5f,
+			Util.newArrayListOfValues(
+					new ListValue<>(SlaveJobSetting.SEX_ORAL),
+					new ListValue<>(SlaveJobSetting.SEX_VAGINAL),
+					new ListValue<>(SlaveJobSetting.SEX_ANAL),
+					new ListValue<>(SlaveJobSetting.SEX_NIPPLES)),
+			Util.newHashMapOfValues(new Value<>("Pregnancy", Util.newArrayListOfValues(
+					new ListValue<>(SlaveJobSetting.SEX_PROMISCUITY_PILLS),
+					new ListValue<>(SlaveJobSetting.SEX_NO_PILLS),
+					new ListValue<>(SlaveJobSetting.SEX_VIXENS_VIRILITY)))),
+			Util.newArrayListOfValues(
+					new ListValue<>(SlaveJobSetting.SEX_NO_PILLS)),
+			WorldType.ANGELS_KISS_FIRST_FLOOR,
+			PlaceType.ANGELS_KISS_BEDROOM) {
+		
+		@Override
+		public boolean isAvailable(GameCharacter character) {
+			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.prostitutionLicenseObtained)) {
+				return false;
+			}
+			return super.isAvailable(character);
+		}
+
+		@Override
+		public String getAvailabilityText(GameCharacter character) {
+			if(!Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.prostitutionLicenseObtained)) {
+				return "You do not have permission from Angel to send your slaves to work in her brothel!";
+				
+			} else if(character.getOwner().getSlavesWorkingJob(this)>=this.getSlaveLimit()) {
+				return "You have already assigned the maximum number of slaves to this job!";
+				
+			} else if(character.getHomeLocationPlace().getPlaceType() == PlaceType.SLAVER_ALLEY_SLAVERY_ADMINISTRATION) {
+				return "Slaves cannot work out of the cells at slavery administration. Move them into a room first!";
+				
+			} else {
+				return "This job is available!";
+			}
+		}
+	},
 	
 	//'Allow to be impregnated (Public use)' and 'Allow to be impregnated (Other slaves)'
 //	MILKING(5, "Cow Stalls", "Cow Stalls", "Assign this slave to the cow stalls, ready for milking or breeding (or perhaps both).",
@@ -318,9 +345,13 @@ public enum SlaveJob {
 	}
 	
 	public void sendToWorkLocation(GameCharacter slave) {
-		if(slave.getSlaveJob().getWorldLocation()!=null && slave.getSlaveJob().getPlaceLocation()!=null) {
-			slave.setLocation(slave.getSlaveJob().getWorldLocation(), slave.getSlaveJob().getPlaceLocation(), false);
+		if(slave.getSlaveJob().getWorldLocation()!=null && slave.getSlaveJob().getPlaceLocation()!=null
+				&& (slave.getSlaveJob().getWorldLocation()!=slave.getWorldLocation() || slave.getSlaveJob().getPlaceLocation()!=slave.getLocationPlace().getPlaceType())) {
+			slave.setRandomUnoccupiedLocation(slave.getSlaveJob().getWorldLocation(), slave.getSlaveJob().getPlaceLocation(), false);
 		}
+//		if(slave.getSlaveJob().getWorldLocation()!=null && slave.getSlaveJob().getPlaceLocation()!=null) {
+//			slave.setLocation(slave.getSlaveJob().getWorldLocation(), slave.getSlaveJob().getPlaceLocation(), false);
+//		}
 	}
 	
 	public boolean isAvailable(GameCharacter character) {

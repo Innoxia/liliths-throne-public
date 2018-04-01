@@ -178,7 +178,7 @@ import com.lilithsthrone.world.places.PlaceType;
  * The class for all the game's characters. I think this is the biggest class in the game.
  * 
  * @since 0.1.0
- * @version 0.1.99
+ * @version 0.2.2
  * @author Innoxia
  */
 public abstract class GameCharacter implements Serializable, XMLSaving {
@@ -1102,7 +1102,23 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				character.setLocation(
 						worldType,
 						Main.game.getWorlds().get(worldType).getRandomUnoccupiedCell(placeType).getLocation(),
-						true);
+						!character.isPlayer());
+				
+				if(character.isPlayer()) {
+					Main.game.getWorlds().get(worldType).getCell(character.getLocation()).setDiscovered(true);
+					if (character.getLocation().getY() < Main.game.getWorlds().get(worldType).WORLD_HEIGHT - 1) {
+						Main.game.getWorlds().get(worldType).getCell(character.getLocation().getX(), character.getLocation().getY() + 1).setDiscovered(true);
+					}
+					if (character.getLocation().getY() != 0) {
+						Main.game.getWorlds().get(worldType).getCell(character.getLocation().getX(), character.getLocation().getY() - 1).setDiscovered(true);
+					}
+					if (character.getLocation().getX() < Main.game.getWorlds().get(worldType).WORLD_WIDTH - 1) {
+						Main.game.getWorlds().get(worldType).getCell(character.getLocation().getX() + 1, character.getLocation().getY()).setDiscovered(true);
+					}
+					if (character.getLocation().getX() != 0) {
+						Main.game.getWorlds().get(worldType).getCell(character.getLocation().getX() - 1, character.getLocation().getY()).setDiscovered(true);	
+					}
+				}
 				
 			} else {
 				character.setLocation(
@@ -1189,8 +1205,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		if(element!=null) {
 			for(int i=0; i<element.getElementsByTagName("perk").getLength(); i++){
 				Element e = ((Element)element.getElementsByTagName("perk").item(i));
-				
-				character.addTrait(Perk.valueOf(e.getAttribute("type")));
+				Perk p = Perk.valueOf(e.getAttribute("type"));
+				if(p.isEquippableTrait()) {
+					character.addTrait(p);
+				}
 				CharacterUtils.appendToImportLog(log, "</br>Added Equipped Perk: "+Perk.valueOf(e.getAttribute("type")).getName(character));
 			}
 		}
@@ -2035,6 +2053,15 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			case SLIME:
 				value = 10000;
 				break;
+			case BAT_MORPH:
+				value = 10000;
+				break;
+			case RAT_MORPH:
+				value = 6000;
+				break;
+			case RABBIT_MORPH:
+				value = 12000;
+				break;
 		}
 		
 		value += (getFetishes().size()*50);
@@ -2276,6 +2303,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				slave.getOwner().removeSlave(slave);
 			}
 			slave.setOwner(this);
+			slave.setPendingClothingDressing(false);
 		}
 		
 		return added;
@@ -2737,7 +2765,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		List<Perk> tempPerkList = new ArrayList<>();
 		for(Entry<Integer, Set<Perk>> entry : perks.entrySet()) {
 			for(Perk p : entry.getValue()) {
-				if(p.isMajor()) {
+				if(p.isEquippableTrait()) {
 					tempPerkList.add(p);
 				}
 			}
@@ -2747,7 +2775,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	public boolean hasTrait(Perk p, boolean equipped) {
-		if(p.isMajor()) {
+		if(p.isEquippableTrait()) {
 			if((p.getPerkCategory()==PerkCategory.JOB)) {
 				return getHistory().getAssociatedPerk()==p;
 			} else if(equipped) {
@@ -2779,7 +2807,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		perks.get(row).add(perk);
 		
-		if(!perk.isMajor()) {
+		if(!perk.isEquippableTrait()) {
 			applyPerkGainEffects(perk);
 		}
 		
@@ -2797,7 +2825,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		
 		perks.get(row).remove(perk);
 
-		if(!perk.isMajor()) {
+		if(!perk.isEquippableTrait()) {
 			applyPerkRemovalEffects(perk);
 		}
 		
@@ -3402,7 +3430,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					case THIGHS:
 						s = null;
 						break;
-					case URETHRA:
+					case URETHRA_PENIS:
+						s = null;
+						break;
+					case URETHRA_VAGINA:
 						s = null;
 						break;
 					case VAGINA:
@@ -4819,7 +4850,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						break;
 					case THIGHS:
 						break;
-					case URETHRA:
+					case URETHRA_PENIS:
+						break;
+					case URETHRA_VAGINA:
 						break;
 					case VAGINA:
 						switch(Sex.getSexPace(this)) {
@@ -5074,7 +5107,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						break;
 					case THIGHS:
 						break;
-					case URETHRA:
+					case URETHRA_PENIS:
+						break;
+					case URETHRA_VAGINA:
 						break;
 					case VAGINA:
 						switch(Sex.getSexPace(this)) {
@@ -5329,7 +5364,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						break;
 					case THIGHS:
 						break;
-					case URETHRA:
+					case URETHRA_PENIS:
+						break;
+					case URETHRA_VAGINA:
 						break;
 					case VAGINA:
 						switch(Sex.getSexPace(this)) {
@@ -5584,7 +5621,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 						break;
 					case THIGHS:
 						break;
-					case URETHRA:
+					case URETHRA_PENIS:
+						break;
+					case URETHRA_VAGINA:
 						break;
 					case VAGINA:
 						switch(Sex.getSexPace(this)) {
@@ -6665,7 +6704,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			case NIPPLE:
 				orificeName = "[npc2.nipple+]";
 				break;
-			case URETHRA:
+			case URETHRA_PENIS:
+			case URETHRA_VAGINA:
+				orificeName = "urethra";
 				break;
 			case VAGINA:
 				orificeName = "[npc2.pussy+]";
@@ -7336,7 +7377,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			case NIPPLE:
 				orificeName = "[npc2.nipple+]";
 				break;
-			case URETHRA:
+			case URETHRA_PENIS:
+			case URETHRA_VAGINA:
 				orificeName = "urethra";
 				break;
 			case VAGINA:
@@ -7402,7 +7444,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					StringBuilderSB.append(getPartnerNippleVirginityLossDescription(characterPenetrating, penetrationType));
 				}
 				break;
-			case URETHRA:
+			case URETHRA_PENIS: case URETHRA_VAGINA:
 				if(characterPenetrated.isPlayer()) {
 					StringBuilderSB.append(getPlayerUrethraVirginityLossDescription(characterPenetrating, penetrationType));
 				} else {
@@ -7873,7 +7915,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	private String getPartnerUrethraVirginityLossDescription(GameCharacter characterPenetrating, PenetrationType penetration){
-		if(Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.URETHRA).isPlayer()) {
+		if((Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.URETHRA_PENIS) != null && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.URETHRA_PENIS).isPlayer())
+				|| (Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.URETHRA_VAGINA) != null && Sex.getPenetratingCharacterUsingOrifice(Sex.getActivePartner(), OrificeType.URETHRA_VAGINA).isPlayer())) {
 			return formatVirginityLoss("You have taken [npc.name]'s urethral virginity!")
 					+(Main.game.getPlayer().hasFetish(Fetish.FETISH_DEFLOWERING)
 							?"<p style='text-align:center;><i style='color:"+Colour.GENERIC_ARCANE.toWebHexString()+";'>Due to your deflowering fetish, you gain</i>"
@@ -7968,7 +8011,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				break;
 			case THIGHS:
 				break;
-			case URETHRA:
+			case URETHRA_PENIS: case URETHRA_VAGINA:
 				switch(penetrationType) {
 				case FINGER: case PENIS: case TONGUE: case TAIL: case TENTACLE:
 					return formatStretching(this.isPlayer()
@@ -8002,7 +8045,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					return formatStretching("Your nipples have been stretched out to a comfortable size.");
 				case THIGHS:
 					break;
-				case URETHRA:
+				case URETHRA_PENIS: case URETHRA_VAGINA:
 					return formatStretching("Your urethra has been stretched out to a comfortable size.");
 				case VAGINA:
 					return formatStretching("Your pussy has been stretched out to a comfortable size.");
@@ -8021,7 +8064,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					return formatStretching("[npc.Name] lets out [npc.a_moan+] as [npc.her] [npc.nipples+] finish stretching out to a comfortable size.");
 				case THIGHS:
 					break;
-				case URETHRA:
+				case URETHRA_PENIS: case URETHRA_VAGINA:
 					return formatStretching("[npc.Name] lets out [npc.a_moan+] as [npc.her] urethra finishes stretching out to a comfortable size.");
 				case VAGINA:
 					return formatStretching("[npc.Name] lets out [npc.a_moan+] as [npc.her] [npc.pussy+] finishes stretching out to a comfortable size.");
@@ -8054,7 +8097,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					return formatTooLoose("Your nipples are too loose to provide much pleasure...");
 				case THIGHS:
 					break;
-				case URETHRA:
+				case URETHRA_PENIS: case URETHRA_VAGINA:
 					return formatTooLoose("Your urethra is too loose to provide much pleasure...");
 				case VAGINA:
 					return formatTooLoose("Your pussy is too loose to provide much pleasure...");
@@ -8073,7 +8116,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					return formatTooLoose("[npc.Her] nipples are too loose to provide much pleasure...");
 				case THIGHS:
 					break;
-				case URETHRA:
+				case URETHRA_PENIS: case URETHRA_VAGINA:
 					return formatTooLoose("[npc.Her] urethra is too loose to provide much pleasure...");
 				case VAGINA:
 					return formatTooLoose("[npc.Her] pussy is too loose to provide much pleasure...");
@@ -8131,8 +8174,8 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 			}
 			
 		} else if(this.getAddiction(fluid)!=null) {
-			setLastTimeSatisfiedAddiction(fluid, Main.game.getMinutesPassed());
 			boolean curedWithdrawal = Main.game.getMinutesPassed()-this.getAddiction(fluid).getLastTimeSatisfied()>=24*60;
+			setLastTimeSatisfiedAddiction(fluid, Main.game.getMinutesPassed());
 			if(isPlayer()) {
 				fluidIngestionSB.append(UtilText.parse(charactersFluid,
 						"<p>"
@@ -8286,6 +8329,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	// Combat:
 
+	public boolean isStunned() {
+		return this.hasStatusEffect(StatusEffect.WITCH_SEAL);
+	}
+	
 	/**
 	 * The returned list is ordered by rendering priority.
 	 */
@@ -8872,7 +8919,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				case ASS: case BREAST: case THIGHS:
 					setCummedInArea(orifice, 0);
 					break;
-				case ANUS: case NIPPLE: case URETHRA: case VAGINA:
+				case ANUS: case NIPPLE: case URETHRA_PENIS: case URETHRA_VAGINA: case VAGINA:
 					incrementCummedInArea(orifice, -500);
 					break;
 			}
@@ -8923,6 +8970,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		}
 	}
 
+	public void setRandomUnoccupiedLocation(WorldType worldType, PlaceType placeType, boolean setAsHomeLocation) {
+		setLocation(worldType, Main.game.getWorlds().get(worldType).getRandomUnoccupiedCell(placeType).getLocation(), setAsHomeLocation);
+	}
+	
 	public void setRandomLocation(WorldType worldType, PlaceType placeType, boolean setAsHomeLocation) {
 		setLocation(worldType, Main.game.getWorlds().get(worldType).getRandomCell(placeType).getLocation(), setAsHomeLocation);
 	}
@@ -9941,8 +9992,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				return isCoverableAreaExposed(CoverableArea.MOUTH);
 			case NIPPLE:
 				return isCoverableAreaExposed(CoverableArea.NIPPLES);
-			case URETHRA:
+			case URETHRA_PENIS:
 				return isCoverableAreaExposed(CoverableArea.PENIS);
+			case URETHRA_VAGINA:
+				return isCoverableAreaExposed(CoverableArea.VAGINA);
 			case VAGINA:
 				return isCoverableAreaExposed(CoverableArea.VAGINA);
 			case THIGHS:
@@ -11026,6 +11079,12 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				return BodyCoveringType.BODY_HAIR_LYCAN_FUR;
 			case SLIME:
 				return BodyCoveringType.SLIME;
+			case BAT_MORPH:
+				return BodyCoveringType.BODY_HAIR_BAT_FUR;
+			case RAT_MORPH:
+				return BodyCoveringType.BODY_HAIR_RAT_FUR;
+			case RABBIT_MORPH:
+				return BodyCoveringType.BODY_HAIR_RABBIT_FUR;
 		}
 		return BodyCoveringType.BODY_HAIR_HUMAN;
 	}
@@ -11971,9 +12030,15 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	// Lactation:
 	public Lactation getBreastMilkStorage() {
+		if(!Main.getProperties().lactationContent) {
+			return Lactation.ZERO_NONE;
+		}
 		return body.getBreast().getMilkStorage();
 	}
 	public int getBreastRawMilkStorageValue() {
+		if(!Main.getProperties().lactationContent) {
+			return 0;
+		}
 		return body.getBreast().getRawMilkStorageValue();
 	}
 	public String setBreastMilkStorage(int lactation) {
@@ -11984,9 +12049,15 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	// Current milk:
 	public Lactation getBreastStoredMilk() {
+		if(!Main.getProperties().lactationContent) {
+			return Lactation.ZERO_NONE;
+		}
 		return body.getBreast().getStoredMilk();
 	}
 	public int getBreastRawStoredMilkValue() {
+		if(!Main.getProperties().lactationContent) {
+			return 0;
+		}
 		return body.getBreast().getRawStoredMilkValue();
 	}
 	public String setBreastStoredMilk(int lactation) {
@@ -12941,7 +13012,10 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	}
 	
 	// Urethra:
-	
+
+	public boolean isUrethraFuckable() {
+		return body.getPenis().getOrificeUrethra().getRawCapacityValue()>0;
+	}
 	// Capacity:
 	public Capacity getPenisCapacity() {
 		return body.getPenis().getOrificeUrethra().getCapacity();
@@ -13567,6 +13641,71 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		return body.getVagina().getGirlcum().getTransformativeEffects();
 	}
 	
+	// Urethra:
+
+	public boolean isVaginaUrethraFuckable() {
+		return body.getVagina().getOrificeUrethra().getRawCapacityValue()>0;
+	}
+	// Capacity:
+	public Capacity getVaginaUrethraCapacity() {
+		return body.getVagina().getOrificeUrethra().getCapacity();
+	}
+	public String setVaginaUrethraCapacity(float capacity, boolean setStretchedValueToNewValue) {
+		return body.getVagina().getOrificeUrethra().setCapacity(this, capacity, setStretchedValueToNewValue);
+	}
+	public String incrementVaginaUrethraCapacity(float increment, boolean setStretchedValueToNewValue) {
+		return setVaginaUrethraCapacity(getVaginaUrethraRawCapacityValue() + increment, setStretchedValueToNewValue);
+	}
+	public float getVaginaUrethraRawCapacityValue() {
+		return body.getVagina().getOrificeUrethra().getRawCapacityValue();
+	}
+	public float getVaginaUrethraStretchedCapacity() {
+		return body.getVagina().getOrificeUrethra().getStretchedCapacity();
+	}
+	public void setVaginaUrethraStretchedCapacity(float capacity){
+		body.getVagina().getOrificeUrethra().setStretchedCapacity(capacity);
+	}
+	public void incrementVaginaUrethraStretchedCapacity(float increment){
+		body.getVagina().getOrificeUrethra().setStretchedCapacity(getVaginaUrethraStretchedCapacity() + increment);
+	}
+	// Elasticity:
+	public OrificeElasticity getVaginaUrethraElasticity() {
+		return body.getVagina().getOrificeUrethra().getElasticity();
+	}
+	public String setVaginaUrethraElasticity(int elasticity) {
+		return body.getVagina().getOrificeUrethra().setElasticity(this, elasticity);
+	}
+	public String incrementVaginaUrethraElasticity(int increment) {
+		return setUrethraElasticity(getVaginaUrethraElasticity().getValue() + increment);
+	}
+	// Plasticity:
+	public OrificePlasticity getVaginaUrethraPlasticity() {
+		return body.getVagina().getOrificeUrethra().getPlasticity();
+	}
+	public String setVaginaUrethraPlasticity(int plasticity) {
+		return body.getVagina().getOrificeUrethra().setPlasticity(this, plasticity);
+	}
+	public String incrementVaginaUrethraPlasticity(int increment) {
+		return setUrethraPlasticity(getVaginaUrethraPlasticity().getValue() + increment);
+	}
+	// Virgin:
+	public boolean isVaginaUrethraVirgin() {
+		return body.getVagina().getOrificeUrethra().isVirgin();
+	}
+	public void setVaginaUrethraVirgin(boolean virgin) {
+		body.getVagina().getOrificeUrethra().setVirgin(virgin);
+	}
+	// Modifiers:
+	public boolean hasVaginaUrethraOrificeModifier(OrificeModifier modifier) {
+		return body.getVagina().getOrificeUrethra().hasOrificeModifier(modifier);
+	}
+	public String addVaginaUrethraOrificeModifier(OrificeModifier modifier) {
+		return body.getVagina().getOrificeUrethra().addOrificeModifier(this, modifier);
+	}
+	public String removeVaginaUrethraOrificeModifier(OrificeModifier modifier) {
+		return body.getVagina().getOrificeUrethra().removeOrificeModifier(this, modifier);
+	}
+		
 	
 	// ------------------------------ Wings: ------------------------------ //
 	

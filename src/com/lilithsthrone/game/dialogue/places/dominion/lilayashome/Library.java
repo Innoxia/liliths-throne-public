@@ -13,10 +13,13 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 import com.lilithsthrone.game.inventory.item.AbstractItemType;
 import com.lilithsthrone.game.inventory.item.ItemType;
 import com.lilithsthrone.main.Main;
+import com.lilithsthrone.rendering.RenderingEngine;
+import com.lilithsthrone.world.Cell;
+import com.lilithsthrone.world.WorldType;
 
 /**
  * @since 0.1.78
- * @version 0.1.87
+ * @version 0.2.2
  * @author Innoxia, Rfpnj
  */
 public class Library {
@@ -108,8 +111,6 @@ public class Library {
 	
 
 	public static final DialogueNodeOld BROWSE_BOOKS = new DialogueNodeOld("", "", false) {
-		/**
-		 */
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -133,25 +134,33 @@ public class Library {
 			if (books == 1) {
 				return new Response("General Knowledge", "A section of the library dedicated to books on common subjects.", LORE_BOOKS);
 
-			}  else if (books == 2) {
-				return new Response("Races of Dominion", "A section of the library dedicated to books concerning the predominate races within the city.", DOMINION_RACES) {
+			} else if (books == 2) {
+				return new Response("City Map", "A large, framed map of Dominion hangs on one wall. Take a closer look.", DOMINION_MAP) {
+					@Override
+					public void effects() {
+						Cell[][] grid = Main.game.getWorlds().get(WorldType.DOMINION).getGrid();
+						for(int i=0; i<grid.length; i++) {
+							for(int j=0; j<grid[0].length; j++) {
+								grid[i][j].setDiscovered(true);
+							}
+						}
+					}
 				};
 
-			} else if (books == 3) {
-				return new Response("The Fields", "A section of the library dedicated to books about the area known as the Foloi Fields.", FIELDS_BOOKS) {
-				};
-//
-//			} else if (books == 4) {
-//				return new Response("The Seas", "A section of the library dedicated to books on the area known as the Endless Sea.", SEA_BOOKS) {
-//				};
-//
-//			} else if (books == 5) {
-//				return new Response("The Jungle", "A section of the library dedicated to books on the area known as the Jungle.", JUNGLE_BOOKS) {
-//				};
-//
-//			} else if (books == 6) {
-//				return new Response("The Desert", "A section of the library dedicated to books on the area known as the Desert.", DESERT_BOOKS) {
-//				};
+			}  else if (books == 3) {
+				return new Response("Races of Dominion", "A section of the library dedicated to books concerning the predominate races within the city.", DOMINION_RACES);
+
+			}else if (books == 4) {
+				return new Response("Foloi Fields", "A section of the library dedicated to books about the area known as the Foloi Fields.", FIELDS_BOOKS);
+
+			} else if (books == 5) {
+				return new Response("Endless Sea", "A section of the library dedicated to books on the area known as the Endless Sea. (Not yet implemented.)", null);
+
+			} else if (books == 6) {
+				return new Response("The Jungle", "A section of the library dedicated to books on the area known as the Jungle. (Not yet implemented.)", null);
+
+			} else if (books == 7) {
+				return new Response("The Desert", "A section of the library dedicated to books on the area known as the Desert. (Not yet implemented.)", null);
 
 			} else if (books == 0) {
 				return new Response("Back", "Return to the main library menu.", LIBRARY);
@@ -241,9 +250,9 @@ public class Library {
 		}
 	
 	};
+	
+	
 	public static final DialogueNodeOld ARCANE_AROUSAL = new DialogueNodeOld("", "", false) {
-		/**
-		 */
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -400,6 +409,35 @@ public class Library {
 		}
 	};
 	
+	public static final DialogueNodeOld DOMINION_MAP = new DialogueNodeOld("", "", false) {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String getLabel() {
+			return "Library";
+		}
+
+		@Override
+		public String getContent() {
+			UtilText.nodeContentSB.setLength(0);
+			UtilText.nodeContentSB.append("<p>"
+						+ "Hanging on one of the walls of the library, a huge map of Dominion is displayed in a wooden frame."
+						+ " Using your phone, you take a picture of it for future reference."
+					+ "</p>"
+					+ "<p style='text-align:center;'>"
+						+ "[style.italicsExcellent(Dominion Map fully revealed!)]"
+					+ "</p>"
+					+ RenderingEngine.ENGINE.getFullMap(WorldType.DOMINION));
+			
+			return UtilText.nodeContentSB.toString();
+		}
+
+		@Override
+		public Response getResponse(int responseTab, int index) {
+			return LIBRARY.getResponse(0, index);
+		}
+		
+	};
 	
 	public static final DialogueNodeOld DOMINION_RACES = new DialogueNodeOld("", "", false) {
 		/**
