@@ -44,7 +44,7 @@ public class PlayerSelfTailMouth {
 
 		@Override
 		public String getDescription() {
-			return "Lifting your [pc.hand] up to your mouth, you slide your [pc.tail+] past your [pc.lips+], before lewdly sucking on it for a moment in order to get it well lubricated with your saliva.";
+			return "Lifting your [pc.tail+] up to your mouth, you slide your [pc.tail+] past your [pc.lips+], before lewdly sucking on it for a moment in order to get it well lubricated with your saliva.";
 		}
 		
 		@Override
