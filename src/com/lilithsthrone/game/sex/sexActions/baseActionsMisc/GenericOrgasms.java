@@ -450,7 +450,7 @@ public class GenericOrgasms {
 							}
 						}
 						break;
-					case URETHRA:
+					case URETHRA_PENIS: case URETHRA_VAGINA:
 						if(characterOrgasming.isPlayer()) {
 							genericOrgasmSB.append("You slide your [npc1.cock+] out of [npc2.name]'s [npc2.urethra+]");
 						} else {
@@ -568,17 +568,21 @@ public class GenericOrgasms {
 			List<String> modifiers = new ArrayList<>();
 			
 			switch(orificePenetrated) {
-				case ANUS: case NIPPLE: case VAGINA:
+				case ANUS: case NIPPLE: case VAGINA: case URETHRA_PENIS: case URETHRA_VAGINA:
 					String orificeName = (orificePenetrated == OrificeType.VAGINA
 							?"[npc2.pussy]"
 							:(orificePenetrated == OrificeType.ANUS
 								?"[npc2.asshole]"
-								:"[npc2.nipple]"));
+								:(orificePenetrated == OrificeType.NIPPLE
+										?"[npc2.nipple]"
+										:"urethra")));
 					String orificeNamePlusDescriptor = (orificePenetrated == OrificeType.VAGINA
 							?"[npc2.pussy+]"
 							:(orificePenetrated == OrificeType.ANUS
 								?"[npc2.asshole+]"
-								:"[npc2.nipple+]"));
+								:(orificePenetrated == OrificeType.NIPPLE
+										?"[npc2.nipple+]"
+										:"urethra")));
 					
 					if(characterOrgasming.hasPenisModifier(PenisModifier.KNOTTED)) {
 						if(characterOrgasming.isPlayer()) {
@@ -830,11 +834,6 @@ public class GenericOrgasms {
 					
 				case THIGHS:
 					break;
-				case URETHRA:
-					break;
-				default:
-					break;
-			
 			}
 		}
 
@@ -1322,7 +1321,31 @@ public class GenericOrgasms {
 					break;
 				case THIGHS:
 					break;
-				case URETHRA:
+				case URETHRA_PENIS: case URETHRA_VAGINA: //TODO
+					if(target.isPlayer()) {
+						cumTargetSB.append(" deep into your urethra.");
+					} else {
+						cumTargetSB.append(" deep into [npc2.name]'s urethra.");
+					}
+					switch (characterOrgasming.getPenisCumProduction()) {
+						case SIX_EXTREME: case SEVEN_MONSTROUS:
+							if(characterOrgasming.isPlayer()) {
+								cumTargetSB.append(" After a few seconds, [npc2.name] realises that you're not even close to stopping, and as your "
+										+"[pc.cum+] backs up and starts drooling out of [npc2.her] urethra, [npc2.she] lets out [npc2.a_moan+]."
+												+ " You keep your [npc1.cock] hilted deep inside of [npc2.herHim], [npc1.moaning+] as you wait for your [npc1.balls] to run dry.");
+							} else {
+								cumTargetSB.append(" After a few seconds, you realise that [npc1.name]'s not even close to stopping, and as you feel [npc1.her] "
+										+"[npc.cum+] backing up and drooling out of your urethra, you let out [pc.a_moan+]."
+										+ " [npc1.Name] keeps [npc1.her] [npc1.cock] hilted deep inside of you, [npc1.moaning+] as [npc.she] waits for [npc1.her] [npc1.balls] to run dry.");
+							}
+							break;
+						default:
+							break;
+					}
+					if(Main.getProperties().inflationContent && !target.isVisiblyPregnant()) {
+						int cumAmount = target.getCummedInAreaMap().get(orificePenetrated) + characterOrgasming.getPenisRawCumProductionValue();
+						cumTargetSB.append(getInflationText(characterOrgasming, target, cumAmount));
+					}
 					break;
 				case VAGINA:
 					if(target.isPlayer()) {
@@ -1715,8 +1738,8 @@ public class GenericOrgasms {
 					return "Nipple Creampie";
 				case THIGHS:
 					return "Thigh-sex Climax";
-				case URETHRA:
-					break;
+				case URETHRA_PENIS: case URETHRA_VAGINA:
+					return "Urethra Creampie";
 				case VAGINA:
 					if(Main.game.getPlayer().hasPenisModifier(PenisModifier.KNOTTED)) {
 						return UtilText.parse(characterPenetrated, "Knot [npc.herHim]");
@@ -1753,8 +1776,8 @@ public class GenericOrgasms {
 					return true;
 				case THIGHS:
 					break;
-				case URETHRA:
-					break;
+				case URETHRA_PENIS:
+				case URETHRA_VAGINA:
 				case VAGINA:
 					return true;
 			}
@@ -2886,8 +2909,8 @@ public class GenericOrgasms {
 					return "Nipple Creampie";
 				case THIGHS:
 					return "Thigh-sex Climax";
-				case URETHRA:
-					break;
+				case URETHRA_PENIS: case URETHRA_VAGINA:
+					return "Urethra Creampie";
 				case VAGINA:
 					if(Sex.getActivePartner().hasPenisModifier(PenisModifier.KNOTTED)) {
 						return UtilText.parse(characterPenetrated, "Knot [npc.herHim]");
@@ -2919,11 +2942,12 @@ public class GenericOrgasms {
 				case MOUTH:
 				case NIPPLE:
 				case VAGINA:
+				case URETHRA_PENIS:
+				case URETHRA_VAGINA:
 					isPenetratingSuitableOrifice = true;
 					break;
 				case ASS:
 				case BREAST:
-				case URETHRA:
 				case THIGHS:
 					break;
 			}

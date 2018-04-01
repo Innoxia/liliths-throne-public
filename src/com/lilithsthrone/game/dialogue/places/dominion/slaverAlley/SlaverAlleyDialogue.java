@@ -655,30 +655,6 @@ public class SlaverAlleyDialogue {
 		}
 	};
 	
-	public static final DialogueNodeOld BROTHEL = new DialogueNodeOld("Angel's Kiss", ".", false) {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public int getMinutesPassed() {
-			return 1;
-		}
-
-		@Override
-		public String getContent() {
-			return "<p>"
-						+ "<i><b>Placeholder:</b> I will get this added in as soon as I can!</i>"
-					+ "</p>"
-					+ "<p>"
-						+ "The brothel 'Angel's Kiss' is one of the largest establishments in Slaver Alley."
-					+ "</p>";
-		}
-
-		@Override
-		public Response getResponse(int responseTab, int index) {
-			return null;
-		}
-	};
-	
 	public static final DialogueNodeOld SLAVERY_ADMINISTRATION_EXTERIOR = new DialogueNodeOld("Slavery Administration", ".", false) {
 		private static final long serialVersionUID = 1L;
 

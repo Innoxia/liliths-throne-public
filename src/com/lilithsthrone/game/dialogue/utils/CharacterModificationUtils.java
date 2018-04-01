@@ -324,7 +324,7 @@ public class CharacterModificationUtils {
 		
 			contentSB.append(
 							getSexExperienceEntry("HANDJOBS_GIVEN", "Handjobs Given",
-									new SexType(SexParticipantType.PITCHER, PenetrationType.FINGER, OrificeType.URETHRA),
+									new SexType(SexParticipantType.PITCHER, PenetrationType.FINGER, OrificeType.URETHRA_PENIS),
 									normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames)
 							
 							+ getSexExperienceEntry("FINGERINGS_GIVEN", "Fingerings Performed",
@@ -352,7 +352,7 @@ public class CharacterModificationUtils {
 							+ "<div class='container-full-width' style='text-align:center;'><h6>Sex Actions Received</h6></div>");
 			contentSB.append(
 							(Main.game.getPlayer().hasVagina()?"":getSexExperienceEntry("HANDJOBS_TAKEN", "Handjobs Received",
-									new SexType(SexParticipantType.CATCHER, PenetrationType.FINGER, OrificeType.URETHRA),
+									new SexType(SexParticipantType.CATCHER, PenetrationType.FINGER, OrificeType.URETHRA_PENIS),
 									normalSexExperienceValues, Main.game.getPlayer().isFeminine()?feminineNames:masculineNames))
 							
 							+ (Main.game.getPlayer().hasVagina()?getSexExperienceEntry("FINGERINGS_TAKEN", "Fingerings Received",
@@ -436,7 +436,9 @@ public class CharacterModificationUtils {
 					break;
 				case THIGHS:
 					break;
-				case URETHRA:
+				case URETHRA_PENIS:
+					break;
+				case URETHRA_VAGINA:
 					break;
 				case VAGINA:
 					if(index==0) {

@@ -254,32 +254,27 @@ public enum Name {
 		
 		switch(gc.getRace()) {
 			case ANGEL:
-				break;
 			case CAT_MORPH:
-				break;
 			case COW_MORPH:
-				break;
-			case DEMON: case IMP:
-				break;
+			case DEMON:
+			case IMP:
 			case DOG_MORPH:
-				break;
 			case ALLIGATOR_MORPH:
+			case HARPY:
+			case HUMAN:
+			case WOLF_MORPH:
+			case SQUIRREL_MORPH:
+			case SLIME:
+			case BAT_MORPH:
+			case RAT_MORPH:
+			case RABBIT_MORPH:
 				break;
+				
 			case REINDEER_MORPH:
 				name = Name.REINDEER;
 				break;
-			case HARPY:
-				break;
 			case HORSE_MORPH:
 				name = Name.EQUINE;
-				break;
-			case HUMAN:
-				break;
-			case WOLF_MORPH:
-				break;
-			case SQUIRREL_MORPH:
-				break;
-			case SLIME:
 				break;
 		}
 		
@@ -303,32 +298,27 @@ public enum Name {
 		
 		switch(r) {
 			case ANGEL:
-				break;
 			case CAT_MORPH:
-				break;
 			case COW_MORPH:
-				break;
+			case DOG_MORPH:
+			case ALLIGATOR_MORPH:
+			case HARPY:
+			case HUMAN:
+			case WOLF_MORPH:
+			case SQUIRREL_MORPH:
+			case SLIME:
+			case BAT_MORPH:
+			case RAT_MORPH:
+			case RABBIT_MORPH:
+			break;
+			
 			case DEMON: case IMP:
 				return getDemonName();
-			case DOG_MORPH:
-				break;
-			case ALLIGATOR_MORPH:
-				break;
 			case REINDEER_MORPH:
 				name = Name.REINDEER;
 				break;
-			case HARPY:
-				break;
 			case HORSE_MORPH:
 				name = Name.EQUINE;
-				break;
-			case HUMAN:
-				break;
-			case WOLF_MORPH:
-				break;
-			case SQUIRREL_MORPH:
-				break;
-			case SLIME:
 				break;
 		}
 		

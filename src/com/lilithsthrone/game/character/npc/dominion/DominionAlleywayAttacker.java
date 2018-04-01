@@ -1,6 +1,7 @@
 package com.lilithsthrone.game.character.npc.dominion;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -15,6 +16,7 @@ import com.lilithsthrone.game.character.History;
 import com.lilithsthrone.game.character.Name;
 import com.lilithsthrone.game.character.attributes.Attribute;
 import com.lilithsthrone.game.character.gender.Gender;
+import com.lilithsthrone.game.character.npc.GenericSexualPartner;
 import com.lilithsthrone.game.character.npc.NPC;
 import com.lilithsthrone.game.character.race.FurryPreference;
 import com.lilithsthrone.game.character.race.RaceStage;
@@ -42,7 +44,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.66
- * @version 0.1.95
+ * @version 0.2.2
  * @author Innoxia
  */
 public class DominionAlleywayAttacker extends NPC {
@@ -103,35 +105,19 @@ public class DominionAlleywayAttacker extends NPC {
 			Map<Subspecies, Integer> availableRaces = new HashMap<>();
 			for(Subspecies s : Subspecies.values()) {
 				switch(s) {
-					case ALLIGATOR_MORPH:
-						addToSubspeciesMap(canalSpecies?20:0, gender, s, availableRaces);
-						break;
+					// No spawn chance:
 					case ANGEL:
-						break;
-					case CAT_MORPH:
-						addToSubspeciesMap(canalSpecies?5:20, gender, s, availableRaces);
-						break;
-					case COW_MORPH:
-						addToSubspeciesMap(canalSpecies?1:10, gender, s, availableRaces);
-						break;
+					case BAT_MORPH:
 					case DEMON:
-						break;
+					case HARPY:
+					case HUMAN:
 					case IMP:
-						break;
 					case IMP_ALPHA:
 						break;
-					case DOG_MORPH:
-						addToSubspeciesMap(canalSpecies?3:15, gender, s, availableRaces);
-						break;
-					case DOG_MORPH_DOBERMANN:
-						addToSubspeciesMap(canalSpecies?2:5, gender, s, availableRaces);
-						break;
-					case HARPY:
-						break;
-					case HORSE_MORPH:
-						addToSubspeciesMap(canalSpecies?5:20, gender, s, availableRaces);
-						break;
-					case HUMAN:
+						
+					// Canals spawn only:
+					case ALLIGATOR_MORPH:
+						addToSubspeciesMap(canalSpecies?20:0, gender, s, availableRaces);
 						break;
 					case SLIME:
 					case SLIME_ALLIGATOR:
@@ -146,19 +132,50 @@ public class DominionAlleywayAttacker extends NPC {
 					case SLIME_IMP:
 					case SLIME_REINDEER:
 					case SLIME_SQUIRREL:
+					case SLIME_BAT:
+					case SLIME_RAT:
 					case SLIME_WOLF:
+					case SLIME_RABBIT:
 						addToSubspeciesMap(canalSpecies?2:0, gender, s, availableRaces);
 						break;
+					case RAT_MORPH:
+						addToSubspeciesMap(canalSpecies?10:0, gender, s, availableRaces);
+						break;
+						
+					// Special spawns:
 					case REINDEER_MORPH:
 						if(Main.game.getSeason()==Season.WINTER && Main.game.getDialogueFlags().hasFlag(DialogueFlagValue.hasSnowedThisWinter)) {
 							addToSubspeciesMap(canalSpecies?1:10, gender, s, availableRaces);
 						}
+						break;
+						
+					// Regular spawns:
+					case CAT_MORPH:
+						addToSubspeciesMap(canalSpecies?5:20, gender, s, availableRaces);
+						break;
+					case COW_MORPH:
+						addToSubspeciesMap(canalSpecies?1:10, gender, s, availableRaces);
+						break;
+					case DOG_MORPH:
+						addToSubspeciesMap(canalSpecies?3:15, gender, s, availableRaces);
+						break;
+					case DOG_MORPH_DOBERMANN:
+						addToSubspeciesMap(canalSpecies?2:5, gender, s, availableRaces);
+						break;
+					case HORSE_MORPH:
+						addToSubspeciesMap(canalSpecies?5:20, gender, s, availableRaces);
 						break;
 					case SQUIRREL_MORPH:
 						addToSubspeciesMap(canalSpecies?1:10, gender, s, availableRaces);
 						break;
 					case WOLF_MORPH:
 						addToSubspeciesMap(canalSpecies?5:20, gender, s, availableRaces);
+						break;
+					case RABBIT_MORPH:
+						addToSubspeciesMap(canalSpecies?1:3, gender, s, availableRaces);
+						break;
+					case RABBIT_MORPH_LOP:
+						addToSubspeciesMap(canalSpecies?1:3, gender, s, availableRaces);
 						break;
 				}
 			}
@@ -298,6 +315,36 @@ public class DominionAlleywayAttacker extends NPC {
 		}
 		
 		setBody(gender, species, raceStage);
+	}
+	
+	@Override
+	public void hourlyUpdate() {
+		if(this.getHistory()==History.PROSTITUTE && this.getLocationPlace().getPlaceType()==PlaceType.ANGELS_KISS_BEDROOM) {
+			// Remove client:
+			List<NPC> charactersPresent = Main.game.getCharactersPresent(this.getWorldLocation(), this.getLocation());
+			if(charactersPresent.size()>1) {
+				for(NPC npc : charactersPresent) {
+					if(npc instanceof GenericSexualPartner) {
+	//					System.out.println("partner removed for "+slave.getName());
+						Main.game.banishNPC(npc);
+					}
+				}
+				
+			} else if(Math.random()<0.33f) { // Add client:
+				GenericSexualPartner partner;
+				
+				if(Math.random()<0.25f) {
+					partner = new GenericSexualPartner(Gender.F_P_V_B_FUTANARI, this.getWorldLocation(), this.getLocation(), false);
+				} else {
+					partner = new GenericSexualPartner(Gender.M_P_MALE, this.getWorldLocation(), this.getLocation(), false);
+				}
+				try {
+					Main.game.addNPC(partner, false);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 	
 	@Override

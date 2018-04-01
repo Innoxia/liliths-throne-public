@@ -12,7 +12,7 @@ import com.lilithsthrone.utils.Util;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.2.2
  * @author Innoxia
  */
 public class Eye implements BodyPartInterface, Serializable {
@@ -193,6 +193,45 @@ public class Eye implements BodyPartInterface, Serializable {
 								" By the time [npc.she] hesitantly opens them again, they've changed into squirrel-like eyes, with larger-than-average pupils and small irises."
 								+ "</br>"
 								+ "[npc.Name] now has [style.boldSquirrelMorph(squirrel-like eyes)]");
+				}
+				break;
+			case RAT_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" By the time you hesitantly open them again, they've changed into rat-like eyes, with larger-than-average pupils and small irises."
+								+ "</br>"
+								+ "You now have [style.boldRatMorph(rat-like eyes)]");
+				} else {
+					UtilText.transformationContentSB.append(
+								" By the time [npc.she] hesitantly opens them again, they've changed into rat-like eyes, with larger-than-average pupils and small irises."
+								+ "</br>"
+								+ "[npc.Name] now has [style.boldRatMorph(rat-like eyes)]");
+				}
+				break;
+			case RABBIT_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" By the time you hesitantly open them again, they've changed into rabbit-like eyes, with larger-than-average pupils and small irises."
+								+ "</br>"
+								+ "You now have [style.boldRabbitMorph(rabbit-like eyes)]");
+				} else {
+					UtilText.transformationContentSB.append(
+								" By the time [npc.she] hesitantly opens them again, they've changed into rabbit-like eyes, with larger-than-average pupils and small irises."
+								+ "</br>"
+								+ "[npc.Name] now has [style.boldRabbitMorph(rabbit-like eyes)]");
+				}
+				break;
+			case BAT_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" By the time you hesitantly open them again, they've changed into bat-like eyes, with larger-than-average pupils and small irises."
+								+ "</br>"
+								+ "You now have [style.boldBatMorph(bat-like eyes)]");
+				} else {
+					UtilText.transformationContentSB.append(
+								" By the time [npc.she] hesitantly opens them again, they've changed into bat-like eyes, with larger-than-average pupils and small irises."
+								+ "</br>"
+								+ "[npc.Name] now has [style.boldBatMorph(bat-like eyes)]");
 				}
 				break;
 			case ALLIGATOR_MORPH:

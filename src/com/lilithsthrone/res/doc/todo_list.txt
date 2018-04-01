@@ -5,105 +5,142 @@
 		Create .exe version
 	
 	!!! 32 bit exe !!!
-	Error logger!
 	
 	
 	Goals:
-	
-	Adding in the next stage of the main quest (earning an audience with Lyssieth).
-	Add 'Angels' Kiss' brothel.
-	Improve the slavery UI, and add more jobs & interactions. (Winner of Patreon poll.)
-	Make Zaranix & maids repeatable.
-	Add urethral penetration content.
-	Add in a mod template for items, clothing, weapons, and sex actions.
 	
 	
 	Patch notes:
 	
 	Gameplay:
-		Added fixed maps for Dominion, Submission, and Harpy Nests. (I will most likely tweak and improve these over the next few versions. I will also add random maps in some form or another a little later on.)
-		Added Canal tiles to Dominion. (Function similar to back alleys, but random attackers are more likely to be slimes and alligator morphs rather than normal alleyway races.)
-		Added three Parks, a central plaza, and boulevard tiles to Dominion.
-		Added basic descriptions for all new Dominion areas, and for about half of Submission. (Will be finished for the full release.)
+		Ralph now stocks bat, rat, and rabbit consumables.
+	
+	Sex:	
+		Added 'Swap Position' action to sex, so you can now access every possible position by swapping with your partner. (Available if you're the dom, or if you have equal control in the sex scene.)
 	
 	Other:
-		<b>Changed:</b> Ass and Breasts are now covered in the same skin/fur type as that which covers the character's torso.
-		<b>Removed:</b> Auto-milking chance from full breasts, and replaced it with a minor debuff. (The unavoidable loss in player agency was not in keeping with the rest of the game.)
-		Changed bandana displacement to be pulls down, not pulls up.
-		You can now see your opponent's fetishes in combat. (I'll tidy this up soon.)
-		Added content option for feminine characters to have facial hair (disabled by default).
-		Slave rooms no longer give +0.2 affection per hour.
-		Changed alligator-morph's 'scales in place of hair' to coarse hair. (All naturally-spawning alligators now spawn in with no hair.)
-		Increased chance of NPCs to spawn in with addictive or psychoactive cum/girlcum from 0.5% to 2%.
-		Added penis girth to body changing options.
-		Random NPCs with the lactation fetish will now spawn in producing milk.
-		Added normal human skin colours as colour options for demons.
-		Updated Scarlett's appearance and clothing, and gave her three fetishes. (These changes won't be applied if she is already your slave, as I didn't want to interfere with any transformations/clothing/fetishes you've given to her.)
-		Halved all milk regeneration values (even the minimum one was refilling to maximum after just 1 day).
-		Added training and hyper sizes to breast cup size detection.
-		Adjusted prostitute prices.
+		Changed the perks 'barren' and 'firing blanks' to traits (can now be equipped/unequipped will), and changed the trait 'arcane weaver' to a perk.
+		Improved the inventory screen to use pages. (Using a scrollbar wasn't viable, as JavaFX struggles to render so many SVGs at once.)
+		Increased inventory slot limit from 32 to 120.
 	
-	Clothing:
-		Added: Sleeveless turtleneck (feminine, torso slot).
-	
-	Contributors:
-		Cleaned various issues. (Pimvgd)
-		<b>Forced Fetishes and Forced TF Gender Tendency Settings.</b> This implements several new settings and related features for forced transformations and fetishes. You can see the full changes here: https://github.com/Innoxia/liliths-throne-public/pull/113 (FFongWong)
-		Add coverage to clothing for slots with no sex actions. This adds slots such as BACK, STOMACH, and HAIR to clothing concealment, which should fix the bug where you cum on a character's back or stomach and it dirties the body through the clothes. (Master of Puppets)
-		Add cum targets for characters cumming on themselves. (Master of Puppets)
-		Add error logging to 'data/error.log' instead of STDERR. (Master of Puppets)
-		Add check for new potion enchantments. (Master of Puppets)
-		Fixed spell cost reduction giving negative costs. (Master of Puppets)
-		Remove translation of INTELLIGENCE to MAJOR_ARCANE for old character imports - this was giving all imported characters extra arcane ability, which the majority of them shouldn't have. (Master of Puppets)
-		Body hair/fur/feathers now uses the patterns for hair rather than skin. (Master of Puppets)
-		Increased Flame reward from Angry Harpy quest from 1500 to 5000 flames. (rfpnj)
-		Changed what triggers the 'Frustrated' status effect from 'did not cum' to 'ended sex just before orgasming'. (Master of Puppets)
-		Removed requirement for characters to have breasts in order to pinch nipples. (Master of Puppets)
-		Added several new hair styles. (WoefulWombat)
-		Fixed speech parsing not using correct femininity colour. (Master of Puppets)
-		Fixed Maid's Stockings secondary colour not working. (Master of Puppets)
-		Fixed loading the game advancing time. (Master of Puppets)
-		Fixed 'squirter' property of vaginas not being saved/loaded. (Master of Puppets)
-		Fixed bug where after having started a game and then selecting new game, you would be unable to set your new character's femininity and other attributes. (Master of Puppets)
-		
 	Bugs:
 		Typo fixes.
-		Slavery log events now properly save and load.
-		Fixed bimbo talk sometimes generating incorrect sentence endings. 
-		Fixed being able to cast spells even when out of aura.
-		Fixed bug in enchanting screen, where adding a new enchantment that matched an existing enchantment (i.e. Adding 5 seduction damage when an existing +5 seduction damage already existed), showed that the new one required an arcane cost to remove.
-		Fixed enchanting screen bug, where clicking on the left clothing icon would cause a soft-lock.
-		Fixed addictions not saving/loading properly.
-		Triple obedience gains from the 'In Control' trait (the one gained from having the Teacher background) will now correctly be applied to all obedience gains.
-		NPCs will no longer be enslaved if the enslavement clothing can't be equipped onto them.
-		Saving game will no longer progress time.
-		You will now take energy & aura damage from tease attacks when at 100 lust (just like enemy demons do).
-		Fetishes gained from clothing will now correctly apply attribute bonuses, special attacks, and derived fetishes.
-		Fixed intro sex displaying that you lost your virginity 'in the jungle'.
-		Fixed cause of imps spawning in at incorrect heights, and of slimes birthing humans.
-		Added tooltips for milking actions.
-		Fixed active traits with buffs (such as +25 aura) remaining in effect even if you unequipped them.
-		Fixed bug where increasing height would say its increased even past the maximum limit.
-		Fixed gifting chocolate to Nyan boosting affection by 50 (it now correctly boosts by 5). 
-		Fixed 'locked in stocks' applying vaginal sex events to slaves with no vagina.
-		Slaves will no longer have amorous encounters with relations if they don't have the associated fetish.
-		Fixed cum stud tease parsing the wrong names.
-		
+		Fixed some bugs in Bunny's and Loppy's dialogue options.
+		Clothing now correctly conceals piercing slots.
+		Fixed slave prostitute job's obedience, affection, and income being far too high.
+		Fixed rabbit-morph tails being tagged as prehensile and suitable for penetration.
+		Fixed bugs with rat and bat morph race detection.
+		Fixed bat penis being detected as squirrel penis.
+		Loppy and Bunny now correctly return to their rooms after the threesome.
 	
+	
+	
+	Arcane shield use text is messed up, and spell tooltips!
+	
+	
+	
+	Sex AI: Also, I'm not sure if it's a bug or if it's just weird luck on my end, but it seems like most enemies are not actively advancing sex scenes, even in the dominant role.
+	 I get a lot of cyclical fingering that never turns into sex, or stripping and then saying "What should I do with you? I wonder" and not actually doing anything.
+	
+	
+	- Have all of the core content for Submission finished (all of the encounters written in, and every area having at least the basics of their content added).
+	
+	Make sex action template
+	- Add urethral penetration content. (Just penises for now)
+		Add dirty talk
+		Fix penis urethra being used for handjobs
+	
+	- Improve the slavery UI, and add more jobs & interactions (winner of Patreon content poll).
+		- Improving the management UI.
+		- Adding content for all of the current settings (such as forbidding them to talk, and letting them leave the house).
+		- Adding content for interacting with them in their place of work.
+		- Adding prostitute job, and a milking machine room upgrade.
+		- I'll try and add in a setting for their behaviour this version (set them to act friendly or cold)
+		You could put it under girls’ job tabs to assign them to your bedroom and act as alarm clock with blowjobs and sexual intercourse.  
+	
+	- Finish the spell system and add a few more weapons.
+		Companions
+		Spell levels
+	
+	- Make Zaranix & maids repeatable.
+	
+	- Add in a mod template for items, clothing, weapons, and sex actions.
+	
+	Prostitutes having sex (not removing partners correctly?)
+	
+	
+	
+	----------------- Sex -----------------
+	NPC-on-NPC kissing actions
+	
+	Sex AI to target others
+		check to see if attracted to them
+		check to see if actions is not empty
+		
+	NPCs will wait to orgasm until you select them
+	
+	NPCs have trouble removing witch dress + hooded cloak combo
+	
+	Need to make an isExclusiveWith() method, return list of SexTypes
+		in doggystyle with brax I can fuck him AND ride his cock
+		
+	---------------------------------------
+	
+	Ear bat ultrasonic description
+		night time bats
+	
+	Give racial bonuses unique things
+	
+	my character started with the Witch's Seal spell
+	
+	Tooltips: his message isn't correct i've already taken off mah pants, also i can still unzip my pants and the description is "This will expose your cock" when i've already had it exposed
+	
+	Prostitutes are unaffected by arcane storms
+	
+	Could we get ability to spend an arcane essense to trigger clothing transformations on demand
+	
+	Not sure if it's a bug but NPCs you find in the Dominion's canals don't stick around after encountering them.
+		Also slimes have a very high spawn rate in Submission, only encountered 2 imps so far and I believe gators are on the verge of extinction because I have yet to find any down there
+	
+	Slime lges: A leg type to merge their legs together into one slimy mass. It should block off the foot slot like harpy feet do.
+	
+	able to just beat the storeroom quest thing without doing it
+	
+	When you're getting Kink TFed it still does the regular TF text. Saying they'll make you into the perfect "whatever" morph, instead of perfect "kink"
+	
+	While dusting: "Diana caught sight of Diana, and... Jennifer might have gotten pregnant!"
+	
+	text for changing aprts in phone menu
+	
+	Do Lilaya's tests, creampie her so she banishes you then return. Asking her about Essences and Jinxes will be greyed out if her test sex was your first Dominion orgasm harvest, unsure if only tried to the not pregnant  conversation but suspect both outcomes also leave it greyed.
+	
+	don't forget to add Ashley to the shopping arcade fast travel.
+	
+	it's the fact that main street encounters with prostitute characters still end with the 'now that you've discovered their secret, this is the last time you'll see them' thing. You did NOT discover their secret.
+	
+	if you start a new game without closing the game(full game) the rooms names in Lilaya's house continue to count where the last game ended.
+	
+	NPC changed appearance between encounters. I met a dark alley succubus with blue skin, and when I returned to the same succubus later, she had Ivory skin.
+	
+	in the character creation screen I can’t give my pc facial hair “Feminine characters cannot grow facial hair.” despite having feminine beards enabled.
+	
+	"Grace lets out a desperate squeal as you readily push your tongue deep into her slightly loose pussy.
+		A desperate squeal bursts out from between Grace's delicate lips as she eagerly pumps her throbbing cock in and out of your mouth."
+		Basically if you start giving cunnilingus first a lot of sex encounters let you give a blowjob at the same time.
 	
 	Have all of the core content for new Dominion, Submission, and Harpy Nests finished (all of the encounters written in, and every area having at least the basics of their content added).
 		Submission []
+		Gambling den:
+			trader (overpriced, 90% junk)
+			dice game - earn money (can offer orifices for flames)
+			Impregnation game (as player or target) - add pregnancy tests
 	
-	Finish the spell system and add a few more weapons.
-	
-	Completely polish the multiple-partner sex scenes. (There are still some bugs that I need to get fixed before adding these scenes to random encounters.)
-	
-	Rat-morphs, mice-morphs, and bat-morphs completely finished and added.
-	
-	
+	Finish effect being generic for all types
 	
 	
+	charatcer creation sex experience +/-
 	
+	poledance staff
 	
 	- Succubi seem to all change colors
 	- Slave activity logbook completely clears on load.
@@ -122,6 +159,7 @@
 	no tooltip for spells
 	
 	
+	so I knocked up all the slaves but they somehow lost their pregancy status before Evie did. and the stat screen says they are ready to give birth. is this a bug? this is for .2.1.2 Alpha
 	
 	need hyper breasts status effects
 	
@@ -146,10 +184,6 @@
 	Similar buffs could then come for Orgasm denier[Bonuses to physical damage for few hours] and Self denial fetish[Seduction damage bonus]
 	
 	I understand you wanted to offer condoms of different colours, but right now, it's bit annoying, as you can't properly stockpile on them - could you make it so that it's possible to change colour of more than one condom at once
-	
-	Second bug I found is about October Priestesses/Witch Succubi
-		when you're in combat with them and they seal you, you can freely keep casting spells and use special attacks, as only the first menu is blocked[Button you're sealed or something](edited)
-		menus for special attacks and spells still offer option to use them, so you can use spells and teases or race attacks despite being sealed
 	
 	since there is an option to be a squirter if you have a vagina, maybe you could add an option to squirt milk from nipples when reaching orgasm. It would be possible if the character is lactating and the ejaculation would decrease the amount of milk stored in the breasts.
 	
@@ -203,7 +237,6 @@
 
 	The same issue is happening with having traps selected of either androgynous and feminine in gender preferences. Only humans will spawn even if humans are disabled.
 	
-		
 	foot fetish
 		as for feet stuff, apart from regular footjobs and all, there could be more sadistic/humiliating stuff too, so it relates to available fetishes more too, such as making someone lick your feet/or being made to do so, which is hot asf tbh, apart from that what i though of was if you had a previous sexual encounter or your partner had it, and lets say they had someone cum on their legs or any part, you could be ordered/order someone to lick it up and all that sort of stuff
 		in rape scenarios you could force others to lick it up and all which would increase lust for one that has sadist or masochist fetishes and all
@@ -217,18 +250,14 @@
 	 
 	
 	!!! Pix consent version !!!
+	Content for impregnation
 	
 	
 	The molesting of the submissive by the dominant through their clothing and the addition of jockstraps to give a male version of backless undergarments
 
 	Oh, and I'll also get the kink generation sorted out soon; at the moment it's almost completely random. ^^
 	
-	says there are no entries other than October, but December has an entry now too
-	
 	Can you make it so that when you use the "grow cock" option during sex, it uses whatever options you have set in the transformation menu
-	Also there's no option for girth in the transform menus
-	
-	As a slime girl, when having submissive sex with another slime girl (daughter), the  scene does not end after both characters orgasm, it just repeats endlessly.
 	
 	imp forced TFs messed up
 	NPC slimes will attempt to turn you into a slime and the game will tell you its working but you remain human
@@ -240,14 +269,7 @@
 	
 	Allow demons to change their wing size and pubic hair color.
 	
-	SUBMISSION
-	
 	Improve breast-feeding action text
-	
-	Spell & Combat page
-	Spell level to work
-	
-	content for pix impreg
 	
 	Improve intro to reference increasing arousal more
 	
@@ -257,8 +279,6 @@
 	
 	
 	Slime TF screen piercings.
-	
-	wolfgang climaxed in my vag and uh, so did karl?
 	
 	Udders
 	
@@ -327,8 +347,6 @@
 
 	I will also add jockstraps! ^^
 	
-	dyed secondary and tertiary colors don't survive save/load.
-	
 	When you trade with Nyan, leaving the trade puts you in the “Talk" tab. Either the “Trade" tab should be first, or the game should remember the last tab you were on so you can switch between trade categories easier.
 	
 	Maybe there could be some variation there based on muscle tone, say an untoned character might have their chest described as “your soft chest", while a highly toned one might see “your chiseled pecs" or whatever.
@@ -345,18 +363,13 @@
 	
 	pregnancy possibility including someone without penis
 	
-	When you are having double sex, like getting spitroasted, if one partner comes inside your vagina, it says they both do.
 	
-	: in doggystyle with brax I can fuck him AND ride his cock
-	
-	 Is it supposed to say "Talk Dirty to (blank)" for the description of "Beg for (blank) to stop"?
 	
 	More wing colours, really weird we can't use all the hair colours
 	
 	free enchantments?
 		: Another enchantment issue, if you have a pile of items with the same enchantment and it loads to the next one then it forgets to look for existing enchantments
 	
-	 Secondly, I could select appropriate sex options for Karl, but when I switched to Wolfgang there were blank spots where the normal/eager buttons should have been.
 	
 	I applied addictive and psychoactive properties to my character's girlcum, then tried to test it out by having her get eaten out, then once she reached her climax I clicked 'thigh squeeze', to cum directly into her partner's mouth. However, none of the effects worked.
 	
@@ -368,7 +381,6 @@
 	
 	NPC idea: Gang Leader, a badass morph mugger with one or two regular muggers by their side, usually all the same species, encountered in purple alley-ways. Can be more dangerous than demons sometimes and often wears swank enchanted clothing
 	
-	NPCs have trouble removing witch dress + hooded cloak combo
 	
 	. Does a hypnotic trip get extended if they still have an orifice jampacked full of the hypnotic cum
 	
@@ -396,18 +408,6 @@ When a female grows a cock, the size could be based on the type, say a cat-cock 
 
 The Arcane stat could have a multiplier on essence received alongside its other effects.
 	
-	Spell work
-		'Base' spells are unlocked by having higher arcane
-		Have offensive, defensive, and utility spells (5 of each)
-		Weapon types change spells into other things
-		
-	NPC-on-NPC kissing actions
-	
-	Sex AI to target others
-		check to see if attracted to them
-		check to see if actions is not empty
-	
-	Then thoroughly playtest multiple-partner sex
 	
 	if a character isn't an anal virgin but has virginal virginity shouldn't it be a like
 	

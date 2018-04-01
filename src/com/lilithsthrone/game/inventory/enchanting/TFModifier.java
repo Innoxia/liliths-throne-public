@@ -460,6 +460,13 @@ public enum TFModifier {
 			"modifier_circle_capacity",
 			Colour.BASE_PINK_LIGHT,
 			Rarity.COMMON),
+
+	TF_MOD_CAPACITY_2("capacity II",
+			"Applies an effect related to changing an orifice's capacity.",
+			"capacity",
+			"modifier_circle_capacity",
+			Colour.BASE_PINK,
+			Rarity.COMMON),
 	
 	TF_MOD_WETNESS("wetness",
 			"Applies an effect related to changing the wetness of an orifice, or the fluid production of a body part.",
@@ -475,11 +482,25 @@ public enum TFModifier {
 			Colour.BASE_AQUA,
 			Rarity.COMMON),
 	
+	TF_MOD_ELASTICITY_2("elasticity II",
+			"Applies an effect related to changing the elasticity of an orifice.",
+			"elastic",
+			"modifier_circle_elasticity",
+			Colour.BASE_BLUE_LIGHT,
+			Rarity.COMMON),
+	
 	TF_MOD_PLASTICITY("plasticity",
 			"Applies an effect related to changing the plasticity of an orifice.",
 			"plastic",
 			"modifier_circle_plasticity",
 			Colour.BASE_TEAL,
+			Rarity.COMMON),
+	
+	TF_MOD_PLASTICITY_2("plasticity II",
+			"Applies an effect related to changing the plasticity of an orifice.",
+			"plastic",
+			"modifier_circle_plasticity",
+			Colour.BASE_BLUE,
 			Rarity.COMMON),
 	
 	// modifiers:
@@ -510,6 +531,34 @@ public enum TFModifier {
 			"muscled",
 			"modifier_circle_orifice_muscled",
 			Colour.BASE_MAGENTA,
+			Rarity.COMMON),
+	
+	TF_MOD_ORIFICE_PUFFY_2("puffiness II",
+			"Applies an effect related to making an orifice puffy.",
+			"puffy",
+			"modifier_circle_orifice_puffy",
+			Colour.BASE_BLUE,
+			Rarity.COMMON),
+	
+	TF_MOD_ORIFICE_RIBBED_2("ribbing II",
+			"Applies an effect related to making an orifice internally-ribbed.",
+			"ribbed",
+			"modifier_circle_orifice_ribbed",
+			Colour.BASE_PINK,
+			Rarity.COMMON),
+	
+	TF_MOD_ORIFICE_TENTACLED_2("tentacled II",
+			"Applies an effect related to making an orifice internally-tentacled.",
+			"tentacled",
+			"modifier_circle_orifice_tentacled",
+			Colour.BASE_RED,
+			Rarity.COMMON),
+	
+	TF_MOD_ORIFICE_MUSCLED_2("muscled II",
+			"Applies an effect related to making an orifice internally-muscled.",
+			"muscled",
+			"modifier_circle_orifice_muscled",
+			Colour.BASE_PURPLE,
 			Rarity.COMMON),
 	
 	// eye shapes:

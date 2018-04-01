@@ -51,7 +51,7 @@ import com.lilithsthrone.world.places.PlaceType;
 
 /**
  * @since 0.1.88
- * @version 0.1.99
+ * @version 0.2.2
  * @author Innoxia
  */
 public class Cultist extends NPC {
@@ -89,6 +89,7 @@ public class Cultist extends NPC {
 			this.addFetish(Fetish.FETISH_ORAL_RECEIVING);
 			this.addFetish(Fetish.FETISH_ORAL_GIVING);
 			this.addFetish(Fetish.FETISH_ANAL_GIVING);
+			this.addFetish(Fetish.FETISH_VAGINAL_GIVING);
 			this.addFetish(Fetish.FETISH_IMPREGNATION);
 			CharacterUtils.addFetishes(this);
 			

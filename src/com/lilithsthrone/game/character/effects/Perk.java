@@ -966,7 +966,7 @@ public enum Perk {
 	
 	
 	CLOTHING_ENCHANTER(20,
-			true,
+			false,
 			"arcane weaver",
 			PerkCategory.ARCANE,
 			"perks/arcaneWeaver",
@@ -990,10 +990,10 @@ public enum Perk {
 	},
 	
 	BARREN(20,
-			false,
+			true,
 			"barren",
 			PerkCategory.PHYSICAL,
-			"perks/fitness_barren",
+			"perks/barren",
 			Colour.GENERIC_SEX,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.FERTILITY, -100)), null) {
 
@@ -1013,10 +1013,10 @@ public enum Perk {
 	},
 	
 	FIRING_BLANKS(20,
-			false,
+			true,
 			"firing blanks",
 			PerkCategory.PHYSICAL,
-			"perks/fitness_barren",
+			"perks/firing_blanks",
 			Colour.GENERIC_SEX,
 			Util.newHashMapOfValues(new Value<Attribute, Integer>(Attribute.VIRILITY, -100)), null) {
 
@@ -1038,7 +1038,7 @@ public enum Perk {
 	private int renderingPriority;
 	protected String name;
 	private Colour colour;
-	private boolean major;
+	private boolean equippableTrait;
 
 	// Attributes modified by this Virtue:
 	private HashMap<Attribute, Integer> attributeModifiers;
@@ -1057,7 +1057,7 @@ public enum Perk {
 		this.name = name;
 		this.colour = colour;
 		
-		this.major = major;
+		this.equippableTrait = major;
 		
 		this.perkCategory = perkCategory;
 
@@ -1113,8 +1113,8 @@ public enum Perk {
 		return colour;
 	}
 
-	public boolean isMajor() {
-		return major;
+	public boolean isEquippableTrait() {
+		return equippableTrait;
 	}
 
 	public abstract String getDescription(GameCharacter target);

@@ -337,7 +337,8 @@ public abstract class SexAction implements SexActionInterface {
 							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_PREGNANCY);
 							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_BROODMOTHER);
 							break;
-						case URETHRA:
+						case URETHRA_PENIS:
+						case URETHRA_VAGINA:
 							break;
 					}
 				}
@@ -382,7 +383,8 @@ public abstract class SexAction implements SexActionInterface {
 							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_IMPREGNATION);
 							characterFetishesForPartner.get(characterPerformingAction).add(Fetish.FETISH_SEEDER);
 							break;
-						case URETHRA:
+						case URETHRA_PENIS:
+						case URETHRA_VAGINA:
 							break;
 					}
 				}
@@ -440,7 +442,8 @@ public abstract class SexAction implements SexActionInterface {
 							}
 							associatedFetishes.add(Fetish.FETISH_BREASTS_SELF);
 							break;
-						case URETHRA:
+						case URETHRA_PENIS:
+						case URETHRA_VAGINA:
 							associatedFetishes.add(Fetish.FETISH_MASTURBATION);
 							break;
 						case VAGINA:
@@ -472,7 +475,8 @@ public abstract class SexAction implements SexActionInterface {
 								associatedFetishes.add(Fetish.FETISH_BREASTS_OTHERS);
 							}
 							break;
-						case URETHRA:
+						case URETHRA_PENIS:
+						case URETHRA_VAGINA:
 							associatedFetishes.add(Fetish.FETISH_MASTURBATION);
 							break;
 						case VAGINA:
@@ -506,7 +510,8 @@ public abstract class SexAction implements SexActionInterface {
 							}
 							associatedFetishes.add(Fetish.FETISH_BREASTS_SELF);
 							break;
-						case URETHRA:
+						case URETHRA_PENIS:
+						case URETHRA_VAGINA:
 							break;
 						case VAGINA:
 							associatedFetishes.add(Fetish.FETISH_VAGINAL_RECEIVING);
@@ -537,7 +542,8 @@ public abstract class SexAction implements SexActionInterface {
 								associatedFetishes.add(Fetish.FETISH_BREASTS_OTHERS);
 							}
 							break;
-						case URETHRA:
+						case URETHRA_PENIS:
+						case URETHRA_VAGINA:
 							break;
 						case VAGINA:
 							associatedFetishes.add(Fetish.FETISH_VAGINAL_GIVING);
@@ -569,7 +575,8 @@ public abstract class SexAction implements SexActionInterface {
 							}
 							associatedFetishes.add(Fetish.FETISH_BREASTS_SELF);
 							break;
-						case URETHRA:
+						case URETHRA_PENIS:
+						case URETHRA_VAGINA:
 							break;
 						case VAGINA:
 							associatedFetishes.add(Fetish.FETISH_VAGINAL_RECEIVING);
@@ -600,7 +607,8 @@ public abstract class SexAction implements SexActionInterface {
 								associatedFetishes.add(Fetish.FETISH_BREASTS_OTHERS);
 							}
 							break;
-						case URETHRA:
+						case URETHRA_PENIS:
+						case URETHRA_VAGINA:
 							break;
 						case VAGINA:
 							associatedFetishes.add(Fetish.FETISH_VAGINAL_GIVING);
@@ -632,7 +640,8 @@ public abstract class SexAction implements SexActionInterface {
 							}
 							associatedFetishes.add(Fetish.FETISH_BREASTS_SELF);
 							break;
-						case URETHRA:
+						case URETHRA_PENIS:
+						case URETHRA_VAGINA:
 							break;
 						case VAGINA:
 							associatedFetishes.add(Fetish.FETISH_VAGINAL_RECEIVING);
@@ -663,7 +672,8 @@ public abstract class SexAction implements SexActionInterface {
 								associatedFetishes.add(Fetish.FETISH_BREASTS_OTHERS);
 							}
 							break;
-						case URETHRA:
+						case URETHRA_PENIS:
+						case URETHRA_VAGINA:
 							break;
 						case VAGINA:
 							associatedFetishes.add(Fetish.FETISH_VAGINAL_GIVING);
@@ -703,7 +713,8 @@ public abstract class SexAction implements SexActionInterface {
 								associatedFetishes.add(Fetish.FETISH_ORAL_GIVING);
 							}
 							break;
-						case URETHRA:
+						case URETHRA_PENIS:
+						case URETHRA_VAGINA:
 							associatedFetishes.add(Fetish.FETISH_ORAL_RECEIVING);
 							if(this.getParticipantType()==SexParticipantType.SELF) {
 								associatedFetishes.add(Fetish.FETISH_ORAL_GIVING);
@@ -746,7 +757,8 @@ public abstract class SexAction implements SexActionInterface {
 							}
 							associatedFetishes.add(Fetish.FETISH_ORAL_GIVING);
 							break;
-						case URETHRA:
+						case URETHRA_PENIS:
+						case URETHRA_VAGINA:
 							associatedFetishes.add(Fetish.FETISH_ORAL_GIVING);
 							break;
 						case VAGINA:

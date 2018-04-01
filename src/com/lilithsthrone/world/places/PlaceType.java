@@ -20,6 +20,7 @@ import com.lilithsthrone.game.dialogue.places.dominion.DemonHome;
 import com.lilithsthrone.game.dialogue.places.dominion.EnforcerHQDialogue;
 import com.lilithsthrone.game.dialogue.places.dominion.LilithsTower;
 import com.lilithsthrone.game.dialogue.places.dominion.NightlifeDistrict;
+import com.lilithsthrone.game.dialogue.places.dominion.RedLightDistrict;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestAlexa;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestBimbo;
 import com.lilithsthrone.game.dialogue.places.dominion.harpyNests.HarpyNestDominant;
@@ -164,6 +165,13 @@ public enum PlaceType {
 	},
 	
 	DOMINION_SLAVER_ALLEY("Slaver Alley", "dominion/slaverAlleyIcon",  BaseColour.CRIMSON, Colour.MAP_BACKGROUND, SlaverAlleyDialogue.OUTSIDE, null, true, false, false, true, "in the alleyways near Slaver's Alley") {
+		@Override
+		public boolean isDangerous() {
+			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
+		}
+	},
+
+	DOMINION_RED_LIGHT_DISTRICT("Red Light District", "dominion/brothel", BaseColour.MAGENTA, Colour.MAP_BACKGROUND_DARK, RedLightDistrict.OUTSIDE, Encounter.DOMINION_STREET, true, false, false, true, "in the streets of Dominion") {
 		@Override
 		public boolean isDangerous() {
 			return Main.game.getCurrentWeather() == Weather.MAGIC_STORM;
@@ -553,11 +561,22 @@ public enum PlaceType {
 	ZARANIX_FF_MAID("Corridor", null, BaseColour.RED, Colour.MAP_BACKGROUND, ZaranixHomeFirstFloor.CORRIDOR_MAID, null, true, true, true, false, "in Zaranix's Home"),
 	
 	
+	// Angel's Kiss:
+
+	ANGELS_KISS_CORRIDOR("Corridor", null, BaseColour.GREY, Colour.MAP_BACKGROUND, RedLightDistrict.ANGELS_KISS_CORRIDOR, null, true, false, true, false, "in Angel's Kiss"),
+	ANGELS_KISS_ENTRANCE("Entrance Hall", "dominion/angelsKiss/entrance", BaseColour.RED, Colour.MAP_BACKGROUND, RedLightDistrict.ANGELS_KISS_ENTRANCE, null, true, false, true, false, "in Angel's Kiss"),
+	ANGELS_KISS_STAIRCASE_UP("Entrance Hall", "dominion/angelsKiss/stairsUp", BaseColour.GREEN_LIGHT, Colour.MAP_BACKGROUND, RedLightDistrict.ANGELS_KISS_STAIRS_UP, null, true, false, true, false, "in Angel's Kiss"),
+	ANGELS_KISS_STAIRCASE_DOWN("Entrance Hall", "dominion/angelsKiss/stairsDown", BaseColour.RED, Colour.MAP_BACKGROUND, RedLightDistrict.ANGELS_KISS_STAIRS_DOWN, null, true, false, true, false, "in Angel's Kiss"),
+	ANGELS_KISS_BEDROOM("Bedroom", "dominion/angelsKiss/bedroom", BaseColour.PINK, Colour.MAP_BACKGROUND, RedLightDistrict.ANGELS_KISS_BEDROOM, null, true, false, true, false, "in Angel's Kiss"),
+	ANGELS_KISS_BEDROOM_BUNNY("Bunny's Bedroom", "dominion/angelsKiss/bedroomBunny", BaseColour.PINK_LIGHT, Colour.MAP_BACKGROUND, RedLightDistrict.ANGELS_KISS_BEDROOM_BUNNY, null, true, false, true, false, "in Bunny's Bedroom"),
+	ANGELS_KISS_BEDROOM_LOPPY("Loppy's Bedroom", "dominion/angelsKiss/bedroomLoppy", BaseColour.PURPLE, Colour.MAP_BACKGROUND, RedLightDistrict.ANGELS_KISS_BEDROOM_LOPPY, null, true, false, true, false, "in Loppy's Bedroom"),
+	ANGELS_KISS_OFFICE("Angel's Office", "dominion/angelsKiss/office", BaseColour.BLUE_LIGHT, Colour.MAP_BACKGROUND, RedLightDistrict.ANGELS_KISS_OFFICE, null, true, false, true, false, "in Angel's Office"),
 	
-	// Standard tiles:
+	
+	// Shopping arcade:
+	
 	SHOPPING_ARCADE_PATH("Arcade", null, BaseColour.BLACK, Colour.MAP_BACKGROUND, ShoppingArcadeDialogue.ARCADE, null, true, false, true, true, "in the Shopping Arcade"),
 
-	// Places:
 	SHOPPING_ARCADE_GENERIC_SHOP("Shop", "dominion/shoppingArcade/genericShop", BaseColour.BLACK, Colour.MAP_BACKGROUND, ShoppingArcadeDialogue.GENERIC_SHOP, null, true, false, true, true, "in the Shopping Arcade"),
 	
 	SHOPPING_ARCADE_RALPHS_SHOP("Ralph's Snacks", "dominion/shoppingArcade/ralphShop", BaseColour.TEAL, Colour.MAP_BACKGROUND, RalphsSnacks.EXTERIOR, null, true, false, true, true, "in his store"),
@@ -635,8 +654,6 @@ public enum PlaceType {
 
 	SLAVER_ALLEY_PUBLIC_STOCKS("Public Stocks", "dominion/slaverAlley/stocks", BaseColour.TAN, Colour.MAP_BACKGROUND, SlaverAlleyDialogue.PUBLIC_STOCKS, null, true, false, true, true, "in the stocks at Slaver's Alley"),
 
-	SLAVER_ALLEY_BROTHEL("Brothel", "dominion/slaverAlley/brothel", BaseColour.MAGENTA, Colour.MAP_BACKGROUND, SlaverAlleyDialogue.BROTHEL, null, true, false, true, true, "at the brothel Angel's Kiss"),
-
 	SLAVER_ALLEY_SLAVERY_ADMINISTRATION("Slavery Administration", "dominion/slaverAlley/slaveryAdministration", BaseColour.PURPLE, Colour.MAP_BACKGROUND, SlaverAlleyDialogue.SLAVERY_ADMINISTRATION_EXTERIOR, null, true, false, true, true, "in Slaver's Alley"){
 		@Override
 		public ArrayList<PlaceUpgrade> getStartingPlaceUpgrades() {
@@ -665,7 +682,7 @@ public enum PlaceType {
 
 	SUBMISSION_TUNNELS("Tunnels", "submission/tunnelsIcon", BaseColour.BLACK, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.TUNNEL, Encounter.SUBMISSION_TUNNELS, false, true, true, true, "in Submission"),
 	
-	SUBMISSION_BAT_CAVERNS("Bat Caverns", "submission/batCaverns", BaseColour.BLUE, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.BAT_CAVERNS, null, true, false, true, true, "in Submission"),
+	SUBMISSION_BAT_CAVERNS("Bat Caverns", "submission/batCaverns", BaseColour.BLUE, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.BAT_CAVERNS, null, true, false, true, true, "in Submission"), // Insert batman reference here.
 	
 	SUBMISSION_RAT_WARREN("Rat Warren", "submission/ratWarren", BaseColour.BROWN_DARK, Colour.MAP_BACKGROUND, SubmissionGenericPlaces.RAT_WARREN, null, true, false, true, true, "in Submission"),
 	

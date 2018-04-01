@@ -82,7 +82,9 @@ public class DomDoggy {
 		
 		@Override
 		public boolean isBaseRequirementsMet() {
-			return Sex.isDom(Main.game.getPlayer());
+			return Sex.isDom(Main.game.getPlayer())
+					&& (Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.DOGGY_BEHIND
+					|| Sex.getSexPositionSlot(Main.game.getPlayer())==SexPositionSlot.DOGGY_BEHIND_AMBER);
 		}
 		
 		@Override

@@ -42,6 +42,8 @@ public enum SlaveEvent {
 	JOB_TEST_SUBJECT("Test Subject", "[npc.Name] was subjected to Lilaya's transformative experiments..."),
 	
 	JOB_PUBLIC_STOCKS("Locked in Stocks", "[npc.Name] was locked into the public stocks in Slaver Alley..."),
+	
+	JOB_PROSTITUTE("Prostitute", "[npc.Name] worked as a prostitute in Angel's Kiss."),
 
 	JOB_IDLE("Resting", "<i>Placeholder event.</i>"),
 	;

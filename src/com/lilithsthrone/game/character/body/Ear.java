@@ -8,7 +8,7 @@ import com.lilithsthrone.game.dialogue.utils.UtilText;
 
 /**
  * @since 0.1.0
- * @version 0.1.83
+ * @version 0.2.2
  * @author Innoxia
  */
 public class Ear implements BodyPartInterface, Serializable {
@@ -212,6 +212,74 @@ public class Ear implements BodyPartInterface, Serializable {
 								+ " A layer of [npc.earFullDescriptionColour] grows to cover them, and as the transformation finishes, [npc.she] experimentally twitches [npc.her] new squirrel-like ears back and forth."
 								+ "</br>"
 								+ "[npc.Name] now has [style.boldSquirrelMorph(anthropomorphic, squirrel-like ears)]."
+							+ "</p>");
+				}
+				break;
+			case RABBIT_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" They quickly grow into large, upright points, and shift to sit higher up on your head than a normal pair of human ears would."
+								+ " A layer of [pc.earFullDescriptionColour] grows to cover them, and as the transformation finishes, you discover that you can easily twitch your new rabbit-like ears back and forth."
+								+ "</br>"
+								+ "You now have [style.boldRabbitMorph(anthropomorphic, upright, rabbit-like ears)]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" They quickly grow into large, upright points, and shift to sit higher up on [npc.her] head than a normal pair of human ears would."
+								+ " A layer of [npc.earFullDescriptionColour] grows to cover them, and as the transformation finishes, [npc.she] experimentally twitches [npc.her] new rabbit-like ears back and forth."
+								+ "</br>"
+								+ "[npc.Name] now has [style.boldRabbitMorph(anthropomorphic, upright, rabbit-like ears)]."
+							+ "</p>");
+				}
+				break;
+			case RABBIT_MORPH_FLOPPY:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" They quickly grow into large, upright points, and shift to sit higher up than a normal pair of human ears would, before suddenly collapsing and flopping down on either side of your head."
+								+ " A layer of [pc.earFullDescriptionColour] grows to cover them, and as the transformation finishes, you discover that you can easily twitch your new rabbit-like ears back and forth."
+								+ "</br>"
+								+ "You now have [style.boldRabbitMorph(anthropomorphic, floppy, rabbit-like ears)]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" They quickly grow into large, upright points, and shift to sit higher up than a normal pair of human ears would, before suddenly collapsing and flopping down on either side of [npc.her] head."
+								+ " A layer of [npc.earFullDescriptionColour] grows to cover them, and as the transformation finishes, [npc.she] experimentally twitches [npc.her] new rabbit-like ears back and forth."
+								+ "</br>"
+								+ "[npc.Name] now has [style.boldRabbitMorph(anthropomorphic, floppy, rabbit-like ears)]."
+							+ "</p>");
+				}
+				break;
+			case RAT_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" They quickly grow into small, upright ovals, and shift to sit higher up on your head than a normal pair of human ears would."
+								+ " A layer of [pc.earFullDescriptionColour] grows to cover them, and as the transformation finishes, you discover that you can easily twitch your new rat-like ears back and forth."
+								+ "</br>"
+								+ "You now have [style.boldRatMorph(anthropomorphic, rat-like ears)]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" They quickly grow into small, upright ovals, and shift to sit higher up on [npc.her] head than a normal pair of human ears would."
+								+ " A layer of [npc.earFullDescriptionColour] grows to cover them, and as the transformation finishes, [npc.she] experimentally twitches [npc.her] new rat-like ears back and forth."
+								+ "</br>"
+								+ "[npc.Name] now has [style.boldRatMorph(anthropomorphic, rat-like ears)]."
+							+ "</p>");
+				}
+				break;
+			case BAT_MORPH:
+				if (owner.isPlayer()) {
+					UtilText.transformationContentSB.append(
+								" They quickly grow into large, upright points, and shift to sit higher up on your head than a normal pair of human ears would."
+								+ " A layer of [pc.earFullDescriptionColour] grows to cover them, and as the transformation finishes, you discover that you can easily twitch your new bat-like ears back and forth."
+								+ "</br>"
+								+ "You now have [style.boldBatMorph(anthropomorphic, bat-like ears)]."
+							+ "</p>");
+				} else {
+					UtilText.transformationContentSB.append(
+								" They quickly grow into large, upright points, and shift to sit higher up on [npc.her] head than a normal pair of human ears would."
+								+ " A layer of [npc.earFullDescriptionColour] grows to cover them, and as the transformation finishes, [npc.she] experimentally twitches [npc.her] new bat-like ears back and forth."
+								+ "</br>"
+								+ "[npc.Name] now has [style.boldBatMorph(anthropomorphic, bat-like ears)]."
 							+ "</p>");
 				}
 				break;

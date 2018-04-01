@@ -86,7 +86,9 @@ public enum SlaveEventTag {
 	
 	JOB_LILAYA_MASCULINE_TF("Lilaya tested some very intrusive masculine transformations on [npc.name]."),
 
-	JOB_STOCKS_USED("[npc.Name] was used by an unknown member of the public.")
+	JOB_STOCKS_USED("[npc.Name] was used by an unknown member of the public."),
+	
+	JOB_PROSTITUTE_USED("[npc.Name] was used by a client.")
 	;
 	
 	private String description;

@@ -231,9 +231,9 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 
 	public String getName(boolean displayName) {
 		if(displayName) {
-			return Util.capitaliseSentence((determiner!=null?determiner:"") + " <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>");
+			return Util.capitaliseSentence((determiner!=null?determiner:"") + " <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + (this.isPlural()?namePlural:name) + "</span>");
 		} else {
-			return name;
+			return (this.isPlural()?namePlural:name);
 		}
 	}
 	
@@ -250,7 +250,9 @@ public abstract class AbstractItemType extends AbstractCoreType implements Seria
 	}
 
 	public String getDisplayName(boolean withRarityColour) {
-		return Util.capitaliseSentence((determiner!=null?determiner:"") + (withRarityColour ? (" <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + name + "</span>") : name));
+		return Util.capitaliseSentence((determiner!=null?determiner:"") + (withRarityColour
+				? (" <span style='color: " + rarity.getColour().toWebHexString() + ";'>" + (this.isPlural()?getNamePlural(false):getName(false)) + "</span>")
+				: (this.isPlural()?getNamePlural(false):getName(false))));
 	}
 
 	public String getPathName() {

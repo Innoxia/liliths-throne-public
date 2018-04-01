@@ -220,9 +220,9 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 							playerAreasToBeExposed.add(CoverableArea.NIPPLES);
 						} else if(orifice == OrificeType.MOUTH && !Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.MOUTH) && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
 							playerAreasToBeExposed.add(CoverableArea.MOUTH);
-						} else if(orifice == OrificeType.URETHRA && !Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS) && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
+						} else if(orifice == OrificeType.URETHRA_PENIS && !Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS) && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
 							playerAreasToBeExposed.add(CoverableArea.PENIS);
-						} else if(orifice == OrificeType.VAGINA && !Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.VAGINA) && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+						} else if((orifice == OrificeType.VAGINA || orifice == OrificeType.URETHRA_VAGINA) && !Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.VAGINA) && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
 							playerAreasToBeExposed.add(CoverableArea.VAGINA);
 						}
 					} else {
@@ -232,9 +232,9 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 							partnerAreasToBeExposed.add(CoverableArea.NIPPLES);
 						} else if(orifice == OrificeType.MOUTH && !Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.MOUTH) && Sex.getActivePartner().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
 							partnerAreasToBeExposed.add(CoverableArea.MOUTH);
-						} else if(orifice == OrificeType.URETHRA && !Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.PENIS) && Sex.getActivePartner().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
+						} else if(orifice == OrificeType.URETHRA_PENIS && !Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.PENIS) && Sex.getActivePartner().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
 							partnerAreasToBeExposed.add(CoverableArea.PENIS);
-						} else if(orifice == OrificeType.VAGINA && !Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.VAGINA) && Sex.getActivePartner().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+						} else if((orifice == OrificeType.VAGINA || orifice == OrificeType.URETHRA_VAGINA) && !Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.VAGINA) && Sex.getActivePartner().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
 							partnerAreasToBeExposed.add(CoverableArea.VAGINA);
 						}
 					}
@@ -297,9 +297,9 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 							playerAreasToBeExposed.add(CoverableArea.NIPPLES);
 						} else if(orifice == OrificeType.MOUTH && !Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.MOUTH) && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
 							playerAreasToBeExposed.add(CoverableArea.MOUTH);
-						} else if(orifice == OrificeType.URETHRA && !Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS) && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
+						} else if(orifice == OrificeType.URETHRA_PENIS && !Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.PENIS) && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
 							playerAreasToBeExposed.add(CoverableArea.PENIS);
-						} else if(orifice == OrificeType.VAGINA && !Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.VAGINA) && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+						} else if((orifice == OrificeType.VAGINA || orifice == OrificeType.URETHRA_VAGINA) && !Main.game.getPlayer().isCoverableAreaExposed(CoverableArea.VAGINA) && Main.game.getPlayer().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
 							playerAreasToBeExposed.add(CoverableArea.VAGINA);
 						}
 					} else {
@@ -309,9 +309,9 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 							partnerAreasToBeExposed.add(CoverableArea.NIPPLES);
 						} else if(orifice == OrificeType.MOUTH && !Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.MOUTH) && Sex.getActivePartner().isAbleToAccessCoverableArea(CoverableArea.MOUTH, true)) {
 							partnerAreasToBeExposed.add(CoverableArea.MOUTH);
-						} else if(orifice == OrificeType.URETHRA && !Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.PENIS) && Sex.getActivePartner().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
+						} else if(orifice == OrificeType.URETHRA_PENIS && !Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.PENIS) && Sex.getActivePartner().isAbleToAccessCoverableArea(CoverableArea.PENIS, true)) {
 							partnerAreasToBeExposed.add(CoverableArea.PENIS);
-						} else if(orifice == OrificeType.VAGINA && !Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.VAGINA) && Sex.getActivePartner().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
+						} else if((orifice == OrificeType.VAGINA || orifice == OrificeType.URETHRA_VAGINA) && !Sex.getActivePartner().isCoverableAreaExposed(CoverableArea.VAGINA) && Sex.getActivePartner().isAbleToAccessCoverableArea(CoverableArea.VAGINA, true)) {
 							partnerAreasToBeExposed.add(CoverableArea.VAGINA);
 						}
 					}
@@ -391,8 +391,13 @@ public abstract class SexManagerDefault implements SexManagerInterface {
 							bannedActions.add(action);
 						}
 						break;
-					case URETHRA:
+					case URETHRA_PENIS:
 						if(Sex.getActivePartner().isUrethraVirgin() && Sex.getSexPace(Sex.getActivePartner())!=SexPace.SUB_EAGER) {
+							bannedActions.add(action);
+						}
+						break;
+					case URETHRA_VAGINA:
+						if(Sex.getActivePartner().isVaginaUrethraVirgin() && Sex.getSexPace(Sex.getActivePartner())!=SexPace.SUB_EAGER) {
 							bannedActions.add(action);
 						}
 						break;
