@@ -453,8 +453,7 @@ public class Game implements Serializable, XMLSaving {
 	}
 	
 	public static void importGame(String name) {
-		Game newGame = new Game();
-		Main.game = newGame;
+		Main.game = new Game();
 
 		File file = new File("data/saves/"+name+".xml");
 		
@@ -473,28 +472,28 @@ public class Game implements Serializable, XMLSaving {
 				
 				String version = informationNode.getAttribute("version");
 				
-				newGame.minutesPassed = Long.valueOf(informationNode.getAttribute("minutesPassed"));
-				newGame.debugMode = Boolean.valueOf(informationNode.getAttribute("debugMode"));
-				newGame.imperialMeasurements = Boolean.valueOf(informationNode.getAttribute("imperialMeasurements"));
-				newGame.currentWeather = Weather.valueOf(informationNode.getAttribute("weather"));
-				newGame.nextStormTime = Long.valueOf(informationNode.getAttribute("nextStormTime"));
-				newGame.weatherTimeRemaining = Integer.valueOf(informationNode.getAttribute("weatherTimeRemaining"));
+				Main.game.minutesPassed = Long.valueOf(informationNode.getAttribute("minutesPassed"));
+				Main.game.debugMode = Boolean.valueOf(informationNode.getAttribute("debugMode"));
+				Main.game.imperialMeasurements = Boolean.valueOf(informationNode.getAttribute("imperialMeasurements"));
+				Main.game.currentWeather = Weather.valueOf(informationNode.getAttribute("weather"));
+				Main.game.nextStormTime = Long.valueOf(informationNode.getAttribute("nextStormTime"));
+				Main.game.weatherTimeRemaining = Integer.valueOf(informationNode.getAttribute("weatherTimeRemaining"));
 
 				Element dateNode = (Element) gameElement.getElementsByTagName("date").item(0);
-				newGame.startingDate = LocalDateTime.of(
+				Main.game.startingDate = LocalDateTime.of(
 						Integer.valueOf(dateNode.getAttribute("year")),
 						Integer.valueOf(dateNode.getAttribute("month")),
 						Integer.valueOf(dateNode.getAttribute("dayOfMonth")),
 						Integer.valueOf(dateNode.getAttribute("hour")),
 						Integer.valueOf(dateNode.getAttribute("minute")));
 				
-				newGame.dialogueFlags = DialogueFlags.loadFromXML((Element) gameElement.getElementsByTagName("dialogueFlags").item(0), doc);
+				Main.game.dialogueFlags = DialogueFlags.loadFromXML((Element) gameElement.getElementsByTagName("dialogueFlags").item(0), doc);
 				
 				for(int i=0; i<((Element) gameElement.getElementsByTagName("eventLog").item(0)).getElementsByTagName("eventLogEntry").getLength(); i++){
 					Element e = (Element) ((Element) gameElement.getElementsByTagName("eventLog").item(0)).getElementsByTagName("eventLogEntry").item(i);
-					newGame.eventLog.add(EventLogEntry.loadFromXML(e, doc));
+					Main.game.eventLog.add(EventLogEntry.loadFromXML(e, doc));
 				}
-				newGame.eventLog.sort(Comparator.comparingLong(EventLogEntry::getTime));
+				Main.game.eventLog.sort(Comparator.comparingLong(EventLogEntry::getTime));
 				
 				
 				NodeList nodes = gameElement.getElementsByTagName("slaveryEventLog");
@@ -503,11 +502,11 @@ public class Game implements Serializable, XMLSaving {
 					for(int i=0; i< extraEffectNode.getElementsByTagName("day").getLength(); i++){
 						Element e = (Element) gameElement.getElementsByTagName("day").item(i);
 						int day = Integer.valueOf(e.getAttribute("value"));
-						newGame.slaveryEventLog.put(day, new ArrayList<>());
+						Main.game.slaveryEventLog.put(day, new ArrayList<>());
 						
 						for(int j=0; j< e.getElementsByTagName("eventLogEntry").getLength(); j++){
 							Element entry = (Element) e.getElementsByTagName("eventLogEntry").item(j);
-							newGame.slaveryEventLog.get(day).add(SlaveryEventLogEntry.loadFromXML(entry, doc));
+							Main.game.slaveryEventLog.get(day).add(SlaveryEventLogEntry.loadFromXML(entry, doc));
 						}
 					}
 				}
@@ -524,7 +523,7 @@ public class Game implements Serializable, XMLSaving {
 							&& (!e.getAttribute("worldType").equals("SLAVER_ALLEY") || !Main.isVersionOlderThan(version, "0.2.2"))
 							&& (!e.getAttribute("worldType").equals("HARPY_NEST") || !Main.isVersionOlderThan(version, "0.2.1.5"))) {
 						World world = World.loadFromXML(e, doc);
-						newGame.worlds.put(world.getWorldType(), world);
+						Main.game.worlds.put(world.getWorldType(), world);
 					}
 					
 				}
@@ -544,12 +543,12 @@ public class Game implements Serializable, XMLSaving {
 						gen.worldGeneration(WorldType.DOMINION);
 						gen.worldGeneration(WorldType.SLAVER_ALLEY);
 					}
-					if(newGame.worlds.get(wt)==null) {
+					if(Main.game.worlds.get(wt)==null) {
 						gen.worldGeneration(wt);
 					}
 				}
 				
-				newGame.player = PlayerCharacter.loadFromXML(null, (Element) ((Element) gameElement.getElementsByTagName("playerCharacter").item(0)), doc);
+				Main.game.player = PlayerCharacter.loadFromXML(null, (Element) ((Element) gameElement.getElementsByTagName("playerCharacter").item(0)), doc);
 				
 				List<String> addedIds = new ArrayList<>();
 				List<NPC> slaveImports = new ArrayList<>();
@@ -564,7 +563,7 @@ public class Game implements Serializable, XMLSaving {
 						
 						NPC npc = npcClass.getDeclaredConstructor(boolean.class).newInstance(true);
 						m.invoke(npc, e, doc, new CharacterImportSetting[] {});
-						newGame.addNPC(npc, true);
+						Main.game.addNPC(npc, true);
 						addedIds.add(npc.getId());
 						
 						// To fix issues with older versions hair length:
@@ -591,18 +590,18 @@ public class Game implements Serializable, XMLSaving {
 				}
 				
 				// Add in new NPCS:
-				if(!newGame.NPCMap.containsKey(newGame.getUniqueNPCId(Zaranix.class))) {
+				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Zaranix.class))) {
 					Zaranix zaranix = new Zaranix();
-					newGame.addNPC(zaranix, false);
+					Main.game.addNPC(zaranix, false);
 					
 					ZaranixMaidKatherine katherine = new ZaranixMaidKatherine();
-					newGame.addNPC(katherine, false);
+					Main.game.addNPC(katherine, false);
 					
 					ZaranixMaidKelly kelly = new ZaranixMaidKelly();
-					newGame.addNPC(kelly, false);
+					Main.game.addNPC(kelly, false);
 					
 					Amber amber = new Amber();
-					newGame.addNPC(amber, false);
+					Main.game.addNPC(amber, false);
 					
 					zaranix.setAffection(katherine, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
 					zaranix.setAffection(kelly, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
@@ -620,26 +619,26 @@ public class Game implements Serializable, XMLSaving {
 					katherine.setAffection(kelly, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
 					katherine.setAffection(amber, AffectionLevel.POSITIVE_THREE_CARING.getMedianValue());
 					
-					newGame.addNPC(new Arthur(), false);
+					Main.game.addNPC(new Arthur(), false);
 				}
 				
-				if(!newGame.NPCMap.containsKey(newGame.getUniqueNPCId(Ashley.class))) {
-					newGame.addNPC(new Ashley(), false);
+				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Ashley.class))) {
+					Main.game.addNPC(new Ashley(), false);
 				}
-				if(!newGame.NPCMap.containsKey(newGame.getUniqueNPCId(SupplierLeader.class))) {
-					newGame.addNPC(new SupplierLeader(), false);
+				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(SupplierLeader.class))) {
+					Main.game.addNPC(new SupplierLeader(), false);
 				}
-				if(!newGame.NPCMap.containsKey(newGame.getUniqueNPCId(SupplierPartner.class))) {
-					newGame.addNPC(new SupplierPartner(), false);
+				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(SupplierPartner.class))) {
+					Main.game.addNPC(new SupplierPartner(), false);
 				}
-				if(!newGame.NPCMap.containsKey(newGame.getUniqueNPCId(Angel.class))) {
-					newGame.addNPC(new Angel(), false);
+				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Angel.class))) {
+					Main.game.addNPC(new Angel(), false);
 				}
-				if(!newGame.NPCMap.containsKey(newGame.getUniqueNPCId(Bunny.class))) {
-					newGame.addNPC(new Bunny(), false);
+				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Bunny.class))) {
+					Main.game.addNPC(new Bunny(), false);
 				}
-				if(!newGame.NPCMap.containsKey(newGame.getUniqueNPCId(Loppy.class))) {
-					newGame.addNPC(new Loppy(), false);
+				if(!Main.game.NPCMap.containsKey(Main.game.getUniqueNPCId(Loppy.class))) {
+					Main.game.addNPC(new Loppy(), false);
 				}
 				
 				// To prevent errors from previous versions, reset Zaranix progress if prior to 0.1.95:
@@ -685,7 +684,7 @@ public class Game implements Serializable, XMLSaving {
 		Main.game.addEvent(new EventLogEntry(Main.game.getMinutesPassed(), "[style.colourGood(Game loaded)]", "data/saves/"+name+".xml"), false);
 		Main.game.setContent(new Response(startingDialogueNode.getLabel(), startingDialogueNode.getDescription(), startingDialogueNode), false);
 		
-		newGame.endTurn(0);
+		Main.game.endTurn(0);
 	}
 	
 	public Element saveAsXML(Element parentElement, Document doc) {

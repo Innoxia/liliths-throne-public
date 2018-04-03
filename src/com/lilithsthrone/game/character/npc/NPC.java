@@ -243,6 +243,91 @@ public abstract class NPC extends GameCharacter implements XMLSaving {
 		return false;
 	}
 	
+	public String getPresentInTileDescription() {
+		StringBuilder tileSB = new StringBuilder();
+		
+		tileSB.append(
+				UtilText.parse(this,
+						"<p style='text-align:center;'>"
+						+ "<b style='color:"+Femininity.valueOf(this.getFemininityValue()).getColour().toWebHexString()+";'>[npc.A_femininity]</b>"
+						+ " <b style='color:"+this.getRaceStage().getColour().toWebHexString()+";'>[npc.raceStage]</b>"
+						+ " <b style='color:"+this.getRace().getColour().toWebHexString()+";'>[npc.race]</b> <b>is prowling this area!</b></p>"
+						
+						+ "<p style='text-align:center;'>"));
+				
+		// Combat:
+		if(this.getFoughtPlayerCount()>0) {
+			tileSB.append(
+					UtilText.parse(this,"You have <b style='color:"+Colour.GENERIC_COMBAT.toWebHexString()+";'>fought</b> [npc.herHim] <b>"));
+					
+					if(this.getFoughtPlayerCount()==1) {
+						tileSB.append("once.");
+					} else if(this.getFoughtPlayerCount()==2) {
+						tileSB.append("twice.");
+					} else {
+						tileSB.append(Util.intToString(this.getFoughtPlayerCount())+" times.");
+					}
+					
+			tileSB.append("</b>"
+							+ "</br>"
+							+ "You have <b style='color:"+Colour.GENERIC_GOOD.toWebHexString()+";'>won</b> <b>");
+					
+					if(this.getLostCombatCount()==1) {
+						tileSB.append("once.");
+					} else if(this.getLostCombatCount()==2) {
+						tileSB.append("twice.");
+					} else {
+						tileSB.append(Util.intToString(this.getLostCombatCount())+" times.");
+					}
+							
+			tileSB.append("</b>"
+					+ "</br>"
+					+ "You have <b style='color:"+Colour.GENERIC_BAD.toWebHexString()+";'>lost</b> <b>");
+					if(this.getWonCombatCount()==1) {
+						tileSB.append("once.");
+					} else if(this.getWonCombatCount()==2) {
+						tileSB.append("twice.");
+					} else {
+						tileSB.append(Util.intToString(this.getWonCombatCount())+" times.");
+					}
+					tileSB.append("</b></p>");
+		}
+		
+		// Sex:
+		if(this.getSexPartners().containsKey(Main.game.getPlayer().getId())) {
+			tileSB.append("<p style='text-align:center;'>");
+					
+			tileSB.append(
+					UtilText.parse(this,
+							"You have had <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>submissive sex</b> with [npc.herHim]<b> "));
+			
+					if(this.getSexAsDomCount()==1) {
+						tileSB.append("once.");
+					} else if(this.getSexAsDomCount()==2) {
+						tileSB.append("twice.");
+					} else {
+						tileSB.append(Util.intToString(this.getSexAsDomCount())+" times.");
+					}
+					
+			tileSB.append(
+					UtilText.parse(this,
+							"</b>"
+							+ "</br>"
+							+ "You have had <b style='color:"+Colour.GENERIC_SEX.toWebHexString()+";'>dominant sex</b> with  [npc.herHim]<b> "));
+			
+					if(this.getSexAsSubCount()==1) {
+						tileSB.append("once.");
+					} else if(this.getSexAsSubCount()==2) {
+						tileSB.append("twice.");
+					} else {
+						tileSB.append(Util.intToString(this.getSexAsSubCount())+" times.");
+					}
+					tileSB.append("</b></p>");
+		}
+		
+		return tileSB.toString();
+	}
+	
 	// Trader:
 
 	public String getTraderDescription() {

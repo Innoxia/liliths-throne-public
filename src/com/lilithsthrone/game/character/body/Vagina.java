@@ -114,6 +114,20 @@ public class Vagina implements BodyPartInterface, Serializable {
 		return UtilText.returnStringAtRandom(descriptorList.toArray(new String[]{}));
 	}
 	
+	public String getUrethraDescriptor(GameCharacter owner) {
+		List<String> descriptorList = new ArrayList<>();
+		
+		for(OrificeModifier om : orificeUrethra.getOrificeModifiers()) {
+			descriptorList.add(om.getName());
+		}
+		
+		descriptorList.add(type.getDescriptor(owner));
+		
+		descriptorList.add(orificeUrethra.getCapacity().getDescriptor());
+		
+		return UtilText.returnStringAtRandom(descriptorList.toArray(new String[]{}));
+	}
+	
 	public String setType(GameCharacter owner, VaginaType type) {
 		return setType(owner, type, false);
 	}

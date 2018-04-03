@@ -58,7 +58,7 @@ public class Main extends Application {
 	public static Stage primaryStage;
 	public static String author = "Innoxia";
 
-	public static final String VERSION_NUMBER = "0.2.2",
+	public static final String VERSION_NUMBER = "0.2.2.1",
 			VERSION_DESCRIPTION = "Alpha";
 
 	public static final Image WINDOW_IMAGE = new Image("/com/lilithsthrone/res/images/windowIcon32.png");
@@ -215,6 +215,44 @@ public class Main extends Application {
 			+"<ul>Fixed newly enslaved NPCs re-equipped new clothing as they get transferred to Slavery Administration.</ul>"
 			+"<ul>Fixed bug in combat where if you were defeated/victorious/escaped/stunned, the spells and special attacks tabs wouldn't change to reflect this.</ul>"
 			+"<ul>Fixed minor display bugs in slave management dialogue.</ul>"
+		+ "</list>"
+
+		+ "</br>"
+
+		+ "<list>"
+			+ "<h6>v0.2.2.1</h6>"
+			+"<li>Gameplay:</li>"
+			+"<ul>Ralph now stocks bat, rat, and rabbit consumables.</ul>"
+			
+			+"<li>Sex:</li>"
+			+"<ul>Added 'Swap Position' action to sex, so you can now access every possible position by swapping with your partner. (Available if you're the dom, or if you have equal control in the sex scene. Disabled in some unique sex scenes.)</ul>"
+			+"<ul>Added 'penis in vaginal urethra' penetration actions for both player and partner.</ul>"
+			+"<ul>Added 'penis in penis urethra' penetration actions for both player and partner.</ul>"
+			
+			+"<li>Other:</li>"
+			+"<ul>Changed the perks 'barren' and 'firing blanks' to traits (can now be equipped/unequipped will), and changed the trait 'arcane weaver' to a perk.</ul>"
+			+"<ul>Improved the inventory screen to use pages. (Using a scrollbar wasn't viable, as JavaFX struggles to render so many SVGs at once.)</ul>"
+			+"<ul>Increased inventory slot limit from 32 to 120.</ul>"
+			+"<ul>Reduced angel and demon base slave values.</ul>"
+			+"<ul>Swapped Nyan's talk & trade tabs to make it (slightly) faster to shop there.</ul>"
+			
+			+"<li>Bugs:</li>"
+			+"<ul>Typo fixes.</ul>"
+			+"<ul>Fixed some bugs in Bunny's and Loppy's dialogue options.</ul>"
+			+"<ul>Clothing now correctly conceals piercing slots.</ul>"
+			+"<ul>Fixed slave prostitute job's obedience, affection, and income being far too high.</ul>"
+			+"<ul>Fixed rabbit-morph tails being tagged as prehensile and suitable for penetration.</ul>"
+			+"<ul>Fixed bugs with rat and bat morph race detection.</ul>"
+			+"<ul>Fixed bat penis being detected as squirrel penis.</ul>"
+			+"<ul>Loppy and Bunny now correctly return to their rooms after the threesome.</ul>"
+			+"<ul>Fixed some strange spell descriptions.</ul>"
+			+"<ul>Fixed duplicate spell icons appearing in your status effects bar during combat.</ul>"
+			+"<ul>Fixed rabbit morph item descriptions.</ul>"
+			+"<ul>Fixed import errors that were causing the map to not display.</ul>"
+			+"<ul>You can no longer enchant clothing with an enslavement modifier before obtaining a slaver license.</ul>"
+			+"<ul>Fixed inconsistent location changes related to Zaranix's quest.</ul>"
+			+"<ul>Giving birth as a slime no longer stretches your vagina.</ul>"
+			+"<ul>Debug mode now correctly reveals your phone's map.</ul>"
 		+ "</list>"
 		;
 	

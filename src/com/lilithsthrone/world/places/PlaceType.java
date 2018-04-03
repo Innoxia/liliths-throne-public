@@ -600,7 +600,7 @@ public enum PlaceType {
 		}
 	},
 	
-	SHOPPING_ARCADE_PIXS_GYM("City Gym", "dominion/shoppingArcade/gym", BaseColour.GOLD, Colour.MAP_BACKGROUND, PixsPlayground.GYM_EXTERIOR, null, true, false, true, true, "in her gym"),
+	SHOPPING_ARCADE_PIXS_GYM("Pix's Playground", "dominion/shoppingArcade/gym", BaseColour.GOLD, Colour.MAP_BACKGROUND, PixsPlayground.GYM_EXTERIOR, null, true, false, true, true, "in her gym"),
 
 	// Exits & entrances:
 	SHOPPING_ARCADE_ENTRANCE("Exit", "dominion/shoppingArcade/exit", BaseColour.RED, Colour.MAP_BACKGROUND, ShoppingArcadeDialogue.ENTRY, null, true, false, true, true, "in the Shopping Arcade"),

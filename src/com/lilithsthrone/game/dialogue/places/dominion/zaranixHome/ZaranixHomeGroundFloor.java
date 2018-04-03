@@ -108,7 +108,7 @@ public class ZaranixHomeGroundFloor {
 				return new Response("Knock door", "Knock on the door and wait for someone to answer.", OUTSIDE_KNOCK_ON_DOOR) {
 					@Override
 					public void effects() {
-						Main.game.getAmber().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME, false);
+						Main.game.getAmber().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_ARTHUR, false);
 						Main.game.getDialogueFlags().setFlag(DialogueFlagValue.zaranixDiscoveredHome, true);
 					}
 				};
@@ -1038,7 +1038,7 @@ public class ZaranixHomeGroundFloor {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Leave", "Refuse to perform any sexual favours for Zaranix or Amber and take your leave.",  PlaceType.DOMINION_DEMON_HOME.getDialogue(false)) {
+				return new Response("Leave", "Refuse to perform any sexual favours for Zaranix or Amber and take your leave.",  PlaceType.DOMINION_DEMON_HOME_ARTHUR.getDialogue(false)) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(
@@ -1069,7 +1069,7 @@ public class ZaranixHomeGroundFloor {
 									+ "Standing up, you ignore the amused looks of several passersby as you brush yourself down and continue on your way, letting out a deep sigh of relief now that you've finally got all this business with Arthur resolved."
 								+ "</p>");
 						Main.game.getArthur().setLocation(WorldType.LILAYAS_HOUSE_GROUND_FLOOR, PlaceType.LILAYA_HOME_LAB, true);
-						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME, false);
+						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_ARTHUR, false);
 					}
 				};
 				
@@ -1281,10 +1281,10 @@ public class ZaranixHomeGroundFloor {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Continue on your journey.",  PlaceType.DOMINION_DEMON_HOME.getDialogue(false)) {
+				return new Response("Continue", "Continue on your journey.",  PlaceType.DOMINION_DEMON_HOME_ARTHUR.getDialogue(false)) {
 					@Override
 					public void effects() {
-						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME, false);
+						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_ARTHUR, false);
 					}
 				};
 			} else {
@@ -1334,10 +1334,10 @@ public class ZaranixHomeGroundFloor {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Continue on your journey.",  PlaceType.DOMINION_DEMON_HOME.getDialogue(false)) {
+				return new Response("Continue", "Continue on your journey.",  PlaceType.DOMINION_DEMON_HOME_ARTHUR.getDialogue(false)) {
 					@Override
 					public void effects() {
-						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME, false);
+						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_ARTHUR, false);
 					}
 				};
 			} else {
@@ -1458,10 +1458,10 @@ public class ZaranixHomeGroundFloor {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Exit", "Leave Zaranix's house and head back out into Demon Home. <b>You will have to gain entry all over again if you choose to leave now!</b>", PlaceType.DOMINION_DEMON_HOME.getDialogue(false)) {
+				return new Response("Exit", "Leave Zaranix's house and head back out into Demon Home. <b>You will have to gain entry all over again if you choose to leave now!</b>", PlaceType.DOMINION_DEMON_HOME_ARTHUR.getDialogue(false)) {
 					@Override
 					public void effects() {
-						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME, false);
+						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_ARTHUR, false);
 						resetHouseAfterLeaving();
 					}
 				};
@@ -1658,11 +1658,11 @@ public class ZaranixHomeGroundFloor {
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
 				if(Main.game.getPlayer().isAbleToFly()) {
-					return new Response("Fly over fence", "Fly over the garden's fence and back out into Demon Home. <b>If you leave, all progress you've made through Zaranix's home will be reset!</b>", PlaceType.DOMINION_DEMON_HOME.getDialogue(false)) {
+					return new Response("Fly over fence", "Fly over the garden's fence and back out into Demon Home. <b>If you leave, all progress you've made through Zaranix's home will be reset!</b>", PlaceType.DOMINION_DEMON_HOME_ARTHUR.getDialogue(false)) {
 						@Override
 						public void effects() {
 							resetHouseAfterLeaving();
-							Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME, false);
+							Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_ARTHUR, false);
 							Main.game.getTextStartStringBuilder().append(
 									"<p>"
 										+ "Deciding that you'll come back another time, you take a little run-up down the garden path, before launching yourself into the air."
@@ -1671,11 +1671,11 @@ public class ZaranixHomeGroundFloor {
 						}
 					};
 				}
-				return new Response("Climb fence", "Climb over the garden's fence and head back out into Demon Home. <b>If you leave, all progress you've made through Zaranix's home will be reset!</b>", PlaceType.DOMINION_DEMON_HOME.getDialogue(false)) {
+				return new Response("Climb fence", "Climb over the garden's fence and head back out into Demon Home. <b>If you leave, all progress you've made through Zaranix's home will be reset!</b>", PlaceType.DOMINION_DEMON_HOME_ARTHUR.getDialogue(false)) {
 					@Override
 					public void effects() {
 						resetHouseAfterLeaving();
-						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME, false);
+						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_ARTHUR, false);
 						Main.game.getTextStartStringBuilder().append(
 								"<p>"
 									+ "Deciding that you'll come back another time, you climb up and over the fence, quickly finding yourself back out in Demon Home once again..."

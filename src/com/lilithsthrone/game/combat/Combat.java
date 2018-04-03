@@ -1151,6 +1151,10 @@ public enum Combat {
 
 	private static void attackSpell(GameCharacter attacker, Spell spell) {
 		GameCharacter target = getTargetedCombatant(attacker);
+		
+		if(spell.isBeneficial() && !attacker.isPlayer()) {
+			target = attacker;
+		}
 
 		boolean critical = isCriticalHit(attacker);
 

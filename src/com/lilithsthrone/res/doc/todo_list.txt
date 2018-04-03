@@ -16,12 +16,16 @@
 		Ralph now stocks bat, rat, and rabbit consumables.
 	
 	Sex:	
-		Added 'Swap Position' action to sex, so you can now access every possible position by swapping with your partner. (Available if you're the dom, or if you have equal control in the sex scene.)
+		Added 'Swap Position' action to sex, so you can now access every possible position by swapping with your partner. (Available if you're the dom, or if you have equal control in the sex scene. Disabled in some unique sex scenes.)
+		Added 'penis in vaginal urethra' penetration actions for both player and partner.
+		Added 'penis in penis urethra' penetration actions for both player and partner.
 	
 	Other:
 		Changed the perks 'barren' and 'firing blanks' to traits (can now be equipped/unequipped will), and changed the trait 'arcane weaver' to a perk.
 		Improved the inventory screen to use pages. (Using a scrollbar wasn't viable, as JavaFX struggles to render so many SVGs at once.)
 		Increased inventory slot limit from 32 to 120.
+		Reduced angel and demon base slave values.
+		Swapped Nyan's talk & trade tabs to make it (slightly) faster to shop there.
 	
 	Bugs:
 		Typo fixes.
@@ -32,23 +36,29 @@
 		Fixed bugs with rat and bat morph race detection.
 		Fixed bat penis being detected as squirrel penis.
 		Loppy and Bunny now correctly return to their rooms after the threesome.
+		Fixed some strange spell descriptions.
+		Fixed duplicate spell icons appearing in your status effects bar during combat.
+		Fixed rabbit morph item descriptions.
+		Fixed import errors that were causing the map to not display.
+		You can no longer enchant clothing with an enslavement modifier before obtaining a slaver license.
+		Fixed inconsistent location changes related to Zaranix's quest.
+		Giving birth as a slime no longer stretches your vagina.
+		Debug mode now correctly reveals your phone's map.
 	
 	
 	
-	Arcane shield use text is messed up, and spell tooltips!
 	
-	
-	
-	Sex AI: Also, I'm not sure if it's a bug or if it's just weird luck on my end, but it seems like most enemies are not actively advancing sex scenes, even in the dominant role.
-	 I get a lot of cyclical fingering that never turns into sex, or stripping and then saying "What should I do with you? I wonder" and not actually doing anything.
+	Add way for slaves to like being prostitutes
 	
 	
 	- Have all of the core content for Submission finished (all of the encounters written in, and every area having at least the basics of their content added).
 	
-	Make sex action template
+	- Make Zaranix & maids repeatable.
+	
 	- Add urethral penetration content. (Just penises for now)
-		Add dirty talk
+		Add urethral-related dirty talk
 		Fix penis urethra being used for handjobs
+		
 	
 	- Improve the slavery UI, and add more jobs & interactions (winner of Patreon content poll).
 		- Improving the management UI.
@@ -62,15 +72,18 @@
 		Companions
 		Spell levels
 	
-	- Make Zaranix & maids repeatable.
-	
 	- Add in a mod template for items, clothing, weapons, and sex actions.
 	
 	Prostitutes having sex (not removing partners correctly?)
 	
-	
+	but its impossible to buy succubi slaves at auction block, you can't bid twice without exceeding the max amount of flames you can have
 	
 	----------------- Sex -----------------
+	Sex AI: Also, I'm not sure if it's a bug or if it's just weird luck on my end, but it seems like most enemies are not actively advancing sex scenes, even in the dominant role.
+	 I get a lot of cyclical fingering that never turns into sex, or stripping and then saying "What should I do with you? I wonder" and not actually doing anything.
+	 
+	During sex with slaves locked in stocks, you can perform analingus and blowjobs at the same time.
+	
 	NPC-on-NPC kissing actions
 	
 	Sex AI to target others
@@ -91,7 +104,13 @@
 	
 	Give racial bonuses unique things
 	
+	NPC's (at least for me) are stuck on genital transformations again. I set one to desire a feminine PC, with vagina and breasts instead of a penis and she's stuck trying to give me a vagina I already have.
+	
 	my character started with the Witch's Seal spell
+	
+	my children are born slimes like they are supposed to be, but they are labeled as man/woman in the birth scene. and also i can seem to encounter them myself in any of the waterways or in submission.
+	
+	Will there be a day where "Extra body hair" is split up so ass hair is it's own thing that I don't have to read about
 	
 	Tooltips: his message isn't correct i've already taken off mah pants, also i can still unzip my pants and the description is "This will expose your cock" when i've already had it exposed
 	
@@ -111,6 +130,8 @@
 	While dusting: "Diana caught sight of Diana, and... Jennifer might have gotten pregnant!"
 	
 	text for changing aprts in phone menu
+	
+	nail lengths
 	
 	Do Lilaya's tests, creampie her so she banishes you then return. Asking her about Essences and Jinxes will be greyed out if her test sex was your first Dominion orgasm harvest, unsure if only tried to the not pregnant  conversation but suspect both outcomes also leave it greyed.
 	

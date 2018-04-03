@@ -3001,6 +3001,27 @@ public class UtilText {
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(
+						new ListValue<>("penisUrethra+"),
+						new ListValue<>("cockUrethra+"),
+						new ListValue<>("urethraPenis+"),
+						new ListValue<>("urethraCock+"),
+						new ListValue<>("penisUrethraD"),
+						new ListValue<>("cockUrethraD"),
+						new ListValue<>("urethraPenisD"),
+						new ListValue<>("urethraCockD")),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.PENIS){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return applyDescriptor(character.getPenisUrethraDescriptor(), "urethra");
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
 						new ListValue<>("cumAmount"),
 						new ListValue<>("cumProduction"),
 						new ListValue<>("jizzAmount"),
@@ -3302,6 +3323,45 @@ public class UtilText {
 		});
 		
 		// Vagina:
+		
+
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("vaginaUrethra"),
+						new ListValue<>("vaginalUrethra"),
+						new ListValue<>("urethraVagina"),
+						new ListValue<>("urethraVaginal")),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.VAGINA){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return "urethra";
+			}
+		});
+		
+		commandsList.add(new ParserCommand(
+				Util.newArrayListOfValues(
+						new ListValue<>("vaginaUrethra+"),
+						new ListValue<>("vaginalUrethra+"),
+						new ListValue<>("urethraVagina+"),
+						new ListValue<>("urethraVaginal+"),
+						new ListValue<>("vaginaUrethraD"),
+						new ListValue<>("vaginalUrethraD"),
+						new ListValue<>("urethraVaginaD"),
+						new ListValue<>("urethraVaginalD")),
+				true,
+				true,
+				"",
+				"Description of method",
+				BodyPartType.VAGINA){//TODO
+			@Override
+			public String parse(String command, String arguments, String target) {
+				return applyDescriptor(character.getVaginaUrethraDescriptor(), "urethra");
+			}
+		});
 		
 		commandsList.add(new ParserCommand(
 				Util.newArrayListOfValues(

@@ -731,7 +731,7 @@ public class PhoneDialogue {
 					+ "<span style='height:16px;width:100%;float:left;'></span>"
 					+ "<h6 style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+"; text-align:center;'>Penis Attributes</h6>"
 					+ statHeader()
-					+ statRow(Colour.TRANSFORMATION_GENERIC, "Penis Size",
+					+ statRow(Colour.TRANSFORMATION_GENERIC, "Penis Size (inches)",
 							Colour.TEXT, Main.game.getPlayer().getPenisType() == PenisType.NONE ? "N/A" : String.valueOf(Main.game.getPlayer().getPenisRawSizeValue()),
 							Colour.GENERIC_SEX, Main.game.getPlayer().getPenisType() == PenisType.NONE ? "N/A" : Util.capitaliseSentence(Main.game.getPlayer().getPenisSize().getDescriptor()),
 							true)
@@ -752,7 +752,7 @@ public class PhoneDialogue {
 					+ "<span style='height:16px;width:100%;float:left;'></span>"
 					+ "<h6 style='color:"+Colour.TRANSFORMATION_SEXUAL.toWebHexString()+"; text-align:center;'>Vagina Attributes</h6>"
 					+ statHeader()
-					+ statRow(Colour.TRANSFORMATION_GENERIC, "Clitoris Size",
+					+ statRow(Colour.TRANSFORMATION_GENERIC, "Clitoris Size (inches)",
 							Colour.TEXT, Main.game.getPlayer().getVaginaType() == VaginaType.NONE ? "N/A" : String.valueOf(Main.game.getPlayer().getVaginaRawClitorisSizeValue()),
 							Colour.GENERIC_SEX, Main.game.getPlayer().getVaginaType() == VaginaType.NONE ? "N/A" : Util.capitaliseSentence(Main.game.getPlayer().getVaginaClitorisSize().getDescriptor()),
 							true)

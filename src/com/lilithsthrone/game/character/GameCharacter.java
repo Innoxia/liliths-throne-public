@@ -1096,7 +1096,21 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 					} else if(character instanceof Scarlett || character instanceof Alexa) {
 						placeType = PlaceType.HARPY_NESTS_ALEXAS_NEST;
 						
+					} else { // Catch if no location found:
+						if(worldType==WorldType.DOMINION) {
+							placeType = PlaceType.DOMINION_BACK_ALLEYS;
+							
+						} else if(worldType==WorldType.SUBMISSION) {
+							placeType = PlaceType.SUBMISSION_TUNNELS;
+							
+						} else {
+							placeType = PlaceType.HARPY_NESTS_WALKWAYS;
+						}
 					}
+				}
+				
+				if(Main.game.getWorlds().get(worldType).getRandomUnoccupiedCell(placeType) == null) {
+					System.out.println(worldType+", "+placeType);
 				}
 				
 				character.setLocation(
@@ -2018,7 +2032,7 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 		int value = 10000;
 		switch(this.getRace()) {
 			case ANGEL:
-				value = 500000;
+				value = 80000;
 				break;
 			case CAT_MORPH: case DOG_MORPH:
 				value = 8000;
@@ -2027,13 +2041,13 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 				value = 15000;
 				break;
 			case REINDEER_MORPH:
-				value = 20000;
+				value = 18000;
 				break;
 			case DEMON:
-				value = 500000;
+				value = 60000;
 				break;
 			case IMP:
-				value = 1000; // Imps make terrible slaves
+				value = 1000;
 				break;
 			case HARPY:
 				value = 12000;
@@ -13013,6 +13027,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	// Urethra:
 
+	public String getPenisUrethraDescriptor() {
+		return body.getPenis().getUrethraDescriptor(this);
+	}
 	public boolean isUrethraFuckable() {
 		return body.getPenis().getOrificeUrethra().getRawCapacityValue()>0;
 	}
@@ -13643,6 +13660,9 @@ public abstract class GameCharacter implements Serializable, XMLSaving {
 	
 	// Urethra:
 
+	public String getVaginaUrethraDescriptor() {
+		return body.getVagina().getUrethraDescriptor(this);
+	}
 	public boolean isVaginaUrethraFuckable() {
 		return body.getVagina().getOrificeUrethra().getRawCapacityValue()>0;
 	}

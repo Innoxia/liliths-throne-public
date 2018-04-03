@@ -1519,7 +1519,7 @@ public class Lab {
 					+ " [lilaya.speech(Anyway! D-Don't worry about anything! Three years into the future is nothing! I-I'll try and investigate a little more, ok?!)]"
 				+ "</p>"
 				+ "<p>"
-					+ "It's quite apparent that Lilaya isn't interesting in discussing the matter any more..."
+					+ "It's quite apparent that Lilaya isn't interested in discussing the matter any more..."
 				+ "</p>";
 		}
 
@@ -2563,11 +2563,13 @@ public class Lab {
 						Main.game.getDialogueFlags().values.remove(DialogueFlagValue.reactedToPregnancyLilaya);
 						Main.game.getPlayer().endPregnancy(true);
 						Main.game.getPlayer().setMana(0);
-
-						Main.game.getPlayer().incrementVaginaStretchedCapacity(15);
-						Main.game.getPlayer().incrementVaginaCapacity(
-								(Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier(),
-								false);
+						
+						if(Main.game.getPlayer().getBodyMaterial()!=BodyMaterial.SLIME) {
+							Main.game.getPlayer().incrementVaginaStretchedCapacity(15);
+							Main.game.getPlayer().incrementVaginaCapacity(
+									(Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier(),
+									false);
+						}
 					}
 				};
 
@@ -2579,10 +2581,12 @@ public class Lab {
 						Main.game.getPlayer().endPregnancy(true);
 						Main.game.getPlayer().setMana(0);
 
-						Main.game.getPlayer().incrementVaginaStretchedCapacity(15);
-						Main.game.getPlayer().incrementVaginaCapacity(
-								(Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier(),
-								false);
+						if(Main.game.getPlayer().getBodyMaterial()!=BodyMaterial.SLIME) {
+							Main.game.getPlayer().incrementVaginaStretchedCapacity(15);
+							Main.game.getPlayer().incrementVaginaCapacity(
+									(Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier(),
+									false);
+						}
 					}
 				};
 
@@ -2820,10 +2824,12 @@ public class Lab {
 						Main.game.getPlayer().endPregnancy(true);
 						Main.game.getPlayer().setMana(0);
 
-						Main.game.getPlayer().incrementVaginaStretchedCapacity(15);
-						Main.game.getPlayer().incrementVaginaCapacity(
-								(Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier(),
-								false);
+						if(Main.game.getPlayer().getBodyMaterial()!=BodyMaterial.SLIME) {
+							Main.game.getPlayer().incrementVaginaStretchedCapacity(15);
+							Main.game.getPlayer().incrementVaginaCapacity(
+									(Main.game.getPlayer().getVaginaStretchedCapacity()-Main.game.getPlayer().getVaginaRawCapacityValue())*Main.game.getPlayer().getVaginaPlasticity().getCapacityIncreaseModifier(),
+									false);
+						}
 					}
 				};
 

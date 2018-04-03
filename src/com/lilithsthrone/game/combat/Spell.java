@@ -794,6 +794,7 @@ public enum Spell {
 
 	private StringBuilder damageCostDescriptionSB;
 
+	
 	protected String getDamageAndCostDescription(GameCharacter caster, GameCharacter target, float cost, float damage, boolean isHit, boolean isCritical) {
 		damageCostDescriptionSB = new StringBuilder();
 

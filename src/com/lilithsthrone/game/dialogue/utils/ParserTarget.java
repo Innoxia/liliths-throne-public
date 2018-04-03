@@ -109,7 +109,9 @@ public enum ParserTarget {
 	
 	NPC_MALE(Util.newArrayListOfValues(
 			new ListValue<>("NPCmale"),
-			new ListValue<>("maleNPC")), ""){
+			new ListValue<>("maleNPC"),
+			new ListValue<>("genericMale"),
+			new ListValue<>("maleGeneric")), ""){
 		public String getDescription() {
 			return Main.game.getGenericMaleNPC().getDescription();
 		}
@@ -122,7 +124,9 @@ public enum ParserTarget {
 	
 	NPC_FEMALE(Util.newArrayListOfValues(
 			new ListValue<>("NPCfemale"),
-			new ListValue<>("femaleNPC")), ""){
+			new ListValue<>("femaleNPC"),
+			new ListValue<>("genericFemale"),
+			new ListValue<>("femaleGeneric")), ""){
 		public String getDescription() {
 			return Main.game.getGenericFemaleNPC().getDescription();
 		}

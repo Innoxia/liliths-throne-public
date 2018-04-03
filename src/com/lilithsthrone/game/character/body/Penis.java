@@ -10,6 +10,7 @@ import com.lilithsthrone.game.character.GameCharacter;
 import com.lilithsthrone.game.character.body.types.BodyCoveringType;
 import com.lilithsthrone.game.character.body.types.PenisType;
 import com.lilithsthrone.game.character.body.valueEnums.OrificeElasticity;
+import com.lilithsthrone.game.character.body.valueEnums.OrificeModifier;
 import com.lilithsthrone.game.character.body.valueEnums.OrificePlasticity;
 import com.lilithsthrone.game.character.body.valueEnums.PenisGirth;
 import com.lilithsthrone.game.character.body.valueEnums.PenisModifier;
@@ -103,6 +104,20 @@ public class Penis implements BodyPartInterface, Serializable {
 		}
 		
         return UtilText.returnStringAtRandom(list.toArray(new String[]{}));
+	}
+	
+	public String getUrethraDescriptor(GameCharacter owner) {
+		List<String> descriptorList = new ArrayList<>();
+		
+		for(OrificeModifier om : orificeUrethra.getOrificeModifiers()) {
+			descriptorList.add(om.getName());
+		}
+		
+		descriptorList.add(type.getDescriptor(owner));
+		
+		descriptorList.add(orificeUrethra.getCapacity().getDescriptor());
+		
+		return UtilText.returnStringAtRandom(descriptorList.toArray(new String[]{}));
 	}
 	
 	public String getPenisHeadName(GameCharacter gc) {

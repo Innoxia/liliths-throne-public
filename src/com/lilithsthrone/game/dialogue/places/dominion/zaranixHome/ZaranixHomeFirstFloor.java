@@ -517,7 +517,7 @@ public class ZaranixHomeFirstFloor {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if(index==1) {
-				return new Response("Leave", "Leave Zaranix's house.", PlaceType.DOMINION_DEMON_HOME.getDialogue(false)) {
+				return new Response("Leave", "Leave Zaranix's house.", PlaceType.DOMINION_DEMON_HOME_ARTHUR.getDialogue(false)) {
 					@Override
 					public void effects() {
 						Main.game.getTextStartStringBuilder().append(
@@ -526,7 +526,7 @@ public class ZaranixHomeFirstFloor {
 									+ " Making your way back through his house, you soon find yourself stepping back out into Demon Home."
 									+ " Letting out a deep sigh of relief now that you've finally got all this business with Arthur resolved, you wonder if you should head over to Lilaya's house straight away..."
 								+ "</p>");
-						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME, false);
+						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_ARTHUR, false);
 					}
 				};
 				
@@ -616,10 +616,10 @@ public class ZaranixHomeFirstFloor {
 		@Override
 		public Response getResponse(int responseTab, int index) {
 			if (index == 1) {
-				return new Response("Continue", "Continue on your journey.",  PlaceType.DOMINION_DEMON_HOME.getDialogue(false)) {
+				return new Response("Continue", "Continue on your journey.",  PlaceType.DOMINION_DEMON_HOME_ARTHUR.getDialogue(false)) {
 					@Override
 					public void effects() {
-						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME, false);
+						Main.game.getPlayer().setLocation(WorldType.DOMINION, PlaceType.DOMINION_DEMON_HOME_ARTHUR, false);
 					}
 				};
 			} else {

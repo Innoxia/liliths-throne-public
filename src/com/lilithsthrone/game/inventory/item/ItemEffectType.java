@@ -885,8 +885,8 @@ public enum ItemEffectType {
 	},
 	
 	SEX_RABBIT_MORPH_DRINK(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldSex(+5)] [style.boldCorruption(Fertility)]"),
-			new ListValue<>("[style.boldSex(+5)] [style.boldCorruption(Virility)]"),
+			new ListValue<>("[style.boldSex(+5)] [style.boldCorruption(Fertility)] to 'potion effects'"),
+			new ListValue<>("[style.boldSex(+5)] [style.boldCorruption(Virility)] to 'potion effects'"),
 			new ListValue<>("[style.boldBad(-10)] [style.boldLust("+Attribute.RESISTANCE_LUST.getName()+")] to 'potion effects'")),
 			Colour.GENERIC_SEX) {
 		
@@ -1231,8 +1231,8 @@ public enum ItemEffectType {
 	},
 	
 	RACE_CARROT_CAKE(Util.newArrayListOfValues(
-			new ListValue<>("[style.boldSex(+15)] [style.boldCorruption(Fertility)]"),
-			new ListValue<>("[style.boldSex(+15)] [style.boldCorruption(Virility)]"),
+			new ListValue<>("[style.boldSex(+15)] [style.boldCorruption(Fertility)] to 'potion effects'"),
+			new ListValue<>("[style.boldSex(+15)] [style.boldCorruption(Virility)] to 'potion effects'"),
 			new ListValue<>("[style.boldBad(-25)] [style.boldLust("+Attribute.RESISTANCE_LUST.getName()+")] to 'potion effects'")),
 			Colour.RACE_RAT_MORPH) {
 		
@@ -2778,7 +2778,13 @@ public enum ItemEffectType {
 
 		@Override
 		public List<TFModifier> getPrimaryModifiers() {
-			return TFModifier.getClothingPrimaryList();
+			if(Main.game.getPlayer().isHasSlaverLicense()) {
+				return TFModifier.getClothingPrimaryList();
+			} else {
+				ArrayList<TFModifier> noEnslavement = new ArrayList<>(TFModifier.getClothingPrimaryList());
+				noEnslavement.remove(TFModifier.CLOTHING_ENSLAVEMENT);
+				return noEnslavement;
+			}
 		}
 
 		@Override

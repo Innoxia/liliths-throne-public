@@ -171,7 +171,7 @@ public class DemonHome {
 					return new Response("Zaranix's Home", "A little way down the road from Arthur's apartment building stands the home of Zaranix; the demon that Scarlett told you about.", ZaranixHomeGroundFloor.OUTSIDE);
 					
 				} else if (Main.game.getPlayer().isQuestProgressGreaterThan(QuestLine.MAIN, Quest.MAIN_1_H_THE_GREAT_ESCAPE)) {
-					return new Response("Zaranix's Home", "You've already rescued Arthur from Zaranix's home, so there's no need to return. (I'll add this in as a repeatable encounter later on! :3)", null);
+					return new Response("Zaranix's Home", "Pay Zaranix another visit. (Not yet implemented!)", null);//ZaranixHomeRepeat.OUTSIDE);
 				}
 				return null;
 

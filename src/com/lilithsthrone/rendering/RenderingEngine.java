@@ -1109,15 +1109,17 @@ public enum RenderingEngine {
 			for(int j=0; j<grid.length; j++) {
 				Cell c = grid[j][i];
 				
+				boolean discovered = c.isDiscovered() || Main.game.isDebugMode();
+				
 				String background = c.getPlace().getPlaceType()==PlaceType.GENERIC_IMPASSABLE
 									?"background:transparent;"
-									:c.getPlace().getPlaceType().isDangerous() && c.isDiscovered()
+									:c.getPlace().getPlaceType().isDangerous() && discovered
 										?""
-										:c.isDiscovered()
+										:discovered
 											?"background-color:"+c.getPlace().getPlaceType().getBackgroundColour().toWebHexString()+";"
 											:"background-color:"+Colour.MAP_BACKGROUND_UNEXPLORED.toWebHexString()+";";
 				
-				if(!c.isDiscovered()) {
+				if(!discovered) {
 					mapSB.append("<div class='map-icon' style='width:"+(width-0.5)+"%; margin:0.25%; "+background+"'></div>");
 					
 				} else {
@@ -2005,7 +2007,9 @@ public enum RenderingEngine {
 			}
 		}
 		
-		for (Spell s : character.getAllSpells()) {
+		Set<Spell> uniqueSpells = new HashSet<>(character.getAllSpells());
+		
+		for (Spell s : uniqueSpells) {
 			panelSB.append(
 					"<div class='icon"+(compact?" effect":"")+"' style='border:1px solid "+Colour.DAMAGE_TYPE_SPELL.toWebHexString()+"'>"
 							+ "<div class='icon-content'>"
